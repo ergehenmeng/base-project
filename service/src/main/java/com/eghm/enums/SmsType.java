@@ -32,6 +32,11 @@ public enum SmsType {
     REGISTER("register", "注册发送短信"),
 
     /**
+     * 商户解绑微信号短信
+     */
+    MERCHANT_UNBIND("merchant_unbind", "商户解绑微信号短信"),
+
+    /**
      * 更换邮箱发送短信验证码
      */
     CHANGE_EMAIL("change_email", "更换邮箱发送短信验证码"),

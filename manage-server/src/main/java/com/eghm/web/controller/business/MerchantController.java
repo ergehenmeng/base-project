@@ -7,7 +7,6 @@ import com.eghm.dto.business.merchant.MerchantEditRequest;
 import com.eghm.dto.business.merchant.MerchantQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.model.Merchant;
 import com.eghm.service.business.MerchantService;
 import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.business.merchant.MerchantResponse;
@@ -33,8 +32,8 @@ public class MerchantController {
 
     @GetMapping("/listPage")
     @ApiOperation("商户列表")
-    public RespBody<PageData<Merchant>> listPage(@Validated MerchantQueryRequest request) {
-        Page<Merchant> merchantPage = merchantService.getByPage(request);
+    public RespBody<PageData<MerchantResponse>> listPage(@Validated MerchantQueryRequest request) {
+        Page<MerchantResponse> merchantPage = merchantService.getByPage(request);
         return RespBody.success(PageData.toPage(merchantPage));
     }
 
@@ -63,6 +62,13 @@ public class MerchantController {
     @ApiOperation("账号解锁")
     public RespBody<Void> unlock(@RequestBody @Validated IdDTO dto) {
         merchantService.unlock(dto.getId());
+        return RespBody.success();
+    }
+
+    @PostMapping("/unbind")
+    @ApiOperation("解绑")
+    public RespBody<Void> unbind(@RequestBody @Validated IdDTO dto) {
+        merchantService.unbind(dto.getId());
         return RespBody.success();
     }
 

@@ -57,7 +57,7 @@ public class SysUser extends BaseEntity {
     @ApiModelProperty("数据权限 只针对系统用户有效")
     private DataType dataType;
 
-    @ApiModelProperty("用户状态:0:锁定,1:正常")
+    @ApiModelProperty("用户状态:0:锁定,1:正常 2:注销")
     private Integer state;
 
     @ApiModelProperty("登陆密码")

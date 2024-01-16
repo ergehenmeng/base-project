@@ -1483,6 +1483,11 @@ public enum ErrorCode {
     MERCHANT_BINDING(3824,"商户已绑定微信号"),
 
     /**
+     * 商户未绑定微信号,无需解绑
+     */
+    MERCHANT_NO_BIND(3825,"商户未绑定微信号,无需解绑"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

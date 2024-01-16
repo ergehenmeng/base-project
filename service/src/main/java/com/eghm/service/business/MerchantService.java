@@ -21,7 +21,7 @@ public interface MerchantService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<Merchant> getByPage(MerchantQueryRequest request);
+    Page<MerchantResponse> getByPage(MerchantQueryRequest request);
 
     /**
      * 分页查询
@@ -78,5 +78,25 @@ public interface MerchantService {
      * 商户授权绑定微信信息
      * @param dto 微信授权信息
      */
-    void auth(MerchantAuthDTO dto);
+    void binding(MerchantAuthDTO dto);
+
+    /**
+     * 发送解绑短信
+     * @param merchantId 商户id
+     * @param ip   ip
+     */
+    void sendUnbindSms(Long merchantId, String ip);
+
+    /**
+     * 解绑商户微信信息 (商户自己操作)
+     * @param merchantId 商户id
+     * @param smsCode       短信验证码
+     */
+    void unbind(Long merchantId, String smsCode);
+
+    /**
+     * 解绑商户微信信息 (管理员操作)
+     * @param merchantId 商户id
+     */
+    void unbind(Long merchantId);
 }

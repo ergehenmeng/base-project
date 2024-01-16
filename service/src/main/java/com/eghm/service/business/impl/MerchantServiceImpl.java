@@ -14,6 +14,7 @@ import com.eghm.dto.business.merchant.MerchantEditRequest;
 import com.eghm.dto.business.merchant.MerchantQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.RoleMapping;
+import com.eghm.enums.SmsType;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MerchantMapper;
@@ -22,6 +23,7 @@ import com.eghm.model.SysUser;
 import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.MerchantService;
 import com.eghm.service.cache.CacheService;
+import com.eghm.service.common.SmsService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.service.sys.impl.SysConfigApi;
@@ -58,12 +60,11 @@ public class MerchantServiceImpl implements MerchantService {
     
     private final List<MerchantInitService> initList;
 
+    private final SmsService smsService;
+
     @Override
-    public Page<Merchant> getByPage(MerchantQueryRequest request) {
-        LambdaQueryWrapper<Merchant> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Merchant::getMerchantName, request.getQueryName());
-        wrapper.eq(request.getType() != null, Merchant::getType, request.getType());
-        return merchantMapper.selectPage(request.createPage(), wrapper);
+    public Page<MerchantResponse> getByPage(MerchantQueryRequest request) {
+        return merchantMapper.listPage(request.createPage(), request);
     }
 
     @Override
@@ -145,7 +146,7 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
-    public void auth(MerchantAuthDTO dto) {
+    public void binding(MerchantAuthDTO dto) {
         String value = cacheService.getValue(MERCHANT_AUTH_CODE + dto.getAuthCode());
         if (StrUtil.isBlank(value)) {
             log.error("授权码已过期,请重新生成");
@@ -161,6 +162,43 @@ public class MerchantServiceImpl implements MerchantService {
         merchant.setOpenId(dto.getOpenId());
         log.info("商户[{}]换绑微信号,旧信息:[{}] [{}], 新信息: [{}] [{}]", merchant.getMerchantName(), merchant.getAuthMobile(), merchant.getOpenId(), dto.getMobile(), dto.getOpenId());
         merchantMapper.updateById(merchant);
+    }
+
+    @Override
+    public void sendUnbindSms(Long merchantId, String ip) {
+        Merchant merchant = this.selectByIdRequired(merchantId);
+        if (StrUtil.isBlank(merchant.getAuthMobile())) {
+            log.error("商户未绑定微信,无需解绑 [{}]", merchantId);
+            throw new BusinessException(ErrorCode.MERCHANT_NO_BIND);
+        }
+        smsService.sendSmsCode(SmsType.MERCHANT_UNBIND, merchant.getAuthMobile(), ip);
+    }
+
+    @Override
+    public void unbind(Long merchantId, String smsCode) {
+        Merchant merchant = this.selectByIdRequired(merchantId);
+        smsService.verifySmsCode(SmsType.MERCHANT_UNBIND, merchant.getAuthMobile(), smsCode);
+        log.info("商户[{}]解绑微信号,旧信息:[{}] [{}]", merchant.getMerchantName(), merchant.getAuthMobile(), merchant.getOpenId());
+        this.doUnbindMerchant(merchantId);
+    }
+
+    @Override
+    public void unbind(Long merchantId) {
+        Merchant merchant = this.selectByIdRequired(merchantId);
+        log.info("商户[{}]解绑微信号,旧信息:[{}] [{}]", merchant.getMerchantName(), merchant.getAuthMobile(), merchant.getOpenId());
+        this.doUnbindMerchant(merchantId);
+    }
+
+    /**
+     * 解绑商户微信号
+     * @param merchantId 商户ID
+     */
+    private void doUnbindMerchant(Long merchantId) {
+        LambdaUpdateWrapper<Merchant> wrapper = Wrappers.lambdaUpdate();
+        wrapper.set(Merchant::getAuthMobile, null);
+        wrapper.set(Merchant::getOpenId, null);
+        wrapper.eq(Merchant::getId, merchantId);
+        merchantMapper.update(null, wrapper);
     }
 
     /**

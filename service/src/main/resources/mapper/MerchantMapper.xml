@@ -4,19 +4,30 @@
 
     <select id="listPage" resultType="com.eghm.vo.business.merchant.MerchantResponse" parameterType="com.eghm.dto.business.merchant.MerchantQueryRequest">
         select
-        merchant_name,
-        type,
-        nick_name,
-        mobile,
-        create_time
-        from merchant where deleted = false
+        t.merchant_name,
+        t.type,
+        r.state,
+        t.nick_name,
+        t.auth_mobile,
+        t.open_id,
+        t.mobile,
+        t.create_time
+        from merchant t left join sys_user r on t.user_id = r.id
+        where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
-            and merchant_name like concat('%', #{param.queryName}, '%')
+            and (
+            t.merchant_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
+            t.mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
+            t.auth_mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            )
+        </if>
+        <if test="param.state != null">
+            and r.state = #{param.state}
         </if>
         <if test="param.type != null">
-            and type = #{param.type}
+            and t.type = #{param.type}
         </if>
-        order by id desc
+        order by t.id desc
     </select>
 
     <select id="getByUserId" resultType="long">
