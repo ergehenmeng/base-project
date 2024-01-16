@@ -2,4 +2,42 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.AccountLogMapper">
 
+    <select id="getByPage" resultType="com.eghm.vo.business.account.AccountLogResponse" parameterType="com.eghm.dto.business.account.AccountQueryRequest" >
+        select
+        r.merchant_name
+        t.direction,
+        t.trade_no,
+        t.create_time,
+        t.account_type,
+        t.amount,
+        t.surplus_amount,
+        t.order_no,
+        t.remark,
+        from account_log t left join merchant r on t.merchant_id = r.id
+        where t.deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and (
+                r.merchant_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
+                t.trade_no like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
+                t.order_no like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            )
+        </if>
+        <if test="param.merchantId != null">
+            and t.merchant_id = #{param.merchantId}
+        </if>
+        <if test="param.accountType != null">
+            and t.account_type = #{param.accountType}
+        </if>
+        <if test="param.direction != null">
+            and t.direction = #{param.direction}
+        </if>
+        <if test="param.startDate != null">
+            and t.create_time &gt;= #{param.startDate}
+        </if>
+        <if test="param.endDate != null">
+            and t.create_time &lt; #{param.endDate}
+        </if>
+        order by t.id desc
+    </select>
+
 </mapper>

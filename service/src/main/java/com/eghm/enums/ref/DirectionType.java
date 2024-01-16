@@ -13,22 +13,18 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum DeliveryType implements EnumBinder {
+public enum DirectionType implements EnumBinder {
 
     /**
      * 无须发货
      */
-    NO_SHIPMENT(0, "无须发货"),
+    INCOME(1, "收入"),
 
     /**
      * 快递包邮
      */
-    EXPRESS(1, "快递包邮"),
+    DISBURSE(2, "支出"),
 
-    /**
-     * 门店自提
-     */
-    SELF_PICK(2, "门店自提"),
     ;
 
     @JsonValue
