@@ -142,7 +142,11 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
 
     @Override
     public void deleteById(Long id) {
-        restaurantMapper.deleteById(id);
+        LambdaUpdateWrapper<Restaurant> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Restaurant::getId, id);
+        wrapper.set(Restaurant::getState, State.UN_SHELVE);
+        wrapper.set(Restaurant::getDeleted, true);
+        restaurantMapper.update(null, wrapper);
     }
 
     @Override

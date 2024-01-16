@@ -172,7 +172,11 @@ public class ScenicServiceImpl implements ScenicService {
 
     @Override
     public void deleteById(Long id) {
-        scenicMapper.deleteById(id);
+        LambdaUpdateWrapper<Scenic> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Scenic::getId, id);
+        wrapper.set(Scenic::getState, State.UN_SHELVE);
+        wrapper.set(Scenic::getDeleted, true);
+        scenicMapper.update(null, wrapper);
     }
 
     @Override

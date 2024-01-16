@@ -114,8 +114,12 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     public void deleteById(Long id) {
         ScenicTicket ticket = scenicTicketMapper.selectById(id);
         if (ticket != null) {
-            scenicTicketMapper.deleteById(id);
             scenicService.updatePrice(ticket.getScenicId());
+            LambdaUpdateWrapper<ScenicTicket> wrapper = Wrappers.lambdaUpdate();
+            wrapper.eq(ScenicTicket::getId, id);
+            wrapper.set(ScenicTicket::getState, State.UN_SHELVE);
+            wrapper.set(ScenicTicket::getDeleted, true);
+            scenicTicketMapper.update(null, wrapper);
         }
     }
 

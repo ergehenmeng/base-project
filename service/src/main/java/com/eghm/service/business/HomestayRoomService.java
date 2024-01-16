@@ -81,7 +81,7 @@ public interface HomestayRoomService {
     void updateState(Long id, State state);
 
     /**
-     * 逻辑删除
+     * 逻辑删除 (删除的同时进行下架操作)
      *
      * @param id id
      */

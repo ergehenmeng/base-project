@@ -144,7 +144,11 @@ public class LineServiceImpl implements LineService {
 
     @Override
     public void deleteById(Long id) {
-        lineMapper.deleteById(id);
+        LambdaUpdateWrapper<Line> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Line::getId, id);
+        wrapper.set(Line::getState, State.UN_SHELVE);
+        wrapper.set(Line::getDeleted, true);
+        lineMapper.update(null, wrapper);
     }
 
     @Override

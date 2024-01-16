@@ -313,7 +313,11 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void deleteById(Long id) {
-        itemMapper.deleteById(id);
+        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Item::getId, id);
+        wrapper.set(Item::getState, State.UN_SHELVE);
+        wrapper.set(Item::getDeleted, true);
+        itemMapper.update(null, wrapper);
     }
 
     /**

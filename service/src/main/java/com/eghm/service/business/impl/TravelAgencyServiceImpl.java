@@ -106,7 +106,11 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
 
     @Override
     public void deleteById(Long id) {
-        travelAgencyMapper.deleteById(id);
+        LambdaUpdateWrapper<TravelAgency> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(TravelAgency::getId, id);
+        wrapper.set(TravelAgency::getState, State.UN_SHELVE);
+        wrapper.set(TravelAgency::getDeleted, true);
+        travelAgencyMapper.update(null, wrapper);
     }
 
     @Override

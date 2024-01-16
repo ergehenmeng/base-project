@@ -103,7 +103,11 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
 
     @Override
     public void deleteById(Long id) {
-        homestayRoomMapper.deleteById(id);
+        LambdaUpdateWrapper<HomestayRoom> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(HomestayRoom::getId, id);
+        wrapper.set(HomestayRoom::getState, State.UN_SHELVE);
+        wrapper.set(HomestayRoom::getDeleted, true);
+        homestayRoomMapper.update(null, wrapper);
     }
 
     @Override

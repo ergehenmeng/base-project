@@ -117,7 +117,11 @@ public class VoucherServiceImpl implements VoucherService {
 
     @Override
     public void deleteById(Long id) {
-        voucherMapper.deleteById(id);
+        LambdaUpdateWrapper<Voucher> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Voucher::getId, id);
+        wrapper.set(Voucher::getState, State.UN_SHELVE);
+        wrapper.set(Voucher::getDeleted, true);
+        voucherMapper.update(null, wrapper);
     }
 
     @Override
