@@ -17,6 +17,7 @@
 * 所有后端接口一律强制采用 `@GetMapping` 或 `@PostMapping`
 * 默认 `POST` 请求会记录操作日志, 如果不需要记录则在 `@PostMapping` 同方法上添加 `@SkipLogger` 注解
 * `GET` 默认采用表单或链接直接携带参数方式, `POST` 使用json方式进行请求
+* 所有Bean都使用构造方法注入(防止循环依赖)
 
 ### 定时任务相关
 * 开启定时任务添加`@EnableTask`注解即可(建议使用)
