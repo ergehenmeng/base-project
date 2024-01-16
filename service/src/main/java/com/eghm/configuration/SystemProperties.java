@@ -146,7 +146,7 @@ public class SystemProperties {
             /**
              * token实现类型
              */
-            private TokenType tokenType;
+            private TokenType tokenType = TokenType.REDIS;
 
             /**
              * 在请求头中key
