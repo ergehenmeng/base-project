@@ -6,6 +6,7 @@ import com.eghm.dto.business.merchant.MerchantAuthDTO;
 import com.eghm.dto.business.merchant.MerchantEditRequest;
 import com.eghm.dto.business.merchant.MerchantQueryRequest;
 import com.eghm.model.Merchant;
+import com.eghm.vo.business.merchant.MerchantAuthResponse;
 import com.eghm.vo.business.merchant.MerchantAuthVO;
 import com.eghm.vo.business.merchant.MerchantResponse;
 
@@ -106,5 +107,13 @@ public interface MerchantService {
      * @param merchantId 商户id
      * @return 授权码
      */
-    MerchantAuthVO generateAuthCode(Long merchantId);
+    MerchantAuthResponse generateAuthCode(Long merchantId);
+
+    /**
+     * 获取授权结果信息
+     * @param jsCode jsCode
+     * @param authCode 授权码
+     * @return 商户信息
+     */
+    MerchantAuthVO getAuth(String jsCode, String authCode);
 }

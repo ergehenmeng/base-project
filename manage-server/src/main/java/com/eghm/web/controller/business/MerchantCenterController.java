@@ -8,7 +8,7 @@ import com.eghm.service.business.MerchantService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
-import com.eghm.vo.business.merchant.MerchantAuthVO;
+import com.eghm.vo.business.merchant.MerchantAuthResponse;
 import com.eghm.vo.business.merchant.MerchantDetailResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -57,8 +57,8 @@ public class MerchantCenterController {
 
     @PostMapping("/generate")
     @ApiOperation("生成二维码")
-    public RespBody<MerchantAuthVO> generate() {
-        MerchantAuthVO vo = merchantService.generateAuthCode(SecurityHolder.getMerchantId());
+    public RespBody<MerchantAuthResponse> generate() {
+        MerchantAuthResponse vo = merchantService.generateAuthCode(SecurityHolder.getMerchantId());
         return RespBody.success(vo);
     }
 }

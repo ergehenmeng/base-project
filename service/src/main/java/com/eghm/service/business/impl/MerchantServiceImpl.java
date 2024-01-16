@@ -28,7 +28,9 @@ import com.eghm.service.common.SmsService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.service.wechat.WeChatMiniService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.merchant.MerchantAuthResponse;
 import com.eghm.vo.business.merchant.MerchantAuthVO;
 import com.eghm.vo.business.merchant.MerchantResponse;
 import lombok.AllArgsConstructor;
@@ -64,6 +66,8 @@ public class MerchantServiceImpl implements MerchantService {
     private final List<MerchantInitService> initList;
 
     private final SmsService smsService;
+
+    private final WeChatMiniService weChatMiniService;
 
     @Override
     public Page<MerchantResponse> getByPage(MerchantQueryRequest request) {
@@ -150,12 +154,7 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Override
     public void binding(MerchantAuthDTO dto) {
-        String value = cacheService.getValue(MERCHANT_AUTH_CODE + dto.getAuthCode());
-        if (StrUtil.isBlank(value)) {
-            log.error("授权码已过期,请重新生成");
-            throw new BusinessException(ErrorCode.MERCHANT_CODE_EXPIRE);
-        }
-        long merchantId = Long.parseLong(value);
+        long merchantId = this.getMerchantId(dto.getAuthCode());
         Merchant merchant = this.selectByIdRequired(merchantId);
         if (StrUtil.isNotBlank(merchant.getOpenId())) {
             log.error("商户已绑定微信,需要先解绑 [{}] [{}] [{}]", merchantId, merchant.getAuthMobile(), merchant.getOpenId());
@@ -193,15 +192,46 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
-    public MerchantAuthVO generateAuthCode(Long merchantId) {
+    public MerchantAuthResponse generateAuthCode(Long merchantId) {
         long expire = sysConfigApi.getLong(ConfigConstant.MERCHANT_AUTH_CODE_EXPIRE);
         String authCode = IdUtil.fastSimpleUUID();
         LocalDateTime expireTime = LocalDateTime.now().minusSeconds(expire);
         cacheService.setValue(MERCHANT_AUTH_CODE + authCode, merchantId, expire);
-        MerchantAuthVO vo = new MerchantAuthVO();
+        MerchantAuthResponse vo = new MerchantAuthResponse();
         vo.setAuthCode(authCode);
         vo.setExpireTime(expireTime);
         return vo;
+    }
+
+    @Override
+    public MerchantAuthVO getAuth(String jsCode, String authCode) {
+        long merchantId = this.getMerchantId(authCode);
+        Merchant merchant = this.selectByIdRequired(merchantId);
+        MerchantAuthVO vo = new MerchantAuthVO();
+        vo.setMerchantName(merchant.getMerchantName());
+        vo.setLegalName(merchant.getLegalName());
+        boolean hasBind = StrUtil.isNotBlank(merchant.getAuthMobile());
+        vo.setHasBind(hasBind);
+        if (hasBind) {
+            vo.setAuthMobile(merchant.getAuthMobile());
+        } else {
+            vo.setAuthMobile(weChatMiniService.authMobile(jsCode));
+        }
+        return vo;
+    }
+
+    /**
+     * 根据授权码查询商户id
+     * @param authCode 授权码
+     * @return 商户信息
+     */
+    private long getMerchantId(String authCode) {
+        String value = cacheService.getValue(MERCHANT_AUTH_CODE + authCode);
+        if (StrUtil.isBlank(value)) {
+            log.error("授权码已过期,请重新生成");
+            throw new BusinessException(ErrorCode.MERCHANT_CODE_EXPIRE);
+        }
+        return Long.parseLong(value);
     }
 
     /**
