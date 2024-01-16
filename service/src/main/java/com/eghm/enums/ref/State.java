@@ -14,12 +14,12 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum State implements EnumBinder {
-    
+
     /**
      * 初始化
      */
     INIT(-1, "初始化"),
-    
+
     /**
      * 下架
      */
@@ -52,6 +52,6 @@ public enum State implements EnumBinder {
 
     @Override
     public String toString() {
-        return value +  ":" + name;
+        return value + ":" + name;
     }
 }

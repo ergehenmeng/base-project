@@ -26,9 +26,7 @@ public enum CouponState {
     /**
      * 已过期
      */
-    EXPIRE(2, "已过期")
-
-    ;
+    EXPIRE(2, "已过期");
 
     /**
      * 方式

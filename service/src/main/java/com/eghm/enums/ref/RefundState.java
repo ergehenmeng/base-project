@@ -8,6 +8,7 @@ import lombok.Getter;
 
 /**
  * 订单退款状态(本地订单的退款状态)
+ *
  * @author 二哥很猛
  * @date 2022/7/28
  */
@@ -48,9 +49,8 @@ public enum RefundState implements EnumBinder {
     /**
      * 线下退款成功
      */
-    OFFLINE(6, "线下退款成功")
+    OFFLINE(6, "线下退款成功");
 
-    ;
     /**
      * 状态
      */

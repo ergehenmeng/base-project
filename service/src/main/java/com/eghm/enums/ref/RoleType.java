@@ -55,8 +55,7 @@ public enum RoleType {
     /**
      * 商户普通角色
      */
-    MERCHANT("merchant", "商户普通角色")
-    ;
+    MERCHANT("merchant", "商户普通角色");
 
     /**
      * 角色code

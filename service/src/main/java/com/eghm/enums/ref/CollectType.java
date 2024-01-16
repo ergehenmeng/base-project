@@ -54,8 +54,7 @@ public enum CollectType implements EnumBinder {
     /**
      * travel_agency
      */
-    TRAVEL_AGENCY(8, "旅行社")
-    ;
+    TRAVEL_AGENCY(8, "旅行社");
 
     /**
      * 状态

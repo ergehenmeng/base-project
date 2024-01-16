@@ -7,6 +7,7 @@ import lombok.Getter;
 
 /**
  * 计费方式
+ *
  * @author 二哥很猛
  * @since 2023/8/23
  */

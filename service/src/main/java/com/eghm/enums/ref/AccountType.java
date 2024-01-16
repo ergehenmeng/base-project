@@ -18,15 +18,21 @@ import java.util.Arrays;
 @AllArgsConstructor
 public enum AccountType implements EnumBinder {
 
+    /**
+     * 支付收入
+     */
     PAY_INCOME(1, "支付收入"),
 
+    /**
+     * 退款支出
+     */
     REFUND_DISBURSE(2, "退款支出"),
 
     /**
      * 例如提现提现1000, 手续费5块,则提现冻结1000, 到账995
      */
-    WITHDRAW_DISBURSE(3, "提现支出")
-    ;
+    WITHDRAW_DISBURSE(3, "提现支出");
+
     /**
      * 状态值
      */

@@ -14,7 +14,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum DeliveryType implements EnumBinder {
-    
+
 
     /**
      * 无须发货

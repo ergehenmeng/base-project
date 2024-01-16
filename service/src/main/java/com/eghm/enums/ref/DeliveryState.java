@@ -32,10 +32,7 @@ public enum DeliveryState implements EnumBinder {
     /**
      * 已签收/已收货
      */
-    CONFIRM_TASK(3, "已签收")
-
-
-    ;
+    CONFIRM_TASK(3, "已签收");
 
     @JsonValue
     @EnumValue
