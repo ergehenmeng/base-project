@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 商户提现记录 服务实现类
+ * 商户提现记录 服务实现类, 待实现开户,绑卡,支付,分账,提现等逻辑
+ * (不走微信分账那一套, 走银行聚合支付)
  * </p>
  *
  * @author 二哥很猛
