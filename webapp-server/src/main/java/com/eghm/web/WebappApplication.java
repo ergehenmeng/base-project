@@ -9,6 +9,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -19,7 +20,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * 前后端分离
- *
+ * 默认不激活邮件功能,如需计划需要将下面 exclude = MailSenderAutoConfiguration.class 去掉, 同时在配置文件中填写正确的邮箱配置
  * @author 二哥很猛
  * @date
  */
@@ -28,7 +29,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAspectJAutoProxy
 @Import({RabbitConfig.class, RabbitInitConfig.class})
 @MapperScan("com.eghm.mapper")
-@SpringBootApplication(scanBasePackages = "com.eghm")
+@SpringBootApplication(scanBasePackages = "com.eghm", exclude = MailSenderAutoConfiguration.class)
 public class WebappApplication implements ApplicationListener<ContextRefreshedEvent> {
 
     public static void main(String[] args) {
