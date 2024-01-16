@@ -188,4 +188,9 @@ public class ConfigConstant {
      * 匿名头像图片地址
      */
     public static final String ANONYMITY_AVATAR = "anonymity_avatar";
+
+    /**
+     * 商户授权码过期时间
+     */
+    public static final String MERCHANT_AUTH_CODE_EXPIRE = "merchant_auth_code_expire";
 }

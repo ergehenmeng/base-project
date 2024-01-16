@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -14,10 +13,6 @@ import javax.validation.constraints.Size;
 
 @Data
 public class MerchantUnbindDTO {
-
-    @ApiModelProperty("商户ID")
-    @NotNull(message = "商户ID不能为空")
-    private Long merchantId;
 
     @ApiModelProperty("验证码")
     @NotBlank(message = "验证码不能为空")

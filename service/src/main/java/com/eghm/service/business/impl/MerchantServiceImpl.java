@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -28,11 +29,13 @@ import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.merchant.MerchantAuthVO;
 import com.eghm.vo.business.merchant.MerchantResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.eghm.constant.CacheConstant.MERCHANT_AUTH_CODE;
@@ -187,6 +190,18 @@ public class MerchantServiceImpl implements MerchantService {
         Merchant merchant = this.selectByIdRequired(merchantId);
         log.info("商户[{}]解绑微信号,旧信息:[{}] [{}]", merchant.getMerchantName(), merchant.getAuthMobile(), merchant.getOpenId());
         this.doUnbindMerchant(merchantId);
+    }
+
+    @Override
+    public MerchantAuthVO generateAuthCode(Long merchantId) {
+        long expire = sysConfigApi.getLong(ConfigConstant.MERCHANT_AUTH_CODE_EXPIRE);
+        String authCode = IdUtil.fastSimpleUUID();
+        LocalDateTime expireTime = LocalDateTime.now().minusSeconds(expire);
+        cacheService.setValue(MERCHANT_AUTH_CODE + authCode, merchantId, expire);
+        MerchantAuthVO vo = new MerchantAuthVO();
+        vo.setAuthCode(authCode);
+        vo.setExpireTime(expireTime);
+        return vo;
     }
 
     /**

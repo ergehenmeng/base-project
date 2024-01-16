@@ -3938,6 +3938,7 @@ INSERT INTO `sys_config` VALUES ('62', 'sms_day_limit', '短信单天次数限�
 INSERT INTO `sys_config` VALUES ('63', 'refresh_token_expire', '刷新token过期时间', '2592000', b'0', '默认30天内免登录', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
 INSERT INTO `sys_config` VALUES ('64', 'member_address_max', '收货地址最大数量', '10', b'0', '会员自己能添加多少个收货地址', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
 INSERT INTO `sys_config` VALUES ('65', 'sms_ip_limit', 'ip短信数量限制', '100', b'0', '单个ip一天发送多少条短信', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
+INSERT INTO sys_config VALUES (66,'merchant_auth_code_expire','商户授权码过期时间','86400',false,'单位:秒','2024-01-16T11:35:48','2024-01-16T11:35:48');
 
 
 INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `update_time` , `deleted`) VALUES ('6975', 'yuantong', '圆通速递', '2024-01-10T17:13:45', '2024-01-10T17:13:45' , 'false');
