@@ -14,10 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 二哥很猛
@@ -52,6 +49,20 @@ public class CommentController {
     @ApiOperation("屏蔽")
     public RespBody<Void> shield(@Validated @RequestBody IdDTO dto) {
         commentService.shield(dto.getId());
+        return RespBody.success();
+    }
+
+    @PostMapping("/top")
+    @ApiOperation("置顶")
+    public RespBody<Void> top(@Validated @RequestBody IdDTO dto) {
+        commentService.updateTopState(dto.getId(), 1);
+        return RespBody.success();
+    }
+
+    @PostMapping("/unTop")
+    @ApiOperation("取消置顶")
+    public RespBody<Void> unTop(@Validated @RequestBody IdDTO dto) {
+        commentService.updateTopState(dto.getId(), 0);
         return RespBody.success();
     }
 }

@@ -63,4 +63,12 @@ public interface CommentService {
      * @param id id
      */
     void shield(Long id);
+
+    /**
+     * 置顶状态更新
+     *
+     * @param id id
+     * @param state 状态
+     */
+    void updateTopState(Long id, Integer state);
 }

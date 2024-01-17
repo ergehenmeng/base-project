@@ -7,6 +7,7 @@
             t.id,
             t.content,
             t.state,
+            t.top_state,
             t.object_id,
             t.object_type,
             t.create_time,
@@ -21,6 +22,9 @@
         </if>
         <if test="param.state != null">
             and t.state = #{param.state}
+        </if>
+        <if test="param.topState != null">
+            and t.top_state = #{param.topState}
         </if>
         <if test="param.objectIds != null">
             and t.object_id in
@@ -38,6 +42,7 @@
         t.create_time,
         t.like_num,
         t.reply_id,
+        t.top_state,
         m.nick_name,
         m.avatar,
         c.deleted as reply_deleted,
@@ -50,7 +55,7 @@
         left join comment c on t.reply_id = c.id
         left join member n on c.member_id = n.id
         where t.deleted = false and t.state = true and t.object_id = #{objectId}
-        order by t.id desc
+        order by t.top_state desc, t.like_num desc, t.id desc
     </select>
 
     <update id="updateLikeNum">

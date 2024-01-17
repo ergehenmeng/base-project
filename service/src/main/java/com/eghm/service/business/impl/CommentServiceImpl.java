@@ -130,6 +130,14 @@ public class CommentServiceImpl implements CommentService {
         commentMapper.update(null, wrapper);
     }
 
+    @Override
+    public void updateTopState(Long id, Integer state) {
+        LambdaUpdateWrapper<Comment> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Comment::getId, id);
+        wrapper.set(Comment::getTopState, state);
+        commentMapper.update(null, wrapper);
+    }
+
     /**
      * 根据对象名称获取对象id
      *

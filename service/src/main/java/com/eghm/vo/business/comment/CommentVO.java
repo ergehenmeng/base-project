@@ -37,6 +37,9 @@ public class CommentVO {
     @ApiModelProperty(value = "回复id")
     private Long replyId;
 
+    @ApiModelProperty(value = "置顶状态 0:未置顶 1:置顶")
+    private Integer topState;
+
     @ApiModelProperty(value = "被回复的评论是否删除")
     private Boolean replyDeleted;
 

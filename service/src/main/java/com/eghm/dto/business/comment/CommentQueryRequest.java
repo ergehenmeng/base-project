@@ -24,4 +24,7 @@ public class CommentQueryRequest extends PagingQuery {
 
     @ApiModelProperty("状态 false:已屏蔽 true:正常")
     private Boolean state;
+
+    @ApiModelProperty("置顶状态 0:未置顶 1:置顶")
+    private Integer topState;
 }

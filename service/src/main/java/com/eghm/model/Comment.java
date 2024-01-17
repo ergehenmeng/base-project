@@ -31,6 +31,9 @@ public class Comment extends BaseEntity {
     @ApiModelProperty("状态 0:已屏蔽 1:正常")
     private Boolean state;
 
+    @ApiModelProperty("置顶状态 0:未置顶 1:置顶")
+    private Integer topState;
+
     @ApiModelProperty(value = "评论对象类型")
     private ObjectType commentType;
 
