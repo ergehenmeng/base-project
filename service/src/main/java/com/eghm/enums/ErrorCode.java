@@ -1489,6 +1489,11 @@ public enum ErrorCode {
     MERCHANT_NO_BIND(3825, "商户未绑定微信号,无需解绑"),
 
     /**
+     * 商户余额信息异常
+     */
+    MERCHANT_ACCOUNT_ERROR(3827, "商户余额信息异常"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

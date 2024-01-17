@@ -76,7 +76,7 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Override
     public List<MerchantResponse> getList(MerchantQueryRequest request) {
-        Page<MerchantResponse> listPage = merchantMapper.listPage(request.createPage(false), request);
+        Page<MerchantResponse> listPage = merchantMapper.listPage(request.createNullPage(), request);
         return listPage.getRecords();
     }
 

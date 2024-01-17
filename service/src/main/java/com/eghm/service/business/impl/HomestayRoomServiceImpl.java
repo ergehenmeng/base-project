@@ -49,7 +49,7 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
 
     @Override
     public List<HomestayRoomResponse> getList(HomestayRoomQueryRequest request) {
-        Page<HomestayRoomResponse> byPage = homestayRoomMapper.listPage(request.createPage(false), request);
+        Page<HomestayRoomResponse> byPage = homestayRoomMapper.listPage(request.createNullPage(), request);
         return byPage.getRecords();
     }
 

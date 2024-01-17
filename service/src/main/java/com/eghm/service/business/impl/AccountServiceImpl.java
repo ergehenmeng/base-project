@@ -20,6 +20,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 商户账户信息表 服务实现类
@@ -55,9 +57,12 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
             account.setWithdrawFreeze(account.getWithdrawFreeze() + dto.getAmount());
             accountLog.setSurplusAmount(account.getPayFreeze() + account.getWithdrawAmount());
         }
-        int update = accountMapper.updateById(account);
+        this.checkAccount(account);
+
+        account.setUpdateTime(LocalDateTime.now());
+        int update = accountMapper.updateAccount(account);
         if (update != 1) {
-            log.error("更新账户信息失败 [{}]", dto);
+            log.error("更新账户信息失败 [{}] [{}]", dto, account);
             dingTalkService.sendMsg(String.format("更新商户账户失败 [%s]", dto));
             throw new BusinessException(ErrorCode.ACCOUNT_UPDATE);
         }
@@ -77,5 +82,18 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
         Account account = new Account();
         account.setMerchantId(merchant.getId());
         accountMapper.insert(account);
+    }
+
+    /**
+     * 校验账户余额信息
+     *
+     * @param account 账户
+     */
+    private void checkAccount(Account account) {
+        if (account.getPayFreeze() < 0 || account.getWithdrawFreeze() < 0 || account.getWithdrawAmount() < 0) {
+            log.error("账户余额信息异常 [{}]", account);
+            dingTalkService.sendMsg(String.format("账户余额信息异常 [%s]", account));
+            throw new BusinessException(ErrorCode.MERCHANT_ACCOUNT_ERROR);
+        }
     }
 }

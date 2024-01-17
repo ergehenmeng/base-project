@@ -103,7 +103,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<MemberResponse> getList(MemberQueryRequest request) {
-        Page<MemberResponse> listPage = memberMapper.listPage(request.createPage(false), request);
+        Page<MemberResponse> listPage = memberMapper.listPage(request.createNullPage(), request);
         return listPage.getRecords();
     }
 

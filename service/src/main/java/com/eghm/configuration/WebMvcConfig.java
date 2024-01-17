@@ -57,8 +57,9 @@ import java.util.Properties;
 @Slf4j
 public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDecorator, TaskExecutorCustomizer {
 
-    protected final SystemProperties systemProperties;
     private final ObjectMapper objectMapper;
+
+    protected final SystemProperties systemProperties;
 
     @Bean
     public static BeanPostProcessor springFoxBeanPostProcessor() {

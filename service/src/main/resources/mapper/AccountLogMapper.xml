@@ -4,7 +4,7 @@
 
     <select id="getByPage" resultType="com.eghm.vo.business.account.AccountLogResponse" parameterType="com.eghm.dto.business.account.AccountQueryRequest" >
         select
-        r.merchant_name
+        r.merchant_name,
         t.direction,
         t.trade_no,
         t.create_time,
@@ -12,7 +12,7 @@
         t.amount,
         t.surplus_amount,
         t.order_no,
-        t.remark,
+        t.remark
         from account_log t left join merchant r on t.merchant_id = r.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">

@@ -33,7 +33,7 @@ public class AccountLogServiceImpl implements AccountLogService {
 
     @Override
     public List<AccountLogResponse> getList(AccountQueryRequest request) {
-        Page<AccountLogResponse> byPage = accountLogMapper.getByPage(request.createPage(false), request);
+        Page<AccountLogResponse> byPage = accountLogMapper.getByPage(request.createNullPage(), request);
         return byPage.getRecords();
     }
 }

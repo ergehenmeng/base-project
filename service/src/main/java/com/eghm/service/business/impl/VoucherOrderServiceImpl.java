@@ -40,7 +40,7 @@ public class VoucherOrderServiceImpl implements VoucherOrderService {
 
     @Override
     public List<VoucherOrderResponse> getList(VoucherOrderQueryRequest request) {
-        Page<VoucherOrderResponse> responsePage = voucherOrderMapper.listPage(request.createPage(false), request);
+        Page<VoucherOrderResponse> responsePage = voucherOrderMapper.listPage(request.createNullPage(), request);
         return responsePage.getRecords();
     }
 

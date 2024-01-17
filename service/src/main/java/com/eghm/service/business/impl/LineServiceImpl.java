@@ -73,7 +73,7 @@ public class LineServiceImpl implements LineService {
 
     @Override
     public List<LineResponse> getList(LineQueryRequest request) {
-        Page<LineResponse> listPage = lineMapper.listPage(request.createPage(false), request);
+        Page<LineResponse> listPage = lineMapper.listPage(request.createNullPage(), request);
         return listPage.getRecords();
     }
 

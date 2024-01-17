@@ -81,7 +81,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemResponse> getList(ItemQueryRequest request) {
-        Page<ItemResponse> listPage = itemMapper.listPage(request.createPage(false), request);
+        Page<ItemResponse> listPage = itemMapper.listPage(request.createNullPage(), request);
         return listPage.getRecords();
     }
 

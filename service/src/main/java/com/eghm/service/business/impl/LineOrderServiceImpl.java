@@ -52,7 +52,7 @@ public class LineOrderServiceImpl implements LineOrderService {
 
     @Override
     public List<LineOrderResponse> getList(LineOrderQueryRequest request) {
-        Page<LineOrderResponse> listPage = lineOrderMapper.listPage(request.createPage(false), request);
+        Page<LineOrderResponse> listPage = lineOrderMapper.listPage(request.createNullPage(), request);
         return listPage.getRecords();
     }
 

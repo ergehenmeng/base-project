@@ -49,7 +49,7 @@ public class VoucherServiceImpl implements VoucherService {
 
     @Override
     public List<VoucherResponse> getList(VoucherQueryRequest request) {
-        Page<VoucherResponse> listPage = voucherMapper.listPage(request.createPage(false), request);
+        Page<VoucherResponse> listPage = voucherMapper.listPage(request.createNullPage(), request);
         return listPage.getRecords();
     }
 

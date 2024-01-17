@@ -64,5 +64,13 @@ public class PagingQuery {
         return page <= 0 ? 1 : page;
     }
 
-
+    /**
+     * 创建分页对象 用于导出excel
+     *
+     * @param <T>   查询对象
+     * @return 分页对象
+     */
+    public <T> Page<T> createNullPage() {
+        return new Page<>(this.getPage(), -1, false);
+    }
 }

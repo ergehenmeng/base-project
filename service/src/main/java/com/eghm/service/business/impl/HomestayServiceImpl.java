@@ -74,7 +74,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
 
     @Override
     public List<HomestayResponse> getList(HomestayQueryRequest request) {
-        Page<HomestayResponse> listPage = homestayMapper.listPage(request.createPage(false), request);
+        Page<HomestayResponse> listPage = homestayMapper.listPage(request.createNullPage(), request);
         return listPage.getRecords();
     }
 
