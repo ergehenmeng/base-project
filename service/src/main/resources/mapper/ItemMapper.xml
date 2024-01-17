@@ -144,6 +144,9 @@
                 <when test="param.sortBy == 2">
                     order by t.total_num desc, t.recommend desc
                 </when>
+                <when test="param.sortBy == 3">
+                    order by t.score desc, t.recommend desc
+                </when>
                 <otherwise>
                     order by t.recommend desc
                 </otherwise>

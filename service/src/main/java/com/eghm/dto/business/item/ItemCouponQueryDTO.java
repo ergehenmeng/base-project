@@ -20,7 +20,7 @@ public class ItemCouponQueryDTO extends PagingQuery {
     @ApiModelProperty(value = "交付方式")
     private DeliveryType deliveryType;
 
-    @ApiModelProperty("排序规则 1: 按价格排序 2: 按销售量排序 空:默认推荐排序")
+    @ApiModelProperty("排序规则 0: 默认排序 1: 按价格排序 2: 按销售量排序 3: 评分排序")
     private Integer sortBy;
 
     @ApiModelProperty("优惠券id")
