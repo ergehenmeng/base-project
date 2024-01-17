@@ -133,6 +133,13 @@ public interface ItemOrderService {
     ItemOrderDetailVO getDetail(String orderNo, Long memberId);
 
     /**
+     * 查询订单商品列表
+     * @param orderNo 订单号
+     * @return 列表
+     */
+    List<ItemOrderListVO> getItemList(String orderNo);
+
+    /**
      * 查询订单详情 (管理后台)
      *
      * @param orderNo 订单号

@@ -8,6 +8,7 @@ import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderService;
 import com.eghm.vo.business.order.item.ExpressDetailVO;
 import com.eghm.vo.business.order.item.ItemOrderDetailVO;
+import com.eghm.vo.business.order.item.ItemOrderListVO;
 import com.eghm.vo.business.order.item.ItemOrderVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
@@ -58,5 +59,22 @@ public class ItemOrderController {
     public RespBody<ExpressDetailVO> express(@Validated IdDTO dto) {
         ExpressDetailVO detail = orderService.expressDetail(dto.getId());
         return RespBody.success(detail);
+    }
+
+    @GetMapping("/snapshotList")
+    @ApiOperation("快照列表")
+    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
+    public RespBody<List<ItemOrderListVO>> snapshotList(@RequestParam("orderNo") String orderNo) {
+        List<ItemOrderListVO> detailList = itemOrderService.getItemList(orderNo);
+        return RespBody.success(detailList);
+    }
+
+    @GetMapping("/snapshotDetail")
+    @ApiOperation("快照详情")
+    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
+    public RespBody<List<ItemOrderListVO>> snapshotDetail(@RequestParam("orderNo") String orderNo) {
+        // TODO 待完善
+        List<ItemOrderListVO> detailList = itemOrderService.getItemList(orderNo);
+        return RespBody.success(detailList);
     }
 }

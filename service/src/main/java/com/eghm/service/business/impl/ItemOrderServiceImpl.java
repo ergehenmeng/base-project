@@ -183,6 +183,11 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     }
 
     @Override
+    public List<ItemOrderListVO> getItemList(String orderNo) {
+        return itemOrderMapper.getItemList(orderNo);
+    }
+
+    @Override
     public ItemOrderDetailVO getDetail(String orderNo, Long memberId) {
         ItemOrderDetailVO detail = itemOrderMapper.getDetail(orderNo, memberId);
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);

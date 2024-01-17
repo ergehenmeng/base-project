@@ -1,7 +1,9 @@
 package com.eghm.vo.business.order.item;
 
+import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.DeliveryState;
 import com.eghm.enums.ref.ItemRefundState;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -12,6 +14,9 @@ import lombok.Data;
 
 @Data
 public class ItemOrderListVO {
+
+    @ApiModelProperty("订单id")
+    private Long id;
 
     @ApiModelProperty("商品id")
     private Long itemId;
@@ -38,6 +43,7 @@ public class ItemOrderListVO {
     private String skuTitle;
 
     @ApiModelProperty(value = "销售价格")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
 }
