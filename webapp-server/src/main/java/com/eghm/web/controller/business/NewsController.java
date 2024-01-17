@@ -6,6 +6,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.NewsService;
 import com.eghm.vo.business.news.NewsDetailVO;
 import com.eghm.vo.business.news.NewsVO;
+import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -43,6 +44,7 @@ public class NewsController {
 
     @PostMapping("/giveLike")
     @ApiOperation("点赞")
+    @AccessToken
     public RespBody<Void> giveLike(@RequestBody @Validated IdDTO dto) {
         newsService.giveLike(dto.getId());
         return RespBody.success();

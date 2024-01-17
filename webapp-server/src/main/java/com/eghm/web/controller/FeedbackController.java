@@ -5,6 +5,7 @@ import com.eghm.dto.ext.RequestMessage;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.feedback.FeedbackAddDTO;
 import com.eghm.service.common.FeedbackService;
+import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class FeedbackController {
 
     @PostMapping("/submit")
     @ApiOperation("保存反馈信息")
+    @AccessToken
     public RespBody<Void> submit(@RequestBody @Validated FeedbackAddDTO request) {
         RequestMessage message = ApiHolder.get();
         request.setSystemVersion(message.getOsVersion());

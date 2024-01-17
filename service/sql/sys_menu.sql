@@ -374,4 +374,8 @@ INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sor
 INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10141410','列表','sCu0','101414',null,'/manage/account/log/listPage',2,10,true,null,3,'2024-01-16T17:34:49','2024-01-16T17:36');
 INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10141411','导出','PCu0','101414',null,'/manage/account/log/export',2,20,true,null,3,'2024-01-16T17:34:49','2024-01-16T17:36');
 
+INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('101131','评论管理','P6U','1011',null,null,1,140,true,null,2,'2024-01-17T14:34:58','2024-01-17T14:36:22');
+INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10113110','列表','0BU0','101131',null,'/webapp/comment/listPage',2,10,true,null,2,'2024-01-17T14:34:58','2024-01-17T14:36:22');
+INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10113111','屏蔽','dBU0','101131',null,'/webapp/comment/shield',2,20,true,null,2,'2024-01-17T14:35:27','2024-01-17T14:36:22');
+INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10113112','举报列表','pBU0','101131',null,'/webapp/comment/report/listPage',2,30,true,null,2,'2024-01-17T14:34:58','2024-01-17T14:36:22');
 

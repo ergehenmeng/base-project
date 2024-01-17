@@ -8,6 +8,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.service.business.lottery.LotteryService;
 import com.eghm.service.cache.RedisLock;
 import com.eghm.vo.business.lottery.LotteryResultVO;
+import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,7 @@ public class LotteryController {
 
     @PostMapping("/handle")
     @ApiOperation("抽奖")
+    @AccessToken
     public RespBody<LotteryResultVO> handle(@RequestBody @Validated IdDTO dto) {
         String key = String.format(CacheConstant.LOTTERY_LOCK, dto.getId(), ApiHolder.getMemberId());
         return redisLock.lock(key, 30,

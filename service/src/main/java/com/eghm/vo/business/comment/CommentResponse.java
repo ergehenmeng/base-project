@@ -28,6 +28,9 @@ public class CommentResponse {
     @ApiModelProperty("头像")
     private String avatar;
 
+    @ApiModelProperty("状态 0:已屏蔽 1:正常")
+    private Boolean state;
+
     @ApiModelProperty("评论对象id")
     private Long objectId;
 

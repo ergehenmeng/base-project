@@ -10,6 +10,7 @@ import com.eghm.service.business.MemberCouponService;
 import com.eghm.vo.business.coupon.CouponListVO;
 import com.eghm.vo.business.coupon.MemberCouponBaseVO;
 import com.eghm.vo.business.coupon.MemberCouponVO;
+import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -42,6 +43,7 @@ public class CouponController {
 
     @PostMapping("/member/receive")
     @ApiOperation("领取优惠券")
+    @AccessToken
     public RespBody<Void> receive(@RequestBody @Validated ReceiveCouponDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         memberCouponService.receiveCoupon(dto);
@@ -50,6 +52,7 @@ public class CouponController {
 
     @GetMapping("/member/listPage")
     @ApiOperation("我的优惠券列表")
+    @AccessToken
     public RespBody<List<MemberCouponVO>> listPage(@Validated MemberCouponQueryPageDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<MemberCouponVO> voList = memberCouponService.memberCouponPage(dto);
@@ -58,6 +61,7 @@ public class CouponController {
 
     @GetMapping("/member/choose")
     @ApiOperation("选择商品可以使用的优惠券")
+    @AccessToken
     @ApiImplicitParam(name = "itemId", value = "商品id", required = true)
     public RespBody<List<MemberCouponBaseVO>> choose(@RequestParam("itemId") Long itemId) {
         List<MemberCouponBaseVO> selectCoupon = memberCouponService.selectCoupon(ApiHolder.getMemberId(), itemId);

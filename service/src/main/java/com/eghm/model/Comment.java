@@ -28,6 +28,9 @@ public class Comment extends BaseEntity {
     @ApiModelProperty(value = "评论对象ID")
     private Long objectId;
 
+    @ApiModelProperty("状态 0:已屏蔽 1:正常")
+    private Boolean state;
+
     @ApiModelProperty(value = "评论对象类型")
     private ObjectType commentType;
 

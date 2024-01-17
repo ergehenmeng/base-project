@@ -40,6 +40,9 @@ public class CommentVO {
     @ApiModelProperty(value = "被回复的评论是否删除")
     private Boolean replyDeleted;
 
+    @ApiModelProperty(value = "被回复的评论是否屏蔽")
+    private Boolean replyState;
+
     @ApiModelProperty(value = "回复昵称")
     private String replyNickName;
 

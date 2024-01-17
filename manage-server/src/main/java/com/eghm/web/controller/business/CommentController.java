@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.comment.CommentQueryRequest;
 import com.eghm.dto.business.comment.CommentReportQueryRequest;
 import com.eghm.dto.ext.PageData;
@@ -12,7 +13,9 @@ import com.eghm.vo.business.comment.CommentResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,4 +48,10 @@ public class CommentController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
+    @GetMapping("/shield")
+    @ApiOperation("屏蔽")
+    public RespBody<Void> shield(@Validated @RequestBody IdDTO dto) {
+        commentService.shield(dto.getId());
+        return RespBody.success();
+    }
 }

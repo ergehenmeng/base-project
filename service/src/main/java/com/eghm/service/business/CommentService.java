@@ -43,9 +43,24 @@ public interface CommentService {
     void add(CommentDTO dto);
 
     /**
+     * 删除评论
+     *
+     * @param id  id
+     * @param memberId 用户id
+     */
+    void delete(Long id, Long memberId);
+
+    /**
      * 点赞或取消点赞
      *
      * @param id id
      */
     void giveLike(Long id);
+
+    /**
+     * 屏蔽评论
+     *
+     * @param id id
+     */
+    void shield(Long id);
 }

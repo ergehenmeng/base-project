@@ -6,6 +6,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.MemberCollectService;
 import com.eghm.vo.business.collect.MemberCollectVO;
+import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -32,6 +33,7 @@ public class MemberCollectController {
 
     @PostMapping("/listPage")
     @ApiOperation("收藏列表")
+    @AccessToken
     public RespBody<List<MemberCollectVO>> listPage(@RequestBody CollectQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<MemberCollectVO> byPage = memberCollectService.getByPage(dto);
@@ -40,6 +42,7 @@ public class MemberCollectController {
 
     @PostMapping("/collect")
     @ApiOperation("收藏/取消收藏")
+    @AccessToken
     public RespBody<Void> collect(@RequestBody @Validated CollectDTO dto) {
         memberCollectService.collect(dto.getCollectId(), dto.getCollectType());
         return RespBody.success();

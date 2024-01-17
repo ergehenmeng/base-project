@@ -3,6 +3,7 @@ package com.eghm.service.business.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constant.CacheConstant;
@@ -100,6 +101,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public void delete(Long id, Long memberId) {
+        LambdaUpdateWrapper<Comment> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Comment::getId, id);
+        wrapper.eq(Comment::getMemberId, memberId);
+        commentMapper.delete(wrapper);
+    }
+
+    @Override
     public void giveLike(Long id) {
         Long memberId = ApiHolder.getMemberId();
         String key = CacheConstant.COMMENT_GIVE_LIKE + id;
@@ -111,6 +120,14 @@ public class CommentServiceImpl implements CommentService {
             cacheService.setHashValue(key, memberId.toString(), CacheConstant.PLACE_HOLDER);
             commentMapper.updateLikeNum(id, 1);
         }
+    }
+
+    @Override
+    public void shield(Long id) {
+        LambdaUpdateWrapper<Comment> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Comment::getId, id);
+        wrapper.set(Comment::getState, false);
+        commentMapper.update(null, wrapper);
     }
 
     /**
