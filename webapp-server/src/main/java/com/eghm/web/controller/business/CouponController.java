@@ -1,5 +1,6 @@
 package com.eghm.web.controller.business;
 
+import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.dto.business.coupon.member.MemberCouponQueryPageDTO;
 import com.eghm.dto.business.coupon.member.ReceiveCouponDTO;
@@ -12,7 +13,6 @@ import com.eghm.vo.business.coupon.MemberCouponBaseVO;
 import com.eghm.vo.business.coupon.MemberCouponVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -62,9 +62,8 @@ public class CouponController {
     @GetMapping("/member/choose")
     @ApiOperation("选择商品可以使用的优惠券")
     @AccessToken
-    @ApiImplicitParam(name = "itemId", value = "商品id", required = true)
-    public RespBody<List<MemberCouponBaseVO>> choose(@RequestParam("itemId") Long itemId) {
-        List<MemberCouponBaseVO> selectCoupon = memberCouponService.selectCoupon(ApiHolder.getMemberId(), itemId);
+    public RespBody<List<MemberCouponBaseVO>> choose(@Validated IdDTO dto) {
+        List<MemberCouponBaseVO> selectCoupon = memberCouponService.selectCoupon(ApiHolder.getMemberId(), dto.getId());
         return RespBody.success(selectCoupon);
     }
 }
