@@ -2,7 +2,9 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.comment.CommentQueryRequest;
 import com.eghm.model.Comment;
+import com.eghm.vo.business.comment.CommentResponse;
 import com.eghm.vo.business.comment.CommentVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,7 +19,16 @@ import org.apache.ibatis.annotations.Param;
 public interface CommentMapper extends BaseMapper<Comment> {
 
     /**
-     * 分页查询评论列表
+     * 分页查询评论列表 (管理后台)
+     *
+     * @param page 分页信息
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<CommentResponse> listPage(Page<CommentResponse> page, @Param("param") CommentQueryRequest request);
+
+    /**
+     * 分页查询评论列表 某个对象的评论列表 (移动端)
      *
      * @param page      分页对象
      * @param objectId 评论对象id

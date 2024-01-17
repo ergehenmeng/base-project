@@ -23,9 +23,9 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2021/12/18 14:47
  */
 @RestController
+@AllArgsConstructor
 @Api(tags = "微信授权")
 @RequestMapping("/webapp/wechat")
-@AllArgsConstructor
 public class WeChatController {
 
     private final MemberService memberService;

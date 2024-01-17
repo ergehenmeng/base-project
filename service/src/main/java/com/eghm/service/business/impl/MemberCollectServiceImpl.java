@@ -70,14 +70,14 @@ public class MemberCollectServiceImpl implements MemberCollectService {
         Page<MemberCollectVO> byPage = memberCollectMapper.getByPage(query.createPage(false), query);
         if (CollUtil.isNotEmpty(byPage.getRecords())) {
             Map<CollectType, List<Long>> collectMap = byPage.getRecords().stream().collect(Collectors.groupingBy(MemberCollectVO::getCollectType, Collectors.mapping(MemberCollectVO::getCollectId, Collectors.toList())));
-            Map<Long, ScenicVO> scenicMap = this.getScenicList(collectMap.get(CollectType.SCENIC));
-            Map<Long, HomestayVO> homestayMap = this.getHomestayList(collectMap.get(CollectType.HOMESTAY));
-            Map<Long, ItemStoreVO> itemStoreMap = this.getItemStoreList(collectMap.get(CollectType.ITEM_STORE));
-            Map<Long, ItemVO> itemMap = this.getItemList(collectMap.get(CollectType.ITEM));
-            Map<Long, LineVO> lineMap = this.getLineList(collectMap.get(CollectType.LINE));
-            Map<Long, TravelAgencyVO> travelMap = this.getTravelList(collectMap.get(CollectType.TRAVEL_AGENCY));
-            Map<Long, NewsVO> newsMap = this.getNewsList(collectMap.get(CollectType.NEWS));
-            Map<Long, RestaurantVO> restaurantMap = this.getRestaurantList(collectMap.get(CollectType.VOUCHER_STORE));
+            Map<Long, ScenicVO> scenicMap = this.getScenicMap(collectMap.get(CollectType.SCENIC));
+            Map<Long, HomestayVO> homestayMap = this.getHomestayMap(collectMap.get(CollectType.HOMESTAY));
+            Map<Long, ItemStoreVO> itemStoreMap = this.getItemStoreMap(collectMap.get(CollectType.ITEM_STORE));
+            Map<Long, ItemVO> itemMap = this.getItemMap(collectMap.get(CollectType.ITEM));
+            Map<Long, LineVO> lineMap = this.getLineMap(collectMap.get(CollectType.LINE));
+            Map<Long, TravelAgencyVO> travelMap = this.getTravelMap(collectMap.get(CollectType.TRAVEL_AGENCY));
+            Map<Long, NewsVO> newsMap = this.getNewsMap(collectMap.get(CollectType.NEWS));
+            Map<Long, RestaurantVO> restaurantMap = this.getRestaurantMap(collectMap.get(CollectType.VOUCHER_STORE));
             for (MemberCollectVO vo : byPage.getRecords()) {
                 switch (vo.getCollectType()) {
                     case SCENIC:
@@ -152,7 +152,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
      * @param scenicIds 景区id
      * @return 景区信息
      */
-    private Map<Long, ScenicVO> getScenicList(List<Long> scenicIds) {
+    private Map<Long, ScenicVO> getScenicMap(List<Long> scenicIds) {
         if (CollUtil.isEmpty(scenicIds)) {
             return Maps.newLinkedHashMapWithExpectedSize(4);
         }
@@ -166,7 +166,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
      * @param homestayIds 民宿id
      * @return 民宿信息
      */
-    private Map<Long, HomestayVO> getHomestayList(List<Long> homestayIds) {
+    private Map<Long, HomestayVO> getHomestayMap(List<Long> homestayIds) {
         if (CollUtil.isEmpty(homestayIds)) {
             return Maps.newLinkedHashMapWithExpectedSize(4);
         }
@@ -180,7 +180,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
      * @param storeIds 店铺id
      * @return 店铺信息
      */
-    private Map<Long, ItemStoreVO> getItemStoreList(List<Long> storeIds) {
+    private Map<Long, ItemStoreVO> getItemStoreMap(List<Long> storeIds) {
         if (CollUtil.isEmpty(storeIds)) {
             return Maps.newLinkedHashMapWithExpectedSize(4);
         }
@@ -194,7 +194,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
      * @param itemIds 商品id
      * @return 商品信息
      */
-    private Map<Long, ItemVO> getItemList(List<Long> itemIds) {
+    private Map<Long, ItemVO> getItemMap(List<Long> itemIds) {
         if (CollUtil.isEmpty(itemIds)) {
             return Maps.newLinkedHashMapWithExpectedSize(4);
         }
@@ -208,7 +208,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
      * @param lineIds ids
      * @return 线路信息
      */
-    private Map<Long, LineVO> getLineList(List<Long> lineIds) {
+    private Map<Long, LineVO> getLineMap(List<Long> lineIds) {
         if (CollUtil.isEmpty(lineIds)) {
             return Maps.newLinkedHashMapWithExpectedSize(4);
         }
@@ -222,7 +222,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
      * @param restaurantIds ids
      * @return 餐饮店信息
      */
-    private Map<Long, RestaurantVO> getRestaurantList(List<Long> restaurantIds) {
+    private Map<Long, RestaurantVO> getRestaurantMap(List<Long> restaurantIds) {
         if (CollUtil.isEmpty(restaurantIds)) {
             return Maps.newLinkedHashMapWithExpectedSize(4);
         }
@@ -236,7 +236,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
      * @param newsIds id
      * @return 资讯信息
      */
-    private Map<Long, NewsVO> getNewsList(List<Long> newsIds) {
+    private Map<Long, NewsVO> getNewsMap(List<Long> newsIds) {
         if (CollUtil.isEmpty(newsIds)) {
             return Maps.newLinkedHashMapWithExpectedSize(4);
         }
@@ -250,7 +250,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
      * @param travelIds id
      * @return 旅行社信息
      */
-    private Map<Long, TravelAgencyVO> getTravelList(List<Long> travelIds) {
+    private Map<Long, TravelAgencyVO> getTravelMap(List<Long> travelIds) {
         if (CollUtil.isEmpty(travelIds)) {
             return Maps.newLinkedHashMapWithExpectedSize(4);
         }

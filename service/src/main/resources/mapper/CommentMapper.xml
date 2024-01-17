@@ -2,6 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.CommentMapper">
 
+    <select id="listPage" resultType="com.eghm.vo.business.comment.CommentResponse" parameterType="com.eghm.dto.business.comment.CommentQueryRequest">
+        select
+            t.id,
+            t.content,
+            t.object_id,
+            t.object_type,
+            t.create_time,
+            t.like_num,
+            m.nick_name,
+            m.avatar
+        from comment t
+        left join member m on t.member_id = m.id
+        where t.deleted = false
+        <if test="param.objectType != null">
+            and t.object_type = #{param.objectType}
+        </if>
+        <if test="param.objectIds != null">
+            and t.object_id in
+            <foreach collection="param.objectIds" item="item" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        order by t.id desc
+    </select>
+
     <select id="getByPage" resultType="com.eghm.vo.business.comment.CommentVO">
         select
         t.id,

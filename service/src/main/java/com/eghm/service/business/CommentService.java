@@ -1,7 +1,10 @@
 package com.eghm.service.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.comment.CommentDTO;
 import com.eghm.dto.business.comment.CommentQueryDTO;
+import com.eghm.dto.business.comment.CommentQueryRequest;
+import com.eghm.vo.business.comment.CommentResponse;
 import com.eghm.vo.business.comment.CommentVO;
 
 import java.util.List;
@@ -17,7 +20,15 @@ import java.util.List;
 public interface CommentService {
 
     /**
-     * 分页获取留言
+     * 分页获取评论列表
+     *
+     * @param request  查询条件
+     * @return 列表
+     */
+    Page<CommentResponse> listPage(CommentQueryRequest request);
+
+    /**
+     * 分页获取留言 移动端
      *
      * @param dto 查询条件
      * @return 列表

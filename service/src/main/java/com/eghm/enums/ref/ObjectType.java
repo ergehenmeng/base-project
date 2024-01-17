@@ -23,7 +23,7 @@ public enum ObjectType implements EnumBinder {
 
     NEWS(1, "资讯"),
 
-    HOTEL(2, "酒店"),
+    ACTIVITY(2, "活动"),
     ;
 
     /**

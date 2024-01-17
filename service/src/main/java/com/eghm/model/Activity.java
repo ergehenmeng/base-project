@@ -1,6 +1,8 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.handler.mysql.LikeTypeHandler;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,6 +23,7 @@ import java.time.LocalDate;
 public class Activity extends BaseEntity {
 
     @ApiModelProperty(value = "活动名称")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String title;
 
     @ApiModelProperty(value = "日期")

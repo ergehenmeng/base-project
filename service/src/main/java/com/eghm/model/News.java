@@ -1,6 +1,8 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,6 +23,7 @@ import lombok.EqualsAndHashCode;
 public class News extends BaseEntity {
 
     @ApiModelProperty(value = "资讯标题")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String title;
 
     @ApiModelProperty(value = "资讯编码")
