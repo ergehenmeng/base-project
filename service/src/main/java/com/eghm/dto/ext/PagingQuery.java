@@ -65,7 +65,7 @@ public class PagingQuery {
     }
 
     /**
-     * 创建分页对象 用于导出excel
+     * 创建不分页对象, 主要用于导出excel, 该方法存在的目的是为了和底层列表共用同一个查询方法
      *
      * @param <T>   查询对象
      * @return 分页对象
