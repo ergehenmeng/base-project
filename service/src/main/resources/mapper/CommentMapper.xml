@@ -19,7 +19,7 @@
         left join member m on t.member_id = m.id
         left join comment c on t.reply_id = c.id
         left join member n on c.member_id = n.id
-        where t.deleted = false and t.comment_id = #{commentId}
+        where t.deleted = false and t.object_id = #{objectId}
         order by t.id desc
     </select>
 

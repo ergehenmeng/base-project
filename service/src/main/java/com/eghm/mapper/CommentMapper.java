@@ -20,10 +20,10 @@ public interface CommentMapper extends BaseMapper<Comment> {
      * 分页查询评论列表
      *
      * @param page      分页对象
-     * @param commentId 分享id
+     * @param objectId 评论对象id
      * @return 列表
      */
-    Page<CommentVO> getByPage(Page<CommentVO> page, @Param("commentId") Long commentId);
+    Page<CommentVO> getByPage(Page<CommentVO> page, @Param("objectId") Long objectId);
 
     /**
      * 更新点赞数量

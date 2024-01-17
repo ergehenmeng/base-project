@@ -37,7 +37,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentVO> getByPage(CommentQueryDTO dto) {
-        Page<CommentVO> voPage = commentMapper.getByPage(dto.createPage(false), dto.getCommentId());
+        Page<CommentVO> voPage = commentMapper.getByPage(dto.createPage(false), dto.getObjectId());
         voPage.getRecords().forEach(vo -> vo.setIsLiked(this.hasGiveLiked(vo.getId())));
         return voPage.getRecords();
     }

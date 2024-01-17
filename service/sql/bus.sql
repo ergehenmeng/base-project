@@ -1111,16 +1111,17 @@ create table member_collect
 DROP TABLE IF EXISTS comment;
 CREATE TABLE `comment`
 (
-    `id`           bigint(20) NOT NULL COMMENT '主键',
-    `member_id`    bigint(20)   DEFAULT NULL COMMENT '用户ID',
-    `comment_id`   bigint(20)   DEFAULT NULL COMMENT '评论对象ID',
-    `comment_type` tinyint(2)   DEFAULT NULL COMMENT '评论对象类型',
-    `like_num`     int(10)      DEFAULT '0' COMMENT '点赞数量',
-    `reply_id`     bigint(20)   DEFAULT NULL COMMENT '回复id',
-    `content`      varchar(200) DEFAULT NULL COMMENT '评论信息',
-    `create_time`  datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`  datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`      bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `member_id`   bigint(20)   DEFAULT NULL COMMENT '用户ID',
+    `object_id`   bigint(20)   DEFAULT NULL COMMENT '评论对象ID',
+    `object_type` tinyint(2)   DEFAULT NULL COMMENT '评论对象类型',
+    `like_num`    int(10)      DEFAULT '0' COMMENT '点赞数量',
+    `reply_id`    bigint(20)   DEFAULT NULL COMMENT '回复id',
+    `content`     varchar(200) DEFAULT NULL COMMENT '评论信息',
+    `report_num`  int(200)     DEFAULT 0 COMMENT '被举报次数',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='评论记录表';
@@ -1180,3 +1181,20 @@ CREATE TABLE `withdraw_log`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商户提现记录';
+
+DROP TABLE IF EXISTS comment_report;
+CREATE TABLE `comment_report`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `member_id`   bigint(20)   DEFAULT NULL COMMENT '举报用户ID',
+    `comment_id`  bigint(20)   DEFAULT NULL COMMENT '评价ID',
+    `object_id`   bigint(20)   DEFAULT NULL COMMENT '评论对象ID',
+    `object_type` bigint(20)   DEFAULT NULL COMMENT '评论对象类型',
+    `content`     varchar(200) DEFAULT NULL COMMENT '举报内容',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='评论举报记录表';
+
