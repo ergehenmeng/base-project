@@ -2,14 +2,17 @@ package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.comment.CommentReportDTO;
+import com.eghm.dto.business.comment.CommentReportQueryRequest;
 import com.eghm.mapper.CommentMapper;
 import com.eghm.mapper.CommentReportMapper;
 import com.eghm.model.Comment;
 import com.eghm.model.CommentReport;
 import com.eghm.service.business.CommentReportService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.comment.CommentReportResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +35,11 @@ public class CommentReportServiceImpl implements CommentReportService {
     private final CommentMapper commentMapper;
 
     private final CommentReportMapper commentReportMapper;
+
+    @Override
+    public Page<CommentReportResponse> getByPage(CommentReportQueryRequest request) {
+        return commentReportMapper.getByPage(request.createPage(), request);
+    }
 
     @Override
     public void report(CommentReportDTO dto) {

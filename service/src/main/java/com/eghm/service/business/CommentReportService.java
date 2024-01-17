@@ -1,6 +1,9 @@
 package com.eghm.service.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.comment.CommentReportDTO;
+import com.eghm.dto.business.comment.CommentReportQueryRequest;
+import com.eghm.vo.business.comment.CommentReportResponse;
 
 /**
  * <p>
@@ -11,6 +14,14 @@ import com.eghm.dto.business.comment.CommentReportDTO;
  * @since 2024-01-17
  */
 public interface CommentReportService {
+
+    /**
+     * 获取评论举报记录
+     *
+     * @param request 查询参数
+     * @return 列表
+     */
+    Page<CommentReportResponse> getByPage(CommentReportQueryRequest request);
 
     /**
      * 举报评论
