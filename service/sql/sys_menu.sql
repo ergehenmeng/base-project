@@ -379,3 +379,6 @@ INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sor
 INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10113111','屏蔽','dBU0','101131',null,'/webapp/comment/shield',2,20,true,null,2,'2024-01-17T14:35:27','2024-01-17T14:36:22');
 INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10113112','举报列表','pBU0','101131',null,'/webapp/comment/report/listPage',2,30,true,null,2,'2024-01-17T14:34:58','2024-01-17T14:36:22');
 
+INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10113113','置顶','hBU0','101131',null,'/webapp/comment/top',2,40,true,null,2,'2024-01-17T16:28:46','2024-01-17T16:29:38');
+INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10113114','取消置顶','XBU0','101131',null,'/webapp/comment/unTop',2,50,true,null,2,'2024-01-17T16:28:46','2024-01-17T16:29:38');
+
