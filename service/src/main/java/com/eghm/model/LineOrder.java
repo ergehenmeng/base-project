@@ -21,7 +21,7 @@ import java.time.LocalDate;
 public class LineOrder {
 
     @ApiModelProperty(value = "主键")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
     @ApiModelProperty(value = "线路id")

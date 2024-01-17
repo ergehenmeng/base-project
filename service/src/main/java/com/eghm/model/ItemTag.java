@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 public class ItemTag {
 
     @ApiModelProperty(value = "主键")
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(type = IdType.INPUT)
     private String id;
 
     @ApiModelProperty(value = "父节点id")
