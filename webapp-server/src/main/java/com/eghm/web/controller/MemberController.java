@@ -1,14 +1,17 @@
 package com.eghm.web.controller;
 
 import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.member.BindEmailDTO;
 import com.eghm.dto.member.ChangeEmailDTO;
 import com.eghm.dto.member.MemberDTO;
 import com.eghm.dto.member.SendEmailAuthCodeDTO;
+import com.eghm.service.member.MemberInviteLogService;
 import com.eghm.service.member.MemberNoticeService;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.IpUtil;
+import com.eghm.vo.member.MemberInviteVO;
 import com.eghm.vo.member.MemberVO;
 import com.eghm.vo.member.SignInVO;
 import com.eghm.web.annotation.AccessToken;
@@ -19,6 +22,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 用户相关信息
@@ -35,6 +39,8 @@ public class MemberController {
     private final MemberService memberService;
 
     private final MemberNoticeService memberNoticeService;
+
+    private final MemberInviteLogService memberInviteLogService;
 
     @PostMapping("/sendBindEmailCode")
     @ApiOperation("绑定邮箱发送验证码请求①")
@@ -95,10 +101,17 @@ public class MemberController {
         return RespBody.success(vo);
     }
 
-    @GetMapping("/edit")
+    @PostMapping("/edit")
     @ApiOperation("编辑保存会员信息")
     public RespBody<Void> edit(@RequestBody @Validated MemberDTO dto) {
         memberService.edit(ApiHolder.getMemberId(), dto);
         return RespBody.success();
+    }
+
+    @GetMapping("/invitePage")
+    @ApiOperation("邀请记录")
+    public RespBody<List<MemberInviteVO>> invitePage(PagingQuery query) {
+        List<MemberInviteVO> byPage = memberInviteLogService.getByPage(query, ApiHolder.getMemberId());
+        return RespBody.success(byPage);
     }
 }
