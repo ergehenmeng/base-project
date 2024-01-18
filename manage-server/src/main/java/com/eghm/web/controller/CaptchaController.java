@@ -1,6 +1,7 @@
 package com.eghm.web.controller;
 
 import com.eghm.constant.CacheConstant;
+import com.eghm.constant.CommonConstant;
 import com.eghm.service.cache.CacheService;
 import com.eghm.utils.IpUtil;
 import com.google.code.kaptcha.Producer;
@@ -21,6 +22,7 @@ import java.io.IOException;
 
 /**
  * 图形验证码controller
+ * 方法支持 MathCaptchaProducer 与 TextCaptchaProducer
  *
  * @author 二哥很猛
  * @date 2018/1/19 11:50
@@ -39,11 +41,17 @@ public class CaptchaController {
     @GetMapping("/captcha")
     @ApiOperation("获取图形验证码")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String value = producer.createText();
+        String authCode = producer.createText();
+        String[] splits = authCode.split(CommonConstant.SPECIAL_SPLIT);
+        String authImage = authCode;
+        if (splits.length > 1) {
+            authImage = splits[0];
+            authCode = splits[1];
+        }
         String ipAddress = IpUtil.getIpAddress(request);
-        log.info("图形验证码[{}]:[{}]", ipAddress, value);
-        cacheService.setValue(CacheConstant.IMAGE_CAPTCHA + ipAddress, value, 60L);
-        BufferedImage bi = producer.createImage(value);
+        log.info("图形验证码[{}]:[{}]", ipAddress, authCode);
+        cacheService.setValue(CacheConstant.IMAGE_CAPTCHA + ipAddress, authCode, 60L);
+        BufferedImage bi = producer.createImage(authImage);
         response.setDateHeader("Expires", 0);
         response.setHeader("Pragma", "no-cache");
         response.setContentType("image/jpeg");

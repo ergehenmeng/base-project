@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author 二哥很猛
  * @date 2019/7/10 17:32
  */
-public class CaptchaProducer extends DefaultTextCreator {
+public class TextCaptchaProducer extends DefaultTextCreator {
 
     @Override
     public String getText() {
