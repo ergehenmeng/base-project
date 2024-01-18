@@ -1,7 +1,9 @@
 package com.eghm.service.business.handler.state.impl.ticket;
 
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.TicketEvent;
+import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.VisitorState;
 import com.eghm.model.Order;
@@ -29,14 +31,17 @@ public class TicketOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHan
 
     private final OrderVisitorService orderVisitorService;
 
+    private final OrderMQService orderMQService;
+
     public TicketOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                           AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
                                           TicketOrderService ticketOrderService, ScenicTicketService scenicTicketService,
-                                          OrderVisitorService orderVisitorService) {
+                                          OrderVisitorService orderVisitorService, OrderMQService orderMQService) {
         super(orderService, orderRefundLogService, aggregatePayService, verifyLogService);
         this.ticketOrderService = ticketOrderService;
         this.scenicTicketService = scenicTicketService;
         this.orderVisitorService = orderVisitorService;
+        this.orderMQService = orderMQService;
     }
 
     @Override
@@ -50,6 +55,9 @@ public class TicketOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHan
             } catch (Exception e) {
                 log.error("门票退款成功,但更新库存失败 [{}] [{}] ", context, refundLog.getNum(), e);
             }
+        }
+        if (order.getState() == OrderState.COMPLETE) {
+            orderMQService.sendOrderCompleteMessage(ExchangeQueue.TICKET_COMPLETE, order.getOrderNo());
         }
     }
 

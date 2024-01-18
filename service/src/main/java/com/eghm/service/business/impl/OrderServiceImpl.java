@@ -26,6 +26,7 @@ import com.eghm.mapper.OrderMapper;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
 import com.eghm.service.common.JsonService;
+import com.eghm.service.mq.service.MessageService;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
@@ -81,6 +82,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private final JsonService jsonService;
 
     private final SysAreaService sysAreaService;
+
+    private final MessageService messageService;
 
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType) {
@@ -470,6 +473,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         Long count = itemOrderService.countWaitDelivery(request.getOrderNo());
         if (count == 0) {
             order.setState(OrderState.WAIT_RECEIVE);
+            messageService.sendDelay(ExchangeQueue.ITEM_SIPPING, order.getOrderNo(), 14);
         } else {
             order.setState(OrderState.PARTIAL_DELIVERY);
         }
@@ -493,6 +497,26 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         vo.setMobile(order.getMobile());
         vo.setDetailAddress(sysAreaService.parseArea(order.getProvinceId(), order.getCityId(), order.getCountyId()) + order.getDetailAddress());
         return vo;
+    }
+
+    @Override
+    public void confirmReceipt(String orderNo, Long memberId) {
+        Order order = this.getByOrderNo(orderNo);
+        if (memberId != null && memberId.equals(order.getMemberId())) {
+            log.error("操作了不属于自己的确认订单 [{}] [{}]", orderNo, memberId);
+            throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
+        }
+        if (order.getState() != OrderState.WAIT_RECEIVE) {
+            log.error("订单状态已发生变化,不支持确认收货 [{}] [{}] [{}]", memberId, orderNo, order.getState());
+            if (memberId == null) {
+                return;
+            }
+            throw new BusinessException(ErrorCode.ORDER_PAID);
+        }
+        order.setCompleteTime(LocalDateTime.now());
+        order.setState(OrderState.COMPLETE);
+        baseMapper.updateById(order);
+        orderMQService.sendOrderCompleteMessage(ExchangeQueue.ITEM_COMPLETE, order.getOrderNo());
     }
 
     /**

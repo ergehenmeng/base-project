@@ -291,6 +291,14 @@ public class RabbitListenerHandler {
     }
 
     /**
+     * 零售 自动确认收货
+     */
+    @RabbitListener(queues = QueueConstant.ITEM_SIPPING_QUEUE)
+    public void itemSipping(String orderNo, Message message, Channel channel) throws IOException {
+        processMessageAck(orderNo, message, channel, s -> orderService.confirmReceipt(orderNo, null));
+    }
+
+    /**
      * 处理MQ中消息,并手动确认,并将结果放入缓存方便客户端查询
      *
      * @param msg      消息

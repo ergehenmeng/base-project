@@ -1,7 +1,9 @@
 package com.eghm.service.business.handler.state.impl.homestay;
 
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
+import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.HomestayOrder;
 import com.eghm.model.Order;
@@ -26,12 +28,16 @@ public class HomestayOrderRefundNotifyHandler extends AbstractOrderRefundNotifyH
 
     private final HomestayRoomConfigService homestayRoomConfigService;
 
+    private final OrderMQService orderMQService;
+
     public HomestayOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                             AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
-                                            HomestayOrderService homestayOrderService, HomestayRoomConfigService homestayRoomConfigService) {
+                                            HomestayOrderService homestayOrderService, HomestayRoomConfigService homestayRoomConfigService,
+                                            OrderMQService orderMQService) {
         super(orderService, orderRefundLogService, aggregatePayService, verifyLogService);
         this.homestayOrderService = homestayOrderService;
         this.homestayRoomConfigService = homestayRoomConfigService;
+        this.orderMQService = orderMQService;
     }
 
     @Override
@@ -45,6 +51,9 @@ public class HomestayOrderRefundNotifyHandler extends AbstractOrderRefundNotifyH
             } catch (Exception e) {
                 log.error("线路退款成功,但更新库存失败 [{}] [{}] ", dto, refundLog.getNum(), e);
             }
+        }
+        if (order.getState() == OrderState.COMPLETE) {
+            orderMQService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE, order.getOrderNo());
         }
     }
 

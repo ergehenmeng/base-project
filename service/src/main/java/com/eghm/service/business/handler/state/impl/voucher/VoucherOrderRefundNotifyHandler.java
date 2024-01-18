@@ -1,7 +1,9 @@
 package com.eghm.service.business.handler.state.impl.voucher;
 
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.RestaurantEvent;
+import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
@@ -26,12 +28,16 @@ public class VoucherOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHa
 
     private final VoucherOrderService voucherOrderService;
 
+    private final OrderMQService orderMQService;
+
     public VoucherOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                            AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
-                                           VoucherService voucherService, VoucherOrderService voucherOrderService) {
+                                           VoucherService voucherService, VoucherOrderService voucherOrderService,
+                                           OrderMQService orderMQService) {
         super(orderService, orderRefundLogService, aggregatePayService, verifyLogService);
         this.voucherService = voucherService;
         this.voucherOrderService = voucherOrderService;
+        this.orderMQService = orderMQService;
     }
 
     @Override
@@ -44,6 +50,9 @@ public class VoucherOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHa
             } catch (Exception e) {
                 log.error("餐饮券退款成功,但更新库存失败 [{}] [{}] ", dto, refundLog.getNum(), e);
             }
+        }
+        if (order.getState() == OrderState.COMPLETE) {
+            orderMQService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE, order.getOrderNo());
         }
     }
 

@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.order.item.ConfirmReceiptDTO;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
@@ -13,10 +14,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -72,5 +70,13 @@ public class ItemOrderController {
     public RespBody<ItemOrderSnapshotVO> snapshot(@RequestParam("orderId") Long orderId) {
         ItemOrderSnapshotVO detail = itemOrderService.getSnapshot(orderId, ApiHolder.getMemberId());
         return RespBody.success(detail);
+    }
+
+    @PostMapping("/confirmReceipt")
+    @ApiOperation("确认收货")
+    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
+    public RespBody<Void> confirmReceipt(@Validated @RequestBody ConfirmReceiptDTO dto) {
+        orderService.confirmReceipt(dto.getOrderNo(), ApiHolder.getMemberId());
+        return RespBody.success();
     }
 }

@@ -1,7 +1,9 @@
 package com.eghm.service.business.handler.state.impl.line;
 
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.LineEvent;
+import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.VisitorState;
 import com.eghm.model.LineOrder;
@@ -29,14 +31,17 @@ public class LineOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
 
     private final OrderVisitorService orderVisitorService;
 
+    private final OrderMQService orderMQService;
+
     public LineOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                         AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
                                         LineOrderService lineOrderService, LineConfigService lineConfigService,
-                                        OrderVisitorService orderVisitorService) {
+                                        OrderVisitorService orderVisitorService, OrderMQService orderMQService) {
         super(orderService, orderRefundLogService, aggregatePayService, verifyLogService);
         this.lineOrderService = lineOrderService;
         this.lineConfigService = lineConfigService;
         this.orderVisitorService = orderVisitorService;
+        this.orderMQService = orderMQService;
     }
 
     @Override
@@ -50,6 +55,9 @@ public class LineOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
             } catch (Exception e) {
                 log.error("线路退款成功,但更新库存失败 [{}] [{}] ", dto, refundLog.getNum(), e);
             }
+        }
+        if (order.getState() == OrderState.COMPLETE) {
+            orderMQService.sendOrderCompleteMessage(ExchangeQueue.LINE_COMPLETE, order.getOrderNo());
         }
     }
 

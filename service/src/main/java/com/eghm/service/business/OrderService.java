@@ -252,4 +252,12 @@ public interface OrderService extends IService<Order> {
      * @return vo
      */
     ExpressDetailVO expressDetail(Long id);
+
+    /**
+     * 确认收货(零售)
+     *
+     * @param orderNo 订单号
+     * @param memberId 用户id
+     */
+    void confirmReceipt(String orderNo, Long memberId);
 }

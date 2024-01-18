@@ -8,6 +8,7 @@ import com.eghm.service.business.OrderMQService;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,8 +17,10 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @date 2022/7/28
  */
-@Service("orderMQService")
+
+@Slf4j
 @AllArgsConstructor
+@Service("orderMQService")
 public class OrderMQServiceImpl implements OrderMQService {
 
     private final MessageService rabbitService;
@@ -27,6 +30,7 @@ public class OrderMQServiceImpl implements OrderMQService {
     @Override
     public void sendOrderExpireMessage(ExchangeQueue exchangeQueue, String orderNo) {
         int expireTime = sysConfigApi.getInt(ConfigConstant.ORDER_EXPIRE_TIME);
+        log.info("订单过期延迟队列发送消息 [{}] [{}]", exchangeQueue, orderNo);
         rabbitService.sendDelay(exchangeQueue, orderNo, expireTime);
     }
 
@@ -39,6 +43,7 @@ public class OrderMQServiceImpl implements OrderMQService {
     @Override
     public void sendOrderCompleteMessage(ExchangeQueue exchangeQueue, String orderNo) {
         int completeTime = sysConfigApi.getInt(ConfigConstant.ORDER_COMPLETE_TIME);
+        log.info("订单完成延迟队列发送消息 [{}] [{}]", exchangeQueue, orderNo);
         rabbitService.sendDelay(exchangeQueue, orderNo, completeTime);
     }
 }

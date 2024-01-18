@@ -40,27 +40,27 @@ public enum ExchangeQueue {
     LINE_PAY_EXPIRE("line_pay_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.LINE_PAY_EXPIRE_QUEUE}, "", true),
 
     /**
-     * 商品订单发货后自动完成 延迟队列
+     * 商品确认收货
      */
     ITEM_COMPLETE("item_complete_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.ITEM_COMPLETE_QUEUE}, "", false),
 
     /**
-     * 门票自动完成 延迟队列
+     * 门票核销完成
      */
     TICKET_COMPLETE("ticket_complete_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.TICKET_COMPLETE_QUEUE}, "", false),
 
     /**
-     * 线路自动完成 延迟队列
+     * 线路核销完成
      */
     LINE_COMPLETE("line_complete_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.LINE_COMPLETE_QUEUE}, "", false),
 
     /**
-     * 餐饮自动完成 延迟队列
+     * 餐饮核销完成
      */
     RESTAURANT_COMPLETE("restaurant_complete_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.RESTAURANT_COMPLETE_QUEUE}, "", false),
 
     /**
-     * 民宿自动完成 延迟队列
+     * 民宿核销完成
      */
     HOMESTAY_COMPLETE("homestay_complete_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.HOMESTAY_COMPLETE_QUEUE}, "", false),
 
@@ -114,6 +114,10 @@ public enum ExchangeQueue {
      */
     PRODUCT_SCORE("product_score_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.PRODUCT_SCORE_QUEUE}, "", false),
 
+    /**
+     * 商品订单发货后 自动确认收货
+     */
+    ITEM_SIPPING("item_sipping_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.ITEM_SIPPING_QUEUE}, "", true),
     ;
 
     /**

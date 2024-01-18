@@ -113,4 +113,8 @@ public class QueueConstant {
      */
     public static final String PRODUCT_SCORE_QUEUE = "product_score_queue";
 
+    /**
+     * 零售发货后,14日自动确认收货
+     */
+    public static final String ITEM_SIPPING_QUEUE = "item_sipping_queue";
 }
