@@ -660,6 +660,8 @@ DROP TABLE IF EXISTS `line_order`;
 CREATE TABLE `line_order`
 (
     `id`                bigint(20) NOT NULL COMMENT '主键',
+    `title`             varchar(50)   default null comment '线路名称',
+    `member_id`         bigint(20)    default null comment '订单所属用户',
     `line_id`           bigint(20)    DEFAULT NULL COMMENT '线路id',
     `line_config_id`    bigint(20)    DEFAULT NULL COMMENT '线路配置id',
     `order_no`          varchar(30)   DEFAULT NULL COMMENT '订单编号',
@@ -672,6 +674,7 @@ CREATE TABLE `line_order`
     `advance_day`       tinyint(2)    DEFAULT NULL COMMENT '提前天数',
     `introduce`         longtext COMMENT '商品介绍',
     `line_price`        int(10)       DEFAULT '0' COMMENT '划线价',
+    `sale_price`        int(10)       DEFAULT '0' COMMENT '销售价',
     `create_time`       datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`       datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`           bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',

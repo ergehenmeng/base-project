@@ -5,10 +5,7 @@ import com.eghm.dto.business.order.line.LineOrderQueryDTO;
 import com.eghm.dto.business.order.line.LineOrderQueryRequest;
 import com.eghm.model.LineOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
-import com.eghm.vo.business.order.line.LineOrderDetailResponse;
-import com.eghm.vo.business.order.line.LineOrderDetailVO;
-import com.eghm.vo.business.order.line.LineOrderResponse;
-import com.eghm.vo.business.order.line.LineOrderVO;
+import com.eghm.vo.business.order.line.*;
 
 import java.util.List;
 
@@ -82,4 +79,13 @@ public interface LineOrderService {
      * @return 订单详情
      */
     LineOrderDetailResponse detail(String orderNo);
+
+    /**
+     * 查询线路订单快照详情
+     *
+     * @param orderNo 订单编号
+     * @param memberId 会员id
+     * @return 订单快照详情
+     */
+    LineOrderSnapshotDetailVO snapshotDetail(String orderNo, Long memberId);
 }

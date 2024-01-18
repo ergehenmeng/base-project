@@ -139,4 +139,25 @@
         </if>
     </select>
 
+    <select id="snapshotDetail" resultType="com.eghm.vo.business.order.line.LineOrderSnapshotDetailVO">
+        select
+            r.cover_url,
+            r.title,
+            t.travel_agency_id,
+            r.logo_url as travelLogoUrl,
+            r.title as travelName,
+            t.start_province_id,
+            t.start_city_id,
+            t.duration,
+            t.advance_day,
+            t.line_price,
+            t.sale_price,
+            t.introduce
+        from line_order t
+        left join travel_agency r on r.id = t.travel_agency_id
+        where t.deleted = false and t.order_no = #{orderNo}
+        <if test="merchantId != null">
+            and t.member_id = #{merchantId}
+        </if>
+    </select>
 </mapper>

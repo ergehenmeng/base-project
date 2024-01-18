@@ -5,6 +5,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.LineOrderService;
 import com.eghm.vo.business.order.line.LineOrderDetailVO;
+import com.eghm.vo.business.order.line.LineOrderSnapshotDetailVO;
 import com.eghm.vo.business.order.line.LineOrderVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
@@ -47,4 +48,13 @@ public class LineOrderController {
         LineOrderDetailVO detail = lineOrderService.getDetail(orderNo, ApiHolder.getMemberId());
         return RespBody.success(detail);
     }
+
+    @GetMapping("/snapshotDetail")
+    @ApiOperation("线路订单快照详情")
+    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
+    public RespBody<LineOrderSnapshotDetailVO> snapshotDetail(@RequestParam("orderNo") String orderNo) {
+        LineOrderSnapshotDetailVO detail = lineOrderService.snapshotDetail(orderNo, ApiHolder.getMemberId());
+        return RespBody.success(detail);
+    }
+
 }

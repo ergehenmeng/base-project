@@ -256,7 +256,9 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 
     @Override
     public ItemOrderSnapshotVO getSnapshot(Long orderId, Long memberId) {
-        return itemOrderMapper.getSnapshot(orderId, memberId);
+        ItemOrderSnapshotVO snapshot = itemOrderMapper.getSnapshot(orderId, memberId);
+        AssertUtil.assertOrderNotNull(snapshot, orderId, memberId);
+        return snapshot;
     }
 
     /**

@@ -8,6 +8,7 @@ import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.line.LineOrderQueryDTO;
 import com.eghm.dto.business.order.line.LineOrderQueryRequest;
 import com.eghm.mapper.LineOrderMapper;
+import com.eghm.mapper.LineOrderSnapshotMapper;
 import com.eghm.model.LineOrder;
 import com.eghm.model.OrderVisitor;
 import com.eghm.service.business.LineOrderService;
@@ -18,10 +19,7 @@ import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
-import com.eghm.vo.business.order.line.LineOrderDetailResponse;
-import com.eghm.vo.business.order.line.LineOrderDetailVO;
-import com.eghm.vo.business.order.line.LineOrderResponse;
-import com.eghm.vo.business.order.line.LineOrderVO;
+import com.eghm.vo.business.order.line.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -44,6 +42,8 @@ public class LineOrderServiceImpl implements LineOrderService {
     private final OrderService orderService;
 
     private final SysAreaService sysAreaService;
+
+    private final LineOrderSnapshotMapper lineOrderSnapshotMapper;
 
     @Override
     public Page<LineOrderResponse> listPage(LineOrderQueryRequest request) {
@@ -98,6 +98,15 @@ public class LineOrderServiceImpl implements LineOrderService {
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
         detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
         detail.setStartProvinceCity(sysAreaService.parseProvinceCity(detail.getStartProvinceId(), detail.getStartCityId()));
+        return detail;
+    }
+
+    @Override
+    public LineOrderSnapshotDetailVO snapshotDetail(String orderNo, Long memberId) {
+        LineOrderSnapshotDetailVO detail = lineOrderMapper.snapshotDetail(orderNo, memberId);
+        AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
+        List<LineOrderSnapshotVO> voList = lineOrderSnapshotMapper.getList(orderNo);
+        detail.setConfigList(voList);
         return detail;
     }
 }

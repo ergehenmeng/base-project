@@ -130,9 +130,11 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         lineConfigService.updateStock(payload.getConfig().getId(), -order.getNum());
         LineOrder lineOrder = DataUtil.copy(payload.getLine(), LineOrder.class, "id");
         lineOrder.setLineId(payload.getLine().getId());
+        lineOrder.setMemberId(context.getMemberId());
         lineOrder.setOrderNo(order.getOrderNo());
         lineOrder.setLineConfigId(payload.getConfig().getId());
         lineOrder.setLinePrice(payload.getConfig().getLinePrice());
+        lineOrder.setSalePrice(payload.getConfig().getSalePrice());
         lineOrder.setVisitDate(payload.getConfig().getConfigDate());
         lineOrderService.insert(lineOrder);
         lineOrderSnapshotService.insert(payload.getLine().getId(), order.getOrderNo(), payload.getDayList());

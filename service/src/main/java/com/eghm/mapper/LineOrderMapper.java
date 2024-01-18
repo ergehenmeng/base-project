@@ -6,10 +6,7 @@ import com.eghm.dto.business.order.line.LineOrderQueryDTO;
 import com.eghm.dto.business.order.line.LineOrderQueryRequest;
 import com.eghm.model.LineOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
-import com.eghm.vo.business.order.line.LineOrderDetailResponse;
-import com.eghm.vo.business.order.line.LineOrderDetailVO;
-import com.eghm.vo.business.order.line.LineOrderResponse;
-import com.eghm.vo.business.order.line.LineOrderVO;
+import com.eghm.vo.business.order.line.*;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -66,4 +63,13 @@ public interface LineOrderMapper extends BaseMapper<LineOrder> {
      * @return 订单信息
      */
     LineOrderDetailResponse detail(@Param("orderNo") String orderNo, @Param("merchantId") Long merchantId);
+
+    /**
+     * 查询线路订单快照详情
+     *
+     * @param orderNo  订单编号
+     * @param memberId 会员id
+     * @return 订单快照信息
+     */
+    LineOrderSnapshotDetailVO snapshotDetail(@Param("orderNo") String orderNo, @Param("memberId") Long memberId);
 }
