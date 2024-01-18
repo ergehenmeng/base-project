@@ -26,6 +26,12 @@ public class VoucherOrder extends BaseEntity {
     @ApiModelProperty(value = "餐饮券id")
     private Long voucherId;
 
+    @ApiModelProperty("餐饮券名称")
+    private String title;
+
+    @ApiModelProperty(value = "用户id")
+    private Long memberId;
+
     @ApiModelProperty(value = "订单编号")
     private String orderNo;
 

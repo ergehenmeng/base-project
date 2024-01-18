@@ -115,6 +115,7 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
         voucherService.updateStock(context.getVoucherId(), -context.getNum());
         VoucherOrder voucherOrder = DataUtil.copy(payload.getVoucher(), VoucherOrder.class, "id");
         voucherOrder.setOrderNo(order.getOrderNo());
+        voucherOrder.setMemberId(context.getMemberId());
         voucherOrder.setVoucherId(context.getVoucherId());
         voucherOrderService.insert(voucherOrder);
         context.setOrderNo(order.getOrderNo());
