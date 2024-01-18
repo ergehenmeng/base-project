@@ -6,10 +6,7 @@ import com.eghm.dto.business.order.homestay.HomestayOrderQueryDTO;
 import com.eghm.dto.business.order.homestay.HomestayOrderQueryRequest;
 import com.eghm.model.HomestayOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
-import com.eghm.vo.business.order.homestay.HomestayOrderDetailResponse;
-import com.eghm.vo.business.order.homestay.HomestayOrderDetailVO;
-import com.eghm.vo.business.order.homestay.HomestayOrderResponse;
-import com.eghm.vo.business.order.homestay.HomestayOrderVO;
+import com.eghm.vo.business.order.homestay.*;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -66,4 +63,13 @@ public interface HomestayOrderMapper extends BaseMapper<HomestayOrder> {
      * @return 订单详情
      */
     HomestayOrderDetailResponse detail(@Param("orderNo") String orderNo, @Param("merchantId") Long merchantId);
+
+    /**
+     * 查询民宿订单快照详情
+     *
+     * @param orderNo 订单编号
+     * @param memberId 用户ID
+     * @return 订单快照详情
+     */
+    HomestayOrderSnapshotVO snapshotDetail(@Param("orderNo") String orderNo, @Param("memberId") Long memberId);
 }

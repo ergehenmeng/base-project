@@ -145,4 +145,28 @@
             and r.merchant_id = #{merchantId}
         </if>
     </select>
+
+    <select id="snapshotDetail" resultType="com.eghm.vo.business.order.homestay.HomestayOrderSnapshotVO">
+        select
+            t.cover_url,
+            t.title,
+            t.homestay_id,
+            t.room,
+            t.hall,
+            t.kitchen,
+            t.dimension,
+            t.resident,
+            t.bed,
+            t.room_type,
+            t.introduce,
+            r.title as homestayName,
+            r.level as homestayLevel
+        from homestay_order t
+        left join homestay r on t.homestay_id = r.id
+        where t.deleted = false and t.order_no = #{orderNo}
+        <if test="memberId != null">
+            and t.member_id = #{memberId}
+        </if>
+    </select>
+
 </mapper>

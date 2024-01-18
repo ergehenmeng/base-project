@@ -49,10 +49,10 @@ public class LineOrderController {
         return RespBody.success(detail);
     }
 
-    @GetMapping("/snapshotDetail")
+    @GetMapping("/snapshot")
     @ApiOperation("线路订单快照详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
-    public RespBody<LineOrderSnapshotDetailVO> snapshotDetail(@RequestParam("orderNo") String orderNo) {
+    public RespBody<LineOrderSnapshotDetailVO> snapshot(@RequestParam("orderNo") String orderNo) {
         LineOrderSnapshotDetailVO detail = lineOrderService.snapshotDetail(orderNo, ApiHolder.getMemberId());
         return RespBody.success(detail);
     }

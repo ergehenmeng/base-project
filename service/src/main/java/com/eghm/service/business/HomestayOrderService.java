@@ -5,10 +5,7 @@ import com.eghm.dto.business.order.homestay.HomestayOrderQueryDTO;
 import com.eghm.dto.business.order.homestay.HomestayOrderQueryRequest;
 import com.eghm.model.HomestayOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
-import com.eghm.vo.business.order.homestay.HomestayOrderDetailResponse;
-import com.eghm.vo.business.order.homestay.HomestayOrderDetailVO;
-import com.eghm.vo.business.order.homestay.HomestayOrderResponse;
-import com.eghm.vo.business.order.homestay.HomestayOrderVO;
+import com.eghm.vo.business.order.homestay.*;
 
 import java.util.List;
 
@@ -82,5 +79,14 @@ public interface HomestayOrderService {
      * @return 民宿订单详情
      */
     HomestayOrderDetailResponse detail(String orderNo);
+
+    /**
+     * 查询订单快照
+     *
+     * @param orderNo 订单编号
+     * @param memberId 会员id
+     * @return 民宿订单快照
+     */
+    HomestayOrderSnapshotVO snapshotDetail(String orderNo, Long memberId);
 
 }

@@ -1,12 +1,11 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.dto.business.order.homestay.HomestayOrderConfirmRequest;
 import com.eghm.dto.business.order.homestay.HomestayOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.HomestayOrderService;
-import com.eghm.service.business.OrderProxyService;
 import com.eghm.vo.business.order.homestay.HomestayOrderDetailVO;
+import com.eghm.vo.business.order.homestay.HomestayOrderSnapshotVO;
 import com.eghm.vo.business.order.homestay.HomestayOrderVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
@@ -14,7 +13,10 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -30,8 +32,6 @@ import java.util.List;
 public class HomestayOrderController {
 
     private final HomestayOrderService homestayOrderService;
-
-    private final OrderProxyService orderProxyService;
 
     @GetMapping("/listPage")
     @ApiOperation("民宿订单列表")
@@ -49,11 +49,11 @@ public class HomestayOrderController {
         return RespBody.success(detail);
     }
 
-    @PostMapping("/confirm")
-    @ApiOperation("确认订单")
-    public RespBody<Void> confirm(@RequestBody @Validated HomestayOrderConfirmRequest request) {
-        orderProxyService.confirm(request);
-        return RespBody.success();
+    @GetMapping("/snapshot")
+    @ApiOperation("民宿快照详情")
+    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
+    public RespBody<HomestayOrderSnapshotVO> snapshot(@RequestParam("orderNo") String orderNo) {
+        HomestayOrderSnapshotVO detail = homestayOrderService.snapshotDetail(orderNo, ApiHolder.getMemberId());
+        return RespBody.success(detail);
     }
-
 }

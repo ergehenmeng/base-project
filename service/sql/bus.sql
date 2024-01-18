@@ -547,8 +547,10 @@ CREATE TABLE `homestay_order`
 (
     `id`            bigint(20) NOT NULL COMMENT '主键',
     `order_no`      varchar(30)   DEFAULT NULL COMMENT '订单编号',
+    `title`         varchar(30)   DEFAULT NULL COMMENT '房型名称(冗余字段)',
     `homestay_id`   bigint(20)    DEFAULT NULL COMMENT '酒店id(冗余字段)',
     `room_id`       bigint(20)    DEFAULT NULL COMMENT '房型id',
+    `member_id`     bigint(20)    DEFAULT NULL COMMENT '会员ID(冗余字段)',
     `confirm_state` tinyint(1)    DEFAULT 0 COMMENT '确认状态 0:待确认 1:确认有房 2:确认无房',
     `start_date`    date          DEFAULT NULL COMMENT '入住开始时间(含)',
     `end_date`      date          DEFAULT NULL COMMENT '入住结束时间(含)',

@@ -27,6 +27,12 @@ public class HomestayOrder extends BaseEntity {
     @ApiModelProperty("订单编号")
     private String orderNo;
 
+    @ApiModelProperty("房型名称(冗余)")
+    private String title;
+
+    @ApiModelProperty("会员id(冗余)")
+    private Long memberId;
+
     @ApiModelProperty(value = "房型id")
     private Long roomId;
 
@@ -40,16 +46,16 @@ public class HomestayOrder extends BaseEntity {
     private LocalDate endDate;
 
     @ApiModelProperty(value = "几室")
-    private Boolean room;
+    private Integer room;
 
     @ApiModelProperty(value = "几厅")
-    private Boolean hall;
+    private Integer hall;
 
     @ApiModelProperty(value = "几厨")
-    private Boolean kitchen;
+    private Integer kitchen;
 
     @ApiModelProperty(value = "卫生间数")
-    private Boolean washroom;
+    private Integer washroom;
 
     @ApiModelProperty(value = "面积")
     private Integer dimension;
@@ -58,10 +64,10 @@ public class HomestayOrder extends BaseEntity {
     private Integer resident;
 
     @ApiModelProperty(value = "床数")
-    private Boolean bed;
+    private Integer bed;
 
     @ApiModelProperty(value = "房型类型 1:整租 2:单间 3:合租")
-    private Boolean roomType;
+    private Integer roomType;
 
     @ApiModelProperty(value = "封面图片")
     private String coverUrl;

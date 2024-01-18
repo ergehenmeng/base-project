@@ -131,6 +131,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         homestayOrder.setStartDate(context.getStartDate());
         homestayOrder.setEndDate(context.getEndDate());
         homestayOrder.setRoomId(context.getRoomId());
+        homestayOrder.setMemberId(context.getMemberId());
         homestayOrderService.insert(homestayOrder);
         homestayOrderSnapshotService.orderSnapshot(order.getOrderNo(), payload.getConfigList());
         context.setOrderNo(order.getOrderNo());

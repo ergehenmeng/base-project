@@ -17,10 +17,7 @@ import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
-import com.eghm.vo.business.order.homestay.HomestayOrderDetailResponse;
-import com.eghm.vo.business.order.homestay.HomestayOrderDetailVO;
-import com.eghm.vo.business.order.homestay.HomestayOrderResponse;
-import com.eghm.vo.business.order.homestay.HomestayOrderVO;
+import com.eghm.vo.business.order.homestay.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -97,4 +94,10 @@ public class HomestayOrderServiceImpl implements HomestayOrderService {
         return detail;
     }
 
+    @Override
+    public HomestayOrderSnapshotVO snapshotDetail(String orderNo, Long memberId) {
+        HomestayOrderSnapshotVO snapshot = homestayOrderMapper.snapshotDetail(orderNo, memberId);
+        AssertUtil.assertOrderNotNull(snapshot, orderNo, memberId);
+        return snapshot;
+    }
 }

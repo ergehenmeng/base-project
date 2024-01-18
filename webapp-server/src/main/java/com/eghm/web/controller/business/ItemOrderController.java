@@ -66,10 +66,10 @@ public class ItemOrderController {
         return RespBody.success(detailList);
     }
 
-    @GetMapping("/snapshotDetail")
+    @GetMapping("/snapshot")
     @ApiOperation("快照详情")
     @ApiImplicitParam(name = "orderId", value = "订单id", required = true)
-    public RespBody<ItemOrderSnapshotVO> snapshotDetail(@RequestParam("orderId") Long orderId) {
+    public RespBody<ItemOrderSnapshotVO> snapshot(@RequestParam("orderId") Long orderId) {
         ItemOrderSnapshotVO detail = itemOrderService.getSnapshot(orderId, ApiHolder.getMemberId());
         return RespBody.success(detail);
     }
