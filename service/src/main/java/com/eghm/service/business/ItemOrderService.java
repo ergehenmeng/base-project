@@ -70,10 +70,11 @@ public interface ItemOrderService {
      * 批量添加子订单信息
      *
      * @param orderNo       订单号
+     * @param memberId      用户id
      * @param packageList   商品信息
      * @param skuExpressMap 快递费
      */
-    void insert(String orderNo, List<OrderPackage> packageList, Map<Long, Integer> skuExpressMap);
+    void insert(String orderNo, Long memberId, List<OrderPackage> packageList, Map<Long, Integer> skuExpressMap);
 
     /**
      * 查询订单信息
@@ -169,4 +170,13 @@ public interface ItemOrderService {
      * @param list list
      */
     void updateBatchById(List<ItemOrder> list);
+
+    /**
+     * 获取订单快照
+     *
+     * @param orderId 商品订单id
+     * @param memberId 用户ID
+     * @return 快照信息
+     */
+    ItemOrderSnapshotVO getSnapshot(Long orderId, Long memberId);
 }

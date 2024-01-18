@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.state.impl.item;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
@@ -40,6 +41,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     private final ItemService itemService;
 
     private final ItemSkuService itemSkuService;
+
+    private final ItemSpecService itemSpecService;
 
     private final ItemStoreService itemStoreService;
 
@@ -90,7 +93,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
             Map<Long, Integer> skuExpressMap = this.calcExpressFee(entry.getKey(), payload.getCountyId(), entry.getValue());
             String orderNo = ProductType.ITEM.generateOrderNo();
-            itemOrderService.insert(orderNo, entry.getValue(), skuExpressMap);
+            itemOrderService.insert(orderNo, context.getMemberId(), entry.getValue(), skuExpressMap);
 
             Map<Long, Integer> skuNumMap = entry.getValue().stream().collect(Collectors.toMap(OrderPackage::getSkuId, aPackage -> -aPackage.getNum()));
             itemSkuService.updateStock(skuNumMap);
@@ -200,6 +203,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         Map<Long, ItemSku> skuMap = itemSkuService.getByIdShelveMap(skuIds);
         List<Long> storeIds = itemMap.values().stream().map(Item::getStoreId).distinct().collect(Collectors.toList());
         Map<Long, ItemStore> storeMap = itemStoreService.selectByIdShelveMap(storeIds);
+        Map<Long, ItemSpec> specMap = itemSpecService.getByIdMap(itemIds);
 
         List<OrderPackage> packageList = new ArrayList<>();
         OrderPackage orderPackage;
@@ -210,6 +214,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             orderPackage.setNum(item.getNum());
             orderPackage.setItemId(item.getItemId());
             orderPackage.setSkuId(item.getSkuId());
+            orderPackage.setSpec(specMap.get(this.getSpuId(orderPackage.getSku().getSpecId())));
             orderPackage.setStoreId(orderPackage.getItem().getStoreId());
             orderPackage.setItemStore(storeMap.get(orderPackage.getStoreId()));
             packageList.add(orderPackage);
@@ -254,6 +259,18 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      */
     private Integer getNum(List<OrderPackage> packageList) {
         return packageList.stream().mapToInt(OrderPackage::getNum).sum();
+    }
+
+    /**
+     * 查询sku中的一级spuId
+     * @param spuList spuList,多个逗号分隔
+     * @return 列表
+     */
+    private Long getSpuId(String spuList) {
+        if (StrUtil.isNotBlank(spuList)) {
+            return Long.parseLong(spuList.split(CommonConstant.DOT_SPLIT)[0]);
+        }
+        return null;
     }
 
     /**

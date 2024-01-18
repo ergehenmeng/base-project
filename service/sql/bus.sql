@@ -703,6 +703,7 @@ CREATE TABLE `item_order`
     `item_id`        bigint(20) COMMENT '商品id',
     `title`          varchar(50) comment '商品名称',
     `order_no`       varchar(30) COMMENT '订单编号',
+    `member_id`      bigint(20) COMMENT '订单所属用户ID(冗余)',
     `num`            smallint(4) COMMENT '订单数量',
     `refund_num`     smallint(4)   default '0' COMMENT '已退款数量(含退款中)',
     `refund_state`   tinyint(1)    DEFAULT '0' COMMENT '退款状态 0: 初始状态 1:已退款 2:部分退款',

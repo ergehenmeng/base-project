@@ -15,10 +15,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -74,6 +72,14 @@ public class ItemSpecServiceImpl implements ItemSpecService {
         LambdaQueryWrapper<ItemSpec> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ItemSpec::getItemId, itemId);
         return itemSpecMapper.selectList(wrapper);
+    }
+
+    @Override
+    public Map<Long, ItemSpec> getByIdMap(Set<Long> itemIds) {
+        LambdaQueryWrapper<ItemSpec> wrapper = Wrappers.lambdaQuery();
+        wrapper.in(ItemSpec::getItemId, itemIds);
+        List<ItemSpec> specList = itemSpecMapper.selectList(wrapper);
+        return specList.stream().collect(Collectors.toMap(ItemSpec::getId, Function.identity()));
     }
 
     /**

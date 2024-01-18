@@ -6,10 +6,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderService;
-import com.eghm.vo.business.order.item.ExpressDetailVO;
-import com.eghm.vo.business.order.item.ItemOrderDetailVO;
-import com.eghm.vo.business.order.item.ItemOrderListVO;
-import com.eghm.vo.business.order.item.ItemOrderVO;
+import com.eghm.vo.business.order.item.*;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -71,10 +68,9 @@ public class ItemOrderController {
 
     @GetMapping("/snapshotDetail")
     @ApiOperation("快照详情")
-    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
-    public RespBody<List<ItemOrderListVO>> snapshotDetail(@RequestParam("orderNo") String orderNo) {
-        // TODO 待完善
-        List<ItemOrderListVO> detailList = itemOrderService.getItemList(orderNo);
-        return RespBody.success(detailList);
+    @ApiImplicitParam(name = "orderId", value = "订单id", required = true)
+    public RespBody<ItemOrderSnapshotVO> snapshotDetail(@RequestParam("orderId") Long orderId) {
+        ItemOrderSnapshotVO detail = itemOrderService.getSnapshot(orderId, ApiHolder.getMemberId());
+        return RespBody.success(detail);
     }
 }

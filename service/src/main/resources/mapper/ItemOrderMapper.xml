@@ -167,6 +167,29 @@
         left join item_order t on s.item_order_id = t.id where t.order_no = #{orderNo} and t.deleted = false
     </select>
 
+    <select id="getSnapshot" resultType="com.eghm.vo.business.order.item.ItemOrderSnapshotVO">
+        select
+            t.order_no,
+            t.store_id,
+            t.depict,
+            t.cover_url,
+            t.sku_cover_url,
+            t.sku_title,
+            t.sale_price,
+            t.line_price,
+            t.purchase_notes,
+            t.delivery_type,
+            t.introduce,
+            r.title as storeName,
+            r.logo_url as storeLogoUrl
+        from item_order t
+        left join item_store r on t.store_id = r.id
+        where t.id = #{orderId}
+        <if test="memberId != null">
+            and t.member_id = #{memberId}
+        </if>
+    </select>
+
     <resultMap id="shippedMap" type="com.eghm.vo.business.order.item.ItemShippedResponse">
         <id property="id" column="id"/>
         <result property="expressNo" column="express_no"/>

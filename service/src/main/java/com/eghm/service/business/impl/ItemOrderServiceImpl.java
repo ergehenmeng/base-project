@@ -17,6 +17,7 @@ import com.eghm.mapper.ItemOrderMapper;
 import com.eghm.mapper.OrderRefundLogMapper;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.ItemSku;
+import com.eghm.model.ItemSpec;
 import com.eghm.service.business.ExpressService;
 import com.eghm.service.business.ItemExpressService;
 import com.eghm.service.business.ItemOrderService;
@@ -114,19 +115,26 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     }
 
     @Override
-    public void insert(String orderNo, List<OrderPackage> packageList, Map<Long, Integer> skuExpressMap) {
+    public void insert(String orderNo, Long memberId, List<OrderPackage> packageList, Map<Long, Integer> skuExpressMap) {
         for (OrderPackage aPackage : packageList) {
             ItemOrder order = DataUtil.copy(aPackage.getItem(), ItemOrder.class, "id");
             BeanUtil.copyProperties(aPackage.getSku(), order, "id");
             order.setSkuTitle(this.getSkuTitle(aPackage.getSku()));
             order.setCoverUrl(aPackage.getItem().getCoverUrl());
             order.setOrderNo(orderNo);
+            order.setMemberId(memberId);
             order.setSkuId(aPackage.getSkuId());
             String skuPic = aPackage.getSku().getSkuPic();
+            // 规格图片优先sku,其次spu,最后item
             if (skuPic != null) {
-                order.setCoverUrl(skuPic);
+                order.setSkuCoverUrl(skuPic);
             } else {
-                order.setCoverUrl(aPackage.getItem().getCoverUrl());
+                ItemSpec spec = aPackage.getSpec();
+                if (spec != null && StrUtil.isNotBlank(spec.getSpecPic())) {
+                    order.setSkuCoverUrl(spec.getSpecPic());
+                } else {
+                    order.setSkuCoverUrl(aPackage.getItem().getCoverUrl());
+                }
             }
             order.setNum(aPackage.getNum());
             order.setDeliveryType(aPackage.getItem().getDeliveryType());
@@ -244,6 +252,11 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     @Override
     public void updateBatchById(List<ItemOrder> list) {
         list.forEach(itemOrderMapper::updateById);
+    }
+
+    @Override
+    public ItemOrderSnapshotVO getSnapshot(Long orderId, Long memberId) {
+        return itemOrderMapper.getSnapshot(orderId, memberId);
     }
 
     /**

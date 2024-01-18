@@ -79,4 +79,13 @@ public interface ItemOrderMapper extends BaseMapper<ItemOrder> {
      * @return 物流及包裹商品信息
      */
     List<ItemShippedResponse> getShippedList(@Param("orderNo") String orderNo);
+
+    /**
+     * 获取快照
+     *
+     * @param orderId 订单id
+     * @param memberId 用户id
+     * @return 快照信息
+     */
+    ItemOrderSnapshotVO getSnapshot(@Param("orderId") Long orderId, @Param("memberId") Long memberId);
 }

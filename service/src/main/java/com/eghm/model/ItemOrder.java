@@ -51,6 +51,9 @@ public class ItemOrder extends BaseEntity {
     @ApiModelProperty(value = "封面图")
     private String coverUrl;
 
+    @ApiModelProperty("订单所属用户ID(冗余)")
+    private Long memberId;
+
     @ApiModelProperty(value = "规格名称")
     private String skuTitle;
 
@@ -60,7 +63,10 @@ public class ItemOrder extends BaseEntity {
     @ApiModelProperty(value = "specId")
     private String specId;
 
-    @ApiModelProperty(value = "封面图")
+    /**
+     * skuPic优先级最高, specPic次之, 商品封面图第一张最低
+     */
+    @ApiModelProperty(value = "sku封面图")
     private String skuCoverUrl;
 
     @ApiModelProperty(value = "销售价格")

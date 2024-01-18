@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class ItemOrderCreateQueueHandler extends ItemOrderCreateHandler {
 
-    public ItemOrderCreateQueueHandler(ItemOrderService itemOrderService, ItemService itemService, ItemSkuService itemSkuService, ItemStoreService itemStoreService, OrderService orderService, OrderMQService orderMQService, MemberAddressService memberAddressService) {
-        super(itemOrderService, itemService, itemSkuService, itemStoreService, orderService, orderMQService, memberAddressService);
+    public ItemOrderCreateQueueHandler(ItemOrderService itemOrderService, ItemService itemService, ItemSkuService itemSkuService, ItemSpecService itemSpecService, ItemStoreService itemStoreService, OrderService orderService, OrderMQService orderMQService, MemberAddressService memberAddressService) {
+        super(itemOrderService, itemService, itemSkuService, itemSpecService, itemStoreService, orderService, orderMQService, memberAddressService);
     }
 
     @Override

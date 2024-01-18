@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.dto;
 
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
+import com.eghm.model.ItemSpec;
 import com.eghm.model.ItemStore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,6 +25,12 @@ public class OrderPackage {
 
     @ApiModelProperty("商品所属店铺id")
     private Long storeId;
+
+    /**
+     * 注意, 单规格时, 该字段为null
+     */
+    @ApiModelProperty("商品一级的spu")
+    private ItemSpec spec;
 
     @ApiModelProperty("产品信息")
     private Item item;

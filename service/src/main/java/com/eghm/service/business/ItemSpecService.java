@@ -6,6 +6,7 @@ import com.eghm.model.ItemSpec;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author 殿小二
@@ -38,4 +39,12 @@ public interface ItemSpecService {
      * @return spec
      */
     List<ItemSpec> getByItemId(Long itemId);
+
+    /**
+     * 查询spu信息 以map显示
+     *
+     * @param itemIds 商品信息
+     * @return 商品spu信息
+     */
+    Map<Long, ItemSpec> getByIdMap(Set<Long> itemIds);
 }

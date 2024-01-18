@@ -24,7 +24,7 @@ public class ItemSpec extends BaseEntity {
     /**
      * 颜色
      */
-    @ApiModelProperty(value = "规格名(多规格时,名一样值不一样)")
+    @ApiModelProperty(value = "规格名(多规格时: 名一样,但值不一样)")
     private String specName;
 
     /**
