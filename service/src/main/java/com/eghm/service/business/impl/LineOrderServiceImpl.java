@@ -105,6 +105,7 @@ public class LineOrderServiceImpl implements LineOrderService {
     public LineOrderSnapshotDetailVO snapshotDetail(String orderNo, Long memberId) {
         LineOrderSnapshotDetailVO detail = lineOrderMapper.snapshotDetail(orderNo, memberId);
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
+        detail.setStartPoint(sysAreaService.parseArea(detail.getStartProvinceId(), detail.getStartCityId()));
         List<LineOrderSnapshotVO> voList = lineOrderSnapshotMapper.getList(orderNo);
         detail.setConfigList(voList);
         return detail;
