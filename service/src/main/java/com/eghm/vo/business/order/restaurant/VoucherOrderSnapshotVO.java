@@ -1,9 +1,5 @@
 package com.eghm.vo.business.order.restaurant;
 
-import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.PayType;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
