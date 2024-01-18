@@ -44,17 +44,12 @@ public enum ItemEvent implements IEvent {
     /**
      * 核销
      */
-    VERIFY(Lists.newArrayList(OrderState.UN_USED.getValue()), OrderState.APPRAISE.getValue()),
+    VERIFY(Lists.newArrayList(OrderState.WAIT_TAKE.getValue()), OrderState.COMPLETE.getValue()),
 
     /**
      * 确认
      */
-    CONFIRM(Lists.newArrayList(OrderState.APPRAISE.getValue()), OrderState.COMPLETE.getValue()),
-
-    /**
-     * 自动确认
-     */
-    AUTO_CONFIRM(Lists.newArrayList(OrderState.APPRAISE.getValue()), OrderState.COMPLETE.getValue()),
+    CONFIRM(Lists.newArrayList(OrderState.WAIT_RECEIVE.getValue()), OrderState.COMPLETE.getValue()),
 
     /**
      * 订单取消

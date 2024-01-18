@@ -17,6 +17,8 @@ import com.eghm.service.common.JsonService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDateTime;
+
 /**
  * 订单核销
  *
@@ -80,7 +82,8 @@ public abstract class AbstractOrderVerifyHandler implements OrderVerifyHandler {
 
         // 为空则表示根据订单号核销全部未核销的订单 如果待核销的数量为0也表示全部核销
         if (CollUtil.isEmpty(context.getVisitorList()) || orderVisitorService.getUnVerify(context.getOrderNo()) <= 0) {
-            order.setState(OrderState.APPRAISE);
+            order.setCompleteTime(LocalDateTime.now());
+            order.setState(OrderState.COMPLETE);
         }
         orderService.updateById(order);
         VerifyLog verifyLog = new VerifyLog();

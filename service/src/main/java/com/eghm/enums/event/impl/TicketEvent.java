@@ -46,7 +46,7 @@ public enum TicketEvent implements IEvent {
     /**
      * 核销
      */
-    VERIFY(Lists.newArrayList(OrderState.UN_USED.getValue(), OrderState.REFUND.getValue(), OrderState.REFUND_ERROR.getValue()), OrderState.APPRAISE.getValue()),
+    VERIFY(Lists.newArrayList(OrderState.UN_USED.getValue(), OrderState.REFUND.getValue(), OrderState.REFUND_ERROR.getValue()), OrderState.COMPLETE.getValue()),
 
     /**
      * 确认

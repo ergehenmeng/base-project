@@ -15,6 +15,8 @@ import com.eghm.service.pay.AggregatePayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 /**
  * @author 二哥很猛
  * @date 2022/9/15
@@ -42,6 +44,7 @@ public class ItemOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
         int productNum = itemOrderService.getProductNum(order.getOrderNo());
         if (successNum + refundLog.getNum() >= productNum) {
             order.setState(OrderState.CLOSE);
+            order.setCloseTime(LocalDateTime.now());
             order.setCloseType(CloseType.REFUND);
         }
         order.setRefundState(RefundState.SUCCESS);

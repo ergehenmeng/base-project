@@ -1364,9 +1364,9 @@ public enum ErrorCode {
     PRODUCT_SNAPSHOT_NULL(3673, "订单信息未查询到"),
 
     /**
-     * 订单已完成,无法评价
+     * 订单状态不合法, 无法评价
      */
-    ORDER_COMPLETE(3675, "订单已完成,无法评价"),
+    ORDER_COMPLETE(3675, "订单状态不合法, 无法评价"),
 
     /**
      * 评论信息未查询到

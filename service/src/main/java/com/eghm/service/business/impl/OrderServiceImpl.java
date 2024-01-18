@@ -294,6 +294,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         OrderState orderState = orderVisitorService.getOrderState(order.getOrderNo());
         order.setState(orderState);
         if (order.getState() == OrderState.CLOSE) {
+            order.setCloseTime(LocalDateTime.now());
             order.setCloseType(CloseType.REFUND);
         }
         this.orderStateModify(order);
@@ -318,6 +319,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order.setState(orderState);
         if (order.getState() == OrderState.CLOSE) {
             order.setCloseType(CloseType.REFUND);
+            order.setCloseTime(LocalDateTime.now());
         }
         this.orderStateModify(order);
         // 发起退款
@@ -342,6 +344,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         if (!match) {
             order.setState(OrderState.CLOSE);
             order.setCloseType(CloseType.REFUND);
+            order.setCloseTime(LocalDateTime.now());
         }
         this.orderStateModify(order);
         // 发起退款
@@ -370,10 +373,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             log.warn("订单状态未发生改变,不做处理 [{}]", order.getOrderNo());
             return;
         }
-        if (order.getState() == OrderState.CLOSE) {
-            order.setCloseTime(LocalDateTime.now());
-        }
-        if (order.getState() == OrderState.APPRAISE) {
+        if (order.getState() == OrderState.COMPLETE) {
+            order.setCompleteTime(LocalDateTime.now());
             TransactionUtil.afterCommit(() -> {
                 if (order.getProductType() == ProductType.TICKET) {
                     orderMQService.sendOrderCompleteMessage(ExchangeQueue.TICKET_COMPLETE, order.getOrderNo());
@@ -387,9 +388,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
                     orderMQService.sendOrderCompleteMessage(ExchangeQueue.HOMESTAY_COMPLETE, order.getOrderNo());
                 }
             });
-        }
-        if (order.getState() == OrderState.COMPLETE) {
-            order.setCompleteTime(LocalDateTime.now());
         }
     }
 

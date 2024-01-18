@@ -41,32 +41,32 @@ public enum OrderState implements EnumBinder {
     UN_USED(2, "待使用"),
 
     /**
+     * 待自提
+     */
+    WAIT_TAKE(3, "待自提"),
+
+    /**
      * 待发货(需要发货的商品)
      */
-    WAIT_DELIVERY(3, "待发货"),
+    WAIT_DELIVERY(4, "待发货"),
 
     /**
      * 部分发货(已发货了一部分)
      */
-    PARTIAL_DELIVERY(4, "部分发货"),
+    PARTIAL_DELIVERY(5, "部分发货"),
 
     /**
      * 待收货(需要发货的商品)
      */
-    WAIT_RECEIVE(5, "待收货"),
+    WAIT_RECEIVE(6, "待收货"),
 
     /**
      * 退款中
      */
-    REFUND(6, "退款中"),
+    REFUND(7, "退款中"),
 
     /**
-     * 待评价, 注意: 针对核销类商品直接由待使用到待评价
-     */
-    APPRAISE(7, "待评价"),
-
-    /**
-     * 订单完成
+     * 订单完成(已收货或已核销或已入住) 注意: 针对核销类商品直接由待使用到待评价
      */
     COMPLETE(8, "订单完成"),
 

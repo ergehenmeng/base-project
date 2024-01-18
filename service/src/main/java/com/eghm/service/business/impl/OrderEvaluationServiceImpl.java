@@ -79,13 +79,9 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
             log.error("订单评价,操作了不属于自己的订单 [{}] [{}]", dto.getMemberId(), dto.getOrderNo());
             throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
         }
-        if (order.getState() == OrderState.COMPLETE) {
+        if (order.getState() != OrderState.COMPLETE) {
             log.error("订单状态已完成, 无法操作 [{}] [{}]", dto.getMemberId(), dto.getOrderNo());
             throw new BusinessException(ErrorCode.ORDER_COMPLETE);
-        }
-        if (order.getState() != OrderState.APPRAISE) {
-            log.error("订单状态不是待评价, 无法操作 [{}] [{}]", dto.getMemberId(), dto.getOrderNo());
-            throw new BusinessException(ErrorCode.ORDER_STATE_MATCH);
         }
         for (EvaluationDTO eval : dto.getCommentList()) {
             ProductSnapshotVO snapshot = this.getSnapshot(eval.getOrderId(), dto.getOrderNo(), ProductType.prefix(dto.getOrderNo()));
@@ -100,8 +96,6 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
             evaluation.setAnonymity(dto.getAnonymity());
             orderEvaluationMapper.insert(evaluation);
         }
-        order.setState(OrderState.COMPLETE);
-        order.setCompleteTime(LocalDateTime.now());
         orderService.updateById(order);
     }
 

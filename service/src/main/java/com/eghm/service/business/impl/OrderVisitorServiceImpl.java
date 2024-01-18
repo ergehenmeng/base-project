@@ -176,7 +176,7 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         Optional<OrderVisitor> refundOptional = visitorList.stream().filter(orderVisitor -> orderVisitor.getState() == VisitorState.REFUND).findFirst();
         // 表示订单只有已使用和已退款
         if (useOptional.isPresent() && refundOptional.isPresent()) {
-            return OrderState.APPRAISE;
+            return OrderState.COMPLETE;
         }
         // 存在存款中的游客信息
         if (refundingOptional.isPresent()) {

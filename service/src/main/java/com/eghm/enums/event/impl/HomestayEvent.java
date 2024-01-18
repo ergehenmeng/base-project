@@ -49,17 +49,12 @@ public enum HomestayEvent implements IEvent {
     /**
      * 核销
      */
-    VERIFY(Lists.newArrayList(OrderState.UN_USED.getValue()), OrderState.APPRAISE.getValue()),
-
-    /**
-     * 确认
-     */
-    CONFIRM(Lists.newArrayList(OrderState.APPRAISE.getValue()), OrderState.COMPLETE.getValue()),
+    VERIFY(Lists.newArrayList(OrderState.UN_USED.getValue()), OrderState.COMPLETE.getValue()),
 
     /**
      * 自动确认
      */
-    AUTO_CONFIRM(Lists.newArrayList(OrderState.APPRAISE.getValue()), OrderState.COMPLETE.getValue()),
+    AUTO_CONFIRM(Lists.newArrayList(OrderState.UN_USED.getValue()), OrderState.COMPLETE.getValue()),
 
     /**
      * 订单取消

@@ -13,6 +13,8 @@ import com.eghm.service.business.handler.state.impl.AbstractOrderVerifyHandler;
 import com.eghm.service.common.JsonService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 /**
  * @author wyb
  * @since 2023/5/30
@@ -36,7 +38,8 @@ public class VoucherOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     @Override
     protected void doProcess(OrderVerifyContext context, Order order) {
-        order.setState(OrderState.APPRAISE);
+        order.setState(OrderState.COMPLETE);
+        order.setCompleteTime(LocalDateTime.now());
         orderService.updateById(order);
 
         VerifyLog verifyLog = new VerifyLog();

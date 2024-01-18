@@ -25,35 +25,35 @@ public enum ProductType {
      * 门票
      */
     TICKET("ticket", "门票", "MP", new OrderState[]{
-            OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.APPRAISE, OrderState.COMPLETE, OrderState.CLOSE
+            OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.COMPLETE, OrderState.CLOSE
     }),
 
     /**
      * 餐饮券
      */
     RESTAURANT("restaurant", "餐饮券", "CY", new OrderState[]{
-            OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.APPRAISE, OrderState.COMPLETE, OrderState.CLOSE
+            OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.COMPLETE, OrderState.CLOSE
     }),
 
     /**
      * 民宿
      */
     HOMESTAY("homestay", "民宿", "MS", new OrderState[]{
-            OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.APPRAISE, OrderState.COMPLETE, OrderState.CLOSE
+            OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.COMPLETE, OrderState.CLOSE
     }),
 
     /**
      * 零售
      */
     ITEM("item", "零售", "LS", new OrderState[]{
-            OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.WAIT_DELIVERY, OrderState.WAIT_RECEIVE, OrderState.APPRAISE, OrderState.COMPLETE, OrderState.CLOSE
+            OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.WAIT_DELIVERY, OrderState.WAIT_RECEIVE, OrderState.COMPLETE, OrderState.CLOSE
     }),
 
     /**
      * 线路
      */
     LINE("line", "线路", "XL", new OrderState[]{
-            OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.APPRAISE, OrderState.COMPLETE, OrderState.CLOSE
+            OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.COMPLETE, OrderState.CLOSE
     });
 
     /**
