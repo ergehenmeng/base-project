@@ -29,7 +29,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,6 +78,10 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
             log.error("订单评价,操作了不属于自己的订单 [{}] [{}]", dto.getMemberId(), dto.getOrderNo());
             throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
         }
+        if (Boolean.TRUE.equals(order.getEvaluateState())) {
+            log.error("订单重复评价 [{}] [{}]", dto.getMemberId(), dto.getOrderNo());
+            throw new BusinessException(ErrorCode.EVALUATION_REDO);
+        }
         if (order.getState() != OrderState.COMPLETE) {
             log.error("订单状态已完成, 无法操作 [{}] [{}]", dto.getMemberId(), dto.getOrderNo());
             throw new BusinessException(ErrorCode.ORDER_COMPLETE);
@@ -96,11 +99,16 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
             evaluation.setAnonymity(dto.getAnonymity());
             orderEvaluationMapper.insert(evaluation);
         }
+        order.setEvaluateState(true);
         orderService.updateById(order);
     }
 
     @Override
     public void createDefault(String orderNo) {
+        Order order = orderService.getByOrderNo(orderNo);
+        if (Boolean.TRUE.equals(order.getEvaluateState())) {
+            return;
+        }
         List<ProductSnapshotVO> voList = orderService.getProductList(orderNo);
         if (CollUtil.isEmpty(voList)) {
             return;
@@ -116,9 +124,7 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
             orderEvaluationMapper.insert(evaluation);
         }
 
-        Order order = orderService.getByOrderNo(orderNo);
-        order.setState(OrderState.COMPLETE);
-        order.setCompleteTime(LocalDateTime.now());
+        order.setEvaluateState(true);
         orderService.updateById(order);
     }
 

@@ -1364,6 +1364,11 @@ public enum ErrorCode {
     PRODUCT_SNAPSHOT_NULL(3673, "订单信息未查询到"),
 
     /**
+     * 订单评价重复啦~
+     */
+    EVALUATION_REDO(3674, "订单评价重复啦~"),
+
+    /**
      * 订单状态不合法, 无法评价
      */
     ORDER_COMPLETE(3675, "订单状态不合法, 无法评价"),
