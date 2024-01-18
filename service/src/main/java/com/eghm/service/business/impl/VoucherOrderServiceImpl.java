@@ -12,10 +12,7 @@ import com.eghm.model.VoucherOrder;
 import com.eghm.service.business.VoucherOrderService;
 import com.eghm.utils.AssertUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
-import com.eghm.vo.business.order.restaurant.VoucherOrderDetailResponse;
-import com.eghm.vo.business.order.restaurant.VoucherOrderDetailVO;
-import com.eghm.vo.business.order.restaurant.VoucherOrderResponse;
-import com.eghm.vo.business.order.restaurant.VoucherOrderVO;
+import com.eghm.vo.business.order.restaurant.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -85,6 +82,13 @@ public class VoucherOrderServiceImpl implements VoucherOrderService {
         Long merchantId = SecurityHolder.getMerchantId();
         VoucherOrderDetailResponse detail = voucherOrderMapper.detail(orderNo, merchantId);
         AssertUtil.assertOrderNotNull(detail, orderNo, merchantId);
+        return detail;
+    }
+
+    @Override
+    public VoucherOrderSnapshotVO snapshotDetail(String orderNo, Long memberId) {
+        VoucherOrderSnapshotVO detail = voucherOrderMapper.snapshotDetail(orderNo, memberId);
+        AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
         return detail;
     }
 }

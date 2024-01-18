@@ -623,7 +623,9 @@ CREATE TABLE `voucher_order`
 (
     `id`            bigint(20) NOT NULL COMMENT '主键',
     `restaurant_id` bigint(20)   DEFAULT NULL COMMENT '餐饮商家id(冗余)',
+    `title`         varchar(30)  DEFAULT NULL COMMENT '餐饮券名称(冗余)',
     `voucher_id`    bigint(20)   DEFAULT NULL COMMENT '餐饮券id',
+    `member_id`     bigint(20)   DEFAULT NULL COMMENT '会员ID(冗余)',
     `order_no`      varchar(30)  DEFAULT NULL COMMENT '订单编号',
     `cover_url`     varchar(100) DEFAULT NULL COMMENT '封面图片',
     `line_price`    int(10)      DEFAULT NULL COMMENT '划线价',

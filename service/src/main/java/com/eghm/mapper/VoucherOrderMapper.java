@@ -6,10 +6,7 @@ import com.eghm.dto.business.order.restaurant.VoucherOrderQueryDTO;
 import com.eghm.dto.business.order.restaurant.VoucherOrderQueryRequest;
 import com.eghm.model.VoucherOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
-import com.eghm.vo.business.order.restaurant.VoucherOrderDetailResponse;
-import com.eghm.vo.business.order.restaurant.VoucherOrderDetailVO;
-import com.eghm.vo.business.order.restaurant.VoucherOrderResponse;
-import com.eghm.vo.business.order.restaurant.VoucherOrderVO;
+import com.eghm.vo.business.order.restaurant.*;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -65,4 +62,13 @@ public interface VoucherOrderMapper extends BaseMapper<VoucherOrder> {
      * @return 订单信息
      */
     VoucherOrderDetailResponse detail(@Param("orderNo") String orderNo, @Param("merchantId") Long merchantId);
+
+    /**
+     * 查询餐饮订单快照详情
+     *
+     * @param orderNo 订单编号
+     * @param memberId 会员id
+     * @return 订单快照信息
+     */
+    VoucherOrderSnapshotVO snapshotDetail(@Param("orderNo") String orderNo, @Param("memberId") Long memberId);
 }

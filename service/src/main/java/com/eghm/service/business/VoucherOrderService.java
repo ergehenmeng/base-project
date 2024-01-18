@@ -5,10 +5,7 @@ import com.eghm.dto.business.order.restaurant.VoucherOrderQueryDTO;
 import com.eghm.dto.business.order.restaurant.VoucherOrderQueryRequest;
 import com.eghm.model.VoucherOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
-import com.eghm.vo.business.order.restaurant.VoucherOrderDetailResponse;
-import com.eghm.vo.business.order.restaurant.VoucherOrderDetailVO;
-import com.eghm.vo.business.order.restaurant.VoucherOrderResponse;
-import com.eghm.vo.business.order.restaurant.VoucherOrderVO;
+import com.eghm.vo.business.order.restaurant.*;
 
 import java.util.List;
 
@@ -90,4 +87,13 @@ public interface VoucherOrderService {
      * @return 订单详情
      */
     VoucherOrderDetailResponse detail(String orderNo);
+
+    /**
+     * 查询订单快照详情
+     *
+     * @param orderNo 订单编号
+     * @param memberId 用户id
+     * @return 订单快照详情
+     */
+    VoucherOrderSnapshotVO snapshotDetail(String orderNo, Long memberId);
 }

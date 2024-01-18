@@ -5,6 +5,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.VoucherOrderService;
 import com.eghm.vo.business.order.restaurant.VoucherOrderDetailVO;
+import com.eghm.vo.business.order.restaurant.VoucherOrderSnapshotVO;
 import com.eghm.vo.business.order.restaurant.VoucherOrderVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
@@ -45,6 +46,14 @@ public class VoucherOrderController {
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<VoucherOrderDetailVO> detail(@RequestParam("orderNo") String orderNo) {
         VoucherOrderDetailVO detail = voucherOrderService.getDetail(orderNo, ApiHolder.getMemberId());
+        return RespBody.success(detail);
+    }
+
+    @GetMapping("/snapshot")
+    @ApiOperation("餐饮快照详情")
+    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
+    public RespBody<VoucherOrderSnapshotVO> snapshot(@RequestParam("orderNo") String orderNo) {
+        VoucherOrderSnapshotVO detail = voucherOrderService.snapshotDetail(orderNo, ApiHolder.getMemberId());
         return RespBody.success(detail);
     }
 }

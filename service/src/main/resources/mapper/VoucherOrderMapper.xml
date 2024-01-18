@@ -151,4 +151,29 @@
             and r.merchant_id = #{merchantId}
         </if>
     </select>
+
+    <select id="snapshotDetail" resultType="com.eghm.vo.business.order.restaurant.VoucherOrderSnapshotVO">
+        select
+            t.cover_url,
+            t.title,
+            t.depict,
+            t.line_price,
+            t.sale_price,
+            m.title as restaurantName,
+            m.logo_url as restaurantLogoUrl,
+            t.restaurant_id,
+            t.valid_days,
+            t.effect_date,
+            t.expire_date,
+            t.effect_time,
+            t.expire_time,
+            t.introduce
+        from voucher_order t
+        left join restaurant m on t.restaurant_id = m.id
+        where t.deleted = false and t.order_no = #{orderNo}
+        <if test="memberId != null">
+            and t.member_id = #{memberId}
+        </if>
+    </select>
+
 </mapper>
