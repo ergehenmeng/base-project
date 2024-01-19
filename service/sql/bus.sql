@@ -1095,7 +1095,7 @@ create table express
 (
     id           bigint(20) not null comment '主键',
     express_code varchar(50) default null comment '快递编码',
-    express_name bigint(50)  default null comment '快递公司名称',
+    express_name varchar(50)  default null comment '快递公司名称',
     create_time  datetime    default now() comment '创建时间',
     update_time  datetime    default now() on update now() comment '更新时间',
     deleted      bit(1)      default false comment '删除状态 0:未删除 1:已删除',
