@@ -6,7 +6,7 @@ import com.eghm.enums.ErrorCode;
  * 系统异常基类,不要直接使用
  *
  * @author 二哥很猛
- * @date 2018/1/12 16:39
+ * @since 2018/1/12 16:39
  */
 public class SystemException extends RuntimeException {
 

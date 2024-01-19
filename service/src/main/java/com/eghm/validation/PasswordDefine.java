@@ -9,7 +9,7 @@ import javax.validation.ConstraintValidatorContext;
 
 /**
  * @author 二哥很猛
- * @date 2023/12/14 19:30
+ * @since 2023/12/14 19:30
  */
 public class PasswordDefine implements ConstraintValidator<Password, String> {
 

@@ -17,7 +17,7 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
 
 /**
  * @author 二哥很猛
- * @date 2018/1/11 15:15
+ * @since 2018/1/11 15:15
  */
 @Configuration
 @AutoConfigureAfter(value = {ProxyTransactionManagementConfiguration.class, TransactionAutoConfiguration.class})

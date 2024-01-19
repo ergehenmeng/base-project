@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 
 /**
  * @author 二哥很猛
- * @date 2022/6/14 22:24
+ * @since 2022/6/14 22:24
  */
 @Data
 public class ScenicAddRequest {

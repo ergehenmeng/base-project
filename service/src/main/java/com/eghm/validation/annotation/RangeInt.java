@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * int范围判定
  *
  * @author 二哥很猛
- * @date 2018/8/14 10:55
+ * @since 2018/8/14 10:55
  */
 @Documented
 @Constraint(validatedBy = RangeIntDefine.class)

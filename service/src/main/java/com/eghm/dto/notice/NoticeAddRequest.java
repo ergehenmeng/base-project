@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * @author 二哥很猛
- * @date 2018/11/20 19:15
+ * @since 2018/11/20 19:15
  */
 @Data
 public class NoticeAddRequest {

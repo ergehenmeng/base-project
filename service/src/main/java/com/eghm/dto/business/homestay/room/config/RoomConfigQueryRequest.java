@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
- * @date 2022/6/29 22:08
+ * @since 2022/6/29 22:08
  */
 @Data
 public class RoomConfigQueryRequest {

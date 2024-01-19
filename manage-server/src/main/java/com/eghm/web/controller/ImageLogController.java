@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 二哥很猛
- * @date 2018/11/27 17:13
+ * @since 2018/11/27 17:13
  */
 @RestController
 @Api(tags = "图片管理")

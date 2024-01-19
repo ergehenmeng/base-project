@@ -7,7 +7,7 @@ import com.eghm.model.PushTemplate;
 
 /**
  * @author 二哥很猛
- * @date 2019/8/29 10:45
+ * @since 2019/8/29 10:45
  */
 public interface PushTemplateService {
 

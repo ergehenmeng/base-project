@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 
 /**
  * @author 殿小二
- * @date 2022/5/27
+ * @since 2022/5/27
  */
 @Data
 public class MerchantAddRequest {

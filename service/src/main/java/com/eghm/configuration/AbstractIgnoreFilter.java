@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author 二哥很猛
- * @date 2019/7/4 13:48
+ * @since 2019/7/4 13:48
  */
 public abstract class AbstractIgnoreFilter extends OncePerRequestFilter {
 

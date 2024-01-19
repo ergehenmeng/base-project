@@ -16,7 +16,7 @@ import java.io.IOException;
  * 请求参数重复使用
  *
  * @author 二哥很猛
- * @date 2018/8/28 16:38
+ * @since 2018/8/28 16:38
  */
 @AllArgsConstructor
 public class ByteHttpRequestFilter extends AbstractIgnoreFilter {

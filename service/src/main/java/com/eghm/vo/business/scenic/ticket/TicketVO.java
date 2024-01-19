@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 /**
  * @author 二哥很猛
- * @date 2022/7/12
+ * @since 2022/7/12
  */
 @Data
 public class TicketVO {

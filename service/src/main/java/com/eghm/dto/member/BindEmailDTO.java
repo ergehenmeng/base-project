@@ -8,7 +8,7 @@ import javax.validation.constraints.Email;
 
 /**
  * @author 殿小二
- * @date 2020/8/29
+ * @since 2020/8/29
  */
 @Data
 public class BindEmailDTO {

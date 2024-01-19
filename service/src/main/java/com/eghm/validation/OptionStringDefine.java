@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidatorContext;
 
 /**
  * @author 二哥很猛
- * @date 2018/11/9 10:36
+ * @since 2018/11/9 10:36
  */
 public class OptionStringDefine implements ConstraintValidator<OptionString, String> {
 

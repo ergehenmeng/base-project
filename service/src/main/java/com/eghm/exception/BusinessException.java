@@ -4,7 +4,7 @@ import com.eghm.enums.ErrorCode;
 
 /**
  * @author 二哥很猛
- * @date 2018/1/12 16:40
+ * @since 2018/1/12 16:40
  */
 public class BusinessException extends SystemException {
 

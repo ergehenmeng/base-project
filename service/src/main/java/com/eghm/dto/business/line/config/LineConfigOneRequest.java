@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 /**
  * @author 二哥很猛
- * @date 2022/8/30
+ * @since 2022/8/30
  */
 @Data
 public class LineConfigOneRequest {

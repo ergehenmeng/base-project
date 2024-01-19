@@ -4,7 +4,7 @@ package com.eghm.configuration.timer;
  * 存放TimerTask任务 双向链表结构 最后一个对象的下一个元素持有第一个元素引用 第一个元素的前一个对象持有最后一个元素的引用
  *
  * @author 二哥很猛
- * @date 2018/9/11 9:15
+ * @since 2018/9/11 9:15
  */
 public class Entry {
 

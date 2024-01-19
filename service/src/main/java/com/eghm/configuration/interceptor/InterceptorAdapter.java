@@ -11,7 +11,7 @@ import java.lang.annotation.Annotation;
 
 /**
  * @author 殿小二
- * @date 2020/7/23
+ * @since 2020/7/23
  */
 public interface InterceptorAdapter extends HandlerInterceptor {
 

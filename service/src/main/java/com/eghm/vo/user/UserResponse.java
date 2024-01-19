@@ -5,7 +5,7 @@ import lombok.Data;
 
 /**
  * @author 二哥很猛
- * @date 2022/5/3 16:27
+ * @since 2022/5/3 16:27
  */
 @Data
 public class UserResponse {

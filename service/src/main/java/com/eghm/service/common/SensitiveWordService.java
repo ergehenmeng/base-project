@@ -2,7 +2,7 @@ package com.eghm.service.common;
 
 /**
  * @author wyb
- * @date 2021/12/4 11:02
+ * @since 2021/12/4 11:02
  */
 public interface SensitiveWordService {
 

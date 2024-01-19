@@ -9,7 +9,7 @@ import java.util.List;
  * 系统缓存管理
  *
  * @author 二哥很猛
- * @date 2019/1/14 14:32
+ * @since 2019/1/14 14:32
  */
 public interface SysCacheService {
 

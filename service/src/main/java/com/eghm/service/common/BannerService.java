@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author 二哥很猛
- * @date 2018/10/17 9:20
+ * @since 2018/10/17 9:20
  */
 public interface BannerService {
 

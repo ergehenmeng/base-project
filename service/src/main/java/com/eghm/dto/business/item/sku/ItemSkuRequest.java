@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 
 /**
  * @author 殿小二
- * @date 2023/3/6
+ * @since 2023/3/6
  */
 @Data
 public class ItemSkuRequest {

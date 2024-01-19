@@ -10,7 +10,7 @@ import java.text.DecimalFormat;
 
 /**
  * @author 二哥很猛
- * @date 2022/6/12 19:03
+ * @since 2022/6/12 19:03
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DecimalUtil {

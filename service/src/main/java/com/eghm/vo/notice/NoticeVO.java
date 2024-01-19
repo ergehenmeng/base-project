@@ -7,7 +7,7 @@ import lombok.Data;
  * 公告置顶vo
  *
  * @author 二哥很猛
- * @date 2019/11/25 15:30
+ * @since 2019/11/25 15:30
  */
 @Data
 public class NoticeVO {

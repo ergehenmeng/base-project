@@ -5,7 +5,7 @@ import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
 
 /**
  * @author 二哥很猛
- * @date 2021/12/25 22:35
+ * @since 2021/12/25 22:35
  */
 public class SqlFormatter implements MessageFormattingStrategy {
 

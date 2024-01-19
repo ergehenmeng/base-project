@@ -28,10 +28,10 @@ public class AccountQueryRequest extends PagingQuery {
     private Long merchantId;
 
     @ApiModelProperty("开始日期")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @sinceTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
     @ApiModelProperty("结束日期")
-    @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
+    @sinceFormatter(pattern = "yyyy-MM-dd", offset = 1)
     private LocalDate endDate;
 }

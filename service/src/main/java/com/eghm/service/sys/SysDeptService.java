@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author 二哥很猛
- * @date 2018/12/13 16:49
+ * @since 2018/12/13 16:49
  */
 public interface SysDeptService {
 

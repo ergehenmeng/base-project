@@ -125,7 +125,7 @@
 * `@ExcelDict` 导出Excel时, 如果数据库保存的字段为数据字典,则可以通过该自动自动转换为格式化好的文本 (前提:
   数据字典必须已定义)
 * `XssEncoder` xss过滤工具, 防止xss攻击,使用方式: 在需要过滤xss的字段上添加 `@JsonDeserialize(using = XssEncoder.class)`
-* `com.eghm.validation.annotation` 包有自定义校验注解, 可根据实际场景使用. **注意:** `@DateCompare` 日期比较, 需要 pojo
+* `com.eghm.validation.annotation` 包有自定义校验注解, 可根据实际场景使用. **注意:** `@sinceCompare` 日期比较, 需要 pojo
   继承 `DateComparator` 或者 `DatePagingComparator` (一个带分页,一个不带分页), 或者在 pojo定义以便于实现特殊提示语.
 * `@WordChecker` 是敏感词校验注解
 * `@Desensitization` 脱敏注解,添加到需要进行脱敏的字段上, 例如: `@Desensitization(FieldType.MOBILE_PHONE)`

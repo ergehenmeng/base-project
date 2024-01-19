@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author 二哥很猛
- * @date 2022/7/25
+ * @since 2022/7/25
  */
 @Configuration
 @EnableConfigurationProperties(SystemProperties.class)

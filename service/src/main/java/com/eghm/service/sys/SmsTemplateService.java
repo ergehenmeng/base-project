@@ -7,7 +7,7 @@ import com.eghm.model.SmsTemplate;
 
 /**
  * @author 二哥很猛
- * @date 2019/8/21 10:35
+ * @since 2019/8/21 10:35
  */
 public interface SmsTemplateService {
 

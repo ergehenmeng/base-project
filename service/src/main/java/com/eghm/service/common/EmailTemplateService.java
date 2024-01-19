@@ -8,7 +8,7 @@ import com.eghm.model.EmailTemplate;
 
 /**
  * @author 殿小二
- * @date 2020/8/28
+ * @since 2020/8/28
  */
 public interface EmailTemplateService {
 

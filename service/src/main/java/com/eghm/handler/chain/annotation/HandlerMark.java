@@ -9,7 +9,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * @author 殿小二
- * @date 2021/3/26
+ * @since 2021/3/26
  */
 @Documented
 @Target(TYPE)

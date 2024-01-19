@@ -19,7 +19,7 @@ import java.util.List;
  * 在sql中可以通过${dataScope}直接注入数据权限部分的sql
  *
  * @author 殿小二
- * @date 2020/8/14
+ * @since 2020/8/14
  * @see DataScopeInterceptor 拦截器
  */
 @Aspect

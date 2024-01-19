@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author 殿小二
- * @date 2023/2/20
+ * @since 2023/2/20
  */
 public interface MerchantInitService {
 

@@ -13,7 +13,7 @@ import java.util.function.BiFunction;
  * 参考RuYi, 采用数学验证码
  *
  * @author 二哥很猛
- * @date 2024/1/10
+ * @since 2024/1/10
  */
 public class MathCaptchaProducer extends DefaultTextCreator {
 

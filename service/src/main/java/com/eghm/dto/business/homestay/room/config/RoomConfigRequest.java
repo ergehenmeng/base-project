@@ -19,7 +19,7 @@ import java.util.List;
  * 房型设置
  *
  * @author 二哥很猛
- * @date 2022/6/29
+ * @since 2022/6/29
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

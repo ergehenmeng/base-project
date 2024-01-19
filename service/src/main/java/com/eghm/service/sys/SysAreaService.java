@@ -4,7 +4,7 @@ import com.eghm.model.SysArea;
 
 /**
  * @author 二哥很猛
- * @date 2019/2/13 10:25
+ * @since 2019/2/13 10:25
  */
 public interface SysAreaService {
 

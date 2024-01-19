@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
  * 登陆信息记录
  *
  * @author 二哥很猛
- * @date 2019/8/28 15:31
+ * @since 2019/8/28 15:31
  */
 @Data
 @Builder

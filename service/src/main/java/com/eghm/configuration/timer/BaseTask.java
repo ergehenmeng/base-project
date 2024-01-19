@@ -8,7 +8,7 @@ import java.time.Duration;
  * 任务接口
  *
  * @author 二哥很猛
- * @date 2018/9/11 9:19
+ * @since 2018/9/11 9:19
  */
 @Slf4j
 public abstract class BaseTask implements Runnable {

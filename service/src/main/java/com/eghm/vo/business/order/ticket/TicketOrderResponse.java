@@ -61,7 +61,7 @@ public class TicketOrderResponse extends ExcelStyle {
     @ApiModelProperty("订单关闭时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ExcelProperty(value = "订单关闭时间", index = 8)
-    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @sinceTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime closeTime;
 
     @ApiModelProperty(value = "订单关闭方式")
@@ -75,13 +75,13 @@ public class TicketOrderResponse extends ExcelStyle {
 
     @ApiModelProperty("支付时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @sinceTimeFormat("yyyy-MM-dd HH:mm:ss")
     @ExcelProperty(value = "支付时间", index = 11)
     private LocalDateTime payTime;
 
     @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @sinceTimeFormat("yyyy-MM-dd HH:mm:ss")
     @ExcelProperty(value = "订单创建时间", index = 12)
     private LocalDateTime createTime;
 }

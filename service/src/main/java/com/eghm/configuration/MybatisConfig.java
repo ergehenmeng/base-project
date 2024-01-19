@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author 二哥很猛
- * @date 2021/12/25 13:44
+ * @since 2021/12/25 13:44
  */
 @Configuration
 public class MybatisConfig {

@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author 殿小二
- * @date 2020/12/15
+ * @since 2020/12/15
  */
 @AllArgsConstructor
 public class SubmitIntervalInterceptor implements InterceptorAdapter {

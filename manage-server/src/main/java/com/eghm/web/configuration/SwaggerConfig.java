@@ -17,7 +17,7 @@ import static springfox.documentation.builders.RequestHandlerSelectors.basePacka
 
 /**
  * @author 二哥很猛
- * @date 2019/8/20 10:58
+ * @since 2019/8/20 10:58
  */
 @Configuration
 @EnableSwagger2WebMvc

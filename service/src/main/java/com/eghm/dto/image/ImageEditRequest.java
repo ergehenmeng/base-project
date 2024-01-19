@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
- * @date 2018/11/29 17:00
+ * @since 2018/11/29 17:00
  */
 @Data
 public class ImageEditRequest {

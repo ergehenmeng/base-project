@@ -6,7 +6,7 @@ import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
  * 公众号
  *
  * @author 二哥很猛
- * @date 2021/12/4 下午3:18
+ * @since 2021/12/4 下午3:18
  */
 public interface WeChatMpService {
 

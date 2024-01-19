@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * Byte字段校验
  *
  * @author 二哥很猛
- * @date 2019/8/19 11:29
+ * @since 2019/8/19 11:29
  */
 @Documented
 @Constraint(validatedBy = OptionByteDefine.class)

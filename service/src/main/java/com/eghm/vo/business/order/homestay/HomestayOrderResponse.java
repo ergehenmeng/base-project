@@ -71,13 +71,13 @@ public class HomestayOrderResponse extends ExcelStyle {
     private Integer discountAmount;
 
     @ApiModelProperty("添加时间")
-    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @sinceTimeFormat("yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ExcelProperty(value = "订单创建时间", index = 10)
     private LocalDateTime createTime;
 
     @ApiModelProperty("支付时间")
-    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @sinceTimeFormat("yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ExcelProperty(value = "支付时间", index = 11)
     private LocalDateTime payTime;
@@ -88,7 +88,7 @@ public class HomestayOrderResponse extends ExcelStyle {
 
     @ApiModelProperty("订单关闭时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @sinceTimeFormat("yyyy-MM-dd HH:mm:ss")
     @ExcelProperty(value = "订单关闭时间", index = 13)
     private LocalDateTime closeTime;
 }

@@ -8,7 +8,7 @@ import com.eghm.model.ImageLog;
 
 /**
  * @author 二哥很猛
- * @date 2018/11/27 17:11
+ * @since 2018/11/27 17:11
  */
 public interface ImageLogService {
 

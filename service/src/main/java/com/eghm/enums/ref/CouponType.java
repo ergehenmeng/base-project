@@ -12,7 +12,7 @@ import java.util.Arrays;
  * 优惠券类型
  *
  * @author 二哥很猛
- * @date 2022/7/14
+ * @since 2022/7/14
  */
 @Getter
 @AllArgsConstructor

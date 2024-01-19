@@ -6,7 +6,7 @@ import com.eghm.dto.ext.PushTemplateNotice;
 
 /**
  * @author 二哥很猛
- * @date 2019/8/29 10:57
+ * @since 2019/8/29 10:57
  */
 public interface PushService {
 

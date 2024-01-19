@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * @author 二哥很猛
- * @date 2022/7/13
+ * @since 2022/7/13
  */
 public interface CouponScopeService {
 

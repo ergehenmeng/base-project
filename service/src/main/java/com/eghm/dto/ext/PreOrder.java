@@ -10,7 +10,7 @@ import lombok.Data;
  * 下单前,订单信息
  *
  * @author 二哥很猛
- * @date 2022/8/21
+ * @since 2022/8/21
  */
 @Data
 public class PreOrder {

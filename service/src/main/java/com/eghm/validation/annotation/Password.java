@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 密码校验, 默认是8~16英文,字母和下划线
  *
  * @author 二哥很猛
- * @date 2023/12/14 19:19
+ * @since 2023/12/14 19:19
  */
 @Documented
 @Constraint(validatedBy = PasswordDefine.class)

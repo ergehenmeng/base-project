@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author 二哥很猛
- * @date 2021/12/4 下午3:19
+ * @since 2021/12/4 下午3:19
  */
 @Configuration
 @EnableConfigurationProperties(SystemProperties.class)

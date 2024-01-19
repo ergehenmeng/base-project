@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 电话号码校验 只适用字符串
  *
  * @author 二哥很猛
- * @date 2018/8/14 11:39
+ * @since 2018/8/14 11:39
  */
 @Documented
 @Constraint(validatedBy = PhoneDefine.class)

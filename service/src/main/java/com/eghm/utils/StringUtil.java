@@ -17,7 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * 字符串日常工具类
  *
  * @author 二哥很猛
- * @date 2018/1/8 14:56
+ * @since 2018/1/8 14:56
  */
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

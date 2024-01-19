@@ -24,11 +24,11 @@ public class RefundLogQueryRequest extends PagingQuery {
     private AuditState auditState;
 
     @ApiModelProperty(value = "退款申请时间开始时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @sinceTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "退款申请时间截止时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @sinceTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "订单前置类型", hidden = true)

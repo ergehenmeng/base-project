@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * double范围校验 只适用double参数
  *
  * @author 二哥很猛
- * @date 2018/8/14 10:55
+ * @since 2018/8/14 10:55
  */
 @Documented
 @Constraint(validatedBy = RangeDoubleDefine.class)

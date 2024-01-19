@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
  * 用于排序
  *
  * @author 殿小二
- * @date 2022/12/29
+ * @since 2022/12/29
  */
 @Data
 public class SortByDTO {

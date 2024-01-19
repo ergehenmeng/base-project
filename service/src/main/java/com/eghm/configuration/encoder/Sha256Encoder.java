@@ -5,7 +5,7 @@ import cn.hutool.crypto.SecureUtil;
 
 /**
  * @author 二哥很猛
- * @date 2019/7/10 15:27
+ * @since 2019/7/10 15:27
  */
 public class Sha256Encoder implements Encoder {
 

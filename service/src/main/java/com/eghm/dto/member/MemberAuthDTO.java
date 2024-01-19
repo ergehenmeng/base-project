@@ -11,7 +11,7 @@ import javax.validation.constraints.NotEmpty;
  * 实名制认证
  *
  * @author 二哥很猛
- * @date 2019/8/28 16:29
+ * @since 2019/8/28 16:29
  */
 @Data
 public class MemberAuthDTO {

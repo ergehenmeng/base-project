@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
- * @date 2019/1/14 11:50
+ * @since 2019/1/14 11:50
  */
 @Data
 public class DictItemEditRequest {

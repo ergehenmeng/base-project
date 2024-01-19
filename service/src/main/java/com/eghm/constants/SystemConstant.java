@@ -4,7 +4,7 @@ import java.io.File;
 
 /**
  * @author 二哥很猛
- * @date 2018/11/23 15:25
+ * @since 2018/11/23 15:25
  */
 public class SystemConstant {
 

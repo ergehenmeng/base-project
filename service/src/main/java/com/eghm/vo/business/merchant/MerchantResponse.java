@@ -66,6 +66,6 @@ public class MerchantResponse extends ExcelStyle {
 
     @ApiModelProperty(value = "创建时间")
     @ExcelProperty(value = "创建时间", index = 9)
-    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @sinceTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 }

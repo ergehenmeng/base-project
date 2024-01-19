@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 二哥很猛
- * @date 2019/8/23 13:35
+ * @since 2019/8/23 13:35
  */
 @RestController
 @Api(tags = "公告管理")

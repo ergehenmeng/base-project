@@ -22,7 +22,7 @@ import javax.mail.internet.MimeMessage;
 
 /**
  * @author 二哥很猛
- * @date 2019/7/10 17:00
+ * @since 2019/7/10 17:00
  */
 @Slf4j
 @RequiredArgsConstructor

@@ -50,6 +50,6 @@ public class RestaurantResponse extends ExcelStyle {
 
     @ApiModelProperty("创建时间")
     @ExcelProperty(value = "创建时间", index = 7)
-    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @sinceTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 }

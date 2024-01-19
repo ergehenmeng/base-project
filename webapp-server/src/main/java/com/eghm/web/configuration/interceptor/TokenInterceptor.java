@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  * 依旧将会将用户信息存入到线程变量中
  *
  * @author 二哥很猛
- * @date 2018/1/23 12:02
+ * @since 2018/1/23 12:02
  */
 @Slf4j
 @AllArgsConstructor

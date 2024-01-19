@@ -4,7 +4,7 @@ package com.eghm.service.common;
  * 发送短信接口
  *
  * @author 二哥很猛
- * @date 2019/8/20 17:00
+ * @since 2019/8/20 17:00
  */
 public interface SendSmsService {
 

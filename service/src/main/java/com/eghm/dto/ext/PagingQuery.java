@@ -10,7 +10,7 @@ import lombok.Setter;
  * 基础类请求参数 如需分页操作需要继承该方法
  *
  * @author 二哥很猛
- * @date 2018/1/12 17:29
+ * @since 2018/1/12 17:29
  */
 @Getter
 @Setter

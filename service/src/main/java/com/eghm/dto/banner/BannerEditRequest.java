@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
- * @date 2019/8/22 19:58
+ * @since 2019/8/22 19:58
  */
 @Data
 public class BannerEditRequest {

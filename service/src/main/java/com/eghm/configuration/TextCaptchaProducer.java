@@ -9,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * 重写Random随机数
  *
  * @author 二哥很猛
- * @date 2019/7/10 17:32
+ * @since 2019/7/10 17:32
  */
 public class TextCaptchaProducer extends DefaultTextCreator {
 

@@ -7,7 +7,7 @@ import com.eghm.vo.business.verify.VerifyLogResponse;
 
 /**
  * @author 二哥很猛
- * @date 2022/8/6
+ * @since 2022/8/6
  */
 public interface VerifyLogService {
 

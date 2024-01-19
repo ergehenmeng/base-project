@@ -10,18 +10,18 @@ import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
- * @date 2019/1/16 9:46
+ * @since 2019/1/16 9:46
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class ManageQueryRequest extends PagingQuery {
 
     @ApiModelProperty("开始时间 yyyy-MM-dd HH:mm")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @sinceTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
 
     @ApiModelProperty("结束时间 yyyy-MM-dd HH:mm")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @sinceTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
 }

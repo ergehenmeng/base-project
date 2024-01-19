@@ -6,7 +6,7 @@ import lombok.Getter;
  * 支付渠道
  *
  * @author 二哥很猛
- * @date 2022/7/25
+ * @since 2022/7/25
  */
 @Getter
 public enum PayChannel {

@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
  * 建议使用第三方oss或则搭建HDFS
  *
  * @author 二哥很猛
- * @date 2019/8/28 17:09
+ * @since 2019/8/28 17:09
  */
 @RestController
 @Api(tags = "图片上传")

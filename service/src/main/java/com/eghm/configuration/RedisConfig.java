@@ -25,7 +25,7 @@ import java.time.Duration;
  * 该类主要配置各个过期时间的缓存管理器
  *
  * @author 二哥很猛
- * @date 2018/1/8 14:40
+ * @since 2018/1/8 14:40
  */
 @Configuration
 @EnableCaching

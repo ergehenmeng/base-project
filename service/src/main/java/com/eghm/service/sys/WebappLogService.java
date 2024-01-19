@@ -7,7 +7,7 @@ import com.eghm.vo.log.WebappLogResponse;
 
 /**
  * @author 二哥很猛
- * @date 2019/12/6 16:38
+ * @since 2019/12/6 16:38
  */
 public interface WebappLogService {
 

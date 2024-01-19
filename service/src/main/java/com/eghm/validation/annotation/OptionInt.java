@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 参数范围拦截 只适用int
  *
  * @author 二哥很猛
- * @date 2018/8/14 13:40
+ * @since 2018/8/14 13:40
  */
 @Documented
 @Constraint(validatedBy = OptionIntDefine.class)

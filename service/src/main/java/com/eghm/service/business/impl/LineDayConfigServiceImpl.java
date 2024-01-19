@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
- * @date 2022/8/26
+ * @since 2022/8/26
  */
 @Service("lineDayConfigService")
 @AllArgsConstructor

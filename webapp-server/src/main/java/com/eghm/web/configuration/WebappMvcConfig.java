@@ -31,7 +31,7 @@ import javax.servlet.Filter;
  * mvc全局配置,继承WebMvcConfigurerAdapter无需@EnableWebMvc
  *
  * @author 二哥很猛
- * @date 2018/1/18 18:35
+ * @since 2018/1/18 18:35
  */
 @Configuration
 public class WebappMvcConfig extends WebMvcConfig {

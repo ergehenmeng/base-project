@@ -8,7 +8,7 @@ import lombok.Getter;
  * 用于定义RabbitMQ的枚举, 注意:routingKey不支持多配置
  *
  * @author 二哥很猛
- * @date 2022/6/12 18:47
+ * @since 2022/6/12 18:47
  */
 @Getter
 @AllArgsConstructor

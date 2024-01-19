@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * @author 二哥很猛
- * @date 2019/1/14 11:12
+ * @since 2019/1/14 11:12
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

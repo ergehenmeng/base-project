@@ -23,7 +23,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * 默认不激活邮件功能,如需计划需要将下面 exclude = MailSenderAutoConfiguration.class 去掉, 同时在配置文件中填写正确的邮箱配置
  *
  * @author 二哥很猛
- * @date
+ * @since
  */
 @Slf4j
 @EnableAsync

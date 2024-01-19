@@ -27,7 +27,7 @@ import static com.eghm.constant.CommonConstant.LIMIT_ONE;
  * 缓存代理层<br/>
  *
  * @author 二哥很猛
- * @date 2022/7/12
+ * @since 2022/7/12
  */
 @Service("cacheProxyService")
 @AllArgsConstructor

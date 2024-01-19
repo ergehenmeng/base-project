@@ -12,7 +12,7 @@ import java.util.List;
  * 数据字典服务类
  *
  * @author 二哥很猛
- * @date 2018/1/12 14:31
+ * @since 2018/1/12 14:31
  */
 public interface SysDictService {
 

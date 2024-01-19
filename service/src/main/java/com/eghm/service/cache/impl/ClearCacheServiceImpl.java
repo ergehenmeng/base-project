@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * 全局清除缓存
  *
  * @author 二哥很猛
- * @date 2019/1/14 13:52
+ * @since 2019/1/14 13:52
  */
 @Slf4j
 @Service("clearCacheService")

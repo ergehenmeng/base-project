@@ -98,7 +98,7 @@ public class RedisController {
             @ApiImplicitParam(name = "key", value = "key", required = true),
             @ApiImplicitParam(name = "localDate", value = "localDate", required = true)
     })
-    public RespBody<Boolean> signIn(@RequestParam("key") String key, @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam("localDate") LocalDate localDate) {
+    public RespBody<Boolean> signIn(@RequestParam("key") String key, @sinceTimeFormat(pattern = "yyyy-MM-dd") @RequestParam("localDate") LocalDate localDate) {
         LocalDate registerDate = LocalDate.of(2023, 5, 3);
         long day = ChronoUnit.DAYS.between(registerDate, localDate);
         Boolean signIn = cacheService.getBitmap(key, day);

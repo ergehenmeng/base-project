@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 /**
  * @author 二哥很猛
- * @date 2019/7/9 15:57
+ * @since 2019/7/9 15:57
  */
 @Slf4j
 public class BcEncoder implements Encoder {

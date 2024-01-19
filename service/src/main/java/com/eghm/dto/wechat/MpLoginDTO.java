@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * @author 二哥很猛
- * @date 2021/12/18 16:31
+ * @since 2021/12/18 16:31
  */
 @Data
 public class MpLoginDTO {

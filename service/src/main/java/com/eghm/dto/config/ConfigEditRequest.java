@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
  * 更新系统配置信息的请求参数类
  *
  * @author 二哥很猛
- * @date 2018/1/12 17:37
+ * @since 2018/1/12 17:37
  */
 @Data
 public class ConfigEditRequest {

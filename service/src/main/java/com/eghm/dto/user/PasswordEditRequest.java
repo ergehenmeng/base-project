@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
- * @date 2018/11/26 10:05
+ * @since 2018/11/26 10:05
  */
 @Data
 public class PasswordEditRequest {

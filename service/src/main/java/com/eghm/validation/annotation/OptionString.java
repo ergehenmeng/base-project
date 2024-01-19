@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 字符串限制
  *
  * @author 二哥很猛
- * @date 2018/11/9 10:35
+ * @since 2018/11/9 10:35
  */
 @Documented
 @Constraint(validatedBy = OptionStringDefine.class)

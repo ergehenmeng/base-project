@@ -6,7 +6,7 @@ import com.eghm.handler.email.AuthCodeEmailHandler;
 
 /**
  * @author 二哥很猛
- * @date 2019/7/10 17:00
+ * @since 2019/7/10 17:00
  */
 public interface EmailService {
 

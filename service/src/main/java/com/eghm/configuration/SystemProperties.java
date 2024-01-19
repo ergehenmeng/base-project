@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author 二哥很猛
- * @date 2022/1/29 16:25
+ * @since 2022/1/29 16:25
  */
 @ConfigurationProperties(prefix = SystemProperties.PREFIX)
 @Data

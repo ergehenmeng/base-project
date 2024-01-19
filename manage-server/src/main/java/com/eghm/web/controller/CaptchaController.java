@@ -25,7 +25,7 @@ import java.io.IOException;
  * 方法支持 MathCaptchaProducer 与 TextCaptchaProducer
  *
  * @author 二哥很猛
- * @date 2018/1/19 11:50
+ * @since 2018/1/19 11:50
  */
 @RestController
 @Slf4j

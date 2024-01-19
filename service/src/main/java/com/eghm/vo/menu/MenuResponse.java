@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author 二哥很猛
- * @date 2022/9/7
+ * @since 2022/9/7
  */
 @Data
 public class MenuResponse {

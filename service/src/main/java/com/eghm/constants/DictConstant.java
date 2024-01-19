@@ -4,7 +4,7 @@ package com.eghm.constants;
  * 数据字典常量
  *
  * @author 二哥很猛
- * @date 2018/11/27 17:16
+ * @since 2018/11/27 17:16
  */
 public class DictConstant {
 

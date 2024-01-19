@@ -7,7 +7,7 @@ import lombok.Data;
  * 门票基础信息
  *
  * @author 二哥很猛
- * @date 2022/7/12
+ * @since 2022/7/12
  */
 @Data
 public class TicketPriceVO {

@@ -4,7 +4,7 @@ package com.eghm.constant;
  * 移动端请求头信息
  *
  * @author 二哥很猛
- * @date 2018/8/14 16:57
+ * @since 2018/8/14 16:57
  */
 public class AppHeader {
 

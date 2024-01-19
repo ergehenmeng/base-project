@@ -5,7 +5,7 @@ import lombok.Data;
 
 /**
  * @author 殿小二
- * @date 2020/9/4
+ * @since 2020/9/4
  */
 @Data
 public class BannerVO {

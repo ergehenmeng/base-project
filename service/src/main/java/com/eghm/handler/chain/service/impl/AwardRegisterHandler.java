@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * 积分奖励
  *
  * @author 二哥很猛
- * @date 2018/12/20 9:49
+ * @since 2018/12/20 9:49
  */
 @Service("awardRegisterHandler")
 @Order(10)

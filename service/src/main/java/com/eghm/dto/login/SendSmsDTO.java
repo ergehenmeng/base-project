@@ -6,7 +6,7 @@ import lombok.Data;
 
 /**
  * @author 二哥很猛
- * @date 2019/8/20 10:50
+ * @since 2019/8/20 10:50
  */
 @Data
 public class SendSmsDTO {

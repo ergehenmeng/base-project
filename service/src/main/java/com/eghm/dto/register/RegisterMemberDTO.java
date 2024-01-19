@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
  * 用户注册 密码注册(3步)或验证码注册(2)
  *
  * @author 二哥很猛
- * @date 2019/9/3 16:32
+ * @since 2019/9/3 16:32
  */
 @Data
 public class RegisterMemberDTO {

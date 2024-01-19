@@ -10,7 +10,7 @@ import com.eghm.vo.business.line.TravelAgencyDetailVO;
 
 /**
  * @author 殿小二
- * @date 2023/2/18
+ * @since 2023/2/18
  */
 public interface TravelAgencyService {
 

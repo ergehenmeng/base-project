@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
- * @date 2022/6/30 22:03
+ * @since 2022/6/30 22:03
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

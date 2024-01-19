@@ -15,7 +15,7 @@ import java.util.Map;
  * 用于发送邮箱验证码的基类handler
  *
  * @author 殿小二
- * @date 2020/9/3
+ * @since 2020/9/3
  */
 @Component("baseAuthCodeHandler")
 public class AuthCodeEmailHandler extends BaseEmailHandler {

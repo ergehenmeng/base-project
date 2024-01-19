@@ -21,7 +21,7 @@ import javax.servlet.DispatcherType;
  * mvc配置信息
  *
  * @author 二哥很猛
- * @date 2018/1/18 18:35
+ * @since 2018/1/18 18:35
  */
 @Configuration
 public class ManageMvcConfig extends WebMvcConfig {

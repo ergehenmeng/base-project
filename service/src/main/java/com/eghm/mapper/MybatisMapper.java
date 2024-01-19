@@ -4,7 +4,7 @@ import com.eghm.model.SysConfig;
 
 /**
  * @author 殿小二
- * @date 2021/2/22
+ * @since 2021/2/22
  */
 public interface MybatisMapper {
 

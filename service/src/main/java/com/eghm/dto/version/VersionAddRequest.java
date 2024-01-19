@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
- * @date 2019/8/22 14:57
+ * @since 2019/8/22 14:57
  */
 @Data
 public class VersionAddRequest {

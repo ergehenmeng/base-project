@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * @author 二哥很猛
- * @date 2021/12/26 19:40
+ * @since 2021/12/26 19:40
  */
 @Data
 public class VerifySmsDTO {

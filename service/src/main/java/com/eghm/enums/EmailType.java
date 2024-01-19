@@ -7,7 +7,7 @@ import lombok.Getter;
  * 映射 email_template表的nid字段
  *
  * @author 殿小二
- * @date 2020/8/28
+ * @since 2020/8/28
  */
 @AllArgsConstructor
 @Getter

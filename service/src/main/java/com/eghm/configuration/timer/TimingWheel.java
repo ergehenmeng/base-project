@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 时间轮: 包含该时间轮上待执行的任务信息,以及父时间轮(父时间轮以该时间轮最大值为起始值开始的)
  *
  * @author 二哥很猛
- * @date 2018/9/11 11:05
+ * @since 2018/9/11 11:05
  */
 @NotThreadSafe
 public class TimingWheel {

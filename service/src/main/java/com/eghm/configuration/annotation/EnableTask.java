@@ -9,7 +9,7 @@ import java.lang.annotation.*;
  * 启用定时任务功能
  *
  * @author 殿小二
- * @date 2020/8/14
+ * @since 2020/8/14
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

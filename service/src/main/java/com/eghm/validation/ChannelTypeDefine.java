@@ -9,7 +9,7 @@ import javax.validation.ConstraintValidatorContext;
 
 /**
  * @author 二哥很猛
- * @date 2018/8/14 16:07
+ * @since 2018/8/14 16:07
  */
 public class ChannelTypeDefine implements ConstraintValidator<ChannelType, String> {
 

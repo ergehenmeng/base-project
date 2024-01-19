@@ -9,7 +9,7 @@ import com.eghm.model.SysConfig;
 
 /**
  * @author 二哥很猛
- * @date 2018/1/12 09:45
+ * @since 2018/1/12 09:45
  */
 public interface SysConfigService {
 

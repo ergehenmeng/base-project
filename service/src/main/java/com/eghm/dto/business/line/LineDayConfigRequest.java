@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * @author 二哥很猛
- * @date 2022/8/27
+ * @since 2022/8/27
  */
 @Data
 public class LineDayConfigRequest {

@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 客户端类型校验 只适用string
  *
  * @author 二哥很猛
- * @date 2018/8/14 16:01
+ * @since 2018/8/14 16:01
  */
 @Documented
 @Constraint(validatedBy = ChannelTypeDefine.class)

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
  * 返回移动端版本的更新信息
  *
  * @author 二哥很猛
- * @date 2019/8/22 16:12
+ * @since 2019/8/22 16:12
  */
 @Data
 @Builder

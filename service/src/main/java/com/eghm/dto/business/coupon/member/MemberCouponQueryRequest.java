@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  * 用户优惠券中心列表查询
  *
  * @author 二哥很猛
- * @date 2022/7/14
+ * @since 2022/7/14
  */
 
 @Data

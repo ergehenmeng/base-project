@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
- * @date 2019/8/22 11:25
+ * @since 2019/8/22 11:25
  */
 @Getter
 @Setter
@@ -25,6 +25,6 @@ public class BannerQueryRequest extends PagingQuery {
     private String clientType;
 
     @ApiModelProperty("播放时间(在该时间段播放) yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @sinceTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime middleTime;
 }

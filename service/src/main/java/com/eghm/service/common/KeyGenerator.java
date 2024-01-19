@@ -6,7 +6,7 @@ import com.eghm.enums.Workspace;
  * 项目中只能指定一种生成方式,否则可能会出现id重复
  *
  * @author 二哥很猛
- * @date 2018/9/19 11:01
+ * @since 2018/9/19 11:01
  */
 public interface KeyGenerator {
 

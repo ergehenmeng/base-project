@@ -7,7 +7,7 @@ import com.eghm.vo.log.ManageLogResponse;
 
 /**
  * @author 二哥很猛
- * @date 2019/1/15 17:54
+ * @since 2019/1/15 17:54
  */
 public interface ManageLogService {
 

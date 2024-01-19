@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
- * @date 2018/11/28 17:33
+ * @since 2018/11/28 17:33
  */
 @Data
 public class ImageAddRequest {

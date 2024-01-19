@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
  * 版本比较工具类
  *
  * @author 二哥很猛
- * @date 2018/3/14 9:04
+ * @since 2018/3/14 9:04
  */
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

@@ -12,7 +12,7 @@ import java.util.List;
  * 管理人员 添加
  *
  * @author 二哥很猛
- * @date 2018/11/30 15:43
+ * @since 2018/11/30 15:43
  */
 @Data
 public class UserAddRequest {

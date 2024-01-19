@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * 正则表达式
  *
  * @author 二哥很猛
- * @date 2018/2/23 11:17
+ * @since 2018/2/23 11:17
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RegExpUtil {

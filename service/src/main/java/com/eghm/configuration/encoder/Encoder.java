@@ -3,7 +3,7 @@ package com.eghm.configuration.encoder;
 
 /**
  * @author 二哥很猛
- * @date 2019/7/9 15:07
+ * @since 2019/7/9 15:07
  */
 public interface Encoder {
 

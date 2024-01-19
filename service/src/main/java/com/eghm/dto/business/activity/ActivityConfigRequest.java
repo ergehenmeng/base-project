@@ -18,7 +18,7 @@ import java.util.List;
  * 配置活动(批量添加活动)
  *
  * @author 二哥很猛
- * @date 2022/7/23
+ * @since 2022/7/23
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

@@ -4,7 +4,7 @@ package com.eghm.constant;
  * redis缓存常量
  *
  * @author 二哥很猛
- * @date 2018/1/12 09:39
+ * @since 2018/1/12 09:39
  */
 public class CacheConstant {
 

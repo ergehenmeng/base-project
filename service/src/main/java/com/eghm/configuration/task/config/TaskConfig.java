@@ -9,7 +9,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 /**
  * @author 二哥很猛
- * @date 2019/9/6 14:49
+ * @since 2019/9/6 14:49
  */
 @EnableScheduling
 public class TaskConfig implements TaskSchedulerCustomizer {

@@ -13,7 +13,7 @@ public abstract class DatePagingComparator extends PagingQuery implements Serial
 
     private final transient LocalDateCompare dateCompare = new LocalDateCompare();
 
-    @DateCompare
+    @sinceCompare
     public LocalDateCompare getDateCompare() {
         dateCompare.setStartDate(this.getStartDate());
         dateCompare.setEndDate(this.getEndDate());

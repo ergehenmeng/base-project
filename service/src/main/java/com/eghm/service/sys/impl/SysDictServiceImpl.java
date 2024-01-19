@@ -29,7 +29,7 @@ import java.util.Objects;
  * 数据字典服务类
  *
  * @author 二哥很猛
- * @date 2018/1/12 14:31
+ * @since 2018/1/12 14:31
  */
 @Slf4j
 @Service("sysDictService")

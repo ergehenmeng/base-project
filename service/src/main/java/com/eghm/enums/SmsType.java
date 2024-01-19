@@ -7,7 +7,7 @@ import lombok.Getter;
  * 映射 sms_template表中的nid字段
  *
  * @author 殿小二
- * @date 2020/9/2
+ * @since 2020/9/2
  */
 @AllArgsConstructor
 @Getter

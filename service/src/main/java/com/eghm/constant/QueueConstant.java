@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
  * mq队列定义常亮
  *
  * @author 二哥很猛
- * @date 2022/7/28
+ * @since 2022/7/28
  */
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

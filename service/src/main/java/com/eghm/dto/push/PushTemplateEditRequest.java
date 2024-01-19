@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
- * @date 2019/11/27 13:56
+ * @since 2019/11/27 13:56
  */
 @Data
 public class PushTemplateEditRequest {

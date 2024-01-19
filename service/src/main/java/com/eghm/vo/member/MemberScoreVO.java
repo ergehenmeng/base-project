@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * @author 殿小二
- * @date 2020/9/7
+ * @since 2020/9/7
  */
 @Data
 public class MemberScoreVO {

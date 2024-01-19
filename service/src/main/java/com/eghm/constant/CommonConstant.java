@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * @author 二哥很猛
- * @date 2018/1/8 14:41
+ * @since 2018/1/8 14:41
  */
 public class CommonConstant {
 

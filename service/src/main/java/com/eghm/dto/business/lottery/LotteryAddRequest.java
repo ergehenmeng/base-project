@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * @author 殿小二
- * @date 2023/3/27
+ * @since 2023/3/27
  */
 @Data
 public class LotteryAddRequest {

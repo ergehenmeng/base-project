@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
  * 用于返回前台的结果集 json
  *
  * @author 二哥很猛
- * @date 2018/1/12 17:41
+ * @since 2018/1/12 17:41
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RespBody<T> {

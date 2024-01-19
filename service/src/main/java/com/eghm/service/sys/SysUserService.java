@@ -11,7 +11,7 @@ import com.eghm.vo.user.SysUserResponse;
 
 /**
  * @author 二哥很猛
- * @date 2018/11/26 10:24
+ * @since 2018/11/26 10:24
  */
 public interface SysUserService {
 

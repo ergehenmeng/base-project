@@ -25,7 +25,7 @@ import java.util.Map;
  * 基础头信息收集 将定义好的头信息参数全部放入RequestMessage对象中
  *
  * @author 二哥很猛
- * @date 2019/7/4 14:24
+ * @since 2019/7/4 14:24
  */
 @Slf4j
 public class MessageInterceptor implements InterceptorAdapter {

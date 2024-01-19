@@ -52,7 +52,7 @@ import java.util.Properties;
  * 公用配置,所有web模块所公用的配置信息均可在该配置文件中声明
  *
  * @author 二哥很猛
- * @date 2018/9/13 11:19
+ * @since 2018/9/13 11:19
  */
 @EnableConfigurationProperties({SystemProperties.class})
 @AllArgsConstructor

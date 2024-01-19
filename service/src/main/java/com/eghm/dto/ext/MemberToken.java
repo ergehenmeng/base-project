@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
  * token令牌
  *
  * @author 二哥很猛
- * @date 2018/8/14 17:37
+ * @since 2018/8/14 17:37
  */
 @Data
 @Builder

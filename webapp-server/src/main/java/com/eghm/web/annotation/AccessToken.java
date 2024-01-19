@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 如果无法确认用是否登陆,请在获取用户信息时给予必要的非空判断
  *
  * @author 二哥很猛
- * @date 2019/11/20 16:04
+ * @since 2019/11/20 16:04
  * @see TokenInterceptor 登陆校验规则
  * @see ApiHolder 用户信息
  */

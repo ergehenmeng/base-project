@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 二哥很猛
- * @date 2022/7/18
+ * @since 2022/7/18
  */
 @RestController
 @Api(tags = "优惠券配置")

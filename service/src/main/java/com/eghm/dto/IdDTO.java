@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
  * 禁止在该类中额外添加其他参数,除非是全局公用字段
  *
  * @author 殿小二
- * @date 2020/8/29
+ * @since 2020/8/29
  */
 @Data
 public class IdDTO {

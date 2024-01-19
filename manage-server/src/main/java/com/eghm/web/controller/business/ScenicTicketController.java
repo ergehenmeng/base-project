@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 二哥很猛
- * @date 2022/6/17
+ * @since 2022/6/17
  */
 @RestController
 @Api(tags = "景区门票")
