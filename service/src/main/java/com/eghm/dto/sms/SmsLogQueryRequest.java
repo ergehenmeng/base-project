@@ -19,11 +19,11 @@ import java.time.LocalDateTime;
 public class SmsLogQueryRequest extends PagingQuery {
 
     @ApiModelProperty("开始时间 yyyy-MM-dd HH:mm")
-    @sinceTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
 
     @ApiModelProperty("结束时间 yyyy-MM-dd HH:mm")
-    @sinceTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
     @ApiModelProperty("短信发送状态 0:发送中 1:发送成功 2:发送失败")

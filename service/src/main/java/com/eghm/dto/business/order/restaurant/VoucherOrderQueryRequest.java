@@ -22,11 +22,11 @@ public class VoucherOrderQueryRequest extends DatePagingComparator {
     private Integer orderState;
 
     @ApiModelProperty("开始日期")
-    @sinceTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
     @ApiModelProperty("截止日期")
-    @sinceFormatter(pattern = "yyyy-MM-dd", offset = 1)
+    @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
     private LocalDate endDate;
 
     @ApiModelProperty("是否使用优惠券")

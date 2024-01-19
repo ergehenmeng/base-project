@@ -17,11 +17,11 @@ import java.time.LocalDateTime;
 public class ManageQueryRequest extends PagingQuery {
 
     @ApiModelProperty("开始时间 yyyy-MM-dd HH:mm")
-    @sinceTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
 
     @ApiModelProperty("结束时间 yyyy-MM-dd HH:mm")
-    @sinceTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
 }

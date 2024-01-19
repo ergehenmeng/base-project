@@ -73,14 +73,14 @@ public class LineOrderResponse extends ExcelStyle {
 
     @ApiModelProperty("创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @sinceTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @ExcelProperty(value = "订单创建时间", index = 10)
     private LocalDateTime createTime;
 
     @ApiModelProperty("支付时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ExcelProperty(value = "支付时间", index = 11)
-    @sinceTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime payTime;
 
 }

@@ -69,6 +69,6 @@ public class VoucherResponse extends ExcelStyle {
 
     @ApiModelProperty("添加时间")
     @ExcelProperty(value = "添加时间", index = 10)
-    @sinceTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 }

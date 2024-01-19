@@ -56,7 +56,7 @@ public class AccountLogResponse extends ExcelStyle {
 
     @ApiModelProperty("添加时间")
     @ExcelProperty(value = "添加时间", index = 7)
-    @sinceTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 

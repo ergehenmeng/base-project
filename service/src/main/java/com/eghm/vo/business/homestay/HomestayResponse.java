@@ -52,7 +52,7 @@ public class HomestayResponse extends ExcelStyle {
     private BigDecimal score;
 
     @ApiModelProperty("添加时间")
-    @sinceTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @ExcelProperty(value = "创建时间", index = 7)
     private LocalDateTime createTime;
 }

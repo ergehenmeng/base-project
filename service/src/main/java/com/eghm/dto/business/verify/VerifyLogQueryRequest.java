@@ -19,11 +19,11 @@ import java.time.LocalDate;
 public class VerifyLogQueryRequest extends DatePagingComparator {
 
     @ApiModelProperty("开始时间 yyyy-MM-dd")
-    @sinceTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
     @ApiModelProperty("截止时间 yyyy-MM-dd")
-    @sinceFormatter(pattern = "yyyy-MM-dd", offset = 1)
+    @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
     private LocalDate endDate;
 
     @ApiModelProperty(value = "商户id", hidden = true)

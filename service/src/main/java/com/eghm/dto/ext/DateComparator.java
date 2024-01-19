@@ -13,7 +13,7 @@ public abstract class DateComparator implements Serializable {
 
     private final transient LocalDateCompare dateCompare = new LocalDateCompare();
 
-    @sinceCompare
+    @DateCompare
     public LocalDateCompare getDateCompare() {
         dateCompare.setStartDate(this.getStartDate());
         dateCompare.setEndDate(this.getEndDate());

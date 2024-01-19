@@ -74,19 +74,19 @@ public class VoucherOrderResponse extends ExcelStyle {
 
     @ApiModelProperty("创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @sinceTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @ExcelProperty(value = "订单创建时间", index = 10)
     private LocalDateTime createTime;
 
     @ApiModelProperty("支付时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @sinceTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @ExcelProperty(value = "支付时间", index = 11)
     private LocalDateTime payTime;
 
     @ApiModelProperty("完成时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @sinceTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @ExcelProperty(value = "完成时间", index = 12)
     private LocalDateTime completeTime;
 
@@ -96,7 +96,7 @@ public class VoucherOrderResponse extends ExcelStyle {
 
     @ApiModelProperty("订单关闭时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @sinceTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @ExcelProperty(value = "关闭时间", index = 14)
     private LocalDateTime closeTime;
 }
