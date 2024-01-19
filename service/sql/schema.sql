@@ -399,11 +399,11 @@ CREATE TABLE `sys_dict`
   AUTO_INCREMENT = 15
   DEFAULT CHARSET = utf8mb4 COMMENT ='数据字典表';
 
-DROP TABLE IF EXISTS `sys_dict`;
+DROP TABLE IF EXISTS `sys_dict_item`;
 CREATE TABLE `sys_dict_item`
 (
     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `nid`          bigint(50)          DEFAULT NULL COMMENT '字典编号',
+    `nid`          varchar(50)          DEFAULT NULL COMMENT '字典编号',
     `hidden_value` tinyint(2) unsigned DEFAULT NULL COMMENT '数据字典隐藏值 1~∞',
     `show_value`   varchar(50)         DEFAULT NULL COMMENT '显示值',
     `deleted`      bit(1)              DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
