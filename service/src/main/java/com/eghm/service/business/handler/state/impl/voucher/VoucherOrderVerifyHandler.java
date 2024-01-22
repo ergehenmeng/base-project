@@ -54,7 +54,7 @@ public class VoucherOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     @Override
     protected void end(OrderVerifyContext context, Order order) {
-        orderMQService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE, context.getOrderNo());
+        orderMQService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE_DELAY, context.getOrderNo());
     }
 
     @Override

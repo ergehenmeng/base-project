@@ -40,31 +40,6 @@ public enum ExchangeQueue {
     LINE_PAY_EXPIRE("line_pay_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.LINE_PAY_EXPIRE_QUEUE}, "", true),
 
     /**
-     * 商品确认收货
-     */
-    ITEM_COMPLETE("item_complete_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.ITEM_COMPLETE_QUEUE}, "", false),
-
-    /**
-     * 门票核销完成
-     */
-    TICKET_COMPLETE("ticket_complete_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.TICKET_COMPLETE_QUEUE}, "", false),
-
-    /**
-     * 线路核销完成
-     */
-    LINE_COMPLETE("line_complete_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.LINE_COMPLETE_QUEUE}, "", false),
-
-    /**
-     * 餐饮核销完成
-     */
-    RESTAURANT_COMPLETE("restaurant_complete_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.RESTAURANT_COMPLETE_QUEUE}, "", false),
-
-    /**
-     * 民宿核销完成
-     */
-    HOMESTAY_COMPLETE("homestay_complete_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.HOMESTAY_COMPLETE_QUEUE}, "", false),
-
-    /**
      * 门票订单队列
      */
     TICKET_ORDER("ticket_order_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.TICKET_ORDER_QUEUE}, "", false),
@@ -118,6 +93,36 @@ public enum ExchangeQueue {
      * 商品订单发货后 自动确认收货
      */
     ITEM_SIPPING("item_sipping_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.ITEM_SIPPING_QUEUE}, "", true),
+
+    /**
+     * 商品确认收货
+     */
+    ITEM_COMPLETE_DELAY("item_complete_delay_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.ITEM_COMPLETE_DELAY_QUEUE}, "", true),
+
+    /**
+     * 门票核销完成
+     */
+    TICKET_COMPLETE_DELAY("ticket_complete_delay_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.TICKET_COMPLETE_DELAY_QUEUE}, "", true),
+
+    /**
+     * 线路核销完成
+     */
+    LINE_COMPLETE_DELAY("line_complete_delay_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.LINE_COMPLETE_DELAY_QUEUE}, "", true),
+
+    /**
+     * 餐饮核销完成
+     */
+    RESTAURANT_COMPLETE_DELAY("restaurant_complete_delay_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.RESTAURANT_COMPLETE_DELAY_QUEUE}, "", true),
+
+    /**
+     * 民宿核销完成
+     */
+    HOMESTAY_COMPLETE_DELAY("homestay_complete_delay_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.HOMESTAY_COMPLETE_DELAY_QUEUE}, "", true),
+
+    /**
+     * 订单完成
+     */
+    ORDER_COMPLETE("order_complete_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.ORDER_COMPLETE_QUEUE}, "", false),
     ;
 
     /**

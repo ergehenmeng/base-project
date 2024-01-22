@@ -57,7 +57,7 @@ public class LineOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
             }
         }
         if (order.getState() == OrderState.COMPLETE) {
-            orderMQService.sendOrderCompleteMessage(ExchangeQueue.LINE_COMPLETE, order.getOrderNo());
+            orderMQService.sendOrderCompleteMessage(ExchangeQueue.LINE_COMPLETE_DELAY, order.getOrderNo());
         }
     }
 

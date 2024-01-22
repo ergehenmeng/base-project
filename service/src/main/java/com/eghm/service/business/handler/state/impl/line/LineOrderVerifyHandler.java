@@ -28,7 +28,7 @@ public class LineOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     @Override
     protected void end(OrderVerifyContext context, Order order) {
-        orderMQService.sendOrderCompleteMessage(ExchangeQueue.LINE_COMPLETE, context.getOrderNo());
+        orderMQService.sendOrderCompleteMessage(ExchangeQueue.LINE_COMPLETE_DELAY, context.getOrderNo());
     }
 
     @Override

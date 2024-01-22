@@ -28,7 +28,7 @@ public class HomestayOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     @Override
     protected void end(OrderVerifyContext context, Order order) {
-        orderMQService.sendOrderCompleteMessage(ExchangeQueue.HOMESTAY_COMPLETE, context.getOrderNo());
+        orderMQService.sendOrderCompleteMessage(ExchangeQueue.HOMESTAY_COMPLETE_DELAY, context.getOrderNo());
     }
 
     @Override

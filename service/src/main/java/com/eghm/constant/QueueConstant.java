@@ -39,29 +39,34 @@ public class QueueConstant {
     public static final String LINE_PAY_EXPIRE_QUEUE = "line_pay_expire_queue";
 
     /**
+     * 订单完成 实时队列(分账等)
+     */
+    public static final String ORDER_COMPLETE_QUEUE = "order_complete_queue";
+
+    /**
      * 订单收货后,完成后自动评价
      */
-    public static final String ITEM_COMPLETE_QUEUE = "item_complete_queue";
+    public static final String ITEM_COMPLETE_DELAY_QUEUE = "item_complete_delay_queue";
 
     /**
      * 门票核销后自动评价
      */
-    public static final String TICKET_COMPLETE_QUEUE = "ticket_complete_queue";
+    public static final String TICKET_COMPLETE_DELAY_QUEUE = "ticket_complete_delay_queue";
 
     /**
      * 线路核销后自动评价
      */
-    public static final String LINE_COMPLETE_QUEUE = "line_complete_queue";
+    public static final String LINE_COMPLETE_DELAY_QUEUE = "line_complete_delay_queue";
 
     /**
      * 民宿核销后自动评价
      */
-    public static final String HOMESTAY_COMPLETE_QUEUE = "homestay_complete_queue";
+    public static final String HOMESTAY_COMPLETE_DELAY_QUEUE = "homestay_complete_delay_queue";
 
     /**
      * 餐饮核销后自动评价
      */
-    public static final String RESTAURANT_COMPLETE_QUEUE = "restaurant_complete_queue";
+    public static final String RESTAURANT_COMPLETE_DELAY_QUEUE = "restaurant_complete_delay_queue";
 
     /**
      * 门票订单队列

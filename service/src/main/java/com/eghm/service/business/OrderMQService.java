@@ -27,10 +27,12 @@ public interface OrderMQService {
 
     /**
      * 发送订单完成消息
-     * 1. 添加评论信息
+     * 1. 添加评论信息 (延迟)
+     * 2. 实时消息 (分账)
      *
      * @param exchangeQueue 队列类型
      * @param orderNo       订单信息
      */
     void sendOrderCompleteMessage(ExchangeQueue exchangeQueue, String orderNo);
+
 }

@@ -42,8 +42,11 @@ public class OrderMQServiceImpl implements OrderMQService {
 
     @Override
     public void sendOrderCompleteMessage(ExchangeQueue exchangeQueue, String orderNo) {
+        log.info("订单完成发送实时消息 [{}] [{}]", exchangeQueue, orderNo);
+        rabbitService.send(ExchangeQueue.ORDER_COMPLETE, orderNo);
         int completeTime = sysConfigApi.getInt(ConfigConstant.ORDER_COMPLETE_TIME);
-        log.info("订单完成延迟队列发送消息 [{}] [{}]", exchangeQueue, orderNo);
+        log.info("订单完成发送延迟消息 [{}] [{}]", exchangeQueue, orderNo);
         rabbitService.sendDelay(exchangeQueue, orderNo, completeTime);
     }
+
 }

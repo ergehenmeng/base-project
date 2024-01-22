@@ -28,7 +28,7 @@ public class TicketOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     @Override
     protected void end(OrderVerifyContext context, Order order) {
-        orderMQService.sendOrderCompleteMessage(ExchangeQueue.TICKET_COMPLETE, context.getOrderNo());
+        orderMQService.sendOrderCompleteMessage(ExchangeQueue.TICKET_COMPLETE_DELAY, context.getOrderNo());
     }
 
     @Override

@@ -380,15 +380,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             order.setCompleteTime(LocalDateTime.now());
             TransactionUtil.afterCommit(() -> {
                 if (order.getProductType() == ProductType.TICKET) {
-                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.TICKET_COMPLETE, order.getOrderNo());
+                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.TICKET_COMPLETE_DELAY, order.getOrderNo());
                 } else if (order.getProductType() == ProductType.ITEM) {
-                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.ITEM_COMPLETE, order.getOrderNo());
+                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.ITEM_COMPLETE_DELAY, order.getOrderNo());
                 } else if (order.getProductType() == ProductType.LINE) {
-                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.LINE_COMPLETE, order.getOrderNo());
+                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.LINE_COMPLETE_DELAY, order.getOrderNo());
                 } else if (order.getProductType() == ProductType.RESTAURANT) {
-                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE, order.getOrderNo());
+                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE_DELAY, order.getOrderNo());
                 } else if (order.getProductType() == ProductType.HOMESTAY) {
-                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.HOMESTAY_COMPLETE, order.getOrderNo());
+                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.HOMESTAY_COMPLETE_DELAY, order.getOrderNo());
                 }
             });
         }
@@ -517,7 +517,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order.setCompleteTime(LocalDateTime.now());
         order.setState(OrderState.COMPLETE);
         baseMapper.updateById(order);
-        orderMQService.sendOrderCompleteMessage(ExchangeQueue.ITEM_COMPLETE, order.getOrderNo());
+        orderMQService.sendOrderCompleteMessage(ExchangeQueue.ITEM_COMPLETE_DELAY, order.getOrderNo());
     }
 
     /**

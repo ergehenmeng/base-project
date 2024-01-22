@@ -52,7 +52,7 @@ public class VoucherOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHa
             }
         }
         if (order.getState() == OrderState.COMPLETE) {
-            orderMQService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE, order.getOrderNo());
+            orderMQService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE_DELAY, order.getOrderNo());
         }
     }
 
