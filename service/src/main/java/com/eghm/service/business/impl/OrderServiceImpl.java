@@ -530,6 +530,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             log.error("订单状态状态不是待完成,不支持分账 [{}] [{}]", orderNo, order.getState());
             return;
         }
+        if (Boolean.TRUE.equals(order.getSettleState())) {
+            log.error("订单已结算,不支持分账 [{}]", orderNo);
+            return;
+        }
         int routingAmount = order.getPayAmount() - order.getExpressAmount() - order.getRefundAmount();
         if (routingAmount <= 0) {
             log.error("订单结算金额小于0,不支持分账 [{}] [{}]", orderNo, routingAmount);
