@@ -325,9 +325,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             order.setCloseTime(LocalDateTime.now());
         }
         this.orderStateModify(order);
+        order.setRefundAmount(order.getRefundAmount() + request.getRefundAmount());
+        baseMapper.updateById(order);
         // 发起退款
         TransactionUtil.afterCommit(() -> this.startRefund(refundLog, order));
-        baseMapper.updateById(order);
     }
 
     @Override
@@ -350,9 +351,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             order.setCloseTime(LocalDateTime.now());
         }
         this.orderStateModify(order);
+        order.setRefundAmount(order.getRefundAmount() + request.getRefundAmount());
+        baseMapper.updateById(order);
         // 发起退款
         TransactionUtil.afterCommit(() -> this.startRefund(refundLog, order));
-        baseMapper.updateById(order);
     }
 
     @Override

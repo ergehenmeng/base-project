@@ -86,6 +86,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         refundLog.setState(0);
         refundLog.setAuditState(AuditState.APPLY);
         order.setRefundState(RefundState.APPLY);
+        order.setRefundAmount(order.getRefundAmount() + context.getApplyAmount());
         // 更新订单信息
         orderService.updateById(order);
         // 新增退款记录

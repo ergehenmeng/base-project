@@ -74,6 +74,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
             refundLog.setAuditRemark("系统自动审核");
             refundLog.setOutRefundNo(order.getProductType().generateTradeNo());
             order.setRefundState(RefundState.PROGRESS);
+            order.setRefundAmount(order.getRefundAmount() + context.getApplyAmount());
             TransactionUtil.afterCommit(() -> orderService.startRefund(refundLog, order));
         }
         orderService.updateById(order);
