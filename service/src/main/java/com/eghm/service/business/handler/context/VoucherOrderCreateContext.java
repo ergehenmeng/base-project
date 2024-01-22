@@ -6,6 +6,7 @@ import com.eghm.state.machine.Context;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author 二哥很猛
@@ -13,6 +14,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@ToString(callSuper = true)
 public class VoucherOrderCreateContext extends AsyncKey implements Context {
 
     @ApiModelProperty("餐饮券id")

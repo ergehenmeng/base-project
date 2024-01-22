@@ -105,6 +105,7 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
 
     @Override
     public void createDefault(String orderNo) {
+        log.info("开始创建默认评价 [{}]", orderNo);
         Order order = orderService.getByOrderNo(orderNo);
         if (Boolean.TRUE.equals(order.getEvaluateState())) {
             return;

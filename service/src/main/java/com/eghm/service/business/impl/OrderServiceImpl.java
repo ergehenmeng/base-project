@@ -501,6 +501,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public void confirmReceipt(String orderNo, Long memberId) {
+        log.info("零售商品确认收货 [{}] [{}]", orderNo, memberId);
         Order order = this.getByOrderNo(orderNo);
         if (memberId != null && !memberId.equals(order.getMemberId())) {
             log.error("操作了不属于自己的确认订单 [{}] [{}]", orderNo, memberId);

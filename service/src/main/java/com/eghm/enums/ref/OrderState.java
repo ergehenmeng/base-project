@@ -66,7 +66,7 @@ public enum OrderState implements EnumBinder {
     REFUND(7, "退款中"),
 
     /**
-     * 订单完成(已收货或已核销或已入住) 注意: 针对核销类商品直接由待使用到待评价
+     * 订单完成(已收货或已核销或已入住) 注意: 针对核销类商品直接由待使用变成已完成
      */
     COMPLETE(8, "订单完成"),
 

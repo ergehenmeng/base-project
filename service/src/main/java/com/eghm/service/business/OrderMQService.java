@@ -27,6 +27,7 @@ public interface OrderMQService {
 
     /**
      * 发送订单完成消息
+     * 1. 添加评论信息
      *
      * @param exchangeQueue 队列类型
      * @param orderNo       订单信息

@@ -96,10 +96,10 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, "4");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_SIZE, "35");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "4");
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "abcdefhkmnprstwxy23456789ABCEFGHGKMNPRSTWXY");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "abcdefhkmnprstwxy2345678ABCEFGHGKMNPRSTWXY");
         properties.setProperty(Constants.KAPTCHA_NOISE_IMPL, NoNoise.class.getName());
         properties.setProperty(Constants.KAPTCHA_OBSCURIFICATOR_IMPL, WaterRipple.class.getName());
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL, MathCaptchaProducer.class.getName());
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL, TextCaptchaProducer.class.getName());
         Config config = new Config(properties);
         captcha.setConfig(config);
         return captcha;

@@ -150,6 +150,7 @@ public class RabbitListenerHandler {
      * @param channel mq channel
      */
     private void doOrderExpire(String orderNo, IEvent event, Message message, Channel channel) throws IOException {
+        log.info("订单自动过期处理 [{}]", orderNo);
         OrderCancelContext context = new OrderCancelContext();
         context.setOrderNo(orderNo);
         processMessageAck(context, message, channel, orderCancelContext -> {
@@ -259,6 +260,7 @@ public class RabbitListenerHandler {
     @RabbitListener(queues = QueueConstant.PRODUCT_SCORE_QUEUE)
     public void updateProductScore(CalcStatistics vo, Message message, Channel channel) throws IOException {
         processMessageAck(vo, message, channel, msg -> {
+            log.info("更新商品分数信息 [{}]", vo);
             switch (vo.getProductType()) {
                 case TICKET:
                     scenicTicketService.updateScore(vo);
@@ -310,11 +312,12 @@ public class RabbitListenerHandler {
      */
     public <T extends AsyncKey> void processMessageAckAsync(T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
         try {
+            log.info("开始处理MQ异步消息 [{}]", jsonService.toJson(msg));
             if (this.canConsumer(msg.getKey())) {
                 consumer.accept(msg);
                 cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), SUCCESS_PLACE_HOLDER, CommonConstant.ASYNC_MSG_EXPIRE);
             } else {
-                log.warn("订单已超时,不做下单处理 [{}]", jsonService.toJson(msg));
+                log.warn("消息已超时,不做任何业务处理");
             }
         } catch (BusinessException e) {
             log.error("队列[{}]处理消息业务异常 [{}] [{}] [{}] [{}]", message.getMessageProperties().getConsumerQueue(), msg, message, e.getCode(), e.getMessage());

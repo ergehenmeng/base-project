@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -23,6 +24,7 @@ import java.util.List;
  */
 @Getter
 @Setter
+@ToString(callSuper = true)
 public class LineOrderCreateContext extends AsyncKey implements Context {
 
     @Assign
