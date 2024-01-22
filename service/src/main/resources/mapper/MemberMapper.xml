@@ -42,14 +42,14 @@
     <select id="registerStatistics" resultType="integer">
         select
             count(id)
-        from member where deleted = false and create_time &gt;= #{startDate} and create_time &lt;= #{endDate}
+        from member where deleted = false and create_time &gt; #{startDate} and create_time &lt;= #{endDate}
     </select>
 
     <select id="dayRegister" resultType="com.eghm.vo.member.MemberRegisterVO">
         select
             create_date,
             count(id) as registerNum
-        from member where deleted = false and create_time &gt;= #{startDate} and create_time &lt;= #{endDate}
+        from member where deleted = false and create_time &gt;= #{startDate} and create_time &lt; #{endDate}
         group by create_date
     </select>
 </mapper>

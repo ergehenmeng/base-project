@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
+import com.eghm.dto.DateRequest;
 import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.OnlineRefundRequest;
 import com.eghm.dto.business.order.item.ItemOnlineRefundRequest;
@@ -38,6 +39,7 @@ import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.TransactionUtil;
 import com.eghm.vo.business.order.OrderScanVO;
+import com.eghm.vo.business.order.OrderStatisticsVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
 import com.eghm.vo.business.order.item.ExpressDetailVO;
@@ -48,8 +50,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -541,6 +548,24 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         }
         // 分账
         log.error("分账功能待补全 [{}]", orderNo);
+    }
+
+    @Override
+    public OrderStatisticsVO orderStatistics(DateRequest request) {
+        return baseMapper.orderStatistics(request.getStartDate(), request.getEndDate());
+    }
+
+    @Override
+    public List<OrderStatisticsVO> dayOrder(DateRequest request) {
+        List<OrderStatisticsVO> voList = baseMapper.dayOrder(request.getStartDate(), request.getEndDate());
+        Map<LocalDate, OrderStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(OrderStatisticsVO::getCreateDate, Function.identity()));
+        long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
+        List<OrderStatisticsVO> resultList = new ArrayList<>();
+        for (int i = 0; i <= between; i++) {
+            LocalDate date = request.getStartDate().plusDays(i);
+            resultList.add(voMap.getOrDefault(date, new OrderStatisticsVO(date, 0, 0)));
+        }
+        return resultList;
     }
 
     /**

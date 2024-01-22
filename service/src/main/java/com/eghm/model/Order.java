@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -131,4 +132,7 @@ public class Order extends BaseEntity {
 
     @ApiModelProperty("订单备注信息")
     private String remark;
+
+    @ApiModelProperty("创建日期")
+    private LocalDate createDate;
 }

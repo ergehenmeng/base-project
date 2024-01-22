@@ -2,7 +2,9 @@ package com.eghm.web.controller.business;
 
 import com.eghm.dto.DateRequest;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.service.business.OrderService;
 import com.eghm.service.member.MemberService;
+import com.eghm.vo.business.order.OrderStatisticsVO;
 import com.eghm.vo.member.MemberRegisterVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +28,8 @@ public class StatisticsController {
 
     private final MemberService memberService;
 
+    private final OrderService orderService;
+
     @GetMapping("/register")
     @ApiOperation("注册统计")
     public RespBody<Integer> register(DateRequest request) {
@@ -37,6 +41,20 @@ public class StatisticsController {
     @ApiOperation("注册统计(按天)")
     public RespBody<List<MemberRegisterVO>> dayRegister(DateRequest request) {
         List<MemberRegisterVO> statistics = memberService.dayRegister(request);
+        return RespBody.success(statistics);
+    }
+
+    @GetMapping("/order")
+    @ApiOperation("下单统计")
+    public RespBody<OrderStatisticsVO> order(DateRequest request) {
+        OrderStatisticsVO statistics = orderService.orderStatistics(request);
+        return RespBody.success(statistics);
+    }
+
+    @GetMapping("/dayOrder")
+    @ApiOperation("下单统计(按天)")
+    public RespBody<List<OrderStatisticsVO>> dayOrder(DateRequest request) {
+        List<OrderStatisticsVO> statistics = orderService.dayOrder(request);
         return RespBody.success(statistics);
     }
 

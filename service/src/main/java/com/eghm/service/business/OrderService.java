@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.eghm.dto.DateRequest;
 import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.OnlineRefundRequest;
 import com.eghm.dto.business.order.item.ItemOnlineRefundRequest;
@@ -12,6 +13,7 @@ import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.vo.business.order.OrderScanVO;
+import com.eghm.vo.business.order.OrderStatisticsVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.item.ExpressDetailVO;
 
@@ -267,4 +269,20 @@ public interface OrderService extends IService<Order> {
      * @param orderNo 订单号
      */
     void routing(String orderNo);
+
+    /**
+     * 订单统计
+     *
+     * @param request request
+     * @return list
+     */
+    OrderStatisticsVO orderStatistics(DateRequest request);
+
+    /**
+     * 订单统计
+     *
+     * @param request request
+     * @return list
+     */
+    List<OrderStatisticsVO> dayOrder(DateRequest request);
 }

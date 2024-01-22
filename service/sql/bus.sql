@@ -613,9 +613,10 @@ CREATE TABLE `order`
     `close_time`      datetime     DEFAULT NULL COMMENT '订单关闭时间',
     `verify_no`       varchar(50)  DEFAULT NULL COMMENT '核销码',
     `remark`          varchar(200) DEFAULT NULL COMMENT '备注信息',
+    `create_date`     date         DEFAULT NULL COMMENT '创建日期',
     `create_time`     datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`         varchar(255) DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
+    `deleted`         bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
     KEY `merchant_idx` (`merchant_id`),
     KEY `member_idx` (`member_id`, `order_no`)
