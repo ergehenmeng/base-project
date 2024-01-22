@@ -3,6 +3,8 @@ package com.eghm.vo.business.merchant;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /**
  * <p>
  * 商家信息表
@@ -37,6 +39,9 @@ public class MerchantDetailResponse {
 
     @ApiModelProperty(value = "商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路")
     private Integer type;
+
+    @ApiModelProperty(value = "平台服务费,单位:%")
+    private BigDecimal platformServiceRate;
 
     @ApiModelProperty(value = "联系人电话")
     private String mobile;

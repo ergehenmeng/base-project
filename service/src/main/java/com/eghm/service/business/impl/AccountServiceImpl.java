@@ -58,6 +58,7 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
             accountLog.setSurplusAmount(account.getPayFreeze() + account.getWithdrawAmount());
         }
         this.checkAccount(account);
+        accountLogMapper.insert(accountLog);
 
         account.setUpdateTime(LocalDateTime.now());
         int update = accountMapper.updateAccount(account);
@@ -66,7 +67,6 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
             dingTalkService.sendMsg(String.format("更新商户账户失败 [%s]", dto));
             throw new BusinessException(ErrorCode.ACCOUNT_UPDATE);
         }
-        accountLogMapper.insert(accountLog);
     }
 
     @Override

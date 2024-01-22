@@ -7,6 +7,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.math.BigDecimal;
+
 /**
  * <p>
  * 商家信息表
@@ -50,6 +52,9 @@ public class Merchant extends BaseEntity {
 
     @ApiModelProperty("关联的系统用户id")
     private Long userId;
+
+    @ApiModelProperty(value = "平台服务费,单位:%")
+    private BigDecimal platformServiceRate;
 
     @ApiModelProperty(value = "省份id")
     private Long provinceId;

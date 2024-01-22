@@ -297,7 +297,7 @@ public class RabbitListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.ORDER_COMPLETE_QUEUE)
     public void orderComplete(String orderNo, Message message, Channel channel) throws IOException {
-        processMessageAck(orderNo, message, channel, s -> log.info("开始处理订单资金记录 [{}]", orderNo));
+        processMessageAck(orderNo, message, channel, orderService::routing);
     }
 
     /**

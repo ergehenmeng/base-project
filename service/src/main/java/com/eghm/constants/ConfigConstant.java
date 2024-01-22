@@ -1,10 +1,14 @@
 package com.eghm.constants;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * 全局配置信息常量
  *
  * @author 二哥很猛
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConfigConstant {
 
     /**
@@ -156,6 +160,9 @@ public class ConfigConstant {
      */
     public static final String MERCHANT_AUTH_CODE_EXPIRE = "merchant_auth_code_expire";
 
-    private ConfigConstant() {
-    }
+    /**
+     * 平台服务费率,单位:%
+     */
+    public static final String PLATFORM_SERVICE_RATE = "platform_service_rate";
+
 }

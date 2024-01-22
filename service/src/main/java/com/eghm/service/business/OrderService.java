@@ -260,4 +260,11 @@ public interface OrderService extends IService<Order> {
      * @param memberId 用户id
      */
     void confirmReceipt(String orderNo, Long memberId);
+
+    /**
+     * 订单分账
+     *
+     * @param orderNo 订单号
+     */
+    void routing(String orderNo);
 }

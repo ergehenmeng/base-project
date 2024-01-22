@@ -10,6 +10,7 @@ import com.eghm.vo.business.merchant.MerchantAuthResponse;
 import com.eghm.vo.business.merchant.MerchantAuthVO;
 import com.eghm.vo.business.merchant.MerchantResponse;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -114,6 +115,14 @@ public interface MerchantService {
      * @param merchantId 商户id
      */
     void unbind(Long merchantId);
+
+    /**
+     * 调整平台费率
+     *
+     * @param merchantId 商户id
+     * @param rate   费率,单位:%
+     */
+    void adjustRate(Long merchantId, BigDecimal rate);
 
     /**
      * 生成授权码

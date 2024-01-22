@@ -5,6 +5,7 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.merchant.MerchantAddRequest;
 import com.eghm.dto.business.merchant.MerchantEditRequest;
 import com.eghm.dto.business.merchant.MerchantQueryRequest;
+import com.eghm.dto.business.merchant.MerchantRateRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.Merchant;
@@ -84,6 +85,13 @@ public class MerchantController {
     @ApiOperation("重置密码")
     public RespBody<Void> resetPwd(@RequestBody @Validated IdDTO dto) {
         merchantService.resetPwd(dto.getId());
+        return RespBody.success();
+    }
+
+    @PostMapping("/adjustRate")
+    @ApiOperation("调整费率")
+    public RespBody<Void> adjustRate(@RequestBody @Validated MerchantRateRequest request) {
+        merchantService.adjustRate(request.getId(), request.getPlatformServiceRate());
         return RespBody.success();
     }
 

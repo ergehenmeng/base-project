@@ -5371,3 +5371,5 @@ INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `upd
 INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `update_time` , `deleted`) VALUES ('8402', 'zsda56', '转瞬达集运', '2024-01-10T17:13:45', '2024-01-10T17:13:45' , 'false');
 INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `update_time` , `deleted`) VALUES ('8403', 'ztjieda', '泰捷达国际物流', '2024-01-10T17:13:45', '2024-01-10T17:13:45' , 'false');
 INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `update_time` , `deleted`) VALUES ('8404', 'ztong', '智通物流', '2024-01-10T17:13:45', '2024-01-10T17:13:45' , 'false');
+
+INSERT INTO sys_config (`id`,`nid`,`title`,`content`,`locked`,`remark`,`create_time`,`update_time`) VALUES (68,'platform_service_rate','平台手续费','5',false,'平台手续费,单位:%','2024-01-22T13:14:34','2024-01-22T13:14:34');

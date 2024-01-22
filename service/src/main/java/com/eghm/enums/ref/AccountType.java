@@ -19,11 +19,13 @@ import java.util.Arrays;
 public enum AccountType implements EnumBinder {
 
     /**
-     * 支付收入
+     * 例如: 平台抽佣:5%, 单价500x2, 则支付收入500x2*0.95=950
+     * 支付收入 (不含平台抽佣)
      */
     PAY_INCOME(1, "支付收入"),
 
     /**
+     * 退款500, 则退款支出500*0.95=475
      * 退款支出
      */
     REFUND_DISBURSE(2, "退款支出"),

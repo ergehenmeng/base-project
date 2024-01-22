@@ -37,6 +37,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -84,7 +85,7 @@ public class MerchantServiceImpl implements MerchantService {
     public void create(MerchantAddRequest request) {
         this.checkMerchantRedo(request.getMerchantName(), null);
         this.checkMobileRedo(request.getMobile(), null);
-        Merchant merchant = DataUtil.copy(request, Merchant.class);
+
         String pwd = sysConfigApi.getString(ConfigConstant.MERCHANT_PWD);
         SysUser user = new SysUser();
         user.setUserType(SysUser.USER_TYPE_2);
@@ -95,9 +96,14 @@ public class MerchantServiceImpl implements MerchantService {
         user.setMobile(request.getMobile());
         user.setNickName(request.getMerchantName());
         sysUserService.insert(user);
+
+        Merchant merchant = DataUtil.copy(request, Merchant.class);
+        BigDecimal platformServiceRate = BigDecimal.valueOf(sysConfigApi.getDouble(ConfigConstant.PLATFORM_SERVICE_RATE, 5D));
+        merchant.setPlatformServiceRate(platformServiceRate);
         // 系统用户和商户关联
         merchant.setUserId(user.getId());
         merchantMapper.insert(merchant);
+
         List<RoleType> roleTypes = RoleMapping.parseRoleType(request.getType());
         sysRoleService.authRole(merchant.getId(), roleTypes);
         this.initStore(merchant, roleTypes);
@@ -189,6 +195,14 @@ public class MerchantServiceImpl implements MerchantService {
         Merchant merchant = this.selectByIdRequired(merchantId);
         log.info("商户[{}]解绑微信号,旧信息:[{}] [{}]", merchant.getMerchantName(), merchant.getAuthMobile(), merchant.getOpenId());
         this.doUnbindMerchant(merchantId);
+    }
+
+    @Override
+    public void adjustRate(Long merchantId, BigDecimal rate) {
+        LambdaUpdateWrapper<Merchant> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Merchant::getId, merchantId);
+        wrapper.set(Merchant::getPlatformServiceRate, rate);
+        merchantMapper.update(null, wrapper);
     }
 
     @Override

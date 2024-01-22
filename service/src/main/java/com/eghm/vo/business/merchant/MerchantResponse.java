@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -64,8 +65,12 @@ public class MerchantResponse extends ExcelStyle {
     @ExcelProperty(value = "社会统一信用代码", index = 8)
     private String creditCode;
 
+    @ApiModelProperty(value = "平台服务费,单位:%")
+    @ExcelProperty(value = "平台服务费(%)", index = 9)
+    private BigDecimal platformServiceRate;
+
     @ApiModelProperty(value = "创建时间")
-    @ExcelProperty(value = "创建时间", index = 9)
+    @ExcelProperty(value = "创建时间", index = 10)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 }

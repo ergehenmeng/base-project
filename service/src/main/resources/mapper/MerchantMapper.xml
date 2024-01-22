@@ -11,6 +11,7 @@
         t.auth_mobile,
         t.enterprise_type,
         t.legal_name,
+        t.platform_service_rate,
         t.legal_id_card,
         t.credit_code,
         t.create_time

@@ -520,6 +520,23 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         orderMQService.sendOrderCompleteMessage(ExchangeQueue.ITEM_COMPLETE_DELAY, order.getOrderNo());
     }
 
+    @Override
+    public void routing(String orderNo) {
+        log.info("开始进行订单分账: [{}]", orderNo);
+        Order order = this.getByOrderNo(orderNo);
+        if (order.getState() != OrderState.COMPLETE) {
+            log.error("订单状态状态不是待完成,不支持分账 [{}] [{}]", orderNo, order.getState());
+            return;
+        }
+        int routingAmount = order.getPayAmount() - order.getExpressAmount() - order.getRefundAmount();
+        if (routingAmount <= 0) {
+            log.error("订单结算金额小于0,不支持分账 [{}] [{}]", orderNo, routingAmount);
+            return;
+        }
+        // 分账
+        log.error("分账功能待补全 [{}]", orderNo);
+    }
+
     /**
      * 生成退款记录
      *
