@@ -78,8 +78,11 @@ public class Order extends BaseEntity {
     @ApiModelProperty("关闭类型")
     private CloseType closeType;
 
-    @ApiModelProperty("是否评价")
+    @ApiModelProperty("是否已评价")
     private Boolean evaluateState;
+
+    @ApiModelProperty(value = "是否已结算")
+    private Boolean settleState;
 
     @ApiModelProperty(value = "总优惠金额")
     private Integer discountAmount;

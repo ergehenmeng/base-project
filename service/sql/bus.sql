@@ -602,6 +602,8 @@ CREATE TABLE `order`
     `coupon_id`       bigint(20)   DEFAULT NULL COMMENT '优惠券id',
     `pay_time`        datetime     DEFAULT NULL COMMENT '订单支付时间',
     `complete_time`   datetime     DEFAULT NULL COMMENT '订单完成时间',
+    `evaluate_state`  bit(1)       default b'0' COMMENT '是否已评价',
+    `settle_state`    bit(1)       default b'0' COMMENT '是否已结算',
     `nick_name`       varchar(20)  DEFAULT NULL COMMENT '昵称',
     `mobile`          varchar(20)  DEFAULT NULL COMMENT '联系电话',
     `province_id`     bigint(20)   DEFAULT NULL COMMENT '省份id',
