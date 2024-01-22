@@ -13,6 +13,7 @@ import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.dto.DateRequest;
 import com.eghm.dto.email.SendEmail;
 import com.eghm.dto.ext.*;
 import com.eghm.dto.login.AccountLoginDTO;
@@ -44,6 +45,7 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.RegExpUtil;
 import com.eghm.utils.StringUtil;
 import com.eghm.vo.login.LoginTokenVO;
+import com.eghm.vo.member.MemberRegisterVO;
 import com.eghm.vo.member.MemberResponse;
 import com.eghm.vo.member.MemberVO;
 import com.eghm.vo.member.SignInVO;
@@ -56,8 +58,12 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -116,6 +122,7 @@ public class MemberServiceImpl implements MemberService {
     public Member doRegister(MemberRegister register) {
         Member member = DataUtil.copy(register, Member.class);
         member.setId(IdWorker.getId());
+        member.setCreateDate(LocalDate.now());
         member.setInviteCode(StringUtil.encryptNumber(member.getId()));
         if (StrUtil.isBlank(member.getNickName())) {
             member.setNickName(sysConfigApi.getString(ConfigConstant.NICK_NAME_PREFIX) + System.nanoTime());
@@ -470,6 +477,24 @@ public class MemberServiceImpl implements MemberService {
         Member member = DataUtil.copy(dto, Member.class);
         member.setId(memberId);
         memberMapper.updateById(member);
+    }
+
+    @Override
+    public Integer registerStatistics(DateRequest request) {
+        return memberMapper.registerStatistics(request.getStartDate(), request.getEndDate());
+    }
+
+    @Override
+    public List<MemberRegisterVO> dayRegister(DateRequest request) {
+        List<MemberRegisterVO> voList = memberMapper.dayRegister(request.getStartDate(), request.getEndDate());
+        Map<LocalDate, MemberRegisterVO> voMap = voList.stream().collect(Collectors.toMap(MemberRegisterVO::getCreateDate, Function.identity()));
+        long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
+        List<MemberRegisterVO> resultList = new ArrayList<>();
+        for (int i = 0; i <= between; i++) {
+            LocalDate date = request.getStartDate().plusDays(i);
+            resultList.add(voMap.getOrDefault(date, new MemberRegisterVO(date, 0)));
+        }
+        return resultList;
     }
 
     /**

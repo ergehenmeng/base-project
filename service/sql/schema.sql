@@ -403,7 +403,7 @@ DROP TABLE IF EXISTS `sys_dict_item`;
 CREATE TABLE `sys_dict_item`
 (
     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `nid`          varchar(50)          DEFAULT NULL COMMENT '字典编号',
+    `nid`          varchar(50)         DEFAULT NULL COMMENT '字典编号',
     `hidden_value` tinyint(2) unsigned DEFAULT NULL COMMENT '数据字典隐藏值 1~∞',
     `show_value`   varchar(50)         DEFAULT NULL COMMENT '显示值',
     `deleted`      bit(1)              DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
@@ -638,6 +638,7 @@ CREATE TABLE `member`
     `score`       int(10)                                               DEFAULT '0' COMMENT '积分',
     `channel`     varchar(20)                                           DEFAULT NULL COMMENT '注册渠道',
     `register_ip` bigint(20)                                            DEFAULT NULL COMMENT '注册地址',
+    `create_date` date                                                  DEFAULT NULL COMMENT '注册日期',
     `create_time` datetime                                              DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
     `update_time` datetime                                              DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`     bit(1)                                                DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',

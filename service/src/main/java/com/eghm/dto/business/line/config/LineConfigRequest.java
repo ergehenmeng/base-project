@@ -25,17 +25,21 @@ public class LineConfigRequest extends DateComparator {
     @ApiModelProperty("周期")
     @NotEmpty(message = "请选择周期")
     public List<Integer> week;
+
     @ApiModelProperty("线路ID")
     @NotNull(message = "线路id不能为空")
     private Long lineId;
+
     @ApiModelProperty("开始日期 yyyy-MM-dd")
     @NotNull(message = "开始日期不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
+
     @ApiModelProperty("截止日期 yyyy-MM-dd")
     @NotNull(message = "截止日期不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
+
     @ApiModelProperty("状态 0:不可用 1:可用")
     @NotNull(message = "是否可定不能为空")
     private Boolean state;

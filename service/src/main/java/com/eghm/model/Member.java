@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDate;
+
 /**
  * 用户信息表
  *
@@ -66,4 +68,6 @@ public class Member extends BaseEntity {
     @ApiModelProperty("注册地址")
     private Long registerIp;
 
+    @ApiModelProperty("注册日期")
+    private LocalDate createDate;
 }
