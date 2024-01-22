@@ -17,14 +17,13 @@ import java.util.function.BiFunction;
  */
 public class MathCaptchaProducer extends DefaultTextCreator {
 
-    private static final int MAX = 10;
+    private static final int MAX = 100;
 
     private static final Map<Integer, BiFunction<Integer, Integer, String>> MATH_MAP = new HashMap<>(4);
 
     static {
-        MATH_MAP.put(0, (x, y) -> x + "+" + y + "=?" + CommonConstant.SPECIAL_SPLIT + (x + y));
-        MATH_MAP.put(1, (x, y) -> x + "-" + y + "=?" + CommonConstant.SPECIAL_SPLIT + (x - y));
-        MATH_MAP.put(2, (x, y) -> x + "*" + y + "=?" + CommonConstant.SPECIAL_SPLIT + (x * y));
+        MATH_MAP.put(0, (x, y) -> x + "+" + y + CommonConstant.SPECIAL_SPLIT + (x + y));
+        MATH_MAP.put(1, (x, y) -> x + "-" + y + CommonConstant.SPECIAL_SPLIT + (x - y));
     }
 
     @Override
