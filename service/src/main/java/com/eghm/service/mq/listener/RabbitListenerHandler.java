@@ -285,11 +285,19 @@ public class RabbitListenerHandler {
     }
 
     /**
-     * 民宿,零售,线路,门票,餐饮
+     * 民宿,零售,线路,门票,餐饮 (延迟)
      */
-    @RabbitListener(queues = {QueueConstant.HOMESTAY_COMPLETE_QUEUE, QueueConstant.LINE_COMPLETE_QUEUE, QueueConstant.ITEM_COMPLETE_QUEUE, QueueConstant.TICKET_COMPLETE_QUEUE, QueueConstant.RESTAURANT_COMPLETE_QUEUE})
-    public void orderComplete(String orderNo, Message message, Channel channel) throws IOException {
+    @RabbitListener(queues = {QueueConstant.HOMESTAY_COMPLETE_DELAY_QUEUE, QueueConstant.LINE_COMPLETE_DELAY_QUEUE, QueueConstant.ITEM_COMPLETE_DELAY_QUEUE, QueueConstant.TICKET_COMPLETE_DELAY_QUEUE, QueueConstant.RESTAURANT_COMPLETE_DELAY_QUEUE})
+    public void orderCompleteDelay(String orderNo, Message message, Channel channel) throws IOException {
         processMessageAck(orderNo, message, channel, orderEvaluationService::createDefault);
+    }
+
+    /**
+     * 民宿,零售,线路,门票,餐饮 (实时)
+     */
+    @RabbitListener(queues = QueueConstant.ORDER_COMPLETE_QUEUE)
+    public void orderComplete(String orderNo, Message message, Channel channel) throws IOException {
+        processMessageAck(orderNo, message, channel, s -> log.info("开始处理订单资金记录 [{}]", orderNo));
     }
 
     /**

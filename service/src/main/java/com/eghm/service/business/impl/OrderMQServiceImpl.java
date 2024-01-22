@@ -7,6 +7,7 @@ import com.eghm.enums.ExchangeQueue;
 import com.eghm.service.business.OrderMQService;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.utils.TransactionUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -42,11 +43,14 @@ public class OrderMQServiceImpl implements OrderMQService {
 
     @Override
     public void sendOrderCompleteMessage(ExchangeQueue exchangeQueue, String orderNo) {
-        log.info("订单完成发送实时消息 [{}] [{}]", exchangeQueue, orderNo);
-        rabbitService.send(ExchangeQueue.ORDER_COMPLETE, orderNo);
-        int completeTime = sysConfigApi.getInt(ConfigConstant.ORDER_COMPLETE_TIME);
-        log.info("订单完成发送延迟消息 [{}] [{}]", exchangeQueue, orderNo);
-        rabbitService.sendDelay(exchangeQueue, orderNo, completeTime);
+        // 事务提交后再进行发送消息
+        TransactionUtil.afterCommit(() -> {
+            log.info("订单完成发送实时消息 [{}] [{}]", exchangeQueue, orderNo);
+            rabbitService.send(ExchangeQueue.ORDER_COMPLETE, orderNo);
+            int completeTime = sysConfigApi.getInt(ConfigConstant.ORDER_COMPLETE_TIME);
+            log.info("订单完成发送延迟消息 [{}] [{}]", exchangeQueue, orderNo);
+            rabbitService.sendDelay(exchangeQueue, orderNo, completeTime);
+        });
     }
 
 }
