@@ -2,10 +2,9 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.DateRequest;
 import com.eghm.dto.member.MemberQueryRequest;
 import com.eghm.model.Member;
-import com.eghm.vo.member.MemberRegisterVO;
+import com.eghm.vo.business.statistics.MemberRegisterVO;
 import com.eghm.vo.member.MemberResponse;
 import org.apache.ibatis.annotations.Param;
 

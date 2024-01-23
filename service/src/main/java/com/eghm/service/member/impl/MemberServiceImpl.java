@@ -44,8 +44,8 @@ import com.eghm.service.wechat.WeChatMpService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.RegExpUtil;
 import com.eghm.utils.StringUtil;
+import com.eghm.vo.business.statistics.MemberRegisterVO;
 import com.eghm.vo.login.LoginTokenVO;
-import com.eghm.vo.member.MemberRegisterVO;
 import com.eghm.vo.member.MemberResponse;
 import com.eghm.vo.member.MemberVO;
 import com.eghm.vo.member.SignInVO;
@@ -58,7 +58,6 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -488,13 +487,7 @@ public class MemberServiceImpl implements MemberService {
     public List<MemberRegisterVO> dayRegister(DateRequest request) {
         List<MemberRegisterVO> voList = memberMapper.dayRegister(request.getStartDate(), request.getEndDate());
         Map<LocalDate, MemberRegisterVO> voMap = voList.stream().collect(Collectors.toMap(MemberRegisterVO::getCreateDate, Function.identity()));
-        long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
-        List<MemberRegisterVO> resultList = new ArrayList<>();
-        for (int i = 0; i <= between; i++) {
-            LocalDate date = request.getStartDate().plusDays(i);
-            resultList.add(voMap.getOrDefault(date, new MemberRegisterVO(date, 0)));
-        }
-        return resultList;
+        return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), localDate -> new MemberRegisterVO(localDate, 0));
     }
 
     /**

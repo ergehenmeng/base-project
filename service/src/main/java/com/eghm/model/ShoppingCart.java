@@ -21,6 +21,9 @@ public class ShoppingCart extends BaseEntity {
     @ApiModelProperty(value = "用户id")
     private Long memberId;
 
+    @ApiModelProperty("商户id(冗余)")
+    private Long merchantId;
+
     @ApiModelProperty("商铺id")
     private Long storeId;
 

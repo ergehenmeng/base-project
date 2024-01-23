@@ -1,4 +1,4 @@
-package com.eghm.vo.business.order;
+package com.eghm.vo.business.statistics;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -9,20 +9,21 @@ import java.time.LocalDate;
 
 /**
  * @author 二哥很猛
- * @since 2024/1/22
+ * @since 2024/1/23
  */
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderStatisticsVO {
+public class MemberVisitVO {
 
-    @ApiModelProperty("下单日期")
+    @ApiModelProperty("访问日期")
     private LocalDate createDate;
 
     @ApiModelProperty("订单数量")
-    private Integer orderNum;
+    private Integer visitNum;
 
-    @ApiModelProperty("支付金额")
-    private Integer payAmount;
+    public MemberVisitVO(LocalDate createDate) {
+        this.createDate = createDate;
+    }
 }

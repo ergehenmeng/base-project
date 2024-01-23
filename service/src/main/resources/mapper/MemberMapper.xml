@@ -45,7 +45,7 @@
         from member where deleted = false and create_time &gt; #{startDate} and create_time &lt;= #{endDate}
     </select>
 
-    <select id="dayRegister" resultType="com.eghm.vo.member.MemberRegisterVO">
+    <select id="dayRegister" resultType="com.eghm.vo.business.statistics.MemberRegisterVO">
         select
             create_date,
             count(id) as registerNum

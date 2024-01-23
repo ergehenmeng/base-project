@@ -748,6 +748,7 @@ CREATE TABLE `shopping_cart`
     `id`          bigint(20) NOT NULL COMMENT '主键',
     `member_id`   bigint(20)  DEFAULT NULL COMMENT '用户id',
     `store_id`    bigint(20)  DEFAULT NULL COMMENT '店铺id',
+    `merchant_id` bigint(20)  DEFAULT NULL COMMENT '商户ID',
     `item_id`     bigint(20)  DEFAULT NULL COMMENT '商品id',
     `sku_id`      bigint(20)  DEFAULT NULL COMMENT '商品规格id',
     `sale_price`  int(10)     DEFAULT NULL COMMENT '商品售价(冗余)',
@@ -1212,4 +1213,19 @@ CREATE TABLE `comment_report`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='评论举报记录表';
+
+DROP TABLE IF EXISTS member_visit_log;
+CREATE TABLE `member_visit_log`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `member_id`   bigint(20)  DEFAULT NULL COMMENT '用户ID',
+    `open_id`     varchar(30) DEFAULT NULL COMMENT 'openId',
+    `channel`     varchar(20) DEFAULT NULL COMMENT '访问渠道',
+    `create_date` date        DEFAULT NULL COMMENT '访问日期',
+    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `visit_type`  tinyint(2)  DEFAULT NULL COMMENT '页面类型',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='用户浏览记录表'
+
 

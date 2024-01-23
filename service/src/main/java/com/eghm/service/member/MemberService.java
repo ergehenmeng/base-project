@@ -9,7 +9,7 @@ import com.eghm.dto.member.*;
 import com.eghm.dto.register.RegisterMemberDTO;
 import com.eghm.model.Member;
 import com.eghm.vo.login.LoginTokenVO;
-import com.eghm.vo.member.MemberRegisterVO;
+import com.eghm.vo.business.statistics.MemberRegisterVO;
 import com.eghm.vo.member.MemberResponse;
 import com.eghm.vo.member.MemberVO;
 import com.eghm.vo.member.SignInVO;

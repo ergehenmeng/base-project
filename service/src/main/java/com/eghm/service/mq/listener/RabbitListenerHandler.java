@@ -13,6 +13,7 @@ import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.ManageLog;
+import com.eghm.model.MemberVisitLog;
 import com.eghm.model.Order;
 import com.eghm.model.WebappLog;
 import com.eghm.service.business.*;
@@ -70,6 +71,8 @@ public class RabbitListenerHandler {
     private final RestaurantService restaurantService;
 
     private final OrderEvaluationService orderEvaluationService;
+
+    private final MemberVisitLogService memberVisitLogService;
 
     /**
      * 处理MQ中消息,并手动确认
@@ -306,6 +309,14 @@ public class RabbitListenerHandler {
     @RabbitListener(queues = QueueConstant.ITEM_SIPPING_QUEUE)
     public void itemSipping(String orderNo, Message message, Channel channel) throws IOException {
         processMessageAck(orderNo, message, channel, s -> orderService.confirmReceipt(orderNo, null));
+    }
+
+    /**
+     * 会员访问记录
+     */
+    @RabbitListener(queues = QueueConstant.MEMBER_VISIT_LOG_QUEUE)
+    public void visitLog(MemberVisitLog visitLog, Message message, Channel channel) throws IOException {
+        processMessageAck(visitLog, message, channel, memberVisitLogService::insert);
     }
 
     /**

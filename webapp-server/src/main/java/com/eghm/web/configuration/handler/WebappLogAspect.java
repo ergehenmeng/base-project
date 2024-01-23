@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -28,11 +29,12 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j(topic = "request_response")
 @Aspect
+@Order(1)
 @Component
 @AllArgsConstructor
 public class WebappLogAspect {
 
-    private final MessageService rabbitMessageService;
+    private final MessageService messageService;
 
     /**
      * 操作日志,采用默认jackson进行序列化
@@ -62,7 +64,7 @@ public class WebappLogAspect {
             webappLog.setUrl(uri);
             webappLog.setTraceId(LogTraceHolder.getTraceId());
             webappLog.setRequestParam(message.getRequestParam());
-            rabbitMessageService.send(ExchangeQueue.WEBAPP_LOG, webappLog);
+            messageService.send(ExchangeQueue.WEBAPP_LOG, webappLog);
             return proceed;
         } finally {
             log.info("请求地址:[{}], 请求ip:[{}], 会员ID:[{}], 请求参数:[{}], 耗时:[{}ms], 软件版本:[{}], 客户端:[{}], 系统版本:[{}], 设备厂商:[{}], 设备型号:[{}]",

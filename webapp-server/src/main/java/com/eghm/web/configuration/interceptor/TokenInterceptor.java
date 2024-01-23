@@ -8,7 +8,6 @@ import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.service.common.TokenService;
-import com.eghm.service.member.LoginService;
 import com.eghm.web.annotation.AccessToken;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,8 +30,6 @@ import javax.servlet.http.HttpServletResponse;
 public class TokenInterceptor implements InterceptorAdapter {
 
     private final TokenService tokenService;
-
-    private final LoginService loginService;
 
     @Override
     public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {

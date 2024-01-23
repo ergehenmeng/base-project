@@ -6,7 +6,6 @@ import com.eghm.constant.CommonConstant;
 import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.TokenService;
-import com.eghm.service.member.LoginService;
 import com.eghm.service.sys.BlackRosterService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
@@ -43,16 +42,13 @@ public class WebappMvcConfig extends WebMvcConfig {
 
     private final TokenService tokenService;
 
-    private final LoginService loginService;
-
     private final CacheService cacheService;
 
     private final CacheProxyService cacheProxyService;
 
-    public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, TokenService tokenService, LoginService loginService, CacheService cacheService, CacheProxyService cacheProxyService) {
+    public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, TokenService tokenService, CacheService cacheService, CacheProxyService cacheProxyService) {
         super(objectMapper, systemProperties);
         this.tokenService = tokenService;
-        this.loginService = loginService;
         this.cacheService = cacheService;
         this.cacheProxyService = cacheProxyService;
     }
@@ -76,7 +72,7 @@ public class WebappMvcConfig extends WebMvcConfig {
      */
     @Bean
     public HandlerInterceptor tokenInterceptor() {
-        return new TokenInterceptor(tokenService, loginService);
+        return new TokenInterceptor(tokenService);
     }
 
     /**

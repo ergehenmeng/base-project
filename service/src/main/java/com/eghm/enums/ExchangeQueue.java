@@ -123,6 +123,11 @@ public enum ExchangeQueue {
      * 订单完成
      */
     ORDER_COMPLETE("order_complete_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.ORDER_COMPLETE_QUEUE}, "", false),
+
+    /**
+     * 移动端会员浏览记录
+     */
+    MEMBER_VISIT_LOG("member_visit_log_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.MEMBER_VISIT_LOG_QUEUE}, "", false),
     ;
 
     /**

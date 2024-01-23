@@ -1,4 +1,4 @@
-package com.eghm.vo.member;
+package com.eghm.vo.business.statistics;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

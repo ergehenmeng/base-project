@@ -4,17 +4,17 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.PageData;
 import com.eghm.vo.business.BaseConfigResponse;
+import com.eghm.vo.business.statistics.OrderStatisticsVO;
 import com.google.common.collect.Lists;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -153,5 +153,25 @@ public class DataUtil {
             responseList.add(response);
         }
         return responseList;
+    }
+
+    /**
+     * 填充日数据
+     *
+     * @param targetMap 原数据
+     * @param startDate 需要填充的开始日期
+     * @param endDate   需要填充的结束日期
+     * @param function 没查找到时执行的数据
+     * @param <T> <T>
+     * @return 最终数据
+     */
+    public static <T> List<T> paddingDay(Map<LocalDate, T> targetMap, LocalDate startDate, LocalDate endDate, Function<LocalDate, T> function) {
+        long between = ChronoUnit.DAYS.between(startDate, endDate);
+        List<T> resultList = new ArrayList<>();
+        for (int i = 0; i < between; i++) {
+            LocalDate date = startDate.plusDays(i);
+            resultList.add(targetMap.getOrDefault(date, function.apply(date)));
+        }
+        return resultList;
     }
 }

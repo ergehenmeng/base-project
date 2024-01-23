@@ -73,7 +73,7 @@
         where t.deleted = false and t.order_no = #{orderNo} and t.state = 7
     </select>
 
-    <select id="dayOrder" parameterType="com.eghm.dto.DateRequest" resultType="com.eghm.vo.business.order.OrderStatisticsVO">
+    <select id="dayOrder" parameterType="com.eghm.dto.DateRequest" resultType="com.eghm.vo.business.statistics.OrderStatisticsVO">
         select
         count(id) as orderNum,
         sum(pay_amount) as payAmount,
@@ -86,7 +86,7 @@
         group by create_date
     </select>
 
-    <select id="orderStatistics" parameterType="com.eghm.dto.DateRequest" resultType="com.eghm.vo.business.order.OrderStatisticsVO">
+    <select id="orderStatistics" parameterType="com.eghm.dto.DateRequest" resultType="com.eghm.vo.business.statistics.OrderStatisticsVO">
         select
             count(id) as orderNum,
             sum(pay_amount) as payAmount

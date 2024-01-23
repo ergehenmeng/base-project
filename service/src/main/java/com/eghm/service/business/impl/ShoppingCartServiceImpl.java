@@ -75,6 +75,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             shoppingCart.setSalePrice(sku.getSalePrice());
             Item item = itemService.selectByIdRequired(dto.getItemId());
             shoppingCart.setStoreId(item.getStoreId());
+            shoppingCart.setMerchantId(item.getMerchantId());
             shoppingCartMapper.insert(shoppingCart);
         } else {
             shoppingCart.setQuantity(num);

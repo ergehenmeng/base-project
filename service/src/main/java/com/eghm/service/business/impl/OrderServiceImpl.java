@@ -39,11 +39,11 @@ import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.TransactionUtil;
 import com.eghm.vo.business.order.OrderScanVO;
-import com.eghm.vo.business.order.OrderStatisticsVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
 import com.eghm.vo.business.order.item.ExpressDetailVO;
 import com.eghm.vo.business.order.item.ExpressVO;
+import com.eghm.vo.business.statistics.OrderStatisticsVO;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -52,8 +52,6 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -559,13 +557,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public List<OrderStatisticsVO> dayOrder(DateRequest request) {
         List<OrderStatisticsVO> voList = baseMapper.dayOrder(request);
         Map<LocalDate, OrderStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(OrderStatisticsVO::getCreateDate, Function.identity()));
-        long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
-        List<OrderStatisticsVO> resultList = new ArrayList<>();
-        for (int i = 0; i <= between; i++) {
-            LocalDate date = request.getStartDate().plusDays(i);
-            resultList.add(voMap.getOrDefault(date, new OrderStatisticsVO(date, 0, 0)));
-        }
-        return resultList;
+        return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), localDate -> new OrderStatisticsVO(localDate, 0, 0));
     }
 
     /**

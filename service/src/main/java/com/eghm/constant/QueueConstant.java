@@ -114,6 +114,11 @@ public class QueueConstant {
     public static final String WEBAPP_LOG_QUEUE = "webapp_log_queue";
 
     /**
+     * 移动端浏览记录队列
+     */
+    public static final String MEMBER_VISIT_LOG_QUEUE = "member_visit_log_queue";
+
+    /**
      * 商品分数队列
      */
     public static final String PRODUCT_SCORE_QUEUE = "product_score_queue";

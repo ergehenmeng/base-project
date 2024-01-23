@@ -1499,6 +1499,11 @@ public enum ErrorCode {
     MERCHANT_ACCOUNT_ERROR(3827, "商户余额信息异常"),
 
     /**
+     * 页面类型不存在
+     */
+    VISIT_TYPE_NULL(3830, "页面类型不存在"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),
