@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dto.DateRequest;
+import com.eghm.dto.statistics.VisitRequest;
 import com.eghm.model.MemberVisitLog;
 import com.eghm.vo.business.statistics.MemberVisitVO;
 
@@ -29,5 +29,5 @@ public interface MemberVisitLogService {
      * @param request 查询条件
      * @return 访问记录
      */
-    List<MemberVisitVO> dayVisit(DateRequest request);
+    List<MemberVisitVO> dayVisit(VisitRequest request);
 }

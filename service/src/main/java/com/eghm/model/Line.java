@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 /**
  * <p>
@@ -72,4 +73,7 @@ public class Line extends BaseEntity {
 
     @ApiModelProperty("分数")
     private BigDecimal score;
+
+    @ApiModelProperty("创建日期")
+    private LocalDate createDate;
 }

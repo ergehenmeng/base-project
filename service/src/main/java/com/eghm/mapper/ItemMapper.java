@@ -5,10 +5,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.item.ItemCouponQueryDTO;
 import com.eghm.dto.business.item.ItemQueryDTO;
 import com.eghm.dto.business.item.ItemQueryRequest;
+import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.model.Item;
 import com.eghm.vo.business.item.ItemDetailVO;
 import com.eghm.vo.business.item.ItemResponse;
 import com.eghm.vo.business.item.ItemVO;
+import com.eghm.vo.business.statistics.ProductStatisticsVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
@@ -106,4 +108,12 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @return 商品信息
      */
     List<ItemVO> getList(@Param("itemIds") List<Long> itemIds);
+
+    /**
+     * 新增商品列表
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<ProductStatisticsVO> dayAppend(ProductRequest request);
 }

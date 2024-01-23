@@ -2,20 +2,29 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
+import com.eghm.mapper.*;
 import com.eghm.model.SysDictItem;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.handler.state.RefundNotifyHandler;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.SpringContextUtil;
+import com.eghm.vo.business.statistics.ProductStatisticsVO;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -27,6 +36,16 @@ import java.util.List;
 public class CommonServiceImpl implements CommonService {
 
     private final SysConfigApi sysConfigApi;
+
+    private final ItemMapper itemMapper;
+
+    private final LineMapper lineMapper;
+
+    private final VoucherMapper voucherMapper;
+
+    private final ScenicTicketMapper scenicTicketMapper;
+
+    private final HomestayRoomMapper homestayRoomMapper;
 
     @Override
     public void checkMaxDay(String configNid, long maxValue) {
@@ -94,4 +113,46 @@ public class CommonServiceImpl implements CommonService {
         return false;
     }
 
+    @Override
+    public List<ProductStatisticsVO> dayAppend(ProductRequest request) {
+        Map<LocalDate, Integer> itemMap = Maps.newHashMapWithExpectedSize(32);
+        if (request.getProductType() == null || request.getProductType() == ProductType.ITEM) {
+            List<ProductStatisticsVO> itemList = itemMapper.dayAppend(request);
+            itemMap = itemList.stream().collect(Collectors.toMap(ProductStatisticsVO::getCreateDate, ProductStatisticsVO::getAppendNum));
+        }
+        Map<LocalDate, Integer> lineMap = Maps.newHashMapWithExpectedSize(32);
+        if (request.getProductType() == null || request.getProductType() == ProductType.LINE) {
+            List<ProductStatisticsVO> lineList = lineMapper.dayAppend(request);
+            lineMap = lineList.stream().collect(Collectors.toMap(ProductStatisticsVO::getCreateDate, ProductStatisticsVO::getAppendNum));
+        }
+        Map<LocalDate, Integer> voucherMap = Maps.newHashMapWithExpectedSize(32);
+        if (request.getProductType() == null || request.getProductType() == ProductType.RESTAURANT) {
+            List<ProductStatisticsVO> voucherList = voucherMapper.dayAppend(request);
+            voucherMap = voucherList.stream().collect(Collectors.toMap(ProductStatisticsVO::getCreateDate, ProductStatisticsVO::getAppendNum));
+        }
+        Map<LocalDate, Integer> ticketMap = Maps.newHashMapWithExpectedSize(32);
+        if (request.getProductType() == null || request.getProductType() == ProductType.TICKET) {
+            List<ProductStatisticsVO> ticketList = scenicTicketMapper.dayAppend(request);
+            ticketMap = ticketList.stream().collect(Collectors.toMap(ProductStatisticsVO::getCreateDate, ProductStatisticsVO::getAppendNum));
+        }
+        Map<LocalDate, Integer> roomMap = Maps.newHashMapWithExpectedSize(32);
+        if (request.getProductType() == null || request.getProductType() == ProductType.RESTAURANT) {
+            List<ProductStatisticsVO> roomList = homestayRoomMapper.dayAppend(request);
+            roomMap = roomList.stream().collect(Collectors.toMap(ProductStatisticsVO::getCreateDate, ProductStatisticsVO::getAppendNum));
+        }
+
+        long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
+        List<ProductStatisticsVO> resultList = new ArrayList<>();
+        for (int i = 0; i < between; i++) {
+            LocalDate date = request.getStartDate().plusDays(i);
+            ProductStatisticsVO vo = new ProductStatisticsVO(date);
+            vo.setAppendNum(itemMap.getOrDefault(date, 0) +
+                    lineMap.getOrDefault(date, 0) +
+                    voucherMap.getOrDefault(date, 0) +
+                    ticketMap.getOrDefault(date, 0) +
+                    roomMap.getOrDefault(date, 0));
+            resultList.add(vo);
+        }
+        return resultList;
+    }
 }

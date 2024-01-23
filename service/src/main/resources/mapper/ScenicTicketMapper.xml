@@ -61,4 +61,17 @@
     <update id="updateScore">
         update scenic_ticket t, scenic r set r.score = #{score} where t.scenic_id = r.id and t.id = #{id}
     </update>
+
+    <select id="dayAppend" parameterType="com.eghm.dto.statistics.ProductRequest"  resultType="com.eghm.vo.business.statistics.ProductStatisticsVO">
+        select
+        create_date as createDate,
+        sum(id) as appendNum
+        from scenic_ticket
+        where create_date &gt;= #{startDate} and create_date &lt;= #{endDate}
+        <if test="merchantId != null">
+            and merchant_id = #{merchantId}
+        </if>
+        group by create_date
+    </select>
+
 </mapper>

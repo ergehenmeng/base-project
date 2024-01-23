@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDate;
+
 /**
  * <p>
  * 会员收藏记录表
@@ -31,4 +33,6 @@ public class MemberCollect extends BaseEntity {
     @ApiModelProperty(value = "0:取消收藏, 1:加入收藏")
     private Integer state;
 
+    @ApiModelProperty("创建日期")
+    private LocalDate createDate;
 }

@@ -74,4 +74,16 @@
     <update id="updateScore">
         update voucher set score = #{score} where id = #{id}
     </update>
+
+    <select id="dayAppend" parameterType="com.eghm.dto.statistics.ProductRequest"  resultType="com.eghm.vo.business.statistics.ProductStatisticsVO">
+        select
+        create_date as createDate,
+        sum(id) as appendNum
+        from voucher
+        where create_date &gt;= #{startDate} and create_date &lt;= #{endDate}
+        <if test="merchantId != null">
+            and merchant_id = #{merchantId}
+        </if>
+        group by create_date
+    </select>
 </mapper>

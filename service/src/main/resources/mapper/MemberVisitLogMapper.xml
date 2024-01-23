@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.MemberVisitLogMapper">
 
-    <select id="dayVisit" resultType="com.eghm.vo.business.statistics.MemberVisitVO" parameterType="com.eghm.dto.DateRequest">
+    <select id="dayVisit" resultType="com.eghm.vo.business.statistics.MemberVisitVO" parameterType="com.eghm.dto.statistics.VisitRequest">
         SELECT
             create_date,
             COUNT(id) AS visitNum

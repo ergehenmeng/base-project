@@ -1,8 +1,8 @@
 package com.eghm.mapper;
 
-import com.eghm.dto.DateRequest;
-import com.eghm.model.MemberVisitLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.dto.statistics.VisitRequest;
+import com.eghm.model.MemberVisitLog;
 import com.eghm.vo.business.statistics.MemberVisitVO;
 
 import java.util.List;
@@ -23,5 +23,5 @@ public interface MemberVisitLogMapper extends BaseMapper<MemberVisitLog> {
      * @param request 查询条件
      * @return 访问量
      */
-    List<MemberVisitVO> dayVisit(DateRequest request);
+    List<MemberVisitVO> dayVisit(VisitRequest request);
 }

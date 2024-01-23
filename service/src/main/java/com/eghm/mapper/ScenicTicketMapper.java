@@ -3,10 +3,12 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
+import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.model.ScenicTicket;
 import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
 import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import com.eghm.vo.business.scenic.ticket.TicketPriceVO;
+import com.eghm.vo.business.statistics.ProductStatisticsVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
@@ -62,4 +64,12 @@ public interface ScenicTicketMapper extends BaseMapper<ScenicTicket> {
      * @param score 景区评分
      */
     void updateScore(@Param("id") Long id, @Param("score") BigDecimal score);
+
+    /**
+     * 新增商品列表
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<ProductStatisticsVO> dayAppend(ProductRequest request);
 }

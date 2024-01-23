@@ -1,6 +1,6 @@
 package com.eghm.service.business.impl;
 
-import com.eghm.dto.DateRequest;
+import com.eghm.dto.statistics.VisitRequest;
 import com.eghm.mapper.MemberVisitLogMapper;
 import com.eghm.model.MemberVisitLog;
 import com.eghm.service.business.MemberVisitLogService;
@@ -37,7 +37,7 @@ public class MemberVisitLogServiceImpl implements MemberVisitLogService {
     }
 
     @Override
-    public List<MemberVisitVO> dayVisit(DateRequest request) {
+    public List<MemberVisitVO> dayVisit(VisitRequest request) {
         List<MemberVisitVO> voList = memberVisitLogMapper.dayVisit(request);
         Map<LocalDate, MemberVisitVO> voMap = voList.stream().collect(Collectors.toMap(MemberVisitVO::getCreateDate, Function.identity()));
         return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), MemberVisitVO::new);

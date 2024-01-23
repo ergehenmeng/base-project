@@ -92,4 +92,6 @@ public class Voucher extends BaseEntity {
     @ApiModelProperty(value = "详细介绍")
     private String introduce;
 
+    @ApiModelProperty("创建日期")
+    private LocalDate createDate;
 }

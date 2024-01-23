@@ -91,4 +91,7 @@ public class ScenicTicket extends BaseEntity {
 
     @ApiModelProperty(value = "是否实名购票 0:不实名 1:实名")
     private Boolean realBuy;
+
+    @ApiModelProperty("创建日期")
+    private LocalDate createDate;
 }

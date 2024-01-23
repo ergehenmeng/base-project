@@ -8,11 +8,13 @@ import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.collect.CollectQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.statistics.CollectRequest;
 import com.eghm.enums.ref.CollectType;
 import com.eghm.mapper.*;
 import com.eghm.model.MemberCollect;
 import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.cache.CacheService;
+import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.collect.MemberCollectVO;
 import com.eghm.vo.business.homestay.HomestayVO;
 import com.eghm.vo.business.item.ItemVO;
@@ -22,10 +24,12 @@ import com.eghm.vo.business.line.TravelAgencyVO;
 import com.eghm.vo.business.news.NewsVO;
 import com.eghm.vo.business.restaurant.RestaurantVO;
 import com.eghm.vo.business.scenic.ScenicVO;
+import com.eghm.vo.business.statistics.CollectStatisticsVO;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -131,6 +135,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
             collect.setMemberId(memberId);
             collect.setCollectId(collectId);
             collect.setCollectType(collectType);
+            collect.setCreateDate(LocalDate.now());
             memberCollectMapper.insert(collect);
             cacheService.setHashValue(key, String.valueOf(memberId), CacheConstant.PLACE_HOLDER);
         }
@@ -144,6 +149,13 @@ public class MemberCollectServiceImpl implements MemberCollectService {
         }
         String key = String.format(MEMBER_COLLECT, collectType.getName().toLowerCase(), collectId);
         return cacheService.hasHashKey(key, String.valueOf(memberId));
+    }
+
+    @Override
+    public List<CollectStatisticsVO> dayCollect(CollectRequest request) {
+        List<CollectStatisticsVO> voList = memberCollectMapper.dayCollect(request);
+        Map<LocalDate, CollectStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(CollectStatisticsVO::getCreateDate, Function.identity()));
+        return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), CollectStatisticsVO::new);
     }
 
     /**

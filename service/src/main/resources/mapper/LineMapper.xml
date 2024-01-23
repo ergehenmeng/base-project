@@ -125,4 +125,17 @@
             #{item}
         </foreach>
     </select>
+
+    <select id="dayAppend" parameterType="com.eghm.dto.statistics.ProductRequest"  resultType="com.eghm.vo.business.statistics.ProductStatisticsVO">
+        select
+        create_date as createDate,
+        sum(id) as appendNum
+        from line
+        where create_date &gt;= #{startDate} and create_date &lt;= #{endDate}
+        <if test="merchantId != null">
+            and merchant_id = #{merchantId}
+        </if>
+        group by create_date
+    </select>
+
 </mapper>

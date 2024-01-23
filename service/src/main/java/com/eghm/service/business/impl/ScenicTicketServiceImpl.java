@@ -28,6 +28,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 /**
  * @author 二哥很猛 2022/6/15
  */
@@ -54,6 +56,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         this.checkScenic(request.getScenicId());
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
         ticket.setMerchantId(merchantId);
+        ticket.setCreateDate(LocalDate.now());
         scenicTicketMapper.insert(ticket);
         scenicService.updatePrice(request.getScenicId());
     }

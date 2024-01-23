@@ -1,7 +1,7 @@
 package com.eghm.service.member;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.DateRequest;
+import com.eghm.dto.statistics.DateRequest;
 import com.eghm.dto.ext.MemberRegister;
 import com.eghm.dto.login.AccountLoginDTO;
 import com.eghm.dto.login.SmsLoginDTO;

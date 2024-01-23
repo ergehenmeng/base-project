@@ -8,20 +8,20 @@ import java.time.LocalDate;
 
 /**
  * @author 二哥很猛
- * @since 2024/1/22
+ * @since 2024/1/11
  */
 
 @Data
 @NoArgsConstructor
-public class MemberRegisterVO {
+public class CollectStatisticsVO {
 
-    @ApiModelProperty("注册日期")
+    @ApiModelProperty(value = "收藏日期")
     private LocalDate createDate;
 
-    @ApiModelProperty("注册人数")
-    private Integer registerNum = 0;
+    @ApiModelProperty(value = "收藏数量")
+    private Integer collectNum = 0;
 
-    public MemberRegisterVO(LocalDate createDate) {
+    public CollectStatisticsVO(LocalDate createDate) {
         this.createDate = createDate;
     }
 }

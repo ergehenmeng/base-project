@@ -85,7 +85,9 @@ public class LineServiceImpl implements LineService {
 
         Line line = DataUtil.copy(request, Line.class);
         line.setMerchantId(merchantId);
+        line.setCreateDate(LocalDate.now());
         lineMapper.insert(line);
+
         lineDayConfigService.insertOrUpdate(line.getId(), request.getConfigList());
     }
 

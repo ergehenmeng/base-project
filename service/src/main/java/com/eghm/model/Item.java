@@ -13,6 +13,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 /**
  * <p>
@@ -98,4 +99,7 @@ public class Item extends BaseEntity {
 
     @ApiModelProperty("是否为热销商品")
     private Boolean hotSell;
+
+    @ApiModelProperty("创建日期")
+    private LocalDate createDate;
 }

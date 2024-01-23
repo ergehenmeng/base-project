@@ -1,7 +1,7 @@
 package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.dto.DateRequest;
+import com.eghm.dto.statistics.DateRequest;
 import com.eghm.model.Order;
 import com.eghm.vo.business.statistics.OrderStatisticsVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;

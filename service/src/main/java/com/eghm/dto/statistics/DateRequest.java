@@ -1,4 +1,4 @@
-package com.eghm.dto;
+package com.eghm.dto.statistics;
 
 import com.eghm.annotation.DateFormatter;
 import com.eghm.enums.ref.VisitType;

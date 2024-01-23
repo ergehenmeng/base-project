@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
-import com.eghm.dto.DateRequest;
+import com.eghm.dto.statistics.DateRequest;
 import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.OnlineRefundRequest;
 import com.eghm.dto.business.order.item.ItemOnlineRefundRequest;
@@ -557,7 +557,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public List<OrderStatisticsVO> dayOrder(DateRequest request) {
         List<OrderStatisticsVO> voList = baseMapper.dayOrder(request);
         Map<LocalDate, OrderStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(OrderStatisticsVO::getCreateDate, Function.identity()));
-        return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), localDate -> new OrderStatisticsVO(localDate, 0, 0));
+        return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), OrderStatisticsVO::new);
     }
 
     /**

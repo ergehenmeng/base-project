@@ -26,6 +26,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -58,6 +59,7 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
         this.titleRedo(request.getTitle(), null, request.getHomestayId());
         HomestayRoom room = DataUtil.copy(request, HomestayRoom.class);
         room.setMerchantId(SecurityHolder.getMerchantId());
+        room.setCreateDate(LocalDate.now());
         homestayRoomMapper.insert(room);
     }
 

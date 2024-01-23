@@ -13,7 +13,7 @@ import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.DateRequest;
+import com.eghm.dto.statistics.DateRequest;
 import com.eghm.dto.email.SendEmail;
 import com.eghm.dto.ext.*;
 import com.eghm.dto.login.AccountLoginDTO;
@@ -487,7 +487,7 @@ public class MemberServiceImpl implements MemberService {
     public List<MemberRegisterVO> dayRegister(DateRequest request) {
         List<MemberRegisterVO> voList = memberMapper.dayRegister(request.getStartDate(), request.getEndDate());
         Map<LocalDate, MemberRegisterVO> voMap = voList.stream().collect(Collectors.toMap(MemberRegisterVO::getCreateDate, Function.identity()));
-        return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), localDate -> new MemberRegisterVO(localDate, 0));
+        return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), MemberRegisterVO::new);
     }
 
     /**

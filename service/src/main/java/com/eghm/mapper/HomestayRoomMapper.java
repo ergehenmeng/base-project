@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.homestay.room.HomestayRoomQueryDTO;
 import com.eghm.dto.business.homestay.room.HomestayRoomQueryRequest;
+import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.model.HomestayRoom;
 import com.eghm.vo.business.homestay.room.HomestayRoomListVO;
 import com.eghm.vo.business.homestay.room.HomestayRoomResponse;
+import com.eghm.vo.business.statistics.ProductStatisticsVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -47,4 +49,12 @@ public interface HomestayRoomMapper extends BaseMapper<HomestayRoom> {
      * @return 房型列表
      */
     List<HomestayRoomListVO> getRecommendRoom(@Param("homestayId") Long homestayId, @Param("limit") Integer limit);
+
+    /**
+     * 新增商品列表
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<ProductStatisticsVO> dayAppend(ProductRequest request);
 }

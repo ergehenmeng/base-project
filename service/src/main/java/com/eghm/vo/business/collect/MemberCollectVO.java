@@ -10,7 +10,6 @@ import com.eghm.vo.business.news.NewsVO;
 import com.eghm.vo.business.restaurant.RestaurantVO;
 import com.eghm.vo.business.scenic.ScenicVO;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -19,7 +18,6 @@ import lombok.Data;
  */
 
 @Data
-@AllArgsConstructor
 public class MemberCollectVO {
 
     @ApiModelProperty(value = "收藏id")

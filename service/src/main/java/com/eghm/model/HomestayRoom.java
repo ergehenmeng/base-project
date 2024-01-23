@@ -7,6 +7,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDate;
+
 /**
  * <p>
  * 房型信息表
@@ -73,4 +75,7 @@ public class HomestayRoom extends BaseEntity {
 
     @ApiModelProperty(value = "退款描述")
     private String refundDescribe;
+
+    @ApiModelProperty("创建日期")
+    private LocalDate createDate;
 }

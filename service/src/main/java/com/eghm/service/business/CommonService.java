@@ -1,8 +1,10 @@
 package com.eghm.service.business;
 
+import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.SysDictItem;
 import com.eghm.service.business.handler.state.RefundNotifyHandler;
+import com.eghm.vo.business.statistics.ProductStatisticsVO;
 
 import java.util.List;
 
@@ -78,4 +80,12 @@ public interface CommonService {
      * @return true:非法 false:合法
      */
     boolean checkIsIllegal(Long merchantId, Long loginMerchantId);
+
+    /**
+     * 获取新增商品数量(按天)
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<ProductStatisticsVO> dayAppend(ProductRequest request);
 }

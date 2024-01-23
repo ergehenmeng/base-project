@@ -38,6 +38,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -93,6 +94,7 @@ public class ItemServiceImpl implements ItemService {
 
         Item item = DataUtil.copy(request, Item.class);
         item.setMerchantId(SecurityHolder.getMerchantId());
+        item.setCreateDate(LocalDate.now());
         this.setMinMaxPrice(item, request.getSkuList());
         // 总销量需要添加虚拟销量
         item.setTotalNum(request.getSkuList().stream().filter(itemSkuRequest -> itemSkuRequest.getVirtualNum() != null).mapToInt(ItemSkuRequest::getVirtualNum).sum());

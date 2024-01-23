@@ -1,14 +1,17 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.DateRequest;
+import com.eghm.dto.statistics.CollectRequest;
+import com.eghm.dto.statistics.DateRequest;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.statistics.ProductRequest;
+import com.eghm.dto.statistics.VisitRequest;
+import com.eghm.service.business.CommonService;
+import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.business.MemberVisitLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.member.MemberService;
-import com.eghm.vo.business.statistics.MemberRegisterVO;
-import com.eghm.vo.business.statistics.MemberVisitVO;
-import com.eghm.vo.business.statistics.OrderStatisticsVO;
+import com.eghm.vo.business.statistics.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -35,6 +38,10 @@ public class StatisticsController {
     private final OrderService orderService;
 
     private final MemberVisitLogService memberVisitLogService;
+
+    private final MemberCollectService memberCollectService;
+
+    private final CommonService commonService;
 
     @GetMapping("/register")
     @ApiOperation("注册统计")
@@ -68,8 +75,22 @@ public class StatisticsController {
 
     @GetMapping("/visit")
     @ApiOperation("浏览量")
-    public RespBody<List<MemberVisitVO>> visit(@Validated DateRequest request) {
+    public RespBody<List<MemberVisitVO>> visit(@Validated VisitRequest request) {
         List<MemberVisitVO> statistics = memberVisitLogService.dayVisit(request);
+        return RespBody.success(statistics);
+    }
+
+    @GetMapping("/collect")
+    @ApiOperation("收藏量")
+    public RespBody<List<CollectStatisticsVO>> visit(@Validated CollectRequest request) {
+        List<CollectStatisticsVO> statistics = memberCollectService.dayCollect(request);
+        return RespBody.success(statistics);
+    }
+
+    @GetMapping("/append")
+    @ApiOperation("新增商品数")
+    public RespBody<List<ProductStatisticsVO>> append(@Validated ProductRequest request) {
+        List<ProductStatisticsVO> statistics = commonService.dayAppend(request);
         return RespBody.success(statistics);
     }
 }
