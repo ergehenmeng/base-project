@@ -2,8 +2,11 @@ package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.group.GroupBookingAddRequest;
 import com.eghm.dto.business.group.GroupBookingEditRequest;
+import com.eghm.dto.business.group.GroupBookingQueryRequest;
+import com.eghm.dto.business.group.SkuRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.GroupBookingMapper;
@@ -12,9 +15,15 @@ import com.eghm.service.business.GroupBookingService;
 import com.eghm.service.business.ItemService;
 import com.eghm.service.common.JsonService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.group.GroupBookingResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -35,6 +44,11 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     private final JsonService jsonService;
 
     private final ItemService itemService;
+
+    @Override
+    public Page<GroupBookingResponse> getByPage(GroupBookingQueryRequest request) {
+        return groupBookingMapper.getByPage(request.createPage(), request);
+    }
 
     @Override
     public void create(GroupBookingAddRequest request) {
@@ -66,6 +80,32 @@ public class GroupBookingServiceImpl implements GroupBookingService {
 
     }
 
+    @Override
+    public void delete(Long id) {
+        GroupBooking booking = groupBookingMapper.selectById(id);
+        if (booking == null) {
+            return;
+        }
+        itemService.updateGroupBooking(booking.getItemId(), false);
+    }
+
+    @Override
+    public Integer getGroupPrice(Long skuId, Long bookingId, Integer salePrice) {
+        String skuValue = groupBookingMapper.getSkuValue(bookingId);
+        if (skuValue == null) {
+            log.warn("拼团未查询到价格信息 [{}]", bookingId);
+            return salePrice;
+        }
+        List<SkuRequest> skuList = jsonService.fromJsonList(skuValue, SkuRequest.class);
+        Map<Long, SkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(SkuRequest::getSkuId, Function.identity()));
+        SkuRequest request = skuMap.get(skuId);
+        if (request == null || !salePrice.equals(request.getSalePrice()) || request.getGroupPrice() == null) {
+            log.warn("拼团sku价格信息未匹配 [{}]", bookingId);
+            return salePrice;
+        }
+        return request.getGroupPrice();
+    }
+
     /**
      * 重置标题校验
      *
@@ -82,4 +122,5 @@ public class GroupBookingServiceImpl implements GroupBookingService {
             throw new BusinessException(ErrorCode.REDO_TITLE_BOOKING);
         }
     }
+
 }
