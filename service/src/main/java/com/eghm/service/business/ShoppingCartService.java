@@ -3,8 +3,10 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.shopping.AddCartDTO;
 import com.eghm.dto.business.shopping.ShoppingCartQueryRequest;
+import com.eghm.dto.statistics.DateRequest;
 import com.eghm.vo.business.shopping.ShoppingCartResponse;
 import com.eghm.vo.business.shopping.ShoppingCartVO;
+import com.eghm.vo.business.statistics.CartStatisticsVO;
 
 import java.util.List;
 
@@ -53,4 +55,12 @@ public interface ShoppingCartService {
      * @param memberId 用户id
      */
     void updateQuantity(Long id, Integer quantity, Long memberId);
+
+    /**
+     * 购物车统计
+     *
+     * @param request 统计条件
+     * @return 列表
+     */
+    List<CartStatisticsVO> dayCart(DateRequest request);
 }

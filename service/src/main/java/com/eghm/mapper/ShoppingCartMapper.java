@@ -3,9 +3,11 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.shopping.ShoppingCartQueryRequest;
+import com.eghm.dto.statistics.DateRequest;
 import com.eghm.model.ShoppingCart;
 import com.eghm.vo.business.shopping.ShoppingCartItemVO;
 import com.eghm.vo.business.shopping.ShoppingCartResponse;
+import com.eghm.vo.business.statistics.CartStatisticsVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -36,4 +38,12 @@ public interface ShoppingCartMapper extends BaseMapper<ShoppingCart> {
      * @return 商品列表
      */
     List<ShoppingCartItemVO> getList(@Param("memberId") Long memberId);
+
+    /**
+     * 购物车统计
+     *
+     * @param request 统计条件
+     * @return 列表
+     */
+    List<CartStatisticsVO> dayCart(DateRequest request);
 }

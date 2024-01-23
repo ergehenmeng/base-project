@@ -1,15 +1,12 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.statistics.CollectRequest;
 import com.eghm.dto.statistics.DateRequest;
-import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.dto.statistics.VisitRequest;
-import com.eghm.service.business.CommonService;
-import com.eghm.service.business.MemberCollectService;
-import com.eghm.service.business.MemberVisitLogService;
-import com.eghm.service.business.OrderService;
+import com.eghm.service.business.*;
 import com.eghm.service.member.MemberService;
 import com.eghm.vo.business.statistics.*;
 import io.swagger.annotations.Api;
@@ -42,6 +39,8 @@ public class StatisticsController {
     private final MemberCollectService memberCollectService;
 
     private final CommonService commonService;
+
+    private final ShoppingCartService shoppingCartService;
 
     @GetMapping("/register")
     @ApiOperation("注册统计")
@@ -91,6 +90,13 @@ public class StatisticsController {
     @ApiOperation("新增商品数")
     public RespBody<List<ProductStatisticsVO>> append(@Validated ProductRequest request) {
         List<ProductStatisticsVO> statistics = commonService.dayAppend(request);
+        return RespBody.success(statistics);
+    }
+
+    @GetMapping("/cart")
+    @ApiOperation("加购统计")
+    public RespBody<List<CartStatisticsVO>> cart(@Validated DateRequest request) {
+        List<CartStatisticsVO> statistics = shoppingCartService.dayCart(request);
         return RespBody.success(statistics);
     }
 }

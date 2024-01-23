@@ -59,4 +59,15 @@
         where t.deleted = false and t.member_id = #{memberId} order by t.id desc
     </select>
 
+    <select id="dayCart" parameterType="com.eghm.dto.statistics.DateRequest" resultType="com.eghm.vo.business.statistics.CartStatisticsVO">
+        select
+            count(id) as cartNum,
+            create_date
+        from shopping_cart where deleted = false and create_time &gt;= #{startDate} and create_time &lt; #{endDate}
+        <if test="merchantId != null">
+            and merchant_id = #{merchantId}
+        </if>
+        group by create_date
+    </select>
+
 </mapper>

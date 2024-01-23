@@ -1,7 +1,6 @@
 package com.eghm.dto.statistics;
 
 import com.eghm.annotation.DateFormatter;
-import com.eghm.enums.ref.VisitType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,6 +29,4 @@ public class DateRequest {
     @ApiModelProperty(value = "商户id", hidden = true)
     private Long merchantId;
 
-    @ApiModelProperty("访问类型")
-    private VisitType visitType;
 }

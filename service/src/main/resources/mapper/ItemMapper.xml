@@ -215,7 +215,7 @@
             create_date as createDate,
             sum(id) as appendNum
         from item
-        where create_date &gt;= #{startDate} and create_date &lt;= #{endDate}
+        where create_date &gt;= #{startDate} and create_date &lt;= #{endDate} and deleted = false
         <if test="merchantId != null">
             and merchant_id = #{merchantId}
         </if>

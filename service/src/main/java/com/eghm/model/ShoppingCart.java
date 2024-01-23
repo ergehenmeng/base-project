@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDate;
+
 /**
  * <p>
  * 购物车表
@@ -39,4 +41,6 @@ public class ShoppingCart extends BaseEntity {
     @ApiModelProperty(value = "数量")
     private Integer quantity;
 
+    @ApiModelProperty(value = "创建日期")
+    private LocalDate createDate;
 }

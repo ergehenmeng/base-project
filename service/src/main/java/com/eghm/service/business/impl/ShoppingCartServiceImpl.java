@@ -8,6 +8,7 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.shopping.AddCartDTO;
 import com.eghm.dto.business.shopping.ShoppingCartQueryRequest;
 import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ShoppingCartMapper;
@@ -22,14 +23,17 @@ import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.shopping.ShoppingCartItemVO;
 import com.eghm.vo.business.shopping.ShoppingCartResponse;
 import com.eghm.vo.business.shopping.ShoppingCartVO;
+import com.eghm.vo.business.statistics.CartStatisticsVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.eghm.enums.ErrorCode.*;
@@ -76,6 +80,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             Item item = itemService.selectByIdRequired(dto.getItemId());
             shoppingCart.setStoreId(item.getStoreId());
             shoppingCart.setMerchantId(item.getMerchantId());
+            shoppingCart.setCreateDate(LocalDate.now());
             shoppingCartMapper.insert(shoppingCart);
         } else {
             shoppingCart.setQuantity(num);
@@ -138,6 +143,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         shoppingCart.setQuantity(quantity);
         shoppingCartMapper.updateById(shoppingCart);
+    }
+
+    @Override
+    public List<CartStatisticsVO> dayCart(DateRequest request) {
+        List<CartStatisticsVO> voList = shoppingCartMapper.dayCart(request);
+        Map<LocalDate, CartStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(CartStatisticsVO::getCreateDate, Function.identity()));
+        return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), CartStatisticsVO::new);
     }
 
     /**
