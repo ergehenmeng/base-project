@@ -1504,6 +1504,16 @@ public enum ErrorCode {
     VISIT_TYPE_NULL(3830, "页面类型不存在"),
 
     /**
+     * 拼团活动名称重复
+     */
+    REDO_TITLE_BOOKING(3834, "拼团活动名称重复"),
+
+    /**
+     * 该商品已添加拼团活动
+     */
+    ITEM_BOOKING(3836, "该商品已添加拼团活动"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

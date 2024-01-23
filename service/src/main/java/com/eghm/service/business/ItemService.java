@@ -77,12 +77,27 @@ public interface ItemService {
     Item selectByIdRequired(Long itemId);
 
     /**
+     * 检查零售商品是否是拼团订单
+     *
+     * @param itemId itemId
+     */
+    void checkBookingItem(Long itemId);
+
+    /**
      * 更新上下架状态
      *
      * @param id    id
      * @param state 状态
      */
     void updateState(Long id, State state);
+
+    /**
+     * 更新零售是否拼团
+     *
+     * @param id id
+     * @param groupBooking true:拼团商品 false:不是拼团商品
+     */
+    void updateGroupBooking(Long id, Boolean groupBooking);
 
     /**
      * 商品排序
