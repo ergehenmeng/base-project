@@ -552,12 +552,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public OrderStatisticsVO orderStatistics(DateRequest request) {
-        return baseMapper.orderStatistics(request.getStartDate(), request.getEndDate());
+        return baseMapper.orderStatistics(request);
     }
 
     @Override
     public List<OrderStatisticsVO> dayOrder(DateRequest request) {
-        List<OrderStatisticsVO> voList = baseMapper.dayOrder(request.getStartDate(), request.getEndDate());
+        List<OrderStatisticsVO> voList = baseMapper.dayOrder(request);
         Map<LocalDate, OrderStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(OrderStatisticsVO::getCreateDate, Function.identity()));
         long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
         List<OrderStatisticsVO> resultList = new ArrayList<>();

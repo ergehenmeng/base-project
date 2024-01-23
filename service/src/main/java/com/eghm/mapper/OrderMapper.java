@@ -1,6 +1,7 @@
 package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.dto.DateRequest;
 import com.eghm.model.Order;
 import com.eghm.vo.business.order.OrderStatisticsVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
@@ -62,18 +63,16 @@ public interface OrderMapper extends BaseMapper<Order> {
     /**
      * 获取订单统计
      *
-     * @param startDate 开始日期
-     * @param endDate 结束日期
+     * @param request 查询条件
      * @return 订单统计
      */
-    List<OrderStatisticsVO> dayOrder(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    List<OrderStatisticsVO> dayOrder(DateRequest request);
 
     /**
      * 获取订单统计
      *
-     * @param startDate 开始日期
-     * @param endDate 结束日期
+     * @param request 查询条件
      * @return 订单统计
      */
-    OrderStatisticsVO orderStatistics(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    OrderStatisticsVO orderStatistics(DateRequest request);
 }

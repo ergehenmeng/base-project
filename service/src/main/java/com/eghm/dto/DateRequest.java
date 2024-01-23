@@ -22,4 +22,7 @@ public class DateRequest {
     @ApiModelProperty("截止日期 yyyy-MM-dd")
     @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
     private LocalDate endDate;
+
+    @ApiModelProperty(value = "商户id", hidden = true)
+    private Long merchantId;
 }

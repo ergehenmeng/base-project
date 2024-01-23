@@ -1,5 +1,6 @@
 package com.eghm.web.controller.business;
 
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.DateRequest;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.OrderService;
@@ -47,6 +48,7 @@ public class StatisticsController {
     @GetMapping("/order")
     @ApiOperation("下单统计")
     public RespBody<OrderStatisticsVO> order(DateRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         OrderStatisticsVO statistics = orderService.orderStatistics(request);
         return RespBody.success(statistics);
     }
@@ -54,6 +56,7 @@ public class StatisticsController {
     @GetMapping("/dayOrder")
     @ApiOperation("下单统计(按天)")
     public RespBody<List<OrderStatisticsVO>> dayOrder(DateRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         List<OrderStatisticsVO> statistics = orderService.dayOrder(request);
         return RespBody.success(statistics);
     }
