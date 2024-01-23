@@ -90,6 +90,12 @@
         <dependency>
             <groupId>cn.jpush.api</groupId>
             <artifactId>jpush-client</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>bcprov-jdk15on</artifactId>
+                    <groupId>org.bouncycastle</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
