@@ -257,6 +257,12 @@
                 <groupId>cn.jpush.api</groupId>
                 <artifactId>jpush-client</artifactId>
                 <version>${jpush.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>bcpkix-jdk15on</artifactId>
+                        <groupId>org.bouncycastle</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.mapstruct</groupId>
