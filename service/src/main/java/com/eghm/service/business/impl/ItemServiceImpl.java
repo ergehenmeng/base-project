@@ -75,6 +75,8 @@ public class ItemServiceImpl implements ItemService {
 
     private final MemberCollectService memberCollectService;
 
+    private final CommonService commonService;
+
     @Override
     public Page<ItemResponse> getByPage(ItemQueryRequest request) {
         return itemMapper.listPage(request.createPage(), request);
@@ -109,6 +111,9 @@ public class ItemServiceImpl implements ItemService {
         this.checkSpec(request.getMultiSpec(), request.getSpecList());
         this.titleRedo(request.getTitle(), request.getId(), request.getStoreId());
         this.checkExpress(request.getExpressId(), request.getSkuList());
+        Item select = this.selectByIdRequired(request.getId());
+        commonService.checkIllegal(select.getMerchantId());
+
         Item item = DataUtil.copy(request, Item.class);
         itemMapper.updateById(item);
 
@@ -155,6 +160,7 @@ public class ItemServiceImpl implements ItemService {
             log.error("该商品已存在拼团活动 [{}]", item.getId());
             throw new BusinessException(ErrorCode.ITEM_BOOKING);
         }
+        commonService.checkIllegal(item.getMerchantId());
     }
 
     @Override
@@ -162,14 +168,17 @@ public class ItemServiceImpl implements ItemService {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getId, id);
         wrapper.set(Item::getState, state);
+        Long merchantId = SecurityHolder.getMerchantId();
+        wrapper.eq(merchantId != null, Item::getMerchantId, merchantId);
         itemMapper.update(null, wrapper);
     }
 
     @Override
-    public void updateGroupBooking(Long id, Boolean groupBooking) {
+    public void updateGroupBooking(Long id, Boolean groupBooking, Long bookingId) {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getId, id);
         wrapper.set(Item::getGroupBooking, groupBooking);
+        wrapper.set(Item::getBookingId, bookingId);
         itemMapper.update(null, wrapper);
     }
 
@@ -335,6 +344,7 @@ public class ItemServiceImpl implements ItemService {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getId, id);
         wrapper.set(Item::getState, State.UN_SHELVE);
+        wrapper.eq(Item::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(Item::getDeleted, true);
         itemMapper.update(null, wrapper);
     }

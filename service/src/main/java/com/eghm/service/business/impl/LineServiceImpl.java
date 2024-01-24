@@ -18,6 +18,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LineMapper;
 import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.mapper.TravelAgencyMapper;
+import com.eghm.model.Item;
 import com.eghm.model.Line;
 import com.eghm.model.LineDayConfig;
 import com.eghm.model.TravelAgency;
@@ -107,6 +108,8 @@ public class LineServiceImpl implements LineService {
         LambdaUpdateWrapper<Line> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Line::getId, id);
         wrapper.set(Line::getState, state);
+        Long merchantId = SecurityHolder.getMerchantId();
+        wrapper.eq(merchantId != null, Line::getMerchantId, merchantId);
         lineMapper.update(null, wrapper);
     }
 
@@ -150,6 +153,7 @@ public class LineServiceImpl implements LineService {
         wrapper.eq(Line::getId, id);
         wrapper.set(Line::getState, State.UN_SHELVE);
         wrapper.set(Line::getDeleted, true);
+        wrapper.eq(Line::getMerchantId, SecurityHolder.getMerchantId());
         lineMapper.update(null, wrapper);
     }
 

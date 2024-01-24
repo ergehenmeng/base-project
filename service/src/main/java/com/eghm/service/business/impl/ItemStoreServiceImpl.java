@@ -16,6 +16,7 @@ import com.eghm.enums.ref.RoleType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemStoreMapper;
+import com.eghm.model.Homestay;
 import com.eghm.model.ItemStore;
 import com.eghm.model.Merchant;
 import com.eghm.service.business.*;
@@ -122,6 +123,8 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         LambdaUpdateWrapper<ItemStore> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemStore::getId, id);
         wrapper.set(ItemStore::getState, state);
+        Long merchantId = SecurityHolder.getMerchantId();
+        wrapper.eq(merchantId != null, ItemStore::getMerchantId, merchantId);
         itemStoreMapper.update(null, wrapper);
     }
 

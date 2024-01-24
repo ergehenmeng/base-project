@@ -23,6 +23,7 @@ import com.eghm.mapper.ScenicMapper;
 import com.eghm.mapper.ScenicTicketMapper;
 import com.eghm.model.Scenic;
 import com.eghm.service.business.ActivityService;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.business.ScenicService;
 import com.eghm.service.sys.GeoService;
@@ -58,6 +59,8 @@ public class ScenicServiceImpl implements ScenicService {
 
     private final GeoService geoService;
 
+    private final CommonService commonService;
+
     private final SysAreaService sysAreaService;
 
     private final ActivityService activityService;
@@ -89,6 +92,8 @@ public class ScenicServiceImpl implements ScenicService {
     @Override
     public void updateScenic(ScenicEditRequest request) {
         this.redoTitle(request.getScenicName(), request.getId());
+        Scenic select = this.selectByIdRequired(request.getId());
+        commonService.checkIllegal(select.getMerchantId());
         Scenic scenic = DataUtil.copy(request, Scenic.class);
         scenicMapper.updateById(scenic);
     }
@@ -108,10 +113,20 @@ public class ScenicServiceImpl implements ScenicService {
 
     @Override
     public Scenic selectByIdShelve(Long id) {
-        Scenic scenic = scenicMapper.selectById(id);
-        if (scenic == null || scenic.getState() != State.SHELVE) {
-            log.warn("查询景区详情失败, 景区可能已下架 [{}]", id);
+        Scenic scenic = this.selectByIdRequired(id);
+        if (scenic.getState() != State.SHELVE) {
+            log.warn("查询景区详情失败, 景区可能已下架 [{}] [{}]", id, scenic.getState());
             throw new BusinessException(ErrorCode.SCENIC_DOWN);
+        }
+        return scenic;
+    }
+
+    @Override
+    public Scenic selectByIdRequired(Long id) {
+        Scenic scenic = scenicMapper.selectById(id);
+        if (scenic == null) {
+            log.warn("查询景区详情失败, 景区可能已删除 [{}]", id);
+            throw new BusinessException(ErrorCode.SCENIC_DELETE);
         }
         return scenic;
     }
@@ -121,6 +136,8 @@ public class ScenicServiceImpl implements ScenicService {
         LambdaUpdateWrapper<Scenic> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Scenic::getId, id);
         wrapper.set(Scenic::getState, state);
+        Long merchantId = SecurityHolder.getMerchantId();
+        wrapper.eq(merchantId != null, Scenic::getMerchantId, merchantId);
         scenicMapper.update(null, wrapper);
     }
 
@@ -176,6 +193,7 @@ public class ScenicServiceImpl implements ScenicService {
         wrapper.eq(Scenic::getId, id);
         wrapper.set(Scenic::getState, State.UN_SHELVE);
         wrapper.set(Scenic::getDeleted, true);
+        wrapper.eq(Scenic::getMerchantId, SecurityHolder.getMerchantId());
         scenicMapper.update(null, wrapper);
     }
 

@@ -15,8 +15,10 @@ import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.mapper.ScenicTicketMapper;
+import com.eghm.model.Item;
 import com.eghm.model.Scenic;
 import com.eghm.model.ScenicTicket;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ScenicService;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.utils.DataUtil;
@@ -42,6 +44,8 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     private final ScenicService scenicService;
 
+    private final CommonService commonService;
+
     private final OrderEvaluationMapper orderEvaluationMapper;
 
     @Override
@@ -65,6 +69,8 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     public void updateTicket(ScenicTicketEditRequest request) {
         this.redoTitle(request.getTitle(), SecurityHolder.getMerchantId(), request.getId());
         this.checkScenic(request.getScenicId());
+        ScenicTicket scenicTicket = this.selectByIdRequired(request.getId());
+        commonService.checkIllegal(scenicTicket.getMerchantId());
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
         scenicTicketMapper.updateById(ticket);
         scenicService.updatePrice(request.getScenicId());
@@ -95,6 +101,8 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         LambdaUpdateWrapper<ScenicTicket> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ScenicTicket::getId, id);
         wrapper.set(ScenicTicket::getState, state);
+        Long merchantId = SecurityHolder.getMerchantId();
+        wrapper.eq(merchantId != null, ScenicTicket::getMerchantId, merchantId);
         scenicTicketMapper.update(null, wrapper);
     }
 
@@ -121,6 +129,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
             LambdaUpdateWrapper<ScenicTicket> wrapper = Wrappers.lambdaUpdate();
             wrapper.eq(ScenicTicket::getId, id);
             wrapper.set(ScenicTicket::getState, State.UN_SHELVE);
+            wrapper.eq(ScenicTicket::getMerchantId, SecurityHolder.getMerchantId());
             wrapper.set(ScenicTicket::getDeleted, true);
             scenicTicketMapper.update(null, wrapper);
         }

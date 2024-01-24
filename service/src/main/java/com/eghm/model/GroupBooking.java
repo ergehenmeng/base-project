@@ -40,4 +40,7 @@ public class GroupBooking extends BaseEntity {
 
     @ApiModelProperty("sku拼团优惠json")
     private String skuValue;
+
+    @ApiModelProperty("商户id")
+    private Long merchantId;
 }

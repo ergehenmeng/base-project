@@ -103,6 +103,9 @@ public class Item extends BaseEntity {
     @ApiModelProperty("是否为拼团商品")
     private Boolean groupBooking;
 
+    @ApiModelProperty("拼团活动id")
+    private Long bookingId;
+
     @ApiModelProperty("创建日期")
     private LocalDate createDate;
 }

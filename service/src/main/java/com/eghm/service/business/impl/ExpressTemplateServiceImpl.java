@@ -13,6 +13,7 @@ import com.eghm.mapper.ExpressTemplateMapper;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.model.ExpressTemplate;
 import com.eghm.model.Item;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ExpressTemplateService;
 import com.eghm.service.business.ItemExpressRegionService;
 import com.eghm.utils.DataUtil;
@@ -47,6 +48,8 @@ public class ExpressTemplateServiceImpl implements ExpressTemplateService {
 
     private final ItemMapper itemMapper;
 
+    private final CommonService commonService;
+
     @Override
     public List<ItemExpressResponse> getList(Long merchantId) {
         return expressTemplateMapper.getList(merchantId);
@@ -73,10 +76,7 @@ public class ExpressTemplateServiceImpl implements ExpressTemplateService {
     @Override
     public void update(ItemExpressEditRequest request) {
         ExpressTemplate selected = this.selectByIdRequired(request.getId());
-        if (!selected.getMerchantId().equals(request.getMerchantId())) {
-            log.error("查询快递模板不合法 [{}] [{}]", request.getId(), request.getMerchantId());
-            throw new BusinessException(ErrorCode.EXPRESS_NULL);
-        }
+        commonService.checkIllegal(selected.getMerchantId());
         if (!selected.getChargeMode().equals(request.getChargeMode()) && this.itemCount(request.getId()) > 0) {
             throw new BusinessException(ErrorCode.EXPRESS_CHARGE_MODE);
         }

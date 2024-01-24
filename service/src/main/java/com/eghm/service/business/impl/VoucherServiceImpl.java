@@ -14,7 +14,9 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.VoucherMapper;
+import com.eghm.model.Item;
 import com.eghm.model.Voucher;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.VoucherService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.restaurant.VoucherDetailVO;
@@ -37,6 +39,8 @@ import java.util.List;
 public class VoucherServiceImpl implements VoucherService {
 
     private final VoucherMapper voucherMapper;
+
+    private final CommonService commonService;
 
     @Override
     public Page<Voucher> getByPage(VoucherQueryRequest request) {
@@ -69,6 +73,7 @@ public class VoucherServiceImpl implements VoucherService {
         this.redoTitle(request.getTitle(), request.getId(), request.getRestaurantId());
 
         Voucher select = voucherMapper.selectById(request.getId());
+        commonService.checkIllegal(select.getMerchantId());
         Voucher voucher = DataUtil.copy(request, Voucher.class);
         // 总销量要根据真实销量计算
         voucher.setTotalNum(request.getVirtualNum() + select.getSaleNum());
@@ -80,6 +85,8 @@ public class VoucherServiceImpl implements VoucherService {
         LambdaUpdateWrapper<Voucher> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Voucher::getId, id);
         wrapper.set(Voucher::getState, state);
+        Long merchantId = SecurityHolder.getMerchantId();
+        wrapper.eq(merchantId != null, Voucher::getMerchantId, merchantId);
         voucherMapper.update(null, wrapper);
     }
 
@@ -123,6 +130,7 @@ public class VoucherServiceImpl implements VoucherService {
         wrapper.eq(Voucher::getId, id);
         wrapper.set(Voucher::getState, State.UN_SHELVE);
         wrapper.set(Voucher::getDeleted, true);
+        wrapper.eq(Voucher::getMerchantId, SecurityHolder.getMerchantId());
         voucherMapper.update(null, wrapper);
     }
 

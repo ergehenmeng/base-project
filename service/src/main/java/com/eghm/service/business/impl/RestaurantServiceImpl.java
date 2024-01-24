@@ -20,6 +20,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.mapper.RestaurantMapper;
 import com.eghm.mapper.VoucherMapper;
+import com.eghm.model.Item;
 import com.eghm.model.Merchant;
 import com.eghm.model.Restaurant;
 import com.eghm.service.business.CommonService;
@@ -99,6 +100,8 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         LambdaUpdateWrapper<Restaurant> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Restaurant::getId, id);
         wrapper.set(Restaurant::getState, state);
+        Long merchantId = SecurityHolder.getMerchantId();
+        wrapper.eq(merchantId != null, Restaurant::getMerchantId, merchantId);
         restaurantMapper.update(null, wrapper);
     }
 
@@ -146,6 +149,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         wrapper.eq(Restaurant::getId, id);
         wrapper.set(Restaurant::getState, State.UN_SHELVE);
         wrapper.set(Restaurant::getDeleted, true);
+        wrapper.eq(Restaurant::getMerchantId, SecurityHolder.getMerchantId());
         restaurantMapper.update(null, wrapper);
     }
 

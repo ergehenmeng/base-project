@@ -53,11 +53,16 @@ public class OrderController {
     @PostMapping("/item/create")
     @ApiOperation("零售创建订单")
     public RespBody<OrderCreateVO<String>> itemCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
-        ItemOrderCreateContext context = DataUtil.copy(dto, ItemOrderCreateContext.class);
-        context.setMemberId(ApiHolder.getMemberId());
-        itemAccessHandler.createOrder(context);
-        OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
-        return RespBody.success(result);
+        return this.createItemOrder(dto, false);
+    }
+
+    @PostMapping("/item/group/create")
+    @ApiOperation("零售拼团创建订单")
+    public RespBody<OrderCreateVO<String>> itemGroupCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
+        if (dto.getItemList().size() > 1) {
+            return RespBody.error(ErrorCode.ITEM_MULTIPLE_BOOKING);
+        }
+        return this.createItemOrder(dto, true);
     }
 
     @PostMapping("/ticket/create")
@@ -172,6 +177,22 @@ public class OrderController {
     public RespBody<Void> delete(@Validated @RequestBody OrderDTO dto) {
         orderService.deleteOrder(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success();
+    }
+
+    /**
+     * 创建零售订单订单
+     *
+     * @param dto dto
+     * @param isGroupBooking 是否为
+     * @return 订单
+     */
+    private RespBody<OrderCreateVO<String>> createItemOrder(ItemOrderCreateDTO dto, Boolean isGroupBooking) {
+        ItemOrderCreateContext context = DataUtil.copy(dto, ItemOrderCreateContext.class);
+        context.setGroupBooking(isGroupBooking);
+        context.setMemberId(ApiHolder.getMemberId());
+        itemAccessHandler.createOrder(context);
+        OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
+        return RespBody.success(result);
     }
 
     /**

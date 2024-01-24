@@ -1514,6 +1514,11 @@ public enum ErrorCode {
     ITEM_BOOKING(3836, "该商品已添加拼团活动"),
 
     /**
+     * 拼团商品不支持购物车下单
+     */
+    ITEM_MULTIPLE_BOOKING(3836, "拼团商品不支持购物车下单"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

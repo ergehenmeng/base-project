@@ -5,6 +5,7 @@ import com.eghm.dto.business.homestay.room.config.RoomConfigQueryRequest;
 import com.eghm.dto.business.homestay.room.config.RoomConfigRequest;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.HomestayRoom;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.HomestayRoomService;
 import com.eghm.vo.business.homestay.room.config.RoomConfigResponse;
@@ -29,10 +30,13 @@ public class HomestayRoomConfigController {
 
     private final HomestayRoomService homestayRoomService;
 
+    private final CommonService commonService;
+
     @PostMapping("/setup")
     @ApiOperation("设置房态")
     public RespBody<Void> setup(@Validated @RequestBody RoomConfigRequest request) {
         HomestayRoom room = homestayRoomService.selectById(request.getRoomId());
+        commonService.checkIllegal(room.getMerchantId());
         request.setHomestayId(room.getHomestayId());
         homestayRoomConfigService.setup(request);
         return RespBody.success();

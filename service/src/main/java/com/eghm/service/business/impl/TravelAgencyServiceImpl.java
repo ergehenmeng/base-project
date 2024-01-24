@@ -16,6 +16,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.TravelAgencyMapper;
 import com.eghm.model.Merchant;
+import com.eghm.model.Scenic;
 import com.eghm.model.TravelAgency;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.MemberCollectService;
@@ -81,6 +82,8 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         LambdaUpdateWrapper<TravelAgency> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(TravelAgency::getId, id);
         wrapper.set(TravelAgency::getState, state);
+        Long merchantId = SecurityHolder.getMerchantId();
+        wrapper.eq(merchantId != null, TravelAgency::getMerchantId, merchantId);
         travelAgencyMapper.update(null, wrapper);
     }
 
@@ -110,6 +113,7 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         wrapper.eq(TravelAgency::getId, id);
         wrapper.set(TravelAgency::getState, State.UN_SHELVE);
         wrapper.set(TravelAgency::getDeleted, true);
+        wrapper.eq(TravelAgency::getMerchantId, SecurityHolder.getMerchantId());
         travelAgencyMapper.update(null, wrapper);
     }
 

@@ -94,10 +94,11 @@ public interface ItemService {
     /**
      * 更新零售是否拼团
      *
-     * @param id id
+     * @param itemId itemId
      * @param groupBooking true:拼团商品 false:不是拼团商品
+     * @param bookingId 拼团活动id
      */
-    void updateGroupBooking(Long id, Boolean groupBooking);
+    void updateGroupBooking(Long itemId, Boolean groupBooking, Long bookingId);
 
     /**
      * 商品排序

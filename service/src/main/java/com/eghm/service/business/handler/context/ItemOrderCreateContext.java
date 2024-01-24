@@ -27,6 +27,9 @@ public class ItemOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("商品信息")
     private List<ItemDTO> itemList;
 
+    @ApiModelProperty("是否为拼团订单")
+    private Boolean groupBooking;
+
     @ApiModelProperty("优惠券id")
     private Long couponId;
 
