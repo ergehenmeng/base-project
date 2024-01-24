@@ -4,7 +4,6 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.constant.CommonConstant;
-import com.eghm.dto.business.group.SkuRequest;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
 import com.eghm.enums.ExchangeQueue;
@@ -30,7 +29,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.eghm.enums.ErrorCode.*;
@@ -288,12 +286,12 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         if (Boolean.TRUE.equals(context.getGroupBooking())) {
             log.info("开始计算拼团价格 [{}] [{}]", aPackage.getItemId(), aPackage.getSkuId());
             Long bookingId = this.checkAndGetBookingId(aPackage.getItem().getBookingId(), context);
-            GroupBooking selected = groupBookingService.selectById(bookingId);
+            GroupBooking selected = groupBookingService.getById(bookingId);
             if (selected.getNum() <= context.getBookingNum()) {
                 log.info("拼团人数已经满了 [{}]", bookingId);
                 throw new BusinessException(ITEM_GROUP_COMPLETE);
             }
-            return this.calcFinalPrice(selected.getSkuValue(), aPackage.getSku().getSalePrice(), aPackage.getSkuId());
+            return groupBookingService.getFinalPrice(selected.getSkuValue(), aPackage.getSku().getSalePrice(), aPackage.getSkuId());
         }
         return aPackage.getSku().getSalePrice();
     }
@@ -334,29 +332,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         context.setBookingId(vo.getBookingId());
         return vo.getBookingId();
     }
-    
-    /**
-     * 计算最终单价
-     *
-     * @param skuValue 订单
-     * @param salePrice 销售价格
-     * @param skuId   skuId
-     * @return 拼团价格
-     */
-    private Integer calcFinalPrice(String skuValue, Integer salePrice, Long skuId) {
-        if (skuValue == null) {
-            log.warn("拼团优惠金额为空");
-            return salePrice;
-        }
-        List<SkuRequest> skuList = jsonService.fromJsonList(skuValue, SkuRequest.class);
-        Map<Long, SkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(SkuRequest::getSkuId, Function.identity()));
-        SkuRequest request = skuMap.get(skuId);
-        if (request == null || !salePrice.equals(request.getSalePrice()) || request.getGroupPrice() == null) {
-            log.warn("拼团sku价格信息未匹配 [{}]", skuId);
-            return salePrice;
-        }
-        return request.getGroupPrice();
-    }
+
 
     /**
      * 商品总数量

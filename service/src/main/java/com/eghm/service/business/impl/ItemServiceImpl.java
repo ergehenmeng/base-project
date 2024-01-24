@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.dto.business.group.SkuRequest;
 import com.eghm.dto.business.item.*;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
@@ -23,6 +24,7 @@ import com.eghm.mapper.ItemMapper;
 import com.eghm.mapper.ItemStoreMapper;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
+import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
@@ -39,6 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -76,6 +79,10 @@ public class ItemServiceImpl implements ItemService {
     private final MemberCollectService memberCollectService;
 
     private final CommonService commonService;
+
+    private final GroupBookingService groupBookingService;
+
+    private final JsonService jsonService;
 
     @Override
     public Page<ItemResponse> getByPage(ItemQueryRequest request) {
@@ -333,6 +340,7 @@ public class ItemServiceImpl implements ItemService {
         } else {
             detail.setSkuList(Lists.newArrayList(DataUtil.copy(skuList.get(0), ItemSkuVO.class)));
         }
+        this.setGroupBooking(detail);
         // 是否添加收藏
         detail.setCollect(memberCollectService.checkCollect(id, CollectType.ITEM));
         return detail;
@@ -346,6 +354,39 @@ public class ItemServiceImpl implements ItemService {
         wrapper.eq(Item::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(Item::getDeleted, true);
         itemMapper.update(null, wrapper);
+    }
+
+
+    /**
+     * 设置拼团信息
+     *
+     * @param detail 商品详情
+     */
+    private void setGroupBooking(ItemDetailVO detail) {
+        if (detail.getBookingId() != null) {
+            GroupBooking booking = groupBookingService.getById(detail.getBookingId());
+            if (booking == null) {
+                log.error("该拼团订单已删除啦 [{}]", detail.getBookingId());
+                return;
+            }
+
+            if (booking.getStartTime().isAfter(LocalDateTime.now()) || booking.getEndTime().isBefore(LocalDateTime.now())) {
+                log.error("该拼团不在有效期 [{}]", detail.getBookingId());
+                return;
+            }
+            List<SkuRequest> skuList = jsonService.fromJsonList(booking.getSkuValue(), SkuRequest.class);
+
+            Map<Long, SkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(SkuRequest::getSkuId, Function.identity()));
+            detail.getSkuList().forEach(vo -> {
+                SkuRequest request = skuMap.get(vo.getId());
+                if (request != null && vo.getSalePrice().equals(request.getSalePrice()) && request.getGroupPrice() != null) {
+                    detail.setGroupBooking(true);
+                    vo.setGroupPrice(request.getGroupPrice());
+                } else {
+                    vo.setGroupPrice(vo.getSalePrice());
+                }
+            });
+        }
     }
 
     /**

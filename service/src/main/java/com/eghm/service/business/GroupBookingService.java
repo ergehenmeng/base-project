@@ -47,10 +47,38 @@ public interface GroupBookingService {
     void delete(Long id);
 
     /**
-     * 获取拼团信息
+     * 获取拼团信息(包含删除)
+     *
+     * @param bookingId 活动id
+     * @return 信息
+     */
+    GroupBooking getById(Long bookingId);
+
+    /**
+     * 获取拼团信息(没删除)
      *
      * @param bookingId 活动id
      * @return 信息
      */
     GroupBooking selectById(Long bookingId);
+
+    /**
+     * 获取拼团活动最终价格
+     *
+     * @param bookingId 活动id
+     * @param salePrice 原价格
+     * @param skuId skuId
+     * @return 最终价格
+     */
+    Integer getFinalPrice(Long bookingId, Integer salePrice, Long skuId);
+
+    /**
+     * 获取拼团活动最终价格
+     *
+     * @param skuValue 价格配置信息
+     * @param salePrice 原价格
+     * @param skuId skuId
+     * @return 最终价格
+     */
+    Integer getFinalPrice(String skuValue, Integer salePrice, Long skuId);
 }

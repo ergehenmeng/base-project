@@ -1246,6 +1246,7 @@ CREATE TABLE `group_booking`
     `start_time`  datetime    DEFAULT NULL COMMENT '开始时间',
     `end_time`    datetime    DEFAULT NULL COMMENT '截止时间',
     `num`         tinyint(2)  DEFAULT NULL COMMENT '拼团人数',
+    `sku_value`   text        DEFAULT NULL COMMENT '拼团优惠配置json',
     `expire_time` int(10)     DEFAULT '86400' COMMENT '拼团有效期,单位:分钟',
     `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

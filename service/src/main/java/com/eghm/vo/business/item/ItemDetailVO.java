@@ -97,10 +97,17 @@ public class ItemDetailVO {
     @ApiModelProperty("好评率百分比")
     private Integer rate;
 
+    @ApiModelProperty("是否为拼团订单")
+    private Boolean groupBooking = false;
+
+    @ApiModelProperty("活动id")
+    @JsonIgnore
+    private Long bookingId;
+
     @ApiModelProperty("多规格信息")
     private List<ItemGroupSpecVO> specList;
 
-    @ApiModelProperty("规格sku信息(单规格只有一条)")
+    @ApiModelProperty("规格sku信息(单规格时只有一条)")
     private List<ItemSkuVO> skuList;
 
 }

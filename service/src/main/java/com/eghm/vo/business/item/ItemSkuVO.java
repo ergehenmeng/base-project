@@ -24,6 +24,9 @@ public class ItemSkuVO {
     @ApiModelProperty(value = "销售价格")
     private Integer salePrice;
 
+    @ApiModelProperty("拼团价格")
+    private Integer groupPrice;
+
     @ApiModelProperty(value = "库存")
     private Integer stock;
 

@@ -107,13 +107,49 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     }
 
     @Override
-    public GroupBooking selectById(Long bookingId) {
+    public GroupBooking getById(Long bookingId) {
         GroupBooking booking = groupBookingMapper.getById(bookingId);
         if (booking == null) {
             log.warn("拼团未查询到价格信息 [{}]", bookingId);
             throw new BusinessException(ErrorCode.ITEM_GROUP_NULL);
         }
         return booking;
+    }
+
+    @Override
+    public GroupBooking selectById(Long bookingId) {
+        return groupBookingMapper.selectById(bookingId);
+    }
+
+    @Override
+    public Integer getFinalPrice(Long bookingId, Integer salePrice, Long skuId) {
+        GroupBooking booking = groupBookingMapper.selectById(bookingId);
+        if (booking == null) {
+            log.info("拼团活动未查询到,以原价为准 [{}]", bookingId);
+            return salePrice;
+        }
+        LocalDateTime now = LocalDateTime.now();
+        if (booking.getEndTime().isBefore(now) || booking.getStartTime().isAfter(now)) {
+            log.warn("拼团活动不在有效期 [{}] [{}] [{}]", bookingId, booking.getStartTime(), booking.getEndTime());
+            return salePrice;
+        }
+        return this.getFinalPrice(booking.getSkuValue(), salePrice, skuId);
+    }
+
+    @Override
+    public Integer getFinalPrice(String skuValue, Integer salePrice, Long skuId) {
+        if (skuValue == null) {
+            log.warn("拼团优惠金额为空");
+            return salePrice;
+        }
+        List<SkuRequest> skuList = jsonService.fromJsonList(skuValue, SkuRequest.class);
+        Map<Long, SkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(SkuRequest::getSkuId, Function.identity()));
+        SkuRequest request = skuMap.get(skuId);
+        if (request == null || !salePrice.equals(request.getSalePrice()) || request.getGroupPrice() == null) {
+            log.warn("拼团sku价格信息未匹配 [{}]", skuId);
+            return salePrice;
+        }
+        return request.getGroupPrice();
     }
 
     /**

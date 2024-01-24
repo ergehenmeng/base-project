@@ -168,6 +168,7 @@
         t.id,
         t.store_id,
         r.logo_url,
+        t.booking_id,
         r.title as storeName,
         t.state,
         t.multi_spec,
