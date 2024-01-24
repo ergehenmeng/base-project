@@ -16,7 +16,6 @@ import com.eghm.enums.ref.RoleType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemStoreMapper;
-import com.eghm.model.Homestay;
 import com.eghm.model.ItemStore;
 import com.eghm.model.Merchant;
 import com.eghm.service.business.*;

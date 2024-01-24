@@ -14,7 +14,6 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.VoucherMapper;
-import com.eghm.model.Item;
 import com.eghm.model.Voucher;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.VoucherService;

@@ -15,6 +15,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.HomestayRoomMapper;
 import com.eghm.model.HomestayRoom;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.HomestayRoomService;
 import com.eghm.service.sys.impl.SysConfigApi;
@@ -41,6 +42,8 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
 
     private final SysConfigApi sysConfigApi;
 
+    private final CommonService commonService;
+
     private final HomestayRoomConfigService homestayRoomConfigService;
 
     @Override
@@ -66,6 +69,8 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
     @Override
     public void update(HomestayRoomEditRequest request) {
         this.titleRedo(request.getTitle(), request.getId(), request.getHomestayId());
+        HomestayRoom homestayRoom = this.selectByIdRequired(request.getId());
+        commonService.checkIllegal(homestayRoom.getMerchantId());
         HomestayRoom room = DataUtil.copy(request, HomestayRoom.class);
         homestayRoomMapper.updateById(room);
     }
@@ -100,6 +105,8 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
         LambdaUpdateWrapper<HomestayRoom> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(HomestayRoom::getId, id);
         wrapper.set(HomestayRoom::getState, state);
+        Long merchantId = SecurityHolder.getMerchantId();
+        wrapper.eq(merchantId != null, HomestayRoom::getMerchantId, merchantId);
         homestayRoomMapper.update(null, wrapper);
     }
 
@@ -109,6 +116,7 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
         wrapper.eq(HomestayRoom::getId, id);
         wrapper.set(HomestayRoom::getState, State.UN_SHELVE);
         wrapper.set(HomestayRoom::getDeleted, true);
+        wrapper.eq(HomestayRoom::getMerchantId, SecurityHolder.getMerchantId());
         homestayRoomMapper.update(null, wrapper);
     }
 

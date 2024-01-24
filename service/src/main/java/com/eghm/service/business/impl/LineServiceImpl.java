@@ -18,7 +18,6 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LineMapper;
 import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.mapper.TravelAgencyMapper;
-import com.eghm.model.Item;
 import com.eghm.model.Line;
 import com.eghm.model.LineDayConfig;
 import com.eghm.model.TravelAgency;

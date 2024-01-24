@@ -100,7 +100,6 @@ public class ExpressTemplateServiceImpl implements ExpressTemplateService {
             throw new BusinessException(ErrorCode.EXPRESS_NOT_DELETE);
         }
         LambdaUpdateWrapper<ExpressTemplate> wrapper = Wrappers.lambdaUpdate();
-        // 防止误删除其他人的信息
         wrapper.eq(ExpressTemplate::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.eq(ExpressTemplate::getId, id);
         expressTemplateMapper.delete(wrapper);
