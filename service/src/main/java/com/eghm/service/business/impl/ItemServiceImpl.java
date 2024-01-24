@@ -20,6 +20,7 @@ import com.eghm.enums.ref.ChargeMode;
 import com.eghm.enums.ref.CollectType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
+import com.eghm.mapper.GroupBookingMapper;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.mapper.ItemStoreMapper;
 import com.eghm.model.*;
@@ -80,7 +81,7 @@ public class ItemServiceImpl implements ItemService {
 
     private final CommonService commonService;
 
-    private final GroupBookingService groupBookingService;
+    private final GroupBookingMapper groupBookingMapper;
 
     private final JsonService jsonService;
 
@@ -365,7 +366,7 @@ public class ItemServiceImpl implements ItemService {
     private void setGroupBooking(ItemDetailVO detail) {
         if (detail.getBookingId() != null) {
             log.info("拼团商品,开始组装拼团价格信息 [{}] [{}]", detail.getId(), detail.getBookingId());
-            GroupBooking booking = groupBookingService.getById(detail.getBookingId());
+            GroupBooking booking = groupBookingMapper.selectById(detail.getBookingId());
             if (booking == null) {
                 log.error("该拼团订单已删除啦 [{}]", detail.getBookingId());
                 return;
