@@ -1519,6 +1519,16 @@ public enum ErrorCode {
     ITEM_MULTIPLE_BOOKING(3836, "拼团商品不支持购物车下单"),
 
     /**
+     * 进行中拼团不支持编辑
+     */
+    BOOKING_EDIT(3838, "进行中拼团不支持编辑"),
+
+    /**
+     * 活动时间必须大于当前时间
+     */
+    BOOKING_GT_TIME(3842, "活动时间必须大于当前时间"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

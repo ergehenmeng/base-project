@@ -156,7 +156,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void checkBookingItem(Long itemId) {
         Item item = this.selectByIdRequired(itemId);
-        if (Boolean.TRUE.equals(item.getGroupBooking())) {
+        if (item.getBookingId() != null) {
             log.error("该商品已存在拼团活动 [{}]", item.getId());
             throw new BusinessException(ErrorCode.ITEM_BOOKING);
         }
@@ -177,7 +177,6 @@ public class ItemServiceImpl implements ItemService {
     public void updateGroupBooking(Long id, Boolean groupBooking, Long bookingId) {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getId, id);
-        wrapper.set(Item::getGroupBooking, groupBooking);
         wrapper.set(Item::getBookingId, bookingId);
         itemMapper.update(null, wrapper);
     }

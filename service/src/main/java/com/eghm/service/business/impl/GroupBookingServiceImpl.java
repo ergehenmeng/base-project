@@ -23,6 +23,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -58,6 +59,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     @Override
     public void create(GroupBookingAddRequest request) {
         this.redoTitle(request.getTitle(), null);
+        this.checkTime(request.getStartTime());
         itemService.checkBookingItem(request.getItemId());
 
         GroupBooking booking = DataUtil.copy(request, GroupBooking.class);
@@ -69,10 +71,13 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     @Override
     public void update(GroupBookingEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId());
+        this.checkTime(request.getStartTime());
         GroupBooking booking = groupBookingMapper.selectById(request.getId());
         // 防止非法操作
         commonService.checkIllegal(booking.getMerchantId());
-
+        if (!booking.getStartTime().isAfter(LocalDateTime.now())) {
+            throw new BusinessException(ErrorCode.BOOKING_EDIT);
+        }
         if (!booking.getItemId().equals(request.getItemId())) {
             // 校验新的商品是否是拼团商品
             itemService.checkBookingItem(request.getItemId());
@@ -116,6 +121,17 @@ public class GroupBookingServiceImpl implements GroupBookingService {
             return salePrice;
         }
         return request.getGroupPrice();
+    }
+
+    /**
+     * 校验时间
+     *
+     * @param startTime 开始日期
+     */
+    private void checkTime(LocalDateTime startTime) {
+        if (startTime.isAfter(LocalDateTime.now())) {
+            throw new BusinessException(ErrorCode.BOOKING_GT_TIME);
+        }
     }
 
     /**
