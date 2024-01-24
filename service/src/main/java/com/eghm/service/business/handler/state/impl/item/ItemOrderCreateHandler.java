@@ -2,7 +2,9 @@ package com.eghm.service.business.handler.state.impl.item;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.constant.CommonConstant;
+import com.eghm.dto.business.group.SkuRequest;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
 import com.eghm.enums.ExchangeQueue;
@@ -10,6 +12,7 @@ import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.RefundType;
+import com.eghm.exception.BusinessException;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
@@ -17,15 +20,20 @@ import com.eghm.service.business.handler.dto.ItemDTO;
 import com.eghm.service.business.handler.dto.ItemOrderPayload;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.service.business.handler.state.OrderCreateHandler;
+import com.eghm.service.common.JsonService;
 import com.eghm.service.member.MemberAddressService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.TransactionUtil;
+import com.eghm.vo.business.group.GroupOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static com.eghm.enums.ErrorCode.*;
 
 /**
  * @author 二哥很猛
@@ -51,6 +59,12 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     private final OrderMQService orderMQService;
 
     private final MemberAddressService memberAddressService;
+
+    private final ItemGroupOrderService itemGroupOrderService;
+
+    private final GroupBookingService groupBookingService;
+
+    private final JsonService jsonService;
 
     /**
      * 普通订单下单处理逻辑
@@ -99,13 +113,15 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             itemSkuService.updateStock(skuNumMap);
 
             int expressAmount = skuExpressMap.values().stream().reduce(Integer::sum).orElse(0);
-            Order order = this.generateOrder(context.getMemberId(), isMultiple, entry.getValue(), expressAmount, payload);
+            Order order = this.generateOrder(context.getMemberId(), isMultiple, entry.getValue(), expressAmount, payload, context);
             order.setOrderNo(orderNo);
             order.setStoreId(entry.getKey());
             order.setRemark(context.getRemark());
             // 同一家商户merchantId肯定是一样的
             order.setMerchantId(entry.getValue().get(0).getItemStore().getMerchantId());
             orderService.save(order);
+            // 如果是拼团订单的话 一定是单商品
+            itemGroupOrderService.save(context, order, entry.getValue().get(0).getItemId());
             orderList.add(order.getOrderNo());
         }
         // 30分钟过期定时任务
@@ -141,7 +157,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * @param expressAmount 快递费
      * @return 订单信息
      */
-    private Order generateOrder(Long memberId, boolean multiple, List<OrderPackage> packageList, int expressAmount, ItemOrderPayload payload) {
+    private Order generateOrder(Long memberId, boolean multiple, List<OrderPackage> packageList, int expressAmount, ItemOrderPayload payload, ItemOrderCreateContext context) {
         Order order = DataUtil.copy(payload, Order.class);
         order.setCoverUrl(this.getFirstCoverUrl(packageList));
         order.setTitle(this.getTitle(packageList));
@@ -150,7 +166,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         order.setRefundType(this.getRefundType(packageList));
         order.setProductType(ProductType.ITEM);
         order.setNum(this.getNum(packageList));
-        Integer payAmount = this.getPayAmount(packageList);
+        Integer payAmount = this.getPayAmount(packageList, context);
+        order.setBookingNo(context.getBookingNo());
         order.setPayAmount(payAmount + expressAmount);
         return order;
     }
@@ -207,16 +224,17 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
         List<OrderPackage> packageList = new ArrayList<>();
         OrderPackage orderPackage;
-        for (ItemDTO item : context.getItemList()) {
+        for (ItemDTO vo : context.getItemList()) {
             orderPackage = new OrderPackage();
-            orderPackage.setItem(itemMap.get(item.getItemId()));
-            orderPackage.setSku(skuMap.get(item.getSkuId()));
-            orderPackage.setNum(item.getNum());
-            orderPackage.setItemId(item.getItemId());
-            orderPackage.setSkuId(item.getSkuId());
+            orderPackage.setItem(itemMap.get(vo.getItemId()));
+            orderPackage.setSku(skuMap.get(vo.getSkuId()));
+            orderPackage.setNum(vo.getNum());
+            orderPackage.setItemId(vo.getItemId());
+            orderPackage.setSkuId(vo.getSkuId());
             orderPackage.setSpec(specMap.get(this.getSpuId(orderPackage.getSku().getSpecId())));
             orderPackage.setStoreId(orderPackage.getItem().getStoreId());
             orderPackage.setItemStore(storeMap.get(orderPackage.getStoreId()));
+            this.checkQuota(orderPackage);
             packageList.add(orderPackage);
         }
         ItemOrderPayload orderDTO = DataUtil.copy(context, ItemOrderPayload.class);
@@ -247,8 +265,97 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * @param packageList 下单信息
      * @return 总金额
      */
-    private Integer getPayAmount(List<OrderPackage> packageList) {
-        return packageList.stream().mapToInt(orderPackage -> orderPackage.getSku().getSalePrice() * orderPackage.getNum()).sum();
+    private Integer getPayAmount(List<OrderPackage> packageList, ItemOrderCreateContext context) {
+        int sum = 0;
+        for (OrderPackage aPackage : packageList) {
+            Integer finalPrice = this.getFinalPrice(aPackage, context);
+            sum += finalPrice * aPackage.getNum();
+        }
+        return sum;
+    }
+
+    /**
+     * 计算最终单价
+     * 1. 第一个拼团的人是团长,订单创建时生成拼团单号, 后续的拼团人需要拼团号才能进团下单
+     * 2. 如果在拼团中, 拼团活动取消了, 之前拼团中还可以继续拼团
+     *
+     * @param aPackage 商品信息
+     * @param context context
+     * @return 单价
+     */
+    private Integer getFinalPrice(OrderPackage aPackage, ItemOrderCreateContext context) {
+        // 表示是拼团订单
+        if (Boolean.TRUE.equals(context.getGroupBooking())) {
+            log.info("开始计算拼团价格 [{}] [{}]", aPackage.getItemId(), aPackage.getSkuId());
+            Long bookingId = this.checkAndGetBookingId(aPackage.getItem().getBookingId(), context);
+            GroupBooking selected = groupBookingService.selectById(bookingId);
+            if (selected.getNum() <= context.getBookingNum()) {
+                log.info("拼团人数已经满了 [{}]", bookingId);
+                throw new BusinessException(ITEM_GROUP_COMPLETE);
+            }
+            return this.calcFinalPrice(selected.getSkuValue(), aPackage.getSku().getSalePrice(), aPackage.getSkuId());
+        }
+        return aPackage.getSku().getSalePrice();
+    }
+
+    /**
+     * 校验并查询最终拼团id
+     *
+     * @param bookingId 拼团id
+     * @param context context
+     * @return 拼团id
+     */
+    private Long checkAndGetBookingId(Long bookingId, ItemOrderCreateContext context) {
+        if (bookingId != null) {
+            if (StrUtil.isBlank(context.getBookingNo())) {
+                context.setBookingNo(IdWorker.get32UUID());
+                context.setBookingId(bookingId);
+                log.info("团长还是创建拼团订单 [{}]", context.getBookingNo());
+                return bookingId;
+            }
+            GroupOrderVO vo = itemGroupOrderService.getGroupOrder(context.getBookingNo(), 0);
+            if (vo.getNum() == 0) {
+                log.info("团员创建拼团订单,但没有待拼团的订单 [{}]", context.getBookingNo());
+                throw new BusinessException(ITEM_GROUP_COMPLETE);
+            }
+            context.setBookingNum(vo.getNum());
+            context.setBookingId(bookingId);
+            return bookingId;
+        }
+        if (StrUtil.isBlank(context.getBookingNo())) {
+            throw new BusinessException(ITEM_GROUP_NULL);
+        }
+        GroupOrderVO vo = itemGroupOrderService.getGroupOrder(context.getBookingNo(), 0);
+        if (vo.getNum() == 0) {
+            log.info("团员创建拼团订单,订单可能已经拼团成功 [{}]", context.getBookingNo());
+            throw new BusinessException(ITEM_GROUP_COMPLETE);
+        }
+        context.setBookingNum(vo.getNum());
+        context.setBookingId(vo.getBookingId());
+        return vo.getBookingId();
+    }
+    
+    /**
+     * 计算最终单价
+     *
+     * @param skuValue 订单
+     * @param salePrice 销售价格
+     * @param skuId   skuId
+     * @return 拼团价格
+     */
+    private Integer calcFinalPrice(String skuValue, Integer salePrice, Long skuId) {
+        if (skuValue == null) {
+            log.warn("拼团优惠金额为空");
+            return salePrice;
+        }
+        List<SkuRequest> skuList = jsonService.fromJsonList(skuValue, SkuRequest.class);
+        Map<Long, SkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(SkuRequest::getSkuId, Function.identity()));
+        SkuRequest request = skuMap.get(skuId);
+        if (request == null || !salePrice.equals(request.getSalePrice()) || request.getGroupPrice() == null) {
+            log.warn("拼团sku价格信息未匹配 [{}]", skuId);
+            return salePrice;
+        }
+        return request.getGroupPrice();
     }
 
     /**
@@ -271,6 +378,18 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             return Long.parseLong(spuList.split(CommonConstant.DOT_SPLIT)[0]);
         }
         return null;
+    }
+
+    /**
+     * 检查限购数量
+     *
+     * @param aPackage 零售sku
+     */
+    private void checkQuota(OrderPackage aPackage) {
+        Integer quota = aPackage.getItem().getQuota();
+        if (quota < aPackage.getNum()) {
+            throw new BusinessException(ITEM_CHECK_QUOTA.getCode(), String.format(ITEM_CHECK_QUOTA.getMsg(), aPackage.getItem().getTitle(), quota));
+        }
     }
 
     /**

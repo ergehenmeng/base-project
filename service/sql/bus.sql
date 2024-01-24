@@ -585,7 +585,7 @@ CREATE TABLE `order`
     `title`           varchar(200) DEFAULT NULL COMMENT '商品名称',
     `cover_url`       varchar(200) DEFAULT NULL COMMENT '商品封面图(第一张)',
     `member_id`       bigint(20)   DEFAULT NULL COMMENT '用户id',
-    `booking_id`      bigint(20)   DEFAULT NULL COMMENT '拼团id',
+    `booking_no`      varchar(30)  DEFAULT NULL COMMENT '拼团活动编号',
     `multiple`        bit(1)       default b'0' comment '是否为多订单,普通商品且购物车购买才可能是多订单,即一个订单对应多个商品',
     `delivery_type`   tinyint(1)   DEFAULT '0' COMMENT '交付方式 0:无须发货 1:门店自提 2:快递包邮',
     `pay_type`        varchar(30)  DEFAULT NULL COMMENT '支付方式',
@@ -1253,4 +1253,20 @@ CREATE TABLE `group_booking`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='拼团活动表';
+
+DROP TABLE IF EXISTS item_group_order;
+CREATE TABLE `item_group_order`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `booking_no`  varchar(20) DEFAULT NULL COMMENT '拼团活动编号',
+    `order_no`    varchar(20) DEFAULT NULL COMMENT '订单号',
+    `item_id`     bigint(20)  DEFAULT NULL COMMENT '零售id',
+    `member_id`   bigint(20)  DEFAULT NULL COMMENT '会员id',
+    `booking_id`  bigint(20)  DEFAULT NULL COMMENT '拼团活动id',
+    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)      DEFAULT b'0' COMMENT '是否删除 1:已删除 0:未删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='拼团订单表';
 

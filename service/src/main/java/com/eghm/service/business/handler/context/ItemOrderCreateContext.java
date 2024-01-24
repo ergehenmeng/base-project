@@ -1,5 +1,6 @@
 package com.eghm.service.business.handler.context;
 
+import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.AsyncKey;
 import com.eghm.service.business.handler.dto.ItemDTO;
 import com.eghm.state.machine.Context;
@@ -30,13 +31,17 @@ public class ItemOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("是否为拼团订单")
     private Boolean groupBooking;
 
+    @ApiModelProperty("拼团活动编号")
+    private String bookingNo;
+
     @ApiModelProperty("优惠券id")
     private Long couponId;
 
     @ApiModelProperty("收货地址id")
     private Long addressId;
 
-    @ApiModelProperty("订单编号")
+    @ApiModelProperty(value = "订单编号", hidden = true)
+    @Assign
     private String orderNo;
 
     @ApiModelProperty("备注")
@@ -44,5 +49,11 @@ public class ItemOrderCreateContext extends AsyncKey implements Context {
 
     @ApiModelProperty("源状态")
     private Integer from;
+
+    @ApiModelProperty(value = "已拼单数量", hidden = true)
+    private Integer bookingNum = 0;
+
+    @ApiModelProperty(value = "拼团id", hidden = true)
+    private Long bookingId;
 
 }

@@ -107,20 +107,13 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     }
 
     @Override
-    public Integer getGroupPrice(Long skuId, Long bookingId, Integer salePrice) {
-        String skuValue = groupBookingMapper.getSkuValue(bookingId);
-        if (skuValue == null) {
+    public GroupBooking selectById(Long bookingId) {
+        GroupBooking booking = groupBookingMapper.getById(bookingId);
+        if (booking == null) {
             log.warn("拼团未查询到价格信息 [{}]", bookingId);
-            return salePrice;
+            throw new BusinessException(ErrorCode.ITEM_GROUP_NULL);
         }
-        List<SkuRequest> skuList = jsonService.fromJsonList(skuValue, SkuRequest.class);
-        Map<Long, SkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(SkuRequest::getSkuId, Function.identity()));
-        SkuRequest request = skuMap.get(skuId);
-        if (request == null || !salePrice.equals(request.getSalePrice()) || request.getGroupPrice() == null) {
-            log.warn("拼团sku价格信息未匹配 [{}]", bookingId);
-            return salePrice;
-        }
-        return request.getGroupPrice();
+        return booking;
     }
 
     /**

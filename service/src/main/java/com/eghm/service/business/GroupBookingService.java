@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.group.GroupBookingAddRequest;
 import com.eghm.dto.business.group.GroupBookingEditRequest;
 import com.eghm.dto.business.group.GroupBookingQueryRequest;
+import com.eghm.model.GroupBooking;
 import com.eghm.vo.business.group.GroupBookingResponse;
 
 /**
@@ -46,12 +47,10 @@ public interface GroupBookingService {
     void delete(Long id);
 
     /**
-     * 获取拼团价格
+     * 获取拼团信息
      *
-     * @param skuId skuId
      * @param bookingId 活动id
-     * @param salePrice 商品价格
-     * @return 价格
+     * @return 信息
      */
-    Integer getGroupPrice(Long skuId, Long bookingId, Integer salePrice);
+    GroupBooking selectById(Long bookingId);
 }

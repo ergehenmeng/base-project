@@ -183,7 +183,7 @@ public class OrderController {
      * 创建零售订单订单
      *
      * @param dto dto
-     * @param isGroupBooking 是否为
+     * @param isGroupBooking 是否为拼团订单
      * @return 订单
      */
     private RespBody<OrderCreateVO<String>> createItemOrder(ItemOrderCreateDTO dto, Boolean isGroupBooking) {

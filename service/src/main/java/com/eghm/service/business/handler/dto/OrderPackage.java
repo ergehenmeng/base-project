@@ -40,4 +40,7 @@ public class OrderPackage {
 
     @ApiModelProperty("零售店铺信息")
     private ItemStore itemStore;
+
+    @ApiModelProperty("拼团id")
+    private Long bookingId;
 }

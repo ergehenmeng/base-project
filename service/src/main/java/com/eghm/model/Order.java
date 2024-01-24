@@ -133,8 +133,8 @@ public class Order extends BaseEntity {
     @ApiModelProperty("订单备注信息")
     private String remark;
 
-    @ApiModelProperty("拼团活动id")
-    private Long bookingId;
+    @ApiModelProperty("拼团活动编号")
+    private String bookingNo;
 
     @ApiModelProperty("创建日期")
     private LocalDate createDate;

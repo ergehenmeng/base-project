@@ -28,6 +28,9 @@ public class ItemOrderCreateDTO {
     @NotEmpty(message = "请选择商品")
     private List<ItemDTO> itemList;
 
+    @ApiModelProperty("拼团活动编号")
+    private String bookingNo;
+
     @ApiModelProperty("备注")
     private String remark;
 }

@@ -1529,6 +1529,21 @@ public enum ErrorCode {
     BOOKING_GT_TIME(3842, "活动时间必须大于当前时间"),
 
     /**
+     * 活动时间必须大于当前时间
+     */
+    ITEM_CHECK_QUOTA(3846, "[%s]限购数量:d%"),
+
+    /**
+     * 拼团活动不在有效期
+     */
+    ITEM_GROUP_NULL(3848, "拼团活动不在有效期"),
+
+    /**
+     * 拼团人数凑满啦~
+     */
+    ITEM_GROUP_COMPLETE(3850, "拼团人数凑满啦~"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

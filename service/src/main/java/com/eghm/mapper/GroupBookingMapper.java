@@ -32,5 +32,5 @@ public interface GroupBookingMapper extends BaseMapper<GroupBooking> {
      * @param bookingId 活动id
      * @return 列表
      */
-    String getSkuValue(@Param("bookingId") Long bookingId);
+    GroupBooking getById(@Param("bookingId") Long bookingId);
 }
