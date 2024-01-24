@@ -1,14 +1,12 @@
 package com.eghm.service.business.handler.state.impl.item;
 
+import cn.hutool.core.util.StrUtil;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
-import com.eghm.service.business.ItemOrderService;
-import com.eghm.service.business.ItemSkuService;
-import com.eghm.service.business.MemberCouponService;
-import com.eghm.service.business.OrderService;
+import com.eghm.service.business.*;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCancelHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,10 +27,13 @@ public class ItemOrderCancelHandler extends AbstractOrderCancelHandler {
 
     private final ItemOrderService itemOrderService;
 
-    public ItemOrderCancelHandler(OrderService orderService, MemberCouponService memberCouponService, ItemSkuService itemSkuService, ItemOrderService itemOrderService) {
+    private final ItemGroupOrderService itemGroupOrderService;
+
+    public ItemOrderCancelHandler(OrderService orderService, MemberCouponService memberCouponService, ItemSkuService itemSkuService, ItemOrderService itemOrderService, ItemGroupOrderService itemGroupOrderService) {
         super(orderService, memberCouponService);
         this.itemSkuService = itemSkuService;
         this.itemOrderService = itemOrderService;
+        this.itemGroupOrderService = itemGroupOrderService;
     }
 
     @Override
@@ -40,6 +41,9 @@ public class ItemOrderCancelHandler extends AbstractOrderCancelHandler {
         List<ItemOrder> orderList = itemOrderService.getByOrderNo(order.getOrderNo());
         Map<Long, Integer> skuNumMap = orderList.stream().collect(Collectors.toMap(ItemOrder::getSkuId, ItemOrder::getNum));
         itemSkuService.updateStock(skuNumMap);
+        if (StrUtil.isNotBlank(order.getBookingNo())) {
+            itemGroupOrderService.delete(order.getBookingNo(), order.getOrderNo());
+        }
     }
 
     @Override
