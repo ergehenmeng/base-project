@@ -364,18 +364,17 @@ public class ItemServiceImpl implements ItemService {
      */
     private void setGroupBooking(ItemDetailVO detail) {
         if (detail.getBookingId() != null) {
+            log.info("拼团商品,开始组装拼团价格信息 [{}] [{}]", detail.getId(), detail.getBookingId());
             GroupBooking booking = groupBookingService.getById(detail.getBookingId());
             if (booking == null) {
                 log.error("该拼团订单已删除啦 [{}]", detail.getBookingId());
                 return;
             }
-
             if (booking.getStartTime().isAfter(LocalDateTime.now()) || booking.getEndTime().isBefore(LocalDateTime.now())) {
                 log.error("该拼团不在有效期 [{}]", detail.getBookingId());
                 return;
             }
             List<SkuRequest> skuList = jsonService.fromJsonList(booking.getSkuValue(), SkuRequest.class);
-
             Map<Long, SkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(SkuRequest::getSkuId, Function.identity()));
             detail.getSkuList().forEach(vo -> {
                 SkuRequest request = skuMap.get(vo.getId());
