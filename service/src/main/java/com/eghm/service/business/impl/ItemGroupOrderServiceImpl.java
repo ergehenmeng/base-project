@@ -80,6 +80,14 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
     }
 
     @Override
+    public List<ItemGroupOrder> getGroupList(Long bookingId, Integer state) {
+        LambdaQueryWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(ItemGroupOrder::getBookingId, bookingId);
+        wrapper.eq(ItemGroupOrder::getState, state);
+        return itemGroupOrderMapper.selectList(wrapper);
+    }
+
+    @Override
     public GroupOrderVO getGroupOrder(String bookingNo, Integer state) {
         List<ItemGroupOrder> groupList = this.getGroupList(bookingNo, state);
         GroupOrderVO vo = new GroupOrderVO();

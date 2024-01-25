@@ -327,7 +327,7 @@ public class RabbitListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.GROUP_ORDER_EXPIRE_QUEUE)
     public void groupOrderExpire(GroupOrderCancelVO vo, Message message, Channel channel) throws IOException {
-        processMessageAck(vo, message, channel, orderProxyService::insert);
+        processMessageAck(vo, message, channel, orderProxyService::cancelGroupOrder);
     }
 
     /**

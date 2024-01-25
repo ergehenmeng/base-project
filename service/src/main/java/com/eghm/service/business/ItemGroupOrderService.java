@@ -52,6 +52,15 @@ public interface ItemGroupOrderService {
     List<ItemGroupOrder> getGroupList(String bookingNo, Integer state);
 
     /**
+     * 获取拼团订单
+     *
+     * @param bookingId 拼团活动id
+     * @param state 状态
+     * @return 列表
+     */
+    List<ItemGroupOrder> getGroupList(Long bookingId, Integer state);
+
+    /**
      * 获取拼团信息
      *
      * @param bookingNo 拼团订单编号

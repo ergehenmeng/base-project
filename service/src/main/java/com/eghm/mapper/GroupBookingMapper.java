@@ -27,10 +27,18 @@ public interface GroupBookingMapper extends BaseMapper<GroupBooking> {
     Page<GroupBookingResponse> getByPage(Page<GroupBookingResponse> page, @Param("param") GroupBookingQueryRequest request);
 
     /**
-     * 获取sku拼团优惠json
+     * 获取拼团
      *
      * @param bookingId 活动id
      * @return 列表
      */
     GroupBooking getValidById(@Param("bookingId") Long bookingId);
+
+    /**
+     * 获取拼团
+     *
+     * @param bookingId 活动id
+     * @return 列表
+     */
+    GroupBooking getById(@Param("bookingId") Long bookingId);
 }

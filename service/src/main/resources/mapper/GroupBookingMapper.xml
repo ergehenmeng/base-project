@@ -37,4 +37,10 @@
         from group_booking where id = #{bookingId} and deleted = false and now() between start_time and end_time
     </select>
 
+    <select id="getById" resultType="com.eghm.model.GroupBooking">
+        select
+            id, title, item_id, sku_value, start_time, end_time, num, expire_time
+        from group_booking where id = #{bookingId}
+    </select>
+
 </mapper>

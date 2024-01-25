@@ -136,6 +136,11 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     }
 
     @Override
+    public GroupBooking getById(Long bookingId) {
+        return groupBookingMapper.getById(bookingId);
+    }
+
+    @Override
     public Integer getFinalPrice(Long bookingId, Integer salePrice, Long skuId) {
         GroupBooking booking = groupBookingMapper.selectById(bookingId);
         if (booking == null) {

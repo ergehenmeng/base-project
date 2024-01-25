@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.dto.business.order.homestay.HomestayOrderConfirmRequest;
+import com.eghm.vo.business.group.GroupOrderCancelVO;
 
 /**
  * @author 二哥很猛
@@ -23,7 +24,14 @@ public interface OrderProxyService {
     void refund(String orderNo);
 
     /**
-     * 取消拼团订单
+     * 取消拼团订单 (全部)
+     *
+     * @param vo 拼团信息
+     */
+    void cancelGroupOrder(GroupOrderCancelVO vo);
+
+    /**
+     * 取消拼团订单 (单个拼团)
      *
      * @param bookingNo 拼团订单号
      */

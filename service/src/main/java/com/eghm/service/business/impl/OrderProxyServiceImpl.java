@@ -20,6 +20,7 @@ import com.eghm.service.business.handler.context.OrderCancelContext;
 import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.common.SmsService;
 import com.eghm.state.machine.StateHandler;
+import com.eghm.vo.business.group.GroupOrderCancelVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,8 @@ public class OrderProxyServiceImpl implements OrderProxyService {
     private final ItemGroupOrderService itemGroupOrderService;
 
     private final ItemOrderService itemOrderService;
+
+    private final GroupBookingService groupBookingService;
 
     private HomestayOrder getByOrderNo(String orderNo) {
         LambdaQueryWrapper<HomestayOrder> wrapper = Wrappers.lambdaQuery();
@@ -116,27 +119,50 @@ public class OrderProxyServiceImpl implements OrderProxyService {
     }
 
     @Override
+    public void cancelGroupOrder(GroupOrderCancelVO vo) {
+        log.info("开始取消拼团订单(全部) [{}]", vo.getBookingId());
+        GroupBooking booking = groupBookingService.getById(vo.getBookingId());
+        if (booking.getEndTime().isAfter(vo.getEndTime())) {
+            log.warn("拼团活动推后啦 [{}] [{}] [{}]", vo.getBookingId(), booking.getEndTime(), vo.getEndTime());
+            return;
+        }
+        if (booking.getEndTime().isBefore(vo.getEndTime())) {
+            log.warn("拼团活动提前啦 [{}] [{}] [{}]", vo.getBookingId(), booking.getEndTime(), vo.getEndTime());
+            return;
+        }
+        List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(vo.getBookingId(), 0);
+        groupList.forEach(this::doCancelGroupOrder);
+    }
+
+    @Override
     public void cancelGroupOrder(String bookingNo) {
-        log.info("开始取消拼团订单 [{}]", bookingNo);
+        log.info("开始取消拼团订单(个人) [{}]", bookingNo);
         List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(bookingNo, 0);
         if (groupList.isEmpty()) {
             log.warn("该拼团订单可能已成团或已取消,不做取消处理 [{}]", bookingNo);
             return;
         }
-        for (ItemGroupOrder group : groupList) {
-            log.info("开始取消拼团订单 [{}]", group.getOrderNo());
-            Order order = orderService.getByOrderNo(group.getOrderNo());
-            if (order.getState() == OrderState.UN_PAY) {
-                log.info("拼团订单未支付自动取消 [{}]", group.getOrderNo());
-                OrderCancelContext context = new OrderCancelContext();
-                context.setOrderNo(group.getOrderNo());
-                stateHandler.fireEvent(ProductType.prefix(group.getOrderNo()), order.getState().getValue(), ItemEvent.AUTO_CANCEL, context);
-            } else if (order.getState() == OrderState.UN_USED || order.getState() == OrderState.WAIT_TAKE || order.getState() == OrderState.WAIT_DELIVERY) {
-                log.info("拼团订单已支付自动取消 [{}]", group.getOrderNo());
-                this.refund(group.getOrderNo());
-            } else {
-                log.info("拼团订单不合法 [{}] [{}] [{}]", bookingNo, group, order.getState());
-            }
+        groupList.forEach(this::doCancelGroupOrder);
+    }
+
+    /**
+     * 取消拼团订单
+     *
+     * @param group 拼团订单
+     */
+    private void doCancelGroupOrder(ItemGroupOrder group) {
+        log.info("开始取消拼团订单 [{}]", group.getOrderNo());
+        Order order = orderService.getByOrderNo(group.getOrderNo());
+        if (order.getState() == OrderState.UN_PAY) {
+            log.info("拼团订单未支付自动取消 [{}]", group.getOrderNo());
+            OrderCancelContext context = new OrderCancelContext();
+            context.setOrderNo(group.getOrderNo());
+            stateHandler.fireEvent(ProductType.prefix(group.getOrderNo()), order.getState().getValue(), ItemEvent.AUTO_CANCEL, context);
+        } else if (order.getState() == OrderState.UN_USED || order.getState() == OrderState.WAIT_TAKE || order.getState() == OrderState.WAIT_DELIVERY) {
+            log.info("拼团订单已支付自动取消 [{}]", group.getOrderNo());
+            this.refund(group.getOrderNo());
+        } else {
+            log.info("拼团订单不合法 [{}] [{}] [{}]", group.getBookingNo(), group, order.getState());
         }
     }
 }
