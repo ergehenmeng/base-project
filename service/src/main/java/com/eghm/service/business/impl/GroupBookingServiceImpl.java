@@ -10,6 +10,7 @@ import com.eghm.dto.business.group.GroupBookingEditRequest;
 import com.eghm.dto.business.group.GroupBookingQueryRequest;
 import com.eghm.dto.business.group.SkuRequest;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.GroupBookingMapper;
 import com.eghm.model.GroupBooking;
@@ -17,13 +18,16 @@ import com.eghm.service.business.CommonService;
 import com.eghm.service.business.GroupBookingService;
 import com.eghm.service.business.ItemService;
 import com.eghm.service.common.JsonService;
+import com.eghm.service.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.group.GroupBookingResponse;
+import com.eghm.vo.business.group.GroupOrderCancelVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -31,7 +35,15 @@ import java.util.stream.Collectors;
 
 /**
  * <p>
- * 拼团活动表 服务实现类
+ * 拼团流程介绍:<br>
+ * 1. 管理后台创建拼团活动并绑定单个零售商品,设置活动时间,拼团有效期,拼团价格等信息. 进行中拼团无法编辑删除
+ * 2. 如果用户使用拼团下单, 订单生成拼团单号,并且可以分享拼团链接给其他用户,其他用户可以加入拼团
+ * 3. 其他用户创建拼团订单时需要携带拼团单号
+ * 4. 所有拼团用户支付成功后,拼团订单完成
+ * 异常说明:<br>
+ * 1. 如果拼团中,拼团活动结束了, 拼团的订单全部取消
+ * 2. 如果拼团中, 团长取消订单, 则拼团订单全部取消
+ * 3. 如果拼团成功, 团长或团员退单, 则只退款自己的拼团订单
  * </p>
  *
  * @author 二哥很猛
@@ -51,6 +63,8 @@ public class GroupBookingServiceImpl implements GroupBookingService {
 
     private final CommonService commonService;
 
+    private final MessageService messageService;
+
     @Override
     public Page<GroupBookingResponse> getByPage(GroupBookingQueryRequest request) {
         return groupBookingMapper.getByPage(request.createPage(), request);
@@ -59,19 +73,20 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     @Override
     public void create(GroupBookingAddRequest request) {
         this.redoTitle(request.getTitle(), null);
-        this.checkTime(request.getStartTime());
+        this.checkTime(request.getStartTime(), request.getEndTime());
         itemService.checkBookingItem(request.getItemId());
 
         GroupBooking booking = DataUtil.copy(request, GroupBooking.class);
         booking.setSkuValue(jsonService.toJson(request.getSkuList()));
         groupBookingMapper.insert(booking);
         itemService.updateGroupBooking(request.getItemId(), true, booking.getItemId());
+        this.sendExpireMessage(booking.getId(), booking.getEndTime(), null);
     }
 
     @Override
     public void update(GroupBookingEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId());
-        this.checkTime(request.getStartTime());
+        this.checkTime(request.getStartTime(), request.getEndTime());
         GroupBooking booking = groupBookingMapper.selectById(request.getId());
         // 防止非法操作
         commonService.checkIllegal(booking.getMerchantId());
@@ -89,8 +104,8 @@ public class GroupBookingServiceImpl implements GroupBookingService {
 
         GroupBooking groupBooking = DataUtil.copy(request, GroupBooking.class);
         groupBooking.setSkuValue(jsonService.toJson(request.getSkuList()));
-        groupBookingMapper.insert(groupBooking);
-
+        groupBookingMapper.updateById(groupBooking);
+        this.sendExpireMessage(booking.getId(), request.getEndTime(), booking.getEndTime());
     }
 
     @Override
@@ -98,6 +113,10 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         GroupBooking booking = groupBookingMapper.selectById(id);
         if (booking == null) {
             return;
+        }
+        if (LocalDateTime.now().isAfter(booking.getStartTime()) && LocalDateTime.now().isBefore(booking.getEndTime())) {
+            log.warn("进行中的拼团不支持删除 [{}] [{}] [{}]", id, booking.getStartTime(), booking.getEndTime());
+            throw new BusinessException(ErrorCode.BOOKING_DELETE);
         }
         LambdaUpdateWrapper<GroupBooking> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(GroupBooking::getId, id);
@@ -107,18 +126,13 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     }
 
     @Override
-    public GroupBooking getById(Long bookingId) {
-        GroupBooking booking = groupBookingMapper.getById(bookingId);
+    public GroupBooking getValidById(Long bookingId) {
+        GroupBooking booking = groupBookingMapper.getValidById(bookingId);
         if (booking == null) {
             log.warn("拼团未查询到价格信息 [{}]", bookingId);
             throw new BusinessException(ErrorCode.ITEM_GROUP_NULL);
         }
         return booking;
-    }
-
-    @Override
-    public GroupBooking selectById(Long bookingId) {
-        return groupBookingMapper.selectById(bookingId);
     }
 
     @Override
@@ -157,9 +171,15 @@ public class GroupBookingServiceImpl implements GroupBookingService {
      *
      * @param startTime 开始日期
      */
-    private void checkTime(LocalDateTime startTime) {
-        if (startTime.isAfter(LocalDateTime.now())) {
+    private void checkTime(LocalDateTime startTime, LocalDateTime endTime) {
+        LocalDateTime now = LocalDateTime.now();
+        if (startTime.isAfter(now)) {
             throw new BusinessException(ErrorCode.BOOKING_GT_TIME);
+        }
+        LocalDateTime dateTime = now.plusMinutes(1);
+        if (endTime.isAfter(dateTime)) {
+            log.warn("拼团活动结束时间小于当前时间+1个月 [{}] [{}]", startTime, endTime);
+            throw new BusinessException(ErrorCode.BOOKING_GT_MONTH);
         }
     }
 
@@ -177,6 +197,21 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         if (count > 0 ) {
             log.error("拼团活动名称重复 [{}] [{}]", title, id);
             throw new BusinessException(ErrorCode.REDO_TITLE_BOOKING);
+        }
+    }
+
+    /**
+     * 发送拼团过期消息
+     *
+     * @param bookingId 拼团活动id
+     * @param newEndTime 新过期时间
+     * @param oldEndTime 旧过期时间
+     */
+    private void sendExpireMessage(Long bookingId, LocalDateTime newEndTime, LocalDateTime oldEndTime) {
+        // 为空表示新增的活动,需要发送, 否则为修改的活动, 新旧一样也无需发送
+        if (oldEndTime == null || !oldEndTime.equals(newEndTime)) {
+            int expireTime = (int) ChronoUnit.SECONDS.between(LocalDateTime.now(), newEndTime);
+            messageService.sendDelay(ExchangeQueue.GROUP_ORDER_EXPIRE, new GroupOrderCancelVO(bookingId, newEndTime), expireTime);
         }
     }
 

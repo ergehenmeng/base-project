@@ -112,7 +112,7 @@ public class OrderController {
         return RespBody.success(vo);
     }
 
-    @PostMapping("ticket/refundApply")
+    @PostMapping("/ticket/refundApply")
     @ApiOperation("门票退款申请")
     public RespBody<Void> ticketRefundApply(@RequestBody @Validated TicketRefundApplyDTO dto) {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
@@ -122,7 +122,7 @@ public class OrderController {
         return RespBody.success();
     }
 
-    @PostMapping("line/refundApply")
+    @PostMapping("/line/refundApply")
     @ApiOperation("线路退款申请")
     public RespBody<Void> lineRefundApply(@RequestBody @Validated LineRefundApplyDTO dto) {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
@@ -133,7 +133,7 @@ public class OrderController {
         return RespBody.success();
     }
 
-    @PostMapping("homestay/refundApply")
+    @PostMapping("/homestay/refundApply")
     @ApiOperation("民宿退款申请")
     public RespBody<Void> homestayRefundApply(@RequestBody @Validated HomestayRefundApplyDTO dto) {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
@@ -144,7 +144,7 @@ public class OrderController {
         return RespBody.success();
     }
 
-    @PostMapping("voucher/refundApply")
+    @PostMapping("/voucher/refundApply")
     @ApiOperation("餐饮退款申请")
     public RespBody<Void> voucherRefundApply(@RequestBody @Validated VoucherRefundApplyDTO dto) {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
@@ -154,17 +154,17 @@ public class OrderController {
         return RespBody.success();
     }
 
-    @PostMapping("item/refundApply")
+    @PostMapping("/item/refundApply")
     @ApiOperation("零售退款申请")
     public RespBody<Void> itemRefundApply(@RequestBody @Validated ItemRefundApplyDTO dto) {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         context.setItemOrderId(dto.getOrderId());
-        restaurantAccessHandler.refundApply(context);
+        itemAccessHandler.refundApply(context);
         return RespBody.success();
     }
 
-    @GetMapping("refresh")
+    @GetMapping("/refresh")
     @ApiOperation("刷新核销码")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<String> refresh(@RequestParam("orderNo") String orderNo) {

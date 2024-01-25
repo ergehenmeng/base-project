@@ -3,6 +3,7 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
+import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.item.ItemExpressRequest;
 import com.eghm.dto.business.order.item.ItemOnlineRefundRequest;
 import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
@@ -12,6 +13,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.model.Express;
 import com.eghm.service.business.ItemExpressService;
 import com.eghm.service.business.ItemOrderService;
+import com.eghm.service.business.OrderProxyService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.cache.RedisLock;
@@ -47,6 +49,8 @@ public class ItemOrderController {
     private final RedisLock redisLock;
 
     private final CacheProxyService cacheProxyService;
+
+    private final OrderProxyService orderProxyService;
 
     @GetMapping("/listPage")
     @ApiOperation("订单列表")
@@ -97,6 +101,15 @@ public class ItemOrderController {
     public RespBody<Void> updateExpress(@RequestBody @Validated ItemExpressRequest request) {
         itemExpressService.update(request);
         return RespBody.success();
+    }
+
+    @PostMapping("/refund")
+    @ApiOperation("退款取消")
+    public RespBody<Void> refund(@RequestBody @Validated OrderDTO request) {
+        return redisLock.lock(CacheConstant.ORDER_REFUND + request.getOrderNo(), 10_000, () -> {
+            orderProxyService.refund(request.getOrderNo());
+            return RespBody.success();
+        });
     }
 
     @GetMapping("/export")

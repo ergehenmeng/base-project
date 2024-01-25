@@ -4,7 +4,6 @@ import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.dto.ItemOrderPayload;
-import com.eghm.service.common.JsonService;
 import com.eghm.service.member.MemberAddressService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,8 +17,8 @@ import org.springframework.stereotype.Service;
 public class ItemOrderCreateQueueHandler extends ItemOrderCreateHandler {
 
     public ItemOrderCreateQueueHandler(ItemOrderService itemOrderService, ItemService itemService, ItemSkuService itemSkuService, ItemSpecService itemSpecService, ItemStoreService itemStoreService, OrderService orderService,
-                                       OrderMQService orderMQService, MemberAddressService memberAddressService, ItemGroupOrderService itemGroupOrderService, GroupBookingService groupBookingService, JsonService jsonService) {
-        super(itemOrderService, itemService, itemSkuService, itemSpecService, itemStoreService, orderService, orderMQService, memberAddressService, itemGroupOrderService, groupBookingService, jsonService);
+                                       OrderMQService orderMQService, MemberAddressService memberAddressService, ItemGroupOrderService itemGroupOrderService, GroupBookingService groupBookingService) {
+        super(itemOrderService, itemService, itemSkuService, itemSpecService, itemStoreService, orderService, orderMQService, memberAddressService, itemGroupOrderService, groupBookingService);
     }
 
     @Override

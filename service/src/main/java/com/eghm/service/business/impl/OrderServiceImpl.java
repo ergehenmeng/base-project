@@ -12,12 +12,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
-import com.eghm.dto.statistics.DateRequest;
 import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.OnlineRefundRequest;
 import com.eghm.dto.business.order.item.ItemOnlineRefundRequest;
 import com.eghm.dto.business.order.item.ItemRefundDTO;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
+import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.ExpressType;
@@ -349,7 +349,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
         OrderRefundLog refundLog = this.createRefundLog(order, request.getRefundAmount(), request.getItemList().size());
 
-        boolean match = orderList.stream().anyMatch(itemOrder -> itemOrder.getRefundState() == ItemRefundState.PARTIAL_REFUND || itemOrder.getRefundState() == ItemRefundState.INIT);
+        boolean match = orderList.stream().anyMatch(itemOrder -> itemOrder.getRefundState() == ItemRefundState.INIT);
         if (!match) {
             order.setState(OrderState.CLOSE);
             order.setCloseType(CloseType.REFUND);

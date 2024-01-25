@@ -70,12 +70,8 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         if ((totalAmount + expressFee) < context.getApplyAmount()) {
             throw new BusinessException(REFUND_AMOUNT_MAX.getCode(), String.format(REFUND_AMOUNT_MAX.getMsg(), DecimalUtil.centToYuan(context.getApplyAmount())));
         }
-        int totalRefund = context.getNum() + refundNum;
-        if (totalRefund > itemOrder.getNum()) {
-            log.error("商品总退款数量大于下单数量 [{}] [{}] [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), itemOrder.getNum(), context.getNum(), refundNum);
-            throw new BusinessException(ErrorCode.REFUND_MUM_MATCH);
-        }
-        itemOrder.setRefundState(totalRefund == itemOrder.getNum() ? ItemRefundState.REFUND : ItemRefundState.PARTIAL_REFUND);
+
+        itemOrder.setRefundState(ItemRefundState.REFUND);
 
         OrderRefundLog refundLog = DataUtil.copy(context, OrderRefundLog.class);
         refundLog.setExpressFee(expressFee);
@@ -95,6 +91,14 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         itemOrderService.updateById(itemOrder);
 
         return refundLog;
+    }
+
+    @Override
+    protected void checkRefund(RefundApplyContext context, Order order) {
+        int refundNum = orderRefundLogService.getTotalRefundNum(context.getOrderNo(), context.getItemOrderId());
+        if (refundNum > 0) {
+            throw new BusinessException(ErrorCode.ITEM_REFUND);
+        }
     }
 
     @Override

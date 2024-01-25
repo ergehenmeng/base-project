@@ -19,7 +19,6 @@ import com.eghm.service.business.handler.dto.ItemDTO;
 import com.eghm.service.business.handler.dto.ItemOrderPayload;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.service.business.handler.state.OrderCreateHandler;
-import com.eghm.service.common.JsonService;
 import com.eghm.service.member.MemberAddressService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.TransactionUtil;
@@ -61,8 +60,6 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     private final ItemGroupOrderService itemGroupOrderService;
 
     private final GroupBookingService groupBookingService;
-
-    private final JsonService jsonService;
 
     /**
      * 普通订单下单处理逻辑
@@ -266,7 +263,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     private Integer getPayAmount(List<OrderPackage> packageList, ItemOrderCreateContext context) {
         int sum = 0;
         for (OrderPackage aPackage : packageList) {
-            Integer finalPrice = this.getFinalPrice(aPackage, context);
+            Integer finalPrice = this.checkAndCalcFinalPrice(aPackage, context);
             sum += finalPrice * aPackage.getNum();
         }
         return sum;
@@ -275,62 +272,53 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     /**
      * 计算最终单价
      * 1. 第一个拼团的人是团长,订单创建时生成拼团单号, 后续的拼团人需要拼团号才能进团下单
-     * 2. 如果在拼团中, 拼团活动取消了, 之前拼团中还可以继续拼团
+     * 2. 如果在拼团中, 拼团过了有效期则自动取消
      *
      * @param aPackage 商品信息
      * @param context context
      * @return 单价
      */
-    private Integer getFinalPrice(OrderPackage aPackage, ItemOrderCreateContext context) {
+    private Integer checkAndCalcFinalPrice(OrderPackage aPackage, ItemOrderCreateContext context) {
         // 表示是拼团订单
         if (Boolean.TRUE.equals(context.getGroupBooking())) {
             log.info("开始计算拼团价格 [{}] [{}]", aPackage.getItemId(), aPackage.getSkuId());
-            Long bookingId = this.checkAndGetBookingId(aPackage.getItem().getBookingId(), context);
-            GroupBooking selected = groupBookingService.getById(bookingId);
+            this.checkAndSetBooking(aPackage.getItem().getBookingId(), context);
+            GroupBooking selected = groupBookingService.getValidById(aPackage.getItem().getBookingId());
             if (selected.getNum() <= context.getBookingNum()) {
-                log.info("拼团人数已经满了 [{}]", bookingId);
+                log.info("拼团人数已经满了 [{}]", aPackage.getItem().getBookingId());
                 throw new BusinessException(ITEM_GROUP_COMPLETE);
             }
+            context.setExpireTime(selected.getExpireTime());
             return groupBookingService.getFinalPrice(selected.getSkuValue(), aPackage.getSku().getSalePrice(), aPackage.getSkuId());
         }
         return aPackage.getSku().getSalePrice();
     }
 
     /**
-     * 校验并查询最终拼团id
+     * 校验并设置拼团信息
      *
      * @param bookingId 拼团id
      * @param context context
-     * @return 拼团id
      */
-    private Long checkAndGetBookingId(Long bookingId, ItemOrderCreateContext context) {
-        if (bookingId != null) {
-            if (StrUtil.isBlank(context.getBookingNo())) {
-                context.setBookingNo(IdWorker.get32UUID());
-                context.setBookingId(bookingId);
-                log.info("团长还是创建拼团订单 [{}]", context.getBookingNo());
-                return bookingId;
-            }
-            GroupOrderVO vo = itemGroupOrderService.getGroupOrder(context.getBookingNo(), 0);
-            if (vo.getNum() == 0) {
-                log.info("团员创建拼团订单,但没有待拼团的订单 [{}]", context.getBookingNo());
-                throw new BusinessException(ITEM_GROUP_COMPLETE);
-            }
-            context.setBookingNum(vo.getNum());
-            context.setBookingId(bookingId);
-            return bookingId;
+    private void checkAndSetBooking(Long bookingId, ItemOrderCreateContext context) {
+        if (bookingId == null) {
+            throw new BusinessException(ITEM_GROUP_OVER);
         }
         if (StrUtil.isBlank(context.getBookingNo())) {
-            throw new BusinessException(ITEM_GROUP_NULL);
+            context.setBookingNo(IdWorker.get32UUID());
+            context.setBookingId(bookingId);
+            context.setBookingNum(0);
+            context.setStarter(true);
+            log.info("团长创建拼团订单 [{}] [{}]", context.getMemberId(), context.getBookingNo());
+            return;
         }
         GroupOrderVO vo = itemGroupOrderService.getGroupOrder(context.getBookingNo(), 0);
         if (vo.getNum() == 0) {
-            log.info("团员创建拼团订单,订单可能已经拼团成功 [{}]", context.getBookingNo());
+            log.info("团员创建拼团订单,但没有待拼团的订单 [{}]", context.getBookingNo());
             throw new BusinessException(ITEM_GROUP_COMPLETE);
         }
         context.setBookingNum(vo.getNum());
-        context.setBookingId(vo.getBookingId());
-        return vo.getBookingId();
+        context.setBookingId(bookingId);
     }
 
 

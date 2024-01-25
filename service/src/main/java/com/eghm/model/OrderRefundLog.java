@@ -54,7 +54,7 @@ public class OrderRefundLog extends BaseEntity {
     @ApiModelProperty(value = "申请方式 1:仅退款 2:退货退款")
     private Integer applyType;
 
-    @ApiModelProperty(value = "退款状态 0:退款中 1:退款成功 2:退款失败 3:取消退款")
+    @ApiModelProperty(value = "退款状态 0:退款中 1:退款成功 2:退款失败 3:取消退款 4:拒绝退款")
     private Integer state;
 
     @ApiModelProperty(value = "审核状态")

@@ -103,12 +103,12 @@ public class ItemOrderServiceImpl implements ItemOrderService {
                 log.info("零售退款时,订单不存在 [{}] [{}]", orderNo, item.getItemOrderId());
                 throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
             }
-            order.setRefundNum(order.getRefundNum() + item.getNum());
-            if (order.getRefundNum() >= order.getNum()) {
-                order.setRefundState(ItemRefundState.REFUND);
-            } else {
-                order.setRefundState(ItemRefundState.PARTIAL_REFUND);
+            if (order.getRefundState() == ItemRefundState.REFUND) {
+                log.info("零售商品已退款 [{}] [{}]", orderNo, item.getItemOrderId());
+                throw new BusinessException(ErrorCode.REFUND_STATE_INVALID);
             }
+            order.setRefundNum(item.getNum());
+            order.setRefundState(ItemRefundState.REFUND);
             itemOrderMapper.updateById(order);
         }
         return orderList;

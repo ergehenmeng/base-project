@@ -104,6 +104,7 @@ public abstract class AbstractOrderRefundAuditHandler implements RefundAuditHand
     protected void doRefuse(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
         order.setRefundState(RefundState.REFUSE);
         refundLog.setAuditState(AuditState.REFUSE);
+        refundLog.setState(4);
         refundLog.setAuditUserId(context.getAuditUserId());
         orderService.updateById(order);
         orderRefundLogService.updateById(refundLog);

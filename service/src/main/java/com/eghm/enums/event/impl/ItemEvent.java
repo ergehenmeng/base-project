@@ -39,7 +39,7 @@ public enum ItemEvent implements IEvent {
     /**
      * 退款申请
      */
-    REFUND_APPLY(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.UN_USED.getValue()),
+    REFUND_APPLY(Lists.newArrayList(OrderState.PROGRESS.getValue(), OrderState.UN_USED.getValue()), OrderState.REFUND.getValue()),
 
     /**
      * 核销
@@ -85,8 +85,12 @@ public enum ItemEvent implements IEvent {
      * 退款审核拒绝
      */
     REFUND_REFUSE(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
-    ;
 
+    /**
+     * 平台退款
+     */
+    PLATFORM_REFUND(Lists.newArrayList(OrderState.PROGRESS.getValue(), OrderState.UN_USED.getValue()), OrderState.CLOSE.getValue()),
+    ;
 
     private final List<Integer> from;
 

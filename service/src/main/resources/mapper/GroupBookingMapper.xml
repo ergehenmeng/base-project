@@ -31,10 +31,10 @@
         order by g.id desc
     </select>
 
-    <select id="getById" resultType="com.eghm.model.GroupBooking">
+    <select id="getValidById" resultType="com.eghm.model.GroupBooking">
         select
             id, title, item_id, sku_value, num, expire_time
-        from group_booking where id = #{bookingId} and now() between start_time and end_time
+        from group_booking where id = #{bookingId} and deleted = false and now() between start_time and end_time
     </select>
 
 </mapper>

@@ -24,6 +24,9 @@ public class ItemGroupOrder extends BaseEntity {
     @ApiModelProperty("状态 0:拼团中 1:拼团成功 2:拼团失败")
     private Integer state;
 
+    @ApiModelProperty("是否为拼团发起者")
+    private Boolean starter;
+
     @ApiModelProperty(value = "订单号")
     private String orderNo;
 

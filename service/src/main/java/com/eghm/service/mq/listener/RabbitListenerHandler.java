@@ -24,6 +24,7 @@ import com.eghm.service.member.LoginService;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
 import com.eghm.state.machine.StateHandler;
+import com.eghm.vo.business.group.GroupOrderCancelVO;
 import com.rabbitmq.client.Channel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -73,6 +74,8 @@ public class RabbitListenerHandler {
     private final OrderEvaluationService orderEvaluationService;
 
     private final MemberVisitLogService memberVisitLogService;
+
+    private final OrderProxyService orderProxyService;
 
     /**
      * 处理MQ中消息,并手动确认
@@ -162,7 +165,7 @@ public class RabbitListenerHandler {
                 log.warn("订单已删除, 无须自动取消 [{}]", orderNo);
                 return;
             }
-            stateHandler.fireEvent(ProductType.prefix(orderNo), order.getState().getValue(), event, orderCancelContext);
+            stateHandler.fireEvent(ProductType.prefix(orderNo), order.getState().getValue(), event, context);
         });
     }
 
@@ -317,6 +320,22 @@ public class RabbitListenerHandler {
     @RabbitListener(queues = QueueConstant.MEMBER_VISIT_LOG_QUEUE)
     public void visitLog(MemberVisitLog visitLog, Message message, Channel channel) throws IOException {
         processMessageAck(visitLog, message, channel, memberVisitLogService::insert);
+    }
+
+    /**
+     * 拼团订单过期自动取消 (全部)
+     */
+    @RabbitListener(queues = QueueConstant.GROUP_ORDER_EXPIRE_QUEUE)
+    public void groupOrderExpire(GroupOrderCancelVO vo, Message message, Channel channel) throws IOException {
+        processMessageAck(vo, message, channel, orderProxyService::insert);
+    }
+
+    /**
+     * 拼团订单过期自动取消 (单个)
+     */
+    @RabbitListener(queues = QueueConstant.GROUP_ORDER_EXPIRE_SINGLE_QUEUE)
+    public void groupOrderExpireSingle(String bookingNo, Message message, Channel channel) throws IOException {
+        processMessageAck(bookingNo, message, channel, orderProxyService::cancelGroupOrder);
     }
 
     /**

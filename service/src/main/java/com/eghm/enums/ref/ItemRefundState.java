@@ -24,12 +24,6 @@ public enum ItemRefundState {
      * 已退款
      */
     REFUND(1, "已退款"),
-
-    /**
-     * 部分退款
-     */
-    PARTIAL_REFUND(2, "部分退款"),
-
     ;
 
     /**

@@ -14,4 +14,18 @@ public interface OrderProxyService {
      * @param request 确认状态
      */
     void confirm(HomestayOrderConfirmRequest request);
+
+    /**
+     * 零售主动退款
+     *
+     * @param orderNo 订单编号
+     */
+    void refund(String orderNo);
+
+    /**
+     * 取消拼团订单
+     *
+     * @param bookingNo 拼团订单号
+     */
+    void cancelGroupOrder(String bookingNo);
 }

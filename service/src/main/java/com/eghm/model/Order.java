@@ -136,6 +136,12 @@ public class Order extends BaseEntity {
     @ApiModelProperty("拼团活动编号")
     private String bookingNo;
 
+    /**
+     * 只有拼团成功的商品才能进行发货或核销
+     */
+    @ApiModelProperty("拼团状态 0:待成团 1:拼团成功 2:拼团失败")
+    private Integer bookingState;
+
     @ApiModelProperty("创建日期")
     private LocalDate createDate;
 }

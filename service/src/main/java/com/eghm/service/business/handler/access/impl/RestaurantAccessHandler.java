@@ -57,7 +57,7 @@ public class RestaurantAccessHandler extends AbstractAccessHandler {
 
     @Override
     public void refundApply(RefundApplyContext context) {
-        Order order = orderService.selectById(context.getItemOrderId());
+        Order order = orderService.getByOrderNo(context.getOrderNo());
         stateHandler.fireEvent(ProductType.RESTAURANT, order.getState().getValue(), RestaurantEvent.REFUND_APPLY, context);
     }
 

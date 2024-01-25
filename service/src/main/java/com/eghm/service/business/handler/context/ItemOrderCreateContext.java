@@ -51,9 +51,17 @@ public class ItemOrderCreateContext extends AsyncKey implements Context {
     private Integer from;
 
     @ApiModelProperty(value = "已拼单数量", hidden = true)
-    private Integer bookingNum = 0;
+    @Assign
+    private Integer bookingNum;
 
     @ApiModelProperty(value = "拼团id", hidden = true)
+    @Assign
     private Long bookingId;
 
+    @ApiModelProperty(value = "是否为拼团发起者", hidden = true)
+    @Assign
+    private Boolean starter = false;
+
+    @ApiModelProperty(value = "拼团过期时间", hidden = true)
+    private Integer expireTime;
 }

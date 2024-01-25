@@ -36,7 +36,7 @@ public class LineAccessHandler extends AbstractAccessHandler {
 
     @Override
     public void refundApply(RefundApplyContext context) {
-        Order order = orderService.selectById(context.getItemOrderId());
+        Order order = orderService.getByOrderNo(context.getOrderNo());
         stateHandler.fireEvent(ProductType.LINE, order.getState().getValue(), LineEvent.REFUND_APPLY, context);
     }
 

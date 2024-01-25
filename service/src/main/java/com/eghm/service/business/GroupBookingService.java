@@ -27,6 +27,11 @@ public interface GroupBookingService {
 
     /**
      * 新增拼团活动
+     * 1. 校验活动名称重复
+     * 2. 校验开始时间必须大于当前时间
+     * 3. 校验商品是否被其他拼团占用
+     * 4. 新增拼团活动
+     * 5. 将商品改为拼团商品
      *
      * @param request 拼团信息
      */
@@ -40,27 +45,20 @@ public interface GroupBookingService {
     void update(GroupBookingEditRequest request);
 
     /**
-     * 删除拼团活动 (拼团中不受影响)
+     * 删除拼团活动
+     * 注意: 如果拼团结束后,还存在待拼团的订单,则待拼团的订单自动取消
      *
      * @param id id
      */
     void delete(Long id);
 
     /**
-     * 获取拼团信息(包含删除)
+     * 查询进行中的拼团信息, 如果不在有效期则报错
      *
      * @param bookingId 活动id
      * @return 信息
      */
-    GroupBooking getById(Long bookingId);
-
-    /**
-     * 获取拼团信息(没删除)
-     *
-     * @param bookingId 活动id
-     * @return 信息
-     */
-    GroupBooking selectById(Long bookingId);
+    GroupBooking getValidById(Long bookingId);
 
     /**
      * 获取拼团活动最终价格

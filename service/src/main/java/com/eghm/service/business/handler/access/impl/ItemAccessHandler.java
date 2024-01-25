@@ -36,7 +36,7 @@ public class ItemAccessHandler extends AbstractAccessHandler {
 
     @Override
     public void refundApply(RefundApplyContext context) {
-        Order order = orderService.selectById(context.getItemOrderId());
+        Order order = orderService.getByOrderNo(context.getOrderNo());
         stateHandler.fireEvent(ProductType.ITEM, order.getState().getValue(), ItemEvent.REFUND_APPLY, context);
     }
 

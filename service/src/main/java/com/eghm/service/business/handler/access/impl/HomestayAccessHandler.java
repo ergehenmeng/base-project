@@ -36,7 +36,7 @@ public class HomestayAccessHandler extends AbstractAccessHandler {
 
     @Override
     public void refundApply(RefundApplyContext context) {
-        Order order = orderService.selectById(context.getItemOrderId());
+        Order order = orderService.getByOrderNo(context.getOrderNo());
         stateHandler.fireEvent(ProductType.HOMESTAY, order.getState().getValue(), HomestayEvent.REFUND_APPLY, context);
     }
 

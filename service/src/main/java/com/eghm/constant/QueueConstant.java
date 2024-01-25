@@ -119,6 +119,16 @@ public class QueueConstant {
     public static final String MEMBER_VISIT_LOG_QUEUE = "member_visit_log_queue";
 
     /**
+     * 拼团订单过期自动取消队列 (全部)
+     */
+    public static final String GROUP_ORDER_EXPIRE_QUEUE = "group_order_expire_queue";
+
+    /**
+     * 拼团订单过期自动取消队列 (单个)
+     */
+    public static final String GROUP_ORDER_EXPIRE_SINGLE_QUEUE = "group_order_expire_single_queue";
+
+    /**
      * 商品分数队列
      */
     public static final String PRODUCT_SCORE_QUEUE = "product_score_queue";

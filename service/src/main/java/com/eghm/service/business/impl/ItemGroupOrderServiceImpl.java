@@ -3,11 +3,13 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.mapper.ItemGroupOrderMapper;
 import com.eghm.model.ItemGroupOrder;
 import com.eghm.model.Order;
 import com.eghm.service.business.ItemGroupOrderService;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
+import com.eghm.service.mq.service.MessageService;
 import com.eghm.vo.business.group.GroupOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +32,8 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
 
     private final ItemGroupOrderMapper itemGroupOrderMapper;
 
+    private final MessageService messageService;
+
     @Override
     public void save(ItemOrderCreateContext context, Order order, Long itemId) {
         if (Boolean.FALSE.equals(context.getGroupBooking())) {
@@ -40,10 +44,15 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
         groupOrder.setOrderNo(order.getOrderNo());
         groupOrder.setBookingNo(context.getBookingNo());
         groupOrder.setMemberId(order.getMemberId());
+        groupOrder.setStarter(context.getStarter());
         groupOrder.setItemId(itemId);
         groupOrder.setBookingId(context.getBookingId());
         groupOrder.setState(0);
         itemGroupOrderMapper.insert(groupOrder);
+        // 团长发起的订单,需要发送消息方便取消订单
+        if (Boolean.TRUE.equals(context.getStarter())) {
+            messageService.sendDelay(ExchangeQueue.GROUP_ORDER_EXPIRE_SINGLE, context.getBookingNo(), context.getExpireTime());
+        }
     }
 
     @Override
@@ -75,7 +84,7 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
         List<ItemGroupOrder> groupList = this.getGroupList(bookingNo, state);
         GroupOrderVO vo = new GroupOrderVO();
         vo.setNum(groupList.size());
-        if (groupList.size() > 0) {
+        if (!groupList.isEmpty()) {
             vo.setBookingId(groupList.get(0).getBookingId());
         }
         return vo;

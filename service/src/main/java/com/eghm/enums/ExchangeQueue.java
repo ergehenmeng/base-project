@@ -128,6 +128,16 @@ public enum ExchangeQueue {
      * 移动端会员浏览记录
      */
     MEMBER_VISIT_LOG("member_visit_log_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.MEMBER_VISIT_LOG_QUEUE}, "", false),
+
+    /**
+     * 拼团订单过期取消(取消拼团下所有没有拼团成功的订单)
+     */
+    GROUP_ORDER_EXPIRE("group_order_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.GROUP_ORDER_EXPIRE_QUEUE}, "", true),
+
+    /**
+     * 拼团订单过期取消(取消某个拼团)
+     */
+    GROUP_ORDER_EXPIRE_SINGLE("group_order_expire_single_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.GROUP_ORDER_EXPIRE_SINGLE_QUEUE}, "", true),
     ;
 
     /**
