@@ -135,8 +135,6 @@ public class OrderProxyServiceImpl implements OrderProxyService {
         }
         List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(vo.getBookingId(), 0);
         groupList.forEach(this::doCancelGroupOrder);
-        itemGroupOrderService.updateState(vo.getBookingId(), 2);
-        orderService.updateBookingState(vo.getBookingId(), 2);
     }
 
     @Override
@@ -148,8 +146,6 @@ public class OrderProxyServiceImpl implements OrderProxyService {
             return;
         }
         groupList.forEach(this::doCancelGroupOrder);
-        itemGroupOrderService.updateState(bookingNo, 2);
-        orderService.updateBookingState(bookingNo, 2);
     }
 
     /**

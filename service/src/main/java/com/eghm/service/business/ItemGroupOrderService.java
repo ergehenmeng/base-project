@@ -38,6 +38,15 @@ public interface ItemGroupOrderService {
     /**
      * 更新拼团订单状态
      *
+     * @param bookingNo 拼团订单编号
+     * @param orderNo   订单编号
+     * @param state 状态
+     */
+    void updateState(String bookingNo, String orderNo, Integer state);
+
+    /**
+     * 更新拼团订单状态
+     *
      * @param bookingId 拼团活动id
      * @param state 状态
      */
@@ -96,9 +105,9 @@ public interface ItemGroupOrderService {
     GroupOrderDetailVO getGroupDetail(String bookingNo);
 
     /**
-     * 取消拼团订单
+     * 拼团订单退款
      *
      * @param order 订单信息
      */
-    void cancelGroupOrder(Order order);
+    void refundGroupOrder(Order order);
 }

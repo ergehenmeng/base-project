@@ -75,7 +75,16 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
     public void updateState(String bookingNo, Integer state) {
         LambdaUpdateWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemGroupOrder::getBookingNo, bookingNo);
-        wrapper.eq(ItemGroupOrder::getState, state);
+        wrapper.set(ItemGroupOrder::getState, state);
+        itemGroupOrderMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void updateState(String bookingNo, String orderNo, Integer state) {
+        LambdaUpdateWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(ItemGroupOrder::getBookingNo, bookingNo);
+        wrapper.eq(ItemGroupOrder::getOrderNo, orderNo);
+        wrapper.set(ItemGroupOrder::getState, state);
         itemGroupOrderMapper.update(null, wrapper);
     }
 
@@ -83,12 +92,13 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
     public void updateState(Long bookingId, Integer state) {
         LambdaUpdateWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemGroupOrder::getBookingId, bookingId);
-        wrapper.eq(ItemGroupOrder::getState, state);
+        wrapper.set(ItemGroupOrder::getState, state);
         itemGroupOrderMapper.update(null, wrapper);
     }
 
     @Override
     public void delete(String bookingNo, String orderNo) {
+        log.info("订单取消, 删除拼团订单 [{}] [{}]", bookingNo, orderNo);
         LambdaUpdateWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemGroupOrder::getBookingNo, bookingNo);
         wrapper.eq(ItemGroupOrder::getOrderNo, orderNo);
@@ -155,39 +165,41 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
     }
 
     @Override
-    public void cancelGroupOrder(Order order) {
+    public void refundGroupOrder(Order order) {
+        log.info("开始进行拼团订单退款 [{}]", order.getOrderNo());
         if (order.getBookingNo() == null) {
             log.info("该订单非拼团订单不做额外处理 [{}]", order.getOrderNo());
             return;
         }
         if (order.getBookingState() == 1) {
-            log.warn("订单[{}]已拼团成功,无需同步退款 [{}]", order.getOrderNo(), order.getBookingNo());
+            log.warn("订单已拼团成功,无需同步退款[{}] [{}]", order.getOrderNo(), order.getBookingNo());
             return;
         }
         if (order.getBookingState() == 2) {
-            log.warn("订单[{}]已拼团失败,无需同步退款 [{}]", order.getOrderNo(), order.getBookingNo());
+            log.warn("订单已拼团失败,无需同步退款[{}] [{}]", order.getOrderNo(), order.getBookingNo());
             return;
         }
         ItemGroupOrder groupOrder = this.getGroupOrder(order.getBookingNo(), order.getOrderNo());
 
         if (groupOrder == null) {
-            log.error("订单[{}]无拼团记录,无法同步退款 [{}]", order.getOrderNo(), order.getBookingNo());
+            log.error("订单无拼团记录,无法同步退款[{}] [{}]", order.getOrderNo(), order.getBookingNo());
             dingTalkService.sendMsg(String.format("订单[%s]无拼团记录,无法同步退款 [%s]", order.getOrderNo(), order.getBookingNo()));
             return;
         }
         if (groupOrder.getState() != 0) {
-            log.error("订单[{}]拼单状态异常,无法同步退款 [{}]", order.getOrderNo(), order.getBookingNo());
+            log.error("订单拼单状态异常,无法同步退款[{}] [{}]", order.getOrderNo(), order.getBookingNo());
             dingTalkService.sendMsg(String.format("订单[%s]拼单状态异常,无法同步退款 [%s]", order.getOrderNo(), order.getBookingNo()));
             return;
         }
+
+        this.updateState(order.getBookingNo(), order.getOrderNo(), 2);
+
         if (Boolean.TRUE.equals(groupOrder.getStarter())) {
             // 取消拼团订单的延迟队列
-            log.info("订单[{}]为拼团发起者,开始同步退款 [{}]", order.getOrderNo(), order.getBookingNo());
+            log.info("订单为拼团发起者,开始同步退款 [{}]: [{}]", order.getOrderNo(), order.getBookingNo());
             messageService.sendDelay(ExchangeQueue.GROUP_ORDER_EXPIRE_SINGLE, order.getBookingNo(), 5);
         } else {
-            // 删除当前的拼团记录
-            log.info("订单[{}]为拼团团员,开始删除拼团订单 [{}]", order.getOrderNo(), order.getBookingNo());
-            this.delete(order.getBookingNo(), order.getOrderNo());
+            log.info("订单为拼团团员[{}]: [{}]", order.getOrderNo(), order.getBookingNo());
         }
     }
 }

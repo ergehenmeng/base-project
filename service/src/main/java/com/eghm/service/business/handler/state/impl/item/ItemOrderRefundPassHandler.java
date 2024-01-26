@@ -41,7 +41,7 @@ public class ItemOrderRefundPassHandler extends AbstractOrderRefundAuditHandler 
 
     @Override
     protected void passAfter(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
-        itemGroupOrderService.cancelGroupOrder(order);
+        itemGroupOrderService.refundGroupOrder(order);
     }
 
     @Override

@@ -105,7 +105,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
     protected void after(RefundApplyContext context, Order order, OrderRefundLog refundLog) {
         log.info("零售商品订单退款申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog.getId());
         if (this.getRefundType(order) == RefundType.DIRECT_REFUND) {
-            itemGroupOrderService.cancelGroupOrder(order);
+            itemGroupOrderService.refundGroupOrder(order);
         }
     }
 
