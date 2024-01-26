@@ -46,6 +46,15 @@ public interface ItemGroupOrderService {
      * 获取拼团订单
      *
      * @param bookingNo 拼团订单编号
+     * @param orderNo 订单id
+     * @return 拼团订单
+     */
+    ItemGroupOrder getGroupOrder(String bookingNo, String orderNo);
+
+    /**
+     * 获取拼团订单
+     *
+     * @param bookingNo 拼团订单编号
      * @param state  状态
      * @return 列表
      */

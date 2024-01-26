@@ -19,6 +19,7 @@ import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.OrderCancelContext;
 import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.common.SmsService;
+import com.eghm.service.sys.DingTalkService;
 import com.eghm.state.machine.StateHandler;
 import com.eghm.vo.business.group.GroupOrderCancelVO;
 import lombok.AllArgsConstructor;
@@ -54,6 +55,8 @@ public class OrderProxyServiceImpl implements OrderProxyService {
     private final ItemOrderService itemOrderService;
 
     private final GroupBookingService groupBookingService;
+
+    private final DingTalkService dingTalkService;
 
     private HomestayOrder getByOrderNo(String orderNo) {
         LambdaQueryWrapper<HomestayOrder> wrapper = Wrappers.lambdaQuery();
@@ -153,16 +156,21 @@ public class OrderProxyServiceImpl implements OrderProxyService {
     private void doCancelGroupOrder(ItemGroupOrder group) {
         log.info("开始取消拼团订单 [{}]", group.getOrderNo());
         Order order = orderService.getByOrderNo(group.getOrderNo());
-        if (order.getState() == OrderState.UN_PAY) {
-            log.info("拼团订单未支付自动取消 [{}]", group.getOrderNo());
-            OrderCancelContext context = new OrderCancelContext();
-            context.setOrderNo(group.getOrderNo());
-            stateHandler.fireEvent(ProductType.prefix(group.getOrderNo()), order.getState().getValue(), ItemEvent.AUTO_CANCEL, context);
-        } else if (order.getState() == OrderState.UN_USED || order.getState() == OrderState.WAIT_TAKE || order.getState() == OrderState.WAIT_DELIVERY) {
-            log.info("拼团订单已支付自动取消 [{}]", group.getOrderNo());
-            this.refund(group.getOrderNo());
-        } else {
-            log.info("拼团订单不合法 [{}] [{}] [{}]", group.getBookingNo(), group, order.getState());
+        try {
+            if (order.getState() == OrderState.UN_PAY) {
+                log.info("拼团订单未支付自动取消 [{}]", group.getOrderNo());
+                OrderCancelContext context = new OrderCancelContext();
+                context.setOrderNo(group.getOrderNo());
+                stateHandler.fireEvent(ProductType.prefix(group.getOrderNo()), order.getState().getValue(), ItemEvent.AUTO_CANCEL, context);
+            } else if (order.getState() == OrderState.UN_USED || order.getState() == OrderState.WAIT_TAKE || order.getState() == OrderState.WAIT_DELIVERY) {
+                log.info("拼团订单已支付自动取消 [{}]", group.getOrderNo());
+                this.refund(group.getOrderNo());
+            } else {
+                log.info("拼团订单不合法 [{}] [{}] [{}]", group.getBookingNo(), group, order.getState());
+            }
+        } catch (Exception e) {
+            log.error("拼团订单取消异常 [{}] [{}]", group.getOrderNo(), group.getBookingNo(), e);
+            dingTalkService.sendMsg(String.format("拼团订单取消异常 [%s] [%s]", group.getOrderNo(), group.getBookingNo()));
         }
     }
 }

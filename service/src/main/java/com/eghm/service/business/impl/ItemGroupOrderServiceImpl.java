@@ -3,6 +3,7 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.constant.CommonConstant;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.mapper.ItemGroupOrderMapper;
 import com.eghm.model.ItemGroupOrder;
@@ -69,6 +70,15 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
         wrapper.eq(ItemGroupOrder::getBookingNo, bookingNo);
         wrapper.eq(ItemGroupOrder::getOrderNo, orderNo);
         itemGroupOrderMapper.delete(wrapper);
+    }
+
+    @Override
+    public ItemGroupOrder getGroupOrder(String bookingNo, String orderNo) {
+        LambdaQueryWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(ItemGroupOrder::getBookingNo, bookingNo);
+        wrapper.eq(ItemGroupOrder::getOrderNo, orderNo);
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        return itemGroupOrderMapper.selectOne(wrapper);
     }
 
     @Override
