@@ -77,7 +77,7 @@ public class ItemOrderRefundPassHandler extends AbstractOrderRefundAuditHandler 
         }
         // 删除当前的拼团记录
         itemGroupOrderService.delete(order.getBookingNo(), order.getOrderNo());
-        if (groupOrder.getStarter()) {
+        if (Boolean.TRUE.equals(groupOrder.getStarter())) {
             // 共用取消拼团订单的延迟队列
             log.info("订单[{}]为拼团发起者,开始同步退款 [{}]", order.getOrderNo(), order.getBookingNo());
             messageService.sendDelay(ExchangeQueue.GROUP_ORDER_EXPIRE_SINGLE, order.getBookingNo(), 5);
