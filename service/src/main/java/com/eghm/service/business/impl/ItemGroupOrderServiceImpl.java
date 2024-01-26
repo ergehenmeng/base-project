@@ -17,6 +17,7 @@ import com.eghm.service.business.GroupBookingService;
 import com.eghm.service.business.ItemGroupOrderService;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
 import com.eghm.service.mq.service.MessageService;
+import com.eghm.service.sys.DingTalkService;
 import com.eghm.vo.business.group.GroupMemberVO;
 import com.eghm.vo.business.group.GroupOrderDetailVO;
 import com.eghm.vo.business.group.GroupOrderVO;
@@ -47,6 +48,8 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
 
     private final ItemMapper itemMapper;
 
+    private final DingTalkService dingTalkService;
+
     @Override
     public void save(ItemOrderCreateContext context, Order order, Long itemId) {
         if (Boolean.FALSE.equals(context.getGroupBooking())) {
@@ -72,6 +75,14 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
     public void updateState(String bookingNo, Integer state) {
         LambdaUpdateWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemGroupOrder::getBookingNo, bookingNo);
+        wrapper.eq(ItemGroupOrder::getState, state);
+        itemGroupOrderMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void updateState(Long bookingId, Integer state) {
+        LambdaUpdateWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(ItemGroupOrder::getBookingId, bookingId);
         wrapper.eq(ItemGroupOrder::getState, state);
         itemGroupOrderMapper.update(null, wrapper);
     }
@@ -141,5 +152,42 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
         vo.setItemName(item.getTitle());
         vo.setItemCoverUrl(item.getCoverUrl());
         return vo;
+    }
+
+    @Override
+    public void cancelGroupOrder(Order order) {
+        if (order.getBookingNo() == null) {
+            log.info("该订单非拼团订单不做额外处理 [{}]", order.getOrderNo());
+            return;
+        }
+        if (order.getBookingState() == 1) {
+            log.warn("订单[{}]已拼团成功,无需同步退款 [{}]", order.getOrderNo(), order.getBookingNo());
+            return;
+        }
+        if (order.getBookingState() == 2) {
+            log.warn("订单[{}]已拼团失败,无需同步退款 [{}]", order.getOrderNo(), order.getBookingNo());
+            return;
+        }
+        ItemGroupOrder groupOrder = this.getGroupOrder(order.getBookingNo(), order.getOrderNo());
+
+        if (groupOrder == null) {
+            log.error("订单[{}]无拼团记录,无法同步退款 [{}]", order.getOrderNo(), order.getBookingNo());
+            dingTalkService.sendMsg(String.format("订单[%s]无拼团记录,无法同步退款 [%s]", order.getOrderNo(), order.getBookingNo()));
+            return;
+        }
+        if (groupOrder.getState() != 0) {
+            log.error("订单[{}]拼单状态异常,无法同步退款 [{}]", order.getOrderNo(), order.getBookingNo());
+            dingTalkService.sendMsg(String.format("订单[%s]拼单状态异常,无法同步退款 [%s]", order.getOrderNo(), order.getBookingNo()));
+            return;
+        }
+        if (Boolean.TRUE.equals(groupOrder.getStarter())) {
+            // 取消拼团订单的延迟队列
+            log.info("订单[{}]为拼团发起者,开始同步退款 [{}]", order.getOrderNo(), order.getBookingNo());
+            messageService.sendDelay(ExchangeQueue.GROUP_ORDER_EXPIRE_SINGLE, order.getBookingNo(), 5);
+        } else {
+            // 删除当前的拼团记录
+            log.info("订单[{}]为拼团团员,开始删除拼团订单 [{}]", order.getOrderNo(), order.getBookingNo());
+            this.delete(order.getBookingNo(), order.getOrderNo());
+        }
     }
 }

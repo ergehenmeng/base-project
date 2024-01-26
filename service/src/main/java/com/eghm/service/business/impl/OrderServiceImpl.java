@@ -569,6 +569,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         baseMapper.update(null, wrapper);
     }
 
+    @Override
+    public void updateBookingState(Long bookingId, Integer bookingState) {
+        log.info("修改订单拼团状态: [{}] [{}]", bookingId, bookingState);
+        LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Order::getBookingId, bookingId);
+        wrapper.eq(Order::getBookingState, bookingState);
+        baseMapper.update(null, wrapper);
+    }
+
     /**
      * 生成退款记录
      *

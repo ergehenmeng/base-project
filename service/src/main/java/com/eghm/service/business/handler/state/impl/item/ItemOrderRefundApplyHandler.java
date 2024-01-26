@@ -8,10 +8,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.service.business.ItemOrderService;
-import com.eghm.service.business.OrderRefundLogService;
-import com.eghm.service.business.OrderService;
-import com.eghm.service.business.OrderVisitorService;
+import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundApplyHandler;
 import com.eghm.utils.DataUtil;
@@ -38,11 +35,14 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
 
     private final OrderRefundLogService orderRefundLogService;
 
-    public ItemOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService) {
+    private final ItemGroupOrderService itemGroupOrderService;
+
+    public ItemOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService, ItemGroupOrderService itemGroupOrderService) {
         super(orderService, orderRefundLogService, orderVisitorService);
         this.itemOrderService = itemOrderService;
         this.orderService = orderService;
         this.orderRefundLogService = orderRefundLogService;
+        this.itemGroupOrderService = itemGroupOrderService;
     }
 
     @Override
@@ -104,6 +104,9 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
     @Override
     protected void after(RefundApplyContext context, Order order, OrderRefundLog refundLog) {
         log.info("零售商品订单退款申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog.getId());
+        if (this.getRefundType(order) == RefundType.DIRECT_REFUND) {
+            itemGroupOrderService.cancelGroupOrder(order);
+        }
     }
 
     @Override

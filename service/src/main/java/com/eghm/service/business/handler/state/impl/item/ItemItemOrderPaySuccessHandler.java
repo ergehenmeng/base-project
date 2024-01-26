@@ -60,6 +60,7 @@ public class ItemItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHa
     protected void after(PayNotifyContext context, List<Order> orderList) {
         for (Order order : orderList) {
             if (order.getBookingNo() != null) {
+                log.info("该订单为拼团订单,更新拼团订单状态 [{}]", order.getOrderNo());
                 this.tryUpdateGroupOrderState(order.getBookingNo(), order.getBookingId());
             }
         }

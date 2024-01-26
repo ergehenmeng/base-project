@@ -4,10 +4,9 @@ import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.model.Order;
-import com.eghm.service.business.ItemOrderService;
-import com.eghm.service.business.OrderRefundLogService;
-import com.eghm.service.business.OrderService;
-import com.eghm.service.business.OrderVisitorService;
+import com.eghm.model.OrderRefundLog;
+import com.eghm.service.business.*;
+import com.eghm.service.business.handler.context.RefundApplyContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +19,8 @@ import org.springframework.stereotype.Service;
 @Service("itemOrderAutoRefundHandler")
 public class ItemOrderAutoRefundHandler extends ItemOrderRefundApplyHandler {
 
-    public ItemOrderAutoRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService) {
-        super(orderService, orderRefundLogService, orderVisitorService, itemOrderService);
+    public ItemOrderAutoRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService, ItemGroupOrderService itemGroupOrderService) {
+        super(orderService, orderRefundLogService, orderVisitorService, itemOrderService, itemGroupOrderService);
     }
 
     @Override

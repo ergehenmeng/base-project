@@ -293,4 +293,12 @@ public interface OrderService extends IService<Order> {
      * @param bookingState 拼团状态
      */
     void updateBookingState(String bookingNo, Integer bookingState);
+
+    /**
+     * 更新拼团状态
+     *
+     * @param bookingId 拼团活动id
+     * @param bookingState 拼团状态
+     */
+    void updateBookingState(Long bookingId, Integer bookingState);
 }

@@ -140,7 +140,8 @@ public class Order extends BaseEntity {
     private String bookingNo;
 
     /**
-     * 只有拼团成功的商品才能进行发货或核销
+     * 1. 只有拼团成功的商品才能进行发货或核销
+     * 2. 退款审核通过后即为拼团失败
      */
     @ApiModelProperty("拼团状态 0:待成团 1:拼团成功 2:拼团失败")
     private Integer bookingState;
