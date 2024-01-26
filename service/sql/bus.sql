@@ -1275,3 +1275,36 @@ CREATE TABLE `item_group_order`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='拼团订单表';
 
+DROP TABLE IF EXISTS limit_purchase;
+CREATE TABLE `limit_purchase`
+(
+    `id`           bigint(20) NOT NULL COMMENT '主键',
+    `merchant_id`  bigint(20)  DEFAULT NULL COMMENT '商户id',
+    `title`        varchar(20) DEFAULT NULL COMMENT '活动名称',
+    `start_time`   datetime    DEFAULT NULL COMMENT '开始时间',
+    `end_time`     datetime    DEFAULT NULL COMMENT '结束时间',
+    `advance_hour` tinyint(2) comment '提前预告小时',
+    `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`      bit(1)      DEFAULT b'0' COMMENT '是否删除 1:已删除 0:未删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='限时购活动表';
+
+DROP TABLE IF EXISTS limit_purchase_item;
+CREATE TABLE `limit_purchase_item`
+(
+    `id`                  bigint(20) NOT NULL COMMENT '主键',
+    `limit_purchase_id`   bigint(20) DEFAULT NULL COMMENT '限时购活动id',
+    `start_time`          datetime   DEFAULT NULL COMMENT '开始时间',
+    `end_time`            datetime   DEFAULT NULL COMMENT '结束时间',
+    `item_id`             bigint(20) DEFAULT NULL COMMENT '零售id',
+    `merchant_id`         bigint(20) DEFAULT NULL COMMENT '商户id',
+    `sku_value`           text COMMENT '优惠配置json',
+    `max_discount_amount` int(10)    DEFAULT '0' COMMENT '最大优惠金额',
+    `advance_time`        datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '开始预告时间',
+    `update_time`         datetime   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`             bit(1)     DEFAULT b'0' COMMENT '是否删除 1:已删除 0:未删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='限时购商品表';
