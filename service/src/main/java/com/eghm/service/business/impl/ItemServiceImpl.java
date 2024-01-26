@@ -125,8 +125,12 @@ public class ItemServiceImpl implements ItemService {
         Item item = DataUtil.copy(request, Item.class);
         itemMapper.updateById(item);
 
-        Map<String, Long> specMap = itemSpecService.update(item, request.getSpecList());
-        itemSkuService.update(item, specMap, request.getSkuList());
+        if (select.getBookingId() == null) {
+            Map<String, Long> specMap = itemSpecService.update(item, request.getSpecList());
+            itemSkuService.update(item, specMap, request.getSkuList());
+        } else {
+            log.info("该商品是拼团商品,请先删除拼团活动后再编辑规格信息 [{}] [{}]", select.getId(), select.getBookingId());
+        }
     }
 
     @Override

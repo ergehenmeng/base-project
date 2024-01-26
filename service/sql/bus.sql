@@ -1241,18 +1241,19 @@ CREATE TABLE `member_visit_log`
 DROP TABLE IF EXISTS group_booking;
 CREATE TABLE `group_booking`
 (
-    `id`          bigint(20) NOT NULL COMMENT '主键',
-    `title`       varchar(20) DEFAULT NULL COMMENT '活动名称',
-    `item_id`     bigint(20)  DEFAULT NULL COMMENT '零售id',
-    `merchant_id` bigint(20)  DEFAULT NULL COMMENT '商户id',
-    `start_time`  datetime    DEFAULT NULL COMMENT '开始时间',
-    `end_time`    datetime    DEFAULT NULL COMMENT '截止时间',
-    `num`         tinyint(2)  DEFAULT NULL COMMENT '拼团人数',
-    `sku_value`   text        DEFAULT NULL COMMENT '拼团优惠配置json',
-    `expire_time` int(10)     DEFAULT '86400' COMMENT '拼团有效期,单位:分钟',
-    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)      DEFAULT b'0' COMMENT '是否删除 1:已删除 0:未删除',
+    `id`                  bigint(20) NOT NULL COMMENT '主键',
+    `title`               varchar(20) DEFAULT NULL COMMENT '活动名称',
+    `item_id`             bigint(20)  DEFAULT NULL COMMENT '零售id',
+    `merchant_id`         bigint(20)  DEFAULT NULL COMMENT '商户id',
+    `start_time`          datetime    DEFAULT NULL COMMENT '开始时间',
+    `end_time`            datetime    DEFAULT NULL COMMENT '截止时间',
+    `num`                 tinyint(2)  DEFAULT NULL COMMENT '拼团人数',
+    `sku_value`           text        DEFAULT NULL COMMENT '拼团优惠配置json',
+    `max_discount_amount` int(10)     DEFAULT 0 COMMENT '最大优惠金额',
+    `expire_time`         int(10)     DEFAULT '86400' COMMENT '拼团有效期,单位:分钟',
+    `create_time`         datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`         datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`             bit(1)      DEFAULT b'0' COMMENT '是否删除 1:已删除 0:未删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='拼团活动表';

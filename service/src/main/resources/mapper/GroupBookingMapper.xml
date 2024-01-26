@@ -43,4 +43,38 @@
         from group_booking where id = #{bookingId}
     </select>
 
+    <select id="listPage" resultType="com.eghm.vo.business.group.GroupItemVO" parameterType="com.eghm.dto.business.group.GroupBookingQueryDTO">
+        select
+            t.item_id,
+            t.num as groupNum,
+            t.max_discount_amount,
+            r.title,
+            r.cover_url,
+            r.min_price,
+            r.sale_num
+        from group_booking t inner join item r on t.item_id = r.id
+        where r.state = 1 and r.deleted = false and t.deleted = false and now() between t.start_time and t.end_time and r.min_price &gt; 0
+        <if test="param.queryName != null and param.queryName != ''">
+            and r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
+        </if>
+        <if test="param.sortBy != null">
+            <choose>
+                <when test="param.sortBy == 1">
+                    order by r.min_price, r.recommend desc
+                </when>
+                <when test="param.sortBy == 2">
+                    order by r.total_num desc, r.recommend desc
+                </when>
+                <when test="param.sortBy == 3">
+                    order by r.score desc, r.recommend desc
+                </when>
+                <when test="param.sortBy == 4">
+                    order by r.max_discount_amount desc, r.recommend desc
+                </when>
+                <otherwise>
+                    order by t.recommend desc
+                </otherwise>
+            </choose>
+        </if>
+    </select>
 </mapper>

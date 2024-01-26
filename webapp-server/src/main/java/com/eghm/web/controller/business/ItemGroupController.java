@@ -1,7 +1,10 @@
 package com.eghm.web.controller.business;
 
+import com.eghm.dto.business.group.GroupBookingQueryDTO;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.service.business.GroupBookingService;
 import com.eghm.service.business.ItemGroupOrderService;
+import com.eghm.vo.business.group.GroupItemVO;
 import com.eghm.vo.business.group.GroupOrderDetailVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -24,6 +29,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class ItemGroupController {
 
     private final ItemGroupOrderService itemGroupOrderService;
+
+    private final GroupBookingService groupBookingService;
+
+    @GetMapping("/listPage")
+    @ApiOperation("列表")
+    public RespBody<List<GroupItemVO>> listPage(GroupBookingQueryDTO dto) {
+        List<GroupItemVO> voList = groupBookingService.listPage(dto);
+        return RespBody.success(voList);
+    }
 
     @GetMapping("/detail")
     @ApiOperation("拼团详情")

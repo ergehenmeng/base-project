@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.business.group.GroupBookingAddRequest;
-import com.eghm.dto.business.group.GroupBookingEditRequest;
-import com.eghm.dto.business.group.GroupBookingQueryRequest;
-import com.eghm.dto.business.group.SkuRequest;
+import com.eghm.dto.business.group.*;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.exception.BusinessException;
@@ -21,6 +18,7 @@ import com.eghm.service.common.JsonService;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.group.GroupBookingResponse;
+import com.eghm.vo.business.group.GroupItemVO;
 import com.eghm.vo.business.group.GroupOrderCancelVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -81,6 +79,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
 
         GroupBooking booking = DataUtil.copy(request, GroupBooking.class);
         booking.setSkuValue(jsonService.toJson(request.getSkuList()));
+        booking.setMaxDiscountAmount(this.getMaxDiscountPrice(request.getSkuList()));
         groupBookingMapper.insert(booking);
         itemService.updateGroupBooking(request.getItemId(), true, booking.getItemId());
         this.sendExpireMessage(booking.getId(), booking.getEndTime(), null);
@@ -107,6 +106,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
 
         GroupBooking groupBooking = DataUtil.copy(request, GroupBooking.class);
         groupBooking.setSkuValue(jsonService.toJson(request.getSkuList()));
+        groupBooking.setMaxDiscountAmount(this.getMaxDiscountPrice(request.getSkuList()));
         groupBookingMapper.updateById(groupBooking);
         this.sendExpireMessage(booking.getId(), request.getEndTime(), booking.getEndTime());
     }
@@ -126,6 +126,12 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         wrapper.eq(GroupBooking::getMerchantId, SecurityHolder.getMerchantId());
         groupBookingMapper.delete(wrapper);
         itemService.updateGroupBooking(booking.getItemId(), false, null);
+    }
+
+    @Override
+    public List<GroupItemVO> listPage(GroupBookingQueryDTO dto) {
+        Page<GroupItemVO> listPage = groupBookingMapper.listPage(dto.createPage(false), dto);
+        return listPage.getRecords();
     }
 
     @Override
@@ -172,6 +178,16 @@ public class GroupBookingServiceImpl implements GroupBookingService {
             return salePrice;
         }
         return request.getGroupPrice();
+    }
+
+    /**
+     * 获取最大拼团优惠价格
+     *
+     * @param skuList sku列表
+     * @return 最大优惠金额
+     */
+    private Integer getMaxDiscountPrice(List<SkuRequest> skuList) {
+        return skuList.stream().mapToInt(request -> request.getSalePrice() - request.getGroupPrice()).max().orElse(0);
     }
 
     /**

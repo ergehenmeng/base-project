@@ -1,6 +1,7 @@
 package com.eghm.validation;
 
 import com.eghm.dto.ext.LocalDateCompare;
+import com.eghm.validation.annotation.DateCompare;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -10,7 +11,7 @@ import java.time.temporal.ChronoUnit;
  * @author 二哥很猛
  * @since 2023/10/19
  */
-public class DateCompareDefine implements ConstraintValidator<com.eghm.validation.annotation.DateCompare, LocalDateCompare> {
+public class DateCompareDefine implements ConstraintValidator<DateCompare, LocalDateCompare> {
 
     @Override
     public boolean isValid(LocalDateCompare value, ConstraintValidatorContext context) {

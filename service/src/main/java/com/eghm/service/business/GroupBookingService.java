@@ -3,9 +3,13 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.group.GroupBookingAddRequest;
 import com.eghm.dto.business.group.GroupBookingEditRequest;
+import com.eghm.dto.business.group.GroupBookingQueryDTO;
 import com.eghm.dto.business.group.GroupBookingQueryRequest;
 import com.eghm.model.GroupBooking;
 import com.eghm.vo.business.group.GroupBookingResponse;
+import com.eghm.vo.business.group.GroupItemVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -51,6 +55,14 @@ public interface GroupBookingService {
      * @param id id
      */
     void delete(Long id);
+
+    /**
+     * 分页查询拼团活动
+     *
+     * @param dto 查询条件
+     * @return 列表
+     */
+    List<GroupItemVO> listPage(GroupBookingQueryDTO dto);
 
     /**
      * 查询进行中的拼团信息, 如果不在有效期则报错
