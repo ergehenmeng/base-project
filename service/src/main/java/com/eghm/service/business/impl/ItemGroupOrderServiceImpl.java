@@ -9,6 +9,7 @@ import com.eghm.enums.ExchangeQueue;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemGroupOrderMapper;
 import com.eghm.mapper.ItemMapper;
+import com.eghm.mapper.OrderMapper;
 import com.eghm.model.GroupBooking;
 import com.eghm.model.Item;
 import com.eghm.model.ItemGroupOrder;
@@ -47,6 +48,8 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
     private final GroupBookingService groupBookingService;
 
     private final ItemMapper itemMapper;
+
+    private final OrderMapper orderMapper;
 
     private final DingTalkService dingTalkService;
 
@@ -191,8 +194,8 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
             dingTalkService.sendMsg(String.format("订单[%s]拼单状态异常,无法同步退款 [%s]", order.getOrderNo(), order.getBookingNo()));
             return;
         }
-
         this.updateState(order.getBookingNo(), order.getOrderNo(), 2);
+        orderMapper.updateBookingState(order.getBookingNo(), order.getOrderNo(), 2);
 
         if (Boolean.TRUE.equals(groupOrder.getStarter())) {
             // 取消拼团订单的延迟队列

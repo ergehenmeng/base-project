@@ -96,4 +96,9 @@
             and merchant_id = #{merchantId}
         </if>
     </select>
+
+    <update id="updateBookingState">
+        update `order` set booking_state = #{bookingState} where order_no = #{orderNo} and booking_no = #{bookingNo}
+    </update>
+
 </mapper>

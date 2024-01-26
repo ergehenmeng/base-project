@@ -74,4 +74,13 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @return 订单统计
      */
     OrderStatisticsVO orderStatistics(DateRequest request);
+
+    /**
+     * 更新拼团订单状态
+     *
+     * @param bookingNo 拼团id
+     * @param orderNo 订单编号
+     * @param bookingState 状态
+     */
+    void updateBookingState(@Param("bookingNo") String bookingNo, @Param("orderNo") String orderNo, @Param("bookingState") Integer bookingState);
 }
