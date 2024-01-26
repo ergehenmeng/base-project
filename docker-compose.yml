@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  webapp-server:
+    container_name: webapp-server
+    build:
+      context: ./manage-server
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+  manage-server:
+    container_name: webapp-server
+    build:
+      context: ./webapp-server
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9090"
