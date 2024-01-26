@@ -164,6 +164,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         order.setNum(this.getNum(packageList));
         Integer payAmount = this.getPayAmount(packageList, context);
         order.setBookingNo(context.getBookingNo());
+        order.setBookingId(context.getBookingId());
         order.setPayAmount(payAmount + expressAmount);
         return order;
     }
@@ -305,9 +306,9 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         if (bookingId == null) {
             throw new BusinessException(ITEM_GROUP_OVER);
         }
+        context.setBookingId(bookingId);
         if (StrUtil.isBlank(context.getBookingNo())) {
             context.setBookingNo(StringUtil.encryptNumber(IdUtil.getSnowflakeNextId()));
-            context.setBookingId(bookingId);
             context.setBookingNum(0);
             context.setStarter(true);
             log.info("团长创建拼团订单 [{}] [{}]", context.getMemberId(), context.getBookingNo());
@@ -319,7 +320,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             throw new BusinessException(ITEM_GROUP_COMPLETE);
         }
         context.setBookingNum(vo.getNum());
-        context.setBookingId(bookingId);
+
     }
 
 

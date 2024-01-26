@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  */
 @AllArgsConstructor
 @Slf4j
-public abstract class AbstractOrderPayNotifyHandler implements PayNotifyHandler {
+public abstract class AbstractItemOrderPayNotifyHandler implements PayNotifyHandler {
 
     private final OrderService orderService;
 
@@ -38,6 +38,7 @@ public abstract class AbstractOrderPayNotifyHandler implements PayNotifyHandler 
         this.before(orderList);
         List<String> orderNoList = orderList.stream().map(Order::getOrderNo).collect(Collectors.toList());
         this.doProcess(context, orderNoList);
+        this.after(context, orderList);
     }
 
     /**
@@ -54,6 +55,22 @@ public abstract class AbstractOrderPayNotifyHandler implements PayNotifyHandler 
         }
     }
 
+    /**
+     * 处理支付通知 主逻辑
+     *
+     * @param context 支付成功或失败上下文
+     * @param orderNoList 订单号列表
+     */
     protected abstract void doProcess(PayNotifyContext context, List<String> orderNoList);
 
+
+    /**
+     * 支付成功后处理
+     *
+     * @param context 支付成功或失败上下文
+     * @param orderList 订单列表
+     */
+    protected void after(PayNotifyContext context, List<Order> orderList) {
+        log.info("零售订单异步回调处理结束 [{}] [{}] [{}]", context.getOrderNo(), context.getTradeType(), orderList.size());
+    }
 }

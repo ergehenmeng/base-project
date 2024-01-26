@@ -21,9 +21,9 @@ import java.util.List;
  */
 @Service("itemPayFailHandler")
 @Slf4j
-public class ItemOrderPayFailHandler extends AbstractOrderPayNotifyHandler {
+public class ItemItemOrderPayFailHandler extends AbstractItemOrderPayNotifyHandler {
 
-    public ItemOrderPayFailHandler(OrderService orderService) {
+    public ItemItemOrderPayFailHandler(OrderService orderService) {
         super(orderService);
     }
 

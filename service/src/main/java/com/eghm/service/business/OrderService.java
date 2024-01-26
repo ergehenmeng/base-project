@@ -285,4 +285,12 @@ public interface OrderService extends IService<Order> {
      * @return list
      */
     List<OrderStatisticsVO> dayOrder(DateRequest request);
+
+    /**
+     * 更新拼团状态
+     *
+     * @param bookingNo 拼团单号
+     * @param bookingState 拼团状态
+     */
+    void updateBookingState(String bookingNo, Integer bookingState);
 }

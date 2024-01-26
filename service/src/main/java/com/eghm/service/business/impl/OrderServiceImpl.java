@@ -560,6 +560,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), OrderStatisticsVO::new);
     }
 
+    @Override
+    public void updateBookingState(String bookingNo, Integer bookingState) {
+        log.info("修改订单拼团状态: [{}] [{}]", bookingNo, bookingState);
+        LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Order::getBookingNo, bookingNo);
+        wrapper.eq(Order::getBookingState, bookingState);
+        baseMapper.update(null, wrapper);
+    }
+
     /**
      * 生成退款记录
      *
