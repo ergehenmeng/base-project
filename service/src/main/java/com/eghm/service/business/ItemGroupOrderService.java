@@ -45,14 +45,6 @@ public interface ItemGroupOrderService {
     void updateState(String bookingNo, String orderNo, Integer state);
 
     /**
-     * 更新拼团订单状态
-     *
-     * @param bookingId 拼团活动id
-     * @param state 状态
-     */
-    void updateState(Long bookingId, Integer state);
-
-    /**
      * 删除拼团订单
      *
      * @param bookingNo 拼团订单编号

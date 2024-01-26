@@ -92,14 +92,6 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
     }
 
     @Override
-    public void updateState(Long bookingId, Integer state) {
-        LambdaUpdateWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(ItemGroupOrder::getBookingId, bookingId);
-        wrapper.set(ItemGroupOrder::getState, state);
-        itemGroupOrderMapper.update(null, wrapper);
-    }
-
-    @Override
     public void delete(String bookingNo, String orderNo) {
         log.info("订单取消, 删除拼团订单 [{}] [{}]", bookingNo, orderNo);
         LambdaUpdateWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaUpdate();
