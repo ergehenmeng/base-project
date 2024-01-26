@@ -2,4 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.ItemGroupOrderMapper">
 
+    <select id="getMemberList" resultType="com.eghm.vo.business.group.GroupMemberVO">
+        select
+            t.booking_id,
+            m.avatar,
+            m.nick_name,
+            t.starter
+        from item_group_order t left join member m on t.member_id = m.id
+        where t.deleted = false and t.booking_no = #{bookingNo}
+    </select>
+
 </mapper>

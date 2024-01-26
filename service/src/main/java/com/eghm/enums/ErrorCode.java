@@ -1569,6 +1569,11 @@ public enum ErrorCode {
     ITEM_GROUP_OVER(3852, "拼团活动结束啦~"),
 
     /**
+     * 拼团活动不存在
+     */
+    GROUP_ORDER_NULL(3854, "拼团活动不存在"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

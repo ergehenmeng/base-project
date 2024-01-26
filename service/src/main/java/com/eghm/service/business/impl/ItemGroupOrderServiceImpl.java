@@ -4,13 +4,21 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.constant.CommonConstant;
+import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
+import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemGroupOrderMapper;
+import com.eghm.mapper.ItemMapper;
+import com.eghm.model.GroupBooking;
+import com.eghm.model.Item;
 import com.eghm.model.ItemGroupOrder;
 import com.eghm.model.Order;
+import com.eghm.service.business.GroupBookingService;
 import com.eghm.service.business.ItemGroupOrderService;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
 import com.eghm.service.mq.service.MessageService;
+import com.eghm.vo.business.group.GroupMemberVO;
+import com.eghm.vo.business.group.GroupOrderDetailVO;
 import com.eghm.vo.business.group.GroupOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +42,10 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
     private final ItemGroupOrderMapper itemGroupOrderMapper;
 
     private final MessageService messageService;
+
+    private final GroupBookingService groupBookingService;
+
+    private final ItemMapper itemMapper;
 
     @Override
     public void save(ItemOrderCreateContext context, Order order, Long itemId) {
@@ -105,6 +117,29 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
         if (!groupList.isEmpty()) {
             vo.setBookingId(groupList.get(0).getBookingId());
         }
+        return vo;
+    }
+
+    @Override
+    public GroupOrderDetailVO getGroupDetail(String bookingNo) {
+        List<GroupMemberVO> memberList = itemGroupOrderMapper.getMemberList(bookingNo);
+        if (memberList.isEmpty()) {
+            log.error("拼团订单不存在 [{}]", bookingNo);
+            throw new BusinessException(ErrorCode.GROUP_ORDER_NULL);
+        }
+        Long bookingId = memberList.get(0).getBookingId();
+        GroupBooking booking = groupBookingService.getValidById(bookingId);
+        Item item = itemMapper.selectById(booking.getItemId());
+        if (item == null) {
+            log.error("拼团商品不存在 [{}]", booking.getItemId());
+            throw new BusinessException(ErrorCode.ITEM_DOWN);
+        }
+        GroupOrderDetailVO vo = new GroupOrderDetailVO();
+        vo.setMemberList(memberList);
+        vo.setBookingNum(booking.getNum());
+        vo.setItemId(booking.getItemId());
+        vo.setItemName(item.getTitle());
+        vo.setItemCoverUrl(item.getCoverUrl());
         return vo;
     }
 }

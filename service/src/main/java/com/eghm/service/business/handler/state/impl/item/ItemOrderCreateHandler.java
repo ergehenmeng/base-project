@@ -1,8 +1,8 @@
 package com.eghm.service.business.handler.state.impl.item;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
@@ -21,6 +21,7 @@ import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.service.business.handler.state.OrderCreateHandler;
 import com.eghm.service.member.MemberAddressService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.StringUtil;
 import com.eghm.utils.TransactionUtil;
 import com.eghm.vo.business.group.GroupOrderVO;
 import lombok.AllArgsConstructor;
@@ -305,7 +306,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             throw new BusinessException(ITEM_GROUP_OVER);
         }
         if (StrUtil.isBlank(context.getBookingNo())) {
-            context.setBookingNo(IdWorker.get32UUID());
+            context.setBookingNo(StringUtil.encryptNumber(IdUtil.getSnowflakeNextId()));
             context.setBookingId(bookingId);
             context.setBookingNum(0);
             context.setStarter(true);
