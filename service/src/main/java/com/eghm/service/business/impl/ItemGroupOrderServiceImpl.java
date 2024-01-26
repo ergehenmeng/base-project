@@ -41,17 +41,17 @@ import java.util.List;
 @Service("itemGroupOrderService")
 public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
 
-    private final ItemGroupOrderMapper itemGroupOrderMapper;
-
-    private final MessageService messageService;
-
-    private final GroupBookingService groupBookingService;
-
     private final ItemMapper itemMapper;
 
     private final OrderMapper orderMapper;
 
+    private final MessageService messageService;
+
     private final DingTalkService dingTalkService;
+
+    private final GroupBookingService groupBookingService;
+
+    private final ItemGroupOrderMapper itemGroupOrderMapper;
 
     @Override
     public void save(ItemOrderCreateContext context, Order order, Long itemId) {
