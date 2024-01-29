@@ -6,9 +6,9 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.limit.LimitPurchaseQueryRequest;
+import com.eghm.dto.business.purchase.LimitItemRequest;
 import com.eghm.dto.business.purchase.LimitPurchaseAddRequest;
 import com.eghm.dto.business.purchase.LimitPurchaseEditRequest;
-import com.eghm.dto.business.purchase.PurchaseItemRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LimitPurchaseMapper;
@@ -18,6 +18,8 @@ import com.eghm.service.business.ItemService;
 import com.eghm.service.business.LimitPurchaseItemService;
 import com.eghm.service.business.LimitPurchaseService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.limit.LimitItemResponse;
+import com.eghm.vo.business.limit.LimitPurchaseDetailResponse;
 import com.eghm.vo.business.limit.LimitPurchaseResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +65,7 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         purchase.setCreateTime(LocalDateTime.now());
         limitPurchaseMapper.insert(purchase);
 
-        List<Long> itemIds = request.getItemList().stream().map(PurchaseItemRequest::getItemId).collect(Collectors.toList());
+        List<Long> itemIds = request.getItemList().stream().map(LimitItemRequest::getItemId).collect(Collectors.toList());
         itemService.updateLimitPurchase(itemIds, purchase.getId());
         limitPurchaseItemService.insertOrUpdate(request.getItemList(), purchase);
     }
@@ -79,7 +81,7 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         if (!purchase.getStartTime().isAfter(LocalDateTime.now())) {
             throw new BusinessException(ErrorCode.ACTIVITY_NOT_EDIT);
         }
-        List<Long> itemIds = request.getItemList().stream().map(PurchaseItemRequest::getItemId).collect(Collectors.toList());
+        List<Long> itemIds = request.getItemList().stream().map(LimitItemRequest::getItemId).collect(Collectors.toList());
         itemService.updateLimitPurchase(itemIds, purchase.getId());
 
         LimitPurchase limitPurchase = DataUtil.copy(request, LimitPurchase.class);
@@ -99,6 +101,19 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         limitPurchaseMapper.delete(wrapper);
         limitPurchaseItemService.delete(id);
         itemService.releasePurchase(id);
+    }
+
+    @Override
+    public LimitPurchaseDetailResponse detailById(Long id) {
+        LimitPurchase purchase = limitPurchaseMapper.selectById(id);
+        if (purchase == null) {
+            log.warn("限时购活动不存在 [{}]", id);
+            throw new BusinessException(ErrorCode.LIMIT_NULL);
+        }
+        LimitPurchaseDetailResponse response = DataUtil.copy(purchase, LimitPurchaseDetailResponse.class);
+        List<LimitItemResponse> itemList = limitPurchaseItemService.getLimitList(id);
+        response.setItemList(itemList);
+        return response;
     }
 
     /**

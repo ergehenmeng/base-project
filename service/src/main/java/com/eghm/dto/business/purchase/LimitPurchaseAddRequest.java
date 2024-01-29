@@ -43,5 +43,5 @@ public class LimitPurchaseAddRequest {
 
     @ApiModelProperty(value = "商品列表")
     @NotEmpty(message = "请选择商品列表")
-    private List<PurchaseItemRequest> itemList;
+    private List<LimitItemRequest> itemList;
 }

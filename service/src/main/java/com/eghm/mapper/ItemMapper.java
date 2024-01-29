@@ -7,6 +7,7 @@ import com.eghm.dto.business.item.ItemQueryDTO;
 import com.eghm.dto.business.item.ItemQueryRequest;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.model.Item;
+import com.eghm.vo.business.item.ActivityItemResponse;
 import com.eghm.vo.business.item.ItemDetailVO;
 import com.eghm.vo.business.item.ItemResponse;
 import com.eghm.vo.business.item.ItemVO;
@@ -116,4 +117,13 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @return 列表
      */
     List<ProductStatisticsVO> dayAppend(ProductRequest request);
+
+    /**
+     * 查询可以参加活动的商品列表
+     *
+     * @param merchantId 商户id
+     * @param activityId 活动id
+     * @return 列表
+     */
+    List<ActivityItemResponse> getActivityList(@Param("merchantId") Long merchantId, @Param("activityId") Long activityId);
 }

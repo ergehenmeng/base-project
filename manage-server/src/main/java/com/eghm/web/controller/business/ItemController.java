@@ -12,6 +12,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.service.business.ItemService;
 import com.eghm.utils.ExcelUtil;
+import com.eghm.vo.business.item.ActivityItemResponse;
 import com.eghm.vo.business.item.ItemDetailResponse;
 import com.eghm.vo.business.item.ItemResponse;
 import io.swagger.annotations.Api;
@@ -105,6 +106,13 @@ public class ItemController {
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         itemService.deleteById(dto.getId());
         return RespBody.success();
+    }
+
+    @PostMapping("/activityList")
+    @ApiOperation("活动商品列表")
+    public RespBody<List<ActivityItemResponse>> activityList(@RequestBody @Validated IdDTO dto) {
+        List<ActivityItemResponse> activityList = itemService.getActivityList(SecurityHolder.getMerchantId(), dto.getId());
+        return RespBody.success(activityList);
     }
 
     @GetMapping("/export")

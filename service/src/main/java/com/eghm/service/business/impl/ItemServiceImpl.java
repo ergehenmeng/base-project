@@ -418,6 +418,10 @@ public class ItemServiceImpl implements ItemService {
         itemMapper.update(null, wrapper);
     }
 
+    @Override
+    public List<ActivityItemResponse> getActivityList(Long merchantId, Long activityId) {
+        return itemMapper.getActivityList(merchantId, activityId);
+    }
 
     /**
      * 设置拼团信息

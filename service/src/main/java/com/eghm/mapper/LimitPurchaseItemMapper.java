@@ -2,6 +2,10 @@ package com.eghm.mapper;
 
 import com.eghm.model.LimitPurchaseItem;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.vo.business.limit.LimitItemResponse;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface LimitPurchaseItemMapper extends BaseMapper<LimitPurchaseItem> {
 
+    /**
+     * 查询限时购活动配置的商品列表
+     *
+     * @param limitId 活动id
+     * @return 商品列表
+     */
+    List<LimitItemResponse> getLimitList(@Param("limitId") Long limitId);
 }

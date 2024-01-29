@@ -6,10 +6,7 @@ import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Item;
-import com.eghm.vo.business.item.ItemDetailResponse;
-import com.eghm.vo.business.item.ItemDetailVO;
-import com.eghm.vo.business.item.ItemResponse;
-import com.eghm.vo.business.item.ItemVO;
+import com.eghm.vo.business.item.*;
 import com.eghm.vo.business.item.express.TotalExpressVO;
 
 import java.util.List;
@@ -253,4 +250,13 @@ public interface ItemService {
      * @param id id
      */
     void deleteById(Long id);
+
+    /**
+     * 查询可以参加活动的商品列表
+     *
+     * @param merchantId 商户id
+     * @param activityId 活动id
+     * @return 列表
+     */
+    List<ActivityItemResponse> getActivityList(Long merchantId, Long activityId);
 }

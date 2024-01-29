@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 @Data
-public class PurchaseItemRequest {
+public class LimitItemRequest {
 
     @ApiModelProperty("商品id")
     @NotNull(message = "请选择商品")

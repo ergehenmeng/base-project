@@ -2,4 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.LimitPurchaseItemMapper">
 
+    <select id="getLimitList" resultType="com.eghm.vo.business.limit.LimitItemResponse">
+        select
+        t.sku_value,
+        t.item_id,
+        r.title,
+        r.cover_url
+        from limit_purchase_item t
+        left join item r on t.item_id = r.id
+        where t.deleted = false and r.deleted = false and t.limit_purchase_id = #{limitId}
+    </select>
+
 </mapper>

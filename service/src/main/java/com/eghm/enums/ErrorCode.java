@@ -1599,6 +1599,11 @@ public enum ErrorCode {
     LIMIT_ITEM_NULL(3860, "限时购商品不存在或已删除"),
 
     /**
+     * 限时购活动删除啦~
+     */
+    LIMIT_NULL(3860, "限时购活动删除啦~"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

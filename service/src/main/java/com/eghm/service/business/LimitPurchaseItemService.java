@@ -1,7 +1,8 @@
 package com.eghm.service.business;
 
-import com.eghm.dto.business.purchase.PurchaseItemRequest;
+import com.eghm.dto.business.purchase.LimitItemRequest;
 import com.eghm.model.LimitPurchase;
+import com.eghm.vo.business.limit.LimitItemResponse;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface LimitPurchaseItemService {
      * @param itemList 商品列表
      * @param limitPurchase 限时购活动信息
      */
-    void insertOrUpdate(List<PurchaseItemRequest> itemList, LimitPurchase limitPurchase);
+    void insertOrUpdate(List<LimitItemRequest> itemList, LimitPurchase limitPurchase);
 
     /**
      * 删除限时购商品信息
@@ -29,4 +30,12 @@ public interface LimitPurchaseItemService {
      * @param limitPurchaseId 限时购活动id
      */
     void delete(Long limitPurchaseId);
+
+    /**
+     * 查询限时购活动配置的商品列表
+     *
+     * @param limitId 活动id
+     * @return 商品列表
+     */
+    List<LimitItemResponse> getLimitList(Long limitId);
 }

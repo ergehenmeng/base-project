@@ -3,13 +3,15 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.business.purchase.PurchaseItemRequest;
+import com.eghm.dto.business.purchase.LimitItemRequest;
 import com.eghm.dto.business.purchase.LimitSkuRequest;
 import com.eghm.mapper.LimitPurchaseItemMapper;
 import com.eghm.model.LimitPurchase;
 import com.eghm.model.LimitPurchaseItem;
 import com.eghm.service.business.LimitPurchaseItemService;
 import com.eghm.service.common.JsonService;
+import com.eghm.vo.business.limit.LimitItemResponse;
+import com.eghm.vo.business.limit.LimitSkuResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -35,13 +37,13 @@ public class LimitPurchaseItemServiceImpl implements LimitPurchaseItemService {
 
     private final JsonService jsonService;
     @Override
-    public void insertOrUpdate(List<PurchaseItemRequest> itemList, LimitPurchase limitPurchase) {
+    public void insertOrUpdate(List<LimitItemRequest> itemList, LimitPurchase limitPurchase) {
         LambdaUpdateWrapper<LimitPurchaseItem> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(LimitPurchaseItem::getLimitPurchaseId, limitPurchase.getId());
         limitPurchaseItemMapper.delete(wrapper);
         LocalDateTime advanceTime = limitPurchase.getStartTime().minusHours(limitPurchase.getAdvanceHour());
         LimitPurchaseItem item;
-        for (PurchaseItemRequest itemRequest : itemList) {
+        for (LimitItemRequest itemRequest : itemList) {
             item = new LimitPurchaseItem();
             item.setItemId(itemRequest.getItemId());
             item.setLimitPurchaseId(limitPurchase.getId());
@@ -62,6 +64,13 @@ public class LimitPurchaseItemServiceImpl implements LimitPurchaseItemService {
         wrapper.eq(LimitPurchaseItem::getLimitPurchaseId, limitPurchaseId);
         wrapper.eq(LimitPurchaseItem::getMerchantId, SecurityHolder.getMerchantId());
         limitPurchaseItemMapper.delete(wrapper);
+    }
+
+    @Override
+    public List<LimitItemResponse> getLimitList(Long limitId) {
+        List<LimitItemResponse> responseList = limitPurchaseItemMapper.getLimitList(limitId);
+        responseList.forEach(item -> item.setSkuList(jsonService.fromJsonList(item.getSkuValue(), LimitSkuResponse.class)));
+        return responseList;
     }
 
     /**

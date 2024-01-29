@@ -223,4 +223,29 @@
         group by create_date
     </select>
 
+    <select id="getActivityList" resultMap="activityResultMap">
+        select
+            t.id,
+            t.title,
+            t.cover_url,
+            r.id as skuId,
+            r.primary_spec_value,
+            r.second_spec_value,
+            r.sale_price
+        from item t left join item_sku r on t.id = r.item_id
+        where t.deleted = false and r.deleted = false and t.merchant_id = #{merchantId}
+        and (((booking_id is null and t.limit_id = #{activityId}) or (limit_id is null and t.booking_id = #{activityId})) or (limit_id is null and t.booking_id is null))
+    </select>
+
+    <resultMap id="activityResultMap" type="com.eghm.vo.business.item.ActivityItemResponse">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="cover_url" property="coverUrl" />
+        <collection property="skuList" ofType="com.eghm.vo.business.item.BaseSkuResponse">
+            <id property="id" column="skuId"/>
+            <result column="primary_spec_value" property="primarySpecValue" />
+            <result column="second_spec_value" property="secondSpecValue" />
+            <result column="sale_price" property="salePrice" />
+        </collection>
+    </resultMap>
 </mapper>
