@@ -103,11 +103,6 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
             Map<Long, Integer> skuExpressMap = this.calcExpressFee(entry.getKey(), payload.getCountyId(), entry.getValue());
             String orderNo = ProductType.ITEM.generateOrderNo();
-            itemOrderService.insert(orderNo, context.getMemberId(), entry.getValue(), skuExpressMap);
-
-            Map<Long, Integer> skuNumMap = entry.getValue().stream().collect(Collectors.toMap(OrderPackage::getSkuId, aPackage -> -aPackage.getNum()));
-            itemSkuService.updateStock(skuNumMap);
-
             int expressAmount = skuExpressMap.values().stream().reduce(Integer::sum).orElse(0);
             Order order = this.generateOrder(context.getMemberId(), isMultiple, entry.getValue(), expressAmount, payload, context);
             order.setOrderNo(orderNo);
@@ -116,6 +111,11 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             // 同一家商户merchantId肯定是一样的
             order.setMerchantId(entry.getValue().get(0).getItemStore().getMerchantId());
             orderService.save(order);
+
+            itemOrderService.insert(orderNo, context.getMemberId(), entry.getValue(), skuExpressMap);
+            Map<Long, Integer> skuNumMap = entry.getValue().stream().collect(Collectors.toMap(OrderPackage::getSkuId, aPackage -> -aPackage.getNum()));
+            itemSkuService.updateStock(skuNumMap);
+
             // 如果是拼团订单的话 一定是单商品
             itemGroupOrderService.save(context, order, entry.getValue().get(0).getItemId());
             orderList.add(order.getOrderNo());
@@ -266,6 +266,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         int sum = 0;
         for (OrderPackage aPackage : packageList) {
             Integer finalPrice = this.checkAndCalcFinalPrice(aPackage, context);
+            aPackage.setFinalPrice(finalPrice);
             sum += finalPrice * aPackage.getNum();
         }
         return sum;

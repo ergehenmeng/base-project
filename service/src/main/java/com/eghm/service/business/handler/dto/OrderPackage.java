@@ -41,6 +41,6 @@ public class OrderPackage {
     @ApiModelProperty("零售店铺信息")
     private ItemStore itemStore;
 
-    @ApiModelProperty("拼团id")
-    private Long bookingId;
+    @ApiModelProperty("真实销售单价(拼团时是拼团价,限时购时是限时购价格)")
+    private Integer finalPrice;
 }

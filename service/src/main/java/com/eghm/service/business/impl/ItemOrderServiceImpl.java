@@ -124,6 +124,8 @@ public class ItemOrderServiceImpl implements ItemOrderService {
             order.setOrderNo(orderNo);
             order.setMemberId(memberId);
             order.setSkuId(aPackage.getSkuId());
+            // 不以sku价格为准,以真实销售单价为准
+            order.setSalePrice(aPackage.getFinalPrice());
             String skuPic = aPackage.getSku().getSkuPic();
             // 规格图片优先sku,其次spu,最后item
             if (skuPic != null) {
