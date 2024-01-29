@@ -3,7 +3,9 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.business.limit.LimitPurchaseQueryRequest;
 import com.eghm.dto.business.purchase.LimitPurchaseAddRequest;
 import com.eghm.dto.business.purchase.LimitPurchaseEditRequest;
 import com.eghm.dto.business.purchase.PurchaseItemRequest;
@@ -16,6 +18,7 @@ import com.eghm.service.business.ItemService;
 import com.eghm.service.business.LimitPurchaseItemService;
 import com.eghm.service.business.LimitPurchaseService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.limit.LimitPurchaseResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -46,6 +49,11 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
     private final LimitPurchaseMapper limitPurchaseMapper;
 
     private final LimitPurchaseItemService limitPurchaseItemService;
+
+    @Override
+    public Page<LimitPurchaseResponse> getByPage(LimitPurchaseQueryRequest request) {
+        return limitPurchaseMapper.getByPage(request.createPage(), request);
+    }
 
     @Override
     public void create(LimitPurchaseAddRequest request) {

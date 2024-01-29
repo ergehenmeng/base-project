@@ -1,7 +1,11 @@
 package com.eghm.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.limit.LimitPurchaseQueryRequest;
 import com.eghm.model.LimitPurchase;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.vo.business.limit.LimitPurchaseResponse;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +17,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface LimitPurchaseMapper extends BaseMapper<LimitPurchase> {
 
+    /**
+     * 分页查询
+     *
+     * @param page 分页对象
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<LimitPurchaseResponse> getByPage(Page<LimitPurchaseResponse> page, @Param("param") LimitPurchaseQueryRequest request);
 }

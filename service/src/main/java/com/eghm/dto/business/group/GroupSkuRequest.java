@@ -1,4 +1,4 @@
-package com.eghm.dto.business.purchase;
+package com.eghm.dto.business.group;
 
 import com.eghm.convertor.YuanToCentDecoder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -9,11 +9,11 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
- * @since 2024/1/26
+ * @since 2024/1/23
  */
 
 @Data
-public class PurchaseSkuRequest {
+public class GroupSkuRequest {
 
     @ApiModelProperty("skuId")
     @NotNull(message = "skuId不能为空")
@@ -24,8 +24,8 @@ public class PurchaseSkuRequest {
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty("限时价")
-    @NotNull(message = "限时价不能为空")
+    @ApiModelProperty("拼团价")
+    @NotNull(message = "拼团价不能为空")
     @JsonDeserialize(using = YuanToCentDecoder.class)
-    private Integer limitPrice;
+    private Integer groupPrice;
 }

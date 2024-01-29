@@ -2,4 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.LimitPurchaseMapper">
 
+    <select id="getByPage" parameterType="com.eghm.dto.business.limit.LimitPurchaseQueryRequest" resultType="com.eghm.vo.business.limit.LimitPurchaseResponse">
+        select
+            id,
+            title,
+            start_time,
+            advance_hour,
+            end_time,
+            create_time
+        from limit_purchase where deleted = 0 and merchant_id = #{param.merchantId}
+        <if test="param.queryName != null and param.queryName != ''">
+            and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        order by id desc
+    </select>
 </mapper>

@@ -170,9 +170,9 @@ public class GroupBookingServiceImpl implements GroupBookingService {
             log.warn("拼团优惠金额为空");
             return salePrice;
         }
-        List<SkuRequest> skuList = jsonService.fromJsonList(skuValue, SkuRequest.class);
-        Map<Long, SkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(SkuRequest::getSkuId, Function.identity()));
-        SkuRequest request = skuMap.get(skuId);
+        List<GroupSkuRequest> skuList = jsonService.fromJsonList(skuValue, GroupSkuRequest.class);
+        Map<Long, GroupSkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(GroupSkuRequest::getSkuId, Function.identity()));
+        GroupSkuRequest request = skuMap.get(skuId);
         if (request == null || !salePrice.equals(request.getSalePrice()) || request.getGroupPrice() == null) {
             log.warn("拼团sku价格信息未匹配 [{}]", skuId);
             return salePrice;
@@ -186,7 +186,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
      * @param skuList sku列表
      * @return 最大优惠金额
      */
-    private Integer getMaxDiscountPrice(List<SkuRequest> skuList) {
+    private Integer getMaxDiscountPrice(List<GroupSkuRequest> skuList) {
         return skuList.stream().mapToInt(request -> request.getSalePrice() - request.getGroupPrice()).max().orElse(0);
     }
 

@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.business.group.SkuRequest;
+import com.eghm.dto.business.group.GroupSkuRequest;
 import com.eghm.dto.business.item.*;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
@@ -223,21 +223,22 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void updateLimitPurchase(List<Long> itemIds, Long limitId) {
+        Long merchantId = SecurityHolder.getMerchantId();
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getLimitId, limitId);
-        wrapper.eq(Item::getMerchantId, SecurityHolder.getMerchantId());
+        wrapper.eq(Item::getMerchantId, merchantId);
         wrapper.set(Item::getLimitId, null);
         itemMapper.update(null, wrapper);
 
         LambdaUpdateWrapper<Item> updateWrapper = Wrappers.lambdaUpdate();
         updateWrapper.in(Item::getId, itemIds);
-        updateWrapper.eq(Item::getMerchantId, SecurityHolder.getMerchantId());
+        updateWrapper.eq(Item::getMerchantId, merchantId);
         updateWrapper.isNull(Item::getLimitId);
         updateWrapper.set(Item::getLimitId, limitId);
         int update = itemMapper.update(null, wrapper);
         if (update != itemIds.size()) {
-            log.error("限时购活动更新的商品可能不属当前商户 [{}] [{}]", limitId, itemIds);
-            throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
+            log.error("限时购活动更新的商品可能不属当前商户 [{}] [{}] [{}]", merchantId, limitId, itemIds);
+            throw new BusinessException(ErrorCode.LIMIT_ITEM_NULL);
         }
     }
 
@@ -435,10 +436,10 @@ public class ItemServiceImpl implements ItemService {
                 log.error("该拼团不在有效期 [{}]", detail.getBookingId());
                 return;
             }
-            List<SkuRequest> skuList = jsonService.fromJsonList(booking.getSkuValue(), SkuRequest.class);
-            Map<Long, SkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(SkuRequest::getSkuId, Function.identity()));
+            List<GroupSkuRequest> skuList = jsonService.fromJsonList(booking.getSkuValue(), GroupSkuRequest.class);
+            Map<Long, GroupSkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(GroupSkuRequest::getSkuId, Function.identity()));
             detail.getSkuList().forEach(vo -> {
-                SkuRequest request = skuMap.get(vo.getId());
+                GroupSkuRequest request = skuMap.get(vo.getId());
                 if (request != null && vo.getSalePrice().equals(request.getSalePrice()) && request.getGroupPrice() != null) {
                     detail.setGroupBooking(true);
                     vo.setGroupPrice(request.getGroupPrice());

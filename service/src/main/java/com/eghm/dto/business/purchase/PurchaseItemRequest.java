@@ -21,5 +21,5 @@ public class PurchaseItemRequest {
 
     @ApiModelProperty("规格优惠列表")
     @NotEmpty(message = "请填写优惠金额")
-    private List<PurchaseSkuRequest> skuList;
+    private List<LimitSkuRequest> skuList;
 }

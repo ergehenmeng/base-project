@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.purchase.PurchaseItemRequest;
-import com.eghm.dto.business.purchase.PurchaseSkuRequest;
+import com.eghm.dto.business.purchase.LimitSkuRequest;
 import com.eghm.mapper.LimitPurchaseItemMapper;
 import com.eghm.model.LimitPurchase;
 import com.eghm.model.LimitPurchaseItem;
@@ -70,7 +70,7 @@ public class LimitPurchaseItemServiceImpl implements LimitPurchaseItemService {
      * @param skuList sku列表
      * @return 最大优惠金额
      */
-    private Integer getMaxDiscountPrice(List<PurchaseSkuRequest> skuList) {
+    private Integer getMaxDiscountPrice(List<LimitSkuRequest> skuList) {
         return skuList.stream().mapToInt(request -> request.getSalePrice() - request.getLimitPrice()).max().orElse(0);
     }
 
