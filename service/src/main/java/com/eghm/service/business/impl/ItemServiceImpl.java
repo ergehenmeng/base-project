@@ -222,10 +222,30 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void updateLimitPurchase(Long itemId, Long limitId) {
+    public void updateLimitPurchase(List<Long> itemIds, Long limitId) {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Item::getId, itemId);
-        wrapper.set(Item::getLimitId, limitId);
+        wrapper.eq(Item::getLimitId, limitId);
+        wrapper.eq(Item::getMerchantId, SecurityHolder.getMerchantId());
+        wrapper.set(Item::getLimitId, null);
+        itemMapper.update(null, wrapper);
+
+        LambdaUpdateWrapper<Item> updateWrapper = Wrappers.lambdaUpdate();
+        updateWrapper.in(Item::getId, itemIds);
+        updateWrapper.eq(Item::getMerchantId, SecurityHolder.getMerchantId());
+        updateWrapper.isNull(Item::getLimitId);
+        updateWrapper.set(Item::getLimitId, limitId);
+        int update = itemMapper.update(null, wrapper);
+        if (update != itemIds.size()) {
+            log.error("限时购活动更新的商品可能不属当前商户 [{}] [{}]", limitId, itemIds);
+            throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
+        }
+    }
+
+    @Override
+    public void releasePurchase(Long limitId) {
+        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Item::getLimitId, limitId);
+        wrapper.set(Item::getLimitId, null);
         itemMapper.update(null, wrapper);
     }
 

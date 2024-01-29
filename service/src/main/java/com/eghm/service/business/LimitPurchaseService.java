@@ -26,4 +26,11 @@ public interface LimitPurchaseService {
      * @param request 活动信息
      */
     void update(LimitPurchaseEditRequest request);
+
+    /**
+     * 删除限时购活动
+     *
+     * @param id id
+     */
+    void delete(Long id);
 }

@@ -1,7 +1,9 @@
 package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.purchase.LimitPurchaseAddRequest;
 import com.eghm.dto.business.purchase.LimitPurchaseEditRequest;
 import com.eghm.dto.business.purchase.PurchaseItemRequest;
@@ -49,14 +51,12 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
     public void create(LimitPurchaseAddRequest request) {
         this.checkTime(request.getStartTime(), request.getEndTime());
         this.redoTitle(request.getTitle(), null);
-        List<Long> itemIds = request.getItemList().stream().map(PurchaseItemRequest::getItemId).collect(Collectors.toList());
-        // 校验零售商品是否属于当前商户
-        itemService.checkIllegal(itemIds, request.getMerchantId());
-        // 校验商品是否被其他限时购商品占用
-        itemService.checkLimitItem(itemIds, null);
         LimitPurchase purchase = DataUtil.copy(request, LimitPurchase.class);
         purchase.setCreateTime(LocalDateTime.now());
         limitPurchaseMapper.insert(purchase);
+
+        List<Long> itemIds = request.getItemList().stream().map(PurchaseItemRequest::getItemId).collect(Collectors.toList());
+        itemService.updateLimitPurchase(itemIds, purchase.getId());
         limitPurchaseItemService.insertOrUpdate(request.getItemList(), purchase);
     }
 
@@ -64,20 +64,33 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
     public void update(LimitPurchaseEditRequest request) {
         this.checkTime(request.getStartTime(), request.getEndTime());
         this.redoTitle(request.getTitle(), request.getId());
-        List<Long> itemIds = request.getItemList().stream().map(PurchaseItemRequest::getItemId).collect(Collectors.toList());
-        // 校验零售商品是否属于当前商户
-        itemService.checkIllegal(itemIds, request.getMerchantId());
-        // 校验商品是否被其他限时购商品占用
-        itemService.checkLimitItem(itemIds, request.getId());
+
         LimitPurchase purchase = limitPurchaseMapper.selectById(request.getId());
         // 校验活动是否属于该商户
         commonService.checkIllegal(purchase.getMerchantId());
         if (!purchase.getStartTime().isAfter(LocalDateTime.now())) {
             throw new BusinessException(ErrorCode.ACTIVITY_NOT_EDIT);
         }
+        List<Long> itemIds = request.getItemList().stream().map(PurchaseItemRequest::getItemId).collect(Collectors.toList());
+        itemService.updateLimitPurchase(itemIds, purchase.getId());
+
         LimitPurchase limitPurchase = DataUtil.copy(request, LimitPurchase.class);
         limitPurchaseMapper.updateById(limitPurchase);
         limitPurchaseItemService.insertOrUpdate(request.getItemList(), purchase);
+    }
+
+    @Override
+    public void delete(Long id) {
+        LimitPurchase purchase = limitPurchaseMapper.selectById(id);
+        if (purchase == null) {
+            return;
+        }
+        LambdaUpdateWrapper<LimitPurchase> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(LimitPurchase::getId, id);
+        wrapper.eq(LimitPurchase::getMerchantId, SecurityHolder.getMerchantId());
+        limitPurchaseMapper.delete(wrapper);
+        limitPurchaseItemService.delete(id);
+        itemService.releasePurchase(id);
     }
 
     /**

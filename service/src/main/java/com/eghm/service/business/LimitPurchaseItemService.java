@@ -22,4 +22,11 @@ public interface LimitPurchaseItemService {
      * @param limitPurchase 限时购活动信息
      */
     void insertOrUpdate(List<PurchaseItemRequest> itemList, LimitPurchase limitPurchase);
+
+    /**
+     * 删除限时购商品信息
+     *
+     * @param limitPurchaseId 限时购活动id
+     */
+    void delete(Long limitPurchaseId);
 }

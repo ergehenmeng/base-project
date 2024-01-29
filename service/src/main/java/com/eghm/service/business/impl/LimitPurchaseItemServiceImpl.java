@@ -2,6 +2,7 @@ package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.purchase.PurchaseItemRequest;
 import com.eghm.dto.business.purchase.PurchaseSkuRequest;
 import com.eghm.mapper.LimitPurchaseItemMapper;
@@ -53,6 +54,14 @@ public class LimitPurchaseItemServiceImpl implements LimitPurchaseItemService {
             item.setCreateTime(limitPurchase.getCreateTime());
             limitPurchaseItemMapper.insert(item);
         }
+    }
+
+    @Override
+    public void delete(Long limitPurchaseId) {
+        LambdaUpdateWrapper<LimitPurchaseItem> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(LimitPurchaseItem::getLimitPurchaseId, limitPurchaseId);
+        wrapper.eq(LimitPurchaseItem::getMerchantId, SecurityHolder.getMerchantId());
+        limitPurchaseItemMapper.delete(wrapper);
     }
 
     /**

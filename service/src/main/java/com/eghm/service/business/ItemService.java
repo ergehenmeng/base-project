@@ -119,10 +119,17 @@ public interface ItemService {
     /**
      * 更新零售是否限时购
      *
-     * @param itemId itemId
+     * @param itemIds itemIds
      * @param limitId 限时购活动id
      */
-    void updateLimitPurchase(Long itemId, Long limitId);
+    void updateLimitPurchase(List<Long> itemIds, Long limitId);
+
+    /**
+     * 释放限时购信息
+     *
+     * @param limitId 限时购活动id
+     */
+    void releasePurchase(Long limitId);
 
     /**
      * 商品排序
