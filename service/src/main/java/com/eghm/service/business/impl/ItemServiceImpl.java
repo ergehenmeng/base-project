@@ -176,6 +176,34 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public void checkIllegal(List<Long> itemIds, Long merchantId) {
+        if (CollUtil.isEmpty(itemIds)) {
+            return;
+        }
+        LambdaQueryWrapper<Item> wrapper = Wrappers.lambdaQuery();
+        wrapper.in(Item::getId, itemIds);
+        wrapper.ne(Item::getMerchantId, merchantId);
+        long count = itemMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.error("非法零售数据操作 [{}] [{}]", merchantId, itemIds);
+            throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
+        }
+    }
+
+    @Override
+    public void checkLimitItem(List<Long> itemIds, Long limitId) {
+        LambdaQueryWrapper<Item> wrapper = Wrappers.lambdaQuery();
+        wrapper.in(Item::getId, itemIds);
+        wrapper.isNotNull(Item::getLimitId);
+        wrapper.ne(limitId != null, Item::getLimitId, limitId);
+        long count = itemMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.error("该商品已存在限时购活动 [{}]", itemIds);
+            throw new BusinessException(ErrorCode.LIMIT_ITEM_REDO);
+        }
+    }
+
+    @Override
     public void updateState(Long id, State state) {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getId, id);
@@ -186,10 +214,18 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void updateGroupBooking(Long id, Boolean groupBooking, Long bookingId) {
+    public void updateGroupBooking(Long id, Long bookingId) {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getId, id);
         wrapper.set(Item::getBookingId, bookingId);
+        itemMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void updateLimitPurchase(Long itemId, Long limitId) {
+        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Item::getId, itemId);
+        wrapper.set(Item::getLimitId, limitId);
         itemMapper.update(null, wrapper);
     }
 
@@ -203,7 +239,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Map<Long, Item> getByIdShelveMap(Set<Long> ids) {
-        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
+        LambdaQueryWrapper<Item> wrapper = Wrappers.lambdaQuery();
         wrapper.in(Item::getId, ids);
         wrapper.eq(Item::getState, State.SHELVE);
         List<Item> itemList = itemMapper.selectList(wrapper);

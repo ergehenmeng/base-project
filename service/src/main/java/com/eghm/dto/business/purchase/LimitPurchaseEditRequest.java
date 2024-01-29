@@ -24,6 +24,9 @@ public class LimitPurchaseEditRequest {
     @NotNull(message = "活动id不能为空")
     private Long id;
 
+    @ApiModelProperty(value = "商户id", hidden = true)
+    private Long merchantId;
+
     @ApiModelProperty(value = "活动名称")
     @NotBlank(message = "活动名称不能为空")
     @Size(max = 20, message = "活动名称最大20字符")

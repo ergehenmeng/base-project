@@ -1,5 +1,10 @@
 package com.eghm.service.business;
 
+import com.eghm.dto.business.purchase.PurchaseItemRequest;
+import com.eghm.model.LimitPurchase;
+
+import java.util.List;
+
 /**
  * <p>
  * 限时购商品表 服务类
@@ -10,4 +15,11 @@ package com.eghm.service.business;
  */
 public interface LimitPurchaseItemService {
 
+    /**
+     * 新增或修改限时购商品信息
+     *
+     * @param itemList 商品列表
+     * @param limitPurchase 限时购活动信息
+     */
+    void insertOrUpdate(List<PurchaseItemRequest> itemList, LimitPurchase limitPurchase);
 }

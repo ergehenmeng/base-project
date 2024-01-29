@@ -73,35 +73,35 @@ public class GroupBookingServiceImpl implements GroupBookingService {
 
     @Override
     public void create(GroupBookingAddRequest request) {
-        this.redoTitle(request.getTitle(), null);
         this.checkTime(request.getStartTime(), request.getEndTime());
+        this.redoTitle(request.getTitle(), null);
         itemService.checkBookingItem(request.getItemId());
 
         GroupBooking booking = DataUtil.copy(request, GroupBooking.class);
         booking.setSkuValue(jsonService.toJson(request.getSkuList()));
         booking.setMaxDiscountAmount(this.getMaxDiscountPrice(request.getSkuList()));
         groupBookingMapper.insert(booking);
-        itemService.updateGroupBooking(request.getItemId(), true, booking.getItemId());
+        itemService.updateGroupBooking(request.getItemId(), booking.getItemId());
         this.sendExpireMessage(booking.getId(), booking.getEndTime(), null);
     }
 
     @Override
     public void update(GroupBookingEditRequest request) {
-        this.redoTitle(request.getTitle(), request.getId());
         this.checkTime(request.getStartTime(), request.getEndTime());
+        this.redoTitle(request.getTitle(), request.getId());
         GroupBooking booking = groupBookingMapper.selectById(request.getId());
         // 防止非法操作
         commonService.checkIllegal(booking.getMerchantId());
         if (!booking.getStartTime().isAfter(LocalDateTime.now())) {
-            throw new BusinessException(ErrorCode.BOOKING_EDIT);
+            throw new BusinessException(ErrorCode.ACTIVITY_NOT_EDIT);
         }
         if (!booking.getItemId().equals(request.getItemId())) {
             // 校验新的商品是否是拼团商品
             itemService.checkBookingItem(request.getItemId());
             // 释放老的商品
-            itemService.updateGroupBooking(booking.getItemId(), false, null);
+            itemService.updateGroupBooking(booking.getItemId(), null);
             // 锁定新的商品
-            itemService.updateGroupBooking(request.getItemId(), true, booking.getId());
+            itemService.updateGroupBooking(request.getItemId(), booking.getId());
         }
 
         GroupBooking groupBooking = DataUtil.copy(request, GroupBooking.class);
@@ -125,7 +125,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         wrapper.eq(GroupBooking::getId, id);
         wrapper.eq(GroupBooking::getMerchantId, SecurityHolder.getMerchantId());
         groupBookingMapper.delete(wrapper);
-        itemService.updateGroupBooking(booking.getItemId(), false, null);
+        itemService.updateGroupBooking(booking.getItemId(), null);
     }
 
     @Override
@@ -200,7 +200,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         if (startTime.isAfter(now)) {
             throw new BusinessException(ErrorCode.BOOKING_GT_TIME);
         }
-        LocalDateTime dateTime = now.plusMinutes(1);
+        LocalDateTime dateTime = now.plusMonths(1);
         if (endTime.isAfter(dateTime)) {
             log.warn("拼团活动结束时间小于当前时间+1个月 [{}] [{}]", startTime, endTime);
             throw new BusinessException(ErrorCode.BOOKING_GT_MONTH);
@@ -208,7 +208,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     }
 
     /**
-     * 重置标题校验
+     * 重复标题校验
      *
      * @param title 活动标题
      * @param id id

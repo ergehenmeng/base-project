@@ -103,6 +103,12 @@ public class Item extends BaseEntity {
     @ApiModelProperty("(拼团商品时,该字段不为空)拼团活动id")
     private Long bookingId;
 
+    /**
+     * 限时购与拼团互斥
+     */
+    @ApiModelProperty("(限时购晒商品时,该字段不能为空)限时购id")
+    private Long limitId;
+
     @ApiModelProperty("创建日期")
     private LocalDate createDate;
 }

@@ -77,11 +77,28 @@ public interface ItemService {
     Item selectByIdRequired(Long itemId);
 
     /**
-     * 检查零售商品是否是拼团订单
+     * 检查零售商品是否是拼团商品
      *
      * @param itemId itemId
      */
     void checkBookingItem(Long itemId);
+
+    /**
+     * 检查零售商品是否合法
+     * 即: 这些商品是否属于该商户
+     *
+     * @param itemIds itemId
+     * @param merchantId 商户ID
+     */
+    void checkIllegal(List<Long> itemIds, Long merchantId);
+
+    /**
+     * 检查零售商品是否是限时购商品
+     *
+     * @param itemIds itemId
+     * @param limitId id
+     */
+    void checkLimitItem(List<Long> itemIds, Long limitId);
 
     /**
      * 更新上下架状态
@@ -95,10 +112,17 @@ public interface ItemService {
      * 更新零售是否拼团
      *
      * @param itemId itemId
-     * @param groupBooking true:拼团商品 false:不是拼团商品
      * @param bookingId 拼团活动id
      */
-    void updateGroupBooking(Long itemId, Boolean groupBooking, Long bookingId);
+    void updateGroupBooking(Long itemId, Long bookingId);
+
+    /**
+     * 更新零售是否限时购
+     *
+     * @param itemId itemId
+     * @param limitId 限时购活动id
+     */
+    void updateLimitPurchase(Long itemId, Long limitId);
 
     /**
      * 商品排序
