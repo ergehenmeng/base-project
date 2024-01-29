@@ -2,7 +2,9 @@ package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.business.limit.LimitPurchaseQueryDTO;
 import com.eghm.dto.business.purchase.LimitItemRequest;
 import com.eghm.dto.business.purchase.LimitSkuRequest;
 import com.eghm.mapper.LimitPurchaseItemMapper;
@@ -11,6 +13,7 @@ import com.eghm.model.LimitPurchaseItem;
 import com.eghm.service.business.LimitPurchaseItemService;
 import com.eghm.service.common.JsonService;
 import com.eghm.vo.business.limit.LimitItemResponse;
+import com.eghm.vo.business.limit.LimitItemVO;
 import com.eghm.vo.business.limit.LimitSkuResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +39,13 @@ public class LimitPurchaseItemServiceImpl implements LimitPurchaseItemService {
     private final LimitPurchaseItemMapper limitPurchaseItemMapper;
 
     private final JsonService jsonService;
+
+    @Override
+    public List<LimitItemVO> getByPage(LimitPurchaseQueryDTO dto) {
+        Page<LimitItemVO> byPage = limitPurchaseItemMapper.getByPage(dto.createPage(false), dto);
+        return byPage.getRecords();
+    }
+
     @Override
     public void insertOrUpdate(List<LimitItemRequest> itemList, LimitPurchase limitPurchase) {
         LambdaUpdateWrapper<LimitPurchaseItem> wrapper = Wrappers.lambdaUpdate();

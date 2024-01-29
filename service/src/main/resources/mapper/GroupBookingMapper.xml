@@ -57,6 +57,9 @@
         <if test="param.queryName != null and param.queryName != ''">
             and r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
         </if>
+        <if test="param.merchantId != null">
+            and t.merchant_id = #{param.merchantId}
+        </if>
         <if test="param.sortBy != null">
             <choose>
                 <when test="param.sortBy == 1">
@@ -69,10 +72,10 @@
                     order by r.score desc, r.recommend desc
                 </when>
                 <when test="param.sortBy == 4">
-                    order by r.max_discount_amount desc, r.recommend desc
+                    order by t.max_discount_amount desc, r.recommend desc
                 </when>
                 <otherwise>
-                    order by t.recommend desc
+                    order by r.recommend desc, t.id desc
                 </otherwise>
             </choose>
         </if>
