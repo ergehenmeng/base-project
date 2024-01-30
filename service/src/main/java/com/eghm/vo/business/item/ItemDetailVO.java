@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.hibernate.validator.internal.util.privilegedactions.LoadClass;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
