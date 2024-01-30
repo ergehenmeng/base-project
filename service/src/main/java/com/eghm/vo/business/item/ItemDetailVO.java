@@ -5,13 +5,16 @@ import com.eghm.convertor.NumberParseEncoder;
 import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.internal.util.privilegedactions.LoadClass;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -97,12 +100,31 @@ public class ItemDetailVO {
     @ApiModelProperty("好评率百分比")
     private Integer rate;
 
-    @ApiModelProperty("是否为拼团订单")
+    @ApiModelProperty("是否为拼团商品")
     private Boolean groupBooking = false;
 
-    @ApiModelProperty("活动id")
+    @ApiModelProperty("拼团活动id")
     @JsonIgnore
     private Long bookingId;
+
+    @ApiModelProperty("是否为限时购商品")
+    private Boolean limitPurchase = false;
+
+    @ApiModelProperty("限时购活动id")
+    @JsonIgnore
+    private Long limitId;
+
+    @ApiModelProperty("限时购开始时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime startTime;
+
+    @ApiModelProperty("限时购结束时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime endTime;
+
+    @ApiModelProperty("系统时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime systemTime;
 
     @ApiModelProperty("多规格信息")
     private List<ItemGroupSpecVO> specList;

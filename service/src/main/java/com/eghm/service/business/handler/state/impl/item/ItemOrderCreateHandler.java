@@ -6,6 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
+import com.eghm.dto.business.purchase.LimitSkuRequest;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
@@ -19,6 +20,7 @@ import com.eghm.service.business.handler.dto.ItemDTO;
 import com.eghm.service.business.handler.dto.ItemOrderPayload;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.service.business.handler.state.OrderCreateHandler;
+import com.eghm.service.common.JsonService;
 import com.eghm.service.member.MemberAddressService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.StringUtil;
@@ -28,7 +30,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.eghm.enums.ErrorCode.*;
@@ -54,6 +58,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     private final OrderService orderService;
 
+    private final JsonService jsonService;
+
     private final OrderMQService orderMQService;
 
     private final MemberAddressService memberAddressService;
@@ -61,6 +67,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     private final ItemGroupOrderService itemGroupOrderService;
 
     private final GroupBookingService groupBookingService;
+
+    private final LimitPurchaseItemService limitPurchaseItemService;
 
     /**
      * 普通订单下单处理逻辑
@@ -104,6 +112,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             Map<Long, Integer> skuExpressMap = this.calcExpressFee(entry.getKey(), payload.getCountyId(), entry.getValue());
             String orderNo = ProductType.ITEM.generateOrderNo();
             int expressAmount = skuExpressMap.values().stream().reduce(Integer::sum).orElse(0);
+            // 核心逻辑 生成主订单
             Order order = this.generateOrder(context.getMemberId(), isMultiple, entry.getValue(), expressAmount, payload, context);
             order.setOrderNo(orderNo);
             order.setStoreId(entry.getKey());
@@ -162,10 +171,12 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         order.setRefundType(this.getRefundType(packageList));
         order.setProductType(ProductType.ITEM);
         order.setNum(this.getNum(packageList));
+        // 商品本身的总价
         Integer payAmount = this.getPayAmount(packageList, context);
         order.setBookingNo(context.getBookingNo());
         order.setBookingId(context.getBookingId());
         order.setPayAmount(payAmount + expressAmount);
+        order.setLimitId(context.getLimitId());
         return order;
     }
 
@@ -265,6 +276,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     private Integer getPayAmount(List<OrderPackage> packageList, ItemOrderCreateContext context) {
         int sum = 0;
         for (OrderPackage aPackage : packageList) {
+            // 最终商品单价计算
             Integer finalPrice = this.checkAndCalcFinalPrice(aPackage, context);
             aPackage.setFinalPrice(finalPrice);
             sum += finalPrice * aPackage.getNum();
@@ -282,6 +294,29 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * @return 单价
      */
     private Integer checkAndCalcFinalPrice(OrderPackage aPackage, ItemOrderCreateContext context) {
+        Long limitId = aPackage.getItem().getLimitId();
+        if (limitId != null) {
+            LimitPurchaseItem purchaseItem = limitPurchaseItemService.getLimitItem(limitId, aPackage.getItemId());
+            if (purchaseItem == null) {
+                log.error("该限时购活动不存在 [{}] [{}]", limitId, aPackage.getItemId());
+                return aPackage.getSku().getSalePrice();
+            }
+            if (purchaseItem.getStartTime().isAfter(LocalDateTime.now()) || purchaseItem.getEndTime().isBefore(LocalDateTime.now())) {
+                log.error("该限时购商品不在活动时间内 [{}] [{}] [{}] [{}]", aPackage.getItemId(), limitId, purchaseItem.getStartTime(), purchaseItem.getEndTime());
+                return aPackage.getSku().getSalePrice();
+            }
+            List<LimitSkuRequest> skuList = jsonService.fromJsonList(purchaseItem.getSkuValue(), LimitSkuRequest.class);
+            Map<Long, LimitSkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(LimitSkuRequest::getSkuId, Function.identity()));
+            LimitSkuRequest request = skuMap.get(aPackage.getSkuId());
+            if (request == null || request.getLimitPrice() == null || !aPackage.getSku().getSalePrice().equals(request.getSalePrice())) {
+                log.error("该限时购商品不在活动价格范围内 [{}] [{}] [{}] [{}]", aPackage.getItemId(), limitId, aPackage.getSkuId(), purchaseItem.getSkuValue());
+                return aPackage.getSku().getSalePrice();
+            }
+            // 此时才算真正限时购商品
+            context.setLimitId(limitId);
+            return request.getLimitPrice();
+        }
+
         // 表示是拼团订单
         if (Boolean.TRUE.equals(context.getGroupBooking())) {
             log.info("开始计算拼团价格 [{}] [{}]", aPackage.getItemId(), aPackage.getSkuId());

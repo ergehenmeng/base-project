@@ -1,5 +1,8 @@
 package com.eghm.vo.business.item;
 
+import com.eghm.convertor.CentToYuanEncoder;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -10,6 +13,7 @@ import java.math.BigDecimal;
  * @since 2023/8/30
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemSkuVO {
 
     @ApiModelProperty("id")
@@ -19,13 +23,20 @@ public class ItemSkuVO {
     private String specId;
 
     @ApiModelProperty(value = "划线价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer linePrice;
 
     @ApiModelProperty(value = "销售价格")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
     @ApiModelProperty("拼团价格")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer groupPrice;
+
+    @ApiModelProperty("限时购价格")
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    private Integer limitPrice;
 
     @ApiModelProperty(value = "库存")
     private Integer stock;

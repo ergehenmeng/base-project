@@ -14,6 +14,7 @@ import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
 import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.dto.business.item.sku.ItemSpecRequest;
+import com.eghm.dto.business.purchase.LimitSkuRequest;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ChargeMode;
@@ -82,6 +83,8 @@ public class ItemServiceImpl implements ItemService {
     private final CommonService commonService;
 
     private final GroupBookingMapper groupBookingMapper;
+
+    private final LimitPurchaseItemService limitPurchaseItemService;
 
     private final JsonService jsonService;
 
@@ -402,6 +405,9 @@ public class ItemServiceImpl implements ItemService {
         } else {
             detail.setSkuList(Lists.newArrayList(DataUtil.copy(skuList.get(0), ItemSkuVO.class)));
         }
+        // 限时购商品设置限时购价格
+        this.setLimitPurchase(detail);
+        // 设置拼团信息价格
         this.setGroupBooking(detail);
         // 是否添加收藏
         detail.setCollect(memberCollectService.checkCollect(id, CollectType.ITEM));
@@ -421,6 +427,44 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<ActivityItemResponse> getActivityList(Long merchantId, Long activityId) {
         return itemMapper.getActivityList(merchantId, activityId);
+    }
+
+    /**
+     * 设置限时购信息
+     *
+     * @param detail 商品详情
+     */
+    private void setLimitPurchase(ItemDetailVO detail) {
+        if (detail.getLimitId() != null) {
+            log.info("限时购商品,开始组装限时购价格信息 [{}] [{}]", detail.getId(), detail.getLimitId());
+            LimitPurchaseItem purchaseItem = limitPurchaseItemService.getLimitItem(detail.getLimitId(), detail.getId());
+            if (purchaseItem == null) {
+                log.error("该限时购商品已删除 [{}] [{}]", detail.getLimitId(), detail.getId());
+                return;
+            }
+            if (purchaseItem.getEndTime().isBefore(LocalDateTime.now())) {
+                log.error("该限时购商品已过有效期 [{}] [{}]", detail.getLimitId(), purchaseItem.getEndTime());
+                return;
+            }
+            if (purchaseItem.getAdvanceTime().isBefore(LocalDateTime.now())) {
+                log.error("该限时购商品还没到开始时间 [{}] [{}]", detail.getLimitId(), purchaseItem.getAdvanceTime());
+                return;
+            }
+            List<LimitSkuRequest> skuList = jsonService.fromJsonList(purchaseItem.getSkuValue(), LimitSkuRequest.class);
+            Map<Long, LimitSkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(LimitSkuRequest::getSkuId, Function.identity()));
+            detail.getSkuList().forEach(vo -> {
+                LimitSkuRequest request = skuMap.get(vo.getId());
+                if (request != null && vo.getSalePrice().equals(request.getSalePrice()) && request.getLimitPrice() != null) {
+                    detail.setLimitPurchase(true);
+                    vo.setLimitPrice(request.getLimitPrice());
+                } else {
+                    vo.setLimitPrice(vo.getSalePrice());
+                }
+            });
+            detail.setStartTime(purchaseItem.getStartTime());
+            detail.setEndTime(purchaseItem.getEndTime());
+            detail.setSystemTime(LocalDateTime.now());
+        }
     }
 
     /**

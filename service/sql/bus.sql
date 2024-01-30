@@ -585,6 +585,7 @@ CREATE TABLE `order`
     `title`           varchar(200) DEFAULT NULL COMMENT '商品名称',
     `cover_url`       varchar(200) DEFAULT NULL COMMENT '商品封面图(第一张)',
     `member_id`       bigint(20)   DEFAULT NULL COMMENT '用户id',
+    `limit_id`        bigint(20)   DEFAULT NULL comment '限时购活动id',
     `booking_no`      varchar(30)  DEFAULT NULL COMMENT '拼团单号',
     `booking_id`      bigint(20) comment '拼团活动id(冗余)',
     `booking_state`   tinyint(1)   default 0 comment '拼团状态 0:待成团 1:拼团成功 2:拼团失败',

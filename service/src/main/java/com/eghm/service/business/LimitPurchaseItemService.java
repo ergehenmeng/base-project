@@ -3,6 +3,7 @@ package com.eghm.service.business;
 import com.eghm.dto.business.limit.LimitPurchaseQueryDTO;
 import com.eghm.dto.business.purchase.LimitItemRequest;
 import com.eghm.model.LimitPurchase;
+import com.eghm.model.LimitPurchaseItem;
 import com.eghm.vo.business.limit.LimitItemResponse;
 import com.eghm.vo.business.limit.LimitItemVO;
 
@@ -48,4 +49,13 @@ public interface LimitPurchaseItemService {
      * @return 商品列表
      */
     List<LimitItemResponse> getLimitList(Long limitId);
+
+    /**
+     * 查询限时购活动配置的商品信息
+     *
+     * @param limitId 限时购活动id
+     * @param itemId 商品ID
+     * @return 商品信息
+     */
+    LimitPurchaseItem getLimitItem(Long limitId, Long itemId);
 }

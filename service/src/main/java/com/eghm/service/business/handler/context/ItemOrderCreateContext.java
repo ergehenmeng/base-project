@@ -31,7 +31,7 @@ public class ItemOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("是否为拼团订单")
     private Boolean groupBooking;
 
-    @ApiModelProperty("拼团活动编号")
+    @ApiModelProperty("拼团活动编号(团员时该字段不能为空)")
     private String bookingNo;
 
     @ApiModelProperty("优惠券id")
@@ -63,5 +63,10 @@ public class ItemOrderCreateContext extends AsyncKey implements Context {
     private Boolean starter = false;
 
     @ApiModelProperty(value = "拼团过期时间", hidden = true)
+    @Assign
     private Integer expireTime;
+
+    @ApiModelProperty(value = "限时购活动id", hidden = true)
+    @Assign
+    private Long limitId;
 }
