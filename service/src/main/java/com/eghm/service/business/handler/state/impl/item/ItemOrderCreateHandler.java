@@ -106,22 +106,20 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     private void createOrder(ItemOrderCreateContext context, ItemOrderPayload payload) {
         // 购物车商品可能存在多商铺同时下单,按店铺进行分组, 同时按商品和skuId进行排序
         Map<Long, List<OrderPackage>> storeMap = payload.getPackageList().stream().sorted(Comparator.comparing(OrderPackage::getStoreId).thenComparing(OrderPackage::getItemId).thenComparing(OrderPackage::getSkuId)).collect(Collectors.groupingBy(OrderPackage::getStoreId, LinkedHashMap::new, Collectors.toList()));
-
         List<String> orderList = new ArrayList<>(8);
         // 是否为多店铺下单
         boolean isMultiple = storeMap.size() > 1;
         for (Map.Entry<Long, List<OrderPackage>> entry : storeMap.entrySet()) {
             Map<Long, Integer> skuExpressMap = this.calcExpressFee(entry.getKey(), payload.getMemberAddress().getCountyId(), entry.getValue());
             int expressAmount = skuExpressMap.values().stream().reduce(Integer::sum).orElse(0);
-            // 核心逻辑 生成主订单
+            // 核心逻辑生成主订单
             Order order = this.generateOrder(context, payload, entry, isMultiple, expressAmount);
             orderService.save(order);
-
+            // 新增零售订单
             itemOrderService.insert(order.getOrderNo(), context.getMemberId(), entry.getValue(), skuExpressMap);
-
+            // 更新sku库存
             Map<Long, Integer> skuNumMap = entry.getValue().stream().collect(Collectors.toMap(OrderPackage::getSkuId, aPackage -> -aPackage.getNum()));
             itemSkuService.updateStock(skuNumMap);
-
             // 如果是拼团订单的话 一定是单商品
             itemGroupOrderService.save(context, order, entry.getValue().get(0).getItemId());
             orderList.add(order.getOrderNo());
@@ -184,8 +182,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         order.setBookingId(context.getBookingId());
         order.setPayAmount(itemAmount + expressAmount);
         order.setLimitId(context.getLimitId());
-        order.setRemark(context.getRemark());
         order.setMerchantId(entry.getValue().get(0).getItemStore().getMerchantId());
+        order.setRemark(context.getRemark());
         return order;
     }
 

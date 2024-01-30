@@ -74,14 +74,13 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
     @Override
     protected Order createOrder(VoucherOrderCreateContext context, VoucherOrderPayload payload) {
         Voucher voucher = payload.getVoucher();
-        String orderNo = ProductType.RESTAURANT.generateOrderNo();
         Order order = DataUtil.copy(context, Order.class);
         order.setCoverUrl(voucher.getCoverUrl());
         order.setMerchantId(payload.getRestaurant().getMerchantId());
         order.setStoreId(payload.getRestaurant().getId());
         order.setState(OrderState.UN_PAY);
         order.setMemberId(context.getMemberId());
-        order.setOrderNo(orderNo);
+        order.setOrderNo(ProductType.RESTAURANT.generateOrderNo());
         order.setRemark(context.getRemark());
         order.setNum(context.getNum());
         order.setTitle(voucher.getTitle());

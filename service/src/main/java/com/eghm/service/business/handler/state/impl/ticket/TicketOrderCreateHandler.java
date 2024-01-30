@@ -84,7 +84,6 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     @Override
     protected Order createOrder(TicketOrderCreateContext context, TicketOrderPayload payload) {
         ScenicTicket ticket = payload.getTicket();
-        String orderNo = ProductType.TICKET.generateOrderNo();
         Order order = new Order();
         order.setMerchantId(payload.getScenic().getMerchantId());
         order.setStoreId(payload.getScenic().getId());
@@ -93,7 +92,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         order.setState(OrderState.UN_PAY);
         order.setProductType(ProductType.TICKET);
         order.setCoverUrl(ticket.getCoverUrl());
-        order.setOrderNo(orderNo);
+        order.setOrderNo(ProductType.TICKET.generateOrderNo());
         order.setMobile(context.getMobile());
         order.setRemark(context.getRemark());
         order.setPrice(ticket.getSalePrice());
