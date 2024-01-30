@@ -51,7 +51,11 @@ public class ItemSkuServiceImpl implements ItemSkuService {
     @Override
     public void update(Item item, Map<String, Long> specMap, List<ItemSkuRequest> skuList) {
         List<Long> skuIds = skuList.stream().map(ItemSkuRequest::getId).filter(Objects::nonNull).collect(Collectors.toList());
-        this.deleteByNotIn(item.getId(), skuIds);
+        LambdaUpdateWrapper<ItemSku> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(ItemSku::getItemId, item.getId());
+        wrapper.notIn(CollUtil.isNotEmpty(skuIds), ItemSku::getId, skuIds);
+        itemSkuMapper.delete(wrapper);
+
         for (ItemSkuRequest request : skuList) {
             ItemSku sku = DataUtil.copy(request, ItemSku.class);
             sku.setItemId(item.getId());
@@ -109,19 +113,6 @@ public class ItemSkuServiceImpl implements ItemSkuService {
             throw new BusinessException(SKU_DOWN);
         }
         return skuList.stream().collect(Collectors.toMap(ItemSku::getId, Function.identity()));
-    }
-
-    /**
-     * 删除不在指定skuId列表的其他sku
-     *
-     * @param itemId 商品id
-     * @param skuIds skuIds
-     */
-    private void deleteByNotIn(Long itemId, List<Long> skuIds) {
-        LambdaUpdateWrapper<ItemSku> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(ItemSku::getItemId, itemId);
-        wrapper.notIn(CollUtil.isNotEmpty(skuIds), ItemSku::getId, skuIds);
-        itemSkuMapper.delete(wrapper);
     }
 
     /**
