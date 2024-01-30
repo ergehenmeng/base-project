@@ -44,6 +44,14 @@
                 and r.coupon_id is null
             </if>
         </if>
+        <choose>
+            <when test="param.orderType == 1">
+                and r.limit_id is not null
+            </when>
+            <when test="param.orderType == 2">
+                and r.booking_id is not null
+            </when>
+        </choose>
         <if test="param.startDate != null and param.endDate != null">
             and r.pay_time between #{param.startDate} and #{param.endDate}
         </if>
