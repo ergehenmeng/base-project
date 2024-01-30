@@ -7,10 +7,28 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    volumes:
+      - /data/app/webapp/logs:/home/app/webapp/logs
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPTS=-Xms1g -Xmx4g
+    restart: on-failure
   manage-server:
+    ## 容器名称
     container_name: webapp-server
     build:
       context: ./webapp-server
       dockerfile: Dockerfile
+    ## 端口映射(容器端口:服务端口)
     ports:
       - "9090:9090"
+    ## 挂载文件
+    volumes:
+      - /data/app/manage/logs:/home/app/manage/logs
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPTS=-Xms512m -Xmx2g
+    restart: on-failure
+    networks:
+      webapp:
+        - ipv4_address: 172.16.1.10

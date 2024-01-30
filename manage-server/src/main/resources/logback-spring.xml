@@ -6,7 +6,7 @@
                scan="true" debug="false" scanPeriod="6000">
     <!--键值对常量,其他地方可以引用-->
     <property name="appName" value="p2p-web-manage"/>
-    <property name="logPath" value="/Users/wyb/logs/project/manage"/>
+    <property name="logPath" value="/home/app/manage/logs"/>
     <!--上下文名称-->
     <contextName>${appName}</contextName>
     <!--当前时间戳字符串 其他地方可以引用-->
