@@ -111,20 +111,14 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         // 是否为多店铺下单
         boolean isMultiple = storeMap.size() > 1;
         for (Map.Entry<Long, List<OrderPackage>> entry : storeMap.entrySet()) {
-
-            Map<Long, Integer> skuExpressMap = this.calcExpressFee(entry.getKey(), payload.getCountyId(), entry.getValue());
-            String orderNo = ProductType.ITEM.generateOrderNo();
+            Map<Long, Integer> skuExpressMap = this.calcExpressFee(entry.getKey(), payload.getMemberAddress().getCountyId(), entry.getValue());
             int expressAmount = skuExpressMap.values().stream().reduce(Integer::sum).orElse(0);
             // 核心逻辑 生成主订单
-            Order order = this.generateOrder(context.getMemberId(), isMultiple, entry.getValue(), expressAmount, payload, context);
-            order.setOrderNo(orderNo);
-            order.setStoreId(entry.getKey());
-            order.setRemark(context.getRemark());
-            // 同一家商户merchantId肯定是一样的
-            order.setMerchantId(entry.getValue().get(0).getItemStore().getMerchantId());
+            Order order = this.generateOrder(context, payload, entry, isMultiple, expressAmount);
             orderService.save(order);
 
-            itemOrderService.insert(orderNo, context.getMemberId(), entry.getValue(), skuExpressMap);
+            itemOrderService.insert(order.getOrderNo(), context.getMemberId(), entry.getValue(), skuExpressMap);
+
             Map<Long, Integer> skuNumMap = entry.getValue().stream().collect(Collectors.toMap(OrderPackage::getSkuId, aPackage -> -aPackage.getNum()));
             itemSkuService.updateStock(skuNumMap);
 
@@ -159,27 +153,39 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     /**
      * 添加主订单信息
      *
-     * @param memberId      用户ID
+     * @param context     上下文
+     * @param payload 商品信息
+     * @param entry     下单信息
      * @param multiple      是否为多笔订单同时支付
-     * @param packageList   商品信息
      * @param expressAmount 快递费
      * @return 订单信息
      */
-    private Order generateOrder(Long memberId, boolean multiple, List<OrderPackage> packageList, int expressAmount, ItemOrderPayload payload, ItemOrderCreateContext context) {
+    private Order generateOrder(ItemOrderCreateContext context, ItemOrderPayload payload, Map.Entry<Long, List<OrderPackage>> entry, boolean multiple, int expressAmount) {
+        List<OrderPackage> packageList = entry.getValue();
         Order order = DataUtil.copy(payload, Order.class);
+        MemberAddress address = payload.getMemberAddress();
+        order.setStoreId(entry.getKey());
+        order.setOrderNo(ProductType.ITEM.generateOrderNo());
+        order.setProvinceId(address.getProvinceId());
+        order.setCityId(address.getCityId());
+        order.setCountyId(address.getCountyId());
+        order.setDetailAddress(address.getDetailAddress());
+        order.setNickName(address.getNickName());
+        order.setMobile(address.getMobile());
         order.setCoverUrl(this.getFirstCoverUrl(packageList));
         order.setTitle(this.getTitle(packageList));
-        order.setMemberId(memberId);
+        order.setMemberId(context.getMemberId());
         order.setMultiple(multiple);
         order.setRefundType(this.getRefundType(packageList));
         order.setProductType(ProductType.ITEM);
         order.setNum(this.getNum(packageList));
-        // 商品本身的总价
-        Integer payAmount = this.getPayAmount(packageList, context);
+        Integer itemAmount = this.getItemAmount(packageList, context);
         order.setBookingNo(context.getBookingNo());
         order.setBookingId(context.getBookingId());
-        order.setPayAmount(payAmount + expressAmount);
+        order.setPayAmount(itemAmount + expressAmount);
         order.setLimitId(context.getLimitId());
+        order.setRemark(context.getRemark());
+        order.setMerchantId(entry.getValue().get(0).getItemStore().getMerchantId());
         return order;
     }
 
@@ -250,12 +256,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         }
         ItemOrderPayload orderDTO = DataUtil.copy(context, ItemOrderPayload.class);
         orderDTO.setPackageList(packageList);
-        orderDTO.setProvinceId(memberAddress.getProvinceId());
-        orderDTO.setCityId(memberAddress.getCityId());
-        orderDTO.setCountyId(memberAddress.getCountyId());
-        orderDTO.setDetailAddress(memberAddress.getDetailAddress());
-        orderDTO.setNickName(memberAddress.getNickName());
-        orderDTO.setMobile(memberAddress.getMobile());
+        orderDTO.setMemberAddress(memberAddress);
         return orderDTO;
     }
 
@@ -271,12 +272,12 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     }
 
     /**
-     * 统计总金额
+     * 统计商品总金额(不含快递费)
      *
      * @param packageList 下单信息
      * @return 总金额
      */
-    private Integer getPayAmount(List<OrderPackage> packageList, ItemOrderCreateContext context) {
+    private Integer getItemAmount(List<OrderPackage> packageList, ItemOrderCreateContext context) {
         int sum = 0;
         for (OrderPackage aPackage : packageList) {
             // 最终商品单价计算
