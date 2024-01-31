@@ -2,6 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.dto.business.venue.VenueSessionAddRequest;
 import com.eghm.dto.business.venue.VenueSessionEditRequest;
+import com.eghm.model.VenueSession;
 
 /**
  * <p>
@@ -26,6 +27,14 @@ public interface VenueSessionService {
      * @param request 场次信息
      */
     void update(VenueSessionEditRequest request);
+
+    /**
+     * 根据id查询场次信息
+     *
+     * @param id 场次id
+     * @return 场次信息
+     */
+    VenueSession selectByIdRequired(Long id);
 
     /**
      * 删除场次信息

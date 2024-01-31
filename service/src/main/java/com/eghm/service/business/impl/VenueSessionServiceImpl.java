@@ -10,6 +10,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.VenueSessionMapper;
 import com.eghm.model.VenueSession;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.VenueSessionPriceService;
 import com.eghm.service.business.VenueSessionService;
 import com.eghm.utils.DataUtil;
@@ -30,6 +31,8 @@ import org.springframework.stereotype.Service;
 @Service("venueSessionService")
 public class VenueSessionServiceImpl implements VenueSessionService {
 
+    private final CommonService commonService;
+
     private final VenueSessionMapper venueSessionMapper;
 
     private final VenueSessionPriceService venueSessionPriceService;
@@ -46,12 +49,23 @@ public class VenueSessionServiceImpl implements VenueSessionService {
 
     @Override
     public void update(VenueSessionEditRequest request) {
-        Long merchantId = SecurityHolder.getMerchantId();
-        this.redoTitle(request.getTitle(), merchantId, request.getVenueId(), request.getId());
+        this.redoTitle(request.getTitle(), SecurityHolder.getMerchantId(), request.getVenueId(), request.getId());
+        VenueSession venueSession = this.selectByIdRequired(request.getId());
+        commonService.checkIllegal(venueSession.getMerchantId());
+
         VenueSession session = DataUtil.copy(request, VenueSession.class);
-        session.setMerchantId(merchantId);
         venueSessionMapper.updateById(session);
         venueSessionPriceService.insertOrUpdate(request.getPriceList(), session);
+    }
+
+    @Override
+    public VenueSession selectByIdRequired(Long id) {
+        VenueSession venueSession = venueSessionMapper.selectById(id);
+        if (venueSession == null) {
+            log.info("不存在的场次信息 [{}]", id);
+            throw new BusinessException(ErrorCode.VENUE_SESSION_NULL);
+        }
+        return venueSession;
     }
 
     @Override

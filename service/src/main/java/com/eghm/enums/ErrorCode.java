@@ -1633,7 +1633,6 @@ public enum ErrorCode {
      */
     VENUE_SESSION_NULL(3872, "场地信息未查询到"),
 
-
     /**
      * 微信公众号尚未配置
      */
