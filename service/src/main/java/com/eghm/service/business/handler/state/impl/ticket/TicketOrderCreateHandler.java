@@ -8,6 +8,7 @@ import com.eghm.enums.event.impl.TicketEvent;
 import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ref.VisitorState;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.Scenic;
@@ -39,6 +40,8 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
 
     private final OrderMQService orderMQService;
 
+    private final OrderVisitorService orderVisitorService;
+
     public TicketOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, ScenicService scenicService, TicketOrderService ticketOrderService) {
         super(memberCouponService, orderVisitorService);
         this.scenicService = scenicService;
@@ -46,6 +49,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         this.ticketOrderService = ticketOrderService;
         this.orderService = orderService;
         this.orderMQService = orderMQService;
+        this.orderVisitorService = orderVisitorService;
     }
 
     @Override
@@ -133,7 +137,13 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
 
     @Override
     protected void end(TicketOrderCreateContext context, TicketOrderPayload payload, Order order) {
-        orderMQService.sendOrderExpireMessage(ExchangeQueue.TICKET_PAY_EXPIRE, order.getOrderNo());
+        if (order.getPayAmount() <= 0) {
+            log.info("订单是零元购商品,订单号:{}", order.getOrderNo());
+            orderService.paySuccess(order.getOrderNo(), order.getProductType().generateVerifyNo(), OrderState.UN_USED, order.getState());
+            orderVisitorService.updateVisitor(order.getOrderNo(), VisitorState.PAID);
+        } else {
+            orderMQService.sendOrderExpireMessage(ExchangeQueue.TICKET_PAY_EXPIRE, order.getOrderNo());
+        }
     }
 
     @Override
