@@ -1310,3 +1310,28 @@ CREATE TABLE `limit_purchase_item`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='限时购商品表';
+
+DROP TABLE IF EXISTS venue;
+CREATE TABLE `venue`
+(
+    `id`             bigint(20) NOT NULL COMMENT '主键',
+    `title`          varchar(30)    DEFAULT NULL COMMENT '场馆名称',
+    `venue_type`     tinyint(2)     DEFAULT NULL COMMENT '场馆类型',
+    `cover_url`      varchar(200)   DEFAULT NULL COMMENT '场馆封面图',
+    `merchant_id`    bigint(20)     DEFAULT NULL COMMENT '所属商户',
+    `state`          tinyint(1)     DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:强制下架',
+    `open_time`      varchar(20)    DEFAULT NULL COMMENT '营业时间',
+    `province_id`    bigint(20)     DEFAULT NULL COMMENT '省id',
+    `city_id`        bigint(20)     DEFAULT NULL COMMENT '城市id',
+    `county_id`      bigint(20)     DEFAULT NULL COMMENT '县区id',
+    `detail_address` varchar(200)   DEFAULT NULL COMMENT '详细地址',
+    `longitude`      decimal(10, 7) DEFAULT NULL COMMENT '经度',
+    `latitude`       decimal(10, 7) DEFAULT NULL COMMENT '纬度',
+    `telephone`      varchar(20)    DEFAULT NULL COMMENT '商家电话',
+    `introduce`      longtext COMMENT '场馆详细信息',
+    `create_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`    datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`        bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='场馆信息';

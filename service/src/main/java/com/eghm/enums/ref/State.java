@@ -16,11 +16,6 @@ import lombok.Getter;
 public enum State implements EnumBinder {
 
     /**
-     * 初始化
-     */
-    INIT(-1, "初始化"),
-
-    /**
      * 下架
      */
     UN_SHELVE(0, "下架"),
