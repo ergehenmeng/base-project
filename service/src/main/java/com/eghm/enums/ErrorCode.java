@@ -1624,6 +1624,17 @@ public enum ErrorCode {
     VENUE_SITE_NULL(3868, "场地信息未查询到"),
 
     /**
+     * 场次名称重复啦~
+     */
+    VENUE_SESSION_REDO(3870, "场地名称重复啦~"),
+
+    /**
+     * 场次信息未查询到
+     */
+    VENUE_SESSION_NULL(3872, "场地信息未查询到"),
+
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

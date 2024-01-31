@@ -21,17 +21,10 @@ public class VenueSession extends BaseEntity {
     @ApiModelProperty(value = "所属场馆id")
     private Long venueId;
 
+    @ApiModelProperty(value = "场次名称")
+    private String title;
+
     @ApiModelProperty(value = "所属商户id")
     private Long merchantId;
-
-    @ApiModelProperty(value = "开始时间(HH:mm)")
-    private String startTime;
-
-    @ApiModelProperty(value = "结束时间(HH:mm)")
-    private String endTime;
-
-    @ApiModelProperty(value = "价格")
-    private Integer price;
-
 
 }

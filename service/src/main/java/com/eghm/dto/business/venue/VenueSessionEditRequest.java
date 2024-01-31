@@ -15,7 +15,11 @@ import java.util.List;
  */
 
 @Data
-public class VenueSessionAddRequest {
+public class VenueSessionEditRequest {
+
+    @ApiModelProperty("id")
+    @NotNull(message = "id不能为空")
+    private Long id;
 
     @ApiModelProperty(value = "所属场馆id")
     @NotNull(message = "请选择所属场馆")
