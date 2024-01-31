@@ -2,6 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.dto.business.venue.VenueAddRequest;
 import com.eghm.dto.business.venue.VenueEditRequest;
+import com.eghm.enums.ref.State;
 import com.eghm.model.Venue;
 
 /**
@@ -29,11 +30,19 @@ public interface VenueService {
     void update(VenueEditRequest request);
 
     /**
+     * 更新上下架状态
+     *
+     * @param id    id
+     * @param state 状态
+     */
+    void updateState(Long id, State state);
+
+    /**
      * 删除场馆信息
      *
      * @param id id
      */
-    void delete(String id);
+    void delete(Long id);
 
     /**
      * 查询场馆信息

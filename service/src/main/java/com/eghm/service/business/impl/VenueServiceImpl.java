@@ -56,7 +56,17 @@ public class VenueServiceImpl implements VenueService {
     }
 
     @Override
-    public void delete(String id) {
+    public void updateState(Long id, State state) {
+        LambdaUpdateWrapper<Venue> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Venue::getId, id);
+        wrapper.set(Venue::getState, state);
+        Long merchantId = SecurityHolder.getMerchantId();
+        wrapper.eq(merchantId != null, Venue::getMerchantId, merchantId);
+        venueMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void delete(Long id) {
         LambdaUpdateWrapper<Venue> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Venue::getId, id);
         wrapper.set(Venue::getState, State.UN_SHELVE);

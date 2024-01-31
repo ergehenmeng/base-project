@@ -94,9 +94,9 @@ public class ItemController {
         return RespBody.success();
     }
 
-    @PostMapping("/sortBy")
-    @ApiOperation("商品排序设置")
-    public RespBody<Void> recommend(@RequestBody @Validated SortByDTO dto) {
+    @PostMapping("/sort")
+    @ApiOperation("排序")
+    public RespBody<Void> sort(@RequestBody @Validated SortByDTO dto) {
         itemService.sortBy(dto.getId(), dto.getSortBy());
         return RespBody.success();
     }

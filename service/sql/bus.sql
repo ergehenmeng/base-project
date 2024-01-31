@@ -1352,3 +1352,19 @@ CREATE TABLE `venue_site`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='场地信息表';
+
+DROP TABLE IF EXISTS venue_session;
+CREATE TABLE `venue_session`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `venue_id`    bigint(20) DEFAULT NULL COMMENT '所属场馆id',
+    `merchant_id` bigint(20) DEFAULT NULL COMMENT '所属商户id',
+    `start_time`  char(5) DEFAULT NULL COMMENT '开始时间',
+    `end_time`    char(5)    DEFAULT NULL COMMENT '结束时间',
+    `price`       int(10)    DEFAULT '0' COMMENT '价格',
+    `create_time` datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)     DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='场馆场次价格信息表';
