@@ -2,7 +2,6 @@ package com.eghm.service.business;
 
 import com.eghm.dto.business.venue.VenueSiteAddRequest;
 import com.eghm.dto.business.venue.VenueSiteEditRequest;
-import com.eghm.model.Venue;
 import com.eghm.model.VenueSite;
 
 /**
@@ -28,6 +27,14 @@ public interface VenueSiteService {
      * @param request 场地信息
      */
     void update(VenueSiteEditRequest request);
+
+    /**
+     * 商品排序
+     *
+     * @param id     商品id
+     * @param sortBy 排序 最大999
+     */
+    void sortBy(Long id, Integer sortBy);
 
     /**
      * 根据id删除场地信息

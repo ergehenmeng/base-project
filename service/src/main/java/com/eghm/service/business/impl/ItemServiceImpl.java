@@ -257,7 +257,8 @@ public class ItemServiceImpl implements ItemService {
     public void sortBy(Long id, Integer sortBy) {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getId, id);
-        wrapper.set(Item::getSortBy, sortBy);
+        wrapper.eq(Item::getMerchantId, SecurityHolder.getMerchantId());
+        wrapper.set(Item::getSort, sortBy);
         itemMapper.update(null, wrapper);
     }
 

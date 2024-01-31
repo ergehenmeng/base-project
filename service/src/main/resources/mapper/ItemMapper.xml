@@ -60,7 +60,7 @@
         <if test="shopId != null">
             and store_id = #{shopId}
         </if>
-        order by min_price &gt; 0, sort_by, id limit #{limit}
+        order by min_price &gt; 0, sort, id limit #{limit}
     </select>
     
     <select id="getRecommendItem" resultType="com.eghm.vo.business.item.ItemVO">

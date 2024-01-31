@@ -30,4 +30,5 @@ public class VenueSiteAddRequest {
     @NotBlank(message = "场地详细信息不能为空")
     @WordChecker(message = "场地详细信息存在敏感词")
     private String introduce;
+
 }

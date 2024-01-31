@@ -41,6 +41,7 @@ public class VenueSiteServiceImpl implements VenueSiteService {
         Long merchantId = SecurityHolder.getMerchantId();
         this.redoTitle(request.getTitle(), merchantId, request.getVenueId(), null);
         VenueSite venueSite = DataUtil.copy(request, VenueSite.class);
+        venueSite.setMerchantId(merchantId);
         venueSiteMapper.insert(venueSite);
     }
 
@@ -53,6 +54,15 @@ public class VenueSiteServiceImpl implements VenueSiteService {
 
         VenueSite venueSite = DataUtil.copy(request, VenueSite.class);
         venueSiteMapper.updateById(venueSite);
+    }
+
+    @Override
+    public void sortBy(Long id, Integer sortBy) {
+        LambdaUpdateWrapper<VenueSite> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(VenueSite::getId, id);
+        wrapper.eq(VenueSite::getMerchantId, SecurityHolder.getMerchantId());
+        wrapper.set(VenueSite::getSort, sortBy);
+        venueSiteMapper.update(null, wrapper);
     }
 
     @Override

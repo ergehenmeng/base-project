@@ -40,6 +40,7 @@ public class VenueServiceImpl implements VenueService {
         Long merchantId = SecurityHolder.getMerchantId();
         this.redoTitle(request.getTitle(), merchantId, null);
         Venue venue = DataUtil.copy(request, Venue.class);
+        venue.setMerchantId(merchantId);
         venueMapper.insert(venue);
     }
 
