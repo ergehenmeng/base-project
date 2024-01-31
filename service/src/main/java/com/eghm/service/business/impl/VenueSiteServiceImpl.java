@@ -92,7 +92,7 @@ public class VenueSiteServiceImpl implements VenueSiteService {
         Long count = venueSiteMapper.selectCount(wrapper);
         if (count > 0) {
             log.info("场地名称重复 [{}] [{}]", title, id);
-            throw new BusinessException(ErrorCode.VENUE_REDO);
+            throw new BusinessException(ErrorCode.VENUE_SITE_REDO);
         }
     }
 }
