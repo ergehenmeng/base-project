@@ -1,6 +1,6 @@
 package com.eghm.mapper;
 
-import com.eghm.model.VenueSession;
+import com.eghm.model.VenueSitePrice;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author 二哥很猛
  * @since 2024-01-31
  */
-public interface VenueSessionMapper extends BaseMapper<VenueSession> {
+public interface VenueSitePriceMapper extends BaseMapper<VenueSitePrice> {
 
 }

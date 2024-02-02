@@ -1,10 +1,10 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.dto.IdDTO;
-import com.eghm.dto.business.venue.VenueSessionAddRequest;
-import com.eghm.dto.business.venue.VenueSessionEditRequest;
+import com.eghm.dto.business.venue.VenueSitePriceRequest;
+import com.eghm.dto.business.venue.VenueSitePriceUpdateRequest;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.service.business.VenueSessionService;
+import com.eghm.service.business.VenueSitePriceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -20,31 +20,31 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@Api(tags = "场馆场次")
+@Api(tags = "场地价格")
 @AllArgsConstructor
-@RequestMapping("/manage/venue/session")
-public class VenueSessionController {
+@RequestMapping("/manage/venue/site/price")
+public class VenueSitePriceController {
 
-    private final VenueSessionService venueSessionService;
+    private final VenueSitePriceService venueSitePriceService;
 
-    @PostMapping("/create")
-    @ApiOperation("新增")
-    public RespBody<Void> create(@Validated @RequestBody VenueSessionAddRequest request) {
-        venueSessionService.create(request);
+    @PostMapping("/setup")
+    @ApiOperation("设置价格")
+    public RespBody<Void> setup(@Validated @RequestBody VenueSitePriceRequest request) {
+        venueSitePriceService.insertOrUpdate(request);
         return RespBody.success();
     }
 
     @PostMapping("/update")
     @ApiOperation("更新")
-    public RespBody<Void> update(@Validated @RequestBody VenueSessionEditRequest request) {
-        venueSessionService.update(request);
+    public RespBody<Void> update(@Validated @RequestBody VenueSitePriceUpdateRequest request) {
+        venueSitePriceService.update(request);
         return RespBody.success();
     }
 
     @PostMapping("/delete")
     @ApiOperation("删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
-        venueSessionService.delete(dto.getId());
+        venueSitePriceService.delete(dto.getId());
         return RespBody.success();
     }
 }

@@ -1353,31 +1353,20 @@ CREATE TABLE `venue_site`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='场地信息表';
 
-DROP TABLE IF EXISTS venue_session;
-CREATE TABLE `venue_session`
+DROP TABLE IF EXISTS venue_site_price;
+CREATE TABLE `venue_site_price`
 (
-    `id`          bigint(20) NOT NULL COMMENT '主键',
-    `venue_id`    bigint(20)  DEFAULT NULL COMMENT '所属场馆id',
-    `title`       varchar(30) DEFAULT NULL COMMENT '场次名称',
-    `merchant_id` bigint(20)  DEFAULT NULL COMMENT '所属商户id',
-    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='场馆场次信息表';
-
-DROP TABLE IF EXISTS venue_session_price;
-CREATE TABLE `venue_session_price`
-(
-    `id`               bigint(20) NOT NULL COMMENT '主键',
-    `venue_id`         bigint(20)  DEFAULT NULL COMMENT '所属场馆id',
-    `venue_session_id` bigint(20) DEFAULT NULL COMMENT '所属场次',
-    `merchant_id`      bigint(20)  DEFAULT NULL COMMENT '所属商户id',
-    `start_time`       time        DEFAULT NULL COMMENT '开始时间',
-    `end_time`         time        DEFAULT NULL COMMENT '结束时间',
-    `price`            int(10)     DEFAULT '0' COMMENT '价格',
-    `create_time`      datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `id`            bigint(20) NOT NULL COMMENT '主键',
+    `venue_id`      bigint(20) DEFAULT NULL COMMENT '所属场馆id',
+    `venue_site_id` bigint(20) DEFAULT NULL COMMENT '场地id',
+    `merchant_id`   bigint(20) DEFAULT NULL COMMENT '所属商户id',
+    `start_time`    time       DEFAULT NULL COMMENT '开始时间',
+    `end_time`      time       DEFAULT NULL COMMENT '结束时间',
+    `now_date`      date       DEFAULT NULL COMMENT '当前日期',
+    `now_week`      tinyint(1) DEFAULT NULL COMMENT '星期几 1-7',
+    `price`         int(10)    DEFAULT '0' COMMENT '价格',
+    `state`         tinyint(1) DEFAULT '0' COMMENT '是否可预定 0:不可预定 1:可预定',
+    `create_time`   datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='场馆场次价格信息表';

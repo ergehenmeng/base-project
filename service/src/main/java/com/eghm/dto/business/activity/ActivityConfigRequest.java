@@ -27,19 +27,23 @@ public class ActivityConfigRequest extends DateComparator {
     @ApiModelProperty(value = "周期 1:星期一 2:星期二 ... 7:星期日", required = true)
     @NotEmpty(message = "请选择周期")
     public List<Integer> week;
+
     @ApiModelProperty(value = "活动名称", required = true)
     @Size(min = 2, max = 20, message = "活动名称长度2~20位")
     @NotBlank(message = "活动名称不能为空")
     @WordChecker(message = "活动名称存在敏感词")
     private String title;
+
     @ApiModelProperty(value = "开始日期yyyy-MM-dd", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "开始日期不能为空")
     private LocalDate startDate;
+
     @ApiModelProperty(value = "截止日期yyyy-MM-dd", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "截止日期不能为空")
     private LocalDate endDate;
+
     @ApiModelProperty(value = "开始时间HH:mm", required = true)
     @NotNull(message = "开始时间不能为空")
     private String startTime;

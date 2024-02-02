@@ -15,7 +15,7 @@ import java.time.LocalTime;
  */
 
 @Data
-public class SessionPriceRequest {
+public class PriceRequest {
 
     @ApiModelProperty(value = "开始时间(HH:mm)")
     @JsonFormat(pattern = "HH:mm")

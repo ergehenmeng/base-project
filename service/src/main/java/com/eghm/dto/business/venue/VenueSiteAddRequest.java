@@ -16,17 +16,17 @@ import javax.validation.constraints.Size;
 @Data
 public class VenueSiteAddRequest {
 
-    @ApiModelProperty(value = "场地名称")
+    @ApiModelProperty(value = "场地名称", required = true)
     @Size(min = 2, max = 20, message = "场地名称长度2~20位")
     @NotBlank(message = "场地名称不能为空")
     @WordChecker(message = "场地名称存在敏感词")
     private String title;
 
-    @ApiModelProperty(value = "所属场馆")
+    @ApiModelProperty(value = "所属场馆", required = true)
     @NotNull(message = "请选择所属场馆")
     private Long venueId;
 
-    @ApiModelProperty(value = "场地详细信息")
+    @ApiModelProperty(value = "场地详细信息", required = true)
     @NotBlank(message = "场地详细信息不能为空")
     @WordChecker(message = "场地详细信息存在敏感词")
     private String introduce;

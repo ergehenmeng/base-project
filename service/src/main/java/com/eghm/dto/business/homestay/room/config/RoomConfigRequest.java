@@ -1,5 +1,6 @@
 package com.eghm.dto.business.homestay.room.config;
 
+import com.eghm.annotation.Assign;
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.dto.ext.DateComparator;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -25,27 +26,33 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 public class RoomConfigRequest extends DateComparator {
 
-    @ApiModelProperty("周期")
+    @ApiModelProperty(value = "周期", required = true)
     @NotEmpty(message = "请选择周期")
     public List<Integer> week;
-    @ApiModelProperty("房型id")
+
+    @ApiModelProperty(value = "房型id", required = true)
     @NotNull(message = "房型id不能为空")
     private Long roomId;
+
     @ApiModelProperty(value = "民宿id", hidden = true)
+    @Assign
     private Long homestayId;
-    @ApiModelProperty("开始日期 yyyy-MM-dd")
+
+    @ApiModelProperty(value = "开始日期 yyyy-MM-dd", required = true)
     @NotNull(message = "开始日期不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
-    @ApiModelProperty("截止日期 yyyy-MM-dd")
+
+    @ApiModelProperty(value = "截止日期 yyyy-MM-dd", required = true)
     @NotNull(message = "截止日期不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
-    @ApiModelProperty("状态 false:不可用 true:可用")
+
+    @ApiModelProperty(value = "状态 false:不可用 true:可用", required = true)
     @NotNull(message = "是否可定不能为空")
     private Boolean state;
 
-    @ApiModelProperty("库存不能为空")
+    @ApiModelProperty(value = "库存不能为空", required = true)
     @Max(value = 9999, message = "最大库存9999")
     @Min(value = 0, message = "库存不能小于0")
     private Integer stock;
@@ -54,7 +61,7 @@ public class RoomConfigRequest extends DateComparator {
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer linePrice;
 
-    @ApiModelProperty("销售价")
+    @ApiModelProperty(value = "销售价", required = true)
     @JsonDeserialize(using = YuanToCentDecoder.class)
     @NotNull(message = "销售价不能为空")
     private Integer salePrice;
