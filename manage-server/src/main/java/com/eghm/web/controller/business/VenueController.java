@@ -1,17 +1,26 @@
 package com.eghm.web.controller.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.venue.VenueAddRequest;
 import com.eghm.dto.business.venue.VenueEditRequest;
+import com.eghm.dto.business.venue.VenueQueryRequest;
+import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Venue;
 import com.eghm.service.business.VenueService;
+import com.eghm.utils.ExcelUtil;
+import com.eghm.vo.business.venue.VenueResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -25,6 +34,14 @@ import org.springframework.web.bind.annotation.*;
 public class VenueController {
 
     private final VenueService venueService;
+
+    @GetMapping("/listPage")
+    @ApiOperation("订单列表")
+    public RespBody<PageData<VenueResponse>> listPage(VenueQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        Page<VenueResponse> byPage = venueService.listPage(request);
+        return RespBody.success(PageData.toPage(byPage));
+    }
 
     @PostMapping("/create")
     @ApiOperation("新增")
@@ -73,5 +90,13 @@ public class VenueController {
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         venueService.delete(dto.getId());
         return RespBody.success();
+    }
+
+    @GetMapping("/export")
+    @ApiOperation("导出")
+    public void export(HttpServletResponse response, VenueQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        List<VenueResponse> byPage = venueService.getList(request);
+        ExcelUtil.export(response, "场馆信息", byPage, VenueResponse.class);
     }
 }

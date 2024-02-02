@@ -8,6 +8,7 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.venue.VenueAddRequest;
 import com.eghm.dto.business.venue.VenueEditRequest;
 import com.eghm.dto.business.venue.VenueQueryDTO;
+import com.eghm.dto.business.venue.VenueQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
@@ -17,6 +18,7 @@ import com.eghm.service.business.CommonService;
 import com.eghm.service.business.VenueService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.venue.VenueDetailVO;
+import com.eghm.vo.business.venue.VenueResponse;
 import com.eghm.vo.business.venue.VenueVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +42,17 @@ public class VenueServiceImpl implements VenueService {
     private final VenueMapper venueMapper;
 
     private final CommonService commonService;
+
+    @Override
+    public Page<VenueResponse> listPage(VenueQueryRequest request) {
+        return venueMapper.listPage(request.createPage(), request);
+    }
+
+    @Override
+    public List<VenueResponse> getList(VenueQueryRequest request) {
+        Page<VenueResponse> listPage = venueMapper.listPage(request.createNullPage(), request);
+        return listPage.getRecords();
+    }
 
     @Override
     public void create(VenueAddRequest request) {
