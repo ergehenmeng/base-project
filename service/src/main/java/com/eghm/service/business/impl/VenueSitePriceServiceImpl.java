@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -13,6 +14,7 @@ import com.eghm.model.VenueSitePrice;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.VenueSitePriceService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.venue.VenueSitePriceVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.AopContext;
@@ -91,5 +93,14 @@ public class VenueSitePriceServiceImpl extends ServiceImpl<VenueSitePriceMapper,
         wrapper.eq(VenueSitePrice::getId, id);
         wrapper.eq(VenueSitePrice::getMerchantId, SecurityHolder.getMerchantId());
         baseMapper.delete(wrapper);
+    }
+
+    @Override
+    public List<VenueSitePriceVO> getPriceList(Long venueSiteId, LocalDate nowDate) {
+        LambdaQueryWrapper<VenueSitePrice> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(VenueSitePrice::getVenueSiteId, venueSiteId);
+        wrapper.eq(VenueSitePrice::getNowDate, nowDate);
+        List<VenueSitePrice> priceList = baseMapper.selectList(wrapper);
+        return DataUtil.copy(priceList, VenueSitePriceVO.class);
     }
 }

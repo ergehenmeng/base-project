@@ -4,6 +4,9 @@ import com.eghm.dto.business.venue.VenueSiteAddRequest;
 import com.eghm.dto.business.venue.VenueSiteEditRequest;
 import com.eghm.enums.ref.State;
 import com.eghm.model.VenueSite;
+import com.eghm.vo.business.venue.VenueSiteVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -59,4 +62,12 @@ public interface VenueSiteService {
      * @return 场地信息
      */
     VenueSite selectByIdRequired(Long id);
+
+    /**
+     * 获取场地信息
+     *
+     * @param venueId 场地id
+     * @return 场地信息
+     */
+    List<VenueSiteVO> getList(Long venueId);
 }

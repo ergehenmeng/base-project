@@ -12,11 +12,15 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.VenueSiteMapper;
 import com.eghm.model.VenueSite;
 import com.eghm.service.business.CommonService;
+import com.eghm.service.business.VenueSitePriceService;
 import com.eghm.service.business.VenueSiteService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.venue.VenueSiteVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -32,9 +36,11 @@ import org.springframework.stereotype.Service;
 @Service("venueSiteService")
 public class VenueSiteServiceImpl implements VenueSiteService {
 
+    private final CommonService commonService;
+
     private final VenueSiteMapper venueSiteMapper;
 
-    private final CommonService commonService;
+    private final VenueSitePriceService venueSitePriceService;
 
     @Override
     public void create(VenueSiteAddRequest request) {
@@ -93,6 +99,17 @@ public class VenueSiteServiceImpl implements VenueSiteService {
             throw new BusinessException(ErrorCode.VENUE_SITE_NULL);
         }
         return venueSite;
+    }
+
+    @Override
+    public List<VenueSiteVO> getList(Long venueId) {
+        LambdaQueryWrapper<VenueSite> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(VenueSite::getId, VenueSite::getTitle);
+        wrapper.eq(VenueSite::getVenueId, venueId);
+        wrapper.eq(VenueSite::getState, State.SHELVE);
+        wrapper.orderByDesc(VenueSite::getSort);
+        List<VenueSite> list = venueSiteMapper.selectList(wrapper);
+        return DataUtil.copy(list, VenueSiteVO.class);
     }
 
     /**

@@ -4,6 +4,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.eghm.dto.business.venue.VenueSitePriceRequest;
 import com.eghm.dto.business.venue.VenueSitePriceUpdateRequest;
 import com.eghm.model.VenueSitePrice;
+import com.eghm.vo.business.venue.VenueSitePriceVO;
+
+import java.time.LocalDate;
+import java.util.List;
 
 /**
  * <p>
@@ -35,4 +39,13 @@ public interface VenueSitePriceService extends IService<VenueSitePrice> {
      * @param id id
      */
     void delete(Long id);
+
+    /**
+     * 场次某一天的价格信息列表
+     *
+     * @param venueSiteId 场次id
+     * @param nowDate 日期
+     * @return 价格
+     */
+    List<VenueSitePriceVO> getPriceList(Long venueSiteId, LocalDate nowDate);
 }

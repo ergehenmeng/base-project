@@ -30,8 +30,4 @@ public class VenueSiteEditRequest {
     @NotNull(message = "请选择所属场馆")
     private Long venueId;
 
-    @ApiModelProperty(value = "场地详细信息", required = true)
-    @NotBlank(message = "场地详细信息不能为空")
-    @WordChecker(message = "场地详细信息存在敏感词")
-    private String introduce;
 }

@@ -33,7 +33,4 @@ public class VenueSite extends BaseEntity {
     @ApiModelProperty(value = "排序 小<->大")
     private Integer sort;
 
-    @ApiModelProperty(value = "场地详细信息")
-    private String introduce;
-
 }
