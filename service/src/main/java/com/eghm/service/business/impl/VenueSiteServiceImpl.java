@@ -3,18 +3,20 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.venue.VenueSiteAddRequest;
 import com.eghm.dto.business.venue.VenueSiteEditRequest;
+import com.eghm.dto.business.venue.VenueSiteQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.VenueSiteMapper;
 import com.eghm.model.VenueSite;
 import com.eghm.service.business.CommonService;
-import com.eghm.service.business.VenueSitePriceService;
 import com.eghm.service.business.VenueSiteService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.venue.VenueSiteResponse;
 import com.eghm.vo.business.venue.VenueSiteVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +42,10 @@ public class VenueSiteServiceImpl implements VenueSiteService {
 
     private final VenueSiteMapper venueSiteMapper;
 
-    private final VenueSitePriceService venueSitePriceService;
+    @Override
+    public Page<VenueSiteResponse> getByPage(VenueSiteQueryRequest request) {
+        return venueSiteMapper.getByPage(request.createPage(), request);
+    }
 
     @Override
     public void create(VenueSiteAddRequest request) {

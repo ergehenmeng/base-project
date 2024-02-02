@@ -1,7 +1,10 @@
 package com.eghm.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.venue.VenueSiteQueryRequest;
 import com.eghm.model.VenueSite;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.vo.business.venue.VenueSiteResponse;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface VenueSiteMapper extends BaseMapper<VenueSite> {
 
+    Page<VenueSiteResponse> getByPage(Page<VenueSiteResponse> page, VenueSiteQueryRequest request);
 }

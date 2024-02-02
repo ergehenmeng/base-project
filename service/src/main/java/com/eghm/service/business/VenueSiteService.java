@@ -1,9 +1,12 @@
 package com.eghm.service.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.venue.VenueSiteAddRequest;
 import com.eghm.dto.business.venue.VenueSiteEditRequest;
+import com.eghm.dto.business.venue.VenueSiteQueryRequest;
 import com.eghm.enums.ref.State;
 import com.eghm.model.VenueSite;
+import com.eghm.vo.business.venue.VenueSiteResponse;
 import com.eghm.vo.business.venue.VenueSiteVO;
 
 import java.util.List;
@@ -17,6 +20,14 @@ import java.util.List;
  * @since 2024-01-31
  */
 public interface VenueSiteService {
+
+    /**
+     * 分页获取场地信息
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<VenueSiteResponse> getByPage(VenueSiteQueryRequest request);
 
     /**
      * 新增场地信息
