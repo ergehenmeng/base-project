@@ -2,4 +2,71 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.VenueMapper">
 
+    <select id="getByPage" resultType="com.eghm.vo.business.venue.VenueVO" parameterType="com.eghm.dto.business.venue.VenueQueryDTO">
+        <choose>
+            <when test="param.sortByDistance != null">
+                <include refid="getByPageSortSql" />
+            </when>
+            <otherwise>
+                <include refid="getByPageSql"/>
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--无距离排序,不进行子查询-->
+    <sql id="getByPageSql">
+        select
+        t.id,
+        t.title,
+        t.venue_type,
+        t.cover_url,
+        t.longitude,
+        t.latitude,
+        <if test="param.longitude != null and param.latitude != null">
+            st_distance_sphere(point(t.longitude, t.latitude), point(#{param.longitude}, #{param.latitude})) as distance,
+        </if>
+        t.city_id as cityId,
+        t.county_id as countyId,
+        t.detail_address
+        from venue t
+        where t.state = 1 and t.deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        <if test="param.venueType != null">
+            and t.venue_type = #{param.venueType}
+        </if>
+    </sql>
+
+    <sql id="getByPageSortSql">
+        select s.* from ( select
+        t.id,
+        t.title,
+        t.venue_type,
+        t.cover_url,
+        t.longitude,
+        t.latitude,
+        st_distance_sphere(point(t.longitude, t.latitude), point(#{param.longitude}, #{param.latitude})) as distance,
+        t.city_id as cityId,
+        t.county_id as countyId,
+        t.detail_address
+        from venue t
+        where t.state = 1 and t.deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        <if test="param.venueType != null">
+            and t.venue_type = #{param.venueType}
+        </if>
+        ) s
+        <choose>
+            <when test="param.sortByDistance == 1">
+                order by s.distance, s.id desc
+            </when>
+            <when test="param.sortByDistance == 2">
+                order by s.distance desc, s.id desc
+            </when>
+        </choose>
+    </sql>
+
 </mapper>

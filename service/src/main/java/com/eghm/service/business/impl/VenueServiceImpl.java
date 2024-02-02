@@ -3,9 +3,11 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.venue.VenueAddRequest;
 import com.eghm.dto.business.venue.VenueEditRequest;
+import com.eghm.dto.business.venue.VenueQueryDTO;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
@@ -14,9 +16,13 @@ import com.eghm.model.Venue;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.VenueService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.venue.VenueDetailVO;
+import com.eghm.vo.business.venue.VenueVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -83,6 +89,22 @@ public class VenueServiceImpl implements VenueService {
             throw new BusinessException(ErrorCode.VENUE_NULL);
         }
         return venue;
+    }
+
+    @Override
+    public List<VenueVO> getByPage(VenueQueryDTO dto) {
+        Page<VenueVO> byPage = venueMapper.getByPage(dto.createPage(false), dto);
+        return byPage.getRecords();
+    }
+
+    @Override
+    public VenueDetailVO getDetail(Long id) {
+        Venue venue = this.selectByIdRequired(id);
+        if (venue.getState() != State.SHELVE) {
+            log.info("场馆信息不是待上架 [{}]", id);
+            throw new BusinessException(ErrorCode.VENUE_DOWN);
+        }
+        return DataUtil.copy(venue, VenueDetailVO.class);
     }
 
     /**

@@ -2,8 +2,13 @@ package com.eghm.service.business;
 
 import com.eghm.dto.business.venue.VenueAddRequest;
 import com.eghm.dto.business.venue.VenueEditRequest;
+import com.eghm.dto.business.venue.VenueQueryDTO;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Venue;
+import com.eghm.vo.business.venue.VenueDetailVO;
+import com.eghm.vo.business.venue.VenueVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -51,4 +56,20 @@ public interface VenueService {
      * @return 场馆信息
      */
     Venue selectByIdRequired(Long id);
+
+    /**
+     * 分页查询场馆信息
+     *
+     * @param dto 查询条件
+     * @return 列表
+     */
+    List<VenueVO> getByPage(VenueQueryDTO dto);
+
+    /**
+     * 获取场馆详情
+     *
+     * @param id id
+     * @return 场馆详情
+     */
+    VenueDetailVO getDetail(Long id);
 }

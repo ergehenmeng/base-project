@@ -1,7 +1,13 @@
 package com.eghm.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.venue.VenueQueryDTO;
 import com.eghm.model.Venue;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.vo.business.venue.VenueVO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +19,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface VenueMapper extends BaseMapper<Venue> {
 
+    /**
+     * 分页查询场馆信息
+     *
+     * @param page 分页
+     * @param dto 查询条件
+     * @return 列表
+     */
+    Page<VenueVO> getByPage(Page<VenueVO> page, @Param("param") VenueQueryDTO dto);
 }

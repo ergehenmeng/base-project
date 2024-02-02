@@ -1614,6 +1614,11 @@ public enum ErrorCode {
     VENUE_NULL(3864, "场馆信息未查询到"),
 
     /**
+     * 场馆信息不存在
+     */
+    VENUE_DOWN(3865, "场馆信息不存在"),
+
+    /**
      * 场地名称重复啦~
      */
     VENUE_SITE_REDO(3866, "场地名称重复啦~"),
