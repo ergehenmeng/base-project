@@ -1345,7 +1345,6 @@ CREATE TABLE `venue_site`
     `sort`        smallint(6) DEFAULT '999' COMMENT '排序',
     `merchant_id` bigint(20)  DEFAULT NULL COMMENT '所属商户',
     `state`       tinyint(1)  DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:强制下架',
-    `introduce`   text COMMENT '场地详细信息',
     `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
@@ -1370,3 +1369,40 @@ CREATE TABLE `venue_site_price`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='场馆场次价格信息表';
+
+DROP TABLE IF EXISTS venue_order;
+CREATE TABLE `venue_order`
+(
+    `id`             bigint(20) NOT NULL COMMENT '主键',
+    `venue_id`       bigint(20)     DEFAULT NULL COMMENT '场馆id',
+    `venue_site_id`  bigint(20)     DEFAULT NULL COMMENT '场地id',
+    `member_id`      bigint(20)     DEFAULT NULL COMMENT '下单人',
+    `title`          varchar(30)    DEFAULT NULL COMMENT '场馆名称',
+    `site_title`     varchar(30)    DEFAULT NULL COMMENT '场地名称',
+    `venue_type`     tinyint(2)     DEFAULT NULL COMMENT '场馆类型',
+    `cover_url`      varchar(200)   DEFAULT NULL COMMENT '场馆封面图',
+    `merchant_id`    bigint(20)     DEFAULT NULL COMMENT '所属商户',
+    `open_time`      varchar(20)    DEFAULT NULL COMMENT '营业时间',
+    `province_id`    bigint(20)     DEFAULT NULL COMMENT '省id',
+    `city_id`        bigint(20)     DEFAULT NULL COMMENT '城市id',
+    `county_id`      bigint(20)     DEFAULT NULL COMMENT '县区id',
+    `detail_address` varchar(200)   DEFAULT NULL COMMENT '详细地址',
+    `longitude`      decimal(10, 7) DEFAULT NULL COMMENT '经度',
+    `latitude`       decimal(10, 7) DEFAULT NULL COMMENT '纬度',
+    `telephone`      varchar(20)    DEFAULT NULL COMMENT '商家电话',
+    `visit_date`     date comment '预约日期',
+    `time_phase`     text comment '预约的时间段及价格(json)',
+    `introduce`      longtext COMMENT '场馆详细信息',
+    `create_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`    datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`        bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='场馆预约订单表';
+
+
+
+
+
+
+

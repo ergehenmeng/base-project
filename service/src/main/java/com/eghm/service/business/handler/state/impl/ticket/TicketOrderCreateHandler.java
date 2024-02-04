@@ -97,6 +97,10 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         order.setProductType(ProductType.TICKET);
         order.setCoverUrl(ticket.getCoverUrl());
         order.setOrderNo(ProductType.TICKET.generateOrderNo());
+        // 实名制购票,默认第一个作为订单人
+        if (CollUtil.isNotEmpty(context.getVisitorList())) {
+            order.setNickName(context.getVisitorList().get(0).getMemberName());
+        }
         order.setMobile(context.getMobile());
         order.setRemark(context.getRemark());
         order.setPrice(ticket.getSalePrice());
