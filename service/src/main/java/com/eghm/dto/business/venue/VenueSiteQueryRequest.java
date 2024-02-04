@@ -3,14 +3,11 @@ package com.eghm.dto.business.venue;
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.State;
-import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  * @author 二哥很猛
