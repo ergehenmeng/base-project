@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * @author 二哥很猛
  * @since 2024/2/4
  */
-@Service("voucherOrderCreateHandler")
+@Service("venueOrderCreateHandler")
 @Slf4j
 public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrderCreateContext, VenueOrderPayload> {
 

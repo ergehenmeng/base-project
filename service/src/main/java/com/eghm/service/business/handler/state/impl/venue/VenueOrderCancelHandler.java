@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @since 2024/2/4
  */
-@Service("voucherOrderCancelHandler")
+@Service("venueOrderCancelHandler")
 @Slf4j
 public class VenueOrderCancelHandler extends AbstractOrderCancelHandler {
 
