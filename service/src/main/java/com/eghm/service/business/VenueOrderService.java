@@ -27,4 +27,12 @@ public interface VenueOrderService {
      * @return 订单信息
      */
     VenueOrder getByOrderNo(String orderNo);
+
+    /**
+     * 更新预约订单库存
+     *
+     * @param orderNo 订单编号
+     * @param num +:增加库存 -:减少库存
+     */
+    void updateStock(String orderNo, Integer num);
 }

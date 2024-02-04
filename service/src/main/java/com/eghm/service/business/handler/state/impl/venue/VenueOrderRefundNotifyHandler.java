@@ -7,7 +7,6 @@ import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.model.VoucherOrder;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundNotifyHandler;
@@ -20,23 +19,19 @@ import org.springframework.stereotype.Service;
  * @author 殿小二
  * @since 2024/2/4
  */
-@Service("voucherOrderRefundNotifyHandler")
+@Service("venueOrderRefundNotifyHandler")
 @Slf4j
 public class VenueOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandler {
 
-    private final VoucherService voucherService;
-
-    private final VoucherOrderService voucherOrderService;
+    private final VenueOrderService venueOrderService;
 
     private final OrderMQService orderMQService;
 
     public VenueOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                          AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
-                                         VoucherService voucherService, VoucherOrderService voucherOrderService,
-                                         OrderMQService orderMQService) {
+                                         VenueOrderService venueOrderService, OrderMQService orderMQService) {
         super(orderService, orderRefundLogService, aggregatePayService, verifyLogService);
-        this.voucherService = voucherService;
-        this.voucherOrderService = voucherOrderService;
+        this.venueOrderService = venueOrderService;
         this.orderMQService = orderMQService;
     }
 
@@ -45,10 +40,9 @@ public class VenueOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHand
         super.after(dto, order, refundLog, refundStatus);
         if (refundStatus == RefundStatus.SUCCESS || refundStatus == RefundStatus.REFUND_SUCCESS) {
             try {
-                VoucherOrder voucherOrder = voucherOrderService.getByOrderNo(order.getOrderNo());
-                voucherService.updateStock(voucherOrder.getVoucherId(), refundLog.getNum());
+                venueOrderService.updateStock(order.getOrderNo(), 1);
             } catch (Exception e) {
-                log.error("餐饮券退款成功,但更新库存失败 [{}] [{}] ", dto, refundLog.getNum(), e);
+                log.error("场馆退款成功,但更新库存失败 [{}] [{}] ", dto, refundLog.getNum(), e);
             }
         }
         if (order.getState() == OrderState.COMPLETE) {

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * @author wyb
  * @since 2024/2/4
  */
-@Service("voucherOrderPaySuccessHandler")
+@Service("venueOrderPaySuccessHandler")
 public class VenueOrderPaySuccessHandler extends AbstractOrderPaySuccessHandler {
 
     public VenueOrderPaySuccessHandler(OrderService orderService, OrderVisitorService orderVisitorService) {
