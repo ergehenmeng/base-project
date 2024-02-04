@@ -781,7 +781,7 @@ public enum ErrorCode {
     /**
      * 门票单次购买上限为%s张
      */
-    TICKET_QUOTA(3156, "单次购买上限为%s张"),
+    TICKET_QUOTA(3258, "单次购买上限为%s张"),
 
     /**
      * 订单类型不匹配
@@ -997,6 +997,11 @@ public enum ErrorCode {
      * 门票订单未查询到
      */
     TICKET_ORDER_NULL(3207, "门票订单未查询到"),
+
+    /**
+     * 免费票无需退款
+     */
+    TICKET_ORDER_FREE(3209, "免费票无需退款"),
 
     /**
      * 商品类型不匹配

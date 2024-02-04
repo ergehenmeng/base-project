@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 @Service("orderMQService")
 public class OrderMQServiceImpl implements OrderMQService {
 
-    private final MessageService rabbitService;
+    private final MessageService messageService;
 
     private final SysConfigApi sysConfigApi;
 
@@ -32,13 +32,13 @@ public class OrderMQServiceImpl implements OrderMQService {
     public void sendOrderExpireMessage(ExchangeQueue exchangeQueue, String orderNo) {
         int expireTime = sysConfigApi.getInt(ConfigConstant.ORDER_EXPIRE_TIME);
         log.info("订单过期延迟队列发送消息 [{}] [{}]", exchangeQueue, orderNo);
-        rabbitService.sendDelay(exchangeQueue, orderNo, expireTime);
+        messageService.sendDelay(exchangeQueue, orderNo, expireTime);
     }
 
     @Override
     public void sendOrderCreateMessage(ExchangeQueue exchangeQueue, AsyncKey context) {
         context.setKey(IdUtil.fastSimpleUUID());
-        rabbitService.sendAsync(exchangeQueue, context);
+        messageService.sendAsync(exchangeQueue, context);
     }
 
     @Override
@@ -46,10 +46,10 @@ public class OrderMQServiceImpl implements OrderMQService {
         // 事务提交后再进行发送消息
         TransactionUtil.afterCommit(() -> {
             log.info("订单完成发送实时消息 [{}] [{}]", exchangeQueue, orderNo);
-            rabbitService.send(ExchangeQueue.ORDER_COMPLETE, orderNo);
+            messageService.send(ExchangeQueue.ORDER_COMPLETE, orderNo);
             int completeTime = sysConfigApi.getInt(ConfigConstant.ORDER_COMPLETE_TIME);
             log.info("订单完成发送延迟消息 [{}] [{}]", exchangeQueue, orderNo);
-            rabbitService.sendDelay(exchangeQueue, orderNo, completeTime);
+            messageService.sendDelay(exchangeQueue, orderNo, completeTime);
         });
     }
 

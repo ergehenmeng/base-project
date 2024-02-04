@@ -25,6 +25,11 @@ public enum ExchangeQueue {
     TICKET_PAY_EXPIRE("ticket_pay_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.TICKET_PAY_EXPIRE_QUEUE}, "", true),
 
     /**
+     * 场馆订单未支付时取消队列 延迟队列
+     */
+    VENUE_PAY_EXPIRE("venue_pay_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.VENUE_PAY_EXPIRE_QUEUE}, "", true),
+
+    /**
      * 门票订单未支付时取消队列 延迟队列
      */
     HOMESTAY_PAY_EXPIRE("homestay_pay_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.HOMESTAY_PAY_EXPIRE_QUEUE}, "", true),

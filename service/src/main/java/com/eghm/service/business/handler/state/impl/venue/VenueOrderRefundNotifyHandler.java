@@ -1,13 +1,14 @@
 package com.eghm.service.business.handler.state.impl.venue;
 
-import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VenueEvent;
-import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.service.business.*;
+import com.eghm.service.business.OrderRefundLogService;
+import com.eghm.service.business.OrderService;
+import com.eghm.service.business.VenueOrderService;
+import com.eghm.service.business.VerifyLogService;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundNotifyHandler;
 import com.eghm.service.pay.AggregatePayService;
@@ -25,14 +26,11 @@ public class VenueOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHand
 
     private final VenueOrderService venueOrderService;
 
-    private final OrderMQService orderMQService;
-
     public VenueOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                          AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
-                                         VenueOrderService venueOrderService, OrderMQService orderMQService) {
+                                         VenueOrderService venueOrderService) {
         super(orderService, orderRefundLogService, aggregatePayService, verifyLogService);
         this.venueOrderService = venueOrderService;
-        this.orderMQService = orderMQService;
     }
 
     @Override
@@ -44,9 +42,6 @@ public class VenueOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHand
             } catch (Exception e) {
                 log.error("场馆退款成功,但更新库存失败 [{}] [{}] ", dto, refundLog.getNum(), e);
             }
-        }
-        if (order.getState() == OrderState.COMPLETE) {
-            orderMQService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE_DELAY, order.getOrderNo());
         }
     }
 

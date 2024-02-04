@@ -5,25 +5,31 @@ import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VenueEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
-import com.eghm.service.business.*;
+import com.eghm.service.business.CommonService;
+import com.eghm.service.business.OrderService;
+import com.eghm.service.business.OrderVisitorService;
+import com.eghm.service.business.VerifyLogService;
 import com.eghm.service.business.handler.context.OrderVerifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderVerifyHandler;
 import com.eghm.service.common.JsonService;
+import com.eghm.service.mq.service.MessageService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
  * @author wyb
  * @since 2024/2/4
  */
+@Slf4j
 @Service("venueOrderVerifyHandler")
 public class VenueOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
-    private final OrderMQService orderMQService;
+    private final MessageService messageService;
 
     public VenueOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService,
-                                   JsonService jsonService, OrderMQService orderMQService, CommonService commonService) {
+                                   JsonService jsonService, MessageService messageService, CommonService commonService) {
         super(orderVisitorService, orderService, verifyLogService, jsonService, commonService);
-        this.orderMQService = orderMQService;
+        this.messageService = messageService;
     }
 
     @Override
@@ -33,7 +39,8 @@ public class VenueOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     @Override
     protected void end(OrderVerifyContext context, Order order) {
-        orderMQService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE_DELAY, context.getOrderNo());
+        log.info("场馆订单完成发送实时消息 [{}]", order.getOrderNo());
+        messageService.send(ExchangeQueue.ORDER_COMPLETE, order.getOrderNo());
     }
 
     @Override

@@ -24,6 +24,11 @@ public class QueueConstant {
     public static final String TICKET_PAY_EXPIRE_QUEUE = "ticket_pay_expire_queue";
 
     /**
+     * 场馆预约过期队列
+     */
+    public static final String VENUE_PAY_EXPIRE_QUEUE = "venue_pay_expire_queue";
+
+    /**
      * 民宿过期队列
      */
     public static final String HOMESTAY_PAY_EXPIRE_QUEUE = "homestay_pay_expire_queue";
