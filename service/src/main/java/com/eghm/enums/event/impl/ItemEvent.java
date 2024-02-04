@@ -27,11 +27,6 @@ public enum ItemEvent implements IEvent {
     CREATE_QUEUE(Lists.newArrayList(OrderState.NONE.getValue()), OrderState.UN_PAY.getValue()),
 
     /**
-     * 支付处理中
-     */
-    PAYING(Lists.newArrayList(OrderState.UN_PAY.getValue()), OrderState.PROGRESS.getValue()),
-
-    /**
      * 支付成功
      */
     PAY_SUCCESS(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.UN_USED.getValue()),
@@ -45,11 +40,6 @@ public enum ItemEvent implements IEvent {
      * 核销
      */
     VERIFY(Lists.newArrayList(OrderState.WAIT_TAKE.getValue()), OrderState.COMPLETE.getValue()),
-
-    /**
-     * 确认
-     */
-    CONFIRM(Lists.newArrayList(OrderState.WAIT_RECEIVE.getValue()), OrderState.COMPLETE.getValue()),
 
     /**
      * 订单取消

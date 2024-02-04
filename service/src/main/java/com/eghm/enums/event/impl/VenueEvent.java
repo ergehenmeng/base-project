@@ -22,16 +22,6 @@ public enum VenueEvent implements IEvent {
     CREATE(Lists.newArrayList(OrderState.NONE.getValue()), OrderState.UN_PAY.getValue()),
 
     /**
-     * 创建订单 消息队列方式
-     */
-    CREATE_QUEUE(Lists.newArrayList(OrderState.NONE.getValue()), OrderState.UN_PAY.getValue()),
-
-    /**
-     * 支付处理中
-     */
-    PAYING(Lists.newArrayList(OrderState.UN_PAY.getValue()), OrderState.PROGRESS.getValue()),
-
-    /**
      * 支付成功
      */
     PAY_SUCCESS(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.UN_USED.getValue()),
@@ -65,21 +55,6 @@ public enum VenueEvent implements IEvent {
      * 支付失败
      */
     PAY_FAIL(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.PAY_ERROR.getValue()),
-
-    /**
-     * 退款失败
-     */
-    REFUND_FAIL(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.REFUND_ERROR.getValue()),
-
-    /**
-     * 退款审核通过
-     */
-    REFUND_PASS(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
-
-    /**
-     * 退款审核拒绝
-     */
-    REFUND_REFUSE(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
     ;
 
     private final List<Integer> from;

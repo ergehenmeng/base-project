@@ -40,6 +40,7 @@ public class StateHandler {
         this.registerStateMachine(ProductType.LINE);
         this.registerStateMachine(ProductType.ITEM);
         this.registerStateMachine(ProductType.RESTAURANT);
+        this.registerStateMachine(ProductType.VENUE);
     }
 
     /**

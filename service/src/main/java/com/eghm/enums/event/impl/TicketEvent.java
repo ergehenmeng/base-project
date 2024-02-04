@@ -29,11 +29,6 @@ public enum TicketEvent implements IEvent {
     CREATE_QUEUE(Lists.newArrayList(OrderState.NONE.getValue()), OrderState.UN_PAY.getValue()),
 
     /**
-     * 支付处理中
-     */
-    PAYING(Lists.newArrayList(OrderState.UN_PAY.getValue()), OrderState.PROGRESS.getValue()),
-
-    /**
      * 支付成功(订单已取消时,如果支付已经发起依旧可以支付成功)
      */
     PAY_SUCCESS(Lists.newArrayList(OrderState.CLOSE.getValue(), OrderState.PROGRESS.getValue()), OrderState.UN_USED.getValue()),
@@ -47,16 +42,6 @@ public enum TicketEvent implements IEvent {
      * 核销
      */
     VERIFY(Lists.newArrayList(OrderState.UN_USED.getValue(), OrderState.REFUND.getValue(), OrderState.REFUND_ERROR.getValue()), OrderState.COMPLETE.getValue()),
-
-    /**
-     * 确认
-     */
-    CONFIRM(Lists.newArrayList(OrderState.WAIT_RECEIVE.getValue()), OrderState.COMPLETE.getValue()),
-
-    /**
-     * 自动确认
-     */
-    AUTO_CONFIRM(Lists.newArrayList(OrderState.WAIT_RECEIVE.getValue()), OrderState.COMPLETE.getValue()),
 
     /**
      * 订单取消

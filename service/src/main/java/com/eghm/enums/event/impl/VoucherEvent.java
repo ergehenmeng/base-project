@@ -27,11 +27,6 @@ public enum VoucherEvent implements IEvent {
     CREATE_QUEUE(Lists.newArrayList(OrderState.NONE.getValue()), OrderState.UN_PAY.getValue()),
 
     /**
-     * 支付处理中
-     */
-    PAYING(Lists.newArrayList(OrderState.UN_PAY.getValue()), OrderState.PROGRESS.getValue()),
-
-    /**
      * 支付成功
      */
     PAY_SUCCESS(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.UN_USED.getValue()),
