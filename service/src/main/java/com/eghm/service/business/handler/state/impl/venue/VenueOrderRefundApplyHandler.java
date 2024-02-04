@@ -1,7 +1,7 @@
-package com.eghm.service.business.handler.state.impl.voucher;
+package com.eghm.service.business.handler.state.impl.venue;
 
 import com.eghm.enums.event.IEvent;
-import com.eghm.enums.event.impl.VoucherEvent;
+import com.eghm.enums.event.impl.VenueEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.model.VoucherOrder;
@@ -15,15 +15,15 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author 二哥很猛
- * @since 2022/8/25
+ * @since 2024/2/4
  */
 @Slf4j
 @Service("voucherOrderRefundApplyHandler")
-public class VoucherOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler {
+public class VenueOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler {
 
     private final VoucherOrderService voucherOrderService;
 
-    public VoucherOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, VoucherOrderService voucherOrderService) {
+    public VenueOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, VoucherOrderService voucherOrderService) {
         super(orderService, orderRefundLogService, orderVisitorService);
         this.voucherOrderService = voucherOrderService;
     }
@@ -36,11 +36,11 @@ public class VoucherOrderRefundApplyHandler extends AbstractOrderRefundApplyHand
 
     @Override
     public IEvent getEvent() {
-        return VoucherEvent.REFUND_APPLY;
+        return VenueEvent.REFUND_APPLY;
     }
 
     @Override
     public ProductType getStateMachineType() {
-        return ProductType.RESTAURANT;
+        return ProductType.VENUE;
     }
 }

@@ -10,11 +10,11 @@ import java.util.List;
 
 /**
  * @author wyb
- * @since 2023/5/17
+ * @since 2024/2/4
  */
 @Getter
 @AllArgsConstructor
-public enum RestaurantEvent implements IEvent {
+public enum VoucherEvent implements IEvent {
 
     /**
      * 创建订单

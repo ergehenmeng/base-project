@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @since 2022/8/20
  */
-@Service("ticketOrderExpireHandler")
+@Service("ticketOrderAutoCancelHandler")
 @Slf4j
 public class TicketOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler {
 

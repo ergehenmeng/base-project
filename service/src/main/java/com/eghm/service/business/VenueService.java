@@ -77,6 +77,14 @@ public interface VenueService {
     Venue selectByIdRequired(Long id);
 
     /**
+     * 获取场馆信息 未上架抛异常
+     *
+     * @param id id
+     * @return 场馆信息
+     */
+    Venue selectByIdShelve(Long id);
+
+    /**
      * 分页查询场馆信息
      *
      * @param dto 查询条件

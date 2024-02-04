@@ -107,6 +107,16 @@ public class VenueSiteServiceImpl implements VenueSiteService {
     }
 
     @Override
+    public VenueSite selectByIdShelve(Long id) {
+        VenueSite venueSite = this.selectByIdRequired(id);
+        if (venueSite.getState() != State.SHELVE) {
+            log.info("场次信息信息已下架 [{}] [{}]", id, venueSite.getState());
+            throw new BusinessException(ErrorCode.VENUE_SITE_DOWN);
+        }
+        return venueSite;
+    }
+
+    @Override
     public List<VenueSiteVO> getList(Long venueId) {
         LambdaQueryWrapper<VenueSite> wrapper = Wrappers.lambdaQuery();
         wrapper.select(VenueSite::getId, VenueSite::getTitle);

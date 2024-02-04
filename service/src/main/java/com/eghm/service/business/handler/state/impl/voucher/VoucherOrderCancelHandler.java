@@ -1,7 +1,7 @@
 package com.eghm.service.business.handler.state.impl.voucher;
 
 import com.eghm.enums.event.IEvent;
-import com.eghm.enums.event.impl.RestaurantEvent;
+import com.eghm.enums.event.impl.VoucherEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.model.VoucherOrder;
@@ -39,7 +39,7 @@ public class VoucherOrderCancelHandler extends AbstractOrderCancelHandler {
 
     @Override
     public IEvent getEvent() {
-        return RestaurantEvent.CANCEL;
+        return VoucherEvent.CANCEL;
     }
 
     @Override

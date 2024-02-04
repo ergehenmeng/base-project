@@ -1,7 +1,7 @@
 package com.eghm.service.business.handler.state.impl.voucher;
 
 import com.eghm.enums.event.IEvent;
-import com.eghm.enums.event.impl.RestaurantEvent;
+import com.eghm.enums.event.impl.VoucherEvent;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.VoucherOrderCreateContext;
 import com.eghm.service.business.handler.dto.VoucherOrderPayload;
@@ -22,7 +22,7 @@ public class VoucherOrderCreateQueueHandler extends VoucherOrderCreateHandler {
 
     @Override
     public IEvent getEvent() {
-        return RestaurantEvent.CREATE_QUEUE;
+        return VoucherEvent.CREATE_QUEUE;
     }
 
     @Override

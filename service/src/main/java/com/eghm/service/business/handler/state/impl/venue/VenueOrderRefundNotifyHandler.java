@@ -1,8 +1,8 @@
-package com.eghm.service.business.handler.state.impl.voucher;
+package com.eghm.service.business.handler.state.impl.venue;
 
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
-import com.eghm.enums.event.impl.VoucherEvent;
+import com.eghm.enums.event.impl.VenueEvent;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
@@ -18,11 +18,11 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author 殿小二
- * @since 2022/9/3
+ * @since 2024/2/4
  */
 @Service("voucherOrderRefundNotifyHandler")
 @Slf4j
-public class VoucherOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandler {
+public class VenueOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandler {
 
     private final VoucherService voucherService;
 
@@ -30,10 +30,10 @@ public class VoucherOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHa
 
     private final OrderMQService orderMQService;
 
-    public VoucherOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
-                                           AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
-                                           VoucherService voucherService, VoucherOrderService voucherOrderService,
-                                           OrderMQService orderMQService) {
+    public VenueOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
+                                         AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
+                                         VoucherService voucherService, VoucherOrderService voucherOrderService,
+                                         OrderMQService orderMQService) {
         super(orderService, orderRefundLogService, aggregatePayService, verifyLogService);
         this.voucherService = voucherService;
         this.voucherOrderService = voucherOrderService;
@@ -58,11 +58,11 @@ public class VoucherOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHa
 
     @Override
     public IEvent getEvent() {
-        return VoucherEvent.REFUND_SUCCESS;
+        return VenueEvent.REFUND_SUCCESS;
     }
 
     @Override
     public ProductType getStateMachineType() {
-        return ProductType.RESTAURANT;
+        return ProductType.VENUE;
     }
 }

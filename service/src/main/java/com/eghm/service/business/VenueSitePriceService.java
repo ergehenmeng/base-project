@@ -48,4 +48,13 @@ public interface VenueSitePriceService extends IService<VenueSitePrice> {
      * @return 价格
      */
     List<VenueSitePriceVO> getPriceList(Long venueSiteId, LocalDate nowDate);
+
+    /**
+     * 更新场次库存
+     *
+     * @param ids  ids
+     * @param num -:扣减库存 +:增加库存
+     */
+    void updateStock(List<Long> ids, Integer num);
+
 }

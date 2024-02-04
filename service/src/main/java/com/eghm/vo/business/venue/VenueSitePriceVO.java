@@ -35,6 +35,12 @@ public class VenueSitePriceVO {
     @ApiModelProperty("星期几 1-7")
     private Integer nowWeek;
 
+    @ApiModelProperty("可预订数量 默认1")
+    private Integer stock;
+
+    @ApiModelProperty("是否可预定 0:不可预定 1:可预定")
+    private Integer state;
+
     @ApiModelProperty(value = "价格")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer price;

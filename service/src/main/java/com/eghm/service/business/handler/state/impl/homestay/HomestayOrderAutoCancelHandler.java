@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @since 2022/8/23
  */
-@Service("homestayOrderExpireHandler")
+@Service("homestayOrderAutoCancelHandler")
 @Slf4j
 public class HomestayOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler {
 

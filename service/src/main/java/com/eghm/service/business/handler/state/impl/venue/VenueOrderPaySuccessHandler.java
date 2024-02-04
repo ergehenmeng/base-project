@@ -1,7 +1,7 @@
-package com.eghm.service.business.handler.state.impl.voucher;
+package com.eghm.service.business.handler.state.impl.venue;
 
 import com.eghm.enums.event.IEvent;
-import com.eghm.enums.event.impl.VoucherEvent;
+import com.eghm.enums.event.impl.VenueEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
@@ -10,22 +10,22 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author wyb
- * @since 2023/5/30
+ * @since 2024/2/4
  */
 @Service("voucherOrderPaySuccessHandler")
-public class VoucherOrderPaySuccessHandler extends AbstractOrderPaySuccessHandler {
+public class VenueOrderPaySuccessHandler extends AbstractOrderPaySuccessHandler {
 
-    public VoucherOrderPaySuccessHandler(OrderService orderService, OrderVisitorService orderVisitorService) {
+    public VenueOrderPaySuccessHandler(OrderService orderService, OrderVisitorService orderVisitorService) {
         super(orderService, orderVisitorService);
     }
 
     @Override
     public IEvent getEvent() {
-        return VoucherEvent.PAY_SUCCESS;
+        return VenueEvent.PAY_SUCCESS;
     }
 
     @Override
     public ProductType getStateMachineType() {
-        return ProductType.RESTAURANT;
+        return ProductType.VENUE;
     }
 }

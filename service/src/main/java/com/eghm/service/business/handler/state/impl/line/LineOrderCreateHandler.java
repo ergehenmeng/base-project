@@ -92,20 +92,15 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         order.setRefundDescribe(payload.getLine().getRefundDescribe());
         order.setState(OrderState.UN_PAY);
         order.setProductType(ProductType.LINE);
-        order.setMemberId(context.getMemberId());
         order.setMerchantId(payload.getTravelAgency().getMerchantId());
         order.setStoreId(payload.getTravelAgency().getId());
         order.setCoverUrl(payload.getLine().getCoverUrl());
         order.setOrderNo(ProductType.LINE.generateOrderNo());
-        order.setRemark(context.getRemark());
-        order.setNum(context.getNum());
         order.setTitle(payload.getLine().getTitle());
         order.setPrice(payload.getConfig().getSalePrice());
         order.setPayAmount(order.getNum() * order.getPrice());
         order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         order.setMultiple(false);
-        order.setMobile(context.getMobile());
-        order.setNickName(context.getNickName());
         // 使用优惠券
         this.useDiscount(order, context.getMemberId(), context.getCouponId(), context.getLineId());
         orderService.save(order);

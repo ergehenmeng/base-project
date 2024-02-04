@@ -1,0 +1,30 @@
+package com.eghm.dto.ext;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.time.LocalTime;
+
+/**
+ * @author 二哥很猛
+ * @since 2024/2/4
+ */
+
+@Data
+public class VenuePhase {
+
+    @ApiModelProperty(value = "主键")
+    private Long id;
+
+    @ApiModelProperty(value = "开始时间")
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime startTime;
+
+    @ApiModelProperty(value = "结束时间")
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime endTime;
+
+    @ApiModelProperty(value = "价格")
+    private Integer price;
+}

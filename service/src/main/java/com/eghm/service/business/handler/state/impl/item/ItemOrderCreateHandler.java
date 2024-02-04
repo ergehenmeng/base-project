@@ -172,7 +172,6 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         order.setMobile(address.getMobile());
         order.setCoverUrl(this.getFirstCoverUrl(packageList));
         order.setTitle(this.getTitle(packageList));
-        order.setMemberId(context.getMemberId());
         order.setMultiple(multiple);
         order.setRefundType(this.getRefundType(packageList));
         order.setProductType(ProductType.ITEM);
@@ -183,7 +182,6 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         order.setPayAmount(itemAmount + expressAmount);
         order.setLimitId(context.getLimitId());
         order.setMerchantId(entry.getValue().get(0).getItemStore().getMerchantId());
-        order.setRemark(context.getRemark());
         return order;
     }
 

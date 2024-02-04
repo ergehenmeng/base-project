@@ -7,7 +7,7 @@ import com.eghm.dto.business.order.homestay.HomestayOrderCreateDTO;
 import com.eghm.dto.business.order.item.ItemOrderCreateDTO;
 import com.eghm.dto.business.order.line.LineOrderCreateDTO;
 import com.eghm.dto.business.order.refund.*;
-import com.eghm.dto.business.order.restaurant.VoucherOrderCreateDTO;
+import com.eghm.dto.business.order.voucher.VoucherOrderCreateDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderCreateDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.AsyncKey;

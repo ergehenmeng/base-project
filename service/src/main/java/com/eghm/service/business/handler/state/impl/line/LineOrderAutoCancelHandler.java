@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @author 殿小二
  * @since 2022/9/3
  */
-@Service("lineOrderExpireHandler")
+@Service("lineOrderAutoCancelHandler")
 public class LineOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler {
 
     private final LineOrderService lineOrderService;

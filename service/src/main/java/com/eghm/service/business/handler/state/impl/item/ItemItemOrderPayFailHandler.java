@@ -19,7 +19,7 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2022/9/9
  */
-@Service("itemPayFailHandler")
+@Service("itemItemOrderPayFailHandler")
 @Slf4j
 public class ItemItemOrderPayFailHandler extends AbstractItemOrderPayNotifyHandler {
 

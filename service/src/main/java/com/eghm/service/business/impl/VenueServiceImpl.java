@@ -105,6 +105,16 @@ public class VenueServiceImpl implements VenueService {
     }
 
     @Override
+    public Venue selectByIdShelve(Long id) {
+        Venue venue = this.selectByIdRequired(id);
+        if (venue.getState() != State.SHELVE) {
+            log.info("场馆信息信息已下架 [{}] [{}]", id, venue.getState());
+            throw new BusinessException(ErrorCode.VENUE_DOWN);
+        }
+        return venue;
+    }
+
+    @Override
     public List<VenueVO> getByPage(VenueQueryDTO dto) {
         Page<VenueVO> byPage = venueMapper.getByPage(dto.createPage(false), dto);
         return byPage.getRecords();
@@ -112,11 +122,7 @@ public class VenueServiceImpl implements VenueService {
 
     @Override
     public VenueDetailVO getDetail(Long id) {
-        Venue venue = this.selectByIdRequired(id);
-        if (venue.getState() != State.SHELVE) {
-            log.info("场馆信息不是待上架 [{}]", id);
-            throw new BusinessException(ErrorCode.VENUE_DOWN);
-        }
+        Venue venue = this.selectByIdShelve(id);
         return DataUtil.copy(venue, VenueDetailVO.class);
     }
 

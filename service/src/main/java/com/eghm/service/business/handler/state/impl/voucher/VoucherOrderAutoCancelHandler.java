@@ -1,7 +1,7 @@
 package com.eghm.service.business.handler.state.impl.voucher;
 
 import com.eghm.enums.event.IEvent;
-import com.eghm.enums.event.impl.RestaurantEvent;
+import com.eghm.enums.event.impl.VoucherEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.model.VoucherOrder;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @since 2022/8/25
  */
-@Service("voucherOrderExpireHandler")
+@Service("voucherOrderAutoCancelHandler")
 @Slf4j
 public class VoucherOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler {
 
@@ -39,7 +39,7 @@ public class VoucherOrderAutoCancelHandler extends AbstractOrderAutoCancelHandle
 
     @Override
     public IEvent getEvent() {
-        return RestaurantEvent.AUTO_CANCEL;
+        return VoucherEvent.AUTO_CANCEL;
     }
 
     @Override

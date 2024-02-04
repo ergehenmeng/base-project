@@ -1,4 +1,4 @@
-package com.eghm.dto.business.order.restaurant;
+package com.eghm.dto.business.order.voucher;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;

@@ -3,7 +3,7 @@ package com.eghm.service.business.handler.state.impl.voucher;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
-import com.eghm.enums.event.impl.RestaurantEvent;
+import com.eghm.enums.event.impl.VoucherEvent;
 import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
@@ -79,10 +79,7 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
         order.setMerchantId(payload.getRestaurant().getMerchantId());
         order.setStoreId(payload.getRestaurant().getId());
         order.setState(OrderState.UN_PAY);
-        order.setMemberId(context.getMemberId());
         order.setOrderNo(ProductType.RESTAURANT.generateOrderNo());
-        order.setRemark(context.getRemark());
-        order.setNum(context.getNum());
         order.setTitle(voucher.getTitle());
         order.setPrice(voucher.getSalePrice());
         order.setPayAmount(order.getNum() * order.getPrice());
@@ -91,8 +88,6 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
         order.setProductType(ProductType.RESTAURANT);
         order.setRefundType(voucher.getRefundType());
         order.setRefundDescribe(voucher.getRefundDescribe());
-        order.setNickName(context.getNickName());
-        order.setMobile(context.getMobile());
         // 使用优惠券
         this.useDiscount(order, context.getMemberId(), context.getCouponId(), voucher.getId());
         orderService.save(order);
@@ -128,7 +123,7 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
 
     @Override
     public IEvent getEvent() {
-        return RestaurantEvent.CREATE;
+        return VoucherEvent.CREATE;
     }
 
     @Override

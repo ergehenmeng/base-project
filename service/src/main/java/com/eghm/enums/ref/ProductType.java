@@ -54,8 +54,15 @@ public enum ProductType {
      */
     LINE("line", "线路", "XL", new OrderState[]{
             OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.COMPLETE, OrderState.CLOSE
-    });
+    }),
 
+
+    /**
+     * 场馆
+     */
+    VENUE("venue", "场馆预约", "YY", new OrderState[]{
+        OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.COMPLETE, OrderState.CLOSE
+    });
     /**
      * 值
      */

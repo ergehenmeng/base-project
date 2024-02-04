@@ -9,6 +9,8 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.venue.PriceRequest;
 import com.eghm.dto.business.venue.VenueSitePriceRequest;
 import com.eghm.dto.business.venue.VenueSitePriceUpdateRequest;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.mapper.VenueSitePriceMapper;
 import com.eghm.model.VenueSitePrice;
 import com.eghm.service.business.CommonService;
@@ -103,4 +105,14 @@ public class VenueSitePriceServiceImpl extends ServiceImpl<VenueSitePriceMapper,
         List<VenueSitePrice> priceList = baseMapper.selectList(wrapper);
         return DataUtil.copy(priceList, VenueSitePriceVO.class);
     }
+
+    @Override
+    public void updateStock(List<Long> ids, Integer num) {
+        int updated = baseMapper.updateStock(ids, num);
+        if (updated != ids.size()) {
+            log.error("更新场馆库存失败 [{}] [{}]", ids, num);
+            throw new BusinessException(ErrorCode.VENUE_STOCK);
+        }
+    }
+
 }

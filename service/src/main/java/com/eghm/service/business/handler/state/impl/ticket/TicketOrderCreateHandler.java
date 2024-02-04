@@ -91,7 +91,6 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         Order order = new Order();
         order.setMerchantId(payload.getScenic().getMerchantId());
         order.setStoreId(payload.getScenic().getId());
-        order.setMemberId(context.getMemberId());
         order.setTitle(ticket.getTitle());
         order.setState(OrderState.UN_PAY);
         order.setProductType(ProductType.TICKET);
@@ -101,10 +100,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         if (CollUtil.isNotEmpty(context.getVisitorList())) {
             order.setNickName(context.getVisitorList().get(0).getMemberName());
         }
-        order.setMobile(context.getMobile());
-        order.setRemark(context.getRemark());
         order.setPrice(ticket.getSalePrice());
-        order.setNum(context.getNum());
         order.setPayAmount(context.getNum() * ticket.getSalePrice());
         order.setMultiple(false);
         order.setRefundType(ticket.getRefundType());

@@ -115,8 +115,6 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         order.setPayAmount(order.getNum() * order.getPrice());
         order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         order.setMultiple(false);
-        order.setNickName(context.getNickName());
-        order.setMobile(context.getMobile());
         // 使用优惠券
         this.useDiscount(order, context.getMemberId(), context.getCouponId(), context.getRoomId());
         orderService.save(order);

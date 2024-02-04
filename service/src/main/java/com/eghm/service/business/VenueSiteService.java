@@ -75,6 +75,14 @@ public interface VenueSiteService {
     VenueSite selectByIdRequired(Long id);
 
     /**
+     * 根据id获取场地信息 (未上架抛异常)
+     *
+     * @param id id
+     * @return 场地信息
+     */
+    VenueSite selectByIdShelve(Long id);
+
+    /**
      * 获取场地信息
      *
      * @param venueId 场地id

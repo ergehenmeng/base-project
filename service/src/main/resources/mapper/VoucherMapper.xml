@@ -38,7 +38,7 @@
 
     <update id="updateStock">
         update voucher set stock = stock + #{num}, sale_num = sale_num - #{num}, total_num = total_num - #{num}
-        where id = #{id} and deleted = false and stock + #{num} > 0
+        where id = #{id} and deleted = false and stock + #{num} &gt;= 0
     </update>
 
     <select id="getList" resultType="com.eghm.vo.business.restaurant.VoucherVO" parameterType="com.eghm.dto.business.restaurant.voucher.VoucherQueryDTO">

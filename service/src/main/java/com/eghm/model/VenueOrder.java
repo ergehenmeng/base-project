@@ -32,6 +32,9 @@ public class VenueOrder extends BaseEntity {
     @ApiModelProperty(value = "场地id")
     private Long venueSiteId;
 
+    @ApiModelProperty("订单号")
+    private String orderNo;
+
     @ApiModelProperty(value = "下单人")
     private Long memberId;
 

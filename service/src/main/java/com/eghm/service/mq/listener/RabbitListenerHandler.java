@@ -134,7 +134,7 @@ public class RabbitListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.RESTAURANT_PAY_EXPIRE_QUEUE)
     public void voucherExpire(String orderNo, Message message, Channel channel) throws IOException {
-        this.doOrderExpire(orderNo, RestaurantEvent.AUTO_CANCEL, message, channel);
+        this.doOrderExpire(orderNo, VoucherEvent.AUTO_CANCEL, message, channel);
     }
 
     /**
@@ -253,7 +253,7 @@ public class RabbitListenerHandler {
     @RabbitListener(queues = QueueConstant.VOUCHER_ORDER_QUEUE)
     public void voucherOrder(VoucherOrderCreateContext context, Message message, Channel channel) throws IOException {
         this.processMessageAckAsync(context, message, channel, order -> {
-            stateHandler.fireEvent(ProductType.RESTAURANT, OrderState.NONE.getValue(), RestaurantEvent.CREATE_QUEUE, context);
+            stateHandler.fireEvent(ProductType.RESTAURANT, OrderState.NONE.getValue(), VoucherEvent.CREATE_QUEUE, context);
             cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
         });
     }

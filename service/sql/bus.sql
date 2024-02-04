@@ -1363,6 +1363,7 @@ CREATE TABLE `venue_site_price`
     `end_time`      time       DEFAULT NULL COMMENT '结束时间',
     `now_date`      date       DEFAULT NULL COMMENT '当前日期',
     `now_week`      tinyint(1) DEFAULT NULL COMMENT '星期几 1-7',
+    `stock`         tinyint(1) DEFAULT '1' COMMENT '库存(默认1)',
     `price`         int(10)    DEFAULT '0' COMMENT '价格',
     `state`         tinyint(1) DEFAULT '0' COMMENT '是否可预定 0:不可预定 1:可预定',
     `create_time`   datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -1374,6 +1375,7 @@ DROP TABLE IF EXISTS venue_order;
 CREATE TABLE `venue_order`
 (
     `id`             bigint(20) NOT NULL COMMENT '主键',
+    `order_no`       varchar(30)    default null comment '订单号',
     `venue_id`       bigint(20)     DEFAULT NULL COMMENT '场馆id',
     `venue_site_id`  bigint(20)     DEFAULT NULL COMMENT '场地id',
     `member_id`      bigint(20)     DEFAULT NULL COMMENT '下单人',

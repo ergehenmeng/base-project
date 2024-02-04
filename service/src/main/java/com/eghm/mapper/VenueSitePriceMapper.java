@@ -2,6 +2,9 @@ package com.eghm.mapper;
 
 import com.eghm.model.VenueSitePrice;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface VenueSitePriceMapper extends BaseMapper<VenueSitePrice> {
 
+    /**
+     * 更新库存
+     *
+     * @param ids  id
+     * @param num 数量 负数-库存 正数+库存
+     * @return 1
+     */
+    int updateStock(@Param("ids") List<Long> ids, @Param("num") int num);
 }

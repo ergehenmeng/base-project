@@ -1,8 +1,8 @@
-package com.eghm.service.business.handler.state.impl.voucher;
+package com.eghm.service.business.handler.state.impl.venue;
 
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
-import com.eghm.enums.event.impl.VoucherEvent;
+import com.eghm.enums.event.impl.VenueEvent;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
@@ -17,10 +17,10 @@ import java.time.LocalDateTime;
 
 /**
  * @author wyb
- * @since 2023/5/30
+ * @since 2024/2/4
  */
 @Service("voucherOrderVerifyHandler")
-public class VoucherOrderVerifyHandler extends AbstractOrderVerifyHandler {
+public class VenueOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     private final OrderMQService orderMQService;
 
@@ -28,8 +28,8 @@ public class VoucherOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     private final VerifyLogService verifyLogService;
 
-    public VoucherOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService,
-                                     JsonService jsonService, OrderMQService orderMQService, CommonService commonService) {
+    public VenueOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService,
+                                   JsonService jsonService, OrderMQService orderMQService, CommonService commonService) {
         super(orderVisitorService, orderService, verifyLogService, jsonService, commonService);
         this.orderMQService = orderMQService;
         this.orderService = orderService;
@@ -59,11 +59,11 @@ public class VoucherOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     @Override
     public IEvent getEvent() {
-        return VoucherEvent.VERIFY;
+        return VenueEvent.VERIFY;
     }
 
     @Override
     public ProductType getStateMachineType() {
-        return ProductType.RESTAURANT;
+        return ProductType.VENUE;
     }
 }
