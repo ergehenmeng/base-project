@@ -46,7 +46,8 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
     }
 
     @Override
-    protected OrderRefundLog doProcess(RefundApplyContext context, Order order) {
+    protected void before(RefundApplyContext context, Order order) {
+        super.before(context, order);
         ItemOrder itemOrder = itemOrderService.selectByIdRequired(context.getItemOrderId());
         if (!itemOrder.getOrderNo().equals(context.getOrderNo())) {
             log.error("订单id与订单编号不匹配,无法申请退款 [{}] [{}]", context.getItemOrderId(), context.getOrderNo());
@@ -70,15 +71,20 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         if ((totalAmount + expressFee) < context.getApplyAmount()) {
             throw new BusinessException(REFUND_AMOUNT_MAX.getCode(), String.format(REFUND_AMOUNT_MAX.getMsg(), DecimalUtil.centToYuan(context.getApplyAmount())));
         }
+        context.setExpressFee(expressFee);
+        context.setItemOrder(itemOrder);
+    }
 
+    @Override
+    protected OrderRefundLog doProcess(RefundApplyContext context, Order order) {
+        ItemOrder itemOrder = context.getItemOrder();
         itemOrder.setRefundState(ItemRefundState.REFUND);
 
         OrderRefundLog refundLog = DataUtil.copy(context, OrderRefundLog.class);
-        refundLog.setExpressFee(expressFee);
+        refundLog.setExpressFee(context.getExpressFee());
         refundLog.setItemOrderId(itemOrder.getId());
         refundLog.setMerchantId(order.getMerchantId());
-        LocalDateTime now = LocalDateTime.now();
-        refundLog.setApplyTime(now);
+        refundLog.setApplyTime(LocalDateTime.now());
         refundLog.setState(0);
         refundLog.setAuditState(AuditState.APPLY);
         order.setRefundState(RefundState.APPLY);
@@ -89,7 +95,6 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         orderRefundLogService.insert(refundLog);
         // 更新商品订单
         itemOrderService.updateById(itemOrder);
-
         return refundLog;
     }
 

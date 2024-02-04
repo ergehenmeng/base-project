@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.context;
 
 import com.eghm.annotation.Assign;
+import com.eghm.model.ItemOrder;
 import com.eghm.state.machine.Context;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
@@ -56,4 +57,10 @@ public class RefundApplyContext implements Context {
     @ApiModelProperty("源状态")
     private Integer from;
 
+    @ApiModelProperty("退款快递费")
+    @Assign
+    private Integer expressFee = 0;
+
+    @ApiModelProperty("退款商品信息")
+    private ItemOrder itemOrder;
 }
