@@ -75,11 +75,21 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
             refundLog.setOutRefundNo(order.getProductType().generateTradeNo());
             order.setRefundState(RefundState.PROGRESS);
             order.setRefundAmount(order.getRefundAmount() + context.getApplyAmount());
-            TransactionUtil.afterCommit(() -> orderService.startRefund(refundLog, order));
+            this.startRefund(refundLog, order);
         }
         orderService.updateById(order);
         orderRefundLogService.insert(refundLog);
         return refundLog;
+    }
+
+    /**
+     * 发起真实退款流程(微信或支付宝)
+     *
+     * @param refundLog 支付流水记录
+     * @param order 订单编号
+     */
+    protected void startRefund(OrderRefundLog refundLog, Order order) {
+        TransactionUtil.afterCommit(() -> orderService.startRefund(refundLog, order));
     }
 
     /**
