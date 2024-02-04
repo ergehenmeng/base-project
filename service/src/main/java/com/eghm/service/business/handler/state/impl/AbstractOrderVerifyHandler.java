@@ -106,4 +106,24 @@ public abstract class AbstractOrderVerifyHandler implements OrderVerifyHandler {
     protected void end(OrderVerifyContext context, Order order) {
     }
 
+    /**
+     * 没有游客信息的核销, 默认全部
+     *
+     * @param context 上下文
+     * @param order 订单
+     */
+    public void noVisitProcess(OrderVerifyContext context, Order order) {
+        order.setState(OrderState.COMPLETE);
+        order.setCompleteTime(LocalDateTime.now());
+        orderService.updateById(order);
+
+        VerifyLog verifyLog = new VerifyLog();
+        verifyLog.setMerchantId(order.getMerchantId());
+        verifyLog.setOrderNo(order.getOrderNo());
+        verifyLog.setRemark(context.getRemark());
+        verifyLog.setUserId(context.getUserId());
+        verifyLog.setNum(order.getNum());
+        verifyLogService.insert(verifyLog);
+        context.setVerifyNum(order.getNum());
+    }
 }

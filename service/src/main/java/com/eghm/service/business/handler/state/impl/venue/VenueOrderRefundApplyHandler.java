@@ -3,6 +3,8 @@ package com.eghm.service.business.handler.state.impl.venue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VenueEvent;
 import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ref.RefundType;
+import com.eghm.model.Order;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
@@ -20,6 +22,11 @@ public class VenueOrderRefundApplyHandler extends AbstractOrderRefundApplyHandle
 
     public VenueOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService) {
         super(orderService, orderRefundLogService, orderVisitorService);
+    }
+
+    @Override
+    protected RefundType getRefundType(Order order) {
+        return RefundType.DIRECT_REFUND;
     }
 
     @Override
