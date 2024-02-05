@@ -2,15 +2,19 @@ package com.eghm.utils;
 
 import cn.hutool.core.net.RFC3986;
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.context.AnalysisContext;
+import com.alibaba.excel.read.listener.ReadListener;
 import com.alibaba.excel.support.ExcelTypeEnum;
-import com.eghm.dto.ext.ExcelStyle;
+import com.alibaba.excel.util.ListUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author wyb
@@ -24,23 +28,16 @@ public class ExcelUtil {
      * xlsx格式
      */
     public static final String XLSX_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
     /**
      * 默认sheetName
      */
     private static final String DEFAULT_SHEET_NAME = "表格";
 
     /**
-     * 导出xlsx表格 (统一表格样式),
-     *
-     * @param response  httpResponse
-     * @param fileName  文件名
-     * @param rowValues 导出excel表格
-     * @param cls       类型, 该类需要继承 ExcelStyle 接口 来保持风格统一
-     * @param <T>       泛型
+     * 读取数据条数(一批次)
      */
-    public static <T extends ExcelStyle> void exportBeauty(HttpServletResponse response, String fileName, List<T> rowValues, Class<T> cls) {
-        export(response, fileName, rowValues, cls, DEFAULT_SHEET_NAME);
-    }
+    private static final int BATCH_SIZE = 500;
 
     /**
      * 导出xlsx表格
@@ -48,7 +45,7 @@ public class ExcelUtil {
      * @param response  httpResponse
      * @param fileName  文件名
      * @param rowValues 导出excel表格
-     * @param cls       类型
+     * @param cls       类型, 强烈建议继承 ExcelStyle 接口 来保持风格统一
      * @param <T>       泛型
      */
     public static <T> void export(HttpServletResponse response, String fileName, List<T> rowValues, Class<T> cls) {
@@ -78,4 +75,43 @@ public class ExcelUtil {
         }
     }
 
+    /**
+     * 读取excel
+     *
+     * @param stream excel文件流
+     * @param consumer 数据处理回调
+     * @param <T> 映射的对象
+     */
+    public static <T> void read(InputStream stream, Consumer<List<T>> consumer) {
+        read(stream, consumer, BATCH_SIZE);
+    }
+
+    /**
+     * 读取excel
+     *
+     * @param stream excel文件流
+     * @param consumer 数据处理回调
+     * @param batchSize 每批次读取条数
+     * @param <T> 映射的对象
+     */
+    public static <T> void read(InputStream stream, Consumer<List<T>> consumer, int batchSize) {
+        EasyExcel.read(stream, new ReadListener<T>() {
+
+            private final List<T> batchList = ListUtils.newArrayListWithExpectedSize(batchSize);
+
+            @Override
+            public void invoke(T data, AnalysisContext context) {
+                batchList.add(data);
+                if (batchList.size() >= batchSize) {
+                    consumer.accept(batchList);
+                    batchList.clear();
+                }
+            }
+
+            @Override
+            public void doAfterAllAnalysed(AnalysisContext context) {
+                consumer.accept(batchList);
+            }
+        }).sheet().doRead();
+    }
 }
