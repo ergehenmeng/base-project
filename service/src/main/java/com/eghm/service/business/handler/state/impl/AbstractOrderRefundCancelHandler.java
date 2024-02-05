@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler.state.impl;
 
-import com.eghm.model.Order;
+import com.eghm.model.OrderRefundLog;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VerifyLogService;
@@ -32,10 +32,18 @@ public abstract class AbstractOrderRefundCancelHandler implements RefundCancelHa
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void doAction(RefundCancelContext context) {
-        Order order = orderService.getByOrderNo(context.getOrderNo());
+        OrderRefundLog refundLog = this.getRefundLog(context);
 
     }
 
-
+    /**
+     * 查询退款流水
+     *
+     * @param context 退款
+     * @return 退款记录
+     */
+    protected OrderRefundLog getRefundLog(RefundCancelContext context) {
+        return orderRefundLogService.getItemRefundLog(context.getOrderNo(), context.getItemOrderId());
+    }
 
 }

@@ -46,6 +46,15 @@ public interface OrderRefundLogService {
     OrderRefundLog selectByIdRequired(Long id);
 
     /**
+     * 根据订单号查询退款记录
+     *
+     * @param orderNo 订单号
+     * @param itemOrderId 零售订单id
+     * @return 退款记录
+     */
+    OrderRefundLog getItemRefundLog(String orderNo, Long itemOrderId);
+
+    /**
      * 根据id更新退款记录
      *
      * @param log 退款记录
