@@ -12,7 +12,6 @@
         t.sale_num,
         t.score,
         t.quota,
-        t.refund_type,
         t.depict,
         t.create_time
         from voucher t left join restaurant r on t.restaurant_id = r.id

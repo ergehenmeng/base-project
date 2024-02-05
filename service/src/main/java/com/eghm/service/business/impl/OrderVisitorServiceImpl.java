@@ -66,6 +66,7 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
             return;
         }
         orderVisitorRefundService.insertVisitorRefund(orderNo, refundId, visitorList);
+
         LambdaUpdateWrapper<OrderVisitor> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(OrderVisitor::getOrderNo, orderNo);
         wrapper.eq(OrderVisitor::getProductType, productType);

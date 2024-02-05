@@ -6,7 +6,6 @@ import com.eghm.convertor.excel.BooleanExcelConverter;
 import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
-import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -62,10 +61,6 @@ public class VoucherResponse extends ExcelStyle {
     @ApiModelProperty(value = "限购数量")
     @ExcelProperty(value = "限购数量", index = 8)
     private Integer quota;
-
-    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
-    @ExcelProperty(value = "退款方式", index = 9, converter = EnumExcelConverter.class)
-    private RefundType refundType;
 
     @ApiModelProperty("添加时间")
     @ExcelProperty(value = "添加时间", index = 10)

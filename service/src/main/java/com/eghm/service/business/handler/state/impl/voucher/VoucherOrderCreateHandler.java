@@ -7,6 +7,7 @@ import com.eghm.enums.event.impl.VoucherEvent;
 import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ref.RefundType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.Restaurant;
@@ -86,8 +87,7 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
         order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         order.setMultiple(false);
         order.setProductType(ProductType.RESTAURANT);
-        order.setRefundType(voucher.getRefundType());
-        order.setRefundDescribe(voucher.getRefundDescribe());
+        order.setRefundType(RefundType.DIRECT_REFUND);
         // 使用优惠券
         this.useDiscount(order, context.getMemberId(), context.getCouponId(), voucher.getId());
         orderService.save(order);

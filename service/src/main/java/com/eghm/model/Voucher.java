@@ -2,7 +2,6 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import com.eghm.handler.mysql.LikeTypeHandler;
 import io.swagger.annotations.ApiModelProperty;
@@ -82,12 +81,6 @@ public class Voucher extends BaseEntity {
 
     @ApiModelProperty(value = "使用截止时间 HH:mm")
     private String expireTime;
-
-    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
-    private RefundType refundType;
-
-    @ApiModelProperty("退款描述信息")
-    private String refundDescribe;
 
     @ApiModelProperty(value = "详细介绍")
     private String introduce;

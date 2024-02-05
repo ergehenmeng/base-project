@@ -203,8 +203,6 @@ CREATE TABLE `voucher`
     `expire_date`     date          DEFAULT NULL COMMENT '使用截止日期(包含) yyyy-MM-dd',
     `effect_time`     varchar(10)   DEFAULT NULL COMMENT '使用开始时间 HH:mm',
     `expire_time`     varchar(10)   DEFAULT NULL COMMENT '使用截止时间 HH:mm',
-    `refund_type`     tinyint(1)    DEFAULT '2' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
-    `refund_describe` varchar(200)  DEFAULT NULL COMMENT '退款描述信息',
     `introduce`       longtext COMMENT '详细介绍',
     `create_date`     date          DEFAULT null COMMENT '创建日期',
     `create_time`     datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

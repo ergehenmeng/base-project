@@ -1,7 +1,6 @@
 package com.eghm.dto.business.restaurant.voucher;
 
 import com.eghm.convertor.YuanToCentDecoder;
-import com.eghm.enums.ref.RefundType;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -81,15 +80,6 @@ public class VoucherEditRequest {
     @ApiModelProperty(value = "使用截止时段", required = true)
     @NotBlank(message = "结束使用时段不能为空")
     private String expireTime;
-
-    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款", required = true)
-    @NotNull(message = "退款方式不能为空")
-    private RefundType refundType;
-
-    @ApiModelProperty("退款描述信息")
-    @Size(max = 100, message = "退款描述信息最大100字符")
-    @WordChecker
-    private String refundDescribe;
 
     @ApiModelProperty(value = "详细介绍", required = true)
     @NotBlank(message = "退订规则不能为空")
