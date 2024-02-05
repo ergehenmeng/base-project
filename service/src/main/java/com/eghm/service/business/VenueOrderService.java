@@ -1,6 +1,11 @@
 package com.eghm.service.business;
 
+import com.eghm.dto.business.order.venue.VenueOrderQueryDTO;
 import com.eghm.model.VenueOrder;
+import com.eghm.vo.business.order.venue.VenueOrderDetailVO;
+import com.eghm.vo.business.order.venue.VenueOrderVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -11,6 +16,14 @@ import com.eghm.model.VenueOrder;
  * @since 2024-02-04
  */
 public interface VenueOrderService {
+
+    /**
+     * 分页查询场馆预约订单
+     *
+     * @param dto 查询条件
+     * @return 列表
+     */
+    List<VenueOrderVO> getByPage(VenueOrderQueryDTO dto);
 
     /**
      * 新增场馆预约订单
@@ -34,4 +47,13 @@ public interface VenueOrderService {
      * @param num +:增加库存 -:减少库存
      */
     void updateStock(String orderNo, Integer num);
+
+    /**
+     * 获取订单详情
+     *
+     * @param orderNo 订单号
+     * @param memberId 用户id
+     * @return 订单详情
+     */
+    VenueOrderDetailVO getDetail(String orderNo, Long memberId);
 }

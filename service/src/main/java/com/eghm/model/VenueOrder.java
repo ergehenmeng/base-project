@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.ref.VenueType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -40,7 +41,7 @@ public class VenueOrder extends BaseEntity {
     private String siteTitle;
 
     @ApiModelProperty(value = "场馆类型")
-    private Integer venueType;
+    private VenueType venueType;
 
     @ApiModelProperty(value = "场馆封面图")
     private String coverUrl;

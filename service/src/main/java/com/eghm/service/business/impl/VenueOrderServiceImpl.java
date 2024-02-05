@@ -3,12 +3,17 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.constant.CommonConstant;
+import com.eghm.dto.business.order.venue.VenueOrderQueryDTO;
 import com.eghm.dto.ext.VenuePhase;
 import com.eghm.mapper.VenueOrderMapper;
 import com.eghm.model.VenueOrder;
 import com.eghm.service.business.VenueOrderService;
 import com.eghm.service.business.VenueSitePriceService;
 import com.eghm.service.common.JsonService;
+import com.eghm.service.sys.SysAreaService;
+import com.eghm.utils.AssertUtil;
+import com.eghm.vo.business.order.venue.VenueOrderDetailVO;
+import com.eghm.vo.business.order.venue.VenueOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,9 +36,16 @@ public class VenueOrderServiceImpl implements VenueOrderService {
 
     private final JsonService jsonService;
 
+    private final SysAreaService sysAreaService;
+
     private final VenueOrderMapper venueOrderMapper;
 
     private final VenueSitePriceService venueSitePriceService;
+
+    @Override
+    public List<VenueOrderVO> getByPage(VenueOrderQueryDTO dto) {
+        return venueOrderMapper.getList(dto.createPage(false), dto).getRecords();
+    }
 
     @Override
     public void insert(VenueOrder venueOrder) {
@@ -54,5 +66,14 @@ public class VenueOrderServiceImpl implements VenueOrderService {
         List<VenuePhase> phaseList = jsonService.fromJsonList(venueOrder.getTimePhase(), VenuePhase.class);
         List<Long> ids = phaseList.stream().map(VenuePhase::getId).collect(Collectors.toList());
         venueSitePriceService.updateStock(ids, num);
+    }
+
+    @Override
+    public VenueOrderDetailVO getDetail(String orderNo, Long memberId) {
+        VenueOrderDetailVO detail = venueOrderMapper.getDetail(orderNo, memberId);
+        AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
+        detail.setDetailAddress(sysAreaService.parseArea(detail.getCityId(), detail.getCountyId()) + detail.getDetailAddress());
+        detail.setPhaseList(jsonService.fromJsonList(detail.getTimePhase(), VenuePhase.class));
+        return detail;
     }
 }
