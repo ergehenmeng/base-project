@@ -2,8 +2,11 @@ package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.venue.VenueOrderQueryDTO;
+import com.eghm.dto.business.order.venue.VenueOrderQueryRequest;
 import com.eghm.dto.ext.VenuePhase;
 import com.eghm.mapper.VenueOrderMapper;
 import com.eghm.model.VenueOrder;
@@ -12,7 +15,9 @@ import com.eghm.service.business.VenueSitePriceService;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.AssertUtil;
+import com.eghm.vo.business.order.venue.VenueOrderDetailResponse;
 import com.eghm.vo.business.order.venue.VenueOrderDetailVO;
+import com.eghm.vo.business.order.venue.VenueOrderResponse;
 import com.eghm.vo.business.order.venue.VenueOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +48,11 @@ public class VenueOrderServiceImpl implements VenueOrderService {
     private final VenueSitePriceService venueSitePriceService;
 
     @Override
+    public Page<VenueOrderResponse> listPage(VenueOrderQueryRequest request) {
+        return venueOrderMapper.listPage(request.createPage(), request);
+    }
+
+    @Override
     public List<VenueOrderVO> getByPage(VenueOrderQueryDTO dto) {
         return venueOrderMapper.getList(dto.createPage(false), dto).getRecords();
     }
@@ -66,6 +76,15 @@ public class VenueOrderServiceImpl implements VenueOrderService {
         List<VenuePhase> phaseList = jsonService.fromJsonList(venueOrder.getTimePhase(), VenuePhase.class);
         List<Long> ids = phaseList.stream().map(VenuePhase::getId).collect(Collectors.toList());
         venueSitePriceService.updateStock(ids, num);
+    }
+
+    @Override
+    public VenueOrderDetailResponse detail(String orderNo) {
+        Long merchantId = SecurityHolder.getMerchantId();
+        VenueOrderDetailResponse detail = venueOrderMapper.detail(orderNo, merchantId);
+        AssertUtil.assertOrderNotNull(detail, orderNo, merchantId);
+        detail.setPhaseList(jsonService.fromJsonList(detail.getTimePhase(), VenuePhase.class));
+        return detail;
     }
 
     @Override

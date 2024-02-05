@@ -12,7 +12,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,7 +22,7 @@ import java.util.List;
  */
 
 @Data
-public class VenueOrderDetailVO {
+public class VenueOrderDetailResponse {
 
     @ApiModelProperty("订单号")
     private String orderNo;
@@ -37,11 +36,11 @@ public class VenueOrderDetailVO {
     @ApiModelProperty(value = "场馆类型")
     private VenueType venueType;
 
-    @ApiModelProperty(value = "场馆封面图")
-    private String coverUrl;
-
     @ApiModelProperty(value = "支付方式")
     private PayType payType;
+
+    @ApiModelProperty(value = "场馆封面图")
+    private String coverUrl;
 
     @ApiModelProperty(value = "订单状态")
     private OrderState state;
@@ -64,29 +63,18 @@ public class VenueOrderDetailVO {
     @ApiModelProperty("预约列表")
     private List<VenuePhase> phaseList;
 
-    @ApiModelProperty(value = "县区id")
-    @JsonIgnore
-    private Long countyId;
-
-    @ApiModelProperty(value = "城市id")
-    @JsonIgnore
-    private Long cityId;
-
     @ApiModelProperty(value = "预约的时间段及价格(json)")
     @JsonIgnore
     private String timePhase;
 
-    @ApiModelProperty(value = "详细地址")
-    private String detailAddress;
+    @ApiModelProperty(value = "订单联系人")
+    private String nickName;
 
-    @ApiModelProperty(value = "经度")
-    private BigDecimal longitude;
+    @ApiModelProperty("已退款金额")
+    private Integer refundAmount;
 
-    @ApiModelProperty(value = "纬度")
-    private BigDecimal latitude;
-
-    @ApiModelProperty(value = "商家电话")
-    private String telephone;
+    @ApiModelProperty(value = "联系人手机号")
+    private String mobile;
 
     @ApiModelProperty(value = "预约日期")
     @JsonFormat(pattern = "yyyy-MM-dd")

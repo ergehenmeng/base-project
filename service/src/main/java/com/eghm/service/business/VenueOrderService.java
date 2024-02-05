@@ -1,8 +1,12 @@
 package com.eghm.service.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.venue.VenueOrderQueryDTO;
+import com.eghm.dto.business.order.venue.VenueOrderQueryRequest;
 import com.eghm.model.VenueOrder;
+import com.eghm.vo.business.order.venue.VenueOrderDetailResponse;
 import com.eghm.vo.business.order.venue.VenueOrderDetailVO;
+import com.eghm.vo.business.order.venue.VenueOrderResponse;
 import com.eghm.vo.business.order.venue.VenueOrderVO;
 
 import java.util.List;
@@ -18,7 +22,15 @@ import java.util.List;
 public interface VenueOrderService {
 
     /**
-     * 分页查询场馆预约订单
+     * 分页查询场馆预约订单 (管理后台)
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<VenueOrderResponse> listPage(VenueOrderQueryRequest request);
+
+    /**
+     * 分页查询场馆预约订单 (移动端)
      *
      * @param dto 查询条件
      * @return 列表
@@ -49,7 +61,15 @@ public interface VenueOrderService {
     void updateStock(String orderNo, Integer num);
 
     /**
-     * 获取订单详情
+     * 获取订单详情 (管理后台)
+     *
+     * @param orderNo 订单信息
+     * @return 订单信息
+     */
+    VenueOrderDetailResponse detail(String orderNo);
+
+    /**
+     * 获取订单详情 (移动端)
      *
      * @param orderNo 订单号
      * @param memberId 用户id
