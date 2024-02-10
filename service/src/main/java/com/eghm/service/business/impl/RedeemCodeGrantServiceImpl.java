@@ -1,7 +1,6 @@
 package com.eghm.service.business.impl;
 
 import com.eghm.mapper.RedeemCodeGrantMapper;
-import com.eghm.model.RedeemCodeConfig;
 import com.eghm.service.business.RedeemCodeGrantService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

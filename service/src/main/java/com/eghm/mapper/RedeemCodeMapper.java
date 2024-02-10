@@ -1,6 +1,6 @@
 package com.eghm.mapper;
 
-import com.eghm.model.RedeemCodeConfig;
+import com.eghm.model.RedeemCode;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author 二哥很猛
  * @since 2024-02-10
  */
-public interface RedeemCodeConfigMapper extends BaseMapper<RedeemCodeConfig> {
+public interface RedeemCodeMapper extends BaseMapper<RedeemCode> {
 
 }

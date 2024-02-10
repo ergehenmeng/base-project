@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("redeem_code_config")
-public class RedeemCodeConfig extends BaseEntity {
+@TableName("redeem_code")
+public class RedeemCode extends BaseEntity {
 
     @ApiModelProperty(value = "cd名称")
     private String title;

@@ -1400,9 +1400,8 @@ CREATE TABLE `venue_order`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='场馆预约订单表';
 
-DROP TABLE IF EXISTS redeem_code_grant;
-
-CREATE TABLE `redeem_code_config`
+DROP TABLE IF EXISTS redeem_code;
+CREATE TABLE `redeem_code`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
     `title`       varchar(20) DEFAULT NULL COMMENT 'cd名称',
