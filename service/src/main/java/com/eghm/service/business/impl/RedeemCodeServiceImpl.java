@@ -92,6 +92,8 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
             grantList.add(grant);
         }
         redeemCodeGrantService.saveBatch(grantList);
+        select.setState(1);
+        redeemCodeMapper.updateById(select);
     }
 
     /**
