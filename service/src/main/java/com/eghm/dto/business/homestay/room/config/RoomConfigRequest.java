@@ -28,7 +28,7 @@ public class RoomConfigRequest extends DateComparator {
 
     @ApiModelProperty(value = "周期", required = true)
     @NotEmpty(message = "请选择周期")
-    public List<Integer> week;
+    private List<Integer> week;
 
     @ApiModelProperty(value = "房型id", required = true)
     @NotNull(message = "房型id不能为空")

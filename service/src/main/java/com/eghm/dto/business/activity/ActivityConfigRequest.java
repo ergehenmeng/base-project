@@ -26,7 +26,7 @@ public class ActivityConfigRequest extends DateComparator {
 
     @ApiModelProperty(value = "周期 1:星期一 2:星期二 ... 7:星期日", required = true)
     @NotEmpty(message = "请选择周期")
-    public List<Integer> week;
+    private List<Integer> week;
 
     @ApiModelProperty(value = "活动名称", required = true)
     @Size(min = 2, max = 20, message = "活动名称长度2~20位")

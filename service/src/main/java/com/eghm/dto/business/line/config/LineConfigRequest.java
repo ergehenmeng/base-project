@@ -24,7 +24,7 @@ public class LineConfigRequest extends DateComparator {
 
     @ApiModelProperty("周期")
     @NotEmpty(message = "请选择周期")
-    public List<Integer> week;
+    private List<Integer> week;
 
     @ApiModelProperty("线路ID")
     @NotNull(message = "线路id不能为空")
