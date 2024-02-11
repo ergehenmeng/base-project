@@ -39,6 +39,6 @@ public class RedeemCodeEditRequest {
 
     @ApiModelProperty(value = "发放数量")
     @NotNull(message = "发放数量不能为空")
-    @RangeInt(min = 1, max = 9999, message = "发放数量应在1-9999之间")
+    @RangeInt(min = 1, max = 999, message = "发放数量应在1-999之间")
     private Integer num;
 }

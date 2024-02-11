@@ -1,7 +1,9 @@
 package com.eghm.utils;
 
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +34,11 @@ public class StringUtil {
      * 随机字符串小写
      */
     private static final String NUMBER_LOWER_LETTERS = "123456789abcdef";
+
+    /**
+     * cd_key生成
+     */
+    private static final String CD_KEY = "23456789ABCDEFGHGKLMNPQRSTUVWXYZ";
 
     /**
      * 进制串
@@ -245,6 +252,11 @@ public class StringUtil {
         }
         return result;
     }
+
+    public static String generateCdKey() {
+        return random(CD_KEY, 12) ;
+    }
+
 
     public static void main(String[] args) {
         int pid = 101319;

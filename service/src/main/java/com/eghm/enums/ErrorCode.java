@@ -1689,6 +1689,11 @@ public enum ErrorCode {
     REDEEM_CODE_UPDATE(3292, "兑换码已发放,无法修改"),
 
     /**
+     * 兑换码已发放
+     */
+    REDEEM_CODE_GENERATE(3295, "兑换码已发放"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

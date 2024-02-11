@@ -1,6 +1,9 @@
 package com.eghm.service.business.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eghm.mapper.RedeemCodeGrantMapper;
+import com.eghm.model.RedeemCode;
+import com.eghm.model.RedeemCodeGrant;
 import com.eghm.service.business.RedeemCodeGrantService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +20,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @AllArgsConstructor
 @Service("redeemCodeGrantService")
-public class RedeemCodeGrantServiceImpl implements RedeemCodeGrantService {
+public class RedeemCodeGrantServiceImpl extends ServiceImpl<RedeemCodeGrantMapper, RedeemCodeGrant> implements RedeemCodeGrantService {
 
-    private final RedeemCodeGrantMapper redeemCodeGrantMapper;
+
 }

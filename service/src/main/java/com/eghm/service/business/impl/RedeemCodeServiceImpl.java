@@ -8,11 +8,17 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.RedeemCodeMapper;
 import com.eghm.model.RedeemCode;
+import com.eghm.model.RedeemCodeGrant;
+import com.eghm.service.business.RedeemCodeGrantService;
 import com.eghm.service.business.RedeemCodeService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.StringUtil;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -28,6 +34,8 @@ import org.springframework.stereotype.Service;
 public class RedeemCodeServiceImpl implements RedeemCodeService {
 
     private final RedeemCodeMapper redeemCodeMapper;
+
+    private final RedeemCodeGrantService redeemCodeGrantService;
 
     @Override
     public void create(RedeemCodeAddRequest request) {
@@ -66,6 +74,24 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
             throw new BusinessException(ErrorCode.REDEEM_CODE_NULL);
         }
         return redeemCode;
+    }
+
+    @Override
+    public void generate(Long id) {
+        RedeemCode select = this.selectByIdRequired(id);
+        if (select.getState() == 1) {
+            log.error("兑换码已发放 [{}]", id);
+            throw new BusinessException(ErrorCode.REDEEM_CODE_GENERATE);
+        }
+        List<RedeemCodeGrant> grantList = Lists.newArrayListWithExpectedSize(select.getNum());
+        for (int i = 0; i < select.getNum(); i++) {
+            RedeemCodeGrant grant = DataUtil.copy(select, RedeemCodeGrant.class, "id", "createTime", "updateTime", "deleted");
+            grant.setState(0);
+            grant.setRedeemCodeId(select.getId());
+            grant.setCdKey(StringUtil.generateCdKey());
+            grantList.add(grant);
+        }
+        redeemCodeGrantService.saveBatch(grantList);
     }
 
     /**

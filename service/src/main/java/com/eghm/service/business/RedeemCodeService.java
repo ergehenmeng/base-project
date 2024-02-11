@@ -42,4 +42,11 @@ public interface RedeemCodeService {
      * @return 查询配置
      */
     RedeemCode selectByIdRequired(Long id);
+
+    /**
+     * 生成兑换码
+     *
+     * @param id id
+     */
+    void generate(Long id);
 }
