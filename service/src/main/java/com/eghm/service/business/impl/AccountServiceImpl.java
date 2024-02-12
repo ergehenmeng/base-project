@@ -6,6 +6,7 @@ import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.account.AccountDTO;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.AccountType;
+import com.eghm.enums.ref.RoleType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.AccountLogMapper;
 import com.eghm.mapper.AccountMapper;
@@ -21,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -41,6 +43,11 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
     private final AccountLogMapper accountLogMapper;
 
     private final DingTalkService dingTalkService;
+
+    @Override
+    public boolean support(List<RoleType> roleTypes) {
+        return true;
+    }
 
     @Override
     public void updateAccount(AccountDTO dto) {

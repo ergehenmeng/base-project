@@ -1416,7 +1416,6 @@ CREATE TABLE `redeem_code`
 ) ENGINE = InnoDB COMMENT ='兑换码配置表';
 
 DROP TABLE IF EXISTS redeem_code_grant;
-
 create table redeem_code_grant
 (
     `id`             bigint(20) NOT NULL COMMENT '主键',
@@ -1434,7 +1433,37 @@ create table redeem_code_grant
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB COMMENT ='兑换码发放表';
 
+DROP TABLE IF EXISTS score_account;
+CREATE TABLE `score_account`
+(
+    `id`              bigint(20) NOT NULL COMMENT '主键',
+    `merchant_id`     bigint(20) DEFAULT NULL COMMENT '商户id',
+    `amount`          int(10)    DEFAULT '0' COMMENT '可用积分',
+    `recharge_amount` int(10)    DEFAULT '0' COMMENT '累计充值积分',
+    `withdraw_amount` int(10)    DEFAULT '0' COMMENT '累计提现积分',
+    `version`         int(10)    DEFAULT '1' COMMENT '版本号',
+    `create_time`     datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`     datetime   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`         bit(1)     DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB COMMENT ='商户积分账户表';
 
+
+DROP TABLE IF EXISTS score_account_log;
+CREATE TABLE `score_account_log`
+(
+    `id`             bigint(20) NOT NULL COMMENT '主键',
+    `merchant_id`    bigint(20)   DEFAULT NULL COMMENT '商户id',
+    `charge_type`    tinyint(2)   DEFAULT NULL COMMENT '积分变动类型',
+    `amount`         int(10)      DEFAULT '0' COMMENT '变动积分',
+    `direction`      tinyint(4)   DEFAULT '0' COMMENT '1:收入 2:支出',
+    `surplus_amount` int(10)      DEFAULT '0' COMMENT '变动后的积分',
+    `remark`         varchar(200) DEFAULT NULL COMMENT '备注信息',
+    `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`    datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`        bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB COMMENT ='商户积分变动明细表';
 
 
 
