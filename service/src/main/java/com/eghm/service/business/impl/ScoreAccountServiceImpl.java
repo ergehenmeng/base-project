@@ -83,7 +83,7 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         if (update != 1) {
             log.error("更新账户信息失败 [{}] [{}]", dto, account);
             dingTalkService.sendMsg(String.format("更新商户账户失败 [%s]", dto));
-            throw new BusinessException(ErrorCode.ACCOUNT_UPDATE);
+            throw new BusinessException(ErrorCode.SCORE_ACCOUNT_UPDATE);
         }
         scoreAccountLogMapper.insert(accountLog);
         accountLog.setSurplusAmount(account.getAmount() + account.getPayFreeze());

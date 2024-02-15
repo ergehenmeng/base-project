@@ -1489,6 +1489,11 @@ public enum ErrorCode {
     ACCOUNT_UPDATE(3818, "商户账户更新失败"),
 
     /**
+     * 商户积分账户更新失败
+     */
+    SCORE_ACCOUNT_UPDATE(3819, "商户积分账户更新失败"),
+
+    /**
      * 商户授权二维码已过期,请重新生成
      */
     MERCHANT_CODE_EXPIRE(3820, "商户授权二维码已过期,请重新生成"),
