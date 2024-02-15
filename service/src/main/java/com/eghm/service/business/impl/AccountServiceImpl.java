@@ -21,7 +21,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -50,30 +49,34 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
     }
 
     @Override
+    public void init(Merchant merchant) {
+        Account account = new Account();
+        account.setMerchantId(merchant.getId());
+        accountMapper.insert(account);
+    }
+
+    @Override
     public void updateAccount(AccountDTO dto) {
         Account account = this.getAccount(dto.getMerchantId());
         AccountLog accountLog = DataUtil.copy(dto, AccountLog.class);
-        if (dto.getAccountType() == AccountType.PAY_INCOME) {
-            account.setPayFreeze(account.getPayFreeze() + dto.getAmount());
-            accountLog.setSurplusAmount(account.getPayFreeze() + account.getWithdrawAmount());
-        } else if (dto.getAccountType() == AccountType.REFUND_DISBURSE) {
+        if (dto.getAccountType() == AccountType.ORDER_INCOME) {
+            account.setWithdrawAmount(account.getWithdrawAmount() + dto.getAmount());
             account.setPayFreeze(account.getPayFreeze() - dto.getAmount());
-            accountLog.setSurplusAmount(account.getPayFreeze() + account.getWithdrawAmount());
+            accountLog.setDirection(1);
         } else if (dto.getAccountType() == AccountType.WITHDRAW_DISBURSE) {
             account.setWithdrawAmount(account.getWithdrawAmount() - dto.getAmount());
             account.setWithdrawFreeze(account.getWithdrawFreeze() + dto.getAmount());
-            accountLog.setSurplusAmount(account.getPayFreeze() + account.getWithdrawAmount());
+            accountLog.setDirection(2);
         }
         this.checkAccount(account);
-        accountLogMapper.insert(accountLog);
-
-        account.setUpdateTime(LocalDateTime.now());
         int update = accountMapper.updateAccount(account);
         if (update != 1) {
             log.error("更新账户信息失败 [{}] [{}]", dto, account);
             dingTalkService.sendMsg(String.format("更新商户账户失败 [%s]", dto));
             throw new BusinessException(ErrorCode.ACCOUNT_UPDATE);
         }
+        accountLog.setSurplusAmount(account.getWithdrawAmount() + account.getPayFreeze());
+        accountLogMapper.insert(accountLog);
     }
 
     @Override
@@ -82,13 +85,6 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
         wrapper.eq(Account::getMerchantId, merchantId);
         wrapper.last(CommonConstant.LIMIT_ONE);
         return accountMapper.selectOne(wrapper);
-    }
-
-    @Override
-    public void init(Merchant merchant) {
-        Account account = new Account();
-        account.setMerchantId(merchant.getId());
-        accountMapper.insert(account);
     }
 
     /**

@@ -15,7 +15,7 @@ public interface AccountService {
 
     /**
      * 新增资金变动记录
-     *
+     * 注意: 该方法只有在资金真实变动时才会更新账户余额和资金记录
      * @param dto 变动信息
      */
     void updateAccount(AccountDTO dto);

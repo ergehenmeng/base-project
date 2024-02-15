@@ -24,11 +24,11 @@ public class ScoreAccount extends BaseEntity {
     @ApiModelProperty(value = "可用积分")
     private Integer amount;
 
-    @ApiModelProperty(value = "累计充值积分")
-    private Integer rechargeAmount;
+    @ApiModelProperty(value = "支付冻结积分")
+    private Integer payFreeze;
 
-    @ApiModelProperty(value = "累计提现积分")
-    private Integer withdrawAmount;
+    @ApiModelProperty(value = "提现冻结积分")
+    private Integer withdrawFreeze;
 
     @ApiModelProperty(value = "版本号")
     private Integer version;

@@ -1,13 +1,14 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.ref.ChargeType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 商户积分变动明细表
+ * 商户积分变动明细表, 注意: 只有积分余额变动时才会记录, 订单支付或退款不记录, 只有订单完成时才会记录订单
  * </p>
  *
  * @author 二哥很猛
@@ -22,7 +23,7 @@ public class ScoreAccountLog extends BaseEntity {
     private Long merchantId;
 
     @ApiModelProperty(value = "积分变动类型")
-    private Integer chargeType;
+    private ChargeType chargeType;
 
     @ApiModelProperty(value = "变动积分")
     private Integer amount;
@@ -30,7 +31,7 @@ public class ScoreAccountLog extends BaseEntity {
     @ApiModelProperty(value = "1:收入 2:支出")
     private Integer direction;
 
-    @ApiModelProperty(value = "变动后的积分")
+    @ApiModelProperty(value = "变动后的积分(可用积分)")
     private Integer surplusAmount;
 
     @ApiModelProperty(value = "备注信息")

@@ -1,7 +1,7 @@
 package com.eghm.mapper;
 
-import com.eghm.model.ScoreAccount;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.model.ScoreAccount;
 
 /**
  * <p>
@@ -13,4 +13,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface ScoreAccountMapper extends BaseMapper<ScoreAccount> {
 
+    /**
+     * 更新账户信息
+     * @param account 账户信息
+     */
+    int updateAccount(ScoreAccount account);
 }

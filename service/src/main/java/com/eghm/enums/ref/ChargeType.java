@@ -11,23 +11,38 @@ import java.util.Arrays;
 
 /**
  * @author 二哥很猛
- * @since 2024/1/12
+ * @since 2024/2/14
  */
 
 @Getter
 @AllArgsConstructor
-public enum AccountType implements EnumBinder {
+public enum ChargeType implements EnumBinder {
 
     /**
-     * 例如: 平台抽佣:5%, 单价500x2, 则支付收入500x2*0.95=950
-     * 支付收入 (不含平台抽佣)
+     * 充值
      */
-    ORDER_INCOME(1, "订单收入"),
+    RECHARGE(1, "充值"),
 
     /**
-     * 例如提现提现1000, 手续费5块,则提现冻结1000, 到账995
+     * 支付收入(订单完成)
      */
-    WITHDRAW_DISBURSE(3, "提现支出");
+    ORDER(2, "支付收入"),
+
+    /**
+     * 抽奖支出
+     */
+    DRAW(3, "抽奖支出"),
+
+    /**
+     * 提现支出
+     */
+    WITHDRAW(4, "提现支出"),
+
+    /**
+     * 关注赠送
+     */
+    ATTENTION_GIFT(5, "关注赠送"),
+    ;
 
     /**
      * 状态值
@@ -42,11 +57,11 @@ public enum AccountType implements EnumBinder {
     private final String name;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static AccountType of(Integer value) {
+    public static ChargeType of(Integer value) {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(AccountType.values()).filter(auditState -> auditState.value == value).findFirst().orElse(null);
+        return Arrays.stream(ChargeType.values()).filter(auditState -> auditState.value == value).findFirst().orElse(null);
     }
 
     @Override

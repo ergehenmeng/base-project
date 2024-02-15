@@ -31,7 +31,7 @@ public class AccountLog extends BaseEntity {
     @ApiModelProperty(value = "1:收入 2:支出")
     private Integer direction;
 
-    @ApiModelProperty(value = "变动后的余额(可提现金额+支付冻结金额)")
+    @ApiModelProperty(value = "变动后的余额(可提现金额 + 支付冻结金额)")
     private Integer surplusAmount;
 
     @ApiModelProperty(value = "交易流水号")

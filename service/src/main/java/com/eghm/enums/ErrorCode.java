@@ -1514,6 +1514,11 @@ public enum ErrorCode {
     MERCHANT_ACCOUNT_ERROR(3827, "商户余额信息异常"),
 
     /**
+     * 商户积分信息异常
+     */
+    MERCHANT_SCORE_ACCOUNT(3828, "商户积分信息异常"),
+
+    /**
      * 页面类型不存在
      */
     VISIT_TYPE_NULL(3830, "页面类型不存在"),

@@ -21,9 +21,6 @@ public class AccountDTO {
     @ApiModelProperty("账户类型")
     private AccountType accountType;
 
-    @ApiModelProperty("1:收入 2:支出")
-    private Integer direction;
-
     @ApiModelProperty("订单号")
     private String orderNo;
 
