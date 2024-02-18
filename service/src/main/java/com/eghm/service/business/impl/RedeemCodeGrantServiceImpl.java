@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 兑换码发放表 服务实现类
@@ -27,5 +29,10 @@ public class RedeemCodeGrantServiceImpl extends ServiceImpl<RedeemCodeGrantMappe
     @Override
     public Page<RedeemCodeGrantResponse> listPage(RedeemCodeGrantQueryRequest request) {
         return baseMapper.listPage(request.createPage(), request);
+    }
+
+    @Override
+    public List<RedeemCodeGrantResponse> getList(RedeemCodeGrantQueryRequest request) {
+        return baseMapper.listPage(request.createNullPage(), request).getRecords();
     }
 }

@@ -6,6 +6,8 @@ import com.eghm.dto.business.redeem.RedeemCodeGrantQueryRequest;
 import com.eghm.model.RedeemCodeGrant;
 import com.eghm.vo.business.redeem.RedeemCodeGrantResponse;
 
+import java.util.List;
+
 /**
  * <p>
  * 兑换码发放表 服务类
@@ -23,4 +25,12 @@ public interface RedeemCodeGrantService extends IService<RedeemCodeGrant> {
      * @return 列表
      */
     Page<RedeemCodeGrantResponse> listPage(RedeemCodeGrantQueryRequest request);
+
+    /**
+     * 分页查询兑换码信息 不分页
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<RedeemCodeGrantResponse> getList(RedeemCodeGrantQueryRequest request);
 }
