@@ -33,4 +33,12 @@ public interface RedeemCodeGrantService extends IService<RedeemCodeGrant> {
      * @return 列表
      */
     List<RedeemCodeGrantResponse> getList(RedeemCodeGrantQueryRequest request);
+
+    /**
+     * 获取兑换码金额
+     *
+     * @param cdKey 兑换码
+     * @return 金额 单位:分
+     */
+    Integer getRedeemAmount(String cdKey);
 }

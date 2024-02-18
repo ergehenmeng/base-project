@@ -1,7 +1,9 @@
 package com.eghm.dto.business.redeem;
 
+import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -36,6 +38,10 @@ public class RedeemCodeEditRequest {
     @NotNull(message = "结束时间不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
+
+    @ApiModelProperty("金额")
+    @JsonDeserialize(using = YuanToCentDecoder.class)
+    private Integer amount;
 
     @ApiModelProperty(value = "发放数量")
     @NotNull(message = "发放数量不能为空")

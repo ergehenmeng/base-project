@@ -38,6 +38,9 @@ public class RedeemCodeGrant extends BaseEntity {
     @ApiModelProperty(value = "使用状态 0:待使用 1:已使用 2:已过期")
     private Integer state;
 
+    @ApiModelProperty("金额")
+    private Integer amount;
+
     @ApiModelProperty(value = "有效开始时间")
     private LocalDateTime startTime;
 
