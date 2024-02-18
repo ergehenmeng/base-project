@@ -1,9 +1,12 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.redeem.RedeemCodeAddRequest;
 import com.eghm.dto.business.redeem.RedeemCodeEditRequest;
+import com.eghm.dto.business.redeem.RedeemCodeQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.RedeemCodeMapper;
@@ -36,6 +39,15 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
     private final RedeemCodeMapper redeemCodeMapper;
 
     private final RedeemCodeGrantService redeemCodeGrantService;
+
+    @Override
+    public Page<RedeemCode> listPage(RedeemCodeQueryRequest request) {
+        LambdaQueryWrapper<RedeemCode> wrapper = Wrappers.lambdaQuery();
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), RedeemCode::getTitle, request.getQueryName());
+        wrapper.eq(request.getState() != null, RedeemCode::getState, request.getState());
+        wrapper.orderByDesc(RedeemCode::getId);
+        return redeemCodeMapper.selectPage(request.createPage(), wrapper);
+    }
 
     @Override
     public void create(RedeemCodeAddRequest request) {

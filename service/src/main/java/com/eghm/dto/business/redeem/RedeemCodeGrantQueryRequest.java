@@ -11,8 +11,11 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class RedeemCodeQueryRequest extends PagingQuery {
+public class RedeemCodeGrantQueryRequest extends PagingQuery {
 
-    @ApiModelProperty(value = "状态 0:待发放 1:已发放")
+    @ApiModelProperty(value = "状态 0:待发放 1:已发放 2:已过期")
     private Integer state;
+
+    @ApiModelProperty("兑换码配置id")
+    private Long redeemCodeId;
 }

@@ -1,7 +1,9 @@
 package com.eghm.service.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.redeem.RedeemCodeAddRequest;
 import com.eghm.dto.business.redeem.RedeemCodeEditRequest;
+import com.eghm.dto.business.redeem.RedeemCodeQueryRequest;
 import com.eghm.model.RedeemCode;
 
 /**
@@ -13,6 +15,14 @@ import com.eghm.model.RedeemCode;
  * @since 2024-02-10
  */
 public interface RedeemCodeService {
+
+    /**
+     * 分页查询兑换码配置
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<RedeemCode> listPage(RedeemCodeQueryRequest request);
 
     /**
      * 添加兑换码配置

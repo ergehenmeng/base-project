@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.RedeemCodeGrantMapper">
 
-    <select id="listPage" resultType="com.eghm.vo.business.redeem.RedeemCodeGrantResponse" parameterType="com.eghm.dto.business.redeem.RedeemCodeQueryRequest">
+    <select id="listPage" resultType="com.eghm.vo.business.redeem.RedeemCodeGrantResponse" parameterType="com.eghm.dto.business.redeem.RedeemCodeGrantQueryRequest">
         select
         t.cd_key,
         t.create_time,
@@ -12,9 +12,9 @@
         r.mobile
         from redeem_code_grant t
         left join member r on t.member_id = r.id
-        where t.redeem_code_id = #{redeemCodeId}
+        where t.redeem_code_id = #{param.redeemCodeId}
         <if test="state != null">
-            and t.state = #{state}
+            and t.state = #{param.state}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
             and r.mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')

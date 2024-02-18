@@ -2,7 +2,7 @@ package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.eghm.dto.business.redeem.RedeemCodeQueryRequest;
+import com.eghm.dto.business.redeem.RedeemCodeGrantQueryRequest;
 import com.eghm.mapper.RedeemCodeGrantMapper;
 import com.eghm.model.RedeemCodeGrant;
 import com.eghm.service.business.RedeemCodeGrantService;
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 public class RedeemCodeGrantServiceImpl extends ServiceImpl<RedeemCodeGrantMapper, RedeemCodeGrant> implements RedeemCodeGrantService {
 
     @Override
-    public Page<RedeemCodeGrantResponse> listPage(RedeemCodeQueryRequest request) {
+    public Page<RedeemCodeGrantResponse> listPage(RedeemCodeGrantQueryRequest request) {
         return baseMapper.listPage(request.createPage(), request);
     }
 }
