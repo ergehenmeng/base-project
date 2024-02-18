@@ -266,8 +266,6 @@ CREATE TABLE `scenic_ticket`
     `total_num`         int(10)             DEFAULT '0' COMMENT '总销量=实际销量+虚拟销量',
     `introduce`         longtext COMMENT '门票介绍',
     `verification_type` tinyint(2)          DEFAULT NULL COMMENT '核销方式 1:手动核销 2:自动核销 (凌晨自动核销)',
-    `refund_type`       tinyint(1)          DEFAULT '2' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
-    `refund_describe`   varchar(200)        DEFAULT NULL COMMENT '退款描述',
     `real_buy`          bit(1)              DEFAULT b'0' COMMENT '是否实名购票 0:不实名 1:实名',
     `create_date`       date                DEFAULT null COMMENT '创建日期',
     `create_time`       datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间(订单创建时间)',

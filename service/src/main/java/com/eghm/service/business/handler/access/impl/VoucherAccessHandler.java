@@ -3,6 +3,7 @@ package com.eghm.service.business.handler.access.impl;
 import com.eghm.enums.event.impl.VoucherEvent;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
+import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.AbstractAccessHandler;
@@ -12,18 +13,20 @@ import com.eghm.state.machine.Context;
 import com.eghm.state.machine.StateHandler;
 import org.springframework.stereotype.Service;
 
+import static com.eghm.enums.ErrorCode.REFUND_AUDIT;
+
 /**
  * @author wyb
  * @since 2023/5/17
  */
-@Service("restaurantAccessHandler")
-public class RestaurantAccessHandler extends AbstractAccessHandler {
+@Service("voucherAccessHandler")
+public class VoucherAccessHandler extends AbstractAccessHandler {
 
     private final StateHandler stateHandler;
 
     private final OrderService orderService;
 
-    public RestaurantAccessHandler(OrderService orderService, AggregatePayService aggregatePayService, StateHandler stateHandler) {
+    public VoucherAccessHandler(OrderService orderService, AggregatePayService aggregatePayService, StateHandler stateHandler) {
         super(orderService, aggregatePayService);
         this.stateHandler = stateHandler;
         this.orderService = orderService;
@@ -63,11 +66,7 @@ public class RestaurantAccessHandler extends AbstractAccessHandler {
 
     @Override
     public void refundAudit(RefundAuditContext context) {
-        if (context.getState() == 1) {
-            stateHandler.fireEvent(ProductType.RESTAURANT, OrderState.REFUND.getValue(), VoucherEvent.REFUND_PASS, context);
-        } else {
-            stateHandler.fireEvent(ProductType.RESTAURANT, OrderState.REFUND.getValue(), VoucherEvent.REFUND_REFUSE, context);
-        }
+        throw new BusinessException(REFUND_AUDIT.getCode(), String.format(REFUND_AUDIT.getMsg(), ProductType.RESTAURANT.getName()));
     }
 
     @Override

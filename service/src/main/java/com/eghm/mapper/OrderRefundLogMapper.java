@@ -74,4 +74,13 @@ public interface OrderRefundLogMapper extends BaseMapper<OrderRefundLog> {
      * @return 退款记录列表
      */
     List<ItemRefundResponse> getItemRefundLog(@Param("orderNo") String orderNo);
+
+    /**
+     * 查询游客退款记录
+     *
+     * @param orderNo 订单信息
+     * @param visitorId 退款人信息
+     * @return 退款信息
+     */
+    OrderRefundLog getVisitRefundLog(@Param("orderNo") String orderNo, @Param("visitorId") Long visitorId);
 }

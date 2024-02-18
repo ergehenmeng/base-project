@@ -67,6 +67,11 @@ public class OrderRefundLogServiceImpl implements OrderRefundLogService {
     }
 
     @Override
+    public OrderRefundLog getVisitRefundLog(String orderNo, Long visitorId) {
+        return orderRefundLogMapper.getVisitRefundLog(orderNo, visitorId);
+    }
+
+    @Override
     public int updateById(OrderRefundLog log) {
         return orderRefundLogMapper.updateById(log);
     }

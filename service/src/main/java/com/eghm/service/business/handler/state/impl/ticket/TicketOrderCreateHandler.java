@@ -5,10 +5,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.TicketEvent;
-import com.eghm.enums.ref.DeliveryType;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
-import com.eghm.enums.ref.VisitorState;
+import com.eghm.enums.ref.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.Scenic;
@@ -103,8 +100,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         order.setPrice(ticket.getSalePrice());
         order.setPayAmount(context.getNum() * ticket.getSalePrice());
         order.setMultiple(false);
-        order.setRefundType(ticket.getRefundType());
-        order.setRefundDescribe(ticket.getRefundDescribe());
+        order.setRefundType(RefundType.DIRECT_REFUND);
         order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         // 使用优惠券
         this.useDiscount(order, context.getMemberId(), context.getCouponId(), ticket.getId());

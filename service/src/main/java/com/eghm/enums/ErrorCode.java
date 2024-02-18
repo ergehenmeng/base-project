@@ -1704,6 +1704,26 @@ public enum ErrorCode {
     REDEEM_CODE_GENERATE(3295, "兑换码已发放"),
 
     /**
+     * 退款信息未查询到
+     */
+    REFUND_LOG_NULL(3298, "退款信息未查询到"),
+
+    /**
+     * 请勿重复取消退款
+     */
+    REFUND_LOG_CANCEL(3300, "请勿重复取消退款"),
+
+    /**
+     * 退款进行中,无法取消
+     */
+    REFUND_LOG_AUDIT(3303, "退款进行中,无法取消"),
+
+    /**
+     * 无需退款审核
+     */
+    REFUND_AUDIT(3305, "%s无需退款审核"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

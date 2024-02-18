@@ -75,6 +75,13 @@ public enum VoucherEvent implements IEvent {
      * 退款审核拒绝
      */
     REFUND_REFUSE(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
+
+    /**
+     * 退款申请取消
+     */
+    REFUND_CANCEL(Lists.newArrayList(OrderState.UN_USED.getValue()
+            , OrderState.WAIT_TAKE.getValue(), OrderState.WAIT_DELIVERY.getValue(), OrderState.PARTIAL_DELIVERY.getValue()
+            , OrderState.WAIT_RECEIVE.getValue(), OrderState.REFUND.getValue()), OrderState.UN_USED.getValue()),
     ;
 
     private final List<Integer> from;

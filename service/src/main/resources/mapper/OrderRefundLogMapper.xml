@@ -102,4 +102,27 @@
         left join sys_user m on t.audit_user_id = m.id
         where t.order_no = #{orderNo} order by t.id desc
     </select>
+
+    <select id="getVisitRefundLog" resultType="com.eghm.model.OrderRefundLog">
+        select
+            t.id,
+            t.order_no,
+            t.num,
+            t.apply_amount,
+            t.express_fee,
+            t.refund_amount,
+            t.reason,
+            t.state,
+            t.audit_state,
+            t.audit_time,
+            t.audit_remark,
+            t.apply_time,
+            t.express_code,
+            t.express_no,
+            t.create_time,
+            t.update_time
+        from order_refund_log t left join order_visitor_refund r on t.id = r.refund_id
+        where t.order_no = #{orderNo} and t.deleted = false and r.visitor_id = #{visitorId}
+    </select>
+
 </mapper>

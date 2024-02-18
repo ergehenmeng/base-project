@@ -55,6 +55,11 @@ public enum VenueEvent implements IEvent {
      * 支付失败
      */
     PAY_FAIL(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.PAY_ERROR.getValue()),
+
+    /**
+     * 退款失败
+     */
+    REFUND_FAIL(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.REFUND_ERROR.getValue()),
     ;
 
     private final List<Integer> from;

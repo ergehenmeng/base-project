@@ -7,8 +7,8 @@ import com.eghm.dto.business.order.homestay.HomestayOrderCreateDTO;
 import com.eghm.dto.business.order.item.ItemOrderCreateDTO;
 import com.eghm.dto.business.order.line.LineOrderCreateDTO;
 import com.eghm.dto.business.order.refund.*;
-import com.eghm.dto.business.order.voucher.VoucherOrderCreateDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderCreateDTO;
+import com.eghm.dto.business.order.voucher.VoucherOrderCreateDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.AsyncKey;
 import com.eghm.dto.ext.RespBody;
@@ -38,17 +38,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/webapp/order")
 public class OrderController {
 
+    private final OrderService orderService;
+
+    private final VenueAccessHandler venueAccessHandler;
+
     private final ItemAccessHandler itemAccessHandler;
+
+    private final LineAccessHandler lineAccessHandler;
 
     private final TicketAccessHandler ticketAccessHandler;
 
     private final HomestayAccessHandler homestayAccessHandler;
 
-    private final LineAccessHandler lineAccessHandler;
-
-    private final RestaurantAccessHandler restaurantAccessHandler;
-
-    private final OrderService orderService;
+    private final VoucherAccessHandler voucherAccessHandler;
 
     @PostMapping("/item/create")
     @ApiOperation("零售创建订单")
@@ -100,7 +102,7 @@ public class OrderController {
     public RespBody<OrderCreateVO<String>> restaurantCreate(@RequestBody @Validated VoucherOrderCreateDTO dto) {
         VoucherOrderCreateContext context = DataUtil.copy(dto, VoucherOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
-        restaurantAccessHandler.createOrder(context);
+        voucherAccessHandler.createOrder(context);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }
@@ -150,7 +152,7 @@ public class OrderController {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         context.setApplyType(1);
-        restaurantAccessHandler.refundApply(context);
+        voucherAccessHandler.refundApply(context);
         return RespBody.success();
     }
 
@@ -161,6 +163,18 @@ public class OrderController {
         context.setMemberId(ApiHolder.getMemberId());
         context.setItemOrderId(dto.getOrderId());
         itemAccessHandler.refundApply(context);
+        return RespBody.success();
+    }
+
+    @PostMapping("/venue/refundApply")
+    @ApiOperation("场馆退款申请")
+    public RespBody<Void> venueRefundApply(@RequestBody @Validated VenueRefundApplyDTO dto) {
+        RefundApplyContext context = new RefundApplyContext();
+        context.setNum(1);
+        context.setOrderNo(dto.getOrderNo());
+        context.setApplyAmount(dto.getApplyAmount());
+        context.setMemberId(ApiHolder.getMemberId());
+        venueAccessHandler.refundApply(context);
         return RespBody.success();
     }
 

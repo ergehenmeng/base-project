@@ -2,7 +2,6 @@ package com.eghm.dto.business.scenic.ticket;
 
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.dto.ext.DateComparator;
-import com.eghm.enums.ref.RefundType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -78,15 +77,6 @@ public class ScenicTicketAddRequest extends DateComparator {
     @ApiModelProperty(value = "核销方式 1:手动核销 2:自动核销 (凌晨自动核销)", required = true)
     @OptionInt(value = {1, 2}, message = "核销方式格式错误")
     private Integer verificationType;
-
-    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款", required = true)
-    @NotNull(message = "退款方式不能为空")
-    private RefundType refundType;
-
-    @ApiModelProperty("退款描述信息")
-    @Size(max = 100, message = "退款描述信息最大100字符")
-    @WordChecker(message = "退款描述信息存在敏感词")
-    private String refundDescribe;
 
     @ApiModelProperty(value = "是否实名购票 false:不实名 true:实名", required = true)
     private Boolean realBuy;

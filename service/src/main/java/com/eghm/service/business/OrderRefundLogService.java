@@ -55,6 +55,15 @@ public interface OrderRefundLogService {
     OrderRefundLog getItemRefundLog(String orderNo, Long itemOrderId);
 
     /**
+     * 根据订单号查询退款记录
+     *
+     * @param orderNo 订单号
+     * @param visitorId 退款人信息
+     * @return 退款记录
+     */
+    OrderRefundLog getVisitRefundLog(String orderNo, Long visitorId);
+
+    /**
      * 根据id更新退款记录
      *
      * @param log 退款记录
