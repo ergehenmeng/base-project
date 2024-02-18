@@ -17,9 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -39,42 +37,42 @@ public class RedeemCodeController {
 
     private final RedeemCodeGrantService redeemCodeGrantService;
 
-    @RequestMapping("/listPage")
+    @GetMapping("/listPage")
     @ApiOperation("列表")
     public RespBody<PageData<RedeemCode>> listPage(RedeemCodeQueryRequest request) {
         Page<RedeemCode> listPage = redeemCodeService.listPage(request);
         return RespBody.success(PageData.toPage(listPage));
     }
 
-    @RequestMapping("/create")
+    @PostMapping("/create")
     @ApiOperation("创建")
     public RespBody<Void> create(@Validated @RequestBody RedeemCodeAddRequest request) {
         redeemCodeService.create(request);
         return RespBody.success();
     }
 
-    @RequestMapping("/update")
+    @PostMapping("/update")
     @ApiOperation("更新")
     public RespBody<Void> update(@Validated @RequestBody RedeemCodeEditRequest request) {
         redeemCodeService.update(request);
         return RespBody.success();
     }
 
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     @ApiOperation("删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         redeemCodeService.delete(dto.getId());
         return RespBody.success();
     }
 
-    @RequestMapping("/grant/listPage")
+    @GetMapping("/grant/listPage")
     @ApiOperation("列表")
     public RespBody<PageData<RedeemCodeGrantResponse>> grantListPage(RedeemCodeGrantQueryRequest request) {
         Page<RedeemCodeGrantResponse> listPage = redeemCodeGrantService.listPage(request);
         return RespBody.success(PageData.toPage(listPage));
     }
 
-    @RequestMapping("/grant/export")
+    @GetMapping("/grant/export")
     @ApiOperation("导出")
     public void grantExport(HttpServletResponse response, RedeemCodeGrantQueryRequest request) {
         List<RedeemCodeGrantResponse> byPage = redeemCodeGrantService.getList(request);
