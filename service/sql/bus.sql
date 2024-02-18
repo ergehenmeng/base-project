@@ -603,6 +603,8 @@ CREATE TABLE `order`
     `express_amount`  int(10)      DEFAULT '0' COMMENT '总快递费',
     `pay_amount`      int(10)      DEFAULT '0' COMMENT '总付款金额=单价*数量+总快递费-总优惠金额',
     `refund_amount`   int(10)      DEFAULT '0' COMMENT '已退款金额',
+    `cd_key_amount`   int(10)      DEFAULT '0' COMMENT 'cd_key金额',
+    `cd_key`          varchar(20)  DEFAULT NULL COMMENT 'cd_key',
     `coupon_id`       bigint(20)   DEFAULT NULL COMMENT '优惠券id',
     `pay_time`        datetime     DEFAULT NULL COMMENT '订单支付时间',
     `complete_time`   datetime     DEFAULT NULL COMMENT '订单完成时间',

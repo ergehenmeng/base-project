@@ -28,4 +28,14 @@ public class HomestayOrderPayload {
      * 房型配置信息
      */
     private List<HomestayRoomConfig> configList;
+
+    /**
+     * 兑换码金额
+     */
+    private Integer cdKeyAmount;
+
+    /**
+     * 优惠券金额
+     */
+    private Integer couponAmount;
 }

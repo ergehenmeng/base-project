@@ -56,13 +56,13 @@ public enum ProductType {
             OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.COMPLETE, OrderState.CLOSE
     }),
 
-
     /**
      * 场馆
      */
-    VENUE("venue", "场馆预约", "YY", new OrderState[]{
+    VENUE("venue", "场馆", "YY", new OrderState[]{
         OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.COMPLETE, OrderState.CLOSE
     });
+
     /**
      * 值
      */
@@ -119,7 +119,6 @@ public enum ProductType {
     public String generateOrderNo() {
         return prefix + IdWorker.getIdStr();
     }
-
 
     /**
      * 生成核销码

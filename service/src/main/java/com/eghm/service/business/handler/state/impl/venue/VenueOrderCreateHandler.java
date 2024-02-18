@@ -43,15 +43,19 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
 
     private final OrderMQService orderMQService;
 
+    private final RedeemCodeGrantService redeemCodeGrantService;
+
     public VenueOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, VenueService venueService,
-                                   OrderMQService orderMQService, VenueSiteService venueSiteService, VenueOrderService venueOrderService, VenueSitePriceService venueSitePriceService) {
-        super(memberCouponService, orderVisitorService);
+                                   OrderMQService orderMQService, VenueSiteService venueSiteService, VenueOrderService venueOrderService, VenueSitePriceService venueSitePriceService,
+                                   RedeemCodeGrantService redeemCodeGrantService) {
+        super(memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.venueService = venueService;
         this.venueSiteService = venueSiteService;
         this.venueOrderService = venueOrderService;
         this.venueSitePriceService = venueSitePriceService;
         this.orderService = orderService;
         this.orderMQService = orderMQService;
+        this.redeemCodeGrantService = redeemCodeGrantService;
     }
 
     @Override
@@ -79,7 +83,9 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
         VenueSitePrice price = priceList.get(0);
         Venue venue = venueService.selectByIdShelve(price.getVenueId());
         VenueSite venueSite = venueSiteService.selectByIdShelve(price.getVenueSiteId());
+        Integer redeemAmount = redeemCodeGrantService.getRedeemAmount(context.getCdKey());
         VenueOrderPayload payload = new VenueOrderPayload();
+        payload.setCdKeyAmount(redeemAmount);
         payload.setVenue(venue);
         payload.setVenueSite(venueSite);
         payload.setPriceList(priceList);
@@ -115,6 +121,10 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
         order.setRefundType(RefundType.DIRECT_REFUND);
         // 使用优惠券
         this.useDiscount(order, context.getMemberId(), context.getCouponId(), venue.getId());
+        // 使用cdKey
+        super.useRedeemCode(order, context.getMemberId(), context.getCdKey(), payload.getCdKeyAmount());
+        // 校验最低金额
+        super.checkAmount(order);
         orderService.save(order);
         return order;
     }
@@ -151,6 +161,11 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
         } else {
             orderMQService.sendOrderExpireMessage(ExchangeQueue.VENUE_PAY_EXPIRE, order.getOrderNo());
         }
+    }
+
+    @Override
+    protected Integer getLowestAmount() {
+        return 0;
     }
 
     @Override

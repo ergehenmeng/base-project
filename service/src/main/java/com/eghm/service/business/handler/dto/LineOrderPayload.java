@@ -34,4 +34,9 @@ public class LineOrderPayload {
      * 线路每日行程配置
      */
     private List<LineDayConfig> dayList;
+
+    /**
+     * cdKey金额
+     */
+    private Integer cdKeyAmount;
 }

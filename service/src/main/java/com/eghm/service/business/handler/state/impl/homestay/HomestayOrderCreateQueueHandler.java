@@ -18,8 +18,9 @@ import org.springframework.stereotype.Service;
 @Service("homestayOrderCreateQueueHandler")
 public class HomestayOrderCreateQueueHandler extends HomestayOrderCreateHandler {
 
-    public HomestayOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService, HomestayService homestayService, HomestayRoomConfigService homestayRoomConfigService, HomestayOrderSnapshotService homestayOrderSnapshotService) {
-        super(orderService, memberCouponService, orderVisitorService, orderMQService, homestayOrderService, homestayRoomService, homestayService, homestayRoomConfigService, homestayOrderSnapshotService);
+    public HomestayOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService, HomestayService homestayService,
+                                           HomestayRoomConfigService homestayRoomConfigService, HomestayOrderSnapshotService homestayOrderSnapshotService, RedeemCodeGrantService redeemCodeGrantService) {
+        super(orderService, memberCouponService, orderVisitorService, orderMQService, homestayOrderService, homestayRoomService, homestayService, homestayRoomConfigService, homestayOrderSnapshotService, redeemCodeGrantService);
     }
 
     @Override

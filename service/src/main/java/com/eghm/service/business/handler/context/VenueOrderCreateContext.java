@@ -40,6 +40,9 @@ public class VenueOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("备注")
     private String remark;
 
+    @ApiModelProperty("兑换码")
+    private String cdKey;
+
     @Assign
     @ApiModelProperty(hidden = true, value = "用户id")
     private Long memberId;

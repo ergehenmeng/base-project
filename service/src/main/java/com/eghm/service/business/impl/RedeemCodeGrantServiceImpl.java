@@ -1,6 +1,8 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -21,7 +23,8 @@ import java.util.List;
 
 /**
  * <p>
- * 兑换码发放表 服务实现类
+ * 兑换码发放表 服务实现类<br>
+ * 兑换码目前只针对于: 民宿, 线路, 餐饮券, 场馆
  * </p>
  *
  * @author 二哥很猛
@@ -44,6 +47,9 @@ public class RedeemCodeGrantServiceImpl extends ServiceImpl<RedeemCodeGrantMappe
 
     @Override
     public Integer getRedeemAmount(String cdKey) {
+        if (StrUtil.isBlank(cdKey)) {
+            return 0;
+        }
         LambdaQueryWrapper<RedeemCodeGrant> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(RedeemCodeGrant::getCdKey, cdKey);
         wrapper.last(CommonConstant.LIMIT_ONE);
@@ -66,5 +72,14 @@ public class RedeemCodeGrantServiceImpl extends ServiceImpl<RedeemCodeGrantMappe
             throw new BusinessException(ErrorCode.CD_KEY_EXPIRE);
         }
         return selected.getAmount();
+    }
+
+    @Override
+    public void useRedeem(String cdKey, Long memberId) {
+        LambdaUpdateWrapper<RedeemCodeGrant> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(RedeemCodeGrant::getCdKey, cdKey);
+        wrapper.set(RedeemCodeGrant::getUseTime, LocalDateTime.now());
+        wrapper.set(RedeemCodeGrant::getState, 1);
+        baseMapper.update(null, wrapper);
     }
 }

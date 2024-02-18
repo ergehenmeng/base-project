@@ -20,4 +20,9 @@ public class VoucherOrderPayload {
      * 餐厅信息
      */
     private Restaurant restaurant;
+
+    /**
+     * cdKey金额
+     */
+    private Integer cdKeyAmount;
 }

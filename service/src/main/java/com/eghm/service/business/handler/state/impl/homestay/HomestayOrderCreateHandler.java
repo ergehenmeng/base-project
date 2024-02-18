@@ -44,8 +44,11 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     private final OrderMQService orderMQService;
 
-    public HomestayOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService, HomestayService homestayService, HomestayRoomConfigService homestayRoomConfigService, HomestayOrderSnapshotService homestayOrderSnapshotService) {
-        super(memberCouponService, orderVisitorService);
+    private final RedeemCodeGrantService redeemCodeGrantService;
+
+    public HomestayOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService,
+                                      HomestayService homestayService, HomestayRoomConfigService homestayRoomConfigService, HomestayOrderSnapshotService homestayOrderSnapshotService, RedeemCodeGrantService redeemCodeGrantService) {
+        super(memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.homestayOrderService = homestayOrderService;
         this.homestayRoomService = homestayRoomService;
         this.homestayService = homestayService;
@@ -53,6 +56,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         this.homestayOrderSnapshotService = homestayOrderSnapshotService;
         this.orderService = orderService;
         this.orderMQService = orderMQService;
+        this.redeemCodeGrantService = redeemCodeGrantService;
     }
 
     @Override
@@ -90,10 +94,12 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         HomestayRoom homestayRoom = homestayRoomService.selectByIdShelve(context.getRoomId());
         Homestay homestay = homestayService.selectByIdShelve(homestayRoom.getHomestayId());
         List<HomestayRoomConfig> configList = homestayRoomConfigService.getList(context.getRoomId(), context.getStartDate(), context.getEndDate());
+        Integer redeemAmount = redeemCodeGrantService.getRedeemAmount(context.getCdKey());
         HomestayOrderPayload payload = new HomestayOrderPayload();
         payload.setHomestay(homestay);
         payload.setHomestayRoom(homestayRoom);
         payload.setConfigList(configList);
+        payload.setCdKeyAmount(redeemAmount);
         return payload;
     }
 
@@ -116,7 +122,11 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         order.setMultiple(false);
         // 使用优惠券
-        this.useDiscount(order, context.getMemberId(), context.getCouponId(), context.getRoomId());
+        super.useDiscount(order, context.getMemberId(), context.getCouponId(), context.getRoomId());
+        // 使用cdKey
+        super.useRedeemCode(order, context.getMemberId(), context.getCdKey(), payload.getCdKeyAmount());
+        // 校验最低金额
+        super.checkAmount(order);
         orderService.save(order);
         return order;
     }

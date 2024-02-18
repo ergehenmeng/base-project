@@ -26,4 +26,9 @@ public class VenueOrderPayload {
      * 场地价格信息
      */
     private List<VenueSitePrice> priceList;
+
+    /**
+     * cdKey金额
+     */
+    private Integer cdKeyAmount;
 }

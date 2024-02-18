@@ -55,6 +55,9 @@ public class HomestayOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("订单编号")
     private String orderNo;
 
+    @ApiModelProperty("兑换码")
+    private String cdKey;
+
     @ApiModelProperty("备注")
     private String remark;
 

@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class VoucherOrderCreateQueueHandler extends VoucherOrderCreateHandler {
 
-    public VoucherOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, RestaurantService restaurantService, OrderMQService orderMQService, VoucherService voucherService, VoucherOrderService voucherOrderService) {
-        super(orderService, memberCouponService, orderVisitorService, restaurantService, orderMQService, voucherService, voucherOrderService);
+    public VoucherOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, RestaurantService restaurantService, OrderMQService orderMQService, VoucherService voucherService, VoucherOrderService voucherOrderService, RedeemCodeGrantService redeemCodeGrantService) {
+        super(orderService, memberCouponService, orderVisitorService, restaurantService, orderMQService, voucherService, voucherOrderService, redeemCodeGrantService);
     }
 
     @Override

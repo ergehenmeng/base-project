@@ -39,8 +39,8 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
 
     private final OrderVisitorService orderVisitorService;
 
-    public TicketOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, ScenicService scenicService, TicketOrderService ticketOrderService) {
-        super(memberCouponService, orderVisitorService);
+    public TicketOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, ScenicService scenicService, TicketOrderService ticketOrderService, RedeemCodeGrantService redeemCodeGrantService) {
+        super(memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.scenicService = scenicService;
         this.scenicTicketService = scenicTicketService;
         this.ticketOrderService = ticketOrderService;
@@ -140,6 +140,11 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         } else {
             orderMQService.sendOrderExpireMessage(ExchangeQueue.TICKET_PAY_EXPIRE, order.getOrderNo());
         }
+    }
+
+    @Override
+    protected Integer getLowestAmount() {
+        return 0;
     }
 
     @Override

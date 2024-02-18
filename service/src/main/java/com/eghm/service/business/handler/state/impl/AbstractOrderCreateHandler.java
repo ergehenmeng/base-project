@@ -3,6 +3,7 @@ package com.eghm.service.business.handler.state.impl;
 import com.eghm.model.Order;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.OrderVisitorService;
+import com.eghm.service.business.RedeemCodeGrantService;
 import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.service.business.handler.state.OrderCreateHandler;
 import com.eghm.state.machine.Context;
@@ -27,6 +28,8 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
     private final MemberCouponService memberCouponService;
 
     private final OrderVisitorService orderVisitorService;
+
+    private final RedeemCodeGrantService redeemCodeGrantService;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
@@ -99,7 +102,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
      * @param couponId  优惠券id
      * @param productId 商品id
      */
-    public void useDiscount(Order order, Long memberId, Long couponId, Long productId) {
+    protected void useDiscount(Order order, Long memberId, Long couponId, Long productId) {
         if (couponId != null) {
             log.info("订单[{}]使用了优惠券 [{}]", order.getOrderNo(), couponId);
             Integer couponAmount = memberCouponService.getCouponAmountWithVerify(memberId, couponId, productId, order.getPayAmount());
@@ -107,6 +110,43 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
             order.setCouponId(couponId);
             memberCouponService.useCoupon(couponId);
         }
+    }
+
+    /**
+     * 兑换码金额
+     *
+     * @param order     订单信息,不含优惠金额
+     * @param memberId  用户id
+     * @param cdKey  cdKey
+     * @param cdKeyAmount 兑换码金额
+     */
+    protected void useRedeemCode(Order order, Long memberId, String cdKey, Integer cdKeyAmount) {
+        if (cdKey != null) {
+            log.info("订单[{}]使用了兑换码 [{}]", order.getOrderNo(), cdKey);
+            order.setPayAmount(order.getPayAmount() - cdKeyAmount);
+            order.setCdKey(cdKey);
+            order.setCdKeyAmount(cdKeyAmount);
+            redeemCodeGrantService.useRedeem(cdKey, memberId);
+        }
+    }
+
+    /**
+     * 设置最低实付金额
+     * @param order 订单信息
+     */
+    protected void checkAmount(Order order) {
+        if (order.getPayAmount() < 0) {
+            log.info("订单实付金额小于0, 强制最小支付一分钱 [{}] [{}]", order.getOrderNo(), order.getPayAmount());
+            order.setPayAmount(this.getLowestAmount());
+        }
+    }
+
+    /**
+     * 当使用优惠券等后, 实付金额小于0时的最低实付金额
+     * @return 默认1分钱
+     */
+    protected Integer getLowestAmount() {
+        return 1;
     }
 
     /**
