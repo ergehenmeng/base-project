@@ -1,13 +1,18 @@
 package com.eghm.web.controller.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.SortByDTO;
 import com.eghm.dto.business.venue.VenueSiteAddRequest;
 import com.eghm.dto.business.venue.VenueSiteEditRequest;
+import com.eghm.dto.business.venue.VenueSiteQueryRequest;
+import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.VenueSite;
 import com.eghm.service.business.VenueSiteService;
+import com.eghm.vo.business.venue.VenueSiteResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -26,6 +31,14 @@ import org.springframework.web.bind.annotation.*;
 public class VenueSiteController {
 
     private final VenueSiteService venueSiteService;
+
+    @GetMapping("/listPage")
+    @ApiOperation("列表")
+    public RespBody<PageData<VenueSiteResponse>> listPage(VenueSiteQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        Page<VenueSiteResponse> byPage = venueSiteService.getByPage(request);
+        return RespBody.success(PageData.toPage(byPage));
+    }
 
     @PostMapping("/create")
     @ApiOperation("新增")

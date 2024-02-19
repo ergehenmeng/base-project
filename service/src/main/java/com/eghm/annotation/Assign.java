@@ -12,11 +12,4 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.SOURCE)
 @Documented
 public @interface Assign {
-
-    /**
-     * 是否是必填字段
-     *
-     * @return true:需要后端必须设置进去
-     */
-    boolean required() default true;
 }
