@@ -53,11 +53,6 @@ public enum RoleType {
     VENUE("venue", "线路"),
 
     /**
-     * 核销员
-     */
-    VERIFIER("verifier", "核销员"),
-
-    /**
      * 商户普通角色
      */
     MERCHANT("merchant", "商户普通角色");
