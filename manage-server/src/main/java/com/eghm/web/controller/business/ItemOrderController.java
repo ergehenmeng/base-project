@@ -68,9 +68,9 @@ public class ItemOrderController {
         return RespBody.success(detail);
     }
 
-    @PostMapping("/onlineRefund")
-    @ApiOperation("线上退款")
-    public RespBody<Void> onlineRefund(@RequestBody @Validated ItemOnlineRefundRequest request) {
+    @PostMapping("/refund")
+    @ApiOperation("退款")
+    public RespBody<Void> refund(@RequestBody @Validated ItemOnlineRefundRequest request) {
         return redisLock.lock(CacheConstant.MANUAL_REFUND_LOCK + request.getOrderNo(), 10_000, () -> {
             orderService.itemOnlineRefund(request);
             return RespBody.success();
