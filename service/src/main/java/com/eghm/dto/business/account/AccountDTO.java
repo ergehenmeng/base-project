@@ -21,12 +21,6 @@ public class AccountDTO {
     @ApiModelProperty("账户类型")
     private AccountType accountType;
 
-    @ApiModelProperty("订单号")
-    private String orderNo;
-
-    @ApiModelProperty("交易流水号")
-    private String tradeNo;
-
     @ApiModelProperty("备注信息")
     private String remark;
 }

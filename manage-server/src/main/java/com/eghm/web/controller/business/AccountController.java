@@ -5,9 +5,13 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.account.AccountQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.model.Account;
 import com.eghm.service.business.AccountLogService;
+import com.eghm.service.business.AccountService;
+import com.eghm.utils.DataUtil;
 import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.business.account.AccountLogResponse;
+import com.eghm.vo.business.account.AccountResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -24,16 +28,26 @@ import java.util.List;
  */
 
 @RestController
-@Api(tags = "资金记录")
+@Api(tags = "商户资金")
 @AllArgsConstructor
-@RequestMapping("/manage/account")
+@RequestMapping("/manage/merchant/account")
 public class AccountController {
+
+    private final AccountService accountService;
 
     private final AccountLogService accountLogService;
 
+    @GetMapping
+    @ApiOperation("账户中心")
+    public RespBody<AccountResponse> account() {
+        Account account = accountService.getAccount(SecurityHolder.getMerchantId());
+        return RespBody.success(DataUtil.copy(account, AccountResponse.class));
+    }
+
     @GetMapping("/log/listPage")
-    @ApiOperation("资金记录列表")
+    @ApiOperation("资金变动列表")
     public RespBody<PageData<AccountLogResponse>> listPage(AccountQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         Page<AccountLogResponse> byPage = accountLogService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
@@ -43,6 +57,6 @@ public class AccountController {
     public void export(HttpServletResponse response, AccountQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<AccountLogResponse> byPage = accountLogService.getList(request);
-        ExcelUtil.export(response, "资金记录", byPage, AccountLogResponse.class);
+        ExcelUtil.export(response, "资金变动记录", byPage, AccountLogResponse.class);
     }
 }

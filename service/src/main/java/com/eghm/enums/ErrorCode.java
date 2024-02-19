@@ -1656,82 +1656,82 @@ public enum ErrorCode {
     /**
      * 该场次已下架
      */
-    VENUE_SITE_DOWN(3276, "该场次已下架"),
+    VENUE_SITE_DOWN(3876, "该场次已下架"),
 
     /**
      * 该场次已下架
      */
-    VENUE_DOWN(3277, "该场馆已下架"),
+    VENUE_DOWN(3877, "该场馆已下架"),
 
     /**
      * 不支持跨天预约
      */
-    VENUE_SKIP(3279, "不支持跨天预约"),
+    VENUE_SKIP(3879, "不支持跨天预约"),
 
     /**
      * 不支持多场馆预约
      */
-    VENUE_MULTI(3280, "不支持多场馆预约"),
+    VENUE_MULTI(3880, "不支持多场馆预约"),
 
     /**
      * 不支持跨场地预约
      */
-    VENUE_SITE_MULTI(3282, "不支持跨场地预约"),
+    VENUE_SITE_MULTI(3882, "不支持跨场地预约"),
 
     /**
      * 兑换码名称重复啦
      */
-    REDEEM_CODE_REDO(3285, "兑换码名称重复啦"),
+    REDEEM_CODE_REDO(3885, "兑换码名称重复啦"),
 
     /**
      * 兑换码配置未查询到
      */
-    REDEEM_CODE_NULL(3288, "兑换码配置未查询到"),
+    REDEEM_CODE_NULL(3888, "兑换码配置未查询到"),
 
     /**
      * 兑换码已发放,无法删除
      */
-    REDEEM_CODE_DELETE(3290, "兑换码已发放,无法删除"),
+    REDEEM_CODE_DELETE(3890, "兑换码已发放,无法删除"),
 
     /**
      * 兑换码已发放,无法修改
      */
-    REDEEM_CODE_UPDATE(3292, "兑换码已发放,无法修改"),
+    REDEEM_CODE_UPDATE(3892, "兑换码已发放,无法修改"),
 
     /**
      * 兑换码已发放
      */
-    REDEEM_CODE_GENERATE(3295, "兑换码已发放"),
+    REDEEM_CODE_GENERATE(3895, "兑换码已发放"),
 
     /**
      * 退款信息未查询到
      */
-    REFUND_LOG_NULL(3298, "退款信息未查询到"),
+    REFUND_LOG_NULL(3898, "退款信息未查询到"),
 
     /**
      * 请勿重复取消退款
      */
-    REFUND_LOG_CANCEL(3300, "请勿重复取消退款"),
+    REFUND_LOG_CANCEL(3900, "请勿重复取消退款"),
 
     /**
      * 退款进行中,无法取消
      */
-    REFUND_LOG_AUDIT(3303, "退款进行中,无法取消"),
+    REFUND_LOG_AUDIT(3903, "退款进行中,无法取消"),
 
     /**
      * 无需退款审核
      */
-    REFUND_AUDIT(3305, "%s无需退款审核"),
+    REFUND_AUDIT(3905, "%s无需退款审核"),
 
     /**
      * 兑换码无效
      */
-    CD_KEY_INVALID(3307, "兑换码无效"),
+    CD_KEY_INVALID(3907, "兑换码无效"),
 
     /**
      * 兑换码不在有效期
      */
-    CD_KEY_EXPIRE(3309, "兑换码不在有效期"),
+    CD_KEY_EXPIRE(3909, "兑换码不在有效期"),
 
     /**
      * 兑换码已使用
@@ -1741,12 +1741,17 @@ public enum ErrorCode {
     /**
      * 兑换码不适用该商品
      */
-    CD_KEY_STORE_SCOPE(3322, "兑换码不适用该商品"),
+    CD_KEY_STORE_SCOPE(3922, "兑换码不适用该商品"),
 
     /**
      * 兑换码不适用该商品
      */
-    CD_KEY_PRODUCT_SCOPE(3323, "兑换码不适用该商品"),
+    CD_KEY_PRODUCT_SCOPE(3923, "兑换码不适用该商品"),
+
+    /**
+     * 兑换码不适用该商品
+     */
+    ACCOUNT_NOT_EXIST(3924, "商户账户信息不存在,请核对当前账户是否为商户"),
 
     /**
      * 微信公众号尚未配置

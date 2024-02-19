@@ -2,10 +2,9 @@ package com.eghm.vo.business.account;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
-import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
-import com.eghm.enums.ref.AccountType;
+import com.eghm.enums.ref.ChargeType;
 import com.eghm.enums.ref.DirectionType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,7 +15,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 商户资金变动明细表
+ * 商户积分变动明细表
  * </p>
  *
  * @author 二哥很猛
@@ -24,26 +23,26 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class AccountLogResponse extends ExcelStyle {
+public class ScoreAccountLogResponse extends ExcelStyle {
 
     @ApiModelProperty(value = "商户名称")
     @ExcelProperty(value = "商户名称", index = 0)
     private String merchantName;
 
-    @ApiModelProperty(value = "资金变动类型")
-    @ExcelProperty(value = "资金变动类型", index = 1)
-    private AccountType accountType;
+    @ApiModelProperty(value = "积分变动类型")
+    @ExcelProperty(value = "积分变动类型", index = 1, converter = EnumExcelConverter.class)
+    private ChargeType chargeType;
 
-    @ApiModelProperty(value = "变动金额")
-    @ExcelProperty(value = "变动金额", index = 2, converter = CentToYuanConverter.class)
+    @ApiModelProperty(value = "变动积分")
+    @ExcelProperty(value = "变动积分", index = 2)
     private Integer amount;
 
-    @ApiModelProperty(value = "收支类型")
+    @ApiModelProperty(value = "1:收入 2:支出")
     @ExcelProperty(value = "收支类型", index = 3, converter = EnumExcelConverter.class)
     private DirectionType direction;
 
-    @ApiModelProperty(value = "变动余额")
-    @ExcelProperty(value = "变动余额", index = 4, converter = CentToYuanConverter.class)
+    @ApiModelProperty(value = "变动后的积分(可用积分)")
+    @ExcelProperty(value = "变动后的积分(可用积分)", index = 4)
     private Integer surplusAmount;
 
     @ApiModelProperty("添加时间")

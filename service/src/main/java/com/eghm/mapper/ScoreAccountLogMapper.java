@@ -1,7 +1,11 @@
 package com.eghm.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.account.score.ScoreAccountQueryRequest;
 import com.eghm.model.ScoreAccountLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.vo.business.account.ScoreAccountLogResponse;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +17,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface ScoreAccountLogMapper extends BaseMapper<ScoreAccountLog> {
 
+    /**
+     * 积分变动列表
+     *
+     * @param page 分页信息
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<ScoreAccountLogResponse> listPage(Page<ScoreAccountLogResponse> page, @Param("param") ScoreAccountQueryRequest request);
 }

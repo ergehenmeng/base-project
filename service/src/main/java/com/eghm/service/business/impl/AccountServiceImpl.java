@@ -84,7 +84,12 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
         LambdaQueryWrapper<Account> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Account::getMerchantId, merchantId);
         wrapper.last(CommonConstant.LIMIT_ONE);
-        return accountMapper.selectOne(wrapper);
+        Account account = accountMapper.selectOne(wrapper);
+        if (account == null) {
+            log.error("账户信息不存在 [{}]", merchantId);
+            throw new BusinessException(ErrorCode.ACCOUNT_NOT_EXIST);
+        }
+        return account;
     }
 
     /**

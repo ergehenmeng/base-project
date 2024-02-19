@@ -6,21 +6,15 @@
         select
         r.merchant_name,
         t.direction,
-        t.trade_no,
         t.create_time,
         t.account_type,
         t.amount,
         t.surplus_amount,
-        t.order_no,
         t.remark
         from account_log t left join merchant r on t.merchant_id = r.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
-            and (
-                r.merchant_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
-                t.trade_no like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
-                t.order_no like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
-            )
+            and r.merchant_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
         <if test="param.merchantId != null">
             and t.merchant_id = #{param.merchantId}
