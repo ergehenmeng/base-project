@@ -9,6 +9,7 @@ import com.eghm.dto.business.group.GroupBookingQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.GroupBookingService;
+import com.eghm.vo.business.group.GroupBookingDetailResponse;
 import com.eghm.vo.business.group.GroupBookingResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -50,6 +51,13 @@ public class GroupBookingController {
     public RespBody<Void> update(@RequestBody @Validated GroupBookingEditRequest request) {
         groupBookingService.update(request);
         return RespBody.success();
+    }
+
+    @GetMapping("/detail")
+    @ApiOperation("详情")
+    public RespBody<GroupBookingDetailResponse> detail(@Validated IdDTO dto) {
+        GroupBookingDetailResponse detail = groupBookingService.detail(dto.getId());
+        return RespBody.success(detail);
     }
 
     @PostMapping("/delete")

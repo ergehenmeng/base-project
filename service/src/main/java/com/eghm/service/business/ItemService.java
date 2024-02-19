@@ -259,4 +259,12 @@ public interface ItemService {
      * @return 列表
      */
     List<ActivityItemResponse> getActivityList(Long merchantId, Long activityId);
+
+    /**
+     * 设置sku拼团价格
+     *
+     * @param skuList sku 信息
+     * @param jsonValue 拼团价格json
+     */
+    void setGroupSkuPrice(List<ItemSkuVO> skuList, String jsonValue);
 }

@@ -6,6 +6,7 @@ import com.eghm.dto.business.group.GroupBookingEditRequest;
 import com.eghm.dto.business.group.GroupBookingQueryDTO;
 import com.eghm.dto.business.group.GroupBookingQueryRequest;
 import com.eghm.model.GroupBooking;
+import com.eghm.vo.business.group.GroupBookingDetailResponse;
 import com.eghm.vo.business.group.GroupBookingResponse;
 import com.eghm.vo.business.group.GroupItemVO;
 
@@ -57,6 +58,14 @@ public interface GroupBookingService {
     void delete(Long id);
 
     /**
+     * 查询拼团活动详情
+     *
+     * @param id 活动id
+     * @return 信息
+     */
+    GroupBookingDetailResponse detail(Long id);
+
+    /**
      * 分页查询拼团活动
      *
      * @param dto 查询条件
@@ -79,6 +88,14 @@ public interface GroupBookingService {
      * @return 信息
      */
     GroupBooking getById(Long bookingId);
+
+    /**
+     * 查询拼团信息
+     *
+     * @param bookingId 活动id
+     * @return 信息
+     */
+    GroupBooking getByIdRequired(Long bookingId);
 
     /**
      * 获取拼团活动最终价格

@@ -1,6 +1,8 @@
 package com.eghm.dto.business.group;
 
+import com.eghm.dto.ext.GroupItemSku;
 import com.eghm.validation.annotation.RangeInt;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -30,10 +32,12 @@ public class GroupBookingAddRequest {
 
     @ApiModelProperty(value = "开始时间")
     @NotNull(message = "开始时间不能为空")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "结束时间")
     @NotNull(message = "结束时间不能为空")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "拼团人数")
@@ -47,7 +51,7 @@ public class GroupBookingAddRequest {
 
     @ApiModelProperty("sku拼团优惠json")
     @NotEmpty(message = "拼团优惠不能为空")
-    private List<GroupSkuRequest> skuList;
+    private List<GroupItemSku> skuList;
 
     @ApiModelProperty(value = "商户id", hidden = true)
     private Long merchantId;

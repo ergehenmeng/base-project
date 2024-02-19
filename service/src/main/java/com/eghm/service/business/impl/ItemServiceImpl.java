@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.business.group.GroupSkuRequest;
 import com.eghm.dto.business.item.*;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
@@ -16,6 +15,7 @@ import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.dto.business.item.sku.ItemSpecRequest;
 import com.eghm.dto.business.purchase.LimitSkuRequest;
 import com.eghm.dto.ext.CalcStatistics;
+import com.eghm.dto.ext.GroupItemSku;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ChargeMode;
 import com.eghm.enums.ref.CollectType;
@@ -430,6 +430,20 @@ public class ItemServiceImpl implements ItemService {
         return itemMapper.getActivityList(merchantId, activityId);
     }
 
+    @Override
+    public void setGroupSkuPrice(List<ItemSkuVO> skuList, String jsonValue) {
+        List<GroupItemSku> groupSkuList = jsonService.fromJsonList(jsonValue, GroupItemSku.class);
+        Map<Long, GroupItemSku> skuMap = groupSkuList.stream().collect(Collectors.toMap(GroupItemSku::getSkuId, Function.identity()));
+        skuList.forEach(vo -> {
+            GroupItemSku request = skuMap.get(vo.getId());
+            if (request != null && vo.getSalePrice().equals(request.getSalePrice()) && request.getGroupPrice() != null) {
+                vo.setGroupPrice(request.getGroupPrice());
+            } else {
+                vo.setGroupPrice(vo.getSalePrice());
+            }
+        });
+    }
+
     /**
      * 设置限时购信息
      *
@@ -485,17 +499,8 @@ public class ItemServiceImpl implements ItemService {
                 log.error("该拼团不在有效期 [{}]", detail.getBookingId());
                 return;
             }
-            List<GroupSkuRequest> skuList = jsonService.fromJsonList(booking.getSkuValue(), GroupSkuRequest.class);
-            Map<Long, GroupSkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(GroupSkuRequest::getSkuId, Function.identity()));
-            detail.getSkuList().forEach(vo -> {
-                GroupSkuRequest request = skuMap.get(vo.getId());
-                if (request != null && vo.getSalePrice().equals(request.getSalePrice()) && request.getGroupPrice() != null) {
-                    detail.setGroupBooking(true);
-                    vo.setGroupPrice(request.getGroupPrice());
-                } else {
-                    vo.setGroupPrice(vo.getSalePrice());
-                }
-            });
+            detail.setGroupBooking(true);
+            this.setGroupSkuPrice(detail.getSkuList(), booking.getSkuValue());
         }
     }
 

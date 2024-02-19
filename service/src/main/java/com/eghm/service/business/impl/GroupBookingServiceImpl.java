@@ -5,21 +5,30 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.business.group.*;
+import com.eghm.dto.business.group.GroupBookingAddRequest;
+import com.eghm.dto.business.group.GroupBookingEditRequest;
+import com.eghm.dto.business.group.GroupBookingQueryDTO;
+import com.eghm.dto.business.group.GroupBookingQueryRequest;
+import com.eghm.dto.ext.GroupItemSku;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.GroupBookingMapper;
 import com.eghm.model.GroupBooking;
+import com.eghm.model.Item;
+import com.eghm.model.ItemSku;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.GroupBookingService;
 import com.eghm.service.business.ItemService;
+import com.eghm.service.business.ItemSkuService;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.group.GroupBookingDetailResponse;
 import com.eghm.vo.business.group.GroupBookingResponse;
 import com.eghm.vo.business.group.GroupItemVO;
 import com.eghm.vo.business.group.GroupOrderCancelVO;
+import com.eghm.vo.business.item.ItemSkuVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -65,6 +74,8 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     private final CommonService commonService;
 
     private final MessageService messageService;
+
+    private final ItemSkuService itemSkuService;
 
     @Override
     public Page<GroupBookingResponse> getByPage(GroupBookingQueryRequest request) {
@@ -129,6 +140,19 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     }
 
     @Override
+    public GroupBookingDetailResponse detail(Long id) {
+        GroupBooking booking = this.getByIdRequired(id);
+        Item item = itemService.selectByIdRequired(booking.getItemId());
+        GroupBookingDetailResponse response = DataUtil.copy(booking, GroupBookingDetailResponse.class);
+        response.setCoverUrl(item.getCoverUrl());
+        response.setItemName(item.getTitle());
+        List<ItemSku> itemSkuList = itemSkuService.getByItemId(booking.getItemId());
+        List<ItemSkuVO> voList = DataUtil.copy(itemSkuList, ItemSkuVO.class);
+        itemService.setGroupSkuPrice(voList, booking.getSkuValue());
+        return response;
+    }
+
+    @Override
     public List<GroupItemVO> listPage(GroupBookingQueryDTO dto) {
         Page<GroupItemVO> listPage = groupBookingMapper.listPage(dto.createPage(false), dto);
         return listPage.getRecords();
@@ -147,6 +171,16 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     @Override
     public GroupBooking getById(Long bookingId) {
         return groupBookingMapper.getById(bookingId);
+    }
+
+    @Override
+    public GroupBooking getByIdRequired(Long bookingId) {
+        GroupBooking booking = groupBookingMapper.getById(bookingId);
+        if (booking == null) {
+            log.warn("拼团活动未查询到 [{}]", bookingId);
+            throw new BusinessException(ErrorCode.BOOKING_NULL);
+        }
+        return booking;
     }
 
     @Override
@@ -170,9 +204,9 @@ public class GroupBookingServiceImpl implements GroupBookingService {
             log.warn("拼团优惠金额为空");
             return salePrice;
         }
-        List<GroupSkuRequest> skuList = jsonService.fromJsonList(skuValue, GroupSkuRequest.class);
-        Map<Long, GroupSkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(GroupSkuRequest::getSkuId, Function.identity()));
-        GroupSkuRequest request = skuMap.get(skuId);
+        List<GroupItemSku> skuList = jsonService.fromJsonList(skuValue, GroupItemSku.class);
+        Map<Long, GroupItemSku> skuMap = skuList.stream().collect(Collectors.toMap(GroupItemSku::getSkuId, Function.identity()));
+        GroupItemSku request = skuMap.get(skuId);
         if (request == null || !salePrice.equals(request.getSalePrice()) || request.getGroupPrice() == null) {
             log.warn("拼团sku价格信息未匹配 [{}]", skuId);
             return salePrice;
@@ -186,7 +220,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
      * @param skuList sku列表
      * @return 最大优惠金额
      */
-    private Integer getMaxDiscountPrice(List<GroupSkuRequest> skuList) {
+    private Integer getMaxDiscountPrice(List<GroupItemSku> skuList) {
         return skuList.stream().mapToInt(request -> request.getSalePrice() - request.getGroupPrice()).max().orElse(0);
     }
 
