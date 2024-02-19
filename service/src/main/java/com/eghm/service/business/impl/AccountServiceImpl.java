@@ -59,11 +59,11 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
     public void updateAccount(AccountDTO dto) {
         Account account = this.getAccount(dto.getMerchantId());
         AccountLog accountLog = DataUtil.copy(dto, AccountLog.class);
-        if (dto.getAccountType() == AccountType.ORDER_INCOME) {
+        if (dto.getAccountType() == AccountType.ORDER) {
             account.setWithdrawAmount(account.getWithdrawAmount() + dto.getAmount());
             account.setPayFreeze(account.getPayFreeze() - dto.getAmount());
             accountLog.setDirection(1);
-        } else if (dto.getAccountType() == AccountType.WITHDRAW_DISBURSE) {
+        } else if (dto.getAccountType() == AccountType.WITHDRAW) {
             account.setWithdrawAmount(account.getWithdrawAmount() - dto.getAmount());
             account.setWithdrawFreeze(account.getWithdrawFreeze() + dto.getAmount());
             accountLog.setDirection(2);

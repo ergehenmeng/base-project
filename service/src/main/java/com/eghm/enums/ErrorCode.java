@@ -1759,6 +1759,11 @@ public enum ErrorCode {
     BOOKING_NULL(3926, "拼团活动未查询到"),
 
     /**
+     * 可提现金额不足
+     */
+    WITHDRAW_ENOUGH(3928, "可提现金额不足"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

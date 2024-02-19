@@ -22,12 +22,12 @@ public enum AccountType implements EnumBinder {
      * 例如: 平台抽佣:5%, 单价500x2, 则支付收入500x2*0.95=950
      * 支付收入 (不含平台抽佣)
      */
-    ORDER_INCOME(1, "订单收入"),
+    ORDER(1, "订单收入"),
 
     /**
      * 例如提现提现1000, 手续费5块,则提现冻结1000, 到账995
      */
-    WITHDRAW_DISBURSE(3, "提现支出");
+    WITHDRAW(3, "提现支出");
 
     /**
      * 状态值

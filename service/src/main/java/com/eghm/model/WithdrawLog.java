@@ -1,6 +1,9 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.convertor.CentToYuanEncoder;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,12 +30,14 @@ public class WithdrawLog extends BaseEntity {
     private Integer state;
 
     @ApiModelProperty(value = "1:手动提现 2:自动提现")
-    private Boolean withdrawWay;
+    private Integer withdrawWay;
 
     @ApiModelProperty(value = "提现金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer amount;
 
     @ApiModelProperty(value = "提现手续费")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer fee;
 
     @ApiModelProperty(value = "提现流水号")
@@ -42,6 +47,7 @@ public class WithdrawLog extends BaseEntity {
     private String outTradeNo;
 
     @ApiModelProperty(value = "到账时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime paymentTime;
 
     @ApiModelProperty(value = "银行卡所属用户姓名")
