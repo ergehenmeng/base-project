@@ -35,7 +35,7 @@ public interface RedeemCodeService {
     void create(RedeemCodeAddRequest request);
 
     /**
-     * 修改兑换码配置
+     * 修改兑换码配置 已发放的兑换码只能修改使用范围
      *
      * @param request 兑换码配置
      */

@@ -11,11 +11,11 @@ import com.eghm.dto.ext.StoreScope;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.RedeemCodeMapper;
-import com.eghm.mapper.RedeemCodeScopeMapper;
 import com.eghm.model.RedeemCode;
 import com.eghm.model.RedeemCodeGrant;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.RedeemCodeGrantService;
+import com.eghm.service.business.RedeemCodeScopeService;
 import com.eghm.service.business.RedeemCodeService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.StringUtil;
@@ -45,7 +45,7 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
 
     private final RedeemCodeMapper redeemCodeMapper;
 
-    private final RedeemCodeScopeMapper redeemCodeScopeMapper;
+    private final RedeemCodeScopeService redeemCodeScopeService;
 
     private final RedeemCodeGrantService redeemCodeGrantService;
 
@@ -64,6 +64,7 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
         RedeemCode copy = DataUtil.copy(request, RedeemCode.class);
         copy.setState(0);
         redeemCodeMapper.insert(copy);
+        redeemCodeScopeService.insertOrUpdate(copy.getId(), request.getStoreList());
     }
 
     @Override
@@ -71,10 +72,12 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
         this.redoTitle(request.getTitle(), request.getId());
         RedeemCode redeemCode = this.selectByIdRequired(request.getId());
         if (redeemCode.getState() == 1) {
-            throw new BusinessException(ErrorCode.REDEEM_CODE_UPDATE);
+            // 已发放兑换码, 只允许修改使用范围
+            redeemCodeScopeService.insertOrUpdate(request.getId(), request.getStoreList());
+        } else {
+            RedeemCode copy = DataUtil.copy(request, RedeemCode.class);
+            redeemCodeMapper.updateById(copy);
         }
-        RedeemCode copy = DataUtil.copy(request, RedeemCode.class);
-        redeemCodeMapper.updateById(copy);
     }
 
     @Override
@@ -119,7 +122,7 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
 
     @Override
     public List<BaseStoreResponse> getScopeList(Long id) {
-        List<StoreScope> scopeList = redeemCodeScopeMapper.getScopeList(id);
+        List<StoreScope> scopeList = redeemCodeScopeService.getScopeList(id);
         return commonService.getStoreList(scopeList);
     }
 

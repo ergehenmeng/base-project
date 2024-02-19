@@ -1,6 +1,7 @@
 package com.eghm.dto.business.redeem;
 
 import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.dto.ext.StoreScope;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -47,4 +49,7 @@ public class RedeemCodeEditRequest {
     @NotNull(message = "发放数量不能为空")
     @RangeInt(min = 1, max = 999, message = "发放数量应在1-999之间")
     private Integer num;
+
+    @ApiModelProperty("使用范围")
+    private List<StoreScope> storeList;
 }
