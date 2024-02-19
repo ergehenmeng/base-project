@@ -94,7 +94,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         HomestayRoom homestayRoom = homestayRoomService.selectByIdShelve(context.getRoomId());
         Homestay homestay = homestayService.selectByIdShelve(homestayRoom.getHomestayId());
         List<HomestayRoomConfig> configList = homestayRoomConfigService.getList(context.getRoomId(), context.getStartDate(), context.getEndDate());
-        Integer redeemAmount = redeemCodeGrantService.getRedeemAmount(context.getCdKey());
+        Integer redeemAmount = redeemCodeGrantService.getRedeemAmount(context.getCdKey(), context.getRoomId(), context.getRoomId());
         HomestayOrderPayload payload = new HomestayOrderPayload();
         payload.setHomestay(homestay);
         payload.setHomestayRoom(homestayRoom);

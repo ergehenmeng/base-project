@@ -383,3 +383,4 @@ INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sor
 INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10113114','取消置顶','XBU0','101131',null,'/manage/comment/unTop',2,50,b'1',null,2,'2024-01-17T16:28:46','2024-01-17T16:29:38');
 
 INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10181019','调整费率','vYp0','101810',null,'/manage/merchant/adjustRate',2,67,b'1',null,2,'2024-01-22T13:26:11','2024-01-22T13:27:09');
+

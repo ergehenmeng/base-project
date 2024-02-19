@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.redeem.RedeemCodeAddRequest;
 import com.eghm.dto.business.redeem.RedeemCodeEditRequest;
 import com.eghm.dto.business.redeem.RedeemCodeQueryRequest;
-import com.eghm.dto.ext.ProductScope;
+import com.eghm.dto.ext.StoreScope;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.RedeemCodeMapper;
@@ -119,7 +119,7 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
 
     @Override
     public List<BaseStoreResponse> getScopeList(Long id) {
-        List<ProductScope> scopeList = redeemCodeScopeMapper.getScopeList(id);
+        List<StoreScope> scopeList = redeemCodeScopeMapper.getScopeList(id);
         return commonService.getStoreList(scopeList);
     }
 

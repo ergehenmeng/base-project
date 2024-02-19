@@ -205,4 +205,9 @@ public class ConfigConstant {
      * 场馆场次价格单次设置日期最大间隔
      */
     public static final String SITE_CONFIG_MAX_DAY = "site_config_max_day";
+
+    /**
+     * 兑换码使用范围(商品范围)
+     */
+    public static final String REDEEM_CODE_SCOPE = "redeem_code_scope";
 }

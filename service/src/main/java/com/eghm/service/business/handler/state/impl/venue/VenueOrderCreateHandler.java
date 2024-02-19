@@ -83,7 +83,7 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
         VenueSitePrice price = priceList.get(0);
         Venue venue = venueService.selectByIdShelve(price.getVenueId());
         VenueSite venueSite = venueSiteService.selectByIdShelve(price.getVenueSiteId());
-        Integer redeemAmount = redeemCodeGrantService.getRedeemAmount(context.getCdKey());
+        Integer redeemAmount = redeemCodeGrantService.getRedeemAmount(context.getCdKey(), venue.getId(), price.getVenueSiteId());
         VenueOrderPayload payload = new VenueOrderPayload();
         payload.setCdKeyAmount(redeemAmount);
         payload.setVenue(venue);

@@ -59,6 +59,13 @@ public class RedeemCodeController {
         return RespBody.success();
     }
 
+    @GetMapping("/select")
+    @ApiOperation("详情")
+    public RespBody<RedeemCode> select(@Validated IdDTO dto) {
+        RedeemCode select = redeemCodeService.selectByIdRequired(dto.getId());
+        return RespBody.success(select);
+    }
+
     @GetMapping("/scope")
     @ApiOperation("使用范围")
     public RespBody<List<BaseStoreResponse>> scope(@Validated IdDTO dto) {

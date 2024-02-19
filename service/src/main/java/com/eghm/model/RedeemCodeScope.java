@@ -26,6 +26,9 @@ public class RedeemCodeScope {
     @ApiModelProperty("id主键")
     private Long id;
 
+    @ApiModelProperty(value = "配置id")
+    private Long redeemCodeId;
+
     @ApiModelProperty("店铺id")
     private Long storeId;
 

@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -8,11 +9,15 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.redeem.RedeemCodeGrantQueryRequest;
+import com.eghm.dto.ext.ProductScope;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.RedeemCodeGrantMapper;
+import com.eghm.mapper.RedeemCodeScopeMapper;
 import com.eghm.model.RedeemCodeGrant;
+import com.eghm.model.RedeemCodeScope;
 import com.eghm.service.business.RedeemCodeGrantService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.vo.business.redeem.RedeemCodeGrantResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +25,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static com.eghm.constants.ConfigConstant.REDEEM_CODE_SCOPE;
 
 /**
  * <p>
@@ -35,6 +44,10 @@ import java.util.List;
 @Service("redeemCodeGrantService")
 public class RedeemCodeGrantServiceImpl extends ServiceImpl<RedeemCodeGrantMapper, RedeemCodeGrant> implements RedeemCodeGrantService {
 
+    private final SysConfigApi sysConfigApi;
+
+    private final RedeemCodeScopeMapper redeemCodeScopeMapper;
+
     @Override
     public Page<RedeemCodeGrantResponse> listPage(RedeemCodeGrantQueryRequest request) {
         return baseMapper.listPage(request.createPage(), request);
@@ -46,7 +59,7 @@ public class RedeemCodeGrantServiceImpl extends ServiceImpl<RedeemCodeGrantMappe
     }
 
     @Override
-    public Integer getRedeemAmount(String cdKey) {
+    public Integer getRedeemAmount(String cdKey, Long storeId, Long productId) {
         if (StrUtil.isBlank(cdKey)) {
             return 0;
         }
@@ -70,6 +83,23 @@ public class RedeemCodeGrantServiceImpl extends ServiceImpl<RedeemCodeGrantMappe
         if (selected.getStartTime().isAfter(now) || selected.getEndTime().isBefore(now)) {
             log.error("兑换码不在有效期 [{}] [{}] [{}]", cdKey, selected.getStartTime(), selected.getEndTime());
             throw new BusinessException(ErrorCode.CD_KEY_EXPIRE);
+        }
+        LambdaQueryWrapper<RedeemCodeScope> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(RedeemCodeScope::getRedeemCodeId, selected.getRedeemCodeId());
+        queryWrapper.eq(RedeemCodeScope::getStoreId, storeId);
+        Long count = redeemCodeScopeMapper.selectCount(queryWrapper);
+        if (count <= 0) {
+            List<ProductScope> scopeList = sysConfigApi.getListClass(REDEEM_CODE_SCOPE, ProductScope.class);
+            if (CollUtil.isEmpty(scopeList)) {
+                log.error("兑换码不适用该店铺 [{}] [{}]", cdKey, selected.getRedeemCodeId());
+                throw new BusinessException(ErrorCode.CD_KEY_STORE_SCOPE);
+            }
+            Map<Long, List<Long>> scopeMap = scopeList.stream().collect(Collectors.toMap(ProductScope::getRedeemCodeId, ProductScope::getProductIds));
+            List<Long> productList = scopeMap.get(selected.getRedeemCodeId());
+            if (CollUtil.isEmpty(productList) || !productList.contains(productId)) {
+                log.error("兑换码不适用该商品 [{}] [{}]", cdKey, productId);
+                throw new BusinessException(ErrorCode.CD_KEY_PRODUCT_SCOPE);
+            }
         }
         return selected.getAmount();
     }

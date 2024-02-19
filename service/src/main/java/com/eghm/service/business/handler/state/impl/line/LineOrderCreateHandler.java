@@ -68,7 +68,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         payload.setTravelAgency(travelAgency);
         payload.setConfig(lineConfigService.getConfig(context.getLineId(), context.getConfigDate()));
         payload.setDayList(lineDayConfigService.getByLineId(context.getLineId()));
-        Integer redeemAmount = redeemCodeGrantService.getRedeemAmount(context.getCdKey());
+        Integer redeemAmount = redeemCodeGrantService.getRedeemAmount(context.getCdKey(), travelAgency.getId(), context.getLineId());
         payload.setCdKeyAmount(redeemAmount);
         return payload;
     }

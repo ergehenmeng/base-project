@@ -1,7 +1,7 @@
 package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.dto.ext.ProductScope;
+import com.eghm.dto.ext.StoreScope;
 import com.eghm.model.RedeemCodeScope;
 import org.apache.ibatis.annotations.Param;
 
@@ -23,5 +23,5 @@ public interface RedeemCodeScopeMapper extends BaseMapper<RedeemCodeScope> {
      * @param redeemCodeId 配置id
      * @return 使用范围
      */
-    List<ProductScope> getScopeList(@Param("redeemCodeId") Long redeemCodeId);
+    List<StoreScope> getScopeList(@Param("redeemCodeId") Long redeemCodeId);
 }

@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 系统参数公用Api接口
  * 主要原因缓存注解Aop同方法调用失效问题
@@ -166,6 +168,23 @@ public class SysConfigApi {
         String value = this.getString(nid);
         try {
             return jsonService.fromJson(value, cls);
+        } catch (Exception e) {
+            log.warn("系统参数转对象异常 [{}]", value);
+            throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);
+        }
+    }
+
+    /**
+     * 根据nid获取系统参数配置信息的值 (list)
+     *
+     * @param nid 唯一nid
+     * @param cls 要转换的类型
+     * @return 系统参数结果值class, 如果异常则抛出
+     */
+    public <T> List<T> getListClass(String nid, Class<T> cls) {
+        String value = this.getString(nid);
+        try {
+            return jsonService.fromJsonList(value, cls);
         } catch (Exception e) {
             log.warn("系统参数转对象异常 [{}]", value);
             throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);

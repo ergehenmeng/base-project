@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dto.ext.ProductScope;
+import com.eghm.dto.ext.StoreScope;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.SysDictItem;
@@ -97,5 +97,5 @@ public interface CommonService {
      * @param scopeIds 店铺ids
      * @return 列表
      */
-    List<BaseStoreResponse> getStoreList(List<ProductScope> scopeIds);
+    List<BaseStoreResponse> getStoreList(List<StoreScope> scopeIds);
 }

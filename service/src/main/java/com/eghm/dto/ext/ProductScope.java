@@ -1,8 +1,9 @@
 package com.eghm.dto.ext;
 
-import com.eghm.enums.ref.ProductType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -11,9 +12,9 @@ import lombok.Data;
 @Data
 public class ProductScope {
 
-    @ApiModelProperty("店铺id")
-    private Long storeId;
+    @ApiModelProperty("兑换码配置id")
+    private Long redeemCodeId;
 
-    @ApiModelProperty("店铺类型")
-    private ProductType productType;
+    @ApiModelProperty("商品ids")
+    private List<Long> productIds;
 }

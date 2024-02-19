@@ -1739,6 +1739,16 @@ public enum ErrorCode {
     CD_KEY_USED(3319, "兑换码已使用"),
 
     /**
+     * 兑换码不适用该商品
+     */
+    CD_KEY_STORE_SCOPE(3322, "兑换码不适用该商品"),
+
+    /**
+     * 兑换码不适用该商品
+     */
+    CD_KEY_PRODUCT_SCOPE(3323, "兑换码不适用该商品"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

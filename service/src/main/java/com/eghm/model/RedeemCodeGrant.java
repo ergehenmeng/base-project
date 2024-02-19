@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @TableName("redeem_code_grant")
 public class RedeemCodeGrant extends BaseEntity {
 
-    @ApiModelProperty(value = "发放表id")
+    @ApiModelProperty(value = "配置id")
     private Long redeemCodeId;
 
     @ApiModelProperty(value = "cd名称")

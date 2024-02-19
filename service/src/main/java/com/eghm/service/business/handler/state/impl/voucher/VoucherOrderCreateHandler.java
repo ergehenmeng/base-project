@@ -55,7 +55,7 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
     protected VoucherOrderPayload getPayload(VoucherOrderCreateContext context) {
         Voucher voucher = voucherService.selectByIdShelve(context.getVoucherId());
         Restaurant restaurant = restaurantService.selectByIdShelve(voucher.getRestaurantId());
-        Integer redeemAmount = redeemCodeGrantService.getRedeemAmount(context.getCdKey());
+        Integer redeemAmount = redeemCodeGrantService.getRedeemAmount(context.getCdKey(), restaurant.getId(), context.getVoucherId());
         VoucherOrderPayload payload = new VoucherOrderPayload();
         payload.setCdKeyAmount(redeemAmount);
         payload.setVoucher(voucher);

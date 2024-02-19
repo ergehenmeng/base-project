@@ -2,7 +2,7 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.ext.ProductScope;
+import com.eghm.dto.ext.StoreScope;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ProductType;
@@ -171,11 +171,11 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public List<BaseStoreResponse> getStoreList(List<ProductScope> scopeIds) {
+    public List<BaseStoreResponse> getStoreList(List<StoreScope> scopeIds) {
         if (CollUtil.isNotEmpty(scopeIds)) {
             return Lists.newArrayListWithExpectedSize(1);
         }
-        Map<ProductType, List<Long>> productMap = scopeIds.stream().collect(Collectors.groupingBy(ProductScope::getProductType, Collectors.mapping(ProductScope::getStoreId, Collectors.toList())));
+        Map<ProductType, List<Long>> productMap = scopeIds.stream().collect(Collectors.groupingBy(StoreScope::getProductType, Collectors.mapping(StoreScope::getStoreId, Collectors.toList())));
         List<BaseStoreResponse> responseList = new ArrayList<>();
         List<Long> storeIds = productMap.get(ProductType.ITEM);
         if (CollUtil.isNotEmpty(storeIds)) {
