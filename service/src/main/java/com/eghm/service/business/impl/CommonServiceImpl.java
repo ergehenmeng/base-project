@@ -2,6 +2,7 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.ext.ProductScope;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ProductType;
@@ -12,6 +13,7 @@ import com.eghm.service.business.CommonService;
 import com.eghm.service.business.handler.state.RefundNotifyHandler;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.SpringContextUtil;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.statistics.ProductStatisticsVO;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -41,7 +43,19 @@ public class CommonServiceImpl implements CommonService {
 
     private final LineMapper lineMapper;
 
+    private final VenueMapper venueMapper;
+
     private final VoucherMapper voucherMapper;
+
+    private final ScenicMapper scenicMapper;
+
+    private final ItemStoreMapper itemStoreMapper;
+
+    private final HomestayMapper homestayMapper;
+
+    private final RestaurantMapper restaurantMapper;
+
+    private final TravelAgencyMapper travelAgencyMapper;
 
     private final ScenicTicketMapper scenicTicketMapper;
 
@@ -154,5 +168,45 @@ public class CommonServiceImpl implements CommonService {
             resultList.add(vo);
         }
         return resultList;
+    }
+
+    @Override
+    public List<BaseStoreResponse> getStoreList(List<ProductScope> scopeIds) {
+        if (CollUtil.isNotEmpty(scopeIds)) {
+            return Lists.newArrayListWithExpectedSize(1);
+        }
+        Map<ProductType, List<Long>> productMap = scopeIds.stream().collect(Collectors.groupingBy(ProductScope::getProductType, Collectors.mapping(ProductScope::getStoreId, Collectors.toList())));
+        List<BaseStoreResponse> responseList = new ArrayList<>();
+        List<Long> storeIds = productMap.get(ProductType.ITEM);
+        if (CollUtil.isNotEmpty(storeIds)) {
+            List<BaseStoreResponse> itemStoreList = itemStoreMapper.getStoreList(storeIds);
+            responseList.addAll(itemStoreList);
+        }
+        storeIds = productMap.get(ProductType.TICKET);
+        if (CollUtil.isNotEmpty(storeIds)) {
+            List<BaseStoreResponse> itemStoreList = scenicMapper.getStoreList(storeIds);
+            responseList.addAll(itemStoreList);
+        }
+        storeIds = productMap.get(ProductType.HOMESTAY);
+        if (CollUtil.isNotEmpty(storeIds)) {
+            List<BaseStoreResponse> itemStoreList = homestayMapper.getStoreList(storeIds);
+            responseList.addAll(itemStoreList);
+        }
+        storeIds = productMap.get(ProductType.RESTAURANT);
+        if (CollUtil.isNotEmpty(storeIds)) {
+            List<BaseStoreResponse> itemStoreList = restaurantMapper.getStoreList(storeIds);
+            responseList.addAll(itemStoreList);
+        }
+        storeIds = productMap.get(ProductType.LINE);
+        if (CollUtil.isNotEmpty(storeIds)) {
+            List<BaseStoreResponse> itemStoreList = travelAgencyMapper.getStoreList(storeIds);
+            responseList.addAll(itemStoreList);
+        }
+        storeIds = productMap.get(ProductType.VENUE);
+        if (CollUtil.isNotEmpty(storeIds)) {
+            List<BaseStoreResponse> itemStoreList = venueMapper.getStoreList(storeIds);
+            responseList.addAll(itemStoreList);
+        }
+        return responseList;
     }
 }

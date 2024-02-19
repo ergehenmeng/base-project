@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.item.store.ItemStoreAddRequest;
 import com.eghm.dto.business.item.store.ItemStoreEditRequest;
 import com.eghm.dto.business.item.store.ItemStoreQueryRequest;
@@ -22,6 +23,7 @@ import com.eghm.service.business.*;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.item.store.ItemStoreHomeVO;
 import com.eghm.vo.business.item.store.ItemStoreVO;
 import lombok.AllArgsConstructor;
@@ -150,6 +152,11 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         wrapper.eq(ItemStore::getId, id);
         wrapper.set(ItemStore::getRecommend, true);
         itemStoreMapper.update(null, wrapper);
+    }
+
+    @Override
+    public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
+        return itemStoreMapper.getStorePage(request.createPage(), request);
     }
 
     /**

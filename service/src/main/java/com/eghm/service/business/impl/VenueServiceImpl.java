@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.venue.VenueAddRequest;
 import com.eghm.dto.business.venue.VenueEditRequest;
 import com.eghm.dto.business.venue.VenueQueryDTO;
@@ -17,6 +18,7 @@ import com.eghm.model.Venue;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.VenueService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.venue.VenueDetailVO;
 import com.eghm.vo.business.venue.VenueResponse;
 import com.eghm.vo.business.venue.VenueVO;
@@ -124,6 +126,11 @@ public class VenueServiceImpl implements VenueService {
     public VenueDetailVO getDetail(Long id) {
         Venue venue = this.selectByIdShelve(id);
         return DataUtil.copy(venue, VenueDetailVO.class);
+    }
+
+    @Override
+    public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
+        return venueMapper.getStorePage(request.createPage(), request);
     }
 
     /**

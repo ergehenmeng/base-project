@@ -1,7 +1,10 @@
 package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.model.ItemStore;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.item.store.ItemStoreVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -41,4 +44,21 @@ public interface ItemStoreMapper extends BaseMapper<ItemStore> {
      * @return 列表
      */
     List<ItemStoreVO> getList(@Param("storeIds") List<Long> storeIds);
+
+    /**
+     * 分页查询列表(含商户信息)
+     *
+     * @param page 分页信息
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<BaseStoreResponse> getStorePage(Page<BaseStoreResponse> page, @Param("param") BaseStoreQueryRequest request);
+
+    /**
+     * 查询列表 (包含商户信息)
+     *
+     * @param storeIds ids
+     * @return 列表
+     */
+    List<BaseStoreResponse> getStoreList(@Param("storeIds") List<Long> storeIds);
 }

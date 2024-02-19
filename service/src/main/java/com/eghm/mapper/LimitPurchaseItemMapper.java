@@ -1,7 +1,7 @@
 package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.business.limit.LimitPurchaseQueryDTO;
+import com.eghm.dto.business.purchase.LimitPurchaseQueryDTO;
 import com.eghm.model.LimitPurchaseItem;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.vo.business.limit.LimitItemResponse;

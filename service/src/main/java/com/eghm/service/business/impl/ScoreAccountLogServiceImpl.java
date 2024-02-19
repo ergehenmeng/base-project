@@ -1,9 +1,7 @@
 package com.eghm.service.business.impl;
 
-import com.eghm.model.ScoreAccountLog;
 import com.eghm.mapper.ScoreAccountLogMapper;
 import com.eghm.service.business.ScoreAccountLogService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

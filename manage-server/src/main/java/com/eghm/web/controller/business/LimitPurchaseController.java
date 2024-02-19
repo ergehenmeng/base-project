@@ -3,7 +3,7 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
-import com.eghm.dto.business.limit.LimitPurchaseQueryRequest;
+import com.eghm.dto.business.purchase.LimitPurchaseQueryRequest;
 import com.eghm.dto.business.purchase.LimitPurchaseAddRequest;
 import com.eghm.dto.business.purchase.LimitPurchaseEditRequest;
 import com.eghm.dto.ext.PageData;

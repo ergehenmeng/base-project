@@ -2,9 +2,11 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.dto.business.restaurant.RestaurantQueryRequest;
 import com.eghm.model.Restaurant;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.restaurant.RestaurantResponse;
 import com.eghm.vo.business.restaurant.RestaurantVO;
 import org.apache.ibatis.annotations.Param;
@@ -55,4 +57,21 @@ public interface RestaurantMapper extends BaseMapper<Restaurant> {
      * @return 列表
      */
     List<RestaurantVO> getList(@Param("restaurantIds") List<Long> restaurantIds);
+
+    /**
+     * 分页查询列表(含商户信息)
+     *
+     * @param page 分页信息
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<BaseStoreResponse> getStorePage(Page<BaseStoreResponse> page, @Param("param") BaseStoreQueryRequest request);
+
+    /**
+     * 查询列表 (包含商户信息)
+     *
+     * @param restaurantIds 民宿ids
+     * @return 列表
+     */
+    List<BaseStoreResponse> getStoreList(@Param("restaurantIds") List<Long> restaurantIds);
 }

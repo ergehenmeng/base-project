@@ -2,9 +2,11 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.dto.business.homestay.HomestayQueryRequest;
 import com.eghm.model.Homestay;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.homestay.HomestayResponse;
 import com.eghm.vo.business.homestay.HomestayVO;
 import org.apache.ibatis.annotations.Param;
@@ -47,6 +49,23 @@ public interface HomestayMapper extends BaseMapper<Homestay> {
      * @return 列表
      */
     List<HomestayVO> getList(@Param("homestayIds") List<Long> homestayIds);
+
+    /**
+     * 分页查询列表(含商户信息)
+     *
+     * @param page 分页信息
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<BaseStoreResponse> getStorePage(Page<BaseStoreResponse> page, @Param("param") BaseStoreQueryRequest request);
+
+    /**
+     * 查询民宿列表 (包含商户信息)
+     *
+     * @param homestayIds 民宿ids
+     * @return 列表
+     */
+    List<BaseStoreResponse> getStoreList(@Param("homestayIds") List<Long> homestayIds);
 
     /**
      * 更新评分

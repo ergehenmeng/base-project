@@ -12,6 +12,7 @@ import com.eghm.model.RedeemCode;
 import com.eghm.service.business.RedeemCodeGrantService;
 import com.eghm.service.business.RedeemCodeService;
 import com.eghm.utils.ExcelUtil;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.redeem.RedeemCodeGrantResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -55,6 +56,20 @@ public class RedeemCodeController {
     @ApiOperation("更新")
     public RespBody<Void> update(@Validated @RequestBody RedeemCodeEditRequest request) {
         redeemCodeService.update(request);
+        return RespBody.success();
+    }
+
+    @GetMapping("/scope")
+    @ApiOperation("使用范围")
+    public RespBody<List<BaseStoreResponse>> scope(@Validated IdDTO dto) {
+        List<BaseStoreResponse> scopeList = redeemCodeService.getScopeList(dto.getId());
+        return RespBody.success(scopeList);
+    }
+
+    @PostMapping("/generate")
+    @ApiOperation("生成兑换码")
+    public RespBody<Void> generate(@RequestBody @Validated IdDTO dto) {
+        redeemCodeService.generate(dto.getId());
         return RespBody.success();
     }
 

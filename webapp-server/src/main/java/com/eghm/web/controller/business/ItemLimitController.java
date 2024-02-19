@@ -1,6 +1,6 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.dto.business.limit.LimitPurchaseQueryDTO;
+import com.eghm.dto.business.purchase.LimitPurchaseQueryDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.LimitPurchaseItemService;
 import com.eghm.vo.business.limit.LimitItemVO;

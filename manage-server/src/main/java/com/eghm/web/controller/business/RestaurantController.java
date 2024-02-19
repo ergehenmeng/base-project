@@ -3,6 +3,7 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.restaurant.RestaurantAddRequest;
 import com.eghm.dto.business.restaurant.RestaurantEditRequest;
 import com.eghm.dto.business.restaurant.RestaurantQueryRequest;
@@ -12,6 +13,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.model.Restaurant;
 import com.eghm.service.business.RestaurantService;
 import com.eghm.utils.ExcelUtil;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.restaurant.RestaurantResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,6 +42,13 @@ public class RestaurantController {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<Restaurant> roomPage = restaurantService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
+    }
+
+    @GetMapping("/storeListPage")
+    @ApiOperation("列表含商户信息")
+    public RespBody<PageData<BaseStoreResponse>> storeListPage(BaseStoreQueryRequest request) {
+        Page<BaseStoreResponse> listPage = restaurantService.getStorePage(request);
+        return RespBody.success(PageData.toPage(listPage));
     }
 
     @PostMapping("/create")

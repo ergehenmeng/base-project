@@ -7,15 +7,19 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.redeem.RedeemCodeAddRequest;
 import com.eghm.dto.business.redeem.RedeemCodeEditRequest;
 import com.eghm.dto.business.redeem.RedeemCodeQueryRequest;
+import com.eghm.dto.ext.ProductScope;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.RedeemCodeMapper;
+import com.eghm.mapper.RedeemCodeScopeMapper;
 import com.eghm.model.RedeemCode;
 import com.eghm.model.RedeemCodeGrant;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.RedeemCodeGrantService;
 import com.eghm.service.business.RedeemCodeService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.StringUtil;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +41,11 @@ import java.util.List;
 @Service("redeemCodeService")
 public class RedeemCodeServiceImpl implements RedeemCodeService {
 
+    private final CommonService commonService;
+
     private final RedeemCodeMapper redeemCodeMapper;
+
+    private final RedeemCodeScopeMapper redeemCodeScopeMapper;
 
     private final RedeemCodeGrantService redeemCodeGrantService;
 
@@ -107,6 +115,12 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
         redeemCodeGrantService.saveBatch(grantList);
         select.setState(1);
         redeemCodeMapper.updateById(select);
+    }
+
+    @Override
+    public List<BaseStoreResponse> getScopeList(Long id) {
+        List<ProductScope> scopeList = redeemCodeScopeMapper.getScopeList(id);
+        return commonService.getStoreList(scopeList);
     }
 
     /**

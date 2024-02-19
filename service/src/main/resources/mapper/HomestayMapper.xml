@@ -50,6 +50,40 @@
         </foreach>
     </select>
 
+    <select id="getStorePage" parameterType="com.eghm.dto.business.base.BaseStoreQueryRequest" resultType="com.eghm.vo.business.base.BaseStoreResponse">
+        select
+        t.id as storeId,
+        t.title as storeName,
+        t.state,
+        t.cover_url as coverUrl,
+        'homestay' as productType,
+        r.merchant_name
+        from homestay t left join merchant r on t.merchant_id = r.id where t.deleted = false
+        <if test="param.state != null">
+            and t.state = #{param.state}
+        </if>
+        <if test="param.queryName != null and param.queryName != ''">
+            and ( t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
+            r.merchant_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') )
+        </if>
+        order by t.id desc
+    </select>
+
+    <select id="getStoreList" resultType="com.eghm.vo.business.base.BaseStoreResponse">
+        select
+        t.id as storeId,
+        t.title as storeName,
+        t.state,
+        t.cover_url as coverUrl,
+        'homestay' as productType,
+        r.merchant_name
+        from homestay t left join merchant r on t.merchant_id = r.id
+        where t.deleted = false and t.id in
+        <foreach collection="homestayIds" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
     <!--无距离排序,不进行子查询-->
     <sql id="getByPageSql">
         select
@@ -80,6 +114,7 @@
         </if>
         order by t.id desc
     </sql>
+
     <!--有距离排序-->
     <sql id="getByPageSortSql">
         select s.* from ( select
@@ -122,7 +157,6 @@
             </otherwise>
         </choose>
     </sql>
-
 
     <update id="updateScore">
         update homestay set score = #{score} where id = #{id}

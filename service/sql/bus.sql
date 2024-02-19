@@ -1468,4 +1468,13 @@ CREATE TABLE `score_account_log`
 ) ENGINE = InnoDB COMMENT ='商户积分变动明细表';
 
 
-
+DROP TABLE IF EXISTS redeem_code_scope;
+CREATE TABLE redeem_code_scope
+(
+    id             BIGINT(20) NOT NULL COMMENT '主键',
+    redeem_code_id BIGINT(20) COMMENT '配置id',
+    store_id       BIGINT(20) COMMENT '店铺id',
+    product_type   VARCHAR(20) COMMENT '店铺类型',
+    create_time    DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    PRIMARY KEY (id)
+) COMMENT '兑换码使用范围表';

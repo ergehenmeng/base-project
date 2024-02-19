@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.travel.TravelAgencyAddRequest;
 import com.eghm.dto.business.travel.TravelAgencyEditRequest;
 import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
@@ -16,7 +17,6 @@ import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.TravelAgencyMapper;
 import com.eghm.model.Merchant;
-import com.eghm.model.Scenic;
 import com.eghm.model.TravelAgency;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.MemberCollectService;
@@ -24,6 +24,7 @@ import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.TravelAgencyService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.line.TravelAgencyDetailVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -124,6 +125,11 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         vo.setDetailAddress(sysAreaService.parseArea(travelAgency.getCityId(), travelAgency.getCountyId()) + vo.getDetailAddress());
         vo.setCollect(memberCollectService.checkCollect(id, CollectType.TRAVEL_AGENCY));
         return vo;
+    }
+
+    @Override
+    public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
+        return travelAgencyMapper.getStorePage(request.createPage(), request);
     }
 
     @Override

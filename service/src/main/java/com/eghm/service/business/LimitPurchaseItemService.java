@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dto.business.limit.LimitPurchaseQueryDTO;
+import com.eghm.dto.business.purchase.LimitPurchaseQueryDTO;
 import com.eghm.dto.business.purchase.LimitItemRequest;
 import com.eghm.model.LimitPurchase;
 import com.eghm.model.LimitPurchaseItem;

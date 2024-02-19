@@ -18,34 +18,39 @@ public enum RoleType {
     ADMINISTRATOR("administrator", "超级管理员"),
 
     /**
-     * 普通管理员
+     * 系统通用角色
      */
     COMMON("common", "普通管理员"),
 
     /**
-     * 景区商户
+     * 景区商户角色
      */
-    SCENIC("scenic", "景区商户"),
+    SCENIC("scenic", "景区"),
 
     /**
-     * 民宿商户
+     * 民宿商户角色
      */
-    HOMESTAY("homestay", "民宿商户"),
+    HOMESTAY("homestay", "民宿"),
 
     /**
-     * 餐饮商户
+     * 线路商户角色
      */
-    RESTAURANT("restaurant", "餐饮商户"),
+    RESTAURANT("restaurant", "餐饮"),
 
     /**
-     * 零售特产
+     * 零售商户角色
      */
-    ITEM("item", "零售特产"),
+    ITEM("item", "零售"),
 
     /**
-     * 线路商户
+     * 线路商户角色
      */
-    LINE("line", "线路商户"),
+    LINE("line", "线路"),
+
+    /**
+     * 线路商户角色
+     */
+    VENUE("venue", "线路"),
 
     /**
      * 核销员

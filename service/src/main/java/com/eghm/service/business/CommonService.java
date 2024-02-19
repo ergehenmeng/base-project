@@ -1,9 +1,11 @@
 package com.eghm.service.business;
 
+import com.eghm.dto.ext.ProductScope;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.SysDictItem;
 import com.eghm.service.business.handler.state.RefundNotifyHandler;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.statistics.ProductStatisticsVO;
 
 import java.util.List;
@@ -88,4 +90,12 @@ public interface CommonService {
      * @return 列表
      */
     List<ProductStatisticsVO> dayAppend(ProductRequest request);
+
+    /**
+     * 查询店铺列表
+     *
+     * @param scopeIds 店铺ids
+     * @return 列表
+     */
+    List<BaseStoreResponse> getStoreList(List<ProductScope> scopeIds);
 }

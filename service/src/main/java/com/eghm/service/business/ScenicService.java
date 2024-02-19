@@ -1,12 +1,14 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.scenic.ScenicAddRequest;
 import com.eghm.dto.business.scenic.ScenicEditRequest;
 import com.eghm.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.dto.business.scenic.ScenicQueryRequest;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Scenic;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.scenic.ScenicDetailVO;
 import com.eghm.vo.business.scenic.ScenicVO;
 
@@ -113,4 +115,11 @@ public interface ScenicService {
      */
     void updatePrice(Long id);
 
+    /**
+     * 分页查询列表(含商户信息)
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request);
 }

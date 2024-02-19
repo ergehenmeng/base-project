@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.homestay.HomestayAddRequest;
 import com.eghm.dto.business.homestay.HomestayEditRequest;
 import com.eghm.dto.business.homestay.HomestayQueryDTO;
@@ -8,6 +9,7 @@ import com.eghm.dto.business.homestay.HomestayQueryRequest;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Homestay;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.homestay.HomestayDetailVO;
 import com.eghm.vo.business.homestay.HomestayResponse;
 import com.eghm.vo.business.homestay.HomestayVO;
@@ -102,4 +104,12 @@ public interface HomestayService {
      * @param vo 商品信息
      */
     void updateScore(CalcStatistics vo);
+
+    /**
+     * 分页查询列表(含商户信息)
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request);
 }

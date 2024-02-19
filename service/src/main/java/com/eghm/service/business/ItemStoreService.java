@@ -1,11 +1,13 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.item.store.ItemStoreAddRequest;
 import com.eghm.dto.business.item.store.ItemStoreEditRequest;
 import com.eghm.dto.business.item.store.ItemStoreQueryRequest;
 import com.eghm.enums.ref.State;
 import com.eghm.model.ItemStore;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.item.store.ItemStoreHomeVO;
 import com.eghm.vo.business.item.store.ItemStoreVO;
 
@@ -93,4 +95,12 @@ public interface ItemStoreService {
      * @param id 店铺id
      */
     void setRecommend(Long id);
+
+    /**
+     * 分页查询列表(含商户信息)
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request);
 }

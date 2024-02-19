@@ -3,6 +3,7 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.venue.VenueAddRequest;
 import com.eghm.dto.business.venue.VenueEditRequest;
 import com.eghm.dto.business.venue.VenueQueryRequest;
@@ -12,6 +13,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.model.Venue;
 import com.eghm.service.business.VenueService;
 import com.eghm.utils.ExcelUtil;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.venue.VenueResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,6 +43,13 @@ public class VenueController {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VenueResponse> byPage = venueService.listPage(request);
         return RespBody.success(PageData.toPage(byPage));
+    }
+
+    @GetMapping("/storeListPage")
+    @ApiOperation("列表含商户信息")
+    public RespBody<PageData<BaseStoreResponse>> storeListPage(BaseStoreQueryRequest request) {
+        Page<BaseStoreResponse> listPage = venueService.getStorePage(request);
+        return RespBody.success(PageData.toPage(listPage));
     }
 
     @PostMapping("/create")

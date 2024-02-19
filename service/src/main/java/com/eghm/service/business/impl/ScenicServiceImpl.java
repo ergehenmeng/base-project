@@ -11,6 +11,7 @@ import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.scenic.ScenicAddRequest;
 import com.eghm.dto.business.scenic.ScenicEditRequest;
 import com.eghm.dto.business.scenic.ScenicQueryDTO;
@@ -32,6 +33,7 @@ import com.eghm.service.sys.SysDictService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.activity.ActivityBaseDTO;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.scenic.ScenicDetailVO;
 import com.eghm.vo.business.scenic.ScenicVO;
 import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
@@ -205,6 +207,11 @@ public class ScenicServiceImpl implements ScenicService {
         wrapper.set(Scenic::getMaxPrice, vo.getMaxPrice());
         wrapper.eq(Scenic::getId, id);
         scenicMapper.update(null, wrapper);
+    }
+
+    @Override
+    public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
+        return scenicMapper.getStorePage(request.createPage(), request);
     }
 
     /**

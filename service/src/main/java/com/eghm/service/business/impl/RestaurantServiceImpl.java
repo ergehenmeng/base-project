@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.restaurant.RestaurantAddRequest;
 import com.eghm.dto.business.restaurant.RestaurantEditRequest;
 import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
@@ -29,6 +30,7 @@ import com.eghm.service.business.RestaurantService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
 import com.eghm.vo.business.restaurant.RestaurantDetailVO;
 import com.eghm.vo.business.restaurant.RestaurantResponse;
@@ -166,6 +168,11 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
             return;
         }
         voucherMapper.updateScore(vo.getProductId(), DecimalUtil.calcAvgScore(productScore.getTotalScore(), productScore.getNum()));
+    }
+
+    @Override
+    public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
+        return restaurantMapper.getStorePage(request.createPage(), request);
     }
 
     /**

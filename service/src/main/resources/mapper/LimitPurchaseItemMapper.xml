@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.LimitPurchaseItemMapper">
 
-    <select id="getByPage" resultType="com.eghm.vo.business.limit.LimitItemVO" parameterType="com.eghm.dto.business.limit.LimitPurchaseQueryDTO">
+    <select id="getByPage" resultType="com.eghm.vo.business.limit.LimitItemVO" parameterType="com.eghm.dto.business.purchase.LimitPurchaseQueryDTO">
         select
             t.item_id,
             t.max_discount_amount,

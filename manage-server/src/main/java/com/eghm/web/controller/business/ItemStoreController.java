@@ -3,6 +3,7 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.item.store.ItemStoreAddRequest;
 import com.eghm.dto.business.item.store.ItemStoreEditRequest;
 import com.eghm.dto.business.item.store.ItemStoreQueryRequest;
@@ -11,6 +12,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.ItemStore;
 import com.eghm.service.business.ItemStoreService;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -35,6 +37,13 @@ public class ItemStoreController {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ItemStore> byPage = itemStoreService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
+    }
+
+    @GetMapping("/storeListPage")
+    @ApiOperation("列表含商户信息")
+    public RespBody<PageData<BaseStoreResponse>> storeListPage(BaseStoreQueryRequest request) {
+        Page<BaseStoreResponse> listPage = itemStoreService.getStorePage(request);
+        return RespBody.success(PageData.toPage(listPage));
     }
 
     @PostMapping("/create")

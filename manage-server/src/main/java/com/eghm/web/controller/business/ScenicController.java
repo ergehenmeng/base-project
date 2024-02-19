@@ -3,6 +3,7 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.scenic.ScenicAddRequest;
 import com.eghm.dto.business.scenic.ScenicEditRequest;
 import com.eghm.dto.business.scenic.ScenicQueryRequest;
@@ -11,6 +12,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Scenic;
 import com.eghm.service.business.ScenicService;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -34,6 +36,13 @@ public class ScenicController {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<Scenic> scenicPage = scenicService.getByPage(request);
         return RespBody.success(PageData.toPage(scenicPage));
+    }
+
+    @GetMapping("/storeListPage")
+    @ApiOperation("列表含商户信息")
+    public RespBody<PageData<BaseStoreResponse>> storeListPage(BaseStoreQueryRequest request) {
+        Page<BaseStoreResponse> listPage = scenicService.getStorePage(request);
+        return RespBody.success(PageData.toPage(listPage));
     }
 
     @ApiOperation("创建景区")

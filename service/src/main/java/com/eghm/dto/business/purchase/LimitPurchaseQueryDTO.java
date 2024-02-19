@@ -1,4 +1,4 @@
-package com.eghm.dto.business.limit;
+package com.eghm.dto.business.purchase;
 
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;

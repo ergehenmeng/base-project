@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
-import com.eghm.dto.business.limit.LimitPurchaseQueryDTO;
+import com.eghm.dto.business.purchase.LimitPurchaseQueryDTO;
 import com.eghm.dto.business.purchase.LimitItemRequest;
 import com.eghm.dto.business.purchase.LimitSkuRequest;
 import com.eghm.mapper.LimitPurchaseItemMapper;

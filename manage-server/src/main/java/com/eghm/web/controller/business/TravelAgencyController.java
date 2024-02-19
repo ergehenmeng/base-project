@@ -2,6 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.travel.TravelAgencyAddRequest;
 import com.eghm.dto.business.travel.TravelAgencyEditRequest;
 import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
@@ -10,6 +11,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.TravelAgency;
 import com.eghm.service.business.TravelAgencyService;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -33,6 +35,13 @@ public class TravelAgencyController {
     public RespBody<PageData<TravelAgency>> listPage(TravelAgencyQueryRequest request) {
         Page<TravelAgency> roomPage = travelAgencyService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
+    }
+
+    @GetMapping("/storeListPage")
+    @ApiOperation("列表含商户信息")
+    public RespBody<PageData<BaseStoreResponse>> storeListPage(BaseStoreQueryRequest request) {
+        Page<BaseStoreResponse> listPage = travelAgencyService.getStorePage(request);
+        return RespBody.success(PageData.toPage(listPage));
     }
 
     @PostMapping("/create")

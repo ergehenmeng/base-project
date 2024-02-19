@@ -2,12 +2,16 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.venue.VenueQueryDTO;
 import com.eghm.dto.business.venue.VenueQueryRequest;
 import com.eghm.model.Venue;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.venue.VenueResponse;
 import com.eghm.vo.business.venue.VenueVO;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -36,4 +40,21 @@ public interface VenueMapper extends BaseMapper<Venue> {
      * @return 列表
      */
     Page<VenueVO> getByPage(Page<VenueVO> page, @Param("param") VenueQueryDTO dto);
+
+    /**
+     * 分页查询场馆列表
+     *
+     * @param page 分页信息
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<BaseStoreResponse> getStorePage(Page<BaseStoreResponse> page, @Param("param") BaseStoreQueryRequest request);
+
+    /**
+     * 查询场馆列表 (包含商户信息)
+     *
+     * @param venueIds 场馆ids
+     * @return 列表
+     */
+    List<BaseStoreResponse> getStoreList(@Param("venueIds") List<Long> venueIds);
 }

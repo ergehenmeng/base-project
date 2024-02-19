@@ -42,6 +42,11 @@ public enum RoleMapping {
      */
     LINE(16, RoleType.LINE),
 
+    /**
+     * 场馆
+     */
+    VENUE(32, RoleType.VENUE),
+
     ;
 
     /**

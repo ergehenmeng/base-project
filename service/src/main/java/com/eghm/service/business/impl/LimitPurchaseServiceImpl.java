@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.business.limit.LimitPurchaseQueryRequest;
+import com.eghm.dto.business.purchase.LimitPurchaseQueryRequest;
 import com.eghm.dto.business.purchase.LimitItemRequest;
 import com.eghm.dto.business.purchase.LimitPurchaseAddRequest;
 import com.eghm.dto.business.purchase.LimitPurchaseEditRequest;

@@ -9,6 +9,7 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.homestay.HomestayAddRequest;
 import com.eghm.dto.business.homestay.HomestayEditRequest;
 import com.eghm.dto.business.homestay.HomestayQueryDTO;
@@ -30,6 +31,7 @@ import com.eghm.service.sys.SysDictService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
 import com.eghm.vo.business.homestay.HomestayDetailVO;
 import com.eghm.vo.business.homestay.HomestayResponse;
@@ -190,6 +192,11 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
             return;
         }
         homestayMapper.updateScore(vo.getStoreId(), DecimalUtil.calcAvgScore(storeScore.getTotalScore(), storeScore.getNum()));
+    }
+
+    @Override
+    public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
+        return homestayMapper.getStorePage(request.createPage(), request);
     }
 
     /**

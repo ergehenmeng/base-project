@@ -152,7 +152,7 @@ public class MemberCouponServiceImpl implements MemberCouponService {
             return;
         }
         MemberCoupon coupon = memberCouponMapper.selectById(id);
-        if (coupon.getState() != CouponState.USED) {
+        if (coupon == null || coupon.getState() != CouponState.USED) {
             log.warn("该优惠券未使用,不需要释放 [{}]", id);
             return;
         }

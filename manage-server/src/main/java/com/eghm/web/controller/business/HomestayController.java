@@ -3,6 +3,7 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.homestay.HomestayAddRequest;
 import com.eghm.dto.business.homestay.HomestayEditRequest;
 import com.eghm.dto.business.homestay.HomestayQueryRequest;
@@ -12,6 +13,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.model.Homestay;
 import com.eghm.service.business.HomestayService;
 import com.eghm.utils.ExcelUtil;
+import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.homestay.HomestayResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -39,6 +41,13 @@ public class HomestayController {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<HomestayResponse> byPage = homestayService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
+    }
+
+    @GetMapping("/storeListPage")
+    @ApiOperation("列表含商户信息")
+    public RespBody<PageData<BaseStoreResponse>> storeListPage(BaseStoreQueryRequest request) {
+        Page<BaseStoreResponse> listPage = homestayService.getStorePage(request);
+        return RespBody.success(PageData.toPage(listPage));
     }
 
     @PostMapping("/create")
