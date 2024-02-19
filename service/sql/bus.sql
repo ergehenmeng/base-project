@@ -1458,6 +1458,7 @@ CREATE TABLE `score_account_log`
     `amount`         int(10)      DEFAULT '0' COMMENT '变动积分',
     `direction`      tinyint(4)   DEFAULT '0' COMMENT '1:收入 2:支出',
     `surplus_amount` int(10)      DEFAULT '0' COMMENT '变动后的积分',
+    `trade_no`       varchar(30)  DEFAULT NULL COMMENT '关联的交易单号(订单号或者提现单号)',
     `remark`         varchar(200) DEFAULT NULL COMMENT '备注信息',
     `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

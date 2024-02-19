@@ -34,6 +34,9 @@ public class ScoreAccountLog extends BaseEntity {
     @ApiModelProperty(value = "变动后的积分(可用积分)")
     private Integer surplusAmount;
 
+    @ApiModelProperty("关联的交易单号(订单号或者提现单号)")
+    private String tradeNo;
+
     @ApiModelProperty(value = "备注信息")
     private String remark;
 

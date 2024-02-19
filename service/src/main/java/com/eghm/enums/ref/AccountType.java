@@ -27,7 +27,9 @@ public enum AccountType implements EnumBinder {
     /**
      * 例如提现提现1000, 手续费5块,则提现冻结1000, 到账995
      */
-    WITHDRAW(3, "提现支出");
+    WITHDRAW(2, "提现支出"),
+
+    ;
 
     /**
      * 状态值
