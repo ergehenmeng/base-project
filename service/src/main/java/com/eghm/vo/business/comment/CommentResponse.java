@@ -37,6 +37,9 @@ public class CommentResponse {
     @ApiModelProperty("评论对象id")
     private Long objectId;
 
+    @ApiModelProperty("被举报次数")
+    private Integer reportNum;
+
     @ApiModelProperty("评论对象id")
     private ObjectType objectType;
 

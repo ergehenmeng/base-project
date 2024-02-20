@@ -32,9 +32,10 @@ public interface CommentMapper extends BaseMapper<Comment> {
      *
      * @param page      分页对象
      * @param objectId 评论对象id
+     * @param shieldNum 举报屏蔽次数
      * @return 列表
      */
-    Page<CommentVO> getByPage(Page<CommentVO> page, @Param("objectId") Long objectId);
+    Page<CommentVO> getByPage(Page<CommentVO> page, @Param("objectId") Long objectId, @Param("shieldNum") Integer shieldNum);
 
     /**
      * 更新点赞数量

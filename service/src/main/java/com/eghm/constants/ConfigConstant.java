@@ -210,4 +210,9 @@ public class ConfigConstant {
      * 兑换码使用范围(商品范围)
      */
     public static final String REDEEM_CODE_SCOPE = "redeem_code_scope";
+
+    /**
+     * 留言被举报多少次自动屏蔽留言
+     */
+    public static final String COMMENT_REPORT_SHIELD = "comment_report_shield";
 }

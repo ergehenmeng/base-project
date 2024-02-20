@@ -5374,3 +5374,4 @@ INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `upd
 
 INSERT INTO sys_config (`id`,`nid`,`title`,`content`,`locked`,`remark`,`create_time`,`update_time`) VALUES (68,'platform_service_rate','平台手续费','5',b'0','平台手续费,单位:%','2024-01-22T13:14:34','2024-01-22T13:14:34');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('69', 'redeem_code_scope', '兑换码商品使用范围', '[]', b'0', '格式: [{\"redeemCodeId\":\"兑换码配置ID\",\"productIds\":[商品ID,逗号分隔]}]', '2024-02-19 12:02:14', '2024-02-19 12:03:11');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('70', 'comment_report_shield', '评论自动屏蔽次数', '20', b'0', '超过该参数,评论自动屏蔽', '2024-02-20 17:56:11', '2024-02-20 17:56:11');

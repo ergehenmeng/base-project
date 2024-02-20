@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constant.CacheConstant;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.comment.CommentDTO;
 import com.eghm.dto.business.comment.CommentQueryDTO;
 import com.eghm.dto.business.comment.CommentQueryRequest;
@@ -20,6 +21,7 @@ import com.eghm.model.Comment;
 import com.eghm.model.News;
 import com.eghm.service.business.CommentService;
 import com.eghm.service.cache.CacheService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.activity.ActivityVO;
 import com.eghm.vo.business.comment.CommentResponse;
@@ -56,6 +58,8 @@ public class CommentServiceImpl implements CommentService {
 
     private final ActivityMapper activityMapper;
 
+    private final SysConfigApi sysConfigApi;
+
     @Override
     public Page<CommentResponse> listPage(CommentQueryRequest request) {
         if (StrUtil.isNotBlank(request.getQueryName())) {
@@ -89,7 +93,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentVO> getByPage(CommentQueryDTO dto) {
-        Page<CommentVO> voPage = commentMapper.getByPage(dto.createPage(false), dto.getObjectId());
+        int reportNum = sysConfigApi.getInt(ConfigConstant.COMMENT_REPORT_SHIELD, 20);
+        Page<CommentVO> voPage = commentMapper.getByPage(dto.createPage(false), dto.getObjectId(), reportNum);
         voPage.getRecords().forEach(vo -> vo.setIsLiked(this.hasGiveLiked(vo.getId())));
         return voPage.getRecords();
     }

@@ -8,6 +8,7 @@
             t.content,
             t.state,
             t.top_state,
+            t.report_num,
             t.object_id,
             t.object_type,
             t.create_time,
@@ -54,7 +55,7 @@
         left join member m on t.member_id = m.id
         left join comment c on t.reply_id = c.id
         left join member n on c.member_id = n.id
-        where t.deleted = false and t.state = true and t.object_id = #{objectId}
+        where t.deleted = false and t.state = true and t.report_num &gt;= #{shieldNum} and t.object_id = #{objectId}
         order by t.top_state desc, t.like_num desc, t.id desc
     </select>
 
