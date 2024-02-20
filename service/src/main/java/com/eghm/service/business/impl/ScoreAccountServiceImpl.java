@@ -4,17 +4,23 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.constant.CommonConstant;
+import com.eghm.dto.business.account.AccountDTO;
 import com.eghm.dto.business.account.score.ScoreAccountDTO;
-import com.eghm.dto.business.withdraw.score.ScoreWithdrawApplyDTO;
+import com.eghm.dto.business.account.score.ScoreBalanceRechargeDTO;
+import com.eghm.dto.business.account.score.ScoreWithdrawApplyDTO;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.AccountType;
 import com.eghm.enums.ref.ChargeType;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ScoreAccountLogMapper;
 import com.eghm.mapper.ScoreAccountMapper;
+import com.eghm.model.AccountLog;
 import com.eghm.model.Merchant;
 import com.eghm.model.ScoreAccount;
 import com.eghm.model.ScoreAccountLog;
+import com.eghm.service.business.AccountLogService;
+import com.eghm.service.business.AccountService;
 import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.ScoreAccountService;
 import com.eghm.service.common.JsonService;
@@ -26,6 +32,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.eghm.constant.CommonConstant.SCORE_RECHARGE_PREFIX;
 import static com.eghm.constant.CommonConstant.SCORE_WITHDRAW_PREFIX;
 
 /**
@@ -43,7 +50,11 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
 
     private final JsonService jsonService;
 
+    private final AccountService accountService;
+
     private final DingTalkService dingTalkService;
+
+    private final AccountLogService accountLogService;
 
     private final ScoreAccountMapper scoreAccountMapper;
 
@@ -66,17 +77,22 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         log.info("更新商户积分账户 [{}]", jsonService.toJson(dto));
         ScoreAccount account = this.getAccount(dto.getMerchantId());
         if (dto.getChargeType() == ChargeType.RECHARGE) {
+            // 充值回调中调用该方法
             account.setAmount(account.getAmount() + dto.getAmount());
         } else if (dto.getChargeType() == ChargeType.ORDER_PAY) {
+            // 支付回调中调用该方法
             account.setPayFreeze(account.getPayFreeze() + dto.getAmount());
         } else if (dto.getChargeType() == ChargeType.ORDER_REFUND) {
+            // 退款回调中调用该方法
             account.setPayFreeze(account.getPayFreeze() - dto.getAmount());
         } else if (dto.getChargeType() == ChargeType.DRAW || dto.getChargeType() == ChargeType.ATTENTION_GIFT) {
             account.setAmount(account.getAmount() - dto.getAmount());
         } else if (dto.getChargeType() == ChargeType.WITHDRAW) {
+            // 提现申请中调用该方法
             account.setAmount(account.getAmount() - dto.getAmount());
             account.setWithdrawFreeze(account.getWithdrawFreeze() + dto.getAmount());
         } else if (dto.getChargeType() == ChargeType.WITHDRAW_FAIL) {
+            // 提现回调中调用该方法
             account.setAmount(account.getAmount() + dto.getAmount());
             account.setWithdrawFreeze(account.getWithdrawFreeze() - dto.getAmount());
         }
@@ -122,6 +138,12 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         ScoreAccount account = this.getAccount(accountLog.getMerchantId());
         account.setWithdrawFreeze(account.getWithdrawFreeze() - accountLog.getAmount());
         this.updateById(account);
+        AccountDTO accountDTO = new AccountDTO();
+        accountDTO.setAmount(accountLog.getAmount());
+        accountDTO.setAccountType(AccountType.SCORE_WITHDRAW);
+        accountDTO.setMerchantId(accountLog.getMerchantId());
+        accountDTO.setTradeNo(tradeNo);
+        accountService.updateAccount(accountDTO);
     }
 
     @Override
@@ -132,6 +154,30 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         accountDTO.setTradeNo(tradeNo);
         accountDTO.setMerchantId(accountLog.getMerchantId());
         accountDTO.setChargeType(ChargeType.WITHDRAW_FAIL);
+        this.updateAccount(accountDTO);
+    }
+
+    @Override
+    public void balanceRecharge(ScoreBalanceRechargeDTO dto) {
+        AccountDTO accountDTO = new AccountDTO();
+        accountDTO.setMerchantId(dto.getMerchantId());
+        accountDTO.setAmount(dto.getAmount());
+        accountDTO.setAccountType(AccountType.SCORE_RECHARGE);
+        String tradeNo = generateRechargeNo();
+        accountDTO.setTradeNo(tradeNo);
+        accountService.updateAccount(accountDTO);
+        // TODO 将商户账户转到平台账户 tradeNo 异步需要在回调中处理
+        this.rechargeSuccess(tradeNo);
+    }
+
+    @Override
+    public void rechargeSuccess(String tradeNo) {
+        AccountLog accountLog = accountLogService.getByTradeNo(tradeNo);
+        ScoreAccountDTO accountDTO = new ScoreAccountDTO();
+        accountDTO.setMerchantId(accountLog.getMerchantId());
+        accountDTO.setAmount(accountLog.getAmount());
+        accountDTO.setChargeType(ChargeType.RECHARGE);
+        accountDTO.setTradeNo(tradeNo);
         this.updateAccount(accountDTO);
     }
 
@@ -148,7 +194,7 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         ScoreAccountLog scoreAccountLog = scoreAccountLogMapper.selectOne(wrapper);
         if (scoreAccountLog == null) {
             log.error("积分变动记录未查询到 [{}]", tradeNo);
-            dingTalkService.sendMsg(String.format("提现单号不存在 [%s]", tradeNo));
+            dingTalkService.sendMsg(String.format("资金变动记录不存在 [%s]", tradeNo));
             throw new BusinessException(ErrorCode.SCORE_LOG_NULL);
         }
         return scoreAccountLog;
@@ -161,6 +207,15 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
      */
     private String generateWithdrawNo() {
         return SCORE_WITHDRAW_PREFIX + IdWorker.getIdStr();
+    }
+
+    /**
+     * 提现校验单号
+     *
+     * @return 单号信息
+     */
+    private String generateRechargeNo() {
+        return SCORE_RECHARGE_PREFIX + IdWorker.getIdStr();
     }
 
     /**

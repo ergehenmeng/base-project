@@ -1789,6 +1789,11 @@ public enum ErrorCode {
     SCORE_LOG_NULL(3930, "积分变动记录未查询到"),
 
     /**
+     * 资金变动记录未查询到
+     */
+    ACCOUNT_LOG_NULL(3932, "资金变动记录未查询到"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

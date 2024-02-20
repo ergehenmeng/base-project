@@ -2,6 +2,7 @@ package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.account.AccountQueryRequest;
+import com.eghm.model.AccountLog;
 import com.eghm.vo.business.account.AccountLogResponse;
 
 import java.util.List;
@@ -29,4 +30,12 @@ public interface AccountLogService {
      * @return 列表
      */
     List<AccountLogResponse> getList(AccountQueryRequest request);
+
+    /**
+     * 通过交易单号查询资金记录
+     *
+     * @param tradeNo 交易单号
+     * @return 资金变动记录
+     */
+    AccountLog getByTradeNo(String tradeNo);
 }

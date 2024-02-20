@@ -150,14 +150,19 @@ public class CommonConstant {
     public static final String WECHAT_PAY_NOTIFY_URL = "/webapp/notify/weChat/pay";
 
     /**
-     * 提现订单号前缀
+     * 提现交易单号前缀
      */
     public static final String WITHDRAW_PREFIX = "TX";
 
     /**
-     * 积分提现订单号前缀
+     * 积分提现交易单号前缀
      */
     public static final String SCORE_WITHDRAW_PREFIX = "STX";
+
+    /**
+     * 积分充值交易单号前缀
+     */
+    public static final String SCORE_RECHARGE_PREFIX = "SCZ";
 
     private CommonConstant() {
     }

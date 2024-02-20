@@ -1,7 +1,8 @@
 package com.eghm.service.business;
 
 import com.eghm.dto.business.account.score.ScoreAccountDTO;
-import com.eghm.dto.business.withdraw.score.ScoreWithdrawApplyDTO;
+import com.eghm.dto.business.account.score.ScoreBalanceRechargeDTO;
+import com.eghm.dto.business.account.score.ScoreWithdrawApplyDTO;
 import com.eghm.model.ScoreAccount;
 
 /**
@@ -45,16 +46,30 @@ public interface ScoreAccountService {
     void applyWithdraw(ScoreWithdrawApplyDTO dto);
 
     /**
-     * 提现成功
+     * 提现成功 (一般是提现回调中调用该方法)
      *
      * @param tradeNo 交易单号
      */
     void withdrawSuccess(String tradeNo);
 
     /**
-     * 提现失败,解冻积分
+     * 提现失败,解冻积分 (一般是提现回调中调用该方法)
      *
      * @param tradeNo 交易单号
      */
     void withdrawFail(String tradeNo);
+
+    /**
+     * 余额方式充值积分
+     *
+     * @param dto 充值
+     */
+    void balanceRecharge(ScoreBalanceRechargeDTO dto);
+
+    /**
+     * 积分充值成功 (一般在支付成功回调中调用该方法)
+     *
+     * @param tradeNo 交易单号
+     */
+    void rechargeSuccess(String tradeNo);
 }

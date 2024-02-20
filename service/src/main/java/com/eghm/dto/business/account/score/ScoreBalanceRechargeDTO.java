@@ -1,4 +1,4 @@
-package com.eghm.dto.business.withdraw.score;
+package com.eghm.dto.business.account.score;
 
 import com.eghm.annotation.Assign;
 import com.eghm.convertor.YuanToCentDecoder;
@@ -14,14 +14,14 @@ import javax.validation.constraints.Min;
  */
 
 @Data
-public class ScoreWithdrawApplyDTO {
+public class ScoreBalanceRechargeDTO {
 
     @ApiModelProperty("商户id")
     @Assign
     private Long merchantId;
 
-    @ApiModelProperty("提现金额")
+    @ApiModelProperty("充值金额")
     @JsonDeserialize(using = YuanToCentDecoder.class)
-    @Min(value = 1000, message = "最低提现积分1000起")
+    @Min(value = 1000, message = "最低充值金额10元")
     private Integer amount;
 }

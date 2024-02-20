@@ -67,15 +67,20 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
         log.info("开始更新资金账户 [{}]", jsonService.toJson(dto));
         Account account = this.getAccount(dto.getMerchantId());
         if (dto.getAccountType() == AccountType.ORDER_PAY) {
+            // 支付回调中调用该方法
             account.setPayFreeze(account.getPayFreeze() + dto.getAmount());
         } else if (dto.getAccountType() == AccountType.ORDER_REFUND) {
+            // 退款回调时调用该方法
             account.setPayFreeze(account.getPayFreeze() - dto.getAmount());
         } else if (dto.getAccountType() == AccountType.WITHDRAW) {
+            // 提现申请时调用该方法
             account.setAmount(account.getAmount() - dto.getAmount());
             account.setWithdrawFreeze(account.getWithdrawFreeze() + dto.getAmount());
         } else if (dto.getAccountType() == AccountType.SCORE_RECHARGE) {
+            // 在积分充值申请时调用该方法
             account.setAmount(account.getAmount() - dto.getAmount());
         } else if (dto.getAccountType() == AccountType.SCORE_WITHDRAW) {
+            // 需要在积分提现异步处理中调用该方法
             account.setAmount(account.getAmount() + dto.getAmount());
         }
         this.updateById(account);
