@@ -14,6 +14,7 @@ import com.eghm.enums.ref.AccountType;
 import com.eghm.enums.ref.ChargeType;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.exception.BusinessException;
+import com.eghm.mapper.ScanRechargeLogMapper;
 import com.eghm.mapper.ScoreAccountLogMapper;
 import com.eghm.mapper.ScoreAccountMapper;
 import com.eghm.model.*;
@@ -62,7 +63,7 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
 
     private final ScoreAccountLogMapper scoreAccountLogMapper;
 
-    private final ScanRechargeLogService scanRechargeLogService;
+    private final ScanRechargeLogMapper scanRechargeLogMapper;
 
     @Override
     public boolean support(List<RoleType> roleTypes) {
@@ -171,15 +172,25 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         accountDTO.setTradeNo(tradeNo);
         accountService.updateAccount(accountDTO);
         // TODO 将商户账户转到平台账户 tradeNo 异步需要在回调中处理
-        this.rechargeSuccess(tradeNo);
+        this.rechargeBalanceSuccess(tradeNo);
     }
 
     @Override
-    public void rechargeSuccess(String tradeNo) {
+    public void rechargeBalanceSuccess(String tradeNo) {
         AccountLog accountLog = accountLogService.getByTradeNo(tradeNo);
         ScoreAccountDTO accountDTO = new ScoreAccountDTO();
         accountDTO.setMerchantId(accountLog.getMerchantId());
         accountDTO.setAmount(accountLog.getAmount());
+        accountDTO.setChargeType(ChargeType.RECHARGE);
+        accountDTO.setTradeNo(tradeNo);
+        this.updateAccount(accountDTO);
+    }
+
+    @Override
+    public void rechargeScanSuccess(Long merchantId, Integer amount, String tradeNo) {
+        ScoreAccountDTO accountDTO = new ScoreAccountDTO();
+        accountDTO.setMerchantId(merchantId);
+        accountDTO.setAmount(amount);
         accountDTO.setChargeType(ChargeType.RECHARGE);
         accountDTO.setTradeNo(tradeNo);
         this.updateAccount(accountDTO);
@@ -207,7 +218,7 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         rechargeLog.setMerchantId(dto.getMerchantId());
         rechargeLog.setState(0);
         rechargeLog.setQrCode(vo.getQrCodeUrl());
-        scanRechargeLogService.insert(rechargeLog);
+        scanRechargeLogMapper.insert(rechargeLog);
         return vo;
     }
 

@@ -2,8 +2,10 @@ package com.eghm.web.controller;
 
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.WeChatConstant;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.service.business.CommonService;
+import com.eghm.service.business.ScanRechargeLogService;
 import com.eghm.service.business.handler.access.AccessHandler;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
@@ -42,20 +44,22 @@ import static com.eghm.constant.CommonConstant.*;
 @Slf4j
 public class PayNotifyController {
 
+    private final RedisLock redisLock;
+
     private final PayService aliPayService;
+
+    private final CommonService commonService;
 
     private final PayService wechatPayService;
 
     private final PayNotifyLogService payNotifyLogService;
 
-    private final CommonService commonService;
-
-    private final RedisLock redisLock;
+    private final ScanRechargeLogService scanRechargeLogService;
 
     @PostMapping(ALI_PAY_NOTIFY_URL)
     @ApiOperation("支付宝支付回调")
     public String aliPay(HttpServletRequest request) {
-        Map<String, String> stringMap = this.parseRequest(request);
+        Map<String, String> stringMap = this.parseAliRequest(request);
         aliPayService.verifyNotify(stringMap);
         payNotifyLogService.insertAliLog(stringMap, StepType.PAY);
 
@@ -67,7 +71,7 @@ public class PayNotifyController {
         context.setTradeNo(tradeNo);
 
         return this.aliResult(() -> redisLock.lock(CacheConstant.ALI_PAY_NOTIFY_LOCK + orderNo, 10_000, () -> {
-            commonService.getHandler(orderNo, AccessHandler.class).payNotify(context);
+            this.payNotifyHandle(context);
             return ALI_PAY_SUCCESS;
         }));
     }
@@ -75,7 +79,7 @@ public class PayNotifyController {
     @PostMapping(ALI_REFUND_NOTIFY_URL)
     @ApiOperation("支付宝退款回调")
     public String aliRefund(HttpServletRequest request) {
-        Map<String, String> stringMap = this.parseRequest(request);
+        Map<String, String> stringMap = this.parseAliRequest(request);
         aliPayService.verifyNotify(stringMap);
         payNotifyLogService.insertAliLog(stringMap, StepType.REFUND);
 
@@ -95,7 +99,7 @@ public class PayNotifyController {
     @PostMapping(WECHAT_PAY_NOTIFY_URL)
     @ApiOperation("微信支付回调")
     public Map<String, String> weChatPay(@RequestHeader HttpHeaders httpHeader, @RequestBody String requestBody, HttpServletResponse response) {
-        SignatureHeader header = this.parseHeader(httpHeader);
+        SignatureHeader header = this.parseWechatHeader(httpHeader);
         WxPayNotifyV3Result payNotify = wechatPayService.parsePayNotify(requestBody, header);
         payNotifyLogService.insertWechatPayLog(payNotify);
 
@@ -106,7 +110,7 @@ public class PayNotifyController {
         context.setTradeNo(payNotify.getResult().getOutTradeNo());
 
         return this.wechatResult(response, () -> redisLock.lock(CacheConstant.WECHAT_PAY_NOTIFY_LOCK + orderNo, 10_000, () -> {
-            commonService.getHandler(orderNo, AccessHandler.class).payNotify(context);
+            this.payNotifyHandle(context);
             return null;
         }));
     }
@@ -114,7 +118,7 @@ public class PayNotifyController {
     @PostMapping(WECHAT_REFUND_NOTIFY_URL)
     @ApiOperation("微信退款回调")
     public Map<String, String> weChatRefund(@RequestHeader HttpHeaders httpHeader, @RequestBody String requestBody, HttpServletResponse response) {
-        SignatureHeader header = this.parseHeader(httpHeader);
+        SignatureHeader header = this.parseWechatHeader(httpHeader);
         WxPayRefundNotifyV3Result payNotify = wechatPayService.parseRefundNotify(requestBody, header);
         payNotifyLogService.insertWechatRefundLog(payNotify);
 
@@ -129,6 +133,22 @@ public class PayNotifyController {
             commonService.getHandler(refundNo, AccessHandler.class).refundNotify(context);
             return null;
         }));
+    }
+
+    /**
+     * 支付回调业务处理
+     *
+     * @param context 上下文
+     */
+    private void payNotifyHandle(PayNotifyContext context) {
+        ProductType productType = ProductType.ofPrefix(context.getOrderNo());
+        if (productType != null) {
+            log.info("开始进行商品支付回调异步处理 [{}]", context.getTradeNo());
+            commonService.getHandler(context.getOrderNo(), AccessHandler.class).payNotify(context);
+        } else if (context.getTradeNo().startsWith(SCORE_RECHARGE_PREFIX)) {
+            log.info("开始进行扫码充值回调异步处理 [{}]", context.getTradeNo());
+            scanRechargeLogService.rechargeNotify(context);
+        }
     }
 
     /**
@@ -180,7 +200,7 @@ public class PayNotifyController {
      * @param headers 请求头
      * @return 验签对象
      */
-    private SignatureHeader parseHeader(HttpHeaders headers) {
+    private SignatureHeader parseWechatHeader(HttpHeaders headers) {
         SignatureHeader header = new SignatureHeader();
         header.setSignature(headers.getFirst(WeChatConstant.SIGNATURE));
         header.setTimeStamp(headers.getFirst(WeChatConstant.TIMESTAMP));
@@ -195,7 +215,7 @@ public class PayNotifyController {
      * @param request 请求参数
      * @return 解析后的参数
      */
-    private Map<String, String> parseRequest(HttpServletRequest request) {
+    private Map<String, String> parseAliRequest(HttpServletRequest request) {
         Map<String, String> params = new HashMap<>(32);
         Map<String, String[]> requestParams = request.getParameterMap();
         for (Map.Entry<String, String[]> entry : requestParams.entrySet()) {

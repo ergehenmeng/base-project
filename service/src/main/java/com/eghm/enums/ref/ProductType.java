@@ -103,6 +103,17 @@ public enum ProductType {
     }
 
     /**
+     * 根据订单号判断订单类型
+     *
+     * @param orderNo 订单号
+     * @return 订单类型
+     */
+    public static ProductType ofPrefix(String orderNo) {
+        return Arrays.stream(ProductType.values()).filter(productType -> orderNo.startsWith(productType.getPrefix()))
+                .findFirst().orElse(null);
+    }
+
+    /**
      * 生成交易单号唯一Id
      *
      * @return 交易单号

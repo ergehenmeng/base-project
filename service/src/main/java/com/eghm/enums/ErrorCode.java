@@ -1794,6 +1794,11 @@ public enum ErrorCode {
     ACCOUNT_LOG_NULL(3932, "资金变动记录未查询到"),
 
     /**
+     * 扫码充值记录未查询到
+     */
+    RECHARGE_LOG_NULL(3934, "扫码充值记录未查询到"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

@@ -24,7 +24,7 @@ public interface AggregatePayService {
      * 查询订单信息
      *
      * @param tradeType  交易方式
-     * @param tradeNo 商户订单号
+     * @param tradeNo 商户交易订单号
      * @return 订单信息
      */
     PayOrderVO queryOrder(TradeType tradeType, String tradeNo);

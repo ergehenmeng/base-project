@@ -27,7 +27,7 @@ public class ScanRechargeLog extends BaseEntity {
     @ApiModelProperty(value = "付款金额")
     private Integer amount;
 
-    @ApiModelProperty(value = "付款状态 0:待支付 1:已支付 2:已过期")
+    @ApiModelProperty(value = "付款状态 0:待支付 1:已支付 2:已过期 3: 支付失败")
     private Integer state;
 
     @ApiModelProperty(value = "二维码url")
