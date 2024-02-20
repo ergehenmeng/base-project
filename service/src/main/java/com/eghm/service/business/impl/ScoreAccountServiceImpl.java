@@ -1,9 +1,11 @@
 package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.account.score.ScoreAccountDTO;
+import com.eghm.dto.business.withdraw.score.ScoreWithdrawApplyDTO;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ChargeType;
 import com.eghm.enums.ref.RoleType;
@@ -23,6 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.eghm.constant.CommonConstant.SCORE_WITHDRAW_PREFIX;
 
 /**
  * <p>
@@ -72,6 +76,9 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         } else if (dto.getChargeType() == ChargeType.WITHDRAW) {
             account.setAmount(account.getAmount() - dto.getAmount());
             account.setWithdrawFreeze(account.getWithdrawFreeze() + dto.getAmount());
+        } else if (dto.getChargeType() == ChargeType.WITHDRAW_FAIL) {
+            account.setAmount(account.getAmount() + dto.getAmount());
+            account.setWithdrawFreeze(account.getWithdrawFreeze() - dto.getAmount());
         }
         this.updateById(account);
         ScoreAccountLog accountLog = DataUtil.copy(dto, ScoreAccountLog.class);
@@ -87,6 +94,73 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         wrapper.eq(ScoreAccount::getMerchantId, merchantId);
         wrapper.last(CommonConstant.LIMIT_ONE);
         return scoreAccountMapper.selectOne(wrapper);
+    }
+
+    @Override
+    public void orderComplete(Long merchantId, Integer amount) {
+        ScoreAccount account = this.getAccount(merchantId);
+        account.setAmount(account.getAmount() + amount);
+        account.setAmount(account.getPayFreeze() - amount);
+        this.updateById(account);
+    }
+
+    @Override
+    public void applyWithdraw(ScoreWithdrawApplyDTO dto) {
+        ScoreAccountDTO accountDTO = new ScoreAccountDTO();
+        accountDTO.setMerchantId(dto.getMerchantId());
+        accountDTO.setAmount(dto.getAmount());
+        accountDTO.setChargeType(ChargeType.WITHDRAW);
+        String tradeNo = generateWithdrawNo();
+        accountDTO.setTradeNo(tradeNo);
+        this.updateAccount(accountDTO);
+        // TODO 将平台账户转到商户账户 tradeNo 异步需要在回调中处理
+    }
+
+    @Override
+    public void withdrawSuccess(String tradeNo) {
+        ScoreAccountLog accountLog = this.getByTradeNo(tradeNo);
+        ScoreAccount account = this.getAccount(accountLog.getMerchantId());
+        account.setWithdrawFreeze(account.getWithdrawFreeze() - accountLog.getAmount());
+        this.updateById(account);
+    }
+
+    @Override
+    public void withdrawFail(String tradeNo) {
+        ScoreAccountLog accountLog = this.getByTradeNo(tradeNo);
+        ScoreAccountDTO accountDTO = new ScoreAccountDTO();
+        accountDTO.setAmount(accountLog.getAmount());
+        accountDTO.setTradeNo(tradeNo);
+        accountDTO.setMerchantId(accountLog.getMerchantId());
+        accountDTO.setChargeType(ChargeType.WITHDRAW_FAIL);
+        this.updateAccount(accountDTO);
+    }
+
+    /**
+     * 根据交易单号查询积分变动记录
+     *
+     * @param tradeNo 交易单号
+     * @return 积分变动记录
+     */
+    private ScoreAccountLog getByTradeNo(String tradeNo) {
+        LambdaQueryWrapper<ScoreAccountLog> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(ScoreAccountLog::getTradeNo, tradeNo);
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        ScoreAccountLog scoreAccountLog = scoreAccountLogMapper.selectOne(wrapper);
+        if (scoreAccountLog == null) {
+            log.error("积分变动记录未查询到 [{}]", tradeNo);
+            dingTalkService.sendMsg(String.format("提现单号不存在 [%s]", tradeNo));
+            throw new BusinessException(ErrorCode.SCORE_LOG_NULL);
+        }
+        return scoreAccountLog;
+    }
+
+    /**
+     * 提现校验单号
+     *
+     * @return 单号信息
+     */
+    private String generateWithdrawNo() {
+        return SCORE_WITHDRAW_PREFIX + IdWorker.getIdStr();
     }
 
     /**

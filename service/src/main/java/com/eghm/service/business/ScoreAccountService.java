@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.dto.business.account.score.ScoreAccountDTO;
+import com.eghm.dto.business.withdraw.score.ScoreWithdrawApplyDTO;
 import com.eghm.model.ScoreAccount;
 
 /**
@@ -28,4 +29,32 @@ public interface ScoreAccountService {
      */
     ScoreAccount getAccount(Long merchantId);
 
+    /**
+     * 订单完成 解冻积分
+     *
+     * @param merchantId 商户id
+     * @param amount 解冻金额
+     */
+    void orderComplete(Long merchantId, Integer amount);
+
+    /**
+     * 提现积分
+     *
+     * @param dto 查询条件
+     */
+    void applyWithdraw(ScoreWithdrawApplyDTO dto);
+
+    /**
+     * 提现成功
+     *
+     * @param tradeNo 交易单号
+     */
+    void withdrawSuccess(String tradeNo);
+
+    /**
+     * 提现失败,解冻积分
+     *
+     * @param tradeNo 交易单号
+     */
+    void withdrawFail(String tradeNo);
 }

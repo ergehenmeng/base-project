@@ -154,6 +154,11 @@ public class CommonConstant {
      */
     public static final String WITHDRAW_PREFIX = "TX";
 
+    /**
+     * 积分提现订单号前缀
+     */
+    public static final String SCORE_WITHDRAW_PREFIX = "STX";
+
     private CommonConstant() {
     }
 }

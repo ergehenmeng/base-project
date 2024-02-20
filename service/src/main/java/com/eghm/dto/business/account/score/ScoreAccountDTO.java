@@ -21,7 +21,6 @@ public class ScoreAccountDTO {
     @ApiModelProperty("账户类型")
     private ChargeType chargeType;
 
-    @ApiModelProperty("备注信息")
-    private String remark;
-
+    @ApiModelProperty("关联的交易单号(订单号或者提现单号)")
+    private String tradeNo;
 }

@@ -47,6 +47,11 @@ public enum ChargeType implements EnumBinder {
      * 关注赠送
      */
     ATTENTION_GIFT(6, "关注赠送", 2),
+
+    /**
+     * 提现失败解冻
+     */
+    WITHDRAW_FAIL(7, "提现失败", 1),
     ;
 
     /**

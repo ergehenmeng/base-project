@@ -1,9 +1,12 @@
 package com.eghm.dto.business.withdraw;
 
+import com.eghm.annotation.Assign;
 import com.eghm.convertor.YuanToCentDecoder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import javax.validation.constraints.Min;
 
 /**
  * @author 二哥很猛
@@ -12,11 +15,13 @@ import lombok.Data;
 @Data
 public class WithdrawApplyDTO {
 
-    @ApiModelProperty("商户id")
+    @Assign
+    @ApiModelProperty(value = "商户id", hidden = true)
     private Long merchantId;
 
     @ApiModelProperty("提现金额")
     @JsonDeserialize(using = YuanToCentDecoder.class)
+    @Min(value = 10000, message = "最低提现金额100元")
     private Integer amount;
 
     @ApiModelProperty(value = "银行卡所属用户姓名")

@@ -1756,7 +1756,7 @@ public enum ErrorCode {
     /**
      * 兑换码已使用
      */
-    CD_KEY_USED(3319, "兑换码已使用"),
+    CD_KEY_USED(3919, "兑换码已使用"),
 
     /**
      * 兑换码不适用该商品
@@ -1782,6 +1782,11 @@ public enum ErrorCode {
      * 可提现金额不足
      */
     WITHDRAW_ENOUGH(3928, "可提现金额不足"),
+
+    /**
+     * 积分变动记录未查询到
+     */
+    SCORE_LOG_NULL(3930, "积分变动记录未查询到"),
 
     /**
      * 微信公众号尚未配置
