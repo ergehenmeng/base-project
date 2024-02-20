@@ -21,6 +21,9 @@ public class AccountDTO {
     @ApiModelProperty("账户类型")
     private AccountType accountType;
 
+    @ApiModelProperty("关联的交易单号(订单号或者提现单号)")
+    private String tradeNo;
+
     @ApiModelProperty("备注信息")
     private String remark;
 }

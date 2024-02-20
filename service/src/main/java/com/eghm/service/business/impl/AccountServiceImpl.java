@@ -15,6 +15,7 @@ import com.eghm.model.AccountLog;
 import com.eghm.model.Merchant;
 import com.eghm.service.business.AccountService;
 import com.eghm.service.business.MerchantInitService;
+import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.DingTalkService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,10 @@ import java.util.List;
 /**
  * <p>
  * 商户账户信息表 服务实现类
+ * 1. 支付时:  增加冻结记录
+ * 2. 订单完成: 更新资金账户 + 资金变动记录
+ * 3. 提现申请: 更新资金账户 + 资金变动记录 + 提现记录
+ * 4. 提现成功: 更新资金账户
  * </p>
  *
  * @author 二哥很猛
@@ -36,6 +41,8 @@ import java.util.List;
 @AllArgsConstructor
 @Service("accountService")
 public class AccountServiceImpl implements AccountService, MerchantInitService {
+
+    private final JsonService jsonService;
 
     private final AccountMapper accountMapper;
 
@@ -57,26 +64,49 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
 
     @Override
     public void updateAccount(AccountDTO dto) {
+        log.info("开始更新资金账户 [{}]", jsonService.toJson(dto));
         Account account = this.getAccount(dto.getMerchantId());
-        AccountLog accountLog = DataUtil.copy(dto, AccountLog.class);
-        if (dto.getAccountType() == AccountType.ORDER) {
-            account.setWithdrawAmount(account.getWithdrawAmount() + dto.getAmount());
+        if (dto.getAccountType() == AccountType.ORDER_PAY) {
+            account.setPayFreeze(account.getPayFreeze() + dto.getAmount());
+        } else if (dto.getAccountType() == AccountType.ORDER_REFUND) {
             account.setPayFreeze(account.getPayFreeze() - dto.getAmount());
-            accountLog.setDirection(1);
         } else if (dto.getAccountType() == AccountType.WITHDRAW) {
-            account.setWithdrawAmount(account.getWithdrawAmount() - dto.getAmount());
+            account.setAmount(account.getAmount() - dto.getAmount());
             account.setWithdrawFreeze(account.getWithdrawFreeze() + dto.getAmount());
-            accountLog.setDirection(2);
+        } else if (dto.getAccountType() == AccountType.SCORE_RECHARGE) {
+            account.setAmount(account.getAmount() - dto.getAmount());
+        } else if (dto.getAccountType() == AccountType.SCORE_WITHDRAW) {
+            account.setAmount(account.getAmount() + dto.getAmount());
         }
-        this.checkAccount(account);
-        int update = accountMapper.updateAccount(account);
-        if (update != 1) {
-            log.error("更新账户信息失败 [{}] [{}]", dto, account);
-            dingTalkService.sendMsg(String.format("更新商户账户失败 [%s]", dto));
-            throw new BusinessException(ErrorCode.ACCOUNT_UPDATE);
-        }
-        accountLog.setSurplusAmount(account.getWithdrawAmount() + account.getPayFreeze());
+        this.updateById(account);
+
+        AccountLog accountLog = DataUtil.copy(dto, AccountLog.class);
+        accountLog.setDirection(accountLog.getAccountType().getDirection());
+        accountLog.setSurplusAmount(account.getAmount() + account.getPayFreeze());
         accountLogMapper.insert(accountLog);
+    }
+
+    @Override
+    public void orderComplete(Long merchantId, Integer amount) {
+        Account account = this.getAccount(merchantId);
+        account.setAmount(account.getAmount() + amount);
+        account.setAmount(account.getPayFreeze() - amount);
+        this.updateById(account);
+    }
+
+    @Override
+    public void withdrawSuccess(Long merchantId, Integer amount) {
+        Account account = this.getAccount(merchantId);
+        account.setWithdrawFreeze(account.getWithdrawFreeze() - amount);
+        this.updateById(account);
+    }
+
+    @Override
+    public void withdrawFail(Long merchantId, Integer amount) {
+        Account account = this.getAccount(merchantId);
+        account.setAmount(account.getAmount() + amount);
+        account.setWithdrawFreeze(account.getWithdrawFreeze() - amount);
+        this.updateById(account);
     }
 
     @Override
@@ -93,15 +123,38 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
     }
 
     /**
+     * 更新账户信息
+     * @param account 账户信息
+     */
+    private void updateById(Account account) {
+        this.checkAccount(account);
+        int update = accountMapper.updateAccount(account);
+        if (update != 1) {
+            log.error("更新账户信息失败 [{}]", account);
+            dingTalkService.sendMsg(String.format("更新商户账户失败 [%s]", account));
+            throw new BusinessException(ErrorCode.ACCOUNT_UPDATE);
+        }
+    }
+
+    /**
      * 校验账户余额信息
      *
      * @param account 账户
      */
     private void checkAccount(Account account) {
-        if (account.getPayFreeze() < 0 || account.getWithdrawFreeze() < 0 || account.getWithdrawAmount() < 0) {
-            log.error("账户余额信息异常 [{}]", account);
-            dingTalkService.sendMsg(String.format("账户余额信息异常 [%s]", account));
-            throw new BusinessException(ErrorCode.MERCHANT_ACCOUNT_ERROR);
+        if (account.getAmount() < 0) {
+            log.error("商户可用余额不足 [{}]", account);
+            throw new BusinessException(ErrorCode.MERCHANT_ACCOUNT_USE);
+        }
+        if (account.getPayFreeze() < 0) {
+            log.error("账户支付冻结余额不足 [{}]", account);
+            dingTalkService.sendMsg(String.format("账户支付冻结余额不足 [%s]", account));
+            throw new BusinessException(ErrorCode.MERCHANT_ACCOUNT_PAY);
+        }
+        if (account.getWithdrawFreeze() < 0) {
+            log.error("账户提现冻结余额不足 [{}]", account);
+            dingTalkService.sendMsg(String.format("账户提现冻结余额不足 [%s]", account));
+            throw new BusinessException(ErrorCode.MERCHANT_ACCOUNT_WITHDRAW);
         }
     }
 }

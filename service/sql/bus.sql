@@ -1157,7 +1157,7 @@ create table account
 (
     id              bigint(20) not null comment '主键',
     merchant_id     bigint(20) comment '商户id',
-    withdraw_amount int(10)  default 0 comment '可提现金额',
+    amount          int(10)  default 0 comment '可提现金额',
     pay_freeze      int(10)  default 0 comment '支付冻结金额',
     withdraw_freeze int(10)  default 0 comment '提现冻结金额',
     version         int(10)  default 1 comment '版本号',
@@ -1176,6 +1176,7 @@ create table account_log
     amount         int(10)  default 0 comment '变动金额',
     direction      tinyint  default 0 comment '1:收入 2:支出',
     surplus_amount int(10)  default 0 comment '变动后的余额(可提现金额+支付冻结金额)',
+    trade_no       varchar(30) comment '关联的交易单号',
     remark         varchar(200) comment '备注信息',
     create_time    datetime default CURRENT_TIMESTAMP comment '创建时间',
     update_time    datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP comment '更新时间',

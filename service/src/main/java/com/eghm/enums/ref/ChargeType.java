@@ -21,27 +21,32 @@ public enum ChargeType implements EnumBinder {
     /**
      * 充值
      */
-    RECHARGE(1, "充值"),
+    RECHARGE(1, "充值", 1),
 
     /**
-     * 支付收入(订单完成)
+     * 支付收入(订单支付)
      */
-    ORDER(2, "支付收入"),
+    ORDER_PAY(2, "支付收入", 1),
+
+    /**
+     * 支付退款(订单退款)
+     */
+    ORDER_REFUND(3, "支付退款", 2),
 
     /**
      * 抽奖支出
      */
-    DRAW(3, "抽奖支出"),
+    DRAW(4, "抽奖支出", 2),
 
     /**
      * 提现支出
      */
-    WITHDRAW(4, "提现支出"),
+    WITHDRAW(5, "提现支出", 2),
 
     /**
      * 关注赠送
      */
-    ATTENTION_GIFT(5, "关注赠送"),
+    ATTENTION_GIFT(6, "关注赠送", 2),
     ;
 
     /**
@@ -55,6 +60,11 @@ public enum ChargeType implements EnumBinder {
      * 名称
      */
     private final String name;
+
+    /**
+     * 1:收入 2:支出
+     */
+    private final int direction;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ChargeType of(Integer value) {

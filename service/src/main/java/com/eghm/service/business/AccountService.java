@@ -21,6 +21,30 @@ public interface AccountService {
     void updateAccount(AccountDTO dto);
 
     /**
+     * 订单完成 解冻支付金额
+     *
+     * @param merchantId 商户id
+     * @param amount 解冻金额
+     */
+    void orderComplete(Long merchantId, Integer amount);
+
+    /**
+     * 提现成功,更新冻结金额
+     *
+     * @param merchantId 商户id
+     * @param amount 提现金额
+     */
+    void withdrawSuccess(Long merchantId, Integer amount);
+
+    /**
+     * 提现失败,解冻金额
+     *
+     * @param merchantId 商户id
+     * @param amount 提现金额
+     */
+    void withdrawFail(Long merchantId, Integer amount);
+
+    /**
      * 查询商户账户信息
      *
      * @param merchantId 商户id

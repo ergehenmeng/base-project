@@ -1514,14 +1514,34 @@ public enum ErrorCode {
     MERCHANT_NO_BIND(3825, "商户未绑定微信号,无需解绑"),
 
     /**
-     * 商户余额信息异常
+     * 商户可用余额不足
      */
-    MERCHANT_ACCOUNT_ERROR(3827, "商户余额信息异常"),
+    MERCHANT_ACCOUNT_USE(3826, "商户可用余额不足"),
 
     /**
-     * 商户积分信息异常
+     * 商户支付冻结余额不足
      */
-    MERCHANT_SCORE_ACCOUNT(3828, "商户积分信息异常"),
+    MERCHANT_ACCOUNT_PAY(3827, "商户支付冻结余额不足"),
+
+    /**
+     * 商户提现冻结余额不足
+     */
+    MERCHANT_ACCOUNT_WITHDRAW(3827, "商户提现冻结余额不足"),
+
+    /**
+     * 商户可用积分不足
+     */
+    MERCHANT_SCORE_USE(3829, "商户可用积分不足"),
+
+    /**
+     * 商户冻结积分不足
+     */
+    MERCHANT_SCORE_PAY(3830, "商户支付冻结积分不足"),
+
+    /**
+     * 商户退款冻结积分不足
+     */
+    MERCHANT_SCORE_WITHDRAW(3831, "商户退款冻结积分不足"),
 
     /**
      * 页面类型不存在

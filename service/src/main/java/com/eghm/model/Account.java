@@ -22,7 +22,7 @@ public class Account extends BaseEntity {
     private Long merchantId;
 
     @ApiModelProperty(value = "可提现金额")
-    private Integer withdrawAmount;
+    private Integer amount;
 
     @ApiModelProperty(value = "支付冻结金额")
     private Integer payFreeze;

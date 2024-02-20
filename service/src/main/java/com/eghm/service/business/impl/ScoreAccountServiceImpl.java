@@ -15,6 +15,7 @@ import com.eghm.model.ScoreAccount;
 import com.eghm.model.ScoreAccountLog;
 import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.ScoreAccountService;
+import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.DingTalkService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -36,6 +37,8 @@ import java.util.List;
 @Service("scoreAccountService")
 public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantInitService {
 
+    private final JsonService jsonService;
+
     private final DingTalkService dingTalkService;
 
     private final ScoreAccountMapper scoreAccountMapper;
@@ -56,37 +59,25 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
 
     @Override
     public void updateAccount(ScoreAccountDTO dto) {
+        log.info("更新商户积分账户 [{}]", jsonService.toJson(dto));
         ScoreAccount account = this.getAccount(dto.getMerchantId());
-        ScoreAccountLog accountLog = DataUtil.copy(dto, ScoreAccountLog.class);
         if (dto.getChargeType() == ChargeType.RECHARGE) {
             account.setAmount(account.getAmount() + dto.getAmount());
-            accountLog.setDirection(1);
-        } else if (dto.getChargeType() == ChargeType.ORDER) {
+        } else if (dto.getChargeType() == ChargeType.ORDER_PAY) {
+            account.setPayFreeze(account.getPayFreeze() + dto.getAmount());
+        } else if (dto.getChargeType() == ChargeType.ORDER_REFUND) {
             account.setPayFreeze(account.getPayFreeze() - dto.getAmount());
-            account.setAmount(account.getAmount() + dto.getAmount());
-            accountLog.setDirection(1);
         } else if (dto.getChargeType() == ChargeType.DRAW || dto.getChargeType() == ChargeType.ATTENTION_GIFT) {
             account.setAmount(account.getAmount() - dto.getAmount());
-            accountLog.setDirection(2);
         } else if (dto.getChargeType() == ChargeType.WITHDRAW) {
             account.setAmount(account.getAmount() - dto.getAmount());
             account.setWithdrawFreeze(account.getWithdrawFreeze() + dto.getAmount());
-            accountLog.setDirection(2);
         }
-
-        if (account.getPayFreeze() < 0 || account.getWithdrawFreeze() < 0 || account.getAmount() < 0) {
-            log.error("账户积分余额信息异常 [{}]", account);
-            dingTalkService.sendMsg(String.format("账户积分余额信息异常 [%s]", account));
-            throw new BusinessException(ErrorCode.MERCHANT_SCORE_ACCOUNT);
-        }
-        int update = scoreAccountMapper.updateAccount(account);
-        if (update != 1) {
-            log.error("更新账户信息失败 [{}] [{}]", dto, account);
-            dingTalkService.sendMsg(String.format("更新商户账户失败 [%s]", dto));
-            throw new BusinessException(ErrorCode.SCORE_ACCOUNT_UPDATE);
-        }
-        scoreAccountLogMapper.insert(accountLog);
+        this.updateById(account);
+        ScoreAccountLog accountLog = DataUtil.copy(dto, ScoreAccountLog.class);
+        accountLog.setDirection(dto.getChargeType().getDirection());
         accountLog.setSurplusAmount(account.getAmount() + account.getPayFreeze());
+        scoreAccountLogMapper.insert(accountLog);
 
     }
 
@@ -98,4 +89,33 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         return scoreAccountMapper.selectOne(wrapper);
     }
 
+    /**
+     * 更新积分账户
+     *
+     * @param account 账户信息
+     */
+    private void updateById(ScoreAccount account) {
+        if (account.getAmount() < 0) {
+            log.error("账户可用积分余额不足 [{}]", account);
+            dingTalkService.sendMsg(String.format("账户可用积分余额不足 [%s]", account));
+            throw new BusinessException(ErrorCode.MERCHANT_SCORE_USE);
+        }
+        if (account.getPayFreeze() < 0) {
+            log.error("账户支付积分余额不足 [{}]", account);
+            dingTalkService.sendMsg(String.format("账户支付积分余额不足 [%s]", account));
+            throw new BusinessException(ErrorCode.MERCHANT_SCORE_USE);
+        }
+        if (account.getWithdrawFreeze() < 0) {
+            log.error("账户提现积分余额不足 [{}]", account);
+            dingTalkService.sendMsg(String.format("账户提现积分余额不足 [%s]", account));
+            throw new BusinessException(ErrorCode.MERCHANT_SCORE_WITHDRAW);
+        }
+
+        int update = scoreAccountMapper.updateAccount(account);
+        if (update != 1) {
+            log.error("更新账户信息失败 [{}]", account);
+            dingTalkService.sendMsg(String.format("更新商户账户失败 [%s]", account));
+            throw new BusinessException(ErrorCode.SCORE_ACCOUNT_UPDATE);
+        }
+    }
 }

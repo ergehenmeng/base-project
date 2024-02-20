@@ -34,6 +34,9 @@ public class AccountLog extends BaseEntity {
     @ApiModelProperty(value = "变动后的余额(可提现金额 + 支付冻结金额)")
     private Integer surplusAmount;
 
+    @ApiModelProperty("关联的交易单号(订单号或者提现单号)")
+    private String tradeNo;
+
     @ApiModelProperty(value = "备注信息")
     private String remark;
 

@@ -20,14 +20,30 @@ public enum AccountType implements EnumBinder {
 
     /**
      * 例如: 平台抽佣:5%, 单价500x2, 则支付收入500x2*0.95=950
-     * 支付收入 (不含平台抽佣)
+     * 订单支付
      */
-    ORDER(1, "订单收入"),
+    ORDER_PAY(1, "订单收入", 1),
+
+    /**
+     * 例如: 平台抽佣:5%, 单价500x2, 则支付收入500x2*0.95=950
+     * 订单退款
+     */
+    ORDER_REFUND(2, "订单退款", 2),
+
+    /**
+     * 积分提现收入
+     */
+    SCORE_WITHDRAW(3, "积分提现收入", 1),
 
     /**
      * 例如提现提现1000, 手续费5块,则提现冻结1000, 到账995
      */
-    WITHDRAW(2, "提现支出"),
+    WITHDRAW(4, "提现支出", 2),
+
+    /**
+     * 积分充值支出
+     */
+    SCORE_RECHARGE(5, "积分充值支出", 2),
 
     ;
 
@@ -42,6 +58,11 @@ public enum AccountType implements EnumBinder {
      * 名称
      */
     private final String name;
+
+    /**
+     * 支出或收入 (1:收入 2:支出)
+     */
+    private final int direction;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static AccountType of(Integer value) {

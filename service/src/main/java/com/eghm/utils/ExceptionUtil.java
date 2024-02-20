@@ -23,7 +23,7 @@ public class ExceptionUtil {
      * @param errorCode 错误码
      * @param runnable 指定的逻辑
      */
-    public static void run(Throwable e, ErrorCode errorCode, Runnable runnable) {
+    public static void error(Throwable e, ErrorCode errorCode, Runnable runnable) {
         if (e instanceof BusinessException) {
             BusinessException businessException = (BusinessException) e;
             if (businessException.getCode() == errorCode.getCode()) {
@@ -50,6 +50,43 @@ public class ExceptionUtil {
         } catch (BusinessException e) {
             if (e.getCode() == errorCode.getCode()) {
                 return callable.get();
+            }
+            throw e;
+        }
+    }
+
+    /**
+     * 如果是指定方法抛了指定的异常, 则执行runnable
+     *
+     * @param runnable 指定逻辑
+     * @param errorCode 错误码
+     * @param callable 指定的逻辑
+     */
+    public static void runVoid(Runnable runnable, ErrorCode errorCode, Runnable callable) {
+        try {
+            runnable.run();
+        } catch (BusinessException e) {
+            if (e.getCode() == errorCode.getCode()) {
+                callable.run();
+                return;
+            }
+            throw e;
+        }
+    }
+
+    /**
+     * 如果方法抛出了指定的异常
+     *
+     * @param runnable 指定逻辑
+     * @param errorCode 错误码
+     * @param callable 新的错误码
+     */
+    public static void transfer(Runnable runnable, ErrorCode errorCode, ErrorCode callable) {
+        try {
+            runnable.run();
+        } catch (BusinessException e) {
+            if (e.getCode() == errorCode.getCode()) {
+                throw new BusinessException(callable);
             }
             throw e;
         }

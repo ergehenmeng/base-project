@@ -10,13 +10,12 @@ import com.eghm.dto.business.withdraw.WithdrawApplyDTO;
 import com.eghm.dto.business.withdraw.WithdrawQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.AccountType;
-import com.eghm.exception.BusinessException;
 import com.eghm.mapper.WithdrawLogMapper;
-import com.eghm.model.Account;
 import com.eghm.model.WithdrawLog;
 import com.eghm.service.business.AccountService;
 import com.eghm.service.business.WithdrawService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.ExceptionUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -58,25 +57,22 @@ public class WithdrawServiceImpl implements WithdrawService {
 
     @Override
     public void apply(WithdrawApplyDTO apply) {
-        Account account = accountService.getAccount(apply.getMerchantId());
-        if (account.getWithdrawAmount() < apply.getAmount()) {
-            log.error("商户可提现金额不足 [{}] [{}] [{}]", apply.getMerchantId(), apply.getAmount(), account.getWithdrawAmount());
-            throw new BusinessException(ErrorCode.WITHDRAW_ENOUGH);
-        }
         AccountDTO dto = new AccountDTO();
         dto.setMerchantId(apply.getMerchantId());
         dto.setAmount(apply.getAmount());
         dto.setAccountType(AccountType.WITHDRAW);
-        accountService.updateAccount(dto);
+        String tradeNo = this.generateWithdrawNo();
+        dto.setTradeNo(tradeNo);
+        ExceptionUtil.transfer(() -> accountService.updateAccount(dto), ErrorCode.MERCHANT_ACCOUNT_USE, ErrorCode.WITHDRAW_ENOUGH);
 
         WithdrawLog withdrawLog = DataUtil.copy(apply, WithdrawLog.class);
         withdrawLog.setWithdrawWay(1);
         withdrawLog.setState(0);
         withdrawLog.setCreateTime(LocalDateTime.now());
-        String tradeNo = this.generateWithdrawNo();
         withdrawLog.setTradeNo(tradeNo);
         withdrawLogMapper.insert(withdrawLog);
-        // TODO 计算手续费 + 发起提现
+        // TODO 计算手续费 + 发起提现, 如果是同步到账则将提现冻结金额减少直接减少,否则在异步回调中减少
+        accountService.orderComplete(apply.getMerchantId(), apply.getAmount());
     }
 
     /**
