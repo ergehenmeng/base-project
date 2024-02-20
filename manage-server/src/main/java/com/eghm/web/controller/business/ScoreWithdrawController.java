@@ -26,7 +26,7 @@ public class ScoreWithdrawController {
     private final ScoreAccountService scoreAccountService;
 
     @PostMapping("/apply")
-    @ApiOperation("提现金额")
+    @ApiOperation("提现申请")
     public RespBody<Void> apply(@Validated @RequestBody ScoreWithdrawApplyDTO dto) {
         dto.setMerchantId(SecurityHolder.getMerchantId());
         scoreAccountService.applyWithdraw(dto);

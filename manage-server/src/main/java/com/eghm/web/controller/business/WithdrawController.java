@@ -35,7 +35,7 @@ public class WithdrawController {
     }
 
     @PostMapping("/apply")
-    @ApiOperation("提现金额")
+    @ApiOperation("提现申请")
     public RespBody<Void> apply(@Validated @RequestBody WithdrawApplyDTO dto) {
         dto.setMerchantId(SecurityHolder.getMerchantId());
         withdrawService.apply(dto);
