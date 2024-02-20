@@ -10,6 +10,9 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.*;
 import com.eghm.model.SysDictItem;
 import com.eghm.service.business.CommonService;
+import com.eghm.service.business.handler.access.AccessHandler;
+import com.eghm.service.business.handler.context.PayNotifyContext;
+import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.RefundNotifyHandler;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.SpringContextUtil;
@@ -73,6 +76,16 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public <T> T getHandler(String orderNo, Class<T> clsHandler) {
         return this.getHandler(ProductType.prefix(orderNo), clsHandler);
+    }
+
+    @Override
+    public void handlePayNotify(PayNotifyContext context) {
+        this.getHandler(context.getTradeNo(), AccessHandler.class).payNotify(context);
+    }
+
+    @Override
+    public void handleRefundNotify(RefundNotifyContext context) {
+        this.getHandler(context.getTradeNo(), AccessHandler.class).refundNotify(context);
     }
 
     @Override

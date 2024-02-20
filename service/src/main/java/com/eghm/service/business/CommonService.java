@@ -4,6 +4,8 @@ import com.eghm.dto.ext.StoreScope;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.SysDictItem;
+import com.eghm.service.business.handler.context.PayNotifyContext;
+import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.RefundNotifyHandler;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.statistics.ProductStatisticsVO;
@@ -31,6 +33,20 @@ public interface CommonService {
      * @return 处理类
      */
     <T> T getHandler(String orderNo, Class<T> clsHandler);
+
+    /**
+     * 订单支付成功异步回调处理逻辑
+     *
+     * @param context 异步通知上下文
+     */
+    void handlePayNotify(PayNotifyContext context);
+
+    /**
+     * 订单退款成功异步回调处理逻辑
+     *
+     * @param context 异步通知上下文
+     */
+    void handleRefundNotify(RefundNotifyContext context);
 
     /**
      * 根据商品类型查询accessHandler

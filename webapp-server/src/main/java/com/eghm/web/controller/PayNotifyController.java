@@ -6,7 +6,6 @@ import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ScanRechargeLogService;
-import com.eghm.service.business.handler.access.AccessHandler;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.cache.RedisLock;
@@ -70,10 +69,8 @@ public class PayNotifyController {
         context.setOrderNo(orderNo);
         context.setTradeNo(tradeNo);
 
-        return this.aliResult(() -> redisLock.lock(CacheConstant.ALI_PAY_NOTIFY_LOCK + orderNo, 10_000, () -> {
-            this.payNotifyHandle(context);
-            return ALI_PAY_SUCCESS;
-        }));
+        return this.aliResult(() -> redisLock.lock(CacheConstant.ALI_PAY_NOTIFY_LOCK + orderNo, 10_000,
+                () -> this.handlePayNotify(context)));
     }
 
     @PostMapping(ALI_REFUND_NOTIFY_URL)
@@ -90,10 +87,8 @@ public class PayNotifyController {
         context.setRefundNo(refundNo);
         context.setTradeNo(tradeNo);
 
-        return this.aliResult(() -> redisLock.lock(CacheConstant.ALI_REFUND_NOTIFY_LOCK + tradeNo, 10_000, () -> {
-            commonService.getHandler(refundNo, AccessHandler.class).refundNotify(context);
-            return ALI_PAY_SUCCESS;
-        }));
+        return this.aliResult(() -> redisLock.lock(CacheConstant.ALI_REFUND_NOTIFY_LOCK + tradeNo, 10_000,
+                () -> commonService.handleRefundNotify(context)));
     }
 
     @PostMapping(WECHAT_PAY_NOTIFY_URL)
@@ -109,10 +104,8 @@ public class PayNotifyController {
         context.setOrderNo(orderNo);
         context.setTradeNo(payNotify.getResult().getOutTradeNo());
 
-        return this.wechatResult(response, () -> redisLock.lock(CacheConstant.WECHAT_PAY_NOTIFY_LOCK + orderNo, 10_000, () -> {
-            this.payNotifyHandle(context);
-            return null;
-        }));
+        return this.wechatResult(response, () -> redisLock.lock(CacheConstant.WECHAT_PAY_NOTIFY_LOCK + orderNo, 10_000,
+                () -> this.handlePayNotify(context)));
     }
 
     @PostMapping(WECHAT_REFUND_NOTIFY_URL)
@@ -129,10 +122,8 @@ public class PayNotifyController {
         context.setRefundNo(refundNo);
         context.setTradeNo(tradeNo);
 
-        return this.wechatResult(response, () -> redisLock.lock(CacheConstant.WECHAT_REFUND_NOTIFY_LOCK + tradeNo, 10_000, () -> {
-            commonService.getHandler(refundNo, AccessHandler.class).refundNotify(context);
-            return null;
-        }));
+        return this.wechatResult(response, () -> redisLock.lock(CacheConstant.WECHAT_REFUND_NOTIFY_LOCK + tradeNo, 10_000,
+                () -> commonService.handleRefundNotify(context)));
     }
 
     /**
@@ -140,11 +131,11 @@ public class PayNotifyController {
      *
      * @param context 上下文
      */
-    private void payNotifyHandle(PayNotifyContext context) {
+    private void handlePayNotify(PayNotifyContext context) {
         ProductType productType = ProductType.ofPrefix(context.getOrderNo());
         if (productType != null) {
             log.info("开始进行商品支付回调异步处理 [{}]", context.getTradeNo());
-            commonService.getHandler(context.getOrderNo(), AccessHandler.class).payNotify(context);
+            commonService.handlePayNotify(context);
         } else if (context.getTradeNo().startsWith(SCORE_RECHARGE_PREFIX)) {
             log.info("开始进行扫码充值回调异步处理 [{}]", context.getTradeNo());
             scanRechargeLogService.rechargeNotify(context);
@@ -179,8 +170,8 @@ public class PayNotifyController {
     private Map<String, String> wechatResult(HttpServletResponse response, Runnable runnable) {
         Map<String, String> result = new HashMap<>(4);
         try {
-            result.put("code", "SUCCESS");
             runnable.run();
+            result.put("code", "SUCCESS");
         } catch (BusinessException e) {
             response.setStatus(HttpStatus.NOT_FOUND.value());
             result.put("code", "FAIL");

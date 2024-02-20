@@ -1,7 +1,9 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.service.pay.enums.TradeType;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,6 +27,7 @@ public class ScanRechargeLog extends BaseEntity {
     private Long merchantId;
 
     @ApiModelProperty(value = "付款金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer amount;
 
     @ApiModelProperty(value = "付款状态 0:待支付 1:已支付 2:已过期 3: 支付失败")
