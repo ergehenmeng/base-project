@@ -129,7 +129,7 @@
             t.scenic_id,
             t.scenic_name,
             t.category,
-            r.out_trade_no,
+            r.trade_no,
             t.verification_type,
             t.visit_date,
             r.pay_type,

@@ -94,7 +94,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType) {
         List<String> orderNoList = StrUtil.split(orderNo, ',');
         ProductType productType = ProductType.prefix(orderNoList.get(0));
-        String outTradeNo = productType.generateTradeNo();
+        String tradeNo = productType.generateTradeNo();
 
         List<Order> orderList = this.getUnPay(orderNoList);
         StringBuilder builder = new StringBuilder();
@@ -102,7 +102,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         for (Order order : orderList) {
             // 支付方式先占坑
             order.setPayType(PayType.valueOf(tradeType.name()));
-            order.setOutTradeNo(outTradeNo);
+            order.setTradeNo(tradeNo);
             builder.append(order.getTitle()).append(",");
             totalAmount += order.getPayAmount();
             baseMapper.updateById(order);
@@ -113,23 +113,23 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         dto.setDescription(this.getGoodsTitle(builder));
         dto.setTradeType(tradeType);
         dto.setAmount(totalAmount);
-        dto.setOutTradeNo(outTradeNo);
+        dto.setTradeNo(tradeNo);
         dto.setBuyerId(buyerId);
         return aggregatePayService.createPrepay(dto);
     }
 
     @Override
-    public Order selectByOutTradeNo(String outTradeNo) {
+    public Order selectByTradeNo(String tradeNo) {
         LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Order::getOutTradeNo, outTradeNo);
+        wrapper.eq(Order::getTradeNo, tradeNo);
         wrapper.last(CommonConstant.LIMIT_ONE);
         return baseMapper.selectOne(wrapper);
     }
 
     @Override
-    public List<Order> selectByOutTradeNoList(String outTradeNo) {
+    public List<Order> selectByTradeNoList(String tradeNo) {
         LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Order::getOutTradeNo, outTradeNo);
+        wrapper.eq(Order::getTradeNo, tradeNo);
         return baseMapper.selectList(wrapper);
     }
 
@@ -159,14 +159,14 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public TradeState getOrderPayState(Order order) {
-        if (StrUtil.isBlank(order.getOutTradeNo())) {
+        if (StrUtil.isBlank(order.getTradeNo())) {
             log.info("订单未生成支付流水号 [{}]", order.getId());
             return TradeState.NOT_PAY;
         }
         PayType payType = order.getPayType();
         // 订单支付方式和支付方式需要做一层转换
         TradeType tradeType = TradeType.valueOf(payType.name());
-        PayOrderVO vo = aggregatePayService.queryOrder(tradeType, order.getOutTradeNo());
+        PayOrderVO vo = aggregatePayService.queryOrder(tradeType, order.getTradeNo());
         return vo.getTradeState();
     }
 
@@ -206,7 +206,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public List<Order> getProcessList() {
         LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(Order::getOrderNo, Order::getProductType, Order::getOutTradeNo, Order::getPayType);
+        wrapper.select(Order::getOrderNo, Order::getProductType, Order::getTradeNo, Order::getPayType);
         wrapper.eq(Order::getState, OrderState.PROGRESS);
         return baseMapper.selectList(wrapper);
     }
@@ -214,8 +214,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public void startRefund(OrderRefundLog log, Order order) {
         RefundDTO dto = new RefundDTO();
-        dto.setOutRefundNo(log.getOutRefundNo());
-        dto.setOutTradeNo(order.getOutTradeNo());
+        dto.setRefundNo(log.getRefundNo());
+        dto.setTradeNo(order.getTradeNo());
         dto.setReason(log.getReason());
         dto.setAmount(log.getRefundAmount());
         dto.setTradeType(TradeType.valueOf(order.getPayType().name()));
@@ -581,7 +581,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         OrderRefundLog refundLog = new OrderRefundLog();
         refundLog.setId(IdWorker.getId());
         refundLog.setMerchantId(order.getMerchantId());
-        refundLog.setOutRefundNo(order.getProductType().generateTradeNo());
+        refundLog.setRefundNo(order.getProductType().generateTradeNo());
         refundLog.setMemberId(order.getMemberId());
         refundLog.setRefundAmount(refundAmount);
         refundLog.setApplyAmount(refundAmount);

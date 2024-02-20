@@ -33,11 +33,11 @@ public class PayNotifyLog extends BaseEntity {
 
     @ApiModelProperty(value = "交易流水号")
     @TableField(typeHandler = LikeTypeHandler.class)
-    private String outTradeNo;
+    private String tradeNo;
 
     @ApiModelProperty(value = "退款流水号")
     @TableField(typeHandler = LikeTypeHandler.class)
-    private String outRefundNo;
+    private String refundNo;
 
     @ApiModelProperty(value = "通知原始参数")
     private String params;

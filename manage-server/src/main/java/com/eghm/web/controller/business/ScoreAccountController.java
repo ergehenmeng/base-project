@@ -1,11 +1,16 @@
 package com.eghm.web.controller.business;
 
+import cn.hutool.core.img.ImgUtil;
+import cn.hutool.extra.qrcode.QrCodeUtil;
+import cn.hutool.extra.qrcode.QrConfig;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.business.account.score.ScoreBalanceRechargeDTO;
+import com.eghm.dto.business.account.score.ScoreRechargeDTO;
+import com.eghm.dto.business.account.score.ScoreScanRechargeDTO;
 import com.eghm.dto.business.account.score.ScoreWithdrawApplyDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.ScoreAccount;
 import com.eghm.service.business.ScoreAccountService;
+import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.account.ScoreAccountResponse;
 import io.swagger.annotations.Api;
@@ -42,12 +47,24 @@ public class ScoreAccountController {
         return RespBody.success();
     }
 
-    @PostMapping("/balanceRecharge")
+    @PostMapping("/recharge/balance")
     @ApiOperation("余额充值")
-    public RespBody<Void> balanceRecharge(@Validated @RequestBody ScoreBalanceRechargeDTO dto) {
+    public RespBody<Void> rechargeBalance(@Validated @RequestBody ScoreRechargeDTO dto) {
         dto.setMerchantId(SecurityHolder.getMerchantId());
-        scoreAccountService.orderComplete(dto.getMerchantId(), dto.getAmount());
+        scoreAccountService.rechargeBalance(dto);
         return RespBody.success();
+    }
+
+    @PostMapping("/recharge/scan")
+    @ApiOperation("扫码充值")
+    public RespBody<String> rechargeScan(@Validated @RequestBody ScoreScanRechargeDTO dto) {
+        dto.setMerchantId(SecurityHolder.getMerchantId());
+        PrepayVO prepayVO = scoreAccountService.rechargeScan(dto);
+        QrConfig config = new QrConfig();
+        config.setHeight(200);
+        config.setWidth(200);
+        String generate = QrCodeUtil.generateAsBase64(prepayVO.getQrCodeUrl(), config, ImgUtil.IMAGE_TYPE_JPG);
+        return RespBody.success(generate);
     }
 
 }

@@ -1,9 +1,11 @@
 package com.eghm.service.business;
 
 import com.eghm.dto.business.account.score.ScoreAccountDTO;
-import com.eghm.dto.business.account.score.ScoreBalanceRechargeDTO;
+import com.eghm.dto.business.account.score.ScoreRechargeDTO;
+import com.eghm.dto.business.account.score.ScoreScanRechargeDTO;
 import com.eghm.dto.business.account.score.ScoreWithdrawApplyDTO;
 import com.eghm.model.ScoreAccount;
+import com.eghm.service.pay.vo.PrepayVO;
 
 /**
  * <p>
@@ -64,7 +66,7 @@ public interface ScoreAccountService {
      *
      * @param dto 充值
      */
-    void balanceRecharge(ScoreBalanceRechargeDTO dto);
+    void rechargeBalance(ScoreRechargeDTO dto);
 
     /**
      * 积分充值成功 (一般在支付成功回调中调用该方法)
@@ -72,4 +74,12 @@ public interface ScoreAccountService {
      * @param tradeNo 交易单号
      */
     void rechargeSuccess(String tradeNo);
+
+    /**
+     * 微信扫码支付
+     *
+     * @param dto 支付信息
+     * @return 二维码信息
+     */
+    PrepayVO rechargeScan(ScoreScanRechargeDTO dto);
 }

@@ -72,7 +72,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
         } else {
             refundLog.setAuditState(AuditState.PASS);
             refundLog.setAuditRemark("系统自动审核");
-            refundLog.setOutRefundNo(order.getProductType().generateTradeNo());
+            refundLog.setRefundNo(order.getProductType().generateTradeNo());
             order.setRefundState(RefundState.PROGRESS);
             order.setRefundAmount(order.getRefundAmount() + context.getApplyAmount());
             this.startRefund(refundLog, order);

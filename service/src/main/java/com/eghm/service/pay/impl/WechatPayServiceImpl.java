@@ -77,7 +77,7 @@ public class WechatPayServiceImpl implements PayService {
         request.setDescription(dto.getDescription());
         SystemProperties.WeChatProperties wechat = systemProperties.getWechat();
         request.setNotifyUrl(wechat.getNotifyHost() + CommonConstant.WECHAT_PAY_NOTIFY_URL);
-        request.setOutTradeNo(dto.getOutTradeNo());
+        request.setOutTradeNo(dto.getTradeNo());
         WxPayUnifiedOrderV3Request.Payer payer = new WxPayUnifiedOrderV3Request.Payer();
         payer.setOpenid(dto.getBuyerId());
         request.setPayer(payer);
@@ -92,12 +92,12 @@ public class WechatPayServiceImpl implements PayService {
     }
 
     @Override
-    public PayOrderVO queryOrder(String outTradeNo) {
+    public PayOrderVO queryOrder(String tradeNo) {
         WxPayOrderQueryV3Result result;
         try {
-            result = wxPayService.queryOrderV3(null, outTradeNo);
+            result = wxPayService.queryOrderV3(null, tradeNo);
         } catch (Exception e) {
-            log.error("微信订单查询失败 [{}]", outTradeNo, e);
+            log.error("微信订单查询失败 [{}]", tradeNo, e);
             throw new BusinessException(ErrorCode.ORDER_QUERY_ERROR);
         }
         PayOrderVO response = new PayOrderVO();
@@ -112,11 +112,11 @@ public class WechatPayServiceImpl implements PayService {
     }
 
     @Override
-    public void closeOrder(String outTradeNo) {
+    public void closeOrder(String tradeNo) {
         try {
-            wxPayService.closeOrderV3(outTradeNo);
+            wxPayService.closeOrderV3(tradeNo);
         } catch (Exception e) {
-            log.error("微信订单关闭异常 [{}]", outTradeNo, e);
+            log.error("微信订单关闭异常 [{}]", tradeNo, e);
             throw new BusinessException(ErrorCode.ORDER_CLOSE);
         }
     }
@@ -130,26 +130,26 @@ public class WechatPayServiceImpl implements PayService {
         amount.setTotal(dto.getTotal());
         request.setAmount(amount);
         request.setNotifyUrl(wechat.getNotifyHost() + CommonConstant.WECHAT_REFUND_NOTIFY_URL);
-        request.setOutTradeNo(dto.getOutTradeNo());
+        request.setOutTradeNo(dto.getTradeNo());
         request.setReason(dto.getReason());
-        request.setOutRefundNo(dto.getOutRefundNo());
+        request.setOutRefundNo(dto.getRefundNo());
         WxPayRefundV3Result result;
         try {
             result = wxPayService.refundV3(request);
         } catch (Exception e) {
-            log.error("微信退款申请失败 [{}]", dto.getOutRefundNo(), e);
+            log.error("微信退款申请失败 [{}]", dto.getRefundNo(), e);
             throw new BusinessException(ErrorCode.REFUND_APPLY);
         }
         return this.getRefundVO(result.getAmount().getPayerRefund(), result.getStatus(), result.getChannel(), result.getUserReceivedAccount(), result.getSuccessTime(), result.getCreateTime());
     }
 
     @Override
-    public RefundVO queryRefund(String outTradeNo, String outRefundNo) {
+    public RefundVO queryRefund(String tradeNo, String refundNo) {
         WxPayRefundQueryV3Result result;
         try {
-            result = wxPayService.refundQueryV3(outRefundNo);
+            result = wxPayService.refundQueryV3(refundNo);
         } catch (Exception e) {
-            log.error("微信退款订单信息查询失败 [{}]", outRefundNo, e);
+            log.error("微信退款订单信息查询失败 [{}]", refundNo, e);
             throw new BusinessException(ErrorCode.REFUND_QUERY);
         }
         return this.getRefundVO(result.getAmount().getPayerRefund(), result.getStatus(), result.getChannel(), result.getUserReceivedAccount(), result.getSuccessTime(), result.getCreateTime());

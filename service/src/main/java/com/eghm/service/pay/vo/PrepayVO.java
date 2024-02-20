@@ -48,7 +48,7 @@ public class PrepayVO {
     private String partnerId;
 
     @ApiModelProperty("支付宝交易单号")
-    private String tradeNo;
+    private String outTradeNo;
 
     @ApiModelProperty("支付渠道 WECHAT:微信, ALIPAY:支付宝")
     @JsonIgnore

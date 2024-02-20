@@ -438,8 +438,8 @@ CREATE TABLE `pay_notify_log`
     `pay_channel`   varchar(30) DEFAULT NULL COMMENT '交易方式 WECHAT:微信 ALI_PAY:支付宝',
     `notify_id`     varchar(50) DEFAULT NULL COMMENT '异步通知唯一ID',
     `step_type`     varchar(30) DEFAULT NULL COMMENT '通知类型 PAY: 支付异步通知 REFUND:退款异步通知',
-    `out_trade_no`  varchar(30) DEFAULT NULL COMMENT '交易流水号',
-    `out_refund_no` varchar(30) DEFAULT NULL COMMENT '退款流水号',
+    `trade_no`  varchar(30) DEFAULT NULL COMMENT '交易流水号',
+    `refund_no` varchar(30) DEFAULT NULL COMMENT '退款流水号',
     `params`        text COMMENT '退款通知原始参数',
     `create_time`   datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`   datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -456,8 +456,8 @@ CREATE TABLE `pay_request_log`
     `pay_channel`   varchar(30) DEFAULT NULL COMMENT '交易方式 WECHAT:微信 ALI_PAY:支付宝',
     `order_no`      varchar(50) DEFAULT NULL COMMENT '订单编号',
     `step_type`     VARCHAR(20) DEFAULT NULL COMMENT '请求类型 PAY: 支付 REFUND:退款',
-    `out_trade_no`  varchar(30) DEFAULT NULL COMMENT '交易流水号',
-    `out_refund_no` varchar(30) DEFAULT NULL COMMENT '退款流水号',
+    `trade_no`      varchar(30) DEFAULT NULL COMMENT '交易流水号',
+    `refund_no`     varchar(30) DEFAULT NULL COMMENT '退款流水号',
     `request_body`  text COMMENT '请求参数',
     `response_body` TEXT comment '响应参数',
     `create_time`   datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -507,7 +507,7 @@ CREATE TABLE `order_refund_log`
     `order_no`      varchar(30)  DEFAULT NULL COMMENT '订单编号',
     `merchant_id`   bigint(20) NOT NULL COMMENT '订单所属商户id',
     `member_id`     bigint(20)   DEFAULT NULL COMMENT '退款人id',
-    `out_refund_no` varchar(50)  DEFAULT NULL COMMENT '退款流水号',
+    `refund_no`     varchar(50)  DEFAULT NULL COMMENT '退款流水号',
     `num`           smallint(2)  DEFAULT '1' COMMENT '退款数量',
     `item_order_id` bigint(20)   DEFAULT NULL COMMENT '零售退款订单id',
     `apply_amount`  int(10)      DEFAULT '0' COMMENT '申请退款金额(含运费)',
@@ -590,7 +590,7 @@ CREATE TABLE `order`
     `pay_type`        varchar(30)  DEFAULT NULL COMMENT '支付方式',
     `order_no`        varchar(30)  DEFAULT NULL COMMENT '订单编号',
     `store_id`        bigint(20)   DEFAULT NULL COMMENT '商品所属门店id',
-    `out_trade_no`    varchar(50)  DEFAULT NULL COMMENT '支付流水号',
+    `trade_no`        varchar(50)  DEFAULT NULL COMMENT '商户支付流水号',
     `price`           int(10)      DEFAULT NULL COMMENT '单价',
     `num`             smallint(3)  DEFAULT '1' COMMENT '数量',
     `product_type`    varchar(30)  DEFAULT NULL COMMENT '商品类型',
@@ -1193,8 +1193,8 @@ CREATE TABLE `withdraw_log`
     `withdraw_way` tinyint(1)   DEFAULT '0' COMMENT '1:手动提现 2:自动提现',
     `amount`       int(10)      DEFAULT '0' COMMENT '提现金额',
     `fee`          int(10)      DEFAULT '0' COMMENT '提现手续费',
-    `trade_no`     varchar(50)  DEFAULT NULL COMMENT '提现流水号',
-    `out_trade_no` varchar(50)  DEFAULT NULL COMMENT '第三方流水号',
+    `refund_no`     varchar(50)  DEFAULT NULL COMMENT '提现流水号',
+    `out_refund_no` varchar(50)  DEFAULT NULL COMMENT '第三方流水号',
     `payment_time` datetime     DEFAULT NULL COMMENT '到账时间',
     `real_name`    varchar(20)  DEFAULT NULL COMMENT '银行卡所属用户姓名',
     `bank_type`    varchar(20)  DEFAULT NULL COMMENT '银行卡类型',
@@ -1478,3 +1478,21 @@ CREATE TABLE redeem_code_scope
     create_time    DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (id)
 ) COMMENT '兑换码使用范围表';
+
+DROP TABLE IF EXISTS scan_recharge_log;
+CREATE TABLE `scan_recharge_log`
+(
+    `id`          BIGINT(20) NOT NULL COMMENT '主键',
+    `merchant_id` BIGINT(20)  DEFAULT NULL COMMENT '商户id',
+    `amount`      INT(10)     DEFAULT '0' COMMENT '付款金额',
+    `state`       TINYINT(1) COMMENT '付款状态 0:待支付 1:已支付 2:已过期',
+    `qr_code`     VARCHAR(500) COMMENT '二维码url',
+    `trade_type`  VARCHAR(20) COMMENT '付款方式',
+    `trade_no`    VARCHAR(30) DEFAULT NULL COMMENT '本地交易单号',
+    `pay_time`    DATETIME    DEFAULT NULL COMMENT '支付时间',
+    `create_time` DATETIME    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     BIT(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = INNODB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='扫码支付记录表';

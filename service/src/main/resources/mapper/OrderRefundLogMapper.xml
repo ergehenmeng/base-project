@@ -18,8 +18,8 @@
     
     <select id="getRefundProcess" resultType="com.eghm.dto.ext.OrderRefund">
         select
-             t.out_refund_no,
-             r.out_trade_no,
+             t.refund_no,
+             r.trade_no,
              r.order_no
         from
         order_refund_log t

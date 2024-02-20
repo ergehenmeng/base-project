@@ -38,18 +38,18 @@ public interface OrderService extends IService<Order> {
     /**
      * 根据交易流水号查询订单, 门票,餐饮,线路,民宿
      *
-     * @param outTradeNo 交易流水号
+     * @param tradeNo 交易流水号
      * @return 订单信息
      */
-    Order selectByOutTradeNo(String outTradeNo);
+    Order selectByTradeNo(String tradeNo);
 
     /**
      * 根据交易流水号查询订单 针对普通商品订单可能会出现一个交易流水号对应多类商品订单
      *
-     * @param outTradeNo 交易流水号
+     * @param tradeNo 交易流水号
      * @return 订单列表
      */
-    List<Order> selectByOutTradeNoList(String outTradeNo);
+    List<Order> selectByTradeNoList(String tradeNo);
 
     /**
      * 查询订单信息

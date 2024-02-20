@@ -14,7 +14,7 @@ public class PrepayDTO {
     /**
      * 交易订单号
      */
-    private String outTradeNo;
+    private String tradeNo;
 
     /**
      * 支付方式
@@ -27,7 +27,7 @@ public class PrepayDTO {
     private String description;
 
     /**
-     * 付款人buyerId
+     * 付款人buyerId (当面付为空)
      */
     private String buyerId;
 

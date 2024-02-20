@@ -7,8 +7,8 @@
         pay_channel,
         notify_id,
         step_type,
-        out_trade_no,
-        out_refund_no,
+        trade_no,
+        refund_no,
         params,
         create_time
         from pay_notify_log where deleted = false
@@ -19,8 +19,8 @@
             and step_type = #{param.stepType}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and (out_trade_no like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%') or
-                out_refund_no like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%'))
+            and (trade_no like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%') or
+                refund_no like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%'))
         </if>
         order by id desc
     </select>

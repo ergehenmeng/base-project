@@ -14,7 +14,7 @@ import javax.validation.constraints.Min;
  */
 
 @Data
-public class ScoreBalanceRechargeDTO {
+public class ScoreRechargeDTO {
 
     @ApiModelProperty("商户id")
     @Assign

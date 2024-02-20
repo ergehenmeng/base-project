@@ -50,7 +50,7 @@ public class WithdrawServiceImpl implements WithdrawService {
         wrapper.eq(request.getWithdrawWay() != null, WithdrawLog::getWithdrawWay, request.getWithdrawWay());
         wrapper.ge(request.getStartDate() != null, WithdrawLog::getCreateTime, request.getStartDate());
         wrapper.lt(request.getEndDate() != null, WithdrawLog::getCreateTime, request.getEndDate());
-        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper -> queryWrapper.like(WithdrawLog::getTradeNo, request.getQueryName()).or().like(WithdrawLog::getOutTradeNo, request.getQueryName()));
+        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper -> queryWrapper.like(WithdrawLog::getRefundNo, request.getQueryName()).or().like(WithdrawLog::getOutRefundNo, request.getQueryName()));
         wrapper.orderByDesc(WithdrawLog::getId);
         return withdrawLogMapper.selectPage(request.createPage(), wrapper);
     }
@@ -69,7 +69,7 @@ public class WithdrawServiceImpl implements WithdrawService {
         withdrawLog.setWithdrawWay(1);
         withdrawLog.setState(0);
         withdrawLog.setCreateTime(LocalDateTime.now());
-        withdrawLog.setTradeNo(tradeNo);
+        withdrawLog.setRefundNo(tradeNo);
         withdrawLogMapper.insert(withdrawLog);
         // TODO 计算手续费 + 发起提现, 如果是同步到账则将提现冻结金额减少直接减少,否则在异步回调中减少
         accountService.orderComplete(apply.getMerchantId(), apply.getAmount());

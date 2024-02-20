@@ -34,7 +34,7 @@ public abstract class AbstractItemOrderPayNotifyHandler implements PayNotifyHand
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void doAction(PayNotifyContext context) {
-        List<Order> orderList = orderService.selectByOutTradeNoList(context.getOutTradeNo());
+        List<Order> orderList = orderService.selectByTradeNoList(context.getTradeNo());
         this.before(orderList);
         List<String> orderNoList = orderList.stream().map(Order::getOrderNo).collect(Collectors.toList());
         this.doProcess(context, orderNoList);

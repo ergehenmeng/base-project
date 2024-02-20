@@ -150,6 +150,11 @@ public class CommonConstant {
     public static final String WECHAT_PAY_NOTIFY_URL = "/webapp/notify/weChat/pay";
 
     /**
+     * 积分充值商品名称
+     */
+    public static final String SCORE_RECHARGE_GOOD_TITLE = "商户积分充值%s元";
+
+    /**
      * 提现交易单号前缀
      */
     public static final String WITHDRAW_PREFIX = "TX";

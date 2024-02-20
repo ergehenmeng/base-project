@@ -88,9 +88,9 @@ public class OrderRefundLogServiceImpl implements OrderRefundLogService {
     }
 
     @Override
-    public OrderRefundLog selectByOutRefundNo(String outRefundNo) {
+    public OrderRefundLog selectByRefundNo(String refundNo) {
         LambdaQueryWrapper<OrderRefundLog> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(OrderRefundLog::getOutRefundNo, outRefundNo);
+        wrapper.eq(OrderRefundLog::getRefundNo, refundNo);
         wrapper.last(CommonConstant.LIMIT_ONE);
         return orderRefundLogMapper.selectOne(wrapper);
     }

@@ -6,7 +6,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.account.AccountDTO;
 import com.eghm.dto.business.account.score.ScoreAccountDTO;
-import com.eghm.dto.business.account.score.ScoreBalanceRechargeDTO;
+import com.eghm.dto.business.account.score.ScoreRechargeDTO;
+import com.eghm.dto.business.account.score.ScoreScanRechargeDTO;
 import com.eghm.dto.business.account.score.ScoreWithdrawApplyDTO;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.AccountType;
@@ -15,25 +16,24 @@ import com.eghm.enums.ref.RoleType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ScoreAccountLogMapper;
 import com.eghm.mapper.ScoreAccountMapper;
-import com.eghm.model.AccountLog;
-import com.eghm.model.Merchant;
-import com.eghm.model.ScoreAccount;
-import com.eghm.model.ScoreAccountLog;
-import com.eghm.service.business.AccountLogService;
-import com.eghm.service.business.AccountService;
-import com.eghm.service.business.MerchantInitService;
-import com.eghm.service.business.ScoreAccountService;
+import com.eghm.model.*;
+import com.eghm.service.business.*;
 import com.eghm.service.common.JsonService;
+import com.eghm.service.pay.AggregatePayService;
+import com.eghm.service.pay.dto.PrepayDTO;
+import com.eghm.service.pay.enums.PayChannel;
+import com.eghm.service.pay.enums.TradeType;
+import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.service.sys.DingTalkService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DecimalUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.eghm.constant.CommonConstant.SCORE_RECHARGE_PREFIX;
-import static com.eghm.constant.CommonConstant.SCORE_WITHDRAW_PREFIX;
+import static com.eghm.constant.CommonConstant.*;
 
 /**
  * <p>
@@ -58,7 +58,11 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
 
     private final ScoreAccountMapper scoreAccountMapper;
 
+    private final AggregatePayService aggregatePayService;
+
     private final ScoreAccountLogMapper scoreAccountLogMapper;
+
+    private final ScanRechargeLogService scanRechargeLogService;
 
     @Override
     public boolean support(List<RoleType> roleTypes) {
@@ -126,7 +130,7 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         accountDTO.setMerchantId(dto.getMerchantId());
         accountDTO.setAmount(dto.getAmount());
         accountDTO.setChargeType(ChargeType.WITHDRAW);
-        String tradeNo = generateWithdrawNo();
+        String tradeNo = this.generateWithdrawNo();
         accountDTO.setTradeNo(tradeNo);
         this.updateAccount(accountDTO);
         // TODO 将平台账户转到商户账户 tradeNo 异步需要在回调中处理
@@ -158,12 +162,12 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
     }
 
     @Override
-    public void balanceRecharge(ScoreBalanceRechargeDTO dto) {
+    public void rechargeBalance(ScoreRechargeDTO dto) {
         AccountDTO accountDTO = new AccountDTO();
         accountDTO.setMerchantId(dto.getMerchantId());
         accountDTO.setAmount(dto.getAmount());
         accountDTO.setAccountType(AccountType.SCORE_RECHARGE);
-        String tradeNo = generateRechargeNo();
+        String tradeNo = this.generateRechargeNo();
         accountDTO.setTradeNo(tradeNo);
         accountService.updateAccount(accountDTO);
         // TODO 将商户账户转到平台账户 tradeNo 异步需要在回调中处理
@@ -179,6 +183,32 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         accountDTO.setChargeType(ChargeType.RECHARGE);
         accountDTO.setTradeNo(tradeNo);
         this.updateAccount(accountDTO);
+    }
+
+    @Override
+    public PrepayVO rechargeScan(ScoreScanRechargeDTO dto) {
+        PrepayDTO prepayDTO = new PrepayDTO();
+        prepayDTO.setAmount(dto.getAmount());
+        prepayDTO.setDescription(String.format(SCORE_RECHARGE_GOOD_TITLE, DecimalUtil.centToYuan(dto.getAmount())));
+        String tradeNo = this.generateRechargeNo();
+        prepayDTO.setTradeNo(tradeNo);
+        // 默认按
+        prepayDTO.setAttach(tradeNo);
+        if (dto.getPayChannel() == PayChannel.WECHAT) {
+            prepayDTO.setTradeType(TradeType.WECHAT_NATIVE);
+        } else {
+            prepayDTO.setTradeType(TradeType.ALI_FACE_PAY);
+        }
+        PrepayVO vo = aggregatePayService.createPrepay(prepayDTO);
+        ScanRechargeLog rechargeLog = new ScanRechargeLog();
+        rechargeLog.setAmount(dto.getAmount());
+        rechargeLog.setTradeType(prepayDTO.getTradeType());
+        rechargeLog.setTradeNo(tradeNo);
+        rechargeLog.setMerchantId(dto.getMerchantId());
+        rechargeLog.setState(0);
+        rechargeLog.setQrCode(vo.getQrCodeUrl());
+        scanRechargeLogService.insert(rechargeLog);
+        return vo;
     }
 
     /**

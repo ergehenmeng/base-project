@@ -52,39 +52,19 @@ public class PayNotifyController {
 
     private final RedisLock redisLock;
 
-    /**
-     * 解析支付宝请求参数
-     *
-     * @param request 请求参数
-     * @return 解析后的参数
-     */
-    public static Map<String, String> parseRequest(HttpServletRequest request) {
-        Map<String, String> params = new HashMap<>(32);
-        Map<String, String[]> requestParams = request.getParameterMap();
-        for (Map.Entry<String, String[]> entry : requestParams.entrySet()) {
-            String[] values = entry.getValue();
-            String valueStr = "";
-            for (int i = 0; i < values.length; i++) {
-                valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
-            }
-            params.put(entry.getKey(), valueStr);
-        }
-        return params;
-    }
-
     @PostMapping(ALI_PAY_NOTIFY_URL)
     @ApiOperation("支付宝支付回调")
     public String aliPay(HttpServletRequest request) {
-        Map<String, String> stringMap = parseRequest(request);
+        Map<String, String> stringMap = this.parseRequest(request);
         aliPayService.verifyNotify(stringMap);
         payNotifyLogService.insertAliLog(stringMap, StepType.PAY);
 
         String orderNo = stringMap.get("body");
-        String outTradeNo = stringMap.get("out_trade_no");
+        String tradeNo = stringMap.get("out_trade_no");
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         PayNotifyContext context = new PayNotifyContext();
         context.setOrderNo(orderNo);
-        context.setOutTradeNo(outTradeNo);
+        context.setTradeNo(tradeNo);
 
         return this.aliResult(() -> redisLock.lock(CacheConstant.ALI_PAY_NOTIFY_LOCK + orderNo, 10_000, () -> {
             commonService.getHandler(orderNo, AccessHandler.class).payNotify(context);
@@ -95,19 +75,19 @@ public class PayNotifyController {
     @PostMapping(ALI_REFUND_NOTIFY_URL)
     @ApiOperation("支付宝退款回调")
     public String aliRefund(HttpServletRequest request) {
-        Map<String, String> stringMap = parseRequest(request);
+        Map<String, String> stringMap = this.parseRequest(request);
         aliPayService.verifyNotify(stringMap);
         payNotifyLogService.insertAliLog(stringMap, StepType.REFUND);
 
-        String outRefundNo = stringMap.get("out_biz_no");
-        String outTradeNo = stringMap.get("out_trade_no");
+        String refundNo = stringMap.get("out_biz_no");
+        String tradeNo = stringMap.get("out_trade_no");
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         RefundNotifyContext context = new RefundNotifyContext();
-        context.setOutRefundNo(outRefundNo);
-        context.setOutTradeNo(outTradeNo);
+        context.setRefundNo(refundNo);
+        context.setTradeNo(tradeNo);
 
-        return this.aliResult(() -> redisLock.lock(CacheConstant.ALI_REFUND_NOTIFY_LOCK + outTradeNo, 10_000, () -> {
-            commonService.getHandler(outRefundNo, AccessHandler.class).refundNotify(context);
+        return this.aliResult(() -> redisLock.lock(CacheConstant.ALI_REFUND_NOTIFY_LOCK + tradeNo, 10_000, () -> {
+            commonService.getHandler(refundNo, AccessHandler.class).refundNotify(context);
             return ALI_PAY_SUCCESS;
         }));
     }
@@ -123,7 +103,7 @@ public class PayNotifyController {
         String orderNo = payNotify.getResult().getAttach();
         PayNotifyContext context = new PayNotifyContext();
         context.setOrderNo(orderNo);
-        context.setOutTradeNo(payNotify.getResult().getOutTradeNo());
+        context.setTradeNo(payNotify.getResult().getOutTradeNo());
 
         return this.wechatResult(response, () -> redisLock.lock(CacheConstant.WECHAT_PAY_NOTIFY_LOCK + orderNo, 10_000, () -> {
             commonService.getHandler(orderNo, AccessHandler.class).payNotify(context);
@@ -138,15 +118,15 @@ public class PayNotifyController {
         WxPayRefundNotifyV3Result payNotify = wechatPayService.parseRefundNotify(requestBody, header);
         payNotifyLogService.insertWechatRefundLog(payNotify);
 
-        String outRefundNo = payNotify.getResult().getOutRefundNo();
-        String outTradeNo = payNotify.getResult().getOutTradeNo();
+        String refundNo = payNotify.getResult().getOutRefundNo();
+        String tradeNo = payNotify.getResult().getOutTradeNo();
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         RefundNotifyContext context = new RefundNotifyContext();
-        context.setOutRefundNo(outRefundNo);
-        context.setOutTradeNo(outTradeNo);
+        context.setRefundNo(refundNo);
+        context.setTradeNo(tradeNo);
 
-        return this.wechatResult(response, () -> redisLock.lock(CacheConstant.WECHAT_REFUND_NOTIFY_LOCK + outTradeNo, 10_000, () -> {
-            commonService.getHandler(outRefundNo, AccessHandler.class).refundNotify(context);
+        return this.wechatResult(response, () -> redisLock.lock(CacheConstant.WECHAT_REFUND_NOTIFY_LOCK + tradeNo, 10_000, () -> {
+            commonService.getHandler(refundNo, AccessHandler.class).refundNotify(context);
             return null;
         }));
     }
@@ -207,6 +187,26 @@ public class PayNotifyController {
         header.setSerial(headers.getFirst(WeChatConstant.SERIAL));
         header.setNonce(headers.getFirst(WeChatConstant.NONCE));
         return header;
+    }
+
+    /**
+     * 解析支付宝请求参数
+     *
+     * @param request 请求参数
+     * @return 解析后的参数
+     */
+    private Map<String, String> parseRequest(HttpServletRequest request) {
+        Map<String, String> params = new HashMap<>(32);
+        Map<String, String[]> requestParams = request.getParameterMap();
+        for (Map.Entry<String, String[]> entry : requestParams.entrySet()) {
+            String[] values = entry.getValue();
+            String valueStr = "";
+            for (int i = 0; i < values.length; i++) {
+                valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
+            }
+            params.put(entry.getKey(), valueStr);
+        }
+        return params;
     }
 
 }

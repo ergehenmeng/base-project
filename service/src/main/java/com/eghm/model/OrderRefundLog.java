@@ -31,7 +31,7 @@ public class OrderRefundLog extends BaseEntity {
     private Long merchantId;
 
     @ApiModelProperty(value = "退款流水号")
-    private String outRefundNo;
+    private String refundNo;
 
     @ApiModelProperty(value = "退款数量")
     private Integer num;

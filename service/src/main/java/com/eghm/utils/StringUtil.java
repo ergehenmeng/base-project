@@ -257,6 +257,7 @@ public class StringUtil {
 
 
     public static void main(String[] args) {
+        System.out.println(encryptNumber(10131417));
         int pid = 101320;
         StringBuilder builder = new StringBuilder();
         builder.append("\r\n");
@@ -275,5 +276,6 @@ public class StringUtil {
         String insert = "INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `grade`, `sort`) VALUES ('%s', '%s', '%s', '%s', '%d', '%d');";
         return String.format(insert, id, title, encryptNumber(id), pid, grade, sort);
     }
+
 
 }

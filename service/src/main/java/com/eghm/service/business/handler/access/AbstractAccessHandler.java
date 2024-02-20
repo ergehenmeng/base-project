@@ -50,16 +50,16 @@ public abstract class AbstractAccessHandler implements AccessHandler {
     public void refundNotify(RefundNotifyContext context) {
         RefundStatus refundSuccess = this.checkRefundSuccess(context);
         if (refundSuccess == REFUND_SUCCESS || refundSuccess == SUCCESS) {
-            log.info("订单退款支付成功,开始执行业务逻辑 [{}] [{}]", context.getOutTradeNo(), refundSuccess);
+            log.info("订单退款支付成功,开始执行业务逻辑 [{}] [{}]", context.getTradeNo(), refundSuccess);
             this.refundSuccess(context);
             return;
         }
         if (refundSuccess == ABNORMAL || refundSuccess == CLOSED) {
-            log.info("订单退款失败成功,开始执行业务逻辑 [{}] [{}]", context.getOutTradeNo(), refundSuccess);
+            log.info("订单退款失败成功,开始执行业务逻辑 [{}] [{}]", context.getTradeNo(), refundSuccess);
             this.refundFail(context);
             return;
         }
-        log.warn("订单退款状态处理中,不做业务处理 [{}]", context.getOutTradeNo());
+        log.warn("订单退款状态处理中,不做业务处理 [{}]", context.getTradeNo());
     }
 
     /**
@@ -70,9 +70,9 @@ public abstract class AbstractAccessHandler implements AccessHandler {
      */
     public TradeState checkPaySuccess(PayNotifyContext context) {
         // 零售订单可能会查询多条 取第一条即可
-        Order order = orderService.selectByOutTradeNo(context.getOutTradeNo());
+        Order order = orderService.selectByTradeNo(context.getTradeNo());
         TradeType tradeType = TradeType.valueOf(order.getPayType().name());
-        PayOrderVO vo = aggregatePayService.queryOrder(tradeType, order.getOutTradeNo());
+        PayOrderVO vo = aggregatePayService.queryOrder(tradeType, order.getTradeNo());
         context.setAmount(vo.getAmount());
         context.setSuccessTime(vo.getSuccessTime());
         context.setTradeType(vo.getTradeType());
@@ -87,9 +87,9 @@ public abstract class AbstractAccessHandler implements AccessHandler {
      * @return true: 成功 false:失败
      */
     public RefundStatus checkRefundSuccess(RefundNotifyContext context) {
-        Order order = orderService.selectByOutTradeNo(context.getOutTradeNo());
+        Order order = orderService.selectByTradeNo(context.getTradeNo());
         TradeType tradeType = TradeType.valueOf(order.getPayType().name());
-        RefundVO vo = aggregatePayService.queryRefund(tradeType, context.getOutTradeNo(), context.getOutRefundNo());
+        RefundVO vo = aggregatePayService.queryRefund(tradeType, context.getTradeNo(), context.getRefundNo());
         context.setAmount(vo.getAmount());
         context.setSuccessTime(vo.getSuccessTime());
         context.setFrom(order.getState().getValue());

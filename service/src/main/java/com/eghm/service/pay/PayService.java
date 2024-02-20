@@ -38,17 +38,17 @@ public interface PayService {
     /**
      * 查询订单信息
      *
-     * @param outTradeNo 商户订单号
+     * @param tradeNo 商户订单号
      * @return 订单信息
      */
-    PayOrderVO queryOrder(String outTradeNo);
+    PayOrderVO queryOrder(String tradeNo);
 
     /**
      * 关闭订单号
      *
-     * @param outTradeNo 商户订单号
+     * @param tradeNo 商户订单号
      */
-    void closeOrder(String outTradeNo);
+    void closeOrder(String tradeNo);
 
     /**
      * 申请退款
@@ -61,10 +61,11 @@ public interface PayService {
     /**
      * 查询退款单号
      *
-     * @param outTradeNo 退款流水号
+     * @param tradeNo 退款流水号
+     * @param refundNo 退款流水号
      * @return 退款信息
      */
-    RefundVO queryRefund(String outTradeNo, String outRefundNo);
+    RefundVO queryRefund(String tradeNo, String refundNo);
 
     /**
      * 解析支付异步通知

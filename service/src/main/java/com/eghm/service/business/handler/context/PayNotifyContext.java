@@ -18,7 +18,7 @@ public class PayNotifyContext implements Context {
     private String orderNo;
 
     @ApiModelProperty("支付流水号")
-    private String outTradeNo;
+    private String tradeNo;
 
     @ApiModelProperty("支付方式")
     private TradeType tradeType;

@@ -92,10 +92,10 @@ public interface OrderRefundLogService {
     /**
      * 根据退款流水或查询退款记录
      *
-     * @param outRefundNo 退款流水或
+     * @param refundNo 退款流水或
      * @return 退款信息 可能为空
      */
-    OrderRefundLog selectByOutRefundNo(String outRefundNo);
+    OrderRefundLog selectByRefundNo(String refundNo);
 
     /**
      * 查询所有退款处理中的订单信息

@@ -42,13 +42,13 @@ public class AggregatePayServiceImpl implements AggregatePayService {
     }
 
     @Override
-    public PayOrderVO queryOrder(TradeType tradeType, String outTradeNo) {
-        return getPayService(tradeType).queryOrder(outTradeNo);
+    public PayOrderVO queryOrder(TradeType tradeType, String tradeNo) {
+        return getPayService(tradeType).queryOrder(tradeNo);
     }
 
     @Override
-    public void closeOrder(TradeType tradeType, String outTradeNo) {
-        getPayService(tradeType).closeOrder(outTradeNo);
+    public void closeOrder(TradeType tradeType, String tradeNo) {
+        getPayService(tradeType).closeOrder(tradeNo);
     }
 
     @Override
@@ -62,8 +62,8 @@ public class AggregatePayServiceImpl implements AggregatePayService {
     }
 
     @Override
-    public RefundVO queryRefund(TradeType tradeType, String outTradeNo, String outRefundNo) {
-        return getPayService(tradeType).queryRefund(outTradeNo, outRefundNo);
+    public RefundVO queryRefund(TradeType tradeType, String tradeNo, String refundNo) {
+        return getPayService(tradeType).queryRefund(tradeNo, refundNo);
     }
 
     /**

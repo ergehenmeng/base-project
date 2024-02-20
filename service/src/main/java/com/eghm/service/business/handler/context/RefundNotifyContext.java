@@ -14,10 +14,10 @@ import java.time.LocalDateTime;
 public class RefundNotifyContext implements Context {
 
     @ApiModelProperty("支付流水号")
-    private String outTradeNo;
+    private String tradeNo;
 
     @ApiModelProperty("退款流水号")
-    private String outRefundNo;
+    private String refundNo;
 
     @ApiModelProperty("本次退款金额")
     private Integer amount;

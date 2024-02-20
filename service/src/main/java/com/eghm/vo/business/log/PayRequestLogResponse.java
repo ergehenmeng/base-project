@@ -36,10 +36,10 @@ public class PayRequestLogResponse {
     private StepType stepType;
 
     @ApiModelProperty(value = "交易流水号")
-    private String outTradeNo;
+    private String tradeNo;
 
     @ApiModelProperty(value = "退款流水号")
-    private String outRefundNo;
+    private String refundNo;
 
     @ApiModelProperty(value = "请求参数")
     private String requestBody;

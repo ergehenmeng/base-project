@@ -41,7 +41,7 @@ public class OrderJobService {
         for (Order order : processList) {
             PayNotifyContext context = new PayNotifyContext();
             context.setOrderNo(order.getOrderNo());
-            context.setOutTradeNo(order.getOutTradeNo());
+            context.setTradeNo(order.getTradeNo());
             try {
                 commonService.getHandler(order.getOrderNo(), AccessHandler.class).payNotify(context);
             } catch (Exception e) {
@@ -60,12 +60,12 @@ public class OrderJobService {
         List<OrderRefund> refundList = orderRefundLogService.getRefundProcess();
         for (OrderRefund refund : refundList) {
             RefundNotifyContext context = new RefundNotifyContext();
-            context.setOutRefundNo(refund.getOutRefundNo());
-            context.setOutTradeNo(refund.getOutTradeNo());
+            context.setRefundNo(refund.getRefundNo());
+            context.setTradeNo(refund.getTradeNo());
             try {
-                commonService.getHandler(refund.getOutRefundNo(), AccessHandler.class).refundNotify(context);
+                commonService.getHandler(refund.getRefundNo(), AccessHandler.class).refundNotify(context);
             } catch (Exception e) {
-                log.error("退款中的订单处理异常 [{}]", refund.getOutTradeNo(), e);
+                log.error("退款中的订单处理异常 [{}]", refund.getTradeNo(), e);
             }
         }
         LoggerUtil.print("订单退款中定时任务执行完毕");

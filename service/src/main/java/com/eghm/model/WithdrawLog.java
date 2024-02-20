@@ -41,10 +41,10 @@ public class WithdrawLog extends BaseEntity {
     private Integer fee;
 
     @ApiModelProperty(value = "提现流水号")
-    private String tradeNo;
+    private String refundNo;
 
     @ApiModelProperty(value = "第三方流水号")
-    private String outTradeNo;
+    private String outRefundNo;
 
     @ApiModelProperty(value = "到账时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

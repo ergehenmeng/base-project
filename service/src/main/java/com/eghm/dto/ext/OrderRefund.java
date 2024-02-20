@@ -11,10 +11,10 @@ import lombok.Data;
 public class OrderRefund {
 
     @ApiModelProperty("支付订单流水号")
-    private String outTradeNo;
+    private String tradeNo;
 
     @ApiModelProperty("退款订单流水号")
-    private String outRefundNo;
+    private String refundNo;
 
     @ApiModelProperty("订单编号")
     private String orderNo;

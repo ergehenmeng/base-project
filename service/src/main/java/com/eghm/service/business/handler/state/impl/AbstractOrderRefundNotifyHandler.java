@@ -48,8 +48,8 @@ public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHa
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void doAction(RefundNotifyContext context) {
-        Order order = orderService.selectByOutTradeNo(context.getOutTradeNo());
-        OrderRefundLog refundLog = orderRefundLogService.selectByOutRefundNo(context.getOutRefundNo());
+        Order order = orderService.selectByTradeNo(context.getTradeNo());
+        OrderRefundLog refundLog = orderRefundLogService.selectByRefundNo(context.getRefundNo());
 
         this.before(context, order, refundLog);
 
@@ -88,7 +88,7 @@ public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHa
     protected RefundStatus doProcess(RefundNotifyContext context, Order order, OrderRefundLog refundLog) {
 
         TradeType tradeType = TradeType.valueOf(order.getPayType().name());
-        RefundVO refund = aggregatePayService.queryRefund(tradeType, context.getOutTradeNo(), context.getOutRefundNo());
+        RefundVO refund = aggregatePayService.queryRefund(tradeType, context.getTradeNo(), context.getRefundNo());
 
         RefundStatus state = refund.getState();
         if (state == REFUND_SUCCESS || state == SUCCESS) {

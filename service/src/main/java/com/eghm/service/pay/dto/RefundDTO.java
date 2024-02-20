@@ -14,11 +14,11 @@ public class RefundDTO {
     @ApiModelProperty(value = "订单号", hidden = true)
     private String orderNo;
 
-    @ApiModelProperty(value = "商户流水号(支付单号)", required = true)
-    private String outTradeNo;
+    @ApiModelProperty(value = "商户支付流水号", required = true)
+    private String tradeNo;
 
-    @ApiModelProperty(value = "退款流水号(商户生成)", required = true)
-    private String outRefundNo;
+    @ApiModelProperty(value = "商户退款流水号", required = true)
+    private String refundNo;
 
     @ApiModelProperty("退款金额")
     private Integer amount;

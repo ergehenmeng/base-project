@@ -49,7 +49,7 @@ public class PayRequestLogServiceImpl implements PayRequestLogService {
         requestLog.setRequestBody(jsonService.toJson(request));
         requestLog.setResponseBody(jsonService.toJson(response));
         requestLog.setStepType(StepType.PAY);
-        requestLog.setOutTradeNo(request.getOutTradeNo());
+        requestLog.setTradeNo(request.getTradeNo());
         payRequestLogMapper.insert(requestLog);
     }
 
@@ -63,8 +63,8 @@ public class PayRequestLogServiceImpl implements PayRequestLogService {
         requestLog.setRequestBody(jsonService.toJson(request));
         requestLog.setResponseBody(jsonService.toJson(response));
         requestLog.setStepType(StepType.REFUND);
-        requestLog.setOutTradeNo(request.getOutTradeNo());
-        requestLog.setOutRefundNo(request.getOutRefundNo());
+        requestLog.setTradeNo(request.getTradeNo());
+        requestLog.setRefundNo(request.getRefundNo());
         payRequestLogMapper.insert(requestLog);
     }
 }

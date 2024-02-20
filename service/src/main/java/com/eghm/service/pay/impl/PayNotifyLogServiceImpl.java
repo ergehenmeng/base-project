@@ -42,10 +42,10 @@ public class PayNotifyLogServiceImpl implements PayNotifyLogService {
         log.setStepType(stepType);
         log.setPayChannel(PayChannel.ALIPAY);
         log.setParams(new Gson().toJson(params));
-        log.setOutTradeNo(params.get("out_trade_no"));
+        log.setTradeNo(params.get("out_trade_no"));
         log.setNotifyId(params.get("notify_id"));
         if (stepType == StepType.REFUND) {
-            log.setOutRefundNo(params.get("out_biz_no"));
+            log.setRefundNo(params.get("out_biz_no"));
         }
         payNotifyLogMapper.insert(log);
     }
@@ -59,7 +59,7 @@ public class PayNotifyLogServiceImpl implements PayNotifyLogService {
         log.setStepType(StepType.PAY);
         log.setPayChannel(PayChannel.WECHAT);
         log.setParams(new Gson().toJson(notifyResult));
-        log.setOutTradeNo(notifyResult.getOutTradeNo());
+        log.setTradeNo(notifyResult.getOutTradeNo());
         log.setNotifyId(result.getRawData().getId());
         payNotifyLogMapper.insert(log);
     }
@@ -73,8 +73,8 @@ public class PayNotifyLogServiceImpl implements PayNotifyLogService {
         log.setStepType(StepType.REFUND);
         log.setPayChannel(PayChannel.WECHAT);
         log.setParams(new Gson().toJson(notifyResult));
-        log.setOutTradeNo(notifyResult.getOutTradeNo());
-        log.setOutRefundNo(notifyResult.getOutRefundNo());
+        log.setTradeNo(notifyResult.getOutTradeNo());
+        log.setRefundNo(notifyResult.getOutRefundNo());
         log.setNotifyId(result.getRawData().getId());
         payNotifyLogMapper.insert(log);
     }

@@ -38,7 +38,7 @@ public class TicketOrderDetailResponse {
     private PayType payType;
 
     @ApiModelProperty("支付流水号")
-    private String outTradeNo;
+    private String tradeNo;
 
     @ApiModelProperty("购买数量")
     private Integer num;

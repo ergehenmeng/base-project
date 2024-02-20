@@ -65,7 +65,7 @@ public class Order extends BaseEntity {
     private DeliveryType deliveryType;
 
     @ApiModelProperty("支付流水号")
-    private String outTradeNo;
+    private String tradeNo;
 
     @ApiModelProperty("支付方式")
     private PayType payType;

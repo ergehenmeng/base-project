@@ -83,7 +83,7 @@ public abstract class AbstractOrderRefundAuditHandler implements RefundAuditHand
         refundLog.setAuditState(AuditState.PASS);
         refundLog.setState(0);
         refundLog.setRefundAmount(context.getRefundAmount());
-        refundLog.setOutRefundNo(order.getProductType().generateTradeNo());
+        refundLog.setRefundNo(order.getProductType().generateTradeNo());
         refundLog.setAuditUserId(context.getAuditUserId());
         order.setRefundAmount(order.getRefundAmount() + context.getRefundAmount());
         orderService.updateById(order);
