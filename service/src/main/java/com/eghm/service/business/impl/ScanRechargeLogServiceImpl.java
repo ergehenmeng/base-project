@@ -45,7 +45,7 @@ public class ScanRechargeLogServiceImpl implements ScanRechargeLogService {
         PayOrderVO orderVO = aggregatePayService.queryOrder(rechargeLog.getTradeType(), context.getTradeNo());
         if (orderVO.getTradeState() == TradeState.SUCCESS || orderVO.getTradeState() == TradeState.TRADE_SUCCESS || orderVO.getTradeState() == TradeState.TRADE_FINISHED) {
             log.info("扫码充值成功 [{}]", context.getOrderNo());
-            scoreAccountService.rechargeBalanceSuccess(context.getTradeNo());
+            scoreAccountService.rechargeScanSuccess(rechargeLog.getMerchantId(), rechargeLog.getAmount(), context.getTradeNo());
             rechargeLog.setState(1);
             rechargeLog.setPayTime(orderVO.getSuccessTime());
             scanRechargeLogMapper.updateById(rechargeLog);

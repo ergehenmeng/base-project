@@ -187,16 +187,6 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
     }
 
     @Override
-    public void rechargeScanSuccess(Long merchantId, Integer amount, String tradeNo) {
-        ScoreAccountDTO accountDTO = new ScoreAccountDTO();
-        accountDTO.setMerchantId(merchantId);
-        accountDTO.setAmount(amount);
-        accountDTO.setChargeType(ChargeType.RECHARGE);
-        accountDTO.setTradeNo(tradeNo);
-        this.updateAccount(accountDTO);
-    }
-
-    @Override
     public PrepayVO rechargeScan(ScoreScanRechargeDTO dto) {
         PrepayDTO prepayDTO = new PrepayDTO();
         prepayDTO.setAmount(dto.getAmount());
@@ -220,6 +210,16 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         rechargeLog.setQrCode(vo.getQrCodeUrl());
         scanRechargeLogMapper.insert(rechargeLog);
         return vo;
+    }
+
+    @Override
+    public void rechargeScanSuccess(Long merchantId, Integer amount, String tradeNo) {
+        ScoreAccountDTO accountDTO = new ScoreAccountDTO();
+        accountDTO.setMerchantId(merchantId);
+        accountDTO.setAmount(amount);
+        accountDTO.setChargeType(ChargeType.RECHARGE);
+        accountDTO.setTradeNo(tradeNo);
+        this.updateAccount(accountDTO);
     }
 
     /**

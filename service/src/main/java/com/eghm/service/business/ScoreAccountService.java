@@ -76,7 +76,15 @@ public interface ScoreAccountService {
     void rechargeBalanceSuccess(String tradeNo);
 
     /**
-     * 微信扫码支付成功 (一般在支付成功回调中调用该方法)
+     * 扫码支付
+     *
+     * @param dto 支付信息
+     * @return 二维码信息
+     */
+    PrepayVO rechargeScan(ScoreScanRechargeDTO dto);
+
+    /**
+     * 扫码支付成功 (一般在支付成功回调中调用该方法)
      *
      * @param merchantId 商户id
      * @param amount 支付金额
@@ -84,11 +92,4 @@ public interface ScoreAccountService {
      */
     void rechargeScanSuccess(Long merchantId, Integer amount, String tradeNo);
 
-    /**
-     * 微信扫码支付
-     *
-     * @param dto 支付信息
-     * @return 二维码信息
-     */
-    PrepayVO rechargeScan(ScoreScanRechargeDTO dto);
 }
