@@ -33,7 +33,7 @@ public class MerchantResponse extends ExcelStyle {
     @ExcelProperty(value = "商家名称", index = 0)
     private String merchantName;
 
-    @ApiModelProperty(value = "商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路")
+    @ApiModelProperty(value = "商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路 32: 场馆")
     @ExcelProperty(value = "商家类型", index = 1, converter = MerchantTypeConverter.class)
     private Integer type;
 

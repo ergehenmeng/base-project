@@ -1,5 +1,6 @@
 package com.eghm.dto.business.coupon.config;
 
+import com.eghm.dto.ext.ProductScope;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
@@ -36,5 +37,5 @@ public class CouponEditRequest {
     private String instruction;
 
     @ApiModelProperty("关联的商品列表")
-    private List<Long> itemIds;
+    private List<ProductScope> productIds;
 }

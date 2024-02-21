@@ -1,10 +1,9 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.dto.ext.ProductScope;
 import com.eghm.mapper.CouponScopeMapper;
 import com.eghm.model.CouponScope;
 import com.eghm.service.business.CouponScopeService;
@@ -24,19 +23,11 @@ public class CouponScopeServiceImpl implements CouponScopeService {
     private final CouponScopeMapper couponScopeMapper;
 
     @Override
-    public void insert(Long couponId, List<Long> itemIds) {
-        if (CollUtil.isEmpty(itemIds)) {
-            return;
-        }
-        itemIds.forEach(itemId -> couponScopeMapper.insert(new CouponScope(couponId, ProductType.ITEM, itemId)));
-    }
-
-    @Override
-    public void insertWithDelete(Long couponId, List<Long> itemIds) {
+    public void insertOnUpdate(Long couponId, List<ProductScope> productIds) {
         LambdaUpdateWrapper<CouponScope> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(CouponScope::getCouponId, couponId);
         couponScopeMapper.delete(wrapper);
-        this.insert(couponId, itemIds);
+        productIds.forEach(scope -> couponScopeMapper.insert(new CouponScope(couponId, scope)));
     }
 
     @Override

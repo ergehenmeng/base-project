@@ -1,6 +1,7 @@
 package com.eghm.dto.business.coupon.config;
 
 import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.dto.ext.ProductScope;
 import com.eghm.enums.ref.CouponType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
@@ -82,5 +83,5 @@ public class CouponAddRequest {
     private String instruction;
 
     @ApiModelProperty("关联的商品列表")
-    private List<Long> itemIds;
+    private List<ProductScope> productIds;
 }

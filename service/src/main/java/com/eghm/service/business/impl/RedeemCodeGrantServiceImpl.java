@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.redeem.RedeemCodeGrantQueryRequest;
-import com.eghm.dto.ext.ProductScope;
+import com.eghm.dto.ext.RedeemScope;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.RedeemCodeGrantMapper;
@@ -89,12 +89,12 @@ public class RedeemCodeGrantServiceImpl extends ServiceImpl<RedeemCodeGrantMappe
         queryWrapper.eq(RedeemCodeScope::getStoreId, storeId);
         Long count = redeemCodeScopeMapper.selectCount(queryWrapper);
         if (count <= 0) {
-            List<ProductScope> scopeList = sysConfigApi.getListClass(REDEEM_CODE_SCOPE, ProductScope.class);
+            List<RedeemScope> scopeList = sysConfigApi.getListClass(REDEEM_CODE_SCOPE, RedeemScope.class);
             if (CollUtil.isEmpty(scopeList)) {
                 log.error("兑换码不适用该店铺 [{}] [{}]", cdKey, selected.getRedeemCodeId());
                 throw new BusinessException(ErrorCode.CD_KEY_STORE_SCOPE);
             }
-            Map<Long, List<Long>> scopeMap = scopeList.stream().collect(Collectors.toMap(ProductScope::getRedeemCodeId, ProductScope::getProductIds));
+            Map<Long, List<Long>> scopeMap = scopeList.stream().collect(Collectors.toMap(RedeemScope::getRedeemCodeId, RedeemScope::getProductIds));
             List<Long> productList = scopeMap.get(selected.getRedeemCodeId());
             if (CollUtil.isEmpty(productList) || !productList.contains(productId)) {
                 log.error("兑换码不适用该商品 [{}] [{}]", cdKey, productId);

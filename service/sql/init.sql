@@ -3611,9 +3611,9 @@ INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_t
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969410', '景区商户', 'scenic', '2022-12-27 16:03:35', '2023-09-28 15:38:42', b'0', NULL);
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969411', '民宿商户', 'homestay', '2022-12-27 16:03:50', '2023-09-28 15:38:48', b'0', NULL);
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969412', '餐饮商户', 'restaurant', '2022-12-27 16:03:57', '2023-09-28 15:38:52', b'0', NULL);
-INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969413', '零售商户', 'item', '2022-12-27 16:04:06', '2023-09-28 15:38:55', b'0', NULL);
+INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969413', '零售商户', 'item', '2022-12-27 16:04:06', '2023-10-11 17:03:54', b'0', NULL);
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969414', '线路商户', 'line', '2022-12-27 16:04:10', '2023-09-28 15:38:58', b'0', NULL);
-INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969415', '核销员', 'verifier', '2022-12-27 16:04:10', '2023-09-28 15:38:58', b'0', NULL);
+INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969415', '场馆商户', 'venue', '2024-02-19 15:22:58', '2024-02-19 15:24:53', b'0', NULL);
 
 
 INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `update_time`, `remark`) VALUES ('2', '门票支付处理中的订单处理', 'taskService', 'ticketPaying', NULL, '0 0/30 * * * ?', '664956140@qq.com', '0', '2022-08-08 19:51:42', NULL);

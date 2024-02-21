@@ -37,7 +37,7 @@ public class MerchantDetailResponse {
     @ApiModelProperty(value = "法人身份证图片")
     private String legalUrl;
 
-    @ApiModelProperty(value = "商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路")
+    @ApiModelProperty(value = "商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路 32:场馆")
     private Integer type;
 
     @ApiModelProperty(value = "平台服务费,单位:%")

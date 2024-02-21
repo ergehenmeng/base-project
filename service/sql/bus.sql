@@ -341,7 +341,7 @@ CREATE TABLE `merchant`
     `legal_url`             varchar(500)  DEFAULT NULL COMMENT '法人身份证图片',
     `open_id`               varchar(30)   DEFAULT NULL COMMENT 'openId',
     `auth_mobile`           varchar(20)   DEFAULT NULL COMMENT '微信授权手机号',
-    `type`                  smallint(4)   DEFAULT NULL COMMENT '商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路',
+    `type`                  smallint(4)   DEFAULT NULL COMMENT '商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路 32:场馆',
     `user_id`               bigint(20) NOT NULL COMMENT '商户关联系统用户ID',
     `province_id`           bigint(20)    DEFAULT NULL COMMENT '省份id',
     `city_id`               bigint(20)    DEFAULT NULL COMMENT '城市id',

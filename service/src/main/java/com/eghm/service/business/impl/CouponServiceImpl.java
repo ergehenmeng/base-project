@@ -60,7 +60,7 @@ public class CouponServiceImpl implements CouponService {
         Coupon config = DataUtil.copy(request, Coupon.class);
         config.setMerchantId(SecurityHolder.getMerchantId());
         couponMapper.insert(config);
-        couponScopeService.insert(config.getId(), request.getItemIds());
+        couponScopeService.insertOnUpdate(config.getId(), request.getProductIds());
     }
 
     @Override
@@ -69,7 +69,7 @@ public class CouponServiceImpl implements CouponService {
         commonService.checkIllegal(coupon.getMerchantId());
         Coupon config = DataUtil.copy(request, Coupon.class);
         couponMapper.updateById(config);
-        couponScopeService.insertWithDelete(config.getId(), request.getItemIds());
+        couponScopeService.insertOnUpdate(config.getId(), request.getProductIds());
     }
 
     @Override
