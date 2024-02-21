@@ -338,14 +338,7 @@ public class MemberServiceImpl implements MemberService {
         // 今日签到记录到缓存中
         cacheService.setBitmap(signKey, day, true);
         int score = memberScoreLogService.getSignInScore();
-
-        MemberScoreLog log = new MemberScoreLog();
-        log.setScore(score);
-        log.setMemberId(memberId);
-        log.setType(ScoreType.SIGN_IN.getValue());
-        memberScoreLogService.insert(log);
-        member.setScore(member.getScore() + score);
-        memberMapper.updateById(member);
+        this.updateScore(memberId, ScoreType.SIGN_IN, score);
     }
 
     @Override
