@@ -41,6 +41,7 @@ public class ScenicController {
     @GetMapping("/storeListPage")
     @ApiOperation("列表含商户信息")
     public RespBody<PageData<BaseStoreResponse>> storeListPage(BaseStoreQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseStoreResponse> listPage = scenicService.getStorePage(request);
         return RespBody.success(PageData.toPage(listPage));
     }

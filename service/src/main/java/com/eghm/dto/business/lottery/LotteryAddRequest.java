@@ -26,6 +26,13 @@ public class LotteryAddRequest {
     @Size(min = 2, max = 20, message = "活动名称应为2~20字符")
     private String title;
 
+    @ApiModelProperty("店铺id")
+    private Long storeId;
+
+    @ApiModelProperty(value = "抽奖banner图", required = true)
+    @NotBlank(message = "抽奖banner图不能为空")
+    private String bannerUrl;
+
     @ApiModelProperty(value = "开始时间 yyyy-MM-dd HH:mm::ss", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
@@ -50,7 +57,7 @@ public class LotteryAddRequest {
     private Integer winNum;
 
     @ApiModelProperty(value = "抽奖页面封面图", required = true)
-    @NotBlank(message = "请选择抽奖封面图")
+    @NotBlank(message = "抽奖封面图不能为空")
     private String coverUrl;
 
     @ApiModelProperty(value = "抽奖标题", required = true)
@@ -75,4 +82,6 @@ public class LotteryAddRequest {
     @Size(min = 8, max = 8, message = "中奖配置应为8条")
     private List<LotteryConfigRequest> configList;
 
+    @ApiModelProperty(value = "所属商户id", hidden = true)
+    private Long merchantId;
 }

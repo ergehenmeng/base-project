@@ -47,6 +47,7 @@ public class RestaurantController {
     @GetMapping("/storeListPage")
     @ApiOperation("列表含商户信息")
     public RespBody<PageData<BaseStoreResponse>> storeListPage(BaseStoreQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseStoreResponse> listPage = restaurantService.getStorePage(request);
         return RespBody.success(PageData.toPage(listPage));
     }

@@ -1,5 +1,6 @@
 package com.eghm.dto.business.lottery;
 
+import com.eghm.enums.ref.PrizeType;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,7 +24,7 @@ public class LotteryPrizeRequest {
 
     @ApiModelProperty(value = "奖品类型", required = true)
     @NotNull(message = "奖品类型不能为空")
-    private Integer prizeType;
+    private PrizeType prizeType;
 
     @ApiModelProperty(value = "奖品总数量", required = true)
     @NotNull(message = "奖品数量不能为空")

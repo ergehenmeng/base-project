@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.lottery.LotteryAddRequest;
 import com.eghm.dto.business.lottery.LotteryEditRequest;
@@ -31,6 +32,7 @@ public class LotteryController {
     @GetMapping("/listPage")
     @ApiOperation("抽奖列表")
     public RespBody<PageData<LotteryResponse>> listPage(@Validated LotteryQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         Page<LotteryResponse> merchantPage = lotteryService.getByPage(request);
         return RespBody.success(PageData.toPage(merchantPage));
     }
@@ -38,6 +40,7 @@ public class LotteryController {
     @PostMapping("/create")
     @ApiOperation("创建抽奖配置")
     public RespBody<Void> create(@RequestBody @Validated LotteryAddRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         lotteryService.create(request);
         return RespBody.success();
     }
@@ -45,6 +48,7 @@ public class LotteryController {
     @PostMapping("/update")
     @ApiOperation("更新抽奖配置")
     public RespBody<Void> update(@RequestBody @Validated LotteryEditRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         lotteryService.update(request);
         return RespBody.success();
     }

@@ -4,7 +4,6 @@ import cn.hutool.core.date.LocalDateTimeUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.lottery.LotteryAddRequest;
 import com.eghm.dto.business.lottery.LotteryConfigRequest;
 import com.eghm.dto.business.lottery.LotteryEditRequest;
@@ -67,7 +66,7 @@ public class LotteryServiceImpl implements LotteryService {
     @Override
     public void create(LotteryAddRequest request) {
         this.checkConfig(request.getConfigList());
-        this.redoTitle(request.getTitle(), null, SecurityHolder.getMerchantId());
+        this.redoTitle(request.getTitle(), null, request.getMerchantId());
         Lottery lottery = DataUtil.copy(request, Lottery.class);
         lotteryMapper.insert(lottery);
         List<LotteryPrize> prizeList = lotteryPrizeService.insert(lottery.getId(), request.getPrizeList());
@@ -78,7 +77,7 @@ public class LotteryServiceImpl implements LotteryService {
     @Override
     public void update(LotteryEditRequest request) {
         this.checkConfig(request.getConfigList());
-        this.redoTitle(request.getTitle(), request.getId(), SecurityHolder.getMerchantId());
+        this.redoTitle(request.getTitle(), request.getId(), request.getMerchantId());
         Lottery select = lotteryMapper.selectById(request.getId());
         if (select.getState() != LotteryState.INIT) {
             throw new BusinessException(ErrorCode.LOTTERY_NOT_INIT);
@@ -157,6 +156,7 @@ public class LotteryServiceImpl implements LotteryService {
      * @param config   中奖信息
      */
     private boolean givePrize(Long memberId, Lottery lottery, LotteryConfig config) {
+
         try {
             handlerList.stream().filter(prizeHandler -> prizeHandler.supported(config.getPrizeType())).findFirst().orElseThrow(() -> {
                 log.error("本次中奖奖品没有配置 [{}] [{}]", lottery.getId(), config.getPrizeType());

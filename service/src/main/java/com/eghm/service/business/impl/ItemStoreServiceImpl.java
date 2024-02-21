@@ -179,6 +179,7 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     @Override
     public void init(Merchant merchant) {
         ItemStore shop = new ItemStore();
+        shop.setState(State.UN_SHELVE);
         shop.setMerchantId(merchant.getId());
         itemStoreMapper.insert(shop);
     }

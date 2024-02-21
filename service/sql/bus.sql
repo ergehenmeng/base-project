@@ -851,6 +851,8 @@ CREATE TABLE `lottery`
     `id`            bigint(20)    DEFAULT NULL COMMENT '主键',
     `title`         varchar(30)   DEFAULT NULL COMMENT '活动名称',
     `merchant_id`   bigint(20)    DEFAULT NULL COMMENT '商户id',
+    `store_id`      bigint(20)    DEFAULT NULL COMMENT '店铺id',
+    `banner_url`    varchar(200)  DEFAULT NULL COMMENT 'banner图',
     `start_time`    datetime      DEFAULT NULL COMMENT '开始时间',
     `end_time`      datetime      DEFAULT NULL COMMENT '结束时间',
     `state`         tinyint(1)    DEFAULT '0' COMMENT '活动状态  0:未开始 1:进行中 2:已结束',

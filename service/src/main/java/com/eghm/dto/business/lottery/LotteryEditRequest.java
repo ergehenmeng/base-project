@@ -25,10 +25,17 @@ public class LotteryEditRequest {
     @NotNull(message = "id不能为空")
     private Long id;
 
+    @ApiModelProperty("店铺id")
+    private Long storeId;
+
     @ApiModelProperty(value = "活动名称", required = true)
     @NotBlank(message = "活动名称不能为空")
     @Size(min = 2, max = 20, message = "活动名称应为2~20字符")
     private String title;
+
+    @ApiModelProperty(value = "抽奖banner图", required = true)
+    @NotBlank(message = "抽奖banner图不能为空")
+    private String bannerUrl;
 
     @ApiModelProperty(value = "开始时间 yyyy-MM-dd HH:mm::ss", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -78,5 +85,8 @@ public class LotteryEditRequest {
     @NotEmpty(message = "中奖配置不能为空")
     @Size(min = 8, max = 8, message = "中奖配置应为8条")
     private List<LotteryConfigRequest> configList;
+
+    @ApiModelProperty(value = "所属商户id", hidden = true)
+    private Long merchantId;
 
 }

@@ -27,6 +27,12 @@ public class Lottery extends BaseEntity {
     @ApiModelProperty(value = "商户id")
     private Long merchantId;
 
+    @ApiModelProperty("店铺id")
+    private Long storeId;
+
+    @ApiModelProperty("抽奖banner图")
+    private String bannerUrl;
+
     @ApiModelProperty(value = "开始时间")
     private LocalDateTime startTime;
 

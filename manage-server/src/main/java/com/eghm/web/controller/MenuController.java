@@ -37,14 +37,14 @@ public class MenuController {
     }
 
     @GetMapping("/systemList")
-    @ApiOperation("菜单列表(系统菜单)")
+    @ApiOperation("管理员菜单")
     public RespBody<List<MenuResponse>> systemList() {
         List<MenuResponse> responseList = sysMenuService.getSystemList();
         return RespBody.success(responseList);
     }
 
     @GetMapping("/merchantList")
-    @ApiOperation("菜单列表(不分页)")
+    @ApiOperation("商户菜单")
     public RespBody<List<MenuResponse>> merchantList() {
         List<MenuResponse> responseList = sysMenuService.getMerchantList();
         return RespBody.success(responseList);

@@ -5,7 +5,6 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.item.ItemExpressRequest;
-import com.eghm.dto.business.order.item.ItemOnlineRefundRequest;
 import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.dto.ext.PageData;
@@ -68,15 +67,6 @@ public class ItemOrderController {
         return RespBody.success(detail);
     }
 
-    @PostMapping("/forceRefund")
-    @ApiOperation("退款")
-    public RespBody<Void> refund(@RequestBody @Validated ItemOnlineRefundRequest request) {
-        return redisLock.lock(CacheConstant.MANUAL_REFUND_LOCK + request.getOrderNo(), 10_000, () -> {
-            orderService.itemOnlineRefund(request);
-            return RespBody.success();
-        });
-    }
-
     /**
      * 1. 前端需要提醒各个商品发货的数量等信息(防止重复发货/退款发货)
      * 2. 针对不需要发货的商品, 商品无法勾选发货
@@ -104,7 +94,7 @@ public class ItemOrderController {
     }
 
     @PostMapping("/refund")
-    @ApiOperation("退款取消")
+    @ApiOperation("退款")
     public RespBody<Void> refund(@RequestBody @Validated OrderDTO request) {
         return redisLock.lock(CacheConstant.ORDER_REFUND + request.getOrderNo(), 10_000, () -> {
             orderProxyService.refund(request.getOrderNo());

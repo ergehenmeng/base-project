@@ -6,16 +6,11 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.AES;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eghm.configuration.SystemProperties;
-import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.OfflineRefundRequest;
-import com.eghm.dto.business.order.OnlineRefundRequest;
-import com.eghm.dto.business.order.item.ItemOnlineRefundRequest;
-import com.eghm.dto.business.order.item.ItemRefundDTO;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.ErrorCode;
@@ -310,59 +305,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public void onlineRefund(OnlineRefundRequest request) {
-        Order order = this.getRefuningOrder(request.getOrderNo());
-        boolean refundSuccess = orderRefundLogService.hasRefundSuccess(order.getOrderNo(), request.getVisitorList());
-        if (refundSuccess) {
-            log.warn("退款的游客列表中, 存在退款中的游客 [{}] {}", request.getOrderNo(), request.getVisitorList());
-            throw new BusinessException(ErrorCode.MEMBER_REFUNDING);
-        }
-        this.checkHasRefund(request.getVisitorList(), request.getOrderNo());
-
-        OrderRefundLog refundLog = this.createRefundLog(order, request.getRefundAmount(), request.getVisitorList().size());
-
-        orderVisitorService.lockVisitor(order.getProductType(), request.getOrderNo(), refundLog.getId(), request.getVisitorList(), VisitorState.REFUNDING);
-        // 计算主订单状态
-        OrderState orderState = orderVisitorService.getOrderState(order.getOrderNo());
-        order.setState(orderState);
-        if (order.getState() == OrderState.CLOSE) {
-            order.setCloseType(CloseType.REFUND);
-            order.setCloseTime(LocalDateTime.now());
-        }
-        this.orderStateModify(order);
-        order.setRefundAmount(order.getRefundAmount() + request.getRefundAmount());
-        baseMapper.updateById(order);
-        // 发起退款
-        TransactionUtil.afterCommit(() -> this.startRefund(refundLog, order));
-    }
-
-    @Override
-    public void itemOnlineRefund(ItemOnlineRefundRequest request) {
-        Order order = this.getRefuningOrder(request.getOrderNo());
-        List<Long> refundOrderIds = offlineRefundLogService.getRefundLog(order.getOrderNo());
-        boolean anyMatch = request.getItemList().stream().map(ItemRefundDTO::getItemOrderId).anyMatch(refundOrderIds::contains);
-        if (anyMatch) {
-            log.info("退款商品中存在已经退款的商品 [{}]", request.getItemList());
-            throw new BusinessException(ErrorCode.ITEM_HAS_REFUNDING);
-        }
-        List<ItemOrder> orderList = itemOrderService.refund(request.getOrderNo(), request.getItemList());
-
-        OrderRefundLog refundLog = this.createRefundLog(order, request.getRefundAmount(), request.getItemList().size());
-
-        boolean match = orderList.stream().anyMatch(itemOrder -> itemOrder.getRefundState() == ItemRefundState.INIT);
-        if (!match) {
-            order.setState(OrderState.CLOSE);
-            order.setCloseType(CloseType.REFUND);
-            order.setCloseTime(LocalDateTime.now());
-        }
-        this.orderStateModify(order);
-        order.setRefundAmount(order.getRefundAmount() + request.getRefundAmount());
-        baseMapper.updateById(order);
-        // 发起退款
-        TransactionUtil.afterCommit(() -> this.startRefund(refundLog, order));
-    }
-
-    @Override
     public OrderScanVO getScanResult(String verifyNo, Long merchantId) {
         Order order = this.getByVerifyNo(verifyNo);
         if (commonService.checkIsIllegal(merchantId)) {
@@ -567,34 +509,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         wrapper.eq(Order::getBookingNo, bookingNo);
         wrapper.eq(Order::getBookingState, bookingState);
         baseMapper.update(null, wrapper);
-    }
-
-    /**
-     * 生成退款记录
-     *
-     * @param order        原订单信息
-     * @param refundAmount 退款金额
-     * @param num          退款数量
-     * @return 退款信息
-     */
-    private OrderRefundLog createRefundLog(Order order, Integer refundAmount, Integer num) {
-        OrderRefundLog refundLog = new OrderRefundLog();
-        refundLog.setId(IdWorker.getId());
-        refundLog.setMerchantId(order.getMerchantId());
-        refundLog.setRefundNo(order.getProductType().generateTradeNo());
-        refundLog.setMemberId(order.getMemberId());
-        refundLog.setRefundAmount(refundAmount);
-        refundLog.setApplyAmount(refundAmount);
-        refundLog.setAuditUserId(SecurityHolder.getUserId());
-        LocalDateTime now = LocalDateTime.now();
-        refundLog.setApplyTime(now);
-        refundLog.setAuditTime(now);
-        refundLog.setAuditState(AuditState.PASS);
-        refundLog.setNum(num);
-        refundLog.setOrderNo(refundLog.getOrderNo());
-        refundLog.setState(0);
-        orderRefundLogService.insert(refundLog);
-        return refundLog;
     }
 
     /**

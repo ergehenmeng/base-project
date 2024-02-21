@@ -42,6 +42,7 @@ public class ItemStoreController {
     @GetMapping("/storeListPage")
     @ApiOperation("列表含商户信息")
     public RespBody<PageData<BaseStoreResponse>> storeListPage(BaseStoreQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseStoreResponse> listPage = itemStoreService.getStorePage(request);
         return RespBody.success(PageData.toPage(listPage));
     }

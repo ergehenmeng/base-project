@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.business.order.OfflineRefundRequest;
-import com.eghm.dto.business.order.OnlineRefundRequest;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
@@ -53,15 +52,6 @@ public class TicketOrderController {
     public RespBody<Void> offlineRefund(@RequestBody @Validated OfflineRefundRequest request) {
         return redisLock.lock(CacheConstant.MANUAL_REFUND_LOCK + request.getOrderNo(), 10_000, () -> {
             orderService.offlineRefund(request);
-            return RespBody.success();
-        });
-    }
-
-    @PostMapping("/onlineRefund")
-    @ApiOperation("线上退款")
-    public RespBody<Void> onlineRefund(@RequestBody @Validated OnlineRefundRequest request) {
-        return redisLock.lock(CacheConstant.MANUAL_REFUND_LOCK + request.getOrderNo(), 10_000, () -> {
-            orderService.onlineRefund(request);
             return RespBody.success();
         });
     }

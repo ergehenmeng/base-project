@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.ref.PrizeType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,7 +29,7 @@ public class LotteryPrize extends BaseEntity {
     private String prizeName;
 
     @ApiModelProperty(value = "奖品类型")
-    private Boolean prizeType;
+    private PrizeType prizeType;
 
     @ApiModelProperty(value = "奖品总数量")
     private Integer totalNum;

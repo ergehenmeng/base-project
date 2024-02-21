@@ -50,6 +50,9 @@
         <if test="param.state != null">
             and t.state = #{param.state}
         </if>
+        <if test="param.merchantId != null">
+            and t.merchant_id = #{param.merchantId}
+        </if>
         <if test="param.queryName != null and param.queryName != ''">
             and ( t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
             r.merchant_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') )

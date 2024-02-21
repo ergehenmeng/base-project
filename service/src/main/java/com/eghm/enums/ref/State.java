@@ -16,7 +16,7 @@ import lombok.Getter;
 public enum State implements EnumBinder {
 
     /**
-     * 下架
+     * 待上架
      */
     UN_SHELVE(0, "下架"),
 
