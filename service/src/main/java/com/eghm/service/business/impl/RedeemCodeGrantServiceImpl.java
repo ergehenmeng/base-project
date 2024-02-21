@@ -33,7 +33,7 @@ import static com.eghm.constants.ConfigConstant.REDEEM_CODE_SCOPE;
 /**
  * <p>
  * 兑换码发放表 服务实现类<br>
- * 兑换码目前只针对于: 民宿, 线路, 餐饮券, 场馆
+ * 兑换码目前只针对于: 民宿, 线路, 场馆
  * </p>
  *
  * @author 二哥很猛

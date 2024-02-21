@@ -48,6 +48,7 @@ CREATE TABLE `homestay_room`
     `merchant_id`     bigint(20)    DEFAULT NULL COMMENT '所属商家',
     `homestay_id`     bigint(20)    DEFAULT NULL COMMENT '民宿id',
     `state`           tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:平台下架',
+    `confirmType`     tinyint(1)    DEFAULT '1' COMMENT '订单确认方式: 1: 自动确认 2:手动确认',
     `recommend`       bit(1)        DEFAULT b'0' COMMENT '是否为推荐房型 1:是 0:不是',
     `room`            tinyint(1)    DEFAULT '1' COMMENT '几室',
     `hall`            tinyint(1)    DEFAULT '0' COMMENT '几厅',
@@ -434,16 +435,16 @@ CREATE TABLE `activity`
 DROP TABLE IF EXISTS `pay_notify_log`;
 CREATE TABLE `pay_notify_log`
 (
-    `id`            bigint(20) NOT NULL COMMENT '主键',
-    `pay_channel`   varchar(30) DEFAULT NULL COMMENT '交易方式 WECHAT:微信 ALI_PAY:支付宝',
-    `notify_id`     varchar(50) DEFAULT NULL COMMENT '异步通知唯一ID',
-    `step_type`     varchar(30) DEFAULT NULL COMMENT '通知类型 PAY: 支付异步通知 REFUND:退款异步通知',
-    `trade_no`  varchar(30) DEFAULT NULL COMMENT '交易流水号',
-    `refund_no` varchar(30) DEFAULT NULL COMMENT '退款流水号',
-    `params`        text COMMENT '退款通知原始参数',
-    `create_time`   datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`   datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`       bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `pay_channel` varchar(30) DEFAULT NULL COMMENT '交易方式 WECHAT:微信 ALI_PAY:支付宝',
+    `notify_id`   varchar(50) DEFAULT NULL COMMENT '异步通知唯一ID',
+    `step_type`   varchar(30) DEFAULT NULL COMMENT '通知类型 PAY: 支付异步通知 REFUND:退款异步通知',
+    `trade_no`    varchar(30) DEFAULT NULL COMMENT '交易流水号',
+    `refund_no`   varchar(30) DEFAULT NULL COMMENT '退款流水号',
+    `params`      text COMMENT '退款通知原始参数',
+    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
     UNIQUE KEY `notify_id_unique` (`pay_channel`, `notify_id`) USING BTREE
 ) ENGINE = InnoDB
@@ -1187,22 +1188,22 @@ create table account_log
 DROP TABLE IF EXISTS withdraw_log;
 CREATE TABLE `withdraw_log`
 (
-    `id`           bigint(20) NOT NULL COMMENT '主键',
-    `merchant_id`  bigint(20)   DEFAULT NULL COMMENT '商户id',
-    `state`        tinyint(2)   DEFAULT '0' COMMENT '0:提现中 1:提现成功 2:提现失败',
-    `withdraw_way` tinyint(1)   DEFAULT '0' COMMENT '1:手动提现 2:自动提现',
-    `amount`       int(10)      DEFAULT '0' COMMENT '提现金额',
-    `fee`          int(10)      DEFAULT '0' COMMENT '提现手续费',
+    `id`            bigint(20) NOT NULL COMMENT '主键',
+    `merchant_id`   bigint(20)   DEFAULT NULL COMMENT '商户id',
+    `state`         tinyint(2)   DEFAULT '0' COMMENT '0:提现中 1:提现成功 2:提现失败',
+    `withdraw_way`  tinyint(1)   DEFAULT '0' COMMENT '1:手动提现 2:自动提现',
+    `amount`        int(10)      DEFAULT '0' COMMENT '提现金额',
+    `fee`           int(10)      DEFAULT '0' COMMENT '提现手续费',
     `refund_no`     varchar(50)  DEFAULT NULL COMMENT '提现流水号',
     `out_refund_no` varchar(50)  DEFAULT NULL COMMENT '第三方流水号',
-    `payment_time` datetime     DEFAULT NULL COMMENT '到账时间',
-    `real_name`    varchar(20)  DEFAULT NULL COMMENT '银行卡所属用户姓名',
-    `bank_type`    varchar(20)  DEFAULT NULL COMMENT '银行卡类型',
-    `bank_num`     varchar(30)  DEFAULT NULL COMMENT '银行卡号',
-    `remark`       varchar(200) DEFAULT NULL COMMENT '备注信息',
-    `create_time`  datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`  datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`      bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `payment_time`  datetime     DEFAULT NULL COMMENT '到账时间',
+    `real_name`     varchar(20)  DEFAULT NULL COMMENT '银行卡所属用户姓名',
+    `bank_type`     varchar(20)  DEFAULT NULL COMMENT '银行卡类型',
+    `bank_num`      varchar(30)  DEFAULT NULL COMMENT '银行卡号',
+    `remark`        varchar(200) DEFAULT NULL COMMENT '备注信息',
+    `create_time`   datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`   datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`       bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商户提现记录';

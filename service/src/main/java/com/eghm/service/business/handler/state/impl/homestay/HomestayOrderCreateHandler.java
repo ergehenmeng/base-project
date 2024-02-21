@@ -4,6 +4,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
+import com.eghm.enums.ref.ConfirmState;
 import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
@@ -141,6 +142,11 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         homestayOrder.setEndDate(context.getEndDate());
         homestayOrder.setRoomId(context.getRoomId());
         homestayOrder.setMemberId(context.getMemberId());
+        if (payload.getHomestayRoom().getConfirmType() == 1) {
+            homestayOrder.setConfirmState(ConfirmState.AUTO_CONFIRM);
+        } else {
+            homestayOrder.setConfirmState(ConfirmState.WAIT_CONFIRM);
+        }
         homestayOrderService.insert(homestayOrder);
         homestayOrderSnapshotService.orderSnapshot(order.getOrderNo(), payload.getConfigList());
         context.setOrderNo(order.getOrderNo());

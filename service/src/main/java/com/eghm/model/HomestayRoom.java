@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.ref.ConfirmState;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import io.swagger.annotations.ApiModelProperty;
@@ -60,6 +61,9 @@ public class HomestayRoom extends BaseEntity {
 
     @ApiModelProperty(value = "房型类型 1:整租 2:单间 3:合租")
     private Integer roomType;
+
+    @ApiModelProperty("订单确认方式: 1: 自动确认 2:手动确认")
+    private Integer confirmType;
 
     @ApiModelProperty(value = "封面图片")
     private String coverUrl;

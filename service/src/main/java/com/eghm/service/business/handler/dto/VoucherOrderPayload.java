@@ -21,8 +21,4 @@ public class VoucherOrderPayload {
      */
     private Restaurant restaurant;
 
-    /**
-     * cdKey金额
-     */
-    private Integer cdKeyAmount;
 }

@@ -1,6 +1,7 @@
 package com.eghm.dto.business.homestay.room;
 
 import com.eghm.enums.ref.RefundType;
+import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -30,6 +31,26 @@ public class HomestayRoomEditRequest {
     @NotNull(message = "民宿id不能为空")
     private Long homestayId;
 
+    @ApiModelProperty(value = "房型类型 1:整租 2:单间 3:合租")
+    @NotNull(message = "房型类型不能为空")
+    private Integer roomType;
+
+    @ApiModelProperty(value = "封面图片")
+    @NotBlank(message = "封面图片不能为空")
+    private String coverUrl;
+
+    @ApiModelProperty("订单确认方式: 1: 自动确认 2:手动确认")
+    @OptionInt(value = {1, 2}, message = "订单确认方式不合法")
+    private Integer confirmType;
+
+    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
+    @NotNull(message = "退款方式不能为空")
+    private RefundType refundType;
+
+    @ApiModelProperty(value = "退款描述")
+    @WordChecker(message = "退款描述存在敏感词")
+    private String refundDescribe;
+
     @ApiModelProperty(value = "几室")
     @NotNull(message = "户型参数不能为空")
     private Integer room;
@@ -58,14 +79,6 @@ public class HomestayRoomEditRequest {
     @NotNull(message = "床数不能为空")
     private Integer bed;
 
-    @ApiModelProperty(value = "房型类型 1:整租 2:单间 3:合租")
-    @NotNull(message = "房型类型不能为空")
-    private Integer roomType;
-
-    @ApiModelProperty(value = "封面图片")
-    @NotBlank(message = "封面图片不能为空")
-    private String coverUrl;
-
     @ApiModelProperty(value = "屋内设施")
     @WordChecker(message = "屋内设置存在敏感词")
     private String infrastructure;
@@ -74,12 +87,4 @@ public class HomestayRoomEditRequest {
     @NotBlank(message = "详细介绍不能为空")
     @WordChecker(message = "详细介绍存在敏感词")
     private String introduce;
-
-    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
-    @NotNull(message = "退款方式不能为空")
-    private RefundType refundType;
-
-    @ApiModelProperty(value = "退款描述")
-    @WordChecker
-    private String refundDescribe;
 }

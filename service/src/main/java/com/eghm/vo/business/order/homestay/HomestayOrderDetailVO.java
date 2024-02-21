@@ -75,7 +75,7 @@ public class HomestayOrderDetailVO {
     @ApiModelProperty("游客列表")
     private List<VisitorVO> visitorList;
 
-    @ApiModelProperty("确认状态 0:待确认 1:确认有房 2:确认无房")
+    @ApiModelProperty("确认状态 0:待确认 1:确认有房 2:确认无房 3:自动确认有房")
     private ConfirmState confirmState;
 
     @ApiModelProperty("确认无房备注信息")

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 店铺使用范围: 民宿, 线路, 餐饮券, 场馆
+ * 店铺使用范围: 民宿, 线路, 场馆
  * </p>
  *
  * @author 二哥很猛
