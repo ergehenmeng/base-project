@@ -163,7 +163,7 @@ public class LotteryServiceImpl implements LotteryService {
                 return new BusinessException(ErrorCode.LOTTERY_PRIZE_ERROR);
             }).execute(memberId, lottery, config);
             return true;
-        } catch (BusinessException e) {
+        } catch (Exception e) {
             log.error("发放奖品异常 [{}] [{}] ", memberId, config, e);
         }
         return false;

@@ -13,13 +13,13 @@ import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.statistics.DateRequest;
 import com.eghm.dto.email.SendEmail;
 import com.eghm.dto.ext.*;
 import com.eghm.dto.login.AccountLoginDTO;
 import com.eghm.dto.login.SmsLoginDTO;
 import com.eghm.dto.member.*;
 import com.eghm.dto.register.RegisterMemberDTO;
+import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.DataException;
@@ -488,6 +488,26 @@ public class MemberServiceImpl implements MemberService {
         List<MemberRegisterVO> voList = memberMapper.dayRegister(request.getStartDate(), request.getEndDate());
         Map<LocalDate, MemberRegisterVO> voMap = voList.stream().collect(Collectors.toMap(MemberRegisterVO::getCreateDate, Function.identity()));
         return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), MemberRegisterVO::new);
+    }
+
+    @Override
+    public void updateScore(Long memberId, ScoreType scoreType, Integer score) {
+        Integer direction = scoreType.getDirection();
+        score = Math.abs(score);
+        if (direction == 2) {
+            score = - score;
+        }
+        int updated = memberMapper.updateScore(memberId, score);
+        if (updated != 1) {
+            log.error("更新积分失败 [{}] [{}] [{}]", memberId, scoreType, score);
+            throw new BusinessException(ErrorCode.MEMBER_SCORE_ERROR);
+        }
+
+        MemberScoreLog log = new MemberScoreLog();
+        log.setScore(score);
+        log.setMemberId(memberId);
+        log.setType(scoreType.getValue());
+        memberScoreLogService.insert(log);
     }
 
     /**

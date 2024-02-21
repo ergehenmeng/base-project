@@ -1799,6 +1799,11 @@ public enum ErrorCode {
     RECHARGE_LOG_NULL(3934, "扫码充值记录未查询到"),
 
     /**
+     * 积分余额不足
+     */
+    MEMBER_SCORE_ERROR(3936, "积分余额不足"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

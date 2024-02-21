@@ -42,4 +42,13 @@ public interface MemberMapper extends BaseMapper<Member> {
      * @return 注册数量
      */
     List<MemberRegisterVO> dayRegister(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+    /**
+     * 更新会员积分
+     *
+     * @param memberId 用户id
+     * @param score 积分数量
+     * @return 1
+     */
+    int updateScore(@Param("memberId") Long memberId, @Param("score") Integer score);
 }

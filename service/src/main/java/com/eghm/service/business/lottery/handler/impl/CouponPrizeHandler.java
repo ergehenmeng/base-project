@@ -29,7 +29,7 @@ public class CouponPrizeHandler implements PrizeHandler {
 
     @Override
     public void execute(Long memberId, Lottery lottery, LotteryConfig config) {
-        log.info("抽中优惠券啦 [{}] [{}]", memberId, lottery);
+        log.info("抽中优惠券啦, [{}] [{}]", memberId, lottery);
         GrantCouponDTO dto = new GrantCouponDTO();
         dto.setNum(1);
         dto.setCouponId(config.getPrizeId());

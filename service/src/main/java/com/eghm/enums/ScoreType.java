@@ -10,10 +10,17 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum ScoreType {
+
     /**
      * 签到积分
      */
-    SIGN_IN(1, "签到积分", "+");
+    SIGN_IN(1, "签到积分", 1),
+
+    /**
+     * 抽奖积分
+     */
+    LOTTERY(2, "抽奖积分", 1),
+    ;
 
     /**
      * 类型
@@ -26,8 +33,8 @@ public enum ScoreType {
     private final String msg;
 
     /**
-     * 符号 收入:+ 支出-
+     * 1: 收入 2: 支出
      */
-    private final String symbol;
+    private final Integer direction;
 
 }

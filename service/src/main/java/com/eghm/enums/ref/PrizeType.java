@@ -26,6 +26,11 @@ public enum PrizeType {
      */
     COUPON(1, "优惠券"),
 
+    /**
+     * 积分
+     */
+    SCORE(2, "积分"),
+
     ;
 
     @EnumValue

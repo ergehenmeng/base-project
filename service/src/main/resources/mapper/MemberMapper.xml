@@ -52,4 +52,9 @@
         from member where deleted = false and create_time &gt;= #{startDate} and create_time &lt; #{endDate}
         group by create_date
     </select>
+
+    <update id="updateScore">
+        update member set score = score + #{score} where id = #{memberId} and score + #{score} &gt; 0
+    </update>
+
 </mapper>

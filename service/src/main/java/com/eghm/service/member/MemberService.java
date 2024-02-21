@@ -7,6 +7,7 @@ import com.eghm.dto.login.AccountLoginDTO;
 import com.eghm.dto.login.SmsLoginDTO;
 import com.eghm.dto.member.*;
 import com.eghm.dto.register.RegisterMemberDTO;
+import com.eghm.enums.ScoreType;
 import com.eghm.model.Member;
 import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.vo.business.statistics.MemberRegisterVO;
@@ -318,4 +319,13 @@ public interface MemberService {
      * @return 人数
      */
     List<MemberRegisterVO> dayRegister(DateRequest request);
+
+    /**
+     * 更新会员积分
+     *
+     * @param memberId 用户id
+     * @param scoreType 积分类型
+     * @param score 积分数量
+     */
+    void updateScore(Long memberId, ScoreType scoreType, Integer score);
 }
