@@ -11,6 +11,7 @@ import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class ShoppingCartController {
 
     private final ShoppingCartService shoppingCartService;
 
-    @PostMapping("/add")
+    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("添加购物车")
     public RespBody<Void> add(@RequestBody @Validated AddCartDTO dto) {
         shoppingCartService.add(dto);
@@ -43,14 +44,14 @@ public class ShoppingCartController {
         return RespBody.success(voList);
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除购物车商品")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         shoppingCartService.delete(dto.getId(), ApiHolder.getMemberId());
         return RespBody.success();
     }
 
-    @PostMapping("/quantity")
+    @PostMapping(value = "/quantity", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新商品数量")
     public RespBody<Void> quantity(@RequestBody @Validated CartQuantityDTO dto) {
         shoppingCartService.updateQuantity(dto.getId(), dto.getQuantity(), ApiHolder.getMemberId());

@@ -12,6 +12,7 @@ import com.eghm.vo.business.homestay.room.config.RoomConfigResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,7 @@ public class HomestayRoomConfigController {
 
     private final CommonService commonService;
 
-    @PostMapping("/setup")
+    @PostMapping(value = "/setup", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("设置房态")
     public RespBody<Void> setup(@Validated @RequestBody RoomConfigRequest request) {
         HomestayRoom room = homestayRoomService.selectById(request.getRoomId());
@@ -49,7 +50,7 @@ public class HomestayRoomConfigController {
         return RespBody.success(responseList);
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新房态")
     public RespBody<Void> update(@Validated @RequestBody RoomConfigEditRequest request) {
         HomestayRoom room = homestayRoomService.selectById(request.getRoomId());

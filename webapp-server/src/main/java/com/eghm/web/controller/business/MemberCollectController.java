@@ -10,11 +10,9 @@ import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,16 +29,16 @@ public class MemberCollectController {
 
     private final MemberCollectService memberCollectService;
 
-    @PostMapping("/listPage")
+    @GetMapping("/listPage")
     @ApiOperation("收藏列表")
     @AccessToken
-    public RespBody<List<MemberCollectVO>> listPage(@RequestBody CollectQueryDTO dto) {
+    public RespBody<List<MemberCollectVO>> listPage(CollectQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<MemberCollectVO> byPage = memberCollectService.getByPage(dto);
         return RespBody.success(byPage);
     }
 
-    @PostMapping("/collect")
+    @PostMapping(value = "/collect", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("收藏/取消收藏")
     @AccessToken
     public RespBody<Void> collect(@RequestBody @Validated CollectDTO dto) {

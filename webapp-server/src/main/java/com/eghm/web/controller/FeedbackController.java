@@ -9,6 +9,7 @@ import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +28,7 @@ public class FeedbackController {
 
     private final FeedbackService feedbackService;
 
-    @PostMapping("/submit")
+    @PostMapping(value = "/submit", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("保存反馈信息")
     @AccessToken
     public RespBody<Void> submit(@RequestBody @Validated FeedbackAddDTO request) {

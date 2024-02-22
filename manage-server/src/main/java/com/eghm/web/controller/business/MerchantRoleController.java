@@ -15,6 +15,7 @@ import com.eghm.service.sys.SysRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +40,7 @@ public class MerchantRoleController {
         return RespBody.success(PageData.toPage(page));
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("添加角色")
     public RespBody<Void> create(@Validated @RequestBody RoleAddRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
@@ -48,7 +49,7 @@ public class MerchantRoleController {
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("编辑角色")
     public RespBody<Void> update(@Validated @RequestBody RoleEditRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
@@ -56,7 +57,7 @@ public class MerchantRoleController {
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("编辑角色")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         sysRoleService.delete(dto.getId(), SecurityHolder.getMerchantId());
@@ -70,7 +71,7 @@ public class MerchantRoleController {
         return RespBody.success(menuIds);
     }
 
-    @PostMapping("/auth")
+    @PostMapping(value = "/auth", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("角色菜单授权")
     public RespBody<Void> authRole(@Validated @RequestBody RoleAuthRequest request) {
         sysRoleService.authMenu(request.getRoleId(), request.getMenuIds());

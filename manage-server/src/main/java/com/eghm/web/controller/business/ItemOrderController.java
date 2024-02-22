@@ -23,6 +23,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,7 +72,7 @@ public class ItemOrderController {
      * 1. 前端需要提醒各个商品发货的数量等信息(防止重复发货/退款发货)
      * 2. 针对不需要发货的商品, 商品无法勾选发货
      */
-    @PostMapping("/sipping")
+    @PostMapping(value = "/sipping", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("发货")
     public RespBody<Void> sipping(@RequestBody @Validated ItemSippingRequest request) {
         return redisLock.lock(CacheConstant.SIPPING_LOCK + request.getOrderNo(), 10_000, () -> {
@@ -86,14 +87,14 @@ public class ItemOrderController {
         return RespBody.success(cacheProxyService.getExpressList());
     }
 
-    @PostMapping("/updateExpress")
+    @PostMapping(value = "/updateExpress", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新快递单号")
     public RespBody<Void> updateExpress(@RequestBody @Validated ItemExpressRequest request) {
         itemExpressService.update(request);
         return RespBody.success();
     }
 
-    @PostMapping("/refund")
+    @PostMapping(value = "/refund", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("退款")
     public RespBody<Void> refund(@RequestBody @Validated OrderDTO request) {
         return redisLock.lock(CacheConstant.ORDER_REFUND + request.getOrderNo(), 10_000, () -> {

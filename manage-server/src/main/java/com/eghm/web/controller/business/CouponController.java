@@ -18,6 +18,7 @@ import com.eghm.vo.business.coupon.MemberCouponResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,14 +43,14 @@ public class CouponController {
         return RespBody.success(PageData.toPage(configPage));
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("创建优惠券")
     public RespBody<Void> create(@RequestBody @Validated CouponAddRequest request) {
         couponService.create(request);
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新优惠券")
     public RespBody<Void> update(@RequestBody @Validated CouponEditRequest request) {
         couponService.update(request);
@@ -63,21 +64,21 @@ public class CouponController {
         return RespBody.success(config);
     }
 
-    @PostMapping("/open")
+    @PostMapping(value = "/open", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("启用优惠券")
     public RespBody<Void> open(@RequestBody @Validated IdDTO dto) {
         couponService.updateState(dto.getId(), State.SHELVE.getValue());
         return RespBody.success();
     }
 
-    @PostMapping("/close")
+    @PostMapping(value = "/close", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("禁用优惠券")
     public RespBody<Void> close(@RequestBody @Validated IdDTO dto) {
         couponService.updateState(dto.getId(), State.UN_SHELVE.getValue());
         return RespBody.success();
     }
 
-    @PostMapping("/grant")
+    @PostMapping(value = "/grant", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("发放优惠券")
     public RespBody<Void> grant(@RequestBody @Validated GrantCouponDTO dto) {
         memberCouponService.grantCoupon(dto);

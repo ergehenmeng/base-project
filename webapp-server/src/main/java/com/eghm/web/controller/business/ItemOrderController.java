@@ -13,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,7 +73,7 @@ public class ItemOrderController {
         return RespBody.success(detail);
     }
 
-    @PostMapping("/confirmReceipt")
+    @PostMapping(value = "/confirmReceipt", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("确认收货")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<Void> confirmReceipt(@Validated @RequestBody ConfirmReceiptDTO dto) {

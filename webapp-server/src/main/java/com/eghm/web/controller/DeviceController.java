@@ -9,6 +9,7 @@ import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +36,7 @@ public class DeviceController {
     }
 
     @ApiOperation("解除设备绑定")
-    @PostMapping("/unbind")
+    @PostMapping(value = "/unbind", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> unbind(@RequestBody @Validated IdDTO dto) {
         loginService.deleteLoginDevice(ApiHolder.getMemberId(), dto.getId());
         return RespBody.success();

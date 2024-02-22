@@ -17,6 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,7 +59,7 @@ public class ItemController {
         return RespBody.success(recommend);
     }
 
-    @PostMapping("/calcExpress")
+    @PostMapping(value = "/calcExpress", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("计算快递费")
     public RespBody<TotalExpressVO> calcExpress(@RequestBody @Validated List<ExpressFeeCalcDTO> dtoList) {
         if (CollUtil.isEmpty(dtoList)) {

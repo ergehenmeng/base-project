@@ -10,6 +10,7 @@ import com.eghm.web.configuration.interceptor.PermInterceptor;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,7 +51,7 @@ public class MenuController {
         return RespBody.success(responseList);
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("添加菜单")
     public synchronized RespBody<Void> create(@Validated @RequestBody MenuAddRequest request) {
         sysMenuService.create(request);
@@ -58,7 +59,7 @@ public class MenuController {
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("修改菜单")
     public RespBody<Void> update(@Validated @RequestBody MenuEditRequest request) {
         sysMenuService.update(request);
@@ -66,7 +67,7 @@ public class MenuController {
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除菜单")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         sysMenuService.delete(String.valueOf(dto.getId()));

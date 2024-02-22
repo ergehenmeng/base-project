@@ -14,6 +14,7 @@ import com.eghm.vo.member.MemberResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,21 +42,21 @@ public class MemberController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @PostMapping("/freeze")
+    @PostMapping(value = "/freeze", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("冻结")
     public RespBody<Void> freeze(@Validated @RequestBody IdDTO dto) {
         memberService.updateState(dto.getId(), false);
         return RespBody.success();
     }
 
-    @PostMapping("/unfreeze")
+    @PostMapping(value = "/unfreeze", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("解冻")
     public RespBody<Void> unfreeze(@Validated @RequestBody IdDTO dto) {
         memberService.updateState(dto.getId(), true);
         return RespBody.success();
     }
 
-    @PostMapping("/offline")
+    @PostMapping(value = "/offline", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("强制下线")
     public RespBody<Void> offline(@Validated @RequestBody IdDTO dto) {
         memberService.offline(dto.getId());

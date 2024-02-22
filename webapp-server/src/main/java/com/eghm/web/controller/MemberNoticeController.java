@@ -11,6 +11,7 @@ import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,14 +36,14 @@ public class MemberNoticeController {
         return RespBody.success(paging);
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除站内信")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         memberNoticeService.deleteNotice(dto.getId(), ApiHolder.getMemberId());
         return RespBody.success();
     }
 
-    @PostMapping("/markRead")
+    @PostMapping(value = "/markRead", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("设置消息已读(消息未读时才调用)")
     public RespBody<Void> markRead(@RequestBody @Validated IdDTO dto) {
         memberNoticeService.setNoticeRead(dto.getId(), ApiHolder.getMemberId());

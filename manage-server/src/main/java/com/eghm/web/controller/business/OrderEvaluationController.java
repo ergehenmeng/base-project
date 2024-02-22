@@ -12,6 +12,7 @@ import com.eghm.vo.business.order.OrderCreateVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class OrderEvaluationController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @PostMapping("/audit")
+    @PostMapping(value = "/audit", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("订单评论审核")
     public RespBody<OrderCreateVO<String>> audit(@RequestBody @Validated OrderEvaluationAuditDTO dto) {
         dto.setUserId(SecurityHolder.getUserId());

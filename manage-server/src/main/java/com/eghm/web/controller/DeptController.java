@@ -9,6 +9,7 @@ import com.eghm.service.sys.SysDeptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,21 +34,21 @@ public class DeptController {
         return RespBody.success(list);
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("添加部门")
     public RespBody<Void> create(@Validated @RequestBody DeptAddRequest request) {
         sysDeptService.create(request);
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("编辑部门")
     public RespBody<Void> update(@Validated @RequestBody DeptEditRequest request) {
         sysDeptService.update(request);
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO request) {
         sysDeptService.deleteById(request.getId());

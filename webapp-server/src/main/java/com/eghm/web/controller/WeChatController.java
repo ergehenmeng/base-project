@@ -10,6 +10,7 @@ import com.eghm.vo.login.LoginTokenVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,14 +31,14 @@ public class WeChatController {
 
     private final MemberService memberService;
 
-    @PostMapping("/mp/login")
+    @PostMapping(value = "/mp/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("微信公众号授权登陆(自动注册)")
     public RespBody<LoginTokenVO> mpLogin(@Validated @RequestBody MpLoginDTO dto, HttpServletRequest request) {
         LoginTokenVO mpLogin = memberService.mpLogin(dto.getCode(), IpUtil.getIpAddress(request));
         return RespBody.success(mpLogin);
     }
 
-    @PostMapping("/ma/mobile/login")
+    @PostMapping(value = "/ma/mobile/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("微信小程序授权手机号登陆")
     public RespBody<LoginTokenVO> maMobile(@Validated @RequestBody MaLoginDTO dto, HttpServletRequest request) {
         LoginTokenVO mpLogin = memberService.maLogin(dto.getCode(), dto.getOpenId(), IpUtil.getIpAddress(request));
@@ -47,7 +48,7 @@ public class WeChatController {
     /**
      * 2023.10月 微信小程序手机号授权登录需要收费,因此只需要第一次进行授权手机号登录,后续采用openId登录
      */
-    @PostMapping("/ma/login")
+    @PostMapping(value = "/ma/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("微信小程序openId登录")
     public RespBody<LoginTokenVO> maLogin(@Validated @RequestBody MaOpenLoginDTO dto, HttpServletRequest request) {
         LoginTokenVO mpLogin = memberService.maLogin(dto.getOpenId(), IpUtil.getIpAddress(request));

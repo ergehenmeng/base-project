@@ -15,6 +15,7 @@ import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +42,7 @@ public class CouponController {
         return RespBody.success(byPage);
     }
 
-    @PostMapping("/member/receive")
+    @PostMapping(value = "/member/receive", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("领取优惠券")
     @AccessToken
     public RespBody<Void> receive(@RequestBody @Validated ReceiveCouponDTO dto) {

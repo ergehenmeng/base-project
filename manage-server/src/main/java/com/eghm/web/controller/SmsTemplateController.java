@@ -10,6 +10,7 @@ import com.eghm.service.sys.SmsTemplateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class SmsTemplateController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("编辑短信模板")
     public RespBody<Void> update(@Validated @RequestBody SmsTemplateEditRequest request) {
         smsTemplateService.update(request);

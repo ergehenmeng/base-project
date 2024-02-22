@@ -11,6 +11,7 @@ import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +36,7 @@ public class AddressController {
         return RespBody.success(voList);
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("添加地址")
     public RespBody<Void> create(@RequestBody @Validated AddressAddDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
@@ -43,21 +44,21 @@ public class AddressController {
         return RespBody.success();
     }
 
-    @PostMapping("/default")
+    @PostMapping(value = "/default", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("设置默认地址")
     public RespBody<Void> setDefault(@RequestBody @Validated IdDTO dto) {
         memberAddressService.setDefault(dto.getId(), ApiHolder.getMemberId());
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("设置默认地址")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         memberAddressService.deleteAddress(dto.getId(), ApiHolder.getMemberId());
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("编辑地址")
     public RespBody<Void> update(@RequestBody @Validated AddressEditDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());

@@ -13,6 +13,7 @@ import com.eghm.vo.business.merchant.MerchantUserResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +36,7 @@ public class MerchantUserController {
         return RespBody.success(PageData.toPage(merchantPage));
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("创建用户")
     public RespBody<Void> create(@RequestBody @Validated MerchantUserAddRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
@@ -43,28 +44,28 @@ public class MerchantUserController {
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新用户")
     public RespBody<Void> update(@RequestBody @Validated MerchantUserEditRequest request) {
         merchantUserService.update(request);
         return RespBody.success();
     }
 
-    @PostMapping("/lock")
+    @PostMapping(value = "/lock", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("账号锁定")
     public RespBody<Void> lock(@RequestBody @Validated IdDTO dto) {
         merchantUserService.lockUser(dto.getId());
         return RespBody.success();
     }
 
-    @PostMapping("/unlock")
+    @PostMapping(value = "/unlock", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("账号解锁")
     public RespBody<Void> unlock(@RequestBody @Validated IdDTO dto) {
         merchantUserService.unlockUser(dto.getId());
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除用户")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         merchantUserService.deleteById(dto.getId());

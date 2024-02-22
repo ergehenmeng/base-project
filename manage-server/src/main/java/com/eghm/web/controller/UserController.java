@@ -21,6 +21,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,7 +50,7 @@ public class UserController {
         return RespBody.success(PageData.toPage(page));
     }
 
-    @PostMapping("/changePwd")
+    @PostMapping(value = "/changePwd", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("修改登录人的密码")
     public RespBody<Void> changePwd(@Validated @RequestBody PasswordEditRequest request) {
         request.setUserId(SecurityHolder.getUserId());
@@ -57,7 +58,7 @@ public class UserController {
         return RespBody.success();
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("添加管理人员")
     public RespBody<Void> create(@Validated @RequestBody UserAddRequest request) {
         sysUserService.create(request);
@@ -74,14 +75,14 @@ public class UserController {
         return RespBody.success(response);
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("系统用户信息")
     public RespBody<Void> update(@Validated @RequestBody UserEditRequest request) {
         sysUserService.update(request);
         return RespBody.success();
     }
 
-    @PostMapping("/lockScreen")
+    @PostMapping(value = "/lockScreen", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("锁屏操作")
     public RespBody<Void> lockScreen() {
         UserToken user = SecurityHolder.getUserRequired();
@@ -89,7 +90,7 @@ public class UserController {
         return RespBody.success();
     }
 
-    @PostMapping("/unlockScreen")
+    @PostMapping(value = "/unlockScreen", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("解锁操作")
     @ApiImplicitParam(name = "password", value = "密码", required = true)
     public RespBody<Void> unlockScreen(@RequestBody @Validated CheckPwdRequest request) {
@@ -99,28 +100,28 @@ public class UserController {
         return RespBody.success();
     }
 
-    @PostMapping("/lock")
+    @PostMapping(value = "/lock", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("锁定用户")
     public RespBody<Void> lock(@Validated @RequestBody IdDTO request) {
         sysUserService.lockUser(request.getId());
         return RespBody.success();
     }
 
-    @PostMapping("/unlock")
+    @PostMapping(value = "/unlock", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("解锁用户")
     public RespBody<Void> unlock(@Validated @RequestBody IdDTO request) {
         sysUserService.unlockUser(request.getId());
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除用户")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO request) {
         sysUserService.deleteById(request.getId());
         return RespBody.success();
     }
 
-    @PostMapping("/reset")
+    @PostMapping(value = "/reset", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("重置密码")
     public RespBody<Void> reset(@Validated @RequestBody IdDTO request) {
         sysUserService.resetPassword(request.getId());

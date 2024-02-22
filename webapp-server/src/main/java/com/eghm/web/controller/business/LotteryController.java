@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,7 +56,7 @@ public class LotteryController {
         return RespBody.success(detail);
     }
 
-    @PostMapping("/handle")
+    @PostMapping(value = "/handle", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("抽奖")
     @AccessToken
     public RespBody<LotteryResultVO> handle(@RequestBody @Validated IdDTO dto) {

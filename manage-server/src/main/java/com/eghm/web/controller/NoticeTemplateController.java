@@ -10,6 +10,7 @@ import com.eghm.service.common.NoticeTemplateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,7 @@ public class NoticeTemplateController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新站内信")
     public RespBody<Void> update(@RequestBody @Validated NoticeTemplateRequest request) {
         noticeTemplateService.update(request);

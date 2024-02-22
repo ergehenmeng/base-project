@@ -24,6 +24,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,13 +53,13 @@ public class OrderController {
 
     private final VoucherAccessHandler voucherAccessHandler;
 
-    @PostMapping("/item/create")
+    @PostMapping(value = "/item/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("零售创建订单")
     public RespBody<OrderCreateVO<String>> itemCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
         return this.createItemOrder(dto, false);
     }
 
-    @PostMapping("/item/group/create")
+    @PostMapping(value = "/item/group/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("零售拼团创建订单")
     public RespBody<OrderCreateVO<String>> itemGroupCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
         if (dto.getItemList().size() > 1) {
@@ -67,7 +68,7 @@ public class OrderController {
         return this.createItemOrder(dto, true);
     }
 
-    @PostMapping("/ticket/create")
+    @PostMapping(value = "/ticket/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("门票创建订单")
     public RespBody<OrderCreateVO<String>> ticketCreate(@RequestBody @Validated TicketOrderCreateDTO dto) {
         TicketOrderCreateContext context = DataUtil.copy(dto, TicketOrderCreateContext.class);
@@ -77,7 +78,7 @@ public class OrderController {
         return RespBody.success(result);
     }
 
-    @PostMapping("/homestay/create")
+    @PostMapping(value = "/homestay/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("民宿创建订单")
     public RespBody<OrderCreateVO<String>> homestayCreate(@RequestBody @Validated HomestayOrderCreateDTO dto) {
         HomestayOrderCreateContext context = DataUtil.copy(dto, HomestayOrderCreateContext.class);
@@ -87,7 +88,7 @@ public class OrderController {
         return RespBody.success(result);
     }
 
-    @PostMapping("/line/create")
+    @PostMapping(value = "/line/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("线路创建订单")
     public RespBody<OrderCreateVO<String>> lineCreate(@RequestBody @Validated LineOrderCreateDTO dto) {
         LineOrderCreateContext context = DataUtil.copy(dto, LineOrderCreateContext.class);
@@ -97,7 +98,7 @@ public class OrderController {
         return RespBody.success(result);
     }
 
-    @PostMapping("/voucher/create")
+    @PostMapping(value = "/voucher/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("餐饮创建订单")
     public RespBody<OrderCreateVO<String>> restaurantCreate(@RequestBody @Validated VoucherOrderCreateDTO dto) {
         VoucherOrderCreateContext context = DataUtil.copy(dto, VoucherOrderCreateContext.class);
@@ -107,14 +108,14 @@ public class OrderController {
         return RespBody.success(result);
     }
 
-    @PostMapping("/pay")
+    @PostMapping(value = "/pay", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("拉起支付")
     public RespBody<PrepayVO> pay(@RequestBody @Validated OrderPayDTO dto) {
         PrepayVO vo = orderService.createPrepay(dto.getOrderNo(), dto.getBuyerId(), dto.getTradeType());
         return RespBody.success(vo);
     }
 
-    @PostMapping("/ticket/refundApply")
+    @PostMapping(value = "/ticket/refundApply", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("门票退款申请")
     public RespBody<Void> ticketRefundApply(@RequestBody @Validated TicketRefundApplyDTO dto) {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
@@ -124,7 +125,7 @@ public class OrderController {
         return RespBody.success();
     }
 
-    @PostMapping("/line/refundApply")
+    @PostMapping(value = "/line/refundApply", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("线路退款申请")
     public RespBody<Void> lineRefundApply(@RequestBody @Validated LineRefundApplyDTO dto) {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
@@ -135,7 +136,7 @@ public class OrderController {
         return RespBody.success();
     }
 
-    @PostMapping("/homestay/refundApply")
+    @PostMapping(value = "/homestay/refundApply", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("民宿退款申请")
     public RespBody<Void> homestayRefundApply(@RequestBody @Validated HomestayRefundApplyDTO dto) {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
@@ -146,7 +147,7 @@ public class OrderController {
         return RespBody.success();
     }
 
-    @PostMapping("/voucher/refundApply")
+    @PostMapping(value = "/voucher/refundApply", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("餐饮退款申请")
     public RespBody<Void> voucherRefundApply(@RequestBody @Validated VoucherRefundApplyDTO dto) {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
@@ -156,7 +157,7 @@ public class OrderController {
         return RespBody.success();
     }
 
-    @PostMapping("/item/refundApply")
+    @PostMapping(value = "/item/refundApply", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("零售退款申请")
     public RespBody<Void> itemRefundApply(@RequestBody @Validated ItemRefundApplyDTO dto) {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
@@ -166,7 +167,7 @@ public class OrderController {
         return RespBody.success();
     }
 
-    @PostMapping("/venue/refundApply")
+    @PostMapping(value = "/venue/refundApply", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("场馆退款申请")
     public RespBody<Void> venueRefundApply(@RequestBody @Validated VenueRefundApplyDTO dto) {
         RefundApplyContext context = new RefundApplyContext();
@@ -186,7 +187,7 @@ public class OrderController {
         return RespBody.success(verifyCode);
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除订单")
     public RespBody<Void> delete(@Validated @RequestBody OrderDTO dto) {
         orderService.deleteOrder(dto.getOrderNo(), ApiHolder.getMemberId());

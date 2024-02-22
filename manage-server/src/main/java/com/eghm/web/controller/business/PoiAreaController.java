@@ -14,6 +14,7 @@ import com.eghm.vo.poi.PoiAreaResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,27 +40,27 @@ public class PoiAreaController {
     }
 
     @ApiOperation("创建")
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> create(@Validated @RequestBody PoiAreaAddRequest request) {
         poiAreaService.create(request);
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新")
     public RespBody<Void> update(@Validated @RequestBody PoiAreaEditRequest request) {
         poiAreaService.update(request);
         return RespBody.success();
     }
 
-    @PostMapping("/updateState")
+    @PostMapping(value = "/updateState", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新状态")
     public RespBody<Void> updateState(@Validated @RequestBody StateRequest request) {
         poiAreaService.updateState(request);
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         poiAreaService.deleteById(dto.getId());

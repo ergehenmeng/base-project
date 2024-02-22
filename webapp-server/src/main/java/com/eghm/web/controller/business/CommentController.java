@@ -13,6 +13,7 @@ import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +40,7 @@ public class CommentController {
         return RespBody.success(commentService.getByPage(dto));
     }
 
-    @PostMapping("/add")
+    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("添加评论")
     @AccessToken
     public RespBody<Void> add(@Validated @RequestBody CommentDTO dto) {
@@ -47,7 +48,7 @@ public class CommentController {
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除评论")
     @AccessToken
     public RespBody<Void> add(@Validated @RequestBody IdDTO dto) {
@@ -55,7 +56,7 @@ public class CommentController {
         return RespBody.success();
     }
 
-    @PostMapping("/giveLike")
+    @PostMapping(value = "/giveLike", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("点赞")
     @AccessToken
     public RespBody<Void> giveLike(@Validated @RequestBody IdDTO dto) {
@@ -63,7 +64,7 @@ public class CommentController {
         return RespBody.success();
     }
 
-    @PostMapping("/report")
+    @PostMapping(value = "/report", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("举报评论")
     @AccessToken
     public RespBody<Void> report(@Validated @RequestBody CommentReportDTO dto) {

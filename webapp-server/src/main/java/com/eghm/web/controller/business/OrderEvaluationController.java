@@ -13,6 +13,7 @@ import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class OrderEvaluationController {
 
     private final OrderEvaluationService orderEvaluationService;
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("订单评论")
     public RespBody<OrderCreateVO<String>> create(@RequestBody @Validated OrderEvaluationDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());

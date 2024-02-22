@@ -17,6 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +48,7 @@ public class TicketOrderController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @PostMapping("/offlineRefund")
+    @PostMapping(value = "/offlineRefund", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("线下退款")
     public RespBody<Void> offlineRefund(@RequestBody @Validated OfflineRefundRequest request) {
         return redisLock.lock(CacheConstant.MANUAL_REFUND_LOCK + request.getOrderNo(), 10_000, () -> {

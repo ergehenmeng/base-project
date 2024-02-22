@@ -15,6 +15,7 @@ import com.eghm.vo.business.merchant.MerchantResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,14 +40,14 @@ public class MerchantController {
         return RespBody.success(PageData.toPage(merchantPage));
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("创建商户")
     public RespBody<Void> create(@RequestBody @Validated MerchantAddRequest request) {
         merchantService.create(request);
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新商户")
     public RespBody<Void> update(@RequestBody @Validated MerchantEditRequest request) {
         merchantService.update(request);
@@ -60,35 +61,35 @@ public class MerchantController {
         return RespBody.success(merchant);
     }
 
-    @PostMapping("/lock")
+    @PostMapping(value = "/lock", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("账号锁定")
     public RespBody<Void> lock(@RequestBody @Validated IdDTO dto) {
         merchantService.lock(dto.getId());
         return RespBody.success();
     }
 
-    @PostMapping("/unlock")
+    @PostMapping(value = "/unlock", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("账号解锁")
     public RespBody<Void> unlock(@RequestBody @Validated IdDTO dto) {
         merchantService.unlock(dto.getId());
         return RespBody.success();
     }
 
-    @PostMapping("/unbind")
+    @PostMapping(value = "/unbind", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("解绑")
     public RespBody<Void> unbind(@RequestBody @Validated IdDTO dto) {
         merchantService.unbind(dto.getId());
         return RespBody.success();
     }
 
-    @PostMapping("/resetPwd")
+    @PostMapping(value = "/resetPwd", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("重置密码")
     public RespBody<Void> resetPwd(@RequestBody @Validated IdDTO dto) {
         merchantService.resetPwd(dto.getId());
         return RespBody.success();
     }
 
-    @PostMapping("/adjustRate")
+    @PostMapping(value = "/adjustRate", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("调整费率")
     public RespBody<Void> adjustRate(@RequestBody @Validated MerchantRateRequest request) {
         merchantService.adjustRate(request.getId(), request.getPlatformServiceRate());

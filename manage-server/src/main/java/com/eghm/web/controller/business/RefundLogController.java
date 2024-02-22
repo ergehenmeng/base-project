@@ -21,6 +21,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,7 +58,7 @@ public class RefundLogController {
         return RespBody.success(response);
     }
 
-    @PostMapping("/audit")
+    @PostMapping(value = "/audit", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("退款审核")
     public RespBody<Void> audit(@Validated @RequestBody RefundAuditRequest request) {
         ProductType productType = ProductType.prefix(request.getOrderNo());

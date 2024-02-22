@@ -12,6 +12,7 @@ import com.eghm.service.common.AppVersionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,21 +35,21 @@ public class AppVersionController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("新增版本信息")
     public RespBody<Void> create(@Validated @RequestBody VersionAddRequest request) {
         appVersionService.create(request);
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("编辑版本信息")
     public RespBody<Void> update(@Validated @RequestBody VersionEditRequest request) {
         appVersionService.update(request);
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除版本信息")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         appVersionService.delete(dto.getId());

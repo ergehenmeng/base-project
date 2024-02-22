@@ -16,6 +16,7 @@ import com.eghm.vo.login.LoginResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,7 +41,7 @@ public class LoginController {
 
     private final SystemProperties systemProperties;
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("管理后台登陆")
     public RespBody<LoginResponse> login(@Validated @RequestBody LoginRequest request, HttpServletRequest servletRequest) {
         String key = IpUtil.getIpAddress(servletRequest);
@@ -51,7 +52,7 @@ public class LoginController {
         return RespBody.success(response);
     }
 
-    @PostMapping("/exit")
+    @PostMapping(value = "/exit", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("退出登录")
     @SkipPerm
     public RespBody<Void> exit() {

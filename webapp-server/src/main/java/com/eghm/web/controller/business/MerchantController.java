@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class MerchantController {
         return RespBody.success(vo);
     }
 
-    @PostMapping("/binding")
+    @PostMapping(value = "/binding", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("绑定")
     public RespBody<Void> binding(@RequestBody @Validated MerchantAuthDTO dto) {
         merchantService.binding(dto);

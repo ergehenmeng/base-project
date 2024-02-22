@@ -12,6 +12,7 @@ import com.eghm.service.common.SysNoticeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class SysNoticeController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody NoticeAddRequest request) {
         sysNoticeService.create(request);
@@ -48,28 +49,28 @@ public class SysNoticeController {
         return RespBody.success(notice);
     }
 
-    @PostMapping("/publish")
+    @PostMapping(value = "/publish", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("发布")
     public RespBody<Void> publish(@Validated @RequestBody IdDTO request) {
         sysNoticeService.publish(request.getId());
         return RespBody.success();
     }
 
-    @PostMapping("/cancel")
+    @PostMapping(value = "/cancel", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("取消发布")
     public RespBody<Void> cancel(@Validated @RequestBody IdDTO request) {
         sysNoticeService.cancelPublish(request.getId());
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO request) {
         sysNoticeService.delete(request.getId());
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody NoticeEditRequest request) {
         sysNoticeService.update(request);

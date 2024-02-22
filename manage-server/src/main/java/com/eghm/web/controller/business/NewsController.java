@@ -15,6 +15,7 @@ import com.eghm.vo.business.news.NewsConfigResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,27 +51,27 @@ public class NewsController {
     }
 
     @ApiOperation("创建")
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> create(@Validated @RequestBody NewsAddRequest request) {
         newsService.create(request);
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新")
     public RespBody<Void> update(@Validated @RequestBody NewsEditRequest request) {
         newsService.update(request);
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         newsService.deleteById(dto.getId());
         return RespBody.success();
     }
 
-    @PostMapping("/sort")
+    @PostMapping(value = "/sort", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("排序")
     public RespBody<Void> sort(@RequestBody @Validated SortByDTO dto) {
         newsService.sortBy(dto.getId(), dto.getSortBy());

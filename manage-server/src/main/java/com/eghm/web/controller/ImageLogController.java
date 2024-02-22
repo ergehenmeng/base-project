@@ -12,6 +12,7 @@ import com.eghm.service.common.ImageLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,21 +35,21 @@ public class ImageLogController {
         return RespBody.success(PageData.toPage(page));
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("添加图片")
     public RespBody<Void> create(@Validated @RequestBody ImageAddRequest request) {
         imageLogService.create(request);
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("添加图片")
     public RespBody<Void> update(@Validated @RequestBody ImageEditRequest request) {
         imageLogService.update(request);
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除图片")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         imageLogService.delete(dto.getId());

@@ -10,6 +10,7 @@ import com.eghm.vo.sys.DictResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,42 +33,42 @@ public class DictController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody DictAddRequest request) {
         sysDictService.create(request);
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody DictEditRequest request) {
         sysDictService.update(request);
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         sysDictService.delete(dto.getId());
         return RespBody.success();
     }
 
-    @PostMapping("/item/create")
+    @PostMapping(value = "/item/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("选项新增")
     public RespBody<Void> itemCreate(@Validated @RequestBody DictItemAddRequest request) {
         sysDictService.itemCreate(request);
         return RespBody.success();
     }
 
-    @PostMapping("/item/update")
+    @PostMapping(value = "/item/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("选项编辑")
     public RespBody<Void> itemUpdate(@Validated @RequestBody DictItemEditRequest request) {
         sysDictService.itemUpdate(request);
         return RespBody.success();
     }
 
-    @PostMapping("/item/delete")
+    @PostMapping(value = "/item/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("选项删除")
     public RespBody<Void> itemDelete(@Validated @RequestBody IdDTO dto) {
         sysDictService.itemDelete(dto.getId());

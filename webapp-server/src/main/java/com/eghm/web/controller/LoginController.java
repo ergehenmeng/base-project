@@ -12,6 +12,7 @@ import com.eghm.vo.login.LoginTokenVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,21 +38,21 @@ public class LoginController {
     private final SmsService smsService;
 
     @ApiOperation("发送登陆验证码①")
-    @PostMapping("/login/sendSms")
+    @PostMapping(value = "/login/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> loginSendSms(@RequestBody @Validated SendSmsDTO dto, HttpServletRequest request) {
         memberService.sendLoginSms(dto.getMobile(), IpUtil.getIpAddress(request));
         return RespBody.success();
     }
 
     @ApiOperation("短信验证码登陆②")
-    @PostMapping("/login/mobile")
+    @PostMapping(value = "/login/mobile", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<LoginTokenVO> mobile(@RequestBody @Validated SmsLoginDTO login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         return RespBody.success(memberService.smsLogin(login));
     }
 
     @ApiOperation("手机或邮箱密码登陆③")
-    @PostMapping("/login/account")
+    @PostMapping(value = "/login/account", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<LoginTokenVO> account(@RequestBody @Validated AccountLoginDTO login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         login.setSerialNumber(ApiHolder.get().getSerialNumber());
@@ -59,21 +60,21 @@ public class LoginController {
     }
 
     @ApiOperation("忘记密码发送验证码①")
-    @PostMapping("/forget/sendSms")
+    @PostMapping(value = "/forget/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> forgetSendSms(@RequestBody @Validated SendSmsDTO dto, HttpServletRequest request) {
         memberService.sendForgetSms(dto.getMobile(), IpUtil.getIpAddress(request));
         return RespBody.success();
     }
 
     @ApiOperation("忘记密码验证短信验证码②")
-    @PostMapping("/forget/verify")
+    @PostMapping(value = "/forget/verify", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<String> verify(@RequestBody @Validated VerifySmsDTO request) {
         String requestId = smsService.verifySmsCode(SmsType.FORGET, request.getMobile(), request.getSmsCode());
         return RespBody.success(requestId);
     }
 
     @ApiOperation("忘记密码设置新密码③")
-    @PostMapping("/forget/setPwd")
+    @PostMapping(value = "/forget/setPwd", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> setPwd(@RequestBody @Validated SetPasswordDTO request) {
         boolean flag = smsService.verifyRequestId(request.getRequestId());
         if (!flag) {

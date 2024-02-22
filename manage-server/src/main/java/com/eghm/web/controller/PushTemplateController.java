@@ -10,6 +10,7 @@ import com.eghm.service.common.PushTemplateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,7 @@ public class PushTemplateController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("编辑推送模板")
     public RespBody<Void> update(@Validated @RequestBody PushTemplateEditRequest request) {
         pushTemplateService.update(request);

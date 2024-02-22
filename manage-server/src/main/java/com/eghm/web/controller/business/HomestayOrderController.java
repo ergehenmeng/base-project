@@ -15,6 +15,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,7 +52,7 @@ public class HomestayOrderController {
         return RespBody.success(detail);
     }
 
-    @PostMapping("/confirm")
+    @PostMapping(value = "/confirm", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("确认订单")
     public RespBody<Void> confirm(@RequestBody @Validated HomestayOrderConfirmRequest request) {
         orderProxyService.confirm(request);

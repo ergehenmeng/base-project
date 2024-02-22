@@ -11,6 +11,7 @@ import com.eghm.service.business.WithdrawService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class WithdrawController {
         return RespBody.success(PageData.toPage(roomPage));
     }
 
-    @PostMapping("/apply")
+    @PostMapping(value = "/apply", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("提现申请")
     public RespBody<Void> apply(@Validated @RequestBody WithdrawApplyDTO dto) {
         dto.setMerchantId(SecurityHolder.getMerchantId());

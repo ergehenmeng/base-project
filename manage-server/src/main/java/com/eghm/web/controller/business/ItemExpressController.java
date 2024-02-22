@@ -12,6 +12,7 @@ import com.eghm.vo.business.item.express.ItemExpressResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,7 +46,7 @@ public class ItemExpressController {
         return RespBody.success(selectList);
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("新增模板")
     public RespBody<Void> create(@Validated @RequestBody ItemExpressAddRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
@@ -53,7 +54,7 @@ public class ItemExpressController {
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新模板")
     public RespBody<Void> update(@Validated @RequestBody ItemExpressEditRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
@@ -61,7 +62,7 @@ public class ItemExpressController {
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除模板")
     public RespBody<Void> recommend(@RequestBody @Validated IdDTO dto) {
         expressTemplateService.deleteById(dto.getId());

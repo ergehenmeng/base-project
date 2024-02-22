@@ -9,6 +9,7 @@ import com.eghm.vo.business.activity.ActivityResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,21 +34,21 @@ public class ActivityController {
         return RespBody.success(monthActivity);
     }
 
-    @PostMapping("/config")
+    @PostMapping(value = "/config", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("配置活动")
     public RespBody<Void> config(@RequestBody @Validated ActivityConfigRequest request) {
         activityService.create(request);
         return RespBody.success();
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("创建活动")
     public RespBody<Void> create(@RequestBody @Validated ActivityAddRequest request) {
         activityService.create(request);
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新活动")
     public RespBody<Void> update(@RequestBody @Validated ActivityEditRequest request) {
         activityService.update(request);
@@ -61,7 +62,7 @@ public class ActivityController {
         return RespBody.success(response);
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除活动")
     public RespBody<Void> delete(@RequestBody @Validated ActivityDeleteRequest request) {
         activityService.delete(request);

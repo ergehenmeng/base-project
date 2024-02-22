@@ -13,6 +13,7 @@ import com.eghm.vo.business.merchant.MerchantDetailResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,21 +43,21 @@ public class MerchantCenterController {
         return RespBody.success(response);
     }
 
-    @PostMapping("/sendSms")
+    @PostMapping(value = "/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("发送解绑短信")
     public RespBody<Void> sendSms(HttpServletRequest request) {
         merchantService.sendUnbindSms(SecurityHolder.getMerchantId(), IpUtil.getIpAddress(request));
         return RespBody.success();
     }
 
-    @PostMapping("/unbind")
+    @PostMapping(value = "/unbind", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("解绑")
     public RespBody<Void> unbind(@RequestBody @Validated MerchantUnbindDTO dto) {
         merchantService.unbind(SecurityHolder.getMerchantId(), dto.getSmsCode());
         return RespBody.success();
     }
 
-    @PostMapping("/generate")
+    @GetMapping("/generate")
     @ApiOperation("生成二维码")
     public RespBody<MerchantAuthResponse> generate() {
         MerchantAuthResponse vo = merchantService.generateAuthCode(SecurityHolder.getMerchantId());

@@ -10,6 +10,7 @@ import com.eghm.vo.business.item.ItemTagResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,21 +36,21 @@ public class ItemTagController {
         return RespBody.success(serviceList);
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("新增标签")
     public RespBody<Void> create(@Validated @RequestBody ItemTagAddRequest request) {
         itemTagService.create(request);
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("编辑标签")
     public RespBody<Void> update(@Validated @RequestBody ItemTagEditRequest request) {
         itemTagService.update(request);
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除标签")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         itemTagService.deleteById(dto.getId());

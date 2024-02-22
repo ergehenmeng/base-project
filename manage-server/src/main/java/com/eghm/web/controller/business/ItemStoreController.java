@@ -16,6 +16,7 @@ import com.eghm.vo.business.base.BaseStoreResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,14 +48,14 @@ public class ItemStoreController {
         return RespBody.success(PageData.toPage(listPage));
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("新增店铺")
     public RespBody<Void> create(@Validated @RequestBody ItemStoreAddRequest request) {
         itemStoreService.create(request);
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新店铺")
     public RespBody<Void> update(@Validated @RequestBody ItemStoreEditRequest request) {
         itemStoreService.update(request);
@@ -68,35 +69,35 @@ public class ItemStoreController {
         return RespBody.success(store);
     }
 
-    @PostMapping("/shelves")
+    @PostMapping(value = "/shelves", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("上架")
     public RespBody<Void> shelves(@Validated @RequestBody IdDTO dto) {
         itemStoreService.updateState(dto.getId(), State.SHELVE);
         return RespBody.success();
     }
 
-    @PostMapping("/unShelves")
+    @PostMapping(value = "/unShelves", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("下架")
     public RespBody<Void> unShelves(@Validated @RequestBody IdDTO dto) {
         itemStoreService.updateState(dto.getId(), State.UN_SHELVE);
         return RespBody.success();
     }
 
-    @PostMapping("/platformUnShelves")
+    @PostMapping(value = "/platformUnShelves", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("平台下架")
     public RespBody<Void> platformUnShelves(@RequestBody @Validated IdDTO dto) {
         itemStoreService.updateState(dto.getId(), State.FORCE_UN_SHELVE);
         return RespBody.success();
     }
 
-    @PostMapping("/recommend")
+    @PostMapping(value = "/recommend", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("设置为推荐店铺")
     public RespBody<Void> recommend(@RequestBody @Validated IdDTO dto) {
         itemStoreService.setRecommend(dto.getId());
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         itemStoreService.deleteById(dto.getId());

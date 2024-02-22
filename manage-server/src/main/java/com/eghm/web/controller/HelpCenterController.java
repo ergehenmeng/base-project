@@ -12,6 +12,7 @@ import com.eghm.service.common.HelpCenterService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,21 +35,21 @@ public class HelpCenterController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody HelpAddRequest request) {
         helpCenterService.create(request);
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新")
     public RespBody<Void> update(@Validated @RequestBody HelpEditRequest request) {
         helpCenterService.update(request);
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO request) {
         helpCenterService.delete(request.getId());

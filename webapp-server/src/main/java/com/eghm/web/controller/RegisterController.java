@@ -10,6 +10,7 @@ import com.eghm.vo.login.LoginTokenVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,14 +33,14 @@ public class RegisterController {
 
     private final MemberService memberService;
 
-    @PostMapping("/sendSms")
+    @PostMapping(value = "/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("注册发送验证码①")
     public RespBody<Void> sendSms(@RequestBody @Validated RegisterSendSmsDTO dto, HttpServletRequest request) {
         memberService.registerSendSms(dto.getMobile(), IpUtil.getIpAddress(request));
         return RespBody.success();
     }
 
-    @PostMapping("/member")
+    @PostMapping(value = "/member", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("短信注册用户②")
     public RespBody<LoginTokenVO> member(@RequestBody @Validated RegisterMemberDTO request, HttpServletRequest servletRequest) {
         request.setChannel(ApiHolder.getChannel());

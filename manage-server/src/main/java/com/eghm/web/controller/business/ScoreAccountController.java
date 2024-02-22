@@ -16,6 +16,7 @@ import com.eghm.vo.business.account.ScoreAccountResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +40,7 @@ public class ScoreAccountController {
         return RespBody.success(DataUtil.copy(account, ScoreAccountResponse.class));
     }
 
-    @PostMapping("/withdraw/apply")
+    @PostMapping(value = "/withdraw/apply", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("提现申请")
     public RespBody<Void> apply(@Validated @RequestBody ScoreWithdrawApplyDTO dto) {
         dto.setMerchantId(SecurityHolder.getMerchantId());
@@ -47,7 +48,7 @@ public class ScoreAccountController {
         return RespBody.success();
     }
 
-    @PostMapping("/recharge/balance")
+    @PostMapping(value = "/recharge/balance", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("余额充值")
     public RespBody<Void> rechargeBalance(@Validated @RequestBody ScoreRechargeDTO dto) {
         dto.setMerchantId(SecurityHolder.getMerchantId());
@@ -55,7 +56,7 @@ public class ScoreAccountController {
         return RespBody.success();
     }
 
-    @PostMapping("/recharge/scan")
+    @PostMapping(value = "/recharge/scan", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("扫码充值")
     public RespBody<String> rechargeScan(@Validated @RequestBody ScoreScanRechargeDTO dto) {
         dto.setMerchantId(SecurityHolder.getMerchantId());

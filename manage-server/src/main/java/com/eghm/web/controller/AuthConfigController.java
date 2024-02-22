@@ -12,6 +12,7 @@ import com.eghm.service.common.AuthConfigService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,21 +35,21 @@ public class AuthConfigController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("新增授权信息")
     public RespBody<Void> create(@Validated @RequestBody AuthConfigAddRequest request) {
         authConfigService.create(request);
         return RespBody.success();
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("编辑授权信息")
     public RespBody<Void> update(@Validated @RequestBody AuthConfigEditRequest request) {
         authConfigService.update(request);
         return RespBody.success();
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除授权信息")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         authConfigService.deleteById(dto.getId());
