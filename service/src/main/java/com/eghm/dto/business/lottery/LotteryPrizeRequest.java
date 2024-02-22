@@ -26,6 +26,12 @@ public class LotteryPrizeRequest {
     @NotNull(message = "奖品类型不能为空")
     private PrizeType prizeType;
 
+    /**
+     * 优惠券时默认数量是1, 积分时则是积分数
+     */
+    @ApiModelProperty(value = "单次中奖发放数量")
+    private Integer num;
+
     @ApiModelProperty(value = "奖品总数量", required = true)
     @NotNull(message = "奖品数量不能为空")
     private Integer totalNum;

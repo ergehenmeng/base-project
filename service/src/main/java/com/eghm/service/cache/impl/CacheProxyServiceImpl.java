@@ -54,6 +54,8 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     private final ItemTagService itemTagService;
 
+    private final LotteryPrizeMapper lotteryPrizeMapper;
+
     private final AuthConfigMapper authConfigMapper;
 
     private final ExpressMapper expressMapper;
@@ -158,6 +160,12 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     @Cacheable(cacheNames = CacheConstant.ITEM_TAG, cacheManager = "longCacheManager")
     public List<ItemTagResponse> getList() {
         return itemTagService.getList();
+    }
+
+    @Override
+    @Cacheable(cacheNames = CacheConstant.LOTTERY_PRIZE, key = "#p0", unless = "#result == null" , cacheManager = "longCacheManager")
+    public LotteryPrize getPrizeById(Long id) {
+        return lotteryPrizeMapper.selectById(id);
     }
 
     @Override

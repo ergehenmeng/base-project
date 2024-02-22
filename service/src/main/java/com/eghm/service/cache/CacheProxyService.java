@@ -118,6 +118,14 @@ public interface CacheProxyService {
     List<ItemTagResponse> getList();
 
     /**
+     * 根据id查询中奖奖品信息
+     *
+     * @param id id
+     * @return 中奖奖品
+     */
+    LotteryPrize getPrizeById(Long id);
+
+    /**
      * 根据appKey查询第三方配置信息
      *
      * @param appKey appKey

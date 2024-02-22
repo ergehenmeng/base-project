@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.business.lottery.LotteryPrizeRequest;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LotteryPrizeMapper;
 import com.eghm.model.LotteryPrize;
 import com.eghm.service.business.lottery.LotteryPrizeService;
@@ -72,6 +74,15 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
     @Override
     public LotteryPrize selectById(Long id) {
         return lotteryPrizeMapper.selectById(id);
+    }
+
+    @Override
+    public void accumulationLotteryNum(Long id) {
+        int lotteryNum = lotteryPrizeMapper.accumulationLotteryNum(id);
+        if (lotteryNum != 1) {
+            log.error("中奖奖品数量更新失败，奖品数量不足 [{}]", id);
+            throw new BusinessException(ErrorCode.PRIZE_WIN_ERROR);
+        }
     }
 
     /**

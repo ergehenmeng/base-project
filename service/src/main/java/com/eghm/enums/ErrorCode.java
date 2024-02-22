@@ -1804,6 +1804,16 @@ public enum ErrorCode {
     MEMBER_SCORE_ERROR(3936, "积分余额不足"),
 
     /**
+     * 积分奖品不存在
+     */
+    SCORE_PRIZE_NULL(3938, "积分奖品不存在"),
+
+    /**
+     * 中奖数量更新失败
+     */
+    PRIZE_WIN_ERROR(3939, "中奖数量更新失败"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

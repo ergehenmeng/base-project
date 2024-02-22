@@ -287,4 +287,9 @@ public class CacheConstant {
      */
     public static final String MERCHANT_AUTH_CODE = "merchant_auth_code:";
 
+    /**
+     * 中奖奖品信息
+     */
+    public static final String LOTTERY_PRIZE = "lottery_prize";
+
 }

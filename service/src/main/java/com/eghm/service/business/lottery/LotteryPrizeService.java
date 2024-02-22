@@ -48,4 +48,11 @@ public interface LotteryPrizeService {
      * @return 奖品信息
      */
     LotteryPrize selectById(Long id);
+
+    /**
+     * 更新抽奖中奖次数
+     *
+     * @param id id
+     */
+    void accumulationLotteryNum(Long id);
 }
