@@ -2,10 +2,12 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.homestay.room.HomestayRoomQueryDTO;
 import com.eghm.dto.business.homestay.room.HomestayRoomQueryRequest;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.model.HomestayRoom;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.homestay.room.HomestayRoomListVO;
 import com.eghm.vo.business.homestay.room.HomestayRoomResponse;
 import com.eghm.vo.business.statistics.ProductStatisticsVO;
@@ -57,4 +59,13 @@ public interface HomestayRoomMapper extends BaseMapper<HomestayRoom> {
      * @return 列表
      */
     List<ProductStatisticsVO> dayAppend(ProductRequest request);
+
+    /**
+     * 分页查询商品列表
+     *
+     * @param page 分页
+     * @param request 查询条件
+     * @return 基础信息
+     */
+    Page<BaseProductResponse> getProductPage(Page<BaseProductResponse> page, @Param("param") BaseProductQueryRequest request);
 }

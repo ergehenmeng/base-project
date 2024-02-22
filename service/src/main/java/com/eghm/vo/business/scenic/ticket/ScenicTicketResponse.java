@@ -1,7 +1,6 @@
 package com.eghm.vo.business.scenic.ticket;
 
 import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -62,9 +61,6 @@ public class ScenicTicketResponse {
 
     @ApiModelProperty(value = "核销方式 1:手动核销 2:自动核销 (凌晨自动核销)")
     private Integer verificationType;
-
-    @ApiModelProperty(value = "退款方式 0:不支持退款 1:直接退款 2: 审核后退款")
-    private RefundType refundType;
 
     @ApiModelProperty(value = "是否实名购票 false:不实名 true:实名")
     private Boolean realBuy;

@@ -1,11 +1,13 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.venue.VenueSiteAddRequest;
 import com.eghm.dto.business.venue.VenueSiteEditRequest;
 import com.eghm.dto.business.venue.VenueSiteQueryRequest;
 import com.eghm.enums.ref.State;
 import com.eghm.model.VenueSite;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.venue.VenueSiteResponse;
 import com.eghm.vo.business.venue.VenueSiteVO;
 
@@ -89,4 +91,12 @@ public interface VenueSiteService {
      * @return 场地信息
      */
     List<VenueSiteVO> getList(Long venueId);
+
+    /**
+     * 分页查询商品列表
+     *
+     * @param request 查询条件
+     * @return 基础信息
+     */
+    Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request);
 }

@@ -10,12 +10,15 @@ import com.eghm.dto.business.activity.*;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ActivityMapper;
+import com.eghm.mapper.ScenicMapper;
 import com.eghm.model.Activity;
+import com.eghm.model.Scenic;
 import com.eghm.service.business.ActivityService;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.activity.ActivityBaseDTO;
+import com.eghm.vo.business.activity.ActivityDetailResponse;
 import com.eghm.vo.business.activity.ActivityResponse;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
@@ -42,6 +45,8 @@ public class ActivityServiceImpl implements ActivityService {
     private final CommonService commonService;
 
     private final SysConfigApi sysConfigApi;
+
+    private final ScenicMapper scenicMapper;
 
     @Override
     public void create(ActivityConfigRequest request) {
@@ -102,6 +107,15 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public Activity selectById(Long id) {
         return activityMapper.selectById(id);
+    }
+
+    @Override
+    public ActivityDetailResponse getByDetail(Long id) {
+        Activity activity = this.selectByIdRequired(id);
+        ActivityDetailResponse response = DataUtil.copy(activity, ActivityDetailResponse.class);
+        Scenic scenic = scenicMapper.selectById(activity.getScenicId());
+        response.setScenicName(scenic.getScenicName());
+        return response;
     }
 
     @Override

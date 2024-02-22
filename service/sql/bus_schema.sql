@@ -1341,14 +1341,15 @@ DROP TABLE IF EXISTS venue_site;
 CREATE TABLE `venue_site`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
-    `title`       varchar(30) DEFAULT NULL COMMENT '场地名称',
-    `venue_id`    bigint(20)  DEFAULT NULL COMMENT '所属场馆',
-    `sort`        smallint(6) DEFAULT '999' COMMENT '排序',
-    `merchant_id` bigint(20)  DEFAULT NULL COMMENT '所属商户',
-    `state`       tinyint(1)  DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:强制下架',
-    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `title`       varchar(30)  DEFAULT NULL COMMENT '场地名称',
+    `cover_url`   varchar(200) DEFAULT NULL COMMENT '场地图片',
+    `venue_id`    bigint(20)   DEFAULT NULL COMMENT '所属场馆',
+    `sort`        smallint(6)  DEFAULT '999' COMMENT '排序',
+    `merchant_id` bigint(20)   DEFAULT NULL COMMENT '所属商户',
+    `state`       tinyint(1)   DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:强制下架',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='场地信息表';

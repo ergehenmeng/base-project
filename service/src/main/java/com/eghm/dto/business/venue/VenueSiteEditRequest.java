@@ -26,6 +26,10 @@ public class VenueSiteEditRequest {
     @WordChecker(message = "场地名称存在敏感词")
     private String title;
 
+    @ApiModelProperty(value = "场地封面图片", required = true)
+    @NotBlank(message = "场地封面图片不能为空")
+    private String coverUrl;
+
     @ApiModelProperty(value = "所属场馆", required = true)
     @NotNull(message = "请选择所属场馆")
     private Long venueId;

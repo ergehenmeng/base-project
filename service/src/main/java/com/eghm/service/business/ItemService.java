@@ -1,13 +1,16 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.item.*;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Item;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.item.*;
 import com.eghm.vo.business.item.express.TotalExpressVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -267,4 +270,12 @@ public interface ItemService {
      * @param jsonValue 拼团价格json
      */
     void setGroupSkuPrice(List<ItemSkuVO> skuList, String jsonValue);
+
+    /**
+     * 分页查询商品列表
+     *
+     * @param request 查询条件
+     * @return 基础信息
+     */
+    Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request);
 }

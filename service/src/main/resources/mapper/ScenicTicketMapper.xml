@@ -17,7 +17,6 @@
         t.end_date,
         t.stock,
         t.verification_type,
-        t.refund_type,
         t.real_buy,
         r.scenic_name
         from scenic_ticket t
@@ -74,4 +73,26 @@
         group by create_date
     </select>
 
+    <select id="getProductPage" parameterType="com.eghm.dto.business.base.BaseProductQueryRequest" resultType="com.eghm.vo.business.base.BaseProductResponse">
+        select
+        t.id,
+        t.title,
+        t.cover_url,
+        'ticket' as productType,
+        t.state,
+        r.scenic_name as storeName
+        from scenic_ticket t inner join scenic r on t.scenic_id = r.id
+        where t.deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and (t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
+            or r.scenic_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%'))
+        </if>
+        <if test="param.state != null">
+            and t.state = #{param.state}
+        </if>
+        <if test="param.merchantId != null">
+            and t.merchant_id = #{param.merchantId}
+        </if>
+        order by t.id desc
+    </select>
 </mapper>

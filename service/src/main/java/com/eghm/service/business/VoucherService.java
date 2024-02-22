@@ -1,12 +1,14 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.restaurant.voucher.VoucherAddRequest;
 import com.eghm.dto.business.restaurant.voucher.VoucherEditRequest;
 import com.eghm.dto.business.restaurant.voucher.VoucherQueryDTO;
 import com.eghm.dto.business.restaurant.voucher.VoucherQueryRequest;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Voucher;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.restaurant.VoucherDetailVO;
 import com.eghm.vo.business.restaurant.VoucherResponse;
 import com.eghm.vo.business.restaurant.VoucherVO;
@@ -111,4 +113,13 @@ public interface VoucherService {
      * @return 详细信息
      */
     VoucherDetailVO getDetail(Long id);
+
+    /**
+     * 分页查询商品列表
+     *
+     * @param request 查询条件
+     * @return 基础信息
+     */
+    Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request);
+
 }

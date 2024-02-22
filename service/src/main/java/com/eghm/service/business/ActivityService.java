@@ -3,6 +3,7 @@ package com.eghm.service.business;
 import com.eghm.dto.business.activity.*;
 import com.eghm.model.Activity;
 import com.eghm.vo.business.activity.ActivityBaseDTO;
+import com.eghm.vo.business.activity.ActivityDetailResponse;
 import com.eghm.vo.business.activity.ActivityResponse;
 
 import java.util.List;
@@ -49,6 +50,14 @@ public interface ActivityService {
      * @return 活动
      */
     Activity selectById(Long id);
+
+    /**
+     * 查询活动详情
+     *
+     * @param id id
+     * @return 活动详情
+     */
+    ActivityDetailResponse getByDetail(Long id);
 
     /**
      * 主键查询活动 如果为空则抛异常

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.restaurant.voucher.VoucherAddRequest;
 import com.eghm.dto.business.restaurant.voucher.VoucherEditRequest;
 import com.eghm.dto.business.restaurant.voucher.VoucherQueryDTO;
@@ -18,6 +19,7 @@ import com.eghm.model.Voucher;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.VoucherService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.restaurant.VoucherDetailVO;
 import com.eghm.vo.business.restaurant.VoucherResponse;
 import com.eghm.vo.business.restaurant.VoucherVO;
@@ -143,6 +145,11 @@ public class VoucherServiceImpl implements VoucherService {
     public VoucherDetailVO getDetail(Long id) {
         Voucher voucher = this.selectByIdShelve(id);
         return DataUtil.copy(voucher, VoucherDetailVO.class);
+    }
+
+    @Override
+    public Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request) {
+        return voucherMapper.getProductPage(request.createPage(), request);
     }
 
     /**

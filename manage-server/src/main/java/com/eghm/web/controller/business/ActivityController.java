@@ -3,8 +3,8 @@ package com.eghm.web.controller.business;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.activity.*;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.model.Activity;
 import com.eghm.service.business.ActivityService;
+import com.eghm.vo.business.activity.ActivityDetailResponse;
 import com.eghm.vo.business.activity.ActivityResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -56,9 +56,9 @@ public class ActivityController {
 
     @GetMapping("/select")
     @ApiOperation("查询活动")
-    public RespBody<Activity> select(@Validated IdDTO dto) {
-        Activity activity = activityService.selectById(dto.getId());
-        return RespBody.success(activity);
+    public RespBody<ActivityDetailResponse> select(@Validated IdDTO dto) {
+        ActivityDetailResponse response = activityService.getByDetail(dto.getId());
+        return RespBody.success(response);
     }
 
     @PostMapping("/delete")

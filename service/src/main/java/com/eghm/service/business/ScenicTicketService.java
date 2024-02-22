@@ -1,12 +1,14 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketAddRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketEditRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.ScenicTicket;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
 import com.eghm.vo.business.scenic.ticket.TicketVO;
 
@@ -91,4 +93,11 @@ public interface ScenicTicketService {
      */
     void updateScore(CalcStatistics vo);
 
+    /**
+     * 分页查询商品列表
+     *
+     * @param request 查询条件
+     * @return 基础信息
+     */
+    Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request);
 }

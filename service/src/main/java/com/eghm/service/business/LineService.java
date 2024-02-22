@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.line.LineAddRequest;
 import com.eghm.dto.business.line.LineEditRequest;
 import com.eghm.dto.business.line.LineQueryDTO;
@@ -8,6 +9,7 @@ import com.eghm.dto.business.line.LineQueryRequest;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Line;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.line.LineDetailVO;
 import com.eghm.vo.business.line.LineResponse;
 import com.eghm.vo.business.line.LineVO;
@@ -111,4 +113,12 @@ public interface LineService {
      * @param vo 线路id和旅行社id
      */
     void updateScore(CalcStatistics vo);
+
+    /**
+     * 分页查询商品列表
+     *
+     * @param request 查询条件
+     * @return 基础信息
+     */
+    Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request);
 }

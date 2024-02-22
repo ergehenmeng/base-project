@@ -2,9 +2,11 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.model.ScenicTicket;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
 import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import com.eghm.vo.business.scenic.ticket.TicketPriceVO;
@@ -72,4 +74,13 @@ public interface ScenicTicketMapper extends BaseMapper<ScenicTicket> {
      * @return 列表
      */
     List<ProductStatisticsVO> dayAppend(ProductRequest request);
+
+    /**
+     * 分页查询商品列表
+     *
+     * @param page 分页
+     * @param request 查询条件
+     * @return 基础信息
+     */
+    Page<BaseProductResponse> getProductPage(Page<BaseProductResponse> page, @Param("param") BaseProductQueryRequest request);
 }

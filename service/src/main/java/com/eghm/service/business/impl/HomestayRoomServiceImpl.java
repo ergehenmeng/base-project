@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.homestay.room.HomestayRoomAddRequest;
 import com.eghm.dto.business.homestay.room.HomestayRoomEditRequest;
 import com.eghm.dto.business.homestay.room.HomestayRoomQueryDTO;
@@ -20,6 +21,7 @@ import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.HomestayRoomService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.homestay.room.HomestayRoomListVO;
 import com.eghm.vo.business.homestay.room.HomestayRoomResponse;
 import com.eghm.vo.business.homestay.room.HomestayRoomVO;
@@ -146,6 +148,11 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
         HomestayRoomVO vo = DataUtil.copy(room, HomestayRoomVO.class);
         vo.setMinPrice(homestayRoomConfigService.getRoomMinPrice(roomId));
         return vo;
+    }
+
+    @Override
+    public Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request) {
+        return homestayRoomMapper.getProductPage(request.createPage(), request);
     }
 
     /**

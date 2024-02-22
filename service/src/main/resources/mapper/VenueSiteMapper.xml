@@ -23,4 +23,28 @@
         </if>
         order by t.sort
     </select>
+
+    <select id="getProductPage" parameterType="com.eghm.dto.business.base.BaseProductQueryRequest" resultType="com.eghm.vo.business.base.BaseProductResponse">
+        select
+        t.id,
+        t.title,
+        t.cover_url,
+        'venue' as productType,
+        t.state,
+        r.title as storeName
+        from venue_site t inner join venue r on t.venue_id = r.id
+        where t.deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and (t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
+            or r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%'))
+        </if>
+        <if test="param.state != null">
+            and t.state = #{param.state}
+        </if>
+        <if test="param.merchantId != null">
+            and t.merchant_id = #{param.merchantId}
+        </if>
+        order by t.id desc
+    </select>
+
 </mapper>

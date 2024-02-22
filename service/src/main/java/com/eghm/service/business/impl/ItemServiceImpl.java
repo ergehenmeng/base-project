@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.item.*;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
@@ -31,6 +32,7 @@ import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.evaluation.ApplauseRateVO;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
 import com.eghm.vo.business.item.*;
@@ -442,6 +444,11 @@ public class ItemServiceImpl implements ItemService {
                 vo.setGroupPrice(vo.getSalePrice());
             }
         });
+    }
+
+    @Override
+    public Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request) {
+        return itemMapper.getProductPage(request.createPage(), request);
     }
 
     /**

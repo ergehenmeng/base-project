@@ -2,11 +2,13 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.item.ItemCouponQueryDTO;
 import com.eghm.dto.business.item.ItemQueryDTO;
 import com.eghm.dto.business.item.ItemQueryRequest;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.model.Item;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.item.ActivityItemResponse;
 import com.eghm.vo.business.item.ItemDetailVO;
 import com.eghm.vo.business.item.ItemResponse;
@@ -109,6 +111,15 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @return 商品信息
      */
     List<ItemVO> getList(@Param("itemIds") List<Long> itemIds);
+
+    /**
+     * 分页查询商品列表
+     *
+     * @param page 分页
+     * @param request 查询条件
+     * @return 基础信息
+     */
+    Page<BaseProductResponse> getProductPage(Page<BaseProductResponse> page, @Param("param") BaseProductQueryRequest request);
 
     /**
      * 新增商品列表

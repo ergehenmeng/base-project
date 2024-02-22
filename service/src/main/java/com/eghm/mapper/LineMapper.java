@@ -2,10 +2,12 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.line.LineQueryDTO;
 import com.eghm.dto.business.line.LineQueryRequest;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.model.Line;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.line.LineDetailVO;
 import com.eghm.vo.business.line.LineResponse;
 import com.eghm.vo.business.line.LineVO;
@@ -74,4 +76,13 @@ public interface LineMapper extends BaseMapper<Line> {
      * @return 列表
      */
     List<ProductStatisticsVO> dayAppend(ProductRequest request);
+
+    /**
+     * 分页查询商品列表
+     *
+     * @param page 分页
+     * @param request 查询条件
+     * @return 基础信息
+     */
+    Page<BaseProductResponse> getProductPage(Page<BaseProductResponse> page, @Param("param") BaseProductQueryRequest request);
 }

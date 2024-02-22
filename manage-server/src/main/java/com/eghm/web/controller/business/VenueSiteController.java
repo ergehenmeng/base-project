@@ -34,7 +34,7 @@ public class VenueSiteController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<VenueSiteResponse>> listPage(VenueSiteQueryRequest request) {
+    public RespBody<PageData<VenueSiteResponse>> listPage(@Validated VenueSiteQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VenueSiteResponse> byPage = venueSiteService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketAddRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketEditRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
@@ -23,6 +24,7 @@ import com.eghm.service.business.ScenicService;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
 import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
 import com.eghm.vo.business.scenic.ticket.TicketVO;
@@ -143,6 +145,11 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
             return;
         }
         scenicTicketMapper.updateScore(vo.getProductId(), DecimalUtil.calcAvgScore(score.getTotalScore(), score.getNum()));
+    }
+
+    @Override
+    public Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request) {
+        return scenicTicketMapper.getProductPage(request.createPage(), request);
     }
 
     /**

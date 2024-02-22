@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.venue.VenueSiteAddRequest;
 import com.eghm.dto.business.venue.VenueSiteEditRequest;
 import com.eghm.dto.business.venue.VenueSiteQueryRequest;
@@ -16,6 +17,7 @@ import com.eghm.model.VenueSite;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.VenueSiteService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.venue.VenueSiteResponse;
 import com.eghm.vo.business.venue.VenueSiteVO;
 import lombok.AllArgsConstructor;
@@ -125,6 +127,11 @@ public class VenueSiteServiceImpl implements VenueSiteService {
         wrapper.orderByDesc(VenueSite::getSort);
         List<VenueSite> list = venueSiteMapper.selectList(wrapper);
         return DataUtil.copy(list, VenueSiteVO.class);
+    }
+
+    @Override
+    public Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request) {
+        return venueSiteMapper.getProductPage(request.createPage(), request);
     }
 
     /**

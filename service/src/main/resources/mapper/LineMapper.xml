@@ -138,4 +138,27 @@
         group by create_date
     </select>
 
+    <select id="getProductPage" parameterType="com.eghm.dto.business.base.BaseProductQueryRequest" resultType="com.eghm.vo.business.base.BaseProductResponse">
+        select
+        t.id,
+        t.title,
+        t.cover_url,
+        'line' as productType,
+        t.state,
+        r.title as storeName
+        from line t inner join travel_agency r on t.travel_agency_id = r.id
+        where t.deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and (t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
+            or r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%'))
+        </if>
+        <if test="param.state != null">
+            and t.state = #{param.state}
+        </if>
+        <if test="param.merchantId != null">
+            and t.merchant_id = #{param.merchantId}
+        </if>
+        order by t.id desc
+    </select>
+
 </mapper>

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.line.LineAddRequest;
 import com.eghm.dto.business.line.LineEditRequest;
 import com.eghm.dto.business.line.LineQueryDTO;
@@ -25,6 +26,7 @@ import com.eghm.service.business.*;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
 import com.eghm.vo.business.line.LineDayConfigResponse;
 import com.eghm.vo.business.line.LineDetailVO;
@@ -189,6 +191,11 @@ public class LineServiceImpl implements LineService {
             return;
         }
         lineMapper.updateScore(vo.getProductId(), DecimalUtil.calcAvgScore(productScore.getTotalScore(), productScore.getNum()));
+    }
+
+    @Override
+    public Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request) {
+        return lineMapper.getProductPage(request.createPage(), request);
     }
 
     /**

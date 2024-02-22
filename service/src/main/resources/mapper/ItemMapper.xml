@@ -212,6 +212,29 @@
         </foreach>
     </select>
 
+    <select id="getProductPage" parameterType="com.eghm.dto.business.base.BaseProductQueryRequest" resultType="com.eghm.vo.business.base.BaseProductResponse">
+        select
+        t.id,
+        t.title,
+        t.cover_url,
+        'item' as productType,
+        t.state,
+        r.title as storeName
+        from item t inner join item_store r on t.store_id = r.id
+        where t.deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and (t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
+                 or r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%'))
+        </if>
+        <if test="param.state != null">
+            and t.state = #{param.state}
+        </if>
+        <if test="param.merchantId != null">
+            and t.merchant_id = #{param.merchantId}
+        </if>
+        order by t.id desc
+    </select>
+
     <select id="dayAppend" parameterType="com.eghm.dto.statistics.ProductRequest"  resultType="com.eghm.vo.business.statistics.ProductStatisticsVO">
         select
             create_date as createDate,

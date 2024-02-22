@@ -19,6 +19,9 @@ import lombok.EqualsAndHashCode;
 @TableName("venue_site")
 public class VenueSite extends BaseEntity {
 
+    @ApiModelProperty(value = "场地封面图片")
+    private String coverUrl;
+
     @ApiModelProperty(value = "场地名称")
     private String title;
 
