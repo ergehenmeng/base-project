@@ -31,9 +31,9 @@ import java.util.List;
 @RequestMapping("/webapp/lottery")
 public class LotteryController {
 
-    private final LotteryService lotteryService;
-
     private final RedisLock redisLock;
+
+    private final LotteryService lotteryService;
 
     @GetMapping("/list")
     @ApiOperation("抽奖列表")

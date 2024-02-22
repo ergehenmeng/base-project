@@ -2,6 +2,7 @@ package com.eghm.vo.business.item.store;
 
 import com.eghm.convertor.NumberParseEncoder;
 import com.eghm.vo.business.item.ItemVO;
+import com.eghm.vo.business.lottery.LotteryVO;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -53,4 +54,6 @@ public class ItemStoreHomeVO {
     @ApiModelProperty("推荐商品列表")
     private List<ItemVO> itemList;
 
+    @ApiModelProperty("抽奖列表")
+    List<LotteryVO> lotteryList;
 }

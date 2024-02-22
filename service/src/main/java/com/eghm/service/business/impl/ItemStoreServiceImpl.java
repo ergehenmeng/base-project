@@ -20,12 +20,14 @@ import com.eghm.mapper.ItemStoreMapper;
 import com.eghm.model.ItemStore;
 import com.eghm.model.Merchant;
 import com.eghm.service.business.*;
+import com.eghm.service.business.lottery.LotteryService;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.item.store.ItemStoreHomeVO;
 import com.eghm.vo.business.item.store.ItemStoreVO;
+import com.eghm.vo.business.lottery.LotteryVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -46,17 +48,19 @@ import static com.eghm.constant.CacheConstant.MEMBER_COLLECT;
 @Slf4j
 public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitService {
 
-    private final ItemStoreMapper itemStoreMapper;
-
     private final ItemService itemService;
 
     private final SysConfigApi sysConfigApi;
 
+    private final CacheService cacheService;
+
     private final CommonService commonService;
 
-    private final MemberCollectService memberCollectService;
+    private final LotteryService lotteryService;
 
-    private final CacheService cacheService;
+    private final ItemStoreMapper itemStoreMapper;
+
+    private final MemberCollectService memberCollectService;
 
     @Override
     public Page<ItemStore> getByPage(ItemStoreQueryRequest request) {
@@ -137,6 +141,8 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         vo.setCollect(memberCollectService.checkCollect(id, CollectType.ITEM_STORE));
         String key = String.format(MEMBER_COLLECT, CollectType.ITEM_STORE.getName().toLowerCase(), id);
         vo.setCommentNum(cacheService.getHashSize(key));
+        List<LotteryVO> voList = lotteryService.getList(shop.getMerchantId(), id);
+        vo.setLotteryList(voList);
         return vo;
     }
 
