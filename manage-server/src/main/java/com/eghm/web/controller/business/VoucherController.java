@@ -35,21 +35,21 @@ public class VoucherController {
     private final VoucherService voucherService;
 
     @GetMapping("/listPage")
-    @ApiOperation("餐饮券列表")
+    @ApiOperation("列表")
     public RespBody<PageData<Voucher>> listPage(VoucherQueryRequest request) {
         Page<Voucher> roomPage = voucherService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
     }
 
     @PostMapping("/create")
-    @ApiOperation("新增餐饮券")
+    @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody VoucherAddRequest request) {
         voucherService.create(request);
         return RespBody.success();
     }
 
     @PostMapping("/update")
-    @ApiOperation("更新餐饮券")
+    @ApiOperation("更新")
     public RespBody<Void> update(@Validated @RequestBody VoucherEditRequest request) {
         voucherService.update(request);
         return RespBody.success();
@@ -77,14 +77,14 @@ public class VoucherController {
     }
 
     @GetMapping("/select")
-    @ApiOperation("餐饮券详情")
+    @ApiOperation("详情")
     public RespBody<Voucher> select(@Validated IdDTO dto) {
         Voucher voucher = voucherService.selectByIdRequired(dto.getId());
         return RespBody.success(voucher);
     }
 
     @PostMapping("/delete")
-    @ApiOperation("删除商品")
+    @ApiOperation("删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         voucherService.deleteById(dto.getId());
         return RespBody.success();
