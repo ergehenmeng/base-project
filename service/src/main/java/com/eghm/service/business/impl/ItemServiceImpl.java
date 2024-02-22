@@ -39,7 +39,6 @@ import com.eghm.vo.business.item.*;
 import com.eghm.vo.business.item.express.ItemExpressVO;
 import com.eghm.vo.business.item.express.StoreExpressVO;
 import com.eghm.vo.business.item.express.TotalExpressVO;
-import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -150,7 +149,7 @@ public class ItemServiceImpl implements ItemService {
             LinkedHashMap<String, List<ItemSpecResponse>> specMap = specList.stream().collect(Collectors.groupingBy(ItemSpecResponse::getSpecName, LinkedHashMap::new, Collectors.toList()));
             response.setSpecMap(specMap);
         }
-        List<ItemSku> skuList = itemSkuService.getByItemId(itemId);
+        List<ItemSku> skuList = itemSkuService.getSkuList(itemId);
         response.setSkuList(DataUtil.copy(skuList, ItemSkuResponse.class));
         return response;
     }
@@ -401,12 +400,10 @@ public class ItemServiceImpl implements ItemService {
         detail.setCommentNum(vo.getCommentNum());
         detail.setRate(vo.getRate());
 
-        List<ItemSku> skuList = itemSkuService.getByItemId(id);
+        List<ItemSkuVO> skuList = itemSkuService.getByItemId(id);
+        detail.setSkuList(skuList);
         if (Boolean.TRUE.equals(detail.getMultiSpec())) {
             detail.setSpecList(this.getSpecList(id));
-            detail.setSkuList(DataUtil.copy(skuList, ItemSkuVO.class));
-        } else {
-            detail.setSkuList(Lists.newArrayList(DataUtil.copy(skuList.get(0), ItemSkuVO.class)));
         }
         // 限时购商品设置限时购价格
         this.setLimitPurchase(detail);

@@ -3,6 +3,7 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.line.LineAddRequest;
 import com.eghm.dto.business.line.LineEditRequest;
 import com.eghm.dto.business.line.LineQueryRequest;
@@ -15,6 +16,7 @@ import com.eghm.service.business.LineDayConfigService;
 import com.eghm.service.business.LineService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.ExcelUtil;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.line.LineDayConfigResponse;
 import com.eghm.vo.business.line.LineDetailResponse;
 import com.eghm.vo.business.line.LineResponse;
@@ -47,6 +49,14 @@ public class LineController {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<LineResponse> scenicPage = lineService.getByPage(request);
         return RespBody.success(PageData.toPage(scenicPage));
+    }
+
+    @GetMapping("/productListPage")
+    @ApiOperation("列表含店铺信息")
+    public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        Page<BaseProductResponse> listPage = lineService.getProductPage(request);
+        return RespBody.success(PageData.toPage(listPage));
     }
 
     @ApiOperation("创建线路")

@@ -12,6 +12,7 @@ import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.item.ItemSkuVO;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -69,7 +70,13 @@ public class ItemSkuServiceImpl implements ItemSkuService {
     }
 
     @Override
-    public List<ItemSku> getByItemId(Long itemId) {
+    public List<ItemSkuVO> getByItemId(Long itemId) {
+        List<ItemSku> skuList = this.getSkuList(itemId);
+        return DataUtil.copy(skuList, ItemSkuVO.class);
+    }
+
+    @Override
+    public List<ItemSku> getSkuList(Long itemId) {
         LambdaQueryWrapper<ItemSku> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ItemSku::getItemId, itemId);
         return itemSkuMapper.selectList(wrapper);

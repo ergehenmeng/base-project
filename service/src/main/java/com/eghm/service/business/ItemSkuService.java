@@ -3,6 +3,7 @@ package com.eghm.service.business;
 import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
+import com.eghm.vo.business.item.ItemSkuVO;
 
 import java.util.List;
 import java.util.Map;
@@ -38,7 +39,15 @@ public interface ItemSkuService {
      * @param itemId 商品id
      * @return sku列表
      */
-    List<ItemSku> getByItemId(Long itemId);
+    List<ItemSkuVO> getByItemId(Long itemId);
+
+    /**
+     * 根据商品id查询sku信息
+     *
+     * @param itemId 商品id
+     * @return sku列表
+     */
+    List<ItemSku> getSkuList(Long itemId);
 
     /**
      * 主键查询商品规格信息(不存在则异常)

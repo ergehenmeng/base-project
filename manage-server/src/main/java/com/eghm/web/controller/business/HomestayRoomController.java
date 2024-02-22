@@ -3,6 +3,7 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.homestay.room.HomestayRoomAddRequest;
 import com.eghm.dto.business.homestay.room.HomestayRoomEditRequest;
 import com.eghm.dto.business.homestay.room.HomestayRoomQueryRequest;
@@ -12,6 +13,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.model.HomestayRoom;
 import com.eghm.service.business.HomestayRoomService;
 import com.eghm.utils.ExcelUtil;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.homestay.room.HomestayRoomResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -39,6 +41,14 @@ public class HomestayRoomController {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<HomestayRoomResponse> roomPage = homestayRoomService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
+    }
+
+    @GetMapping("/productListPage")
+    @ApiOperation("列表含店铺信息")
+    public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        Page<BaseProductResponse> listPage = homestayRoomService.getProductPage(request);
+        return RespBody.success(PageData.toPage(listPage));
     }
 
     @PostMapping("/create")

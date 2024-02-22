@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.SortByDTO;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.item.ItemAddRequest;
 import com.eghm.dto.business.item.ItemEditRequest;
 import com.eghm.dto.business.item.ItemQueryRequest;
@@ -11,10 +12,13 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.service.business.ItemService;
+import com.eghm.service.business.ItemSkuService;
 import com.eghm.utils.ExcelUtil;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.item.ActivityItemResponse;
 import com.eghm.vo.business.item.ItemDetailResponse;
 import com.eghm.vo.business.item.ItemResponse;
+import com.eghm.vo.business.item.ItemSkuVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -37,12 +41,22 @@ public class ItemController {
 
     private final ItemService itemService;
 
+    private final ItemSkuService itemSkuService;
+
     @GetMapping("/listPage")
     @ApiOperation("商品列表")
     public RespBody<PageData<ItemResponse>> listPage(ItemQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ItemResponse> byPage = itemService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
+    }
+
+    @GetMapping("/productListPage")
+    @ApiOperation("列表含店铺信息")
+    public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        Page<BaseProductResponse> listPage = itemService.getProductPage(request);
+        return RespBody.success(PageData.toPage(listPage));
     }
 
     @PostMapping("/create")
@@ -122,4 +136,12 @@ public class ItemController {
         List<ItemResponse> byPage = itemService.getList(request);
         ExcelUtil.export(response, "零售信息", byPage, ItemResponse.class);
     }
+
+    @GetMapping("/skuList")
+    @ApiOperation("规格列表")
+    public RespBody<List<ItemSkuVO>> skuList(@Validated IdDTO dto) {
+        List<ItemSkuVO> voList = itemSkuService.getByItemId(dto.getId());
+        return RespBody.success(voList);
+    }
+
 }

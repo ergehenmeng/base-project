@@ -10,7 +10,6 @@ import com.eghm.model.Item;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.item.*;
 import com.eghm.vo.business.item.express.TotalExpressVO;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;

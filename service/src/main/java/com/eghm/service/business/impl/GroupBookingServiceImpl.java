@@ -146,8 +146,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         GroupBookingDetailResponse response = DataUtil.copy(booking, GroupBookingDetailResponse.class);
         response.setCoverUrl(item.getCoverUrl());
         response.setItemName(item.getTitle());
-        List<ItemSku> itemSkuList = itemSkuService.getByItemId(booking.getItemId());
-        List<ItemSkuVO> voList = DataUtil.copy(itemSkuList, ItemSkuVO.class);
+        List<ItemSkuVO> voList = itemSkuService.getByItemId(booking.getItemId());
         itemService.setGroupSkuPrice(voList, booking.getSkuValue());
         return response;
     }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.SortByDTO;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.venue.VenueSiteAddRequest;
 import com.eghm.dto.business.venue.VenueSiteEditRequest;
 import com.eghm.dto.business.venue.VenueSiteQueryRequest;
@@ -12,6 +13,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.VenueSite;
 import com.eghm.service.business.VenueSiteService;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.venue.VenueSiteResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,6 +40,14 @@ public class VenueSiteController {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VenueSiteResponse> byPage = venueSiteService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
+    }
+
+    @GetMapping("/productListPage")
+    @ApiOperation("列表含店铺信息")
+    public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        Page<BaseProductResponse> listPage = venueSiteService.getProductPage(request);
+        return RespBody.success(PageData.toPage(listPage));
     }
 
     @PostMapping("/create")

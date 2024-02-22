@@ -3,6 +3,7 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketAddRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketEditRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
@@ -11,6 +12,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.ScenicTicket;
 import com.eghm.service.business.ScenicTicketService;
+import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,6 +38,14 @@ public class ScenicTicketController {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ScenicTicketResponse> responsePage = scenicTicketService.getByPage(request);
         return RespBody.success(PageData.toPage(responsePage));
+    }
+
+    @GetMapping("/productListPage")
+    @ApiOperation("列表含店铺信息")
+    public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        Page<BaseProductResponse> listPage = scenicTicketService.getProductPage(request);
+        return RespBody.success(PageData.toPage(listPage));
     }
 
     @PostMapping("/create")
