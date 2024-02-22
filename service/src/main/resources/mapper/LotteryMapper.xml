@@ -21,4 +21,18 @@
         </if>
         order by state asc, id desc
     </select>
+
+    <select id="getList" resultType="com.eghm.vo.business.lottery.LotteryVO">
+        select
+            id,
+            title,
+            banner_url
+        from lottery
+        where deleted = false and merchant_id = #{merchantId}
+        and now() &lt; end_time
+        <if test="storeId != null">
+            and store_id = #{storeId}
+        </if>
+        order by state desc
+    </select>
 </mapper>

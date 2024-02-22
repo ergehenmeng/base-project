@@ -5,9 +5,9 @@ import com.eghm.dto.business.lottery.LotteryAddRequest;
 import com.eghm.dto.business.lottery.LotteryEditRequest;
 import com.eghm.dto.business.lottery.LotteryQueryRequest;
 import com.eghm.model.Lottery;
-import com.eghm.vo.business.lottery.LotteryDetailResponse;
-import com.eghm.vo.business.lottery.LotteryResponse;
-import com.eghm.vo.business.lottery.LotteryResultVO;
+import com.eghm.vo.business.lottery.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -66,10 +66,29 @@ public interface LotteryService {
     Lottery selectByIdRequired(Long lotteryId);
 
     /**
-     * 查询抽奖详情信息
+     * 查询抽奖详情信息 (管理后台)
      *
      * @param lotteryId 抽奖配置ID
      * @return response
      */
     LotteryDetailResponse getDetailById(Long lotteryId);
+
+    /**
+     * 查询抽奖列表
+     *
+     * @param merchantId 商户id
+     * @param storeId 店铺id
+     * @return 列表
+     */
+    List<LotteryVO> getList(Long merchantId, Long storeId);
+
+    /**
+     * 查询抽奖详情信息 移动端
+     *
+     * @param lotteryId 抽奖id
+     * @param memberId  会员id
+     * @return  详细信息
+     */
+    LotteryDetailVO detail(Long lotteryId, Long memberId);
+
 }

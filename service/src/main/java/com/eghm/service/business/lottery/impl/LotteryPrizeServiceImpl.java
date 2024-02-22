@@ -11,6 +11,7 @@ import com.eghm.mapper.LotteryPrizeMapper;
 import com.eghm.model.LotteryPrize;
 import com.eghm.service.business.lottery.LotteryPrizeService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.lottery.LotteryPrizeVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RSemaphore;
@@ -74,6 +75,11 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
     @Override
     public LotteryPrize selectById(Long id) {
         return lotteryPrizeMapper.selectById(id);
+    }
+
+    @Override
+    public List<LotteryPrizeVO> getPrizeList(Long lotteryId) {
+        return lotteryPrizeMapper.getPrizeList(lotteryId);
     }
 
     @Override

@@ -1814,6 +1814,11 @@ public enum ErrorCode {
     PRIZE_WIN_ERROR(3939, "中奖数量更新失败"),
 
     /**
+     * 抽奖活动已经结束啦
+     */
+    LOTTERY_CONFIG_NULL(3942, "抽奖活动已经结束啦"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

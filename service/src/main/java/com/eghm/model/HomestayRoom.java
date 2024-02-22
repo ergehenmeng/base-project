@@ -1,7 +1,6 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.enums.ref.ConfirmState;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import io.swagger.annotations.ApiModelProperty;

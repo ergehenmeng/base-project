@@ -2,7 +2,10 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.model.LotteryPrize;
+import com.eghm.vo.business.lottery.LotteryPrizeVO;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -21,4 +24,12 @@ public interface LotteryPrizeMapper extends BaseMapper<LotteryPrize> {
      * @return 1
      */
     int accumulationLotteryNum(@Param("id") Long id);
+
+    /**
+     * 获取奖品列表
+     *
+     * @param lotteryId id
+     * @return 奖品信息
+     */
+    List<LotteryPrizeVO> getPrizeList(@Param("lotteryId") Long lotteryId);
 }

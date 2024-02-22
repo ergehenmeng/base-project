@@ -2,6 +2,7 @@ package com.eghm.service.business.lottery;
 
 import com.eghm.dto.business.lottery.LotteryPrizeRequest;
 import com.eghm.model.LotteryPrize;
+import com.eghm.vo.business.lottery.LotteryPrizeVO;
 
 import java.util.List;
 
@@ -48,6 +49,14 @@ public interface LotteryPrizeService {
      * @return 奖品信息
      */
     LotteryPrize selectById(Long id);
+
+    /**
+     * 查询奖品信息
+     *
+     * @param lotteryId 配置id
+     * @return 奖品配置列表
+     */
+    List<LotteryPrizeVO> getPrizeList(Long lotteryId);
 
     /**
      * 更新抽奖中奖次数

@@ -148,6 +148,30 @@ public class LotteryServiceImpl implements LotteryService {
         return response;
     }
 
+    @Override
+    public List<LotteryVO> getList(Long merchantId, Long storeId) {
+        return lotteryMapper.getList(merchantId, storeId);
+    }
+
+    @Override
+    public LotteryDetailVO detail(Long lotteryId, Long memberId) {
+        Lottery lottery = this.selectByIdRequired(lotteryId);
+        LocalDateTime now = LocalDateTime.now();
+        if (now.isAfter(lottery.getEndTime()) && lottery.getState() != LotteryState.END) {
+            lottery.setState(LotteryState.END);
+            lotteryMapper.updateById(lottery);
+        }
+        LocalDateTime startTime = LocalDateTimeUtil.beginOfDay(now);
+        LocalDateTime endTime = LocalDateTimeUtil.endOfDay(now);
+        long countLottery = lotteryLogService.countLottery(lottery.getId(), memberId, startTime, endTime);
+
+        List<LotteryPrizeVO> prizeList = lotteryPrizeService.getPrizeList(lotteryId);
+        LotteryDetailVO vo = DataUtil.copy(lottery, LotteryDetailVO.class);
+        vo.setLotteryNum(countLottery);
+        vo.setPrizeList(prizeList);
+        return vo;
+    }
+
     /**
      * 发放奖品
      *
