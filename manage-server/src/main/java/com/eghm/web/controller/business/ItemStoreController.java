@@ -96,4 +96,10 @@ public class ItemStoreController {
         return RespBody.success();
     }
 
+    @PostMapping("/delete")
+    @ApiOperation("删除")
+    public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
+        itemStoreService.deleteById(dto.getId());
+        return RespBody.success();
+    }
 }

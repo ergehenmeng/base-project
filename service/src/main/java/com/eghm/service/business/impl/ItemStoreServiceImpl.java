@@ -155,6 +155,17 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     }
 
     @Override
+    public void deleteById(Long id) {
+        LambdaUpdateWrapper<ItemStore> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(ItemStore::getId, id);
+        wrapper.set(ItemStore::getState, State.UN_SHELVE);
+        wrapper.set(ItemStore::getDeleted, true);
+        Long merchantId = SecurityHolder.getMerchantId();
+        wrapper.eq(merchantId != null, ItemStore::getMerchantId, merchantId);
+        itemStoreMapper.update(null, wrapper);
+    }
+
+    @Override
     public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
         return itemStoreMapper.getStorePage(request.createPage(), request);
     }

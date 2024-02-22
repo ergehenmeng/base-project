@@ -93,7 +93,7 @@ public interface RestaurantService {
     RestaurantDetailVO detailById(Long id);
 
     /**
-     * 逻辑删除
+     * 逻辑删除 (只有平台用户能操作)
      *
      * @param id id
      */

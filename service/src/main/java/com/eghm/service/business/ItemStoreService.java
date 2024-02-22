@@ -97,6 +97,13 @@ public interface ItemStoreService {
     void setRecommend(Long id);
 
     /**
+     * 逻辑删除 (只有平台用户能操作)
+     *
+     * @param id id
+     */
+    void deleteById(Long id);
+
+    /**
      * 分页查询列表(含商户信息)
      *
      * @param request 查询条件

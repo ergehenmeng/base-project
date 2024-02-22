@@ -150,7 +150,8 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         wrapper.eq(Restaurant::getId, id);
         wrapper.set(Restaurant::getState, State.UN_SHELVE);
         wrapper.set(Restaurant::getDeleted, true);
-        wrapper.eq(Restaurant::getMerchantId, SecurityHolder.getMerchantId());
+        Long merchantId = SecurityHolder.getMerchantId();
+        wrapper.eq(merchantId != null, Restaurant::getMerchantId, merchantId);
         restaurantMapper.update(null, wrapper);
     }
 

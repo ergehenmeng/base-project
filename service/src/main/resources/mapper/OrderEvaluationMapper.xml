@@ -64,7 +64,7 @@
             r.nick_name,
             r.avatar
         from order_evaluation t left join member r on t.member_id = r.id
-        where t.deleted = false and t.product_id = #{param.productId}
+        where t.deleted = false and t.state = 1 and t.product_id = #{param.productId}
         <choose>
             <when test="param.queryType == 1">
                 order by t.id desc
