@@ -16,10 +16,10 @@
         t.update_time
         from sys_user t
         left join sys_dept r on t.dept_code = r.code where t.deleted = false
-        <if test="request.queryName != null and request.queryName != ''">
+        <if test="param.queryName != null and param.queryName != ''">
             and (
-                t.nick_name like concat('%', #{request.queryName}, '%') or
-                t.mobile like concat('%', #{request.queryName}, '%')
+                t.nick_name like concat('%', #{param.queryName}, '%') or
+                t.mobile like concat('%', #{param.queryName}, '%')
             )
         </if>
         <if test="param.state != null">
