@@ -3616,8 +3616,6 @@ INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_t
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969415', '场馆商户', 'venue', '2024-02-19 15:22:58', '2024-02-19 15:24:53', b'0', NULL);
 
 
-INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `update_time`, `remark`) VALUES ('2', '门票支付处理中的订单处理', 'taskService', 'ticketPaying', NULL, '0 0/30 * * * ?', '664956140@qq.com', '0', '2022-08-08 19:51:42', NULL);
-
 INSERT INTO `member` (`id`, `avatar`, `mobile`, `mp_open_id`, `nick_name`, `email`, `pwd`, `state`, `real_name`, `id_card`, `birthday`, `invite_code`, `sex`, `score`, `channel`, `register_ip`, `create_time`, `update_time`, `deleted`) VALUES ('1', 'http://localhost:9002/cover.png', '13136113695', NULL, '二哥真的很猛', '664956140@qq.com', NULL, b'1', NULL, NULL, NULL, 'F', '2', '0', '0', '0', '2019-10-25 15:59:22', '2023-12-15 14:25:06', b'0');
 
 
@@ -5375,3 +5373,10 @@ INSERT INTO `sys_config` (`id`,`nid`,`title`,`content`,`locked`,`remark`,`create
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('69', 'redeem_code_scope', '兑换码商品使用范围', '[]', b'0', '格式: [{\"redeemCodeId\":\"兑换码配置ID\",\"productIds\":[商品ID,逗号分隔]}]', '2024-02-19 12:02:14', '2024-02-19 12:03:11');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('70', 'comment_report_shield', '评论自动屏蔽次数', '20', b'0', '超过该参数,评论自动屏蔽', '2024-02-20 17:56:11', '2024-02-20 17:56:11');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('71', 'venue_site_max_day', '场馆班次最大设置日期区间', '30', b'0', '默认设置不超过30天', '2024-02-23 16:45:28', '2024-02-23 16:45:43');
+
+
+INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `lock_time`, `update_time`, `remark`) VALUES ('2', '测试定时任务', 'testJobService', 'execute', NULL, '0 0/30 * * * ?', '664956140@qq.com', '0', '30000', '2024-02-23 17:26:41', NULL);
+INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `lock_time`, `update_time`, `remark`) VALUES ('3', '删除场馆历史价格信息', 'venueJobService', 'deleteSitePrice', '3', '0 0 8 * * ?', '664956140@qq.com', '1', '30000', '2024-02-23 17:28:16', '参数表示最多保留几天的数据');
+INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `lock_time`, `update_time`, `remark`) VALUES ('4', '门票凌晨自动核销', 'ticketJobService', 'verifyOrder', NULL, '1 0 0 * * ?', '664956140@qq.com', '1', '30000', '2024-02-23 17:27:37', '');
+INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `lock_time`, `update_time`, `remark`) VALUES ('5', '支付处理中的订单处理', 'orderJobService', 'payProcess', NULL, '0 1/2 * * * ?', '664956140@qq.com', '1', '30000', '2024-02-23 17:30:37', NULL);
+INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `lock_time`, `update_time`, `remark`) VALUES ('6', '退款处理中的订单处理', 'orderJobService', 'refundProcess', NULL, '0 0/2 * * * ?', '664956140@qq.com', '1', '30000', '2024-02-23 17:30:31', NULL);

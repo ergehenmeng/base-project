@@ -36,7 +36,7 @@ public class OrderJobService {
      */
     @CronMark
     public void payProcess(String param) {
-        LoggerUtil.print("订单支付中定时任务开始执行");
+        LoggerUtil.print("订单支付中定时任务开始执行 [{}]", param);
         List<Order> processList = orderService.getProcessList();
         for (Order order : processList) {
             PayNotifyContext context = new PayNotifyContext();
@@ -56,7 +56,7 @@ public class OrderJobService {
      */
     @CronMark
     public void refundProcess(String param) {
-        LoggerUtil.print("订单退款中定时任务开始执行");
+        LoggerUtil.print("订单退款中定时任务开始执行 [{}]", param);
         List<OrderRefund> refundList = orderRefundLogService.getRefundProcess();
         for (OrderRefund refund : refundList) {
             RefundNotifyContext context = new RefundNotifyContext();
