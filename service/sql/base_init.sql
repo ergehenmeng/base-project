@@ -3909,7 +3909,6 @@ INSERT INTO `sys_config` VALUES ('21', 'sms_type_interval', '同一类型短信�
 INSERT INTO `sys_config` VALUES ('25', 'notice_limit', '公告显示多少条', '5', b'0', '首页公告轮播条数', '2019-08-22 11:53:19', '2019-08-22 11:53:19');
 INSERT INTO `sys_config` VALUES ('27', 'file_server_address', '文件服务器地址', 'http://127.0.0.1:8080', b'0', NULL, '2019-08-28 17:25:14', '2019-11-15 16:44:51');
 INSERT INTO `sys_config` VALUES ('32', 'single_max_file_size', '单文件最大上传限制', '5242880', b'0', '单位 byte 默认200M', '2019-11-15 16:44:28', '2020-07-23 14:46:31');
-INSERT INTO `sys_config` VALUES ('33', 'batch_max_file_size', '批量文件最大上传限制', '20971520', b'0', '单位 byte 默认500M', '2019-11-15 16:45:48', '2020-07-23 14:46:39');
 INSERT INTO `sys_config` VALUES ('35', 'signature_verification', '接口签名验证', b'0', b'0', '是否开启接口签名验证 false:关闭 true:开启', '2019-11-21 11:19:29', '2020-07-23 14:07:39');
 INSERT INTO `sys_config` VALUES ('36', 'android_max_size', '安卓软件包最大限制', '104857600', b'0', '安卓软件包大小限制 单位byte 最大100M', '2019-11-22 17:05:36', '2019-11-22 17:09:37');
 INSERT INTO `sys_config` VALUES ('37', 'analog_sms_code', '模拟短信验证码', '9527', b'0', '短信功能未开启时,所有验证码短信都以此验证码为准', '2019-11-25 11:54:05', '2019-11-25 11:54:44');

@@ -18,8 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 保存文件路径格式=根路径+公共路径+文件分类路径+日期+文件名+后缀<br>
@@ -63,29 +61,6 @@ public class FileServiceImpl implements FileService {
         return this.saveFile(file, this.getDefaultFolder(), maxSize);
     }
 
-    @Override
-    public FilePath saveFiles(@NotNull List<MultipartFile> files) {
-        return this.saveFiles(files, this.getDefaultFolder(), this.getBatchMaxSize());
-    }
-
-
-    @Override
-    public FilePath saveFiles(@NotNull List<MultipartFile> files, String folder) {
-        return this.saveFiles(files, folder, this.getBatchMaxSize());
-    }
-
-    @Override
-    public FilePath saveFiles(@NotNull List<MultipartFile> files, String folder, long maxSize) {
-        long size = this.checkSize(files, maxSize);
-        List<String> paths = files.stream().map(file -> this.doSaveFile(file, folder)).collect(Collectors.toList());
-        return FilePath.builder().address(this.getFileAddress()).size(size).paths(paths).build();
-    }
-
-    @Override
-    public FilePath saveFiles(@NotNull List<MultipartFile> files, long maxSize) {
-        return this.saveFiles(files, this.getDefaultFolder(), maxSize);
-    }
-
     /**
      * 检查文件的大小限制
      *
@@ -97,22 +72,6 @@ public class FileServiceImpl implements FileService {
             log.warn("上传文件过大:[{}]", file.getSize());
             throw new BusinessException(ErrorCode.UPLOAD_TOO_BIG.getCode(), "单文件最大:" + maxSize / 1024 + "M");
         }
-    }
-
-    /**
-     * 检查文件的大小限制
-     *
-     * @param files   文件
-     * @param maxSize 最大上传大小
-     * @return 文件总大小
-     */
-    private long checkSize(List<MultipartFile> files, long maxSize) {
-        long sum = files.stream().mapToLong(MultipartFile::getSize).sum();
-        if (maxSize < sum) {
-            log.warn("上传文件过大:[{}]", sum);
-            throw new BusinessException(ErrorCode.UPLOAD_TOO_BIG.getCode(), "文件最大:" + maxSize / 1024 + "M");
-        }
-        return sum;
     }
 
     /**
@@ -179,10 +138,6 @@ public class FileServiceImpl implements FileService {
 
     private long getSingleMaxSize() {
         return sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE);
-    }
-
-    private long getBatchMaxSize() {
-        return sysConfigApi.getLong(ConfigConstant.BATCH_MAX_FILE_SIZE);
     }
 
     private String getDefaultFolder() {

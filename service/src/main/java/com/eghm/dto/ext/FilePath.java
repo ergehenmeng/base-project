@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 /**
  * @author 二哥很猛
  * @since 2019/8/28 17:59
@@ -28,7 +26,4 @@ public class FilePath {
 
     @ApiModelProperty("大小")
     private Long size;
-
-    @ApiModelProperty("文件相对路径列表")
-    private List<String> paths;
 }
