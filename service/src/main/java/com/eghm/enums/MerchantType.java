@@ -45,4 +45,8 @@ public enum MerchantType {
      */
     private final String name;
 
+    @Override
+    public String toString() {
+        return value + ":" + name;
+    }
 }

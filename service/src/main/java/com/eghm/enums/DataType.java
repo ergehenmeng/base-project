@@ -15,7 +15,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum DataType {
+public enum DataType implements EnumBinder {
 
     /**
      * 个人权限

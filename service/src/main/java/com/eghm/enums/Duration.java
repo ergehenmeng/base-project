@@ -51,4 +51,8 @@ public enum Duration implements EnumBinder {
     @EnumValue
     private final String name;
 
+    @Override
+    public String toString() {
+        return value + ":" + name;
+    }
 }

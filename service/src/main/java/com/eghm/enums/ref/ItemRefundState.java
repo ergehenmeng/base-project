@@ -32,7 +32,7 @@ public enum ItemRefundState implements EnumBinder {
      */
     @JsonValue
     @EnumValue
-    private final Integer value;
+    private final int value;
 
     /**
      * 备注

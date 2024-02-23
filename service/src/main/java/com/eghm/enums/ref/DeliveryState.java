@@ -39,4 +39,9 @@ public enum DeliveryState implements EnumBinder {
     private final int value;
 
     private final String name;
+
+    @Override
+    public String toString() {
+        return value + ":" + name;
+    }
 }

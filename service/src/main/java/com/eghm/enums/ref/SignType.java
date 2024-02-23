@@ -14,7 +14,5 @@ public enum SignType {
     /**
      * RSA签名
      */
-    RSA,
-
-    ;
+    RSA
 }

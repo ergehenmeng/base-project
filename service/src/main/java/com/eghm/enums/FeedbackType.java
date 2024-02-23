@@ -1,5 +1,6 @@
 package com.eghm.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -38,13 +39,13 @@ public enum FeedbackType {
 
     private final String msg;
 
-    public static FeedbackType getType(Integer type) {
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static FeedbackType of(Integer type) {
         if (type == null) {
             return null;
         }
         return Arrays.stream(FeedbackType.values()).filter(feedbackType -> feedbackType.getValue() == type).findFirst().orElse(OTHER);
     }
-
 
     @Override
     public String toString() {

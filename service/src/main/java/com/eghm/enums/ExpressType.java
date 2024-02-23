@@ -1,5 +1,6 @@
 package com.eghm.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -79,6 +80,7 @@ public enum ExpressType {
      * @param code code
      * @return 角色列表
      */
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ExpressType of(String code) {
         return Arrays.stream(ExpressType.values())
                 .filter(map -> code.equals(map.getCode())).findFirst().orElse(OTHER);
