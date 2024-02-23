@@ -26,7 +26,7 @@ public class VenueJobService {
     private final VenueSitePriceService venueSitePriceService;
 
     /**
-     * 删除历史价格,减少查询时间
+     * 删除历史价格配置信息,减少查询时间
      */
     @CronMark
     public void deleteSitePrice(String args) {

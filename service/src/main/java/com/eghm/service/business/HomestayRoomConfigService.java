@@ -92,4 +92,11 @@ public interface HomestayRoomConfigService {
      * @return 价格列表
      */
     List<RoomConfigVO> getList(Long roomId);
+
+    /**
+     * 删除多余的价格配置信息
+     *
+     * @param keepDay 历史价格信息保留天数
+     */
+    void deletePrice(Integer keepDay);
 }

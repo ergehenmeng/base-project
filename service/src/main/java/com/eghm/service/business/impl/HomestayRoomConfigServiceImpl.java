@@ -2,6 +2,7 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.constant.CommonConstant;
@@ -166,6 +167,14 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
             }
         }
         return voList;
+    }
+
+    @Override
+    public void deletePrice(Integer keepDay) {
+        LocalDate localDate = LocalDate.now().minusDays(keepDay);
+        LambdaUpdateWrapper<HomestayRoomConfig> wrapper = Wrappers.lambdaUpdate();
+        wrapper.lt(HomestayRoomConfig::getConfigDate, localDate);
+        homestayRoomConfigMapper.delete(wrapper);
     }
 
     /**
