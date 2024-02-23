@@ -2,6 +2,7 @@ package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.eghm.enums.EnumBinder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.utils.DateUtil;
@@ -19,7 +20,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum ProductType {
+public enum ProductType implements EnumBinder {
 
     /**
      * 门票

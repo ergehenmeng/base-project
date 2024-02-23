@@ -1,6 +1,7 @@
 package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum CouponType {
+public enum CouponType implements EnumBinder {
 
     /**
      * 抵扣券

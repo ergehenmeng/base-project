@@ -1,6 +1,7 @@
 package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum ItemRefundState {
+public enum ItemRefundState implements EnumBinder {
 
     /**
      * 初始状态
