@@ -27,7 +27,7 @@ public class UploadController {
 
     private final FileService fileService;
 
-    @PostMapping("/upload")
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ApiImplicitParam(name = "file", value = "file流", paramType = "formData", dataType = "file", required = true)
     @ApiOperation("单文件上传")
     public RespBody<FilePath> file(@RequestParam("file") MultipartFile file) {

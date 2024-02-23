@@ -32,7 +32,7 @@ public class ImageController {
 
     private final FileService fileService;
 
-    @PostMapping("/upload")
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ApiOperation("图片单张上传")
     @SkipLogger
     @ApiImplicitParam(name = "image", value = "文件流", paramType = "formData", dataType = "file", required = true)
