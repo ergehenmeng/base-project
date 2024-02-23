@@ -88,6 +88,7 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
             throw new BusinessException(ErrorCode.REDEEM_CODE_DELETE);
         }
         redeemCodeMapper.deleteById(id);
+        redeemCodeScopeService.delete(id);
     }
 
     @Override

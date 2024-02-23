@@ -90,14 +90,14 @@ public class RedeemCodeController {
 
     @GetMapping("/grant/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<RedeemCodeGrantResponse>> grantListPage(RedeemCodeGrantQueryRequest request) {
+    public RespBody<PageData<RedeemCodeGrantResponse>> grantListPage(@Validated RedeemCodeGrantQueryRequest request) {
         Page<RedeemCodeGrantResponse> listPage = redeemCodeGrantService.listPage(request);
         return RespBody.success(PageData.toPage(listPage));
     }
 
     @GetMapping("/grant/export")
     @ApiOperation("导出")
-    public void grantExport(HttpServletResponse response, RedeemCodeGrantQueryRequest request) {
+    public void grantExport(HttpServletResponse response, @Validated RedeemCodeGrantQueryRequest request) {
         List<RedeemCodeGrantResponse> byPage = redeemCodeGrantService.getList(request);
         ExcelUtil.export(response, "兑换码", byPage, RedeemCodeGrantResponse.class);
     }

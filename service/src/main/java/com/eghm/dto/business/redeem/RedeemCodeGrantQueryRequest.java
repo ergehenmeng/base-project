@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author 二哥很猛
  * @since 2024/2/11
@@ -17,5 +19,6 @@ public class RedeemCodeGrantQueryRequest extends PagingQuery {
     private Integer state;
 
     @ApiModelProperty("兑换码配置id")
+    @NotNull(message = "兑换码配置id不能为空")
     private Long redeemCodeId;
 }

@@ -24,4 +24,11 @@ public interface RedeemCodeScopeService {
      * @return 使用范围
      */
     List<StoreScope> getScopeList(Long redeemCodeId);
+
+    /**
+     * 删除兑换码使用范围
+     *
+     * @param redeemCodeId 配置id
+     */
+    void delete(Long redeemCodeId);
 }

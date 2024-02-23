@@ -30,7 +30,7 @@ public class SwaggerConfig {
         ApiInfo sysApiInfo = new ApiInfoBuilder()
                 .title("移动端API接口")
                 .description("针对移动端开发基础接口文档")
-                .termsOfServiceUrl("http://www.eghm.top/")
+                .termsOfServiceUrl("https://www.eghm.top/")
                 .contact(contact)
                 .version("v0.78")
                 .build();

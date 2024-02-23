@@ -26,9 +26,7 @@ public class RedeemCodeScopeServiceImpl implements RedeemCodeScopeService {
 
     @Override
     public void insertOrUpdate(Long redeemCodeId, List<StoreScope> scopeList) {
-        LambdaUpdateWrapper<RedeemCodeScope> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(RedeemCodeScope::getRedeemCodeId, redeemCodeId);
-        redeemCodeScopeMapper.delete(wrapper);
+        this.delete(redeemCodeId);
         if (CollUtil.isNotEmpty(scopeList)) {
             scopeList.forEach(scope -> {
                 RedeemCodeScope redeemCodeScope = new RedeemCodeScope();
@@ -43,5 +41,12 @@ public class RedeemCodeScopeServiceImpl implements RedeemCodeScopeService {
     @Override
     public List<StoreScope> getScopeList(Long redeemCodeId) {
         return redeemCodeScopeMapper.getScopeList(redeemCodeId);
+    }
+
+    @Override
+    public void delete(Long redeemCodeId) {
+        LambdaUpdateWrapper<RedeemCodeScope> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(RedeemCodeScope::getRedeemCodeId, redeemCodeId);
+        redeemCodeScopeMapper.delete(wrapper);
     }
 }
