@@ -45,6 +45,7 @@ Content-Type: application/json
 {
   "id": 1760924119553056770
 }
+
 ###
 
 POST http://localhost:8080/manage/venue/site/unShelves
@@ -55,7 +56,6 @@ Content-Type: application/json
   "id": 1760924119553056770
 }
 
-
 ###
 
 POST http://localhost:8080/manage/venue/site/platformUnShelves
@@ -64,4 +64,44 @@ Content-Type: application/json
 
 {
   "id": 1760924119553056770
+}
+
+###
+
+POST http://localhost:8080/manage/venue/site/price/setup
+token: {{token}}
+Content-Type: application/json
+
+{
+  "venueSiteId": 1760924119553056770,
+  "startDate": "2024-02-22",
+  "endDate": "2024-03-20",
+  "week": [
+    1, 2, 3, 4, 5
+  ],
+  "priceList": [{
+    "startTime": "09:00",
+    "endTime": "10:00",
+    "price": 10
+  }, {
+    "startTime": "10:00",
+    "endTime": "11:00",
+    "price": 12
+  }, {
+    "startTime": "11:00",
+    "endTime": "12:00",
+    "price": 14
+  }, {
+    "startTime": "14:00",
+    "endTime": "15:00",
+    "price": 20
+  }, {
+    "startTime": "15:00",
+    "endTime": "16:00",
+    "price": 22
+  }, {
+    "startTime": "16:00",
+    "endTime": "17:00",
+    "price": 25
+  }]
 }

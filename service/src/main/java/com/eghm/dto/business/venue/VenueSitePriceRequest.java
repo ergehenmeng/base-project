@@ -1,5 +1,6 @@
 package com.eghm.dto.business.venue;
 
+import com.eghm.annotation.Assign;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -17,8 +18,8 @@ import java.util.List;
 @Data
 public class VenueSitePriceRequest {
 
-    @ApiModelProperty(value = "所属场馆", required = true)
-    @NotNull(message = "请选择所属场馆")
+    @Assign
+    @ApiModelProperty(value = "所属场馆", hidden = true)
     private Long venueId;
 
     @ApiModelProperty(value = "场地id", required = true)

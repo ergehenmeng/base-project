@@ -27,9 +27,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
  */
 @Slf4j
 @EnableAsync
-@EnableAspectJAutoProxy
-@Import({RabbitConfig.class, RabbitInitConfig.class})
 @MapperScan("com.eghm.mapper")
+@EnableAspectJAutoProxy(exposeProxy = true)
+@Import({RabbitConfig.class, RabbitInitConfig.class})
 @SpringBootApplication(scanBasePackages = "com.eghm", exclude = MailSenderAutoConfiguration.class)
 public class WebappApplication implements ApplicationListener<ContextRefreshedEvent> {
 

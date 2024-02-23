@@ -28,8 +28,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @Slf4j
 @EnableTask
 @EnableAsync
-@EnableAspectJAutoProxy
 @ComponentScan("com.eghm")
+@EnableAspectJAutoProxy(exposeProxy = true)
 @MapperScan(basePackages = "com.eghm.mapper")
 @SpringBootApplication(exclude = RabbitAutoConfiguration.class)
 public class ManageApplication implements ApplicationContextAware {

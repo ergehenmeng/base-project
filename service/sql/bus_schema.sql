@@ -1149,7 +1149,7 @@ CREATE TABLE `comment`
     `state`       bit(1)       DEFAULT b'1' COMMENT '状态 0:已屏蔽 1:正常',
     `top_state`   tinyint(2)   DEFAULT b'0' COMMENT '置顶状态 0:未置顶 1:置顶',
     `reply_id`    bigint(20)   DEFAULT NULL COMMENT '回复id',
-    `pid`      bigint(20)   DEFAULT NULL COMMENT '父评论id',
+    `pid`         bigint(20)   DEFAULT NULL COMMENT '父评论id',
     `content`     varchar(200) DEFAULT NULL COMMENT '评论信息',
     `grade`       varchar(200) DEFAULT 1 COMMENT '评论级别 1:一级评论 2:二级评论',
     `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -1370,7 +1370,7 @@ CREATE TABLE `venue_site_price`
     `now_week`      tinyint(1) DEFAULT NULL COMMENT '星期几 1-7',
     `stock`         tinyint(1) DEFAULT '1' COMMENT '库存(默认1)',
     `price`         int(10)    DEFAULT '0' COMMENT '价格',
-    `state`         tinyint(1) DEFAULT '0' COMMENT '是否可预定 0:不可预定 1:可预定',
+    `state`         bit(1)     DEFAULT b'1' COMMENT '是否可预定 0:不可预定 1:可预定',
     `create_time`   datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB

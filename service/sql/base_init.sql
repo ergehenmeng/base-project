@@ -3937,7 +3937,7 @@ INSERT INTO `sys_config` VALUES ('62', 'sms_day_limit', '短信单天次数限�
 INSERT INTO `sys_config` VALUES ('63', 'refresh_token_expire', '刷新token过期时间', '2592000', b'0', '默认30天内免登录', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
 INSERT INTO `sys_config` VALUES ('64', 'member_address_max', '收货地址最大数量', '10', b'0', '会员自己能添加多少个收货地址', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
 INSERT INTO `sys_config` VALUES ('65', 'sms_ip_limit', 'ip短信数量限制', '100', b'0', '单个ip一天发送多少条短信', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
-INSERT INTO sys_config VALUES (66,'merchant_auth_code_expire','商户授权码过期时间','86400',b'0','单位:秒','2024-01-16T11:35:48','2024-01-16T11:35:48');
+INSERT INTO `sys_config` VALUES ('66', 'merchant_auth_code_expire','商户授权码过期时间','86400',b'0','单位:秒','2024-01-16 11:35:48','2024-01-16 11:35:48');
 
 
 INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `update_time` , `deleted`) VALUES ('6975', 'yuantong', '圆通速递', '2024-01-10T17:13:45', '2024-01-10T17:13:45' , b'0');
@@ -5371,6 +5371,7 @@ INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `upd
 INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `update_time` , `deleted`) VALUES ('8403', 'ztjieda', '泰捷达国际物流', '2024-01-10T17:13:45', '2024-01-10T17:13:45' , b'0');
 INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `update_time` , `deleted`) VALUES ('8404', 'ztong', '智通物流', '2024-01-10T17:13:45', '2024-01-10T17:13:45' , b'0');
 
-INSERT INTO sys_config (`id`,`nid`,`title`,`content`,`locked`,`remark`,`create_time`,`update_time`) VALUES (68,'platform_service_rate','平台手续费','5',b'0','平台手续费,单位:%','2024-01-22T13:14:34','2024-01-22T13:14:34');
+INSERT INTO `sys_config` (`id`,`nid`,`title`,`content`,`locked`,`remark`,`create_time`,`update_time`) VALUES ('68','platform_service_rate','平台手续费','5',b'0','平台手续费,单位:%','2024-01-22T13:14:34','2024-01-22T13:14:34');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('69', 'redeem_code_scope', '兑换码商品使用范围', '[]', b'0', '格式: [{\"redeemCodeId\":\"兑换码配置ID\",\"productIds\":[商品ID,逗号分隔]}]', '2024-02-19 12:02:14', '2024-02-19 12:03:11');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('70', 'comment_report_shield', '评论自动屏蔽次数', '20', b'0', '超过该参数,评论自动屏蔽', '2024-02-20 17:56:11', '2024-02-20 17:56:11');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('71', 'venue_site_max_day', '场馆班次最大设置日期区间', '30', b'0', '默认设置不超过30天', '2024-02-23 16:45:28', '2024-02-23 16:45:43');

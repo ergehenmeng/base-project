@@ -25,7 +25,7 @@ import java.time.LocalTime;
 public class VenueSitePrice {
 
     @ApiModelProperty(value = "主键")
-    @TableId(value = "id", type = IdType.INPUT)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
     @ApiModelProperty(value = "所属场馆id")
@@ -55,8 +55,8 @@ public class VenueSitePrice {
     @ApiModelProperty(value = "价格")
     private Integer price;
 
-    @ApiModelProperty("是否可预定 0:不可预定 1:可预定")
-    private Integer state;
+    @ApiModelProperty("是否可预定 false:不可预定 true:可预定")
+    private Boolean state;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;

@@ -38,8 +38,8 @@ public class VenueSitePriceVO {
     @ApiModelProperty("可预订数量 默认1")
     private Integer stock;
 
-    @ApiModelProperty("是否可预定 0:不可预定 1:可预定")
-    private Integer state;
+    @ApiModelProperty("是否可预定 false:不可预定 true:可预定")
+    private Boolean state;
 
     @ApiModelProperty(value = "价格")
     @JsonSerialize(using = CentToYuanEncoder.class)

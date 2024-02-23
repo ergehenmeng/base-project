@@ -4,7 +4,9 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.venue.VenueSitePriceRequest;
 import com.eghm.dto.business.venue.VenueSitePriceUpdateRequest;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.model.VenueSite;
 import com.eghm.service.business.VenueSitePriceService;
+import com.eghm.service.business.VenueSiteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -26,11 +28,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/manage/venue/site/price", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VenueSitePriceController {
 
+    private final VenueSiteService venueSiteService;
+
     private final VenueSitePriceService venueSitePriceService;
 
     @PostMapping(value = "/setup", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("设置价格")
     public RespBody<Void> setup(@Validated @RequestBody VenueSitePriceRequest request) {
+        VenueSite venueSite = venueSiteService.selectByIdRequired(request.getVenueSiteId());
+        request.setVenueId(venueSite.getVenueId());
         venueSitePriceService.insertOrUpdate(request);
         return RespBody.success();
     }

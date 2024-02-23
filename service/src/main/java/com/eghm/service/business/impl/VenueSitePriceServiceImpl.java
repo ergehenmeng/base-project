@@ -46,10 +46,9 @@ public class VenueSitePriceServiceImpl extends ServiceImpl<VenueSitePriceMapper,
     @Override
     public void insertOrUpdate(VenueSitePriceRequest request) {
         long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
-        commonService.checkMaxDay(ConfigConstant.SITE_CONFIG_MAX_DAY, between);
+        commonService.checkMaxDay(ConfigConstant.VENUE_SITE_MAX_DAY, between);
 
         LambdaUpdateWrapper<VenueSitePrice> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(VenueSitePrice::getVenueId, request.getVenueId());
         wrapper.eq(VenueSitePrice::getVenueSiteId, request.getVenueSiteId());
         wrapper.eq(VenueSitePrice::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.between(VenueSitePrice::getNowDate, request.getStartDate(), request.getEndDate());
@@ -70,6 +69,7 @@ public class VenueSitePriceServiceImpl extends ServiceImpl<VenueSitePriceMapper,
                 price.setVenueId(request.getVenueId());
                 price.setVenueSiteId(request.getVenueSiteId());
                 price.setNowDate(nowDate);
+                price.setState(true);
                 price.setMerchantId(SecurityHolder.getMerchantId());
                 price.setNowWeek(nowWeek);
                 priceList.add(price);
