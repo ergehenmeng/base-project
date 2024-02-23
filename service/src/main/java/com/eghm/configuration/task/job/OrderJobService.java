@@ -21,8 +21,8 @@ import java.util.List;
  * @since 2022/8/8
  */
 @Slf4j
-@Component("orderJobService")
 @AllArgsConstructor
+@Component("orderJobService")
 public class OrderJobService {
 
     private final OrderService orderService;
@@ -35,8 +35,8 @@ public class OrderJobService {
      * 定时任务处理: 支付中的订单
      */
     @CronMark
-    public void payProcess(String param) {
-        LoggerUtil.print("订单支付中定时任务开始执行 [{}]", param);
+    public void payProcess() {
+        LoggerUtil.print("订单支付中定时任务开始执行");
         List<Order> processList = orderService.getProcessList();
         for (Order order : processList) {
             PayNotifyContext context = new PayNotifyContext();
@@ -55,8 +55,8 @@ public class OrderJobService {
      * 门票退款定时任务
      */
     @CronMark
-    public void refundProcess(String param) {
-        LoggerUtil.print("订单退款中定时任务开始执行 [{}]", param);
+    public void refundProcess() {
+        LoggerUtil.print("订单退款中定时任务开始执行");
         List<OrderRefund> refundList = orderRefundLogService.getRefundProcess();
         for (OrderRefund refund : refundList) {
             RefundNotifyContext context = new RefundNotifyContext();

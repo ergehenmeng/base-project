@@ -1,6 +1,7 @@
 package com.eghm.configuration.task.config;
 
 import cn.hutool.core.util.ReflectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.eghm.constant.CommonConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
@@ -24,41 +25,28 @@ import java.time.LocalDateTime;
 @Slf4j
 public class RunnableTask implements Runnable {
 
-    /**
-     * 具体业务实现
-     */
+    private final Task task;
+
     private final Object bean;
 
-    /**
-     * 锁
-     */
+    private final Method method;
+
     private final RedisLock redisLock;
 
-    /**
-     * 方法名
-     */
-    private final Method method;
-    /**
-     * 执行任务时说明信息
-     */
-    private final Task task;
-    /**
-     * 日志记录
-     */
-    private SysTaskLogService sysTaskLogService;
-    /**
-     * 错误通知
-     */
-    private DingTalkService dingTalkService;
+    private final DingTalkService dingTalkService;
+
+    private final SysTaskLogService sysTaskLogService;
 
     RunnableTask(Task task) {
         this.task = task;
         try {
             this.bean = SpringContextUtil.getBean(task.getBeanName());
             this.redisLock = SpringContextUtil.getBean(RedisLock.class);
-            this.method = AopUtils.isAopProxy(bean) ? bean.getClass().getSuperclass().getMethod(task.getMethodName(), String.class) : bean.getClass().getMethod(task.getMethodName(), String.class);
+            this.method = this.findMethod(task, bean);
+            this.sysTaskLogService = SpringContextUtil.getBean(SysTaskLogService.class);
+            this.dingTalkService = SpringContextUtil.getBean(DingTalkService.class);
         } catch (Exception e) {
-            log.error("系统中不存在指定的类或该方法 [{}] [{}]", task.getBeanName(), task.getMethodName(), e);
+            log.error("系统中不存在指定的类或该方法 [{}] [{}] [{}]", task.getBeanName(), task.getMethodName(), task.getArgs(), e);
             throw new BusinessException(ErrorCode.TASK_CONFIG_ERROR);
         }
     }
@@ -78,30 +66,29 @@ public class RunnableTask implements Runnable {
             String errorMsg = ExceptionUtils.getStackTrace(e);
             builder.errorMsg(errorMsg);
             builder.state(false);
-            getDingTalkService().sendMsg(String.format("自定义定时任务执行失败[%s]", key));
+            dingTalkService.sendMsg(String.format("自定义定时任务执行失败[%s]", key));
         } finally {
             // 每次执行的日志都记入定时任务日志
             long endTime = System.currentTimeMillis();
             builder.elapsedTime(endTime - startTime);
             builder.startTime(start);
-            taskLogService().addTaskLog(builder.build());
+            sysTaskLogService.addTaskLog(builder.build());
         }
     }
 
-    private SysTaskLogService taskLogService() {
-        if (sysTaskLogService != null) {
-            return sysTaskLogService;
+    /**
+     * 根据bean和methodName查询方法
+     *
+     * @param task 任务配置, 如果配置参考有参数, 默认为有参方法, 否则为无参方法
+     * @param bean bean
+     * @return 方法
+     * @throws NoSuchMethodException e
+     */
+    private Method findMethod(Task task, Object bean) throws NoSuchMethodException {
+        Class<?> cls = AopUtils.isAopProxy(bean) ? bean.getClass().getSuperclass() : bean.getClass();
+        if (StrUtil.isBlank(task.getArgs())) {
+            return cls.getMethod(task.getMethodName());
         }
-        this.sysTaskLogService = (SysTaskLogService) SpringContextUtil.getBean("sysTaskLogService");
-        return sysTaskLogService;
+        return cls.getMethod(task.getMethodName(), String.class);
     }
-
-    private synchronized DingTalkService getDingTalkService() {
-        if (dingTalkService != null) {
-            return dingTalkService;
-        }
-        this.dingTalkService = (DingTalkService) SpringContextUtil.getBean("dingTalkService");
-        return dingTalkService;
-    }
-
 }
