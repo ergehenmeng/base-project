@@ -27,7 +27,7 @@ import java.util.List;
 @RestController
 @Api(tags = "零售订单")
 @AllArgsConstructor
-@RequestMapping("/webapp/item/order")
+@RequestMapping(value = "/webapp/item/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemOrderController {
 
     private final ItemOrderService itemOrderService;

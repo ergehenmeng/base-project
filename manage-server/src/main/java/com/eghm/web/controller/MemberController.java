@@ -28,7 +28,7 @@ import java.util.List;
 @RestController
 @Api(tags = "会员信息")
 @AllArgsConstructor
-@RequestMapping("/manage/member")
+@RequestMapping(value = "/manage/member", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberController {
 
     private final MemberService memberService;

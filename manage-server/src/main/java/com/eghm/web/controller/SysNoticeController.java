@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "公告管理")
 @AllArgsConstructor
-@RequestMapping("/manage/notice")
+@RequestMapping(value = "/manage/notice", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SysNoticeController {
 
     private final SysNoticeService sysNoticeService;

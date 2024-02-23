@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @Api(tags = "房态设置")
 @AllArgsConstructor
-@RequestMapping("/manage/homestay/room/config")
+@RequestMapping(value = "/manage/homestay/room/config", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HomestayRoomConfigController {
 
     private final HomestayRoomConfigService homestayRoomConfigService;

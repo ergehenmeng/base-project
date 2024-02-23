@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "场地价格")
 @AllArgsConstructor
-@RequestMapping("/manage/venue/site/price")
+@RequestMapping(value = "/manage/venue/site/price", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VenueSitePriceController {
 
     private final VenueSitePriceService venueSitePriceService;

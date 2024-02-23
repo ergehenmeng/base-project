@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "店铺管理")
 @AllArgsConstructor
-@RequestMapping("/manage/item/store")
+@RequestMapping(value = "/manage/item/store", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemStoreController {
 
     private final ItemStoreService itemStoreService;

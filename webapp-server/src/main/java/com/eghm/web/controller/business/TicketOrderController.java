@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,7 @@ import java.util.List;
 @RestController
 @Api(tags = "门票订单")
 @AllArgsConstructor
-@RequestMapping("/webapp/ticket/order")
+@RequestMapping(value = "/webapp/ticket/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TicketOrderController {
 
     private final TicketOrderService ticketOrderService;

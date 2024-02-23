@@ -9,6 +9,7 @@ import com.eghm.service.sys.SmsLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "短信日志管理")
 @AllArgsConstructor
-@RequestMapping("/manage/sms/log")
+@RequestMapping(value = "/manage/sms/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SmsLogController {
 
     private final SmsLogService smsLogService;

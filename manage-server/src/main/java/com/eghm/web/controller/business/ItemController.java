@@ -37,7 +37,7 @@ import java.util.List;
 @RestController
 @Api(tags = "商品管理")
 @AllArgsConstructor
-@RequestMapping("/manage/item")
+@RequestMapping(value = "/manage/item", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemController {
 
     private final ItemService itemService;

@@ -27,7 +27,7 @@ import java.util.List;
 @RestController
 @Api(tags = "poi区域信息")
 @AllArgsConstructor
-@RequestMapping("/manage/poi/area")
+@RequestMapping(value = "/manage/poi/area", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PoiAreaController {
 
     private final PoiAreaService poiAreaService;

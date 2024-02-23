@@ -7,6 +7,7 @@ import com.eghm.vo.business.limit.LimitItemVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +22,7 @@ import java.util.List;
 @RestController
 @Api(tags = "限时购商品")
 @AllArgsConstructor
-@RequestMapping("/webapp/item/limit")
+@RequestMapping(value = "/webapp/item/limit", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemLimitController {
 
     private final LimitPurchaseItemService limitPurchaseItemService;

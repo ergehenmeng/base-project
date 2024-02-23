@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "访问黑名单")
 @AllArgsConstructor
-@RequestMapping("/manage/black/roster")
+@RequestMapping(value = "/manage/black/roster", produces = MediaType.APPLICATION_JSON_VALUE)
 public class BlackRosterController {
 
     private final BlackRosterService blackRosterService;

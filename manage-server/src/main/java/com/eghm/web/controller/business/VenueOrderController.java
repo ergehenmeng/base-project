@@ -12,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "场馆预约订单")
 @AllArgsConstructor
-@RequestMapping("/manage/venue/order")
+@RequestMapping(value = "/manage/venue/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VenueOrderController {
 
     private final VenueOrderService venueOrderService;

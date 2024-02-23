@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +26,7 @@ import java.util.List;
 @RestController
 @Api(tags = "拼团商品")
 @AllArgsConstructor
-@RequestMapping("/webapp/item/group")
+@RequestMapping(value = "/webapp/item/group", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemGroupController {
 
     private final ItemGroupOrderService itemGroupOrderService;

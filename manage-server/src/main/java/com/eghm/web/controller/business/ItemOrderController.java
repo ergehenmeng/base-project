@@ -37,7 +37,7 @@ import java.util.List;
 @RestController
 @Api(tags = "零售订单")
 @AllArgsConstructor
-@RequestMapping("/manage/item/order")
+@RequestMapping(value = "/manage/item/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemOrderController {
 
     private final ItemExpressService itemExpressService;

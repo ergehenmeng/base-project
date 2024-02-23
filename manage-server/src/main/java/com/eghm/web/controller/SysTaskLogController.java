@@ -10,6 +10,7 @@ import com.eghm.service.common.SysTaskLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "定时任务日志")
 @AllArgsConstructor
-@RequestMapping("/manage/task/log")
+@RequestMapping(value = "/manage/task/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SysTaskLogController {
 
     private final SysTaskLogService sysTaskLogService;

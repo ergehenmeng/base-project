@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "订单")
 @AllArgsConstructor
-@RequestMapping("/webapp/order")
+@RequestMapping(value = "/webapp/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrderController {
 
     private final OrderService orderService;

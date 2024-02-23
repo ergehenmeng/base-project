@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "商户积分")
 @AllArgsConstructor
-@RequestMapping("/manage/merchant/score")
+@RequestMapping(value = "/manage/merchant/score", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ScoreAccountController {
 
     private final ScoreAccountService scoreAccountService;

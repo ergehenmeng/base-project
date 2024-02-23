@@ -29,7 +29,7 @@ import java.util.List;
 @RestController
 @Api(tags = "抽奖")
 @AllArgsConstructor
-@RequestMapping("/webapp/lottery")
+@RequestMapping(value = "/webapp/lottery", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LotteryController {
 
     private final RedisLock redisLock;

@@ -27,7 +27,7 @@ import java.util.List;
 @RestController
 @Api(tags = "订单评价")
 @AllArgsConstructor
-@RequestMapping("/webapp/order/evaluation")
+@RequestMapping(value = "/webapp/order/evaluation", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrderEvaluationController {
 
     private final OrderEvaluationService orderEvaluationService;

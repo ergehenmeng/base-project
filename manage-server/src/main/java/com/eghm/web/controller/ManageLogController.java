@@ -10,6 +10,7 @@ import com.eghm.vo.log.ManageLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "操作日志管理")
 @AllArgsConstructor
-@RequestMapping("/manage/log")
+@RequestMapping(value = "/manage/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ManageLogController {
 
     private final ManageLogService manageLogService;

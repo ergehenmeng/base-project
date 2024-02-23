@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "poi类线路")
 @AllArgsConstructor
-@RequestMapping("/manage/poi/line")
+@RequestMapping(value = "/manage/poi/line", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PoiLineController {
 
     private final PoiLineService poiLineService;

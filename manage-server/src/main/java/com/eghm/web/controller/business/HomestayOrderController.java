@@ -29,7 +29,7 @@ import java.util.List;
 @RestController
 @Api(tags = "民宿订单")
 @AllArgsConstructor
-@RequestMapping("/manage/homestay/order")
+@RequestMapping(value = "/manage/homestay/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HomestayOrderController {
 
     private final HomestayOrderService homestayOrderService;

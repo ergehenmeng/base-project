@@ -28,7 +28,7 @@ import java.util.List;
 @RestController
 @Api(tags = "优惠券")
 @AllArgsConstructor
-@RequestMapping("/webapp/coupon")
+@RequestMapping(value = "/webapp/coupon", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CouponController {
 
     private final CouponService couponService;

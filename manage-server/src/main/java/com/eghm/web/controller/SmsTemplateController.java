@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "短信模板管理")
 @AllArgsConstructor
-@RequestMapping("/manage/sms/template")
+@RequestMapping(value = "/manage/sms/template", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SmsTemplateController {
 
     private final SmsTemplateService smsTemplateService;

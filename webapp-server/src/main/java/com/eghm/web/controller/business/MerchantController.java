@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "绑定微信")
 @AllArgsConstructor
-@RequestMapping("/webapp/merchant")
+@RequestMapping(value = "/webapp/merchant", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MerchantController {
 
     private final MerchantService merchantService;

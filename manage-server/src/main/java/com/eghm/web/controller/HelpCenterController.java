@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "帮助中心")
 @AllArgsConstructor
-@RequestMapping("/manage/help")
+@RequestMapping(value = "/manage/help", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HelpCenterController {
 
     private final HelpCenterService helpCenterService;

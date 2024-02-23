@@ -27,7 +27,7 @@ import java.util.List;
 @RestController
 @Api(tags = "评论留言")
 @AllArgsConstructor
-@RequestMapping("/webapp/comment")
+@RequestMapping(value = "/webapp/comment", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CommentController {
 
     private final CommentService commentService;

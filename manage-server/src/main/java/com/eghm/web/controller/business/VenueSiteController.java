@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "场馆场地")
 @AllArgsConstructor
-@RequestMapping("/manage/venue/site")
+@RequestMapping(value = "/manage/venue/site", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VenueSiteController {
 
     private final VenueSiteService venueSiteService;

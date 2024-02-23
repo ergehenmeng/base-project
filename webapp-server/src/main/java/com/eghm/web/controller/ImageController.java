@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @Api(tags = "图片上传")
 @AllArgsConstructor
-@RequestMapping("/webapp/image")
+@RequestMapping(value = "/webapp/image", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ImageController {
 
     private final FileService fileService;

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "站内信模板")
 @AllArgsConstructor
-@RequestMapping("/manage/notice/template")
+@RequestMapping(value = "/manage/notice/template", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NoticeTemplateController {
 
     private final NoticeTemplateService noticeTemplateService;

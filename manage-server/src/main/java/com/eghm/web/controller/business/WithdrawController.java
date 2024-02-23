@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "商户提现")
 @AllArgsConstructor
-@RequestMapping("/manage/merchant/withdraw")
+@RequestMapping(value = "/manage/merchant/withdraw", produces = MediaType.APPLICATION_JSON_VALUE)
 public class WithdrawController {
 
     private final WithdrawService withdrawService;

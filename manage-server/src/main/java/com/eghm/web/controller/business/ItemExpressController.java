@@ -26,7 +26,7 @@ import java.util.List;
 @RestController
 @Api(tags = "快递模板")
 @AllArgsConstructor
-@RequestMapping("/manage/express/template")
+@RequestMapping(value = "/manage/express/template", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemExpressController {
 
     private final ExpressTemplateService expressTemplateService;

@@ -32,7 +32,7 @@ import java.util.List;
 @RestController
 @Api(tags = "餐饮券")
 @AllArgsConstructor
-@RequestMapping("/manage/restaurant/voucher")
+@RequestMapping(value = "/manage/restaurant/voucher", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoucherController {
 
     private final VoucherService voucherService;

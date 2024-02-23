@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "图片管理")
 @AllArgsConstructor
-@RequestMapping("/manage/image")
+@RequestMapping(value = "/manage/image", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ImageLogController {
 
     private final ImageLogService imageLogService;

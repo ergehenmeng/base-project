@@ -34,7 +34,7 @@ import java.util.List;
 @RestController
 @Api(tags = "系统用户管理")
 @AllArgsConstructor
-@RequestMapping("/manage/user")
+@RequestMapping(value = "/manage/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
 
     private final SysUserService sysUserService;

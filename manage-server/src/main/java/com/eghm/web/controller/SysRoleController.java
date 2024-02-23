@@ -30,7 +30,7 @@ import java.util.List;
 @RestController
 @Api(tags = "角色管理")
 @AllArgsConstructor
-@RequestMapping("/manage/role")
+@RequestMapping(value = "/manage/role", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SysRoleController {
 
     private final SysRoleService sysRoleService;
@@ -42,7 +42,7 @@ public class SysRoleController {
         return RespBody.success(PageData.toPage(page));
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     @ApiOperation("角色列表(不分页)")
     @SkipPerm
     public RespBody<List<CheckBox>> list() {

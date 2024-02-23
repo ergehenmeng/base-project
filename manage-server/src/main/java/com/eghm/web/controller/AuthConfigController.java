@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "第三方授权")
 @AllArgsConstructor
-@RequestMapping("/manage/auth")
+@RequestMapping(value = "/manage/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthConfigController {
 
     private final AuthConfigService authConfigService;

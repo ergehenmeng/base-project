@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @Api(tags = "部门管理")
 @AllArgsConstructor
-@RequestMapping("/manage/dept")
+@RequestMapping(value = "/manage/dept", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DeptController {
 
     private final SysDeptService sysDeptService;

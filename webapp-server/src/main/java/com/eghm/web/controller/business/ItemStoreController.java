@@ -8,6 +8,7 @@ import com.eghm.vo.business.item.store.ItemStoreVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import java.util.List;
 @RestController
 @Api(tags = "店铺")
 @AllArgsConstructor
-@RequestMapping("/webapp/store")
+@RequestMapping(value = "/webapp/store", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemStoreController {
 
     private final ItemStoreService itemStoreService;

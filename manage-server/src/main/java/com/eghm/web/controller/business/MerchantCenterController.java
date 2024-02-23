@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @Api(tags = "商家中心")
 @AllArgsConstructor
-@RequestMapping("/manage/merchant/center")
+@RequestMapping(value = "/manage/merchant/center", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MerchantCenterController {
 
     private final MerchantService merchantService;

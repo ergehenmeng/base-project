@@ -28,7 +28,7 @@ import java.util.List;
 @RestController
 @Api(tags = "商户角色管理")
 @AllArgsConstructor
-@RequestMapping("/manage/merchant/role")
+@RequestMapping(value = "/manage/merchant/role", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MerchantRoleController {
 
     private final SysRoleService sysRoleService;

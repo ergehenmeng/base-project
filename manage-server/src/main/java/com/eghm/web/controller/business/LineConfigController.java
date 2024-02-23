@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @Api(tags = "线路配置")
 @AllArgsConstructor
-@RequestMapping("/manage/line/config")
+@RequestMapping(value = "/manage/line/config", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LineConfigController {
 
     private final LineConfigService lineConfigService;

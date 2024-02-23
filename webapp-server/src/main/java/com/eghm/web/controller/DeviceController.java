@@ -23,7 +23,7 @@ import java.util.List;
 @RestController
 @Api(tags = "登陆设备")
 @AllArgsConstructor
-@RequestMapping("/webapp/member/device")
+@RequestMapping(value = "/webapp/member/device", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DeviceController {
 
     private final LoginService loginService;

@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "景区")
 @AllArgsConstructor
-@RequestMapping("/manage/scenic")
+@RequestMapping(value = "/manage/scenic", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ScenicController {
 
     private final ScenicService scenicService;

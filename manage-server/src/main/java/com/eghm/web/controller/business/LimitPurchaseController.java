@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "限时购")
 @AllArgsConstructor
-@RequestMapping("/manage/limit/purchase")
+@RequestMapping(value = "/manage/limit/purchase", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LimitPurchaseController {
 
     private final LimitPurchaseService limitPurchaseService;

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "数据字典管理")
 @AllArgsConstructor
-@RequestMapping("/manage/dict")
+@RequestMapping(value = "/manage/dict", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DictController {
 
     private final SysDictService sysDictService;

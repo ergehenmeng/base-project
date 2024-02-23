@@ -26,7 +26,7 @@ import java.util.List;
 @RestController
 @Api(tags = "poi类型信息")
 @AllArgsConstructor
-@RequestMapping("/manage/poi/type")
+@RequestMapping(value = "/manage/poi/type", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PoiTypeController {
 
     private final PoiTypeService poiTypeService;

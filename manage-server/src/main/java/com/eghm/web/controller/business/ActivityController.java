@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @Api(tags = "活动管理")
 @AllArgsConstructor
-@RequestMapping("/manage/activity")
+@RequestMapping(value = "/manage/activity", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ActivityController {
 
     private final ActivityService activityService;

@@ -34,7 +34,7 @@ import java.util.List;
 @RestController
 @Api(tags = "用户相关接口")
 @AllArgsConstructor
-@RequestMapping("/webapp/member")
+@RequestMapping(value = "/webapp/member", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberController {
 
     private final MemberService memberService;

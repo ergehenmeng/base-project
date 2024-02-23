@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "消息模板管理")
 @AllArgsConstructor
-@RequestMapping("/manage/push")
+@RequestMapping(value = "/manage/push", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PushTemplateController {
 
     private final PushTemplateService pushTemplateService;

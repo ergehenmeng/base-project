@@ -32,7 +32,7 @@ import java.util.List;
 @RestController
 @Api(tags = "餐饮商家")
 @AllArgsConstructor
-@RequestMapping("/manage/restaurant")
+@RequestMapping(value = "/manage/restaurant", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantController {
 
     private final RestaurantService restaurantService;

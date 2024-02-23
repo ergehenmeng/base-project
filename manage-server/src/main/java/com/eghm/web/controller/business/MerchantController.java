@@ -28,7 +28,7 @@ import java.util.List;
 @RestController
 @Api(tags = "商户管理")
 @AllArgsConstructor
-@RequestMapping("/manage/merchant")
+@RequestMapping(value = "/manage/merchant", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MerchantController {
 
     private final MerchantService merchantService;

@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +25,7 @@ import java.time.temporal.ChronoUnit;
 @RestController
 @Api(tags = "缓存相关")
 @AllArgsConstructor
-@RequestMapping("/webapp/redis")
+@RequestMapping(value = "/webapp/redis", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RedisController {
 
     private final CacheService cacheService;

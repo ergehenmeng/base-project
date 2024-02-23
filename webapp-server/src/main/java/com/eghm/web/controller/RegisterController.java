@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @Api(tags = "注册")
 @AllArgsConstructor
-@RequestMapping("/webapp/register")
+@RequestMapping(value = "/webapp/register", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RegisterController {
 
     private final MemberService memberService;

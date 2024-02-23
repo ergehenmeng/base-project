@@ -12,6 +12,7 @@ import com.eghm.vo.business.scenic.ticket.TicketVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ import java.util.List;
 @RestController
 @Api(tags = "景区")
 @AllArgsConstructor
-@RequestMapping("/webapp/scenic")
+@RequestMapping(value = "/webapp/scenic", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ScenicController {
 
     private final ScenicService scenicService;

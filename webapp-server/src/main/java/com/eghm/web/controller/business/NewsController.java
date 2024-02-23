@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @Api(tags = "新闻资讯")
 @AllArgsConstructor
-@RequestMapping("/webapp/news")
+@RequestMapping(value = "/webapp/news", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NewsController {
 
     private final NewsService newsService;

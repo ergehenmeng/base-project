@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @Api(tags = "站内信")
 @AllArgsConstructor
-@RequestMapping("/webapp/member/notice")
+@RequestMapping(value = "/webapp/member/notice", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberNoticeController {
 
     private final MemberNoticeService memberNoticeService;

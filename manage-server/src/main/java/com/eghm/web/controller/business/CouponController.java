@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "优惠券配置")
 @AllArgsConstructor
-@RequestMapping("/manage/coupon")
+@RequestMapping(value = "/manage/coupon", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CouponController {
 
     private final CouponService couponService;

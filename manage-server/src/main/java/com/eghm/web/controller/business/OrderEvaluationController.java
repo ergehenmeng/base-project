@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "订单评价")
 @AllArgsConstructor
-@RequestMapping("/manage/order/evaluation")
+@RequestMapping(value = "/manage/order/evaluation", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrderEvaluationController {
 
     private final OrderEvaluationService orderEvaluationService;

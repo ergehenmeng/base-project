@@ -13,6 +13,7 @@ import com.eghm.vo.business.restaurant.VoucherVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,7 @@ import java.util.List;
 @RestController
 @Api(tags = "餐饮门店")
 @AllArgsConstructor
-@RequestMapping("/webapp/restaurant")
+@RequestMapping(value = "/webapp/restaurant", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantController {
 
     private final RestaurantService restaurantService;

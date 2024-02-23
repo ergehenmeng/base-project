@@ -23,7 +23,7 @@ import java.util.List;
 @RestController
 @Api(tags = "零售标签")
 @AllArgsConstructor
-@RequestMapping("/manage/item/tag")
+@RequestMapping(value = "/manage/item/tag", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemTagController {
 
     private final ItemTagService itemTagService;

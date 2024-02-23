@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @Api(tags = "登陆")
 @AllArgsConstructor
-@RequestMapping("/manage")
+@RequestMapping(value = "/manage", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LoginController {
 
     private final CacheService cacheService;

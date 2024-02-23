@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @Api(tags = "登陆、密码功能")
 @AllArgsConstructor
-@RequestMapping("/webapp")
+@RequestMapping(value = "/webapp", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LoginController {
 
     private final MemberService memberService;

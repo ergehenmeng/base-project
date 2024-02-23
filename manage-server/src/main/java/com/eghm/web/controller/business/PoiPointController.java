@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "poi点位信息")
 @AllArgsConstructor
-@RequestMapping("/manage/poi/point")
+@RequestMapping(value = "/manage/poi/point", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PoiPointController {
 
     private final PoiPointService poiPointService;

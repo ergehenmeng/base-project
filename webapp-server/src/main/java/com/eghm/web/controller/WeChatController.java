@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @AllArgsConstructor
 @Api(tags = "微信授权")
-@RequestMapping("/webapp/wechat")
+@RequestMapping(value = "/webapp/wechat", produces = MediaType.APPLICATION_JSON_VALUE)
 public class WeChatController {
 
     private final MemberService memberService;

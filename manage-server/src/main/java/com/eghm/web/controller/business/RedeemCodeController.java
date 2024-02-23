@@ -32,7 +32,7 @@ import java.util.List;
 @RestController
 @Api(tags = "兑换码")
 @AllArgsConstructor
-@RequestMapping("/manage/redeem/code")
+@RequestMapping(value = "/manage/redeem/code", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RedeemCodeController {
 
     private final RedeemCodeService redeemCodeService;

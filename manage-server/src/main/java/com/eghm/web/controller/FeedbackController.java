@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "反馈管理")
 @AllArgsConstructor
-@RequestMapping("/manage/feedback")
+@RequestMapping(value = "/manage/feedback", produces = MediaType.APPLICATION_JSON_VALUE)
 public class FeedbackController {
 
     private final FeedbackService feedbackService;

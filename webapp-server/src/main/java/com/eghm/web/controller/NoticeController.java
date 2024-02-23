@@ -9,6 +9,7 @@ import com.eghm.vo.notice.NoticeVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ import java.util.List;
 @RestController
 @Api(tags = "系统公告")
 @AllArgsConstructor
-@RequestMapping("/webapp/notice")
+@RequestMapping(value = "/webapp/notice", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NoticeController {
 
     private final SysNoticeService sysNoticeService;

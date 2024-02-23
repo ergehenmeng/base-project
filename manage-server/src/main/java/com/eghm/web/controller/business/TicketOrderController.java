@@ -31,7 +31,7 @@ import java.util.List;
 @RestController
 @Api(tags = "门票订单")
 @AllArgsConstructor
-@RequestMapping("/manage/ticket/order")
+@RequestMapping(value = "/manage/ticket/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TicketOrderController {
 
     private final OrderService orderService;

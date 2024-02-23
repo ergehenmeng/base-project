@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "banner管理")
 @AllArgsConstructor
-@RequestMapping("/manage/banner")
+@RequestMapping(value = "/manage/banner", produces = MediaType.APPLICATION_JSON_VALUE)
 public class BannerController {
 
     private final BannerService bannerService;

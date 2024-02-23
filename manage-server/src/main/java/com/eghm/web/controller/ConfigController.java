@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "系统参数管理")
 @AllArgsConstructor
-@RequestMapping("/manage/config")
+@RequestMapping(value = "/manage/config", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ConfigController {
 
     private final SysConfigService sysConfigService;

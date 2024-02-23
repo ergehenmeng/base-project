@@ -33,7 +33,7 @@ import java.util.List;
 @RestController
 @Api(tags = "场馆")
 @AllArgsConstructor
-@RequestMapping("/manage/venue")
+@RequestMapping(value = "/manage/venue", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VenueController {
 
     private final VenueService venueService;

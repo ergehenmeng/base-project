@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "资讯配置")
 @AllArgsConstructor
-@RequestMapping("/manage/news/config")
+@RequestMapping(value = "/manage/news/config", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NewsConfigController {
 
     private final NewsConfigService newsConfigService;

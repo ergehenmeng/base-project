@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "邮件模板管理")
 @AllArgsConstructor
-@RequestMapping("/manage/email/template")
+@RequestMapping(value = "/manage/email/template", produces = MediaType.APPLICATION_JSON_VALUE)
 public class EmailTemplateController {
 
     private final EmailTemplateService emailTemplateService;

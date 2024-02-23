@@ -11,6 +11,7 @@ import com.eghm.vo.business.account.AccountLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +27,7 @@ import java.util.List;
 @RestController
 @Api(tags = "商户资金")
 @AllArgsConstructor
-@RequestMapping("/manage/merchant/account/log")
+@RequestMapping(value = "/manage/merchant/account/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AccountLogController {
 
     private final AccountLogService accountLogService;

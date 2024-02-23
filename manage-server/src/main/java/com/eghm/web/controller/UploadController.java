@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @Api(tags = "文件上传")
 @AllArgsConstructor
-@RequestMapping("/manage/file")
+@RequestMapping(value = "/manage/file", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UploadController {
 
     private final FileService fileService;

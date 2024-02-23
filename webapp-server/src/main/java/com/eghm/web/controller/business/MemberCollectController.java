@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @Api(tags = "收藏商品")
 @AllArgsConstructor
-@RequestMapping("/webapp/collect")
+@RequestMapping(value = "/webapp/collect", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberCollectController {
 
     private final MemberCollectService memberCollectService;

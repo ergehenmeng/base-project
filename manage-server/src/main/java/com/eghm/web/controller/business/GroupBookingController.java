@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "拼团活动")
 @AllArgsConstructor
-@RequestMapping("/manage/group/booking")
+@RequestMapping(value = "/manage/group/booking", produces = MediaType.APPLICATION_JSON_VALUE)
 public class GroupBookingController {
 
     private final GroupBookingService groupBookingService;

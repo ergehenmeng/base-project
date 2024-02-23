@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "旅行社")
 @AllArgsConstructor
-@RequestMapping("/manage/travel")
+@RequestMapping(value = "/manage/travel", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TravelAgencyController {
 
     private final TravelAgencyService travelAgencyService;

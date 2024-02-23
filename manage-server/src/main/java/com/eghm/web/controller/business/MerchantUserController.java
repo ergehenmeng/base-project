@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "商户用户管理")
 @AllArgsConstructor
-@RequestMapping("/manage/merchant/user")
+@RequestMapping(value = "/manage/merchant/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MerchantUserController {
 
     private final MerchantUserService merchantUserService;

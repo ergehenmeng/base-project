@@ -11,6 +11,7 @@ import com.eghm.vo.business.homestay.room.config.RoomConfigVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ import java.util.List;
 @RestController
 @Api(tags = "房型")
 @AllArgsConstructor
-@RequestMapping("/webapp/homestay/room")
+@RequestMapping(value = "/webapp/homestay/room", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HomestayRoomController {
 
     private final HomestayRoomService homestayRoomService;

@@ -29,7 +29,7 @@ import java.util.List;
 @RestController
 @Api(tags = "新闻资讯")
 @AllArgsConstructor
-@RequestMapping("/manage/news")
+@RequestMapping(value = "/manage/news", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NewsController {
 
     private final NewsService newsService;

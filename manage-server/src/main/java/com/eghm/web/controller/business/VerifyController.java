@@ -33,7 +33,7 @@ import static com.eghm.enums.ErrorCode.VERIFY_TYPE_ERROR;
 @RestController
 @Api(tags = "核销")
 @AllArgsConstructor
-@RequestMapping("/manage/verify")
+@RequestMapping(value = "/manage/verify", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VerifyController {
 
     private final VerifyLogService verifyLogService;

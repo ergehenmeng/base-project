@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "抽奖配置")
 @AllArgsConstructor
-@RequestMapping("/manage/lottery")
+@RequestMapping(value = "/manage/lottery", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LotteryController {
 
     private final LotteryService lotteryService;

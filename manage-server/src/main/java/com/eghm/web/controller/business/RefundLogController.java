@@ -34,7 +34,7 @@ import static com.eghm.enums.ErrorCode.ORDER_TYPE_MATCH;
 @RestController
 @Api(tags = "退款管理")
 @AllArgsConstructor
-@RequestMapping("/manage/refund/log")
+@RequestMapping(value = "/manage/refund/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RefundLogController {
 
     private final OrderRefundLogService orderRefundLogService;

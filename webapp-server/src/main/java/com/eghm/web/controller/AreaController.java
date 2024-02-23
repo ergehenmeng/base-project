@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +24,7 @@ import java.util.List;
 @RestController
 @Api(tags = "省份区域")
 @AllArgsConstructor
-@RequestMapping("/webapp/area")
+@RequestMapping(value = "/webapp/area", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AreaController {
 
     private final CacheProxyService cacheProxyService;

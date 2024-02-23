@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @Api(tags = "用户地址")
 @AllArgsConstructor
-@RequestMapping("/webapp/member/address")
+@RequestMapping(value = "/webapp/member/address", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AddressController {
 
     private final MemberAddressService memberAddressService;

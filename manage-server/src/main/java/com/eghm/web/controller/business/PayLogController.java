@@ -11,6 +11,7 @@ import com.eghm.vo.business.log.PayRequestLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "支付日志")
 @AllArgsConstructor
-@RequestMapping("/manage/pay/log")
+@RequestMapping(value = "/manage/pay/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PayLogController {
 
     private final PayRequestLogService payRequestLogService;

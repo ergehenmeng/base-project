@@ -25,7 +25,7 @@ import java.util.List;
 @RestController
 @Api(tags = "购物车")
 @AllArgsConstructor
-@RequestMapping("/webapp/shopping/cart")
+@RequestMapping(value = "/webapp/shopping/cart", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ShoppingCartController {
 
     private final ShoppingCartService shoppingCartService;

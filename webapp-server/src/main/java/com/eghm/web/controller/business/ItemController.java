@@ -31,7 +31,7 @@ import java.util.List;
 @RestController
 @Api(tags = "商品信息")
 @AllArgsConstructor
-@RequestMapping("/webapp/item")
+@RequestMapping(value = "/webapp/item", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemController {
 
     private final ItemService itemService;

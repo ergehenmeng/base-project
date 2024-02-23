@@ -37,7 +37,7 @@ import java.util.List;
 @RestController
 @Api(tags = "线路")
 @AllArgsConstructor
-@RequestMapping("/manage/line")
+@RequestMapping(value = "/manage/line", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LineController {
 
     private final LineService lineService;
