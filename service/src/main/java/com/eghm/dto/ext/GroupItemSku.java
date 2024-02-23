@@ -15,16 +15,16 @@ import javax.validation.constraints.NotNull;
 @Data
 public class GroupItemSku {
 
-    @ApiModelProperty("skuId")
+    @ApiModelProperty(value = "skuId", required = true)
     @NotNull(message = "skuId不能为空")
     private Long skuId;
 
-    @ApiModelProperty("销售价")
+    @ApiModelProperty(value = "销售价", required = true)
     @NotNull(message = "销售价不能为空")
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty("拼团价")
+    @ApiModelProperty(value = "拼团价", required = true)
     @NotNull(message = "拼团价不能为空")
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer groupPrice;

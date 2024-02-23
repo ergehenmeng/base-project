@@ -44,7 +44,7 @@ public class ScenicController {
     @GetMapping("/detail")
     @ApiOperation("景区详情")
     public RespBody<ScenicDetailVO> scenicDetail(@Validated ScenicDetailDTO dto) {
-        ScenicDetailVO detail = scenicService.detailById(dto.getScenicId(), dto.getLongitude(), dto.getLatitude());
+        ScenicDetailVO detail = scenicService.detailById(dto);
         return RespBody.success(detail);
     }
 

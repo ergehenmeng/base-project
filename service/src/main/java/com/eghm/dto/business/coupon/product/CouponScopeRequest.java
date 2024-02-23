@@ -15,11 +15,11 @@ import java.util.List;
 @Data
 public class CouponScopeRequest {
 
-    @ApiModelProperty("商品类型")
+    @ApiModelProperty(value = "商品类型", required = true)
     @NotNull(message = "商品类型不能为空")
     private ProductType productType;
 
-    @ApiModelProperty("商品id列表")
+    @ApiModelProperty(value = "商品id列表", required = true)
     @NotEmpty(message = "商品列表不能为空")
     private List<Long> productIds;
 }

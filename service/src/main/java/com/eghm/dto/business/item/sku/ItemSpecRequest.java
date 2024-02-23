@@ -19,23 +19,23 @@ public class ItemSpecRequest {
     @ApiModelProperty("id(编辑时不能为空)")
     private Long id;
 
-    @ApiModelProperty(value = "规格名")
+    @ApiModelProperty(value = "规格名", required = true)
     @Size(min = 1, max = 20, message = "规格名长度1~20位")
     @NotBlank(message = "规格名不能为空")
     @WordChecker(message = "规格名存在敏感词")
     private String specName;
 
-    @ApiModelProperty(value = "规格值")
+    @ApiModelProperty(value = "规格值", required = true)
     @Size(min = 1, max = 20, message = "规格值长度1~20位")
     @NotBlank(message = "规格值不能为空")
     @WordChecker(message = "规格值存在敏感词")
     private String specValue;
 
-    @ApiModelProperty(value = "规格图片(一级规格必填), 优先级比sku_pic低")
+    @ApiModelProperty(value = "规格图片(一级规格必填), 优先级比sku_pic低", required = true)
     @NotBlank(message = "规格图片不能为空")
     private String specPic;
 
-    @ApiModelProperty(value = "标签级别(1:一级标签 2:二级标签)")
+    @ApiModelProperty(value = "标签级别(1:一级标签 2:二级标签)", required = true)
     @OptionInt(value = {1, 2}, message = "标签级别格式错误")
     private Integer level;
 }

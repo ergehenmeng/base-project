@@ -4,8 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.sms.SmsTemplateEditRequest;
-import com.eghm.dto.sms.SmsTemplateQueryRequest;
 import com.eghm.mapper.SmsTemplateMapper;
 import com.eghm.model.SmsTemplate;
 import com.eghm.service.cache.CacheProxyService;
@@ -27,7 +27,7 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     private final CacheProxyService cacheProxyService;
 
     @Override
-    public Page<SmsTemplate> getByPage(SmsTemplateQueryRequest request) {
+    public Page<SmsTemplate> getByPage(PagingQuery request) {
         LambdaQueryWrapper<SmsTemplate> wrapper = Wrappers.lambdaQuery();
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SmsTemplate::getNid, request.getQueryName());
         return smsTemplateMapper.selectPage(request.createPage(), wrapper);

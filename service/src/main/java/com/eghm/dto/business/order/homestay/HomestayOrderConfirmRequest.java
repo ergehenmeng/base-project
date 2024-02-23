@@ -16,11 +16,11 @@ import javax.validation.constraints.Size;
 @Data
 public class HomestayOrderConfirmRequest {
 
-    @ApiModelProperty("确认状态 1:确认有房 2:确认无房")
+    @ApiModelProperty(value = "确认状态 1:确认有房 2:确认无房", required = true)
     @NotNull(message = "确认状态不能为空")
     private ConfirmState confirmState;
 
-    @ApiModelProperty("订单编号")
+    @ApiModelProperty(value = "订单编号", required = true)
     @NotBlank(message = "订单编号不能为空")
     private String orderNo;
 

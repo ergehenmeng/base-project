@@ -20,6 +20,9 @@ public class TicketRefundApplyDTO {
     @NotNull(message = "订单编号不能为空")
     private String orderNo;
 
+    /**
+     * 因为有实名制门票和非实名制门票, 因此需要传退款数量和退款游客id
+     */
     @ApiModelProperty(value = "退款数量", required = true)
     @RangeInt(min = 1, max = 99, message = "退款数量应为1~99")
     private Integer num;

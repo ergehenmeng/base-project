@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -20,8 +21,9 @@ public class ScoreRechargeDTO {
     @Assign
     private Long merchantId;
 
-    @ApiModelProperty("充值金额")
+    @ApiModelProperty(value = "充值金额", required = true)
     @JsonDeserialize(using = YuanToCentDecoder.class)
     @Min(value = 1000, message = "最低充值金额10元")
+    @NotNull(message = "请输入充值金额")
     private Integer amount;
 }

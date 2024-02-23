@@ -1,9 +1,11 @@
 package com.eghm.dto.ext;
 
 import com.google.common.collect.Maps;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.Map;
 
@@ -18,17 +20,13 @@ import java.util.Map;
 @NoArgsConstructor
 public class PushMessage {
 
-    /**
-     * 消息通知附加信息
-     */
+    @ApiModelProperty("消息通知附加信息")
     private final Map<String, String> extras = Maps.newHashMapWithExpectedSize(8);
-    /**
-     * 接收消息对象的别名(唯一标示符)
-     */
+
+    @ApiModelProperty("接收消息对象的别名(唯一标示符)")
     private String alias;
-    /**
-     * 消息内容
-     */
+
+    @ApiModelProperty("消息内容")
     private String content;
 
 }

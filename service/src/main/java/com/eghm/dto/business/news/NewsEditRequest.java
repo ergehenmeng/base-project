@@ -15,16 +15,16 @@ import javax.validation.constraints.Size;
 @Data
 public class NewsEditRequest {
 
-    @ApiModelProperty(value = "资讯id")
+    @ApiModelProperty(value = "资讯id", required = true)
     @NotNull(message = "资讯id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "资讯标题")
+    @ApiModelProperty(value = "资讯标题", required = true)
     @NotBlank(message = "标题不能为空")
     @Size(max = 20, message = "标题长度不能超过20")
     private String title;
 
-    @ApiModelProperty(value = "资讯编码")
+    @ApiModelProperty(value = "资讯编码", required = true)
     @NotBlank(message = "编码不能为空")
     @Size(max = 20, message = "编码长度不能超过20")
     private String code;
@@ -35,13 +35,10 @@ public class NewsEditRequest {
     @ApiModelProperty(value = "图集")
     private String image;
 
-    @ApiModelProperty(value = "详细信息")
+    @ApiModelProperty(value = "详细信息", required = true)
     @NotBlank(message = "详细信息不能为空")
     private String content;
 
     @ApiModelProperty(value = "视频")
     private String video;
-
-    @ApiModelProperty(value = "排序")
-    private Integer sort;
 }

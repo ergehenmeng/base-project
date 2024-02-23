@@ -8,9 +8,9 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.CheckBox;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.role.RoleAddRequest;
 import com.eghm.dto.role.RoleEditRequest;
-import com.eghm.dto.role.RoleQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.exception.BusinessException;
@@ -44,7 +44,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     private final CommonService commonService;
 
     @Override
-    public Page<SysRole> getByPage(RoleQueryRequest request) {
+    public Page<SysRole> getByPage(PagingQuery request) {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
         wrapper.ne(SysRole::getRoleType, RoleType.ADMINISTRATOR);
         wrapper.eq(SysRole::getMerchantId, SecurityHolder.getMerchantId());

@@ -6,11 +6,11 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.CheckBox;
 import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.role.RoleAddRequest;
 import com.eghm.dto.role.RoleAuthRequest;
 import com.eghm.dto.role.RoleEditRequest;
-import com.eghm.dto.role.RoleQueryRequest;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.model.SysRole;
 import com.eghm.service.sys.SysRoleService;
@@ -37,7 +37,7 @@ public class SysRoleController {
 
     @GetMapping("/listPage")
     @ApiOperation("角色列表(分页)")
-    public RespBody<PageData<SysRole>> listPage(RoleQueryRequest request) {
+    public RespBody<PageData<SysRole>> listPage(PagingQuery request) {
         Page<SysRole> page = sysRoleService.getByPage(request);
         return RespBody.success(PageData.toPage(page));
     }

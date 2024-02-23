@@ -3,9 +3,9 @@ package com.eghm.web.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.roster.BlackRosterAddRequest;
-import com.eghm.dto.roster.BlackRosterQueryRequest;
 import com.eghm.model.BlackRoster;
 import com.eghm.service.sys.BlackRosterService;
 import io.swagger.annotations.Api;
@@ -29,7 +29,7 @@ public class BlackRosterController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<BlackRoster>> listPage(BlackRosterQueryRequest request) {
+    public RespBody<PageData<BlackRoster>> listPage(PagingQuery request) {
         Page<BlackRoster> listByPage = blackRosterService.getByPage(request);
         return RespBody.success(PageData.toPage(listByPage));
     }

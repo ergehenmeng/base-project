@@ -7,8 +7,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constant.CacheConstant;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.roster.BlackRosterAddRequest;
-import com.eghm.dto.roster.BlackRosterQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.BlackRosterMapper;
@@ -33,7 +33,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
     private final CacheService cacheService;
 
     @Override
-    public Page<BlackRoster> getByPage(BlackRosterQueryRequest request) {
+    public Page<BlackRoster> getByPage(PagingQuery request) {
         LambdaQueryWrapper<BlackRoster> wrapper = Wrappers.lambdaQuery();
         if (StrUtil.isNotBlank(request.getQueryName())) {
             if (!PatternPool.IPV4.matcher(request.getQueryName()).matches()) {

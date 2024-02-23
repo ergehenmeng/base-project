@@ -15,19 +15,19 @@ import java.util.List;
 @Data
 public class ItemSippingRequest {
 
-    @ApiModelProperty("订单ID")
+    @ApiModelProperty(value = "订单ID", required = true)
     @NotEmpty(message = "请选择要发货的商品")
     private List<Long> orderIds;
 
-    @ApiModelProperty("订单号")
+    @ApiModelProperty(value = "订单号", required = true)
     @NotBlank(message = "订单号不能为空")
     private String orderNo;
 
-    @ApiModelProperty("快递编号")
+    @ApiModelProperty(value = "快递编号", required = true)
     @NotBlank(message = "快递编号不能为空")
     private String expressCode;
 
-    @ApiModelProperty("快递单号")
+    @ApiModelProperty(value = "快递单号", required = true)
     @NotBlank(message = "快递单号不能为空")
     @Size(max = 20, message = "快递单号长度最大20位")
     private String expressNo;

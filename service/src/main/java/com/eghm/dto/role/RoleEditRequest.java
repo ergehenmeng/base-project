@@ -1,5 +1,6 @@
 package com.eghm.dto.role;
 
+import com.eghm.annotation.Assign;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -27,5 +28,6 @@ public class RoleEditRequest {
     private String remark;
 
     @ApiModelProperty(value = "商户id", hidden = true)
+    @Assign
     private Long merchantId;
 }

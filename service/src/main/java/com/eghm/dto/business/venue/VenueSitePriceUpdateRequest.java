@@ -24,7 +24,7 @@ public class VenueSitePriceUpdateRequest {
     @NotNull(message = "请输入价格")
     private Integer price;
 
-    @ApiModelProperty(value = "状态 0:不可预定 1:可预定")
+    @ApiModelProperty(value = "状态 0:不可预定 1:可预定", required = true)
     @NotNull(message = "请选择状态")
     private Integer state;
 }

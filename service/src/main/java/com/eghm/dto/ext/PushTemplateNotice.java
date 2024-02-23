@@ -2,6 +2,7 @@ package com.eghm.dto.ext;
 
 import com.eghm.enums.PushType;
 import com.google.common.collect.Maps;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,20 +22,15 @@ import java.util.Map;
 @NoArgsConstructor
 public class PushTemplateNotice {
 
-    /**
-     * 推送附加的参数信息
-     */
+    @ApiModelProperty("推送附加的参数信息")
     private final Map<String, String> extras = Maps.newHashMapWithExpectedSize(4);
-    /**
-     * 模板类型
-     */
+
+    @ApiModelProperty("推送类型")
     private PushType pushType;
-    /**
-     * 接收消息的用户
-     */
+
+    @ApiModelProperty("接收者别名")
     private String alias;
-    /**
-     * 模板参数
-     */
+
+    @ApiModelProperty("模板参数")
     private Map<String, Object> params;
 }

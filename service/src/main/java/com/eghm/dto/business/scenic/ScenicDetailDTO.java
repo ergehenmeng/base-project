@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 /**
  * @author 二哥很猛
@@ -13,12 +14,12 @@ import javax.validation.constraints.NotNull;
 public class ScenicDetailDTO {
 
     @ApiModelProperty(value = "景区id", required = true)
-    @NotNull(message = "景区id不能为空")
+    @NotNull(message = "请选择景区")
     private Long scenicId;
 
     @ApiModelProperty("经度")
-    private Double longitude;
+    private BigDecimal longitude;
 
     @ApiModelProperty("纬度")
-    private Double latitude;
+    private BigDecimal latitude;
 }

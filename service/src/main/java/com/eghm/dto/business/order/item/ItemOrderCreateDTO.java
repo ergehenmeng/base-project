@@ -19,7 +19,7 @@ public class ItemOrderCreateDTO {
     @ApiModelProperty("优惠券id")
     private Long couponId;
 
-    @ApiModelProperty("收货地址id")
+    @ApiModelProperty(value = "收货地址id", required = true)
     @NotNull(message = "收货地址不能为空")
     private Long addressId;
 

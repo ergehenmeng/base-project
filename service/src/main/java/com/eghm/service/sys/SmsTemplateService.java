@@ -1,8 +1,8 @@
 package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.sms.SmsTemplateEditRequest;
-import com.eghm.dto.sms.SmsTemplateQueryRequest;
 import com.eghm.model.SmsTemplate;
 
 /**
@@ -17,7 +17,7 @@ public interface SmsTemplateService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<SmsTemplate> getByPage(SmsTemplateQueryRequest request);
+    Page<SmsTemplate> getByPage(PagingQuery request);
 
     /**
      * 获取短信发送模板

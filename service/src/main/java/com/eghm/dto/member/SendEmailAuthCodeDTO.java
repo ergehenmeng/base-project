@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author 殿小二
@@ -17,7 +18,8 @@ public class SendEmailAuthCodeDTO {
     @Email(message = "邮箱格式错误")
     private String email;
 
-    @ApiModelProperty(value = "短信验证码")
+    @ApiModelProperty(value = "短信验证码", required = true)
+    @NotBlank(message = "短信验证码不能为空")
     private String smsCode;
 
     @Assign

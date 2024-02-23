@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 @EqualsAndHashCode(callSuper = true)
 public class NewsQueryRequest extends PagingQuery {
 
-    @ApiModelProperty(value = "资讯编码")
+    @ApiModelProperty(value = "资讯编码", required = true)
     @NotBlank(message = "资讯编码不能为空")
     private String code;
 }

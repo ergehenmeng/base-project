@@ -13,21 +13,12 @@ import io.swagger.annotations.ApiModelProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RespBody<T> {
 
-    /**
-     * 代码 默认200为成功
-     */
     @ApiModelProperty("状态码,成功=200")
     private Integer code = 200;
 
-    /**
-     * 信息
-     */
     @ApiModelProperty("成功或失败的信息")
     private String msg = "success";
 
-    /**
-     * 结果集 键值对或者非基本类型对象
-     */
     @ApiModelProperty("成功时可能包含的数据集")
     private T data;
 

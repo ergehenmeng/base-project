@@ -14,15 +14,15 @@ import javax.validation.constraints.NotNull;
 @Data
 public class NoticeTemplateRequest {
 
-    @ApiModelProperty("id主键")
+    @ApiModelProperty(value = "id主键", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty("标题")
+    @ApiModelProperty(value = "标题", required = true)
     @NotBlank(message = "标题不能为空")
     private String title;
 
-    @ApiModelProperty("通知内容")
+    @ApiModelProperty(value = "通知内容", required = true)
     @NotBlank(message = "通知内容不能为空")
     private String content;
 }

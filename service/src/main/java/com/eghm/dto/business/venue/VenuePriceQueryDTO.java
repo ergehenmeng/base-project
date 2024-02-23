@@ -15,12 +15,12 @@ import java.time.LocalDate;
 @Data
 public class VenuePriceQueryDTO {
 
-    @ApiModelProperty(value = "场次id")
+    @ApiModelProperty(value = "场次id", required = true)
     @NotNull(message = "请选择场次")
     private Long venueSiteId;
 
-    @ApiModelProperty(value = "日期 yyyy-MM-dd")
+    @ApiModelProperty(value = "日期 yyyy-MM-dd", required = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "请选择日期")
-    private LocalDate nowDate = LocalDate.now();
+    private LocalDate nowDate;
 }

@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = true)
 public class HomestayRoomQueryDTO extends PagingQuery {
 
-    @ApiModelProperty("民宿id")
+    @ApiModelProperty(value = "民宿id", required = true)
     @NotNull(message = "请选择民宿")
     private Long homestayId;
 

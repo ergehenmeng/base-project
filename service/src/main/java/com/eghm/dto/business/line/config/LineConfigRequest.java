@@ -22,29 +22,29 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 public class LineConfigRequest extends DateComparator {
 
-    @ApiModelProperty("周期")
+    @ApiModelProperty(value = "周期", required = true)
     @NotEmpty(message = "请选择周期")
     private List<Integer> week;
 
-    @ApiModelProperty("线路ID")
+    @ApiModelProperty(value = "线路id", required = true)
     @NotNull(message = "线路id不能为空")
     private Long lineId;
 
-    @ApiModelProperty("开始日期 yyyy-MM-dd")
+    @ApiModelProperty(value = "开始日期 yyyy-MM-dd", required = true)
     @NotNull(message = "开始日期不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
-    @ApiModelProperty("截止日期 yyyy-MM-dd")
+    @ApiModelProperty(value = "截止日期 yyyy-MM-dd", required = true)
     @NotNull(message = "截止日期不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
-    @ApiModelProperty("状态 0:不可用 1:可用")
+    @ApiModelProperty(value = "状态 0:不可用 1:可用", required = true)
     @NotNull(message = "是否可定不能为空")
     private Boolean state;
 
-    @ApiModelProperty("库存不能为空")
+    @ApiModelProperty(value = "库存不能为空", required = true)
     @RangeInt(max = 9999, message = "最大库存9999")
     private Integer stock;
 
@@ -52,7 +52,7 @@ public class LineConfigRequest extends DateComparator {
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer linePrice;
 
-    @ApiModelProperty("销售价")
+    @ApiModelProperty(value = "销售价", required = true)
     @JsonDeserialize(using = YuanToCentDecoder.class)
     @NotNull(message = "销售价不能为空")
     private Integer salePrice;

@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author 二哥很猛
  * @since 2023/8/29
@@ -15,6 +17,7 @@ import lombok.EqualsAndHashCode;
 public class OrderEvaluationQueryDTO extends PagingQuery {
 
     @ApiModelProperty("商品id")
+    @NotNull(message = "商品id不能为空")
     private Long productId;
 
     @ApiModelProperty("1:最新 2: 好评 3: 中评 4:差评 5:有图")

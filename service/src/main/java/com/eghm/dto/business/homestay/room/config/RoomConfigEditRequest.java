@@ -17,20 +17,20 @@ import java.time.LocalDate;
 @Data
 public class RoomConfigEditRequest {
 
-    @ApiModelProperty("房间id")
+    @ApiModelProperty(value = "房间id", required = true)
     @NotNull(message = "房型id不能为空")
     private Long roomId;
 
-    @ApiModelProperty("日期yyyy-MM-dd")
+    @ApiModelProperty(value = "日期yyyy-MM-dd", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "日期不能为空")
     private LocalDate configDate;
 
-    @ApiModelProperty("状态 false:不可用 true:可用")
+    @ApiModelProperty(value = "状态 false:不可用 true:可用", required = true)
     @NotNull(message = "是否可定不能为空")
     private Boolean state;
 
-    @ApiModelProperty("库存不能为空")
+    @ApiModelProperty(value = "库存不能为空", required = true)
     @RangeInt(max = 9999, message = "最大库存9999")
     private Integer stock;
 

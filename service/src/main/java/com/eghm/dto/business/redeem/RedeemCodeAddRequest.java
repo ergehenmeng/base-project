@@ -22,26 +22,26 @@ import java.util.List;
 @Data
 public class RedeemCodeAddRequest {
 
-    @ApiModelProperty(value = "兑换码名称")
+    @ApiModelProperty(value = "兑换码名称", required = true)
     @NotBlank(message = "兑换码名称不能为空")
     @Size(max = 20, message = "兑换码名称最大20字符")
     private String title;
 
-    @ApiModelProperty(value = "有效开始时间")
+    @ApiModelProperty(value = "有效开始时间", required = true)
     @NotNull(message = "开始时间不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
 
-    @ApiModelProperty(value = "有效截止时间")
+    @ApiModelProperty(value = "有效截止时间", required = true)
     @NotNull(message = "结束时间不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
-    @ApiModelProperty("金额")
+    @ApiModelProperty(value = "金额", required = true)
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer amount;
 
-    @ApiModelProperty(value = "发放数量")
+    @ApiModelProperty(value = "发放数量", required = true)
     @NotNull(message = "发放数量不能为空")
     @RangeInt(min = 1, max = 999, message = "发放数量应在1-999之间")
     private Integer num;

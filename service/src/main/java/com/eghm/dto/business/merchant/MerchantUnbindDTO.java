@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @Data
 public class MerchantUnbindDTO {
 
-    @ApiModelProperty("验证码")
+    @ApiModelProperty(value = "验证码", required = true)
     @NotBlank(message = "验证码不能为空")
     @Size(min = 4, max = 6, message = "验证码格式错误")
     private String smsCode;

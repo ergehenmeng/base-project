@@ -23,7 +23,7 @@ public class ItemCouponQueryDTO extends PagingQuery {
     @ApiModelProperty("排序规则 0: 默认排序 1: 按价格排序 2: 按销售量排序 3: 评分排序")
     private Integer sortBy;
 
-    @ApiModelProperty("优惠券id")
+    @ApiModelProperty(value = "优惠券id", required = true)
     @NotNull(message = "优惠券id不能为空")
     private Long couponId;
 

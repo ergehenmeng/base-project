@@ -14,11 +14,11 @@ import javax.validation.constraints.NotNull;
 @Data
 public class CollectDTO {
 
-    @ApiModelProperty(value = "收藏id")
+    @ApiModelProperty(value = "收藏id", required = true)
     @NotNull(message = "收藏id不能为空")
     private Long collectId;
 
-    @ApiModelProperty(value = "收藏对象类型")
+    @ApiModelProperty(value = "收藏对象类型", required = true)
     @NotNull(message = "收藏对象类型不能为空")
     private CollectType collectType;
 }

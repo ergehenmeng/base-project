@@ -1,6 +1,7 @@
 package com.eghm.dto.ext;
 
 import com.google.common.collect.Maps;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,25 +21,19 @@ import java.util.Map;
 @NoArgsConstructor
 public class PushNotice {
 
-    /**
-     * 消息通知附加信息
-     */
+    @ApiModelProperty("消息通知附加信息")
     private final Map<String, String> extras = Maps.newHashMapWithExpectedSize(4);
-    /**
-     * 别名
-     */
+
+    @ApiModelProperty("别名")
     private String alias;
-    /**
-     * 推送标题
-     */
+
+    @ApiModelProperty("消息标题")
     private String title;
-    /**
-     * 推送内容
-     */
+
+    @ApiModelProperty("消息内容")
     private String content;
-    /**
-     * 通知跳转的页面
-     */
+
+    @ApiModelProperty("消息跳转地址")
     private String viewTag;
 
 }

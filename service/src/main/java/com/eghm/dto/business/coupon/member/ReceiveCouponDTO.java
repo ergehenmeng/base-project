@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ReceiveCouponDTO {
 
-    @ApiModelProperty("优惠券id")
+    @ApiModelProperty(value = "优惠券id", required = true)
     @NotNull(message = "优惠券id不能为空")
     private Long couponId;
 

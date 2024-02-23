@@ -20,7 +20,8 @@ public class ItemRefundApplyDTO {
     @NotNull(message = "订单编号不能为空")
     private String orderNo;
 
-    @ApiModelProperty("商品订单id")
+    @ApiModelProperty(value = "商品订单id", required = true)
+    @NotNull(message = "请选择要退款的商品")
     private Long orderId;
 
     @ApiModelProperty(value = "申请退款金额(含快递费)", required = true)
@@ -31,7 +32,7 @@ public class ItemRefundApplyDTO {
     @ApiModelProperty(value = "退款原因", required = true)
     private String reason;
 
-    @ApiModelProperty(value = "申请方式 1:仅退款 2:退货退款")
+    @ApiModelProperty(value = "申请方式 1:仅退款 2:退货退款", required = true)
     @OptionInt(value = {1, 2}, message = "申请方式非法")
     private Integer applyType;
 

@@ -14,19 +14,19 @@ import javax.validation.constraints.Size;
 @Data
 public class ItemExpressRequest {
 
-    @ApiModelProperty("id")
+    @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty("订单号")
+    @ApiModelProperty(value = "订单号", required = true)
     @NotBlank(message = "订单号不能为空")
     private String orderNo;
 
-    @ApiModelProperty("快递编号")
+    @ApiModelProperty(value = "快递编号", required = true)
     @NotBlank(message = "快递编号不能为空")
     private String expressCode;
 
-    @ApiModelProperty("快递单号")
+    @ApiModelProperty(value = "快递单号", required = true)
     @NotBlank(message = "快递单号不能为空")
     @Size(max = 20, message = "快递单号长度最大20位")
     private String expressNo;

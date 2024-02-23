@@ -18,15 +18,15 @@ import java.util.List;
 @Data
 public class GrantCouponDTO {
 
-    @ApiModelProperty(value = "用户id列表")
+    @ApiModelProperty(value = "用户id列表", required = true)
     @NotEmpty(message = "用户id不能为空")
     private List<Long> memberIdList;
 
-    @ApiModelProperty("优惠券id")
+    @ApiModelProperty(value = "优惠券id", required = true)
     @NotNull(message = "优惠券id不能为空")
     private Long couponId;
 
-    @ApiModelProperty("发放数量")
+    @ApiModelProperty(value = "发放数量", required = true)
     @RangeInt(min = 1, max = 99, message = "发放数量1~99")
     private Integer num;
 

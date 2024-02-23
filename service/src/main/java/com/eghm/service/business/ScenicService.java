@@ -2,10 +2,7 @@ package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
-import com.eghm.dto.business.scenic.ScenicAddRequest;
-import com.eghm.dto.business.scenic.ScenicEditRequest;
-import com.eghm.dto.business.scenic.ScenicQueryDTO;
-import com.eghm.dto.business.scenic.ScenicQueryRequest;
+import com.eghm.dto.business.scenic.*;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Scenic;
 import com.eghm.vo.business.base.BaseStoreResponse;
@@ -94,12 +91,10 @@ public interface ScenicService {
     /**
      * 查询景区详细信息 含门票
      *
-     * @param id        景区id
-     * @param longitude 经度
-     * @param latitude  维度
+     * @param dto id及用户经纬度
      * @return 景区详细
      */
-    ScenicDetailVO detailById(Long id, Double longitude, Double latitude);
+    ScenicDetailVO detailById(ScenicDetailDTO dto);
 
     /**
      * 删除景区,逻辑删除

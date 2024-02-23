@@ -17,16 +17,16 @@ import java.time.LocalDate;
 @Data
 public class AuthConfigAddRequest {
 
-    @ApiModelProperty("单位名称")
+    @ApiModelProperty(value = "单位名称", required = true)
     @Size(min = 2, max = 20, message = "单位名称长度2~20位")
     @NotBlank(message = "单位名称称不能为空")
     private String title;
 
-    @ApiModelProperty("签名方式")
+    @ApiModelProperty(value = "签名方式", required = true)
     @NotNull(message = "签名方式不能为空")
     private SignType signType;
 
-    @ApiModelProperty("过期时间")
+    @ApiModelProperty("过期时间(默认一年)")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate expireDate;
 

@@ -26,7 +26,7 @@ public class MerchantUserAddRequest {
     @Mobile
     private String mobile;
 
-    @ApiModelProperty("密码")
+    @ApiModelProperty(value = "密码", required = true)
     @Password
     private String password;
 

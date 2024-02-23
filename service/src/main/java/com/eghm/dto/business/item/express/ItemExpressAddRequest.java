@@ -17,16 +17,16 @@ import java.util.List;
 @Data
 public class ItemExpressAddRequest {
 
-    @ApiModelProperty(value = "模板名称")
+    @ApiModelProperty(value = "模板名称", required = true)
     @Size(min = 2, max = 20, message = "快递模板名称长度2~20位")
     @NotBlank(message = "快递模板名称不能为空")
     private String title;
 
-    @ApiModelProperty(value = "计费方式 1:按件数 2:按重量")
+    @ApiModelProperty(value = "计费方式 1:按件数 2:按重量", required = true)
     @OptionInt(value = {1, 2}, message = "计费方式不合法")
     private Integer chargeMode;
 
-    @ApiModelProperty("配送区域")
+    @ApiModelProperty(value = "配送区域", required = true)
     @NotEmpty(message = "配送区域不能为空")
     @Size(min = 1, max = 20, message = "配送区域不能超过20个")
     private List<ItemExpressRegionRequest> regionList;

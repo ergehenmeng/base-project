@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class MaOpenLoginDTO {
 
-    @ApiModelProperty("openId")
+    @ApiModelProperty(value = "openId", required = true)
     @NotBlank(message = "授权openId不能为空")
     private String openId;
 }

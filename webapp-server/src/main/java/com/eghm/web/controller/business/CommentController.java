@@ -36,7 +36,7 @@ public class CommentController {
 
     @GetMapping("/listPage")
     @ApiOperation("评论列表")
-    public RespBody<List<CommentVO>> getByPage(CommentQueryDTO dto) {
+    public RespBody<List<CommentVO>> getByPage(@Validated CommentQueryDTO dto) {
         return RespBody.success(commentService.getByPage(dto));
     }
 

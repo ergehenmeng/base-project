@@ -18,7 +18,7 @@ public class RedeemCodeGrantQueryRequest extends PagingQuery {
     @ApiModelProperty(value = "状态 0:待发放 1:已发放 2:已过期")
     private Integer state;
 
-    @ApiModelProperty("兑换码配置id")
+    @ApiModelProperty(value = "兑换码配置id", required = true)
     @NotNull(message = "兑换码配置id不能为空")
     private Long redeemCodeId;
 }

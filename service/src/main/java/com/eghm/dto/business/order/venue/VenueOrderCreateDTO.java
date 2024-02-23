@@ -16,18 +16,18 @@ import java.util.List;
 @Data
 public class VenueOrderCreateDTO {
 
-    @ApiModelProperty("场次id")
+    @ApiModelProperty(value = "场次id", required = true)
     @NotNull(message = "请选择场次")
     private Long venueSiteId;
 
-    @ApiModelProperty("时间段id")
+    @ApiModelProperty(value = "时间段id", required = true)
     @NotEmpty(message = "请选择时间段")
     private List<Long> phaseList;
 
     @ApiModelProperty("优惠券id")
     private Long couponId;
 
-    @ApiModelProperty("联系人姓名")
+    @ApiModelProperty(value = "联系人姓名", required = true)
     @Size(max = 10, message = "联系人姓名最大10字符")
     private String nickName;
 

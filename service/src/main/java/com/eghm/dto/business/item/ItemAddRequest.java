@@ -33,7 +33,8 @@ public class ItemAddRequest {
     @NotNull(message = "店铺id不能为空")
     private Long storeId;
 
-    @ApiModelProperty("标签id")
+    @ApiModelProperty(value = "标签id", required = true)
+    @NotBlank(message = "请选择品类标签")
     private String tagId;
 
     @ApiModelProperty(value = "商品描述信息", required = true)

@@ -34,7 +34,8 @@ public class ItemEditRequest {
     @WordChecker(message = "商品名称存在敏感词")
     private String title;
 
-    @ApiModelProperty("标签id")
+    @ApiModelProperty(value = "标签id", required = true)
+    @NotBlank(message = "请选择品类标签")
     private String tagId;
 
     @ApiModelProperty(value = "是否为多规格商品 true:是 false:不是", required = true)

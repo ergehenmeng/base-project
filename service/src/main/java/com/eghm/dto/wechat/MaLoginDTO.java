@@ -16,7 +16,7 @@ public class MaLoginDTO {
     @NotBlank(message = "授权码不能为空")
     private String code;
 
-    @ApiModelProperty("openId")
+    @ApiModelProperty(value = "openId", required = true)
     @NotBlank(message = "授权openId不能为空")
     private String openId;
 }

@@ -13,15 +13,15 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class MerchantAuthDTO {
 
-    @ApiModelProperty("授权码")
+    @ApiModelProperty(value = "授权码", required = true)
     @NotBlank(message = "授权码不能为空")
     private String authCode;
 
-    @ApiModelProperty("授权手机号")
+    @ApiModelProperty(value = "授权手机号", required = true)
     @NotBlank(message = "授权手机号不能为空")
     private String mobile;
 
-    @ApiModelProperty("授权openId")
+    @ApiModelProperty(value = "授权openId", required = true)
     @NotBlank(message = "openId不能为空")
     private String openId;
 

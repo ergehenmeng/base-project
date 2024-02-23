@@ -2,9 +2,9 @@ package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.CheckBox;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.role.RoleAddRequest;
 import com.eghm.dto.role.RoleEditRequest;
-import com.eghm.dto.role.RoleQueryRequest;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.model.SysRole;
 
@@ -22,7 +22,7 @@ public interface SysRoleService {
      * @param request 前台查询条件
      * @return 列表
      */
-    Page<SysRole> getByPage(RoleQueryRequest request);
+    Page<SysRole> getByPage(PagingQuery request);
 
     /**
      * 更新角色信息

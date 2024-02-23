@@ -1,5 +1,6 @@
 package com.eghm.dto.ext;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,24 +18,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MemberToken {
 
-    /**
-     * token 保持登陆信息
-     */
+    @ApiModelProperty("token 保持登陆信息")
     private String token;
 
-    /**
-     * 刷新token 不序列号保存到redis中
-     */
+    @ApiModelProperty("刷新token 不序列号保存到redis中")
     private String refreshToken;
 
-    /**
-     * 用户id
-     */
+    @ApiModelProperty("用户id")
     private Long memberId;
 
-    /**
-     * 登陆来源 ANDROID IOS
-     */
+    @ApiModelProperty("登陆来源 ANDROID IOS")
     private String channel;
 
 }

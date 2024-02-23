@@ -1,5 +1,6 @@
 package com.eghm.dto.statistics;
 
+import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -16,16 +17,17 @@ import java.time.LocalDate;
 @Data
 public class DateRequest {
 
-    @ApiModelProperty("开始日期 yyyy-MM-dd")
+    @ApiModelProperty(value = "开始日期 yyyy-MM-dd", required = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "开始日期不能为空")
     private LocalDate startDate;
 
-    @ApiModelProperty("截止日期 yyyy-MM-dd")
+    @ApiModelProperty(value = "截止日期 yyyy-MM-dd", required = true)
     @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
     @NotNull(message = "截止日期不能为空")
     private LocalDate endDate;
 
+    @Assign
     @ApiModelProperty(value = "商户id", hidden = true)
     private Long merchantId;
 

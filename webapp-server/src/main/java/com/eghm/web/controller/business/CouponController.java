@@ -37,7 +37,7 @@ public class CouponController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<List<CouponListVO>> listPage(CouponQueryDTO dto) {
+    public RespBody<List<CouponListVO>> listPage(@Validated CouponQueryDTO dto) {
         List<CouponListVO> byPage = couponService.getByPage(dto);
         return RespBody.success(byPage);
     }

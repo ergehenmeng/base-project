@@ -21,12 +21,12 @@ public class AddressAddDTO {
     @Assign
     private Long memberId;
 
-    @ApiModelProperty("收货人姓名")
+    @ApiModelProperty(value = "收货人姓名", required = true)
     @Size(max = 10, message = "收货人姓名最大10字符")
     @NotBlank(message = "收货人姓名不能为空")
     private String nickName;
 
-    @ApiModelProperty("收货人手机号")
+    @ApiModelProperty(value = "收货人手机号", required = true)
     @Mobile(message = "收货人手机号格式错误")
     private String mobile;
 

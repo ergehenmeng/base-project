@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -18,7 +19,8 @@ public class ScoreWithdrawApplyDTO {
     @Assign
     private Long merchantId;
 
-    @ApiModelProperty("提现金额")
+    @ApiModelProperty(value = "提现金额", required = true)
     @Min(value = 1000, message = "最低提现积分1000起")
+    @NotNull(message = "请输入提现金额")
     private Integer amount;
 }

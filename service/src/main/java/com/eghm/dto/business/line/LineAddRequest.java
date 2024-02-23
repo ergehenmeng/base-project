@@ -55,7 +55,7 @@ public class LineAddRequest {
     @NotNull(message = "退款方式不能为空")
     private RefundType refundType;
 
-    @ApiModelProperty(value = "退款描述", required = true)
+    @ApiModelProperty(value = "退款描述")
     @Size(max = 100, message = "退款描述长度最大100字符")
     @WordChecker(message = "退款描述包含敏感字")
     private String refundDescribe;

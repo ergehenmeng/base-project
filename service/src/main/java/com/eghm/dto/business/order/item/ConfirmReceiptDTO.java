@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class ConfirmReceiptDTO {
 
-    @ApiModelProperty("订单号")
+    @ApiModelProperty(value = "订单号", required = true)
     @NotBlank(message = "订单号不能为空")
     private String orderNo;
 

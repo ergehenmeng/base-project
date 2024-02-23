@@ -16,14 +16,15 @@ import java.util.List;
 @Data
 public class ExpressFeeCalcDTO {
 
-    @ApiModelProperty("店铺id")
+    @ApiModelProperty(value = "店铺id", required = true)
     @NotNull(message = "店铺id不能为空")
     private Long storeId;
 
-    @ApiModelProperty("收货地址中的区县id")
+    @ApiModelProperty(value = "收货地址中的区县id", required = true)
+    @NotNull(message = "请选择收货地址")
     private Long countyId;
 
-    @ApiModelProperty("购买的商品数量")
+    @ApiModelProperty(value = "购买的商品数量", required = true)
     @NotEmpty(message = "请选择购买的商品")
     private List<ItemCalcDTO> orderList;
 

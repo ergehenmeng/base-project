@@ -12,10 +12,7 @@ import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
-import com.eghm.dto.business.scenic.ScenicAddRequest;
-import com.eghm.dto.business.scenic.ScenicEditRequest;
-import com.eghm.dto.business.scenic.ScenicQueryDTO;
-import com.eghm.dto.business.scenic.ScenicQueryRequest;
+import com.eghm.dto.business.scenic.*;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.CollectType;
 import com.eghm.enums.ref.State;
@@ -166,12 +163,12 @@ public class ScenicServiceImpl implements ScenicService {
     }
 
     @Override
-    public ScenicDetailVO detailById(Long id, Double longitude, Double latitude) {
-        Scenic scenic = this.selectByIdShelve(id);
+    public ScenicDetailVO detailById(ScenicDetailDTO dto) {
+        Scenic scenic = this.selectByIdShelve(dto.getScenicId());
         ScenicDetailVO vo = DataUtil.copy(scenic, ScenicDetailVO.class, "tag");
         // 用户未开启定位, 不查询距离
-        if (longitude != null && latitude != null) {
-            double distance = geoService.distance(CacheConstant.GEO_SCENIC_DISTANCE, String.valueOf(id), longitude, latitude);
+        if (dto.getLongitude() != null && dto.getLatitude() != null) {
+            double distance = geoService.distance(CacheConstant.GEO_SCENIC_DISTANCE, String.valueOf(dto.getScenicId()), dto.getLongitude().doubleValue(), dto.getLatitude().doubleValue());
             vo.setDistance(BigDecimal.valueOf(distance));
         }
         // 景区地址
@@ -179,13 +176,13 @@ public class ScenicServiceImpl implements ScenicService {
         // 景区标签
         vo.setTagList(sysDictService.getTags(DictConstant.SCENIC_TAG, scenic.getTag()));
         // 景区门票
-        List<TicketBaseVO> ticketList = scenicTicketMapper.getTicketList(id);
+        List<TicketBaseVO> ticketList = scenicTicketMapper.getTicketList(dto.getScenicId());
         vo.setTicketList(ticketList);
         // 景区关联的活动
-        List<ActivityBaseDTO> activityList = activityService.scenicActivityList(id);
+        List<ActivityBaseDTO> activityList = activityService.scenicActivityList(dto.getScenicId());
         vo.setActivityList(activityList);
         // 是否加入收藏
-        vo.setCollect(memberCollectService.checkCollect(id, CollectType.SCENIC));
+        vo.setCollect(memberCollectService.checkCollect(dto.getScenicId(), CollectType.SCENIC));
         return vo;
     }
 

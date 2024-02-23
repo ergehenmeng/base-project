@@ -17,13 +17,13 @@ import javax.validation.constraints.Size;
 @Data
 public class CommentReportDTO {
 
-    @ApiModelProperty("举报内容")
+    @ApiModelProperty(value = "举报内容", required = true)
     @NotBlank(message = "举报内容不能为空")
     @Size(max = 100, message = "举报内容最大100字符")
     @WordChecker(message = "举报内容包含敏感词汇")
     private String content;
 
-    @ApiModelProperty("评论id")
+    @ApiModelProperty(value = "评论id", required = true)
     @NotNull(message = "请选择要举报的评论")
     private Long commentId;
 

@@ -25,7 +25,7 @@ public class AuthConfigEditRequest {
     @NotBlank(message = "单位名称称不能为空")
     private String title;
 
-    @ApiModelProperty("过期时间")
+    @ApiModelProperty("过期时间(默认一年过期)")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate expireDate;
 

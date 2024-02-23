@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = true)
 public class CommentQueryDTO extends PagingQuery {
 
-    @ApiModelProperty("评价对象id")
+    @ApiModelProperty(value = "评价对象id", required = true)
     @NotNull(message = "id不能为空")
     private Long objectId;
 

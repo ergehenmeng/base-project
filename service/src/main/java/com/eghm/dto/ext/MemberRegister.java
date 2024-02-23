@@ -1,5 +1,6 @@
 package com.eghm.dto.ext;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -9,63 +10,39 @@ import lombok.Data;
 @Data
 public class MemberRegister {
 
-    /**
-     * 微信openId(公众号)
-     */
+    @ApiModelProperty("微信openId(公众号)")
     private String mpOpenId;
 
-    /**
-     * 微信openId(小程序)
-     */
+    @ApiModelProperty("小程序openId(小程序)")
     private String maOpenId;
 
-    /**
-     * unionId
-     */
+    @ApiModelProperty("unionId")
     private String unionId;
 
-    /**
-     * 昵称
-     */
+    @ApiModelProperty("昵称")
     private String nickName;
 
-    /**
-     * 手机号码
-     */
+    @ApiModelProperty("手机号")
     private String mobile;
 
-    /**
-     * 头像
-     */
+    @ApiModelProperty("头像")
     private String avatar;
 
-    /**
-     * 邮箱
-     */
+    @ApiModelProperty("邮箱")
     private String email;
 
-    /**
-     * 密码
-     */
+    @ApiModelProperty("密码")
     private String pwd;
 
-    /**
-     * 注册渠道
-     */
+    @ApiModelProperty("注册渠道")
     private String channel;
 
-    /**
-     * 性别 0:未知 1:男 2:女
-     */
+    @ApiModelProperty("性别 0:未知 1:男 2:女")
     private Integer sex;
 
-    /**
-     * 注册邀请码
-     */
+    @ApiModelProperty("邀请码")
     private String inviteCode;
 
-    /**
-     * 注册ip
-     */
+    @ApiModelProperty("注册ip")
     private String registerIp;
 }

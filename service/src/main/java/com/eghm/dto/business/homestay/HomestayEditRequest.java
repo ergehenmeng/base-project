@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Data
 public class HomestayEditRequest {
 
-    @ApiModelProperty("id")
+    @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
 
@@ -65,16 +65,16 @@ public class HomestayEditRequest {
     @WordChecker(message = "描述信息存在敏感词")
     private String intro;
 
-    @ApiModelProperty(value = "封面图片,逗号分隔")
+    @ApiModelProperty(value = "封面图片,逗号分隔", required = true)
     @NotBlank(message = "封面图片不能为空")
     private String coverUrl;
 
-    @ApiModelProperty(value = "详细介绍")
+    @ApiModelProperty(value = "详细介绍", required = true)
     @NotBlank(message = "详细介绍不能为空")
     @WordChecker(message = "详细介绍存在敏感词")
     private String introduce;
 
-    @ApiModelProperty(value = "联系电话")
+    @ApiModelProperty(value = "联系电话", required = true)
     @Phone(message = "联系电话格式错误")
     private String phone;
 

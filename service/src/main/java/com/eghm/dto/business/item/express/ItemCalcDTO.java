@@ -15,15 +15,15 @@ import java.math.BigDecimal;
 @Data
 public class ItemCalcDTO {
 
-    @ApiModelProperty("商品ID")
+    @ApiModelProperty(value = "商品ID", required = true)
     @NotNull(message = "请选择商品")
     private Long itemId;
 
-    @ApiModelProperty("skuId")
+    @ApiModelProperty(value = "skuId", required = true)
     @NotNull(message = "请选择商品规格")
     private Long skuId;
 
-    @ApiModelProperty("数量")
+    @ApiModelProperty(value = "数量", required = true)
     @Min(value = 1, message = "购买数量必须大于等于1")
     @NotNull(message = "商品数量不能为空")
     private Integer num;

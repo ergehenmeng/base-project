@@ -17,6 +17,7 @@ public class LinePointBindRequest {
     @NotNull(message = "线路id不能为空")
     private Long lineId;
 
-    @ApiModelProperty(value = "点位列表")
+    @ApiModelProperty(value = "点位列表", required = true)
+    @NotNull(message = "请选择点位")
     private List<Long> pointIds;
 }

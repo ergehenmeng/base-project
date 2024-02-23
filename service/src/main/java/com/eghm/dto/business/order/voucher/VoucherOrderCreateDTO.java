@@ -5,6 +5,7 @@ import com.eghm.validation.annotation.RangeInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -26,8 +27,9 @@ public class VoucherOrderCreateDTO {
     @ApiModelProperty("优惠券id")
     private Long couponId;
 
-    @ApiModelProperty("联系人姓名")
+    @ApiModelProperty(value = "联系人姓名", required = true)
     @Size(max = 10, message = "联系人姓名最大10字符")
+    @NotBlank(message = "请输入联系人姓名")
     private String nickName;
 
     @ApiModelProperty(value = "联系人电话", required = true)

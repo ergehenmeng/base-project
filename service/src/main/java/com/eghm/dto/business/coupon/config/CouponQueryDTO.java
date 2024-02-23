@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = true)
 public class CouponQueryDTO extends PagingQuery {
 
-    @ApiModelProperty("优惠券类型")
+    @ApiModelProperty(value = "优惠券类型", required = true)
     @NotNull(message = "优惠券类型不能为空")
     private CouponType couponType;
 }

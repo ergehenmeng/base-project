@@ -1,8 +1,8 @@
 package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.roster.BlackRosterAddRequest;
-import com.eghm.dto.roster.BlackRosterQueryRequest;
 import com.eghm.model.BlackRoster;
 
 /**
@@ -17,7 +17,7 @@ public interface BlackRosterService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<BlackRoster> getByPage(BlackRosterQueryRequest request);
+    Page<BlackRoster> getByPage(PagingQuery request);
 
     /**
      * 添加黑名单信息

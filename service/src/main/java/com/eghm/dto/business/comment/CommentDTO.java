@@ -18,17 +18,17 @@ import javax.validation.constraints.Size;
 @Data
 public class CommentDTO {
 
-    @ApiModelProperty("评论内容")
+    @ApiModelProperty(value = "评论内容", required = true)
     @NotBlank(message = "评论内容不能为空")
     @Size(max = 200, message = "评论内容最大200字符")
     @WordChecker(message = "评论内容包含敏感词汇")
     private String content;
 
-    @ApiModelProperty("评论对象id")
+    @ApiModelProperty(value = "评论对象id", required = true)
     @NotNull(message = "评论对象id不能为空")
     private Long objectId;
 
-    @ApiModelProperty("评论对象类型")
+    @ApiModelProperty(value = "评论对象类型", required = true)
     @NotNull(message = "评论对象类型不能为空")
     private ObjectType commentType;
 

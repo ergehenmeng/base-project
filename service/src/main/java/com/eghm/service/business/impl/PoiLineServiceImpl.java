@@ -1,6 +1,5 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -77,15 +76,13 @@ public class PoiLineServiceImpl implements PoiLineService {
         LambdaUpdateWrapper<PoiLinePoint> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(PoiLinePoint::getLineId, request.getLineId());
         poiLinePointMapper.delete(wrapper);
-        if (CollUtil.isNotEmpty(request.getPointIds())) {
-            int i = 0;
-            for (Long pointId : request.getPointIds()) {
-                PoiLinePoint poiLinePoint = new PoiLinePoint();
-                poiLinePoint.setLineId(request.getLineId());
-                poiLinePoint.setPointId(pointId);
-                poiLinePoint.setSort(i++);
-                poiLinePointMapper.insert(poiLinePoint);
-            }
+        int i = 0;
+        for (Long pointId : request.getPointIds()) {
+            PoiLinePoint poiLinePoint = new PoiLinePoint();
+            poiLinePoint.setLineId(request.getLineId());
+            poiLinePoint.setPointId(pointId);
+            poiLinePoint.setSort(i++);
+            poiLinePointMapper.insert(poiLinePoint);
         }
     }
 

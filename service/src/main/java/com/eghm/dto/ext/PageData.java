@@ -17,27 +17,15 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PageData<T> {
 
-    /**
-     * 总条数
-     */
     @ApiModelProperty("总条数")
     private Long total;
 
-    /**
-     * 数据集
-     */
     @ApiModelProperty("结果集")
     private List<T> rows;
 
-    /**
-     * 当前页数
-     */
     @ApiModelProperty("第几页")
     private Long page;
 
-    /**
-     * 页容量
-     */
     @ApiModelProperty("页容量")
     private Long pageSize;
 
