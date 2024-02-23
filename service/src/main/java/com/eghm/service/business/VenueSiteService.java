@@ -8,6 +8,7 @@ import com.eghm.dto.business.venue.VenueSiteQueryRequest;
 import com.eghm.enums.ref.State;
 import com.eghm.model.VenueSite;
 import com.eghm.vo.business.base.BaseProductResponse;
+import com.eghm.vo.business.venue.VenueSiteDetailResponse;
 import com.eghm.vo.business.venue.VenueSiteResponse;
 import com.eghm.vo.business.venue.VenueSiteVO;
 
@@ -75,6 +76,14 @@ public interface VenueSiteService {
      * @return 场地信息
      */
     VenueSite selectByIdRequired(Long id);
+
+    /**
+     * 获取场地详情
+     *
+     * @param id id
+     * @return 详情
+     */
+    VenueSiteDetailResponse getDetail(Long id);
 
     /**
      * 根据id获取场地信息 (未上架抛异常)

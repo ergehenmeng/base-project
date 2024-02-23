@@ -15,15 +15,19 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.VenueSiteMapper;
 import com.eghm.model.VenueSite;
 import com.eghm.service.business.CommonService;
+import com.eghm.service.business.VenueSitePriceService;
 import com.eghm.service.business.VenueSiteService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
+import com.eghm.vo.business.venue.VenueSiteDetailResponse;
+import com.eghm.vo.business.venue.VenueSitePriceVO;
 import com.eghm.vo.business.venue.VenueSiteResponse;
 import com.eghm.vo.business.venue.VenueSiteVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -43,6 +47,8 @@ public class VenueSiteServiceImpl implements VenueSiteService {
     private final CommonService commonService;
 
     private final VenueSiteMapper venueSiteMapper;
+
+    private final VenueSitePriceService venueSitePriceService;
 
     @Override
     public Page<VenueSiteResponse> getByPage(VenueSiteQueryRequest request) {
@@ -106,6 +112,15 @@ public class VenueSiteServiceImpl implements VenueSiteService {
             throw new BusinessException(ErrorCode.VENUE_SITE_NULL);
         }
         return venueSite;
+    }
+
+    @Override
+    public VenueSiteDetailResponse getDetail(Long id) {
+        VenueSite venueSite = this.selectByIdRequired(id);
+        VenueSiteDetailResponse response = DataUtil.copy(venueSite, VenueSiteDetailResponse.class);
+        List<VenueSitePriceVO> priceList = venueSitePriceService.getPriceList(id, LocalDate.now());
+        response.setPriceList(priceList);
+        return response;
     }
 
     @Override

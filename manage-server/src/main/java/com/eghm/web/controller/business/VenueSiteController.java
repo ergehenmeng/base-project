@@ -7,13 +7,16 @@ import com.eghm.dto.SortByDTO;
 import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.venue.VenueSiteAddRequest;
 import com.eghm.dto.business.venue.VenueSiteEditRequest;
+import com.eghm.dto.business.venue.VenueSitePriceQueryRequest;
 import com.eghm.dto.business.venue.VenueSiteQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
-import com.eghm.model.VenueSite;
+import com.eghm.service.business.VenueSitePriceService;
 import com.eghm.service.business.VenueSiteService;
 import com.eghm.vo.business.base.BaseProductResponse;
+import com.eghm.vo.business.venue.VenueSiteDetailResponse;
+import com.eghm.vo.business.venue.VenueSitePriceVO;
 import com.eghm.vo.business.venue.VenueSiteResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,6 +24,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -34,6 +39,8 @@ import org.springframework.web.bind.annotation.*;
 public class VenueSiteController {
 
     private final VenueSiteService venueSiteService;
+
+    private final VenueSitePriceService venueSitePriceService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
@@ -95,9 +102,16 @@ public class VenueSiteController {
 
     @GetMapping("/select")
     @ApiOperation("详情")
-    public RespBody<VenueSite> select(@Validated IdDTO dto) {
-        VenueSite venueSite = venueSiteService.selectByIdRequired(dto.getId());
-        return RespBody.success(venueSite);
+    public RespBody<VenueSiteDetailResponse> select(@Validated IdDTO dto) {
+        VenueSiteDetailResponse response = venueSiteService.getDetail(dto.getId());
+        return RespBody.success(response);
+    }
+
+    @GetMapping("/priceList")
+    @ApiOperation("场地价格信息")
+    public RespBody<List<VenueSitePriceVO>> priceList(@Validated VenueSitePriceQueryRequest request) {
+        List<VenueSitePriceVO> priceList = venueSitePriceService.getPriceList(request.getVenueSiteId(), request.getNowDate());
+        return RespBody.success(priceList);
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
