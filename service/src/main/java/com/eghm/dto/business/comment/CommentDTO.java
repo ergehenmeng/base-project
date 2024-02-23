@@ -32,8 +32,11 @@ public class CommentDTO {
     @NotNull(message = "评论对象类型不能为空")
     private ObjectType commentType;
 
-    @ApiModelProperty("父评论id")
+    @ApiModelProperty("父评论")
     private Long pid;
+
+    @ApiModelProperty("评论id")
+    private Long replyId;
 
     @ApiModelProperty(value = "用户id", hidden = true)
     @Assign

@@ -18,4 +18,7 @@ public class CommentQueryDTO extends PagingQuery {
     @ApiModelProperty("评价对象id")
     @NotNull(message = "id不能为空")
     private Long objectId;
+
+    @ApiModelProperty("父评论ID")
+    private Long pid;
 }

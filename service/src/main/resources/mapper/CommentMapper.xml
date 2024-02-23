@@ -9,6 +9,7 @@
             t.state,
             t.top_state,
             t.report_num,
+            t.reply_num,
             t.object_id,
             t.object_type,
             t.create_time,
@@ -39,9 +40,11 @@
     <select id="getByPage" resultType="com.eghm.vo.business.comment.CommentVO">
         select
         t.id,
+        t.pid,
         t.content,
         t.create_time,
         t.like_num,
+        t.reply_num,
         t.reply_id,
         t.top_state,
         m.nick_name,
@@ -56,6 +59,9 @@
         left join comment c on t.reply_id = c.id
         left join member n on c.member_id = n.id
         where t.deleted = false and t.state = true and t.report_num &gt;= #{shieldNum} and t.object_id = #{objectId}
+        <if test="pid != null">
+            and t.pid = #{pid}
+        </if>
         order by t.top_state desc, t.like_num desc, t.id desc
     </select>
 
@@ -63,4 +69,7 @@
         update comment set like_num = like_num + #{likeNum} where id = #{id}
     </update>
 
+    <update id="updateReplyNum">
+        update comment set reply_num = reply_num + #{num} where id = #{id} and reply_num + #{num} &gt;= 0
+    </update>
 </mapper>

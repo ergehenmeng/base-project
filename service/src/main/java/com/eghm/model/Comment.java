@@ -49,6 +49,15 @@ public class Comment extends BaseEntity {
     @ApiModelProperty("被举报次数")
     private Integer reportNum;
 
+    @ApiModelProperty("父评论")
+    private Long pid;
+
+    @ApiModelProperty("评论级别 1:一级评论 2:二级评论")
+    private Integer grade;
+
+    @ApiModelProperty("被评论次数")
+    private Integer replyNum;
+
     @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "MM-dd HH:mm")
     private LocalDateTime createTime;

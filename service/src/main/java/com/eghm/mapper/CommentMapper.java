@@ -33,9 +33,10 @@ public interface CommentMapper extends BaseMapper<Comment> {
      * @param page      分页对象
      * @param objectId 评论对象id
      * @param shieldNum 举报屏蔽次数
+     * @param pid       父评论ID
      * @return 列表
      */
-    Page<CommentVO> getByPage(Page<CommentVO> page, @Param("objectId") Long objectId, @Param("shieldNum") Integer shieldNum);
+    Page<CommentVO> getByPage(Page<CommentVO> page, @Param("objectId") Long objectId, @Param("shieldNum") Integer shieldNum, @Param("pid") Long pid);
 
     /**
      * 更新点赞数量
@@ -44,4 +45,12 @@ public interface CommentMapper extends BaseMapper<Comment> {
      * @param likeNum 点赞数量
      */
     void updateLikeNum(@Param("id") Long id, @Param("likeNum") Integer likeNum);
+
+    /**
+     * 更新评论回复数量
+     *
+     * @param id id
+     * @param num 回复数量
+     */
+    void updateReplyNum(@Param("id") Long id, @Param("num") Integer num);
 }

@@ -94,7 +94,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentVO> getByPage(CommentQueryDTO dto) {
         int reportNum = sysConfigApi.getInt(ConfigConstant.COMMENT_REPORT_SHIELD, 20);
-        Page<CommentVO> voPage = commentMapper.getByPage(dto.createPage(false), dto.getObjectId(), reportNum);
+        Page<CommentVO> voPage = commentMapper.getByPage(dto.createPage(false), dto.getObjectId(), reportNum, dto.getPid());
         voPage.getRecords().forEach(vo -> vo.setIsLiked(this.hasGiveLiked(vo.getId())));
         return voPage.getRecords();
     }
@@ -102,15 +102,26 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void add(CommentDTO dto) {
         Comment comment = DataUtil.copy(dto, Comment.class);
+        comment.setGrade(comment.getReplyId() == null ? 1 : 2);
         commentMapper.insert(comment);
+        if (dto.getPid() != null) {
+            commentMapper.updateReplyNum(dto.getPid(), 1);
+        }
     }
 
     @Override
     public void delete(Long id, Long memberId) {
+        Comment comment = commentMapper.selectById(id);
+        if (comment == null) {
+            return;
+        }
         LambdaUpdateWrapper<Comment> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Comment::getId, id);
         wrapper.eq(Comment::getMemberId, memberId);
-        commentMapper.delete(wrapper);
+        int delete = commentMapper.delete(wrapper);
+        if (delete == 1 && comment.getPid() != null) {
+            commentMapper.updateReplyNum(comment.getPid(), -1);
+        }
     }
 
     @Override

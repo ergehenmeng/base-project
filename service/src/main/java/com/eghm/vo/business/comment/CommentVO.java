@@ -18,6 +18,9 @@ public class CommentVO {
     @ApiModelProperty("留言id")
     private Long id;
 
+    @ApiModelProperty("父评论ID")
+    private Long pid;
+
     @ApiModelProperty("昵称")
     private String nickName;
 
@@ -36,6 +39,9 @@ public class CommentVO {
 
     @ApiModelProperty(value = "回复id")
     private Long replyId;
+
+    @ApiModelProperty(value = "被评论次数")
+    private Integer replyNum;
 
     @ApiModelProperty(value = "置顶状态 0:未置顶 1:置顶")
     private Integer topState;

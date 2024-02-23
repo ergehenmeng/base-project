@@ -48,7 +48,6 @@ public interface FileService {
      */
     FilePath saveFile(@NotNull MultipartFile file, long maxSize);
 
-
     /**
      * 保存文件列表
      *
@@ -56,7 +55,6 @@ public interface FileService {
      * @return 文件列表保存的相对路径
      */
     FilePath saveFiles(@NotNull List<MultipartFile> files);
-
 
     /**
      * 保存文件列表
