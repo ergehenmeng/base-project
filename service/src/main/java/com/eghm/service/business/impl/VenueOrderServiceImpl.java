@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -76,7 +77,11 @@ public class VenueOrderServiceImpl implements VenueOrderService {
         VenueOrder venueOrder = this.getByOrderNo(orderNo);
         List<VenuePhase> phaseList = jsonService.fromJsonList(venueOrder.getTimePhase(), VenuePhase.class);
         List<Long> ids = phaseList.stream().map(VenuePhase::getId).collect(Collectors.toList());
-        venueSitePriceService.updateStock(ids, num);
+        if (CollUtil.isNotEmpty(ids)) {
+            venueSitePriceService.updateStock(ids, num);
+        } else {
+            log.error("订单库存更新为空 [{}]", orderNo);
+        }
     }
 
     @Override

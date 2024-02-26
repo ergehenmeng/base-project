@@ -118,6 +118,16 @@ public class RabbitListenerHandler {
     }
 
     /**
+     * 场馆队列订单过期处理
+     *
+     * @param orderNo 订单编号
+     */
+    @RabbitListener(queues = QueueConstant.VENUE_PAY_EXPIRE_QUEUE)
+    public void venueExpire(String orderNo, Message message, Channel channel) throws IOException {
+        this.doOrderExpire(orderNo, VenueEvent.AUTO_CANCEL, message, channel);
+    }
+
+    /**
      * 民宿队列订单过期处理
      *
      * @param orderNo 订单编号

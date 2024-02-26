@@ -1,0 +1,15 @@
+GET http://localhost:9090/webapp/poi/typeList?areaCode=WYS
+Channel: {{Channel}}
+
+###
+GET http://localhost:9090/webapp/poi/pointList?typeId=1742013039595442177
+Channel: {{Channel}}
+
+###
+GET http://localhost:9090/webapp/poi/lineList?areaCode=WYS
+Channel: {{Channel}}
+
+###
+GET http://localhost:9090/webapp/poi/pointSearch?areaCode=WYS
+Channel: {{Channel}}
+

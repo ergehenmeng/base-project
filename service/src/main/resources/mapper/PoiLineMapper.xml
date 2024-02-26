@@ -34,6 +34,8 @@
         p.title as pointTitle,
         p.longitude,
         p.latitude,
+        t.introduce,
+        p.introduce as pointIntroduce,
         p.detail_address
         from poi_line t
         inner join poi_line_point r on t.id = r.line_id
@@ -47,6 +49,7 @@
         <result property="title" column="title"/>
         <result property="coverUrl" column="cover_url"/>
         <result property="playTime" column="play_time"/>
+        <result property="introduce" column="introduce"/>
 
         <collection property="pointList" ofType="com.eghm.vo.poi.PoiPointVO">
             <id property="id" column="pointId"/>
@@ -54,6 +57,7 @@
             <result property="title" column="pointTitle"/>
             <result property="longitude" column="longitude"/>
             <result property="latitude" column="latitude"/>
+            <result property="introduce" column="pointIntroduce"/>
             <result property="detailAddress" column="detail_address"/>
         </collection>
     </resultMap>

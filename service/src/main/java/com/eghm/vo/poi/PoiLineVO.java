@@ -29,6 +29,9 @@ public class PoiLineVO {
     @ApiModelProperty(value = "预计游玩时间")
     private BigDecimal playTime;
 
+    @ApiModelProperty("线路详情")
+    private String introduce;
+
     @ApiModelProperty("点位列表")
     private List<PoiPointVO> pointList;
 }

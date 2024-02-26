@@ -46,6 +46,7 @@
         cover_url,
         latitude,
         longitude,
+        introduce,
         detail_address
         from poi_point
         where deleted = false and type_id = #{typeId} order by id desc
@@ -58,6 +59,7 @@
             cover_url,
             latitude,
             longitude,
+            introduce,
             detail_address
         from poi_point
         where deleted = false and area_code = #{areaCode}
