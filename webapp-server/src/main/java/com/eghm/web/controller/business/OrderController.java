@@ -8,6 +8,7 @@ import com.eghm.dto.business.order.item.ItemOrderCreateDTO;
 import com.eghm.dto.business.order.line.LineOrderCreateDTO;
 import com.eghm.dto.business.order.refund.*;
 import com.eghm.dto.business.order.ticket.TicketOrderCreateDTO;
+import com.eghm.dto.business.order.venue.VenueOrderCreateDTO;
 import com.eghm.dto.business.order.voucher.VoucherOrderCreateDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.AsyncKey;
@@ -104,6 +105,16 @@ public class OrderController {
         VoucherOrderCreateContext context = DataUtil.copy(dto, VoucherOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         voucherAccessHandler.createOrder(context);
+        OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
+        return RespBody.success(result);
+    }
+
+    @PostMapping(value = "/venue/create", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("场馆预约创建订单")
+    public RespBody<OrderCreateVO<String>> venueCreate(@RequestBody @Validated VenueOrderCreateDTO dto) {
+        VenueOrderCreateContext context = DataUtil.copy(dto, VenueOrderCreateContext.class);
+        context.setMemberId(ApiHolder.getMemberId());
+        venueAccessHandler.createOrder(context);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }

@@ -1,8 +1,10 @@
 package com.eghm.vo.business.order.venue;
 
+import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.eghm.enums.ref.RefundState;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -39,6 +41,7 @@ public class VenueOrderVO {
     private RefundState refundState;
 
     @ApiModelProperty(value = "总付款金额=单价*数量+总快递费-总优惠金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer payAmount;
 
 }

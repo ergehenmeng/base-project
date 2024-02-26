@@ -62,7 +62,7 @@
             r.state
         from `order` r
         inner join venue_order t on t.order_no = r.order_no
-        where t.deleted = false and r.member_id = #{memberId}
+        where t.deleted = false and r.member_id = #{param.memberId}
         <if test="param.queryName != null and param.queryName != ''">
             and (t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
             t.site_title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%'))
