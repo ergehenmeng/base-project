@@ -23,7 +23,27 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/manage/group/booking/detail?id=1762028940288937985
+POST http://localhost:8080/manage/group/booking/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1762032666269491202,
+  "title": "团购商品",
+  "itemId": 1717389387411066882,
+  "startTime": "2024-02-28 15:10:14",
+  "endTime": "2024-03-11 15:10:14",
+  "num": 2,
+  "expireTime": 1440,
+  "skuList": [{
+    "skuId": 1717389387478175745,
+    "salePrice": 11,
+    "groupPrice": 8
+  }]
+}
+
+###
+GET http://localhost:8080/manage/group/booking/detail?id=1762032666269491202
 token: {{token}}
 
 ###

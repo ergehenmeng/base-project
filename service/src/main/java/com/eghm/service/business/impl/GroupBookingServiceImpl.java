@@ -5,11 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.business.group.GroupBookingAddRequest;
-import com.eghm.dto.business.group.GroupBookingEditRequest;
-import com.eghm.dto.business.group.GroupBookingQueryDTO;
-import com.eghm.dto.business.group.GroupBookingQueryRequest;
-import com.eghm.dto.business.group.GroupItemSkuRequest;
+import com.eghm.dto.business.group.*;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.exception.BusinessException;
@@ -102,7 +98,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         GroupBooking booking = groupBookingMapper.selectById(request.getId());
         // 防止非法操作
         commonService.checkIllegal(booking.getMerchantId());
-        if (!booking.getStartTime().isAfter(LocalDateTime.now())) {
+        if (!booking.getStartTime().isBefore(LocalDateTime.now())) {
             throw new BusinessException(ErrorCode.ACTIVITY_NOT_EDIT);
         }
         if (!booking.getItemId().equals(request.getItemId())) {
@@ -230,7 +226,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
      */
     private void checkTime(LocalDateTime startTime, LocalDateTime endTime) {
         LocalDateTime now = LocalDateTime.now();
-        if (startTime.isAfter(now)) {
+        if (startTime.isBefore(now)) {
             throw new BusinessException(ErrorCode.BOOKING_GT_TIME);
         }
         LocalDateTime dateTime = now.plusMonths(1);

@@ -5,10 +5,10 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.business.purchase.LimitPurchaseQueryRequest;
 import com.eghm.dto.business.purchase.LimitItemRequest;
 import com.eghm.dto.business.purchase.LimitPurchaseAddRequest;
 import com.eghm.dto.business.purchase.LimitPurchaseEditRequest;
+import com.eghm.dto.business.purchase.LimitPurchaseQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LimitPurchaseMapper;
@@ -78,7 +78,7 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         LimitPurchase purchase = limitPurchaseMapper.selectById(request.getId());
         // 校验活动是否属于该商户
         commonService.checkIllegal(purchase.getMerchantId());
-        if (!purchase.getStartTime().isAfter(LocalDateTime.now())) {
+        if (purchase.getStartTime().isBefore(LocalDateTime.now())) {
             throw new BusinessException(ErrorCode.ACTIVITY_NOT_EDIT);
         }
         List<Long> itemIds = request.getItemList().stream().map(LimitItemRequest::getItemId).collect(Collectors.toList());
@@ -123,7 +123,7 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
      */
     private void checkTime(LocalDateTime startTime, LocalDateTime endTime) {
         LocalDateTime now = LocalDateTime.now();
-        if (startTime.isAfter(now)) {
+        if (startTime.isBefore(now)) {
             throw new BusinessException(ErrorCode.LIMIT_GT_TIME);
         }
         long between = ChronoUnit.MONTHS.between(startTime, endTime.minusSeconds(1));
