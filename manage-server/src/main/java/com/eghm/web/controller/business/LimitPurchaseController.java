@@ -3,9 +3,9 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
-import com.eghm.dto.business.purchase.LimitPurchaseQueryRequest;
 import com.eghm.dto.business.purchase.LimitPurchaseAddRequest;
 import com.eghm.dto.business.purchase.LimitPurchaseEditRequest;
+import com.eghm.dto.business.purchase.LimitPurchaseQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.LimitPurchaseService;
@@ -54,9 +54,9 @@ public class LimitPurchaseController {
         return RespBody.success();
     }
 
-    @PostMapping("/detail")
+    @GetMapping("/detail")
     @ApiOperation("详情")
-    public RespBody<LimitPurchaseDetailResponse> detail(@RequestBody @Validated IdDTO dto) {
+    public RespBody<LimitPurchaseDetailResponse> detail(@Validated IdDTO dto) {
         LimitPurchaseDetailResponse response = limitPurchaseService.detailById(dto.getId());
         return RespBody.success(response);
     }

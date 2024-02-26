@@ -308,13 +308,13 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             List<LimitSkuRequest> skuList = jsonService.fromJsonList(purchaseItem.getSkuValue(), LimitSkuRequest.class);
             Map<Long, LimitSkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(LimitSkuRequest::getSkuId, Function.identity()));
             LimitSkuRequest request = skuMap.get(aPackage.getSkuId());
-            if (request == null || request.getLimitPrice() == null || !aPackage.getSku().getSalePrice().equals(request.getSalePrice())) {
+            if (request == null || request.getDiscountPrice() == null || !aPackage.getSku().getSalePrice().equals(request.getSalePrice())) {
                 log.error("该限时购商品不在活动价格范围内 [{}] [{}] [{}] [{}]", aPackage.getItemId(), limitId, aPackage.getSkuId(), purchaseItem.getSkuValue());
                 return aPackage.getSku().getSalePrice();
             }
             // 此时才算真正限时购商品
             context.setLimitId(limitId);
-            return request.getLimitPrice();
+            return request.getDiscountPrice();
         }
 
         // 表示是拼团订单

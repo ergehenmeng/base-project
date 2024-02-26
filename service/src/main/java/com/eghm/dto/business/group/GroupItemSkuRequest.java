@@ -27,5 +27,5 @@ public class GroupItemSkuRequest {
     @ApiModelProperty(value = "拼团价", required = true)
     @NotNull(message = "拼团价不能为空")
     @JsonDeserialize(using = YuanToCentDecoder.class)
-    private Integer groupPrice;
+    private Integer discountPrice;
 }

@@ -17,7 +17,7 @@ Content-Type: application/json
   "skuList": [{
     "skuId": 1717389387478175745,
     "salePrice": 11,
-    "groupPrice": 10
+    "discountPrice": 10
   }],
   "merchantId": 1707294309829128194
 }
@@ -38,7 +38,7 @@ Content-Type: application/json
   "skuList": [{
     "skuId": 1717389387478175745,
     "salePrice": 11,
-    "groupPrice": 8
+    "discountPrice": 8
   }]
 }
 

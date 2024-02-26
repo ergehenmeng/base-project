@@ -268,7 +268,7 @@ public interface ItemService {
      * @param skuList sku 信息
      * @param jsonValue 拼团价格json
      */
-    void setGroupSkuPrice(List<ItemSkuVO> skuList, String jsonValue);
+    void setDiscountSkuPrice(List<ItemSkuVO> skuList, String jsonValue);
 
     /**
      * 分页查询商品列表

@@ -27,5 +27,5 @@ public class LimitSkuRequest {
     @ApiModelProperty(value = "限时价", required = true)
     @NotNull(message = "限时价不能为空")
     @JsonDeserialize(using = YuanToCentDecoder.class)
-    private Integer limitPrice;
+    private Integer discountPrice;
 }

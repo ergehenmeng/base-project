@@ -1308,7 +1308,8 @@ CREATE TABLE `limit_purchase_item`
     `merchant_id`         bigint(20) DEFAULT NULL COMMENT '商户id',
     `sku_value`           text COMMENT '优惠配置json',
     `max_discount_amount` int(10)    DEFAULT '0' COMMENT '最大优惠金额',
-    `advance_time`        datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '开始预告时间',
+    `advance_time`        datetime   DEFAULT NULL COMMENT '开始预告时间',
+    `create_time`         datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '开始预告时间',
     `update_time`         datetime   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`             bit(1)     DEFAULT b'0' COMMENT '是否删除 1:已删除 0:未删除',
     PRIMARY KEY (`id`)

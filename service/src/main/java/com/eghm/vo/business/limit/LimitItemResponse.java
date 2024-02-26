@@ -21,7 +21,7 @@ public class LimitItemResponse {
     private String title;
 
     @ApiModelProperty("商品图片")
-    private Integer coverUrl;
+    private String coverUrl;
 
     @ApiModelProperty("规格优惠配置json")
     @JsonIgnore

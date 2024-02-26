@@ -6,14 +6,16 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
-import com.eghm.dto.business.purchase.LimitPurchaseQueryDTO;
 import com.eghm.dto.business.purchase.LimitItemRequest;
+import com.eghm.dto.business.purchase.LimitPurchaseQueryDTO;
 import com.eghm.dto.business.purchase.LimitSkuRequest;
+import com.eghm.dto.ext.DiscountItemSku;
 import com.eghm.mapper.LimitPurchaseItemMapper;
 import com.eghm.model.LimitPurchase;
 import com.eghm.model.LimitPurchaseItem;
 import com.eghm.service.business.LimitPurchaseItemService;
 import com.eghm.service.common.JsonService;
+import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.limit.LimitItemResponse;
 import com.eghm.vo.business.limit.LimitItemVO;
 import com.eghm.vo.business.limit.LimitSkuResponse;
@@ -81,7 +83,10 @@ public class LimitPurchaseItemServiceImpl implements LimitPurchaseItemService {
     @Override
     public List<LimitItemResponse> getLimitList(Long limitId) {
         List<LimitItemResponse> responseList = limitPurchaseItemMapper.getLimitList(limitId);
-        responseList.forEach(item -> item.setSkuList(jsonService.fromJsonList(item.getSkuValue(), LimitSkuResponse.class)));
+        responseList.forEach(item -> {
+            List<DiscountItemSku> skuList = jsonService.fromJsonList(item.getSkuValue(), DiscountItemSku.class);
+            item.setSkuList(DataUtil.copy(skuList, LimitSkuResponse.class));
+        });
         return responseList;
     }
 
@@ -101,7 +106,7 @@ public class LimitPurchaseItemServiceImpl implements LimitPurchaseItemService {
      * @return 最大优惠金额
      */
     private Integer getMaxDiscountPrice(List<LimitSkuRequest> skuList) {
-        return skuList.stream().mapToInt(request -> request.getSalePrice() - request.getLimitPrice()).max().orElse(0);
+        return skuList.stream().mapToInt(request -> request.getSalePrice() - request.getDiscountPrice()).max().orElse(0);
     }
 
 }

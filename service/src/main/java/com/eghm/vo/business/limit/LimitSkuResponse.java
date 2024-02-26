@@ -1,7 +1,7 @@
 package com.eghm.vo.business.limit;
 
-import com.eghm.convertor.YuanToCentDecoder;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.eghm.convertor.CentToYuanEncoder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -21,11 +21,11 @@ public class LimitSkuResponse {
 
     @ApiModelProperty("销售价")
     @NotNull(message = "销售价不能为空")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
     @ApiModelProperty("限时价")
     @NotNull(message = "限时价不能为空")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
-    private Integer limitPrice;
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    private Integer discountPrice;
 }

@@ -14,8 +14,8 @@ import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
 import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.dto.business.item.sku.ItemSpecRequest;
-import com.eghm.dto.business.purchase.LimitSkuRequest;
 import com.eghm.dto.ext.CalcStatistics;
+import com.eghm.dto.ext.DiscountItemSku;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ChargeMode;
 import com.eghm.enums.ref.CollectType;
@@ -34,7 +34,6 @@ import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.evaluation.ApplauseRateVO;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
-import com.eghm.vo.business.group.GroupItemSkuVO;
 import com.eghm.vo.business.item.*;
 import com.eghm.vo.business.item.express.ItemExpressVO;
 import com.eghm.vo.business.item.express.StoreExpressVO;
@@ -239,7 +238,7 @@ public class ItemServiceImpl implements ItemService {
         updateWrapper.eq(Item::getMerchantId, merchantId);
         updateWrapper.isNull(Item::getLimitId);
         updateWrapper.set(Item::getLimitId, limitId);
-        int update = itemMapper.update(null, wrapper);
+        int update = itemMapper.update(null, updateWrapper);
         if (update != itemIds.size()) {
             log.error("限时购活动更新的商品可能不属当前商户 [{}] [{}] [{}]", merchantId, limitId, itemIds);
             throw new BusinessException(ErrorCode.LIMIT_ITEM_NULL);
@@ -430,15 +429,15 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void setGroupSkuPrice(List<ItemSkuVO> skuList, String jsonValue) {
-        List<GroupItemSkuVO> groupSkuList = jsonService.fromJsonList(jsonValue, GroupItemSkuVO.class);
-        Map<Long, GroupItemSkuVO> skuMap = groupSkuList.stream().collect(Collectors.toMap(GroupItemSkuVO::getSkuId, Function.identity()));
+    public void setDiscountSkuPrice(List<ItemSkuVO> skuList, String jsonValue) {
+        List<DiscountItemSku> groupSkuList = jsonService.fromJsonList(jsonValue, DiscountItemSku.class);
+        Map<Long, DiscountItemSku> skuMap = groupSkuList.stream().collect(Collectors.toMap(DiscountItemSku::getSkuId, Function.identity()));
         skuList.forEach(vo -> {
-            GroupItemSkuVO request = skuMap.get(vo.getId());
-            if (request != null && vo.getSalePrice().equals(request.getSalePrice()) && request.getGroupPrice() != null) {
-                vo.setGroupPrice(request.getGroupPrice());
+            DiscountItemSku request = skuMap.get(vo.getId());
+            if (request != null && vo.getSalePrice().equals(request.getSalePrice()) && request.getDiscountPrice() != null) {
+                vo.setDiscountPrice(request.getDiscountPrice());
             } else {
-                vo.setGroupPrice(vo.getSalePrice());
+                vo.setDiscountPrice(vo.getSalePrice());
             }
         });
     }
@@ -469,17 +468,8 @@ public class ItemServiceImpl implements ItemService {
                 log.error("该限时购商品还没到开始时间 [{}] [{}]", detail.getLimitId(), purchaseItem.getAdvanceTime());
                 return;
             }
-            List<LimitSkuRequest> skuList = jsonService.fromJsonList(purchaseItem.getSkuValue(), LimitSkuRequest.class);
-            Map<Long, LimitSkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(LimitSkuRequest::getSkuId, Function.identity()));
-            detail.getSkuList().forEach(vo -> {
-                LimitSkuRequest request = skuMap.get(vo.getId());
-                if (request != null && vo.getSalePrice().equals(request.getSalePrice()) && request.getLimitPrice() != null) {
-                    detail.setLimitPurchase(true);
-                    vo.setLimitPrice(request.getLimitPrice());
-                } else {
-                    vo.setLimitPrice(vo.getSalePrice());
-                }
-            });
+            this.setDiscountSkuPrice(detail.getSkuList(), purchaseItem.getSkuValue());
+            detail.setLimitPurchase(true);
             detail.setStartTime(purchaseItem.getStartTime());
             detail.setEndTime(purchaseItem.getEndTime());
             detail.setSystemTime(LocalDateTime.now());
@@ -504,7 +494,7 @@ public class ItemServiceImpl implements ItemService {
                 return;
             }
             detail.setGroupBooking(true);
-            this.setGroupSkuPrice(detail.getSkuList(), booking.getSkuValue());
+            this.setDiscountSkuPrice(detail.getSkuList(), booking.getSkuValue());
         }
     }
 

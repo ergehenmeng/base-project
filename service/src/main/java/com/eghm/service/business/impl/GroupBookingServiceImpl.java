@@ -142,7 +142,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         response.setCoverUrl(item.getCoverUrl());
         response.setItemName(item.getTitle());
         List<ItemSkuVO> voList = itemSkuService.getByItemId(booking.getItemId());
-        itemService.setGroupSkuPrice(voList, booking.getSkuValue());
+        itemService.setDiscountSkuPrice(voList, booking.getSkuValue());
         response.setSkuList(voList);
         return response;
     }
@@ -202,11 +202,11 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         List<GroupItemSkuRequest> skuList = jsonService.fromJsonList(skuValue, GroupItemSkuRequest.class);
         Map<Long, GroupItemSkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(GroupItemSkuRequest::getSkuId, Function.identity()));
         GroupItemSkuRequest request = skuMap.get(skuId);
-        if (request == null || !salePrice.equals(request.getSalePrice()) || request.getGroupPrice() == null) {
+        if (request == null || !salePrice.equals(request.getSalePrice()) || request.getDiscountPrice() == null) {
             log.warn("拼团sku价格信息未匹配 [{}]", skuId);
             return salePrice;
         }
-        return request.getGroupPrice();
+        return request.getDiscountPrice();
     }
 
     /**
@@ -216,7 +216,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
      * @return 最大优惠金额
      */
     private Integer getMaxDiscountPrice(List<GroupItemSkuRequest> skuList) {
-        return skuList.stream().mapToInt(request -> request.getSalePrice() - request.getGroupPrice()).max().orElse(0);
+        return skuList.stream().mapToInt(request -> request.getSalePrice() - request.getDiscountPrice()).max().orElse(0);
     }
 
     /**

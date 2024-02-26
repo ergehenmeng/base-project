@@ -36,13 +36,9 @@ public class ItemSkuVO {
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty("拼团价格")
+    @ApiModelProperty("拼团或限时购价格")
     @JsonSerialize(using = CentToYuanEncoder.class)
-    private Integer groupPrice;
-
-    @ApiModelProperty("限时购价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
-    private Integer limitPrice;
+    private Integer discountPrice;
 
     @ApiModelProperty(value = "库存")
     private Integer stock;
