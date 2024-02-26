@@ -1,5 +1,6 @@
 package com.eghm.service.business.handler.state.impl.venue;
 
+import com.eghm.dto.ext.VenuePhase;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
@@ -14,6 +15,7 @@ import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.VenueOrderCreateContext;
 import com.eghm.service.business.handler.dto.VenueOrderPayload;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCreateHandler;
+import com.eghm.service.common.JsonService;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -39,13 +41,15 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
 
     private final VenueSitePriceService venueSitePriceService;
 
+    private final JsonService jsonService;
+
     private final OrderService orderService;
 
     private final OrderMQService orderMQService;
 
     private final RedeemCodeGrantService redeemCodeGrantService;
 
-    public VenueOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, VenueService venueService,
+    public VenueOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, VenueService venueService, JsonService jsonService,
                                    OrderMQService orderMQService, VenueSiteService venueSiteService, VenueOrderService venueOrderService, VenueSitePriceService venueSitePriceService,
                                    RedeemCodeGrantService redeemCodeGrantService) {
         super(memberCouponService, orderVisitorService, redeemCodeGrantService);
@@ -53,6 +57,7 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
         this.venueSiteService = venueSiteService;
         this.venueOrderService = venueOrderService;
         this.venueSitePriceService = venueSitePriceService;
+        this.jsonService = jsonService;
         this.orderService = orderService;
         this.orderMQService = orderMQService;
         this.redeemCodeGrantService = redeemCodeGrantService;
@@ -95,7 +100,7 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
     @Override
     protected void before(VenueOrderCreateContext context, VenueOrderPayload payload) {
         int size = context.getPhaseList().size();
-        List<VenueSitePrice> priceList = payload.getPriceList().stream().filter(phase -> phase.getStock() > 0).collect(Collectors.toList());
+        List<VenueSitePrice> priceList = payload.getPriceList().stream().filter(phase -> phase.getStock() > 0 && phase.getState()).collect(Collectors.toList());
         if (size != priceList.size()) {
             log.error("时间段可能已被预约,库存不足 [{}] [{}]", context.getPhaseList(), payload.getPriceList());
             throw new BusinessException(ErrorCode.VENUE_STOCK);
@@ -149,6 +154,8 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
         venueOrder.setVenueSiteId(payload.getVenueSite().getId());
         venueOrder.setVisitDate(payload.getPriceList().get(0).getNowDate());
         venueOrder.setSiteTitle(payload.getVenueSite().getTitle());
+        List<VenuePhase> phaseList = DataUtil.copy(payload.getPriceList(), VenuePhase.class);
+        venueOrder.setTimePhase(jsonService.toJson(phaseList));
         venueOrderService.insert(venueOrder);
         context.setOrderNo(order.getOrderNo());
     }

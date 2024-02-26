@@ -1,3 +1,8 @@
 GET http://localhost:9090/webapp/venue/order/listPage?page=1&pageSize=10
 Channel: {{Channel}}
 Token: {{Token}}
+
+###
+GET http://localhost:9090/webapp/venue/order/detail?orderNo=YY1761997189722222593
+Channel: {{Channel}}
+Token: {{Token}}

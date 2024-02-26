@@ -19,6 +19,7 @@ import com.eghm.vo.business.order.venue.VenueOrderDetailResponse;
 import com.eghm.vo.business.order.venue.VenueOrderDetailVO;
 import com.eghm.vo.business.order.venue.VenueOrderResponse;
 import com.eghm.vo.business.order.venue.VenueOrderVO;
+import com.eghm.vo.business.venue.VenuePhaseVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -83,7 +84,7 @@ public class VenueOrderServiceImpl implements VenueOrderService {
         Long merchantId = SecurityHolder.getMerchantId();
         VenueOrderDetailResponse detail = venueOrderMapper.detail(orderNo, merchantId);
         AssertUtil.assertOrderNotNull(detail, orderNo, merchantId);
-        detail.setPhaseList(jsonService.fromJsonList(detail.getTimePhase(), VenuePhase.class));
+        detail.setPhaseList(jsonService.fromJsonList(detail.getTimePhase(), VenuePhaseVO.class));
         return detail;
     }
 
@@ -92,7 +93,7 @@ public class VenueOrderServiceImpl implements VenueOrderService {
         VenueOrderDetailVO detail = venueOrderMapper.getDetail(orderNo, memberId);
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
         detail.setDetailAddress(sysAreaService.parseArea(detail.getCityId(), detail.getCountyId()) + detail.getDetailAddress());
-        detail.setPhaseList(jsonService.fromJsonList(detail.getTimePhase(), VenuePhase.class));
+        detail.setPhaseList(jsonService.fromJsonList(detail.getTimePhase(), VenuePhaseVO.class));
         return detail;
     }
 }

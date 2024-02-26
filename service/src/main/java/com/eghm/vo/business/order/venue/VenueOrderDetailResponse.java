@@ -1,11 +1,11 @@
 package com.eghm.vo.business.order.venue;
 
 import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.dto.ext.VenuePhase;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.eghm.enums.ref.RefundState;
 import com.eghm.enums.ref.VenueType;
+import com.eghm.vo.business.venue.VenuePhaseVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -61,7 +61,7 @@ public class VenueOrderDetailResponse {
     private Integer payAmount;
 
     @ApiModelProperty("预约列表")
-    private List<VenuePhase> phaseList;
+    private List<VenuePhaseVO> phaseList;
 
     @ApiModelProperty(value = "预约的时间段及价格(json)")
     @JsonIgnore
