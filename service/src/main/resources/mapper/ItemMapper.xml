@@ -258,7 +258,12 @@
             r.sale_price
         from item t left join item_sku r on t.id = r.item_id
         where t.deleted = false and r.deleted = false and t.merchant_id = #{merchantId}
-        and (((booking_id is null and t.limit_id = #{activityId}) or (limit_id is null and t.booking_id = #{activityId})) or (limit_id is null and t.booking_id is null))
+        <if test="activityId == null">
+            and limit_id is null and t.booking_id is null
+        </if>
+        <if test="activityId != null">
+            and (((booking_id is null and t.limit_id = #{activityId}) or (limit_id is null and t.booking_id = #{activityId})) or (limit_id is null and t.booking_id is null))
+        </if>
     </select>
 
     <resultMap id="activityResultMap" type="com.eghm.vo.business.item.ActivityItemResponse">

@@ -1,6 +1,5 @@
 package com.eghm.dto.business.group;
 
-import com.eghm.dto.ext.GroupItemSku;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
@@ -55,5 +54,5 @@ public class GroupBookingEditRequest {
 
     @ApiModelProperty(value = "sku拼团优惠json", required = true)
     @NotEmpty(message = "拼团优惠不能为空")
-    private List<GroupItemSku> skuList;
+    private List<GroupItemSkuRequest> skuList;
 }

@@ -12,13 +12,11 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.service.business.ItemService;
-import com.eghm.service.business.ItemSkuService;
 import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.item.ActivityItemResponse;
 import com.eghm.vo.business.item.ItemDetailResponse;
 import com.eghm.vo.business.item.ItemResponse;
-import com.eghm.vo.business.item.ItemSkuVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -42,7 +40,6 @@ public class ItemController {
 
     private final ItemService itemService;
 
-    private final ItemSkuService itemSkuService;
 
     @GetMapping("/listPage")
     @ApiOperation("商品列表")
@@ -124,8 +121,8 @@ public class ItemController {
     }
 
     @GetMapping("/activityList")
-    @ApiOperation("活动商品列表")
-    public RespBody<List<ActivityItemResponse>> activityList(@Validated IdDTO dto) {
+    @ApiOperation("可以参加活动的商品列表")
+    public RespBody<List<ActivityItemResponse>> activityList(IdDTO dto) {
         List<ActivityItemResponse> activityList = itemService.getActivityList(SecurityHolder.getMerchantId(), dto.getId());
         return RespBody.success(activityList);
     }
@@ -136,13 +133,6 @@ public class ItemController {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<ItemResponse> byPage = itemService.getList(request);
         ExcelUtil.export(response, "零售信息", byPage, ItemResponse.class);
-    }
-
-    @GetMapping("/skuList")
-    @ApiOperation("规格列表")
-    public RespBody<List<ItemSkuVO>> skuList(@Validated IdDTO dto) {
-        List<ItemSkuVO> voList = itemSkuService.getByItemId(dto.getId());
-        return RespBody.success(voList);
     }
 
 }

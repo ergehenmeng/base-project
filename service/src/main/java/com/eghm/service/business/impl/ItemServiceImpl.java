@@ -16,7 +16,6 @@ import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.dto.business.item.sku.ItemSpecRequest;
 import com.eghm.dto.business.purchase.LimitSkuRequest;
 import com.eghm.dto.ext.CalcStatistics;
-import com.eghm.dto.ext.GroupItemSku;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ChargeMode;
 import com.eghm.enums.ref.CollectType;
@@ -35,6 +34,7 @@ import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.evaluation.ApplauseRateVO;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
+import com.eghm.vo.business.group.GroupItemSkuVO;
 import com.eghm.vo.business.item.*;
 import com.eghm.vo.business.item.express.ItemExpressVO;
 import com.eghm.vo.business.item.express.StoreExpressVO;
@@ -431,10 +431,10 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void setGroupSkuPrice(List<ItemSkuVO> skuList, String jsonValue) {
-        List<GroupItemSku> groupSkuList = jsonService.fromJsonList(jsonValue, GroupItemSku.class);
-        Map<Long, GroupItemSku> skuMap = groupSkuList.stream().collect(Collectors.toMap(GroupItemSku::getSkuId, Function.identity()));
+        List<GroupItemSkuVO> groupSkuList = jsonService.fromJsonList(jsonValue, GroupItemSkuVO.class);
+        Map<Long, GroupItemSkuVO> skuMap = groupSkuList.stream().collect(Collectors.toMap(GroupItemSkuVO::getSkuId, Function.identity()));
         skuList.forEach(vo -> {
-            GroupItemSku request = skuMap.get(vo.getId());
+            GroupItemSkuVO request = skuMap.get(vo.getId());
             if (request != null && vo.getSalePrice().equals(request.getSalePrice()) && request.getGroupPrice() != null) {
                 vo.setGroupPrice(request.getGroupPrice());
             } else {

@@ -1,4 +1,4 @@
-FROM openjdk:8-jre
+FROM openjdk:8-jdk-alpine
 LABEL org.opencontainers.image.authors="ergehenmeng"
 WORKDIR /home/app/manage
 COPY target/manage-server.jar /home/app/manage/manage-server.jar

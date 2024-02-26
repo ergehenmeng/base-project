@@ -9,14 +9,13 @@ import com.eghm.dto.business.group.GroupBookingAddRequest;
 import com.eghm.dto.business.group.GroupBookingEditRequest;
 import com.eghm.dto.business.group.GroupBookingQueryDTO;
 import com.eghm.dto.business.group.GroupBookingQueryRequest;
-import com.eghm.dto.ext.GroupItemSku;
+import com.eghm.dto.business.group.GroupItemSkuRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.GroupBookingMapper;
 import com.eghm.model.GroupBooking;
 import com.eghm.model.Item;
-import com.eghm.model.ItemSku;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.GroupBookingService;
 import com.eghm.service.business.ItemService;
@@ -148,6 +147,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         response.setItemName(item.getTitle());
         List<ItemSkuVO> voList = itemSkuService.getByItemId(booking.getItemId());
         itemService.setGroupSkuPrice(voList, booking.getSkuValue());
+        response.setSkuList(voList);
         return response;
     }
 
@@ -203,9 +203,9 @@ public class GroupBookingServiceImpl implements GroupBookingService {
             log.warn("拼团优惠金额为空");
             return salePrice;
         }
-        List<GroupItemSku> skuList = jsonService.fromJsonList(skuValue, GroupItemSku.class);
-        Map<Long, GroupItemSku> skuMap = skuList.stream().collect(Collectors.toMap(GroupItemSku::getSkuId, Function.identity()));
-        GroupItemSku request = skuMap.get(skuId);
+        List<GroupItemSkuRequest> skuList = jsonService.fromJsonList(skuValue, GroupItemSkuRequest.class);
+        Map<Long, GroupItemSkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(GroupItemSkuRequest::getSkuId, Function.identity()));
+        GroupItemSkuRequest request = skuMap.get(skuId);
         if (request == null || !salePrice.equals(request.getSalePrice()) || request.getGroupPrice() == null) {
             log.warn("拼团sku价格信息未匹配 [{}]", skuId);
             return salePrice;
@@ -219,7 +219,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
      * @param skuList sku列表
      * @return 最大优惠金额
      */
-    private Integer getMaxDiscountPrice(List<GroupItemSku> skuList) {
+    private Integer getMaxDiscountPrice(List<GroupItemSkuRequest> skuList) {
         return skuList.stream().mapToInt(request -> request.getSalePrice() - request.getGroupPrice()).max().orElse(0);
     }
 

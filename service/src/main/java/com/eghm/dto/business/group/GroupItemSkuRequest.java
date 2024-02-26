@@ -1,4 +1,4 @@
-package com.eghm.dto.ext;
+package com.eghm.dto.business.group;
 
 import com.eghm.convertor.YuanToCentDecoder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
  */
 
 @Data
-public class GroupItemSku {
+public class GroupItemSkuRequest {
 
     @ApiModelProperty(value = "skuId", required = true)
     @NotNull(message = "skuId不能为空")

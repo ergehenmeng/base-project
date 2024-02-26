@@ -19,6 +19,20 @@ spring:
     port: 6379
     timeout: 30s
     database: 8
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        prefetch: 1
+        acknowledge-mode: manual
+        max-concurrency: 10
+        retry:
+          initial-interval: 10000
+          enabled: true
+          max-interval: 30000
 
 system:
   # 全局配置

@@ -73,6 +73,12 @@ token: {{token}}
 
 ###
 
+GET http://localhost:8080/manage/item/activityList
+token: {{token}}
+
+
+###
+
 POST http://localhost:8080/manage/item/shelves
 token: {{token}}
 Content-Type: application/json

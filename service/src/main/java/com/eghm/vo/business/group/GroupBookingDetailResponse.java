@@ -1,6 +1,6 @@
 package com.eghm.vo.business.group;
 
-import com.eghm.dto.ext.GroupItemSku;
+import com.eghm.vo.business.item.ItemSkuVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -49,6 +49,6 @@ public class GroupBookingDetailResponse {
     private Integer expireTime;
 
     @ApiModelProperty("价格信息")
-    private List<GroupItemSku> skuList;
+    private List<ItemSkuVO> skuList;
 
 }
