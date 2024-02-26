@@ -97,6 +97,7 @@ public class StatisticsController {
     @GetMapping("/cart")
     @ApiOperation("加购统计")
     public RespBody<List<CartStatisticsVO>> cart(@Validated DateRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         List<CartStatisticsVO> statistics = shoppingCartService.dayCart(request);
         return RespBody.success(statistics);
     }

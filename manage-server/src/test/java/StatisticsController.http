@@ -1,0 +1,2 @@
+GET http://localhost:8080/manage/statistics/register?startDate=2022-12-12&endDate=2024-12-12
+token: {{token}}

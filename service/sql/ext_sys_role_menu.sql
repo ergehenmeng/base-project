@@ -482,3 +482,38 @@ INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES (
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('563', '1707298744621969413', '10191214', '2024-02-19 15:40:06');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('564', '1707298744621969414', '10191214', '2024-02-19 15:40:06');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('565', '1707298744621969415', '10191214', '2024-02-19 15:40:06');
+
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969410, 1020);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969411, 1020);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969412, 1020);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969413, 1020);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969414, 1020);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969415, 1020);
+
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969410, 102010);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969411, 102010);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969412, 102010);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969413, 102010);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969414, 102010);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969415, 102010);
+
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969410, 10201012);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969411, 10201012);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969412, 10201012);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969413, 10201012);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969414, 10201012);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969415, 10201012);
+
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969410, 10201013);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969411, 10201013);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969412, 10201013);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969413, 10201013);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969414, 10201013);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969415, 10201013);
+
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969410, 10201017);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969411, 10201017);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969412, 10201017);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969413, 10201017);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969414, 10201017);
+insert into sys_role_menu (role_id, menu_id) values(1707298744621969415, 10201017);
