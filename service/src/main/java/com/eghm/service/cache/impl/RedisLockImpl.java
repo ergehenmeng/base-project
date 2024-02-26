@@ -29,7 +29,7 @@ public class RedisLockImpl implements RedisLock {
     }
 
     @Override
-    public void lock(String key, long lockTime, Runnable runnable) {
+    public void lockVoid(String key, long lockTime, Runnable runnable) {
         this.lock(key, 0, lockTime, () -> {
             runnable.run();
             return null;

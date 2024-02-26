@@ -80,6 +80,7 @@
         select
         t.id,
         t.title,
+        t.open_time,
         t.venue_type,
         t.cover_url,
         t.longitude,
@@ -104,6 +105,7 @@
         select s.* from ( select
         t.id,
         t.title,
+        t.open_time,
         t.venue_type,
         t.cover_url,
         t.longitude,

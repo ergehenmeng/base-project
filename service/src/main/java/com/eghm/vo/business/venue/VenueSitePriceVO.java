@@ -32,9 +32,6 @@ public class VenueSitePriceVO {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate nowDate;
 
-    @ApiModelProperty("星期几 1-7")
-    private Integer nowWeek;
-
     @ApiModelProperty("可预订数量 默认1")
     private Integer stock;
 

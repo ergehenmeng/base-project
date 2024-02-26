@@ -59,7 +59,7 @@ public class RunnableTask implements Runnable {
         long startTime = System.currentTimeMillis();
         try {
             // 外层加锁防止多实例运行时有并发执行问题, 幂等由业务进行控制
-            redisLock.lock(key, task.getLockTime(), () -> ReflectUtil.invoke(bean, method, task.getArgs()));
+            redisLock.lockVoid(key, task.getLockTime(), () -> ReflectUtil.invoke(bean, method, task.getArgs()));
         } catch (Exception e) {
             // 异常时记录日志并发送邮件
             log.error("定时任务执行异常 bean:[{}] method: [{}]", task.getBeanName(), task.getMethodName(), e);

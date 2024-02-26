@@ -28,7 +28,7 @@ public interface RedisLock {
      * @param lockTime 锁最大持续时间,单位:毫秒
      * @param runnable 获取成功后执行业务
      */
-    void lock(String key, long lockTime, Runnable runnable);
+    void lockVoid(String key, long lockTime, Runnable runnable);
 
     /**
      * 获取锁后执行指定逻辑

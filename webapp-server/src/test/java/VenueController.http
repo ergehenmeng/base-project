@@ -1,0 +1,14 @@
+GET http://localhost:9090/webapp/venue/listPage?page=1&pageSize=10&longitude=120.334211&latitude=30.264652
+Channel: {{Channel}}
+
+###
+GET http://localhost:9090/webapp/venue/detail?id=1760922048632233986
+Channel: {{Channel}}
+
+###
+GET http://localhost:9090/webapp/venue/siteList?id=1760922048632233986
+Channel: {{Channel}}
+
+###
+GET http://localhost:9090/webapp/venue/priceList?venueSiteId=1760924119553056770&nowDate=2024-02-26
+Channel: {{Channel}}

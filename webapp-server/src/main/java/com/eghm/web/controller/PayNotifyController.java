@@ -69,7 +69,7 @@ public class PayNotifyController {
         context.setOrderNo(orderNo);
         context.setTradeNo(tradeNo);
 
-        return this.aliResult(() -> redisLock.lock(CacheConstant.ALI_PAY_NOTIFY_LOCK + orderNo, 10_000,
+        return this.aliResult(() -> redisLock.lockVoid(CacheConstant.ALI_PAY_NOTIFY_LOCK + orderNo, 10_000,
                 () -> this.handlePayNotify(context)));
     }
 
@@ -87,7 +87,7 @@ public class PayNotifyController {
         context.setRefundNo(refundNo);
         context.setTradeNo(tradeNo);
 
-        return this.aliResult(() -> redisLock.lock(CacheConstant.ALI_REFUND_NOTIFY_LOCK + tradeNo, 10_000,
+        return this.aliResult(() -> redisLock.lockVoid(CacheConstant.ALI_REFUND_NOTIFY_LOCK + tradeNo, 10_000,
                 () -> commonService.handleRefundNotify(context)));
     }
 
@@ -104,7 +104,7 @@ public class PayNotifyController {
         context.setOrderNo(orderNo);
         context.setTradeNo(payNotify.getResult().getOutTradeNo());
 
-        return this.wechatResult(response, () -> redisLock.lock(CacheConstant.WECHAT_PAY_NOTIFY_LOCK + orderNo, 10_000,
+        return this.wechatResult(response, () -> redisLock.lockVoid(CacheConstant.WECHAT_PAY_NOTIFY_LOCK + orderNo, 10_000,
                 () -> this.handlePayNotify(context)));
     }
 
@@ -122,7 +122,7 @@ public class PayNotifyController {
         context.setRefundNo(refundNo);
         context.setTradeNo(tradeNo);
 
-        return this.wechatResult(response, () -> redisLock.lock(CacheConstant.WECHAT_REFUND_NOTIFY_LOCK + tradeNo, 10_000,
+        return this.wechatResult(response, () -> redisLock.lockVoid(CacheConstant.WECHAT_REFUND_NOTIFY_LOCK + tradeNo, 10_000,
                 () -> commonService.handleRefundNotify(context)));
     }
 
