@@ -1,0 +1,9 @@
+GET http://localhost:8080/manage/merchant/score/account
+token: {{token}}
+
+
+###
+
+GET http://localhost:8080/manage/score/account/log/listPage?page=1&pageSize=10
+token: {{token}}
+

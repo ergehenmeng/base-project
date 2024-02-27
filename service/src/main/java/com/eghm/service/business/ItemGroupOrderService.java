@@ -98,7 +98,8 @@ public interface ItemGroupOrderService {
 
     /**
      * 拼团订单退款
-     *
+     * 1: 该方法只是修改拼团订单状态等,不做真实退款操作
+     * 2: 如果是团长退款,且未成团, 该方法会将团员下所有订单都退款
      * @param order 订单信息
      */
     void refundGroupOrder(Order order);

@@ -350,6 +350,13 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             log.info("团长创建拼团订单 [{}] [{}]", context.getMemberId(), context.getBookingNo());
             return;
         }
+        orderService.checkGroupOrder(context.getBookingNo(), context.getMemberId());
+
+        ItemGroupOrder groupOrder = itemGroupOrderService.getGroupOrder(context.getBookingNo(), context.getBookingNo());
+        if (groupOrder == null) {
+            log.info("拼团订单不存在 [{}]", context.getBookingNo());
+            throw new BusinessException(ITEM_GROUP_OVER);
+        }
         GroupOrderVO vo = itemGroupOrderService.getGroupOrder(context.getBookingNo(), 0);
         if (vo.getNum() == 0) {
             log.info("团员创建拼团订单,但没有待拼团的订单 [{}]", context.getBookingNo());

@@ -18,7 +18,7 @@ public class AccountResponse {
 
     @ApiModelProperty(value = "可提现金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
-    private Integer withdrawAmount;
+    private Integer amount;
 
     @ApiModelProperty(value = "支付冻结金额")
     @JsonSerialize(using = CentToYuanEncoder.class)

@@ -333,7 +333,8 @@ public class RabbitListenerHandler {
     }
 
     /**
-     * 拼团订单过期自动取消 (全部)
+     * 拼团订单过期自动取消
+     * 该拼团活动下,所有没有拼团成功的订单都发起退款处理
      */
     @RabbitListener(queues = QueueConstant.GROUP_ORDER_EXPIRE_QUEUE)
     public void groupOrderExpire(GroupOrderCancelVO vo, Message message, Channel channel) throws IOException {

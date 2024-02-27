@@ -1784,6 +1784,11 @@ public enum ErrorCode {
     BOOKING_NULL(3926, "拼团活动未查询到"),
 
     /**
+     * 您已在该拼团中,请勿重复下单
+     */
+    BOOKING_REDO_ORDER(3927, "您已在该拼团中,请勿重复下单"),
+
+    /**
      * 可提现金额不足
      */
     WITHDRAW_ENOUGH(3928, "可提现金额不足"),

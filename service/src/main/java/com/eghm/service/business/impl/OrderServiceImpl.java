@@ -507,8 +507,21 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         log.info("修改订单拼团状态: [{}] [{}]", bookingNo, bookingState);
         LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Order::getBookingNo, bookingNo);
-        wrapper.eq(Order::getBookingState, bookingState);
+        wrapper.set(Order::getBookingState, bookingState);
         baseMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void checkGroupOrder(String bookingNo, Long memberId) {
+        LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Order::getBookingNo, bookingNo);
+        wrapper.eq(Order::getMemberId, memberId);
+        wrapper.notIn(Order::getState, OrderState.CLOSE, OrderState.NONE);
+        Long count = baseMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.error("用户已在拼团订单,不支持重复下单 [{}] [{}]", bookingNo, memberId);
+            throw new BusinessException(ErrorCode.BOOKING_REDO_ORDER);
+        }
     }
 
     /**

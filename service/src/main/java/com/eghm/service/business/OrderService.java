@@ -266,4 +266,11 @@ public interface OrderService extends IService<Order> {
      */
     void updateBookingState(String bookingNo, Integer bookingState);
 
+    /**
+     * 检查当前用户是否已在拼团订单中
+     * 一个用户在一个拼团中只能下单一次
+     * @param bookingNo 拼团单号
+     * @param memberId 用户id
+     */
+    void checkGroupOrder(String bookingNo, Long memberId);
 }

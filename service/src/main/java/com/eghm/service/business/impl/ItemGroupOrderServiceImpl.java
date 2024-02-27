@@ -186,11 +186,12 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
             dingTalkService.sendMsg(String.format("订单[%s]拼单状态异常,无法同步退款 [%s]", order.getOrderNo(), order.getBookingNo()));
             return;
         }
+        // 先把自己的拼团订单改为失败, 后续在根据是否是团长来决定是否要退款
         this.updateState(order.getBookingNo(), order.getOrderNo(), 2);
         orderMapper.updateBookingState(order.getBookingNo(), order.getOrderNo(), 2);
 
         if (Boolean.TRUE.equals(groupOrder.getStarter())) {
-            // 取消拼团订单的延迟队列
+            // 取消拼团订单的延迟队列,延迟5秒防止当前事务没有提交,该消息就已经被消费导致重复退款报错
             log.info("订单为拼团发起者,开始同步退款 [{}]: [{}]", order.getOrderNo(), order.getBookingNo());
             messageService.sendDelay(ExchangeQueue.GROUP_ORDER_EXPIRE_SINGLE, order.getBookingNo(), 5);
         } else {
