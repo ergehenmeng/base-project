@@ -277,4 +277,12 @@ public interface ItemService {
      * @return 基础信息
      */
     Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request);
+
+    /**
+     * 查询是否为热销商品
+     *
+     * @param itemIds ids
+     * @return 热销 (只要包含一个即为热销)
+     */
+    boolean containHot(List<Long> itemIds);
 }

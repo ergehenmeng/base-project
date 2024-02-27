@@ -78,12 +78,13 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      */
     @Override
     public void doAction(ItemOrderCreateContext context) {
-        ItemOrderPayload payload = this.getPayload(context);
-        if (this.isHotSell(payload)) {
+        this.beforeCheck(context);
+        if (this.isHotSell(context)) {
             log.info("该商品为热销商品,走MQ队列处理");
             TransactionUtil.afterCommit(() -> this.queueOrder(context));
             return;
         }
+        ItemOrderPayload payload = this.getPayload(context);
         this.createOrder(context, payload);
     }
 
@@ -132,11 +133,11 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     /**
      * 是否为热销商品
      *
-     * @param payload 商品信息
+     * @param context 商品下单信息
      * @return true:热销商品(走队列下单) false:非热销商品
      */
-    public boolean isHotSell(ItemOrderPayload payload) {
-        return payload.getPackageList().stream().anyMatch(orderPackage -> orderPackage.getItem().getHotSell());
+    public boolean isHotSell(ItemOrderCreateContext context) {
+        return itemService.containHot(context.getItemList().stream().map(ItemDTO::getItemId).collect(Collectors.toList()));
     }
 
     /**
@@ -350,7 +351,6 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             log.info("团长创建拼团订单 [{}] [{}]", context.getMemberId(), context.getBookingNo());
             return;
         }
-        orderService.checkGroupOrder(context.getBookingNo(), context.getMemberId());
 
         ItemGroupOrder groupOrder = itemGroupOrderService.getGroupOrder(context.getBookingNo(), context.getBookingNo());
         if (groupOrder == null) {
@@ -417,6 +417,16 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         dto.setCountyId(countyId);
         itemService.calcStoreExpressFee(dto);
         return dtoList.stream().collect(Collectors.toMap(ItemCalcDTO::getSkuId, ItemCalcDTO::getExpressFee));
+    }
+
+    /**
+     * 前置校验
+     * @param context 下单信息
+     */
+    private void beforeCheck(ItemOrderCreateContext context) {
+        if (context.getBookingNo() != null) {
+            orderService.checkGroupOrder(context.getBookingNo(), context.getMemberId());
+        }
     }
 
     @Override

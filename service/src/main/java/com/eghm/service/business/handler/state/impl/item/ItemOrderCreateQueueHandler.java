@@ -3,7 +3,7 @@ package com.eghm.service.business.handler.state.impl.item;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.service.business.*;
-import com.eghm.service.business.handler.dto.ItemOrderPayload;
+import com.eghm.service.business.handler.context.ItemOrderCreateContext;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.member.MemberAddressService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class ItemOrderCreateQueueHandler extends ItemOrderCreateHandler {
     }
 
     @Override
-    public boolean isHotSell(ItemOrderPayload payload) {
+    public boolean isHotSell(ItemOrderCreateContext context) {
         return false;
     }
 }

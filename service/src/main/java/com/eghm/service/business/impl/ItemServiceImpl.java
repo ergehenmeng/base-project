@@ -447,6 +447,14 @@ public class ItemServiceImpl implements ItemService {
         return itemMapper.getProductPage(request.createPage(), request);
     }
 
+    @Override
+    public boolean containHot(List<Long> itemIds) {
+        LambdaQueryWrapper<Item> wrapper = Wrappers.lambdaQuery();
+        wrapper.in(Item::getId, itemIds);
+        wrapper.eq(Item::getHotSell, true);
+        return itemMapper.selectCount(wrapper) > 0;
+    }
+
     /**
      * 设置限时购信息
      *
