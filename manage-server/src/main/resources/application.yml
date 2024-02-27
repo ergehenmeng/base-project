@@ -18,6 +18,9 @@ spring:
       max-request-size: 500MB
   main:
     web-application-type: servlet
+  output:
+    ansi:
+      enabled: detect
   jackson:
     time-zone: GMT+8
   ## freemarker配置

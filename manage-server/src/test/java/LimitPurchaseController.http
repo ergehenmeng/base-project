@@ -26,3 +26,12 @@ Content-Type: application/json
 
 GET http://localhost:8080/manage/limit/purchase/detail?id=1762037301185196033
 token: {{token}}
+
+###
+POST http://localhost:8080/manage/limit/purchase/delete
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1762037301185196033
+}

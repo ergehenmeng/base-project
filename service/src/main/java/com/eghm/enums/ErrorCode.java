@@ -1629,6 +1629,11 @@ public enum ErrorCode {
     LIMIT_ITEM_REDO(3858, "该商品已存在限时购活动"),
 
     /**
+     * 进行中的活动暂无法删除
+     */
+    LIMIT_UNDERWAY_DELETE(3859, "进行中的活动暂无法删除"),
+
+    /**
      * 限时购商品不存在或已删除
      */
     LIMIT_ITEM_NULL(3860, "限时购商品不存在或已删除"),
@@ -1636,7 +1641,7 @@ public enum ErrorCode {
     /**
      * 限时购活动删除啦~
      */
-    LIMIT_NULL(3860, "限时购活动删除啦~"),
+    LIMIT_NULL(3861, "限时购活动删除啦~"),
 
     /**
      * 场馆名称重复啦~

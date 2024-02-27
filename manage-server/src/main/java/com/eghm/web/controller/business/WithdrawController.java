@@ -6,14 +6,18 @@ import com.eghm.dto.business.withdraw.WithdrawApplyDTO;
 import com.eghm.dto.business.withdraw.WithdrawQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.model.WithdrawLog;
 import com.eghm.service.business.WithdrawService;
+import com.eghm.utils.ExcelUtil;
+import com.eghm.vo.business.withdraw.WithdrawLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -29,10 +33,18 @@ public class WithdrawController {
 
     @GetMapping("/listPage")
     @ApiOperation("提现列表")
-    public RespBody<PageData<WithdrawLog>> listPage(WithdrawQueryRequest request) {
+    public RespBody<PageData<WithdrawLogResponse>> listPage(WithdrawQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        Page<WithdrawLog> roomPage = withdrawService.getByPage(request);
+        Page<WithdrawLogResponse> roomPage = withdrawService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
+    }
+
+    @GetMapping("/export")
+    @ApiOperation("导出")
+    public void export(HttpServletResponse response, WithdrawQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        List<WithdrawLogResponse> byPage = withdrawService.getList(request);
+        ExcelUtil.export(response, "提现记录", byPage, WithdrawLogResponse.class);
     }
 
     @PostMapping(value = "/apply", consumes = MediaType.APPLICATION_JSON_VALUE)

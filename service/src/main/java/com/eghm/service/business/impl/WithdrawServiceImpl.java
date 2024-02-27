@@ -1,9 +1,6 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.account.AccountDTO;
 import com.eghm.dto.business.withdraw.WithdrawApplyDTO;
@@ -16,11 +13,13 @@ import com.eghm.service.business.AccountService;
 import com.eghm.service.business.WithdrawService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.ExceptionUtil;
+import com.eghm.vo.business.withdraw.WithdrawLogResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static com.eghm.constant.CommonConstant.WITHDRAW_PREFIX;
 
@@ -43,16 +42,13 @@ public class WithdrawServiceImpl implements WithdrawService {
     private final AccountService accountService;
 
     @Override
-    public Page<WithdrawLog> getByPage(WithdrawQueryRequest request) {
-        LambdaQueryWrapper<WithdrawLog> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(request.getMerchantId() != null, WithdrawLog::getMerchantId, request.getMerchantId());
-        wrapper.eq(request.getState() != null, WithdrawLog::getState, request.getState());
-        wrapper.eq(request.getWithdrawWay() != null, WithdrawLog::getWithdrawWay, request.getWithdrawWay());
-        wrapper.ge(request.getStartDate() != null, WithdrawLog::getCreateTime, request.getStartDate());
-        wrapper.lt(request.getEndDate() != null, WithdrawLog::getCreateTime, request.getEndDate());
-        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper -> queryWrapper.like(WithdrawLog::getRefundNo, request.getQueryName()).or().like(WithdrawLog::getOutRefundNo, request.getQueryName()));
-        wrapper.orderByDesc(WithdrawLog::getId);
-        return withdrawLogMapper.selectPage(request.createPage(), wrapper);
+    public Page<WithdrawLogResponse> getByPage(WithdrawQueryRequest request) {
+        return withdrawLogMapper.getByPage(request.createPage(), request);
+    }
+
+    @Override
+    public List<WithdrawLogResponse> getList(WithdrawQueryRequest request) {
+        return withdrawLogMapper.getByPage(request.createNullPage(), request).getRecords();
     }
 
     @Override

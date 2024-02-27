@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.withdraw.WithdrawApplyDTO;
 import com.eghm.dto.business.withdraw.WithdrawQueryRequest;
 import com.eghm.model.WithdrawLog;
+import com.eghm.vo.business.withdraw.WithdrawLogResponse;
+
+import java.util.List;
 
 /**
  * <p>
@@ -21,7 +24,15 @@ public interface WithdrawService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<WithdrawLog> getByPage(WithdrawQueryRequest request);
+    Page<WithdrawLogResponse> getByPage(WithdrawQueryRequest request);
+
+    /**
+     * 获取提现记录 不分页
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<WithdrawLogResponse> getList(WithdrawQueryRequest request);
 
     /**
      * 申请提现
