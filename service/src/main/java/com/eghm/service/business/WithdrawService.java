@@ -3,7 +3,6 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.withdraw.WithdrawApplyDTO;
 import com.eghm.dto.business.withdraw.WithdrawQueryRequest;
-import com.eghm.model.WithdrawLog;
 import com.eghm.vo.business.withdraw.WithdrawLogResponse;
 
 import java.util.List;
