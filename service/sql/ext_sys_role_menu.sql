@@ -566,3 +566,24 @@ INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES (
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('647', '1707298744621969413', '10141811', '2024-02-27 13:11:13');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('648', '1707298744621969414', '10141811', '2024-02-27 13:11:13');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('649', '1707298744621969415', '10141811', '2024-02-27 13:11:13');
+
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969410, 101419);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969411, 101419);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969412, 101419);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969413, 101419);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969414, 101419);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 101419);
+
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969410, 10141910);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969411, 10141910);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969412, 10141910);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969413, 10141910);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969414, 10141910);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 10141910);
+
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969410, 10141911);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969411, 10141911);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969412, 10141911);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969413, 10141911);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969414, 10141911);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 10141911);
