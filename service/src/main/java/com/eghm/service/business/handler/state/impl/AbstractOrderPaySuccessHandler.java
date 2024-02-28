@@ -54,6 +54,7 @@ public abstract class AbstractOrderPaySuccessHandler implements PayNotifyHandler
      * @param order   订单信息
      */
     protected void after(PayNotifyContext context, Order order) {
+        log.info("订单支付成功, 更新游客和冻结金额 [{}] [{}] [{}]", context.getOrderNo(), context.getTradeNo(), context.getAmount());
         orderVisitorService.updateVisitor(order.getOrderNo(), VisitorState.PAID);
         orderService.paySuccessAddFreeze(order);
     }

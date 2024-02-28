@@ -137,6 +137,7 @@ public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHa
      * @param refundLog 退款记录
      */
     protected void refundFailSetState(Order order, OrderRefundLog refundLog) {
+        log.info("退款回调失败,更新退款状态 [{}] [{}]", order.getOrderNo(), refundLog.getRefundNo());
         order.setRefundState(RefundState.FAIL);
     }
 
