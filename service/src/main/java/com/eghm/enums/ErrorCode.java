@@ -1829,6 +1829,21 @@ public enum ErrorCode {
     LOTTERY_CONFIG_NULL(3942, "抽奖活动已经结束啦"),
 
     /**
+     * 订单冻结记录不存在
+     */
+    FREEZE_LOG_NULL(3944, "订单冻结记录不存在"),
+
+    /**
+     * 订单冻结记录已解冻
+     */
+    FREEZE_LOG_UNFREEZE(3945, "订单冻结记录已解冻"),
+
+    /**
+     * 冻结金额和解冻金额不匹配
+     */
+    FREEZE_LOG_AMOUNT(3947, "冻结金额和解冻金额不匹配"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

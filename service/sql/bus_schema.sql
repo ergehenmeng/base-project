@@ -1505,3 +1505,21 @@ CREATE TABLE `scan_recharge_log`
     PRIMARY KEY (`id`)
 ) ENGINE = INNODB
   DEFAULT CHARSET = utf8mb4 COMMENT ='扫码支付记录表';
+
+DROP TABLE IF EXISTS account_freeze_log;
+CREATE TABLE `account_freeze_log`
+(
+    `id`            bigint(20) NOT NULL COMMENT '主键',
+    `merchant_id`   bigint(20)   DEFAULT NULL COMMENT '商户id',
+    `state`         tinyint(1)   default '1' comment '状态 1:冻结中 2:已解冻',
+    `amount`        int(10)      DEFAULT '0' COMMENT '冻结金额',
+    `change_type`   tinyint(1)   default '1' comment '状态变更原因 1:支付冻结, 2:退款解冻 3:订单完成解冻',
+    `order_no`      varchar(30)  DEFAULT NULL comment '订单编号',
+    `remark`        varchar(200) DEFAULT NULL COMMENT '备注信息',
+    `unfreeze_time` datetime     DEFAULT NULL COMMENT '解冻时间',
+    `create_time`   datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`   datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`       bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='商户资金冻结记录表';
