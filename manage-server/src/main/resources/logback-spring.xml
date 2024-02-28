@@ -80,12 +80,14 @@
     <logger name="request_response" level="debug">
         <appender-ref ref="param_rolling_file"/>
     </logger>
-
+    <logger name="org.springframework.boot" additivity="false" level="warn">
+        <appender-ref ref="console"/>
+    </logger>
     <logger name="jdbc.audit" level="warn"/>
     <logger name="jdbc.resultset" level="warn"/>
     <logger name="jdbc.sqltiming" level="warn"/>
     <logger name="jdbc.connection" level="warn"/>
-    <logger name="org.springframework" level="info"/>
+    <logger name="org.springframework" level="warn"/>
     <logger name="freemarker" level="error"/>
     <logger name="org.apache" level="error"/>
     <logger name="springfox.documentation" level="warn"/>
