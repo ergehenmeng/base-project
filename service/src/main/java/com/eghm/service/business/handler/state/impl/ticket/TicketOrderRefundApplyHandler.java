@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @since 2022/8/19
  */
-@Service("ticketApplyRefundHandler")
+@Service("ticketOrderRefundApplyHandler")
 @Slf4j
 public class TicketOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler {
 

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @since 2022/9/15
  */
-@Service("itemRefundPassHandler")
+@Service("itemOrderRefundPassHandler")
 @Slf4j
 public class ItemOrderRefundPassHandler extends AbstractOrderRefundAuditHandler {
 

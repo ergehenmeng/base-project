@@ -3,6 +3,7 @@ package com.eghm.service.business.handler.state.impl;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.VisitorState;
 import com.eghm.model.Order;
+import com.eghm.service.business.AccountService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.context.PayNotifyContext;
@@ -24,6 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class AbstractOrderPaySuccessHandler implements PayNotifyHandler {
 
     private final OrderService orderService;
+
+    private final AccountService accountService;
 
     private final OrderVisitorService orderVisitorService;
 
@@ -56,7 +59,7 @@ public abstract class AbstractOrderPaySuccessHandler implements PayNotifyHandler
     protected void after(PayNotifyContext context, Order order) {
         log.info("订单支付成功, 更新游客和冻结金额 [{}] [{}] [{}]", context.getOrderNo(), context.getTradeNo(), context.getAmount());
         orderVisitorService.updateVisitor(order.getOrderNo(), VisitorState.PAID);
-        orderService.paySuccessAddFreeze(order);
+        accountService.paySuccessAddFreeze(order);
     }
 
 }

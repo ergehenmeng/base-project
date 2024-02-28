@@ -13,8 +13,9 @@ import org.springframework.stereotype.Service;
  * @author wyb
  * @since 2023/5/16
  */
-@Service("itemRefundRefuseHandler")
+@Service("itemOrderRefundRefuseHandler")
 public class ItemOrderRefundRefuseHandler extends AbstractOrderRefundAuditHandler {
+
     public ItemOrderRefundRefuseHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService) {
         super(orderService, orderRefundLogService, orderVisitorService);
     }

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @since 2022/8/23
  */
-@Service("homestayApplyRefundHandler")
+@Service("homestayOrderRefundApplyHandler")
 @Slf4j
 public class HomestayOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler {
 

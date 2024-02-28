@@ -2,6 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.dto.business.account.AccountDTO;
 import com.eghm.model.Account;
+import com.eghm.model.Order;
 
 /**
  * <p>
@@ -51,4 +52,20 @@ public interface AccountService {
      * @return 账户信息
      */
     Account getAccount(Long merchantId);
+
+    /**
+     * 支付成功后,增加冻结记录
+     *
+     * @param order 订单信息
+     */
+    void paySuccessAddFreeze(Order order);
+
+    /**
+     * 退款成功后,更新冻结记录
+     *
+     * @param order 订单信息
+     * @param refundAmount 本次退款金额
+     * @param refundNo  退款流水号
+     */
+    void refundSuccessUpdateFreeze(Order order, Integer refundAmount, String refundNo);
 }

@@ -25,7 +25,7 @@ import static com.eghm.enums.ErrorCode.REFUND_DELIVERY;
  * @author 二哥很猛
  * @since 2022/9/9
  */
-@Service("itemApplyRefundHandler")
+@Service("itemOrderRefundApplyHandler")
 @Slf4j
 public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler {
 

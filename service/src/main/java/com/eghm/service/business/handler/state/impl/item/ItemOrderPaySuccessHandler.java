@@ -27,9 +27,9 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2022/9/9
  */
-@Service("itemPaySuccessHandler")
+@Service("itemOrderPaySuccessHandler")
 @Slf4j
-public class ItemItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandler {
+public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandler {
 
     private final ItemService itemService;
 
@@ -41,7 +41,7 @@ public class ItemItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHa
 
     private final DingTalkService dingTalkService;
 
-    public ItemItemOrderPaySuccessHandler(OrderService orderService, ItemService itemService, ItemGroupOrderService itemGroupOrderService, GroupBookingService groupBookingService, DingTalkService dingTalkService) {
+    public ItemOrderPaySuccessHandler(OrderService orderService, ItemService itemService, ItemGroupOrderService itemGroupOrderService, GroupBookingService groupBookingService, DingTalkService dingTalkService) {
         super(orderService);
         this.itemService = itemService;
         this.orderService = orderService;

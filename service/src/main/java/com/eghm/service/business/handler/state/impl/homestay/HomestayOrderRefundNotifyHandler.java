@@ -33,8 +33,8 @@ public class HomestayOrderRefundNotifyHandler extends AbstractOrderRefundNotifyH
     public HomestayOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                             AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
                                             HomestayOrderService homestayOrderService, HomestayRoomConfigService homestayRoomConfigService,
-                                            OrderMQService orderMQService) {
-        super(orderService, orderRefundLogService, aggregatePayService, verifyLogService);
+                                            OrderMQService orderMQService, AccountService accountService) {
+        super(orderService, accountService, orderRefundLogService, aggregatePayService, verifyLogService);
         this.homestayOrderService = homestayOrderService;
         this.homestayRoomConfigService = homestayRoomConfigService;
         this.orderMQService = orderMQService;

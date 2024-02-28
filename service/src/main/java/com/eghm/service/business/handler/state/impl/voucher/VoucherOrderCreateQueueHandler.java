@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @since 2022/8/24
  */
-@Service("restaurantOrderCreateQueueHandler")
+@Service("voucherOrderCreateQueueHandler")
 @Slf4j
 public class VoucherOrderCreateQueueHandler extends VoucherOrderCreateHandler {
 

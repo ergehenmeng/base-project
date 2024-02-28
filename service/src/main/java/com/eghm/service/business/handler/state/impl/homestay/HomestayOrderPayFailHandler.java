@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * @author wyb
  * @since 2023/5/30
  */
-@Service("homestayPayFailHandler")
+@Service("homestayOrderPayFailHandler")
 public class HomestayOrderPayFailHandler extends AbstractOrderPayFailHandler {
 
     public HomestayOrderPayFailHandler(OrderService orderService) {

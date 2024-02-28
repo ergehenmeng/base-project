@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * @author 二哥很猛
  * @since 2022/8/25
  */
-@Service("itemOrderExpireHandler")
+@Service("itemOrderAutoCancelHandler")
 @Slf4j
 public class ItemOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler {
 

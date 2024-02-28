@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
  * @author 二哥很猛
  * @since 2022/9/15
  */
-@Service("itemRefundNotifyHandler")
+@Service("itemOrderRefundNotifyHandler")
 @Slf4j
 public class ItemOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandler {
 
@@ -31,8 +31,10 @@ public class ItemOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
 
     private final OrderRefundLogService orderRefundLogService;
 
-    public ItemOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, AggregatePayService aggregatePayService, VerifyLogService verifyLogService, ItemSkuService itemSkuService, ItemOrderService itemOrderService) {
-        super(orderService, orderRefundLogService, aggregatePayService, verifyLogService);
+    public ItemOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, AggregatePayService aggregatePayService,
+                                        VerifyLogService verifyLogService, ItemSkuService itemSkuService, ItemOrderService itemOrderService,
+                                        AccountService accountService) {
+        super(orderService, accountService, orderRefundLogService, aggregatePayService, verifyLogService);
         this.itemSkuService = itemSkuService;
         this.itemOrderService = itemOrderService;
         this.orderRefundLogService = orderRefundLogService;

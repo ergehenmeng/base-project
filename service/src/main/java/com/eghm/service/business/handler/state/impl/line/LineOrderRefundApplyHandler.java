@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @author 殿小二
  * @since 2022/9/3
  */
-@Service("lineApplyRefundHandler")
+@Service("lineOrderRefundApplyHandler")
 @Slf4j
 public class LineOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler {
 

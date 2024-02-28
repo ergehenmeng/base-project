@@ -5,10 +5,7 @@ import com.eghm.enums.event.impl.VenueEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.service.business.OrderRefundLogService;
-import com.eghm.service.business.OrderService;
-import com.eghm.service.business.VenueOrderService;
-import com.eghm.service.business.VerifyLogService;
+import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundNotifyHandler;
 import com.eghm.service.pay.AggregatePayService;
@@ -28,8 +25,8 @@ public class VenueOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHand
 
     public VenueOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                          AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
-                                         VenueOrderService venueOrderService) {
-        super(orderService, orderRefundLogService, aggregatePayService, verifyLogService);
+                                         VenueOrderService venueOrderService, AccountService accountService) {
+        super(orderService, accountService, orderRefundLogService, aggregatePayService, verifyLogService);
         this.venueOrderService = venueOrderService;
     }
 

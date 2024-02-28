@@ -7,6 +7,7 @@ import com.eghm.enums.ref.RefundState;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
+import com.eghm.service.business.AccountService;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VerifyLogService;
@@ -37,6 +38,8 @@ import static com.eghm.service.pay.enums.RefundStatus.*;
 public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHandler {
 
     private final OrderService orderService;
+
+    private final AccountService accountService;
 
     private final OrderRefundLogService orderRefundLogService;
 
@@ -151,7 +154,7 @@ public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHa
      */
     protected void after(RefundNotifyContext context, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
         log.info("退款异步处理结果 [{}] [{}]", order.getOrderNo(), refundStatus);
-        orderService.refundSuccessUpdateFreeze(order, context.getAmount(), context.getRefundNo());
+        accountService.refundSuccessUpdateFreeze(order, context.getAmount(), context.getRefundNo());
     }
 
 }

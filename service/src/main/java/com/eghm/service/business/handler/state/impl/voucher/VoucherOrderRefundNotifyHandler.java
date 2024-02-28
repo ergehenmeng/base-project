@@ -33,8 +33,8 @@ public class VoucherOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHa
     public VoucherOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                            AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
                                            VoucherService voucherService, VoucherOrderService voucherOrderService,
-                                           OrderMQService orderMQService) {
-        super(orderService, orderRefundLogService, aggregatePayService, verifyLogService);
+                                           OrderMQService orderMQService, AccountService accountService) {
+        super(orderService, accountService, orderRefundLogService, aggregatePayService, verifyLogService);
         this.voucherService = voucherService;
         this.voucherOrderService = voucherOrderService;
         this.orderMQService = orderMQService;

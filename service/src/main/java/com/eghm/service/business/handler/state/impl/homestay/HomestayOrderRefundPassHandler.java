@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * @author wyb
  * @since 2023/5/16
  */
-@Service("homestayRefundPassHandler")
+@Service("homestayOrderRefundPassHandler")
 public class HomestayOrderRefundPassHandler extends AbstractOrderRefundAuditHandler {
 
     public HomestayOrderRefundPassHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService) {

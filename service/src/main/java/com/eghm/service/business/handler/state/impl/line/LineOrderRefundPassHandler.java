@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * @author wyb
  * @since 2023/5/16
  */
-@Service("lineRefundPassHandler")
+@Service("lineOrderRefundPassHandler")
 public class LineOrderRefundPassHandler extends AbstractOrderRefundAuditHandler {
 
     public LineOrderRefundPassHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService) {

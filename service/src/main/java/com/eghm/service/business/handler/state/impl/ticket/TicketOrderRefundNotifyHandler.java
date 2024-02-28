@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
  * @author 殿小二
  * @since 2022/9/3
  */
-@Service("ticketRefundNotifyHandler")
+@Service("ticketOrderRefundNotifyHandler")
 @Slf4j
 public class TicketOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandler {
 
@@ -36,8 +36,9 @@ public class TicketOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHan
     public TicketOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                           AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
                                           TicketOrderService ticketOrderService, ScenicTicketService scenicTicketService,
-                                          OrderVisitorService orderVisitorService, OrderMQService orderMQService) {
-        super(orderService, orderRefundLogService, aggregatePayService, verifyLogService);
+                                          OrderVisitorService orderVisitorService, OrderMQService orderMQService,
+                                          AccountService accountService) {
+        super(orderService, accountService, orderRefundLogService, aggregatePayService, verifyLogService);
         this.ticketOrderService = ticketOrderService;
         this.scenicTicketService = scenicTicketService;
         this.orderVisitorService = orderVisitorService;
