@@ -273,4 +273,20 @@ public interface OrderService extends IService<Order> {
      * @param memberId 用户id
      */
     void checkGroupOrder(String bookingNo, Long memberId);
+
+    /**
+     * 支付成功后,增加冻结记录
+     *
+     * @param order 订单信息
+     */
+    void paySuccessAddFreeze(Order order);
+
+    /**
+     * 退款成功后,更新冻结记录
+     *
+     * @param order 订单信息
+     * @param refundAmount 本次退款金额
+     * @param refundNo  退款流水号
+     */
+    void refundSuccessUpdateFreeze(Order order, Integer refundAmount, String refundNo);
 }

@@ -65,6 +65,10 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
     @Override
     public void updateAccount(AccountDTO dto) {
         log.info("开始更新资金账户 [{}]", jsonService.toJson(dto));
+        if (dto.getAmount() <= 0) {
+            // 金额小于0不做任何操作
+            return;
+        }
         Account account = this.getAccount(dto.getMerchantId());
         if (dto.getAccountType() == AccountType.ORDER_PAY) {
             // 支付回调中调用该方法

@@ -58,6 +58,10 @@ public class AccountFreezeLogServiceImpl implements AccountFreezeLogService {
     @Override
     public void addFreezeLog(AccountFreezeDTO dto) {
         log.info("添加订单冻结记录 [{}]", jsonService.toJson(dto));
+        if (dto.getAmount() <= 0) {
+            // 金额小于0不做处理
+            return;
+        }
         AccountFreezeLog freezeLog = this.getFreezeLog(dto.getMerchantId(), dto.getOrderNo());
         if (freezeLog != null) {
             log.error("新增冻结记录发现已存在冻结信息:[{}] [{}]", dto.getMerchantId(), dto.getOrderNo());
@@ -71,6 +75,11 @@ public class AccountFreezeLogServiceImpl implements AccountFreezeLogService {
 
     @Override
     public void refund(RefundChangeDTO dto) {
+        log.info("退款更新订单冻结记录 [{}]", jsonService.toJson(dto));
+        if (dto.getRefundAmount() <= 0) {
+            // 金额小于0不做处理
+            return;
+        }
         AccountFreezeLog freezeLog = this.getCheckedLog(dto.getMerchantId(), dto.getOrderNo());
         Integer amount = freezeLog.getAmount();
         int surplusAmount = amount - dto.getRefundAmount();
@@ -86,6 +95,7 @@ public class AccountFreezeLogServiceImpl implements AccountFreezeLogService {
 
     @Override
     public void complete(CompleteChangeDTO dto) {
+        log.info("订单完成更新订单冻结记录 [{}]", jsonService.toJson(dto));
         AccountFreezeLog freezeLog = this.getCheckedLog(dto.getMerchantId(), dto.getOrderNo());
         if (!freezeLog.getAmount().equals(dto.getAmount())) {
             log.error("订单冻结记录金额不一致:无法更新冻结信息[{}] [{}] [{}] [{}]", dto.getMerchantId(), dto.getOrderNo(), freezeLog.getAmount(), dto.getAmount());

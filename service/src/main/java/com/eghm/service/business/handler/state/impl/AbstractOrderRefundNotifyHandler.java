@@ -150,6 +150,7 @@ public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHa
      */
     protected void after(RefundNotifyContext context, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
         log.info("退款异步处理结果 [{}] [{}]", order.getOrderNo(), refundStatus);
+        orderService.refundSuccessUpdateFreeze(order, context.getAmount(), context.getRefundNo());
     }
 
 }

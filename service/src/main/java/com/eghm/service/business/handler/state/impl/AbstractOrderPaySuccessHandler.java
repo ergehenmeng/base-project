@@ -55,6 +55,7 @@ public abstract class AbstractOrderPaySuccessHandler implements PayNotifyHandler
      */
     protected void after(PayNotifyContext context, Order order) {
         orderVisitorService.updateVisitor(order.getOrderNo(), VisitorState.PAID);
+        orderService.paySuccessAddFreeze(order);
     }
 
 }

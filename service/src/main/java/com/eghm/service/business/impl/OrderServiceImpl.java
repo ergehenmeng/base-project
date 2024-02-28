@@ -10,6 +10,9 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constant.CommonConstant;
+import com.eghm.dto.business.account.AccountDTO;
+import com.eghm.dto.business.freeze.AccountFreezeDTO;
+import com.eghm.dto.business.freeze.RefundChangeDTO;
 import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.dto.statistics.DateRequest;
@@ -44,6 +47,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -71,6 +76,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     private final OrderVisitorService orderVisitorService;
 
+    private final AccountService accountService;
+
     private final OrderMQService orderMQService;
 
     private final CommonService commonService;
@@ -81,9 +88,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     private final JsonService jsonService;
 
+    private final MerchantService merchantService;
+
     private final SysAreaService sysAreaService;
 
     private final MessageService messageService;
+
+    private final AccountFreezeLogService accountFreezeLogService;
 
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType) {
@@ -522,6 +533,112 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             log.error("用户已在拼团订单,不支持重复下单 [{}] [{}]", bookingNo, memberId);
             throw new BusinessException(ErrorCode.BOOKING_REDO_ORDER);
         }
+    }
+
+    @Override
+    public void paySuccessAddFreeze(Order order) {
+        Merchant merchant = merchantService.selectByIdRequired(order.getMerchantId());
+        Integer actualAmount = this.calcActualAmount(order.getPayAmount(), merchant.getPlatformServiceRate());
+        this.paySuccessUpdateAccount(order.getMerchantId(), actualAmount, order.getOrderNo(), order.getTradeNo());
+        // 添加平台手续费账户更新
+        int serviceFee = order.getPayAmount()  - actualAmount;
+        if (serviceFee > 0 ) {
+            this.paySuccessUpdateAccount(systemProperties.getPlatformMerchantId(), serviceFee, order.getOrderNo(), order.getTradeNo());
+        } else {
+            log.info("支付没有产生平台手续费,不更新平台账户 [{}] [{}]", order.getOrderNo(), serviceFee);
+        }
+    }
+
+    @Override
+    public void refundSuccessUpdateFreeze(Order order, Integer refundAmount, String refundNo) {
+        Merchant merchant = merchantService.selectByIdRequired(order.getMerchantId());
+        // 表示最后一次退款
+        Integer actualAmount;
+        if (order.getPayAmount().equals(order.getRefundAmount())) {
+            Integer serviceAmount = this.calcServiceAmount(refundAmount, merchant.getPlatformServiceRate());
+            actualAmount = refundAmount - serviceAmount;
+            log.info("最后一次退款,产生的平台手续费 [{}] [{}] [{}] [{}]", order.getOrderNo(), refundNo, refundAmount, serviceAmount);
+        } else {
+            actualAmount = this.calcActualAmount(refundAmount, merchant.getPlatformServiceRate());
+        }
+        this.refundSuccessUpdateAccount(order.getMerchantId(), actualAmount, order.getOrderNo(), refundNo);
+        int serviceFee = refundAmount - actualAmount;
+        // 添加平台手续费账户更新
+        if (serviceFee > 0 ) {
+            this.refundSuccessUpdateAccount(systemProperties.getPlatformMerchantId(), serviceFee, order.getOrderNo(), refundNo);
+        } else {
+            log.info("退款没有产生平台手续费,不更新平台账户 [{}] [{}]", order.getOrderNo(), serviceFee);
+        }
+    }
+
+    /**
+     * 支付成功更新冻结账户
+     *
+     * @param merchantId 商户id
+     * @param amount 金额
+     * @param orderNo orderNo
+     * @param tradeNo tradeNo
+     */
+    private void paySuccessUpdateAccount(Long merchantId, Integer amount, String orderNo, String tradeNo) {
+        AccountDTO dto = new AccountDTO();
+        dto.setMerchantId(merchantId);
+        dto.setAmount(amount);
+        dto.setAccountType(AccountType.ORDER_PAY);
+        dto.setTradeNo(tradeNo);
+        accountService.updateAccount(dto);
+
+        AccountFreezeDTO freezeDTO = new AccountFreezeDTO();
+        freezeDTO.setMerchantId(merchantId);
+        freezeDTO.setAmount(amount);
+        freezeDTO.setChangeType(ChangeType.PAY_FREEZE);
+        freezeDTO.setOrderNo(orderNo);
+        accountFreezeLogService.addFreezeLog(freezeDTO);
+    }
+
+    /**
+     * 退款成功更新冻结账户
+     *
+     * @param merchantId 商户id
+     * @param amount 金额
+     * @param orderNo orderNo
+     * @param refundNo 退款流水号
+     */
+    private void refundSuccessUpdateAccount(Long merchantId, Integer amount, String orderNo, String refundNo) {
+        AccountDTO dto = new AccountDTO();
+        dto.setMerchantId(merchantId);
+        dto.setAmount(amount);
+        dto.setAccountType(AccountType.ORDER_REFUND);
+        dto.setTradeNo(refundNo);
+        accountService.updateAccount(dto);
+
+        RefundChangeDTO refundDTO = new RefundChangeDTO();
+        refundDTO.setMerchantId(merchantId);
+        refundDTO.setRefundAmount(amount);
+        refundDTO.setOrderNo(orderNo);
+        accountFreezeLogService.refund(refundDTO);
+    }
+
+    /**
+     * 计算实际应收金额(用户实付金额-平台服务费)
+     *
+     * @param amount  金额
+     * @param serviceRate 平台服务费率 单位:%
+     * @return 实付金额
+     */
+    private Integer calcActualAmount(Integer amount, BigDecimal serviceRate) {
+        BigDecimal subtract = BigDecimal.valueOf(100).subtract(serviceRate);
+        return subtract.multiply(BigDecimal.valueOf(amount)).divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_DOWN).intValue();
+    }
+
+    /**
+     * 计算实际应收金额(用户实付金额-平台服务费)
+     *
+     * @param amount  金额
+     * @param serviceRate 平台服务费率 单位:%
+     * @return 实付金额
+     */
+    private Integer calcServiceAmount(Integer amount, BigDecimal serviceRate) {
+        return serviceRate.multiply(BigDecimal.valueOf(amount)).divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_DOWN).intValue();
     }
 
     /**

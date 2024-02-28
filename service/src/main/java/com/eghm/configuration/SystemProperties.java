@@ -80,6 +80,11 @@ public class SystemProperties {
      */
     private Express100 express = new Express100();
 
+    /**
+     * 平台手续费收款商户
+     */
+    private Long platformMerchantId;
+
     @Data
     public static class Express100 {
 

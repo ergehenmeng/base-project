@@ -86,9 +86,17 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         refundLog.setMerchantId(order.getMerchantId());
         refundLog.setApplyTime(LocalDateTime.now());
         refundLog.setState(0);
-        refundLog.setAuditState(AuditState.APPLY);
-        order.setRefundState(RefundState.APPLY);
-        order.setRefundAmount(order.getRefundAmount() + context.getApplyAmount());
+        if (this.getRefundType(order) == RefundType.DIRECT_REFUND) {
+            refundLog.setAuditState(AuditState.APPLY);
+            order.setRefundState(RefundState.APPLY);
+        } else {
+            refundLog.setAuditState(AuditState.PASS);
+            refundLog.setAuditRemark("系统自动审核");
+            refundLog.setRefundNo(order.getProductType().generateTradeNo());
+            order.setRefundState(RefundState.PROGRESS);
+            order.setRefundAmount(order.getRefundAmount() + context.getApplyAmount());
+            this.startRefund(refundLog, order);
+        }
         // 更新订单信息
         orderService.updateById(order);
         // 新增退款记录
@@ -108,7 +116,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
 
     @Override
     protected void after(RefundApplyContext context, Order order, OrderRefundLog refundLog) {
-        log.info("零售商品订单退款申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog.getId());
+        log.info("零售商品订单退款申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
         if (this.getRefundType(order) == RefundType.DIRECT_REFUND) {
             itemGroupOrderService.refundGroupOrder(order);
         }

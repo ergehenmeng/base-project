@@ -42,3 +42,4 @@ system:
     notify-host: https://localhost:8080
   wechat:
     notify-host: https://localhost:8080
+  platform-merchant-id: 1707294309829128194

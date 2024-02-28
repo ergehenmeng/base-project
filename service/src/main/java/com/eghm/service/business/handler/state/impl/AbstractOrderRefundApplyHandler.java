@@ -178,4 +178,27 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
         return 0;
     }
 
+    /**
+     * 创建默认退款记录
+     *
+     * @param context 上下文
+     * @param order 订单号
+     * @return 记录
+     */
+    protected OrderRefundLog createDefaultLog(RefundApplyContext context, Order order) {
+        OrderRefundLog refundLog = new OrderRefundLog();
+        refundLog.setMemberId(order.getMemberId());
+        refundLog.setMerchantId(order.getMerchantId());
+        refundLog.setNum(context.getNum());
+        refundLog.setRefundAmount(0);
+        refundLog.setOrderNo(order.getOrderNo());
+        refundLog.setApplyType(1);
+        refundLog.setApplyTime(LocalDateTime.now());
+        refundLog.setState(1);
+        refundLog.setAuditState(AuditState.PASS);
+        refundLog.setAuditRemark("零元购自动生成");
+        refundLog.setRefundNo(order.getProductType().generateTradeNo());
+        orderRefundLogService.insert(refundLog);
+        return refundLog;
+    }
 }

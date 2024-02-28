@@ -44,7 +44,7 @@ public class VenueOrderRefundApplyHandler extends AbstractOrderRefundApplyHandle
         if (order.getPayAmount() > 0) {
             return super.doProcess(context, order);
         } else {
-            log.info("订单属于零元付,不做退款处理 [{}]", order.getOrderNo());
+            log.info("订单属于零元付,不做真实退款处理 [{}]", order.getOrderNo());
             order.setRefundState(RefundState.SUCCESS);
             order.setRefundAmount(0);
             order.setState(OrderState.CLOSE);
@@ -52,7 +52,7 @@ public class VenueOrderRefundApplyHandler extends AbstractOrderRefundApplyHandle
             order.setCloseType(CloseType.REFUND);
             orderService.updateById(order);
             venueOrderService.updateStock(order.getOrderNo(), 1);
-            return null;
+            return this.createDefaultLog(context, order);
         }
     }
 
