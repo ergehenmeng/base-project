@@ -40,7 +40,6 @@ public class ItemController {
 
     private final ItemService itemService;
 
-
     @GetMapping("/listPage")
     @ApiOperation("商品列表")
     public RespBody<PageData<ItemResponse>> listPage(ItemQueryRequest request) {

@@ -79,4 +79,12 @@ public interface ItemSkuService {
      * @return sku
      */
     Map<Long, ItemSku> getByIdShelveMap(Set<Long> ids);
+
+    /**
+     * 计算商品总销售量(含虚拟销量)
+     *
+     * @param itemId itemId
+     * @return 销售量
+     */
+    Integer calcTotalNum(Long itemId);
 }

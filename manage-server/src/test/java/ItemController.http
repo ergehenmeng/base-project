@@ -9,24 +9,72 @@ Content-Type: application/json
 
 {
   "title": "火腿肠5包",
-  "storeId": 1717388362096668673,
+  "storeId": 1763046454489776134,
   "depict": "商品描述信息",
   "coverUrl": "http://localhost:8080/coverUrl.png",
   "purchaseNotes": "购买须知",
   "quota": 10,
+  "tagId": "100101",
   "deliveryType": 1,
-  "multiSpec": false,
+  "multiSpec": true,
   "refundType": 1,
   "refundDescribe": "直接退款",
-  "virtualNum": 10,
   "introduce": "详细介绍",
   "skuList": [{
-    "title": "规格1",
-    "linePrice": 12,
-    "costPrice": 10,
+    "primarySpecValue":"红色",
+    "secondSpecValue":"XL",
+    "linePrice": 9,
+    "costPrice": 6,
     "salePrice": 11,
     "stock": 10,
-    "coverUrl": "http://localhost:8080/sku/coverUrl.png"
+    "skuPic": "http://localhost:8080/sku/coverUrl.png",
+    "virtualNum": 10
+  },{
+    "primarySpecValue":"黑色",
+    "secondSpecValue":"XL",
+    "linePrice": 10,
+    "costPrice": 7,
+    "salePrice": 12,
+    "stock": 10,
+    "skuPic": "http://localhost:8080/sku/coverUrl.png",
+    "virtualNum": 10
+  },{
+    "primarySpecValue":"红色",
+    "secondSpecValue":"XXL",
+    "linePrice": 11,
+    "costPrice": 8,
+    "salePrice": 13,
+    "stock": 10,
+    "skuPic": "http://localhost:8080/sku/coverUrl.png",
+    "virtualNum": 10
+  },{
+    "primarySpecValue":"红色",
+    "secondSpecValue":"XXL",
+    "linePrice": 12,
+    "costPrice": 9,
+    "salePrice": 14,
+    "stock": 10,
+    "skuPic": "http://localhost:8080/sku/coverUrl.png",
+    "virtualNum": 10
+  }],
+  "specList": [{
+    "specName": "颜色",
+    "specValue": "红色",
+    "specPic": "http://localhost:8080/sku/coverUrl.png",
+    "level": 1
+  },{
+    "specName": "颜色",
+    "specValue": "黑色",
+    "specPic": "http://localhost:8080/sku/coverUrl.png",
+    "level": 1
+  },{
+    "specName": "尺寸",
+    "specValue": "XL",
+    "level": 2
+  },{
+    "specName": "尺寸",
+    "specValue": "XXL",
+    "level": 2
   }]
 }
 
@@ -68,7 +116,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/manage/item/select?id=1608738767752790017
+GET http://localhost:8080/manage/item/select?id=1763082719536959490
 token: {{token}}
 
 ###

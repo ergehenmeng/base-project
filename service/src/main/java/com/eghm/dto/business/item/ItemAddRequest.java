@@ -4,7 +4,6 @@ import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.dto.business.item.sku.ItemSpecRequest;
 import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.RefundType;
-import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
@@ -61,7 +60,7 @@ public class ItemAddRequest {
     private Integer quota;
 
     @ApiModelProperty(value = "交付方式 0:无需发货 1:快递包邮 2:门店自提", required = true)
-    @OptionInt(value = {0, 1, 2}, message = "交付方式不合法")
+    @NotNull(message = "交付方式不能为空")
     private DeliveryType deliveryType;
 
     @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款", required = true)

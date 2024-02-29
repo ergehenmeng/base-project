@@ -10,7 +10,10 @@ import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -67,11 +70,6 @@ public class ItemEditRequest {
     @Size(max = 100, message = "退款描述信息最大100字符")
     @WordChecker(message = "退款描述信息存在敏感词")
     private String refundDescribe;
-
-    @ApiModelProperty(value = "虚拟销量", required = true)
-    @NotNull(message = "虚拟销量不能为空")
-    @Min(value = 0, message = "虚拟销量不能小于0")
-    private Integer virtualNum;
 
     @ApiModelProperty(value = "商品介绍信息", required = true)
     @NotBlank(message = "商品介绍信息不能为空")

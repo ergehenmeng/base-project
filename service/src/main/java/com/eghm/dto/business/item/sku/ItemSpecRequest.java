@@ -32,7 +32,6 @@ public class ItemSpecRequest {
     private String specValue;
 
     @ApiModelProperty(value = "规格图片(一级规格必填), 优先级比sku_pic低", required = true)
-    @NotBlank(message = "规格图片不能为空")
     private String specPic;
 
     @ApiModelProperty(value = "标签级别(1:一级标签 2:二级标签)", required = true)

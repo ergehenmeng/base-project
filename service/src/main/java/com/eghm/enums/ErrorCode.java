@@ -1844,6 +1844,11 @@ public enum ErrorCode {
     FREEZE_LOG_AMOUNT(3947, "冻结金额和解冻金额不匹配"),
 
     /**
+     * 店铺信息不存在
+     */
+    STORE_NOT_EXIST(4000, "店铺信息不存在"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

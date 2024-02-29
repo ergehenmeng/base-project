@@ -19,6 +19,7 @@ import com.eghm.dto.ext.DiscountItemSku;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ChargeMode;
 import com.eghm.enums.ref.CollectType;
+import com.eghm.enums.ref.SpecLevel;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.GroupBookingMapper;
@@ -102,11 +103,13 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void create(ItemAddRequest request) {
         this.checkSpec(request.getMultiSpec(), request.getSpecList());
+        Long merchantId = SecurityHolder.getMerchantId();
+        this.checkStore(merchantId, request.getStoreId());
         this.titleRedo(request.getTitle(), null, request.getStoreId());
         this.checkExpress(request.getExpressId(), request.getSkuList());
 
         Item item = DataUtil.copy(request, Item.class);
-        item.setMerchantId(SecurityHolder.getMerchantId());
+        item.setMerchantId(merchantId);
         item.setCreateDate(LocalDate.now());
         this.setMinMaxPrice(item, request.getSkuList());
         // 总销量需要添加虚拟销量
@@ -120,20 +123,23 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void update(ItemEditRequest request) {
         this.checkSpec(request.getMultiSpec(), request.getSpecList());
+        this.checkStore(SecurityHolder.getMerchantId(), request.getStoreId());
         this.titleRedo(request.getTitle(), request.getId(), request.getStoreId());
         this.checkExpress(request.getExpressId(), request.getSkuList());
         Item select = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(select.getMerchantId());
 
         Item item = DataUtil.copy(request, Item.class);
-        itemMapper.updateById(item);
-
         if (select.getBookingId() == null) {
             Map<String, Long> specMap = itemSpecService.update(item, request.getSpecList());
             itemSkuService.update(item, specMap, request.getSkuList());
         } else {
             log.info("该商品是拼团商品,请先删除拼团活动后再编辑规格信息 [{}] [{}]", select.getId(), select.getBookingId());
         }
+        // 因为可能修改了虚拟库存，需要重新计算总销量
+        Integer totalNum = itemSkuService.calcTotalNum(item.getId());
+        item.setTotalNum(totalNum);
+        itemMapper.updateById(item);
     }
 
     @Override
@@ -143,10 +149,9 @@ public class ItemServiceImpl implements ItemService {
         // 多规格才会保存规格配置信息
         if (Boolean.TRUE.equals(item.getMultiSpec())) {
             List<ItemSpec> spec = itemSpecService.getByItemId(itemId);
-            List<ItemSpecResponse> specList = DataUtil.copy(spec, ItemSpecResponse.class);
-            // 根据规格名分组
-            LinkedHashMap<String, List<ItemSpecResponse>> specMap = specList.stream().collect(Collectors.groupingBy(ItemSpecResponse::getSpecName, LinkedHashMap::new, Collectors.toList()));
-            response.setSpecMap(specMap);
+            List<ItemSpecValueResponse> specList = DataUtil.copy(spec, ItemSpecValueResponse.class);
+            List<ItemSpecResponse> responseList = this.groupBySpecName(specList);
+            response.setSpecList(responseList);
         }
         List<ItemSku> skuList = itemSkuService.getSkuList(itemId);
         response.setSkuList(DataUtil.copy(skuList, ItemSkuResponse.class));
@@ -456,6 +461,28 @@ public class ItemServiceImpl implements ItemService {
     }
 
     /**
+     * 根据规格名进行分组
+     *
+     * @param specList 规格信息
+     * @return 分组后的规格信息
+     */
+    private List<ItemSpecResponse> groupBySpecName(List<ItemSpecValueResponse> specList) {
+        LinkedHashMap<SpecLevel, List<ItemSpecValueResponse>> specMap = specList.stream().collect(Collectors.groupingBy(ItemSpecValueResponse::getLevel, LinkedHashMap::new, Collectors.toList()));
+        List<ItemSpecResponse> result = new ArrayList<>();
+        for (SpecLevel value : SpecLevel.values()) {
+            List<ItemSpecValueResponse> specValue = specMap.get(value);
+            if (CollUtil.isNotEmpty(specValue)) {
+                ItemSpecResponse spec = new ItemSpecResponse();
+                spec.setSpecName(specValue.get(0).getSpecName());
+                spec.setLevel(value.getValue());
+                spec.setValueList(specValue);
+                result.add(spec);
+            }
+        }
+        return result;
+    }
+
+    /**
      * 设置限时购信息
      *
      * @param detail 商品详情
@@ -555,6 +582,23 @@ public class ItemServiceImpl implements ItemService {
         if (count > 0) {
             log.info("零售商品名称重复 [{}] [{}] [{}]", itemName, id, storeId);
             throw new BusinessException(ErrorCode.ITEM_TITLE_REDO);
+        }
+    }
+
+    /**
+     * 校验店铺是否属于对应商户
+     *
+     * @param merchantId 商户ID
+     * @param storeId 店铺ID
+     */
+    private void checkStore(Long merchantId, Long storeId) {
+        LambdaQueryWrapper<ItemStore> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(ItemStore::getMerchantId, merchantId);
+        wrapper.eq(ItemStore::getId, storeId);
+        Long count = itemStoreMapper.selectCount(wrapper);
+        if (count <= 0) {
+            log.info("新增商品,店铺不存在 [{}] [{}]", merchantId, storeId);
+            throw new BusinessException(ErrorCode.STORE_NOT_EXIST);
         }
     }
 

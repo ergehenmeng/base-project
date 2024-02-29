@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.ref.SpecLevel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -40,6 +41,6 @@ public class ItemSpec extends BaseEntity {
     private Integer sort;
 
     @ApiModelProperty(value = "标签级别 一级标签 二级标签")
-    private Integer level;
+    private SpecLevel level;
 
 }

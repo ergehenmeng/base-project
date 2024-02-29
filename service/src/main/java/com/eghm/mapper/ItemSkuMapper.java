@@ -22,4 +22,12 @@ public interface ItemSkuMapper extends BaseMapper<ItemSku> {
      * @return 1
      */
     int updateStock(@Param("skuId") Long skuId, @Param("num") Integer num);
+
+    /**
+     * 获取商品总销量
+     *
+     * @param itemId 商品ID
+     * @return 总销量
+     */
+    Integer calcTotalNum(@Param("itemId") Long itemId);
 }

@@ -50,7 +50,7 @@ public class ItemDetailResponse {
     private String introduce;
 
     @ApiModelProperty("规格信息(单规格为空)")
-    private Map<String, List<ItemSpecResponse>> specMap;
+    private List<ItemSpecResponse> specList;
 
     @ApiModelProperty("sku信息")
     private List<ItemSkuResponse> skuList;

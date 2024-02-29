@@ -122,6 +122,11 @@ public class ItemSkuServiceImpl implements ItemSkuService {
         return skuList.stream().collect(Collectors.toMap(ItemSku::getId, Function.identity()));
     }
 
+    @Override
+    public Integer calcTotalNum(Long itemId) {
+        return null;
+    }
+
     /**
      * 组装sku所属的规格id, 多规格以逗号分隔
      *

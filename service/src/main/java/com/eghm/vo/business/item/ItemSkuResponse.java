@@ -16,6 +16,9 @@ public class ItemSkuResponse {
     @ApiModelProperty("id(编辑时不能为空)")
     private Long id;
 
+    @ApiModelProperty(value = "一级规格名")
+    private String primarySpecValue;
+
     @ApiModelProperty(value = "二级规格名(单规格为空)")
     private String secondSpecValue;
 
