@@ -16,7 +16,7 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class MerchantQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("商户类型 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路")
+    @ApiModelProperty("商户类型 1:景区 2: 民宿 4: 餐饮 8: 零售 16: 线路 32: 场馆")
     @OptionInt(value = {1, 2, 4, 8, 16}, message = "商户类型错误", required = false)
     private Integer type;
 

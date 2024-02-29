@@ -105,7 +105,7 @@ public class MerchantServiceImpl implements MerchantService {
         merchantMapper.insert(merchant);
 
         List<RoleType> roleTypes = RoleMapping.parseRoleType(request.getType());
-        sysRoleService.authRole(merchant.getId(), roleTypes);
+        sysRoleService.authRole(user.getId(), roleTypes);
         this.initStore(merchant, roleTypes);
     }
 

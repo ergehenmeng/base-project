@@ -1,6 +1,5 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -26,6 +25,7 @@ import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.item.store.ItemStoreHomeVO;
+import com.eghm.vo.business.item.store.ItemStoreResponse;
 import com.eghm.vo.business.item.store.ItemStoreVO;
 import com.eghm.vo.business.lottery.LotteryVO;
 import lombok.AllArgsConstructor;
@@ -63,12 +63,13 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     private final MemberCollectService memberCollectService;
 
     @Override
-    public Page<ItemStore> getByPage(ItemStoreQueryRequest request) {
-        LambdaQueryWrapper<ItemStore> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), ItemStore::getTitle, request.getQueryName());
-        wrapper.eq(request.getState() != null, ItemStore::getState, request.getState());
-        wrapper.eq(request.getMerchantId() != null, ItemStore::getMerchantId, request.getMerchantId());
-        return itemStoreMapper.selectPage(request.createPage(), wrapper);
+    public Page<ItemStoreResponse> getByPage(ItemStoreQueryRequest request) {
+        return itemStoreMapper.getByPage(request.createPage(), request);
+    }
+
+    @Override
+    public List<ItemStoreResponse> getList(ItemStoreQueryRequest request) {
+        return itemStoreMapper.getByPage(request.createNullPage(), request).getRecords();
     }
 
     @Override
@@ -196,6 +197,7 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     @Override
     public void init(Merchant merchant) {
         ItemStore shop = new ItemStore();
+        shop.setTitle(merchant.getMerchantName());
         shop.setState(State.UN_SHELVE);
         shop.setMerchantId(merchant.getId());
         itemStoreMapper.insert(shop);

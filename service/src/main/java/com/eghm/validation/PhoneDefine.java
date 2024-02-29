@@ -26,6 +26,6 @@ public class PhoneDefine implements ConstraintValidator<Phone, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return (!required && value == null) || (StrUtil.isNotBlank(value) && PhoneUtil.isPhone(value));
+        return (!required && value == null) || ((PhoneUtil.isMobile(value) || PhoneUtil.isTel(value) || PhoneUtil.isTel400800(value)));
     }
 }

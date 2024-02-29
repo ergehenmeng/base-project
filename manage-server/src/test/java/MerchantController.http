@@ -8,10 +8,20 @@ Content-Type: application/json
 token: {{token}}
 
 {
-  "merchantName": "酒店商户",
-  "type": 2,
-  "nickName": "三哥很猛",
-  "mobile": "13136113359"
+  "merchantName": "二哥的零售小店",
+  "type": 8,
+  "nickName": "二哥",
+  "mobile": "13136115556",
+  "enterpriseType": 1,
+  "creditCode": "S00001",
+  "businessLicenseUrl": "http://localhost:8080/manage/manage/download",
+  "legalName": "FR",
+  "legalIdCard": "132825196609182043",
+  "legalUrl": "http://localhost:8080/manage/manage/download",
+  "provinceId": 110000,
+  "cityId": 110100,
+  "countyId": 110101,
+  "detailAddress": "地垄沟"
 }
 
 ###

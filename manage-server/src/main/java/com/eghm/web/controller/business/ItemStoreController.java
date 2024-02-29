@@ -12,13 +12,18 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.ItemStore;
 import com.eghm.service.business.ItemStoreService;
+import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.item.store.ItemStoreResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -34,9 +39,9 @@ public class ItemStoreController {
 
     @GetMapping("/listPage")
     @ApiOperation("店铺列表")
-    public RespBody<PageData<ItemStore>> listPage(ItemStoreQueryRequest request) {
+    public RespBody<PageData<ItemStoreResponse>> listPage(ItemStoreQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        Page<ItemStore> byPage = itemStoreService.getByPage(request);
+        Page<ItemStoreResponse> byPage = itemStoreService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
@@ -102,5 +107,13 @@ public class ItemStoreController {
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         itemStoreService.deleteById(dto.getId());
         return RespBody.success();
+    }
+
+    @GetMapping("/export")
+    @ApiOperation("导出")
+    public void export(HttpServletResponse response, ItemStoreQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        List<ItemStoreResponse> byPage = itemStoreService.getList(request);
+        ExcelUtil.export(response, "零售店铺信息", byPage, ItemStoreResponse.class);
     }
 }

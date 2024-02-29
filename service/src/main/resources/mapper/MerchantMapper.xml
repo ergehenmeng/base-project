@@ -4,6 +4,7 @@
 
     <select id="listPage" resultType="com.eghm.vo.business.merchant.MerchantResponse" parameterType="com.eghm.dto.business.merchant.MerchantQueryRequest">
         select
+        t.id,
         t.merchant_name,
         t.type,
         r.state,

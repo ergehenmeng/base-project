@@ -9,6 +9,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.model.ItemStore;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.item.store.ItemStoreHomeVO;
+import com.eghm.vo.business.item.store.ItemStoreResponse;
 import com.eghm.vo.business.item.store.ItemStoreVO;
 
 import java.util.List;
@@ -26,17 +27,25 @@ public interface ItemStoreService {
      * @param request 查询条案件
      * @return 列表
      */
-    Page<ItemStore> getByPage(ItemStoreQueryRequest request);
+    Page<ItemStoreResponse> getByPage(ItemStoreQueryRequest request);
 
     /**
-     * 创建特产店铺
+     * 查询商铺信息 (不分页)
+     *
+     * @param request 查询条案件
+     * @return 列表
+     */
+    List<ItemStoreResponse> getList(ItemStoreQueryRequest request);
+
+    /**
+     * 创建零售店铺
      *
      * @param request 店铺信息
      */
     void create(ItemStoreAddRequest request);
 
     /**
-     * 更新特产店铺
+     * 更新零售店铺
      *
      * @param request 店铺信息
      */

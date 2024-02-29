@@ -28,7 +28,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class Item extends BaseEntity {
 
-    @ApiModelProperty(value = "所属特产店")
+    @ApiModelProperty(value = "所属零售店id")
     private Long storeId;
 
     @ApiModelProperty(value = "所属商户id")

@@ -33,7 +33,7 @@ public enum RoleMapping {
     RESTAURANT(4, RoleType.RESTAURANT),
 
     /**
-     * 零售特产
+     * 零售
      */
     ITEM(8, RoleType.ITEM),
 

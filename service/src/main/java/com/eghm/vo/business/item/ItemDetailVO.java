@@ -27,13 +27,13 @@ public class ItemDetailVO {
     @ApiModelProperty("商品id")
     private Long id;
 
-    @ApiModelProperty(value = "所属特产店")
+    @ApiModelProperty(value = "所属零售店id")
     private Long storeId;
 
     @ApiModelProperty(value = "店铺logo")
     private String logoUrl;
 
-    @ApiModelProperty("特产名称")
+    @ApiModelProperty("拎手店铺名称")
     private String storeName;
 
     @ApiModelProperty(value = "商品状态 0:下架 1:上架")
