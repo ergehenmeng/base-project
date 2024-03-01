@@ -30,7 +30,7 @@ public class CommentDTO {
 
     @ApiModelProperty(value = "评论对象类型", required = true)
     @NotNull(message = "评论对象类型不能为空")
-    private ObjectType commentType;
+    private ObjectType objectType;
 
     @ApiModelProperty("父评论")
     private Long pid;

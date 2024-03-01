@@ -25,6 +25,7 @@ import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.activity.ActivityVO;
 import com.eghm.vo.business.comment.CommentResponse;
+import com.eghm.vo.business.comment.CommentSecondVO;
 import com.eghm.vo.business.comment.CommentVO;
 import com.eghm.vo.business.news.NewsVO;
 import com.google.common.collect.Maps;
@@ -94,7 +95,15 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentVO> getByPage(CommentQueryDTO dto) {
         int reportNum = sysConfigApi.getInt(ConfigConstant.COMMENT_REPORT_SHIELD, 20);
-        Page<CommentVO> voPage = commentMapper.getByPage(dto.createPage(false), dto.getObjectId(), reportNum, dto.getPid());
+        Page<CommentVO> voPage = commentMapper.getByPage(dto.createPage(false), dto.getObjectId(), reportNum);
+        voPage.getRecords().forEach(vo -> vo.setIsLiked(this.hasGiveLiked(vo.getId())));
+        return voPage.getRecords();
+    }
+
+    @Override
+    public List<CommentSecondVO> secondPage(CommentQueryDTO dto) {
+        int reportNum = sysConfigApi.getInt(ConfigConstant.COMMENT_REPORT_SHIELD, 20);
+        Page<CommentSecondVO> voPage = commentMapper.getSecondPage(dto.createPage(false), dto.getObjectId(), reportNum, dto.getPid());
         voPage.getRecords().forEach(vo -> vo.setIsLiked(this.hasGiveLiked(vo.getId())));
         return voPage.getRecords();
     }

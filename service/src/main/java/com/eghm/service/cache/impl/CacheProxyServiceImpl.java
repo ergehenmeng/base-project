@@ -144,6 +144,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     public String getConfigByNid(String nid) {
         LambdaQueryWrapper<SysConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysConfig::getNid, nid);
+        wrapper.last(LIMIT_ONE);
         SysConfig config = sysConfigMapper.selectOne(wrapper);
         return config != null ? config.getContent() : null;
     }

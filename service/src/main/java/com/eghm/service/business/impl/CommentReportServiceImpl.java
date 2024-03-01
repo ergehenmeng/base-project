@@ -57,7 +57,7 @@ public class CommentReportServiceImpl implements CommentReportService {
 
         report = DataUtil.copy(dto, CommentReport.class);
         report.setObjectId(comment.getObjectId());
-        report.setObjectType(comment.getCommentType());
+        report.setObjectType(comment.getObjectType());
         commentReportMapper.insert(report);
     }
 

@@ -21,8 +21,14 @@ import java.util.Arrays;
 @AllArgsConstructor
 public enum ObjectType implements EnumBinder {
 
+    /**
+     * 资讯
+     */
     NEWS(1, "资讯"),
 
+    /**
+     * 活动
+     */
     ACTIVITY(2, "活动"),
     ;
 

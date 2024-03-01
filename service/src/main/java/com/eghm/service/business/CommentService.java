@@ -5,6 +5,7 @@ import com.eghm.dto.business.comment.CommentDTO;
 import com.eghm.dto.business.comment.CommentQueryDTO;
 import com.eghm.dto.business.comment.CommentQueryRequest;
 import com.eghm.vo.business.comment.CommentResponse;
+import com.eghm.vo.business.comment.CommentSecondVO;
 import com.eghm.vo.business.comment.CommentVO;
 
 import java.util.List;
@@ -28,12 +29,20 @@ public interface CommentService {
     Page<CommentResponse> listPage(CommentQueryRequest request);
 
     /**
-     * 分页获取留言 移动端
+     * 分页获取留言 移动端 (一级评论)
      *
      * @param dto 查询条件
      * @return 列表
      */
     List<CommentVO> getByPage(CommentQueryDTO dto);
+
+    /**
+     * 分页获取留言 移动端(二级评论)
+     *
+     * @param dto 查询条件
+     * @return 列表
+     */
+    List<CommentSecondVO> secondPage(CommentQueryDTO dto);
 
     /**
      * 添加新留言

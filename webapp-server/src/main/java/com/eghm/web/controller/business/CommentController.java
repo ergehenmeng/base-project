@@ -8,7 +8,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.CommentReportService;
 import com.eghm.service.business.CommentService;
-import com.eghm.vo.business.comment.CommentVO;
+import com.eghm.vo.business.comment.CommentSecondVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,7 +36,13 @@ public class CommentController {
 
     @GetMapping("/listPage")
     @ApiOperation("评论列表")
-    public RespBody<List<CommentVO>> getByPage(@Validated CommentQueryDTO dto) {
+    public RespBody<List<CommentSecondVO>> getByPage(@Validated CommentQueryDTO dto) {
+        return RespBody.success(commentService.getByPage(dto));
+    }
+
+    @GetMapping("/secondPage")
+    @ApiOperation("二级评论")
+    public RespBody<List<CommentSecondVO>> secondPage(@Validated CommentQueryDTO dto) {
         return RespBody.success(commentService.getByPage(dto));
     }
 
@@ -44,6 +50,7 @@ public class CommentController {
     @ApiOperation("添加评论")
     @AccessToken
     public RespBody<Void> add(@Validated @RequestBody CommentDTO dto) {
+        dto.setMemberId(ApiHolder.getMemberId());
         commentService.add(dto);
         return RespBody.success();
     }

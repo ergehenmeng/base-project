@@ -2,7 +2,6 @@ package com.eghm.validation;
 
 
 import cn.hutool.core.util.PhoneUtil;
-import cn.hutool.core.util.StrUtil;
 import com.eghm.validation.annotation.Phone;
 
 import javax.validation.ConstraintValidator;

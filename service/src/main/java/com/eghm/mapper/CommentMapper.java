@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.comment.CommentQueryRequest;
 import com.eghm.model.Comment;
 import com.eghm.vo.business.comment.CommentResponse;
+import com.eghm.vo.business.comment.CommentSecondVO;
 import com.eghm.vo.business.comment.CommentVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -33,10 +34,20 @@ public interface CommentMapper extends BaseMapper<Comment> {
      * @param page      分页对象
      * @param objectId 评论对象id
      * @param shieldNum 举报屏蔽次数
+     * @return 列表
+     */
+    Page<CommentVO> getByPage(Page<CommentSecondVO> page, @Param("objectId") Long objectId, @Param("shieldNum") Integer shieldNum);
+
+    /**
+     * 分页查询评论列表 某个对象的评论列表 (移动端)
+     *
+     * @param page      分页对象
+     * @param objectId 评论对象id
+     * @param shieldNum 举报屏蔽次数
      * @param pid       父评论ID
      * @return 列表
      */
-    Page<CommentVO> getByPage(Page<CommentVO> page, @Param("objectId") Long objectId, @Param("shieldNum") Integer shieldNum, @Param("pid") Long pid);
+    Page<CommentSecondVO> getSecondPage(Page<CommentSecondVO> page, @Param("objectId") Long objectId, @Param("shieldNum") Integer shieldNum, @Param("pid") Long pid);
 
     /**
      * 更新点赞数量

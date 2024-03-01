@@ -1,0 +1,16 @@
+GET http://localhost:9090/webapp/comment/listPage?page=1&pageSize=10&objectId=1740661979186020354
+Channel: {{Channel}}
+
+###
+POST http://localhost:9090/webapp/comment/add
+Channel: {{Channel}}
+Token: {{Token}}
+Content-Type: application/json
+
+{
+  "content": "评论信息",
+  "objectId": 1740661979186020354,
+  "objectType": "1",
+  "pid": null,
+  "replyId": null
+}
