@@ -9,6 +9,7 @@ import com.eghm.vo.business.line.TravelAgencyVO;
 import com.eghm.vo.business.news.NewsVO;
 import com.eghm.vo.business.restaurant.RestaurantVO;
 import com.eghm.vo.business.scenic.ScenicVO;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -18,6 +19,7 @@ import lombok.Data;
  */
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MemberCollectVO {
 
     @ApiModelProperty(value = "收藏id")

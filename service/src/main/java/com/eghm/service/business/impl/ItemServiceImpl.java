@@ -402,7 +402,7 @@ public class ItemServiceImpl implements ItemService {
         // 最终上架状态必须个人和平台同时上架
         detail.setItemState((detail.getState() == State.SHELVE) ? 1 : 0);
         detail.setCommentNum(vo.getCommentNum());
-        detail.setRate(vo.getRate());
+        detail.setGoodRate(vo.getRate());
 
         List<ItemSkuVO> skuList = itemSkuService.getByItemId(id);
         detail.setSkuList(skuList);

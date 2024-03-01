@@ -97,7 +97,7 @@ public class ItemDetailVO {
     private Long commentNum;
 
     @ApiModelProperty("好评率百分比")
-    private Integer rate;
+    private Integer goodRate;
 
     @ApiModelProperty("是否为拼团商品")
     private Boolean groupBooking = false;
