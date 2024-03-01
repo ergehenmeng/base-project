@@ -2,8 +2,6 @@ package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.enums.EnumBinder;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -60,7 +58,7 @@ public enum AuditState implements EnumBinder {
             return null;
         }
         return Arrays.stream(AuditState.values()).filter(auditState -> auditState.value == value)
-                .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.VERIFY_STATE_ERROR));
+                .findFirst().orElse(null);
     }
 
     @Override

@@ -3,8 +3,6 @@ package com.eghm.enums.ref;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.annotation.ExcelDesc;
 import com.eghm.enums.EnumBinder;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -48,9 +46,8 @@ public enum RefundType implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(RefundType.values()).filter(type -> value == type.value).findFirst().orElseThrow(() -> new BusinessException(ErrorCode.REFUND_TYPE_NOT_MATCH));
+        return Arrays.stream(RefundType.values()).filter(type -> value == type.value).findFirst().orElse(null);
     }
-
 
     @Override
     public String toString() {

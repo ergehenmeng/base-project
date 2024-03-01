@@ -3,9 +3,12 @@ package com.eghm.enums.ref;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.annotation.ExcelDesc;
 import com.eghm.enums.EnumBinder;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * @author 殿小二
@@ -37,6 +40,14 @@ public enum DeliveryType implements EnumBinder {
 
     @ExcelDesc
     private final String name;
+
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static DeliveryType of(Integer value) {
+        if (value == null) {
+            return null;
+        }
+        return Arrays.stream(DeliveryType.values()).filter(type -> value == type.value).findFirst().orElse(null);
+    }
 
     @Override
     public String toString() {

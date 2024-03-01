@@ -46,7 +46,7 @@ public enum CouponType implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(CouponType.values()).filter(couponMode -> couponMode.value == value).findFirst().orElse(DEDUCTION);
+        return Arrays.stream(CouponType.values()).filter(couponMode -> couponMode.value == value).findFirst().orElse(null);
     }
 
     @Override

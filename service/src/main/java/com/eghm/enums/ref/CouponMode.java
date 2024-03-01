@@ -2,6 +2,7 @@ package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.enums.EnumBinder;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,11 +41,12 @@ public enum CouponMode implements EnumBinder {
      */
     private final String name;
 
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static CouponMode of(Integer value) {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(CouponMode.values()).filter(couponMode -> couponMode.value == value).findFirst().orElse(PAGE_RECEIVE);
+        return Arrays.stream(CouponMode.values()).filter(couponMode -> couponMode.value == value).findFirst().orElse(null);
     }
 
     @Override

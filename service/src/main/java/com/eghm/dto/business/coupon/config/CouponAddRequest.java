@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -42,6 +43,7 @@ public class CouponAddRequest {
     private Integer mode;
 
     @ApiModelProperty(value = "优惠券类型", required = true)
+    @NotNull(message = "请选择优惠券类型")
     private CouponType couponType;
 
     @ApiModelProperty(value = "使用范围  1:店铺通用 2:指定商品", required = true)

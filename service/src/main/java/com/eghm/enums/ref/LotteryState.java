@@ -2,9 +2,12 @@ package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.enums.EnumBinder;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * @author wyb
@@ -42,6 +45,13 @@ public enum LotteryState implements EnumBinder {
      */
     private final String name;
 
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static LotteryState of(Integer value) {
+        if (value == null) {
+            return null;
+        }
+        return Arrays.stream(LotteryState.values()).filter(type -> value == type.value).findFirst().orElse(null);
+    }
 
     @Override
     public String toString() {

@@ -2,9 +2,12 @@ package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.enums.EnumBinder;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * @author wyb
@@ -52,6 +55,14 @@ public enum VisitorState implements EnumBinder {
      * 名称
      */
     private final String name;
+
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static VisitorState of(Integer value) {
+        if (value == null) {
+            return null;
+        }
+        return Arrays.stream(VisitorState.values()).filter(type -> value.equals(type.value)).findFirst().orElse(null);
+    }
 
     @Override
     public String toString() {

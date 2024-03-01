@@ -2,9 +2,12 @@ package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.enums.EnumBinder;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * 订单退款状态(本地订单的退款状态)
@@ -63,6 +66,13 @@ public enum RefundState implements EnumBinder {
      */
     private final String name;
 
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static RefundState of(Integer value) {
+        if (value == null) {
+            return null;
+        }
+        return Arrays.stream(RefundState.values()).filter(type -> value == type.value).findFirst().orElse(null);
+    }
 
     @Override
     public String toString() {
