@@ -2,7 +2,7 @@ http://localhost:9090/webapp/item/listPage?page=1&pageSize=10
 Channel: {{Channel}}
 
 ###
-http://localhost:9090/webapp/item/detail?id=1717389387411066882
+http://localhost:9090/webapp/item/detail?id=1763082719536959490
 Channel: {{Channel}}
 
 ###
@@ -10,7 +10,7 @@ http://localhost:9090/webapp/item/recommend
 Channel: {{Channel}}
 
 ###
-http://localhost:9090/webapp/item/couponList?itemId=1717389387411066882
+http://localhost:9090/webapp/item/couponList?itemId=1763082719536959490
 Channel: {{Channel}}
 Token: {{Token}}
 

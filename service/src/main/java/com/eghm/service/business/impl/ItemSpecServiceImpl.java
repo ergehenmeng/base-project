@@ -34,9 +34,11 @@ public class ItemSpecServiceImpl implements ItemSpecService {
     public Map<String, Long> insert(Item item, List<ItemSpecRequest> specList) {
         Map<String, Long> specMap = new HashMap<>(8);
         if (Boolean.TRUE.equals(item.getMultiSpec())) {
+            int sort = 0;
             for (ItemSpecRequest request : specList) {
                 ItemSpec spec = DataUtil.copy(request, ItemSpec.class, "id");
                 spec.setItemId(item.getId());
+                spec.setSort(sort++);
                 itemSpecMapper.insert(spec);
                 specMap.put(spec.getSpecValue(), spec.getId());
             }
@@ -54,9 +56,11 @@ public class ItemSpecServiceImpl implements ItemSpecService {
         this.deleteByNotInIds(item.getId(), specIds);
 
         Map<String, Long> specMap = new HashMap<>(8);
+        int sort = 0;
         for (ItemSpecRequest request : specList) {
             ItemSpec spec = DataUtil.copy(request, ItemSpec.class);
             spec.setItemId(item.getId());
+            spec.setSort(sort++);
             if (spec.getId() == null) {
                 itemSpecMapper.insert(spec);
             } else {
