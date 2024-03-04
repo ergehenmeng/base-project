@@ -1221,6 +1221,7 @@ CREATE TABLE `comment_report`
     `member_id`   bigint(20)   DEFAULT NULL COMMENT '举报用户ID',
     `comment_id`  bigint(20)   DEFAULT NULL COMMENT '评价ID',
     `object_id`   bigint(20)   DEFAULT NULL COMMENT '评论对象ID',
+    `report_type` tinyint(1)   DEFAULT NULL COMMENT '举报类型',
     `object_type` bigint(20)   DEFAULT NULL COMMENT '评论对象类型',
     `content`     varchar(200) DEFAULT NULL COMMENT '举报内容',
     `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
