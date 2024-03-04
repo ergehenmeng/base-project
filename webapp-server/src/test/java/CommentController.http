@@ -1,5 +1,11 @@
 GET http://localhost:9090/webapp/comment/listPage?page=1&pageSize=10&objectId=1740661979186020354
 Channel: {{Channel}}
+Token: {{Token}}
+
+###
+GET http://localhost:9090/webapp/comment/secondPage?page=1&pageSize=10&objectId=1740661979186020354&pid=1764483232962777090
+Channel: {{Channel}}
+Token: {{Token}}
 
 ###
 POST http://localhost:9090/webapp/comment/add
@@ -8,9 +14,32 @@ Token: {{Token}}
 Content-Type: application/json
 
 {
-  "content": "评论信息",
+  "content": "再次评论",
+  "objectId": 1740661979186020354,
+  "objectType": "1"
+}
+
+### 回复
+POST http://localhost:9090/webapp/comment/add
+Channel: {{Channel}}
+Token: {{Token}}
+Content-Type: application/json
+
+{
+  "content": "你说的真对",
   "objectId": 1740661979186020354,
   "objectType": "1",
-  "pid": null,
-  "replyId": null
+  "replyId": 1764483232962777090,
+  "pid": 1764483232962777090
+}
+
+
+###
+POST http://localhost:9090/webapp/comment/giveLike
+Channel: {{Channel}}
+Token: {{Token}}
+Content-Type: application/json
+
+{
+  "id": 1764483232962777090
 }

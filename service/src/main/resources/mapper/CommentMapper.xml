@@ -67,7 +67,7 @@
         c.deleted as reply_deleted,
         c.state as reply_state,
         c.content as reply_content,
-        n.nick_name as reply_member_name,
+        n.nick_name as reply_nick_name,
         n.avatar as reply_avatar
         from comment t
         left join member m on t.member_id = m.id
