@@ -2,6 +2,7 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.ObjectType;
+import com.eghm.enums.ref.ReportType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,6 +31,9 @@ public class CommentReport extends BaseEntity {
 
     @ApiModelProperty(value = "评论对象类型")
     private ObjectType objectType;
+
+    @ApiModelProperty(value = "举报类型")
+    private ReportType reportType;
 
     @ApiModelProperty(value = "举报内容")
     private String content;

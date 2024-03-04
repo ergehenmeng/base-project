@@ -1,6 +1,7 @@
 package com.eghm.dto.business.comment;
 
 import com.eghm.annotation.Assign;
+import com.eghm.enums.ref.ReportType;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -17,8 +18,10 @@ import javax.validation.constraints.Size;
 @Data
 public class CommentReportDTO {
 
-    @ApiModelProperty(value = "举报内容", required = true)
-    @NotBlank(message = "举报内容不能为空")
+    @ApiModelProperty(value = "举报类型")
+    private ReportType reportType;
+
+    @ApiModelProperty(value = "举报内容")
     @Size(max = 100, message = "举报内容最大100字符")
     @WordChecker(message = "举报内容包含敏感词汇")
     private String content;
