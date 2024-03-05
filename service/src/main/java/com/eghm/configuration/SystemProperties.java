@@ -21,16 +21,6 @@ public class SystemProperties {
     static final String PREFIX = "system";
 
     /**
-     * 移动端 特有配置
-     */
-    private final ApiProperties api = new ApiProperties();
-
-    /**
-     * 管理后台 特有配置
-     */
-    private final ManageProperties manage = new ManageProperties();
-
-    /**
      * 上传文件的路径
      */
     private String uploadDir;
@@ -46,44 +36,54 @@ public class SystemProperties {
     private Env env = Env.PRE;
 
     /**
+     * 平台手续费收款商户
+     */
+    private Long platformMerchantId;
+
+    /**
+     * 移动端 特有配置
+     */
+    private final ApiProperties api = new ApiProperties();
+
+    /**
+     * 管理后台 特有配置
+     */
+    private final ManageProperties manage = new ManageProperties();
+
+    /**
      * 微信配置
      */
-    private WeChatProperties wechat = new WeChatProperties();
+    private final WeChatProperties wechat = new WeChatProperties();
 
     /**
      * 支付宝配置
      */
-    private AliPayProperties aliPay = new AliPayProperties();
+    private final AliPayProperties aliPay = new AliPayProperties();
 
     /**
      * redis配置
      */
-    private Redis redis = new Redis();
+    private final Redis redis = new Redis();
 
     /**
      * 需要进行xss校验的url
      */
-    private List<String> xssUrl = new ArrayList<>();
+    private final List<String> xssUrl = new ArrayList<>();
 
     /**
      * 极光推送
      */
-    private PushProperties push = new PushProperties();
+    private final PushProperties push = new PushProperties();
 
     /**
      * 钉钉消息通知
      */
-    private DingTalk dingTalk = new DingTalk();
+    private final DingTalk dingTalk = new DingTalk();
 
     /**
      * 快递100配置
      */
-    private Express100 express = new Express100();
-
-    /**
-     * 平台手续费收款商户
-     */
-    private Long platformMerchantId;
+    private final Express100 express = new Express100();
 
     @Data
     public static class Express100 {
