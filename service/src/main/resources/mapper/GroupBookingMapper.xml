@@ -57,9 +57,6 @@
         <if test="param.queryName != null and param.queryName != ''">
             and r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
         </if>
-        <if test="param.merchantId != null">
-            and t.merchant_id = #{param.merchantId}
-        </if>
         <if test="param.sortBy != null">
             <choose>
                 <when test="param.sortBy == 1">

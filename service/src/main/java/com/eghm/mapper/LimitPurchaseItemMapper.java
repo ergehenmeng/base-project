@@ -27,7 +27,7 @@ public interface LimitPurchaseItemMapper extends BaseMapper<LimitPurchaseItem> {
      * @param dto 查询参数
      * @return 商品列表
      */
-    Page<LimitItemVO> getByPage(Page<LimitItemVO> page, LimitPurchaseQueryDTO dto);
+    Page<LimitItemVO> getByPage(Page<LimitItemVO> page, @Param("param") LimitPurchaseQueryDTO dto);
 
     /**
      * 查询限时购活动配置的商品列表
