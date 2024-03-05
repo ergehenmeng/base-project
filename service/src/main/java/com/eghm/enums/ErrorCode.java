@@ -659,6 +659,11 @@ public enum ErrorCode {
     MERCHANT_REDO(3129, "商户名称重复啦~"),
 
     /**
+     * 社会统一信用代码重复啦~
+     */
+    CREDIT_CODE_REDO(3131, "社会统一信用代码重复啦~"),
+
+    /**
      * 商户手机号被占用
      */
     MERCHANT_MOBILE_REDO(3130, "商户手机号被占用"),

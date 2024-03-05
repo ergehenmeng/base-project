@@ -47,6 +47,10 @@ public class CommentReportServiceImpl implements CommentReportService {
             log.warn("评论信息不存在,举报失败 [{}] [{}]", dto.getCommentId(), dto.getContent());
             return;
         }
+        if (comment.getMemberId().equals(dto.getMemberId())) {
+            log.warn("用户不能举报自己的评论 [{}] [{}] [{}]", dto.getMemberId(), dto.getCommentId(), dto.getContent());
+            return;
+        }
         CommentReport report = this.getReportComment(dto.getMemberId(), dto.getCommentId());
         if (report != null) {
             log.warn("用户已举报过该评论 [{}] [{}] [{}]", dto.getMemberId(), dto.getCommentId(), dto.getContent());

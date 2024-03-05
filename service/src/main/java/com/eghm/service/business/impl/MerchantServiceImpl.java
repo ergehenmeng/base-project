@@ -85,7 +85,7 @@ public class MerchantServiceImpl implements MerchantService {
     public void create(MerchantAddRequest request) {
         this.checkMerchantRedo(request.getMerchantName(), null);
         this.checkMobileRedo(request.getMobile(), null);
-
+        this.checkCreditRedo(request.getCreditCode(), null);
         String pwd = sysConfigApi.getString(ConfigConstant.MERCHANT_PWD);
         SysUser user = new SysUser();
         user.setUserType(SysUser.USER_TYPE_2);
@@ -113,6 +113,7 @@ public class MerchantServiceImpl implements MerchantService {
     public void update(MerchantEditRequest request) {
         this.checkMerchantRedo(request.getMerchantName(), request.getId());
         this.checkMobileRedo(request.getMobile(), request.getId());
+        this.checkCreditRedo(request.getCreditCode(), request.getId());
         Merchant merchant = DataUtil.copy(request, Merchant.class);
         merchantMapper.updateById(merchant);
         SysUser user = new SysUser();
@@ -293,6 +294,23 @@ public class MerchantServiceImpl implements MerchantService {
         if (count > 0) {
             log.error("商户手机号被占用 [{}]", mobile);
             throw new BusinessException(ErrorCode.MERCHANT_MOBILE_REDO);
+        }
+    }
+
+    /**
+     * 校验商户社会统一信用代码是否被占用
+     *
+     * @param creditCode 社会统一信用代码
+     * @param id           id
+     */
+    private void checkCreditRedo(String creditCode, Long id) {
+        LambdaQueryWrapper<Merchant> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Merchant::getCreditCode, creditCode);
+        wrapper.eq(id != null, Merchant::getId, id);
+        Long count = merchantMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.error("商户社会统一信用代码名称被占用 [{}] [{}]", id, creditCode);
+            throw new BusinessException(ErrorCode.CREDIT_CODE_REDO);
         }
     }
 

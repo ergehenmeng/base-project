@@ -43,3 +43,15 @@ Content-Type: application/json
 {
   "id": 1764483232962777090
 }
+
+###
+POST http://localhost:9090/webapp/comment/report
+Channel: {{Channel}}
+Token: {{Token}}
+Content-Type: application/json
+
+{
+  "commentId": 1764483232962777090,
+  "reportType": "1",
+  "content": "评论内容"
+}

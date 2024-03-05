@@ -24,6 +24,9 @@ public class MerchantController {
 
     private final MerchantService merchantService;
 
+    /**
+     * 用户扫码后展示即将绑定的商户信息及手机号信息,绑定后再次扫码依旧会显示之前的手机号(除非解绑)
+     */
     @GetMapping("/authMobile")
     @ApiOperation("微信授权获取手机号")
     @ApiImplicitParams({
@@ -35,6 +38,9 @@ public class MerchantController {
         return RespBody.success(vo);
     }
 
+    /**
+     * 确认绑定
+     */
     @PostMapping(value = "/binding", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("绑定")
     public RespBody<Void> binding(@RequestBody @Validated MerchantAuthDTO dto) {
