@@ -7,7 +7,6 @@ import com.eghm.service.common.FileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,17 +26,17 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @Api(tags = "图片上传")
 @AllArgsConstructor
-@RequestMapping(value = "/webapp/image", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ImageController {
+@RequestMapping(value = "/webapp/file", produces = MediaType.APPLICATION_JSON_VALUE)
+public class UploadController {
 
     private final FileService fileService;
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @ApiOperation("图片单张上传")
+    @ApiImplicitParam(name = "file", value = "file流", paramType = "formData", dataType = "file", required = true)
+    @ApiOperation("单文件上传")
     @SkipLogger
-    @ApiImplicitParam(name = "image", value = "文件流", paramType = "formData", dataType = "file", required = true)
-    public RespBody<FilePath> image(@ApiParam(name = "image", value = "文件流") @RequestParam("image") MultipartFile image) {
-        FilePath filePath = fileService.saveFile(image);
+    public RespBody<FilePath> upload(@RequestParam("file") MultipartFile file) {
+        FilePath filePath = fileService.saveFile(file);
         return RespBody.success(filePath);
     }
 }
