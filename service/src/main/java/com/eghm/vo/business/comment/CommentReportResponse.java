@@ -1,6 +1,7 @@
 package com.eghm.vo.business.comment;
 
 import com.eghm.enums.ref.ObjectType;
+import com.eghm.enums.ref.ReportType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -26,6 +27,9 @@ public class CommentReportResponse {
 
     @ApiModelProperty(value = "举报内容")
     private String content;
+
+    @ApiModelProperty(value = "举报类型")
+    private ReportType reportType;
 
     @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

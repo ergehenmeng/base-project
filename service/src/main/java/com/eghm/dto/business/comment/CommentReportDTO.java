@@ -19,6 +19,7 @@ import javax.validation.constraints.Size;
 public class CommentReportDTO {
 
     @ApiModelProperty(value = "举报类型")
+    @NotNull(message = "请选择要举报的类型")
     private ReportType reportType;
 
     @ApiModelProperty(value = "举报内容")

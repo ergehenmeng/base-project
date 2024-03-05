@@ -2,6 +2,7 @@ package com.eghm.dto.business.comment;
 
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.ObjectType;
+import com.eghm.enums.ref.ReportType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,4 +21,7 @@ public class CommentReportQueryRequest extends PagingQuery {
 
     @ApiModelProperty("对象类型")
     private ObjectType objectType;
+
+    @ApiModelProperty(value = "举报类型")
+    private ReportType reportType;
 }

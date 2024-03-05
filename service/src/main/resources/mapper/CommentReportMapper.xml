@@ -7,6 +7,7 @@
         m.nick_name,
         c.content as commentContent,
         t.object_type,
+        t.report_type,
         t.content,
         t.create_time
         from comment_report t
@@ -18,6 +19,9 @@
         </if>
         <if test="param.objectType != null">
             and t.object_type = #{param.objectType}
+        </if>
+        <if test="param.reportType != null">
+            and t.report_type = #{param.reportType}
         </if>
         <if test="param.commentId != null">
             and t.comment_id = #{param.commentId}
