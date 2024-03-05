@@ -17,7 +17,18 @@ import java.util.List;
  */
 public interface ItemTagMapper extends BaseMapper<ItemTag> {
 
+    /**
+     * 查询所有标签
+     *
+     * @return list
+     */
     List<ItemTagResponse> getList();
 
+    /**
+     * 查询某个pid下的最大id
+     *
+     * @param pid pid
+     * @return 最大值
+     */
     String getChildMaxId(@Param("pid") String pid);
 }

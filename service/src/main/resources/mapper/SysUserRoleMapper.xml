@@ -7,5 +7,8 @@
         where user_id = #{userId}
     </select>
 
+    <delete id="deleteByUserId" >
+        delete from sys_user_role where user_id = #{userId}
+    </delete>
 
 </mapper>

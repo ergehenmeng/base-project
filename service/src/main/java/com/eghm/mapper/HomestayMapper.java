@@ -31,7 +31,7 @@ public interface HomestayMapper extends BaseMapper<Homestay> {
      * @param request 查询条件
      * @return 列表
      */
-    Page<HomestayResponse> listPage(Page<HomestayVO> page, HomestayQueryRequest request);
+    Page<HomestayResponse> listPage(Page<HomestayVO> page, @Param("param") HomestayQueryRequest request);
 
     /**
      * 分页查询民宿列表
