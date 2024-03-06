@@ -3,10 +3,11 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.model.Order;
-import com.eghm.vo.business.statistics.OrderStatisticsVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
+import com.eghm.vo.business.statistics.OrderStatisticsVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -83,4 +84,30 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @param bookingState 状态
      */
     void updateBookingState(@Param("bookingNo") String bookingNo, @Param("orderNo") String orderNo, @Param("bookingState") Integer bookingState);
+
+    /**
+     * 查询指定日期范围内订单的会员id
+     *
+     * @param orderTime 订单时间
+     * @return 列表
+     */
+    List<Long> getOrderMember(@Param("orderTime") LocalDate orderTime);
+
+    /**
+     * 查询指定日期范围内符合指定消费次数的订单会员id
+     *
+     * @param orderTime 订单时间
+     * @param consumeNum 消费次数
+     * @return 列表
+     */
+    List<Long> getOrderNum(@Param("orderTime") LocalDate orderTime, @Param("consumeNum") Integer consumeNum);
+
+    /**
+     * 查询指定日期范围内符合指定消费次数的订单会员id
+     *
+     * @param orderTime 订单时间
+     * @param consumeAmount 最低消费金额
+     * @return 列表
+     */
+    List<Long> getOrderAmount(@Param("orderTime") LocalDate orderTime, @Param("consumeAmount") Integer consumeAmount);
 }

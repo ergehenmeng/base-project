@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.member.MemberQueryRequest;
 import com.eghm.model.Member;
+import com.eghm.model.MemberTag;
 import com.eghm.vo.business.statistics.MemberRegisterVO;
 import com.eghm.vo.member.MemberResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -51,4 +53,12 @@ public interface MemberMapper extends BaseMapper<Member> {
      * @return 1
      */
     int updateScore(@Param("memberId") Long memberId, @Param("score") Integer score);
+
+    /**
+     * 查询在指定时间内注册的会员id
+     *
+     * @param memberTag 标签信息
+     * @return ids
+     */
+    Collection<Long> getMemberIds(MemberTag memberTag);
 }

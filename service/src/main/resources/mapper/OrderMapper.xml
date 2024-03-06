@@ -101,4 +101,12 @@
         update `order` set booking_state = #{bookingState} where order_no = #{orderNo} and booking_no = #{bookingNo}
     </update>
 
+    <select id="getOrderMember" resultType="java.lang.Long">
+        select distinct member_id from `order` where deleted = false and create_date &gt;= #{orderTime} and state not in (-1, 0, 9, 10, 11)
+    </select>
+
+    <select id="getOrderNum" resultType="java.lang.Long">
+        select member_id from `order` where deleted = false and create_date &gt;= #{orderTime} and state not in (-1, 0, 9, 10, 11)
+        group by member_id having count(1) &gt;= #{consumeNum}
+    </select>
 </mapper>

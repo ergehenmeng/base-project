@@ -1849,6 +1849,16 @@ public enum ErrorCode {
     FREEZE_LOG_AMOUNT(3947, "冻结金额和解冻金额不匹配"),
 
     /**
+     * 标签名称重复啦~
+     */
+    TAG_TITLE_REDO(3949, "标签名称重复啦~"),
+
+    /**
+     * 标签信息不存在
+     */
+    TAG_NULL(3952, "标签信息不存在"),
+
+    /**
      * 店铺信息不存在
      */
     STORE_NOT_EXIST(4000, "店铺信息不存在"),

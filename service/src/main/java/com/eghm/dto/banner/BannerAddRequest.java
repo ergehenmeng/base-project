@@ -9,6 +9,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 /**
@@ -20,6 +21,7 @@ public class BannerAddRequest {
 
     @ApiModelProperty(value = "标题名称", required = true)
     @NotBlank(message = "标题不能为空")
+    @Size(min = 2, max = 20, message = "标题名称长度2~20位")
     @WordChecker(message = "标题存在敏感词")
     private String title;
 

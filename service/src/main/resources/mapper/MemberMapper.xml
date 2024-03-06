@@ -63,4 +63,20 @@
         update member set score = score + #{score} where id = #{memberId} and score + #{score} &gt; 0
     </update>
 
+    <select id="getMemberIds" resultType="java.lang.Long" parameterType="com.eghm.model.MemberTag">
+        select id from member where deleted = false
+        <if test="channel != null">
+            and channel = #{channel}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+        <if test="startDate != null ">
+            and create_date &gt;= #{startDate}
+        </if>
+        <if test="endDate != null ">
+            and create_date &lt;= #{endDate}
+        </if>
+    </select>
+
 </mapper>

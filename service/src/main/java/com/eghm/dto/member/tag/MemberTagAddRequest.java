@@ -1,34 +1,33 @@
-package com.eghm.model;
+package com.eghm.dto.member.tag;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.Channel;
+import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 /**
- * <p>
- * 会员标签
- * </p>
- *
  * @author 二哥很猛
- * @since 2024-03-06
+ * @since 2024/3/6
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@TableName("member_tag")
-public class MemberTag extends BaseEntity {
 
-    @ApiModelProperty(value = "标签名称")
+@Data
+public class MemberTagAddRequest {
+
+    @ApiModelProperty(value = "标签名称", required = true)
+    @NotBlank(message = "标签名称不能为空")
+    @Size(min = 2, max = 20, message = "标签名称长度2~20位")
+    @WordChecker(message = "标签名称存在敏感词")
     private String title;
 
     @ApiModelProperty(value = "注册开始日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "注册开始日期不能为空")
     private LocalDate registerStartDate;
 
     @ApiModelProperty(value = "注册截止日期")
@@ -42,7 +41,6 @@ public class MemberTag extends BaseEntity {
     private Integer consumeNum;
 
     @ApiModelProperty(value = "最低消费金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer consumeAmount;
 
     @ApiModelProperty("注册渠道 PC,ANDROID,IOS,H5,OTHER")
@@ -50,8 +48,4 @@ public class MemberTag extends BaseEntity {
 
     @ApiModelProperty("性别 性别 0:未知 1:男 2:女 ")
     private Integer sex;
-
-    @ApiModelProperty(value = "符合该标签的会员数")
-    private Integer memberNum;
-
 }
