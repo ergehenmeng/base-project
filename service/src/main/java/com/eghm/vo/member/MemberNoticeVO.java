@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author 殿小二
@@ -13,22 +13,22 @@ import java.util.Date;
 @Data
 public class MemberNoticeVO {
 
-    @ApiModelProperty(value = "通知id", required = true)
+    @ApiModelProperty(value = "通知id")
     private Long id;
 
-    @ApiModelProperty(value = "通知标题", required = true)
+    @ApiModelProperty(value = "通知标题")
     private String title;
 
-    @ApiModelProperty(value = "通知内容", required = true)
+    @ApiModelProperty(value = "通知内容")
     private String content;
 
-    @ApiModelProperty(value = "通知类型", required = true)
+    @ApiModelProperty(value = "通知类型")
     private String classify;
 
-    @ApiModelProperty(value = "已读未读状态 true:已读 false:未读", required = true)
+    @ApiModelProperty(value = "已读未读状态 true:已读 false:未读")
     private Boolean isRead;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "通知时间yyyy-MM-dd HH:mm:ss", required = true)
-    private Date createTime;
+    @JsonFormat(pattern = "MM-dd HH:mm")
+    @ApiModelProperty(value = "处理时间 MM-dd HH:mm")
+    private LocalDateTime createTime;
 }

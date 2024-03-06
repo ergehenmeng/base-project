@@ -92,6 +92,10 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
      * @param extras       消息发送时附加的参数
      */
     private void doSendNotice(MemberNotice memberNotice, NoticeType mailType, Map<String, String> extras) {
+        if (pushService == null) {
+            log.warn("推送服务未配置 [{}] [{}] [{}]", memberNotice.getMemberId(), memberNotice.getContent(), mailType);
+            return;
+        }
         Member member = memberService.getById(memberNotice.getMemberId());
         PushNotice notice = PushNotice.builder()
                 .alias(member.getMobile())

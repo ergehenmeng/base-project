@@ -8,7 +8,7 @@ import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.feedback.FeedbackDisposeRequest;
 import com.eghm.dto.feedback.FeedbackQueryRequest;
 import com.eghm.service.common.FeedbackService;
-import com.eghm.vo.feedback.FeedbackVO;
+import com.eghm.vo.feedback.FeedbackResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -30,8 +30,8 @@ public class FeedbackController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<FeedbackVO>> listPage(FeedbackQueryRequest request) {
-        Page<FeedbackVO> byPage = feedbackService.getByPage(request);
+    public RespBody<PageData<FeedbackResponse>> listPage(FeedbackQueryRequest request) {
+        Page<FeedbackResponse> byPage = feedbackService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 

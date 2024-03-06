@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.feedback.FeedbackQueryRequest;
 import com.eghm.model.FeedbackLog;
-import com.eghm.vo.feedback.FeedbackVO;
+import com.eghm.vo.feedback.FeedbackResponse;
 import org.apache.ibatis.annotations.Param;
 
 public interface FeedbackLogMapper extends BaseMapper<FeedbackLog> {
@@ -16,5 +16,5 @@ public interface FeedbackLogMapper extends BaseMapper<FeedbackLog> {
      * @param request 查询条件
      * @return 列表
      */
-    Page<FeedbackVO> getByPage(Page<FeedbackVO> page, @Param("param") FeedbackQueryRequest request);
+    Page<FeedbackResponse> getByPage(Page<FeedbackResponse> page, @Param("param") FeedbackQueryRequest request);
 }

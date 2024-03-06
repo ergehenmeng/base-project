@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.feedback.FeedbackAddDTO;
 import com.eghm.dto.feedback.FeedbackDisposeRequest;
 import com.eghm.dto.feedback.FeedbackQueryRequest;
-import com.eghm.vo.feedback.FeedbackVO;
+import com.eghm.vo.feedback.FeedbackResponse;
 
 /**
  * @author 二哥很猛
@@ -18,7 +18,7 @@ public interface FeedbackService {
      * @param request 查询条件
      * @return 反馈信息 包含用户基本信息
      */
-    Page<FeedbackVO> getByPage(FeedbackQueryRequest request);
+    Page<FeedbackResponse> getByPage(FeedbackQueryRequest request);
 
     /**
      * 添加反馈信息

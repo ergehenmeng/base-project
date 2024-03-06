@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * @since 2019/8/28 14:01
  */
 @Data
-public class FeedbackVO {
+public class FeedbackResponse {
 
     @ApiModelProperty("id")
     private Long id;
@@ -56,4 +56,7 @@ public class FeedbackVO {
 
     @ApiModelProperty("昵称")
     private String nickName;
+
+    @ApiModelProperty("回复内容")
+    private String remark;
 }

@@ -40,4 +40,6 @@ public class FeedbackLog extends BaseEntity {
     @ApiModelProperty("设备型号")
     private String deviceModel;
 
+    @ApiModelProperty("回复内容")
+    private String remark;
 }

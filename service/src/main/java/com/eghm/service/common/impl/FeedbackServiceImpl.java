@@ -13,7 +13,7 @@ import com.eghm.model.FeedbackLog;
 import com.eghm.service.common.FeedbackService;
 import com.eghm.service.member.MemberNoticeService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.feedback.FeedbackVO;
+import com.eghm.vo.feedback.FeedbackResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +33,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     private final MemberNoticeService memberNoticeService;
 
     @Override
-    public Page<FeedbackVO> getByPage(FeedbackQueryRequest request) {
+    public Page<FeedbackResponse> getByPage(FeedbackQueryRequest request) {
         return feedbackLogMapper.getByPage(request.createPage(), request);
     }
 
@@ -47,6 +47,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     public void dispose(FeedbackDisposeRequest request) {
         FeedbackLog log = feedbackLogMapper.selectById(request.getId());
         log.setState(true);
+        log.setRemark(request.getRemark());
         feedbackLogMapper.updateById(log);
         // 发送站内信
         SendNotice notice = new SendNotice();
