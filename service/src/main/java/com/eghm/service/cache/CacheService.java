@@ -277,7 +277,9 @@ public interface CacheService {
 
     /**
      * 查询指定位置后long的长度
-     *
+     * 例如: 000011
+     * offset = 0, length = 32, 则会在该数字后不足部分补零 000011(后面补领长度: 32-6)
+     * offset = 2, length = 16, 则会在该数字后不足部分补零 00011(后面补领长度: 32-5)
      * @param key    key
      * @param offset 位置
      * @param length 取多少位数字返回(不能超过63)

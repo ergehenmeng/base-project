@@ -140,7 +140,7 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         ItemStoreHomeVO vo = DataUtil.copy(shop, ItemStoreHomeVO.class);
         vo.setItemList(itemService.getPriorityItem(id));
         vo.setCollect(memberCollectService.checkCollect(id, CollectType.ITEM_STORE));
-        String key = String.format(MEMBER_COLLECT, CollectType.ITEM_STORE.getName().toLowerCase(), id);
+        String key = String.format(MEMBER_COLLECT, CollectType.ITEM_STORE.getValue(), id);
         vo.setCommentNum(cacheService.getHashSize(key));
         List<LotteryVO> voList = lotteryService.getList(shop.getMerchantId(), id);
         vo.setLotteryList(voList);

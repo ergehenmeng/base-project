@@ -323,7 +323,7 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public Long getBitmapOffset(String key, Long offset, int length) {
-        List<Long> longList = redisTemplate.opsForValue().bitField(key, BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.unsigned(length)).valueAt(offset));
+        List<Long> longList = redisTemplate.opsForValue().bitField(key, BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.signed(length)).valueAt(offset));
         return CollectionUtils.isEmpty(longList) ? null : longList.get(0);
     }
 

@@ -120,7 +120,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
     public void collect(Long collectId, CollectType collectType) {
         Long memberId = ApiHolder.getMemberId();
         MemberCollect collect = this.getMemberCollect(memberId, collectId, collectType);
-        String key = String.format(MEMBER_COLLECT, collectType.getName().toLowerCase(), collectId);
+        String key = String.format(MEMBER_COLLECT, collectType.getValue(), collectId);
         if (collect != null) {
             if (collect.getState() == 1) {
                 collect.setState(0);
@@ -147,7 +147,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
         if (memberId == null) {
             return false;
         }
-        String key = String.format(MEMBER_COLLECT, collectType.getName().toLowerCase(), collectId);
+        String key = String.format(MEMBER_COLLECT, collectType.getValue(), collectId);
         return cacheService.hasHashKey(key, String.valueOf(memberId));
     }
 

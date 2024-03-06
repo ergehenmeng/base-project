@@ -328,7 +328,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void signIn(Long memberId) {
         Member member = memberMapper.selectById(memberId);
-        long day = ChronoUnit.DAYS.between(member.getCreateTime(), LocalDate.now());
+        long day = ChronoUnit.DAYS.between(member.getCreateTime().toLocalDate(), LocalDate.now());
         String signKey = CacheConstant.MEMBER_SIGN_IN + memberId;
         Boolean signIn = cacheService.getBitmap(signKey, day);
         if (Boolean.TRUE.equals(signIn)) {
@@ -344,9 +344,8 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public SignInVO getSignIn(Long memberId) {
         Member member = memberMapper.selectById(memberId);
-        LocalDate endDate = LocalDate.now();
         LocalDate registerDate = member.getCreateTime().toLocalDate();
-        long registerDays = ChronoUnit.DAYS.between(registerDate, endDate);
+        long registerDays = ChronoUnit.DAYS.between(registerDate, LocalDate.now());
         String signKey = CacheConstant.MEMBER_SIGN_IN + memberId;
         boolean todaySign = cacheService.getBitmap(signKey, registerDays);
         List<Boolean> monthList = this.getMonthSign(signKey, registerDate);
@@ -455,9 +454,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberMapper.selectById(memberId);
         MemberVO vo = DataUtil.copy(member, MemberVO.class);
         // 从注册之日起将签到信息放到缓存中
-        LocalDate endDate = LocalDate.now();
-        LocalDate registerDate = member.getCreateTime().toLocalDate();
-        long registerDays = ChronoUnit.DAYS.between(registerDate, endDate);
+        long registerDays = ChronoUnit.DAYS.between(member.getCreateTime().toLocalDate(), LocalDate.now());
         String signKey = CacheConstant.MEMBER_SIGN_IN + memberId;
         vo.setSigned(cacheService.getBitmap(signKey, registerDays));
         vo.setMobile(StringUtil.hiddenMobile(vo.getMobile()));
@@ -529,7 +526,7 @@ public class MemberServiceImpl implements MemberService {
         // 从注册到本月初的日期
         long offset = ChronoUnit.DAYS.between(registerDate, startDay);
         // 本月签到的情况
-        Long bitmap64 = cacheService.getBitmapOffset(signKey, offset, startDay.getDayOfMonth());
+        Long bitmap64 = cacheService.getBitmapOffset(signKey, offset, LocalDate.now().getMonth().maxLength());
         // 本月总天数
         int monthDays = startDay.lengthOfMonth();
         List<Boolean> monthList = Lists.newArrayListWithCapacity(31);
