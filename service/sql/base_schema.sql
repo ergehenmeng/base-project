@@ -638,7 +638,7 @@ CREATE TABLE `member`
     `score`       int(10)                                               DEFAULT '0' COMMENT '积分',
     `channel`     varchar(20)                                           DEFAULT NULL COMMENT '注册渠道',
     `register_ip` bigint(20)                                            DEFAULT NULL COMMENT '注册地址',
-    `create_date` date                                                  DEFAULT NULL COMMENT '注册日期',
+    `create_date` date                                                  DEFAULT NULL COMMENT '注册日期(冗余)',
     `create_time` datetime                                              DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
     `update_time` datetime                                              DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`     bit(1)                                                DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',

@@ -36,6 +36,12 @@
         <if test="param.channel != null and param.channel != ''">
             and t.channel = #{param.channel}
         </if>
+        <if test="param.startDate != null ">
+            and t.create_date &gt;= #{param.startDate}
+        </if>
+        <if test="param.endDate != null ">
+            and t.create_date &lt; #{param.endDate}
+        </if>
         order by t.id desc
     </select>
 

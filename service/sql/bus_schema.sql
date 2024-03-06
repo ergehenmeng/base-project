@@ -1524,3 +1524,35 @@ CREATE TABLE `account_freeze_log`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商户资金冻结记录表';
+
+DROP TABLE IF EXISTS member_tag;
+CREATE TABLE `member_tag`
+(
+    `id`                  bigint(20) NOT NULL COMMENT '主键',
+    `title`               varchar(20) DEFAULT NULL COMMENT '标签名称',
+    `register_start_date` date        default NULL comment '注册开始日期',
+    `register_end_date`   date        default NULL comment '注册截止日期',
+    `consume_day`         tinyint(2)  default null comment '最近几天有消费',
+    `consume_num`         tinyint(2)  default null comment '最低消费次数',
+    `consume_amount`      int(10)     default null comment '最低消费金额',
+    `member_num`          int(10)     default 0 comment '符合该标签的会员数',
+    `create_time`         datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`         datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`             bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='会员标签';
+
+DROP TABLE IF EXISTS member_tag_scope;
+CREATE TABLE `member_tag_scope`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `member_id`   bigint(20) DEFAULT NULL COMMENT '会员id',
+    `tag_id`      bigint(20) DEFAULT NULL COMMENT '标签id',
+    `create_time` datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='会员标签';
+
+
+

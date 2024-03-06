@@ -1,10 +1,14 @@
 package com.eghm.dto.member;
 
+import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 /**
  * @author 二哥很猛
@@ -24,9 +28,14 @@ public class MemberQueryRequest extends PagingQuery {
     @ApiModelProperty("注册渠道 PC,ANDROID,IOS,H5,WECHAT,ALIPAY")
     private String channel;
 
-    /**
-     * 用来查看该手机号邀请的下级会员
-     */
-    @ApiModelProperty("邀请人手机号")
+    @ApiModelProperty("邀请人手机号(用来查看该手机号邀请的下级会员)")
     private String mobile;
+
+    @ApiModelProperty("注册开始日期")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
+
+    @ApiModelProperty("注册结束日期")
+    @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
+    private LocalDate endDate;
 }
