@@ -1,6 +1,7 @@
 package com.eghm.service.member;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.member.tag.SendNotifyRequest;
 import com.eghm.dto.member.tag.TagMemberQueryRequest;
 import com.eghm.vo.member.MemberResponse;
 
@@ -38,4 +39,11 @@ public interface MemberTagScopeService {
      * @param tagId 标签id
      */
     void delete(Long tagId);
+
+    /**
+     * 发送站内信
+     *
+     * @param request 通知信息
+     */
+    void sendNotice(SendNotifyRequest request);
 }

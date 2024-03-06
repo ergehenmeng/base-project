@@ -1859,6 +1859,11 @@ public enum ErrorCode {
     TAG_NULL(3952, "标签信息不存在"),
 
     /**
+     * 请选择会员
+     */
+    TAG_SCOPE_NULL(3954, "请选择会员"),
+
+    /**
      * 店铺信息不存在
      */
     STORE_NOT_EXIST(4000, "店铺信息不存在"),

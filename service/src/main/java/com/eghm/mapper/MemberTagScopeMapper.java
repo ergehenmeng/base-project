@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.vo.member.MemberResponse;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  * 会员标签 Mapper 接口
@@ -25,4 +27,12 @@ public interface MemberTagScopeMapper extends BaseMapper<MemberTagScope> {
      * @return 列表
      */
     Page<MemberResponse> getByPage(Page<MemberResponse> page, @Param("param") TagMemberQueryRequest request);
+
+    /**
+     * 获取标签范围的会员id
+     *
+     * @param tagId 标签
+     * @return 列表
+     */
+    List<Long> getScopeIds(@Param("tagId") Long tagId);
 }

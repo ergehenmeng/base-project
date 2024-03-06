@@ -41,4 +41,8 @@
         order by t.id desc
     </select>
 
+    <select id="getScopeIds" resultType="java.lang.Long">
+        select distinct member_id from member_tag_scope where tag_id = #{tagId}
+    </select>
+
 </mapper>

@@ -9,6 +9,7 @@ import com.eghm.configuration.template.TemplateEngine;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.PushNotice;
 import com.eghm.dto.ext.SendNotice;
+import com.eghm.dto.member.tag.SendNotifyRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.NoticeType;
 import com.eghm.exception.BusinessException;
@@ -112,6 +113,18 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
     @Override
     public void sendNotice(List<Long> memberIdList, SendNotice sendNotice) {
         memberIdList.forEach(memberId -> this.sendNotice(memberId, sendNotice));
+    }
+
+    @Override
+    public void sendNoticeMsg(SendNotifyRequest request) {
+        request.getMemberIds().forEach(memberId -> {
+            MemberNotice mail = new MemberNotice();
+            mail.setClassify(NoticeType.MARKETING.getValue());
+            mail.setTitle(request.getTitle());
+            mail.setContent(request.getContent());
+            mail.setMemberId(memberId);
+            memberNoticeMapper.insert(mail);
+        });
     }
 
     @Override

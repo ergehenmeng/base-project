@@ -2,6 +2,7 @@ package com.eghm.service.member;
 
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.SendNotice;
+import com.eghm.dto.member.tag.SendNotifyRequest;
 import com.eghm.vo.member.MemberNoticeVO;
 
 import java.util.List;
@@ -36,6 +37,13 @@ public interface MemberNoticeService {
      * @param sendNotice   消息内容
      */
     void sendNotice(List<Long> memberIdList, SendNotice sendNotice);
+
+    /**
+     * 批量发送站内信
+     *
+     * @param request 发送消息
+     */
+    void sendNoticeMsg(SendNotifyRequest request);
 
     /**
      * 删除消息通知

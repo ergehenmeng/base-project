@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.member.tag.MemberTagAddRequest;
-import com.eghm.dto.member.tag.MemberTagEditRequest;
-import com.eghm.dto.member.tag.MemberTagQueryRequest;
-import com.eghm.dto.member.tag.TagMemberQueryRequest;
+import com.eghm.dto.member.tag.*;
 import com.eghm.model.MemberTag;
 import com.eghm.service.member.MemberTagScopeService;
 import com.eghm.service.member.MemberTagService;
@@ -81,5 +78,12 @@ public class MemberTagController {
     public RespBody<PageData<MemberResponse>> memberPage(@Validated TagMemberQueryRequest request) {
         Page<MemberResponse> byPage = memberTagScopeService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
+    }
+
+    @PostMapping(value = "/sendNotice", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("发送通知")
+    public RespBody<Void> sendNotice(@Validated @RequestBody SendNotifyRequest request) {
+        memberTagScopeService.sendNotice(request);
+        return RespBody.success();
     }
 }
