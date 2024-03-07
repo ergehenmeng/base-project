@@ -15,10 +15,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.AccountLogMapper;
 import com.eghm.mapper.AccountMapper;
 import com.eghm.mapper.MerchantMapper;
-import com.eghm.model.Account;
-import com.eghm.model.AccountLog;
-import com.eghm.model.Merchant;
-import com.eghm.model.Order;
+import com.eghm.model.*;
 import com.eghm.service.business.AccountFreezeLogService;
 import com.eghm.service.business.AccountService;
 import com.eghm.service.business.MerchantInitService;
@@ -111,10 +108,11 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
     }
 
     @Override
-    public void orderComplete(Long merchantId, Integer amount) {
+    public void orderComplete(Long merchantId, String orderNo) {
+        AccountFreezeLog freezeLog = accountFreezeLogService.complete(merchantId, orderNo);
         Account account = this.getAccount(merchantId);
-        account.setAmount(account.getAmount() + amount);
-        account.setAmount(account.getPayFreeze() - amount);
+        account.setAmount(account.getAmount() + freezeLog.getAmount());
+        account.setAmount(account.getPayFreeze() - freezeLog.getAmount());
         this.updateById(account);
     }
 
@@ -175,7 +173,7 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
         this.refundSuccessUpdateAccount(order.getMerchantId(), actualAmount, order.getOrderNo(), refundNo);
         int serviceFee = refundAmount - actualAmount;
         // 添加平台手续费账户更新
-        if (serviceFee > 0 ) {
+        if (serviceFee > 0) {
             this.refundSuccessUpdateAccount(systemProperties.getPlatformMerchantId(), serviceFee, order.getOrderNo(), refundNo);
         } else {
             log.info("退款没有产生平台手续费,不更新平台账户 [{}] [{}]", order.getOrderNo(), serviceFee);

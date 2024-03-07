@@ -1,6 +1,5 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
@@ -19,11 +18,9 @@ import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
-import com.eghm.vo.business.homestay.room.config.HomestayMinPriceVO;
 import com.eghm.vo.business.homestay.room.config.RoomConfigResponse;
 import com.eghm.vo.business.homestay.room.config.RoomConfigVO;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,9 +28,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛 2022/6/25
@@ -124,19 +119,6 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
             log.error("更新房态库存时,存在库存不足 [{}] [{}] [{}]", roomId, stock, size);
             throw new BusinessException(ErrorCode.HOMESTAY_STOCK);
         }
-    }
-
-    @Override
-    public Map<Long, Integer> getHomestayMinPrice(List<Long> homestayList, LocalDate startDate, LocalDate endDate) {
-        if (CollUtil.isEmpty(homestayList)) {
-            return Maps.newLinkedHashMapWithExpectedSize(4);
-        }
-        List<HomestayMinPriceVO> priceList = homestayRoomConfigMapper.getHomestayMinPrice(homestayList, startDate, endDate);
-
-        if (CollUtil.isEmpty(priceList)) {
-            return Maps.newLinkedHashMapWithExpectedSize(4);
-        }
-        return priceList.stream().collect(Collectors.toMap(HomestayMinPriceVO::getHomestayId, HomestayMinPriceVO::getMinPrice, (integer, integer2) -> integer));
     }
 
     @Override

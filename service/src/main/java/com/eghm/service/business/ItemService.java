@@ -92,14 +92,6 @@ public interface ItemService {
     void checkIllegal(List<Long> itemIds, Long merchantId);
 
     /**
-     * 检查零售商品是否是限时购商品
-     *
-     * @param itemIds itemId
-     * @param limitId id
-     */
-    void checkLimitItem(List<Long> itemIds, Long limitId);
-
-    /**
      * 更新上下架状态
      *
      * @param id    id
@@ -145,21 +137,6 @@ public interface ItemService {
      * @return 商品信息 key为商品id
      */
     Map<Long, Item> getByIdShelveMap(Set<Long> ids);
-
-    /**
-     * 更新销售量
-     *
-     * @param itemNumMap 商品及销售数量
-     */
-    void updateSaleNum(Map<Long, Integer> itemNumMap);
-
-    /**
-     * 更新销售量
-     *
-     * @param id  商品id
-     * @param num 销量量-减销量 +增销量
-     */
-    void updateSaleNum(Long id, Integer num);
 
     /**
      * 根据订单编号更新订单号下的所有商品销售量

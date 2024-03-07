@@ -98,14 +98,6 @@ public class ScenicServiceImpl implements ScenicService {
     }
 
     @Override
-    public Scenic getByMerchantId(Long merchantId) {
-        LambdaQueryWrapper<Scenic> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Scenic::getMerchantId, merchantId);
-        wrapper.last(CommonConstant.LIMIT_ONE);
-        return scenicMapper.selectOne(wrapper);
-    }
-
-    @Override
     public Scenic selectById(Long id) {
         return scenicMapper.selectById(id);
     }

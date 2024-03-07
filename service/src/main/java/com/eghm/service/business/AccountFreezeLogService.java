@@ -5,6 +5,7 @@ import com.eghm.dto.business.freeze.AccountFreezeDTO;
 import com.eghm.dto.business.freeze.AccountFreezeQueryRequest;
 import com.eghm.dto.business.freeze.CompleteChangeDTO;
 import com.eghm.dto.business.freeze.RefundChangeDTO;
+import com.eghm.model.AccountFreezeLog;
 import com.eghm.vo.business.freeze.AccountFreezeLogResponse;
 
 import java.util.List;
@@ -52,7 +53,9 @@ public interface AccountFreezeLogService {
     /**
      * 订单完成解冻
      *
-     * @param dto 解冻信息
+     * @param merchantId 商户ID
+     * @param orderNo 订单号
+     * @return 冻结信息
      */
-    void complete(CompleteChangeDTO dto);
+    AccountFreezeLog complete(Long merchantId, String orderNo);
 }

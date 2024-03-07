@@ -2,11 +2,9 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.model.HomestayRoomConfig;
-import com.eghm.vo.business.homestay.room.config.HomestayMinPriceVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * <p>
@@ -36,16 +34,6 @@ public interface HomestayRoomConfigMapper extends BaseMapper<HomestayRoomConfig>
      * @return 1
      */
     int updateStock(@Param("roomId") Long roomId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("num") Integer num);
-
-    /**
-     * 查询民宿下所有房型中 在一段时间内的最低价
-     *
-     * @param homestayList 民宿id列表
-     * @param startDate    开始时间
-     * @param endDate      结束时间
-     * @return 民宿最低价
-     */
-    List<HomestayMinPriceVO> getHomestayMinPrice(@Param("homestayList") List<Long> homestayList, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
     /**
      * 查询房型 在一段时间内的最低价(不含售罄和未销售的房型)

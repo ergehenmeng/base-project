@@ -153,11 +153,7 @@
             </choose>
         </if>
     </select>
-    
-    <update id="updateSaleNum" >
-        update item set sale_num = sale_num + #{num}, total_num = total_num + #{num} where id = #{id}
-    </update>
-    
+
     <update id="updateSaleNumByOrderNo">
         update item t, item_order r set t.sale_num = t.sale_num + r.num, t.total_num = t.total_num + r.num
         where t.id = r.item_id and r.order_no = #{orderNo}

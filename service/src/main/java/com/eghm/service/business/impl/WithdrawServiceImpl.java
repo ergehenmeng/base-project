@@ -68,7 +68,7 @@ public class WithdrawServiceImpl implements WithdrawService {
         withdrawLog.setRefundNo(tradeNo);
         withdrawLogMapper.insert(withdrawLog);
         // TODO 计算手续费 + 发起提现, 如果是同步到账则将提现冻结金额减少直接减少,否则在异步回调中减少
-        accountService.orderComplete(apply.getMerchantId(), apply.getAmount());
+        accountService.withdrawSuccess(apply.getMerchantId(), apply.getAmount());
     }
 
     /**

@@ -36,7 +36,7 @@ public interface ScoreAccountService {
      * 订单完成 解冻积分
      *
      * @param merchantId 商户id
-     * @param amount 解冻金额
+     * @param amount 解冻数量
      */
     void orderComplete(Long merchantId, Integer amount);
 

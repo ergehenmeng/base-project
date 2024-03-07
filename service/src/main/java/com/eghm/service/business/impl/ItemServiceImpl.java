@@ -199,19 +199,6 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void checkLimitItem(List<Long> itemIds, Long limitId) {
-        LambdaQueryWrapper<Item> wrapper = Wrappers.lambdaQuery();
-        wrapper.in(Item::getId, itemIds);
-        wrapper.isNotNull(Item::getLimitId);
-        wrapper.ne(limitId != null, Item::getLimitId, limitId);
-        long count = itemMapper.selectCount(wrapper);
-        if (count > 0) {
-            log.error("该商品已存在限时购活动 [{}]", itemIds);
-            throw new BusinessException(ErrorCode.LIMIT_ITEM_REDO);
-        }
-    }
-
-    @Override
     public void updateState(Long id, State state) {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getId, id);
@@ -278,18 +265,6 @@ public class ItemServiceImpl implements ItemService {
             throw new BusinessException(ITEM_DOWN);
         }
         return itemList.stream().collect(Collectors.toMap(Item::getId, Function.identity()));
-    }
-
-    @Override
-    public void updateSaleNum(Map<Long, Integer> itemNumMap) {
-        for (Map.Entry<Long, Integer> entry : itemNumMap.entrySet()) {
-            itemMapper.updateSaleNum(entry.getKey(), entry.getValue());
-        }
-    }
-
-    @Override
-    public void updateSaleNum(Long id, Integer num) {
-        itemMapper.updateSaleNum(id, num);
     }
 
     @Override

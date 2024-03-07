@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.freeze.AccountFreezeDTO;
 import com.eghm.dto.business.freeze.AccountFreezeQueryRequest;
-import com.eghm.dto.business.freeze.CompleteChangeDTO;
 import com.eghm.dto.business.freeze.RefundChangeDTO;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ChangeType;
@@ -94,18 +93,14 @@ public class AccountFreezeLogServiceImpl implements AccountFreezeLogService {
     }
 
     @Override
-    public void complete(CompleteChangeDTO dto) {
-        log.info("订单完成更新订单冻结记录 [{}]", jsonService.toJson(dto));
-        AccountFreezeLog freezeLog = this.getCheckedLog(dto.getMerchantId(), dto.getOrderNo());
-        if (!freezeLog.getAmount().equals(dto.getAmount())) {
-            log.error("订单冻结记录金额不一致:无法更新冻结信息[{}] [{}] [{}] [{}]", dto.getMerchantId(), dto.getOrderNo(), freezeLog.getAmount(), dto.getAmount());
-            dingTalkService.sendMsg(String.format("订单冻结记录金额不一致,无法更新冻结信息:[%s] [%s]", dto.getMerchantId(), dto.getOrderNo()));
-            throw new BusinessException(ErrorCode.FREEZE_LOG_AMOUNT);
-        }
+    public AccountFreezeLog complete(Long merchantId, String orderNo) {
+        log.info("订单完成更新订单冻结记录 [{}] [{}]", merchantId, orderNo);
+        AccountFreezeLog freezeLog = this.getCheckedLog(merchantId, orderNo);
         freezeLog.setState(FreezeState.UNFREEZE);
         freezeLog.setChangeType(ChangeType.COMPLETE_UNFREEZE);
         freezeLog.setUnfreezeTime(LocalDateTime.now());
         accountFreezeLogMapper.updateById(freezeLog);
+        return freezeLog;
     }
 
     /**

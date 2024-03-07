@@ -85,6 +85,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     private final MessageService messageService;
 
+    private final AccountService accountService;
+
+    private final ScoreAccountService scoreAccountService;
+
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType) {
         List<String> orderNoList = StrUtil.split(orderNo, ',');
@@ -481,13 +485,17 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             log.error("订单已结算,不支持分账 [{}]", orderNo);
             return;
         }
-        int routingAmount = order.getPayAmount() - order.getExpressAmount() - order.getRefundAmount();
+        int routingAmount = order.getPayAmount() - order.getRefundAmount();
         if (routingAmount <= 0) {
             log.error("订单结算金额小于0,不支持分账 [{}] [{}]", orderNo, routingAmount);
             return;
         }
         // 分账
-        log.error("分账功能待补全 [{}]", orderNo);
+        log.error("分账功能待补全 [{}] 待分账金额: [{}]", routingAmount, orderNo);
+        accountService.orderComplete(order.getMerchantId(), order.getOrderNo());
+        accountService.orderComplete(systemProperties.getPlatformMerchantId(), order.getOrderNo());
+        log.error("分账功能待补全 [{}] 待分账积分: [{}]", routingAmount, orderNo);
+        scoreAccountService.orderComplete(order.getMerchantId(), routingAmount);
     }
 
     @Override

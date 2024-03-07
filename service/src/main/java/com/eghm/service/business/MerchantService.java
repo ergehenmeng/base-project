@@ -50,14 +50,6 @@ public interface MerchantService {
     void update(MerchantEditRequest request);
 
     /**
-     * 根据系统用户id查询商户
-     *
-     * @param userId 系统用户id
-     * @return 商户信息
-     */
-    Merchant selectByUserId(Long userId);
-
-    /**
      * 根据id查询商户
      *
      * @param id id

@@ -48,18 +48,6 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public LoginDeviceVO getLastLogin(Long memberId) {
-        LoginLog lastLogin = loginLogMapper.getLastLogin(memberId);
-        if (lastLogin == null) {
-            return null;
-        }
-        LoginDeviceVO vo = new LoginDeviceVO();
-        vo.setLoginTime(DateUtil.formatSimple(lastLogin.getCreateTime()));
-        vo.setDeviceModel(lastLogin.getDeviceModel());
-        return vo;
-    }
-
-    @Override
     public void deleteLoginDevice(Long memberId, Long id) {
         loginDeviceMapper.deleteLoginDevice(memberId, id);
     }

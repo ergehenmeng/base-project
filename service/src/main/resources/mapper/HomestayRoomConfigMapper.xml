@@ -18,18 +18,6 @@
           and state = true
     </update>
 
-    <select id="getHomestayMinPrice" resultType="com.eghm.vo.business.homestay.room.config.HomestayMinPriceVO">
-        select
-        min(sale_price) as minPrice,
-        homestay_id as homestayId
-        from homestay_room_config where config_date between #{startDate} and #{endDate} and state = true and stock &gt; 0
-        and homestay_id in
-        <foreach collection="homestayList" open="(" close=")" item="item" separator=",">
-            #{item}
-        </foreach>
-        group by homestay_id
-    </select>
-
     <select id="getRoomMinPrice" resultType="integer">
         select
             min(sale_price)

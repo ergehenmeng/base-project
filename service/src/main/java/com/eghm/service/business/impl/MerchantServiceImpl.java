@@ -124,13 +124,6 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
-    public Merchant selectByUserId(Long userId) {
-        LambdaUpdateWrapper<Merchant> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Merchant::getUserId, userId);
-        return merchantMapper.selectOne(wrapper);
-    }
-
-    @Override
     public Merchant selectByIdRequired(Long id) {
         Merchant merchant = merchantMapper.selectById(id);
         if (merchant == null) {

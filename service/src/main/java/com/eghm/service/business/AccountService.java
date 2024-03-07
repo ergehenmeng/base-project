@@ -25,9 +25,9 @@ public interface AccountService {
      * 订单完成 解冻支付金额
      *
      * @param merchantId 商户id
-     * @param amount 解冻金额
+     * @param orderNo 订单号
      */
-    void orderComplete(Long merchantId, Integer amount);
+    void orderComplete(Long merchantId, String orderNo);
 
     /**
      * 提现成功,更新冻结金额

@@ -40,15 +40,6 @@ public interface ScenicService {
     void updateScenic(ScenicEditRequest request);
 
     /**
-     * 查询商户下的景区信息 <br>
-     * 注意:当前一个商户只能有一个景区
-     *
-     * @param merchantId 商户id
-     * @return 景区
-     */
-    Scenic getByMerchantId(Long merchantId);
-
-    /**
      * 主键查询景区信息
      *
      * @param id id
