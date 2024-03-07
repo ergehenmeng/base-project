@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.NoticeType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,7 +26,7 @@ public class MemberNotice extends BaseEntity {
     private String content;
 
     @ApiModelProperty("站内信分类")
-    private String classify;
+    private NoticeType noticeType;
 
     @ApiModelProperty("状态 0:未读 1:已读")
     private Boolean isRead;

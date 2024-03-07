@@ -74,7 +74,7 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
         }
         String content = templateEngine.render(template.getContent(), sendNotice.getParams());
         MemberNotice mail = new MemberNotice();
-        mail.setClassify(mailType.getValue());
+        mail.setNoticeType(mailType);
         mail.setTitle(template.getTitle());
         mail.setContent(content);
         mail.setMemberId(memberId);
@@ -109,17 +109,11 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
         pushService.pushNotification(notice);
     }
 
-
     @Override
-    public void sendNotice(List<Long> memberIdList, SendNotice sendNotice) {
-        memberIdList.forEach(memberId -> this.sendNotice(memberId, sendNotice));
-    }
-
-    @Override
-    public void sendNoticeMsg(SendNotifyRequest request) {
+    public void sendNoticeBatch(SendNotifyRequest request) {
         request.getMemberIds().forEach(memberId -> {
             MemberNotice mail = new MemberNotice();
-            mail.setClassify(NoticeType.MARKETING.getValue());
+            mail.setNoticeType(NoticeType.MARKETING);
             mail.setTitle(request.getTitle());
             mail.setContent(request.getContent());
             mail.setMemberId(memberId);

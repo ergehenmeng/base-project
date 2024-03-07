@@ -28,9 +28,10 @@ public class SendNotifyRequest {
     @WordChecker(message = "站内信内容存在敏感词")
     private String content;
 
-    @ApiModelProperty("标签id")
+    @ApiModelProperty("会员id(二选一优先级最高)")
+    private List<Long> memberIds;
+
+    @ApiModelProperty("标签id(二选一优先级次之)")
     private Long tagId;
 
-    @ApiModelProperty("会员id")
-    private List<Long> memberIds;
 }

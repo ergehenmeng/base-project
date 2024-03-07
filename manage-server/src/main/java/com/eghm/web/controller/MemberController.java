@@ -6,8 +6,10 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.member.MemberQueryRequest;
 import com.eghm.dto.member.log.LoginLogQueryRequest;
+import com.eghm.dto.member.tag.SendNotifyRequest;
 import com.eghm.model.LoginLog;
 import com.eghm.service.member.LoginService;
+import com.eghm.service.member.MemberNoticeService;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.member.MemberResponse;
@@ -34,6 +36,8 @@ public class MemberController {
     private final MemberService memberService;
 
     private final LoginService loginService;
+
+    private final MemberNoticeService memberNoticeService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
@@ -75,5 +79,12 @@ public class MemberController {
     public RespBody<PageData<LoginLog>> loginPage(LoginLogQueryRequest request) {
         Page<LoginLog> byPage = loginService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
+    }
+
+    @PostMapping(value = "/sendNotice", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("发送通知")
+    public RespBody<Void> sendNotice(@Validated @RequestBody SendNotifyRequest request) {
+        memberNoticeService.sendNoticeBatch(request);
+        return RespBody.success();
     }
 }

@@ -73,6 +73,6 @@ public class MemberTagScopeServiceImpl implements MemberTagScopeService {
         if (CollUtil.isEmpty(request.getMemberIds())) {
             return;
         }
-        memberNoticeService.sendNoticeMsg(request);
+        memberNoticeService.sendNoticeBatch(request);
     }
 }

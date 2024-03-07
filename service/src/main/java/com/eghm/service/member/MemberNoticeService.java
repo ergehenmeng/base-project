@@ -33,17 +33,9 @@ public interface MemberNoticeService {
     /**
      * 批量发送站内信
      *
-     * @param memberIdList 接收消息的用户列表
-     * @param sendNotice   消息内容
-     */
-    void sendNotice(List<Long> memberIdList, SendNotice sendNotice);
-
-    /**
-     * 批量发送站内信
-     *
      * @param request 发送消息
      */
-    void sendNoticeMsg(SendNotifyRequest request);
+    void sendNoticeBatch(SendNotifyRequest request);
 
     /**
      * 删除消息通知
