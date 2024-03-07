@@ -1,7 +1,7 @@
 package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.eghm.enums.StrEnumBinder;
+import com.eghm.enums.ValueEnumBinder;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -15,7 +15,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum RoleType implements StrEnumBinder {
+public enum RoleType implements ValueEnumBinder {
 
     /**
      * 超级管理员

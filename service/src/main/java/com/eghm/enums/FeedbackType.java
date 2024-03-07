@@ -32,9 +32,8 @@ public enum FeedbackType {
     /**
      * 其他问题
      */
-    OTHER(4, "其他问题"),
+    OTHER(4, "其他问题");
 
-    ;
     private final int value;
 
     private final String msg;

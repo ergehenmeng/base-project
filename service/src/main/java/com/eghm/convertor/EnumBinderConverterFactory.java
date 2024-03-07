@@ -2,7 +2,7 @@ package com.eghm.convertor;
 
 import com.eghm.enums.EnumBinder;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.StrEnumBinder;
+import com.eghm.enums.ValueEnumBinder;
 import com.eghm.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
@@ -51,10 +51,10 @@ public class EnumBinderConverterFactory implements ConverterFactory<String, Enum
                 }
                 log.info("数字枚举类型映射失败 [{}] [{}]", enumType, value);
                 throw new BusinessException(ErrorCode.ENUMS_FORMAT);
-            } else if (StrEnumBinder.class.isAssignableFrom(enumType)) {
+            } else if (ValueEnumBinder.class.isAssignableFrom(enumType)) {
                 T[] enums = enumType.getEnumConstants();
                 for (T e : enums) {
-                    StrEnumBinder binder = (StrEnumBinder) e;
+                    ValueEnumBinder binder = (ValueEnumBinder) e;
                     if (value.equals(binder.getValue())) {
                         return e;
                     }
