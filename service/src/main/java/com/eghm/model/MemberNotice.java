@@ -31,4 +31,7 @@ public class MemberNotice extends BaseEntity {
     @ApiModelProperty("状态 0:未读 1:已读")
     private Boolean isRead;
 
+    @ApiModelProperty("消息所属日志id")
+    private Long noticeLogId ;
+
 }

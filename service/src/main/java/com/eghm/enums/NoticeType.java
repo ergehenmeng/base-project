@@ -1,7 +1,12 @@
 package com.eghm.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * @author 殿小二
@@ -34,6 +39,8 @@ public enum NoticeType {
     /**
      * 分类
      */
+    @EnumValue
+    @JsonValue
     private final String value;
 
     /**
@@ -50,4 +57,17 @@ public enum NoticeType {
      * 通知跳转页面
      */
     private final String viewTag;
+
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static NoticeType of(String value) {
+        if (value == null) {
+            return null;
+        }
+        return Arrays.stream(NoticeType.values()).filter(auditState -> value.equals(auditState.value)).findFirst().orElse(null);
+    }
+
+    @Override
+    public String toString() {
+        return value + ":" + msg;
+    }
 }

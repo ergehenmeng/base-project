@@ -1554,5 +1554,17 @@ CREATE TABLE `member_tag_scope`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='会员标签';
 
-
+DROP TABLE IF EXISTS `member_notice_log`;
+CREATE TABLE `member_notice_log`
+(
+    `id`          varchar(20) NOT NULL COMMENT '主键',
+    `title`       varchar(20)   DEFAULT NULL COMMENT '通知名称',
+    `content`     varchar(1000) DEFAULT NULL COMMENT '通知内容',
+    `notice_type` varchar(20)   DEFAULT NULL COMMENT '消息类型',
+    `create_time` datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `is_deleted`  tinyint(1)    DEFAULT 0 COMMENT '删除状态',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='会员站内信日志';
 

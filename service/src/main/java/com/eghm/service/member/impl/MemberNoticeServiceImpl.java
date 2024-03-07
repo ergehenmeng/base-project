@@ -13,9 +13,11 @@ import com.eghm.dto.member.tag.SendNotifyRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.NoticeType;
 import com.eghm.exception.BusinessException;
+import com.eghm.mapper.MemberNoticeLogMapper;
 import com.eghm.mapper.MemberNoticeMapper;
 import com.eghm.model.Member;
 import com.eghm.model.MemberNotice;
+import com.eghm.model.MemberNoticeLog;
 import com.eghm.model.NoticeTemplate;
 import com.eghm.service.common.NoticeTemplateService;
 import com.eghm.service.common.PushService;
@@ -43,6 +45,8 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
     private final NoticeTemplateService noticeTemplateService;
 
     private final MemberNoticeMapper memberNoticeMapper;
+
+    private final MemberNoticeLogMapper memberNoticeLogMapper;
 
     private final TemplateEngine templateEngine;
 
@@ -111,13 +115,16 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
 
     @Override
     public void sendNoticeBatch(SendNotifyRequest request) {
+        MemberNoticeLog noticeLog = DataUtil.copy(request, MemberNoticeLog.class);
+        memberNoticeLogMapper.insert(noticeLog);
         request.getMemberIds().forEach(memberId -> {
-            MemberNotice mail = new MemberNotice();
-            mail.setNoticeType(NoticeType.MARKETING);
-            mail.setTitle(request.getTitle());
-            mail.setContent(request.getContent());
-            mail.setMemberId(memberId);
-            memberNoticeMapper.insert(mail);
+            MemberNotice notice = new MemberNotice();
+            notice.setNoticeType(NoticeType.MARKETING);
+            notice.setTitle(request.getTitle());
+            notice.setContent(request.getContent());
+            notice.setMemberId(memberId);
+            notice.setNoticeLogId(noticeLog.getId());
+            memberNoticeMapper.insert(notice);
         });
     }
 

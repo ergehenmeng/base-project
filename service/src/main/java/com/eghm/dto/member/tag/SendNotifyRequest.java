@@ -1,5 +1,6 @@
 package com.eghm.dto.member.tag;
 
+import com.eghm.enums.NoticeType;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,6 +28,10 @@ public class SendNotifyRequest {
     @Size(min = 10, max = 200, message = "站内信内容长度10~200位")
     @WordChecker(message = "站内信内容存在敏感词")
     private String content;
+
+    @ApiModelProperty("通知类型")
+    @NotBlank(message = "通知类型不能为空")
+    private NoticeType noticeType;
 
     @ApiModelProperty("会员id(二选一优先级最高)")
     private List<Long> memberIds;
