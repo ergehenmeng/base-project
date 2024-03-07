@@ -9,11 +9,6 @@ import com.eghm.model.SysArea;
 public interface SysAreaService {
 
     /**
-     * 计算首字母
-     */
-    void calcInitial();
-
-    /**
      * 主键查询
      *
      * @param id id

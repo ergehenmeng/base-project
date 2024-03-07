@@ -1864,6 +1864,11 @@ public enum ErrorCode {
     TAG_SCOPE_NULL(3954, "请选择会员"),
 
     /**
+     * 请选择会员
+     */
+    SMS_SCOPE_NULL(3956, "请选择会员"),
+
+    /**
      * 店铺信息不存在
      */
     STORE_NOT_EXIST(4000, "店铺信息不存在"),

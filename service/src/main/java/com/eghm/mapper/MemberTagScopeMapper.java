@@ -35,4 +35,12 @@ public interface MemberTagScopeMapper extends BaseMapper<MemberTagScope> {
      * @return 列表
      */
     List<Long> getScopeIds(@Param("tagId") Long tagId);
+
+    /**
+     * 获取标签范围的会员手机号
+     *
+     * @param tagId 标签
+     * @return 列表
+     */
+    List<String> getMobile(@Param("tagId") Long tagId);
 }

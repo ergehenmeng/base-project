@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-
 /**
  * @author 二哥很猛
  * @since 2019/8/16 18:47
@@ -42,11 +40,6 @@ public class SmsLogServiceImpl implements SmsLogService {
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void addSmsLog(SmsLog smsLog) {
         smsLogMapper.insert(smsLog);
-    }
-
-    @Override
-    public int countSms(String smsType, String mobile, Date startTime, Date endTime) {
-        return smsLogMapper.countSms(smsType, mobile, startTime, endTime);
     }
 
 }

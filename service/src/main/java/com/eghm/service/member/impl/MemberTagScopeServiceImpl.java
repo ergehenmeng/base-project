@@ -5,11 +5,14 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.member.tag.SendNotifyRequest;
+import com.eghm.dto.member.tag.SendSmsRequest;
 import com.eghm.dto.member.tag.TagMemberQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
+import com.eghm.mapper.MemberMapper;
 import com.eghm.mapper.MemberTagScopeMapper;
 import com.eghm.model.MemberTagScope;
+import com.eghm.service.common.SmsService;
 import com.eghm.service.member.MemberNoticeService;
 import com.eghm.service.member.MemberTagScopeService;
 import com.eghm.vo.member.MemberResponse;
@@ -33,6 +36,10 @@ import java.util.List;
 @AllArgsConstructor
 @Service("memberTagScopeService")
 public class MemberTagScopeServiceImpl implements MemberTagScopeService {
+
+    private final SmsService smsService;
+
+    private final MemberMapper memberMapper;
 
     private final MemberNoticeService memberNoticeService;
 
@@ -74,5 +81,23 @@ public class MemberTagScopeServiceImpl implements MemberTagScopeService {
             return;
         }
         memberNoticeService.sendNoticeBatch(request);
+    }
+
+    @Override
+    public void sendSms(SendSmsRequest request) {
+        if (CollUtil.isEmpty(request.getMemberIds()) || request.getTagId() == null) {
+            throw new BusinessException(ErrorCode.SMS_SCOPE_NULL);
+        }
+        List<String> mobileList;
+        if (CollUtil.isEmpty(request.getMemberIds())) {
+            mobileList = memberTagScopeMapper.getMobile(request.getTagId());
+        } else {
+            mobileList = memberMapper.getMobile(request.getMemberIds());
+        }
+
+        if (CollUtil.isEmpty(mobileList)) {
+            return;
+        }
+        smsService.sendSms(mobileList, request.getContent());
     }
 }

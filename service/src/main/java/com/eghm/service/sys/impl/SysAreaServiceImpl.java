@@ -1,14 +1,10 @@
 package com.eghm.service.sys.impl;
 
-import com.eghm.mapper.SysAreaMapper;
 import com.eghm.model.SysArea;
 import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.sys.SysAreaService;
-import com.eghm.utils.StringUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -18,20 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class SysAreaServiceImpl implements SysAreaService {
 
-    private final SysAreaMapper sysAreaMapper;
-
     private final CacheProxyService cacheProxyService;
-
-    @Override
-    public void calcInitial() {
-        List<SysArea> list = sysAreaMapper.selectList(null);
-        list.forEach(sysArea -> {
-            String title = sysArea.getTitle();
-            String initial = StringUtil.getInitial(title);
-            sysArea.setMark(initial);
-            sysAreaMapper.updateById(sysArea);
-        });
-    }
 
     @Override
     public SysArea getById(Long id) {

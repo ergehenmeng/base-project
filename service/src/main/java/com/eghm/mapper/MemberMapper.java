@@ -61,4 +61,12 @@ public interface MemberMapper extends BaseMapper<Member> {
      * @return ids
      */
     Collection<Long> getMemberIds(MemberTag memberTag);
+
+    /**
+     * 查询会员手机号
+     *
+     * @param memberIds 会员id
+     * @return 手机号
+     */
+    List<String> getMobile(@Param("memberIds") List<Long> memberIds);
 }

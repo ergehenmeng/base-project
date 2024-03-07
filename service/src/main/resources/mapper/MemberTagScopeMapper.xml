@@ -45,4 +45,9 @@
         select distinct member_id from member_tag_scope where tag_id = #{tagId}
     </select>
 
+    <select id="getMobile" resultType="java.lang.String">
+        select distinct m.mobile from member_tag_scope t inner join member m on t.member_id = m.id
+        where tag_id = #{tagId} and m.mobile is not null
+    </select>
+
 </mapper>

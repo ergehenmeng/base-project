@@ -86,4 +86,11 @@ public class MemberTagController {
         memberTagScopeService.sendNotice(request);
         return RespBody.success();
     }
+
+    @PostMapping(value = "/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("发送短信")
+    public RespBody<Void> sendSms(@Validated @RequestBody SendSmsRequest request) {
+        memberTagScopeService.sendSms(request);
+        return RespBody.success();
+    }
 }

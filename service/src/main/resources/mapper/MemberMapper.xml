@@ -79,4 +79,10 @@
         </if>
     </select>
 
+    <select id="getMobile" resultType="java.lang.String">
+        select distinct mobile from member where deleted = false and id in
+        <foreach collection="memberIds" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
 </mapper>
