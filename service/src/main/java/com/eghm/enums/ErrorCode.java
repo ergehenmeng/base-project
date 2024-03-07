@@ -1869,6 +1869,16 @@ public enum ErrorCode {
     SMS_SCOPE_NULL(3956, "请选择会员"),
 
     /**
+     * 请选择会员
+     */
+    SCORE_INTEGER(3958, "积分必须的100倍数"),
+
+    /**
+     * 积分太多啦~
+     */
+    SCORE_SURPLUS(3961, "积分太多啦~"),
+
+    /**
      * 店铺信息不存在
      */
     STORE_NOT_EXIST(4000, "店铺信息不存在"),

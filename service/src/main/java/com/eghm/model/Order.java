@@ -157,4 +157,7 @@ public class Order extends BaseEntity {
 
     @ApiModelProperty("兑换码金额")
     private Integer cdKeyAmount;
+
+    @ApiModelProperty("使用的积分")
+    private Integer scoreAmount;
 }

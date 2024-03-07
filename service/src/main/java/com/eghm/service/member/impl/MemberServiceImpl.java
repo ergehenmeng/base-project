@@ -482,6 +482,10 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void updateScore(Long memberId, ScoreType scoreType, Integer score) {
+        if (score == 0) {
+            log.info("积分变动为零,不做任何处理 [{}] [{}]", memberId, scoreType);
+            return;
+        }
         Integer direction = scoreType.getDirection();
         score = Math.abs(score);
         if (direction == 2) {

@@ -64,6 +64,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
                 this.tryUpdateGroupOrderState(order.getBookingNo(), order.getBookingId());
             }
         }
+
     }
 
     @Override

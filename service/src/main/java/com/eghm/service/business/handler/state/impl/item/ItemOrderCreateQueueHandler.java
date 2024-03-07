@@ -6,6 +6,7 @@ import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.member.MemberAddressService;
+import com.eghm.service.member.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,8 @@ public class ItemOrderCreateQueueHandler extends ItemOrderCreateHandler {
 
     public ItemOrderCreateQueueHandler(ItemOrderService itemOrderService, ItemService itemService, ItemSkuService itemSkuService, ItemSpecService itemSpecService, ItemStoreService itemStoreService, OrderService orderService,
                                        OrderMQService orderMQService, MemberAddressService memberAddressService, ItemGroupOrderService itemGroupOrderService, GroupBookingService groupBookingService, LimitPurchaseItemService limitPurchaseItemService,
-                                       JsonService jsonService) {
-        super(itemOrderService, itemService, itemSkuService, itemSpecService, itemStoreService, orderService, jsonService, orderMQService, memberAddressService, itemGroupOrderService, groupBookingService, limitPurchaseItemService);
+                                       JsonService jsonService, MemberService memberService) {
+        super(itemOrderService, itemService, itemSkuService, itemSpecService, itemStoreService, orderService, jsonService, orderMQService, memberAddressService, itemGroupOrderService, groupBookingService, limitPurchaseItemService, memberService);
     }
 
     @Override

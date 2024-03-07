@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.Max;
 import java.util.List;
 
 /**
@@ -46,6 +47,9 @@ public class ItemOrderCreateContext extends AsyncKey implements Context {
 
     @ApiModelProperty("备注")
     private String remark;
+
+    @ApiModelProperty("积分")
+    private Integer scoreAmount;
 
     @ApiModelProperty("源状态")
     private Integer from;

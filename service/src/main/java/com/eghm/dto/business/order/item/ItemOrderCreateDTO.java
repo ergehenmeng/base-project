@@ -4,6 +4,7 @@ import com.eghm.service.business.handler.dto.ItemDTO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,6 +28,10 @@ public class ItemOrderCreateDTO {
     @Size(min = 1, max = 99, message = "商品不能超过99种")
     @NotEmpty(message = "请选择商品")
     private List<ItemDTO> itemList;
+
+    @ApiModelProperty("积分")
+    @Max(value = 100000, message = "积分不能超过100000")
+    private Integer scoreAmount = 0;
 
     @ApiModelProperty("拼团活动编号")
     private String bookingNo;

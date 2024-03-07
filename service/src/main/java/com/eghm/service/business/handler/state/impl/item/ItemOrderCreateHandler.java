@@ -8,6 +8,7 @@ import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
 import com.eghm.dto.business.purchase.LimitSkuRequest;
 import com.eghm.enums.ExchangeQueue;
+import com.eghm.enums.ScoreType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.ProductType;
@@ -22,6 +23,7 @@ import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.service.business.handler.state.OrderCreateHandler;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.member.MemberAddressService;
+import com.eghm.service.member.MemberService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.StringUtil;
 import com.eghm.utils.TransactionUtil;
@@ -70,6 +72,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     private final LimitPurchaseItemService limitPurchaseItemService;
 
+    private final MemberService memberService;
+
     /**
      * 普通订单下单处理逻辑
      * 说明: 由于普通订单存在购物车概念,在下单时会出现多店铺+多商品同时下单支付,因此需要按店铺进行分组生成多个订单
@@ -110,11 +114,15 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         List<String> orderList = new ArrayList<>(8);
         // 是否为多店铺下单
         boolean isMultiple = storeMap.size() > 1;
+        Integer scoreAmount = context.getScoreAmount();
+        int realScoreAmount = 0;
         for (Map.Entry<Long, List<OrderPackage>> entry : storeMap.entrySet()) {
             Map<Long, Integer> skuExpressMap = this.calcExpressFee(entry.getKey(), payload.getMemberAddress().getCountyId(), entry.getValue());
             int expressAmount = skuExpressMap.values().stream().reduce(Integer::sum).orElse(0);
             // 核心逻辑生成主订单
-            Order order = this.generateOrder(context, payload, entry, isMultiple, expressAmount);
+            Order order = this.generateOrder(context, payload, entry, isMultiple, expressAmount, scoreAmount);
+            scoreAmount = scoreAmount - order.getScoreAmount();
+            realScoreAmount += order.getScoreAmount();
             orderService.save(order);
             // 新增零售订单
             itemOrderService.insert(order.getOrderNo(), context.getMemberId(), entry.getValue(), skuExpressMap);
@@ -125,6 +133,11 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             itemGroupOrderService.save(context, order, entry.getValue().get(0).getItemId());
             orderList.add(order.getOrderNo());
         }
+        if (realScoreAmount != context.getScoreAmount()) {
+            log.error("积分剩余太多了 [{}] [{}] [{}]", context.getMemberId(), context.getScoreAmount(), realScoreAmount);
+            throw new BusinessException(SCORE_SURPLUS);
+        }
+        memberService.updateScore(context.getMemberId(), ScoreType.PAY, realScoreAmount);
         // 30分钟过期定时任务
         TransactionUtil.afterCommit(() -> orderList.forEach(orderNo -> orderMQService.sendOrderExpireMessage(ExchangeQueue.ITEM_PAY_EXPIRE, orderNo)));
         context.setOrderNo(CollUtil.join(orderList, ","));
@@ -157,9 +170,10 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * @param entry     下单信息
      * @param multiple      是否为多笔订单同时支付
      * @param expressAmount 快递费
+     * @param scoreAmount 可以使用的积分数
      * @return 订单信息
      */
-    private Order generateOrder(ItemOrderCreateContext context, ItemOrderPayload payload, Map.Entry<Long, List<OrderPackage>> entry, boolean multiple, int expressAmount) {
+    private Order generateOrder(ItemOrderCreateContext context, ItemOrderPayload payload, Map.Entry<Long, List<OrderPackage>> entry, boolean multiple, int expressAmount, Integer scoreAmount) {
         List<OrderPackage> packageList = entry.getValue();
         Order order = DataUtil.copy(payload, Order.class);
         MemberAddress address = payload.getMemberAddress();
@@ -180,7 +194,22 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         Integer itemAmount = this.getItemAmount(packageList, context);
         order.setBookingNo(context.getBookingNo());
         order.setBookingId(context.getBookingId());
-        order.setPayAmount(itemAmount + expressAmount);
+
+        Integer payAmount = itemAmount + expressAmount;
+        if (scoreAmount <= 0) {
+            order.setPayAmount(payAmount);
+            order.setPayAmount(0);
+        } else {
+            // 使用积分
+            if (payAmount > scoreAmount) {
+                order.setScoreAmount(scoreAmount);
+                order.setPayAmount(payAmount - scoreAmount);
+            } else {
+                order.setScoreAmount(payAmount);
+                order.setPayAmount(0);
+            }
+        }
+
         order.setLimitId(context.getLimitId());
         order.setMerchantId(entry.getValue().get(0).getItemStore().getMerchantId());
         return order;
@@ -366,7 +395,6 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     }
 
-
     /**
      * 商品总数量
      *
@@ -426,6 +454,12 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     private void beforeCheck(ItemOrderCreateContext context) {
         if (context.getBookingNo() != null) {
             orderService.checkGroupOrder(context.getBookingNo(), context.getMemberId());
+        }
+        if (context.getScoreAmount() > 0) {
+            int surplus = context.getScoreAmount() % 100;
+            if (surplus > 0) {
+                throw new BusinessException(SCORE_INTEGER);
+            }
         }
     }
 
