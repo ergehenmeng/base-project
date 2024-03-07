@@ -1,16 +1,15 @@
 package com.eghm.service.business.handler.state.impl.item;
 
+import com.eghm.dto.business.account.score.ScoreAccountDTO;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
+import com.eghm.enums.ref.ChargeType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.GroupBooking;
 import com.eghm.model.ItemGroupOrder;
 import com.eghm.model.Order;
-import com.eghm.service.business.GroupBookingService;
-import com.eghm.service.business.ItemGroupOrderService;
-import com.eghm.service.business.ItemService;
-import com.eghm.service.business.OrderService;
+import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.sys.DingTalkService;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +32,8 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
 
     private final ItemService itemService;
 
+    private final ScoreAccountService scoreAccountService;
+
     private final OrderService orderService;
 
     private final ItemGroupOrderService itemGroupOrderService;
@@ -41,13 +42,14 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
 
     private final DingTalkService dingTalkService;
 
-    public ItemOrderPaySuccessHandler(OrderService orderService, ItemService itemService, ItemGroupOrderService itemGroupOrderService, GroupBookingService groupBookingService, DingTalkService dingTalkService) {
+    public ItemOrderPaySuccessHandler(ScoreAccountService scoreAccountService, OrderService orderService, ItemService itemService, ItemGroupOrderService itemGroupOrderService, GroupBookingService groupBookingService, DingTalkService dingTalkService) {
         super(orderService);
         this.itemService = itemService;
         this.orderService = orderService;
         this.itemGroupOrderService = itemGroupOrderService;
         this.groupBookingService = groupBookingService;
         this.dingTalkService = dingTalkService;
+        this.scoreAccountService = scoreAccountService;
     }
 
     @Override
@@ -62,6 +64,14 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
             if (order.getBookingNo() != null) {
                 log.info("该订单为拼团订单,更新拼团订单状态 [{}]", order.getOrderNo());
                 this.tryUpdateGroupOrderState(order.getBookingNo(), order.getBookingId());
+            }
+            if (order.getScoreAmount() > 0) {
+                ScoreAccountDTO dto = new ScoreAccountDTO();
+                dto.setTradeNo(context.getTradeNo());
+                dto.setAmount(order.getScoreAmount());
+                dto.setMerchantId(order.getMerchantId());
+                dto.setChargeType(ChargeType.ORDER_PAY);
+                scoreAccountService.updateAccount(dto);
             }
         }
 
