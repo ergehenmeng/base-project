@@ -129,7 +129,7 @@ CREATE TABLE `feedback_log`
 (
     `id`             bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `member_id`      bigint(20) unsigned DEFAULT NULL COMMENT '用户ID',
-    `classify`       tinyint(1)          DEFAULT NULL COMMENT '反馈类型分类',
+    `feedback_type`  tinyint(1)          DEFAULT NULL COMMENT '反馈类型分类',
     `state`          bit(1)              DEFAULT b'0' COMMENT '状态: 0:待解决 1:已解决',
     `version`        varchar(50)         DEFAULT NULL COMMENT '软件版本',
     `system_version` varchar(50)         DEFAULT NULL COMMENT '系统版本',
@@ -701,7 +701,7 @@ CREATE TABLE `member_notice`
     `member_id`     bigint(20)   DEFAULT NULL COMMENT '用户id',
     `title`         varchar(50)  DEFAULT NULL COMMENT '消息标题',
     `content`       varchar(500) DEFAULT NULL COMMENT '站内信内容',
-    `notice_type`   tinyint(2)   DEFAULT NULL COMMENT '站内信类型',
+    `notice_type`   varchar(20)  DEFAULT NULL COMMENT '站内信类型',
     `notice_log_id` bigint(20)   DEFAULT NULL COMMENT '所属通知日志ID',
     `is_read`       bit(1)       DEFAULT b'0' COMMENT '状态 0:未读 1:已读',
     `deleted`       bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',

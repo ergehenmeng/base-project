@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class SendNotifyRequest {
     private String content;
 
     @ApiModelProperty("通知类型")
-    @NotBlank(message = "通知类型不能为空")
+    @NotNull(message = "通知类型不能为空")
     private NoticeType noticeType;
 
     @ApiModelProperty("会员id(二选一优先级最高)")

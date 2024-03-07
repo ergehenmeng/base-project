@@ -20,7 +20,7 @@ public class FeedbackLog extends BaseEntity {
     private Boolean state;
 
     @ApiModelProperty("状态: 反馈类型分类")
-    private Integer classify;
+    private Integer feedbackType;
 
     @ApiModelProperty("软件版本")
     private String version;
