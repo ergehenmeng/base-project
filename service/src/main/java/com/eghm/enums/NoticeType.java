@@ -14,7 +14,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum NoticeType {
+public enum NoticeType implements StrEnumBinder {
 
     /**
      * 通用类通知
