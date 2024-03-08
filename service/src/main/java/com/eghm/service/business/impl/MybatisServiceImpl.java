@@ -1,5 +1,7 @@
 package com.eghm.service.business.impl;
 
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MybatisMapper;
 import com.eghm.service.business.MybatisService;
 import lombok.AllArgsConstructor;
@@ -21,7 +23,7 @@ public class MybatisServiceImpl implements MybatisService {
             mybatisMapper.updateState();
         } catch (Exception e) {
             mybatisMapper.updateState2();
-            throw new RuntimeException("123123");
+            throw new BusinessException(ErrorCode.REFUND_LOG_NULL);
         }
     }
 }
