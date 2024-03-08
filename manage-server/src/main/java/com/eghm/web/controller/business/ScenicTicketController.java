@@ -34,7 +34,7 @@ public class ScenicTicketController {
     private final ScenicTicketService scenicTicketService;
 
     @GetMapping("/listPage")
-    @ApiOperation("门票列表")
+    @ApiOperation("列表")
     public RespBody<PageData<ScenicTicketResponse>> listPage(ScenicTicketQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ScenicTicketResponse> responsePage = scenicTicketService.getByPage(request);
@@ -50,21 +50,21 @@ public class ScenicTicketController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("创建门票")
+    @ApiOperation("新增")
     public RespBody<Void> create(@RequestBody @Validated ScenicTicketAddRequest request) {
-        scenicTicketService.createTicket(request);
+        scenicTicketService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新门票")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@RequestBody @Validated ScenicTicketEditRequest request) {
-        scenicTicketService.updateTicket(request);
+        scenicTicketService.update(request);
         return RespBody.success();
     }
 
     @GetMapping("/select")
-    @ApiOperation("查询门票")
+    @ApiOperation("详情")
     public RespBody<ScenicTicket> select(@Validated IdDTO dto) {
         ScenicTicket scenicTicket = scenicTicketService.selectByIdRequired(dto.getId());
         return RespBody.success(scenicTicket);

@@ -16,7 +16,6 @@ import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.mapper.ScenicTicketMapper;
-import com.eghm.model.Item;
 import com.eghm.model.Scenic;
 import com.eghm.model.ScenicTicket;
 import com.eghm.service.business.CommonService;
@@ -56,9 +55,9 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     }
 
     @Override
-    public void createTicket(ScenicTicketAddRequest request) {
+    public void create(ScenicTicketAddRequest request) {
         Long merchantId = SecurityHolder.getMerchantId();
-        this.redoTitle(request.getTitle(), merchantId, null);
+        this.redoTitle(request.getTitle(), request.getScenicId(), null);
         this.checkScenic(request.getScenicId());
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
         ticket.setMerchantId(merchantId);
@@ -68,8 +67,8 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     }
 
     @Override
-    public void updateTicket(ScenicTicketEditRequest request) {
-        this.redoTitle(request.getTitle(), SecurityHolder.getMerchantId(), request.getId());
+    public void update(ScenicTicketEditRequest request) {
+        this.redoTitle(request.getTitle(), request.getScenicId(), request.getId());
         this.checkScenic(request.getScenicId());
         ScenicTicket scenicTicket = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(scenicTicket.getMerchantId());
@@ -158,10 +157,10 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
      * @param title 门票
      * @param id    id
      */
-    private void redoTitle(String title, Long merchantId, Long id) {
+    private void redoTitle(String title, Long scenicId, Long id) {
         LambdaQueryWrapper<ScenicTicket> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ScenicTicket::getTitle, title);
-        wrapper.eq(ScenicTicket::getMerchantId, merchantId);
+        wrapper.eq(ScenicTicket::getScenicId, scenicId);
         wrapper.ne(id != null, ScenicTicket::getId, id);
         Long count = scenicTicketMapper.selectCount(wrapper);
         if (count > 0) {

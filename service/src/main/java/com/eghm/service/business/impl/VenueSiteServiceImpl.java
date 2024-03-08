@@ -57,17 +57,15 @@ public class VenueSiteServiceImpl implements VenueSiteService {
 
     @Override
     public void create(VenueSiteAddRequest request) {
-        Long merchantId = SecurityHolder.getMerchantId();
-        this.redoTitle(request.getTitle(), merchantId, request.getVenueId(), null);
+        this.redoTitle(request.getTitle(), request.getVenueId(), null);
         VenueSite venueSite = DataUtil.copy(request, VenueSite.class);
-        venueSite.setMerchantId(merchantId);
+        venueSite.setMerchantId(SecurityHolder.getMerchantId());
         venueSiteMapper.insert(venueSite);
     }
 
     @Override
     public void update(VenueSiteEditRequest request) {
-        Long merchantId = SecurityHolder.getMerchantId();
-        this.redoTitle(request.getTitle(), merchantId, request.getVenueId(), request.getId());
+        this.redoTitle(request.getTitle(), request.getVenueId(), request.getId());
         VenueSite required = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(required.getMerchantId());
 
@@ -153,15 +151,13 @@ public class VenueSiteServiceImpl implements VenueSiteService {
      * 校验场地名称是否重复
      *
      * @param title 场地名称
-     * @param merchantId 所属商户
      * @param venueId  所属场馆id
      * @param id    id 编辑时不能为空
      */
-    private void redoTitle(String title, Long merchantId, Long venueId, Long id) {
+    private void redoTitle(String title, Long venueId, Long id) {
         LambdaQueryWrapper<VenueSite> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(VenueSite::getTitle, title);
         wrapper.eq(VenueSite::getVenueId, venueId);
-        wrapper.eq(VenueSite::getMerchantId, merchantId);
         wrapper.ne(id != null, VenueSite::getId, id);
         Long count = venueSiteMapper.selectCount(wrapper);
         if (count > 0) {

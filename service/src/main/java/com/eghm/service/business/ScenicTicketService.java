@@ -30,14 +30,14 @@ public interface ScenicTicketService {
      *
      * @param request 门票信息
      */
-    void createTicket(ScenicTicketAddRequest request);
+    void create(ScenicTicketAddRequest request);
 
     /**
      * 更新景区门票信息
      *
      * @param request 门票信息
      */
-    void updateTicket(ScenicTicketEditRequest request);
+    void update(ScenicTicketEditRequest request);
 
     /**
      * 查询门票
