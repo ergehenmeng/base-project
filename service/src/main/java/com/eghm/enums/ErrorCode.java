@@ -1739,6 +1739,11 @@ public enum ErrorCode {
     REFUND_LOG_NULL(3898, "退款信息未查询到"),
 
     /**
+     * 请勿重复退款
+     */
+    REFUND_LOG_STATE(3899, "请勿重复退款"),
+
+    /**
      * 请勿重复取消退款
      */
     REFUND_LOG_CANCEL(3900, "请勿重复取消退款"),

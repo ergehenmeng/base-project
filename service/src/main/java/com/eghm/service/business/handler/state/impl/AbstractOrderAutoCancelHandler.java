@@ -32,12 +32,14 @@ public abstract class AbstractOrderAutoCancelHandler implements OrderAutoCancelH
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void doAction(OrderCancelContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
-
+        if (order.getState() == OrderState.CLOSE) {
+            log.info("订单已关闭, 无需重复退款 [{}]", order.getOrderNo());
+            return;
+        }
         this.doProcess(order);
 
         this.after(order);
     }
-
 
     /**
      * 过期后置处理, 例如释放库存等

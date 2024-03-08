@@ -48,7 +48,7 @@ public abstract class AbstractItemOrderPayNotifyHandler implements PayNotifyHand
      */
     private void before(List<Order> orderList) {
         for (Order order : orderList) {
-            if (order.getState() != OrderState.PROGRESS) {
+            if (order.getState() != OrderState.PROGRESS && order.getState() != OrderState.UN_PAY) {
                 log.error("订单状态已更改,无须更新支付状态 [{}] [{}]", order.getOrderNo(), order.getState());
                 throw new BusinessException(ErrorCode.ORDER_PAID);
             }

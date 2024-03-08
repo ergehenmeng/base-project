@@ -1,10 +1,14 @@
 package com.eghm.service.business.handler.state.impl.item;
 
+import com.eghm.enums.ScoreType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
+import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
+import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.context.PayNotifyContext;
+import com.eghm.service.member.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +27,25 @@ import java.util.List;
 @Slf4j
 public class ItemItemOrderPayFailHandler extends AbstractItemOrderPayNotifyHandler {
 
-    public ItemItemOrderPayFailHandler(OrderService orderService) {
+    private final MemberService memberService;
+
+    public ItemItemOrderPayFailHandler(OrderService orderService, MemberService memberService) {
         super(orderService);
+        this.memberService = memberService;
     }
 
     @Override
     protected void doProcess(PayNotifyContext context, List<String> orderNoList) {
         log.error("零售异步支付失败 [{}]", context.getOrderNo());
+    }
+
+    @Override
+    protected void after(PayNotifyContext context, List<Order> orderList) {
+        for (Order order : orderList) {
+            if ((order.getState() == OrderState.UN_PAY || order.getState() == OrderState.PROGRESS) && order.getScoreAmount() > 0) {
+                memberService.updateScore(order.getMemberId(), ScoreType.PAY_CANCEL, order.getScoreAmount());
+            }
+        }
     }
 
     @Override

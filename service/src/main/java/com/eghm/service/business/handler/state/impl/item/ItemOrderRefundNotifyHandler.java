@@ -1,12 +1,10 @@
 package com.eghm.service.business.handler.state.impl.item;
 
+import com.eghm.dto.business.account.score.ScoreAccountDTO;
 import com.eghm.enums.ScoreType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
-import com.eghm.enums.ref.CloseType;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
-import com.eghm.enums.ref.RefundState;
+import com.eghm.enums.ref.*;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
@@ -35,13 +33,16 @@ public class ItemOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
 
     private final OrderRefundLogService orderRefundLogService;
 
+    private final ScoreAccountService scoreAccountService;
+
     public ItemOrderRefundNotifyHandler(MemberService memberService, OrderService orderService, OrderRefundLogService orderRefundLogService, AggregatePayService aggregatePayService,
                                         VerifyLogService verifyLogService, ItemSkuService itemSkuService, ItemOrderService itemOrderService,
-                                        AccountService accountService) {
+                                        AccountService accountService, ScoreAccountService scoreAccountService) {
         super(orderService, accountService, orderRefundLogService, aggregatePayService, verifyLogService);
         this.memberService = memberService;
         this.itemSkuService = itemSkuService;
         this.itemOrderService = itemOrderService;
+        this.scoreAccountService = scoreAccountService;
         this.orderRefundLogService = orderRefundLogService;
     }
 
@@ -59,7 +60,15 @@ public class ItemOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
         ItemOrder itemOrder = itemOrderService.selectById(refundLog.getItemOrderId());
         // 退款完成库存增加
         itemSkuService.updateStock(itemOrder.getSkuId(), refundLog.getNum());
-        memberService.updateScore(itemOrder.getMemberId(), ScoreType.REFUND, order.getScoreAmount());
+        if (order.getScoreAmount() > 0) {
+            memberService.updateScore(itemOrder.getMemberId(), ScoreType.REFUND, order.getScoreAmount());
+            ScoreAccountDTO dto = new ScoreAccountDTO();
+            dto.setTradeNo(order.getOrderNo());
+            dto.setAmount(order.getScoreAmount());
+            dto.setMerchantId(order.getMerchantId());
+            dto.setChargeType(ChargeType.ORDER_REFUND);
+            scoreAccountService.updateAccount(dto);
+        }
     }
 
     @Override

@@ -67,7 +67,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
             }
             if (order.getScoreAmount() > 0) {
                 ScoreAccountDTO dto = new ScoreAccountDTO();
-                dto.setTradeNo(context.getTradeNo());
+                dto.setTradeNo(order.getOrderNo());
                 dto.setAmount(order.getScoreAmount());
                 dto.setMerchantId(order.getMerchantId());
                 dto.setChargeType(ChargeType.ORDER_PAY);

@@ -69,7 +69,7 @@ public abstract class AbstractOrderCancelHandler implements OrderCancelHandler, 
      * @param order 订单信息
      */
     protected void before(Order order) {
-        if (order.getState() != OrderState.UN_PAY) {
+        if (order.getState() != OrderState.UN_PAY && order.getState() != OrderState.PROGRESS) {
             log.error("订单状态不是待支付 [{}] [{}]", order.getId(), order.getState());
             throw new BusinessException(ErrorCode.ORDER_PAID);
         }
