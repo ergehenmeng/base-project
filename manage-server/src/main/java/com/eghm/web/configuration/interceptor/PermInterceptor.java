@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,7 +32,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @AllArgsConstructor
 public class PermInterceptor implements InterceptorAdapter {
 
-    private static final Map<String, String> PERM_MAP = new ConcurrentHashMap<>(256);
+    private static final Map<String, List<String>> PERM_MAP = new ConcurrentHashMap<>(256);
 
     private final SysMenuService sysMenuService;
 
@@ -42,7 +43,9 @@ public class PermInterceptor implements InterceptorAdapter {
         for (SysMenu menu : selectList) {
             if (StrUtil.isNotBlank(menu.getSubPath())) {
                 for (String subUrl : StringUtils.tokenizeToStringArray(menu.getSubPath(), ",; ")) {
-                    PERM_MAP.put(subUrl, menu.getCode());
+                    List<String> codeList = PERM_MAP.getOrDefault(subUrl, new ArrayList<>(8));
+                    codeList.add(menu.getCode());
+                    PERM_MAP.put(subUrl, codeList);
                 }
             }
         }
@@ -68,7 +71,8 @@ public class PermInterceptor implements InterceptorAdapter {
     private boolean match(HttpServletRequest request) {
         UserToken userToken = SecurityHolder.getUserRequired();
         List<String> codeList = userToken.getAuthList();
-        String code = PERM_MAP.get(request.getRequestURI());
-        return CollUtil.isNotEmpty(codeList) && codeList.contains(code);
+        List<String> codes = PERM_MAP.get(request.getRequestURI());
+
+        return CollUtil.isNotEmpty(codeList) && CollUtil.isNotEmpty(codes) && CollUtil.containsAny(codeList, codes);
     }
 }

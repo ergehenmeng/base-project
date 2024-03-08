@@ -33,7 +33,7 @@
 
     <select id="getList" resultType="com.eghm.vo.menu.MenuResponse">
         SELECT
-        t.id, t.title, t.code, t.pid, t.path, t.sort, t.grade
+        t.id, t.title, t.code, t.pid, t.path, t.sub_path, t.sort, t.grade
         from sys_menu t where t.state = true
     </select>
 

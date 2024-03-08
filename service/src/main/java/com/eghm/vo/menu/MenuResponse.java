@@ -1,6 +1,7 @@
 package com.eghm.vo.menu;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @since 2022/9/7
  */
 @Data
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class MenuResponse {
 
     @ApiModelProperty("id主键")
@@ -24,6 +26,9 @@ public class MenuResponse {
 
     @ApiModelProperty("菜单地址")
     private String path;
+
+    @ApiModelProperty("按钮地址")
+    private String subPath;
 
     @ApiModelProperty("菜单级别 1:导航 2:按钮")
     private Integer grade;

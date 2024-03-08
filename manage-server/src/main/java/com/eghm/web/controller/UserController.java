@@ -1,6 +1,7 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
@@ -83,6 +84,7 @@ public class UserController {
 
     @GetMapping(value = "/lockScreen", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("锁屏")
+    @SkipPerm
     public RespBody<Void> lockScreen() {
         UserToken user = SecurityHolder.getUserRequired();
         cacheService.setValue(CacheConstant.LOCK_SCREEN + user.getId(), true, CommonConstant.MAX_LOCK_SCREEN);
@@ -91,6 +93,7 @@ public class UserController {
 
     @PostMapping(value = "/unlockScreen", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("解锁屏幕")
+    @SkipPerm
     public RespBody<Void> unlockScreen(@RequestBody @Validated CheckPwdRequest request) {
         Long userId = SecurityHolder.getUserId();
         sysUserService.checkPassword(userId, request.getPwd());
