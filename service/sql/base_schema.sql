@@ -44,11 +44,11 @@ CREATE TABLE `banner`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `title`       varchar(50)         DEFAULT NULL COMMENT '标题信息',
-    `classify`    tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图类型:由system_dict的banner_classify维护(不同模块的轮播均在该表中维护)',
+    `banner_type` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图类型:由system_dict的banner_classify维护(不同模块的轮播均在该表中维护)',
     `client_type` varchar(20)         DEFAULT 'PC' COMMENT '客户端类型 PC ANDROID IOS H5',
     `img_url`     varchar(200)        NOT NULL COMMENT '轮播图片地址',
     `jump_url`    varchar(200)        DEFAULT NULL COMMENT '轮播图点击后跳转的URL',
-    `sort`        tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图顺序(大<->小) 最大的在最前面',
+    `sort`        tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图顺序(小<->大) 最小的在最前面',
     `start_time`  datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '开始展示时间(可在指定时间后开始展示)',
     `end_time`    datetime            DEFAULT NULL COMMENT '取消展示的时间(只在某个时间段展示)',
     `click`       bit(1)              DEFAULT b'1' COMMENT '是否可点击 0:否 1:可以',
@@ -57,7 +57,7 @@ CREATE TABLE `banner`
     `deleted`     bit(1)              DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     `remark`      varchar(200)        DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `type_client_type_index` (`classify`, `client_type`) USING BTREE COMMENT '组合索引'
+    KEY `type_client_type_index` (`banner_type`, `client_type`) USING BTREE COMMENT '组合索引'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='轮播图表';
 

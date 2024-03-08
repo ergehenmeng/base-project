@@ -24,15 +24,6 @@ public interface BannerService {
     Page<Banner> getByPage(BannerQueryRequest request);
 
     /**
-     * 根据客户端类型及模板获取轮播图信息
-     *
-     * @param channel  客户端类型
-     * @param classify banner所属模块,数据字典的值
-     * @return 轮播图列表
-     */
-    List<Banner> getBanner(Channel channel, Integer classify);
-
-    /**
      * 主键查询
      *
      * @param id id

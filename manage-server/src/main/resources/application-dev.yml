@@ -43,6 +43,7 @@ system:
   manage:
     token:
       jwt-secret: xC&ln9Q5pNn11RXUr7s#Owzm4nK16wGB3PTnM6OI@b51Q9NUrQTrTIQU6r&UTT9O
+      mock-token: 2508126405de4d85b5c94e94b6c05de6
   # 支付宝支付配置
   ali-pay:
     notify-host: https://localhost:8080

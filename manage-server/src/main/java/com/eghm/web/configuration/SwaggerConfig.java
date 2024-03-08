@@ -1,16 +1,25 @@
 package com.eghm.web.configuration;
 
+import com.eghm.configuration.SystemProperties;
 import com.google.common.collect.Sets;
+import lombok.AllArgsConstructor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static springfox.documentation.builders.RequestHandlerSelectors.basePackage;
 
@@ -22,7 +31,11 @@ import static springfox.documentation.builders.RequestHandlerSelectors.basePacka
 @Configuration
 @EnableSwagger2WebMvc
 @Profile({"dev", "test"})
+@AllArgsConstructor
+@EnableConfigurationProperties(SystemProperties.class)
 public class SwaggerConfig {
+
+    private final SystemProperties systemProperties;
 
     @Bean
     public Docket docket() {
@@ -41,7 +54,28 @@ public class SwaggerConfig {
                 .select()
                 .apis(basePackage("com.eghm.web.controller"))
                 .paths(PathSelectors.any())
+                .build().globalOperationParameters(setParameterList());
+    }
+
+    /**
+     * 设置默认token
+     *
+     * @return 请求头信息
+     */
+    private List<Parameter> setParameterList() {
+        ParameterBuilder tokenParameter = new ParameterBuilder();
+        List<Parameter> params = new ArrayList<>();
+
+        SystemProperties.ManageProperties.Token token = systemProperties.getManage().getToken();
+        tokenParameter.name(token.getHeader())
+                .description("令牌")
+                .modelRef(new ModelRef("string"))
+                .parameterType("header")
+                .required(true)
+                .defaultValue(token.getPrefix() + token.getMockToken())
                 .build();
+        params.add(tokenParameter.build());
+        return params;
     }
 
 }

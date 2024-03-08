@@ -4,6 +4,7 @@ import com.eghm.enums.Channel;
 import com.eghm.enums.EmailType;
 import com.eghm.model.*;
 import com.eghm.vo.auth.AuthConfigVO;
+import com.eghm.vo.banner.BannerVO;
 import com.eghm.vo.business.item.ItemTagResponse;
 import com.eghm.vo.sys.SysAreaVO;
 
@@ -49,10 +50,10 @@ public interface CacheProxyService {
      * 根据客户端类型及模板获取轮播图信息
      *
      * @param channel  客户端类型
-     * @param classify banner所属模块,数据字典的值
+     * @param bannerType banner所属模块,数据字典的值
      * @return 轮播图列表
      */
-    List<Banner> getBanner(Channel channel, Integer classify);
+    List<BannerVO> getBanner(Channel channel, Integer bannerType);
 
     /**
      * 根据邮件模板code获取

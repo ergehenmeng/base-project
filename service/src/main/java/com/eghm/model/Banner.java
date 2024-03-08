@@ -25,7 +25,7 @@ public class Banner extends BaseEntity {
     private String title;
 
     @ApiModelProperty("轮播图类型:由sys_dict的banner_type维护(不同模块的轮播均在该表中维护)")
-    private Integer classify;
+    private Integer bannerType;
 
     @ApiModelProperty("客户端类型: PC,IOS,ANDROID,H5,WECHAT_MINI")
     private String clientType;

@@ -20,9 +20,6 @@ public class BannerVO {
     private Boolean click;
 
     @ApiModelProperty("点击跳转的url")
-    private String turnUrl;
-
-    @ApiModelProperty("多图时排序规则大<->小")
-    private Integer sort;
+    private String jumpUrl;
 
 }

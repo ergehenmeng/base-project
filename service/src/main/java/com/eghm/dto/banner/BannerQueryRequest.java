@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class BannerQueryRequest extends PagingQuery {
 
     @ApiModelProperty("轮播图类型")
-    private Integer classify;
+    private Integer bannerType;
 
     @ApiModelProperty("客户端类型 PC, ANDROID, IOS, H5, WECHAT ")
     private String clientType;

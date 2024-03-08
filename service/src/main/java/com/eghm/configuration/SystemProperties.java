@@ -1,5 +1,6 @@
 package com.eghm.configuration;
 
+import com.eghm.enums.Channel;
 import com.eghm.enums.Env;
 import com.eghm.enums.TokenType;
 import lombok.Data;
@@ -172,6 +173,11 @@ public class SystemProperties {
              * token加密秘钥(jwt专用)
              */
             private String jwtSecret;
+
+            /**
+             * 模拟登录的token
+             */
+            private String mockToken;
         }
     }
 
@@ -187,6 +193,16 @@ public class SystemProperties {
          * 加密秘钥,用于数据库字段加密
          */
         private String secretKey = "7ec9ebaf378217d94df28342a4ff007b";
+
+        /**
+         * 模拟登录的token
+         */
+        private String mockToken;
+
+        /**
+         * 模拟登录的渠道
+         */
+        private Channel mockChannel = Channel.WECHAT;
 
     }
 

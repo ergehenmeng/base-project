@@ -3,7 +3,6 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.freeze.AccountFreezeDTO;
 import com.eghm.dto.business.freeze.AccountFreezeQueryRequest;
-import com.eghm.dto.business.freeze.CompleteChangeDTO;
 import com.eghm.dto.business.freeze.RefundChangeDTO;
 import com.eghm.model.AccountFreezeLog;
 import com.eghm.vo.business.freeze.AccountFreezeLogResponse;

@@ -11,6 +11,7 @@ import com.eghm.model.*;
 import com.eghm.service.business.ItemTagService;
 import com.eghm.service.cache.CacheProxyService;
 import com.eghm.vo.auth.AuthConfigVO;
+import com.eghm.vo.banner.BannerVO;
 import com.eghm.vo.business.item.ItemTagResponse;
 import com.eghm.vo.sys.SysAreaVO;
 import lombok.AllArgsConstructor;
@@ -90,9 +91,9 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.BANNER, cacheManager = "longCacheManager", key = "#channel.name() + #classify", unless = "#result.size() == 0")
-    public List<Banner> getBanner(Channel channel, Integer classify) {
-        return bannerMapper.getBannerList(classify, channel.name());
+    @Cacheable(cacheNames = CacheConstant.BANNER, cacheManager = "longCacheManager", key = "#channel.name() + #bannerType", unless = "#result.size() == 0")
+    public List<BannerVO> getBanner(Channel channel, Integer bannerType) {
+        return bannerMapper.getBannerList(bannerType, channel.name());
     }
 
     @Override

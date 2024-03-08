@@ -7,15 +7,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.banner.BannerAddRequest;
 import com.eghm.dto.banner.BannerEditRequest;
 import com.eghm.dto.banner.BannerQueryRequest;
-import com.eghm.enums.Channel;
 import com.eghm.mapper.BannerMapper;
 import com.eghm.model.Banner;
 import com.eghm.service.common.BannerService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -30,17 +27,12 @@ public class BannerServiceImpl implements BannerService {
     @Override
     public Page<Banner> getByPage(BannerQueryRequest request) {
         LambdaQueryWrapper<Banner> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(request.getClassify() != null, Banner::getClassify, request.getClassify());
+        wrapper.eq(request.getBannerType() != null, Banner::getBannerType, request.getBannerType());
         wrapper.eq(StrUtil.isNotBlank(request.getClientType()), Banner::getClientType, request.getClientType());
         wrapper.and(request.getMiddleTime() != null, queryWrapper ->
                 queryWrapper.le(Banner::getStartTime, request.getMiddleTime()).ge(Banner::getEndTime, request.getMiddleTime()));
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Banner::getTitle, request.getQueryName());
         return bannerMapper.selectPage(request.createPage(), wrapper);
-    }
-
-    @Override
-    public List<Banner> getBanner(Channel channel, Integer classify) {
-        return bannerMapper.getBannerList(classify, channel.name());
     }
 
     @Override

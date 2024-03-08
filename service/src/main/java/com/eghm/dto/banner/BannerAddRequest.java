@@ -27,7 +27,7 @@ public class BannerAddRequest {
 
     @ApiModelProperty(value = "轮博图类型(数据字典)", required = true)
     @NotNull(message = "轮博图类型不能为空")
-    private Integer classify;
+    private Integer bannerType;
 
     /**
      * 客户端类型 {@link Channel}
@@ -43,7 +43,7 @@ public class BannerAddRequest {
     @ApiModelProperty(value = "点击后跳转的地址")
     private String jumpUrl;
 
-    @ApiModelProperty(value = "排序规则 大<->小 最大的在最前面", required = true)
+    @ApiModelProperty(value = "排序规则 小<->大 最小的在最前面", required = true)
     @NotNull(message = "排序不能为空")
     private Integer sort;
 

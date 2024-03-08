@@ -3,9 +3,7 @@ package com.eghm.web.controller;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.Channel;
-import com.eghm.model.Banner;
 import com.eghm.service.cache.CacheProxyService;
-import com.eghm.utils.DataUtil;
 import com.eghm.vo.banner.BannerVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -33,10 +31,10 @@ public class BannerController {
 
     @GetMapping("/list")
     @ApiOperation("查询可用的轮播图列表")
-    @ApiImplicitParam(name = "classify", value = "轮播图分类id")
-    public RespBody<List<BannerVO>> list(@RequestParam("classify") Integer classify) {
-        List<Banner> bannerList = cacheProxyService.getBanner(Channel.valueOf(ApiHolder.getChannel()), classify);
-        return RespBody.success(DataUtil.copy(bannerList, BannerVO.class));
+    @ApiImplicitParam(name = "bannerType", value = "轮播图分类id")
+    public RespBody<List<BannerVO>> list(@RequestParam("bannerType") Integer bannerType) {
+        List<BannerVO> bannerList = cacheProxyService.getBanner(Channel.valueOf(ApiHolder.getChannel()), bannerType);
+        return RespBody.success(bannerList);
     }
 
 }
