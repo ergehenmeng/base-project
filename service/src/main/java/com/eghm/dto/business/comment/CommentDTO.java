@@ -28,7 +28,7 @@ public class CommentDTO {
     @NotNull(message = "评论对象id不能为空")
     private Long objectId;
 
-    @ApiModelProperty(value = "评论对象类型", required = true)
+    @ApiModelProperty(value = "评论对象类型 (1:资讯 2:活动)", required = true)
     @NotNull(message = "评论对象类型不能为空")
     private ObjectType objectType;
 

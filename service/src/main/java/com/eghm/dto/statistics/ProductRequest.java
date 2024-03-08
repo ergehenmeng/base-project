@@ -27,6 +27,6 @@ public class ProductRequest {
     @NotNull(message = "截止日期不能为空")
     private LocalDate endDate;
 
-    @ApiModelProperty("商品类型")
+    @ApiModelProperty("商品类型 ticket:门票 homestay:民宿 restaurant:餐饮券 item:零售 line:线路 venue:场馆")
     private ProductType productType;
 }

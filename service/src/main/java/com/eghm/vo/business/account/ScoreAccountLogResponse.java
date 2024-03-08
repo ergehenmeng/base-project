@@ -29,7 +29,7 @@ public class ScoreAccountLogResponse extends ExcelStyle {
     @ExcelProperty(value = "商户名称", index = 0)
     private String merchantName;
 
-    @ApiModelProperty(value = "积分变动类型")
+    @ApiModelProperty(value = "积分变动类型 (1:充值 2:支付收入 3:支付退款 4:抽奖支出 5:提现支出 6:关注赠送 7: 提现失败)")
     @ExcelProperty(value = "积分变动类型", index = 1, converter = EnumExcelConverter.class)
     private ChargeType chargeType;
 
@@ -37,7 +37,7 @@ public class ScoreAccountLogResponse extends ExcelStyle {
     @ExcelProperty(value = "变动积分", index = 2)
     private Integer amount;
 
-    @ApiModelProperty(value = "1:收入 2:支出")
+    @ApiModelProperty(value = "收支类型 1:收入 2:支出")
     @ExcelProperty(value = "收支类型", index = 3, converter = EnumExcelConverter.class)
     private DirectionType direction;
 

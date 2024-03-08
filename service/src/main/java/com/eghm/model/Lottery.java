@@ -39,7 +39,7 @@ public class Lottery extends BaseEntity {
     @ApiModelProperty(value = "结束时间")
     private LocalDateTime endTime;
 
-    @ApiModelProperty(value = "活动状态")
+    @ApiModelProperty(value = "活动状态 0:未开始 1:进行中 2:已结束")
     private LotteryState state;
 
     @ApiModelProperty(value = "单日抽奖次数限制")

@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2023/12/20
  */
 @RestController
-@Api(tags = "poi类线路")
+@Api(tags = "poi线路")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/poi/line", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PoiLineController {

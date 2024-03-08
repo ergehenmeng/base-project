@@ -22,7 +22,7 @@ public class ScoreAccountLog extends BaseEntity {
     @ApiModelProperty(value = "商户id")
     private Long merchantId;
 
-    @ApiModelProperty(value = "积分变动类型")
+    @ApiModelProperty(value = "积分变动类型(1:充值 2:支付收入 3:支付退款 4:抽奖支出 5:提现支出 6:关注赠送 7: 提现失败)")
     private ChargeType chargeType;
 
     @ApiModelProperty(value = "变动积分")

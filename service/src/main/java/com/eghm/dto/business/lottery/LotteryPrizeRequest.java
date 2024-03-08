@@ -22,7 +22,7 @@ public class LotteryPrizeRequest {
     @WordChecker(message = "奖品名称存在敏感词")
     private String prizeName;
 
-    @ApiModelProperty(value = "奖品类型", required = true)
+    @ApiModelProperty(value = "奖品类型 0:谢谢餐饮 1:优惠券 2:积分", required = true)
     @NotNull(message = "奖品类型不能为空")
     private PrizeType prizeType;
 

@@ -29,7 +29,7 @@ public class MemberCoupon extends BaseEntity {
     @ApiModelProperty(value = "用户id")
     private Long memberId;
 
-    @ApiModelProperty(value = "使用状态")
+    @ApiModelProperty(value = "使用状态 0:未使用 1:已使用 2:已过期")
     private CouponState state;
 
     @ApiModelProperty(value = "领取时间")

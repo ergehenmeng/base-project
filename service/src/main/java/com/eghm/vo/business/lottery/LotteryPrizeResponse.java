@@ -17,7 +17,7 @@ public class LotteryPrizeResponse {
     @ApiModelProperty(value = "奖品名称")
     private String prizeName;
 
-    @ApiModelProperty(value = "奖品类型")
+    @ApiModelProperty(value = "奖品类型 0:谢谢餐饮 1:优惠券 2:积分")
     private PrizeType prizeType;
 
     @ApiModelProperty(value = "奖品总数量")

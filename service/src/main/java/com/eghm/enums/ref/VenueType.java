@@ -32,57 +32,57 @@ public enum VenueType implements EnumBinder {
     /**
      * 羽毛馆
      */
-    BADMINTON(4, "羽毛球馆"),
+    BADMINTON(3, "羽毛球馆"),
 
     /**
      * 乒乓球馆
      */
-    PING_PONG(5, "乒乓球馆"),
+    PING_PONG(4, "乒乓球馆"),
 
     /**
      * 游泳馆
      */
-    SWIMMING(6, "游泳馆"),
+    SWIMMING(5, "游泳馆"),
 
     /**
      * 健身馆
      */
-    GYM(7, "健身馆"),
+    GYM(6, "健身馆"),
 
     /**
      * 瑜伽馆
      */
-    YOGA(8, "瑜伽馆"),
+    YOGA(7, "瑜伽馆"),
 
     /**
      * 羽毛馆
      */
-    BOWLING(9, "保龄馆"),
+    BOWLING(8, "保龄馆"),
 
     /**
      * 足球馆
      */
-    FOOTBALL(10, "足球馆"),
+    FOOTBALL(9, "足球馆"),
 
     /**
      * 排球馆
      */
-    VOLLEYBALL(11, "排球馆"),
+    VOLLEYBALL(10, "排球馆"),
 
     /**
      * 田径馆
      */
-    ATHLETICS(12, "田径馆"),
+    ATHLETICS(11, "田径馆"),
 
     /**
      * 综合馆
      */
-    GYMNASIUM(13, "综合馆"),
+    GYMNASIUM(12, "综合馆"),
 
     /**
      * 跆拳道馆
      */
-    TAEKWONDO(14, "跆拳道馆");
+    TAEKWONDO(13, "跆拳道馆");
 
 
     /**

@@ -39,10 +39,10 @@ public class CouponResponse {
     @ApiModelProperty(value = "已使用数量")
     private Integer useNum;
 
-    @ApiModelProperty(value = "领取方式")
+    @ApiModelProperty(value = "领取方式 (1:页面领取 2:手动发放)")
     private CouponMode mode;
 
-    @ApiModelProperty(value = "优惠券类型")
+    @ApiModelProperty(value = "优惠券类型 (1:抵扣券 2:折扣券)")
     private CouponType couponType;
 
     @ApiModelProperty("店铺名称")

@@ -20,7 +20,8 @@ public class LotteryConfigRequest {
     @NotBlank(message = "请选择奖品")
     private Integer prizeIndex;
 
-    @ApiModelProperty(value = "奖品类型不能为空", required = true)
+    @ApiModelProperty(value = "奖品类型 0:谢谢餐饮 1:优惠券 2:积分", required = true)
+    @NotNull(message = "奖品类型不能为空")
     private PrizeType prizeType;
 
     @ApiModelProperty(value = "中奖位置 1-8", required = true)

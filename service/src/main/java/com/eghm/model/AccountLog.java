@@ -22,7 +22,7 @@ public class AccountLog extends BaseEntity {
     @ApiModelProperty(value = "商户id")
     private Long merchantId;
 
-    @ApiModelProperty(value = "资金变动类型")
+    @ApiModelProperty(value = "资金变动类型(1:订单收入 2:订单退款 3:积分提现收入 4:提现支出 5:积分充值支出)")
     private AccountType accountType;
 
     @ApiModelProperty(value = "变动金额")

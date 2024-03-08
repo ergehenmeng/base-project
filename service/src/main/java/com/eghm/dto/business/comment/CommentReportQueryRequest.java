@@ -19,7 +19,7 @@ public class CommentReportQueryRequest extends PagingQuery {
     @ApiModelProperty("评论id")
     private Long commentId;
 
-    @ApiModelProperty("对象类型")
+    @ApiModelProperty("对象类型 (1:资讯 2:活动)")
     private ObjectType objectType;
 
     @ApiModelProperty(value = "举报类型")

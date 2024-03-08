@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2023/12/20
  */
 @RestController
-@Api(tags = "poi点位信息")
+@Api(tags = "poi点位")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/poi/point", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PoiPointController {

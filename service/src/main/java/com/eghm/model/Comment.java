@@ -34,7 +34,7 @@ public class Comment extends BaseEntity {
     @ApiModelProperty("置顶状态 0:未置顶 1:置顶")
     private Integer topState;
 
-    @ApiModelProperty(value = "评论对象类型")
+    @ApiModelProperty(value = "评论对象类型 (1:资讯 2:活动)")
     private ObjectType objectType;
 
     @ApiModelProperty(value = "点赞数量")

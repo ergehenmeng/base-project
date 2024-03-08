@@ -40,7 +40,7 @@ public class CommentResponse {
     @ApiModelProperty("被举报次数")
     private Integer reportNum;
 
-    @ApiModelProperty("评论对象id")
+    @ApiModelProperty("评论对象类型 (1:资讯 2:活动)")
     private ObjectType objectType;
 
     @ApiModelProperty(value = "评论信息")

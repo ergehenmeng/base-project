@@ -28,7 +28,7 @@ public class OrderEvaluation extends BaseEntity {
     @ApiModelProperty("店铺id")
     private Long storeId;
 
-    @ApiModelProperty(value = "商品类型")
+    @ApiModelProperty(value = "商品类型 ticket:门票 homestay:民宿 restaurant:餐饮券 item:零售 line:线路 venue:场馆")
     private ProductType productType;
 
     @ApiModelProperty(value = "商品")

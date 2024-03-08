@@ -42,7 +42,7 @@ public class CouponAddRequest {
     @OptionInt(value = {1, 2}, message = "领取方式非法")
     private Integer mode;
 
-    @ApiModelProperty(value = "优惠券类型", required = true)
+    @ApiModelProperty(value = "优惠券类型 1:抵扣券 2:折扣券", required = true)
     @NotNull(message = "请选择优惠券类型")
     private CouponType couponType;
 

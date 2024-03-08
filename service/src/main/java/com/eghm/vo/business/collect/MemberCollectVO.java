@@ -25,7 +25,7 @@ public class MemberCollectVO {
     @ApiModelProperty(value = "收藏id")
     private Long collectId;
 
-    @ApiModelProperty(value = "收藏对象类型")
+    @ApiModelProperty(value = "收藏对象类型(1:景区 2:民宿 3:零售门店 4:零售商品 5: 线路商品 6:餐饮门店 7:资讯 8:旅行社)")
     private CollectType collectType;
 
     @ApiModelProperty("景区信息")

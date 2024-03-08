@@ -58,7 +58,7 @@ public class VenueOrderResponse {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime closeTime;
 
-    @ApiModelProperty(value = "订单关闭方式")
+    @ApiModelProperty(value = "订单关闭方式 (1:订单自动过期 2:用户取消 3:退款成功)")
     private CloseType closeType;
 
 }

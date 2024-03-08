@@ -31,7 +31,7 @@ public class CouponScope {
     @ApiModelProperty(value = "优惠券id")
     private Long couponId;
 
-    @ApiModelProperty(value = "商品类型")
+    @ApiModelProperty(value = "商品类型 ticket:门票 homestay:民宿 restaurant:餐饮券 item:零售 line:线路 venue:场馆")
     private ProductType productType;
 
     @ApiModelProperty(value = "商品id")

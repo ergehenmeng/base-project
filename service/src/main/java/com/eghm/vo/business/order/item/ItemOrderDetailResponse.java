@@ -65,7 +65,7 @@ public class ItemOrderDetailResponse {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime closeTime;
 
-    @ApiModelProperty("订单关闭类型 1:过期自动取消 2:用户取消 3:")
+    @ApiModelProperty("订单关闭类型 1:过期自动取消 2:用户取消 3:退款成功")
     private CloseType closeType;
 
     @ApiModelProperty("订单备注信息")

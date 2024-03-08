@@ -16,7 +16,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class CommentQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("对象类型")
+    @ApiModelProperty("对象类型 (1:资讯 2:活动)")
     private ObjectType objectType;
 
     @ApiModelProperty("状态 false:已屏蔽 true:正常")

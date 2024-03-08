@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class AccountQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("资金类型")
+    @ApiModelProperty("资金类型(1:订单收入 2:订单退款 3:积分提现收入 4:提现支出 5:积分充值支出)")
     private AccountType accountType;
 
     @ApiModelProperty(value = "1:收入 2:支出")

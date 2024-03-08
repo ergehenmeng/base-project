@@ -26,7 +26,7 @@ public class ReceiveCouponDTO {
     @Assign
     private Integer num;
 
-    @ApiModelProperty(value = "领取方式", hidden = true)
+    @ApiModelProperty(value = "领取方式 1:页面领取 2:手动发放", hidden = true)
     @Assign
     private CouponMode mode;
 

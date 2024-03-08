@@ -27,7 +27,7 @@ public class VenueResponse extends ExcelStyle {
     @ExcelProperty(value = "场馆名称", index = 0)
     private String title;
 
-    @ApiModelProperty(value = "场馆类型")
+    @ApiModelProperty(value = "场馆类型 (1:篮球馆 2:网球馆 3:羽毛球馆 4:乒乓球馆 5:游泳馆 6:健身馆 7:瑜伽馆 8:保龄馆 9:足球馆 10:排球馆 11:田径馆 12:综合馆 13:跆拳道馆)")
     @ExcelProperty(value = "场馆类型", index = 1, converter = EnumExcelConverter.class)
     private VenueType venueType;
 

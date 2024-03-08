@@ -24,7 +24,7 @@ public class BaseStoreResponse {
     @ApiModelProperty("店铺名称")
     private String coverUrl;
 
-    @ApiModelProperty("商户类型")
+    @ApiModelProperty("店铺类型 ticket:门票 homestay:民宿 restaurant:餐饮券 item:零售 line:线路 venue:场馆")
     private ProductType productType;
 
     @ApiModelProperty("商户名称")

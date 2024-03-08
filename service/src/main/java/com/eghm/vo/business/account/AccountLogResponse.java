@@ -30,7 +30,7 @@ public class AccountLogResponse extends ExcelStyle {
     @ExcelProperty(value = "商户名称", index = 0)
     private String merchantName;
 
-    @ApiModelProperty(value = "资金变动类型")
+    @ApiModelProperty(value = "资金变动类型 (1:订单收入 2:订单退款 3:积分提现收入 4:提现支出 5:积分充值支出)")
     @ExcelProperty(value = "资金变动类型", index = 1)
     private AccountType accountType;
 
@@ -38,7 +38,7 @@ public class AccountLogResponse extends ExcelStyle {
     @ExcelProperty(value = "变动金额", index = 2, converter = CentToYuanConverter.class)
     private Integer amount;
 
-    @ApiModelProperty(value = "收支类型")
+    @ApiModelProperty(value = "收支类型 1:收入 2:支出")
     @ExcelProperty(value = "收支类型", index = 3, converter = EnumExcelConverter.class)
     private DirectionType direction;
 

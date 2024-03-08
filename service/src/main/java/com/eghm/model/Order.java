@@ -49,7 +49,7 @@ public class Order extends BaseEntity {
     @ApiModelProperty(value = "数量")
     private Integer num;
 
-    @ApiModelProperty(value = "商品类型")
+    @ApiModelProperty(value = "商品类型 ticket:门票 homestay:民宿 restaurant:餐饮券 item:零售 line:线路 venue:场馆")
     private ProductType productType;
 
     @ApiModelProperty("是否为多订单,普通商品且购物车购买才可能是多订单,即一个订单对应多商品")
@@ -61,7 +61,7 @@ public class Order extends BaseEntity {
     @ApiModelProperty("退款描述信息")
     private String refundDescribe;
 
-    @ApiModelProperty("配送方式")
+    @ApiModelProperty("配送方式 0:无需发货 1:快递包邮 2:自提")
     private DeliveryType deliveryType;
 
     @ApiModelProperty("支付流水号")
@@ -76,7 +76,7 @@ public class Order extends BaseEntity {
     @ApiModelProperty("当前订单所处的退款状态 1:退款申请中 2: 退款中 3: 退款拒绝 4: 退款成功 5: 退款失败(该状态和退款中在C端用户看来都是退款中) 6: 线下退款(该状态与退款成功在C端用户看来是一样的)")
     private RefundState refundState;
 
-    @ApiModelProperty("关闭类型")
+    @ApiModelProperty("关闭类型 (1:订单自动过期 2:用户取消 3:退款成功)")
     private CloseType closeType;
 
     @ApiModelProperty("是否已评价")

@@ -35,6 +35,6 @@ public class ProductSnapshotVO {
     @ApiModelProperty(value = "商品图片")
     private String productCover;
 
-    @ApiModelProperty("订单类型")
+    @ApiModelProperty("订单类型 ticket:门票 homestay:民宿 restaurant:餐饮券 item:零售 line:线路 venue:场馆")
     private ProductType productType;
 }

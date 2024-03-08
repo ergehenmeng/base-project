@@ -40,7 +40,7 @@ public class ItemSpec extends BaseEntity {
     @ApiModelProperty(value = "排序")
     private Integer sort;
 
-    @ApiModelProperty(value = "标签级别 一级标签 二级标签")
+    @ApiModelProperty(value = "标签级别 1:一级标签 2:二级标签")
     private SpecLevel level;
 
 }
