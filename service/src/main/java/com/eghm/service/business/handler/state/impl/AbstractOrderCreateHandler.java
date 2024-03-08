@@ -62,7 +62,6 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
         return this.createOrder(context, payload);
     }
 
-
     /**
      * 下单时关联订单绑定游客信息
      *
