@@ -1894,6 +1894,16 @@ public enum ErrorCode {
     SCORE_NOT_ENOUGH(3963, "您的可用积分不足"),
 
     /**
+     * 商户资金不为零,无法注销
+     */
+    MERCHANT_HAS_FREEZE(3964, "商户资金不为零,无法注销"),
+
+    /**
+     * 商户积分不为零,无法注销
+     */
+    MERCHANT_SCORE_HAS_FREEZE(3965, "商户积分不为零,无法注销"),
+
+    /**
      * 店铺信息不存在
      */
     STORE_NOT_EXIST(4000, "店铺信息不存在"),

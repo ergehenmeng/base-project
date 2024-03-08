@@ -96,6 +96,13 @@ public class MerchantController {
         return RespBody.success();
     }
 
+    @PostMapping(value = "/logout", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("注销")
+    public RespBody<Void> logout(@RequestBody @Validated IdDTO dto) {
+        merchantService.logout(dto.getId());
+        return RespBody.success();
+    }
+
     @GetMapping("/export")
     @ApiOperation("导出")
     public void export(HttpServletResponse response, MerchantQueryRequest request) {

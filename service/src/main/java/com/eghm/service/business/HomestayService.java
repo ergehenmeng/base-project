@@ -112,4 +112,11 @@ public interface HomestayService {
      * @return 列表
      */
     Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request);
+
+    /**
+     * 注销商户的民宿
+     *
+     * @param merchantId 商户ID
+     */
+    void logout(Long merchantId);
 }

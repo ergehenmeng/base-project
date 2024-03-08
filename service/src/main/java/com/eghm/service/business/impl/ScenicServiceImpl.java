@@ -20,6 +20,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ScenicMapper;
 import com.eghm.mapper.ScenicTicketMapper;
 import com.eghm.model.Scenic;
+import com.eghm.model.ScenicTicket;
 import com.eghm.service.business.ActivityService;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.MemberCollectService;
@@ -201,6 +202,19 @@ public class ScenicServiceImpl implements ScenicService {
     @Override
     public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
         return scenicMapper.getStorePage(request.createPage(), request);
+    }
+
+    @Override
+    public void logout(Long merchantId) {
+        LambdaUpdateWrapper<Scenic> wrapper = Wrappers.lambdaUpdate();
+        wrapper.set(Scenic::getState, State.FORCE_UN_SHELVE);
+        wrapper.eq(Scenic::getMerchantId, merchantId);
+        scenicMapper.update(null, wrapper);
+
+        LambdaUpdateWrapper<ScenicTicket> updateWrapper = Wrappers.lambdaUpdate();
+        updateWrapper.set(ScenicTicket::getState, State.FORCE_UN_SHELVE);
+        updateWrapper.eq(ScenicTicket::getMerchantId, merchantId);
+        scenicTicketMapper.update(null, updateWrapper);
     }
 
     /**

@@ -113,4 +113,11 @@ public interface RestaurantService {
      * @return 列表
      */
     Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request);
+
+    /**
+     * 注销商户的餐饮店铺
+     *
+     * @param merchantId 商户ID
+     */
+    void logout(Long merchantId);
 }

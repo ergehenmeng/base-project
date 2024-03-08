@@ -15,7 +15,9 @@ import com.eghm.enums.ref.CollectType;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
+import com.eghm.mapper.LineMapper;
 import com.eghm.mapper.TravelAgencyMapper;
+import com.eghm.model.Line;
 import com.eghm.model.Merchant;
 import com.eghm.model.TravelAgency;
 import com.eghm.service.business.CommonService;
@@ -50,6 +52,8 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     private final MemberCollectService memberCollectService;
 
     private final SysAreaService sysAreaService;
+
+    private final LineMapper lineMapper;
 
     @Override
     public Page<TravelAgency> getByPage(TravelAgencyQueryRequest request) {
@@ -130,6 +134,19 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     @Override
     public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
         return travelAgencyMapper.getStorePage(request.createPage(), request);
+    }
+
+    @Override
+    public void logout(Long merchantId) {
+        LambdaUpdateWrapper<TravelAgency> wrapper = Wrappers.lambdaUpdate();
+        wrapper.set(TravelAgency::getState, State.FORCE_UN_SHELVE);
+        wrapper.eq(TravelAgency::getMerchantId, merchantId);
+        travelAgencyMapper.update(null, wrapper);
+
+        LambdaUpdateWrapper<Line> updateWrapper = Wrappers.lambdaUpdate();
+        updateWrapper.set(Line::getState, State.FORCE_UN_SHELVE);
+        updateWrapper.eq(Line::getMerchantId, merchantId);
+        lineMapper.update(null, updateWrapper);
     }
 
     @Override

@@ -132,4 +132,11 @@ public interface MerchantService {
      * @return 商户信息
      */
     MerchantAuthVO getAuth(String jsCode, String authCode);
+
+    /**
+     * 注销商户
+     *
+     * @param merchantId 商户ID
+     */
+    void logout(Long merchantId);
 }

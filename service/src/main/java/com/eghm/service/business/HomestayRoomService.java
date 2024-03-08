@@ -127,4 +127,11 @@ public interface HomestayRoomService {
      * @return 基础信息
      */
     Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request);
+
+    /**
+     * 注销商户的民宿商品
+     *
+     * @param merchantId 商户ID
+     */
+    void logout(Long merchantId);
 }

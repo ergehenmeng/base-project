@@ -435,6 +435,14 @@ public class ItemServiceImpl implements ItemService {
         return itemMapper.selectCount(wrapper) > 0;
     }
 
+    @Override
+    public void logout(Long merchantId) {
+        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
+        wrapper.set(Item::getState, State.FORCE_UN_SHELVE);
+        wrapper.eq(Item::getMerchantId, merchantId);
+        itemMapper.update(null, wrapper);
+    }
+
     /**
      * 根据规格名进行分组
      *

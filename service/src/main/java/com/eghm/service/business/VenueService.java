@@ -109,4 +109,11 @@ public interface VenueService {
      * @return 列表
      */
     Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request);
+
+    /**
+     * 注销商户的场馆
+     *
+     * @param merchantId 商户ID
+     */
+    void logout(Long merchantId);
 }

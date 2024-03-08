@@ -108,4 +108,11 @@ public interface ScenicService {
      * @return 列表
      */
     Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request);
+
+    /**
+     * 注销商户的景区
+     *
+     * @param merchantId 商户ID
+     */
+    void logout(Long merchantId);
 }

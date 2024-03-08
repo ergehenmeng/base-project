@@ -19,10 +19,11 @@ import com.eghm.enums.SmsType;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MerchantMapper;
+import com.eghm.model.Account;
 import com.eghm.model.Merchant;
+import com.eghm.model.ScoreAccount;
 import com.eghm.model.SysUser;
-import com.eghm.service.business.MerchantInitService;
-import com.eghm.service.business.MerchantService;
+import com.eghm.service.business.*;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.SmsService;
 import com.eghm.service.sys.SysRoleService;
@@ -69,6 +70,22 @@ public class MerchantServiceImpl implements MerchantService {
     private final SmsService smsService;
 
     private final WeChatMiniService weChatMiniService;
+
+    private final AccountService accountService;
+
+    private final ScoreAccountService scoreAccountService;
+
+    private final ItemStoreService itemStoreService;
+
+    private final TravelAgencyService travelAgencyService;
+
+    private final HomestayService homestayService;
+
+    private final ScenicService scenicService;
+
+    private final RestaurantService restaurantService;
+
+    private final VenueService venueService;
 
     @Override
     public Page<MerchantResponse> getByPage(MerchantQueryRequest request) {
@@ -228,6 +245,39 @@ public class MerchantServiceImpl implements MerchantService {
         return vo;
     }
 
+    @Override
+    public void logout(Long merchantId) {
+        Merchant merchant = merchantMapper.selectById(merchantId);
+        if (merchant == null) {
+            log.warn("商户可能已经注销过了 [{}]", merchantId);
+            return;
+        }
+        Account account = accountService.getAccount(merchantId);
+        if (account.getAmount() != 0 || account.getPayFreeze() != 0 || account.getWithdrawFreeze() != 0) {
+            log.error("商户[{}]有资金冻结,无法注销", merchantId);
+            throw new BusinessException(ErrorCode.MERCHANT_HAS_FREEZE);
+        }
+        ScoreAccount scoreAccount = scoreAccountService.getAccount(merchantId);
+        if (scoreAccount.getAmount() != 0 || scoreAccount.getPayFreeze() != 0 || scoreAccount.getWithdrawFreeze() != 0) {
+            log.error("商户[{}]有积分冻结,无法注销", merchantId);
+            throw new BusinessException(ErrorCode.MERCHANT_SCORE_HAS_FREEZE);
+        }
+        merchantMapper.deleteById(merchantId);
+        log.info("开始注销零售店铺 [{}]", merchantId);
+        itemStoreService.logout(merchantId);
+        log.info("开始注销餐饮店铺 [{}]", merchantId);
+        restaurantService.logout(merchantId);
+        log.info("开始注销场馆 [{}]", merchantId);
+        venueService.logout(merchantId);
+        log.info("开始注销景区 [{}]", merchantId);
+        scenicService.logout(merchantId);
+        log.info("开始注销旅游社 [{}]", merchantId);
+        travelAgencyService.logout(merchantId);
+        log.info("开始注销民宿店铺 [{}]", merchantId);
+        homestayService.logout(merchantId);
+        log.info("商户注销成功 [{}]", merchantId);
+    }
+
     /**
      * 根据授权码查询商户id
      *
@@ -320,5 +370,4 @@ public class MerchantServiceImpl implements MerchantService {
             }
         });
     }
-
 }

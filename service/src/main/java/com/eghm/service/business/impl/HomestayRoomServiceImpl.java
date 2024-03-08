@@ -155,6 +155,14 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
         return homestayRoomMapper.getProductPage(request.createPage(), request);
     }
 
+    @Override
+    public void logout(Long merchantId) {
+        LambdaUpdateWrapper<HomestayRoom> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(HomestayRoom::getMerchantId, merchantId);
+        wrapper.set(HomestayRoom::getState, State.FORCE_UN_SHELVE);
+        homestayRoomMapper.update(null, wrapper);
+    }
+
     /**
      * 同一家民宿 房型名称重复校验
      *

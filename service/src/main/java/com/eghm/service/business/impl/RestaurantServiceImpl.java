@@ -23,6 +23,7 @@ import com.eghm.mapper.RestaurantMapper;
 import com.eghm.mapper.VoucherMapper;
 import com.eghm.model.Merchant;
 import com.eghm.model.Restaurant;
+import com.eghm.model.Voucher;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.business.MerchantInitService;
@@ -174,6 +175,19 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     @Override
     public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
         return restaurantMapper.getStorePage(request.createPage(), request);
+    }
+
+    @Override
+    public void logout(Long merchantId) {
+        LambdaUpdateWrapper<Restaurant> wrapper = Wrappers.lambdaUpdate();
+        wrapper.set(Restaurant::getState, State.FORCE_UN_SHELVE);
+        wrapper.eq(Restaurant::getMerchantId, merchantId);
+        restaurantMapper.update(null, wrapper);
+
+        LambdaUpdateWrapper<Voucher> updateWrapper = Wrappers.lambdaUpdate();
+        updateWrapper.set(Voucher::getState, State.FORCE_UN_SHELVE);
+        updateWrapper.eq(Voucher::getMerchantId, merchantId);
+        voucherMapper.update(null, updateWrapper);
     }
 
     /**

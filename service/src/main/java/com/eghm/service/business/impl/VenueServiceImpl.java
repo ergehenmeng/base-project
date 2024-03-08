@@ -14,7 +14,9 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.VenueMapper;
+import com.eghm.mapper.VenueSiteMapper;
 import com.eghm.model.Venue;
+import com.eghm.model.VenueSite;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.VenueService;
 import com.eghm.utils.DataUtil;
@@ -44,6 +46,8 @@ public class VenueServiceImpl implements VenueService {
     private final VenueMapper venueMapper;
 
     private final CommonService commonService;
+
+    private final VenueSiteMapper venueSiteMapper;
 
     @Override
     public Page<VenueResponse> listPage(VenueQueryRequest request) {
@@ -131,6 +135,19 @@ public class VenueServiceImpl implements VenueService {
     @Override
     public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
         return venueMapper.getStorePage(request.createPage(), request);
+    }
+
+    @Override
+    public void logout(Long merchantId) {
+        LambdaUpdateWrapper<Venue> wrapper = Wrappers.lambdaUpdate();
+        wrapper.set(Venue::getState, State.FORCE_UN_SHELVE);
+        wrapper.eq(Venue::getMerchantId, merchantId);
+        venueMapper.update(null, wrapper);
+
+        LambdaUpdateWrapper<VenueSite> updateWrapper = Wrappers.lambdaUpdate();
+        updateWrapper.set(VenueSite::getState, State.FORCE_UN_SHELVE);
+        updateWrapper.eq(VenueSite::getMerchantId, merchantId);
+        venueSiteMapper.update(null, updateWrapper);
     }
 
     /**

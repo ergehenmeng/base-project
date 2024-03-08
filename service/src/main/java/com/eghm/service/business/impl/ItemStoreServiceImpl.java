@@ -177,6 +177,15 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         return itemStoreMapper.getStorePage(request.createPage(), request);
     }
 
+    @Override
+    public void logout(Long merchantId) {
+        LambdaUpdateWrapper<ItemStore> wrapper = Wrappers.lambdaUpdate();
+        wrapper.set(ItemStore::getState, State.FORCE_UN_SHELVE);
+        wrapper.eq(ItemStore::getMerchantId, merchantId);
+        itemStoreMapper.update(null, wrapper);
+        itemService.logout(merchantId);
+    }
+
     /**
      * 校验店铺名称是否重复
      *

@@ -25,6 +25,7 @@ import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.model.Homestay;
 import com.eghm.model.Merchant;
 import com.eghm.model.SysDictItem;
+import com.eghm.model.TravelAgency;
 import com.eghm.service.business.*;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.service.sys.SysDictService;
@@ -198,6 +199,15 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     @Override
     public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
         return homestayMapper.getStorePage(request.createPage(), request);
+    }
+
+    @Override
+    public void logout(Long merchantId) {
+        LambdaUpdateWrapper<Homestay> wrapper = Wrappers.lambdaUpdate();
+        wrapper.set(Homestay::getState, State.FORCE_UN_SHELVE);
+        wrapper.eq(Homestay::getMerchantId, merchantId);
+        homestayMapper.update(null, wrapper);
+        homestayRoomService.logout(merchantId);
     }
 
     /**

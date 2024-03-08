@@ -262,4 +262,11 @@ public interface ItemService {
      * @return 热销 (只要包含一个即为热销)
      */
     boolean containHot(List<Long> itemIds);
+
+    /**
+     * 注销商户的零售商品
+     *
+     * @param merchantId 商户ID
+     */
+    void logout(Long merchantId);
 }

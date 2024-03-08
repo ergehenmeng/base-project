@@ -84,4 +84,11 @@ public interface TravelAgencyService {
      * @return 列表
      */
     Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request);
+
+    /**
+     * 注销商户的旅行社店铺
+     *
+     * @param merchantId 商户ID
+     */
+    void logout(Long merchantId);
 }
