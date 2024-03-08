@@ -30,6 +30,11 @@ public enum ScoreType {
      * 支付取消
      */
     PAY_CANCEL(4, "支付取消", 1),
+
+    /**
+     * 退款
+     */
+    REFUND(5, "退款", 1),
     ;
 
     /**

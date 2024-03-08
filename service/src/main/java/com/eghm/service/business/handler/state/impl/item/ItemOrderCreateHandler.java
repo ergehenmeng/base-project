@@ -82,7 +82,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      */
     @Override
     public void doAction(ItemOrderCreateContext context) {
-        this.beforeCheck(context);
+        this.before(context);
         if (this.isHotSell(context)) {
             log.info("该商品为热销商品,走MQ队列处理");
             TransactionUtil.afterCommit(() -> this.queueOrder(context));
@@ -99,6 +99,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * 2.1: 计算快递费
      * 2.2: 如果是限时购商品,则计算限时购价格
      * 2.3: 如果是拼团商品,则计算拼团价格
+     * 2.4: 如果使用积分,则将积分按顺序分到各个订单中
      * 2.4: 生成主订单
      * 2.5: 生成零售订单
      * 2.6: 扣减sku库存
@@ -163,7 +164,9 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     }
 
     /**
-     * 添加主订单信息
+     * 生成主订单信息
+     * 1. 生成主订单
+     * 2. 计算待支付金额 (限时购, 拼团,积分)
      *
      * @param context     上下文
      * @param payload 商品信息
@@ -451,15 +454,19 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * 前置校验
      * @param context 下单信息
      */
-    private void beforeCheck(ItemOrderCreateContext context) {
-        if (context.getBookingNo() != null) {
-            orderService.checkGroupOrder(context.getBookingNo(), context.getMemberId());
-        }
+    private void before(ItemOrderCreateContext context) {
         if (context.getScoreAmount() > 0) {
             int surplus = context.getScoreAmount() % 100;
             if (surplus > 0) {
                 throw new BusinessException(SCORE_INTEGER);
             }
+            Member member = memberService.getById(context.getMemberId());
+            if (member.getScore() < context.getScoreAmount()) {
+                throw new BusinessException(SCORE_NOT_ENOUGH);
+            }
+        }
+        if (context.getBookingNo() != null) {
+            orderService.checkGroupOrder(context.getBookingNo(), context.getMemberId());
         }
     }
 

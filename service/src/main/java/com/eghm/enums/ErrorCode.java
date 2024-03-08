@@ -1879,6 +1879,11 @@ public enum ErrorCode {
     SCORE_SURPLUS(3961, "积分太多啦~"),
 
     /**
+     * 您的可用积分不足
+     */
+    SCORE_NOT_ENOUGH(3963, "您的可用积分不足"),
+
+    /**
      * 店铺信息不存在
      */
     STORE_NOT_EXIST(4000, "店铺信息不存在"),

@@ -1,5 +1,6 @@
 package com.eghm.service.business.handler.state.impl.item;
 
+import com.eghm.enums.ScoreType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.CloseType;
@@ -11,6 +12,7 @@ import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundNotifyHandler;
+import com.eghm.service.member.MemberService;
 import com.eghm.service.pay.AggregatePayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,16 +27,19 @@ import java.time.LocalDateTime;
 @Slf4j
 public class ItemOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandler {
 
+    private final MemberService memberService;
+
     private final ItemSkuService itemSkuService;
 
     private final ItemOrderService itemOrderService;
 
     private final OrderRefundLogService orderRefundLogService;
 
-    public ItemOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, AggregatePayService aggregatePayService,
+    public ItemOrderRefundNotifyHandler(MemberService memberService, OrderService orderService, OrderRefundLogService orderRefundLogService, AggregatePayService aggregatePayService,
                                         VerifyLogService verifyLogService, ItemSkuService itemSkuService, ItemOrderService itemOrderService,
                                         AccountService accountService) {
         super(orderService, accountService, orderRefundLogService, aggregatePayService, verifyLogService);
+        this.memberService = memberService;
         this.itemSkuService = itemSkuService;
         this.itemOrderService = itemOrderService;
         this.orderRefundLogService = orderRefundLogService;
@@ -54,6 +59,7 @@ public class ItemOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
         ItemOrder itemOrder = itemOrderService.selectById(refundLog.getItemOrderId());
         // 退款完成库存增加
         itemSkuService.updateStock(itemOrder.getSkuId(), refundLog.getNum());
+        memberService.updateScore(itemOrder.getMemberId(), ScoreType.REFUND, order.getScoreAmount());
     }
 
     @Override
