@@ -879,6 +879,11 @@ public enum ErrorCode {
     HOMESTAY_ROOM_NULL(3173, "该房型已下架"),
 
     /**
+     * 该房型已删除
+     */
+    HOMESTAY_ROOM_DELETE(3172, "该房型已删除"),
+
+    /**
      * 房间库存不足, 请刷新页面
      */
     HOMESTAY_CONFIG_NULL(3175, "房间库存不足,请刷新页面"),

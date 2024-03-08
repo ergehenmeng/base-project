@@ -12,9 +12,12 @@ import com.eghm.dto.business.homestay.room.config.RoomConfigRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.HomestayRoomConfigMapper;
+import com.eghm.mapper.HomestayRoomMapper;
+import com.eghm.model.HomestayRoom;
 import com.eghm.model.HomestayRoomConfig;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayRoomConfigService;
+import com.eghm.service.business.HomestayRoomService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
@@ -44,6 +47,8 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
 
     private final SysConfigApi sysConfigApi;
 
+    private final HomestayRoomMapper homestayRoomMapper;
+
     @Override
     public void setup(RoomConfigRequest request) {
         long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
@@ -72,6 +77,11 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
 
     @Override
     public List<RoomConfigResponse> getList(RoomConfigQueryRequest request) {
+        HomestayRoom homestayRoom = homestayRoomMapper.selectById(request.getRoomId());
+        if (homestayRoom == null) {
+            log.error("民宿房间已删除, homestayId: [{}]", request.getRoomId());
+            throw new BusinessException(ErrorCode.HOMESTAY_ROOM_DELETE);
+        }
         LocalDate month = DateUtil.parseFirstDayOfMonth(request.getMonth());
         List<HomestayRoomConfig> configList = this.getMonthConfig(month, request.getRoomId());
         return DataUtil.paddingMonth(configList, (lineConfig, localDate) -> lineConfig.getConfigDate().equals(localDate), RoomConfigResponse::new, month);
