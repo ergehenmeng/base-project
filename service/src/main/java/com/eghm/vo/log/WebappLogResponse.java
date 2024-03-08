@@ -16,11 +16,30 @@ public class WebappLogResponse {
     @ApiModelProperty("用户昵称")
     private String nickName;
 
+    @ApiModelProperty("访问链接")
+    private String url;
+
+    @ApiModelProperty("访问ip")
+    private String ip;
+
+    @ApiModelProperty("访问耗时")
+    private Long elapsedTime;
+
+    @ApiModelProperty("注册渠道 PC, ANDROID, IOS, H5, WECHAT, ALIPAY")
+    private String channel;
+
+    @ApiModelProperty("请求参数(json)")
+    private String requestParam;
+
+    @ApiModelProperty("错误日志")
+    private String errorMsg;
+
+    @ApiModelProperty("添加日期")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
+
     @ApiModelProperty("软件版本号 针对app端,例如 1.2.7")
     private String version;
-
-    @ApiModelProperty("注册渠道 PC,ANDROID,IOS,H5,WECHAT,ALIPAY")
-    private String channel;
 
     @ApiModelProperty("客户端平台版本号 ios: 10.4.1,android:8.1.0")
     private String osVersion;
@@ -34,22 +53,4 @@ public class WebappLogResponse {
     @ApiModelProperty("设备唯一编号")
     private String serialNumber;
 
-    @ApiModelProperty("访问ip")
-    private String ip;
-
-    @ApiModelProperty("访问耗时")
-    private Long elapsedTime;
-
-    @ApiModelProperty("访问链接")
-    private String url;
-
-    @ApiModelProperty("请求参数(json)")
-    private String requestParam;
-
-    @ApiModelProperty("错误日志")
-    private String errorMsg;
-
-    @ApiModelProperty("添加日期")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
 }

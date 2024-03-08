@@ -15,7 +15,7 @@ import lombok.Data;
 public class FeedbackAddDTO {
 
     @ApiModelProperty(value = "反馈内容分类", required = true)
-    private Integer classify;
+    private Integer feedbackType;
 
     @ApiModelProperty(value = "反馈内容", required = true)
     @WordChecker(message = "反馈内容存在敏感字")

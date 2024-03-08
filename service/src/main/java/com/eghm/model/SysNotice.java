@@ -29,7 +29,7 @@ public class SysNotice extends BaseEntity {
     private String title;
 
     @ApiModelProperty("公告类型(数据字典表sys_notice_type)")
-    private Integer classify;
+    private Integer noticeType;
 
     @ApiModelProperty("公告内容(富文本)")
     private String content;

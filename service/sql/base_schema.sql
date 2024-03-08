@@ -746,7 +746,7 @@ CREATE TABLE `sys_notice`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
     `title`       varchar(30) DEFAULT NULL COMMENT '公告标题',
-    `classify`    tinyint(2)  DEFAULT NULL COMMENT '公告分类',
+    `notice_type` tinyint(2)  DEFAULT NULL COMMENT '公告分类',
     `content`     text COMMENT '公告内容',
     `state`       bit(1)      DEFAULT b'0' COMMENT '是否发布 0:未发布 1:已发布',
     `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

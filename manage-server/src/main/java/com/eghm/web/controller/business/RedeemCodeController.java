@@ -89,7 +89,7 @@ public class RedeemCodeController {
     }
 
     @GetMapping("/grant/listPage")
-    @ApiOperation("列表")
+    @ApiOperation("兑换码列表")
     public RespBody<PageData<RedeemCodeGrantResponse>> grantListPage(@Validated RedeemCodeGrantQueryRequest request) {
         Page<RedeemCodeGrantResponse> listPage = redeemCodeGrantService.listPage(request);
         return RespBody.success(PageData.toPage(listPage));

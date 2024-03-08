@@ -21,7 +21,7 @@ public class NoticeAddRequest {
 
     @ApiModelProperty(value = "公告类型(数据字典表notice_classify)", required = true)
     @NotNull(message = "公告类型不能为空")
-    private Integer classify;
+    private Integer noticeType;
 
     @ApiModelProperty(value = "公告内容(富文本)", required = true)
     @NotBlank(message = "公告内容不能为空")

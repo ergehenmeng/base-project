@@ -11,11 +11,13 @@ public class DictConstant {
     /**
      * 公告分类
      */
-    public static final String NOTICE_CLASSIFY = "notice_classify";
+    public static final String NOTICE_TYPE = "notice_type";
+
     /**
      * 景区标签
      */
     public static final String SCENIC_TAG = "scenic_tag";
+
     /**
      * 民宿标签
      */

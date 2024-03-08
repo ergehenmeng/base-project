@@ -48,7 +48,7 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     public Page<SysNotice> getByPage(NoticeQueryRequest request) {
         LambdaQueryWrapper<SysNotice> wrapper = Wrappers.lambdaQuery();
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SysNotice::getTitle, request.getQueryName());
-        wrapper.eq(request.getClassify() != null, SysNotice::getClassify, request.getClassify());
+        wrapper.eq(request.getNoticeType() != null, SysNotice::getNoticeType, request.getNoticeType());
         wrapper.last("order by update_time desc, id desc ");
         return sysNoticeMapper.selectPage(request.createPage(), wrapper);
     }
@@ -60,7 +60,7 @@ public class SysNoticeServiceImpl implements SysNoticeService {
         return DataUtil.copy(noticeList, notice -> {
             NoticeVO vo = DataUtil.copy(notice, NoticeVO.class);
             // 将公告类型包含到标题中 例如 紧急通知: 中印发生小规模冲突
-            vo.setTitle(sysDictService.getDictValue(DictConstant.NOTICE_CLASSIFY, notice.getClassify()) + ": " + vo.getTitle());
+            vo.setTitle(sysDictService.getDictValue(DictConstant.NOTICE_TYPE, notice.getNoticeType()) + ": " + vo.getTitle());
             return vo;
         });
     }
@@ -105,7 +105,7 @@ public class SysNoticeServiceImpl implements SysNoticeService {
             throw new BusinessException(ErrorCode.NOTICE_NOT_NULL);
         }
         NoticeDetailVO vo = DataUtil.copy(notice, NoticeDetailVO.class);
-        vo.setClassifyName(sysDictService.getDictValue(DictConstant.NOTICE_CLASSIFY, notice.getClassify()));
+        vo.setClassifyName(sysDictService.getDictValue(DictConstant.NOTICE_TYPE, notice.getNoticeType()));
         return vo;
     }
 

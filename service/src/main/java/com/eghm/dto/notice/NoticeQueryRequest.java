@@ -14,6 +14,6 @@ import lombok.EqualsAndHashCode;
 public class NoticeQueryRequest extends PagingQuery {
 
     @ApiModelProperty("公告类型")
-    private Integer classify;
+    private Integer noticeType;
 
 }

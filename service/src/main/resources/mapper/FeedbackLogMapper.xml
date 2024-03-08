@@ -7,7 +7,7 @@
         t.id,
         t.state,
         t.member_id,
-        t.classify,
+        t.feedback_type,
         t.version,
         t.system_version,
         t.content,
@@ -24,8 +24,8 @@
             <if test="param.queryName != null and param.queryName != ''">
                 and r.mobile = #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}
             </if>
-            <if test="param.classify != null">
-                and t.classify = #{param.classify}
+            <if test="param.feedbackType != null">
+                and t.feedback_type = #{param.feedbackType}
             </if>
             <if test="param.state != null">
                 and t.state = #{param.state}
