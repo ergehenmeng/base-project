@@ -18,7 +18,6 @@ import com.eghm.vo.user.SysUserResponse;
 import com.eghm.vo.user.UserResponse;
 import com.google.common.base.Joiner;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -44,7 +43,7 @@ public class UserController {
     private final CacheService cacheService;
 
     @GetMapping("/listPage")
-    @ApiOperation("管理后台用户列表")
+    @ApiOperation("列表")
     public RespBody<PageData<SysUserResponse>> listPage(UserQueryRequest request) {
         Page<SysUserResponse> page = sysUserService.getByPage(request);
         return RespBody.success(PageData.toPage(page));
@@ -59,14 +58,14 @@ public class UserController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("添加管理人员")
+    @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody UserAddRequest request) {
         sysUserService.create(request);
         return RespBody.success();
     }
 
     @GetMapping("/select")
-    @ApiOperation("查询系统用户信息")
+    @ApiOperation("详情")
     public RespBody<UserResponse> select(@Validated IdDTO dto) {
         SysUser user = sysUserService.getById(dto.getId());
         UserResponse response = DataUtil.copy(user, UserResponse.class);
@@ -76,14 +75,14 @@ public class UserController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("系统用户信息")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody UserEditRequest request) {
         sysUserService.update(request);
         return RespBody.success();
     }
 
-    @PostMapping(value = "/lockScreen", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("锁屏操作")
+    @GetMapping(value = "/lockScreen", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("锁屏")
     public RespBody<Void> lockScreen() {
         UserToken user = SecurityHolder.getUserRequired();
         cacheService.setValue(CacheConstant.LOCK_SCREEN + user.getId(), true, CommonConstant.MAX_LOCK_SCREEN);
@@ -91,8 +90,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/unlockScreen", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("解锁操作")
-    @ApiImplicitParam(name = "password", value = "密码", required = true)
+    @ApiOperation("解锁屏幕")
     public RespBody<Void> unlockScreen(@RequestBody @Validated CheckPwdRequest request) {
         Long userId = SecurityHolder.getUserId();
         sysUserService.checkPassword(userId, request.getPwd());
@@ -101,21 +99,21 @@ public class UserController {
     }
 
     @PostMapping(value = "/lock", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("锁定用户")
+    @ApiOperation("锁定")
     public RespBody<Void> lock(@Validated @RequestBody IdDTO request) {
         sysUserService.lockUser(request.getId());
         return RespBody.success();
     }
 
     @PostMapping(value = "/unlock", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("解锁用户")
+    @ApiOperation("解锁")
     public RespBody<Void> unlock(@Validated @RequestBody IdDTO request) {
         sysUserService.unlockUser(request.getId());
         return RespBody.success();
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除用户")
+    @ApiOperation("删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO request) {
         sysUserService.deleteById(request.getId());
         return RespBody.success();

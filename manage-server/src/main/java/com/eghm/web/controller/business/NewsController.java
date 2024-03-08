@@ -36,14 +36,14 @@ public class NewsController {
 
     private final NewsConfigService newsConfigService;
 
-    @ApiOperation("查询列表")
+    @ApiOperation("列表")
     @GetMapping("/listPage")
     public RespBody<PageData<News>> getByPage(@Validated NewsQueryRequest request) {
         Page<News> scenicPage = newsService.getByPage(request);
         return RespBody.success(PageData.toPage(scenicPage));
     }
 
-    @ApiOperation("全部列表")
+    @ApiOperation("全部")
     @GetMapping("/list")
     public RespBody<List<NewsConfigResponse>> list() {
         List<NewsConfigResponse> scenicPage = newsConfigService.getList();
