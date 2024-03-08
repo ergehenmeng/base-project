@@ -16,4 +16,6 @@ public class PoiLineQueryRequest extends PagingQuery {
     @ApiModelProperty(value = "所属区域编号")
     private String areaCode;
 
+    @ApiModelProperty("状态 0:未上架 1:已上架")
+    private Integer state;
 }

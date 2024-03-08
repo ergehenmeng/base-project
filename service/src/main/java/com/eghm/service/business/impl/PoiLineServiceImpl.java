@@ -56,6 +56,7 @@ public class PoiLineServiceImpl implements PoiLineService {
     public void create(PoiLineAddRequest request) {
         this.redoTitle(request.getTitle(), null);
         PoiLine poiLine = DataUtil.copy(request, PoiLine.class);
+        poiLine.setState(0);
         poiLineMapper.insert(poiLine);
     }
 
@@ -84,6 +85,18 @@ public class PoiLineServiceImpl implements PoiLineService {
             poiLinePoint.setSort(i++);
             poiLinePointMapper.insert(poiLinePoint);
         }
+    }
+
+    @Override
+    public void updateState(Long id, Integer state) {
+        List<Long> pointIds = poiLinePointMapper.getList(id);
+        if (pointIds.isEmpty()) {
+            throw new BusinessException(ErrorCode.BIND_POINT_NULL);
+        }
+        LambdaUpdateWrapper<PoiLine> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(PoiLine::getId, id);
+        wrapper.set(PoiLine::getState, state);
+        poiLineMapper.update(null, wrapper);
     }
 
     @Override

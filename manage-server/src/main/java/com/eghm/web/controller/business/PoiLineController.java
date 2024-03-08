@@ -66,6 +66,20 @@ public class PoiLineController {
         return RespBody.success();
     }
 
+    @PostMapping(value = "/shelves", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("上架")
+    public RespBody<Void> shelves(@Validated @RequestBody IdDTO dto) {
+        poiLineService.updateState(dto.getId(), 1);
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/unShelves", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("下架")
+    public RespBody<Void> unShelves(@Validated @RequestBody IdDTO dto) {
+        poiLineService.updateState(dto.getId(), 0);
+        return RespBody.success();
+    }
+
     @GetMapping("/bindDetail")
     @ApiOperation("绑定详情")
     public RespBody<LinePointResponse> bindDetail(@Validated IdDTO dto) {

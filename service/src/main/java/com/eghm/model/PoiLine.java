@@ -23,6 +23,9 @@ public class PoiLine extends BaseEntity {
     @ApiModelProperty(value = "线路名称")
     private String title;
 
+    @ApiModelProperty("状态 0:未上架 1:已上架")
+    private Integer state;
+
     @ApiModelProperty(value = "封面图")
     private String coverUrl;
 
@@ -32,7 +35,7 @@ public class PoiLine extends BaseEntity {
     @ApiModelProperty(value = "详细介绍")
     private String introduce;
 
-    @ApiModelProperty(value = "预计游玩时间")
+    @ApiModelProperty(value = "预计游玩时间(单位:小时)")
     private BigDecimal playTime;
 
 }

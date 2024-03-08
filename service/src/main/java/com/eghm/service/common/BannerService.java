@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.banner.BannerAddRequest;
 import com.eghm.dto.banner.BannerEditRequest;
 import com.eghm.dto.banner.BannerQueryRequest;
-import com.eghm.enums.Channel;
 import com.eghm.model.Banner;
-
-import java.util.List;
 
 /**
  * @author 二哥很猛

@@ -24,6 +24,9 @@ public class PoiLineResponse {
     @ApiModelProperty(value = "线路名称")
     private String title;
 
+    @ApiModelProperty("状态 0:未上架 1:已上架")
+    private Integer state;
+
     @ApiModelProperty(value = "封面图")
     private String coverUrl;
 
@@ -33,7 +36,7 @@ public class PoiLineResponse {
     @ApiModelProperty(value = "所属区域名称")
     private String areaTitle;
 
-    @ApiModelProperty(value = "预计游玩时间")
+    @ApiModelProperty(value = "预计游玩时间(单位:小时)")
     private BigDecimal playTime;
 
     @ApiModelProperty("添加时间")

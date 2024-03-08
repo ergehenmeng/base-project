@@ -2340,3 +2340,89 @@ CREATE TABLE `member_notice_log`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='会员站内信日志';
 
+DROP TABLE IF EXISTS `poi_area`;
+CREATE TABLE `poi_area`
+(
+    `id`             bigint(20) NOT NULL COMMENT '主键',
+    `title`          varchar(20)    DEFAULT NULL COMMENT '区域名称',
+    `state`          tinyint(1)     DEFAULT '0' COMMENT '状态 0:未上架 1:已上架',
+    `code`           varchar(20)    DEFAULT NULL COMMENT '区域编号',
+    `longitude`      decimal(10, 7) DEFAULT NULL COMMENT '经度',
+    `latitude`       decimal(10, 7) DEFAULT NULL COMMENT '维度',
+    `province_id`    bigint(20)     DEFAULT NULL COMMENT '省份id',
+    `city_id`        bigint(20)     DEFAULT NULL COMMENT '城市id',
+    `county_id`      bigint(20)     DEFAULT NULL COMMENT '区县id',
+    `detail_address` varchar(255)   DEFAULT NULL COMMENT '详细地址',
+    `remark`         varchar(500)   DEFAULT NULL COMMENT '备注信息',
+    `create_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`    datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`        bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='poi区域表';
+
+DROP TABLE IF EXISTS `poi_line`;
+CREATE TABLE `poi_line`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `title`       varchar(30)   DEFAULT NULL COMMENT '线路名称',
+    `state`       tinyint(1)    DEFAULT '0' COMMENT '状态 0:未上架 1:已上架',
+    `cover_url`   varchar(200)  DEFAULT NULL COMMENT '封面图',
+    `area_code`   varchar(30)   DEFAULT NULL COMMENT '所属区域编号',
+    `introduce`   text          DEFAULT NULL COMMENT '详细介绍',
+    `play_time`   decimal(3, 1) DEFAULT NULL COMMENT '预计游玩时间(单位:小时)',
+    `create_time` datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='poi线路表';
+
+DROP TABLE IF EXISTS `poi_line_point`;
+CREATE TABLE `poi_line_point`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `line_id`     bigint(20)  DEFAULT NULL COMMENT '线路id',
+    `point_id`    bigint(20)  DEFAULT NULL COMMENT '点位id',
+    `sort`        smallint(4) DEFAULT NULL COMMENT '排序',
+    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='线路点位关联表';
+
+DROP TABLE IF EXISTS `poi_point`;
+CREATE TABLE `poi_point`
+(
+    `id`             bigint(20) NOT NULL COMMENT '主键',
+    `title`          varchar(30)    DEFAULT NULL COMMENT '点位名称',
+    `cover_url`      varchar(500)   DEFAULT NULL COMMENT '封面图',
+    `type_id`        bigint(20)     DEFAULT NULL COMMENT '所属类型',
+    `area_code`      varchar(20)    DEFAULT NULL COMMENT '区域编号(冗余)',
+    `longitude`      decimal(10, 7) DEFAULT NULL COMMENT '经度',
+    `latitude`       decimal(10, 7) DEFAULT NULL COMMENT '维度',
+    `detail_address` varchar(200)   DEFAULT NULL COMMENT '详细地址',
+    `introduce`      longtext COMMENT '详细介绍',
+    `create_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`    datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`        bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='poi点位信息';
+
+DROP TABLE IF EXISTS `poi_type`;
+CREATE TABLE `poi_type`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `title`       varchar(20)  DEFAULT NULL COMMENT 'poi类型名称',
+    `area_code`   varchar(20)  DEFAULT NULL COMMENT '区域编号',
+    `icon`        varchar(200) DEFAULT NULL COMMENT '点位类型icon',
+    `sort`        smallint(4)  DEFAULT '999' COMMENT '点位排序 小<->大',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='poi类型表';
+

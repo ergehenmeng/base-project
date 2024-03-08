@@ -5,6 +5,7 @@ import com.eghm.dto.poi.LinePointBindRequest;
 import com.eghm.dto.poi.PoiLineAddRequest;
 import com.eghm.dto.poi.PoiLineEditRequest;
 import com.eghm.dto.poi.PoiLineQueryRequest;
+import com.eghm.enums.ref.State;
 import com.eghm.model.PoiLine;
 import com.eghm.vo.poi.LinePointResponse;
 import com.eghm.vo.poi.PoiLineResponse;
@@ -57,6 +58,14 @@ public interface PoiLineService {
      * @param request 线路及点位
      */
     void bindPoint(LinePointBindRequest request);
+
+    /**
+     * 更新上下架状态
+     *
+     * @param id    id
+     * @param state 状态 0:下架 1:上架
+     */
+    void updateState(Long id, Integer state);
 
     /**
      * 查询线路关联点位绑定情况

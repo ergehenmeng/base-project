@@ -1444,6 +1444,11 @@ public enum ErrorCode {
     AREA_POINT_NULL(3696, "POI点位信息不存在"),
 
     /**
+     * 请先绑定点位信息
+     */
+    BIND_POINT_NULL(3697, "请先绑定点位信息"),
+
+    /**
      * 线路名称重复
      */
     POI_LINE_REDO(3700, "线路名称重复"),

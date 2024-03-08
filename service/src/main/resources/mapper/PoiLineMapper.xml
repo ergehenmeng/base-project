@@ -6,6 +6,7 @@
         select
         t.id,
         t.title,
+        t.state,
         t.cover_url,
         t.area_code,
         t.play_time,
@@ -16,6 +17,9 @@
         where t.deleted = false and r.deleted = false
         <if test="param.areaCode != null">
             and t.area_code = #{param.areaCode}
+        </if>
+        <if test="param.state != null">
+            and t.state = #{param.state}
         </if>
         <if test="param.queryName != null and param.queryName != '' ">
             and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
