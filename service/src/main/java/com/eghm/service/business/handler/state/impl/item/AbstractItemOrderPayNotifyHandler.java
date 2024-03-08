@@ -63,7 +63,6 @@ public abstract class AbstractItemOrderPayNotifyHandler implements PayNotifyHand
      */
     protected abstract void doProcess(PayNotifyContext context, List<String> orderNoList);
 
-
     /**
      * 支付成功后处理
      *

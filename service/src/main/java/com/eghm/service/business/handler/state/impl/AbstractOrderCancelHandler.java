@@ -62,7 +62,6 @@ public abstract class AbstractOrderCancelHandler implements OrderCancelHandler, 
         memberCouponService.releaseCoupon(order.getCouponId());
     }
 
-
     /**
      * 取消订单前值校验
      *

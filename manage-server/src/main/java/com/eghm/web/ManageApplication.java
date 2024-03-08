@@ -39,7 +39,7 @@ public class ManageApplication implements ApplicationContextAware {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = new SpringApplicationBuilder(ManageApplication.class).bannerMode(Banner.Mode.OFF).run(args);
-        LoggerUtil.print(String.format("Swagger文档:  http://localhost:%s/doc.html", context.getEnvironment().getProperty("server.port")));
+        LoggerUtil.print(String.format("Swagger文档: http://localhost:%s/doc.html", context.getEnvironment().getProperty("server.port")));
     }
 
     @Override

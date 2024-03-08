@@ -74,7 +74,6 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
                 scoreAccountService.updateAccount(dto);
             }
         }
-
     }
 
     @Override
