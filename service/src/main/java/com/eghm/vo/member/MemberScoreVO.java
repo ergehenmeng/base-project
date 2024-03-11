@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author 殿小二
@@ -21,5 +21,5 @@ public class MemberScoreVO {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty("积分发放或消费时间")
-    private Date createTime;
+    private LocalDateTime createTime;
 }

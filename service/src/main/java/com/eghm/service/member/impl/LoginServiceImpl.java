@@ -1,6 +1,7 @@
 package com.eghm.service.member.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.LoginRecord;
@@ -44,6 +45,7 @@ public class LoginServiceImpl implements LoginService {
         LoginLog loginLog = DataUtil.copy(loginRecord, LoginLog.class);
         loginLogMapper.insert(loginLog);
         LoginDevice device = DataUtil.copy(loginRecord, LoginDevice.class);
+        device.setId(IdWorker.getId());
         loginDeviceMapper.insertOrUpdateSelective(device);
     }
 

@@ -3,8 +3,8 @@
 <mapper namespace="com.eghm.mapper.LoginDeviceMapper">
 
     <insert id="insertOrUpdateSelective" parameterType="com.eghm.model.LoginDevice">
-        insert into login_device(member_id, serial_number, device_model, login_time, ip)
-        values (#{memberId}, #{serialNumber}, #{deviceModel}, now(), #{ip}) on duplicate key
+        insert into login_device(id, member_id, serial_number, device_model, login_time, ip)
+        values (#{id}, #{memberId}, #{serialNumber}, #{deviceModel}, now(), #{ip}) on duplicate key
         update login_time = now(), ip = #{ip}
     </insert>
 

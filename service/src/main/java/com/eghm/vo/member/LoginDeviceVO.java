@@ -13,6 +13,9 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LoginDeviceVO {
 
+    @ApiModelProperty("id主键")
+    private Long id;
+
     @ApiModelProperty("上次登陆时间 MM-dd HH:mm:ss")
     private String loginTime;
 

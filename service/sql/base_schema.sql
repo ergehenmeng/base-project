@@ -192,7 +192,7 @@ CREATE TABLE `image_log`
 DROP TABLE IF EXISTS `login_device`;
 CREATE TABLE `login_device`
 (
-    `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `id`            bigint(20) NOT NULL COMMENT '主键',
     `member_id`     bigint(20)   DEFAULT NULL COMMENT '用户id',
     `ip`            bigint(20)   DEFAULT NULL COMMENT '登录ip',
     `serial_number` varchar(128) DEFAULT NULL COMMENT '设备唯一序列号',

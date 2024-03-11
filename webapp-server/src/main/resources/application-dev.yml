@@ -46,4 +46,4 @@ system:
     notify-host: https://localhost:8080
   platform-merchant-id: 1707294309829128194
   api:
-    mock-token: 58c87ba115ff493cbb0ac3afd53c58de
+    mock-token: d3df31f547654e2185be6dccbd155700
