@@ -1,6 +1,7 @@
 package com.eghm.vo.business.line;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -9,6 +10,7 @@ import lombok.Data;
  * @since 2023/1/5
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class LineVO {
 
     @ApiModelProperty("线路id")
