@@ -13,9 +13,9 @@ import java.time.LocalDate;
 @Data
 public class LocalDateCompare {
 
-    @ApiModelProperty("开始日期")
+    @ApiModelProperty(value = "开始日期", hidden = true)
     private LocalDate startDate;
 
-    @ApiModelProperty("截止日期")
+    @ApiModelProperty(value = "截止日期", hidden = true)
     private LocalDate endDate;
 }

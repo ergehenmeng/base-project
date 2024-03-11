@@ -36,6 +36,6 @@ public class ActivityVO {
     private String introduce;
 
     @ApiModelProperty("更新时间")
-    @JsonFormat(pattern = "MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "MM-dd HH:mm")
     private LocalDateTime updateTime;
 }

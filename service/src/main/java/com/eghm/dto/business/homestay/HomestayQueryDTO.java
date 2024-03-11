@@ -43,12 +43,12 @@ public class HomestayQueryDTO extends DatePagingComparator {
     @OptionInt(value = {0, 3, 4, 5}, message = "星级参数非法", required = false)
     private Integer level;
 
-    @ApiModelProperty("开始日期(含)")
+    @ApiModelProperty(value = "开始日期(含)", required = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "入住日期不能为空")
     private LocalDate startDate;
 
-    @ApiModelProperty("截止日期(不含)")
+    @ApiModelProperty(value = "截止日期(不含)", required = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "离店日期不能为空")
     private LocalDate endDate;
