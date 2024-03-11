@@ -39,6 +39,7 @@ public class MenuExportVO extends ExcelStyle {
     @ExcelProperty("菜单地址")
     private String path;
 
+    // 前提需要在sys_dict中定义menu_grade
     @ApiModelProperty("菜单级别 1:导航菜单 2:按钮菜单")
     @ExcelDict("menu_grade")
     @ExcelProperty("菜单级别")

@@ -44,7 +44,7 @@ CREATE TABLE `banner`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `title`       varchar(50)         DEFAULT NULL COMMENT '标题信息',
-    `banner_type` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图类型:由system_dict的banner_classify维护(不同模块的轮播均在该表中维护)',
+    `banner_type` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图类型:由system_dict的banner_type维护(不同模块的轮播均在该表中维护)',
     `client_type` varchar(20)         DEFAULT 'PC' COMMENT '客户端类型 PC ANDROID IOS H5',
     `img_url`     varchar(200)        NOT NULL COMMENT '轮播图片地址',
     `jump_url`    varchar(200)        DEFAULT NULL COMMENT '轮播图点击后跳转的URL',

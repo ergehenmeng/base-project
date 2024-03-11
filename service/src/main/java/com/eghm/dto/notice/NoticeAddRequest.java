@@ -19,7 +19,7 @@ public class NoticeAddRequest {
     @WordChecker(message = "标题存在敏感词")
     private String title;
 
-    @ApiModelProperty(value = "公告类型(数据字典表notice_classify)", required = true)
+    @ApiModelProperty(value = "公告类型(数据字典表notice_type)", required = true)
     @NotNull(message = "公告类型不能为空")
     private Integer noticeType;
 
