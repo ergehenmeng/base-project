@@ -75,6 +75,10 @@
         </foreach>
     </select>
 
+    <update id="updateScore">
+        update venue set score = #{score} where id = #{id}
+    </update>
+
     <!--无距离排序,不进行子查询-->
     <sql id="getByPageSql">
         select

@@ -64,4 +64,6 @@ public class Venue extends BaseEntity {
     @ApiModelProperty(value = "场馆详细信息")
     private String introduce;
 
+    @ApiModelProperty(value = "评分")
+    private BigDecimal score;
 }

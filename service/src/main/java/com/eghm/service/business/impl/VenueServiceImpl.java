@@ -5,14 +5,17 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.venue.VenueAddRequest;
 import com.eghm.dto.business.venue.VenueEditRequest;
 import com.eghm.dto.business.venue.VenueQueryDTO;
 import com.eghm.dto.business.venue.VenueQueryRequest;
+import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
+import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.mapper.VenueMapper;
 import com.eghm.mapper.VenueSiteMapper;
 import com.eghm.model.Venue;
@@ -20,7 +23,9 @@ import com.eghm.model.VenueSite;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.VenueService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.evaluation.AvgScoreVO;
 import com.eghm.vo.business.venue.VenueDetailVO;
 import com.eghm.vo.business.venue.VenueResponse;
 import com.eghm.vo.business.venue.VenueVO;
@@ -48,6 +53,8 @@ public class VenueServiceImpl implements VenueService {
     private final CommonService commonService;
 
     private final VenueSiteMapper venueSiteMapper;
+
+    private final OrderEvaluationMapper orderEvaluationMapper;
 
     @Override
     public Page<VenueResponse> listPage(VenueQueryRequest request) {
@@ -148,6 +155,16 @@ public class VenueServiceImpl implements VenueService {
         updateWrapper.set(VenueSite::getState, State.FORCE_UN_SHELVE);
         updateWrapper.eq(VenueSite::getMerchantId, merchantId);
         venueSiteMapper.update(null, updateWrapper);
+    }
+
+    @Override
+    public void updateScore(CalcStatistics vo) {
+        AvgScoreVO storeScore = orderEvaluationMapper.getStoreScore(vo.getStoreId());
+        if (storeScore.getNum() < CommonConstant.MIN_SCORE_NUM) {
+            log.info("为保证评分系统的公平性, 评价数量小于5条时默认不展示餐饮商家评分 [{}]", vo.getStoreId());
+            return;
+        }
+        venueMapper.updateScore(vo.getStoreId(), DecimalUtil.calcAvgScore(storeScore.getTotalScore(), storeScore.getNum()));
     }
 
     /**

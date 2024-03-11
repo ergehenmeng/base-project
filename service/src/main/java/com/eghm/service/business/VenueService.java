@@ -6,6 +6,7 @@ import com.eghm.dto.business.venue.VenueAddRequest;
 import com.eghm.dto.business.venue.VenueEditRequest;
 import com.eghm.dto.business.venue.VenueQueryDTO;
 import com.eghm.dto.business.venue.VenueQueryRequest;
+import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Venue;
 import com.eghm.vo.business.base.BaseStoreResponse;
@@ -116,4 +117,11 @@ public interface VenueService {
      * @param merchantId 商户ID
      */
     void logout(Long merchantId);
+
+    /**
+     * 更新商品分数
+     *
+     * @param vo 店铺和商品信息
+     */
+    void updateScore(CalcStatistics vo);
 }

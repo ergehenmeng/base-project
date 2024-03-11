@@ -16,6 +16,7 @@ import com.eghm.service.business.VenueSitePriceService;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.AssertUtil;
+import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.venue.VenueOrderDetailResponse;
 import com.eghm.vo.business.order.venue.VenueOrderDetailVO;
 import com.eghm.vo.business.order.venue.VenueOrderResponse;
@@ -100,5 +101,10 @@ public class VenueOrderServiceImpl implements VenueOrderService {
         detail.setDetailAddress(sysAreaService.parseArea(detail.getCityId(), detail.getCountyId()) + detail.getDetailAddress());
         detail.setPhaseList(jsonService.fromJsonList(detail.getTimePhase(), VenuePhaseVO.class));
         return detail;
+    }
+
+    @Override
+    public ProductSnapshotVO getSnapshot(Long orderId, String orderNo) {
+        return venueOrderMapper.getSnapshot(orderId, orderNo);
     }
 }

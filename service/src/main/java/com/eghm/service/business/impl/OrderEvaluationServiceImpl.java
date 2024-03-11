@@ -64,6 +64,8 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
 
     private final SysConfigApi sysConfigApi;
 
+    private final VenueOrderService venueOrderService;
+
     private final MemberNoticeService memberNoticeService;
 
     @Override
@@ -91,6 +93,7 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
             OrderEvaluation evaluation = DataUtil.copy(eval, OrderEvaluation.class);
             evaluation.setState(0);
             evaluation.setOrderNo(dto.getOrderNo());
+            evaluation.setStoreId(snapshot.getStoreId());
             evaluation.setProductId(snapshot.getProductId());
             evaluation.setProductTitle(snapshot.getProductTitle());
             evaluation.setSkuTitle(snapshot.getSkuTitle());
@@ -253,6 +256,9 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
                 break;
             case RESTAURANT:
                 vo = voucherOrderService.getSnapshot(orderId, orderNo);
+                break;
+            case VENUE:
+                vo = venueOrderService.getSnapshot(orderId, orderNo);
                 break;
             default:
                 vo = null;

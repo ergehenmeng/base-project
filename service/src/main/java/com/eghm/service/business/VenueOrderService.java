@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.venue.VenueOrderQueryDTO;
 import com.eghm.dto.business.order.venue.VenueOrderQueryRequest;
 import com.eghm.model.VenueOrder;
+import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.venue.VenueOrderDetailResponse;
 import com.eghm.vo.business.order.venue.VenueOrderDetailVO;
 import com.eghm.vo.business.order.venue.VenueOrderResponse;
@@ -76,4 +77,13 @@ public interface VenueOrderService {
      * @return 订单详情
      */
     VenueOrderDetailVO getDetail(String orderNo, Long memberId);
+
+    /**
+     * 查询场馆快照
+     *
+     * @param orderId 订单id
+     * @param orderNo 订单编号
+     * @return 场馆快照
+     */
+    ProductSnapshotVO getSnapshot(Long orderId, String orderNo);
 }

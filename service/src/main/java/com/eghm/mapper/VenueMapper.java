@@ -11,6 +11,7 @@ import com.eghm.vo.business.venue.VenueResponse;
 import com.eghm.vo.business.venue.VenueVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -57,4 +58,13 @@ public interface VenueMapper extends BaseMapper<Venue> {
      * @return 列表
      */
     List<BaseStoreResponse> getStoreList(@Param("venueIds") List<Long> venueIds);
+
+    /**
+     * 更新评分
+     *
+     * @param id    id
+     * @param score 评分
+     */
+    void updateScore(@Param("id") Long id, @Param("score") BigDecimal score);
+
 }

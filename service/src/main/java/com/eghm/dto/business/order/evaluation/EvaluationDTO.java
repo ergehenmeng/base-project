@@ -17,7 +17,7 @@ public class EvaluationDTO {
     @ApiModelProperty(value = "订单子表id")
     private Long orderId;
 
-    @ApiModelProperty("店铺评分1-5分(零售,线路,餐饮,民宿)")
+    @ApiModelProperty("店铺评分1-5分(零售,线路,餐饮,民宿,场馆)")
     @RangeInt(min = 1, max = 5, message = "店铺评分不合法", required = false)
     private Integer storeScore;
 
@@ -25,7 +25,7 @@ public class EvaluationDTO {
     @RangeInt(min = 1, max = 5, message = "物流评分不合法", required = false)
     private Integer logisticsScore;
 
-    @ApiModelProperty(value = "综合评分1-5分(零售,线路,餐饮,门票)")
+    @ApiModelProperty(value = "综合评分1-5分(零售,线路,餐饮,门票,场馆)")
     @RangeInt(min = 1, max = 5, message = "综合评分不合法", required = false)
     private Integer score;
 

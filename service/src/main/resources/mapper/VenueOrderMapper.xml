@@ -138,5 +138,13 @@
         where t.deleted = false and r.member_id = #{memberId} and r.order_no = #{orderNo}
     </select>
 
-
+    <select id="getSnapshot" resultType="com.eghm.vo.business.order.ProductSnapshotVO">
+        select
+            t.title as productTitle,
+            t.cover_url as productCover,
+            t.store_id,
+            r.venue_site_id as productId
+        from venue_order r inner join `order` t on t.order_no = r.order_no
+        where t.id = #{orderId} and r.order_no = #{orderNo} and t.deleted = false
+    </select>
 </mapper>

@@ -77,6 +77,8 @@ public class RabbitListenerHandler {
 
     private final OrderProxyService orderProxyService;
 
+    private final VenueService venueService;
+
     /**
      * 处理MQ中消息,并手动确认
      *
@@ -292,6 +294,9 @@ public class RabbitListenerHandler {
                     break;
                 case RESTAURANT:
                     restaurantService.updateScore(vo);
+                    break;
+                case VENUE:
+                    venueService.updateScore(vo);
                     break;
                 default:
                     log.error("非法更新商品分数 [{}]", vo);
