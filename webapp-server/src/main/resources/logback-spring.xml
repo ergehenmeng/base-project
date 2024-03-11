@@ -3,7 +3,7 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                xmlns="http://ch.qos.logback/xml/ns/logback"
                xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback http://ch.qos.logback/xml/ns/logback/logback.xsd"
-               scan="true" debug="false" scanPeriod="6000">
+               scan="false" debug="false" scanPeriod="6000">
     <!--键值对常量,其他地方可以引用-->
     <property name="appName" value="webappServer"/>
     <property name="logPath" value="/home/app/webapp/logs"/>

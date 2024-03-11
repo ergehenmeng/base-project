@@ -10,6 +10,7 @@ import com.eghm.dto.login.LoginRequest;
 import com.eghm.enums.Env;
 import com.eghm.enums.ErrorCode;
 import com.eghm.service.cache.CacheService;
+import com.eghm.service.common.AccessTokenService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginResponse;
@@ -41,6 +42,8 @@ public class LoginController {
 
     private final SystemProperties systemProperties;
 
+    private final AccessTokenService accessTokenService;
+
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("管理后台登陆")
     public RespBody<LoginResponse> login(@Validated @RequestBody LoginRequest request, HttpServletRequest servletRequest) {
@@ -60,6 +63,7 @@ public class LoginController {
         if (user != null) {
             // 删除锁屏状态
             cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
+            accessTokenService.logout(user.getToken());
         }
         return RespBody.success();
     }

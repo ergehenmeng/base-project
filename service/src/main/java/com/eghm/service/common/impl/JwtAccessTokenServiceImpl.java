@@ -47,11 +47,17 @@ public class JwtAccessTokenServiceImpl implements AccessTokenService {
             userToken.setAuthList(verify.getClaim("auth").asList(String.class));
             userToken.setDeptCode(verify.getClaim("deptCode").asString());
             userToken.setDataList(verify.getClaim("dataList").asList(String.class));
+            userToken.setToken(token);
             return Optional.of(userToken);
         } catch (Exception e) {
             log.warn("jwt解析失败,token可能已过期 [{}]", token);
             return Optional.empty();
         }
+    }
+
+    @Override
+    public void logout(String token) {
+        log.info("用户主动退出系统啦~ [{}]", token);
     }
 
     /**

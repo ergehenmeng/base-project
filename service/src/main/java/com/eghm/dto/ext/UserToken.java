@@ -38,4 +38,7 @@ public class UserToken {
 
     @ApiModelProperty("权限标示符")
     private List<String> authList;
+
+    @ApiModelProperty("登录token")
+    private String token;
 }

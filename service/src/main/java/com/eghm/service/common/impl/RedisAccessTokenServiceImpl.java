@@ -48,9 +48,17 @@ public class RedisAccessTokenServiceImpl implements AccessTokenService {
         if (value == null) {
             return Optional.empty();
         }
+        value.setToken(token);
         return Optional.of(value);
     }
 
+    @Override
+    public void logout(String token) {
+        if (token == null) {
+            return;
+        }
+        cacheService.delete(CacheConstant.USER_TOKEN + token);
+    }
 
     /**
      * 根据用户id及渠道创建token

@@ -30,4 +30,11 @@ public interface AccessTokenService {
      * @return 解析出来的用户信息
      */
     Optional<UserToken> parseToken(String token);
+
+    /**
+     * 退出登录
+     *
+     * @param token token
+     */
+    void logout(String token);
 }

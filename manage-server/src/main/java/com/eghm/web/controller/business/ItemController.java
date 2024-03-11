@@ -33,7 +33,7 @@ import java.util.List;
  */
 
 @RestController
-@Api(tags = "商品管理")
+@Api(tags = "零售管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/item", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemController {
