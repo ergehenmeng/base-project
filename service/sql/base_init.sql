@@ -3607,13 +3607,13 @@ INSERT INTO `sys_user` (`id`, `nick_name`, `mobile`, `state`, `pwd`, `init_pwd`,
 INSERT INTO `sys_user_role` (`id`, `user_id`, `role_id`) VALUES ('1', '1', '1');
 
 
-INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1', '超级管理员', 'administrator', '2018-01-29 13:45:49', '2019-01-15 15:30:07', b'0', '');
-INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969410', '景区商户', 'scenic', '2022-12-27 16:03:35', '2023-09-28 15:38:42', b'0', NULL);
-INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969411', '民宿商户', 'homestay', '2022-12-27 16:03:50', '2023-09-28 15:38:48', b'0', NULL);
-INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969412', '餐饮商户', 'restaurant', '2022-12-27 16:03:57', '2023-09-28 15:38:52', b'0', NULL);
-INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969413', '零售商户', 'item', '2022-12-27 16:04:06', '2023-10-11 17:03:54', b'0', NULL);
-INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969414', '线路商户', 'line', '2022-12-27 16:04:10', '2023-09-28 15:38:58', b'0', NULL);
-INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969415', '场馆商户', 'venue', '2024-02-19 15:22:58', '2024-02-19 15:24:53', b'0', NULL);
+INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1', '超级管理员', 'administrator', '2018-01-29 13:45:49', '2019-01-15 15:30:07', b'0', '超管(任何情况下都禁止改动)');
+INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969410', '景区商户', 'scenic', '2022-12-27 16:03:35', '2023-09-28 15:38:42', b'0', '系统默认角色(勿动)');
+INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969411', '民宿商户', 'homestay', '2022-12-27 16:03:50', '2023-09-28 15:38:48', b'0', '系统默认角色(勿动)');
+INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969412', '餐饮商户', 'restaurant', '2022-12-27 16:03:57', '2023-09-28 15:38:52', b'0', '系统默认角色(勿动)');
+INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969413', '零售商户', 'item', '2022-12-27 16:04:06', '2023-10-11 17:03:54', b'0', '系统默认角色(勿动)');
+INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969414', '线路商户', 'line', '2022-12-27 16:04:10', '2023-09-28 15:38:58', b'0', '系统默认角色(勿动)');
+INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969415', '场馆商户', 'venue', '2024-02-19 15:22:58', '2024-02-19 15:24:53', b'0', '系统默认角色(勿动)');
 
 
 INSERT INTO `member` (`id`, `avatar`, `mobile`, `mp_open_id`, `nick_name`, `email`, `pwd`, `state`, `real_name`, `id_card`, `birthday`, `invite_code`, `sex`, `score`, `channel`, `register_ip`, `create_time`, `update_time`, `deleted`) VALUES ('1', 'http://localhost:9002/cover.png', '13136113695', NULL, '二哥真的很猛', '664956140@qq.com', NULL, b'1', NULL, NULL, NULL, 'F', '2', '0', '0', '0', '2019-10-25 15:59:22', '2023-12-15 14:25:06', b'0');

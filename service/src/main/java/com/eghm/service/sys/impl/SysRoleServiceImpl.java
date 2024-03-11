@@ -47,7 +47,12 @@ public class SysRoleServiceImpl implements SysRoleService {
     public Page<SysRole> getByPage(PagingQuery request) {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
         wrapper.ne(SysRole::getRoleType, RoleType.ADMINISTRATOR);
-        wrapper.eq(SysRole::getMerchantId, SecurityHolder.getMerchantId());
+        Long merchantId = SecurityHolder.getMerchantId();
+        if (merchantId != null) {
+            wrapper.eq(SysRole::getMerchantId, merchantId);
+        } else {
+            wrapper.isNull(SysRole::getMerchantId);
+        }
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SysRole::getRoleName, request.getQueryName());
         wrapper.orderByDesc(SysRole::getId);
         return sysRoleMapper.selectPage(request.createPage(), wrapper);
@@ -92,7 +97,12 @@ public class SysRoleServiceImpl implements SysRoleService {
     public List<CheckBox> getList() {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
         wrapper.ne(SysRole::getRoleType, RoleType.ADMINISTRATOR);
-        wrapper.eq(SysRole::getMerchantId, SecurityHolder.getMerchantId());
+        Long merchantId = SecurityHolder.getMerchantId();
+        if (merchantId != null) {
+            wrapper.eq(SysRole::getMerchantId, merchantId);
+        } else {
+            wrapper.isNull(SysRole::getMerchantId);
+        }
         List<SysRole> roleList = sysRoleMapper.selectList(wrapper);
         return DataUtil.copy(roleList, sysRole -> CheckBox.builder().value(sysRole.getId()).desc(sysRole.getRoleName()).build());
     }

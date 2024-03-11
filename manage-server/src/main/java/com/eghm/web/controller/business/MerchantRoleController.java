@@ -44,7 +44,7 @@ public class MerchantRoleController {
     @ApiOperation("添加角色")
     public RespBody<Void> create(@Validated @RequestBody RoleAddRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        request.setRoleType(RoleType.COMMON);
+        request.setRoleType(RoleType.MERCHANT);
         sysRoleService.create(request);
         return RespBody.success();
     }
