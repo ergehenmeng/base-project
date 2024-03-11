@@ -17,7 +17,7 @@ public class HomestayOrderQueryDTO extends PagingQuery {
     @ApiModelProperty("民宿订单状态")
     private Integer orderState;
 
-    @ApiModelProperty("用户id")
+    @ApiModelProperty(value = "用户id", hidden = true)
     @Assign
     private Long memberId;
 }

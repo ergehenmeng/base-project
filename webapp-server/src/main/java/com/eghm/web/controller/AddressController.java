@@ -52,7 +52,7 @@ public class AddressController {
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("设置默认地址")
+    @ApiOperation("删除地址")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         memberAddressService.deleteAddress(dto.getId(), ApiHolder.getMemberId());
         return RespBody.success();

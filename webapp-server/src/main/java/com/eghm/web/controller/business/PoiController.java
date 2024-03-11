@@ -46,7 +46,7 @@ public class PoiController {
     }
 
     @GetMapping("/pointList")
-    @ApiOperation("poi点位列表")
+    @ApiOperation("poi点位列表(类型)")
     @ApiImplicitParam(name = "typeId", value = "区域类型id", required = true)
     public RespBody<List<PoiPointVO>> pointList(@RequestParam("typeId") Long typeId) {
         List<PoiPointVO> pointList = poiPointService.pointList(typeId);
@@ -62,7 +62,7 @@ public class PoiController {
     }
 
     @GetMapping("/pointSearch")
-    @ApiOperation("poi点位列表")
+    @ApiOperation("poi点位列表(搜索)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "areaCode", value = "区域编号", required = true),
             @ApiImplicitParam(name = "queryName", value = "搜索条件")
