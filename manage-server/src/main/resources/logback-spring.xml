@@ -5,7 +5,7 @@
                xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback http://ch.qos.logback/xml/ns/logback/logback.xsd"
                scan="true" debug="false" scanPeriod="6000">
     <!--键值对常量,其他地方可以引用-->
-    <property name="appName" value="p2p-web-manage"/>
+    <property name="appName" value="manageServer"/>
     <property name="logPath" value="/home/app/manage/logs"/>
     <!--上下文名称-->
     <contextName>${appName}</contextName>
