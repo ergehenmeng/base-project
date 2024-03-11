@@ -73,4 +73,9 @@
         </foreach>
         group by coupon_id
     </select>
+
+    <update id="couponExpire">
+        update member_coupon set state = 2 where coupon_id = #{couponId} and state = 0
+    </update>
+
 </mapper>

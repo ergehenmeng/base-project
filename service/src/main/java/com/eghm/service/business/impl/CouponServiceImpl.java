@@ -9,6 +9,7 @@ import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.dto.business.coupon.config.CouponQueryRequest;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.CouponMapper;
 import com.eghm.mapper.ItemMapper;
@@ -18,6 +19,7 @@ import com.eghm.service.business.CommonService;
 import com.eghm.service.business.CouponScopeService;
 import com.eghm.service.business.CouponService;
 import com.eghm.service.business.MemberCouponService;
+import com.eghm.service.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.coupon.CouponListVO;
 import com.eghm.vo.business.coupon.CouponResponse;
@@ -25,6 +27,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -50,6 +54,8 @@ public class CouponServiceImpl implements CouponService {
 
     private final CommonService commonService;
 
+    private final MessageService messageService;
+
     @Override
     public Page<CouponResponse> getByPage(CouponQueryRequest request) {
         return couponMapper.listPage(request.createPage(), request);
@@ -61,6 +67,9 @@ public class CouponServiceImpl implements CouponService {
         config.setMerchantId(SecurityHolder.getMerchantId());
         couponMapper.insert(config);
         couponScopeService.insertOnUpdate(config.getId(), request.getProductIds());
+        // 注意: 如果优惠券过期时间太大,则long转int时可能会溢出
+        long expireTime = ChronoUnit.SECONDS.between(LocalDateTime.now(), request.getUseEndTime());
+        messageService.sendDelay(ExchangeQueue.COUPON_EXPIRE, config.getId(), (int) expireTime);
     }
 
     @Override

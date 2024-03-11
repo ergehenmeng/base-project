@@ -177,6 +177,11 @@ public class MemberCouponServiceImpl implements MemberCouponService {
         return receivedList.stream().collect(Collectors.toMap(MemberCouponCountVO::getCouponId, MemberCouponCountVO::getNum));
     }
 
+    @Override
+    public void couponExpire(Long couponId) {
+        memberCouponMapper.couponExpire(couponId);
+    }
+
     /**
      * 发放优惠券给用户
      *

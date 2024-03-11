@@ -100,4 +100,11 @@ public interface MemberCouponService {
      * @return 每种优惠券的数量 key:优惠券id value:数量(可能为空)
      */
     Map<Long, Integer> countMemberReceived(Long memberId, List<Long> couponIds);
+
+    /**
+     * 优惠券过期
+     *
+     * @param couponId 优惠券id
+     */
+    void couponExpire(Long couponId);
 }

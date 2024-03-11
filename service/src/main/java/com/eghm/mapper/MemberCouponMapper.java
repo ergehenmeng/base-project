@@ -11,6 +11,7 @@ import com.eghm.vo.business.coupon.MemberCouponResponse;
 import com.eghm.vo.business.coupon.MemberCouponVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -58,4 +59,11 @@ public interface MemberCouponMapper extends BaseMapper<MemberCoupon> {
      * @return 每种优惠券的数量 key:优惠券id value:数量(可能为空)
      */
     List<MemberCouponCountVO> countMemberReceived(@Param("memberId") Long memberId, @Param("couponIds") List<Long> couponIds);
+
+    /**
+     * 更新优惠券为过期状态
+     *
+     * @param couponId 优惠券id
+     */
+    void couponExpire(@Param("couponId") Long couponId);
 }

@@ -143,6 +143,12 @@ public enum ExchangeQueue {
      * 拼团订单过期取消(取消某个拼团)
      */
     GROUP_ORDER_EXPIRE_SINGLE("group_order_expire_single_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.GROUP_ORDER_EXPIRE_SINGLE_QUEUE}, "", true),
+
+    /**
+     * 优惠券自动过期
+     */
+    COUPON_EXPIRE("coupon_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.COUPON_EXPIRE_QUEUE}, "", true),
+
     ;
 
     /**

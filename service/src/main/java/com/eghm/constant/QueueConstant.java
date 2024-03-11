@@ -142,4 +142,9 @@ public class QueueConstant {
      * 零售发货后,14日自动确认收货
      */
     public static final String ITEM_SIPPING_QUEUE = "item_sipping_queue";
+
+    /**
+     * 优惠券自动过期
+     */
+    public static final String COUPON_EXPIRE_QUEUE = "coupon_expire_queue";
 }

@@ -21,6 +21,7 @@ import com.eghm.service.business.handler.context.*;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.member.LoginService;
+import com.eghm.service.sys.DingTalkService;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
 import com.eghm.state.machine.StateHandler;
@@ -79,25 +80,9 @@ public class RabbitListenerHandler {
 
     private final VenueService venueService;
 
-    /**
-     * 处理MQ中消息,并手动确认
-     *
-     * @param msg      消息
-     * @param message  message
-     * @param channel  channel
-     * @param consumer 业务
-     * @param <T>      消息类型
-     * @throws IOException e
-     */
-    public static <T> void processMessageAck(T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
-        try {
-            consumer.accept(msg);
-        } catch (Exception e) {
-            log.error("队列[{}]处理消息异常 [{}] [{}]", message.getMessageProperties().getConsumerQueue(), msg, message, e);
-        } finally {
-            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
-        }
-    }
+    private final MemberCouponService memberCouponService;
+
+    private final DingTalkService dingTalkService;
 
     /**
      * 零售商品消息队列订单过期处理
@@ -355,6 +340,14 @@ public class RabbitListenerHandler {
     }
 
     /**
+     * 优惠券自动过期
+     */
+    @RabbitListener(queues = QueueConstant.COUPON_EXPIRE_QUEUE)
+    public void couponExpire(Long couponId, Message message, Channel channel) throws IOException {
+        processMessageAck(couponId, message, channel, memberCouponService::couponExpire);
+    }
+
+    /**
      * 处理MQ中消息,并手动确认,并将结果放入缓存方便客户端查询
      *
      * @param msg      消息
@@ -379,6 +372,27 @@ public class RabbitListenerHandler {
         } catch (Exception e) {
             log.error("队列[{}]处理消息异常 [{}] [{}]", message.getMessageProperties().getConsumerQueue(), msg, message, e);
             cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), ERROR_PLACE_HOLDER, CommonConstant.ASYNC_MSG_EXPIRE);
+        } finally {
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        }
+    }
+
+    /**
+     * 处理MQ中消息,并手动确认
+     *
+     * @param msg      消息
+     * @param message  message
+     * @param channel  channel
+     * @param consumer 业务
+     * @param <T>      消息类型
+     * @throws IOException e
+     */
+    public <T> void processMessageAck(T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
+        try {
+            consumer.accept(msg);
+        } catch (Exception e) {
+            log.error("队列[{}]处理消息异常 [{}] [{}]", message.getMessageProperties().getConsumerQueue(), msg, message, e);
+            dingTalkService.sendMsg(String.format("队列[%s]消息消费失败[%s]", message.getMessageProperties().getConsumerQueue(), jsonService.toJson(msg)));
         } finally {
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         }
