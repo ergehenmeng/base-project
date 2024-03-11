@@ -303,6 +303,11 @@ public enum ErrorCode {
     IP_ILLEGAL(2030, "ip格式错误"),
 
     /**
+     * 开始ip必须小于截止ip
+     */
+    IP_RANGE_ILLEGAL(2032, "开始ip必须小于截止ip"),
+
+    /**
      * 系统配置信息未查询到
      */
     CONFIG_NOT_FOUND_ERROR(3000, "系统配置信息未查询到"),

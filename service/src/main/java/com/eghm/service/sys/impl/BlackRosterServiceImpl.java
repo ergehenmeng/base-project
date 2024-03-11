@@ -16,6 +16,7 @@ import com.eghm.model.BlackRoster;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.BlackRosterService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2019/9/9 13:45
  */
+@Slf4j
 @Service("blackRosterService")
 @AllArgsConstructor
 public class BlackRosterServiceImpl implements BlackRosterService {
@@ -48,6 +50,10 @@ public class BlackRosterServiceImpl implements BlackRosterService {
 
     @Override
     public void addBlackRoster(BlackRosterAddRequest request) {
+        if (request.getStartIp() > request.getEndIp()) {
+            log.warn("ip黑名单范围错误 [{}] [{}]", request.getStartIp(), request.getEndIp());
+            throw new BusinessException(ErrorCode.IP_RANGE_ILLEGAL);
+        }
         BlackRoster roster = new BlackRoster();
         roster.setStartIp(request.getStartIp());
         roster.setEndIp(request.getEndIp());
