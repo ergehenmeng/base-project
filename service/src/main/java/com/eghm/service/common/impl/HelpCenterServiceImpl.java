@@ -33,7 +33,7 @@ public class HelpCenterServiceImpl implements HelpCenterService {
         LambdaQueryWrapper<HelpCenter> wrapper = Wrappers.lambdaQuery();
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), HelpCenter::getAsk, request.getQueryName());
         wrapper.eq(request.getState() != null, HelpCenter::getState, request.getState());
-        wrapper.eq(request.getClassify() != null, HelpCenter::getClassify, request.getClassify());
+        wrapper.eq(request.getHelpType() != null, HelpCenter::getHelpType, request.getHelpType());
         return helpCenterMapper.selectPage(request.createPage(), wrapper);
     }
 
@@ -56,7 +56,7 @@ public class HelpCenterServiceImpl implements HelpCenterService {
 
     @Override
     public List<HelpCenterVO> list(HelpQueryDTO dto) {
-        List<HelpCenter> list = helpCenterMapper.getListSorted(dto.getClassify(), dto.getQueryName());
+        List<HelpCenter> list = helpCenterMapper.getList(dto.getHelpType(), dto.getQueryName());
         return DataUtil.copy(list, HelpCenterVO.class);
     }
 }

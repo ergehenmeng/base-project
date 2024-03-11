@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 public class HelpQueryRequest extends PagingQuery {
 
     @ApiModelProperty("帮助说明类型")
-    private Integer classify;
+    private Integer helpType;
 
     @ApiModelProperty("是否显示 0:不显示 1:显示")
     private Integer state;

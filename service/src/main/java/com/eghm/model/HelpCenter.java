@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
 public class HelpCenter extends BaseEntity {
 
     @ApiModelProperty("帮助分类取sys_dict表中help_classify字段")
-    private Integer classify;
+    private Integer helpType;
 
     @ApiModelProperty("状态 0:不显示 1:显示")
     private Integer state;

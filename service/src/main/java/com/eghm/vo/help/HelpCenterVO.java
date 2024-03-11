@@ -11,7 +11,7 @@ import lombok.Data;
 public class HelpCenterVO {
 
     @ApiModelProperty("帮助分类")
-    private Integer classify;
+    private Integer helpType;
 
     @ApiModelProperty("问题标题")
     private String ask;

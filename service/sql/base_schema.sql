@@ -155,7 +155,7 @@ DROP TABLE IF EXISTS `help_center`;
 CREATE TABLE `help_center`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `classify`    tinyint(2) unsigned DEFAULT NULL COMMENT '帮助分类取system_dict表中help_classify字段',
+    `help_type`   tinyint(2) unsigned DEFAULT NULL COMMENT '帮助分类取system_dict表中help_classify字段',
     `state`       tinyint(1) unsigned DEFAULT '1' COMMENT '状态 0:不显示 1:显示',
     `ask`         varchar(100)        DEFAULT NULL COMMENT '问',
     `answer`      text                DEFAULT NULL COMMENT '答',

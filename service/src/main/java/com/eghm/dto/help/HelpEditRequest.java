@@ -21,7 +21,7 @@ public class HelpEditRequest {
 
     @ApiModelProperty(value = "帮助说明分类", required = true)
     @NotNull(message = "请选择分类")
-    private Integer classify;
+    private Integer helpType;
 
     @ApiModelProperty(value = "是否显示 0:不显示 1:显示", required = true)
     @OptionInt(value = {0, 1}, message = "显示状态不合法")
