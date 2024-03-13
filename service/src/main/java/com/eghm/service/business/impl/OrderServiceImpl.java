@@ -524,7 +524,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Order::getBookingNo, bookingNo);
         wrapper.eq(Order::getMemberId, memberId);
-        wrapper.notIn(Order::getState, OrderState.CLOSE, OrderState.NONE);
+        wrapper.ne(Order::getState, OrderState.CLOSE);
         Long count = baseMapper.selectCount(wrapper);
         if (count > 0) {
             log.error("用户已在拼团订单,不支持重复下单 [{}] [{}]", bookingNo, memberId);

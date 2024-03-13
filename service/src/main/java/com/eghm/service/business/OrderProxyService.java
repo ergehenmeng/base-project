@@ -36,4 +36,11 @@ public interface OrderProxyService {
      * @param bookingNo 拼团订单号
      */
     void cancelGroupOrder(String bookingNo);
+
+    /**
+     * 取消订单 (通用)
+     *
+     * @param orderNo 订单编号(通用)
+     */
+    void cancel(String orderNo, Long memberId);
 }

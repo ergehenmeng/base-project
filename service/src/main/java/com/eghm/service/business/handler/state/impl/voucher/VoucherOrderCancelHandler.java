@@ -10,6 +10,7 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VoucherOrderService;
 import com.eghm.service.business.VoucherService;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCancelHandler;
+import com.eghm.service.pay.AggregatePayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -25,14 +26,15 @@ public class VoucherOrderCancelHandler extends AbstractOrderCancelHandler {
 
     private final VoucherService voucherService;
 
-    public VoucherOrderCancelHandler(OrderService orderService, MemberCouponService memberCouponService, VoucherOrderService voucherOrderService, VoucherService voucherService) {
-        super(orderService, memberCouponService);
+    public VoucherOrderCancelHandler(OrderService orderService, MemberCouponService memberCouponService, VoucherOrderService voucherOrderService, VoucherService voucherService, AggregatePayService aggregatePayService) {
+        super(orderService, memberCouponService, aggregatePayService);
         this.voucherOrderService = voucherOrderService;
         this.voucherService = voucherService;
     }
 
     @Override
     protected void after(Order order) {
+        super.after(order);
         VoucherOrder voucherOrder = voucherOrderService.getByOrderNo(order.getOrderNo());
         voucherService.updateStock(voucherOrder.getVoucherId(), order.getNum());
     }

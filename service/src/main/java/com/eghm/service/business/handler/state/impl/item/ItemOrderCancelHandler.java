@@ -10,6 +10,7 @@ import com.eghm.model.Order;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCancelHandler;
 import com.eghm.service.member.MemberService;
+import com.eghm.service.pay.AggregatePayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +34,8 @@ public class ItemOrderCancelHandler extends AbstractOrderCancelHandler {
 
     private final ItemGroupOrderService itemGroupOrderService;
 
-    public ItemOrderCancelHandler(MemberService memberService, OrderService orderService, MemberCouponService memberCouponService, ItemSkuService itemSkuService, ItemOrderService itemOrderService, ItemGroupOrderService itemGroupOrderService) {
-        super(orderService, memberCouponService);
+    public ItemOrderCancelHandler(MemberService memberService, OrderService orderService, MemberCouponService memberCouponService, ItemSkuService itemSkuService, ItemOrderService itemOrderService, ItemGroupOrderService itemGroupOrderService, AggregatePayService aggregatePayService) {
+        super(orderService, memberCouponService, aggregatePayService);
         this.itemSkuService = itemSkuService;
         this.itemOrderService = itemOrderService;
         this.itemGroupOrderService = itemGroupOrderService;
@@ -43,6 +44,7 @@ public class ItemOrderCancelHandler extends AbstractOrderCancelHandler {
 
     @Override
     protected void after(Order order) {
+        super.after(order);
         List<ItemOrder> orderList = itemOrderService.getByOrderNo(order.getOrderNo());
         Map<Long, Integer> skuNumMap = orderList.stream().collect(Collectors.toMap(ItemOrder::getSkuId, ItemOrder::getNum));
         itemSkuService.updateStock(skuNumMap);

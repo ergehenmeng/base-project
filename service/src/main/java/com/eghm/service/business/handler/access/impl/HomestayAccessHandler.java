@@ -73,4 +73,9 @@ public class HomestayAccessHandler extends AbstractAccessHandler {
     public void verifyOrder(OrderVerifyContext context) {
         stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.UN_USED.getValue(), HomestayEvent.VERIFY, context);
     }
+
+    @Override
+    public void cancel(OrderCancelContext context) {
+        stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.UN_PAY.getValue(), HomestayEvent.CANCEL, context);
+    }
 }

@@ -9,6 +9,7 @@ import com.eghm.model.Order;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.state.impl.AbstractOrderAutoCancelHandler;
 import com.eghm.service.member.MemberService;
+import com.eghm.service.pay.AggregatePayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +35,9 @@ public class ItemOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler {
 
     private final ItemGroupOrderService itemGroupOrderService;
 
-    public ItemOrderAutoCancelHandler(MemberService memberService, OrderService orderService, MemberCouponService memberCouponService, ItemSkuService itemSkuService, ItemOrderService itemOrderService, ItemGroupOrderService itemGroupOrderService) {
-        super(orderService, memberCouponService);
+    public ItemOrderAutoCancelHandler(MemberService memberService, OrderService orderService, MemberCouponService memberCouponService, ItemSkuService itemSkuService,
+                                      ItemOrderService itemOrderService, ItemGroupOrderService itemGroupOrderService, AggregatePayService aggregatePayService) {
+        super(orderService, memberCouponService, aggregatePayService);
         this.itemSkuService = itemSkuService;
         this.itemOrderService = itemOrderService;
         this.itemGroupOrderService = itemGroupOrderService;

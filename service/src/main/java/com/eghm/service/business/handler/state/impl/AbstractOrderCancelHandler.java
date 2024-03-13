@@ -3,13 +3,16 @@ package com.eghm.service.business.handler.state.impl;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.ref.PayType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.context.OrderCancelContext;
 import com.eghm.service.business.handler.state.OrderCancelHandler;
+import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.TradeState;
+import com.eghm.service.pay.enums.TradeType;
 import com.eghm.state.machine.ActionHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +34,8 @@ public abstract class AbstractOrderCancelHandler implements OrderCancelHandler, 
 
     private final MemberCouponService memberCouponService;
 
+    private final AggregatePayService aggregatePayService;
+
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void doAction(OrderCancelContext context) {
@@ -47,6 +52,11 @@ public abstract class AbstractOrderCancelHandler implements OrderCancelHandler, 
      */
     protected void after(Order order) {
         log.info("订单取消成功 [{}]", order.getId());
+        PayType payType = order.getPayType();
+        if (payType != null) {
+            TradeType tradeType = TradeType.of(payType.name());
+            aggregatePayService.closeOrder(tradeType, order.getTradeNo());
+        }
     }
 
     /**

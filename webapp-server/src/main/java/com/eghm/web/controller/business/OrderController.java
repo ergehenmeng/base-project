@@ -14,6 +14,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.AsyncKey;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
+import com.eghm.service.business.OrderProxyService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.impl.*;
 import com.eghm.service.business.handler.context.*;
@@ -53,6 +54,8 @@ public class OrderController {
     private final HomestayAccessHandler homestayAccessHandler;
 
     private final VoucherAccessHandler voucherAccessHandler;
+
+    private final OrderProxyService orderProxyService;
 
     @PostMapping(value = "/item/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("零售创建订单")
@@ -202,6 +205,13 @@ public class OrderController {
     @ApiOperation("删除订单")
     public RespBody<Void> delete(@Validated @RequestBody OrderDTO dto) {
         orderService.deleteOrder(dto.getOrderNo(), ApiHolder.getMemberId());
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/cancel", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("取消订单")
+    public RespBody<Void> cancel(@Validated @RequestBody OrderDTO dto) {
+        orderProxyService.cancel(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success();
     }
 

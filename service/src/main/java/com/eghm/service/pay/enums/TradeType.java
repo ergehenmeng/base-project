@@ -51,11 +51,6 @@ public enum TradeType {
      */
     ALI_FACE_PAY("ALI_FACE_PAY", "支付宝当面付"),
 
-    /**
-     * 微信支付 (该枚举不参与业务,仅仅作为异步通知日志中的交易类型)
-     */
-    WECHAT("WECHAT", "微信支付"),
-
     ;
 
     /**

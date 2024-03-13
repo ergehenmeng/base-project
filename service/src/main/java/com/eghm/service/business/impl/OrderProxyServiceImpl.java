@@ -16,8 +16,11 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.HomestayOrderMapper;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
+import com.eghm.service.business.handler.access.AccessHandler;
+import com.eghm.service.business.handler.access.impl.ItemAccessHandler;
 import com.eghm.service.business.handler.context.OrderCancelContext;
 import com.eghm.service.business.handler.context.RefundApplyContext;
+import com.eghm.service.business.handler.state.OrderCancelHandler;
 import com.eghm.service.common.SmsService;
 import com.eghm.service.sys.DingTalkService;
 import com.eghm.state.machine.StateHandler;
@@ -47,6 +50,8 @@ public class OrderProxyServiceImpl implements OrderProxyService {
     private final OrderVisitorService orderVisitorService;
 
     private final StateHandler stateHandler;
+
+    private final CommonService commonService;
 
     private final SmsService smsService;
 
@@ -146,6 +151,26 @@ public class OrderProxyServiceImpl implements OrderProxyService {
             return;
         }
         groupList.forEach(this::doCancelGroupOrder);
+    }
+
+    @Override
+    public void cancel(String orderNo, Long memberId) {
+        Order order = orderService.getByOrderNo(orderNo);
+        if (!order.getMemberId().equals(memberId)) {
+            log.error("订单取消,操作了不属于自己的订单 [{}] [{}]", orderNo, memberId);
+            throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
+        }
+        if (order.getState() == OrderState.CLOSE) {
+            log.error("订单已取消,无需重复操作 [{}] [{}]", orderNo, memberId);
+            return;
+        }
+        if (order.getState() != OrderState.UN_PAY) {
+            log.info("订单已支付, 无法取消 [{}] [{}] [{}]", orderNo, memberId, order.getState());
+            throw new BusinessException(ErrorCode.ORDER_PAID_CANCEL);
+        }
+        OrderCancelContext context = new OrderCancelContext();
+        context.setOrderNo(orderNo);
+        commonService.getHandler(orderNo, AccessHandler.class).cancel(context);
     }
 
     /**

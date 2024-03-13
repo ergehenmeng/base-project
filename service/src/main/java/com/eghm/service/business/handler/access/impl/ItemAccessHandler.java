@@ -74,4 +74,8 @@ public class ItemAccessHandler extends AbstractAccessHandler {
         stateHandler.fireEvent(ProductType.ITEM, context.getFrom(), ItemEvent.REFUND_FAIL, context);
     }
 
+    @Override
+    public void cancel(OrderCancelContext context) {
+        stateHandler.fireEvent(ProductType.ITEM, OrderState.UN_PAY.getValue(), ItemEvent.CANCEL, context);
+    }
 }

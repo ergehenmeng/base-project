@@ -10,6 +10,7 @@ import com.eghm.service.business.LineOrderService;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.state.impl.AbstractOrderAutoCancelHandler;
+import com.eghm.service.pay.AggregatePayService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,8 +25,8 @@ public class LineOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler {
     private final LineConfigService lineConfigService;
 
     public LineOrderAutoCancelHandler(OrderService orderService, MemberCouponService memberCouponService,
-                                      LineOrderService lineOrderService, LineConfigService lineConfigService) {
-        super(orderService, memberCouponService);
+                                      LineOrderService lineOrderService, LineConfigService lineConfigService, AggregatePayService aggregatePayService) {
+        super(orderService, memberCouponService, aggregatePayService);
         this.lineOrderService = lineOrderService;
         this.lineConfigService = lineConfigService;
     }

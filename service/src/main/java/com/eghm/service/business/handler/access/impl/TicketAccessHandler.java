@@ -74,4 +74,8 @@ public class TicketAccessHandler extends AbstractAccessHandler {
         stateHandler.fireEvent(ProductType.TICKET, context.getFrom(), TicketEvent.REFUND_FAIL, context);
     }
 
+    @Override
+    public void cancel(OrderCancelContext context) {
+        stateHandler.fireEvent(ProductType.TICKET, OrderState.UN_PAY.getValue(), TicketEvent.CANCEL, context);
+    }
 }

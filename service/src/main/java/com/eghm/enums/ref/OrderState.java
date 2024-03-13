@@ -104,7 +104,7 @@ public enum OrderState implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(OrderState.values()).filter(state -> state.value == value).findFirst().orElse(NONE);
+        return Arrays.stream(OrderState.values()).filter(state -> state.value == value).findFirst().orElse(null);
     }
 
 

@@ -73,4 +73,9 @@ public class VoucherAccessHandler extends AbstractAccessHandler {
     public void verifyOrder(OrderVerifyContext context) {
         stateHandler.fireEvent(ProductType.RESTAURANT, OrderState.UN_USED.getValue(), VoucherEvent.VERIFY, context);
     }
+
+    @Override
+    public void cancel(OrderCancelContext context) {
+        stateHandler.fireEvent(ProductType.RESTAURANT, OrderState.UN_PAY.getValue(), VoucherEvent.CANCEL, context);
+    }
 }

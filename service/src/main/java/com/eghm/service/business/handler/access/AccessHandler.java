@@ -50,4 +50,11 @@ public interface AccessHandler {
      * @param context context
      */
     void verifyOrder(OrderVerifyContext context);
+
+    /**
+     * 订单取消
+     *
+     * @param context 取消订单
+     */
+    void cancel(OrderCancelContext context);
 }

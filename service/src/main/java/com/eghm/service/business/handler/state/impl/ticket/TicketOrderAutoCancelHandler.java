@@ -10,6 +10,7 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.service.business.TicketOrderService;
 import com.eghm.service.business.handler.state.impl.AbstractOrderAutoCancelHandler;
+import com.eghm.service.pay.AggregatePayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,8 @@ public class TicketOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler
 
     private final ScenicTicketService scenicTicketService;
 
-    public TicketOrderAutoCancelHandler(OrderService orderService, MemberCouponService memberCouponService, TicketOrderService ticketOrderService, ScenicTicketService scenicTicketService) {
-        super(orderService, memberCouponService);
+    public TicketOrderAutoCancelHandler(OrderService orderService, MemberCouponService memberCouponService, TicketOrderService ticketOrderService, ScenicTicketService scenicTicketService, AggregatePayService aggregatePayService) {
+        super(orderService, memberCouponService, aggregatePayService);
         this.ticketOrderService = ticketOrderService;
         this.scenicTicketService = scenicTicketService;
     }

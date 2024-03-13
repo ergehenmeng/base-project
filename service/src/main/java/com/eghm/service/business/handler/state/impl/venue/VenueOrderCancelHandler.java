@@ -8,6 +8,7 @@ import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VenueOrderService;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCancelHandler;
+import com.eghm.service.pay.AggregatePayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +22,14 @@ public class VenueOrderCancelHandler extends AbstractOrderCancelHandler {
 
     private final VenueOrderService venueOrderService;
 
-    public VenueOrderCancelHandler(OrderService orderService, MemberCouponService memberCouponService, VenueOrderService venueOrderService) {
-        super(orderService, memberCouponService);
+    public VenueOrderCancelHandler(OrderService orderService, MemberCouponService memberCouponService, VenueOrderService venueOrderService, AggregatePayService aggregatePayService) {
+        super(orderService, memberCouponService, aggregatePayService);
         this.venueOrderService = venueOrderService;
     }
 
     @Override
     protected void after(Order order) {
+        super.after(order);
         venueOrderService.updateStock(order.getOrderNo(), 1);
     }
 

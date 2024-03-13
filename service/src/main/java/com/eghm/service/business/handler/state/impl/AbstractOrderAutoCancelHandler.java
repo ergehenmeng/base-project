@@ -2,11 +2,14 @@ package com.eghm.service.business.handler.state.impl;
 
 import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.ref.PayType;
 import com.eghm.model.Order;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.context.OrderCancelContext;
 import com.eghm.service.business.handler.state.OrderAutoCancelHandler;
+import com.eghm.service.pay.AggregatePayService;
+import com.eghm.service.pay.enums.TradeType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Propagation;
@@ -28,6 +31,8 @@ public abstract class AbstractOrderAutoCancelHandler implements OrderAutoCancelH
 
     private final MemberCouponService memberCouponService;
 
+    private final AggregatePayService aggregatePayService;
+
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void doAction(OrderCancelContext context) {
@@ -48,6 +53,11 @@ public abstract class AbstractOrderAutoCancelHandler implements OrderAutoCancelH
      */
     protected void after(Order order) {
         log.info("订单过期处理成功 [{}]", order.getOrderNo());
+        PayType payType = order.getPayType();
+        if (payType != null) {
+            TradeType tradeType = TradeType.of(payType.name());
+            aggregatePayService.closeOrder(tradeType, order.getTradeNo());
+        }
     }
 
     /**

@@ -73,4 +73,9 @@ public class LineAccessHandler extends AbstractAccessHandler {
     public void refundFail(RefundNotifyContext context) {
         stateHandler.fireEvent(ProductType.LINE, context.getFrom(), LineEvent.REFUND_FAIL, context);
     }
+
+    @Override
+    public void cancel(OrderCancelContext context) {
+        stateHandler.fireEvent(ProductType.LINE, OrderState.UN_PAY.getValue(), LineEvent.CANCEL, context);
+    }
 }
