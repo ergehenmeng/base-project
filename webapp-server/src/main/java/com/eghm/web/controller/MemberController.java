@@ -68,6 +68,7 @@ public class MemberController {
     @PostMapping(value = "/sendChangeEmailCode", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("发送换绑邮箱的邮箱验证码②")
     public RespBody<Void> sendChangeEmailCode(@RequestBody @Validated SendEmailAuthCodeDTO request) {
+        request.setMemberId(ApiHolder.getMemberId());
         memberService.sendChangeEmailCode(request);
         return RespBody.success();
     }
@@ -75,6 +76,7 @@ public class MemberController {
     @PostMapping(value = "/bindChangeEmail", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("绑定新邮箱账号③")
     public RespBody<Void> bindChangeEmail(@RequestBody @Validated ChangeEmailDTO request) {
+        request.setMemberId(ApiHolder.getMemberId());
         memberService.changeEmail(request);
         return RespBody.success();
     }

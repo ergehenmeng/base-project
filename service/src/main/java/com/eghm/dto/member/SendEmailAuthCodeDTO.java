@@ -23,7 +23,7 @@ public class SendEmailAuthCodeDTO {
     private String smsCode;
 
     @Assign
-    @ApiModelProperty(hidden = true)
+    @ApiModelProperty(value = "用户ID", hidden = true)
     private Long memberId;
 
 }
