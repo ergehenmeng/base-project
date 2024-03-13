@@ -149,10 +149,6 @@ public enum ExchangeQueue {
      */
     COUPON_EXPIRE("coupon_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.COUPON_EXPIRE_QUEUE}, "", true),
 
-    /**
-     * 零售零元付(模拟支付成功)
-     */
-    ITEM_ZERO_PAY("item_zero_pay_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.ITEM_ZERO_PAY_QUEUE}, "", false),
     ;
 
     /**

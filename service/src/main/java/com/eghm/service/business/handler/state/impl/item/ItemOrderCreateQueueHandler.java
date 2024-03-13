@@ -3,7 +3,6 @@ package com.eghm.service.business.handler.state.impl.item;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.service.business.*;
-import com.eghm.service.business.handler.access.impl.ItemAccessHandler;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.member.MemberAddressService;
@@ -21,8 +20,8 @@ public class ItemOrderCreateQueueHandler extends ItemOrderCreateHandler {
 
     public ItemOrderCreateQueueHandler(ItemOrderService itemOrderService, ItemService itemService, ItemSkuService itemSkuService, ItemSpecService itemSpecService, ItemStoreService itemStoreService, OrderService orderService,
                                        OrderMQService orderMQService, MemberAddressService memberAddressService, ItemGroupOrderService itemGroupOrderService, GroupBookingService groupBookingService, LimitPurchaseItemService limitPurchaseItemService,
-                                       JsonService jsonService, MemberService memberService, ItemAccessHandler itemAccessHandler) {
-        super(itemOrderService, itemService, itemSkuService, itemSpecService, itemStoreService, orderService, jsonService, orderMQService, memberAddressService, itemGroupOrderService, groupBookingService, limitPurchaseItemService, memberService, itemAccessHandler);
+                                       JsonService jsonService, MemberService memberService) {
+        super(itemOrderService, itemService, itemSkuService, itemSpecService, itemStoreService, orderService, jsonService, orderMQService, memberAddressService, itemGroupOrderService, groupBookingService, limitPurchaseItemService, memberService);
     }
 
     @Override

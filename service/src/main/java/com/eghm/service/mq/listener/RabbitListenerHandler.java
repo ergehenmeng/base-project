@@ -17,7 +17,6 @@ import com.eghm.model.MemberVisitLog;
 import com.eghm.model.Order;
 import com.eghm.model.WebappLog;
 import com.eghm.service.business.*;
-import com.eghm.service.business.handler.access.impl.ItemAccessHandler;
 import com.eghm.service.business.handler.context.*;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.JsonService;
@@ -35,7 +34,6 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.function.Consumer;
 
 import static com.eghm.constant.CacheConstant.ERROR_PLACE_HOLDER;
@@ -61,8 +59,6 @@ public class RabbitListenerHandler {
     private final JsonService jsonService;
 
     private final StateHandler stateHandler;
-
-    private final ItemAccessHandler itemAccessHandler;
 
     private final OrderService orderService;
 
@@ -349,17 +345,6 @@ public class RabbitListenerHandler {
     @RabbitListener(queues = QueueConstant.COUPON_EXPIRE_QUEUE)
     public void couponExpire(Long couponId, Message message, Channel channel) throws IOException {
         processMessageAck(couponId, message, channel, memberCouponService::couponExpire);
-    }
-
-    /**
-     * 零售零元付模拟支付成功
-     */
-    @RabbitListener(queues = QueueConstant.ITEM_ZERO_PAY_QUEUE)
-    public void itemZeroPay(String tradeNo, Message message, Channel channel) throws IOException {
-        PayNotifyContext context = new PayNotifyContext();
-        context.setSuccessTime(LocalDateTime.now());
-        context.setTradeNo(tradeNo);
-        processMessageAck(context, message, channel, itemAccessHandler::payNotify);
     }
 
     /**

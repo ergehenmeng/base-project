@@ -148,8 +148,4 @@ public class QueueConstant {
      */
     public static final String COUPON_EXPIRE_QUEUE = "coupon_expire_queue";
 
-    /**
-     * 零售零元付(模拟支付成功)
-     */
-    public static final String ITEM_ZERO_PAY_QUEUE = "item_zero_pay_queue";
 }

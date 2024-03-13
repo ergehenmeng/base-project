@@ -16,7 +16,9 @@ import com.eghm.enums.ref.RefundType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
+import com.eghm.service.business.handler.access.impl.ItemAccessHandler;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
+import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.dto.ItemDTO;
 import com.eghm.service.business.handler.dto.ItemOrderPayload;
 import com.eghm.service.business.handler.dto.OrderPackage;
@@ -24,8 +26,8 @@ import com.eghm.service.business.handler.state.OrderCreateHandler;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.member.MemberAddressService;
 import com.eghm.service.member.MemberService;
-import com.eghm.service.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.SpringContextUtil;
 import com.eghm.utils.StringUtil;
 import com.eghm.utils.TransactionUtil;
 import com.eghm.vo.business.group.GroupOrderVO;
@@ -74,8 +76,6 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     private final LimitPurchaseItemService limitPurchaseItemService;
 
     private final MemberService memberService;
-
-    private final MessageService messageService;
 
     /**
      * 普通订单下单处理逻辑
@@ -476,7 +476,11 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         if (realPayAmount <= 0) {
             String tradeNo = orderList.get(0).getTradeNo();
             log.info("该零售订单可能使用积分或优惠券,属于零元付,不做真实支付 [{}]", tradeNo);
-            TransactionUtil.afterCommit(() -> messageService.send(ExchangeQueue.ITEM_ZERO_PAY, tradeNo));
+            PayNotifyContext notify = new PayNotifyContext();
+            notify.setSuccessTime(LocalDateTime.now());
+            notify.setTradeNo(tradeNo);
+            // 此次没有采用bean注入的方式获取handler? 因为构造方法注入会产生循环依赖
+            SpringContextUtil.getBean(ItemAccessHandler.class).paySuccess(notify);
         } else {
             List<String> noList = orderList.stream().map(Order::getOrderNo).collect(Collectors.toList());
             // 30分钟过期定时任务
