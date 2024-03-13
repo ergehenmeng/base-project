@@ -90,7 +90,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         refundLog.setMerchantId(order.getMerchantId());
         refundLog.setApplyTime(LocalDateTime.now());
         refundLog.setState(0);
-        if (this.getRefundType(order) == RefundType.DIRECT_REFUND) {
+        if (this.getRefundType(order) == RefundType.AUDIT_REFUND) {
             refundLog.setAuditState(AuditState.APPLY);
             orderRefundLogService.insert(refundLog);
             order.setRefundState(RefundState.APPLY);

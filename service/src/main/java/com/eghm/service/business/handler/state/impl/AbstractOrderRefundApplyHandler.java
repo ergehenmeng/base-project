@@ -65,8 +65,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
         refundLog.setApplyTime(LocalDateTime.now());
         refundLog.setMerchantId(order.getMerchantId());
         refundLog.setState(0);
-        RefundType refundType = this.getRefundType(order);
-        if (refundType == RefundType.AUDIT_REFUND) {
+        if (this.getRefundType(order) == RefundType.AUDIT_REFUND) {
             refundLog.setAuditState(AuditState.APPLY);
             order.setRefundState(RefundState.APPLY);
         } else {
