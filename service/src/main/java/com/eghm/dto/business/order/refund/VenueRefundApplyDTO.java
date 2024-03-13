@@ -20,7 +20,7 @@ public class VenueRefundApplyDTO {
     private String orderNo;
 
     @ApiModelProperty(value = "申请退款金额(含快递费)", required = true)
-    @RangeInt(min = 1, max = 9999999, message = "退款金额不合法")
+    @RangeInt(min = 1, max = 5000000, message = "退款金额不合法")
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer applyAmount;
 

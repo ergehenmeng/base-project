@@ -28,7 +28,7 @@ public class TicketRefundApplyDTO {
     private Integer num;
 
     @ApiModelProperty(value = "申请退款金额", required = true)
-    @RangeInt(min = 1, max = 999999, message = "退款金额应在0.01~9999.99元")
+    @RangeInt(max = 5000000, message = "退款金额应小于50000元")
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer applyAmount;
 

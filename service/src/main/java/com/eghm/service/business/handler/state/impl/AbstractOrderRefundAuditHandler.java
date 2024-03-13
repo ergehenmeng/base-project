@@ -88,7 +88,6 @@ public abstract class AbstractOrderRefundAuditHandler implements RefundAuditHand
         order.setRefundAmount(order.getRefundAmount() + context.getRefundAmount());
         orderService.updateById(order);
         orderRefundLogService.updateById(refundLog);
-        TransactionUtil.afterCommit(() -> orderService.startRefund(refundLog, order));
     }
 
     /**
@@ -119,6 +118,7 @@ public abstract class AbstractOrderRefundAuditHandler implements RefundAuditHand
      */
     protected void passAfter(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
         log.info("退款审核通过后置处理 [{}] [{}] [{}]", context.getAuditRemark(), order.getOrderNo(), refundLog.getId());
+        TransactionUtil.afterCommit(() -> orderService.startRefund(refundLog, order));
     }
 
     /**

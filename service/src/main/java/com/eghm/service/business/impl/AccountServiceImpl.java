@@ -204,6 +204,10 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
      * @param tradeNo tradeNo
      */
     private void paySuccessUpdateAccount(Long merchantId, Integer amount, String orderNo, String tradeNo) {
+        if (amount <= 0) {
+            log.info("支付成功更新冻结账户,金额为0,不更新冻结账户 [{}] [{}] [{}]", merchantId, orderNo, tradeNo);
+            return;
+        }
         AccountDTO dto = new AccountDTO();
         dto.setMerchantId(merchantId);
         dto.setAmount(amount);
@@ -228,6 +232,10 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
      * @param refundNo 退款流水号
      */
     private void refundSuccessUpdateAccount(Long merchantId, Integer amount, String orderNo, String refundNo) {
+        if (amount <= 0) {
+            log.info("退款成功解冻账户,金额为0,不更新冻结账户 [{}] [{}] [{}]", merchantId, orderNo, refundNo);
+            return;
+        }
         AccountDTO dto = new AccountDTO();
         dto.setMerchantId(merchantId);
         dto.setAmount(amount);

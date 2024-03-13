@@ -9,10 +9,14 @@ import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.service.business.*;
+import com.eghm.service.business.handler.access.impl.ItemAccessHandler;
 import com.eghm.service.business.handler.context.RefundApplyContext;
+import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundApplyHandler;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
+import com.eghm.utils.SpringContextUtil;
+import com.eghm.utils.TransactionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -88,21 +92,25 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         refundLog.setState(0);
         if (this.getRefundType(order) == RefundType.DIRECT_REFUND) {
             refundLog.setAuditState(AuditState.APPLY);
+            orderRefundLogService.insert(refundLog);
             order.setRefundState(RefundState.APPLY);
-        } else {
-            refundLog.setAuditState(AuditState.PASS);
-            refundLog.setAuditRemark("系统自动审核");
-            refundLog.setRefundNo(order.getProductType().generateTradeNo());
-            order.setRefundState(RefundState.PROGRESS);
-            order.setRefundAmount(order.getRefundAmount() + context.getApplyAmount());
-            this.startRefund(refundLog, order);
+            orderService.updateById(order);
+            itemOrderService.updateById(itemOrder);
+            return refundLog;
         }
-        // 更新订单信息
-        orderService.updateById(order);
-        // 新增退款记录
+
+        refundLog.setAuditState(AuditState.PASS);
+        refundLog.setAuditRemark("系统自动审核");
+        refundLog.setRefundNo(order.getProductType().generateTradeNo());
         orderRefundLogService.insert(refundLog);
-        // 更新商品订单
+
+        order.setRefundState(RefundState.PROGRESS);
+        order.setRefundAmount(order.getRefundAmount() + context.getApplyAmount());
+        orderService.updateById(order);
+
         itemOrderService.updateById(itemOrder);
+        // 尝试发起退款(注意零元购要特殊处理)
+        this.tryRefund(refundLog, order);
         return refundLog;
     }
 
@@ -119,6 +127,26 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         log.info("零售商品订单退款申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
         if (this.getRefundType(order) == RefundType.DIRECT_REFUND) {
             itemGroupOrderService.refundGroupOrder(order);
+        }
+    }
+
+    /**
+     * 尝试发起退款, 如果是零元付,则不真实发起支付,而是模拟退款成功
+     *
+     * @param refundLog 支付流水记录
+     * @param order 订单编号
+     */
+    protected void tryRefund(OrderRefundLog refundLog, Order order) {
+        if (refundLog.getRefundAmount() > 0) {
+            TransactionUtil.afterCommit(() -> orderService.startRefund(refundLog, order));
+        } else {
+            log.error("退款金额为0, 直接模拟退款成功 [{}] [{}]", refundLog.getRefundNo(), refundLog.getRefundAmount());
+            RefundNotifyContext context = new RefundNotifyContext();
+            context.setTradeNo(order.getTradeNo());
+            context.setRefundNo(refundLog.getRefundNo());
+            context.setAmount(0);
+            context.setSuccessTime(LocalDateTime.now());
+            SpringContextUtil.getBean(ItemAccessHandler.class).refundSuccess(context);
         }
     }
 

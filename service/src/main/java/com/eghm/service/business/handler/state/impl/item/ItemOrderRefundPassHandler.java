@@ -8,10 +8,16 @@ import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.service.business.*;
+import com.eghm.service.business.handler.access.impl.ItemAccessHandler;
 import com.eghm.service.business.handler.context.RefundAuditContext;
+import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundAuditHandler;
+import com.eghm.utils.SpringContextUtil;
+import com.eghm.utils.TransactionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
@@ -42,6 +48,18 @@ public class ItemOrderRefundPassHandler extends AbstractOrderRefundAuditHandler 
     @Override
     protected void passAfter(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
         itemGroupOrderService.refundGroupOrder(order);
+        // 金额大于0,需要发起真实退款
+        if (refundLog.getRefundAmount() > 0) {
+            super.passAfter(context, order, refundLog);
+        } else {
+            log.error("退款金额为0, 直接模拟退款成功 [{}] [{}]", refundLog.getRefundNo(), refundLog.getRefundAmount());
+            RefundNotifyContext notify = new RefundNotifyContext();
+            notify.setTradeNo(order.getTradeNo());
+            notify.setRefundNo(refundLog.getRefundNo());
+            notify.setAmount(0);
+            notify.setSuccessTime(LocalDateTime.now());
+            SpringContextUtil.getBean(ItemAccessHandler.class).refundSuccess(notify);
+        }
     }
 
     @Override
