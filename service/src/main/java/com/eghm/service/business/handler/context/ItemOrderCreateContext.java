@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.context;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.AsyncKey;
+import com.eghm.model.Item;
 import com.eghm.service.business.handler.dto.ItemDTO;
 import com.eghm.state.machine.Context;
 import io.swagger.annotations.ApiModelProperty;
@@ -10,8 +11,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.Max;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 二哥很猛
@@ -73,4 +74,9 @@ public class ItemOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty(value = "限时购活动id", hidden = true)
     @Assign
     private Long limitId;
+
+    @ApiModelProperty(value = "商品信息", hidden = true)
+    @Assign
+    private Map<Long, Item> itemMap;
+
 }

@@ -23,13 +23,13 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2022/9/9
  */
-@Service("itemItemOrderPayFailHandler")
+@Service("itemOrderPayFailHandler")
 @Slf4j
-public class ItemItemOrderPayFailHandler extends AbstractItemOrderPayNotifyHandler {
+public class ItemOrderPayFailHandler extends AbstractItemOrderPayNotifyHandler {
 
     private final MemberService memberService;
 
-    public ItemItemOrderPayFailHandler(OrderService orderService, MemberService memberService) {
+    public ItemOrderPayFailHandler(OrderService orderService, MemberService memberService) {
         super(orderService);
         this.memberService = memberService;
     }

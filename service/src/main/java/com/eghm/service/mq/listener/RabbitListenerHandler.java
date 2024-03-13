@@ -17,6 +17,7 @@ import com.eghm.model.MemberVisitLog;
 import com.eghm.model.Order;
 import com.eghm.model.WebappLog;
 import com.eghm.service.business.*;
+import com.eghm.service.business.handler.access.impl.ItemAccessHandler;
 import com.eghm.service.business.handler.context.*;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.JsonService;
@@ -34,6 +35,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.function.Consumer;
 
 import static com.eghm.constant.CacheConstant.ERROR_PLACE_HOLDER;
@@ -59,6 +61,8 @@ public class RabbitListenerHandler {
     private final JsonService jsonService;
 
     private final StateHandler stateHandler;
+
+    private final ItemAccessHandler itemAccessHandler;
 
     private final OrderService orderService;
 
@@ -348,6 +352,17 @@ public class RabbitListenerHandler {
     }
 
     /**
+     * 零售零元付模拟支付成功
+     */
+    @RabbitListener(queues = QueueConstant.ITEM_ZERO_PAY_QUEUE)
+    public void itemZeroPay(String tradeNo, Message message, Channel channel) throws IOException {
+        PayNotifyContext context = new PayNotifyContext();
+        context.setSuccessTime(LocalDateTime.now());
+        context.setTradeNo(tradeNo);
+        processMessageAck(context, message, channel, itemAccessHandler::payNotify);
+    }
+
+    /**
      * 处理MQ中消息,并手动确认,并将结果放入缓存方便客户端查询
      *
      * @param msg      消息
@@ -362,6 +377,7 @@ public class RabbitListenerHandler {
             log.info("开始处理MQ异步消息 [{}]", jsonService.toJson(msg));
             if (this.canConsumer(msg.getKey())) {
                 consumer.accept(msg);
+                // 消费成功,将结果放入缓存方便前端查询结果
                 cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), SUCCESS_PLACE_HOLDER, CommonConstant.ASYNC_MSG_EXPIRE);
             } else {
                 log.warn("消息已超时,不做任何业务处理");

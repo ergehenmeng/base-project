@@ -70,6 +70,6 @@ public abstract class AbstractItemOrderPayNotifyHandler implements PayNotifyHand
      * @param orderList 订单列表
      */
     protected void after(PayNotifyContext context, List<Order> orderList) {
-        log.info("零售订单异步回调处理结束 [{}] [{}] [{}]", context.getOrderNo(), context.getTradeType(), orderList.size());
+        log.info("零售订单异步回调处理结束 [{}] [{}] [{}]", context.getTradeNo(), context.getTradeType(), orderList.size());
     }
 }
