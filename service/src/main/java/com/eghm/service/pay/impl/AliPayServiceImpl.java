@@ -2,7 +2,10 @@ package com.eghm.service.pay.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.alipay.easysdk.factory.Factory;
-import com.alipay.easysdk.payment.common.models.*;
+import com.alipay.easysdk.payment.common.models.AlipayTradeCreateResponse;
+import com.alipay.easysdk.payment.common.models.AlipayTradeFastpayRefundQueryResponse;
+import com.alipay.easysdk.payment.common.models.AlipayTradeQueryResponse;
+import com.alipay.easysdk.payment.common.models.AlipayTradeRefundResponse;
 import com.alipay.easysdk.payment.facetoface.models.AlipayTradePrecreateResponse;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constant.CommonConstant;
@@ -84,16 +87,10 @@ public class AliPayServiceImpl implements PayService {
 
     @Override
     public void closeOrder(String tradeNo) {
-        AlipayTradeCloseResponse response;
         try {
-            response = Factory.Payment.Common().close(tradeNo);
+            Factory.Payment.Common().close(tradeNo);
         } catch (Exception e) {
             log.error("支付宝关闭支付订单失败 [{}]", tradeNo, e);
-            throw new BusinessException(ErrorCode.ORDER_CLOSE);
-        }
-        if (StrUtil.isNotBlank(response.getSubCode())) {
-            log.error("支付宝关闭订单响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
-            throw new BusinessException(ErrorCode.ORDER_CLOSE);
         }
     }
 

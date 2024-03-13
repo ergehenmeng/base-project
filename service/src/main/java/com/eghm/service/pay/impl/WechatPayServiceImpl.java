@@ -117,7 +117,6 @@ public class WechatPayServiceImpl implements PayService {
             wxPayService.closeOrderV3(tradeNo);
         } catch (Exception e) {
             log.error("微信订单关闭异常 [{}]", tradeNo, e);
-            throw new BusinessException(ErrorCode.ORDER_CLOSE);
         }
     }
 
