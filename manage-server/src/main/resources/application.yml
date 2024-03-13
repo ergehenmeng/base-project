@@ -23,6 +23,8 @@ spring:
       enabled: detect
   jackson:
     time-zone: GMT+8
+    deserialization:
+      read-unknown-enum-values-as-null: true
   ## freemarker配置
   freemarker:
     suffix: .ftl

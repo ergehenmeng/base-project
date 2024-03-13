@@ -2309,6 +2309,8 @@ CREATE TABLE `member_tag`
     `consume_num`         tinyint(2)  default null comment '最低消费次数',
     `consume_amount`      int(10)     default null comment '最低消费金额',
     `member_num`          int(10)     default 0 comment '符合该标签的会员数',
+    `channel`             varchar(20) DEFAULT NULL COMMENT '注册渠道',
+    `sex`                 tinyint(1)  DEFAULT NULL COMMENT '性别 0:未知 1:男 2:女',
     `create_time`         datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`         datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`             bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',

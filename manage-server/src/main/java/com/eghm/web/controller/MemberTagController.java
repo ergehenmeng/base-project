@@ -59,7 +59,7 @@ public class MemberTagController {
         return RespBody.success();
     }
 
-    @GetMapping(value = "/select", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/select")
     @ApiOperation("详情")
     public RespBody<MemberTag> select(@Validated IdDTO request) {
         MemberTag memberTag = memberTagService.selectByIdRequired(request.getId());
@@ -73,7 +73,7 @@ public class MemberTagController {
         return RespBody.success();
     }
 
-    @GetMapping(value = "/memberPage", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/memberPage")
     @ApiOperation("对应标签会员列表")
     public RespBody<PageData<MemberResponse>> memberPage(@Validated TagMemberQueryRequest request) {
         Page<MemberResponse> byPage = memberTagScopeService.getByPage(request);
