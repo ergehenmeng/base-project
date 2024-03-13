@@ -33,7 +33,7 @@ public class ItemRefundApplyDTO {
     private String reason;
 
     @ApiModelProperty(value = "申请方式 1:仅退款 2:退货退款", required = true)
-    @OptionInt(value = {1, 2}, message = "申请方式非法")
+    @OptionInt(value = {1, 2}, message = "请选择申请方式")
     private Integer applyType;
 
     @ApiModelProperty(value = "物流公司(退货退款)")

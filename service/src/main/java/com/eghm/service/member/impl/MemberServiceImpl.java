@@ -4,6 +4,7 @@ import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -134,7 +135,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public LoginTokenVO accountLogin(AccountLoginDTO login) {
         Member member = this.getByAccount(login.getAccount());
-        if (member == null || !encoder.match(login.getPwd(), member.getPwd())) {
+        if (member == null || !encoder.match(MD5.create().digestHex(login.getPwd()), member.getPwd())) {
             throw new BusinessException(ErrorCode.PASSWORD_ERROR);
         }
         this.checkMemberLock(member);
@@ -178,14 +179,20 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void sendLoginSms(String mobile, String ip) {
-        Member member = this.getByAccountRequired(mobile);
+        Member member = this.getByMobile(mobile);
+        if (member == null) {
+            throw new BusinessException(ErrorCode.MEMBER_NOT_REGISTER);
+        }
         this.checkMemberLock(member);
         smsService.sendSmsCode(SmsType.LOGIN, member.getMobile(), ip);
     }
 
     @Override
     public void sendForgetSms(String mobile, String ip) {
-        Member member = this.getByAccountRequired(mobile);
+        Member member = this.getByMobile(mobile);
+        if (member == null) {
+            throw new BusinessException(ErrorCode.MEMBER_NOT_REGISTER);
+        }
         smsService.sendSmsCode(SmsType.FORGET, member.getMobile(), ip);
     }
 
@@ -425,7 +432,7 @@ public class MemberServiceImpl implements MemberService {
             log.error("验证码手机号不存在 [{}] [{}]", requestId, value);
             throw new BusinessException(ErrorCode.MOBILE_NOT_REGISTER);
         }
-        member.setPwd(encoder.encode(password));
+        member.setPwd(encoder.encode(MD5.create().digestHex(password)));
         memberMapper.updateById(member);
     }
 

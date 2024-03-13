@@ -75,7 +75,6 @@ public class ItemOrderController {
 
     @PostMapping(value = "/confirmReceipt", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("确认收货")
-    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<Void> confirmReceipt(@Validated @RequestBody ConfirmReceiptDTO dto) {
         orderService.confirmReceipt(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success();

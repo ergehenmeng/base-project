@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = true)
 public class OrderEvaluationQueryDTO extends PagingQuery {
 
-    @ApiModelProperty(value = "商品id", hidden = true)
+    @ApiModelProperty(value = "商品id")
     @NotNull(message = "商品id不能为空")
     private Long productId;
 

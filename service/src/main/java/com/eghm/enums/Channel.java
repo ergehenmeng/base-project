@@ -36,9 +36,7 @@ public enum Channel {
     /**
      * 支付宝小程序
      */
-    ALIPAY,
-
-    ;
+    ALIPAY
 
 
 }

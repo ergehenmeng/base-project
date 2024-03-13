@@ -404,6 +404,11 @@ public enum ErrorCode {
     MEMBER_NOT_FOUND(3017, "用户不存在"),
 
     /**
+     * 该手机号尚未注册
+     */
+    MEMBER_NOT_REGISTER(3017, "该手机号尚未注册"),
+
+    /**
      * 账号或密码错误
      */
     PASSWORD_ERROR(3018, "账号或密码错误"),
@@ -619,9 +624,9 @@ public enum ErrorCode {
     NOT_SUPPORTED(3116, "接口不支持该方法调用"),
 
     /**
-     * 微信网页授权异常
+     * 短信验证码过期啦~
      */
-    REQUEST_ID_EXPIRE(3117, "requestId已过期"),
+    REQUEST_ID_EXPIRE(3117, "短信验证码过期啦~"),
 
     /**
      * 收货地址太多啦
@@ -1912,6 +1917,11 @@ public enum ErrorCode {
      * 商户积分不为零,无法注销
      */
     MERCHANT_SCORE_HAS_FREEZE(3965, "商户积分不为零,无法注销"),
+
+    /**
+     * 访问渠道不能为空
+     */
+    CHANNEL_NULL(3966, "访问渠道不能为空"),
 
     /**
      * 店铺信息不存在

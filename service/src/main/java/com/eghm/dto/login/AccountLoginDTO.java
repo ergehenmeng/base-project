@@ -1,6 +1,7 @@
 package com.eghm.dto.login;
 
 import com.eghm.annotation.Assign;
+import com.eghm.validation.annotation.Password;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -19,7 +20,7 @@ public class AccountLoginDTO {
     @ApiModelProperty(value = "手机号或邮箱", required = true)
     private String account;
 
-    @Size(min = 32, max = 32, message = "密码格式错误")
+    @Password(message = "密码格式错误")
     @ApiModelProperty(value = "密码,MD5小写加密过", required = true)
     @NotBlank(message = "密码不能为空")
     private String pwd;

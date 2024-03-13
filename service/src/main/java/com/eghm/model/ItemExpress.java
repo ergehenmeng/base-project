@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
  * @since 2023/11/27
  */
 @Data
-@TableName("item_order_express")
+@TableName("item_express")
 @EqualsAndHashCode(callSuper = true)
 public class ItemExpress extends BaseEntity {
 
