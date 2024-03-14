@@ -2,8 +2,6 @@ package com.eghm.service.sys.impl;
 
 
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.dict.*;
 import com.eghm.enums.ErrorCode;
@@ -68,11 +66,11 @@ public class SysDictServiceImpl implements SysDictService {
 
     @Override
     public void delete(Long id) {
-        LambdaUpdateWrapper<SysDict> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(SysDict::getId, id);
-        wrapper.eq(SysDict::getLocked, false);
-        int i = sysDictMapper.delete(wrapper);
-        if (i != 1) {
+        SysDict sysDict = sysDictMapper.selectById(id);
+        if (sysDict == null) {
+            return;
+        }
+        if (Boolean.TRUE.equals(sysDict.getLocked())) {
             throw new BusinessException(ErrorCode.DICT_LOCKED_ERROR);
         }
     }

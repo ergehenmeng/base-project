@@ -152,19 +152,19 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Override
     public void lock(Long id) {
-        Merchant merchant = merchantMapper.selectById(id);
+        Merchant merchant = this.selectByIdRequired(id);
         sysUserService.lockUser(merchant.getUserId());
     }
 
     @Override
     public void unlock(Long id) {
-        Merchant merchant = merchantMapper.selectById(id);
+        Merchant merchant = this.selectByIdRequired(id);
         sysUserService.unlockUser(merchant.getUserId());
     }
 
     @Override
     public void resetPwd(Long id) {
-        Merchant merchant = merchantMapper.selectById(id);
+        Merchant merchant = this.selectByIdRequired(id);
         String pwd = sysConfigApi.getString(ConfigConstant.MERCHANT_PWD);
         sysUserService.resetPassword(merchant.getUserId(), pwd);
     }

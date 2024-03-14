@@ -31,7 +31,7 @@ public class LotteryController {
     private final LotteryService lotteryService;
 
     @GetMapping("/listPage")
-    @ApiOperation("抽奖列表")
+    @ApiOperation("列表")
     public RespBody<PageData<LotteryResponse>> listPage(@Validated LotteryQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<LotteryResponse> merchantPage = lotteryService.getByPage(request);
@@ -39,7 +39,7 @@ public class LotteryController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("创建抽奖配置")
+    @ApiOperation("新增")
     public RespBody<Void> create(@RequestBody @Validated LotteryAddRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         lotteryService.create(request);
@@ -47,7 +47,7 @@ public class LotteryController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新抽奖配置")
+    @ApiOperation("更新")
     public RespBody<Void> update(@RequestBody @Validated LotteryEditRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         lotteryService.update(request);
@@ -55,7 +55,7 @@ public class LotteryController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("更新抽奖配置")
+    @ApiOperation("详情")
     public RespBody<LotteryDetailResponse> detail(@Validated IdDTO dto) {
         LotteryDetailResponse response = lotteryService.getDetailById(dto.getId());
         return RespBody.success(response);

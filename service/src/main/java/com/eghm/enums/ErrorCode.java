@@ -384,9 +384,9 @@ public enum ErrorCode {
     FILE_CREATE_ERROR(3013, "创建文件失败"),
 
     /**
-     * 该数据字典已锁定
+     * 该数据字典已锁定,不支持删除
      */
-    DICT_LOCKED_ERROR(3014, "该数据字典已锁定"),
+    DICT_LOCKED_ERROR(3014, "该数据字典已锁定,不支持删除"),
 
     /**
      * 同级菜单最多90个

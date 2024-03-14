@@ -15,12 +15,12 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ScoreWithdrawApplyDTO {
 
-    @ApiModelProperty("商户id")
+    @ApiModelProperty(value = "商户id", hidden = true)
     @Assign
     private Long merchantId;
 
     @ApiModelProperty(value = "提现金额", required = true)
-    @Min(value = 1000, message = "最低提现积分1000起")
-    @NotNull(message = "请输入提现金额")
+    @Min(value = 1000, message = "最低提现1000积分起")
+    @NotNull(message = "请输入提现积分数")
     private Integer amount;
 }
