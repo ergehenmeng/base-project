@@ -15,16 +15,16 @@ public class DatePropertyEditor extends PropertyEditorSupport {
 
     @Override
     public void setAsText(String text) {
-
+        if (StrUtil.isBlank(text)) {
+            return;
+        }
         try {
-            if (StrUtil.isNotBlank(text)) {
-                super.setValue(DateUtil.parseLongJava8(text));
-            }
+            super.setValue(DateUtil.parseLongJava8(text));
         } catch (Exception e) {
             try {
                 super.setValue(DateUtil.parseShort(text));
             } catch (Exception e1) {
-                throw new ParameterException(ErrorCode.DATE_CASE_ERROR);
+                throw new ParameterException(ErrorCode.DATE_ERROR);
             }
         }
     }

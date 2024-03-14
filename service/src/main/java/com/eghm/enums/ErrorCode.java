@@ -273,6 +273,11 @@ public enum ErrorCode {
     DATE_CASE_ERROR(2007, "日期格式转换异常"),
 
     /**
+     * 日期格式必须为yyyy-MM-dd
+     */
+    DATE_ERROR(2022, "日期格式必须为yyyy-MM-dd"),
+
+    /**
      * 模板解析失败
      */
     TEMPLATE_RENDER_ERROR(2008, "模板解析失败"),

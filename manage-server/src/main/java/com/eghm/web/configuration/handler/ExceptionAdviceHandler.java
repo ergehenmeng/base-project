@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -39,6 +40,7 @@ public class ExceptionAdviceHandler {
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Date.class, new DatePropertyEditor());
+        binder.registerCustomEditor(LocalDate.class, new DatePropertyEditor());
     }
 
     /**
