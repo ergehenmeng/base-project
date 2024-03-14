@@ -4,6 +4,7 @@ import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -18,7 +19,7 @@ public class NoticeEditRequest {
     private Long id;
 
     @ApiModelProperty(value = "公告标题", required = true)
-    @NotNull(message = "标题不能为空")
+    @NotBlank(message = "标题不能为空")
     @WordChecker(message = "标题存在敏感词")
     private String title;
 
@@ -27,7 +28,7 @@ public class NoticeEditRequest {
     private Integer noticeType;
 
     @ApiModelProperty(value = "公告内容(富文本)", required = true)
-    @NotNull(message = "公告内容不能为空")
+    @NotBlank(message = "公告内容不能为空")
     @WordChecker(message = "公告内容存在敏感词")
     private String content;
 

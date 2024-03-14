@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -22,6 +21,6 @@ public class LoginRequest {
     private String pwd;
 
     @ApiModelProperty(value = "验证码", required = true)
-    @NotNull(message = "验证码不能为空")
+    @NotBlank(message = "验证码不能为空")
     private String verifyCode;
 }

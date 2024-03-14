@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -14,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class MenuEditRequest {
 
     @ApiModelProperty(value = "id", required = true)
-    @NotNull(message = "id名称不能为空")
+    @NotBlank(message = "id名称不能为空")
     private String id;
 
     @ApiModelProperty(value = "菜单名称", required = true)

@@ -67,11 +67,11 @@ public class RestaurantEditRequest {
     private BigDecimal latitude;
 
     @ApiModelProperty(value = "商家热线", required = true)
-    @NotNull(message = "商家热线不能为空")
+    @NotBlank(message = "商家热线不能为空")
     private String phone;
 
     @ApiModelProperty(value = "商家介绍", required = true)
-    @NotNull(message = "商家介绍不能为空")
+    @NotBlank(message = "商家介绍不能为空")
     @WordChecker
     private String introduce;
 }
