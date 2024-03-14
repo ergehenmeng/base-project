@@ -44,7 +44,7 @@ public class SysTaskController {
         return RespBody.success();
     }
 
-    @PostMapping(value = "/refresh", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/refresh")
     @ApiOperation("刷新定时任务")
     public RespBody<Void> refresh() {
         sysTaskRegistrar.reloadTask();

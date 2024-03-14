@@ -43,7 +43,7 @@ public class MerchantCenterController {
         return RespBody.success(response);
     }
 
-    @PostMapping(value = "/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/sendSms")
     @ApiOperation("发送解绑短信")
     public RespBody<Void> sendSms(HttpServletRequest request) {
         merchantService.sendUnbindSms(SecurityHolder.getMerchantId(), IpUtil.getIpAddress(request));

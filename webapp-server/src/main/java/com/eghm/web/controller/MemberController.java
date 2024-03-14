@@ -58,7 +58,7 @@ public class MemberController {
         return RespBody.success();
     }
 
-    @PostMapping(value = "/sendChangeEmailSms", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/sendChangeEmailSms")
     @ApiOperation("发送换绑邮箱的短信验证码①")
     public RespBody<Void> sendChangeEmailSms(HttpServletRequest request) {
         memberService.sendChangeEmailSms(ApiHolder.getMemberId(), IpUtil.getIpAddress(request));
@@ -81,7 +81,7 @@ public class MemberController {
         return RespBody.success();
     }
 
-    @PostMapping(value = "/signIn", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/signIn")
     @ApiOperation("用户签到")
     public RespBody<Void> signIn() {
         memberService.signIn(ApiHolder.getMemberId());

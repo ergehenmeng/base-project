@@ -55,7 +55,7 @@ public class LoginController {
         return RespBody.success(response);
     }
 
-    @PostMapping(value = "/exit", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/exit")
     @ApiOperation("退出登录")
     @SkipPerm
     public RespBody<Void> exit() {
