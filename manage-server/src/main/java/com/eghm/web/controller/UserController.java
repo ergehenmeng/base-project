@@ -51,7 +51,8 @@ public class UserController {
     }
 
     @PostMapping(value = "/changePwd", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("修改登录人的密码")
+    @ApiOperation("修改密码")
+    @SkipPerm
     public RespBody<Void> changePwd(@Validated @RequestBody PasswordEditRequest request) {
         request.setUserId(SecurityHolder.getUserId());
         sysUserService.updateLoginPassword(request);
@@ -68,7 +69,7 @@ public class UserController {
     @GetMapping("/select")
     @ApiOperation("详情")
     public RespBody<UserResponse> select(@Validated IdDTO dto) {
-        SysUser user = sysUserService.getById(dto.getId());
+        SysUser user = sysUserService.getByIdRequired(dto.getId());
         UserResponse response = DataUtil.copy(user, UserResponse.class);
         List<Long> roleList = sysRoleService.getByUserId(dto.getId());
         response.setRoleIds(Joiner.on(",").join(roleList));

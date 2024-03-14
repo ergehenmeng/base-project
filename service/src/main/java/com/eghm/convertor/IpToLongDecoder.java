@@ -2,11 +2,14 @@ package com.eghm.convertor;
 
 import cn.hutool.core.net.Ipv4Util;
 import cn.hutool.core.util.StrUtil;
+import com.eghm.exception.BusinessException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
 
 import java.io.IOException;
+
+import static com.eghm.enums.ErrorCode.IP_ILLEGAL;
 
 /**
  * @author 二哥很猛
@@ -24,6 +27,10 @@ public class IpToLongDecoder extends StdScalarDeserializer<Long> {
         if (StrUtil.isEmpty(text)) {
             return null;
         }
-        return Ipv4Util.ipv4ToLong(text);
+        try {
+            return Ipv4Util.ipv4ToLong(text);
+        } catch (Exception e) {
+            throw new BusinessException(IP_ILLEGAL);
+        }
     }
 }

@@ -36,7 +36,7 @@ public class HomestayRoomConfigController {
     @PostMapping(value = "/setup", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("设置房态")
     public RespBody<Void> setup(@Validated @RequestBody RoomConfigRequest request) {
-        HomestayRoom room = homestayRoomService.selectById(request.getRoomId());
+        HomestayRoom room = homestayRoomService.selectByIdRequired(request.getRoomId());
         commonService.checkIllegal(room.getMerchantId());
         request.setHomestayId(room.getHomestayId());
         homestayRoomConfigService.setup(request);
@@ -46,6 +46,7 @@ public class HomestayRoomConfigController {
     @GetMapping("/month")
     @ApiOperation("房态信息(月)")
     public RespBody<List<RoomConfigResponse>> getList(@Validated RoomConfigQueryRequest request) {
+        homestayRoomService.selectByIdRequired(request.getRoomId());
         List<RoomConfigResponse> responseList = homestayRoomConfigService.getList(request);
         return RespBody.success(responseList);
     }

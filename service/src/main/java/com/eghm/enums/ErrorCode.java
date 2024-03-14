@@ -909,6 +909,11 @@ public enum ErrorCode {
     HOMESTAY_STOCK(3176, "房间已预订满"),
 
     /**
+     * 餐饮券未查询到
+     */
+    VOUCHER_NULL(3177, "餐饮券未查询到"),
+
+    /**
      * 该餐饮券已下架
      */
     VOUCHER_DOWN(3178, "该餐饮券已下架"),
@@ -932,6 +937,11 @@ public enum ErrorCode {
      * 该线路商品已下架
      */
     LINE_DOWN(3182, "该线路商品已下架"),
+
+    /**
+     * 线路信息未查询到
+     */
+    LINE_NULL(3182, "线路信息未查询到"),
 
     /**
      * 线路库存不足
@@ -961,7 +971,7 @@ public enum ErrorCode {
     /**
      * 线路库存不足
      */
-    LINE_NULL(3188, "线路库存不足"),
+    LINE_STOCK_NULL(3188, "线路库存不足"),
 
     /**
      * 商品退款数量不匹配

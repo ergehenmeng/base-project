@@ -77,7 +77,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
     protected void before(LineOrderCreateContext context, LineOrderPayload payload) {
         if (payload.getConfig() == null) {
             log.error("线路日配置信息未查询到 [{}] [{}]", context.getLineId(), context.getConfigDate());
-            throw new BusinessException(ErrorCode.LINE_NULL);
+            throw new BusinessException(ErrorCode.LINE_STOCK_NULL);
         }
         Integer num = context.getNum();
         if (payload.getConfig().getStock() - num < 0) {

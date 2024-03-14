@@ -8,6 +8,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.exception.ParameterException;
 import com.eghm.service.sys.DingTalkService;
 import com.eghm.utils.WebUtil;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,9 +66,15 @@ public class ExceptionAdviceHandler {
     public RespBody<Void> exception(HttpServletRequest request, Exception e) {
         log.error("系统异常 [{}]", request.getRequestURI(), e);
         // json绑定异常
-        if (e instanceof HttpMessageNotReadableException && e.getCause() instanceof ValueInstantiationException && e.getCause().getCause() instanceof BusinessException) {
-            BusinessException exception = (BusinessException) e.getCause().getCause();
-            return RespBody.error(exception.getCode(), exception.getMessage());
+        if (e instanceof HttpMessageNotReadableException) {
+            if (e.getCause() instanceof ValueInstantiationException && e.getCause().getCause() instanceof BusinessException) {
+                BusinessException exception = (BusinessException) e.getCause().getCause();
+                return RespBody.error(exception.getCode(), exception.getMessage());
+            }
+            if (e.getCause() instanceof JsonMappingException && e.getCause().getCause() instanceof BusinessException) {
+                BusinessException exception = (BusinessException) e.getCause().getCause();
+                return RespBody.error(exception.getCode(), exception.getMessage());
+            }
         }
         dingTalkService.sendMsg(ExceptionUtil.stacktraceToString(e));
         return RespBody.error(ErrorCode.SYSTEM_ERROR);

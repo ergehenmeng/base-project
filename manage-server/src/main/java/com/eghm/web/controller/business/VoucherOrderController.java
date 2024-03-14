@@ -51,7 +51,7 @@ public class VoucherOrderController {
     }
 
     @GetMapping("/export")
-    @ApiOperation("导出Excel")
+    @ApiOperation("导出")
     public void export(HttpServletResponse response, VoucherOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<VoucherOrderResponse> byPage = voucherOrderService.getList(request);

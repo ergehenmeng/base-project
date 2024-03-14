@@ -140,6 +140,15 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
+    public SysUser getByIdRequired(Long id) {
+        SysUser user = sysUserMapper.selectById(id);
+        if (user == null) {
+            throw new BusinessException(ErrorCode.USER_NOT_FOUND);
+        }
+        return user;
+    }
+
+    @Override
     public void update(UserEditRequest request) {
         this.redoMobile(request.getMobile(), request.getId());
 

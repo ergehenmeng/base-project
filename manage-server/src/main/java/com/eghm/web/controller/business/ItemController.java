@@ -120,7 +120,7 @@ public class ItemController {
     }
 
     @GetMapping("/activityList")
-    @ApiOperation("可以参加活动的商品列表")
+    @ApiOperation("未参加活动的商品列表")
     public RespBody<List<ActivityItemResponse>> activityList(IdDTO dto) {
         List<ActivityItemResponse> activityList = itemService.getActivityList(SecurityHolder.getMerchantId(), dto.getId());
         return RespBody.success(activityList);

@@ -101,16 +101,16 @@ public class VoucherServiceImpl implements VoucherService {
         Voucher voucher = this.selectById(id);
         if (voucher == null) {
             log.error("餐饮券信息不存在 [{}]", id);
-            throw new BusinessException(ErrorCode.VOUCHER_DOWN);
+            throw new BusinessException(ErrorCode.VOUCHER_NULL);
         }
         return voucher;
     }
 
     @Override
     public Voucher selectByIdShelve(Long id) {
-        Voucher voucher = this.selectByIdRequired(id);
-        if (voucher.getState() != State.SHELVE) {
-            log.error("餐饮券未上架 [{}] [{}]", id, voucher.getState());
+        Voucher voucher = this.selectById(id);
+        if (voucher == null || voucher.getState() != State.SHELVE) {
+            log.error("餐饮券未上架 [{}]", id);
             throw new BusinessException(ErrorCode.VOUCHER_DOWN);
         }
         return voucher;

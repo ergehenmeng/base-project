@@ -85,6 +85,14 @@ public interface SysUserService {
     SysUser getById(Long id);
 
     /**
+     * 根据主键查询管理人员 不存在就抛异常
+     *
+     * @param id 主键
+     * @return 用户信息
+     */
+    SysUser getByIdRequired(Long id);
+
+    /**
      * 更新用户信息
      *
      * @param request 请求参数

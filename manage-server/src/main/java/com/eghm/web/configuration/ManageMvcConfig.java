@@ -82,6 +82,7 @@ public class ManageMvcConfig extends WebMvcConfig {
         FilterRegistrationBean<LockScreenFilter> registrationBean = new FilterRegistrationBean<>();
         LockScreenFilter requestFilter = new LockScreenFilter(cacheService);
         requestFilter.exclude(manage.getSecurity().getSkipAuth());
+        requestFilter.exclude(manage.getSecurity().getSkipPerm());
         registrationBean.setFilter(requestFilter);
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
         registrationBean.setOrder(Integer.MIN_VALUE + 10);

@@ -40,6 +40,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static com.eghm.enums.ErrorCode.LINE_DOWN;
+import static com.eghm.enums.ErrorCode.LINE_NULL;
 
 /**
  * @author 二哥很猛
@@ -119,7 +120,7 @@ public class LineServiceImpl implements LineService {
         Line select = this.selectById(id);
         if (select == null) {
             log.error("该线路商品不存在 [{}]", id);
-            throw new BusinessException(LINE_DOWN);
+            throw new BusinessException(LINE_NULL);
         }
         return select;
     }
@@ -135,8 +136,8 @@ public class LineServiceImpl implements LineService {
 
     @Override
     public Line selectByIdShelve(Long id) {
-        Line line = this.selectByIdRequired(id);
-        if (line == null) {
+        Line line = this.selectById(id);
+        if (line == null || line.getState() != State.SHELVE) {
             log.error("该线路商品已下架 [{}]", id);
             throw new BusinessException(LINE_DOWN);
         }

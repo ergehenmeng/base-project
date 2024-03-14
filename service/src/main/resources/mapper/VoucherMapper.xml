@@ -19,20 +19,15 @@
         <if test="param.queryName != null and param.queryName != ''">
             and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
-        <choose>
-            <when test="param.sortByPrice == 1">
-                order by t.sale_price, t.id desc
-            </when>
-            <when test="param.sortByPrice == 2">
-                order by t.sale_price desc, t.id desc
-            </when>
-            <when test="param.sortBySale == 1">
-                order by t.total_num, t.id desc
-            </when>
-            <otherwise>
-                order by t.total_num desc, t.id desc
-            </otherwise>
-        </choose>
+        <if test="param.merchantId != null">
+            and t.merchant_id = #{param.merchantId}
+        </if>
+        <if test="param.state != null">
+            and t.state = #{param.state}
+        </if>
+        <if test="param.restaurantId != null">
+            and t.restaurant_id = #{param.restaurantId}
+        </if>
     </select>
 
     <update id="updateStock">

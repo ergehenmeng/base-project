@@ -1,8 +1,11 @@
 package com.eghm.dto.user;
 
+import com.eghm.validation.annotation.Mobile;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -19,19 +22,19 @@ public class UserEditRequest {
     private Long id;
 
     @ApiModelProperty(value = "用户名称", required = true)
-    @NotNull(message = "用户名称不能为空")
+    @NotBlank(message = "用户名称不能为空")
     private String userName;
 
     @ApiModelProperty(value = "手机号", required = true)
-    @NotNull(message = "手机号不能为空")
+    @Mobile
     private String mobile;
 
     @ApiModelProperty(value = "所属部门编号", required = true)
-    @NotNull(message = "所属部门不能为空")
+    @NotBlank(message = "所属部门不能为空")
     private String deptCode;
 
     @ApiModelProperty(value = "角色编号", required = true)
-    @Size(message = "所属角色不能为空")
+    @NotEmpty(message = "请选择角色")
     private List<Long> roleIds;
 
     @ApiModelProperty("数据权限(1:本人,2:本部门,4:本部门及子部门 8:全部 16:自定义)")
