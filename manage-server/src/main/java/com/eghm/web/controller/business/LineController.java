@@ -60,7 +60,7 @@ public class LineController {
         return RespBody.success(PageData.toPage(listPage));
     }
 
-    @ApiOperation("创建线路")
+    @ApiOperation("新增")
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> create(@Validated @RequestBody LineAddRequest request) {
         lineService.create(request);
@@ -68,7 +68,7 @@ public class LineController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新线路")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody LineEditRequest request) {
         lineService.update(request);
         return RespBody.success();

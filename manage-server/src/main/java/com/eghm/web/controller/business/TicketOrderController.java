@@ -41,7 +41,7 @@ public class TicketOrderController {
     private final RedisLock redisLock;
 
     @GetMapping("/listPage")
-    @ApiOperation("订单列表")
+    @ApiOperation("列表")
     public RespBody<PageData<TicketOrderResponse>> listPage(TicketOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<TicketOrderResponse> byPage = ticketOrderService.getByPage(request);
@@ -58,7 +58,7 @@ public class TicketOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("订单详情")
+    @ApiOperation("详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<TicketOrderDetailResponse> detail(@RequestParam("orderNo") String orderNo) {
         TicketOrderDetailResponse detail = ticketOrderService.detail(orderNo);
@@ -66,7 +66,7 @@ public class TicketOrderController {
     }
 
     @GetMapping("/export")
-    @ApiOperation("订单列表导出")
+    @ApiOperation("导出")
     public void export(HttpServletResponse response, TicketOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<TicketOrderResponse> byPage = ticketOrderService.getList(request);

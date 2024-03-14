@@ -35,7 +35,7 @@ public class VoucherOrderController {
     private final VoucherOrderService voucherOrderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("订单列表")
+    @ApiOperation("列表")
     public RespBody<PageData<VoucherOrderResponse>> listPage(VoucherOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VoucherOrderResponse> byPage = voucherOrderService.listPage(request);
@@ -43,7 +43,7 @@ public class VoucherOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("订单详情")
+    @ApiOperation("详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<VoucherOrderDetailResponse> detail(@RequestParam("orderNo") String orderNo) {
         VoucherOrderDetailResponse detail = voucherOrderService.detail(orderNo);

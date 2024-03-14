@@ -34,21 +34,21 @@ public class MerchantController {
     private final MerchantService merchantService;
 
     @GetMapping("/listPage")
-    @ApiOperation("商户列表")
+    @ApiOperation("列表")
     public RespBody<PageData<MerchantResponse>> listPage(@Validated MerchantQueryRequest request) {
         Page<MerchantResponse> merchantPage = merchantService.getByPage(request);
         return RespBody.success(PageData.toPage(merchantPage));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("创建商户")
+    @ApiOperation("新增")
     public RespBody<Void> create(@RequestBody @Validated MerchantAddRequest request) {
         merchantService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新商户")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@RequestBody @Validated MerchantEditRequest request) {
         merchantService.update(request);
         return RespBody.success();

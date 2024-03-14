@@ -42,28 +42,28 @@ public class ActivityController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("创建活动")
+    @ApiOperation("新增")
     public RespBody<Void> create(@RequestBody @Validated ActivityAddRequest request) {
         activityService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新活动")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@RequestBody @Validated ActivityEditRequest request) {
         activityService.update(request);
         return RespBody.success();
     }
 
     @GetMapping("/select")
-    @ApiOperation("查询活动")
+    @ApiOperation("详情")
     public RespBody<ActivityDetailResponse> select(@Validated IdDTO dto) {
         ActivityDetailResponse response = activityService.getByDetail(dto.getId());
         return RespBody.success(response);
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除活动")
+    @ApiOperation("删除")
     public RespBody<Void> delete(@RequestBody @Validated ActivityDeleteRequest request) {
         activityService.delete(request);
         return RespBody.success();

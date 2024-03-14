@@ -53,7 +53,7 @@ public class ItemOrderController {
     private final OrderProxyService orderProxyService;
 
     @GetMapping("/listPage")
-    @ApiOperation("订单列表")
+    @ApiOperation("列表")
     public RespBody<PageData<ItemOrderResponse>> listPage(ItemOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ItemOrderResponse> byPage = itemOrderService.listPage(request);
@@ -61,7 +61,7 @@ public class ItemOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("订单详情")
+    @ApiOperation("详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<ItemOrderDetailResponse> detail(@RequestParam("orderNo") String orderNo) {
         ItemOrderDetailResponse detail = itemOrderService.detail(orderNo);

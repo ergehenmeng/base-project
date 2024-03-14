@@ -38,7 +38,7 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
 
     @GetMapping("/listPage")
-    @ApiOperation("商家列表")
+    @ApiOperation("列表")
     public RespBody<PageData<Restaurant>> listPage(RestaurantQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<Restaurant> roomPage = restaurantService.getByPage(request);
@@ -54,7 +54,7 @@ public class RestaurantController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增商家")
+    @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody RestaurantAddRequest request) {
         restaurantService.create(request);
         return RespBody.success();
@@ -64,7 +64,7 @@ public class RestaurantController {
      * 对于注册的商户来说, 首次编辑商家信息即为开通商户
      */
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新商家")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody RestaurantEditRequest request) {
         restaurantService.update(request);
         return RespBody.success();

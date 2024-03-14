@@ -29,28 +29,28 @@ public class AuthConfigController {
     private final AuthConfigService authConfigService;
 
     @GetMapping("/listPage")
-    @ApiOperation("查询授权列表")
+    @ApiOperation("列表")
     public RespBody<PageData<AuthConfig>> listPage(AuthConfigQueryRequest request) {
         Page<AuthConfig> byPage = authConfigService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增授权信息")
+    @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody AuthConfigAddRequest request) {
         authConfigService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑授权信息")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody AuthConfigEditRequest request) {
         authConfigService.update(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除授权信息")
+    @ApiOperation("删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         authConfigService.deleteById(dto.getId());
         return RespBody.success();

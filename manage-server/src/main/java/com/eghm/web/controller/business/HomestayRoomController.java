@@ -37,7 +37,7 @@ public class HomestayRoomController {
     private final HomestayRoomService homestayRoomService;
 
     @GetMapping("/listPage")
-    @ApiOperation("房型列表")
+    @ApiOperation("列表")
     public RespBody<PageData<HomestayRoomResponse>> listPage(HomestayRoomQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<HomestayRoomResponse> roomPage = homestayRoomService.getByPage(request);
@@ -53,21 +53,21 @@ public class HomestayRoomController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增房型")
+    @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody HomestayRoomAddRequest request) {
         homestayRoomService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新房型")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody HomestayRoomEditRequest request) {
         homestayRoomService.update(request);
         return RespBody.success();
     }
 
     @GetMapping("/select")
-    @ApiOperation("查询房型")
+    @ApiOperation("详情")
     public RespBody<HomestayRoom> select(@Validated IdDTO dto) {
         HomestayRoom homestayRoom = homestayRoomService.selectById(dto.getId());
         return RespBody.success(homestayRoom);

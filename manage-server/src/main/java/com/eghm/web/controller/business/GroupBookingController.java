@@ -48,7 +48,7 @@ public class GroupBookingController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@RequestBody @Validated GroupBookingEditRequest request) {
         groupBookingService.update(request);
         return RespBody.success();

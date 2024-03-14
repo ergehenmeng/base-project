@@ -27,14 +27,14 @@ public class PushTemplateController {
     private final PushTemplateService pushTemplateService;
 
     @GetMapping("/listPage")
-    @ApiOperation("消息模板列表")
+    @ApiOperation("列表")
     public RespBody<PageData<PushTemplate>> listPage(PushTemplateQueryRequest request) {
         Page<PushTemplate> byPage = pushTemplateService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑推送模板")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody PushTemplateEditRequest request) {
         pushTemplateService.update(request);
         return RespBody.success();

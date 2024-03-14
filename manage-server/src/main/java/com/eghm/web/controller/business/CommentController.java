@@ -33,14 +33,14 @@ public class CommentController {
     private final CommentService commentService;
 
     @GetMapping("/listPage")
-    @ApiOperation("评论列表")
+    @ApiOperation("列表")
     public RespBody<PageData<CommentResponse>> listPage(CommentQueryRequest request) {
         Page<CommentResponse> byPage = commentService.listPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @GetMapping("/report/listPage")
-    @ApiOperation("举报评论列表")
+    @ApiOperation("举报列表")
     public RespBody<PageData<CommentReportResponse>> reportListPage(CommentReportQueryRequest request) {
         Page<CommentReportResponse> byPage = commentReportService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));

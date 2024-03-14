@@ -29,28 +29,28 @@ public class AppVersionController {
     private final AppVersionService appVersionService;
 
     @GetMapping("/listPage")
-    @ApiOperation("查询版本列表")
+    @ApiOperation("列表")
     public RespBody<PageData<AppVersion>> listPage(VersionQueryRequest request) {
         Page<AppVersion> byPage = appVersionService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增版本信息")
+    @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody VersionAddRequest request) {
         appVersionService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑版本信息")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody VersionEditRequest request) {
         appVersionService.update(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除版本信息")
+    @ApiOperation("删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         appVersionService.delete(dto.getId());
         return RespBody.success();

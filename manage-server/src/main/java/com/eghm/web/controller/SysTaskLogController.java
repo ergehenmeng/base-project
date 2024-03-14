@@ -29,14 +29,14 @@ public class SysTaskLogController {
     private final SysTaskLogService sysTaskLogService;
 
     @GetMapping("/listPage")
-    @ApiOperation("日志列表(分页)")
+    @ApiOperation("列表")
     public RespBody<PageData<SysTaskLog>> listPage(TaskLogQueryRequest request) {
         Page<SysTaskLog> byPage = sysTaskLogService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @GetMapping("/select")
-    @ApiOperation("日志详情")
+    @ApiOperation("详情")
     public RespBody<String> select(@Validated IdDTO dto) {
         String errorMsg = sysTaskLogService.getErrorMsg(dto.getId());
         if (errorMsg == null) {

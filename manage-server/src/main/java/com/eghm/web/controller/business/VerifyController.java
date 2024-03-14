@@ -31,7 +31,7 @@ import static com.eghm.enums.ErrorCode.VERIFY_TYPE_ERROR;
  * @since 2023/6/13
  */
 @RestController
-@Api(tags = "核销")
+@Api(tags = "商户核销")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/verify", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VerifyController {
@@ -43,7 +43,7 @@ public class VerifyController {
     private final OrderService orderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("核销记录列表")
+    @ApiOperation("列表")
     public RespBody<PageData<VerifyLogResponse>> listPage(VerifyLogQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VerifyLogResponse> roomPage = verifyLogService.getByPage(request);

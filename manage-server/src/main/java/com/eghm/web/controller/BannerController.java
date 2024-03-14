@@ -29,21 +29,21 @@ public class BannerController {
     private final BannerService bannerService;
 
     @GetMapping("/listPage")
-    @ApiOperation("轮播图列表")
+    @ApiOperation("列表")
     public RespBody<PageData<Banner>> listPage(BannerQueryRequest request) {
         Page<Banner> byPage = bannerService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("添加轮播图")
+    @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody BannerAddRequest request) {
         bannerService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update",consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("修改轮播图")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody BannerEditRequest request) {
         bannerService.update(request);
         return RespBody.success();

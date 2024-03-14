@@ -36,21 +36,21 @@ public class ImageLogController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("添加图片")
+    @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody ImageAddRequest request) {
         imageLogService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("添加图片")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody ImageEditRequest request) {
         imageLogService.update(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除图片")
+    @ApiOperation("删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         imageLogService.delete(dto.getId());
         return RespBody.success();

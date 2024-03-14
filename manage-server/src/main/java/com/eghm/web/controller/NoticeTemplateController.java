@@ -27,14 +27,14 @@ public class NoticeTemplateController {
     private final NoticeTemplateService noticeTemplateService;
 
     @GetMapping("/listPage")
-    @ApiOperation("消息模板列表")
+    @ApiOperation("列表")
     public RespBody<PageData<NoticeTemplate>> listPage(PagingQuery request) {
         Page<NoticeTemplate> byPage = noticeTemplateService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新站内信")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@RequestBody @Validated NoticeTemplateRequest request) {
         noticeTemplateService.update(request);
         return RespBody.success();

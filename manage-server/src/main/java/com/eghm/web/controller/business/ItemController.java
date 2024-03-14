@@ -41,7 +41,7 @@ public class ItemController {
     private final ItemService itemService;
 
     @GetMapping("/listPage")
-    @ApiOperation("商品列表")
+    @ApiOperation("列表")
     public RespBody<PageData<ItemResponse>> listPage(ItemQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ItemResponse> byPage = itemService.getByPage(request);
@@ -57,21 +57,21 @@ public class ItemController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增商品")
+    @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody ItemAddRequest request) {
         itemService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新商品")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody ItemEditRequest request) {
         itemService.update(request);
         return RespBody.success();
     }
 
     @GetMapping("/select")
-    @ApiOperation("查询商品")
+    @ApiOperation("详情")
     public RespBody<ItemDetailResponse> select(@Validated IdDTO dto) {
         ItemDetailResponse detail = itemService.getDetailById(dto.getId());
         return RespBody.success(detail);

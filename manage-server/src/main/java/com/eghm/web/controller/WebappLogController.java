@@ -28,7 +28,7 @@ public class WebappLogController {
     private final WebappLogService webappLogService;
 
     @GetMapping("/listPage")
-    @ApiOperation("用户日志列表")
+    @ApiOperation("列表")
     public RespBody<PageData<WebappLogResponse>> listPage(@Validated WebappQueryRequest request) {
         Page<WebappLogResponse> page = webappLogService.getByPage(request);
         return RespBody.success(PageData.toPage(page));

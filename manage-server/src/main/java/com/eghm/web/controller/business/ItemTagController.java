@@ -29,7 +29,7 @@ public class ItemTagController {
     private final ItemTagService itemTagService;
 
     @GetMapping("/list")
-    @ApiOperation("标签列表")
+    @ApiOperation("列表")
     @SkipPerm
     public RespBody<List<ItemTagResponse>> list() {
         List<ItemTagResponse> serviceList = itemTagService.getList();
@@ -37,21 +37,21 @@ public class ItemTagController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增标签")
+    @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody ItemTagAddRequest request) {
         itemTagService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑标签")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody ItemTagEditRequest request) {
         itemTagService.update(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除标签")
+    @ApiOperation("删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         itemTagService.deleteById(dto.getId());
         return RespBody.success();

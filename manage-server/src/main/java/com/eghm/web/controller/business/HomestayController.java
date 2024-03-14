@@ -37,7 +37,7 @@ public class HomestayController {
     private final HomestayService homestayService;
 
     @GetMapping("/listPage")
-    @ApiOperation("民宿列表")
+    @ApiOperation("列表")
     public RespBody<PageData<HomestayResponse>> listPage(HomestayQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<HomestayResponse> byPage = homestayService.getByPage(request);
@@ -53,14 +53,14 @@ public class HomestayController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("创建民宿")
+    @ApiOperation("新增")
     public RespBody<Void> create(@RequestBody @Validated HomestayAddRequest request) {
         homestayService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新民宿")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@RequestBody @Validated HomestayEditRequest request) {
         homestayService.update(request);
         return RespBody.success();

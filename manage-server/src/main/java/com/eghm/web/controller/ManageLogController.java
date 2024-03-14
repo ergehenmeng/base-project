@@ -29,14 +29,14 @@ public class ManageLogController {
     private final ManageLogService manageLogService;
 
     @GetMapping("/listPage")
-    @ApiOperation("日志列表")
+    @ApiOperation("列表")
     public RespBody<PageData<ManageLogResponse>> listPage(ManageQueryRequest request) {
         Page<ManageLogResponse> byPage = manageLogService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @GetMapping("/select")
-    @ApiOperation("日志详细信息")
+    @ApiOperation("详细信息")
     public RespBody<String> select(@Validated IdDTO dto) {
         String response = manageLogService.getResponseById(dto.getId());
         return RespBody.success(response);

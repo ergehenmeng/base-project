@@ -27,14 +27,14 @@ public class EmailTemplateController {
     private final EmailTemplateService emailTemplateService;
 
     @GetMapping("/listPage")
-    @ApiOperation("短信模板列表(分页)")
+    @ApiOperation("列表")
     public RespBody<PageData<EmailTemplate>> listPage(PagingQuery request) {
         Page<EmailTemplate> byPage = emailTemplateService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑短信模板")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody EmailTemplateRequest request) {
         emailTemplateService.update(request);
         return RespBody.success();

@@ -35,7 +35,7 @@ public class LineOrderController {
     private final LineOrderService lineOrderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("订单列表")
+    @ApiOperation("列表")
     public RespBody<PageData<LineOrderResponse>> listPage(LineOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<LineOrderResponse> byPage = lineOrderService.listPage(request);
@@ -43,7 +43,7 @@ public class LineOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("订单详情")
+    @ApiOperation("详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<LineOrderDetailResponse> detail(@RequestParam("orderNo") String orderNo) {
         LineOrderDetailResponse detail = lineOrderService.detail(orderNo);
@@ -51,7 +51,7 @@ public class LineOrderController {
     }
 
     @GetMapping("/export")
-    @ApiOperation("订单列表导出")
+    @ApiOperation("导出")
     public void export(HttpServletResponse response, LineOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<LineOrderResponse> byPage = lineOrderService.getList(request);

@@ -51,21 +51,21 @@ public class SysRoleController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑角色")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody RoleEditRequest request) {
         sysRoleService.update(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑角色")
+    @ApiOperation("删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         sysRoleService.delete(dto.getId(), SecurityHolder.getMerchantId());
         return RespBody.success();
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("添加角色")
+    @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody RoleAddRequest request) {
         request.setRoleType(RoleType.COMMON);
         sysRoleService.create(request);

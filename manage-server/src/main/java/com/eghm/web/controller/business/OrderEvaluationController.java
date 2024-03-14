@@ -29,14 +29,14 @@ public class OrderEvaluationController {
     private final OrderEvaluationService orderEvaluationService;
 
     @GetMapping("/listPage")
-    @ApiOperation("评论列表")
+    @ApiOperation("列表")
     public RespBody<PageData<OrderEvaluationResponse>> listPage(@Validated OrderEvaluationQueryRequest dto) {
         Page<OrderEvaluationResponse> byPage = orderEvaluationService.listPage(dto);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping(value = "/audit", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("订单评论审核")
+    @ApiOperation("审核")
     public RespBody<OrderCreateVO<String>> audit(@RequestBody @Validated OrderEvaluationAuditDTO dto) {
         dto.setUserId(SecurityHolder.getUserId());
         orderEvaluationService.audit(dto);

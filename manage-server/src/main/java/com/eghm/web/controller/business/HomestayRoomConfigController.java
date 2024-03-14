@@ -51,7 +51,7 @@ public class HomestayRoomConfigController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新房态")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody RoomConfigEditRequest request) {
         HomestayRoom room = homestayRoomService.selectById(request.getRoomId());
         commonService.checkIllegal(room.getMerchantId());

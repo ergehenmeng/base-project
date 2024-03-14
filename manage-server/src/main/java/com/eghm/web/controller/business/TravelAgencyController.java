@@ -33,7 +33,7 @@ public class TravelAgencyController {
     private final TravelAgencyService travelAgencyService;
 
     @GetMapping("/listPage")
-    @ApiOperation("旅行社列表")
+    @ApiOperation("列表")
     public RespBody<PageData<TravelAgency>> listPage(TravelAgencyQueryRequest request) {
         Page<TravelAgency> roomPage = travelAgencyService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));

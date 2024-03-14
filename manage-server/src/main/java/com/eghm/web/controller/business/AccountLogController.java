@@ -25,7 +25,7 @@ import java.util.List;
  */
 
 @RestController
-@Api(tags = "商户资金")
+@Api(tags = "商户资金变动")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/merchant/account/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AccountLogController {
@@ -33,7 +33,7 @@ public class AccountLogController {
     private final AccountLogService accountLogService;
 
     @GetMapping("/listPage")
-    @ApiOperation("资金变动列表")
+    @ApiOperation("列表")
     public RespBody<PageData<AccountLogResponse>> listPage(AccountQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<AccountLogResponse> byPage = accountLogService.getByPage(request);

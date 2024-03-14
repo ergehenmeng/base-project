@@ -29,14 +29,14 @@ public class SmsTemplateController {
     private final SmsTemplateService smsTemplateService;
 
     @GetMapping("/listPage")
-    @ApiOperation("短信模板列表(分页)")
+    @ApiOperation("列表")
     public RespBody<PageData<SmsTemplate>> listPage(PagingQuery request) {
         Page<SmsTemplate> byPage = smsTemplateService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑短信模板")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody SmsTemplateEditRequest request) {
         smsTemplateService.update(request);
         return RespBody.success();

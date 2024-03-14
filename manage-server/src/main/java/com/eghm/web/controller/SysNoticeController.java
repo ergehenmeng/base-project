@@ -28,7 +28,7 @@ public class SysNoticeController {
 
     private final SysNoticeService sysNoticeService;
 
-    @ApiOperation("公告列表")
+    @ApiOperation("列表")
     @GetMapping("/listPage")
     public RespBody<PageData<SysNotice>> listPage(NoticeQueryRequest request) {
         Page<SysNotice> byPage = sysNoticeService.getByPage(request);

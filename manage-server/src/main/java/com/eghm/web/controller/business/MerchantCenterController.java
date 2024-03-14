@@ -35,7 +35,7 @@ public class MerchantCenterController {
     private final SysAreaService sysAreaService;
 
     @GetMapping("/detail")
-    @ApiOperation("商户详情")
+    @ApiOperation("详情")
     public RespBody<MerchantDetailResponse> detail() {
         Merchant merchant = merchantService.selectByIdRequired(SecurityHolder.getMerchantId());
         MerchantDetailResponse response = DataUtil.copy(merchant, MerchantDetailResponse.class);

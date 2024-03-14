@@ -38,7 +38,7 @@ public class PoiTypeController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @ApiOperation("创建poi类型")
+    @ApiOperation("新增")
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> create(@Validated @RequestBody PoiTypeAddRequest request) {
         poiTypeService.create(request);
@@ -46,7 +46,7 @@ public class PoiTypeController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新poi类型")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody PoiTypeEditRequest request) {
         poiTypeService.update(request);
         return RespBody.success();

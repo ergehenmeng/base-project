@@ -37,56 +37,56 @@ public class CouponController {
     private final MemberCouponService memberCouponService;
 
     @GetMapping("/listPage")
-    @ApiOperation("优惠券列表")
+    @ApiOperation("列表")
     public RespBody<PageData<CouponResponse>> listPage(@Validated CouponQueryRequest request) {
         Page<CouponResponse> configPage = couponService.getByPage(request);
         return RespBody.success(PageData.toPage(configPage));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("创建优惠券")
+    @ApiOperation("新增")
     public RespBody<Void> create(@RequestBody @Validated CouponAddRequest request) {
         couponService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新优惠券")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@RequestBody @Validated CouponEditRequest request) {
         couponService.update(request);
         return RespBody.success();
     }
 
     @GetMapping("/select")
-    @ApiOperation("查询优惠券")
+    @ApiOperation("详情")
     public RespBody<Coupon> select(@Validated IdDTO dto) {
         Coupon config = couponService.selectByIdRequired(dto.getId());
         return RespBody.success(config);
     }
 
     @PostMapping(value = "/open", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("启用优惠券")
+    @ApiOperation("启用")
     public RespBody<Void> open(@RequestBody @Validated IdDTO dto) {
         couponService.updateState(dto.getId(), State.SHELVE.getValue());
         return RespBody.success();
     }
 
     @PostMapping(value = "/close", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("禁用优惠券")
+    @ApiOperation("禁用")
     public RespBody<Void> close(@RequestBody @Validated IdDTO dto) {
         couponService.updateState(dto.getId(), State.UN_SHELVE.getValue());
         return RespBody.success();
     }
 
     @PostMapping(value = "/grant", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("发放优惠券")
+    @ApiOperation("发放")
     public RespBody<Void> grant(@RequestBody @Validated GrantCouponDTO dto) {
         memberCouponService.grantCoupon(dto);
         return RespBody.success();
     }
 
     @GetMapping("/receivePage")
-    @ApiOperation("领取详情")
+    @ApiOperation("领取列表")
     public RespBody<PageData<MemberCouponResponse>> receivePage(@Validated MemberCouponQueryRequest request) {
         Page<MemberCouponResponse> byPage = memberCouponService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));

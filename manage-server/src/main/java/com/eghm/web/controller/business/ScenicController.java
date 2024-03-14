@@ -31,7 +31,7 @@ public class ScenicController {
 
     private final ScenicService scenicService;
 
-    @ApiOperation("查询景区列表")
+    @ApiOperation("列表")
     @GetMapping("/listPage")
     public RespBody<PageData<Scenic>> getByPage(ScenicQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
@@ -47,7 +47,7 @@ public class ScenicController {
         return RespBody.success(PageData.toPage(listPage));
     }
 
-    @ApiOperation("创建景区")
+    @ApiOperation("新增")
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> create(@Validated @RequestBody ScenicAddRequest request) {
         scenicService.createScenic(request);
@@ -55,7 +55,7 @@ public class ScenicController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新景区")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody ScenicEditRequest request) {
         scenicService.updateScenic(request);
         return RespBody.success();

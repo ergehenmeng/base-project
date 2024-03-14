@@ -31,28 +31,28 @@ public class SysTaskController {
     private final SysTaskRegistrar sysTaskRegistrar;
 
     @GetMapping("/listPage")
-    @ApiOperation("定时任务列表(分页)")
+    @ApiOperation("列表")
     public RespBody<PageData<SysTask>> listPage(TaskQueryRequest request) {
         Page<SysTask> byPage = sysTaskService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑定时任务")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody TaskEditRequest request) {
         sysTaskService.update(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/refresh")
-    @ApiOperation("刷新定时任务")
+    @ApiOperation("刷新")
     public RespBody<Void> refresh() {
         sysTaskRegistrar.reloadTask();
         return RespBody.success();
     }
 
     @PostMapping(value = "/execute", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("执行一次任务")
+    @ApiOperation("执行")
     public RespBody<Void> execute(@Validated @RequestBody TaskRunRequest request) {
         sysTaskService.execute(request.getId(), request.getArgs());
         return RespBody.success();

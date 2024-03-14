@@ -32,7 +32,7 @@ public class WithdrawController {
     private final WithdrawService withdrawService;
 
     @GetMapping("/listPage")
-    @ApiOperation("提现列表")
+    @ApiOperation("列表")
     public RespBody<PageData<WithdrawLogResponse>> listPage(WithdrawQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<WithdrawLogResponse> roomPage = withdrawService.getByPage(request);

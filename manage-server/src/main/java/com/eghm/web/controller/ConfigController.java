@@ -28,14 +28,14 @@ public class ConfigController {
     private final SysConfigService sysConfigService;
 
     @GetMapping("/listPage")
-    @ApiOperation("系统参数列表")
+    @ApiOperation("列表")
     public RespBody<PageData<SysConfig>> listPage(ConfigQueryRequest request) {
         Page<SysConfig> listByPage = sysConfigService.getByPage(request);
         return RespBody.success(PageData.toPage(listByPage));
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新系统参数")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody ConfigEditRequest request) {
         sysConfigService.update(request);
         return RespBody.success();

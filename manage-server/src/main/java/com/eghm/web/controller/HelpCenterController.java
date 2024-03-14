@@ -29,7 +29,7 @@ public class HelpCenterController {
     private final HelpCenterService helpCenterService;
 
     @GetMapping("/listPage")
-    @ApiOperation("帮助列表")
+    @ApiOperation("列表")
     public RespBody<PageData<HelpCenter>> listPage(@Validated HelpQueryRequest request) {
         Page<HelpCenter> byPage = helpCenterService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));

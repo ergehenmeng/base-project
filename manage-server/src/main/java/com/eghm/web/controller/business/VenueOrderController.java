@@ -32,7 +32,7 @@ public class VenueOrderController {
     private final VenueOrderService venueOrderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("订单列表")
+    @ApiOperation("列表")
     public RespBody<PageData<VenueOrderResponse>> listPage(@Validated VenueOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VenueOrderResponse> page = venueOrderService.listPage(request);
@@ -40,7 +40,7 @@ public class VenueOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("订单详情")
+    @ApiOperation("详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<VenueOrderDetailResponse> detail(@RequestParam("orderNo") String orderNo) {
         VenueOrderDetailResponse detail = venueOrderService.detail(orderNo);

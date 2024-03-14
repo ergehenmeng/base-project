@@ -37,7 +37,7 @@ public class HomestayOrderController {
     private final OrderProxyService orderProxyService;
 
     @GetMapping("/listPage")
-    @ApiOperation("订单列表")
+    @ApiOperation("列表")
     public RespBody<PageData<HomestayOrderResponse>> listPage(HomestayOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<HomestayOrderResponse> byPage = homestayOrderService.listPage(request);
@@ -45,7 +45,7 @@ public class HomestayOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("订单详情")
+    @ApiOperation("详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<HomestayOrderDetailResponse> detail(@RequestParam("orderNo") String orderNo) {
         HomestayOrderDetailResponse detail = homestayOrderService.detail(orderNo);
