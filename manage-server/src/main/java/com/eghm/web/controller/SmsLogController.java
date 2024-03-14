@@ -29,7 +29,7 @@ public class SmsLogController {
     private final SmsLogService smsLogService;
 
     @GetMapping("/listPage")
-    @ApiOperation("短信记录列表(分页)")
+    @ApiOperation("列表")
     public RespBody<PageData<SmsLog>> listPage(SmsLogQueryRequest request) {
         Page<SmsLog> byPage = smsLogService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
