@@ -21,10 +21,10 @@ public class ItemOrderSnapshotVO {
     private Long storeId;
 
     @ApiModelProperty(value = "商品所属店铺")
-    private Long storeName;
+    private String storeName;
 
     @ApiModelProperty(value = "店铺logo")
-    private Long storeLogoUrl;
+    private String storeLogoUrl;
 
     @ApiModelProperty(value = "商品描述信息")
     private String depict;
@@ -32,7 +32,7 @@ public class ItemOrderSnapshotVO {
     @ApiModelProperty(value = "封面图")
     private String coverUrl;
 
-    @ApiModelProperty(value = "规格名称")
+    @ApiModelProperty(value = "规格名称(多规格)")
     private String skuTitle;
 
     @ApiModelProperty(value = "封面图")

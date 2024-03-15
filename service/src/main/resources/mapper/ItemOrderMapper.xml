@@ -178,6 +178,7 @@
 
     <select id="getSnapshot" resultType="com.eghm.vo.business.order.item.ItemOrderSnapshotVO">
         select
+            t.title,
             t.order_no,
             t.store_id,
             t.depict,

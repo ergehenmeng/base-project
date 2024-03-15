@@ -54,7 +54,7 @@ public class ItemOrder extends BaseEntity {
     @ApiModelProperty("订单所属用户ID(冗余)")
     private Long memberId;
 
-    @ApiModelProperty(value = "规格名称")
+    @ApiModelProperty(value = "规格名称(多规格)")
     private String skuTitle;
 
     @ApiModelProperty(value = "skuId")

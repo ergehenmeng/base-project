@@ -41,7 +41,7 @@ public class ItemOrderListVO {
     @ApiModelProperty(value = "商品封面图(如果有sku图则优先显示sku图,否则显示商品图)")
     private String coverUrl;
 
-    @ApiModelProperty(value = "规格名称")
+    @ApiModelProperty(value = "规格名称(多规格)")
     private String skuTitle;
 
     @ApiModelProperty(value = "销售价格")
