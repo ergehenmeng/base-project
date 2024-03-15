@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
 public class AppVersion extends BaseEntity {
 
     @ApiModelProperty("版本类型 IOS,ANDROID")
-    private String classify;
+    private String channel;
 
     @ApiModelProperty("版本号:1.2.8 最大:xx.xx.xx")
     @TableField(typeHandler = LikeTypeHandler.class)

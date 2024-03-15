@@ -46,7 +46,7 @@ public class AppVersionServiceImpl implements AppVersionService {
     public Page<AppVersion> getByPage(VersionQueryRequest request) {
         LambdaQueryWrapper<AppVersion> wrapper = Wrappers.lambdaQuery();
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), AppVersion::getVersion, request.getQueryName());
-        wrapper.eq(StrUtil.isNotBlank(request.getClassify()), AppVersion::getClassify, request.getClassify());
+        wrapper.eq(StrUtil.isNotBlank(request.getChannel()), AppVersion::getChannel, request.getChannel());
         return appVersionMapper.selectPage(request.createPage(), wrapper);
     }
 
@@ -108,7 +108,7 @@ public class AppVersionServiceImpl implements AppVersionService {
             log.info("该版本可能已被删除 [{}]", id);
             return;
         }
-        String version = this.getLatestVersion(appVersion.getClassify());
+        String version = this.getLatestVersion(appVersion.getChannel());
 
         if (appVersion.getVersion().equals(version)) {
             log.error("当前版本无法被删除 [{}] [{}]", id, version);

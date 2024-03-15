@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `app_version`;
 CREATE TABLE `app_version`
 (
     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `classify`     varchar(10)         NOT NULL DEFAULT '' COMMENT '版本类型 ANDROID IOS',
+    `channel`     varchar(10)         NOT NULL DEFAULT '' COMMENT '版本类型 ANDROID IOS',
     `version`      varchar(10)         NOT NULL COMMENT '版本号:1.2.8 范围(0.0.01~99.99.99)',
     `version_no`   int(10)                      DEFAULT NULL COMMENT '数字格式化后的版本号',
     `force_update` bit(1)                       DEFAULT b'0' COMMENT '是否强制更新 0:否 1:是',
