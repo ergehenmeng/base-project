@@ -1,7 +1,9 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -44,6 +46,7 @@ public class Order extends BaseEntity {
      * 零售由于可能是多商品同时下单, 该字段没有意义, 因此会为空
      */
     @ApiModelProperty(value = "单价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer price;
 
     @ApiModelProperty(value = "数量")

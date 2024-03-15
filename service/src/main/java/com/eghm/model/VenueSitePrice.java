@@ -3,6 +3,8 @@ package com.eghm.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.convertor.CentToYuanEncoder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -53,6 +55,7 @@ public class VenueSitePrice {
     private Integer nowWeek;
 
     @ApiModelProperty(value = "价格")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer price;
 
     @ApiModelProperty("是否可预定 false:不可预定 true:可预定")

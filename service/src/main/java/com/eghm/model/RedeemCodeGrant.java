@@ -1,6 +1,8 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.convertor.CentToYuanEncoder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -39,6 +41,7 @@ public class RedeemCodeGrant extends BaseEntity {
     private Integer state;
 
     @ApiModelProperty("金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer amount;
 
     @ApiModelProperty(value = "有效开始时间")

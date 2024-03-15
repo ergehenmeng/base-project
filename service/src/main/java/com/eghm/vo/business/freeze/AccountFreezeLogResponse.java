@@ -1,7 +1,9 @@
 package com.eghm.vo.business.freeze;
 
+import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.ChangeType;
 import com.eghm.enums.ref.FreezeState;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -22,6 +24,7 @@ public class AccountFreezeLogResponse {
     private String orderNo;
 
     @ApiModelProperty(value = "冻结金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer amount;
 
     @ApiModelProperty(value = "状态 1:冻结中 2:已解冻")
