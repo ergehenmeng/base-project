@@ -302,7 +302,7 @@ CREATE TABLE `sys_area`
     `pid`      bigint(20)          DEFAULT '0' COMMENT '父级区域代码',
     `zip_code` char(6)             DEFAULT NULL COMMENT '邮编',
     `mark`     char(1)             DEFAULT NULL COMMENT '标示符-首字母',
-    `classify` tinyint(1) unsigned DEFAULT NULL COMMENT '分类 省份1级 市2级 县3级',
+    `grade`    tinyint(1) unsigned DEFAULT NULL COMMENT '分类 省份1级 市2级 县3级',
     PRIMARY KEY (`id`),
     KEY `idx_pid` (`pid`)
 ) ENGINE = InnoDB

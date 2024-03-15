@@ -120,17 +120,17 @@ public class MemberAddressServiceImpl implements MemberAddressService {
      */
     private void fillAreaName(MemberAddress address) {
         SysArea sysArea = sysAreaService.getById(address.getProvinceId());
-        if (sysArea == null || sysArea.getClassify() != SysArea.CLASSIFY_PROVINCE) {
+        if (sysArea == null || sysArea.getGrade() != SysArea.PROVINCE) {
             throw new ParameterException(ErrorCode.PROVINCE_ERROR);
         }
         address.setProvinceName(sysArea.getTitle());
         sysArea = sysAreaService.getById(address.getCityId());
-        if (sysArea == null || sysArea.getClassify() != SysArea.CLASSIFY_CITY) {
+        if (sysArea == null || sysArea.getGrade() != SysArea.CITY) {
             throw new ParameterException(ErrorCode.CITY_ERROR);
         }
         address.setCityName(sysArea.getTitle());
         sysArea = sysAreaService.getById(address.getCountyId());
-        if (sysArea == null || sysArea.getClassify() != SysArea.CLASSIFY_COUNTY) {
+        if (sysArea == null || sysArea.getGrade() != SysArea.COUNTY) {
             throw new ParameterException(ErrorCode.COUNTY_ERROR);
         }
         address.setCountyName(sysArea.getTitle());

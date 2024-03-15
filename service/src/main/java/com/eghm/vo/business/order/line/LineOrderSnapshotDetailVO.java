@@ -1,6 +1,8 @@
 package com.eghm.vo.business.order.line;
 
+import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -46,9 +48,11 @@ public class LineOrderSnapshotDetailVO {
     private Integer advanceDay;
 
     @ApiModelProperty("划线价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer linePrice;
 
     @ApiModelProperty("销售价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
     @ApiModelProperty(value = "商品介绍")

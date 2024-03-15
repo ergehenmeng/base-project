@@ -20,6 +20,9 @@ import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  * @author 二哥很猛
  * @since 2022/9/2
@@ -103,9 +106,15 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         order.setOrderNo(ProductType.LINE.generateOrderNo());
         order.setTitle(payload.getLine().getTitle());
         order.setPrice(payload.getConfig().getSalePrice());
-        order.setPayAmount(order.getNum() * order.getPrice());
+        order.setPayAmount(context.getNum() * order.getPrice());
+        order.setNum(context.getNum());
+        order.setMobile(context.getMobile());
+        order.setRemark(context.getRemark());
+        order.setMemberId(context.getMemberId());
         order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         order.setMultiple(false);
+        order.setCreateDate(LocalDate.now());
+        order.setCreateTime(LocalDateTime.now());
         // 使用优惠券
         this.useDiscount(order, context.getMemberId(), context.getCouponId(), context.getLineId());
         // 使用cdKey
