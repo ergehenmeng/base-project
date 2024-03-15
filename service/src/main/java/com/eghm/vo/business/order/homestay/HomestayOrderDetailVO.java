@@ -87,7 +87,7 @@ public class HomestayOrderDetailVO {
 
     @ApiModelProperty("入住日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate starDate;
+    private LocalDate startDate;
 
     @ApiModelProperty("离店日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
