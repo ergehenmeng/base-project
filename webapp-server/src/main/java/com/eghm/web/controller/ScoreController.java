@@ -31,7 +31,7 @@ public class ScoreController {
     private final MemberScoreLogService memberScoreLogService;
 
     @GetMapping("/listPage")
-    @ApiOperation("用户积分列表")
+    @ApiOperation("列表")
     public RespBody<List<MemberScoreVO>> listPage(@Validated MemberScoreQueryDTO request) {
         request.setMemberId(ApiHolder.getMemberId());
         List<MemberScoreVO> page = memberScoreLogService.getByPage(request);

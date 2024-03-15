@@ -35,7 +35,7 @@ public class ItemOrderController {
     private final OrderService orderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("订单列表")
+    @ApiOperation("列表")
     public RespBody<List<ItemOrderVO>> listPage(@Validated ItemOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<ItemOrderVO> voList = itemOrderService.getByPage(dto);
@@ -43,7 +43,7 @@ public class ItemOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("订单详情")
+    @ApiOperation("详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<ItemOrderDetailVO> detail(@RequestParam("orderNo") String orderNo) {
         ItemOrderDetailVO detail = itemOrderService.getDetail(orderNo, ApiHolder.getMemberId());

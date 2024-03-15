@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class CacheConstant {
 
     /**
-     * 默认的缓存占位符(处理中)
+     * 占位符(默认)
      */
     public static final String PLACE_HOLDER = "#";
 
@@ -23,7 +23,7 @@ public class CacheConstant {
     public static final String SUCCESS_PLACE_HOLDER = "@";
 
     /**
-     * 占位符(系统异常)
+     * 占位符(失败)
      */
     public static final String ERROR_PLACE_HOLDER = "&";
 

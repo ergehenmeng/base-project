@@ -35,7 +35,7 @@ public class LineOrderController {
     private final LineOrderService lineOrderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("线路订单列表")
+    @ApiOperation("列表")
     public RespBody<List<LineOrderVO>> listPage(@Validated LineOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<LineOrderVO> voList = lineOrderService.getByPage(dto);
@@ -43,7 +43,7 @@ public class LineOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("线路订单详情")
+    @ApiOperation("详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<LineOrderDetailVO> detail(@RequestParam("orderNo") String orderNo) {
         LineOrderDetailVO detail = lineOrderService.getDetail(orderNo, ApiHolder.getMemberId());
@@ -51,7 +51,7 @@ public class LineOrderController {
     }
 
     @GetMapping("/snapshot")
-    @ApiOperation("线路订单快照详情")
+    @ApiOperation("订单快照")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<LineOrderSnapshotDetailVO> snapshot(@RequestParam("orderNo") String orderNo) {
         LineOrderSnapshotDetailVO detail = lineOrderService.snapshotDetail(orderNo, ApiHolder.getMemberId());

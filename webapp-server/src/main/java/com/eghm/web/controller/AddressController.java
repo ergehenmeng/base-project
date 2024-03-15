@@ -30,7 +30,7 @@ public class AddressController {
     private final MemberAddressService memberAddressService;
 
     @GetMapping("/list")
-    @ApiOperation("用户地址列表")
+    @ApiOperation("列表")
     public RespBody<List<AddressVO>> list() {
         List<AddressVO> voList = memberAddressService.getByMemberId(ApiHolder.getMemberId());
         return RespBody.success(voList);

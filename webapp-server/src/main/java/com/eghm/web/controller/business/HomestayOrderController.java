@@ -35,7 +35,7 @@ public class HomestayOrderController {
     private final HomestayOrderService homestayOrderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("民宿订单列表")
+    @ApiOperation("列表")
     public RespBody<List<HomestayOrderVO>> listPage(@Validated HomestayOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<HomestayOrderVO> voList = homestayOrderService.getByPage(dto);
@@ -43,7 +43,7 @@ public class HomestayOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("民宿订单详情")
+    @ApiOperation("详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<HomestayOrderDetailVO> detail(@RequestParam("orderNo") String orderNo) {
         HomestayOrderDetailVO detail = homestayOrderService.getDetail(orderNo, ApiHolder.getMemberId());
@@ -51,7 +51,7 @@ public class HomestayOrderController {
     }
 
     @GetMapping("/snapshot")
-    @ApiOperation("民宿快照详情")
+    @ApiOperation("快照详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<HomestayOrderSnapshotVO> snapshot(@RequestParam("orderNo") String orderNo) {
         HomestayOrderSnapshotVO detail = homestayOrderService.snapshotDetail(orderNo, ApiHolder.getMemberId());

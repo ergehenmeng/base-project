@@ -38,21 +38,21 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/list")
-    @ApiOperation("购物车商品列表")
+    @ApiOperation("列表")
     public RespBody<List<ShoppingCartVO>> list() {
         List<ShoppingCartVO> voList = shoppingCartService.getList(ApiHolder.getMemberId());
         return RespBody.success(voList);
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除购物车商品")
+    @ApiOperation("删除商品")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         shoppingCartService.delete(dto.getId(), ApiHolder.getMemberId());
         return RespBody.success();
     }
 
     @PostMapping(value = "/quantity", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新商品数量")
+    @ApiOperation("更新数量")
     public RespBody<Void> quantity(@RequestBody @Validated CartQuantityDTO dto) {
         shoppingCartService.updateQuantity(dto.getId(), dto.getQuantity(), ApiHolder.getMemberId());
         return RespBody.success();

@@ -62,7 +62,7 @@ public class ExceptionAdviceHandler {
      */
     @ExceptionHandler(BusinessException.class)
     public RespBody<Void> businessException(HttpServletRequest request, BusinessException e) {
-        log.warn("业务异常:[{}] 错误码:[{}] ", request.getRequestURI(), e.getCode(), e);
+        log.warn("业务异常:[{}] 错误码:[{}] [{}]", request.getRequestURI(), e.getCode(), e.getMessage());
         return RespBody.error(e.getCode(), e.getMessage());
     }
 
@@ -74,7 +74,7 @@ public class ExceptionAdviceHandler {
      */
     @ExceptionHandler(ParameterException.class)
     public RespBody<Void> parameterException(HttpServletRequest request, ParameterException e) {
-        log.warn("参数异常:[{}] [{}:{}]", request.getRequestURI(), e.getCode(), e.getMessage());
+        log.warn("参数校验异常:[{}] [{}:{}]", request.getRequestURI(), e.getCode(), e.getMessage());
         return RespBody.error(e.getCode(), e.getMessage());
     }
 
@@ -146,7 +146,7 @@ public class ExceptionAdviceHandler {
     @ExceptionHandler(WeChatPayException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Map<String, String> weChatPayException(HttpServletRequest request, WeChatPayException e) {
-        log.error("微信异步通知异常 [{}]", request.getRequestURI());
+        log.error("微信异步通知异常 [{}] 错误信息: [{}] [{}]", request.getRequestURI(), e.getCode(), e.getMessage());
         Map<String, String> map = Maps.newHashMapWithExpectedSize(2);
         map.put("code", "FAIL");
         map.put("message", e.getMessage());

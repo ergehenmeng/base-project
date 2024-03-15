@@ -19,6 +19,9 @@ import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  * @author 二哥很猛
  * @since 2022/8/21
@@ -89,10 +92,14 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         order.setMerchantId(payload.getScenic().getMerchantId());
         order.setStoreId(payload.getScenic().getId());
         order.setTitle(ticket.getTitle());
+        order.setMemberId(context.getMemberId());
         order.setState(OrderState.UN_PAY);
         order.setProductType(ProductType.TICKET);
         order.setCoverUrl(ticket.getCoverUrl());
         order.setOrderNo(ProductType.TICKET.generateOrderNo());
+        order.setNum(context.getNum());
+        order.setMobile(context.getMobile());
+        order.setRemark(context.getRemark());
         // 实名制购票,默认第一个作为订单人
         if (CollUtil.isNotEmpty(context.getVisitorList())) {
             order.setNickName(context.getVisitorList().get(0).getMemberName());
@@ -102,6 +109,8 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         order.setMultiple(false);
         order.setRefundType(RefundType.DIRECT_REFUND);
         order.setDeliveryType(DeliveryType.NO_SHIPMENT);
+        order.setCreateDate(LocalDate.now());
+        order.setCreateTime(LocalDateTime.now());
         // 使用优惠券
         this.useDiscount(order, context.getMemberId(), context.getCouponId(), ticket.getId());
         orderService.save(order);

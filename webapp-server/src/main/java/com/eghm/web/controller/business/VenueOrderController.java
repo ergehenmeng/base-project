@@ -26,7 +26,7 @@ import java.util.List;
  */
 @AccessToken
 @RestController
-@Api(tags = "场馆预约订单")
+@Api(tags = "场馆订单")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/venue/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VenueOrderController {
@@ -34,7 +34,7 @@ public class VenueOrderController {
     private final VenueOrderService venueOrderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("订单列表")
+    @ApiOperation("列表")
     public RespBody<List<VenueOrderVO>> listPage(@Validated VenueOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<VenueOrderVO> voList = venueOrderService.getByPage(dto);
@@ -42,7 +42,7 @@ public class VenueOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("订单详情")
+    @ApiOperation("详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<VenueOrderDetailVO> detail(@RequestParam("orderNo") String orderNo) {
         VenueOrderDetailVO detail = venueOrderService.getDetail(orderNo, ApiHolder.getMemberId());

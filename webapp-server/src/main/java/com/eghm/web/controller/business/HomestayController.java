@@ -30,14 +30,14 @@ public class HomestayController {
     private final HomestayService homestayService;
 
     @GetMapping("/listPage")
-    @ApiOperation("民宿列表")
+    @ApiOperation("列表")
     public RespBody<List<HomestayVO>> listPage(@Validated HomestayQueryDTO dto) {
         List<HomestayVO> byPage = homestayService.getByPage(dto);
         return RespBody.success(byPage);
     }
 
     @GetMapping("/detail")
-    @ApiOperation("民宿详情")
+    @ApiOperation("详情")
     public RespBody<HomestayDetailVO> detail(@Validated IdDTO dto) {
         HomestayDetailVO detail = homestayService.detailById(dto.getId());
         return RespBody.success(detail);

@@ -30,7 +30,7 @@ public class MemberCollectController {
     private final MemberCollectService memberCollectService;
 
     @GetMapping("/listPage")
-    @ApiOperation("收藏列表")
+    @ApiOperation("列表")
     @AccessToken
     public RespBody<List<MemberCollectVO>> listPage(CollectQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());

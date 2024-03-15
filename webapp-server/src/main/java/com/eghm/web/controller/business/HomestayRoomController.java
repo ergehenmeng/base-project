@@ -33,14 +33,14 @@ public class HomestayRoomController {
     private final HomestayRoomConfigService homestayRoomConfigService;
 
     @GetMapping("/listPage")
-    @ApiOperation("房型列表")
+    @ApiOperation("列表")
     public RespBody<List<HomestayRoomListVO>> listPage(@Validated HomestayRoomQueryDTO request) {
         List<HomestayRoomListVO> listPage = homestayRoomService.listPage(request);
         return RespBody.success(listPage);
     }
 
     @GetMapping("/detail")
-    @ApiOperation("房型详细信息")
+    @ApiOperation("信息")
     public RespBody<HomestayRoomVO> detail(@Validated IdDTO dto) {
         HomestayRoomVO detail = homestayRoomService.detailById(dto.getId());
         return RespBody.success(detail);

@@ -34,7 +34,7 @@ public class TicketOrderController {
     private final TicketOrderService ticketOrderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("门票订单列表")
+    @ApiOperation("列表")
     public RespBody<List<TicketOrderVO>> listPage(@Validated TicketOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<TicketOrderVO> voList = ticketOrderService.getByPage(dto);
@@ -42,7 +42,7 @@ public class TicketOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("门票订单详情")
+    @ApiOperation("详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<TicketOrderDetailVO> detail(@RequestParam("orderNo") String orderNo) {
         TicketOrderDetailVO detail = ticketOrderService.getDetail(orderNo, ApiHolder.getMemberId());

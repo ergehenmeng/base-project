@@ -30,7 +30,7 @@ public class MemberNoticeController {
     private final MemberNoticeService memberNoticeService;
 
     @GetMapping("/listPage")
-    @ApiOperation("分页查询站内信列表")
+    @ApiOperation("列表")
     public RespBody<List<MemberNoticeVO>> listPage(PagingQuery query) {
         List<MemberNoticeVO> paging = memberNoticeService.getByPage(query, ApiHolder.getMemberId());
         return RespBody.success(paging);

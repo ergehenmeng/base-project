@@ -32,7 +32,7 @@ public class BannerController {
 
     @GetMapping("/list")
     @ApiOperation("查询可用的轮播图列表")
-    @ApiImplicitParam(name = "bannerType", value = "轮播图分类id")
+    @ApiImplicitParam(name = "bannerType", value = "轮播图分类id", required = true)
     public RespBody<List<BannerVO>> list(@RequestParam("bannerType") Integer bannerType) {
         String channel = ApiHolder.getChannel();
         if (null == channel) {

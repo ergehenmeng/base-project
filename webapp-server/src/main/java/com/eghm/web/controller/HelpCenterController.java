@@ -28,7 +28,7 @@ public class HelpCenterController {
     private final HelpCenterService helpCenterService;
 
     @GetMapping("/list")
-    @ApiOperation("帮助列表信息")
+    @ApiOperation("列表")
     public RespBody<List<HelpCenterVO>> list(@Validated HelpQueryDTO dto) {
         List<HelpCenterVO> voList = helpCenterService.list(dto);
         return RespBody.success(voList);

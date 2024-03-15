@@ -403,8 +403,6 @@ public class RabbitListenerHandler {
      * 判断消费是否可以要继续处理下单逻辑
      * 1. 消息在队列长达30分钟, 肯定不允许下单成功
      * 2. 如果前端一直轮训获取结果,到上限后会直接提示商品太火爆,因此如果下单还在队列中,则不允许下单
-     * 3. 只有前端轮训没有上限(100)
-     * 4.
      *
      * @param asyncKey key
      * @return 是否允许下单
@@ -418,6 +416,10 @@ public class RabbitListenerHandler {
         String accessStr = hasValue.replace(CacheConstant.PLACE_HOLDER, "");
         // 前端还没请求呢, 可以直接处理
         if (StrUtil.isBlank(accessStr)) {
+            return true;
+        }
+        // 表示已经处理过了, 此次是重试
+        if (accessStr.contains(ERROR_PLACE_HOLDER)) {
             return true;
         }
         int accessNum = Integer.parseInt(accessStr);

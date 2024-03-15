@@ -287,7 +287,7 @@ public class MerchantServiceImpl implements MerchantService {
     private long getMerchantId(String authCode) {
         String value = cacheService.getValue(MERCHANT_AUTH_CODE + authCode);
         if (StrUtil.isBlank(value)) {
-            log.error("授权码已过期,请重新生成");
+            log.warn("授权码已过期,请重新生成 [{}]", authCode);
             throw new BusinessException(ErrorCode.MERCHANT_CODE_EXPIRE);
         }
         return Long.parseLong(value);

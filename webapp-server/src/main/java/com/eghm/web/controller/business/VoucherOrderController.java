@@ -35,7 +35,7 @@ public class VoucherOrderController {
     private final VoucherOrderService voucherOrderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("餐饮订单列表")
+    @ApiOperation("列表")
     public RespBody<List<VoucherOrderVO>> listPage(@Validated VoucherOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<VoucherOrderVO> voList = voucherOrderService.getByPage(dto);
@@ -43,7 +43,7 @@ public class VoucherOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("餐饮订单详情")
+    @ApiOperation("详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<VoucherOrderDetailVO> detail(@RequestParam("orderNo") String orderNo) {
         VoucherOrderDetailVO detail = voucherOrderService.getDetail(orderNo, ApiHolder.getMemberId());
@@ -51,7 +51,7 @@ public class VoucherOrderController {
     }
 
     @GetMapping("/snapshot")
-    @ApiOperation("餐饮快照详情")
+    @ApiOperation("快照详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<VoucherOrderSnapshotVO> snapshot(@RequestParam("orderNo") String orderNo) {
         VoucherOrderSnapshotVO detail = voucherOrderService.snapshotDetail(orderNo, ApiHolder.getMemberId());

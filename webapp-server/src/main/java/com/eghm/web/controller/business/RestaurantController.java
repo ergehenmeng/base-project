@@ -36,21 +36,21 @@ public class RestaurantController {
     private final VoucherService voucherService;
 
     @GetMapping("/listPage")
-    @ApiOperation("商家列表")
+    @ApiOperation("列表")
     public RespBody<List<RestaurantVO>> listPage(RestaurantQueryDTO dto) {
         List<RestaurantVO> byPage = restaurantService.getByPage(dto);
         return RespBody.success(byPage);
     }
 
     @GetMapping("/detail")
-    @ApiOperation("店铺详情")
+    @ApiOperation("详情")
     public RespBody<RestaurantDetailVO> detail(@Validated IdDTO dto) {
         RestaurantDetailVO detail = restaurantService.detailById(dto.getId());
         return RespBody.success(detail);
     }
 
     @GetMapping("/voucher/listPage")
-    @ApiOperation("店铺餐饮券列表")
+    @ApiOperation("餐饮券列表")
     public RespBody<List<VoucherVO>> voucherListPage(@Validated VoucherQueryDTO dto) {
         List<VoucherVO> voList = voucherService.getByPage(dto);
         return RespBody.success(voList);

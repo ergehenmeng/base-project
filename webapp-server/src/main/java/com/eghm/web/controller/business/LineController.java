@@ -34,14 +34,14 @@ public class LineController {
     private final LineConfigService lineConfigService;
 
     @GetMapping("/listPage")
-    @ApiOperation("线路列表")
+    @ApiOperation("列表")
     public RespBody<List<LineVO>> getByPage(LineQueryDTO dto) {
         List<LineVO> byPage = lineService.getByPage(dto);
         return RespBody.success(byPage);
     }
 
     @GetMapping("/detail")
-    @ApiOperation("线路详情")
+    @ApiOperation("详情")
     public RespBody<LineDetailVO> detail(@Validated IdDTO request) {
         LineDetailVO detail = lineService.detailById(request.getId());
         return RespBody.success(detail);

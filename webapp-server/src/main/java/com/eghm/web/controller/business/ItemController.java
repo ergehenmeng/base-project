@@ -39,14 +39,14 @@ public class ItemController {
     private final CouponService couponService;
 
     @GetMapping("/listPage")
-    @ApiOperation("商品列表")
+    @ApiOperation("列表")
     public RespBody<List<ItemVO>> listPage(ItemQueryDTO dto) {
         List<ItemVO> byPage = itemService.getByPage(dto);
         return RespBody.success(byPage);
     }
 
     @GetMapping("/detail")
-    @ApiOperation("商品详情")
+    @ApiOperation("详情")
     public RespBody<ItemDetailVO> detail(@Validated IdDTO dto) {
         ItemDetailVO detail = itemService.detailById(dto.getId());
         return RespBody.success(detail);

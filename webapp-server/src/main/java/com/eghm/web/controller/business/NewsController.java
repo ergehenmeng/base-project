@@ -29,7 +29,7 @@ public class NewsController {
 
     private final NewsService newsService;
 
-    @ApiOperation("查询列表")
+    @ApiOperation("列表")
     @GetMapping("/listPage")
     public RespBody<List<NewsVO>> getByPage(PagingQuery request) {
         List<NewsVO> scenicPage = newsService.getByPage(request);
