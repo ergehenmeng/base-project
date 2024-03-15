@@ -4,6 +4,7 @@ import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.*;
 import com.eghm.vo.business.order.VisitorVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -17,6 +18,7 @@ import java.util.List;
  * @since 2023/7/31
  */
 @Data
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class HomestayOrderDetailVO {
 
     @ApiModelProperty("图片")

@@ -8,6 +8,7 @@ import com.eghm.enums.ref.VenueType;
 import com.eghm.vo.business.venue.VenuePhaseVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,6 +24,7 @@ import java.util.List;
  */
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class VenueOrderDetailVO {
 
     @ApiModelProperty("订单号")
