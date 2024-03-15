@@ -1,6 +1,7 @@
 package com.eghm.dto.ext;
 
 import com.eghm.validation.annotation.DateCompare;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
  */
 public abstract class DateComparator implements Serializable {
 
+    @ApiModelProperty(hidden = true)
     private final transient LocalDateCompare dateCompare = new LocalDateCompare();
 
     @DateCompare
