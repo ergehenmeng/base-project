@@ -2,6 +2,7 @@ package com.eghm.vo.business.order.item;
 
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.DeliveryType;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -12,6 +13,7 @@ import lombok.Data;
  */
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemOrderSnapshotVO {
 
     @ApiModelProperty(value = "商品名称")
