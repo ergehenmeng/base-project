@@ -101,7 +101,10 @@
             r.remark
         from `order` r
         inner join venue_order t on t.order_no = r.order_no
-        where t.deleted = false and r.merchant_id = #{merchantId} and r.order_no = #{orderNo}
+        where t.deleted = false and r.order_no = #{orderNo}
+        <if test="merchantId != null">
+            and r.merchant_id = #{merchantId}
+        </if>
     </select>
 
     <select id="getDetail" resultType="com.eghm.vo.business.order.venue.VenueOrderDetailVO">

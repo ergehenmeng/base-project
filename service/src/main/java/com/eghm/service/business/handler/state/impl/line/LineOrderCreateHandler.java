@@ -108,6 +108,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         order.setPrice(payload.getConfig().getSalePrice());
         order.setPayAmount(context.getNum() * order.getPrice());
         order.setNum(context.getNum());
+        order.setNickName(context.getNickName());
         order.setMobile(context.getMobile());
         order.setRemark(context.getRemark());
         order.setMemberId(context.getMemberId());

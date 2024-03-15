@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2024/2/4
  */
 @RestController
-@Api(tags = "场馆预约订单")
+@Api(tags = "场馆订单")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/venue/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VenueOrderController {
