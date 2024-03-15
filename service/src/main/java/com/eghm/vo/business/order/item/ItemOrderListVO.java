@@ -3,6 +3,7 @@ package com.eghm.vo.business.order.item;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.DeliveryState;
 import com.eghm.enums.ref.ItemRefundState;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -13,6 +14,7 @@ import lombok.Data;
  */
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemOrderListVO {
 
     @ApiModelProperty("订单id")

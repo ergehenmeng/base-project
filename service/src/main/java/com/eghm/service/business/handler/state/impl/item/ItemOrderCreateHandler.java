@@ -192,6 +192,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         order.setRefundType(this.getRefundType(packageList));
         order.setProductType(ProductType.ITEM);
         order.setNum(this.getNum(packageList));
+        order.setMemberId(context.getMemberId());
         Integer itemAmount = this.getItemAmount(packageList, context);
         order.setBookingNo(context.getBookingNo());
         order.setBookingId(context.getBookingId());
@@ -199,7 +200,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         Integer payAmount = itemAmount + expressAmount;
         if (scoreAmount <= 0) {
             order.setPayAmount(payAmount);
-            order.setPayAmount(0);
+            order.setScoreAmount(0);
         } else {
             // 使用积分
             if (payAmount > scoreAmount) {

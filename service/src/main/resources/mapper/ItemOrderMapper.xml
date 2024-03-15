@@ -113,6 +113,7 @@
 
     <select id="getItemList" resultType="com.eghm.vo.business.order.item.ItemOrderListVO">
         select
+        id,
         item_id,
         title,
         refund_state,
