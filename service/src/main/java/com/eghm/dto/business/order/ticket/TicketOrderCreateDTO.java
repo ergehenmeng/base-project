@@ -1,6 +1,7 @@
 package com.eghm.dto.business.order.ticket;
 
 import com.eghm.service.business.handler.dto.VisitorDTO;
+import com.eghm.validation.annotation.AfterNow;
 import com.eghm.validation.annotation.Mobile;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -31,6 +32,7 @@ public class TicketOrderCreateDTO {
     @ApiModelProperty(value = "游玩日期", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "游玩日期不能为空")
+    @AfterNow(message = "请选择合适的游玩日期")
     private LocalDate visitDate;
 
     @ApiModelProperty("购票数量")

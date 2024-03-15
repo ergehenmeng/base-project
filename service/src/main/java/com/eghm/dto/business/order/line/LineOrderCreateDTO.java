@@ -2,6 +2,7 @@ package com.eghm.dto.business.order.line;
 
 import com.eghm.annotation.Assign;
 import com.eghm.service.business.handler.dto.VisitorDTO;
+import com.eghm.validation.annotation.AfterNow;
 import com.eghm.validation.annotation.Mobile;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -53,6 +54,7 @@ public class LineOrderCreateDTO {
     @ApiModelProperty(value = "游玩日期", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "游玩日期不能为空")
+    @AfterNow(message = "请选择合法的游玩日期")
     private LocalDate configDate;
 
     @ApiModelProperty("备注")

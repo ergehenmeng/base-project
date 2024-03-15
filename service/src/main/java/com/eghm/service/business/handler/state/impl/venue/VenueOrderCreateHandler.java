@@ -86,6 +86,10 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
             throw new BusinessException(ErrorCode.VENUE_SKIP);
         }
         VenueSitePrice price = priceList.get(0);
+        if (!LocalDate.now().isAfter(price.getNowDate())) {
+            log.error("预约日期不合法 [{}] [{}]", price.getId(), price.getNowDate());
+            throw new BusinessException(ErrorCode.VISITE_DATE_ILLEGAL);
+        }
         Venue venue = venueService.selectByIdShelve(price.getVenueId());
         VenueSite venueSite = venueSiteService.selectByIdShelve(price.getVenueSiteId());
         Integer redeemAmount = redeemCodeGrantService.getRedeemAmount(context.getCdKey(), venue.getId(), price.getVenueSiteId());

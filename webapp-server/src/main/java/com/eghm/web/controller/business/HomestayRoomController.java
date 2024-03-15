@@ -40,7 +40,7 @@ public class HomestayRoomController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("信息")
+    @ApiOperation("详情")
     public RespBody<HomestayRoomVO> detail(@Validated IdDTO dto) {
         HomestayRoomVO detail = homestayRoomService.detailById(dto.getId());
         return RespBody.success(detail);

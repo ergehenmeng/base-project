@@ -24,9 +24,6 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = true)
 public class ItemOrderCreateContext extends AsyncKey implements Context {
 
-    @ApiModelProperty(hidden = true, value = "用户id")
-    private Long memberId;
-
     @ApiModelProperty("商品信息")
     private List<ItemDTO> itemList;
 
@@ -42,10 +39,6 @@ public class ItemOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("收货地址id")
     private Long addressId;
 
-    @ApiModelProperty(value = "订单编号", hidden = true)
-    @Assign
-    private String orderNo;
-
     @ApiModelProperty("备注")
     private String remark;
 
@@ -54,6 +47,14 @@ public class ItemOrderCreateContext extends AsyncKey implements Context {
 
     @ApiModelProperty("源状态")
     private Integer from;
+
+    @ApiModelProperty(value = "订单编号", hidden = true)
+    @Assign
+    private String orderNo;
+
+    @Assign
+    @ApiModelProperty(hidden = true, value = "用户id")
+    private Long memberId;
 
     @ApiModelProperty(value = "已拼单数量", hidden = true)
     @Assign

@@ -31,12 +31,6 @@ public class VenueOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("时间段id")
     private List<Long> phaseList;
 
-    @ApiModelProperty("源状态")
-    private Integer from;
-
-    @ApiModelProperty("订单编号")
-    private String orderNo;
-
     @ApiModelProperty("备注")
     private String remark;
 
@@ -44,6 +38,13 @@ public class VenueOrderCreateContext extends AsyncKey implements Context {
     private String cdKey;
 
     @Assign
+    @ApiModelProperty("订单编号")
+    private String orderNo;
+
+    @Assign
     @ApiModelProperty(hidden = true, value = "用户id")
     private Long memberId;
+
+    @ApiModelProperty("源状态")
+    private Integer from;
 }

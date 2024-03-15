@@ -1939,6 +1939,11 @@ public enum ErrorCode {
     CHANNEL_NULL(3966, "访问渠道不能为空"),
 
     /**
+     * 请选择合适的预约日期
+     */
+    VISITE_DATE_ILLEGAL(3968, "请选择合适的预约日期"),
+
+    /**
      * 店铺信息不存在
      */
     STORE_NOT_EXIST(4000, "店铺信息不存在"),

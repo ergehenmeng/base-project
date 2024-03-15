@@ -26,10 +26,6 @@ import java.util.List;
 @ToString(callSuper = true)
 public class TicketOrderCreateContext extends AsyncKey implements Context {
 
-    @Assign
-    @ApiModelProperty(hidden = true, value = "用户id")
-    private Long memberId;
-
     @ApiModelProperty("门票id")
     private Long ticketId;
 
@@ -51,11 +47,16 @@ public class TicketOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("优惠券id")
     private Long couponId;
 
-    @ApiModelProperty("订单编号")
-    private String orderNo;
-
     @ApiModelProperty("备注")
     private String remark;
+
+    @ApiModelProperty("订单编号")
+    @Assign
+    private String orderNo;
+
+    @Assign
+    @ApiModelProperty(hidden = true, value = "用户id")
+    private Long memberId;
 
     @ApiModelProperty("源状态")
     private Integer from;

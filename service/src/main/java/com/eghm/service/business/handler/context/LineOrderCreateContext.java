@@ -7,6 +7,10 @@ import com.eghm.state.machine.Context;
 import com.eghm.validation.annotation.Mobile;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,10 +30,6 @@ import java.util.List;
 @Setter
 @ToString(callSuper = true)
 public class LineOrderCreateContext extends AsyncKey implements Context {
-
-    @Assign
-    @ApiModelProperty(hidden = true, value = "用户id")
-    private Long memberId;
 
     @ApiModelProperty("商品id")
     @NotNull(message = "商品不能为空")
@@ -58,18 +58,24 @@ public class LineOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("游玩日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "游玩日期不能为空")
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate configDate;
+
+    @ApiModelProperty("备注")
+    private String remark;
+
+    @ApiModelProperty("兑换码")
+    private String cdKey;
 
     @ApiModelProperty("订单编号")
     @Assign
     private String orderNo;
 
-    @ApiModelProperty("备注")
-    private String remark;
+    @Assign
+    @ApiModelProperty(hidden = true, value = "用户id")
+    private Long memberId;
 
     @ApiModelProperty("源状态")
     private Integer from;
-
-    @ApiModelProperty("兑换码")
-    private String cdKey;
 }

@@ -32,17 +32,18 @@ public class VoucherOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("联系人电话")
     private String mobile;
 
+    @ApiModelProperty("备注")
+    private String remark;
+
     @Assign
     @ApiModelProperty(hidden = true, value = "用户id")
     private Long memberId;
 
-    @ApiModelProperty("源状态")
-    private Integer from;
-
     @ApiModelProperty("订单编号")
+    @Assign
     private String orderNo;
 
-    @ApiModelProperty("备注")
-    private String remark;
+    @ApiModelProperty("源状态")
+    private Integer from;
 }
 

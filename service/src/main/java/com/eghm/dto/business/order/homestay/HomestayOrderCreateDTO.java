@@ -2,6 +2,7 @@ package com.eghm.dto.business.order.homestay;
 
 import com.eghm.dto.ext.DateComparator;
 import com.eghm.service.business.handler.dto.VisitorDTO;
+import com.eghm.validation.annotation.AfterNow;
 import com.eghm.validation.annotation.Mobile;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -52,6 +53,7 @@ public class HomestayOrderCreateDTO extends DateComparator {
     @ApiModelProperty(value = "入店日期(含晚上)", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "入店日期不能为空")
+    @AfterNow(message = "请选择合法的入店日期")
     private LocalDate startDate;
 
     @ApiModelProperty(value = "离店日期(不含晚上)", required = true)
