@@ -43,5 +43,13 @@ public interface SysAreaService {
      * @return 浙江省杭州市
      */
     String parseProvinceCity(Long provinceId, Long cityId);
+
+    /**
+     * 根据市id进行拼接
+     *
+     * @param cityId     城市id
+     * @return 杭州市
+     */
+    String parseCity(Long cityId);
 }
 

@@ -58,4 +58,12 @@ public class SysAreaServiceImpl implements SysAreaService {
         return address;
     }
 
+    @Override
+    public String parseCity(Long cityId) {
+        SysArea sysArea = cacheProxyService.getAreaById(cityId);
+        if (sysArea != null) {
+            return sysArea.getTitle();
+        }
+        return null;
+    }
 }

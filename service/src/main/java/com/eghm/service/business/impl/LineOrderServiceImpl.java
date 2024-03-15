@@ -97,7 +97,7 @@ public class LineOrderServiceImpl implements LineOrderService {
         AssertUtil.assertOrderNotNull(detail, orderNo, merchantId);
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
         detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
-        detail.setStartProvinceCity(sysAreaService.parseProvinceCity(detail.getStartProvinceId(), detail.getStartCityId()));
+        detail.setStartProvinceCity(sysAreaService.parseCity(detail.getStartCityId()));
         return detail;
     }
 
@@ -105,7 +105,7 @@ public class LineOrderServiceImpl implements LineOrderService {
     public LineOrderSnapshotDetailVO snapshotDetail(String orderNo, Long memberId) {
         LineOrderSnapshotDetailVO detail = lineOrderMapper.snapshotDetail(orderNo, memberId);
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
-        detail.setStartPoint(sysAreaService.parseProvinceCity(detail.getStartProvinceId(), detail.getStartCityId()));
+        detail.setStartPoint(sysAreaService.parseCity(detail.getStartCityId()));
         List<LineOrderSnapshotVO> voList = lineOrderSnapshotMapper.getList(orderNo);
         detail.setConfigList(voList);
         return detail;

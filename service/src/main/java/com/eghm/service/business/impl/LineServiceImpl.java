@@ -130,7 +130,7 @@ public class LineServiceImpl implements LineService {
         Page<LineVO> voPage = lineMapper.getByPage(dto.createPage(false), dto);
         List<LineVO> voList = voPage.getRecords();
         // 转义城市名称
-        voList.forEach(vo -> vo.setStartCity(sysAreaService.getById(vo.getStartCityId()).getTitle()));
+        voList.forEach(vo -> vo.setStartCity(sysAreaService.parseCity(vo.getStartCityId())));
         return voList;
     }
 
@@ -169,7 +169,7 @@ public class LineServiceImpl implements LineService {
         List<LineDayConfig> dayConfigList = lineDayConfigService.getByLineId(id);
         vo.setDayList(DataUtil.copy(dayConfigList, LineDayConfigResponse.class));
         // 出发地格式化
-        vo.setStartPoint(sysAreaService.parseProvinceCity(vo.getStartProvinceId(), vo.getStartCityId()));
+        vo.setStartPoint(sysAreaService.parseCity(vo.getStartCityId()));
         // 最低参考价
         vo.setMinPrice(lineConfigService.getMinPrice(id, LocalDate.now()));
         vo.setCollect(memberCollectService.checkCollect(id, CollectType.LINE));
