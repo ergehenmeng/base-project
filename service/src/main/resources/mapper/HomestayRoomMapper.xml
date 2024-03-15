@@ -16,7 +16,8 @@
         t.resident,
         t.bed,
         t.room_type,
-        t.refund_type
+        t.refund_type,
+        t.create_time
         from homestay_room t
         left join homestay r on t.homestay_id = r.id
         where t.deleted = false and r.deleted = false

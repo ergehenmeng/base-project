@@ -891,12 +891,12 @@ public enum ErrorCode {
     /**
      * 该房型已下架
      */
-    HOMESTAY_ROOM_NULL(3173, "该房型已下架"),
+    HOMESTAY_ROOM_DOWN(3173, "该房型已下架"),
 
     /**
      * 该房型已删除
      */
-    HOMESTAY_ROOM_DELETE(3172, "该房型已删除"),
+    HOMESTAY_ROOM_NULL(3172, "房型信息未查询到"),
 
     /**
      * 房间库存不足, 请刷新页面

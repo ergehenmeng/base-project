@@ -69,7 +69,7 @@ public class HomestayRoomController {
     @GetMapping("/select")
     @ApiOperation("详情")
     public RespBody<HomestayRoom> select(@Validated IdDTO dto) {
-        HomestayRoom homestayRoom = homestayRoomService.selectById(dto.getId());
+        HomestayRoom homestayRoom = homestayRoomService.selectByIdRequired(dto.getId());
         return RespBody.success(homestayRoom);
     }
 

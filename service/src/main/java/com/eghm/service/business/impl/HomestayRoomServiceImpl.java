@@ -95,9 +95,9 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
     @Override
     public HomestayRoom selectByIdShelve(Long id) {
         HomestayRoom room = this.selectByIdRequired(id);
-        if (room.getState() != State.SHELVE) {
+        if (room == null || room.getState() != State.SHELVE) {
             log.info("房型系统未上架 [{}]", id);
-            throw new BusinessException(ErrorCode.HOMESTAY_ROOM_NULL);
+            throw new BusinessException(ErrorCode.HOMESTAY_ROOM_DOWN);
         }
         return room;
     }

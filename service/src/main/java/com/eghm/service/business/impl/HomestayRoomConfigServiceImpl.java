@@ -17,7 +17,6 @@ import com.eghm.model.HomestayRoom;
 import com.eghm.model.HomestayRoomConfig;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayRoomConfigService;
-import com.eghm.service.business.HomestayRoomService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
@@ -80,7 +79,7 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
         HomestayRoom homestayRoom = homestayRoomMapper.selectById(request.getRoomId());
         if (homestayRoom == null) {
             log.error("民宿房间已删除, homestayId: [{}]", request.getRoomId());
-            throw new BusinessException(ErrorCode.HOMESTAY_ROOM_DELETE);
+            throw new BusinessException(ErrorCode.HOMESTAY_ROOM_NULL);
         }
         LocalDate month = DateUtil.parseFirstDayOfMonth(request.getMonth());
         List<HomestayRoomConfig> configList = this.getMonthConfig(month, request.getRoomId());
