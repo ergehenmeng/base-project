@@ -73,4 +73,8 @@ public class ItemStoreEditRequest {
     @NotBlank(message = "商家介绍不能为空")
     @WordChecker(message = "商家介绍存在敏感词")
     private String introduce;
+
+    @ApiModelProperty("收货地址")
+    @NotNull(message = "请选择退换货地址")
+    private Long depotAddressId;
 }

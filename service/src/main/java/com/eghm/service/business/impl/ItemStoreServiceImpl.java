@@ -126,6 +126,13 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
 
     @Override
     public void updateState(Long id, State state) {
+        if (state == State.SHELVE) {
+            ItemStore selected = this.selectByIdRequired(id);
+            if (selected.getDepotAddressId() == null) {
+                log.error("零售店铺未设置仓库地址 [{}]", id);
+                throw new BusinessException(ErrorCode.SHOP_NOT_PERFECT);
+            }
+        }
         LambdaUpdateWrapper<ItemStore> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemStore::getId, id);
         wrapper.set(ItemStore::getState, state);
