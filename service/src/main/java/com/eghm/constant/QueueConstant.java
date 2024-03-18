@@ -148,4 +148,8 @@ public class QueueConstant {
      */
     public static final String COUPON_EXPIRE_QUEUE = "coupon_expire_queue";
 
+    /**
+     * 零售退款自动确认队列
+     */
+    public static final String ITEM_REFUND_CONFIRM_QUEUE = "item_refund_confirm_queue";
 }

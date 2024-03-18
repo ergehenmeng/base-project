@@ -189,7 +189,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         order.setCoverUrl(this.getFirstCoverUrl(packageList));
         order.setTitle(this.getTitle(packageList));
         order.setMultiple(multiple);
-        order.setRefundType(this.getRefundType(packageList));
+        // 零售商品只支持审核后退款
+        order.setRefundType(RefundType.AUDIT_REFUND);
         order.setProductType(ProductType.ITEM);
         order.setNum(this.getNum(packageList));
         order.setMemberId(context.getMemberId());
@@ -282,17 +283,6 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         orderDTO.setPackageList(packageList);
         orderDTO.setMemberAddress(memberAddress);
         return orderDTO;
-    }
-
-    /**
-     * 主订单下的商品但凡有一个支持退款,主订单就支持退款,且默认审核后退款
-     *
-     * @param packageList 下单信息
-     * @return 退款方式, 普通商品只支持审核下单或不退款
-     */
-    private RefundType getRefundType(List<OrderPackage> packageList) {
-        Optional<OrderPackage> optional = packageList.stream().filter(orderPackage -> orderPackage.getItem().getRefundType() != RefundType.NOT_SUPPORTED).findFirst();
-        return optional.isPresent() ? RefundType.AUDIT_REFUND : RefundType.NOT_SUPPORTED;
     }
 
     /**

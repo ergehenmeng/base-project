@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 @Service("itemOrderAutoRefundHandler")
 public class ItemOrderAutoRefundHandler extends ItemOrderRefundApplyHandler {
 
-    public ItemOrderAutoRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService, ItemGroupOrderService itemGroupOrderService) {
-        super(orderService, orderRefundLogService, orderVisitorService, itemOrderService, itemGroupOrderService);
+    public ItemOrderAutoRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService, ItemGroupOrderService itemGroupOrderService, OrderMQService orderMQService) {
+        super(orderService, orderRefundLogService, orderVisitorService, itemOrderService, itemGroupOrderService, orderMQService);
     }
 
     @Override

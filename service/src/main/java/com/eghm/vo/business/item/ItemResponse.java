@@ -7,7 +7,6 @@ import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.ref.DeliveryType;
-import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -50,10 +49,6 @@ public class ItemResponse extends ExcelStyle {
     @ApiModelProperty(value = "交付方式 0:无须发货 1:门店自提 2:快递包邮")
     @ExcelProperty(value = "交付方式", index = 4, converter = EnumExcelConverter.class)
     private DeliveryType deliveryType;
-
-    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
-    @ExcelProperty(value = "退款方式", index = 5, converter = EnumExcelConverter.class)
-    private RefundType refundType;
 
     @ApiModelProperty(value = "最低价格")
     @JsonSerialize(using = CentToYuanEncoder.class)

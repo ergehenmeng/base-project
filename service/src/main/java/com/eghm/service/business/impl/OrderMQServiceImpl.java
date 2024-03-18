@@ -3,6 +3,7 @@ package com.eghm.service.business.impl;
 import cn.hutool.core.util.IdUtil;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.AsyncKey;
+import com.eghm.dto.ext.RefundAudit;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.service.business.OrderMQService;
 import com.eghm.service.mq.service.MessageService;
@@ -53,4 +54,15 @@ public class OrderMQServiceImpl implements OrderMQService {
         });
     }
 
+    @Override
+    public void sendRefundAuditMessage(ExchangeQueue exchangeQueue, RefundAudit audit) {
+        int confirmTime = sysConfigApi.getInt(ConfigConstant.ORDER_REFUND_CONFIRM_TIME, 172800);
+        messageService.sendDelay(exchangeQueue, audit, confirmTime);
+    }
+
+    @Override
+    public void sendReturnRefundAuditMessage(ExchangeQueue exchangeQueue, RefundAudit audit) {
+        int confirmTime = sysConfigApi.getInt(ConfigConstant.ORDER_RETURN_REFUND_TIME, 604800);
+        messageService.sendDelay(exchangeQueue, audit, confirmTime);
+    }
 }

@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 
 import static com.eghm.enums.ErrorCode.REFUND_AMOUNT_MAX;
 import static com.eghm.enums.ErrorCode.TOTAL_REFUND_MAX_NUM;
+import static com.eghm.enums.ref.OrderState.PARTIAL_DELIVERY;
 
 /**
  * 退款申请默认实现
@@ -128,13 +129,18 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
             log.error("该订单不支持退款 [{}]", context.getOrderNo());
             throw new BusinessException(ErrorCode.REFUND_NOT_SUPPORTED);
         }
-        if (order.getState() != OrderState.UN_USED) {
-            log.error("订单状态不是待使用,无法退款 [{}] [{}]", context.getOrderNo(), order.getState());
+        if (order.getState() != OrderState.UN_USED && order.getState() != OrderState.WAIT_TAKE &&
+                order.getState() != OrderState.WAIT_DELIVERY && order.getState() != PARTIAL_DELIVERY &&
+                order.getState() != OrderState.WAIT_RECEIVE) {
+            log.error("订单状态不是待使用或待发货, 无法退款 [{}] [{}]", context.getOrderNo(), order.getState());
             throw new BusinessException(ErrorCode.STATE_NOT_REFUND);
         }
-        if (order.getRefundState() != RefundState.APPLY) {
-            log.error("订单状态不是申请退款,无法退款 [{}] [{}]", context.getOrderNo(), order.getRefundState());
-            throw new BusinessException(ErrorCode.STATE_NOT_REFUND);
+        // 同一时间内不允许一个订单发起两次退款, 由于零售一个订单可能包含多个商品, 因此退款成功的商品可以继续退款
+        if (order.getRefundState() != RefundState.FAIL && order.getRefundState() != RefundState.OFFLINE &&
+                order.getRefundState() != RefundState.NONE && order.getRefundState() != RefundState.SUCCESS &&
+                order.getRefundState() != RefundState.REFUSE) {
+            log.error("订单状态退款申请中, 无法退款 [{}] [{}]", context.getOrderNo(), order.getRefundState());
+            throw new BusinessException(ErrorCode.REFUND_STATE_INVALID);
         }
         this.checkRefund(context, order);
     }

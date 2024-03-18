@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.DeliveryType;
-import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -67,12 +66,6 @@ public class Item extends BaseEntity {
 
     @ApiModelProperty(value = "交付方式 0:无需发货 1:快递包邮 2:自提")
     private DeliveryType deliveryType;
-
-    @ApiModelProperty(value = "退款方式")
-    private RefundType refundType;
-
-    @ApiModelProperty("退款描述信息")
-    private String refundDescribe;
 
     @ApiModelProperty(value = "最低价格")
     @JsonSerialize(using = CentToYuanEncoder.class)

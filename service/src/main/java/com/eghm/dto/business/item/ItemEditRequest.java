@@ -3,7 +3,6 @@ package com.eghm.dto.business.item;
 import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.dto.business.item.sku.ItemSpecRequest;
 import com.eghm.enums.ref.DeliveryType;
-import com.eghm.enums.ref.RefundType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
@@ -61,15 +60,6 @@ public class ItemEditRequest {
     @ApiModelProperty(value = "交付方式 0:无需发货 1:快递包邮 2:门店自提", required = true)
     @OptionInt(value = {0, 1, 2}, message = "交付方式不合法")
     private DeliveryType deliveryType;
-
-    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款", required = true)
-    @NotNull(message = "退款方式不能为空")
-    private RefundType refundType;
-
-    @ApiModelProperty(value = "退款描述信息", required = true)
-    @Size(max = 100, message = "退款描述信息最大100字符")
-    @WordChecker(message = "退款描述信息存在敏感词")
-    private String refundDescribe;
 
     @ApiModelProperty(value = "商品介绍信息", required = true)
     @NotBlank(message = "商品介绍信息不能为空")

@@ -1560,8 +1560,6 @@ CREATE TABLE `item`
     `purchase_notes`  varchar(200)  DEFAULT NULL COMMENT '购买须知',
     `quota`           smallint(3)   DEFAULT '1' COMMENT '限购数量',
     `delivery_type`   tinyint(1)    DEFAULT NULL COMMENT '交付方式 0:无须发货 1:门店自提 2:快递包邮',
-    `refund_type`     tinyint(1)    DEFAULT '2' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
-    `refund_describe` varchar(200)  DEFAULT NULL COMMENT '退款描述信息',
     `min_price`       int(10)       DEFAULT NULL COMMENT '最低价格',
     `max_price`       int(10)       DEFAULT NULL COMMENT '最高价格',
     `score`           decimal(2, 1) DEFAULT NULL COMMENT '分数',

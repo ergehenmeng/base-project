@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.dto.ext.AsyncKey;
+import com.eghm.dto.ext.RefundAudit;
 import com.eghm.enums.ExchangeQueue;
 
 /**
@@ -35,4 +36,19 @@ public interface OrderMQService {
      */
     void sendOrderCompleteMessage(ExchangeQueue exchangeQueue, String orderNo);
 
+    /**
+     * 发送订单退款消息(仅退款)
+     *
+     * @param exchangeQueue 队列类型
+     * @param audit         退款信息
+     */
+    void sendRefundAuditMessage(ExchangeQueue exchangeQueue, RefundAudit audit);
+
+    /**
+     * 发送订单退款消息(退货退款)
+     *
+     * @param exchangeQueue 队列类型
+     * @param audit         退款信息
+     */
+    void sendReturnRefundAuditMessage(ExchangeQueue exchangeQueue, RefundAudit audit);
 }

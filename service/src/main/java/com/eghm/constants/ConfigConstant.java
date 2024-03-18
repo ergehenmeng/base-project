@@ -215,4 +215,14 @@ public class ConfigConstant {
      * 留言被举报多少次自动屏蔽留言
      */
     public static final String COMMENT_REPORT_SHIELD = "comment_report_shield";
+
+    /**
+     * 订单(仅退款)自动确认时间 默认2天
+     */
+    public static final String ORDER_REFUND_CONFIRM_TIME = "order_refund_confirm_time";
+
+    /**
+     * 订单(退货退款)自动确认时间 默认7天
+     */
+    public static final String ORDER_RETURN_REFUND_TIME = "order_return_refund_time";
 }

@@ -7,6 +7,7 @@ import com.eghm.constant.QueueConstant;
 import com.eghm.dto.ext.AsyncKey;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.dto.ext.LoginRecord;
+import com.eghm.dto.ext.RefundAudit;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.*;
 import com.eghm.enums.ref.OrderState;
@@ -25,6 +26,7 @@ import com.eghm.service.sys.DingTalkService;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
 import com.eghm.state.machine.StateHandler;
+import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.group.GroupOrderCancelVO;
 import com.rabbitmq.client.Channel;
 import lombok.AllArgsConstructor;
@@ -345,6 +347,21 @@ public class RabbitListenerHandler {
     @RabbitListener(queues = QueueConstant.COUPON_EXPIRE_QUEUE)
     public void couponExpire(Long couponId, Message message, Channel channel) throws IOException {
         processMessageAck(couponId, message, channel, memberCouponService::couponExpire);
+    }
+
+    /**
+     * 零售退款自动审核通过
+     */
+    @RabbitListener(queues = QueueConstant.ITEM_REFUND_CONFIRM_QUEUE)
+    public void couponExpire(RefundAudit audit, Message message, Channel channel) throws IOException {
+        processMessageAck(audit, message, channel, a -> {
+            RefundAuditContext context = DataUtil.copy(audit, RefundAuditContext.class);
+            context.setState(1);
+            context.setAuditUserId(1L);
+            // 备注信息标注是谁审批的 方便快速查看
+            context.setAuditRemark("系统: 自动审核通过");
+            stateHandler.fireEvent(ProductType.ITEM, OrderState.REFUND.getValue(), ItemEvent.REFUND_PASS, context);
+        });
     }
 
     /**

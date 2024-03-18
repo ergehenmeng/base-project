@@ -1,6 +1,8 @@
 package com.eghm.service.business.handler.state.impl.item;
 
+import com.eghm.dto.ext.RefundAudit;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.*;
@@ -41,12 +43,15 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
 
     private final ItemGroupOrderService itemGroupOrderService;
 
-    public ItemOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService, ItemGroupOrderService itemGroupOrderService) {
+    private final OrderMQService orderMQService;
+
+    public ItemOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService, ItemGroupOrderService itemGroupOrderService, OrderMQService orderMQService) {
         super(orderService, orderRefundLogService, orderVisitorService);
         this.itemOrderService = itemOrderService;
         this.orderService = orderService;
         this.orderRefundLogService = orderRefundLogService;
         this.itemGroupOrderService = itemGroupOrderService;
+        this.orderMQService = orderMQService;
     }
 
     @Override
@@ -90,6 +95,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         refundLog.setMerchantId(order.getMerchantId());
         refundLog.setApplyTime(LocalDateTime.now());
         refundLog.setState(0);
+        // 正常情况下,零售只支持退款审核,默认48小时后自动退款, 但是特殊情况下,零售支持直接退款(拼团失败的订单,这些由平台主动发起的退款不需要审核)
         if (this.getRefundType(order) == RefundType.AUDIT_REFUND) {
             refundLog.setAuditState(AuditState.APPLY);
             orderRefundLogService.insert(refundLog);
@@ -127,6 +133,18 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         log.info("零售商品订单退款申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
         if (this.getRefundType(order) == RefundType.DIRECT_REFUND) {
             itemGroupOrderService.refundGroupOrder(order);
+        } else {
+            RefundAudit audit = new RefundAudit();
+            audit.setRefundId(refundLog.getId());
+            audit.setOrderNo(context.getOrderNo());
+            audit.setRefundAmount(refundLog.getApplyAmount());
+            if (refundLog.getApplyType() == 1) {
+                log.info("零售退款(仅退款)申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
+                orderMQService.sendRefundAuditMessage(ExchangeQueue.ITEM_REFUND_CONFIRM, audit);
+            } else {
+                log.info("零售退款(退货退款)申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
+                orderMQService.sendReturnRefundAuditMessage(ExchangeQueue.ITEM_REFUND_CONFIRM, audit);
+            }
         }
     }
 

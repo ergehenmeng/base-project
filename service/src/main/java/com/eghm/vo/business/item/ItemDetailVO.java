@@ -70,12 +70,6 @@ public class ItemDetailVO {
     @ApiModelProperty(value = "交付方式 0:无须发货 1:门店自提 2:快递包邮")
     private DeliveryType deliveryType;
 
-    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
-    private RefundType refundType;
-
-    @ApiModelProperty("退款描述信息")
-    private String refundDescribe;
-
     @ApiModelProperty(value = "最低价格")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer minPrice;

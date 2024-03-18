@@ -70,7 +70,7 @@ public class RefundLogController {
         UserToken userToken = SecurityHolder.getUserRequired();
         context.setAuditUserId(userToken.getId());
         // 备注信息标注是谁审批的 方便快速查看
-        context.setAuditRemark(userToken.getNickName() + ":" + request.getAuditRemark());
+        context.setAuditRemark(userToken.getNickName() + ": " + request.getAuditRemark());
         accessHandler.refundAudit(context);
         return RespBody.success();
     }

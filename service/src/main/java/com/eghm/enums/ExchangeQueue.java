@@ -149,6 +149,10 @@ public enum ExchangeQueue {
      */
     COUPON_EXPIRE("coupon_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.COUPON_EXPIRE_QUEUE}, "", true),
 
+    /**
+     * 零售退款自动确认
+     */
+    ITEM_REFUND_CONFIRM("item_refund_confirm_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.ITEM_REFUND_CONFIRM_QUEUE}, "", true),
     ;
 
     /**
