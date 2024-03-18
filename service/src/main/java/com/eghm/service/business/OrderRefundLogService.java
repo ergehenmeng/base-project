@@ -49,15 +49,6 @@ public interface OrderRefundLogService {
      * 根据订单号查询退款记录
      *
      * @param orderNo 订单号
-     * @param itemOrderId 零售订单id
-     * @return 退款记录
-     */
-    OrderRefundLog getItemRefundLog(String orderNo, Long itemOrderId);
-
-    /**
-     * 根据订单号查询退款记录
-     *
-     * @param orderNo 订单号
      * @param visitorId 退款人信息
      * @return 退款记录
      */
@@ -113,4 +104,12 @@ public interface OrderRefundLogService {
      * @return true:存在 false:不存在
      */
     boolean hasRefundSuccess(String orderNo, List<Long> visitorList);
+
+    /**
+     * 查询已退款或者退款中的退款记录
+     *
+     * @param orderNo 订单编号
+     * @return 退款记录列表
+     */
+    List<OrderRefundLog> getRefundLog(String orderNo);
 }

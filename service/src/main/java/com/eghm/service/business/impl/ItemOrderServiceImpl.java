@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
 import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
-import com.eghm.dto.business.order.item.ItemRefundDTO;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.DeliveryState;
 import com.eghm.enums.ref.ItemRefundState;
@@ -34,8 +33,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -88,30 +85,6 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         wrapper.eq(ItemOrder::getDeliveryState, DeliveryState.WAIT_DELIVERY);
         wrapper.ne(ItemOrder::getRefundState, ItemRefundState.REFUND);
         return itemOrderMapper.selectCount(wrapper);
-    }
-
-    @Override
-    public List<ItemOrder> refund(String orderNo, List<ItemRefundDTO> itemList) {
-        LambdaQueryWrapper<ItemOrder> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(ItemOrder::getId, ItemOrder::getOrderNo, ItemOrder::getNum, ItemOrder::getRefundState, ItemOrder::getRefundNum);
-        wrapper.eq(ItemOrder::getOrderNo, orderNo);
-        List<ItemOrder> orderList = itemOrderMapper.selectList(wrapper);
-        Map<Long, ItemOrder> orderMap = orderList.stream().collect(Collectors.toMap(ItemOrder::getId, Function.identity()));
-        for (ItemRefundDTO item : itemList) {
-            ItemOrder order = orderMap.get(item.getItemOrderId());
-            if (order == null) {
-                log.info("零售退款时,订单不存在 [{}] [{}]", orderNo, item.getItemOrderId());
-                throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
-            }
-            if (order.getRefundState() == ItemRefundState.REFUND) {
-                log.info("零售商品已退款 [{}] [{}]", orderNo, item.getItemOrderId());
-                throw new BusinessException(ErrorCode.REFUND_STATE_INVALID);
-            }
-            order.setRefundNum(item.getNum());
-            order.setRefundState(ItemRefundState.REFUND);
-            itemOrderMapper.updateById(order);
-        }
-        return orderList;
     }
 
     @Override
@@ -244,7 +217,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         LambdaQueryWrapper<ItemOrder> wrapper = Wrappers.lambdaQuery();
 
         wrapper.select(ItemOrder::getItemId, ItemOrder::getOrderNo, ItemOrder::getId,
-                ItemOrder::getNum, ItemOrder::getRefundNum, ItemOrder::getRefundState,
+                ItemOrder::getNum, ItemOrder::getRefundState,
                 ItemOrder::getDeliveryType, ItemOrder::getDeliveryState);
 
         wrapper.in(ItemOrder::getId, ids);
@@ -261,6 +234,11 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         ItemOrderSnapshotVO snapshot = itemOrderMapper.getSnapshot(orderId, memberId);
         AssertUtil.assertOrderNotNull(snapshot, orderId, memberId);
         return snapshot;
+    }
+
+    @Override
+    public ItemOrderRefundVO getRefund(Long orderId, Long memberId) {
+        return itemOrderMapper.getRefund(orderId, memberId);
     }
 
     /**

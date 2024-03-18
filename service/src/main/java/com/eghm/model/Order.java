@@ -100,6 +100,9 @@ public class Order extends BaseEntity {
     @ApiModelProperty("已退款金额")
     private Integer refundAmount;
 
+    @ApiModelProperty("已退款积分")
+    private Integer refundScoreAmount;
+
     @ApiModelProperty(value = "优惠券id")
     private Long couponId;
 

@@ -36,9 +36,6 @@ public class ItemOrder extends BaseEntity {
     @ApiModelProperty("数量")
     private Integer num;
 
-    @ApiModelProperty("已退款数量(含退款中)")
-    private Integer refundNum;
-
     @ApiModelProperty(value = "订单编号")
     private String orderNo;
 

@@ -88,4 +88,13 @@ public interface ItemOrderMapper extends BaseMapper<ItemOrder> {
      * @return 快照信息
      */
     ItemOrderSnapshotVO getSnapshot(@Param("orderId") Long orderId, @Param("memberId") Long memberId);
+
+    /**
+     * 获取待退款详情
+     *
+     * @param orderId 订单id
+     * @param memberId 用户id
+     * @return 退款信息
+     */
+    ItemOrderRefundVO getRefund(@Param("orderId") Long orderId, @Param("memberId") Long memberId);
 }

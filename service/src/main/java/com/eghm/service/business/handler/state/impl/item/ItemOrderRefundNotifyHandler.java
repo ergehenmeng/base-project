@@ -60,11 +60,11 @@ public class ItemOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
         ItemOrder itemOrder = itemOrderService.selectById(refundLog.getItemOrderId());
         // 退款完成库存增加
         itemSkuService.updateStock(itemOrder.getSkuId(), refundLog.getNum());
-        if (order.getScoreAmount() > 0) {
-            memberService.updateScore(itemOrder.getMemberId(), ScoreType.REFUND, order.getScoreAmount());
+        if (refundLog.getScoreAmount() > 0) {
+            memberService.updateScore(itemOrder.getMemberId(), ScoreType.REFUND, refundLog.getScoreAmount());
             ScoreAccountDTO dto = new ScoreAccountDTO();
             dto.setTradeNo(order.getOrderNo());
-            dto.setAmount(order.getScoreAmount());
+            dto.setAmount(refundLog.getScoreAmount());
             dto.setMerchantId(order.getMerchantId());
             dto.setChargeType(ChargeType.ORDER_REFUND);
             scoreAccountService.updateAccount(dto);

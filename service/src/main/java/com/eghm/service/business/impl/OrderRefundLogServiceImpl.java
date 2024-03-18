@@ -7,7 +7,6 @@ import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.refund.RefundLogQueryRequest;
 import com.eghm.dto.ext.OrderRefund;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.AuditState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderRefundLogMapper;
 import com.eghm.model.OrderRefundLog;
@@ -56,17 +55,6 @@ public class OrderRefundLogServiceImpl implements OrderRefundLogService {
     }
 
     @Override
-    public OrderRefundLog getItemRefundLog(String orderNo, Long itemOrderId) {
-        LambdaQueryWrapper<OrderRefundLog> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(OrderRefundLog::getOrderNo, orderNo);
-        wrapper.eq(OrderRefundLog::getItemOrderId, itemOrderId);
-        wrapper.eq(OrderRefundLog::getAuditState, AuditState.APPLY);
-        wrapper.eq(OrderRefundLog::getState, 0);
-        wrapper.last(CommonConstant.LIMIT_ONE);
-        return orderRefundLogMapper.selectOne(wrapper);
-    }
-
-    @Override
     public OrderRefundLog getVisitRefundLog(String orderNo, Long visitorId) {
         return orderRefundLogMapper.getVisitRefundLog(orderNo, visitorId);
     }
@@ -104,5 +92,13 @@ public class OrderRefundLogServiceImpl implements OrderRefundLogService {
     public boolean hasRefundSuccess(String orderNo, List<Long> visitorList) {
         int refundSuccess = orderRefundLogMapper.getRefundSuccess(orderNo, visitorList);
         return refundSuccess > 0;
+    }
+
+    @Override
+    public List<OrderRefundLog> getRefundLog(String orderNo) {
+        LambdaQueryWrapper<OrderRefundLog> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(OrderRefundLog::getOrderNo, orderNo);
+        wrapper.in(OrderRefundLog::getState, 0, 1);
+        return orderRefundLogMapper.selectList(wrapper);
     }
 }

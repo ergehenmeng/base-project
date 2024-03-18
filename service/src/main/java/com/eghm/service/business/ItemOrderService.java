@@ -58,15 +58,6 @@ public interface ItemOrderService {
     Long countWaitDelivery(String orderNo);
 
     /**
-     * 零售退款
-     *
-     * @param orderNo  订单号
-     * @param itemList 退款商品及数量
-     * @return 零售信息
-     */
-    List<ItemOrder> refund(String orderNo, List<ItemRefundDTO> itemList);
-
-    /**
      * 批量添加子订单信息
      *
      * @param orderNo       订单号
@@ -179,4 +170,13 @@ public interface ItemOrderService {
      * @return 快照信息
      */
     ItemOrderSnapshotVO getSnapshot(Long orderId, Long memberId);
+
+    /**
+     * 待退款信息
+     *
+     * @param orderId  商品订单id
+     * @param memberId 用户ID
+     * @return 退款信息
+     */
+    ItemOrderRefundVO getRefund(Long orderId, Long memberId);
 }

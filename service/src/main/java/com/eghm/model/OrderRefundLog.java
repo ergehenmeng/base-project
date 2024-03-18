@@ -39,14 +39,14 @@ public class OrderRefundLog extends BaseEntity {
     @ApiModelProperty("普通商品订单id(普通商品退款,该字段必填)")
     private Long itemOrderId;
 
-    @ApiModelProperty(value = "申请退款金额(含快递费)")
-    private Integer applyAmount;
-
     @ApiModelProperty("快递费用")
     private Integer expressFee;
 
-    @ApiModelProperty(value = "实际退款金额(总费用)")
+    @ApiModelProperty(value = "实际退款金额")
     private Integer refundAmount;
+
+    @ApiModelProperty(value = "退款积分")
+    private Integer scoreAmount;
 
     @ApiModelProperty(value = "退款原因")
     private String reason;

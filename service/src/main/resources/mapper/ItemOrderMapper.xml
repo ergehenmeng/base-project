@@ -119,7 +119,6 @@
         refund_state,
         delivery_state,
         num,
-        refund_num,
         cover_url,
         sku_title,
         sale_price
@@ -167,7 +166,6 @@
             t.refund_state,
             t.delivery_state,
             t.num,
-            t.refund_num,
             t.cover_url,
             t.sku_title,
             t.sale_price
@@ -200,6 +198,26 @@
         </if>
     </select>
 
+    <select id="getRefund" resultType="com.eghm.vo.business.order.item.ItemOrderRefundVO">
+        select
+        t.id,
+        t.title,
+        t.delivery_state,
+        t.refund_state,
+        t.num,
+        t.order_no,
+        t.cover_url,
+        t.sku_cover_url,
+        t.sku_title,
+        t.sale_price,
+        t.express_fee as expressFeeAmount,
+        from item_order t
+        where t.id = #{orderId}
+        <if test="memberId != null">
+            and t.member_id = #{memberId}
+        </if>
+    </select>
+
     <resultMap id="shippedMap" type="com.eghm.vo.business.order.item.ItemShippedResponse">
         <id property="id" column="id"/>
         <result property="expressNo" column="express_no"/>
@@ -212,7 +230,6 @@
             <result property="refundState" column="refund_state"/>
             <result property="deliveryState" column="delivery_state"/>
             <result property="num" column="num"/>
-            <result property="refundNum" column="refund_num"/>
             <result property="coverUrl" column="cover_url"/>
             <result property="salePrice" column="sale_price"/>
         </collection>

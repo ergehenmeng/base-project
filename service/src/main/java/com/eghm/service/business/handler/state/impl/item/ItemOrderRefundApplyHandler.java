@@ -94,7 +94,9 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         refundLog.setItemOrderId(itemOrder.getId());
         refundLog.setMerchantId(order.getMerchantId());
         refundLog.setApplyTime(LocalDateTime.now());
+        refundLog.setNum(itemOrder.getNum());
         refundLog.setState(0);
+        // 退款金额+手续费
         // 正常情况下,零售只支持退款审核,默认48小时后自动退款, 但是特殊情况下,零售支持直接退款(拼团失败的订单,这些由平台主动发起的退款不需要审核)
         if (this.getRefundType(order) == RefundType.AUDIT_REFUND) {
             refundLog.setAuditState(AuditState.APPLY);
@@ -137,7 +139,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
             RefundAudit audit = new RefundAudit();
             audit.setRefundId(refundLog.getId());
             audit.setOrderNo(context.getOrderNo());
-            audit.setRefundAmount(refundLog.getApplyAmount());
+            audit.setRefundAmount(refundLog.getRefundAmount() + refundLog.getExpressFee());
             if (refundLog.getApplyType() == 1) {
                 log.info("零售退款(仅退款)申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
                 orderMQService.sendRefundAuditMessage(ExchangeQueue.ITEM_REFUND_CONFIRM, audit);

@@ -2,6 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.dto.business.order.homestay.HomestayOrderConfirmRequest;
 import com.eghm.vo.business.group.GroupOrderCancelVO;
+import com.eghm.vo.business.order.item.ItemOrderRefundVO;
 
 /**
  * @author 二哥很猛
@@ -43,4 +44,15 @@ public interface OrderProxyService {
      * @param orderNo 订单编号(通用)
      */
     void cancel(String orderNo, Long memberId);
+
+    /**
+     * 待退款信息
+     *
+     * @param orderId  商品订单id
+     * @param memberId 用户ID
+     * @return 退款信息
+     */
+    ItemOrderRefundVO getRefund(Long orderId, Long memberId);
+
+
 }

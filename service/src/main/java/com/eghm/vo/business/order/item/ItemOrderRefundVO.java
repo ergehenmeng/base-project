@@ -15,13 +15,10 @@ import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ItemOrderListVO {
+public class ItemOrderRefundVO {
 
     @ApiModelProperty("订单id")
     private Long id;
-
-    @ApiModelProperty("商品id")
-    private Long itemId;
 
     @ApiModelProperty(value = "商品名称")
     private String title;
@@ -31,6 +28,9 @@ public class ItemOrderListVO {
 
     @ApiModelProperty("退款状态 0:未退款 1:已退款")
     private ItemRefundState refundState;
+
+    @ApiModelProperty("订单编号")
+    private String orderNo;
 
     @ApiModelProperty("下单总数量")
     private Integer num;
@@ -45,4 +45,14 @@ public class ItemOrderListVO {
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
+    @ApiModelProperty(value = "退款金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    private Integer refundAmount;
+
+    @ApiModelProperty(value = "退款快递费")
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    private Integer expressFeeAmount;
+
+    @ApiModelProperty("退款积分")
+    private Integer scoreAmount;
 }
