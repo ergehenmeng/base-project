@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `app_version`;
 CREATE TABLE `app_version`
 (
     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `channel`     varchar(10)         NOT NULL DEFAULT '' COMMENT '版本类型 ANDROID IOS',
+    `channel`      varchar(10)         NOT NULL DEFAULT '' COMMENT '版本类型 ANDROID IOS',
     `version`      varchar(10)         NOT NULL COMMENT '版本号:1.2.8 范围(0.0.01~99.99.99)',
     `version_no`   int(10)                      DEFAULT NULL COMMENT '数字格式化后的版本号',
     `force_update` bit(1)                       DEFAULT b'0' COMMENT '是否强制更新 0:否 1:是',
@@ -1073,26 +1073,27 @@ CREATE TABLE `ticket_order`
 DROP TABLE IF EXISTS `item_store`;
 CREATE TABLE `item_store`
 (
-    `id`             bigint(20) NOT NULL COMMENT '主键',
-    `state`          tinyint(1)     DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:平台下架',
-    `title`          varchar(50)    DEFAULT NULL COMMENT '店铺名称',
-    `merchant_id`    bigint(20)     DEFAULT NULL COMMENT '所属商户id',
-    `recommend`      bit(1)         DEFAULT b'0' COMMENT '是否为推荐店铺 1:是 0:不是',
-    `logo_url`       varchar(200)   DEFAULT NULL COMMENT '店铺logo',
-    `cover_url`      varchar(1000)  DEFAULT NULL COMMENT '封面图',
-    `open_time`      varchar(100)   DEFAULT NULL COMMENT '线下营业时间',
-    `province_id`    bigint(20)     DEFAULT NULL COMMENT '省id',
-    `city_id`        bigint(20)     DEFAULT NULL COMMENT '城市id',
-    `county_id`      bigint(20)     DEFAULT NULL COMMENT '县区id',
-    `detail_address` varchar(200)   DEFAULT NULL COMMENT '详细地址',
-    `longitude`      decimal(10, 7) DEFAULT NULL COMMENT '经度',
-    `latitude`       decimal(10, 7) DEFAULT NULL COMMENT '纬度',
-    `score`          decimal(2, 1)  DEFAULT NULL COMMENT '评分',
-    `telephone`      varchar(20)    DEFAULT NULL COMMENT '商家电话',
-    `introduce`      longtext COMMENT '商家介绍',
-    `create_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`    datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`        bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `id`               bigint(20) NOT NULL COMMENT '主键',
+    `state`            tinyint(1)     DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:平台下架',
+    `title`            varchar(50)    DEFAULT NULL COMMENT '店铺名称',
+    `merchant_id`      bigint(20)     DEFAULT NULL COMMENT '所属商户id',
+    `recommend`        bit(1)         DEFAULT b'0' COMMENT '是否为推荐店铺 1:是 0:不是',
+    `logo_url`         varchar(200)   DEFAULT NULL COMMENT '店铺logo',
+    `cover_url`        varchar(1000)  DEFAULT NULL COMMENT '封面图',
+    `open_time`        varchar(100)   DEFAULT NULL COMMENT '线下营业时间',
+    `province_id`      bigint(20)     DEFAULT NULL COMMENT '省id',
+    `city_id`          bigint(20)     DEFAULT NULL COMMENT '城市id',
+    `county_id`        bigint(20)     DEFAULT NULL COMMENT '县区id',
+    `detail_address`   varchar(200)   DEFAULT NULL COMMENT '详细地址',
+    `longitude`        decimal(10, 7) DEFAULT NULL COMMENT '经度',
+    `latitude`         decimal(10, 7) DEFAULT NULL COMMENT '纬度',
+    `score`            decimal(2, 1)  DEFAULT NULL COMMENT '评分',
+    `telephone`        varchar(20)    DEFAULT NULL COMMENT '商家电话',
+    `introduce`        longtext COMMENT '商家介绍',
+    `depot_address_id` bigint(20)     DEFAULT NULL COMMENT '店铺退换货邮寄地址',
+    `create_time`      datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`      datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`          bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='店铺信息表';
@@ -1543,33 +1544,33 @@ CREATE TABLE `shopping_cart`
 DROP TABLE IF EXISTS `item`;
 CREATE TABLE `item`
 (
-    `id`              bigint(20) NOT NULL COMMENT '主键',
-    `store_id`        bigint(20)    DEFAULT NULL COMMENT '所属店铺id',
-    `merchant_id`     bigint(20)    DEFAULT NULL COMMENT '所属商家id',
-    `state`           tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:平台下架',
-    `recommend`       bit(1)        DEFAULT b'0' COMMENT '是否为推荐商品 true:是 false:否',
-    `multi_spec`      bit(1)        DEFAULT b'0' COMMENT '是否为多规格商品 true:是 false:不是',
-    `hot_sell`        bit(1)        DEFAULT b'0' COMMENT '是否为热销商品 true:是 false:不是',
-    `booking_id`      bigint(20)    DEFAULT null COMMENT '拼团活动id',
-    `limit_id`        bigint(20)    DEFAULT null comment '限时购活动id',
-    `sort`            smallint(4)   DEFAULT '999' COMMENT '商品排序 越小越排在前面',
-    `title`           varchar(30)   DEFAULT NULL COMMENT '商品名称',
-    `tag_id`          varchar(30)   DEFAULT NULL COMMENT '标签id',
-    `depict`          varchar(50)   DEFAULT NULL COMMENT '商品描述信息',
-    `cover_url`       varchar(1000) DEFAULT NULL COMMENT '封面图',
-    `purchase_notes`  varchar(200)  DEFAULT NULL COMMENT '购买须知',
-    `quota`           smallint(3)   DEFAULT '1' COMMENT '限购数量',
-    `delivery_type`   tinyint(1)    DEFAULT NULL COMMENT '交付方式 0:无须发货 1:门店自提 2:快递包邮',
-    `min_price`       int(10)       DEFAULT NULL COMMENT '最低价格',
-    `max_price`       int(10)       DEFAULT NULL COMMENT '最高价格',
-    `score`           decimal(2, 1) DEFAULT NULL COMMENT '分数',
-    `sale_num`        int(10)       DEFAULT '0' COMMENT '销售数量(所有规格销售总量)',
-    `total_num`       int(10)       DEFAULT '0' COMMENT '总销售量=实际销售+虚拟销量',
-    `introduce`       longtext COMMENT '商品介绍信息',
-    `create_date`     date          DEFAULT null COMMENT '创建日期',
-    `create_time`     datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`     datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`         bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `id`             bigint(20) NOT NULL COMMENT '主键',
+    `store_id`       bigint(20)    DEFAULT NULL COMMENT '所属店铺id',
+    `merchant_id`    bigint(20)    DEFAULT NULL COMMENT '所属商家id',
+    `state`          tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:平台下架',
+    `recommend`      bit(1)        DEFAULT b'0' COMMENT '是否为推荐商品 true:是 false:否',
+    `multi_spec`     bit(1)        DEFAULT b'0' COMMENT '是否为多规格商品 true:是 false:不是',
+    `hot_sell`       bit(1)        DEFAULT b'0' COMMENT '是否为热销商品 true:是 false:不是',
+    `booking_id`     bigint(20)    DEFAULT null COMMENT '拼团活动id',
+    `limit_id`       bigint(20)    DEFAULT null comment '限时购活动id',
+    `sort`           smallint(4)   DEFAULT '999' COMMENT '商品排序 越小越排在前面',
+    `title`          varchar(30)   DEFAULT NULL COMMENT '商品名称',
+    `tag_id`         varchar(30)   DEFAULT NULL COMMENT '标签id',
+    `depict`         varchar(50)   DEFAULT NULL COMMENT '商品描述信息',
+    `cover_url`      varchar(1000) DEFAULT NULL COMMENT '封面图',
+    `purchase_notes` varchar(200)  DEFAULT NULL COMMENT '购买须知',
+    `quota`          smallint(3)   DEFAULT '1' COMMENT '限购数量',
+    `delivery_type`  tinyint(1)    DEFAULT NULL COMMENT '交付方式 0:无须发货 1:门店自提 2:快递包邮',
+    `min_price`      int(10)       DEFAULT NULL COMMENT '最低价格',
+    `max_price`      int(10)       DEFAULT NULL COMMENT '最高价格',
+    `score`          decimal(2, 1) DEFAULT NULL COMMENT '分数',
+    `sale_num`       int(10)       DEFAULT '0' COMMENT '销售数量(所有规格销售总量)',
+    `total_num`      int(10)       DEFAULT '0' COMMENT '总销售量=实际销售+虚拟销量',
+    `introduce`      longtext COMMENT '商品介绍信息',
+    `create_date`    date          DEFAULT null COMMENT '创建日期',
+    `create_time`    datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`    datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`        bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
     KEY `tag_idx` (`tag_id`)
 ) ENGINE = InnoDB
@@ -2426,4 +2427,24 @@ CREATE TABLE `poi_type`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='poi类型表';
+
+DROP TABLE IF EXISTS `merchant_address`;
+CREATE TABLE `merchant_address`
+(
+    `id`             bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `merchant_id`    bigint(20)   DEFAULT NULL COMMENT '商户id',
+    `nick_name`      varchar(10)  DEFAULT NULL COMMENT '昵称',
+    `mobile`         varchar(11)  DEFAULT NULL COMMENT '手机号码',
+    `province_id`    bigint(20)   DEFAULT NULL COMMENT '省份id',
+    `city_id`        bigint(20)   DEFAULT NULL COMMENT '城市id',
+    `county_id`      bigint(20)   DEFAULT NULL COMMENT '县区id',
+    `detail_address` varchar(255) DEFAULT NULL COMMENT '详细地址',
+    `deleted`        bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`    datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`),
+    KEY `idx_merchant_id` (`merchant_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='商户收货地址表';
+
 

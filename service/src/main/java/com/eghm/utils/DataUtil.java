@@ -4,18 +4,17 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.PageData;
 import com.eghm.vo.business.BaseConfigResponse;
-import com.eghm.vo.business.statistics.OrderStatisticsVO;
 import com.google.common.collect.Lists;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.function.BiPredicate;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -122,6 +121,16 @@ public class DataUtil {
             log.error("bean复制异常 [{}] [{}]", source, cls, e);
             return null;
         }
+    }
+
+    public static <T> T copy(Object source, Class<T> cls, Consumer<T> consumer, String... ignoreProperties) {
+        T copy = copy(source, cls, ignoreProperties);
+        if (copy != null) {
+            consumer.accept(copy);
+        } else {
+            log.error("bean复制异常,不执行consumer [{}] [{}]", source, cls);
+        }
+        return copy;
     }
 
     /**

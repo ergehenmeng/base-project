@@ -96,15 +96,15 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         ItemStore shop = itemStoreMapper.selectById(id);
         if (shop == null) {
             log.error("零售店铺未查询到 [{}]", id);
-            throw new BusinessException(ErrorCode.SHOP_DOWN);
+            throw new BusinessException(ErrorCode.SHOP_NULL);
         }
         return shop;
     }
 
     @Override
     public ItemStore selectByIdShelve(Long id) {
-        ItemStore store = this.selectByIdRequired(id);
-        if (store.getState() != State.SHELVE) {
+        ItemStore store = itemStoreMapper.selectById(id);
+        if (store == null || store.getState() != State.SHELVE) {
             log.error("零售店铺已下架 [{}]", id);
             throw new BusinessException(ErrorCode.SHOP_DOWN);
         }

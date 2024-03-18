@@ -1,4 +1,4 @@
-package com.eghm.dto.address;
+package com.eghm.dto.business.merchant.address;
 
 import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.Mobile;
@@ -12,14 +12,18 @@ import javax.validation.constraints.Size;
 
 /**
  * @author 殿小二
- * @since 2020/9/8
+ * @since 2020/9/10
  */
 @Data
-public class AddressAddDTO {
+public class AddressEditRequest {
 
-    @ApiModelProperty(hidden = true)
+    @ApiModelProperty(value = "商户id", hidden = true)
     @Assign
-    private Long memberId;
+    private Long merchantId;
+
+    @ApiModelProperty(value = "地址id", required = true)
+    @NotNull(message = "id不能为空")
+    private Long id;
 
     @ApiModelProperty(value = "收货人姓名", required = true)
     @Size(max = 10, message = "收货人姓名最大10字符")
@@ -46,5 +50,4 @@ public class AddressAddDTO {
     @NotEmpty(message = "详细地址不能为空")
     @Size(max = 50, message = "详细地址最大50字符")
     private String detailAddress;
-
 }

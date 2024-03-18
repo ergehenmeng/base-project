@@ -71,4 +71,7 @@ public class ItemStore extends BaseEntity {
 
     @ApiModelProperty("评分")
     private BigDecimal score;
+
+    @ApiModelProperty("仓库地址id")
+    private Long depotAddressId;
 }
