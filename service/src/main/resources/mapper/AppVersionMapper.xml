@@ -2,27 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.AppVersionMapper">
 
-    <select id="getLatestVersion" resultType="com.eghm.model.AppVersion">
-        select
-            id, classify, version, version_no, force_update, url, create_time, remark, deleted, update_time
-        from app_version where classify = #{classify} and deleted = false order by version_no desc limit 1
-    </select>
-
     <select id="getVersion" resultType="com.eghm.model.AppVersion">
         select
-            id, classify, version, version_no, force_update, url, create_time, remark, deleted, update_time
-        from app_version where classify = #{classify} and deleted = false and version = #{version} limit 1
+            id, channel, version, version_no, force_update, url, create_time, remark, deleted, update_time
+        from app_version where channel = #{channel} and deleted = false and version = #{version} limit 1
     </select>
 
     <select id="getForceUpdateVersion" resultType="com.eghm.model.AppVersion">
         select
-            id, classify, version,version_no, force_update, url, create_time, remark, deleted, update_time
+            id, channel, version,version_no, force_update, url, create_time, remark, deleted, update_time
         from app_version
         where
-        classify = #{classify}
+            channel = #{channel}
         and deleted = false
         and force_update = true
         and version_no &gt; #{startVersion}
         and version_no &lt; #{endVersion}
     </select>
+
 </mapper>

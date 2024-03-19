@@ -56,16 +56,16 @@
     <select id="getByPage" resultType="com.eghm.vo.business.coupon.CouponListVO"
             parameterType="com.eghm.dto.business.coupon.config.CouponQueryDTO">
         select
-        id,
-        title,
-        max_limit,
-        coupon_type,
-        deduction_value,
-        discount_value,
-        use_threshold,
-        use_start_time,
-        use_end_time,
-        instruction
+            id,
+            title,
+            max_limit,
+            coupon_type,
+            deduction_value,
+            discount_value,
+            use_threshold,
+            use_start_time,
+            use_end_time,
+            instruction
         from coupon where deleted = false and stock &gt; 0 and state = 1 and `mode` = 1
         and now() between start_time and end_time
     </select>

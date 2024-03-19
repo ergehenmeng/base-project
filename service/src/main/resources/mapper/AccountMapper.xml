@@ -7,7 +7,7 @@
         pay_freeze = #{payFreeze},
         withdraw_freeze = #{withdrawFreeze},
         version = #{version} + 1,
-        withdraw_amount = #{withdrawAmount}
+        amount = #{amount}
         where id = #{id} and version = #{version}
     </update>
 </mapper>

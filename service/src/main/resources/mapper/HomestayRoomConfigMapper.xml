@@ -10,8 +10,7 @@
 
     <update id="updateStock" >
         update homestay_room_config set stock = stock + #{num} and sale_num = sale_num - #{num}
-        where
-          homestay_room_id = #{roomId}
+        where homestay_room_id = #{roomId}
           and stock + #{num} &gt;= 0
           and config_date &gt;= #{startDate}
           and config_date &lt; #{endDate}
