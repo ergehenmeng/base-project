@@ -34,6 +34,7 @@ import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.TransactionUtil;
+import com.eghm.vo.business.merchant.address.MerchantAddressVO;
 import com.eghm.vo.business.order.OrderScanVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
@@ -92,6 +93,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private final AccountService accountService;
 
     private final ScoreAccountService scoreAccountService;
+
+    private final MerchantAddressService merchantAddressService;
 
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType) {
@@ -527,7 +530,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
 
     @Override
-    public ItemOrderRefundVO getItemRefund(Long orderId, Long memberId) {
+    public ItemOrderRefundVO getItemRefund(Long orderId, Long memberId, boolean containAddress) {
         ItemOrderRefundVO refund = itemOrderService.getRefund(orderId, memberId);
         AssertUtil.assertOrderNotNull(refund, orderId, memberId);
         List<ItemOrder> orderList = itemOrderService.getByOrderNo(refund.getOrderNo());
@@ -557,6 +560,11 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         // 已经发货的快递费不退
         if (refund.getDeliveryState() == DeliveryState.CONFIRM_TASK || refund.getDeliveryState() == DeliveryState.WAIT_TAKE) {
             refund.setExpressFeeAmount(0);
+        }
+        // 只有待收货的商品才需要额外携带收货地址方便用户填写邮寄地址
+        if (containAddress && (refund.getDeliveryState() == DeliveryState.WAIT_TAKE || refund.getDeliveryState() == DeliveryState.CONFIRM_TASK)) {
+            MerchantAddressVO address = merchantAddressService.getAddress(order.getStoreId());
+            refund.setStoreAddress(address);
         }
         return refund;
     }

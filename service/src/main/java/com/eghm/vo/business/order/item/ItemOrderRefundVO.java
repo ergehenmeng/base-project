@@ -3,6 +3,7 @@ package com.eghm.vo.business.order.item;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.DeliveryState;
 import com.eghm.enums.ref.ItemRefundState;
+import com.eghm.vo.business.merchant.address.MerchantAddressVO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -55,4 +56,7 @@ public class ItemOrderRefundVO {
 
     @ApiModelProperty("退款积分")
     private Integer scoreAmount;
+
+    @ApiModelProperty("店铺收货地址")
+    private MerchantAddressVO storeAddress;
 }

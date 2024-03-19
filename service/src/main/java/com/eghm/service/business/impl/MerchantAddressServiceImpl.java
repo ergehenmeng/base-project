@@ -18,6 +18,7 @@ import com.eghm.service.business.MerchantAddressService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.merchant.address.MerchantAddressResponse;
+import com.eghm.vo.business.merchant.address.MerchantAddressVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -89,6 +90,19 @@ public class MerchantAddressServiceImpl implements MerchantAddressService {
         updateWrapper.eq(MerchantAddress::getId, id);
         updateWrapper.eq(MerchantAddress::getMerchantId, merchantId);
         merchantAddressMapper.delete(updateWrapper);
+    }
+
+    @Override
+    public MerchantAddressVO getAddress(Long storeId) {
+        MerchantAddress address = merchantAddressMapper.getStoreAddress(storeId);
+        if (address == null) {
+            return null;
+        }
+        MerchantAddressVO vo = new MerchantAddressVO();
+        vo.setNickName(address.getNickName());
+        vo.setMobile(address.getMobile());
+        vo.setDetailAddress(sysAreaService.parseArea(address.getProvinceId(), address.getCityId(), address.getCountyId()) + address.getDetailAddress());
+        return vo;
     }
 
     /**

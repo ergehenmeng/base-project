@@ -5,6 +5,7 @@ import com.eghm.dto.business.merchant.address.AddressEditRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.vo.business.merchant.address.MerchantAddressResponse;
+import com.eghm.vo.business.merchant.address.MerchantAddressVO;
 
 import java.util.List;
 
@@ -54,4 +55,12 @@ public interface MerchantAddressService {
      * @param id id
      */
     void delete(Long id);
+
+    /**
+     * 获取商户店铺收货地址
+     *
+     * @param storeId 店铺id
+     * @return 收货地址
+     */
+    MerchantAddressVO getAddress(Long storeId);
 }

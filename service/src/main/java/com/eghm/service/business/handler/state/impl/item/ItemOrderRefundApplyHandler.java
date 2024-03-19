@@ -78,7 +78,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         if ((itemOrder.getDeliveryState() == DeliveryState.WAIT_TAKE || itemOrder.getDeliveryState() == DeliveryState.CONFIRM_TASK) && context.getApplyType() == 2) {
             throw new BusinessException(REFUND_DELIVERY);
         }
-        ItemOrderRefundVO refund = orderService.getItemRefund(context.getItemOrderId(), context.getMemberId());
+        ItemOrderRefundVO refund = orderService.getItemRefund(context.getItemOrderId(), context.getMemberId(), false);
         int totalAmount = refund.getRefundAmount() + refund.getExpressFeeAmount();
         if (totalAmount != context.getApplyAmount()) {
             throw new BusinessException(REFUND_AMOUNT_MAX.getCode(), String.format(REFUND_AMOUNT_MAX.getMsg(), DecimalUtil.centToYuan(totalAmount)));

@@ -270,8 +270,9 @@ public interface OrderService extends IService<Order> {
      *
      * @param orderId  商品订单id
      * @param memberId 用户ID
+     * @param containAddress 是否包含仓库地址
      * @return 退款信息
      */
-    ItemOrderRefundVO getItemRefund(Long orderId, Long memberId);
+    ItemOrderRefundVO getItemRefund(Long orderId, Long memberId, boolean containAddress);
 
 }
