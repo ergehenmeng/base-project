@@ -19,6 +19,7 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.utils.SpringContextUtil;
 import com.eghm.utils.TransactionUtil;
+import com.eghm.vo.business.order.item.ItemOrderRefundVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -68,19 +69,16 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
             throw new BusinessException(ErrorCode.ORDER_REFUND_APPLY);
         }
         // 如果是未发货,则退款金额=商品金额+快递费, 如果是已发货则退款金额=商品金额
-        int expressFee = 0;
-        if (itemOrder.getDeliveryState() == DeliveryState.WAIT_TAKE || itemOrder.getDeliveryState() == DeliveryState.CONFIRM_TASK) {
-            if (context.getApplyType() == 1) {
-                throw new BusinessException(REFUND_DELIVERY);
-            }
-        } else {
-            expressFee = itemOrder.getExpressFee();
+        if ((itemOrder.getDeliveryState() == DeliveryState.WAIT_TAKE || itemOrder.getDeliveryState() == DeliveryState.CONFIRM_TASK) && context.getApplyType() == 2) {
+            throw new BusinessException(REFUND_DELIVERY);
         }
-        int totalAmount = order.getPrice() * context.getNum();
-        if ((totalAmount + expressFee) < context.getApplyAmount()) {
-            throw new BusinessException(REFUND_AMOUNT_MAX.getCode(), String.format(REFUND_AMOUNT_MAX.getMsg(), DecimalUtil.centToYuan(context.getApplyAmount())));
+        ItemOrderRefundVO refund = orderService.getItemRefund(context.getItemOrderId(), context.getMemberId());
+        int totalAmount = refund.getRefundAmount() + refund.getExpressFeeAmount();
+        if (totalAmount != context.getApplyAmount()) {
+            throw new BusinessException(REFUND_AMOUNT_MAX.getCode(), String.format(REFUND_AMOUNT_MAX.getMsg(), DecimalUtil.centToYuan(totalAmount)));
         }
-        context.setExpressFee(expressFee);
+        context.setExpressFee(refund.getExpressFeeAmount());
+        context.setScoreAmount(refund.getScoreAmount());
         context.setItemOrder(itemOrder);
     }
 
@@ -92,6 +90,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         OrderRefundLog refundLog = DataUtil.copy(context, OrderRefundLog.class);
         refundLog.setExpressFee(context.getExpressFee());
         refundLog.setItemOrderId(itemOrder.getId());
+        refundLog.setRefundAmount(context.getApplyAmount());
         refundLog.setMerchantId(order.getMerchantId());
         refundLog.setApplyTime(LocalDateTime.now());
         refundLog.setNum(itemOrder.getNum());
@@ -139,7 +138,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
             RefundAudit audit = new RefundAudit();
             audit.setRefundId(refundLog.getId());
             audit.setOrderNo(context.getOrderNo());
-            audit.setRefundAmount(refundLog.getRefundAmount() + refundLog.getExpressFee());
+            audit.setRefundAmount(refundLog.getRefundAmount());
             if (refundLog.getApplyType() == 1) {
                 log.info("零售退款(仅退款)申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
                 orderMQService.sendRefundAuditMessage(ExchangeQueue.ITEM_REFUND_CONFIRM, audit);

@@ -25,7 +25,7 @@ public class RefundApplyContext implements Context {
     @ApiModelProperty("普通商品订单id")
     private Long itemOrderId;
 
-    @ApiModelProperty(value = "申请退款金额", required = true)
+    @ApiModelProperty(value = "申请退款金额(含快递费)", required = true)
     private Integer applyAmount;
 
     @ApiModelProperty(value = "退款原因", required = true)
@@ -54,6 +54,11 @@ public class RefundApplyContext implements Context {
     @Assign
     private Integer expressFee = 0;
 
+    @ApiModelProperty("退款积分")
+    @Assign
+    private Integer scoreAmount = 0;
+
     @ApiModelProperty("退款商品信息")
+    @Assign
     private ItemOrder itemOrder;
 }

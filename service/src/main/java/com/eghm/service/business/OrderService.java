@@ -13,6 +13,7 @@ import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.vo.business.order.OrderScanVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.item.ExpressDetailVO;
+import com.eghm.vo.business.order.item.ItemOrderRefundVO;
 import com.eghm.vo.business.statistics.OrderStatisticsVO;
 
 import java.util.List;
@@ -263,5 +264,14 @@ public interface OrderService extends IService<Order> {
      * @param memberId 用户id
      */
     void checkGroupOrder(String bookingNo, Long memberId);
+
+    /**
+     * 待退款信息
+     *
+     * @param orderId  商品订单id
+     * @param memberId 用户ID
+     * @return 退款信息
+     */
+    ItemOrderRefundVO getItemRefund(Long orderId, Long memberId);
 
 }

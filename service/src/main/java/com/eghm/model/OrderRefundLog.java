@@ -42,7 +42,7 @@ public class OrderRefundLog extends BaseEntity {
     @ApiModelProperty("快递费用")
     private Integer expressFee;
 
-    @ApiModelProperty(value = "实际退款金额")
+    @ApiModelProperty(value = "实际退款金额(含快递费)")
     private Integer refundAmount;
 
     @ApiModelProperty(value = "退款积分")

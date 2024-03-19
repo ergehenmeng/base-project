@@ -174,53 +174,6 @@ public class OrderProxyServiceImpl implements OrderProxyService {
         commonService.getHandler(orderNo, AccessHandler.class).cancel(context);
     }
 
-    @Override
-    public ItemOrderRefundVO getItemRefund(Long orderId, Long memberId) {
-        ItemOrderRefundVO refund = itemOrderService.getRefund(orderId, memberId);
-        AssertUtil.assertOrderNotNull(refund, orderId, memberId);
-        List<ItemOrder> orderList = itemOrderService.getByOrderNo(refund.getOrderNo());
-        Order order = orderService.getByOrderNo(refund.getOrderNo());
-
-        if (orderList.size() > 1) {
-            List<OrderRefundLog> refundList = orderRefundLogService.getRefundLog(refund.getOrderNo());
-            int refundNum = refundList.size() + 1;
-            if (orderList.size() <= refundNum) {
-                log.info("零售最后一次退款 [{}]", order.getOrderNo());
-                int refundAmount = refundList.stream().mapToInt(OrderRefundLog::getRefundAmount).sum();
-                int scoreAmount = refundList.stream().mapToInt(OrderRefundLog::getScoreAmount).sum();
-                refund.setScoreAmount(order.getScoreAmount() - scoreAmount);
-                refund.setRefundAmount(order.getPayAmount() - refundAmount);
-            } else {
-                int totalAmount = orderList.stream().mapToInt(value -> value.getNum() * value.getSalePrice()).sum();
-                Integer itemAmount = refund.getNum() * refund.getSalePrice();
-                Integer refundAmount = calcRateAmount(itemAmount, totalAmount, order.getDiscountAmount());
-                refund.setRefundAmount(itemAmount - refundAmount);
-                Integer scoreAmount = calcRateAmount(itemAmount, totalAmount, order.getScoreAmount());
-                refund.setScoreAmount(scoreAmount);
-            }
-        } else {
-            refund.setRefundAmount(order.getPayAmount());
-            refund.setScoreAmount(order.getScoreAmount());
-        }
-        // 已经发货的快递费不退
-        if (refund.getDeliveryState() == DeliveryState.CONFIRM_TASK || refund.getDeliveryState() == DeliveryState.WAIT_TAKE) {
-            refund.setExpressFeeAmount(0);
-        }
-        return refund;
-    }
-
-    /**
-     * 按比例计算退款金额或积分
-     *
-     * @param saleAmount 商品售价
-     * @param totalAmount 订单总价
-     * @param amount 优惠金额或积分
-     * @return 优惠金额或积分
-     */
-    private static Integer calcRateAmount(Integer saleAmount, Integer totalAmount, Integer amount) {
-        return BigDecimal.valueOf((long) saleAmount * amount).divide(BigDecimal.valueOf(totalAmount), 2, RoundingMode.HALF_DOWN).intValue();
-    }
-
     /**
      * 取消拼团订单
      *
