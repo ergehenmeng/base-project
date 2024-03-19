@@ -293,12 +293,12 @@ public class SystemProperties {
         private String payApiV3Key;
 
         /**
-         * 商户API私钥(classpath)
+         * 商户私钥证书 api_client_key.pem (classpath)
          */
         private String payPrivateKeyPath;
 
         /**
-         * 商户API私钥(classpath)
+         * 商户公钥证书 api_client_cert.pem (classpath)
          */
         private String payPrivateCertPath;
 
