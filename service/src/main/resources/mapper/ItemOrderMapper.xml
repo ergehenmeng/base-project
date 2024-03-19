@@ -79,8 +79,21 @@
         <if test="param.queryName != null and param.queryName != ''">
             and r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
-        <if test="param.orderState != null">
-            and r.state = #{param.orderState}
+        <if test="param.tabState != null">
+            <choose>
+                <when test="param.tabState == 1">
+                    and r.state in (0, 1)
+                </when>
+                <when test="param.tabState == 2">
+                    and r.state in (2, 3, 4, 5, 6, 7)
+                </when>
+                <when test="param.tabState == 3">
+                    and r.state = 8 and r.evaluate_state = false
+                </when>
+                <otherwise>
+                    and r.state = 8
+                </otherwise>
+            </choose>
         </if>
         order by t.id desc
     </select>

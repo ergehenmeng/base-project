@@ -14,10 +14,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class ItemOrderQueryDTO extends PagingQuery {
 
-    @ApiModelProperty("门票订单状态")
-    private Integer orderState;
+    @ApiModelProperty("订单状态 空:全部 1:待付款 2:待收货 3:待评价 4:售后订单")
+    private Integer tabState;
 
-    @ApiModelProperty("用户id")
+    @ApiModelProperty(value = "用户id", hidden = true)
     @Assign
     private Long memberId;
 }

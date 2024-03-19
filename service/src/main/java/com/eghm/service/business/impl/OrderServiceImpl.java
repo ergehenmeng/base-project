@@ -183,17 +183,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public void setProcess(Long orderId, Long memberId) {
-        LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
-        wrapper.set(Order::getState, OrderState.PROGRESS);
-        wrapper.set(Order::getPayTime, LocalDateTime.now());
-        wrapper.eq(Order::getId, orderId);
-        wrapper.eq(Order::getState, OrderState.UN_PAY);
-        wrapper.eq(Order::getMemberId, memberId);
-        baseMapper.update(null, wrapper);
-    }
-
-    @Override
     public void deleteOrder(String orderNo, Long memberId) {
         LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Order::getOrderNo, orderNo);
