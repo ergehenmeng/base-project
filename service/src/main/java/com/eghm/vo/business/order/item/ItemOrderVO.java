@@ -4,6 +4,7 @@ import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
  * @since 2023/7/28
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemOrderVO {
 
     @ApiModelProperty("订单编号")
@@ -49,5 +51,5 @@ public class ItemOrderVO {
     private LocalDateTime completeTime;
 
     @ApiModelProperty("是否支持售后退款")
-    private Boolean supportRefund = false;
+    private Boolean supportRefund;
 }

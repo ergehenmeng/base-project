@@ -168,8 +168,8 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     @Override
     public List<ItemOrderVO> getByPage(ItemOrderQueryDTO dto) {
         Page<ItemOrderVO> voPage = itemOrderMapper.getList(dto.createPage(false), dto);
-        if (CollUtil.isNotEmpty(voPage.getRecords())) {
-            // 默认订单完成7天内均支持退款
+        // 如果选择售后订单, 需要判断是否支持售后退款
+        if (CollUtil.isNotEmpty(voPage.getRecords()) && dto.getTabState() == 4) {
             int afterSaleTime = sysConfigApi.getInt(ConfigConstant.SUPPORT_AFTER_SALE_TIME, 604800);
             LocalDateTime now = LocalDateTime.now();
             voPage.getRecords().forEach(item -> item.setSupportRefund(item.getCompleteTime() != null && item.getCompleteTime().plusSeconds(afterSaleTime).isBefore(now)));

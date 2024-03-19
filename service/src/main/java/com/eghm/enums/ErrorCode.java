@@ -1964,6 +1964,11 @@ public enum ErrorCode {
     ADDRESS_OCCUPIED(3969, "该地址已被店铺占用,请先更换店铺地址"),
 
     /**
+     * 该订单尚未支付,不支持退款
+     */
+    ORDER_NOT_PAY(3972, "该订单尚未支付,不支持退款"),
+
+    /**
      * 店铺信息不存在
      */
     STORE_NOT_EXIST(4000, "店铺信息不存在"),

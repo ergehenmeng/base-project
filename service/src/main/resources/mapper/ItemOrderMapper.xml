@@ -224,7 +224,7 @@
         t.sku_cover_url,
         t.sku_title,
         t.sale_price,
-        t.express_fee as expressFeeAmount,
+        t.express_fee as expressFeeAmount
         from item_order t
         where t.id = #{orderId}
         <if test="memberId != null">
