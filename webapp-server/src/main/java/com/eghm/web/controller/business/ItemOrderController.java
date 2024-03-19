@@ -6,7 +6,6 @@ import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.ItemOrderService;
-import com.eghm.service.business.OrderProxyService;
 import com.eghm.service.business.OrderService;
 import com.eghm.vo.business.order.item.*;
 import com.eghm.web.annotation.AccessToken;
@@ -30,8 +29,6 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/item/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemOrderController {
-
-    private final OrderProxyService orderProxyService;
 
     private final ItemOrderService itemOrderService;
 

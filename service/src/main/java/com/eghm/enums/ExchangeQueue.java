@@ -153,6 +153,11 @@ public enum ExchangeQueue {
      * 零售退款自动确认
      */
     ITEM_REFUND_CONFIRM("item_refund_confirm_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.ITEM_REFUND_CONFIRM_QUEUE}, "", true),
+
+    /**
+     * 订单完成
+     */
+    ORDER_COMPLETE_ROUTING("order_complete_routing_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.ORDER_COMPLETE_ROUTING_QUEUE}, "", true),
     ;
 
     /**

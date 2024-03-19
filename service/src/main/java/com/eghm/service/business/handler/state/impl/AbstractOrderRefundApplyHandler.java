@@ -129,19 +129,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
             log.error("该订单不支持退款 [{}]", context.getOrderNo());
             throw new BusinessException(ErrorCode.REFUND_NOT_SUPPORTED);
         }
-        if (order.getState() != OrderState.UN_USED && order.getState() != OrderState.WAIT_TAKE &&
-                order.getState() != OrderState.WAIT_DELIVERY && order.getState() != PARTIAL_DELIVERY &&
-                order.getState() != OrderState.WAIT_RECEIVE) {
-            log.error("订单状态不是待使用或待发货, 无法退款 [{}] [{}]", context.getOrderNo(), order.getState());
-            throw new BusinessException(ErrorCode.STATE_NOT_REFUND);
-        }
-        // 同一时间内不允许一个订单发起两次退款, 由于零售一个订单可能包含多个商品, 因此退款成功的商品可以继续退款
-        if (order.getRefundState() != RefundState.FAIL && order.getRefundState() != RefundState.OFFLINE &&
-                order.getRefundState() != RefundState.NONE && order.getRefundState() != RefundState.SUCCESS &&
-                order.getRefundState() != RefundState.REFUSE) {
-            log.error("订单状态退款申请中, 无法退款 [{}] [{}]", context.getOrderNo(), order.getRefundState());
-            throw new BusinessException(ErrorCode.REFUND_STATE_INVALID);
-        }
+
         this.checkRefund(context, order);
     }
 
@@ -165,12 +153,45 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
      * @param order   主订单
      */
     protected void checkRefund(RefundApplyContext context, Order order) {
+        this.checkRefundState(context, order);
+        this.checkOrderState(context, order);
         int refundNum = orderRefundLogService.getTotalRefundNum(context.getOrderNo(), null);
         int useNum = this.getVerifyNum(order);
         // 已核销+已退款+本次退款应该小于等于下单数量
         if (order.getNum() < (refundNum + useNum + context.getNum())) {
             log.error("累计退款数量(含本次)大于总支付数量 [{}] [{}] [{}] [{}] [{}]", order.getOrderNo(), order.getNum(), refundNum, context.getNum(), useNum);
             throw new BusinessException(TOTAL_REFUND_MAX_NUM);
+        }
+    }
+
+    /**
+     * 校验订单状态是否满足退款要求
+     *
+     * @param context 上下文
+     * @param order 订单
+     */
+    protected void checkOrderState(RefundApplyContext context, Order order) {
+        if (order.getState() != OrderState.UN_USED && order.getState() != OrderState.WAIT_TAKE &&
+                order.getState() != OrderState.WAIT_DELIVERY && order.getState() != PARTIAL_DELIVERY &&
+                order.getState() != OrderState.WAIT_RECEIVE) {
+            log.error("订单状态不是待使用或待发货, 无法退款 [{}] [{}]", context.getOrderNo(), order.getState());
+            throw new BusinessException(ErrorCode.STATE_NOT_REFUND);
+        }
+    }
+
+    /**
+     * 校验退款状态是否满足退款要求
+     *
+     * @param context 上下文
+     * @param order 订单
+     */
+    protected void checkRefundState(RefundApplyContext context, Order order) {
+        // 同一时间内不允许一个订单发起两次退款, 由于零售一个订单可能包含多个商品, 因此退款成功的商品可以继续退款
+        if (order.getRefundState() != RefundState.FAIL && order.getRefundState() != RefundState.OFFLINE &&
+                order.getRefundState() != RefundState.NONE && order.getRefundState() != RefundState.SUCCESS &&
+                order.getRefundState() != RefundState.REFUSE) {
+            log.error("订单状态退款申请中, 无法退款 [{}] [{}]", context.getOrderNo(), order.getRefundState());
+            throw new BusinessException(ErrorCode.REFUND_STATE_INVALID);
         }
     }
 

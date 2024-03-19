@@ -62,11 +62,6 @@ public class ConfigConstant {
     public static final String SINGLE_MAX_FILE_SIZE = "single_max_file_size";
 
     /**
-     * 多文件上传大小限制
-     */
-    public static final String BATCH_MAX_FILE_SIZE = "batch_max_file_size";
-
-    /**
      * 非注解缓存的默认过期时间
      */
     public static final String CACHE_EXPIRE = "cache_expire";
@@ -147,9 +142,9 @@ public class ConfigConstant {
     public static final String ORDER_EXPIRE_TIME = "order_expire_time";
 
     /**
-     * 订单完成时间
+     * 订单完成后多长时间进行系统默认评价
      */
-    public static final String ORDER_COMPLETE_TIME = "order_complete_time";
+    public static final String ORDER_EVALUATE_TIME = "order_evaluate_time";
 
     /**
      * 景区活动日期限制
@@ -217,12 +212,23 @@ public class ConfigConstant {
     public static final String COMMENT_REPORT_SHIELD = "comment_report_shield";
 
     /**
-     * 订单(仅退款)自动确认时间 默认2天
+     * 订单(发起仅退款)自动确认退款时间 默认2天
      */
     public static final String ORDER_REFUND_CONFIRM_TIME = "order_refund_confirm_time";
 
     /**
-     * 订单(退货退款)自动确认时间 默认7天
+     * 订单(发起退货退款)自动确认退款时间 默认7天
      */
     public static final String ORDER_RETURN_REFUND_TIME = "order_return_refund_time";
+
+    /**
+     * 零售支持售后退款时间(即:订单完成后几天内依旧可以进行售后退款) 默认:7天
+     */
+    public static final String SUPPORT_AFTER_SALE_TIME = "support_after_sale_time";
+
+    /**
+     * 订单完成延迟分账时间(即:订单完成后几天后进行分账) 默认:14天 注意该时间必须大于零售支持售后退款的时间,
+     * 因为在售后时间内,即使订单完成依旧可以退款,此次不能太早进行分账
+     */
+    public static final String DELAY_ROUTING_TIME = "delay_routing_time";
 }

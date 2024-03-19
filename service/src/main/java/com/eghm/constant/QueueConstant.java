@@ -44,7 +44,7 @@ public class QueueConstant {
     public static final String LINE_PAY_EXPIRE_QUEUE = "line_pay_expire_queue";
 
     /**
-     * 订单完成 实时队列(分账等)
+     * 订单完成 实时队列
      */
     public static final String ORDER_COMPLETE_QUEUE = "order_complete_queue";
 
@@ -152,4 +152,9 @@ public class QueueConstant {
      * 零售退款自动确认队列
      */
     public static final String ITEM_REFUND_CONFIRM_QUEUE = "item_refund_confirm_queue";
+
+    /**
+     * 订单完成 延迟分账
+     */
+    public static final String ORDER_COMPLETE_ROUTING_QUEUE = "order_complete_routing_queue";
 }

@@ -1,11 +1,13 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
 import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
 import com.eghm.enums.ErrorCode;
@@ -23,6 +25,7 @@ import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.SysAreaService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
@@ -31,6 +34,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +58,8 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     private final OrderRefundLogMapper orderRefundLogMapper;
 
     private final ExpressService expressService;
+
+    private final SysConfigApi sysConfigApi;
 
     @Override
     public Page<ItemOrderResponse> listPage(ItemOrderQueryRequest request) {
@@ -162,6 +168,12 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     @Override
     public List<ItemOrderVO> getByPage(ItemOrderQueryDTO dto) {
         Page<ItemOrderVO> voPage = itemOrderMapper.getList(dto.createPage(false), dto);
+        if (CollUtil.isNotEmpty(voPage.getRecords())) {
+            // 默认订单完成7天内均支持退款
+            int afterSaleTime = sysConfigApi.getInt(ConfigConstant.SUPPORT_AFTER_SALE_TIME, 604800);
+            LocalDateTime now = LocalDateTime.now();
+            voPage.getRecords().forEach(item -> item.setSupportRefund(item.getCompleteTime() != null && item.getCompleteTime().plusSeconds(afterSaleTime).isBefore(now)));
+        }
         return voPage.getRecords();
     }
 

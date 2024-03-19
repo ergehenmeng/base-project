@@ -48,9 +48,12 @@ public class OrderMQServiceImpl implements OrderMQService {
         TransactionUtil.afterCommit(() -> {
             log.info("订单完成发送实时消息 [{}] [{}]", exchangeQueue, orderNo);
             messageService.send(ExchangeQueue.ORDER_COMPLETE, orderNo);
-            int completeTime = sysConfigApi.getInt(ConfigConstant.ORDER_COMPLETE_TIME);
-            log.info("订单完成发送延迟消息 [{}] [{}]", exchangeQueue, orderNo);
-            messageService.sendDelay(exchangeQueue, orderNo, completeTime);
+            int evaluateTime = sysConfigApi.getInt(ConfigConstant.ORDER_EVALUATE_TIME);
+            log.info("订单完成发送延迟评价消息 [{}] [{}]", exchangeQueue, orderNo);
+            messageService.sendDelay(exchangeQueue, orderNo, evaluateTime);
+            int delayRoutingTime = sysConfigApi.getInt(ConfigConstant.DELAY_ROUTING_TIME);
+            log.info("订单完成发送延迟分账消息 [{}] [{}]", exchangeQueue, orderNo);
+            messageService.sendDelay(exchangeQueue, orderNo, delayRoutingTime);
         });
     }
 

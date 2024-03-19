@@ -869,6 +869,11 @@ public enum ErrorCode {
     ITEM_REFUND(3169, "请勿重复退款"),
 
     /**
+     * 该订单已超过售后时间
+     */
+    ITEM_REFUND_EXPIRE(3170, "该订单已超过售后时间"),
+
+    /**
      * 累计退款数量大于实付数量
      */
     TOTAL_REFUND_MAX_NUM(3171, "累计退款数量大于实付数量"),

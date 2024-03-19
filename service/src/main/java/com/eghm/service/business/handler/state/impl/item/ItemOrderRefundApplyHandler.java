@@ -1,5 +1,6 @@
 package com.eghm.service.business.handler.state.impl.item;
 
+import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.RefundAudit;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
@@ -15,6 +16,7 @@ import com.eghm.service.business.handler.access.impl.ItemAccessHandler;
 import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundApplyHandler;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.utils.SpringContextUtil;
@@ -27,6 +29,7 @@ import java.time.LocalDateTime;
 
 import static com.eghm.enums.ErrorCode.REFUND_AMOUNT_MAX;
 import static com.eghm.enums.ErrorCode.REFUND_DELIVERY;
+import static com.eghm.enums.ref.OrderState.PARTIAL_DELIVERY;
 
 /**
  * @author 二哥很猛
@@ -46,13 +49,16 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
 
     private final OrderMQService orderMQService;
 
-    public ItemOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService, ItemGroupOrderService itemGroupOrderService, OrderMQService orderMQService) {
+    private final SysConfigApi sysConfigApi;
+
+    public ItemOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService, ItemGroupOrderService itemGroupOrderService, OrderMQService orderMQService, SysConfigApi sysConfigApi) {
         super(orderService, orderRefundLogService, orderVisitorService);
         this.itemOrderService = itemOrderService;
         this.orderService = orderService;
         this.orderRefundLogService = orderRefundLogService;
         this.itemGroupOrderService = itemGroupOrderService;
         this.orderMQService = orderMQService;
+        this.sysConfigApi = sysConfigApi;
     }
 
     @Override
@@ -123,6 +129,8 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
 
     @Override
     protected void checkRefund(RefundApplyContext context, Order order) {
+        super.checkRefundState(context, order);
+        this.checkOrderState(context, order);
         int refundNum = orderRefundLogService.getTotalRefundNum(context.getOrderNo(), context.getItemOrderId());
         if (refundNum > 0) {
             throw new BusinessException(ErrorCode.ITEM_REFUND);
@@ -166,6 +174,34 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
             context.setAmount(0);
             context.setSuccessTime(LocalDateTime.now());
             SpringContextUtil.getBean(ItemAccessHandler.class).refundSuccess(context);
+        }
+    }
+
+    @Override
+    protected void checkOrderState(RefundApplyContext context, Order order) {
+        if (order.getState() != OrderState.UN_USED && order.getState() != OrderState.WAIT_TAKE &&
+                order.getState() != OrderState.WAIT_DELIVERY && order.getState() != PARTIAL_DELIVERY &&
+                order.getState() != OrderState.WAIT_RECEIVE && order.getState() != OrderState.COMPLETE) {
+            log.error("订单状态不是待使用或待发货, 无法退款 [{}] [{}]", context.getOrderNo(), order.getState());
+            throw new BusinessException(ErrorCode.STATE_NOT_REFUND);
+        }
+        this.checkAfterSaleTime(context, order);
+    }
+
+    /**
+     * 检查订单是否超过售后时间
+     *
+     * @param context 上下文
+     * @param order 订单
+     */
+    protected void checkAfterSaleTime(RefundApplyContext context, Order order) {
+        if (order.getState() == OrderState.COMPLETE) {
+            int anInt = sysConfigApi.getInt(ConfigConstant.SUPPORT_AFTER_SALE_TIME, 604800);
+            LocalDateTime refundExpireTime = order.getCompleteTime().plusSeconds(anInt);
+            if (refundExpireTime.isAfter(LocalDateTime.now())) {
+                log.error("订单已超过售后时间, 无法退款 [{}] [{}]", context.getOrderNo(), refundExpireTime);
+                throw new BusinessException(ErrorCode.ITEM_REFUND_EXPIRE);
+            }
         }
     }
 

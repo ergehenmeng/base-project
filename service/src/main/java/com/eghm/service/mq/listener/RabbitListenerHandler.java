@@ -305,6 +305,14 @@ public class RabbitListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.ORDER_COMPLETE_QUEUE)
     public void orderComplete(String orderNo, Message message, Channel channel) throws IOException {
+        processMessageAck(orderNo, message, channel, s -> log.info("订单完成同步消费消息 [{}]", orderNo));
+    }
+
+    /**
+     * 民宿,零售,线路,门票,餐饮 (延迟分账)
+     */
+    @RabbitListener(queues = QueueConstant.ORDER_COMPLETE_ROUTING_QUEUE)
+    public void orderDelayRouting(String orderNo, Message message, Channel channel) throws IOException {
         processMessageAck(orderNo, message, channel, orderService::routing);
     }
 
