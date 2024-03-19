@@ -77,9 +77,9 @@ public class ItemOrderController {
     }
 
     @GetMapping("/toRefund")
-    @ApiOperation("退款页")
+    @ApiOperation("进入退款页")
     public RespBody<ItemOrderRefundVO> toRefund(@RequestParam("orderId") Long orderId) {
-        ItemOrderRefundVO detail = orderProxyService.getRefund(orderId, ApiHolder.getMemberId());
+        ItemOrderRefundVO detail = orderProxyService.getItemRefund(orderId, ApiHolder.getMemberId());
         return RespBody.success(detail);
     }
 

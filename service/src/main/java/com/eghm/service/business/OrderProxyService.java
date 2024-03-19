@@ -52,7 +52,7 @@ public interface OrderProxyService {
      * @param memberId 用户ID
      * @return 退款信息
      */
-    ItemOrderRefundVO getRefund(Long orderId, Long memberId);
+    ItemOrderRefundVO getItemRefund(Long orderId, Long memberId);
 
 
 }

@@ -175,7 +175,7 @@ public class OrderProxyServiceImpl implements OrderProxyService {
     }
 
     @Override
-    public ItemOrderRefundVO getRefund(Long orderId, Long memberId) {
+    public ItemOrderRefundVO getItemRefund(Long orderId, Long memberId) {
         ItemOrderRefundVO refund = itemOrderService.getRefund(orderId, memberId);
         AssertUtil.assertOrderNotNull(refund, orderId, memberId);
         List<ItemOrder> orderList = itemOrderService.getByOrderNo(refund.getOrderNo());
