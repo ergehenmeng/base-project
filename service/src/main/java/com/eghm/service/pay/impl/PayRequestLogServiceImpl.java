@@ -45,7 +45,7 @@ public class PayRequestLogServiceImpl implements PayRequestLogService {
     public void insertPayLog(PrepayDTO request, PrepayVO response) {
         PayRequestLog requestLog = new PayRequestLog();
         requestLog.setOrderNo(request.getAttach());
-        requestLog.setPayChannel(response.getPayChannel());
+        requestLog.setPayChannel(request.getTradeType().getPayChannel());
         requestLog.setRequestBody(jsonService.toJson(request));
         requestLog.setResponseBody(jsonService.toJson(response));
         requestLog.setStepType(StepType.PAY);
@@ -59,7 +59,7 @@ public class PayRequestLogServiceImpl implements PayRequestLogService {
     public void insertRefundLog(RefundDTO request, RefundVO response) {
         PayRequestLog requestLog = new PayRequestLog();
         requestLog.setOrderNo(request.getOrderNo());
-        requestLog.setPayChannel(response.getPayChannel());
+        requestLog.setPayChannel(request.getTradeType().getPayChannel());
         requestLog.setRequestBody(jsonService.toJson(request));
         requestLog.setResponseBody(jsonService.toJson(response));
         requestLog.setStepType(StepType.REFUND);

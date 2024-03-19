@@ -52,7 +52,7 @@ public class WechatPayServiceImpl implements PayService {
      * @return 新交易方式
      */
     private static TradeTypeEnum transferType(TradeType tradeType) {
-        Optional<TradeTypeEnum> optional = Arrays.stream(TradeTypeEnum.values()).filter(typeEnum -> typeEnum.name().equals(tradeType.getName())).findFirst();
+        Optional<TradeTypeEnum> optional = Arrays.stream(TradeTypeEnum.values()).filter(typeEnum -> typeEnum.name().equals(tradeType.getCode())).findFirst();
         return optional.orElse(null);
     }
 

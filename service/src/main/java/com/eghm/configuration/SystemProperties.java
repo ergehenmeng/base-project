@@ -288,19 +288,19 @@ public class SystemProperties {
         private String payMerchantId;
 
         /**
-         * 微信支付商户密钥
-         */
-        private String payMerchantKey;
-
-        /**
          * apiV3 秘钥
          */
         private String payApiV3Key;
 
         /**
-         * 私钥路径 支持classpath
+         * 商户API私钥(classpath)
          */
         private String payPrivateKeyPath;
+
+        /**
+         * 商户API私钥(classpath)
+         */
+        private String payPrivateCertPath;
 
         /**
          * apiV3证书序列号

@@ -68,11 +68,11 @@ public class WeChatConfig {
         SystemProperties.WeChatProperties weChatProperties = systemProperties.getWechat();
         config.setAppId(weChatProperties.getPayAppId());
         config.setMchId(weChatProperties.getPayMerchantId());
-        config.setMchKey(weChatProperties.getPayMerchantKey());
         config.setSignType(WxPayConstants.SignType.HMAC_SHA256);
         config.setApiV3Key(weChatProperties.getPayApiV3Key());
         config.setCertSerialNo(weChatProperties.getPaySerialNo());
-        config.setPrivateCertPath(weChatProperties.getPayPrivateKeyPath());
+        config.setPrivateKeyPath(weChatProperties.getPayPrivateKeyPath());
+        config.setPrivateCertPath(weChatProperties.getPayPrivateCertPath());
         service.setConfig(config);
         return service;
     }

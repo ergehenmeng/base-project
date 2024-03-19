@@ -1,8 +1,7 @@
 package com.eghm.mapper;
 
-import com.eghm.model.MerchantAddress;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.vo.business.merchant.address.MerchantAddressVO;
+import com.eghm.model.MerchantAddress;
 import org.apache.ibatis.annotations.Param;
 
 /**
