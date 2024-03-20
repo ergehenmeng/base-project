@@ -127,6 +127,7 @@ public class WechatPayServiceImpl implements PayService {
         WxPayRefundV3Request.Amount amount = new WxPayRefundV3Request.Amount();
         amount.setRefund(dto.getAmount());
         amount.setTotal(dto.getTotal());
+        amount.setCurrency("CNY");
         request.setAmount(amount);
         request.setNotifyUrl(wechat.getNotifyHost() + CommonConstant.WECHAT_REFUND_NOTIFY_URL);
         request.setOutTradeNo(dto.getTradeNo());
