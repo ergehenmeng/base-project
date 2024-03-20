@@ -148,7 +148,6 @@ public class MemberCouponServiceImpl implements MemberCouponService {
     @Override
     public void releaseCoupon(Long id) {
         if (id == null) {
-            log.info("该笔订单没有使用优惠券");
             return;
         }
         MemberCoupon coupon = memberCouponMapper.selectById(id);

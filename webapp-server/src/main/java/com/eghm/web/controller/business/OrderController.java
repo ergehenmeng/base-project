@@ -20,6 +20,7 @@ import com.eghm.service.business.handler.access.impl.*;
 import com.eghm.service.business.handler.context.*;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.IpUtil;
 import com.eghm.vo.business.order.OrderCreateVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
@@ -29,6 +30,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author wyb
@@ -124,8 +127,8 @@ public class OrderController {
 
     @PostMapping(value = "/pay", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("拉起支付")
-    public RespBody<PrepayVO> pay(@RequestBody @Validated OrderPayDTO dto) {
-        PrepayVO vo = orderService.createPrepay(dto.getOrderNo(), dto.getBuyerId(), dto.getTradeType());
+    public RespBody<PrepayVO> pay(@RequestBody @Validated OrderPayDTO dto, HttpServletRequest request) {
+        PrepayVO vo = orderService.createPrepay(dto.getOrderNo(), dto.getBuyerId(), dto.getTradeType(), IpUtil.getIpAddress(request));
         return RespBody.success(vo);
     }
 

@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ScoreScanRechargeDTO {
 
-    @ApiModelProperty("商户id")
+    @ApiModelProperty(value = "商户id", hidden = true)
     @Assign
     private Long merchantId;
 
@@ -31,4 +31,8 @@ public class ScoreScanRechargeDTO {
     @ApiModelProperty(value = "充值方式", required = true)
     @NotNull(message = "请选择充值方式")
     private PayChannel payChannel;
+
+    @Assign
+    @ApiModelProperty(value = "客户端ip", hidden = true)
+    private String clientIp;
 }

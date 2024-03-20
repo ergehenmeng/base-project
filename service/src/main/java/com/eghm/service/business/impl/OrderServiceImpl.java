@@ -97,7 +97,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private final MerchantAddressService merchantAddressService;
 
     @Override
-    public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType) {
+    public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType, String clientIp) {
         List<String> orderNoList = StrUtil.split(orderNo, ',');
         ProductType productType = ProductType.prefix(orderNoList.get(0));
         String tradeNo = productType.generateTradeNo();
@@ -121,6 +121,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         dto.setAmount(totalAmount);
         dto.setTradeNo(tradeNo);
         dto.setBuyerId(buyerId);
+        dto.setClientIp(clientIp);
         return aggregatePayService.createPrepay(dto);
     }
 

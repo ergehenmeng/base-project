@@ -30,9 +30,10 @@ public interface OrderService extends IService<Order> {
      * @param orderNo   订单编号
      * @param buyerId   付款人id
      * @param tradeType 支付方式
+     * @param clientIp  ip
      * @return 拉起支付的信息
      */
-    PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType);
+    PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType, String clientIp);
 
     /**
      * 根据交易流水号查询订单, 门票,餐饮,线路,民宿

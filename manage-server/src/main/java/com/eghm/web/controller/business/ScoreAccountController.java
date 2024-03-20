@@ -12,6 +12,7 @@ import com.eghm.model.ScoreAccount;
 import com.eghm.service.business.ScoreAccountService;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.IpUtil;
 import com.eghm.vo.business.account.ScoreAccountResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +20,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author 二哥很猛
@@ -58,8 +61,9 @@ public class ScoreAccountController {
 
     @PostMapping(value = "/recharge/scan", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("扫码充值")
-    public RespBody<String> rechargeScan(@Validated @RequestBody ScoreScanRechargeDTO dto) {
+    public RespBody<String> rechargeScan(@Validated @RequestBody ScoreScanRechargeDTO dto, HttpServletRequest request) {
         dto.setMerchantId(SecurityHolder.getMerchantId());
+        dto.setClientIp(IpUtil.getIpAddress(request));
         PrepayVO prepayVO = scoreAccountService.rechargeScan(dto);
         QrConfig config = new QrConfig();
         config.setHeight(200);

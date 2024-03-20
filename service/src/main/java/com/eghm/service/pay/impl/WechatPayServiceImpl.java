@@ -45,17 +45,6 @@ public class WechatPayServiceImpl implements PayService {
     private final SystemProperties systemProperties;
     private WxPayService wxPayService;
 
-    /**
-     * 转换交易方式
-     *
-     * @param tradeType 原交易方式
-     * @return 新交易方式
-     */
-    private static TradeTypeEnum transferType(TradeType tradeType) {
-        Optional<TradeTypeEnum> optional = Arrays.stream(TradeTypeEnum.values()).filter(typeEnum -> typeEnum.name().equals(tradeType.getCode())).findFirst();
-        return optional.orElse(null);
-    }
-
     @Autowired(required = false)
     public void setWxPayService(WxPayService wxPayService) {
         this.wxPayService = wxPayService;
@@ -63,7 +52,7 @@ public class WechatPayServiceImpl implements PayService {
 
     @Override
     public boolean supported(TradeType tradeType) {
-        return transferType(tradeType) != null;
+        return tradeType.getPayChannel() == PayChannel.WECHAT;
     }
 
     @Override
@@ -81,6 +70,17 @@ public class WechatPayServiceImpl implements PayService {
         WxPayUnifiedOrderV3Request.Payer payer = new WxPayUnifiedOrderV3Request.Payer();
         payer.setOpenid(dto.getBuyerId());
         request.setPayer(payer);
+        // H5支付额外包含一些东西, 同时不需要付款人信息
+        if (transferType == TradeTypeEnum.H5) {
+            WxPayUnifiedOrderV3Request.SceneInfo sceneInfo = new WxPayUnifiedOrderV3Request.SceneInfo();
+            sceneInfo.setPayerClientIp(dto.getClientIp());
+            WxPayUnifiedOrderV3Request.H5Info h5Info = new WxPayUnifiedOrderV3Request.H5Info();
+            h5Info.setType(dto.getSceneType());
+            sceneInfo.setH5Info(h5Info);
+            request.setSceneInfo(sceneInfo);
+            request.setPayer(null);
+        }
+
         WxPayUnifiedOrderV3Result result;
         try {
             result = wxPayService.unifiedOrderV3(transferType, request);
@@ -242,4 +242,14 @@ public class WechatPayServiceImpl implements PayService {
         return vo;
     }
 
+    /**
+     * 转换交易方式
+     *
+     * @param tradeType 原交易方式
+     * @return 新交易方式
+     */
+    private static TradeTypeEnum transferType(TradeType tradeType) {
+        Optional<TradeTypeEnum> optional = Arrays.stream(TradeTypeEnum.values()).filter(typeEnum -> typeEnum.name().equals(tradeType.getCode())).findFirst();
+        return optional.orElse(null);
+    }
 }

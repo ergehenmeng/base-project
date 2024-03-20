@@ -200,6 +200,7 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         } else {
             prepayDTO.setTradeType(TradeType.ALI_FACE_PAY);
         }
+        prepayDTO.setClientIp(dto.getClientIp());
         PrepayVO vo = aggregatePayService.createPrepay(prepayDTO);
         ScanRechargeLog rechargeLog = new ScanRechargeLog();
         rechargeLog.setAmount(dto.getAmount());

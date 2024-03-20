@@ -49,7 +49,7 @@ public class AliPayServiceImpl implements PayService {
 
     @Override
     public boolean supported(TradeType tradeType) {
-        return TradeType.ALI_PAY == tradeType || TradeType.ALI_FACE_PAY == tradeType;
+        return tradeType.getPayChannel() == PayChannel.ALIPAY;
     }
 
     @Override
