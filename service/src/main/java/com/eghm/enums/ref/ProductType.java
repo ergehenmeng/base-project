@@ -32,7 +32,7 @@ public enum ProductType implements ValueEnumBinder {
     /**
      * 餐饮券
      */
-    RESTAURANT("restaurant", "餐饮券", "CY", new OrderState[]{
+    VOUCHER("voucher", "餐饮券", "CY", new OrderState[]{
             OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.COMPLETE, OrderState.CLOSE
     }),
 

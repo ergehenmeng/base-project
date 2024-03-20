@@ -45,6 +45,6 @@ public class VoucherOrderAutoCancelHandler extends AbstractOrderAutoCancelHandle
 
     @Override
     public ProductType getStateMachineType() {
-        return ProductType.RESTAURANT;
+        return ProductType.VOUCHER;
     }
 }

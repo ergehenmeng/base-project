@@ -153,7 +153,7 @@ public class CommonServiceImpl implements CommonService {
             lineMap = lineList.stream().collect(Collectors.toMap(ProductStatisticsVO::getCreateDate, ProductStatisticsVO::getAppendNum));
         }
         Map<LocalDate, Integer> voucherMap = Maps.newHashMapWithExpectedSize(32);
-        if (request.getProductType() == null || request.getProductType() == ProductType.RESTAURANT) {
+        if (request.getProductType() == null || request.getProductType() == ProductType.VOUCHER) {
             List<ProductStatisticsVO> voucherList = voucherMapper.dayAppend(request);
             voucherMap = voucherList.stream().collect(Collectors.toMap(ProductStatisticsVO::getCreateDate, ProductStatisticsVO::getAppendNum));
         }
@@ -163,7 +163,7 @@ public class CommonServiceImpl implements CommonService {
             ticketMap = ticketList.stream().collect(Collectors.toMap(ProductStatisticsVO::getCreateDate, ProductStatisticsVO::getAppendNum));
         }
         Map<LocalDate, Integer> roomMap = Maps.newHashMapWithExpectedSize(32);
-        if (request.getProductType() == null || request.getProductType() == ProductType.RESTAURANT) {
+        if (request.getProductType() == null || request.getProductType() == ProductType.VOUCHER) {
             List<ProductStatisticsVO> roomList = homestayRoomMapper.dayAppend(request);
             roomMap = roomList.stream().collect(Collectors.toMap(ProductStatisticsVO::getCreateDate, ProductStatisticsVO::getAppendNum));
         }
@@ -205,7 +205,7 @@ public class CommonServiceImpl implements CommonService {
             List<BaseStoreResponse> itemStoreList = homestayMapper.getStoreList(storeIds);
             responseList.addAll(itemStoreList);
         }
-        storeIds = productMap.get(ProductType.RESTAURANT);
+        storeIds = productMap.get(ProductType.VOUCHER);
         if (CollUtil.isNotEmpty(storeIds)) {
             List<BaseStoreResponse> itemStoreList = restaurantMapper.getStoreList(storeIds);
             responseList.addAll(itemStoreList);

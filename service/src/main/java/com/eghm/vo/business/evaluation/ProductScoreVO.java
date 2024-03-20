@@ -20,7 +20,7 @@ public class ProductScoreVO {
     @ApiModelProperty("商品id")
     private Long productId;
 
-    @ApiModelProperty("商品类型 ticket:门票 homestay:民宿 restaurant:餐饮券 item:零售 line:线路 venue:场馆")
+    @ApiModelProperty("商品类型 ticket:门票 homestay:民宿 voucher:餐饮券 item:零售 line:线路 venue:场馆")
     private ProductType productType;
 
     @ApiModelProperty("分数")

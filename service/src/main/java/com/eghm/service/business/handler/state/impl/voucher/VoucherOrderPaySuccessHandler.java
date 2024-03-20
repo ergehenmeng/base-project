@@ -27,6 +27,6 @@ public class VoucherOrderPaySuccessHandler extends AbstractOrderPaySuccessHandle
 
     @Override
     public ProductType getStateMachineType() {
-        return ProductType.RESTAURANT;
+        return ProductType.VOUCHER;
     }
 }

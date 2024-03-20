@@ -83,13 +83,13 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
         order.setMerchantId(payload.getRestaurant().getMerchantId());
         order.setStoreId(payload.getRestaurant().getId());
         order.setState(OrderState.UN_PAY);
-        order.setOrderNo(ProductType.RESTAURANT.generateOrderNo());
+        order.setOrderNo(ProductType.VOUCHER.generateOrderNo());
         order.setTitle(voucher.getTitle());
         order.setPrice(voucher.getSalePrice());
         order.setPayAmount(order.getNum() * order.getPrice());
         order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         order.setMultiple(false);
-        order.setProductType(ProductType.RESTAURANT);
+        order.setProductType(ProductType.VOUCHER);
         order.setRefundType(RefundType.DIRECT_REFUND);
         order.setCreateDate(LocalDate.now());
         order.setCreateTime(LocalDateTime.now());
@@ -135,7 +135,7 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
 
     @Override
     public ProductType getStateMachineType() {
-        return ProductType.RESTAURANT;
+        return ProductType.VOUCHER;
     }
 
 }

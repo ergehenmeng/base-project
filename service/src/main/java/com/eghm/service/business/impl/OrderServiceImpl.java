@@ -337,7 +337,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
                     orderMQService.sendOrderCompleteMessage(ExchangeQueue.ITEM_COMPLETE_DELAY, order.getOrderNo());
                 } else if (order.getProductType() == ProductType.LINE) {
                     orderMQService.sendOrderCompleteMessage(ExchangeQueue.LINE_COMPLETE_DELAY, order.getOrderNo());
-                } else if (order.getProductType() == ProductType.RESTAURANT) {
+                } else if (order.getProductType() == ProductType.VOUCHER) {
                     orderMQService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE_DELAY, order.getOrderNo());
                 } else if (order.getProductType() == ProductType.HOMESTAY) {
                     orderMQService.sendOrderCompleteMessage(ExchangeQueue.HOMESTAY_COMPLETE_DELAY, order.getOrderNo());
@@ -351,7 +351,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         ProductType productType = ProductType.prefix(orderNo);
         if (productType == ProductType.ITEM) {
             return baseMapper.getItemList(orderNo);
-        } else if (productType == ProductType.RESTAURANT) {
+        } else if (productType == ProductType.VOUCHER) {
             return baseMapper.getRestaurantList(orderNo);
         } else if (productType == ProductType.TICKET) {
             return baseMapper.getTicketList(orderNo);

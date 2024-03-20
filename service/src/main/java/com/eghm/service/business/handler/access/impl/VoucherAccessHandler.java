@@ -34,48 +34,48 @@ public class VoucherAccessHandler extends AbstractAccessHandler {
 
     @Override
     public void createOrder(Context context) {
-        stateHandler.fireEvent(ProductType.RESTAURANT, OrderState.NONE.getValue(), VoucherEvent.CREATE, context);
+        stateHandler.fireEvent(ProductType.VOUCHER, OrderState.NONE.getValue(), VoucherEvent.CREATE, context);
     }
 
     @Override
     public void paySuccess(PayNotifyContext context) {
-        stateHandler.fireEvent(ProductType.RESTAURANT, context.getFrom(), VoucherEvent.PAY_SUCCESS, context);
+        stateHandler.fireEvent(ProductType.VOUCHER, context.getFrom(), VoucherEvent.PAY_SUCCESS, context);
     }
 
     @Override
     public void payFail(PayNotifyContext context) {
-        stateHandler.fireEvent(ProductType.RESTAURANT, context.getFrom(), VoucherEvent.PAY_FAIL, context);
+        stateHandler.fireEvent(ProductType.VOUCHER, context.getFrom(), VoucherEvent.PAY_FAIL, context);
     }
 
     @Override
     public void refundSuccess(RefundNotifyContext context) {
-        stateHandler.fireEvent(ProductType.RESTAURANT, context.getFrom(), VoucherEvent.REFUND_SUCCESS, context);
+        stateHandler.fireEvent(ProductType.VOUCHER, context.getFrom(), VoucherEvent.REFUND_SUCCESS, context);
     }
 
     @Override
     public void refundFail(RefundNotifyContext context) {
-        stateHandler.fireEvent(ProductType.RESTAURANT, context.getFrom(), VoucherEvent.REFUND_FAIL, context);
+        stateHandler.fireEvent(ProductType.VOUCHER, context.getFrom(), VoucherEvent.REFUND_FAIL, context);
     }
 
 
     @Override
     public void refundApply(RefundApplyContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
-        stateHandler.fireEvent(ProductType.RESTAURANT, order.getState().getValue(), VoucherEvent.REFUND_APPLY, context);
+        stateHandler.fireEvent(ProductType.VOUCHER, order.getState().getValue(), VoucherEvent.REFUND_APPLY, context);
     }
 
     @Override
     public void refundAudit(RefundAuditContext context) {
-        throw new BusinessException(REFUND_AUDIT.getCode(), String.format(REFUND_AUDIT.getMsg(), ProductType.RESTAURANT.getName()));
+        throw new BusinessException(REFUND_AUDIT.getCode(), String.format(REFUND_AUDIT.getMsg(), ProductType.VOUCHER.getName()));
     }
 
     @Override
     public void verifyOrder(OrderVerifyContext context) {
-        stateHandler.fireEvent(ProductType.RESTAURANT, OrderState.UN_USED.getValue(), VoucherEvent.VERIFY, context);
+        stateHandler.fireEvent(ProductType.VOUCHER, OrderState.UN_USED.getValue(), VoucherEvent.VERIFY, context);
     }
 
     @Override
     public void cancel(OrderCancelContext context) {
-        stateHandler.fireEvent(ProductType.RESTAURANT, OrderState.UN_PAY.getValue(), VoucherEvent.CANCEL, context);
+        stateHandler.fireEvent(ProductType.VOUCHER, OrderState.UN_PAY.getValue(), VoucherEvent.CANCEL, context);
     }
 }

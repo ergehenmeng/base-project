@@ -46,6 +46,6 @@ public class VoucherOrderCancelHandler extends AbstractOrderCancelHandler {
 
     @Override
     public ProductType getStateMachineType() {
-        return ProductType.RESTAURANT;
+        return ProductType.VOUCHER;
     }
 }

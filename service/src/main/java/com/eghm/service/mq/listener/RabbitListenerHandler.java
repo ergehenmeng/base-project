@@ -252,7 +252,7 @@ public class RabbitListenerHandler {
     @RabbitListener(queues = QueueConstant.VOUCHER_ORDER_QUEUE)
     public void voucherOrder(VoucherOrderCreateContext context, Message message, Channel channel) throws IOException {
         this.processMessageAckAsync(context, message, channel, order -> {
-            stateHandler.fireEvent(ProductType.RESTAURANT, OrderState.NONE.getValue(), VoucherEvent.CREATE_QUEUE, context);
+            stateHandler.fireEvent(ProductType.VOUCHER, OrderState.NONE.getValue(), VoucherEvent.CREATE_QUEUE, context);
             cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
         });
     }
@@ -279,7 +279,7 @@ public class RabbitListenerHandler {
                 case HOMESTAY:
                     homestayService.updateScore(vo);
                     break;
-                case RESTAURANT:
+                case VOUCHER:
                     restaurantService.updateScore(vo);
                     break;
                 case VENUE:

@@ -63,6 +63,6 @@ public class VoucherOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHa
 
     @Override
     public ProductType getStateMachineType() {
-        return ProductType.RESTAURANT;
+        return ProductType.VOUCHER;
     }
 }

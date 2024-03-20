@@ -254,7 +254,7 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
             case HOMESTAY:
                 vo = homestayOrderService.getSnapshot(orderId, orderNo);
                 break;
-            case RESTAURANT:
+            case VOUCHER:
                 vo = voucherOrderService.getSnapshot(orderId, orderNo);
                 break;
             case VENUE:

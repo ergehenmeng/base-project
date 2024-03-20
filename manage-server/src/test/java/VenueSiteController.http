@@ -74,8 +74,8 @@ Content-Type: application/json
 
 {
   "venueSiteId": 1760924119553056770,
-  "startDate": "2024-02-22",
-  "endDate": "2024-03-20",
+  "startDate": "2024-03-20",
+  "endDate": "2024-04-18",
   "week": [
     1, 2, 3, 4, 5
   ],

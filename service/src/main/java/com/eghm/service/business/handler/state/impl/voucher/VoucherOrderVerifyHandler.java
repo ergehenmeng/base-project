@@ -43,6 +43,6 @@ public class VoucherOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     @Override
     public ProductType getStateMachineType() {
-        return ProductType.RESTAURANT;
+        return ProductType.VOUCHER;
     }
 }

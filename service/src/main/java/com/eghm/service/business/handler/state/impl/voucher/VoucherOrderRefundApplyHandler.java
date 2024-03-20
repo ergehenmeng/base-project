@@ -41,6 +41,6 @@ public class VoucherOrderRefundApplyHandler extends AbstractOrderRefundApplyHand
 
     @Override
     public ProductType getStateMachineType() {
-        return ProductType.RESTAURANT;
+        return ProductType.VOUCHER;
     }
 }
