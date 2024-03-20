@@ -19,8 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-import static com.eghm.enums.ErrorCode.REFUND_AUDITED;
-import static com.eghm.enums.ErrorCode.TOTAL_REFUND_MAX_NUM;
+import static com.eghm.enums.ErrorCode.*;
 
 /**
  * 默认退款拒绝
@@ -118,7 +117,9 @@ public abstract class AbstractOrderRefundAuditHandler implements RefundAuditHand
      */
     protected void passAfter(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
         log.info("退款审核通过后置处理 [{}] [{}] [{}]", context.getAuditRemark(), order.getOrderNo(), refundLog.getId());
-        TransactionUtil.afterCommit(() -> orderService.startRefund(refundLog, order));
+        TransactionUtil.afterCommit(() -> orderService.startRefund(refundLog, order), throwable -> {
+            throw new BusinessException(REFUND_APPLY);
+        });
     }
 
     /**

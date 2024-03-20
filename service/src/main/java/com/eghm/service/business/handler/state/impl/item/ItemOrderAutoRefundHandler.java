@@ -6,6 +6,7 @@ import com.eghm.enums.ref.RefundType;
 import com.eghm.model.Order;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.RefundApplyContext;
+import com.eghm.service.sys.DingTalkService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,9 @@ import org.springframework.stereotype.Service;
 @Service("itemOrderAutoRefundHandler")
 public class ItemOrderAutoRefundHandler extends ItemOrderRefundApplyHandler {
 
-    public ItemOrderAutoRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService, ItemGroupOrderService itemGroupOrderService, OrderMQService orderMQService, SysConfigApi sysConfigApi) {
-        super(orderService, orderRefundLogService, orderVisitorService, itemOrderService, itemGroupOrderService, orderMQService, sysConfigApi);
+    public ItemOrderAutoRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService,
+                                      ItemGroupOrderService itemGroupOrderService, OrderMQService orderMQService, SysConfigApi sysConfigApi, DingTalkService dingTalkService) {
+        super(orderService, orderRefundLogService, orderVisitorService, itemOrderService, itemGroupOrderService, orderMQService, sysConfigApi, dingTalkService);
     }
 
     @Override

@@ -834,9 +834,9 @@ public enum ErrorCode {
     STATE_NOT_REFUND(3161, "该订单状态不支持退款"),
 
     /**
-     * 订单退款中,请稍后再申请
+     * 订单退款中,请勿重复申请
      */
-    REFUND_STATE_INVALID(3162, "订单退款中,请稍后再申请"),
+    REFUND_STATE_INVALID(3162, "订单退款中,请勿重复申请"),
 
     /**
      * 退款人数和数量不一致

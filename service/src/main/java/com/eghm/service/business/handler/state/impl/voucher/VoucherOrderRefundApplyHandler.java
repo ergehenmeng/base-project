@@ -10,6 +10,7 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.VoucherOrderService;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundApplyHandler;
+import com.eghm.service.sys.DingTalkService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +24,9 @@ public class VoucherOrderRefundApplyHandler extends AbstractOrderRefundApplyHand
 
     private final VoucherOrderService voucherOrderService;
 
-    public VoucherOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, VoucherOrderService voucherOrderService) {
-        super(orderService, orderRefundLogService, orderVisitorService);
+    public VoucherOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService,
+                                          VoucherOrderService voucherOrderService, DingTalkService dingTalkService) {
+        super(orderService, orderRefundLogService, orderVisitorService, dingTalkService);
         this.voucherOrderService = voucherOrderService;
     }
 

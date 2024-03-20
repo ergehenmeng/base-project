@@ -16,6 +16,7 @@ import com.eghm.service.business.handler.access.impl.ItemAccessHandler;
 import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundApplyHandler;
+import com.eghm.service.sys.DingTalkService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
@@ -27,8 +28,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
-import static com.eghm.enums.ErrorCode.REFUND_AMOUNT_MAX;
-import static com.eghm.enums.ErrorCode.REFUND_DELIVERY;
+import static com.eghm.enums.ErrorCode.*;
 import static com.eghm.enums.ref.OrderState.PARTIAL_DELIVERY;
 
 /**
@@ -51,14 +51,18 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
 
     private final SysConfigApi sysConfigApi;
 
-    public ItemOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService, ItemGroupOrderService itemGroupOrderService, OrderMQService orderMQService, SysConfigApi sysConfigApi) {
-        super(orderService, orderRefundLogService, orderVisitorService);
+    private final DingTalkService dingTalkService;
+
+    public ItemOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService,
+                                       ItemGroupOrderService itemGroupOrderService, OrderMQService orderMQService, SysConfigApi sysConfigApi, DingTalkService dingTalkService) {
+        super(orderService, orderRefundLogService, orderVisitorService, dingTalkService);
         this.itemOrderService = itemOrderService;
         this.orderService = orderService;
         this.orderRefundLogService = orderRefundLogService;
         this.itemGroupOrderService = itemGroupOrderService;
         this.orderMQService = orderMQService;
         this.sysConfigApi = sysConfigApi;
+        this.dingTalkService = dingTalkService;
     }
 
     @Override
@@ -165,7 +169,9 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
      */
     protected void tryRefund(OrderRefundLog refundLog, Order order) {
         if (refundLog.getRefundAmount() > 0) {
-            TransactionUtil.afterCommit(() -> orderService.startRefund(refundLog, order));
+            TransactionUtil.afterCommit(() -> orderService.startRefund(refundLog, order), throwable -> {
+                dingTalkService.sendMsg(String.format("订单发起退款异常 %s", order.getOrderNo()));
+            });
         } else {
             log.error("退款金额为0, 直接模拟退款成功 [{}] [{}]", refundLog.getRefundNo(), refundLog.getRefundAmount());
             RefundNotifyContext context = new RefundNotifyContext();
