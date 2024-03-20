@@ -190,17 +190,17 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
     public PrepayVO rechargeScan(ScoreScanRechargeDTO dto) {
         PrepayDTO prepayDTO = new PrepayDTO();
         prepayDTO.setAmount(dto.getAmount());
+        prepayDTO.setClientIp(dto.getClientIp());
         prepayDTO.setDescription(String.format(SCORE_RECHARGE_GOOD_TITLE, DecimalUtil.centToYuan(dto.getAmount())));
         String tradeNo = this.generateRechargeNo();
         prepayDTO.setTradeNo(tradeNo);
-        // 默认按
+        // 默认传递交易单号
         prepayDTO.setAttach(tradeNo);
         if (dto.getPayChannel() == PayChannel.WECHAT) {
             prepayDTO.setTradeType(TradeType.WECHAT_NATIVE);
         } else {
             prepayDTO.setTradeType(TradeType.ALI_FACE_PAY);
         }
-        prepayDTO.setClientIp(dto.getClientIp());
         PrepayVO vo = aggregatePayService.createPrepay(prepayDTO);
         ScanRechargeLog rechargeLog = new ScanRechargeLog();
         rechargeLog.setAmount(dto.getAmount());

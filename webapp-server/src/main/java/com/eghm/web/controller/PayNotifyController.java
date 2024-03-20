@@ -2,16 +2,19 @@ package com.eghm.web.controller;
 
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.WeChatConstant;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ScanRechargeLogService;
+import com.eghm.service.business.handler.access.AbstractAccessHandler;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.cache.RedisLock;
 import com.eghm.service.pay.PayNotifyLogService;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.enums.StepType;
+import com.eghm.service.pay.enums.TradeType;
 import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
@@ -21,13 +24,11 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -124,6 +125,18 @@ public class PayNotifyController {
 
         return this.wechatResult(response, () -> redisLock.lockVoid(CacheConstant.WECHAT_REFUND_NOTIFY_LOCK + tradeNo, 10_000,
                 () -> commonService.handleRefundNotify(context)));
+    }
+
+    @PostMapping("/mockPaySuccess")
+    @ApiOperation("模拟支付成功(测试)")
+    public RespBody<Void> mockPaySuccess(@RequestParam("orderNo") String orderNo, @RequestParam("tradeNo") String tradeNo) {
+        PayNotifyContext context = new PayNotifyContext();
+        context.setOrderNo(orderNo);
+        context.setTradeNo(tradeNo);
+        context.setTradeType(TradeType.WECHAT_MINI);
+        context.setSuccessTime(LocalDateTime.now());
+        commonService.getHandler(orderNo, AbstractAccessHandler.class).paySuccess(context);
+        return RespBody.success();
     }
 
     /**
