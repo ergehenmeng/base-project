@@ -1,5 +1,6 @@
 package com.eghm.service.business.handler.state.impl.item;
 
+import cn.hutool.core.collection.CollUtil;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.exception.BusinessException;
@@ -35,7 +36,7 @@ public abstract class AbstractItemOrderPayNotifyHandler implements PayNotifyHand
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void doAction(PayNotifyContext context) {
         List<Order> orderList = orderService.selectByTradeNoList(context.getTradeNo());
-        this.before(orderList);
+        this.before(context, orderList);
         List<String> orderNoList = orderList.stream().map(Order::getOrderNo).collect(Collectors.toList());
         this.doProcess(context, orderNoList);
         this.after(context, orderList);
@@ -44,9 +45,14 @@ public abstract class AbstractItemOrderPayNotifyHandler implements PayNotifyHand
     /**
      * 订单信息校验
      *
+     * @param context 异步通知上下文
      * @param orderList 订单信息
      */
-    private void before(List<Order> orderList) {
+    private void before(PayNotifyContext context, List<Order> orderList) {
+        if (CollUtil.isEmpty(orderList)) {
+            log.error("根据交易单号未查询到订单 [{}] [{}]", context.getTradeNo(), context.getTradeType());
+            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
+        }
         for (Order order : orderList) {
             if (order.getState() != OrderState.PROGRESS && order.getState() != OrderState.UN_PAY) {
                 log.error("订单状态已更改,无须更新支付状态 [{}] [{}]", order.getOrderNo(), order.getState());

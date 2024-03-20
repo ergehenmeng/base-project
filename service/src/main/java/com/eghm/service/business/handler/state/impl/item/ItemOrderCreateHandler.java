@@ -35,6 +35,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Function;
@@ -197,7 +198,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         Integer itemAmount = this.getItemAmount(packageList, context);
         order.setBookingNo(context.getBookingNo());
         order.setBookingId(context.getBookingId());
-
+        order.setCreateDate(LocalDate.now());
+        order.setCreateTime(LocalDateTime.now());
         Integer payAmount = itemAmount + expressAmount;
         if (scoreAmount <= 0) {
             order.setPayAmount(payAmount);
