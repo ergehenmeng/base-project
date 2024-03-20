@@ -139,6 +139,17 @@ public class PayNotifyController {
         return RespBody.success();
     }
 
+    @PostMapping("/mockRefundSuccess")
+    @ApiOperation("模拟退款成功(测试)")
+    public RespBody<Void> mockRefundSuccess(@RequestParam("tradeNo") String tradeNo, @RequestParam("refundNo") String refundNo) {
+        RefundNotifyContext context = new RefundNotifyContext();
+        context.setTradeNo(tradeNo);
+        context.setRefundNo(refundNo);
+        context.setSuccessTime(LocalDateTime.now());
+        commonService.getHandler(tradeNo, AbstractAccessHandler.class).refundSuccess(context);
+        return RespBody.success();
+    }
+
     /**
      * 支付回调业务处理
      *
