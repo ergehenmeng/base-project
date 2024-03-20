@@ -216,6 +216,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         dto.setAmount(log.getRefundAmount());
         dto.setTradeType(TradeType.valueOf(order.getPayType().name()));
         dto.setOrderNo(order.getOrderNo());
+        dto.setTotal(order.getPayAmount());
         aggregatePayService.applyRefund(dto);
     }
 
