@@ -144,7 +144,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     protected void end(TicketOrderCreateContext context, TicketOrderPayload payload, Order order) {
         if (order.getPayAmount() <= 0) {
             log.info("订单是零元购商品,订单号:{}", order.getOrderNo());
-            orderService.paySuccess(order.getOrderNo(), order.getProductType().generateVerifyNo(), OrderState.UN_USED, order.getState());
+            orderService.paySuccess(order.getOrderNo(), order.getProductType().generateVerifyNo(), LocalDateTime.now(), OrderState.UN_USED, order.getState());
             orderVisitorService.updateVisitor(order.getOrderNo(), VisitorState.PAID);
         } else {
             orderMQService.sendOrderExpireMessage(ExchangeQueue.TICKET_PAY_EXPIRE, order.getOrderNo());

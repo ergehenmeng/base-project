@@ -47,7 +47,7 @@ public abstract class AbstractOrderPaySuccessHandler implements PayNotifyHandler
      * @param order 订单信息
      */
     protected void doProcess(PayNotifyContext context, Order order) {
-        orderService.paySuccess(order.getOrderNo(), order.getProductType().generateVerifyNo(), OrderState.UN_USED, OrderState.of(context.getFrom()));
+        orderService.paySuccess(order.getOrderNo(), order.getProductType().generateVerifyNo(), context.getSuccessTime(), OrderState.UN_USED, OrderState.of(context.getFrom()));
     }
 
     /**

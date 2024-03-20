@@ -16,6 +16,7 @@ import com.eghm.vo.business.order.item.ExpressDetailVO;
 import com.eghm.vo.business.order.item.ItemOrderRefundVO;
 import com.eghm.vo.business.statistics.OrderStatisticsVO;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -112,10 +113,11 @@ public interface OrderService extends IService<Order> {
      * 更新订单状态, 注意更新订单状态时,订单当前状态必须在旧状态中
      *
      * @param orderNoList 订单列表
+     * @param payTime  只有支付成功的状态此字段才不为空
      * @param newState    新状态
      * @param oldState    旧状态
      */
-    void updateState(List<String> orderNoList, OrderState newState, Object... oldState);
+    void updateState(List<String> orderNoList, LocalDateTime payTime, OrderState newState, Object... oldState);
 
     /**
      * 更新订单状态, 注意更新订单状态时,订单当前状态必须在旧状态中- 重载方法
@@ -131,10 +133,11 @@ public interface OrderService extends IService<Order> {
      *
      * @param orderNo  订单编号
      * @param verifyNo 核销码
+     * @param payTime  支付成功时间
      * @param newState 成功状态
      * @param oldState 上一个节点的状态
      */
-    void paySuccess(String orderNo, String verifyNo, OrderState newState, Object... oldState);
+    void paySuccess(String orderNo, String verifyNo, LocalDateTime payTime, OrderState newState, Object... oldState);
 
     /**
      * 核销码解码

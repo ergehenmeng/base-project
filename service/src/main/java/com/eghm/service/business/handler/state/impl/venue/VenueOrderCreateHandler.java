@@ -172,7 +172,7 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
     protected void end(VenueOrderCreateContext context, VenueOrderPayload payload, Order order) {
         if (order.getPayAmount() <= 0) {
             log.info("场馆预约免费,订单号:{}", order.getOrderNo());
-            orderService.paySuccess(order.getOrderNo(), order.getProductType().generateVerifyNo(), OrderState.UN_USED, order.getState());
+            orderService.paySuccess(order.getOrderNo(), order.getProductType().generateVerifyNo(), LocalDateTime.now(), OrderState.UN_USED, order.getState());
         } else {
             orderMQService.sendOrderExpireMessage(ExchangeQueue.VENUE_PAY_EXPIRE, order.getOrderNo());
         }

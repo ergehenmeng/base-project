@@ -54,7 +54,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
 
     @Override
     protected void doProcess(PayNotifyContext context, List<String> orderNoList) {
-        orderService.updateState(orderNoList, OrderState.UN_USED, OrderState.UN_PAY, OrderState.PROGRESS);
+        orderService.updateState(orderNoList, context.getSuccessTime(), OrderState.UN_USED, OrderState.UN_PAY, OrderState.PROGRESS);
         itemService.updateSaleNum(orderNoList);
     }
 

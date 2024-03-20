@@ -220,7 +220,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public void updateState(List<String> orderNoList, OrderState newState, Object... oldState) {
+    public void updateState(List<String> orderNoList, LocalDateTime payTime, OrderState newState, Object... oldState) {
         if (CollUtil.isEmpty(orderNoList)) {
             log.error("订单号为空, 无法更新订单状态 [{}]", newState);
         }
@@ -228,6 +228,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         wrapper.in(Order::getOrderNo, orderNoList);
         wrapper.in(oldState.length > 0, Order::getState, oldState);
         wrapper.set(Order::getState, newState);
+        wrapper.set(Order::getPayTime, payTime);
         int update = baseMapper.update(null, wrapper);
         if (update != orderNoList.size()) {
             log.warn("订单状态更新数据不一致 [{}] [{}] [{}]", orderNoList, newState, oldState);
@@ -236,15 +237,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public void updateState(String orderNo, OrderState newState, Object... oldState) {
-        this.updateState(Lists.newArrayList(orderNo), newState, oldState);
+        this.updateState(Lists.newArrayList(orderNo), null, newState, oldState);
     }
 
     @Override
-    public void paySuccess(String orderNo, String verifyNo, OrderState newState, Object... oldState) {
+    public void paySuccess(String orderNo, String verifyNo, LocalDateTime payTime, OrderState newState, Object... oldState) {
         LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Order::getOrderNo, orderNo);
         wrapper.in(oldState.length > 0, Order::getState, oldState);
         wrapper.set(Order::getState, newState);
+        wrapper.set(Order::getPayTime, payTime);
         wrapper.set(Order::getVerifyNo, verifyNo);
         int update = baseMapper.update(null, wrapper);
         if (update != 1) {
