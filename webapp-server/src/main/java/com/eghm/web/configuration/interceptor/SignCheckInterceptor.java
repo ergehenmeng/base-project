@@ -40,6 +40,44 @@ public class SignCheckInterceptor implements InterceptorAdapter {
 
     private final CacheProxyService cacheProxyService;
 
+    @Override
+    public boolean beforeHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
+        SignCheck check = this.getAnnotation(handler, SignCheck.class);
+        if (check == null || !HttpMethod.POST.matches(request.getMethod())) {
+            return true;
+        }
+        RequestMessage message = ApiHolder.get();
+        if (StrUtil.isBlank(message.getAppKey()) || StrUtil.isBlank(message.getSignature()) || StrUtil.isBlank(message.getTimestamp())) {
+            log.warn("请求头签名信息不全 [{}] [{}] [{}]", message.getAppKey(), message.getSignature(), message.getTimestamp());
+            WebUtil.printJson(response, ErrorCode.SIGNATURE_ERROR);
+            return false;
+        }
+        long timestamp = Long.parseLong(message.getTimestamp());
+        long interval = Math.abs(System.currentTimeMillis() - timestamp);
+        if (interval > CommonConstant.MAX_SIGN_EXPIRE) {
+            log.warn("签名信息已过期 [{}] [{}]", timestamp, interval);
+            WebUtil.printJson(response, ErrorCode.SIGNATURE_EXPIRE);
+            return false;
+        }
+        AuthConfigVO config = cacheProxyService.getByAppKey(message.getAppKey());
+        if (config == null) {
+            log.warn("本地未查询到指定的签名信息 [{}]", message.getAppKey());
+            WebUtil.printJson(response, ErrorCode.SIGNATURE_VERIFY_ERROR);
+            return false;
+        }
+        if (config.getExpireDate() == null || LocalDate.now().isAfter(config.getExpireDate())) {
+            log.warn("签名信息已过有效期 [{}] [{}]", message.getAppKey(), config.getExpireDate());
+            WebUtil.printJson(response, ErrorCode.SIGNATURE_TIMESTAMP_ERROR);
+            return false;
+        }
+        if (check.value() == SignType.MD5) {
+            md5SignVerify(config.getPrivateKey(), message.getRequestParam(), message.getTimestamp(), message.getSignature());
+        } else {
+            rsaSignVerify(config.getPublicKey(), config.getPrivateKey(), message.getRequestParam(), message.getTimestamp(), message.getSignature());
+        }
+        return true;
+    }
+
     /**
      * md5生成签名信息
      *
@@ -80,43 +118,4 @@ public class SignCheckInterceptor implements InterceptorAdapter {
             throw new BusinessException(ErrorCode.SIGNATURE_VERIFY_ERROR);
         }
     }
-
-    @Override
-    public boolean beforeHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        SignCheck check = this.getAnnotation(handler, SignCheck.class);
-        if (check == null || !HttpMethod.POST.matches(request.getMethod())) {
-            return true;
-        }
-        RequestMessage message = ApiHolder.get();
-        if (StrUtil.isBlank(message.getAppKey()) || StrUtil.isBlank(message.getSignature()) || StrUtil.isBlank(message.getTimestamp())) {
-            log.warn("请求头签名信息不全 [{}] [{}] [{}]", message.getAppKey(), message.getSignature(), message.getTimestamp());
-            WebUtil.printJson(response, ErrorCode.SIGNATURE_ERROR);
-            return false;
-        }
-        long timestamp = Long.parseLong(message.getTimestamp());
-        long interval = Math.abs(System.currentTimeMillis() - timestamp);
-        if (interval > CommonConstant.MAX_SIGN_EXPIRE) {
-            log.warn("签名信息已过期 [{}] [{}]", timestamp, interval);
-            WebUtil.printJson(response, ErrorCode.SIGNATURE_EXPIRE);
-            return false;
-        }
-        AuthConfigVO config = cacheProxyService.getByAppKey(message.getAppKey());
-        if (config == null) {
-            log.warn("本地未查询到指定的签名信息 [{}]", message.getAppKey());
-            WebUtil.printJson(response, ErrorCode.SIGNATURE_VERIFY_ERROR);
-            return false;
-        }
-        if (config.getExpireDate() == null || LocalDate.now().isAfter(config.getExpireDate())) {
-            log.warn("签名信息已过有效期 [{}] [{}]", message.getAppKey(), config.getExpireDate());
-            WebUtil.printJson(response, ErrorCode.SIGNATURE_TIMESTAMP_ERROR);
-            return false;
-        }
-        if (check.value() == SignType.MD5) {
-            md5SignVerify(config.getPrivateKey(), message.getRequestParam(), message.getTimestamp(), message.getSignature());
-        } else {
-            rsaSignVerify(config.getPublicKey(), config.getPrivateKey(), message.getRequestParam(), message.getTimestamp(), message.getSignature());
-        }
-        return true;
-    }
-
 }

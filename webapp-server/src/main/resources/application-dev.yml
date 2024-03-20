@@ -44,6 +44,12 @@ system:
     notify-host: https://localhost:8080
   wechat:
     notify-host: https://localhost:8080
+    pay-api-v3-key: Jg80cljsz9rISpkuLbsptZ0TVHksWtzz
+    pay-merchant-id: 1651223767
+    pay-serial-no: 68C83445D1086FB3A0AF907F74501D069A341FAD
+    pay-app-id: wx063cedda4964f788
+    pay-private-key-path: classpath:client_key.pem
+    pay-private-cert-path: classpath:client_cert.pem
   platform-merchant-id: 1707294309829128194
   api:
     mock-token: d3df31f547654e2185be6dccbd155700

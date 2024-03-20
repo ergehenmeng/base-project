@@ -31,7 +31,7 @@ public enum TicketEvent implements IEvent {
     /**
      * 支付成功(订单已取消时,如果支付已经发起依旧可以支付成功)
      */
-    PAY_SUCCESS(Lists.newArrayList(OrderState.CLOSE.getValue(), OrderState.PROGRESS.getValue()), OrderState.UN_USED.getValue()),
+    PAY_SUCCESS(Lists.newArrayList(OrderState.UN_PAY.getValue(), OrderState.CLOSE.getValue(), OrderState.PROGRESS.getValue()), OrderState.UN_USED.getValue()),
 
     /**
      * 退款申请

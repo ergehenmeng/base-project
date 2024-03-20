@@ -3,17 +3,20 @@ package com.eghm.web.controller;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.WeChatConstant;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ScanRechargeLogService;
 import com.eghm.service.business.handler.access.AbstractAccessHandler;
+import com.eghm.service.business.handler.access.AccessHandler;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.cache.RedisLock;
 import com.eghm.service.pay.PayNotifyLogService;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.enums.StepType;
+import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
 import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
@@ -129,13 +132,14 @@ public class PayNotifyController {
 
     @PostMapping("/mockPaySuccess")
     @ApiOperation("模拟支付成功(测试)")
-    public RespBody<Void> mockPaySuccess(@RequestParam("orderNo") String orderNo, @RequestParam("tradeNo") String tradeNo) {
+    public RespBody<Void> mockPaySuccess(@RequestParam String orderNo, @RequestParam String tradeNo) {
         PayNotifyContext context = new PayNotifyContext();
         context.setOrderNo(orderNo);
         context.setTradeNo(tradeNo);
         context.setTradeType(TradeType.WECHAT_MINI);
         context.setSuccessTime(LocalDateTime.now());
-        commonService.getHandler(orderNo, AbstractAccessHandler.class).paySuccess(context);
+        context.setFrom(OrderState.UN_PAY.getValue());
+        ((AbstractAccessHandler)commonService.getHandler(tradeNo, AccessHandler.class)).paySuccess(context);
         return RespBody.success();
     }
 
@@ -146,7 +150,8 @@ public class PayNotifyController {
         context.setTradeNo(tradeNo);
         context.setRefundNo(refundNo);
         context.setSuccessTime(LocalDateTime.now());
-        commonService.getHandler(tradeNo, AbstractAccessHandler.class).refundSuccess(context);
+        context.setFrom(OrderState.REFUND.getValue());
+        ((AbstractAccessHandler)commonService.getHandler(tradeNo, AccessHandler.class)).refundSuccess(context);
         return RespBody.success();
     }
 
