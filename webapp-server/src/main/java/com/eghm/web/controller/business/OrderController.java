@@ -190,7 +190,7 @@ public class OrderController {
         RefundApplyContext context = new RefundApplyContext();
         context.setNum(1);
         context.setOrderNo(dto.getOrderNo());
-        context.setRefundAmount(dto.getApplyAmount());
+        context.setRefundAmount(dto.getRefundAmount());
         context.setMemberId(ApiHolder.getMemberId());
         venueAccessHandler.refundApply(context);
         return RespBody.success();
