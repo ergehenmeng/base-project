@@ -30,7 +30,7 @@ public class TicketRefundApplyDTO {
     @ApiModelProperty(value = "申请退款金额", required = true)
     @RangeInt(max = 5000000, message = "退款金额应小于50000元")
     @JsonDeserialize(using = YuanToCentDecoder.class)
-    private Integer applyAmount;
+    private Integer refundAmount;
 
     @ApiModelProperty("退款游客id")
     private List<Long> visitorIds;

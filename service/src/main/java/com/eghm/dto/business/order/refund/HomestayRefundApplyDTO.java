@@ -23,7 +23,7 @@ public class HomestayRefundApplyDTO {
     @ApiModelProperty(value = "申请退款金额", required = true)
     @RangeInt(min = 1, max = 5000000, message = "退款金额不合法")
     @JsonDeserialize(using = YuanToCentDecoder.class)
-    private Integer applyAmount;
+    private Integer refundAmount;
 
     @ApiModelProperty("退款游客id")
     private List<Long> visitorIds;

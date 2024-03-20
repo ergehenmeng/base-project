@@ -84,7 +84,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         }
         ItemOrderRefundVO refund = orderService.getItemRefund(context.getItemOrderId(), context.getMemberId(), false);
         int totalAmount = refund.getRefundAmount() + refund.getExpressFeeAmount();
-        if (totalAmount != context.getApplyAmount()) {
+        if (totalAmount != context.getRefundAmount()) {
             throw new BusinessException(REFUND_AMOUNT_MAX.getCode(), String.format(REFUND_AMOUNT_MAX.getMsg(), DecimalUtil.centToYuan(totalAmount)));
         }
         context.setExpressFee(refund.getExpressFeeAmount());
@@ -100,7 +100,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         OrderRefundLog refundLog = DataUtil.copy(context, OrderRefundLog.class);
         refundLog.setExpressFee(context.getExpressFee());
         refundLog.setItemOrderId(itemOrder.getId());
-        refundLog.setRefundAmount(context.getApplyAmount());
+        refundLog.setRefundAmount(context.getRefundAmount());
         refundLog.setMerchantId(order.getMerchantId());
         refundLog.setApplyTime(LocalDateTime.now());
         refundLog.setNum(itemOrder.getNum());
@@ -122,7 +122,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         orderRefundLogService.insert(refundLog);
 
         order.setRefundState(RefundState.PROGRESS);
-        order.setRefundAmount(order.getRefundAmount() + context.getApplyAmount());
+        order.setRefundAmount(order.getRefundAmount() + context.getRefundAmount());
         orderService.updateById(order);
 
         itemOrderService.updateById(itemOrder);

@@ -76,7 +76,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
             refundLog.setAuditRemark("系统自动审核");
             refundLog.setRefundNo(order.getProductType().generateTradeNo());
             order.setRefundState(RefundState.PROGRESS);
-            order.setRefundAmount(order.getRefundAmount() + context.getApplyAmount());
+            order.setRefundAmount(order.getRefundAmount() + context.getRefundAmount());
             this.startRefund(refundLog, order);
         }
         orderService.updateById(order);
@@ -144,7 +144,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
      */
     protected void checkRefundAmount(RefundApplyContext context, Order order) {
         int totalAmount = order.getPrice() * context.getNum();
-        if (totalAmount < context.getApplyAmount()) {
+        if (totalAmount < context.getRefundAmount()) {
             throw new BusinessException(REFUND_AMOUNT_MAX.getCode(), String.format(REFUND_AMOUNT_MAX.getMsg(), DecimalUtil.centToYuan(totalAmount)));
         }
     }

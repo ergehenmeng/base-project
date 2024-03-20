@@ -19,15 +19,11 @@ import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.common.SmsService;
 import com.eghm.service.sys.DingTalkService;
 import com.eghm.state.machine.StateHandler;
-import com.eghm.utils.AssertUtil;
 import com.eghm.vo.business.group.GroupOrderCancelVO;
-import com.eghm.vo.business.order.item.ItemOrderRefundVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -93,7 +89,7 @@ public class OrderProxyServiceImpl implements OrderProxyService {
             context.setVisitorIds(visitorIds);
             context.setApplyType(1);
             context.setReason(request.getRemark());
-            context.setApplyAmount(order.getPayAmount());
+            context.setRefundAmount(order.getPayAmount());
             context.setOrderNo(request.getOrderNo());
             stateHandler.fireEvent(ProductType.HOMESTAY, order.getState().getValue(), HomestayEvent.CONFIRM_ROOM, context);
             // 发送短信通知
@@ -119,7 +115,7 @@ public class OrderProxyServiceImpl implements OrderProxyService {
             context.setMemberId(itemOrder.getMemberId());
             context.setNum(itemOrder.getNum());
             context.setItemOrderId(itemOrder.getId());
-            context.setApplyAmount(itemOrder.getSalePrice() * itemOrder.getNum() + itemOrder.getExpressFee());
+            context.setRefundAmount(itemOrder.getSalePrice() * itemOrder.getNum() + itemOrder.getExpressFee());
             context.setApplyType(1);
             context.setReason("系统退款");
             context.setOrderNo(orderNo);

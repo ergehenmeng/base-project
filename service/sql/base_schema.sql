@@ -1283,7 +1283,6 @@ CREATE TABLE `order_refund_log`
     `refund_no`     varchar(50)  DEFAULT NULL COMMENT '退款流水号',
     `num`           smallint(2)  DEFAULT '1' COMMENT '退款数量',
     `item_order_id` bigint(20)   DEFAULT NULL COMMENT '零售退款订单id',
-    `apply_amount`  int(10)      DEFAULT '0' COMMENT '申请退款金额(含运费)',
     `refund_amount` int(10)      DEFAULT '0' COMMENT '实际退款金额(总退款金额)',
     `express_fee`   int(10)      DEFAULT '0' COMMENT '退款运费',
     `score_amount`  int(10)      DEFAULT '0' COMMENT '退款积分',

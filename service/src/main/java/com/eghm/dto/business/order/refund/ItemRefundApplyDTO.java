@@ -27,7 +27,7 @@ public class ItemRefundApplyDTO {
     @ApiModelProperty(value = "申请退款金额(含快递费)", required = true)
     @RangeInt(max = 5000000, message = "退款金额不合法")
     @JsonDeserialize(using = YuanToCentDecoder.class)
-    private Integer applyAmount;
+    private Integer refundAmount;
 
     @ApiModelProperty(value = "退款原因", required = true)
     private String reason;
