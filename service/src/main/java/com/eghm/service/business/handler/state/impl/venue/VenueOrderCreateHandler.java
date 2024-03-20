@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -128,6 +129,9 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
         order.setMultiple(false);
         order.setProductType(ProductType.VENUE);
         order.setRefundType(RefundType.DIRECT_REFUND);
+        order.setCreateDate(LocalDate.now());
+        order.setCreateTime(LocalDateTime.now());
+
         // 使用优惠券
         this.useDiscount(order, context.getMemberId(), context.getCouponId(), venue.getId());
         // 使用cdKey

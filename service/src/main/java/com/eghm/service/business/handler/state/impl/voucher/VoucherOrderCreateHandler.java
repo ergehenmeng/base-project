@@ -21,6 +21,9 @@ import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  * @author 二哥很猛
  * @since 2022/8/24
@@ -88,6 +91,8 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
         order.setMultiple(false);
         order.setProductType(ProductType.RESTAURANT);
         order.setRefundType(RefundType.DIRECT_REFUND);
+        order.setCreateDate(LocalDate.now());
+        order.setCreateTime(LocalDateTime.now());
         // 使用优惠券
         this.useDiscount(order, context.getMemberId(), context.getCouponId(), voucher.getId());
         // 校验最低金额
