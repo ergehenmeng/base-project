@@ -146,10 +146,6 @@ public abstract class AbstractOrderRefundAuditHandler implements RefundAuditHand
             log.error("该笔订单未发起退款,无法进行审核操作 [{}] [{}]", context.getOrderNo(), order.getState());
             throw new BusinessException(ErrorCode.NO_REFUND_STATE);
         }
-        if (order.getRefundState() != RefundState.APPLY) {
-            log.error("退款状态已审核 无须重复操作 [{}] [{}]", order.getId(), order.getRefundState());
-            throw new BusinessException(REFUND_AUDITED);
-        }
         if (refundLog.getAuditState() != AuditState.APPLY) {
             log.error("退款记录状态已更新 [{}] [{}] ", refundLog.getId(), refundLog.getAuditState());
             throw new BusinessException(REFUND_AUDITED);

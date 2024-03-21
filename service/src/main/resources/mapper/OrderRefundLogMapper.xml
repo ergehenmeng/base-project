@@ -33,7 +33,7 @@
             r.cover_url,
             t.order_no,
             t.num,
-            t.apply_amount,
+            t.refund_amount,
             t.express_fee,
             t.reason,
             t.state,

@@ -32,7 +32,7 @@ public class RefundLogResponse {
 
     @ApiModelProperty(value = "申请退款金额(含快递费)")
     @JsonSerialize(using = CentToYuanEncoder.class)
-    private Integer applyAmount;
+    private Integer refundAmount;
 
     @ApiModelProperty("退款快递费")
     @JsonSerialize(using = CentToYuanEncoder.class)
