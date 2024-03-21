@@ -13,7 +13,7 @@ import java.time.LocalDate;
  * @author 二哥很猛
  */
 @Data
-@TableName("member")
+@TableName("`member`")
 @EqualsAndHashCode(callSuper = true)
 public class Member extends BaseEntity {
 

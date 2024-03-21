@@ -17,7 +17,7 @@
         t.channel,
         t.avatar,
         t.create_time
-        from member t where t.deleted = false
+        from `member` t where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
             and (
                 t.nick_name like concat('%', #{param.queryName}, '%') or
@@ -48,23 +48,23 @@
     <select id="registerStatistics" resultType="integer">
         select
             count(id)
-        from member where deleted = false and create_time &gt; #{startDate} and create_time &lt;= #{endDate}
+        from `member` where deleted = false and create_time &gt; #{startDate} and create_time &lt;= #{endDate}
     </select>
 
     <select id="dayRegister" resultType="com.eghm.vo.business.statistics.MemberRegisterVO">
         select
             create_date,
             count(id) as registerNum
-        from member where deleted = false and create_time &gt;= #{startDate} and create_time &lt; #{endDate}
+        from `member` where deleted = false and create_time &gt;= #{startDate} and create_time &lt; #{endDate}
         group by create_date
     </select>
 
     <update id="updateScore">
-        update member set score = score + #{score} where id = #{memberId} and score + #{score} &gt; 0
+        update `member` set score = score + #{score} where id = #{memberId} and score + #{score} &gt; 0
     </update>
 
     <select id="getMemberIds" resultType="java.lang.Long" parameterType="com.eghm.model.MemberTag">
-        select id from member where deleted = false
+        select id from `member` where deleted = false
         <if test="channel != null">
             and channel = #{channel}
         </if>
@@ -80,7 +80,7 @@
     </select>
 
     <select id="getMobile" resultType="java.lang.String">
-        select distinct mobile from member where deleted = false and id in
+        select distinct mobile from `member` where deleted = false and id in
         <foreach collection="memberIds" item="item" open="(" close=")" separator=",">
             #{item}
         </foreach>
