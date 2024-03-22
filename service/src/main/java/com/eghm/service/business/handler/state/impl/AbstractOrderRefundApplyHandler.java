@@ -10,17 +10,16 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.business.handler.state.RefundApplyHandler;
-import com.eghm.service.sys.DingTalkService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
-import com.eghm.utils.TransactionUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-import static com.eghm.enums.ErrorCode.*;
+import static com.eghm.enums.ErrorCode.REFUND_AMOUNT_MAX;
+import static com.eghm.enums.ErrorCode.TOTAL_REFUND_MAX_NUM;
 import static com.eghm.enums.ref.OrderState.PARTIAL_DELIVERY;
 
 /**
@@ -38,8 +37,6 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
     private final OrderRefundLogService orderRefundLogService;
 
     private final OrderVisitorService orderVisitorService;
-
-    private final DingTalkService dingTalkService;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
@@ -77,22 +74,11 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
             refundLog.setRefundNo(order.getProductType().generateTradeNo());
             order.setRefundState(RefundState.PROGRESS);
             order.setRefundAmount(order.getRefundAmount() + context.getRefundAmount());
-            this.startRefund(refundLog, order);
+            orderService.startRefund(refundLog, order);
         }
         orderService.updateById(order);
         orderRefundLogService.insert(refundLog);
         return refundLog;
-    }
-
-    /**
-     * 发起真实退款流程(微信或支付宝)
-     *
-     * @param refundLog 支付流水记录
-     * @param order 订单编号
-     */
-    protected void startRefund(OrderRefundLog refundLog, Order order) {
-        TransactionUtil.afterCommit(() -> orderService.startRefund(refundLog, order),
-                throwable -> dingTalkService.sendMsg(String.format("订单发起退款异常 %s", order.getOrderNo())));
     }
 
     /**

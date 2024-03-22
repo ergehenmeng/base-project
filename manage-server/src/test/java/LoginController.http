@@ -1,3 +1,4 @@
+### 管理员
 POST localhost:8080/manage/login
 Content-Type: application/json
 
@@ -7,7 +8,7 @@ Content-Type: application/json
   "verifyCode": "123"
 }
 
-###
+### 全能小店
 
 POST localhost:8080/manage/login
 Content-Type: application/json
@@ -18,7 +19,7 @@ Content-Type: application/json
 "verifyCode": "123"
 }
 
-###
+### 零售店铺
 
 POST localhost:8080/manage/login
 Content-Type: application/json

@@ -11,7 +11,6 @@ import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.VenueOrderService;
 import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundApplyHandler;
-import com.eghm.service.sys.DingTalkService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +29,8 @@ public class VenueOrderRefundApplyHandler extends AbstractOrderRefundApplyHandle
     private final VenueOrderService venueOrderService;
 
     public VenueOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService,
-                                        VenueOrderService venueOrderService, DingTalkService dingTalkService) {
-        super(orderService, orderRefundLogService, orderVisitorService, dingTalkService);
+                                        VenueOrderService venueOrderService) {
+        super(orderService, orderRefundLogService, orderVisitorService);
         this.orderService = orderService;
         this.venueOrderService = venueOrderService;
     }

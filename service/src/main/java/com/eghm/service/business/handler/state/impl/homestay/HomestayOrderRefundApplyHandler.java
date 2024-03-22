@@ -7,7 +7,6 @@ import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundApplyHandler;
-import com.eghm.service.sys.DingTalkService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +18,9 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class HomestayOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler {
 
-    public HomestayOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, DingTalkService dingTalkService) {
-        super(orderService, orderRefundLogService, orderVisitorService, dingTalkService);
+    public HomestayOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
+                                           OrderVisitorService orderVisitorService) {
+        super(orderService, orderRefundLogService, orderVisitorService);
     }
 
     @Override

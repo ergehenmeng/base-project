@@ -13,7 +13,6 @@ import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.TicketOrderService;
 import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundApplyHandler;
-import com.eghm.service.sys.DingTalkService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +29,8 @@ public class TicketOrderRefundApplyHandler extends AbstractOrderRefundApplyHandl
     private final OrderVisitorService orderVisitorService;
 
     public TicketOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService,
-                                         TicketOrderService ticketOrderService, DingTalkService dingTalkService) {
-        super(orderService, orderRefundLogService, orderVisitorService, dingTalkService);
+                                         TicketOrderService ticketOrderService) {
+        super(orderService, orderRefundLogService, orderVisitorService);
         this.ticketOrderService = ticketOrderService;
         this.orderVisitorService = orderVisitorService;
     }
