@@ -52,6 +52,11 @@
         update scenic_ticket set stock = stock + #{num}, sale_num = sale_num - #{num}, total_num = total_num - #{num}
         where id = #{id} and stock + #{num} &gt;= 0 and deleted = false
     </update>
+
+    <update id="releaseStock">
+        update scenic_ticket t, ticket_order r set t.stock = t.stock + #{num}
+        where t.id = r.ticket_id and r.order_no = #{orderNo}
+    </update>
     
     <select id="calcPrice" resultType="com.eghm.vo.business.scenic.ticket.TicketPriceVO">
         select IFNULL(min(sale_price),0) as minPrice, IFNULL(max(sale_price),0) as maxPrice from scenic_ticket where scenic_id = #{scenicId} and deleted = false

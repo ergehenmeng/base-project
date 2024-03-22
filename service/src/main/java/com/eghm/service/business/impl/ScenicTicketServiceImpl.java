@@ -123,6 +123,11 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     }
 
     @Override
+    public void releaseStock(String orderNo, Integer num) {
+        scenicTicketMapper.releaseStock(orderNo, num);
+    }
+
+    @Override
     public void deleteById(Long id) {
         ScenicTicket ticket = scenicTicketMapper.selectById(id);
         if (ticket != null) {

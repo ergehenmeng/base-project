@@ -80,6 +80,14 @@ public interface ScenicTicketService {
     void updateStock(Long id, Integer num);
 
     /**
+     * 释放门票库存信息
+     *
+     * @param orderNo 订单编号
+     * @param num 释放多少张
+     */
+    void releaseStock(String orderNo, Integer num);
+
+    /**
      * 删除门票
      *
      * @param id id

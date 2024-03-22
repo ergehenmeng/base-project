@@ -52,6 +52,14 @@ public interface ScenicTicketMapper extends BaseMapper<ScenicTicket> {
     int updateStock(@Param("id") Long id, @Param("num") int num);
 
     /**
+     * 释放库存
+     *
+     * @param orderNo 订单编号
+     * @param num 库存
+     */
+    void releaseStock(@Param("orderNo") String orderNo, @Param("num") Integer num);
+
+    /**
      * 计算景区最低价和最高价
      *
      * @param scenicId 景区id

@@ -8,7 +8,6 @@ import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.VisitorState;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.model.TicketOrder;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundNotifyHandler;
@@ -24,8 +23,6 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class TicketOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandler {
 
-    private final TicketOrderService ticketOrderService;
-
     private final ScenicTicketService scenicTicketService;
 
     private final OrderVisitorService orderVisitorService;
@@ -33,11 +30,9 @@ public class TicketOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHan
     private final OrderMQService orderMQService;
 
     public TicketOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
-                                          VerifyLogService verifyLogService, TicketOrderService ticketOrderService,
-                                          ScenicTicketService scenicTicketService, OrderVisitorService orderVisitorService,
+                                          VerifyLogService verifyLogService, ScenicTicketService scenicTicketService, OrderVisitorService orderVisitorService,
                                           OrderMQService orderMQService, AccountService accountService) {
         super(orderService, accountService, orderRefundLogService, verifyLogService);
-        this.ticketOrderService = ticketOrderService;
         this.scenicTicketService = scenicTicketService;
         this.orderVisitorService = orderVisitorService;
         this.orderMQService = orderMQService;
@@ -48,12 +43,7 @@ public class TicketOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHan
         super.after(context, order, refundLog, refundStatus);
         if (refundStatus == RefundStatus.SUCCESS || refundStatus == RefundStatus.REFUND_SUCCESS) {
             orderVisitorService.refundVisitor(order.getOrderNo(), refundLog.getId(), VisitorState.REFUND);
-            try {
-                TicketOrder ticketOrder = ticketOrderService.getByOrderNo(order.getOrderNo());
-                scenicTicketService.updateStock(ticketOrder.getScenicId(), refundLog.getNum());
-            } catch (Exception e) {
-                log.error("门票退款成功,但更新库存失败 [{}] [{}] ", context, refundLog.getNum(), e);
-            }
+            scenicTicketService.releaseStock(order.getOrderNo(), refundLog.getNum());
         }
         if (order.getState() == OrderState.COMPLETE) {
             orderMQService.sendOrderCompleteMessage(ExchangeQueue.TICKET_COMPLETE_DELAY, order.getOrderNo());
