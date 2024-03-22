@@ -106,11 +106,11 @@ public class AliPayServiceImpl implements PayService {
                     .refund(dto.getTradeNo(), DecimalUtil.centToYuan(dto.getAmount()));
         } catch (Exception e) {
             log.error("支付宝退款申请发起失败 [{}]", dto, e);
-            throw new BusinessException(ErrorCode.REFUND_APPLY);
+            throw new BusinessException(ErrorCode.ALI_REFUND_APPLY);
         }
         if (StrUtil.isNotBlank(response.getSubCode())) {
             log.error("支付宝退款申请响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
-            throw new BusinessException(ErrorCode.REFUND_APPLY);
+            throw new BusinessException(ErrorCode.ALI_REFUND_APPLY);
         }
         RefundVO vo = new RefundVO();
         vo.setChannel(RefundChannel.ORIGINAL);
@@ -128,11 +128,11 @@ public class AliPayServiceImpl implements PayService {
             response = Factory.Payment.Common().optional("query_options", Lists.newArrayList("gmt_refund_pay", "refund_detail_item_list")).queryRefund(tradeNo, refundNo);
         } catch (Exception e) {
             log.error("支付宝退款状态查询失败 [{}] [{}]", tradeNo, refundNo, e);
-            throw new BusinessException(ErrorCode.REFUND_APPLY);
+            throw new BusinessException(ErrorCode.REFUND_QUERY);
         }
         if (StrUtil.isNotBlank(response.getSubCode())) {
             log.error("支付宝退款状态查询响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
-            throw new BusinessException(ErrorCode.REFUND_APPLY);
+            throw new BusinessException(ErrorCode.REFUND_QUERY);
         }
         RefundVO vo = new RefundVO();
         vo.setSuccessTime(DateUtil.parseLocalDateTime(response.getGmtRefundPay()));

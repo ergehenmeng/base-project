@@ -138,7 +138,7 @@ public class WechatPayServiceImpl implements PayService {
             result = wxPayService.refundV3(request);
         } catch (Exception e) {
             log.error("微信退款申请失败 [{}]", dto.getRefundNo(), e);
-            throw new BusinessException(ErrorCode.REFUND_APPLY);
+            throw new BusinessException(ErrorCode.WECHAT_REFUND_APPLY);
         }
         return this.getRefundVO(result.getAmount().getPayerRefund(), result.getStatus(), result.getChannel(), result.getUserReceivedAccount(), result.getSuccessTime(), result.getCreateTime());
     }

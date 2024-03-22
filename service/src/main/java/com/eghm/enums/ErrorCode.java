@@ -601,12 +601,17 @@ public enum ErrorCode {
     /**
      * 支付订单创建失败
      */
-    PAY_ORDER_ERROR(3112, "支付订单创建失败"),
+    PAY_ORDER_ERROR(3110, "支付订单创建失败"),
 
     /**
-     * 退款申请失败
+     * 微信退款申请失败
      */
-    REFUND_APPLY(3112, "退款申请失败"),
+    WECHAT_REFUND_APPLY(3112, "微信退款申请失败"),
+
+    /**
+     * 支付宝退款申请失败
+     */
+    ALI_REFUND_APPLY(3101, "支付宝退款申请失败"),
 
     /**
      * 退款订单查询失败
