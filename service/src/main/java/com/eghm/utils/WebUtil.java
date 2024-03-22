@@ -91,18 +91,4 @@ public class WebUtil {
         }
     }
 
-    /**
-     * 参数校验异常
-     *
-     * @param result 绑定结果
-     * @return 错误信息
-     */
-    public static RespBody<Void> fieldBind(BindingResult result) {
-        FieldError error = result.getFieldError();
-        if (error == null) {
-            return RespBody.error(ErrorCode.PARAM_VERIFY_ERROR.getCode(), "参数格式不合法");
-        } else {
-            return RespBody.error(ErrorCode.PARAM_VERIFY_ERROR.getCode(), error.getDefaultMessage());
-        }
-    }
 }
