@@ -73,6 +73,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
             refundLog.setAuditRemark("系统自动审核");
             refundLog.setRefundNo(order.getProductType().generateTradeNo());
             order.setRefundState(RefundState.PROGRESS);
+            refundLog.setAuditTime(LocalDateTime.now());
             order.setRefundAmount(order.getRefundAmount() + context.getRefundAmount());
             orderService.startRefund(refundLog, order);
         }
@@ -208,7 +209,9 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
         refundLog.setRefundAmount(0);
         refundLog.setOrderNo(order.getOrderNo());
         refundLog.setApplyType(1);
-        refundLog.setApplyTime(LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        refundLog.setApplyTime(now);
+        refundLog.setAuditTime(now);
         refundLog.setState(1);
         refundLog.setAuditState(AuditState.PASS);
         refundLog.setAuditRemark("零元购自动生成");

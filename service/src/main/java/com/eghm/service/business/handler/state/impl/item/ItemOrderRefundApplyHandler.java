@@ -113,7 +113,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
             itemOrderService.updateById(itemOrder);
             return refundLog;
         }
-
+        refundLog.setAuditTime(LocalDateTime.now());
         refundLog.setAuditState(AuditState.PASS);
         refundLog.setAuditRemark("系统自动审核");
         refundLog.setRefundNo(order.getProductType().generateTradeNo());
