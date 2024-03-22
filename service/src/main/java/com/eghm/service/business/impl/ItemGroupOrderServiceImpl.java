@@ -161,7 +161,6 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
 
     @Override
     public void refundGroupOrder(Order order) {
-        log.info("开始进行拼团订单退款 [{}]", order.getOrderNo());
         if (order.getBookingNo() == null) {
             log.info("该订单非拼团订单不做额外处理 [{}]", order.getOrderNo());
             return;

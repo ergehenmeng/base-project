@@ -42,7 +42,10 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
 
     private final DingTalkService dingTalkService;
 
-    public ItemOrderPaySuccessHandler(ScoreAccountService scoreAccountService, OrderService orderService, ItemService itemService, ItemGroupOrderService itemGroupOrderService, GroupBookingService groupBookingService, DingTalkService dingTalkService) {
+    private final AccountService accountService;
+
+    public ItemOrderPaySuccessHandler(ScoreAccountService scoreAccountService, OrderService orderService, ItemService itemService, ItemGroupOrderService itemGroupOrderService,
+                                      GroupBookingService groupBookingService, DingTalkService dingTalkService, AccountService accountService) {
         super(orderService);
         this.itemService = itemService;
         this.orderService = orderService;
@@ -50,6 +53,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
         this.groupBookingService = groupBookingService;
         this.dingTalkService = dingTalkService;
         this.scoreAccountService = scoreAccountService;
+        this.accountService = accountService;
     }
 
     @Override
@@ -73,6 +77,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
                 dto.setChargeType(ChargeType.ORDER_PAY);
                 scoreAccountService.updateAccount(dto);
             }
+            accountService.paySuccessAddFreeze(order);
         }
     }
 
