@@ -320,7 +320,7 @@ public class SystemProperties {
         /**
          * 接口地址
          */
-        private String url;
+        private String url = "https://oapi.dingtalk.com/robot/send";
 
         /**
          * 钉钉消息推送通知
