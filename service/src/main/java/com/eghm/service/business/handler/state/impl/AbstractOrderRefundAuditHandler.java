@@ -12,7 +12,6 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.context.RefundAuditContext;
 import com.eghm.service.business.handler.state.RefundAuditHandler;
-import com.eghm.utils.TransactionUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -148,6 +147,10 @@ public abstract class AbstractOrderRefundAuditHandler implements RefundAuditHand
         if (refundLog.getAuditState() != AuditState.APPLY) {
             log.error("退款记录状态已更新 [{}] [{}] ", refundLog.getId(), refundLog.getAuditState());
             throw new BusinessException(REFUND_AUDITED);
+        }
+        int refundAmount = order.getRefundAmount() + context.getRefundAmount();
+        if (refundAmount > order.getPayAmount()) {
+            throw new BusinessException(REFUND_GT_PAY);
         }
         int refundNum = orderRefundLogService.getRefundSuccessNum(context.getOrderNo(), null);
         if ((refundNum + refundLog.getNum()) > order.getNum()) {

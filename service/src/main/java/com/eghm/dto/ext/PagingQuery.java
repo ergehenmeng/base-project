@@ -22,7 +22,7 @@ public class PagingQuery {
     @ApiModelProperty(value = "页容量", required = true, example = "10")
     private Integer pageSize = 10;
 
-    @ApiModelProperty(hidden = true)
+    @ApiModelProperty(value = "搜索条件")
     private String queryName;
 
     /**

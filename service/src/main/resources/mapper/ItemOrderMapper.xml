@@ -78,7 +78,8 @@
         left join item_store t on t.id = r.store_id
         where t.deleted = false and r.member_id = #{param.memberId}
         <if test="param.queryName != null and param.queryName != ''">
-            and r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and (r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
+            r.order_no like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%'))
         </if>
         <if test="param.tabState != null">
             <choose>
@@ -96,7 +97,7 @@
                 </otherwise>
             </choose>
         </if>
-        order by t.id desc
+        order by r.id desc
     </select>
 
     <select id="getDetail"  resultType="com.eghm.vo.business.order.item.ItemOrderDetailVO">
