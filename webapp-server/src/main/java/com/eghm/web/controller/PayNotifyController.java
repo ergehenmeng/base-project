@@ -13,11 +13,14 @@ import com.eghm.service.business.handler.access.AccessHandler;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.cache.RedisLock;
+import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.PayNotifyLogService;
 import com.eghm.service.pay.PayService;
+import com.eghm.service.pay.enums.PayChannel;
+import com.eghm.service.pay.enums.RefundStatus;
 import com.eghm.service.pay.enums.StepType;
-import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
+import com.eghm.service.pay.vo.RefundVO;
 import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
@@ -55,6 +58,8 @@ public class PayNotifyController {
 
     private final PayService wechatPayService;
 
+    private final AggregatePayService aggregatePayService;
+
     private final PayNotifyLogService payNotifyLogService;
 
     private final ScanRechargeLogService scanRechargeLogService;
@@ -87,9 +92,7 @@ public class PayNotifyController {
         String refundNo = stringMap.get("out_biz_no");
         String tradeNo = stringMap.get("out_trade_no");
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
-        RefundNotifyContext context = new RefundNotifyContext();
-        context.setRefundNo(refundNo);
-        context.setTradeNo(tradeNo);
+        RefundNotifyContext context = this.generateContext(tradeNo, refundNo, TradeType.ALI_PAY);
 
         return this.aliResult(() -> redisLock.lockVoid(CacheConstant.ALI_REFUND_NOTIFY_LOCK + tradeNo, 10_000,
                 () -> commonService.handleRefundNotify(context)));
@@ -122,9 +125,7 @@ public class PayNotifyController {
         String refundNo = payNotify.getResult().getOutRefundNo();
         String tradeNo = payNotify.getResult().getOutTradeNo();
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
-        RefundNotifyContext context = new RefundNotifyContext();
-        context.setRefundNo(refundNo);
-        context.setTradeNo(tradeNo);
+        RefundNotifyContext context = this.generateContext(tradeNo, refundNo, TradeType.WECHAT_JSAPI);
 
         return this.wechatResult(response, () -> redisLock.lockVoid(CacheConstant.WECHAT_REFUND_NOTIFY_LOCK + tradeNo, 10_000,
                 () -> commonService.handleRefundNotify(context)));
@@ -149,10 +150,31 @@ public class PayNotifyController {
         RefundNotifyContext context = new RefundNotifyContext();
         context.setTradeNo(tradeNo);
         context.setRefundNo(refundNo);
-        context.setSuccessTime(LocalDateTime.now());
         context.setFrom(OrderState.REFUND.getValue());
+        RefundVO result = new RefundVO();
+        result.setState(RefundStatus.REFUND_SUCCESS);
+        result.setPayChannel(PayChannel.WECHAT);
+        result.setSuccessTime(LocalDateTime.now());
+        context.setResult(result);
         ((AbstractAccessHandler)commonService.getHandler(tradeNo, AccessHandler.class)).refundSuccess(context);
         return RespBody.success();
+    }
+
+    /**
+     * 生成退款回调上下文
+     *
+     * @param tradeNo  交易单号
+     * @param refundNo  退款单号
+     * @param tradeType 支付类型 只需要知道是微信或支付宝即可
+     * @return 上下文
+     */
+    private RefundNotifyContext generateContext(String tradeNo, String refundNo, TradeType tradeType) {
+        RefundNotifyContext context = new RefundNotifyContext();
+        RefundVO refund = aggregatePayService.queryRefund(tradeType, tradeNo, refundNo);
+        context.setResult(refund);
+        context.setTradeNo(tradeNo);
+        context.setRefundNo(refundNo);
+        return context;
     }
 
     /**

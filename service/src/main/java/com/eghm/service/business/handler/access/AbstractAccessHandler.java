@@ -9,7 +9,6 @@ import com.eghm.service.pay.enums.RefundStatus;
 import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.PayOrderVO;
-import com.eghm.service.pay.vo.RefundVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,7 +47,9 @@ public abstract class AbstractAccessHandler implements AccessHandler {
 
     @Override
     public void refundNotify(RefundNotifyContext context) {
-        RefundStatus refundSuccess = this.checkRefundSuccess(context);
+        Order order = orderService.selectByTradeNo(context.getTradeNo());
+        context.setFrom(order.getState().getValue());
+        RefundStatus refundSuccess = context.getResult().getState();
         if (refundSuccess == REFUND_SUCCESS || refundSuccess == SUCCESS) {
             log.info("订单退款支付成功,开始执行业务逻辑 [{}] [{}]", context.getTradeNo(), refundSuccess);
             this.refundSuccess(context);
@@ -78,22 +79,6 @@ public abstract class AbstractAccessHandler implements AccessHandler {
         context.setTradeType(vo.getTradeType());
         context.setFrom(order.getState().getValue());
         return vo.getTradeState();
-    }
-
-    /**
-     * 判断订单是否退款成功
-     *
-     * @param context 订单异步回调信息
-     * @return true: 成功 false:失败
-     */
-    public RefundStatus checkRefundSuccess(RefundNotifyContext context) {
-        Order order = orderService.selectByTradeNo(context.getTradeNo());
-        TradeType tradeType = TradeType.valueOf(order.getPayType().name());
-        RefundVO vo = aggregatePayService.queryRefund(tradeType, context.getTradeNo(), context.getRefundNo());
-        context.setAmount(vo.getAmount());
-        context.setSuccessTime(vo.getSuccessTime());
-        context.setFrom(order.getState().getValue());
-        return vo.getState();
     }
 
     /**

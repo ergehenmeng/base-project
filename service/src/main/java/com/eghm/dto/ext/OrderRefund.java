@@ -1,5 +1,6 @@
 package com.eghm.dto.ext;
 
+import com.eghm.enums.ref.PayType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -18,4 +19,7 @@ public class OrderRefund {
 
     @ApiModelProperty("订单编号")
     private String orderNo;
+
+    @ApiModelProperty("支付方式")
+    private PayType payType;
 }

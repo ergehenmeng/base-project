@@ -20,7 +20,8 @@
         select
              t.refund_no,
              r.trade_no,
-             r.order_no
+             r.order_no,
+             r.pay_type
         from order_refund_log t
         inner join `order` r on t.order_no = r.order_no
         where t.deleted = false and t.state = 0

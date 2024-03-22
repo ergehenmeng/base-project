@@ -77,7 +77,7 @@ public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHa
             log.error("根据退款流水号未查询到退款记录,不做退款处理 [{}]", context);
             throw new BusinessException(ErrorCode.REFUND_LOG_NULL);
         }
-        if (refundLog.getState() == 0) {
+        if (refundLog.getState() == 1 || refundLog.getState() == 2) {
             log.error("退款订单状态已更新,不进行退款处理 [{}]", context);
             throw new BusinessException(ErrorCode.REFUND_LOG_STATE);
         }
@@ -159,7 +159,7 @@ public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHa
      */
     protected void after(RefundNotifyContext context, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
         log.info("退款异步处理结果 [{}] [{}]", order.getOrderNo(), refundStatus);
-        accountService.refundSuccessUpdateFreeze(order, context.getAmount(), context.getRefundNo());
+        accountService.refundSuccessUpdateFreeze(order, context.getResult().getAmount(), context.getRefundNo());
     }
 
 }

@@ -16,6 +16,8 @@ import com.eghm.service.business.handler.access.impl.ItemAccessHandler;
 import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundApplyHandler;
+import com.eghm.service.pay.enums.RefundStatus;
+import com.eghm.service.pay.vo.RefundVO;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
@@ -171,8 +173,12 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
             RefundNotifyContext context = new RefundNotifyContext();
             context.setTradeNo(order.getTradeNo());
             context.setRefundNo(refundLog.getRefundNo());
-            context.setAmount(0);
-            context.setSuccessTime(LocalDateTime.now());
+            context.setFrom(order.getState().getValue());
+            RefundVO result = new RefundVO();
+            result.setState(RefundStatus.REFUND_SUCCESS);
+            result.setAmount(0);
+            result.setSuccessTime(LocalDateTime.now());
+            context.setResult(result);
             SpringContextUtil.getBean(ItemAccessHandler.class).refundSuccess(context);
         }
     }

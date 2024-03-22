@@ -9,6 +9,9 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.AccessHandler;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
+import com.eghm.service.pay.AggregatePayService;
+import com.eghm.service.pay.enums.TradeType;
+import com.eghm.service.pay.vo.RefundVO;
 import com.eghm.utils.LoggerUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +31,8 @@ public class OrderJobService {
     private final OrderService orderService;
 
     private final CommonService commonService;
+
+    private final AggregatePayService aggregatePayService;
 
     private final OrderRefundLogService orderRefundLogService;
 
@@ -59,9 +64,12 @@ public class OrderJobService {
         LoggerUtil.print("订单退款中定时任务开始执行");
         List<OrderRefund> refundList = orderRefundLogService.getRefundProcess();
         for (OrderRefund refund : refundList) {
+            TradeType tradeType = TradeType.of(refund.getPayType().getName());
+            RefundVO result = aggregatePayService.queryRefund(tradeType, refund.getTradeNo(), refund.getRefundNo());
             RefundNotifyContext context = new RefundNotifyContext();
             context.setRefundNo(refund.getRefundNo());
             context.setTradeNo(refund.getTradeNo());
+            context.setResult(result);
             try {
                 commonService.getHandler(refund.getRefundNo(), AccessHandler.class).refundNotify(context);
             } catch (Exception e) {
