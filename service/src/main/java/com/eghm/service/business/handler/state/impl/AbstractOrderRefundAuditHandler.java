@@ -117,9 +117,7 @@ public abstract class AbstractOrderRefundAuditHandler implements RefundAuditHand
      */
     protected void passAfter(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
         log.info("退款审核通过后置处理 [{}] [{}] [{}]", context.getAuditRemark(), order.getOrderNo(), refundLog.getId());
-        TransactionUtil.afterCommit(() -> orderService.startRefund(refundLog, order), throwable -> {
-            throw new BusinessException(REFUND_APPLY);
-        });
+        orderService.startRefund(refundLog, order);
     }
 
     /**
