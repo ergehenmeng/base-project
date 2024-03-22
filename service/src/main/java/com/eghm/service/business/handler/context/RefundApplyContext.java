@@ -19,9 +19,6 @@ public class RefundApplyContext implements Context {
     @ApiModelProperty(value = "订单编号", required = true)
     private String orderNo;
 
-    @ApiModelProperty(value = "退款数量", required = true)
-    private Integer num;
-
     @ApiModelProperty("普通商品订单id")
     private Long itemOrderId;
 
@@ -42,6 +39,10 @@ public class RefundApplyContext implements Context {
 
     @ApiModelProperty("退款游客id")
     private List<Long> visitorIds;
+
+    @Assign
+    @ApiModelProperty(value = "退款数量")
+    private Integer num;
 
     @Assign
     @ApiModelProperty("用户id")

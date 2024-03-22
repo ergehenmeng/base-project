@@ -25,7 +25,7 @@ public class ItemRefundApplyDTO {
     private Long orderId;
 
     @ApiModelProperty(value = "申请退款金额(含快递费)", required = true)
-    @RangeInt(max = 5000000, message = "退款金额不合法")
+    @RangeInt(max = 5000000, message = "退款金额应小于50000元")
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer refundAmount;
 

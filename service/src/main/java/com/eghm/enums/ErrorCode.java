@@ -1609,6 +1609,11 @@ public enum ErrorCode {
     VISIT_TYPE_NULL(3830, "页面类型不存在"),
 
     /**
+     * 房间数与入住信息不匹配
+     */
+    VISITOR_NO_MATCH(3831, "房间数与入住信息不匹配"),
+
+    /**
      * 拼团活动名称重复
      */
     REDO_TITLE_BOOKING(3834, "拼团活动名称重复"),
@@ -1621,7 +1626,7 @@ public enum ErrorCode {
     /**
      * 拼团商品不支持购物车下单
      */
-    ITEM_MULTIPLE_BOOKING(3836, "拼团商品不支持购物车下单"),
+    ITEM_MULTIPLE_BOOKING(3837, "拼团商品不支持购物车下单"),
 
     /**
      * 进行中活动不支持编辑

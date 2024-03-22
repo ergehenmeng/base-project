@@ -35,7 +35,7 @@ public class RefundAuditRequest {
     @ApiModelProperty(value = "实际退款金额", required = true)
     @NotNull(message = "退款金额不能为空")
     @JsonDeserialize(using = YuanToCentDecoder.class)
-    @RangeInt(max = 5000000, message = "退款金额应小于50000元", required = false)
+    @RangeInt(max = 5000000, message = "退款金额应小于50000元")
     private Integer refundAmount;
 
     @ApiModelProperty(value = "审批意见", required = true)

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -21,11 +22,12 @@ public class HomestayRefundApplyDTO {
     private String orderNo;
 
     @ApiModelProperty(value = "申请退款金额", required = true)
-    @RangeInt(min = 1, max = 5000000, message = "退款金额不合法")
+    @RangeInt(min = 1, max = 5000000, message = "退款金额应小于50000元")
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer refundAmount;
 
     @ApiModelProperty("退款游客id")
+    @NotEmpty(message = "请选择要退款的住房人")
     private List<Long> visitorIds;
 
     @ApiModelProperty(value = "退款原因", required = true)

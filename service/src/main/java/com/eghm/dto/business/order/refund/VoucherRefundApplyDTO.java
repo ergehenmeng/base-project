@@ -24,7 +24,7 @@ public class VoucherRefundApplyDTO {
     private Integer num;
 
     @ApiModelProperty(value = "申请退款金额", required = true)
-    @RangeInt(min = 1, max = 5000000, message = "退款金额不合法")
+    @RangeInt(min = 1, max = 5000000, message = "退款金额应小于50000元")
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer refundAmount;
 

@@ -88,6 +88,9 @@ public class OrderController {
     @PostMapping(value = "/homestay/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("民宿创建订单")
     public RespBody<OrderCreateVO<String>> homestayCreate(@RequestBody @Validated HomestayOrderCreateDTO dto) {
+        if (dto.getVisitorList().size() != dto.getNum()) {
+            return RespBody.error(ErrorCode.VISITOR_NO_MATCH);
+        }
         HomestayOrderCreateContext context = DataUtil.copy(dto, HomestayOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         homestayAccessHandler.createOrder(context);
