@@ -13,9 +13,7 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VerifyLogService;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.RefundNotifyHandler;
-import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.RefundStatus;
-import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.RefundVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,8 +40,6 @@ public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHa
     private final AccountService accountService;
 
     private final OrderRefundLogService orderRefundLogService;
-
-    private final AggregatePayService aggregatePayService;
 
     private final VerifyLogService verifyLogService;
 
@@ -95,8 +91,7 @@ public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHa
      */
     protected RefundStatus doProcess(RefundNotifyContext context, Order order, OrderRefundLog refundLog) {
 
-        TradeType tradeType = TradeType.valueOf(order.getPayType().name());
-        RefundVO refund = aggregatePayService.queryRefund(tradeType, context.getTradeNo(), context.getRefundNo());
+        RefundVO refund = context.getResult();
 
         RefundStatus state = refund.getState();
         if (state == REFUND_SUCCESS || state == SUCCESS) {
@@ -159,7 +154,7 @@ public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHa
      */
     protected void after(RefundNotifyContext context, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
         log.info("退款异步处理结果 [{}] [{}]", order.getOrderNo(), refundStatus);
-        accountService.refundSuccessUpdateFreeze(order, context.getResult().getAmount(), context.getRefundNo());
+        accountService.refundSuccessUpdateFreeze(order, refundLog.getRefundAmount(), context.getRefundNo());
     }
 
 }

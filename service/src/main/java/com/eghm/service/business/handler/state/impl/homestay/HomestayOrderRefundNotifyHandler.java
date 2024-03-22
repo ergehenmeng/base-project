@@ -11,7 +11,6 @@ import com.eghm.model.OrderRefundLog;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundNotifyHandler;
-import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.RefundStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,10 +30,9 @@ public class HomestayOrderRefundNotifyHandler extends AbstractOrderRefundNotifyH
     private final OrderMQService orderMQService;
 
     public HomestayOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
-                                            AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
-                                            HomestayOrderService homestayOrderService, HomestayRoomConfigService homestayRoomConfigService,
+                                            VerifyLogService verifyLogService, HomestayOrderService homestayOrderService, HomestayRoomConfigService homestayRoomConfigService,
                                             OrderMQService orderMQService, AccountService accountService) {
-        super(orderService, accountService, orderRefundLogService, aggregatePayService, verifyLogService);
+        super(orderService, accountService, orderRefundLogService, verifyLogService);
         this.homestayOrderService = homestayOrderService;
         this.homestayRoomConfigService = homestayRoomConfigService;
         this.orderMQService = orderMQService;

@@ -12,7 +12,6 @@ import com.eghm.model.TicketOrder;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundNotifyHandler;
-import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.RefundStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,11 +33,10 @@ public class TicketOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHan
     private final OrderMQService orderMQService;
 
     public TicketOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
-                                          AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
-                                          TicketOrderService ticketOrderService, ScenicTicketService scenicTicketService,
-                                          OrderVisitorService orderVisitorService, OrderMQService orderMQService,
-                                          AccountService accountService) {
-        super(orderService, accountService, orderRefundLogService, aggregatePayService, verifyLogService);
+                                          VerifyLogService verifyLogService, TicketOrderService ticketOrderService,
+                                          ScenicTicketService scenicTicketService, OrderVisitorService orderVisitorService,
+                                          OrderMQService orderMQService, AccountService accountService) {
+        super(orderService, accountService, orderRefundLogService, verifyLogService);
         this.ticketOrderService = ticketOrderService;
         this.scenicTicketService = scenicTicketService;
         this.orderVisitorService = orderVisitorService;

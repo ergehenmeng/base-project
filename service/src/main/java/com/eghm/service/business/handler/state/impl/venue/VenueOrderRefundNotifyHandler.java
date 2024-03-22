@@ -8,7 +8,6 @@ import com.eghm.model.OrderRefundLog;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundNotifyHandler;
-import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.RefundStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,9 +23,8 @@ public class VenueOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHand
     private final VenueOrderService venueOrderService;
 
     public VenueOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
-                                         AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
-                                         VenueOrderService venueOrderService, AccountService accountService) {
-        super(orderService, accountService, orderRefundLogService, aggregatePayService, verifyLogService);
+                                         VerifyLogService verifyLogService, VenueOrderService venueOrderService, AccountService accountService) {
+        super(orderService, accountService, orderRefundLogService, verifyLogService);
         this.venueOrderService = venueOrderService;
     }
 

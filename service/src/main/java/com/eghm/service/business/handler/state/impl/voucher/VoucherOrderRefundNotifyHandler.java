@@ -11,7 +11,6 @@ import com.eghm.model.VoucherOrder;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundNotifyHandler;
-import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.RefundStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,10 +30,9 @@ public class VoucherOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHa
     private final OrderMQService orderMQService;
 
     public VoucherOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
-                                           AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
-                                           VoucherService voucherService, VoucherOrderService voucherOrderService,
+                                           VerifyLogService verifyLogService, VoucherService voucherService, VoucherOrderService voucherOrderService,
                                            OrderMQService orderMQService, AccountService accountService) {
-        super(orderService, accountService, orderRefundLogService, aggregatePayService, verifyLogService);
+        super(orderService, accountService, orderRefundLogService, verifyLogService);
         this.voucherService = voucherService;
         this.voucherOrderService = voucherOrderService;
         this.orderMQService = orderMQService;
