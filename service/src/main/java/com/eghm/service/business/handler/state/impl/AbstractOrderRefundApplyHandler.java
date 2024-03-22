@@ -114,7 +114,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
      */
     protected void after(RefundApplyContext context, Order order, OrderRefundLog refundLog) {
         log.info("订单退款申请成功 [{}] [{}] [{}]", context, order.getState(), order.getRefundState());
-        orderVisitorService.lockVisitor(order.getProductType(), context.getOrderNo(), refundLog.getId(), context.getVisitorIds(), VisitorState.REFUNDING);
+        orderVisitorService.refundLock(order.getProductType(), context.getOrderNo(), refundLog.getId(), context.getVisitorIds(), VisitorState.REFUNDING);
     }
 
     /**

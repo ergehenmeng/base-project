@@ -1250,7 +1250,6 @@ CREATE TABLE `order_visitor`
     `member_name`  varchar(20) DEFAULT NULL COMMENT '游客姓名',
     `id_card`      varchar(20) DEFAULT NULL COMMENT '身份证号码',
     `state`        tinyint(1)  DEFAULT '0' COMMENT '状态 0: 初始化(待支付) 1: 已支付,待使用 2:已使用 3:退款中 4:已退款',
-    `refund_id`    bigint(20)  DEFAULT NULL COMMENT '关联的退款记录id',
     `verify_id`    bigint(20)  DEFAULT NULL COMMENT '关联的核销记录id',
     `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

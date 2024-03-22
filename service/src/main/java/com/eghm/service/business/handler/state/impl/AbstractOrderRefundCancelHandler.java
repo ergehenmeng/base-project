@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static com.eghm.enums.ErrorCode.*;
 
 /**
- * 退款异步回调
+ * 退款申请取消(只支持需要退款审核的商品) 民宿, 线路, 零售
  *
  * @author 二哥很猛
  * @since 2022/8/20

@@ -879,9 +879,9 @@ public enum ErrorCode {
     TOTAL_REFUND_MAX_NUM(3171, "累计退款数量大于实付数量"),
 
     /**
-     * 订单联系人状态不符合退款要求
+     * 订单状态不符合退款要求
      */
-    VISITOR_STATE_ERROR(3169, "订单联系人状态不符合退款要求"),
+    VISITOR_STATE_ERROR(3169, "订单状态不符合退款要求"),
 
     /**
      * 订单状态不匹配

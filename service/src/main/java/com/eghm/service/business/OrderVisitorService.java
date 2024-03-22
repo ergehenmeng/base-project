@@ -41,7 +41,7 @@ public interface OrderVisitorService {
      * @param visitorList 游客id列表
      * @param state       退款状态(REFUNDING, REFUND)
      */
-    void lockVisitor(ProductType productType, String orderNo, Long refundId, List<Long> visitorList, VisitorState state);
+    void refundLock(ProductType productType, String orderNo, Long refundId, List<Long> visitorList, VisitorState state);
 
     /**
      * 更新订单游客使用状态

@@ -60,7 +60,7 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
     }
 
     @Override
-    public void lockVisitor(ProductType productType, String orderNo, Long refundId, List<Long> visitorList, VisitorState state) {
+    public void refundLock(ProductType productType, String orderNo, Long refundId, List<Long> visitorList, VisitorState state) {
         if (CollUtil.isEmpty(visitorList)) {
             log.info("退款锁定用户为空,可能是非实名制用户 [{}] [{}] [{}]", orderNo, refundId, productType);
             return;

@@ -318,11 +318,6 @@ public class SystemProperties {
     public static class DingTalk {
 
         /**
-         * 接口地址
-         */
-        private String url = "https://oapi.dingtalk.com/robot/send";
-
-        /**
          * 钉钉消息推送通知
          */
         private String accessToken;

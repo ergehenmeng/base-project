@@ -103,7 +103,7 @@ public class DingTalkServiceImpl implements DingTalkService {
             paramMap.put("timestamp", timestamp);
             paramMap.put("sign", sign);
         }
-        return dingTalk.getUrl() + "?" + URLUtil.buildQuery(paramMap, StandardCharsets.UTF_8);
+        return "https://oapi.dingtalk.com/robot/send?" + URLUtil.buildQuery(paramMap, StandardCharsets.UTF_8);
     }
 
     /**
