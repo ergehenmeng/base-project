@@ -604,14 +604,14 @@ public enum ErrorCode {
     PAY_ORDER_ERROR(3110, "支付订单创建失败"),
 
     /**
-     * 微信退款申请失败
+     * 退款请求超时,请稍后再试
      */
-    WECHAT_REFUND_APPLY(3112, "微信退款申请失败"),
+    WECHAT_REFUND_APPLY(3112, "退款请求超时,请稍后再试"),
 
     /**
-     * 支付宝退款申请失败
+     * 退款请求超时,请稍后再试
      */
-    ALI_REFUND_APPLY(3101, "支付宝退款申请失败"),
+    ALI_REFUND_APPLY(3101, "退款请求超时,请稍后再试"),
 
     /**
      * 退款订单查询失败
