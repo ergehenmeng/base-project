@@ -5,10 +5,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VenueEvent;
-import com.eghm.enums.ref.DeliveryType;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
-import com.eghm.enums.ref.RefundType;
+import com.eghm.enums.ref.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
@@ -172,7 +169,7 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
     protected void end(VenueOrderCreateContext context, VenueOrderPayload payload, Order order) {
         if (order.getPayAmount() <= 0) {
             log.info("场馆预约免费,订单号:{}", order.getOrderNo());
-            orderService.paySuccess(order.getOrderNo(), order.getProductType().generateVerifyNo(), LocalDateTime.now(), OrderState.UN_USED, order.getState());
+            orderService.paySuccess(order.getOrderNo(), order.getProductType().generateVerifyNo(), LocalDateTime.now(), OrderState.UN_USED, PayType.ZERO);
         } else {
             orderMQService.sendOrderExpireMessage(ExchangeQueue.VENUE_PAY_EXPIRE, order.getOrderNo());
         }

@@ -242,16 +242,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public void paySuccess(String orderNo, String verifyNo, LocalDateTime payTime, OrderState newState, Object... oldState) {
+    public void paySuccess(String orderNo, String verifyNo, LocalDateTime payTime, OrderState newState, PayType payType) {
         LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Order::getOrderNo, orderNo);
-        wrapper.in(oldState.length > 0, Order::getState, oldState);
         wrapper.set(Order::getState, newState);
+        wrapper.set(Order::getPayType, payType);
         wrapper.set(Order::getPayTime, payTime);
         wrapper.set(Order::getVerifyNo, verifyNo);
         int update = baseMapper.update(null, wrapper);
         if (update != 1) {
-            log.warn("订单状态更新数据不一致 [{}] [{}] [{}]", orderNo, newState, oldState);
+            log.warn("订单状态更新数据不一致 [{}] [{}] [{}]", orderNo, newState, payType);
         }
     }
 

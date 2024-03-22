@@ -5,6 +5,7 @@ import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.ref.PayType;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.service.pay.enums.TradeState;
@@ -135,9 +136,9 @@ public interface OrderService extends IService<Order> {
      * @param verifyNo 核销码
      * @param payTime  支付成功时间
      * @param newState 成功状态
-     * @param oldState 上一个节点的状态
+     * @param payType  支付方式
      */
-    void paySuccess(String orderNo, String verifyNo, LocalDateTime payTime, OrderState newState, Object... oldState);
+    void paySuccess(String orderNo, String verifyNo, LocalDateTime payTime, OrderState newState, PayType payType);
 
     /**
      * 核销码解码

@@ -40,7 +40,12 @@ public enum PayType {
     /**
      * 支付宝支付
      */
-    ALI_PAY("支付宝");
+    ALI_PAY("支付宝"),
+
+    /**
+     * 零元付
+     */
+    ZERO("零元付");
 
     @ExcelDesc
     private final String name;

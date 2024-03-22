@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.state.impl;
 
 import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.ref.PayType;
 import com.eghm.enums.ref.VisitorState;
 import com.eghm.model.Order;
 import com.eghm.service.business.AccountService;
@@ -47,7 +48,7 @@ public abstract class AbstractOrderPaySuccessHandler implements PayNotifyHandler
      * @param order 订单信息
      */
     protected void doProcess(PayNotifyContext context, Order order) {
-        orderService.paySuccess(order.getOrderNo(), order.getProductType().generateVerifyNo(), context.getSuccessTime(), OrderState.UN_USED, OrderState.of(context.getFrom()));
+        orderService.paySuccess(order.getOrderNo(), order.getProductType().generateVerifyNo(), context.getSuccessTime(), OrderState.UN_USED, PayType.valueOf(context.getTradeType().name()));
     }
 
     /**
