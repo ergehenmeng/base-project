@@ -190,10 +190,8 @@ public class OrderController {
     @PostMapping(value = "/venue/refundApply", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("场馆退款申请")
     public RespBody<Void> venueRefundApply(@RequestBody @Validated VenueRefundApplyDTO dto) {
-        RefundApplyContext context = new RefundApplyContext();
+        RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setNum(1);
-        context.setOrderNo(dto.getOrderNo());
-        context.setRefundAmount(dto.getRefundAmount());
         context.setMemberId(ApiHolder.getMemberId());
         venueAccessHandler.refundApply(context);
         return RespBody.success();

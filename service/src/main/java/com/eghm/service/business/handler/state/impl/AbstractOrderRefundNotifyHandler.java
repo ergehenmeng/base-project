@@ -66,15 +66,15 @@ public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHa
      */
     protected void before(RefundNotifyContext context, Order order, OrderRefundLog refundLog) {
         if (order == null) {
-            log.error("根据支付流水号未查询到订单,不做退款处理 [{}]", context);
+            log.error("根据支付流水号未查询到订单,不做退款处理 [{}]", context.getRefundNo());
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
         }
         if (refundLog == null) {
-            log.error("根据退款流水号未查询到退款记录,不做退款处理 [{}]", context);
+            log.error("根据退款流水号未查询到退款记录,不做退款处理 [{}]", context.getRefundNo());
             throw new BusinessException(ErrorCode.REFUND_LOG_NULL);
         }
         if (refundLog.getState() == 1 || refundLog.getState() == 2) {
-            log.error("退款订单状态已更新,不进行退款处理 [{}]", context);
+            log.error("退款订单状态已更新,不进行退款处理 [{}]", context.getRefundNo());
             throw new BusinessException(ErrorCode.REFUND_LOG_STATE);
         }
     }
