@@ -14,7 +14,7 @@ import com.eghm.service.business.handler.access.AccessHandler;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.RefundNotifyHandler;
-import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.utils.SpringContextUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.statistics.ProductStatisticsVO;

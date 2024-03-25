@@ -18,7 +18,7 @@ import com.eghm.mapper.NewsMapper;
 import com.eghm.model.News;
 import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.business.NewsService;
-import com.eghm.service.cache.CacheService;
+import com.eghm.cache.CacheService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.news.NewsDetailVO;
 import com.eghm.vo.business.news.NewsVO;

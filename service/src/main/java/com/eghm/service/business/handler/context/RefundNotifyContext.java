@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler.context;
 
-import com.eghm.service.pay.vo.RefundVO;
+import com.eghm.pay.vo.RefundVO;
 import com.eghm.state.machine.Context;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

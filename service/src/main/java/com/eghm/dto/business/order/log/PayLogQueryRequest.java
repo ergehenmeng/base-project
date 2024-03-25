@@ -1,8 +1,8 @@
 package com.eghm.dto.business.order.log;
 
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.service.pay.enums.PayChannel;
-import com.eghm.service.pay.enums.StepType;
+import com.eghm.pay.enums.PayChannel;
+import com.eghm.pay.enums.StepType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

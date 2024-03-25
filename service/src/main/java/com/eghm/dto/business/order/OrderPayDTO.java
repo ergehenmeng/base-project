@@ -1,6 +1,6 @@
 package com.eghm.dto.business.order;
 
-import com.eghm.service.pay.enums.TradeType;
+import com.eghm.pay.enums.TradeType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

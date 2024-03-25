@@ -13,7 +13,7 @@ import com.eghm.enums.ref.CollectType;
 import com.eghm.mapper.*;
 import com.eghm.model.MemberCollect;
 import com.eghm.service.business.MemberCollectService;
-import com.eghm.service.cache.CacheService;
+import com.eghm.cache.CacheService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.collect.MemberCollectVO;
 import com.eghm.vo.business.homestay.HomestayVO;

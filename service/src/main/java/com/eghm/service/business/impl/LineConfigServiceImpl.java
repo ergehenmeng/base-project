@@ -19,7 +19,7 @@ import com.eghm.model.Line;
 import com.eghm.model.LineConfig;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.LineConfigService;
-import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
 import com.eghm.vo.business.line.config.LineConfigResponse;

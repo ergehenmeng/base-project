@@ -4,17 +4,18 @@ import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
-import com.eghm.service.pay.AggregatePayService;
-import com.eghm.service.pay.enums.RefundStatus;
-import com.eghm.service.pay.enums.TradeState;
-import com.eghm.service.pay.enums.TradeType;
-import com.eghm.service.pay.vo.PayOrderVO;
+import com.eghm.pay.AggregatePayService;
+import com.eghm.pay.enums.RefundStatus;
+import com.eghm.pay.enums.TradeState;
+import com.eghm.pay.enums.TradeType;
+import com.eghm.pay.vo.PayOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import static com.eghm.service.pay.enums.RefundStatus.*;
-import static com.eghm.service.pay.enums.TradeState.PAY_ERROR;
-import static com.eghm.service.pay.enums.TradeState.TRADE_CLOSED;
+import static com.eghm.pay.enums.RefundStatus.ABNORMAL;
+import static com.eghm.pay.enums.RefundStatus.CLOSED;
+import static com.eghm.pay.enums.TradeState.PAY_ERROR;
+import static com.eghm.pay.enums.TradeState.TRADE_CLOSED;
 
 /**
  * @author wyb
@@ -50,7 +51,7 @@ public abstract class AbstractAccessHandler implements AccessHandler {
         Order order = orderService.selectByTradeNo(context.getTradeNo());
         context.setFrom(order.getState().getValue());
         RefundStatus refundSuccess = context.getResult().getState();
-        if (refundSuccess == REFUND_SUCCESS || refundSuccess == SUCCESS) {
+        if (refundSuccess == RefundStatus.REFUND_SUCCESS || refundSuccess == RefundStatus.SUCCESS) {
             log.info("订单退款支付成功,开始执行业务逻辑 [{}] [{}]", context.getTradeNo(), refundSuccess);
             this.refundSuccess(context);
             return;

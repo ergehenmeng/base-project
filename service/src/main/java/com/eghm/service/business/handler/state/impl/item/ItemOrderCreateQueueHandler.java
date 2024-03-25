@@ -4,7 +4,7 @@ import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
-import com.eghm.service.common.JsonService;
+import com.eghm.common.JsonService;
 import com.eghm.service.member.MemberAddressService;
 import com.eghm.service.member.MemberService;
 import lombok.extern.slf4j.Slf4j;

@@ -15,7 +15,7 @@ import com.eghm.model.Activity;
 import com.eghm.model.Scenic;
 import com.eghm.service.business.ActivityService;
 import com.eghm.service.business.CommonService;
-import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.activity.ActivityBaseDTO;
 import com.eghm.vo.business.activity.ActivityDetailResponse;

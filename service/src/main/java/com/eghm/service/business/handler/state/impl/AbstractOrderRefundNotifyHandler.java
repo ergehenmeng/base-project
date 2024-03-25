@@ -13,8 +13,8 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VerifyLogService;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.RefundNotifyHandler;
-import com.eghm.service.pay.enums.RefundStatus;
-import com.eghm.service.pay.vo.RefundVO;
+import com.eghm.pay.enums.RefundStatus;
+import com.eghm.pay.vo.RefundVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-import static com.eghm.service.pay.enums.RefundStatus.*;
+import static com.eghm.pay.enums.RefundStatus.*;
 
 /**
  * 退款异步回调

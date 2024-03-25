@@ -11,8 +11,8 @@ import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.VerifyLogService;
 import com.eghm.service.business.handler.context.OrderVerifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderVerifyHandler;
-import com.eghm.service.common.JsonService;
-import com.eghm.service.mq.service.MessageService;
+import com.eghm.common.JsonService;
+import com.eghm.mq.service.MessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

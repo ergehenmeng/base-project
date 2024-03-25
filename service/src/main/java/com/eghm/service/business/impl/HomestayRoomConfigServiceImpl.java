@@ -17,7 +17,7 @@ import com.eghm.model.HomestayRoom;
 import com.eghm.model.HomestayRoomConfig;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayRoomConfigService;
-import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
 import com.eghm.vo.business.homestay.room.config.RoomConfigResponse;

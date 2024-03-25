@@ -3,7 +3,7 @@ package com.eghm.web.controller;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ExchangeQueue;
-import com.eghm.service.mq.service.MessageService;
+import com.eghm.mq.service.MessageService;
 import com.eghm.web.annotation.SignCheck;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

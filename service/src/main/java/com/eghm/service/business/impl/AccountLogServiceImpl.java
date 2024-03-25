@@ -10,7 +10,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.AccountLogMapper;
 import com.eghm.model.AccountLog;
 import com.eghm.service.business.AccountLogService;
-import com.eghm.service.sys.AlarmService;
+import com.eghm.common.AlarmService;
 import com.eghm.vo.business.account.AccountLogResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

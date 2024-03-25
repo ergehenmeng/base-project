@@ -6,7 +6,7 @@ import com.eghm.enums.ref.RefundType;
 import com.eghm.model.Order;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.RefundApplyContext;
-import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.common.impl.SysConfigApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

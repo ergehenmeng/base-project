@@ -14,7 +14,7 @@ import com.eghm.model.MemberAddress;
 import com.eghm.model.SysArea;
 import com.eghm.service.member.MemberAddressService;
 import com.eghm.service.sys.SysAreaService;
-import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.member.AddressVO;
 import lombok.AllArgsConstructor;

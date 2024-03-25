@@ -8,7 +8,7 @@ import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.AbstractAccessHandler;
 import com.eghm.service.business.handler.context.*;
-import com.eghm.service.pay.AggregatePayService;
+import com.eghm.pay.AggregatePayService;
 import com.eghm.state.machine.Context;
 import com.eghm.state.machine.StateHandler;
 import org.springframework.stereotype.Service;

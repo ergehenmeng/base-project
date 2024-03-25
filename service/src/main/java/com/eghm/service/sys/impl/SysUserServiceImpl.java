@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.FileService;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.user.PasswordEditRequest;
@@ -20,8 +21,7 @@ import com.eghm.mapper.MerchantUserMapper;
 import com.eghm.mapper.SysUserMapper;
 import com.eghm.model.SysDataDept;
 import com.eghm.model.SysUser;
-import com.eghm.service.cache.CacheService;
-import com.eghm.service.common.AccessTokenService;
+import com.eghm.cache.CacheService;
 import com.eghm.service.sys.SysDataDeptService;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysRoleService;
@@ -59,7 +59,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     private final SysMenuService sysMenuService;
 
-    private final AccessTokenService accessTokenService;
+    private final FileService.AccessTokenService accessTokenService;
 
     private final CacheService cacheService;
 

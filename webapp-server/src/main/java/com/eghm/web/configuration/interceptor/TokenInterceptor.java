@@ -7,7 +7,7 @@ import com.eghm.dto.ext.MemberToken;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
-import com.eghm.service.common.TokenService;
+import com.eghm.common.TokenService;
 import com.eghm.web.annotation.AccessToken;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

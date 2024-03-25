@@ -5,7 +5,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.login.*;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.SmsType;
-import com.eghm.service.common.SmsService;
+import com.eghm.common.SmsService;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginTokenVO;

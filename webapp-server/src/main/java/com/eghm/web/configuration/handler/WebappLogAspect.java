@@ -6,7 +6,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.model.WebappLog;
-import com.eghm.service.mq.service.MessageService;
+import com.eghm.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
 import lombok.AllArgsConstructor;

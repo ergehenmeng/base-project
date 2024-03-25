@@ -11,7 +11,7 @@ import com.eghm.mapper.SysDictMapper;
 import com.eghm.model.SysDict;
 import com.eghm.model.SysDictItem;
 import com.eghm.service.business.CommonService;
-import com.eghm.service.cache.CacheProxyService;
+import com.eghm.cache.CacheProxyService;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.sys.DictResponse;

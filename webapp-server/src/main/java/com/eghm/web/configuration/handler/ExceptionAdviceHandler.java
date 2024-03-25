@@ -9,7 +9,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.exception.*;
 import com.eghm.model.WebappLog;
-import com.eghm.service.mq.service.MessageService;
+import com.eghm.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;

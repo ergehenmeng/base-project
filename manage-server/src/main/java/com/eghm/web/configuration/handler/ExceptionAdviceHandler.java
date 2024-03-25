@@ -6,7 +6,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.ParameterException;
-import com.eghm.service.sys.AlarmService;
+import com.eghm.common.AlarmService;
 import com.eghm.utils.WebUtil;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.ValueInstantiationException;

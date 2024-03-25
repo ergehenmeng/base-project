@@ -11,7 +11,7 @@ import com.eghm.mapper.ItemOrderExpressMapper;
 import com.eghm.model.ItemExpress;
 import com.eghm.model.ItemOrderExpress;
 import com.eghm.service.business.ItemExpressService;
-import com.eghm.service.common.JsonService;
+import com.eghm.common.JsonService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.item.ExpressVO;
 import com.eghm.vo.business.order.item.FirstExpressVO;

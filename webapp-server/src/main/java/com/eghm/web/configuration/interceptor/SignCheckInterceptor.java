@@ -14,7 +14,7 @@ import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.SignType;
 import com.eghm.exception.BusinessException;
-import com.eghm.service.cache.CacheProxyService;
+import com.eghm.cache.CacheProxyService;
 import com.eghm.utils.WebUtil;
 import com.eghm.vo.auth.AuthConfigVO;
 import com.eghm.web.annotation.SignCheck;

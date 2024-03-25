@@ -19,7 +19,7 @@ import com.eghm.service.business.CommonService;
 import com.eghm.service.business.CouponScopeService;
 import com.eghm.service.business.CouponService;
 import com.eghm.service.business.MemberCouponService;
-import com.eghm.service.mq.service.MessageService;
+import com.eghm.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.coupon.CouponListVO;
 import com.eghm.vo.business.coupon.CouponResponse;

@@ -23,7 +23,7 @@ import com.eghm.service.business.handler.dto.ItemDTO;
 import com.eghm.service.business.handler.dto.ItemOrderPayload;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.service.business.handler.state.OrderCreateHandler;
-import com.eghm.service.common.JsonService;
+import com.eghm.common.JsonService;
 import com.eghm.service.member.MemberAddressService;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.DataUtil;

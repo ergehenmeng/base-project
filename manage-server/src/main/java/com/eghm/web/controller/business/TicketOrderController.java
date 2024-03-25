@@ -9,7 +9,7 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.TicketOrderService;
-import com.eghm.service.cache.RedisLock;
+import com.eghm.lock.RedisLock;
 import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.business.order.ticket.TicketOrderDetailResponse;
 import com.eghm.vo.business.order.ticket.TicketOrderResponse;

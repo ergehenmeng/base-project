@@ -1,5 +1,6 @@
 package com.eghm.web.controller;
 
+import com.eghm.common.FileService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.security.SecurityHolder;
@@ -9,8 +10,7 @@ import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.login.LoginRequest;
 import com.eghm.enums.Env;
 import com.eghm.enums.ErrorCode;
-import com.eghm.service.cache.CacheService;
-import com.eghm.service.common.AccessTokenService;
+import com.eghm.cache.CacheService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginResponse;
@@ -42,7 +42,7 @@ public class LoginController {
 
     private final SystemProperties systemProperties;
 
-    private final AccessTokenService accessTokenService;
+    private final FileService.AccessTokenService accessTokenService;
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("管理后台登陆")

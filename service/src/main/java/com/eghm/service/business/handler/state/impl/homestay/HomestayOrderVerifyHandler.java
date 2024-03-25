@@ -8,7 +8,7 @@ import com.eghm.model.Order;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.OrderVerifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderVerifyHandler;
-import com.eghm.service.common.JsonService;
+import com.eghm.common.JsonService;
 import org.springframework.stereotype.Service;
 
 /**

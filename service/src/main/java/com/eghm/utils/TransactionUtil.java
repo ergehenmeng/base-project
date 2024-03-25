@@ -1,6 +1,6 @@
 package com.eghm.utils;
 
-import com.eghm.service.sys.AlarmService;
+import com.eghm.common.AlarmService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

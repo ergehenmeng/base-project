@@ -8,7 +8,7 @@ import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.sms.SmsTemplateEditRequest;
 import com.eghm.mapper.SmsTemplateMapper;
 import com.eghm.model.SmsTemplate;
-import com.eghm.service.cache.CacheProxyService;
+import com.eghm.cache.CacheProxyService;
 import com.eghm.service.sys.SmsTemplateService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;

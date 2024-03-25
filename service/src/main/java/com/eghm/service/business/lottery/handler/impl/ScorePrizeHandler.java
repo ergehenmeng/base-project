@@ -12,7 +12,7 @@ import com.eghm.model.LotteryPrize;
 import com.eghm.service.business.ScoreAccountService;
 import com.eghm.service.business.lottery.LotteryPrizeService;
 import com.eghm.service.business.lottery.handler.PrizeHandler;
-import com.eghm.service.cache.CacheProxyService;
+import com.eghm.cache.CacheProxyService;
 import com.eghm.service.member.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

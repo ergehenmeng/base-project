@@ -14,7 +14,7 @@ import com.eghm.mapper.LimitPurchaseItemMapper;
 import com.eghm.model.LimitPurchase;
 import com.eghm.model.LimitPurchaseItem;
 import com.eghm.service.business.LimitPurchaseItemService;
-import com.eghm.service.common.JsonService;
+import com.eghm.common.JsonService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.limit.LimitItemResponse;
 import com.eghm.vo.business.limit.LimitItemVO;

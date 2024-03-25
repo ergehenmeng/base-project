@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
-import com.eghm.service.cache.CacheService;
+import com.eghm.cache.CacheService;
 import com.eghm.utils.IpUtil;
 import com.google.code.kaptcha.Producer;
 import io.swagger.annotations.Api;

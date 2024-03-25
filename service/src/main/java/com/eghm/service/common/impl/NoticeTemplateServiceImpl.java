@@ -7,7 +7,7 @@ import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.template.NoticeTemplateRequest;
 import com.eghm.mapper.NoticeTemplateMapper;
 import com.eghm.model.NoticeTemplate;
-import com.eghm.service.cache.CacheProxyService;
+import com.eghm.cache.CacheProxyService;
 import com.eghm.service.common.NoticeTemplateService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;

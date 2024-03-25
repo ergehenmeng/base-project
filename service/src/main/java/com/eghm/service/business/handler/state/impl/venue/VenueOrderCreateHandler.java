@@ -12,7 +12,7 @@ import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.VenueOrderCreateContext;
 import com.eghm.service.business.handler.dto.VenueOrderPayload;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCreateHandler;
-import com.eghm.service.common.JsonService;
+import com.eghm.common.JsonService;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

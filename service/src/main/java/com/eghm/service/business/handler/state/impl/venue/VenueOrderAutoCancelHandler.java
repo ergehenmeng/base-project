@@ -8,7 +8,7 @@ import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VenueOrderService;
 import com.eghm.service.business.handler.state.impl.AbstractOrderAutoCancelHandler;
-import com.eghm.service.pay.AggregatePayService;
+import com.eghm.pay.AggregatePayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

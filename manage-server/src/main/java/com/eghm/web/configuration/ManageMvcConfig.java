@@ -1,10 +1,10 @@
 package com.eghm.web.configuration;
 
+import com.eghm.common.FileService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
 import com.eghm.configuration.data.permission.DataScopeAspect;
-import com.eghm.service.cache.CacheService;
-import com.eghm.service.common.AccessTokenService;
+import com.eghm.cache.CacheService;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.web.configuration.filter.AuthFilter;
 import com.eghm.web.configuration.filter.LockScreenFilter;
@@ -26,13 +26,13 @@ import javax.servlet.DispatcherType;
 @Configuration
 public class ManageMvcConfig extends WebMvcConfig {
 
-    private final AccessTokenService accessTokenService;
+    private final FileService.AccessTokenService accessTokenService;
 
     private final SysMenuService sysMenuService;
 
     private final CacheService cacheService;
 
-    public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, AccessTokenService accessTokenService, SysMenuService sysMenuService, CacheService cacheService) {
+    public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, FileService.AccessTokenService accessTokenService, SysMenuService sysMenuService, CacheService cacheService) {
         super(objectMapper, systemProperties);
         this.accessTokenService = accessTokenService;
         this.sysMenuService = sysMenuService;

@@ -17,7 +17,7 @@ import com.eghm.mapper.RedeemCodeScopeMapper;
 import com.eghm.model.RedeemCodeGrant;
 import com.eghm.model.RedeemCodeScope;
 import com.eghm.service.business.RedeemCodeGrantService;
-import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.vo.business.redeem.RedeemCodeGrantResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,12 +1,12 @@
 package com.eghm.web.configuration.filter;
 
+import com.eghm.common.FileService;
 import com.eghm.configuration.AbstractIgnoreFilter;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
-import com.eghm.service.common.AccessTokenService;
 import com.eghm.utils.WebUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.lang.NonNull;
@@ -27,7 +27,7 @@ public class AuthFilter extends AbstractIgnoreFilter {
 
     private final SystemProperties.ManageProperties manageProperties;
 
-    private final AccessTokenService accessTokenService;
+    private final FileService.AccessTokenService accessTokenService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {

@@ -10,7 +10,7 @@ import com.eghm.model.Order;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCancelHandler;
 import com.eghm.service.member.MemberService;
-import com.eghm.service.pay.AggregatePayService;
+import com.eghm.pay.AggregatePayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

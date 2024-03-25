@@ -18,7 +18,7 @@ import com.eghm.service.business.OrderProxyService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.impl.*;
 import com.eghm.service.business.handler.context.*;
-import com.eghm.service.pay.vo.PrepayVO;
+import com.eghm.pay.vo.PrepayVO;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.business.order.OrderCreateVO;

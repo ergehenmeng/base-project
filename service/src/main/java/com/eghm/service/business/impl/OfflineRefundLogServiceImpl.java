@@ -7,7 +7,7 @@ import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.mapper.OfflineRefundLogMapper;
 import com.eghm.model.OfflineRefundLog;
 import com.eghm.service.business.OfflineRefundLogService;
-import com.eghm.service.common.JsonService;
+import com.eghm.common.JsonService;
 import com.eghm.utils.DataUtil;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;

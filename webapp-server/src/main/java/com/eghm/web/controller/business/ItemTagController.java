@@ -1,7 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.dto.ext.RespBody;
-import com.eghm.service.cache.CacheProxyService;
+import com.eghm.cache.CacheProxyService;
 import com.eghm.vo.business.item.ItemTagResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

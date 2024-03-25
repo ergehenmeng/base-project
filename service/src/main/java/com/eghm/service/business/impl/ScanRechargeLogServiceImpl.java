@@ -10,15 +10,15 @@ import com.eghm.model.ScanRechargeLog;
 import com.eghm.service.business.ScanRechargeLogService;
 import com.eghm.service.business.ScoreAccountService;
 import com.eghm.service.business.handler.context.PayNotifyContext;
-import com.eghm.service.pay.AggregatePayService;
-import com.eghm.service.pay.enums.TradeState;
-import com.eghm.service.pay.vo.PayOrderVO;
+import com.eghm.pay.AggregatePayService;
+import com.eghm.pay.enums.TradeState;
+import com.eghm.pay.vo.PayOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import static com.eghm.service.pay.enums.TradeState.PAY_ERROR;
-import static com.eghm.service.pay.enums.TradeState.TRADE_CLOSED;
+import static com.eghm.pay.enums.TradeState.PAY_ERROR;
+import static com.eghm.pay.enums.TradeState.TRADE_CLOSED;
 
 /**
  * <p>

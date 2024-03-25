@@ -13,7 +13,7 @@ import com.eghm.mapper.VenueOrderMapper;
 import com.eghm.model.VenueOrder;
 import com.eghm.service.business.VenueOrderService;
 import com.eghm.service.business.VenueSitePriceService;
-import com.eghm.service.common.JsonService;
+import com.eghm.common.JsonService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.AssertUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;

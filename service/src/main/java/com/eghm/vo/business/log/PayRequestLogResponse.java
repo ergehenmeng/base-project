@@ -1,7 +1,7 @@
 package com.eghm.vo.business.log;
 
-import com.eghm.service.pay.enums.PayChannel;
-import com.eghm.service.pay.enums.StepType;
+import com.eghm.pay.enums.PayChannel;
+import com.eghm.pay.enums.StepType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

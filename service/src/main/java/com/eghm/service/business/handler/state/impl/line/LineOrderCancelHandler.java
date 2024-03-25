@@ -10,7 +10,7 @@ import com.eghm.service.business.LineOrderService;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCancelHandler;
-import com.eghm.service.pay.AggregatePayService;
+import com.eghm.pay.AggregatePayService;
 import org.springframework.stereotype.Service;
 
 /**

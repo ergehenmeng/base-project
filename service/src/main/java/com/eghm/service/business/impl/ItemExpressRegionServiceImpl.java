@@ -15,7 +15,7 @@ import com.eghm.model.ExpressTemplateRegion;
 import com.eghm.model.ItemSku;
 import com.eghm.service.business.ItemExpressRegionService;
 import com.eghm.service.business.ItemSkuService;
-import com.eghm.service.common.JsonService;
+import com.eghm.common.JsonService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

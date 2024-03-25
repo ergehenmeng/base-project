@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.SysCache;
-import com.eghm.service.cache.SysCacheService;
+import com.eghm.cache.SysCacheService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

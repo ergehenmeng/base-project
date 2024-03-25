@@ -5,7 +5,7 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
-import com.eghm.service.cache.CacheService;
+import com.eghm.cache.CacheService;
 import com.eghm.utils.WebUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.lang.NonNull;

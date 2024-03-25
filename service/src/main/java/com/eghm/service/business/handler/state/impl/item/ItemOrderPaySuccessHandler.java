@@ -11,7 +11,7 @@ import com.eghm.model.ItemGroupOrder;
 import com.eghm.model.Order;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.PayNotifyContext;
-import com.eghm.service.sys.AlarmService;
+import com.eghm.common.AlarmService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

@@ -5,7 +5,7 @@ import com.eghm.dto.business.account.score.ScoreRechargeDTO;
 import com.eghm.dto.business.account.score.ScoreScanRechargeDTO;
 import com.eghm.dto.business.account.score.ScoreWithdrawApplyDTO;
 import com.eghm.model.ScoreAccount;
-import com.eghm.service.pay.vo.PrepayVO;
+import com.eghm.pay.vo.PrepayVO;
 
 /**
  * <p>

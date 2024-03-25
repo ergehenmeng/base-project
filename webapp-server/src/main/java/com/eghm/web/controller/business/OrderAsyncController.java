@@ -5,7 +5,7 @@ import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
-import com.eghm.service.cache.CacheService;
+import com.eghm.cache.CacheService;
 import com.eghm.vo.business.order.OrderCreateVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;

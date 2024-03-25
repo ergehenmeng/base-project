@@ -20,7 +20,7 @@ import com.eghm.model.MemberNotice;
 import com.eghm.model.MemberNoticeLog;
 import com.eghm.model.NoticeTemplate;
 import com.eghm.service.common.NoticeTemplateService;
-import com.eghm.service.common.PushService;
+import com.eghm.common.PushService;
 import com.eghm.service.member.MemberNoticeService;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.DataUtil;

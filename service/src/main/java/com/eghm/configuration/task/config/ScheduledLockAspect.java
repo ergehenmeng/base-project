@@ -1,8 +1,8 @@
 package com.eghm.configuration.task.config;
 
 import com.eghm.constant.CommonConstant;
-import com.eghm.service.cache.RedisLock;
-import com.eghm.service.sys.AlarmService;
+import com.eghm.lock.RedisLock;
+import com.eghm.common.AlarmService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;

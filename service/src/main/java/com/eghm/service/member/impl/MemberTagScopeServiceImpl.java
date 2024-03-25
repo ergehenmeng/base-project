@@ -12,7 +12,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MemberMapper;
 import com.eghm.mapper.MemberTagScopeMapper;
 import com.eghm.model.MemberTagScope;
-import com.eghm.service.common.SmsService;
+import com.eghm.common.SmsService;
 import com.eghm.service.member.MemberNoticeService;
 import com.eghm.service.member.MemberTagScopeService;
 import com.eghm.vo.member.MemberResponse;

@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.SysArea;
-import com.eghm.service.cache.CacheProxyService;
+import com.eghm.cache.CacheProxyService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.sys.SysAreaVO;
 import io.swagger.annotations.Api;

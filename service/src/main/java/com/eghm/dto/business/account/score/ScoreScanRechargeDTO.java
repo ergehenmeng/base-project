@@ -2,7 +2,7 @@ package com.eghm.dto.business.account.score;
 
 import com.eghm.annotation.Assign;
 import com.eghm.convertor.YuanToCentDecoder;
-import com.eghm.service.pay.enums.PayChannel;
+import com.eghm.pay.enums.PayChannel;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

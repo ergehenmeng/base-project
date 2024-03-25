@@ -10,7 +10,7 @@ import com.eghm.dto.business.account.score.ScoreWithdrawApplyDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.ScoreAccount;
 import com.eghm.service.business.ScoreAccountService;
-import com.eghm.service.pay.vo.PrepayVO;
+import com.eghm.pay.vo.PrepayVO;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.business.account.ScoreAccountResponse;

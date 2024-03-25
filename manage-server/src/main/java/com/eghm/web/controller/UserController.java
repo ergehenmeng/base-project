@@ -11,7 +11,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.user.*;
 import com.eghm.model.SysUser;
-import com.eghm.service.cache.CacheService;
+import com.eghm.cache.CacheService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.DataUtil;

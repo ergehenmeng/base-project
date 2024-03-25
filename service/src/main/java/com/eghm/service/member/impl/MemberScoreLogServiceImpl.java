@@ -8,7 +8,7 @@ import com.eghm.dto.member.MemberScoreQueryDTO;
 import com.eghm.mapper.MemberScoreLogMapper;
 import com.eghm.model.MemberScoreLog;
 import com.eghm.service.member.MemberScoreLogService;
-import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.StringUtil;
 import com.eghm.vo.member.MemberScoreVO;

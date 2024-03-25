@@ -5,7 +5,7 @@ import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.enums.ErrorCode;
-import com.eghm.service.cache.CacheService;
+import com.eghm.cache.CacheService;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
 import com.eghm.web.annotation.SubmitInterval;

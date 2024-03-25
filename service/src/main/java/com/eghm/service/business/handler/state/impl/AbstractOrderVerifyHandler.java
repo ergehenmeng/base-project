@@ -13,7 +13,7 @@ import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.VerifyLogService;
 import com.eghm.service.business.handler.context.OrderVerifyContext;
 import com.eghm.service.business.handler.state.OrderVerifyHandler;
-import com.eghm.service.common.JsonService;
+import com.eghm.common.JsonService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

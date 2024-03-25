@@ -8,7 +8,7 @@ import com.eghm.dto.push.PushTemplateEditRequest;
 import com.eghm.dto.push.PushTemplateQueryRequest;
 import com.eghm.mapper.PushTemplateMapper;
 import com.eghm.model.PushTemplate;
-import com.eghm.service.cache.CacheProxyService;
+import com.eghm.cache.CacheProxyService;
 import com.eghm.service.common.PushTemplateService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;

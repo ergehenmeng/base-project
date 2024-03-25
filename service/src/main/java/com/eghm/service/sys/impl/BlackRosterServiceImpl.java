@@ -13,7 +13,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.BlackRosterMapper;
 import com.eghm.model.BlackRoster;
-import com.eghm.service.cache.CacheService;
+import com.eghm.cache.CacheService;
 import com.eghm.service.sys.BlackRosterService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
