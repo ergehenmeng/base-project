@@ -11,9 +11,9 @@
     <contextName>${appName}</contextName>
     <!--当前时间戳字符串 其他地方可以引用-->
     <timestamp key="secondTime" datePattern="yyyyMMddHHmmss"/>
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
     <!--彩色格式输出-->
     <property name="color_log_pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %clr(%X{traceId}){magenta} | %clr(%thread){yellow} | %clr(%-5level){highlight} | %clr(%logger{50}){cyan} | %msg%n"/>
-    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
     <!-- 普通格式输出 %d输出时间,%thread输出线程,%-5level从左到右5个字符整齐输出日志级别 %msg输出日志信息 %n换行符-->
     <property name="default_log_pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{traceId}] [%thread] %-5level %logger{50} - %msg%n"/>
     <!--ch.qos.logback.core.ConsoleAppender 负责把日志输出到控制台-->
