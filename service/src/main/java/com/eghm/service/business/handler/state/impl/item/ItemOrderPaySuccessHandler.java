@@ -11,7 +11,7 @@ import com.eghm.model.ItemGroupOrder;
 import com.eghm.model.Order;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.PayNotifyContext;
-import com.eghm.service.sys.DingTalkService;
+import com.eghm.service.sys.AlarmService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -40,18 +40,18 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
 
     private final GroupBookingService groupBookingService;
 
-    private final DingTalkService dingTalkService;
+    private final AlarmService alarmService;
 
     private final AccountService accountService;
 
     public ItemOrderPaySuccessHandler(ScoreAccountService scoreAccountService, OrderService orderService, ItemService itemService, ItemGroupOrderService itemGroupOrderService,
-                                      GroupBookingService groupBookingService, DingTalkService dingTalkService, AccountService accountService) {
+                                      GroupBookingService groupBookingService, AlarmService alarmService, AccountService accountService) {
         super(orderService);
         this.itemService = itemService;
         this.orderService = orderService;
         this.itemGroupOrderService = itemGroupOrderService;
         this.groupBookingService = groupBookingService;
-        this.dingTalkService = dingTalkService;
+        this.alarmService = alarmService;
         this.scoreAccountService = scoreAccountService;
         this.accountService = accountService;
     }
@@ -100,7 +100,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
     private void tryUpdateGroupOrderState(String bookingNo, Long bookingId) {
         GroupBooking booking = groupBookingService.getById(bookingId);
         if (booking == null) {
-            dingTalkService.sendMsg(String.format("支付成功更新拼团时, 未查询到拼团活动 [%s] [%s]", bookingNo, bookingId));
+            alarmService.sendMsg(String.format("支付成功更新拼团时, 未查询到拼团活动 [%s] [%s]", bookingNo, bookingId));
             return;
         }
         List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(bookingNo, 0);

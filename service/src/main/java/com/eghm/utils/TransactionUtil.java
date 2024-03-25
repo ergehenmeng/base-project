@@ -1,6 +1,6 @@
 package com.eghm.utils;
 
-import com.eghm.service.sys.DingTalkService;
+import com.eghm.service.sys.AlarmService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -25,11 +25,11 @@ public class TransactionUtil {
 
     private static final TransactionTemplate TEMPLATE;
 
-    public static final DingTalkService TALK_SERVICE;
+    public static final AlarmService TALK_SERVICE;
 
     static {
         TEMPLATE = SpringContextUtil.getBean(TransactionTemplate.class);
-        TALK_SERVICE = SpringContextUtil.getBean(DingTalkService.class);
+        TALK_SERVICE = SpringContextUtil.getBean(AlarmService.class);
     }
 
     /**

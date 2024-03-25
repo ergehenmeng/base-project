@@ -18,7 +18,7 @@ import com.eghm.service.business.GroupBookingService;
 import com.eghm.service.business.ItemGroupOrderService;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
 import com.eghm.service.mq.service.MessageService;
-import com.eghm.service.sys.DingTalkService;
+import com.eghm.service.sys.AlarmService;
 import com.eghm.vo.business.group.GroupMemberVO;
 import com.eghm.vo.business.group.GroupOrderDetailVO;
 import com.eghm.vo.business.group.GroupOrderVO;
@@ -47,7 +47,7 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
 
     private final MessageService messageService;
 
-    private final DingTalkService dingTalkService;
+    private final AlarmService alarmService;
 
     private final GroupBookingService groupBookingService;
 
@@ -177,12 +177,12 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
 
         if (groupOrder == null) {
             log.error("订单无拼团记录,无法同步退款[{}] [{}]", order.getOrderNo(), order.getBookingNo());
-            dingTalkService.sendMsg(String.format("订单[%s]无拼团记录,无法同步退款 [%s]", order.getOrderNo(), order.getBookingNo()));
+            alarmService.sendMsg(String.format("订单[%s]无拼团记录,无法同步退款 [%s]", order.getOrderNo(), order.getBookingNo()));
             return;
         }
         if (groupOrder.getState() != 0) {
             log.error("订单拼单状态异常,无法同步退款[{}] [{}]", order.getOrderNo(), order.getBookingNo());
-            dingTalkService.sendMsg(String.format("订单[%s]拼单状态异常,无法同步退款 [%s]", order.getOrderNo(), order.getBookingNo()));
+            alarmService.sendMsg(String.format("订单[%s]拼单状态异常,无法同步退款 [%s]", order.getOrderNo(), order.getBookingNo()));
             return;
         }
         // 先把自己的拼团订单改为失败, 后续在根据是否是团长来决定是否要退款

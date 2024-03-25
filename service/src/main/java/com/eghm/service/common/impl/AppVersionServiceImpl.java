@@ -16,7 +16,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.AppVersionMapper;
 import com.eghm.model.AppVersion;
 import com.eghm.service.common.AppVersionService;
-import com.eghm.service.sys.DingTalkService;
+import com.eghm.service.sys.AlarmService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.VersionUtil;
@@ -40,7 +40,7 @@ public class AppVersionServiceImpl implements AppVersionService {
 
     private final SysConfigApi sysConfigApi;
 
-    private final DingTalkService dingTalkService;
+    private final AlarmService alarmService;
 
     @Override
     public Page<AppVersion> getByPage(VersionQueryRequest request) {
@@ -77,7 +77,7 @@ public class AppVersionServiceImpl implements AppVersionService {
         AppVersion mapperVersion = appVersionMapper.getVersion(channel, latestVersion);
 
         if (mapperVersion == null) {
-            dingTalkService.sendMsg(String.format("[%s] V%s最新版本尚未配置", channel, latestVersion));
+            alarmService.sendMsg(String.format("[%s] V%s最新版本尚未配置", channel, latestVersion));
             return AppVersionVO.builder().latest(true).build();
         }
 

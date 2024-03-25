@@ -1,5 +1,6 @@
 package com.eghm.configuration;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.ttl.TtlRunnable;
 import com.eghm.configuration.encoder.BcEncoder;
 import com.eghm.configuration.encoder.Encoder;
@@ -9,6 +10,14 @@ import com.eghm.constants.SystemConstant;
 import com.eghm.convertor.DateAnnotationFormatterFactory;
 import com.eghm.convertor.EnumBinderConverterFactory;
 import com.eghm.convertor.YuanToCentAnnotationFormatterFactory;
+import com.eghm.enums.AlarmType;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
+import com.eghm.service.common.JsonService;
+import com.eghm.service.sys.AlarmService;
+import com.eghm.service.sys.impl.DefaultAlarmServiceImpl;
+import com.eghm.service.sys.impl.DingTalkAlarmServiceImpl;
+import com.eghm.service.sys.impl.FeiShuAlarmServiceImpl;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.introspect.AnnotationIntrospectorPair;
@@ -198,5 +207,19 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
         return registrationBean;
     }
 
+    @Bean
+    public AlarmService alarmService(JsonService jsonService) {
+        SystemProperties.AlarmMsg alarmMsg = systemProperties.getAlarmMsg();
+        if (alarmMsg.getAlarmType() == AlarmType.DEFAULT) {
+            return new DefaultAlarmServiceImpl();
+        }
+        if (StrUtil.isNotBlank(alarmMsg.getWebHook())) {
+            throw new BusinessException(ErrorCode.WEB_HOOK_NULL);
+        }
+        if (alarmMsg.getAlarmType() == AlarmType.DING_TALK) {
+            return new DingTalkAlarmServiceImpl(systemProperties, jsonService);
+        }
+        return new FeiShuAlarmServiceImpl(systemProperties, jsonService);
+    }
 
 }

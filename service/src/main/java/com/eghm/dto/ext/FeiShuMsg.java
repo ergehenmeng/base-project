@@ -9,10 +9,16 @@ import lombok.Data;
  * @since 2023/7/14
  */
 @Data
-public class DingTalkMsg {
+public class FeiShuMsg {
+
+    @ApiModelProperty("时间戳")
+    private Long timestamp;
+
+    @ApiModelProperty("签名信息")
+    private String sign;
 
     @ApiModelProperty("消息类型")
-    @JsonProperty("msgtype")
+    @JsonProperty("msg_type")
     private String msgType;
 
     @ApiModelProperty("文本消息")

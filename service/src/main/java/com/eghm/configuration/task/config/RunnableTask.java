@@ -8,7 +8,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.model.SysTaskLog;
 import com.eghm.service.cache.RedisLock;
 import com.eghm.service.common.SysTaskLogService;
-import com.eghm.service.sys.DingTalkService;
+import com.eghm.service.sys.AlarmService;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class RunnableTask implements Runnable {
 
     private final RedisLock redisLock;
 
-    private final DingTalkService dingTalkService;
+    private final AlarmService alarmService;
 
     private final SysTaskLogService sysTaskLogService;
 
@@ -44,7 +44,7 @@ public class RunnableTask implements Runnable {
             this.redisLock = SpringContextUtil.getBean(RedisLock.class);
             this.method = this.findMethod(task, bean);
             this.sysTaskLogService = SpringContextUtil.getBean(SysTaskLogService.class);
-            this.dingTalkService = SpringContextUtil.getBean(DingTalkService.class);
+            this.alarmService = SpringContextUtil.getBean(AlarmService.class);
         } catch (Exception e) {
             log.error("系统中不存在指定的类或该方法 [{}] [{}] [{}]", task.getBeanName(), task.getMethodName(), task.getArgs(), e);
             throw new BusinessException(ErrorCode.TASK_CONFIG_ERROR);
@@ -66,7 +66,7 @@ public class RunnableTask implements Runnable {
             String errorMsg = ExceptionUtils.getStackTrace(e);
             builder.errorMsg(errorMsg);
             builder.state(false);
-            dingTalkService.sendMsg(String.format("自定义定时任务执行失败[%s]", key));
+            alarmService.sendMsg(String.format("自定义定时任务执行失败[%s]", key));
         } finally {
             // 每次执行的日志都记入定时任务日志
             long endTime = System.currentTimeMillis();

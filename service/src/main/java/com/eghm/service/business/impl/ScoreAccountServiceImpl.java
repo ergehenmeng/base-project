@@ -25,7 +25,7 @@ import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.enums.PayChannel;
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.PrepayVO;
-import com.eghm.service.sys.DingTalkService;
+import com.eghm.service.sys.AlarmService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import lombok.AllArgsConstructor;
@@ -53,7 +53,7 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
 
     private final AccountService accountService;
 
-    private final DingTalkService dingTalkService;
+    private final AlarmService alarmService;
 
     private final AccountLogService accountLogService;
 
@@ -236,7 +236,7 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         ScoreAccountLog scoreAccountLog = scoreAccountLogMapper.selectOne(wrapper);
         if (scoreAccountLog == null) {
             log.error("积分变动记录未查询到 [{}]", tradeNo);
-            dingTalkService.sendMsg(String.format("资金变动记录不存在 [%s]", tradeNo));
+            alarmService.sendMsg(String.format("资金变动记录不存在 [%s]", tradeNo));
             throw new BusinessException(ErrorCode.SCORE_LOG_NULL);
         }
         return scoreAccountLog;
@@ -268,24 +268,24 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
     private void updateById(ScoreAccount account) {
         if (account.getAmount() < 0) {
             log.error("账户可用积分余额不足 [{}]", account);
-            dingTalkService.sendMsg(String.format("账户可用积分余额不足 [%s]", account));
+            alarmService.sendMsg(String.format("账户可用积分余额不足 [%s]", account));
             throw new BusinessException(ErrorCode.MERCHANT_SCORE_USE);
         }
         if (account.getPayFreeze() < 0) {
             log.error("账户支付积分余额不足 [{}]", account);
-            dingTalkService.sendMsg(String.format("账户支付积分余额不足 [%s]", account));
+            alarmService.sendMsg(String.format("账户支付积分余额不足 [%s]", account));
             throw new BusinessException(ErrorCode.MERCHANT_SCORE_USE);
         }
         if (account.getWithdrawFreeze() < 0) {
             log.error("账户提现积分余额不足 [{}]", account);
-            dingTalkService.sendMsg(String.format("账户提现积分余额不足 [%s]", account));
+            alarmService.sendMsg(String.format("账户提现积分余额不足 [%s]", account));
             throw new BusinessException(ErrorCode.MERCHANT_SCORE_WITHDRAW);
         }
 
         int update = scoreAccountMapper.updateAccount(account);
         if (update != 1) {
             log.error("更新账户信息失败 [{}]", account);
-            dingTalkService.sendMsg(String.format("更新商户账户失败 [%s]", account));
+            alarmService.sendMsg(String.format("更新商户账户失败 [%s]", account));
             throw new BusinessException(ErrorCode.SCORE_ACCOUNT_UPDATE);
         }
     }

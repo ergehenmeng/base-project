@@ -17,7 +17,7 @@ import com.eghm.service.business.handler.access.AccessHandler;
 import com.eghm.service.business.handler.context.OrderCancelContext;
 import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.common.SmsService;
-import com.eghm.service.sys.DingTalkService;
+import com.eghm.service.sys.AlarmService;
 import com.eghm.state.machine.StateHandler;
 import com.eghm.vo.business.group.GroupOrderCancelVO;
 import lombok.AllArgsConstructor;
@@ -56,7 +56,7 @@ public class OrderProxyServiceImpl implements OrderProxyService {
 
     private final GroupBookingService groupBookingService;
 
-    private final DingTalkService dingTalkService;
+    private final AlarmService alarmService;
 
     private final OrderRefundLogService orderRefundLogService;
 
@@ -192,7 +192,7 @@ public class OrderProxyServiceImpl implements OrderProxyService {
             }
         } catch (Exception e) {
             log.error("拼团订单取消异常 [{}] [{}]", group.getOrderNo(), group.getBookingNo(), e);
-            dingTalkService.sendMsg(String.format("拼团订单取消异常 [%s] [%s]", group.getOrderNo(), group.getBookingNo()));
+            alarmService.sendMsg(String.format("拼团订单取消异常 [%s] [%s]", group.getOrderNo(), group.getBookingNo()));
         }
     }
 }

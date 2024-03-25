@@ -1,5 +1,6 @@
 package com.eghm.configuration;
 
+import com.eghm.enums.AlarmType;
 import com.eghm.enums.Channel;
 import com.eghm.enums.Env;
 import com.eghm.enums.TokenType;
@@ -77,9 +78,9 @@ public class SystemProperties {
     private final PushProperties push = new PushProperties();
 
     /**
-     * 钉钉消息通知
+     * 报警消息通知
      */
-    private final DingTalk dingTalk = new DingTalk();
+    private final AlarmMsg alarmMsg = new AlarmMsg();
 
     /**
      * 快递100配置
@@ -315,15 +316,20 @@ public class SystemProperties {
     }
 
     @Data
-    public static class DingTalk {
+    public static class AlarmMsg {
 
         /**
-         * 钉钉消息推送通知
+         * 消息通知类型
          */
-        private String accessToken;
+        private AlarmType alarmType = AlarmType.DEFAULT;
 
         /**
-         * 签名(为空表示采用非签名模式)
+         * 钉钉消息通知AccessToken或者飞书通知webHook地址
+         */
+        private String webHook;
+
+        /**
+         * 钉钉或飞书的签名(为空表示采用非签名模式)
          */
         private String secret;
     }

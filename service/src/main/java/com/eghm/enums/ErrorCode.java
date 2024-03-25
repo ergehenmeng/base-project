@@ -2018,7 +2018,10 @@ public enum ErrorCode {
      */
     DING_TALK_INIT(5000, "钉钉客户端初始化异常"),
 
-
+    /**
+     * 钉钉客户端初始化异常
+     */
+    WEB_HOOK_NULL(5001, "请先配置报警webHook"),
     ;
 
     /**

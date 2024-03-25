@@ -10,7 +10,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.AccountLogMapper;
 import com.eghm.model.AccountLog;
 import com.eghm.service.business.AccountLogService;
-import com.eghm.service.sys.DingTalkService;
+import com.eghm.service.sys.AlarmService;
 import com.eghm.vo.business.account.AccountLogResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class AccountLogServiceImpl implements AccountLogService {
 
     private final AccountLogMapper accountLogMapper;
 
-    private final DingTalkService dingTalkService;
+    private final AlarmService alarmService;
 
     @Override
     public Page<AccountLogResponse> getByPage(AccountQueryRequest request) {
@@ -54,7 +54,7 @@ public class AccountLogServiceImpl implements AccountLogService {
         AccountLog accountLog = accountLogMapper.selectOne(wrapper);
         if (accountLog == null) {
             log.error("资金变动记录未查询到 [{}]", tradeNo);
-            dingTalkService.sendMsg(String.format("资金变动记录不存在 [%s]", tradeNo));
+            alarmService.sendMsg(String.format("资金变动记录不存在 [%s]", tradeNo));
             throw new BusinessException(ErrorCode.ACCOUNT_LOG_NULL);
         }
         return accountLog;

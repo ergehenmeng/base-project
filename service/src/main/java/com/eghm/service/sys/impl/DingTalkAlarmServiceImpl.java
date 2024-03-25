@@ -6,10 +6,9 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.http.HttpUtil;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.log.LogTraceHolder;
-import com.eghm.configuration.template.TemplateEngine;
 import com.eghm.dto.ext.DingTalkMsg;
 import com.eghm.service.common.JsonService;
-import com.eghm.service.sys.DingTalkService;
+import com.eghm.service.sys.AlarmService;
 import com.eghm.utils.SpringContextUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,27 +24,18 @@ import java.util.Map;
  * @since 2023/7/14
  */
 @Slf4j
-@Service("dingTalkService")
+@Service("dingTalkAlarmService")
 @AllArgsConstructor
-public class DingTalkServiceImpl implements DingTalkService {
+public class DingTalkAlarmServiceImpl implements AlarmService {
 
     private final SystemProperties systemProperties;
 
     private final JsonService jsonService;
 
-    private TemplateEngine templateEngine;
-
     @Async
     @Override
     public void sendMsg(String content) {
         String response = HttpUtil.post(this.createRequestUrl(), this.createTextMsg(content));
-        this.parseResponse(response);
-    }
-
-    @Async
-    @Override
-    public void sendMarkdownMsg(String title, Map<String, Object> params, String path) {
-        String response = HttpUtil.post(this.createRequestUrl(), this.createMarkdownMsg(title, params, path));
         this.parseResponse(response);
     }
 
@@ -69,37 +59,18 @@ public class DingTalkServiceImpl implements DingTalkService {
     }
 
     /**
-     * 创建markdown格式的消息
-     *
-     * @param title  文档标题
-     * @param params 模板参数
-     * @param path   模板路劲
-     * @return 消息 json
-     */
-    private String createMarkdownMsg(String title, Map<String, Object> params, String path) {
-        DingTalkMsg msg = new DingTalkMsg();
-        msg.setMsgType("markdown");
-        DingTalkMsg.Markdown markdown = new DingTalkMsg.Markdown();
-        markdown.setTitle(title);
-        String content = templateEngine.renderFile(path, params);
-        markdown.setText(content);
-        msg.setMarkdown(markdown);
-        return jsonService.toJson(msg);
-    }
-
-    /**
      * 组装请求url
      *
      * @return <a href="https://oapi.dingtalk.com/robot/send?access_token=xxx&timestamp=xx&sign=xx">请求地址</a>
      */
     private String createRequestUrl() {
-        SystemProperties.DingTalk dingTalk = systemProperties.getDingTalk();
+        SystemProperties.AlarmMsg alarmMsg = systemProperties.getAlarmMsg();
         Map<String, Object> paramMap = new HashMap<>(4);
-        paramMap.put("access_token", dingTalk.getAccessToken());
-        if (StrUtil.isNotBlank(dingTalk.getSecret())) {
+        paramMap.put("access_token", alarmMsg.getWebHook());
+        if (StrUtil.isNotBlank(alarmMsg.getSecret())) {
             long timestamp = System.currentTimeMillis();
-            String unSign = timestamp + "\n" + dingTalk.getSecret();
-            String sign = SecureUtil.hmacSha256(dingTalk.getSecret()).digestBase64(unSign, true);
+            String unSign = timestamp + "\n" + alarmMsg.getSecret();
+            String sign = SecureUtil.hmacSha256(alarmMsg.getSecret()).digestBase64(unSign, true);
             paramMap.put("timestamp", timestamp);
             paramMap.put("sign", sign);
         }

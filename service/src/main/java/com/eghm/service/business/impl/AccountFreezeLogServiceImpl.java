@@ -15,7 +15,7 @@ import com.eghm.mapper.AccountFreezeLogMapper;
 import com.eghm.model.AccountFreezeLog;
 import com.eghm.service.business.AccountFreezeLogService;
 import com.eghm.service.common.JsonService;
-import com.eghm.service.sys.DingTalkService;
+import com.eghm.service.sys.AlarmService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.freeze.AccountFreezeLogResponse;
 import lombok.AllArgsConstructor;
@@ -40,7 +40,7 @@ public class AccountFreezeLogServiceImpl implements AccountFreezeLogService {
 
     private final JsonService jsonService;
 
-    private final DingTalkService dingTalkService;
+    private final AlarmService alarmService;
 
     private final AccountFreezeLogMapper accountFreezeLogMapper;
 
@@ -64,7 +64,7 @@ public class AccountFreezeLogServiceImpl implements AccountFreezeLogService {
         AccountFreezeLog freezeLog = this.getFreezeLog(dto.getMerchantId(), dto.getOrderNo());
         if (freezeLog != null) {
             log.error("新增冻结记录发现已存在冻结信息:[{}] [{}]", dto.getMerchantId(), dto.getOrderNo());
-            dingTalkService.sendMsg(String.format("新增冻结记录发现已存在冻结信息:[%s] [%s]", dto.getMerchantId(), dto.getOrderNo()));
+            alarmService.sendMsg(String.format("新增冻结记录发现已存在冻结信息:[%s] [%s]", dto.getMerchantId(), dto.getOrderNo()));
             return;
         }
         AccountFreezeLog copy = DataUtil.copy(dto, AccountFreezeLog.class);
@@ -114,7 +114,7 @@ public class AccountFreezeLogServiceImpl implements AccountFreezeLogService {
         AccountFreezeLog freezeLog = this.getFreezeLogRequired(merchantId, orderNo);
         if (freezeLog.getState() == FreezeState.UNFREEZE) {
             log.error("订单冻结记录已解冻:无法更新冻结信息[{}] [{}]", merchantId, orderNo);
-            dingTalkService.sendMsg(String.format("订单冻结记录已解冻,无法更新冻结信息:[%s] [%s]", merchantId, orderNo));
+            alarmService.sendMsg(String.format("订单冻结记录已解冻,无法更新冻结信息:[%s] [%s]", merchantId, orderNo));
             throw new BusinessException(ErrorCode.FREEZE_LOG_UNFREEZE);
         }
         return freezeLog;
@@ -146,7 +146,7 @@ public class AccountFreezeLogServiceImpl implements AccountFreezeLogService {
         AccountFreezeLog freezeLog = this.getFreezeLog(merchantId, orderNo);
         if (freezeLog == null) {
             log.error("订单冻结日志不存在 [{}] [{}]", merchantId, orderNo);
-            dingTalkService.sendMsg(String.format("订单冻结日志不存在:%s", orderNo));
+            alarmService.sendMsg(String.format("订单冻结日志不存在:%s", orderNo));
             throw new BusinessException(ErrorCode.FREEZE_LOG_NULL);
         }
         return freezeLog;

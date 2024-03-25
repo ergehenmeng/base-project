@@ -6,7 +6,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.ParameterException;
-import com.eghm.service.sys.DingTalkService;
+import com.eghm.service.sys.AlarmService;
 import com.eghm.utils.WebUtil;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
@@ -36,7 +36,7 @@ import java.util.Date;
 @RestControllerAdvice
 public class ExceptionAdviceHandler {
 
-    private final DingTalkService dingTalkService;
+    private final AlarmService alarmService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -76,7 +76,7 @@ public class ExceptionAdviceHandler {
                 return RespBody.error(exception.getCode(), exception.getMessage());
             }
         }
-        dingTalkService.sendMsg(ExceptionUtil.stacktraceToString(e));
+        alarmService.sendMsg(ExceptionUtil.stacktraceToString(e));
         return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }
 

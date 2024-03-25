@@ -22,7 +22,7 @@ import com.eghm.service.business.handler.context.*;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.member.LoginService;
-import com.eghm.service.sys.DingTalkService;
+import com.eghm.service.sys.AlarmService;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
 import com.eghm.state.machine.StateHandler;
@@ -84,7 +84,7 @@ public class RabbitListenerHandler {
 
     private final MemberCouponService memberCouponService;
 
-    private final DingTalkService dingTalkService;
+    private final AlarmService alarmService;
 
     /**
      * 零售商品消息队列订单过期处理
@@ -418,7 +418,7 @@ public class RabbitListenerHandler {
             consumer.accept(msg);
         } catch (Exception e) {
             log.error("队列[{}]处理消息异常 [{}] [{}]", message.getMessageProperties().getConsumerQueue(), msg, message, e);
-            dingTalkService.sendMsg(String.format("队列[%s]消息消费失败[%s]", message.getMessageProperties().getConsumerQueue(), jsonService.toJson(msg)));
+            alarmService.sendMsg(String.format("队列[%s]消息消费失败[%s]", message.getMessageProperties().getConsumerQueue(), jsonService.toJson(msg)));
         } finally {
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         }
