@@ -35,8 +35,8 @@ public class OrderAdjustController {
     }
 
     @ApiOperation("零售改价")
-    @PostMapping(value = "/itemAdjust", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RespBody<Void> itemAdjust(@RequestBody @Validated OrderAdjustRequest request) {
+    @PostMapping(value = "/item", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public RespBody<Void> item(@RequestBody @Validated OrderAdjustRequest request) {
         orderAdjustLogService.itemAdjust(request);
         return RespBody.success();
     }
