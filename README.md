@@ -135,3 +135,4 @@
       其中 `requestBody` 是 post请求体中的数据, `timestamp` 是当前时间(毫秒). 注意:即使请求体为空也需要带上 `data` 字段
     * `RSA` **`signature`=SHA256withRSA(data=Base64(`requestBody`)&timestamp=`timestamp`)** 其中 `requestBody` 是
       post请求体中的数据, `timestamp` 是当前时间(毫秒). `appSecret` 是 `RSA` 的私钥, 采用 `SHA256withRSA` 方式进行签名
+* 注意: `TransactionConfig`中定义的事务管理器作用在 `com.eghm.service` 包, 因此,在该包不要定义非事务相关的业务(例如第三方接口调用, 工具类等), 否则可能会导致事务异常.

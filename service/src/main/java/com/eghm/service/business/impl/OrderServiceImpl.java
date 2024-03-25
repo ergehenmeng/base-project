@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.eghm.common.OrderMQService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.OfflineRefundRequest;

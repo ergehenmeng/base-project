@@ -1,4 +1,4 @@
-package com.eghm.service.business;
+package com.eghm.common;
 
 import com.eghm.dto.ext.AsyncKey;
 import com.eghm.dto.ext.RefundAudit;

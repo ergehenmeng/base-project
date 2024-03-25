@@ -15,6 +15,6 @@ public class DefaultAlarmServiceImpl implements AlarmService {
 
     @Override
     public void sendMsg(String content) {
-        log.info("未设置报警: [{}]", content);
+        log.info("报警渠道未配置,默认采用日志打印: [{}]", content);
     }
 }

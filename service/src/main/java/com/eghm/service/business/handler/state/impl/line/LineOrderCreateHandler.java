@@ -1,5 +1,6 @@
 package com.eghm.service.business.handler.state.impl.line;
 
+import com.eghm.common.OrderMQService;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
