@@ -2446,4 +2446,19 @@ CREATE TABLE `merchant_address`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商户收货地址表';
 
-
+DROP TABLE IF EXISTS `order_adjust_log`;
+CREATE TABLE `order_adjust_log`
+(
+    `id`           bigint(20) NOT NULL COMMENT '主键',
+    `order_no`     varchar(30) DEFAULT NULL COMMENT '订单编号',
+    `product_name` varchar(50) DEFAULT NULL COMMENT '订单商品名称',
+    `user_id`      bigint(20)  DEFAULT NULL COMMENT '操作人id',
+    `user_name`    varchar(30) DEFAULT NULL COMMENT '操作人姓名',
+    `source_price` int(10)     default null comment '原价格',
+    `target_price` int(10)     default null comment '新价格',
+    `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`      bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='订单改价记录表';

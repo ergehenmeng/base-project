@@ -2,6 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.venue.VenueOrderQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
@@ -9,14 +10,12 @@ import com.eghm.service.business.VenueOrderService;
 import com.eghm.vo.business.order.venue.VenueOrderDetailResponse;
 import com.eghm.vo.business.order.venue.VenueOrderResponse;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -41,9 +40,8 @@ public class VenueOrderController {
 
     @GetMapping("/detail")
     @ApiOperation("详情")
-    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
-    public RespBody<VenueOrderDetailResponse> detail(@RequestParam("orderNo") String orderNo) {
-        VenueOrderDetailResponse detail = venueOrderService.detail(orderNo);
+    public RespBody<VenueOrderDetailResponse> detail(@Validated OrderDTO dto) {
+        VenueOrderDetailResponse detail = venueOrderService.detail(dto.getOrderNo());
         return RespBody.success(detail);
     }
 }

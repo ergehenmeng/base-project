@@ -2,6 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.refund.RefundAuditRequest;
 import com.eghm.dto.business.order.refund.RefundLogQueryRequest;
 import com.eghm.dto.ext.PageData;
@@ -18,7 +19,6 @@ import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.item.ItemOrderRefundDetailResponse;
 import com.eghm.vo.business.order.refund.RefundLogResponse;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -52,9 +52,8 @@ public class RefundLogController {
 
     @GetMapping("/item/detail")
     @ApiOperation("零售退款详情")
-    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
-    public RespBody<ItemOrderRefundDetailResponse> detail(@RequestParam("orderNo") String orderNo) {
-        ItemOrderRefundDetailResponse response = itemOrderService.refundDetail(orderNo);
+    public RespBody<ItemOrderRefundDetailResponse> detail(@Validated OrderDTO dto) {
+        ItemOrderRefundDetailResponse response = itemOrderService.refundDetail(dto.getOrderNo());
         return RespBody.success(response);
     }
 

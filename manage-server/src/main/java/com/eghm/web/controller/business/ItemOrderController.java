@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.cache.CacheProxyService;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.business.order.OrderDTO;
@@ -9,18 +10,16 @@ import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.lock.RedisLock;
 import com.eghm.model.Express;
 import com.eghm.service.business.ItemExpressService;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderProxyService;
 import com.eghm.service.business.OrderService;
-import com.eghm.cache.CacheProxyService;
-import com.eghm.lock.RedisLock;
 import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.business.order.item.ItemOrderDetailResponse;
 import com.eghm.vo.business.order.item.ItemOrderResponse;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -62,9 +61,8 @@ public class ItemOrderController {
 
     @GetMapping("/detail")
     @ApiOperation("详情")
-    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
-    public RespBody<ItemOrderDetailResponse> detail(@RequestParam("orderNo") String orderNo) {
-        ItemOrderDetailResponse detail = itemOrderService.detail(orderNo);
+    public RespBody<ItemOrderDetailResponse> detail(@Validated OrderDTO dto) {
+        ItemOrderDetailResponse detail = itemOrderService.detail(dto.getOrderNo());
         return RespBody.success(detail);
     }
 

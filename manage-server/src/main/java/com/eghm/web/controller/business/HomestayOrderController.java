@@ -2,6 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.homestay.HomestayOrderConfirmRequest;
 import com.eghm.dto.business.order.homestay.HomestayOrderQueryRequest;
 import com.eghm.dto.ext.PageData;
@@ -12,7 +13,6 @@ import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.business.order.homestay.HomestayOrderDetailResponse;
 import com.eghm.vo.business.order.homestay.HomestayOrderResponse;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -46,9 +46,8 @@ public class HomestayOrderController {
 
     @GetMapping("/detail")
     @ApiOperation("详情")
-    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
-    public RespBody<HomestayOrderDetailResponse> detail(@RequestParam("orderNo") String orderNo) {
-        HomestayOrderDetailResponse detail = homestayOrderService.detail(orderNo);
+    public RespBody<HomestayOrderDetailResponse> detail(@Validated OrderDTO dto) {
+        HomestayOrderDetailResponse detail = homestayOrderService.detail(dto.getOrderNo());
         return RespBody.success(detail);
     }
 

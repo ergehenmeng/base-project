@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.item.ConfirmReceiptDTO;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
@@ -44,9 +45,8 @@ public class ItemOrderController {
 
     @GetMapping("/detail")
     @ApiOperation("详情")
-    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
-    public RespBody<ItemOrderDetailVO> detail(@RequestParam("orderNo") String orderNo) {
-        ItemOrderDetailVO detail = itemOrderService.getDetail(orderNo, ApiHolder.getMemberId());
+    public RespBody<ItemOrderDetailVO> detail(@Validated OrderDTO dto) {
+        ItemOrderDetailVO detail = itemOrderService.getDetail(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success(detail);
     }
 
@@ -59,9 +59,8 @@ public class ItemOrderController {
 
     @GetMapping("/snapshotList")
     @ApiOperation("快照列表")
-    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
-    public RespBody<List<ItemOrderListVO>> snapshotList(@RequestParam("orderNo") String orderNo) {
-        List<ItemOrderListVO> detailList = itemOrderService.getItemList(orderNo);
+    public RespBody<List<ItemOrderListVO>> snapshotList(@Validated OrderDTO dto) {
+        List<ItemOrderListVO> detailList = itemOrderService.getItemList(dto.getOrderNo());
         return RespBody.success(detailList);
     }
 

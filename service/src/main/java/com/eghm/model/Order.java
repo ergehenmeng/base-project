@@ -91,7 +91,7 @@ public class Order extends BaseEntity {
     @ApiModelProperty(value = "总优惠金额")
     private Integer discountAmount;
 
-    @ApiModelProperty(value = "总付款金额=单价*数量+总快递费-总优惠金额-兑换码")
+    @ApiModelProperty(value = "总付款金额=单价*数量+总快递费-总优惠金额-兑换码-积分")
     private Integer payAmount;
 
     @ApiModelProperty("总快递费")

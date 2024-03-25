@@ -1,5 +1,6 @@
 package com.eghm.web.controller.business;
 
+import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.venue.VenueOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
@@ -8,14 +9,12 @@ import com.eghm.vo.business.order.venue.VenueOrderDetailVO;
 import com.eghm.vo.business.order.venue.VenueOrderVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -43,9 +42,8 @@ public class VenueOrderController {
 
     @GetMapping("/detail")
     @ApiOperation("详情")
-    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
-    public RespBody<VenueOrderDetailVO> detail(@RequestParam("orderNo") String orderNo) {
-        VenueOrderDetailVO detail = venueOrderService.getDetail(orderNo, ApiHolder.getMemberId());
+    public RespBody<VenueOrderDetailVO> detail(@Validated OrderDTO dto) {
+        VenueOrderDetailVO detail = venueOrderService.getDetail(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success(detail);
     }
 }

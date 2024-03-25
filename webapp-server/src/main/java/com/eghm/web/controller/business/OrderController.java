@@ -14,17 +14,16 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.AsyncKey;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
+import com.eghm.pay.vo.PrepayVO;
 import com.eghm.service.business.OrderProxyService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.impl.*;
 import com.eghm.service.business.handler.context.*;
-import com.eghm.pay.vo.PrepayVO;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.business.order.OrderCreateVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -199,9 +198,8 @@ public class OrderController {
 
     @GetMapping("/refresh")
     @ApiOperation("刷新核销码")
-    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
-    public RespBody<String> refresh(@RequestParam("orderNo") String orderNo) {
-        String verifyCode = orderService.refreshVerifyCode(orderNo, ApiHolder.getMemberId());
+    public RespBody<String> refresh(@Validated OrderDTO dto) {
+        String verifyCode = orderService.refreshVerifyCode(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success(verifyCode);
     }
 
