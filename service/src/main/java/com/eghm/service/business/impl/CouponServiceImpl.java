@@ -33,8 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.eghm.enums.ErrorCode.COUPON_NULL;
-import static com.eghm.enums.ErrorCode.COUPON_SCOPE_ILLEGAL;
+import static com.eghm.enums.ErrorCode.*;
 
 /**
  * @author 二哥很猛
@@ -141,12 +140,15 @@ public class CouponServiceImpl implements CouponService {
     /**
      * 检查优惠券使用范围
      *
-     * @param useScope 使用范围
+     * @param useScope 使用范围 1:店铺通用 2:指定商品
      * @param productIds 商品id
      */
     private void checkScope(Integer useScope, List<Long> productIds) {
         if (useScope == 1 && CollUtil.isNotEmpty(productIds)) {
             throw new BusinessException(COUPON_SCOPE_ILLEGAL);
+        }
+        if (useScope == 2 && CollUtil.isEmpty(productIds)) {
+            throw new BusinessException(COUPON_SCOPE_NULL);
         }
     }
 

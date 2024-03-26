@@ -2004,6 +2004,11 @@ public enum ErrorCode {
     COUPON_SCOPE_ILLEGAL(3980, "店铺通用券无需选择指定商品"),
 
     /**
+     * 请选择优惠券使用范围
+     */
+    COUPON_SCOPE_NULL(3981, "请选择优惠券使用范围"),
+
+    /**
      * 商品下架啦~
      */
     PRODUCT_COUPON_DOWN(3982, "商品下架啦~"),
