@@ -1,4 +1,4 @@
-package com.eghm.common;
+package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.email.EmailTemplateRequest;
