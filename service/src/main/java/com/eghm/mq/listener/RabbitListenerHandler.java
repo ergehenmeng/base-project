@@ -1,6 +1,9 @@
 package com.eghm.mq.listener;
 
 import cn.hutool.core.util.StrUtil;
+import com.eghm.cache.CacheService;
+import com.eghm.common.AlarmService;
+import com.eghm.common.JsonService;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constant.QueueConstant;
@@ -19,10 +22,7 @@ import com.eghm.model.Order;
 import com.eghm.model.WebappLog;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.*;
-import com.eghm.cache.CacheService;
-import com.eghm.common.JsonService;
 import com.eghm.service.member.LoginService;
-import com.eghm.common.AlarmService;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
 import com.eghm.state.machine.StateHandler;
@@ -391,7 +391,7 @@ public class RabbitListenerHandler {
                 // 消费成功,将结果放入缓存方便前端查询结果
                 cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), SUCCESS_PLACE_HOLDER, CommonConstant.ASYNC_MSG_EXPIRE);
             } else {
-                log.warn("消息已超时,不做任何业务处理");
+                log.warn("消息已超时,不做任何业务处理 [{}]", msg);
             }
         } catch (BusinessException e) {
             log.error("队列[{}]处理消息业务异常 [{}] [{}] [{}] [{}]", message.getMessageProperties().getConsumerQueue(), msg, message, e.getCode(), e.getMessage());
