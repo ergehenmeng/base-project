@@ -2,19 +2,15 @@ package com.eghm.web.controller.business;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.dto.IdDTO;
-import com.eghm.dto.business.item.ItemCouponQueryDTO;
 import com.eghm.dto.business.item.ItemQueryDTO;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
-import com.eghm.service.business.CouponService;
 import com.eghm.service.business.ItemService;
-import com.eghm.vo.business.coupon.CouponVO;
 import com.eghm.vo.business.item.ItemDetailVO;
 import com.eghm.vo.business.item.ItemVO;
 import com.eghm.vo.business.item.express.TotalExpressVO;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -35,8 +31,6 @@ import java.util.List;
 public class ItemController {
 
     private final ItemService itemService;
-
-    private final CouponService couponService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
