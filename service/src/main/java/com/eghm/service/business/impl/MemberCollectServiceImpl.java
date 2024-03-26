@@ -30,6 +30,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -82,7 +83,10 @@ public class MemberCollectServiceImpl implements MemberCollectService {
             Map<Long, TravelAgencyVO> travelMap = this.getTravelMap(collectMap.get(CollectType.TRAVEL_AGENCY));
             Map<Long, NewsVO> newsMap = this.getNewsMap(collectMap.get(CollectType.NEWS));
             Map<Long, RestaurantVO> restaurantMap = this.getRestaurantMap(collectMap.get(CollectType.VOUCHER_STORE));
-            for (MemberCollectVO vo : byPage.getRecords()) {
+
+            Iterator<MemberCollectVO> iterator = byPage.getRecords().iterator();
+            while (iterator.hasNext()) {
+                MemberCollectVO vo = iterator.next();
                 switch (vo.getCollectType()) {
                     case SCENIC:
                         vo.setScenic(scenicMap.get(vo.getCollectId()));
@@ -109,6 +113,8 @@ public class MemberCollectServiceImpl implements MemberCollectService {
                         vo.setRestaurant(restaurantMap.get(vo.getCollectId()));
                         break;
                     default:
+                        // 表示该收藏类型和id不匹配
+                        iterator.remove();
                         break;
                 }
             }

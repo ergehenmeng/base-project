@@ -126,7 +126,7 @@ public class ExceptionAdviceHandler {
     @ExceptionHandler(BindException.class)
     public RespBody<Void> exception(HttpServletRequest request, BindException e) {
         log.error("数据绑定异常, 接口[{}]", request.getRequestURI(), e);
-        return RespBody.error(ErrorCode.PARAM_VERIFY_ERROR.getCode(), "参数格式不合法");
+        return WebUtil.fieldValid(e.getBindingResult());
     }
 
     /**

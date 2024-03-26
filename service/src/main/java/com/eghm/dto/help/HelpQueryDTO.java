@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = false)
 public class HelpQueryDTO {
 
-    @ApiModelProperty(value = "帮助说明类型:system_dict表中help_classify字段", required = true)
+    @ApiModelProperty(value = "帮助说明类型:system_dict表中help_type字段", required = true)
     @NotNull(message = "帮助分类不能为空")
     private Integer helpType;
 

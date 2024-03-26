@@ -1,5 +1,6 @@
 package com.eghm.utils;
 
+import cn.hutool.core.lang.Validator;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
 import com.google.gson.Gson;
@@ -44,7 +45,6 @@ public class WebUtil {
         }
     }
 
-
     /**
      * 直接返回前台错误json格式信息
      *
@@ -84,11 +84,14 @@ public class WebUtil {
      */
     public static RespBody<Void> fieldValid(BindingResult result) {
         FieldError error = result.getFieldError();
+        String message;
         if (error == null) {
-            return RespBody.error(ErrorCode.PARAM_VERIFY_ERROR.getCode(), result.getAllErrors().get(0).getDefaultMessage());
+            message = result.getAllErrors().get(0).getDefaultMessage();
         } else {
-            return RespBody.error(ErrorCode.PARAM_VERIFY_ERROR.getCode(), error.getDefaultMessage());
+            message = error.getDefaultMessage();
         }
+        // 防止特殊绑定异常导致异常信息直接暴露给前端
+        return RespBody.error(ErrorCode.PARAM_VERIFY_ERROR.getCode(), Validator.isWord(message) ? "参数格式不合法" : message);
     }
 
 }
