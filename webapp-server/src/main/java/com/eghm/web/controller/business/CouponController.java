@@ -8,7 +8,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.CouponService;
 import com.eghm.service.business.MemberCouponService;
-import com.eghm.vo.business.coupon.CouponListVO;
+import com.eghm.vo.business.coupon.CouponVO;
 import com.eghm.vo.business.coupon.MemberCouponBaseVO;
 import com.eghm.vo.business.coupon.MemberCouponVO;
 import com.eghm.web.annotation.AccessToken;
@@ -37,8 +37,8 @@ public class CouponController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<List<CouponListVO>> listPage(@Validated CouponQueryDTO dto) {
-        List<CouponListVO> byPage = couponService.getByPage(dto);
+    public RespBody<List<CouponVO>> listPage(@Validated CouponQueryDTO dto) {
+        List<CouponVO> byPage = couponService.getByPage(dto);
         return RespBody.success(byPage);
     }
 
@@ -66,5 +66,12 @@ public class CouponController {
     public RespBody<List<MemberCouponBaseVO>> choose(@Validated IdDTO dto) {
         List<MemberCouponBaseVO> selectCoupon = memberCouponService.selectCoupon(ApiHolder.getMemberId(), dto.getId());
         return RespBody.success(selectCoupon);
+    }
+
+    @GetMapping("/detail")
+    @ApiOperation("优惠券详情")
+    public RespBody<CouponVO> detail(@Validated IdDTO dto) {
+        CouponVO detail = couponService.getDetail(dto.getId());
+        return RespBody.success(detail);
     }
 }

@@ -15,14 +15,15 @@ import com.eghm.mapper.CouponMapper;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.model.Coupon;
 import com.eghm.model.Item;
+import com.eghm.mq.service.MessageService;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.CouponScopeService;
 import com.eghm.service.business.CouponService;
 import com.eghm.service.business.MemberCouponService;
-import com.eghm.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.business.coupon.CouponListVO;
 import com.eghm.vo.business.coupon.CouponResponse;
+import com.eghm.vo.business.coupon.CouponVO;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.eghm.enums.ErrorCode.ITEM_DOWN;
+import static com.eghm.enums.ErrorCode.COUPON_NULL;
+import static com.eghm.enums.ErrorCode.ITEM_COUPON_DOWN;
 
 /**
  * @author 二哥很猛
@@ -105,24 +107,40 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
-    public List<CouponListVO> getByPage(CouponQueryDTO dto) {
-        Page<CouponListVO> voPage = couponMapper.getByPage(dto.createPage(false), dto);
-        List<CouponListVO> voList = voPage.getRecords();
+    public List<CouponVO> getByPage(CouponQueryDTO dto) {
+        Page<CouponVO> voPage = couponMapper.getByPage(dto.createPage(false), dto);
+        List<CouponVO> voList = voPage.getRecords();
         this.fillAttribute(voList);
         return voList;
     }
 
     @Override
-    public List<CouponListVO> getItemCoupon(Long itemId) {
+    public List<CouponVO> getItemCoupon(Long itemId) {
         Item item = itemMapper.selectById(itemId);
         if (item == null) {
             log.error("该零售商品已删除 [{}]", itemId);
-            throw new BusinessException(ITEM_DOWN);
+            throw new BusinessException(ITEM_COUPON_DOWN);
         }
         // 优惠券有店铺券或商品券之分
-        List<CouponListVO> couponList = couponMapper.getItemCoupon(itemId, item.getStoreId());
+        List<CouponVO> couponList = couponMapper.getItemCoupon(itemId, item.getStoreId());
         this.fillAttribute(couponList);
         return couponList;
+    }
+
+    @Override
+    public CouponVO getDetail(Long id) {
+        CouponVO detail = couponMapper.getDetail(id);
+        if (detail == null) {
+            log.error("优惠券不存在 [{}]", id);
+            throw new BusinessException(COUPON_NULL);
+        }
+        Long memberId = ApiHolder.tryGetMemberId();
+        if (memberId == null) {
+            return detail;
+        }
+        Map<Long, Integer> receivedMap = memberCouponService.countMemberReceived(memberId, Lists.newArrayList(detail.getId()));
+        detail.setReceived(receivedMap.getOrDefault(detail.getId(), 0) >= detail.getMaxLimit());
+        return detail;
     }
 
     /**
@@ -130,13 +148,13 @@ public class CouponServiceImpl implements CouponService {
      *
      * @param couponList 优惠券信息
      */
-    private void fillAttribute(List<CouponListVO> couponList) {
+    private void fillAttribute(List<CouponVO> couponList) {
         Long memberId = ApiHolder.tryGetMemberId();
         // 用户未登陆, 默认全部可以领取
         if (memberId == null || CollUtil.isEmpty(couponList)) {
             return;
         }
-        List<Long> couponIds = couponList.stream().map(CouponListVO::getId).collect(Collectors.toList());
+        List<Long> couponIds = couponList.stream().map(CouponVO::getId).collect(Collectors.toList());
 
         Map<Long, Integer> receivedMap = memberCouponService.countMemberReceived(memberId, couponIds);
         couponList.forEach(vo -> vo.setReceived(receivedMap.getOrDefault(vo.getId(), 0) >= vo.getMaxLimit()));

@@ -831,7 +831,7 @@ public enum ErrorCode {
     /**
      * 该商品不支持退款
      */
-    REFUND_NOT_SUPPORTED(3160, "该商品不支持退款"),
+    REFUND_NOT_SUPPORTED(3164, "该商品不支持退款"),
 
     /**
      * 该订单状态不支持退款
@@ -891,122 +891,117 @@ public enum ErrorCode {
     /**
      * 订单状态不符合退款要求
      */
-    VISITOR_STATE_ERROR(3169, "订单状态不符合退款要求"),
+    VISITOR_STATE_ERROR(3173, "订单状态不符合退款要求"),
 
     /**
      * 订单状态不匹配
      */
-    ORDER_STATE_MATCH(3170, "订单状态不匹配"),
+    ORDER_STATE_MATCH(3174, "订单状态不匹配"),
 
     /**
      * 订单状态不匹配,无法核销
      */
-    ORDER_NOT_VERIFY(3172, "订单状态不匹配,无法核销"),
+    ORDER_NOT_VERIFY(3175, "订单状态不匹配,无法核销"),
 
     /**
      * 该房型已下架
      */
-    HOMESTAY_ROOM_DOWN(3173, "该房型已下架"),
+    HOMESTAY_ROOM_DOWN(3176, "该房型已下架"),
 
     /**
      * 该房型已删除
      */
-    HOMESTAY_ROOM_NULL(3172, "房型信息未查询到"),
+    HOMESTAY_ROOM_NULL(3177, "房型信息未查询到"),
 
     /**
      * 房间库存不足, 请刷新页面
      */
-    HOMESTAY_CONFIG_NULL(3175, "房间库存不足,请刷新页面"),
+    HOMESTAY_CONFIG_NULL(3178, "房间库存不足,请刷新页面"),
 
     /**
      * 房间已预订满
      */
-    HOMESTAY_STOCK(3176, "房间已预订满"),
+    HOMESTAY_STOCK(3179, "房间已预订满"),
 
     /**
      * 餐饮券未查询到
      */
-    VOUCHER_NULL(3177, "餐饮券未查询到"),
+    VOUCHER_NULL(3180, "餐饮券未查询到"),
 
     /**
      * 该餐饮券已下架
      */
-    VOUCHER_DOWN(3178, "该餐饮券已下架"),
+    VOUCHER_DOWN(3182, "该餐饮券已下架"),
 
     /**
      * 餐饮券库存不足
      */
-    VOUCHER_STOCK(3179, "餐饮券库存不足"),
+    VOUCHER_STOCK(3183, "餐饮券库存不足"),
 
     /**
      * 餐饮单次购买上限为%s张
      */
-    VOUCHER_QUOTA(3180, "单次购买上限为%s张"),
+    VOUCHER_QUOTA(3184, "单次购买上限为%s张"),
 
     /**
      * 线路名称重复
      */
-    LINE_TITLE_REDO(3181, "线路名称重复"),
+    LINE_TITLE_REDO(3185, "线路名称重复"),
 
     /**
      * 该线路商品已下架
      */
-    LINE_DOWN(3182, "该线路商品已下架"),
+    LINE_DOWN(3187, "该线路商品已下架"),
 
     /**
      * 线路信息未查询到
      */
-    LINE_NULL(3182, "线路信息未查询到"),
+    LINE_NULL(3189, "线路信息未查询到"),
 
     /**
      * 线路库存不足
      */
-    LINE_STOCK(3183, "线路库存不足"),
+    LINE_STOCK(3190, "线路库存不足"),
 
     /**
      * 该日期不可预定
      */
-    LINE_NOT_ORDER(3184, "该日期不可预定"),
+    LINE_NOT_ORDER(3192, "该日期不可预定"),
 
     /**
      * 商品订单未查询到
      */
-    ITEM_ORDER_NULL(3185, "商品订单未查询到"),
+    ITEM_ORDER_NULL(3193, "商品订单未查询到"),
 
     /**
      * 订单信息不匹配
      */
-    ORDER_NOT_MATCH(3186, "订单信息不匹配"),
+    ORDER_NOT_MATCH(3194, "订单信息不匹配"),
 
     /**
      * 该商品已申请退款
      */
-    ORDER_REFUND_APPLY(3187, "该商品已申请退款"),
+    ORDER_REFUND_APPLY(3195, "该商品已申请退款"),
 
     /**
      * 线路库存不足
      */
-    LINE_STOCK_NULL(3188, "线路库存不足"),
+    LINE_STOCK_NULL(3196, "线路库存不足"),
 
     /**
      * 商品退款数量不匹配
      */
-    REFUND_MUM_MATCH(3189, "商品退款数量不匹配"),
+    REFUND_MUM_MATCH(3197, "商品退款数量不匹配"),
 
     /**
      * 订单状态不匹配,无法退款
      */
-    REFUND_STATE(3190, "订单状态不匹配,无法退款"),
+    REFUND_STATE(3198, "订单状态不匹配,无法退款"),
 
     /**
      * 线路商品不存在
      */
-    LINE_DELETE(3192, "线路商品不存在"),
-
-    /**
-     * 线路所属旅行社下架啦
-     */
-    TRAVEL_AGENCY_DOWN(3194, "线路所属旅行社下架啦"),
+    LINE_DELETE(3199, "线路商品不存在"),
 
     /**
      * 状态机[%s]未注册
@@ -1049,6 +1044,11 @@ public enum ErrorCode {
     TICKET_ORDER_NULL(3207, "门票订单未查询到"),
 
     /**
+     * 商品下架啦~
+     */
+    ITEM_COUPON_DOWN(3208, "商品下架啦~"),
+
+    /**
      * 免费票无需退款
      */
     TICKET_ORDER_FREE(3209, "免费票无需退款"),
@@ -1072,6 +1072,11 @@ public enum ErrorCode {
      * 商家信息不存在
      */
     RESTAURANT_NOT_FOUND(3213, "商家信息不存在"),
+
+    /**
+     * 线路所属旅行社下架啦
+     */
+    TRAVEL_AGENCY_DOWN(3214, "线路所属旅行社下架啦"),
 
     /**
      * 退款方式不支持
@@ -1992,6 +1997,11 @@ public enum ErrorCode {
      * 调整后的实付价应大于0元
      */
     ORDER_LE_ZERO(3976, "调整后的实付价应大于0元"),
+
+    /**
+     * 优惠券已经抢完啦~
+     */
+    COUPON_NULL(3978, "优惠券已经抢完啦~"),
 
     /**
      * 店铺信息不存在

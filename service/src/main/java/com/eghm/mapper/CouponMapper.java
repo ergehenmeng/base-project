@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.dto.business.coupon.config.CouponQueryRequest;
 import com.eghm.model.Coupon;
-import com.eghm.vo.business.coupon.CouponListVO;
+import com.eghm.vo.business.coupon.CouponVO;
 import com.eghm.vo.business.coupon.CouponResponse;
 import org.apache.ibatis.annotations.Param;
 
@@ -45,7 +45,7 @@ public interface CouponMapper extends BaseMapper<Coupon> {
      * @param dto  查询条件
      * @return 列表
      */
-    Page<CouponListVO> getByPage(Page<CouponListVO> page, @Param("param") CouponQueryDTO dto);
+    Page<CouponVO> getByPage(Page<CouponVO> page, @Param("param") CouponQueryDTO dto);
 
     /**
      * 查询商品下用户可以领取的优惠券列表
@@ -54,5 +54,13 @@ public interface CouponMapper extends BaseMapper<Coupon> {
      * @param storeId 店铺id
      * @return 优惠券列表
      */
-    List<CouponListVO> getItemCoupon(@Param("itemId") Long itemId, @Param("storeId") Long storeId);
+    List<CouponVO> getItemCoupon(@Param("itemId") Long itemId, @Param("storeId") Long storeId);
+
+    /**
+     * 查询优惠券详情
+     *
+     * @param id id
+     * @return 优惠券详情
+     */
+    CouponVO getDetail(@Param("id") Long id);
 }

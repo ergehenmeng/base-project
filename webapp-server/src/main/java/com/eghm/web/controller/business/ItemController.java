@@ -9,7 +9,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
 import com.eghm.service.business.CouponService;
 import com.eghm.service.business.ItemService;
-import com.eghm.vo.business.coupon.CouponListVO;
+import com.eghm.vo.business.coupon.CouponVO;
 import com.eghm.vo.business.item.ItemDetailVO;
 import com.eghm.vo.business.item.ItemVO;
 import com.eghm.vo.business.item.express.TotalExpressVO;
@@ -72,8 +72,8 @@ public class ItemController {
     @GetMapping("/couponList")
     @ApiOperation("商品页可以领取的优惠券")
     @ApiImplicitParam(name = "itemId", value = "商品id", required = true)
-    public RespBody<List<CouponListVO>> couponList(@RequestParam("itemId") Long itemId) {
-        List<CouponListVO> voList = couponService.getItemCoupon(itemId);
+    public RespBody<List<CouponVO>> couponList(@RequestParam("itemId") Long itemId) {
+        List<CouponVO> voList = couponService.getItemCoupon(itemId);
         return RespBody.success(voList);
     }
 

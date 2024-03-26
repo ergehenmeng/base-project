@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  */
 
 @Data
-public class CouponListVO {
+public class CouponVO {
 
     @ApiModelProperty("id")
     private Long id;
