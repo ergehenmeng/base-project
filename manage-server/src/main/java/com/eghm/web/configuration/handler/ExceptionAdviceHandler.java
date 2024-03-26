@@ -1,12 +1,12 @@
 package com.eghm.web.configuration.handler;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
+import com.eghm.common.AlarmService;
 import com.eghm.configuration.DatePropertyEditor;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.ParameterException;
-import com.eghm.common.AlarmService;
 import com.eghm.utils.WebUtil;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
@@ -116,7 +116,7 @@ public class ExceptionAdviceHandler {
     @ExceptionHandler(BindException.class)
     public RespBody<Void> exception(HttpServletRequest request, BindException e) {
         log.error("数据绑定异常, 接口[{}]", request.getRequestURI(), e);
-        return RespBody.error(ErrorCode.PARAM_VERIFY_ERROR.getCode(), "参数格式不合法");
+        return WebUtil.fieldValid(e.getBindingResult());
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
