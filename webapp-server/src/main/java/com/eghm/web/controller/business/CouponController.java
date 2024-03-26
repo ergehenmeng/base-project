@@ -4,13 +4,17 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.dto.business.coupon.member.MemberCouponQueryPageDTO;
 import com.eghm.dto.business.coupon.member.ReceiveCouponDTO;
+import com.eghm.dto.business.coupon.product.CouponProductDTO;
+import com.eghm.dto.business.item.ItemCouponQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.CouponService;
+import com.eghm.service.business.ItemService;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.vo.business.coupon.CouponVO;
 import com.eghm.vo.business.coupon.MemberCouponBaseVO;
 import com.eghm.vo.business.coupon.MemberCouponVO;
+import com.eghm.vo.business.item.ItemVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,6 +34,8 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/coupon", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CouponController {
+
+    private final ItemService itemService;
 
     private final CouponService couponService;
 
@@ -74,4 +80,19 @@ public class CouponController {
         CouponVO detail = couponService.getDetail(dto.getId());
         return RespBody.success(detail);
     }
+
+    @GetMapping("/couponList")
+    @ApiOperation("商品页可以领取的优惠券(全部)")
+    public RespBody<List<CouponVO>> couponList(@Validated CouponProductDTO dto) {
+        List<CouponVO> voList = couponService.getProductCoupon(dto);
+        return RespBody.success(voList);
+    }
+
+    @GetMapping("/itemCouponScope")
+    @ApiOperation("优惠券匹配的商品列表(零售)")
+    public RespBody<List<ItemVO>> itemCouponScope(@Validated ItemCouponQueryDTO dto) {
+        List<ItemVO> voList = itemService.getCouponScopeByPage(dto);
+        return RespBody.success(voList);
+    }
+
 }

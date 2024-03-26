@@ -7,14 +7,13 @@ import com.eghm.dto.business.coupon.config.CouponAddRequest;
 import com.eghm.dto.business.coupon.config.CouponEditRequest;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.dto.business.coupon.config.CouponQueryRequest;
+import com.eghm.dto.business.coupon.product.CouponProductDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.CouponMapper;
-import com.eghm.mapper.ItemMapper;
 import com.eghm.model.Coupon;
-import com.eghm.model.Item;
 import com.eghm.mq.service.MessageService;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.CouponScopeService;
@@ -34,7 +33,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.eghm.enums.ErrorCode.*;
+import static com.eghm.enums.ErrorCode.COUPON_NULL;
+import static com.eghm.enums.ErrorCode.COUPON_SCOPE_ILLEGAL;
 
 /**
  * @author 二哥很猛
@@ -50,8 +50,6 @@ public class CouponServiceImpl implements CouponService {
     private final CouponScopeService couponScopeService;
 
     private final MemberCouponService memberCouponService;
-
-    private final ItemMapper itemMapper;
 
     private final CommonService commonService;
 
@@ -116,14 +114,10 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
-    public List<CouponVO> getItemCoupon(Long itemId) {
-        Item item = itemMapper.selectById(itemId);
-        if (item == null) {
-            log.error("该零售商品已删除 [{}]", itemId);
-            throw new BusinessException(ITEM_COUPON_DOWN);
-        }
+    public List<CouponVO> getProductCoupon(CouponProductDTO dto) {
+        Long storeId = commonService.getStoreId(dto.getProductId(), dto.getProductType());
         // 优惠券有店铺券或商品券之分
-        List<CouponVO> couponList = couponMapper.getItemCoupon(itemId, item.getStoreId());
+        List<CouponVO> couponList = couponMapper.getProductCoupon(dto.getProductId(), storeId);
         this.fillAttribute(couponList);
         return couponList;
     }

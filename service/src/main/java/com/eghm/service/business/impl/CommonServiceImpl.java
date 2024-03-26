@@ -1,6 +1,7 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.StoreScope;
 import com.eghm.dto.statistics.ProductRequest;
@@ -8,13 +9,12 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.*;
-import com.eghm.model.SysDictItem;
+import com.eghm.model.*;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.handler.access.AccessHandler;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.RefundNotifyHandler;
-import com.eghm.common.impl.SysConfigApi;
 import com.eghm.utils.SpringContextUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.statistics.ProductStatisticsVO;
@@ -51,6 +51,8 @@ public class CommonServiceImpl implements CommonService {
     private final VoucherMapper voucherMapper;
 
     private final ScenicMapper scenicMapper;
+
+    private final VenueSiteMapper venueSiteMapper;
 
     private final ItemStoreMapper itemStoreMapper;
 
@@ -167,7 +169,6 @@ public class CommonServiceImpl implements CommonService {
             List<ProductStatisticsVO> roomList = homestayRoomMapper.dayAppend(request);
             roomMap = roomList.stream().collect(Collectors.toMap(ProductStatisticsVO::getCreateDate, ProductStatisticsVO::getAppendNum));
         }
-
         long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
         List<ProductStatisticsVO> resultList = new ArrayList<>();
         for (int i = 0; i < between; i++) {
@@ -221,5 +222,49 @@ public class CommonServiceImpl implements CommonService {
             responseList.addAll(itemStoreList);
         }
         return responseList;
+    }
+
+    @Override
+    public Long getStoreId(Long productId, ProductType productType) {
+        switch (productType) {
+            case ITEM:
+                Item item = itemMapper.selectById(productId);
+                if (item == null) {
+                    throw new BusinessException(ErrorCode.PRODUCT_COUPON_DOWN);
+                }
+                return item.getStoreId();
+            case TICKET:
+                ScenicTicket ticket = scenicTicketMapper.selectById(productId);
+                if (ticket == null) {
+                    throw new BusinessException(ErrorCode.PRODUCT_COUPON_DOWN);
+                }
+                return ticket.getScenicId();
+            case LINE:
+                Line line = lineMapper.selectById(productId);
+                if (line == null) {
+                    throw new BusinessException(ErrorCode.PRODUCT_COUPON_DOWN);
+                }
+                return line.getTravelAgencyId();
+            case VENUE:
+                VenueSite site = venueSiteMapper.selectById(productId);
+                if (site == null) {
+                    throw new BusinessException(ErrorCode.PRODUCT_COUPON_DOWN);
+                }
+                return site.getVenueId();
+            case VOUCHER:
+                Voucher voucher = voucherMapper.selectById(productId);
+                if (voucher == null) {
+                    throw new BusinessException(ErrorCode.PRODUCT_COUPON_DOWN);
+                }
+                return voucher.getRestaurantId();
+            case HOMESTAY:
+                HomestayRoom homestayRoom = homestayRoomMapper.selectById(productId);
+                if (homestayRoom == null) {
+                    throw new BusinessException(ErrorCode.PRODUCT_COUPON_DOWN);
+                }
+                return homestayRoom.getHomestayId();
+            default:
+                return null;
+        }
     }
 }

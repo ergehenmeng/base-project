@@ -100,8 +100,8 @@ public interface CommonService {
     boolean checkIsIllegal(Long merchantId, Long loginMerchantId);
 
     /**
-     * 获取新增商品数量(按天)
-     *
+     * 获取新增商品数量(按天) <br>
+     * 注意: 不含场馆预约(场馆预约基本没意义)
      * @param request 查询条件
      * @return 列表
      */
@@ -114,4 +114,13 @@ public interface CommonService {
      * @return 列表
      */
     List<BaseStoreResponse> getStoreList(List<StoreScope> scopeIds);
+
+    /**
+     * 根据商品id获取店铺id
+     *
+     * @param productId 商品id
+     * @param productType 商品类型
+     * @return 店铺id
+     */
+    Long getStoreId(Long productId, ProductType productType);
 }

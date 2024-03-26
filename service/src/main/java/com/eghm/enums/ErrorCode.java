@@ -1044,11 +1044,6 @@ public enum ErrorCode {
     TICKET_ORDER_NULL(3207, "门票订单未查询到"),
 
     /**
-     * 商品下架啦~
-     */
-    ITEM_COUPON_DOWN(3208, "商品下架啦~"),
-
-    /**
      * 免费票无需退款
      */
     TICKET_ORDER_FREE(3209, "免费票无需退款"),
@@ -2007,6 +2002,11 @@ public enum ErrorCode {
      * 店铺通用券无需选择指定商品
      */
     COUPON_SCOPE_ILLEGAL(3980, "店铺通用券无需选择指定商品"),
+
+    /**
+     * 商品下架啦~
+     */
+    PRODUCT_COUPON_DOWN(3982, "商品下架啦~"),
 
     /**
      * 店铺信息不存在

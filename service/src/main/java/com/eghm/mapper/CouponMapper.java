@@ -50,11 +50,11 @@ public interface CouponMapper extends BaseMapper<Coupon> {
     /**
      * 查询商品下用户可以领取的优惠券列表
      *
-     * @param itemId  商品id
+     * @param productId  商品id
      * @param storeId 店铺id
      * @return 优惠券列表
      */
-    List<CouponVO> getItemCoupon(@Param("itemId") Long itemId, @Param("storeId") Long storeId);
+    List<CouponVO> getProductCoupon(@Param("productId") Long productId, @Param("storeId") Long storeId);
 
     /**
      * 查询优惠券详情

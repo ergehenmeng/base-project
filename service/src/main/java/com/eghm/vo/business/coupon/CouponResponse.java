@@ -45,9 +45,6 @@ public class CouponResponse {
     @ApiModelProperty(value = "优惠券类型 (1:抵扣券 2:折扣券)")
     private CouponType couponType;
 
-    @ApiModelProperty("店铺名称")
-    private String storeName;
-
     @ApiModelProperty(value = "抵扣金额 单位:分")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer deductionValue;

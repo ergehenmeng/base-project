@@ -12,7 +12,6 @@
             t.use_num,
             t.mode,
             t.coupon_type,
-            r.title as storeName,
             t.deduction_value,
             t.discount_value,
             t.start_time,
@@ -21,7 +20,6 @@
             t.use_start_time,
             t.use_end_time
         from coupon t
-        left join item_store r on t.store_id = r.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
             and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
@@ -70,7 +68,7 @@
         and now() between start_time and end_time
     </select>
 
-    <select id="getItemCoupon" resultType="com.eghm.vo.business.coupon.CouponVO" >
+    <select id="getProductCoupon" resultType="com.eghm.vo.business.coupon.CouponVO" >
         select
             r.id,
             r.title,
@@ -85,7 +83,7 @@
         from coupon r left join coupon_scope t on t.coupon_id = r.id
         where r.deleted = false and r.stock &gt; 0 and r.state = 1 and r.`mode` = 1
         <!-- 商品券或店铺券都过滤 注意 storeId为空时 默认查询自营商品的优惠券 -->
-        and ((t.product_id = #{itemId} and r.use_scope = 2)  or (r.use_scope = 1 and r.store_id = #{storeId}))
+        and ((t.product_id = #{productId} and r.use_scope = 2)  or (r.use_scope = 1 and r.store_id = #{storeId}))
     </select>
 
     <select id="getDetail" resultType="com.eghm.vo.business.coupon.CouponVO">

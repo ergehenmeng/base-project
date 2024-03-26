@@ -5,9 +5,10 @@ import com.eghm.dto.business.coupon.config.CouponAddRequest;
 import com.eghm.dto.business.coupon.config.CouponEditRequest;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.dto.business.coupon.config.CouponQueryRequest;
+import com.eghm.dto.business.coupon.product.CouponProductDTO;
 import com.eghm.model.Coupon;
-import com.eghm.vo.business.coupon.CouponVO;
 import com.eghm.vo.business.coupon.CouponResponse;
+import com.eghm.vo.business.coupon.CouponVO;
 
 import java.util.List;
 
@@ -74,10 +75,10 @@ public interface CouponService {
     /**
      * 查询商品下用户可以领取的优惠券列表. 注意如果当前用户已的登陆, 则会根据用户是否领取过该优惠券来返回是否能领取状态
      *
-     * @param itemId 商品id
+     * @param dto 商品信息
      * @return 优惠券列表
      */
-    List<CouponVO> getItemCoupon(Long itemId);
+    List<CouponVO> getProductCoupon(CouponProductDTO dto);
 
     /**
      * 查询优惠券详情

@@ -69,19 +69,4 @@ public class ItemController {
         return RespBody.success(expressFee);
     }
 
-    @GetMapping("/couponList")
-    @ApiOperation("商品页可以领取的优惠券")
-    @ApiImplicitParam(name = "itemId", value = "商品id", required = true)
-    public RespBody<List<CouponVO>> couponList(@RequestParam("itemId") Long itemId) {
-        List<CouponVO> voList = couponService.getItemCoupon(itemId);
-        return RespBody.success(voList);
-    }
-
-    @GetMapping("/couponScope")
-    @ApiOperation("优惠券匹配的商品列表")
-    public RespBody<List<ItemVO>> couponScope(@Validated ItemCouponQueryDTO dto) {
-        List<ItemVO> voList = itemService.getCouponScopeByPage(dto);
-        return RespBody.success(voList);
-    }
-
 }
