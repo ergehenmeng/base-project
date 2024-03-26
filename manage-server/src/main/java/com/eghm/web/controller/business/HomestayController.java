@@ -12,7 +12,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Homestay;
 import com.eghm.service.business.HomestayService;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.homestay.HomestayResponse;
 import io.swagger.annotations.Api;
@@ -106,7 +106,7 @@ public class HomestayController {
     public void export(HttpServletResponse response, HomestayQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<HomestayResponse> byPage = homestayService.getList(request);
-        ExcelUtil.export(response, "民宿信息", byPage, HomestayResponse.class);
+        EasyExcelUtil.export(response, "民宿信息", byPage, HomestayResponse.class);
     }
 
 }

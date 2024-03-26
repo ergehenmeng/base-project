@@ -11,7 +11,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.model.RedeemCode;
 import com.eghm.service.business.RedeemCodeGrantService;
 import com.eghm.service.business.RedeemCodeService;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.redeem.RedeemCodeGrantResponse;
 import io.swagger.annotations.Api;
@@ -99,6 +99,6 @@ public class RedeemCodeController {
     @ApiOperation("导出")
     public void grantExport(HttpServletResponse response, @Validated RedeemCodeGrantQueryRequest request) {
         List<RedeemCodeGrantResponse> byPage = redeemCodeGrantService.getList(request);
-        ExcelUtil.export(response, "兑换码", byPage, RedeemCodeGrantResponse.class);
+        EasyExcelUtil.export(response, "兑换码", byPage, RedeemCodeGrantResponse.class);
     }
 }

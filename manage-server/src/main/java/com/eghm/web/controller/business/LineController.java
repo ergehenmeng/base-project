@@ -15,7 +15,7 @@ import com.eghm.model.LineDayConfig;
 import com.eghm.service.business.LineDayConfigService;
 import com.eghm.service.business.LineService;
 import com.eghm.utils.DataUtil;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.line.LineDayConfigResponse;
 import com.eghm.vo.business.line.LineDetailResponse;
@@ -119,6 +119,6 @@ public class LineController {
     public void export(HttpServletResponse response, LineQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<LineResponse> byPage = lineService.getList(request);
-        ExcelUtil.export(response, "线路信息", byPage, LineResponse.class);
+        EasyExcelUtil.export(response, "线路信息", byPage, LineResponse.class);
     }
 }

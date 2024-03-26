@@ -6,7 +6,7 @@ import com.eghm.dto.business.account.score.ScoreAccountQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.ScoreAccountLogService;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.account.ScoreAccountLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,6 +45,6 @@ public class ScoreAccountLogController {
     public void export(HttpServletResponse response, ScoreAccountQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<ScoreAccountLogResponse> byPage = scoreAccountLogService.getList(request);
-        ExcelUtil.export(response, "积分变动记录", byPage, ScoreAccountLogResponse.class);
+        EasyExcelUtil.export(response, "积分变动记录", byPage, ScoreAccountLogResponse.class);
     }
 }

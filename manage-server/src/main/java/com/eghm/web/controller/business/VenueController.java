@@ -12,7 +12,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Venue;
 import com.eghm.service.business.VenueService;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.venue.VenueResponse;
 import io.swagger.annotations.Api;
@@ -108,6 +108,6 @@ public class VenueController {
     public void export(HttpServletResponse response, VenueQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<VenueResponse> byPage = venueService.getList(request);
-        ExcelUtil.export(response, "场馆信息", byPage, VenueResponse.class);
+        EasyExcelUtil.export(response, "场馆信息", byPage, VenueResponse.class);
     }
 }

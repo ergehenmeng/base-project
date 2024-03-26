@@ -1,6 +1,8 @@
 package com.eghm.utils;
 
-import cn.hutool.core.net.RFC3986;
+import cn.hutool.core.util.URLUtil;
+import cn.hutool.http.Header;
+import cn.hutool.poi.excel.ExcelUtil;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.read.listener.ReadListener;
@@ -17,17 +19,14 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
+ * easy-excel封装工具类
+ *
  * @author wyb
  * @since 2023/3/31
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Slf4j
-public class ExcelUtil {
-
-    /**
-     * xlsx格式
-     */
-    public static final String XLSX_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+public class EasyExcelUtil {
 
     /**
      * 默认sheetName
@@ -67,8 +66,8 @@ public class ExcelUtil {
             fileName = fileName + ExcelTypeEnum.XLSX.getValue();
         }
         try {
-            response.setHeader("Content-Disposition", "attachment;filename=" + RFC3986.PATH.encode(fileName, StandardCharsets.UTF_8));
-            response.setContentType(XLSX_CONTENT_TYPE);
+            response.setHeader(Header.CONTENT_DISPOSITION.getValue(), "attachment;filename=" + URLUtil.encode(fileName, StandardCharsets.UTF_8));
+            response.setContentType(ExcelUtil.XLSX_CONTENT_TYPE);
             EasyExcel.write(response.getOutputStream(), cls).sheet(sheetName).doWrite(rowValues);
         } catch (Exception e) {
             log.error("导出Excel异常 [{}] [{}]", fileName, cls, e);

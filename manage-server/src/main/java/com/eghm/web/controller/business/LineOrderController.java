@@ -7,7 +7,7 @@ import com.eghm.dto.business.order.line.LineOrderQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.LineOrderService;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.order.line.LineOrderDetailResponse;
 import com.eghm.vo.business.order.line.LineOrderResponse;
 import io.swagger.annotations.Api;
@@ -54,6 +54,6 @@ public class LineOrderController {
     public void export(HttpServletResponse response, LineOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<LineOrderResponse> byPage = lineOrderService.getList(request);
-        ExcelUtil.export(response, "线路订单", byPage, LineOrderResponse.class);
+        EasyExcelUtil.export(response, "线路订单", byPage, LineOrderResponse.class);
     }
 }

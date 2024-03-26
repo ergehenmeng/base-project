@@ -7,7 +7,7 @@ import com.eghm.dto.business.order.voucher.VoucherOrderQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.VoucherOrderService;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.order.restaurant.VoucherOrderDetailResponse;
 import com.eghm.vo.business.order.restaurant.VoucherOrderResponse;
 import io.swagger.annotations.Api;
@@ -54,6 +54,6 @@ public class VoucherOrderController {
     public void export(HttpServletResponse response, VoucherOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<VoucherOrderResponse> byPage = voucherOrderService.getList(request);
-        ExcelUtil.export(response, "餐饮订单", byPage, VoucherOrderResponse.class);
+        EasyExcelUtil.export(response, "餐饮订单", byPage, VoucherOrderResponse.class);
     }
 }

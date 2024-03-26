@@ -7,7 +7,7 @@ import com.eghm.dto.business.withdraw.WithdrawQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.WithdrawService;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.withdraw.WithdrawLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,7 +44,7 @@ public class WithdrawController {
     public void export(HttpServletResponse response, WithdrawQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<WithdrawLogResponse> byPage = withdrawService.getList(request);
-        ExcelUtil.export(response, "提现记录", byPage, WithdrawLogResponse.class);
+        EasyExcelUtil.export(response, "提现记录", byPage, WithdrawLogResponse.class);
     }
 
     @PostMapping(value = "/apply", consumes = MediaType.APPLICATION_JSON_VALUE)

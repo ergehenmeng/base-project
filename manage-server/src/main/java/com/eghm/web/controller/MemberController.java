@@ -13,7 +13,7 @@ import com.eghm.service.member.LoginService;
 import com.eghm.service.member.MemberNoticeService;
 import com.eghm.service.member.MemberService;
 import com.eghm.service.member.MemberTagScopeService;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.member.MemberResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -75,7 +75,7 @@ public class MemberController {
     @ApiOperation("导出")
     public void export(HttpServletResponse response, MemberQueryRequest request) {
         List<MemberResponse> byPage = memberService.getList(request);
-        ExcelUtil.export(response, "会员信息", byPage, MemberResponse.class);
+        EasyExcelUtil.export(response, "会员信息", byPage, MemberResponse.class);
     }
 
     @GetMapping("/loginPage")

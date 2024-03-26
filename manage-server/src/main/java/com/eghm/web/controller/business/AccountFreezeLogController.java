@@ -6,7 +6,7 @@ import com.eghm.dto.business.freeze.AccountFreezeQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.AccountFreezeLogService;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.freeze.AccountFreezeLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,6 +45,6 @@ public class AccountFreezeLogController {
     public void export(HttpServletResponse response, AccountFreezeQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<AccountFreezeLogResponse> byPage = accountFreezeLogService.getList(request);
-        ExcelUtil.export(response, "冻结记录", byPage, AccountFreezeLogResponse.class);
+        EasyExcelUtil.export(response, "冻结记录", byPage, AccountFreezeLogResponse.class);
     }
 }

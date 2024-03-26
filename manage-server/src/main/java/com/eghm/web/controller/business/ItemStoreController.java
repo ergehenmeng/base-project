@@ -12,7 +12,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.ItemStore;
 import com.eghm.service.business.ItemStoreService;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.item.store.ItemStoreResponse;
 import io.swagger.annotations.Api;
@@ -114,6 +114,6 @@ public class ItemStoreController {
     public void export(HttpServletResponse response, ItemStoreQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<ItemStoreResponse> byPage = itemStoreService.getList(request);
-        ExcelUtil.export(response, "零售店铺信息", byPage, ItemStoreResponse.class);
+        EasyExcelUtil.export(response, "零售店铺信息", byPage, ItemStoreResponse.class);
     }
 }

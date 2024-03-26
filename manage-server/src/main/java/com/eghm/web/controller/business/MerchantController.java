@@ -10,7 +10,7 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.Merchant;
 import com.eghm.service.business.MerchantService;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.merchant.MerchantResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -107,7 +107,7 @@ public class MerchantController {
     @ApiOperation("导出")
     public void export(HttpServletResponse response, MerchantQueryRequest request) {
         List<MerchantResponse> byPage = merchantService.getList(request);
-        ExcelUtil.export(response, "商户信息", byPage, MerchantResponse.class);
+        EasyExcelUtil.export(response, "商户信息", byPage, MerchantResponse.class);
     }
 
 }

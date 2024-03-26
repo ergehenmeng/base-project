@@ -16,10 +16,29 @@ import java.util.concurrent.TimeUnit;
 @Setter
 public class StopWatch {
 
+    /**
+     * 任务耗时记录项
+     */
     private final List<TimeClock> taskList = new LinkedList<>();
+
+    /**
+     * 任务首次开始执行时间
+     */
     private long startTime;
+
+    /**
+     * 最新的任务名称
+     */
     private String taskName;
+
+    /**
+     * 任务耗时是否开始
+     */
     private boolean started;
+
+    /**
+     * 所有任务总耗时
+     */
     private long totalElapsedTime;
 
     private StopWatch(String taskName) {

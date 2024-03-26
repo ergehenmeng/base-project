@@ -12,7 +12,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Restaurant;
 import com.eghm.service.business.RestaurantService;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.restaurant.RestaurantResponse;
 import io.swagger.annotations.Api;
@@ -113,6 +113,6 @@ public class RestaurantController {
     public void export(HttpServletResponse response, RestaurantQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<RestaurantResponse> byPage = restaurantService.getList(request);
-        ExcelUtil.export(response, "餐饮店铺", byPage, RestaurantResponse.class);
+        EasyExcelUtil.export(response, "餐饮店铺", byPage, RestaurantResponse.class);
     }
 }

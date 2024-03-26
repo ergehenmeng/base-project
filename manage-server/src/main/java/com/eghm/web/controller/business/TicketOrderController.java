@@ -11,7 +11,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.lock.RedisLock;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.TicketOrderService;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.order.ticket.TicketOrderDetailResponse;
 import com.eghm.vo.business.order.ticket.TicketOrderResponse;
 import io.swagger.annotations.Api;
@@ -69,6 +69,6 @@ public class TicketOrderController {
     public void export(HttpServletResponse response, TicketOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<TicketOrderResponse> byPage = ticketOrderService.getList(request);
-        ExcelUtil.export(response, "门票订单", byPage, TicketOrderResponse.class);
+        EasyExcelUtil.export(response, "门票订单", byPage, TicketOrderResponse.class);
     }
 }

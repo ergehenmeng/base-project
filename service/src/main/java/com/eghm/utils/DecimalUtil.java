@@ -26,7 +26,6 @@ public class DecimalUtil {
         return (int) new Money(yuan).getCent();
     }
 
-
     /**
      * 金额元转换为分
      *

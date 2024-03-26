@@ -16,7 +16,7 @@ import com.eghm.service.business.ItemExpressService;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderProxyService;
 import com.eghm.service.business.OrderService;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.order.item.ItemOrderDetailResponse;
 import com.eghm.vo.business.order.item.ItemOrderResponse;
 import io.swagger.annotations.Api;
@@ -106,7 +106,7 @@ public class ItemOrderController {
     public void export(HttpServletResponse response, ItemOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<ItemOrderResponse> byPage = itemOrderService.getList(request);
-        ExcelUtil.export(response, "零售订单", byPage, ItemOrderResponse.class);
+        EasyExcelUtil.export(response, "零售订单", byPage, ItemOrderResponse.class);
     }
 
 }

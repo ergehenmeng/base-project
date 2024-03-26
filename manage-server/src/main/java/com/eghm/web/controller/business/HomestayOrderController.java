@@ -9,7 +9,7 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.HomestayOrderService;
 import com.eghm.service.business.OrderProxyService;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.order.homestay.HomestayOrderDetailResponse;
 import com.eghm.vo.business.order.homestay.HomestayOrderResponse;
 import io.swagger.annotations.Api;
@@ -63,6 +63,6 @@ public class HomestayOrderController {
     public void export(HttpServletResponse response, HomestayOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<HomestayOrderResponse> byPage = homestayOrderService.getList(request);
-        ExcelUtil.export(response, "民宿订单", byPage, HomestayOrderResponse.class);
+        EasyExcelUtil.export(response, "民宿订单", byPage, HomestayOrderResponse.class);
     }
 }

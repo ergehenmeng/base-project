@@ -12,7 +12,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Voucher;
 import com.eghm.service.business.VoucherService;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.restaurant.VoucherResponse;
 import io.swagger.annotations.Api;
@@ -106,7 +106,7 @@ public class VoucherController {
     public void export(HttpServletResponse response, VoucherQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<VoucherResponse> byPage = voucherService.getList(request);
-        ExcelUtil.export(response, "餐饮券", byPage, VoucherResponse.class);
+        EasyExcelUtil.export(response, "餐饮券", byPage, VoucherResponse.class);
     }
 
 }

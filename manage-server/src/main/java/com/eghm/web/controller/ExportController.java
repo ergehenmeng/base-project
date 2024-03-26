@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.DataUtil;
-import com.eghm.utils.ExcelUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.menu.MenuResponse;
 import com.eghm.vo.sys.MenuExportVO;
 import io.swagger.annotations.Api;
@@ -39,6 +39,6 @@ public class ExportController {
             vo.setMock(MenuExportVO.MockEnum.random(random.nextInt(3)));
             return vo;
         });
-        ExcelUtil.export(response, "菜单表格", voList, MenuExportVO.class);
+        EasyExcelUtil.export(response, "菜单表格", voList, MenuExportVO.class);
     }
 }
