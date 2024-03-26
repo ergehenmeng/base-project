@@ -1,9 +1,6 @@
 package com.eghm.configuration;
 
-import com.eghm.enums.AlarmType;
-import com.eghm.enums.Channel;
-import com.eghm.enums.Env;
-import com.eghm.enums.TokenType;
+import com.eghm.enums.*;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -277,6 +274,11 @@ public class SystemProperties {
          * 小程序appId
          */
         private String miniAppSecret;
+
+        /**
+         * 小程序版本, 默认:正式版
+         */
+        private WeChatVersion miniVersion = WeChatVersion.RELEASE;
 
         /**
          * 微信支付所在公众号的appId

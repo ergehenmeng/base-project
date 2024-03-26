@@ -107,7 +107,7 @@
         <!--swagger2版本-->
         <knif4j.version>4.5.0</knif4j.version>
         <!--微信三方sdk包-->
-        <wx-sdk.version>4.5.3.B</wx-sdk.version>
+        <wx-sdk.version>4.6.0</wx-sdk.version>
         <!--支付宝sdk-->
         <ali-sdk.version>2.2.2</ali-sdk.version>
         <!--mybatis-plus-->
