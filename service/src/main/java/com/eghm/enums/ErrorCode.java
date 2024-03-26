@@ -2004,6 +2004,11 @@ public enum ErrorCode {
     COUPON_NULL(3978, "优惠券已经抢完啦~"),
 
     /**
+     * 店铺通用券无需选择指定商品
+     */
+    COUPON_SCOPE_ILLEGAL(3980, "店铺通用券无需选择指定商品"),
+
+    /**
      * 店铺信息不存在
      */
     STORE_NOT_EXIST(4000, "店铺信息不存在"),

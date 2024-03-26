@@ -3,7 +3,6 @@ package com.eghm.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.dto.ext.ProductScope;
 import com.eghm.enums.ref.ProductType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -40,9 +39,9 @@ public class CouponScope {
     @ApiModelProperty(value = "添加时间")
     private LocalDateTime createTime;
 
-    public CouponScope(Long couponId, ProductScope scope) {
+    public CouponScope(Long couponId, ProductType productType, Long productId) {
         this.couponId = couponId;
-        this.productType = scope.getProductType();
-        this.productId = scope.getProductId();
+        this.productType = productType;
+        this.productId = productId;
     }
 }

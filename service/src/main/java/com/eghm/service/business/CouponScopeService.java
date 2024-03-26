@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dto.ext.ProductScope;
+import com.eghm.enums.ref.ProductType;
 
 import java.util.List;
 
@@ -15,8 +15,9 @@ public interface CouponScopeService {
      *
      * @param couponId 优惠券id
      * @param productIds 商品ids
+     * @param productType 商品类型
      */
-    void insertOnUpdate(Long couponId, List<ProductScope> productIds);
+    void insertOnUpdate(Long couponId, List<Long> productIds, ProductType productType);
 
     /**
      * 判断优惠券是否匹配该商品

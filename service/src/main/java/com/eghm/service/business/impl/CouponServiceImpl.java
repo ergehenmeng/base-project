@@ -34,8 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.eghm.enums.ErrorCode.COUPON_NULL;
-import static com.eghm.enums.ErrorCode.ITEM_COUPON_DOWN;
+import static com.eghm.enums.ErrorCode.*;
 
 /**
  * @author 二哥很猛
@@ -65,10 +64,11 @@ public class CouponServiceImpl implements CouponService {
 
     @Override
     public void create(CouponAddRequest request) {
+        this.checkScope(request.getUseScope(), request.getProductIds());
         Coupon config = DataUtil.copy(request, Coupon.class);
         config.setMerchantId(SecurityHolder.getMerchantId());
         couponMapper.insert(config);
-        couponScopeService.insertOnUpdate(config.getId(), request.getProductIds());
+        couponScopeService.insertOnUpdate(config.getId(), request.getProductIds(), request.getProductType());
         // 注意: 如果优惠券过期时间太大,则long转int时可能会溢出
         long expireTime = ChronoUnit.SECONDS.between(LocalDateTime.now(), request.getUseEndTime());
         messageService.sendDelay(ExchangeQueue.COUPON_EXPIRE, config.getId(), (int) expireTime);
@@ -78,9 +78,10 @@ public class CouponServiceImpl implements CouponService {
     public void update(CouponEditRequest request) {
         Coupon coupon = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(coupon.getMerchantId());
+        this.checkScope(coupon.getUseScope(), request.getProductIds());
         Coupon config = DataUtil.copy(request, Coupon.class);
         couponMapper.updateById(config);
-        couponScopeService.insertOnUpdate(config.getId(), request.getProductIds());
+        couponScopeService.insertOnUpdate(config.getId(), request.getProductIds(), request.getProductType());
     }
 
     @Override
@@ -141,6 +142,18 @@ public class CouponServiceImpl implements CouponService {
         Map<Long, Integer> receivedMap = memberCouponService.countMemberReceived(memberId, Lists.newArrayList(detail.getId()));
         detail.setReceived(receivedMap.getOrDefault(detail.getId(), 0) >= detail.getMaxLimit());
         return detail;
+    }
+
+    /**
+     * 检查优惠券使用范围
+     *
+     * @param useScope 使用范围
+     * @param productIds 商品id
+     */
+    private void checkScope(Integer useScope, List<Long> productIds) {
+        if (useScope == 1 && CollUtil.isNotEmpty(productIds)) {
+            throw new BusinessException(COUPON_SCOPE_ILLEGAL);
+        }
     }
 
     /**

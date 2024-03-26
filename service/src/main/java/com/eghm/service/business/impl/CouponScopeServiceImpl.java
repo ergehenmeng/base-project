@@ -3,7 +3,7 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.dto.ext.ProductScope;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.mapper.CouponScopeMapper;
 import com.eghm.model.CouponScope;
 import com.eghm.service.business.CouponScopeService;
@@ -23,11 +23,11 @@ public class CouponScopeServiceImpl implements CouponScopeService {
     private final CouponScopeMapper couponScopeMapper;
 
     @Override
-    public void insertOnUpdate(Long couponId, List<ProductScope> productIds) {
+    public void insertOnUpdate(Long couponId, List<Long> productIds, ProductType productType) {
         LambdaUpdateWrapper<CouponScope> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(CouponScope::getCouponId, couponId);
         couponScopeMapper.delete(wrapper);
-        productIds.forEach(scope -> couponScopeMapper.insert(new CouponScope(couponId, scope)));
+        productIds.forEach(productId -> couponScopeMapper.insert(new CouponScope(couponId, productType, productId)));
     }
 
     @Override

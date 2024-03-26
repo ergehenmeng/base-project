@@ -1,8 +1,8 @@
 package com.eghm.dto.business.coupon.config;
 
 import com.eghm.convertor.YuanToCentDecoder;
-import com.eghm.dto.ext.ProductScope;
 import com.eghm.enums.ref.CouponType;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
@@ -64,6 +64,9 @@ public class CouponAddRequest {
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer useThreshold;
 
+    @ApiModelProperty(value = "商品类型 ticket:门票 homestay:民宿 voucher:餐饮券 item:零售 line:线路 venue:场馆")
+    private ProductType productType;
+
     @ApiModelProperty(value = "发放开始时间 yyyy-MM-dd HH:mm")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
@@ -85,5 +88,5 @@ public class CouponAddRequest {
     private String instruction;
 
     @ApiModelProperty("关联的商品列表")
-    private List<ProductScope> productIds;
+    private List<Long> productIds;
 }
