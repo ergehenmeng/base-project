@@ -30,7 +30,7 @@ public interface WeChatMiniService {
      *
      * @param pageUrl 链接地址 相对路径(/pages/publishHomework/publishHomework)
      * @param query  请求参数
-     * @param validDay 有效日期
+     * @param validDay 有效日
      * @return 链接
      */
     String generateUrl(String pageUrl, String query, int validDay);

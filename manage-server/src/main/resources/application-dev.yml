@@ -50,4 +50,6 @@ system:
   # 微信小程序 公众号 微信支付配置
   wechat:
     notify-host: https://localhost:8080
+    mini-version: trial
+  # 系统环境
   env: dev
