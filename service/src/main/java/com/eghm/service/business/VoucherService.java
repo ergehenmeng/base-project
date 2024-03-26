@@ -60,14 +60,6 @@ public interface VoucherService {
     void updateState(Long id, State state);
 
     /**
-     * 主键查询餐饮券
-     *
-     * @param id id
-     * @return 餐饮券
-     */
-    Voucher selectById(Long id);
-
-    /**
      * 主键查询餐饮券,不存在抛异常
      *
      * @param id id

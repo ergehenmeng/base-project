@@ -704,14 +704,14 @@ public enum ErrorCode {
     MAX_DAY(3136, "时间跨度不能超过%s天"),
 
     /**
-     * 该景区已下架
+     * 该景区下架啦~
      */
-    SCENIC_DOWN(3137, "该景区已下架"),
+    SCENIC_DOWN(3137, "该景区下架啦~"),
 
     /**
-     * 该门票已下架
+     * 门票商品下架啦~
      */
-    TICKET_DOWN(3138, "该门票已下架"),
+    TICKET_DOWN(3138, "门票商品下架啦~"),
 
     /**
      * 优惠券抢完啦
@@ -949,9 +949,9 @@ public enum ErrorCode {
     LINE_TITLE_REDO(3185, "线路名称重复"),
 
     /**
-     * 该线路商品已下架
+     * 线路商品下架啦~
      */
-    LINE_DOWN(3187, "该线路商品已下架"),
+    LINE_DOWN(3187, "线路商品下架啦~"),
 
     /**
      * 线路信息未查询到
@@ -1064,9 +1064,9 @@ public enum ErrorCode {
     NOTICE_NOT_NULL(3212, "公告信息下架啦~"),
 
     /**
-     * 商家信息不存在
+     * 店铺信息未查询到
      */
-    RESTAURANT_NOT_FOUND(3213, "商家信息不存在"),
+    RESTAURANT_NULL(3213, "店铺信息未查询到"),
 
     /**
      * 线路所属旅行社下架啦
@@ -1151,12 +1151,12 @@ public enum ErrorCode {
     /**
      * 该民宿已下架
      */
-    HOMESTAY_NULL(3263, "该民宿已下架"),
+    HOMESTAY_NULL(3263, "民宿信息未查询到"),
 
     /**
-     * 该民宿已下架
+     * 民宿已经下架啦~
      */
-    HOMESTAY_DOWN(3266, "该民宿已下架"),
+    HOMESTAY_DOWN(3266, "民宿已经下架啦~"),
 
     /**
      * 该店铺已下架
@@ -1749,14 +1749,14 @@ public enum ErrorCode {
     VENUE_STOCK(3875, "该时间段已被预约"),
 
     /**
-     * 该场次已下架
+     * 该场次已经下架啦~
      */
-    VENUE_SITE_DOWN(3876, "该场次已下架"),
+    VENUE_SITE_DOWN(3876, "该场次已经下架啦~"),
 
     /**
-     * 该场次已下架
+     * 场馆信息下架啦~
      */
-    VENUE_DOWN(3877, "该场馆已下架"),
+    VENUE_DOWN(3877, "场馆信息下架啦~"),
 
     /**
      * 不支持跨天预约
@@ -2014,54 +2014,69 @@ public enum ErrorCode {
     PRODUCT_COUPON_DOWN(3982, "商品下架啦~"),
 
     /**
+     * 请先补全店铺信息
+     */
+    STORE_NOT_COMPLETE(3984, "请先补全店铺信息"),
+
+    /**
+     * 请先补全民宿信息
+     */
+    HOMESTAY_NOT_COMPLETE(3984, "请先补全民宿信息"),
+
+    /**
+     * 请先补全景区信息
+     */
+    TICKET_NOT_COMPLETE(3984, "请先补全景区信息"),
+
+    /**
      * 店铺信息不存在
      */
-    STORE_NOT_EXIST(4000, "店铺信息不存在"),
+    STORE_NOT_EXIST(3984, "店铺信息不存在"),
 
     /**
      * 微信公众号尚未配置
      */
-    MP_NOT_CONFIG(4000, "微信公众号尚未配置"),
+    MP_NOT_CONFIG(7000, "微信公众号尚未配置"),
 
     /**
      * 微信网页授权异常
      */
-    MP_JS_AUTH(4001, "微信网页授权异常"),
+    MP_JS_AUTH(7001, "微信网页授权异常"),
 
     /**
      * 微信公众号尚未配置
      */
-    MA_NOT_CONFIG(4005, "微信小程序尚未配置"),
+    MA_NOT_CONFIG(7005, "微信小程序尚未配置"),
 
     /**
      * 小程序手机号授权异常
      */
-    MA_JS_AUTH(4008, "小程序手机号授权异常"),
+    MA_JS_AUTH(7008, "小程序手机号授权异常"),
 
     /**
      * 小程序手机号授权为空
      */
-    MA_AUTH_NULL(4010, "小程序手机号授权为空"),
+    MA_AUTH_NULL(7010, "小程序手机号授权为空"),
 
     /**
      * 小程序手机号授权为空
      */
-    MA_SHORT_URL(4012, "小程序生成短链失败"),
+    MA_SHORT_URL(7012, "小程序生成短链失败"),
 
     /**
      * 小程序生成加密链接失败
      */
-    MA_ENCRYPT_URL(4015, "小程序生成加密链接失败"),
+    MA_ENCRYPT_URL(7015, "小程序生成加密链接失败"),
 
     /**
      * 钉钉客户端初始化异常
      */
-    DING_TALK_INIT(5000, "钉钉客户端初始化异常"),
+    DING_TALK_INIT(8000, "钉钉客户端初始化异常"),
 
     /**
      * 钉钉客户端初始化异常
      */
-    WEB_HOOK_NULL(5001, "请先配置报警webHook"),
+    WEB_HOOK_NULL(8001, "请先配置报警webHook"),
     ;
 
     /**

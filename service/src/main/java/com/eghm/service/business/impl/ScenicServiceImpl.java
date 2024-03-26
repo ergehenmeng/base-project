@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.GeoService;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
@@ -19,16 +21,16 @@ import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ScenicMapper;
 import com.eghm.mapper.ScenicTicketMapper;
+import com.eghm.model.Homestay;
 import com.eghm.model.Scenic;
 import com.eghm.model.ScenicTicket;
 import com.eghm.service.business.ActivityService;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.business.ScenicService;
-import com.eghm.common.GeoService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.service.sys.SysDictService;
-import com.eghm.common.impl.SysConfigApi;
+import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.activity.ActivityBaseDTO;
 import com.eghm.vo.business.base.BaseStoreResponse;
@@ -43,6 +45,9 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import static com.eghm.enums.ErrorCode.HOMESTAY_NOT_COMPLETE;
+import static com.eghm.enums.ErrorCode.TICKET_NOT_COMPLETE;
 
 /**
  * @author 二哥很猛
@@ -105,9 +110,9 @@ public class ScenicServiceImpl implements ScenicService {
 
     @Override
     public Scenic selectByIdShelve(Long id) {
-        Scenic scenic = this.selectByIdRequired(id);
-        if (scenic.getState() != State.SHELVE) {
-            log.warn("查询景区详情失败, 景区可能已下架 [{}] [{}]", id, scenic.getState());
+        Scenic scenic = scenicMapper.selectById(id);
+        if (scenic == null || scenic.getState() != State.SHELVE) {
+            log.warn("查询景区详情失败, 景区可能已下架 [{}]", id);
             throw new BusinessException(ErrorCode.SCENIC_DOWN);
         }
         return scenic;
@@ -125,6 +130,10 @@ public class ScenicServiceImpl implements ScenicService {
 
     @Override
     public void updateState(Long id, State state) {
+        if (state == State.SHELVE) {
+            Scenic scenic = this.selectByIdRequired(id);
+            BeanValidator.validate(scenic, s -> {throw new BusinessException(TICKET_NOT_COMPLETE);});
+        }
         LambdaUpdateWrapper<Scenic> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Scenic::getId, id);
         wrapper.set(Scenic::getState, state);

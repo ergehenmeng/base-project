@@ -85,14 +85,6 @@ public interface LineService {
     Line selectByIdShelve(Long id);
 
     /**
-     * 主键查询
-     *
-     * @param id id
-     * @return 线路
-     */
-    Line selectById(Long id);
-
-    /**
      * 删除线路商品
      *
      * @param id id

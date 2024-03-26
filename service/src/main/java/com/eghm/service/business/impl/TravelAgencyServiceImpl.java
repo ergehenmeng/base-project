@@ -25,6 +25,7 @@ import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.TravelAgencyService;
 import com.eghm.service.sys.SysAreaService;
+import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.line.TravelAgencyDetailVO;
@@ -35,6 +36,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static com.eghm.enums.ErrorCode.LINE_DOWN;
+import static com.eghm.enums.ErrorCode.STORE_NOT_COMPLETE;
 
 /**
  * @author 殿小二
@@ -84,6 +86,10 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
 
     @Override
     public void updateState(Long id, State state) {
+        if (state == State.SHELVE) {
+            TravelAgency agency = this.selectByIdRequired(id);
+            BeanValidator.validate(agency, s -> {throw new BusinessException(STORE_NOT_COMPLETE);});
+        }
         LambdaUpdateWrapper<TravelAgency> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(TravelAgency::getId, id);
         wrapper.set(TravelAgency::getState, state);
@@ -104,8 +110,8 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
 
     @Override
     public TravelAgency selectByIdShelve(Long id) {
-        TravelAgency travelAgency = this.selectByIdRequired(id);
-        if (travelAgency == null) {
+        TravelAgency travelAgency = travelAgencyMapper.selectById(id);
+        if (travelAgency == null || travelAgency.getState() != State.SHELVE) {
             log.error("该旅行社商品已下架 [{}]", id);
             throw new BusinessException(LINE_DOWN);
         }

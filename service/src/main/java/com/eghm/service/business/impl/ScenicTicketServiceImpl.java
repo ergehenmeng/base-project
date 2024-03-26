@@ -89,8 +89,8 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     @Override
     public ScenicTicket selectByIdShelve(Long id) {
-        ScenicTicket ticket = this.selectByIdRequired(id);
-        if (ticket.getState() != State.SHELVE) {
+        ScenicTicket ticket = scenicTicketMapper.selectById(id);
+        if (ticket == null || ticket.getState() != State.SHELVE) {
             log.info("景区门票已下架 [{}]", id);
             throw new BusinessException(ErrorCode.TICKET_DOWN);
         }

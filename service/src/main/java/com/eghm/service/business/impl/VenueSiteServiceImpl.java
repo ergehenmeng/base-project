@@ -123,9 +123,9 @@ public class VenueSiteServiceImpl implements VenueSiteService {
 
     @Override
     public VenueSite selectByIdShelve(Long id) {
-        VenueSite venueSite = this.selectByIdRequired(id);
-        if (venueSite.getState() != State.SHELVE) {
-            log.info("场次信息信息已下架 [{}] [{}]", id, venueSite.getState());
+        VenueSite venueSite = venueSiteMapper.selectById(id);
+        if (venueSite == null || venueSite.getState() != State.SHELVE) {
+            log.info("场次信息信息已下架 [{}]", id);
             throw new BusinessException(ErrorCode.VENUE_SITE_DOWN);
         }
         return venueSite;

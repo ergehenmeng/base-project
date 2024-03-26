@@ -25,10 +25,12 @@ import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.model.Homestay;
 import com.eghm.model.Merchant;
 import com.eghm.model.SysDictItem;
+import com.eghm.model.TravelAgency;
 import com.eghm.service.business.*;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.common.impl.SysConfigApi;
+import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
@@ -43,7 +45,7 @@ import org.springframework.stereotype.Service;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import static com.eghm.enums.ErrorCode.HOMESTAY_SEARCH_MAX;
+import static com.eghm.enums.ErrorCode.*;
 
 /**
  * @author 二哥很猛 2022/6/25
@@ -101,6 +103,10 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
 
     @Override
     public void updateState(Long id, State state) {
+        if (state == State.SHELVE) {
+            Homestay homestay = this.selectByIdRequired(id);
+            BeanValidator.validate(homestay, s -> {throw new BusinessException(HOMESTAY_NOT_COMPLETE);});
+        }
         LambdaUpdateWrapper<Homestay> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Homestay::getId, id);
         wrapper.set(Homestay::getState, state);
@@ -132,8 +138,8 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
 
     @Override
     public Homestay selectByIdShelve(Long id) {
-        Homestay homestay = this.selectByIdRequired(id);
-        if (homestay.getState() != State.SHELVE) {
+        Homestay homestay = homestayMapper.selectById(id);
+        if (homestay == null || homestay.getState() != State.SHELVE) {
             log.error("该民宿已下架 [{}]", id);
             throw new BusinessException(ErrorCode.HOMESTAY_DOWN);
         }

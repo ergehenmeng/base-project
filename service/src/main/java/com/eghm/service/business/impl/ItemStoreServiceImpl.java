@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.cache.CacheService;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
@@ -20,8 +22,7 @@ import com.eghm.model.ItemStore;
 import com.eghm.model.Merchant;
 import com.eghm.service.business.*;
 import com.eghm.service.business.lottery.LotteryService;
-import com.eghm.cache.CacheService;
-import com.eghm.common.impl.SysConfigApi;
+import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.item.store.ItemStoreHomeVO;
@@ -38,6 +39,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.eghm.constant.CacheConstant.MEMBER_COLLECT;
+import static com.eghm.enums.ErrorCode.SHOP_NOT_PERFECT;
 
 /**
  * @author 二哥很猛
@@ -128,10 +130,7 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     public void updateState(Long id, State state) {
         if (state == State.SHELVE) {
             ItemStore selected = this.selectByIdRequired(id);
-            if (selected.getDepotAddressId() == null) {
-                log.error("零售店铺未设置仓库地址 [{}]", id);
-                throw new BusinessException(ErrorCode.SHOP_NOT_PERFECT);
-            }
+            BeanValidator.validate(selected, s -> {throw new BusinessException(SHOP_NOT_PERFECT);});
         }
         LambdaUpdateWrapper<ItemStore> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemStore::getId, id);

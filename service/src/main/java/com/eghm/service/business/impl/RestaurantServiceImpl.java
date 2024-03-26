@@ -23,12 +23,14 @@ import com.eghm.mapper.RestaurantMapper;
 import com.eghm.mapper.VoucherMapper;
 import com.eghm.model.Merchant;
 import com.eghm.model.Restaurant;
+import com.eghm.model.Scenic;
 import com.eghm.model.Voucher;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.RestaurantService;
 import com.eghm.service.sys.SysAreaService;
+import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
@@ -41,6 +43,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.eghm.enums.ErrorCode.STORE_NOT_COMPLETE;
+import static com.eghm.enums.ErrorCode.TICKET_NOT_COMPLETE;
 
 /**
  * @author 二哥很猛
@@ -99,6 +104,10 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
 
     @Override
     public void updateState(Long id, State state) {
+        if (state == State.SHELVE) {
+            Restaurant restaurant = this.selectByIdRequired(id);
+            BeanValidator.validate(restaurant, s -> {throw new BusinessException(STORE_NOT_COMPLETE);});
+        }
         LambdaUpdateWrapper<Restaurant> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Restaurant::getId, id);
         wrapper.set(Restaurant::getState, state);
@@ -112,16 +121,16 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         Restaurant restaurant = restaurantMapper.selectById(id);
         if (restaurant == null) {
             log.info("餐饮商家信息未查询到 [{}]", id);
-            throw new BusinessException(ErrorCode.RESTAURANT_NOT_FOUND);
+            throw new BusinessException(ErrorCode.RESTAURANT_NULL);
         }
         return restaurant;
     }
 
     @Override
     public Restaurant selectByIdShelve(Long id) {
-        Restaurant restaurant = this.selectByIdRequired(id);
-        if (restaurant.getState() != State.SHELVE) {
-            log.info("餐饮商家信息已下架 [{}] [{}]", id, restaurant.getState());
+        Restaurant restaurant = restaurantMapper.selectById(id);
+        if (restaurant == null || restaurant.getState() != State.SHELVE) {
+            log.info("餐饮商家信息已下架 [{}]", id);
             throw new BusinessException(ErrorCode.RESTAURANT_DOWN);
         }
         return restaurant;

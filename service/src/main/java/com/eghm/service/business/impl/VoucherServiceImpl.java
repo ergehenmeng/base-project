@@ -92,13 +92,8 @@ public class VoucherServiceImpl implements VoucherService {
     }
 
     @Override
-    public Voucher selectById(Long id) {
-        return voucherMapper.selectById(id);
-    }
-
-    @Override
     public Voucher selectByIdRequired(Long id) {
-        Voucher voucher = this.selectById(id);
+        Voucher voucher = voucherMapper.selectById(id);
         if (voucher == null) {
             log.error("餐饮券信息不存在 [{}]", id);
             throw new BusinessException(ErrorCode.VOUCHER_NULL);
@@ -108,7 +103,7 @@ public class VoucherServiceImpl implements VoucherService {
 
     @Override
     public Voucher selectByIdShelve(Long id) {
-        Voucher voucher = this.selectById(id);
+        Voucher voucher = voucherMapper.selectById(id);
         if (voucher == null || voucher.getState() != State.SHELVE) {
             log.error("餐饮券未上架 [{}]", id);
             throw new BusinessException(ErrorCode.VOUCHER_DOWN);

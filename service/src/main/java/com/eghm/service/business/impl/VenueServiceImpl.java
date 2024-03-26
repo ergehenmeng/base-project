@@ -119,9 +119,9 @@ public class VenueServiceImpl implements VenueService {
 
     @Override
     public Venue selectByIdShelve(Long id) {
-        Venue venue = this.selectByIdRequired(id);
-        if (venue.getState() != State.SHELVE) {
-            log.info("场馆信息信息已下架 [{}] [{}]", id, venue.getState());
+        Venue venue = venueMapper.selectById(id);
+        if (venue == null || venue.getState() != State.SHELVE) {
+            log.info("场馆信息信息已下架 [{}]", id);
             throw new BusinessException(ErrorCode.VENUE_DOWN);
         }
         return venue;

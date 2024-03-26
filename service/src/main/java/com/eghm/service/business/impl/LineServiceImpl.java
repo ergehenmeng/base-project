@@ -117,7 +117,7 @@ public class LineServiceImpl implements LineService {
 
     @Override
     public Line selectByIdRequired(Long id) {
-        Line select = this.selectById(id);
+        Line select = lineMapper.selectById(id);
         if (select == null) {
             log.error("该线路商品不存在 [{}]", id);
             throw new BusinessException(LINE_NULL);
@@ -136,17 +136,12 @@ public class LineServiceImpl implements LineService {
 
     @Override
     public Line selectByIdShelve(Long id) {
-        Line line = this.selectById(id);
+        Line line = lineMapper.selectById(id);
         if (line == null || line.getState() != State.SHELVE) {
             log.error("该线路商品已下架 [{}]", id);
             throw new BusinessException(LINE_DOWN);
         }
         return line;
-    }
-
-    @Override
-    public Line selectById(Long id) {
-        return lineMapper.selectById(id);
     }
 
     @Override
