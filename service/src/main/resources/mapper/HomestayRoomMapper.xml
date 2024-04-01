@@ -8,13 +8,8 @@
         t.title,
         r.title as homestayTitle,
         t.state,
-        t.room,
-        t.hall,
-        t.kitchen,
-        t.washroom,
         t.dimension,
         t.resident,
-        t.bed,
         t.room_type,
         t.refund_type,
         t.create_time
@@ -50,12 +45,6 @@
         </if>
         <if test="param.roomType != null">
             and room_type = #{param.roomType}
-        </if>
-        <if test="param.room != null">
-            and room = #{param.room}
-        </if>
-        <if test="hasKitchen != null and hasKitchen">
-            and kitchen &gt; 0
         </if>
         <if test="resident != null">
             and resident &gt;= #{resident}
