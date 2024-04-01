@@ -46,26 +46,11 @@ public class HomestayOrder extends BaseEntity {
     @ApiModelProperty(value = "入住结束时间(含)")
     private LocalDate endDate;
 
-    @ApiModelProperty(value = "几室")
-    private Integer room;
-
-    @ApiModelProperty(value = "几厅")
-    private Integer hall;
-
-    @ApiModelProperty(value = "几厨")
-    private Integer kitchen;
-
-    @ApiModelProperty(value = "卫生间数")
-    private Integer washroom;
-
     @ApiModelProperty(value = "面积")
     private Integer dimension;
 
     @ApiModelProperty(value = "居住人数")
     private Integer resident;
-
-    @ApiModelProperty(value = "床数")
-    private Integer bed;
 
     @ApiModelProperty(value = "房型类型  1:标间 2:大床房 3:双人房 4: 钟点房, 5:套房 6:合租")
     private RoomType roomType;

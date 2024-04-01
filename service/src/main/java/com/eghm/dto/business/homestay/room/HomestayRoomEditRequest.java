@@ -52,22 +52,6 @@ public class HomestayRoomEditRequest {
     @WordChecker(message = "退款描述存在敏感词")
     private String refundDescribe;
 
-    @ApiModelProperty(value = "几室", required = true)
-    @NotNull(message = "户型参数不能为空")
-    private Integer room;
-
-    @ApiModelProperty(value = "几厅", required = true)
-    @NotNull(message = "户型参数不能为空")
-    private Integer hall;
-
-    @ApiModelProperty(value = "几厨", required = true)
-    @NotNull(message = "户型参数不能为空")
-    private Integer kitchen;
-
-    @ApiModelProperty(value = "卫生间数", required = true)
-    @NotNull(message = "户型参数不能为空")
-    private Integer washroom;
-
     @ApiModelProperty(value = "面积", required = true)
     @NotNull(message = "面积不能为空")
     private Integer dimension;
@@ -75,10 +59,6 @@ public class HomestayRoomEditRequest {
     @ApiModelProperty(value = "居住人数", required = true)
     @NotNull(message = "户型不能为空")
     private Integer resident;
-
-    @ApiModelProperty(value = "床数", required = true)
-    @NotNull(message = "床数不能为空")
-    private Integer bed;
 
     @ApiModelProperty(value = "屋内设施")
     @WordChecker(message = "屋内设置存在敏感词")
