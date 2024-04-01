@@ -3,6 +3,7 @@ package com.eghm.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.Channel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -35,7 +36,7 @@ public class WebappLog {
     private String version;
 
     @ApiModelProperty("注册渠道 PC,ANDROID,IOS,H5,WECHAT,ALIPAY")
-    private String channel;
+    private Channel channel;
 
     @ApiModelProperty("客户端平台版本号 ios: 10.4.1,android:8.1.0")
     private String osVersion;
