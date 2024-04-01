@@ -5,6 +5,7 @@ import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.eghm.enums.ref.RefundState;
+import com.eghm.vo.business.order.adjust.OrderAdjustResponse;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -97,4 +98,7 @@ public class ItemOrderDetailResponse {
 
     @ApiModelProperty("已发货商品信息")
     private List<ItemShippedResponse> shippedList;
+
+    @ApiModelProperty("改价记录")
+    private List<OrderAdjustResponse> adjustList;
 }

@@ -33,6 +33,9 @@
            <if test="param.ip != null and param.ip != ''">
                and t.ip = #{param.ip}
            </if>
+           <if test="param.traceId != null and param.traceId != ''">
+               and t.trace_id = #{param.traceId}
+           </if>
        </where>
        order by t.id desc
     </select>

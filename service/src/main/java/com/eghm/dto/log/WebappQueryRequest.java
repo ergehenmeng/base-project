@@ -20,4 +20,7 @@ public class WebappQueryRequest extends PagingQuery {
 
     @ApiModelProperty("访问ip")
     private String ip;
+
+    @ApiModelProperty("请求traceId")
+    private String traceId;
 }
