@@ -2,6 +2,7 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.SortByDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.help.HelpAddRequest;
@@ -46,6 +47,13 @@ public class HelpCenterController {
     @ApiOperation("更新")
     public RespBody<Void> update(@Validated @RequestBody HelpEditRequest request) {
         helpCenterService.update(request);
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/sort", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("排序")
+    public RespBody<Void> sort(@RequestBody @Validated SortByDTO dto) {
+        helpCenterService.sortBy(dto.getId(), dto.getSortBy());
         return RespBody.success();
     }
 

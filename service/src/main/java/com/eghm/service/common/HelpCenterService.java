@@ -39,6 +39,14 @@ public interface HelpCenterService {
     void update(HelpEditRequest request);
 
     /**
+     * 排序
+     *
+     * @param id     id
+     * @param sortBy 排序 最大999
+     */
+    void sortBy(Long id, Integer sortBy);
+
+    /**
      * 删除帮助说明
      *
      * @param id id

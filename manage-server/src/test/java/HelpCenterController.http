@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
   "ask": "问",
-  "classify": 1,
+  "helpType": 1,
   "answer": "答",
   "state": 1
 }

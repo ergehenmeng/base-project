@@ -2,6 +2,7 @@ package com.eghm.service.common.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.help.HelpAddRequest;
@@ -34,6 +35,7 @@ public class HelpCenterServiceImpl implements HelpCenterService {
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), HelpCenter::getAsk, request.getQueryName());
         wrapper.eq(request.getState() != null, HelpCenter::getState, request.getState());
         wrapper.eq(request.getHelpType() != null, HelpCenter::getHelpType, request.getHelpType());
+        wrapper.orderByDesc(HelpCenter::getSort);
         return helpCenterMapper.selectPage(request.createPage(), wrapper);
     }
 
@@ -47,6 +49,14 @@ public class HelpCenterServiceImpl implements HelpCenterService {
     public void update(HelpEditRequest request) {
         HelpCenter helpCenter = DataUtil.copy(request, HelpCenter.class);
         helpCenterMapper.updateById(helpCenter);
+    }
+
+    @Override
+    public void sortBy(Long id, Integer sortBy) {
+        LambdaUpdateWrapper<HelpCenter> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(HelpCenter::getId, id);
+        wrapper.set(HelpCenter::getSort, sortBy);
+        helpCenterMapper.update(null, wrapper);
     }
 
     @Override
