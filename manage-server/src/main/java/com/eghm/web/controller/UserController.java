@@ -83,7 +83,7 @@ public class UserController {
         return RespBody.success();
     }
 
-    @GetMapping(value = "/lockScreen")
+    @PostMapping("/lockScreen")
     @ApiOperation("锁屏")
     @SkipPerm
     public RespBody<Void> lockScreen() {
