@@ -78,6 +78,11 @@ public class HomestayEditRequest {
     @Phone(message = "联系电话格式错误")
     private String phone;
 
+    @ApiModelProperty(value = "入住须知")
+    @NotBlank(message = "入住须知不能为空")
+    @WordChecker
+    private String notesIn;
+
     @ApiModelProperty(value = "特色服务,逗号分隔")
     @WordChecker
     private String keyService;

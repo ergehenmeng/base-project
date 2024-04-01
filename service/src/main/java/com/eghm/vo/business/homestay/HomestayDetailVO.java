@@ -48,6 +48,9 @@ public class HomestayDetailVO {
     @ApiModelProperty(value = "联系电话")
     private String phone;
 
+    @ApiModelProperty(value = "入住须知")
+    private String notesIn;
+
     @ApiModelProperty(value = "特色服务")
     private String keyService;
 
