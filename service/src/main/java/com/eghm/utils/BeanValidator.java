@@ -5,7 +5,6 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.apache.poi.ss.formula.functions.T;
 import org.hibernate.validator.HibernateValidator;
 
 import javax.validation.ConstraintViolation;
@@ -67,6 +66,20 @@ public class BeanValidator {
     public static <T> void validate(T t, Class<?>... groups) {
         validate(t, errorMsg -> {
             throw new BusinessException(ErrorCode.PARAM_VERIFY_ERROR.getCode(), errorMsg);
+        }, groups);
+    }
+
+    /**
+     * 验证参数是否合法
+     *
+     * @param t 参数对象
+     * @param errorCode 错误信息
+     * @param groups 指定group
+     * @param <T> 参数类型
+     */
+    public static <T> void validate(T t, ErrorCode errorCode, Class<?>... groups) {
+        validate(t, errorMsg -> {
+            throw new BusinessException(errorCode);
         }, groups);
     }
 }

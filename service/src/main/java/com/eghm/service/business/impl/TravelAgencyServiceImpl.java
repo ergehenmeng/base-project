@@ -88,7 +88,7 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     public void updateState(Long id, State state) {
         if (state == State.SHELVE) {
             TravelAgency agency = this.selectByIdRequired(id);
-            BeanValidator.validate(agency, s -> {throw new BusinessException(STORE_NOT_COMPLETE);});
+            BeanValidator.validate(agency, STORE_NOT_COMPLETE);
         }
         LambdaUpdateWrapper<TravelAgency> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(TravelAgency::getId, id);

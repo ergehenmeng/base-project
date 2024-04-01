@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
@@ -25,11 +26,9 @@ import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.model.Homestay;
 import com.eghm.model.Merchant;
 import com.eghm.model.SysDictItem;
-import com.eghm.model.TravelAgency;
 import com.eghm.service.business.*;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.service.sys.SysDictService;
-import com.eghm.common.impl.SysConfigApi;
 import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
@@ -45,7 +44,8 @@ import org.springframework.stereotype.Service;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import static com.eghm.enums.ErrorCode.*;
+import static com.eghm.enums.ErrorCode.HOMESTAY_NOT_COMPLETE;
+import static com.eghm.enums.ErrorCode.HOMESTAY_SEARCH_MAX;
 
 /**
  * @author 二哥很猛 2022/6/25
@@ -105,7 +105,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     public void updateState(Long id, State state) {
         if (state == State.SHELVE) {
             Homestay homestay = this.selectByIdRequired(id);
-            BeanValidator.validate(homestay, s -> {throw new BusinessException(HOMESTAY_NOT_COMPLETE);});
+            BeanValidator.validate(homestay, HOMESTAY_NOT_COMPLETE);
         }
         LambdaUpdateWrapper<Homestay> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Homestay::getId, id);

@@ -23,7 +23,6 @@ import com.eghm.mapper.RestaurantMapper;
 import com.eghm.mapper.VoucherMapper;
 import com.eghm.model.Merchant;
 import com.eghm.model.Restaurant;
-import com.eghm.model.Scenic;
 import com.eghm.model.Voucher;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.MemberCollectService;
@@ -45,7 +44,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static com.eghm.enums.ErrorCode.STORE_NOT_COMPLETE;
-import static com.eghm.enums.ErrorCode.TICKET_NOT_COMPLETE;
 
 /**
  * @author 二哥很猛
@@ -106,7 +104,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     public void updateState(Long id, State state) {
         if (state == State.SHELVE) {
             Restaurant restaurant = this.selectByIdRequired(id);
-            BeanValidator.validate(restaurant, s -> {throw new BusinessException(STORE_NOT_COMPLETE);});
+            BeanValidator.validate(restaurant, STORE_NOT_COMPLETE);
         }
         LambdaUpdateWrapper<Restaurant> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Restaurant::getId, id);

@@ -130,7 +130,7 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     public void updateState(Long id, State state) {
         if (state == State.SHELVE) {
             ItemStore selected = this.selectByIdRequired(id);
-            BeanValidator.validate(selected, s -> {throw new BusinessException(SHOP_NOT_PERFECT);});
+            BeanValidator.validate(selected, SHOP_NOT_PERFECT);
         }
         LambdaUpdateWrapper<ItemStore> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemStore::getId, id);
