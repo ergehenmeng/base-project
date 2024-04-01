@@ -1,9 +1,11 @@
 package com.eghm.dto.statistics;
 
 import com.eghm.annotation.DateFormatter;
+import com.eghm.dto.ext.DateComparator;
 import com.eghm.enums.ref.ProductType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
@@ -15,7 +17,8 @@ import java.time.LocalDate;
  */
 
 @Data
-public class ProductRequest {
+@EqualsAndHashCode(callSuper = false)
+public class ProductRequest extends DateComparator {
 
     @ApiModelProperty(value = "开始日期 yyyy-MM-dd", required = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd")

@@ -18,11 +18,17 @@ public class SysAreaServiceImpl implements SysAreaService {
 
     @Override
     public SysArea getById(Long id) {
+        if (id == null) {
+            return null;
+        }
         return cacheProxyService.getAreaById(id);
     }
 
     @Override
     public String parseArea(Long provinceId, Long cityId, Long countyId) {
+        if (provinceId == null) {
+            return this.parseArea(cityId, countyId);
+        }
         SysArea sysArea = cacheProxyService.getAreaById(provinceId);
         if (sysArea == null) {
             return this.parseArea(cityId, countyId);
@@ -32,6 +38,9 @@ public class SysAreaServiceImpl implements SysAreaService {
 
     @Override
     public String parseArea(Long cityId, Long countyId) {
+        if (cityId == null || countyId == null) {
+            return null;
+        }
         String address = "";
         SysArea sysArea = cacheProxyService.getAreaById(cityId);
         if (sysArea != null) {
@@ -46,6 +55,9 @@ public class SysAreaServiceImpl implements SysAreaService {
 
     @Override
     public String parseProvinceCity(Long provinceId, Long cityId) {
+        if (provinceId == null || cityId == null) {
+            return null;
+        }
         SysArea sysArea = cacheProxyService.getAreaById(provinceId);
         String address = "";
         if (sysArea != null) {
@@ -60,6 +72,9 @@ public class SysAreaServiceImpl implements SysAreaService {
 
     @Override
     public String parseCity(Long cityId) {
+        if (cityId == null) {
+            return null;
+        }
         SysArea sysArea = cacheProxyService.getAreaById(cityId);
         if (sysArea != null) {
             return sysArea.getTitle();

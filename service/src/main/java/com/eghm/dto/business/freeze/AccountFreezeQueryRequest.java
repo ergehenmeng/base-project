@@ -2,7 +2,7 @@
 package com.eghm.dto.business.freeze;
 
 import com.eghm.annotation.DateFormatter;
-import com.eghm.dto.ext.PagingQuery;
+import com.eghm.dto.ext.DatePagingComparator;
 import com.eghm.enums.ref.ChangeType;
 import com.eghm.enums.ref.FreezeState;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,7 +18,7 @@ import java.time.LocalDate;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AccountFreezeQueryRequest extends PagingQuery {
+public class AccountFreezeQueryRequest extends DatePagingComparator {
 
     @ApiModelProperty(value = "状态 1:冻结中 2:已解冻")
     private FreezeState state;

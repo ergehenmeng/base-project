@@ -1,7 +1,7 @@
 package com.eghm.dto.member;
 
 import com.eghm.annotation.DateFormatter;
-import com.eghm.dto.ext.PagingQuery;
+import com.eghm.dto.ext.DatePagingComparator;
 import com.eghm.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -16,7 +16,7 @@ import java.time.LocalDate;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class MemberQueryRequest extends PagingQuery {
+public class MemberQueryRequest extends DatePagingComparator {
 
     @ApiModelProperty("状态 false:注销 true:正常")
     private Boolean state;

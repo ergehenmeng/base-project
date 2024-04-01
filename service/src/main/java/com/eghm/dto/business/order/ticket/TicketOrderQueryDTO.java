@@ -2,7 +2,7 @@ package com.eghm.dto.business.order.ticket;
 
 import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
-import com.eghm.dto.ext.PagingQuery;
+import com.eghm.dto.ext.DatePagingComparator;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +16,7 @@ import java.time.LocalDate;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class TicketOrderQueryDTO extends PagingQuery {
+public class TicketOrderQueryDTO extends DatePagingComparator {
 
     @ApiModelProperty("门票订单状态")
     private Integer orderState;
