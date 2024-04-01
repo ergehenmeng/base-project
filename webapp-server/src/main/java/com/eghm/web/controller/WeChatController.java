@@ -1,15 +1,20 @@
 package com.eghm.web.controller;
 
 import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.wechat.JsTicketDTO;
 import com.eghm.dto.wechat.MaLoginDTO;
 import com.eghm.dto.wechat.MaOpenLoginDTO;
 import com.eghm.dto.wechat.MpLoginDTO;
 import com.eghm.service.member.MemberService;
+import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginTokenVO;
+import com.eghm.vo.wechat.JsTicketVO;
+import com.eghm.wechat.WeChatMpService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +35,8 @@ import javax.servlet.http.HttpServletRequest;
 public class WeChatController {
 
     private final MemberService memberService;
+
+    private final WeChatMpService weChatMpService;
 
     @PostMapping(value = "/mp/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("微信公众号授权登陆(自动注册)")
@@ -53,5 +60,12 @@ public class WeChatController {
     public RespBody<LoginTokenVO> maLogin(@Validated @RequestBody MaOpenLoginDTO dto, HttpServletRequest request) {
         LoginTokenVO mpLogin = memberService.maLogin(dto.getOpenId(), IpUtil.getIpAddress(request));
         return RespBody.success(mpLogin);
+    }
+
+    @PostMapping(value = "/mp/jsTicket", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("微信公众号jsTicket签名")
+    public RespBody<JsTicketVO> jsTicket(@Validated @RequestBody JsTicketDTO dto) {
+        WxJsapiSignature signature = weChatMpService.jsTicket(dto.getUrl());
+        return RespBody.success(DataUtil.copy(signature, JsTicketVO.class));
     }
 }

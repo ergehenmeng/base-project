@@ -4,6 +4,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.wechat.WeChatMpService;
 import lombok.extern.slf4j.Slf4j;
+import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 import me.chanjar.weixin.common.bean.oauth2.WxOAuth2AccessToken;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -35,6 +36,17 @@ public class WeChatMpServiceImpl implements WeChatMpService {
         } catch (WxErrorException e) {
             log.error("微信网页授权异常 [{}]", jsCode, e);
             throw new BusinessException(ErrorCode.MP_JS_AUTH);
+        }
+    }
+
+    @Override
+    public WxJsapiSignature jsTicket(String url) {
+        this.verify();
+        try {
+            return wxMpService.createJsapiSignature(url);
+        } catch (WxErrorException e) {
+            log.error("微信网页生成jsTicket异常 [{}]", url, e);
+            throw new BusinessException(ErrorCode.MP_JS_TICKET);
         }
     }
 

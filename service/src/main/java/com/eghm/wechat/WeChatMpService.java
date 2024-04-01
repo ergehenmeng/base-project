@@ -1,5 +1,6 @@
 package com.eghm.wechat;
 
+import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 
 /**
@@ -19,4 +20,12 @@ public interface WeChatMpService {
      * @return 微信用户信息
      */
     WxOAuth2UserInfo auth2(String jsCode);
+
+    /**
+     * 获取jsTicket相关信息
+     *
+     * @param url url
+     * @return 签名信息
+     */
+    WxJsapiSignature jsTicket(String url);
 }
