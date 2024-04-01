@@ -1847,11 +1847,11 @@ CREATE TABLE `news`
     `image`       varchar(1000) DEFAULT NULL COMMENT '图集',
     `content`     longtext COMMENT '详细信息',
     `video`       varchar(200)  DEFAULT NULL COMMENT '视频',
+    `sort`        smallint(6)   DEFAULT '999' COMMENT '排序',
+    `like_num`    int(10)       DEFAULT '0' COMMENT '点赞数',
     `create_time` datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`     bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-    `sort`        smallint(6)   DEFAULT '999' COMMENT '排序',
-    `like_num`    int(10)       DEFAULT '0' COMMENT '点赞数',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='资讯信息表';
@@ -2207,7 +2207,8 @@ create table redeem_code_grant
     `create_time`    datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`        bit(1)      DEFAULT b'0' COMMENT '是否删除 1:已删除 0:未删除',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `key_unique_complex` (`cd_key`) USING BTREE
 ) ENGINE = InnoDB COMMENT ='兑换码发放表';
 
 DROP TABLE IF EXISTS score_account;
@@ -2331,7 +2332,7 @@ CREATE TABLE `member_notice_log`
     `notice_type` varchar(20)   DEFAULT NULL COMMENT '消息类型',
     `create_time` datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `is_deleted`  tinyint(1)    DEFAULT 0 COMMENT '删除状态',
+    `deleted`     tinyint(1)    DEFAULT 0 COMMENT '删除状态',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='会员站内信日志';
