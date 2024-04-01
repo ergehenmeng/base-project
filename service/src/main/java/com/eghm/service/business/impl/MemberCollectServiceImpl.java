@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.cache.CacheService;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.collect.CollectQueryDTO;
@@ -13,7 +14,6 @@ import com.eghm.enums.ref.CollectType;
 import com.eghm.mapper.*;
 import com.eghm.model.MemberCollect;
 import com.eghm.service.business.MemberCollectService;
-import com.eghm.cache.CacheService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.collect.MemberCollectVO;
 import com.eghm.vo.business.homestay.HomestayVO;
@@ -27,6 +27,7 @@ import com.eghm.vo.business.scenic.ScenicVO;
 import com.eghm.vo.business.statistics.CollectStatisticsVO;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -46,6 +47,7 @@ import static com.eghm.constant.CacheConstant.MEMBER_COLLECT;
  * @author 二哥很猛
  * @since 2024-01-11
  */
+@Slf4j
 @AllArgsConstructor
 @Service("memberCollectService")
 public class MemberCollectServiceImpl implements MemberCollectService {
@@ -124,6 +126,10 @@ public class MemberCollectServiceImpl implements MemberCollectService {
 
     @Override
     public void collect(Long collectId, CollectType collectType) {
+        if (!this.isLegal(collectId, collectType)) {
+            log.warn("非法收藏对象,不做任何操作 [{}] [{}]", collectId, collectType);
+            return;
+        }
         Long memberId = ApiHolder.getMemberId();
         MemberCollect collect = this.getMemberCollect(memberId, collectId, collectType);
         String key = String.format(MEMBER_COLLECT, collectType.getValue(), collectId);
@@ -162,6 +168,36 @@ public class MemberCollectServiceImpl implements MemberCollectService {
         List<CollectStatisticsVO> voList = memberCollectMapper.dayCollect(request);
         Map<LocalDate, CollectStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(CollectStatisticsVO::getCreateDate, Function.identity()));
         return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), CollectStatisticsVO::new);
+    }
+
+    /**
+     * 判断收藏对象是否合法
+     *
+     * @param collectId 收藏对象
+     * @param collectType 收藏对象类型
+     * @return true:合法 false:不合法
+     */
+    private boolean isLegal(Long collectId, CollectType collectType) {
+        switch (collectType) {
+            case SCENIC:
+                return scenicMapper.selectById(collectId) != null;
+            case HOMESTAY:
+                return homestayMapper.selectById(collectId) != null;
+            case ITEM_STORE:
+                return itemStoreMapper.selectById(collectId) != null;
+            case ITEM:
+                return itemMapper.selectById(collectId) != null;
+            case LINE:
+                return lineMapper.selectById(collectId) != null;
+            case TRAVEL_AGENCY:
+                return travelAgencyMapper.selectById(collectId) != null;
+            case NEWS:
+                return newsMapper.selectById(collectId) != null;
+            case VOUCHER_STORE:
+                return restaurantMapper.selectById(collectId) != null;
+            default:
+                return false;
+        }
     }
 
     /**
