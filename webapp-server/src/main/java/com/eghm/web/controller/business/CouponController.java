@@ -8,6 +8,7 @@ import com.eghm.dto.business.coupon.product.CouponProductDTO;
 import com.eghm.dto.business.item.ItemCouponQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.VisitType;
 import com.eghm.service.business.CouponService;
 import com.eghm.service.business.ItemService;
 import com.eghm.service.business.MemberCouponService;
@@ -16,6 +17,7 @@ import com.eghm.vo.business.coupon.MemberCouponBaseVO;
 import com.eghm.vo.business.coupon.MemberCouponVO;
 import com.eghm.vo.business.item.ItemVO;
 import com.eghm.web.annotation.AccessToken;
+import com.eghm.web.annotation.VisitRecord;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -43,6 +45,7 @@ public class CouponController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
+    @VisitRecord(VisitType.MARKETING)
     public RespBody<List<CouponVO>> listPage(@Validated CouponQueryDTO dto) {
         List<CouponVO> byPage = couponService.getByPage(dto);
         return RespBody.success(byPage);

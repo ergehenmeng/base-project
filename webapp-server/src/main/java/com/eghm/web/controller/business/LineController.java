@@ -3,11 +3,13 @@ package com.eghm.web.controller.business;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.line.LineQueryDTO;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.VisitType;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineService;
 import com.eghm.vo.business.line.LineDetailVO;
 import com.eghm.vo.business.line.LineVO;
 import com.eghm.vo.business.line.config.LineConfigVO;
+import com.eghm.web.annotation.VisitRecord;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -35,6 +37,7 @@ public class LineController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
+    @VisitRecord(VisitType.PRODUCT_LIST)
     public RespBody<List<LineVO>> getByPage(LineQueryDTO dto) {
         List<LineVO> byPage = lineService.getByPage(dto);
         return RespBody.success(byPage);
@@ -42,6 +45,7 @@ public class LineController {
 
     @GetMapping("/detail")
     @ApiOperation("详情")
+    @VisitRecord(VisitType.PRODUCT_DETAIL)
     public RespBody<LineDetailVO> detail(@Validated IdDTO request) {
         LineDetailVO detail = lineService.detailById(request.getId());
         return RespBody.success(detail);

@@ -57,9 +57,15 @@ public enum VisitType implements EnumBinder {
     ACTIVITY(7, "活动中心"),
 
     /**
-     * 公告/资讯
+     * 资讯详情
      */
-    NOTICE_NEWS(8, "公告资讯");
+    NOTICE_NEWS(8, "资讯详情"),
+
+    /**
+     * 订单详情
+     */
+    ORDER_DETAIL(9, "订单详情")
+    ;
 
     /**
      * 类型

@@ -5,9 +5,11 @@ import com.eghm.dto.business.shopping.AddCartDTO;
 import com.eghm.dto.business.shopping.CartQuantityDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.VisitType;
 import com.eghm.service.business.ShoppingCartService;
 import com.eghm.vo.business.shopping.ShoppingCartVO;
 import com.eghm.web.annotation.AccessToken;
+import com.eghm.web.annotation.VisitRecord;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -39,6 +41,7 @@ public class ShoppingCartController {
 
     @GetMapping("/list")
     @ApiOperation("列表")
+    @VisitRecord(VisitType.PRODUCT_CART)
     public RespBody<List<ShoppingCartVO>> list() {
         List<ShoppingCartVO> voList = shoppingCartService.getList(ApiHolder.getMemberId());
         return RespBody.success(voList);

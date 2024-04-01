@@ -2,10 +2,12 @@ package com.eghm.web.controller.business;
 
 import com.eghm.dto.business.group.GroupBookingQueryDTO;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.VisitType;
 import com.eghm.service.business.GroupBookingService;
 import com.eghm.service.business.ItemGroupOrderService;
 import com.eghm.vo.business.group.GroupItemVO;
 import com.eghm.vo.business.group.GroupOrderDetailVO;
+import com.eghm.web.annotation.VisitRecord;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -35,6 +37,7 @@ public class ItemGroupController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
+    @VisitRecord(VisitType.PRODUCT_LIST)
     public RespBody<List<GroupItemVO>> listPage(GroupBookingQueryDTO dto) {
         List<GroupItemVO> voList = groupBookingService.listPage(dto);
         return RespBody.success(voList);
@@ -42,6 +45,7 @@ public class ItemGroupController {
 
     @GetMapping("/detail")
     @ApiOperation("拼团详情")
+    @VisitRecord(VisitType.PRODUCT_DETAIL)
     @ApiImplicitParam(name = "bookingNo", value = "拼团订单号", required = true)
     public RespBody<GroupOrderDetailVO> detail(@RequestParam("bookingNo") String bookingNo) {
         GroupOrderDetailVO detail = itemGroupOrderService.getGroupDetail(bookingNo);

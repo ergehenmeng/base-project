@@ -2,8 +2,10 @@ package com.eghm.web.controller.business;
 
 import com.eghm.dto.business.purchase.LimitPurchaseQueryDTO;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.VisitType;
 import com.eghm.service.business.LimitPurchaseItemService;
 import com.eghm.vo.business.limit.LimitItemVO;
+import com.eghm.web.annotation.VisitRecord;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -29,6 +31,7 @@ public class ItemLimitController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
+    @VisitRecord(VisitType.PRODUCT_LIST)
     public RespBody<List<LimitItemVO>> listPage(LimitPurchaseQueryDTO dto) {
         List<LimitItemVO> voList = limitPurchaseItemService.getByPage(dto);
         return RespBody.success(voList);

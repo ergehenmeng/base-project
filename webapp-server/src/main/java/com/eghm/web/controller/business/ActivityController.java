@@ -3,11 +3,13 @@ package com.eghm.web.controller.business;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.activity.ActivityQueryRequest;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.VisitType;
 import com.eghm.model.Activity;
 import com.eghm.service.business.ActivityService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.activity.ActivityResponse;
 import com.eghm.vo.business.activity.ActivityVO;
+import com.eghm.web.annotation.VisitRecord;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -45,6 +47,7 @@ public class ActivityController {
 
     @GetMapping("/detail")
     @ApiOperation("活动详情")
+    @VisitRecord(VisitType.ACTIVITY)
     public RespBody<ActivityVO> detail(@Validated IdDTO dto) {
         Activity activity = activityService.selectByIdRequired(dto.getId());
         return RespBody.success(DataUtil.copy(activity, ActivityVO.class));

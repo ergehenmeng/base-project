@@ -47,9 +47,11 @@ public class CouponAddRequest {
     private CouponType couponType;
 
     @ApiModelProperty(value = "使用范围  1:店铺通用 2:指定商品", required = true)
+    @OptionInt(value = {1, 2}, message = "请选择使用范围")
     private Integer useScope;
 
     @ApiModelProperty("店铺id")
+    @NotNull(message = "请选择店铺")
     private Long storeId;
 
     @ApiModelProperty(value = "抵扣金额 单位:元")

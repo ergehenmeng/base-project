@@ -6,10 +6,12 @@ import com.eghm.dto.business.item.ItemQueryDTO;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.VisitType;
 import com.eghm.service.business.ItemService;
 import com.eghm.vo.business.item.ItemDetailVO;
 import com.eghm.vo.business.item.ItemVO;
 import com.eghm.vo.business.item.express.TotalExpressVO;
+import com.eghm.web.annotation.VisitRecord;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -34,6 +36,7 @@ public class ItemController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
+    @VisitRecord(VisitType.PRODUCT_LIST)
     public RespBody<List<ItemVO>> listPage(ItemQueryDTO dto) {
         List<ItemVO> byPage = itemService.getByPage(dto);
         return RespBody.success(byPage);
@@ -41,6 +44,7 @@ public class ItemController {
 
     @GetMapping("/detail")
     @ApiOperation("详情")
+    @VisitRecord(VisitType.PRODUCT_DETAIL)
     public RespBody<ItemDetailVO> detail(@Validated IdDTO dto) {
         ItemDetailVO detail = itemService.detailById(dto.getId());
         return RespBody.success(detail);

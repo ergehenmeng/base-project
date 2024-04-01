@@ -6,10 +6,12 @@ import com.eghm.dto.business.order.item.ConfirmReceiptDTO;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.VisitType;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderService;
 import com.eghm.vo.business.order.item.*;
 import com.eghm.web.annotation.AccessToken;
+import com.eghm.web.annotation.VisitRecord;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -45,6 +47,7 @@ public class ItemOrderController {
 
     @GetMapping("/detail")
     @ApiOperation("详情")
+    @VisitRecord(VisitType.ORDER_DETAIL)
     public RespBody<ItemOrderDetailVO> detail(@Validated OrderDTO dto) {
         ItemOrderDetailVO detail = itemOrderService.getDetail(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success(detail);

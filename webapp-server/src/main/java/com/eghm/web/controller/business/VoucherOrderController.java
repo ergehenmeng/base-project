@@ -4,11 +4,13 @@ import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.voucher.VoucherOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.VisitType;
 import com.eghm.service.business.VoucherOrderService;
 import com.eghm.vo.business.order.restaurant.VoucherOrderDetailVO;
 import com.eghm.vo.business.order.restaurant.VoucherOrderSnapshotVO;
 import com.eghm.vo.business.order.restaurant.VoucherOrderVO;
 import com.eghm.web.annotation.AccessToken;
+import com.eghm.web.annotation.VisitRecord;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -43,6 +45,7 @@ public class VoucherOrderController {
 
     @GetMapping("/detail")
     @ApiOperation("详情")
+    @VisitRecord(VisitType.ORDER_DETAIL)
     public RespBody<VoucherOrderDetailVO> detail(@Validated OrderDTO dto) {
         VoucherOrderDetailVO detail = voucherOrderService.getDetail(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success(detail);

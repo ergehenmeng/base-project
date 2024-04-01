@@ -4,11 +4,13 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.scenic.ScenicDetailDTO;
 import com.eghm.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.VisitType;
 import com.eghm.service.business.ScenicService;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.vo.business.scenic.ScenicDetailVO;
 import com.eghm.vo.business.scenic.ScenicVO;
 import com.eghm.vo.business.scenic.ticket.TicketVO;
+import com.eghm.web.annotation.VisitRecord;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -43,6 +45,7 @@ public class ScenicController {
 
     @GetMapping("/detail")
     @ApiOperation("景区详情")
+    @VisitRecord(VisitType.PRODUCT_LIST)
     public RespBody<ScenicDetailVO> scenicDetail(@Validated ScenicDetailDTO dto) {
         ScenicDetailVO detail = scenicService.detailById(dto);
         return RespBody.success(detail);
@@ -50,6 +53,7 @@ public class ScenicController {
 
     @GetMapping("/ticket/detail")
     @ApiOperation("景区门票详情")
+    @VisitRecord(VisitType.PRODUCT_DETAIL)
     public RespBody<TicketVO> ticketDetail(@Validated IdDTO dto) {
         TicketVO vo = scenicTicketService.detailById(dto.getId());
         return RespBody.success(vo);

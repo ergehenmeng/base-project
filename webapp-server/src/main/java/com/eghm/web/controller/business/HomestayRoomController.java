@@ -3,11 +3,13 @@ package com.eghm.web.controller.business;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.homestay.room.HomestayRoomQueryDTO;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.VisitType;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.HomestayRoomService;
 import com.eghm.vo.business.homestay.room.HomestayRoomListVO;
 import com.eghm.vo.business.homestay.room.HomestayRoomVO;
 import com.eghm.vo.business.homestay.room.config.RoomConfigVO;
+import com.eghm.web.annotation.VisitRecord;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -34,6 +36,7 @@ public class HomestayRoomController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
+    @VisitRecord(VisitType.PRODUCT_LIST)
     public RespBody<List<HomestayRoomListVO>> listPage(@Validated HomestayRoomQueryDTO request) {
         List<HomestayRoomListVO> listPage = homestayRoomService.listPage(request);
         return RespBody.success(listPage);
@@ -41,6 +44,7 @@ public class HomestayRoomController {
 
     @GetMapping("/detail")
     @ApiOperation("详情")
+    @VisitRecord(VisitType.PRODUCT_DETAIL)
     public RespBody<HomestayRoomVO> detail(@Validated IdDTO dto) {
         HomestayRoomVO detail = homestayRoomService.detailById(dto.getId());
         return RespBody.success(detail);

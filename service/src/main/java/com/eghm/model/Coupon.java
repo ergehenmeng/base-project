@@ -65,7 +65,7 @@ public class Coupon extends BaseEntity {
     @ApiModelProperty(value = "折扣比例 1-100")
     private Integer discountValue;
 
-    @ApiModelProperty("使用范围  1:店铺通用 2:指定商品")
+    @ApiModelProperty("使用范围  1:店铺通用 2:指定商品(某一个店铺下的商品)")
     private Integer useScope;
 
     @ApiModelProperty(value = "商品类型 ticket:门票 homestay:民宿 voucher:餐饮券 item:零售 line:线路 venue:场馆")

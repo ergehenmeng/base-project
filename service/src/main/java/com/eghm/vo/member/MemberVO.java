@@ -1,5 +1,6 @@
 package com.eghm.vo.member;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -8,6 +9,7 @@ import lombok.Data;
  * @since 2023/11/9
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MemberVO {
 
     @ApiModelProperty("头像")

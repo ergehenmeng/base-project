@@ -4,12 +4,14 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.dto.business.restaurant.voucher.VoucherQueryDTO;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.VisitType;
 import com.eghm.service.business.RestaurantService;
 import com.eghm.service.business.VoucherService;
 import com.eghm.vo.business.restaurant.RestaurantDetailVO;
 import com.eghm.vo.business.restaurant.RestaurantVO;
 import com.eghm.vo.business.restaurant.VoucherDetailVO;
 import com.eghm.vo.business.restaurant.VoucherVO;
+import com.eghm.web.annotation.VisitRecord;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -51,6 +53,7 @@ public class RestaurantController {
 
     @GetMapping("/voucher/listPage")
     @ApiOperation("餐饮券列表")
+    @VisitRecord(VisitType.PRODUCT_LIST)
     public RespBody<List<VoucherVO>> voucherListPage(@Validated VoucherQueryDTO dto) {
         List<VoucherVO> voList = voucherService.getByPage(dto);
         return RespBody.success(voList);
@@ -58,6 +61,7 @@ public class RestaurantController {
 
     @GetMapping("/voucher/detail")
     @ApiOperation("餐饮券详情")
+    @VisitRecord(VisitType.PRODUCT_DETAIL)
     public RespBody<VoucherDetailVO> voucherDetail(@Validated IdDTO dto) {
         VoucherDetailVO detail = voucherService.getDetail(dto.getId());
         return RespBody.success(detail);

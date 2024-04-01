@@ -3,10 +3,12 @@ package com.eghm.web.controller.business;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.VisitType;
 import com.eghm.service.business.NewsService;
 import com.eghm.vo.business.news.NewsDetailVO;
 import com.eghm.vo.business.news.NewsVO;
 import com.eghm.web.annotation.AccessToken;
+import com.eghm.web.annotation.VisitRecord;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -38,6 +40,7 @@ public class NewsController {
 
     @ApiOperation("详情")
     @GetMapping("/detail")
+    @VisitRecord(VisitType.NOTICE_NEWS)
     public RespBody<NewsDetailVO> detail(@Validated IdDTO dto) {
         NewsDetailVO detail = newsService.detail(dto.getId());
         return RespBody.success(detail);

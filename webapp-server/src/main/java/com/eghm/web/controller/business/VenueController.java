@@ -4,6 +4,7 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.venue.VenuePriceQueryDTO;
 import com.eghm.dto.business.venue.VenueQueryDTO;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.VisitType;
 import com.eghm.service.business.VenueService;
 import com.eghm.service.business.VenueSitePriceService;
 import com.eghm.service.business.VenueSiteService;
@@ -11,6 +12,7 @@ import com.eghm.vo.business.venue.VenueDetailVO;
 import com.eghm.vo.business.venue.VenueSitePriceVO;
 import com.eghm.vo.business.venue.VenueSiteVO;
 import com.eghm.vo.business.venue.VenueVO;
+import com.eghm.web.annotation.VisitRecord;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -55,6 +57,7 @@ public class VenueController {
 
     @GetMapping("/siteList")
     @ApiOperation("场地列表")
+    @VisitRecord(VisitType.PRODUCT_LIST)
     public RespBody<List<VenueSiteVO>> siteList(@Validated IdDTO dto) {
         List<VenueSiteVO> voList = venueSiteService.getList(dto.getId());
         return RespBody.success(voList);

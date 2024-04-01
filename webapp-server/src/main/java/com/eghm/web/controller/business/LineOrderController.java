@@ -4,11 +4,13 @@ import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.line.LineOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.VisitType;
 import com.eghm.service.business.LineOrderService;
 import com.eghm.vo.business.order.line.LineOrderDetailVO;
 import com.eghm.vo.business.order.line.LineOrderSnapshotDetailVO;
 import com.eghm.vo.business.order.line.LineOrderVO;
 import com.eghm.web.annotation.AccessToken;
+import com.eghm.web.annotation.VisitRecord;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -43,6 +45,7 @@ public class LineOrderController {
 
     @GetMapping("/detail")
     @ApiOperation("详情")
+    @VisitRecord(VisitType.ORDER_DETAIL)
     public RespBody<LineOrderDetailVO> detail(@Validated OrderDTO dto) {
         LineOrderDetailVO detail = lineOrderService.getDetail(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success(detail);
