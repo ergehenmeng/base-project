@@ -235,6 +235,7 @@ CREATE TABLE `notice_template`
     `title`       varchar(50)  DEFAULT NULL COMMENT '消息标题',
     `content`     varchar(500) DEFAULT NULL COMMENT '模板内容消息',
     `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 2
