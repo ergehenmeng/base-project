@@ -106,9 +106,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public void delete(Long id, Long memberId) {
+    public void delete(List<Long> ids, Long memberId) {
         LambdaUpdateWrapper<ShoppingCart> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(ShoppingCart::getId, id);
+        wrapper.in(ShoppingCart::getId, ids);
         wrapper.eq(ShoppingCart::getMemberId, memberId);
         shoppingCartMapper.delete(wrapper);
     }

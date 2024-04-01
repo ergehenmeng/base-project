@@ -42,10 +42,10 @@ public interface ShoppingCartService {
     /**
      * 删除购物车商品
      *
-     * @param id       购物车id
+     * @param ids       购物车id
      * @param memberId 用户id
      */
-    void delete(Long id, Long memberId);
+    void delete(List<Long> ids, Long memberId);
 
     /**
      * 更新购物车商品数量

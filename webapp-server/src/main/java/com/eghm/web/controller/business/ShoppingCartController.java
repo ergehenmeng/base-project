@@ -1,6 +1,6 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.dto.IdDTO;
+import com.eghm.dto.IdsDTO;
 import com.eghm.dto.business.shopping.AddCartDTO;
 import com.eghm.dto.business.shopping.CartQuantityDTO;
 import com.eghm.dto.ext.ApiHolder;
@@ -46,8 +46,8 @@ public class ShoppingCartController {
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除商品")
-    public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
-        shoppingCartService.delete(dto.getId(), ApiHolder.getMemberId());
+    public RespBody<Void> delete(@RequestBody @Validated IdsDTO dto) {
+        shoppingCartService.delete(dto.getIds(), ApiHolder.getMemberId());
         return RespBody.success();
     }
 
