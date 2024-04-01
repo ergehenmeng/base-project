@@ -464,7 +464,6 @@ CREATE TABLE `manage_log`
     `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `url`           varchar(200)        DEFAULT NULL COMMENT '请求地址',
     `user_id`       bigint(20) unsigned DEFAULT NULL COMMENT '操作人',
-    `user_name`     varchar(50)         DEFAULT NULL COMMENT '操作人姓名',
     `request`       varchar(1000)       DEFAULT NULL COMMENT '请求参数',
     `response`      longtext COMMENT '响应参数',
     `create_time`   datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

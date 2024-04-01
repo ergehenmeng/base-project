@@ -24,4 +24,6 @@ public class ManageQueryRequest extends PagingQuery {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
+    @ApiModelProperty("昵称或手机号")
+    private String extName;
 }

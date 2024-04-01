@@ -1,5 +1,7 @@
 package com.eghm.vo.log;
 
+import com.eghm.annotation.Desensitization;
+import com.eghm.enums.FieldType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -16,8 +18,12 @@ public class ManageLogResponse {
     @ApiModelProperty("id主键")
     private Long id;
 
-    @ApiModelProperty("操作人(关联字段)")
+    @ApiModelProperty("操作人姓名")
     private String userName;
+
+    @ApiModelProperty("操作人手机号")
+    @Desensitization(FieldType.MOBILE_PHONE)
+    private String mobile;
 
     @ApiModelProperty("请求地址")
     private String url;

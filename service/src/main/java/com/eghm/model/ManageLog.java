@@ -43,7 +43,4 @@ public class ManageLog {
 
     @ApiModelProperty("响应参数")
     private String response;
-
-    @ApiModelProperty("操作人(关联字段)")
-    private String userName;
 }
