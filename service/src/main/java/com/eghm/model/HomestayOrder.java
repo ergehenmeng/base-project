@@ -2,6 +2,7 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.ConfirmState;
+import com.eghm.enums.ref.RoomType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -66,8 +67,8 @@ public class HomestayOrder extends BaseEntity {
     @ApiModelProperty(value = "床数")
     private Integer bed;
 
-    @ApiModelProperty(value = "房型类型 1:整租 2:单间 3:合租")
-    private Integer roomType;
+    @ApiModelProperty(value = "房型类型  1:标间 2:大床房 3:双人房 4: 钟点房, 5:套房 6:合租")
+    private RoomType roomType;
 
     @ApiModelProperty(value = "封面图片")
     private String coverUrl;

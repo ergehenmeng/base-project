@@ -1,6 +1,7 @@
 package com.eghm.dto.business.homestay.room;
 
 import com.eghm.enums.ref.RefundType;
+import com.eghm.enums.ref.RoomType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
@@ -27,9 +28,9 @@ public class HomestayRoomAddRequest {
     @WordChecker(message = "房型名称存在敏感词")
     private String title;
 
-    @ApiModelProperty(value = "房型类型 1:整租 2:单间 3:合租", required = true)
+    @ApiModelProperty(value = "房型类型  1:标间 2:大床房 3:双人房 4: 钟点房, 5:套房 6:合租", required = true)
     @NotNull(message = "房型类型不能为空")
-    private Integer roomType;
+    private RoomType roomType;
 
     @ApiModelProperty(value = "封面图片", required = true)
     @NotBlank(message = "封面图片不能为空")

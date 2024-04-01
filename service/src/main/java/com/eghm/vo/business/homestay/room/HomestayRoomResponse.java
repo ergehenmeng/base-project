@@ -5,6 +5,7 @@ import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.ref.RefundType;
+import com.eghm.enums.ref.RoomType;
 import com.eghm.enums.ref.State;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -35,9 +36,9 @@ public class HomestayRoomResponse extends ExcelStyle {
     @ExcelProperty(value = "状态", index = 2, converter = EnumExcelConverter.class)
     private State state;
 
-    @ApiModelProperty(value = "房型类型 1:整租 2:单间 3:合租")
-    @ExcelProperty(value = "房型类型(1:整租 2:单间 3:合租)", index = 3)
-    private Integer roomType;
+    @ApiModelProperty(value = "房型类型 1:标间 2:大床房 3:双人房 4: 钟点房, 5:套房 6:合租")
+    @ExcelProperty(value = "房型类型", index = 3, converter = EnumExcelConverter.class)
+    private RoomType roomType;
 
     @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
     @ExcelProperty(value = "退款方式", index = 4, converter = EnumExcelConverter.class)
