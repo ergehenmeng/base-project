@@ -6,6 +6,8 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.JsonService;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
@@ -15,6 +17,7 @@ import com.eghm.enums.ref.DeliveryState;
 import com.eghm.enums.ref.ItemRefundState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemOrderMapper;
+import com.eghm.mapper.OrderAdjustLogMapper;
 import com.eghm.mapper.OrderRefundLogMapper;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.ItemSku;
@@ -23,12 +26,11 @@ import com.eghm.service.business.ExpressService;
 import com.eghm.service.business.ItemExpressService;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.handler.dto.OrderPackage;
-import com.eghm.common.JsonService;
 import com.eghm.service.sys.SysAreaService;
-import com.eghm.common.impl.SysConfigApi;
 import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
+import com.eghm.vo.business.order.adjust.OrderAdjustResponse;
 import com.eghm.vo.business.order.item.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -60,6 +62,8 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     private final ExpressService expressService;
 
     private final SysConfigApi sysConfigApi;
+
+    private final OrderAdjustLogMapper orderAdjustLogMapper;
 
     @Override
     public Page<ItemOrderResponse> listPage(ItemOrderQueryRequest request) {
@@ -208,6 +212,8 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         List<ItemShippedResponse> shippedList = itemOrderMapper.getShippedList(orderNo);
         shippedList.forEach(response -> response.setExpressList(jsonService.fromJsonList(response.getContent(), ExpressVO.class)));
         detail.setShippedList(shippedList);
+        List<OrderAdjustResponse> mapperList = orderAdjustLogMapper.getList(orderNo);
+        detail.setAdjustList(mapperList);
         return detail;
     }
 

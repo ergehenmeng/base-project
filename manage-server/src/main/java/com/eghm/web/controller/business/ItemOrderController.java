@@ -14,7 +14,6 @@ import com.eghm.lock.RedisLock;
 import com.eghm.model.Express;
 import com.eghm.service.business.*;
 import com.eghm.utils.EasyExcelUtil;
-import com.eghm.vo.business.order.adjust.OrderAdjustResponse;
 import com.eghm.vo.business.order.item.ItemOrderDetailResponse;
 import com.eghm.vo.business.order.item.ItemOrderResponse;
 import io.swagger.annotations.Api;
@@ -63,8 +62,6 @@ public class ItemOrderController {
     @ApiOperation("详情")
     public RespBody<ItemOrderDetailResponse> detail(@Validated OrderDTO dto) {
         ItemOrderDetailResponse detail = itemOrderService.detail(dto.getOrderNo());
-        List<OrderAdjustResponse> responseList = orderAdjustLogService.getList(dto.getOrderNo());
-        detail.setAdjustList(responseList);
         return RespBody.success(detail);
     }
 

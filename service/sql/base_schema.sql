@@ -1823,7 +1823,8 @@ CREATE TABLE `item_express`
     `content`      text COMMENT '物流信息(json)',
     `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`      bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除'
+    `deleted`      bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='快递信息表';
 
@@ -1834,7 +1835,8 @@ CREATE TABLE `item_order_express`
     `item_order_id` varchar(30) DEFAULT NULL COMMENT '零售订单id',
     `order_no`      varchar(30) DEFAULT NULL COMMENT '订单号(冗余)',
     `express_id`    bigint(20) comment '快递信息id',
-    `create_time`   datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
+    `create_time`   datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单与快递关联表';
 
