@@ -1307,7 +1307,8 @@ CREATE TABLE `verify_log`
     `user_id`     bigint(20)   DEFAULT NULL COMMENT '核销人id',
     `num`         tinyint(2)   DEFAULT '1' COMMENT '核销数量',
     `remark`      varchar(100) DEFAULT NULL COMMENT '核销备注',
-    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '核销时间'
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '核销时间',
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单核销记录表';
 
@@ -1630,7 +1631,8 @@ CREATE TABLE `lottery`
     `rule`          varchar(1000) DEFAULT NULL COMMENT '抽奖规则',
     `create_time`   datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`   datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`       bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除'
+    `deleted`       bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='抽奖活动表';
 
