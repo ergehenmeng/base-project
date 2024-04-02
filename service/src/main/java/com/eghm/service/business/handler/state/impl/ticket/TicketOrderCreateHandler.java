@@ -75,6 +75,12 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
             log.error("超出门票单次购买上限 [{}] [{}] [{}]", ticket.getId(), ticket.getQuota(), num);
             throw new BusinessException(ErrorCode.TICKET_QUOTA, ticket.getQuota());
         }
+        Integer advanceDay = payload.getTicket().getAdvanceDay();
+        LocalDate canVisitDate = LocalDate.now().plusDays(advanceDay);
+        if (context.getVisitDate().isBefore(canVisitDate)) {
+            log.error("门票不可预定该日期,需提前购买 [{}] [{}]", context.getTicketId(), context.getVisitDate());
+            throw new BusinessException(ErrorCode.TICKET_ADVANCE_DAY, advanceDay);
+        }
         // 待补充用户信息
         if (Boolean.TRUE.equals(ticket.getRealBuy()) && CollUtil.isEmpty(context.getVisitorList())) {
             log.error("实名制购票录入游客信息不匹配 [{}]", ticket.getId());

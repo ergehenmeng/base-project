@@ -804,6 +804,11 @@ public enum ErrorCode {
     TICKET_VISITOR(3156, "请填写游客信息"),
 
     /**
+     * 请提前%s天购买门票
+     */
+    TICKET_ADVANCE_DAY(3156, "请提前%s天购买门票"),
+
+    /**
      * 门票单次购买上限为%s张
      */
     TICKET_QUOTA(3258, "单次购买上限为%s张"),

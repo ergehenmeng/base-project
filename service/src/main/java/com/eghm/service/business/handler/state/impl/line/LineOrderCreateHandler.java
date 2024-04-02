@@ -86,7 +86,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         Integer advanceDay = payload.getLine().getAdvanceDay();
         LocalDate canVisitDate = LocalDate.now().plusDays(advanceDay);
         if (context.getConfigDate().isBefore(canVisitDate)) {
-            log.error("线路不可预定该日期 [{}] [{}]", context.getLineId(), context.getConfigDate());
+            log.error("线路不可预定该日期,需提前购买 [{}] [{}]", context.getLineId(), context.getConfigDate());
             throw new BusinessException(ErrorCode.LINE_ADVANCE_DAY, advanceDay);
         }
         Integer num = context.getNum();
