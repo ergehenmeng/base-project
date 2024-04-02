@@ -25,6 +25,7 @@ import java.util.Map;
 public class FreemarkerTemplate implements TemplateEngine {
 
     private static final String DEFAULT_TITLE = "freemarker_title";
+
     private final Configuration configuration;
 
     @Override
@@ -53,7 +54,6 @@ public class FreemarkerTemplate implements TemplateEngine {
             return writer.toString();
         }
     }
-
 
     @Override
     public String renderFile(String path, Map<String, Object> params) {
