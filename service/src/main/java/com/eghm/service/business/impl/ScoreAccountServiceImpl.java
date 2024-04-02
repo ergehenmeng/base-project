@@ -134,7 +134,7 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         String tradeNo = this.generateWithdrawNo();
         accountDTO.setTradeNo(tradeNo);
         this.updateAccount(accountDTO);
-        // TODO 将平台账户转到商户账户 tradeNo 异步需要在回调中处理
+        this.withdrawSuccess(tradeNo);
     }
 
     @Override
@@ -171,7 +171,6 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         String tradeNo = this.generateRechargeNo();
         accountDTO.setTradeNo(tradeNo);
         accountService.updateAccount(accountDTO);
-        // TODO 将商户账户转到平台账户 tradeNo 异步需要在回调中处理
         this.rechargeBalanceSuccess(tradeNo);
     }
 

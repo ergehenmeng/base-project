@@ -42,8 +42,8 @@ public interface ScoreAccountService {
     void orderComplete(Long merchantId, Integer amount);
 
     /**
-     * 提现积分
-     *
+     * 提现积分<br>
+     * 待补全: 将平台账户转到商户账户(该步骤可能是同步也可能是异步)
      * @param dto 查询条件
      */
     void applyWithdraw(ScoreWithdrawApplyDTO dto);
@@ -63,8 +63,8 @@ public interface ScoreAccountService {
     void withdrawFail(String tradeNo);
 
     /**
-     * 余额方式充值积分
-     *
+     * 余额方式充值积分<br>
+     * 待补全: 将商户账户转到平台账户(该步骤可能是同步也可能是异步)
      * @param dto 充值
      */
     void rechargeBalance(ScoreRechargeDTO dto);

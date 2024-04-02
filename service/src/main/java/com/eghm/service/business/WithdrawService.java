@@ -34,8 +34,8 @@ public interface WithdrawService {
     List<WithdrawLogResponse> getList(WithdrawQueryRequest request);
 
     /**
-     * 申请提现
-     *
+     * 申请提现(计算手续费 + 发起提现)
+     * 待补全: 如果是同步到账则将提现冻结金额减少直接减少,否则在异步回调中减少
      * @param dto 提现信息
      */
     void apply(WithdrawApplyDTO dto);
