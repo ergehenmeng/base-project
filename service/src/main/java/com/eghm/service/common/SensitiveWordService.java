@@ -1,5 +1,7 @@
 package com.eghm.service.common;
 
+import java.util.List;
+
 /**
  * @author wyb
  * @since 2021/12/4 11:02
@@ -7,15 +9,22 @@ package com.eghm.service.common;
 public interface SensitiveWordService {
 
     /**
-     * 判断字符串中是否包含敏感词
+     * 判断字符串中包含的敏感词
      *
      * @param keywords 字符串
-     * @return true:包含 false:不包含
+     * @return 敏感词信息
      */
-    boolean match(String keywords);
+    List<String> match(String keywords);
 
     /**
      * 重新加载敏感词
      */
     void reloadLexicon();
+
+    /**
+     * 删除敏感词
+     *
+     * @param keyword 敏感词
+     */
+    void delete(String keyword);
 }

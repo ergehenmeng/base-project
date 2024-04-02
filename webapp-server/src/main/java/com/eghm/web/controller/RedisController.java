@@ -1,8 +1,7 @@
 package com.eghm.web.controller;
 
-import com.eghm.dto.ext.RespBody;
 import com.eghm.cache.CacheService;
-import com.eghm.service.common.SensitiveWordService;
+import com.eghm.dto.ext.RespBody;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -29,8 +28,6 @@ import java.time.temporal.ChronoUnit;
 public class RedisController {
 
     private final CacheService cacheService;
-
-    private final SensitiveWordService sensitiveWordService;
 
     @GetMapping("/setValue")
     @ApiOperation("设置值")
@@ -75,14 +72,6 @@ public class RedisController {
     public RespBody<Void> setBitmap(@RequestParam("key") String key, @RequestParam("offset") Long offset) {
         cacheService.setBitmap(key, offset, true);
         return RespBody.success();
-    }
-
-    @GetMapping("/match")
-    @ApiOperation("匹配")
-    @ApiImplicitParam(name = "keyword", value = "keyword", required = true)
-    public RespBody<Boolean> match(@RequestParam("keyword") String keyword) {
-        boolean checkSerial = sensitiveWordService.match(keyword);
-        return RespBody.success(checkSerial);
     }
 
     @GetMapping("/size")
