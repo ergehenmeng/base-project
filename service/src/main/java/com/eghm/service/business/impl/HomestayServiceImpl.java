@@ -157,7 +157,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         long stayNum = ChronoUnit.DAYS.between(dto.getStartDate(), dto.getEndDate());
         if (stayNum > maxDay) {
             log.info("民宿预定日期搜索超过最大预定天数 [{}]", stayNum);
-            throw new BusinessException(HOMESTAY_SEARCH_MAX.getCode(), String.format(HOMESTAY_SEARCH_MAX.getMsg(), maxDay));
+            throw new BusinessException(HOMESTAY_SEARCH_MAX, maxDay);
         }
         // 入住天数
         dto.setStayNum(stayNum);

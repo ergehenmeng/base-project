@@ -46,6 +46,10 @@ public class RespBody<T> {
         return new RespBody<>(error.getCode(), error.getMsg());
     }
 
+    public static <T> RespBody<T> error(ErrorCode error, Object... args) {
+        return new RespBody<>(error.getCode(), String.format(error.getMsg(), args));
+    }
+
     public static <T> RespBody<T> error(int code, String msg) {
         return new RespBody<>(code, msg);
     }

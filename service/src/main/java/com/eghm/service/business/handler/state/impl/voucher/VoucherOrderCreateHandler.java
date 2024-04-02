@@ -72,7 +72,7 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
         }
         if (voucher.getQuota() < num) {
             log.error("超出餐饮券单次购买上限 [{}] [{}] [{}]", voucher.getId(), voucher.getQuota(), num);
-            throw new BusinessException(ErrorCode.VOUCHER_QUOTA.getCode(), String.format(ErrorCode.VOUCHER_QUOTA.getMsg(), voucher.getQuota()));
+            throw new BusinessException(ErrorCode.VOUCHER_QUOTA, voucher.getQuota());
         }
     }
 

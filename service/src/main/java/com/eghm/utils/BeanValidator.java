@@ -65,7 +65,7 @@ public class BeanValidator {
      */
     public static <T> void validate(T t, Class<?>... groups) {
         validate(t, errorMsg -> {
-            throw new BusinessException(ErrorCode.PARAM_VERIFY_ERROR.getCode(), errorMsg);
+            throw new BusinessException(ErrorCode.PARAM_VERIFY_ERROR, errorMsg);
         }, groups);
     }
 

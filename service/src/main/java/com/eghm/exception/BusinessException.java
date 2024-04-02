@@ -16,4 +16,7 @@ public class BusinessException extends SystemException {
         super(code, msg);
     }
 
+    public BusinessException(ErrorCode error, Object... args) {
+        super(error.getCode(), String.format(error.getMsg(), args));
+    }
 }

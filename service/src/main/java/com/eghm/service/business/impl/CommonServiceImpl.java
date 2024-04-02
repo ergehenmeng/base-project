@@ -71,7 +71,7 @@ public class CommonServiceImpl implements CommonService {
         long apiLong = sysConfigApi.getLong(configNid);
         if (maxValue > apiLong) {
             log.error("设置时间间隔超过[{}]天", apiLong);
-            throw new BusinessException(ErrorCode.MAX_DAY.getCode(), String.format(ErrorCode.MAX_DAY.getMsg(), apiLong));
+            throw new BusinessException(ErrorCode.MAX_DAY, apiLong);
         }
     }
 

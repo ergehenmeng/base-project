@@ -1,13 +1,13 @@
 package com.eghm.common.impl;
 
 import cn.hutool.core.util.IdUtil;
+import com.eghm.common.FileService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.SystemConstant;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
-import com.eghm.common.FileService;
 import com.eghm.utils.DateUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -69,7 +69,7 @@ public class FileServiceImpl implements FileService {
     private void checkSize(MultipartFile file, long maxSize) {
         if (maxSize < file.getSize()) {
             log.warn("上传文件过大:[{}]", file.getSize());
-            throw new BusinessException(ErrorCode.UPLOAD_TOO_BIG.getCode(), "单文件最大:" + maxSize / 1024 + "M");
+            throw new BusinessException(ErrorCode.UPLOAD_TOO_BIG, maxSize / 1024);
         }
     }
 

@@ -132,7 +132,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
     protected void checkRefundAmount(RefundApplyContext context, Order order) {
         int totalAmount = order.getPrice() * context.getNum();
         if (totalAmount < context.getRefundAmount()) {
-            throw new BusinessException(REFUND_AMOUNT_MAX.getCode(), String.format(REFUND_AMOUNT_MAX.getMsg(), DecimalUtil.centToYuan(totalAmount)));
+            throw new BusinessException(REFUND_AMOUNT_MAX, DecimalUtil.centToYuan(totalAmount));
         }
     }
 

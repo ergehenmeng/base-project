@@ -73,7 +73,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         }
         if (ticket.getQuota() < num) {
             log.error("超出门票单次购买上限 [{}] [{}] [{}]", ticket.getId(), ticket.getQuota(), num);
-            throw new BusinessException(ErrorCode.TICKET_QUOTA.getCode(), String.format(ErrorCode.TICKET_QUOTA.getMsg(), ticket.getQuota()));
+            throw new BusinessException(ErrorCode.TICKET_QUOTA, ticket.getQuota());
         }
         // 待补充用户信息
         if (Boolean.TRUE.equals(ticket.getRealBuy()) && CollUtil.isEmpty(context.getVisitorList())) {

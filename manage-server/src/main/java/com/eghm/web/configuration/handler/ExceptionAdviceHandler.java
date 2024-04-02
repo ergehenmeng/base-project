@@ -86,7 +86,7 @@ public class ExceptionAdviceHandler {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public RespBody<Void> exception(HttpServletRequest request, HttpRequestMethodNotSupportedException e) {
         log.error("系统异常, 接口[{}]不支持[{}]请求方式", request.getRequestURI(), e.getMethod());
-        return RespBody.error(ErrorCode.METHOD_NOT_SUPPORTED.getCode(), String.format(ErrorCode.METHOD_NOT_SUPPORTED.getMsg(), e.getMethod()));
+        return RespBody.error(ErrorCode.METHOD_NOT_SUPPORTED, e.getMethod());
     }
 
     /**
@@ -122,7 +122,7 @@ public class ExceptionAdviceHandler {
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public RespBody<Void> notNullException(HttpServletRequest request, MissingServletRequestParameterException e) {
         log.error("参数校验为空, 接口[{}]", request.getRequestURI());
-        return RespBody.error(ErrorCode.PARAM_NULL_ERROR.getCode(), String.format(ErrorCode.PARAM_NULL_ERROR.getMsg(), e.getParameterName()));
+        return RespBody.error(ErrorCode.PARAM_NULL_ERROR, e.getParameterName());
     }
 
 }

@@ -194,7 +194,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         Long count = shoppingCartMapper.selectCount(wrapper);
         int max = sysConfigApi.getInt(ConfigConstant.SHOPPING_CAR_MAX);
         if (count >= max) {
-            throw new BusinessException(SHOPPING_CART_MAX.getCode(), String.format(SHOPPING_CART_MAX.getMsg(), max));
+            throw new BusinessException(SHOPPING_CART_MAX, max);
         }
     }
 

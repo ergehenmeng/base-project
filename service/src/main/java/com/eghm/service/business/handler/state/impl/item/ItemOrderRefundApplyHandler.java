@@ -84,7 +84,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         ItemOrderRefundVO refund = orderService.getItemRefund(context.getItemOrderId(), context.getMemberId(), false);
         int totalAmount = refund.getRefundAmount() + refund.getExpressFeeAmount();
         if (totalAmount != context.getRefundAmount()) {
-            throw new BusinessException(REFUND_AMOUNT_MAX.getCode(), String.format(REFUND_AMOUNT_MAX.getMsg(), DecimalUtil.centToYuan(totalAmount)));
+            throw new BusinessException(REFUND_AMOUNT_MAX, DecimalUtil.centToYuan(totalAmount));
         }
         context.setExpressFee(refund.getExpressFeeAmount());
         context.setScoreAmount(refund.getScoreAmount());

@@ -625,7 +625,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         List<OrderVisitor> hasRefundList = visitors.stream().filter(orderVisitor -> refundVisitorIds.contains(orderVisitor.getId())).collect(Collectors.toList());
         if (!hasRefundList.isEmpty()) {
             String userList = hasRefundList.stream().map(OrderVisitor::getMemberName).collect(Collectors.joining(","));
-            throw new BusinessException(ErrorCode.MEMBER_HAS_REFUND.getCode(), String.format(ErrorCode.MEMBER_HAS_REFUND.getMsg(), userList));
+            throw new BusinessException(ErrorCode.MEMBER_HAS_REFUND, userList);
         }
     }
 

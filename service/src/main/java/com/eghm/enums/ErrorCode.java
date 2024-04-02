@@ -376,7 +376,7 @@ public enum ErrorCode {
     /**
      * 上传文件过大
      */
-    UPLOAD_TOO_BIG(3011, "上传文件过大"),
+    UPLOAD_TOO_BIG(3011, "单文件最大:%sM"),
 
     /**
      * 文件保存失败
@@ -967,6 +967,11 @@ public enum ErrorCode {
      * 该日期不可预定
      */
     LINE_NOT_ORDER(3192, "该日期不可预定"),
+
+    /**
+     * 请提前%s天预约
+     */
+    LINE_ADVANCE_DAY(3192, "请提前%s天预约"),
 
     /**
      * 商品订单未查询到

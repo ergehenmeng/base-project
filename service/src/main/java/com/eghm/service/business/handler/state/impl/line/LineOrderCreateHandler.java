@@ -83,6 +83,12 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
             log.error("线路日配置信息未查询到 [{}] [{}]", context.getLineId(), context.getConfigDate());
             throw new BusinessException(ErrorCode.LINE_STOCK_NULL);
         }
+        Integer advanceDay = payload.getLine().getAdvanceDay();
+        LocalDate canVisitDate = LocalDate.now().plusDays(advanceDay);
+        if (context.getConfigDate().isBefore(canVisitDate)) {
+            log.error("线路不可预定该日期 [{}] [{}]", context.getLineId(), context.getConfigDate());
+            throw new BusinessException(ErrorCode.LINE_ADVANCE_DAY, advanceDay);
+        }
         Integer num = context.getNum();
         if (payload.getConfig().getStock() - num < 0) {
             log.error("线路库存不足 [{}] [{}] [{}]", payload.getConfig().getId(), payload.getConfig().getStock(), num);

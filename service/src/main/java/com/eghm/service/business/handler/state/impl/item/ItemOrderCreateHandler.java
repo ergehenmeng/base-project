@@ -3,6 +3,7 @@ package com.eghm.service.business.handler.state.impl.item;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import com.eghm.common.JsonService;
 import com.eghm.common.OrderMQService;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
@@ -24,7 +25,6 @@ import com.eghm.service.business.handler.dto.ItemDTO;
 import com.eghm.service.business.handler.dto.ItemOrderPayload;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.service.business.handler.state.OrderCreateHandler;
-import com.eghm.common.JsonService;
 import com.eghm.service.member.MemberAddressService;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.DataUtil;
@@ -452,7 +452,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         for (ItemDTO dto : context.getItemList()) {
             Item item = itemMap.get(dto.getItemId());
             if (item.getQuota() < dto.getNum()) {
-                throw new BusinessException(ITEM_CHECK_QUOTA.getCode(), String.format(ITEM_CHECK_QUOTA.getMsg(), item.getTitle(), item.getQuota()));
+                throw new BusinessException(ITEM_CHECK_QUOTA, item.getTitle(), item.getQuota());
             }
         }
         context.setItemMap(itemMap);

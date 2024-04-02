@@ -91,7 +91,7 @@ public class WebUtil {
             message = error.getDefaultMessage();
         }
         // 防止特殊绑定异常导致异常信息直接暴露给前端
-        return RespBody.error(ErrorCode.PARAM_VERIFY_ERROR.getCode(), Validator.isWord(message) ? "参数格式不合法" : message);
+        return RespBody.error(ErrorCode.PARAM_VERIFY_ERROR, Validator.isWord(message) ? "参数格式不合法" : message);
     }
 
 }

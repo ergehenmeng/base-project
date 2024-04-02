@@ -89,7 +89,7 @@ public class StateHandler {
     public StateMachine<Integer, IEvent, Context> getStateMachine(ProductType machineType) {
         com.alibaba.cola.statemachine.StateMachine<Integer, IEvent, Context> machine = machineMap.get(machineType);
         if (machine == null) {
-            throw new BusinessException(ErrorCode.STATE_MACHINE_REGISTER.getCode(), String.format(ErrorCode.STATE_MACHINE_REGISTER.getMsg(), machineType.name()));
+            throw new BusinessException(ErrorCode.STATE_MACHINE_REGISTER, machineType.name());
         }
         return machine;
     }

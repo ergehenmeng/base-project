@@ -66,7 +66,7 @@ public class VoucherAccessHandler extends AbstractAccessHandler {
 
     @Override
     public void refundAudit(RefundAuditContext context) {
-        throw new BusinessException(REFUND_AUDIT.getCode(), String.format(REFUND_AUDIT.getMsg(), ProductType.VOUCHER.getName()));
+        throw new BusinessException(REFUND_AUDIT, ProductType.VOUCHER.getName());
     }
 
     @Override
