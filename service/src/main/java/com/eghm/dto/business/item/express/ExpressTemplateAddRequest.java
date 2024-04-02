@@ -7,7 +7,6 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -16,11 +15,7 @@ import java.util.List;
  * @since 2023/8/22
  */
 @Data
-public class ItemExpressEditRequest {
-
-    @ApiModelProperty(value = "id", required = true)
-    @NotNull(message = "id不能为空")
-    private Long id;
+public class ExpressTemplateAddRequest {
 
     @ApiModelProperty(value = "模板名称", required = true)
     @Size(min = 2, max = 20, message = "快递模板名称长度2~20位")
@@ -34,9 +29,9 @@ public class ItemExpressEditRequest {
     @ApiModelProperty(value = "配送区域", required = true)
     @NotEmpty(message = "配送区域不能为空")
     @Size(min = 1, max = 20, message = "配送区域不能超过20个")
-    private List<ItemExpressRegionRequest> regionList;
+    private List<ExpressTemplateRegionRequest> regionList;
 
+    @ApiModelProperty(hidden = true)
     @Assign
-    @ApiModelProperty(hidden = true, value = "登录人商户ID")
     private Long merchantId;
 }

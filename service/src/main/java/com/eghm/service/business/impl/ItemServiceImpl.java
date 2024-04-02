@@ -36,7 +36,7 @@ import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.evaluation.ApplauseRateVO;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
 import com.eghm.vo.business.item.*;
-import com.eghm.vo.business.item.express.ItemExpressVO;
+import com.eghm.vo.business.item.express.ExpressTemplateVO;
 import com.eghm.vo.business.item.express.StoreExpressVO;
 import com.eghm.vo.business.item.express.TotalExpressVO;
 import lombok.AllArgsConstructor;
@@ -77,7 +77,7 @@ public class ItemServiceImpl implements ItemService {
 
     private final OrderEvaluationService orderEvaluationService;
 
-    private final ItemExpressRegionService itemExpressRegionService;
+    private final ExpressTemplateRegionService expressTemplateRegionService;
 
     private final MemberCollectService memberCollectService;
 
@@ -331,21 +331,21 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Integer calcStoreExpressFee(ExpressFeeCalcDTO dto) {
         List<Long> itemIds = dto.getOrderList().stream().map(ItemCalcDTO::getItemId).collect(Collectors.toList());
-        List<ItemExpressVO> expressList = expressTemplateService.getExpressList(itemIds, dto.getStoreId());
+        List<ExpressTemplateVO> expressList = expressTemplateService.getExpressList(itemIds, dto.getStoreId());
         // 商品没有查询到快递信息,默认都是免邮
         if (CollUtil.isEmpty(expressList)) {
             return 0;
         }
         // 保存映射关系,减少后面数据库访问次数
-        Map<Long, ItemExpressVO> expressMap = expressList.stream().collect(Collectors.toMap(ItemExpressVO::getItemId, Function.identity()));
+        Map<Long, ExpressTemplateVO> expressMap = expressList.stream().collect(Collectors.toMap(ExpressTemplateVO::getItemId, Function.identity()));
         dto.getOrderList().forEach(itemCalcDTO -> {
-            ItemExpressVO vo = expressMap.get(itemCalcDTO.getItemId());
+            ExpressTemplateVO vo = expressMap.get(itemCalcDTO.getItemId());
             if (vo != null) {
                 itemCalcDTO.setExpressId(vo.getExpressId());
                 itemCalcDTO.setChargeMode(vo.getChargeMode());
             }
         });
-        return itemExpressRegionService.calcFee(dto);
+        return expressTemplateRegionService.calcFee(dto);
     }
 
     @Override

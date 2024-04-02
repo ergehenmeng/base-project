@@ -77,7 +77,7 @@ public class ScenicServiceImpl implements ScenicService {
         wrapper.eq(request.getMerchantId() != null, Scenic::getMerchantId, request.getMerchantId());
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Scenic::getScenicName, request.getQueryName());
         wrapper.eq(request.getState() != null, Scenic::getState, request.getState());
-        wrapper.last(" order by sort asc, id desc ");
+        wrapper.last(" order by sort, id desc ");
         return scenicMapper.selectPage(request.createPage(), wrapper);
     }
 

@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.business.item.express.ItemExpressAddRequest;
-import com.eghm.dto.business.item.express.ItemExpressEditRequest;
+import com.eghm.dto.business.item.express.ExpressTemplateAddRequest;
+import com.eghm.dto.business.item.express.ExpressTemplateEditRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ExpressTemplateMapper;
@@ -15,11 +15,11 @@ import com.eghm.model.ExpressTemplate;
 import com.eghm.model.Item;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ExpressTemplateService;
-import com.eghm.service.business.ItemExpressRegionService;
+import com.eghm.service.business.ExpressTemplateRegionService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.item.express.ExpressSelectResponse;
-import com.eghm.vo.business.item.express.ItemExpressResponse;
-import com.eghm.vo.business.item.express.ItemExpressVO;
+import com.eghm.vo.business.item.express.ExpressTemplateResponse;
+import com.eghm.vo.business.item.express.ExpressTemplateVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.utils.Lists;
@@ -44,14 +44,14 @@ public class ExpressTemplateServiceImpl implements ExpressTemplateService {
 
     private final ExpressTemplateMapper expressTemplateMapper;
 
-    private final ItemExpressRegionService itemExpressRegionService;
+    private final ExpressTemplateRegionService expressTemplateRegionService;
 
     private final ItemMapper itemMapper;
 
     private final CommonService commonService;
 
     @Override
-    public List<ItemExpressResponse> getList(Long merchantId) {
+    public List<ExpressTemplateResponse> getList(Long merchantId) {
         return expressTemplateMapper.getList(merchantId);
     }
 
@@ -67,14 +67,14 @@ public class ExpressTemplateServiceImpl implements ExpressTemplateService {
     }
 
     @Override
-    public void create(ItemExpressAddRequest request) {
+    public void create(ExpressTemplateAddRequest request) {
         ExpressTemplate express = DataUtil.copy(request, ExpressTemplate.class);
         expressTemplateMapper.insert(express);
-        itemExpressRegionService.createOrUpdate(express.getId(), request.getRegionList());
+        expressTemplateRegionService.createOrUpdate(express.getId(), request.getRegionList());
     }
 
     @Override
-    public void update(ItemExpressEditRequest request) {
+    public void update(ExpressTemplateEditRequest request) {
         ExpressTemplate selected = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(selected.getMerchantId());
         if (!selected.getChargeMode().equals(request.getChargeMode()) && this.itemCount(request.getId()) > 0) {
@@ -82,11 +82,11 @@ public class ExpressTemplateServiceImpl implements ExpressTemplateService {
         }
         ExpressTemplate express = DataUtil.copy(request, ExpressTemplate.class);
         expressTemplateMapper.updateById(express);
-        itemExpressRegionService.createOrUpdate(express.getId(), request.getRegionList());
+        expressTemplateRegionService.createOrUpdate(express.getId(), request.getRegionList());
     }
 
     @Override
-    public List<ItemExpressVO> getExpressList(List<Long> itemIds, Long storeId) {
+    public List<ExpressTemplateVO> getExpressList(List<Long> itemIds, Long storeId) {
         if (CollUtil.isEmpty(itemIds)) {
             return Lists.newArrayList();
         }

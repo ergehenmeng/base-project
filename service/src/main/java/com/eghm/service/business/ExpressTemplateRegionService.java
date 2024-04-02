@@ -1,7 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
-import com.eghm.dto.business.item.express.ItemExpressRegionRequest;
+import com.eghm.dto.business.item.express.ExpressTemplateRegionRequest;
 import com.eghm.model.ExpressTemplateRegion;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2023-08-22
  */
-public interface ItemExpressRegionService {
+public interface ExpressTemplateRegionService {
 
     /**
      * 新增或更新快递区域运费配置信息
@@ -22,7 +22,7 @@ public interface ItemExpressRegionService {
      * @param expressId  模板id
      * @param regionList 价格信息
      */
-    void createOrUpdate(Long expressId, List<ItemExpressRegionRequest> regionList);
+    void createOrUpdate(Long expressId, List<ExpressTemplateRegionRequest> regionList);
 
     /**
      * 批量查询快递区域价格配置信息

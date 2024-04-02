@@ -21,9 +21,6 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class AuthConfig extends BaseEntity {
 
-    @ApiModelProperty("私钥")
-    public String privateKey;
-
     @ApiModelProperty("单位名称")
     @TableField(typeHandler = LikeTypeHandler.class)
     private String title;
@@ -34,6 +31,9 @@ public class AuthConfig extends BaseEntity {
     @ApiModelProperty("公钥(不对外暴露)")
     @JsonIgnore
     private String publicKey;
+
+    @ApiModelProperty("私钥")
+    public String privateKey;
 
     @ApiModelProperty("签名方式")
     private SignType signType;

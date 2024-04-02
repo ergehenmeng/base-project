@@ -163,9 +163,9 @@ public enum ErrorCode {
     SIGNATURE_EXPIRE(1023, "签名信息已过期"),
 
     /**
-     * 请求已过期
+     * 签名已过期,请重新申请签名
      */
-    SIGNATURE_TIMESTAMP_ERROR(1025, "签名信息已过有效期"),
+    SIGNATURE_TIMESTAMP_ERROR(1025, "签名已过期,请重新申请签名"),
 
     /**
      * 签名校验异常

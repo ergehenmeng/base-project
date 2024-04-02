@@ -4,13 +4,13 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.dto.business.order.item.ItemExpressRequest;
+import com.eghm.dto.business.order.item.OrderExpressRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
-import com.eghm.mapper.ItemExpressMapper;
+import com.eghm.mapper.OrderExpressMapper;
 import com.eghm.mapper.ItemOrderExpressMapper;
-import com.eghm.model.ItemExpress;
+import com.eghm.model.OrderExpress;
 import com.eghm.model.ItemOrderExpress;
-import com.eghm.service.business.ItemExpressService;
+import com.eghm.service.business.OrderExpressService;
 import com.eghm.common.JsonService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.item.ExpressVO;
@@ -29,24 +29,24 @@ import java.util.List;
  */
 
 @Slf4j
-@Service("itemOrderExpressService")
+@Service("orderExpressService")
 @AllArgsConstructor
-public class ItemExpressServiceImpl implements ItemExpressService {
+public class OrderExpressServiceImpl implements OrderExpressService {
 
     private final ItemOrderExpressMapper itemOrderExpressMapper;
 
-    private final ItemExpressMapper itemExpressMapper;
+    private final OrderExpressMapper orderExpressMapper;
 
     private final JsonService jsonService;
 
     @Override
     public void insert(ItemSippingRequest request) {
-        ItemExpress itemExpress = DataUtil.copy(request, ItemExpress.class);
-        itemExpressMapper.insert(itemExpress);
+        OrderExpress orderExpress = DataUtil.copy(request, OrderExpress.class);
+        orderExpressMapper.insert(orderExpress);
         List<Long> orderIds = request.getOrderIds();
         for (Long orderId : orderIds) {
             ItemOrderExpress express = new ItemOrderExpress();
-            express.setExpressId(itemExpress.getId());
+            express.setExpressId(orderExpress.getId());
             express.setOrderNo(request.getOrderNo());
             express.setItemOrderId(orderId);
             itemOrderExpressMapper.insert(express);
@@ -54,22 +54,22 @@ public class ItemExpressServiceImpl implements ItemExpressService {
     }
 
     @Override
-    public void update(ItemExpressRequest request) {
-        LambdaUpdateWrapper<ItemExpress> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(ItemExpress::getId, request.getId());
+    public void update(OrderExpressRequest request) {
+        LambdaUpdateWrapper<OrderExpress> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(OrderExpress::getId, request.getId());
         // 尽量防止更新的订单不是自己商品下的
-        wrapper.eq(ItemExpress::getOrderNo, request.getOrderNo());
-        wrapper.set(ItemExpress::getExpressNo, request.getExpressNo());
-        wrapper.set(ItemExpress::getExpressCode, request.getExpressCode());
-        wrapper.set(ItemExpress::getContent, null);
-        itemExpressMapper.update(null, wrapper);
+        wrapper.eq(OrderExpress::getOrderNo, request.getOrderNo());
+        wrapper.set(OrderExpress::getExpressNo, request.getExpressNo());
+        wrapper.set(OrderExpress::getExpressCode, request.getExpressCode());
+        wrapper.set(OrderExpress::getContent, null);
+        orderExpressMapper.update(null, wrapper);
     }
 
     @Override
     public List<FirstExpressVO> getFirstExpressList(String orderNo) {
-        LambdaQueryWrapper<ItemExpress> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(ItemExpress::getOrderNo, orderNo);
-        List<ItemExpress> selectList = itemExpressMapper.selectList(wrapper);
+        LambdaQueryWrapper<OrderExpress> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(OrderExpress::getOrderNo, orderNo);
+        List<OrderExpress> selectList = orderExpressMapper.selectList(wrapper);
         if (selectList.isEmpty()) {
             return Lists.newArrayList();
         }
@@ -78,8 +78,8 @@ public class ItemExpressServiceImpl implements ItemExpressService {
     }
 
     @Override
-    public ItemExpress selectById(Long id) {
-        return itemExpressMapper.selectById(id);
+    public OrderExpress selectById(Long id) {
+        return orderExpressMapper.selectById(id);
     }
 
     /**
@@ -88,9 +88,9 @@ public class ItemExpressServiceImpl implements ItemExpressService {
      * @param expressList 物流信息
      * @return list
      */
-    public List<FirstExpressVO> getFirstExpress(Collection<ItemExpress> expressList) {
+    public List<FirstExpressVO> getFirstExpress(Collection<OrderExpress> expressList) {
         List<FirstExpressVO> voList = Lists.newArrayList();
-        for (ItemExpress express : expressList) {
+        for (OrderExpress express : expressList) {
             List<ExpressVO> vos = jsonService.fromJsonList(express.getContent(), ExpressVO.class);
             if (CollUtil.isNotEmpty(vos)) {
                 FirstExpressVO vo = new FirstExpressVO();

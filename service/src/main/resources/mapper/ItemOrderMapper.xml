@@ -184,7 +184,7 @@
             t.cover_url,
             t.sku_title,
             t.sale_price
-        from item_express r
+        from order_express r
         left join item_order_express s on r.id = s.express_id
         left join item_order t on s.item_order_id = t.id where t.order_no = #{orderNo} and t.deleted = false
     </select>

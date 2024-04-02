@@ -12,7 +12,7 @@ import java.util.List;
  * @since 2023/8/25
  */
 @Data
-public class ItemExpressResponse {
+public class ExpressTemplateResponse {
 
     @ApiModelProperty("id主键")
     private Long id;

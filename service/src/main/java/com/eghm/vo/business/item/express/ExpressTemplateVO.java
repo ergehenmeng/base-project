@@ -8,7 +8,7 @@ import lombok.Data;
  * @since 2023/8/24
  */
 @Data
-public class ItemExpressVO {
+public class ExpressTemplateVO {
 
     @ApiModelProperty("零售Id")
     private Long itemId;

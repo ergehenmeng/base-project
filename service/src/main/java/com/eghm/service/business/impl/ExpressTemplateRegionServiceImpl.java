@@ -6,14 +6,14 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
-import com.eghm.dto.business.item.express.ItemExpressRegionRequest;
+import com.eghm.dto.business.item.express.ExpressTemplateRegionRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ChargeMode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ExpressTemplateRegionMapper;
 import com.eghm.model.ExpressTemplateRegion;
 import com.eghm.model.ItemSku;
-import com.eghm.service.business.ItemExpressRegionService;
+import com.eghm.service.business.ExpressTemplateRegionService;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.common.JsonService;
 import com.eghm.utils.DataUtil;
@@ -37,8 +37,8 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @AllArgsConstructor
-@Service("itemExpressRegionService")
-public class ItemExpressRegionServiceImpl implements ItemExpressRegionService {
+@Service("expressTemplateRegionService")
+public class ExpressTemplateRegionServiceImpl implements ExpressTemplateRegionService {
 
     private final ExpressTemplateRegionMapper expressTemplateRegionMapper;
 
@@ -47,11 +47,11 @@ public class ItemExpressRegionServiceImpl implements ItemExpressRegionService {
     private final ItemSkuService itemSkuService;
 
     @Override
-    public void createOrUpdate(Long expressId, List<ItemExpressRegionRequest> regionList) {
+    public void createOrUpdate(Long expressId, List<ExpressTemplateRegionRequest> regionList) {
         LambdaUpdateWrapper<ExpressTemplateRegion> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ExpressTemplateRegion::getExpressId, expressId);
         expressTemplateRegionMapper.delete(wrapper);
-        for (ItemExpressRegionRequest request : regionList) {
+        for (ExpressTemplateRegionRequest request : regionList) {
             ExpressTemplateRegion region = DataUtil.copy(request, ExpressTemplateRegion.class);
             region.setExpressId(expressId);
             expressTemplateRegionMapper.insert(region);

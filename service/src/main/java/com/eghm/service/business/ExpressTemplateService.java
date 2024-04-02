@@ -1,11 +1,11 @@
 package com.eghm.service.business;
 
-import com.eghm.dto.business.item.express.ItemExpressAddRequest;
-import com.eghm.dto.business.item.express.ItemExpressEditRequest;
+import com.eghm.dto.business.item.express.ExpressTemplateAddRequest;
+import com.eghm.dto.business.item.express.ExpressTemplateEditRequest;
 import com.eghm.model.ExpressTemplate;
 import com.eghm.vo.business.item.express.ExpressSelectResponse;
-import com.eghm.vo.business.item.express.ItemExpressResponse;
-import com.eghm.vo.business.item.express.ItemExpressVO;
+import com.eghm.vo.business.item.express.ExpressTemplateResponse;
+import com.eghm.vo.business.item.express.ExpressTemplateVO;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public interface ExpressTemplateService {
      * @param merchantId 商户ID
      * @return 模板
      */
-    List<ItemExpressResponse> getList(Long merchantId);
+    List<ExpressTemplateResponse> getList(Long merchantId);
 
     /**
      * 查询商户下的物流模板(下拉框使用)
@@ -40,14 +40,14 @@ public interface ExpressTemplateService {
      *
      * @param request 模板信息
      */
-    void create(ItemExpressAddRequest request);
+    void create(ExpressTemplateAddRequest request);
 
     /**
      * 更新快递模板
      *
      * @param request 模板信息
      */
-    void update(ItemExpressEditRequest request);
+    void update(ExpressTemplateEditRequest request);
 
     /**
      * 查询商品对应的快递模板
@@ -56,7 +56,7 @@ public interface ExpressTemplateService {
      * @param storeId 店铺Id
      * @return 快递模板
      */
-    List<ItemExpressVO> getExpressList(List<Long> itemIds, Long storeId);
+    List<ExpressTemplateVO> getExpressList(List<Long> itemIds, Long storeId);
 
     /**
      * 逻辑删除快递模板

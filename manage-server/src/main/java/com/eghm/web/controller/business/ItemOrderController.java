@@ -5,7 +5,7 @@ import com.eghm.cache.CacheProxyService;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.business.order.OrderDTO;
-import com.eghm.dto.business.order.item.ItemExpressRequest;
+import com.eghm.dto.business.order.item.OrderExpressRequest;
 import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.dto.ext.PageData;
@@ -36,7 +36,7 @@ import java.util.List;
 @RequestMapping(value = "/manage/item/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemOrderController {
 
-    private final ItemExpressService itemExpressService;
+    private final OrderExpressService orderExpressService;
 
     private final ItemOrderService itemOrderService;
 
@@ -86,8 +86,8 @@ public class ItemOrderController {
 
     @PostMapping(value = "/updateExpress", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新快递单号")
-    public RespBody<Void> updateExpress(@RequestBody @Validated ItemExpressRequest request) {
-        itemExpressService.update(request);
+    public RespBody<Void> updateExpress(@RequestBody @Validated OrderExpressRequest request) {
+        orderExpressService.update(request);
         return RespBody.success();
     }
 

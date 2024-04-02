@@ -1816,7 +1816,8 @@ CREATE TABLE `merchant_user`
   COLLATE = utf8mb4_bin COMMENT ='商户用户表';
 
 DROP TABLE IF EXISTS `item_express`;
-CREATE TABLE `item_express`
+DROP TABLE IF EXISTS `order_express`;
+CREATE TABLE `order_express`
 (
     `id`           bigint(20)  DEFAULT NULL COMMENT '主键',
     `order_no`     varchar(30) DEFAULT NULL COMMENT '订单号',

@@ -83,7 +83,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     private final ItemOrderService itemOrderService;
 
-    private final ItemExpressService itemExpressService;
+    private final OrderExpressService orderExpressService;
 
     private final JsonService jsonService;
 
@@ -422,7 +422,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         }
         orderList.forEach(itemOrder -> itemOrder.setDeliveryState(DeliveryState.WAIT_TAKE));
         itemOrderService.updateBatchById(orderList);
-        itemExpressService.insert(request);
+        orderExpressService.insert(request);
 
         Long count = itemOrderService.countWaitDelivery(request.getOrderNo());
         if (count == 0) {
@@ -436,7 +436,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public ExpressDetailVO expressDetail(Long id) {
-        ItemExpress express = itemExpressService.selectById(id);
+        OrderExpress express = orderExpressService.selectById(id);
         if (express == null) {
             log.info("未查询到快递信息 [{}]", id);
             throw new BusinessException(ErrorCode.EXPRESS_SELECT_NULL);

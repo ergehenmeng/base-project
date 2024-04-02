@@ -16,7 +16,7 @@ import java.math.BigDecimal;
  */
 
 @Data
-public class ItemExpressRegionRequest {
+public class ExpressTemplateRegionRequest {
 
     @ApiModelProperty(value = "首件或首重", required = true)
     @NotNull(message = "首件或首重不能为空")

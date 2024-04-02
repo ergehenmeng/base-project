@@ -23,7 +23,7 @@ import com.eghm.model.ItemOrder;
 import com.eghm.model.ItemSku;
 import com.eghm.model.ItemSpec;
 import com.eghm.service.business.ExpressService;
-import com.eghm.service.business.ItemExpressService;
+import com.eghm.service.business.OrderExpressService;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.service.sys.SysAreaService;
@@ -53,7 +53,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 
     private final SysAreaService sysAreaService;
 
-    private final ItemExpressService itemExpressService;
+    private final OrderExpressService orderExpressService;
 
     private final JsonService jsonService;
 
@@ -193,7 +193,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         List<ItemOrderListVO> itemList = itemOrderMapper.getItemList(orderNo);
         detail.setDetailAddress(sysAreaService.parseArea(detail.getProvinceId(), detail.getCityId(), detail.getCountyId()) + detail.getDetailAddress());
         detail.setItemList(itemList);
-        List<FirstExpressVO> expressList = itemExpressService.getFirstExpressList(orderNo);
+        List<FirstExpressVO> expressList = orderExpressService.getFirstExpressList(orderNo);
         detail.setExpressList(expressList);
         return detail;
     }

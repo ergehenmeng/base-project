@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.ExpressTemplateMapper">
 
-    <select id="getExpressList" resultType="com.eghm.vo.business.item.express.ItemExpressVO">
+    <select id="getExpressList" resultType="com.eghm.vo.business.item.express.ExpressTemplateVO">
         select t.id, t.express_id, r.charge_mode
         from item t inner join express_template r on t.express_id = r.id where t.deleted = false and t.store_id = #{storeId}
         and t.id in
@@ -11,7 +11,7 @@
         </foreach>
     </select>
 
-    <select id="getList" resultMap="itemExpressResultMap">
+    <select id="getList" resultMap="expressTemplateResultMap">
         select t.id,
                t.title,
                t.state,
@@ -33,7 +33,7 @@
         order by t.id desc
     </select>
 
-    <resultMap id="itemExpressResultMap" type="com.eghm.vo.business.item.express.ItemExpressResponse">
+    <resultMap id="expressTemplateResultMap" type="com.eghm.vo.business.item.express.ExpressTemplateResponse">
         <id column="id" property="id"/>
         <result column="title" property="title"/>
         <result column="state" property="state"/>

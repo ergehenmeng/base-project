@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
  * @since 2023/11/27
  */
 @Data
-public class ItemExpressRequest {
+public class OrderExpressRequest {
 
     @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id不能为空")
