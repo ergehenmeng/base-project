@@ -3,6 +3,7 @@ package com.eghm.web.configuration;
 import com.eghm.configuration.SystemProperties;
 import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -63,6 +64,9 @@ public class SwaggerConfig {
      * @return 请求头信息
      */
     private List<Parameter> setParameterList() {
+        if (systemProperties.getApi().getMockToken() == null) {
+            return new ArrayList<>();
+        }
         ParameterBuilder token = new ParameterBuilder();
         List<Parameter> params = new ArrayList<>();
         SystemProperties.ApiProperties properties = systemProperties.getApi();
