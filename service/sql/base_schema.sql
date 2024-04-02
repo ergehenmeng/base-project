@@ -1457,7 +1457,6 @@ CREATE TABLE `line_order`
     `start_city_id`     bigint(20)    DEFAULT NULL COMMENT '出发城市id',
     `cover_url`         varchar(1000) DEFAULT NULL COMMENT '封面图片',
     `duration`          tinyint(2)    DEFAULT NULL COMMENT '几日游 1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10: 10日游 11:11日游 12:十二日游',
-    `advance_day`       tinyint(2)    DEFAULT NULL COMMENT '提前天数',
     `introduce`         longtext COMMENT '商品介绍',
     `line_price`        int(10)       DEFAULT '0' COMMENT '划线价',
     `sale_price`        int(10)       DEFAULT '0' COMMENT '销售价',

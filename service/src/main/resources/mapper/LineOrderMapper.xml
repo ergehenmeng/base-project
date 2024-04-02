@@ -149,7 +149,6 @@
             t.start_province_id,
             t.start_city_id,
             t.duration,
-            t.advance_day,
             t.line_price,
             t.sale_price,
             t.introduce
