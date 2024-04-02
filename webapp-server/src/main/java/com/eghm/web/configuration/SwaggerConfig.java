@@ -3,7 +3,6 @@ package com.eghm.web.configuration;
 import com.eghm.configuration.SystemProperties;
 import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
