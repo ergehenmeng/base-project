@@ -19,7 +19,7 @@ public class ImageAddRequest {
 
     @ApiModelProperty(value = "图片类型", required = true)
     @NotNull(message = "图片类型不能为空")
-    private Integer classify;
+    private Integer imageType;
 
     @ApiModelProperty("图片大小")
     private Long size;

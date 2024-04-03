@@ -8,7 +8,7 @@ Content-Type: application/json
 
 {
   "title": "demoData",
-  "classify": 1,
+  "bannerType": 1,
   "clientType": "IOS",
   "imgUrl": "imgUrl",
   "jumpUrl": "jumpUrl",
@@ -27,7 +27,7 @@ Content-Type: application/json
 {
   "id": 1735169988037722113,
   "title": "轮播图标题",
-  "classify": 1,
+  "bannerType": 1,
   "clientType": "IOS",
   "imgUrl": "imgUrl",
   "jumpUrl": "jumpUrl",

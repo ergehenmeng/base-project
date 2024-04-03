@@ -27,10 +27,8 @@ public class ImageLogServiceImpl implements ImageLogService {
     @Override
     public Page<ImageLog> getByPage(ImageQueryRequest request) {
         LambdaQueryWrapper<ImageLog> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(request.getClassify() != null, ImageLog::getClassify, request.getClassify());
-        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
-                queryWrapper.like(ImageLog::getTitle, request.getQueryName()).or()
-                        .like(ImageLog::getRemark, request.getQueryName()));
+        wrapper.eq(request.getImageType() != null, ImageLog::getImageType, request.getImageType());
+        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper -> queryWrapper.like(ImageLog::getTitle, request.getQueryName()).or().like(ImageLog::getRemark, request.getQueryName()));
         wrapper.orderByDesc(ImageLog::getId);
         return imageLogMapper.selectPage(request.createPage(), wrapper);
     }

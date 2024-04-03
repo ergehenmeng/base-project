@@ -4,7 +4,7 @@ Token: {{Token}}
 Content-Type: application/json
 
 {
-  "classify": 1,
+  "feedbackType": 1,
   "content": "demoData",
   "deviceBrand": "demoData",
   "deviceModel": "demoData",

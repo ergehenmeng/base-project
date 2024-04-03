@@ -25,10 +25,7 @@ public class SysTaskLogServiceImpl implements SysTaskLogService {
     public Page<SysTaskLog> getByPage(TaskLogQueryRequest request) {
         LambdaQueryWrapper<SysTaskLog> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(request.getState() != null, SysTaskLog::getState, request.getState());
-        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
-                queryWrapper.like(SysTaskLog::getMethodName, request.getQueryName()).or()
-                        .like(SysTaskLog::getBeanName, request.getQueryName()).or()
-                        .like(SysTaskLog::getIp, request.getQueryName()));
+        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper -> queryWrapper.like(SysTaskLog::getMethodName, request.getQueryName()).or().like(SysTaskLog::getBeanName, request.getQueryName()).or().like(SysTaskLog::getIp, request.getQueryName()));
         return sysTaskLogMapper.selectPage(request.createPage(), wrapper);
     }
 

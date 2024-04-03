@@ -28,7 +28,7 @@ public class NoticeTemplateServiceImpl implements NoticeTemplateService {
     @Override
     public Page<NoticeTemplate> getByPage(PagingQuery query) {
         LambdaQueryWrapper<NoticeTemplate> wrapper = Wrappers.lambdaQuery();
-        wrapper.last(" order by id desc ");
+        wrapper.orderByDesc(NoticeTemplate::getId);
         return noticeTemplateMapper.selectPage(query.createPage(), wrapper);
     }
 

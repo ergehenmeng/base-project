@@ -36,7 +36,7 @@ public class LoginServiceImpl implements LoginService {
         LambdaQueryWrapper<LoginLog> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(LoginLog::getMemberId, request.getMemberId());
         wrapper.eq(request.getChannel() != null, LoginLog::getChannel, request.getChannel());
-        wrapper.last(" order by id desc ");
+        wrapper.orderByDesc(LoginLog::getId);
         return loginLogMapper.selectPage(request.createPage(), wrapper);
     }
 

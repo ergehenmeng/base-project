@@ -24,7 +24,7 @@ Content-Type: application/json
 {
   "id": 1735237599501037570,
   "ask": "问",
-  "classify": 1,
+  "helpType": 1,
   "answer": "答编辑",
   "state": 1
 }

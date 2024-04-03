@@ -21,8 +21,8 @@ public class ImageLog extends BaseEntity {
     @TableField(typeHandler = LikeTypeHandler.class)
     private String title;
 
-    @ApiModelProperty("图片分类 数据字典image_log_type")
-    private Integer classify;
+    @ApiModelProperty("图片分类 数据字典image_type")
+    private Integer imageType;
 
     @ApiModelProperty("文件存放地址")
     private String path;

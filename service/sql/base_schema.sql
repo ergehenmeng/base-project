@@ -107,8 +107,8 @@ CREATE TABLE `webapp_log`
     `request_param` varchar(2000) DEFAULT NULL COMMENT '请求参数(json)',
     `error_msg`     text COMMENT '错误日志',
     `version`       varchar(20)   DEFAULT NULL COMMENT '版本号',
-    `channel`       varchar(20)   DEFAULT NULL COMMENT '客户端类型 ANDROID,IOS,PC,H5',
-    `os_version`    varchar(20)   DEFAULT NULL COMMENT '客户端平台版本号 ios: 10.4.1,android:8.1.0',
+    `channel`       varchar(20)   DEFAULT NULL COMMENT '客户端类型 ANDROID IOS PC H5',
+    `os_version`    varchar(20)   DEFAULT NULL COMMENT '客户端平台版本号 ios:10.4.1 android:8.1.0',
     `device_brand`  varchar(50)   DEFAULT NULL COMMENT '设备厂商',
     `device_model`  varchar(50)   DEFAULT NULL COMMENT '设备型号',
     `serial_number` varchar(50)   DEFAULT NULL COMMENT '设备唯一编号',
@@ -130,7 +130,7 @@ CREATE TABLE `feedback_log`
     `id`             bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `member_id`      bigint(20) unsigned DEFAULT NULL COMMENT '用户ID',
     `feedback_type`  tinyint(1)          DEFAULT NULL COMMENT '反馈类型分类',
-    `state`          bit(1)              DEFAULT b'0' COMMENT '状态: 0:待解决 1:已解决',
+    `state`          bit(1)              DEFAULT b'0' COMMENT '状态 0:待解决 1:已解决',
     `version`        varchar(50)         DEFAULT NULL COMMENT '软件版本',
     `system_version` varchar(50)         DEFAULT NULL COMMENT '系统版本',
     `content`        varchar(200)        DEFAULT NULL COMMENT '反馈内容',
@@ -155,7 +155,7 @@ DROP TABLE IF EXISTS `help_center`;
 CREATE TABLE `help_center`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `help_type`   tinyint(2) unsigned DEFAULT NULL COMMENT '帮助分类取system_dict表中help_classify字段',
+    `help_type`   tinyint(2) unsigned DEFAULT NULL COMMENT '帮助分类取system_dict表中help_type字段',
     `state`       tinyint(1) unsigned DEFAULT '1' COMMENT '状态 0:不显示 1:显示',
     `ask`         varchar(100)        DEFAULT NULL COMMENT '问',
     `answer`      text                DEFAULT NULL COMMENT '答',
@@ -175,7 +175,7 @@ CREATE TABLE `image_log`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `title`       varchar(50)         DEFAULT NULL COMMENT '图片名称',
-    `classify`    tinyint(3) unsigned DEFAULT NULL COMMENT '图片分类 数据字典image_classify',
+    `image_type`  tinyint(3) unsigned DEFAULT NULL COMMENT '图片分类 数据字典:image_type',
     `path`        varchar(200)        DEFAULT NULL COMMENT '文件存放地址',
     `size`        bigint(15) unsigned DEFAULT NULL COMMENT '文件大小',
     `remark`      varchar(200)        DEFAULT NULL COMMENT '备注信息',
@@ -336,7 +336,7 @@ CREATE TABLE `sys_config`
     `nid`         varchar(50)         NOT NULL COMMENT '参数标示符',
     `title`       varchar(50)  DEFAULT NULL COMMENT '参数名称',
     `content`     varchar(500)        NOT NULL COMMENT '参数值',
-    `locked`      bit(1)       DEFAULT b'0' COMMENT '锁定状态(禁止编辑) 0:未锁定,1:锁定',
+    `locked`      bit(1)       DEFAULT b'0' COMMENT '锁定状态(禁止编辑) 0:未锁定 1:锁定',
     `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
     `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -390,8 +390,8 @@ CREATE TABLE `sys_dict`
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `title`       varchar(50)  DEFAULT NULL COMMENT '字典中文名称',
     `nid`         varchar(50)  DEFAULT NULL COMMENT '字典编码',
-    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
-    `locked`      bit(1)       DEFAULT b'0' COMMENT '锁定状态(禁止编辑):0:未锁定 1:锁定',
+    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:正常 1:已删除',
+    `locked`      bit(1)       DEFAULT b'0' COMMENT '锁定状态(禁止编辑) 0:未锁定 1:锁定',
     `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
@@ -407,7 +407,7 @@ CREATE TABLE `sys_dict_item`
     `nid`          varchar(50)         DEFAULT NULL COMMENT '字典编号',
     `hidden_value` tinyint(2) unsigned DEFAULT NULL COMMENT '数据字典隐藏值 1~∞',
     `show_value`   varchar(50)         DEFAULT NULL COMMENT '显示值',
-    `deleted`      bit(1)              DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
+    `deleted`      bit(1)              DEFAULT b'0' COMMENT '删除状态 0:正常 1:已删除',
     `create_time`  datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     PRIMARY KEY (`id`) USING BTREE
@@ -445,7 +445,7 @@ CREATE TABLE `sys_menu`
     `sub_path`      varchar(500)        DEFAULT NULL COMMENT '权限拦截路径',
     `grade`         tinyint(1) unsigned DEFAULT '1' COMMENT '菜单级别 1:导航菜单 2:按钮菜单',
     `sort`          int(10)             DEFAULT '0' COMMENT '排序规则 小的排在前面',
-    `state`         bit(1)              DEFAULT b'1' COMMENT '状态: 1:启用 0:禁用',
+    `state`         bit(1)              DEFAULT b'1' COMMENT '状态 1:启用 0:禁用',
     `remark`        varchar(200)        DEFAULT NULL COMMENT '备注信息',
     `display_state` tinyint(1)          DEFAULT NULL COMMENT '显示状态 1:商户显示(该菜单或按钮只对商户开放) 2:系统显示(该菜单或按钮只对系统人员开放)  3:全部显示(该菜单或按钮对商户和系统人员都开放)',
     `create_time`   datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -485,11 +485,11 @@ CREATE TABLE `sys_user`
     `mobile`      char(11)            NOT NULL COMMENT '手机号码(登陆账户)',
     `user_type`   tinyint(2)          DEFAULT 1 COMMENT '用户类型 1:系统用户 2: 商户管理员 3:商户普通用户',
     `data_type`   tinyint(2)          DEFAULT 1 COMMENT '数据权限(1:本人,2:本部门,4:本部门及子部门 8:全部 16:自定义),只针对系统用户',
-    `state`       tinyint(1) unsigned DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
+    `state`       tinyint(1) unsigned DEFAULT '1' COMMENT '用户状态:0:锁定 1:正常',
     `pwd`         varchar(256)        DEFAULT NULL COMMENT '登陆密码MD5',
     `init_pwd`    varchar(256)        DEFAULT NULL COMMENT '初始密码',
     `dept_code`   varchar(20)         DEFAULT NULL COMMENT '所属部门编号',
-    `deleted`     bit(1)              DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
+    `deleted`     bit(1)              DEFAULT b'0' COMMENT '删除状态 0:正常 1:已删除',
     `create_time` datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`      varchar(200)        DEFAULT NULL COMMENT '备注信息',
@@ -527,7 +527,7 @@ CREATE TABLE `sys_role`
     `merchant_id` bigint(20)   DEFAULT NULL COMMENT '角色所属商户',
     `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态:0:正常,1:已删除',
+    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:正常 1:已删除',
     `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`) USING BTREE,
     KEY `role_name_index` (`role_name`) USING BTREE
@@ -583,7 +583,7 @@ CREATE TABLE `sys_task`
     `cron_expression` varchar(50)                  DEFAULT NULL COMMENT 'cron表达式',
     `alarm_email`     varchar(30)                  DEFAULT NULL COMMENT '错误报警邮箱',
     `state`           tinyint(1) unsigned          DEFAULT '1' COMMENT '状态 0:关闭 1:开启',
-    `lock_time`       bigint(20) unsigned NOT NULL DEFAULT 30000 COMMENT '锁定时间(多副本时防止并发),单位:毫秒',
+    `lock_time`       bigint(20) unsigned NOT NULL DEFAULT 30000 COMMENT '锁定时间(多副本时防止并发) 单位:毫秒',
     `update_time`     datetime                     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`          varchar(255)                 DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`),
@@ -660,7 +660,7 @@ CREATE TABLE `member_address`
     `member_id`      bigint(20)   DEFAULT NULL COMMENT '用户id',
     `nick_name`      varchar(10)  DEFAULT NULL COMMENT '昵称',
     `mobile`         varchar(11)  DEFAULT NULL COMMENT '手机号码',
-    `state`          tinyint(1)   DEFAULT '0' COMMENT '状态 0: 普通地址  1:默认地址',
+    `state`          tinyint(1)   DEFAULT '0' COMMENT '状态 0:普通地址 1:默认地址',
     `province_id`    bigint(20)   DEFAULT NULL COMMENT '省份id',
     `province_name`  varchar(50)  DEFAULT NULL COMMENT '省份名称',
     `city_id`        bigint(20)   DEFAULT NULL COMMENT '城市id',
@@ -763,7 +763,7 @@ CREATE TABLE `sensitive_word`
     `keyword`     varchar(200)         DEFAULT NULL COMMENT '敏感字',
     `create_time` datetime             DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime             DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)      NOT NULL DEFAULT b'0' COMMENT '删除状态: 0:未删除 1:已删除',
+    `deleted`     bit(1)      NOT NULL DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='敏感词库';
@@ -820,7 +820,7 @@ CREATE TABLE `homestay_room`
     `merchant_id`     bigint(20)    DEFAULT NULL COMMENT '所属商家',
     `homestay_id`     bigint(20)    DEFAULT NULL COMMENT '民宿id',
     `state`           tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:平台下架',
-    `confirm_type`    tinyint(1)    DEFAULT '1' COMMENT '订单确认方式: 1: 自动确认 2:手动确认',
+    `confirm_type`    tinyint(1)    DEFAULT '1' COMMENT '订单确认方式 1: 自动确认 2:手动确认',
     `recommend`       bit(1)        DEFAULT b'0' COMMENT '是否为推荐房型 1:是 0:不是',
     `dimension`       smallint(3)   DEFAULT NULL COMMENT '面积',
     `resident`        tinyint(2)    DEFAULT '2' COMMENT '居住人数',
@@ -1109,7 +1109,7 @@ CREATE TABLE `merchant`
     `legal_url`             varchar(500)  DEFAULT NULL COMMENT '法人身份证图片',
     `open_id`               varchar(30)   DEFAULT NULL COMMENT 'openId',
     `auth_mobile`           varchar(20)   DEFAULT NULL COMMENT '微信授权手机号',
-    `type`                  smallint(4)   DEFAULT NULL COMMENT '商家类型: 1:景区 2: 民宿 4: 餐饮 8: 零售 16: 线路 32:场馆',
+    `type`                  smallint(4)   DEFAULT NULL COMMENT '商家类型 1:景区 2: 民宿 4: 餐饮 8: 零售 16: 线路 32:场馆',
     `user_id`               bigint(20) NOT NULL COMMENT '商户关联系统用户ID',
     `province_id`           bigint(20)    DEFAULT NULL COMMENT '省份id',
     `city_id`               bigint(20)    DEFAULT NULL COMMENT '城市id',
@@ -1117,7 +1117,7 @@ CREATE TABLE `merchant`
     `detail_address`        varchar(100)  DEFAULT NULL COMMENT '详细地址',
     `create_time`           datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`           datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`               bit(1)        DEFAULT b'0' COMMENT '是否为删除状态 0:未删除 1:已删除',
+    `deleted`               bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) DEFAULT CHARSET = utf8mb4 COMMENT ='商家信息表';
 
@@ -1224,7 +1224,7 @@ CREATE TABLE `pay_request_log`
     `id`            bigint(20) NOT NULL COMMENT '主键',
     `pay_channel`   varchar(30) DEFAULT NULL COMMENT '交易方式 WECHAT:微信 ALI_PAY:支付宝',
     `order_no`      varchar(50) DEFAULT NULL COMMENT '订单编号',
-    `step_type`     VARCHAR(20) DEFAULT NULL COMMENT '请求类型 PAY: 支付 REFUND:退款',
+    `step_type`     VARCHAR(20) DEFAULT NULL COMMENT '请求类型 PAY:支付 REFUND:退款',
     `trade_no`      varchar(30) DEFAULT NULL COMMENT '交易流水号',
     `refund_no`     varchar(30) DEFAULT NULL COMMENT '退款流水号',
     `request_body`  text COMMENT '请求参数',
@@ -1245,7 +1245,7 @@ CREATE TABLE `order_visitor`
     `order_no`     varchar(50) DEFAULT NULL COMMENT '订单编号',
     `member_name`  varchar(20) DEFAULT NULL COMMENT '游客姓名',
     `id_card`      varchar(20) DEFAULT NULL COMMENT '身份证号码',
-    `state`        tinyint(1)  DEFAULT '0' COMMENT '状态 0: 初始化(待支付) 1: 已支付,待使用 2:已使用 3:退款中 4:已退款',
+    `state`        tinyint(1)  DEFAULT '0' COMMENT '状态 0:待支付 1:待使用 2:已使用 3:退款中 4:已退款',
     `verify_id`    bigint(20)  DEFAULT NULL COMMENT '关联的核销记录id',
     `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -1331,7 +1331,7 @@ CREATE TABLE `homestay_order`
     `dimension`     smallint(3)   DEFAULT NULL COMMENT '面积',
     `resident`      tinyint(2)    DEFAULT '2' COMMENT '居住人数',
     `bed`           tinyint(1)    DEFAULT '1' COMMENT '床数',
-    `room_type`     tinyint(1)    DEFAULT NULL COMMENT '房型类型  1:标间 2:大床房 3:双人房 4: 钟点房, 5:套房 6:合租',
+    `room_type`     tinyint(1)    DEFAULT NULL COMMENT '房型类型 1:标间 2:大床房 3:双人房 4:钟点房 5:套房 6:合租',
     `cover_url`     varchar(1000) DEFAULT NULL COMMENT '封面图片',
     `introduce`     longtext COMMENT '详细介绍',
     `remark`        varchar(200)  DEFAULT NULL COMMENT '确认备注信息',
@@ -1492,8 +1492,8 @@ CREATE TABLE `item_order`
     `order_no`       varchar(30) COMMENT '订单编号',
     `member_id`      bigint(20) COMMENT '订单所属用户ID(冗余)',
     `num`            smallint(4) COMMENT '订单数量',
-    `refund_state`   tinyint(1)    DEFAULT '0' COMMENT '退款状态 0: 初始状态 1:已退款',
-    `delivery_state` tinyint(1)    DEFAULT '0' COMMENT '配送状态 0: 初始 1:待发货 2:待收货 3:待自提 4:已收货',
+    `refund_state`   tinyint(1)    DEFAULT '0' COMMENT '退款状态 0:初始状态 1:已退款',
+    `delivery_state` tinyint(1)    DEFAULT '0' COMMENT '配送状态 0:初始 1:待发货 2:待收货 3:待自提 4:已收货',
     `store_id`       bigint(20)    DEFAULT NULL COMMENT '商品所属店铺',
     `depict`         varchar(50)   DEFAULT NULL COMMENT '商品描述信息',
     `cover_url`      varchar(1000) DEFAULT NULL COMMENT '封面图',
@@ -1790,7 +1790,7 @@ CREATE TABLE `order_evaluation`
     `user_id`         bigint(20)   DEFAULT NULL COMMENT '审核人',
     `create_time`     datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`         bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除1:已删除',
+    `deleted`         bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
     KEY `product_idx` (`product_id`)
 ) ENGINE = InnoDB
@@ -1897,7 +1897,7 @@ create table member_collect
     member_id    bigint(20) comment '会员id',
     collect_id   bigint(20) comment '收藏id',
     collect_type tinyint(2) comment '收藏对象类型',
-    state        tinyint(1) default 1 comment '0:取消收藏, 1:加入收藏',
+    state        tinyint(1) default 1 comment '收藏状态 0:取消收藏 1:加入收藏',
     create_date  date       default null comment '创建日期',
     create_time  datetime   default CURRENT_TIMESTAMP comment '创建时间',
     update_time  datetime   default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP comment '更新时间',
@@ -1950,7 +1950,7 @@ create table account_log
     merchant_id    bigint(20) comment '商户id',
     account_type   tinyint(2) comment '资金变动类型',
     amount         int(10)  default 0 comment '变动金额',
-    direction      tinyint  default 0 comment '1:收入 2:支出',
+    direction      tinyint  default 0 comment '收支类型 1:收入 2:支出',
     surplus_amount int(10)  default 0 comment '变动后的余额(可提现金额+支付冻结金额)',
     trade_no       varchar(30) comment '关联的交易单号',
     remark         varchar(200) comment '备注信息',
@@ -1965,8 +1965,8 @@ CREATE TABLE `withdraw_log`
 (
     `id`            bigint(20) NOT NULL COMMENT '主键',
     `merchant_id`   bigint(20)   DEFAULT NULL COMMENT '商户id',
-    `state`         tinyint(2)   DEFAULT '0' COMMENT '0:提现中 1:提现成功 2:提现失败',
-    `withdraw_way`  tinyint(1)   DEFAULT '0' COMMENT '1:手动提现 2:自动提现',
+    `state`         tinyint(2)   DEFAULT '0' COMMENT '提现状态 0:提现中 1:提现成功 2:提现失败',
+    `withdraw_way`  tinyint(1)   DEFAULT '0' COMMENT '提现方式 1:手动提现 2:自动提现',
     `amount`        int(10)      DEFAULT '0' COMMENT '提现金额',
     `fee`           int(10)      DEFAULT '0' COMMENT '提现手续费',
     `refund_no`     varchar(50)  DEFAULT NULL COMMENT '提现流水号',
@@ -2026,10 +2026,10 @@ CREATE TABLE `group_booking`
     `num`                 tinyint(2)  DEFAULT NULL COMMENT '拼团人数',
     `sku_value`           text        DEFAULT NULL COMMENT '拼团优惠配置json',
     `max_discount_amount` int(10)     DEFAULT 0 COMMENT '最大优惠金额',
-    `expire_time`         int(10)     DEFAULT '86400' COMMENT '拼团有效期,单位:分钟',
+    `expire_time`         int(10)     DEFAULT '86400' COMMENT '拼团有效期 单位:分钟',
     `create_time`         datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`         datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`             bit(1)      DEFAULT b'0' COMMENT '是否删除 1:已删除 0:未删除',
+    `deleted`             bit(1)      DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='拼团活动表';
@@ -2046,7 +2046,7 @@ CREATE TABLE `item_group_order`
     `starter`     bit(1)      DEFAULT b'0' COMMENT '是否为拼团发起者',
     `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)      DEFAULT b'0' COMMENT '是否删除 1:已删除 0:未删除',
+    `deleted`     bit(1)      DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='拼团订单表';
@@ -2062,7 +2062,7 @@ CREATE TABLE `limit_purchase`
     `advance_hour` tinyint(2)  DEFAULT NULL COMMENT '提前预告小时',
     `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`      bit(1)      DEFAULT b'0' COMMENT '是否删除 1:已删除 0:未删除',
+    `deleted`      bit(1)      DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='限时购活动表';
@@ -2081,7 +2081,7 @@ CREATE TABLE `limit_purchase_item`
     `advance_time`        datetime   DEFAULT NULL COMMENT '开始预告时间',
     `create_time`         datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '开始预告时间',
     `update_time`         datetime   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`             bit(1)     DEFAULT b'0' COMMENT '是否删除 1:已删除 0:未删除',
+    `deleted`             bit(1)     DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='限时购商品表';
@@ -2191,7 +2191,7 @@ CREATE TABLE `redeem_code`
     `state`       tinyint(1) comment '状态 0:待发放 1:已发放',
     `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)      DEFAULT b'0' COMMENT '是否删除 1:已删除 0:未删除',
+    `deleted`     bit(1)      DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB COMMENT ='兑换码配置表';
 
@@ -2210,7 +2210,7 @@ create table redeem_code_grant
     `end_time`       datetime    DEFAULT NULL COMMENT '有效截止时间',
     `create_time`    datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`        bit(1)      DEFAULT b'0' COMMENT '是否删除 1:已删除 0:未删除',
+    `deleted`        bit(1)      DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
     UNIQUE KEY `key_unique_complex` (`cd_key`) USING BTREE
 ) ENGINE = InnoDB COMMENT ='兑换码发放表';
@@ -2238,7 +2238,7 @@ CREATE TABLE `score_account_log`
     `merchant_id`    bigint(20)   DEFAULT NULL COMMENT '商户id',
     `charge_type`    tinyint(2)   DEFAULT NULL COMMENT '积分变动类型',
     `amount`         int(10)      DEFAULT '0' COMMENT '变动积分',
-    `direction`      tinyint(4)   DEFAULT '0' COMMENT '1:收入 2:支出',
+    `direction`      tinyint(4)   DEFAULT '0' COMMENT '收支方式 1:收入 2:支出',
     `surplus_amount` int(10)      DEFAULT '0' COMMENT '变动后的积分',
     `trade_no`       varchar(30)  DEFAULT NULL COMMENT '关联的交易单号(订单号或者提现单号)',
     `remark`         varchar(200) DEFAULT NULL COMMENT '备注信息',
@@ -2285,7 +2285,7 @@ CREATE TABLE `account_freeze_log`
     `merchant_id`   bigint(20)   DEFAULT NULL COMMENT '商户id',
     `state`         tinyint(1)   default '1' comment '状态 1:冻结中 2:已解冻',
     `amount`        int(10)      DEFAULT '0' COMMENT '冻结金额',
-    `change_type`   tinyint(1)   default '1' comment '状态变更原因 1:支付冻结, 2:退款解冻 3:订单完成解冻',
+    `change_type`   tinyint(1)   default '1' comment '变更类型 1:支付冻结, 2:退款解冻 3:订单完成解冻',
     `order_no`      varchar(30)  DEFAULT NULL comment '订单编号',
     `remark`        varchar(200) DEFAULT NULL COMMENT '备注信息',
     `unfreeze_time` datetime     DEFAULT NULL COMMENT '解冻时间',

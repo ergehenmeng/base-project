@@ -8,14 +8,13 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "classify": "IOS",
+  "channel": "IOS",
   "state": 0,
   "version": "9.23",
   "forceUpdate": false,
   "url": "http://localhost:8080/manage/manage/download",
   "remark": "版本备注信息"
 }
-
 
 ###
 
@@ -25,11 +24,7 @@ Content-Type: application/json
 
 {
   "id": 1707305217112469506,
-  "classify": "IOS",
-  "state": 0,
-  "version": "9.24",
   "forceUpdate": false,
-  "url": "http://localhost:8080/manage/manage/download",
   "remark": "版本备注"
 }
 ###

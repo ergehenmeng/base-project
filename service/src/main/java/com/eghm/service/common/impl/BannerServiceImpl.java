@@ -29,8 +29,7 @@ public class BannerServiceImpl implements BannerService {
         LambdaQueryWrapper<Banner> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(request.getBannerType() != null, Banner::getBannerType, request.getBannerType());
         wrapper.eq(StrUtil.isNotBlank(request.getClientType()), Banner::getClientType, request.getClientType());
-        wrapper.and(request.getMiddleTime() != null, queryWrapper ->
-                queryWrapper.le(Banner::getStartTime, request.getMiddleTime()).ge(Banner::getEndTime, request.getMiddleTime()));
+        wrapper.and(request.getMiddleTime() != null, queryWrapper -> queryWrapper.le(Banner::getStartTime, request.getMiddleTime()).ge(Banner::getEndTime, request.getMiddleTime()));
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Banner::getTitle, request.getQueryName());
         return bannerMapper.selectPage(request.createPage(), wrapper);
     }

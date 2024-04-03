@@ -29,7 +29,7 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
     @Override
     public Page<EmailTemplate> getByPage(PagingQuery query) {
         LambdaQueryWrapper<EmailTemplate> wrapper = Wrappers.lambdaQuery();
-        wrapper.last(" order by id desc ");
+        wrapper.orderByDesc(EmailTemplate::getId);
         return emailTemplateMapper.selectPage(query.createPage(), wrapper);
     }
 

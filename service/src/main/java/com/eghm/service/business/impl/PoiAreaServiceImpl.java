@@ -40,10 +40,8 @@ public class PoiAreaServiceImpl implements PoiAreaService {
     @Override
     public Page<PoiArea> getByPage(PagingQuery query) {
         LambdaQueryWrapper<PoiArea> wrapper = Wrappers.lambdaQuery();
-        wrapper.and(StrUtil.isNotBlank(query.getQueryName()), queryWrapper ->
-                queryWrapper.like(PoiArea::getTitle, query.getQueryName())
-                        .or().like(PoiArea::getCode, query.getQueryName()));
-        wrapper.last(" order by id desc ");
+        wrapper.and(StrUtil.isNotBlank(query.getQueryName()), queryWrapper -> queryWrapper.like(PoiArea::getTitle, query.getQueryName()).or().like(PoiArea::getCode, query.getQueryName()));
+        wrapper.orderByDesc(PoiArea::getId);
         return poiAreaMapper.selectPage(query.createPage(), wrapper);
     }
 

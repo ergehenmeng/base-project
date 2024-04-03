@@ -40,7 +40,7 @@ public class AuthConfigServiceImpl implements AuthConfigService {
         LambdaQueryWrapper<AuthConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), AuthConfig::getTitle, request.getQueryName());
         wrapper.eq(request.getSignType() != null, AuthConfig::getSignType, request.getSignType());
-        wrapper.last(" order by id desc ");
+        wrapper.orderByDesc(AuthConfig::getId);
         return authConfigMapper.selectPage(request.createPage(), wrapper);
     }
 

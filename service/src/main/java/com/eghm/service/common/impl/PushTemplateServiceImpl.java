@@ -30,10 +30,7 @@ public class PushTemplateServiceImpl implements PushTemplateService {
     public Page<PushTemplate> getByPage(PushTemplateQueryRequest request) {
         LambdaQueryWrapper<PushTemplate> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(request.getState() != null, PushTemplate::getState, request.getState());
-        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
-                queryWrapper.like(PushTemplate::getTitle, request.getQueryName()).or()
-                        .like(PushTemplate::getNid, request.getQueryName()).or()
-                        .like(PushTemplate::getTag, request.getQueryName()));
+        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper -> queryWrapper.like(PushTemplate::getTitle, request.getQueryName()).or().like(PushTemplate::getNid, request.getQueryName()).or().like(PushTemplate::getTag, request.getQueryName()));
         return pushTemplateMapper.selectPage(request.createPage(), wrapper);
     }
 

@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class ImageQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("图片分类(数据字典)")
-    private Integer classify;
+    @ApiModelProperty("图片分类(数据字典image_type)")
+    private Integer imageType;
 
 }
