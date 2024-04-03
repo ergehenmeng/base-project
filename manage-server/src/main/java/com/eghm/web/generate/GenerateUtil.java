@@ -40,7 +40,7 @@ public class GenerateUtil {
     }
 
     public static void generateRequest(Class<?> cls, FreemarkerTemplate freemarkerTemplate) throws URISyntaxException, IOException {
-        GenerateUtil.generateRequest(cls, "com.eghm.dto.businesss","com.eghm.service.businesss", freemarkerTemplate);
+        GenerateUtil.generateRequest(cls, "com.eghm.dto.business","com.eghm.service.business", freemarkerTemplate);
     }
 
     public static void generateRequest(Class<?> cls, String requestPackage, String implPackage, FreemarkerTemplate freemarkerTemplate) throws URISyntaxException, IOException {
