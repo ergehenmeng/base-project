@@ -5,7 +5,6 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VoucherEvent;
-import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.RefundType;
@@ -88,7 +87,6 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
         order.setTitle(voucher.getTitle());
         order.setPrice(voucher.getSalePrice());
         order.setPayAmount(order.getNum() * order.getPrice());
-        order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         order.setMultiple(false);
         order.setProductType(ProductType.VOUCHER);
         order.setRefundType(RefundType.DIRECT_REFUND);

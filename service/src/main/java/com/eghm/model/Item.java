@@ -64,7 +64,7 @@ public class Item extends BaseEntity {
     @TableField(updateStrategy = FieldStrategy.IGNORED)
     private Long expressId;
 
-    @ApiModelProperty(value = "交付方式 0:无需发货 1:快递包邮 2:自提")
+    @ApiModelProperty(value = "交付方式 1:快递包邮 2:自提")
     private DeliveryType deliveryType;
 
     @ApiModelProperty(value = "最低价格")

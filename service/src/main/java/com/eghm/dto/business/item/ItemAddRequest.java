@@ -58,7 +58,7 @@ public class ItemAddRequest {
     @RangeInt(min = 1, max = 99, message = "限购数量1~99之间")
     private Integer quota;
 
-    @ApiModelProperty(value = "交付方式 0:无需发货 1:快递包邮 2:门店自提", required = true)
+    @ApiModelProperty(value = "交付方式 1:快递包邮 2:门店自提", required = true)
     @NotNull(message = "交付方式不能为空")
     private DeliveryType deliveryType;
 

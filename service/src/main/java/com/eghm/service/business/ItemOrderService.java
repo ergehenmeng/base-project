@@ -178,4 +178,11 @@ public interface ItemOrderService {
      * @return 退款信息
      */
     ItemOrderRefundVO getRefund(Long orderId, Long memberId);
+
+    /**
+     * 订单支付成功,更新零售订单状态
+     *
+     * @param orderNo 订单编号
+     */
+    void paySuccess(String orderNo);
 }

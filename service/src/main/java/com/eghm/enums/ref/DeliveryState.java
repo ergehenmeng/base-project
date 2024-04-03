@@ -33,9 +33,14 @@ public enum DeliveryState implements EnumBinder {
     WAIT_TAKE(2, "待收货"),
 
     /**
+     * 待自提
+     */
+    PICK_UP(3, "待自提"),
+
+    /**
      * 已签收/已收货
      */
-    CONFIRM_TASK(3, "已签收");
+    CONFIRM_TASK(4, "已签收");
 
     @JsonValue
     @EnumValue

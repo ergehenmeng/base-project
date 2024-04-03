@@ -115,7 +115,6 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         order.setPayAmount(context.getNum() * ticket.getSalePrice());
         order.setMultiple(false);
         order.setRefundType(RefundType.DIRECT_REFUND);
-        order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         order.setCreateDate(LocalDate.now());
         order.setCreateTime(LocalDateTime.now());
         // 使用优惠券

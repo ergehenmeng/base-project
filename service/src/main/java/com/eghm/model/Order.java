@@ -64,9 +64,6 @@ public class Order extends BaseEntity {
     @ApiModelProperty("退款描述信息")
     private String refundDescribe;
 
-    @ApiModelProperty("配送方式 0:无需发货 1:快递包邮 2:自提")
-    private DeliveryType deliveryType;
-
     @ApiModelProperty("支付流水号")
     private String tradeNo;
 

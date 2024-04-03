@@ -6,7 +6,6 @@ import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.enums.ref.ConfirmState;
-import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
@@ -123,7 +122,6 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         int salePrice = payload.getConfigList().stream().mapToInt(HomestayRoomConfig::getSalePrice).sum();
         order.setPrice(salePrice);
         order.setPayAmount(order.getNum() * order.getPrice());
-        order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         order.setMultiple(false);
         order.setCreateDate(LocalDate.now());
         order.setCreateTime(LocalDateTime.now());

@@ -5,7 +5,6 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.LineEvent;
-import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
@@ -119,7 +118,6 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         order.setMobile(context.getMobile());
         order.setRemark(context.getRemark());
         order.setMemberId(context.getMemberId());
-        order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         order.setMultiple(false);
         order.setCreateDate(LocalDate.now());
         order.setCreateTime(LocalDateTime.now());

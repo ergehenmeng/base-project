@@ -44,8 +44,10 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
 
     private final AccountService accountService;
 
+    private final ItemOrderService itemOrderService;
+
     public ItemOrderPaySuccessHandler(ScoreAccountService scoreAccountService, OrderService orderService, ItemService itemService, ItemGroupOrderService itemGroupOrderService,
-                                      GroupBookingService groupBookingService, AlarmService alarmService, AccountService accountService) {
+                                      GroupBookingService groupBookingService, AlarmService alarmService, AccountService accountService, ItemOrderService itemOrderService) {
         super(orderService);
         this.itemService = itemService;
         this.orderService = orderService;
@@ -54,11 +56,13 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
         this.alarmService = alarmService;
         this.scoreAccountService = scoreAccountService;
         this.accountService = accountService;
+        this.itemOrderService = itemOrderService;
     }
 
     @Override
     protected void doProcess(PayNotifyContext context, List<String> orderNoList) {
-        orderService.updateState(orderNoList, context.getSuccessTime(), OrderState.UN_USED, OrderState.UN_PAY, OrderState.PROGRESS);
+        orderService.updateState(orderNoList, context.getSuccessTime(), OrderState.WAIT_DELIVERY, OrderState.UN_PAY, OrderState.PROGRESS);
+        itemOrderService.paySuccess(context.getOrderNo());
         itemService.updateSaleNum(orderNoList);
     }
 

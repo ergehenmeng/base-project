@@ -1,19 +1,22 @@
 package com.eghm.service.business.handler.state.impl.venue;
 
+import com.eghm.common.JsonService;
 import com.eghm.common.OrderMQService;
 import com.eghm.dto.ext.VenuePhase;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VenueEvent;
-import com.eghm.enums.ref.*;
+import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.ref.PayType;
+import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ref.RefundType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.VenueOrderCreateContext;
 import com.eghm.service.business.handler.dto.VenueOrderPayload;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCreateHandler;
-import com.eghm.common.JsonService;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -123,7 +126,6 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
         order.setTitle(venue.getTitle() + "/" + payload.getVenueSite().getTitle());
         order.setPrice(payload.getPriceList().stream().mapToInt(VenueSitePrice::getPrice).sum());
         order.setPayAmount(order.getPrice());
-        order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         order.setMultiple(false);
         order.setProductType(ProductType.VENUE);
         order.setRefundType(RefundType.DIRECT_REFUND);

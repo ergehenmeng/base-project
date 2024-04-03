@@ -799,6 +799,16 @@ public enum ErrorCode {
     ORDER_PAID(2360, "订单状态已变更"),
 
     /**
+     * 商品无需发货
+     */
+    ITEM_NO_SHIPMENT(2361, "商品无需发货"),
+
+    /**
+     * 自提商品无需发货
+     */
+    ITEM_SELF_PICK(2362, "自提商品无需发货"),
+
+    /**
      * 订单已支付,无法取消
      */
     ORDER_PAID_CANCEL(2363, "订单已支付,无法取消"),
@@ -1399,9 +1409,9 @@ public enum ErrorCode {
     CHOOSE_NO_DELIVERY(2720, "请选择未发货的商品"),
 
     /**
-     * 请选择需要发快递的商品
+     * 请选择可以发快递的商品
      */
-    CHOOSE_EXPRESS(2723, "请选择需要发快递的商品"),
+    CHOOSE_EXPRESS(2723, "请选择可以发快递的商品"),
 
     /**
      * 物流模板不存在或已删除

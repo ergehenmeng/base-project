@@ -97,4 +97,11 @@ public interface ItemOrderMapper extends BaseMapper<ItemOrder> {
      * @return 退款信息
      */
     ItemOrderRefundVO getRefund(@Param("orderId") Long orderId, @Param("memberId") Long memberId);
+
+    /**
+     * 订单支付成功,更新配送状态
+     *
+     * @param orderNo 订单号
+     */
+    void paySuccess(@Param("orderNo") String orderNo);
 }

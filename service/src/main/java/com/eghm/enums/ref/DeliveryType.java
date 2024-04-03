@@ -19,11 +19,6 @@ import java.util.Arrays;
 public enum DeliveryType implements EnumBinder {
 
     /**
-     * 无须发货
-     */
-    NO_SHIPMENT(0, "无须发货"),
-
-    /**
      * 快递包邮
      */
     EXPRESS(1, "快递包邮"),

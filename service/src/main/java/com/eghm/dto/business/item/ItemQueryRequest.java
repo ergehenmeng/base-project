@@ -23,7 +23,7 @@ public class ItemQueryRequest extends PagingQuery {
     @ApiModelProperty(value = "状态")
     private State state;
 
-    @ApiModelProperty(value = "交付方式 0:无需发货 1:快递包邮 2:自提")
+    @ApiModelProperty(value = "交付方式 1:快递包邮 2:自提")
     private DeliveryType deliveryType;
 
     @ApiModelProperty("标签id")

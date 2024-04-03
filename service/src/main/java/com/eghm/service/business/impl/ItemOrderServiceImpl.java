@@ -259,6 +259,11 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         return itemOrderMapper.getRefund(orderId, memberId);
     }
 
+    @Override
+    public void paySuccess(String orderNo) {
+        itemOrderMapper.paySuccess(orderNo);
+    }
+
     /**
      * 拼接sku名称
      *

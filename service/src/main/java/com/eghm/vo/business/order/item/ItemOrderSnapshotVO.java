@@ -51,7 +51,7 @@ public class ItemOrderSnapshotVO {
     @ApiModelProperty(value = "购买须知")
     private String purchaseNotes;
 
-    @ApiModelProperty(value = "交付方式 0:无需发货 1:门店自提 2:快递包邮")
+    @ApiModelProperty(value = "交付方式 1:门店自提 2:快递包邮")
     private DeliveryType deliveryType;
 
     @ApiModelProperty(value = "商品介绍信息")

@@ -46,7 +46,7 @@ public class ItemResponse extends ExcelStyle {
     @ExcelProperty(value = "限购数量", index = 3)
     private Integer quota;
 
-    @ApiModelProperty(value = "交付方式 0:无须发货 1:门店自提 2:快递包邮")
+    @ApiModelProperty(value = "交付方式 1:门店自提 2:快递包邮")
     @ExcelProperty(value = "交付方式", index = 4, converter = EnumExcelConverter.class)
     private DeliveryType deliveryType;
 
