@@ -49,7 +49,7 @@ public class SysNoticeServiceImpl implements SysNoticeService {
         LambdaQueryWrapper<SysNotice> wrapper = Wrappers.lambdaQuery();
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SysNotice::getTitle, request.getQueryName());
         wrapper.eq(request.getNoticeType() != null, SysNotice::getNoticeType, request.getNoticeType());
-        wrapper.last("order by update_time desc, id desc ");
+        wrapper.last(" order by update_time desc, id desc ");
         return sysNoticeMapper.selectPage(request.createPage(), wrapper);
     }
 
