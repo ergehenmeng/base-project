@@ -71,7 +71,7 @@ public class TokenServiceImpl implements TokenService {
         MemberToken memberToken = cacheService.getValue(refreshKey, MemberToken.class);
         if (memberToken == null) {
             log.error("refreshToken已经过期 [{}]", refreshToken);
-            throw new BusinessException(ErrorCode.TOKEN_NULL);
+            throw new BusinessException(ErrorCode.REFRESH_TOKEN_EXPIRE);
         }
         MemberToken member = this.getByAccessToken(memberToken.getToken());
         if (member != null) {

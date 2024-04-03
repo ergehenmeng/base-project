@@ -30,7 +30,7 @@ public enum ErrorCode {
     /**
      * refreshToken过期,请重新登陆
      */
-    TOKEN_NULL(8850, "refreshToken过期,请重新登陆"),
+    REFRESH_TOKEN_EXPIRE(8850, "refreshToken过期,请重新登陆"),
 
     /**
      * 点击太快啦~~

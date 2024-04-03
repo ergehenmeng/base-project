@@ -1,17 +1,21 @@
 package com.eghm.web.controller;
 
+import cn.hutool.core.util.StrUtil;
+import com.eghm.common.SmsService;
+import com.eghm.common.TokenService;
+import com.eghm.constant.AppHeader;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.login.*;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.SmsType;
-import com.eghm.common.SmsService;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginTokenVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +31,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author 二哥很猛
  * @since 2019/8/20 10:17
  */
+@Slf4j
 @RestController
 @Api(tags = "登陆、密码功能")
 @AllArgsConstructor
@@ -36,6 +41,8 @@ public class LoginController {
     private final MemberService memberService;
 
     private final SmsService smsService;
+
+    private final TokenService tokenService;
 
     @ApiOperation("发送登陆验证码①")
     @PostMapping(value = "/login/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -82,5 +89,17 @@ public class LoginController {
         }
         memberService.setPassword(request.getRequestId(), request.getPassword());
         return RespBody.success();
+    }
+
+    @ApiOperation("刷新token")
+    @PostMapping(value = "/refresh", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public RespBody<String> refresh(HttpServletRequest request) {
+        String refreshToken = request.getHeader(AppHeader.REFRESH_TOKEN);
+        if (StrUtil.isBlank(refreshToken)) {
+            log.warn("请求头没有包含Refresh-Token,无法刷新");
+            return RespBody.error(ErrorCode.REFRESH_TOKEN_EXPIRE);
+        }
+        String token = tokenService.refreshToken(refreshToken);
+        return RespBody.success(token);
     }
 }
