@@ -76,9 +76,9 @@ public interface ItemMapper extends BaseMapper<Item> {
     /**
      * 根据该订单编号更新该订单下所有商品的销售量
      *
-     * @param orderNo 订单编号
+     * @param orderNoList 订单编号
      */
-    void updateSaleNumByOrderNo(@Param("orderNo") String orderNo);
+    void updateSaleNum(@Param("orderNoList") List<String> orderNoList);
 
     /**
      * 查询商品详细信息

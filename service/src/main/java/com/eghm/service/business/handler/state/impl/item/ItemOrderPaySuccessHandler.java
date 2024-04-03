@@ -1,21 +1,24 @@
 package com.eghm.service.business.handler.state.impl.item;
 
+import com.eghm.common.AlarmService;
 import com.eghm.dto.business.account.score.ScoreAccountDTO;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.ChargeType;
+import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.GroupBooking;
 import com.eghm.model.ItemGroupOrder;
+import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.PayNotifyContext;
-import com.eghm.common.AlarmService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 普通商品订单支付通知
@@ -59,15 +62,17 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
         this.itemOrderService = itemOrderService;
     }
 
+    /**
+     * 1.
+     *
+     * @param context   支付成功或失败上下文
+     * @param orderList 订单列表
+     */
     @Override
-    protected void doProcess(PayNotifyContext context, List<String> orderNoList) {
-        orderService.updateState(orderNoList, context.getSuccessTime(), OrderState.WAIT_DELIVERY, OrderState.UN_PAY, OrderState.PROGRESS);
-        itemOrderService.paySuccess(context.getOrderNo());
+    protected void doProcess(PayNotifyContext context, List<Order> orderList) {
+        List<String> orderNoList = orderList.stream().map(Order::getOrderNo).collect(Collectors.toList());
         itemService.updateSaleNum(orderNoList);
-    }
 
-    @Override
-    protected void after(PayNotifyContext context, List<Order> orderList) {
         for (Order order : orderList) {
             if (order.getBookingNo() != null) {
                 log.info("该订单为拼团订单,更新拼团订单状态 [{}]", order.getOrderNo());
@@ -81,6 +86,13 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
                 dto.setChargeType(ChargeType.ORDER_PAY);
                 scoreAccountService.updateAccount(dto);
             }
+            List<ItemOrder> itemOrderList = itemOrderService.getByOrderNo(order.getOrderNo());
+            boolean anyMatch = itemOrderList.stream().anyMatch(itemOrder -> itemOrder.getDeliveryType() == DeliveryType.EXPRESS);
+            order.setPayTime(context.getSuccessTime());
+            order.setState(anyMatch ? OrderState.WAIT_DELIVERY : OrderState.WAIT_TAKE);
+            orderService.updateById(order);
+
+            itemOrderService.paySuccess(context.getOrderNo());
             accountService.paySuccessAddFreeze(order);
         }
     }

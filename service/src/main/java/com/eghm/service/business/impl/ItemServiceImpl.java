@@ -269,7 +269,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void updateSaleNum(List<String> orderNoList) {
-        orderNoList.forEach(itemMapper::updateSaleNumByOrderNo);
+        itemMapper.updateSaleNum(orderNoList);
     }
 
     @Override

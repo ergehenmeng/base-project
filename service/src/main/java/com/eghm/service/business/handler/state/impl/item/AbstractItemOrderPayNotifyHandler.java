@@ -37,8 +37,7 @@ public abstract class AbstractItemOrderPayNotifyHandler implements PayNotifyHand
     public void doAction(PayNotifyContext context) {
         List<Order> orderList = orderService.selectByTradeNoList(context.getTradeNo());
         this.before(context, orderList);
-        List<String> orderNoList = orderList.stream().map(Order::getOrderNo).collect(Collectors.toList());
-        this.doProcess(context, orderNoList);
+        this.doProcess(context, orderList);
         this.after(context, orderList);
     }
 
@@ -65,9 +64,9 @@ public abstract class AbstractItemOrderPayNotifyHandler implements PayNotifyHand
      * 处理支付通知 主逻辑
      *
      * @param context 支付成功或失败上下文
-     * @param orderNoList 订单号列表
+     * @param orderList 订单列表
      */
-    protected abstract void doProcess(PayNotifyContext context, List<String> orderNoList);
+    protected abstract void doProcess(PayNotifyContext context, List<Order> orderList);
 
     /**
      * 支付成功后处理
