@@ -28,6 +28,11 @@ public enum ErrorCode {
     MEMBER_REGISTER(8849, "请先授权登录"),
 
     /**
+     * refreshToken过期,请重新登陆
+     */
+    TOKEN_NULL(8850, "refreshToken过期,请重新登陆"),
+
+    /**
      * 点击太快啦~~
      */
     SUBMIT_FREQUENTLY(400, "操作太快啦~~"),

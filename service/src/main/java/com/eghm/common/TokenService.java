@@ -37,14 +37,6 @@ public interface TokenService {
     MemberToken getByMemberId(Long memberId);
 
     /**
-     * 根据刷新token信息获取用户登陆信息
-     *
-     * @param refreshToken 刷新token
-     * @return 用户登陆信息
-     */
-    MemberToken getByRefreshToken(String refreshToken);
-
-    /**
      * 清除用户token信息
      *
      * @param accessToken token
@@ -64,6 +56,14 @@ public interface TokenService {
      * @param refreshToken 刷新token
      */
     void cleanRefreshToken(String refreshToken);
+
+    /**
+     * 刷新token
+     *
+     * @param refreshToken 刷新token
+     * @return 新token
+     */
+    String refreshToken(String refreshToken);
 
     /**
      * 缓存登陆时所有需要保存的用户信息
