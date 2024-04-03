@@ -4,6 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.cache.CacheProxyService;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
 import com.eghm.dto.ext.PagingQuery;
@@ -14,10 +16,8 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysNoticeMapper;
 import com.eghm.model.SysNotice;
-import com.eghm.cache.CacheProxyService;
 import com.eghm.service.common.SysNoticeService;
 import com.eghm.service.sys.SysDictService;
-import com.eghm.common.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.notice.NoticeDetailVO;
 import com.eghm.vo.notice.NoticeVO;
@@ -105,7 +105,7 @@ public class SysNoticeServiceImpl implements SysNoticeService {
             throw new BusinessException(ErrorCode.NOTICE_NOT_NULL);
         }
         NoticeDetailVO vo = DataUtil.copy(notice, NoticeDetailVO.class);
-        vo.setClassifyName(sysDictService.getDictValue(DictConstant.NOTICE_TYPE, notice.getNoticeType()));
+        vo.setNoticeType(sysDictService.getDictValue(DictConstant.NOTICE_TYPE, notice.getNoticeType()));
         return vo;
     }
 

@@ -25,7 +25,7 @@ public class NoticeDetailVO {
     private String content;
 
     @ApiModelProperty("公告类型名称")
-    private String classifyName;
+    private String noticeType;
 
     @ApiModelProperty("更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
