@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 * @since ${.now?string('yyyy-MM-dd')}
 */
 @Slf4j
-@Service
+@Service("${(template.fileName?substring(0, 1))?lower_case}${template.fileName?substring(1)}Service")
 @AllArgsConstructor
 public class ${template.fileName}ServiceImpl implements ${template.fileName}Service {
 

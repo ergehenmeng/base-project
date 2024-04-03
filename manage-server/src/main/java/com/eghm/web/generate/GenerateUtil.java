@@ -40,7 +40,7 @@ public class GenerateUtil {
     }
 
     public static void generateRequest(Class<?> cls, FreemarkerTemplate freemarkerTemplate) throws URISyntaxException, IOException {
-        GenerateUtil.generateRequest(cls, "com.eghm.dto.business","com.eghm.service.business", freemarkerTemplate);
+        GenerateUtil.generateRequest(cls, "com.eghm.dto.businesss","com.eghm.service.businesss", freemarkerTemplate);
     }
 
     public static void generateRequest(Class<?> cls, String requestPackage, String implPackage, FreemarkerTemplate freemarkerTemplate) throws URISyntaxException, IOException {
@@ -72,7 +72,7 @@ public class GenerateUtil {
         generateService(cls, implPackage, requestPackage, freemarkerTemplate);
     }
 
-    public static void generateService(Class<?> cls, String implPackage, String requestPackage, FreemarkerTemplate freemarkerTemplate) throws URISyntaxException, IOException {
+    private static void generateService(Class<?> cls, String implPackage, String requestPackage, FreemarkerTemplate freemarkerTemplate) throws URISyntaxException, IOException {
         Map<String, Object> map = new HashMap<>();
         map.put("template", GenerateUtil.generateService(cls, implPackage, requestPackage));
         URL url = GenerateUtil.class.getResource("/");
@@ -80,15 +80,21 @@ public class GenerateUtil {
         String parentPath = new File(url.toURI()).getParentFile().getParentFile().getAbsolutePath() + ROOT_PACKAGE + "com\\eghm\\web\\generate\\template\\";
         String service = FileUtil.readString(parentPath + "Service.ftl", StandardCharsets.UTF_8);
         String serviceImpl = FileUtil.readString(parentPath + "ServiceImpl.ftl", StandardCharsets.UTF_8);
+        String controller = FileUtil.readString(parentPath + "Controller.ftl", StandardCharsets.UTF_8);
         String serviceStr = freemarkerTemplate.render(service, map);
         String serviceImplStr = freemarkerTemplate.render(serviceImpl, map);
-        String addPath = generate(cls, implPackage, "Service");
-        String editPath = generate(cls, implPackage + ".impl", "ServiceImpl");
-        BufferedWriter writer = FileUtil.getWriter(addPath, StandardCharsets.UTF_8, false);
+        String controllerStr = freemarkerTemplate.render(controller, map);
+        String servicePath = generate(cls, implPackage, "Service");
+        String controllerPath = new File(url.toURI()).getParentFile().getParentFile().getAbsolutePath() + ROOT_PACKAGE + "com\\eghm\\web\\controller\\" + cls.getSimpleName() + "Controller.java";
+        String serviceImplPath = generate(cls, implPackage + ".impl", "ServiceImpl");
+        BufferedWriter writer = FileUtil.getWriter(servicePath, StandardCharsets.UTF_8, false);
         writer.write(serviceStr);
         writer.flush();
-        writer = FileUtil.getWriter(editPath, StandardCharsets.UTF_8, false);
+        writer = FileUtil.getWriter(serviceImplPath, StandardCharsets.UTF_8, false);
         writer.write(serviceImplStr);
+        writer.flush();
+        writer = FileUtil.getWriter(controllerPath, StandardCharsets.UTF_8, false);
+        writer.write(controllerStr);
         writer.flush();
         writer.close();
     }
@@ -103,7 +109,12 @@ public class GenerateUtil {
             GenerateFile.FieldDesc desc = new GenerateFile.FieldDesc();
             desc.setFieldName(field.getName());
             desc.setFieldType(field.getType().getSimpleName());
-            desc.setDesc(field.getAnnotation(ApiModelProperty.class).value());
+            String value = field.getAnnotation(ApiModelProperty.class).value();
+            if (value != null) {
+                desc.setDesc(value.split(" ")[0]);
+            } else {
+                desc.setDesc("");
+            }
             descList.add(desc);
         }
         template.setFieldList(descList);
