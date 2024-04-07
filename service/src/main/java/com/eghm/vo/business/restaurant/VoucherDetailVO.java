@@ -1,6 +1,8 @@
 package com.eghm.vo.business.restaurant;
 
+import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.RefundType;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -26,9 +28,11 @@ public class VoucherDetailVO {
     private String coverUrl;
 
     @ApiModelProperty(value = "划线价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer linePrice;
 
     @ApiModelProperty(value = "销售价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
     @ApiModelProperty(value = "剩余库存")

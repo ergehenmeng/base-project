@@ -2,16 +2,17 @@ package com.eghm.vo.business.restaurant;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
+import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.convertor.excel.BooleanExcelConverter;
 import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.ref.State;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -25,6 +26,9 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class VoucherResponse extends ExcelStyle {
+
+    @ApiModelProperty(value = "商品图片")
+    private String coverUrl;
 
     @ApiModelProperty(value = "商品名称")
     @ExcelProperty(value = "商品名称", index = 0)
@@ -44,26 +48,19 @@ public class VoucherResponse extends ExcelStyle {
 
     @ApiModelProperty(value = "销售价")
     @ExcelProperty(value = "销售价", index = 4, converter = CentToYuanConverter.class)
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
     @ApiModelProperty(value = "销量")
     @ExcelProperty(value = "销量", index = 5)
     private Integer saleNum;
 
-    @ApiModelProperty("评分")
-    @ExcelProperty(value = "评分", index = 6)
-    private BigDecimal score;
-
-    @ApiModelProperty(value = "购买说明")
-    @ExcelProperty(value = "购买说明", index = 7)
-    private String depict;
-
     @ApiModelProperty(value = "限购数量")
-    @ExcelProperty(value = "限购数量", index = 8)
+    @ExcelProperty(value = "限购数量", index = 6)
     private Integer quota;
 
     @ApiModelProperty("添加时间")
-    @ExcelProperty(value = "添加时间", index = 10)
+    @ExcelProperty(value = "添加时间", index = 7)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 }

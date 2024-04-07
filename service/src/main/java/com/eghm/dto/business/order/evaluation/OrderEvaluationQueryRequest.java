@@ -20,7 +20,10 @@ public class OrderEvaluationQueryRequest extends PagingQuery {
     @ApiModelProperty("商品分类")
     private String productType;
 
-    @ApiModelProperty("分数")
-    @OptionInt(value = {1, 2, 3, 4, 5}, required = false, message = "分数格式非法")
-    private Integer score;
+    @ApiModelProperty("评价类型 0:好评 1:中评 2:差评")
+    @OptionInt(value = {0, 1, 2}, required = false, message = "评价类型格式非法")
+    private Integer queryType;
+
+    @ApiModelProperty(value = "商品id")
+    private Long productId;
 }

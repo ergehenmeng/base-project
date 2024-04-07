@@ -6,13 +6,12 @@
         select
         t.title,
         r.title as restaurant_name,
+        t.cover_url,
         t.state,
         t.hot_sell,
         t.sale_price,
         t.sale_num,
-        t.score,
         t.quota,
-        t.depict,
         t.create_time
         from voucher t left join restaurant r on t.restaurant_id = r.id
         where t.deleted = false

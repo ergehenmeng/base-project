@@ -18,10 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -93,8 +90,7 @@ public class LoginController {
 
     @ApiOperation("刷新token")
     @PostMapping(value = "/token/refresh")
-    public RespBody<String> refresh(HttpServletRequest request) {
-        String refreshToken = request.getHeader(AppHeader.REFRESH_TOKEN);
+    public RespBody<String> refresh(@RequestHeader(value = AppHeader.REFRESH_TOKEN, required = false) String refreshToken) {
         if (StrUtil.isBlank(refreshToken)) {
             log.warn("请求头没有包含Refresh-Token,无法刷新");
             return RespBody.error(ErrorCode.REFRESH_TOKEN_EXPIRE);

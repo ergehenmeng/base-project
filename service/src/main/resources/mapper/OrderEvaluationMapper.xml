@@ -34,11 +34,24 @@
         <if test="param.state != null">
             and t.state = #{param.state}
         </if>
+        <if test="param.productId != null">
+            and t.product_id = #{param.productId}
+        </if>
         <if test="param.productType != null">
             and t.product_type = #{param.productType}
         </if>
-        <if test="param.score != null">
-            and t.score = #{param.score}
+        <if test="param.queryType != null">
+            <choose>
+                <when test="param.queryType == 0">
+                  and t.score in (4, 5)
+                </when>
+                <when test="param.queryType == 1">
+                  and t.score in (2, 3)
+                </when>
+                <otherwise>
+                  and t.score = 1
+                </otherwise>
+            </choose>
         </if>
         order by t.id desc
     </select>

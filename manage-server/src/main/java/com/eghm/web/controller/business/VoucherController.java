@@ -39,8 +39,8 @@ public class VoucherController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<Voucher>> listPage(VoucherQueryRequest request) {
-        Page<Voucher> roomPage = voucherService.getByPage(request);
+    public RespBody<PageData<VoucherResponse>> listPage(VoucherQueryRequest request) {
+        Page<VoucherResponse> roomPage = voucherService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
     }
 

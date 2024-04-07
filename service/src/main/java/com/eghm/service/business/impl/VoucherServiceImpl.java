@@ -1,6 +1,5 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -44,13 +43,8 @@ public class VoucherServiceImpl implements VoucherService {
     private final CommonService commonService;
 
     @Override
-    public Page<Voucher> getByPage(VoucherQueryRequest request) {
-        LambdaQueryWrapper<Voucher> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(request.getMerchantId() != null, Voucher::getMerchantId, request.getRestaurantId());
-        wrapper.eq(request.getRestaurantId() != null, Voucher::getRestaurantId, request.getRestaurantId());
-        wrapper.eq(request.getState() != null, Voucher::getState, request.getState());
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Voucher::getTitle, request.getQueryName());
-        return voucherMapper.selectPage(request.createPage(), wrapper);
+    public Page<VoucherResponse> getByPage(VoucherQueryRequest request) {
+        return voucherMapper.listPage(request.createNullPage(), request);
     }
 
     @Override

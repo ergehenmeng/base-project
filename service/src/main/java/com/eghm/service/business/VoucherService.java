@@ -27,7 +27,7 @@ public interface VoucherService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<Voucher> getByPage(VoucherQueryRequest request);
+    Page<VoucherResponse> getByPage(VoucherQueryRequest request);
 
     /**
      * 分页查询餐饮券信息 导出使用
