@@ -149,17 +149,17 @@
             t.cover_url,
             t.title,
             t.homestay_id,
-            t.room,
-            t.hall,
-            t.kitchen,
             t.dimension,
             t.resident,
-            t.bed,
             t.room_type,
             t.introduce,
+            s.refund_type,
+            s.refund_describe,
             r.title as homestayName,
-            r.level as homestayLevel
+            r.level as homestayLevel,
+            t.infrastructure
         from homestay_order t
+        left join `order` s on t.order_no = s.order_no
         left join homestay r on t.homestay_id = r.id
         where t.deleted = false and t.order_no = #{orderNo}
         <if test="memberId != null">

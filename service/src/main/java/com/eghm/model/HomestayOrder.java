@@ -61,6 +61,9 @@ public class HomestayOrder extends BaseEntity {
     @ApiModelProperty(value = "详细介绍")
     private String introduce;
 
+    @ApiModelProperty("屋内设施")
+    private String infrastructure;
+
     @ApiModelProperty("确认备注信息")
     private String remark;
 }

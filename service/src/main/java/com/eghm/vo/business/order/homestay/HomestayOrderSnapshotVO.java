@@ -1,5 +1,6 @@
 package com.eghm.vo.business.order.homestay;
 
+import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.RoomType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,6 +11,9 @@ import lombok.Data;
  */
 @Data
 public class HomestayOrderSnapshotVO {
+
+    @ApiModelProperty("房型名称(冗余)")
+    private String title;
 
     @ApiModelProperty(value = "封面图片")
     private String coverUrl;
@@ -34,5 +38,14 @@ public class HomestayOrderSnapshotVO {
 
     @ApiModelProperty(value = "详细介绍")
     private String introduce;
+
+    @ApiModelProperty("退款方式 0:不支持 1:直接退款 2:审核后退款")
+    private RefundType refundType;
+
+    @ApiModelProperty("退款描述")
+    private String refundDescribe;
+
+    @ApiModelProperty("屋内设施")
+    private String infrastructure;
 
 }
