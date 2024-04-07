@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -44,12 +43,8 @@ public class RestaurantResponse extends ExcelStyle {
     @ExcelProperty(value = "商家热线", index = 5)
     private String phone;
 
-    @ApiModelProperty("分数")
-    @ExcelProperty(value = "分数", index = 6)
-    private BigDecimal score;
-
     @ApiModelProperty("创建时间")
-    @ExcelProperty(value = "创建时间", index = 7)
+    @ExcelProperty(value = "创建时间", index = 6)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 }

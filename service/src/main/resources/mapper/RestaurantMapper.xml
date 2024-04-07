@@ -10,7 +10,6 @@
         t.open_time,
         t.detail_address,
         t.phone,
-        t.score,
         t.create_time
         from restaurant t
         left join merchant r on t.merchant_id = r.id

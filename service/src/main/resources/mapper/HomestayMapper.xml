@@ -11,7 +11,6 @@
         t.state,
         t.detail_address,
         t.phone,
-        t.score,
         t.create_time
         from homestay t
         left join merchant r on t.merchant_id = r.id
