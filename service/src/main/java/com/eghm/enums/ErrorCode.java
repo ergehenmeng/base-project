@@ -28,9 +28,9 @@ public enum ErrorCode {
     MEMBER_REGISTER(8849, "请先授权登录"),
 
     /**
-     * refreshToken过期,请重新登陆
+     * Refresh-Token已过期
      */
-    REFRESH_TOKEN_EXPIRE(8850, "refreshToken过期,请重新登陆"),
+    REFRESH_TOKEN_EXPIRE(8850, "Refresh-Token已过期"),
 
     /**
      * 点击太快啦~~

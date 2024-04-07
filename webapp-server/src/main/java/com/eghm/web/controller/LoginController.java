@@ -1,8 +1,8 @@
 package com.eghm.web.controller;
 
 import cn.hutool.core.util.StrUtil;
-import com.eghm.common.SmsService;
 import com.eghm.common.MemberTokenService;
+import com.eghm.common.SmsService;
 import com.eghm.constant.AppHeader;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
@@ -92,7 +92,7 @@ public class LoginController {
     }
 
     @ApiOperation("刷新token")
-    @PostMapping(value = "/token/refresh", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/token/refresh")
     public RespBody<String> refresh(HttpServletRequest request) {
         String refreshToken = request.getHeader(AppHeader.REFRESH_TOKEN);
         if (StrUtil.isBlank(refreshToken)) {
