@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.business.shopping.AddCartDTO;
+import com.eghm.dto.business.shopping.CartDTO;
 import com.eghm.dto.business.shopping.ShoppingCartQueryRequest;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.ref.State;
@@ -60,7 +60,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public void add(AddCartDTO dto) {
+    public void add(CartDTO dto) {
         LambdaQueryWrapper<ShoppingCart> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ShoppingCart::getMemberId, dto.getMemberId());
         wrapper.eq(ShoppingCart::getItemId, dto.getItemId());
@@ -155,7 +155,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      * @param dto      商品信息
      * @param quantity 添加总数量
      */
-    private ItemSku checkAndGetSku(AddCartDTO dto, int quantity) {
+    private ItemSku checkAndGetSku(CartDTO dto, int quantity) {
         Item item = itemService.selectByIdRequired(dto.getItemId());
         if (item.getState() != State.SHELVE) {
             log.error("商品已下架,无法添加到购物车 [{}] [{}]", dto.getItemId(), item.getState());

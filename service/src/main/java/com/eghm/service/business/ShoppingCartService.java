@@ -1,7 +1,7 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.business.shopping.AddCartDTO;
+import com.eghm.dto.business.shopping.CartDTO;
 import com.eghm.dto.business.shopping.ShoppingCartQueryRequest;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.vo.business.shopping.ShoppingCartResponse;
@@ -29,7 +29,7 @@ public interface ShoppingCartService {
      *
      * @param dto 商品信息
      */
-    void add(AddCartDTO dto);
+    void add(CartDTO dto);
 
     /**
      * 查询用户购物车商品列表

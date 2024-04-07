@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * @since 2022/7/23
  */
 @Data
-public class AddCartDTO {
+public class CartDTO {
 
     @ApiModelProperty(value = "商品id", required = true)
     @NotNull(message = "商品不能为空")

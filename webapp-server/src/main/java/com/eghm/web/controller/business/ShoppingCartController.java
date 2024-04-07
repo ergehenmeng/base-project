@@ -1,7 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.dto.IdsDTO;
-import com.eghm.dto.business.shopping.AddCartDTO;
+import com.eghm.dto.business.shopping.CartDTO;
 import com.eghm.dto.business.shopping.CartQuantityDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
@@ -33,8 +33,8 @@ public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
 
     @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("添加购物车")
-    public RespBody<Void> add(@RequestBody @Validated AddCartDTO dto) {
+    @ApiOperation("加入购物车")
+    public RespBody<Void> insert(@RequestBody @Validated CartDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         shoppingCartService.add(dto);
         return RespBody.success();
