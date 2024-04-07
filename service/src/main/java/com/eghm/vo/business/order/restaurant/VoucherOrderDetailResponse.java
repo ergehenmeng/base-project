@@ -4,7 +4,6 @@ import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.eghm.enums.ref.RefundState;
-import com.eghm.enums.ref.RefundType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -45,9 +44,6 @@ public class VoucherOrderDetailResponse {
 
     @ApiModelProperty("已使用数量")
     private Integer useNum;
-
-    @ApiModelProperty(value = "是否支持退款 0:不支持 1:直接退款 2:审核后退款")
-    private RefundType refundType;
 
     @ApiModelProperty(value = "订单状态")
     private OrderState state;

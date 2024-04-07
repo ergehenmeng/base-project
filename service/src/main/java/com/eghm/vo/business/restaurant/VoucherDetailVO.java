@@ -1,7 +1,6 @@
 package com.eghm.vo.business.restaurant;
 
 import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.enums.ref.RefundType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -61,12 +60,6 @@ public class VoucherDetailVO {
 
     @ApiModelProperty(value = "使用截止时间 HH:mm")
     private String expireTime;
-
-    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
-    private RefundType refundType;
-
-    @ApiModelProperty("退款描述信息")
-    private String refundDescribe;
 
     @ApiModelProperty(value = "详细介绍")
     private String introduce;
