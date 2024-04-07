@@ -1,7 +1,6 @@
 package com.eghm.vo.business.scenic.ticket;
 
 import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.enums.ref.RefundType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -56,12 +55,6 @@ public class TicketVO {
 
     @ApiModelProperty(value = "门票介绍")
     private String introduce;
-
-    @ApiModelProperty(value = "退款方式 0:不支持退款 1:直接退款 2: 审核后退款")
-    private RefundType refundType;
-
-    @ApiModelProperty("退款描述信息")
-    private String refundDescribe;
 
     @ApiModelProperty(value = "是否实名购票 0:不实名 1:实名")
     private Boolean realBuy;
