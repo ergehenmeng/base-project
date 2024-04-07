@@ -1,13 +1,13 @@
 package com.eghm.common.impl;
 
 import cn.hutool.core.util.IdUtil;
-import com.eghm.common.FileService;
+import com.eghm.cache.CacheService;
+import com.eghm.common.UserTokenService;
+import com.eghm.common.JsonService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.model.SysUser;
-import com.eghm.cache.CacheService;
-import com.eghm.common.JsonService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,7 +25,7 @@ import java.util.Optional;
  */
 @Slf4j
 @AllArgsConstructor
-public class RedisAccessTokenServiceImpl implements FileService.AccessTokenService {
+public class RedisUserTokenServiceImpl implements UserTokenService {
 
     private final SystemProperties systemProperties;
 

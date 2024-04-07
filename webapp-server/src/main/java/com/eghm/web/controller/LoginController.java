@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.SmsService;
-import com.eghm.common.TokenService;
+import com.eghm.common.MemberTokenService;
 import com.eghm.constant.AppHeader;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
@@ -42,7 +42,7 @@ public class LoginController {
 
     private final SmsService smsService;
 
-    private final TokenService tokenService;
+    private final MemberTokenService memberTokenService;
 
     @ApiOperation("发送登陆验证码①")
     @PostMapping(value = "/login/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -92,14 +92,14 @@ public class LoginController {
     }
 
     @ApiOperation("刷新token")
-    @PostMapping(value = "/refresh", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/token/refresh", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<String> refresh(HttpServletRequest request) {
         String refreshToken = request.getHeader(AppHeader.REFRESH_TOKEN);
         if (StrUtil.isBlank(refreshToken)) {
             log.warn("请求头没有包含Refresh-Token,无法刷新");
             return RespBody.error(ErrorCode.REFRESH_TOKEN_EXPIRE);
         }
-        String token = tokenService.refreshToken(refreshToken);
+        String token = memberTokenService.refreshToken(refreshToken);
         return RespBody.success(token);
     }
 }

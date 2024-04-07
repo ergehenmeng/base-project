@@ -1,11 +1,11 @@
 package com.eghm.web;
 
 import cn.hutool.crypto.digest.MD5;
-import com.eghm.common.FileService;
+import com.eghm.common.UserTokenService;
+import com.eghm.common.JsonService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.vo.login.LoginResponse;
-import com.eghm.common.JsonService;
 import com.eghm.web.configuration.filter.AuthFilter;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.Maps;
@@ -54,11 +54,11 @@ public abstract class BaseTest {
     private SystemProperties systemProperties;
 
     @Autowired
-    private FileService.AccessTokenService accessTokenService;
+    private UserTokenService userTokenService;
 
     @BeforeEach
     public void before() {
-        AuthFilter filter = new AuthFilter(systemProperties.getManage(), accessTokenService);
+        AuthFilter filter = new AuthFilter(systemProperties.getManage(), userTokenService);
         filter.exclude(systemProperties.getManage().getSecurity().getSkipAuth());
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).addFilters(filter).build();
         this.mockLogin("13000000000", MD5.create().digestHex("123456"));

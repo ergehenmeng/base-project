@@ -1,6 +1,6 @@
 package com.eghm.web.configuration.interceptor;
 
-import com.eghm.common.TokenService;
+import com.eghm.common.MemberTokenService;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.constant.AppHeader;
 import com.eghm.dto.ext.ApiHolder;
@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 @AllArgsConstructor
 public class TokenInterceptor implements InterceptorAdapter {
 
-    private final TokenService tokenService;
+    private final MemberTokenService memberTokenService;
 
     @Override
     public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
@@ -37,7 +37,7 @@ public class TokenInterceptor implements InterceptorAdapter {
         String token = request.getHeader(AppHeader.TOKEN);
         // 从token中获取用户信息, 获取不到,则根据@AccessToken来决定是否抛异常
         if (token != null) {
-            MemberToken memberToken = tokenService.getByAccessToken(token);
+            MemberToken memberToken = memberTokenService.getByAccessToken(token);
             if (memberToken != null) {
                 message.setMemberId(memberToken.getMemberId());
             }

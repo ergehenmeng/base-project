@@ -8,7 +8,7 @@ import com.eghm.dto.ext.MemberToken;
  * @author 二哥很猛
  * @since 2018/8/14 17:35
  */
-public interface TokenService {
+public interface MemberTokenService {
 
     /**
      * 创建登陆后的token,并将token放入缓存中

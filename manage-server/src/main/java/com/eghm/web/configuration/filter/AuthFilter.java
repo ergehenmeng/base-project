@@ -1,6 +1,6 @@
 package com.eghm.web.configuration.filter;
 
-import com.eghm.common.FileService;
+import com.eghm.common.UserTokenService;
 import com.eghm.configuration.AbstractIgnoreFilter;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.security.SecurityHolder;
@@ -27,14 +27,14 @@ public class AuthFilter extends AbstractIgnoreFilter {
 
     private final SystemProperties.ManageProperties manageProperties;
 
-    private final FileService.AccessTokenService accessTokenService;
+    private final UserTokenService userTokenService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         String header = request.getHeader(manageProperties.getToken().getHeader());
         String prefix = manageProperties.getToken().getPrefix();
         if (header != null && header.startsWith(prefix)) {
-            Optional<UserToken> optional = accessTokenService.parseToken(header.replace(prefix, ""));
+            Optional<UserToken> optional = userTokenService.parseToken(header.replace(prefix, ""));
             if (optional.isPresent()) {
                 try {
                     SecurityHolder.setToken(optional.get());

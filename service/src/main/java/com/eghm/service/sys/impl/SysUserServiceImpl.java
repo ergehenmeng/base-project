@@ -6,7 +6,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.FileService;
+import com.eghm.cache.CacheService;
+import com.eghm.common.UserTokenService;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.user.PasswordEditRequest;
@@ -21,7 +22,6 @@ import com.eghm.mapper.MerchantUserMapper;
 import com.eghm.mapper.SysUserMapper;
 import com.eghm.model.SysDataDept;
 import com.eghm.model.SysUser;
-import com.eghm.cache.CacheService;
 import com.eghm.service.sys.SysDataDeptService;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysRoleService;
@@ -59,7 +59,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     private final SysMenuService sysMenuService;
 
-    private final FileService.AccessTokenService accessTokenService;
+    private final UserTokenService userTokenService;
 
     private final CacheService cacheService;
 
@@ -236,7 +236,7 @@ public class SysUserServiceImpl implements SysUserService {
         // 数据权限(此处没有判断,逻辑不够严谨,仅仅为了代码简洁)
         List<String> customList = sysDataDeptService.getDeptList(user.getId());
 
-        String token = accessTokenService.createToken(user, this.getMerchantId(user.getId(), user.getUserType()), buttonList, customList);
+        String token = userTokenService.createToken(user, this.getMerchantId(user.getId(), user.getUserType()), buttonList, customList);
 
         response.setToken(token);
         response.setNickName(user.getNickName());

@@ -5,7 +5,7 @@ import com.eghm.configuration.WebMvcConfig;
 import com.eghm.constant.CommonConstant;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.cache.CacheService;
-import com.eghm.common.TokenService;
+import com.eghm.common.MemberTokenService;
 import com.eghm.service.sys.BlackRosterService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
@@ -40,15 +40,15 @@ public class WebappMvcConfig extends WebMvcConfig {
      */
     private static final String[] FILTER_EXCLUDE_URL = {"/swagger/**", "/swagger-resources/**", "/v2/api-docs", "/error", "/resource/**"};
 
-    private final TokenService tokenService;
+    private final MemberTokenService memberTokenService;
 
     private final CacheService cacheService;
 
     private final CacheProxyService cacheProxyService;
 
-    public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, TokenService tokenService, CacheService cacheService, CacheProxyService cacheProxyService) {
+    public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, MemberTokenService memberTokenService, CacheService cacheService, CacheProxyService cacheProxyService) {
         super(objectMapper, systemProperties);
-        this.tokenService = tokenService;
+        this.memberTokenService = memberTokenService;
         this.cacheService = cacheService;
         this.cacheProxyService = cacheProxyService;
     }
@@ -72,7 +72,7 @@ public class WebappMvcConfig extends WebMvcConfig {
      */
     @Bean
     public HandlerInterceptor tokenInterceptor() {
-        return new TokenInterceptor(tokenService);
+        return new TokenInterceptor(memberTokenService);
     }
 
     /**

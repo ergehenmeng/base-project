@@ -1,6 +1,7 @@
 package com.eghm.web.controller;
 
-import com.eghm.common.FileService;
+import com.eghm.cache.CacheService;
+import com.eghm.common.UserTokenService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.security.SecurityHolder;
@@ -10,7 +11,6 @@ import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.login.LoginRequest;
 import com.eghm.enums.Env;
 import com.eghm.enums.ErrorCode;
-import com.eghm.cache.CacheService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginResponse;
@@ -42,7 +42,7 @@ public class LoginController {
 
     private final SystemProperties systemProperties;
 
-    private final FileService.AccessTokenService accessTokenService;
+    private final UserTokenService userTokenService;
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("管理后台登陆")
@@ -63,7 +63,7 @@ public class LoginController {
         if (user != null) {
             // 删除锁屏状态
             cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
-            accessTokenService.logout(user.getToken());
+            userTokenService.logout(user.getToken());
         }
         return RespBody.success();
     }

@@ -1,10 +1,10 @@
 package com.eghm.configuration;
 
 import com.eghm.cache.CacheService;
-import com.eghm.common.FileService;
+import com.eghm.common.UserTokenService;
 import com.eghm.common.JsonService;
-import com.eghm.common.impl.JwtAccessTokenServiceImpl;
-import com.eghm.common.impl.RedisAccessTokenServiceImpl;
+import com.eghm.common.impl.JwtUserTokenServiceImpl;
+import com.eghm.common.impl.RedisUserTokenServiceImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,13 +19,13 @@ public class TokenConfig {
 
     @Bean
     @ConditionalOnProperty(prefix = "system.manage.token", name = "token-type", havingValue = "jwt")
-    public FileService.AccessTokenService jwtAccessTokenService(SystemProperties systemProperties) {
-        return new JwtAccessTokenServiceImpl(systemProperties);
+    public UserTokenService jwtAccessTokenService(SystemProperties systemProperties) {
+        return new JwtUserTokenServiceImpl(systemProperties);
     }
 
     @Bean
     @ConditionalOnProperty(prefix = "system.manage.token", name = "token-type", havingValue = "redis", matchIfMissing = true)
-    public FileService.AccessTokenService redisAccessTokenService(SystemProperties systemProperties, CacheService cacheService, JsonService jsonService) {
-        return new RedisAccessTokenServiceImpl(systemProperties, cacheService, jsonService);
+    public UserTokenService redisAccessTokenService(SystemProperties systemProperties, CacheService cacheService, JsonService jsonService) {
+        return new RedisUserTokenServiceImpl(systemProperties, cacheService, jsonService);
     }
 }

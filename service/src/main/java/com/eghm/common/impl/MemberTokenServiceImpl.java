@@ -2,10 +2,9 @@ package com.eghm.common.impl;
 
 
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.RandomUtil;
 import com.eghm.cache.CacheService;
 import com.eghm.common.JsonService;
-import com.eghm.common.TokenService;
+import com.eghm.common.MemberTokenService;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.MemberToken;
@@ -22,7 +21,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service("tokenService")
 @AllArgsConstructor
-public class TokenServiceImpl implements TokenService {
+public class MemberTokenServiceImpl implements MemberTokenService {
 
     private final CacheService cacheService;
 
@@ -32,9 +31,7 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public MemberToken createToken(Long memberId, String channel) {
-        String refreshToken = RandomUtil.randomString(64);
-        String accessToken = IdUtil.fastSimpleUUID();
-        MemberToken memberToken = MemberToken.builder().token(accessToken).memberId(memberId).channel(channel).refreshToken(refreshToken).build();
+        MemberToken memberToken = MemberToken.builder().token(IdUtil.fastSimpleUUID()).memberId(memberId).channel(channel).refreshToken(IdUtil.fastSimpleUUID()).build();
         this.cacheToken(memberToken);
         this.cacheRefreshToken(memberToken);
         return memberToken;
@@ -42,7 +39,7 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public MemberToken getByAccessToken(String accessToken) {
-        return cacheService.getValue(CacheConstant.ACCESS_TOKEN + accessToken, MemberToken.class);
+        return cacheService.getValue(CacheConstant.TOKEN + accessToken, MemberToken.class);
     }
 
     @Override
@@ -52,7 +49,7 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public void cleanToken(String accessToken) {
-        cacheService.delete(CacheConstant.ACCESS_TOKEN + accessToken);
+        cacheService.delete(CacheConstant.TOKEN + accessToken);
     }
 
     @Override
@@ -89,7 +86,7 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public void cacheToken(MemberToken memberToken) {
         String tokenJson = jsonService.toJson(memberToken);
-        cacheService.setValue(CacheConstant.ACCESS_TOKEN + memberToken.getToken(), tokenJson, sysConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
+        cacheService.setValue(CacheConstant.TOKEN + memberToken.getToken(), tokenJson, sysConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
         // 注意:假如token_expire设置7天,refresh_token_expire为30天时,在第7~30天的时间里,账号重新登陆,
         // refresh_token_expire缓存的用户信息将会无效且不会被立即删除(无法通过memberId定位到该缓存数据),
         // 因此:此处过期时间与refresh_token_expire保持一致,在登陆的时候可通过memberId定位登陆信息,仅仅方便删除无用缓存,方便强制下线

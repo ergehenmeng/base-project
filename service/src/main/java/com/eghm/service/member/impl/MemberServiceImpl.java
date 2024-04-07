@@ -34,7 +34,7 @@ import com.eghm.model.MemberScoreLog;
 import com.eghm.cache.CacheService;
 import com.eghm.common.EmailService;
 import com.eghm.common.SmsService;
-import com.eghm.common.TokenService;
+import com.eghm.common.MemberTokenService;
 import com.eghm.service.member.LoginService;
 import com.eghm.service.member.MemberScoreLogService;
 import com.eghm.service.member.MemberService;
@@ -80,7 +80,7 @@ public class MemberServiceImpl implements MemberService {
 
     private final Encoder encoder;
 
-    private final TokenService tokenService;
+    private final MemberTokenService memberTokenService;
 
     private final SmsService smsService;
 
@@ -227,13 +227,13 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void offline(Long memberId) {
-        MemberToken memberToken = tokenService.getByMemberId(memberId);
+        MemberToken memberToken = memberTokenService.getByMemberId(memberId);
         if (memberToken == null) {
             return;
         }
-        tokenService.cleanRefreshToken(memberToken.getRefreshToken());
-        tokenService.cleanToken(memberToken.getToken());
-        tokenService.cleanMemberId(memberId);
+        memberTokenService.cleanRefreshToken(memberToken.getRefreshToken());
+        memberTokenService.cleanToken(memberToken.getToken());
+        memberTokenService.cleanMemberId(memberId);
     }
 
     @Override
@@ -630,7 +630,7 @@ public class MemberServiceImpl implements MemberService {
         this.offline(member.getId());
         RequestMessage request = ApiHolder.get();
         // 创建token
-        MemberToken memberToken = tokenService.createToken(member.getId(), request.getChannel());
+        MemberToken memberToken = memberTokenService.createToken(member.getId(), request.getChannel());
         // 记录登陆日志信息
         LoginRecord loginRecord = LoginRecord.builder()
                 .ip(NetUtil.ipv4ToLong(ip))

@@ -6,7 +6,7 @@ import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.eghm.common.FileService;
+import com.eghm.common.UserTokenService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.DataType;
@@ -23,7 +23,7 @@ import java.util.Optional;
  */
 @Slf4j
 @AllArgsConstructor
-public class JwtAccessTokenServiceImpl implements FileService.AccessTokenService {
+public class JwtUserTokenServiceImpl implements UserTokenService {
 
     private final SystemProperties systemProperties;
 

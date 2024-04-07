@@ -1,10 +1,10 @@
 package com.eghm.web.configuration;
 
-import com.eghm.common.FileService;
+import com.eghm.cache.CacheService;
+import com.eghm.common.UserTokenService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
 import com.eghm.configuration.data.permission.DataScopeAspect;
-import com.eghm.cache.CacheService;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.web.configuration.filter.AuthFilter;
 import com.eghm.web.configuration.filter.LockScreenFilter;
@@ -26,15 +26,15 @@ import javax.servlet.DispatcherType;
 @Configuration
 public class ManageMvcConfig extends WebMvcConfig {
 
-    private final FileService.AccessTokenService accessTokenService;
+    private final UserTokenService userTokenService;
 
     private final SysMenuService sysMenuService;
 
     private final CacheService cacheService;
 
-    public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, FileService.AccessTokenService accessTokenService, SysMenuService sysMenuService, CacheService cacheService) {
+    public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, UserTokenService userTokenService, SysMenuService sysMenuService, CacheService cacheService) {
         super(objectMapper, systemProperties);
-        this.accessTokenService = accessTokenService;
+        this.userTokenService = userTokenService;
         this.sysMenuService = sysMenuService;
         this.cacheService = cacheService;
     }
@@ -68,7 +68,7 @@ public class ManageMvcConfig extends WebMvcConfig {
     public FilterRegistrationBean<AuthFilter> authFilter() {
         SystemProperties.ManageProperties manage = systemProperties.getManage();
         FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean<>();
-        AuthFilter requestFilter = new AuthFilter(manage, accessTokenService);
+        AuthFilter requestFilter = new AuthFilter(manage, userTokenService);
         requestFilter.exclude(manage.getSecurity().getSkipAuth());
         registrationBean.setFilter(requestFilter);
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);

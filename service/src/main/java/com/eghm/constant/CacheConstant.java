@@ -118,9 +118,9 @@ public class CacheConstant {
     public static final String LOCK_SCREEN = "lock_screen:";
 
     /**
-     * 用户登录token
+     * token (移动端用户)
      */
-    public static final String ACCESS_TOKEN = "access_token:";
+    public static final String TOKEN = "token:";
 
     /**
      * 会员token映射
@@ -128,7 +128,7 @@ public class CacheConstant {
     public static final String MEMBER_TOKEN_MAPPING = "member_token_mapping";
 
     /**
-     * 用户登陆刷新token
+     * 刷新token (移动端用户)
      */
     public static final String REFRESH_TOKEN = "refresh_token:";
 
@@ -253,7 +253,7 @@ public class CacheConstant {
     public static final String ORDER_REFUND = "order_refund:";
 
     /**
-     * 缓存
+     * token (user) 管理后台用户
      */
     public static final String USER_TOKEN = "user_token:";
 
