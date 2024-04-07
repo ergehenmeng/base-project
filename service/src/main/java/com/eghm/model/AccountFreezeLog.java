@@ -34,7 +34,7 @@ public class AccountFreezeLog extends BaseEntity {
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer amount;
 
-    @ApiModelProperty(value = "状态变更原因 1:支付冻结, 2:退款解冻 3:订单完成解冻")
+    @ApiModelProperty(value = "状态变更原因 1:支付冻结 2:退款解冻 3:订单完成解冻")
     private ChangeType changeType;
 
     @ApiModelProperty(value = "订单编号")

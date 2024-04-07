@@ -826,7 +826,7 @@ CREATE TABLE `homestay_room`
     `resident`        tinyint(2)    DEFAULT '2' COMMENT '居住人数',
     `room_type`       tinyint(1)    DEFAULT NULL COMMENT '房型类型  1:标间 2:大床房 3:双人房 4: 钟点房, 5:套房 6:合租',
     `cover_url`       varchar(1000) DEFAULT NULL COMMENT '封面图片',
-    `infrastructure`  varchar(200)  DEFAULT NULL COMMENT '基础设施',
+    `infrastructure`  varchar(2000) DEFAULT NULL COMMENT '基础设施',
     `introduce`       longtext COMMENT '详细介绍',
     `refund_type`     tinyint(1)    DEFAULT '2' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
     `refund_describe` varchar(200)  DEFAULT NULL COMMENT '退款描述',
