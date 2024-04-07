@@ -2,6 +2,7 @@ package com.eghm.vo.business.shopping;
 
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -11,6 +12,7 @@ import lombok.Data;
  * @since 2022/9/27
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ShoppingCartItemVO {
 
     @ApiModelProperty("店铺名称")
@@ -50,6 +52,6 @@ public class ShoppingCartItemVO {
     @ApiModelProperty("规格库存数")
     private Integer stock;
 
-    @ApiModelProperty("sku状态 true:已下架 false:已上架")
-    private Boolean skuState;
+    @ApiModelProperty("sku状态 1:已上架 0/2:已下架")
+    private Integer skuState;
 }

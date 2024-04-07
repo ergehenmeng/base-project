@@ -218,10 +218,18 @@ public interface ItemService {
     /**
      * 零售商品信息查询
      *
-     * @param id 商品信息
+     * @param id 商品id
      * @return 商品信息
      */
     ItemDetailVO detailById(Long id);
+
+    /**
+     * 零售商品sku详情
+     *
+     * @param id 商品id
+     * @return sku详情
+     */
+    ItemSkuDetailVO skuDetailById(Long id);
 
     /**
      * 删除零售商品

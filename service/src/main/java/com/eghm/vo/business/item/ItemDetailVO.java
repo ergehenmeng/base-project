@@ -32,7 +32,7 @@ public class ItemDetailVO {
     @ApiModelProperty(value = "店铺logo")
     private String logoUrl;
 
-    @ApiModelProperty("拎手店铺名称")
+    @ApiModelProperty("零售店铺名称")
     private String storeName;
 
     @ApiModelProperty(value = "商品状态 0:下架 1:上架")
@@ -119,7 +119,7 @@ public class ItemDetailVO {
     private LocalDateTime systemTime;
 
     @ApiModelProperty("多规格信息")
-    private List<ItemGroupSpecVO> specList;
+    private List<ItemSpecVO> specList;
 
     @ApiModelProperty("规格sku信息(单规格时只有一条)")
     private List<ItemSkuVO> skuList;

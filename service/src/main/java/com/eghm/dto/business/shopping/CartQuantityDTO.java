@@ -19,7 +19,7 @@ public class CartQuantityDTO {
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "数量", required = true)
-    @RangeInt(max = 99, message = "商品数量应为0~99")
+    @ApiModelProperty(value = "新数量", required = true)
+    @RangeInt(max = 99, message = "商品数量应为1~99")
     private Integer quantity;
 }

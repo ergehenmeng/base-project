@@ -1,5 +1,6 @@
 package com.eghm.dto.business.shopping;
 
+import com.eghm.annotation.Assign;
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -30,4 +31,8 @@ public class AddCartDTO {
     @ApiModelProperty(value = "数量", required = true)
     @RangeInt(min = 1, max = 99, message = "数量必须1~99之间")
     private Integer quantity;
+
+    @Assign
+    @ApiModelProperty(value = "用户ID", hidden = true)
+    private Long memberId;
 }

@@ -35,6 +35,7 @@ public class ShoppingCartController {
     @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("添加购物车")
     public RespBody<Void> add(@RequestBody @Validated AddCartDTO dto) {
+        dto.setMemberId(ApiHolder.getMemberId());
         shoppingCartService.add(dto);
         return RespBody.success();
     }

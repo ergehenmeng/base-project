@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.JsonService;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
@@ -27,8 +29,6 @@ import com.eghm.mapper.ItemMapper;
 import com.eghm.mapper.ItemStoreMapper;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
-import com.eghm.common.JsonService;
-import com.eghm.common.impl.SysConfigApi;
 import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
@@ -394,6 +394,22 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public ItemSkuDetailVO skuDetailById(Long id) {
+        Item item = itemMapper.selectById(id);
+        if (item == null) {
+            log.error("该零售商品已删除啦 [{}]", id);
+            throw new BusinessException(ITEM_DOWN);
+        }
+        ItemSkuDetailVO detail = DataUtil.copy(item, ItemSkuDetailVO.class);
+        List<ItemSkuVO> skuList = itemSkuService.getByItemId(id);
+        detail.setSkuList(skuList);
+        if (Boolean.TRUE.equals(item.getMultiSpec())) {
+            detail.setSpecList(this.getSpecList(id));
+        }
+        return detail;
+    }
+
+    @Override
     public void deleteById(Long id) {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getId, id);
@@ -522,15 +538,15 @@ public class ItemServiceImpl implements ItemService {
      * @param itemId id
      * @return 规格信息 按规格名分类
      */
-    private List<ItemGroupSpecVO> getSpecList(Long itemId) {
+    private List<ItemSpecVO> getSpecList(Long itemId) {
         List<ItemSpec> specList = itemSpecService.getByItemId(itemId);
         Map<String, List<ItemSpec>> specMap = specList.stream().collect(Collectors.groupingBy(ItemSpec::getSpecName,
                 Collectors.collectingAndThen(Collectors.toList(), specs -> specs.stream().sorted(Comparator.comparing(ItemSpec::getSort)).collect(Collectors.toList()))));
-        List<ItemGroupSpecVO> voList = new ArrayList<>();
+        List<ItemSpecVO> voList = new ArrayList<>();
         for (Map.Entry<String, List<ItemSpec>> entry : specMap.entrySet()) {
-            ItemGroupSpecVO vo = new ItemGroupSpecVO();
+            ItemSpecVO vo = new ItemSpecVO();
             vo.setSpecName(entry.getKey());
-            vo.setValueList(DataUtil.copy(entry.getValue(), ItemSpecVO.class));
+            vo.setValueList(DataUtil.copy(entry.getValue(), ItemSpecDetailVO.class));
             voList.add(vo);
         }
         return voList;

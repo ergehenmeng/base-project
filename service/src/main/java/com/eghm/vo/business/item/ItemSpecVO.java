@@ -3,6 +3,8 @@ package com.eghm.vo.business.item;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author 二哥很猛
  * @since 2023/8/30
@@ -10,12 +12,9 @@ import lombok.Data;
 @Data
 public class ItemSpecVO {
 
-    @ApiModelProperty("id")
-    private Long id;
+    @ApiModelProperty(value = "规格名")
+    private String specName;
 
-    @ApiModelProperty(value = "规格名称")
-    private String specValue;
-
-    @ApiModelProperty(value = "规格图片(一级规格必填), 优先级比sku_pic低")
-    private String specPic;
+    @ApiModelProperty("规格值列表")
+    private List<ItemSpecDetailVO> valueList;
 }

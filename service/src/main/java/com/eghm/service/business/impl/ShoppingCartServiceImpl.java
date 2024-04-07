@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.shopping.AddCartDTO;
 import com.eghm.dto.business.shopping.ShoppingCartQueryRequest;
-import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
@@ -18,7 +18,6 @@ import com.eghm.model.ShoppingCart;
 import com.eghm.service.business.ItemService;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.service.business.ShoppingCartService;
-import com.eghm.common.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.shopping.ShoppingCartItemVO;
 import com.eghm.vo.business.shopping.ShoppingCartResponse;
@@ -62,19 +61,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public void add(AddCartDTO dto) {
-        Long memberId = ApiHolder.getMemberId();
         LambdaQueryWrapper<ShoppingCart> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(ShoppingCart::getMemberId, memberId);
+        wrapper.eq(ShoppingCart::getMemberId, dto.getMemberId());
         wrapper.eq(ShoppingCart::getItemId, dto.getItemId());
         wrapper.eq(ShoppingCart::getSkuId, dto.getSkuId());
         ShoppingCart shoppingCart = shoppingCartMapper.selectOne(wrapper);
 
         int num = shoppingCart == null ? dto.getQuantity() : shoppingCart.getQuantity() + dto.getQuantity();
-
         ItemSku sku = this.checkAndGetSku(dto, num);
 
         if (shoppingCart == null) {
-            this.checkCarMax(memberId);
+            this.checkCarMax(dto.getMemberId());
             shoppingCart = DataUtil.copy(dto, ShoppingCart.class);
             shoppingCart.setSalePrice(sku.getSalePrice());
             Item item = itemService.selectByIdRequired(dto.getItemId());

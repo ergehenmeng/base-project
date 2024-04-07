@@ -9,6 +9,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.VisitType;
 import com.eghm.service.business.ItemService;
 import com.eghm.vo.business.item.ItemDetailVO;
+import com.eghm.vo.business.item.ItemSkuDetailVO;
 import com.eghm.vo.business.item.ItemVO;
 import com.eghm.vo.business.item.express.TotalExpressVO;
 import com.eghm.web.annotation.VisitRecord;
@@ -47,6 +48,13 @@ public class ItemController {
     @VisitRecord(VisitType.PRODUCT_DETAIL)
     public RespBody<ItemDetailVO> detail(@Validated IdDTO dto) {
         ItemDetailVO detail = itemService.detailById(dto.getId());
+        return RespBody.success(detail);
+    }
+
+    @GetMapping("/skuDetail")
+    @ApiOperation("规格详情")
+    public RespBody<ItemSkuDetailVO> skuDetail(@Validated IdDTO dto) {
+        ItemSkuDetailVO detail = itemService.skuDetailById(dto.getId());
         return RespBody.success(detail);
     }
 
