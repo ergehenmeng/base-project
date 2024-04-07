@@ -48,7 +48,7 @@
         ps.sale_price,
         t.sale_price as rawSalePrice,
         r.quota,
-        if(second_spec_value is null, concat(ps.primary_spec_value, '-', ps.second_spec_value), ps.primary_spec_value) as skuName,
+        if(second_spec_value is null, ps.primary_spec_value, concat(ps.primary_spec_value, '-', ps.second_spec_value)) as skuName,
         ps.stock,
         ps.deleted as skuState,
         r.state as productState
