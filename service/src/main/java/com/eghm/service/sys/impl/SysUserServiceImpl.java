@@ -179,9 +179,9 @@ public class SysUserServiceImpl implements SysUserService {
     public void resetPassword(Long id, String pwd) {
         LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
         String encode = encoder.encode(MD5.create().digestHex(pwd));
+        wrapper.eq(SysUser::getId, id);
         wrapper.set(SysUser::getPwd, encode);
         wrapper.set(SysUser::getInitPwd, encode);
-        wrapper.eq(SysUser::getId, id);
         sysUserMapper.update(null, wrapper);
     }
 

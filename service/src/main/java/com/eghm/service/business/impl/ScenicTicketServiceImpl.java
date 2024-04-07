@@ -101,9 +101,9 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     public void updateState(Long id, State state) {
         LambdaUpdateWrapper<ScenicTicket> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ScenicTicket::getId, id);
-        wrapper.set(ScenicTicket::getState, state);
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, ScenicTicket::getMerchantId, merchantId);
+        wrapper.set(ScenicTicket::getState, state);
         scenicTicketMapper.update(null, wrapper);
     }
 
@@ -134,8 +134,8 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
             scenicService.updatePrice(ticket.getScenicId());
             LambdaUpdateWrapper<ScenicTicket> wrapper = Wrappers.lambdaUpdate();
             wrapper.eq(ScenicTicket::getId, id);
-            wrapper.set(ScenicTicket::getState, State.UN_SHELVE);
             wrapper.eq(ScenicTicket::getMerchantId, SecurityHolder.getMerchantId());
+            wrapper.set(ScenicTicket::getState, State.UN_SHELVE);
             wrapper.set(ScenicTicket::getDeleted, true);
             scenicTicketMapper.update(null, wrapper);
         }

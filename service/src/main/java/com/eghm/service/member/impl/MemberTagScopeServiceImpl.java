@@ -64,7 +64,7 @@ public class MemberTagScopeServiceImpl implements MemberTagScopeService {
     @Override
     public void delete(Long tagId) {
         LambdaUpdateWrapper<MemberTagScope> wrapper = Wrappers.lambdaUpdate();
-        wrapper.set(MemberTagScope::getTagId, tagId);
+        wrapper.eq(MemberTagScope::getTagId, tagId);
         memberTagScopeMapper.delete(wrapper);
     }
 

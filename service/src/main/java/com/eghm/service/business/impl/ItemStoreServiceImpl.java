@@ -134,9 +134,9 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         }
         LambdaUpdateWrapper<ItemStore> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemStore::getId, id);
-        wrapper.set(ItemStore::getState, state);
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, ItemStore::getMerchantId, merchantId);
+        wrapper.set(ItemStore::getState, state);
         itemStoreMapper.update(null, wrapper);
     }
 
@@ -171,10 +171,10 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     public void deleteById(Long id) {
         LambdaUpdateWrapper<ItemStore> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemStore::getId, id);
-        wrapper.set(ItemStore::getState, State.UN_SHELVE);
-        wrapper.set(ItemStore::getDeleted, true);
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, ItemStore::getMerchantId, merchantId);
+        wrapper.set(ItemStore::getState, State.UN_SHELVE);
+        wrapper.set(ItemStore::getDeleted, true);
         itemStoreMapper.update(null, wrapper);
     }
 

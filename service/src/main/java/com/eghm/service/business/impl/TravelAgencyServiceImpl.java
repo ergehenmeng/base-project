@@ -92,9 +92,9 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         }
         LambdaUpdateWrapper<TravelAgency> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(TravelAgency::getId, id);
-        wrapper.set(TravelAgency::getState, state);
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, TravelAgency::getMerchantId, merchantId);
+        wrapper.set(TravelAgency::getState, state);
         travelAgencyMapper.update(null, wrapper);
     }
 
@@ -122,9 +122,9 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     public void deleteById(Long id) {
         LambdaUpdateWrapper<TravelAgency> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(TravelAgency::getId, id);
+        wrapper.eq(TravelAgency::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(TravelAgency::getState, State.UN_SHELVE);
         wrapper.set(TravelAgency::getDeleted, true);
-        wrapper.eq(TravelAgency::getMerchantId, SecurityHolder.getMerchantId());
         travelAgencyMapper.update(null, wrapper);
     }
 
@@ -145,13 +145,13 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     @Override
     public void logout(Long merchantId) {
         LambdaUpdateWrapper<TravelAgency> wrapper = Wrappers.lambdaUpdate();
-        wrapper.set(TravelAgency::getState, State.FORCE_UN_SHELVE);
         wrapper.eq(TravelAgency::getMerchantId, merchantId);
+        wrapper.set(TravelAgency::getState, State.FORCE_UN_SHELVE);
         travelAgencyMapper.update(null, wrapper);
 
         LambdaUpdateWrapper<Line> updateWrapper = Wrappers.lambdaUpdate();
-        updateWrapper.set(Line::getState, State.FORCE_UN_SHELVE);
         updateWrapper.eq(Line::getMerchantId, merchantId);
+        updateWrapper.set(Line::getState, State.FORCE_UN_SHELVE);
         lineMapper.update(null, updateWrapper);
     }
 

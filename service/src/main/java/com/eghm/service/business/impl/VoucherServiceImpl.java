@@ -79,9 +79,9 @@ public class VoucherServiceImpl implements VoucherService {
     public void updateState(Long id, State state) {
         LambdaUpdateWrapper<Voucher> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Voucher::getId, id);
-        wrapper.set(Voucher::getState, state);
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, Voucher::getMerchantId, merchantId);
+        wrapper.set(Voucher::getState, state);
         voucherMapper.update(null, wrapper);
     }
 
@@ -118,9 +118,9 @@ public class VoucherServiceImpl implements VoucherService {
     public void deleteById(Long id) {
         LambdaUpdateWrapper<Voucher> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Voucher::getId, id);
+        wrapper.eq(Voucher::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(Voucher::getState, State.UN_SHELVE);
         wrapper.set(Voucher::getDeleted, true);
-        wrapper.eq(Voucher::getMerchantId, SecurityHolder.getMerchantId());
         voucherMapper.update(null, wrapper);
     }
 

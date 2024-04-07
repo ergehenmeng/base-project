@@ -202,9 +202,9 @@ public class ItemServiceImpl implements ItemService {
     public void updateState(Long id, State state) {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getId, id);
-        wrapper.set(Item::getState, state);
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, Item::getMerchantId, merchantId);
+        wrapper.set(Item::getState, state);
         itemMapper.update(null, wrapper);
     }
 
@@ -413,8 +413,8 @@ public class ItemServiceImpl implements ItemService {
     public void deleteById(Long id) {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getId, id);
-        wrapper.set(Item::getState, State.UN_SHELVE);
         wrapper.eq(Item::getMerchantId, SecurityHolder.getMerchantId());
+        wrapper.set(Item::getState, State.UN_SHELVE);
         wrapper.set(Item::getDeleted, true);
         itemMapper.update(null, wrapper);
     }

@@ -300,9 +300,9 @@ public class MerchantServiceImpl implements MerchantService {
      */
     private void doUnbindMerchant(Long merchantId) {
         LambdaUpdateWrapper<Merchant> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Merchant::getId, merchantId);
         wrapper.set(Merchant::getAuthMobile, null);
         wrapper.set(Merchant::getOpenId, null);
-        wrapper.eq(Merchant::getId, merchantId);
         merchantMapper.update(null, wrapper);
     }
 

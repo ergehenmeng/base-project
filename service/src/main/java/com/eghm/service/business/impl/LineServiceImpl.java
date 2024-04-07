@@ -109,9 +109,9 @@ public class LineServiceImpl implements LineService {
     public void updateState(Long id, State state) {
         LambdaUpdateWrapper<Line> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Line::getId, id);
-        wrapper.set(Line::getState, state);
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, Line::getMerchantId, merchantId);
+        wrapper.set(Line::getState, state);
         lineMapper.update(null, wrapper);
     }
 
@@ -148,9 +148,9 @@ public class LineServiceImpl implements LineService {
     public void deleteById(Long id) {
         LambdaUpdateWrapper<Line> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Line::getId, id);
+        wrapper.eq(Line::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(Line::getState, State.UN_SHELVE);
         wrapper.set(Line::getDeleted, true);
-        wrapper.eq(Line::getMerchantId, SecurityHolder.getMerchantId());
         lineMapper.update(null, wrapper);
     }
 

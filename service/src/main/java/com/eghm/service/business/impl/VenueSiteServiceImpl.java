@@ -86,9 +86,9 @@ public class VenueSiteServiceImpl implements VenueSiteService {
     public void updateState(Long id, State state) {
         LambdaUpdateWrapper<VenueSite> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(VenueSite::getId, id);
-        wrapper.set(VenueSite::getState, state);
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, VenueSite::getMerchantId, merchantId);
+        wrapper.set(VenueSite::getState, state);
         venueSiteMapper.update(null, wrapper);
     }
 
@@ -96,9 +96,9 @@ public class VenueSiteServiceImpl implements VenueSiteService {
     public void delete(Long id) {
         LambdaUpdateWrapper<VenueSite> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(VenueSite::getId, id);
+        wrapper.eq(VenueSite::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(VenueSite::getState, State.UN_SHELVE);
         wrapper.set(VenueSite::getDeleted, true);
-        wrapper.eq(VenueSite::getMerchantId, SecurityHolder.getMerchantId());
         venueSiteMapper.update(null, wrapper);
     }
 

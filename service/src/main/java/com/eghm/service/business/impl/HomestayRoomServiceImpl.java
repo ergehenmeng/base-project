@@ -106,9 +106,9 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
     public void updateState(Long id, State state) {
         LambdaUpdateWrapper<HomestayRoom> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(HomestayRoom::getId, id);
-        wrapper.set(HomestayRoom::getState, state);
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, HomestayRoom::getMerchantId, merchantId);
+        wrapper.set(HomestayRoom::getState, state);
         homestayRoomMapper.update(null, wrapper);
     }
 
@@ -116,9 +116,9 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
     public void deleteById(Long id) {
         LambdaUpdateWrapper<HomestayRoom> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(HomestayRoom::getId, id);
+        wrapper.eq(HomestayRoom::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(HomestayRoom::getState, State.UN_SHELVE);
         wrapper.set(HomestayRoom::getDeleted, true);
-        wrapper.eq(HomestayRoom::getMerchantId, SecurityHolder.getMerchantId());
         homestayRoomMapper.update(null, wrapper);
     }
 

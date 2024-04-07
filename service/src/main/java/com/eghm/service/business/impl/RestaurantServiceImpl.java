@@ -108,9 +108,9 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         }
         LambdaUpdateWrapper<Restaurant> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Restaurant::getId, id);
-        wrapper.set(Restaurant::getState, state);
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, Restaurant::getMerchantId, merchantId);
+        wrapper.set(Restaurant::getState, state);
         restaurantMapper.update(null, wrapper);
     }
 
@@ -156,10 +156,10 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     public void deleteById(Long id) {
         LambdaUpdateWrapper<Restaurant> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Restaurant::getId, id);
-        wrapper.set(Restaurant::getState, State.UN_SHELVE);
-        wrapper.set(Restaurant::getDeleted, true);
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, Restaurant::getMerchantId, merchantId);
+        wrapper.set(Restaurant::getState, State.UN_SHELVE);
+        wrapper.set(Restaurant::getDeleted, true);
         restaurantMapper.update(null, wrapper);
     }
 
@@ -187,13 +187,13 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     @Override
     public void logout(Long merchantId) {
         LambdaUpdateWrapper<Restaurant> wrapper = Wrappers.lambdaUpdate();
-        wrapper.set(Restaurant::getState, State.FORCE_UN_SHELVE);
         wrapper.eq(Restaurant::getMerchantId, merchantId);
+        wrapper.set(Restaurant::getState, State.FORCE_UN_SHELVE);
         restaurantMapper.update(null, wrapper);
 
         LambdaUpdateWrapper<Voucher> updateWrapper = Wrappers.lambdaUpdate();
-        updateWrapper.set(Voucher::getState, State.FORCE_UN_SHELVE);
         updateWrapper.eq(Voucher::getMerchantId, merchantId);
+        updateWrapper.set(Voucher::getState, State.FORCE_UN_SHELVE);
         voucherMapper.update(null, updateWrapper);
     }
 

@@ -127,9 +127,9 @@ public class ScenicServiceImpl implements ScenicService {
     public void updateState(Long id, State state) {
         LambdaUpdateWrapper<Scenic> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Scenic::getId, id);
-        wrapper.set(Scenic::getState, state);
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, Scenic::getMerchantId, merchantId);
+        wrapper.set(Scenic::getState, state);
         scenicMapper.update(null, wrapper);
     }
 
@@ -183,9 +183,9 @@ public class ScenicServiceImpl implements ScenicService {
     public void deleteById(Long id) {
         LambdaUpdateWrapper<Scenic> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Scenic::getId, id);
+        wrapper.eq(Scenic::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(Scenic::getState, State.UN_SHELVE);
         wrapper.set(Scenic::getDeleted, true);
-        wrapper.eq(Scenic::getMerchantId, SecurityHolder.getMerchantId());
         scenicMapper.update(null, wrapper);
     }
 
@@ -193,9 +193,9 @@ public class ScenicServiceImpl implements ScenicService {
     public void updatePrice(Long id) {
         TicketPriceVO vo = scenicTicketMapper.calcPrice(id);
         LambdaUpdateWrapper<Scenic> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Scenic::getId, id);
         wrapper.set(Scenic::getMinPrice, vo.getMinPrice());
         wrapper.set(Scenic::getMaxPrice, vo.getMaxPrice());
-        wrapper.eq(Scenic::getId, id);
         scenicMapper.update(null, wrapper);
     }
 
@@ -207,13 +207,13 @@ public class ScenicServiceImpl implements ScenicService {
     @Override
     public void logout(Long merchantId) {
         LambdaUpdateWrapper<Scenic> wrapper = Wrappers.lambdaUpdate();
-        wrapper.set(Scenic::getState, State.FORCE_UN_SHELVE);
         wrapper.eq(Scenic::getMerchantId, merchantId);
+        wrapper.set(Scenic::getState, State.FORCE_UN_SHELVE);
         scenicMapper.update(null, wrapper);
 
         LambdaUpdateWrapper<ScenicTicket> updateWrapper = Wrappers.lambdaUpdate();
-        updateWrapper.set(ScenicTicket::getState, State.FORCE_UN_SHELVE);
         updateWrapper.eq(ScenicTicket::getMerchantId, merchantId);
+        updateWrapper.set(ScenicTicket::getState, State.FORCE_UN_SHELVE);
         scenicTicketMapper.update(null, updateWrapper);
     }
 
