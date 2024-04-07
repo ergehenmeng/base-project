@@ -396,11 +396,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public LoginTokenVO maLogin(String openId, String ip) {
         Member member = this.getByMaOpenId(openId);
-        this.checkMemberLock(member);
         if (member == null) {
-            log.warn("微信小程序openId授权登录失败 [{}]", openId);
+            log.warn("微信小程序使用openId登录,用户信息不存在 [{}]", openId);
             throw new BusinessException(ErrorCode.MEMBER_REGISTER);
         }
+        this.checkMemberLock(member);
         return this.doLogin(member, ip);
     }
 
