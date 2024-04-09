@@ -146,8 +146,8 @@ token: {{token}}
   }]
 }
 
-### 修改状态
+### 详情
 
-PUT http://localhost:8080/manage/lottery/updateStatus
-Content-Type: application/json
+GET http://localhost:8080/manage/lottery/detail?id=1777628234342035458
 token: {{token}}
+
