@@ -12,14 +12,15 @@ import com.eghm.model.LotteryPrize;
 import com.eghm.service.business.lottery.LotteryPrizeService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.lottery.LotteryPrizeVO;
+import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RSemaphore;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -40,21 +41,22 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
     private final RedissonClient redissonClient;
 
     @Override
-    public List<LotteryPrize> insert(Long lotteryId, List<LotteryPrizeRequest> prizeList) {
-        List<LotteryPrize> prizeIds = new ArrayList<>(12);
+    public Map<Integer, LotteryPrize> insert(Long lotteryId, List<LotteryPrizeRequest> prizeList) {
+        Map<Integer, LotteryPrize> prizeMap = Maps.newLinkedHashMapWithExpectedSize(8);
+        int index = 0;
         for (LotteryPrizeRequest request : prizeList) {
             LotteryPrize prize = DataUtil.copy(request, LotteryPrize.class);
             prize.setLotteryId(lotteryId);
             prize.setMerchantId(SecurityHolder.getMerchantId());
             lotteryPrizeMapper.insert(prize);
             this.setSemaphore(prize);
-            prizeIds.add(prize);
+            prizeMap.put(index++, prize);
         }
-        return prizeIds;
+        return prizeMap;
     }
 
     @Override
-    public List<LotteryPrize> update(Long lotteryId, List<LotteryPrizeRequest> prizeList) {
+    public Map<Integer, LotteryPrize> update(Long lotteryId, List<LotteryPrizeRequest> prizeList) {
         LambdaQueryWrapper<LotteryPrize> wrapper = Wrappers.lambdaQuery();
         wrapper.select(LotteryPrize::getId);
         wrapper.eq(LotteryPrize::getLotteryId, lotteryId);

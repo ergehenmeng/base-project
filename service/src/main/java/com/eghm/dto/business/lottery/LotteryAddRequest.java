@@ -1,5 +1,6 @@
 package com.eghm.dto.business.lottery;
 
+import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -82,6 +83,7 @@ public class LotteryAddRequest {
     @Size(min = 8, max = 8, message = "中奖配置应为8条")
     private List<LotteryConfigRequest> configList;
 
+    @Assign
     @ApiModelProperty(value = "所属商户id", hidden = true)
     private Long merchantId;
 }

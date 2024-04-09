@@ -31,9 +31,9 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -68,10 +68,10 @@ public class LotteryServiceImpl implements LotteryService {
         this.checkConfig(request.getConfigList());
         this.redoTitle(request.getTitle(), null, request.getMerchantId());
         Lottery lottery = DataUtil.copy(request, Lottery.class);
+        lottery.setState(this.calcState(request.getStartTime(), request.getEndTime()));
         lotteryMapper.insert(lottery);
-        List<LotteryPrize> prizeList = lotteryPrizeService.insert(lottery.getId(), request.getPrizeList());
-        List<Long> prizeIds = prizeList.stream().map(LotteryPrize::getId).collect(Collectors.toList());
-        lotteryConfigService.insert(lottery.getId(), request.getConfigList(), prizeIds);
+        Map<Integer, LotteryPrize> prizeMap = lotteryPrizeService.insert(lottery.getId(), request.getPrizeList());
+        lotteryConfigService.insert(lottery.getId(), request.getConfigList(), prizeMap);
     }
 
     @Override
@@ -83,10 +83,10 @@ public class LotteryServiceImpl implements LotteryService {
             throw new BusinessException(ErrorCode.LOTTERY_NOT_INIT);
         }
         Lottery lottery = DataUtil.copy(request, Lottery.class);
+        lottery.setState(this.calcState(request.getStartTime(), request.getEndTime()));
         lotteryMapper.updateById(lottery);
-        List<LotteryPrize> prizeList = lotteryPrizeService.update(lottery.getId(), request.getPrizeList());
-        List<Long> prizeIds = prizeList.stream().map(LotteryPrize::getId).collect(Collectors.toList());
-        lotteryConfigService.update(lottery.getId(), request.getConfigList(), prizeIds);
+        Map<Integer, LotteryPrize> prizeMap = lotteryPrizeService.update(lottery.getId(), request.getPrizeList());
+        lotteryConfigService.update(lottery.getId(), request.getConfigList(), prizeMap);
     }
 
     @Override
@@ -274,4 +274,20 @@ public class LotteryServiceImpl implements LotteryService {
         }
     }
 
+    /**
+     * 计算抽奖状态
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return 状态
+     */
+    private LotteryState calcState(LocalDateTime startTime, LocalDateTime endTime) {
+        if (startTime == null || endTime == null) {
+            return LotteryState.INIT;
+        }
+        LocalDateTime now = LocalDateTime.now();
+        if (now.isBefore(startTime)) {
+            return LotteryState.INIT;
+        }
+        return now.isAfter(endTime) ? LotteryState.END : LotteryState.START;
+    }
 }

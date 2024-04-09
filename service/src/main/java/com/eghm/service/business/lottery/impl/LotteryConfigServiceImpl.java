@@ -8,12 +8,14 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LotteryConfigMapper;
 import com.eghm.model.LotteryConfig;
+import com.eghm.model.LotteryPrize;
 import com.eghm.service.business.lottery.LotteryConfigService;
 import com.eghm.utils.DecimalUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -30,7 +32,7 @@ public class LotteryConfigServiceImpl implements LotteryConfigService {
     private final LotteryConfigMapper lotteryConfigMapper;
 
     @Override
-    public void insert(Long lotteryId, List<LotteryConfigRequest> positionList, List<Long> prizeIds) {
+    public void insert(Long lotteryId, List<LotteryConfigRequest> positionList, Map<Integer, LotteryPrize> prizeMap) {
         int weight = 0;
         for (int i = 0; i < positionList.size(); i++) {
             LotteryConfigRequest request = positionList.get(i);
@@ -41,8 +43,9 @@ public class LotteryConfigServiceImpl implements LotteryConfigService {
             LotteryConfig config = new LotteryConfig();
             config.setStartRange(weight);
             config.setEndRange(weight + ratio);
-            config.setPrizeType(request.getPrizeType());
-            config.setPrizeId(prizeIds.get(request.getPrizeIndex()));
+            LotteryPrize prize = prizeMap.get(request.getPrizeIndex());
+            config.setPrizeId(prize.getId());
+            config.setPrizeType(prize.getPrizeType());
             config.setLocation(request.getLocation());
             config.setLotteryId(lotteryId);
             config.setWeight(ratio);
@@ -53,11 +56,11 @@ public class LotteryConfigServiceImpl implements LotteryConfigService {
     }
 
     @Override
-    public void update(Long lotteryId, List<LotteryConfigRequest> positionList, List<Long> prizeIds) {
+    public void update(Long lotteryId, List<LotteryConfigRequest> positionList, Map<Integer, LotteryPrize> prizeMap) {
         LambdaUpdateWrapper<LotteryConfig> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(LotteryConfig::getLotteryId, lotteryId);
         lotteryConfigMapper.delete(wrapper);
-        this.insert(lotteryId, positionList, prizeIds);
+        this.insert(lotteryId, positionList, prizeMap);
     }
 
     @Override

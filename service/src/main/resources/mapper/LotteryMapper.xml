@@ -11,7 +11,8 @@
             state,
             lottery_day,
             lottery_total,
-            win_num
+            win_num,
+            create_time
         from lottery where deleted = false and merchant_id = #{param.merchantId}
         <if test="param.queryName != null and param.queryName != ''">
             and title concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')

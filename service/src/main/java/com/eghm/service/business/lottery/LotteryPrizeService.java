@@ -5,6 +5,7 @@ import com.eghm.model.LotteryPrize;
 import com.eghm.vo.business.lottery.LotteryPrizeVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -21,18 +22,18 @@ public interface LotteryPrizeService {
      *
      * @param lotteryId 活动id
      * @param prizeList 奖品信息
-     * @return 奖品id
+     * @return 奖品信息
      */
-    List<LotteryPrize> insert(Long lotteryId, List<LotteryPrizeRequest> prizeList);
+    Map<Integer, LotteryPrize> insert(Long lotteryId, List<LotteryPrizeRequest> prizeList);
 
     /**
      * 更新抽奖活动奖品信息
      *
      * @param lotteryId 活动id
      * @param prizeList 奖品信息
-     * @return 奖品id
+     * @return 奖品信息
      */
-    List<LotteryPrize> update(Long lotteryId, List<LotteryPrizeRequest> prizeList);
+    Map<Integer, LotteryPrize> update(Long lotteryId, List<LotteryPrizeRequest> prizeList);
 
     /**
      * 查询奖品信息

@@ -1,0 +1,153 @@
+GET http://localhost:8080/manage/lottery/listPage?page=1&pageSize=10
+token: {{token}}
+
+
+### 新增
+
+POST http://localhost:8080/manage/lottery/create
+Content-Type: application/json
+token: {{token}}
+
+{
+  "title": "第一个抽奖活动",
+  "storeId": 1763046454489776134,
+  "bannerUrl": "http://localhost:8080/bannerUrl.png",
+  "startTime": "2024-04-09 16:51:22",
+  "endTime": "2024-05-01 16:51:22",
+  "lotteryDay": 1,
+  "lotteryTotal": 10,
+  "winNum": 1,
+  "coverUrl": "http://localhost:8080/coverUrl.png",
+  "subTitle": "子标题",
+  "rule": "中奖规则收到收到收到但是",
+  "prizeList": [{
+    "prizeName": "未中奖",
+    "prizeType": "2",
+    "num": 1,
+    "totalNum": 10,
+    "coverUrl": "http://localhost:8080/jiangpin.png"
+  },{
+    "prizeName": "优惠券",
+    "prizeType": "1",
+    "num": 1,
+    "totalNum": 50,
+    "coverUrl": "http://localhost:8080/jiangpin.png"
+  },{
+    "prizeName": "积分",
+    "prizeType": "2",
+    "num": 1,
+    "totalNum": 100,
+    "coverUrl": "http://localhost:8080/jiangpin.png"
+  }],
+  "configList": [{
+    "prizeIndex": 0,
+    "location": 1,
+    "ratio": "30"
+  },{
+    "prizeIndex": 1,
+    "location": 2,
+    "ratio": "10"
+  },{
+    "prizeIndex": 2,
+    "location": 3,
+    "ratio": "10"
+  },{
+    "prizeIndex": 1,
+    "location": 4,
+    "ratio": "10"
+  },{
+    "prizeIndex": 1,
+    "location": 5,
+    "ratio": "10"
+  },{
+    "prizeIndex": 2,
+    "location": 6,
+    "ratio": "10"
+  },{
+    "prizeIndex": 2,
+    "location": 7,
+    "ratio": "10"
+  },{
+    "prizeIndex": 1,
+    "location": 8,
+    "ratio": "10"
+  }]
+}
+
+### 编辑
+POST http://localhost:8080/manage/lottery/update
+Content-Type: application/json
+token: {{token}}
+
+{
+  "id": 1777628234342035458,
+  "title": "第一个抽奖活动(编辑)",
+  "storeId": 1763046454489776134,
+  "bannerUrl": "http://localhost:8080/bannerUrl.png",
+  "startTime": "2024-04-09 16:51:22",
+  "endTime": "2024-05-01 16:51:22",
+  "lotteryDay": 1,
+  "lotteryTotal": 10,
+  "winNum": 1,
+  "coverUrl": "http://localhost:8080/coverUrl.png",
+  "subTitle": "子标题",
+  "rule": "中奖规则收到收到收到但是",
+  "prizeList": [{
+    "prizeName": "未中奖",
+    "prizeType": "2",
+    "num": 1,
+    "totalNum": 10,
+    "coverUrl": "http://localhost:8080/jiangpin.png"
+  },{
+    "prizeName": "优惠券",
+    "prizeType": "1",
+    "num": 1,
+    "totalNum": 50,
+    "coverUrl": "http://localhost:8080/jiangpin.png"
+  },{
+    "prizeName": "积分",
+    "prizeType": "2",
+    "num": 1,
+    "totalNum": 100,
+    "coverUrl": "http://localhost:8080/jiangpin.png"
+  }],
+  "configList": [{
+    "prizeIndex": 0,
+    "location": 1,
+    "ratio": "23"
+  },{
+    "prizeIndex": 1,
+    "location": 2,
+    "ratio": "17"
+  },{
+    "prizeIndex": 2,
+    "location": 3,
+    "ratio": "10"
+  },{
+    "prizeIndex": 1,
+    "location": 4,
+    "ratio": "10"
+  },{
+    "prizeIndex": 1,
+    "location": 5,
+    "ratio": "10"
+  },{
+    "prizeIndex": 2,
+    "location": 6,
+    "ratio": "10"
+  },{
+    "prizeIndex": 2,
+    "location": 7,
+    "ratio": "10"
+  },{
+    "prizeIndex": 1,
+    "location": 8,
+    "ratio": "10"
+  }]
+}
+
+### 修改状态
+
+PUT http://localhost:8080/manage/lottery/updateStatus
+Content-Type: application/json
+token: {{token}}
