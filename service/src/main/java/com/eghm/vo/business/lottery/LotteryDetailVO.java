@@ -30,7 +30,7 @@ public class LotteryDetailVO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
-    @ApiModelProperty(value = "活动状态  0:未开始 1:进行中 2:已结束")
+    @ApiModelProperty(value = "活动状态 0:未开始 1:进行中 2:已结束")
     private LotteryState state;
 
     @ApiModelProperty(value = "单日抽奖次数限制")

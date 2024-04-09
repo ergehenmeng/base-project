@@ -5,7 +5,7 @@ import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.dto.business.coupon.member.MemberCouponQueryPageDTO;
 import com.eghm.dto.business.coupon.member.ReceiveCouponDTO;
 import com.eghm.dto.business.coupon.product.CouponProductDTO;
-import com.eghm.dto.business.item.ItemCouponQueryDTO;
+import com.eghm.dto.business.coupon.product.ItemCouponQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.VisitType;

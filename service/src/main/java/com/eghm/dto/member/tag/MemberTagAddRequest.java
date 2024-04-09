@@ -43,7 +43,7 @@ public class MemberTagAddRequest {
     @ApiModelProperty(value = "最低消费金额")
     private Integer consumeAmount;
 
-    @ApiModelProperty("注册渠道 PC,ANDROID,IOS,H5,OTHER")
+    @ApiModelProperty("注册渠道 PC ANDROID IOS, H5 OTHER")
     private Channel channel;
 
     @ApiModelProperty("性别 性别 0:未知 1:男 2:女 ")

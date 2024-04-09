@@ -30,7 +30,7 @@ public class TaskEditRequest {
 
     @ApiModelProperty("锁持有时间,毫秒")
     @NotNull(message = "锁持有时间不能为空")
-    @Range(min = 30000, max = 3600000, message = "锁持有时间应在30000~3600000毫秒之间")
+    @Range(min = 30000, max = 3600000, message = "锁持有时间应在30000~3600000ms之间")
     private Long lockTime;
 
     @ApiModelProperty(value = "状态 0:未开启 1:已开启", required = true)

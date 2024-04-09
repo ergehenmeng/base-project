@@ -30,7 +30,7 @@ public class ItemOrder extends BaseEntity {
     @ApiModelProperty("退款状态 0:未退款 1:已退款")
     private ItemRefundState refundState;
 
-    @ApiModelProperty("配送状态 0: 初始 1:待发货 2: 待收货 3:待自提 4:已收货")
+    @ApiModelProperty("配送状态 0:初始 1:待发货 2:待收货 3:待自提 4:已收货")
     private DeliveryState deliveryState;
 
     @ApiModelProperty("数量")

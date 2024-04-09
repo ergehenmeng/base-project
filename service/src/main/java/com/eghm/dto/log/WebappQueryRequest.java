@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class WebappQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("注册渠道 PC,ANDROID,IOS,H5,WECHAT")
+    @ApiModelProperty("注册渠道 PC ANDROID IOS H5 WECHAT")
     @OptionString(value = {"PC", "ANDROID", "IOS", "H5", "WECHAT"}, required = false, message = "注册渠道错误")
     private String channel;
 

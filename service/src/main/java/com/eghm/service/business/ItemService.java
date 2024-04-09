@@ -2,6 +2,7 @@ package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.base.BaseProductQueryRequest;
+import com.eghm.dto.business.coupon.product.ItemCouponQueryDTO;
 import com.eghm.dto.business.item.*;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.ext.CalcStatistics;

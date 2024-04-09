@@ -36,7 +36,7 @@ public class UserEditRequest {
     @NotEmpty(message = "请选择角色")
     private List<Long> roleIds;
 
-    @ApiModelProperty("数据权限(1:本人,2:本部门,4:本部门及子部门 8:全部 16:自定义)")
+    @ApiModelProperty("数据权限(1:本人 2:本部门 4:本部门及子部门 8:全部 16:自定义)")
     private Integer dataType;
 
     @ApiModelProperty("数据权限部门id,逗号分割")

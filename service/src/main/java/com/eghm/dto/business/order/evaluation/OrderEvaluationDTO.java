@@ -19,7 +19,7 @@ public class OrderEvaluationDTO {
     @NotBlank(message = "订单编号不能为空")
     private String orderNo;
 
-    @ApiModelProperty(value = "是否匿名评论 0:非匿名1:匿名")
+    @ApiModelProperty(value = "是否匿名评论 0:非匿名 1:匿名")
     private Boolean anonymity = false;
 
     @ApiModelProperty(value = "评价信息", required = true)

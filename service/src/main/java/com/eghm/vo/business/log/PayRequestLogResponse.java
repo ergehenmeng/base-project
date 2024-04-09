@@ -32,7 +32,7 @@ public class PayRequestLogResponse {
     @ApiModelProperty(value = "订单编号")
     private String orderNo;
 
-    @ApiModelProperty(value = "请求类型 PAY: 支付异步通知 REFUND:退款异步通知")
+    @ApiModelProperty(value = "请求类型 PAY:支付异步通知 REFUND:退款异步通知")
     private StepType stepType;
 
     @ApiModelProperty(value = "交易流水号")

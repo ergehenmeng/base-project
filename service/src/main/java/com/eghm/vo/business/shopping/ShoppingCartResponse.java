@@ -37,7 +37,7 @@ public class ShoppingCartResponse {
     @ApiModelProperty("购物车商品数量")
     private Integer num;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2: 强制下架")
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
     @ApiModelProperty(value = "销售数量(所有规格销售总量)")

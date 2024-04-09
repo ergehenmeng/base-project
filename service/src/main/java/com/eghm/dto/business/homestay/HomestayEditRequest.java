@@ -25,7 +25,7 @@ public class HomestayEditRequest {
     @WordChecker(message = "民宿名称存在敏感词")
     private String title;
 
-    @ApiModelProperty(value = "星级 5:五星级 4:四星级 3:三星级 0: 其他", required = true)
+    @ApiModelProperty(value = "星级 5:五星级 4:四星级 3:三星级 0:其他", required = true)
     @OptionInt(value = {0, 3, 4, 5}, message = "民宿星级非法")
     private Integer level;
 

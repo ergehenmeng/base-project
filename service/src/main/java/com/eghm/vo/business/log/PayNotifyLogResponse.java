@@ -32,7 +32,7 @@ public class PayNotifyLogResponse {
     @ApiModelProperty("异步通知唯一id")
     private String notifyId;
 
-    @ApiModelProperty(value = "通知类型 PAY: 支付异步通知 REFUND:退款异步通知")
+    @ApiModelProperty(value = "通知类型 PAY:支付异步通知 REFUND:退款异步通知")
     private StepType stepType;
 
     @ApiModelProperty(value = "交易流水号")

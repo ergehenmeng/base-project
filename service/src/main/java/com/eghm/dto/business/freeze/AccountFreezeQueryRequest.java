@@ -23,7 +23,7 @@ public class AccountFreezeQueryRequest extends DatePagingComparator {
     @ApiModelProperty(value = "状态 1:冻结中 2:已解冻")
     private FreezeState state;
 
-    @ApiModelProperty(value = "状态变更原因 1:支付冻结, 2:退款解冻 3:订单完成解冻")
+    @ApiModelProperty(value = "状态变更原因 1:支付冻结 2:退款解冻 3:订单完成解冻")
     private ChangeType changeType;
 
     @ApiModelProperty("开始日期")

@@ -19,7 +19,7 @@ public class UserResponse {
     @ApiModelProperty("手机号码(登陆账户)")
     private String mobile;
 
-    @ApiModelProperty("用户状态:0:锁定,1:正常")
+    @ApiModelProperty("用户状态 0:锁定 1:正常")
     private Integer state;
 
     @ApiModelProperty("部门编号")

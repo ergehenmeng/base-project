@@ -41,7 +41,7 @@ public class WebappLogResponse {
     @ApiModelProperty("软件版本号 针对app端,例如 1.2.7")
     private String version;
 
-    @ApiModelProperty("客户端平台版本号 ios: 10.4.1,android:8.1.0")
+    @ApiModelProperty("客户端平台版本号 ios:10.4.1,android:8.1.0")
     private String osVersion;
 
     @ApiModelProperty("设备厂商")

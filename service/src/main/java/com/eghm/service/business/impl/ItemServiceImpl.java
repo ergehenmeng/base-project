@@ -11,6 +11,7 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.base.BaseProductQueryRequest;
+import com.eghm.dto.business.coupon.product.ItemCouponQueryDTO;
 import com.eghm.dto.business.item.*;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;

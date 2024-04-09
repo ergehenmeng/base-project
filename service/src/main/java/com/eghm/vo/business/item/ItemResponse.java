@@ -34,7 +34,7 @@ public class ItemResponse extends ExcelStyle {
     @ExcelProperty(value = "店铺名称", index = 0)
     private String storeName;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2: 强制下架")
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     @ExcelProperty(value = "状态", index = 1, converter = EnumExcelConverter.class)
     private State state;
 

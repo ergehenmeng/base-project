@@ -20,7 +20,7 @@ public class OrderEvaluationQueryDTO extends PagingQuery {
     @NotNull(message = "商品id不能为空")
     private Long productId;
 
-    @ApiModelProperty(value = "1:最新 2: 好评 3: 中评 4:差评 5:有图", hidden = true)
+    @ApiModelProperty(value = "1:最新 2:好评 3: 中评 4:差评 5:有图", hidden = true)
     @OptionInt(value = {0, 1, 2, 3, 4, 5})
     private Integer queryType = 1;
 }

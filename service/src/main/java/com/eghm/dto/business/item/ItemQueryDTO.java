@@ -17,7 +17,7 @@ public class ItemQueryDTO extends PagingQuery {
     @ApiModelProperty(value = "交付方式 1:快递包邮 2:自提")
     private DeliveryType deliveryType;
 
-    @ApiModelProperty("排序规则 0:默认排序 1: 按价格排序 2: 按销售量排序 3:好评率")
+    @ApiModelProperty("排序规则 0:默认排序 1:按价格排序 2:按销售量排序 3:好评率")
     private Integer sortBy;
 
     @ApiModelProperty("标签id")

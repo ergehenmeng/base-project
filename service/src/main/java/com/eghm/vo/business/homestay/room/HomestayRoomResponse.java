@@ -36,7 +36,7 @@ public class HomestayRoomResponse extends ExcelStyle {
     @ExcelProperty(value = "状态", index = 2, converter = EnumExcelConverter.class)
     private State state;
 
-    @ApiModelProperty(value = "房型类型 1:标间 2:大床房 3:双人房 4: 钟点房, 5:套房 6:合租")
+    @ApiModelProperty(value = "房型类型 1:标间 2:大床房 3:双人房 4:钟点房 5:套房 6:合租")
     @ExcelProperty(value = "房型类型", index = 3, converter = EnumExcelConverter.class)
     private RoomType roomType;
 

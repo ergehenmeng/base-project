@@ -21,7 +21,7 @@ public class HomestayDetailVO {
     @ApiModelProperty(value = "民宿名称")
     private String title;
 
-    @ApiModelProperty(value = "星级 5:五星级 4:四星级 3:三星级 0: 其他")
+    @ApiModelProperty(value = "星级 5:五星级 4:四星级 3:三星级 0:其他")
     private Integer level;
 
     @ApiModelProperty(value = "详细地址")

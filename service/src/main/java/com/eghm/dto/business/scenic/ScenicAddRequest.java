@@ -22,7 +22,7 @@ public class ScenicAddRequest {
     @WordChecker(message = "景区名称存在敏感词")
     private String scenicName;
 
-    @ApiModelProperty(value = "景区等级 5: 5A 4: 4A 3:3A 2:2A 1:A 0:其他", required = true)
+    @ApiModelProperty(value = "景区等级 5:5A 4:4A 3:3A 2:2A 1:A 0:其他", required = true)
     @OptionInt(value = {0, 1, 2, 3, 4, 5}, message = "景区等级格式错误")
     private Integer level;
 

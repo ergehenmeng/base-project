@@ -111,7 +111,7 @@
         </if>
     </select>
     
-    <select id="getCouponScopeByPage" parameterType="com.eghm.dto.business.item.ItemCouponQueryDTO" resultType="com.eghm.vo.business.item.ItemVO">
+    <select id="getCouponScopeByPage" parameterType="com.eghm.dto.business.coupon.product.ItemCouponQueryDTO" resultType="com.eghm.vo.business.item.ItemVO">
         select
         t.id,
         t.title,

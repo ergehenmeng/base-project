@@ -41,7 +41,7 @@ public class ItemDetailVO {
     @ApiModelProperty("是否收藏")
     private Boolean collect;
 
-    @ApiModelProperty("商品状态 0:待上架 1:已上架 2: 强制下架")
+    @ApiModelProperty("商品状态 0:待上架 1:已上架 2:强制下架")
     @JsonIgnore
     private State state;
 

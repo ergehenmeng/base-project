@@ -25,7 +25,7 @@ public class MemberQueryRequest extends DatePagingComparator {
     @OptionInt(value = {0, 1, 2}, required = false, message = "性别参数非法")
     private Integer sex;
 
-    @ApiModelProperty("注册渠道 PC,ANDROID,IOS,H5,WECHAT,ALIPAY")
+    @ApiModelProperty("注册渠道 PC ANDROID IOS H5 WECHAT ALIPAY")
     private String channel;
 
     @ApiModelProperty("邀请人手机号(用来查看该手机号邀请的下级会员)")

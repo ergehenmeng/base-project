@@ -33,7 +33,7 @@ public class OrderEvaluationVO {
     private String nickName;
 
     @JsonIgnore
-    @ApiModelProperty(value = "是否匿名评论 0:非匿名1:匿名")
+    @ApiModelProperty(value = "是否匿名评论 0:非匿名 1:匿名")
     private Boolean anonymity;
 
     @ApiModelProperty("添加时间")

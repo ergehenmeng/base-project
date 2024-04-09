@@ -15,11 +15,11 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class UserQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("锁定状态 0: 锁定 1:正常")
+    @ApiModelProperty("锁定状态 0:锁定 1:正常")
     @OptionInt(value = {0, 1}, required = false)
     private Integer state;
 
-    @ApiModelProperty(value = "用户类型 1: 系统用户 2: 商户管理员 3: 商户普通用户", hidden = true)
+    @ApiModelProperty(value = "用户类型 1:系统用户 2:商户管理员 3:商户普通用户", hidden = true)
     @Assign
     private Integer userType;
 }

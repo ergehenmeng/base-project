@@ -3,7 +3,7 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.base.BaseProductQueryRequest;
-import com.eghm.dto.business.item.ItemCouponQueryDTO;
+import com.eghm.dto.business.coupon.product.ItemCouponQueryDTO;
 import com.eghm.dto.business.item.ItemQueryDTO;
 import com.eghm.dto.business.item.ItemQueryRequest;
 import com.eghm.dto.statistics.ProductRequest;

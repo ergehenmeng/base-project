@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class RestaurantQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("上下架状态")
+    @ApiModelProperty("上下架状态 0:待上架 1:已上架")
     private Integer state;
 
     @ApiModelProperty(value = "商户id", hidden = true)

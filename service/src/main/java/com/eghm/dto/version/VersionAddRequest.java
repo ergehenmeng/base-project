@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class VersionAddRequest {
 
-    @ApiModelProperty(required = true, value = "上架平台 ANDROID, IOS")
+    @ApiModelProperty(required = true, value = "上架平台 ANDROID IOS")
     @OptionString(value = {"ANDROID", "IOS"}, message = "请选择正确的上架平台")
     private String channel;
 

@@ -28,13 +28,13 @@ public class SysUserResponse {
     @ApiModelProperty("手机号码(登陆账户)")
     private String mobile;
 
-    @ApiModelProperty("用户类型 1: 系统用户 2: 商户管理员 3: 商户普通用户")
+    @ApiModelProperty("用户类型 1:系统用户 2:商户管理员 3:商户普通用户")
     private Integer userType;
 
     @ApiModelProperty("数据权限 只针对系统用户有效")
     private DataType dataType;
 
-    @ApiModelProperty("用户状态:0:锁定,1:正常")
+    @ApiModelProperty("用户状态 0:锁定 1:正常")
     private Integer state;
 
     @ApiModelProperty("备注信息")

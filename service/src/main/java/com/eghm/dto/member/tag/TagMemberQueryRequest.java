@@ -33,7 +33,7 @@ public class TagMemberQueryRequest extends DatePagingComparator {
     @OptionInt(value = {0, 1, 2}, required = false, message = "性别参数非法")
     private Integer sex;
 
-    @ApiModelProperty("注册渠道 PC,ANDROID,IOS,H5,WECHAT,ALIPAY")
+    @ApiModelProperty("注册渠道 PC ANDROID IOS H5 WECHAT ALIPAY")
     private String channel;
 
     @ApiModelProperty("注册开始日期")

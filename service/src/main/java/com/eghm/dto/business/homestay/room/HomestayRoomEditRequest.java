@@ -32,7 +32,7 @@ public class HomestayRoomEditRequest {
     @NotNull(message = "请选择所属民宿")
     private Long homestayId;
 
-    @ApiModelProperty(value = "房型类型  1:标间 2:大床房 3:双人房 4: 钟点房, 5:套房 6:合租", required = true)
+    @ApiModelProperty(value = "房型类型 1:标间 2:大床房 3:双人房 4:钟点房 5:套房 6:合租", required = true)
     @NotNull(message = "房型类型不能为空")
     private RoomType roomType;
 
@@ -40,7 +40,7 @@ public class HomestayRoomEditRequest {
     @NotBlank(message = "封面图片不能为空")
     private String coverUrl;
 
-    @ApiModelProperty(value = "订单确认方式: 1: 自动确认 2:手动确认", required = true)
+    @ApiModelProperty(value = "订单确认方式: 1:自动确认 2:手动确认", required = true)
     @OptionInt(value = {1, 2}, message = "订单确认方式不合法")
     private Integer confirmType;
 

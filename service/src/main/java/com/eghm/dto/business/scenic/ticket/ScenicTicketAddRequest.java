@@ -32,7 +32,7 @@ public class ScenicTicketAddRequest extends DateComparator {
     @WordChecker(message = "门票名称存在敏感词")
     private String title;
 
-    @ApiModelProperty(value = "门票种类 1: 成人票 2: 老人票 3:儿童票", required = true)
+    @ApiModelProperty(value = "门票种类 1:成人票 2:老人票 3:儿童票", required = true)
     @OptionInt(value = {1, 2, 3}, message = "门票种类错误")
     private Integer category;
 
@@ -74,7 +74,7 @@ public class ScenicTicketAddRequest extends DateComparator {
     @WordChecker(message = "门票介绍存在敏感词")
     private String introduce;
 
-    @ApiModelProperty(value = "核销方式 1:手动核销 2:自动核销 (凌晨自动核销)", required = true)
+    @ApiModelProperty(value = "核销方式 1:手动核销 2:自动核销(凌晨自动核销)", required = true)
     @OptionInt(value = {1, 2}, message = "核销方式格式错误")
     private Integer verificationType;
 

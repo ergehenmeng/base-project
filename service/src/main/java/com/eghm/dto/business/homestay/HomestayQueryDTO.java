@@ -39,7 +39,7 @@ public class HomestayQueryDTO extends DatePagingComparator {
     @ApiModelProperty("按价格排序 1:正序 2:倒序")
     private Integer sortByPrice;
 
-    @ApiModelProperty("星级 5:五星级 4:四星级 3:三星级 0: 其他, 空查询全部")
+    @ApiModelProperty("星级 5:五星级 4:四星级 3:三星级 0:其他(空查询全部)")
     @OptionInt(value = {0, 3, 4, 5}, message = "星级参数非法", required = false)
     private Integer level;
 

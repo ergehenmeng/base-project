@@ -17,7 +17,7 @@ public class ProductSnapshotVO {
     @ApiModelProperty("订单id")
     private Long orderId;
 
-    @ApiModelProperty("订单所属店铺(景区id,餐饮商家id, 旅行社id, 零售店铺id, 民宿id)")
+    @ApiModelProperty("订单所属店铺(景区id, 餐饮商家id, 旅行社id, 零售店铺id, 民宿id)")
     private Long storeId;
 
     @ApiModelProperty("订单号")

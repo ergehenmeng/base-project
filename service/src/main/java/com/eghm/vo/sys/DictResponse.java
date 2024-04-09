@@ -24,7 +24,7 @@ public class DictResponse {
     @ApiModelProperty("字典编码")
     private String nid;
 
-    @ApiModelProperty("锁定状态(禁止删除):0:未锁定 1:锁定")
+    @ApiModelProperty("锁定状态 0:未锁定 1:锁定")
     private Boolean locked;
 
     @ApiModelProperty("备注信息")

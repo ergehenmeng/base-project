@@ -26,7 +26,7 @@ public class ScenicVO {
     @ApiModelProperty("景区名称")
     private String scenicName;
 
-    @ApiModelProperty("景区等级 5: 5A 4: 4A 3:3A 0:其他")
+    @ApiModelProperty("景区等级 5:5A 4:4A 3:3A 0:其他")
     private Integer level;
 
     @ApiModelProperty("景区信息描述")

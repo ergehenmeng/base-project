@@ -14,7 +14,7 @@ public class VisitorVO {
     @ApiModelProperty("id主键")
     private Long id;
 
-    @ApiModelProperty("状态 0: 初始化(待支付) 1: 已支付,待使用 2:已使用 3:退款中 4:已退款")
+    @ApiModelProperty("状态 0:初始化(待支付) 1:已支付,待使用 2:已使用 3:退款中 4:已退款")
     private VisitorState state;
 
     @ApiModelProperty(value = "游客姓名")
