@@ -1,14 +1,25 @@
 package com.eghm.service.business.lottery;
 
+import com.eghm.dto.business.lottery.LotteryQueryDTO;
 import com.eghm.model.LotteryLog;
+import com.eghm.vo.business.lottery.LotteryLogVO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author wyb
  * @since 2023/4/3
  */
 public interface LotteryLogService {
+
+    /**
+     * 查询抽奖记录(分页)
+     *
+     * @param dto 查询条件
+     * @return 列表
+     */
+    List<LotteryLogVO> getList(LotteryQueryDTO dto);
 
     /**
      * 添加抽奖日志信息

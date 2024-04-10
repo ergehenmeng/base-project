@@ -4,10 +4,7 @@ import cn.hutool.core.date.LocalDateTimeUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.business.lottery.LotteryAddRequest;
-import com.eghm.dto.business.lottery.LotteryConfigRequest;
-import com.eghm.dto.business.lottery.LotteryEditRequest;
-import com.eghm.dto.business.lottery.LotteryQueryRequest;
+import com.eghm.dto.business.lottery.*;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.LotteryState;
 import com.eghm.enums.ref.PrizeType;
@@ -34,6 +31,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -66,6 +65,7 @@ public class LotteryServiceImpl implements LotteryService {
     @Override
     public void create(LotteryAddRequest request) {
         this.checkConfig(request.getConfigList());
+        this.checkPrize(request.getPrizeList(), request.getConfigList());
         this.redoTitle(request.getTitle(), null, request.getMerchantId());
         Lottery lottery = DataUtil.copy(request, Lottery.class);
         lottery.setState(this.calcState(request.getStartTime(), request.getEndTime()));
@@ -77,6 +77,7 @@ public class LotteryServiceImpl implements LotteryService {
     @Override
     public void update(LotteryEditRequest request) {
         this.checkConfig(request.getConfigList());
+        this.checkPrize(request.getPrizeList(), request.getConfigList());
         this.redoTitle(request.getTitle(), request.getId(), request.getMerchantId());
         Lottery select = lotteryMapper.selectById(request.getId());
         if (select.getState() != LotteryState.INIT) {
@@ -103,7 +104,7 @@ public class LotteryServiceImpl implements LotteryService {
         boolean status = this.givePrize(memberId, lottery, config);
         if (!status) {
             // 如果发放奖品失败, 默认还是按未中奖
-            config = configList.get(configList.size() - 1);
+            config = configList.stream().filter(c -> c.getPrizeType() == PrizeType.NONE).findFirst().orElseThrow(() -> new BusinessException(ErrorCode.LOTTERY_EXECUTE));
         }
         LotteryLog lotteryLog = new LotteryLog();
         lotteryLog.setLotteryId(lotteryId);
@@ -235,9 +236,24 @@ public class LotteryServiceImpl implements LotteryService {
         LocalDateTime startTime = LocalDateTimeUtil.beginOfDay(now);
         LocalDateTime endTime = LocalDateTimeUtil.endOfDay(now);
         countLottery = lotteryLogService.countLottery(lottery.getId(), memberId, startTime, endTime);
-        if (lottery.getLotteryTotal() <= countLottery) {
+        if (lottery.getLotteryDay() <= countLottery) {
             log.error("用户今日抽奖次数用完了 [{}] 最大次数:[{}] 已抽次数:[{}]", lottery.getId(), lottery.getLotteryDay(), countLottery);
             throw new BusinessException(ErrorCode.LOTTERY_TIME_EMPTY);
+        }
+    }
+
+    /**
+     * 由于中奖的商品可能会存在库存为0的情况, 因此当库存为0时,默认不中奖, 为了防止抽奖时谢谢参与类的奖品, 此处必须包含最少一个谢谢参与的中奖位置(概率可以为0)
+     *
+     * @param prizeList 奖品信息
+     * @param configList 中奖位置信息
+     */
+    private void checkPrize(List<LotteryPrizeRequest> prizeList, List<LotteryConfigRequest> configList) {
+        AtomicInteger index = new AtomicInteger(0);
+        Map<Integer, PrizeType> prizeTypeMap = prizeList.stream().collect(Collectors.toMap(lotteryPrizeRequest -> index.getAndIncrement(), LotteryPrizeRequest::getPrizeType));
+        boolean anyMatch = configList.stream().anyMatch(config -> prizeTypeMap.get(config.getPrizeIndex()) == PrizeType.NONE);
+        if (!anyMatch) {
+            throw new BusinessException(ErrorCode.LOTTERY_PRIZE_TYPE);
         }
     }
 

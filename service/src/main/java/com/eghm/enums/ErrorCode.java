@@ -1249,6 +1249,11 @@ public enum ErrorCode {
     LOTTERY_PRIZE_ERROR(2621, "该奖品类型不支持"),
 
     /**
+     * 必须包含谢谢参与的商品
+     */
+    LOTTERY_PRIZE_TYPE(2622, "必须包含谢谢参与的商品"),
+
+    /**
      * 商品太火爆啦,请稍后再试
      */
     ORDER_ERROR(2624, "商品太火爆啦,请稍后再试"),

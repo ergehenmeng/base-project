@@ -9,10 +9,10 @@ Content-Type: application/json
 token: {{token}}
 
 {
-  "title": "第一个抽奖活动",
+  "title": "第一个抽奖活动3",
   "storeId": 1763046454489776134,
   "bannerUrl": "http://localhost:8080/bannerUrl.png",
-  "startTime": "2024-04-09 16:51:22",
+  "startTime": "2024-04-10 16:51:22",
   "endTime": "2024-05-01 16:51:22",
   "lotteryDay": 1,
   "lotteryTotal": 10,
@@ -22,7 +22,7 @@ token: {{token}}
   "rule": "中奖规则收到收到收到但是",
   "prizeList": [{
     "prizeName": "未中奖",
-    "prizeType": "2",
+    "prizeType": "0",
     "num": 1,
     "totalNum": 10,
     "coverUrl": "http://localhost:8080/jiangpin.png"

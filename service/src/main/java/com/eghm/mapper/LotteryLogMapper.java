@@ -1,7 +1,11 @@
 package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.lottery.LotteryQueryDTO;
 import com.eghm.model.LotteryLog;
+import com.eghm.vo.business.lottery.LotteryLogVO;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +17,12 @@ import com.eghm.model.LotteryLog;
  */
 public interface LotteryLogMapper extends BaseMapper<LotteryLog> {
 
+    /**
+     * 分页用户抽奖记录
+     *
+     * @param page 分页信息
+     * @param dto  查询条件
+     * @return 分页数据
+     */
+    Page<LotteryLogVO> getByPage(Page<LotteryLogVO> page, @Param("param") LotteryQueryDTO dto);
 }

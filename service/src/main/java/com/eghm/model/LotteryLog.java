@@ -27,7 +27,7 @@ public class LotteryLog extends BaseEntity {
     @ApiModelProperty(value = "抽奖位置")
     private Integer location;
 
-    @ApiModelProperty("是否中奖 0:未中奖 1:中奖")
+    @ApiModelProperty("是否中奖 false:未中奖 true:中奖")
     private Boolean winning;
 
     @ApiModelProperty("中奖奖品")

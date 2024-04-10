@@ -15,8 +15,9 @@ import java.math.BigDecimal;
 @Data
 public class LotteryConfigRequest {
 
-    @ApiModelProperty(value = "奖品位置0-7", required = true)
+    @ApiModelProperty(value = "奖品下标0-7", required = true)
     @NotBlank(message = "请选择奖品")
+    @RangeInt(max = 7, message = "奖品位置应在0~7之间")
     private Integer prizeIndex;
 
     @ApiModelProperty(value = "中奖位置 1-8", required = true)

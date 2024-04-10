@@ -28,7 +28,7 @@ public class LotteryPrize extends BaseEntity {
     @ApiModelProperty(value = "奖品名称")
     private String prizeName;
 
-    @ApiModelProperty(value = "奖品类型 0:谢谢餐饮 1:优惠券 2:积分")
+    @ApiModelProperty(value = "奖品类型 0:谢谢参与 1:优惠券 2:积分")
     private PrizeType prizeType;
 
     @ApiModelProperty(value = "单次中奖发放数量")
