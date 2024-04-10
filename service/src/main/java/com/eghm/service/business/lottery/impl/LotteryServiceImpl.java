@@ -180,7 +180,6 @@ public class LotteryServiceImpl implements LotteryService {
      * @param config   中奖信息
      */
     private boolean givePrize(Long memberId, Lottery lottery, LotteryConfig config) {
-
         try {
             handlerList.stream().filter(prizeHandler -> prizeHandler.supported(config.getPrizeType())).findFirst().orElseThrow(() -> {
                 log.error("本次中奖奖品没有配置 [{}] [{}]", lottery.getId(), config.getPrizeType());
@@ -192,7 +191,6 @@ public class LotteryServiceImpl implements LotteryService {
         }
         return false;
     }
-
 
     /**
      * 抽奖

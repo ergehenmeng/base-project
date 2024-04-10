@@ -9,6 +9,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
 import org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource;
+import org.springframework.transaction.interceptor.TransactionAttributeSource;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
 
 /**
@@ -24,7 +25,7 @@ public class TransactionConfig {
     @Bean
     @Primary
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public TransactionInterceptor txAdvice(@Lazy PlatformTransactionManager transactionManager) {
+    public TransactionInterceptor txAdvice(@Lazy PlatformTransactionManager transactionManager, TransactionAttributeSource transactionAttributeSource) {
         DefaultTransactionAttribute required = new DefaultTransactionAttribute();
         required.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         DefaultTransactionAttribute readOnly = new DefaultTransactionAttribute();
@@ -46,7 +47,8 @@ public class TransactionConfig {
         attributeSource.addTransactionalMethod("*", required);
         TransactionInterceptor interceptor = new TransactionInterceptor();
         interceptor.setTransactionManager(transactionManager);
-        interceptor.setTransactionAttributeSource(attributeSource);
+        // 设置优先级, 同时支持注解事务和声明式事务
+        interceptor.setTransactionAttributeSources(transactionAttributeSource, attributeSource);
         return interceptor;
     }
 

@@ -31,7 +31,7 @@ public class LotteryLogServiceImpl implements LotteryLogService {
     public long countLottery(Long lotteryId, Long memberId) {
         LambdaQueryWrapper<LotteryLog> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(LotteryLog::getMemberId, memberId);
-        wrapper.eq(LotteryLog::getLotteryId, memberId);
+        wrapper.eq(LotteryLog::getLotteryId, lotteryId);
         Long aLong = lotteryLogMapper.selectCount(wrapper);
         return aLong == null ? 0L : aLong;
     }
@@ -40,7 +40,7 @@ public class LotteryLogServiceImpl implements LotteryLogService {
     public long countLottery(Long lotteryId, Long memberId, LocalDateTime startTime, LocalDateTime endTime) {
         LambdaQueryWrapper<LotteryLog> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(LotteryLog::getMemberId, memberId);
-        wrapper.eq(LotteryLog::getLotteryId, memberId);
+        wrapper.eq(LotteryLog::getLotteryId, lotteryId);
         wrapper.between(LotteryLog::getCreateTime, startTime, endTime);
         Long aLong = lotteryLogMapper.selectCount(wrapper);
         return aLong == null ? 0L : aLong;
@@ -50,7 +50,7 @@ public class LotteryLogServiceImpl implements LotteryLogService {
     public long countLotteryWin(Long lotteryId, Long memberId) {
         LambdaQueryWrapper<LotteryLog> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(LotteryLog::getMemberId, memberId);
-        wrapper.eq(LotteryLog::getLotteryId, memberId);
+        wrapper.eq(LotteryLog::getLotteryId, lotteryId);
         wrapper.eq(LotteryLog::getWinning, true);
         Long aLong = lotteryLogMapper.selectCount(wrapper);
         return aLong == null ? 0L : aLong;

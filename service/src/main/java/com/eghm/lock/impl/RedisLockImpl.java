@@ -58,15 +58,17 @@ public class RedisLockImpl implements RedisLock {
         RLock lock = redissonClient.getLock(key);
         try {
             if (lock.tryLock(waitTime, lockTime, TimeUnit.MILLISECONDS)) {
-                try {
-                    return supplier.get();
-                } finally {
-                    lock.unlock();
-                }
+                return supplier.get();
             }
         } catch (InterruptedException e) {
             log.error("锁中断异常 [{}]", key, e);
             Thread.currentThread().interrupt();
+        } finally {
+            if (lock != null && lock.isHeldByCurrentThread()) {
+                lock.unlock();
+            } else {
+                log.warn("锁对象非当前线程持有,无法解锁 [{}] [{}] [{}] [{}]", key, waitTime, lockTime, Thread.currentThread());
+            }
         }
         log.error("锁对象获取失败 [{}] [{}] [{}]", key, waitTime, lockTime);
         if (failSupplier != null) {

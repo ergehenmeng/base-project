@@ -1135,6 +1135,7 @@ CREATE TABLE `coupon`
     `mode`            tinyint(1)   DEFAULT '1' COMMENT '领取方式 1:页面领取 2:手动发放',
     `coupon_type`     tinyint(1)   DEFAULT '1' COMMENT '优惠券类型 1:抵扣券 2:折扣券',
     `use_scope`       tinyint(1)   DEFAULT '1' COMMENT '使用范围  1:店铺通用(只针对零售) 2:指定商品',
+    `product_type`    varchar(30)  DEFAULT NULL COMMENT '商品类型',
     `store_id`        bigint(20) COMMENT '零售店铺id',
     `discount_value`  smallint(3) COMMENT '折扣比例 0-100',
     `deduction_value` smallint(6) COMMENT '抵扣金额 单位:分',

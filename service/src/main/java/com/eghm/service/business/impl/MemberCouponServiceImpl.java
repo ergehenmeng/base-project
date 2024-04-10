@@ -64,7 +64,7 @@ public class MemberCouponServiceImpl implements MemberCouponService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.SUPPORTS)
+    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void grantCoupon(GrantCouponDTO dto) {
         ReceiveCouponDTO coupon = new ReceiveCouponDTO();
         coupon.setCouponId(dto.getCouponId());
