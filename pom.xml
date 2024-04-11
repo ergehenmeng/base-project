@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.eghm</groupId>
     <artifactId>parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-
 
     <modules>
         <module>service</module>
@@ -128,7 +125,6 @@
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
     <dependencyManagement>
         <dependencies>
-
             <dependency>
                 <groupId>com.eghm</groupId>
                 <artifactId>service</artifactId>
@@ -153,13 +149,6 @@
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>
                 <version>${redisson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -262,6 +251,10 @@
                         <artifactId>bcpkix-jdk15on</artifactId>
                         <groupId>org.bouncycastle</groupId>
                     </exclusion>
+                    <exclusion>
+                        <artifactId>bcprov-jdk15on</artifactId>
+                        <groupId>org.bouncycastle</groupId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -303,6 +296,12 @@
                 <groupId>com.alipay.sdk</groupId>
                 <artifactId>alipay-easysdk</artifactId>
                 <version>${ali-sdk.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>bcprov-jdk15on</artifactId>
+                        <groupId>org.bouncycastle</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -346,5 +345,4 @@
             </plugins>
         </pluginManagement>
     </build>
-
 </project>

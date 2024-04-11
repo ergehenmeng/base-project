@@ -12,18 +12,11 @@
     <artifactId>manage-server</artifactId>
     <packaging>jar</packaging>
 
-
     <dependencies>
         <dependency>
             <groupId>com.eghm</groupId>
             <artifactId>service</artifactId>
             <version>${project.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>bcprov-jdk15on</artifactId>
-                    <groupId>org.bouncycastle</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -37,7 +30,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
-        <!--验证码-->
         <dependency>
             <groupId>com.github.penggle</groupId>
             <artifactId>kaptcha</artifactId>
