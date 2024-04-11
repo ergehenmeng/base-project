@@ -1,12 +1,12 @@
 package com.eghm.web.configuration.handler;
 
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.model.ManageLog;
 import com.eghm.mq.service.MessageService;
-import com.eghm.common.impl.SysConfigApi;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
 import com.google.gson.Gson;
@@ -81,7 +81,7 @@ public class ManageLogAspect {
         if (logSwitch) {
             rabbitMessageService.send(ExchangeQueue.MANAGE_OP_LOG, sy);
         } else {
-            log.info("请求地址:[{}], 请求参数:[{}], 响应参数:[{}], 请求ip:[{}], 用户id:[{}], 耗时:[{}]", sy.getUrl(), sy.getRequest(), sy.getResponse(), sy.getIp(), sy.getUserId(), sy.getBusinessTime());
+            log.info("请求地址:[{}], 请求参数:[{}], 请求ip:[{}], 用户id:[{}], 耗时:[{}]ms", sy.getUrl(), sy.getRequest(), sy.getIp(), sy.getUserId(), sy.getBusinessTime());
         }
         return proceed;
     }
