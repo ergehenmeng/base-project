@@ -2,10 +2,13 @@ package com.eghm.service.business.lottery.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.lottery.LotteryLotQueryRequest;
 import com.eghm.dto.business.lottery.LotteryQueryDTO;
 import com.eghm.mapper.LotteryLogMapper;
 import com.eghm.model.LotteryLog;
 import com.eghm.service.business.lottery.LotteryLogService;
+import com.eghm.vo.business.lottery.LotteryLogResponse;
 import com.eghm.vo.business.lottery.LotteryLogVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +29,13 @@ public class LotteryLogServiceImpl implements LotteryLogService {
     private final LotteryLogMapper lotteryLogMapper;
 
     @Override
+    public Page<LotteryLogResponse> getByPage(LotteryLotQueryRequest request) {
+        return lotteryLogMapper.getByPage(request.createPage(), request);
+    }
+
+    @Override
     public List<LotteryLogVO> getList(LotteryQueryDTO dto) {
-        return lotteryLogMapper.getByPage(dto.createNullPage(), dto).getRecords();
+        return lotteryLogMapper.listPage(dto.createNullPage(), dto).getRecords();
     }
 
     @Override

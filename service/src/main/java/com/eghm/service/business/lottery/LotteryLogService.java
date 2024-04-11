@@ -1,7 +1,10 @@
 package com.eghm.service.business.lottery;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.lottery.LotteryLotQueryRequest;
 import com.eghm.dto.business.lottery.LotteryQueryDTO;
 import com.eghm.model.LotteryLog;
+import com.eghm.vo.business.lottery.LotteryLogResponse;
 import com.eghm.vo.business.lottery.LotteryLogVO;
 
 import java.time.LocalDateTime;
@@ -14,7 +17,15 @@ import java.util.List;
 public interface LotteryLogService {
 
     /**
-     * 查询抽奖记录(分页)
+     * 查询抽奖记录(管理后台)
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<LotteryLogResponse> getByPage(LotteryLotQueryRequest request);
+
+    /**
+     * 查询用户抽奖记录(移动端:分页)
      *
      * @param dto 查询条件
      * @return 列表

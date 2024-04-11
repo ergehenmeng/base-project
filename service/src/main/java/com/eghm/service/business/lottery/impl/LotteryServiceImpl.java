@@ -14,6 +14,7 @@ import com.eghm.model.Lottery;
 import com.eghm.model.LotteryConfig;
 import com.eghm.model.LotteryLog;
 import com.eghm.model.LotteryPrize;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.lottery.LotteryConfigService;
 import com.eghm.service.business.lottery.LotteryLogService;
 import com.eghm.service.business.lottery.LotteryPrizeService;
@@ -57,6 +58,8 @@ public class LotteryServiceImpl implements LotteryService {
 
     private final List<PrizeHandler> handlerList;
 
+    private final CommonService commonService;
+
     @Override
     public Page<LotteryResponse> getByPage(LotteryQueryRequest request) {
         return lotteryMapper.getByPage(request.createPage(), request);
@@ -99,12 +102,15 @@ public class LotteryServiceImpl implements LotteryService {
         }
         this.checkLottery(lottery, memberId);
         List<LotteryConfig> configList = lotteryConfigService.getList(lottery.getId());
-        LotteryConfig config = this.doLottery(memberId, lottery, configList);
-
+        // 随便查询一个未中奖的配置
+        LotteryConfig losingLottery = this.getLosingLottery(configList);
+        // 抽奖过程
+        LotteryConfig config = this.doLottery(memberId, lottery, configList, losingLottery);
+        // 发放奖品
         boolean status = this.givePrize(memberId, lottery, config);
         if (!status) {
             // 如果发放奖品失败, 默认还是按未中奖
-            config = configList.stream().filter(c -> c.getPrizeType() == PrizeType.NONE).findFirst().orElseThrow(() -> new BusinessException(ErrorCode.LOTTERY_EXECUTE));
+            config = losingLottery;
         }
         LotteryLog lotteryLog = new LotteryLog();
         lotteryLog.setLotteryId(lotteryId);
@@ -141,6 +147,7 @@ public class LotteryServiceImpl implements LotteryService {
     @Override
     public LotteryDetailResponse getDetailById(Long lotteryId) {
         Lottery lottery = this.selectByIdRequired(lotteryId);
+        commonService.checkIllegal(lottery.getMerchantId());
         LotteryDetailResponse response = DataUtil.copy(lottery, LotteryDetailResponse.class);
         List<LotteryPrize> prizeList = lotteryPrizeService.getList(lotteryId);
         response.setPrizeList(DataUtil.copy(prizeList, LotteryPrizeResponse.class));
@@ -174,6 +181,16 @@ public class LotteryServiceImpl implements LotteryService {
     }
 
     /**
+     * 查询未中奖的配置信息
+     *
+     * @param configList 转盘各个位置的配置
+     * @return 未中奖配置
+     */
+    private LotteryConfig getLosingLottery(List<LotteryConfig> configList) {
+        return configList.stream().filter(c -> c.getPrizeType() == PrizeType.NONE).findFirst().orElseThrow(() -> new BusinessException(ErrorCode.LOTTERY_EXECUTE));
+    }
+
+    /**
      * 发放奖品
      *
      * @param memberId 用户id
@@ -201,15 +218,14 @@ public class LotteryServiceImpl implements LotteryService {
      * @param configList 配置信息
      * @return 中奖位置
      */
-    private LotteryConfig doLottery(Long memberId, Lottery lottery, List<LotteryConfig> configList) {
+    private LotteryConfig doLottery(Long memberId, Lottery lottery, List<LotteryConfig> configList, LotteryConfig losingLottery) {
         long lotteryWin = lotteryLogService.countLotteryWin(lottery.getId(), memberId);
-        // 已经超过中奖次数,默认不再中奖,最后一个位置默认都是不中奖
-        LotteryConfig freeConfig = configList.get(configList.size() - 1);
+        // 已经超过中奖次数,默认不再中奖
         if (lottery.getWinNum() <= lotteryWin) {
-            return freeConfig;
+            return losingLottery;
         }
         int index = ThreadLocalRandom.current().nextInt(10000);
-        return configList.stream().filter(config -> config.getStartRange() >= index && index < config.getEndRange()).findFirst().orElse(freeConfig);
+        return configList.stream().filter(config -> config.getStartRange() >= index && index < config.getEndRange()).findFirst().orElse(losingLottery);
     }
 
     /**

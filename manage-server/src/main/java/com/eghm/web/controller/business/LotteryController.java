@@ -5,11 +5,14 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.lottery.LotteryAddRequest;
 import com.eghm.dto.business.lottery.LotteryEditRequest;
+import com.eghm.dto.business.lottery.LotteryLotQueryRequest;
 import com.eghm.dto.business.lottery.LotteryQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.service.business.lottery.LotteryLogService;
 import com.eghm.service.business.lottery.LotteryService;
 import com.eghm.vo.business.lottery.LotteryDetailResponse;
+import com.eghm.vo.business.lottery.LotteryLogResponse;
 import com.eghm.vo.business.lottery.LotteryResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,6 +32,8 @@ import org.springframework.web.bind.annotation.*;
 public class LotteryController {
 
     private final LotteryService lotteryService;
+
+    private final LotteryLogService lotteryLogService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
@@ -59,5 +64,13 @@ public class LotteryController {
     public RespBody<LotteryDetailResponse> detail(@Validated IdDTO dto) {
         LotteryDetailResponse response = lotteryService.getDetailById(dto.getId());
         return RespBody.success(response);
+    }
+
+    @GetMapping("/logPage")
+    @ApiOperation("抽奖记录")
+    public RespBody<PageData<LotteryLogResponse>> logPage(@Validated LotteryLotQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        Page<LotteryLogResponse> byPage = lotteryLogService.getByPage(request);
+        return RespBody.success(PageData.toPage(byPage));
     }
 }
