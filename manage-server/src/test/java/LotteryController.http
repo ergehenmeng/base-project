@@ -9,7 +9,7 @@ Content-Type: application/json
 token: {{token}}
 
 {
-  "title": "第一个抽奖活动3",
+  "title": "第一个抽奖活动4",
   "storeId": 1763046454489776134,
   "bannerUrl": "http://localhost:8080/bannerUrl.png",
   "startTime": "2024-04-10 16:51:22",
@@ -151,3 +151,7 @@ token: {{token}}
 GET http://localhost:8080/manage/lottery/detail?id=1777628234342035458
 token: {{token}}
 
+### 详情
+
+GET http://localhost:8080/manage/lottery/logPage?page=1&pageSize=10&lotteryId=1778298708872998914
+token: {{token}}
