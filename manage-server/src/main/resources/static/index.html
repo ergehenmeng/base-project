@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    p {
+        #direction: rtl;
+        unicode-bidi: revert;
+    }
+    a:link, a:visited {
+        background-color: #f44336;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 4px;
+    }
+    a:hover, a:active {
+        background-color: red;
+    }
+    table, td, th {
+        border-collapse: collapse;
+        border: 1px solid darkgrey;
+        text-align: center;
+    }
+    th {
+        width: 80px;
+        height: 35px;
+    }
+    td {
+        height: 30px;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    tr:hover {
+        background-color: antiquewhite;
+        cursor: pointer;
+    }
+    .fix {
+        position: fixed;
+        width: 100px;
+        height: 100px;
+        background-color: aqua;
+        top: 300px;
+        left: 300px;
+    }
+    .rel {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        background-color: burlywood;
+        top: 200px;
+        left: 200px;
+    }
+    .container.relative {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        background-color: lightgray;
+    }
+
+    .box.absolute {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        background-color: aquamarine;
+        top: 30px;
+        left: 30px;
+    }
+</style>
+<body>
+<p>direction</p>
+<a href="http://localhost:8080">www.http.com</a>
+<br>
+<br>
+<p>以下为表格相关属性</p>
+<table>
+    <tr>
+        <th>Do</th>
+        <th>Re</th>
+        <th>Mi</th>
+        <th>Fa</th>
+        <th>Sol</th>
+        <th>La</th>
+        <th>Si</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+    </tr>
+    <tr>
+        <td>C</td>
+        <td>D</td>
+        <td>E</td>
+        <td>F</td>
+        <td>G</td>
+        <td>A</td>
+        <td>B</td>
+    </tr>
+</table>
+<div>
+    <div class="container relative">
+        <div class="box absolute">abs(top:30px left:30px)</div>
+    </div>
+    <div class="fix">
+        fix
+    </div>
+    <div class="rel">
+        rel
+    </div>
+</div>
+</body>
+</html>
