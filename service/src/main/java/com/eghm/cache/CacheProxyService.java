@@ -133,4 +133,12 @@ public interface CacheProxyService {
      * @return 配置信息
      */
     AuthConfigVO getByAppKey(String appKey);
+
+    /**
+     * 根据客户端类型查询支付配置
+     *
+     * @param channel 客户端类型
+     * @return 支付渠道
+     */
+    PayConfig getByChannel(Channel channel);
 }

@@ -27,6 +27,12 @@ public interface ClearCacheService {
     void clearSensitiveWord();
 
     /**
+     * 清除支付配置
+     *
+     */
+    void clearPayConfig();
+
+    /**
      * 清除banner缓存
      */
     void clearBanner();

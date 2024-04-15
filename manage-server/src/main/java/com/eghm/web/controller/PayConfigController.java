@@ -1,5 +1,6 @@
 package com.eghm.web.controller;
 
+import com.eghm.cache.ClearCacheService;
 import com.eghm.dto.business.pay.PayConfigEditRequest;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.PayConfig;
@@ -20,10 +21,12 @@ import java.util.List;
 @RestController
 @Api(tags = "支付管理")
 @AllArgsConstructor
-@RequestMapping(value = "/manage/pay", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/manage/pay/config", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PayConfigController {
 
     private final PayConfigService payConfigService;
+
+    private final ClearCacheService clearCacheService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
@@ -36,6 +39,7 @@ public class PayConfigController {
     @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody PayConfigEditRequest request) {
         payConfigService.update(request);
+        clearCacheService.clearPayConfig();
         return RespBody.success();
     }
 }

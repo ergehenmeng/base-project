@@ -2459,3 +2459,17 @@ CREATE TABLE `order_adjust_log`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单改价记录表';
+
+DROP TABLE IF EXISTS `pay_config`;
+CREATE TABLE `pay_config`
+(
+    `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `channel`     varchar(30)  DEFAULT NULL COMMENT '客户端类型 PC,ANDROID,IOS,H5,WECHAT,ALIPAY',
+    `wechat_pay`  bit(1)       DEFAULT b'0' COMMENT '是否开启微信支付',
+    `ali_pay`     bit(1)       DEFAULT b'0' COMMENT '是否开启支付宝支付',
+    `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 7
+  DEFAULT CHARSET = utf8mb4 COMMENT ='支付配置表';

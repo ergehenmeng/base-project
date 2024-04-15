@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 public class ClearCacheServiceImpl implements ClearCacheService {
 
     private final SensitiveWordService sensitiveWordService;
+
     private Configuration configuration;
 
     @Autowired(required = false)
@@ -51,6 +52,12 @@ public class ClearCacheServiceImpl implements ClearCacheService {
     public void clearSensitiveWord() {
         sensitiveWordService.reloadLexicon();
         log.info("敏感词缓存清除成功");
+    }
+
+    @Override
+    @CacheEvict(cacheNames = CacheConstant.PAY_CONFIG, allEntries = true)
+    public void clearPayConfig() {
+        log.info("支付配置缓存清除成功");
     }
 
     @Override

@@ -292,4 +292,9 @@ public class CacheConstant {
      */
     public static final String LOTTERY_PRIZE = "lottery_prize";
 
+    /**
+     * 支付配置信息
+     */
+    public static final String PAY_CONFIG = "pay_config";
+
 }

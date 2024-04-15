@@ -61,6 +61,8 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     private final ExpressMapper expressMapper;
 
+    private final PayConfigMapper payConfigMapper;
+
     @Override
     @Cacheable(cacheNames = CacheConstant.EXPRESS, sync = true)
     public List<Express> getExpressList() {
@@ -174,6 +176,15 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     @Cacheable(cacheNames = CacheConstant.AUTH_CONFIG, key = "#appKey", unless = "#result == null")
     public AuthConfigVO getByAppKey(String appKey) {
         return authConfigMapper.getByAppKey(appKey);
+    }
+
+    @Override
+    @Cacheable(cacheNames = CacheConstant.BANNER, cacheManager = "longCacheManager", key = "#channel.name()", unless = "#result == null")
+    public PayConfig getByChannel(Channel channel) {
+        LambdaQueryWrapper<PayConfig> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(PayConfig::getChannel, channel);
+        wrapper.last(LIMIT_ONE);
+        return payConfigMapper.selectOne(wrapper);
     }
 
     /**
