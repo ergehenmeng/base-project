@@ -8,11 +8,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.eghm.cache.CacheProxyService;
+import com.eghm.common.JsonService;
 import com.eghm.common.OrderMQService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
+import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
@@ -21,16 +24,16 @@ import com.eghm.enums.ref.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderMapper;
 import com.eghm.model.*;
-import com.eghm.service.business.*;
-import com.eghm.common.JsonService;
 import com.eghm.mq.service.MessageService;
 import com.eghm.pay.AggregatePayService;
 import com.eghm.pay.dto.PrepayDTO;
 import com.eghm.pay.dto.RefundDTO;
+import com.eghm.pay.enums.PayChannel;
 import com.eghm.pay.enums.TradeState;
 import com.eghm.pay.enums.TradeType;
 import com.eghm.pay.vo.PayOrderVO;
 import com.eghm.pay.vo.PrepayVO;
+import com.eghm.service.business.*;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
@@ -97,8 +100,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     private final MerchantAddressService merchantAddressService;
 
+    private CacheProxyService cacheProxyService;
+
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType, String clientIp) {
+        this.checkPayChannel(ApiHolder.getChannel(), tradeType);
+
         List<String> orderNoList = StrUtil.split(orderNo, ',');
         ProductType productType = ProductType.prefix(orderNoList.get(0));
         String tradeNo = productType.generateTradeNo();
@@ -578,6 +585,29 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     /**
+     * 校验支付渠道是否支持
+     *
+     * @param channel 客户端类型
+     * @param tradeType 支付渠道
+     */
+    private void checkPayChannel(String channel, TradeType tradeType) {
+        PayConfig config = cacheProxyService.getByChannel(channel);
+        if (config == null) {
+            log.error("支付渠道未配置 [{}]", channel);
+            throw new BusinessException(ErrorCode.PAY_CHANNEL_NULL);
+        }
+        if (Boolean.FALSE.equals(config.getAliPay()) && tradeType.getPayChannel() == PayChannel.ALIPAY) {
+            log.error("支付渠道不支持支付宝支付 [{}] [{}]", channel, tradeType);
+            throw new BusinessException(ErrorCode.PAY_CHANNEL_REFRESH);
+        }
+        if (Boolean.FALSE.equals(config.getWechatPay()) && tradeType.getPayChannel() == PayChannel.WECHAT) {
+            log.error("支付渠道不支持微信支付 [{}] [{}]", channel, tradeType);
+            throw new BusinessException(ErrorCode.PAY_CHANNEL_REFRESH);
+        }
+
+    }
+
+    /**
      * 按比例计算退款金额或积分
      *
      * @param saleAmount 商品售价
@@ -588,7 +618,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private static Integer calcRateAmount(Integer saleAmount, Integer totalAmount, Integer amount) {
         return BigDecimal.valueOf((long) saleAmount * amount).divide(BigDecimal.valueOf(totalAmount), 2, RoundingMode.HALF_DOWN).intValue();
     }
-
 
     /**
      * 获取待退款的订单信息

@@ -179,8 +179,8 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.BANNER, cacheManager = "longCacheManager", key = "#channel.name()", unless = "#result == null")
-    public PayConfig getByChannel(Channel channel) {
+    @Cacheable(cacheNames = CacheConstant.BANNER, cacheManager = "longCacheManager", key = "#channel", unless = "#result == null")
+    public PayConfig getByChannel(String channel) {
         LambdaQueryWrapper<PayConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(PayConfig::getChannel, channel);
         wrapper.last(LIMIT_ONE);

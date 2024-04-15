@@ -140,5 +140,5 @@ public interface CacheProxyService {
      * @param channel 客户端类型
      * @return 支付渠道
      */
-    PayConfig getByChannel(Channel channel);
+    PayConfig getByChannel(String channel);
 }

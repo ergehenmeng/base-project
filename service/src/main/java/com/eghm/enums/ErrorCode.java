@@ -2034,6 +2034,16 @@ public enum ErrorCode {
     STORE_NOT_EXIST(3089, "店铺信息不存在"),
 
     /**
+     * 支付渠道暂不支持
+     */
+    PAY_CHANNEL_NULL(3092, "支付渠道暂不支持"),
+
+    /**
+     * 支付渠道暂不支持,请刷新页面
+     */
+    PAY_CHANNEL_REFRESH(3095, "支付渠道暂不支持,请刷新页面"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(7000, "微信公众号尚未配置"),

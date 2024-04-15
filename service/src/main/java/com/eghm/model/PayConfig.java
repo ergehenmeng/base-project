@@ -29,7 +29,7 @@ public class PayConfig {
     private Long id;
 
     @ApiModelProperty(value = "客户端类型 PC,ANDROID,IOS,H5,WECHAT,ALIPAY")
-    private Channel channel;
+    private String channel;
 
     @ApiModelProperty(value = "是否开启微信支付")
     private Boolean wechatPay;
