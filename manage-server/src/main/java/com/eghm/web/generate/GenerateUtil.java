@@ -106,10 +106,14 @@ public class GenerateUtil {
         template.setFileName(cls.getSimpleName());
         List<GenerateFile.FieldDesc> descList = new ArrayList<>();
         for (Field field : fields) {
+            ApiModelProperty annotation = field.getAnnotation(ApiModelProperty.class);
+            if ( annotation == null) {
+                continue;
+            }
             GenerateFile.FieldDesc desc = new GenerateFile.FieldDesc();
             desc.setFieldName(field.getName());
             desc.setFieldType(field.getType().getSimpleName());
-            String value = field.getAnnotation(ApiModelProperty.class).value();
+            String value = annotation.value();
             if (value != null) {
                 desc.setDesc(value.split(" ")[0]);
             } else {

@@ -18,10 +18,6 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ${template.fileName}EditRequest {
 
-    @ApiModelProperty(value = "id不能为空", required = true)
-    @NotNull(message = "id不能为空")
-    private Long id;
-
 <#list template.fieldList as field>
     @ApiModelProperty(value = "${field.desc!}", required = true)
     <#if field.fieldType == "String">
