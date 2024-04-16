@@ -5,6 +5,17 @@
     <title>Title</title>
 </head>
 <style>
+    .overflow_show {
+        width: 150px;
+        border: 1px #43F291 solid;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .overflow_show:hover {
+        cursor: pointer;
+        overflow: visible;
+    }
     p {
         unicode-bidi: revert;
     }
@@ -116,15 +127,36 @@
     }
     .ul-li:last-of-type {
         background-color: crimson;
-        display: inline-block;
+    }
+    ul {
+        list-style: none;
+    }
+    ul li {
+        background-color: darkgrey;
+    }
+    .img {
+        background: url("img.png") no-repeat center / cover fixed;
+        height: 100px;
+        width: 100px;
+    }
+    .shadow-img {
+        transition: all 0.3s;
+    }
+    .shadow-img:hover {
+        box-shadow: 5px 5px 5px #888888;
+        transition: all 0.3s;
+        transform: translateY(2px);
     }
 </style>
 <body>
-<p>direction</p>
+<h3>text-overflow</h3>
+<p class="overflow_show">
+    多余的省略号显示overflow: hidden; text-overflow: ellipsis; white-space: nowrap;</p>
+<h3>direction</h3>
 <a href="http://localhost:8080">www.http.com</a>
 <br>
 <br>
-<p>以下为表格相关属性</p>
+<h3>以下为表格相关属性</h3>
 <table>
     <caption>音阶</caption>
     <tr>
@@ -157,16 +189,16 @@
 </table>
 <div>
     <div class="container relative">
-        <div class="box absolute">abs(top:30px left:30px)</div>
+        <div class="box absolute">abs是相对于父元素定位[非static]定位的(top:30px left:30px)</div>
     </div>
     <div class="fix">
         fix
     </div>
     <div class="rel">
-        rel
+        rel相对与原本位置的偏移量进行定位,且不脱离文档流(top,left)
     </div>
 </div>
-<p>弹性布局</p>
+<h3>弹性Flex布局(display: flex)</h3>
 <div class="flex_container">
     <div>1</div>
     <div>2</div>
@@ -219,6 +251,41 @@
     <span class="ul-li">B</span>
     <span class="ul-li">C</span>
     <div class="ul-li">Div</div>
+</div>
+<br>
+<h3>position: sticky; 附着到顶部</h3>
+<h3>li的默认布局</h3>
+<ul>
+    <li>C</li>
+    <li>D</li>
+    <li>E</li>
+    <li>F</li>
+    <li>G</li>
+    <li>A</li>
+    <li>B</li>
+</ul>
+<h3>box-shadow阴影</h3>
+<h3>transition动画(包含四个属性)</h3>
+<h3>图片背景设置</h3>
+<div class="img"></div>
+<h3>渐变色</h3>
+<div style="background: linear-gradient(to right, #334231, #134231, #711213); height: 100px;"></div>
+<br>
+<div style="background: linear-gradient(to right bottom, #139231, #434291, #81F253); height: 100px;">
+    linear-gradient(to right bottom, #139231, #434291, #81F253)
+</div>
+<br>
+<div style="background: linear-gradient(-120deg, #441231, #43F291, #8F3253); height: 100px;">
+    您可以定义一个角度，来取代预定义的方向（向下、向上、向右、向左、向右下等等）。值 0deg 等于向上（to top）。值 90deg 等于向右（to right）。值 180deg 等于向下（to bottom）
+</div>
+<br>
+<div style="background: repeating-linear-gradient(red, yellow 5%, green 50%); height: 100px;">
+    repeating-linear-gradient(red(起始颜色), yellow 5%(中间颜色及位置), green 50%(总长度));
+</div>
+<br>
+<span>阴影</span>
+<div style="padding: 20px;" class="shadow">
+    <img src="coffee.jpg"  alt="备注" class="shadow-img"/>
 </div>
 </body>
 </html>
