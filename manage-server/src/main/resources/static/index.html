@@ -4,7 +4,26 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<script>
+    function modalShow(obj) {
+        let modal = document.getElementsByClassName("modal-show")[0];
+        let caption = document.getElementsByClassName("caption")[0];
+        modal.style.display = "block";
+        caption.innerHTML = obj.alt;
+    }
+    function hiddenModal () {
+        let modal = document.getElementsByClassName("modal-show")[0];
+        modal.style.display = "none";
+    }
+</script>
 <style>
+    @font-face {
+        font-family: "方正楷体";
+        src: url("front.woff2");
+    }
+    * {
+        font-family: "方正楷体", serif;
+    }
     .overflow_show {
         width: 150px;
         border: 1px #43F291 solid;
@@ -13,7 +32,7 @@
         white-space: nowrap;
     }
     .overflow_show:hover {
-        cursor: pointer;
+        cursor: url("hand.png") pointer;
         overflow: visible;
     }
     p {
@@ -73,13 +92,18 @@
         background-color: lightgray;
     }
 
-    .box.absolute {
+    .absolute-box {
         position: absolute;
         width: 150px;
         height: 150px;
         background-color: aquamarine;
         top: 30px;
         left: 30px;
+    }
+    .box {
+        width: 100px;
+        height: 100px;
+        background-color: indianred;
     }
     .flex_container {
         display: flex;
@@ -104,6 +128,17 @@
     .big:hover {
         transform: scale(1.5, 1.5);
         transform-origin: 0 0;
+    }
+    .transform-big {
+        background-color: #334231;
+        width: 100px;
+        height: 100px;
+        transition: all 1s;
+    }
+    .transform-big:hover {
+        width: 150px;
+        height: 150px;
+        font-size: 30px;
     }
     .progeny p {
         background-color: aquamarine;
@@ -147,8 +182,231 @@
         transition: all 0.3s;
         transform: translateY(2px);
     }
+    .rotate {
+        background-color: antiquewhite;
+        width: 100px;
+        height: 100px;
+        transition: all 0.3s;
+    }
+    .rotate:hover {
+        cursor: pointer;
+        transform: rotate(20deg);
+    }
+    .rotate-3d {
+        background-color: #139231;
+        width: 100px;
+        height: 100px;
+        transition: all 2s;
+    }
+    .rotate-3d:hover {
+        cursor: pointer;
+        transform: rotateY(180deg);
+    }
+    @keyframes example {
+        from {
+            background-color: #43F291;
+        }
+        to {
+            background-color: #434291;
+        }
+    }
+    .transition-animation {
+        background-color: #43F291;
+        width: 200px;
+        height: 200px;
+    }
+    .transition-animation:hover {
+        animation-name: example;
+        animation-duration: 2s;
+    }
+    .tips-div {
+        text-align: left;
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px #888888 dotted;
+    }
+    .tips-div span {
+        visibility: hidden;
+        position: absolute;
+        width: 120px;
+        background: darkgrey;
+        color: #f2f2f2;
+        text-align: center;
+        border-radius: 5px;
+        padding: 3px 0;
+        z-index: 2;
+        opacity: 0;
+        transition: opacity 1s;
+    }
+    .tips-div {
+        cursor: default;
+    }
+    .tips-div:hover span {
+        top: -5px;
+        left: 110%;
+        opacity: 1;
+        visibility: visible;
+    }
+    .tips-div span::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        top: 50%;
+        right: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent darkgrey transparent transparent;
+    }
+    .triangle {
+        height: 100px;
+        width: 100px;
+        border-top-width: 20px;
+        border-right-width: 20px;
+        border-bottom-width: 20px;
+        border-left-width: 20px;
+        border-style: solid;
+        border-bottom-color: transparent;
+        border-left-color: transparent;
+        border-right-color: darkgrey;
+        border-top-color: darkgrey;
+    }
+    .filler-img {
+        filter: grayscale(100%) ;
+    }
+    .dim-img {
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .dim-img:hover {
+        opacity: 0.8;
+    }
+    .modal-show {
+        display: none;
+        position: fixed;
+        z-index: 100;
+        padding-top: 200px;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.9);
+    }
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 25px;
+        color: #f2f2f2;
+        font-size: 30px;
+    }
+    .modal-img {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
+    .caption {
+        margin: auto;
+        color: #f2f2f2;
+        width: 80%;
+        text-align: center;
+        padding: 10px 0;
+        height: 100px;
+    }
+    .close:hover, .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .dim-div:hover .modal-show {
+        display: block;
+    }
+    .modal-img, .caption {
+        animation-name: modal;
+        animation-duration: 0.6s;
+    }
+    @keyframes modal {
+        from {
+            transform: scale(0.1);
+        }
+        to {
+            transform: scale(1);
+        }
+    }
+    .btn {
+        position: relative;
+        background-color: #43F291;
+        border: none;
+        cursor: pointer;
+        padding: 14px;
+        text-align: center;
+        width: 200px;
+        text-decoration: none;
+        font-size: 20px;
+        overflow: hidden;
+    }
+    .btn::after {
+        content: "";
+        position: absolute;
+        display: block;
+        padding-top: 300%;
+        padding-left: 350%;
+        background: #f1f1f1;
+        margin-left: -30px !important;
+        margin-top: -120%;
+        opacity: 0;
+        transition: all 1.2s;
+    }
+    .btn:active::after {
+        opacity: 1;
+        margin: 0;
+        padding: 0;
+        transition: 0s;
+    }
 </style>
 <body>
+<h3>涟漪</h3>
+<button type="button" class="btn">
+    点击
+</button>
+<h3>动态模糊</h3>
+<div>
+    <img src="coffee.jpg" alt="咖啡" class="dim-img" onclick="modalShow(this);">
+</div>
+<div class="modal-show">
+    <span class="close" onclick="hiddenModal();">x</span>
+    <img src="coffee.jpg" alt="" class="modal-img">
+    <div class="caption"></div>
+</div>
+<h3>变黑图片(filter:grayscale)</h3>
+<div>
+    <img src="coffee.jpg" alt="xx" class="filler-img">
+</div>
+<h3>tips提示</h3>
+<div class="tips-div">
+    移到我上面
+    <span>嘿,发现我啦~</span>
+</div>
+<h3>边框的原始形状</h3>
+<div class="triangle">
+
+</div>
+<h3>过渡动画</h3>
+<div class="transition-animation">
+    animation-name: example;<br>
+    animation-duration: 2s; <br>
+    animation-fill-mode: forwards (保留最后一帧的样式)
+</div>
+<h3>3D旋转</h3>
+<div class="rotate-3d">
+    transform: rotateY(20deg) 顺时针20度
+</div>
+<h3>旋转</h3>
+<div class="rotate">
+    transform: rotate(20deg) 顺时针20度
+</div>
 <h3>text-overflow</h3>
 <p class="overflow_show">
     多余的省略号显示overflow: hidden; text-overflow: ellipsis; white-space: nowrap;</p>
@@ -187,9 +445,11 @@
         <td>B</td>
     </tr>
 </table>
+<br>
 <div>
     <div class="container relative">
-        <div class="box absolute">abs是相对于父元素定位[非static]定位的(top:30px left:30px)</div>
+        <div class="absolute-box">abs是相对于父元素定位[非static]定位的(top:30px left:30px),脱离文档</div>
+        <div class="box">我占用的absolute原本的位子</div>
     </div>
     <div class="fix">
         fix
@@ -210,8 +470,10 @@
     <div>8</div>
 </div>
 <br>
-<div class="big">
-    放大
+<div>
+    <div class="big">放大(transform: scale)</div>
+    <br>
+    <div class="transform-big">直接变大长款</div>
 </div>
 <br>
 <h3>后代选择器(div p)</h3>
@@ -284,7 +546,7 @@
 </div>
 <br>
 <span>阴影</span>
-<div style="padding: 20px;" class="shadow">
+<div style="padding: 20px;" >
     <img src="coffee.jpg"  alt="备注" class="shadow-img"/>
 </div>
 </body>
