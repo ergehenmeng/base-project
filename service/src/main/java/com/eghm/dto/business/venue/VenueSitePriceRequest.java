@@ -31,7 +31,7 @@ public class VenueSitePriceRequest extends DateComparator {
 
     @ApiModelProperty(value = "周期 1:星期一 2:星期二 ... 7:星期日", required = true)
     @NotEmpty(message = "请选择周期")
-    public List<Integer> week;
+    public transient List<Integer> week;
 
     @ApiModelProperty(value = "开始日期yyyy-MM-dd", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -45,5 +45,5 @@ public class VenueSitePriceRequest extends DateComparator {
 
     @ApiModelProperty(value = "场次价格",required = true)
     @NotEmpty(message = "请设置场次价格")
-    private List<PriceRequest> priceList;
+    private transient List<PriceRequest> priceList;
 }
