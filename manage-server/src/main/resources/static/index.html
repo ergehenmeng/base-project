@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
 </head>
 <script>
@@ -38,7 +38,7 @@
     p {
         unicode-bidi: revert;
     }
-    a:link, a:visited {
+    .direction:link, .direction:visited {
         background-color: #f44336;
         color: white;
         padding: 10px 20px;
@@ -47,7 +47,7 @@
         display: inline-block;
         border-radius: 4px;
     }
-    a:hover, a:active {
+    .direction:hover, .direction:active {
         background-color: red;
     }
     table, td, th {
@@ -74,8 +74,8 @@
         width: 100px;
         height: 100px;
         background-color: aqua;
-        top: 300px;
-        left: 300px;
+        top: 400px;
+        left: 400px;
     }
     .rel {
         position: relative;
@@ -365,8 +365,245 @@
         padding: 0;
         transition: 0s;
     }
+    .pagination {
+        display: inline-block;
+    }
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        font-size: 18px;
+        line-height: 18px;
+        transition: background-color 0.3s;
+        border: 1px solid #E1E1E1;
+    }
+    .pagination a.active {
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #4CAF50;
+    }
+    .pagination a:not(:last-child){
+        border-right: none;
+    }
+    .pagination a:hover:not(.active) {
+        background-color: #E1E1E1;
+    }
+    .pagination-center {
+        text-align: center;
+    }
+    .div-column-count {
+        column-count: 3;
+        /*三段之间的间隙*/
+        column-gap: 30px;
+        /*三段之间的线*/
+        column-rule: 2px solid #888888;
+    }
+    h4 {
+        /*横跨多少列*/
+        column-span: all;
+    }
+    .div-outline-offset {
+        border: 2px solid #888888;
+        width: 200px;
+        height: 100px;
+        outline: 2px solid #43F291;
+        outline-offset: 2px;
+    }
+    :root {
+        --color: #13A291;
+    }
+    .div-var {
+        background-color: var(--color);
+        width: 200px;
+        height: 100px;
+    }
+    .media-div {
+        background-color: #f44336;
+        height: 100px;
+    }
+    @media screen and (min-width: 600px) {
+        .media-div {
+            background-color: #43F291;
+        }
+    }
+    .grid-div {
+        display: grid;
+        /*定义多少列 空格分开*/
+        grid-template-columns: auto auto auto;
+        /*定义每列的高度*/
+        grid-template-rows: 80px 100px;
+        /*在容器中的位置(前提需要需要有高度或宽度等)*/
+        align-content: start;
+        background-color: #13A291;
+        padding: 10px;
+    }
+    .grid-item {
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        font-size: 30px;
+        text-align: center;
+    }
+    .grid-column-div {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        background-color: #13A291;
+        padding: 10px;
+    }
+    .grid-column-item {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+    .grid-rows-div {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        background-color: #13A291;
+        padding: 10px;
+    }
+    .grid-rows-item {
+        grid-row-start: 1;
+        grid-row-end: 3;
+    }
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto auto auto auto;
+        grid-gap: 10px;
+        background-color: #2196F3;
+        padding: 10px;
+    }
+
+    .grid-container > div {
+        background-color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+        padding: 20px 0;
+        font-size: 30px;
+    }
+    .item1 {
+        /*span表示横框多少行*/
+        grid-column: 1 / span 3;
+    }
+    .item5 {
+        grid-row: 2 / span 2;
+    }
+    .grid-item4 {
+        /*左上(位置)/右下(位置)开始合并*/
+        grid-area: 1 / 2 / 5 / 6
+    }
+    img.a {
+        width: 200px;
+        height: 400px;
+        object-fit: none;
+        object-position: 5px 10%;
+        border: 5px solid red;
+    }
+
 </style>
 <body>
+<img class="a" src="coffee.jpg" alt="Shanghai" width="255" height="170">
+<h4>原始图像:</h4>
+<img src="coffee.jpg" alt="Shanghai" width="255" height="170">
+<h3>grid-area<a href="https://www.w3school.com.cn/css/css_grid_item.asp" style="text-decoration: none">合并</a></h3>
+<div class="grid-container">
+    <div class="grid-item1">1</div>
+    <div class="grid-item2">2</div>
+    <div class="grid-item3">3</div>
+    <div class="grid-item4">4</div>
+    <div class="grid-item5">5</div>
+    <div class="grid-item6">6</div>
+    <div class="grid-item7">7</div>
+    <div class="grid-item8">8</div>
+    <div class="grid-item9">9</div>
+    <div class="grid-item10">10</div>
+    <div class="grid-item11">11</div>
+    <div class="grid-item12">12</div>
+    <div class="grid-item13">13</div>
+    <div class="grid-item14">14</div>
+    <div class="grid-item15">15</div>
+</div>
+<h3>grid-column合并</h3>
+<div class="grid-container">
+    <div class="item1">1</div>
+    <div class="item2">2</div>
+    <div class="item3">3</div>
+    <div class="item4">4</div>
+    <div class="item5">5</div>
+    <div class="item6">6</div>
+    <div class="item7">7</div>
+    <div class="item8">8</div>
+    <div class="item9">9</div>
+    <div class="item10">10</div>
+    <div class="item11">11</div>
+    <div class="item12">12</div>
+    <div class="item13">13</div>
+    <div class="item14">14</div>
+    <div class="item15">15</div>
+</div>
+<h3>网格行（Grid Lines）</h3>
+<div class="grid-rows-div">
+    <div class="grid-rows-item grid-item">1</div>
+    <div class="grid-item">2</div>
+    <div class="grid-item">3</div>
+    <div class="grid-item">4</div>
+    <div class="grid-item">5</div>
+    <div class="grid-item">6</div>
+    <div class="grid-item">7</div>
+    <div class="grid-item">8</div>
+</div>
+<h3>网格列（Grid Lines）</h3>
+<div class="grid-column-div">
+    <div class="grid-column-item grid-item">1</div>
+    <div class="grid-item">2</div>
+    <div class="grid-item">3</div>
+    <div class="grid-item">4</div>
+    <div class="grid-item">5</div>
+    <div class="grid-item">6</div>
+    <div class="grid-item">7</div>
+    <div class="grid-item">8</div>
+</div>
+<h3>网格布局</h3>
+<div class="grid-div">
+    <div class="grid-item">1</div>
+    <div class="grid-item">2</div>
+    <div class="grid-item">3</div>
+    <div class="grid-item">4</div>
+    <div class="grid-item">5</div>
+    <div class="grid-item">6</div>
+    <div class="grid-item">7</div>
+    <div class="grid-item">8</div>
+    <div class="grid-item">9</div>
+</div>
+<h3>@media媒体查询</h3>
+<div class="media-div">
+    media-div(注意需要调整浏览器窗口大小,通过F12调节宽度不行)
+</div>
+<h3>var变量</h3>
+<div class="div-var">
+    var(--color)
+</div>
+<h3>轮廓偏移</h3>
+<div class="div-outline-offset">
+    outline-offset
+</div>
+<h3>分成多列column-count(columns的简写)</h3>
+<div class="div-column-count">
+    <h4>第一回 宴桃园豪杰三结义 斩黄巾英雄首立功</h4>
+    话说天下大势，分久必合，合久必分：周末七国分争，并入于秦；及秦灭之后，楚、汉分争，又并入于汉；汉朝自高祖斩白蛇而起义，一统天下，后来光武中兴，传至献帝，遂分为三国。推其致乱之由，殆始于桓、灵二帝。桓帝禁锢善类，崇信宦官。及桓帝崩，灵帝即位，大将军窦武、太傅陈蕃，共相辅佐；时有宦官曹节等弄权，窦武、陈蕃谋诛之，机事不密，反为所害，中涓自此愈横。建宁二年四月望日，帝御温德殿。方升座，殿角狂风骤起，只见一条大青蛇，从梁上飞将下来，蟠于椅上。帝惊倒，左右急救入宫，百官俱奔避。须臾，蛇不见了。忽然大雷大雨，加以冰雹，落到半夜方止，坏却房屋无数。建宁四年二月，洛阳地震；又海水泛溢，沿海居民，尽被大浪卷入海中。光和元年，雌鸡化雄。六月朔，黑气十馀丈，飞入温德殿中。秋七月，有虹现于玉堂，五原山岸，尽皆崩裂。种种不祥，非止一端。帝下诏问群臣以灾异之由，议郎蔡邕上疏，以为蜺堕鸡化，乃妇寺干政之所致，言颇切直。帝览奏叹息，因起更衣。曹节在后窃视，悉宣告左右；遂以他事陷邕于罪，放归田里
+</div>
+<h3>分页</h3>
+<div class="pagination-center">
+    <div class="pagination">
+        <a href="#">&laquo;</a>
+        <a href="#">1</a>
+        <a href="#" class="active">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">6</a>
+        <a href="#">&raquo;</a>
+    </div>
+</div>
+
 <h3>涟漪</h3>
 <button type="button" class="btn">
     点击
@@ -411,7 +648,7 @@
 <p class="overflow_show">
     多余的省略号显示overflow: hidden; text-overflow: ellipsis; white-space: nowrap;</p>
 <h3>direction</h3>
-<a href="http://localhost:8080">www.http.com</a>
+<a href="http://localhost:8080" class="direction">www.http.com</a>
 <br>
 <br>
 <h3>以下为表格相关属性</h3>
