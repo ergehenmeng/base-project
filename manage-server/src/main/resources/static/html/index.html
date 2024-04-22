@@ -4,12 +4,23 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
 </head>
+<script type="module">
+    import {name, age} from "./js/person.js";
+    import message from "./js/person.js";
+    console.log(name, age);
+    console.log(message());
+</script>
 <script>
     function modalShow(obj) {
         let modal = document.getElementsByClassName("modal-show")[0];
         let caption = document.getElementsByClassName("caption")[0];
         modal.style.display = "block";
         caption.innerHTML = obj.alt;
+        new Promise(resolve => {
+            setTimeout(() => {
+                resolve();
+            }, 1000);
+        })
     }
     function hiddenModal () {
         let modal = document.getElementsByClassName("modal-show")[0];
@@ -19,7 +30,7 @@
 <style>
     @font-face {
         font-family: "方正楷体";
-        src: url("front.woff2");
+        src: url("./front.woff2");
     }
     * {
         font-family: "方正楷体", serif;
@@ -32,7 +43,7 @@
         white-space: nowrap;
     }
     .overflow_show:hover {
-        cursor: url("hand.png") pointer;
+        cursor: url("./img/hand.png") pointer;
         overflow: visible;
     }
     p {
@@ -170,7 +181,7 @@
         background-color: darkgrey;
     }
     .img {
-        background: url("img.png") no-repeat center / cover fixed;
+        background: url("./img/img.png") no-repeat center / cover fixed;
         height: 100px;
         width: 100px;
     }
@@ -500,9 +511,9 @@
 
 </style>
 <body>
-<img class="a" src="coffee.jpg" alt="Shanghai" width="255" height="170">
+<img class="a" src="img/coffee.jpg" alt="Shanghai" width="255" height="170">
 <h4>原始图像:</h4>
-<img src="coffee.jpg" alt="Shanghai" width="255" height="170">
+<img src="img/coffee.jpg" alt="Shanghai" width="255" height="170">
 <h3>grid-area<a href="https://www.w3school.com.cn/css/css_grid_item.asp" style="text-decoration: none">合并</a></h3>
 <div class="grid-container">
     <div class="grid-item1">1</div>
@@ -610,16 +621,16 @@
 </button>
 <h3>动态模糊</h3>
 <div>
-    <img src="coffee.jpg" alt="咖啡" class="dim-img" onclick="modalShow(this);">
+    <img src="img/coffee.jpg" alt="咖啡" class="dim-img" onclick="modalShow(this);">
 </div>
 <div class="modal-show">
     <span class="close" onclick="hiddenModal();">x</span>
-    <img src="coffee.jpg" alt="" class="modal-img">
+    <img src="img/coffee.jpg" alt="" class="modal-img">
     <div class="caption"></div>
 </div>
 <h3>变黑图片(filter:grayscale)</h3>
 <div>
-    <img src="coffee.jpg" alt="xx" class="filler-img">
+    <img src="img/coffee.jpg" alt="xx" class="filler-img">
 </div>
 <h3>tips提示</h3>
 <div class="tips-div">
@@ -784,7 +795,7 @@
 <br>
 <span>阴影</span>
 <div style="padding: 20px;" >
-    <img src="coffee.jpg"  alt="备注" class="shadow-img"/>
+    <img src="img/coffee.jpg" alt="备注" class="shadow-img"/>
 </div>
 </body>
 </html>
