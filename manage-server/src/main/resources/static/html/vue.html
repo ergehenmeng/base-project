@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VUE</title>
+    <script src="./js/vue.global.js"></script>
+</head>
+<body>
+<div id="app">
+    <label>
+        <input v-model="message">{{ message }}
+    </label>
+    <br>
+    <img v-bind:src="imgSrc" alt="src">
+    <p v-if="showMsg">{{message}}</p>
+    <p v-else>{{count}}</p>
+    <ul>
+        <li v-for="item in items" :key="item.id">{{item.name}}</li>
+    </ul>
+    <p v-once>{{message}}</p>
+</div>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                message: 'Hello Vue!',
+                count: 4,
+                imgSrc: "https://tse3-mm.cn.bing.net/th/id/OIP-C.7aVGTHCam4DeXBObtCCabgAAAA?rs=1&pid=ImgDetMain",
+                showMsg: false,
+                items: [{id: 1, name: 'a'}, {id: 2, name: 'b'}]
+            }
+        },
+        methods: {
+            increment() {
+                this.count++;
+            }
+        },
+        components: {
+        }
+    })
+    app.mount('#app');
+</script>
+</body>
+</html>

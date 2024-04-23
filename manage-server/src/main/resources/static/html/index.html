@@ -26,6 +26,20 @@
         let modal = document.getElementsByClassName("modal-show")[0];
         modal.style.display = "none";
     }
+    function load() {
+        let span = document.getElementById("lng-long");
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                span.innerHTML = "当前经纬度:" + position.coords.longitude + " " + position.coords.latitude;
+            })
+        } else {
+            span.innerHTML = "浏览器不支持获取经纬度";
+        }
+        let [a, b] = [2, 1, 2, 3];
+        console.log(a + b);
+    }
+    class Person {
+    }
 </script>
 <style>
     @font-face {
@@ -510,7 +524,9 @@
     }
 
 </style>
-<body>
+<body onload="load()">
+<h3>获取经纬度</h3>
+<p id="lng-long"></p>
 <img class="a" src="img/coffee.jpg" alt="Shanghai" width="255" height="170">
 <h4>原始图像:</h4>
 <img src="img/coffee.jpg" alt="Shanghai" width="255" height="170">
