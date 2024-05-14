@@ -25,8 +25,8 @@ public class LoginResponse {
     private String nickName;
 
     @ApiModelProperty("按钮权限列表")
-    private List<String> buttonList;
+    private List<String> permList;
 
-    @ApiModelProperty("左侧菜单")
-    private List<MenuResponse> leftMenuList;
+    @ApiModelProperty("菜单权限列表")
+    private List<MenuResponse> menuList;
 }

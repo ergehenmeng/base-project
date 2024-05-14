@@ -240,9 +240,9 @@ public class SysUserServiceImpl implements SysUserService {
 
         response.setToken(token);
         response.setNickName(user.getNickName());
-        response.setButtonList(buttonList);
+        response.setPermList(buttonList);
         response.setUserType(user.getUserType());
-        response.setLeftMenuList(leftMenu);
+        response.setMenuList(leftMenu);
         cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
         return response;
     }
