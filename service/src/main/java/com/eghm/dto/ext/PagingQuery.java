@@ -49,7 +49,7 @@ public class PagingQuery {
     /**
      * 防止前端页面传递分页参数过大或小于0
      *
-     * @return 最大 20
+     * @return 最大 50
      */
     public Integer getPageSize() {
         return (pageSize < 0 || pageSize > CommonConstant.MAX_PAGE_SIZE) ? CommonConstant.MAX_PAGE_SIZE : pageSize;

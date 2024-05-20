@@ -25,9 +25,9 @@ public class CommonConstant {
     public static final String UNKNOWN = "unknown";
 
     /**
-     * 分页最大值 只适用于移动端
+     * 分页最大值
      */
-    public static final int MAX_PAGE_SIZE = 20;
+    public static final int MAX_PAGE_SIZE = 50;
 
     /**
      * geo排序默认10条

@@ -18,16 +18,16 @@ import java.util.List;
 public class PageData<T> {
 
     @ApiModelProperty("总条数")
-    private Long total;
+    private Integer total;
 
     @ApiModelProperty("结果集")
     private List<T> rows;
 
     @ApiModelProperty("第几页")
-    private Long page;
+    private Integer page;
 
     @ApiModelProperty("页容量")
-    private Long pageSize;
+    private Integer pageSize;
 
     /**
      * 减少不必要的参数给前端
@@ -38,10 +38,10 @@ public class PageData<T> {
      */
     public static <T> PageData<T> toPage(Page<T> info) {
         PageData<T> pageData = new PageData<>();
-        pageData.total = info.getTotal();
+        pageData.total = (int) info.getTotal();
         pageData.rows = info.getRecords();
-        pageData.page = info.getCurrent();
-        pageData.pageSize = info.getSize();
+        pageData.page = (int) info.getCurrent();
+        pageData.pageSize = (int) info.getSize();
         return pageData;
     }
 
@@ -54,10 +54,10 @@ public class PageData<T> {
      */
     public static <T> PageData<T> toList(List<T> list) {
         PageData<T> pageData = new PageData<>();
-        pageData.total = (long) list.size();
+        pageData.total = list.size();
         pageData.rows = list;
-        pageData.page = 1L;
-        pageData.pageSize = (long) list.size();
+        pageData.page = 1;
+        pageData.pageSize = list.size();
         return pageData;
     }
 

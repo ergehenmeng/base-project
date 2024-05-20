@@ -45,9 +45,9 @@ public class DataUtil {
         page.getRecords().forEach(s -> formatList.add(transfer.apply(s)));
 
         paging.setRows(formatList);
-        paging.setTotal(page.getTotal());
-        paging.setPage(page.getCurrent());
-        paging.setPageSize(page.getSize());
+        paging.setTotal((int) page.getTotal());
+        paging.setPage((int) page.getCurrent());
+        paging.setPageSize((int) page.getSize());
 
         return paging;
     }
@@ -69,9 +69,9 @@ public class DataUtil {
         page.getRecords().forEach(s -> formatList.add(copy(s, cls)));
 
         paging.setRows(formatList);
-        paging.setTotal(page.getTotal());
-        paging.setPage(page.getCurrent());
-        paging.setPageSize(page.getSize());
+        paging.setTotal((int) page.getTotal());
+        paging.setPage((int) page.getCurrent());
+        paging.setPageSize((int) page.getSize());
 
         return paging;
     }
@@ -170,8 +170,8 @@ public class DataUtil {
      * @param targetMap 原数据
      * @param startDate 需要填充的开始日期
      * @param endDate   需要填充的结束日期
-     * @param function 没查找到时执行的数据
-     * @param <T> <T>
+     * @param function  没查找到时执行的数据
+     * @param <T>       <T>
      * @return 最终数据
      */
     public static <T> List<T> paddingDay(Map<LocalDate, T> targetMap, LocalDate startDate, LocalDate endDate, Function<LocalDate, T> function) {
