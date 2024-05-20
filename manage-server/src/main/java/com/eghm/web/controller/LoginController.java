@@ -55,10 +55,10 @@ public class LoginController {
         return RespBody.success(response);
     }
 
-    @PostMapping("/exit")
+    @PostMapping("/logout")
     @ApiOperation("退出登录")
     @SkipPerm
-    public RespBody<Void> exit() {
+    public RespBody<Void> logout() {
         UserToken user = SecurityHolder.getUser();
         if (user != null) {
             // 删除锁屏状态
