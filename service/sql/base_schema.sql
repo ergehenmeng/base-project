@@ -437,24 +437,25 @@ CREATE TABLE `sys_holiday`
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu`
 (
-    `id`            varchar(20) NOT NULL COMMENT '主键',
-    `title`         varchar(20) NOT NULL COMMENT '菜单名称',
-    `code`          varchar(50) NOT NULL COMMENT '菜单标示符(自动生成)',
-    `pid`           varchar(20) NOT NULL COMMENT '父节点ID,一级菜单默认为0',
+    `id`            varchar(20)                                           NOT NULL COMMENT '主键',
+    `title`         varchar(20)                                           NOT NULL COMMENT '菜单名称',
+    `code`          varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '菜单标示符(自动生成)',
+    `icon`          varchar(30)         DEFAULT NULL COMMENT '图标地址(菜单才有icon)',
+    `pid`           varchar(20)                                           NOT NULL COMMENT '父节点ID,一级菜单默认为0',
     `path`          varchar(200)        DEFAULT NULL COMMENT '菜单地址',
     `sub_path`      varchar(500)        DEFAULT NULL COMMENT '权限拦截路径',
     `grade`         tinyint(1) unsigned DEFAULT '1' COMMENT '菜单级别 1:导航菜单 2:按钮菜单',
     `sort`          int(10)             DEFAULT '0' COMMENT '排序规则 小的排在前面',
-    `state`         bit(1)              DEFAULT b'1' COMMENT '状态 1:启用 0:禁用',
+    `state`         bit(1)              DEFAULT b'1' COMMENT '状态: 1:启用 0:禁用',
     `remark`        varchar(200)        DEFAULT NULL COMMENT '备注信息',
-    `display_state` tinyint(1)          DEFAULT NULL COMMENT '显示状态 1:商户显示(该菜单或按钮只对商户开放) 2:系统显示(该菜单或按钮只对系统人员开放)  3:全部显示(该菜单或按钮对商户和系统人员都开放)',
+    `display_state` tinyint(1)          DEFAULT '3' COMMENT '显示状态 1:商户显示 2:系统显示  3:全部显示',
     `create_time`   datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`   datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,
     KEY `pid_index` (`pid`) USING BTREE
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 1080
   DEFAULT CHARSET = utf8mb4 COMMENT ='系统菜单表';
+
 
 -- ----------------------------
 -- Table structure for sys_operation_log
