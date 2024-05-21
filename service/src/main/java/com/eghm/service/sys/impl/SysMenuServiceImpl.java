@@ -40,7 +40,9 @@ public class SysMenuServiceImpl implements SysMenuService {
      * 同级别最多有90个菜单
      */
     private static final int MAX = 90;
+
     private final SysMenuMapper sysMenuMapper;
+
     private final Comparator<MenuResponse> comparator = Comparator.comparing(MenuResponse::getSort);
 
     @Override

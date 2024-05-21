@@ -21,6 +21,9 @@ public class MenuResponse {
     @ApiModelProperty("菜单名称")
     private String title;
 
+    @ApiModelProperty("图标")
+    private String icon;
+
     @ApiModelProperty("菜单标示符 唯一")
     private String code;
 

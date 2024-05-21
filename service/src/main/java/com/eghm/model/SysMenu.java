@@ -23,6 +23,9 @@ public class SysMenu {
     @ApiModelProperty("菜单标示符 唯一")
     private String code;
 
+    @ApiModelProperty("菜单图标")
+    private String icon;
+
     @ApiModelProperty("父节点ID,一级菜单默认为0")
     private String pid;
 
