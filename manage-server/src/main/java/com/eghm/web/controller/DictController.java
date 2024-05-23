@@ -1,18 +1,25 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.dict.*;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.model.SysDictItem;
 import com.eghm.service.sys.SysDictService;
+import com.eghm.utils.DataUtil;
+import com.eghm.vo.sys.DictItemResponse;
 import com.eghm.vo.sys.DictResponse;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -75,4 +82,13 @@ public class DictController {
         return RespBody.success();
     }
 
+    @GetMapping("/itemList")
+    @ApiOperation("查询数据字典")
+    @SkipPerm
+    @ApiImplicitParam(name = "nid", value = "字典编码", required = true, dataType = "String")
+    public RespBody<List<DictItemResponse>> itemList(@RequestParam("nid") String nid) {
+        List<SysDictItem> dictList = sysDictService.getDictByNid(nid);
+        List<DictItemResponse> responseList = DataUtil.copy(dictList, DictItemResponse.class);
+        return RespBody.success(responseList);
+    }
 }
