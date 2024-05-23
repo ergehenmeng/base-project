@@ -3,9 +3,9 @@
 <mapper namespace="com.eghm.mapper.SysRoleMapper">
 
     <select id="getRoleMenu" resultType="string">
-        select menu_id
-        from sys_role_menu
-        where role_id = #{roleId}
+        select t.menu_id
+        from sys_role_menu t, sys_menu r
+        where t.menu_id = r.id and role_id = #{roleId} and r.grade = 2
     </select>
 
     <delete id="deleteRoleMenu">
