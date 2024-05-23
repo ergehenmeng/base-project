@@ -25,7 +25,7 @@ public enum RoleType implements ValueEnumBinder {
     /**
      * 系统通用角色
      */
-    COMMON("common", "普通管理员"),
+    COMMON("common", "系统通用角色"),
 
     /**
      * 景区商户角色
@@ -38,7 +38,7 @@ public enum RoleType implements ValueEnumBinder {
     HOMESTAY("homestay", "民宿"),
 
     /**
-     * 线路商户角色
+     * 餐饮商户角色
      */
     RESTAURANT("restaurant", "餐饮"),
 
@@ -53,9 +53,9 @@ public enum RoleType implements ValueEnumBinder {
     LINE("line", "线路"),
 
     /**
-     * 线路商户角色
+     * 场馆商户角色
      */
-    VENUE("venue", "线路"),
+    VENUE("venue", "场馆"),
 
     /**
      * 商户普通角色

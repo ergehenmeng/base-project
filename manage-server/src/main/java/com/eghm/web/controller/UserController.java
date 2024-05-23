@@ -50,15 +50,6 @@ public class UserController {
         return RespBody.success(PageData.toPage(page));
     }
 
-    @PostMapping(value = "/changePwd", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("修改密码")
-    @SkipPerm
-    public RespBody<Void> changePwd(@Validated @RequestBody PasswordEditRequest request) {
-        request.setUserId(SecurityHolder.getUserId());
-        sysUserService.updateLoginPassword(request);
-        return RespBody.success();
-    }
-
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody UserAddRequest request) {
@@ -127,6 +118,15 @@ public class UserController {
     @ApiOperation("重置密码")
     public RespBody<Void> reset(@Validated @RequestBody IdDTO request) {
         sysUserService.resetPassword(request.getId());
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/changePwd", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("修改密码")
+    @SkipPerm
+    public RespBody<Void> changePwd(@Validated @RequestBody PasswordEditRequest request) {
+        request.setUserId(SecurityHolder.getUserId());
+        sysUserService.updateLoginPassword(request);
         return RespBody.success();
     }
 

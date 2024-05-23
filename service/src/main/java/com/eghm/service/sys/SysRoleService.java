@@ -74,7 +74,7 @@ public interface SysRoleService {
      * @param roleId  角色id
      * @param menuIds 菜单ids
      */
-    void authMenu(Long roleId, String menuIds);
+    void authMenu(Long roleId, List<Long> menuIds);
 
     /**
      * 商户角色授权 (角色类型)

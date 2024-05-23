@@ -81,7 +81,11 @@ public class SysRoleServiceImpl implements SysRoleService {
         }
         LambdaUpdateWrapper<SysRole> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(SysRole::getId, id);
-        wrapper.eq(SysRole::getMerchantId, merchantId);
+        if (merchantId != null) {
+            wrapper.eq(SysRole::getMerchantId, merchantId);
+        } else {
+            wrapper.isNull(SysRole::getMerchantId);
+        }
         wrapper.set(SysRole::getDeleted, true);
         sysRoleMapper.update(null, wrapper);
     }
@@ -96,12 +100,11 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public List<CheckBox> getList() {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
-        wrapper.ne(SysRole::getRoleType, RoleType.ADMINISTRATOR);
         Long merchantId = SecurityHolder.getMerchantId();
         if (merchantId != null) {
             wrapper.eq(SysRole::getMerchantId, merchantId);
         } else {
-            wrapper.isNull(SysRole::getMerchantId);
+            wrapper.eq(SysRole::getRoleType, RoleType.COMMON);
         }
         List<SysRole> roleList = sysRoleMapper.selectList(wrapper);
         return DataUtil.copy(roleList, sysRole -> CheckBox.builder().value(sysRole.getId()).desc(sysRole.getRoleName()).build());
@@ -118,7 +121,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public void authMenu(Long roleId, String menuIds) {
+    public void authMenu(Long roleId, List<Long> menuIds) {
         Long userId = SecurityHolder.getUserId();
         if (!this.isAdminRole(userId)) {
             log.warn("非超级管理员,无法进行菜单授权操作 [{}]", userId);
@@ -128,10 +131,8 @@ public class SysRoleServiceImpl implements SysRoleService {
         commonService.checkIllegal(sysRole.getMerchantId());
 
         sysRoleMapper.deleteRoleMenu(roleId);
-        if (StrUtil.isNotBlank(menuIds)) {
-            List<Long> menuIdList = StrUtil.split(menuIds, ",").stream().mapToLong(Long::parseLong)
-                    .boxed().collect(Collectors.toList());
-            sysRoleMapper.batchInsertRoleMenu(roleId, menuIdList);
+        if (CollUtil.isNotEmpty(menuIds)) {
+            sysRoleMapper.batchInsertRoleMenu(roleId, menuIds);
         }
     }
 

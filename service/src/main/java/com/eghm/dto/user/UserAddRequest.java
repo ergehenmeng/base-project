@@ -20,14 +20,13 @@ public class UserAddRequest {
 
     @ApiModelProperty(value = "用户名称", required = true)
     @NotBlank(message = "用户名称不能为空")
-    private String userName;
+    private String nickName;
 
     @ApiModelProperty(value = "手机号", required = true)
     @Mobile
     private String mobile;
 
-    @ApiModelProperty(value = "所属部门编号", required = true)
-    @NotBlank(message = "所属部门不能为空")
+    @ApiModelProperty(value = "所属部门")
     private String deptCode;
 
     @ApiModelProperty(value = "角色编号", required = true)

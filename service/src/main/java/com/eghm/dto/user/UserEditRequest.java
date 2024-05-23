@@ -22,7 +22,7 @@ public class UserEditRequest {
 
     @ApiModelProperty(value = "用户名称", required = true)
     @NotBlank(message = "用户名称不能为空")
-    private String userName;
+    private String nickName;
 
     @ApiModelProperty(value = "手机号", required = true)
     @Mobile
