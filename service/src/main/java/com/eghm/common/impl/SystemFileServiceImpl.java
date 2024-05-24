@@ -11,7 +11,6 @@ import com.eghm.exception.BusinessException;
 import com.eghm.utils.DateUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
@@ -29,10 +28,9 @@ import java.io.IOException;
  * @author 二哥很猛
  * @since 2019/11/15 15:20
  */
-@Service("fileService")
 @Slf4j
 @AllArgsConstructor
-public class FileServiceImpl implements FileService {
+public class SystemFileServiceImpl implements FileService {
 
     private final SystemProperties systemProperties;
 
@@ -88,7 +86,7 @@ public class FileServiceImpl implements FileService {
             log.warn("上传文件保存失败", e);
             throw new BusinessException(ErrorCode.FILE_SAVE_ERROR);
         }
-        return filePath.replace("\\\\", "/");
+        return filePath.replace(File.separator, "/");
     }
 
 

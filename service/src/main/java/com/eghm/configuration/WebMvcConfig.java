@@ -31,6 +31,7 @@ import com.google.code.kaptcha.impl.NoNoise;
 import com.google.code.kaptcha.impl.WaterRipple;
 import com.google.code.kaptcha.util.Config;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.HibernateValidatorConfiguration;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
@@ -70,6 +71,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
 
     private final ObjectMapper objectMapper;
 
+    @Getter
     protected final SystemProperties systemProperties;
 
     @Bean
@@ -171,10 +173,6 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
         AnnotationIntrospector ai = objectMapper.getSerializationConfig().getAnnotationIntrospector();
         AnnotationIntrospector newAi = AnnotationIntrospectorPair.pair(ai, new DesensitizationAnnotationInterceptor());
         objectMapper.setAnnotationIntrospector(newAi);
-    }
-
-    public SystemProperties getSystemProperties() {
-        return systemProperties;
     }
 
     @Override

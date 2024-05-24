@@ -20,9 +20,14 @@ public class SystemProperties {
     static final String PREFIX = "system";
 
     /**
-     * 上传文件的路径
+     * 上传文件的路径 (系统时必填)
      */
     private String uploadDir;
+
+    /**
+     * 上传文件方式
+     */
+    private UploadType uploadType = UploadType.SYSTEM;
 
     /**
      * 两次提交间隔时间,只针对post请求, 单位:秒
