@@ -10,9 +10,9 @@
         <if test="param.locked != null">
             and t.locked = #{param.locked}
         </if>
-        <if test="param.queryName != null and t.queryName != '' ">
+        <if test="param.queryName != null and param.queryName != '' ">
             and (t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')  or
-                 t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%'))
+                 t.nid like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%'))
         </if>
         order by t.id desc, r.hidden_value
     </select>
