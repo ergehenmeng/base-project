@@ -5,8 +5,8 @@
     <select id="getByPage" resultMap="pageList" parameterType="com.eghm.dto.dict.DictQueryRequest">
         select t.id, t.title, t.nid, t.locked, t.remark, t.create_time, r.id as rid, r.show_value, r.hidden_value
         from sys_dict t
-        left join sys_dict_item r on t.nid = r.nid
-        where t.deleted = false and r.deleted = false
+        left join sys_dict_item r on t.nid = r.nid and r.deleted = false
+        where t.deleted = false
         <if test="param.locked != null">
             and t.locked = #{param.locked}
         </if>
@@ -15,6 +15,19 @@
                  t.nid like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%'))
         </if>
         order by t.id desc, r.hidden_value
+    </select>
+
+    <select id="getCount" resultType="int">
+        select count(id)
+        from sys_dict t
+        where t.deleted = false
+        <if test="param.locked != null">
+            and t.locked = #{param.locked}
+        </if>
+        <if test="param.queryName != null and param.queryName != '' ">
+            and (t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')  or
+            t.nid like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%'))
+        </if>
     </select>
 
     <resultMap id="pageList" type="com.eghm.vo.sys.DictResponse">

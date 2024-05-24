@@ -21,4 +21,12 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
      * @return 列表
      */
     Page<DictResponse> getByPage(Page<DictResponse> page, @Param("param") DictQueryRequest request);
+
+    /**
+     * 分页查询(统计总条数)
+     *
+     * @param request 查询条件
+     * @return 条数
+     */
+    Integer getCount(@Param("param") DictQueryRequest request);
 }

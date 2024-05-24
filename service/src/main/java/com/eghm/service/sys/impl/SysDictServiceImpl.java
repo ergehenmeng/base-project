@@ -44,7 +44,14 @@ public class SysDictServiceImpl implements SysDictService {
 
     @Override
     public Page<DictResponse> getByPage(DictQueryRequest request) {
-        return sysDictMapper.getByPage(request.createPage(), request);
+        // 因为getByPage方法会涉及mybatis自动组装,count字段不准确,此处手动统计
+        Integer count = sysDictMapper.getCount(request);
+        if (count <= 0) {
+            return new Page<>();
+        }
+        Page<DictResponse> byPage = sysDictMapper.getByPage(request.createPage(false), request);
+        byPage.setTotal(count);
+        return byPage;
     }
 
     @Override
