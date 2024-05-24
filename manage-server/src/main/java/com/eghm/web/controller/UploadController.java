@@ -1,6 +1,7 @@
 package com.eghm.web.controller;
 
 
+import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.common.FileService;
@@ -30,6 +31,7 @@ public class UploadController {
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ApiImplicitParam(name = "file", value = "file流", paramType = "formData", dataType = "file", required = true)
     @ApiOperation("单文件上传")
+    @SkipPerm
     public RespBody<FilePath> upload(@RequestParam("file") MultipartFile file) {
         FilePath filePath = fileService.saveFile(file);
         return RespBody.success(filePath);

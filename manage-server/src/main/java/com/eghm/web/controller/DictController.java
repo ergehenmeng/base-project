@@ -9,8 +9,9 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.model.SysDictItem;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.sys.DictItemResponse;
 import com.eghm.vo.sys.DictResponse;
+import com.eghm.vo.sys.DictVO;
+import com.eghm.vo.sys.LoadDictResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -85,10 +87,17 @@ public class DictController {
     @GetMapping("/itemList")
     @ApiOperation("查询数据字典")
     @SkipPerm
-    @ApiImplicitParam(name = "nid", value = "字典编码", required = true, dataType = "String")
-    public RespBody<List<DictItemResponse>> itemList(@RequestParam("nid") String nid) {
-        List<SysDictItem> dictList = sysDictService.getDictByNid(nid);
-        List<DictItemResponse> responseList = DataUtil.copy(dictList, DictItemResponse.class);
+    @ApiImplicitParam(name = "nidList", value = "字典编码", required = true, dataType = "String")
+    public RespBody<List<LoadDictResponse>> itemList(@RequestParam("nidList") List<String> nidList) {
+        List<LoadDictResponse> responseList = new ArrayList<>(8);
+        for (String nid : nidList) {
+            List<SysDictItem> dictList = sysDictService.getDictByNid(nid);
+            List<DictVO> itemList = DataUtil.copy(dictList, DictVO.class);
+            LoadDictResponse response = new LoadDictResponse();
+            response.setItemList(itemList);
+            response.setNid(nid);
+            responseList.add(response);
+        }
         return RespBody.success(responseList);
     }
 }
