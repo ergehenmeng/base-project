@@ -1,10 +1,8 @@
 package com.eghm.web.controller;
 
-import cn.hutool.core.util.StrUtil;
-import com.eghm.dto.ext.PageData;
+import com.eghm.cache.SysCacheService;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.SysCache;
-import com.eghm.cache.SysCacheService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -33,17 +31,16 @@ public class CacheController {
 
     @GetMapping("/list")
     @ApiOperation("缓存列表(不分页)")
-    public RespBody<PageData<SysCache>> list() {
+    public RespBody<List<SysCache>> list() {
         List<SysCache> list = sysCacheService.getList();
-        return RespBody.success(PageData.toList(list));
+        return RespBody.success(list);
     }
 
     @GetMapping("/clear")
     @ApiOperation("清除缓存")
-    @ApiImplicitParam(name = "cacheNames", value = "缓存名称,逗号分割", required = true)
-    public RespBody<Void> clear(@RequestParam("cacheNames") String cacheNames) {
-        List<String> cacheList = StrUtil.split(cacheNames, ',');
-        sysCacheService.clearCache(cacheList);
+    @ApiImplicitParam(name = "cacheNames", value = "缓存名称(数组)", required = true)
+    public RespBody<Void> clear(@RequestParam("cacheNames") List<String> cacheNames) {
+        sysCacheService.clearCache(cacheNames);
         return RespBody.success();
     }
 

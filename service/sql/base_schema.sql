@@ -68,11 +68,12 @@ DROP TABLE IF EXISTS `black_roster`;
 CREATE TABLE `black_roster`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `start_ip`    bigint(20) DEFAULT NULL COMMENT '访问ip',
-    `end_ip`      bigint(20) DEFAULT NULL COMMENT '访问ip,长整型',
-    `deleted`     bit(1)     DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
-    `create_time` datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `start_ip`    bigint(20)   DEFAULT NULL COMMENT '访问ip',
+    `end_ip`      bigint(20)   DEFAULT NULL COMMENT '访问ip,长整型',
+    `remark`      varchar(300) DEFAULT NULL COMMENT '备注信息',
+    `deleted`     bit(1)       DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='访问黑名单';

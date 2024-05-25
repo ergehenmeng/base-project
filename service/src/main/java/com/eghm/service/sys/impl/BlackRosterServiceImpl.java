@@ -42,8 +42,8 @@ public class BlackRosterServiceImpl implements BlackRosterService {
                 throw new BusinessException(ErrorCode.IP_ILLEGAL);
             }
             long aLong = Ipv4Util.ipv4ToLong(request.getQueryName());
-            wrapper.le(BlackRoster::getEndIp, aLong);
-            wrapper.ge(BlackRoster::getStartIp, aLong);
+            wrapper.ge(BlackRoster::getEndIp, aLong);
+            wrapper.le(BlackRoster::getStartIp, aLong);
         }
         return blackRosterMapper.selectPage(request.createPage(), wrapper);
     }

@@ -4,6 +4,7 @@ import com.eghm.convertor.IpToLongDecoder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
@@ -23,5 +24,9 @@ public class BlackRosterAddRequest {
     @JsonDeserialize(using = IpToLongDecoder.class)
     @NotNull(message = "结束ip地址不能为空")
     private Long endIp;
+
+    @ApiModelProperty("备注信息")
+    @Length(max = 200, message = "备注信息最大200字符")
+    private String remark;
 
 }

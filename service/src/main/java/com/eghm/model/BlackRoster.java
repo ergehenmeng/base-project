@@ -22,4 +22,7 @@ public class BlackRoster extends BaseEntity {
     @ApiModelProperty("数字ip")
     @JsonSerialize(using = LongToIpEncoder.class)
     private Long endIp;
+
+    @ApiModelProperty("备注信息")
+    private String remark;
 }
