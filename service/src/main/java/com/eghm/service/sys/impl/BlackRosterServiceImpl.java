@@ -57,6 +57,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
         BlackRoster roster = new BlackRoster();
         roster.setStartIp(request.getStartIp());
         roster.setEndIp(request.getEndIp());
+        roster.setRemark(request.getRemark());
         blackRosterMapper.insert(roster);
         this.reloadBlackRoster();
     }
