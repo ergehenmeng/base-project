@@ -46,6 +46,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
                 wrapper.like(BlackRoster::getRemark, request.getQueryName());
             }
         }
+        wrapper.orderByDesc(BlackRoster::getId);
         return blackRosterMapper.selectPage(request.createPage(), wrapper);
     }
 
