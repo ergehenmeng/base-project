@@ -280,12 +280,12 @@ public enum ErrorCode {
     /**
      * ip格式错误
      */
-    IP_ILLEGAL(2048, "ip格式错误"),
+    IP_ILLEGAL(2048, "IP格式错误"),
 
     /**
-     * 开始ip必须小于截止ip
+     * 开始IP必须小于截止IP
      */
-    IP_RANGE_ILLEGAL(2051, "开始ip必须小于截止ip"),
+    IP_RANGE_ILLEGAL(2051, "开始IP必须小于截止IP"),
 
     /**
      * 系统配置信息未查询到
