@@ -18,6 +18,10 @@ public class DictItemEditRequest {
     @NotNull(message = "id不能为空")
     private Long id;
 
+    @ApiModelProperty(value = "字典编码", required = true)
+    @NotBlank(message = "字典编码不能为空")
+    private String nid;
+
     @ApiModelProperty(value = "数据字典隐藏值", required = true)
     @NotNull(message = "隐藏值不能为空")
     private Integer hiddenValue;

@@ -23,8 +23,8 @@ public class SysDict extends BaseEntity {
     @TableField(typeHandler = LikeTypeHandler.class)
     private String nid;
 
-    @ApiModelProperty("锁定状态(禁止删除):0:未锁定 1:锁定")
-    private Boolean locked;
+    @ApiModelProperty("字典分类: 1: 系统字典 2: 业务字典")
+    private Integer dictType;
 
     @ApiModelProperty("备注信息")
     private String remark;

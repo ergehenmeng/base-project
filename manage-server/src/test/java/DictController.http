@@ -10,7 +10,7 @@ Content-Type: application/json
   "title": "demoData",
   "hiddenValue": 1,
   "showValue": "demoData",
-  "locked": true,
+  "dictType": 1,
   "remark": "demoData"
 }
 

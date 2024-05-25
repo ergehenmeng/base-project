@@ -3,12 +3,12 @@
 <mapper namespace="com.eghm.mapper.SysDictMapper">
 
     <select id="getByPage" resultMap="pageList" parameterType="com.eghm.dto.dict.DictQueryRequest">
-        select t.id, t.title, t.nid, t.locked, t.remark, t.create_time, r.id as rid, r.show_value, r.hidden_value
+        select t.id, t.title, t.nid, t.dict_type, t.remark, t.create_time, r.id as rid, r.show_value, r.hidden_value
         from sys_dict t
         left join sys_dict_item r on t.nid = r.nid and r.deleted = false
         where t.deleted = false
-        <if test="param.locked != null">
-            and t.locked = #{param.locked}
+        <if test="param.dictType != null">
+            and t.dict_type = #{param.dictType}
         </if>
         <if test="param.queryName != null and param.queryName != '' ">
             and (t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')  or
@@ -21,8 +21,8 @@
         select count(id)
         from sys_dict t
         where t.deleted = false
-        <if test="param.locked != null">
-            and t.locked = #{param.locked}
+        <if test="param.dictType != null">
+            and t.dict_type = #{param.dictType}
         </if>
         <if test="param.queryName != null and param.queryName != '' ">
             and (t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')  or
@@ -34,7 +34,7 @@
         <id property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="nid" column="nid"/>
-        <result property="locked" column="locked"/>
+        <result property="dictType" column="dict_type"/>
         <result property="remark" column="remark"/>
         <result property="createTime" column="create_time"/>
         <collection property="itemList" ofType="com.eghm.vo.sys.DictItemResponse">

@@ -364,9 +364,29 @@ public enum ErrorCode {
     FILE_CREATE_ERROR(2096, "创建文件失败"),
 
     /**
-     * 该数据字典已锁定,不支持删除
+     * 显示值重复啦~
      */
-    DICT_LOCKED_ERROR(2099, "该数据字典已锁定,不支持删除"),
+    DICT_SHOW_REPEAT_ERROR(2097, "显示值重复啦~"),
+
+    /**
+     * 隐藏值重复啦~
+     */
+    DICT_HIDDEN_REPEAT_ERROR(2098, "隐藏值重复啦~"),
+
+    /**
+     * 系统字典不支持删除
+     */
+    DICT_LOCKED_ERROR(2099, "系统字典不支持删除"),
+
+    /**
+     * 数据字典名称重复啦~
+     */
+    DICT_REPEAT_ERROR(2100, "字典名称重复啦~"),
+
+    /**
+     * 字典编码重复啦~
+     */
+    DICT_NID_REPEAT_ERROR(2101, "字典编码重复啦~"),
 
     /**
      * 同级菜单最多90个

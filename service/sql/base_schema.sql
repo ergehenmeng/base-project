@@ -391,7 +391,7 @@ CREATE TABLE `sys_dict`
     `title`       varchar(50)  DEFAULT NULL COMMENT '字典中文名称',
     `nid`         varchar(50)  DEFAULT NULL COMMENT '字典编码',
     `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:正常 1:已删除',
-    `locked`      bit(1)       DEFAULT b'0' COMMENT '锁定状态(禁止编辑) 0:未锁定 1:锁定',
+    `dict_type`   tinyint(1)   DEFAULT '2' COMMENT '字典分类: 1: 系统字典 2: 业务字典',
     `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',

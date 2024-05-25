@@ -13,6 +13,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class DictQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("是否锁定 true:锁定 false:未锁定")
-    private Boolean locked;
+    @ApiModelProperty("字典分类: 1: 系统字典 2: 业务字典")
+    private Integer dictType;
 }

@@ -2,7 +2,10 @@ package com.eghm.service.sys.impl;
 
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.cache.CacheProxyService;
 import com.eghm.dto.dict.*;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
@@ -11,7 +14,6 @@ import com.eghm.mapper.SysDictMapper;
 import com.eghm.model.SysDict;
 import com.eghm.model.SysDictItem;
 import com.eghm.service.business.CommonService;
-import com.eghm.cache.CacheProxyService;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.sys.DictResponse;
@@ -61,12 +63,15 @@ public class SysDictServiceImpl implements SysDictService {
 
     @Override
     public void create(DictAddRequest request) {
+        this.redoTitle(request.getTitle(), null);
+        this.redoNid(request.getNid());
         SysDict sysDict = DataUtil.copy(request, SysDict.class);
         sysDictMapper.insert(sysDict);
     }
 
     @Override
     public void update(DictEditRequest request) {
+        this.redoTitle(request.getTitle(), request.getId());
         SysDict sysDict = DataUtil.copy(request, SysDict.class);
         sysDictMapper.updateById(sysDict);
     }
@@ -77,19 +82,23 @@ public class SysDictServiceImpl implements SysDictService {
         if (sysDict == null) {
             return;
         }
-        if (Boolean.TRUE.equals(sysDict.getLocked())) {
+        if (sysDict.getDictType() == 1) {
             throw new BusinessException(ErrorCode.DICT_LOCKED_ERROR);
         }
     }
 
     @Override
     public void itemCreate(DictItemAddRequest request) {
+        this.redoItemShow(request.getShowValue(), request.getNid(), null);
+        this.redoItemHidden(request.getHiddenValue(), request.getNid(), null);
         SysDictItem dictItem = DataUtil.copy(request, SysDictItem.class);
         sysDictItemMapper.insert(dictItem);
     }
 
     @Override
     public void itemUpdate(DictItemEditRequest request) {
+        this.redoItemShow(request.getShowValue(), request.getNid(), request.getId());
+        this.redoItemHidden(request.getHiddenValue(), request.getNid(), request.getId());
         SysDictItem dictItem = DataUtil.copy(request, SysDictItem.class);
         sysDictItemMapper.updateById(dictItem);
     }
@@ -122,7 +131,68 @@ public class SysDictServiceImpl implements SysDictService {
             return Lists.newArrayListWithCapacity(4);
         }
         List<SysDictItem> dictList = this.getDictByNid(nid);
-
         return commonService.parseTags(dictList, tagIds);
+    }
+
+    /**
+     * 校验数据字典是否重复
+     *
+     * @param title 名称
+     * @param id id 编辑时不能为空
+     */
+    private void redoTitle(String title, Long id) {
+        LambdaQueryWrapper<SysDict> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysDict::getTitle, title);
+        wrapper.ne(id != null, SysDict::getId, id);
+        if (sysDictMapper.selectCount(wrapper) > 0) {
+            throw new BusinessException(ErrorCode.DICT_REPEAT_ERROR);
+        }
+    }
+
+    /**
+     * 校验数据字典编码是否重复
+     *
+     * @param nid nid
+     */
+    private void redoNid(String nid) {
+        LambdaQueryWrapper<SysDict> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysDict::getNid, nid);
+        if (sysDictMapper.selectCount(wrapper) > 0) {
+            throw new BusinessException(ErrorCode.DICT_NID_REPEAT_ERROR);
+        }
+    }
+
+    /**
+     * 校验数据字典子项显示值是否重复
+     *
+     * @param showValue 显示值
+     * @param nid       字典编码
+     * @param id id 编辑时不能为空
+     */
+    private void redoItemShow(String showValue, String nid, Long id) {
+        LambdaQueryWrapper<SysDictItem> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysDictItem::getShowValue, showValue);
+        wrapper.eq(SysDictItem::getNid, nid);
+        wrapper.ne(id != null, SysDictItem::getId, id);
+        if (sysDictItemMapper.selectCount(wrapper) > 0) {
+            throw new BusinessException(ErrorCode.DICT_SHOW_REPEAT_ERROR);
+        }
+    }
+
+    /**
+     * 校验数据字典子项value是否重复
+     *
+     * @param hiddenValue 隐藏值
+     * @param nid    字典编码
+     * @param id id 编辑时不能为空
+     */
+    private void redoItemHidden(Integer hiddenValue, String nid, Long id) {
+        LambdaQueryWrapper<SysDictItem> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysDictItem::getHiddenValue, hiddenValue);
+        wrapper.eq(SysDictItem::getNid, nid);
+        wrapper.ne(id != null, SysDictItem::getId, id);
+        if (sysDictItemMapper.selectCount(wrapper) > 0) {
+            throw new BusinessException(ErrorCode.DICT_HIDDEN_REPEAT_ERROR);
+        }
     }
 }
