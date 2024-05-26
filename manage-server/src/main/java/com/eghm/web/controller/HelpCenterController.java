@@ -10,6 +10,8 @@ import com.eghm.dto.help.HelpEditRequest;
 import com.eghm.dto.help.HelpQueryRequest;
 import com.eghm.model.HelpCenter;
 import com.eghm.service.common.HelpCenterService;
+import com.eghm.utils.DataUtil;
+import com.eghm.vo.help.HelpCenterResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -48,6 +50,14 @@ public class HelpCenterController {
     public RespBody<Void> update(@Validated @RequestBody HelpEditRequest request) {
         helpCenterService.update(request);
         return RespBody.success();
+    }
+
+    @GetMapping(value = "/select")
+    @ApiOperation("详情")
+    public RespBody<HelpCenterResponse> select(@Validated IdDTO dto) {
+        HelpCenter center = helpCenterService.selectById(dto.getId());
+        HelpCenterResponse response = DataUtil.copy(center, HelpCenterResponse.class);
+        return RespBody.success(response);
     }
 
     @PostMapping(value = "/sort", consumes = MediaType.APPLICATION_JSON_VALUE)

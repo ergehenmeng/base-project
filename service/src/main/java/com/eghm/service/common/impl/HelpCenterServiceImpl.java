@@ -65,6 +65,11 @@ public class HelpCenterServiceImpl implements HelpCenterService {
     }
 
     @Override
+    public HelpCenter selectById(Long id) {
+        return helpCenterMapper.selectById(id);
+    }
+
+    @Override
     public List<HelpCenterVO> list(HelpQueryDTO dto) {
         List<HelpCenter> list = helpCenterMapper.getList(dto.getHelpType(), dto.getQueryName());
         return DataUtil.copy(list, HelpCenterVO.class);

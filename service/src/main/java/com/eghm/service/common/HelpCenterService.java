@@ -54,6 +54,14 @@ public interface HelpCenterService {
     void delete(Long id);
 
     /**
+     * 根据id查询
+     *
+     * @param id id
+     * @return 帮助说明
+     */
+    HelpCenter selectById(Long id);
+
+    /**
      * 按分类查询帮助信息
      *
      * @param dto 查询条件
