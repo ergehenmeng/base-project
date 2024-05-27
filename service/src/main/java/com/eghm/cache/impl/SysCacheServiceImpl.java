@@ -75,8 +75,12 @@ public class SysCacheServiceImpl implements SysCacheService {
                 case CacheConstant.ITEM_TAG:
                     clearCacheService.clearItemTag();
                     break;
-                case CacheConstant.FREEMARKER_TEMPLATE:
+                case CacheConstant.EMAIL_TEMPLATE:
                     clearCacheService.clearFreemarkerTemplate();
+                    clearCacheService.clearEmailTemplate();
+                    break;
+                case CacheConstant.IN_MAIL_TEMPLATE:
+                    clearCacheService.clearInMailTemplate();
                     break;
                 case CacheConstant.SYS_AREA:
                     clearCacheService.clearSysArea();

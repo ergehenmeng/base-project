@@ -4,15 +4,16 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.dfa.FoundWord;
 import cn.hutool.dfa.SensitiveUtil;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.mapper.SensitiveWordMapper;
 import com.eghm.model.SensitiveWord;
 import com.eghm.service.common.SensitiveWordService;
 import com.eghm.utils.LoggerUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.compress.utils.Lists;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -36,15 +37,17 @@ public class SensitiveWordServiceImpl implements SensitiveWordService {
     }
 
     @Override
-    public List<String> match(String keywords) {
-        if (StrUtil.isBlank(keywords)) {
-            return Lists.newArrayList();
+    public Page<SensitiveWord> getByPage(PagingQuery query) {
+        LambdaQueryWrapper<SensitiveWord> wrapper = Wrappers.lambdaQuery();
+        if (StrUtil.isNotBlank(query.getQueryName())) {
+            List<FoundWord> wordList = SensitiveUtil.getFoundAllSensitive(query.getQueryName());
+            if (CollUtil.isEmpty(wordList)) {
+                return new Page<>();
+            }
+            wrapper.in(SensitiveWord::getKeyword, wordList.stream().map(FoundWord::getFoundWord).collect(Collectors.toList()));
         }
-        List<FoundWord> wordList = SensitiveUtil.getFoundAllSensitive(keywords);
-        if (CollUtil.isEmpty(wordList)) {
-            return Lists.newArrayList();
-        }
-        return wordList.stream().map(FoundWord::getFoundWord).collect(Collectors.toList());
+        wrapper.orderByDesc(SensitiveWord::getId);
+        return sensitiveWordMapper.selectPage(query.createPage(), wrapper);
     }
 
     @Override
@@ -57,9 +60,19 @@ public class SensitiveWordServiceImpl implements SensitiveWordService {
     }
 
     @Override
-    public void delete(String keyword) {
-        LambdaUpdateWrapper<SensitiveWord> wrapper = Wrappers.<SensitiveWord>lambdaUpdate().eq(SensitiveWord::getKeyword, keyword);
-        sensitiveWordMapper.delete(wrapper);
+    public void create(String keyword) {
+        List<SensitiveWord> wordList = sensitiveWordMapper.selectList(Wrappers.<SensitiveWord>lambdaQuery().eq(SensitiveWord::getKeyword, keyword));
+        if (CollUtil.isEmpty(wordList)) {
+            SensitiveWord word = new SensitiveWord();
+            word.setKeyword(keyword);
+            sensitiveWordMapper.insert(word);
+        }
+    }
+
+    @Override
+    public void delete(Long id) {
+        sensitiveWordMapper.deleteById(id);
         this.reloadLexicon();
     }
+
 }

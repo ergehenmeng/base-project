@@ -67,5 +67,14 @@ public interface ClearCacheService {
      */
     void clearFreemarkerTemplate();
 
+    /**
+     * 清除邮件模板
+     */
+    void clearEmailTemplate();
+
+    /**
+     * 清除站内信模板
+     */
+    void clearInMailTemplate();
 }
 

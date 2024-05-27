@@ -6,7 +6,6 @@
         select
         t.id,
         t.state,
-        t.member_id,
         t.feedback_type,
         t.version,
         t.system_version,
@@ -22,7 +21,8 @@
         from feedback_log t left join member r on t.member_id = r.id
         <where>
             <if test="param.queryName != null and param.queryName != ''">
-                and r.mobile = #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}
+                and (r.mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
+                     r.nick_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%'))
             </if>
             <if test="param.feedbackType != null">
                 and t.feedback_type = #{param.feedbackType}

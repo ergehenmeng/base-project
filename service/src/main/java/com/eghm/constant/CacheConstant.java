@@ -68,11 +68,6 @@ public class CacheConstant {
     public static final String BLACK_ROSTER = "black_roster";
 
     /**
-     * freemarker模板缓存 主要针对邮件模板
-     */
-    public static final String FREEMARKER_TEMPLATE = "freemarker_template";
-
-    /**
      * 邮件模板
      */
     public static final String EMAIL_TEMPLATE = "email_template";

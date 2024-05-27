@@ -102,4 +102,16 @@ public class ClearCacheServiceImpl implements ClearCacheService {
             configuration.clearTemplateCache();
         }
     }
+
+    @Override
+    @CacheEvict(cacheNames = CacheConstant.EMAIL_TEMPLATE, allEntries = true)
+    public void clearEmailTemplate() {
+        log.info("邮件缓存清除成功");
+    }
+
+    @Override
+    @CacheEvict(cacheNames = CacheConstant.IN_MAIL_TEMPLATE, allEntries = true)
+    public void clearInMailTemplate() {
+        log.info("站内信缓存清除成功");
+    }
 }
