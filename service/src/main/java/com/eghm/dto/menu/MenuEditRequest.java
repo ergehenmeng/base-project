@@ -41,7 +41,7 @@ public class MenuEditRequest {
     @ApiModelProperty(value = "状态 true:启用 false:禁用")
     private Boolean state;
 
-    @ApiModelProperty("显示状态 1:商户显示(该菜单或按钮只对商户开放) 2:系统显示(该菜单或按钮只对系统人员开放) 3:全部显示(该菜单或按钮对商户和系统人员都开放)")
+    @ApiModelProperty("菜单类型: 1:商户菜单(该菜单或按钮只对商户开放) 2:系统菜单(该菜单或按钮只对系统人员开放) 3:通用菜单(该菜单或按钮对商户和系统人员都开放)")
     private Integer displayState;
 
     @ApiModelProperty(value = "备注信息")

@@ -449,7 +449,7 @@ CREATE TABLE `sys_menu`
     `sort`          int(10)             DEFAULT '0' COMMENT '排序规则 小的排在前面',
     `state`         bit(1)              DEFAULT b'1' COMMENT '状态: 1:启用 0:禁用',
     `remark`        varchar(200)        DEFAULT NULL COMMENT '备注信息',
-    `display_state` tinyint(1)          DEFAULT '3' COMMENT '显示状态 1:商户显示 2:系统显示  3:全部显示',
+    `display_state` tinyint(1)          DEFAULT '3' COMMENT '菜单类型: 1:商户菜单 2:系统系统  3:通用菜单',
     `create_time`   datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`   datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,

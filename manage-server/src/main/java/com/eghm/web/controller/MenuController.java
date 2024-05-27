@@ -9,6 +9,7 @@ import com.eghm.dto.menu.MenuEditRequest;
 import com.eghm.dto.menu.MenuQueryRequest;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.vo.menu.MenuBaseResponse;
+import com.eghm.vo.menu.MenuFullResponse;
 import com.eghm.vo.menu.MenuResponse;
 import com.eghm.web.configuration.interceptor.PermInterceptor;
 import io.swagger.annotations.Api;
@@ -43,8 +44,8 @@ public class MenuController {
 
     @GetMapping("/list")
     @ApiOperation("全部菜单")
-    public RespBody<List<MenuResponse>> list() {
-        List<MenuResponse> responseList = sysMenuService.getList();
+    public RespBody<List<MenuFullResponse>> list() {
+        List<MenuFullResponse> responseList = sysMenuService.getList();
         return RespBody.success(responseList);
     }
 

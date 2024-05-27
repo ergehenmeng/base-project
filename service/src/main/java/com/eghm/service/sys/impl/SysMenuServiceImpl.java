@@ -17,6 +17,7 @@ import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.StringUtil;
 import com.eghm.vo.menu.MenuBaseResponse;
+import com.eghm.vo.menu.MenuFullResponse;
 import com.eghm.vo.menu.MenuResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +49,8 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     private final Comparator<MenuResponse> comparator = Comparator.comparing(MenuResponse::getSort);
 
+    private final Comparator<MenuFullResponse> fullComparator = Comparator.comparing(MenuFullResponse::getSort);
+
     @Override
     public Page<MenuBaseResponse> getByPage(MenuQueryRequest request) {
         return sysMenuMapper.getByPage(request.createPage(), request);
@@ -78,9 +81,9 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<MenuResponse> getList() {
-        List<MenuResponse> responseList = sysMenuMapper.getList();
-        return this.treeBin(CommonConstant.ROOT, responseList);
+    public List<MenuFullResponse> getList() {
+        List<MenuFullResponse> responseList = sysMenuMapper.getList();
+        return this.treeBinB(CommonConstant.ROOT, responseList);
     }
 
     @Override
@@ -207,4 +210,16 @@ public class SysMenuServiceImpl implements SysMenuService {
                 .sorted(comparator).collect(Collectors.toList());
     }
 
+    /**
+     * 将菜单列表树化
+     *
+     * @param menuList 菜单列表
+     * @return 菜单列表 树状结构
+     */
+    private List<MenuFullResponse> treeBinB(Long pid, List<MenuFullResponse> menuList) {
+        return menuList.stream()
+                .filter(parent -> pid.equals(parent.getPid()))
+                .peek(parent -> parent.setChildren(this.treeBinB(parent.getId(), menuList)))
+                .sorted(fullComparator).collect(Collectors.toList());
+    }
 }

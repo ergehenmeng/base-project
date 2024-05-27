@@ -1,11 +1,10 @@
 package com.eghm.vo.menu;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -13,13 +12,16 @@ import java.time.LocalDateTime;
  */
 @Data
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
-public class MenuBaseResponse {
+public class MenuFullResponse {
 
     @ApiModelProperty("id主键")
     private Long id;
 
     @ApiModelProperty("菜单名称")
     private String title;
+
+    @ApiModelProperty("父节点ID,一级菜单默认为0")
+    private Long pid;
 
     @ApiModelProperty("图标")
     private String icon;
@@ -45,11 +47,7 @@ public class MenuBaseResponse {
     @ApiModelProperty("备注信息")
     private String remark;
 
-    @ApiModelProperty("开始时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
+    @ApiModelProperty("子菜单")
+    private List<MenuFullResponse> children;
 
-    @ApiModelProperty("更新时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updateTime;
 }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.menu.MenuQueryRequest;
 import com.eghm.model.SysMenu;
 import com.eghm.vo.menu.MenuBaseResponse;
+import com.eghm.vo.menu.MenuFullResponse;
 import com.eghm.vo.menu.MenuResponse;
 import org.apache.ibatis.annotations.Param;
 
@@ -54,7 +55,7 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
      *
      * @return 菜单列表
      */
-    List<MenuResponse> getList();
+    List<MenuFullResponse> getList();
 
     /**
      * 查询某个菜单下的最大子菜单id

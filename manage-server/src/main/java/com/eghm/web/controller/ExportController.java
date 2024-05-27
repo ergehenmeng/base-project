@@ -32,7 +32,7 @@ public class ExportController {
     @GetMapping("/exportMenu")
     @ApiOperation("导出菜单列表")
     public void exportMenu(HttpServletResponse response) {
-        List<MenuResponse> menuList = sysMenuService.getList();
+        List<MenuResponse> menuList = sysMenuService.getSystemList();
         Random random = ThreadLocalRandom.current();
         List<MenuExportVO> voList = DataUtil.copy(menuList, sysMenu -> {
             MenuExportVO vo = DataUtil.copy(sysMenu, MenuExportVO.class);

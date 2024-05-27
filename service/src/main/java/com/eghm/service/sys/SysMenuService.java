@@ -6,6 +6,7 @@ import com.eghm.dto.menu.MenuEditRequest;
 import com.eghm.dto.menu.MenuQueryRequest;
 import com.eghm.model.SysMenu;
 import com.eghm.vo.menu.MenuBaseResponse;
+import com.eghm.vo.menu.MenuFullResponse;
 import com.eghm.vo.menu.MenuResponse;
 
 import java.util.List;
@@ -58,7 +59,7 @@ public interface SysMenuService {
      *
      * @return 菜单列表
      */
-    List<MenuResponse> getList();
+    List<MenuFullResponse> getList();
 
     /**
      * 获取所有可用的按钮菜单

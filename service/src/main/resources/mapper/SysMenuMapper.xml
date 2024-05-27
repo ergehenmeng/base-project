@@ -4,10 +4,10 @@
 
     <select id="getByPage" resultType="com.eghm.vo.menu.MenuBaseResponse" parameterType="com.eghm.dto.menu.MenuQueryRequest">
         SELECT
-            t.id, t.title, t.icon, t.state, t.code, t.pid, t.path, t.sub_path, t.sort, t.grade, t.create_time, t.update_time
+            t.id, t.title, t.icon, t.state, t.code, t.pid, t.path, t.sub_path, t.sort, t.grade, t.display_state, t.create_time, t.update_time
         from sys_menu t
         <where>
-            <if test="param.pid != null">
+            <if test="param.pid != null and param.pid != ''">
                 and t.pid = #{param.pid}
             </if>
             <if test="param.queryName != null and param.queryName != '' ">
@@ -47,9 +47,9 @@
         </if>
     </select>
 
-    <select id="getList" resultType="com.eghm.vo.menu.MenuResponse">
+    <select id="getList" resultType="com.eghm.vo.menu.MenuFullResponse">
         SELECT
-        t.id, t.title, t.icon, t.code, t.pid, t.path, t.sub_path, t.sort, t.grade
+        t.id, t.title, t.icon, t.state, t.display_state, t.code, t.pid, t.path, t.sub_path, t.sort, t.grade, t.remark
         from sys_menu t where t.state = true
     </select>
 
