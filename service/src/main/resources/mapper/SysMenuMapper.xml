@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.SysMenuMapper">
+
+    <select id="getByPage" resultType="com.eghm.vo.menu.MenuBaseResponse" parameterType="com.eghm.dto.menu.MenuQueryRequest">
+        SELECT
+            t.id, t.title, t.icon, t.state, t.code, t.pid, t.path, t.sub_path, t.sort, t.grade, t.create_time, t.update_time
+        from sys_menu t
+        <where>
+            <if test="param.pid != null">
+                and t.pid = #{param.pid}
+            </if>
+            <if test="param.queryName != null and param.queryName != '' ">
+                and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            </if>
+        </where>
+        order by t.id asc, t.sort asc
+    </select>
+
     <select id="getMenuList" resultType="com.eghm.vo.menu.MenuResponse">
         SELECT
         t.id, t.title, t.icon, t.code, t.pid, t.path, t.sort, t.grade

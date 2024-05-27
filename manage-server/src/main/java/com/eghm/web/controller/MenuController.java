@@ -1,10 +1,14 @@
 package com.eghm.web.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.menu.MenuAddRequest;
 import com.eghm.dto.menu.MenuEditRequest;
+import com.eghm.dto.menu.MenuQueryRequest;
 import com.eghm.service.sys.SysMenuService;
+import com.eghm.vo.menu.MenuBaseResponse;
 import com.eghm.vo.menu.MenuResponse;
 import com.eghm.web.configuration.interceptor.PermInterceptor;
 import io.swagger.annotations.Api;
@@ -29,6 +33,13 @@ public class MenuController {
     private final SysMenuService sysMenuService;
 
     private final PermInterceptor permInterceptor;
+
+    @GetMapping("/listPage")
+    @ApiOperation("菜单列表")
+    public RespBody<PageData<MenuBaseResponse>> listPage(MenuQueryRequest request) {
+        Page<MenuBaseResponse> byPage = sysMenuService.getByPage(request);
+        return RespBody.success(PageData.toPage(byPage));
+    }
 
     @GetMapping("/list")
     @ApiOperation("全部菜单")

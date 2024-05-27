@@ -1,6 +1,7 @@
 package com.eghm.dto.menu;
 
 import com.eghm.validation.annotation.OptionInt;
+import com.eghm.validation.annotation.RangeInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -20,6 +21,9 @@ public class MenuEditRequest {
     @NotBlank(message = "菜单名称不能为空")
     private String title;
 
+    @ApiModelProperty("图标")
+    private String icon;
+
     @ApiModelProperty(value = "菜单等级 1:导航菜单 2:按钮菜单", required = true)
     @OptionInt(value = {1, 2}, message = "菜单等级不合法")
     private Integer grade;
@@ -33,9 +37,6 @@ public class MenuEditRequest {
 
     @ApiModelProperty(value = "子菜单url(逗号分割)")
     private String subPath;
-
-    @ApiModelProperty(value = "排序(小-大)")
-    private Integer sort;
 
     @ApiModelProperty(value = "状态 true:启用 false:禁用")
     private Boolean state;

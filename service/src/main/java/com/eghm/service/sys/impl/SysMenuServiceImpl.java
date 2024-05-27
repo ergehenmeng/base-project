@@ -4,9 +4,11 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.menu.MenuAddRequest;
 import com.eghm.dto.menu.MenuEditRequest;
+import com.eghm.dto.menu.MenuQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysMenuMapper;
@@ -14,6 +16,7 @@ import com.eghm.model.SysMenu;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.StringUtil;
+import com.eghm.vo.menu.MenuBaseResponse;
 import com.eghm.vo.menu.MenuResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +47,11 @@ public class SysMenuServiceImpl implements SysMenuService {
     private final SysMenuMapper sysMenuMapper;
 
     private final Comparator<MenuResponse> comparator = Comparator.comparing(MenuResponse::getSort);
+
+    @Override
+    public Page<MenuBaseResponse> getByPage(MenuQueryRequest request) {
+        return sysMenuMapper.getByPage(request.createPage(), request);
+    }
 
     @Override
     public List<MenuResponse> getLeftMenuList(Long userId) {

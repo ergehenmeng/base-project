@@ -1,8 +1,11 @@
 package com.eghm.service.sys;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.menu.MenuAddRequest;
 import com.eghm.dto.menu.MenuEditRequest;
+import com.eghm.dto.menu.MenuQueryRequest;
 import com.eghm.model.SysMenu;
+import com.eghm.vo.menu.MenuBaseResponse;
 import com.eghm.vo.menu.MenuResponse;
 
 import java.util.List;
@@ -12,6 +15,14 @@ import java.util.List;
  * @since 2018/1/26 16:14
  */
 public interface SysMenuService {
+
+    /**
+     * 查询菜单列表
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<MenuBaseResponse> getByPage(MenuQueryRequest request);
 
     /**
      * 获取用户导航菜单列表,不包含按钮菜单
