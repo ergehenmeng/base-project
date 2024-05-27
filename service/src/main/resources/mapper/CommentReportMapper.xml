@@ -11,7 +11,7 @@
         t.content,
         t.create_time
         from comment_report t
-        left join member m on t.member_id = m.id
+        left join `member` m on t.member_id = m.id
         left join comment c on t.comment_id = c.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != '' ">

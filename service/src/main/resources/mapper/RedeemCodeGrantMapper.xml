@@ -11,7 +11,7 @@
         r.nick_name,
         r.mobile
         from redeem_code_grant t
-        left join member r on t.member_id = r.id
+        left join `member` r on t.member_id = r.id
         where t.redeem_code_id = #{param.redeemCodeId}
         <if test="state != null">
             and t.state = #{param.state}

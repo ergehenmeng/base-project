@@ -18,7 +18,8 @@
         r.nick_name,
         r.mobile,
         t.remark
-        from feedback_log t left join member r on t.member_id = r.id
+        from feedback_log t
+        left join `member` r on t.member_id = r.id
         <where>
             <if test="param.queryName != null and param.queryName != ''">
                 and (r.mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or

@@ -9,7 +9,7 @@
         r.mobile,
         t.create_time
         from member_invite_log t
-        left join member r on t.invite_member_id = r.id
+        left join `member` r on t.invite_member_id = r.id
         where t.member_id = #{memberId}
         order by t.id desc
     </select>

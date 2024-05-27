@@ -29,7 +29,7 @@
         t.create_time
         from lottery_log t
         inner join lottery_prize r on t.prize_id = r.id
-        left join member s on t.member_id = s.id
+        left join `member` s on t.member_id = s.id
         where t.lottery_id = #{param.lotteryId} and r.merchant_id = #{param.merchantId}
         <if test="param.winning != null">
             and t.winning = #{param.winning}

@@ -8,7 +8,7 @@
             m.avatar,
             m.nick_name,
             t.starter
-        from item_group_order t left join member m on t.member_id = m.id
+        from item_group_order t left join `member` m on t.member_id = m.id
         where t.deleted = false and t.booking_no = #{bookingNo}
     </select>
 

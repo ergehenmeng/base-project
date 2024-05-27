@@ -19,7 +19,7 @@
         t.elapsed_time,
         t.create_time
        from webapp_log t
-       left join member r on t.member_id = r.id
+       left join `member` r on t.member_id = r.id
        <where>
            <if test="param.queryName != null and param.queryName != ''">
                and (r.nick_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
