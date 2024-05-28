@@ -48,5 +48,21 @@ public interface BannerService {
      * @param id id
      */
     void deleteById(Long id);
+
+    /**
+     * 更新排序
+     *
+     * @param id 主键
+     * @param sort 1~999
+     */
+    void sort(Long id, Integer sort);
+
+    /**
+     * 更新状态
+     *
+     * @param id 主键
+     * @param state 是否可点击
+     */
+    void updateState(Long id, Boolean state);
 }
 

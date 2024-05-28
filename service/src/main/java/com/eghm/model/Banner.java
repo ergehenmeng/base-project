@@ -30,6 +30,9 @@ public class Banner extends BaseEntity {
     @ApiModelProperty("客户端类型: PC,IOS,ANDROID,H5,WECHAT_MINI")
     private String clientType;
 
+    @ApiModelProperty("状态 true:启用 false:禁用")
+    private Boolean state;
+
     @ApiModelProperty("轮播图片地址")
     private String imgUrl;
 

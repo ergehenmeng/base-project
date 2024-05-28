@@ -44,10 +44,6 @@ public class BannerEditRequest {
     @ApiModelProperty(value = "点击后跳转的地址")
     private String jumpUrl;
 
-    @ApiModelProperty(value = "排序规则 小<->大 最小的在最前面", required = true)
-    @NotNull(message = "排序不能为空")
-    private Integer sort;
-
     @ApiModelProperty(value = "开始展示时间(可在指定时间后开始展示)")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @NotNull(message = "开始时间不能为空")

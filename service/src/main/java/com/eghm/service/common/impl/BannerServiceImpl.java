@@ -2,6 +2,7 @@ package com.eghm.service.common.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.banner.BannerAddRequest;
@@ -54,5 +55,21 @@ public class BannerServiceImpl implements BannerService {
     @Override
     public void deleteById(Long id) {
         bannerMapper.deleteById(id);
+    }
+
+    @Override
+    public void sort(Long id, Integer sort) {
+        LambdaUpdateWrapper<Banner> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Banner::getId, id);
+        wrapper.set(Banner::getSort, sort);
+        bannerMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void updateState(Long id, Boolean state) {
+        LambdaUpdateWrapper<Banner> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Banner::getId, id);
+        wrapper.set(Banner::getState, state);
+        bannerMapper.update(null, wrapper);
     }
 }
