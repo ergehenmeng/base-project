@@ -16,7 +16,7 @@ import java.util.List;
 public class MenuResponse {
 
     @ApiModelProperty("id主键")
-    private Long id;
+    private String id;
 
     @ApiModelProperty("菜单名称")
     private String title;
@@ -44,6 +44,6 @@ public class MenuResponse {
     private Integer sort;
 
     @ApiModelProperty("父节点ID,一级菜单默认为0")
-    private Long pid;
+    private String pid;
 
 }

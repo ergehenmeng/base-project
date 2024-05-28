@@ -4,8 +4,6 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.constant.CommonConstant;
 import com.eghm.dto.menu.MenuAddRequest;
 import com.eghm.dto.menu.MenuEditRequest;
 import com.eghm.dto.menu.MenuQueryRequest;
@@ -16,7 +14,6 @@ import com.eghm.model.SysMenu;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.StringUtil;
-import com.eghm.vo.menu.MenuBaseResponse;
 import com.eghm.vo.menu.MenuFullResponse;
 import com.eghm.vo.menu.MenuResponse;
 import lombok.AllArgsConstructor;
@@ -25,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -45,6 +43,11 @@ public class SysMenuServiceImpl implements SysMenuService {
      */
     private static final int MAX = 90;
 
+    /**
+     * 根节点
+     */
+    private static final String ROOT = "0";
+
     private final SysMenuMapper sysMenuMapper;
 
     private final Comparator<MenuResponse> comparator = Comparator.comparing(MenuResponse::getSort);
@@ -52,38 +55,33 @@ public class SysMenuServiceImpl implements SysMenuService {
     private final Comparator<MenuFullResponse> fullComparator = Comparator.comparing(MenuFullResponse::getSort);
 
     @Override
-    public Page<MenuBaseResponse> getByPage(MenuQueryRequest request) {
-        return sysMenuMapper.getByPage(request.createPage(), request);
-    }
-
-    @Override
     public List<MenuResponse> getLeftMenuList(Long userId) {
         List<MenuResponse> list = sysMenuMapper.getMenuList(userId, 1);
-        return this.treeBin(CommonConstant.ROOT, list);
+        return this.treeBin(ROOT, list);
     }
 
     @Override
     public List<MenuResponse> getAdminLeftMenuList() {
         List<MenuResponse> list = sysMenuMapper.getAdminMenuList(1);
-        return this.treeBin(CommonConstant.ROOT, list);
+        return this.treeBin(ROOT, list);
     }
 
     @Override
     public List<MenuResponse> getSystemList() {
         List<MenuResponse> responseList = sysMenuMapper.getAdminMenuList(null);
-        return this.treeBin(CommonConstant.ROOT, responseList);
+        return this.treeBin(ROOT, responseList);
     }
 
     @Override
     public List<MenuResponse> getMerchantList() {
         List<MenuResponse> responseList = sysMenuMapper.getMerchantMenuList(null);
-        return this.treeBin(CommonConstant.ROOT, responseList);
+        return this.treeBin(ROOT, responseList);
     }
 
     @Override
-    public List<MenuFullResponse> getList() {
-        List<MenuFullResponse> responseList = sysMenuMapper.getList();
-        return this.treeBinB(CommonConstant.ROOT, responseList);
+    public List<MenuFullResponse> getList(MenuQueryRequest request) {
+        List<MenuFullResponse> responseList = sysMenuMapper.getList(request);
+        return this.treeBinB(ROOT, responseList);
     }
 
     @Override
@@ -119,10 +117,18 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public void updateState(String id, Integer state) {
+    public void updateState(String id, Boolean state) {
         LambdaUpdateWrapper<SysMenu> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(SysMenu::getId, id);
         wrapper.set(SysMenu::getState, state);
+        sysMenuMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void sortBy(String id, Integer sortBy) {
+        LambdaUpdateWrapper<SysMenu> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SysMenu::getId, id);
+        wrapper.set(SysMenu::getSort, sortBy);
         sysMenuMapper.update(null, wrapper);
     }
 
@@ -164,6 +170,9 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @param displayState 当前节点的显示状态
      */
     private void checkDisplayState(String pid, Integer displayState) {
+        if (Objects.equals(pid, ROOT)) {
+            return;
+        }
         SysMenu sysMenu = sysMenuMapper.selectById(pid);
         if (sysMenu == null) {
             log.warn("父菜单节点不存在 [{}]", pid);
@@ -203,9 +212,9 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @param menuList 菜单列表
      * @return 菜单列表 树状结构
      */
-    private List<MenuResponse> treeBin(Long pid, List<MenuResponse> menuList) {
+    private List<MenuResponse> treeBin(String pid, List<MenuResponse> menuList) {
         return menuList.stream()
-                .filter(parent -> pid.equals(parent.getPid()))
+                .filter(parent -> Objects.equals(pid, parent.getPid()))
                 .peek(parent -> parent.setChildren(this.treeBin(parent.getId(), menuList)))
                 .sorted(comparator).collect(Collectors.toList());
     }
@@ -216,9 +225,9 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @param menuList 菜单列表
      * @return 菜单列表 树状结构
      */
-    private List<MenuFullResponse> treeBinB(Long pid, List<MenuFullResponse> menuList) {
+    private List<MenuFullResponse> treeBinB(String pid, List<MenuFullResponse> menuList) {
         return menuList.stream()
-                .filter(parent -> pid.equals(parent.getPid()))
+                .filter(parent -> Objects.equals(pid, parent.getPid()))
                 .peek(parent -> parent.setChildren(this.treeBinB(parent.getId(), menuList)))
                 .sorted(fullComparator).collect(Collectors.toList());
     }

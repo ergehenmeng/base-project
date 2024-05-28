@@ -2,21 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.SysMenuMapper">
 
-    <select id="getByPage" resultType="com.eghm.vo.menu.MenuBaseResponse" parameterType="com.eghm.dto.menu.MenuQueryRequest">
-        SELECT
-            t.id, t.title, t.icon, t.state, t.code, t.pid, t.path, t.sub_path, t.sort, t.grade, t.display_state, t.create_time, t.update_time
-        from sys_menu t
-        <where>
-            <if test="param.pid != null and param.pid != ''">
-                and t.pid = #{param.pid}
-            </if>
-            <if test="param.queryName != null and param.queryName != '' ">
-                and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
-            </if>
-        </where>
-        order by t.id asc, t.sort asc
-    </select>
-
     <select id="getMenuList" resultType="com.eghm.vo.menu.MenuResponse">
         SELECT
         t.id, t.title, t.icon, t.code, t.pid, t.path, t.sort, t.grade
@@ -47,10 +32,24 @@
         </if>
     </select>
 
-    <select id="getList" resultType="com.eghm.vo.menu.MenuFullResponse">
+    <select id="getList" resultType="com.eghm.vo.menu.MenuFullResponse" parameterType="com.eghm.dto.menu.MenuQueryRequest">
         SELECT
-        t.id, t.title, t.icon, t.state, t.display_state, t.code, t.pid, t.path, t.sub_path, t.sort, t.grade, t.remark
-        from sys_menu t where t.state = true
+        t.id, t.title, t.icon, t.state, t.display_state, t.pid, t.path, t.sub_path, t.sort, t.grade, t.update_time, t.remark
+        from sys_menu t
+        <where>
+            <if test="queryName != null and queryName != ''">
+                and t.title like concat('%', #{queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            </if>
+            <if test="state != null">
+                and t.state = #{state}
+            </if>
+            <if test="displayState != null">
+                and t.display_state = #{displayState}
+            </if>
+            <if test="grade != null">
+                and t.grade = #{grade}
+            </if>
+        </where>
     </select>
 
     <select id="getMaxId" resultType="string">

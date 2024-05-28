@@ -18,7 +18,6 @@ public class StateRequest {
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "状态", required = true)
-    @OptionInt(value = {0, 1}, message = "状态不能为空")
-    private Integer state;
+    @ApiModelProperty(value = "状态 true:启用 false:禁用", required = true)
+    private Boolean state;
 }

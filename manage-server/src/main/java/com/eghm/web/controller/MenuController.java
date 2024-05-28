@@ -1,14 +1,13 @@
 package com.eghm.web.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
-import com.eghm.dto.ext.PageData;
+import com.eghm.dto.SortByDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.menu.MenuAddRequest;
 import com.eghm.dto.menu.MenuEditRequest;
 import com.eghm.dto.menu.MenuQueryRequest;
+import com.eghm.dto.poi.StateRequest;
 import com.eghm.service.sys.SysMenuService;
-import com.eghm.vo.menu.MenuBaseResponse;
 import com.eghm.vo.menu.MenuFullResponse;
 import com.eghm.vo.menu.MenuResponse;
 import com.eghm.web.configuration.interceptor.PermInterceptor;
@@ -35,17 +34,10 @@ public class MenuController {
 
     private final PermInterceptor permInterceptor;
 
-    @GetMapping("/listPage")
-    @ApiOperation("菜单列表")
-    public RespBody<PageData<MenuBaseResponse>> listPage(MenuQueryRequest request) {
-        Page<MenuBaseResponse> byPage = sysMenuService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
-    }
-
     @GetMapping("/list")
     @ApiOperation("全部菜单")
-    public RespBody<List<MenuFullResponse>> list() {
-        List<MenuFullResponse> responseList = sysMenuService.getList();
+    public RespBody<List<MenuFullResponse>> list(MenuQueryRequest request) {
+        List<MenuFullResponse> responseList = sysMenuService.getList(request);
         return RespBody.success(responseList);
     }
 
@@ -86,5 +78,21 @@ public class MenuController {
         permInterceptor.refresh();
         return RespBody.success();
     }
+
+    @PostMapping(value = "/sort", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("更新排序")
+    public RespBody<Void> sort(@RequestBody @Validated SortByDTO dto) {
+        sysMenuService.sortBy(String.valueOf(dto.getId()), dto.getSortBy());
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/updateState", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("更新状态")
+    public RespBody<Void> updateState(@Validated @RequestBody StateRequest request) {
+        sysMenuService.updateState(String.valueOf(request.getId()), request.getState());
+        permInterceptor.refresh();
+        return RespBody.success();
+    }
+
 
 }

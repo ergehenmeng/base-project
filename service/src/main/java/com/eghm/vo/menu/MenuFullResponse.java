@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -15,13 +16,13 @@ import java.util.List;
 public class MenuFullResponse {
 
     @ApiModelProperty("id主键")
-    private Long id;
+    private String id;
 
     @ApiModelProperty("菜单名称")
     private String title;
 
     @ApiModelProperty("父节点ID,一级菜单默认为0")
-    private Long pid;
+    private String pid;
 
     @ApiModelProperty("图标")
     private String icon;
@@ -46,6 +47,9 @@ public class MenuFullResponse {
 
     @ApiModelProperty("备注信息")
     private String remark;
+
+    @ApiModelProperty("更新时间")
+    private LocalDateTime updateTime;
 
     @ApiModelProperty("子菜单")
     private List<MenuFullResponse> children;

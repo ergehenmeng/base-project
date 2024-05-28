@@ -1,11 +1,9 @@
 package com.eghm.service.sys;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.menu.MenuAddRequest;
 import com.eghm.dto.menu.MenuEditRequest;
 import com.eghm.dto.menu.MenuQueryRequest;
 import com.eghm.model.SysMenu;
-import com.eghm.vo.menu.MenuBaseResponse;
 import com.eghm.vo.menu.MenuFullResponse;
 import com.eghm.vo.menu.MenuResponse;
 
@@ -16,14 +14,6 @@ import java.util.List;
  * @since 2018/1/26 16:14
  */
 public interface SysMenuService {
-
-    /**
-     * 查询菜单列表
-     *
-     * @param request 查询条件
-     * @return 列表
-     */
-    Page<MenuBaseResponse> getByPage(MenuQueryRequest request);
 
     /**
      * 获取用户导航菜单列表,不包含按钮菜单
@@ -57,9 +47,10 @@ public interface SysMenuService {
     /**
      * 获取所有可用的菜单+按钮菜单
      *
+     * @param request 查询条件
      * @return 菜单列表
      */
-    List<MenuFullResponse> getList();
+    List<MenuFullResponse> getList(MenuQueryRequest request);
 
     /**
      * 获取所有可用的按钮菜单
@@ -93,9 +84,17 @@ public interface SysMenuService {
      * 更新菜单状态
      *
      * @param id    id
-     * @param state 0:禁用 1:启用
+     * @param state false:禁用 true:启用
      */
-    void updateState(String id, Integer state);
+    void updateState(String id, Boolean state);
+
+    /**
+     * 更新菜单排序
+     *
+     * @param id    id
+     * @param sortBy 排序
+     */
+    void sortBy(String id, Integer sortBy);
 
     /**
      * 查询用户的菜单权限标识符

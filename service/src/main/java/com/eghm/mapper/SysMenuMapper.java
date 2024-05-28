@@ -1,10 +1,8 @@
 package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.menu.MenuQueryRequest;
 import com.eghm.model.SysMenu;
-import com.eghm.vo.menu.MenuBaseResponse;
 import com.eghm.vo.menu.MenuFullResponse;
 import com.eghm.vo.menu.MenuResponse;
 import org.apache.ibatis.annotations.Param;
@@ -15,15 +13,6 @@ import java.util.List;
  * @author 二哥很猛
  */
 public interface SysMenuMapper extends BaseMapper<SysMenu> {
-
-    /**
-     * 分页查询菜单
-     *
-     * @param page 分页信息
-     * @param request 查询条件
-     * @return 菜单列表
-     */
-    Page<MenuBaseResponse> getByPage(Page<MenuBaseResponse> page, @Param("param") MenuQueryRequest request);
 
     /**
      * 获取某用户的菜单
@@ -55,7 +44,7 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
      *
      * @return 菜单列表
      */
-    List<MenuFullResponse> getList();
+    List<MenuFullResponse> getList(MenuQueryRequest request);
 
     /**
      * 查询某个菜单下的最大子菜单id
