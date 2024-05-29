@@ -5,7 +5,7 @@
     <select id="getBannerList" resultType="com.eghm.vo.banner.BannerVO" >
         select
         title, img_url, jump_url, click
-        from banner where
+        from banner where state = true and
         <!-- 非实时性数据,直接取数据库时间,结束时间 <= now或者没有结束时间 开始时间大于当前时间, 由于移动端使用了缓存,因此在更新时需要刷新缓存 -->
         (end_time &lt;= now() or end_time is null) and start_time &gt;= now()
         and client_type = #{clientType} and banner_type = #{bannerType} order by sort

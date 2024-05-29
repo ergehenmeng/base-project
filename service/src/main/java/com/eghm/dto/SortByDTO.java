@@ -20,6 +20,6 @@ public class SortByDTO {
     private Long id;
 
     @ApiModelProperty(value = "id", required = true)
-    @RangeInt(min = 1, max = 999, message = "排序字段应为1~999之间")
+    @RangeInt(max = 999, message = "排序字段应为0~999之间")
     private Integer sortBy;
 }
