@@ -3,6 +3,7 @@ package com.eghm.service.common.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constants.ConfigConstant;
@@ -45,8 +46,10 @@ public class AppVersionServiceImpl implements AppVersionService {
     @Override
     public Page<AppVersion> getByPage(VersionQueryRequest request) {
         LambdaQueryWrapper<AppVersion> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), AppVersion::getVersion, request.getQueryName());
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), AppVersion::getRemark, request.getQueryName());
         wrapper.eq(StrUtil.isNotBlank(request.getChannel()), AppVersion::getChannel, request.getChannel());
+        wrapper.eq(request.getState() != null, AppVersion::getState, request.getState());
+        wrapper.orderByDesc(AppVersion::getId);
         return appVersionMapper.selectPage(request.createPage(), wrapper);
     }
 
@@ -55,6 +58,7 @@ public class AppVersionServiceImpl implements AppVersionService {
         this.redoVersion(request.getVersion());
         AppVersion version = DataUtil.copy(request, AppVersion.class);
         version.setVersionNo(VersionUtil.parseInt(request.getVersion()));
+        version.setState(false);
         appVersionMapper.insert(version);
     }
 
@@ -62,6 +66,14 @@ public class AppVersionServiceImpl implements AppVersionService {
     public void update(VersionEditRequest request) {
         AppVersion version = DataUtil.copy(request, AppVersion.class);
         appVersionMapper.updateById(version);
+    }
+
+    @Override
+    public void updateState(Long id, Boolean state) {
+        LambdaUpdateWrapper<AppVersion> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(AppVersion::getId, id);
+        wrapper.set(AppVersion::getState, state);
+        appVersionMapper.update(null, wrapper);
     }
 
     @Override

@@ -19,10 +19,6 @@ public class VersionAddRequest {
     @OptionString(value = {"ANDROID", "IOS"}, message = "请选择正确的上架平台")
     private String channel;
 
-    @ApiModelProperty(required = true, value = "上架状态 0:待上架 1:已上架")
-    @NotNull(message = "上架状态不能为空")
-    private Integer state;
-
     @ApiModelProperty(required = true, value = "版本号(0.0.01~99.99.99)")
     @NotBlank(message = "版本号不能为空")
     private String version;

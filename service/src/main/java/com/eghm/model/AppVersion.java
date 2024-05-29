@@ -27,6 +27,9 @@ public class AppVersion extends BaseEntity {
     @ApiModelProperty("版本号:10208")
     private Integer versionNo;
 
+    @ApiModelProperty("上架状态 false:待上架 true:已上架")
+    private Boolean state;
+
     @ApiModelProperty("该版本是否强制更新版本 0:否 1:是")
     private Boolean forceUpdate;
 

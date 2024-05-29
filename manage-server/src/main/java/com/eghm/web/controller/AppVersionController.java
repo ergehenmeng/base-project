@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.poi.StateRequest;
 import com.eghm.dto.version.VersionAddRequest;
 import com.eghm.dto.version.VersionEditRequest;
 import com.eghm.dto.version.VersionQueryRequest;
@@ -46,6 +47,14 @@ public class AppVersionController {
     @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody VersionEditRequest request) {
         appVersionService.update(request);
+        return RespBody.success();
+    }
+
+
+    @PostMapping(value = "/updateState", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("上下架")
+    public RespBody<Void> updateState(@Validated @RequestBody StateRequest request) {
+        appVersionService.updateState(request.getId(), request.getState());
         return RespBody.success();
     }
 

@@ -31,7 +31,7 @@ CREATE TABLE `app_version`
     `remark`       varchar(500)                 DEFAULT NULL COMMENT '备注信息:版本更新的东西或解决的问题',
     `deleted`      bit(1)                       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     `update_time`  datetime                     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `state`        tinyint(1) unsigned          DEFAULT '0' COMMENT '上架状态 0:待上架 1:已上架',
+    `state`        bit(1)                       DEFAULT b'0' COMMENT '上架状态 0:待上架 1:已上架',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='APP版本管理表';

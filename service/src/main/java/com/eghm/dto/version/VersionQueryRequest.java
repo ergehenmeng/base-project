@@ -14,8 +14,8 @@ import lombok.Setter;
 @Getter
 public class VersionQueryRequest extends PagingQuery {
 
-    @ApiModelProperty(value = "上架状态 0:待上架 1:已上架")
-    private Integer state;
+    @ApiModelProperty(value = "上架状态 false:待上架 true:已上架")
+    private Boolean state;
 
     @ApiModelProperty(value = "平台: ANDROID, IOS")
     @OptionString(value = {"ANDROID", "IOS"}, message = "请选择正确的平台", required = false)

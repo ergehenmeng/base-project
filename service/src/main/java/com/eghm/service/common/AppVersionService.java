@@ -36,6 +36,14 @@ public interface AppVersionService {
     void update(VersionEditRequest request);
 
     /**
+     * 更新状态
+     *
+     * @param id id
+     * @param state 状态
+     */
+    void updateState(Long id, Boolean state);
+
+    /**
      * 1.获取系统配置的最新版本
      * 2.如果用户版
      * 如果下载地址永久不变,则该方法返回的url可以作废,
