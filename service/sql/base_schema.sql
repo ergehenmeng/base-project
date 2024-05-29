@@ -747,7 +747,7 @@ CREATE TABLE `pay_bank`
 DROP TABLE IF EXISTS `sys_notice`;
 CREATE TABLE `sys_notice`
 (
-    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `title`       varchar(30) DEFAULT NULL COMMENT '公告标题',
     `notice_type` tinyint(2)  DEFAULT NULL COMMENT '公告分类',
     `content`     text COMMENT '公告内容',

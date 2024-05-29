@@ -9,6 +9,7 @@ import com.eghm.dto.notice.NoticeEditRequest;
 import com.eghm.dto.notice.NoticeQueryRequest;
 import com.eghm.model.SysNotice;
 import com.eghm.service.common.SysNoticeService;
+import com.eghm.vo.notice.NoticeResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -30,8 +31,8 @@ public class SysNoticeController {
 
     @ApiOperation("列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<SysNotice>> listPage(NoticeQueryRequest request) {
-        Page<SysNotice> byPage = sysNoticeService.getByPage(request);
+    public RespBody<PageData<NoticeResponse>> listPage(NoticeQueryRequest request) {
+        Page<NoticeResponse> byPage = sysNoticeService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 

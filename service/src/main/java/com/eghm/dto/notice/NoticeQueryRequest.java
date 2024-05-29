@@ -16,4 +16,6 @@ public class NoticeQueryRequest extends PagingQuery {
     @ApiModelProperty("公告类型")
     private Integer noticeType;
 
+    @ApiModelProperty("公告状态 0:未发布 1:已发布")
+    private Integer state;
 }

@@ -7,6 +7,7 @@ import com.eghm.dto.notice.NoticeEditRequest;
 import com.eghm.dto.notice.NoticeQueryRequest;
 import com.eghm.model.SysNotice;
 import com.eghm.vo.notice.NoticeDetailVO;
+import com.eghm.vo.notice.NoticeResponse;
 import com.eghm.vo.notice.NoticeVO;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface SysNoticeService {
      * @param request 查询条件
      * @return 结果集
      */
-    Page<SysNotice> getByPage(NoticeQueryRequest request);
+    Page<NoticeResponse> getByPage(NoticeQueryRequest request);
 
     /**
      * 获取公告前几条标题信息,具体多少条由系统参数notice_limit控制

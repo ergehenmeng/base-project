@@ -1,6 +1,5 @@
 package com.eghm.service.common.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -20,6 +19,7 @@ import com.eghm.service.common.SysNoticeService;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.notice.NoticeDetailVO;
+import com.eghm.vo.notice.NoticeResponse;
 import com.eghm.vo.notice.NoticeVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,12 +45,8 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     private final SysConfigApi sysConfigApi;
 
     @Override
-    public Page<SysNotice> getByPage(NoticeQueryRequest request) {
-        LambdaQueryWrapper<SysNotice> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SysNotice::getTitle, request.getQueryName());
-        wrapper.eq(request.getNoticeType() != null, SysNotice::getNoticeType, request.getNoticeType());
-        wrapper.last(" order by update_time desc, id desc ");
-        return sysNoticeMapper.selectPage(request.createPage(), wrapper);
+    public Page<NoticeResponse> getByPage(NoticeQueryRequest request) {
+        return sysNoticeMapper.getByPage(request.createPage(), request);
     }
 
     @Override
