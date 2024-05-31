@@ -113,8 +113,10 @@ public class ActivityServiceImpl implements ActivityService {
     public ActivityDetailResponse getByDetail(Long id) {
         Activity activity = this.selectByIdRequired(id);
         ActivityDetailResponse response = DataUtil.copy(activity, ActivityDetailResponse.class);
-        Scenic scenic = scenicMapper.selectById(activity.getScenicId());
-        response.setScenicName(scenic.getScenicName());
+        if (activity.getScenicId() != null) {
+            Scenic scenic = scenicMapper.selectById(activity.getScenicId());
+            response.setScenicName(scenic.getScenicName());
+        }
         return response;
     }
 

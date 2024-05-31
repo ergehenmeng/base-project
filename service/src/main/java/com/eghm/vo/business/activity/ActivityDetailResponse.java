@@ -27,11 +27,8 @@ public class ActivityDetailResponse {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate nowDate;
 
-    @ApiModelProperty(value = "开始时间HH:mm")
-    private String startTime;
-
-    @ApiModelProperty(value = "结束时间HH:mm")
-    private String endTime;
+    @ApiModelProperty(value = "活动时间")
+    private String activityTime;
 
     @ApiModelProperty(value = "活动地点")
     private String address;

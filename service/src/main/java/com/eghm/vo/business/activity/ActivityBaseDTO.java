@@ -22,9 +22,6 @@ public class ActivityBaseDTO {
     @ApiModelProperty(value = "活动地点")
     private String address;
 
-    @ApiModelProperty(value = "开始时间HH:mm")
-    private String startTime;
-
-    @ApiModelProperty(value = "结束时间HH:mm")
-    private String endTime;
+    @ApiModelProperty(value = "活动时间")
+    private String activityTime;
 }

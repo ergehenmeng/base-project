@@ -25,13 +25,9 @@ public class ActivityEditRequest {
     @WordChecker(message = "活动名称存在敏感词")
     private String title;
 
-    @ApiModelProperty(value = "开始时间HH:mm", required = true)
-    @NotNull(message = "开始时间不能为空")
-    private String startTime;
-
-    @ApiModelProperty(value = "结束时间HH:mm", required = true)
-    @NotNull(message = "结束时间不能为空")
-    private String endTime;
+    @ApiModelProperty(value = "活动时间", required = true)
+    @NotBlank(message = "活动时间不能为空")
+    private String activityTime;
 
     @ApiModelProperty(value = "活动地点", required = true)
     @NotNull(message = "活动地点不能为空")
