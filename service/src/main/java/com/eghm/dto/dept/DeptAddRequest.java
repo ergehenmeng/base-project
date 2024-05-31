@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -20,11 +21,11 @@ import javax.validation.constraints.NotNull;
 public class DeptAddRequest extends ActionRecord {
 
     @ApiModelProperty(value = "父节点code", required = true)
-    @NotNull(message = "父节点code不能为空")
+    @NotBlank(message = "父节点code不能为空")
     private String parentCode;
 
     @ApiModelProperty(value = "部门名称", required = true)
-    @NotNull(message = "部门名称不能为空")
+    @NotBlank(message = "部门名称不能为空")
     private String title;
 
     @ApiModelProperty("备注信息")

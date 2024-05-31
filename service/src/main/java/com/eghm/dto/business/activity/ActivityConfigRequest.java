@@ -44,25 +44,21 @@ public class ActivityConfigRequest extends DateComparator {
     @NotNull(message = "截止日期不能为空")
     private LocalDate endDate;
 
-    @ApiModelProperty(value = "开始时间HH:mm", required = true)
-    @NotNull(message = "开始时间不能为空")
-    private String startTime;
-
-    @ApiModelProperty(value = "结束时间HH:mm", required = true)
-    @NotNull(message = "结束时间不能为空")
-    private String endTime;
+    @ApiModelProperty(value = "活动时间", required = true)
+    @NotBlank(message = "活动时间不能为空")
+    private String activityTime;
 
     @ApiModelProperty(value = "活动地点", required = true)
-    @NotNull(message = "活动地点不能为空")
+    @NotBlank(message = "活动地点不能为空")
     @WordChecker(message = "活动地点存在敏感词")
     private String address;
 
     @ApiModelProperty(value = "活动封面图片", required = true)
-    @NotNull(message = "活动封面图片不能为空")
+    @NotBlank(message = "活动封面图片不能为空")
     private String coverUrl;
 
     @ApiModelProperty(value = "活动详细介绍", required = true)
-    @NotNull(message = "活动详细介绍不能为空")
+    @NotBlank(message = "活动详细介绍不能为空")
     @WordChecker(message = "活动详细介绍存在敏感词")
     private String introduce;
 

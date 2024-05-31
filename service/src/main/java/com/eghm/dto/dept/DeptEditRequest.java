@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -24,7 +25,7 @@ public class DeptEditRequest extends ActionRecord {
     private Long id;
 
     @ApiModelProperty(value = "部门名称", required = true)
-    @NotNull(message = "部门名称不能为空")
+    @NotBlank(message = "部门名称不能为空")
     private String title;
 
     @ApiModelProperty("备注信息")

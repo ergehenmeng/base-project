@@ -1,6 +1,5 @@
 package com.eghm.dto.poi;
 
-import com.eghm.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

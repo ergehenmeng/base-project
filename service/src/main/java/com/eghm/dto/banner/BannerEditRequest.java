@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -22,7 +23,7 @@ public class BannerEditRequest {
     private Long id;
 
     @ApiModelProperty(value = "标题名称", required = true)
-    @NotNull(message = "标题不能为空")
+    @NotBlank(message = "标题不能为空")
     @WordChecker(message = "标题存在敏感词")
     private String title;
 
@@ -38,7 +39,7 @@ public class BannerEditRequest {
     private String clientType;
 
     @ApiModelProperty(value = "图片地址", required = true)
-    @NotNull(message = "图片地址不能为空")
+    @NotBlank(message = "图片地址不能为空")
     private String imgUrl;
 
     @ApiModelProperty(value = "点击后跳转的地址")
