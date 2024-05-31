@@ -24,11 +24,6 @@ public class NewsConfigEditRequest {
     @Size(max = 10, message = "分类标题最大10字符")
     private String title;
 
-    @ApiModelProperty(value = "资讯编码", required = true)
-    @NotBlank(message = "资讯编码不能为空")
-    @Size(max = 20, message = "资讯编码最大20字符")
-    private String code;
-
     @ApiModelProperty(value = "是否包含标题", required = true)
     @NotNull(message = "是否包含标题不能为空")
     private Boolean includeTitle;

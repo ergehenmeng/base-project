@@ -51,7 +51,7 @@ public class NewsConfigServiceImpl implements NewsConfigService {
     @Override
     public void create(NewsConfigAddRequest request) {
         this.redoTitle(request.getTitle(), null);
-        this.redoCode(request.getCode(), null);
+        this.redoCode(request.getCode());
         NewsConfig config = DataUtil.copy(request, NewsConfig.class);
         this.newsConfigMapper.insert(config);
     }
@@ -59,7 +59,6 @@ public class NewsConfigServiceImpl implements NewsConfigService {
     @Override
     public void update(NewsConfigEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId());
-        this.redoCode(request.getCode(), request.getId());
         NewsConfig config = DataUtil.copy(request, NewsConfig.class);
         newsConfigMapper.updateById(config);
     }
@@ -89,12 +88,10 @@ public class NewsConfigServiceImpl implements NewsConfigService {
      * 检查编号是否重复
      *
      * @param code 编号
-     * @param id   id
      */
-    private void redoCode(String code, Long id) {
+    private void redoCode(String code) {
         LambdaQueryWrapper<NewsConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(NewsConfig::getCode, code);
-        wrapper.ne(id != null, NewsConfig::getId, id);
         Long count = this.newsConfigMapper.selectCount(wrapper);
         if (count > 0) {
             throw new BusinessException(ErrorCode.NEWS_CONFIG_CODE_REDO);
