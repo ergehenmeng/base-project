@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author 二哥很猛
  * @since 2019/11/26 15:33
@@ -35,5 +38,18 @@ public class UploadController {
     public RespBody<FilePath> upload(@RequestParam("file") MultipartFile file) {
         FilePath filePath = fileService.saveFile(file);
         return RespBody.success(filePath);
+    }
+
+    @PostMapping(value = "/multipleUpload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @ApiImplicitParam(name = "files", value = "file流", paramType = "formData", dataType = "file", required = true)
+    @ApiOperation("多文件上传")
+    @SkipPerm
+    public RespBody<List<FilePath>> upload(@RequestParam("files") MultipartFile[] files) {
+        List<FilePath> pathList = new ArrayList<>(16);
+        for (MultipartFile file : files) {
+            FilePath filePath = fileService.saveFile(file);
+            pathList.add(filePath);
+        }
+        return RespBody.success(pathList);
     }
 }
