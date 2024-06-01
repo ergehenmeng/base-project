@@ -1,10 +1,10 @@
 package com.eghm.web.controller;
 
 
+import com.eghm.common.FileService;
 import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.common.FileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -38,18 +35,5 @@ public class UploadController {
     public RespBody<FilePath> upload(@RequestParam("file") MultipartFile file) {
         FilePath filePath = fileService.saveFile(file);
         return RespBody.success(filePath);
-    }
-
-    @PostMapping(value = "/multipleUpload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @ApiImplicitParam(name = "files", value = "file流", paramType = "formData", dataType = "file", required = true)
-    @ApiOperation("多文件上传")
-    @SkipPerm
-    public RespBody<List<FilePath>> upload(@RequestParam("files") MultipartFile[] files) {
-        List<FilePath> pathList = new ArrayList<>(16);
-        for (MultipartFile file : files) {
-            FilePath filePath = fileService.saveFile(file);
-            pathList.add(filePath);
-        }
-        return RespBody.success(pathList);
     }
 }
