@@ -9,12 +9,16 @@ import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.NewsConfig;
 import com.eghm.service.business.NewsConfigService;
+import com.eghm.vo.business.news.NewsConfigResponse;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -55,5 +59,20 @@ public class NewsConfigController {
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         newsConfigService.deleteById(dto.getId());
         return RespBody.success();
+    }
+
+    @ApiOperation("全部资讯分类")
+    @GetMapping("/list")
+    public RespBody<List<NewsConfigResponse>> list() {
+        List<NewsConfigResponse> configList = newsConfigService.getList();
+        return RespBody.success(configList);
+    }
+
+    @ApiOperation("查询资讯配置")
+    @GetMapping(value = "/select")
+    @ApiImplicitParam(name = "code", value = "资讯编码", required = true)
+    public RespBody<NewsConfig> select(@RequestParam("code") String code) {
+        NewsConfig config = newsConfigService.getByCode(code);
+        return RespBody.success(config);
     }
 }

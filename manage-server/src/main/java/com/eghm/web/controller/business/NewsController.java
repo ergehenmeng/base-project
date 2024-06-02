@@ -9,17 +9,13 @@ import com.eghm.dto.business.news.NewsQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.News;
-import com.eghm.service.business.NewsConfigService;
 import com.eghm.service.business.NewsService;
-import com.eghm.vo.business.news.NewsConfigResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -34,20 +30,11 @@ public class NewsController {
 
     private final NewsService newsService;
 
-    private final NewsConfigService newsConfigService;
-
     @ApiOperation("列表")
     @GetMapping("/listPage")
     public RespBody<PageData<News>> getByPage(@Validated NewsQueryRequest request) {
         Page<News> scenicPage = newsService.getByPage(request);
         return RespBody.success(PageData.toPage(scenicPage));
-    }
-
-    @ApiOperation("全部")
-    @GetMapping("/list")
-    public RespBody<List<NewsConfigResponse>> list() {
-        List<NewsConfigResponse> scenicPage = newsConfigService.getList();
-        return RespBody.success(scenicPage);
     }
 
     @ApiOperation("创建")

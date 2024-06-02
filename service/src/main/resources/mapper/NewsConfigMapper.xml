@@ -4,11 +4,6 @@
 
     <select id="getList" resultType="com.eghm.vo.business.news.NewsConfigResponse">
         select code,
-               include_title,
-               include_depict,
-               include_image,
-               include_content,
-               include_video,
                title
         from news_config
         where deleted = false

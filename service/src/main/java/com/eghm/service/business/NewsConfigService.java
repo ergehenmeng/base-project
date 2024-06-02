@@ -55,4 +55,11 @@ public interface NewsConfigService {
      */
     void deleteById(Long id);
 
+    /**
+     * 根据编码查询
+     *
+     * @param code 编码
+     * @return 配置信息
+     */
+    NewsConfig getByCode(String code);
 }

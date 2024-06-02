@@ -2064,6 +2064,11 @@ public enum ErrorCode {
     PAY_CHANNEL_REFRESH(3095, "支付渠道暂不支持,请刷新页面"),
 
     /**
+     * 资讯配置删除啦~
+     */
+    NEWS_CONFIG_NOT_EXIST(3098, "资讯配置删除啦~"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(7000, "微信公众号尚未配置"),
