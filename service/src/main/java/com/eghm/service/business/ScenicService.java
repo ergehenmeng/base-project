@@ -7,6 +7,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.model.Scenic;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.scenic.ScenicDetailVO;
+import com.eghm.vo.business.scenic.ScenicResponse;
 import com.eghm.vo.business.scenic.ScenicVO;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface ScenicService {
      * @param request 查询条件
      * @return 景区信息
      */
-    Page<Scenic> getByPage(ScenicQueryRequest request);
+    Page<ScenicResponse> getByPage(ScenicQueryRequest request);
 
     /**
      * 新增景区

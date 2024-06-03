@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.scenic.ScenicQueryDTO;
+import com.eghm.dto.business.scenic.ScenicQueryRequest;
 import com.eghm.model.Scenic;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.scenic.ScenicResponse;
 import com.eghm.vo.business.scenic.ScenicVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,6 +22,15 @@ import java.util.List;
  * @since 2022-05-27
  */
 public interface ScenicMapper extends BaseMapper<Scenic> {
+
+    /**
+     * 分页查询景区列表
+     *
+     * @param page 分页信息
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<ScenicResponse> listPage(Page<ScenicResponse> page, @Param("param") ScenicQueryRequest request);
 
     /**
      * 查询景区列表

@@ -1,7 +1,6 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -33,6 +32,7 @@ import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.activity.ActivityBaseDTO;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.scenic.ScenicDetailVO;
+import com.eghm.vo.business.scenic.ScenicResponse;
 import com.eghm.vo.business.scenic.ScenicVO;
 import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import com.eghm.vo.business.scenic.ticket.TicketPriceVO;
@@ -72,13 +72,8 @@ public class ScenicServiceImpl implements ScenicService {
     private final MemberCollectService memberCollectService;
 
     @Override
-    public Page<Scenic> getByPage(ScenicQueryRequest request) {
-        LambdaQueryWrapper<Scenic> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(request.getMerchantId() != null, Scenic::getMerchantId, request.getMerchantId());
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Scenic::getScenicName, request.getQueryName());
-        wrapper.eq(request.getState() != null, Scenic::getState, request.getState());
-        wrapper.last(" order by sort, id desc ");
-        return scenicMapper.selectPage(request.createPage(), wrapper);
+    public Page<ScenicResponse> getByPage(ScenicQueryRequest request) {
+        return scenicMapper.listPage(request.createPage(), request);
     }
 
     @Override

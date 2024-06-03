@@ -72,7 +72,7 @@ public class Scenic extends BaseEntity {
     private String depict;
 
     @ApiModelProperty(value = "景区图片")
-    private String coverUrl;
+    private String string;
 
     @ApiModelProperty(value = "景区详细介绍信息")
     private String introduce;

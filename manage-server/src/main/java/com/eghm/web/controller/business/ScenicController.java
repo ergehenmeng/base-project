@@ -13,6 +13,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.model.Scenic;
 import com.eghm.service.business.ScenicService;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.scenic.ScenicResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -33,9 +34,9 @@ public class ScenicController {
 
     @ApiOperation("列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<Scenic>> getByPage(ScenicQueryRequest request) {
+    public RespBody<PageData<ScenicResponse>> getByPage(ScenicQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        Page<Scenic> scenicPage = scenicService.getByPage(request);
+        Page<ScenicResponse> scenicPage = scenicService.getByPage(request);
         return RespBody.success(PageData.toPage(scenicPage));
     }
 
