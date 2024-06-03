@@ -67,6 +67,14 @@ public interface NewsService {
     NewsDetailVO detail(Long id);
 
     /**
+     * 根据id查询资讯
+     *
+     * @param id id
+     * @return 资讯信息
+     */
+    News selectById(Long id);
+
+    /**
      * 点赞或取消点赞
      *
      * @param id id

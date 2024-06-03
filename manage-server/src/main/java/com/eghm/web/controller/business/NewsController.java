@@ -64,4 +64,12 @@ public class NewsController {
         newsService.sortBy(dto.getId(), dto.getSortBy());
         return RespBody.success();
     }
+
+    @ApiOperation("详情")
+    @GetMapping("/select")
+    public RespBody<News> select(@Validated IdDTO request) {
+        News news = newsService.selectById(request.getId());
+        return RespBody.success(news);
+    }
+
 }

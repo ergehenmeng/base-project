@@ -1,10 +1,13 @@
 package com.eghm.dto.business.news;
 
+import com.eghm.convertor.XssEncoder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -28,7 +31,7 @@ public class NewsAddRequest {
     private String depict;
 
     @ApiModelProperty(value = "图集")
-    private String image;
+    private List<String> imageList;
 
     @ApiModelProperty(value = "详细信息", required = true)
     @NotBlank(message = "详细信息不能为空")

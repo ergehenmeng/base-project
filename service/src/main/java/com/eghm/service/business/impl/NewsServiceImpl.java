@@ -1,10 +1,12 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.cache.CacheService;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.business.news.NewsAddRequest;
 import com.eghm.dto.business.news.NewsEditRequest;
@@ -18,7 +20,6 @@ import com.eghm.mapper.NewsMapper;
 import com.eghm.model.News;
 import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.business.NewsService;
-import com.eghm.cache.CacheService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.news.NewsDetailVO;
 import com.eghm.vo.business.news.NewsVO;
@@ -62,6 +63,9 @@ public class NewsServiceImpl implements NewsService {
     public void create(NewsAddRequest request) {
         this.redoTitle(request.getTitle(), request.getCode(), null);
         News copy = DataUtil.copy(request, News.class);
+        if (CollUtil.isNotEmpty(request.getImageList())) {
+            copy.setImage(CollUtil.join(request.getImageList(), ","));
+        }
         newsMapper.insert(copy);
     }
 
@@ -69,6 +73,9 @@ public class NewsServiceImpl implements NewsService {
     public void update(NewsEditRequest request) {
         this.redoTitle(request.getTitle(), request.getCode(), request.getId());
         News copy = DataUtil.copy(request, News.class);
+        if (CollUtil.isNotEmpty(request.getImageList())) {
+            copy.setImage(CollUtil.join(request.getImageList(), ","));
+        }
         newsMapper.updateById(copy);
     }
 
@@ -96,6 +103,11 @@ public class NewsServiceImpl implements NewsService {
         vo.setIsLiked(this.hasGiveLiked(news.getId()));
         vo.setCollect(memberCollectService.checkCollect(id, CollectType.NEWS));
         return vo;
+    }
+
+    @Override
+    public News selectById(Long id) {
+        return newsMapper.selectById(id);
     }
 
     @Override

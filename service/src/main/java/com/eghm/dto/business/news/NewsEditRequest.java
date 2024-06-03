@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -33,7 +34,7 @@ public class NewsEditRequest {
     private String depict;
 
     @ApiModelProperty(value = "图集")
-    private String image;
+    private List<String> imageList;
 
     @ApiModelProperty(value = "详细信息", required = true)
     @NotBlank(message = "详细信息不能为空")
