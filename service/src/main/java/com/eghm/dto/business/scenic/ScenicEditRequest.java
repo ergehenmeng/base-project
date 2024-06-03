@@ -8,6 +8,7 @@ import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -80,8 +81,8 @@ public class ScenicEditRequest {
     private String depict;
 
     @ApiModelProperty(value = "景区图片", required = true)
-    @NotBlank(message = "景区图片不能为空")
-    private String coverUrl;
+    @NotEmpty(message = "景区图片不能为空")
+    private List<String> coverList;
 
     @ApiModelProperty(value = "景区详细介绍信息", required = true)
     @NotBlank(message = "景区详细介绍不能为空")
