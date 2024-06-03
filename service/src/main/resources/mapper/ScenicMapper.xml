@@ -13,7 +13,9 @@
         phone,
         `level`,
         min_price,
-        max_price
+        max_price,
+        create_time,
+        update_time
         from scenic where deleted = false
         <if test="param.merchantId != null">
             and merchant_id = #{param.merchantId}
