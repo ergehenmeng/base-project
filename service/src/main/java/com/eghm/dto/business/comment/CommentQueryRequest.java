@@ -1,5 +1,6 @@
 package com.eghm.dto.business.comment;
 
+import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.ObjectType;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,5 +27,6 @@ public class CommentQueryRequest extends PagingQuery {
     private Integer topState;
 
     @ApiModelProperty(value = "对象id", hidden = true)
+    @Assign
     private List<Long> objectIds;
 }

@@ -1,8 +1,7 @@
 package com.eghm.vo.business.comment;
 
-import com.eghm.convertor.DateParseEncoder;
 import com.eghm.enums.ref.ObjectType;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -47,7 +46,7 @@ public class CommentResponse {
     private String content;
 
     @ApiModelProperty("评论时间")
-    @JsonSerialize(using = DateParseEncoder.class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "点赞数量")
