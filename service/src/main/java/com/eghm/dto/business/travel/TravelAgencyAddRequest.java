@@ -1,5 +1,6 @@
 package com.eghm.dto.business.travel;
 
+import com.eghm.validation.annotation.Phone;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,6 +25,10 @@ public class TravelAgencyAddRequest {
     @ApiModelProperty(value = "店铺logo", required = true)
     @NotBlank(message = "店铺logo不能能为空")
     private String logoUrl;
+
+    @ApiModelProperty("旅行社电话")
+    @Phone(message = "旅行社电话格式不正确")
+    private String phone;
 
     @ApiModelProperty(value = "省份id", required = true)
     @NotNull(message = "请选择省份")
