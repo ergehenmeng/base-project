@@ -42,9 +42,6 @@ public class ScenicTicket extends BaseEntity {
     @ApiModelProperty("是否为热销商品 true:是 false:不是")
     private Boolean hotSell;
 
-    @ApiModelProperty(value = "门票封面图")
-    private String coverUrl;
-
     @ApiModelProperty(value = "划线价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer linePrice;

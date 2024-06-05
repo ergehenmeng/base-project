@@ -42,7 +42,7 @@ public class ScenicTicketController {
     }
 
     @GetMapping("/productListPage")
-    @ApiOperation("列表含店铺信息")
+    @ApiOperation("景区信息列表")
     public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseProductResponse> listPage = scenicTicketService.getProductPage(request);

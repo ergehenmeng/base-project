@@ -27,8 +27,8 @@ public class ScenicTicketQueryRequest extends PagingQuery {
     @OptionInt(value = {1, 2, 3}, message = "门票种类错误", required = false)
     private Integer category;
 
-    @ApiModelProperty(value = "上下架状态 0:未上架 1:已上架")
-    @OptionInt(value = {0, 1}, message = "上下架状态错误", required = false)
+    @ApiModelProperty(value = "上下架状态 0:未上架 1:已上架 2:强制下架")
+    @OptionInt(value = {0, 1, 2}, message = "上下架状态错误", required = false)
     private Integer state;
 
 }

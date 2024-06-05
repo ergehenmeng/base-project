@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -40,10 +41,6 @@ public class ScenicTicketEditRequest extends DateComparator {
     @OptionInt(value = {1, 2, 3}, message = "门票种类错误")
     private Integer category;
 
-    @ApiModelProperty(value = "门票封面图", required = true)
-    @NotBlank(message = "门票封面图不能为空")
-    private String coverUrl;
-
     @ApiModelProperty(value = "划线价")
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer linePrice;
@@ -72,6 +69,10 @@ public class ScenicTicketEditRequest extends DateComparator {
     @ApiModelProperty(value = "剩余库存", required = true)
     @NotNull(message = "库存不能为空")
     private Integer stock;
+
+    @ApiModelProperty(value = "虚拟销量", required = true)
+    @Min(value = 0, message = "虚拟销量不能小于0")
+    private Integer virtualNum;
 
     @ApiModelProperty(value = "景区介绍", required = true)
     @NotBlank(message = "景区介绍不能为空")

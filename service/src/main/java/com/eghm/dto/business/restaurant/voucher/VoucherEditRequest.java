@@ -52,7 +52,6 @@ public class VoucherEditRequest {
 
     @ApiModelProperty(value = "虚拟销量", required = true)
     @Min(value = 0, message = "虚拟销量不能小于0")
-    @NotNull(message = "虚拟销量不能为空")
     private Integer virtualNum;
 
     @ApiModelProperty(value = "购买说明", required = true)

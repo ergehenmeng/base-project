@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
@@ -34,19 +35,15 @@ public class ScenicTicketResponse {
     @ApiModelProperty(value = "门票种类 1:成人票 2:老人票 3:儿童票")
     private Integer category;
 
-    @ApiModelProperty(value = "划线价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
-    private Integer linePrice;
-
     @ApiModelProperty(value = "销售价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
+    @ApiModelProperty(value = "真实销售数量")
+    private Integer saleNum;
+
     @ApiModelProperty(value = "提前多少天购票")
     private Integer advanceDay;
-
-    @ApiModelProperty(value = "单次最大购买数量")
-    private Integer quota;
 
     @ApiModelProperty(value = "开始预订时间")
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -65,4 +62,11 @@ public class ScenicTicketResponse {
     @ApiModelProperty(value = "是否实名购票 false:不实名 true:实名")
     private Boolean realBuy;
 
+    @ApiModelProperty(value = "创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
+
+    @ApiModelProperty(value = "更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
 }

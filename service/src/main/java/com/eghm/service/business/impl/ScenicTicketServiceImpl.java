@@ -61,6 +61,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         this.checkScenic(request.getScenicId());
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
         ticket.setMerchantId(merchantId);
+        ticket.setTotalNum(request.getVirtualNum());
         ticket.setCreateDate(LocalDate.now());
         scenicTicketMapper.insert(ticket);
         scenicService.updatePrice(request.getScenicId());
@@ -73,6 +74,8 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         ScenicTicket scenicTicket = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(scenicTicket.getMerchantId());
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
+        // 总销量要根据真实销量计算
+        ticket.setTotalNum(request.getVirtualNum() + scenicTicket.getSaleNum());
         scenicTicketMapper.updateById(ticket);
         scenicService.updatePrice(request.getScenicId());
     }

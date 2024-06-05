@@ -9,19 +9,20 @@
         t.scenic_id,
         t.state,
         t.category,
-        t.line_price,
+        t.sale_num,
         t.sale_price,
         t.advance_day,
-        t.quota,
         t.start_date,
         t.end_date,
         t.stock,
         t.verification_type,
         t.real_buy,
-        r.scenic_name
+        r.scenic_name,
+        t.create_time,
+        t.update_time
         from scenic_ticket t
         left join scenic r on t.scenic_id = r.id
-        where t.deleted = false and r.merchant_id = #{param.merchantId}
+        where t.deleted = false and t.merchant_id = #{param.merchantId}
         <if test="param.scenicId != null">
             and t.scenic_id = #{param.scenicId}
         </if>
@@ -82,7 +83,7 @@
         select
         t.id,
         t.title,
-        t.cover_url,
+        r.cover_url,
         'ticket' as productType,
         t.state,
         r.scenic_name as storeName

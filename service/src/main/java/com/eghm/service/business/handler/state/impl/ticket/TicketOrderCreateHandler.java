@@ -102,7 +102,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         order.setMemberId(context.getMemberId());
         order.setState(OrderState.UN_PAY);
         order.setProductType(ProductType.TICKET);
-        order.setCoverUrl(ticket.getCoverUrl());
+        order.setCoverUrl(payload.getScenic().getCoverUrl());
         order.setOrderNo(ProductType.TICKET.generateOrderNo());
         order.setNum(context.getNum());
         order.setMobile(context.getMobile());
