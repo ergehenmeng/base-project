@@ -75,7 +75,6 @@ public class ScenicEditRequest {
     private BigDecimal latitude;
 
     @ApiModelProperty(value = "景区描述信息", required = true)
-    @NotBlank(message = "景区描述信息不能为空")
     @Size(max = 50, message = "景区描述信息最大50位")
     @WordChecker(message = "景区描述信息存在敏感词")
     private String depict;

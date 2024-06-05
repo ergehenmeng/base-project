@@ -37,7 +37,12 @@ public class CommonConstant {
     /**
      * 分隔符
      */
-    public static final String DOT_SPLIT = ",";
+    public static final String COMMA = ",";
+
+    /**
+     * 特殊分隔符
+     */
+    public static final String SPECIAL_SPLIT = "@";
 
     /**
      * idea强迫症
@@ -68,11 +73,6 @@ public class CommonConstant {
      * 异步下单最大请求次数
      */
     public static final int MAX_ACCESS_NUM = 10;
-
-    /**
-     * 特殊分隔符
-     */
-    public static final String SPECIAL_SPLIT = "@";
 
     /**
      * 核销码刷新频率 60秒

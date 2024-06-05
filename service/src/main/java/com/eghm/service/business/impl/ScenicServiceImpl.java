@@ -81,6 +81,7 @@ public class ScenicServiceImpl implements ScenicService {
         this.redoTitle(request.getScenicName(), null);
         Scenic scenic = DataUtil.copy(request, Scenic.class);
         scenic.setMerchantId(SecurityHolder.getMerchantId());
+        scenic.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         scenicMapper.insert(scenic);
     }
 
@@ -90,6 +91,7 @@ public class ScenicServiceImpl implements ScenicService {
         Scenic select = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(select.getMerchantId());
         Scenic scenic = DataUtil.copy(request, Scenic.class);
+        scenic.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         scenicMapper.updateById(scenic);
     }
 
@@ -144,7 +146,7 @@ public class ScenicServiceImpl implements ScenicService {
         }
         for (ScenicVO vo : voList) {
             // 封面图默认取第一张
-            vo.setCoverUrl(vo.getCoverUrl().split(CommonConstant.DOT_SPLIT)[0]);
+            vo.setCoverUrl(vo.getCoverUrl().split(CommonConstant.COMMA)[0]);
             vo.setDistance(containDistance ? BigDecimal.valueOf(hashMap.get(String.valueOf(vo.getId()))) : null);
         }
         return voList;

@@ -228,7 +228,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * @return 标题信息 逗号分割
      */
     private String getTitle(List<OrderPackage> packageList) {
-        String collect = packageList.stream().map(orderPackage -> orderPackage.getItem().getTitle()).collect(Collectors.joining(CommonConstant.DOT_SPLIT));
+        String collect = packageList.stream().map(orderPackage -> orderPackage.getItem().getTitle()).collect(Collectors.joining(CommonConstant.COMMA));
         if (collect.length() > 100) {
             return collect.substring(0, 100) + "等";
         }
@@ -248,10 +248,10 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             if (skuPic != null) {
                 coverList.add(skuPic);
             } else {
-                coverList.add(aPackage.getItem().getCoverUrl().split(CommonConstant.DOT_SPLIT)[0]);
+                coverList.add(aPackage.getItem().getCoverUrl().split(CommonConstant.COMMA)[0]);
             }
         }
-        return CollUtil.join(coverList, CommonConstant.DOT_SPLIT);
+        return CollUtil.join(coverList, CommonConstant.COMMA);
     }
 
     /**
@@ -403,7 +403,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      */
     private Long getSpuId(String spuList) {
         if (StrUtil.isNotBlank(spuList)) {
-            return Long.parseLong(spuList.split(CommonConstant.DOT_SPLIT)[0]);
+            return Long.parseLong(spuList.split(CommonConstant.COMMA)[0]);
         }
         return null;
     }
