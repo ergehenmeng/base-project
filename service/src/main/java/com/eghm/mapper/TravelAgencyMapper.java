@@ -3,8 +3,10 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
+import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
 import com.eghm.model.TravelAgency;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.line.TravelAgencyResponse;
 import com.eghm.vo.business.line.TravelAgencyVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,6 +22,15 @@ import java.util.List;
  * @since 2023-02-18
  */
 public interface TravelAgencyMapper extends BaseMapper<TravelAgency> {
+
+    /**
+     * 分页查询旅行社信息 (管理后台)
+     *
+     * @param page 分页信息
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<TravelAgencyResponse> getByPage(Page<TravelAgencyResponse> page, @Param("param")TravelAgencyQueryRequest request);
 
     /**
      * 更新评分

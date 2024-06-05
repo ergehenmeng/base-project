@@ -28,8 +28,7 @@ public class ScenicAddRequest {
     private Integer level;
 
     @ApiModelProperty(value = "景区营业时间", required = true)
-    @NotBlank(message = "营业时间不能为空")
-    @Size(max = 100, message = "营业时间长度2~100位")
+    @Size(max = 200, message = "营业时间长度最大20位")
     private String openTime;
 
     @ApiModelProperty(value = "景区电话", required = true)

@@ -1712,6 +1712,7 @@ CREATE TABLE `travel_agency`
     `title`          varchar(50)    DEFAULT NULL COMMENT '旅行社名称',
     `merchant_id`    bigint(20)     DEFAULT NULL COMMENT '所属商户',
     `logo_url`       varchar(100)   DEFAULT NULL COMMENT '店铺logo',
+    `phone`          varchar(20)    DEFAULT NULL COMMENT '联系电话',
     `state`          tinyint(2)     DEFAULT 0 COMMENT '状态 0:待上架 1:已上架 2:平台下架',
     `province_id`    bigint(20)     DEFAULT NULL COMMENT '省份id',
     `city_id`        bigint(20)     DEFAULT NULL COMMENT '城市id',

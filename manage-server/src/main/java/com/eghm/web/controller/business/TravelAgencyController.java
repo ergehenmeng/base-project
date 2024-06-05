@@ -13,6 +13,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.model.TravelAgency;
 import com.eghm.service.business.TravelAgencyService;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.line.TravelAgencyResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -34,8 +35,8 @@ public class TravelAgencyController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<TravelAgency>> listPage(TravelAgencyQueryRequest request) {
-        Page<TravelAgency> roomPage = travelAgencyService.getByPage(request);
+    public RespBody<PageData<TravelAgencyResponse>> listPage(TravelAgencyQueryRequest request) {
+        Page<TravelAgencyResponse> roomPage = travelAgencyService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
     }
 

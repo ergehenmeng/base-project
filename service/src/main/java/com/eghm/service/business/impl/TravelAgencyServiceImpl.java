@@ -1,6 +1,5 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -29,6 +28,7 @@ import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.line.TravelAgencyDetailVO;
+import com.eghm.vo.business.line.TravelAgencyResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -58,11 +58,10 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     private final LineMapper lineMapper;
 
     @Override
-    public Page<TravelAgency> getByPage(TravelAgencyQueryRequest request) {
-        LambdaQueryWrapper<TravelAgency> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(request.getState() != null, TravelAgency::getState, request.getState());
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), TravelAgency::getTitle, request.getQueryName());
-        return travelAgencyMapper.selectPage(request.createPage(), wrapper);
+    public Page<TravelAgencyResponse> getByPage(TravelAgencyQueryRequest request) {
+        Page<TravelAgencyResponse> byPage = travelAgencyMapper.getByPage(request.createPage(), request);
+        byPage.getRecords().forEach(agency -> agency.setDetailAddress(sysAreaService.parseArea(agency.getCityId(), agency.getCountyId()) + agency.getDetailAddress()));
+        return byPage;
     }
 
     @Override

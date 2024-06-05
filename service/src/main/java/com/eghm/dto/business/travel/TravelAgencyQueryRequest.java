@@ -13,6 +13,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class TravelAgencyQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("上下架状态 0:待上架 1:已上架")
+    @ApiModelProperty("上下架状态 0:待上架 1:已上架 2:强制下架")
     private Integer state;
 }

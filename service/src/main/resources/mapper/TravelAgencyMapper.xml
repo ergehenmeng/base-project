@@ -2,6 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.TravelAgencyMapper">
 
+    <select id="getByPage" parameterType="com.eghm.dto.business.travel.TravelAgencyQueryRequest" resultType="com.eghm.vo.business.line.TravelAgencyResponse">
+        select
+            id,
+            title,
+            phone,
+            cover_url,
+            logo_url,
+            city_id,
+            county_id,
+            detail_address,
+            score,
+            state,
+            create_time,
+            update_time
+        from travel_agency where deleted = false
+        <if test="param.state != null">
+            and state = #{param.state}
+        </if>
+        <if test="param.queryName != null and param.queryName != ''">
+            and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        order by id desc
+    </select>
+
     <update id="updateScore">
         update travel_agency set score = #{score} where id = #{id}
     </update>

@@ -9,6 +9,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.model.TravelAgency;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.line.TravelAgencyDetailVO;
+import com.eghm.vo.business.line.TravelAgencyResponse;
 
 /**
  * @author 殿小二
@@ -22,7 +23,7 @@ public interface TravelAgencyService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<TravelAgency> getByPage(TravelAgencyQueryRequest request);
+    Page<TravelAgencyResponse> getByPage(TravelAgencyQueryRequest request);
 
     /**
      * 新增旅行社
