@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -70,6 +71,7 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         TravelAgency agency = DataUtil.copy(request, TravelAgency.class);
         agency.setState(State.UN_SHELVE);
         agency.setMerchantId(SecurityHolder.getMerchantId());
+        agency.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
         travelAgencyMapper.insert(agency);
     }
 
@@ -78,8 +80,8 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         this.redoTitle(request.getTitle(), request.getId());
         TravelAgency travelAgency = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(travelAgency.getMerchantId());
-
         TravelAgency agency = DataUtil.copy(request, TravelAgency.class);
+        agency.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
         travelAgencyMapper.updateById(agency);
     }
 

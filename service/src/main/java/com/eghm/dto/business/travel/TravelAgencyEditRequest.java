@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author 殿小二
@@ -71,8 +72,8 @@ public class TravelAgencyEditRequest {
     private String depict;
 
     @ApiModelProperty(value = "旅行社图片", required = true)
-    @NotBlank(message = "旅行社图片不能为空")
-    private String coverUrl;
+    @NotEmpty(message = "旅行社图片不能为空")
+    private List<String> coverList;
 
     @ApiModelProperty(value = "详细介绍信息", required = true)
     @NotBlank(message = "详细介绍不能为空")
