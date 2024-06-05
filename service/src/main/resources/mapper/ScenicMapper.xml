@@ -30,6 +30,18 @@
         order by sort, id desc
     </select>
 
+    <select id="getBaseList" resultType="com.eghm.vo.business.scenic.BaseScenicResponse">
+        select
+            id,
+            scenic_name,
+            state
+        from scenic where deleted = false
+        <if test="merchantId != null">
+            and merchant_id = #{merchantId}
+        </if>
+        order by id desc
+    </select>
+
     <select id="getByPage" resultType="com.eghm.vo.business.scenic.ScenicVO" parameterType="com.eghm.dto.business.scenic.ScenicQueryDTO">
         select
         id,

@@ -7,6 +7,7 @@ import com.eghm.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.dto.business.scenic.ScenicQueryRequest;
 import com.eghm.model.Scenic;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.scenic.BaseScenicResponse;
 import com.eghm.vo.business.scenic.ScenicResponse;
 import com.eghm.vo.business.scenic.ScenicVO;
 import org.apache.ibatis.annotations.Param;
@@ -31,6 +32,14 @@ public interface ScenicMapper extends BaseMapper<Scenic> {
      * @return 列表
      */
     Page<ScenicResponse> listPage(Page<ScenicResponse> page, @Param("param") ScenicQueryRequest request);
+
+    /**
+     * 查询商户下所有景区
+     *
+     * @param merchantId 商户id
+     * @return 列表
+     */
+    List<BaseScenicResponse> getBaseList(@Param("merchantId") Long merchantId);
 
     /**
      * 查询景区列表

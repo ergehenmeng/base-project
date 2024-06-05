@@ -6,6 +6,7 @@ import com.eghm.dto.business.scenic.*;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Scenic;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.scenic.BaseScenicResponse;
 import com.eghm.vo.business.scenic.ScenicDetailVO;
 import com.eghm.vo.business.scenic.ScenicResponse;
 import com.eghm.vo.business.scenic.ScenicVO;
@@ -25,6 +26,13 @@ public interface ScenicService {
      * @return 景区信息
      */
     Page<ScenicResponse> getByPage(ScenicQueryRequest request);
+
+    /**
+     * 获取景区列表
+     *
+     * @return 商户id
+     */
+    List<BaseScenicResponse> getList(Long merchantId);
 
     /**
      * 新增景区

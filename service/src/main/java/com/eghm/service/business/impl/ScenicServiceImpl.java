@@ -31,6 +31,7 @@ import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.activity.ActivityBaseDTO;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.scenic.BaseScenicResponse;
 import com.eghm.vo.business.scenic.ScenicDetailVO;
 import com.eghm.vo.business.scenic.ScenicResponse;
 import com.eghm.vo.business.scenic.ScenicVO;
@@ -74,6 +75,11 @@ public class ScenicServiceImpl implements ScenicService {
     @Override
     public Page<ScenicResponse> getByPage(ScenicQueryRequest request) {
         return scenicMapper.listPage(request.createPage(), request);
+    }
+
+    @Override
+    public List<BaseScenicResponse> getList(Long merchantId) {
+        return scenicMapper.getBaseList(merchantId);
     }
 
     @Override

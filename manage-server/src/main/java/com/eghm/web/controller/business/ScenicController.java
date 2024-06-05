@@ -13,13 +13,17 @@ import com.eghm.enums.ref.State;
 import com.eghm.model.Scenic;
 import com.eghm.service.business.ScenicService;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.scenic.BaseScenicResponse;
 import com.eghm.vo.business.scenic.ScenicResponse;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛 2022/6/17 19:06
@@ -38,6 +42,13 @@ public class ScenicController {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ScenicResponse> scenicPage = scenicService.getByPage(request);
         return RespBody.success(PageData.toPage(scenicPage));
+    }
+
+    @ApiModelProperty("列表(不分页)")
+    @GetMapping("/list")
+    public RespBody<List<BaseScenicResponse>> list() {
+        List<BaseScenicResponse> scenicList = scenicService.getList(SecurityHolder.getMerchantId());
+        return RespBody.success(scenicList);
     }
 
     @GetMapping("/storeListPage")
