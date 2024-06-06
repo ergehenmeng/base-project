@@ -36,9 +36,9 @@ public class SysAreaController {
     }
 
     @ApiOperation("获取省市列表")
-    @GetMapping("/cityList")
+    @GetMapping("/provinceList")
     @SkipPerm
-    public RespBody<List<SysAreaVO>> cityList() {
+    public RespBody<List<SysAreaVO>> provinceList() {
         List<SysAreaVO> voList = commonService.getTreeAreaList(Lists.newArrayList(1, 2));
         return RespBody.success(voList);
     }

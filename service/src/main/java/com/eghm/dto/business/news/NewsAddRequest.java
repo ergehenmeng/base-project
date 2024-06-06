@@ -1,7 +1,5 @@
 package com.eghm.dto.business.news;
 
-import com.eghm.convertor.XssEncoder;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
