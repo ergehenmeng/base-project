@@ -31,6 +31,9 @@ public class TravelAgencyDetailResponse {
     @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
+    @ApiModelProperty(value = "省份id")
+    private Long provinceId;
+
     @ApiModelProperty(value = "城市id")
     private Long cityId;
 
