@@ -69,6 +69,8 @@ public class ScenicTicketController {
     @ApiOperation("详情")
     public RespBody<TicketDetailResponse> select(@Validated IdDTO dto) {
         ScenicTicket scenicTicket = scenicTicketService.selectByIdRequired(dto.getId());
+        TicketDetailResponse response = DataUtil.copy(scenicTicket, TicketDetailResponse.class);
+        response.setVirtualNum(scenicTicket.getTotalNum() - scenicTicket.getSaleNum());
         return RespBody.success(DataUtil.copy(scenicTicket, TicketDetailResponse.class));
     }
 

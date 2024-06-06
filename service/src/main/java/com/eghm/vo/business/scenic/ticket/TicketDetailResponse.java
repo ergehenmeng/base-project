@@ -42,8 +42,8 @@ public class TicketDetailResponse {
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty(value = "真实销售数量")
-    private Integer saleNum;
+    @ApiModelProperty(value = "虚拟销量")
+    private Integer virtualNum;
 
     @ApiModelProperty(value = "单次最大购买数量")
     private Integer quota;
@@ -58,9 +58,6 @@ public class TicketDetailResponse {
     @ApiModelProperty(value = "截止预订时间")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
-
-    @ApiModelProperty(value = "总销量=实际销量+虚拟销量")
-    private Integer totalNum;
 
     @ApiModelProperty(value = "剩余库存")
     private Integer stock;

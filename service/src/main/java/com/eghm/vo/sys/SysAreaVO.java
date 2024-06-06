@@ -1,6 +1,5 @@
 package com.eghm.vo.sys;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -28,7 +27,6 @@ public class SysAreaVO {
     private String mark;
 
     @ApiModelProperty("父节点")
-    @JsonIgnore
     private Long pid;
 
     @ApiModelProperty("子节点")

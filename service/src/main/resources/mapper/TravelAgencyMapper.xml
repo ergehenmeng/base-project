@@ -35,8 +35,8 @@
             title,
             state
         from travel_agency where deleted = false
-        <if test="param.merchantId != null">
-            and merchant_id = #{param.merchantId}
+        <if test="merchantId != null">
+            and merchant_id = #{merchantId}
         </if>
         order by id desc
     </select>

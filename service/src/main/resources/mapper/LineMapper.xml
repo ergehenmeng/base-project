@@ -31,9 +31,6 @@
         <if test = "param.travelAgencyId != null">
             and t.travel_agency_id = #{params.travelAgencyId}
         </if>
-        <if test="param.startProvinceId != null">
-            and t.start_province_id = #{params.startProvinceId}
-        </if>
         <if test="param.startCityId != null">
             and t.start_city_id = #{params.startCityId}
         </if>

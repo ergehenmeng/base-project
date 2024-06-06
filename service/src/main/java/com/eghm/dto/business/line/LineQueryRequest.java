@@ -22,9 +22,6 @@ public class LineQueryRequest extends PagingQuery {
     @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
-    @ApiModelProperty(value = "出发省份id")
-    private Long startProvinceId;
-
     @ApiModelProperty(value = "出发城市id")
     private Long startCityId;
 

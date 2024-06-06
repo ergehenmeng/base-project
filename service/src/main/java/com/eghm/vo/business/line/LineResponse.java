@@ -48,7 +48,6 @@ public class LineResponse extends ExcelStyle {
 
     @ApiModelProperty(value = "出发省份id")
     @ExcelProperty(value = "出发省份", index = 5, converter = AreaConverter.class)
-
     private Long startProvinceId;
 
     @ApiModelProperty(value = "出发城市id")
