@@ -14,7 +14,8 @@ public interface SysAreaMapper extends BaseMapper<SysArea> {
     /**
      * 获取地区列表
      *
+     * @param gradeList 分类
      * @return 列表
      */
-    List<SysAreaVO> getList();
+    List<SysAreaVO> getList(List<Integer> gradeList);
 }

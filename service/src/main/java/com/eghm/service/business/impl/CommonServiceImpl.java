@@ -45,6 +45,8 @@ public class CommonServiceImpl implements CommonService {
 
     private final SysConfigApi sysConfigApi;
 
+    private final SysAreaMapper sysAreaMapper;
+
     private final ItemMapper itemMapper;
 
     private final LineMapper lineMapper;
@@ -276,6 +278,12 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public List<SysAreaVO> getTreeAreaList() {
         List<SysAreaVO> areaList = cacheProxyService.getAreaList();
+        return treeBin(CommonConstant.ROOT, areaList);
+    }
+
+    @Override
+    public List<SysAreaVO> getTreeAreaList(List<Integer> gradeList) {
+        List<SysAreaVO> areaList = sysAreaMapper.getList(gradeList);
         return treeBin(CommonConstant.ROOT, areaList);
     }
 

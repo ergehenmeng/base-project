@@ -10,5 +10,11 @@
         mark,
         pid
         from sys_area
+        <if test="gradeList != null and gradeList.size() > 0">
+        where grade in
+        <foreach collection="gradeList" item="grade" open="(" separator="," close=")">
+            #{grade}
+        </foreach>
+        </if>
     </select>
 </mapper>

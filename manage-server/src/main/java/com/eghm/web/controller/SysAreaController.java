@@ -1,9 +1,10 @@
 package com.eghm.web.controller;
 
-import com.eghm.cache.CacheProxyService;
 import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.service.business.CommonService;
 import com.eghm.vo.sys.SysAreaVO;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -24,13 +25,21 @@ import java.util.List;
 @RequestMapping(value = "/manage/area", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SysAreaController {
 
-    private final CacheProxyService cacheProxyService;
+    private final CommonService commonService;
 
     @ApiOperation("获取省市区列表")
     @GetMapping("/list")
     @SkipPerm
     public RespBody<List<SysAreaVO>> list() {
-        List<SysAreaVO> voList = cacheProxyService.getAreaList();
+        List<SysAreaVO> voList = commonService.getTreeAreaList();
+        return RespBody.success(voList);
+    }
+
+    @ApiOperation("获取省市列表")
+    @GetMapping("/cityList")
+    @SkipPerm
+    public RespBody<List<SysAreaVO>> cityList() {
+        List<SysAreaVO> voList = commonService.getTreeAreaList(Lists.newArrayList(1, 2));
         return RespBody.success(voList);
     }
 }

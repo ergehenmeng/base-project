@@ -80,7 +80,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_AREA, sync = true)
     public List<SysAreaVO> getAreaList() {
-        return sysAreaMapper.getList();
+        return sysAreaMapper.getList(null);
     }
 
     @Override
