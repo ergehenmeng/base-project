@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  * @since 2023-02-18
  */
 @Data
-public class TravelAgencyDetailVO {
+public class TravelDetailVO {
 
     @ApiModelProperty("id主键")
     private Long id;

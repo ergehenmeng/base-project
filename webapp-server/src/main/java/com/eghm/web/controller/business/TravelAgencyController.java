@@ -3,7 +3,7 @@ package com.eghm.web.controller.business;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.TravelAgencyService;
-import com.eghm.vo.business.line.TravelAgencyDetailVO;
+import com.eghm.vo.business.line.TravelDetailVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -27,8 +27,8 @@ public class TravelAgencyController {
 
     @GetMapping("/detail")
     @ApiOperation("详情")
-    public RespBody<TravelAgencyDetailVO> detail(@Validated IdDTO request) {
-        TravelAgencyDetailVO detail = travelAgencyService.detail(request.getId());
+    public RespBody<TravelDetailVO> detail(@Validated IdDTO request) {
+        TravelDetailVO detail = travelAgencyService.detail(request.getId());
         return RespBody.success(detail);
     }
 

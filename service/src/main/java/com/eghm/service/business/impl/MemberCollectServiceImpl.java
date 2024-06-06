@@ -20,7 +20,7 @@ import com.eghm.vo.business.homestay.HomestayVO;
 import com.eghm.vo.business.item.ItemVO;
 import com.eghm.vo.business.item.store.ItemStoreVO;
 import com.eghm.vo.business.line.LineVO;
-import com.eghm.vo.business.line.TravelAgencyVO;
+import com.eghm.vo.business.line.TravelVO;
 import com.eghm.vo.business.news.NewsVO;
 import com.eghm.vo.business.restaurant.RestaurantVO;
 import com.eghm.vo.business.scenic.ScenicVO;
@@ -82,7 +82,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
             Map<Long, ItemStoreVO> itemStoreMap = this.getItemStoreMap(collectMap.get(CollectType.ITEM_STORE));
             Map<Long, ItemVO> itemMap = this.getItemMap(collectMap.get(CollectType.ITEM));
             Map<Long, LineVO> lineMap = this.getLineMap(collectMap.get(CollectType.LINE));
-            Map<Long, TravelAgencyVO> travelMap = this.getTravelMap(collectMap.get(CollectType.TRAVEL_AGENCY));
+            Map<Long, TravelVO> travelMap = this.getTravelMap(collectMap.get(CollectType.TRAVEL_AGENCY));
             Map<Long, NewsVO> newsMap = this.getNewsMap(collectMap.get(CollectType.NEWS));
             Map<Long, RestaurantVO> restaurantMap = this.getRestaurantMap(collectMap.get(CollectType.VOUCHER_STORE));
 
@@ -304,12 +304,12 @@ public class MemberCollectServiceImpl implements MemberCollectService {
      * @param travelIds id
      * @return 旅行社信息
      */
-    private Map<Long, TravelAgencyVO> getTravelMap(List<Long> travelIds) {
+    private Map<Long, TravelVO> getTravelMap(List<Long> travelIds) {
         if (CollUtil.isEmpty(travelIds)) {
             return Maps.newLinkedHashMapWithExpectedSize(4);
         }
-        List<TravelAgencyVO> voList = travelAgencyMapper.getList(travelIds);
-        return voList.stream().collect(Collectors.toMap(TravelAgencyVO::getId, Function.identity()));
+        List<TravelVO> voList = travelAgencyMapper.getList(travelIds);
+        return voList.stream().collect(Collectors.toMap(TravelVO::getId, Function.identity()));
     }
 
     /**

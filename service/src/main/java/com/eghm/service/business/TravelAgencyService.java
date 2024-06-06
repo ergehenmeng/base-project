@@ -8,8 +8,11 @@ import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
 import com.eghm.enums.ref.State;
 import com.eghm.model.TravelAgency;
 import com.eghm.vo.business.base.BaseStoreResponse;
-import com.eghm.vo.business.line.TravelAgencyDetailVO;
-import com.eghm.vo.business.line.TravelAgencyResponse;
+import com.eghm.vo.business.line.BaseTravelResponse;
+import com.eghm.vo.business.line.TravelDetailVO;
+import com.eghm.vo.business.line.TravelResponse;
+
+import java.util.List;
 
 /**
  * @author 殿小二
@@ -23,7 +26,15 @@ public interface TravelAgencyService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<TravelAgencyResponse> getByPage(TravelAgencyQueryRequest request);
+    Page<TravelResponse> getByPage(TravelAgencyQueryRequest request);
+
+    /**
+     * 查询旅行社基础信息
+     *
+     * @param merchantId 商户Id
+     * @return list
+     */
+    List<BaseTravelResponse> getList(Long merchantId);
 
     /**
      * 新增旅行社
@@ -76,7 +87,7 @@ public interface TravelAgencyService {
      * @param id id
      * @return 详情
      */
-    TravelAgencyDetailVO detail(Long id);
+    TravelDetailVO detail(Long id);
 
     /**
      * 分页查询列表(含商户信息)

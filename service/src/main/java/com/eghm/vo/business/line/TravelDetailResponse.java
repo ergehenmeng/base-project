@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  */
 
 @Data
-public class TravelAgencyDetailResponse {
+public class TravelDetailResponse {
 
     @ApiModelProperty("id主键")
     private Long id;

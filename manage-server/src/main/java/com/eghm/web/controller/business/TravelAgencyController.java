@@ -14,14 +14,17 @@ import com.eghm.model.TravelAgency;
 import com.eghm.service.business.TravelAgencyService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
-import com.eghm.vo.business.line.TravelAgencyDetailResponse;
-import com.eghm.vo.business.line.TravelAgencyResponse;
+import com.eghm.vo.business.line.BaseTravelResponse;
+import com.eghm.vo.business.line.TravelDetailResponse;
+import com.eghm.vo.business.line.TravelResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author 殿小二
@@ -37,9 +40,9 @@ public class TravelAgencyController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<TravelAgencyResponse>> listPage(TravelAgencyQueryRequest request) {
+    public RespBody<PageData<TravelResponse>> listPage(TravelAgencyQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        Page<TravelAgencyResponse> roomPage = travelAgencyService.getByPage(request);
+        Page<TravelResponse> roomPage = travelAgencyService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
     }
 
@@ -49,6 +52,13 @@ public class TravelAgencyController {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseStoreResponse> listPage = travelAgencyService.getStorePage(request);
         return RespBody.success(PageData.toPage(listPage));
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("列表")
+    public RespBody<List<BaseTravelResponse>> list() {
+        List<BaseTravelResponse> list = travelAgencyService.getList(SecurityHolder.getMerchantId());
+        return RespBody.success(list);
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -88,9 +98,9 @@ public class TravelAgencyController {
 
     @GetMapping("/select")
     @ApiOperation("详情")
-    public RespBody<TravelAgencyDetailResponse> select(@Validated IdDTO dto) {
+    public RespBody<TravelDetailResponse> select(@Validated IdDTO dto) {
         TravelAgency travelAgency = travelAgencyService.selectByIdRequired(dto.getId());
-        return RespBody.success(DataUtil.copy(travelAgency, TravelAgencyDetailResponse.class));
+        return RespBody.success(DataUtil.copy(travelAgency, TravelDetailResponse.class));
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)

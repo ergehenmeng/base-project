@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  */
 
 @Data
-public class TravelAgencyResponse {
+public class TravelResponse {
 
     @ApiModelProperty("id主键")
     private Long id;

@@ -6,8 +6,9 @@ import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
 import com.eghm.model.TravelAgency;
 import com.eghm.vo.business.base.BaseStoreResponse;
-import com.eghm.vo.business.line.TravelAgencyResponse;
-import com.eghm.vo.business.line.TravelAgencyVO;
+import com.eghm.vo.business.line.BaseTravelResponse;
+import com.eghm.vo.business.line.TravelResponse;
+import com.eghm.vo.business.line.TravelVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
@@ -30,7 +31,15 @@ public interface TravelAgencyMapper extends BaseMapper<TravelAgency> {
      * @param request 查询条件
      * @return 列表
      */
-    Page<TravelAgencyResponse> getByPage(Page<TravelAgencyResponse> page, @Param("param")TravelAgencyQueryRequest request);
+    Page<TravelResponse> getByPage(Page<TravelResponse> page, @Param("param")TravelAgencyQueryRequest request);
+
+    /**
+     * 根据商户id获取旅行社列表
+     *
+     * @param merchantId 商户id
+     * @return 旅行社
+     */
+    List<BaseTravelResponse> getBaseList(@Param("merchantId") Long merchantId);
 
     /**
      * 更新评分
@@ -46,7 +55,7 @@ public interface TravelAgencyMapper extends BaseMapper<TravelAgency> {
      * @param travelAgencyIds id列表
      * @return 旅行社信息列表
      */
-    List<TravelAgencyVO> getList(@Param("travelAgencyIds") List<Long> travelAgencyIds);
+    List<TravelVO> getList(@Param("travelAgencyIds") List<Long> travelAgencyIds);
 
     /**
      * 分页查询列表(含商户信息)

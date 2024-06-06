@@ -28,8 +28,9 @@ import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
-import com.eghm.vo.business.line.TravelAgencyDetailVO;
-import com.eghm.vo.business.line.TravelAgencyResponse;
+import com.eghm.vo.business.line.BaseTravelResponse;
+import com.eghm.vo.business.line.TravelDetailVO;
+import com.eghm.vo.business.line.TravelResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -59,10 +60,15 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     private final LineMapper lineMapper;
 
     @Override
-    public Page<TravelAgencyResponse> getByPage(TravelAgencyQueryRequest request) {
-        Page<TravelAgencyResponse> byPage = travelAgencyMapper.getByPage(request.createPage(), request);
+    public Page<TravelResponse> getByPage(TravelAgencyQueryRequest request) {
+        Page<TravelResponse> byPage = travelAgencyMapper.getByPage(request.createPage(), request);
         byPage.getRecords().forEach(agency -> agency.setDetailAddress(sysAreaService.parseArea(agency.getCityId(), agency.getCountyId()) + agency.getDetailAddress()));
         return byPage;
+    }
+
+    @Override
+    public List<BaseTravelResponse> getList(Long merchantId) {
+        return travelAgencyMapper.getBaseList(merchantId);
     }
 
     @Override
@@ -130,9 +136,9 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     }
 
     @Override
-    public TravelAgencyDetailVO detail(Long id) {
+    public TravelDetailVO detail(Long id) {
         TravelAgency travelAgency = this.selectByIdShelve(id);
-        TravelAgencyDetailVO vo = DataUtil.copy(travelAgency, TravelAgencyDetailVO.class);
+        TravelDetailVO vo = DataUtil.copy(travelAgency, TravelDetailVO.class);
         vo.setDetailAddress(sysAreaService.parseArea(travelAgency.getCityId(), travelAgency.getCountyId()) + vo.getDetailAddress());
         vo.setCollect(memberCollectService.checkCollect(id, CollectType.TRAVEL_AGENCY));
         return vo;

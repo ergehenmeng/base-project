@@ -5,7 +5,7 @@ import com.eghm.vo.business.homestay.HomestayVO;
 import com.eghm.vo.business.item.ItemVO;
 import com.eghm.vo.business.item.store.ItemStoreVO;
 import com.eghm.vo.business.line.LineVO;
-import com.eghm.vo.business.line.TravelAgencyVO;
+import com.eghm.vo.business.line.TravelVO;
 import com.eghm.vo.business.news.NewsVO;
 import com.eghm.vo.business.restaurant.RestaurantVO;
 import com.eghm.vo.business.scenic.ScenicVO;
@@ -41,7 +41,7 @@ public class MemberCollectVO {
     private RestaurantVO restaurant;
 
     @ApiModelProperty("旅行社信息")
-    private TravelAgencyVO travelAgency;
+    private TravelVO travelAgency;
 
     @ApiModelProperty("线路信息")
     private LineVO line;

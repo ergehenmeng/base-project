@@ -16,7 +16,7 @@ import java.math.BigDecimal;
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TravelAgencyVO {
+public class TravelVO {
 
     @ApiModelProperty("id主键")
     private Long id;
