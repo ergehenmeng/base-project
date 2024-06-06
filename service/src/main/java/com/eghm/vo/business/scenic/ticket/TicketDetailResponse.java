@@ -34,6 +34,10 @@ public class TicketDetailResponse {
     @ApiModelProperty(value = "门票种类 1:成人票 2:老人票 3:儿童票")
     private Integer category;
 
+    @ApiModelProperty(value = "划线价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    private Integer linePrice;
+
     @ApiModelProperty(value = "销售价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
