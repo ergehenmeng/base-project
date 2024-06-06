@@ -33,5 +33,4 @@ public class SysAreaController {
         List<SysAreaVO> voList = cacheProxyService.getAreaList();
         return RespBody.success(voList);
     }
-
 }

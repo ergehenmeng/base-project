@@ -1,8 +1,10 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.eghm.cache.CacheProxyService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constant.CommonConstant;
 import com.eghm.dto.ext.StoreScope;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.enums.ErrorCode;
@@ -18,6 +20,7 @@ import com.eghm.service.business.handler.state.RefundNotifyHandler;
 import com.eghm.utils.SpringContextUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.statistics.ProductStatisticsVO;
+import com.eghm.vo.sys.SysAreaVO;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
@@ -65,6 +68,8 @@ public class CommonServiceImpl implements CommonService {
     private final ScenicTicketMapper scenicTicketMapper;
 
     private final HomestayRoomMapper homestayRoomMapper;
+
+    private final CacheProxyService cacheProxyService;
 
     @Override
     public void checkMaxDay(String configNid, long maxValue) {
@@ -266,5 +271,24 @@ public class CommonServiceImpl implements CommonService {
             default:
                 return null;
         }
+    }
+
+    @Override
+    public List<SysAreaVO> getTreeAreaList() {
+        List<SysAreaVO> areaList = cacheProxyService.getAreaList();
+        return treeBin(CommonConstant.ROOT, areaList);
+    }
+
+    /**
+     * 设置子节点
+     *
+     * @param pid    父节点
+     * @param voList 全部列表
+     * @return list
+     */
+    private List<SysAreaVO> treeBin(Long pid, List<SysAreaVO> voList) {
+        List<SysAreaVO> collectList = voList.stream().filter(parent -> pid.equals(parent.getPid())).collect(Collectors.toList());
+        collectList.forEach(parent -> parent.setChildren(this.treeBin(parent.getId(), voList)));
+        return collectList;
     }
 }

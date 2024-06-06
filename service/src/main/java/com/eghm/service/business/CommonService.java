@@ -9,6 +9,7 @@ import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.RefundNotifyHandler;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.statistics.ProductStatisticsVO;
+import com.eghm.vo.sys.SysAreaVO;
 
 import java.util.List;
 
@@ -123,4 +124,11 @@ public interface CommonService {
      * @return 店铺id
      */
     Long getStoreId(Long productId, ProductType productType);
+
+    /**
+     * 查询地址列表(树状结构)
+     *
+     * @return list
+     */
+    List<SysAreaVO> getTreeAreaList();
 }
