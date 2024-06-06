@@ -12,7 +12,9 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.TravelAgency;
 import com.eghm.service.business.TravelAgencyService;
+import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.line.TravelAgencyDetailResponse;
 import com.eghm.vo.business.line.TravelAgencyResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,6 +38,7 @@ public class TravelAgencyController {
     @GetMapping("/listPage")
     @ApiOperation("列表")
     public RespBody<PageData<TravelAgencyResponse>> listPage(TravelAgencyQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         Page<TravelAgencyResponse> roomPage = travelAgencyService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
     }
@@ -85,9 +88,9 @@ public class TravelAgencyController {
 
     @GetMapping("/select")
     @ApiOperation("详情")
-    public RespBody<TravelAgency> select(@Validated IdDTO dto) {
+    public RespBody<TravelAgencyDetailResponse> select(@Validated IdDTO dto) {
         TravelAgency travelAgency = travelAgencyService.selectByIdRequired(dto.getId());
-        return RespBody.success(travelAgency);
+        return RespBody.success(DataUtil.copy(travelAgency, TravelAgencyDetailResponse.class));
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)

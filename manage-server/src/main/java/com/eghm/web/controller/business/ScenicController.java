@@ -12,8 +12,10 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Scenic;
 import com.eghm.service.business.ScenicService;
+import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.scenic.BaseScenicResponse;
+import com.eghm.vo.business.scenic.ScenicDetailResponse;
 import com.eghm.vo.business.scenic.ScenicResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
@@ -75,9 +77,9 @@ public class ScenicController {
 
     @GetMapping("/select")
     @ApiOperation("详情")
-    public RespBody<Scenic> select(@Validated IdDTO request) {
+    public RespBody<ScenicDetailResponse> select(@Validated IdDTO request) {
         Scenic scenic = scenicService.selectById(request.getId());
-        return RespBody.success(scenic);
+        return RespBody.success(DataUtil.copy(scenic, ScenicDetailResponse.class));
     }
 
     @PostMapping(value = "/shelves", consumes = MediaType.APPLICATION_JSON_VALUE)

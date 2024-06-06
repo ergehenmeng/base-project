@@ -25,7 +25,7 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
-import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
+import com.eghm.vo.business.scenic.ticket.TicketResponse;
 import com.eghm.vo.business.scenic.ticket.TicketVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +50,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     private final OrderEvaluationMapper orderEvaluationMapper;
 
     @Override
-    public Page<ScenicTicketResponse> getByPage(ScenicTicketQueryRequest request) {
+    public Page<TicketResponse> getByPage(ScenicTicketQueryRequest request) {
         return scenicTicketMapper.getByPage(request.createPage(), request);
     }
 

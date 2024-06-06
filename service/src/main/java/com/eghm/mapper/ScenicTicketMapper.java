@@ -7,7 +7,7 @@ import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.model.ScenicTicket;
 import com.eghm.vo.business.base.BaseProductResponse;
-import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
+import com.eghm.vo.business.scenic.ticket.TicketResponse;
 import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import com.eghm.vo.business.scenic.ticket.TicketPriceVO;
 import com.eghm.vo.business.statistics.ProductStatisticsVO;
@@ -33,7 +33,7 @@ public interface ScenicTicketMapper extends BaseMapper<ScenicTicket> {
      * @param request 查询条件
      * @return 列表
      */
-    Page<ScenicTicketResponse> getByPage(Page<ScenicTicketResponse> page, @Param("param") ScenicTicketQueryRequest request);
+    Page<TicketResponse> getByPage(Page<TicketResponse> page, @Param("param") ScenicTicketQueryRequest request);
 
     /**
      * 景区下在售门票信息

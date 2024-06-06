@@ -1722,6 +1722,7 @@ CREATE TABLE `travel_agency`
     `latitude`       decimal(10, 7) DEFAULT NULL COMMENT '纬度',
     `depict`         varchar(200)   DEFAULT NULL COMMENT '旅行社描述信息',
     `cover_url`      varchar(500)   DEFAULT NULL COMMENT '旅行社图片',
+    `score`          decimal(2, 1)  DEFAULT '5' COMMENT '旅行社评分',
     `introduce`      longtext COMMENT '旅行社详细介绍信息',
     `create_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

@@ -9,7 +9,7 @@ import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.ScenicTicket;
 import com.eghm.vo.business.base.BaseProductResponse;
-import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
+import com.eghm.vo.business.scenic.ticket.TicketResponse;
 import com.eghm.vo.business.scenic.ticket.TicketVO;
 
 /**
@@ -23,7 +23,7 @@ public interface ScenicTicketService {
      * @param request 查询条件
      * @return 门票信息
      */
-    Page<ScenicTicketResponse> getByPage(ScenicTicketQueryRequest request);
+    Page<TicketResponse> getByPage(ScenicTicketQueryRequest request);
 
     /**
      * 创建景区门票

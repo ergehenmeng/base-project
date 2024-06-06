@@ -1,5 +1,6 @@
 package com.eghm.dto.business.base;
 
+import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -17,5 +18,6 @@ public class BaseStoreQueryRequest extends PagingQuery {
     private Integer state;
 
     @ApiModelProperty(value = "商户id", hidden = true)
+    @Assign
     private Long merchantId;
 }

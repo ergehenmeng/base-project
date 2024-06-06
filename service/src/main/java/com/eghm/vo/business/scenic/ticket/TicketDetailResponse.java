@@ -8,14 +8,13 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
  * @since 2022-05-27
  */
 @Data
-public class ScenicTicketResponse {
+public class TicketDetailResponse {
 
     @ApiModelProperty("门票id")
     private Long id;
@@ -42,6 +41,9 @@ public class ScenicTicketResponse {
     @ApiModelProperty(value = "真实销售数量")
     private Integer saleNum;
 
+    @ApiModelProperty(value = "单次最大购买数量")
+    private Integer quota;
+
     @ApiModelProperty(value = "提前多少天购票")
     private Integer advanceDay;
 
@@ -53,6 +55,9 @@ public class ScenicTicketResponse {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
+    @ApiModelProperty(value = "总销量=实际销量+虚拟销量")
+    private Integer totalNum;
+
     @ApiModelProperty(value = "剩余库存")
     private Integer stock;
 
@@ -62,11 +67,7 @@ public class ScenicTicketResponse {
     @ApiModelProperty(value = "是否实名购票 false:不实名 true:实名")
     private Boolean realBuy;
 
-    @ApiModelProperty(value = "创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
+    @ApiModelProperty(value = "门票介绍")
+    private String introduce;
 
-    @ApiModelProperty(value = "更新时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updateTime;
 }

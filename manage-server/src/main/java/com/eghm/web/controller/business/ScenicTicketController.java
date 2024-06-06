@@ -12,8 +12,10 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.ScenicTicket;
 import com.eghm.service.business.ScenicTicketService;
+import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
-import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
+import com.eghm.vo.business.scenic.ticket.TicketDetailResponse;
+import com.eghm.vo.business.scenic.ticket.TicketResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -35,9 +37,9 @@ public class ScenicTicketController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<ScenicTicketResponse>> listPage(ScenicTicketQueryRequest request) {
+    public RespBody<PageData<TicketResponse>> listPage(ScenicTicketQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        Page<ScenicTicketResponse> responsePage = scenicTicketService.getByPage(request);
+        Page<TicketResponse> responsePage = scenicTicketService.getByPage(request);
         return RespBody.success(PageData.toPage(responsePage));
     }
 
@@ -65,9 +67,9 @@ public class ScenicTicketController {
 
     @GetMapping("/select")
     @ApiOperation("详情")
-    public RespBody<ScenicTicket> select(@Validated IdDTO dto) {
+    public RespBody<TicketDetailResponse> select(@Validated IdDTO dto) {
         ScenicTicket scenicTicket = scenicTicketService.selectByIdRequired(dto.getId());
-        return RespBody.success(scenicTicket);
+        return RespBody.success(DataUtil.copy(scenicTicket, TicketDetailResponse.class));
     }
 
     @PostMapping(value = "/shelves", consumes = MediaType.APPLICATION_JSON_VALUE)

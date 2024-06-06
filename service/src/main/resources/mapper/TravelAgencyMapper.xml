@@ -17,6 +17,9 @@
             create_time,
             update_time
         from travel_agency where deleted = false
+        <if test="param.merchantId != null">
+            and merchant_id = #{param.merchantId}
+        </if>
         <if test="param.state != null">
             and state = #{param.state}
         </if>
