@@ -26,6 +26,9 @@ public class ScenicDetailResponse {
     @ApiModelProperty(value = "景区等级 5: 5A 4: 4A 3: 3A 0:其他")
     private Integer level;
 
+    @ApiModelProperty("景区标签")
+    private String tag;
+
     @ApiModelProperty(value = "景区营业时间")
     private String openTime;
 
