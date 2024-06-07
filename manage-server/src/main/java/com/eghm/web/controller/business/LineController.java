@@ -20,6 +20,7 @@ import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.line.LineDayConfigResponse;
 import com.eghm.vo.business.line.LineDetailResponse;
 import com.eghm.vo.business.line.LineResponse;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -80,7 +81,11 @@ public class LineController {
         Line line = lineService.selectByIdRequired(request.getId());
         LineDetailResponse response = DataUtil.copy(line, LineDetailResponse.class);
         List<LineDayConfig> dayList = lineDayConfigService.getByLineId(request.getId());
-        response.setDayList(DataUtil.copy(dayList, LineDayConfigResponse.class));
+        response.setConfigList(DataUtil.copy(dayList, config -> {
+            LineDayConfigResponse configResponse = DataUtil.copy(config, LineDayConfigResponse.class);
+            configResponse.setRepastList(this.parseRepast(config.getRepast()));
+            return configResponse;
+        }));
         // 虚拟销量需要计算
         response.setVirtualNum(line.getTotalNum() - line.getSaleNum());
         return RespBody.success(response);
@@ -120,5 +125,28 @@ public class LineController {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<LineResponse> byPage = lineService.getList(request);
         EasyExcelUtil.export(response, "线路信息", byPage, LineResponse.class);
+    }
+
+    /**
+     * 包含就餐 1:早餐 2:午餐 4:晚餐
+     *
+     * @param repast 最大7
+     * @return list
+     */
+    private List<Integer> parseRepast(Integer repast) {
+        if (repast == null) {
+            return Lists.newArrayList();
+        }
+        List<Integer> list = Lists.newArrayList();
+        if ((repast & 1) == 1) {
+            list.add(1);
+        }
+        if ((repast & 2) == 2) {
+            list.add(2);
+        }
+        if ((repast & 4) == 4) {
+            list.add(4);
+        }
+        return list;
     }
 }

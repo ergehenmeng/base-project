@@ -3,6 +3,8 @@ package com.eghm.vo.business.line;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author 二哥很猛
  * @since 2022/12/26
@@ -26,7 +28,7 @@ public class LineDayConfigResponse {
     private Integer trafficType;
 
     @ApiModelProperty(value = "包含就餐 1:早餐 2:午餐 4:晚餐")
-    private Integer repast;
+    private List<Integer> repastList;
 
     @ApiModelProperty(value = "详细描述信息")
     private String depict;

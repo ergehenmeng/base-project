@@ -50,5 +50,5 @@ public class LineDetailResponse {
     private String introduce;
 
     @ApiModelProperty("线路每日行程")
-    private List<LineDayConfigResponse> dayList;
+    private List<LineDayConfigResponse> configList;
 }
