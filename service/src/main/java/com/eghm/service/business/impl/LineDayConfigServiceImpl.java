@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -33,6 +34,9 @@ public class LineDayConfigServiceImpl implements LineDayConfigService {
             LineDayConfig config = DataUtil.copy(request, LineDayConfig.class);
             config.setLineId(lineId);
             config.setId(IdWorker.getId());
+            if (CollUtil.isNotEmpty(request.getRepastList())) {
+                config.setRepast(request.getRepastList().stream().mapToInt(Integer::intValue).sum());
+            }
             lineDayConfigMapper.insertOrUpdate(config);
         }
     }

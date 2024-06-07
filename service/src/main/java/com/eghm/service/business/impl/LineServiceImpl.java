@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -21,6 +22,7 @@ import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.mapper.TravelAgencyMapper;
 import com.eghm.model.Line;
 import com.eghm.model.LineDayConfig;
+import com.eghm.model.ScenicTicket;
 import com.eghm.model.TravelAgency;
 import com.eghm.service.business.*;
 import com.eghm.service.sys.SysAreaService;
@@ -86,9 +88,11 @@ public class LineServiceImpl implements LineService {
         Long merchantId = SecurityHolder.getMerchantId();
         this.checkTravelAgency(request.getTravelAgencyId(), merchantId);
 
+
         Line line = DataUtil.copy(request, Line.class);
         line.setMerchantId(merchantId);
         line.setCreateDate(LocalDate.now());
+        line.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         lineMapper.insert(line);
 
         lineDayConfigService.insertOrUpdate(line.getId(), request.getConfigList());
@@ -99,8 +103,12 @@ public class LineServiceImpl implements LineService {
         this.titleRedo(request.getTitle(), request.getTravelAgencyId(), request.getId());
         Long merchantId = SecurityHolder.getMerchantId();
         this.checkTravelAgency(request.getTravelAgencyId(), merchantId);
-
+        Line sourceLine = this.selectByIdRequired(request.getId());
+        commonService.checkIllegal(sourceLine.getMerchantId());
         Line line = DataUtil.copy(request, Line.class);
+        line.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
+        // 总销量要根据真实销量计算
+        line.setTotalNum(request.getVirtualNum() + sourceLine.getSaleNum());
         lineMapper.updateById(line);
         lineDayConfigService.insertOrUpdate(line.getId(), request.getConfigList());
     }

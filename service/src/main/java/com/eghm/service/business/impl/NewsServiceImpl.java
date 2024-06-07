@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
 import com.eghm.constant.CacheConstant;
+import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.news.NewsAddRequest;
 import com.eghm.dto.business.news.NewsEditRequest;
 import com.eghm.dto.business.news.NewsQueryRequest;
@@ -64,7 +65,7 @@ public class NewsServiceImpl implements NewsService {
         this.redoTitle(request.getTitle(), request.getCode(), null);
         News copy = DataUtil.copy(request, News.class);
         if (CollUtil.isNotEmpty(request.getImageList())) {
-            copy.setImage(CollUtil.join(request.getImageList(), ","));
+            copy.setImage(CollUtil.join(request.getImageList(), CommonConstant.COMMA));
         }
         newsMapper.insert(copy);
     }
@@ -74,7 +75,7 @@ public class NewsServiceImpl implements NewsService {
         this.redoTitle(request.getTitle(), request.getCode(), request.getId());
         News copy = DataUtil.copy(request, News.class);
         if (CollUtil.isNotEmpty(request.getImageList())) {
-            copy.setImage(CollUtil.join(request.getImageList(), ","));
+            copy.setImage(CollUtil.join(request.getImageList(), CommonConstant.COMMA));
         }
         newsMapper.updateById(copy);
     }

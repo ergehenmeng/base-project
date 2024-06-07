@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -32,8 +33,7 @@ public class LineDayConfigRequest {
     private Integer trafficType;
 
     @ApiModelProperty(value = "包含就餐 1:早餐 2:午餐 4:晚餐", required = true)
-    @Max(value = 7, message = "就餐信息不合法")
-    private Integer repast;
+    private List<Integer> repastList;
 
     @ApiModelProperty(value = "详细描述信息", required = true)
     @NotBlank(message = "详细信息不能为空")

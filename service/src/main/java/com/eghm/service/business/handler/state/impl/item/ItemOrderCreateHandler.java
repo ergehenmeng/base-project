@@ -479,7 +479,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             List<String> noList = orderList.stream().map(Order::getOrderNo).collect(Collectors.toList());
             // 30分钟过期定时任务
             TransactionUtil.afterCommit(() -> orderList.forEach(order -> orderMQService.sendOrderExpireMessage(ExchangeQueue.ITEM_PAY_EXPIRE, order.getOrderNo())));
-            context.setOrderNo(CollUtil.join(noList, ","));
+            context.setOrderNo(CollUtil.join(noList, CommonConstant.COMMA));
         }
     }
 

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.travel.TravelAgencyAddRequest;
 import com.eghm.dto.business.travel.TravelAgencyEditRequest;
@@ -77,7 +78,7 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         TravelAgency agency = DataUtil.copy(request, TravelAgency.class);
         agency.setState(State.UN_SHELVE);
         agency.setMerchantId(SecurityHolder.getMerchantId());
-        agency.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
+        agency.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         travelAgencyMapper.insert(agency);
     }
 
@@ -87,7 +88,7 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         TravelAgency travelAgency = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(travelAgency.getMerchantId());
         TravelAgency agency = DataUtil.copy(request, TravelAgency.class);
-        agency.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
+        agency.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         travelAgencyMapper.updateById(agency);
     }
 

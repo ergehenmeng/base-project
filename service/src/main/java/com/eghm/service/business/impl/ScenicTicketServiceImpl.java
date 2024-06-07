@@ -58,7 +58,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     public void create(ScenicTicketAddRequest request) {
         Long merchantId = SecurityHolder.getMerchantId();
         this.redoTitle(request.getTitle(), request.getScenicId(), null);
-        this.checkScenic(request.getScenicId());
+        this.checkScenic(request.getScenicId(), merchantId);
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
         ticket.setMerchantId(merchantId);
         ticket.setTotalNum(request.getVirtualNum());
@@ -69,8 +69,9 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     @Override
     public void update(ScenicTicketEditRequest request) {
+        Long merchantId = SecurityHolder.getMerchantId();
         this.redoTitle(request.getTitle(), request.getScenicId(), request.getId());
-        this.checkScenic(request.getScenicId());
+        this.checkScenic(request.getScenicId(), merchantId);
         ScenicTicket scenicTicket = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(scenicTicket.getMerchantId());
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
@@ -180,12 +181,13 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
      * 校验门票所属景区是否存在
      *
      * @param id 景区id
+     * @param merchantId 当前登陆的景区
      */
-    private void checkScenic(Long id) {
-        Scenic scenic = scenicService.selectById(id);
-        if (scenic == null) {
-            log.info("门票绑定的景区不存在或已被删除 [{}]", id);
-            throw new BusinessException(ErrorCode.SCENIC_DELETE);
+    private void checkScenic(Long id, Long merchantId) {
+        Scenic scenic = scenicService.selectByIdRequired(id);
+        if (commonService.checkIsIllegal(scenic.getMerchantId(), merchantId)) {
+            log.info("选择的旅行社不属于自己的 [{}] [{}]", scenic.getMerchantId(), merchantId);
+            throw new BusinessException(ErrorCode.TRAVEL_AGENCY_NOT_FOUND);
         }
     }
 }

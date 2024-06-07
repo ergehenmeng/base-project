@@ -36,8 +36,8 @@ public class LineAddRequest {
     private Long startCityId;
 
     @ApiModelProperty(value = "封面图片", required = true)
-    @NotBlank(message = "封面图片不能为空")
-    private String coverUrl;
+    @NotEmpty(message = "封面图片不能为空")
+    private List<String> coverList;
 
     @ApiModelProperty(value = "虚拟销售量", required = true)
     @Min(value = 0, message = "虚拟销量不能小于0")

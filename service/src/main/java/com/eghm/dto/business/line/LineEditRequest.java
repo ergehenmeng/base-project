@@ -43,8 +43,8 @@ public class LineEditRequest {
     private Long startCityId;
 
     @ApiModelProperty(value = "封面图片", required = true)
-    @NotBlank(message = "封面图片不能为空")
-    private String coverUrl;
+    @NotEmpty(message = "封面图片不能为空")
+    private List<String> coverList;
 
     @ApiModelProperty(value = "虚拟销售量", required = true)
     @RangeInt(max = 9999, message = "虚拟销量应为0~9999")
