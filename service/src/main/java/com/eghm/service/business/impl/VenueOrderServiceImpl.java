@@ -98,7 +98,7 @@ public class VenueOrderServiceImpl implements VenueOrderService {
     public VenueOrderDetailVO getDetail(String orderNo, Long memberId) {
         VenueOrderDetailVO detail = venueOrderMapper.getDetail(orderNo, memberId);
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
-        detail.setDetailAddress(sysAreaService.parseArea(detail.getCityId(), detail.getCountyId()) + detail.getDetailAddress());
+        detail.setDetailAddress(sysAreaService.parseArea(detail.getCityId(), detail.getCountyId(), detail.getDetailAddress()));
         detail.setPhaseList(jsonService.fromJsonList(detail.getTimePhase(), VenuePhaseVO.class));
         return detail;
     }

@@ -73,7 +73,11 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
 
     @Override
     public Page<HomestayResponse> getByPage(HomestayQueryRequest request) {
-        return homestayMapper.listPage(request.createPage(), request);
+        Page<HomestayResponse> listPage = homestayMapper.listPage(request.createPage(), request);
+        if (CollUtil.isNotEmpty(listPage.getRecords())) {
+            listPage.getRecords().forEach(response -> response.setDetailAddress(sysAreaService.parseArea(response.getCityId(), response.getCountyId(), response.getDetailAddress())));
+        }
+        return listPage;
     }
 
     @Override
@@ -175,7 +179,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         // 针对针对标签,位置和最低价进行赋值或解析
         for (HomestayVO vo : voList) {
             vo.setTagList(commonService.parseTags(dictList, vo.getTagIds()));
-            vo.setDetailAddress(sysAreaService.parseArea(vo.getCityId(), vo.getCountyId()) + vo.getDetailAddress());
+            vo.setDetailAddress(sysAreaService.parseArea(vo.getCityId(), vo.getCountyId(), vo.getDetailAddress()) );
         }
         return voList;
     }
@@ -184,7 +188,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     public HomestayDetailVO detailById(Long homestayId) {
         Homestay homestay = this.selectByIdShelve(homestayId);
         HomestayDetailVO vo = DataUtil.copy(homestay, HomestayDetailVO.class);
-        vo.setDetailAddress(sysAreaService.parseArea(homestay.getCityId(), homestay.getCountyId()) + homestay.getDetailAddress());
+        vo.setDetailAddress(sysAreaService.parseArea(homestay.getCityId(), homestay.getCountyId(), homestay.getDetailAddress()));
         vo.setTagList(sysDictService.getTags(DictConstant.HOMESTAY_TAG, homestay.getTag()));
         vo.setRecommendRoomList(homestayRoomService.getRecommendRoom(homestayId));
         vo.setCollect(memberCollectService.checkCollect(homestayId, CollectType.HOMESTAY));

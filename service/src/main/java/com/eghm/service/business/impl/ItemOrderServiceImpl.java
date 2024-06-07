@@ -191,7 +191,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         ItemOrderDetailVO detail = itemOrderMapper.getDetail(orderNo, memberId);
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
         List<ItemOrderListVO> itemList = itemOrderMapper.getItemList(orderNo);
-        detail.setDetailAddress(sysAreaService.parseArea(detail.getProvinceId(), detail.getCityId(), detail.getCountyId()) + detail.getDetailAddress());
+        detail.setDetailAddress(sysAreaService.parseArea(detail.getProvinceId(), detail.getCityId(), detail.getCountyId(), detail.getDetailAddress()));
         detail.setItemList(itemList);
         List<FirstExpressVO> expressList = orderExpressService.getFirstExpressList(orderNo);
         detail.setExpressList(expressList);
@@ -206,7 +206,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         AssertUtil.assertOrderNotNull(detail, orderNo, merchantId);
         // 商品信息
         List<ItemOrderListVO> itemList = itemOrderMapper.getItemList(orderNo);
-        detail.setDetailAddress(sysAreaService.parseArea(detail.getProvinceId(), detail.getCityId(), detail.getCountyId()) + detail.getDetailAddress());
+        detail.setDetailAddress(sysAreaService.parseArea(detail.getProvinceId(), detail.getCityId(), detail.getCountyId(), detail.getDetailAddress()));
         detail.setItemList(itemList);
         // 发货信息
         List<ItemShippedResponse> shippedList = itemOrderMapper.getShippedList(orderNo);

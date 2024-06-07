@@ -456,7 +456,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         vo.setExpressList(jsonService.fromJsonList(express.getContent(), ExpressVO.class));
         vo.setNickName(order.getNickName());
         vo.setMobile(order.getMobile());
-        vo.setDetailAddress(sysAreaService.parseArea(order.getProvinceId(), order.getCityId(), order.getCountyId()) + order.getDetailAddress());
+        vo.setDetailAddress(sysAreaService.parseArea(order.getProvinceId(), order.getCityId(), order.getCountyId(), order.getDetailAddress()));
         return vo;
     }
 

@@ -2,6 +2,7 @@ package com.eghm.vo.business.line;
 
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -32,9 +33,11 @@ public class TravelResponse {
     private State state;
 
     @ApiModelProperty(value = "城市id")
+    @JsonIgnore
     private Long cityId;
 
     @ApiModelProperty(value = "县区id")
+    @JsonIgnore
     private Long countyId;
 
     @ApiModelProperty(value = "详细地址")

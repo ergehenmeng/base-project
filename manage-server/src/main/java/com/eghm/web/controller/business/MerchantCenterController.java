@@ -39,7 +39,7 @@ public class MerchantCenterController {
     public RespBody<MerchantDetailResponse> detail() {
         Merchant merchant = merchantService.selectByIdRequired(SecurityHolder.getMerchantId());
         MerchantDetailResponse response = DataUtil.copy(merchant, MerchantDetailResponse.class);
-        response.setDetailAddress(sysAreaService.parseArea(merchant.getProvinceId(), merchant.getCityId(), merchant.getCountyId()) + merchant.getDetailAddress());
+        response.setDetailAddress(sysAreaService.parseArea(merchant.getProvinceId(), merchant.getCityId(), merchant.getCountyId(), merchant.getDetailAddress()));
         return RespBody.success(response);
     }
 

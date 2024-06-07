@@ -8,10 +8,14 @@
         t.title,
         r.merchant_name,
         t.`level`,
+        t.cover_url,
         t.state,
+        t.city_id,
+        t.county_id,
         t.detail_address,
         t.phone,
-        t.create_time
+        t.create_time,
+        t.update_time
         from homestay t
         left join merchant r on t.merchant_id = r.id
         where t.deleted = false

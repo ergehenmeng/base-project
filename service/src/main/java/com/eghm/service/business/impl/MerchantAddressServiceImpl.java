@@ -101,7 +101,7 @@ public class MerchantAddressServiceImpl implements MerchantAddressService {
         MerchantAddressVO vo = new MerchantAddressVO();
         vo.setNickName(address.getNickName());
         vo.setMobile(address.getMobile());
-        vo.setDetailAddress(sysAreaService.parseArea(address.getProvinceId(), address.getCityId(), address.getCountyId()) + address.getDetailAddress());
+        vo.setDetailAddress(sysAreaService.parseArea(address.getProvinceId(), address.getCityId(), address.getCountyId(), address.getDetailAddress()));
         return vo;
     }
 
@@ -113,7 +113,7 @@ public class MerchantAddressServiceImpl implements MerchantAddressService {
      */
     private MerchantAddressResponse transfer(MerchantAddress address) {
         MerchantAddressResponse response = DataUtil.copy(address, MerchantAddressResponse.class);
-        response.setDetailAddress(sysAreaService.parseArea(address.getCityId(), address.getCountyId()) + address.getDetailAddress());
+        response.setDetailAddress(sysAreaService.parseArea(address.getCityId(), address.getCountyId(), address.getDetailAddress()));
         return response;
     }
 }

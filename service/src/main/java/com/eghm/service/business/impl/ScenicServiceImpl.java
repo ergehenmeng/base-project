@@ -168,7 +168,7 @@ public class ScenicServiceImpl implements ScenicService {
             vo.setDistance(BigDecimal.valueOf(distance));
         }
         // 景区地址
-        vo.setDetailAddress(sysAreaService.parseArea(scenic.getProvinceId(), scenic.getCityId(), scenic.getCountyId()) + scenic.getDetailAddress());
+        vo.setDetailAddress(sysAreaService.parseArea(scenic.getProvinceId(), scenic.getCityId(), scenic.getCountyId(), scenic.getDetailAddress()) );
         // 景区标签
         vo.setTagList(sysDictService.getTags(DictConstant.SCENIC_TAG, scenic.getTag()));
         // 景区门票

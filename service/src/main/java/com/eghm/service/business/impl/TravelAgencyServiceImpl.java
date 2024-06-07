@@ -63,7 +63,7 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     @Override
     public Page<TravelResponse> getByPage(TravelAgencyQueryRequest request) {
         Page<TravelResponse> byPage = travelAgencyMapper.getByPage(request.createPage(), request);
-        byPage.getRecords().forEach(agency -> agency.setDetailAddress(sysAreaService.parseArea(agency.getCityId(), agency.getCountyId()) + agency.getDetailAddress()));
+        byPage.getRecords().forEach(agency -> agency.setDetailAddress(sysAreaService.parseArea(agency.getCityId(), agency.getCountyId(), agency.getDetailAddress())));
         return byPage;
     }
 
@@ -140,7 +140,7 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     public TravelDetailVO detail(Long id) {
         TravelAgency travelAgency = this.selectByIdShelve(id);
         TravelDetailVO vo = DataUtil.copy(travelAgency, TravelDetailVO.class);
-        vo.setDetailAddress(sysAreaService.parseArea(travelAgency.getCityId(), travelAgency.getCountyId()) + vo.getDetailAddress());
+        vo.setDetailAddress(sysAreaService.parseArea(travelAgency.getCityId(), travelAgency.getCountyId(), vo.getDetailAddress()));
         vo.setCollect(memberCollectService.checkCollect(id, CollectType.TRAVEL_AGENCY));
         return vo;
     }

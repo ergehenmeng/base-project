@@ -147,7 +147,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     public RestaurantDetailVO detailById(Long id) {
         Restaurant restaurant = this.selectByIdShelve(id);
         RestaurantDetailVO vo = DataUtil.copy(restaurant, RestaurantDetailVO.class);
-        vo.setDetailAddress(sysAreaService.parseArea(restaurant.getCityId(), restaurant.getCountyId()) + restaurant.getDetailAddress());
+        vo.setDetailAddress(sysAreaService.parseArea(restaurant.getCityId(), restaurant.getCountyId(), restaurant.getDetailAddress()));
         vo.setCollect(memberCollectService.checkCollect(id, CollectType.VOUCHER_STORE));
         return vo;
     }

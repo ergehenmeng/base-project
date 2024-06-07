@@ -37,6 +37,14 @@ public class SysAreaServiceImpl implements SysAreaService {
     }
 
     @Override
+    public String parseArea(Long provinceId, Long cityId, Long countyId, String address) {
+        if (address == null) {
+            return this.parseArea(provinceId, cityId, countyId);
+        }
+        return this.parseArea(provinceId, cityId, countyId) + address;
+    }
+
+    @Override
     public String parseArea(Long cityId, Long countyId) {
         if (cityId == null || countyId == null) {
             return "";
@@ -51,6 +59,14 @@ public class SysAreaServiceImpl implements SysAreaService {
             address += sysArea.getTitle();
         }
         return address;
+    }
+
+    @Override
+    public String parseArea(Long cityId, Long countyId, String address) {
+        if (address == null) {
+            return this.parseArea(cityId, countyId);
+        }
+        return this.parseArea(cityId, countyId) + address;
     }
 
     @Override

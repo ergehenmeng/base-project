@@ -4,6 +4,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.ref.State;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,13 +31,24 @@ public class HomestayResponse extends ExcelStyle {
     @ExcelProperty(value = "商户名称", index = 1)
     private String merchantName;
 
-    @ApiModelProperty(value = "星级 5:五星级 4:四星级 3:三星级 0:其他")
+    @ApiModelProperty(value = "星级 5:五星级 4:四星级 3:三星级 2:二星级 0:其他")
     @ExcelProperty(value = "星级", index = 2)
     private Integer level;
 
     @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     @ExcelProperty(value = "状态", index = 3)
     private State state;
+
+    @ApiModelProperty(value = "封面图片,逗号分隔")
+    private String coverUrl;
+
+    @ApiModelProperty(value = "城市id")
+    @JsonIgnore
+    private Long cityId;
+
+    @ApiModelProperty(value = "县区id")
+    @JsonIgnore
+    private Long countyId;
 
     @ApiModelProperty(value = "详细地址")
     @ExcelProperty(value = "详细地址", index = 4)
@@ -50,4 +62,9 @@ public class HomestayResponse extends ExcelStyle {
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @ExcelProperty(value = "创建时间", index = 6)
     private LocalDateTime createTime;
+
+    @ApiModelProperty("更新时间")
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @ExcelProperty(value = "创建时间", index = 7)
+    private LocalDateTime updateTime;
 }
