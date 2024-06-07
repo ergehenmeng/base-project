@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class LineConfigResponse extends BaseConfigResponse {
 
     @ApiModelProperty("是否可订 0:不可订 1:可定")
-    private Integer state;
+    private Boolean state;
 
     @ApiModelProperty("划线价")
     @JsonSerialize(using = CentToYuanEncoder.class)
