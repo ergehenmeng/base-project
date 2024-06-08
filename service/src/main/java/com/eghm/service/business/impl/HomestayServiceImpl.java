@@ -102,6 +102,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         Homestay required = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(required.getMerchantId());
         Homestay homestay = DataUtil.copy(request, Homestay.class);
+        homestay.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
         homestay.setKeyService(CollUtil.join(request.getServiceList(), ","));
         homestayMapper.updateById(homestay);
     }
