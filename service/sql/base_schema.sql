@@ -1304,7 +1304,7 @@ CREATE TABLE `order_refund_log`
 DROP TABLE IF EXISTS `verify_log`;
 CREATE TABLE `verify_log`
 (
-    `id`          bigint(20)   DEFAULT NULL COMMENT '主键',
+    `id`          bigint(20)   NOT NULL COMMENT '主键',
     `merchant_id` bigint(20)   DEFAULT NULL COMMENT '商户id',
     `order_no`    varchar(50)  DEFAULT NULL COMMENT '订单编号',
     `user_id`     bigint(20)   DEFAULT NULL COMMENT '核销人id',
@@ -1612,7 +1612,7 @@ CREATE TABLE `item_spec`
 DROP TABLE IF EXISTS `lottery`;
 CREATE TABLE `lottery`
 (
-    `id`            bigint(20)    DEFAULT NULL COMMENT '主键',
+    `id`            bigint(20)    NOT NULL COMMENT '主键',
     `title`         varchar(30)   DEFAULT NULL COMMENT '活动名称',
     `merchant_id`   bigint(20)    DEFAULT NULL COMMENT '商户id',
     `store_id`      bigint(20)    DEFAULT NULL COMMENT '店铺id',
@@ -1818,7 +1818,7 @@ DROP TABLE IF EXISTS `item_express`;
 DROP TABLE IF EXISTS `order_express`;
 CREATE TABLE `order_express`
 (
-    `id`           bigint(20)  DEFAULT NULL COMMENT '主键',
+    `id`           bigint(20)  NOT NULL COMMENT '主键',
     `order_no`     varchar(30) DEFAULT NULL COMMENT '订单号',
     `express_code` varchar(20) DEFAULT NULL COMMENT '物流公司code',
     `express_no`   varchar(30) DEFAULT NULL COMMENT '快递单号',
@@ -1833,7 +1833,7 @@ CREATE TABLE `order_express`
 DROP TABLE IF EXISTS item_order_express;
 CREATE TABLE `item_order_express`
 (
-    `id`            bigint(20)  DEFAULT NULL COMMENT '主键',
+    `id`            bigint(20)  NOT NULL COMMENT '主键',
     `item_order_id` varchar(30) DEFAULT NULL COMMENT '零售订单id',
     `order_no`      varchar(30) DEFAULT NULL COMMENT '订单号(冗余)',
     `express_id`    bigint(20) comment '快递信息id',
