@@ -65,7 +65,6 @@ public class HomestayEditRequest {
     private BigDecimal latitude;
 
     @ApiModelProperty(value = "描述信息", required = true)
-    @NotBlank(message = "描述信息不能为空")
     @Size(min = 2, max = 50, message = "描述信息长度2~50位")
     @WordChecker(message = "描述信息存在敏感词")
     private String intro;
