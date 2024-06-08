@@ -31,6 +31,18 @@
         order by t.id desc
     </select>
 
+    <select id="getBaseList" resultType="com.eghm.vo.business.homestay.BaseHomestayResponse">
+        select
+            t.id,
+            t.title,
+            t.state
+        from homestay t where t.deleted = false
+        <if test="merchantId != null">
+            and t.merchant_id = #{merchantId}
+        </if>
+        order by t.id desc
+    </select>
+
     <select id="getByPage" resultType="com.eghm.vo.business.homestay.HomestayVO" parameterType="com.eghm.dto.business.homestay.HomestayQueryDTO">
         <choose>
             <when test="param.sortByDistance != null or param.sortByPrice != null">

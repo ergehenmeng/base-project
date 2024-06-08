@@ -14,6 +14,7 @@ import com.eghm.model.Homestay;
 import com.eghm.service.business.HomestayService;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.homestay.BaseHomestayResponse;
 import com.eghm.vo.business.homestay.HomestayResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -42,6 +43,13 @@ public class HomestayController {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<HomestayResponse> byPage = homestayService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("列表")
+    public RespBody<List<BaseHomestayResponse>> list() {
+        List<BaseHomestayResponse> responseList = homestayService.getList();
+        return RespBody.success(responseList);
     }
 
     @GetMapping("/storeListPage")

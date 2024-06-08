@@ -7,6 +7,7 @@ import com.eghm.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.dto.business.homestay.HomestayQueryRequest;
 import com.eghm.model.Homestay;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.homestay.BaseHomestayResponse;
 import com.eghm.vo.business.homestay.HomestayResponse;
 import com.eghm.vo.business.homestay.HomestayVO;
 import org.apache.ibatis.annotations.Param;
@@ -32,6 +33,14 @@ public interface HomestayMapper extends BaseMapper<Homestay> {
      * @return 列表
      */
     Page<HomestayResponse> listPage(Page<HomestayVO> page, @Param("param") HomestayQueryRequest request);
+
+    /**
+     * 查询商户下的民宿列表
+     *
+     * @param merchantId 商户id
+     * @return 列表
+     */
+    List<BaseHomestayResponse> getBaseList(@Param("merchantId") Long merchantId);
 
     /**
      * 分页查询民宿列表

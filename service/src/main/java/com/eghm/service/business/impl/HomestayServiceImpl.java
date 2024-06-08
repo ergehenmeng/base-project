@@ -34,6 +34,7 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
+import com.eghm.vo.business.homestay.BaseHomestayResponse;
 import com.eghm.vo.business.homestay.HomestayDetailVO;
 import com.eghm.vo.business.homestay.HomestayResponse;
 import com.eghm.vo.business.homestay.HomestayVO;
@@ -78,6 +79,11 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
             listPage.getRecords().forEach(response -> response.setDetailAddress(sysAreaService.parseArea(response.getCityId(), response.getCountyId(), response.getDetailAddress())));
         }
         return listPage;
+    }
+
+    @Override
+    public List<BaseHomestayResponse> getList() {
+        return homestayMapper.getBaseList(SecurityHolder.getMerchantId());
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Homestay;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.homestay.BaseHomestayResponse;
 import com.eghm.vo.business.homestay.HomestayDetailVO;
 import com.eghm.vo.business.homestay.HomestayResponse;
 import com.eghm.vo.business.homestay.HomestayVO;
@@ -28,6 +29,13 @@ public interface HomestayService {
      * @return 列表
      */
     Page<HomestayResponse> getByPage(HomestayQueryRequest request);
+
+    /**
+     * 获取民宿列表
+     *
+     * @return 列表
+     */
+    List<BaseHomestayResponse> getList();
 
     /**
      * 分页查询民宿列表
