@@ -41,4 +41,8 @@
     <select id="getByUserId" resultType="long">
         select id from merchant where user_id = #{userId} and deleted = false
     </select>
+    
+    <select id="getList" resultType="com.eghm.vo.business.merchant.BaseMerchantResponse">
+        select id, merchant_name from merchant where deleted = false order by id desc
+    </select>
 </mapper>

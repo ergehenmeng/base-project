@@ -24,7 +24,6 @@ import java.util.Map;
  * @since 2023/7/14
  */
 @Slf4j
-@Service("dingTalkAlarmService")
 @AllArgsConstructor
 public class DingTalkAlarmServiceImpl implements AlarmService {
 

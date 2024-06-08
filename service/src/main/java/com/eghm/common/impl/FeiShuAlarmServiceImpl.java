@@ -3,23 +3,21 @@ package com.eghm.common.impl;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.http.HttpUtil;
+import com.eghm.common.AlarmService;
+import com.eghm.common.JsonService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.dto.ext.FeiShuMsg;
-import com.eghm.common.JsonService;
-import com.eghm.common.AlarmService;
 import com.eghm.utils.SpringContextUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
 
 /**
  * @author 二哥很猛
  * @since 2023/7/14
  */
 @Slf4j
-@Service("feiShuAlarmServiceService")
 @AllArgsConstructor
 public class FeiShuAlarmServiceImpl implements AlarmService {
 

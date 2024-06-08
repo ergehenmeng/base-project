@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.merchant.MerchantAddRequest;
 import com.eghm.dto.business.merchant.MerchantEditRequest;
@@ -11,13 +12,18 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.model.Merchant;
 import com.eghm.service.business.MerchantService;
 import com.eghm.utils.EasyExcelUtil;
+import com.eghm.vo.business.merchant.BaseMerchantResponse;
 import com.eghm.vo.business.merchant.MerchantResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -109,5 +115,12 @@ public class MerchantController {
         List<MerchantResponse> byPage = merchantService.getList(request);
         EasyExcelUtil.export(response, "商户信息", byPage, MerchantResponse.class);
     }
-
+    
+    @GetMapping("/list")
+    @ApiOperation("列表")
+    @SkipPerm
+    public RespBody<List<BaseMerchantResponse>> list() {
+        List<BaseMerchantResponse> merchantList = merchantService.getList();
+        return RespBody.success(merchantList);
+    }
 }

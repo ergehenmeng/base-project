@@ -29,6 +29,7 @@ import com.eghm.common.SmsService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.common.impl.SysConfigApi;
+import com.eghm.vo.business.merchant.BaseMerchantResponse;
 import com.eghm.wechat.WeChatMiniService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.merchant.MerchantAuthResponse;
@@ -91,7 +92,12 @@ public class MerchantServiceImpl implements MerchantService {
     public Page<MerchantResponse> getByPage(MerchantQueryRequest request) {
         return merchantMapper.listPage(request.createPage(), request);
     }
-
+    
+    @Override
+    public List<BaseMerchantResponse> getList() {
+        return merchantMapper.getList();
+    }
+    
     @Override
     public List<MerchantResponse> getList(MerchantQueryRequest request) {
         Page<MerchantResponse> listPage = merchantMapper.listPage(request.createNullPage(), request);

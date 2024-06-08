@@ -1101,8 +1101,6 @@ CREATE TABLE `merchant`
 (
     `id`                    bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `merchant_name`         varchar(30)   DEFAULT NULL COMMENT '商家名称',
-    `mobile`                varchar(20)   DEFAULT NULL COMMENT '联系人电话(登录手机号)',
-    `platform_service_rate` decimal(4, 2) DEFAULT NULL COMMENT ',单位:%',
     `enterprise_type`       tinyint(2)    DEFAULT NULL COMMENT '企业类型 1:个体工商户 2:企业',
     `credit_code`           varchar(30)   DEFAULT NULL COMMENT '社会统一信用代码',
     `business_license_url`  varchar(500)  DEFAULT NULL COMMENT '营业执照图片',
@@ -1111,17 +1109,20 @@ CREATE TABLE `merchant`
     `legal_url`             varchar(500)  DEFAULT NULL COMMENT '法人身份证图片',
     `open_id`               varchar(30)   DEFAULT NULL COMMENT 'openId',
     `auth_mobile`           varchar(20)   DEFAULT NULL COMMENT '微信授权手机号',
-    `type`                  smallint(4)   DEFAULT NULL COMMENT '商家类型 1:景区 2:民宿 4:餐饮 8:零售 16:线路 32:场馆',
+    `type`                  smallint(4)   DEFAULT NULL COMMENT '商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路',
+    `nick_name`             varchar(20)   DEFAULT NULL COMMENT '联系人姓名',
+    `mobile`                varchar(20)   DEFAULT NULL COMMENT '联系人电话',
     `user_id`               bigint(20) NOT NULL COMMENT '商户关联系统用户ID',
-    `province_id`           bigint(20)    DEFAULT NULL COMMENT '省份id',
-    `city_id`               bigint(20)    DEFAULT NULL COMMENT '城市id',
-    `county_id`             bigint(20)    DEFAULT NULL COMMENT '区县id',
+    `province_id`           bigint(20)    DEFAULT NULL COMMENT '省份',
+    `city_id`               bigint(20)    DEFAULT NULL COMMENT '城市',
+    `county_id`             bigint(20)    DEFAULT NULL COMMENT '区县',
     `detail_address`        varchar(100)  DEFAULT NULL COMMENT '详细地址',
     `create_time`           datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`           datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`               bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `deleted`               bit(1)        DEFAULT b'0' COMMENT '是否为删除状态 0:未删除 1:已删除',
+    `platform_service_rate` decimal(4, 2) DEFAULT NULL COMMENT '平台手续费,单位:%',
     PRIMARY KEY (`id`)
-) DEFAULT CHARSET = utf8mb4 COMMENT ='商家信息表';
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='商家信息表';
 
 DROP TABLE IF EXISTS `coupon`;
 CREATE TABLE `coupon`
@@ -1304,7 +1305,7 @@ CREATE TABLE `order_refund_log`
 DROP TABLE IF EXISTS `verify_log`;
 CREATE TABLE `verify_log`
 (
-    `id`          bigint(20)   NOT NULL COMMENT '主键',
+    `id`          bigint(20) NOT NULL COMMENT '主键',
     `merchant_id` bigint(20)   DEFAULT NULL COMMENT '商户id',
     `order_no`    varchar(50)  DEFAULT NULL COMMENT '订单编号',
     `user_id`     bigint(20)   DEFAULT NULL COMMENT '核销人id',
@@ -1612,7 +1613,7 @@ CREATE TABLE `item_spec`
 DROP TABLE IF EXISTS `lottery`;
 CREATE TABLE `lottery`
 (
-    `id`            bigint(20)    NOT NULL COMMENT '主键',
+    `id`            bigint(20) NOT NULL COMMENT '主键',
     `title`         varchar(30)   DEFAULT NULL COMMENT '活动名称',
     `merchant_id`   bigint(20)    DEFAULT NULL COMMENT '商户id',
     `store_id`      bigint(20)    DEFAULT NULL COMMENT '店铺id',
@@ -1818,7 +1819,7 @@ DROP TABLE IF EXISTS `item_express`;
 DROP TABLE IF EXISTS `order_express`;
 CREATE TABLE `order_express`
 (
-    `id`           bigint(20)  NOT NULL COMMENT '主键',
+    `id`           bigint(20) NOT NULL COMMENT '主键',
     `order_no`     varchar(30) DEFAULT NULL COMMENT '订单号',
     `express_code` varchar(20) DEFAULT NULL COMMENT '物流公司code',
     `express_no`   varchar(30) DEFAULT NULL COMMENT '快递单号',
@@ -1833,7 +1834,7 @@ CREATE TABLE `order_express`
 DROP TABLE IF EXISTS item_order_express;
 CREATE TABLE `item_order_express`
 (
-    `id`            bigint(20)  NOT NULL COMMENT '主键',
+    `id`            bigint(20) NOT NULL COMMENT '主键',
     `item_order_id` varchar(30) DEFAULT NULL COMMENT '零售订单id',
     `order_no`      varchar(30) DEFAULT NULL COMMENT '订单号(冗余)',
     `express_id`    bigint(20) comment '快递信息id',

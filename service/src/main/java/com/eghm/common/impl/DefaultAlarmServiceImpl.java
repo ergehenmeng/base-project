@@ -2,7 +2,6 @@ package com.eghm.common.impl;
 
 import com.eghm.common.AlarmService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 /**
  * @author 二哥很猛
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
  */
 
 @Slf4j
-@Service("defaultAlarmService")
 public class DefaultAlarmServiceImpl implements AlarmService {
 
     @Override

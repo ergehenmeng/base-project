@@ -6,6 +6,7 @@ import com.eghm.dto.business.merchant.MerchantAuthDTO;
 import com.eghm.dto.business.merchant.MerchantEditRequest;
 import com.eghm.dto.business.merchant.MerchantQueryRequest;
 import com.eghm.model.Merchant;
+import com.eghm.vo.business.merchant.BaseMerchantResponse;
 import com.eghm.vo.business.merchant.MerchantAuthResponse;
 import com.eghm.vo.business.merchant.MerchantAuthVO;
 import com.eghm.vo.business.merchant.MerchantResponse;
@@ -26,6 +27,13 @@ public interface MerchantService {
      * @return 列表
      */
     Page<MerchantResponse> getByPage(MerchantQueryRequest request);
+    
+    /**
+     * 查询商户基础信息
+     *
+     * @return 商户基础信息
+     */
+    List<BaseMerchantResponse> getList();
 
     /**
      * 分页查询

@@ -6,8 +6,14 @@ import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author 二哥很猛 2022/6/25 14:19
@@ -24,7 +30,11 @@ public class HomestayAddRequest {
     @ApiModelProperty(value = "星级 5:五星级 4:四星级 3:三星级 2:二星级 0:其他", required = true)
     @OptionInt(value = {0, 2, 3, 4, 5}, message = "民宿星级非法")
     private Integer level;
-
+    
+    @ApiModelProperty("商家")
+    @NotNull(message = "请选择所属商家")
+    private Long merchantId;
+    
     @ApiModelProperty(value = "省份", required = true)
     @NotNull(message = "省份不能为空")
     private Long provinceId;
@@ -62,8 +72,8 @@ public class HomestayAddRequest {
     private String intro;
 
     @ApiModelProperty(value = "封面图片,逗号分隔", required = true)
-    @NotBlank(message = "封面图片不能为空")
-    private String coverUrl;
+    @NotEmpty(message = "封面图片不能为空")
+    private List<String> coverList;
 
     @ApiModelProperty(value = "详细介绍", required = true)
     @NotBlank(message = "详细介绍不能为空")
