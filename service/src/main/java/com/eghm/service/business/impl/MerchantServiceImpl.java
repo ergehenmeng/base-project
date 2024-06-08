@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.encoder.Encoder;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.merchant.MerchantAddRequest;
 import com.eghm.dto.business.merchant.MerchantAuthDTO;
@@ -95,7 +96,7 @@ public class MerchantServiceImpl implements MerchantService {
     
     @Override
     public List<BaseMerchantResponse> getList() {
-        return merchantMapper.getList();
+        return merchantMapper.getList(SecurityHolder.getMerchantId());
     }
     
     @Override

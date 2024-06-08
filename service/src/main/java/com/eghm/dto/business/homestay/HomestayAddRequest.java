@@ -89,9 +89,8 @@ public class HomestayAddRequest {
     @WordChecker
     private String notesIn;
 
-    @ApiModelProperty(value = "特色服务,逗号分隔")
-    @WordChecker
-    private String keyService;
+    @ApiModelProperty(value = "特色服务")
+    private List<Integer> serviceList;
 
     @ApiModelProperty(value = "标签,逗号分隔")
     @WordChecker

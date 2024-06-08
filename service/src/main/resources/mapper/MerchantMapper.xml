@@ -43,6 +43,10 @@
     </select>
     
     <select id="getList" resultType="com.eghm.vo.business.merchant.BaseMerchantResponse">
-        select id, merchant_name from merchant where deleted = false order by id desc
+        select id, merchant_name, legal_name from merchant where deleted = false
+        <if test="merchantId != null">
+            and id = #{merchantId}
+        </if>
+        order by id desc
     </select>
 </mapper>

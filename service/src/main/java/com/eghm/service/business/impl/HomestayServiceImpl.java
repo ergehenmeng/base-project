@@ -93,6 +93,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         homestay.setState(State.UN_SHELVE);
         homestay.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
         homestay.setMerchantId(SecurityHolder.getMerchantId());
+        homestay.setKeyService(CollUtil.join(request.getServiceList(), ","));
         homestayMapper.insert(homestay);
     }
 
@@ -101,8 +102,8 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         this.titleRedo(request.getTitle(), request.getId());
         Homestay required = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(required.getMerchantId());
-
         Homestay homestay = DataUtil.copy(request, Homestay.class);
+        homestay.setKeyService(CollUtil.join(request.getServiceList(), ","));
         homestayMapper.updateById(homestay);
     }
 

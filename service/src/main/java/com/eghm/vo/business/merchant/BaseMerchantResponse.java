@@ -19,4 +19,7 @@ public class BaseMerchantResponse {
 
     @ApiModelProperty(value = "商家名称")
     private String merchantName;
+    
+    @ApiModelProperty("法人姓名")
+    private String legalName;
 }

@@ -391,16 +391,19 @@ CREATE TABLE `sys_dict`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `title`       varchar(50)  DEFAULT NULL COMMENT '字典中文名称',
-    `nid`         varchar(50)  DEFAULT NULL COMMENT '字典编码',
-    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:正常 1:已删除',
-    `dict_type`   tinyint(1)   DEFAULT '2' COMMENT '字典分类: 1: 系统字典 2: 业务字典',
+    `nid`         varchar(50)  DEFAULT NULL COMMENT '数据字典nid(英文名称)',
+    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
+    `locked`      bit(1)       DEFAULT b'0' COMMENT '锁定状态(禁止编辑):0:未锁定 1:锁定',
+    `dict_type`   tinyint(1)   DEFAULT '1' COMMENT '字典分类: 1: 系统字典 2: 业务字典',
     `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 15
-  DEFAULT CHARSET = utf8mb4 COMMENT ='数据字典表';
+  AUTO_INCREMENT = 10
+  DEFAULT CHARSET = utf8mb4 COMMENT ='系统数据字典表';
+
+
 
 DROP TABLE IF EXISTS `sys_dict_item`;
 CREATE TABLE `sys_dict_item`
@@ -1122,7 +1125,8 @@ CREATE TABLE `merchant`
     `deleted`               bit(1)        DEFAULT b'0' COMMENT '是否为删除状态 0:未删除 1:已删除',
     `platform_service_rate` decimal(4, 2) DEFAULT NULL COMMENT '平台手续费,单位:%',
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='商家信息表';
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='商家信息表';
 
 DROP TABLE IF EXISTS `coupon`;
 CREATE TABLE `coupon`

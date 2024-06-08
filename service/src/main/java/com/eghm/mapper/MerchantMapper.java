@@ -40,7 +40,8 @@ public interface MerchantMapper extends BaseMapper<Merchant> {
     /**
      * 查询商户基础信息
      *
+     * @param merchantId 商户ID
      * @return 商户信息
      */
-    List<BaseMerchantResponse> getList();
+    List<BaseMerchantResponse> getList(@Param("merchantId") Long merchantId);
 }

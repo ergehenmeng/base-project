@@ -6,8 +6,13 @@ import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author 二哥很猛 2022/6/25 14:31
@@ -82,10 +87,9 @@ public class HomestayEditRequest {
     @NotBlank(message = "入住须知不能为空")
     @WordChecker
     private String notesIn;
-
-    @ApiModelProperty(value = "特色服务,逗号分隔")
-    @WordChecker
-    private String keyService;
+    
+    @ApiModelProperty(value = "特色服务")
+    private List<Integer> serviceList;
 
     @ApiModelProperty(value = "标签,逗号分隔")
     @WordChecker
