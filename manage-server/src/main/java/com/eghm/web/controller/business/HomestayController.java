@@ -12,9 +12,11 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Homestay;
 import com.eghm.service.business.HomestayService;
+import com.eghm.utils.DataUtil;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.homestay.BaseHomestayResponse;
+import com.eghm.vo.business.homestay.HomestayDetailResponse;
 import com.eghm.vo.business.homestay.HomestayResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -104,9 +106,9 @@ public class HomestayController {
 
     @GetMapping("/select")
     @ApiOperation("详情")
-    public RespBody<Homestay> select(@Validated IdDTO dto) {
+    public RespBody<HomestayDetailResponse> select(@Validated IdDTO dto) {
         Homestay homestay = homestayService.selectByIdRequired(dto.getId());
-        return RespBody.success(homestay);
+        return RespBody.success(DataUtil.copy(homestay, HomestayDetailResponse.class));
     }
 
     @GetMapping("/export")

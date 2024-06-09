@@ -24,6 +24,9 @@ public class HomestayRoomResponse extends ExcelStyle {
     @ApiModelProperty("id")
     private Long id;
 
+    @ApiModelProperty(value = "封面图片")
+    private String coverUrl;
+
     @ApiModelProperty("房型名称")
     @ExcelProperty(value = "房型名称", index = 0)
     private String title;

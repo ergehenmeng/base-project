@@ -6,13 +6,16 @@
         select
         t.id,
         t.title,
+        t.cover_url,
         r.title as homestayTitle,
         t.state,
+        t.recommend,
         t.dimension,
         t.resident,
         t.room_type,
         t.refund_type,
-        t.create_time
+        t.create_time,
+        t.update_time
         from homestay_room t
         left join homestay r on t.homestay_id = r.id
         where t.deleted = false and r.deleted = false

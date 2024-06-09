@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -65,6 +66,10 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
         HomestayRoom room = DataUtil.copy(request, HomestayRoom.class);
         room.setMerchantId(SecurityHolder.getMerchantId());
         room.setCreateDate(LocalDate.now());
+        room.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
+        if (CollUtil.isNotEmpty(request.getInfrastructureList())) {
+            room.setInfrastructure(CollUtil.join(request.getInfrastructureList(), ","));
+        }
         homestayRoomMapper.insert(room);
     }
 
@@ -74,6 +79,10 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
         HomestayRoom homestayRoom = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(homestayRoom.getMerchantId());
         HomestayRoom room = DataUtil.copy(request, HomestayRoom.class);
+        room.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
+        if (CollUtil.isNotEmpty(request.getInfrastructureList())) {
+            room.setInfrastructure(CollUtil.join(request.getInfrastructureList(), ","));
+        }
         homestayRoomMapper.updateById(room);
     }
 

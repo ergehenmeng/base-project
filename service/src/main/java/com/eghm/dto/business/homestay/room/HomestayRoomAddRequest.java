@@ -8,8 +8,10 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -33,8 +35,8 @@ public class HomestayRoomAddRequest {
     private RoomType roomType;
 
     @ApiModelProperty(value = "封面图片", required = true)
-    @NotBlank(message = "封面图片不能为空")
-    private String coverUrl;
+    @NotEmpty(message = "封面图片不能为空")
+    private List<String> coverList;
 
     @ApiModelProperty(value = "订单确认方式: 1:自动确认 2:手动确认", required = true)
     @OptionInt(value = {1, 2}, message = "订单确认方式不合法")
@@ -57,8 +59,7 @@ public class HomestayRoomAddRequest {
     private Integer resident;
 
     @ApiModelProperty(value = "屋内设施")
-    @WordChecker(message = "屋内设置存在敏感词")
-    private String infrastructure;
+    private List<String> infrastructureList;
 
     @ApiModelProperty(value = "详细介绍", required = true)
     @NotBlank(message = "详细介绍不能为空")

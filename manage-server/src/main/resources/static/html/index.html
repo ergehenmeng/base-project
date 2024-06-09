@@ -10,11 +10,6 @@
         let caption = document.getElementsByClassName("caption")[0];
         modal.style.display = "block";
         caption.innerHTML = obj.alt;
-        new Promise(resolve => {
-            setTimeout(() => {
-                resolve();
-            }, 1000);
-        })
     }
     function hiddenModal () {
         let modal = document.getElementsByClassName("modal-show")[0];
@@ -31,8 +26,6 @@
         }
         let [a, b] = [2, 1, 2, 3];
         console.log(a + b);
-    }
-    class Person {
     }
 </script>
 <style>
@@ -256,9 +249,6 @@
         z-index: 2;
         opacity: 0;
         transition: opacity 1s;
-    }
-    .tips-div {
-        cursor: default;
     }
     .tips-div:hover span {
         top: -5px;
