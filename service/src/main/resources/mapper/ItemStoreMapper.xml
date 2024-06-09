@@ -12,7 +12,9 @@
         t.telephone,
         t.open_time,
         t.detail_address,
-        t.score
+        t.score,
+        t.create_time,
+        t.update_time
         from item_store t left join merchant r on t.merchant_id = r.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
