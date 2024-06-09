@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -25,9 +26,13 @@ public class ItemStoreAddRequest {
     @NotBlank(message = "店铺logo不能为空")
     private String logoUrl;
 
+    @ApiModelProperty("商家")
+    @NotNull(message = "请选择所属商家")
+    private Long merchantId;
+
     @ApiModelProperty(value = "封面图", required = true)
-    @NotBlank(message = "店铺封面图不能为空")
-    private String coverUrl;
+    @NotEmpty(message = "店铺封面图不能为空")
+    private List<String> coverList;
 
     @ApiModelProperty(value = "营业时间", required = true)
     @NotBlank(message = "营业时间不能为空")

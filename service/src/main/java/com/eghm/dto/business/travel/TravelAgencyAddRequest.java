@@ -27,6 +27,10 @@ public class TravelAgencyAddRequest {
     @NotBlank(message = "店铺logo不能能为空")
     private String logoUrl;
 
+    @ApiModelProperty("商家")
+    @NotNull(message = "请选择所属商家")
+    private Long merchantId;
+
     @ApiModelProperty("旅行社电话")
     @Phone(message = "旅行社电话格式不正确")
     private String phone;

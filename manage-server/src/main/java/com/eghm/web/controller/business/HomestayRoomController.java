@@ -3,6 +3,7 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.RecommendDTO;
 import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.homestay.room.HomestayRoomAddRequest;
 import com.eghm.dto.business.homestay.room.HomestayRoomEditRequest;
@@ -105,8 +106,8 @@ public class HomestayRoomController {
 
     @PostMapping(value = "/recommend", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("设置推荐房型")
-    public RespBody<Void> recommend(@RequestBody @Validated IdDTO dto) {
-        homestayRoomService.setRecommend(dto.getId());
+    public RespBody<Void> recommend(@RequestBody @Validated RecommendDTO dto) {
+        homestayRoomService.setRecommend(dto.getId(), dto.getRecommend());
         return RespBody.success();
     }
 

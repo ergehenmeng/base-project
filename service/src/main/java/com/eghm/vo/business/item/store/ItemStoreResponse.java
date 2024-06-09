@@ -1,9 +1,12 @@
 package com.eghm.vo.business.item.store;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.format.DateTimeFormat;
+import com.eghm.convertor.excel.BooleanExcelConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.ref.State;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -40,20 +43,36 @@ public class ItemStoreResponse extends ExcelStyle {
     @ExcelProperty(value = "状态 0:待上架 1:已上架 2:强制下架", index = 2, converter = EnumExcelConverter.class)
     private State state;
 
+    @ApiModelProperty("推荐店铺")
+    @ExcelProperty(value = "平台推荐", index = 3, converter = BooleanExcelConverter.class)
+    private Boolean recommend;
+
     @ApiModelProperty(value = "商家电话")
-    @ExcelProperty(value = "商家电话", index = 3)
+    @ExcelProperty(value = "商家电话", index = 4)
     private String telephone;
 
     @ApiModelProperty("评分")
-    @ExcelProperty(value = "评分", index = 4)
+    @ExcelProperty(value = "评分", index = 5)
     private BigDecimal score;
 
     @ApiModelProperty(value = "营业时间")
-    @ExcelProperty(value = "营业时间", index = 5)
+    @ExcelProperty(value = "营业时间", index = 6)
     private String openTime;
 
     @ApiModelProperty(value = "详细地址")
-    @ExcelProperty(value = "详细地址", index = 6)
+    @ExcelProperty(value = "详细地址", index = 7)
     private String detailAddress;
+
+    @ApiModelProperty(value = "创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @ExcelProperty(value = "创建时间", index = 8)
+    private String createTime;
+
+    @ApiModelProperty(value = "更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @ExcelProperty(value = "更新时间", index = 9)
+    private String updateTime;
 
 }

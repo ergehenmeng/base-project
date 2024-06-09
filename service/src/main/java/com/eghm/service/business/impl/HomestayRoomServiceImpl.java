@@ -132,10 +132,10 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
     }
 
     @Override
-    public void setRecommend(Long id) {
+    public void setRecommend(Long id, Boolean recommend) {
         LambdaUpdateWrapper<HomestayRoom> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(HomestayRoom::getId, id);
-        wrapper.set(HomestayRoom::getRecommend, true);
+        wrapper.set(HomestayRoom::getRecommend, recommend);
         homestayRoomMapper.update(null, wrapper);
     }
 

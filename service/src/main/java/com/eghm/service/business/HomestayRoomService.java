@@ -93,8 +93,9 @@ public interface HomestayRoomService {
      * 设置房型为推荐房型
      *
      * @param id 房型id
+     * @param recommend true: 推荐 false:不推荐
      */
-    void setRecommend(Long id);
+    void setRecommend(Long id, Boolean recommend);
 
     /**
      * 分页查询酒店房型列表

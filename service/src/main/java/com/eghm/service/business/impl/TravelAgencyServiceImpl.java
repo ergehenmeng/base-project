@@ -77,7 +77,6 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         this.redoTitle(request.getTitle(), null);
         TravelAgency agency = DataUtil.copy(request, TravelAgency.class);
         agency.setState(State.UN_SHELVE);
-        agency.setMerchantId(SecurityHolder.getMerchantId());
         agency.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         travelAgencyMapper.insert(agency);
     }
