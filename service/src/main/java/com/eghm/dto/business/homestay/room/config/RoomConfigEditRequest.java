@@ -1,5 +1,6 @@
 package com.eghm.dto.business.homestay.room.config;
 
+import com.eghm.annotation.Assign;
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -43,4 +44,7 @@ public class RoomConfigEditRequest {
     @NotNull(message = "销售价不能为空")
     private Integer salePrice;
 
+    @ApiModelProperty(value = "民宿id", hidden = true)
+    @Assign
+    private Long homestayId;
 }

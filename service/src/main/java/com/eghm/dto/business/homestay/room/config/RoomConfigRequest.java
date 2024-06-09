@@ -34,10 +34,6 @@ public class RoomConfigRequest extends DateComparator {
     @NotNull(message = "房型id不能为空")
     private Long roomId;
 
-    @ApiModelProperty(value = "民宿id", hidden = true)
-    @Assign
-    private Long homestayId;
-
     @ApiModelProperty(value = "开始日期 yyyy-MM-dd", required = true)
     @NotNull(message = "开始日期不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -65,4 +61,8 @@ public class RoomConfigRequest extends DateComparator {
     @JsonDeserialize(using = YuanToCentDecoder.class)
     @NotNull(message = "销售价不能为空")
     private Integer salePrice;
+
+    @ApiModelProperty(value = "民宿id", hidden = true)
+    @Assign
+    private Long homestayId;
 }

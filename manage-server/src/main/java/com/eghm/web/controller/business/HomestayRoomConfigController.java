@@ -56,6 +56,7 @@ public class HomestayRoomConfigController {
     public RespBody<Void> update(@Validated @RequestBody RoomConfigEditRequest request) {
         HomestayRoom room = homestayRoomService.selectById(request.getRoomId());
         commonService.checkIllegal(room.getMerchantId());
+        request.setHomestayId(room.getHomestayId());
         homestayRoomConfigService.update(request);
         return RespBody.success();
     }

@@ -91,6 +91,7 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
         HomestayRoomConfig config = this.getConfig(request.getRoomId(), request.getConfigDate());
         if (config == null) {
             config = DataUtil.copy(request, HomestayRoomConfig.class);
+            config.setHomestayRoomId(request.getRoomId());
             homestayRoomConfigMapper.insert(config);
         } else {
             config.setLinePrice(request.getLinePrice());
