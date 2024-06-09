@@ -43,9 +43,6 @@ public class TravelResponse {
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
 
-    @ApiModelProperty(value = "旅行社图片")
-    private String coverUrl;
-
     @ApiModelProperty("评分")
     private BigDecimal score;
 

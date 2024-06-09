@@ -7,7 +7,6 @@
             id,
             title,
             phone,
-            cover_url,
             logo_url,
             city_id,
             county_id,
