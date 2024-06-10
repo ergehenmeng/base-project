@@ -85,6 +85,18 @@
         order by t.id desc
     </select>
 
+    <select id="getBaseList" resultType="com.eghm.vo.business.item.store.BaseItemStoreResponse">
+        select
+            t.id as storeId,
+            t.title as storeName,
+            t.state
+        from item_store t where t.deleted = false
+        <if test="merchantId != null">
+            and t.merchant_id = #{merchantId}
+        </if>
+        order by t.id desc
+    </select>
+
     <select id="getStoreList" resultType="com.eghm.vo.business.base.BaseStoreResponse">
         select
         t.id as storeId,

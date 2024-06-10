@@ -6,6 +6,7 @@ import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.item.store.ItemStoreQueryRequest;
 import com.eghm.model.ItemStore;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.item.store.BaseItemStoreResponse;
 import com.eghm.vo.business.item.store.ItemStoreResponse;
 import com.eghm.vo.business.item.store.ItemStoreVO;
 import org.apache.ibatis.annotations.Param;
@@ -64,6 +65,14 @@ public interface ItemStoreMapper extends BaseMapper<ItemStore> {
      * @return 列表
      */
     Page<BaseStoreResponse> getStorePage(Page<BaseStoreResponse> page, @Param("param") BaseStoreQueryRequest request);
+
+    /**
+     * 商户店铺列表
+     *
+     * @param merchantId 商户id
+     * @return 列表
+     */
+    List<BaseItemStoreResponse> getBaseList(@Param("merchantId") Long merchantId);
 
     /**
      * 查询列表 (包含商户信息)

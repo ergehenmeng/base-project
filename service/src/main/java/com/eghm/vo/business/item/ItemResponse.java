@@ -30,23 +30,26 @@ public class ItemResponse extends ExcelStyle {
     @ApiModelProperty(value = "所属店铺")
     private Long storeId;
 
+    @ApiModelProperty("封面图")
+    private String coverUrl;
+
+    @ApiModelProperty(value = "商品名称")
+    @ExcelProperty(value = "商品名称", index = 0)
+    private String title;
+
     @ApiModelProperty("店铺名称")
-    @ExcelProperty(value = "店铺名称", index = 0)
+    @ExcelProperty(value = "店铺名称", index = 1)
     private String storeName;
 
     @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
-    @ExcelProperty(value = "状态", index = 1, converter = EnumExcelConverter.class)
+    @ExcelProperty(value = "状态", index = 2, converter = EnumExcelConverter.class)
     private State state;
-
-    @ApiModelProperty(value = "商品名称")
-    @ExcelProperty(value = "商品名称", index = 2)
-    private String title;
 
     @ApiModelProperty(value = "限购数量")
     @ExcelProperty(value = "限购数量", index = 3)
     private Integer quota;
 
-    @ApiModelProperty(value = "交付方式 1:门店自提 2:快递包邮")
+    @ApiModelProperty(value = "交付方式 1:门店自提 2:快递")
     @ExcelProperty(value = "交付方式", index = 4, converter = EnumExcelConverter.class)
     private DeliveryType deliveryType;
 

@@ -14,6 +14,7 @@ import com.eghm.model.ItemStore;
 import com.eghm.service.business.ItemStoreService;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.item.store.BaseItemStoreResponse;
 import com.eghm.vo.business.item.store.ItemStoreResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -46,11 +47,18 @@ public class ItemStoreController {
     }
 
     @GetMapping("/storeListPage")
-    @ApiOperation("列表含商户信息")
+    @ApiOperation("列表含店铺信息")
     public RespBody<PageData<BaseStoreResponse>> storeListPage(BaseStoreQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseStoreResponse> listPage = itemStoreService.getStorePage(request);
         return RespBody.success(PageData.toPage(listPage));
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("店铺列表")
+    public RespBody<List<BaseItemStoreResponse>> list() {
+        List<BaseItemStoreResponse> responseList = itemStoreService.getList(SecurityHolder.getMerchantId());
+        return RespBody.success(responseList);
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)

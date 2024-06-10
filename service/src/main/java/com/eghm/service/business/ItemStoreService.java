@@ -8,6 +8,7 @@ import com.eghm.dto.business.item.store.ItemStoreQueryRequest;
 import com.eghm.enums.ref.State;
 import com.eghm.model.ItemStore;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.item.store.BaseItemStoreResponse;
 import com.eghm.vo.business.item.store.ItemStoreHomeVO;
 import com.eghm.vo.business.item.store.ItemStoreResponse;
 import com.eghm.vo.business.item.store.ItemStoreVO;
@@ -119,6 +120,14 @@ public interface ItemStoreService {
      * @return 列表
      */
     Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request);
+
+    /**
+     * 商户店铺列表
+     *
+     * @param merchantId 商户id
+     * @return 列表
+     */
+    List<BaseItemStoreResponse> getList(Long merchantId);
 
     /**
      * 注销商户的零售店铺

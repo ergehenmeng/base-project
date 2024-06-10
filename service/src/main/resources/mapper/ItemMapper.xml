@@ -8,6 +8,7 @@
         t.store_id,
         t.title,
         r.title as storeName,
+        r.cover_url,
         t.sale_num,
         t.state,
         t.quota,

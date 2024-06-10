@@ -26,6 +26,7 @@ import com.eghm.service.business.lottery.LotteryService;
 import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.item.store.BaseItemStoreResponse;
 import com.eghm.vo.business.item.store.ItemStoreHomeVO;
 import com.eghm.vo.business.item.store.ItemStoreResponse;
 import com.eghm.vo.business.item.store.ItemStoreVO;
@@ -182,6 +183,11 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     @Override
     public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
         return itemStoreMapper.getStorePage(request.createPage(), request);
+    }
+
+    @Override
+    public List<BaseItemStoreResponse> getList(Long merchantId) {
+        return itemStoreMapper.getBaseList(merchantId);
     }
 
     @Override
