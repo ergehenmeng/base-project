@@ -28,12 +28,12 @@ public class ItemStoreEditRequest {
     private String title;
 
     @ApiModelProperty(value = "店铺logo", required = true)
-    @NotEmpty(message = "店铺封面图不能为空")
-    private List<String> coverList;
+    @NotBlank(message = "店铺logo不能为空")
+    private String logoUrl;
 
     @ApiModelProperty(value = "封面图", required = true)
-    @NotBlank(message = "店铺封面图不能为空")
-    private String coverUrl;
+    @NotEmpty(message = "店铺封面图不能为空")
+    private List<String> coverList;
 
     @ApiModelProperty(value = "营业时间", required = true)
     @NotBlank(message = "营业时间不能为空")

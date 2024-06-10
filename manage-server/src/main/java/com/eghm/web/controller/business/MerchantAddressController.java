@@ -10,6 +10,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.MerchantAddressService;
 import com.eghm.vo.business.merchant.address.MerchantAddressResponse;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -39,8 +40,12 @@ public class MerchantAddressController {
 
     @GetMapping("/list")
     @ApiOperation("列表(全部)")
-    public RespBody<List<MerchantAddressResponse>> list() {
-        List<MerchantAddressResponse> voList = merchantAddressService.getList(SecurityHolder.getMerchantId());
+    @ApiImplicitParam(name = "merchantId", value = "商户id", required = true)
+    public RespBody<List<MerchantAddressResponse>> list(@RequestParam("merchantId") Long merchantId) {
+        if (merchantId == null) {
+            merchantId = SecurityHolder.getMerchantId();
+        }
+        List<MerchantAddressResponse> voList = merchantAddressService.getList(merchantId);
         return RespBody.success(voList);
     }
 

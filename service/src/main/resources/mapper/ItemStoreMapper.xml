@@ -11,6 +11,7 @@
         t.logo_url,
         t.telephone,
         t.open_time,
+        t.recommend,
         t.detail_address,
         t.score,
         t.create_time,

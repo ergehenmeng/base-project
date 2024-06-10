@@ -17,6 +17,9 @@ public class MerchantAddressResponse {
     @ApiModelProperty(value = "id主键")
     private Long id;
 
+    @ApiModelProperty(value = "商户id")
+    private Long merchantId;
+
     @ApiModelProperty(value = "昵称")
     private String nickName;
 
