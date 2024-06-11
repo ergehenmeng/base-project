@@ -52,7 +52,7 @@ public class ExpressTemplateServiceImpl implements ExpressTemplateService {
 
     @Override
     public List<ExpressTemplateResponse> getList(Long merchantId) {
-        return expressTemplateMapper.getList(merchantId);
+        return expressTemplateMapper.getList(null, merchantId);
     }
 
     @Override
@@ -64,6 +64,17 @@ public class ExpressTemplateServiceImpl implements ExpressTemplateService {
         wrapper.orderByDesc(ExpressTemplate::getId);
         List<ExpressTemplate> expressList = expressTemplateMapper.selectList(wrapper);
         return DataUtil.copy(expressList, ExpressSelectResponse.class);
+    }
+
+    @Override
+    public ExpressTemplateResponse selectById(Long id) {
+        Long merchantId = SecurityHolder.getMerchantId();
+        List<ExpressTemplateResponse> responseList = expressTemplateMapper.getList(id, merchantId);
+        if (CollUtil.isEmpty(responseList)) {
+            log.error("模板详细信息未查询到 [{}] [{}]", id, merchantId);
+            throw new BusinessException(EXPRESS_NOT_FOUND);
+        }
+        return responseList.get(0);
     }
 
     @Override

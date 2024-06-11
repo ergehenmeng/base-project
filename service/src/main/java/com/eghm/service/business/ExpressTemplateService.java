@@ -36,6 +36,14 @@ public interface ExpressTemplateService {
     List<ExpressSelectResponse> selectList(Long merchantId);
 
     /**
+     * 根据id查询
+     *
+     * @param id id
+     * @return 模板信息
+     */
+    ExpressTemplateResponse selectById(Long id);
+
+    /**
      * 新增快递模板
      *
      * @param request 模板信息

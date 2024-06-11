@@ -30,8 +30,9 @@ public interface ExpressTemplateMapper extends BaseMapper<ExpressTemplate> {
     /**
      * 查询商户下的物流模板
      *
+     * @param id         id
      * @param merchantId 商户ID
      * @return 模板
      */
-    List<ExpressTemplateResponse> getList(@Param("merchantId") Long merchantId);
+    List<ExpressTemplateResponse> getList(@Param("id") Long id, @Param("merchantId") Long merchantId);
 }
