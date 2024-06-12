@@ -963,7 +963,7 @@ CREATE TABLE `voucher`
     `title`         varchar(50)   DEFAULT NULL COMMENT '商品名称',
     `state`         tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:平台下架',
     `hot_sell`      bit(1)        DEFAULT b'0' COMMENT '是否为热销商品 true:是 false:不是',
-    `cover_url`     varchar(100)  DEFAULT NULL COMMENT '封面图片',
+    `cover_url`     varchar(1000)  DEFAULT NULL COMMENT '封面图片',
     `line_price`    int(10)       DEFAULT NULL COMMENT '划线价',
     `sale_price`    int(10)       DEFAULT NULL COMMENT '销售价',
     `stock`         int(10)       DEFAULT NULL COMMENT '剩余库存',

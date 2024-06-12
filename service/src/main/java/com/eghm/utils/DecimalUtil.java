@@ -41,12 +41,32 @@ public class DecimalUtil {
      * 金额分转换为元
      *
      * @param cent 金额，单位分
-     * @return 金额，单位元
+     * @return 金额，单位元 保留两位小数
      * @since 5.7.11
      */
     public static String centToYuan(int cent) {
         long yuan = cent / 100;
         int centPart = cent % 100;
+        DecimalFormat format = new DecimalFormat("#####0.00");
+        return format.format(new Money(yuan, centPart).getAmount().doubleValue());
+    }
+
+    /**
+     * 金额分转换为元
+     *
+     * @param cent 金额，单位分
+     * @return 金额，单位元 不保留两位小数(有多少保留多少)
+     * @since 5.7.11
+     */
+    public static String centToYuanOmit(int cent) {
+        long yuan = cent / 100;
+        int centPart = cent % 100;
+        if (centPart == 0) {
+            return String.valueOf(yuan);
+        }
+        if (centPart < 10) {
+            return yuan + ".0" + centPart;
+        }
         DecimalFormat format = new DecimalFormat("#####0.00");
         return format.format(new Money(yuan, centPart).getAmount().doubleValue());
     }

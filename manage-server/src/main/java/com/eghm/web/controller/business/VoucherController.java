@@ -12,8 +12,10 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Voucher;
 import com.eghm.service.business.VoucherService;
+import com.eghm.utils.DataUtil;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
+import com.eghm.vo.business.restaurant.VoucherDetailResponse;
 import com.eghm.vo.business.restaurant.VoucherResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -90,9 +92,11 @@ public class VoucherController {
 
     @GetMapping("/select")
     @ApiOperation("详情")
-    public RespBody<Voucher> select(@Validated IdDTO dto) {
+    public RespBody<VoucherDetailResponse> select(@Validated IdDTO dto) {
         Voucher voucher = voucherService.selectByIdRequired(dto.getId());
-        return RespBody.success(voucher);
+        VoucherDetailResponse response = DataUtil.copy(voucher, VoucherDetailResponse.class);
+        response.setVirtualNum(voucher.getTotalNum() - voucher.getSaleNum());
+        return RespBody.success(response);
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
