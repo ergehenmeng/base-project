@@ -22,6 +22,9 @@ public class TravelDetailResponse {
     @ApiModelProperty(value = "旅行社名称")
     private String title;
 
+    @ApiModelProperty("商户id")
+    private Long merchantId;
+
     @ApiModelProperty("店铺logo")
     private String logoUrl;
 

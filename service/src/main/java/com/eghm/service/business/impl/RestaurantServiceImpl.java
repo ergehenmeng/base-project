@@ -34,6 +34,7 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
+import com.eghm.vo.business.restaurant.BaseRestaurantResponse;
 import com.eghm.vo.business.restaurant.RestaurantDetailVO;
 import com.eghm.vo.business.restaurant.RestaurantResponse;
 import com.eghm.vo.business.restaurant.RestaurantVO;
@@ -75,6 +76,11 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     public List<RestaurantResponse> getList(RestaurantQueryRequest request) {
         Page<RestaurantResponse> responsePage = restaurantMapper.listPage(request.createNullPage(), request);
         return responsePage.getRecords();
+    }
+
+    @Override
+    public List<BaseRestaurantResponse> getList(Long merchantId) {
+        return restaurantMapper.getBaseList(merchantId);
     }
 
     @Override

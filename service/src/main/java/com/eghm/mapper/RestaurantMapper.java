@@ -7,6 +7,7 @@ import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.dto.business.restaurant.RestaurantQueryRequest;
 import com.eghm.model.Restaurant;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.restaurant.BaseRestaurantResponse;
 import com.eghm.vo.business.restaurant.RestaurantResponse;
 import com.eghm.vo.business.restaurant.RestaurantVO;
 import org.apache.ibatis.annotations.Param;
@@ -41,6 +42,13 @@ public interface RestaurantMapper extends BaseMapper<Restaurant> {
      * @return 列表
      */
     Page<RestaurantVO> getByPage(Page<RestaurantVO> page, @Param("param") RestaurantQueryDTO dto);
+
+    /**
+     * 获取商家列表
+     * @param merchantId 商户id
+     * @return 商家信息
+     */
+    List<BaseRestaurantResponse> getBaseList(@Param("merchantId") Long merchantId);
 
     /**
      * 更新评分

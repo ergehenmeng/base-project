@@ -10,6 +10,7 @@ import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Restaurant;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.restaurant.BaseRestaurantResponse;
 import com.eghm.vo.business.restaurant.RestaurantDetailVO;
 import com.eghm.vo.business.restaurant.RestaurantResponse;
 import com.eghm.vo.business.restaurant.RestaurantVO;
@@ -37,6 +38,14 @@ public interface RestaurantService {
      * @return 列表
      */
     List<RestaurantResponse> getList(RestaurantQueryRequest request);
+
+    /**
+     * 根据商户id查询商家信息
+     *
+     * @param merchantId 商户id
+     * @return 商家信息
+     */
+    List<BaseRestaurantResponse> getList(Long merchantId);
 
     /**
      * 创建餐饮商家信息

@@ -15,6 +15,7 @@ import com.eghm.service.business.RestaurantService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.restaurant.BaseRestaurantResponse;
 import com.eghm.vo.business.restaurant.RestaurantDetailResponse;
 import com.eghm.vo.business.restaurant.RestaurantResponse;
 import io.swagger.annotations.Api;
@@ -55,6 +56,12 @@ public class RestaurantController {
         return RespBody.success(PageData.toPage(listPage));
     }
 
+    @GetMapping("/list")
+    @ApiOperation("列表(基础信息)")
+    public RespBody<List<BaseRestaurantResponse>> list() {
+        List<BaseRestaurantResponse> list = restaurantService.getList(SecurityHolder.getMerchantId());
+        return RespBody.success(list);
+    }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("新增")

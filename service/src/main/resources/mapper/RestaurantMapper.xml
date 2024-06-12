@@ -41,6 +41,18 @@
         </choose>
     </select>
 
+    <select id="getBaseList" resultType="com.eghm.vo.business.restaurant.BaseRestaurantResponse">
+        select
+        id,
+        title,
+        state
+        from restaurant where deleted = false
+        <if test="merchantId != null">
+            and merchant_id = #{merchantId}
+        </if>
+        order by id desc
+    </select>
+
     <!--无距离排序,不进行子查询-->
     <sql id="getByPageSql">
         select

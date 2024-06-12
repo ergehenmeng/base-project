@@ -4,6 +4,7 @@
 
     <select id="listPage" resultType="com.eghm.vo.business.restaurant.VoucherResponse" parameterType="com.eghm.dto.business.restaurant.voucher.VoucherQueryRequest">
         select
+        t.id,
         t.title,
         r.title as restaurant_name,
         t.cover_url,
@@ -12,7 +13,8 @@
         t.sale_price,
         t.sale_num,
         t.quota,
-        t.create_time
+        t.create_time,
+        t.update_time
         from voucher t left join restaurant r on t.restaurant_id = r.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">

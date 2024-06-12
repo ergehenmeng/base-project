@@ -27,6 +27,9 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class VoucherResponse extends ExcelStyle {
 
+    @ApiModelProperty("id主键")
+    private Long id;
+
     @ApiModelProperty(value = "商品图片")
     private String coverUrl;
 
@@ -42,25 +45,26 @@ public class VoucherResponse extends ExcelStyle {
     @ExcelProperty(value = "状态", index = 2, converter = EnumExcelConverter.class)
     private State state;
 
-    @ApiModelProperty("是否热销商品 true:是 false:不是")
-    @ExcelProperty(value = "是否热销商品", index = 3, converter = BooleanExcelConverter.class)
-    private Boolean hotSell;
-
     @ApiModelProperty(value = "销售价")
-    @ExcelProperty(value = "销售价", index = 4, converter = CentToYuanConverter.class)
+    @ExcelProperty(value = "销售价", index = 3, converter = CentToYuanConverter.class)
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
     @ApiModelProperty(value = "销量")
-    @ExcelProperty(value = "销量", index = 5)
+    @ExcelProperty(value = "销量", index = 4)
     private Integer saleNum;
 
     @ApiModelProperty(value = "限购数量")
-    @ExcelProperty(value = "限购数量", index = 6)
+    @ExcelProperty(value = "限购数量", index = 5)
     private Integer quota;
 
     @ApiModelProperty("添加时间")
-    @ExcelProperty(value = "添加时间", index = 7)
+    @ExcelProperty(value = "添加时间", index = 6)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
+
+    @ApiModelProperty("修改时间")
+    @ExcelProperty(value = "修改时间", index = 7)
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
 }
