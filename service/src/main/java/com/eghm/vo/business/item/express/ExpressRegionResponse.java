@@ -1,6 +1,6 @@
 package com.eghm.vo.business.item.express;
 
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanOmitEncoder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,14 +22,14 @@ public class ExpressRegionResponse {
     private BigDecimal firstPart;
 
     @ApiModelProperty(value = "首件或首重的价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitEncoder.class)
     private Integer firstPrice;
 
     @ApiModelProperty(value = "续重或续件")
     private BigDecimal nextPart;
 
     @ApiModelProperty(value = "续重或续件的单价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitEncoder.class)
     private Integer nextUnitPrice;
 
     @ApiModelProperty(value = "区域编号(逗号分隔)")
