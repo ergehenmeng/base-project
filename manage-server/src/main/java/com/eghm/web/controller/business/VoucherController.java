@@ -40,6 +40,7 @@ public class VoucherController {
     @GetMapping("/listPage")
     @ApiOperation("列表")
     public RespBody<PageData<VoucherResponse>> listPage(VoucherQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VoucherResponse> roomPage = voucherService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
     }

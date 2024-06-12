@@ -56,7 +56,7 @@ public class RestaurantEditRequest {
     @ApiModelProperty(value = "详细地址", required = true)
     @NotBlank(message = "详细地址不能为空")
     @Size(max = 20, message = "详细地址长度2~20字符")
-    @WordChecker
+    @WordChecker(message = "详细地址存在敏感词")
     private String detailAddress;
 
     @ApiModelProperty(value = "经度", required = true)
@@ -77,6 +77,6 @@ public class RestaurantEditRequest {
 
     @ApiModelProperty(value = "商家介绍", required = true)
     @NotBlank(message = "商家介绍不能为空")
-    @WordChecker
+    @WordChecker(message = "商家介绍存在敏感词")
     private String introduce;
 }

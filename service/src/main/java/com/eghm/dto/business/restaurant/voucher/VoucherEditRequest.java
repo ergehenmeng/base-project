@@ -6,11 +6,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -34,8 +32,8 @@ public class VoucherEditRequest {
     private String title;
 
     @ApiModelProperty(value = "封面图片", required = true)
-    @NotBlank(message = "封面图片不能为空")
-    private String coverUrl;
+    @NotEmpty(message = "封面图片不能为空")
+    private List<String> coverList;
 
     @ApiModelProperty(value = "划线价", required = true)
     @JsonDeserialize(using = YuanToCentDecoder.class)

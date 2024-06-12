@@ -1,10 +1,12 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.restaurant.voucher.VoucherAddRequest;
 import com.eghm.dto.business.restaurant.voucher.VoucherEditRequest;
@@ -60,18 +62,19 @@ public class VoucherServiceImpl implements VoucherService {
         voucher.setTotalNum(request.getVirtualNum());
         voucher.setMerchantId(SecurityHolder.getMerchantId());
         voucher.setCreateDate(LocalDate.now());
+        voucher.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         voucherMapper.insert(voucher);
     }
 
     @Override
     public void update(VoucherEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId(), request.getRestaurantId());
-
         Voucher select = voucherMapper.selectById(request.getId());
         commonService.checkIllegal(select.getMerchantId());
         Voucher voucher = DataUtil.copy(request, Voucher.class);
         // 总销量要根据真实销量计算
         voucher.setTotalNum(request.getVirtualNum() + select.getSaleNum());
+        voucher.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         voucherMapper.updateById(voucher);
     }
 

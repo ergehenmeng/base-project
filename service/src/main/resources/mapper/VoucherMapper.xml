@@ -29,6 +29,7 @@
         <if test="param.restaurantId != null">
             and t.restaurant_id = #{param.restaurantId}
         </if>
+        order by t.id desc
     </select>
 
     <update id="updateStock">
