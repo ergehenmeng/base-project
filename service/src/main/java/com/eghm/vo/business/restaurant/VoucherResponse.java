@@ -3,11 +3,11 @@ package com.eghm.vo.business.restaurant;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.convertor.excel.BooleanExcelConverter;
 import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.ref.State;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -61,10 +61,12 @@ public class VoucherResponse extends ExcelStyle {
     @ApiModelProperty("添加时间")
     @ExcelProperty(value = "添加时间", index = 6)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @ApiModelProperty("修改时间")
     @ExcelProperty(value = "修改时间", index = 7)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }
