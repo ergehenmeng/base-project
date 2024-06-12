@@ -1,6 +1,6 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -67,12 +67,8 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     private final MemberCollectService memberCollectService;
 
     @Override
-    public Page<Restaurant> getByPage(RestaurantQueryRequest request) {
-        LambdaQueryWrapper<Restaurant> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(request.getState() != null, Restaurant::getState, request.getState());
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Restaurant::getTitle, request.getQueryName());
-        wrapper.eq(request.getMerchantId() != null, Restaurant::getMerchantId, request.getMerchantId());
-        return restaurantMapper.selectPage(request.createPage(), wrapper);
+    public Page<RestaurantResponse> getByPage(RestaurantQueryRequest request) {
+        return restaurantMapper.listPage(request.createPage(), request);
     }
 
     @Override
@@ -86,7 +82,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         this.redoTitle(request.getTitle(), null);
         Restaurant restaurant = DataUtil.copy(request, Restaurant.class);
         restaurant.setState(State.UN_SHELVE);
-        restaurant.setMerchantId(SecurityHolder.getMerchantId());
+        restaurant.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         restaurantMapper.insert(restaurant);
     }
 
@@ -95,8 +91,8 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         this.redoTitle(request.getTitle(), request.getId());
         Restaurant required = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(required.getMerchantId());
-
         Restaurant restaurant = DataUtil.copy(request, Restaurant.class);
+        restaurant.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         restaurantMapper.updateById(restaurant);
     }
 

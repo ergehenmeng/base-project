@@ -19,6 +19,12 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class RestaurantResponse extends ExcelStyle {
 
+    @ApiModelProperty(value = "id主键")
+    private Long id;
+
+    @ApiModelProperty(value = "logo图片")
+    private String logoUrl;
+
     @ApiModelProperty(value = "商家名称")
     @ExcelProperty(value = "商家名称", index = 0)
     private String title;
@@ -47,4 +53,9 @@ public class RestaurantResponse extends ExcelStyle {
     @ExcelProperty(value = "创建时间", index = 6)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
+
+    @ApiModelProperty("更新时间")
+    @ExcelProperty(value = "更新时间", index = 7)
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
 }

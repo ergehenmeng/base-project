@@ -28,7 +28,7 @@ public interface RestaurantService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<Restaurant> getByPage(RestaurantQueryRequest request);
+    Page<RestaurantResponse> getByPage(RestaurantQueryRequest request);
 
     /**
      * 分页查询商家信息 导出使用

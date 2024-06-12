@@ -12,8 +12,10 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Restaurant;
 import com.eghm.service.business.RestaurantService;
+import com.eghm.utils.DataUtil;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.restaurant.RestaurantDetailResponse;
 import com.eghm.vo.business.restaurant.RestaurantResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -39,9 +41,9 @@ public class RestaurantController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<Restaurant>> listPage(RestaurantQueryRequest request) {
+    public RespBody<PageData<RestaurantResponse>> listPage(RestaurantQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        Page<Restaurant> roomPage = restaurantService.getByPage(request);
+        Page<RestaurantResponse> roomPage = restaurantService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
     }
 
@@ -52,6 +54,7 @@ public class RestaurantController {
         Page<BaseStoreResponse> listPage = restaurantService.getStorePage(request);
         return RespBody.success(PageData.toPage(listPage));
     }
+
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("新增")
@@ -93,9 +96,9 @@ public class RestaurantController {
 
     @GetMapping("/select")
     @ApiOperation("详情")
-    public RespBody<Restaurant> select(@Validated IdDTO dto) {
+    public RespBody<RestaurantDetailResponse> select(@Validated IdDTO dto) {
         Restaurant restaurant = restaurantService.selectByIdRequired(dto.getId());
-        return RespBody.success(restaurant);
+        return RespBody.success(DataUtil.copy(restaurant, RestaurantDetailResponse.class));
     }
 
     /**
@@ -103,7 +106,7 @@ public class RestaurantController {
      */
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除")
-    public RespBody<Restaurant> delete(@RequestBody @Validated IdDTO dto) {
+    public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         restaurantService.deleteById(dto.getId());
         return RespBody.success();
     }

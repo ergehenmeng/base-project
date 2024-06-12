@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -28,9 +29,13 @@ public class RestaurantEditRequest {
     @NotBlank(message = "logo不能为空")
     private String logoUrl;
 
+    @ApiModelProperty(value = "所属商户", required = true)
+    @NotNull(message = "请选择所属商户")
+    private Long merchantId;
+
     @ApiModelProperty(value = "商家封面", required = true)
-    @NotBlank(message = "封面图片不能为空")
-    private String coverUrl;
+    @NotEmpty(message = "封面图片不能为空")
+    private List<String> coverList;
 
     @ApiModelProperty(value = "营业时间", required = true)
     @NotBlank(message = "营业时间不能为空")

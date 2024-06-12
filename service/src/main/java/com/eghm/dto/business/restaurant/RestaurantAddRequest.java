@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -24,9 +25,13 @@ public class RestaurantAddRequest {
     @NotBlank(message = "logo不能为空")
     private String logoUrl;
 
+    @ApiModelProperty(value = "所属商户", required = true)
+    @NotNull(message = "请选择所属商户")
+    private Long merchantId;
+
     @ApiModelProperty(value = "商家封面", required = true)
-    @NotBlank(message = "封面图片不能为空")
-    private String coverUrl;
+    @NotEmpty(message = "封面图片不能为空")
+    private List<String> coverList;
 
     @ApiModelProperty(value = "营业时间", required = true)
     @NotBlank(message = "营业时间不能为空")
@@ -62,8 +67,8 @@ public class RestaurantAddRequest {
     @DecimalMax(value = "90", message = "纬度应[-90, 90]范围内")
     private BigDecimal latitude;
 
-    @ApiModelProperty(value = "商家热线", required = true)
-    @NotNull(message = "商家热线不能为空")
+    @ApiModelProperty(value = "商家电话", required = true)
+    @NotNull(message = "商家电话不能为空")
     private String phone;
 
     @ApiModelProperty(value = "商家介绍", required = true)

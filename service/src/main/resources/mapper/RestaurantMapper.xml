@@ -4,13 +4,16 @@
 
     <select id="listPage" resultType="com.eghm.vo.business.restaurant.RestaurantResponse" parameterType="com.eghm.dto.business.restaurant.RestaurantQueryRequest">
         select
+        t.id,
+        t.logo_url,
         r.merchant_name,
         t.title,
         t.state,
         t.open_time,
         t.detail_address,
         t.phone,
-        t.create_time
+        t.create_time,
+        t.update_time
         from restaurant t
         left join merchant r on t.merchant_id = r.id
         where t.deleted = false
