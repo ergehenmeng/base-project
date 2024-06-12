@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static com.eghm.enums.ErrorCode.ADDRESS_OCCUPIED;
+import static com.eghm.enums.ErrorCode.MERCHANT_ADDRESS_NULL;
 
 /**
  * <p>
@@ -91,6 +92,16 @@ public class MerchantAddressServiceImpl implements MerchantAddressService {
         updateWrapper.eq(MerchantAddress::getId, id);
         updateWrapper.eq(MerchantAddress::getMerchantId, merchantId);
         merchantAddressMapper.delete(updateWrapper);
+    }
+
+    @Override
+    public MerchantAddress selectByIdRequired(Long id) {
+        MerchantAddress address = merchantAddressMapper.selectById(id);
+        if (address == null) {
+            log.error("收货地址可能已经删除了 [{}]", id);
+            throw new BusinessException(MERCHANT_ADDRESS_NULL);
+        }
+        return address;
     }
 
     @Override

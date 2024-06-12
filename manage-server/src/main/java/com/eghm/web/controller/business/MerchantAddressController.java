@@ -7,7 +7,10 @@ import com.eghm.dto.business.merchant.address.AddressEditRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.model.MerchantAddress;
 import com.eghm.service.business.MerchantAddressService;
+import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.merchant.address.MerchantAddressDetailResponse;
 import com.eghm.vo.business.merchant.address.MerchantAddressResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -70,5 +73,12 @@ public class MerchantAddressController {
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         merchantAddressService.delete(dto.getId());
         return RespBody.success();
+    }
+
+    @GetMapping(value = "/select")
+    @ApiOperation("查询")
+    public RespBody<MerchantAddressDetailResponse> select(@Validated IdDTO dto) {
+        MerchantAddress address = merchantAddressService.selectByIdRequired(dto.getId());
+        return RespBody.success(DataUtil.copy(address, MerchantAddressDetailResponse.class));
     }
 }
