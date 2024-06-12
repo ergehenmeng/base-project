@@ -50,4 +50,7 @@ public class AddressEditRequest {
     @NotEmpty(message = "详细地址不能为空")
     @Size(max = 50, message = "详细地址最大50字符")
     private String detailAddress;
+
+    @ApiModelProperty("备注信息")
+    private String remark;
 }
