@@ -69,7 +69,7 @@ public class ExpressTemplateController {
         return RespBody.success();
     }
 
-    @PostMapping(value = "/select", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/select")
     @ApiOperation("查询模板")
     public RespBody<ExpressTemplateResponse> select(@Validated IdDTO dto) {
         ExpressTemplateResponse selected = expressTemplateService.selectById(dto.getId());

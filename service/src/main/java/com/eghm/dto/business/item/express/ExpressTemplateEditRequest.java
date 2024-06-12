@@ -27,6 +27,10 @@ public class ExpressTemplateEditRequest {
     @NotBlank(message = "快递模板名称不能为空")
     private String title;
 
+    @ApiModelProperty(value = "状态 0:禁用 1:启用")
+    @NotNull(message = "状态不能为空")
+    private Integer state;
+
     @ApiModelProperty(value = "计费方式 1:按件数 2:按重量", required = true)
     @OptionInt(value = {1, 2}, message = "计费方式不合法")
     private Integer chargeMode;

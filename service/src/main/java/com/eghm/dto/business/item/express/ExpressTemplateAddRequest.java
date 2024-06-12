@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -25,6 +26,10 @@ public class ExpressTemplateAddRequest {
     @ApiModelProperty(value = "计费方式 1:按件数 2:按重量", required = true)
     @OptionInt(value = {1, 2}, message = "计费方式不合法")
     private Integer chargeMode;
+
+    @ApiModelProperty(value = "状态 0:禁用 1:启用")
+    @NotNull(message = "状态不能为空")
+    private Integer state;
 
     @ApiModelProperty(value = "配送区域", required = true)
     @NotEmpty(message = "配送区域不能为空")
