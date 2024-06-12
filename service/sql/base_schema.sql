@@ -2445,6 +2445,7 @@ CREATE TABLE `merchant_address`
     `county_id`      bigint(20)   DEFAULT NULL COMMENT '县区id',
     `detail_address` varchar(255) DEFAULT NULL COMMENT '详细地址',
     `deleted`        bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `remark`         varchar(200) DEFAULT NULL COMMENT '备注信息',
     `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`),

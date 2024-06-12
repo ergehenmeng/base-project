@@ -51,6 +51,7 @@ public class MerchantAddressServiceImpl implements MerchantAddressService {
     public PageData<MerchantAddressResponse> getByPage(PagingQuery query) {
         LambdaQueryWrapper<MerchantAddress> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(MerchantAddress::getMerchantId, SecurityHolder.getMerchantId());
+        wrapper.like(query.getQueryName() != null, MerchantAddress::getNickName, query.getQueryName());
         wrapper.orderByDesc(MerchantAddress::getId);
         Page<MerchantAddress> page = merchantAddressMapper.selectPage(query.createPage(), wrapper);
         return DataUtil.copy(page, this::transfer);

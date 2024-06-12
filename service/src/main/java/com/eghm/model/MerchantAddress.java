@@ -1,6 +1,8 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.handler.mysql.LikeTypeHandler;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,6 +24,7 @@ public class MerchantAddress extends BaseEntity {
     private Long merchantId;
 
     @ApiModelProperty(value = "昵称")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String nickName;
 
     @ApiModelProperty(value = "手机号码")
@@ -39,4 +42,6 @@ public class MerchantAddress extends BaseEntity {
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
 
+    @ApiModelProperty("备注信息")
+    private String remark;
 }
