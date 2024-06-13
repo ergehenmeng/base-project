@@ -5,8 +5,10 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -27,8 +29,8 @@ public class VenueSiteEditRequest {
     private String title;
 
     @ApiModelProperty(value = "场地封面图片", required = true)
-    @NotBlank(message = "场地封面图片不能为空")
-    private String coverUrl;
+    @NotEmpty(message = "场地封面图片不能为空")
+    private List<String> coverList;
 
     @ApiModelProperty(value = "所属场馆", required = true)
     @NotNull(message = "请选择所属场馆")

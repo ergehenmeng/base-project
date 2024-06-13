@@ -23,11 +23,14 @@ public class VenueSiteResponse {
     @ApiModelProperty(value = "场地名称")
     private String title;
 
+    @ApiModelProperty(value = "所属场馆id")
+    private String venueId;
+
     @ApiModelProperty(value = "所属场馆")
     private String venueName;
 
     @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
-    private Boolean state;
+    private Integer state;
 
     @ApiModelProperty(value = "排序 小<->大")
     private Integer sort;

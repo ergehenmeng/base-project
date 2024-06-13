@@ -19,7 +19,6 @@ import javax.validation.constraints.NotNull;
 public class VenueSiteQueryRequest extends PagingQuery {
 
     @ApiModelProperty(value = "所属场馆", required = true)
-    @NotNull(message = "请选择所属场馆")
     private Long venueId;
 
     @ApiModelProperty("状态")
