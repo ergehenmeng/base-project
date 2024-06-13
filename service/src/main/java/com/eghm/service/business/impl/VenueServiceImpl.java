@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -22,6 +23,7 @@ import com.eghm.model.Venue;
 import com.eghm.model.VenueSite;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.VenueService;
+import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
@@ -54,16 +56,25 @@ public class VenueServiceImpl implements VenueService {
 
     private final VenueSiteMapper venueSiteMapper;
 
+    private final SysAreaService sysAreaService;
+
     private final OrderEvaluationMapper orderEvaluationMapper;
 
     @Override
     public Page<VenueResponse> listPage(VenueQueryRequest request) {
-        return venueMapper.listPage(request.createPage(), request);
+        Page<VenueResponse> listPage = venueMapper.listPage(request.createPage(), request);
+        if (CollUtil.isNotEmpty(listPage.getRecords())) {
+            this.transfer(listPage.getRecords());
+        }
+        return listPage;
     }
 
     @Override
     public List<VenueResponse> getList(VenueQueryRequest request) {
         Page<VenueResponse> listPage = venueMapper.listPage(request.createNullPage(), request);
+        if (CollUtil.isNotEmpty(listPage.getRecords())) {
+            this.transfer(listPage.getRecords());
+        }
         return listPage.getRecords();
     }
 
@@ -73,6 +84,7 @@ public class VenueServiceImpl implements VenueService {
         this.redoTitle(request.getTitle(), merchantId, null);
         Venue venue = DataUtil.copy(request, Venue.class);
         venue.setMerchantId(merchantId);
+        venue.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         venueMapper.insert(venue);
     }
 
@@ -82,8 +94,8 @@ public class VenueServiceImpl implements VenueService {
         this.redoTitle(request.getTitle(), merchantId, request.getId());
         Venue required = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(required.getMerchantId());
-
         Venue venue = DataUtil.copy(request, Venue.class);
+        venue.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         venueMapper.updateById(venue);
     }
 
@@ -165,6 +177,15 @@ public class VenueServiceImpl implements VenueService {
             return;
         }
         venueMapper.updateScore(vo.getStoreId(), DecimalUtil.calcAvgScore(storeScore.getTotalScore(), storeScore.getNum()));
+    }
+
+    /**
+     * 市县格式化
+     *
+     * @param venueList 场馆信息
+     */
+    private void transfer(List<VenueResponse> venueList) {
+        venueList.forEach(venue -> venue.setDetailAddress(sysAreaService.parseArea(venue.getCityId(), venue.getCountyId(), venue.getDetailAddress())));
     }
 
     /**

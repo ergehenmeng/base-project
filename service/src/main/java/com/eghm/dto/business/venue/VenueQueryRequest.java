@@ -21,7 +21,7 @@ public class VenueQueryRequest extends PagingQuery {
     @ApiModelProperty(value = "场馆类型")
     private VenueType venueType;
 
-    @ApiModelProperty("状态")
+    @ApiModelProperty("状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
     @Assign

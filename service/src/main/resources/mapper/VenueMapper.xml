@@ -5,12 +5,17 @@
     <select id="listPage" resultType="com.eghm.vo.business.venue.VenueResponse" parameterType="com.eghm.dto.business.venue.VenueQueryRequest">
         select
         t.id,
+        t.state,
         t.title,
         t.venue_type,
         t.cover_url,
         t.open_time,
         t.telephone,
-        t.detail_address
+        t.city_id,
+        t.county_id,
+        t.detail_address,
+        t.create_time,
+        t.update_time
         from venue t
         where t.deleted = false
         <if test="param.merchantId != null">

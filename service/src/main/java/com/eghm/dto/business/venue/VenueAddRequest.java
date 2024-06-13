@@ -8,6 +8,7 @@ import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -28,8 +29,8 @@ public class VenueAddRequest {
     private VenueType venueType;
 
     @ApiModelProperty(value = "封面图", required = true)
-    @NotBlank(message = "场馆封面图不能为空")
-    private String coverUrl;
+    @NotEmpty(message = "场馆封面图不能为空")
+    private List<String> coverList;
 
     @ApiModelProperty(value = "营业时间", required = true)
     @NotBlank(message = "营业时间不能为空")
