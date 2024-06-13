@@ -5,12 +5,14 @@
     <select id="getByPage" parameterType="com.eghm.dto.business.venue.VenueSiteQueryRequest" resultType="com.eghm.vo.business.venue.VenueSiteResponse" >
         select
         t.id,
+        t.cover_url,
+        r.title as venueName,
         t.title,
         t.state,
         t.sort,
         t.create_time,
         t.update_time
-        from venue_site t
+        from venue_site t left join venue r on t.venue_id = r.id
         where t.deleted = false and t.venue_id = #{param.venueId}
         <if test="param.merchantId != null">
             and t.merchant_id = #{param.merchantId}
