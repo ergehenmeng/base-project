@@ -30,6 +30,20 @@
         <if test="param.venueType != null">
             and t.venue_type = #{param.venueType}
         </if>
+        order by t.id desc
+    </select>
+
+    <select id="getList" resultType="com.eghm.vo.business.venue.BaseVenueResponse">
+        select
+            t.id,
+            t.state,
+            t.title
+        from venue t
+        where t.deleted = false
+        <if test="merchantId != null">
+            and t.merchant_id = #{merchantId}
+        </if>
+        order by t.id desc
     </select>
 
     <select id="getByPage" resultType="com.eghm.vo.business.venue.VenueVO" parameterType="com.eghm.dto.business.venue.VenueQueryDTO">

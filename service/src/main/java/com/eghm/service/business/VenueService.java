@@ -10,6 +10,7 @@ import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Venue;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.venue.BaseVenueResponse;
 import com.eghm.vo.business.venue.VenueDetailVO;
 import com.eghm.vo.business.venue.VenueResponse;
 import com.eghm.vo.business.venue.VenueVO;
@@ -41,6 +42,14 @@ public interface VenueService {
      * @return 列表
      */
     List<VenueResponse> getList(VenueQueryRequest request);
+
+    /**
+     * 查询商户下的场馆基础信息
+     *
+     * @param merchantId 商户id
+     * @return 列表
+     */
+    List<BaseVenueResponse> getList(Long merchantId);
 
     /**
      * 新增场馆

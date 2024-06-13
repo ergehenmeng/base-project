@@ -7,6 +7,7 @@ import com.eghm.dto.business.venue.VenueQueryDTO;
 import com.eghm.dto.business.venue.VenueQueryRequest;
 import com.eghm.model.Venue;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.venue.BaseVenueResponse;
 import com.eghm.vo.business.venue.VenueResponse;
 import com.eghm.vo.business.venue.VenueVO;
 import org.apache.ibatis.annotations.Param;
@@ -32,6 +33,14 @@ public interface VenueMapper extends BaseMapper<Venue> {
      * @return 列表
      */
     Page<VenueResponse> listPage(Page<VenueResponse> page, @Param("param") VenueQueryRequest request);
+
+    /**
+     * 查询商户下的场馆列表
+     *
+     * @param merchantId 商户Id
+     * @return 商户信息
+     */
+    List<BaseVenueResponse> getList(@Param("merchantId") Long merchantId);
 
     /**
      * 分页查询场馆信息

@@ -28,6 +28,7 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
+import com.eghm.vo.business.venue.BaseVenueResponse;
 import com.eghm.vo.business.venue.VenueDetailVO;
 import com.eghm.vo.business.venue.VenueResponse;
 import com.eghm.vo.business.venue.VenueVO;
@@ -76,6 +77,11 @@ public class VenueServiceImpl implements VenueService {
             this.transfer(listPage.getRecords());
         }
         return listPage.getRecords();
+    }
+
+    @Override
+    public List<BaseVenueResponse> getList(Long merchantId) {
+        return venueMapper.getList(merchantId);
     }
 
     @Override

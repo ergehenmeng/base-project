@@ -12,8 +12,11 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Venue;
 import com.eghm.service.business.VenueService;
+import com.eghm.utils.DataUtil;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.venue.BaseVenueResponse;
+import com.eghm.vo.business.venue.VenueDetailResponse;
 import com.eghm.vo.business.venue.VenueResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -54,6 +57,13 @@ public class VenueController {
         return RespBody.success(PageData.toPage(listPage));
     }
 
+    @GetMapping("/list")
+    @ApiOperation("场馆列表")
+    public RespBody<List<BaseVenueResponse>> list() {
+        List<BaseVenueResponse> list = venueService.getList(SecurityHolder.getMerchantId());
+        return RespBody.success(list);
+    }
+
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody VenueAddRequest request) {
@@ -91,9 +101,9 @@ public class VenueController {
 
     @GetMapping("/select")
     @ApiOperation("详情")
-    public RespBody<Venue> select(@Validated IdDTO dto) {
+    public RespBody<VenueDetailResponse> select(@Validated IdDTO dto) {
         Venue venue = venueService.selectByIdRequired(dto.getId());
-        return RespBody.success(venue);
+        return RespBody.success(DataUtil.copy(venue, VenueDetailResponse.class));
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
