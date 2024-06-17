@@ -23,5 +23,6 @@ public class PasswordEditRequest {
     private String newPwd;
 
     @Assign
+    @ApiModelProperty(value = "用户id", required = true)
     private Long userId;
 }
