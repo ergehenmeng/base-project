@@ -5,14 +5,17 @@ import com.eghm.cache.CacheProxyService;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.business.order.OrderDTO;
-import com.eghm.dto.business.order.item.OrderExpressRequest;
 import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
+import com.eghm.dto.business.order.item.OrderExpressRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.lock.RedisLock;
 import com.eghm.model.Express;
-import com.eghm.service.business.*;
+import com.eghm.service.business.ItemOrderService;
+import com.eghm.service.business.OrderExpressService;
+import com.eghm.service.business.OrderProxyService;
+import com.eghm.service.business.OrderService;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.order.item.ItemOrderDetailResponse;
 import com.eghm.vo.business.order.item.ItemOrderResponse;
@@ -47,8 +50,6 @@ public class ItemOrderController {
     private final CacheProxyService cacheProxyService;
 
     private final OrderProxyService orderProxyService;
-
-    private final OrderAdjustLogService orderAdjustLogService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")

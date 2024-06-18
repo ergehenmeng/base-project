@@ -56,6 +56,11 @@ public class VenueOrderServiceImpl implements VenueOrderService {
     }
 
     @Override
+    public List<VenueOrderResponse> getList(VenueOrderQueryRequest request) {
+        return venueOrderMapper.listPage(request.createNullPage(), request).getRecords();
+    }
+
+    @Override
     public List<VenueOrderVO> getByPage(VenueOrderQueryDTO dto) {
         return venueOrderMapper.getList(dto.createPage(false), dto).getRecords();
     }

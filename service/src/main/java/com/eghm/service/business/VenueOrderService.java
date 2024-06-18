@@ -31,6 +31,14 @@ public interface VenueOrderService {
     Page<VenueOrderResponse> listPage(VenueOrderQueryRequest request);
 
     /**
+     * 查询场馆预约订单 导出
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<VenueOrderResponse> getList(VenueOrderQueryRequest request);
+
+    /**
      * 分页查询场馆预约订单 (移动端)
      *
      * @param dto 查询条件

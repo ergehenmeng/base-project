@@ -3,6 +3,7 @@ package com.eghm.dto.business.order.line;
 import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.DatePagingComparator;
+import com.eghm.enums.ref.OrderState;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,7 +20,7 @@ import java.time.LocalDate;
 public class LineOrderQueryRequest extends DatePagingComparator {
 
     @ApiModelProperty("线路订单状态")
-    private Integer orderState;
+    private OrderState orderState;
 
     @ApiModelProperty("开始日期")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

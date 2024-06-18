@@ -7,6 +7,7 @@ import com.eghm.dto.business.order.venue.VenueOrderQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.VenueOrderService;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.order.venue.VenueOrderDetailResponse;
 import com.eghm.vo.business.order.venue.VenueOrderResponse;
 import io.swagger.annotations.Api;
@@ -17,6 +18,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -32,7 +36,7 @@ public class VenueOrderController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<VenueOrderResponse>> listPage(@Validated VenueOrderQueryRequest request) {
+    public RespBody<PageData<VenueOrderResponse>> listPage(VenueOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VenueOrderResponse> page = venueOrderService.listPage(request);
         return RespBody.success(PageData.toPage(page));
@@ -43,5 +47,13 @@ public class VenueOrderController {
     public RespBody<VenueOrderDetailResponse> detail(@Validated OrderDTO dto) {
         VenueOrderDetailResponse detail = venueOrderService.detail(dto.getOrderNo());
         return RespBody.success(detail);
+    }
+
+    @GetMapping("/export")
+    @ApiOperation("导出")
+    public void export(HttpServletResponse response, VenueOrderQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        List<VenueOrderResponse> byPage = venueOrderService.getList(request);
+        EasyExcelUtil.export(response, "场馆订单", byPage, VenueOrderResponse.class);
     }
 }

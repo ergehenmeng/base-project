@@ -38,7 +38,7 @@ public class ItemOrderQueryRequest extends DatePagingComparator {
     @ApiModelProperty("是否使用优惠券")
     private Boolean useVoucher;
 
-    @ApiModelProperty("订单类型 1:限时购订单 2:拼团订单")
+    @ApiModelProperty("订单类型 0:普通订单 1:限时购订单 2:拼团订单")
     private Integer orderType;
 
     @Assign

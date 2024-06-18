@@ -53,35 +53,36 @@ public class TicketOrderResponse extends ExcelStyle {
     @ExcelProperty(value = "订单状态", index = 6, converter = EnumExcelConverter.class)
     private OrderState state;
 
-    @ApiModelProperty("总优惠金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
-    @ExcelProperty(value = "总优惠金额", index = 7, converter = CentToYuanConverter.class)
-    private Integer discountAmount;
-
-    @ApiModelProperty("订单关闭时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "订单关闭时间", index = 8)
-    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime closeTime;
-
-    @ApiModelProperty(value = "订单关闭方式 (1:订单自动过期 2:用户取消 3:退款成功)")
-    @ExcelProperty(value = "订单关闭方式", index = 9, converter = EnumExcelConverter.class)
-    private CloseType closeType;
-
     @ApiModelProperty("付款金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
-    @ExcelProperty(value = "付款金额", index = 10, converter = CentToYuanConverter.class)
+    @ExcelProperty(value = "付款金额", index = 7, converter = CentToYuanConverter.class)
     private Integer payAmount;
+
+    @ApiModelProperty("总优惠金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    @ExcelProperty(value = "总优惠金额", index = 8, converter = CentToYuanConverter.class)
+    private Integer discountAmount;
 
     @ApiModelProperty("支付时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "支付时间", index = 11)
+    @ExcelProperty(value = "支付时间", index = 9)
     private LocalDateTime payTime;
 
-    @ApiModelProperty("添加时间")
+    @ApiModelProperty("创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "订单创建时间", index = 12)
+    @ExcelProperty(value = "订单创建时间", index = 10)
     private LocalDateTime createTime;
+
+    @ApiModelProperty("订单关闭时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ExcelProperty(value = "订单关闭时间", index = 11)
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime closeTime;
+
+    @ApiModelProperty(value = "订单关闭方式 (1:订单自动过期 2:用户取消 3:退款成功)")
+    @ExcelProperty(value = "订单关闭方式", index = 12, converter = EnumExcelConverter.class)
+    private CloseType closeType;
+
 }
