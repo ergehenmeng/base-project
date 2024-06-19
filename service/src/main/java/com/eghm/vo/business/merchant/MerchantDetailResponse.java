@@ -1,9 +1,12 @@
 package com.eghm.vo.business.merchant;
 
+import com.eghm.annotation.Desensitization;
+import com.eghm.enums.FieldType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p>
@@ -16,7 +19,7 @@ import java.math.BigDecimal;
 @Data
 public class MerchantDetailResponse {
 
-    @ApiModelProperty(value = "商家名称")
+    @ApiModelProperty(value = "商户名称")
     private String merchantName;
 
     @ApiModelProperty(value = "企业类型: 1:个人 2:企业")
@@ -38,7 +41,7 @@ public class MerchantDetailResponse {
     private String legalUrl;
 
     @ApiModelProperty(value = "商家类型 1:景区 2:民宿 4:餐饮 8:零售 16:线路 32:场馆")
-    private Integer type;
+    private List<Integer> typeList;
 
     @ApiModelProperty(value = "平台服务费,单位:%")
     private BigDecimal platformServiceRate;

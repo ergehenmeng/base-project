@@ -3,6 +3,7 @@ package com.eghm.web.controller.business;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.merchant.MerchantUnbindDTO;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.MerchantType;
 import com.eghm.model.Merchant;
 import com.eghm.service.business.MerchantService;
 import com.eghm.service.sys.SysAreaService;
@@ -40,6 +41,7 @@ public class MerchantCenterController {
         Merchant merchant = merchantService.selectByIdRequired(SecurityHolder.getMerchantId());
         MerchantDetailResponse response = DataUtil.copy(merchant, MerchantDetailResponse.class);
         response.setDetailAddress(sysAreaService.parseArea(merchant.getProvinceId(), merchant.getCityId(), merchant.getCountyId(), merchant.getDetailAddress()));
+        response.setTypeList(MerchantType.parse(merchant.getType()));
         return RespBody.success(response);
     }
 
