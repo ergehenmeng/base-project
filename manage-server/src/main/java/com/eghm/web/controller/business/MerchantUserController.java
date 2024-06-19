@@ -30,7 +30,7 @@ public class MerchantUserController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<MerchantUserResponse>> listPage(@Validated MerchantUserQueryRequest request) {
+    public RespBody<PageData<MerchantUserResponse>> listPage(MerchantUserQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<MerchantUserResponse> merchantPage = merchantUserService.getByPage(request);
         return RespBody.success(PageData.toPage(merchantPage));

@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class MerchantUserAddRequest {
     private String remark;
 
     @ApiModelProperty("角色id列表")
+    @NotEmpty(message = "请选择角色")
     private List<Long> roleIds;
 
     @ApiModelProperty(value = "商户ID", hidden = true)

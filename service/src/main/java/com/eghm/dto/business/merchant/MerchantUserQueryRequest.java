@@ -1,5 +1,6 @@
 package com.eghm.dto.business.merchant;
 
+import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,6 +21,7 @@ public class MerchantUserQueryRequest extends PagingQuery {
     @OptionInt(value = {0, 1}, required = false, message = "用户状态非法")
     private Integer state;
 
+    @Assign
     @ApiModelProperty(value = "商户id", hidden = true)
     private Long merchantId;
 }
