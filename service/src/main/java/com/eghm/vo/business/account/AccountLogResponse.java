@@ -46,13 +46,17 @@ public class AccountLogResponse extends ExcelStyle {
     @ExcelProperty(value = "变动余额", index = 4, converter = CentToYuanConverter.class)
     private Integer surplusAmount;
 
-    @ApiModelProperty("添加时间")
-    @ExcelProperty(value = "添加时间", index = 5)
+    @ApiModelProperty(value = "交易单号")
+    @ExcelProperty(value = "交易单号", index = 5)
+    private String tradeNo;
+
+    @ApiModelProperty("操作时间")
+    @ExcelProperty(value = "操作时间", index = 6)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "备注信息")
-    @ExcelProperty(value = "备注信息", index = 6)
+    @ExcelProperty(value = "备注信息", index = 7)
     private String remark;
 }
