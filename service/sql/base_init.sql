@@ -3614,6 +3614,7 @@ INSERT INTO `member` (`id`, `avatar`, `mobile`, `mp_open_id`, `nick_name`, `emai
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'login', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:16', '短信登陆发送验证码');
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('2', 'register', '您正在注册EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:18', '注册短信验证码');
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('3', 'change_email', '您正在更换EGHM平台账号的邮箱，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:44:19', NULL);
+INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('4', 'merchant_unbind', '您正在解绑EGHM平台商户微信手机号，短信验证码：{0}。如非本人操作，请忽略此短信', '2024-06-19 17:25:49', NULL);
 
 INSERT INTO `notice_template` (`id`, `code`, `title`, `content`, `update_time`) VALUES ('1', 'feedback_process', '反馈结果', '您反馈的【${feedbackType}】 "${content}"问题，我们已接收。${replay}', '2020-09-14 15:54:18');
 INSERT INTO `notice_template` (`id`, `code`, `title`, `content`, `update_time`) VALUES ('2', 'evaluation_refuse', '订单评价内容不合规', '您购买的【${productTitle}】商品, 单号:${orderNo},评价内容不合规, 原因:${remark}, 我们已做屏蔽处理', '2020-09-14 15:54:18');

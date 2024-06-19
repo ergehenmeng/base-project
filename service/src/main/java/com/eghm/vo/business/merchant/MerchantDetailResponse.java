@@ -1,7 +1,5 @@
 package com.eghm.vo.business.merchant;
 
-import com.eghm.annotation.Desensitization;
-import com.eghm.enums.FieldType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
