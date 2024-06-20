@@ -1906,7 +1906,7 @@ public enum ErrorCode {
     /**
      * 充值金额不能小于%s元
      */
-    RECHARGE_MIN(3000, "充值金额不能小于%s元"),
+    SCORE_RECHARGE_MIN(3000, "充值金额不能小于%s元"),
 
     /**
      * 充值订单创建失败
@@ -1917,6 +1917,11 @@ public enum ErrorCode {
      * 积分余额不足
      */
     MEMBER_SCORE_ERROR(3002, "积分余额不足"),
+
+    /**
+     * 提现金额不能小于%s元
+     */
+    SCORE_WITHDRAW_MIN(3003, "提现金额不能小于%s元"),
 
     /**
      * 积分奖品不存在

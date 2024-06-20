@@ -236,4 +236,9 @@ public class ConfigConstant {
      * 积分最小充值金额
      */
     public static final String SCORE_MIN_RECHARGE = "score_min_recharge";
+
+    /**
+     * 积分最小提现金额
+     */
+    public static final String SCORE_MIN_WITHDRAW = "score_min_withdraw";
 }

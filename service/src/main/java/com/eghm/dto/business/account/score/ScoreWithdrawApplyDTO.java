@@ -1,6 +1,9 @@
 package com.eghm.dto.business.account.score;
 
 import com.eghm.annotation.Assign;
+import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.utils.DecimalUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -20,7 +23,7 @@ public class ScoreWithdrawApplyDTO {
     private Long merchantId;
 
     @ApiModelProperty(value = "提现金额", required = true)
-    @Min(value = 1000, message = "最低提现1000积分起")
-    @NotNull(message = "请输入提现积分数")
+    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @NotNull(message = "请输入提现金额")
     private Integer amount;
 }
