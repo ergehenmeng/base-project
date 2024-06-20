@@ -231,4 +231,9 @@ public class ConfigConstant {
      * 因为在售后时间内,即使订单完成依旧可以退款,此次不能太早进行分账
      */
     public static final String DELAY_ROUTING_TIME = "delay_routing_time";
+
+    /**
+     * 积分最小充值金额
+     */
+    public static final String SCORE_MIN_RECHARGE = "score_min_recharge";
 }

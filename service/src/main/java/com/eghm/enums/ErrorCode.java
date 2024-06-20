@@ -1904,6 +1904,16 @@ public enum ErrorCode {
     RECHARGE_LOG_NULL(2999, "扫码充值记录未查询到"),
 
     /**
+     * 充值金额不能小于%s元
+     */
+    RECHARGE_MIN(3000, "充值金额不能小于%s元"),
+
+    /**
+     * 充值订单创建失败
+     */
+    RECHARGE_CREATE_ERROR(3001, "充值订单创建失败"),
+
+    /**
      * 积分余额不足
      */
     MEMBER_SCORE_ERROR(3002, "积分余额不足"),

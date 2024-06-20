@@ -5486,3 +5486,5 @@ INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('87', 'infrastructure_tag', '53', '厨房用具', b'0', '2024-06-09 17:41:15', '2024-06-09 17:41:15');
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('88', 'infrastructure_tag', '54', '咖啡机', b'0', '2024-06-09 17:41:31', '2024-06-09 17:41:37');
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('89', 'infrastructure_tag', '55', '按摩椅', b'0', '2024-06-09 17:41:44', '2024-06-09 17:41:44');
+
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('77', 'score_min_recharge', '积分最小充值金额', '1000', b'0', '默认10元(单位:分)', '2024-06-20 17:32:36', '2024-06-20 17:32:36');

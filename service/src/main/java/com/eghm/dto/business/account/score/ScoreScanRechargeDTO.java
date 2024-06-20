@@ -24,7 +24,6 @@ public class ScoreScanRechargeDTO {
 
     @ApiModelProperty(value = "充值金额", required = true)
     @JsonDeserialize(using = YuanToCentDecoder.class)
-    @Min(value = 1000, message = "最低充值金额10元")
     @NotNull(message = "请输入充值金额")
     private Integer amount;
 
