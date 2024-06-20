@@ -120,7 +120,7 @@ public enum ProductType implements ValueEnumBinder {
      * @return 交易单号
      */
     public String generateTradeNo() {
-        return prefix + DateUtil.formatShortLimit(LocalDate.now()) + IdWorker.getIdStr();
+        return prefix + DateUtil.formatMiniLimit(LocalDate.now()) + IdWorker.getIdStr();
     }
 
     /**

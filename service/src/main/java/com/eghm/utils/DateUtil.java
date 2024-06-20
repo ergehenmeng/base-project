@@ -39,6 +39,8 @@ public class DateUtil {
 
     private static final String SHORT_DATE_LIMIT = "yyyyMMdd";
 
+    private static final String MIN_DATE_LIMIT = "MMdd";
+
     private static final DateTimeFormatter LONG_FORMAT = DateTimeFormatter.ofPattern(LONG_DATE);
 
     private static final DateTimeFormatter SHORT_FORMAT = DateTimeFormatter.ofPattern(SHORT_DATE);
@@ -50,6 +52,8 @@ public class DateUtil {
     private static final DateTimeFormatter SHORT_LIMIT_FORMAT = DateTimeFormatter.ofPattern(SHORT_DATE_LIMIT);
 
     private static final DateTimeFormatter SIMPLE_FORMAT = DateTimeFormatter.ofPattern(SIMPLE_DATE);
+
+    private static final DateTimeFormatter MIN_LIMIT_FORMAT = DateTimeFormatter.ofPattern(MIN_DATE_LIMIT);
 
     /**
      * 格式化日期 yyyy-MM-dd HH:mm:ss
@@ -112,6 +116,17 @@ public class DateUtil {
     }
 
     /**
+     * 格式化日期 MMdd
+     *
+     * @param date date
+     * @return 字符串日期
+     */
+    public static String formatMiniLimit(TemporalAccessor date) {
+        return MIN_LIMIT_FORMAT.format(date);
+    }
+
+
+    /**
      * 格式化日期 MM-dd HH:mm:ss
      *
      * @param date date
@@ -130,6 +145,7 @@ public class DateUtil {
     public static String formatSimple(TemporalAccessor date) {
         return SIMPLE_FORMAT.format(date);
     }
+
 
     /**
      * 格式化日期 HH:mm:ss

@@ -3,6 +3,7 @@ package com.eghm.vo.business.freeze;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.ChangeType;
 import com.eghm.enums.ref.FreezeState;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -30,13 +31,15 @@ public class AccountFreezeLogResponse {
     @ApiModelProperty(value = "状态 1:冻结中 2:已解冻")
     private FreezeState state;
 
-    @ApiModelProperty(value = "状态变更原因 1:支付冻结, 2:退款解冻 3:订单完成解冻")
+    @ApiModelProperty(value = "变更类型 1:支付冻结, 2:退款解冻 3:订单完成解冻")
     private ChangeType changeType;
 
     @ApiModelProperty(value = "冻结时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "解冻时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm::ss")
     private LocalDateTime unfreezeTime;
 
     @ApiModelProperty(value = "备注信息")
