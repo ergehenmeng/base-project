@@ -1,6 +1,7 @@
 package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.dto.business.item.ItemTagQueryRequest;
 import com.eghm.model.ItemTag;
 import com.eghm.vo.business.item.ItemTagResponse;
 import org.apache.ibatis.annotations.Param;
@@ -20,9 +21,10 @@ public interface ItemTagMapper extends BaseMapper<ItemTag> {
     /**
      * 查询所有标签
      *
+     * @param request 查询条件
      * @return list
      */
-    List<ItemTagResponse> getList();
+    List<ItemTagResponse> getList(ItemTagQueryRequest request);
 
     /**
      * 查询某个pid下的最大id

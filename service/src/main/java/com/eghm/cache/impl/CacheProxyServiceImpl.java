@@ -160,7 +160,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     @Override
     @Cacheable(cacheNames = CacheConstant.ITEM_TAG, cacheManager = "longCacheManager")
     public List<ItemTagResponse> getList() {
-        return itemTagService.getList();
+        return itemTagService.getList(null);
     }
 
     @Override

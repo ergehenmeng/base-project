@@ -1,10 +1,8 @@
 package com.eghm.web.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.dict.*;
-import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.SysDictItem;
 import com.eghm.service.sys.SysDictService;
@@ -35,11 +33,11 @@ public class DictController {
 
     private final SysDictService sysDictService;
 
-    @GetMapping("/listPage")
+    @GetMapping("/list")
     @ApiOperation("列表")
-    public RespBody<PageData<DictResponse>> listPage(DictQueryRequest request) {
-        Page<DictResponse> byPage = sysDictService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+    public RespBody<List<DictResponse>> list(DictQueryRequest request) {
+        List<DictResponse> byPage = sysDictService.getList(request);
+        return RespBody.success(byPage);
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)

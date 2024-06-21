@@ -27,6 +27,9 @@ public class ItemTagEditRequest {
     @ApiModelProperty(value = "标签图标")
     private String icon;
 
-    @ApiModelProperty("排序id")
-    private Integer sort;
+    @ApiModelProperty(value = "状态 0:禁用 1:启用", required = true)
+    private Boolean state;
+
+    @ApiModelProperty(value = "备注")
+    private String remark;
 }

@@ -2,8 +2,10 @@ package com.eghm.web.controller.business;
 
 import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.SortByDTO;
 import com.eghm.dto.business.item.ItemTagAddRequest;
 import com.eghm.dto.business.item.ItemTagEditRequest;
+import com.eghm.dto.business.item.ItemTagQueryRequest;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.ItemTagService;
 import com.eghm.vo.business.item.ItemTagResponse;
@@ -31,8 +33,8 @@ public class ItemTagController {
     @GetMapping("/list")
     @ApiOperation("列表")
     @SkipPerm
-    public RespBody<List<ItemTagResponse>> list() {
-        List<ItemTagResponse> serviceList = itemTagService.getList();
+    public RespBody<List<ItemTagResponse>> list(ItemTagQueryRequest request) {
+        List<ItemTagResponse> serviceList = itemTagService.getList(request);
         return RespBody.success(serviceList);
     }
 
@@ -47,6 +49,13 @@ public class ItemTagController {
     @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody ItemTagEditRequest request) {
         itemTagService.update(request);
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/sort", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("更新排序")
+    public RespBody<Void> sort(@RequestBody @Validated SortByDTO dto) {
+        itemTagService.sortBy(String.valueOf(dto.getId()), dto.getSortBy());
         return RespBody.success();
     }
 

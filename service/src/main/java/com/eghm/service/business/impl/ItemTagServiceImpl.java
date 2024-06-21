@@ -1,10 +1,12 @@
 package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.item.ItemTagAddRequest;
 import com.eghm.dto.business.item.ItemTagEditRequest;
+import com.eghm.dto.business.item.ItemTagQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemMapper;
@@ -76,8 +78,16 @@ public class ItemTagServiceImpl implements ItemTagService {
     }
 
     @Override
-    public List<ItemTagResponse> getList() {
-        List<ItemTagResponse> responseList = itemTagMapper.getList();
+    public void sortBy(String id, Integer sortBy) {
+        LambdaUpdateWrapper<ItemTag> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(ItemTag::getId, id);
+        wrapper.set(ItemTag::getSort, sortBy);
+        itemTagMapper.update(null, wrapper);
+    }
+
+    @Override
+    public List<ItemTagResponse> getList(ItemTagQueryRequest request) {
+        List<ItemTagResponse> responseList = itemTagMapper.getList(request);
         return this.treeBin(CommonConstant.ROOT_NODE, responseList);
     }
 

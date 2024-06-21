@@ -1,6 +1,5 @@
 package com.eghm.service.sys;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.dict.*;
 import com.eghm.model.SysDict;
 import com.eghm.model.SysDictItem;
@@ -17,12 +16,12 @@ import java.util.List;
 public interface SysDictService {
 
     /**
-     * 根据条件分页查询数据字典信息
+     * 根据条件查询数据字典信息(不分页)
      *
-     * @param request 前台cax条件
-     * @return 分页列表
+     * @param request 前台条件
+     * @return 列表
      */
-    Page<DictResponse> getByPage(DictQueryRequest request);
+    List<DictResponse> getList(DictQueryRequest request);
 
     /**
      * 根据nid查询某一类数据字典列表

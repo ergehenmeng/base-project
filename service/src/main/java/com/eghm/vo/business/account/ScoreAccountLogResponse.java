@@ -47,7 +47,7 @@ public class ScoreAccountLogResponse extends ExcelStyle {
 
     @ApiModelProperty(value = "关联单号")
     @ExcelProperty(value = "关联单号", index = 5)
-    private Integer tradeNo;
+    private String tradeNo;
 
     @ApiModelProperty("变动时间")
     @ExcelProperty(value = "变动时间", index = 6)

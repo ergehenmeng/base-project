@@ -25,12 +25,13 @@ public class ItemTagResponse {
     private String icon;
 
     @ApiModelProperty(value = "父节点id")
-    @JsonIgnore
     private String pid;
 
     @ApiModelProperty(value = "排序")
-    @JsonIgnore
     private Integer sort;
+
+    @ApiModelProperty(value = "状态 false:禁用 true:启用")
+    private Boolean state;
 
     @ApiModelProperty("子节点")
     private List<ItemTagResponse> children;

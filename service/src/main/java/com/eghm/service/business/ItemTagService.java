@@ -2,6 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.dto.business.item.ItemTagAddRequest;
 import com.eghm.dto.business.item.ItemTagEditRequest;
+import com.eghm.dto.business.item.ItemTagQueryRequest;
 import com.eghm.vo.business.item.ItemTagResponse;
 
 import java.util.List;
@@ -39,9 +40,18 @@ public interface ItemTagService {
     void deleteById(Long id);
 
     /**
+     * 商品排序
+     *
+     * @param id     商品id
+     * @param sortBy 排序 最大999
+     */
+    void sortBy(String id, Integer sortBy);
+
+    /**
      * 查询标签列表, 组装成树状结构
      *
+     * @param request 基础查询条件
      * @return 标签列表
      */
-    List<ItemTagResponse> getList();
+    List<ItemTagResponse> getList(ItemTagQueryRequest request);
 }

@@ -4,7 +4,6 @@ package com.eghm.service.sys.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.dto.dict.*;
 import com.eghm.enums.ErrorCode;
@@ -45,15 +44,8 @@ public class SysDictServiceImpl implements SysDictService {
     private final SysDictItemMapper sysDictItemMapper;
 
     @Override
-    public Page<DictResponse> getByPage(DictQueryRequest request) {
-        // 因为getByPage方法会涉及mybatis自动组装,count字段不准确,此处手动统计
-        Integer count = sysDictMapper.getCount(request);
-        if (count <= 0) {
-            return new Page<>();
-        }
-        Page<DictResponse> byPage = sysDictMapper.getByPage(request.createPage(false), request);
-        byPage.setTotal(count);
-        return byPage;
+    public List<DictResponse> getList(DictQueryRequest request) {
+        return sysDictMapper.getList(request);
     }
 
     @Override

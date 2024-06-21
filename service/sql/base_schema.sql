@@ -252,7 +252,7 @@ CREATE TABLE `push_template`
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `title`       varchar(50)  DEFAULT NULL COMMENT '消息名称',
     `nid`         varchar(50)  DEFAULT NULL COMMENT '消息nid',
-    `state`       bit(1)   DEFAULT b'1' COMMENT '状态 0:关闭 1:开启',
+    `state`       bit(1)       DEFAULT b'1' COMMENT '状态 0:关闭 1:开启',
     `content`     varchar(200) DEFAULT NULL COMMENT '消息内容',
     `tag`         varchar(50)  DEFAULT NULL COMMENT '标签(消息推送跳转页面,与移动端约定好)',
     `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -779,13 +779,15 @@ DROP TABLE IF EXISTS `item_tag`;
 CREATE TABLE item_tag
 (
     id          VARCHAR(20) NOT NULL COMMENT '主键',
-    pid         VARCHAR(20) DEFAULT '0' COMMENT '父节点id',
+    pid         VARCHAR(20)  DEFAULT '0' COMMENT '父节点id',
     title       VARCHAR(20) COMMENT '标签名称',
     icon        VARCHAR(200) COMMENT '标签图标',
-    sort        smallint(4) default 1 COMMENT '排序',
-    create_time DATETIME    DEFAULT NOW() COMMENT '创建时间',
-    update_time DATETIME    DEFAULT NOW() ON UPDATE NOW() COMMENT '创建时间',
-    deleted     BIT(1)      DEFAULT 0 COMMENT '删除状态 0:未删除 1:已删除',
+    state       bit(1)       default b'1' comment '状态 0:禁用 1:正常',
+    sort        smallint(4)  default 1 COMMENT '排序',
+    remark      VARCHAR(200) default null COMMENT '备注',
+    create_time DATETIME     DEFAULT NOW() COMMENT '创建时间',
+    update_time DATETIME     DEFAULT NOW() ON UPDATE NOW() COMMENT '创建时间',
+    deleted     BIT(1)       DEFAULT 0 COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (id)
 ) COMMENT '零售标签';
 
@@ -963,7 +965,7 @@ CREATE TABLE `voucher`
     `title`         varchar(50)   DEFAULT NULL COMMENT '商品名称',
     `state`         tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:平台下架',
     `hot_sell`      bit(1)        DEFAULT b'0' COMMENT '是否为热销商品 true:是 false:不是',
-    `cover_url`     varchar(1000)  DEFAULT NULL COMMENT '封面图片',
+    `cover_url`     varchar(1000) DEFAULT NULL COMMENT '封面图片',
     `line_price`    int(10)       DEFAULT NULL COMMENT '划线价',
     `sale_price`    int(10)       DEFAULT NULL COMMENT '销售价',
     `stock`         int(10)       DEFAULT NULL COMMENT '剩余库存',
