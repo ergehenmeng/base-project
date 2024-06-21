@@ -14,8 +14,7 @@ import lombok.Setter;
 @Setter
 public class PushTemplateQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("0:关闭 1:开启")
-    @OptionInt(value = {0, 1}, required = false)
-    private Integer state;
+    @ApiModelProperty("状态 false:关闭 true:开启")
+    private Boolean state;
 
 }

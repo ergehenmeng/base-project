@@ -31,7 +31,7 @@ public class PushTemplate {
     private String nid;
 
     @ApiModelProperty("状态 0:关闭 1:开启")
-    private Integer state;
+    private Boolean state;
 
     @ApiModelProperty("消息内容")
     private String content;

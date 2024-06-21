@@ -118,7 +118,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     public PushTemplate getPushTemplate(String nid) {
         LambdaQueryWrapper<PushTemplate> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(PushTemplate::getNid, nid);
-        wrapper.eq(PushTemplate::getState, 1);
+        wrapper.eq(PushTemplate::getState, true);
         wrapper.last(LIMIT_ONE);
         return pushTemplateMapper.selectOne(wrapper);
     }
