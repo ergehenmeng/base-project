@@ -21,6 +21,9 @@ public class HomestayRoomQueryRequest extends PagingQuery {
     @ApiModelProperty("退款方式 0:不支持 1:直接退款 2:审核后退款")
     private RefundType refundType;
 
+    @ApiModelProperty("民宿id")
+    private Long homestayId;
+
     @ApiModelProperty(value = "商户id", hidden = true)
     @Assign
     private Long merchantId;

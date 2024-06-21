@@ -25,6 +25,9 @@
         <if test="param.state != null">
             and t.state = #{param.state}
         </if>
+        <if test="param.homestayId != null">
+            and t.homestay_id = #{param.homestayId}
+        </if>
         <if test="param.refundType != null">
             and t.refund_type = #{param.refundType}
         </if>
