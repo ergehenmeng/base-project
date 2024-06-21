@@ -44,7 +44,10 @@ public class VenueController {
     @GetMapping("/listPage")
     @ApiOperation("列表")
     public RespBody<PageData<VenueResponse>> listPage(VenueQueryRequest request) {
-        request.setMerchantId(SecurityHolder.getMerchantId());
+        Long merchantId = SecurityHolder.getMerchantId();
+        if (merchantId != null) {
+            request.setMerchantId(merchantId);
+        }
         Page<VenueResponse> byPage = venueService.listPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }

@@ -41,7 +41,10 @@ public class ItemStoreController {
     @GetMapping("/listPage")
     @ApiOperation("列表")
     public RespBody<PageData<ItemStoreResponse>> listPage(ItemStoreQueryRequest request) {
-        request.setMerchantId(SecurityHolder.getMerchantId());
+        Long merchantId = SecurityHolder.getMerchantId();
+        if (merchantId != null) {
+            request.setMerchantId(merchantId);
+        }
         Page<ItemStoreResponse> byPage = itemStoreService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }

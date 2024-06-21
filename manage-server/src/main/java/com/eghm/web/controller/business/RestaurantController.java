@@ -43,7 +43,10 @@ public class RestaurantController {
     @GetMapping("/listPage")
     @ApiOperation("列表")
     public RespBody<PageData<RestaurantResponse>> listPage(RestaurantQueryRequest request) {
-        request.setMerchantId(SecurityHolder.getMerchantId());
+        Long merchantId = SecurityHolder.getMerchantId();
+        if (merchantId != null) {
+            request.setMerchantId(merchantId);
+        }
         Page<RestaurantResponse> roomPage = restaurantService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
     }

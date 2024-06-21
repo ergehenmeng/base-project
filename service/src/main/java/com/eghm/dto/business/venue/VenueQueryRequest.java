@@ -1,7 +1,6 @@
 
 package com.eghm.dto.business.venue;
 
-import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.State;
 import com.eghm.enums.ref.VenueType;
@@ -24,7 +23,6 @@ public class VenueQueryRequest extends PagingQuery {
     @ApiModelProperty("状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
-    @Assign
-    @ApiModelProperty(hidden = true, value = "商户ID")
+    @ApiModelProperty(value = "商户ID")
     private Long merchantId;
 }

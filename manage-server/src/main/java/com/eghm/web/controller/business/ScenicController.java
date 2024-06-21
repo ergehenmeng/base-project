@@ -41,7 +41,10 @@ public class ScenicController {
     @ApiOperation("列表")
     @GetMapping("/listPage")
     public RespBody<PageData<ScenicResponse>> getByPage(ScenicQueryRequest request) {
-        request.setMerchantId(SecurityHolder.getMerchantId());
+        Long merchantId = SecurityHolder.getMerchantId();
+        if (merchantId != null) {
+            request.setMerchantId(merchantId);
+        }
         Page<ScenicResponse> scenicPage = scenicService.getByPage(request);
         return RespBody.success(PageData.toPage(scenicPage));
     }

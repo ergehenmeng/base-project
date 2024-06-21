@@ -41,7 +41,10 @@ public class TravelAgencyController {
     @GetMapping("/listPage")
     @ApiOperation("列表")
     public RespBody<PageData<TravelResponse>> listPage(TravelAgencyQueryRequest request) {
-        request.setMerchantId(SecurityHolder.getMerchantId());
+        Long merchantId = SecurityHolder.getMerchantId();
+        if (merchantId != null) {
+            request.setMerchantId(merchantId);
+        }
         Page<TravelResponse> roomPage = travelAgencyService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
     }
