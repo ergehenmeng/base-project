@@ -8,7 +8,6 @@
         t.site_title,
         t.title,
         t.venue_type,
-        t.cover_url,
         r.pay_type,
         r.pay_amount,
         r.discount_amount,
@@ -16,6 +15,8 @@
         r.mobile,
         r.close_type,
         r.close_time,
+        r.create_time,
+        r.pay_time,
         r.state
         from `order` r
         inner join venue_order t on t.order_no = r.order_no

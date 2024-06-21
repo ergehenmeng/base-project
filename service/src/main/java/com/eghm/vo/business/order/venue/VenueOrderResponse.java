@@ -1,9 +1,14 @@
 package com.eghm.vo.business.order.venue;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.excel.CentToYuanConverter;
+import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
+import com.eghm.enums.ref.VenueType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,46 +24,69 @@ import java.time.LocalDateTime;
 @Data
 public class VenueOrderResponse {
 
-    @ApiModelProperty("订单号")
+    @ApiModelProperty("订单编号")
+    @ExcelProperty(value = "订单编号", index = 0)
     private String orderNo;
 
-    @ApiModelProperty(value = "场馆名称")
-    private String title;
-
     @ApiModelProperty(value = "场地名称")
+    @ExcelProperty(value = "场地名称", index = 1)
     private String siteTitle;
 
+    @ApiModelProperty(value = "场馆名称")
+    @ExcelProperty(value = "场馆名称", index = 2)
+    private String title;
+
     @ApiModelProperty(value = "场馆类型")
-    private Integer venueType;
+    @ExcelProperty(value = "场馆类型", index = 3, converter = EnumExcelConverter.class)
+    private VenueType venueType;
 
     @ApiModelProperty("支付方式")
+    @ExcelProperty(value = "支付方式", index = 4, converter = EnumExcelConverter.class)
     private PayType payType;
 
-    @ApiModelProperty(value = "场馆封面图")
-    private String coverUrl;
-
     @ApiModelProperty(value = "订单状态")
+    @ExcelProperty(value = "订单状态", index = 5, converter = EnumExcelConverter.class)
     private OrderState state;
 
     @ApiModelProperty(value = "总付款金额=单价*数量+总快递费-总优惠金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
+    @ExcelProperty(value = "付款金额", index = 6, converter = CentToYuanConverter.class)
     private Integer payAmount;
 
     @ApiModelProperty("总优惠金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
+    @ExcelProperty(value = "优惠金额", index = 7, converter = CentToYuanConverter.class)
     private Integer discountAmount;
 
     @ApiModelProperty("订单联系人")
+    @ExcelProperty(value = "订单联系人", index = 8)
     private String nickName;
 
     @ApiModelProperty("订单联系电话")
+    @ExcelProperty(value = "订单联系电话", index = 9)
     private String mobile;
+
+    @ApiModelProperty("订单创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @ExcelProperty(value = "订单创建时间", index = 10)
+    private LocalDateTime createTime;
+
+    @ApiModelProperty("订单支付时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @ExcelProperty(value = "支付时间", index = 11)
+    private LocalDateTime payTime;
 
     @ApiModelProperty("订单关闭时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @ExcelProperty(value = "关闭时间", index = 12)
     private LocalDateTime closeTime;
 
     @ApiModelProperty(value = "订单关闭方式 (1:订单自动过期 2:用户取消 3:退款成功)")
+    @ExcelProperty(value = "关闭类型", index = 13, converter = EnumExcelConverter.class)
     private CloseType closeType;
+
 
 }
