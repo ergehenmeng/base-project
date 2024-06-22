@@ -25,4 +25,7 @@ public class NoticeTemplateRequest {
     @ApiModelProperty(value = "通知内容", required = true)
     @NotBlank(message = "通知内容不能为空")
     private String content;
+
+    @ApiModelProperty(value = "备注信息")
+    private String remark;
 }
