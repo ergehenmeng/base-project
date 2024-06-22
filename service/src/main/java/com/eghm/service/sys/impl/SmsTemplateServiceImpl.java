@@ -30,6 +30,7 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     public Page<SmsTemplate> getByPage(PagingQuery request) {
         LambdaQueryWrapper<SmsTemplate> wrapper = Wrappers.lambdaQuery();
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SmsTemplate::getNid, request.getQueryName());
+        wrapper.orderByDesc(SmsTemplate::getId);
         return smsTemplateMapper.selectPage(request.createPage(), wrapper);
     }
 
