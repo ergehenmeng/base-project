@@ -109,4 +109,9 @@
         select member_id from `order` where deleted = false and create_date &gt;= #{orderTime} and state not in (-1, 0, 9, 10, 11)
         group by member_id having count(1) &gt;= #{consumeNum}
     </select>
+
+    <select id="getOrderAmount" resultType="java.lang.Long">
+        select member_id from `order` where deleted = false and create_date &gt;= #{orderTime} and state not in (-1, 0, 9, 10, 11)
+        group by member_id having sum(pay_amount) &gt;= #{consumeAmount}
+    </select>
 </mapper>

@@ -21,7 +21,7 @@ public class MemberTagAddRequest {
 
     @ApiModelProperty(value = "标签名称", required = true)
     @NotBlank(message = "标签名称不能为空")
-    @Size(min = 2, max = 20, message = "标签名称长度2~20位")
+    @Size(min = 2, max = 10, message = "标签名称长度2~10位")
     @WordChecker(message = "标签名称存在敏感词")
     private String title;
 
