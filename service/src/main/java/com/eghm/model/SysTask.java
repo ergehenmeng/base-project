@@ -3,6 +3,7 @@ package com.eghm.model;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.handler.mysql.LikeTypeHandler;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -48,6 +49,7 @@ public class SysTask {
     private Long lockTime;
 
     @ApiModelProperty("更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
     @ApiModelProperty("备注信息")

@@ -42,8 +42,9 @@ public class SysTaskServiceImpl implements SysTaskService {
     @Override
     public Page<SysTask> getByPage(TaskQueryRequest request) {
         LambdaQueryWrapper<SysTask> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(request.getState() != null, SysTask::getState, request.getState());
         wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper -> queryWrapper.like(SysTask::getTitle, request.getQueryName()).or().like(SysTask::getMethodName, request.getQueryName()).or().like(SysTask::getBeanName, request.getQueryName()));
+        wrapper.eq(request.getState() != null, SysTask::getState, request.getState());
+        wrapper.orderByDesc(SysTask::getId);
         return sysTaskMapper.selectPage(request.createPage(), wrapper);
     }
 

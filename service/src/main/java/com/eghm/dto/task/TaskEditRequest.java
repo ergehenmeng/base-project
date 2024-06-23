@@ -18,6 +18,10 @@ public class TaskEditRequest {
     @NotNull(message = "id不能为空")
     private Long id;
 
+    @ApiModelProperty(value = "定时任务名称", required = true)
+    @NotBlank(message = "定时任务名称不能为空")
+    private String title;
+
     @ApiModelProperty(value = "cron表达式", required = true)
     @NotBlank(message = "cron表达式不能为空")
     private String cronExpression;
