@@ -42,7 +42,7 @@ public class MemberResponse {
     @ApiModelProperty("生日yyyyMMdd")
     private String birthday;
 
-    @ApiModelProperty("性别 性别 0:未知 1:男 2:女 ")
+    @ApiModelProperty("性别 0:未知 1:男 2:女 ")
     private Integer sex;
 
     @ApiModelProperty("注册渠道 PC,ANDROID,IOS,H5,OTHER")
@@ -51,7 +51,7 @@ public class MemberResponse {
     @ApiModelProperty("头像")
     private String avatar;
 
-    @ApiModelProperty("添加时间")
+    @ApiModelProperty("注册时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime createTime;

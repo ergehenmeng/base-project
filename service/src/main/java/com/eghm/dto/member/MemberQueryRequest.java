@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class MemberQueryRequest extends DatePagingComparator {
 
-    @ApiModelProperty("状态 false:注销 true:正常")
+    @ApiModelProperty("状态 false:冻结 true:正常")
     private Boolean state;
 
     @ApiModelProperty("性别 0:未知 1:男 2:女 ")
