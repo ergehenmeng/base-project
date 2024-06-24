@@ -252,7 +252,7 @@ CREATE TABLE `push_template`
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `title`       varchar(50)  DEFAULT NULL COMMENT '消息名称',
     `nid`         varchar(50)  DEFAULT NULL COMMENT '消息nid',
-    `state`       bit(1)       DEFAULT b'1' COMMENT '状态 0:关闭 1:开启',
+    `state`       bit(1)   DEFAULT b'1' COMMENT '状态 0:关闭 1:开启',
     `content`     varchar(200) DEFAULT NULL COMMENT '消息内容',
     `tag`         varchar(50)  DEFAULT NULL COMMENT '标签(消息推送跳转页面,与移动端约定好)',
     `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
