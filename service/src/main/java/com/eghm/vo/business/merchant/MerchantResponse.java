@@ -7,6 +7,7 @@ import com.eghm.convertor.excel.MerchantTypeConverter;
 import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.ref.EnterpriseType;
 import com.eghm.enums.ref.UserState;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -72,5 +73,12 @@ public class MerchantResponse extends ExcelStyle {
     @ApiModelProperty(value = "创建时间")
     @ExcelProperty(value = "创建时间", index = 10)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
+
+    @ApiModelProperty(value = "修改时间")
+    @ExcelProperty(value = "修改时间", index = 11)
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
 }

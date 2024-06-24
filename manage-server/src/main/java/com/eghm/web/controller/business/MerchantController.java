@@ -9,21 +9,20 @@ import com.eghm.dto.business.merchant.MerchantQueryRequest;
 import com.eghm.dto.business.merchant.MerchantRateRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.MerchantType;
 import com.eghm.model.Merchant;
 import com.eghm.service.business.MerchantService;
+import com.eghm.utils.DataUtil;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.merchant.BaseMerchantResponse;
+import com.eghm.vo.business.merchant.MerchantDetailVO;
 import com.eghm.vo.business.merchant.MerchantResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -62,9 +61,11 @@ public class MerchantController {
 
     @GetMapping("/detail")
     @ApiOperation("详情")
-    public RespBody<Merchant> detail(@Validated IdDTO dto) {
+    public RespBody<MerchantDetailVO> detail(@Validated IdDTO dto) {
         Merchant merchant = merchantService.selectByIdRequired(dto.getId());
-        return RespBody.success(merchant);
+        MerchantDetailVO vo = DataUtil.copy(merchant, MerchantDetailVO.class);
+        vo.setTypeList(MerchantType.parse(merchant.getType()));
+        return RespBody.success(vo);
     }
 
     @PostMapping(value = "/lock", consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -15,7 +15,8 @@
         t.platform_service_rate,
         t.legal_id_card,
         t.credit_code,
-        t.create_time
+        t.create_time,
+        t.update_time
         from merchant t left join sys_user r on t.user_id = r.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
