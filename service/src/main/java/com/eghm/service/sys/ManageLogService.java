@@ -26,12 +26,5 @@ public interface ManageLogService {
      */
     void insertManageLog(ManageLog log);
 
-    /**
-     * 根据主键查询响应信息
-     *
-     * @param id id
-     * @return 响应结果 可能为空
-     */
-    String getResponseById(Long id);
 }
 

@@ -21,11 +21,4 @@ public interface ManageLogMapper extends BaseMapper<ManageLog> {
      */
     Page<ManageLogResponse> getByPage(Page<ManageLog> page, @Param("param") ManageQueryRequest request);
 
-    /**
-     * 根据id查询响应信息
-     *
-     * @param id 主键
-     * @return 响应结果, 可能为空
-     */
-    String getResponseById(@Param("id") Long id);
 }

@@ -31,8 +31,4 @@ public class ManageLogServiceImpl implements ManageLogService {
         manageLogMapper.insert(log);
     }
 
-    @Override
-    public String getResponseById(Long id) {
-        return manageLogMapper.getResponseById(id);
-    }
 }

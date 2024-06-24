@@ -26,6 +26,6 @@ public class IdCardDefine implements ConstraintValidator<IdCard, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return (!required && value == null) || (StrUtil.isNotBlank(value) && IdcardUtil.isValidCard18(value));
+        return (!required && StrUtil.isBlank(value)) || IdcardUtil.isValidCard18(value);
     }
 }

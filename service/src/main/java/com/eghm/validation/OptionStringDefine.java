@@ -1,5 +1,6 @@
 package com.eghm.validation;
 
+import cn.hutool.core.util.StrUtil;
 import com.eghm.validation.annotation.OptionString;
 
 import javax.validation.ConstraintValidator;
@@ -29,7 +30,7 @@ public class OptionStringDefine implements ConstraintValidator<OptionString, Str
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (!required && value == null) {
+        if (!required && StrUtil.isBlank(value)) {
             return true;
         }
         for (String v : values) {

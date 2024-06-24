@@ -26,6 +26,6 @@ public class MobileDefine implements ConstraintValidator<Mobile, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return (!required && value == null) || (StrUtil.isNotBlank(value) && PhoneUtil.isMobile(value));
+        return (!required && StrUtil.isBlank(value)) || PhoneUtil.isMobile(value);
     }
 }

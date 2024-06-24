@@ -3,16 +3,14 @@
 <mapper namespace="com.eghm.mapper.ManageLogMapper">
 
     <select id="getByPage" parameterType="com.eghm.dto.log.ManageQueryRequest" resultType="com.eghm.vo.log.ManageLogResponse">
-        select t.id, t.url, r.nick_name, r.mobile, t.request, t.ip, t.business_time, t.create_time
+        select t.id, t.url, r.nick_name, r.mobile, t.request, t.ip, t.business_time, t.create_time, t.response
         from manage_log t left join sys_user r on t.user_id = r.id
         <where>
             <if test="param.queryName != null and param.queryName != ''">
                 and (t.url like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler },'%') or
-                t.ip like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%') )
-            </if>
-            <if test="param.extName != null and param.extName != ''">
-                and (r.nick_name like concat('%',#{param.extName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%') or
-                     r.mobile like concat('%',#{param.extName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%'))
+                t.ip like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%') or
+                r.nick_name like concat('%',#{param.extName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%') or
+                r.mobile like concat('%',#{param.extName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%'))
             </if>
             <if test="param.startTime != null">
                 and t.create_time &gt;= #{param.startTime}
@@ -24,10 +22,5 @@
         order by t.id desc
     </select>
 
-    <select id="getResponseById" resultType="string">
-        select
-            response
-        from manage_log where id = #{id}
-    </select>
 
 </mapper>

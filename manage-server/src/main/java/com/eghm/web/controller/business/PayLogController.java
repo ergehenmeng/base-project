@@ -37,9 +37,9 @@ public class PayLogController {
         return RespBody.success(PageData.toPage(merchantPage));
     }
 
-    @GetMapping("/notify/listPage")
+    @GetMapping("/async/listPage")
     @ApiOperation("支付异步响应日志列表")
-    public RespBody<PageData<PayNotifyLogResponse>> notifyListPage(PayLogQueryRequest request) {
+    public RespBody<PageData<PayNotifyLogResponse>> asyncListPage(PayLogQueryRequest request) {
         Page<PayNotifyLogResponse> merchantPage = payNotifyLogService.getByPage(request);
         return RespBody.success(PageData.toPage(merchantPage));
     }

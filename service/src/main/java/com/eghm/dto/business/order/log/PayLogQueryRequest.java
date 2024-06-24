@@ -18,6 +18,6 @@ public class PayLogQueryRequest extends PagingQuery {
     @ApiModelProperty("请求类型 PAY:支付 REFUND:退款")
     private StepType stepType;
 
-    @ApiModelProperty("交易方式 WECHAT:微信 ALIPAY:支付宝")
+    @ApiModelProperty("支付渠道 WECHAT:微信 ALIPAY:支付宝")
     private PayChannel payChannel;
 }

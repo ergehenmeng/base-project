@@ -1,7 +1,6 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.log.ManageQueryRequest;
@@ -11,7 +10,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,10 +33,4 @@ public class ManageLogController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @GetMapping("/select")
-    @ApiOperation("详细信息")
-    public RespBody<String> select(@Validated IdDTO dto) {
-        String response = manageLogService.getResponseById(dto.getId());
-        return RespBody.success(response);
-    }
 }

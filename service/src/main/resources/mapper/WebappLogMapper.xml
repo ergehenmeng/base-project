@@ -25,16 +25,11 @@
                and (r.nick_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
                     or t.serial_number like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
                     or t.url like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+                    or t.ip = #{param.queryName}
                    )
            </if>
            <if test="param.channel != null and param.channel != ''">
                and t.channel = #{param.channel}
-           </if>
-           <if test="param.ip != null and param.ip != ''">
-               and t.ip = #{param.ip}
-           </if>
-           <if test="param.traceId != null and param.traceId != ''">
-               and t.trace_id = #{param.traceId}
            </if>
        </where>
        order by t.id desc

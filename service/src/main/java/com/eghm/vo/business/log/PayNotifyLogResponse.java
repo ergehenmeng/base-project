@@ -22,10 +22,6 @@ public class PayNotifyLogResponse {
     @ApiModelProperty("id主键")
     private Long id;
 
-    @ApiModelProperty("添加时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
-
     @ApiModelProperty(value = "交易方式 WECHAT:微信 ALIPAY:支付宝")
     private PayChannel payChannel;
 
@@ -43,4 +39,8 @@ public class PayNotifyLogResponse {
 
     @ApiModelProperty(value = "通知原始参数")
     private String params;
+
+    @ApiModelProperty("操作时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
 }

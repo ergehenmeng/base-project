@@ -22,11 +22,7 @@ public class PayRequestLogResponse {
     @ApiModelProperty("id主键")
     private Long id;
 
-    @ApiModelProperty("添加时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "交易方式 WECHAT:微信 ALIPAY:支付宝")
+    @ApiModelProperty(value = "支付渠道 WECHAT:微信 ALIPAY:支付宝")
     private PayChannel payChannel;
 
     @ApiModelProperty(value = "订单编号")
@@ -46,5 +42,9 @@ public class PayRequestLogResponse {
 
     @ApiModelProperty(value = "响应参数")
     private String responseBody;
+
+    @ApiModelProperty("请求时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
 
 }
