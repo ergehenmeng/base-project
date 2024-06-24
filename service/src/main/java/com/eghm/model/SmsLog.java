@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.SmsType;
 import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
@@ -35,7 +36,7 @@ public class SmsLog {
     private LocalDateTime createTime;
 
     @ApiModelProperty("短信分类")
-    private String smsType;
+    private SmsType smsType;
 
     @ApiModelProperty("手机号")
     @TableField(typeHandler = LikeTypeHandler.class)

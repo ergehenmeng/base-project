@@ -1,12 +1,15 @@
 package com.eghm.dto.sms;
 
+import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.PagingQuery;
+import com.eghm.enums.SmsType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -18,17 +21,17 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class SmsLogQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("开始时间 yyyy-MM-dd HH:mm")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime startTime;
+    @ApiModelProperty("开始日期 yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
 
-    @ApiModelProperty("结束时间 yyyy-MM-dd HH:mm")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime endTime;
+    @ApiModelProperty("开始日期 yyyy-MM-dd")
+    @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
+    private LocalDate endDate;
 
     @ApiModelProperty("短信发送状态 0:发送中 1:发送成功 2:发送失败")
     private Integer state;
 
     @ApiModelProperty("短信类型")
-    private String smsType;
+    private SmsType smsType;
 }

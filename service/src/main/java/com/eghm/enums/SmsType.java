@@ -1,5 +1,7 @@
 package com.eghm.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -11,11 +13,11 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum SmsType {
+public enum SmsType implements ValueEnumBinder {
     /**
-     * 未指定短信类型,则为默认短信:default
+     * 未指定短信类型,则为自定义短信:default
      */
-    DEFAULT("default", "默认类型短信"),
+    DEFAULT("default", "自定义短信"),
 
     /**
      * 登陆发送短信
@@ -25,7 +27,7 @@ public enum SmsType {
     /**
      * 忘记登陆密码
      */
-    FORGET("login", "忘记密码发送短信"),
+    FORGET("forget", "忘记密码发送短信"),
 
     /**
      * 注册发送短信
@@ -48,7 +50,14 @@ public enum SmsType {
     CONFIRM_NO_ROOM("confirm_no_room", "确认无房,发送通知短信"),
 
     ;
+    @EnumValue
+    @JsonValue
     private final String value;
 
     private final String msg;
+
+    @Override
+    public String toString() {
+        return value + ":" + msg;
+    }
 }
