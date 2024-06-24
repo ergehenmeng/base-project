@@ -52,7 +52,7 @@ public class ExceptionAdviceHandler {
      */
     @ExceptionHandler(BusinessException.class)
     public RespBody<Void> businessException(HttpServletRequest request, BusinessException e) {
-        log.warn("业务异常:[{}] [{}:{}]", request.getRequestURI(), e.getCode(), e.getMessage());
+        log.warn("业务异常:[{}] [{}]", request.getRequestURI(), e.getCode(), e);
         return RespBody.error(e.getCode(), e.getMessage());
     }
 
@@ -97,7 +97,7 @@ public class ExceptionAdviceHandler {
      */
     @ExceptionHandler(ParameterException.class)
     public RespBody<Void> parameterException(HttpServletRequest request, ParameterException e) {
-        log.warn("参数异常:[{}] [{}:{}]", request.getRequestURI(), e.getCode(), e.getMessage());
+        log.warn("参数异常:[{}] [{}]", request.getRequestURI(), e.getCode(), e);
         return RespBody.error(e.getCode(), e.getMessage());
     }
 

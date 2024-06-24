@@ -8,6 +8,7 @@ import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.RoomType;
 import com.eghm.enums.ref.State;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -63,10 +64,12 @@ public class HomestayRoomResponse extends ExcelStyle {
     @ApiModelProperty("创建时间")
     @ExcelProperty(value = "创建时间", index = 8)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @ApiModelProperty("更新时间")
     @ExcelProperty(value = "更新时间", index = 9)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }

@@ -5,6 +5,7 @@ import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.ref.State;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -52,10 +53,12 @@ public class RestaurantResponse extends ExcelStyle {
     @ApiModelProperty("创建时间")
     @ExcelProperty(value = "创建时间", index = 6)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @ApiModelProperty("更新时间")
     @ExcelProperty(value = "更新时间", index = 7)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }

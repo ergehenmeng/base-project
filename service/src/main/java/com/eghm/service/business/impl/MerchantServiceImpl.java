@@ -138,11 +138,13 @@ public class MerchantServiceImpl implements MerchantService {
         this.checkMerchantRedo(request.getMerchantName(), request.getId());
         this.checkMobileRedo(request.getMobile(), request.getId());
         this.checkCreditRedo(request.getCreditCode(), request.getId());
+        Merchant required = this.selectByIdRequired(request.getId());
         Merchant merchant = DataUtil.copy(request, Merchant.class);
         merchantMapper.updateById(merchant);
         SysUser user = new SysUser();
         user.setMobile(request.getMobile());
         user.setNickName(request.getMerchantName());
+        user.setId(required.getUserId());
         sysUserService.updateById(user);
         sysRoleService.authRole(merchant.getId(), RoleMapping.parseRoleType(request.getType()));
     }
@@ -322,7 +324,7 @@ public class MerchantServiceImpl implements MerchantService {
     private void checkMerchantRedo(String merchantName, Long id) {
         LambdaQueryWrapper<Merchant> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Merchant::getMerchantName, merchantName);
-        wrapper.eq(id != null, Merchant::getId, id);
+        wrapper.ne(id != null, Merchant::getId, id);
         Long count = merchantMapper.selectCount(wrapper);
         if (count > 0) {
             log.error("商户名称被占用 [{}]", merchantName);
@@ -339,7 +341,7 @@ public class MerchantServiceImpl implements MerchantService {
     private void checkMobileRedo(String mobile, Long id) {
         LambdaQueryWrapper<Merchant> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Merchant::getMobile, mobile);
-        wrapper.eq(id != null, Merchant::getId, id);
+        wrapper.ne(id != null, Merchant::getId, id);
         Long count = merchantMapper.selectCount(wrapper);
         if (count > 0) {
             log.error("商户手机号被占用 [{}]", mobile);
@@ -356,7 +358,7 @@ public class MerchantServiceImpl implements MerchantService {
     private void checkCreditRedo(String creditCode, Long id) {
         LambdaQueryWrapper<Merchant> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Merchant::getCreditCode, creditCode);
-        wrapper.eq(id != null, Merchant::getId, id);
+        wrapper.ne(id != null, Merchant::getId, id);
         Long count = merchantMapper.selectCount(wrapper);
         if (count > 0) {
             log.error("商户社会统一信用代码名称被占用 [{}] [{}]", id, creditCode);
