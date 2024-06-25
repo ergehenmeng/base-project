@@ -45,7 +45,7 @@ public class PoiAreaServiceImpl implements PoiAreaService {
     public Page<PoiAreaResponse> getByPage(PagingQuery query) {
         Page<PoiAreaResponse> byPage = poiAreaMapper.getByPage(query.createPage(), query);
         if (CollUtil.isEmpty(byPage.getRecords())) {
-            byPage.getRecords().forEach(item -> item.setDetailAddress(sysAreaService.parseArea(item.getCityId(), item.getCountyId(), item.getDetailAddress())));
+            byPage.getRecords().forEach(item -> item.setParsedAddress(sysAreaService.parseArea(item.getCityId(), item.getCountyId(), item.getDetailAddress())));
         }
         return byPage;
     }
@@ -69,16 +69,6 @@ public class PoiAreaServiceImpl implements PoiAreaService {
         this.redoCode(request.getCode(), request.getId());
         PoiArea poiArea = DataUtil.copy(request, PoiArea.class);
         poiAreaMapper.updateById(poiArea);
-    }
-
-    @Override
-    public PoiArea selectByIdRequired(Long id) {
-        PoiArea poiArea = poiAreaMapper.selectById(id);
-        if (poiArea == null) {
-            log.error("区域信息未查询到 [{}]", id);
-            throw new BusinessException(ErrorCode.AREA_NOT_EXIST);
-        }
-        return poiArea;
     }
 
     @Override

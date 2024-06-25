@@ -5,7 +5,6 @@ import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.poi.PoiAreaAddRequest;
 import com.eghm.dto.poi.PoiAreaEditRequest;
 import com.eghm.dto.poi.StateRequest;
-import com.eghm.model.PoiArea;
 import com.eghm.vo.poi.BasePoiAreaResponse;
 import com.eghm.vo.poi.PoiAreaResponse;
 
@@ -49,14 +48,6 @@ public interface PoiAreaService {
      * @param request 区域信息
      */
     void update(PoiAreaEditRequest request);
-
-    /**
-     * 根据id查询
-     *
-     * @param id id
-     * @return 区域信息
-     */
-    PoiArea selectByIdRequired(Long id);
 
     /**
      * 编辑区域

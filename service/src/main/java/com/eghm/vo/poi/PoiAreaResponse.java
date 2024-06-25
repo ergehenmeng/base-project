@@ -34,16 +34,20 @@ public class PoiAreaResponse {
     @ApiModelProperty(value = "维度")
     private BigDecimal latitude;
 
+    @ApiModelProperty(value = "省id")
+    private Long provinceId;
+
     @ApiModelProperty(value = "城市id")
-    @JsonIgnore
     private Long cityId;
 
     @ApiModelProperty(value = "区县id")
-    @JsonIgnore
     private Long countyId;
 
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
+
+    @ApiModelProperty(value = "格式化后的地址")
+    private String parsedAddress;
 
     @ApiModelProperty(value = "区域信息描述")
     private String remark;

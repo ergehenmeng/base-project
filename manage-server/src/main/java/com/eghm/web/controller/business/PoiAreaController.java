@@ -54,13 +54,6 @@ public class PoiAreaController {
         return RespBody.success();
     }
 
-    @GetMapping(value = "/select")
-    @ApiOperation("详情")
-    public RespBody<PoiArea> select(@Validated IdDTO dto) {
-        PoiArea required = poiAreaService.selectByIdRequired(dto.getId());
-        return RespBody.success(required);
-    }
-
     @PostMapping(value = "/updateState", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新状态")
     public RespBody<Void> updateState(@Validated @RequestBody StateRequest request) {
