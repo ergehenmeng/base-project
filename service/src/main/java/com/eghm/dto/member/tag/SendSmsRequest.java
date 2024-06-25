@@ -18,7 +18,7 @@ public class SendSmsRequest {
 
     @ApiModelProperty("短信内容")
     @NotBlank(message = "短信内容不能为空")
-    @Size(min = 10, max = 70, message = "站内信内容长度10~70位")
+    @Size(min = 10, max = 70, message = "短信内容长度10~70字符")
     @WordChecker(message = "短信内容存在敏感词")
     private String content;
 

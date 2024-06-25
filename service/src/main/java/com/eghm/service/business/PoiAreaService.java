@@ -6,6 +6,7 @@ import com.eghm.dto.poi.PoiAreaAddRequest;
 import com.eghm.dto.poi.PoiAreaEditRequest;
 import com.eghm.dto.poi.StateRequest;
 import com.eghm.model.PoiArea;
+import com.eghm.vo.poi.BasePoiAreaResponse;
 import com.eghm.vo.poi.PoiAreaResponse;
 
 import java.util.List;
@@ -26,14 +27,14 @@ public interface PoiAreaService {
      * @param query 查询条件
      * @return 列表
      */
-    Page<PoiArea> getByPage(PagingQuery query);
+    Page<PoiAreaResponse> getByPage(PagingQuery query);
 
     /**
      * 查询全部区域
      *
      * @return 列表
      */
-    List<PoiAreaResponse> getList();
+    List<BasePoiAreaResponse> getList();
 
     /**
      * 新增区域
@@ -48,6 +49,14 @@ public interface PoiAreaService {
      * @param request 区域信息
      */
     void update(PoiAreaEditRequest request);
+
+    /**
+     * 根据id查询
+     *
+     * @param id id
+     * @return 区域信息
+     */
+    PoiArea selectByIdRequired(Long id);
 
     /**
      * 编辑区域

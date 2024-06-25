@@ -36,6 +36,8 @@ public class LoginServiceImpl implements LoginService {
         LambdaQueryWrapper<LoginLog> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(LoginLog::getMemberId, request.getMemberId());
         wrapper.eq(request.getChannel() != null, LoginLog::getChannel, request.getChannel());
+        wrapper.ge(request.getStartDate() != null, LoginLog::getCreateTime, request.getStartDate());
+        wrapper.le(request.getEndDate() != null, LoginLog::getCreateTime, request.getEndDate());
         wrapper.orderByDesc(LoginLog::getId);
         return loginLogMapper.selectPage(request.createPage(), wrapper);
     }

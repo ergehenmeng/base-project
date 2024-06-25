@@ -39,7 +39,7 @@ public class AccountFreezeLogResponse {
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "解冻时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm::ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime unfreezeTime;
 
     @ApiModelProperty(value = "备注信息")

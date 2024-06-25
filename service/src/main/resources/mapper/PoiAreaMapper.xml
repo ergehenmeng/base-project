@@ -2,7 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.PoiAreaMapper">
 
-    <select id="getList" resultType="com.eghm.vo.poi.PoiAreaResponse">
+    <select id="getByPage" resultType="com.eghm.vo.poi.PoiAreaResponse" parameterType="com.eghm.dto.ext.PagingQuery">
+        select
+            id,
+            code,
+            title,
+            state,
+            longitude,
+            latitude,
+            city_id,
+            county_id,
+            detail_address,
+            remark,
+            create_time,
+            update_time
+        from poi_area where deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        order by id desc
+    </select>
+
+    <select id="getList" resultType="com.eghm.vo.poi.BasePoiAreaResponse">
         select code, title from poi_area where deleted = false and state = true order by id desc
     </select>
 </mapper>

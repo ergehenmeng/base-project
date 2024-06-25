@@ -80,7 +80,7 @@ public class MemberController {
 
     @GetMapping("/loginPage")
     @ApiOperation("登录日志列表")
-    public RespBody<PageData<LoginLog>> loginPage(LoginLogQueryRequest request) {
+    public RespBody<PageData<LoginLog>> loginPage(@Validated LoginLogQueryRequest request) {
         Page<LoginLog> byPage = loginService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }

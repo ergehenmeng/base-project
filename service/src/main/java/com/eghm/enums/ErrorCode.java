@@ -1494,6 +1494,11 @@ public enum ErrorCode {
     AREA_TITLE_REDO(2753, "区域名称重复"),
 
     /**
+     * 区域信息未查询到
+     */
+    AREA_NOT_EXIST(2754, "区域信息未查询到"),
+
+    /**
      * 区域编号重复
      */
     AREA_CODE_REDO(2756, "区域编号重复"),

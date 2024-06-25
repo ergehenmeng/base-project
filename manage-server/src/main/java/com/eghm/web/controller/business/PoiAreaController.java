@@ -10,6 +10,7 @@ import com.eghm.dto.poi.PoiAreaEditRequest;
 import com.eghm.dto.poi.StateRequest;
 import com.eghm.model.PoiArea;
 import com.eghm.service.business.PoiAreaService;
+import com.eghm.vo.poi.BasePoiAreaResponse;
 import com.eghm.vo.poi.PoiAreaResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,8 +35,8 @@ public class PoiAreaController {
 
     @ApiOperation("列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<PoiArea>> getByPage(PagingQuery request) {
-        Page<PoiArea> byPage = poiAreaService.getByPage(request);
+    public RespBody<PageData<PoiAreaResponse>> getByPage(PagingQuery request) {
+        Page<PoiAreaResponse> byPage = poiAreaService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
@@ -51,6 +52,13 @@ public class PoiAreaController {
     public RespBody<Void> update(@Validated @RequestBody PoiAreaEditRequest request) {
         poiAreaService.update(request);
         return RespBody.success();
+    }
+
+    @GetMapping(value = "/select")
+    @ApiOperation("详情")
+    public RespBody<PoiArea> select(@Validated IdDTO dto) {
+        PoiArea required = poiAreaService.selectByIdRequired(dto.getId());
+        return RespBody.success(required);
     }
 
     @PostMapping(value = "/updateState", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -69,8 +77,8 @@ public class PoiAreaController {
 
     @GetMapping("/list")
     @ApiOperation("全部")
-    public RespBody<List<PoiAreaResponse>> list() {
-        List<PoiAreaResponse> byPage = poiAreaService.getList();
+    public RespBody<List<BasePoiAreaResponse>> list() {
+        List<BasePoiAreaResponse> byPage = poiAreaService.getList();
         return RespBody.success(byPage);
     }
 }

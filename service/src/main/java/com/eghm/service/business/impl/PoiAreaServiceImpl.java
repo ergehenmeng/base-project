@@ -1,6 +1,6 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -14,7 +14,9 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.PoiAreaMapper;
 import com.eghm.model.PoiArea;
 import com.eghm.service.business.PoiAreaService;
+import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.poi.BasePoiAreaResponse;
 import com.eghm.vo.poi.PoiAreaResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,16 +39,19 @@ public class PoiAreaServiceImpl implements PoiAreaService {
 
     private final PoiAreaMapper poiAreaMapper;
 
+    private final SysAreaService sysAreaService;
+
     @Override
-    public Page<PoiArea> getByPage(PagingQuery query) {
-        LambdaQueryWrapper<PoiArea> wrapper = Wrappers.lambdaQuery();
-        wrapper.and(StrUtil.isNotBlank(query.getQueryName()), queryWrapper -> queryWrapper.like(PoiArea::getTitle, query.getQueryName()).or().like(PoiArea::getCode, query.getQueryName()));
-        wrapper.orderByDesc(PoiArea::getId);
-        return poiAreaMapper.selectPage(query.createPage(), wrapper);
+    public Page<PoiAreaResponse> getByPage(PagingQuery query) {
+        Page<PoiAreaResponse> byPage = poiAreaMapper.getByPage(query.createPage(), query);
+        if (CollUtil.isEmpty(byPage.getRecords())) {
+            byPage.getRecords().forEach(item -> item.setDetailAddress(sysAreaService.parseArea(item.getCityId(), item.getCountyId(), item.getDetailAddress())));
+        }
+        return byPage;
     }
 
     @Override
-    public List<PoiAreaResponse> getList() {
+    public List<BasePoiAreaResponse> getList() {
         return poiAreaMapper.getList();
     }
 
@@ -64,6 +69,16 @@ public class PoiAreaServiceImpl implements PoiAreaService {
         this.redoCode(request.getCode(), request.getId());
         PoiArea poiArea = DataUtil.copy(request, PoiArea.class);
         poiAreaMapper.updateById(poiArea);
+    }
+
+    @Override
+    public PoiArea selectByIdRequired(Long id) {
+        PoiArea poiArea = poiAreaMapper.selectById(id);
+        if (poiArea == null) {
+            log.error("区域信息未查询到 [{}]", id);
+            throw new BusinessException(ErrorCode.AREA_NOT_EXIST);
+        }
+        return poiArea;
     }
 
     @Override

@@ -85,7 +85,7 @@ public class MemberTagScopeServiceImpl implements MemberTagScopeService {
 
     @Override
     public void sendSms(SendSmsRequest request) {
-        if (CollUtil.isEmpty(request.getMemberIds()) || request.getTagId() == null) {
+        if (CollUtil.isEmpty(request.getMemberIds()) && request.getTagId() == null) {
             throw new BusinessException(ErrorCode.SMS_SCOPE_NULL);
         }
         List<String> mobileList;
