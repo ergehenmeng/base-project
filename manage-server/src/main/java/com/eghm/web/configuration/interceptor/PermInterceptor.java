@@ -57,7 +57,7 @@ public class PermInterceptor implements InterceptorAdapter {
         if (permission != null || this.match(request)) {
             return true;
         }
-        log.warn("用户无权限访问该地址 [{}] [{}]", request.getRequestURI(), SecurityHolder.getUserId());
+        log.warn("用户无权限访问该地址 [{}] 用户ID:[{}]", request.getRequestURI(), SecurityHolder.getUserId());
         WebUtil.printJson(response, ErrorCode.ACCESS_DENIED);
         return false;
     }
