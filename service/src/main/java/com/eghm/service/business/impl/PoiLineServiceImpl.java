@@ -1,9 +1,11 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.constant.CommonConstant;
 import com.eghm.dto.poi.LinePointBindRequest;
 import com.eghm.dto.poi.PoiLineAddRequest;
 import com.eghm.dto.poi.PoiLineEditRequest;
@@ -57,6 +59,7 @@ public class PoiLineServiceImpl implements PoiLineService {
         this.redoTitle(request.getTitle(), null);
         PoiLine poiLine = DataUtil.copy(request, PoiLine.class);
         poiLine.setState(0);
+        poiLine.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         poiLineMapper.insert(poiLine);
     }
 
@@ -64,6 +67,7 @@ public class PoiLineServiceImpl implements PoiLineService {
     public void update(PoiLineEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId());
         PoiLine poiLine = DataUtil.copy(request, PoiLine.class);
+        poiLine.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         poiLineMapper.updateById(poiLine);
     }
 

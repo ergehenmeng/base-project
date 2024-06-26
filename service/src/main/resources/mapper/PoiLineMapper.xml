@@ -15,7 +15,7 @@
         t.update_time
         from poi_line t left join poi_area r on t.area_code = r.code
         where t.deleted = false and r.deleted = false
-        <if test="param.areaCode != null">
+        <if test="param.areaCode != null and param.areaCode != ''">
             and t.area_code = #{param.areaCode}
         </if>
         <if test="param.state != null">
