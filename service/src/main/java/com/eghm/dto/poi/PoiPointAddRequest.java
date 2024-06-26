@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -26,8 +27,8 @@ public class PoiPointAddRequest {
     private String areaCode;
 
     @ApiModelProperty(value = "封面图", required = true)
-    @NotBlank(message = "封面图不能为空")
-    private String coverUrl;
+    @NotEmpty(message = "封面图不能为空")
+    private List<String> coverList;
 
     @ApiModelProperty(value = "点位类型", required = true)
     @NotNull(message = "请选择点位类型")

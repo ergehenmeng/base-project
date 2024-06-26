@@ -1,8 +1,10 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.constant.CommonConstant;
 import com.eghm.dto.poi.PoiPointAddRequest;
 import com.eghm.dto.poi.PoiPointEditRequest;
 import com.eghm.dto.poi.PoiPointQueryRequest;
@@ -45,6 +47,7 @@ public class PoiPointServiceImpl implements PoiPointService {
     public void create(PoiPointAddRequest request) {
         this.redoTitle(request.getTitle(), null);
         PoiPoint poiPoint = DataUtil.copy(request, PoiPoint.class);
+        poiPoint.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         poiPointMapper.insert(poiPoint);
     }
 
@@ -52,6 +55,7 @@ public class PoiPointServiceImpl implements PoiPointService {
     public void update(PoiPointEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId());
         PoiPoint poiPoint = DataUtil.copy(request, PoiPoint.class);
+        poiPoint.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         poiPointMapper.updateById(poiPoint);
     }
 

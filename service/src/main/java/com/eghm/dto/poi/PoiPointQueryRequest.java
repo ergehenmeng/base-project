@@ -16,4 +16,6 @@ public class PoiPointQueryRequest extends PagingQuery {
     @ApiModelProperty(value = "所属区域编号")
     private String areaCode;
 
+    @ApiModelProperty(value = "点位类型")
+    private Long typeId;
 }
