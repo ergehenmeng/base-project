@@ -58,8 +58,8 @@ public class CouponAddRequest {
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer deductionValue;
 
-    @ApiModelProperty(value = "折扣比例 10-100")
-    @RangeInt(min = 10, max = 100, required = false, message = "折扣比例应为10~100之间")
+    @ApiModelProperty(value = "折扣比例 10-99")
+    @RangeInt(min = 10, max = 99, required = false, message = "折扣比例应为10~99之间")
     private Integer discountValue;
 
     @ApiModelProperty(value = "使用门槛 0:不限制 大于0表示限制启用金额 单位:元")
