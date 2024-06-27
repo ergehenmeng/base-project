@@ -11,6 +11,8 @@
         t.area_code,
         t.play_time,
         r.title as areaTitle,
+        r.longitude,
+        r.latitude,
         t.create_time,
         t.update_time
         from poi_line t left join poi_area r on t.area_code = r.code

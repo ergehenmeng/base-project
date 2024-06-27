@@ -39,6 +39,12 @@ public class PoiLineResponse {
     @ApiModelProperty(value = "预计游玩时间(单位:小时)")
     private BigDecimal playTime;
 
+    @ApiModelProperty("区域经度")
+    private BigDecimal longitude;
+
+    @ApiModelProperty("区域纬度")
+    private BigDecimal latitude;
+
     @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
