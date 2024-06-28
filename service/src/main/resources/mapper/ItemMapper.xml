@@ -216,6 +216,7 @@
         t.cover_url,
         'item' as productType,
         t.state,
+        t.state = 2 as disabled,
         r.title as storeName
         from item t inner join item_store r on t.store_id = r.id
         where t.deleted = false

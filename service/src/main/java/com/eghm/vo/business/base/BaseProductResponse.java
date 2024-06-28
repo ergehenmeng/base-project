@@ -30,4 +30,6 @@ public class BaseProductResponse {
     @ApiModelProperty("上下架状态 0:待上架 1:已上架")
     private Integer state;
 
+    @ApiModelProperty("是否禁用 false:否 true:是")
+    private Boolean disabled;
 }

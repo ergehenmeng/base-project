@@ -90,6 +90,7 @@
         t.cover_url,
         'restaurant' as productType,
         t.state,
+        t.state = 2 as disabled,
         r.title as storeName
         from voucher t inner join restaurant r on t.restaurant_id = r.id
         where t.deleted = false

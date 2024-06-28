@@ -86,6 +86,7 @@
         r.cover_url,
         'ticket' as productType,
         t.state,
+        t.state = 2 as disabled,
         r.scenic_name as storeName
         from scenic_ticket t inner join scenic r on t.scenic_id = r.id
         where t.deleted = false

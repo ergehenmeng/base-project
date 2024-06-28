@@ -142,6 +142,7 @@
         t.cover_url,
         'line' as productType,
         t.state,
+        t.state = 2 as disabled,
         r.title as storeName
         from line t inner join travel_agency r on t.travel_agency_id = r.id
         where t.deleted = false
