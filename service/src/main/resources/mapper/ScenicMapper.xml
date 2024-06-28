@@ -33,7 +33,7 @@
     <select id="getBaseList" resultType="com.eghm.vo.business.scenic.BaseScenicResponse">
         select
             id,
-            scenic_name,
+            scenic_name as title,
             state
         from scenic where deleted = false
         <if test="merchantId != null">

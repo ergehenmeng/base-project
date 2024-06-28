@@ -87,8 +87,8 @@
 
     <select id="getBaseList" resultType="com.eghm.vo.business.item.store.BaseItemStoreResponse">
         select
-            t.id as storeId,
-            t.title as storeName,
+            t.id,
+            t.title,
             t.state
         from item_store t where t.deleted = false
         <if test="merchantId != null">

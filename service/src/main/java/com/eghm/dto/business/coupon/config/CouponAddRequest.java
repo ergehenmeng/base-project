@@ -87,6 +87,8 @@ public class CouponAddRequest {
 
     @ApiModelProperty(value = "使用说明")
     @WordChecker(message = "使用说明存在敏感词")
+    @Size(max = 50, message = "使用说明最大50字符")
+    @NotBlank(message = "使用说明不能为空")
     private String instruction;
 
     @ApiModelProperty("关联的商品列表")

@@ -16,7 +16,7 @@ public class BaseScenicResponse {
     private Long id;
 
     @ApiModelProperty(value = "景区名称")
-    private String scenicName;
+    private String title;
 
     @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
