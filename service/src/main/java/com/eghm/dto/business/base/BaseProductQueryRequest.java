@@ -18,4 +18,7 @@ public class BaseProductQueryRequest extends PagingQuery {
 
     @ApiModelProperty(value = "商户id", hidden = true)
     private Long merchantId;
+
+    @ApiModelProperty(value = "是否进行分页")
+    private Boolean limit = true;
 }

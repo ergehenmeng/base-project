@@ -141,7 +141,7 @@ public class VoucherServiceImpl implements VoucherService {
 
     @Override
     public Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request) {
-        return voucherMapper.getProductPage(request.createPage(), request);
+        return voucherMapper.getProductPage(Boolean.TRUE.equals(request.getLimit()) ? request.createPage() : request.createNullPage(), request);
     }
 
     /**

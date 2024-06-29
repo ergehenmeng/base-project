@@ -199,7 +199,7 @@ public class LineServiceImpl implements LineService {
 
     @Override
     public Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request) {
-        return lineMapper.getProductPage(request.createPage(), request);
+        return lineMapper.getProductPage(Boolean.TRUE.equals(request.getLimit()) ? request.createPage() : request.createNullPage(), request);
     }
 
     /**

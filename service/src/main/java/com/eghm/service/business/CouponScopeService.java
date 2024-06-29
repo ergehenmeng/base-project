@@ -27,4 +27,11 @@ public interface CouponScopeService {
      * @return true:匹配 false:不匹配
      */
     boolean match(Long couponId, Long productId);
+
+    /**
+     * 根据优惠券id获取关联的商品id
+     * @param couponId 优惠券id
+     * @return 商品列表
+     */
+    List<Long> getProductIds(Long couponId);
 }

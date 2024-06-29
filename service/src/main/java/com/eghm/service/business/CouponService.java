@@ -7,6 +7,7 @@ import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.dto.business.coupon.config.CouponQueryRequest;
 import com.eghm.dto.business.coupon.product.CouponProductDTO;
 import com.eghm.model.Coupon;
+import com.eghm.vo.business.coupon.CouponDetailResponse;
 import com.eghm.vo.business.coupon.CouponResponse;
 import com.eghm.vo.business.coupon.CouponVO;
 
@@ -63,6 +64,14 @@ public interface CouponService {
      * @return 优惠券
      */
     Coupon selectByIdRequired(Long id);
+
+    /**
+     * 根据id查询优惠券详情(管理后台使用)
+     *
+     * @param id id
+     * @return 优惠券
+     */
+    CouponDetailResponse getById(Long id);
 
     /**
      * 分页查询可以领取的优惠券列表  注意如果当前用户已的登陆, 则会根据用户是否领取过该优惠券来返回是否能领取状态

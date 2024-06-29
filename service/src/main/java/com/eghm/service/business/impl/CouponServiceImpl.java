@@ -20,6 +20,7 @@ import com.eghm.service.business.CouponScopeService;
 import com.eghm.service.business.CouponService;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.coupon.CouponDetailResponse;
 import com.eghm.vo.business.coupon.CouponResponse;
 import com.eghm.vo.business.coupon.CouponVO;
 import com.google.common.collect.Lists;
@@ -102,6 +103,19 @@ public class CouponServiceImpl implements CouponService {
             throw new BusinessException(ErrorCode.COUPON_NOT_FOUND);
         }
         return config;
+    }
+
+    @Override
+    public CouponDetailResponse getById(Long id) {
+        Coupon coupon = this.selectByIdRequired(id);
+        CouponDetailResponse response = DataUtil.copy(coupon, CouponDetailResponse.class);
+        if (coupon.getUseScope() == 1) {
+            response.setProductIds(Lists.newArrayList());
+        } else {
+            List<Long> productIds = couponScopeService.getProductIds(id);
+            response.setProductIds(productIds);
+        }
+        return response;
     }
 
     @Override

@@ -441,7 +441,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request) {
-        return itemMapper.getProductPage(request.createPage(), request);
+        return itemMapper.getProductPage(Boolean.TRUE.equals(request.getLimit()) ? request.createPage() : request.createNullPage(), request);
     }
 
     @Override

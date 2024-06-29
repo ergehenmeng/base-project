@@ -161,7 +161,7 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
 
     @Override
     public Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request) {
-        return homestayRoomMapper.getProductPage(request.createPage(), request);
+        return homestayRoomMapper.getProductPage(Boolean.TRUE.equals(request.getLimit()) ? request.createPage() : request.createNullPage(), request);
     }
 
     @Override

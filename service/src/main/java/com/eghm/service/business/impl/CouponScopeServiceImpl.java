@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -37,5 +38,14 @@ public class CouponScopeServiceImpl implements CouponScopeService {
         wrapper.eq(CouponScope::getCouponId, couponId);
         Long count = couponScopeMapper.selectCount(wrapper);
         return count > 0;
+    }
+
+    @Override
+    public List<Long> getProductIds(Long couponId) {
+        LambdaQueryWrapper<CouponScope> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(CouponScope::getProductId);
+        wrapper.eq(CouponScope::getCouponId, couponId);
+        List<CouponScope> scopeList = couponScopeMapper.selectList(wrapper);
+        return scopeList.stream().map(CouponScope::getProductId).collect(Collectors.toList());
     }
 }

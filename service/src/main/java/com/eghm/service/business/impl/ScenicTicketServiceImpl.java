@@ -157,7 +157,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     @Override
     public Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request) {
-        return scenicTicketMapper.getProductPage(request.createPage(), request);
+        return scenicTicketMapper.getProductPage(Boolean.TRUE.equals(request.getLimit()) ? request.createPage() : request.createNullPage(), request);
     }
 
     /**

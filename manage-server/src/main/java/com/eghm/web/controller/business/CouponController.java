@@ -10,9 +10,9 @@ import com.eghm.dto.business.coupon.member.MemberCouponQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
-import com.eghm.model.Coupon;
 import com.eghm.service.business.CouponService;
 import com.eghm.service.business.MemberCouponService;
+import com.eghm.vo.business.coupon.CouponDetailResponse;
 import com.eghm.vo.business.coupon.CouponResponse;
 import com.eghm.vo.business.coupon.MemberCouponResponse;
 import io.swagger.annotations.Api;
@@ -59,9 +59,9 @@ public class CouponController {
 
     @GetMapping("/select")
     @ApiOperation("详情")
-    public RespBody<Coupon> select(@Validated IdDTO dto) {
-        Coupon config = couponService.selectByIdRequired(dto.getId());
-        return RespBody.success(config);
+    public RespBody<CouponDetailResponse> select(@Validated IdDTO dto) {
+        CouponDetailResponse coupon = couponService.getById(dto.getId());
+        return RespBody.success(coupon);
     }
 
     @PostMapping(value = "/open", consumes = MediaType.APPLICATION_JSON_VALUE)

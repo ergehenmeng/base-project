@@ -147,7 +147,7 @@ public class VenueSiteServiceImpl implements VenueSiteService {
 
     @Override
     public Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request) {
-        return venueSiteMapper.getProductPage(request.createPage(), request);
+        return venueSiteMapper.getProductPage(Boolean.TRUE.equals(request.getLimit()) ? request.createPage() : request.createNullPage(), request);
     }
 
     /**
