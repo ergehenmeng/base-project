@@ -9,9 +9,11 @@
         t.receive_time,
         t.use_time,
         r.nick_name,
-        r.mobile
+        r.mobile,
+        s.order_no
         from member_coupon t
         left join `member` r on t.member_id = r.id
+        left join `order` s on t.coupon_id = s.coupon_id
         where t.deleted = false
         <if test="param.couponId != null">
             and t.coupon_id = #{param.couponId}
@@ -20,7 +22,8 @@
             and t.state = #{param.state}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and (r.nick_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%') or r.mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') )
+            and (r.nick_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%') or r.mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            or s.order_no like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%'))
         </if>
         order by t.id desc
     </select>

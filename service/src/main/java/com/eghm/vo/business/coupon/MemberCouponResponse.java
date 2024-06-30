@@ -29,6 +29,9 @@ public class MemberCouponResponse {
     @ApiModelProperty("使用状态 0:未使用 1:已使用 2:已过期")
     private Integer state;
 
+    @ApiModelProperty("使用所属订单号")
+    private String orderNo;
+
     @ApiModelProperty("领取时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime receiveTime;
