@@ -37,6 +37,7 @@
         t.cover_url,
         'venue' as productType,
         t.state,
+        t.state = 2 as disabled,
         r.title as storeName
         from venue_site t inner join venue r on t.venue_id = r.id
         where t.deleted = false

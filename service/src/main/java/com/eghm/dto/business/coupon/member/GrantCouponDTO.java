@@ -1,5 +1,6 @@
 package com.eghm.dto.business.coupon.member;
 
+import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.RangeInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,7 +20,7 @@ import java.util.List;
 public class GrantCouponDTO {
 
     @ApiModelProperty(value = "用户id列表")
-    private List<Long> memberIdList;
+    private List<Long> memberIds;
 
     @ApiModelProperty(value = "优惠券id", required = true)
     @NotNull(message = "优惠券id不能为空")
@@ -27,4 +28,8 @@ public class GrantCouponDTO {
 
     @ApiModelProperty(value = "标签id(与用户列表二选一该优先级次之)")
     private Long tagId;
+
+    @Assign
+    @ApiModelProperty(value = "发放数量", hidden = true)
+    private Integer num;
 }

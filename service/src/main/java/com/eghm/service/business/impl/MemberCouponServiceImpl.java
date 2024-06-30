@@ -70,7 +70,7 @@ public class MemberCouponServiceImpl implements MemberCouponService {
         coupon.setCouponId(dto.getCouponId());
         coupon.setNum(1);
         coupon.setMode(CouponMode.GRANT);
-        for (Long memberId : dto.getMemberIdList()) {
+        for (Long memberId : dto.getMemberIds()) {
             coupon.setMemberId(memberId);
             this.doGrantCoupon(coupon);
         }

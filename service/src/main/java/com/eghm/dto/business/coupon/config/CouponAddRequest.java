@@ -2,6 +2,7 @@ package com.eghm.dto.business.coupon.config;
 
 import com.eghm.annotation.Assign;
 import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.enums.ref.CouponMode;
 import com.eghm.enums.ref.CouponType;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.validation.annotation.OptionInt;
@@ -39,9 +40,9 @@ public class CouponAddRequest {
     @RangeInt(min = 1, max = 99, message = "单人领取限制1~99")
     private Integer maxLimit;
 
-    @ApiModelProperty(value = "领取方式 1:页面领取 2: 手动发放", required = true)
-    @OptionInt(value = {1, 2}, message = "领取方式非法")
-    private Integer mode;
+    @ApiModelProperty(value = "领取方式  1:页面领取 2:手动发放")
+    @NotNull(message = "请选择领取方式")
+    private CouponMode mode;
 
     @ApiModelProperty(value = "优惠券类型 1:抵扣券 2:折扣券", required = true)
     @NotNull(message = "请选择优惠券类型")

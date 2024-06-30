@@ -41,7 +41,7 @@ public class CouponPrizeHandler implements PrizeHandler {
         GrantCouponDTO dto = new GrantCouponDTO();
         dto.setNum(1);
         dto.setCouponId(config.getPrizeId());
-        dto.setMemberIdList(Lists.newArrayList(memberId));
+        dto.setMemberIds(Lists.newArrayList(memberId));
         memberCouponService.grantCoupon(dto);
     }
 }
