@@ -68,7 +68,7 @@ public class MemberCouponServiceImpl implements MemberCouponService {
     public void grantCoupon(GrantCouponDTO dto) {
         ReceiveCouponDTO coupon = new ReceiveCouponDTO();
         coupon.setCouponId(dto.getCouponId());
-        coupon.setNum(dto.getNum());
+        coupon.setNum(1);
         coupon.setMode(CouponMode.GRANT);
         for (Long memberId : dto.getMemberIdList()) {
             coupon.setMemberId(memberId);
