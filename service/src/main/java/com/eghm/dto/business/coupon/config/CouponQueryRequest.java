@@ -1,5 +1,6 @@
 package com.eghm.dto.business.coupon.config;
 
+import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.CouponMode;
 import com.eghm.validation.annotation.OptionInt;
@@ -24,4 +25,8 @@ public class CouponQueryRequest extends PagingQuery {
 
     @ApiModelProperty(value = "是否只查询有库存的优惠券 true:是 false:查询全部", hidden = true)
     private Boolean inStock;
+
+    @Assign
+    @ApiModelProperty(value = "商户id", hidden = true)
+    private Long merchantId;
 }

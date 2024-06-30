@@ -64,7 +64,6 @@ public class CouponServiceImpl implements CouponService {
     public void create(CouponAddRequest request) {
         this.checkScope(request.getUseScope(), request.getProductIds());
         Coupon config = DataUtil.copy(request, Coupon.class);
-        config.setMerchantId(SecurityHolder.getMerchantId());
         couponMapper.insert(config);
         couponScopeService.insertOnUpdate(config.getId(), request.getProductIds(), request.getProductType());
         // 注意: 如果优惠券过期时间太大,则long转int时可能会溢出

@@ -1,5 +1,6 @@
 package com.eghm.dto.business.coupon.config;
 
+import com.eghm.annotation.Assign;
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.enums.ref.CouponType;
 import com.eghm.enums.ref.ProductType;
@@ -93,4 +94,8 @@ public class CouponAddRequest {
 
     @ApiModelProperty("关联的商品列表")
     private List<Long> productIds;
+
+    @Assign
+    @ApiModelProperty(value = "商户id", hidden = true)
+    private Long merchantId;
 }

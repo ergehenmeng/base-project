@@ -27,6 +27,9 @@
         <if test="param.mode != null">
             and t.mode = #{param.mode}
         </if>
+        <if test="param.merchantId != null">
+            and t.merchant_id = #{param.merchantId}
+        </if>
         <if test="param.inStock == true">
             and t.stock &gt; 0
         </if>

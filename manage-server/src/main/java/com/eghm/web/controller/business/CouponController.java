@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.coupon.config.CouponAddRequest;
 import com.eghm.dto.business.coupon.config.CouponEditRequest;
@@ -39,6 +40,7 @@ public class CouponController {
     @GetMapping("/listPage")
     @ApiOperation("列表")
     public RespBody<PageData<CouponResponse>> listPage(@Validated CouponQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         Page<CouponResponse> configPage = couponService.getByPage(request);
         return RespBody.success(PageData.toPage(configPage));
     }
@@ -46,6 +48,7 @@ public class CouponController {
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("新增")
     public RespBody<Void> create(@RequestBody @Validated CouponAddRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         couponService.create(request);
         return RespBody.success();
     }
