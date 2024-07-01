@@ -116,7 +116,7 @@
         t.title as storeName,
         t.state,
         t.cover_url as coverUrl,
-        'restaurant' as productType,
+        'voucher' as productType,
         r.merchant_name
         from restaurant t left join merchant r on t.merchant_id = r.id where t.deleted = false
         <if test="param.state != null">
@@ -138,7 +138,7 @@
         t.title as storeName,
         t.state,
         t.cover_url as coverUrl,
-        'restaurant' as productType,
+        'voucher' as productType,
         r.merchant_name
         from restaurant t left join merchant r on t.merchant_id = r.id
         where t.deleted = false and t.id in

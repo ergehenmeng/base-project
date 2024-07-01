@@ -1,6 +1,5 @@
 package com.eghm.enums;
 
-import cn.hutool.core.util.EnumUtil;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +26,7 @@ public enum MerchantType {
     /**
      * 餐饮
      */
-    RESTAURANT(4, "餐饮"),
+    VOUCHER(4, "餐饮"),
 
     /**
      * 零售

@@ -88,7 +88,7 @@
         t.id,
         t.title,
         t.cover_url,
-        'restaurant' as productType,
+        'voucher' as productType,
         t.state,
         t.state = 2 as disabled,
         r.title as storeName

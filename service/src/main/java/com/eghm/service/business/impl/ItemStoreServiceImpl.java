@@ -182,7 +182,7 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
 
     @Override
     public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
-        return itemStoreMapper.getStorePage(request.createPage(), request);
+        return itemStoreMapper.getStorePage(Boolean.TRUE.equals(request.getLimit()) ? request.createPage() : request.createNullPage(), request);
     }
 
     @Override

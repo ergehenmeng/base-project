@@ -90,6 +90,7 @@ public class VenueServiceImpl implements VenueService {
         this.redoTitle(request.getTitle(), merchantId, null);
         Venue venue = DataUtil.copy(request, Venue.class);
         venue.setMerchantId(merchantId);
+        venue.setState(State.UN_SHELVE);
         venue.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         venueMapper.insert(venue);
     }
@@ -159,7 +160,7 @@ public class VenueServiceImpl implements VenueService {
 
     @Override
     public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
-        return venueMapper.getStorePage(request.createPage(), request);
+        return venueMapper.getStorePage(Boolean.TRUE.equals(request.getLimit()) ? request.createPage() : request.createNullPage(), request);
     }
 
     @Override

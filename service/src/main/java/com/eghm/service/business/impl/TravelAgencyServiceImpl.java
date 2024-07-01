@@ -146,7 +146,7 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
 
     @Override
     public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
-        return travelAgencyMapper.getStorePage(request.createPage(), request);
+        return travelAgencyMapper.getStorePage(Boolean.TRUE.equals(request.getLimit()) ? request.createPage() : request.createNullPage(), request);
     }
 
     @Override

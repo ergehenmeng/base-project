@@ -27,23 +27,23 @@ public class RedeemCodeGrantResponse extends ExcelStyle {
     @ExcelProperty(value = "cdKey",index = 0)
     private String cdKey;
 
-    @ApiModelProperty("用户昵称")
-    @ExcelProperty(value = "用户昵称", index = 1)
-    private String nickName;
-
-    @ApiModelProperty("手机号")
-    @ExcelProperty(value = "手机号", index = 2)
-    private String mobile;
-
     @ApiModelProperty("使用状态 0:待使用 1:已使用 2:已过期")
-    @ExcelProperty(index = 3, value = "使用状态 0:待使用 1:已使用 2:已过期", converter = EnumExcelConverter.class)
+    @ExcelProperty(index = 1, value = "使用状态 0:待使用 1:已使用 2:已过期", converter = EnumExcelConverter.class)
     private RedeemState state;
 
     @ApiModelProperty("发放时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "发放时间", index = 4)
+    @ExcelProperty(value = "发放时间", index = 2)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
+
+    @ApiModelProperty("用户昵称")
+    @ExcelProperty(value = "用户昵称", index = 3)
+    private String nickName;
+
+    @ApiModelProperty("手机号")
+    @ExcelProperty(value = "手机号", index = 4)
+    private String mobile;
 
     @ApiModelProperty("使用时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

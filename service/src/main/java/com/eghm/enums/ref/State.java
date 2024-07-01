@@ -18,7 +18,7 @@ public enum State implements EnumBinder {
     /**
      * 待上架
      */
-    UN_SHELVE(0, "下架"),
+    UN_SHELVE(0, "待上架"),
 
     /**
      * 已上架

@@ -52,7 +52,7 @@ public class Order extends BaseEntity {
     @ApiModelProperty(value = "数量")
     private Integer num;
 
-    @ApiModelProperty(value = "商品类型 ticket:门票 homestay:民宿 restaurant:餐饮券 item:零售 line:线路 venue:场馆")
+    @ApiModelProperty(value = "商品类型 ticket:门票 homestay:民宿 voucher:餐饮券 item:零售 line:线路 venue:场馆")
     private ProductType productType;
 
     @ApiModelProperty("是否为多订单,普通商品且购物车购买才可能是多订单,即一个订单对应多商品")

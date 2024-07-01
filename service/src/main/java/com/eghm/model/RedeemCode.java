@@ -43,4 +43,7 @@ public class RedeemCode extends BaseEntity {
 
     @ApiModelProperty(value = "状态 0:待发放 1:已发放")
     private Integer state;
+
+    @ApiModelProperty("备注信息")
+    private String remark;
 }

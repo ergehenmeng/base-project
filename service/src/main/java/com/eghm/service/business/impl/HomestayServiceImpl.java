@@ -215,7 +215,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
 
     @Override
     public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
-        return homestayMapper.getStorePage(request.createPage(), request);
+        return homestayMapper.getStorePage(Boolean.TRUE.equals(request.getLimit()) ? request.createPage() : request.createNullPage(), request);
     }
 
     @Override

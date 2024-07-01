@@ -40,7 +40,7 @@ public enum RoleType implements ValueEnumBinder {
     /**
      * 餐饮商户角色
      */
-    RESTAURANT("restaurant", "餐饮"),
+    VOUCHER("voucher", "餐饮"),
 
     /**
      * 零售商户角色

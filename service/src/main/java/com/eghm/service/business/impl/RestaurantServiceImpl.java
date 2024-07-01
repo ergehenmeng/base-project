@@ -183,7 +183,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
 
     @Override
     public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
-        return restaurantMapper.getStorePage(request.createPage(), request);
+        return restaurantMapper.getStorePage(Boolean.TRUE.equals(request.getLimit()) ? request.createPage() : request.createNullPage(), request);
     }
 
     @Override
@@ -218,7 +218,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
 
     @Override
     public boolean support(List<RoleType> roleTypes) {
-        return roleTypes.contains(RoleType.RESTAURANT);
+        return roleTypes.contains(RoleType.VOUCHER);
     }
 
     @Override

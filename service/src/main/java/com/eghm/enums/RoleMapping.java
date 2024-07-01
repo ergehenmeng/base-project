@@ -30,7 +30,7 @@ public enum RoleMapping {
     /**
      * 餐饮
      */
-    RESTAURANT(4, RoleType.RESTAURANT),
+    VOUCHER(4, RoleType.VOUCHER),
 
     /**
      * 零售

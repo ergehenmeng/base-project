@@ -86,6 +86,7 @@ public class ScenicServiceImpl implements ScenicService {
     public void createScenic(ScenicAddRequest request) {
         this.redoTitle(request.getScenicName(), null);
         Scenic scenic = DataUtil.copy(request, Scenic.class);
+        scenic.setState(State.UN_SHELVE);
         scenic.setMerchantId(SecurityHolder.getMerchantId());
         scenic.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         scenicMapper.insert(scenic);
@@ -204,7 +205,7 @@ public class ScenicServiceImpl implements ScenicService {
 
     @Override
     public Page<BaseStoreResponse> getStorePage(BaseStoreQueryRequest request) {
-        return scenicMapper.getStorePage(request.createPage(), request);
+        return scenicMapper.getStorePage(Boolean.TRUE.equals(request.getLimit()) ? request.createPage() : request.createNullPage(), request);
     }
 
     @Override
