@@ -18,9 +18,9 @@ import java.util.Arrays;
 public enum RedeemState implements EnumBinder {
 
     /**
-     * 未使用
+     * 待使用
      */
-    UNUSED(0, "未使用"),
+    UNUSED(0, "待使用"),
 
     /**
      * 已使用

@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = true)
 public class RedeemCodeGrantQueryRequest extends PagingQuery {
 
-    @ApiModelProperty(value = "状态 0:待发放 1:已发放 2:已过期")
+    @ApiModelProperty(value = "状态 0:待使用 1:已使用 2:已过期")
     private Integer state;
 
     @ApiModelProperty(value = "兑换码配置id", required = true)

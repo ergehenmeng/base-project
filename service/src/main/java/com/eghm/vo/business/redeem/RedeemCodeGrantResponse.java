@@ -35,20 +35,21 @@ public class RedeemCodeGrantResponse extends ExcelStyle {
     @ExcelProperty(value = "手机号", index = 2)
     private String mobile;
 
-    @ApiModelProperty("使用状态 0:未使用 1:已使用 2:已过期")
-    @ExcelProperty(index = 3, value = "使用状态 0:未使用 1:已使用 2:已过期", converter = EnumExcelConverter.class)
+    @ApiModelProperty("使用状态 0:待使用 1:已使用 2:已过期")
+    @ExcelProperty(index = 3, value = "使用状态 0:待使用 1:已使用 2:已过期", converter = EnumExcelConverter.class)
     private RedeemState state;
-
-    @ApiModelProperty("使用时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "使用时间", index = 4)
-    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime useTime;
 
     @ApiModelProperty("发放时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "发放时间", index = 5)
+    @ExcelProperty(value = "发放时间", index = 4)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
+
+    @ApiModelProperty("使用时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ExcelProperty(value = "使用时间", index = 5)
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime useTime;
+
 
 }

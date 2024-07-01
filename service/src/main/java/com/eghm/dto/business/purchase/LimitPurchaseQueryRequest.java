@@ -1,5 +1,6 @@
 package com.eghm.dto.business.purchase;
 
+import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -14,6 +15,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class LimitPurchaseQueryRequest extends PagingQuery {
 
+    @Assign
     @ApiModelProperty(value = "商户id", hidden = true)
     private Long merchantId;
 }
