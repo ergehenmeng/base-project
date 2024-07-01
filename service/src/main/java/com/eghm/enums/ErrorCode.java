@@ -709,6 +709,11 @@ public enum ErrorCode {
     TICKET_DOWN(2291, "门票商品下架啦~"),
 
     /**
+     * 请选择要发放优惠券的会员
+     */
+    COUPON_MEMBER_NULL(2293, "请选择要发放优惠券的会员"),
+
+    /**
      * 优惠券抢完啦
      */
     COUPON_EMPTY(2294, "优惠券抢完啦~"),

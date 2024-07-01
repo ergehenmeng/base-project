@@ -16,6 +16,7 @@ import com.eghm.enums.ref.CouponType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.CouponMapper;
 import com.eghm.mapper.MemberCouponMapper;
+import com.eghm.mapper.MemberTagScopeMapper;
 import com.eghm.model.Coupon;
 import com.eghm.model.MemberCoupon;
 import com.eghm.service.business.CouponScopeService;
@@ -51,6 +52,8 @@ public class MemberCouponServiceImpl implements MemberCouponService {
 
     private final CouponScopeService couponScopeService;
 
+    private final MemberTagScopeMapper memberTagScopeMapper;
+
     @Override
     public Page<MemberCouponResponse> getByPage(MemberCouponQueryRequest request) {
         return memberCouponMapper.getByPage(request.createPage(), request);
@@ -66,6 +69,13 @@ public class MemberCouponServiceImpl implements MemberCouponService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void grantCoupon(GrantCouponDTO dto) {
+        if (CollUtil.isEmpty(dto.getMemberIds()) && dto.getTagId() == null) {
+            throw new BusinessException(ErrorCode.COUPON_MEMBER_NULL);
+        }
+        if (CollUtil.isEmpty(dto.getMemberIds())) {
+            List<Long> scopeIds = memberTagScopeMapper.getScopeIds(dto.getTagId());
+            dto.setMemberIds(scopeIds);
+        }
         ReceiveCouponDTO coupon = new ReceiveCouponDTO();
         coupon.setCouponId(dto.getCouponId());
         coupon.setNum(1);
