@@ -6,6 +6,7 @@ import com.eghm.dto.business.redeem.RedeemCodeEditRequest;
 import com.eghm.dto.business.redeem.RedeemCodeQueryRequest;
 import com.eghm.model.RedeemCode;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.redeem.RedeemDetailResponse;
 
 import java.util.List;
 
@@ -57,17 +58,17 @@ public interface RedeemCodeService {
     RedeemCode selectByIdRequired(Long id);
 
     /**
+     * 详情
+     * @param id id
+     * @return 兑换码详情
+     */
+    RedeemDetailResponse detail(Long id);
+
+    /**
      * 生成兑换码
      *
      * @param id id
      */
     void generate(Long id);
 
-    /**
-     * 获取兑换码可以使用店铺id
-     *
-     * @param id 配置id
-     * @return 店铺信息
-     */
-    List<BaseStoreResponse> getScopeList(Long id);
 }

@@ -1,7 +1,6 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.ext.RespBody;
@@ -39,10 +38,9 @@ public class StoreController {
 
     private final VenueService venueService;
 
-    @GetMapping("/productList")
+    @GetMapping("/storeList")
     @ApiOperation("店铺列表(不分页)")
-    @SkipPerm
-    public RespBody<List<BaseStoreResponse>> productList(BaseStoreQueryRequest request) {
+    public RespBody<List<BaseStoreResponse>> storeList(BaseStoreQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         request.setLimit(false);
         List<BaseStoreResponse> responseList = Lists.newArrayList();

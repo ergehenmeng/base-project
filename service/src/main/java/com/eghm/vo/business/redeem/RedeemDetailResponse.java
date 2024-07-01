@@ -1,27 +1,25 @@
-package com.eghm.model;
+package com.eghm.vo.business.redeem;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanOmitEncoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
- * <p>
- * 兑换码配置表 兑换码目前只针对于: 民宿, 线路, 场馆
- * </p>
- *
  * @author 二哥很猛
- * @since 2024-02-10
+ * @since 2024/7/1
  */
+
 @Data
-@EqualsAndHashCode(callSuper = false)
-@TableName("redeem_code")
-public class RedeemCode extends BaseEntity {
+public class RedeemDetailResponse {
+
+    @ApiModelProperty("id主键")
+    private Long id;
 
     @ApiModelProperty(value = "cd名称")
     private String title;
@@ -35,15 +33,15 @@ public class RedeemCode extends BaseEntity {
     private LocalDateTime endTime;
 
     @ApiModelProperty("金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitEncoder.class)
     private Integer amount;
 
     @ApiModelProperty(value = "发放数量")
     private Integer num;
 
-    @ApiModelProperty(value = "状态 0:待发放 1:已发放")
-    private Integer state;
-
     @ApiModelProperty("备注信息")
     private String remark;
+
+    @ApiModelProperty("使用范围")
+    private List<Long> storeIds;
 }

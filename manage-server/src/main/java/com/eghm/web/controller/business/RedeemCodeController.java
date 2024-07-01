@@ -12,8 +12,8 @@ import com.eghm.model.RedeemCode;
 import com.eghm.service.business.RedeemCodeGrantService;
 import com.eghm.service.business.RedeemCodeService;
 import com.eghm.utils.EasyExcelUtil;
-import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.redeem.RedeemCodeGrantResponse;
+import com.eghm.vo.business.redeem.RedeemDetailResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -60,18 +60,11 @@ public class RedeemCodeController {
         return RespBody.success();
     }
 
-    @GetMapping("/select")
+    @GetMapping("/detail")
     @ApiOperation("详情")
-    public RespBody<RedeemCode> select(@Validated IdDTO dto) {
-        RedeemCode select = redeemCodeService.selectByIdRequired(dto.getId());
-        return RespBody.success(select);
-    }
-
-    @GetMapping("/scope")
-    @ApiOperation("使用范围")
-    public RespBody<List<BaseStoreResponse>> scope(@Validated IdDTO dto) {
-        List<BaseStoreResponse> scopeList = redeemCodeService.getScopeList(dto.getId());
-        return RespBody.success(scopeList);
+    public RespBody<RedeemDetailResponse> detail(@Validated IdDTO dto) {
+        RedeemDetailResponse response =  redeemCodeService.detail(dto.getId());
+        return RespBody.success(response);
     }
 
     @PostMapping(value = "/generate", consumes = MediaType.APPLICATION_JSON_VALUE)

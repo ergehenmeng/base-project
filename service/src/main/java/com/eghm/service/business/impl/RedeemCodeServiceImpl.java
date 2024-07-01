@@ -13,19 +13,19 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.RedeemCodeMapper;
 import com.eghm.model.RedeemCode;
 import com.eghm.model.RedeemCodeGrant;
-import com.eghm.service.business.CommonService;
 import com.eghm.service.business.RedeemCodeGrantService;
 import com.eghm.service.business.RedeemCodeScopeService;
 import com.eghm.service.business.RedeemCodeService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.StringUtil;
-import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.redeem.RedeemDetailResponse;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -40,8 +40,6 @@ import java.util.List;
 @AllArgsConstructor
 @Service("redeemCodeService")
 public class RedeemCodeServiceImpl implements RedeemCodeService {
-
-    private final CommonService commonService;
 
     private final RedeemCodeMapper redeemCodeMapper;
 
@@ -102,6 +100,15 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
     }
 
     @Override
+    public RedeemDetailResponse detail(Long id) {
+        RedeemCode select = this.selectByIdRequired(id);
+        RedeemDetailResponse response = DataUtil.copy(select, RedeemDetailResponse.class);
+        List<StoreScope>  scopeList = redeemCodeScopeService.getScopeList(id);
+        response.setStoreIds(scopeList.stream().map(StoreScope::getStoreId).collect(Collectors.toList()));
+        return response;
+    }
+
+    @Override
     public void generate(Long id) {
         RedeemCode select = this.selectByIdRequired(id);
         if (select.getState() == 1) {
@@ -119,12 +126,6 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
         redeemCodeGrantService.saveBatch(grantList);
         select.setState(1);
         redeemCodeMapper.updateById(select);
-    }
-
-    @Override
-    public List<BaseStoreResponse> getScopeList(Long id) {
-        List<StoreScope> scopeList = redeemCodeScopeService.getScopeList(id);
-        return commonService.getStoreList(scopeList);
     }
 
     /**
