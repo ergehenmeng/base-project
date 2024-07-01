@@ -11,10 +11,16 @@
             g.start_time,
             g.end_time,
             g.num,
-            g.expire_time
+            g.expire_time,
+            g.create_time,
+            g.update_time
         from group_booking g
         left join item i on g.item_id = i.id
         where g.deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and ( g.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
+            i.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%'))
+        </if>
         <if test="param.state != null">
             <choose>
                 <when test="param.state == 0">

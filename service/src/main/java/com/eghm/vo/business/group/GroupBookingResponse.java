@@ -30,11 +30,11 @@ public class GroupBookingResponse {
     private String itemName;
 
     @ApiModelProperty(value = "开始时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "截止时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "拼团人数")
@@ -43,4 +43,11 @@ public class GroupBookingResponse {
     @ApiModelProperty(value = "拼团有效期,单位:分钟")
     private Integer expireTime;
 
+    @ApiModelProperty("创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
+
+    @ApiModelProperty("更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
 }
