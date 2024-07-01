@@ -253,7 +253,8 @@
             r.id as skuId,
             r.primary_spec_value,
             r.second_spec_value,
-            r.sale_price
+            r.sale_price,
+            r.sku_pic
         from item t left join item_sku r on t.id = r.item_id
         where t.deleted = false and r.deleted = false and t.merchant_id = #{merchantId}
         <if test="activityId == null">
@@ -273,6 +274,7 @@
             <result column="primary_spec_value" property="primarySpecValue" />
             <result column="second_spec_value" property="secondSpecValue" />
             <result column="sale_price" property="salePrice" />
+            <result column="sku_pic" property="skuPic" />
         </collection>
     </resultMap>
 </mapper>

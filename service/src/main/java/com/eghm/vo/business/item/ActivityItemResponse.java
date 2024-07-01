@@ -1,5 +1,6 @@
 package com.eghm.vo.business.item;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ public class ActivityItemResponse {
     private String title;
 
     @ApiModelProperty("图片")
+    @JsonIgnore
     private String coverUrl;
 
     @ApiModelProperty("规格列表")

@@ -1,6 +1,7 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -422,7 +423,21 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ActivityItemResponse> getActivityList(Long merchantId, Long activityId) {
-        return itemMapper.getActivityList(merchantId, activityId);
+        List<ActivityItemResponse> activityList = itemMapper.getActivityList(merchantId, activityId);
+        for (ActivityItemResponse response : activityList) {
+            List<BaseSkuResponse> skuList = response.getSkuList();
+            for (BaseSkuResponse sku : skuList) {
+                if (StrUtil.isBlank(sku.getSkuPic())) {
+                    sku.setSkuPic(response.getCoverUrl());
+                    if (StrUtil.isBlank(sku.getSecondSpecValue())) {
+                        sku.setSpecValue(sku.getPrimarySpecValue());
+                    } else {
+                        sku.setSpecValue(sku.getPrimarySpecValue() + "/" + sku.getSecondSpecValue());
+                    }
+                }
+            }
+        }
+        return activityList;
     }
 
     @Override
