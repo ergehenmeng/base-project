@@ -252,7 +252,7 @@ CREATE TABLE `push_template`
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `title`       varchar(50)  DEFAULT NULL COMMENT '消息名称',
     `nid`         varchar(50)  DEFAULT NULL COMMENT '消息nid',
-    `state`       bit(1)   DEFAULT b'1' COMMENT '状态 0:关闭 1:开启',
+    `state`       bit(1)       DEFAULT b'1' COMMENT '状态 0:关闭 1:开启',
     `content`     varchar(200) DEFAULT NULL COMMENT '消息内容',
     `tag`         varchar(50)  DEFAULT NULL COMMENT '标签(消息推送跳转页面,与移动端约定好)',
     `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -2191,15 +2191,16 @@ DROP TABLE IF EXISTS redeem_code;
 CREATE TABLE `redeem_code`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
-    `title`       varchar(20) DEFAULT NULL COMMENT 'cd名称',
-    `start_time`  datetime    DEFAULT NULL COMMENT '有效开始时间',
-    `end_time`    datetime    DEFAULT NULL COMMENT '有效截止时间',
-    `amount`      int(10)     default NULL COMMENT '兑换码金额',
+    `title`       varchar(20)  DEFAULT NULL COMMENT 'cd名称',
+    `start_time`  datetime     DEFAULT NULL COMMENT '有效开始时间',
+    `end_time`    datetime     DEFAULT NULL COMMENT '有效截止时间',
+    `amount`      int(10)      default NULL COMMENT '兑换码金额',
     `num`         smallint(4) comment '发放数量',
     `state`       tinyint(1) comment '状态 0:待发放 1:已发放',
-    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)      DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
+    `remark`      varchar(200) default null comment '备注信息',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)       DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB COMMENT ='兑换码配置表';
 
