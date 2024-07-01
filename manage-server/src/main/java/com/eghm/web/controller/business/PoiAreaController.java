@@ -8,7 +8,6 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.poi.PoiAreaAddRequest;
 import com.eghm.dto.poi.PoiAreaEditRequest;
 import com.eghm.dto.poi.StateRequest;
-import com.eghm.model.PoiArea;
 import com.eghm.service.business.PoiAreaService;
 import com.eghm.vo.poi.BasePoiAreaResponse;
 import com.eghm.vo.poi.PoiAreaResponse;

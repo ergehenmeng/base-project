@@ -1,7 +1,6 @@
 package com.eghm.dto.push;
 
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

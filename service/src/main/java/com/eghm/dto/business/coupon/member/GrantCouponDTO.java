@@ -1,11 +1,9 @@
 package com.eghm.dto.business.coupon.member;
 
 import com.eghm.annotation.Assign;
-import com.eghm.validation.annotation.RangeInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
