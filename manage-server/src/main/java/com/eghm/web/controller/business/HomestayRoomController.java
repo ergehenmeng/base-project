@@ -48,7 +48,7 @@ public class HomestayRoomController {
     }
 
     @GetMapping("/productListPage")
-    @ApiOperation("列表信息")
+    @ApiOperation("列表(含店铺)")
     public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseProductResponse> listPage = homestayRoomService.getProductPage(request);

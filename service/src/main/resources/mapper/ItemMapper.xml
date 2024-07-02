@@ -11,6 +11,7 @@
         r.cover_url,
         t.sale_num,
         t.state,
+        t.sort,
         t.quota,
         t.delivery_type,
         t.max_price,

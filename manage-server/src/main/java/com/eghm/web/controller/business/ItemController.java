@@ -49,7 +49,7 @@ public class ItemController {
     }
 
     @GetMapping("/productListPage")
-    @ApiOperation("列表含店铺信息")
+    @ApiOperation("列表(含店铺)")
     public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseProductResponse> listPage = itemService.getProductPage(request);

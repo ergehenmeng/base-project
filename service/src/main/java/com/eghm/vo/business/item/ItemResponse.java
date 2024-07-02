@@ -33,6 +33,9 @@ public class ItemResponse extends ExcelStyle {
     @ApiModelProperty("封面图")
     private String coverUrl;
 
+    @ApiModelProperty(value = "排序")
+    private Integer sort;
+
     @ApiModelProperty(value = "商品名称")
     @ExcelProperty(value = "商品名称", index = 0)
     private String title;
