@@ -38,4 +38,6 @@ public class LimitPurchase extends BaseEntity {
     @ApiModelProperty(value = "提前预告小时")
     private Integer advanceHour;
 
+    @ApiModelProperty(value = "备注")
+    private Integer remark;
 }

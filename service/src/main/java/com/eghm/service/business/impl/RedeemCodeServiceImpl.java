@@ -69,13 +69,15 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
     public void update(RedeemCodeEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId());
         RedeemCode redeemCode = this.selectByIdRequired(request.getId());
+        RedeemCode copy;
         if (redeemCode.getState() == 1) {
+            copy = DataUtil.copy(request, RedeemCode.class, "startTime", "endTime", "amount", "num");
             // 已发放兑换码, 只允许修改使用范围
             redeemCodeScopeService.insertOrUpdate(request.getId(), request.getStoreList());
         } else {
-            RedeemCode copy = DataUtil.copy(request, RedeemCode.class);
-            redeemCodeMapper.updateById(copy);
+            copy = DataUtil.copy(request, RedeemCode.class);
         }
+        redeemCodeMapper.updateById(copy);
     }
 
     @Override

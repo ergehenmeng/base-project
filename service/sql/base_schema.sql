@@ -2063,14 +2063,15 @@ DROP TABLE IF EXISTS limit_purchase;
 CREATE TABLE `limit_purchase`
 (
     `id`           bigint(20) NOT NULL COMMENT '主键',
-    `merchant_id`  bigint(20)  DEFAULT NULL COMMENT '商户id',
-    `title`        varchar(20) DEFAULT NULL COMMENT '活动名称',
-    `start_time`   datetime    DEFAULT NULL COMMENT '开始时间',
-    `end_time`     datetime    DEFAULT NULL COMMENT '结束时间',
-    `advance_hour` tinyint(2)  DEFAULT NULL COMMENT '提前预告小时',
-    `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`      bit(1)      DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
+    `merchant_id`  bigint(20)   DEFAULT NULL COMMENT '商户id',
+    `title`        varchar(20)  DEFAULT NULL COMMENT '活动名称',
+    `start_time`   datetime     DEFAULT NULL COMMENT '开始时间',
+    `end_time`     datetime     DEFAULT NULL COMMENT '结束时间',
+    `advance_hour` tinyint(2)   DEFAULT NULL COMMENT '提前预告小时',
+    `remark`       varchar(200) DEFAULT NULL COMMENT '备注信息',
+    `create_time`  datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`  datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`      bit(1)       DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='限时购活动表';
