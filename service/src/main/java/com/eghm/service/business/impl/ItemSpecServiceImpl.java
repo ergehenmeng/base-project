@@ -36,11 +36,19 @@ public class ItemSpecServiceImpl implements ItemSpecService {
         if (Boolean.TRUE.equals(item.getMultiSpec())) {
             int sort = 0;
             for (ItemSpecRequest request : specList) {
-                ItemSpec spec = DataUtil.copy(request, ItemSpec.class, "id");
-                spec.setItemId(item.getId());
-                spec.setSort(sort++);
-                itemSpecMapper.insert(spec);
-                specMap.put(spec.getSpecValue(), spec.getId());
+                for (ItemSpecRequest.SpecValue specValue : request.getValueList()) {
+                    ItemSpec spec = DataUtil.copy(specValue, ItemSpec.class);
+                    spec.setItemId(item.getId());
+                    spec.setSpecName(request.getSpecName());
+                    spec.setLevel(request.getLevel());
+                    spec.setSort(sort++);
+                    if (spec.getId() == null) {
+                        itemSpecMapper.insert(spec);
+                    } else {
+                        itemSpecMapper.updateById(spec);
+                    }
+                    specMap.put(spec.getSpecValue(), spec.getId());
+                }
             }
         }
         return specMap;
@@ -52,23 +60,9 @@ public class ItemSpecServiceImpl implements ItemSpecService {
             this.deleteByItemId(item.getId());
             return Maps.newHashMap();
         }
-        List<Long> specIds = specList.stream().map(ItemSpecRequest::getId).filter(Objects::nonNull).collect(Collectors.toList());
+        List<Long> specIds = specList.stream().flatMap(itemSpecRequest -> itemSpecRequest.getValueList().stream().map(ItemSpecRequest.SpecValue::getId).filter(Objects::nonNull)).collect(Collectors.toList());
         this.deleteByNotInIds(item.getId(), specIds);
-
-        Map<String, Long> specMap = new HashMap<>(8);
-        int sort = 0;
-        for (ItemSpecRequest request : specList) {
-            ItemSpec spec = DataUtil.copy(request, ItemSpec.class);
-            spec.setItemId(item.getId());
-            spec.setSort(sort++);
-            if (spec.getId() == null) {
-                itemSpecMapper.insert(spec);
-            } else {
-                itemSpecMapper.updateById(spec);
-            }
-            specMap.put(spec.getSpecValue(), spec.getId());
-        }
-        return specMap;
+        return this.insert(item, specList);
     }
 
     @Override

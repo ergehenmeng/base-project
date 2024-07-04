@@ -644,10 +644,12 @@ public class ItemServiceImpl implements ItemService {
         if (specList.size() == 1) {
             return;
         }
-        long size = specList.stream().map(ItemSpecRequest::getSpecValue).distinct().count();
-        if (specList.size() != size) {
-            throw new BusinessException(ErrorCode.SKU_TITLE_REDO);
-        }
+        specList.forEach(spec -> {
+            long size = spec.getValueList().stream().map(ItemSpecRequest.SpecValue::getName).distinct().count();
+            if (spec.getValueList().size() != size) {
+                throw new BusinessException(ErrorCode.SKU_TITLE_REDO);
+            }
+        });
     }
 
     /**
