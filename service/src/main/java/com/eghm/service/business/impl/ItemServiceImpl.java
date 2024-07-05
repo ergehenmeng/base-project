@@ -13,7 +13,10 @@ import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.coupon.product.ItemCouponQueryDTO;
-import com.eghm.dto.business.item.*;
+import com.eghm.dto.business.item.ItemAddRequest;
+import com.eghm.dto.business.item.ItemEditRequest;
+import com.eghm.dto.business.item.ItemQueryDTO;
+import com.eghm.dto.business.item.ItemQueryRequest;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
 import com.eghm.dto.business.item.sku.ItemSkuRequest;
@@ -41,6 +44,7 @@ import com.eghm.vo.business.item.*;
 import com.eghm.vo.business.item.express.ExpressTemplateVO;
 import com.eghm.vo.business.item.express.StoreExpressVO;
 import com.eghm.vo.business.item.express.TotalExpressVO;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -51,6 +55,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.eghm.constant.CommonConstant.ITEM_TAG_STEP;
 import static com.eghm.enums.ErrorCode.EXPRESS_WEIGHT;
 import static com.eghm.enums.ErrorCode.ITEM_DOWN;
 
@@ -148,15 +153,17 @@ public class ItemServiceImpl implements ItemService {
     public ItemDetailResponse getDetailById(Long itemId) {
         Item item = this.selectByIdRequired(itemId);
         ItemDetailResponse response = DataUtil.copy(item, ItemDetailResponse.class);
+        response.setTagList(this.parseTagId(item.getTagId()));
+        List<ItemSku> skuList = itemSkuService.getSkuList(itemId);
+        response.setSkuList(DataUtil.copy(skuList, ItemSkuResponse.class));
         // 多规格才会保存规格配置信息
         if (Boolean.TRUE.equals(item.getMultiSpec())) {
             List<ItemSpec> spec = itemSpecService.getByItemId(itemId);
             List<ItemSpecValueResponse> specList = DataUtil.copy(spec, ItemSpecValueResponse.class);
             List<ItemSpecResponse> responseList = this.groupBySpecName(specList);
             response.setSpecList(responseList);
+            this.setMergeColspan(response);
         }
-        List<ItemSku> skuList = itemSkuService.getSkuList(itemId);
-        response.setSkuList(DataUtil.copy(skuList, ItemSkuResponse.class));
         return response;
     }
 
@@ -473,6 +480,44 @@ public class ItemServiceImpl implements ItemService {
         wrapper.set(Item::getState, State.FORCE_UN_SHELVE);
         wrapper.eq(Item::getMerchantId, merchantId);
         itemMapper.update(null, wrapper);
+    }
+
+    /**
+     * 针对多多规格商品时要合并单元格,此方法为计算合并的单元格数量,方便前端展示
+     *
+     * @param response 返回给前端的信息
+     */
+    private void setMergeColspan(ItemDetailResponse response) {
+        List<ItemSpecResponse> specList = response.getSpecList();
+        if (specList.size() > 1) {
+            // 两级规格才合并
+            ItemSpecResponse itemSpec = specList.get(1);
+            for (ItemSkuResponse skuResponse : response.getSkuList()) {
+                if (itemSpec.getSpecName().equals(skuResponse.getPrimarySpecValue())) {
+                    skuResponse.setSecondSize(itemSpec.getValueList().size());
+                }
+            }
+        }
+
+    }
+
+    /**
+     * 格式化标签,方便前端展示
+     *
+     * @param tagId 标签ID
+     * @return 列表
+     */
+    private List<String> parseTagId(String tagId) {
+        if (StrUtil.isBlank(tagId)) {
+            return Collections.emptyList();
+        }
+        int length = tagId.length();
+        int step = ITEM_TAG_STEP.length();
+        List<String> tagList = Lists.newArrayListWithExpectedSize(5);
+        for (int i = step; i <= length; i += step) {
+            tagList.add(tagId.substring(0, i));
+        }
+        return tagList;
     }
 
     /**

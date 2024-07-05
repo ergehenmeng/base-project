@@ -22,6 +22,9 @@ public class ItemSkuResponse {
     @ApiModelProperty(value = "二级规格名(单规格为空)")
     private String secondSpecValue;
 
+    @ApiModelProperty(value = "二级规格值数量(方便前端设置单元格)")
+    private Integer secondSize;
+
     @ApiModelProperty(value = "成本价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer costPrice;

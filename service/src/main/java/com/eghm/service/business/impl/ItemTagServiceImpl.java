@@ -23,6 +23,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.eghm.constant.CommonConstant.ITEM_TAG_MAX_DEPTH;
+import static com.eghm.constant.CommonConstant.ITEM_TAG_STEP;
+
 /**
  * <p>
  * 零售标签 服务实现类
@@ -36,22 +39,16 @@ import java.util.stream.Collectors;
 @Service("itemTagService")
 public class ItemTagServiceImpl implements ItemTagService {
 
-    /**
-     * 部门步长 即:一个部门对多有900个直属部门 100~999
-     */
-    private static final String STEP = "100";
-    /**
-     * 最大层级是5级, 每一级三位长度的数字
-     */
-    private static final int MAX_TAG_DEPTH = 15;
+
     private final ItemTagMapper itemTagMapper;
+
     private final ItemMapper itemMapper;
 
     @Override
     public void create(ItemTagAddRequest request) {
         String nextId = this.getNextId(request.getPid());
-        if (nextId.length() > MAX_TAG_DEPTH) {
-            log.warn("标签层级太深,无法继续创建 [{}] [{}]", nextId, MAX_TAG_DEPTH);
+        if (nextId.length() > ITEM_TAG_MAX_DEPTH) {
+            log.warn("标签层级太深,无法继续创建 [{}] [{}]", nextId, ITEM_TAG_MAX_DEPTH);
             throw new BusinessException(ErrorCode.TAG_DEPTH);
         }
         ItemTag tag = DataUtil.copy(request, ItemTag.class);
@@ -101,7 +98,7 @@ public class ItemTagServiceImpl implements ItemTagService {
     private String getNextId(String pid) {
         String maxCode = itemTagMapper.getChildMaxId(pid);
         if (maxCode == null) {
-            return CommonConstant.ROOT_NODE.equals(pid) ? STEP : pid + STEP;
+            return CommonConstant.ROOT_NODE.equals(pid) ? ITEM_TAG_STEP : pid + ITEM_TAG_STEP;
         }
         // 不能超过900个标签
         try {

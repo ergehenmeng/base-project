@@ -23,6 +23,12 @@ public class ItemDetailResponse {
     @ApiModelProperty(value = "商品描述信息")
     private String depict;
 
+    @ApiModelProperty(value = "店铺id")
+    private Long storeId;
+
+    @ApiModelProperty(value = "标签id")
+    private List<String> tagList;
+
     @ApiModelProperty(value = "是否为多规格商品 true:是 false:不是")
     private Boolean multiSpec;
 
@@ -37,6 +43,9 @@ public class ItemDetailResponse {
 
     @ApiModelProperty(value = "交付方式 1:快递包邮 2:门店自提 ")
     private DeliveryType deliveryType;
+
+    @ApiModelProperty("物流模板id(为空表示包邮)")
+    private Long expressId;
 
     @ApiModelProperty(value = "商品介绍信息")
     private String introduce;

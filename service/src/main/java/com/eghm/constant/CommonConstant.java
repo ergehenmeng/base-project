@@ -70,6 +70,16 @@ public class CommonConstant {
     public static final String TRACE_ID = "traceId";
 
     /**
+     * 零售标签步长, 即:同级标签100~999即最多900个
+     */
+    public static final String ITEM_TAG_STEP = "100";
+
+    /**
+     * 最大层级是5级, 每一级三位长度的数字
+     */
+    public static final int ITEM_TAG_MAX_DEPTH = 15;
+
+    /**
      * 异步下单最大请求次数
      */
     public static final int MAX_ACCESS_NUM = 10;
