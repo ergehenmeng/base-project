@@ -1,6 +1,8 @@
 package com.eghm.vo.poi;
 
+import com.eghm.convertor.BigDecimalOmitEncoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -37,6 +39,7 @@ public class PoiLineResponse {
     private String areaTitle;
 
     @ApiModelProperty(value = "预计游玩时间(单位:小时)")
+    @JsonSerialize(using = BigDecimalOmitEncoder.class)
     private BigDecimal playTime;
 
     @ApiModelProperty("区域经度")

@@ -1,5 +1,6 @@
 package com.eghm.vo.business.item;
 
+import com.eghm.convertor.BigDecimalOmitEncoder;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -47,6 +48,7 @@ public class ItemSkuVO {
     private Integer saleNum;
 
     @ApiModelProperty("重量")
+    @JsonSerialize(using = BigDecimalOmitEncoder.class)
     private BigDecimal weight;
 
     @ApiModelProperty(value = "sku图片(优先级最高)")

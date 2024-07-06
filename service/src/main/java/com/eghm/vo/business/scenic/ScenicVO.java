@@ -1,5 +1,6 @@
 package com.eghm.vo.business.scenic;
 
+import com.eghm.convertor.BigDecimalOmitEncoder;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -37,6 +38,7 @@ public class ScenicVO {
     private Integer minPrice;
 
     @ApiModelProperty("距离 单位:m")
+    @JsonSerialize(using = BigDecimalOmitEncoder.class)
     private BigDecimal distance;
 
     @ApiModelProperty("状态 0:待上架 1:已上架 2:强制下架")

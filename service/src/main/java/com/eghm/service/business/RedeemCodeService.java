@@ -5,10 +5,7 @@ import com.eghm.dto.business.redeem.RedeemCodeAddRequest;
 import com.eghm.dto.business.redeem.RedeemCodeEditRequest;
 import com.eghm.dto.business.redeem.RedeemCodeQueryRequest;
 import com.eghm.model.RedeemCode;
-import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.redeem.RedeemDetailResponse;
-
-import java.util.List;
 
 /**
  * <p>

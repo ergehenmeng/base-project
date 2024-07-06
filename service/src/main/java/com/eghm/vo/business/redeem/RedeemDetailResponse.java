@@ -1,6 +1,5 @@
 package com.eghm.vo.business.redeem;
 
-import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.convertor.CentToYuanOmitEncoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

@@ -1,5 +1,6 @@
 package com.eghm.vo.business.item.express;
 
+import com.eghm.convertor.BigDecimalOmitEncoder;
 import com.eghm.convertor.CentToYuanOmitEncoder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,6 +20,7 @@ public class ExpressRegionResponse {
     private Long regionId;
 
     @ApiModelProperty(value = "首件或首重")
+    @JsonSerialize(using = BigDecimalOmitEncoder.class)
     private BigDecimal firstPart;
 
     @ApiModelProperty(value = "首件或首重的价格")
@@ -26,6 +28,7 @@ public class ExpressRegionResponse {
     private Integer firstPrice;
 
     @ApiModelProperty(value = "续重或续件")
+    @JsonSerialize(using = BigDecimalOmitEncoder.class)
     private BigDecimal nextPart;
 
     @ApiModelProperty(value = "续重或续件的单价")

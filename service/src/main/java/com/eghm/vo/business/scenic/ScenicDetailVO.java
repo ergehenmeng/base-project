@@ -1,7 +1,9 @@
 package com.eghm.vo.business.scenic;
 
+import com.eghm.convertor.BigDecimalOmitEncoder;
 import com.eghm.vo.business.activity.ActivityBaseDTO;
 import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -43,6 +45,7 @@ public class ScenicDetailVO {
     private String depict;
 
     @ApiModelProperty("距离 单位:m")
+    @JsonSerialize(using = BigDecimalOmitEncoder.class)
     private BigDecimal distance;
 
     @ApiModelProperty(value = "详细地址(含省市县)")

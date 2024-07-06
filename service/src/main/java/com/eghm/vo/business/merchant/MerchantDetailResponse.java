@@ -1,5 +1,7 @@
 package com.eghm.vo.business.merchant;
 
+import com.eghm.convertor.BigDecimalOmitEncoder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -42,6 +44,7 @@ public class MerchantDetailResponse {
     private List<Integer> typeList;
 
     @ApiModelProperty(value = "平台服务费,单位:%")
+    @JsonSerialize(using = BigDecimalOmitEncoder.class)
     private BigDecimal platformServiceRate;
 
     @ApiModelProperty(value = "联系人电话")
