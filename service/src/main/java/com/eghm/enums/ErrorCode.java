@@ -789,6 +789,11 @@ public enum ErrorCode {
     ITEM_QUOTA(2336, "超出商品限购数量"),
 
     /**
+     * 商品规格不允许修改
+     */
+    ITEM_MULTI_SPEC_ERROR(2337, "商品规格不允许修改"),
+
+    /**
      * 购物车商品信息不存在
      */
     CART_ITEM_EMPTY(2339, "购物车商品信息不存在"),

@@ -55,7 +55,7 @@ public class ItemAddRequest {
     private String purchaseNotes;
 
     @ApiModelProperty(value = "限购数量", required = true)
-    @RangeInt(min = 1, max = 99, message = "限购数量1~99之间")
+    @RangeInt(min = 1, max = 999, message = "限购数量1~999之间")
     private Integer quota;
 
     @ApiModelProperty(value = "交付方式 1:快递包邮 2:门店自提", required = true)

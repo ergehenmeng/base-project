@@ -135,6 +135,7 @@ public class ItemServiceImpl implements ItemService {
         this.titleRedo(request.getTitle(), request.getId(), request.getStoreId());
         this.checkExpress(request.getExpressId(), request.getSkuList());
         Item select = this.selectByIdRequired(request.getId());
+        this.checkMultiSpec(select.getMultiSpec(), request.getMultiSpec());
         commonService.checkIllegal(select.getMerchantId());
 
         Item item = DataUtil.copy(request, Item.class);
@@ -625,6 +626,18 @@ public class ItemServiceImpl implements ItemService {
         if (Boolean.TRUE.equals(multiSpec)) {
             BeanValidator.validateList(specList);
             this.redoSpecValue(specList);
+        }
+    }
+
+    /**
+     * 编辑时不允许修改规格类型
+     *
+     * @param multiSpec 原规格类型
+     * @param request 新规格类型
+     */
+    private void checkMultiSpec(Boolean multiSpec, Boolean request) {
+        if (!request.equals(multiSpec)) {
+            throw new BusinessException(ErrorCode.ITEM_MULTI_SPEC_ERROR);
         }
     }
 
