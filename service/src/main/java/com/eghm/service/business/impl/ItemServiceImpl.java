@@ -116,6 +116,7 @@ public class ItemServiceImpl implements ItemService {
         this.checkExpress(request.getExpressId(), request.getSkuList());
 
         Item item = DataUtil.copy(request, Item.class);
+        item.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         item.setMerchantId(merchantId);
         item.setCreateDate(LocalDate.now());
         this.setMinMaxPrice(item, request.getSkuList());
@@ -137,6 +138,7 @@ public class ItemServiceImpl implements ItemService {
         commonService.checkIllegal(select.getMerchantId());
 
         Item item = DataUtil.copy(request, Item.class);
+        item.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         if (select.getBookingId() == null) {
             Map<String, Long> specMap = itemSpecService.update(item, request.getSpecList());
             itemSkuService.update(item, specMap, request.getSkuList());

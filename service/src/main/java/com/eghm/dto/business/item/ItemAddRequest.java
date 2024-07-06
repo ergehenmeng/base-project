@@ -46,8 +46,8 @@ public class ItemAddRequest {
     private Boolean multiSpec;
 
     @ApiModelProperty(value = "封面图", required = true)
-    @NotBlank(message = "封面图片不能为空")
-    private String coverUrl;
+    @NotEmpty(message = "封面图片不能为空")
+    private List<String> coverList;
 
     @ApiModelProperty(value = "购买须知", required = true)
     @NotBlank(message = "购买须知不能为空")
