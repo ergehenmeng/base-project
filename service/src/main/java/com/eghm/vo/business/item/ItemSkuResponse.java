@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /**
  * @author 殿小二
  * @since 2023/3/7
@@ -45,4 +47,7 @@ public class ItemSkuResponse {
 
     @ApiModelProperty(value = "sku图片(优先级最高)")
     private String skuPic;
+
+    @ApiModelProperty("重量")
+    private BigDecimal weight;
 }

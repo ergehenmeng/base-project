@@ -3,7 +3,6 @@ package com.eghm.dto.business.item;
 import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.dto.business.item.sku.ItemSpecRequest;
 import com.eghm.enums.ref.DeliveryType;
-import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
@@ -58,7 +57,7 @@ public class ItemEditRequest {
     private Integer quota;
 
     @ApiModelProperty(value = "交付方式 1:快递包邮 2:门店自提", required = true)
-    @OptionInt(value = {1, 2}, message = "交付方式不合法")
+    @NotNull(message = "交付方式不合法")
     private DeliveryType deliveryType;
 
     @ApiModelProperty(value = "商品介绍信息", required = true)
