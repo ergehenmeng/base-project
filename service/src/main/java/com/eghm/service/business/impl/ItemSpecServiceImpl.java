@@ -37,7 +37,10 @@ public class ItemSpecServiceImpl implements ItemSpecService {
             int sort = 0;
             for (ItemSpecRequest request : specList) {
                 for (ItemSpecRequest.SpecValue specValue : request.getValueList()) {
-                    ItemSpec spec = DataUtil.copy(specValue, ItemSpec.class);
+                    ItemSpec spec = new ItemSpec();
+                    spec.setId(specValue.getId());
+                    spec.setSpecValue(specValue.getName());
+                    spec.setSpecPic(specValue.getPic());
                     spec.setItemId(item.getId());
                     spec.setSpecName(request.getSpecName());
                     spec.setLevel(request.getLevel());
