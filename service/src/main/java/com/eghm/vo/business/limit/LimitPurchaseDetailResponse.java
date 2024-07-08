@@ -32,6 +32,12 @@ public class LimitPurchaseDetailResponse {
     @ApiModelProperty(value = "提前预告小时")
     private Integer advanceHour;
 
-    @ApiModelProperty("限时购商品优惠信息")
-    private List<LimitItemResponse> itemList;
+    @ApiModelProperty("规格优惠列表")
+    private List<LimitSkuResponse> skuList;
+
+    @ApiModelProperty("商品id列表")
+    private List<Long> itemIds;
+
+    @ApiModelProperty("备注")
+    private String remark;
 }

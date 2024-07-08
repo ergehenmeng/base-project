@@ -15,6 +15,15 @@ import javax.validation.constraints.NotNull;
 @Data
 public class LimitSkuResponse {
 
+    @ApiModelProperty("商品id")
+    private Long itemId;
+
+    @ApiModelProperty("商品名称")
+    private String title;
+
+    @ApiModelProperty("sku数量")
+    private Integer skuSize;
+
     @ApiModelProperty("skuId")
     @NotNull(message = "skuId不能为空")
     private Long skuId;

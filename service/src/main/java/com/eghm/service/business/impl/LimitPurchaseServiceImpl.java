@@ -21,6 +21,7 @@ import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.limit.LimitItemResponse;
 import com.eghm.vo.business.limit.LimitPurchaseDetailResponse;
 import com.eghm.vo.business.limit.LimitPurchaseResponse;
+import com.eghm.vo.business.limit.LimitSkuResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -115,8 +116,9 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
             throw new BusinessException(ErrorCode.LIMIT_NULL);
         }
         LimitPurchaseDetailResponse response = DataUtil.copy(purchase, LimitPurchaseDetailResponse.class);
-        List<LimitItemResponse> itemList = limitPurchaseItemService.getLimitList(id);
-        response.setItemList(itemList);
+        List<LimitSkuResponse> skuList = limitPurchaseItemService.getLimitList(id);
+        response.setSkuList(skuList);
+        response.setItemIds(skuList.stream().map(LimitSkuResponse::getItemId).distinct().collect(Collectors.toList()));
         return response;
     }
 

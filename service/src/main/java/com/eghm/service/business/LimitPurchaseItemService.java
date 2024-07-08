@@ -6,6 +6,7 @@ import com.eghm.model.LimitPurchase;
 import com.eghm.model.LimitPurchaseItem;
 import com.eghm.vo.business.limit.LimitItemResponse;
 import com.eghm.vo.business.limit.LimitItemVO;
+import com.eghm.vo.business.limit.LimitSkuResponse;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public interface LimitPurchaseItemService {
      * @param limitId 活动id
      * @return 商品列表
      */
-    List<LimitItemResponse> getLimitList(Long limitId);
+    List<LimitSkuResponse> getLimitList(Long limitId);
 
     /**
      * 查询限时购活动配置的商品信息

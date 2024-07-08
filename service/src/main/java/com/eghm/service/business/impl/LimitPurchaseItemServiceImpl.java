@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.JsonService;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.purchase.LimitItemRequest;
@@ -14,11 +15,11 @@ import com.eghm.mapper.LimitPurchaseItemMapper;
 import com.eghm.model.LimitPurchase;
 import com.eghm.model.LimitPurchaseItem;
 import com.eghm.service.business.LimitPurchaseItemService;
-import com.eghm.common.JsonService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.limit.LimitItemResponse;
 import com.eghm.vo.business.limit.LimitItemVO;
 import com.eghm.vo.business.limit.LimitSkuResponse;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -81,13 +82,21 @@ public class LimitPurchaseItemServiceImpl implements LimitPurchaseItemService {
     }
 
     @Override
-    public List<LimitItemResponse> getLimitList(Long limitId) {
+    public List<LimitSkuResponse> getLimitList(Long limitId) {
         List<LimitItemResponse> responseList = limitPurchaseItemMapper.getLimitList(limitId);
+        List<LimitSkuResponse> skuList = Lists.newArrayListWithExpectedSize(32);
         responseList.forEach(item -> {
-            List<DiscountItemSku> skuList = jsonService.fromJsonList(item.getSkuValue(), DiscountItemSku.class);
-            item.setSkuList(DataUtil.copy(skuList, LimitSkuResponse.class));
+            List<DiscountItemSku> list = jsonService.fromJsonList(item.getSkuValue(), DiscountItemSku.class);
+            for (DiscountItemSku sku : list) {
+                // 因为jsonService使用的是jackson, json格式价格字段是int
+                LimitSkuResponse copy = DataUtil.copy(sku, LimitSkuResponse.class);
+                copy.setTitle(item.getTitle());
+                copy.setItemId(item.getItemId());
+                copy.setSkuSize(list.size());
+                skuList.add(copy);
+            }
         });
-        return responseList;
+        return skuList;
     }
 
     @Override
