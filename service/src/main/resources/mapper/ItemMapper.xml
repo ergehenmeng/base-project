@@ -255,8 +255,10 @@
             r.primary_spec_value,
             r.second_spec_value,
             r.sale_price,
-            r.sku_pic
+            r.sku_pic,
+            s.spec_pic
         from item t left join item_sku r on t.id = r.item_id
+        left join item_spec s on r.spec_id = s.id
         where t.deleted = false and r.deleted = false and t.merchant_id = #{merchantId}
         <if test="activityId == null">
             and limit_id is null and t.booking_id is null
@@ -271,11 +273,12 @@
         <result column="title" property="title" />
         <result column="cover_url" property="coverUrl" />
         <collection property="skuList" ofType="com.eghm.vo.business.item.BaseSkuResponse">
-            <id property="id" column="skuId"/>
+            <id column="skuId" property="skuId" />
             <result column="primary_spec_value" property="primarySpecValue" />
             <result column="second_spec_value" property="secondSpecValue" />
             <result column="sale_price" property="salePrice" />
             <result column="sku_pic" property="skuPic" />
+            <result column="spec_pic" property="specPic" />
         </collection>
     </resultMap>
 </mapper>

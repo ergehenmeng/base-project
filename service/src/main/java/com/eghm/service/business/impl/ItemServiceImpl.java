@@ -438,12 +438,16 @@ public class ItemServiceImpl implements ItemService {
             List<BaseSkuResponse> skuList = response.getSkuList();
             for (BaseSkuResponse sku : skuList) {
                 if (StrUtil.isBlank(sku.getSkuPic())) {
-                    sku.setSkuPic(response.getCoverUrl());
-                    if (StrUtil.isBlank(sku.getSecondSpecValue())) {
-                        sku.setSpecValue(sku.getPrimarySpecValue());
+                    if (StrUtil.isBlank(sku.getSpecPic())) {
+                        sku.setSkuPic(response.getCoverUrl());
                     } else {
-                        sku.setSpecValue(sku.getPrimarySpecValue() + "/" + sku.getSecondSpecValue());
+                        sku.setSkuPic(sku.getSpecPic());
                     }
+                }
+                if (StrUtil.isBlank(sku.getSecondSpecValue())) {
+                    sku.setSpecValue(sku.getPrimarySpecValue());
+                } else {
+                    sku.setSpecValue(sku.getPrimarySpecValue() + "/" + sku.getSecondSpecValue());
                 }
             }
         }

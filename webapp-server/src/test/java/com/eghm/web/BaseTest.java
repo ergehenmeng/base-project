@@ -61,7 +61,7 @@ public abstract class BaseTest {
             return mockMvc.perform(MockMvcRequestBuilders.post(URI.create(url)).
                             contentType(MediaType.APPLICATION_JSON_VALUE)
                             .headers(headers)
-                            .content(gson.toJson(params)))
+                            .content(content))
                     .andReturn().getResponse().getContentAsString();
         } catch (Exception e) {
             e.printStackTrace();

@@ -9,7 +9,6 @@ import com.eghm.mapper.ItemSpecMapper;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSpec;
 import com.eghm.service.business.ItemSpecService;
-import com.eghm.utils.DataUtil;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

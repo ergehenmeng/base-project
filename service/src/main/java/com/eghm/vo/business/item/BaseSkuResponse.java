@@ -14,8 +14,8 @@ import lombok.Data;
 @Data
 public class BaseSkuResponse {
 
-    @ApiModelProperty("id")
-    private Long id;
+    @ApiModelProperty("skuId")
+    private Long skuId;
 
     @ApiModelProperty(value = "一级规格名(单规格为空)")
     @JsonIgnore
@@ -32,6 +32,10 @@ public class BaseSkuResponse {
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty(value = "规格图片")
+    @ApiModelProperty(value = "规格图片(可能为空)")
+    @JsonIgnore
+    private String specPic;
+
+    @ApiModelProperty(value = "sku图片(可能为空)")
     private String skuPic;
 }
