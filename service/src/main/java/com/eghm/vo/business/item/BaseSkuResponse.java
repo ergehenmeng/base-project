@@ -14,8 +14,17 @@ import lombok.Data;
 @Data
 public class BaseSkuResponse {
 
+    @ApiModelProperty(value = "商品id(冗余)")
+    private Long itemId;
+
+    @ApiModelProperty(value = "商品名称(冗余)")
+    private String title;
+
     @ApiModelProperty("skuId")
     private Long skuId;
+
+    @ApiModelProperty(value = "商品规格数量(冗余)")
+    private Integer skuSize;
 
     @ApiModelProperty(value = "一级规格名(单规格为空)")
     @JsonIgnore
@@ -25,7 +34,7 @@ public class BaseSkuResponse {
     @JsonIgnore
     private String secondSpecValue;
 
-    @ApiModelProperty(value = "规格名")
+    @ApiModelProperty(value = "规格名(单规格为空)")
     private String specValue;
 
     @ApiModelProperty(value = "销售价格")

@@ -437,6 +437,9 @@ public class ItemServiceImpl implements ItemService {
         for (ActivityItemResponse response : activityList) {
             List<BaseSkuResponse> skuList = response.getSkuList();
             for (BaseSkuResponse sku : skuList) {
+                sku.setItemId(response.getId());
+                sku.setTitle(response.getTitle());
+                sku.setSkuSize(skuList.size());
                 if (StrUtil.isBlank(sku.getSkuPic())) {
                     if (StrUtil.isBlank(sku.getSpecPic())) {
                         sku.setSkuPic(response.getCoverUrl());

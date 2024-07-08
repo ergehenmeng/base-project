@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.JsonService;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
-import com.eghm.dto.business.purchase.LimitItemRequest;
 import com.eghm.dto.business.purchase.LimitPurchaseQueryDTO;
 import com.eghm.dto.business.purchase.LimitSkuRequest;
 import com.eghm.dto.ext.DiscountItemSku;
@@ -25,7 +24,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -52,25 +55,27 @@ public class LimitPurchaseItemServiceImpl implements LimitPurchaseItemService {
     }
 
     @Override
-    public void insertOrUpdate(List<LimitItemRequest> itemList, LimitPurchase limitPurchase) {
+    public void insertOrUpdate(List<LimitSkuRequest> skuList, LimitPurchase limitPurchase) {
         LambdaUpdateWrapper<LimitPurchaseItem> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(LimitPurchaseItem::getLimitPurchaseId, limitPurchase.getId());
         limitPurchaseItemMapper.delete(wrapper);
+        HashMap<Long, List<LimitSkuRequest>> hashMap = skuList.stream().collect(Collectors.groupingBy(LimitSkuRequest::getItemId, LinkedHashMap::new, Collectors.toList()));
         LocalDateTime advanceTime = limitPurchase.getStartTime().minusHours(limitPurchase.getAdvanceHour());
         LimitPurchaseItem item;
-        for (LimitItemRequest itemRequest : itemList) {
+        for (Map.Entry<Long, List<LimitSkuRequest>> entry : hashMap.entrySet()) {
             item = new LimitPurchaseItem();
-            item.setItemId(itemRequest.getItemId());
+            item.setItemId(entry.getKey());
             item.setLimitPurchaseId(limitPurchase.getId());
             item.setMerchantId(limitPurchase.getMerchantId());
             item.setStartTime(limitPurchase.getStartTime());
             item.setEndTime(limitPurchase.getEndTime());
             item.setAdvanceTime(advanceTime);
-            item.setMaxDiscountAmount(this.getMaxDiscountPrice(itemRequest.getSkuList()));
-            item.setSkuValue(jsonService.toJson(itemRequest.getSkuList()));
+            item.setMaxDiscountAmount(this.getMaxDiscountPrice(entry.getValue()));
+            item.setSkuValue(jsonService.toJson(entry.getValue()));
             item.setCreateTime(limitPurchase.getCreateTime());
             limitPurchaseItemMapper.insert(item);
         }
+
     }
 
     @Override

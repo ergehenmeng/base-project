@@ -5,10 +5,10 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.business.purchase.LimitItemRequest;
 import com.eghm.dto.business.purchase.LimitPurchaseAddRequest;
 import com.eghm.dto.business.purchase.LimitPurchaseEditRequest;
 import com.eghm.dto.business.purchase.LimitPurchaseQueryRequest;
+import com.eghm.dto.business.purchase.LimitSkuRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LimitPurchaseMapper;
@@ -18,7 +18,6 @@ import com.eghm.service.business.ItemService;
 import com.eghm.service.business.LimitPurchaseItemService;
 import com.eghm.service.business.LimitPurchaseService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.business.limit.LimitItemResponse;
 import com.eghm.vo.business.limit.LimitPurchaseDetailResponse;
 import com.eghm.vo.business.limit.LimitPurchaseResponse;
 import com.eghm.vo.business.limit.LimitSkuResponse;
@@ -66,9 +65,9 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         purchase.setCreateTime(LocalDateTime.now());
         limitPurchaseMapper.insert(purchase);
 
-        List<Long> itemIds = request.getItemList().stream().map(LimitItemRequest::getItemId).collect(Collectors.toList());
+        List<Long> itemIds = request.getSkuList().stream().map(LimitSkuRequest::getItemId).distinct().collect(Collectors.toList());
         itemService.updateLimitPurchase(itemIds, purchase.getId());
-        limitPurchaseItemService.insertOrUpdate(request.getItemList(), purchase);
+        limitPurchaseItemService.insertOrUpdate(request.getSkuList(), purchase);
     }
 
     @Override
@@ -82,12 +81,12 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         if (purchase.getStartTime().isBefore(LocalDateTime.now())) {
             throw new BusinessException(ErrorCode.ACTIVITY_NOT_EDIT);
         }
-        List<Long> itemIds = request.getItemList().stream().map(LimitItemRequest::getItemId).collect(Collectors.toList());
+        List<Long> itemIds = request.getSkuList().stream().map(LimitSkuRequest::getItemId).distinct().collect(Collectors.toList());
         itemService.updateLimitPurchase(itemIds, purchase.getId());
 
         LimitPurchase limitPurchase = DataUtil.copy(request, LimitPurchase.class);
         limitPurchaseMapper.updateById(limitPurchase);
-        limitPurchaseItemService.insertOrUpdate(request.getItemList(), purchase);
+        limitPurchaseItemService.insertOrUpdate(request.getSkuList(), purchase);
     }
 
     @Override

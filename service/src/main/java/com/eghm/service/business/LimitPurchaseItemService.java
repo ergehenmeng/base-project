@@ -2,6 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.dto.business.purchase.LimitPurchaseQueryDTO;
 import com.eghm.dto.business.purchase.LimitItemRequest;
+import com.eghm.dto.business.purchase.LimitSkuRequest;
 import com.eghm.model.LimitPurchase;
 import com.eghm.model.LimitPurchaseItem;
 import com.eghm.vo.business.limit.LimitItemResponse;
@@ -31,10 +32,10 @@ public interface LimitPurchaseItemService {
     /**
      * 新增或修改限时购商品信息
      *
-     * @param itemList 商品列表
+     * @param skuList 商品规格列表
      * @param limitPurchase 限时购活动信息
      */
-    void insertOrUpdate(List<LimitItemRequest> itemList, LimitPurchase limitPurchase);
+    void insertOrUpdate(List<LimitSkuRequest> skuList, LimitPurchase limitPurchase);
 
     /**
      * 删除限时购商品信息
