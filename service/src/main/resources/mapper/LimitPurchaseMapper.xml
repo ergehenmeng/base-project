@@ -10,7 +10,8 @@
             advance_hour,
             end_time,
             create_time,
-            update_time
+            update_time,
+            remark
         from limit_purchase where deleted = 0
         <if test="param.merchantId != null">
             and merchant_id = #{param.merchantId}

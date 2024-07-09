@@ -1,5 +1,6 @@
 package com.eghm.dto.business.purchase;
 
+import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,6 +20,7 @@ import java.util.List;
 @Data
 public class LimitPurchaseAddRequest {
 
+    @Assign
     @ApiModelProperty(value = "商户id", hidden = true)
     private Long merchantId;
 
@@ -28,13 +30,13 @@ public class LimitPurchaseAddRequest {
     private String title;
 
     @ApiModelProperty(value = "开始时间", required = true)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @NotNull(message = "开始时间不能为空")
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "结束时间", required = true)
     @NotNull(message = "结束时间不能为空")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "提前预告小时", required = true)
@@ -46,5 +48,6 @@ public class LimitPurchaseAddRequest {
     private List<LimitSkuRequest> skuList;
 
     @ApiModelProperty(value = "备注")
-    private Integer remark;
+    @Size(max = 200, message = "备注最多200字符")
+    private String remark;
 }

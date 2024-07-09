@@ -39,5 +39,5 @@ public class LimitPurchase extends BaseEntity {
     private Integer advanceHour;
 
     @ApiModelProperty(value = "备注")
-    private Integer remark;
+    private String remark;
 }

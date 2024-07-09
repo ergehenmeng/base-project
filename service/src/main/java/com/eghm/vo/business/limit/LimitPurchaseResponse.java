@@ -21,11 +21,11 @@ public class LimitPurchaseResponse {
     private String title;
 
     @ApiModelProperty(value = "开始时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "结束时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "提前预告小时")
@@ -38,4 +38,7 @@ public class LimitPurchaseResponse {
     @ApiModelProperty("修改时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
+
+    @ApiModelProperty("备注")
+    private String remark;
 }

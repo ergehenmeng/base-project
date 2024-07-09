@@ -1,5 +1,6 @@
 package com.eghm.dto.business.purchase;
 
+import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,22 +25,19 @@ public class LimitPurchaseEditRequest {
     @NotNull(message = "活动id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "商户id", hidden = true)
-    private Long merchantId;
-
     @ApiModelProperty(value = "活动名称", required = true)
     @NotBlank(message = "活动名称不能为空")
     @Size(max = 20, message = "活动名称最大20字符")
     private String title;
 
     @ApiModelProperty(value = "开始时间", required = true)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @NotNull(message = "开始时间不能为空")
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "结束时间", required = true)
     @NotNull(message = "结束时间不能为空")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "提前预告小时", required = true)
@@ -51,5 +49,10 @@ public class LimitPurchaseEditRequest {
     private List<LimitSkuRequest> skuList;
 
     @ApiModelProperty(value = "备注")
-    private Integer remark;
+    @Size(max = 200, message = "备注最多200字符")
+    private String remark;
+
+    @Assign
+    @ApiModelProperty(value = "商户id", hidden = true)
+    private Long merchantId;
 }
