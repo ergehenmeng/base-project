@@ -34,12 +34,12 @@ public class LotteryAddRequest {
     @NotBlank(message = "抽奖banner图不能为空")
     private String bannerUrl;
 
-    @ApiModelProperty(value = "开始时间 yyyy-MM-dd HH:mm::ss", required = true)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "开始时间 yyyy-MM-dd HH:mm", required = true)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
 
-    @ApiModelProperty(value = "结束时间 yyyy-MM-dd HH:mm:ss", required = true)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "结束时间 yyyy-MM-dd HH:mm", required = true)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "单日抽奖次数限制", required = true)

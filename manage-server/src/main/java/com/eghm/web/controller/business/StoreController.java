@@ -44,18 +44,18 @@ public class StoreController {
         request.setMerchantId(SecurityHolder.getMerchantId());
         request.setLimit(false);
         List<BaseStoreResponse> responseList = Lists.newArrayList();
-        Page<BaseStoreResponse> scenicPage = scenicService.getStorePage(request);
-        responseList.addAll(scenicPage.getRecords());
-        Page<BaseStoreResponse> homestayPage = homestayService.getStorePage(request);
-        responseList.addAll(homestayPage.getRecords());
-        Page<BaseStoreResponse> listPage = itemStoreService.getStorePage(request);
-        responseList.addAll(listPage.getRecords());
-        Page<BaseStoreResponse> storePage = travelAgencyService.getStorePage(request);
+        Page<BaseStoreResponse> storePage = scenicService.getStorePage(request);
         responseList.addAll(storePage.getRecords());
-        Page<BaseStoreResponse> restaurantPage = restaurantService.getStorePage(request);
-        responseList.addAll(restaurantPage.getRecords());
-        Page<BaseStoreResponse> venuePage = venueService.getStorePage(request);
-        responseList.addAll(venuePage.getRecords());
+        storePage = homestayService.getStorePage(request);
+        responseList.addAll(storePage.getRecords());
+        storePage = itemStoreService.getStorePage(request);
+        responseList.addAll(storePage.getRecords());
+        storePage = travelAgencyService.getStorePage(request);
+        responseList.addAll(storePage.getRecords());
+        storePage = restaurantService.getStorePage(request);
+        responseList.addAll(storePage.getRecords());
+        storePage = venueService.getStorePage(request);
+        responseList.addAll(storePage.getRecords());
         return RespBody.success(responseList);
     }
 
