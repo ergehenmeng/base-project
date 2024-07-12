@@ -6,6 +6,7 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.business.lottery.LotteryPrizeRequest;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.PrizeType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LotteryPrizeMapper;
 import com.eghm.model.LotteryPrize;
@@ -99,8 +100,10 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
      * @param prize 奖品信息
      */
     private void setSemaphore(LotteryPrize prize) {
-        RSemaphore semaphore = redissonClient.getSemaphore(CacheConstant.LOTTERY_PRIZE_NUM + prize.getId());
-        semaphore.trySetPermits(prize.getTotalNum());
+        if (prize.getPrizeType() != PrizeType.NONE) {
+            RSemaphore semaphore = redissonClient.getSemaphore(CacheConstant.LOTTERY_PRIZE_NUM + prize.getId());
+            semaphore.trySetPermits(prize.getTotalNum());
+        }
     }
 
     /**

@@ -34,7 +34,7 @@ public class LotteryEditRequest {
     private String title;
 
     @ApiModelProperty(value = "抽奖banner图", required = true)
-    @NotBlank(message = "抽奖banner图不能为空")
+    @NotBlank(message = "banner图不能为空")
     private String bannerUrl;
 
     @ApiModelProperty(value = "开始时间 yyyy-MM-dd HH:mm::ss", required = true)
@@ -60,8 +60,8 @@ public class LotteryEditRequest {
     @RangeInt(min = 1, max = 9999, message = "中奖次数应为1~9999次")
     private Integer winNum;
 
-    @ApiModelProperty(value = "抽奖页面封面图", required = true)
-    @NotBlank(message = "请选择抽奖封面图")
+    @ApiModelProperty(value = "背景图", required = true)
+    @NotBlank(message = "请选择背景图")
     private String coverUrl;
 
     @ApiModelProperty(value = "抽奖标题", required = true)

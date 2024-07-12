@@ -18,7 +18,7 @@ public class LotteryPrizeRequest {
 
     @ApiModelProperty(value = "奖品名称", required = true)
     @NotBlank(message = "奖品名称不能为空")
-    @Length(min = 2, max = 10, message = "奖品名称长度应为2~10字符")
+    @Length(min = 1, max = 10, message = "奖品名称长度应为2~10字符")
     @WordChecker(message = "奖品名称存在敏感词")
     private String prizeName;
 
