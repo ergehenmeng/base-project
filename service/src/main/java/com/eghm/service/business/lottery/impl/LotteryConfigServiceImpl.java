@@ -39,7 +39,7 @@ public class LotteryConfigServiceImpl implements LotteryConfigService {
             if (request.getLocation() != i + 1) {
                 throw new BusinessException(ErrorCode.LOTTERY_POSITION);
             }
-            int ratio = DecimalUtil.yuanToCent(request.getRatio().doubleValue());
+            int ratio = request.getWeight();
             LotteryConfig config = new LotteryConfig();
             config.setStartRange(weight);
             config.setEndRange(weight + ratio);

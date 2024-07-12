@@ -26,7 +26,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -279,8 +278,8 @@ public class LotteryServiceImpl implements LotteryService {
      * @param configList 配置信息
      */
     private void checkConfig(List<LotteryConfigRequest> configList) {
-        Optional<BigDecimal> optional = configList.stream().map(LotteryConfigRequest::getRatio).reduce(BigDecimal::add);
-        if (!optional.isPresent() || optional.get().compareTo(BigDecimal.valueOf(100L)) != 0) {
+        Optional<Integer> optional = configList.stream().map(LotteryConfigRequest::getWeight).reduce(Integer::sum);
+        if (!optional.isPresent() || optional.get() != 10000) {
             throw new BusinessException(ErrorCode.LOTTERY_RATIO);
         }
     }

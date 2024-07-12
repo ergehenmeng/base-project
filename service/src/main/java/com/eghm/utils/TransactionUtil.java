@@ -38,7 +38,7 @@ public class TransactionUtil {
      * @param runnable r
      */
     public static void afterCommit(Runnable runnable) {
-        if (TransactionSynchronizationManager.isActualTransactionActive() && TransactionSynchronizationManager.isSynchronizationActive()) {
+        if (TransactionSynchronizationManager.isSynchronizationActive() && TransactionSynchronizationManager.isActualTransactionActive()) {
             TransactionSynchronizationManager.registerSynchronization(new AfterCommitHandler(runnable, null));
         } else {
             log.error("当前事务未同步,无法注册事件");
@@ -52,7 +52,7 @@ public class TransactionUtil {
      * @param consumer 如果runnable执行异常, 则执行该方法
      */
     public static void afterCommit(Runnable runnable, Consumer<Throwable> consumer) {
-        if (TransactionSynchronizationManager.isActualTransactionActive() && TransactionSynchronizationManager.isSynchronizationActive()) {
+        if (TransactionSynchronizationManager.isSynchronizationActive() && TransactionSynchronizationManager.isActualTransactionActive() ) {
             TransactionSynchronizationManager.registerSynchronization(new AfterCommitHandler(runnable, consumer));
         } else {
             log.error("当前事务未同步,无法注册事件");

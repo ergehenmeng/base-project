@@ -1,6 +1,6 @@
 package com.eghm.vo.business.lottery;
 
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanOmitEncoder;
 import com.eghm.enums.ref.PrizeType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -14,11 +14,8 @@ import lombok.Data;
 @Data
 public class LotteryConfigResponse {
 
-    @ApiModelProperty("id")
-    private Long id;
-
-    @ApiModelProperty(value = "奖品id")
-    private Long prizeId;
+    @ApiModelProperty("奖品位置")
+    private Integer prizeIndex;
 
     @ApiModelProperty(value = "中奖商品类型 0:谢谢参与 1:优惠券 2:积分")
     private PrizeType prizeType;
@@ -27,6 +24,6 @@ public class LotteryConfigResponse {
     private Integer location;
 
     @ApiModelProperty(value = "中奖权重")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitEncoder.class)
     private Integer weight;
 }

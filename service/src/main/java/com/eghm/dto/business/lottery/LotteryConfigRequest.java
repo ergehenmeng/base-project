@@ -1,12 +1,13 @@
 package com.eghm.dto.business.lottery;
 
+import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.validation.annotation.RangeInt;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 /**
  * @author 殿小二
@@ -27,6 +28,7 @@ public class LotteryConfigRequest {
 
     @ApiModelProperty(value = "中奖比例", required = true)
     @NotNull(message = "中奖概率不能为空")
-    private BigDecimal ratio;
+    @JsonDeserialize(using = YuanToCentDecoder.class)
+    private Integer weight;
 
 }
