@@ -36,10 +36,12 @@ public class LotteryAddRequest {
 
     @ApiModelProperty(value = "开始时间 yyyy-MM-dd HH:mm", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @NotNull(message = "开始时间不能为空")
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "结束时间 yyyy-MM-dd HH:mm", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @NotNull(message = "结束时间不能为空")
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "单日抽奖次数限制", required = true)
@@ -69,7 +71,7 @@ public class LotteryAddRequest {
 
     @ApiModelProperty(value = "抽奖规则", required = true)
     @NotBlank(message = "抽奖规则不能为空")
-    @Length(min = 10, max = 1000, message = "抽奖规则长度为10~1000字符")
+    @Length(min = 10, max = 1000, message = "抽奖规则10~1000字符")
     @WordChecker(message = "抽奖规则存在敏感词")
     private String rule;
 

@@ -39,10 +39,12 @@ public class LotteryEditRequest {
 
     @ApiModelProperty(value = "开始时间 yyyy-MM-dd HH:mm::ss", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @NotNull(message = "开始时间不能为空")
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "结束时间 yyyy-MM-dd HH:mm:ss", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @NotNull(message = "结束时间不能为空")
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "单日抽奖次数限制", required = true)
