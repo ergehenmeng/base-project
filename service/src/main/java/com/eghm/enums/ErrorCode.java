@@ -1954,6 +1954,11 @@ public enum ErrorCode {
     LOTTERY_CONFIG_NULL(3011, "抽奖活动已经结束啦"),
 
     /**
+     * 进行中抽奖活动无法直接删除
+     */
+    LOTTERY_NOT_DELETE(3012, "进行中抽奖活动无法直接删除"),
+
+    /**
      * 订单冻结记录不存在
      */
     FREEZE_LOG_NULL(3014, "订单冻结记录不存在"),

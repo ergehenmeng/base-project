@@ -22,6 +22,9 @@ public class LotteryDetailResponse {
     @ApiModelProperty(value = "活动名称")
     private String title;
 
+    @ApiModelProperty("使用店铺")
+    private Long storeId;
+
     @ApiModelProperty(value = "开始时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
@@ -41,6 +44,9 @@ public class LotteryDetailResponse {
 
     @ApiModelProperty(value = "中奖次数限制")
     private Integer winNum;
+
+    @ApiModelProperty(value = "banner图")
+    private String bannerUrl;
 
     @ApiModelProperty(value = "抽奖页面封面图")
     private String coverUrl;

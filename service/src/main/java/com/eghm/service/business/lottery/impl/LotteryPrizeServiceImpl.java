@@ -1,6 +1,7 @@
 package com.eghm.service.business.lottery.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
@@ -92,6 +93,14 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
             log.error("中奖奖品数量更新失败，奖品数量不足 [{}]", id);
             throw new BusinessException(ErrorCode.PRIZE_WIN_ERROR);
         }
+    }
+
+    @Override
+    public void delete(Long lotteryId, Long merchantId) {
+        LambdaUpdateWrapper<LotteryPrize> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(LotteryPrize::getLotteryId, lotteryId);
+        wrapper.eq(LotteryPrize::getMerchantId, merchantId);
+        lotteryPrizeMapper.delete(wrapper);
     }
 
     /**

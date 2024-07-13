@@ -42,6 +42,13 @@ public interface LotteryService {
     void update(LotteryEditRequest request);
 
     /**
+     * 删除抽奖活动
+     *
+     * @param id id
+     */
+    void delete(Long id);
+
+    /**
      * 抽奖
      *
      * @param lotteryId 活动id

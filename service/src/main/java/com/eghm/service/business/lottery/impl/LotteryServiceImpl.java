@@ -2,8 +2,10 @@ package com.eghm.service.business.lottery.impl;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.lottery.*;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.LotteryState;
@@ -22,6 +24,7 @@ import com.eghm.service.business.lottery.LotteryService;
 import com.eghm.service.business.lottery.handler.PrizeHandler;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.lottery.*;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -93,6 +96,25 @@ public class LotteryServiceImpl implements LotteryService {
     }
 
     @Override
+    public void delete(Long id) {
+        Lottery lottery = lotteryMapper.selectById(id);
+        if (lottery == null) {
+            return;
+        }
+        if (LocalDateTime.now().isAfter(lottery.getStartTime()) && LocalDateTime.now().isBefore(lottery.getEndTime())) {
+            log.warn("进行中的抽奖活动不支持删除 [{}] [{}] [{}]", id, lottery.getStartTime(), lottery.getEndTime());
+            throw new BusinessException(ErrorCode.LOTTERY_NOT_DELETE);
+        }
+        Long merchantId = SecurityHolder.getMerchantId();
+        LambdaUpdateWrapper<Lottery> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Lottery::getId, id);
+        wrapper.eq(Lottery::getMerchantId, merchantId);
+        lotteryMapper.delete(wrapper);
+        lotteryPrizeService.delete(id, merchantId);
+        lotteryConfigService.delete(id, merchantId);
+    }
+
+    @Override
     public LotteryResultVO lottery(Long lotteryId, Long memberId) {
         Lottery lottery = this.selectById(lotteryId);
         if (lottery == null) {
@@ -151,7 +173,15 @@ public class LotteryServiceImpl implements LotteryService {
         List<LotteryPrize> prizeList = lotteryPrizeService.getList(lotteryId);
         response.setPrizeList(DataUtil.copy(prizeList, LotteryPrizeResponse.class));
         List<LotteryConfig> configList = lotteryConfigService.getList(lottery.getId());
-        response.setConfigList(DataUtil.copy(configList, LotteryConfigResponse.class));
+        List<LotteryConfigResponse> responseList = Lists.newArrayListWithExpectedSize(configList.size());
+        for (LotteryConfig config : configList) {
+            LotteryConfigResponse res = DataUtil.copy(config, LotteryConfigResponse.class);
+            if (prizeList.size() >= res.getPrizeIndex()) {
+                res.setCoverUrl(prizeList.get(res.getPrizeIndex()).getCoverUrl());
+            }
+            responseList.add(res);
+        }
+        response.setConfigList(responseList);
         return response;
     }
 

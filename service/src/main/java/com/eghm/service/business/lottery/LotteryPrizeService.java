@@ -65,4 +65,12 @@ public interface LotteryPrizeService {
      * @param id id
      */
     void accumulationLotteryNum(Long id);
+
+    /**
+     * 删除奖品信息
+     *
+     * @param lotteryId 活动id
+     * @param merchantId 商户id
+     */
+    void delete(Long lotteryId, Long merchantId);
 }

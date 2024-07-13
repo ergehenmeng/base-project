@@ -37,13 +37,13 @@ public class LotteryEditRequest {
     @NotBlank(message = "banner图不能为空")
     private String bannerUrl;
 
-    @ApiModelProperty(value = "开始时间 yyyy-MM-dd HH:mm::ss", required = true)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "开始时间 yyyy-MM-dd HH:mm", required = true)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @NotNull(message = "开始时间不能为空")
     private LocalDateTime startTime;
 
-    @ApiModelProperty(value = "结束时间 yyyy-MM-dd HH:mm:ss", required = true)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "结束时间 yyyy-MM-dd HH:mm", required = true)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:m")
     @NotNull(message = "结束时间不能为空")
     private LocalDateTime endTime;
 

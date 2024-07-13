@@ -1,5 +1,6 @@
 package com.eghm.service.business.lottery.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.configuration.security.SecurityHolder;
@@ -10,7 +11,6 @@ import com.eghm.mapper.LotteryConfigMapper;
 import com.eghm.model.LotteryConfig;
 import com.eghm.model.LotteryPrize;
 import com.eghm.service.business.lottery.LotteryConfigService;
-import com.eghm.utils.DecimalUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +45,7 @@ public class LotteryConfigServiceImpl implements LotteryConfigService {
             config.setEndRange(weight + ratio);
             LotteryPrize prize = prizeMap.get(request.getPrizeIndex());
             config.setPrizeId(prize.getId());
+            config.setPrizeIndex(request.getPrizeIndex());
             config.setPrizeType(prize.getPrizeType());
             config.setLocation(request.getLocation());
             config.setLotteryId(lotteryId);
@@ -65,9 +66,17 @@ public class LotteryConfigServiceImpl implements LotteryConfigService {
 
     @Override
     public List<LotteryConfig> getList(Long lotteryId) {
-        LambdaUpdateWrapper<LotteryConfig> wrapper = Wrappers.lambdaUpdate();
+        LambdaQueryWrapper<LotteryConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(LotteryConfig::getLotteryId, lotteryId);
         wrapper.orderByAsc(LotteryConfig::getLocation);
         return lotteryConfigMapper.selectList(wrapper);
+    }
+
+    @Override
+    public void delete(Long lotteryId, Long merchantId) {
+        LambdaUpdateWrapper<LotteryConfig> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(LotteryConfig::getLotteryId, lotteryId);
+        wrapper.eq(LotteryConfig::getMerchantId, merchantId);
+        lotteryConfigMapper.delete(wrapper);
     }
 }

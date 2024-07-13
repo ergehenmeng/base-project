@@ -66,6 +66,13 @@ public class LotteryController {
         return RespBody.success(response);
     }
 
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("删除")
+    public RespBody<Void> delete(@RequestBody @Validated IdDTO request) {
+        lotteryService.delete(request.getId());
+        return RespBody.success();
+    }
+
     @GetMapping("/logPage")
     @ApiOperation("抽奖记录")
     public RespBody<PageData<LotteryLogResponse>> logPage(@Validated LotteryLotQueryRequest request) {

@@ -42,4 +42,12 @@ public interface LotteryConfigService {
      * @return 中奖配置信息
      */
     List<LotteryConfig> getList(Long lotteryId);
+
+    /**
+     * 删除抽奖配置信息
+     *
+     * @param lotteryId 活动id
+     * @param merchantId 商户id
+     */
+    void delete(Long lotteryId, Long merchantId);
 }

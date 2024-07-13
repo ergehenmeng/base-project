@@ -26,4 +26,7 @@ public class LotteryConfigResponse {
     @ApiModelProperty(value = "中奖权重")
     @JsonSerialize(using = CentToYuanOmitEncoder.class)
     private Integer weight;
+
+    @ApiModelProperty(value = "奖品图片")
+    private String coverUrl;
 }
