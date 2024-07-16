@@ -1648,6 +1648,7 @@ CREATE TABLE `lottery_prize`
     `lottery_id`  bigint(20)   DEFAULT NULL COMMENT '抽奖活动id',
     `prize_name`  varchar(20)  DEFAULT NULL COMMENT '奖品名称',
     `prize_type`  tinyint(1)   DEFAULT NULL COMMENT '奖品类型',
+    `relation_id` bigint(20)   DEFAULT NULL COMMENT '关联奖品ID',
     `num`         int(10)      DEFAULT 1 COMMENT '单次中奖发放数量',
     `total_num`   int(10)      DEFAULT NULL COMMENT '奖品总数量',
     `win_num`     int(10)      DEFAULT 0 COMMENT '已抽中数量',

@@ -13,6 +13,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.service.business.CouponService;
 import com.eghm.service.business.MemberCouponService;
+import com.eghm.vo.business.coupon.CouponBaseResponse;
 import com.eghm.vo.business.coupon.CouponDetailResponse;
 import com.eghm.vo.business.coupon.CouponResponse;
 import com.eghm.vo.business.coupon.MemberCouponResponse;
@@ -22,6 +23,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -94,4 +97,12 @@ public class CouponController {
         Page<MemberCouponResponse> byPage = memberCouponService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
+
+    @GetMapping("/grantList")
+    @ApiOperation("优惠券列表(手动发放)")
+    public RespBody<List<CouponBaseResponse>> grantList() {
+        List<CouponBaseResponse> byPage = couponService.getList(2);
+        return RespBody.success(byPage);
+    }
+
 }

@@ -2,7 +2,6 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.coupon.config.CouponAddRequest;
 import com.eghm.dto.business.coupon.config.CouponEditRequest;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
@@ -20,6 +19,7 @@ import com.eghm.service.business.CouponScopeService;
 import com.eghm.service.business.CouponService;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.coupon.CouponBaseResponse;
 import com.eghm.vo.business.coupon.CouponDetailResponse;
 import com.eghm.vo.business.coupon.CouponResponse;
 import com.eghm.vo.business.coupon.CouponVO;
@@ -115,6 +115,11 @@ public class CouponServiceImpl implements CouponService {
             response.setProductIds(productIds);
         }
         return response;
+    }
+
+    @Override
+    public List<CouponBaseResponse> getList(Integer mode) {
+        return couponMapper.getList(mode);
     }
 
     @Override

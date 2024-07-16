@@ -20,6 +20,9 @@ public class LotteryPrizeResponse {
     @ApiModelProperty(value = "奖品类型 0:谢谢参与 1:优惠券 2:积分")
     private PrizeType prizeType;
 
+    @ApiModelProperty("关联商品ID")
+    private Long relationId;
+
     @ApiModelProperty(value = "单次中奖发放数量")
     private Integer num;
 

@@ -50,6 +50,7 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
             LotteryPrize prize = DataUtil.copy(request, LotteryPrize.class);
             prize.setLotteryId(lotteryId);
             prize.setMerchantId(SecurityHolder.getMerchantId());
+            prize.setRelationId(request.getRelationId());
             lotteryPrizeMapper.insert(prize);
             this.setSemaphore(prize);
             prizeMap.put(index++, prize);

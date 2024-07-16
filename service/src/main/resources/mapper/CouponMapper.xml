@@ -103,4 +103,16 @@
             r.instruction
         from coupon r where r.deleted = false and r.stock &gt; 0 and r.state = 1 and r.`mode` = 1 and id = #{id}
     </select>
+
+    <select id="getList" resultType="com.eghm.vo.business.coupon.CouponBaseResponse">
+        select
+            r.id,
+            r.title,
+            r.state
+        from coupon r where r.deleted = false and r.stock &gt; 0 and r.start_time &lt;= now() and r.end_time &gt;= now()
+        <if test="mode != null">
+            and r.mode = #{mode}
+        </if>
+        order by r.id desc
+    </select>
 </mapper>

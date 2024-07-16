@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.dto.business.coupon.config.CouponQueryRequest;
 import com.eghm.model.Coupon;
+import com.eghm.vo.business.coupon.CouponBaseResponse;
 import com.eghm.vo.business.coupon.CouponVO;
 import com.eghm.vo.business.coupon.CouponResponse;
 import org.apache.ibatis.annotations.Param;
@@ -63,4 +64,12 @@ public interface CouponMapper extends BaseMapper<Coupon> {
      * @return 优惠券详情
      */
     CouponVO getDetail(@Param("id") Long id);
+
+    /**
+     *  获取优惠券列表
+     *
+     * @param mode 领取方式 1:页面领取 2: 手动发放 3: 订单支付
+     * @return 优惠券
+     */
+    List<CouponBaseResponse> getList(@Param("mode") Integer mode);
 }

@@ -26,6 +26,9 @@ public class LotteryPrizeRequest {
     @NotNull(message = "奖品类型不能为空")
     private PrizeType prizeType;
 
+    @ApiModelProperty("关联商品ID")
+    private Long relationId;
+
     @ApiModelProperty(value = "单次中奖发放数量", required = true)
     @NotNull(message = "单次中奖数量不能为空")
     private Integer num;
