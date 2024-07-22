@@ -9,8 +9,6 @@
         r.title,
         m.title as restaurantName,
         r.pay_type,
-        r.close_type,
-        r.close_time,
         r.pay_time,
         r.create_time,
         r.nick_name,

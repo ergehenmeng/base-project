@@ -11,8 +11,6 @@
         r.nick_name,
         r.mobile,
         r.num,
-        r.close_time,
-        r.close_type,
         r.state,
         r.pay_time,
         r.pay_amount,

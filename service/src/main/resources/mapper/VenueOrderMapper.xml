@@ -13,8 +13,6 @@
         r.discount_amount,
         r.nick_name,
         r.mobile,
-        r.close_type,
-        r.close_time,
         r.create_time,
         r.pay_time,
         r.state
