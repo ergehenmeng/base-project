@@ -81,6 +81,8 @@
             t.time_phase,
             t.visit_date,
             t.title,
+            r.close_type,
+            r.close_time,
             t.site_title,
             t.venue_type,
             r.cover_url,

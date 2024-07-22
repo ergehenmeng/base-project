@@ -1,10 +1,7 @@
 package com.eghm.vo.business.order.venue;
 
 import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.PayType;
-import com.eghm.enums.ref.RefundState;
-import com.eghm.enums.ref.VenueType;
+import com.eghm.enums.ref.*;
 import com.eghm.vo.business.venue.VenuePhaseVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -71,6 +68,7 @@ public class VenueOrderDetailResponse {
     private String nickName;
 
     @ApiModelProperty("已退款金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer refundAmount;
 
     @ApiModelProperty(value = "联系人手机号")
@@ -97,4 +95,11 @@ public class VenueOrderDetailResponse {
     @ApiModelProperty("订单关闭时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime closeTime;
+
+    @ApiModelProperty("下单时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
+
+    @ApiModelProperty("关闭类型 1:过期自动关闭 2:用户取消 3: 退款完成")
+    private CloseType closeType;
 }
