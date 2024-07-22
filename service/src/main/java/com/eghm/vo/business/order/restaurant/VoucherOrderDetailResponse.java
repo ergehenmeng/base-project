@@ -59,11 +59,11 @@ public class VoucherOrderDetailResponse {
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer discountAmount;
 
-    @ApiModelProperty("总付款金额")
+    @ApiModelProperty("付款金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer payAmount;
 
-    @ApiModelProperty("创建订单时间")
+    @ApiModelProperty("下单时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
