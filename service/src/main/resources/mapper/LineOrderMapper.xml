@@ -114,8 +114,10 @@
             t.order_no,
             r.cover_url,
             r.title,
+            m.title as travelName,
             r.verify_no,
             t.duration,
+            r.trade_no,
             r.pay_type,
             r.refund_type,
             r.refund_state,
@@ -136,6 +138,7 @@
             r.remark
         from `order` r
         inner join line_order t on t.order_no = r.order_no
+        left join travel_agency m on t.travel_agency_id = m.id
         where t.deleted = false and r.order_no = #{orderNo}
         <if test="merchantId != null">
             and r.merchant_id = #{merchantId}

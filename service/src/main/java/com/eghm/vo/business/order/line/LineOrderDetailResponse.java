@@ -32,6 +32,9 @@ public class LineOrderDetailResponse {
     @ApiModelProperty("线路名称")
     private String title;
 
+    @ApiModelProperty("旅行社名称")
+    private String travelName;
+
     @ApiModelProperty("支付方式(支付成功才会有支付方式)")
     private PayType payType;
 
@@ -59,7 +62,10 @@ public class LineOrderDetailResponse {
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer payAmount;
 
-    @ApiModelProperty("创建订单时间")
+    @ApiModelProperty("交易单号")
+    private String tradeNo;
+
+    @ApiModelProperty("下单时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
@@ -81,7 +87,7 @@ public class LineOrderDetailResponse {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate visitDate;
 
-    @ApiModelProperty("几日游 1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10: 10日游 11:11日游 12:十二日游")
+    @ApiModelProperty("几日游 1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10: 10日游 11:11日游 12:十二日游 13:十三日游 14:十四日游 15:十五日游")
     private Integer duration;
 
     @ApiModelProperty("出发省份")
@@ -98,6 +104,6 @@ public class LineOrderDetailResponse {
     @ApiModelProperty("游客信息")
     private List<VisitorVO> visitorList;
 
-    @ApiModelProperty("订单备注信息")
+    @ApiModelProperty("备注信息")
     private String remark;
 }
