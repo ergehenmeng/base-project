@@ -55,32 +55,32 @@ public class LineOrderResponse extends ExcelStyle {
     @ExcelProperty(value = "付款金额", index = 5, converter = CentToYuanConverter.class)
     private Integer payAmount;
 
-    @ApiModelProperty("支付方式(支付成功才会有支付方式)")
-    @ExcelProperty(value = "支付方式", index = 6, converter = EnumExcelConverter.class)
-    private PayType payType;
-
     @ApiModelProperty("购买数量")
-    @ExcelProperty(value = "购买数量", index = 7)
+    @ExcelProperty(value = "购买数量", index = 6)
     private Integer num;
 
     @ApiModelProperty("昵称")
-    @ExcelProperty(value = "购买人姓名", index = 8)
+    @ExcelProperty(value = "购买人姓名", index = 7)
     private String nickName;
 
     @ApiModelProperty("手机号")
-    @ExcelProperty(value = "购买人手机号", index = 9)
+    @ExcelProperty(value = "购买人手机号", index = 8)
     private String mobile;
 
     @ApiModelProperty("下单时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "下单时间", index = 10)
+    @ExcelProperty(value = "下单时间", index = 9)
     private LocalDateTime createTime;
 
     @ApiModelProperty("支付时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "支付时间", index = 11)
+    @ExcelProperty(value = "支付时间", index = 10)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime payTime;
+
+    @ApiModelProperty("支付方式(支付成功才会有支付方式)")
+    @ExcelProperty(value = "支付方式", index = 11, converter = EnumExcelConverter.class)
+    private PayType payType;
 
 }

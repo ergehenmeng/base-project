@@ -11,9 +11,7 @@
             r.num,
             r.mobile,
             r.state,
-            r.close_time,
             r.discount_amount,
-            r.close_type,
             r.pay_amount,
             r.pay_time,
             r.create_time

@@ -42,61 +42,45 @@ public class VoucherOrderResponse extends ExcelStyle {
     @ExcelProperty(value = "餐饮店名称", index = 2)
     private String restaurantName;
 
-    @ApiModelProperty("支付方式(支付成功才会有支付方式)")
-    @ExcelProperty(value = "支付方式", index = 3, converter = EnumExcelConverter.class)
-    private PayType payType;
+    @ApiModelProperty(value = "订单状态")
+    @ExcelProperty(value = "订单状态", index = 3, converter = EnumExcelConverter.class)
+    private OrderState state;
 
     @ApiModelProperty("购买数量")
     @ExcelProperty(value = "购买数量", index = 4)
     private Integer num;
 
-    @ApiModelProperty(value = "订单状态")
-    @ExcelProperty(value = "订单状态", index = 5, converter = EnumExcelConverter.class)
-    private OrderState state;
-
     @ApiModelProperty("优惠金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
-    @ExcelProperty(value = "优惠金额", index = 6, converter = CentToYuanConverter.class)
+    @ExcelProperty(value = "优惠金额", index = 5, converter = CentToYuanConverter.class)
     private Integer discountAmount;
 
     @ApiModelProperty("付款金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
-    @ExcelProperty(value = "付款金额", index = 7, converter = CentToYuanConverter.class)
+    @ExcelProperty(value = "付款金额", index = 6, converter = CentToYuanConverter.class)
     private Integer payAmount;
 
     @ApiModelProperty("购买人昵称")
-    @ExcelProperty(value = "购买人昵称", index = 8)
+    @ExcelProperty(value = "购买人昵称", index = 7)
     private String nickName;
 
     @ApiModelProperty("购买人手机号")
-    @ExcelProperty(value = "购买人手机号", index = 9)
+    @ExcelProperty(value = "购买人手机号", index = 8)
     private String mobile;
 
-    @ApiModelProperty("创建时间")
+    @ApiModelProperty("下单时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "订单创建时间", index = 10)
+    @ExcelProperty(value = "下单时间", index = 9)
     private LocalDateTime createTime;
 
     @ApiModelProperty("支付时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "支付时间", index = 11)
+    @ExcelProperty(value = "支付时间", index = 10)
     private LocalDateTime payTime;
 
-    @ApiModelProperty("完成时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "完成时间", index = 12)
-    private LocalDateTime completeTime;
-
-    @ApiModelProperty("关闭类型 1:过期自动关闭 2:用户取消 3: 退款完成")
-    @ExcelProperty(value = "关闭类型", index = 13, converter = EnumExcelConverter.class)
-    private CloseType closeType;
-
-    @ApiModelProperty("订单关闭时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "关闭时间", index = 14)
-    private LocalDateTime closeTime;
+    @ApiModelProperty("支付方式(支付成功才会有支付方式)")
+    @ExcelProperty(value = "支付方式", index = 11, converter = EnumExcelConverter.class)
+    private PayType payType;
 }
