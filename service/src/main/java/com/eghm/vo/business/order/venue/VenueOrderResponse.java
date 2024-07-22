@@ -5,7 +5,6 @@ import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
-import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.eghm.enums.ref.VenueType;

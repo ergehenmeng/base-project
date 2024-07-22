@@ -6,7 +6,6 @@ import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
-import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.fasterxml.jackson.annotation.JsonFormat;
