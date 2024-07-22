@@ -37,7 +37,7 @@ public class HomestayOrder extends BaseEntity {
     @ApiModelProperty(value = "房型id")
     private Long roomId;
 
-    @ApiModelProperty("确认状态 0:待确认 1:确认有房 2:确认无房 3:自动确认有房")
+    @ApiModelProperty("确认状态 0:待确认 1:确认有房 2:确认无房 3: 自动确认有房 3:自动确认有房")
     private ConfirmState confirmState;
 
     @ApiModelProperty(value = "入住开始时间(含)")

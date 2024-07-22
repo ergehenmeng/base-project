@@ -60,15 +60,15 @@ public class HomestayOrderResponse extends ExcelStyle {
     @ExcelProperty(value = "订单状态", index = 7, converter = EnumExcelConverter.class)
     private OrderState state;
 
-    @ApiModelProperty("付款金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
-    @ExcelProperty(value = "付款金额", index = 8, converter = CentToYuanConverter.class)
-    private Integer payAmount;
-
     @ApiModelProperty("优惠金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
-    @ExcelProperty(value = "优惠金额", index = 9, converter = CentToYuanConverter.class)
+    @ExcelProperty(value = "优惠金额", index = 8, converter = CentToYuanConverter.class)
     private Integer discountAmount;
+
+    @ApiModelProperty("付款金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    @ExcelProperty(value = "付款金额", index = 9, converter = CentToYuanConverter.class)
+    private Integer payAmount;
 
     @ApiModelProperty("添加时间")
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")

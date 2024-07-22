@@ -25,6 +25,9 @@ public class HomestayOrderDetailResponse {
     @ApiModelProperty("订单编号")
     private String orderNo;
 
+    @ApiModelProperty("交易单号")
+    private String tradeNo;
+
     @ApiModelProperty("房型名称")
     private String title;
 
@@ -61,9 +64,16 @@ public class HomestayOrderDetailResponse {
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer payAmount;
 
-    @ApiModelProperty("创建订单时间")
+    @ApiModelProperty("下单时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
+
+    @ApiModelProperty("关闭类型 1:过期自动关闭 2:用户取消 3: 退款完成")
+    private CloseType closeType;
+
+    @ApiModelProperty("关闭时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime closeTime;
 
     @ApiModelProperty("支付时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -75,7 +85,7 @@ public class HomestayOrderDetailResponse {
     @ApiModelProperty("游客列表")
     private List<VisitorVO> visitorList;
 
-    @ApiModelProperty("确认状态 0:待确认 1:确认有房 2:确认无房")
+    @ApiModelProperty("确认状态 0:待确认 1:确认有房 2:确认无房 3: 自动确认有房")
     private ConfirmState confirmState;
 
     @ApiModelProperty("确认无房备注信息")

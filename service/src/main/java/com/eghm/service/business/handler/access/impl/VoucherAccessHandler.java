@@ -57,7 +57,6 @@ public class VoucherAccessHandler extends AbstractAccessHandler {
         stateHandler.fireEvent(ProductType.VOUCHER, context.getFrom(), VoucherEvent.REFUND_FAIL, context);
     }
 
-
     @Override
     public void refundApply(RefundApplyContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
