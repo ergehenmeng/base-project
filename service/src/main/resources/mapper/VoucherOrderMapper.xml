@@ -133,6 +133,8 @@
             r.create_time,
             r.pay_time,
             r.mobile,
+            r.close_time,
+            r.close_type,
             r.nick_name,
             t.valid_days,
             t.effect_date,

@@ -1,6 +1,7 @@
 package com.eghm.vo.business.order.restaurant;
 
 import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.eghm.enums.ref.RefundState;
@@ -85,9 +86,11 @@ public class VoucherOrderDetailResponse {
     private Integer validDays;
 
     @ApiModelProperty(value = "生效时间(包含)")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate effectDate;
 
     @ApiModelProperty(value = "失效日期(包含)")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate expireDate;
 
     @ApiModelProperty(value = "使用开始时间")
@@ -95,6 +98,13 @@ public class VoucherOrderDetailResponse {
 
     @ApiModelProperty(value = "使用截止时间")
     private String expireTime;
+
+    @ApiModelProperty("订单关闭时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime closeTime;
+
+    @ApiModelProperty("关闭类型 1:过期自动关闭 2:用户取消 3: 退款完成")
+    private CloseType closeType;
 
     @ApiModelProperty("订单备注信息")
     private String remark;
