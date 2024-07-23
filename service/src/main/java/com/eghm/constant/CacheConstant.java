@@ -13,6 +13,16 @@ import lombok.NoArgsConstructor;
 public class CacheConstant {
 
     /**
+     * 默认过期数据 30s
+     */
+    public static final long DEFAULT_EXPIRE = 30;
+
+    /**
+     * 互斥等待时间 10s
+     */
+    public static final long MUTEX_EXPIRE = 10;
+
+    /**
      * 占位符(默认)
      */
     public static final String PLACE_HOLDER = "#";

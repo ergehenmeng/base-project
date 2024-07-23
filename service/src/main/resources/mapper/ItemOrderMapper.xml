@@ -149,6 +149,8 @@
             r.pay_type,
             r.state,
             r.pay_amount,
+            r.express_amount as fee,
+            r.amount,
             r.refund_state,
             r.discount_amount,
             r.create_time,

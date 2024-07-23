@@ -26,6 +26,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
+import static com.eghm.constant.CacheConstant.DEFAULT_EXPIRE;
+
 /**
  * 用于缓存数据信息,不涉及数据查询数据缓存
  *
@@ -37,17 +39,12 @@ import java.util.function.Supplier;
 @AllArgsConstructor
 public class CacheServiceImpl implements CacheService {
 
-    /**
-     * 默认过期数据 30s
-     */
-    private static final long DEFAULT_EXPIRE = 30;
-    /**
-     * 互斥等待时间 10s
-     */
-    private static final long MUTEX_EXPIRE = 10;
     private final StringRedisTemplate redisTemplate;
+
     private final SysConfigApi sysConfigApi;
+
     private final JsonService jsonService;
+
     private final RedisLock redisLock;
 
     @Override
@@ -93,7 +90,7 @@ public class CacheServiceImpl implements CacheService {
      * @return 结果信息
      */
     private <T> T doSupplier(String key, Supplier<T> supplier) {
-        T result = redisLock.lock(CacheConstant.MUTEX_LOCK + key, MUTEX_EXPIRE, supplier);
+        T result = redisLock.lock(CacheConstant.MUTEX_LOCK + key, CacheConstant.MUTEX_EXPIRE, supplier);
         if (result != null) {
             this.setValue(key, result, sysConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
         } else {

@@ -16,19 +16,44 @@ import java.util.Arrays;
 public enum ExpressType {
 
     /**
-     * 韵达
+     * 圆通速递
      */
-    YD("yundao", "韵达"),
+    YT("yuantong", "圆通速递"),
 
     /**
-     * 中通
+     * 申通快递
      */
-    ZT("zhongtong", "中通"),
+    ST("shentong", "申通快递"),
 
     /**
-     * 华夏
+     * 极兔速递
      */
-    HX("huanxin", "华夏"),
+    JT("jtexpress", "极兔速递"),
+
+    /**
+     * 中通快递
+     */
+    ZT("zhongtong", "中通快递"),
+
+    /**
+     * 韵达快递
+     */
+    YD("yunda", "韵达快递"),
+
+    /**
+     * 邮政快递
+     */
+    YZ("youzhengguonei", "邮政快递"),
+
+    /**
+     * 顺丰速运
+     */
+    SF("shunfeng", "顺丰速运"),
+
+    /**
+     * 京东物流
+     */
+    JD("jd", "京东物流"),
 
     /**
      * EMS
@@ -36,34 +61,14 @@ public enum ExpressType {
     EMS("ems", "EMS"),
 
     /**
-     * DHL
+     * 德邦快递
      */
-    DHL("dhl", "DHL"),
+    DB("debangkuaidi", "德邦快递"),
 
     /**
-     * TNT
+     * 百世快递
      */
-    TNT("tnt", "TNT"),
-
-    /**
-     * CES
-     */
-    CES("ces", "CES"),
-
-    /**
-     * 菜鸟
-     */
-    CN("cainiao", "菜鸟"),
-
-    /**
-     * 顺丰
-     */
-    SF("sf", "顺丰"),
-
-    /**
-     * 圆通
-     */
-    YTO("yto", "圆通"),
+    BS("huitongkuaidi", "百世快递"),
 
     /**
      * 其他

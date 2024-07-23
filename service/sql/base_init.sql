@@ -1,7 +1,7 @@
 SET FOREIGN_KEY_CHECKS=0;
 
 INSERT INTO `sys_area` VALUES ('110000', '北京', '0', null, 'B', '1');
-INSERT INTO `sys_area` VALUES ('110100', '北京市', '110000', null, 'S', '2');
+INSERT INTO `sys_area` VALUES ('110100', '直辖市', '110000', null, 'S', '2');
 INSERT INTO `sys_area` VALUES ('110101', '东城区', '110100', '100000', 'D', '3');
 INSERT INTO `sys_area` VALUES ('110102', '西城区', '110100', '100000', 'X', '3');
 INSERT INTO `sys_area` VALUES ('110103', '崇文区', '110100', '100000', 'C', '3');
@@ -21,7 +21,7 @@ INSERT INTO `sys_area` VALUES ('110117', '平谷区', '110100', '101200', 'P', '
 INSERT INTO `sys_area` VALUES ('110228', '密云县', '110100', '101500', 'M', '3');
 INSERT INTO `sys_area` VALUES ('110229', '延庆县', '110100', '102100', 'Y', '3');
 INSERT INTO `sys_area` VALUES ('120000', '天津', '0', null, 'T', '1');
-INSERT INTO `sys_area` VALUES ('120100', '天津市', '120000', null, 'T', '2');
+INSERT INTO `sys_area` VALUES ('120100', '直辖市', '120000', null, 'T', '2');
 INSERT INTO `sys_area` VALUES ('120101', '和平区', '120100', '300000', 'H', '3');
 INSERT INTO `sys_area` VALUES ('120102', '河东区', '120100', '300000', 'H', '3');
 INSERT INTO `sys_area` VALUES ('120103', '河西区', '120100', '300000', 'H', '3');
@@ -830,7 +830,7 @@ INSERT INTO `sys_area` VALUES ('232723', '漠河县', '232700', '165300', 'M', '
 INSERT INTO `sys_area` VALUES ('232724', '加格达奇区', '232700', '165000', 'J', '3');
 INSERT INTO `sys_area` VALUES ('250101', '高新区', '370100', '250000', 'G', '3');
 INSERT INTO `sys_area` VALUES ('310000', '上海', '0', null, 'S', '1');
-INSERT INTO `sys_area` VALUES ('310100', '上海市', '310000', null, 'S', '2');
+INSERT INTO `sys_area` VALUES ('310100', '直辖市', '310000', null, 'S', '2');
 INSERT INTO `sys_area` VALUES ('310101', '黄浦区', '310100', '200001', 'H', '3');
 INSERT INTO `sys_area` VALUES ('310103', '卢湾区', '310100', '200020', 'L', '3');
 INSERT INTO `sys_area` VALUES ('310104', '徐汇区', '310100', '200030', 'X', '3');
@@ -2341,7 +2341,7 @@ INSERT INTO `sys_area` VALUES ('469034', '陵水黎族自治县', '469000', '572
 INSERT INTO `sys_area` VALUES ('469035', '保亭黎族苗族自治县', '469000', '572300', 'B', '3');
 INSERT INTO `sys_area` VALUES ('469036', '琼中黎族苗族自治县', '469000', '572900', 'Q', '3');
 INSERT INTO `sys_area` VALUES ('500000', '重庆', '0', null, 'Z', '1');
-INSERT INTO `sys_area` VALUES ('500100', '重庆市', '500000', null, 'S', '2');
+INSERT INTO `sys_area` VALUES ('500100', '直辖市', '500000', null, 'S', '2');
 INSERT INTO `sys_area` VALUES ('500101', '万州区', '500100', '404100', 'W', '3');
 INSERT INTO `sys_area` VALUES ('500102', '涪陵区', '500100', '408000', 'F', '3');
 INSERT INTO `sys_area` VALUES ('500103', '渝中区', '500100', '400000', 'Y', '3');

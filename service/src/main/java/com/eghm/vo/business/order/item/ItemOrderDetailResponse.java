@@ -42,15 +42,23 @@ public class ItemOrderDetailResponse {
     @ApiModelProperty("当前订单所处的退款状态 1:退款申请中 2:退款中 3:退款拒绝 4:退款成功 5:退款失败(该状态和退款中在C端用户看来都是退款中) 6:线下退款(该状态与退款成功在C端用户看来是一样的)")
     private RefundState refundState;
 
+    @ApiModelProperty(value = "订单金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    private Integer amount;
+
+    @ApiModelProperty(value = "运费")
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    private Integer fee;
+
     @ApiModelProperty(value = "优惠金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer discountAmount;
 
-    @ApiModelProperty("总付款金额")
+    @ApiModelProperty("付款金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer payAmount;
 
-    @ApiModelProperty("创建订单时间")
+    @ApiModelProperty("下单时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
