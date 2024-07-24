@@ -24,7 +24,7 @@ public class OrderAdjustRequest extends ActionRecord {
 
     @ApiModelProperty(value = "商品订单id")
     @NotNull(message = "请选择要改价的商品")
-    private Long orderId;
+    private Long id;
 
     @ApiModelProperty(value = "新价格")
     @JsonDeserialize(using = YuanToCentDecoder.class)

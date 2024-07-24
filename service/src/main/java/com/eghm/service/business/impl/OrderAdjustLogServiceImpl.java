@@ -53,7 +53,7 @@ public class OrderAdjustLogServiceImpl extends ServiceImpl<OrderAdjustLogMapper,
         List<ItemOrder> orderList = itemOrderService.getByOrderNo(request.getOrderNo());
         List<OrderAdjustLog> adjustList = Lists.newArrayListWithExpectedSize(8);
         for (ItemOrder itemOrder : orderList) {
-            if (itemOrder.getId().equals(request.getOrderId())) {
+            if (itemOrder.getId().equals(request.getId())) {
                 OrderAdjustLog adjustLog = new OrderAdjustLog();
                 adjustLog.setOrderNo(request.getOrderNo());
                 adjustLog.setUserId(request.getUserId());
