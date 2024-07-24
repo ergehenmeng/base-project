@@ -112,7 +112,8 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
             order.setNickName(context.getVisitorList().get(0).getMemberName());
         }
         order.setPrice(ticket.getSalePrice());
-        order.setPayAmount(context.getNum() * ticket.getSalePrice());
+        order.setAmount(context.getNum() * order.getPrice());
+        order.setPayAmount(context.getNum() * order.getPrice());
         order.setMultiple(false);
         order.setRefundType(RefundType.DIRECT_REFUND);
         order.setCreateDate(LocalDate.now());

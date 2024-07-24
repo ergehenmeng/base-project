@@ -197,6 +197,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         order.setNum(this.getNum(packageList));
         order.setMemberId(context.getMemberId());
         Integer itemAmount = this.getItemAmount(packageList, context);
+        order.setAmount(itemAmount);
         order.setBookingNo(context.getBookingNo());
         order.setBookingId(context.getBookingId());
         order.setCreateDate(LocalDate.now());

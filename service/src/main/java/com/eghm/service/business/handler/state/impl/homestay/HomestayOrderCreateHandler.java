@@ -122,6 +122,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         int salePrice = payload.getConfigList().stream().mapToInt(HomestayRoomConfig::getSalePrice).sum();
         order.setPrice(salePrice);
         order.setPayAmount(order.getNum() * order.getPrice());
+        order.setAmount(order.getNum() * order.getPrice());
         order.setMultiple(false);
         order.setCreateDate(LocalDate.now());
         order.setCreateTime(LocalDateTime.now());

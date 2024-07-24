@@ -85,6 +85,9 @@ public class Order extends BaseEntity {
     @ApiModelProperty(value = "是否已结算")
     private Boolean settleState;
 
+    @ApiModelProperty(value = "订单金额=单价*数量")
+    private Integer amount;
+
     @ApiModelProperty(value = "总优惠金额")
     private Integer discountAmount;
 
