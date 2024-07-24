@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.dto.business.order.item.OrderExpressRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderExpressMapper;
 import com.eghm.mapper.ItemOrderExpressMapper;
 import com.eghm.model.OrderExpress;
@@ -55,13 +57,19 @@ public class OrderExpressServiceImpl implements OrderExpressService {
 
     @Override
     public void update(OrderExpressRequest request) {
+        OrderExpress express = orderExpressMapper.selectById(request.getId());
+        if (express == null) {
+            log.error("物流信息不存在 [{}]", request.getId());
+            throw new BusinessException(ErrorCode.ORDER_EXPRESS_NULL);
+        }
         LambdaUpdateWrapper<OrderExpress> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(OrderExpress::getId, request.getId());
         // 尽量防止更新的订单不是自己商品下的
         wrapper.eq(OrderExpress::getOrderNo, request.getOrderNo());
         wrapper.set(OrderExpress::getExpressNo, request.getExpressNo());
         wrapper.set(OrderExpress::getExpressCode, request.getExpressCode());
-        wrapper.set(OrderExpress::getContent, null);
+        // 如果快递单号有更新,则清空物流信息
+        wrapper.set(!express.getExpressNo().equals(request.getExpressNo()), OrderExpress::getContent, null);
         orderExpressMapper.update(null, wrapper);
     }
 
@@ -95,7 +103,7 @@ public class OrderExpressServiceImpl implements OrderExpressService {
             if (CollUtil.isNotEmpty(vos)) {
                 FirstExpressVO vo = new FirstExpressVO();
                 vo.setId(express.getId());
-                vo.setContext(vos.get(0).getContext());
+                vo.setContent(vos.get(0).getContent());
                 voList.add(vo);
             }
         }

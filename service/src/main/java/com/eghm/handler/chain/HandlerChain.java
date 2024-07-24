@@ -4,6 +4,7 @@ package com.eghm.handler.chain;
 import com.eghm.handler.chain.annotation.HandlerEnum;
 import com.eghm.handler.chain.annotation.HandlerMark;
 import com.eghm.utils.SpringContextUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -19,6 +20,7 @@ import java.util.Map;
  * @author 二哥很猛
  * @since 2018/12/19 17:47
  */
+@Slf4j
 @Service("handlerChain")
 public class HandlerChain implements CommandLineRunner {
 
@@ -48,6 +50,7 @@ public class HandlerChain implements CommandLineRunner {
         for (Handler value : beans.values()) {
             HandlerMark annotation = AnnotationUtils.findAnnotation(value.getClass(), HandlerMark.class);
             if (annotation == null) {
+                log.warn("[{}]实现了Handler接口, 但没有@HandlerMark注解", value.getClass().getName());
                 continue;
             }
             handlerMap.computeIfAbsent(annotation.value(), k -> new ArrayList<>(8)).add(value);

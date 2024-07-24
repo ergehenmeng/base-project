@@ -1469,6 +1469,11 @@ public enum ErrorCode {
     PRODUCT_SNAPSHOT_NULL(2732, "订单信息未查询到"),
 
     /**
+     * 物流信息未查询到
+     */
+    ORDER_EXPRESS_NULL(2733, "物流信息未查询到"),
+
+    /**
      * 订单评价重复啦~
      */
     EVALUATION_REDO(2735, "订单评价重复啦~"),

@@ -17,5 +17,5 @@ public class ExpressVO {
     private String time;
 
     @ApiModelProperty("节点内容")
-    private String context;
+    private String content;
 }
