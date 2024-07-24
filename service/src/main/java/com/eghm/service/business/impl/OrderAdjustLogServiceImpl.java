@@ -1,7 +1,6 @@
 package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.eghm.dto.business.order.adjust.ItemAdjustRequest;
 import com.eghm.dto.business.order.adjust.OrderAdjustRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.OrderState;
@@ -54,18 +53,16 @@ public class OrderAdjustLogServiceImpl extends ServiceImpl<OrderAdjustLogMapper,
         List<ItemOrder> orderList = itemOrderService.getByOrderNo(request.getOrderNo());
         List<OrderAdjustLog> adjustList = Lists.newArrayListWithExpectedSize(8);
         for (ItemOrder itemOrder : orderList) {
-            for (ItemAdjustRequest adjustRequest : request.getPriceList()) {
-                if (itemOrder.getId().equals(adjustRequest.getOrderId())) {
-                    OrderAdjustLog adjustLog = new OrderAdjustLog();
-                    adjustLog.setOrderNo(request.getOrderNo());
-                    adjustLog.setUserId(request.getUserId());
-                    adjustLog.setUserName(request.getUserName());
-                    adjustLog.setSourcePrice(itemOrder.getSalePrice());
-                    adjustLog.setTargetPrice(adjustRequest.getPrice());
-                    adjustLog.setProductName(itemOrder.getTitle() + " " + itemOrder.getSkuTitle());
-                    itemOrder.setSalePrice(adjustRequest.getPrice());
-                    adjustList.add(adjustLog);
-                }
+            if (itemOrder.getId().equals(request.getOrderId())) {
+                OrderAdjustLog adjustLog = new OrderAdjustLog();
+                adjustLog.setOrderNo(request.getOrderNo());
+                adjustLog.setUserId(request.getUserId());
+                adjustLog.setUserName(request.getUserName());
+                adjustLog.setSourcePrice(itemOrder.getSalePrice());
+                adjustLog.setTargetPrice(request.getPrice());
+                adjustLog.setProductName(itemOrder.getTitle() + " " + itemOrder.getSkuTitle());
+                itemOrder.setSalePrice(request.getPrice());
+                adjustList.add(adjustLog);
             }
         }
         int totalPrice = orderList.stream().mapToInt(value -> value.getNum() * value.getSalePrice()).sum();
