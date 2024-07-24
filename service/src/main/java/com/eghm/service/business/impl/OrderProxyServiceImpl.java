@@ -2,13 +2,18 @@ package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.common.AlarmService;
+import com.eghm.common.SmsService;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.homestay.HomestayOrderConfirmRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.SmsType;
 import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.enums.event.impl.ItemEvent;
-import com.eghm.enums.ref.*;
+import com.eghm.enums.ref.ConfirmState;
+import com.eghm.enums.ref.ItemRefundState;
+import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.HomestayOrderMapper;
 import com.eghm.model.*;
@@ -16,8 +21,6 @@ import com.eghm.service.business.*;
 import com.eghm.service.business.handler.access.AccessHandler;
 import com.eghm.service.business.handler.context.OrderCancelContext;
 import com.eghm.service.business.handler.context.RefundApplyContext;
-import com.eghm.common.SmsService;
-import com.eghm.common.AlarmService;
 import com.eghm.state.machine.StateHandler;
 import com.eghm.vo.business.group.GroupOrderCancelVO;
 import lombok.AllArgsConstructor;
@@ -57,8 +60,6 @@ public class OrderProxyServiceImpl implements OrderProxyService {
     private final GroupBookingService groupBookingService;
 
     private final AlarmService alarmService;
-
-    private final OrderRefundLogService orderRefundLogService;
 
     private HomestayOrder getByOrderNo(String orderNo) {
         LambdaQueryWrapper<HomestayOrder> wrapper = Wrappers.lambdaQuery();
