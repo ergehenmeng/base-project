@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.config.ConfigEditRequest;
 import com.eghm.dto.config.ConfigQueryRequest;
 import com.eghm.model.SysConfig;
+import com.eghm.vo.sys.SysConfigResponse;
 
 
 /**
@@ -19,7 +20,7 @@ public interface SysConfigService {
      * @param request 查询条件
      * @return 分页结果集
      */
-    Page<SysConfig> getByPage(ConfigQueryRequest request);
+    Page<SysConfigResponse> getByPage(ConfigQueryRequest request);
 
     /**
      * 更新系统参数

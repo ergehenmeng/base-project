@@ -1,8 +1,5 @@
-package com.eghm.model;
+package com.eghm.vo.sys;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,13 +7,12 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * 系统参数表
- *
  * @author 二哥很猛
+ * @since 2024/7/25
  */
+
 @Data
-@TableName("sys_config")
-public class SysConfig {
+public class SysConfigResponse {
 
     @ApiModelProperty("主键")
     private Long id;
@@ -43,5 +39,4 @@ public class SysConfig {
     @ApiModelProperty("更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
-
 }

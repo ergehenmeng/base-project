@@ -1,9 +1,6 @@
 package com.eghm.service.sys.impl;
 
 
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.config.ConfigEditRequest;
 import com.eghm.dto.config.ConfigQueryRequest;
@@ -13,6 +10,7 @@ import com.eghm.mapper.SysConfigMapper;
 import com.eghm.model.SysConfig;
 import com.eghm.service.sys.SysConfigService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.sys.SysConfigResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +27,8 @@ public class SysConfigServiceImpl implements SysConfigService {
     private final SysConfigMapper sysConfigMapper;
 
     @Override
-    public Page<SysConfig> getByPage(ConfigQueryRequest request) {
-        LambdaQueryWrapper<SysConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(request.getLocked() != null, SysConfig::getLocked, request.getLocked());
-        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper -> queryWrapper.like(SysConfig::getTitle, request.getQueryName()).or().like(SysConfig::getNid, request.getQueryName()).or().like(SysConfig::getRemark, request.getQueryName()));
-        return sysConfigMapper.selectPage(request.createPage(), wrapper);
+    public Page<SysConfigResponse> getByPage(ConfigQueryRequest request) {
+        return sysConfigMapper.getByPage(request.createPage(), request);
     }
 
     @Override

@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.SysConfigMapper">
+
+    <select id="getByPage" resultType="com.eghm.vo.sys.SysConfigResponse" parameterType="com.eghm.dto.config.ConfigQueryRequest">
+        select
+            id,
+            title,
+            content,
+            nid,
+            remark,
+            locked,
+            create_time,
+            update_time
+        from sys_config
+        <where>
+            <if test="param.locked != null">
+                and locked = #{request.locked}
+            </if>
+            <if test="param.queryName != null and param.queryName != ''">
+                and (title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%') or
+                nid like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%') or
+                remark like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%') )
+            </if>
+        </where>
+        order by id desc
+    </select>
 </mapper>

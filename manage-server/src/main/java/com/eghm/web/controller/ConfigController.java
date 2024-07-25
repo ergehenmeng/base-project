@@ -5,8 +5,8 @@ import com.eghm.dto.config.ConfigEditRequest;
 import com.eghm.dto.config.ConfigQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.model.SysConfig;
 import com.eghm.service.sys.SysConfigService;
+import com.eghm.vo.sys.SysConfigResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -29,8 +29,8 @@ public class ConfigController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<SysConfig>> listPage(ConfigQueryRequest request) {
-        Page<SysConfig> listByPage = sysConfigService.getByPage(request);
+    public RespBody<PageData<SysConfigResponse>> listPage(ConfigQueryRequest request) {
+        Page<SysConfigResponse> listByPage = sysConfigService.getByPage(request);
         return RespBody.success(PageData.toPage(listByPage));
     }
 
