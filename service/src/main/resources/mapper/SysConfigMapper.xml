@@ -10,7 +10,6 @@
             nid,
             remark,
             locked,
-            create_time,
             update_time
         from sys_config
         <where>

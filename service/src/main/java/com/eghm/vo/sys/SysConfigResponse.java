@@ -32,10 +32,6 @@ public class SysConfigResponse {
     @ApiModelProperty("锁定状态(禁止编辑) 0:未锁定,1:锁定")
     private Boolean locked;
 
-    @ApiModelProperty("添加时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
-
     @ApiModelProperty("更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
