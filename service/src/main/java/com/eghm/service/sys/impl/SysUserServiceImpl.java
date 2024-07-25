@@ -244,6 +244,7 @@ public class SysUserServiceImpl implements SysUserService {
         response.setPermList(buttonList);
         response.setUserType(user.getUserType());
         response.setMenuList(leftMenu);
+        response.setInit(user.getInitPwd().equals(user.getPwd()));
         cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
         return response;
     }

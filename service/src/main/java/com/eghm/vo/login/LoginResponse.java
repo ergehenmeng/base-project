@@ -25,6 +25,9 @@ public class LoginResponse {
     @ApiModelProperty("昵称")
     private String nickName;
 
+    @ApiModelProperty("是否初始密码")
+    private Boolean init;
+
     @ApiModelProperty("按钮权限列表")
     private List<String> permList;
 
