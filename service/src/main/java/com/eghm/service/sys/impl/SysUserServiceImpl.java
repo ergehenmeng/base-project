@@ -211,7 +211,7 @@ public class SysUserServiceImpl implements SysUserService {
     public LoginResponse login(String userName, String password) {
         SysUser user = this.getByMobile(userName);
         if (user == null) {
-            throw new BusinessException(ErrorCode.USER_NOT_FOUND);
+            throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
         if (user.getState() == 0) {
             throw new BusinessException(ErrorCode.USER_LOCKED_ERROR);
