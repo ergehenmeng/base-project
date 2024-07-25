@@ -62,7 +62,11 @@ public class SysRoleServiceImpl implements SysRoleService {
         this.redoRole(request.getRoleName(), request.getId());
         LambdaUpdateWrapper<SysRole> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(SysRole::getId, request.getId());
-        wrapper.eq(SysRole::getMerchantId, request.getMerchantId());
+        if (request.getMerchantId() == null) {
+            wrapper.isNull(SysRole::getMerchantId);
+        } else {
+            wrapper.eq(SysRole::getMerchantId, request.getMerchantId());
+        }
         wrapper.set(SysRole::getRoleName, request.getRoleName());
         wrapper.set(SysRole::getRemark, request.getRemark());
         sysRoleMapper.update(null, wrapper);
