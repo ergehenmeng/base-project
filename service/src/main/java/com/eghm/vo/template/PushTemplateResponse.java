@@ -1,4 +1,4 @@
-package com.eghm.vo.push;
+package com.eghm.vo.template;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

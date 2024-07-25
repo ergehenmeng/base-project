@@ -1,9 +1,14 @@
-package com.eghm.model;
+package com.eghm.vo.banner;
 
-import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.handler.mysql.LikeTypeHandler;
+import com.eghm.model.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,9 +21,10 @@ import java.time.LocalDateTime;
  * @author 二哥很猛
  */
 @Data
-@TableName("banner")
-@EqualsAndHashCode(callSuper = true)
-public class Banner extends BaseEntity {
+public class BannerResponse {
+
+    @ApiModelProperty("id主键")
+    private Long id;
 
     @ApiModelProperty("标题")
     private String title;
@@ -54,5 +60,13 @@ public class Banner extends BaseEntity {
 
     @ApiModelProperty("备注信息")
     private String remark;
+
+    @ApiModelProperty("添加时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
+
+    @ApiModelProperty("更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
 
 }

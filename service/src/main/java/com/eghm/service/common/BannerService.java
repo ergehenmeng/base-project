@@ -5,6 +5,7 @@ import com.eghm.dto.banner.BannerAddRequest;
 import com.eghm.dto.banner.BannerEditRequest;
 import com.eghm.dto.banner.BannerQueryRequest;
 import com.eghm.model.Banner;
+import com.eghm.vo.banner.BannerResponse;
 
 /**
  * @author 二哥很猛
@@ -18,7 +19,7 @@ public interface BannerService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<Banner> getByPage(BannerQueryRequest request);
+    Page<BannerResponse> getByPage(BannerQueryRequest request);
 
     /**
      * 主键查询

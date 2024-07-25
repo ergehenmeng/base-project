@@ -1,6 +1,5 @@
-package com.eghm.model;
+package com.eghm.vo.task;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -8,13 +7,12 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * 定时任务
- *
  * @author 二哥很猛
+ * @since 2024/7/25
  */
+
 @Data
-@TableName("sys_task")
-public class SysTask {
+public class SysTaskResponse {
 
     @ApiModelProperty("主键")
     private Long id;
@@ -49,5 +47,4 @@ public class SysTask {
 
     @ApiModelProperty("备注信息")
     private String remark;
-
 }

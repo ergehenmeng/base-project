@@ -7,6 +7,7 @@ import com.eghm.dto.help.HelpQueryDTO;
 import com.eghm.dto.help.HelpQueryRequest;
 import com.eghm.model.HelpCenter;
 import com.eghm.vo.help.HelpCenterVO;
+import com.eghm.vo.help.HelpResponse;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface HelpCenterService {
      * @param request 前台参数
      * @return 分页列表
      */
-    Page<HelpCenter> getByPage(HelpQueryRequest request);
+    Page<HelpResponse> getByPage(HelpQueryRequest request);
 
     /**
      * 添加帮助说明

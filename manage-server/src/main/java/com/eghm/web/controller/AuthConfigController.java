@@ -7,8 +7,8 @@ import com.eghm.dto.auth.AuthConfigEditRequest;
 import com.eghm.dto.auth.AuthConfigQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.model.AuthConfig;
 import com.eghm.service.common.AuthConfigService;
+import com.eghm.vo.auth.AuthConfigResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -30,8 +30,8 @@ public class AuthConfigController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<AuthConfig>> listPage(AuthConfigQueryRequest request) {
-        Page<AuthConfig> byPage = authConfigService.getByPage(request);
+    public RespBody<PageData<AuthConfigResponse>> listPage(AuthConfigQueryRequest request) {
+        Page<AuthConfigResponse> byPage = authConfigService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 

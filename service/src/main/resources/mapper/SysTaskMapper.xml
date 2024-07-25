@@ -1,4 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.SysTaskMapper">
+
+    <select id="getByPage" resultType="com.eghm.vo.task.SysTaskResponse" parameterType="com.eghm.dto.task.TaskQueryRequest">
+        select
+            id,
+            title,
+            bean_name,
+            method_name,,
+            cron_expression,
+            args,
+            state,
+            lock_time,
+            alarm_email,
+            remark,
+            update_time
+        from sys_task
+        <where>
+            <if test="param.queryName != null and param.queryName != ''">
+                and (
+                title like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%') or
+                bean_name like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%') or
+                method_name like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%')
+                )
+            </if>
+            <if test="param.state != null">
+                state = #{param.state}
+            </if>
+        </where>
+        order by id desc
+    </select>
 </mapper>

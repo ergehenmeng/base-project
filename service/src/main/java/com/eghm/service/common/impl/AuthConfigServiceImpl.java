@@ -1,7 +1,6 @@
 package com.eghm.service.common.impl;
 
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -18,6 +17,7 @@ import com.eghm.model.AuthConfig;
 import com.eghm.service.common.AuthConfigService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.StringUtil;
+import com.eghm.vo.auth.AuthConfigResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -36,12 +36,8 @@ public class AuthConfigServiceImpl implements AuthConfigService {
     private final AuthConfigMapper authConfigMapper;
 
     @Override
-    public Page<AuthConfig> getByPage(AuthConfigQueryRequest request) {
-        LambdaQueryWrapper<AuthConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), AuthConfig::getTitle, request.getQueryName());
-        wrapper.eq(request.getSignType() != null, AuthConfig::getSignType, request.getSignType());
-        wrapper.orderByDesc(AuthConfig::getId);
-        return authConfigMapper.selectPage(request.createPage(), wrapper);
+    public Page<AuthConfigResponse> getByPage(AuthConfigQueryRequest request) {
+        return authConfigMapper.getByPage(request.createPage(), request);
     }
 
     @Override

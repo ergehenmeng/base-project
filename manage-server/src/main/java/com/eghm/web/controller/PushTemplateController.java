@@ -6,7 +6,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.push.PushTemplateEditRequest;
 import com.eghm.dto.push.PushTemplateQueryRequest;
 import com.eghm.service.common.PushTemplateService;
-import com.eghm.vo.push.PushTemplateResponse;
+import com.eghm.vo.template.PushTemplateResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

@@ -1,11 +1,12 @@
 package com.eghm.service.common.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.AlarmService;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.version.VersionAddRequest;
@@ -17,10 +18,9 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.AppVersionMapper;
 import com.eghm.model.AppVersion;
 import com.eghm.service.common.AppVersionService;
-import com.eghm.common.AlarmService;
-import com.eghm.common.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.VersionUtil;
+import com.eghm.vo.version.AppVersionResponse;
 import com.eghm.vo.version.AppVersionVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,13 +44,8 @@ public class AppVersionServiceImpl implements AppVersionService {
     private final AlarmService alarmService;
 
     @Override
-    public Page<AppVersion> getByPage(VersionQueryRequest request) {
-        LambdaQueryWrapper<AppVersion> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), AppVersion::getRemark, request.getQueryName());
-        wrapper.eq(StrUtil.isNotBlank(request.getChannel()), AppVersion::getChannel, request.getChannel());
-        wrapper.eq(request.getState() != null, AppVersion::getState, request.getState());
-        wrapper.orderByDesc(AppVersion::getId);
-        return appVersionMapper.selectPage(request.createPage(), wrapper);
+    public Page<AppVersionResponse> getByPage(VersionQueryRequest request) {
+        return appVersionMapper.getByPage(request.createPage(), request);
     }
 
     @Override

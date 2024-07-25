@@ -8,8 +8,8 @@ import com.eghm.dto.poi.StateRequest;
 import com.eghm.dto.version.VersionAddRequest;
 import com.eghm.dto.version.VersionEditRequest;
 import com.eghm.dto.version.VersionQueryRequest;
-import com.eghm.model.AppVersion;
 import com.eghm.service.common.AppVersionService;
+import com.eghm.vo.version.AppVersionResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -31,8 +31,8 @@ public class AppVersionController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<AppVersion>> listPage(VersionQueryRequest request) {
-        Page<AppVersion> byPage = appVersionService.getByPage(request);
+    public RespBody<PageData<AppVersionResponse>> listPage(VersionQueryRequest request) {
+        Page<AppVersionResponse> byPage = appVersionService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 

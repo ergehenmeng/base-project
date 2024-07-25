@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.sms.SmsTemplateEditRequest;
 import com.eghm.model.SmsTemplate;
+import com.eghm.vo.template.SmsTemplateResponse;
 
 /**
  * @author 二哥很猛
@@ -17,7 +18,7 @@ public interface SmsTemplateService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<SmsTemplate> getByPage(PagingQuery request);
+    Page<SmsTemplateResponse> getByPage(PagingQuery request);
 
     /**
      * 获取短信发送模板

@@ -5,8 +5,8 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sms.SmsTemplateEditRequest;
-import com.eghm.model.SmsTemplate;
 import com.eghm.service.sys.SmsTemplateService;
+import com.eghm.vo.template.SmsTemplateResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -30,8 +30,8 @@ public class SmsTemplateController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<SmsTemplate>> listPage(PagingQuery request) {
-        Page<SmsTemplate> byPage = smsTemplateService.getByPage(request);
+    public RespBody<PageData<SmsTemplateResponse>> listPage(PagingQuery request) {
+        Page<SmsTemplateResponse> byPage = smsTemplateService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 

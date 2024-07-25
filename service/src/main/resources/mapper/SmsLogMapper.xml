@@ -2,4 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.SmsLogMapper">
 
+    <select id="getByPage" resultType="com.eghm.vo.log.SmsLogResponse" parameterType="com.eghm.dto.sms.SmsLogQueryRequest">
+        select
+            id,
+            mobile,
+            content,
+            sms_type,
+            state,
+            create_time
+        from sms_log
+        <where>
+            <if test="param.queryName != null and param.queryName != ''">
+                and mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            </if>
+            <if test="param.smsType != null">
+                and sms_type = #{param.smsType}
+            </if>
+            <if test="param.state != null">
+                and state = #{param.state}
+            </if>
+            <if test="param.startDate != null">
+                and create_time &gt;= #{param.startDate}
+            </if>
+            <if test="param.endDate != null">
+                and create_time &lt;= #{param.endDate}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
 </mapper>

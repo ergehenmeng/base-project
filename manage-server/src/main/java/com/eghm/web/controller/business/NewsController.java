@@ -10,6 +10,7 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.News;
 import com.eghm.service.business.NewsService;
+import com.eghm.vo.business.news.NewsResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -32,8 +33,8 @@ public class NewsController {
 
     @ApiOperation("列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<News>> getByPage(@Validated NewsQueryRequest request) {
-        Page<News> scenicPage = newsService.getByPage(request);
+    public RespBody<PageData<NewsResponse>> getByPage(@Validated NewsQueryRequest request) {
+        Page<NewsResponse> scenicPage = newsService.getByPage(request);
         return RespBody.success(PageData.toPage(scenicPage));
     }
 

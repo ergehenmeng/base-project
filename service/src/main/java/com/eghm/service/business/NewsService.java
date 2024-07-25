@@ -7,6 +7,7 @@ import com.eghm.dto.business.news.NewsQueryRequest;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.model.News;
 import com.eghm.vo.business.news.NewsDetailVO;
+import com.eghm.vo.business.news.NewsResponse;
 import com.eghm.vo.business.news.NewsVO;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public interface NewsService {
      * @param request 查询条件
      * @return 分页列表
      */
-    Page<News> getByPage(NewsQueryRequest request);
+    Page<NewsResponse> getByPage(NewsQueryRequest request);
 
     /**
      * 新增资讯

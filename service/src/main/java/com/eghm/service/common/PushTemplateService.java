@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.push.PushTemplateEditRequest;
 import com.eghm.dto.push.PushTemplateQueryRequest;
 import com.eghm.model.PushTemplate;
-import com.eghm.vo.push.PushTemplateResponse;
+import com.eghm.vo.template.PushTemplateResponse;
 
 /**
  * @author 二哥很猛

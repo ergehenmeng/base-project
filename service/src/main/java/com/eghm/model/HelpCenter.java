@@ -1,9 +1,6 @@
 package com.eghm.model;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.handler.mysql.LikeTypeHandler;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,11 +20,9 @@ public class HelpCenter extends BaseEntity {
     private Integer state;
 
     @ApiModelProperty("问")
-    @TableField(typeHandler = LikeTypeHandler.class)
     private String ask;
 
     @ApiModelProperty("答")
-    @JsonIgnore
     private String answer;
 
     @ApiModelProperty("排序(小<->大)")

@@ -1,13 +1,11 @@
 package com.eghm.service.sys.impl;
 
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.sms.SmsLogQueryRequest;
 import com.eghm.mapper.SmsLogMapper;
 import com.eghm.model.SmsLog;
 import com.eghm.service.sys.SmsLogService;
+import com.eghm.vo.log.SmsLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -25,14 +23,8 @@ public class SmsLogServiceImpl implements SmsLogService {
     private final SmsLogMapper smsLogMapper;
 
     @Override
-    public Page<SmsLog> getByPage(SmsLogQueryRequest request) {
-        LambdaQueryWrapper<SmsLog> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SmsLog::getMobile, request.getQueryName());
-        wrapper.eq(request.getSmsType() != null, SmsLog::getSmsType, request.getSmsType());
-        wrapper.eq(request.getState() != null, SmsLog::getState, request.getState());
-        wrapper.ge(request.getStartDate() != null, SmsLog::getCreateTime, request.getStartDate());
-        wrapper.lt(request.getEndDate() != null, SmsLog::getCreateTime, request.getEndDate());
-        return smsLogMapper.selectPage(request.createPage(), wrapper);
+    public Page<SmsLogResponse> getByPage(SmsLogQueryRequest request) {
+        return smsLogMapper.getByPage(request.createPage(), request);
     }
 
     @Async

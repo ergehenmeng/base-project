@@ -2,6 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.BannerMapper">
 
+    <select id="getByPage" resultType="com.eghm.vo.banner.BannerResponse" parameterType="com.eghm.dto.banner.BannerQueryRequest">
+        select
+            id,
+            banner_type,
+            click,
+            client_type,
+            create_time,
+            end_time,
+            img_url,
+            jump_url,
+            remark,
+            sort,
+            start_time,
+            state,
+            title,
+            update_time
+        from banner
+        where deleted = false
+        <if test="param.bannerType != null">
+            and banner_type = #{param.bannerType}
+        </if>
+        <if test="param.clientType != null">
+            and client_type = #{param.clientType}
+        </if>
+        <if test="param.middleTime != null">
+            and start_time &lt;= #{param.middleTime} and end_time &gt;= #{param.middleTime}
+        </if>
+        <if test="param.queryName != null and param.queryName != ''">
+            and title like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%')
+        </if>
+        order by id desc
+    </select>
+
     <select id="getBannerList" resultType="com.eghm.vo.banner.BannerVO" >
         select
         title, img_url, jump_url, click

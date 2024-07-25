@@ -1,10 +1,8 @@
 package com.eghm.model;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.State;
-import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -39,7 +37,6 @@ public class Voucher extends BaseEntity {
     private Boolean hotSell;
 
     @ApiModelProperty(value = "商品名称")
-    @TableField(typeHandler = LikeTypeHandler.class)
     private String title;
 
     @ApiModelProperty(value = "封面图片")

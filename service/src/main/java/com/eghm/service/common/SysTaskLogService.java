@@ -3,6 +3,7 @@ package com.eghm.service.common;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.task.TaskLogQueryRequest;
 import com.eghm.model.SysTaskLog;
+import com.eghm.vo.log.SysTaskLogResponse;
 
 /**
  * @author 二哥很猛
@@ -16,7 +17,7 @@ public interface SysTaskLogService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<SysTaskLog> getByPage(TaskLogQueryRequest request);
+    Page<SysTaskLogResponse> getByPage(TaskLogQueryRequest request);
 
     /**
      * 添加定时任务执行日志

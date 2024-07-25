@@ -7,8 +7,8 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.task.TaskEditRequest;
 import com.eghm.dto.task.TaskQueryRequest;
 import com.eghm.dto.task.TaskRunRequest;
-import com.eghm.model.SysTask;
 import com.eghm.service.common.SysTaskService;
+import com.eghm.vo.task.SysTaskResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -32,8 +32,8 @@ public class SysTaskController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<SysTask>> listPage(TaskQueryRequest request) {
-        Page<SysTask> byPage = sysTaskService.getByPage(request);
+    public RespBody<PageData<SysTaskResponse>> listPage(TaskQueryRequest request) {
+        Page<SysTaskResponse> byPage = sysTaskService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 

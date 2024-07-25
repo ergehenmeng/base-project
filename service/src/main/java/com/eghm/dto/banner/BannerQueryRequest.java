@@ -24,7 +24,7 @@ public class BannerQueryRequest extends PagingQuery {
     @ApiModelProperty("客户端类型 PC, ANDROID, IOS, H5, WECHAT ")
     private String clientType;
 
-    @ApiModelProperty("播放时间(在该时间段播放) yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty("播放时间(在该时间段播放) yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime middleTime;
 }

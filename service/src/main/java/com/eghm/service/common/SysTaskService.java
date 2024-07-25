@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.task.TaskEditRequest;
 import com.eghm.dto.task.TaskQueryRequest;
 import com.eghm.model.SysTask;
+import com.eghm.vo.task.SysTaskResponse;
 
 /**
  * @author 二哥很猛
@@ -17,7 +18,7 @@ public interface SysTaskService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<SysTask> getByPage(TaskQueryRequest request);
+    Page<SysTaskResponse> getByPage(TaskQueryRequest request);
 
     /**
      * 主键查询

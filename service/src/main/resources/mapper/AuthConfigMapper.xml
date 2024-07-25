@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.AuthConfigMapper">
 
+    <select id="getByPage" resultType="com.eghm.vo.auth.AuthConfigResponse" parameterType="com.eghm.dto.auth.AuthConfigQueryRequest">
+        select
+            id, app_key, private_key, title, remark, sign_type, create_time, update_time, expire_date
+        from auth_config where deleted = false
+        <if test="param.signType != null">
+            and sign_type = #{param.signType}
+        </if>
+        <if test="param.queryName != null and param.queryName != ''">
+            and title = #{param.queryName,  typeHandler=com.eghm.handler.mysql.LikeTypeHandler}
+        </if>
+        order by id desc
+    </select>
+
     <select id="getByAppKey" resultType="com.eghm.vo.auth.AuthConfigVO">
         select app_key, public_key, private_key, expire_date from auth_config where app_key = #{appKey} limit 1
     </select>

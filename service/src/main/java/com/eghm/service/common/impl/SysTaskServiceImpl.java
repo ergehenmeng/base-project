@@ -1,8 +1,5 @@
 package com.eghm.service.common.impl;
 
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.task.config.OnceTask;
 import com.eghm.configuration.task.config.SysTaskRegistrar;
@@ -15,6 +12,7 @@ import com.eghm.model.SysTask;
 import com.eghm.service.common.SysTaskService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
+import com.eghm.vo.task.SysTaskResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +38,8 @@ public class SysTaskServiceImpl implements SysTaskService {
     }
 
     @Override
-    public Page<SysTask> getByPage(TaskQueryRequest request) {
-        LambdaQueryWrapper<SysTask> wrapper = Wrappers.lambdaQuery();
-        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper -> queryWrapper.like(SysTask::getTitle, request.getQueryName()).or().like(SysTask::getMethodName, request.getQueryName()).or().like(SysTask::getBeanName, request.getQueryName()));
-        wrapper.eq(request.getState() != null, SysTask::getState, request.getState());
-        wrapper.orderByDesc(SysTask::getId);
-        return sysTaskMapper.selectPage(request.createPage(), wrapper);
+    public Page<SysTaskResponse> getByPage(TaskQueryRequest request) {
+        return sysTaskMapper.getByPage(request.createPage(), request);
     }
 
     @Override

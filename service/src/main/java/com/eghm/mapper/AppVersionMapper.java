@@ -1,7 +1,10 @@
 package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.version.VersionQueryRequest;
 import com.eghm.model.AppVersion;
+import com.eghm.vo.version.AppVersionResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -10,6 +13,15 @@ import java.util.List;
  * @author 二哥很猛
  */
 public interface AppVersionMapper extends BaseMapper<AppVersion> {
+
+    /**
+     * 分页查询
+     *
+     * @param page 分页
+     * @param request 查询条件
+     * @return 分页结果
+     */
+    Page<AppVersionResponse> getByPage(Page<AppVersionResponse> page, @Param("param") VersionQueryRequest request);
 
     /**
      * 获取已上架版本的信息说明

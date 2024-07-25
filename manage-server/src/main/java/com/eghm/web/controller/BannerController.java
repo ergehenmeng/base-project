@@ -11,6 +11,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.poi.StateRequest;
 import com.eghm.model.Banner;
 import com.eghm.service.common.BannerService;
+import com.eghm.vo.banner.BannerResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -32,8 +33,8 @@ public class BannerController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<Banner>> listPage(BannerQueryRequest request) {
-        Page<Banner> byPage = bannerService.getByPage(request);
+    public RespBody<PageData<BannerResponse>> listPage(BannerQueryRequest request) {
+        Page<BannerResponse> byPage = bannerService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 

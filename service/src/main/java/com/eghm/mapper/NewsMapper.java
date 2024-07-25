@@ -2,7 +2,9 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.news.NewsQueryRequest;
 import com.eghm.model.News;
+import com.eghm.vo.business.news.NewsResponse;
 import com.eghm.vo.business.news.NewsVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,6 +19,15 @@ import java.util.List;
  * @since 2023-12-29
  */
 public interface NewsMapper extends BaseMapper<News> {
+
+    /**
+     * 分页查询资讯
+     *
+     * @param page      分页信息
+     * @param request    查询条件
+     * @return 列表
+     */
+    Page<NewsResponse> listPage(Page<NewsResponse> page, @Param("param") NewsQueryRequest request);
 
     /**
      * 分页查询资讯

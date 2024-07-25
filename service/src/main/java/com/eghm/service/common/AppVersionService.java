@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.version.VersionAddRequest;
 import com.eghm.dto.version.VersionEditRequest;
 import com.eghm.dto.version.VersionQueryRequest;
-import com.eghm.model.AppVersion;
+import com.eghm.vo.version.AppVersionResponse;
 import com.eghm.vo.version.AppVersionVO;
 
 /**
@@ -19,7 +19,7 @@ public interface AppVersionService {
      * @param request 查询条件
      * @return 管理列表
      */
-    Page<AppVersion> getByPage(VersionQueryRequest request);
+    Page<AppVersionResponse> getByPage(VersionQueryRequest request);
 
     /**
      * 添加app版本管理信息

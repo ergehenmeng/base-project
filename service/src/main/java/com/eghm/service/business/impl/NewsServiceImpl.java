@@ -1,7 +1,6 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -23,6 +22,7 @@ import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.business.NewsService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.news.NewsDetailVO;
+import com.eghm.vo.business.news.NewsResponse;
 import com.eghm.vo.business.news.NewsVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,14 +50,8 @@ public class NewsServiceImpl implements NewsService {
     private final MemberCollectService memberCollectService;
 
     @Override
-    public Page<News> getByPage(NewsQueryRequest request) {
-        LambdaQueryWrapper<News> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(News::getId, News::getTitle, News::getDepict, News::getVideo, News::getLikeNum,
-                News::getSort, News::getCreateTime, News::getUpdateTime, News::getImage);
-        wrapper.eq(News::getCode, request.getCode());
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), News::getTitle, request.getQueryName());
-        wrapper.last(" order by sort, id desc ");
-        return newsMapper.selectPage(request.createPage(), wrapper);
+    public Page<NewsResponse> getByPage(NewsQueryRequest request) {
+        return newsMapper.listPage(request.createPage(), request);
     }
 
     @Override

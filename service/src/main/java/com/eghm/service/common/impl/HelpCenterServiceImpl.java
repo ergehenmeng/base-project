@@ -1,7 +1,5 @@
 package com.eghm.service.common.impl;
 
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -14,6 +12,7 @@ import com.eghm.model.HelpCenter;
 import com.eghm.service.common.HelpCenterService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.help.HelpCenterVO;
+import com.eghm.vo.help.HelpResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,13 +29,8 @@ public class HelpCenterServiceImpl implements HelpCenterService {
     private final HelpCenterMapper helpCenterMapper;
 
     @Override
-    public Page<HelpCenter> getByPage(HelpQueryRequest request) {
-        LambdaQueryWrapper<HelpCenter> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), HelpCenter::getAsk, request.getQueryName());
-        wrapper.eq(request.getState() != null, HelpCenter::getState, request.getState());
-        wrapper.eq(request.getHelpType() != null, HelpCenter::getHelpType, request.getHelpType());
-        wrapper.orderByDesc(HelpCenter::getSort);
-        return helpCenterMapper.selectPage(request.createPage(), wrapper);
+    public Page<HelpResponse> getByPage(HelpQueryRequest request) {
+        return helpCenterMapper.getByPage(request.createPage(), request);
     }
 
     @Override

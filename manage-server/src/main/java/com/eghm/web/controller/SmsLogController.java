@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sms.SmsLogQueryRequest;
-import com.eghm.model.SmsLog;
 import com.eghm.service.sys.SmsLogService;
+import com.eghm.vo.log.SmsLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -30,8 +30,8 @@ public class SmsLogController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<SmsLog>> listPage(SmsLogQueryRequest request) {
-        Page<SmsLog> byPage = smsLogService.getByPage(request);
+    public RespBody<PageData<SmsLogResponse>> listPage(SmsLogQueryRequest request) {
+        Page<SmsLogResponse> byPage = smsLogService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 

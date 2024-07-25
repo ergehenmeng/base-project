@@ -5,6 +5,7 @@ import com.eghm.dto.auth.AuthConfigAddRequest;
 import com.eghm.dto.auth.AuthConfigEditRequest;
 import com.eghm.dto.auth.AuthConfigQueryRequest;
 import com.eghm.model.AuthConfig;
+import com.eghm.vo.auth.AuthConfigResponse;
 
 /**
  * @author 二哥很猛
@@ -18,7 +19,7 @@ public interface AuthConfigService {
      * @param request 查询条件
      * @return 分页列表
      */
-    Page<AuthConfig> getByPage(AuthConfigQueryRequest request);
+    Page<AuthConfigResponse> getByPage(AuthConfigQueryRequest request);
 
     /**
      * 创建第三方授权配置信息,并生成秘钥

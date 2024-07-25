@@ -8,7 +8,7 @@ import lombok.Data;
  * @since 2020/11/12
  */
 @Data
-public class HelpCenterResponse {
+public class HelpDetailResponse {
 
     @ApiModelProperty("id主键")
     private Long id;

@@ -1,16 +1,14 @@
 package com.eghm.service.sys.impl;
 
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.cache.CacheProxyService;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.sms.SmsTemplateEditRequest;
 import com.eghm.mapper.SmsTemplateMapper;
 import com.eghm.model.SmsTemplate;
-import com.eghm.cache.CacheProxyService;
 import com.eghm.service.sys.SmsTemplateService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.template.SmsTemplateResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,11 +25,8 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     private final CacheProxyService cacheProxyService;
 
     @Override
-    public Page<SmsTemplate> getByPage(PagingQuery request) {
-        LambdaQueryWrapper<SmsTemplate> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SmsTemplate::getNid, request.getQueryName());
-        wrapper.orderByDesc(SmsTemplate::getId);
-        return smsTemplateMapper.selectPage(request.createPage(), wrapper);
+    public Page<SmsTemplateResponse> getByPage(PagingQuery request) {
+        return smsTemplateMapper.getByPage(request.createPage(), request.getQueryName());
     }
 
     @Override

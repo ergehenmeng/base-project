@@ -1,4 +1,4 @@
-package com.eghm.model;
+package com.eghm.vo.log;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -16,13 +16,8 @@ import java.time.LocalDateTime;
  * @author 二哥很猛
  */
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@TableName("sys_task_log")
-public class SysTaskLog {
+public class SysTaskLogResponse {
 
-    @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")
     private Long id;
 
@@ -47,8 +42,5 @@ public class SysTaskLog {
 
     @ApiModelProperty("执行任务的机器ip")
     private String ip;
-
-    @ApiModelProperty("执行错误时的信息")
-    private String errorMsg;
 
 }

@@ -5,8 +5,8 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.task.TaskLogQueryRequest;
-import com.eghm.model.SysTaskLog;
 import com.eghm.service.common.SysTaskLogService;
+import com.eghm.vo.log.SysTaskLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -30,8 +30,8 @@ public class SysTaskLogController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<SysTaskLog>> listPage(TaskLogQueryRequest request) {
-        Page<SysTaskLog> byPage = sysTaskLogService.getByPage(request);
+    public RespBody<PageData<SysTaskLogResponse>> listPage(TaskLogQueryRequest request) {
+        Page<SysTaskLogResponse> byPage = sysTaskLogService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 

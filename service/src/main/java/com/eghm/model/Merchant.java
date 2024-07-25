@@ -1,8 +1,6 @@
 package com.eghm.model;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.handler.mysql.LikeTypeHandler;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,7 +21,6 @@ import java.math.BigDecimal;
 public class Merchant extends BaseEntity {
 
     @ApiModelProperty(value = "商家名称")
-    @TableField(typeHandler = LikeTypeHandler.class)
     private String merchantName;
 
     @ApiModelProperty(value = "企业类型: 1:个人 2:企业")

@@ -11,7 +11,8 @@ import com.eghm.dto.help.HelpQueryRequest;
 import com.eghm.model.HelpCenter;
 import com.eghm.service.common.HelpCenterService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.help.HelpCenterResponse;
+import com.eghm.vo.help.HelpDetailResponse;
+import com.eghm.vo.help.HelpResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -33,8 +34,8 @@ public class HelpCenterController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<HelpCenter>> listPage(@Validated HelpQueryRequest request) {
-        Page<HelpCenter> byPage = helpCenterService.getByPage(request);
+    public RespBody<PageData<HelpResponse>> listPage(@Validated HelpQueryRequest request) {
+        Page<HelpResponse> byPage = helpCenterService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
@@ -54,9 +55,9 @@ public class HelpCenterController {
 
     @GetMapping(value = "/select")
     @ApiOperation("详情")
-    public RespBody<HelpCenterResponse> select(@Validated IdDTO dto) {
+    public RespBody<HelpDetailResponse> select(@Validated IdDTO dto) {
         HelpCenter center = helpCenterService.selectById(dto.getId());
-        HelpCenterResponse response = DataUtil.copy(center, HelpCenterResponse.class);
+        HelpDetailResponse response = DataUtil.copy(center, HelpDetailResponse.class);
         return RespBody.success(response);
     }
 

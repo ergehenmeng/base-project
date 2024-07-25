@@ -1,9 +1,10 @@
-package com.eghm.model;
+package com.eghm.vo.version;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.time.LocalDateTime;
 
 /**
  * 手机版本
@@ -11,9 +12,10 @@ import lombok.EqualsAndHashCode;
  * @author 二哥很猛
  */
 @Data
-@TableName("app_version")
-@EqualsAndHashCode(callSuper = true)
-public class AppVersion extends BaseEntity {
+public class AppVersionResponse  {
+
+    @ApiModelProperty("id主键")
+    private Long id;
 
     @ApiModelProperty("版本类型 IOS,ANDROID")
     private String channel;
@@ -36,4 +38,11 @@ public class AppVersion extends BaseEntity {
     @ApiModelProperty("备注信息:版本更新的东西或解决的问题")
     private String remark;
 
+    @ApiModelProperty("添加时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
+
+    @ApiModelProperty("更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
 }

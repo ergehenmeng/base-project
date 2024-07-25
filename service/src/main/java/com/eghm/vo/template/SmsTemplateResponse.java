@@ -1,8 +1,5 @@
-package com.eghm.model;
+package com.eghm.vo.template;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -13,10 +10,8 @@ import java.time.LocalDateTime;
  * @author 二哥很猛
  */
 @Data
-@TableName("sms_template")
-public class SmsTemplate {
+public class SmsTemplateResponse {
 
-    @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")
     private Long id;
 

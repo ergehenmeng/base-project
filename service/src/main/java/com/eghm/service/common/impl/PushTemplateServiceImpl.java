@@ -8,7 +8,7 @@ import com.eghm.mapper.PushTemplateMapper;
 import com.eghm.model.PushTemplate;
 import com.eghm.service.common.PushTemplateService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.push.PushTemplateResponse;
+import com.eghm.vo.template.PushTemplateResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

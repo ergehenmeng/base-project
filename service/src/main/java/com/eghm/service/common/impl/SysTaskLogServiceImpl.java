@@ -1,13 +1,11 @@
 package com.eghm.service.common.impl;
 
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.task.TaskLogQueryRequest;
 import com.eghm.mapper.SysTaskLogMapper;
 import com.eghm.model.SysTaskLog;
 import com.eghm.service.common.SysTaskLogService;
+import com.eghm.vo.log.SysTaskLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +20,8 @@ public class SysTaskLogServiceImpl implements SysTaskLogService {
     private final SysTaskLogMapper sysTaskLogMapper;
 
     @Override
-    public Page<SysTaskLog> getByPage(TaskLogQueryRequest request) {
-        LambdaQueryWrapper<SysTaskLog> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(request.getState() != null, SysTaskLog::getState, request.getState());
-        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper -> queryWrapper.like(SysTaskLog::getMethodName, request.getQueryName()).or().like(SysTaskLog::getBeanName, request.getQueryName()).or().like(SysTaskLog::getIp, request.getQueryName()));
-        return sysTaskLogMapper.selectPage(request.createPage(), wrapper);
+    public Page<SysTaskLogResponse> getByPage(TaskLogQueryRequest request) {
+        return sysTaskLogMapper.getByPage(request.createPage(), request);
     }
 
     @Override
