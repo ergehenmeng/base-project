@@ -1,8 +1,6 @@
 package com.eghm.model;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.handler.mysql.LikeTypeHandler;
 import com.eghm.pay.enums.PayChannel;
 import com.eghm.pay.enums.StepType;
 import io.swagger.annotations.ApiModelProperty;
@@ -32,11 +30,9 @@ public class PayNotifyLog extends BaseEntity {
     private StepType stepType;
 
     @ApiModelProperty(value = "交易流水号")
-    @TableField(typeHandler = LikeTypeHandler.class)
     private String tradeNo;
 
     @ApiModelProperty(value = "退款流水号")
-    @TableField(typeHandler = LikeTypeHandler.class)
     private String refundNo;
 
     @ApiModelProperty(value = "通知原始参数")
