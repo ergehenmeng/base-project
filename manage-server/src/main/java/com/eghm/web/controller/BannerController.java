@@ -9,7 +9,6 @@ import com.eghm.dto.banner.BannerQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.poi.StateRequest;
-import com.eghm.model.Banner;
 import com.eghm.service.common.BannerService;
 import com.eghm.vo.banner.BannerResponse;
 import io.swagger.annotations.Api;
