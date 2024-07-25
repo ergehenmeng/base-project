@@ -2,6 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.SysRoleMapper">
 
+    <select id="getByPage" resultType="com.eghm.vo.sys.SysRoleResponse" >
+        select
+        id,
+        create_time,
+        remark,
+        role_name,
+        role_type,
+        update_time
+        from sys_role
+        where deleted = false
+        <if test="merchantId != null">
+            and merchant_id = #{merchantId}
+        </if>
+        <if test="merchantId == null">
+            and merchant_id is null
+        </if>
+        <if test="queryName != null and queryName != ''">
+            and role_name like concat('%', #{queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%')
+        </if>
+        order by id desc
+    </select>
+
     <select id="getRoleMenu" resultType="string">
         select t.menu_id
         from sys_role_menu t, sys_menu r

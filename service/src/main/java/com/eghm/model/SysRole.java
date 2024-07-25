@@ -19,7 +19,6 @@ import lombok.EqualsAndHashCode;
 public class SysRole extends BaseEntity {
 
     @ApiModelProperty("角色名称")
-    @TableField(typeHandler = LikeTypeHandler.class)
     private String roleName;
 
     @ApiModelProperty("角色类型")

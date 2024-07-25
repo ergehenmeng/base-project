@@ -10,8 +10,8 @@ import com.eghm.dto.role.RoleAddRequest;
 import com.eghm.dto.role.RoleAuthRequest;
 import com.eghm.dto.role.RoleEditRequest;
 import com.eghm.enums.ref.RoleType;
-import com.eghm.model.SysRole;
 import com.eghm.service.sys.SysRoleService;
+import com.eghm.vo.sys.SysRoleResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -35,8 +35,8 @@ public class MerchantRoleController {
 
     @GetMapping("/listPage")
     @ApiOperation("角色列表(分页)")
-    public RespBody<PageData<SysRole>> listPage(PagingQuery request) {
-        Page<SysRole> page = sysRoleService.getByPage(request);
+    public RespBody<PageData<SysRoleResponse>> listPage(PagingQuery request) {
+        Page<SysRoleResponse> page = sysRoleService.getByPage(request);
         return RespBody.success(PageData.toPage(page));
     }
 

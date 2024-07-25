@@ -7,6 +7,7 @@ import com.eghm.dto.role.RoleAddRequest;
 import com.eghm.dto.role.RoleEditRequest;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.model.SysRole;
+import com.eghm.vo.sys.SysRoleResponse;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface SysRoleService {
      * @param request 前台查询条件
      * @return 列表
      */
-    Page<SysRole> getByPage(PagingQuery request);
+    Page<SysRoleResponse> getByPage(PagingQuery request);
 
     /**
      * 更新角色信息

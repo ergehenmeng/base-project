@@ -1,7 +1,6 @@
 package com.eghm.service.sys.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -22,6 +21,7 @@ import com.eghm.model.SysUserRole;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.sys.SysRoleResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -44,17 +44,9 @@ public class SysRoleServiceImpl implements SysRoleService {
     private final CommonService commonService;
 
     @Override
-    public Page<SysRole> getByPage(PagingQuery request) {
-        LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
+    public Page<SysRoleResponse> getByPage(PagingQuery request) {
         Long merchantId = SecurityHolder.getMerchantId();
-        if (merchantId != null) {
-            wrapper.eq(SysRole::getMerchantId, merchantId);
-        } else {
-            wrapper.isNull(SysRole::getMerchantId);
-        }
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SysRole::getRoleName, request.getQueryName());
-        wrapper.orderByDesc(SysRole::getId);
-        return sysRoleMapper.selectPage(request.createPage(), wrapper);
+        return sysRoleMapper.getByPage(request.createPage(), request.getQueryName(), merchantId);
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.SysRole;
+import com.eghm.vo.sys.SysRoleResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -10,6 +12,16 @@ import java.util.List;
  * @author 二哥很猛
  */
 public interface SysRoleMapper extends BaseMapper<SysRole> {
+
+    /**
+     * 分页查询
+     *
+     * @param page 分页
+     * @param queryName 查询条件
+     * @param merchantId 商户id
+     * @return 列表
+     */
+    Page<SysRoleResponse> getByPage(Page<SysRoleResponse> page, @Param("queryName") String queryName, @Param("merchantId") Long merchantId);
 
     /**
      * 获取角色拥有的菜单列表
