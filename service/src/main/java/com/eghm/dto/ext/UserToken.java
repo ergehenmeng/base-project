@@ -1,6 +1,7 @@
 package com.eghm.dto.ext;
 
 import com.eghm.enums.DataType;
+import com.eghm.enums.UserType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -18,8 +19,8 @@ public class UserToken {
     @ApiModelProperty("用户id")
     private Long id;
 
-    @ApiModelProperty("1: 平台用户 2: 商户用户")
-    private Integer userType;
+    @ApiModelProperty("0: 系统管理员 1: 系统用户 2: 商户管理员 3:商户用户")
+    private UserType userType;
 
     @ApiModelProperty("商户id")
     private Long merchantId;

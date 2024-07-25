@@ -3592,13 +3592,12 @@ INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('11', 'homestay_tag', '2', '入住有礼', b'0', '2023-01-10 16:28:05', '2023-01-10 16:28:49');
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('12', 'homestay_tag', '3', '免费早餐', b'0', '2023-01-10 16:28:42', '2023-01-10 17:29:54');
 
-INSERT INTO `sys_user` (`id`, `nick_name`, `mobile`, `state`, `pwd`, `init_pwd`, `dept_code`, `data_type`, `deleted`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '13000000000', '1', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '0', 8, b'0', '2018-01-26 10:38:20', '2019-07-19 15:41:56', '');
+INSERT INTO `sys_user` (`id`, `nick_name`, `mobile`, `state`, `pwd`, `init_pwd`, `dept_code`, `data_type`, `deleted`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '13000000000', '0', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '0', 8, b'0', '2018-01-26 10:38:20', '2019-07-19 15:41:56', '');
 
 ## 超管角色初始化
 INSERT INTO `sys_user_role` (`id`, `user_id`, `role_id`) VALUES ('1', '1', '1');
 
 
-INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1', '超级管理员', 'administrator', '2018-01-29 13:45:49', '2019-01-15 15:30:07', b'0', '超管(任何情况下都禁止改动)');
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969410', '景区商户', 'scenic', '2022-12-27 16:03:35', '2023-09-28 15:38:42', b'0', '系统默认角色(勿动)');
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969411', '民宿商户', 'homestay', '2022-12-27 16:03:50', '2023-09-28 15:38:48', b'0', '系统默认角色(勿动)');
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969412', '餐饮商户', 'voucher', '2022-12-27 16:03:57', '2023-09-28 15:38:52', b'0', '系统默认角色(勿动)');
@@ -3890,7 +3889,6 @@ INSERT INTO `sys_config` VALUES ('5', 'enterprise_email', '企业邮箱', '66495
 INSERT INTO `sys_config` VALUES ('6', 'ios_latest_version', 'ios最新版本号', '1.2.3', b'0', '最新版本号,格式必须为x.x.x(版本必须已经上传)', '2018-09-28 10:50:03', NULL);
 INSERT INTO `sys_config` VALUES ('7', 'android_latest_version', 'android最新版本', '1.2.3', b'0', '最新版本号,格式必须为x.x.x(版本必须已经上传)', '2018-09-28 10:50:41', NULL);
 INSERT INTO `sys_config` VALUES ('11', 'sys_domain', '前台系统域名', 'https://www.eghm.top', b'0', '前台提供服务的域名', '2018-11-25 21:02:17', NULL);
-INSERT INTO `sys_config` VALUES ('12', 'sys_ip', '前台系统IP', 'http://127.0.0.1:8080', b'0', '前台提供服务的ip', '2018-11-25 21:03:13', NULL);
 INSERT INTO `sys_config` VALUES ('13', 'manage_domain', '后台系统域名', 'https://www.baidu.com', b'0', NULL, '2018-11-29 16:41:04', NULL);
 INSERT INTO `sys_config` VALUES ('14', 'operation_log_switch', '操作日志开关', b'0', b'0', '操作日志开关 false:不开启操作日志 true:开启操作日志', '2019-01-17 16:50:54', '2020-07-23 14:15:37');
 INSERT INTO `sys_config` VALUES ('19', 'single_client_login', '是否开启单设备单点登录', 'true', b'0', 'false:不开启 true:开启', '2019-08-13 15:45:39', '2020-07-23 13:55:48');

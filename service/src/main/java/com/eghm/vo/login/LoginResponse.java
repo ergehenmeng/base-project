@@ -1,5 +1,6 @@
 package com.eghm.vo.login;
 
+import com.eghm.enums.UserType;
 import com.eghm.vo.menu.MenuResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,8 +19,8 @@ public class LoginResponse {
     @ApiModelProperty("token")
     private String token;
 
-    @ApiModelProperty("用户类型 1:系统用户 2:商户用户")
-    private Integer userType;
+    @ApiModelProperty("用户类型 0:系统管理员 1:系统用户 2:商户管理员 3:商户用户")
+    private UserType userType;
 
     @ApiModelProperty("昵称")
     private String nickName;

@@ -15,8 +15,8 @@ import com.eghm.cache.CacheService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.user.SysUserResponse;
 import com.eghm.vo.user.UserResponse;
+import com.eghm.vo.user.UserDetailResponse;
 import com.google.common.base.Joiner;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,8 +45,8 @@ public class UserController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<SysUserResponse>> listPage(UserQueryRequest request) {
-        Page<SysUserResponse> page = sysUserService.getByPage(request);
+    public RespBody<PageData<UserResponse>> listPage(UserQueryRequest request) {
+        Page<UserResponse> page = sysUserService.getByPage(request);
         return RespBody.success(PageData.toPage(page));
     }
 
@@ -59,11 +59,11 @@ public class UserController {
 
     @GetMapping("/select")
     @ApiOperation("详情")
-    public RespBody<UserResponse> select(@Validated IdDTO dto) {
+    public RespBody<UserDetailResponse> select(@Validated IdDTO dto) {
         SysUser user = sysUserService.getByIdRequired(dto.getId());
-        UserResponse response = DataUtil.copy(user, UserResponse.class);
+        UserDetailResponse response = DataUtil.copy(user, UserDetailResponse.class);
         List<Long> roleList = sysRoleService.getByUserId(dto.getId());
-        response.setRoleIds(Joiner.on(",").join(roleList));
+        response.setRoleIds(roleList);
         return RespBody.success(response);
     }
 

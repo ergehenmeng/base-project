@@ -18,11 +18,6 @@ import java.util.Arrays;
 public enum RoleType implements ValueEnumBinder {
 
     /**
-     * 超级管理员
-     */
-    ADMINISTRATOR("administrator", "超级管理员"),
-
-    /**
      * 系统通用角色
      */
     COMMON("common", "系统通用角色"),

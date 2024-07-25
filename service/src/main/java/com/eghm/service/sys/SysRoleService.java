@@ -93,14 +93,6 @@ public interface SysRoleService {
     void auth(Long userId, List<Long> roleList);
 
     /**
-     * 判断用户是否有超管角色
-     *
-     * @param userId 用户ID
-     * @return true:有管理员角色 false:没有
-     */
-    boolean isAdminRole(Long userId);
-
-    /**
      * 根据角色id查询角色信息
      *
      * @param roleId 角色id

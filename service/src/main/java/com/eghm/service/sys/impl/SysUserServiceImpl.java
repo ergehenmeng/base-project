@@ -16,6 +16,7 @@ import com.eghm.dto.user.UserEditRequest;
 import com.eghm.dto.user.UserQueryRequest;
 import com.eghm.enums.DataType;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.UserType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MerchantMapper;
 import com.eghm.mapper.MerchantUserMapper;
@@ -29,7 +30,7 @@ import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.menu.MenuResponse;
-import com.eghm.vo.user.SysUserResponse;
+import com.eghm.vo.user.UserResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -64,8 +65,8 @@ public class SysUserServiceImpl implements SysUserService {
     private final CacheService cacheService;
 
     @Override
-    public Page<SysUserResponse> getByPage(UserQueryRequest request) {
-        request.setUserType(SysUser.USER_TYPE_1);
+    public Page<UserResponse> getByPage(UserQueryRequest request) {
+        request.setUserType(UserType.SYS_USER.getValue());
         return sysUserMapper.listPage(request.createPage(), request);
     }
 
@@ -107,7 +108,7 @@ public class SysUserServiceImpl implements SysUserService {
         this.redoMobile(request.getMobile(), null);
         SysUser user = DataUtil.copy(request, SysUser.class);
         user.setState(SysUser.STATE_1);
-        user.setUserType(SysUser.USER_TYPE_1);
+        user.setUserType(UserType.SYS_USER);
         String initPassword = this.initPassword(request.getMobile());
         user.setPwd(initPassword);
         user.setInitPwd(initPassword);
@@ -219,11 +220,11 @@ public class SysUserServiceImpl implements SysUserService {
         if (!match) {
             throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
-        boolean adminRole = sysRoleService.isAdminRole(user.getId());
+        UserType userType = user.getUserType();
         List<String> buttonList;
         // 如果用户拥有超管角色,则默认查询全部菜单等信息
         List<MenuResponse> leftMenu;
-        if (adminRole) {
+        if (userType == UserType.ADMINISTRATOR) {
             leftMenu = sysMenuService.getAdminLeftMenuList();
             buttonList = sysMenuService.getAdminPermCode();
         } else {
@@ -260,15 +261,15 @@ public class SysUserServiceImpl implements SysUserService {
      * @param userType 用户类型
      * @return merchantId
      */
-    private Long getMerchantId(Long userId, Integer userType) {
+    private Long getMerchantId(Long userId, UserType userType) {
         Long merchantId = null;
-        if (userType == SysUser.USER_TYPE_2) {
+        if (userType == UserType.MERCHANT_ADMIN) {
             merchantId = merchantMapper.getByUserId(userId);
             if (merchantId == null) {
                 log.error("商户信息未查询到 [{}]", userId);
                 throw new BusinessException(ErrorCode.MERCHANT_NOT_FOUND);
             }
-        } else if (userType == SysUser.USER_TYPE_3) {
+        } else if (userType == UserType.MERCHANT_USER) {
             merchantId = merchantUserMapper.getByUserId(userId);
             if (merchantId == null) {
                 log.error("商户普通用户信息未查询到 [{}]", userId);

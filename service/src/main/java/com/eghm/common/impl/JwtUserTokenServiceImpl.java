@@ -10,6 +10,7 @@ import com.eghm.common.UserTokenService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.DataType;
+import com.eghm.enums.UserType;
 import com.eghm.model.SysUser;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +42,7 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
             UserToken userToken = new UserToken();
             userToken.setId(verify.getClaim("id").asLong());
             userToken.setMerchantId(verify.getClaim("merchantId").asLong());
-            userToken.setUserType(verify.getClaim("userType").asInt());
+            userToken.setUserType(UserType.of(verify.getClaim("userType").asInt()));
             userToken.setDataType(DataType.of(verify.getClaim("dataType").asInt()));
             userToken.setNickName(verify.getClaim("nickName").asString());
             userToken.setAuthList(verify.getClaim("auth").asList(String.class));
@@ -74,7 +75,7 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
         builder.withClaim("id", user.getId())
                 .withClaim("nickName", user.getNickName())
                 .withClaim("deptCode", user.getDeptCode())
-                .withClaim("userType", user.getUserType())
+                .withClaim("userType", user.getUserType().getValue())
                 .withClaim("dataType", user.getDataType().getValue())
                 .withClaim("dataList", dataList)
                 .withClaim("auth", authList);

@@ -17,6 +17,7 @@ import com.eghm.dto.business.merchant.MerchantQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.RoleMapping;
 import com.eghm.enums.SmsType;
+import com.eghm.enums.UserType;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MerchantMapper;
@@ -112,7 +113,7 @@ public class MerchantServiceImpl implements MerchantService {
         this.checkCreditRedo(request.getCreditCode(), null);
         String pwd = sysConfigApi.getString(ConfigConstant.MERCHANT_PWD);
         SysUser user = new SysUser();
-        user.setUserType(SysUser.USER_TYPE_2);
+        user.setUserType(UserType.MERCHANT_ADMIN);
         String encode = encoder.encode(MD5.create().digestHex(pwd));
         user.setInitPwd(encode);
         user.setPwd(encode);

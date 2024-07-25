@@ -7,7 +7,7 @@ import com.eghm.dto.user.UserEditRequest;
 import com.eghm.dto.user.UserQueryRequest;
 import com.eghm.model.SysUser;
 import com.eghm.vo.login.LoginResponse;
-import com.eghm.vo.user.SysUserResponse;
+import com.eghm.vo.user.UserResponse;
 
 /**
  * @author 二哥很猛
@@ -21,7 +21,7 @@ public interface SysUserService {
      * @param request 请求参数
      * @return 系统人员信息
      */
-    Page<SysUserResponse> getByPage(UserQueryRequest request);
+    Page<UserResponse> getByPage(UserQueryRequest request);
 
     /**
      * 根据手机号码查询管理员信息

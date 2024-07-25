@@ -7,6 +7,7 @@ import com.eghm.dto.business.merchant.MerchantUserAddRequest;
 import com.eghm.dto.business.merchant.MerchantUserEditRequest;
 import com.eghm.dto.business.merchant.MerchantUserQueryRequest;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.UserType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MerchantUserMapper;
 import com.eghm.model.MerchantUser;
@@ -50,7 +51,7 @@ public class MerchantUserServiceImpl implements MerchantUserService {
     @Override
     public void create(MerchantUserAddRequest request) {
         SysUser user = new SysUser();
-        user.setUserType(SysUser.USER_TYPE_3);
+        user.setUserType(UserType.MERCHANT_USER);
         user.setPwd(encoder.encode(MD5.create().digestHex(request.getPassword())));
         user.setInitPwd(user.getPwd());
         user.setMobile(request.getMobile());

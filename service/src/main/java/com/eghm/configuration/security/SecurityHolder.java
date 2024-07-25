@@ -3,6 +3,7 @@ package com.eghm.configuration.security;
 import com.alibaba.ttl.TransmittableThreadLocal;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.UserType;
 import com.eghm.exception.BusinessException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -53,6 +54,15 @@ public class SecurityHolder {
      */
     public static Long getUserId() {
         return getUserRequired().getId();
+    }
+
+    /**
+     * 获取用户类型
+     *
+     * @return userType
+     */
+    public static UserType getUserType() {
+        return getUserRequired().getUserType();
     }
 
     /**

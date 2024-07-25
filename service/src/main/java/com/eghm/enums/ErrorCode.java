@@ -334,6 +334,11 @@ public enum ErrorCode {
     USER_NOT_FOUND(2078, "用户信息不存在"),
 
     /**
+     * 用户类型不匹配
+     */
+    USER_TYPE_NULL(2079, "用户类型不匹配"),
+
+    /**
      * 用户已锁定,请联系管理人员
      */
     USER_LOCKED_ERROR(2081, "用户已锁定,请联系管理人员"),

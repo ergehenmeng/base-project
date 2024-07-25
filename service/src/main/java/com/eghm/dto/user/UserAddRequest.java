@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -20,6 +21,7 @@ public class UserAddRequest {
 
     @ApiModelProperty(value = "用户名称", required = true)
     @NotBlank(message = "用户名称不能为空")
+    @Size(max = 10, message = "用户名称最多10字符")
     private String nickName;
 
     @ApiModelProperty(value = "手机号", required = true)

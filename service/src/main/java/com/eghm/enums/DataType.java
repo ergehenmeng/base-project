@@ -59,7 +59,6 @@ public enum DataType implements EnumBinder {
                 .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.DATA_TYPE_ERROR));
     }
 
-
     @Override
     public String toString() {
         return value + ":" + msg;

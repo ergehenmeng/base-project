@@ -12,6 +12,7 @@ import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.role.RoleAddRequest;
 import com.eghm.dto.role.RoleEditRequest;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.UserType;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysRoleMapper;
@@ -26,7 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -46,7 +46,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public Page<SysRole> getByPage(PagingQuery request) {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
-        wrapper.ne(SysRole::getRoleType, RoleType.ADMINISTRATOR);
         Long merchantId = SecurityHolder.getMerchantId();
         if (merchantId != null) {
             wrapper.eq(SysRole::getMerchantId, merchantId);
@@ -122,9 +121,9 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public void authMenu(Long roleId, List<Long> menuIds) {
-        Long userId = SecurityHolder.getUserId();
-        if (!this.isAdminRole(userId)) {
-            log.warn("非超级管理员,无法进行菜单授权操作 [{}]", userId);
+        UserType userType = SecurityHolder.getUserType();
+        if (userType != UserType.ADMINISTRATOR) {
+            log.warn("非超级管理员,无法进行菜单授权操作 [{}]", SecurityHolder.getUserId());
             throw new BusinessException(ErrorCode.ADMIN_AUTH);
         }
         SysRole sysRole = this.selectByIdRequired(roleId);
@@ -155,11 +154,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     public void auth(Long userId, List<Long> roleList) {
         sysUserRoleMapper.deleteByUserId(userId);
         roleList.forEach(roleId -> sysUserRoleMapper.insert(new SysUserRole(userId, roleId)));
-    }
-
-    @Override
-    public boolean isAdminRole(Long userId) {
-        return sysRoleMapper.countByRoleType(userId, RoleType.ADMINISTRATOR.getValue()) > 0;
     }
 
     @Override
