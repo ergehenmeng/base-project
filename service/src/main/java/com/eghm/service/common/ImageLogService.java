@@ -5,6 +5,7 @@ import com.eghm.dto.image.ImageAddRequest;
 import com.eghm.dto.image.ImageEditRequest;
 import com.eghm.dto.image.ImageQueryRequest;
 import com.eghm.model.ImageLog;
+import com.eghm.vo.log.ImageLogResponse;
 
 /**
  * @author 二哥很猛
@@ -18,7 +19,7 @@ public interface ImageLogService {
      * @param request 查询条件
      * @return 结果
      */
-    Page<ImageLog> getByPage(ImageQueryRequest request);
+    Page<ImageLogResponse> getByPage(ImageQueryRequest request);
 
     /**
      * 添加图片记录
