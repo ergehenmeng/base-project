@@ -18,8 +18,8 @@
         left join sys_dept r on t.dept_code = r.code where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
             and (
-                t.nick_name like concat('%', #{param.queryName}, '%') or
-                t.mobile like concat('%', #{param.queryName}, '%')
+                t.nick_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
+                t.mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
             )
         </if>
         <if test="param.state != null">

@@ -1,6 +1,7 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.cache.CacheService;
 import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
@@ -11,13 +12,11 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.user.*;
 import com.eghm.model.SysUser;
-import com.eghm.cache.CacheService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.user.UserResponse;
 import com.eghm.vo.user.UserDetailResponse;
-import com.google.common.base.Joiner;
+import com.eghm.vo.user.UserResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

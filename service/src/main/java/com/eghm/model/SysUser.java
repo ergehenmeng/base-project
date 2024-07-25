@@ -1,10 +1,8 @@
 package com.eghm.model;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.DataType;
 import com.eghm.enums.UserType;
-import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -29,11 +27,9 @@ public class SysUser extends BaseEntity {
     public static final int STATE_0 = 0;
 
     @ApiModelProperty("用户姓名")
-    @TableField(typeHandler = LikeTypeHandler.class)
     private String nickName;
 
     @ApiModelProperty("手机号码(登陆账户)")
-    @TableField(typeHandler = LikeTypeHandler.class)
     private String mobile;
 
     @ApiModelProperty("用户类型 0: 超级管理员 1: 系统用户 2: 商户管理员 3: 商户普通用户")

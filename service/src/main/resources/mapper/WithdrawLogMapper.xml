@@ -20,9 +20,9 @@
         from withdraw_log t
         left join merchant r on t.merchant_id = r.id where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
-            and (r.merchant_name like concat('%', #{param.queryName}, '%') or
-                 t.refund_no like concat('%', #{param.queryName}, '%') or
-                 t.out_refund_no like concat('%', #{param.queryName}, '%')
+            and (r.merchant_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
+                 t.refund_no like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
+                 t.out_refund_no like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
             )
         </if>
         <if test="param.merchantId != null">

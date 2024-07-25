@@ -27,7 +27,7 @@
             and (t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')  or r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%'))
         </if>
         <if test="param.tagId != null and param.tagId != ''">
-            and t.tag_id like concat(#{param.tagId} ,'%')
+            and t.tag_id like concat(#{param.tagId, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
         </if>
         <if test="param.deliveryType != null ">
             and t.delivery_type = #{param.deliveryType}
@@ -90,7 +90,7 @@
             and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
         </if>
         <if test="param.tagId != null and param.tagId != ''">
-            and t.tag_id like concat(#{param.tagId} ,'%')
+            and t.tag_id like concat(#{param.tagId, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
         </if>
         <if test="param.deliveryType != null">
             and t.delivery_type = #{param.deliveryType}
@@ -126,7 +126,7 @@
             and exists (select 1 from coupon_scope r where t.id  = r.product_id and r.coupon_id = #{param.couponId} )
         </if>
         <if test="param.tagId != null and param.tagId != ''">
-            t.tag_id like concat(#{param.tagId} ,'%')
+            t.tag_id like concat(#{param.tagId, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
         </if>
         <if test="param.useScope == 1">
             and t.store_id = #{param.storeId}

@@ -20,8 +20,8 @@
         from `member` t where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
             and (
-                t.nick_name like concat('%', #{param.queryName}, '%') or
-                t.mobile like concat('%', #{param.queryName}, '%')
+                t.nick_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
+                t.mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
             )
         </if>
         <if test="param.mobile != null and param.mobile != '' ">
