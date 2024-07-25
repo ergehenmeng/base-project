@@ -5,8 +5,8 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.push.PushTemplateEditRequest;
 import com.eghm.dto.push.PushTemplateQueryRequest;
-import com.eghm.model.PushTemplate;
 import com.eghm.service.common.PushTemplateService;
+import com.eghm.vo.push.PushTemplateResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -28,8 +28,8 @@ public class PushTemplateController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<PushTemplate>> listPage(PushTemplateQueryRequest request) {
-        Page<PushTemplate> byPage = pushTemplateService.getByPage(request);
+    public RespBody<PageData<PushTemplateResponse>> listPage(PushTemplateQueryRequest request) {
+        Page<PushTemplateResponse> byPage = pushTemplateService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 

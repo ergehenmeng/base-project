@@ -1,12 +1,10 @@
 package com.eghm.model;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.CouponMode;
 import com.eghm.enums.ref.CouponType;
 import com.eghm.enums.ref.ProductType;
-import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -31,7 +29,6 @@ import java.time.LocalDateTime;
 public class Coupon extends BaseEntity {
 
     @ApiModelProperty(value = "优惠券名称")
-    @TableField(typeHandler = LikeTypeHandler.class)
     private String title;
 
     @ApiModelProperty("优惠券所属商户id")

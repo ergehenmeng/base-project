@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.PushTemplateMapper">
+
+    <select id="getByPage" resultType="com.eghm.vo.push.PushTemplateResponse" parameterType="com.eghm.dto.push.PushTemplateQueryRequest">
+        select
+            id,
+            content,
+            nid,
+            remark,
+            state,
+            tag,
+            title,
+            update_time
+        from push_template
+        <where>
+            <if test="param.state != null">
+                state = #{param.state}
+            </if>
+            <if test="param.queryName != null and param.queryName != ''">
+                and (title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} , '%') or
+                nid like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} , '%'))
+            </if>
+        </where>
+        order by id desc
+    </select>
 </mapper>

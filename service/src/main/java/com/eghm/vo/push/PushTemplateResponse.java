@@ -1,4 +1,4 @@
-package com.eghm.model;
+package com.eghm.vo.push;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -13,10 +13,8 @@ import java.time.LocalDateTime;
  * @author 二哥很猛
  */
 @Data
-@TableName("push_template")
-public class PushTemplate {
+public class PushTemplateResponse {
 
-    @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")
     private Long id;
 

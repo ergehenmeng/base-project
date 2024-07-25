@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.push.PushTemplateEditRequest;
 import com.eghm.dto.push.PushTemplateQueryRequest;
 import com.eghm.model.PushTemplate;
+import com.eghm.vo.push.PushTemplateResponse;
 
 /**
  * @author 二哥很猛
@@ -11,8 +12,13 @@ import com.eghm.model.PushTemplate;
  */
 public interface PushTemplateService {
 
-
-    Page<PushTemplate> getByPage(PushTemplateQueryRequest request);
+    /**
+     * 分页查询推送模板
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<PushTemplateResponse> getByPage(PushTemplateQueryRequest request);
 
     /**
      * 获取推送消息模板
