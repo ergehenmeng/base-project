@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -21,6 +22,10 @@ public class DictAddRequest {
     @ApiModelProperty(value = "字典编码", required = true)
     @NotBlank(message = "字典编码不能为空")
     private String nid;
+
+    @ApiModelProperty("字典分类: 1: 系统字典 2: 业务字典")
+    @NotNull(message = "字典分类不能为空")
+    private Integer dictType;
 
     @ApiModelProperty(value = "备注信息")
     @Size(max = 100, message = "备注信息不能超过100字")
