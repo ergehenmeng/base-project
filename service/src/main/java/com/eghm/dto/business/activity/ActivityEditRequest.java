@@ -28,11 +28,13 @@ public class ActivityEditRequest {
 
     @ApiModelProperty(value = "活动时间", required = true)
     @NotBlank(message = "活动时间不能为空")
+    @Size(max = 20, message = "活动时间最多20字符")
     private String activityTime;
 
     @ApiModelProperty(value = "活动地点", required = true)
     @NotNull(message = "活动地点不能为空")
     @WordChecker(message = "活动地点存在敏感词")
+    @Size(max = 50, message = "活动地点最多50字符")
     private String address;
 
     @ApiModelProperty(value = "活动封面图片", required = true)
