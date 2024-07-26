@@ -26,7 +26,7 @@ public class BlackRosterAddRequest {
     private Long endIp;
 
     @ApiModelProperty("备注信息")
-    @Length(max = 200, message = "备注信息最大200字符")
+    @Length(max = 100, message = "备注信息最大100字符")
     private String remark;
 
 }
