@@ -247,6 +247,12 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
+    public boolean hasSetKey(String key, Object value) {
+        Boolean member = redisTemplate.opsForSet().isMember(key, value);
+        return Boolean.TRUE.equals(member);
+    }
+
+    @Override
     public long getHashSize(String key) {
         return redisTemplate.opsForHash().size(key);
     }
@@ -259,6 +265,11 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public void setBitmap(String key, Long ops, Boolean value) {
         redisTemplate.opsForValue().setBit(key, ops, value);
+    }
+
+    @Override
+    public void setSetValue(String key, String... values) {
+        redisTemplate.opsForSet().add(key, values);
     }
 
     @Override

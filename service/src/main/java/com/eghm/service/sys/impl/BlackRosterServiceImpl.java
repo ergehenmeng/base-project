@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.LongStream;
 
 /**
  * @author 二哥很猛
@@ -75,15 +76,14 @@ public class BlackRosterServiceImpl implements BlackRosterService {
         cacheService.delete(CacheConstant.BLACK_ROSTER);
         List<BlackRoster> rosterList = blackRosterMapper.selectList(null);
         for (BlackRoster roster : rosterList) {
-            long max = roster.getEndIp() - roster.getStartIp();
-            for (int i = 0; i <= max; i++) {
-                cacheService.setBitmap(CacheConstant.BLACK_ROSTER, roster.getStartIp() + i, true);
-            }
+            String[] array = LongStream.range(roster.getStartIp(), roster.getEndIp() + 1).mapToObj(String::valueOf).toArray(String[]::new);
+            cacheService.setSetValue(CacheConstant.BLACK_ROSTER, array);
         }
     }
 
     @Override
     public boolean isInterceptIp(String ip) {
-        return cacheService.getBitmap(CacheConstant.BLACK_ROSTER, Ipv4Util.ipv4ToLong(ip));
+        return cacheService.hasSetKey(CacheConstant.BLACK_ROSTER, String.valueOf(Ipv4Util.ipv4ToLong(ip)));
     }
+
 }

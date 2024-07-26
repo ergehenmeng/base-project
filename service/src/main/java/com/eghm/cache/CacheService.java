@@ -222,6 +222,15 @@ public interface CacheService {
     boolean hasHashKey(String key, String hKey);
 
     /**
+     * 判断在指定key上是否有value
+     *
+     * @param key key
+     * @param value value
+     * @return boolean
+     */
+    boolean hasSetKey(String key, Object value);
+
+    /**
      * 获取hash的长度
      *
      * @param key key
@@ -245,6 +254,14 @@ public interface CacheService {
      * @param value 值
      */
     void setBitmap(String key, Long ops, Boolean value);
+
+    /**
+     * 设置set值
+     *
+     * @param key key
+     * @param values setValue
+     */
+    void setSetValue(String key, String... values);
 
     /**
      * 获取bitmap指定位置下标的值
