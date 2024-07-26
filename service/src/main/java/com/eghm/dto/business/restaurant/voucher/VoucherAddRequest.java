@@ -3,6 +3,7 @@ package com.eghm.dto.business.restaurant.voucher;
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -50,7 +51,8 @@ public class VoucherAddRequest {
 
     @ApiModelProperty(value = "购买说明", required = true)
     @NotNull(message = "购买说明不能为空")
-    @WordChecker
+    @WordChecker(message = "购买说明存在敏感词")
+    @Expose(serialize = false)
     private String depict;
 
     @ApiModelProperty(value = "限购数量", required = true)
@@ -76,6 +78,7 @@ public class VoucherAddRequest {
 
     @ApiModelProperty(value = "详细介绍", required = true)
     @NotBlank(message = "退订规则不能为空")
-    @WordChecker
+    @WordChecker(message = "详细介绍存在敏感词")
+    @Expose(serialize = false)
     private String introduce;
 }

@@ -2,6 +2,7 @@ package com.eghm.dto.business.activity;
 
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -44,6 +45,7 @@ public class ActivityAddRequest {
     @ApiModelProperty(value = "活动详细介绍", required = true)
     @NotNull(message = "活动详细介绍不能为空")
     @WordChecker(message = "活动详细介绍存在敏感词")
+    @Expose(serialize = false)
     private String introduce;
 
     @ApiModelProperty("活动关联的景区id")

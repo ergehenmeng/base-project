@@ -2,6 +2,7 @@ package com.eghm.dto.business.travel;
 
 import com.eghm.validation.annotation.Phone;
 import com.eghm.validation.annotation.WordChecker;
+import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -69,6 +70,7 @@ public class TravelAgencyEditRequest {
     @NotBlank(message = "描述信息不能为空")
     @Size(max = 50, message = "描述信息最大50字符")
     @WordChecker(message = "描述信息存在敏感词")
+    @Expose(serialize = false)
     private String depict;
 
     @ApiModelProperty(value = "旅行社图片", required = true)
@@ -78,5 +80,6 @@ public class TravelAgencyEditRequest {
     @ApiModelProperty(value = "详细介绍信息", required = true)
     @NotBlank(message = "详细介绍不能为空")
     @WordChecker(message = "详细介绍存在敏感词")
+    @Expose(serialize = false)
     private String introduce;
 }

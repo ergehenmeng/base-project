@@ -27,4 +27,7 @@ public class BannerQueryRequest extends PagingQuery {
     @ApiModelProperty("播放时间(在该时间段播放) yyyy-MM-dd HH:mm")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime middleTime;
+
+    @ApiModelProperty("状态 true:正常 false:禁用")
+    private Boolean state;
 }

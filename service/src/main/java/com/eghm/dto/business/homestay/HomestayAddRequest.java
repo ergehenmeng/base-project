@@ -3,6 +3,7 @@ package com.eghm.dto.business.homestay;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.Phone;
 import com.eghm.validation.annotation.WordChecker;
+import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -76,7 +77,8 @@ public class HomestayAddRequest {
 
     @ApiModelProperty(value = "详细介绍", required = true)
     @NotBlank(message = "详细介绍不能为空")
-    @WordChecker
+    @WordChecker(message = "详细介绍存在敏感词")
+    @Expose(serialize = false)
     private String introduce;
 
     @ApiModelProperty(value = "联系电话", required = true)
@@ -86,6 +88,7 @@ public class HomestayAddRequest {
     @ApiModelProperty(value = "入住须知")
     @NotBlank(message = "入住须知不能为空")
     @WordChecker
+    @Expose(serialize = false)
     private String notesIn;
 
     @ApiModelProperty(value = "特色服务")

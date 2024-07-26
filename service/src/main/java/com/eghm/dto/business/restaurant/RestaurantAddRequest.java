@@ -1,6 +1,7 @@
 package com.eghm.dto.business.restaurant;
 
 import com.eghm.validation.annotation.WordChecker;
+import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -73,6 +74,7 @@ public class RestaurantAddRequest {
 
     @ApiModelProperty(value = "商家介绍", required = true)
     @NotNull(message = "商家介绍不能为空")
-    @WordChecker
+    @WordChecker(message = "商家介绍存在敏感词")
+    @Expose(serialize = false)
     private String introduce;
 }

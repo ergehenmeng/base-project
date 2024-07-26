@@ -2,6 +2,7 @@ package com.eghm.dto.help;
 
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.WordChecker;
+import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -31,6 +32,7 @@ public class HelpAddRequest {
     @ApiModelProperty(value = "答", required = true)
     @NotBlank(message = "\"答\"不能为空")
     @WordChecker(message = "\"答\"存在敏感词")
+    @Expose(serialize = false)
     private String answer;
 
 }

@@ -20,10 +20,13 @@
             update_time
         from banner
         where deleted = false
-        <if test="param.bannerType != null">
+        <if test="param.state != null">
+            and state = #{param.state}
+        </if>
+        <if test="param.bannerType != null and param.bannerType != ''">
             and banner_type = #{param.bannerType}
         </if>
-        <if test="param.clientType != null">
+        <if test="param.clientType != null and param.clientType != ''">
             and client_type = #{param.clientType}
         </if>
         <if test="param.middleTime != null">

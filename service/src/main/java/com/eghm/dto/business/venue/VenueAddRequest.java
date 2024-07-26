@@ -3,6 +3,7 @@ package com.eghm.dto.business.venue;
 import com.eghm.enums.ref.VenueType;
 import com.eghm.validation.annotation.Phone;
 import com.eghm.validation.annotation.WordChecker;
+import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -70,5 +71,6 @@ public class VenueAddRequest {
     @ApiModelProperty(value = "场馆介绍", required = true)
     @NotBlank(message = "场馆介绍不能为空")
     @WordChecker(message = "场馆介绍存在敏感词")
+    @Expose(serialize = false)
     private String introduce;
 }

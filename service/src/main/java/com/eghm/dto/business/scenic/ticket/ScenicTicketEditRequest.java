@@ -6,6 +6,7 @@ import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -77,6 +78,7 @@ public class ScenicTicketEditRequest extends DateComparator {
     @ApiModelProperty(value = "景区介绍", required = true)
     @NotBlank(message = "景区介绍不能为空")
     @WordChecker(message = "景区介绍存在敏感词")
+    @Expose(serialize = false)
     private String introduce;
 
     @ApiModelProperty(value = "核销方式 1:手动核销 2:自动核销(凌晨自动核销)", required = true)

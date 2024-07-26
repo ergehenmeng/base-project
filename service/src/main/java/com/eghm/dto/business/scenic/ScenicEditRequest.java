@@ -3,6 +3,7 @@ package com.eghm.dto.business.scenic;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.Phone;
 import com.eghm.validation.annotation.WordChecker;
+import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -82,9 +83,10 @@ public class ScenicEditRequest {
     @NotEmpty(message = "景区图片不能为空")
     private List<String> coverList;
 
-    @ApiModelProperty(value = "景区详细介绍信息", required = true)
-    @NotBlank(message = "景区详细介绍不能为空")
-    @WordChecker(message = "景区详细介绍存在敏感词")
+    @ApiModelProperty(value = "详细介绍信息", required = true)
+    @NotBlank(message = "详细介绍不能为空")
+    @WordChecker(message = "详细介绍存在敏感词")
+    @Expose(serialize = false)
     private String introduce;
 
 }

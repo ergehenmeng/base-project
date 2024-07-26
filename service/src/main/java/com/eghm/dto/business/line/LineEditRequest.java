@@ -4,6 +4,7 @@ import com.eghm.enums.ref.RefundType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
+import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -70,6 +71,7 @@ public class LineEditRequest {
     @ApiModelProperty(value = "商品介绍", required = true)
     @NotBlank(message = "商品介绍不能为空")
     @WordChecker(message = "商品介绍存在敏感词")
+    @Expose(serialize = false)
     private String introduce;
 
     @ApiModelProperty(value = "每日配置信息", required = true)

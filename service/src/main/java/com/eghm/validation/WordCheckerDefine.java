@@ -27,7 +27,7 @@ public class WordCheckerDefine implements ConstraintValidator<WordChecker, Strin
         if (sensitive == null) {
             return true;
         }
-        log.warn("检测到敏感词 [{}] [{}]", value, sensitive.getFoundWord());
+        log.warn("检测到敏感词：[{}]", sensitive.getFoundWord());
         return false;
     }
 }

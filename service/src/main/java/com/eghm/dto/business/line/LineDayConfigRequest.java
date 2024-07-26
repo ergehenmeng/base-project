@@ -2,6 +2,7 @@ package com.eghm.dto.business.line;
 
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.WordChecker;
+import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -37,5 +38,6 @@ public class LineDayConfigRequest {
     @ApiModelProperty(value = "详细描述信息", required = true)
     @NotBlank(message = "详细信息不能为空")
     @WordChecker(message = "详细信息存在敏感词")
+    @Expose(serialize = false)
     private String depict;
 }
