@@ -490,4 +490,5 @@ INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('10161114', '排序', 'LJR0', NULL, '101611', NULL, '/manage/item/tag/sort', '2', '35', b'1', NULL, '2', '2024-06-21 22:59:04', '2024-06-21 22:59:04');
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('10161719', '发放优惠券', 'dnR0', NULL, '101617', NULL, '/manage/coupon/grant,/manage/coupon/listPage', '2', '100', b'1', '发放优惠券', '2', '2024-06-30 17:04:50', '2024-06-30 17:04:50');
 
+INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('10113115', '取消屏蔽', 'iBU0', NULL, '101131', NULL, '/manage/comment/unShield', '2', '25', b'1', NULL, '2', '2024-07-26 17:27:09', '2024-07-26 17:27:09');
 

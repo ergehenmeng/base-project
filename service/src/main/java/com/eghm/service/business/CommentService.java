@@ -67,11 +67,12 @@ public interface CommentService {
     void giveLike(Long id);
 
     /**
-     * 屏蔽评论
+     * 屏蔽评论或取消屏蔽
      *
      * @param id id
+     * @param state false: 屏蔽 true: 显示
      */
-    void shield(Long id);
+    void updateState(Long id, boolean state);
 
     /**
      * 置顶状态更新

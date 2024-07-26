@@ -49,7 +49,14 @@ public class CommentController {
     @PostMapping(value = "/shield", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("屏蔽")
     public RespBody<Void> shield(@Validated @RequestBody IdDTO dto) {
-        commentService.shield(dto.getId());
+        commentService.updateState(dto.getId(), false);
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/unShield", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("取消屏蔽")
+    public RespBody<Void> unShield(@Validated @RequestBody IdDTO dto) {
+        commentService.updateState(dto.getId(), true);
         return RespBody.success();
     }
 

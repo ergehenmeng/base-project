@@ -148,10 +148,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void shield(Long id) {
+    public void updateState(Long id, boolean state) {
         LambdaUpdateWrapper<Comment> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Comment::getId, id);
-        wrapper.set(Comment::getState, false);
+        wrapper.set(Comment::getState, state);
         commentMapper.update(null, wrapper);
     }
 
