@@ -7,7 +7,7 @@
             id,
             title,
             bean_name,
-            method_name,,
+            method_name,
             cron_expression,
             args,
             state,

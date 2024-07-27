@@ -7,7 +7,7 @@
             id,
             bean_name,
             args,
-            elapsed_time,,
+            elapsed_time,
             ip,
             method_name,
             start_time,
