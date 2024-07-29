@@ -15,9 +15,9 @@ services:
     restart: on-failure
   manage-server:
     ## 容器名称
-    container_name: webapp-server
+    container_name: manage-server
     build:
-      context: ./webapp-server
+      context: ./manage-server
       dockerfile: Dockerfile
     ## 端口映射(容器端口:服务端口)
     ports:
