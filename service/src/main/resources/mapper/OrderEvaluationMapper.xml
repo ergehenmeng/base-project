@@ -37,7 +37,7 @@
         <if test="param.productId != null">
             and t.product_id = #{param.productId}
         </if>
-        <if test="param.productType != null">
+        <if test="param.productType != null and param.productType != ''">
             and t.product_type = #{param.productType}
         </if>
         <if test="param.queryType != null">
