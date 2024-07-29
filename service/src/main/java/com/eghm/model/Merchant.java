@@ -47,6 +47,9 @@ public class Merchant extends BaseEntity {
     @ApiModelProperty(value = "联系人电话")
     private String mobile;
 
+    @ApiModelProperty(value = "账户名")
+    private String account;
+
     @ApiModelProperty("关联的系统用户id")
     private Long userId;
 

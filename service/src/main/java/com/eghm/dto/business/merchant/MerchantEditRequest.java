@@ -1,5 +1,6 @@
 package com.eghm.dto.business.merchant;
 
+import com.eghm.validation.annotation.Mobile;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
@@ -28,9 +29,13 @@ public class MerchantEditRequest {
     private String merchantName;
 
     @ApiModelProperty(value = "联系人电话", required = true)
-    @NotBlank(message = "联系人电话不能为空")
-    @Size(min = 7, max = 15, message = "联系人电话长度7~15位")
+    @Mobile(message = "联系人电话格式错误")
     private String mobile;
+
+    @ApiModelProperty(value = "账户名", required = true)
+    @NotBlank(message = "账户名不能为空")
+    @Size(min = 6, max = 20, message = "账户名长度6~20位")
+    private String account;
 
     @ApiModelProperty(value = "商家类型 1:景区 2:民宿 4:餐饮 8:零售 16:线路 32:场馆(多选时数字相加)", required = true)
     @NotNull(message = "请选择商家类型")

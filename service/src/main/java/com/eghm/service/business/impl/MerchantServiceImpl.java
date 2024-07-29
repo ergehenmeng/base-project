@@ -118,7 +118,7 @@ public class MerchantServiceImpl implements MerchantService {
         user.setInitPwd(encode);
         user.setPwd(encode);
         // 采用用户名登录
-        user.setMobile(request.getMobile());
+        user.setMobile(request.getAccount());
         user.setNickName(request.getMerchantName());
         sysUserService.insert(user);
 
@@ -143,7 +143,7 @@ public class MerchantServiceImpl implements MerchantService {
         Merchant merchant = DataUtil.copy(request, Merchant.class);
         merchantMapper.updateById(merchant);
         SysUser user = new SysUser();
-        user.setMobile(request.getMobile());
+        user.setMobile(request.getAccount());
         user.setNickName(request.getMerchantName());
         user.setId(required.getUserId());
         sysUserService.updateById(user);

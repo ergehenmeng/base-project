@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * @author 二哥很猛
@@ -20,6 +21,7 @@ public class PasswordEditRequest {
 
     @ApiModelProperty(value = "新密码", required = true)
     @Password(message = "新密码必须包含英文字符、数字、@#&_")
+    @Size(min = 6, max = 20, message = "新密码长度应在6~20位之间")
     private String newPwd;
 
     @Assign
