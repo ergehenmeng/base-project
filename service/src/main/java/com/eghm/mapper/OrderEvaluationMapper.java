@@ -4,11 +4,15 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.evaluation.OrderEvaluationQueryDTO;
 import com.eghm.dto.business.order.evaluation.OrderEvaluationQueryRequest;
+import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.model.OrderEvaluation;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
 import com.eghm.vo.business.evaluation.OrderEvaluationResponse;
 import com.eghm.vo.business.evaluation.OrderEvaluationVO;
 import org.apache.ibatis.annotations.Param;
+
+import java.time.LocalDate;
+import java.util.List;
 
 /**
  * <p>
@@ -69,4 +73,13 @@ public interface OrderEvaluationMapper extends BaseMapper<OrderEvaluation> {
      * @return 数量
      */
     long badCount(@Param("productId") Long productId);
+
+    /**
+     * 统计评价
+     *
+     * @param startDate 开始日期
+     * @param endDate 截止日期
+     * @return 列表
+     */
+    List<CalcStatistics> statisticsList(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }

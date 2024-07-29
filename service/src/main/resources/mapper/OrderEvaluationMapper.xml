@@ -128,4 +128,8 @@
         where deleted = false and score = 1 and product_id = #{productId}
     </select>
 
+    <select id="statisticsList" resultType="com.eghm.dto.ext.CalcStatistics">
+        select distinct product_id, store_id, product_type
+        from order_evaluation where deleted = false and create_time >= #{startDate} and create_time &lt;= #{endDate}
+    </select>
 </mapper>

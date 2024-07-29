@@ -5362,6 +5362,7 @@ INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron
 INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `lock_time`, `update_time`, `remark`) VALUES ('5', '支付处理中的订单处理', 'orderJobService', 'payProcess', NULL, '0 1/2 * * * ?', '664956140@qq.com', '1', '30000', '2024-02-23 17:30:37', NULL);
 INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `lock_time`, `update_time`, `remark`) VALUES ('6', '退款处理中的订单处理', 'orderJobService', 'refundProcess', NULL, '0 0/2 * * * ?', '664956140@qq.com', '1', '30000', '2024-02-23 17:30:31', NULL);
 INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `lock_time`, `update_time`, `remark`) VALUES ('7', '删除民宿历史价格信息', 'homestayJobService', 'deleteDayPrice', '7', '0 0 8 * * ?', '664956140@qq.com', '1', '30000', '2024-02-23 17:50:12', '参数表示最多保留几天的数据');
+INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `lock_time`, `update_time`, `remark`) VALUES ('8', '更新商品评分', 'orderEvaluationJobService', 'evaluation', NULL, '0 0 1 * * ?', '664956140@qq.com', '0', '30000', '2024-07-29 17:02:21', '商品评价更新商品评分');
 
 
 INSERT INTO `pay_config` (`id`, `channel`, `wechat_pay`, `ali_pay`, `remark`, `update_time`) VALUES ('1', 'PC', b'1', b'1', NULL, '2024-04-15 10:27:13');
