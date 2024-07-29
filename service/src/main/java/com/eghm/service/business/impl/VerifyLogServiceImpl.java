@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author 二哥很猛
  * @since 2022/8/6
@@ -24,6 +26,11 @@ public class VerifyLogServiceImpl implements VerifyLogService {
     @Override
     public Page<VerifyLogResponse> getByPage(VerifyLogQueryRequest request) {
         return verifyLogMapper.getByPage(request.createPage(), request);
+    }
+
+    @Override
+    public List<VerifyLogResponse> getList(VerifyLogQueryRequest request) {
+        return verifyLogMapper.getByPage(request.createNullPage(), request).getRecords();
     }
 
     @Override

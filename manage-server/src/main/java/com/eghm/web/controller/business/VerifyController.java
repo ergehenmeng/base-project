@@ -13,6 +13,7 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VerifyLogService;
 import com.eghm.service.business.handler.access.AccessHandler;
 import com.eghm.service.business.handler.context.OrderVerifyContext;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.order.OrderScanVO;
 import com.eghm.vo.business.verify.VerifyLogResponse;
 import io.swagger.annotations.Api;
@@ -22,6 +23,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 import static com.eghm.enums.ErrorCode.VERIFY_ORDER_ERROR;
 import static com.eghm.enums.ErrorCode.VERIFY_TYPE_ERROR;
@@ -83,5 +87,13 @@ public class VerifyController {
         accessHandler.verifyOrder(context);
 
         return RespBody.success(context.getVerifyNum());
+    }
+
+    @GetMapping("/export")
+    @ApiOperation("民宿导出")
+    public void export(HttpServletResponse response, VerifyLogQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        List<VerifyLogResponse> byPage = verifyLogService.getList(request);
+        EasyExcelUtil.export(response, "核销列表", byPage, VerifyLogResponse.class);
     }
 }

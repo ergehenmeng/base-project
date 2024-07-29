@@ -5,6 +5,8 @@ import com.eghm.dto.business.verify.VerifyLogQueryRequest;
 import com.eghm.model.VerifyLog;
 import com.eghm.vo.business.verify.VerifyLogResponse;
 
+import java.util.List;
+
 /**
  * @author 二哥很猛
  * @since 2022/8/6
@@ -18,6 +20,14 @@ public interface VerifyLogService {
      * @return 列表
      */
     Page<VerifyLogResponse> getByPage(VerifyLogQueryRequest request);
+
+    /**
+     * 获取列表(导出)
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<VerifyLogResponse> getList(VerifyLogQueryRequest request);
 
     /**
      * 统计某个订单被核销过的商品数量总数

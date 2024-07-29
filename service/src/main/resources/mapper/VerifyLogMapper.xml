@@ -13,18 +13,25 @@
         t.num,
         t.remark,
         t.create_time,
-        r.nick_name as verifyName
+        r.nick_name as verifyName,
+        s.merchant_name
         from verify_log t
-        left join sys_user r on t.user_id = r.id where t.merchant_id = #{param.merchantId}
-        <if test="param.queryName != null and param.queryName != ''">
-            and t.order_no like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
-        </if>
-        <if test="param.startDate != null">
-            and t.create_time &gt;= #{param.startDate}
-        </if>
-        <if test="param.endDate != null">
-            and t.create_time &lt; #{param.endDate}
-        </if>
+        left join sys_user r on t.user_id = r.id
+        left join merchant s on t.merchant_id = s.id
+        <where>
+            <if test="param.merchantId != null">
+                and t.merchant_id = #{param.merchantId}
+            </if>
+            <if test="param.queryName != null and param.queryName != ''">
+                and t.order_no like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
+            </if>
+            <if test="param.startDate != null">
+                and t.create_time &gt;= #{param.startDate}
+            </if>
+            <if test="param.endDate != null">
+                and t.create_time &lt; #{param.endDate}
+            </if>
+        </where>
         order by t.id desc
     </select>
 
