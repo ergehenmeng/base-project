@@ -35,7 +35,7 @@ public class ShoppingCartResponse {
     private Boolean hotSell;
 
     @ApiModelProperty("购物车商品数量")
-    private Integer num;
+    private Integer quantity;
 
     @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;

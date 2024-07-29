@@ -2,12 +2,11 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.order.evaluation.*;
-import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.dto.ext.SendNotice;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.NoticeType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
@@ -17,10 +16,7 @@ import com.eghm.model.Order;
 import com.eghm.model.OrderEvaluation;
 import com.eghm.service.business.*;
 import com.eghm.service.member.MemberNoticeService;
-import com.eghm.mq.service.MessageService;
-import com.eghm.common.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
-import com.eghm.utils.TransactionUtil;
 import com.eghm.vo.business.evaluation.*;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import lombok.AllArgsConstructor;
@@ -58,8 +54,6 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
 
     private final VoucherOrderService voucherOrderService;
 
-    private final MessageService messageService;
-
     private final OrderService orderService;
 
     private final SysConfigApi sysConfigApi;
@@ -91,7 +85,7 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
         for (EvaluationDTO eval : dto.getCommentList()) {
             ProductSnapshotVO snapshot = this.getSnapshot(eval.getOrderId(), dto.getOrderNo(), ProductType.prefix(dto.getOrderNo()));
             OrderEvaluation evaluation = DataUtil.copy(eval, OrderEvaluation.class);
-            evaluation.setState(0);
+            evaluation.setState(1);
             evaluation.setOrderNo(dto.getOrderNo());
             evaluation.setStoreId(snapshot.getStoreId());
             evaluation.setProductId(snapshot.getProductId());
@@ -133,36 +127,25 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
     }
 
     @Override
-    public void audit(OrderEvaluationAuditDTO dto) {
+    public void shield(OrderEvaluationShieldDTO dto) {
         OrderEvaluation evaluation = orderEvaluationMapper.selectById(dto.getId());
         if (evaluation == null) {
             log.error("订单评论信息未查询到 [{}]", dto.getId());
             throw new BusinessException(ErrorCode.EVALUATION_NULL);
         }
-        evaluation.setState(dto.getState());
+        evaluation.setState(2);
         evaluation.setUserId(dto.getUserId());
-        evaluation.setAuditRemark(dto.getAuditRemark());
+        evaluation.setAuditRemark(dto.getRemark());
         orderEvaluationMapper.updateById(evaluation);
-        // 审核通过会更新评论信息, 审核失败发送站内信
-        if (dto.getState() == 1) {
-            // 此处是为了防止消息发送后当前事务还没提交mq就已经消费的情况发生
-            TransactionUtil.afterCommit(() -> {
-                CalcStatistics statistics = new CalcStatistics();
-                statistics.setStoreId(evaluation.getStoreId());
-                statistics.setProductId(evaluation.getProductId());
-                statistics.setProductType(evaluation.getProductType());
-                messageService.send(ExchangeQueue.PRODUCT_SCORE, statistics);
-            });
-        } else {
-            SendNotice notice = new SendNotice();
-            notice.setNoticeType(NoticeType.EVALUATION_REFUSE);
-            Map<String, Object> params = new HashMap<>(4);
-            params.put("orderNo", evaluation.getOrderNo());
-            params.put("productTitle", evaluation.getProductTitle());
-            params.put("remark", evaluation.getAuditRemark());
-            notice.setParams(params);
-            memberNoticeService.sendNotice(evaluation.getMemberId(), notice);
-        }
+        // 屏蔽后会发送站内信
+        SendNotice notice = new SendNotice();
+        notice.setNoticeType(NoticeType.EVALUATION_REFUSE);
+        Map<String, Object> params = new HashMap<>(4);
+        params.put("orderNo", evaluation.getOrderNo());
+        params.put("productTitle", evaluation.getProductTitle());
+        params.put("remark", evaluation.getAuditRemark());
+        notice.setParams(params);
+        memberNoticeService.sendNotice(evaluation.getMemberId(), notice);
     }
 
     @Override

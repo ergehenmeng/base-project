@@ -1,7 +1,7 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.business.order.evaluation.OrderEvaluationAuditDTO;
+import com.eghm.dto.business.order.evaluation.OrderEvaluationShieldDTO;
 import com.eghm.dto.business.order.evaluation.OrderEvaluationDTO;
 import com.eghm.dto.business.order.evaluation.OrderEvaluationQueryDTO;
 import com.eghm.dto.business.order.evaluation.OrderEvaluationQueryRequest;
@@ -48,7 +48,7 @@ public interface OrderEvaluationService {
      *
      * @param dto 审核信息
      */
-    void audit(OrderEvaluationAuditDTO dto);
+    void shield(OrderEvaluationShieldDTO dto);
 
     /**
      * 移动端查询商品评论信息

@@ -50,7 +50,7 @@ public class OrderEvaluationResponse {
     @ApiModelProperty(value = "评论图片")
     private String commentPic;
 
-    @ApiModelProperty(value = "审核状态 0:待审核 1:审核通过 2:审核失败")
+    @ApiModelProperty(value = "显示状态 1:正常 2:屏蔽")
     private Integer state;
 
     @ApiModelProperty(value = "用户昵称")

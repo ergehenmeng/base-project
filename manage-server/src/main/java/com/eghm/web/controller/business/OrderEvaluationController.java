@@ -2,7 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.business.order.evaluation.OrderEvaluationAuditDTO;
+import com.eghm.dto.business.order.evaluation.OrderEvaluationShieldDTO;
 import com.eghm.dto.business.order.evaluation.OrderEvaluationQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
@@ -35,11 +35,11 @@ public class OrderEvaluationController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @PostMapping(value = "/audit", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("审核")
-    public RespBody<OrderCreateVO<String>> audit(@RequestBody @Validated OrderEvaluationAuditDTO dto) {
+    @PostMapping(value = "/shield", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("屏蔽")
+    public RespBody<OrderCreateVO<String>> audit(@RequestBody @Validated OrderEvaluationShieldDTO dto) {
         dto.setUserId(SecurityHolder.getUserId());
-        orderEvaluationService.audit(dto);
+        orderEvaluationService.shield(dto);
         return RespBody.success();
     }
 

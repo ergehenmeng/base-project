@@ -2,6 +2,7 @@ package com.eghm.dto.business.order.evaluation;
 
 import com.eghm.convertor.XssEncoder;
 import com.eghm.validation.annotation.RangeInt;
+import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class EvaluationDTO {
     @ApiModelProperty(value = "评论")
     @JsonDeserialize(using = XssEncoder.class)
     @Length(min = 5, max = 200, message = "评论信息应在5~200字符之间")
+    @WordChecker(message = "评论信息包含敏感词")
     private String comment;
 
     @ApiModelProperty(value = "评论图片")
