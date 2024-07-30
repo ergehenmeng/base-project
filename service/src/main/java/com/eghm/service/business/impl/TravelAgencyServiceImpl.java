@@ -166,6 +166,7 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     public void init(Merchant merchant) {
         TravelAgency agency = new TravelAgency();
         agency.setMerchantId(merchant.getId());
+        agency.setState(State.UN_SHELVE);
         travelAgencyMapper.insert(agency);
     }
 

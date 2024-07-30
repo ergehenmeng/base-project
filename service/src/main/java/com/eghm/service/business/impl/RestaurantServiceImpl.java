@@ -225,6 +225,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     public void init(Merchant merchant) {
         Restaurant restaurant = new Restaurant();
         restaurant.setMerchantId(merchant.getId());
+        restaurant.setState(State.UN_SHELVE);
         restaurantMapper.insert(restaurant);
     }
 }

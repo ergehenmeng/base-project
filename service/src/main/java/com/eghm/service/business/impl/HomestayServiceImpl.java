@@ -248,6 +248,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     public void init(Merchant merchant) {
         Homestay homestay = new Homestay();
         homestay.setMerchantId(merchant.getId());
+        homestay.setState(State.UN_SHELVE);
         homestayMapper.insert(homestay);
     }
 

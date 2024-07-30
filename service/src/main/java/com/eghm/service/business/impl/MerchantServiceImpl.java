@@ -147,7 +147,7 @@ public class MerchantServiceImpl implements MerchantService {
         user.setNickName(request.getMerchantName());
         user.setId(required.getUserId());
         sysUserService.updateById(user);
-        sysRoleService.authRole(merchant.getId(), RoleMapping.parseRoleType(request.getType()));
+        sysRoleService.authRole(required.getUserId(), RoleMapping.parseRoleType(request.getType()));
     }
 
     @Override
