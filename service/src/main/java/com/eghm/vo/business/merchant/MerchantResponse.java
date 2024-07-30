@@ -46,38 +46,42 @@ public class MerchantResponse extends ExcelStyle {
     @ExcelProperty(value = "联系人电话", index = 3)
     private String mobile;
 
+    @ApiModelProperty(value = "账户名")
+    @ExcelProperty(value = "账户名", index = 4)
+    private String account;
+
     @ApiModelProperty(value = "微信授权手机号")
-    @ExcelProperty(value = "微信授权手机号", index = 4)
+    @ExcelProperty(value = "微信授权手机号", index = 5)
     private String authMobile;
 
     @ApiModelProperty(value = "企业类型: 1:个人 2:企业")
-    @ExcelProperty(value = "企业类型", index = 5, converter = EnumExcelConverter.class)
+    @ExcelProperty(value = "企业类型", index = 6, converter = EnumExcelConverter.class)
     private EnterpriseType enterpriseType;
 
     @ApiModelProperty(value = "法人姓名")
-    @ExcelProperty(value = "法人姓名", index = 6)
+    @ExcelProperty(value = "法人姓名", index = 7)
     private String legalName;
 
     @ApiModelProperty(value = "法人身份证")
-    @ExcelProperty(value = "法人身份证", index = 7)
+    @ExcelProperty(value = "法人身份证", index = 8)
     private String legalIdCard;
 
     @ApiModelProperty(value = "社会统一信用代码")
-    @ExcelProperty(value = "社会统一信用代码", index = 8)
+    @ExcelProperty(value = "社会统一信用代码", index = 9)
     private String creditCode;
 
     @ApiModelProperty(value = "平台服务费,单位:%")
-    @ExcelProperty(value = "平台服务费(%)", index = 9)
+    @ExcelProperty(value = "平台服务费(%)", index = 10)
     private BigDecimal platformServiceRate;
 
     @ApiModelProperty(value = "创建时间")
-    @ExcelProperty(value = "创建时间", index = 10)
+    @ExcelProperty(value = "创建时间", index = 11)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "修改时间")
-    @ExcelProperty(value = "修改时间", index = 11)
+    @ExcelProperty(value = "修改时间", index = 12)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;

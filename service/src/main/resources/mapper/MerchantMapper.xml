@@ -9,6 +9,7 @@
         t.type,
         r.state,
         t.mobile,
+        t.account,
         t.auth_mobile,
         t.enterprise_type,
         t.legal_name,
