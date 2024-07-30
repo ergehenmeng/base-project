@@ -67,5 +67,3 @@ system:
         - /favicon.ico
         - /manage/export/exportMenu
         - /resource/**
-      skip-perm:
-        - /manage/user/unlockScreen

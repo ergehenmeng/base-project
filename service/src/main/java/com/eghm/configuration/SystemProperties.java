@@ -139,14 +139,9 @@ public class SystemProperties {
         public static class Security {
 
             /**
-             * 不进行登陆检验和权限校验
+             * 不进行登陆检验和权限校验, 注意如果需要登录,但不需要权限校验请使用@SkipPerm
              */
             private String[] skipAuth = new String[]{};
-
-            /**
-             * 需要登陆但不进行权限校验
-             */
-            private String[] skipPerm = new String[]{};
         }
 
         @Data

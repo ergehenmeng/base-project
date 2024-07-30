@@ -7,7 +7,7 @@ import com.eghm.configuration.WebMvcConfig;
 import com.eghm.configuration.data.permission.DataScopeAspect;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.web.configuration.filter.AuthFilter;
-import com.eghm.web.configuration.filter.LockScreenFilter;
+import com.eghm.web.configuration.interceptor.LockScreenInterceptor;
 import com.eghm.web.configuration.interceptor.PermInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -42,7 +42,8 @@ public class ManageMvcConfig extends WebMvcConfig {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         SystemProperties.ManageProperties.Security security = systemProperties.getManage().getSecurity();
-        registry.addInterceptor(permInterceptor()).excludePathPatterns(security.getSkipPerm()).excludePathPatterns(security.getSkipAuth());
+        registry.addInterceptor(permInterceptor()).excludePathPatterns(security.getSkipAuth());
+        registry.addInterceptor(lockScreenInterceptor()).excludePathPatterns(security.getSkipAuth());
     }
 
     /**
@@ -51,6 +52,14 @@ public class ManageMvcConfig extends WebMvcConfig {
     @Bean
     public PermInterceptor permInterceptor() {
         return new PermInterceptor(sysMenuService);
+    }
+
+    /**
+     * 按钮权限
+     */
+    @Bean
+    public LockScreenInterceptor lockScreenInterceptor() {
+        return new LockScreenInterceptor(cacheService);
     }
 
     /**
@@ -76,16 +85,4 @@ public class ManageMvcConfig extends WebMvcConfig {
         return registrationBean;
     }
 
-    @Bean("lockScreenFilter")
-    public FilterRegistrationBean<LockScreenFilter> lockScreenFilter() {
-        SystemProperties.ManageProperties manage = systemProperties.getManage();
-        FilterRegistrationBean<LockScreenFilter> registrationBean = new FilterRegistrationBean<>();
-        LockScreenFilter requestFilter = new LockScreenFilter(cacheService);
-        requestFilter.exclude(manage.getSecurity().getSkipAuth());
-        requestFilter.exclude(manage.getSecurity().getSkipPerm());
-        registrationBean.setFilter(requestFilter);
-        registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
-        registrationBean.setOrder(Integer.MIN_VALUE + 10);
-        return registrationBean;
-    }
 }

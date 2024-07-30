@@ -1,40 +1,46 @@
-package com.eghm.web.configuration.filter;
+package com.eghm.web.configuration.interceptor;
 
-import com.eghm.configuration.AbstractIgnoreFilter;
+import com.eghm.cache.CacheService;
+import com.eghm.configuration.annotation.SkipPerm;
+import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
-import com.eghm.cache.CacheService;
 import com.eghm.utils.WebUtil;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @author wyb
- * @since 2023/6/12
+ * @author 二哥很猛
+ * @since 2022/11/4
  */
+@Slf4j
 @AllArgsConstructor
-public class LockScreenFilter extends AbstractIgnoreFilter {
+public class LockScreenInterceptor implements InterceptorAdapter {
 
     private final CacheService cacheService;
 
     @Override
-    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
+    public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
+        SkipPerm permission = this.getAnnotation(handler, SkipPerm.class);
+        if (permission != null) {
+            return true;
+        }
         UserToken user = SecurityHolder.getUser();
         if (user != null) {
             String value = cacheService.getValue(CacheConstant.LOCK_SCREEN + user.getId());
             if (value != null) {
                 WebUtil.printJson(response, ErrorCode.LOCK_SCREEN);
-                return;
+                return false;
             }
         }
-        filterChain.doFilter(request, response);
+        return true;
     }
+
 }

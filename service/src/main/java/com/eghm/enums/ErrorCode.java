@@ -225,7 +225,7 @@ public enum ErrorCode {
     /**
      * 屏幕锁定中
      */
-    LOCK_SCREEN(1111, "屏幕锁定中"),
+    LOCK_SCREEN(1024, "屏幕锁定中"),
 
     /**
      * 该字段类型不支持脱敏
@@ -324,9 +324,9 @@ public enum ErrorCode {
     IMAGE_CODE_ERROR(2072, "验证码输入错误"),
 
     /**
-     * 账户或密码错误
+     * 密码输入错误
      */
-    ACCOUNT_PASSWORD_ERROR(2114, "账户或密码输入错误"),
+    ACCOUNT_PASSWORD_ERROR(2114, "密码输入错误"),
 
     /**
      * 用户信息不存在
