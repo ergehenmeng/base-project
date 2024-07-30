@@ -230,7 +230,7 @@ public class MerchantServiceImpl implements MerchantService {
     public MerchantAuthResponse generateAuthCode(Long merchantId) {
         long expire = sysConfigApi.getLong(ConfigConstant.MERCHANT_AUTH_CODE_EXPIRE);
         String authCode = IdUtil.fastSimpleUUID();
-        LocalDateTime expireTime = LocalDateTime.now().minusSeconds(expire);
+        LocalDateTime expireTime = LocalDateTime.now().plusSeconds(expire);
         cacheService.setValue(MERCHANT_AUTH_CODE + authCode, merchantId, expire);
         MerchantAuthResponse vo = new MerchantAuthResponse();
         vo.setAuthCode(authCode);
