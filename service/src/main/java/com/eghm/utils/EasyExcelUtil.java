@@ -8,6 +8,9 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.read.listener.ReadListener;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.alibaba.excel.util.ListUtils;
+import com.alibaba.excel.write.handler.SheetWriteHandler;
+import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
+import com.alibaba.excel.write.metadata.holder.WriteWorkbookHolder;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +40,8 @@ public class EasyExcelUtil {
      * 读取数据条数(一批次)
      */
     private static final int BATCH_SIZE = 500;
+
+    private static final SheetWriteHandler freezeRowHandler = new FreezeRowHandler();
 
     /**
      * 导出xlsx表格
@@ -68,7 +73,7 @@ public class EasyExcelUtil {
         try {
             response.setHeader(Header.CONTENT_DISPOSITION.getValue(), "attachment;filename=" + URLUtil.encode(fileName, StandardCharsets.UTF_8));
             response.setContentType(ExcelUtil.XLSX_CONTENT_TYPE);
-            EasyExcel.write(response.getOutputStream(), cls).sheet(sheetName).doWrite(rowValues);
+            EasyExcel.write(response.getOutputStream(), cls).sheet(sheetName).registerWriteHandler(freezeRowHandler).doWrite(rowValues);
         } catch (Exception e) {
             log.error("导出Excel异常 [{}] [{}]", fileName, cls, e);
         }
@@ -112,5 +117,13 @@ public class EasyExcelUtil {
                 consumer.accept(batchList);
             }
         }).sheet().doRead();
+    }
+
+
+    private static class FreezeRowHandler implements SheetWriteHandler {
+        @Override
+        public void afterSheetCreate(WriteWorkbookHolder writeWorkbookHolder, WriteSheetHolder writeSheetHolder) {
+            writeSheetHolder.getSheet().createFreezePane(0, 1, 0, 1);
+        }
     }
 }
