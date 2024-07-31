@@ -2159,6 +2159,11 @@ public enum ErrorCode {
     MA_ENCRYPT_URL(7015, "小程序生成加密链接失败"),
 
     /**
+     * 小程序二维码生成失败
+     */
+    MA_QRCODE_ERROR(7018, "小程序二维码生成失败"),
+
+    /**
      * 钉钉客户端初始化异常
      */
     DING_TALK_INIT(8000, "钉钉客户端初始化异常"),

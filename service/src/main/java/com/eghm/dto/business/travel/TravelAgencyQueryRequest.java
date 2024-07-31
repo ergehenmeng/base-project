@@ -1,6 +1,5 @@
 package com.eghm.dto.business.travel;
 
-import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

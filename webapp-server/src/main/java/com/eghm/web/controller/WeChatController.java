@@ -10,17 +10,16 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.vo.wechat.JsTicketVO;
+import com.eghm.wechat.WeChatMiniService;
 import com.eghm.wechat.WeChatMpService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -37,6 +36,8 @@ public class WeChatController {
     private final MemberService memberService;
 
     private final WeChatMpService weChatMpService;
+
+    private final WeChatMiniService weChatMiniService;
 
     @PostMapping(value = "/mp/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("微信公众号授权登陆(自动注册)")
@@ -67,5 +68,13 @@ public class WeChatController {
     public RespBody<JsTicketVO> jsTicket(@Validated @RequestBody JsTicketDTO dto) {
         WxJsapiSignature signature = weChatMpService.jsTicket(dto.getUrl());
         return RespBody.success(DataUtil.copy(signature, JsTicketVO.class));
+    }
+
+    @GetMapping(value = "/ma/scene")
+    @ApiOperation("解析小程序二维码参数")
+    @ApiImplicitParam(name = "scene", value = "小程序码参数", required = true, dataType = "String", paramType = "query")
+    public RespBody<String> scene(@RequestParam("scene") String scene) {
+        String param = weChatMiniService.parseScene(scene);
+        return RespBody.success(param);
     }
 }

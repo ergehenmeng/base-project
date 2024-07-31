@@ -1,7 +1,9 @@
 package com.eghm.web.controller;
 
+import cn.hutool.core.img.ImgUtil;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.wechat.LinkUrlRequest;
+import com.eghm.dto.wechat.QrCodeRequest;
 import com.eghm.dto.wechat.ShortUrlRequest;
 import com.eghm.wechat.WeChatMiniService;
 import io.swagger.annotations.Api;
@@ -39,5 +41,12 @@ public class WeChatController {
     public RespBody<String> linkUrl(@RequestBody @Validated LinkUrlRequest request) {
         String linkUrl = weChatMiniService.generateUrl(request.getPageUrl(), request.getQuery(), request.getValidDay());
         return RespBody.success(linkUrl);
+    }
+
+    @PostMapping(value = "/qrcode", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("小程序码")
+    public RespBody<String> authMobile(@RequestBody @Validated QrCodeRequest request) {
+        byte[] bytes = weChatMiniService.generateQRCode(request.getPageUrl(), request.getQuery(), request.getValidDay());
+        return RespBody.success(ImgUtil.toBase64(ImgUtil.toImage(bytes), ImgUtil.IMAGE_TYPE_PNG));
     }
 }

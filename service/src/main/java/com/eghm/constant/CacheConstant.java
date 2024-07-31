@@ -302,4 +302,8 @@ public class CacheConstant {
      */
     public static final String PAY_CONFIG = "pay_config";
 
+    /**
+     * 微信小程序二维码
+     */
+    public static final String WECHAT_QRCODE = "wechat_qrcode:";
 }

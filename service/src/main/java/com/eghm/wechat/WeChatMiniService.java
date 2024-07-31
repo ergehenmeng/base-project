@@ -35,5 +35,21 @@ public interface WeChatMiniService {
      */
     String generateUrl(String pageUrl, String query, int validDay);
 
+    /**
+     * 生成小程序二维码
+     *
+     * @param path 相对路径
+     * @param query 请求参数
+     * @param validDay 有效时间(跟微信无关,是请求参数的缓存时间)
+     * @return 二维码字节
+     */
+    byte[] generateQRCode(String path, String query, int validDay);
 
+    /**
+     * 解析小程序码参数
+     *
+     * @param scene 参数(32位以内)
+     * @return 原始参数
+     */
+    String parseScene(String scene);
 }
