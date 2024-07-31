@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
@@ -7,6 +8,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.cache.CacheService;
+import com.eghm.common.SmsService;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
@@ -26,17 +30,14 @@ import com.eghm.model.Merchant;
 import com.eghm.model.ScoreAccount;
 import com.eghm.model.SysUser;
 import com.eghm.service.business.*;
-import com.eghm.cache.CacheService;
-import com.eghm.common.SmsService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
-import com.eghm.common.impl.SysConfigApi;
-import com.eghm.vo.business.merchant.BaseMerchantResponse;
-import com.eghm.wechat.WeChatMiniService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.merchant.BaseMerchantResponse;
 import com.eghm.vo.business.merchant.MerchantAuthResponse;
 import com.eghm.vo.business.merchant.MerchantAuthVO;
 import com.eghm.vo.business.merchant.MerchantResponse;
+import com.eghm.wechat.WeChatMiniService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -232,8 +233,10 @@ public class MerchantServiceImpl implements MerchantService {
         String authCode = IdUtil.fastSimpleUUID();
         LocalDateTime expireTime = LocalDateTime.now().plusSeconds(expire);
         cacheService.setValue(MERCHANT_AUTH_CODE + authCode, merchantId, expire);
+        String path = sysConfigApi.getString(ConfigConstant.MERCHANT_AUTH_PATH);
+        byte[] bytes = weChatMiniService.generateQRCode(path, "authCode=" + authCode, 1);
         MerchantAuthResponse vo = new MerchantAuthResponse();
-        vo.setAuthCode(authCode);
+        vo.setAuthCode(ImgUtil.toBase64DataUri(ImgUtil.toImage(bytes), ImgUtil.IMAGE_TYPE_PNG));
         vo.setExpireTime(expireTime);
         return vo;
     }

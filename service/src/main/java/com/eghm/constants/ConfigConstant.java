@@ -192,6 +192,11 @@ public class ConfigConstant {
     public static final String MERCHANT_AUTH_CODE_EXPIRE = "merchant_auth_code_expire";
 
     /**
+     * 商户授权地址
+     */
+    public static final String MERCHANT_AUTH_PATH = "merchant_auth_path";
+
+    /**
      * 平台服务费率,单位:%
      */
     public static final String PLATFORM_SERVICE_RATE = "platform_service_rate";

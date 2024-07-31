@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Data
 public class MerchantAuthResponse {
 
-    @ApiModelProperty("授权码")
+    @ApiModelProperty("授权码base64图片")
     private String authCode;
 
     @ApiModelProperty("授权码过期时间")
