@@ -118,8 +118,8 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public void authMenu(Long roleId, List<Long> menuIds) {
         UserType userType = SecurityHolder.getUserType();
-        if (userType != UserType.ADMINISTRATOR) {
-            log.warn("非超级管理员,无法进行菜单授权操作 [{}]", SecurityHolder.getUserId());
+        if (userType != UserType.ADMINISTRATOR && userType != UserType.MERCHANT_ADMIN) {
+            log.warn("为保证系统安全性,非管理员将无法进行菜单授权操作 [{}]", SecurityHolder.getUserId());
             throw new BusinessException(ErrorCode.ADMIN_AUTH);
         }
         SysRole sysRole = this.selectByIdRequired(roleId);

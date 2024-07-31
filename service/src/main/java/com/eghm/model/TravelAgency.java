@@ -63,7 +63,7 @@ public class TravelAgency extends BaseEntity {
     @ApiModelProperty(value = "旅行社详细介绍信息")
     private String introduce;
 
-    @ApiModelProperty("评分")
+    @ApiModelProperty("店铺评分")
     private BigDecimal score;
 
 }

@@ -65,7 +65,7 @@ public class MerchantRoleController {
     }
 
     @GetMapping("/menu")
-    @ApiOperation("查询角色关联菜单列表")
+    @ApiOperation("查询角色关联菜单列表(选中的)")
     public RespBody<List<String>> menu(@Validated IdDTO dto) {
         List<String> menuIds = sysRoleService.getRoleMenu(dto.getId());
         return RespBody.success(menuIds);

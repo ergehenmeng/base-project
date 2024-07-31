@@ -60,7 +60,7 @@ public class MerchantUserServiceImpl implements MerchantUserService {
         MerchantUser merchant = DataUtil.copy(request, MerchantUser.class);
         merchant.setUserId(user.getId());
         merchantUserMapper.insert(merchant);
-        sysRoleService.auth(merchant.getId(), request.getRoleIds());
+        sysRoleService.auth(user.getId(), request.getRoleIds());
     }
 
     @Override
@@ -75,7 +75,7 @@ public class MerchantUserServiceImpl implements MerchantUserService {
         user.setInitPwd(user.getPwd());
         sysUserService.updateById(user);
         merchantUserMapper.updateById(DataUtil.copy(request, MerchantUser.class));
-        sysRoleService.auth(merchant.getId(), request.getRoleIds());
+        sysRoleService.auth(merchant.getUserId(), request.getRoleIds());
     }
 
     @Override

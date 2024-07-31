@@ -73,8 +73,8 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<MenuResponse> getMerchantList() {
-        List<MenuResponse> responseList = sysMenuMapper.getMerchantMenuList(null);
+    public List<MenuResponse> getMerchantList(Long userId) {
+        List<MenuResponse> responseList = sysMenuMapper.getMerchantMenuList(userId);
         return this.treeBin(ROOT, responseList);
     }
 

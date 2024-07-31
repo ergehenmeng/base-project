@@ -41,6 +41,7 @@ public class TravelAgencyController {
     @GetMapping("/listPage")
     @ApiOperation("列表")
     public RespBody<PageData<TravelResponse>> listPage(TravelAgencyQueryRequest request) {
+        // 默认查询当前商户, 如果是管理员则可以查询所有商户,因此商户ID支持前端传递
         Long merchantId = SecurityHolder.getMerchantId();
         if (merchantId != null) {
             request.setMerchantId(merchantId);
