@@ -681,3 +681,9 @@ INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES (
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('824', '1707298744621969415', '1012', '2024-07-30 09:38:24');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('825', '1707298744621969415', '1014', '2024-07-30 17:05:23');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('826', '1707298744621969415', '1019', '2024-07-30 17:05:37');
+INSERT INTO `sys_role_menu` (`role_id`, `menu_id`) VALUES ('1707298744621969410', '10191311');
+INSERT INTO `sys_role_menu` (`role_id`, `menu_id`) VALUES ('1707298744621969411', '10191311');
+INSERT INTO `sys_role_menu` (`role_id`, `menu_id`) VALUES ('1707298744621969412', '10191311');
+INSERT INTO `sys_role_menu` (`role_id`, `menu_id`) VALUES ('1707298744621969414', '10191311');
+INSERT INTO `sys_role_menu` (`role_id`, `menu_id`) VALUES ('1707298744621969415', '10191311');
+

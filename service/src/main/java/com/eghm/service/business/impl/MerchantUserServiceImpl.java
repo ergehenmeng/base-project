@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.encoder.Encoder;
@@ -71,8 +72,10 @@ public class MerchantUserServiceImpl implements MerchantUserService {
         user.setId(merchant.getUserId());
         user.setNickName(request.getNickName());
         user.setMobile(request.getMobile());
-        user.setPwd(encoder.encode(MD5.create().digestHex(request.getPassword())));
-        user.setInitPwd(user.getPwd());
+        if (StrUtil.isNotBlank(request.getPassword())) {
+            user.setPwd(encoder.encode(MD5.create().digestHex(request.getPassword())));
+            user.setInitPwd(user.getPwd());
+        }
         sysUserService.updateById(user);
         merchantUserMapper.updateById(DataUtil.copy(request, MerchantUser.class));
         sysRoleService.auth(merchant.getUserId(), request.getRoleIds());

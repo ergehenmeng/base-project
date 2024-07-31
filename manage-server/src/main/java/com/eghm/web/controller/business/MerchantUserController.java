@@ -8,14 +8,20 @@ import com.eghm.dto.business.merchant.MerchantUserEditRequest;
 import com.eghm.dto.business.merchant.MerchantUserQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.model.SysUser;
 import com.eghm.service.business.MerchantUserService;
+import com.eghm.service.sys.SysRoleService;
+import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.merchant.MerchantUserResponse;
+import com.eghm.vo.user.UserDetailResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛 2023/8/24 19:34
@@ -25,6 +31,8 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RequestMapping(value = "/manage/merchant/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MerchantUserController {
+
+    private final SysRoleService sysRoleService;
 
     private final MerchantUserService merchantUserService;
 
@@ -49,6 +57,13 @@ public class MerchantUserController {
     public RespBody<Void> update(@RequestBody @Validated MerchantUserEditRequest request) {
         merchantUserService.update(request);
         return RespBody.success();
+    }
+
+    @GetMapping("/roleList")
+    @ApiOperation("用户角色列表")
+    public RespBody<List<Long>> roleList(@Validated IdDTO dto) {
+        List<Long> roleList = sysRoleService.getByUserId(dto.getId());
+        return RespBody.success(roleList);
     }
 
     @PostMapping(value = "/lock", consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -32,7 +32,7 @@ public class MerchantUserEditRequest {
     private String mobile;
 
     @ApiModelProperty(value = "密码", required = true)
-    @Password
+    @Password(required = false)
     private String password;
 
     @ApiModelProperty("角色id列表")
