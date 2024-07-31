@@ -1,12 +1,9 @@
 package com.eghm.dto.user;
 
 import com.eghm.annotation.Assign;
-import com.eghm.validation.annotation.Password;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * @author 二哥很猛
@@ -16,12 +13,11 @@ import javax.validation.constraints.Size;
 public class PasswordEditRequest {
 
     @ApiModelProperty(value = "旧密码", required = true)
-    @NotBlank(message = "原密码不能为空")
+    @Length(min = 32, max = 32, message = "旧密码格式错误")
     private String oldPwd;
 
     @ApiModelProperty(value = "新密码", required = true)
-    @Password(message = "新密码必须包含英文字符、数字、@#&_")
-    @Size(min = 6, max = 20, message = "新密码长度应在6~20位之间")
+    @Length(min = 32, max = 32, message = "新密码格式错误")
     private String newPwd;
 
     @Assign

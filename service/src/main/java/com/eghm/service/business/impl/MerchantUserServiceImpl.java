@@ -73,7 +73,7 @@ public class MerchantUserServiceImpl implements MerchantUserService {
         user.setNickName(request.getNickName());
         user.setMobile(request.getMobile());
         if (StrUtil.isNotBlank(request.getPassword())) {
-            user.setPwd(encoder.encode(MD5.create().digestHex(request.getPassword())));
+            user.setPwd(encoder.encode(request.getPassword()));
             user.setInitPwd(user.getPwd());
         }
         sysUserService.updateById(user);

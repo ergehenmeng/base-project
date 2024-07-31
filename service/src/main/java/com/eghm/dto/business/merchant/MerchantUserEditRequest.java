@@ -1,9 +1,9 @@
 package com.eghm.dto.business.merchant;
 
 import com.eghm.validation.annotation.Mobile;
-import com.eghm.validation.annotation.Password;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -32,7 +32,7 @@ public class MerchantUserEditRequest {
     private String mobile;
 
     @ApiModelProperty(value = "密码", required = true)
-    @Password(required = false)
+    @Length(min = 32, max = 32, message = "新密码格式错误")
     private String password;
 
     @ApiModelProperty("角色id列表")
