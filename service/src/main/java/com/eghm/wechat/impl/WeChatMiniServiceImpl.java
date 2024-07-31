@@ -90,7 +90,7 @@ public class WeChatMiniServiceImpl implements WeChatMiniService {
         try {
             String scene = IdUtil.fastSimpleUUID();
             byte[] bytes = qrcodeService.createWxaCodeUnlimitBytes(scene, path, false, systemProperties.getWechat().getMiniVersion().getValue(), 430, true, null, false);
-            cacheService.setValue(CacheConstant.WECHAT_QRCODE + scene, path, validDay, TimeUnit.DAYS);
+            cacheService.setValue(CacheConstant.WECHAT_QRCODE + scene, query, validDay, TimeUnit.DAYS);
             return bytes;
         } catch (WxErrorException e) {
             log.error("微信小程序生成二维码异常 [{}] [{}]", path, query, e);
