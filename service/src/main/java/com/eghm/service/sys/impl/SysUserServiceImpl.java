@@ -231,19 +231,23 @@ public class SysUserServiceImpl implements SysUserService {
             buttonList = sysMenuService.getPermCode(user.getId());
             leftMenu = sysMenuService.getLeftMenuList(user.getId());
         }
+        int merchantType = 0;
+        if (userType == UserType.MERCHANT_ADMIN) {
+            merchantType = sysUserMapper.getMerchantType(user.getId());
+        } else if (userType == UserType.MERCHANT_USER){
+            merchantType = merchantUserMapper.getMerchantType(user.getId());
+        }
         // 根据用户名和权限创建jwtToken
         LoginResponse response = new LoginResponse();
-
         // 数据权限(此处没有判断,逻辑不够严谨,仅仅为了代码简洁)
         List<String> customList = sysDataDeptService.getDeptList(user.getId());
-
         String token = userTokenService.createToken(user, this.getMerchantId(user.getId(), user.getUserType()), buttonList, customList);
-
         response.setToken(token);
         response.setNickName(user.getNickName());
         response.setPermList(buttonList);
         response.setUserType(user.getUserType());
         response.setMenuList(leftMenu);
+        response.setMerchantType(merchantType);
         response.setInit(user.getInitPwd().equals(user.getPwd()));
         cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
         return response;

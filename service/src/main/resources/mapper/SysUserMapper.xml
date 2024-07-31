@@ -30,4 +30,9 @@
         </if>
         order by t.id desc
     </select>
+
+    <select id="getMerchantType" resultType="int">
+        select type from merchant where user_id = #{userId} limit 1
+    </select>
+
 </mapper>

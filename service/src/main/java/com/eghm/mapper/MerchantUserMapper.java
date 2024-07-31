@@ -29,4 +29,12 @@ public interface MerchantUserMapper extends BaseMapper<MerchantUser> {
      * @return 列表
      */
     Page<MerchantUserResponse> getByPage(Page<MerchantUserResponse> page, @Param("param") MerchantUserQueryRequest request);
+
+    /**
+     * 获取商户类型
+     *
+     * @param userId 用户id
+     * @return 商户类型 1 2 4 8 16 32
+     */
+    int getMerchantType(@Param("userId") Long userId);
 }

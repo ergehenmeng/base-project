@@ -27,4 +27,8 @@
         order by t.id desc
     </select>
 
+    <select id="getMerchantType" resultType="int">
+        select t.type from merchant t
+        left join merchant_user r on t.id = r.merchant_id where r.user_id = #{userId} limit 1
+    </select>
 </mapper>
