@@ -54,7 +54,7 @@ public class HomestayRoomResponse extends ExcelStyle {
     private RefundType refundType;
 
     @ApiModelProperty(value = "面积")
-    @ExcelProperty(value = "面积", index = 6)
+    @ExcelProperty(value = "面积(m²)", index = 6)
     private Integer dimension;
 
     @ApiModelProperty(value = "居住人数")

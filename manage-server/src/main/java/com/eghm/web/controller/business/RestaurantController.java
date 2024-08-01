@@ -43,10 +43,7 @@ public class RestaurantController {
     @GetMapping("/listPage")
     @ApiOperation("列表")
     public RespBody<PageData<RestaurantResponse>> listPage(RestaurantQueryRequest request) {
-        Long merchantId = SecurityHolder.getMerchantId();
-        if (merchantId != null) {
-            request.setMerchantId(merchantId);
-        }
+        SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         Page<RestaurantResponse> roomPage = restaurantService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
     }
@@ -124,7 +121,7 @@ public class RestaurantController {
     @GetMapping("/export")
     @ApiOperation("导出")
     public void export(HttpServletResponse response, RestaurantQueryRequest request) {
-        request.setMerchantId(SecurityHolder.getMerchantId());
+        SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         List<RestaurantResponse> byPage = restaurantService.getList(request);
         EasyExcelUtil.export(response, "餐饮店铺", byPage, RestaurantResponse.class);
     }

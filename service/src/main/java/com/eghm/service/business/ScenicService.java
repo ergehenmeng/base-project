@@ -28,6 +28,14 @@ public interface ScenicService {
     Page<ScenicResponse> getByPage(ScenicQueryRequest request);
 
     /**
+     * 查询景区信息 (不分页)
+     *
+     * @param request 查询条件
+     * @return 景区信息
+     */
+    List<ScenicResponse> getList(ScenicQueryRequest request);
+
+    /**
      * 获取景区列表
      *
      * @return 商户id

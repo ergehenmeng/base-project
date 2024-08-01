@@ -78,6 +78,11 @@ public class ScenicServiceImpl implements ScenicService {
     }
 
     @Override
+    public List<ScenicResponse> getList(ScenicQueryRequest request) {
+        return scenicMapper.listPage(request.createNullPage(), request).getRecords();
+    }
+
+    @Override
     public List<BaseScenicResponse> getList(Long merchantId) {
         return scenicMapper.getBaseList(merchantId);
     }

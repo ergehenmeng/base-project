@@ -13,6 +13,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.model.Scenic;
 import com.eghm.service.business.ScenicService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.scenic.BaseScenicResponse;
 import com.eghm.vo.business.scenic.ScenicDetailResponse;
@@ -25,6 +26,7 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -41,10 +43,7 @@ public class ScenicController {
     @ApiOperation("列表")
     @GetMapping("/listPage")
     public RespBody<PageData<ScenicResponse>> getByPage(ScenicQueryRequest request) {
-        Long merchantId = SecurityHolder.getMerchantId();
-        if (merchantId != null) {
-            request.setMerchantId(merchantId);
-        }
+        SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         Page<ScenicResponse> scenicPage = scenicService.getByPage(request);
         return RespBody.success(PageData.toPage(scenicPage));
     }
@@ -111,5 +110,13 @@ public class ScenicController {
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         scenicService.deleteById(dto.getId());
         return RespBody.success();
+    }
+
+    @GetMapping("/export")
+    @ApiOperation("导出")
+    public void export(HttpServletResponse response, ScenicQueryRequest request) {
+        SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
+        List<ScenicResponse> byPage = scenicService.getList(request);
+        EasyExcelUtil.export(response, "景区列表", byPage, ScenicResponse.class);
     }
 }

@@ -29,6 +29,14 @@ public interface TravelAgencyService {
     Page<TravelResponse> getByPage(TravelAgencyQueryRequest request);
 
     /**
+     * 查询商家信息 不分页
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<TravelResponse> getList(TravelAgencyQueryRequest request);
+
+    /**
      * 查询旅行社基础信息
      *
      * @param merchantId 商户Id

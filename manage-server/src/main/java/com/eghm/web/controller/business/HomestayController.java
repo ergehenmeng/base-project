@@ -42,10 +42,7 @@ public class HomestayController {
     @GetMapping("/listPage")
     @ApiOperation("列表")
     public RespBody<PageData<HomestayResponse>> listPage(HomestayQueryRequest request) {
-        Long merchantId = SecurityHolder.getMerchantId();
-        if (merchantId != null) {
-            request.setMerchantId(merchantId);
-        }
+        SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         Page<HomestayResponse> byPage = homestayService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
@@ -117,7 +114,7 @@ public class HomestayController {
     @GetMapping("/export")
     @ApiOperation("民宿导出")
     public void export(HttpServletResponse response, HomestayQueryRequest request) {
-        request.setMerchantId(SecurityHolder.getMerchantId());
+        SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         List<HomestayResponse> byPage = homestayService.getList(request);
         EasyExcelUtil.export(response, "民宿信息", byPage, HomestayResponse.class);
     }

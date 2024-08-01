@@ -40,7 +40,7 @@ public class ItemStoreResponse extends ExcelStyle {
     private String merchantName;
 
     @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
-    @ExcelProperty(value = "状态 0:待上架 1:已上架 2:强制下架", index = 2, converter = EnumExcelConverter.class)
+    @ExcelProperty(value = "状态", index = 2, converter = EnumExcelConverter.class)
     private State state;
 
     @ApiModelProperty("推荐店铺")
@@ -51,13 +51,13 @@ public class ItemStoreResponse extends ExcelStyle {
     @ExcelProperty(value = "商家电话", index = 4)
     private String telephone;
 
-    @ApiModelProperty("评分")
-    @ExcelProperty(value = "评分", index = 5)
-    private BigDecimal score;
-
     @ApiModelProperty(value = "营业时间")
-    @ExcelProperty(value = "营业时间", index = 6)
+    @ExcelProperty(value = "营业时间", index = 5)
     private String openTime;
+
+    @ApiModelProperty("评分")
+    @ExcelProperty(value = "评分", index = 6)
+    private BigDecimal score;
 
     @ApiModelProperty(value = "详细地址")
     @ExcelProperty(value = "详细地址", index = 7)

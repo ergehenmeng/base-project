@@ -8,6 +8,8 @@ import com.eghm.exception.BusinessException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.Optional;
+
 /**
  * @author 二哥很猛
  * @since 2022/11/4
@@ -72,6 +74,10 @@ public class SecurityHolder {
      */
     public static Long getMerchantId() {
         return getUserRequired().getMerchantId();
+    }
+
+    public static Optional<Long> getMerchantOptional() {
+        return Optional.ofNullable(getMerchantId());
     }
 
     public static void remove() {

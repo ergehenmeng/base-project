@@ -41,10 +41,7 @@ public class ItemStoreController {
     @GetMapping("/listPage")
     @ApiOperation("列表")
     public RespBody<PageData<ItemStoreResponse>> listPage(ItemStoreQueryRequest request) {
-        Long merchantId = SecurityHolder.getMerchantId();
-        if (merchantId != null) {
-            request.setMerchantId(merchantId);
-        }
+        SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         Page<ItemStoreResponse> byPage = itemStoreService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
@@ -123,7 +120,7 @@ public class ItemStoreController {
     @GetMapping("/export")
     @ApiOperation("导出")
     public void export(HttpServletResponse response, ItemStoreQueryRequest request) {
-        request.setMerchantId(SecurityHolder.getMerchantId());
+        SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         List<ItemStoreResponse> byPage = itemStoreService.getList(request);
         EasyExcelUtil.export(response, "零售店铺信息", byPage, ItemStoreResponse.class);
     }

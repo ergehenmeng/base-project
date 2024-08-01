@@ -13,6 +13,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.model.TravelAgency;
 import com.eghm.service.business.TravelAgencyService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.line.BaseTravelResponse;
 import com.eghm.vo.business.line.TravelDetailResponse;
@@ -24,6 +25,7 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -42,10 +44,7 @@ public class TravelAgencyController {
     @ApiOperation("列表")
     public RespBody<PageData<TravelResponse>> listPage(TravelAgencyQueryRequest request) {
         // 默认查询当前商户, 如果是管理员则可以查询所有商户,因此商户ID支持前端传递
-        Long merchantId = SecurityHolder.getMerchantId();
-        if (merchantId != null) {
-            request.setMerchantId(merchantId);
-        }
+        SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         Page<TravelResponse> roomPage = travelAgencyService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
     }
@@ -112,5 +111,13 @@ public class TravelAgencyController {
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         travelAgencyService.deleteById(dto.getId());
         return RespBody.success();
+    }
+
+    @GetMapping("/export")
+    @ApiOperation("导出")
+    public void export(HttpServletResponse response, TravelAgencyQueryRequest request) {
+        SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
+        List<TravelResponse> byPage = travelAgencyService.getList(request);
+        EasyExcelUtil.export(response, "旅行社列表", byPage, TravelResponse.class);
     }
 }

@@ -44,10 +44,7 @@ public class VenueController {
     @GetMapping("/listPage")
     @ApiOperation("列表")
     public RespBody<PageData<VenueResponse>> listPage(VenueQueryRequest request) {
-        Long merchantId = SecurityHolder.getMerchantId();
-        if (merchantId != null) {
-            request.setMerchantId(merchantId);
-        }
+        SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         Page<VenueResponse> byPage = venueService.listPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
@@ -119,7 +116,7 @@ public class VenueController {
     @GetMapping("/export")
     @ApiOperation("导出")
     public void export(HttpServletResponse response, VenueQueryRequest request) {
-        request.setMerchantId(SecurityHolder.getMerchantId());
+        SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         List<VenueResponse> byPage = venueService.getList(request);
         EasyExcelUtil.export(response, "场馆信息", byPage, VenueResponse.class);
     }

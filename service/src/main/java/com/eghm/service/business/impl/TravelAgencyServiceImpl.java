@@ -63,8 +63,15 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     @Override
     public Page<TravelResponse> getByPage(TravelAgencyQueryRequest request) {
         Page<TravelResponse> byPage = travelAgencyMapper.getByPage(request.createPage(), request);
-        byPage.getRecords().forEach(agency -> agency.setDetailAddress(sysAreaService.parseArea(agency.getCityId(), agency.getCountyId(), agency.getDetailAddress())));
+        this.parseAddress(byPage);
         return byPage;
+    }
+
+    @Override
+    public List<TravelResponse> getList(TravelAgencyQueryRequest request) {
+        Page<TravelResponse> byPage = travelAgencyMapper.getByPage(request.createNullPage(), request);
+        this.parseAddress(byPage);
+        return byPage.getRecords();
     }
 
     @Override
@@ -189,6 +196,17 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         if (count > 0) {
             log.error("旅行社名称重复 [{}] [{}]", title, id);
             throw new BusinessException(ErrorCode.TRAVEL_AGENCY_REDO);
+        }
+    }
+
+    /**
+     * 解析地址
+     *
+     * @param byPage 列表
+     */
+    private void parseAddress(Page<TravelResponse> byPage) {
+        if (CollUtil.isNotEmpty(byPage.getRecords())) {
+            byPage.getRecords().forEach(agency -> agency.setDetailAddress(sysAreaService.parseArea(agency.getCityId(), agency.getCountyId(), agency.getDetailAddress())));
         }
     }
 }

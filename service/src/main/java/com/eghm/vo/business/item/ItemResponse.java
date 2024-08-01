@@ -33,8 +33,6 @@ public class ItemResponse extends ExcelStyle {
     @ApiModelProperty("封面图")
     private String coverUrl;
 
-    @ApiModelProperty(value = "排序")
-    private Integer sort;
 
     @ApiModelProperty(value = "商品名称")
     @ExcelProperty(value = "商品名称", index = 0)
@@ -58,17 +56,21 @@ public class ItemResponse extends ExcelStyle {
 
     @ApiModelProperty(value = "最低价格")
     @JsonSerialize(using = CentToYuanEncoder.class)
-    @ExcelProperty(value = "最低价格", index = 6, converter = CentToYuanConverter.class)
+    @ExcelProperty(value = "最低价格", index = 5, converter = CentToYuanConverter.class)
     private Integer minPrice;
 
     @ApiModelProperty(value = "最高价格")
     @JsonSerialize(using = CentToYuanEncoder.class)
-    @ExcelProperty(value = "最高价格", index = 7, converter = CentToYuanConverter.class)
+    @ExcelProperty(value = "最高价格", index = 6, converter = CentToYuanConverter.class)
     private Integer maxPrice;
 
     @ApiModelProperty(value = "销售数量(所有规格销售总量)")
-    @ExcelProperty(value = "销售数量", index = 8)
+    @ExcelProperty(value = "销量", index = 7)
     private Integer saleNum;
+
+    @ApiModelProperty(value = "排序")
+    @ExcelProperty(value = "排序", index = 8)
+    private Integer sort;
 
     @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
