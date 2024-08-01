@@ -626,3 +626,8 @@ INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES (
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('835', '1707298744621969412', '10191311', '2024-07-31 13:58:08');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('836', '1707298744621969414', '10191311', '2024-07-31 13:58:08');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('837', '1707298744621969415', '10191311', '2024-07-31 13:58:08');
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969410, 10191310);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969411, 10191310);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969412, 10191310);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969414, 10191310);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 10191310);
