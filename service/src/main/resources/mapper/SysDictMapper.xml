@@ -11,8 +11,8 @@
             and t.dict_type = #{dictType}
         </if>
         <if test="queryName != null and queryName != '' ">
-            and (t.title like concat('%', #{queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')  or
-                 t.nid like concat('%', #{queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%'))
+            and (t.title like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%')  or
+                 t.nid like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%'))
         </if>
         order by t.id desc, r.hidden_value
     </select>

@@ -25,7 +25,7 @@
             and t.state = #{param.state}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         <if test="param.venueType != null">
             and t.venue_type = #{param.venueType}
@@ -73,8 +73,8 @@
             and t.merchant_id = #{param.merchantId}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and ( t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
-            r.merchant_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') )
+            and ( t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+            r.merchant_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') )
         </if>
         order by t.id desc
     </select>
@@ -117,7 +117,7 @@
         from venue t
         where t.state = 1 and t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
-            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         <if test="param.venueType != null">
             and t.venue_type = #{param.venueType}
@@ -140,7 +140,7 @@
         from venue t
         where t.state = 1 and t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
-            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         <if test="param.venueType != null">
             and t.venue_type = #{param.venueType}

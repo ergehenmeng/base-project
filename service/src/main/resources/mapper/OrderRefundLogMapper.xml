@@ -44,11 +44,11 @@
         inner join `order` r on t.order_no = r.order_no
         where t.deleted = false and r.deleted = false
         <if test="param.prefix != null and param.prefix != ''">
-            and t.order_no like concat(#{param.prefix, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and t.order_no like concat(#{param.prefix, typeHandler=LikeTypeHandler}, '%')
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and (t.order_no like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
-                 r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%'))
+            and (t.order_no like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+                 r.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%'))
         </if>
         <if test="param.state != null">
             and t.state = #{param.state}

@@ -24,10 +24,10 @@
             and r.merchant_id = #{param.merchantId}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and (r.order_no like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
-            r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
-            m.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
-            r.mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') )
+            and (r.order_no like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+            r.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+            m.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+            r.mobile like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') )
         </if>
         <if test="param.orderState != null">
             and r.state = #{param.orderState}
@@ -72,7 +72,7 @@
         left join homestay m on t.homestay_id = m.id
         where t.deleted = false and r.member_id = #{param.memberId}
         <if test="param.queryName != null and param.queryName != ''">
-            and r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and r.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         <if test="param.orderState != null">
             and r.state = #{param.orderState}

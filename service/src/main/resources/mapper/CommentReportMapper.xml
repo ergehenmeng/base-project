@@ -15,7 +15,7 @@
         left join comment c on t.comment_id = c.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != '' ">
-            and t.content like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and t.content like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         <if test="param.objectType != null">
             and t.object_type = #{param.objectType}

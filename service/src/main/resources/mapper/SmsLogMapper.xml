@@ -13,7 +13,7 @@
         from sms_log
         <where>
             <if test="param.queryName != null and param.queryName != ''">
-                and mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+                and mobile like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
             </if>
             <if test="param.smsType != null">
                 and sms_type = #{param.smsType}

@@ -13,7 +13,7 @@
             and state = #{param.state}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and remark like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler } ,'%')
+            and remark like concat('%', #{param.queryName, typeHandler=LikeTypeHandler } ,'%')
         </if>
         order by id desc
     </select>

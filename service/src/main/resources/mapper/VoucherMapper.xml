@@ -18,7 +18,7 @@
         from voucher t left join restaurant r on t.restaurant_id = r.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
-            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         <if test="param.merchantId != null">
             and t.merchant_id = #{param.merchantId}
@@ -49,7 +49,7 @@
         total_num
         from voucher where state = 1 and deleted = false and restaurant_id = #{param.restaurantId}
         <if test="param.queryName != null and param.queryName != ''">
-            and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         <choose>
             <when test="param.sortByPrice == 1">
@@ -95,8 +95,8 @@
         from voucher t inner join restaurant r on t.restaurant_id = r.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
-            and (t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
-            or r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%'))
+            and (t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%')
+            or r.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%'))
         </if>
         <if test="param.state != null">
             and t.state = #{param.state}

@@ -24,10 +24,10 @@
             and t.express_id = #{param.expressId}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and (t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')  or r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%'))
+            and (t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%')  or r.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%'))
         </if>
         <if test="param.tagId != null and param.tagId != ''">
-            and t.tag_id like concat(#{param.tagId, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
+            and t.tag_id like concat(#{param.tagId, typeHandler=LikeTypeHandler} ,'%')
         </if>
         <if test="param.deliveryType != null ">
             and t.delivery_type = #{param.deliveryType}
@@ -87,10 +87,10 @@
         from item t inner join item_store r on t.store_id = r.id
         where t.deleted = false and t.state = 1 and t.min_price &gt; 0 and r.state = 1 and r.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
-            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
+            and t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%')
         </if>
         <if test="param.tagId != null and param.tagId != ''">
-            and t.tag_id like concat(#{param.tagId, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
+            and t.tag_id like concat(#{param.tagId, typeHandler=LikeTypeHandler} ,'%')
         </if>
         <if test="param.deliveryType != null">
             and t.delivery_type = #{param.deliveryType}
@@ -126,13 +126,13 @@
             and exists (select 1 from coupon_scope r where t.id  = r.product_id and r.coupon_id = #{param.couponId} )
         </if>
         <if test="param.tagId != null and param.tagId != ''">
-            t.tag_id like concat(#{param.tagId, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
+            t.tag_id like concat(#{param.tagId, typeHandler=LikeTypeHandler} ,'%')
         </if>
         <if test="param.useScope == 1">
             and t.store_id = #{param.storeId}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
+            and t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%')
         </if>
         <if test="param.deliveryType != null">
             and t.delivery_type = #{param.deliveryType}
@@ -222,8 +222,8 @@
         from item t inner join item_store r on t.store_id = r.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
-            and (t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
-                 or r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%'))
+            and (t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%')
+                 or r.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%'))
         </if>
         <if test="param.state != null">
             and t.state = #{param.state}

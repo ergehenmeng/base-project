@@ -14,7 +14,7 @@
         from limit_purchase_item t inner join item r on t.item_id = r.id
         where r.state = 1 and r.deleted = false and t.deleted = false and now() between t.advance_time and t.end_time and r.min_price &gt; 0
         <if test="param.queryName != null and param.queryName != ''">
-            and r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
+            and r.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%')
         </if>
         <if test="param.sortBy != null">
             <choose>

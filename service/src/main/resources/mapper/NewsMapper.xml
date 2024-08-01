@@ -14,7 +14,7 @@
             update_time
         from news where deleted = false and code = #{param.code}
         <if test="param.queryName != null and param.queryName != ''">
-            and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         order by sort, id desc
     </select>
@@ -29,7 +29,7 @@
            update_time
         from news where deleted = false
         <if test="queryName != null and queryName != ''">
-            and title like concat('%', #{queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and title like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         order by sort, id desc
     </select>

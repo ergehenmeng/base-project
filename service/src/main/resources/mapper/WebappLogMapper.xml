@@ -22,9 +22,9 @@
        left join `member` r on t.member_id = r.id
        <where>
            <if test="param.queryName != null and param.queryName != ''">
-               and (r.nick_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
-                    or t.serial_number like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
-                    or t.url like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+               and (r.nick_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
+                    or t.serial_number like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
+                    or t.url like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
                     or t.ip = #{param.queryName}
                    )
            </if>

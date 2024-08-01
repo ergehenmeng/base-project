@@ -19,7 +19,7 @@
             and merchant_id is null
         </if>
         <if test="queryName != null and queryName != ''">
-            and role_name like concat('%', #{queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%')
+            and role_name like concat('%', #{queryName, typeHandler=LikeTypeHandler},'%')
         </if>
         order by id desc
     </select>

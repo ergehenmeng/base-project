@@ -20,7 +20,7 @@
         left join merchant r on t.merchant_id = r.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
-            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         <if test="param.merchantId != null">
             and t.merchant_id = #{param.merchantId}
@@ -84,8 +84,8 @@
             and t.merchant_id = #{param.merchantId}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and ( t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
-            r.merchant_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') )
+            and ( t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+            r.merchant_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') )
         </if>
         order by t.id desc
     </select>
@@ -128,7 +128,7 @@
         and stock > 0 and state = true group by homestay_id, homestay_room_id having count(homestay_room_id) = #{param.stayNum}) r on t.id = r.homestay_id
         where t.state = 1 and t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
-            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         <if test="param.level != null">
             and t.`level` = #{param.level}
@@ -157,7 +157,7 @@
         and stock > 0 and state = true group by homestay_id, homestay_room_id having count(homestay_room_id) = #{param.stayNum}) r on t.id = r.homestay_id
         where t.state = 1 and t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
-            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         <if test="param.level != null">
             and t.`level` = #{param.level}

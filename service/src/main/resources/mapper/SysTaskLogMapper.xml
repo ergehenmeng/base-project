@@ -15,9 +15,9 @@
         from sys_task_log
         <where>
             <if test="param.queryName != null and param.queryName != ''">
-                and (bean_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%') or
-                method_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%') er
-                ip like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%'))
+                and (bean_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%') or
+                method_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%') er
+                ip like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%'))
             </if>
             <if test="param.state != null">
                 and state = #{param.state}

@@ -24,7 +24,7 @@
             and state = #{param.state}
         </if>
         <if test="param.queryName != null and param.queryName != '' ">
-            and scenic_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}
+            and scenic_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}
             ,'%')
         </if>
         order by sort, id desc
@@ -54,7 +54,7 @@
         min_price
         from scenic where deleted = false and state = 1
         <if test="param.queryName != null and param.queryName != '' ">
-            and scenic_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
+            and scenic_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%')
         </if>
         order by sort
     </select>
@@ -90,8 +90,8 @@
             and t.merchant_id = #{param.merchantId}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and ( t.scenic_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
-            r.merchant_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') )
+            and ( t.scenic_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+            r.merchant_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') )
         </if>
         order by t.id desc
     </select>

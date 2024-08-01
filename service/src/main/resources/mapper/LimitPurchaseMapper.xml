@@ -17,7 +17,7 @@
             and merchant_id = #{param.merchantId}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         order by id desc
     </select>

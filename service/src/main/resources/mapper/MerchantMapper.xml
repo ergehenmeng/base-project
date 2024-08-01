@@ -22,10 +22,10 @@
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
             and (
-            t.merchant_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
-            t.mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
-            t.auth_mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
-            t.legal_id_card like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            t.merchant_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+            t.mobile like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+            t.auth_mobile like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+            t.legal_id_card like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
             )
         </if>
         <if test="param.enterpriseType != null">

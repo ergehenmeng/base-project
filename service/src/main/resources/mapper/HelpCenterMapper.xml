@@ -20,7 +20,7 @@
             and state = #{param.state}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and ask like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and ask like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         order by sort, id desc
     </select>
@@ -28,8 +28,8 @@
     <select id="getList" parameterType="com.eghm.dto.help.HelpQueryRequest" resultType="com.eghm.model.HelpCenter">
         select help_type, ask, answer from help_center where deleted = false and state = true and help_type = #{helpType}
         <if test="queryName != null and queryName != ''">
-            and (ask like concat('%', #{queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
-                 answer like concat('%', #{queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%'))
+            and (ask like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%') or
+                 answer like concat('%', #{queryName, typeHandler=LikeTypeHandler} ,'%'))
         </if>
         order by sort
     </select>

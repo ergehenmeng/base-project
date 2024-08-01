@@ -17,7 +17,7 @@
         inner join (select item_id, sum(quantity) as quantity from shopping_cart where deleted = false group by item_id) s on t.id = s.item_id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != '' ">
-            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         <if test="param.merchantId != null">
             and t.merchant_id = #{param.merchantId}

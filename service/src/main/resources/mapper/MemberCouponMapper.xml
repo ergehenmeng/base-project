@@ -22,8 +22,8 @@
             and t.state = #{param.state}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and (r.nick_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%') or r.mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
-            or s.order_no like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%'))
+            and (r.nick_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%') or r.mobile like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
+            or s.order_no like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%'))
         </if>
         order by t.id desc
     </select>

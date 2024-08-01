@@ -17,9 +17,9 @@
                 and locked = #{request.locked}
             </if>
             <if test="param.queryName != null and param.queryName != ''">
-                and (title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%') or
-                nid like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%') or
-                remark like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%') )
+                and (title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%') or
+                nid like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%') or
+                remark like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%') )
             </if>
         </where>
         order by id desc

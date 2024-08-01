@@ -23,7 +23,7 @@
                 and t.merchant_id = #{param.merchantId}
             </if>
             <if test="param.queryName != null and param.queryName != ''">
-                and t.order_no like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
+                and t.order_no like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%')
             </if>
             <if test="param.startDate != null">
                 and t.create_time &gt;= #{param.startDate}

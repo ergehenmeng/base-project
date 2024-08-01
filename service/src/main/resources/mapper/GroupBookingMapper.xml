@@ -21,8 +21,8 @@
             and g.merchant_id = #{param.merchantId}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and ( g.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
-            i.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%'))
+            and ( g.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+            i.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%'))
         </if>
         <if test="param.state != null">
             <choose>
@@ -64,7 +64,7 @@
         from group_booking t inner join item r on t.item_id = r.id
         where r.state = 1 and r.deleted = false and t.deleted = false and now() between t.start_time and t.end_time and r.min_price &gt; 0
         <if test="param.queryName != null and param.queryName != ''">
-            and r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
+            and r.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%')
         </if>
         <if test="param.sortBy != null">
             <choose>

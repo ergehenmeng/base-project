@@ -11,7 +11,7 @@
         from sms_template
         <where>
             <if test="queryName != null and queryName != ''">
-                nid like concat('%', #{queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+                nid like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%')
             </if>
         </where>
         order by id desc

@@ -7,10 +7,10 @@
         from manage_log t left join sys_user r on t.user_id = r.id
         <where>
             <if test="param.queryName != null and param.queryName != ''">
-                and (t.url like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler },'%') or
-                t.ip like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%') or
-                r.nick_name like concat('%',#{param.extName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%') or
-                r.mobile like concat('%',#{param.extName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%'))
+                and (t.url like concat('%',#{param.queryName, typeHandler=LikeTypeHandler },'%') or
+                t.ip like concat('%',#{param.queryName, typeHandler=LikeTypeHandler},'%') or
+                r.nick_name like concat('%',#{param.extName, typeHandler=LikeTypeHandler},'%') or
+                r.mobile like concat('%',#{param.extName, typeHandler=LikeTypeHandler},'%'))
             </if>
             <if test="param.startTime != null">
                 and t.create_time &gt;= #{param.startTime}

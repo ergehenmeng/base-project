@@ -25,7 +25,7 @@
             and t.type_id = #{param.typeId}
         </if>
         <if test="param.queryName != null and param.queryName != '' ">
-            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         order by id desc
     </select>
@@ -67,7 +67,7 @@
         from poi_point
         where deleted = false and area_code = #{areaCode}
         <if test="queryName != null and queryName!= '' ">
-            and title like concat('%', #{queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and title like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         order by id desc
     </select>

@@ -42,7 +42,7 @@
         from sys_menu t
         <where>
             <if test="queryName != null and queryName != ''">
-                and t.title like concat('%', #{queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+                and t.title like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%')
             </if>
             <if test="state != null">
                 and t.state = #{state}

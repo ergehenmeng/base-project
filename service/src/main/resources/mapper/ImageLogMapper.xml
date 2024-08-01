@@ -17,8 +17,8 @@
             and image_type = #{param.imageType}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and (title like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%') or
-            remark like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%'))
+            and (title like concat('%',#{param.queryName, typeHandler=LikeTypeHandler} ,'%') or
+            remark like concat('%',#{param.queryName, typeHandler=LikeTypeHandler} ,'%'))
         </if>
         order by id desc
     </select>

@@ -5,7 +5,7 @@
     <select id="getList" resultType="com.eghm.vo.business.item.ItemTagResponse" parameterType="com.eghm.dto.business.item.ItemTagQueryRequest">
         select id, pid, title, icon, sort, state from item_tag where deleted = 0
         <if test="queryName != null and queryName != '' ">
-            and (title like concat('%', #{queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') )
+            and (title like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%') )
         </if>
         <if test="state != null  ">
             and state = #{state}

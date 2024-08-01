@@ -10,7 +10,7 @@
             and sign_type = #{param.signType}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and title = #{param.queryName,  typeHandler=com.eghm.handler.mysql.LikeTypeHandler}
+            and title = #{param.queryName,  typeHandler=LikeTypeHandler}
         </if>
         order by id desc
     </select>

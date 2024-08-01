@@ -26,9 +26,9 @@
         left join sys_user s on t.user_id = s.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
-            and (t.order_no like concat('%', #{param.queryName, , typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
-                or t.product_title like concat('%', #{param.queryName, , typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
-                or r.nick_name like concat('%', #{param.queryName, , typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and (t.order_no like concat('%', #{param.queryName, , typeHandler=LikeTypeHandler}, '%')
+                or t.product_title like concat('%', #{param.queryName, , typeHandler=LikeTypeHandler}, '%')
+                or r.nick_name like concat('%', #{param.queryName, , typeHandler=LikeTypeHandler}, '%')
             )
         </if>
         <if test="param.state != null">
