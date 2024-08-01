@@ -51,12 +51,13 @@ public class VoucherAddRequest {
 
     @ApiModelProperty(value = "购买说明", required = true)
     @NotNull(message = "购买说明不能为空")
+    @Size(max = 400, message = "购买说明最大400字符")
     @WordChecker(message = "购买说明存在敏感词")
-    @Expose(serialize = false)
     private String depict;
 
     @ApiModelProperty(value = "限购数量", required = true)
     @NotNull(message = "限购数量不能为空")
+    @Max(value = 99, message = "限购数量不能大于99")
     private Integer quota;
 
     @ApiModelProperty(value = "有效期购买之日起")
@@ -77,7 +78,7 @@ public class VoucherAddRequest {
     private String expireTime;
 
     @ApiModelProperty(value = "详细介绍", required = true)
-    @NotBlank(message = "退订规则不能为空")
+    @NotBlank(message = "详细介绍不能为空")
     @WordChecker(message = "详细介绍存在敏感词")
     @Expose(serialize = false)
     private String introduce;

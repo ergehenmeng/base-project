@@ -55,11 +55,13 @@ public class VoucherEditRequest {
 
     @ApiModelProperty(value = "购买说明", required = true)
     @NotNull(message = "购买说明不能为空")
-    @WordChecker
+    @Size(max = 400, message = "购买说明最大400字符")
+    @WordChecker(message = "购买说明存在敏感词")
     private String depict;
 
     @ApiModelProperty(value = "限购数量", required = true)
     @NotNull(message = "限购数量不能为空")
+    @Max(value = 99, message = "限购数量不能大于99")
     private Integer quota;
 
     @ApiModelProperty(value = "有效期购买之日起")
