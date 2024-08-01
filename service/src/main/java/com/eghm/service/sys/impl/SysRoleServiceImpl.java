@@ -51,7 +51,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public void update(RoleEditRequest request) {
-        this.redoRole(request.getRoleName(), request.getId());
+        this.redoRole(request.getRoleName(), request.getId(), request.getMerchantId());
         LambdaUpdateWrapper<SysRole> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(SysRole::getId, request.getId());
         if (request.getMerchantId() == null) {
@@ -87,7 +87,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public void create(RoleAddRequest request) {
-        this.redoRole(request.getRoleName(), null);
+        this.redoRole(request.getRoleName(), null, request.getMerchantId());
         SysRole role = DataUtil.copy(request, SysRole.class);
         sysRoleMapper.insert(role);
     }
@@ -168,9 +168,10 @@ public class SysRoleServiceImpl implements SysRoleService {
      * @param name 角色名称
      * @param id   id 编辑时不能为空
      */
-    public void redoRole(String name, Long id) {
+    public void redoRole(String name, Long id, Long merchantId) {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysRole::getRoleName, name);
+        wrapper.eq(merchantId != null, SysRole::getMerchantId, merchantId);
         wrapper.ne(id != null, SysRole::getId, id);
         Long count = sysRoleMapper.selectCount(wrapper);
         if (count > 0) {
