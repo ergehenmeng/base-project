@@ -75,9 +75,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     @Override
     public Page<HomestayResponse> getByPage(HomestayQueryRequest request) {
         Page<HomestayResponse> listPage = homestayMapper.listPage(request.createPage(), request);
-        if (CollUtil.isNotEmpty(listPage.getRecords())) {
-            listPage.getRecords().forEach(response -> response.setDetailAddress(sysAreaService.parseArea(response.getCityId(), response.getCountyId(), response.getDetailAddress())));
-        }
+        this.parseAddress(listPage);
         return listPage;
     }
 
@@ -89,6 +87,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     @Override
     public List<HomestayResponse> getList(HomestayQueryRequest request) {
         Page<HomestayResponse> listPage = homestayMapper.listPage(request.createNullPage(), request);
+        this.parseAddress(listPage);
         return listPage.getRecords();
     }
 
@@ -241,6 +240,17 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         if (count > 0) {
             log.error("民宿名称被占用 [{}]", title);
             throw new BusinessException(ErrorCode.HOMESTAY_TITLE_REDO);
+        }
+    }
+
+    /**
+     * 解析并格式化地址
+     *
+     * @param listPage 列表
+     */
+    private void parseAddress(Page<HomestayResponse> listPage) {
+        if (CollUtil.isNotEmpty(listPage.getRecords())) {
+            listPage.getRecords().forEach(response -> response.setDetailAddress(sysAreaService.parseArea(response.getCityId(), response.getCountyId(), response.getDetailAddress())));
         }
     }
 
