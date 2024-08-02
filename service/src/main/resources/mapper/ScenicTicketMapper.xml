@@ -11,7 +11,6 @@
         t.category,
         t.sale_num,
         t.sale_price,
-        t.advance_day,
         t.start_date,
         t.end_date,
         t.stock,

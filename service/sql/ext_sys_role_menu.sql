@@ -634,3 +634,4 @@ insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 10191310
 insert into sys_role_menu(role_id, menu_id) values(1707298744621969413, 10121519);
 insert into sys_role_menu(role_id, menu_id) values(1707298744621969414, 10122019);
 insert into sys_role_menu(role_id, menu_id) values(1707298744621969410, 10121019);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969410, 10121119);

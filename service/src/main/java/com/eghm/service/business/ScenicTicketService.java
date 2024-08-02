@@ -12,6 +12,8 @@ import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.scenic.ticket.TicketResponse;
 import com.eghm.vo.business.scenic.ticket.TicketVO;
 
+import java.util.List;
+
 /**
  * @author 二哥很猛 2022/6/15
  */
@@ -24,6 +26,14 @@ public interface ScenicTicketService {
      * @return 门票信息
      */
     Page<TicketResponse> getByPage(ScenicTicketQueryRequest request);
+
+    /**
+     * 查询列表 (不分页)
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<TicketResponse> getList(ScenicTicketQueryRequest request);
 
     /**
      * 创建景区门票

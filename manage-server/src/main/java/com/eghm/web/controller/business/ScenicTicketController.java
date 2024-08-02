@@ -13,6 +13,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.model.ScenicTicket;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.scenic.ticket.TicketDetailResponse;
 import com.eghm.vo.business.scenic.ticket.TicketResponse;
@@ -22,6 +23,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -100,5 +104,13 @@ public class ScenicTicketController {
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         scenicTicketService.deleteById(dto.getId());
         return RespBody.success();
+    }
+
+    @GetMapping("/export")
+    @ApiOperation("导出")
+    public void export(HttpServletResponse response, ScenicTicketQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        List<TicketResponse> byPage = scenicTicketService.getList(request);
+        EasyExcelUtil.export(response, "门票列表", byPage, TicketResponse.class);
     }
 }

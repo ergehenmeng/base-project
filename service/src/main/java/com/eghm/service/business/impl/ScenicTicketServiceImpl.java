@@ -32,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author 二哥很猛 2022/6/15
@@ -52,6 +53,11 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     @Override
     public Page<TicketResponse> getByPage(ScenicTicketQueryRequest request) {
         return scenicTicketMapper.getByPage(request.createPage(), request);
+    }
+
+    @Override
+    public List<TicketResponse> getList(ScenicTicketQueryRequest request) {
+        return scenicTicketMapper.getByPage(request.createNullPage(), request).getRecords();
     }
 
     @Override
