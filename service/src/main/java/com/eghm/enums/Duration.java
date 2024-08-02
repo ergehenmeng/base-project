@@ -1,6 +1,7 @@
 package com.eghm.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.eghm.annotation.ExcelDesc;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,7 +49,7 @@ public enum Duration implements EnumBinder {
     @EnumValue
     private final int value;
 
-    @EnumValue
+    @ExcelDesc
     private final String name;
 
     @Override

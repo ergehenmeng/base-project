@@ -1,6 +1,7 @@
 package com.eghm.vo.business.scenic;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
@@ -60,10 +61,14 @@ public class ScenicResponse {
 
     @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ExcelProperty(value = "添加时间", index = 8)
+    @DateTimeFormat(value = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @ApiModelProperty("更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ExcelProperty(value = "更新时间", index = 9)
+    @DateTimeFormat(value = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
 }

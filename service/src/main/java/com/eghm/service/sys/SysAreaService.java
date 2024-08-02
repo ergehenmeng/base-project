@@ -62,9 +62,10 @@ public interface SysAreaService {
      *
      * @param provinceId 省份
      * @param cityId     城市id
+     * @param split     分隔符
      * @return 浙江省杭州市
      */
-    String parseProvinceCity(Long provinceId, Long cityId);
+    String parseProvinceCity(Long provinceId, Long cityId, String split);
 
     /**
      * 根据市id进行拼接

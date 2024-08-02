@@ -22,7 +22,6 @@ import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.mapper.TravelAgencyMapper;
 import com.eghm.model.Line;
 import com.eghm.model.LineDayConfig;
-import com.eghm.model.ScenicTicket;
 import com.eghm.model.TravelAgency;
 import com.eghm.service.business.*;
 import com.eghm.service.sys.SysAreaService;
@@ -73,12 +72,15 @@ public class LineServiceImpl implements LineService {
 
     @Override
     public Page<LineResponse> getByPage(LineQueryRequest request) {
-        return lineMapper.listPage(request.createPage(), request);
+        Page<LineResponse> listPage = lineMapper.listPage(request.createPage(), request);
+        this.parseAddress(listPage);
+        return listPage;
     }
 
     @Override
     public List<LineResponse> getList(LineQueryRequest request) {
         Page<LineResponse> listPage = lineMapper.listPage(request.createNullPage(), request);
+        this.parseAddress(listPage);
         return listPage.getRecords();
     }
 
@@ -200,6 +202,17 @@ public class LineServiceImpl implements LineService {
     @Override
     public Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request) {
         return lineMapper.getProductPage(Boolean.TRUE.equals(request.getLimit()) ? request.createPage() : request.createNullPage(), request);
+    }
+
+    /**
+     * 解析省市县地址
+     *
+     * @param listPage 列表
+     */
+    private void parseAddress(Page<LineResponse> listPage) {
+        if (CollUtil.isNotEmpty(listPage.getRecords())) {
+            listPage.getRecords().forEach(vo -> vo.setStartCity(sysAreaService.parseProvinceCity(vo.getStartProvinceId(), vo.getStartCityId(), "-")));
+        }
     }
 
     /**

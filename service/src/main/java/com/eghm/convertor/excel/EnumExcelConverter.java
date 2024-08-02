@@ -39,7 +39,7 @@ public class EnumExcelConverter implements Converter<Object> {
         }
         Field valueAs = this.getAnnotationField(contentProperty);
         if (valueAs == null) {
-            log.error("枚举类请使用@ExcelDesc标注解释字段 [{}]", value.getClass());
+            log.error("枚举类请使用@ExcelDesc标注要导出为Excel的字段 [{}]", value.getClass());
             throw new BusinessException(ErrorCode.ENUM_SUPPORTED);
         }
         return new WriteCellData<>(ReflectUtil.getFieldValue(value, valueAs).toString());

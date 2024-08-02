@@ -1,5 +1,6 @@
 package com.eghm.service.sys.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.model.SysArea;
 import com.eghm.service.sys.SysAreaService;
@@ -70,7 +71,7 @@ public class SysAreaServiceImpl implements SysAreaService {
     }
 
     @Override
-    public String parseProvinceCity(Long provinceId, Long cityId) {
+    public String parseProvinceCity(Long provinceId, Long cityId, String split) {
         if (provinceId == null || cityId == null) {
             return "";
         }
@@ -79,8 +80,12 @@ public class SysAreaServiceImpl implements SysAreaService {
         if (sysArea != null) {
             address += sysArea.getTitle();
         }
+        String splitStr = split == null ? "" : split;
         sysArea = cacheProxyService.getAreaById(cityId);
         if (sysArea != null) {
+            if (StrUtil.isNotBlank(address)) {
+                address += splitStr;
+            }
             address += sysArea.getTitle();
         }
         return address;
