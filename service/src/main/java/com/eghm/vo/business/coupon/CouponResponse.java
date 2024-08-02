@@ -1,7 +1,6 @@
 package com.eghm.vo.business.coupon;
 
 import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.convertor.CentToYuanOmitEncoder;
 import com.eghm.enums.ref.CouponMode;
 import com.eghm.enums.ref.CouponType;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -54,7 +53,7 @@ public class CouponResponse {
     private Integer discountValue;
 
     @ApiModelProperty(value = "使用门槛 0:不限制 大于0表示限制启用金额 单位:分")
-    @JsonSerialize(using = CentToYuanOmitEncoder.class)
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer useThreshold;
 
     @ApiModelProperty(value = "发放开始时间")

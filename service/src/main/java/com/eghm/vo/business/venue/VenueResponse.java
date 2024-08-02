@@ -46,7 +46,7 @@ public class VenueResponse extends ExcelStyle {
     private VenueType venueType;
 
     @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
-    @ExcelProperty(value = "状态 0:待上架 1:已上架 2:强制下架", index = 2, converter = EnumExcelConverter.class)
+    @ExcelProperty(value = "状态", index = 2, converter = EnumExcelConverter.class)
     private State state;
 
     @ApiModelProperty(value = "营业时间")

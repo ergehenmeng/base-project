@@ -42,13 +42,13 @@ public class RestaurantResponse extends ExcelStyle {
     @ExcelProperty(value = "营业时间", index = 3)
     private String openTime;
 
-    @ApiModelProperty("详细地址")
-    @ExcelProperty(value = "详细地址", index = 4)
-    private String detailAddress;
-
     @ApiModelProperty(value = "商家热线")
-    @ExcelProperty(value = "商家热线", index = 5)
+    @ExcelProperty(value = "商家热线", index = 4)
     private String phone;
+
+    @ApiModelProperty("详细地址")
+    @ExcelProperty(value = "详细地址", index = 5)
+    private String detailAddress;
 
     @ApiModelProperty("创建时间")
     @ExcelProperty(value = "创建时间", index = 6)

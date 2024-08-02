@@ -635,3 +635,19 @@ insert into sys_role_menu(role_id, menu_id) values(1707298744621969413, 10121519
 insert into sys_role_menu(role_id, menu_id) values(1707298744621969414, 10122019);
 insert into sys_role_menu(role_id, menu_id) values(1707298744621969410, 10121019);
 insert into sys_role_menu(role_id, menu_id) values(1707298744621969410, 10121119);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 101410);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 10141010);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 10141011);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 10141012);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 10141013);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 10141014);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 10141015);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 101413);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 10141310);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 10141311);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 10141312);
+
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 101414);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 10141410);
+insert into sys_role_menu(role_id, menu_id) values(1707298744621969415, 10141411);
+
