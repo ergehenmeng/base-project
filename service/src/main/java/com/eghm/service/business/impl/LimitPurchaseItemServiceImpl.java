@@ -9,7 +9,7 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.purchase.LimitPurchaseQueryDTO;
 import com.eghm.dto.business.purchase.LimitSkuRequest;
-import com.eghm.dto.ext.DiscountItemSku;
+import com.eghm.dto.ext.DiscountJson;
 import com.eghm.mapper.LimitPurchaseItemMapper;
 import com.eghm.model.LimitPurchase;
 import com.eghm.model.LimitPurchaseItem;
@@ -91,8 +91,8 @@ public class LimitPurchaseItemServiceImpl implements LimitPurchaseItemService {
         List<LimitItemResponse> responseList = limitPurchaseItemMapper.getLimitList(limitId);
         List<LimitSkuResponse> skuList = Lists.newArrayListWithExpectedSize(32);
         responseList.forEach(item -> {
-            List<DiscountItemSku> list = jsonService.fromJsonList(item.getSkuValue(), DiscountItemSku.class);
-            for (DiscountItemSku sku : list) {
+            List<DiscountJson> list = jsonService.fromJsonList(item.getSkuValue(), DiscountJson.class);
+            for (DiscountJson sku : list) {
                 // 因为jsonService使用的是jackson, json格式价格字段是int
                 LimitSkuResponse copy = DataUtil.copy(sku, LimitSkuResponse.class);
                 copy.setTitle(item.getTitle());

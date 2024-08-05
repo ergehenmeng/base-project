@@ -91,6 +91,13 @@ public class CouponController {
         return RespBody.success();
     }
 
+    @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("删除")
+    public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
+        couponService.delete(dto.getId());
+        return RespBody.success();
+    }
+
     @GetMapping("/receivePage")
     @ApiOperation("领取列表")
     public RespBody<PageData<MemberCouponResponse>> receivePage(@Validated MemberCouponQueryRequest request) {

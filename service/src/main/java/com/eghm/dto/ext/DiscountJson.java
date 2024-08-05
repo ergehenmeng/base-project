@@ -9,7 +9,7 @@ import lombok.Data;
  */
 
 @Data
-public class DiscountItemSku {
+public class DiscountJson {
 
     @ApiModelProperty("skuId")
     private Long skuId;

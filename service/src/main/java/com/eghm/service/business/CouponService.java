@@ -51,6 +51,13 @@ public interface CouponService {
     void updateState(Long id, Integer state);
 
     /**
+     * 删除优惠券配置
+     *
+     * @param id id
+     */
+    void delete(Long id);
+
+    /**
      * 主键查询
      *
      * @param id id

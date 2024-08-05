@@ -22,7 +22,7 @@ import com.eghm.dto.business.item.express.ItemCalcDTO;
 import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.dto.business.item.sku.ItemSpecRequest;
 import com.eghm.dto.ext.CalcStatistics;
-import com.eghm.dto.ext.DiscountItemSku;
+import com.eghm.dto.ext.DiscountJson;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ChargeMode;
 import com.eghm.enums.ref.CollectType;
@@ -459,10 +459,10 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void setDiscountSkuPrice(List<ItemSkuVO> skuList, String jsonValue) {
-        List<DiscountItemSku> groupSkuList = jsonService.fromJsonList(jsonValue, DiscountItemSku.class);
-        Map<Long, DiscountItemSku> skuMap = groupSkuList.stream().collect(Collectors.toMap(DiscountItemSku::getSkuId, Function.identity()));
+        List<DiscountJson> groupSkuList = jsonService.fromJsonList(jsonValue, DiscountJson.class);
+        Map<Long, DiscountJson> skuMap = groupSkuList.stream().collect(Collectors.toMap(DiscountJson::getSkuId, Function.identity()));
         skuList.forEach(vo -> {
-            DiscountItemSku request = skuMap.get(vo.getId());
+            DiscountJson request = skuMap.get(vo.getId());
             if (request != null && vo.getSalePrice().equals(request.getSalePrice()) && request.getDiscountPrice() != null) {
                 vo.setDiscountPrice(request.getDiscountPrice());
             } else {

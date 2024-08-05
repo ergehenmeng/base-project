@@ -4,26 +4,22 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.JsonService;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.group.*;
+import com.eghm.dto.ext.DiscountJson;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.GroupBookingMapper;
 import com.eghm.model.GroupBooking;
 import com.eghm.model.Item;
+import com.eghm.mq.service.MessageService;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.GroupBookingService;
 import com.eghm.service.business.ItemService;
-import com.eghm.service.business.ItemSkuService;
-import com.eghm.common.JsonService;
-import com.eghm.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.business.group.GroupBookingDetailResponse;
-import com.eghm.vo.business.group.GroupBookingResponse;
-import com.eghm.vo.business.group.GroupItemVO;
-import com.eghm.vo.business.group.GroupOrderCancelVO;
-import com.eghm.vo.business.item.ItemSkuVO;
+import com.eghm.vo.business.group.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -70,8 +66,6 @@ public class GroupBookingServiceImpl implements GroupBookingService {
 
     private final MessageService messageService;
 
-    private final ItemSkuService itemSkuService;
-
     @Override
     public Page<GroupBookingResponse> getByPage(GroupBookingQueryRequest request) {
         return groupBookingMapper.getByPage(request.createPage(), request);
@@ -87,7 +81,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         booking.setSkuValue(jsonService.toJson(request.getSkuList()));
         booking.setMaxDiscountAmount(this.getMaxDiscountPrice(request.getSkuList()));
         groupBookingMapper.insert(booking);
-        itemService.updateGroupBooking(request.getItemId(), booking.getItemId());
+        itemService.updateGroupBooking(request.getItemId(), booking.getId());
         this.sendExpireMessage(booking.getId(), booking.getEndTime(), null);
     }
 
@@ -98,7 +92,8 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         GroupBooking booking = groupBookingMapper.selectById(request.getId());
         // 防止非法操作
         commonService.checkIllegal(booking.getMerchantId());
-        if (!booking.getStartTime().isBefore(LocalDateTime.now())) {
+        if (LocalDateTime.now().isAfter(booking.getStartTime()) && LocalDateTime.now().isBefore(booking.getEndTime())) {
+            log.warn("进行中的拼团不支持编辑 [{}] [{}] [{}]", request.getId(), booking.getStartTime(), booking.getEndTime());
             throw new BusinessException(ErrorCode.ACTIVITY_NOT_EDIT);
         }
         if (!booking.getItemId().equals(request.getItemId())) {
@@ -141,9 +136,8 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         GroupBookingDetailResponse response = DataUtil.copy(booking, GroupBookingDetailResponse.class);
         response.setCoverUrl(item.getCoverUrl());
         response.setItemName(item.getTitle());
-        List<ItemSkuVO> voList = itemSkuService.getByItemId(booking.getItemId());
-        itemService.setDiscountSkuPrice(voList, booking.getSkuValue());
-        response.setSkuList(voList);
+        List<DiscountJson> skuList = jsonService.fromJsonList(booking.getSkuValue(), DiscountJson.class);
+        response.setSkuList(DataUtil.copy(skuList, GroupBookSkuResponse.class));
         return response;
     }
 

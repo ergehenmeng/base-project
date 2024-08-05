@@ -52,7 +52,7 @@ public class GroupBookingEditRequest {
     @NotNull(message = "拼团有效期不能为空")
     private Integer expireTime;
 
-    @ApiModelProperty(value = "sku拼团优惠json", required = true)
+    @ApiModelProperty(value = "sku拼团优惠", required = true)
     @NotEmpty(message = "拼团优惠不能为空")
     private List<GroupItemSkuRequest> skuList;
 }

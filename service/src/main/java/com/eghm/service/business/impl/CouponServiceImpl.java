@@ -90,6 +90,18 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
+    public void delete(Long id) {
+        Coupon coupon = this.selectByIdRequired(id);
+        commonService.checkIllegal(coupon.getMerchantId());
+        LocalDateTime now = LocalDateTime.now();
+        if (now.isAfter(coupon.getStartTime())) {
+            log.error("优惠券活动已开始,不支持删除 [{}] [{}] ", id, coupon.getStartTime());
+            throw new BusinessException(ErrorCode.COUPON_BEGIN);
+        }
+        couponMapper.deleteById(id);
+    }
+
+    @Override
     public Coupon selectById(Long id) {
         return couponMapper.selectById(id);
     }
