@@ -169,8 +169,9 @@ public interface ItemService {
      * 设置商品为推荐商品
      *
      * @param id 商品id
+     * @param recommend true: 推荐 false:不推荐
      */
-    void setRecommend(Long id);
+    void setRecommend(Long id, boolean recommend);
 
     /**
      * 商品列表查询 移动端

@@ -103,8 +103,9 @@ public interface ItemStoreService {
      * 设置为推荐店铺
      *
      * @param id 店铺id
+     * @param recommend true: 推荐 false:不推荐
      */
-    void setRecommend(Long id);
+    void setRecommend(Long id, boolean recommend);
 
     /**
      * 逻辑删除 (只有平台用户能操作)

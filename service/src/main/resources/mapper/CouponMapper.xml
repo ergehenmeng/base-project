@@ -46,7 +46,7 @@
                 </when>
             </choose>
         </if>
-        order by t.state desc, id desc
+        order by t.id desc,t.state desc
     </select>
 
     <update id="updateStock" >

@@ -297,10 +297,10 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void setRecommend(Long id) {
+    public void setRecommend(Long id, boolean recommend) {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getId, id);
-        wrapper.set(Item::getRecommend, true);
+        wrapper.set(Item::getRecommend, recommend);
         itemMapper.update(null, wrapper);
     }
 

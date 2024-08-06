@@ -3,6 +3,7 @@ package com.eghm.vo.business.item;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.excel.BooleanExcelConverter;
 import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
@@ -72,15 +73,19 @@ public class ItemResponse extends ExcelStyle {
     @ExcelProperty(value = "排序", index = 8)
     private Integer sort;
 
+    @ApiModelProperty(value = "是否推荐")
+    @ExcelProperty(value = "是否推荐", index = 9, converter = BooleanExcelConverter.class)
+    private Boolean recommend;
+
     @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "添加时间", index = 9)
+    @ExcelProperty(value = "添加时间", index = 10)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @ApiModelProperty("更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "更新时间", index = 10)
+    @ExcelProperty(value = "更新时间", index = 11)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }

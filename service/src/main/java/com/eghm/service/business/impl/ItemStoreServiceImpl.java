@@ -162,10 +162,10 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     }
 
     @Override
-    public void setRecommend(Long id) {
+    public void setRecommend(Long id, boolean recommend) {
         LambdaUpdateWrapper<ItemStore> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemStore::getId, id);
-        wrapper.set(ItemStore::getRecommend, true);
+        wrapper.set(ItemStore::getRecommend, recommend);
         itemStoreMapper.update(null, wrapper);
     }
 

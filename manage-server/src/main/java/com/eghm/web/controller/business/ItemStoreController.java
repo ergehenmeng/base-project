@@ -3,6 +3,7 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.RecommendDTO;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.item.store.ItemStoreAddRequest;
 import com.eghm.dto.business.item.store.ItemStoreEditRequest;
@@ -105,8 +106,8 @@ public class ItemStoreController {
 
     @PostMapping(value = "/recommend", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("设置为推荐店铺")
-    public RespBody<Void> recommend(@RequestBody @Validated IdDTO dto) {
-        itemStoreService.setRecommend(dto.getId());
+    public RespBody<Void> recommend(@RequestBody @Validated RecommendDTO dto) {
+        itemStoreService.setRecommend(dto.getId(), dto.getRecommend());
         return RespBody.success();
     }
 
