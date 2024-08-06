@@ -48,15 +48,15 @@ public class TicketOrderResponse extends ExcelStyle {
     @ExcelProperty(value = "订单联系人", index = 5)
     private String mobile;
 
-    @ApiModelProperty("优惠金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
-    @ExcelProperty(value = "优惠金额", index = 6, converter = CentToYuanConverter.class)
-    private Integer discountAmount;
-
     @ApiModelProperty("付款金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
-    @ExcelProperty(value = "付款金额", index = 7, converter = CentToYuanConverter.class)
+    @ExcelProperty(value = "付款金额", index = 6, converter = CentToYuanConverter.class)
     private Integer payAmount;
+
+    @ApiModelProperty("优惠金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    @ExcelProperty(value = "优惠金额", index = 7, converter = CentToYuanConverter.class)
+    private Integer discountAmount;
 
     @ApiModelProperty("下单时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

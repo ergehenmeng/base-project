@@ -34,7 +34,6 @@ public class ItemResponse extends ExcelStyle {
     @ApiModelProperty("封面图")
     private String coverUrl;
 
-
     @ApiModelProperty(value = "商品名称")
     @ExcelProperty(value = "商品名称", index = 0)
     private String title;
@@ -73,8 +72,8 @@ public class ItemResponse extends ExcelStyle {
     @ExcelProperty(value = "排序", index = 8)
     private Integer sort;
 
-    @ApiModelProperty(value = "是否推荐")
-    @ExcelProperty(value = "是否推荐", index = 9, converter = BooleanExcelConverter.class)
+    @ApiModelProperty(value = "平台推荐")
+    @ExcelProperty(value = "平台推荐", index = 9, converter = BooleanExcelConverter.class)
     private Boolean recommend;
 
     @ApiModelProperty("添加时间")

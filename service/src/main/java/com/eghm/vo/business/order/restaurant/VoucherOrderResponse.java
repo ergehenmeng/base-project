@@ -49,23 +49,23 @@ public class VoucherOrderResponse extends ExcelStyle {
     @ExcelProperty(value = "购买数量", index = 4)
     private Integer num;
 
-    @ApiModelProperty("优惠金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
-    @ExcelProperty(value = "优惠金额", index = 5, converter = CentToYuanConverter.class)
-    private Integer discountAmount;
-
-    @ApiModelProperty("付款金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
-    @ExcelProperty(value = "付款金额", index = 6, converter = CentToYuanConverter.class)
-    private Integer payAmount;
-
     @ApiModelProperty("购买人昵称")
-    @ExcelProperty(value = "购买人昵称", index = 7)
+    @ExcelProperty(value = "购买人昵称", index = 5)
     private String nickName;
 
     @ApiModelProperty("购买人手机号")
-    @ExcelProperty(value = "购买人手机号", index = 8)
+    @ExcelProperty(value = "购买人手机号", index = 6)
     private String mobile;
+
+    @ApiModelProperty("付款金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    @ExcelProperty(value = "付款金额", index = 7, converter = CentToYuanConverter.class)
+    private Integer payAmount;
+
+    @ApiModelProperty("优惠金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    @ExcelProperty(value = "优惠金额", index = 8, converter = CentToYuanConverter.class)
+    private Integer discountAmount;
 
     @ApiModelProperty("下单时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
