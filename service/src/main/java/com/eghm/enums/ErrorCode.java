@@ -1709,9 +1709,14 @@ public enum ErrorCode {
     ITEM_GROUP_NULL(2867, "拼团活动不在有效期"),
 
     /**
-     * 拼团人数凑满啦~
+     * 拼团人数已经够啦~
      */
-    ITEM_GROUP_COMPLETE(2870, "拼团人数凑满啦~"),
+    ITEM_GROUP_COMPLETE(2870, "拼团人数已经够啦~"),
+
+    /**
+     * 拼团活动不能重复参加
+     */
+    ITEM_GROUP_REPEAT(2871, "拼团活动不能重复参加"),
 
     /**
      * 拼团活动结束啦~

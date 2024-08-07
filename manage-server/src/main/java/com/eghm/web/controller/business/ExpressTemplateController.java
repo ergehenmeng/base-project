@@ -47,7 +47,7 @@ public class ExpressTemplateController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增模板")
+    @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody ExpressTemplateAddRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         expressTemplateService.create(request);
@@ -55,7 +55,7 @@ public class ExpressTemplateController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新模板")
+    @ApiOperation("更新")
     public RespBody<Void> update(@Validated @RequestBody ExpressTemplateEditRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         expressTemplateService.update(request);
@@ -63,14 +63,14 @@ public class ExpressTemplateController {
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除模板")
+    @ApiOperation("删除")
     public RespBody<Void> recommend(@RequestBody @Validated IdDTO dto) {
         expressTemplateService.deleteById(dto.getId());
         return RespBody.success();
     }
 
     @GetMapping(value = "/select")
-    @ApiOperation("查询模板")
+    @ApiOperation("查询")
     public RespBody<ExpressTemplateResponse> select(@Validated IdDTO dto) {
         ExpressTemplateResponse selected = expressTemplateService.selectById(dto.getId());
         return RespBody.success(selected);

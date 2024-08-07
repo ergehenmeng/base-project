@@ -31,7 +31,6 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.SpringContextUtil;
 import com.eghm.utils.StringUtil;
 import com.eghm.utils.TransactionUtil;
-import com.eghm.vo.business.group.GroupOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -364,27 +363,26 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         if (bookingId == null) {
             throw new BusinessException(ITEM_GROUP_OVER);
         }
-        context.setBookingId(bookingId);
         if (StrUtil.isBlank(context.getBookingNo())) {
+            context.setBookingId(bookingId);
             context.setBookingNo(StringUtil.encryptNumber(IdUtil.getSnowflakeNextId()));
             context.setBookingNum(0);
             context.setStarter(true);
             log.info("团长创建拼团订单 [{}] [{}]", context.getMemberId(), context.getBookingNo());
             return;
         }
-
-        ItemGroupOrder groupOrder = itemGroupOrderService.getGroupOrder(context.getBookingNo(), context.getBookingNo());
-        if (groupOrder == null) {
-            log.info("拼团订单不存在 [{}]", context.getBookingNo());
-            throw new BusinessException(ITEM_GROUP_OVER);
-        }
-        GroupOrderVO vo = itemGroupOrderService.getGroupOrder(context.getBookingNo(), 0);
-        if (vo.getNum() == 0) {
+        List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(context.getBookingNo(), 0);
+        if (CollUtil.isEmpty(groupList)) {
             log.info("团员创建拼团订单,但没有待拼团的订单 [{}]", context.getBookingNo());
             throw new BusinessException(ITEM_GROUP_COMPLETE);
         }
-        context.setBookingNum(vo.getNum());
-
+        boolean anyMatch = groupList.stream().anyMatch(item -> item.getMemberId().equals(context.getMemberId()));
+        if (anyMatch) {
+            log.info("重复参加同一个拼团活动 [{}] [{}]", context.getBookingNo(), context.getMemberId());
+            throw new BusinessException(ITEM_GROUP_REPEAT);
+        }
+        context.setBookingId(bookingId);
+        context.setBookingNum(groupList.size());
     }
 
     /**
