@@ -13,11 +13,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -45,21 +45,22 @@ public class StatisticsController {
 
     @GetMapping("/register")
     @ApiOperation("注册统计")
-    public RespBody<Integer> register(@Validated DateRequest request) {
+    public RespBody<Integer> register(DateRequest request) {
         Integer statistics = memberService.registerStatistics(request);
         return RespBody.success(statistics);
     }
 
     @GetMapping("/dayRegister")
     @ApiOperation("注册统计(按天)")
-    public RespBody<List<MemberRegisterVO>> dayRegister(@Validated DateRequest request) {
+    public RespBody<List<MemberRegisterVO>> dayRegister(DateRequest request) {
+        this.setNull(request);
         List<MemberRegisterVO> statistics = memberService.dayRegister(request);
         return RespBody.success(statistics);
     }
 
     @GetMapping("/order")
     @ApiOperation("下单统计")
-    public RespBody<OrderStatisticsVO> order(@Validated DateRequest request) {
+    public RespBody<OrderStatisticsVO> order(DateRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         OrderStatisticsVO statistics = orderService.orderStatistics(request);
         return RespBody.success(statistics);
@@ -67,7 +68,8 @@ public class StatisticsController {
 
     @GetMapping("/dayOrder")
     @ApiOperation("下单统计(按天)")
-    public RespBody<List<OrderStatisticsVO>> dayOrder(@Validated DateRequest request) {
+    public RespBody<List<OrderStatisticsVO>> dayOrder(DateRequest request) {
+        this.setNull(request);
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<OrderStatisticsVO> statistics = orderService.dayOrder(request);
         return RespBody.success(statistics);
@@ -75,30 +77,40 @@ public class StatisticsController {
 
     @GetMapping("/visit")
     @ApiOperation("浏览量")
-    public RespBody<List<MemberVisitVO>> visit(@Validated VisitRequest request) {
+    public RespBody<List<MemberVisitVO>> visit(VisitRequest request) {
         List<MemberVisitVO> statistics = memberVisitLogService.dayVisit(request);
         return RespBody.success(statistics);
     }
 
     @GetMapping("/collect")
     @ApiOperation("收藏量")
-    public RespBody<List<CollectStatisticsVO>> visit(@Validated CollectRequest request) {
+    public RespBody<List<CollectStatisticsVO>> visit(CollectRequest request) {
         List<CollectStatisticsVO> statistics = memberCollectService.dayCollect(request);
         return RespBody.success(statistics);
     }
 
     @GetMapping("/append")
     @ApiOperation("新增商品数")
-    public RespBody<List<ProductStatisticsVO>> append(@Validated ProductRequest request) {
+    public RespBody<List<ProductStatisticsVO>> append(ProductRequest request) {
         List<ProductStatisticsVO> statistics = commonService.dayAppend(request);
         return RespBody.success(statistics);
     }
 
     @GetMapping("/cart")
     @ApiOperation("加购统计")
-    public RespBody<List<CartStatisticsVO>> cart(@Validated DateRequest request) {
+    public RespBody<List<CartStatisticsVO>> cart(DateRequest request) {
+        this.setNull(request);
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<CartStatisticsVO> statistics = shoppingCartService.dayCart(request);
         return RespBody.success(statistics);
     }
+
+    private void setNull(DateRequest request) {
+        if (request.getStartDate() == null && request.getEndDate() == null) {
+            LocalDate endDate = LocalDate.now().plusDays(1);
+            request.setEndDate(endDate);
+            request.setStartDate(endDate.minusMonths(1));
+        }
+    }
+
 }

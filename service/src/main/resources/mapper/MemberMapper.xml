@@ -48,7 +48,13 @@
     <select id="registerStatistics" resultType="integer">
         select
             count(id)
-        from `member` where deleted = false and create_time &gt; #{startDate} and create_time &lt;= #{endDate}
+        from `member` where deleted = false
+        <if test="startDate != null ">
+            and create_date &gt; #{startDate}
+        </if>
+        <if test="endDate != null ">
+            and create_date &lt;= #{endDate}
+        </if>
     </select>
 
     <select id="dayRegister" resultType="com.eghm.vo.business.statistics.MemberRegisterVO">

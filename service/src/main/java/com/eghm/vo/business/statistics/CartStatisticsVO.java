@@ -1,5 +1,6 @@
 package com.eghm.vo.business.statistics;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 public class CartStatisticsVO {
 
     @ApiModelProperty(value = "日期")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate createDate;
 
     @ApiModelProperty(value = "新增数量")

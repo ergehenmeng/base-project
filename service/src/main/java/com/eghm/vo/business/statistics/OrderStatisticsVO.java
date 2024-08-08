@@ -1,5 +1,7 @@
 package com.eghm.vo.business.statistics;
 
+import cn.hutool.core.util.RandomUtil;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,6 +20,7 @@ import java.time.LocalDate;
 public class OrderStatisticsVO {
 
     @ApiModelProperty("下单日期")
+    @JsonFormat(pattern = "MM-dd")
     private LocalDate createDate;
 
     @ApiModelProperty("订单数量")
@@ -28,5 +31,7 @@ public class OrderStatisticsVO {
 
     public OrderStatisticsVO(LocalDate createDate) {
         this.createDate = createDate;
+        this.orderNum = RandomUtil.randomInt(100);
+        this.payAmount = RandomUtil.randomInt(10000);
     }
 }
