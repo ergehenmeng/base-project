@@ -30,6 +30,9 @@ public class DateRequest extends DateComparator {
     @NotNull(message = "截止日期不能为空")
     private LocalDate endDate;
 
+    @ApiModelProperty(value = "查询类型")
+    private String selectType;
+
     @Assign
     @ApiModelProperty(value = "商户id", hidden = true)
     private Long merchantId;

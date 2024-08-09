@@ -1,5 +1,6 @@
 package com.eghm.vo.business.statistics;
 
+import cn.hutool.core.util.RandomUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -25,5 +26,6 @@ public class MemberRegisterVO {
 
     public MemberRegisterVO(LocalDate createDate) {
         this.createDate = createDate;
+        this.registerNum = RandomUtil.randomInt(200);
     }
 }
