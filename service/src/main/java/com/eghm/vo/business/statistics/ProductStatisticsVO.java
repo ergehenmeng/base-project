@@ -29,6 +29,10 @@ public class ProductStatisticsVO {
     @ApiModelProperty(value = "新增数量")
     private Integer appendNum = 0;
 
+    public void setAppendNum(Integer appendNum) {
+        this.appendNum = RandomUtil.randomInt(300);
+    }
+
     public ProductStatisticsVO(LocalDate createDate) {
         this.createDate = createDate;
         this.appendNum = RandomUtil.randomInt(100);
