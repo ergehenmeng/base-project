@@ -23,6 +23,9 @@ public class OrderStatisticsVO {
     @JsonFormat(pattern = "MM-dd")
     private LocalDate createDate;
 
+    @ApiModelProperty("下单月份")
+    private String createMonth;
+
     @ApiModelProperty("订单数量")
     private Integer orderNum = 0;
 
@@ -31,6 +34,12 @@ public class OrderStatisticsVO {
 
     public OrderStatisticsVO(LocalDate createDate) {
         this.createDate = createDate;
+        this.orderNum = RandomUtil.randomInt(100);
+        this.payAmount = RandomUtil.randomInt(10000);
+    }
+
+    public OrderStatisticsVO(String createMonth) {
+        this.createMonth = createMonth;
         this.orderNum = RandomUtil.randomInt(100);
         this.payAmount = RandomUtil.randomInt(10000);
     }

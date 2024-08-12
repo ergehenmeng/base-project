@@ -26,6 +26,7 @@ import com.eghm.model.TravelAgency;
 import com.eghm.service.business.*;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DateUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
@@ -90,10 +91,10 @@ public class LineServiceImpl implements LineService {
         Long merchantId = SecurityHolder.getMerchantId();
         this.checkTravelAgency(request.getTravelAgencyId(), merchantId);
 
-
         Line line = DataUtil.copy(request, Line.class);
         line.setMerchantId(merchantId);
         line.setCreateDate(LocalDate.now());
+        line.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         line.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         lineMapper.insert(line);
 

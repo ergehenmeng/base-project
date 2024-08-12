@@ -183,4 +183,24 @@ public class DataUtil {
         }
         return resultList;
     }
+
+    /**
+     * 填充日数据
+     *
+     * @param targetMap 原数据
+     * @param startDate 需要填充的开始日期
+     * @param endDate   需要填充的结束日期
+     * @param function  没查找到时执行的数据
+     * @param <T>       <T>
+     * @return 最终数据
+     */
+    public static <T> List<T> paddingMonth(Map<String, T> targetMap, LocalDate startDate, LocalDate endDate, Function<String, T> function) {
+        long between = ChronoUnit.MONTHS.between(startDate, endDate);
+        List<T> resultList = new ArrayList<>();
+        for (int i = 0; i < between; i++) {
+            String date = startDate.plusMonths(i).format(DateUtil.MIN_FORMAT);
+            resultList.add(targetMap.getOrDefault(date, function.apply(date)));
+        }
+        return resultList;
+    }
 }

@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDate;
+
 /**
  * <p>
  * 场地信息表
@@ -37,4 +39,9 @@ public class VenueSite extends BaseEntity {
     @ApiModelProperty(value = "排序 小<->大")
     private Integer sort;
 
+    @ApiModelProperty("创建日期")
+    private LocalDate createDate;
+
+    @ApiModelProperty(value = "创建月份")
+    private String createMonth;
 }

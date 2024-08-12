@@ -45,7 +45,7 @@ public class DateUtil {
 
     private static final DateTimeFormatter SHORT_FORMAT = DateTimeFormatter.ofPattern(SHORT_DATE);
 
-    private static final DateTimeFormatter MIN_FORMAT = DateTimeFormatter.ofPattern(MIN_DATE);
+    public static final DateTimeFormatter MIN_FORMAT = DateTimeFormatter.ofPattern(MIN_DATE);
 
     private static final DateTimeFormatter TIMES_FORMAT = DateTimeFormatter.ofPattern(TIMES);
 

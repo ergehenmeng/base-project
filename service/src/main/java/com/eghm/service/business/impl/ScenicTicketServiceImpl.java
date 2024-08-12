@@ -22,6 +22,7 @@ import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ScenicService;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DateUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
@@ -69,6 +70,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         ticket.setMerchantId(merchantId);
         ticket.setTotalNum(request.getVirtualNum());
         ticket.setCreateDate(LocalDate.now());
+        ticket.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         scenicTicketMapper.insert(ticket);
         scenicService.updatePrice(request.getScenicId());
     }

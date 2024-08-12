@@ -3,11 +3,15 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.venue.VenueSiteQueryRequest;
+import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.model.VenueSite;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.vo.business.base.BaseProductResponse;
+import com.eghm.vo.business.statistics.ProductStatisticsVO;
 import com.eghm.vo.business.venue.VenueSiteResponse;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -36,4 +40,12 @@ public interface VenueSiteMapper extends BaseMapper<VenueSite> {
      * @return 基础信息列表
      */
     Page<BaseProductResponse> getProductPage(Page<BaseProductResponse> page, @Param("param") BaseProductQueryRequest request);
+
+    /**
+     * 新增场地列表
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<ProductStatisticsVO> dayAppend(ProductRequest request);
 }

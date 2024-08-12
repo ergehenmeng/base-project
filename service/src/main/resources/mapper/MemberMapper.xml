@@ -57,12 +57,26 @@
         </if>
     </select>
 
-    <select id="dayRegister" resultType="com.eghm.vo.business.statistics.MemberRegisterVO">
+    <select id="dayRegister" resultType="com.eghm.vo.business.statistics.MemberRegisterVO" parameterType="com.eghm.dto.statistics.DateRequest">
         select
-            create_date,
+            <choose>
+                <when test="selectType == @com.eghm.enums.SelectType@YEAR">
+                    create_month,
+                </when>
+                <otherwise>
+                    create_date,
+                </otherwise>
+            </choose>
             count(id) as registerNum
         from `member` where deleted = false and create_time &gt;= #{startDate} and create_time &lt; #{endDate}
-        group by create_date
+        <choose>
+            <when test="selectType == @com.eghm.enums.SelectType@YEAR">
+                group by create_month
+            </when>
+            <otherwise>
+                group by create_date
+            </otherwise>
+        </choose>
     </select>
 
     <update id="updateScore">

@@ -27,10 +27,7 @@ import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.service.business.handler.state.OrderCreateHandler;
 import com.eghm.service.member.MemberAddressService;
 import com.eghm.service.member.MemberService;
-import com.eghm.utils.DataUtil;
-import com.eghm.utils.SpringContextUtil;
-import com.eghm.utils.StringUtil;
-import com.eghm.utils.TransactionUtil;
+import com.eghm.utils.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -200,6 +197,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         order.setBookingNo(context.getBookingNo());
         order.setBookingId(context.getBookingId());
         order.setCreateDate(LocalDate.now());
+        order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
         Integer payAmount = itemAmount + expressAmount;
         if (scoreAmount <= 0) {

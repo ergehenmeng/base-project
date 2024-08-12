@@ -41,6 +41,7 @@ import com.eghm.service.member.LoginService;
 import com.eghm.service.member.MemberScoreLogService;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DateUtil;
 import com.eghm.utils.RegExpUtil;
 import com.eghm.utils.StringUtil;
 import com.eghm.vo.business.statistics.MemberRegisterVO;
@@ -123,6 +124,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = DataUtil.copy(register, Member.class);
         member.setId(IdWorker.getId());
         member.setCreateDate(LocalDate.now());
+        member.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         member.setInviteCode(StringUtil.encryptNumber(member.getId()));
         if (StrUtil.isBlank(member.getNickName())) {
             member.setNickName(sysConfigApi.getString(ConfigConstant.NICK_NAME_PREFIX) + System.nanoTime());
@@ -482,9 +484,14 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<MemberRegisterVO> dayRegister(DateRequest request) {
-        List<MemberRegisterVO> voList = memberMapper.dayRegister(request.getStartDate(), request.getEndDate());
-        Map<LocalDate, MemberRegisterVO> voMap = voList.stream().collect(Collectors.toMap(MemberRegisterVO::getCreateDate, Function.identity()));
-        return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), MemberRegisterVO::new);
+        List<MemberRegisterVO> voList = memberMapper.dayRegister(request);
+        if (request.getSelectType() == SelectType.YEAR) {
+            Map<String, MemberRegisterVO> voMap = voList.stream().collect(Collectors.toMap(MemberRegisterVO::getCreateMonth, Function.identity()));
+            return DataUtil.paddingMonth(voMap, request.getStartDate(), request.getEndDate(), MemberRegisterVO::new);
+        } else {
+            Map<LocalDate, MemberRegisterVO> voMap = voList.stream().collect(Collectors.toMap(MemberRegisterVO::getCreateDate, Function.identity()));
+            return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), MemberRegisterVO::new);
+        }
     }
 
     @Override

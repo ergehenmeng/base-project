@@ -67,4 +67,7 @@ public class HomestayRoom extends BaseEntity {
 
     @ApiModelProperty("创建日期")
     private LocalDate createDate;
+
+    @ApiModelProperty(value = "创建月份")
+    private String createMonth;
 }

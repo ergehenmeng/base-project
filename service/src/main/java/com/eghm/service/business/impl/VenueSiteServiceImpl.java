@@ -20,6 +20,7 @@ import com.eghm.service.business.CommonService;
 import com.eghm.service.business.VenueSitePriceService;
 import com.eghm.service.business.VenueSiteService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DateUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.venue.VenueSiteDetailResponse;
 import com.eghm.vo.business.venue.VenueSitePriceVO;
@@ -62,6 +63,8 @@ public class VenueSiteServiceImpl implements VenueSiteService {
         this.redoTitle(request.getTitle(), request.getVenueId(), null);
         VenueSite venueSite = DataUtil.copy(request, VenueSite.class);
         venueSite.setMerchantId(SecurityHolder.getMerchantId());
+        venueSite.setCreateDate(LocalDate.now());
+        venueSite.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         venueSite.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         venueSiteMapper.insert(venueSite);
     }

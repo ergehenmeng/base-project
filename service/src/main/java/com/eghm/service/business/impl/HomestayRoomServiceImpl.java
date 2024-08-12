@@ -22,6 +22,7 @@ import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.HomestayRoomService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DateUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.homestay.room.HomestayRoomListVO;
 import com.eghm.vo.business.homestay.room.HomestayRoomResponse;
@@ -66,6 +67,7 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
         HomestayRoom room = DataUtil.copy(request, HomestayRoom.class);
         room.setMerchantId(SecurityHolder.getMerchantId());
         room.setCreateDate(LocalDate.now());
+        room.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         room.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
         if (CollUtil.isNotEmpty(request.getInfrastructureList())) {
             room.setInfrastructure(CollUtil.join(request.getInfrastructureList(), ","));

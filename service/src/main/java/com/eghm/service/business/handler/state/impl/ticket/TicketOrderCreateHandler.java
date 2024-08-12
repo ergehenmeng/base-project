@@ -17,6 +17,7 @@ import com.eghm.service.business.handler.context.TicketOrderCreateContext;
 import com.eghm.service.business.handler.dto.TicketOrderPayload;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -117,6 +118,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         order.setMultiple(false);
         order.setRefundType(RefundType.DIRECT_REFUND);
         order.setCreateDate(LocalDate.now());
+        order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
         // 使用优惠券
         this.useDiscount(order, context.getMemberId(), context.getCouponId(), ticket.getId());

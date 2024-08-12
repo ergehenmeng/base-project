@@ -8,6 +8,7 @@ import com.eghm.constant.CommonConstant;
 import com.eghm.dto.ext.StoreScope;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.SelectType;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.*;
@@ -17,6 +18,7 @@ import com.eghm.service.business.handler.access.AccessHandler;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.RefundNotifyHandler;
+import com.eghm.utils.DateUtil;
 import com.eghm.utils.SpringContextUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.statistics.ProductStatisticsVO;
@@ -151,43 +153,73 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public List<ProductStatisticsVO> dayAppend(ProductRequest request) {
-        Map<LocalDate, Integer> itemMap = Maps.newHashMapWithExpectedSize(32);
-        if (request.getProductType() == null || request.getProductType() == ProductType.ITEM) {
-            List<ProductStatisticsVO> itemList = itemMapper.dayAppend(request);
-            itemMap = itemList.stream().collect(Collectors.toMap(ProductStatisticsVO::getCreateDate, ProductStatisticsVO::getAppendNum));
-        }
-        Map<LocalDate, Integer> lineMap = Maps.newHashMapWithExpectedSize(32);
-        if (request.getProductType() == null || request.getProductType() == ProductType.LINE) {
-            List<ProductStatisticsVO> lineList = lineMapper.dayAppend(request);
-            lineMap = lineList.stream().collect(Collectors.toMap(ProductStatisticsVO::getCreateDate, ProductStatisticsVO::getAppendNum));
-        }
-        Map<LocalDate, Integer> voucherMap = Maps.newHashMapWithExpectedSize(32);
-        if (request.getProductType() == null || request.getProductType() == ProductType.VOUCHER) {
-            List<ProductStatisticsVO> voucherList = voucherMapper.dayAppend(request);
-            voucherMap = voucherList.stream().collect(Collectors.toMap(ProductStatisticsVO::getCreateDate, ProductStatisticsVO::getAppendNum));
-        }
-        Map<LocalDate, Integer> ticketMap = Maps.newHashMapWithExpectedSize(32);
-        if (request.getProductType() == null || request.getProductType() == ProductType.TICKET) {
-            List<ProductStatisticsVO> ticketList = scenicTicketMapper.dayAppend(request);
-            ticketMap = ticketList.stream().collect(Collectors.toMap(ProductStatisticsVO::getCreateDate, ProductStatisticsVO::getAppendNum));
-        }
-        Map<LocalDate, Integer> roomMap = Maps.newHashMapWithExpectedSize(32);
-        if (request.getProductType() == null || request.getProductType() == ProductType.VOUCHER) {
-            List<ProductStatisticsVO> roomList = homestayRoomMapper.dayAppend(request);
-            roomMap = roomList.stream().collect(Collectors.toMap(ProductStatisticsVO::getCreateDate, ProductStatisticsVO::getAppendNum));
-        }
-        long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
+        // 按月统计或按日统计
         List<ProductStatisticsVO> resultList = new ArrayList<>();
-        for (int i = 0; i < between; i++) {
-            LocalDate date = request.getStartDate().plusDays(i);
-            ProductStatisticsVO vo = new ProductStatisticsVO(date);
-            vo.setAppendNum(itemMap.getOrDefault(date, 0) +
-                    lineMap.getOrDefault(date, 0) +
-                    voucherMap.getOrDefault(date, 0) +
-                    ticketMap.getOrDefault(date, 0) +
-                    roomMap.getOrDefault(date, 0));
-            resultList.add(vo);
+        if (request.getSelectType() == SelectType.YEAR) {
+            Map<String, Integer> itemMap = Maps.newHashMapWithExpectedSize(32);
+            Map<String, Integer> lineMap = Maps.newHashMapWithExpectedSize(32);
+            Map<String, Integer> voucherMap = Maps.newHashMapWithExpectedSize(32);
+            Map<String, Integer> ticketMap = Maps.newHashMapWithExpectedSize(32);
+            Map<String, Integer> roomMap = Maps.newHashMapWithExpectedSize(32);
+            Map<String, Integer> siteMap = Maps.newHashMapWithExpectedSize(32);
+            Map<String, Integer> allMap = Maps.newHashMapWithExpectedSize(32);
+            if (request.getProductType() == null) {
+                itemMap = this.getStatisticsMonthMap(request, ProductType.ITEM);
+                lineMap = this.getStatisticsMonthMap(request, ProductType.LINE);
+                voucherMap = this.getStatisticsMonthMap(request, ProductType.VOUCHER);
+                ticketMap = this.getStatisticsMonthMap(request, ProductType.TICKET);
+                roomMap = this.getStatisticsMonthMap(request, ProductType.HOMESTAY);
+                siteMap = this.getStatisticsMonthMap(request, ProductType.VENUE);
+            } else {
+                allMap = this.getStatisticsMonthMap(request, request.getProductType());
+            }
+            long between = ChronoUnit.MONTHS.between(request.getStartDate(), request.getEndDate());
+            for (int i = 0; i < between; i++) {
+                String date = request.getStartDate().plusMonths(i).format(DateUtil.MIN_FORMAT);
+                ProductStatisticsVO vo = new ProductStatisticsVO(date);
+                vo.setAppendNum(itemMap.getOrDefault(date, 0) +
+                        lineMap.getOrDefault(date, 0) +
+                        voucherMap.getOrDefault(date, 0) +
+                        ticketMap.getOrDefault(date, 0) +
+                        roomMap.getOrDefault(date, 0) +
+                        siteMap.getOrDefault(date, 0) +
+                        allMap.getOrDefault(date, 0));
+                resultList.add(vo);
+            }
+        } else {
+            Map<LocalDate, Integer> itemMap = Maps.newHashMapWithExpectedSize(32);
+            Map<LocalDate, Integer> lineMap = Maps.newHashMapWithExpectedSize(32);
+            Map<LocalDate, Integer> voucherMap = Maps.newHashMapWithExpectedSize(32);
+            Map<LocalDate, Integer> ticketMap = Maps.newHashMapWithExpectedSize(32);
+            Map<LocalDate, Integer> roomMap = Maps.newHashMapWithExpectedSize(32);
+            Map<LocalDate, Integer> siteMap = Maps.newHashMapWithExpectedSize(32);
+            Map<LocalDate, Integer> allMap = Maps.newHashMapWithExpectedSize(32);
+            if (request.getProductType() == null) {
+                itemMap = this.getStatisticsDateMap(request, ProductType.ITEM);
+                lineMap = this.getStatisticsDateMap(request, ProductType.LINE);
+                voucherMap = this.getStatisticsDateMap(request, ProductType.VOUCHER);
+                ticketMap = this.getStatisticsDateMap(request, ProductType.TICKET);
+                roomMap = this.getStatisticsDateMap(request, ProductType.HOMESTAY);
+                siteMap = this.getStatisticsDateMap(request, ProductType.VENUE);
+            } else {
+                allMap = this.getStatisticsDateMap(request, request.getProductType());
+            }
+
+            long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
+            for (int i = 0; i < between; i++) {
+                LocalDate date = request.getStartDate().plusDays(i);
+                ProductStatisticsVO vo = new ProductStatisticsVO(date);
+                vo.setAppendNum(itemMap.getOrDefault(date, 0) +
+                        lineMap.getOrDefault(date, 0) +
+                        voucherMap.getOrDefault(date, 0) +
+                        ticketMap.getOrDefault(date, 0) +
+                        roomMap.getOrDefault(date, 0) +
+                        siteMap.getOrDefault(date, 0) +
+                        allMap.getOrDefault(date, 0));
+                resultList.add(vo);
+            }
         }
+
         return resultList;
     }
 
@@ -285,6 +317,16 @@ public class CommonServiceImpl implements CommonService {
     public List<SysAreaVO> getTreeAreaList(List<Integer> gradeList) {
         List<SysAreaVO> areaList = sysAreaMapper.getList(gradeList);
         return treeBin(CommonConstant.ROOT, areaList);
+    }
+
+    private Map<LocalDate, Integer> getStatisticsDateMap(ProductRequest request, ProductType productType) {
+        List<ProductStatisticsVO> productList = itemMapper.dayAppend(request, productType.getTableName());
+        return productList.stream().collect(Collectors.toMap(ProductStatisticsVO::getCreateDate, ProductStatisticsVO::getAppendNum));
+    }
+
+    private Map<String, Integer> getStatisticsMonthMap(ProductRequest request, ProductType productType) {
+        List<ProductStatisticsVO> productList = itemMapper.dayAppend(request, productType.getTableName());
+        return productList.stream().collect(Collectors.toMap(ProductStatisticsVO::getCreateMonth, ProductStatisticsVO::getAppendNum));
     }
 
     /**

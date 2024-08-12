@@ -27,42 +27,42 @@ public enum ProductType implements ValueEnumBinder {
      */
     TICKET("ticket", "门票", "MP", new OrderState[]{
             OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.COMPLETE, OrderState.CLOSE
-    }),
+    }, "scenic_ticket"),
 
     /**
      * 餐饮券
      */
     VOUCHER("voucher", "餐饮券", "CY", new OrderState[]{
             OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.COMPLETE, OrderState.CLOSE
-    }),
+    }, "voucher"),
 
     /**
      * 民宿
      */
     HOMESTAY("homestay", "民宿", "MS", new OrderState[]{
             OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.COMPLETE, OrderState.CLOSE
-    }),
+    }, "homestay_room"),
 
     /**
      * 零售
      */
     ITEM("item", "零售", "LS", new OrderState[]{
             OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.WAIT_DELIVERY, OrderState.WAIT_RECEIVE, OrderState.COMPLETE, OrderState.CLOSE
-    }),
+    }, "item"),
 
     /**
      * 线路
      */
     LINE("line", "线路", "XL", new OrderState[]{
             OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.COMPLETE, OrderState.CLOSE
-    }),
+    }, "line"),
 
     /**
      * 场馆
      */
     VENUE("venue", "场馆", "YY", new OrderState[]{
         OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.COMPLETE, OrderState.CLOSE
-    });
+    }, "venue_site");
 
     /**
      * 值
@@ -85,6 +85,11 @@ public enum ProductType implements ValueEnumBinder {
      * 主订单状态定义 没有逻辑上的使用, 仅仅方便开发人员查看订单状态
      */
     private final OrderState[] stateDefine;
+
+    /**
+     * 对应商品表表名
+     */
+    private final String tableName;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ProductType of(String value) {

@@ -15,11 +15,13 @@ import com.eghm.service.business.handler.context.HomestayOrderCreateContext;
 import com.eghm.service.business.handler.dto.HomestayOrderPayload;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -125,6 +127,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         order.setAmount(order.getNum() * order.getPrice());
         order.setMultiple(false);
         order.setCreateDate(LocalDate.now());
+        order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
         // 使用优惠券
         super.useDiscount(order, context.getMemberId(), context.getCouponId(), context.getRoomId());

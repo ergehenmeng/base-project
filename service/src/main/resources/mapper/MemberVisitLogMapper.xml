@@ -4,7 +4,14 @@
 
     <select id="dayVisit" resultType="com.eghm.vo.business.statistics.MemberVisitVO" parameterType="com.eghm.dto.statistics.VisitRequest">
         SELECT
-            create_date,
+            <choose>
+                <when test="selectType == @com.eghm.enums.SelectType@YEAR">
+                    create_month,
+                </when>
+                <otherwise>
+                    create_date,
+                </otherwise>
+            </choose>
             COUNT(id) AS visitNum
         FROM
             member_visit_log
@@ -12,6 +19,13 @@
         <if test="visitType != null">
             and visit_type = #{visitType}
         </if>
-        group by create_date
+        <choose>
+            <when test="selectType == @com.eghm.enums.SelectType@YEAR">
+                group by create_month
+            </when>
+            <otherwise>
+                group by create_date
+            </otherwise>
+        </choose>
     </select>
 </mapper>

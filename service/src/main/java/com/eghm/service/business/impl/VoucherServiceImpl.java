@@ -20,6 +20,7 @@ import com.eghm.model.Voucher;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.VoucherService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DateUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.restaurant.VoucherDetailVO;
 import com.eghm.vo.business.restaurant.VoucherResponse;
@@ -62,6 +63,7 @@ public class VoucherServiceImpl implements VoucherService {
         voucher.setTotalNum(request.getVirtualNum());
         voucher.setMerchantId(SecurityHolder.getMerchantId());
         voucher.setCreateDate(LocalDate.now());
+        voucher.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         voucher.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         voucherMapper.insert(voucher);
     }

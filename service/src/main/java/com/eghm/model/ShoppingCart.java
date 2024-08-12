@@ -43,4 +43,8 @@ public class ShoppingCart extends BaseEntity {
 
     @ApiModelProperty(value = "创建日期")
     private LocalDate createDate;
+
+    @ApiModelProperty("创建月份")
+    private String createMonth;
+
 }

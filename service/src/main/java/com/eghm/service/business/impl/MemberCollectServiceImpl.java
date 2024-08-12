@@ -10,6 +10,7 @@ import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.collect.CollectQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.statistics.CollectRequest;
+import com.eghm.enums.SelectType;
 import com.eghm.enums.ref.CollectType;
 import com.eghm.mapper.*;
 import com.eghm.model.MemberCollect;
@@ -166,8 +167,13 @@ public class MemberCollectServiceImpl implements MemberCollectService {
     @Override
     public List<CollectStatisticsVO> dayCollect(CollectRequest request) {
         List<CollectStatisticsVO> voList = memberCollectMapper.dayCollect(request);
-        Map<LocalDate, CollectStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(CollectStatisticsVO::getCreateDate, Function.identity()));
-        return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), CollectStatisticsVO::new);
+        if (request.getSelectType() == SelectType.YEAR) {
+            Map<String, CollectStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(CollectStatisticsVO::getCreateMonth, Function.identity()));
+            return DataUtil.paddingMonth(voMap, request.getStartDate(), request.getEndDate(), CollectStatisticsVO::new);
+        } else {
+            Map<LocalDate, CollectStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(CollectStatisticsVO::getCreateDate, Function.identity()));
+            return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), CollectStatisticsVO::new);
+        }
     }
 
     /**

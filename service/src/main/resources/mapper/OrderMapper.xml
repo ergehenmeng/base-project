@@ -75,15 +75,29 @@
 
     <select id="dayOrder" parameterType="com.eghm.dto.statistics.DateRequest" resultType="com.eghm.vo.business.statistics.OrderStatisticsVO">
         select
+        <choose>
+            <when test="selectType == @com.eghm.enums.SelectType@YEAR">
+                create_month,
+            </when>
+            <otherwise>
+                create_date,
+            </otherwise>
+        </choose>
         count(id) as orderNum,
-        sum(pay_amount) as payAmount,
-        create_date
+        sum(pay_amount) as payAmount
         from `order` where deleted = false and state in (1, 2, 3, 4, 5, 6, 7, 8)
         and create_time &gt;= #{startDate} and create_date &lt; #{endDate}
         <if test="merchantId != null">
             and merchant_id = #{merchantId}
         </if>
-        group by create_date
+        <choose>
+            <when test="selectType == @com.eghm.enums.SelectType@YEAR">
+                group by create_month
+            </when>
+            <otherwise>
+                group by create_date
+            </otherwise>
+        </choose>
     </select>
 
     <select id="orderStatistics" parameterType="com.eghm.dto.statistics.DateRequest" resultType="com.eghm.vo.business.statistics.OrderStatisticsVO">

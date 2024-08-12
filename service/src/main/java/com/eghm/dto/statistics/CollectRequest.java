@@ -2,6 +2,7 @@ package com.eghm.dto.statistics;
 
 import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.DateComparator;
+import com.eghm.enums.SelectType;
 import com.eghm.enums.ref.CollectType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -33,4 +34,7 @@ public class CollectRequest extends DateComparator {
     @ApiModelProperty(value = "收藏类型(1:景区 2:民宿 3:零售门店 4:零售商品 5: 线路商品 6:餐饮门店 7:资讯 8:旅行社)", required = true)
     @NotNull(message = "收藏类型不能为空")
     private CollectType collectType;
+
+    @ApiModelProperty(value = "查询类型")
+    private SelectType selectType;
 }

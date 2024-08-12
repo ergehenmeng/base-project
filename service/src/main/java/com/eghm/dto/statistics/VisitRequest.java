@@ -2,6 +2,7 @@ package com.eghm.dto.statistics;
 
 import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.DateComparator;
+import com.eghm.enums.SelectType;
 import com.eghm.enums.ref.VisitType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -32,4 +33,7 @@ public class VisitRequest extends DateComparator {
 
     @ApiModelProperty("访问类型")
     private VisitType visitType;
+
+    @ApiModelProperty(value = "查询类型")
+    private SelectType selectType;
 }

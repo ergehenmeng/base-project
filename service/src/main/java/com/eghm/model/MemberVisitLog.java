@@ -56,6 +56,9 @@ public class MemberVisitLog {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime createTime;
 
+    @ApiModelProperty(value = "创建月份")
+    private String createMonth;
+
     @ApiModelProperty(value = "页面类型")
     private VisitType visitType;
 

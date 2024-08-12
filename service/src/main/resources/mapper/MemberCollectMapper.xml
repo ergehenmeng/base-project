@@ -20,7 +20,14 @@
 
     <select id="dayCollect" resultType="com.eghm.vo.business.statistics.CollectStatisticsVO" parameterType="com.eghm.dto.statistics.CollectRequest">
         SELECT
-        create_date,
+        <choose>
+            <when test="selectType == @com.eghm.enums.SelectType@YEAR">
+                create_month,
+            </when>
+            <otherwise>
+                create_date,
+            </otherwise>
+        </choose>
         COUNT(id) AS collectNum
         FROM
         member_collect
@@ -28,6 +35,13 @@
         <if test="collectType != null">
             and collect_type = #{collectType}
         </if>
-        group by create_date
+        <choose>
+            <when test="selectType == @com.eghm.enums.SelectType@YEAR">
+                group by create_month
+            </when>
+            <otherwise>
+                group by create_date
+            </otherwise>
+        </choose>
     </select>
 </mapper>

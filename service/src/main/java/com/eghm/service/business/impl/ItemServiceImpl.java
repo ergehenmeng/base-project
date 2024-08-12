@@ -36,6 +36,7 @@ import com.eghm.model.*;
 import com.eghm.service.business.*;
 import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DateUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.evaluation.ApplauseRateVO;
@@ -119,6 +120,7 @@ public class ItemServiceImpl implements ItemService {
         item.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         item.setMerchantId(merchantId);
         item.setCreateDate(LocalDate.now());
+        item.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         this.setMinMaxPrice(item, request.getSkuList());
         // 总销量需要添加虚拟销量
         item.setTotalNum(request.getSkuList().stream().filter(itemSkuRequest -> itemSkuRequest.getVirtualNum() != null).mapToInt(ItemSkuRequest::getVirtualNum).sum());

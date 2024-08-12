@@ -20,6 +20,7 @@ import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.ExpressType;
+import com.eghm.enums.SelectType;
 import com.eghm.enums.ref.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderMapper;
@@ -514,8 +515,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public List<OrderStatisticsVO> dayOrder(DateRequest request) {
         List<OrderStatisticsVO> voList = baseMapper.dayOrder(request);
-        Map<LocalDate, OrderStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(OrderStatisticsVO::getCreateDate, Function.identity()));
-        return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), OrderStatisticsVO::new);
+        if (request.getSelectType() == SelectType.YEAR) {
+            Map<String, OrderStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(OrderStatisticsVO::getCreateMonth, Function.identity()));
+            return DataUtil.paddingMonth(voMap, request.getStartDate(), request.getEndDate(), OrderStatisticsVO::new);
+        } else {
+            Map<LocalDate, OrderStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(OrderStatisticsVO::getCreateDate, Function.identity()));
+            return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), OrderStatisticsVO::new);
+        }
     }
 
     @Override

@@ -18,6 +18,7 @@ import com.eghm.service.business.handler.context.VoucherOrderCreateContext;
 import com.eghm.service.business.handler.dto.VoucherOrderPayload;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -92,6 +93,7 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
         order.setProductType(ProductType.VOUCHER);
         order.setRefundType(RefundType.DIRECT_REFUND);
         order.setCreateDate(LocalDate.now());
+        order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
         // 使用优惠券
         this.useDiscount(order, context.getMemberId(), context.getCouponId(), voucher.getId());

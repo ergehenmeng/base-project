@@ -3,6 +3,7 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.member.MemberQueryRequest;
+import com.eghm.dto.statistics.DateRequest;
 import com.eghm.model.Member;
 import com.eghm.model.MemberTag;
 import com.eghm.vo.business.statistics.MemberRegisterVO;
@@ -37,13 +38,12 @@ public interface MemberMapper extends BaseMapper<Member> {
     Integer registerStatistics(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
     /**
-     * 注册统计 按天
+     * 注册统计 按天或按月
      *
-     * @param startDate 开始日期
-     * @param endDate 结束日期
+     * @param request 查询条件
      * @return 注册数量
      */
-    List<MemberRegisterVO> dayRegister(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    List<MemberRegisterVO> dayRegister(DateRequest request);
 
     /**
      * 更新会员积分

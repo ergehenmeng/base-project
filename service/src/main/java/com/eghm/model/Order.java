@@ -158,6 +158,9 @@ public class Order extends BaseEntity {
     @ApiModelProperty("创建日期")
     private LocalDate createDate;
 
+    @ApiModelProperty("创建月份")
+    private String createMonth;
+
     @ApiModelProperty("兑换码")
     private String cdKey;
 

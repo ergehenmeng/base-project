@@ -18,6 +18,7 @@ import com.eghm.service.business.handler.context.VenueOrderCreateContext;
 import com.eghm.service.business.handler.dto.VenueOrderPayload;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -131,6 +132,7 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
         order.setProductType(ProductType.VENUE);
         order.setRefundType(RefundType.DIRECT_REFUND);
         order.setCreateDate(LocalDate.now());
+        order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
 
         // 使用优惠券

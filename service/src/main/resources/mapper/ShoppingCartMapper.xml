@@ -61,13 +61,27 @@
 
     <select id="dayCart" parameterType="com.eghm.dto.statistics.DateRequest" resultType="com.eghm.vo.business.statistics.CartStatisticsVO">
         select
-            count(id) as cartNum,
-            create_date
+            <choose>
+                <when test="selectType == @com.eghm.enums.SelectType@YEAR">
+                    create_month,
+                </when>
+                <otherwise>
+                    create_date,
+                </otherwise>
+            </choose>
+            count(id) as cartNum
         from shopping_cart where deleted = false and create_time &gt;= #{startDate} and create_time &lt; #{endDate}
         <if test="merchantId != null">
             and merchant_id = #{merchantId}
         </if>
-        group by create_date
+        <choose>
+            <when test="selectType == @com.eghm.enums.SelectType@YEAR">
+                group by create_month
+            </when>
+            <otherwise>
+                group by create_date
+            </otherwise>
+        </choose>
     </select>
 
 </mapper>

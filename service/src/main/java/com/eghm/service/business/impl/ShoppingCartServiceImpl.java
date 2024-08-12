@@ -9,6 +9,7 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.shopping.CartDTO;
 import com.eghm.dto.business.shopping.ShoppingCartQueryRequest;
 import com.eghm.dto.statistics.DateRequest;
+import com.eghm.enums.SelectType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ShoppingCartMapper;
@@ -19,6 +20,7 @@ import com.eghm.service.business.ItemService;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.service.business.ShoppingCartService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DateUtil;
 import com.eghm.vo.business.shopping.ShoppingCartItemVO;
 import com.eghm.vo.business.shopping.ShoppingCartResponse;
 import com.eghm.vo.business.shopping.ShoppingCartVO;
@@ -78,6 +80,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             shoppingCart.setStoreId(item.getStoreId());
             shoppingCart.setMerchantId(item.getMerchantId());
             shoppingCart.setCreateDate(LocalDate.now());
+            shoppingCart.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
             shoppingCartMapper.insert(shoppingCart);
         } else {
             shoppingCart.setQuantity(num);
@@ -145,8 +148,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public List<CartStatisticsVO> dayCart(DateRequest request) {
         List<CartStatisticsVO> voList = shoppingCartMapper.dayCart(request);
-        Map<LocalDate, CartStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(CartStatisticsVO::getCreateDate, Function.identity()));
-        return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), CartStatisticsVO::new);
+        if (request.getSelectType() == SelectType.YEAR) {
+            Map<String, CartStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(CartStatisticsVO::getCreateMonth, Function.identity()));
+            return DataUtil.paddingMonth(voMap, request.getStartDate(), request.getEndDate(), CartStatisticsVO::new);
+        } else {
+            Map<LocalDate, CartStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(CartStatisticsVO::getCreateDate, Function.identity()));
+            return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), CartStatisticsVO::new);
+        }
     }
 
     /**

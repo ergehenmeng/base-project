@@ -70,4 +70,7 @@ public class Member extends BaseEntity {
 
     @ApiModelProperty("注册日期")
     private LocalDate createDate;
+
+    @ApiModelProperty(value = "创建月份")
+    private String createMonth;
 }

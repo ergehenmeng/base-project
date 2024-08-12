@@ -3,6 +3,7 @@ package com.eghm.dto.statistics;
 import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.DateComparator;
+import com.eghm.enums.SelectType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,7 +32,7 @@ public class DateRequest extends DateComparator {
     private LocalDate endDate;
 
     @ApiModelProperty(value = "查询类型")
-    private String selectType;
+    private SelectType selectType;
 
     @Assign
     @ApiModelProperty(value = "商户id", hidden = true)
