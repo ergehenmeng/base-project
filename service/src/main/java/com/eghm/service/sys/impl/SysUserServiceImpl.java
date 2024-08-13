@@ -99,7 +99,7 @@ public class SysUserServiceImpl implements SysUserService {
         SysUser user = sysUserMapper.selectById(userId);
         boolean match = encoder.match(rawPassword, user.getPwd());
         if (!match) {
-            throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
+            throw new BusinessException(ErrorCode.PASSWORD_ERROR);
         }
     }
 

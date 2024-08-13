@@ -324,9 +324,14 @@ public enum ErrorCode {
     IMAGE_CODE_ERROR(2072, "验证码输入错误"),
 
     /**
+     * 账号或密码输入错误
+     */
+    ACCOUNT_PASSWORD_ERROR(2114, "账号或密码输入错误"),
+
+    /**
      * 密码输入错误
      */
-    ACCOUNT_PASSWORD_ERROR(2114, "密码输入错误"),
+    PASSWORD_ERROR(2115, "密码输入错误"),
 
     /**
      * 用户信息不存在
@@ -416,7 +421,7 @@ public enum ErrorCode {
     /**
      * 账号或密码错误
      */
-    PASSWORD_ERROR(2114, "账号或密码错误"),
+    MEMBER_PASSWORD_ERROR(2114, "账号或密码错误"),
 
     /**
      * 验证码已过期

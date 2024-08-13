@@ -138,7 +138,7 @@ public class MemberServiceImpl implements MemberService {
     public LoginTokenVO accountLogin(AccountLoginDTO login) {
         Member member = this.getByAccount(login.getAccount());
         if (member == null || !encoder.match(MD5.create().digestHex(login.getPwd()), member.getPwd())) {
-            throw new BusinessException(ErrorCode.PASSWORD_ERROR);
+            throw new BusinessException(ErrorCode.MEMBER_PASSWORD_ERROR);
         }
         this.checkMemberLock(member);
         RequestMessage request = ApiHolder.get();
