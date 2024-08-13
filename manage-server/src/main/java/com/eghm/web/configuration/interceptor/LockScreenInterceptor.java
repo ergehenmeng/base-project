@@ -28,8 +28,7 @@ public class LockScreenInterceptor implements InterceptorAdapter {
 
     @Override
     public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
-        SkipPerm permission = this.getAnnotation(handler, SkipPerm.class);
-        if (permission != null) {
+        if (this.getAnnotation(handler, SkipPerm.class) != null || this.getClassAnnotation(handler, SkipPerm.class) != null) {
             return true;
         }
         UserToken user = SecurityHolder.getUser();

@@ -53,8 +53,7 @@ public class PermInterceptor implements InterceptorAdapter {
 
     @Override
     public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
-        SkipPerm permission = this.getAnnotation(handler, SkipPerm.class);
-        if (permission != null || this.match(request)) {
+        if (this.getAnnotation(handler, SkipPerm.class) != null || this.getClassAnnotation(handler, SkipPerm.class) != null || this.match(request)) {
             return true;
         }
         log.warn("用户无权限访问该地址 [{}] 用户ID:[{}]", request.getRequestURI(), SecurityHolder.getUserId());

@@ -1,5 +1,6 @@
 package com.eghm.web.controller.business;
 
+import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.statistics.CollectRequest;
@@ -31,17 +32,17 @@ import java.util.List;
 @RequestMapping(value = "/manage/statistics", produces = MediaType.APPLICATION_JSON_VALUE)
 public class StatisticsController {
 
-    private final MemberService memberService;
-
     private final OrderService orderService;
-
-    private final MemberVisitLogService memberVisitLogService;
-
-    private final MemberCollectService memberCollectService;
 
     private final CommonService commonService;
 
+    private final MemberService memberService;
+
     private final ShoppingCartService shoppingCartService;
+
+    private final MemberCollectService memberCollectService;
+
+    private final MemberVisitLogService memberVisitLogService;
 
     @GetMapping("/sexChannel")
     @ApiOperation("注册渠道统计")
@@ -60,6 +61,7 @@ public class StatisticsController {
 
     @GetMapping("/order")
     @ApiOperation("下单统计")
+    @SkipPerm
     public RespBody<OrderCardVO> order(DateRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         OrderCardVO statistics = orderService.orderStatistics(request);
@@ -68,6 +70,7 @@ public class StatisticsController {
 
     @GetMapping("/dayOrder")
     @ApiOperation("下单统计(按天)")
+    @SkipPerm
     public RespBody<List<OrderStatisticsVO>> dayOrder(DateRequest request) {
         this.setNull(request);
         request.setMerchantId(SecurityHolder.getMerchantId());
@@ -84,7 +87,7 @@ public class StatisticsController {
 
     @GetMapping("/collect")
     @ApiOperation("收藏量")
-    public RespBody<List<CollectStatisticsVO>> visit(CollectRequest request) {
+    public RespBody<List<CollectStatisticsVO>> collect(CollectRequest request) {
         List<CollectStatisticsVO> statistics = memberCollectService.dayCollect(request);
         return RespBody.success(statistics);
     }
@@ -98,6 +101,7 @@ public class StatisticsController {
 
     @GetMapping("/cart")
     @ApiOperation("加购统计")
+    @SkipPerm
     public RespBody<List<CartStatisticsVO>> cart(DateRequest request) {
         this.setNull(request);
         request.setMerchantId(SecurityHolder.getMerchantId());
