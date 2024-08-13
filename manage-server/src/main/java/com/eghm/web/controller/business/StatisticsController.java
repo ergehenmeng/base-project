@@ -43,10 +43,10 @@ public class StatisticsController {
 
     private final ShoppingCartService shoppingCartService;
 
-    @GetMapping("/register")
-    @ApiOperation("注册统计")
-    public RespBody<Integer> register(DateRequest request) {
-        Integer statistics = memberService.registerStatistics(request);
+    @GetMapping("/sexChannel")
+    @ApiOperation("注册渠道统计")
+    public RespBody<MemberStatisticsVO> sexChannel(DateRequest request) {
+        MemberStatisticsVO statistics = memberService.sexChannel(request);
         return RespBody.success(statistics);
     }
 
@@ -60,9 +60,9 @@ public class StatisticsController {
 
     @GetMapping("/order")
     @ApiOperation("下单统计")
-    public RespBody<OrderStatisticsVO> order(DateRequest request) {
+    public RespBody<OrderCardVO> order(DateRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        OrderStatisticsVO statistics = orderService.orderStatistics(request);
+        OrderCardVO statistics = orderService.orderStatistics(request);
         return RespBody.success(statistics);
     }
 

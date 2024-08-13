@@ -46,6 +46,7 @@ import com.eghm.vo.business.order.VisitorVO;
 import com.eghm.vo.business.order.item.ExpressDetailVO;
 import com.eghm.vo.business.order.item.ExpressVO;
 import com.eghm.vo.business.order.item.ItemOrderRefundVO;
+import com.eghm.vo.business.statistics.OrderCardVO;
 import com.eghm.vo.business.statistics.OrderStatisticsVO;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
@@ -508,8 +509,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public OrderStatisticsVO orderStatistics(DateRequest request) {
-        return baseMapper.orderStatistics(request);
+    public OrderCardVO orderStatistics(DateRequest request) {
+        OrderCardVO statistics = baseMapper.orderStatistics(request);
+        OrderCardVO refundStatistics = baseMapper.orderRefundStatistics(request);
+        statistics.setRefundAmount(refundStatistics.getRefundAmount());
+        statistics.setRefundNum(refundStatistics.getRefundNum());
+        return statistics;
     }
 
     @Override

@@ -6,7 +6,9 @@ import com.eghm.dto.member.MemberQueryRequest;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.model.Member;
 import com.eghm.model.MemberTag;
+import com.eghm.vo.business.statistics.MemberChannelVO;
 import com.eghm.vo.business.statistics.MemberRegisterVO;
+import com.eghm.vo.business.statistics.MemberSexVO;
 import com.eghm.vo.member.MemberResponse;
 import org.apache.ibatis.annotations.Param;
 
@@ -29,13 +31,22 @@ public interface MemberMapper extends BaseMapper<Member> {
     Page<MemberResponse> listPage(Page<MemberResponse> page, @Param("param") MemberQueryRequest request);
 
     /**
-     * 注册统计
+     * 注册统计(渠道)
      *
      * @param startDate 开始日期
      * @param endDate 结束日期
      * @return  注册数量
      */
-    Integer registerStatistics(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    List<MemberChannelVO> channelStatistics(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+    /**
+     * 注册统计(性别)
+     *
+     * @param startDate 开始日期
+     * @param endDate 结束日期
+     * @return  注册数量
+     */
+    List<MemberSexVO> sexStatistics(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
     /**
      * 注册统计 按天或按月

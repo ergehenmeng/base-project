@@ -100,12 +100,33 @@
         </choose>
     </select>
 
-    <select id="orderStatistics" parameterType="com.eghm.dto.statistics.DateRequest" resultType="com.eghm.vo.business.statistics.OrderStatisticsVO">
+    <select id="orderStatistics" parameterType="com.eghm.dto.statistics.DateRequest" resultType="com.eghm.vo.business.statistics.OrderCardVO">
         select
             count(id) as orderNum,
             sum(pay_amount) as payAmount
-        from `order` where deleted = false and state in (1, 2, 3, 4, 5, 6, 7, 8)
-        and create_time &gt;= #{startDate} and create_date &lt; #{endDate}
+        from `order` where deleted = false and pay_time is not null
+        <if test="startDate != null">
+            and create_time &gt;= #{startDate}
+        </if>
+        <if test="endDate != null">
+            and create_date &lt; #{endDate}
+        </if>
+        <if test="merchantId != null">
+            and merchant_id = #{merchantId}
+        </if>
+    </select>
+
+    <select id="orderRefundStatistics" parameterType="com.eghm.dto.statistics.DateRequest" resultType="com.eghm.vo.business.statistics.OrderCardVO">
+        select
+        count(id) as refundNum,
+        sum(refund_amount) as refundAmount
+        from `order` where deleted = false and refund_amount &gt; 0
+        <if test="startDate != null">
+            and create_time &gt;= #{startDate}
+        </if>
+        <if test="endDate != null">
+            and create_date &lt; #{endDate}
+        </if>
         <if test="merchantId != null">
             and merchant_id = #{merchantId}
         </if>

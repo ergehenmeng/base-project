@@ -15,6 +15,7 @@ import com.eghm.vo.business.order.OrderScanVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.item.ExpressDetailVO;
 import com.eghm.vo.business.order.item.ItemOrderRefundVO;
+import com.eghm.vo.business.statistics.OrderCardVO;
 import com.eghm.vo.business.statistics.OrderStatisticsVO;
 
 import java.time.LocalDateTime;
@@ -239,15 +240,15 @@ public interface OrderService extends IService<Order> {
     void routing(String orderNo);
 
     /**
-     * 订单统计
+     * 累计订单统计
      *
      * @param request request
      * @return list
      */
-    OrderStatisticsVO orderStatistics(DateRequest request);
+    OrderCardVO orderStatistics(DateRequest request);
 
     /**
-     * 订单统计
+     * 订单统计按天(按月)
      *
      * @param request request
      * @return list

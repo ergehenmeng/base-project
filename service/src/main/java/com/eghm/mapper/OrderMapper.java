@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.model.Order;
 import com.eghm.vo.business.order.ProductSnapshotVO;
+import com.eghm.vo.business.statistics.OrderCardVO;
 import com.eghm.vo.business.statistics.OrderStatisticsVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -74,7 +75,15 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @param request 查询条件
      * @return 订单统计
      */
-    OrderStatisticsVO orderStatistics(DateRequest request);
+    OrderCardVO orderStatistics(DateRequest request);
+
+    /**
+     * 退款订单统计
+     *
+     * @param request 查询条件
+     * @return 订单统计
+     */
+    OrderCardVO orderRefundStatistics(DateRequest request);
 
     /**
      * 更新拼团订单状态

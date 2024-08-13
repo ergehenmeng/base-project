@@ -45,9 +45,10 @@
         order by t.id desc
     </select>
 
-    <select id="registerStatistics" resultType="integer">
+    <select id="channelStatistics" resultType="com.eghm.vo.business.statistics.MemberChannelVO">
         select
-            count(id)
+            count(id) as value,
+            `channel` as name
         from `member` where deleted = false
         <if test="startDate != null ">
             and create_date &gt; #{startDate}
@@ -55,6 +56,21 @@
         <if test="endDate != null ">
             and create_date &lt;= #{endDate}
         </if>
+        group by channel
+    </select>
+
+    <select id="sexStatistics" resultType="com.eghm.vo.business.statistics.MemberSexVO">
+        select
+        count(id) as value,
+        case when sex = 0 then '女' when `sex` = 1 then '男' else '未知' end as `name`
+        from `member` where deleted = false
+        <if test="startDate != null ">
+            and create_date &gt; #{startDate}
+        </if>
+        <if test="endDate != null ">
+            and create_date &lt;= #{endDate}
+        </if>
+        group by sex
     </select>
 
     <select id="dayRegister" resultType="com.eghm.vo.business.statistics.MemberRegisterVO" parameterType="com.eghm.dto.statistics.DateRequest">
