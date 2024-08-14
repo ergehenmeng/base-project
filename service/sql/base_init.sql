@@ -3904,7 +3904,7 @@ INSERT INTO `sys_config` VALUES ('55', 'homestay_max_reserve_day', '民宿最低
 INSERT INTO `sys_config` VALUES ('56', 'homestay_room_max_recommend', '民宿房型最大推荐数量', '6', b'0', '6 默认推荐6间房型', '2023-01-12 11:35:02', '2023-01-12 11:35:02');
 INSERT INTO `sys_config` VALUES ('57', 'item_max_recommend', '商品最大推荐数量', '10', b'0', '默认推荐10件商品', '2023-01-29 14:20:39', '2023-01-29 14:20:39');
 INSERT INTO `sys_config` VALUES ('58', 'store_item_max_recommend', '店铺商品最大推荐数量', '10', b'0', '单个店铺默认推荐商品数量', '2023-01-29 14:21:43', '2023-02-10 13:02:30');
-INSERT INTO `sys_config` VALUES ('59', 'store_max_recommend', '店铺最大推荐数量', '6', b'0', '店铺默认推荐数量', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
+INSERT INTO `sys_config` VALUES ('59', 'store_max_recommend', '店铺最大推荐数量', '6', b'0', '首页显示的店铺数量最大值(推荐)', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
 INSERT INTO `sys_config` VALUES ('60', 'sms_type_hour_limit', '短信单小时次数限制(短信类型)', '6', b'0', '单手机号一个小时某一类型最多发送几条短信', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
 INSERT INTO `sys_config` VALUES ('61', 'sms_type_day_limit', '短信单天次数限制(短信类型)', '10', b'0', '单手机号一天某一类型的短信最多发送几条短信', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
 INSERT INTO `sys_config` VALUES ('62', 'sms_day_limit', '短信单天次数限制(手机号)', '10', b'0', '单手机号一天短信最多发送几条短信', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
