@@ -625,3 +625,10 @@ INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES (
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('864', '1707298744621969413', '10191019', '2024-08-09 18:13:15');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('865', '1707298744621969414', '10191019', '2024-08-09 18:13:15');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('866', '1707298744621969415', '10191019', '2024-08-09 18:13:15');
+
+
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('867', '1707298744621969411', '1013', 'CURRENT_TIMESTAMP');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('868', '1707298744621969412', '1013', 'CURRENT_TIMESTAMP');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('869', '1707298744621969413', '1013', 'CURRENT_TIMESTAMP');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('870', '1707298744621969414', '1013', 'CURRENT_TIMESTAMP');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('871', '1707298744621969415', '1013', 'CURRENT_TIMESTAMP');
