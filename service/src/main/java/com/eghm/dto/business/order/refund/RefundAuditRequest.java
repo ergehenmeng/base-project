@@ -2,12 +2,10 @@ package com.eghm.dto.business.order.refund;
 
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.validation.annotation.OptionInt;
-import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -35,11 +33,9 @@ public class RefundAuditRequest {
     @ApiModelProperty(value = "实际退款金额", required = true)
     @NotNull(message = "退款金额不能为空")
     @JsonDeserialize(using = YuanToCentDecoder.class)
-    @RangeInt(max = 5000000, message = "退款金额应小于50000元")
     private Integer refundAmount;
 
     @ApiModelProperty(value = "审批意见", required = true)
-    @Size(min = 2, max = 100, message = "审批意见长度2~100字符")
-    @NotBlank(message = "审批意见不能为空")
+    @Size( max = 100, message = "审批意见长度2~100字符")
     private String auditRemark;
 }

@@ -46,6 +46,7 @@ public class RefundLogController {
     @GetMapping("/listPage")
     @ApiOperation("退款申请列表")
     public RespBody<PageData<RefundLogResponse>> listPage(RefundLogQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         Page<RefundLogResponse> roomPage = orderRefundLogService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
     }

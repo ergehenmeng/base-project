@@ -47,6 +47,9 @@
         <if test="param.prefix != null and param.prefix != ''">
             and t.order_no like concat(#{param.prefix, typeHandler=LikeTypeHandler}, '%')
         </if>
+        <if test="param.merchantId != null">
+            and t.merchant_id = #{param.merchantId}
+        </if>
         <if test="param.queryName != null and param.queryName != ''">
             and (t.order_no like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
                  r.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%'))
@@ -57,11 +60,11 @@
         <if test="param.auditState != null">
             and t.audit_state = #{param.auditState}
         </if>
-        <if test="param.startTime != null">
-            and t.apply_time &gt;= #{param.startTime}
+        <if test="param.startDate != null">
+            and t.apply_time &gt;= #{param.startDate}
         </if>
-        <if test="param.endTime != null">
-            and t.apply_time &lt;= #{param.endTime}
+        <if test="param.endDate != null">
+            and t.apply_time &lt;= #{param.endDate}
         </if>
         order by t.id desc
     </select>

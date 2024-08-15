@@ -1,13 +1,14 @@
 package com.eghm.dto.business.order.refund;
 
+import com.eghm.annotation.Assign;
+import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.AuditState;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * @author wyb
@@ -23,14 +24,18 @@ public class RefundLogQueryRequest extends PagingQuery {
     @ApiModelProperty("审核状态(0:待审核 1:审核通过 2:审核拒绝 3:取消审核)")
     private AuditState auditState;
 
-    @ApiModelProperty(value = "退款申请时间开始时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime startTime;
+    @ApiModelProperty(value = "开始日期")
+    @DateFormatter(pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
 
-    @ApiModelProperty(value = "退款申请时间截止时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime endTime;
+    @ApiModelProperty(value = "截止日期")
+    @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
+    private LocalDate endDate;
 
-    @ApiModelProperty(value = "订单前置类型", hidden = true)
+    @ApiModelProperty(value = "订单前置类型")
     private String prefix;
+
+    @ApiModelProperty(value = "商户id", hidden = true)
+    @Assign
+    private Long merchantId;
 }
