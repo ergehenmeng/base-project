@@ -39,7 +39,8 @@
             t.reason,
             t.state,
             t.audit_state,
-            t.apply_time
+            t.apply_time,
+            t.audit_time
         from order_refund_log t
         inner join `order` r on t.order_no = r.order_no
         where t.deleted = false and r.deleted = false

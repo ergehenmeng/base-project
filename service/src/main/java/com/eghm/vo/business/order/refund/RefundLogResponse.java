@@ -2,6 +2,7 @@ package com.eghm.vo.business.order.refund;
 
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.AuditState;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -48,5 +49,10 @@ public class RefundLogResponse {
     private AuditState auditState;
 
     @ApiModelProperty(value = "退款申请时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime applyTime;
+
+    @ApiModelProperty(value = "退款审核时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime auditTime;
 }
