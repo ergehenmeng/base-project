@@ -27,11 +27,11 @@ import java.util.List;
 @RequestMapping(value = "/manage/homestay/room/config", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HomestayRoomConfigController {
 
-    private final HomestayRoomConfigService homestayRoomConfigService;
+    private final CommonService commonService;
 
     private final HomestayRoomService homestayRoomService;
 
-    private final CommonService commonService;
+    private final HomestayRoomConfigService homestayRoomConfigService;
 
     @PostMapping(value = "/setup", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("设置房态")

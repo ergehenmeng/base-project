@@ -51,9 +51,9 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
 
     private final JsonService jsonService;
 
-    private final AccountService accountService;
-
     private final AlarmService alarmService;
+
+    private final AccountService accountService;
 
     private final AccountLogService accountLogService;
 

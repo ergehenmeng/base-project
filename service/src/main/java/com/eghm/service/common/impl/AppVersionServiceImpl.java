@@ -37,11 +37,11 @@ import java.util.List;
 @Slf4j
 public class AppVersionServiceImpl implements AppVersionService {
 
-    private final AppVersionMapper appVersionMapper;
-
     private final SysConfigApi sysConfigApi;
 
     private final AlarmService alarmService;
+
+    private final AppVersionMapper appVersionMapper;
 
     @Override
     public Page<AppVersionResponse> getByPage(VersionQueryRequest request) {

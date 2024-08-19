@@ -35,11 +35,11 @@ import java.util.List;
 @Slf4j
 public class TicketOrderServiceImpl implements TicketOrderService {
 
+    private final OrderService orderService;
+
     private final TicketOrderMapper ticketOrderMapper;
 
     private final OrderVisitorService orderVisitorService;
-
-    private final OrderService orderService;
 
     @Override
     public Page<TicketOrderResponse> getByPage(TicketOrderQueryRequest request) {

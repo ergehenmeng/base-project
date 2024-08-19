@@ -40,11 +40,11 @@ import java.util.stream.Collectors;
 @Service("expressTemplateRegionService")
 public class ExpressTemplateRegionServiceImpl implements ExpressTemplateRegionService {
 
-    private final ExpressTemplateRegionMapper expressTemplateRegionMapper;
-
     private final JsonService jsonService;
 
     private final ItemSkuService itemSkuService;
+
+    private final ExpressTemplateRegionMapper expressTemplateRegionMapper;
 
     @Override
     public void createOrUpdate(Long expressId, List<ExpressTemplateRegionRequest> regionList) {

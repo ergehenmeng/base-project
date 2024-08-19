@@ -53,9 +53,13 @@ import static com.eghm.constant.CacheConstant.MEMBER_COLLECT;
 @Service("memberCollectService")
 public class MemberCollectServiceImpl implements MemberCollectService {
 
-    private final CacheService cacheService;
+    private final ItemMapper itemMapper;
 
-    private final MemberCollectMapper memberCollectMapper;
+    private final LineMapper lineMapper;
+
+    private final NewsMapper newsMapper;
+
+    private final CacheService cacheService;
 
     private final ScenicMapper scenicMapper;
 
@@ -63,15 +67,11 @@ public class MemberCollectServiceImpl implements MemberCollectService {
 
     private final ItemStoreMapper itemStoreMapper;
 
-    private final ItemMapper itemMapper;
-
-    private final LineMapper lineMapper;
-
     private final RestaurantMapper restaurantMapper;
 
-    private final NewsMapper newsMapper;
-
     private final TravelAgencyMapper travelAgencyMapper;
+
+    private final MemberCollectMapper memberCollectMapper;
 
     @Override
     public List<MemberCollectVO> getByPage(CollectQueryDTO query) {

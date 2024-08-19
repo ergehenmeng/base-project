@@ -38,9 +38,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class LotteryPrizeServiceImpl implements LotteryPrizeService {
 
-    private final LotteryPrizeMapper lotteryPrizeMapper;
-
     private final RedissonClient redissonClient;
+
+    private final LotteryPrizeMapper lotteryPrizeMapper;
 
     @Override
     public Map<Integer, LotteryPrize> insert(Long lotteryId, List<LotteryPrizeRequest> prizeList) {

@@ -30,9 +30,9 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class PayRequestLogServiceImpl implements PayRequestLogService {
 
-    private final PayRequestLogMapper payRequestLogMapper;
-
     private final JsonService jsonService;
+
+    private final PayRequestLogMapper payRequestLogMapper;
 
     @Override
     public Page<PayRequestLogResponse> getByPage(PayLogQueryRequest request) {

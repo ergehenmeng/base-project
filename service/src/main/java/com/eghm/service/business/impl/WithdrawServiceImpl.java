@@ -37,9 +37,9 @@ import static com.eghm.constant.CommonConstant.WITHDRAW_PREFIX;
 @Service("withdrawService")
 public class WithdrawServiceImpl implements WithdrawService {
 
-    private final WithdrawLogMapper withdrawLogMapper;
-
     private final AccountService accountService;
+
+    private final WithdrawLogMapper withdrawLogMapper;
 
     @Override
     public Page<WithdrawLogResponse> getByPage(WithdrawQueryRequest request) {

@@ -26,17 +26,17 @@ import java.util.List;
 @RequestMapping(value = "/manage/store", produces = MediaType.APPLICATION_JSON_VALUE)
 public class StoreController {
 
+    private final VenueService venueService;
+
     private final ScenicService scenicService;
 
     private final HomestayService homestayService;
 
     private final ItemStoreService itemStoreService;
 
-    private final TravelAgencyService travelAgencyService;
-
     private final RestaurantService restaurantService;
 
-    private final VenueService venueService;
+    private final TravelAgencyService travelAgencyService;
 
     @GetMapping("/storeList")
     @ApiOperation("店铺列表(不分页)")

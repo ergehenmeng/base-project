@@ -50,15 +50,15 @@ import static com.eghm.enums.ErrorCode.STORE_NOT_COMPLETE;
 @AllArgsConstructor
 public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantInitService {
 
-    private final TravelAgencyMapper travelAgencyMapper;
+    private final LineMapper lineMapper;
 
     private final CommonService commonService;
 
-    private final MemberCollectService memberCollectService;
-
     private final SysAreaService sysAreaService;
 
-    private final LineMapper lineMapper;
+    private final TravelAgencyMapper travelAgencyMapper;
+
+    private final MemberCollectService memberCollectService;
 
     @Override
     public Page<TravelResponse> getByPage(TravelAgencyQueryRequest request) {

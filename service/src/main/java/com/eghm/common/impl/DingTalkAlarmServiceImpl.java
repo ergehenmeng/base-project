@@ -27,9 +27,9 @@ import java.util.Map;
 @AllArgsConstructor
 public class DingTalkAlarmServiceImpl implements AlarmService {
 
-    private final SystemProperties systemProperties;
-
     private final JsonService jsonService;
+
+    private final SystemProperties systemProperties;
 
     @Async
     @Override

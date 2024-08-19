@@ -23,11 +23,11 @@ import java.util.Map;
 @Component("commonEmailHandler")
 public class BaseEmailHandler {
 
-    private EmailTemplateService emailTemplateService;
-
     private EmailService emailService;
 
     private TemplateEngine templateEngine;
+
+    private EmailTemplateService emailTemplateService;
 
     @Autowired
     public void setTemplateEngine(TemplateEngine templateEngine) {

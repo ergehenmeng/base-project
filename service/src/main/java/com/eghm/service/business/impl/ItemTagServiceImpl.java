@@ -39,10 +39,9 @@ import static com.eghm.constant.CommonConstant.ITEM_TAG_STEP;
 @Service("itemTagService")
 public class ItemTagServiceImpl implements ItemTagService {
 
+    private final ItemMapper itemMapper;
 
     private final ItemTagMapper itemTagMapper;
-
-    private final ItemMapper itemMapper;
 
     @Override
     public void create(ItemTagAddRequest request) {

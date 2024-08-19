@@ -33,33 +33,33 @@ import static com.eghm.constant.CommonConstant.LIMIT_ONE;
 @Slf4j
 public class CacheProxyServiceImpl implements CacheProxyService {
 
+    private final BannerMapper bannerMapper;
+
     private final SysAreaMapper sysAreaMapper;
 
-    private final BannerMapper bannerMapper;
+    private final ExpressMapper expressMapper;
+
+    private final ItemTagService itemTagService;
+
+    private final SysNoticeMapper sysNoticeMapper;
+
+    private final SysConfigMapper sysConfigMapper;
+
+    private final PayConfigMapper payConfigMapper;
+
+    private final AuthConfigMapper authConfigMapper;
+
+    private final SmsTemplateMapper smsTemplateMapper;
+
+    private final SysDictItemMapper sysDictItemMapper;
+
+    private final LotteryPrizeMapper lotteryPrizeMapper;
+
+    private final PushTemplateMapper pushTemplateMapper;
 
     private final EmailTemplateMapper emailTemplateMapper;
 
     private final NoticeTemplateMapper noticeTemplateMapper;
-
-    private final PushTemplateMapper pushTemplateMapper;
-
-    private final SysNoticeMapper sysNoticeMapper;
-
-    private final SmsTemplateMapper smsTemplateMapper;
-
-    private final SysConfigMapper sysConfigMapper;
-
-    private final SysDictItemMapper sysDictItemMapper;
-
-    private final ItemTagService itemTagService;
-
-    private final LotteryPrizeMapper lotteryPrizeMapper;
-
-    private final AuthConfigMapper authConfigMapper;
-
-    private final ExpressMapper expressMapper;
-
-    private final PayConfigMapper payConfigMapper;
 
     @Override
     @Cacheable(cacheNames = CacheConstant.EXPRESS, sync = true)

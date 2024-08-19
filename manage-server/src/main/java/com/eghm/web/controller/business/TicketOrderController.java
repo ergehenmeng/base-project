@@ -34,11 +34,12 @@ import java.util.List;
 @RequestMapping(value = "/manage/ticket/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TicketOrderController {
 
+    private final RedisLock redisLock;
+
     private final OrderService orderService;
 
     private final TicketOrderService ticketOrderService;
 
-    private final RedisLock redisLock;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")

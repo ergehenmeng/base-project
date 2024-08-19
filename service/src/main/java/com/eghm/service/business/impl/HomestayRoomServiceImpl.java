@@ -42,11 +42,11 @@ import java.util.List;
 @Slf4j
 public class HomestayRoomServiceImpl implements HomestayRoomService {
 
-    private final HomestayRoomMapper homestayRoomMapper;
-
     private final SysConfigApi sysConfigApi;
 
     private final CommonService commonService;
+
+    private final HomestayRoomMapper homestayRoomMapper;
 
     private final HomestayRoomConfigService homestayRoomConfigService;
 

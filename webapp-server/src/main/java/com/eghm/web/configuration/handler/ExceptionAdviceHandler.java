@@ -38,7 +38,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class ExceptionAdviceHandler {
 
-    private final MessageService rabbitMessageService;
+    private final MessageService messageService;
 
     /**
      * 特殊业务异常统一拦截
@@ -95,7 +95,7 @@ public class ExceptionAdviceHandler {
         webappLog.setRequestParam(ApiHolder.getRequestParam());
         webappLog.setTraceId(LogTraceHolder.getTraceId());
         webappLog.setErrorMsg(ExceptionUtil.stacktraceToString(e));
-        rabbitMessageService.send(ExchangeQueue.WEBAPP_LOG, webappLog);
+        messageService.send(ExchangeQueue.WEBAPP_LOG, webappLog);
         return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }
 

@@ -57,39 +57,39 @@ import static com.eghm.constant.CacheConstant.MERCHANT_AUTH_CODE;
 @Slf4j
 public class MerchantServiceImpl implements MerchantService {
 
-    private final MerchantMapper merchantMapper;
+    private final Encoder encoder;
+
+    private final SmsService smsService;
+
+    private final VenueService venueService;
 
     private final SysConfigApi sysConfigApi;
 
-    private final Encoder encoder;
+    private final CacheService cacheService;
+
+    private final ScenicService scenicService;
+
+    private final AccountService accountService;
 
     private final SysUserService sysUserService;
 
     private final SysRoleService sysRoleService;
 
-    private final CacheService cacheService;
-
-    private final List<MerchantInitService> initList;
-
-    private final SmsService smsService;
-
-    private final WeChatMiniService weChatMiniService;
-
-    private final AccountService accountService;
-
-    private final ScoreAccountService scoreAccountService;
-
-    private final ItemStoreService itemStoreService;
-
-    private final TravelAgencyService travelAgencyService;
+    private final MerchantMapper merchantMapper;
 
     private final HomestayService homestayService;
 
-    private final ScenicService scenicService;
+    private final ItemStoreService itemStoreService;
+
+    private final List<MerchantInitService> initList;
 
     private final RestaurantService restaurantService;
 
-    private final VenueService venueService;
+    private final WeChatMiniService weChatMiniService;
+
+    private final ScoreAccountService scoreAccountService;
+
+    private final TravelAgencyService travelAgencyService;
 
     @Override
     public Page<MerchantResponse> getByPage(MerchantQueryRequest request) {

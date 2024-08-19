@@ -55,17 +55,17 @@ import static com.eghm.enums.ErrorCode.STORE_NOT_COMPLETE;
 @Slf4j
 public class RestaurantServiceImpl implements RestaurantService, MerchantInitService {
 
-    private final RestaurantMapper restaurantMapper;
-
-    private final SysAreaService sysAreaService;
-
     private final CommonService commonService;
-
-    private final OrderEvaluationMapper orderEvaluationMapper;
 
     private final VoucherMapper voucherMapper;
 
+    private final SysAreaService sysAreaService;
+
+    private final RestaurantMapper restaurantMapper;
+
     private final MemberCollectService memberCollectService;
+
+    private final OrderEvaluationMapper orderEvaluationMapper;
 
     @Override
     public Page<RestaurantResponse> getByPage(RestaurantQueryRequest request) {

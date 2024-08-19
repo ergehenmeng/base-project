@@ -42,25 +42,26 @@ import java.util.Map;
 @Service("orderEvaluationService")
 public class OrderEvaluationServiceImpl implements OrderEvaluationService {
 
-    private final OrderEvaluationMapper orderEvaluationMapper;
-
-    private final ItemOrderService itemOrderService;
-
-    private final TicketOrderService ticketOrderService;
-
-    private final HomestayOrderService homestayOrderService;
-
-    private final LineOrderService lineOrderService;
-
-    private final VoucherOrderService voucherOrderService;
 
     private final OrderService orderService;
 
     private final SysConfigApi sysConfigApi;
 
+    private final LineOrderService lineOrderService;
+
+    private final ItemOrderService itemOrderService;
+
     private final VenueOrderService venueOrderService;
 
+    private final TicketOrderService ticketOrderService;
+
     private final MemberNoticeService memberNoticeService;
+
+    private final VoucherOrderService voucherOrderService;
+
+    private final HomestayOrderService homestayOrderService;
+
+    private final OrderEvaluationMapper orderEvaluationMapper;
 
     @Override
     public Page<OrderEvaluationResponse> listPage(OrderEvaluationQueryRequest request) {

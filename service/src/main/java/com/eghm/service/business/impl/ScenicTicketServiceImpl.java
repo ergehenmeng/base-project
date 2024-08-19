@@ -43,11 +43,11 @@ import java.util.List;
 @Slf4j
 public class ScenicTicketServiceImpl implements ScenicTicketService {
 
-    private final ScenicTicketMapper scenicTicketMapper;
-
     private final ScenicService scenicService;
 
     private final CommonService commonService;
+
+    private final ScenicTicketMapper scenicTicketMapper;
 
     private final OrderEvaluationMapper orderEvaluationMapper;
 

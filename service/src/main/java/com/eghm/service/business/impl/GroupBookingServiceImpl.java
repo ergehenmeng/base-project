@@ -56,8 +56,6 @@ import java.util.stream.Collectors;
 @Service("groupBookingService")
 public class GroupBookingServiceImpl implements GroupBookingService {
 
-    private final GroupBookingMapper groupBookingMapper;
-
     private final JsonService jsonService;
 
     private final ItemService itemService;
@@ -65,6 +63,8 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     private final CommonService commonService;
 
     private final MessageService messageService;
+
+    private final GroupBookingMapper groupBookingMapper;
 
     @Override
     public Page<GroupBookingResponse> getByPage(GroupBookingQueryRequest request) {

@@ -21,13 +21,13 @@ import java.util.Locale;
 @Slf4j
 public class DateFormatterParser implements Parser<Temporal> {
 
-    private final Class<?> temporalAccessorType;
-
-    private final DateTimeFormatter formatter;
-
     private final long offset;
 
     private final ChronoUnit unit;
+
+    private final DateTimeFormatter formatter;
+
+    private final Class<?> temporalAccessorType;
 
     public DateFormatterParser(Class<?> temporalAccessorType, DateTimeFormatter formatter, long offset, ChronoUnit unit) {
         this.temporalAccessorType = temporalAccessorType;

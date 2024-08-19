@@ -44,13 +44,13 @@ public class PushServiceImpl implements PushService {
      */
     private static final String VIEW_TAG = "&viewTag";
 
-    private final PushTemplateService pushTemplateService;
-
-    private final SystemProperties systemProperties;
+    private JPushClient pushClient;
 
     private final TemplateEngine templateEngine;
 
-    private JPushClient pushClient;
+    private final SystemProperties systemProperties;
+
+    private final PushTemplateService pushTemplateService;
 
     @PostConstruct
     public void init() {

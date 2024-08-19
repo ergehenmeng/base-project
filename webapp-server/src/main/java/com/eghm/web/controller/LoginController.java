@@ -35,9 +35,9 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(value = "/webapp", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LoginController {
 
-    private final MemberService memberService;
-
     private final SmsService smsService;
+
+    private final MemberService memberService;
 
     private final MemberTokenService memberTokenService;
 

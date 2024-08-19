@@ -32,11 +32,11 @@ import java.util.List;
 @AllArgsConstructor
 public class MemberAddressServiceImpl implements MemberAddressService {
 
-    private final MemberAddressMapper memberAddressMapper;
+    private final SysConfigApi sysConfigApi;
 
     private final SysAreaService sysAreaService;
 
-    private final SysConfigApi sysConfigApi;
+    private final MemberAddressMapper memberAddressMapper;
 
     @Override
     public void addAddress(AddressAddDTO dto) {

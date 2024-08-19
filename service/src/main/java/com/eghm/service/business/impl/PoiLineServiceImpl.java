@@ -45,9 +45,9 @@ public class PoiLineServiceImpl implements PoiLineService {
 
     private final PoiLineMapper poiLineMapper;
 
-    private final PoiLinePointMapper poiLinePointMapper;
-
     private final PoiPointService poiPointService;
+
+    private final PoiLinePointMapper poiLinePointMapper;
 
     @Override
     public Page<PoiLineResponse> getByPage(PoiLineQueryRequest request) {

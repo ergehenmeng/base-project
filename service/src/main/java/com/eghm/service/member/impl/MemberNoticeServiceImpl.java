@@ -42,17 +42,17 @@ import java.util.Map;
 @Service("memberNoticeService")
 public class MemberNoticeServiceImpl implements MemberNoticeService {
 
-    private final NoticeTemplateService noticeTemplateService;
-
-    private final MemberNoticeMapper memberNoticeMapper;
-
-    private final MemberNoticeLogMapper memberNoticeLogMapper;
-
-    private final TemplateEngine templateEngine;
+    private PushService pushService;
 
     private final MemberService memberService;
 
-    private PushService pushService;
+    private final TemplateEngine templateEngine;
+
+    private final MemberNoticeMapper memberNoticeMapper;
+
+    private final NoticeTemplateService noticeTemplateService;
+
+    private final MemberNoticeLogMapper memberNoticeLogMapper;
 
     @Autowired(required = false)
     public void setPushService(PushService pushService) {

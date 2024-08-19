@@ -45,13 +45,13 @@ import static com.eghm.enums.ErrorCode.LINE_DELETE;
 @Slf4j
 public class LineConfigServiceImpl implements LineConfigService {
 
-    private final LineConfigMapper lineConfigMapper;
-
     private final LineMapper lineMapper;
+
+    private final SysConfigApi sysConfigApi;
 
     private final CommonService commonService;
 
-    private final SysConfigApi sysConfigApi;
+    private final LineConfigMapper lineConfigMapper;
 
     @Override
     public void setup(LineConfigRequest request) {

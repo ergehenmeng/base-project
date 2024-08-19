@@ -56,7 +56,7 @@ import static com.eghm.enums.ErrorCode.HOMESTAY_SEARCH_MAX;
 @Slf4j
 public class HomestayServiceImpl implements HomestayService, MerchantInitService {
 
-    private final HomestayMapper homestayMapper;
+    private final SysConfigApi sysConfigApi;
 
     private final CommonService commonService;
 
@@ -64,13 +64,13 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
 
     private final SysAreaService sysAreaService;
 
-    private final SysConfigApi sysConfigApi;
+    private final HomestayMapper homestayMapper;
 
     private final HomestayRoomService homestayRoomService;
 
-    private final OrderEvaluationMapper orderEvaluationMapper;
-
     private final MemberCollectService memberCollectService;
+
+    private final OrderEvaluationMapper orderEvaluationMapper;
 
     @Override
     public Page<HomestayResponse> getByPage(HomestayQueryRequest request) {

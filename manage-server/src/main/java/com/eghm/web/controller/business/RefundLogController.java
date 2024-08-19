@@ -37,11 +37,11 @@ import static com.eghm.enums.ErrorCode.ORDER_TYPE_MATCH;
 @RequestMapping(value = "/manage/refund/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RefundLogController {
 
-    private final OrderRefundLogService orderRefundLogService;
-
     private final CommonService commonService;
 
     private final ItemOrderService itemOrderService;
+
+    private final OrderRefundLogService orderRefundLogService;
 
     @GetMapping("/listPage")
     @ApiOperation("退款申请列表")

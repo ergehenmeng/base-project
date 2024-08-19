@@ -24,9 +24,9 @@ public class RabbitInitConfig {
 
     private final AmqpAdmin amqpAdmin;
 
-    private final RabbitTemplate rabbitTemplate;
-
     private final AlarmService alarmService;
+
+    private final RabbitTemplate rabbitTemplate;
 
     @Bean
     public void init() {

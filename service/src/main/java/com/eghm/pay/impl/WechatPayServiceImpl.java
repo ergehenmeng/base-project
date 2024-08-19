@@ -41,9 +41,9 @@ import java.util.Optional;
 @Service("wechatPayService")
 @Slf4j
 public class WechatPayServiceImpl implements PayService {
+    private WxPayService wxPayService;
 
     private final SystemProperties systemProperties;
-    private WxPayService wxPayService;
 
     @Autowired(required = false)
     public void setWxPayService(WxPayService wxPayService) {

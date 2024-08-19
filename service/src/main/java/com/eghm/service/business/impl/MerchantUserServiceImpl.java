@@ -34,15 +34,15 @@ import java.time.LocalDateTime;
 @Service("merchantUserService")
 public class MerchantUserServiceImpl implements MerchantUserService {
 
-    private final MerchantUserMapper merchantUserMapper;
-
     private final Encoder encoder;
+
+    private final CommonService commonService;
 
     private final SysUserService sysUserService;
 
     private final SysRoleService sysRoleService;
 
-    private final CommonService commonService;
+    private final MerchantUserMapper merchantUserMapper;
 
     @Override
     public Page<MerchantUserResponse> getByPage(MerchantUserQueryRequest request) {

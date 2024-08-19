@@ -46,9 +46,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class MemberCouponServiceImpl implements MemberCouponService {
 
-    private final MemberCouponMapper memberCouponMapper;
-
     private final CouponMapper couponMapper;
+
+    private final MemberCouponMapper memberCouponMapper;
 
     private final CouponScopeService couponScopeService;
 

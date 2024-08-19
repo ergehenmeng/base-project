@@ -27,11 +27,11 @@ import java.util.Optional;
 @AllArgsConstructor
 public class RedisUserTokenServiceImpl implements UserTokenService {
 
-    private final SystemProperties systemProperties;
+    private final JsonService jsonService;
 
     private final CacheService cacheService;
 
-    private final JsonService jsonService;
+    private final SystemProperties systemProperties;
 
     @Override
     public String createToken(SysUser user, Long merchantId, List<String> authList, List<String> dataList) {

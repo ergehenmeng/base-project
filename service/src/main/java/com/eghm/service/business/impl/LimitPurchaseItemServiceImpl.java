@@ -44,9 +44,9 @@ import java.util.stream.Collectors;
 @Service("limitPurchaseItemService")
 public class LimitPurchaseItemServiceImpl implements LimitPurchaseItemService {
 
-    private final LimitPurchaseItemMapper limitPurchaseItemMapper;
-
     private final JsonService jsonService;
+
+    private final LimitPurchaseItemMapper limitPurchaseItemMapper;
 
     @Override
     public List<LimitItemVO> getByPage(LimitPurchaseQueryDTO dto) {

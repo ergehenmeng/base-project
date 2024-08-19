@@ -31,9 +31,9 @@ import java.util.List;
 @RequestMapping(value = "/webapp/item/group", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemGroupController {
 
-    private final ItemGroupOrderService itemGroupOrderService;
-
     private final GroupBookingService groupBookingService;
+
+    private final ItemGroupOrderService itemGroupOrderService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")

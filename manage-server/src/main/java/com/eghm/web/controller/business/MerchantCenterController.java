@@ -31,9 +31,9 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(value = "/manage/merchant/center", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MerchantCenterController {
 
-    private final MerchantService merchantService;
-
     private final SysAreaService sysAreaService;
+
+    private final MerchantService merchantService;
 
     @GetMapping("/detail")
     @ApiOperation("详情")

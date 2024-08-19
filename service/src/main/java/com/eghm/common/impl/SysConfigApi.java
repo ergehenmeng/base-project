@@ -25,9 +25,9 @@ import java.util.List;
 @AllArgsConstructor
 public class SysConfigApi {
 
-    private final CacheProxyService cacheProxyService;
-
     private final JsonService jsonService;
+
+    private final CacheProxyService cacheProxyService;
 
     /**
      * 根据nid获取系统参数配置信息的值

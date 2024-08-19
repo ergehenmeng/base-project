@@ -42,11 +42,11 @@ import static com.eghm.enums.ErrorCode.MERCHANT_ADDRESS_NULL;
 @Service("merchantAddressService")
 public class MerchantAddressServiceImpl implements MerchantAddressService {
 
-    private final MerchantAddressMapper merchantAddressMapper;
+    private final SysAreaService sysAreaService;
 
     private final ItemStoreMapper itemStoreMapper;
 
-    private final SysAreaService sysAreaService;
+    private final MerchantAddressMapper merchantAddressMapper;
 
     @Override
     public PageData<MerchantAddressResponse> getByPage(PagingQuery query) {

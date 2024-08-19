@@ -26,9 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/manage/pay/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PayLogController {
 
-    private final PayRequestLogService payRequestLogService;
-
     private final PayNotifyLogService payNotifyLogService;
+
+    private final PayRequestLogService payRequestLogService;
 
     @GetMapping("/sync/listPage")
     @ApiOperation("支付同步请求日志列表")

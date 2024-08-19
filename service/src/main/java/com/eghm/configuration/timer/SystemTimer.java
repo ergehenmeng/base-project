@@ -20,40 +20,51 @@ public class SystemTimer {
      * 默认队列容量
      */
     private static final int DEFAULT_QUEUE_CAPACITY = 100000;
+
     /**
      * 最大执行业务的线程数
      */
     private static final int DEFAULT_MAX_THREAD = 50;
+
     /**
      * 最小执行业务的线程数
      */
     private static final int DEFAULT_CORE_THREAD = 5;
+
     /**
      * 默认步长 200毫秒
      */
     private static final int DEFAULT_STEP = 200;
+
     /**
      * 最底层时间轮对象
      */
     private final TimingWheel rootWheel;
+
     /**
      * 该队列间接关联时间轮的所有任务,即:每个刻度的所有任务,同时也包含所有时间轮的任务
      */
     private final DelayQueue<TaskBucket> queue = new DelayQueue<>();
+
     private final AtomicInteger taskCounter = new AtomicInteger(0);
+
     private final AtomicInteger threadCounter = new AtomicInteger(1);
+
     /**
      * 工作线程
      */
     private ExecutorService executor;
+
     /**
      * 指针线程
      */
     private ExecutorService bossExecutor;
+
     /**
      * 关闭处理
      */
     private ShutdownHandler shutdownHandler;
+
     /**
      * 是否开启任务
      */

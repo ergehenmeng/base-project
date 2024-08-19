@@ -29,15 +29,15 @@ import java.util.List;
 @AllArgsConstructor
 public class SmsServiceImpl implements SmsService {
 
-    private final CacheService cacheService;
+    private final SysConfigApi sysConfigApi;
 
-    private final SendSmsService sendSmsService;
+    private final CacheService cacheService;
 
     private final SmsLogService smsLogService;
 
-    private final SmsTemplateService smsTemplateService;
+    private final SendSmsService sendSmsService;
 
-    private final SysConfigApi sysConfigApi;
+    private final SmsTemplateService smsTemplateService;
 
     @Override
     public void sendSmsCode(SmsType smsType, String mobile) {

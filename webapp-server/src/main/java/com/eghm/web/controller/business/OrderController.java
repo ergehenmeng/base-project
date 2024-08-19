@@ -45,19 +45,19 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    private final VenueAccessHandler venueAccessHandler;
-
     private final ItemAccessHandler itemAccessHandler;
 
     private final LineAccessHandler lineAccessHandler;
 
-    private final TicketAccessHandler ticketAccessHandler;
+    private final OrderProxyService orderProxyService;
 
-    private final HomestayAccessHandler homestayAccessHandler;
+    private final VenueAccessHandler venueAccessHandler;
+
+    private final TicketAccessHandler ticketAccessHandler;
 
     private final VoucherAccessHandler voucherAccessHandler;
 
-    private final OrderProxyService orderProxyService;
+    private final HomestayAccessHandler homestayAccessHandler;
 
     @PostMapping(value = "/item/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("零售创建订单")

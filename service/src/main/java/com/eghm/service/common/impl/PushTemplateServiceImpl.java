@@ -20,9 +20,9 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class PushTemplateServiceImpl implements PushTemplateService {
 
-    private final PushTemplateMapper pushTemplateMapper;
-
     private final CacheProxyService cacheProxyService;
+
+    private final PushTemplateMapper pushTemplateMapper;
 
     @Override
     public Page<PushTemplateResponse> getByPage(PushTemplateQueryRequest request) {

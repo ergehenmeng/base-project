@@ -42,13 +42,13 @@ import static com.eghm.enums.ErrorCode.EXPRESS_NOT_FOUND;
 @Service("expressTemplateService")
 public class ExpressTemplateServiceImpl implements ExpressTemplateService {
 
-    private final ExpressTemplateMapper expressTemplateMapper;
-
-    private final ExpressTemplateRegionService expressTemplateRegionService;
-
     private final ItemMapper itemMapper;
 
     private final CommonService commonService;
+
+    private final ExpressTemplateMapper expressTemplateMapper;
+
+    private final ExpressTemplateRegionService expressTemplateRegionService;
 
     @Override
     public List<ExpressTemplateResponse> getList(Long merchantId) {

@@ -28,9 +28,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/comment", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CommentController {
 
-    private final CommentReportService commentReportService;
-
     private final CommentService commentService;
+
+    private final CommentReportService commentReportService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")

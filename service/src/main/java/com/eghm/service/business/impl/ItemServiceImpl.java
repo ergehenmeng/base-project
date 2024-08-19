@@ -71,7 +71,13 @@ public class ItemServiceImpl implements ItemService {
 
     private final ItemMapper itemMapper;
 
+    private final JsonService jsonService;
+
     private final SysConfigApi sysConfigApi;
+
+    private final CouponService couponService;
+
+    private final CommonService commonService;
 
     private final ItemSkuService itemSkuService;
 
@@ -79,23 +85,17 @@ public class ItemServiceImpl implements ItemService {
 
     private final ItemSpecService itemSpecService;
 
-    private final ExpressTemplateService expressTemplateService;
-
-    private final CouponService couponService;
-
-    private final OrderEvaluationService orderEvaluationService;
-
-    private final ExpressTemplateRegionService expressTemplateRegionService;
+    private final GroupBookingMapper groupBookingMapper;
 
     private final MemberCollectService memberCollectService;
 
-    private final CommonService commonService;
+    private final ExpressTemplateService expressTemplateService;
 
-    private final GroupBookingMapper groupBookingMapper;
+    private final OrderEvaluationService orderEvaluationService;
 
     private final LimitPurchaseItemService limitPurchaseItemService;
 
-    private final JsonService jsonService;
+    private final ExpressTemplateRegionService expressTemplateRegionService;
 
     @Override
     public Page<ItemResponse> getByPage(ItemQueryRequest request) {

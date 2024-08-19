@@ -32,9 +32,9 @@ import java.util.List;
 @RequestMapping(value = "/manage/homestay/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HomestayOrderController {
 
-    private final HomestayOrderService homestayOrderService;
-
     private final OrderProxyService orderProxyService;
+
+    private final HomestayOrderService homestayOrderService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")

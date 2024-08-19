@@ -27,9 +27,9 @@ import java.util.List;
 @AllArgsConstructor
 public class LoginServiceImpl implements LoginService {
 
-    private final LoginDeviceMapper loginDeviceMapper;
-
     private final LoginLogMapper loginLogMapper;
+
+    private final LoginDeviceMapper loginDeviceMapper;
 
     @Override
     public Page<LoginLog> getByPage(LoginLogQueryRequest request) {

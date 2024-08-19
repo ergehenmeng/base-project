@@ -51,41 +51,41 @@ import static com.eghm.constant.CacheConstant.SUCCESS_PLACE_HOLDER;
 @Slf4j
 public class RabbitListenerHandler {
 
-    private final WebappLogService webappLogService;
+    private final LineService lineService;
+
+    private final JsonService jsonService;
+
+    private final ItemService itemService;
 
     private final LoginService loginService;
 
-    private final ManageLogService manageLogService;
-
     private final CacheService cacheService;
-
-    private final JsonService jsonService;
 
     private final StateHandler stateHandler;
 
     private final OrderService orderService;
 
-    private final ItemService itemService;
+    private final VenueService venueService;
 
-    private final ScenicTicketService scenicTicketService;
-
-    private final LineService lineService;
+    private final AlarmService alarmService;
 
     private final HomestayService homestayService;
 
-    private final RestaurantService restaurantService;
+    private final ManageLogService manageLogService;
 
-    private final OrderEvaluationService orderEvaluationService;
-
-    private final MemberVisitLogService memberVisitLogService;
+    private final WebappLogService webappLogService;
 
     private final OrderProxyService orderProxyService;
 
-    private final VenueService venueService;
+    private final RestaurantService restaurantService;
+
+    private final ScenicTicketService scenicTicketService;
 
     private final MemberCouponService memberCouponService;
 
-    private final AlarmService alarmService;
+    private final MemberVisitLogService memberVisitLogService;
+
+    private final OrderEvaluationService orderEvaluationService;
 
     /**
      * 零售商品消息队列订单过期处理

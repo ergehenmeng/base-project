@@ -25,11 +25,11 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class MemberTokenServiceImpl implements MemberTokenService {
 
+    private final JsonService jsonService;
+
     private final CacheService cacheService;
 
     private final SysConfigApi sysConfigApi;
-
-    private final JsonService jsonService;
 
     @Override
     public MemberToken createToken(Long memberId, String channel) {

@@ -47,13 +47,13 @@ public class CouponServiceImpl implements CouponService {
 
     private final CouponMapper couponMapper;
 
-    private final CouponScopeService couponScopeService;
-
-    private final MemberCouponService memberCouponService;
-
     private final CommonService commonService;
 
     private final MessageService messageService;
+
+    private final CouponScopeService couponScopeService;
+
+    private final MemberCouponService memberCouponService;
 
     @Override
     public Page<CouponResponse> getByPage(CouponQueryRequest request) {

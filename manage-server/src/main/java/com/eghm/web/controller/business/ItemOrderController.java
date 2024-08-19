@@ -39,17 +39,17 @@ import java.util.List;
 @RequestMapping(value = "/manage/item/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemOrderController {
 
-    private final OrderExpressService orderExpressService;
-
-    private final ItemOrderService itemOrderService;
+    private final RedisLock redisLock;
 
     private final OrderService orderService;
 
-    private final RedisLock redisLock;
+    private final ItemOrderService itemOrderService;
 
     private final CacheProxyService cacheProxyService;
 
     private final OrderProxyService orderProxyService;
+
+    private final OrderExpressService orderExpressService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")

@@ -35,11 +35,11 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderExpressServiceImpl implements OrderExpressService {
 
-    private final ItemOrderExpressMapper itemOrderExpressMapper;
+    private final JsonService jsonService;
 
     private final OrderExpressMapper orderExpressMapper;
 
-    private final JsonService jsonService;
+    private final ItemOrderExpressMapper itemOrderExpressMapper;
 
     @Override
     public void insert(ItemSippingRequest request) {

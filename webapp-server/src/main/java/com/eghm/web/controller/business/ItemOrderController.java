@@ -33,9 +33,9 @@ import java.util.List;
 @RequestMapping(value = "/webapp/item/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemOrderController {
 
-    private final ItemOrderService itemOrderService;
-
     private final OrderService orderService;
+
+    private final ItemOrderService itemOrderService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")

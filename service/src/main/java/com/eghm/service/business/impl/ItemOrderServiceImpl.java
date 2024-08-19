@@ -49,19 +49,19 @@ import java.util.Map;
 @AllArgsConstructor
 public class ItemOrderServiceImpl implements ItemOrderService {
 
-    private final ItemOrderMapper itemOrderMapper;
-
-    private final SysAreaService sysAreaService;
-
-    private final OrderExpressService orderExpressService;
-
     private final JsonService jsonService;
 
-    private final OrderRefundLogMapper orderRefundLogMapper;
+    private final SysConfigApi sysConfigApi;
 
     private final ExpressService expressService;
 
-    private final SysConfigApi sysConfigApi;
+    private final SysAreaService sysAreaService;
+
+    private final ItemOrderMapper itemOrderMapper;
+
+    private final OrderExpressService orderExpressService;
+
+    private final OrderRefundLogMapper orderRefundLogMapper;
 
     private final OrderAdjustLogMapper orderAdjustLogMapper;
 

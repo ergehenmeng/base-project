@@ -55,9 +55,9 @@ public class VenueServiceImpl implements VenueService {
 
     private final CommonService commonService;
 
-    private final VenueSiteMapper venueSiteMapper;
-
     private final SysAreaService sysAreaService;
+
+    private final VenueSiteMapper venueSiteMapper;
 
     private final OrderEvaluationMapper orderEvaluationMapper;
 

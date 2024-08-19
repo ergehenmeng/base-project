@@ -20,10 +20,9 @@ import org.springframework.stereotype.Service;
 @Service("clearCacheService")
 @RequiredArgsConstructor
 public class ClearCacheServiceImpl implements ClearCacheService {
+    private Configuration configuration;
 
     private final SensitiveWordService sensitiveWordService;
-
-    private Configuration configuration;
 
     @Autowired(required = false)
     public void setConfiguration(Configuration configuration) {

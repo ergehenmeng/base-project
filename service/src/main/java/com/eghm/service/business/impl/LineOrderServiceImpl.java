@@ -35,13 +35,14 @@ import java.util.List;
 @Slf4j
 public class LineOrderServiceImpl implements LineOrderService {
 
-    private final LineOrderMapper lineOrderMapper;
-
-    private final OrderVisitorService orderVisitorService;
 
     private final OrderService orderService;
 
     private final SysAreaService sysAreaService;
+
+    private final LineOrderMapper lineOrderMapper;
+
+    private final OrderVisitorService orderVisitorService;
 
     private final LineOrderSnapshotMapper lineOrderSnapshotMapper;
 

@@ -36,11 +36,11 @@ import java.util.List;
 @RequestMapping(value = "/manage/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
 
+    private final CacheService cacheService;
+
     private final SysUserService sysUserService;
 
     private final SysRoleService sysRoleService;
-
-    private final CacheService cacheService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")

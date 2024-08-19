@@ -36,13 +36,13 @@ import java.util.List;
 @Slf4j
 public class SysNoticeServiceImpl implements SysNoticeService {
 
-    private final SysNoticeMapper sysNoticeMapper;
-
-    private final CacheProxyService cacheProxyService;
+    private final SysConfigApi sysConfigApi;
 
     private final SysDictService sysDictService;
 
-    private final SysConfigApi sysConfigApi;
+    private final SysNoticeMapper sysNoticeMapper;
+
+    private final CacheProxyService cacheProxyService;
 
     @Override
     public Page<NoticeResponse> getByPage(NoticeQueryRequest request) {

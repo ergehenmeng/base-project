@@ -21,9 +21,9 @@ import java.util.List;
 @Component("ticketJobService")
 public class TicketJobService {
 
-    private final TicketAccessHandler ticketAccessHandler;
-
     private final TicketOrderService ticketOrderService;
+
+    private final TicketAccessHandler ticketAccessHandler;
 
     /**
      * 门票订单核销

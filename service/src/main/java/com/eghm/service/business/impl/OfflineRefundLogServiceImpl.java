@@ -28,9 +28,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class OfflineRefundLogServiceImpl implements OfflineRefundLogService {
 
-    private final OfflineRefundLogMapper offlineRefundLogMapper;
-
     private final JsonService jsonService;
+
+    private final OfflineRefundLogMapper offlineRefundLogMapper;
 
     @Override
     public List<Long> getRefundLog(String orderNo) {

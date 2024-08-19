@@ -29,9 +29,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class InviteRegisterHandler implements Handler {
 
-    private final MemberInviteLogService memberInviteLogService;
-
     private final MemberService memberService;
+
+    private final MemberInviteLogService memberInviteLogService;
 
     @Override
     public void doHandler(Object messageData, HandlerInvoker invoker) {

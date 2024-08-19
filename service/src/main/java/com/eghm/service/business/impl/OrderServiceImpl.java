@@ -72,37 +72,37 @@ import java.util.stream.Collectors;
 @Slf4j
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
 
-    private final AggregatePayService aggregatePayService;
-
-    private final SystemProperties systemProperties;
-
-    private final OfflineRefundLogService offlineRefundLogService;
-
-    private final OrderRefundLogService orderRefundLogService;
-
-    private final OrderVisitorService orderVisitorService;
-
-    private final OrderMQService orderMQService;
+    private final JsonService jsonService;
 
     private final CommonService commonService;
 
-    private final ItemOrderService itemOrderService;
-
-    private final OrderExpressService orderExpressService;
-
-    private final JsonService jsonService;
+    private final AccountService accountService;
 
     private final SysAreaService sysAreaService;
 
     private final MessageService messageService;
 
-    private final AccountService accountService;
+    private final OrderMQService orderMQService;
+
+    private final SystemProperties systemProperties;
+
+    private final ItemOrderService itemOrderService;
+
+    private final CacheProxyService cacheProxyService;
+
+    private final AggregatePayService aggregatePayService;
 
     private final ScoreAccountService scoreAccountService;
 
+    private final OrderExpressService orderExpressService;
+
+    private final OrderVisitorService orderVisitorService;
+
+    private final OrderRefundLogService orderRefundLogService;
+
     private final MerchantAddressService merchantAddressService;
 
-    private CacheProxyService cacheProxyService;
+    private final OfflineRefundLogService offlineRefundLogService;
 
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType, String clientIp) {

@@ -39,9 +39,9 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(value = "/manage/merchant/score", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ScoreAccountController {
 
-    private final ScoreAccountService scoreAccountService;
-
     private final SysConfigApi sysConfigApi;
+
+    private final ScoreAccountService scoreAccountService;
 
     @GetMapping("/account")
     @ApiOperation("积分中心")

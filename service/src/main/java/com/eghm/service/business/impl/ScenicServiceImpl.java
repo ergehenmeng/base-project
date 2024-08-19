@@ -54,19 +54,19 @@ import java.util.List;
 @Slf4j
 public class ScenicServiceImpl implements ScenicService {
 
+    private final GeoService geoService;
+
     private final ScenicMapper scenicMapper;
 
     private final SysConfigApi sysConfigApi;
 
-    private final GeoService geoService;
-
     private final CommonService commonService;
+
+    private final SysDictService sysDictService;
 
     private final SysAreaService sysAreaService;
 
     private final ActivityService activityService;
-
-    private final SysDictService sysDictService;
 
     private final ScenicTicketMapper scenicTicketMapper;
 

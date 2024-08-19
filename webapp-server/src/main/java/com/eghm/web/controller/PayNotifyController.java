@@ -58,9 +58,9 @@ public class PayNotifyController {
 
     private final PayService wechatPayService;
 
-    private final AggregatePayService aggregatePayService;
-
     private final PayNotifyLogService payNotifyLogService;
+
+    private final AggregatePayService aggregatePayService;
 
     private final ScanRechargeLogService scanRechargeLogService;
 

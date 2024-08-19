@@ -33,9 +33,9 @@ import java.util.List;
 @RequestMapping(value = "/webapp/restaurant", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantController {
 
-    private final RestaurantService restaurantService;
-
     private final VoucherService voucherService;
+
+    private final RestaurantService restaurantService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")

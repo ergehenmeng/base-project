@@ -41,25 +41,25 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class OrderProxyServiceImpl implements OrderProxyService {
 
-    private final HomestayOrderMapper homestayOrderMapper;
-
-    private final OrderService orderService;
-
-    private final OrderVisitorService orderVisitorService;
+    private final SmsService smsService;
 
     private final StateHandler stateHandler;
 
+    private final OrderService orderService;
+
+    private final AlarmService alarmService;
+
     private final CommonService commonService;
-
-    private final SmsService smsService;
-
-    private final ItemGroupOrderService itemGroupOrderService;
 
     private final ItemOrderService itemOrderService;
 
+    private final HomestayOrderMapper homestayOrderMapper;
+
+    private final OrderVisitorService orderVisitorService;
+
     private final GroupBookingService groupBookingService;
 
-    private final AlarmService alarmService;
+    private final ItemGroupOrderService itemGroupOrderService;
 
     private HomestayOrder getByOrderNo(String orderNo) {
         LambdaQueryWrapper<HomestayOrder> wrapper = Wrappers.lambdaQuery();

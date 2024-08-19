@@ -21,8 +21,11 @@ import java.util.Map;
 public class AuthCodeEmailHandler extends BaseEmailHandler {
 
     public static final String AUTH_CODE = "authCode";
+
     public static final String EMAIL = "email";
+
     private CacheService cacheService;
+
     private SysConfigApi sysConfigApi;
 
     @Autowired

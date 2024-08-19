@@ -32,9 +32,9 @@ import java.io.IOException;
 @AllArgsConstructor
 public class SystemFileServiceImpl implements FileService {
 
-    private final SystemProperties systemProperties;
-
     private final SysConfigApi sysConfigApi;
+
+    private final SystemProperties systemProperties;
 
     @Override
     public FilePath saveFile(@NotNull MultipartFile file) {

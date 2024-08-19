@@ -25,9 +25,9 @@ import java.util.List;
 @AllArgsConstructor
 public class MemberScoreLogServiceImpl implements MemberScoreLogService {
 
-    private final MemberScoreLogMapper memberScoreLogMapper;
-
     private final SysConfigApi sysConfigApi;
+
+    private final MemberScoreLogMapper memberScoreLogMapper;
 
     @Override
     public List<MemberScoreVO> getByPage(MemberScoreQueryDTO request) {

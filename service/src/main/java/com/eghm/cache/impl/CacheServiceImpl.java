@@ -39,13 +39,13 @@ import static com.eghm.constant.CacheConstant.DEFAULT_EXPIRE;
 @AllArgsConstructor
 public class CacheServiceImpl implements CacheService {
 
-    private final StringRedisTemplate redisTemplate;
-
-    private final SysConfigApi sysConfigApi;
+    private final RedisLock redisLock;
 
     private final JsonService jsonService;
 
-    private final RedisLock redisLock;
+    private final SysConfigApi sysConfigApi;
+
+    private final StringRedisTemplate redisTemplate;
 
     @Override
     public void setValue(String key, Object value) {

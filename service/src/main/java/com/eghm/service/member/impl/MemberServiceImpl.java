@@ -78,33 +78,33 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
-    private final SysConfigApi sysConfigApi;
-
-    private final MemberMapper memberMapper;
-
     private final Encoder encoder;
 
-    private final MemberTokenService memberTokenService;
-
     private final SmsService smsService;
+
+    private final HandlerChain handlerChain;
 
     private final LoginService loginService;
 
     private final EmailService emailService;
 
-    private final SystemProperties systemProperties;
+    private final SysConfigApi sysConfigApi;
+
+    private final MemberMapper memberMapper;
 
     private final CacheService cacheService;
 
-    private final MemberScoreLogService memberScoreLogService;
-
-    private final HandlerChain handlerChain;
+    private final MessageService messageService;
 
     private final WeChatMpService weChatMpService;
 
+    private final SystemProperties systemProperties;
+
     private final WeChatMiniService weChatMiniService;
 
-    private final MessageService rabbitMessageService;
+    private final MemberTokenService memberTokenService;
+
+    private final MemberScoreLogService memberScoreLogService;
 
     @Override
     public Page<MemberResponse> getByPage(MemberQueryRequest request) {
@@ -655,7 +655,7 @@ public class MemberServiceImpl implements MemberService {
                 .softwareVersion(request.getVersion())
                 .serialNumber(request.getSerialNumber())
                 .build();
-        rabbitMessageService.send(ExchangeQueue.LOGIN_LOG, loginRecord);
+        messageService.send(ExchangeQueue.LOGIN_LOG, loginRecord);
         return LoginTokenVO.builder().token(memberToken.getToken()).refreshToken(memberToken.getRefreshToken()).build();
     }
 }

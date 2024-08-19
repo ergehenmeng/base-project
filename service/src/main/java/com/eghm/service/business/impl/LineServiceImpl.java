@@ -67,9 +67,9 @@ public class LineServiceImpl implements LineService {
 
     private final LineDayConfigService lineDayConfigService;
 
-    private final OrderEvaluationMapper orderEvaluationMapper;
-
     private final MemberCollectService memberCollectService;
+
+    private final OrderEvaluationMapper orderEvaluationMapper;
 
     @Override
     public Page<LineResponse> getByPage(LineQueryRequest request) {

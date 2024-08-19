@@ -45,9 +45,9 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
 
     private final OrderMapper orderMapper;
 
-    private final MessageService messageService;
-
     private final AlarmService alarmService;
+
+    private final MessageService messageService;
 
     private final GroupBookingService groupBookingService;
 

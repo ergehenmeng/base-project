@@ -40,11 +40,11 @@ import static com.eghm.enums.ErrorCode.VERIFY_TYPE_ERROR;
 @RequestMapping(value = "/manage/verify", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VerifyController {
 
-    private final VerifyLogService verifyLogService;
+    private final OrderService orderService;
 
     private final CommonService commonService;
 
-    private final OrderService orderService;
+    private final VerifyLogService verifyLogService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")

@@ -35,9 +35,9 @@ import java.util.List;
 @RequestMapping(value = "/manage/member", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberController {
 
-    private final MemberService memberService;
-
     private final LoginService loginService;
+
+    private final MemberService memberService;
 
     private final MemberNoticeService memberNoticeService;
 

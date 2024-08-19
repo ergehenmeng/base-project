@@ -25,9 +25,9 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public class SubmitIntervalInterceptor implements InterceptorAdapter {
 
-    private final SystemProperties systemProperties;
-
     private final CacheService cacheService;
+
+    private final SystemProperties systemProperties;
 
     @Override
     public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {

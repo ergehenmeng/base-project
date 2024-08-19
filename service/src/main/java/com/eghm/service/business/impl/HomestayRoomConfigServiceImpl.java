@@ -40,13 +40,13 @@ import java.util.Optional;
 @Slf4j
 public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService {
 
-    private final HomestayRoomConfigMapper homestayRoomConfigMapper;
+    private final SysConfigApi sysConfigApi;
 
     private final CommonService commonService;
 
-    private final SysConfigApi sysConfigApi;
-
     private final HomestayRoomMapper homestayRoomMapper;
+
+    private final HomestayRoomConfigMapper homestayRoomConfigMapper;
 
     @Override
     public void setup(RoomConfigRequest request) {

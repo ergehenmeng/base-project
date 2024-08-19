@@ -38,7 +38,7 @@ public class ManageLogAspect {
 
     private final Gson gson = new Gson();
 
-    private final MessageService rabbitMessageService;
+    private final MessageService messageService;
 
     /**
      * 操作日志,如果仅仅想请求或者响应某些参数不想入库可以在响应字段上添加
@@ -79,7 +79,7 @@ public class ManageLogAspect {
         }
         boolean logSwitch = sysConfigApi.getBoolean(ConfigConstant.OPERATION_LOG_SWITCH);
         if (logSwitch) {
-            rabbitMessageService.send(ExchangeQueue.MANAGE_OP_LOG, sy);
+            messageService.send(ExchangeQueue.MANAGE_OP_LOG, sy);
         } else {
             log.info("请求地址:[{}], 请求参数:[{}], 请求ip:[{}], 用户id:[{}], 耗时:[{}]ms", sy.getUrl(), sy.getRequest(), sy.getIp(), sy.getUserId(), sy.getBusinessTime());
         }

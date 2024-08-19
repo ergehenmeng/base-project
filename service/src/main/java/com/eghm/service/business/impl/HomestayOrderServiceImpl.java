@@ -33,11 +33,11 @@ import java.util.List;
 @AllArgsConstructor
 public class HomestayOrderServiceImpl implements HomestayOrderService {
 
-    private final HomestayOrderMapper homestayOrderMapper;
-
     private final OrderService orderService;
 
     private final OrderVisitorService orderVisitorService;
+
+    private final HomestayOrderMapper homestayOrderMapper;
 
     @Override
     public Page<HomestayOrderResponse> listPage(HomestayOrderQueryRequest request) {

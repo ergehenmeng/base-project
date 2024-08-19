@@ -24,9 +24,9 @@ import org.springframework.stereotype.Service;
 @Service("orderMQService")
 public class OrderMQServiceImpl implements OrderMQService {
 
-    private final MessageService messageService;
-
     private final SysConfigApi sysConfigApi;
+
+    private final MessageService messageService;
 
     @Override
     public void sendOrderExpireMessage(ExchangeQueue exchangeQueue, String orderNo) {

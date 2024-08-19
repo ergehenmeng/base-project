@@ -48,13 +48,13 @@ import static com.eghm.enums.ErrorCode.*;
 @Slf4j
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
-    private final ShoppingCartMapper shoppingCartMapper;
+    private final ItemService itemService;
 
     private final SysConfigApi sysConfigApi;
 
-    private final ItemService itemService;
-
     private final ItemSkuService itemSkuService;
+
+    private final ShoppingCartMapper shoppingCartMapper;
 
     @Override
     public Page<ShoppingCartResponse> getByPage(ShoppingCartQueryRequest request) {
