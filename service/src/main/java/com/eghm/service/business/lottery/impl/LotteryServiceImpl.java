@@ -16,7 +16,6 @@ import com.eghm.model.Lottery;
 import com.eghm.model.LotteryConfig;
 import com.eghm.model.LotteryLog;
 import com.eghm.model.LotteryPrize;
-import com.eghm.service.business.CommonService;
 import com.eghm.service.business.lottery.LotteryConfigService;
 import com.eghm.service.business.lottery.LotteryLogService;
 import com.eghm.service.business.lottery.LotteryPrizeService;
@@ -59,8 +58,6 @@ public class LotteryServiceImpl implements LotteryService {
     private final LotteryLogService lotteryLogService;
 
     private final List<PrizeHandler> handlerList;
-
-    private final CommonService commonService;
 
     @Override
     public Page<LotteryResponse> getByPage(LotteryQueryRequest request) {
@@ -168,7 +165,11 @@ public class LotteryServiceImpl implements LotteryService {
     @Override
     public LotteryDetailResponse getDetailById(Long lotteryId) {
         Lottery lottery = this.selectByIdRequired(lotteryId);
-        commonService.checkIllegal(lottery.getMerchantId());
+        Long merchantId = SecurityHolder.getMerchantId();
+        if (merchantId != null && !merchantId.equals(lottery.getMerchantId())) {
+            log.error("查看了不属于自己抽奖信息作 [{}] [{}]", merchantId, lotteryId);
+            throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
+        }
         LotteryDetailResponse response = DataUtil.copy(lottery, LotteryDetailResponse.class);
         List<LotteryPrize> prizeList = lotteryPrizeService.getList(lotteryId);
         response.setPrizeList(DataUtil.copy(prizeList, LotteryPrizeResponse.class));

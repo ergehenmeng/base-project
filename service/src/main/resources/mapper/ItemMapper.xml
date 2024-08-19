@@ -274,7 +274,10 @@
             s.spec_pic
         from item t left join item_sku r on t.id = r.item_id
         left join item_spec s on r.spec_id = s.id
-        where t.deleted = false and r.deleted = false and t.merchant_id = #{merchantId}
+        where t.deleted = false and r.deleted = false
+        <if test="merchantId != null">
+            and t.merchant_id = #{merchantId}
+        </if>
         <if test="activityId == null">
             and limit_id is null and t.booking_id is null
         </if>
