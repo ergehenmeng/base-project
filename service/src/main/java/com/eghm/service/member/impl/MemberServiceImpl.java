@@ -232,13 +232,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void offline(Long memberId) {
-        MemberToken memberToken = memberTokenService.getByMemberId(memberId);
-        if (memberToken == null) {
-            return;
-        }
-        memberTokenService.cleanRefreshToken(memberToken.getRefreshToken());
-        memberTokenService.cleanToken(memberToken.getToken());
-        memberTokenService.cleanMemberId(memberId);
+        memberTokenService.cleanToken(memberId, null);
     }
 
     @Override

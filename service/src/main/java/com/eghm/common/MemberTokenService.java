@@ -29,33 +29,12 @@ public interface MemberTokenService {
     MemberToken getByAccessToken(String accessToken);
 
     /**
-     * 根据memberId查找token
-     *
-     * @param memberId memberId
-     * @return token
+     * 删除指定渠道用户的token,包含刷新token以及映射token等
+     * 注意: 如果channel为空,则删除所有渠道的token
+     * @param memberId 会员id
+     * @param channel  对应渠道
      */
-    MemberToken getByMemberId(Long memberId);
-
-    /**
-     * 清除用户token信息
-     *
-     * @param accessToken token
-     */
-    void cleanToken(String accessToken);
-
-    /**
-     * 清除用户信息
-     *
-     * @param memberId memberId
-     */
-    void cleanMemberId(Long memberId);
-
-    /**
-     * 清除refreshToken信息
-     *
-     * @param refreshToken 刷新token
-     */
-    void cleanRefreshToken(String refreshToken);
+    void cleanToken(Long memberId, String channel);
 
     /**
      * 刷新token
@@ -64,13 +43,6 @@ public interface MemberTokenService {
      * @return 新token
      */
     String refreshToken(String refreshToken);
-
-    /**
-     * 缓存登陆时所有需要保存的用户信息
-     *
-     * @param memberToken 用户登陆信息
-     */
-    void cacheToken(MemberToken memberToken);
 
 }
 

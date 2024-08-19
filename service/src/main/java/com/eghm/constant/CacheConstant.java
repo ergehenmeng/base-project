@@ -128,7 +128,7 @@ public class CacheConstant {
     public static final String TOKEN = "token:";
 
     /**
-     * 会员token映射
+     * 会员token映射, 同一个账户不允许登录多个同类型客户端
      */
     public static final String MEMBER_TOKEN_MAPPING = "member_token_mapping";
 
