@@ -153,7 +153,6 @@ public class MemberServiceImpl implements MemberService {
         return this.doLogin(member, login.getIp());
     }
 
-
     @Override
     public LoginTokenVO smsLogin(SmsLoginDTO login) {
         Member member = this.getByAccountRequired(login.getMobile());
@@ -169,7 +168,6 @@ public class MemberServiceImpl implements MemberService {
         }
         return this.getByEmail(account);
     }
-
 
     @Override
     public void updateState(Long memberId, Boolean state) {
@@ -228,7 +226,6 @@ public class MemberServiceImpl implements MemberService {
 
         return this.doLogin(member, register.getRegisterIp());
     }
-
 
     @Override
     public void offline(Long memberId) {

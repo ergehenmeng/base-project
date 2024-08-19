@@ -58,7 +58,7 @@ public abstract class BaseTest {
 
     @BeforeEach
     public void before() {
-        AuthFilter filter = new AuthFilter(systemProperties.getManage(), userTokenService);
+        AuthFilter filter = new AuthFilter(userTokenService, systemProperties.getManage());
         filter.exclude(systemProperties.getManage().getSecurity().getSkipAuth());
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).addFilters(filter).build();
         this.mockLogin("13000000000", MD5.create().digestHex("123456"));
