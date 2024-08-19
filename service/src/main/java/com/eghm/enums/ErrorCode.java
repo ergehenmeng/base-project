@@ -503,6 +503,11 @@ public enum ErrorCode {
     DEPARTMENT_DEPTH_ERROR(2162, "部门层级已上限"),
 
     /**
+     * 部门名称重复啦
+     */
+    DEPARTMENT_TITLE_REPEAT(2163, "部门名称重复啦"),
+
+    /**
      * 邮件模板未配置
      */
     EMAIL_TEMPLATE_NULL(2165, "邮件模板未配置"),

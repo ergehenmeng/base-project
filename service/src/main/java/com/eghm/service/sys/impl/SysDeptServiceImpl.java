@@ -1,5 +1,7 @@
 package com.eghm.service.sys.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.dept.DeptAddRequest;
 import com.eghm.dto.dept.DeptEditRequest;
@@ -53,6 +55,7 @@ public class SysDeptServiceImpl implements SysDeptService {
 
     @Override
     public void create(DeptAddRequest request) {
+        this.redoTitle(request.getTitle(), request.getParentCode(), null);
         SysDept department = DataUtil.copy(request, SysDept.class);
         String code = this.getNextCode(request.getParentCode());
         department.setCode(code);
@@ -64,6 +67,7 @@ public class SysDeptServiceImpl implements SysDeptService {
 
     @Override
     public void update(DeptEditRequest request) {
+        this.redoTitle(request.getTitle(), request.getParentCode(), request.getId());
         SysDept department = DataUtil.copy(request, SysDept.class);
         sysDeptMapper.updateById(department);
     }
@@ -71,6 +75,23 @@ public class SysDeptServiceImpl implements SysDeptService {
     @Override
     public void deleteById(Long id) {
         sysDeptMapper.deleteById(id);
+    }
+
+    /**
+     * 判断部门是否重复
+     *
+     * @param title 部门名称
+     * @param parentCode 父节点
+     * @param id id
+     */
+    private void redoTitle(String title, String parentCode, Long id) {
+        LambdaQueryWrapper<SysDept> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysDept::getTitle, title);
+        wrapper.eq(SysDept::getParentCode, parentCode);
+        wrapper.ne(SysDept::getId, id);
+        if (sysDeptMapper.selectCount(wrapper) > 0) {
+            throw new BusinessException(ErrorCode.DEPARTMENT_TITLE_REPEAT);
+        }
     }
 
     /**

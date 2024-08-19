@@ -28,6 +28,10 @@ public class DeptEditRequest extends ActionRecord {
     @NotBlank(message = "部门名称不能为空")
     private String title;
 
+    @ApiModelProperty(value = "父节点code", required = true)
+    @NotBlank(message = "父节点code不能为空")
+    private String parentCode;
+
     @ApiModelProperty("备注信息")
     private String remark;
 }
