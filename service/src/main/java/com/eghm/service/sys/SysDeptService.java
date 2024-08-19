@@ -2,7 +2,9 @@ package com.eghm.service.sys;
 
 import com.eghm.dto.dept.DeptAddRequest;
 import com.eghm.dto.dept.DeptEditRequest;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.model.SysDept;
+import com.eghm.vo.sys.SysDeptResponse;
 
 import java.util.List;
 
@@ -23,9 +25,10 @@ public interface SysDeptService {
     /**
      * 获取所有的部门信息
      *
+     * @param query 查询条件
      * @return 列表
      */
-    List<SysDept> getList();
+    List<SysDeptResponse> getList(PagingQuery query);
 
     /**
      * 添加部门

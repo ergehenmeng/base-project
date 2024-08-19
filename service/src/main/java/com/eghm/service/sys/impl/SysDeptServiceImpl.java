@@ -1,9 +1,9 @@
 package com.eghm.service.sys.impl;
 
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.constant.CommonConstant;
 import com.eghm.dto.dept.DeptAddRequest;
 import com.eghm.dto.dept.DeptEditRequest;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
@@ -11,11 +11,16 @@ import com.eghm.mapper.SysDeptMapper;
 import com.eghm.model.SysDept;
 import com.eghm.service.sys.SysDeptService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.sys.SysDeptResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import static com.eghm.constant.CommonConstant.ROOT_NODE;
 
 /**
  * 部门 service
@@ -32,6 +37,7 @@ public class SysDeptServiceImpl implements SysDeptService {
      * 部门步长 即:一个部门对多有900个直属部门 100~999
      */
     private static final String STEP = "100";
+
     private final SysDeptMapper sysDeptMapper;
 
     @Override
@@ -40,8 +46,9 @@ public class SysDeptServiceImpl implements SysDeptService {
     }
 
     @Override
-    public List<SysDept> getList() {
-        return sysDeptMapper.selectList(null);
+    public List<SysDeptResponse> getList(PagingQuery query) {
+        List<SysDeptResponse> responseList = sysDeptMapper.getList(query.getQueryName());
+        return this.treeBin(ROOT_NODE, responseList);
     }
 
     @Override
@@ -76,7 +83,7 @@ public class SysDeptServiceImpl implements SysDeptService {
     private String getNextCode(String code) {
         String maxCode = sysDeptMapper.getMaxCodeChild(code);
         if (maxCode == null) {
-            return CommonConstant.ROOT_NODE.equals(code) ? STEP : code + STEP;
+            return ROOT_NODE.equals(code) ? STEP : code + STEP;
         }
         // 不校验子部门上限,傻子才会有900个部门
         try {
@@ -86,4 +93,18 @@ public class SysDeptServiceImpl implements SysDeptService {
             throw new BusinessException(ErrorCode.DEPARTMENT_DEPTH_ERROR);
         }
     }
+
+    /**
+     * 将菜单列表树化
+     *
+     * @param menuList 菜单列表
+     * @return 菜单列表 树状结构
+     */
+    private List<SysDeptResponse> treeBin(String code, List<SysDeptResponse> menuList) {
+        return menuList.stream()
+                .filter(parent -> Objects.equals(code, parent.getParentCode()))
+                .peek(parent -> parent.setChildren(this.treeBin(parent.getCode(), menuList)))
+                .collect(Collectors.toList());
+    }
+
 }

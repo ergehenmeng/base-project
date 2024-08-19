@@ -6,4 +6,10 @@
         select `code` from sys_dept where deleted = false and parent_code = #{code} order by `code` desc limit 1
     </select>
 
+    <select id="getList" resultType="com.eghm.vo.sys.SysDeptResponse">
+        select id, `code`, `parent_code`, `title`, `remark`, `create_time`, `update_time` from sys_dept where deleted = false
+        <if test="queryName != null and queryName != ''">
+            and (title like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%') )
+        </if>
+    </select>
 </mapper>

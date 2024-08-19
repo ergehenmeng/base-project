@@ -3,9 +3,11 @@ package com.eghm.web.controller;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.dept.DeptAddRequest;
 import com.eghm.dto.dept.DeptEditRequest;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.SysDept;
 import com.eghm.service.sys.SysDeptService;
+import com.eghm.vo.sys.SysDeptResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -29,8 +31,8 @@ public class DeptController {
 
     @GetMapping("/list")
     @ApiOperation("部门列表(不分页)")
-    public RespBody<List<SysDept>> list() {
-        List<SysDept> list = sysDeptService.getList();
+    public RespBody<List<SysDeptResponse>> list(PagingQuery query) {
+        List<SysDeptResponse> list = sysDeptService.getList(query);
         return RespBody.success(list);
     }
 
