@@ -27,6 +27,9 @@ public class NoticeResponse {
     @ApiModelProperty("是否发布 0:未发布 1:已发布")
     private Integer state;
 
+    @ApiModelProperty("封面图片")
+    private String coverUrl;
+
     @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;

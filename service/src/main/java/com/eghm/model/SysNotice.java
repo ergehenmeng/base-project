@@ -31,6 +31,9 @@ public class SysNotice extends BaseEntity {
     @ApiModelProperty("公告类型(数据字典表notice_type)")
     private Integer noticeType;
 
+    @ApiModelProperty("封面图片")
+    private String coverUrl;
+
     @ApiModelProperty("公告内容(富文本)")
     private String content;
 

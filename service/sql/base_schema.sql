@@ -753,6 +753,7 @@ CREATE TABLE `sys_notice`
 (
     `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `title`       varchar(30) DEFAULT NULL COMMENT '公告标题',
+    `cover_url`   varchar(200) comment '封面图',
     `notice_type` tinyint(2)  DEFAULT NULL COMMENT '公告分类',
     `content`     text COMMENT '公告内容',
     `state`       bit(1)      DEFAULT b'0' COMMENT '是否发布 0:未发布 1:已发布',

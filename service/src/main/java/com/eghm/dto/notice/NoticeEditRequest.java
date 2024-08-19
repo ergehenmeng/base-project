@@ -24,6 +24,10 @@ public class NoticeEditRequest {
     @WordChecker(message = "标题存在敏感词")
     private String title;
 
+    @ApiModelProperty(value = "封面图片", required = true)
+    @NotBlank(message = "封面图片不能为空")
+    private String coverUrl;
+
     @ApiModelProperty(value = "公告类型(数据字典表sys_notice_type)", required = true)
     @NotNull(message = "公告类型不能为空")
     private Integer noticeType;
