@@ -46,12 +46,12 @@ public class BannerEditRequest {
     private String jumpUrl;
 
     @ApiModelProperty(value = "开始展示时间(可在指定时间后开始展示)")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @NotNull(message = "开始时间不能为空")
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "取消展示的时间(只在某个时间段展示)")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @NotNull(message = "结束时间不能为空")
     private LocalDateTime endTime;
 
