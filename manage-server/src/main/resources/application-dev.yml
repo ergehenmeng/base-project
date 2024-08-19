@@ -51,5 +51,7 @@ system:
   wechat:
     notify-host: https://localhost:8080
     mini-version: trial
+    mini-app-id: wxa184c644fc05f3f3
+    mini-app-secret: cadee9e6b8196dc62c10859eb4af312d
   # 系统环境
   env: dev

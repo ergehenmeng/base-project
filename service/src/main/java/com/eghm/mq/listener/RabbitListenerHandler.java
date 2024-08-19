@@ -418,7 +418,7 @@ public class RabbitListenerHandler {
         try {
             consumer.accept(msg);
         } catch (Exception e) {
-            log.error("队列[{}]处理消息异常 [{}]", message.getMessageProperties().getConsumerQueue(), msg, e);
+            log.error("队列[{}]处理消息异常 [{}]", message.getMessageProperties().getConsumerQueue(), jsonService.toJson(msg), e);
             alarmService.sendMsg(String.format("队列[%s]消息消费失败[%s]", message.getMessageProperties().getConsumerQueue(), jsonService.toJson(msg)));
         } finally {
             MessageProperties properties = message.getMessageProperties();

@@ -128,6 +128,10 @@ public class OrderProxyServiceImpl implements OrderProxyService {
     public void cancelGroupOrder(GroupOrderCancelVO vo) {
         log.info("开始取消拼团订单(全部) [{}]", vo.getBookingId());
         GroupBooking booking = groupBookingService.getById(vo.getBookingId());
+        if (booking == null) {
+            log.warn("该拼团订单可能已删除 [{}]", vo.getBookingId());
+            return;
+        }
         if (booking.getEndTime().isAfter(vo.getEndTime())) {
             log.warn("拼团活动推后啦 [{}] [{}] [{}]", vo.getBookingId(), booking.getEndTime(), vo.getEndTime());
             return;
