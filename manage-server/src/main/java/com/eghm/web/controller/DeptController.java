@@ -5,7 +5,6 @@ import com.eghm.dto.dept.DeptAddRequest;
 import com.eghm.dto.dept.DeptEditRequest;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.model.SysDept;
 import com.eghm.service.sys.SysDeptService;
 import com.eghm.vo.sys.SysDeptResponse;
 import io.swagger.annotations.Api;
