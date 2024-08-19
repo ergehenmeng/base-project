@@ -45,9 +45,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CommonServiceImpl implements CommonService {
 
-    private final SysConfigApi sysConfigApi;
-
-    private final SysAreaMapper sysAreaMapper;
 
     private final ItemMapper itemMapper;
 
@@ -55,25 +52,29 @@ public class CommonServiceImpl implements CommonService {
 
     private final VenueMapper venueMapper;
 
+    private final ScenicMapper scenicMapper;
+
+    private final SysConfigApi sysConfigApi;
+
+    private final SysAreaMapper sysAreaMapper;
+
     private final VoucherMapper voucherMapper;
 
-    private final ScenicMapper scenicMapper;
+    private final HomestayMapper homestayMapper;
 
     private final VenueSiteMapper venueSiteMapper;
 
     private final ItemStoreMapper itemStoreMapper;
 
-    private final HomestayMapper homestayMapper;
-
     private final RestaurantMapper restaurantMapper;
+
+    private final CacheProxyService cacheProxyService;
 
     private final TravelAgencyMapper travelAgencyMapper;
 
     private final ScenicTicketMapper scenicTicketMapper;
 
     private final HomestayRoomMapper homestayRoomMapper;
-
-    private final CacheProxyService cacheProxyService;
 
     @Override
     public void checkMaxDay(String configNid, long maxValue) {

@@ -39,9 +39,9 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     private final SysRoleMapper sysRoleMapper;
 
-    private final SysUserRoleMapper sysUserRoleMapper;
-
     private final CommonService commonService;
+
+    private final SysUserRoleMapper sysUserRoleMapper;
 
     @Override
     public Page<SysRoleResponse> getByPage(PagingQuery request) {

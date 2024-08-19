@@ -60,11 +60,11 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
 
     private final CommonService commonService;
 
+    private final HomestayMapper homestayMapper;
+
     private final SysDictService sysDictService;
 
     private final SysAreaService sysAreaService;
-
-    private final HomestayMapper homestayMapper;
 
     private final HomestayRoomService homestayRoomService;
 

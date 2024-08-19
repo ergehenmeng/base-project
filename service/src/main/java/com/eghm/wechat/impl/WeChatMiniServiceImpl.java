@@ -34,9 +34,9 @@ public class WeChatMiniServiceImpl implements WeChatMiniService {
 
     private WxMaService wxMaService;
 
-    private final SystemProperties systemProperties;
-
     private final CacheService cacheService;
+
+    private final SystemProperties systemProperties;
 
     @Autowired(required = false)
     public void setWxMaService(WxMaService wxMaService) {

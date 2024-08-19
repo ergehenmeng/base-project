@@ -50,15 +50,15 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
 
     private final JsonService jsonService;
 
-    private final SystemProperties systemProperties;
+    private final AlarmService alarmService;
 
     private final AccountMapper accountMapper;
 
+    private final MerchantMapper merchantMapper;
+
     private final AccountLogMapper accountLogMapper;
 
-    private final AlarmService alarmService;
-
-    private final MerchantMapper merchantMapper;
+    private final SystemProperties systemProperties;
 
     private final AccountFreezeLogService accountFreezeLogService;
 

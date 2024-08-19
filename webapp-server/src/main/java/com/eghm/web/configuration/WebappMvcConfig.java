@@ -40,17 +40,17 @@ public class WebappMvcConfig extends WebMvcConfig {
      */
     private static final String[] FILTER_EXCLUDE_URL = {"/swagger/**", "/swagger-resources/**", "/v2/api-docs", "/error", "/resource/**"};
 
-    private final MemberTokenService memberTokenService;
-
     private final CacheService cacheService;
 
     private final CacheProxyService cacheProxyService;
 
+    private final MemberTokenService memberTokenService;
+
     public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, MemberTokenService memberTokenService, CacheService cacheService, CacheProxyService cacheProxyService) {
         super(objectMapper, systemProperties);
-        this.memberTokenService = memberTokenService;
         this.cacheService = cacheService;
         this.cacheProxyService = cacheProxyService;
+        this.memberTokenService = memberTokenService;
     }
 
     @Override
@@ -80,7 +80,7 @@ public class WebappMvcConfig extends WebMvcConfig {
      */
     @Bean
     public HandlerInterceptor submitIntervalInterceptor() {
-        return new SubmitIntervalInterceptor(getSystemProperties(), cacheService);
+        return new SubmitIntervalInterceptor(cacheService, getSystemProperties());
     }
 
     /**

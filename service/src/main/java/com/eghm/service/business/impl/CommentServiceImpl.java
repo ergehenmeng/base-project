@@ -51,15 +51,15 @@ import java.util.stream.Collectors;
 @Service("commentService")
 public class CommentServiceImpl implements CommentService {
 
-    private final CommentMapper commentMapper;
+    private final NewsMapper newsMapper;
+
+    private final SysConfigApi sysConfigApi;
 
     private final CacheService cacheService;
 
-    private final NewsMapper newsMapper;
+    private final CommentMapper commentMapper;
 
     private final ActivityMapper activityMapper;
-
-    private final SysConfigApi sysConfigApi;
 
     @Override
     public Page<CommentResponse> listPage(CommentQueryRequest request) {

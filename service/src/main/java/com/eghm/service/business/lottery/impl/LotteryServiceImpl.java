@@ -51,13 +51,13 @@ public class LotteryServiceImpl implements LotteryService {
 
     private final LotteryMapper lotteryMapper;
 
-    private final LotteryPrizeService lotteryPrizeService;
-
-    private final LotteryConfigService lotteryConfigService;
+    private final List<PrizeHandler> handlerList;
 
     private final LotteryLogService lotteryLogService;
 
-    private final List<PrizeHandler> handlerList;
+    private final LotteryPrizeService lotteryPrizeService;
+
+    private final LotteryConfigService lotteryConfigService;
 
     @Override
     public Page<LotteryResponse> getByPage(LotteryQueryRequest request) {

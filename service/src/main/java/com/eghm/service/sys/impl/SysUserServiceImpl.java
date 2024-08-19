@@ -46,23 +46,23 @@ import java.util.List;
 @Slf4j
 public class SysUserServiceImpl implements SysUserService {
 
-    private final SysUserMapper sysUserMapper;
-
-    private final MerchantMapper merchantMapper;
-
-    private final MerchantUserMapper merchantUserMapper;
-
     private final Encoder encoder;
+
+    private final CacheService cacheService;
+
+    private final SysUserMapper sysUserMapper;
 
     private final SysRoleService sysRoleService;
 
-    private final SysDataDeptService sysDataDeptService;
+    private final MerchantMapper merchantMapper;
 
     private final SysMenuService sysMenuService;
 
     private final UserTokenService userTokenService;
 
-    private final CacheService cacheService;
+    private final SysDataDeptService sysDataDeptService;
+
+    private final MerchantUserMapper merchantUserMapper;
 
     @Override
     public Page<UserResponse> getByPage(UserQueryRequest request) {

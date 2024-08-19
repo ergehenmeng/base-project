@@ -29,8 +29,9 @@ import javax.mail.internet.MimeMessage;
 @Service("emailService")
 public class EmailServiceImpl implements EmailService {
 
-    private final CacheService cacheService;
     private JavaMailSender javaMailSender;
+
+    private final CacheService cacheService;
 
     @Autowired(required = false)
     public void setJavaMailSender(JavaMailSender javaMailSender) {

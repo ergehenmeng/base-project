@@ -25,9 +25,9 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AuthFilter extends AbstractIgnoreFilter {
 
-    private final SystemProperties.ManageProperties manageProperties;
-
     private final UserTokenService userTokenService;
+
+    private final SystemProperties.ManageProperties manageProperties;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {

@@ -12,23 +12,26 @@ public class Entry {
      * 当前entry的下一个对象
      */
     Entry next;
+
     /**
      * 当前entry的上一个对象
      */
     Entry prev;
+
     /**
      * 存放entry的列表,相互引用
      */
     private TaskBucket taskBucket;
+
     /**
      * 真实要执行的任务对象
      */
-    private BaseTask baseTask;
+    private final BaseTask baseTask;
 
     /**
      * 任务延迟执行时间 (2000 + Date.millisTime()) 表示:2000毫秒之后执行
      */
-    private long expireMs;
+    private final long expireMs;
 
     /**
      * 构造方法

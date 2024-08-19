@@ -40,13 +40,13 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ActivityServiceImpl implements ActivityService {
 
-    private final ActivityMapper activityMapper;
-
-    private final CommonService commonService;
+    private final ScenicMapper scenicMapper;
 
     private final SysConfigApi sysConfigApi;
 
-    private final ScenicMapper scenicMapper;
+    private final CommonService commonService;
+
+    private final ActivityMapper activityMapper;
 
     @Override
     public void create(ActivityConfigRequest request) {

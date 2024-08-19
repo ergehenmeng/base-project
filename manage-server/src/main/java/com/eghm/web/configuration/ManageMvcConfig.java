@@ -26,17 +26,17 @@ import javax.servlet.DispatcherType;
 @Configuration
 public class ManageMvcConfig extends WebMvcConfig {
 
-    private final UserTokenService userTokenService;
+    private final CacheService cacheService;
 
     private final SysMenuService sysMenuService;
 
-    private final CacheService cacheService;
+    private final UserTokenService userTokenService;
 
     public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, UserTokenService userTokenService, SysMenuService sysMenuService, CacheService cacheService) {
         super(objectMapper, systemProperties);
-        this.userTokenService = userTokenService;
-        this.sysMenuService = sysMenuService;
         this.cacheService = cacheService;
+        this.sysMenuService = sysMenuService;
+        this.userTokenService = userTokenService;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class ManageMvcConfig extends WebMvcConfig {
     public FilterRegistrationBean<AuthFilter> authFilter() {
         SystemProperties.ManageProperties manage = systemProperties.getManage();
         FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean<>();
-        AuthFilter requestFilter = new AuthFilter(manage, userTokenService);
+        AuthFilter requestFilter = new AuthFilter(userTokenService, manage);
         requestFilter.exclude(manage.getSecurity().getSkipAuth());
         registrationBean.setFilter(requestFilter);
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);

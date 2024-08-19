@@ -76,13 +76,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     private final CommonService commonService;
 
-    private final AccountService accountService;
-
-    private final SysAreaService sysAreaService;
+    private final OrderMQService orderMQService;
 
     private final MessageService messageService;
 
-    private final OrderMQService orderMQService;
+    private final AccountService accountService;
+
+    private final SysAreaService sysAreaService;
 
     private final SystemProperties systemProperties;
 

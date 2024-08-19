@@ -35,11 +35,11 @@ import java.util.Objects;
 @AllArgsConstructor
 public class SysDictServiceImpl implements SysDictService {
 
+    private final CommonService commonService;
+
     private final SysDictMapper sysDictMapper;
 
     private final CacheProxyService cacheProxyService;
-
-    private final CommonService commonService;
 
     private final SysDictItemMapper sysDictItemMapper;
 

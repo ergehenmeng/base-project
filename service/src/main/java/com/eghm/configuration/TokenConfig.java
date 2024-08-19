@@ -1,8 +1,8 @@
 package com.eghm.configuration;
 
 import com.eghm.cache.CacheService;
-import com.eghm.common.UserTokenService;
 import com.eghm.common.JsonService;
+import com.eghm.common.UserTokenService;
 import com.eghm.common.impl.JwtUserTokenServiceImpl;
 import com.eghm.common.impl.RedisUserTokenServiceImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -26,6 +26,6 @@ public class TokenConfig {
     @Bean
     @ConditionalOnProperty(prefix = "system.manage.token", name = "token-type", havingValue = "redis", matchIfMissing = true)
     public UserTokenService redisAccessTokenService(SystemProperties systemProperties, CacheService cacheService, JsonService jsonService) {
-        return new RedisUserTokenServiceImpl(systemProperties, cacheService, jsonService);
+        return new RedisUserTokenServiceImpl(jsonService, cacheService, systemProperties);
     }
 }

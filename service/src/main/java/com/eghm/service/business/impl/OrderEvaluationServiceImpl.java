@@ -42,7 +42,6 @@ import java.util.Map;
 @Service("orderEvaluationService")
 public class OrderEvaluationServiceImpl implements OrderEvaluationService {
 
-
     private final OrderService orderService;
 
     private final SysConfigApi sysConfigApi;

@@ -18,6 +18,6 @@ public class FileConfig {
     @Bean
     @ConditionalOnProperty(prefix = "system", name = "upload-type", havingValue = "system", matchIfMissing = true)
     public FileService fileService(SystemProperties systemProperties, SysConfigApi sysConfigApi) {
-        return new SystemFileServiceImpl(systemProperties, sysConfigApi);
+        return new SystemFileServiceImpl(sysConfigApi, systemProperties);
     }
 }

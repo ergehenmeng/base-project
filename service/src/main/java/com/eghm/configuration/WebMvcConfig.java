@@ -215,9 +215,9 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
             throw new BusinessException(ErrorCode.WEB_HOOK_NULL);
         }
         if (alarmMsg.getAlarmType() == AlarmType.DING_TALK) {
-            return new DingTalkAlarmServiceImpl(systemProperties, jsonService);
+            return new DingTalkAlarmServiceImpl(jsonService, systemProperties);
         }
-        return new FeiShuAlarmServiceImpl(systemProperties, jsonService);
+        return new FeiShuAlarmServiceImpl(jsonService, systemProperties);
     }
 
 }

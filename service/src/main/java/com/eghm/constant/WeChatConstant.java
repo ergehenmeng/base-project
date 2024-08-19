@@ -10,14 +10,17 @@ public class WeChatConstant {
      * 签名
      */
     public static final String SIGNATURE = "Wechatpay-Signature";
+
     /**
      * 时间戳
      */
     public static final String TIMESTAMP = "Wechatpay-Timestamp";
+
     /**
      * 证书序列号
      */
     public static final String SERIAL = "Wechatpay-Serial";
+
     /**
      * 随机串
      */

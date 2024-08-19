@@ -31,9 +31,9 @@ import java.util.List;
 @Service("accountLogService")
 public class AccountLogServiceImpl implements AccountLogService {
 
-    private final AccountLogMapper accountLogMapper;
-
     private final AlarmService alarmService;
+
+    private final AccountLogMapper accountLogMapper;
 
     @Override
     public Page<AccountLogResponse> getByPage(AccountQueryRequest request) {

@@ -31,9 +31,9 @@ import java.util.stream.LongStream;
 @AllArgsConstructor
 public class BlackRosterServiceImpl implements BlackRosterService {
 
-    private final BlackRosterMapper blackRosterMapper;
-
     private final CacheService cacheService;
+
+    private final BlackRosterMapper blackRosterMapper;
 
     @Override
     public Page<BlackRoster> getByPage(PagingQuery request) {
