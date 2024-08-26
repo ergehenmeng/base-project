@@ -28,7 +28,7 @@ public class RedeemCodeGrantResponse extends ExcelStyle {
     private String cdKey;
 
     @ApiModelProperty("使用状态 0:待使用 1:已使用 2:已过期")
-    @ExcelProperty(index = 1, value = "使用状态 0:待使用 1:已使用 2:已过期", converter = EnumExcelConverter.class)
+    @ExcelProperty(index = 1, value = "使用状态", converter = EnumExcelConverter.class)
     private RedeemState state;
 
     @ApiModelProperty("发放时间")

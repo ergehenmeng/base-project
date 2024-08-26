@@ -13,7 +13,7 @@
         from redeem_code_grant t
         left join `member` r on t.member_id = r.id
         where t.redeem_code_id = #{param.redeemCodeId}
-        <if test="state != null">
+        <if test="param.state != null">
             and t.state = #{param.state}
         </if>
         <if test="param.queryName != null and param.queryName != ''">

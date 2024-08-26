@@ -1,6 +1,7 @@
 package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.eghm.annotation.ExcelDesc;
 import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -42,6 +43,7 @@ public enum RedeemState implements EnumBinder {
     /**
      * 名称
      */
+    @ExcelDesc
     private final String name;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
