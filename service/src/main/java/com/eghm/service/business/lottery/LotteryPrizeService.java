@@ -73,4 +73,12 @@ public interface LotteryPrizeService {
      * @param merchantId 商户id
      */
     void delete(Long lotteryId, Long merchantId);
+
+    /**
+     * 释放奖品信号量
+     *
+     * @param lotteryId 抽奖ID
+     * @param merchantId 商户ID
+     */
+    void releaseSemaphore(Long lotteryId, Long merchantId);
 }

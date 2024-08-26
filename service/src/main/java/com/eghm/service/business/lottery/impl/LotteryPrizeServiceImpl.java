@@ -60,13 +60,7 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
 
     @Override
     public Map<Integer, LotteryPrize> update(Long lotteryId, List<LotteryPrizeRequest> prizeList) {
-        LambdaQueryWrapper<LotteryPrize> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(LotteryPrize::getId);
-        wrapper.eq(LotteryPrize::getLotteryId, lotteryId);
-        List<LotteryPrize> selectList = lotteryPrizeMapper.selectList(wrapper);
-        List<Long> prizeIds = selectList.stream().map(LotteryPrize::getId).collect(Collectors.toList());
-        this.clearSemaphore(prizeIds);
-        lotteryPrizeMapper.deleteBatchIds(prizeIds);
+        this.delete(lotteryId, SecurityHolder.getMerchantId());
         return this.insert(lotteryId, prizeList);
     }
 
@@ -98,10 +92,25 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
 
     @Override
     public void delete(Long lotteryId, Long merchantId) {
+        this.releaseSemaphore(lotteryId, merchantId);
         LambdaUpdateWrapper<LotteryPrize> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(LotteryPrize::getLotteryId, lotteryId);
         wrapper.eq(LotteryPrize::getMerchantId, merchantId);
         lotteryPrizeMapper.delete(wrapper);
+    }
+
+    @Override
+    public void releaseSemaphore(Long lotteryId, Long merchantId) {
+        LambdaQueryWrapper<LotteryPrize> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(LotteryPrize::getId);
+        wrapper.eq(LotteryPrize::getLotteryId, lotteryId);
+        wrapper.eq(merchantId != null, LotteryPrize::getMerchantId, merchantId);
+        List<LotteryPrize> selectList = lotteryPrizeMapper.selectList(wrapper);
+        if (selectList.isEmpty()) {
+            return;
+        }
+        List<Long> prizeIds = selectList.stream().map(LotteryPrize::getId).collect(Collectors.toList());
+        this.clearSemaphore(prizeIds);
     }
 
     /**

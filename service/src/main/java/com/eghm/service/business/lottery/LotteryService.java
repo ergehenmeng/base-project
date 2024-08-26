@@ -98,4 +98,10 @@ public interface LotteryService {
      */
     LotteryDetailVO detail(Long lotteryId, Long memberId);
 
+    /**
+     * 查询已结束的抽奖id
+     *
+     * @return 抽奖ID
+     */
+    List<Long> getEndIds();
 }

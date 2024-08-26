@@ -210,6 +210,15 @@ public class LotteryServiceImpl implements LotteryService {
         return vo;
     }
 
+    @Override
+    public List<Long> getEndIds() {
+        LambdaQueryWrapper<Lottery> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(Lottery::getId);
+        wrapper.lt(Lottery::getEndTime, LocalDateTime.now());
+        List<Lottery> selectedList = lotteryMapper.selectList(wrapper);
+        return selectedList.stream().map(Lottery::getId).collect(Collectors.toList());
+    }
+
     /**
      * 查询未中奖的配置信息
      *
