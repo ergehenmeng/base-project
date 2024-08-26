@@ -9,5 +9,5 @@ public enum HandlerEnum {
     /**
      * 注册
      */
-    REGISTER;
+    REGISTER
 }

@@ -29,6 +29,6 @@ public enum RefundChannel {
     /**
      * 原银行卡异常退到其他银行卡
      */
-    OTHER_BANKCARD;
+    OTHER_BANKCARD
 
 }

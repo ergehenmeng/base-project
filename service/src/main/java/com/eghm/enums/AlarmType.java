@@ -23,5 +23,5 @@ public enum AlarmType {
     /**
      * 飞书报警通知
      */
-    FEI_SHU;
+    FEI_SHU
 }

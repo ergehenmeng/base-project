@@ -41,7 +41,6 @@ class MybatisTest extends BaseTest {
         String[] forAnnotation = webApplicationContext.getBeanNamesForAnnotation(RestController.class);
         for (String beanName : forAnnotation) {
             Object bean = webApplicationContext.getBean(beanName);
-            ;
             Class<?> cls;
             if (AopUtils.isAopProxy(bean)) {
                 cls = webApplicationContext.getBean(beanName).getClass().getSuperclass();

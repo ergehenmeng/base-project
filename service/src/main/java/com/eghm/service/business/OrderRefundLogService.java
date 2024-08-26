@@ -58,9 +58,8 @@ public interface OrderRefundLogService {
      * 根据id更新退款记录
      *
      * @param log 退款记录
-     * @return 1条
      */
-    int updateById(OrderRefundLog log);
+    void updateById(OrderRefundLog log);
 
     /**
      * 统计订单总退款商品数量 包含退款处理中的

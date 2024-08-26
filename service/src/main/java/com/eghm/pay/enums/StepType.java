@@ -19,6 +19,6 @@ public enum StepType {
     /**
      * 退款
      */
-    REFUND;
+    REFUND
 
 }

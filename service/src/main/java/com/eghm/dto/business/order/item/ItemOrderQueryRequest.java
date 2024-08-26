@@ -3,7 +3,6 @@ package com.eghm.dto.business.order.item;
 import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.DatePagingComparator;
-import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.RefundState;
 import io.swagger.annotations.ApiModelProperty;

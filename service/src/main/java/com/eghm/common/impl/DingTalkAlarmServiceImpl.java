@@ -4,16 +4,15 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.http.HttpUtil;
+import com.eghm.common.AlarmService;
+import com.eghm.common.JsonService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.dto.ext.DingTalkMsg;
-import com.eghm.common.JsonService;
-import com.eghm.common.AlarmService;
 import com.eghm.utils.SpringContextUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;

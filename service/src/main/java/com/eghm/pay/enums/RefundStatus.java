@@ -36,6 +36,5 @@ public enum RefundStatus {
     /**
      * 退款成功
      */
-    REFUND_SUCCESS,
-    ;
+    REFUND_SUCCESS
 }

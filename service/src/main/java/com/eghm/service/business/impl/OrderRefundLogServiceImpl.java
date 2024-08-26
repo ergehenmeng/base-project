@@ -60,8 +60,8 @@ public class OrderRefundLogServiceImpl implements OrderRefundLogService {
     }
 
     @Override
-    public int updateById(OrderRefundLog log) {
-        return orderRefundLogMapper.updateById(log);
+    public void updateById(OrderRefundLog log) {
+        orderRefundLogMapper.updateById(log);
     }
 
 
