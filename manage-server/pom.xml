@@ -76,6 +76,25 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>net.roseboy</groupId>
+                <artifactId>classfinal-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <password>#</password>
+                    <excludes>org.spring,org.apache</excludes>
+                    <cfgfiles>application.yml,application-dev.yml</cfgfiles>
+                    <packages>com.eghm.web.controller</packages>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>classFinal</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
