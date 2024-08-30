@@ -158,6 +158,12 @@ public enum ExchangeQueue {
      * 订单完成
      */
     ORDER_COMPLETE_ROUTING("order_complete_routing_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.ORDER_COMPLETE_ROUTING_QUEUE}, "", true),
+
+    /**
+     * 订单支付完成
+     */
+    ORDER_PAY_SUCCESS("order_pay_success_exchange", ExchangeType.FANOUT, new String[]{QueueConstant.ORDER_PAY_RANKING_QUEUE}, "", true),
+
     ;
 
     /**

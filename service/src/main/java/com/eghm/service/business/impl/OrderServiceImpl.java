@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eghm.cache.CacheProxyService;
+import com.eghm.cache.CacheService;
 import com.eghm.common.JsonService;
 import com.eghm.common.OrderMQService;
 import com.eghm.configuration.SystemProperties;
@@ -63,6 +64,9 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.eghm.constant.CacheConstant.RANKING_AMOUNT;
+import static com.eghm.constant.CacheConstant.RANKING_MERCHANT_AMOUNT;
+
 /**
  * @author 二哥很猛
  * @since 2022/8/17
@@ -73,6 +77,8 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
 
     private final JsonService jsonService;
+
+    private final CacheService cacheService;
 
     private final CommonService commonService;
 
@@ -593,6 +599,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             refund.setStoreAddress(address);
         }
         return refund;
+    }
+
+    @Override
+    public void incrementAmount(ProductType productType, Long merchantId, Long productId, Integer amount) {
+        cacheService.setSetIncrement(String.format(RANKING_AMOUNT, productType.getPrefix()), String.valueOf(productId), amount);
+        cacheService.setSetIncrement(String.format(RANKING_MERCHANT_AMOUNT, merchantId, productType.getPrefix()), String.valueOf(productId), amount);
     }
 
     /**

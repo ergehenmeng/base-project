@@ -306,4 +306,14 @@ public class CacheConstant {
      * 微信小程序二维码
      */
     public static final String WECHAT_QRCODE = "wechat_qrcode:";
+
+    /**
+     * 总交易金额排行榜
+     */
+    public static final String RANKING_AMOUNT = "ranking_amount:%s";
+
+    /**
+     * 商户交易金额排行榜
+     */
+    public static final String RANKING_MERCHANT_AMOUNT = "ranking_merchant_amount:%s:%s";
 }

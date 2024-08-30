@@ -6,6 +6,7 @@ import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.pay.enums.TradeState;
@@ -280,5 +281,15 @@ public interface OrderService extends IService<Order> {
      * @return 退款信息
      */
     ItemOrderRefundVO getItemRefund(Long orderId, Long memberId, boolean containAddress);
+
+    /**
+     * 按商户订单商品交易金额
+     *
+     * @param productType 商品类型
+     * @param merchantId  商户id
+     * @param productId 商品id
+     * @param amount 交易金额
+     */
+    void incrementAmount(ProductType productType, Long merchantId, Long productId, Integer amount);
 
 }

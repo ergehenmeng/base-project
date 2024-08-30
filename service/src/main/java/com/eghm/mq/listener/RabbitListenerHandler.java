@@ -7,10 +7,7 @@ import com.eghm.common.JsonService;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constant.QueueConstant;
-import com.eghm.dto.ext.AsyncKey;
-import com.eghm.dto.ext.CalcStatistics;
-import com.eghm.dto.ext.LoginRecord;
-import com.eghm.dto.ext.RefundAudit;
+import com.eghm.dto.ext.*;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.*;
 import com.eghm.enums.ref.OrderState;
@@ -371,6 +368,15 @@ public class RabbitListenerHandler {
             context.setAuditRemark("系统: 自动审核通过");
             stateHandler.fireEvent(ProductType.ITEM, OrderState.REFUND.getValue(), ItemEvent.REFUND_PASS, context);
         });
+    }
+
+    /**
+     * 支付成功订单支付金额统计
+     */
+    @RabbitListener(queues = QueueConstant.ORDER_PAY_RANKING_QUEUE)
+    public void orderPayRanking(OrderPayNotify notify, Message message, Channel channel) throws IOException {
+        processMessageAck(notify, message, channel, s ->
+                orderService.incrementAmount(notify.getProductType(), notify.getMerchantId(), notify.getProductId(), notify.getAmount()));
     }
 
     /**

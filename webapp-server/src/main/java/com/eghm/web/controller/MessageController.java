@@ -42,4 +42,14 @@ public class MessageController {
     public RespBody<IdDTO> signCheck(@RequestBody IdDTO dto) {
         return RespBody.success(dto);
     }
+
+    @PostMapping("/sendBorder")
+    @ApiOperation("发送广播消息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "msg", value = "消息", required = true),
+    })
+    public RespBody<Void> sendMsg(@RequestParam("msg") String msg) {
+        messageService.send(ExchangeQueue.ORDER_PAY_SUCCESS, msg);
+        return RespBody.success();
+    }
 }

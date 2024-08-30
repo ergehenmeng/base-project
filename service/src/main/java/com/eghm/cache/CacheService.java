@@ -328,5 +328,23 @@ public interface CacheService {
      * @param unit   过期时间单位
      */
     void setExpire(String key, long expire, TimeUnit unit);
+
+    /**
+     * 插入set
+     *
+     * @param key key
+     * @param value value
+     * @param score score
+     */
+    void setSet(String key, String value, double score);
+
+    /**
+     * 累计插入
+     *
+     * @param key key
+     * @param value value
+     * @param score score
+     */
+    void setSetIncrement(String key, String value, double score);
 }
 

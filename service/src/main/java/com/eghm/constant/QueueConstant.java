@@ -157,4 +157,9 @@ public class QueueConstant {
      * 订单完成 延迟分账
      */
     public static final String ORDER_COMPLETE_ROUTING_QUEUE = "order_complete_routing_queue";
+
+    /**
+     * 订单支付完成 排行榜队列
+     */
+    public static final String ORDER_PAY_RANKING_QUEUE = "order_pay_ranking_queue";
 }

@@ -1,14 +1,14 @@
 package com.eghm.cache.impl;
 
+import com.eghm.cache.CacheService;
+import com.eghm.common.JsonService;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
-import com.eghm.cache.CacheService;
 import com.eghm.lock.RedisLock;
-import com.eghm.common.JsonService;
-import com.eghm.common.impl.SysConfigApi;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -348,6 +348,16 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public void setExpire(String key, long expire, TimeUnit unit) {
         redisTemplate.expire(key, expire, unit);
+    }
+
+    @Override
+    public void setSet(String key, String value, double score) {
+        redisTemplate.opsForZSet().add(key, value, score);
+    }
+
+    @Override
+    public void setSetIncrement(String key, String value, double score) {
+        redisTemplate.opsForZSet().incrementScore(key, value, score);
     }
 
     /**

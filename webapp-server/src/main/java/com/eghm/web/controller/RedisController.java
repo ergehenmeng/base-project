@@ -82,6 +82,31 @@ public class RedisController {
         return RespBody.success(checkSerial);
     }
 
+    @GetMapping("/setSet")
+    @ApiOperation("设置分数")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "key", value = "key", required = true),
+            @ApiImplicitParam(name = "value", value = "value", required = true),
+            @ApiImplicitParam(name = "score", value = "score", required = true),
+    })
+    public RespBody<Void> setSet(@RequestParam("key") String key, @RequestParam("value") String value, @RequestParam("score") long score) {
+        cacheService.setSet(key, value, score);
+        return RespBody.success();
+    }
+
+    @GetMapping("/setSetIncrement")
+    @ApiOperation("累计设置分数")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "key", value = "key", required = true),
+            @ApiImplicitParam(name = "value", value = "value", required = true),
+            @ApiImplicitParam(name = "score", value = "score", required = true),
+    })
+    public RespBody<Void> setSetIncrement(@RequestParam("key") String key, @RequestParam("value") String value, @RequestParam("score") long score) {
+        cacheService.setSetIncrement(key, value, score);
+        return RespBody.success();
+    }
+
+
     @GetMapping("/signIn")
     @ApiOperation("签到")
     @ApiImplicitParams({
