@@ -35,6 +35,11 @@ public class CommonConstant {
     public static final int GET_LIMIT = 10;
 
     /**
+     * 90天密码未修改提示
+     */
+    public static final int PWD_UPDATE_TIPS = 90;
+
+    /**
      * 分隔符
      */
     public static final String COMMA = ",";

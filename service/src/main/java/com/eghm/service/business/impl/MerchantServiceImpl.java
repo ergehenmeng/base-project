@@ -118,6 +118,7 @@ public class MerchantServiceImpl implements MerchantService {
         String encode = encoder.encode(MD5.create().digestHex(pwd));
         user.setInitPwd(encode);
         user.setPwd(encode);
+        user.setPwdUpdateTime(LocalDateTime.now());
         // 采用用户名登录
         user.setMobile(request.getAccount());
         user.setNickName(request.getMerchantName());

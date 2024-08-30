@@ -3,10 +3,13 @@ package com.eghm.model;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.DataType;
 import com.eghm.enums.UserType;
+import com.eghm.enums.ref.UserState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
@@ -15,16 +18,6 @@ import lombok.EqualsAndHashCode;
 @TableName("sys_user")
 @EqualsAndHashCode(callSuper = true)
 public class SysUser extends BaseEntity {
-
-    /**
-     * 正常
-     */
-    public static final int STATE_1 = 1;
-
-    /**
-     * 锁定
-     */
-    public static final int STATE_0 = 0;
 
     @ApiModelProperty("用户姓名")
     private String nickName;
@@ -39,7 +32,7 @@ public class SysUser extends BaseEntity {
     private DataType dataType;
 
     @ApiModelProperty("用户状态:0:锁定,1:正常 2:注销")
-    private Integer state;
+    private UserState state;
 
     @ApiModelProperty("登陆密码")
     @JsonIgnore
@@ -55,4 +48,6 @@ public class SysUser extends BaseEntity {
     @ApiModelProperty("备注信息")
     private String remark;
 
+    @ApiModelProperty("密码修改时间")
+    private LocalDateTime pwdUpdateTime;
 }

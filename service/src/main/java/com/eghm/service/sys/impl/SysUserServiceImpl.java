@@ -10,6 +10,7 @@ import com.eghm.cache.CacheService;
 import com.eghm.common.UserTokenService;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constant.CacheConstant;
+import com.eghm.constant.CommonConstant;
 import com.eghm.dto.user.PasswordEditRequest;
 import com.eghm.dto.user.UserAddRequest;
 import com.eghm.dto.user.UserEditRequest;
@@ -17,6 +18,7 @@ import com.eghm.dto.user.UserQueryRequest;
 import com.eghm.enums.DataType;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.UserType;
+import com.eghm.enums.ref.UserState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MerchantMapper;
 import com.eghm.mapper.MerchantUserMapper;
@@ -35,6 +37,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -83,6 +86,7 @@ public class SysUserServiceImpl implements SysUserService {
         this.checkPassword(request.getOldPwd(), user.getPwd());
         String newPassword = encoder.encode(request.getNewPwd());
         user.setPwd(newPassword);
+        user.setPwdUpdateTime(LocalDateTime.now());
         sysUserMapper.updateById(user);
     }
 
@@ -107,11 +111,12 @@ public class SysUserServiceImpl implements SysUserService {
     public void create(UserAddRequest request) {
         this.redoMobile(request.getMobile(), null);
         SysUser user = DataUtil.copy(request, SysUser.class);
-        user.setState(SysUser.STATE_1);
+        user.setState(UserState.NORMAL);
         user.setUserType(UserType.SYS_USER);
         String initPassword = this.initPassword(request.getMobile());
         user.setPwd(initPassword);
         user.setInitPwd(initPassword);
+        user.setPwdUpdateTime(LocalDateTime.now());
         sysUserMapper.insert(user);
         // 角色权限
         sysRoleService.auth(user.getId(), request.getRoleIds());
@@ -125,7 +130,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void insert(SysUser user) {
         this.redoMobile(user.getMobile(), null);
-        user.setState(SysUser.STATE_1);
+        user.setState(UserState.NORMAL);
         sysUserMapper.insert(user);
     }
 
@@ -173,6 +178,7 @@ public class SysUserServiceImpl implements SysUserService {
         String password = this.initPassword(user.getMobile());
         user.setPwd(password);
         user.setInitPwd(password);
+        user.setPwdUpdateTime(LocalDateTime.now());
         sysUserMapper.updateById(user);
     }
 
@@ -183,6 +189,7 @@ public class SysUserServiceImpl implements SysUserService {
         wrapper.eq(SysUser::getId, id);
         wrapper.set(SysUser::getPwd, encode);
         wrapper.set(SysUser::getInitPwd, encode);
+        wrapper.set(SysUser::getPwdUpdateTime, LocalDateTime.now());
         sysUserMapper.update(null, wrapper);
     }
 
@@ -195,7 +202,7 @@ public class SysUserServiceImpl implements SysUserService {
     public void lockUser(Long id) {
         SysUser user = new SysUser();
         user.setId(id);
-        user.setState(SysUser.STATE_0);
+        user.setState(UserState.LOCK);
         sysUserMapper.updateById(user);
     }
 
@@ -203,7 +210,7 @@ public class SysUserServiceImpl implements SysUserService {
     public void unlockUser(Long id) {
         SysUser user = new SysUser();
         user.setId(id);
-        user.setState(SysUser.STATE_1);
+        user.setState(UserState.NORMAL);
         sysUserMapper.updateById(user);
     }
 
@@ -213,7 +220,7 @@ public class SysUserServiceImpl implements SysUserService {
         if (user == null) {
             throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
-        if (user.getState() == 0) {
+        if (user.getState() == UserState.LOCK) {
             throw new BusinessException(ErrorCode.USER_LOCKED_ERROR);
         }
         boolean match = encoder.match(password, user.getPwd());
@@ -249,6 +256,7 @@ public class SysUserServiceImpl implements SysUserService {
         response.setMenuList(leftMenu);
         response.setMerchantType(merchantType);
         response.setInit(user.getInitPwd().equals(user.getPwd()));
+        response.setExpire(user.getPwdUpdateTime().plusDays(CommonConstant.PWD_UPDATE_TIPS).isBefore(LocalDateTime.now()));
         cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
         return response;
     }

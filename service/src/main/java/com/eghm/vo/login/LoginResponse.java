@@ -31,6 +31,9 @@ public class LoginResponse {
     @ApiModelProperty("是否初始密码")
     private Boolean init;
 
+    @ApiModelProperty("密码是否过期(90天没修改即过期)")
+    private Boolean expire;
+
     @ApiModelProperty("按钮权限列表")
     private List<String> permList;
 
