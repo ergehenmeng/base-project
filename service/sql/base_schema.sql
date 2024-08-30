@@ -2064,6 +2064,7 @@ CREATE TABLE `item_group_order`
     `id`          bigint(20) NOT NULL COMMENT '主键',
     `booking_no`  varchar(20) DEFAULT NULL COMMENT '拼团活动编号',
     `order_no`    varchar(20) DEFAULT NULL COMMENT '订单号',
+    `state`       tinyint(1)  DEFAULT NULL COMMENT '状态 0:拼团中 1:拼团成功 2:拼团失败',
     `item_id`     bigint(20)  DEFAULT NULL COMMENT '零售id',
     `member_id`   bigint(20)  DEFAULT NULL COMMENT '会员id',
     `booking_id`  bigint(20)  DEFAULT NULL COMMENT '拼团活动id',
