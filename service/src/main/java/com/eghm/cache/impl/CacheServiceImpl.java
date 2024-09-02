@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.BitFieldSubCommands;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -358,6 +359,11 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public void setSetIncrement(String key, String value, double score) {
         redisTemplate.opsForZSet().incrementScore(key, value, score);
+    }
+
+    @Override
+    public Set<ZSetOperations.TypedTuple<String>> rangeWithScore(String key, Integer limit) {
+        return redisTemplate.opsForZSet().reverseRangeWithScores(key, 0, limit);
     }
 
     /**

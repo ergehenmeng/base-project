@@ -7,6 +7,7 @@ import com.eghm.dto.statistics.CollectRequest;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.dto.statistics.VisitRequest;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.*;
 import com.eghm.service.member.MemberService;
 import com.eghm.vo.business.statistics.*;
@@ -106,6 +107,14 @@ public class StatisticsController {
         this.setNull(request);
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<CartStatisticsVO> statistics = shoppingCartService.dayCart(request);
+        return RespBody.success(statistics);
+    }
+
+    @GetMapping("/itemSale")
+    @ApiOperation("零售销售额统计")
+    @SkipPerm
+    public RespBody<List<SaleStatisticsVO>> sale() {
+        List<SaleStatisticsVO> statistics = orderService.saleStatistics(SecurityHolder.getMerchantId(), ProductType.ITEM);
         return RespBody.success(statistics);
     }
 

@@ -2,6 +2,8 @@ package com.eghm.service.business.handler.state.impl.item;
 
 import com.eghm.common.AlarmService;
 import com.eghm.dto.business.account.score.ScoreAccountDTO;
+import com.eghm.dto.ext.OrderPayNotify;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.ChargeType;
@@ -12,6 +14,7 @@ import com.eghm.model.GroupBooking;
 import com.eghm.model.ItemGroupOrder;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
+import com.eghm.mq.service.MessageService;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import lombok.extern.slf4j.Slf4j;
@@ -49,8 +52,11 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
 
     private final ItemOrderService itemOrderService;
 
+    private final MessageService messageService;
+
     public ItemOrderPaySuccessHandler(ScoreAccountService scoreAccountService, OrderService orderService, ItemService itemService, ItemGroupOrderService itemGroupOrderService,
-                                      GroupBookingService groupBookingService, AlarmService alarmService, AccountService accountService, ItemOrderService itemOrderService) {
+                                      GroupBookingService groupBookingService, AlarmService alarmService, AccountService accountService, ItemOrderService itemOrderService,
+                                      MessageService messageService) {
         super(orderService);
         this.itemService = itemService;
         this.orderService = orderService;
@@ -59,6 +65,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
         this.alarmService = alarmService;
         this.scoreAccountService = scoreAccountService;
         this.accountService = accountService;
+        this.messageService = messageService;
         this.itemOrderService = itemOrderService;
     }
 
@@ -79,6 +86,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
                 this.tryUpdateGroupOrderState(order.getBookingNo(), order.getBookingId());
             }
             if (order.getScoreAmount() > 0) {
+                log.info("该订单使用了积分,开始更新积分 [{}]", order.getOrderNo());
                 ScoreAccountDTO dto = new ScoreAccountDTO();
                 dto.setTradeNo(order.getOrderNo());
                 dto.setAmount(order.getScoreAmount());
@@ -91,9 +99,22 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
             order.setPayTime(context.getSuccessTime());
             order.setState(anyMatch ? OrderState.WAIT_DELIVERY : OrderState.WAIT_TAKE);
             orderService.updateById(order);
-
+            // 更新item_order状态
             itemOrderService.paySuccess(context.getOrderNo());
+            // 更新增加冻结记录
             accountService.paySuccessAddFreeze(order);
+            // 发送消息
+            List<ItemOrder> itemOrders = itemOrderService.getByOrderNo(order.getOrderNo());
+            for (ItemOrder itemOrder : itemOrders) {
+                OrderPayNotify notify = new OrderPayNotify();
+                notify.setAmount(itemOrder.getSalePrice() * itemOrder.getNum() + itemOrder.getExpressFee());
+                notify.setOrderNo(itemOrder.getOrderNo());
+                notify.setProductId(itemOrder.getItemId());
+                notify.setProductType(ProductType.ITEM);
+                notify.setMerchantId(order.getMerchantId());
+                notify.setStoreId(itemOrder.getStoreId());
+                messageService.send(ExchangeQueue.ORDER_PAY_SUCCESS, notify);
+            }
         }
     }
 

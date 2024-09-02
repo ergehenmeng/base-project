@@ -48,7 +48,7 @@ public class ItemOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("源状态")
     private Integer from;
 
-    @ApiModelProperty(value = "订单编号", hidden = true)
+    @ApiModelProperty(value = "订单编号(多个时,逗号分隔)", hidden = true)
     @Assign
     private String orderNo;
 

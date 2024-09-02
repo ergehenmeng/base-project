@@ -18,6 +18,7 @@ import com.eghm.vo.business.order.item.ExpressDetailVO;
 import com.eghm.vo.business.order.item.ItemOrderRefundVO;
 import com.eghm.vo.business.statistics.OrderCardVO;
 import com.eghm.vo.business.statistics.OrderStatisticsVO;
+import com.eghm.vo.business.statistics.SaleStatisticsVO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -292,4 +293,12 @@ public interface OrderService extends IService<Order> {
      */
     void incrementAmount(ProductType productType, Long merchantId, Long productId, Integer amount);
 
+    /**
+     * 商品销售额统计
+     *
+     * @param merchantId 商户id
+     * @param productType 商品类型
+     * @return list
+     */
+    List<SaleStatisticsVO> saleStatistics(Long merchantId, ProductType productType);
 }

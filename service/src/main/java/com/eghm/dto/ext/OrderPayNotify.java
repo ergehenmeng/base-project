@@ -15,6 +15,9 @@ public class OrderPayNotify {
     @ApiModelProperty("支付金额")
     private Integer amount;
 
+    /**
+     * 注意: 如果是零售可能会出现在一家购买多个商品, 但是订单号是一样的, 因此逻辑上要按业务处理一下
+     */
     @ApiModelProperty("订单编号")
     private String orderNo;
 

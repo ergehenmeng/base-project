@@ -12,6 +12,7 @@ import com.eghm.cache.CacheProxyService;
 import com.eghm.cache.CacheService;
 import com.eghm.common.JsonService;
 import com.eghm.common.OrderMQService;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.OfflineRefundRequest;
@@ -24,6 +25,7 @@ import com.eghm.enums.ExpressType;
 import com.eghm.enums.SelectType;
 import com.eghm.enums.ref.*;
 import com.eghm.exception.BusinessException;
+import com.eghm.mapper.ItemMapper;
 import com.eghm.mapper.OrderMapper;
 import com.eghm.model.*;
 import com.eghm.mq.service.MessageService;
@@ -49,9 +51,11 @@ import com.eghm.vo.business.order.item.ExpressVO;
 import com.eghm.vo.business.order.item.ItemOrderRefundVO;
 import com.eghm.vo.business.statistics.OrderCardVO;
 import com.eghm.vo.business.statistics.OrderStatisticsVO;
+import com.eghm.vo.business.statistics.SaleStatisticsVO;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -59,13 +63,11 @@ import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.eghm.constant.CacheConstant.RANKING_AMOUNT;
-import static com.eghm.constant.CacheConstant.RANKING_MERCHANT_AMOUNT;
+import static com.eghm.constant.CacheConstant.*;
 
 /**
  * @author 二哥很猛
@@ -76,7 +78,11 @@ import static com.eghm.constant.CacheConstant.RANKING_MERCHANT_AMOUNT;
 @Slf4j
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
 
+    private final ItemMapper itemMapper;
+
     private final JsonService jsonService;
+
+    private final SysConfigApi sysConfigApi;
 
     private final CacheService cacheService;
 
@@ -605,6 +611,29 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public void incrementAmount(ProductType productType, Long merchantId, Long productId, Integer amount) {
         cacheService.setSetIncrement(String.format(RANKING_AMOUNT, productType.getPrefix()), String.valueOf(productId), amount);
         cacheService.setSetIncrement(String.format(RANKING_MERCHANT_AMOUNT, merchantId, productType.getPrefix()), String.valueOf(productId), amount);
+    }
+
+    @Override
+    public List<SaleStatisticsVO> saleStatistics(Long merchantId, ProductType productType) {
+        int limit = sysConfigApi.getInt(SALE_RANKING, 5);
+        String key = merchantId != null ? String.format(RANKING_MERCHANT_AMOUNT, merchantId, productType.getPrefix()) : String.format(RANKING_AMOUNT, productType.getPrefix());
+        Set<ZSetOperations.TypedTuple<String>> serviceSet = cacheService.rangeWithScore(key,  limit - 1);
+        if (CollUtil.isEmpty(serviceSet)) {
+            return Lists.newArrayList();
+        }
+        List<Long> ids = serviceSet.stream().map(typedTuple -> Long.parseLong(Objects.requireNonNull(typedTuple.getValue()))).collect(Collectors.toList());
+        List<Item> itemList = itemMapper.selectBatchIds(ids);
+        Map<Long, String> stringMap = itemList.stream().collect(Collectors.toMap(Item::getId, Item::getTitle));
+        List<SaleStatisticsVO> voList = new ArrayList<>();
+        for (ZSetOperations.TypedTuple<String> typedTuple: serviceSet) {
+            SaleStatisticsVO vo = new SaleStatisticsVO();
+            long productId = Long.parseLong(Objects.requireNonNull(typedTuple.getValue()));
+            vo.setProductId(productId);
+            vo.setProductName(stringMap.get(productId));
+            vo.setAmount(typedTuple.getScore() == null ? 0 : typedTuple.getScore().intValue());
+            voList.add(vo);
+        }
+        return voList;
     }
 
     /**

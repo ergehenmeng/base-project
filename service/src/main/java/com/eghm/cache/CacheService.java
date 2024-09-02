@@ -1,9 +1,12 @@
 package com.eghm.cache;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.springframework.data.redis.core.ZSetOperations;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
@@ -346,5 +349,14 @@ public interface CacheService {
      * @param score score
      */
     void setSetIncrement(String key, String value, double score);
+
+    /**
+     * 获取set排行
+     *
+     * @param key key
+     * @param limit 多少个
+     * @return 列表
+     */
+    Set<ZSetOperations.TypedTuple<String>> rangeWithScore(String key, Integer limit);
 }
 

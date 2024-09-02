@@ -3,9 +3,12 @@ package com.eghm.service.business.handler.state.impl.voucher;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VoucherEvent;
 import com.eghm.enums.ref.ProductType;
+import com.eghm.model.Order;
+import com.eghm.mq.service.MessageService;
 import com.eghm.service.business.AccountService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
+import com.eghm.service.business.VoucherOrderService;
 import com.eghm.service.business.handler.state.impl.AbstractOrderPaySuccessHandler;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +19,16 @@ import org.springframework.stereotype.Service;
 @Service("voucherOrderPaySuccessHandler")
 public class VoucherOrderPaySuccessHandler extends AbstractOrderPaySuccessHandler {
 
-    public VoucherOrderPaySuccessHandler(OrderService orderService, AccountService accountService, OrderVisitorService orderVisitorService) {
-        super(orderService, accountService, orderVisitorService);
+    private final VoucherOrderService voucherOrderService;
+
+    public VoucherOrderPaySuccessHandler(OrderService orderService, AccountService accountService, OrderVisitorService orderVisitorService, MessageService messageService, VoucherOrderService voucherOrderService) {
+        super(orderService, accountService, messageService, orderVisitorService);
+        this.voucherOrderService = voucherOrderService;
+    }
+
+    @Override
+    protected Long getProductId(Order order) {
+        return voucherOrderService.getByOrderNo(order.getOrderNo()).getVoucherId();
     }
 
     @Override

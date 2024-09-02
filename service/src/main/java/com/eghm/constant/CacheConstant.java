@@ -316,4 +316,9 @@ public class CacheConstant {
      * 商户交易金额排行榜
      */
     public static final String RANKING_MERCHANT_AMOUNT = "ranking_merchant_amount:%s:%s";
+
+    /**
+     * 销售排行榜
+     */
+    public static final String SALE_RANKING = "sale_ranking";
 }

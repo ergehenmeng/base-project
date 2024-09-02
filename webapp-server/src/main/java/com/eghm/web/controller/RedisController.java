@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Set;
 
 /**
  * @author wyb
@@ -106,6 +108,13 @@ public class RedisController {
         return RespBody.success();
     }
 
+    @GetMapping("/getRange")
+    @ApiOperation("累计设置分数")
+    @ApiImplicitParam(name = "key", value = "key", required = true)
+    public RespBody<Set<ZSetOperations.TypedTuple<String>>> getRange(@RequestParam("key") String key) {
+        Set<ZSetOperations.TypedTuple<String>> withScore = cacheService.rangeWithScore(key, 4);
+        return RespBody.success(withScore);
+    }
 
     @GetMapping("/signIn")
     @ApiOperation("签到")

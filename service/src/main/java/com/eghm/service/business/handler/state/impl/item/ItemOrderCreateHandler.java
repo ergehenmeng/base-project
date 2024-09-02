@@ -41,12 +41,14 @@ import java.util.stream.Collectors;
 import static com.eghm.enums.ErrorCode.*;
 
 /**
+ * 注意: 目前优惠券逻辑没有使用, 需要补全逻辑
+ *
  * @author 二哥很猛
  * @since 2022/9/5
  */
-@Service("itemOrderCreateHandler")
 @Slf4j
 @AllArgsConstructor
+@Service("itemOrderCreateHandler")
 public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreateContext> {
 
     private final ItemOrderService itemOrderService;
@@ -213,7 +215,6 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
                 order.setPayAmount(0);
             }
         }
-
         order.setLimitId(context.getLimitId());
         order.setMerchantId(entry.getValue().get(0).getItemStore().getMerchantId());
         return order;
