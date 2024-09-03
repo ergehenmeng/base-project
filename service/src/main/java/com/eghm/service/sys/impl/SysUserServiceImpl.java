@@ -70,7 +70,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     private final MerchantUserMapper merchantUserMapper;
 
-    private static final Cache<String, Integer> CACHE = Caffeine.newBuilder().expireAfterWrite(30, TimeUnit.MINUTES).maximumSize(1000).build();
+    private static final Cache<String, Integer> CACHE = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).maximumSize(1000).build();
 
     @Override
     public Page<UserResponse> getByPage(UserQueryRequest request) {
@@ -227,10 +227,12 @@ public class SysUserServiceImpl implements SysUserService {
         }
         SysUser user = this.getByMobile(userName);
         if (user == null) {
+            CACHE.put(userName, present == null ? 1 : present + 1);
             throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
         boolean match = encoder.match(password, user.getPwd());
         if (!match) {
+            CACHE.put(userName, present == null ? 1 : present + 1);
             throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
         if (user.getState() == UserState.LOCK) {
