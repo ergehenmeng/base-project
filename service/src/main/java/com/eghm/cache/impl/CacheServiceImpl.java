@@ -120,6 +120,11 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
+    public void increment(String key, long ops) {
+        redisTemplate.opsForValue().increment(key, ops);
+    }
+
+    @Override
     public boolean exist(String key) {
         Boolean hasKey = redisTemplate.hasKey(key);
         return Boolean.TRUE.equals(hasKey);

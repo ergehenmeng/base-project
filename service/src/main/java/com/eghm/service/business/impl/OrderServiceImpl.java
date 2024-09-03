@@ -67,7 +67,9 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.eghm.constant.CacheConstant.*;
+import static com.eghm.constant.CacheConstant.RANKING_AMOUNT;
+import static com.eghm.constant.CacheConstant.RANKING_MERCHANT_AMOUNT;
+import static com.eghm.constants.ConfigConstant.SALE_RANKING;
 
 /**
  * @author 二哥很猛
@@ -630,7 +632,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             long productId = Long.parseLong(Objects.requireNonNull(typedTuple.getValue()));
             vo.setProductId(productId);
             vo.setProductName(stringMap.get(productId));
-            vo.setAmount(typedTuple.getScore() == null ? 0 : typedTuple.getScore().intValue());
+            vo.setAmount(Optional.ofNullable(typedTuple.getScore()).orElse(0D).intValue());
             voList.add(vo);
         }
         return voList;

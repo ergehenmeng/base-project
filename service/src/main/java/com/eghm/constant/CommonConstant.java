@@ -40,6 +40,11 @@ public class CommonConstant {
     public static final int PWD_UPDATE_TIPS = 90;
 
     /**
+     * 连续密码错误次数, 超过5次则锁定账户一段时间
+     */
+    public static final int MAX_ERROR_NUM = 5;
+
+    /**
      * 分隔符
      */
     public static final String COMMA = ",";

@@ -64,6 +64,14 @@ public interface CacheService {
     void setValue(String key, Object value, long expire, TimeUnit unit);
 
     /**
+     * 缓存value值增加指定的数量
+     *
+     * @param key key
+     * @param ops ops
+     */
+    void increment(String key, long ops);
+
+    /**
      * 是否存在指定key的缓存
      *
      * @param key key

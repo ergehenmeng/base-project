@@ -246,4 +246,9 @@ public class ConfigConstant {
      * 积分最小提现金额
      */
     public static final String SCORE_MIN_WITHDRAW = "score_min_withdraw";
+
+    /**
+     * 销售排行榜
+     */
+    public static final String SALE_RANKING = "sale_ranking";
 }

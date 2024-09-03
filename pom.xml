@@ -119,7 +119,10 @@
         <easyexcel.version>3.3.2</easyexcel.version>
         <!--jackson 1.8日期格式序列号兼容包-->
         <jackson-ext.version>2.13.4</jackson-ext.version>
+        <!--快递100-->
         <kuaidi-version>1.0.12</kuaidi-version>
+        <!--缓存-->
+        <caffeine.version>3.1.8</caffeine.version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -327,6 +330,11 @@
                 <groupId>com.github.kuaidi100-api</groupId>
                 <artifactId>sdk</artifactId>
                 <version>${kuaidi-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>${caffeine.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

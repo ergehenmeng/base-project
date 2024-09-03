@@ -343,6 +343,11 @@ public enum ErrorCode {
     USER_TYPE_NULL(2079, "用户类型不匹配"),
 
     /**
+     * 错误次数太多,请10分钟后再试
+     */
+    USER_ERROR_LOCK(2080, "错误次数太多,请10分钟后再试"),
+
+    /**
      * 用户已锁定,请联系管理人员
      */
     USER_LOCKED_ERROR(2081, "用户已锁定,请联系管理人员"),

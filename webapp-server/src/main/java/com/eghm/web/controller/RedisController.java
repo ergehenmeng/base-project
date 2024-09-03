@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
@@ -30,6 +31,8 @@ import java.util.Set;
 public class RedisController {
 
     private final CacheService cacheService;
+
+    private final StringRedisTemplate stringRedisTemplate;
 
     @GetMapping("/setValue")
     @ApiOperation("设置值")
@@ -94,6 +97,17 @@ public class RedisController {
     public RespBody<Void> setSet(@RequestParam("key") String key, @RequestParam("value") String value, @RequestParam("score") long score) {
         cacheService.setSet(key, value, score);
         return RespBody.success();
+    }
+
+    @GetMapping("/incr")
+    @ApiOperation("自增")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "key", value = "key", required = true),
+            @ApiImplicitParam(name = "ops", value = "ops", required = true),
+    })
+    public RespBody<Long> incr(@RequestParam("key") String key, @RequestParam("ops") long ops) {
+        Long increment = stringRedisTemplate.opsForValue().increment(key, ops);
+        return RespBody.success(increment);
     }
 
     @GetMapping("/setSetIncrement")
