@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.eghm.utils.CacheUtil.CAPTCHA_CACHE;
+
 /**
  * @author 二哥很猛
  * @since 2022/1/28 17:01
@@ -82,12 +84,12 @@ public class LoginController {
             return false;
         }
         String redisKey = CacheConstant.IMAGE_CAPTCHA + key;
-        String value = cacheService.getValue(redisKey);
+        String value = CAPTCHA_CACHE.getIfPresent(redisKey);
         if (value == null) {
             return true;
         }
-        cacheService.delete(redisKey);
-        return !value.equalsIgnoreCase(code);
+        CAPTCHA_CACHE.invalidate(redisKey);
+        return !code.equals(value);
     }
 
 }

@@ -33,15 +33,14 @@ import com.eghm.utils.DataUtil;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.menu.MenuResponse;
 import com.eghm.vo.user.UserResponse;
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+
+import static com.eghm.utils.CacheUtil.LOGIN_LOCK_CACHE;
 
 /**
  * @author 二哥很猛
@@ -69,8 +68,6 @@ public class SysUserServiceImpl implements SysUserService {
     private final SysDataDeptService sysDataDeptService;
 
     private final MerchantUserMapper merchantUserMapper;
-
-    private static final Cache<String, Integer> CACHE = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).maximumSize(1000).build();
 
     @Override
     public Page<UserResponse> getByPage(UserQueryRequest request) {
@@ -221,18 +218,18 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public LoginResponse login(String userName, String password) {
-        Integer present = CACHE.getIfPresent(userName);
+        Integer present = LOGIN_LOCK_CACHE.getIfPresent(userName);
         if (present != null && present > 5) {
             throw new BusinessException(ErrorCode.USER_ERROR_LOCK);
         }
         SysUser user = this.getByMobile(userName);
         if (user == null) {
-            CACHE.put(userName, present == null ? 1 : present + 1);
+            LOGIN_LOCK_CACHE.put(userName, present == null ? 1 : present + 1);
             throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
         boolean match = encoder.match(password, user.getPwd());
         if (!match) {
-            CACHE.put(userName, present == null ? 1 : present + 1);
+            LOGIN_LOCK_CACHE.put(userName, present == null ? 1 : present + 1);
             throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
         if (user.getState() == UserState.LOCK) {

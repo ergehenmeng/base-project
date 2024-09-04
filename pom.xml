@@ -122,7 +122,7 @@
         <!--快递100-->
         <kuaidi-version>1.0.12</kuaidi-version>
         <!--缓存-->
-        <caffeine.version>3.1.8</caffeine.version>
+        <caffeine.version>2.9.3</caffeine.version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->

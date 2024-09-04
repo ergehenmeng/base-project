@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
-import com.eghm.cache.CacheService;
+import com.eghm.utils.CacheUtil;
 import com.eghm.utils.IpUtil;
 import com.google.code.kaptcha.Producer;
 import io.swagger.annotations.Api;
@@ -36,8 +36,6 @@ public class CaptchaController {
 
     private final Producer producer;
 
-    private final CacheService cacheService;
-
     @GetMapping("/captcha")
     @ApiOperation("获取图形验证码")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -50,7 +48,7 @@ public class CaptchaController {
         }
         String ipAddress = IpUtil.getIpAddress(request);
         log.info("图形验证码[{}]:[{}]", ipAddress, authCode);
-        cacheService.setValue(CacheConstant.IMAGE_CAPTCHA + ipAddress, authCode, 60L);
+        CacheUtil.CAPTCHA_CACHE.put(CacheConstant.IMAGE_CAPTCHA + ipAddress, authCode);
         BufferedImage bi = producer.createImage(authImage);
         response.setDateHeader("Expires", 0);
         response.setHeader("Pragma", "no-cache");
