@@ -13,7 +13,9 @@ import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.ScoreType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
+import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ref.RefundState;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.*;
@@ -21,9 +23,7 @@ import com.eghm.service.business.*;
 import com.eghm.service.business.handler.access.impl.ItemAccessHandler;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
 import com.eghm.service.business.handler.context.PayNotifyContext;
-import com.eghm.service.business.handler.dto.ItemDTO;
-import com.eghm.service.business.handler.dto.ItemOrderPayload;
-import com.eghm.service.business.handler.dto.OrderPackage;
+import com.eghm.service.business.handler.dto.*;
 import com.eghm.service.business.handler.state.OrderCreateHandler;
 import com.eghm.service.member.MemberAddressService;
 import com.eghm.service.member.MemberService;
@@ -34,7 +34,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -77,6 +79,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     private final MemberService memberService;
 
+    private final MemberCouponService memberCouponService;
+
     /**
      * 普通订单下单处理逻辑
      * 说明: 由于普通订单存在购物车概念,在下单时会出现多店铺+多商品同时下单支付,因此需要按店铺进行分组生成多个订单
@@ -116,27 +120,21 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * @return 生成的订单列表
      */
     private List<Order> createOrder(ItemOrderCreateContext context, ItemOrderPayload payload) {
-        // 购物车商品可能存在多商铺同时下单,按店铺进行分组, 同时按商品和skuId进行排序
-        Map<Long, List<OrderPackage>> storeMap = payload.getPackageList().stream().sorted(Comparator.comparing(OrderPackage::getStoreId).thenComparing(OrderPackage::getItemId).thenComparing(OrderPackage::getSkuId)).collect(Collectors.groupingBy(OrderPackage::getStoreId, LinkedHashMap::new, Collectors.toList()));
         List<Order> orderList = new ArrayList<>(8);
-        Integer scoreAmount = context.getScoreAmount();
-        // 交易单号预生成(主要针对零元付的情况), 如果不是零元付,后续拉起支付时依旧会重新生成(覆盖当前生成的交易单号)
+        // 此处了兼容零元购, 先生成tradeNo保证数据完整性, 如果非零元购则在拉起支付时重新生成tradeNo
         String tradeNo = ProductType.ITEM.generateTradeNo();
-        for (Map.Entry<Long, List<OrderPackage>> entry : storeMap.entrySet()) {
-            Map<Long, Integer> skuExpressMap = this.calcExpressFee(entry.getKey(), payload.getMemberAddress().getCountyId(), entry.getValue());
+        for (StoreOrderPackage aPackage : payload.getPackageList()) {
+            Map<Long, Integer> skuExpressMap = this.calcExpressFee(aPackage.getStoreId(), aPackage.getMemberAddress().getCountyId(), aPackage.getItemList());
             int expressAmount = skuExpressMap.values().stream().reduce(Integer::sum).orElse(0);
-            // 核心逻辑生成主订单
-            Order order = this.generateOrder(context, payload, entry, storeMap.size() > 1, expressAmount, scoreAmount);
-            scoreAmount = scoreAmount - order.getScoreAmount();
-            order.setTradeNo(tradeNo);
+            Order order = this.generateOrder(context, aPackage, payload.getPackageList().size() > 1, expressAmount, tradeNo);
             orderService.save(order);
             // 新增零售订单
-            itemOrderService.insert(order.getOrderNo(), context.getMemberId(), entry.getValue(), skuExpressMap);
+            itemOrderService.insert(order.getOrderNo(), context.getMemberId(), aPackage.getItemList(), skuExpressMap);
             // 更新sku库存
-            Map<Long, Integer> skuNumMap = entry.getValue().stream().collect(Collectors.toMap(OrderPackage::getSkuId, aPackage -> -aPackage.getNum()));
+            Map<Long, Integer> skuNumMap = aPackage.getItemList().stream().collect(Collectors.toMap(OrderPackage::getSkuId, sku -> -sku.getNum()));
             itemSkuService.updateStock(skuNumMap);
             // 如果是拼团订单的话 一定是单商品
-            itemGroupOrderService.save(context, order, entry.getValue().get(0).getItemId());
+            itemGroupOrderService.save(context, order, aPackage.getItemList().get(0).getItemId());
             orderList.add(order);
         }
         return orderList;
@@ -149,7 +147,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * @return true:热销商品(走队列下单) false:非热销商品
      */
     public boolean isHotSell(ItemOrderCreateContext context) {
-        return itemService.containHot(context.getItemList().stream().map(ItemDTO::getItemId).collect(Collectors.toList()));
+        return itemService.containHot(context.getItemIds());
     }
 
     /**
@@ -167,56 +165,66 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * 2. 计算待支付金额 (限时购, 拼团,积分)
      *
      * @param context     上下文
-     * @param payload 商品信息
-     * @param entry     下单信息
+     * @param aPackage    下单信息
      * @param multiple      是否为多笔订单同时支付
      * @param expressAmount 快递费
-     * @param scoreAmount 可以使用的积分数
+     * @param tradeNo    交易单号
      * @return 订单信息
      */
-    private Order generateOrder(ItemOrderCreateContext context, ItemOrderPayload payload, Map.Entry<Long, List<OrderPackage>> entry, boolean multiple, int expressAmount, Integer scoreAmount) {
-        List<OrderPackage> packageList = entry.getValue();
-        Order order = DataUtil.copy(payload, Order.class);
-        MemberAddress address = payload.getMemberAddress();
-        order.setStoreId(entry.getKey());
+    private Order generateOrder(ItemOrderCreateContext context, StoreOrderPackage aPackage, boolean multiple, int expressAmount, String tradeNo) {
+        List<OrderPackage> packageList = aPackage.getItemList();
+        Order order = new Order();
+        MemberAddress address = aPackage.getMemberAddress();
+        order.setStoreId(aPackage.getStoreId());
+        order.setMerchantId(aPackage.getItemStore().getMerchantId());
+        order.setTitle(this.getTitle(packageList));
+        order.setCoverUrl(this.getFirstCoverUrl(packageList));
         order.setOrderNo(ProductType.ITEM.generateOrderNo());
+        order.setMemberId(context.getMemberId());
+        order.setNum(this.getNum(packageList));
+        order.setProductType(ProductType.ITEM);
+        order.setMultiple(multiple);
+        // 零售商品只支持审核后退款且没有退款描述
+        order.setRefundType(RefundType.AUDIT_REFUND);
+        order.setTradeNo(tradeNo);
+        order.setState(OrderState.UN_PAY);
+        order.setRefundState(RefundState.NONE);
+        order.setAmount(aPackage.getItemAmount());
+        order.setDiscountAmount(aPackage.getCouponAmount());
+        order.setExpressAmount(expressAmount);
+        order.setCouponId(aPackage.getCouponId());
         order.setProvinceId(address.getProvinceId());
         order.setCityId(address.getCityId());
         order.setCountyId(address.getCountyId());
         order.setDetailAddress(address.getDetailAddress());
         order.setNickName(address.getNickName());
         order.setMobile(address.getMobile());
-        order.setCoverUrl(this.getFirstCoverUrl(packageList));
-        order.setTitle(this.getTitle(packageList));
-        order.setMultiple(multiple);
-        // 零售商品只支持审核后退款
-        order.setRefundType(RefundType.AUDIT_REFUND);
-        order.setProductType(ProductType.ITEM);
-        order.setNum(this.getNum(packageList));
-        order.setMemberId(context.getMemberId());
-        Integer itemAmount = this.getItemAmount(packageList, context);
-        order.setAmount(itemAmount);
-        order.setBookingNo(context.getBookingNo());
+        order.setRemark(aPackage.getRemark());
+        order.setLimitId(context.getLimitId());
         order.setBookingId(context.getBookingId());
+        order.setBookingNo(context.getBookingNo());
+        order.setBookingState(0);
         order.setCreateDate(LocalDate.now());
         order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
-        Integer payAmount = itemAmount + expressAmount;
-        if (scoreAmount <= 0) {
+        order.setCdKey(null);
+        order.setCdKeyAmount(null);
+
+        Integer payAmount = aPackage.getItemAmount() + expressAmount - aPackage.getCouponAmount();
+
+        if (aPackage.getScoreAmount() <= 0) {
             order.setPayAmount(payAmount);
             order.setScoreAmount(0);
         } else {
             // 使用积分
-            if (payAmount > scoreAmount) {
-                order.setScoreAmount(scoreAmount);
-                order.setPayAmount(payAmount - scoreAmount);
+            if (payAmount > aPackage.getScoreAmount()) {
+                order.setScoreAmount(aPackage.getScoreAmount());
+                order.setPayAmount(payAmount - aPackage.getScoreAmount());
             } else {
                 order.setScoreAmount(payAmount);
                 order.setPayAmount(0);
             }
         }
-        order.setLimitId(context.getLimitId());
-        order.setMerchantId(entry.getValue().get(0).getItemStore().getMerchantId());
         return order;
     }
 
@@ -261,39 +269,56 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      */
     private ItemOrderPayload getPayload(ItemOrderCreateContext context) {
         MemberAddress memberAddress = memberAddressService.getById(context.getAddressId(), context.getMemberId());
-        Set<Long> skuIds = context.getItemList().stream().map(ItemDTO::getSkuId).collect(Collectors.toSet());
-        Map<Long, ItemSku> skuMap = itemSkuService.getByIdShelveMap(skuIds);
+        Map<Long, ItemSku> skuMap = itemSkuService.getByIdShelveMap(context.getSkuIds());
         List<Long> storeIds = context.getItemMap().values().stream().map(Item::getStoreId).distinct().collect(Collectors.toList());
         Map<Long, ItemStore> storeMap = itemStoreService.selectByIdShelveMap(storeIds);
         Map<Long, ItemSpec> specMap = itemSpecService.getByIdMap(context.getItemMap().keySet());
 
-        List<OrderPackage> packageList = new ArrayList<>();
+        List<StoreOrderPackage> packageList = new ArrayList<>();
+        StoreOrderPackage storePackage;
         OrderPackage orderPackage;
         for (ItemDTO vo : context.getItemList()) {
-            orderPackage = new OrderPackage();
-            orderPackage.setItem(context.getItemMap().get(vo.getItemId()));
-            orderPackage.setSku(skuMap.get(vo.getSkuId()));
-            orderPackage.setNum(vo.getNum());
-            orderPackage.setItemId(vo.getItemId());
-            orderPackage.setSkuId(vo.getSkuId());
-            orderPackage.setSpec(specMap.get(this.getSpuId(orderPackage.getSku().getSpecId())));
-            orderPackage.setStoreId(orderPackage.getItem().getStoreId());
-            orderPackage.setItemStore(storeMap.get(orderPackage.getStoreId()));
-            packageList.add(orderPackage);
+            storePackage = new StoreOrderPackage();
+            storePackage.setStoreId(vo.getStoreId());
+            storePackage.setItemStore(storeMap.get(vo.getStoreId()));
+            storePackage.setMemberAddress(memberAddress);
+            storePackage.setScoreAmount(vo.getScoreAmount());
+            storePackage.setCouponId(vo.getCouponId());
+            storePackage.setRemark(vo.getRemark());
+
+            List<OrderPackage> orderList = new ArrayList<>();
+            for (SkuDTO dto : vo.getSkuList()) {
+                orderPackage = new OrderPackage();
+                orderPackage.setItem(context.getItemMap().get(dto.getItemId()));
+                orderPackage.setSku(skuMap.get(dto.getSkuId()));
+                orderPackage.setNum(dto.getNum());
+                orderPackage.setItemId(dto.getItemId());
+                orderPackage.setSkuId(dto.getSkuId());
+                orderPackage.setSpec(specMap.get(this.getSpuId(orderPackage.getSku().getSpecId())));
+                orderList.add(orderPackage);
+            }
+
+            Integer itemAmount = this.checkAndCalcTotalAmount(storePackage.getItemList(), context);
+            storePackage.setItemAmount(itemAmount);
+            if (storePackage.getCouponId() != null) {
+                List<Long> itemIds = storePackage.getItemList().stream().map(OrderPackage::getItemId).collect(Collectors.toList());
+                Integer couponAmount = memberCouponService.getCouponAmountWithVerify(context.getMemberId(), storePackage.getCouponId(), itemIds, storePackage.getStoreId(), itemAmount);
+                storePackage.setCouponAmount(couponAmount);
+            }
+            storePackage.setItemList(orderList);
         }
-        ItemOrderPayload orderDTO = DataUtil.copy(context, ItemOrderPayload.class);
+        ItemOrderPayload orderDTO = new ItemOrderPayload();
         orderDTO.setPackageList(packageList);
-        orderDTO.setMemberAddress(memberAddress);
         return orderDTO;
     }
 
     /**
-     * 统计商品总金额(不含快递费)
+     * 按店铺计算商品实际单价及总金额(不含快递费)
      *
      * @param packageList 下单信息
-     * @return 总金额
+     * @return 总金额(不含快递费)
      */
-    private Integer getItemAmount(List<OrderPackage> packageList, ItemOrderCreateContext context) {
+    private Integer checkAndCalcTotalAmount(List<OrderPackage> packageList, ItemOrderCreateContext context) {
         int sum = 0;
         for (OrderPackage aPackage : packageList) {
             // 最终商品单价计算
@@ -305,7 +330,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     }
 
     /**
-     * 计算最终单价
+     * 计算商品的真实单价单价
      * 1. 第一个拼团的人是团长,订单创建时生成拼团单号, 后续的拼团人需要拼团号才能进团下单
      * 2. 如果在拼团中, 拼团过了有效期则自动取消
      *
@@ -430,13 +455,9 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      */
     private void before(ItemOrderCreateContext context) {
         // 积分校验
-        if (context.getScoreAmount() > 0) {
-            int surplus = context.getScoreAmount() % 100;
-            if (surplus > 0) {
-                throw new BusinessException(SCORE_INTEGER);
-            }
+        if (context.getTotalScore() > 0) {
             Member member = memberService.getById(context.getMemberId());
-            if (member.getScore() < context.getScoreAmount()) {
+            if (member.getScore() < context.getTotalScore()) {
                 throw new BusinessException(SCORE_NOT_ENOUGH);
             }
         }
@@ -444,13 +465,20 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         if (context.getBookingNo() != null) {
             orderService.checkGroupOrder(context.getBookingNo(), context.getMemberId());
         }
-        // 校验限购数量
-        Set<Long> itemIds = context.getItemList().stream().map(ItemDTO::getItemId).collect(Collectors.toSet());
-        Map<Long, Item> itemMap = itemService.getByIdShelveMap(itemIds);
+        // 校验限购数量和积分是否是100的整数
+        Map<Long, Item> itemMap = itemService.getByIdShelveMap(context.getItemIds());
         for (ItemDTO dto : context.getItemList()) {
-            Item item = itemMap.get(dto.getItemId());
-            if (item.getQuota() < dto.getNum()) {
-                throw new BusinessException(ITEM_CHECK_QUOTA, item.getTitle(), item.getQuota());
+            if (context.getTotalScore() > 0) {
+                int surplus = dto.getScoreAmount() % 100;
+                if (surplus > 0) {
+                    throw new BusinessException(SCORE_INTEGER);
+                }
+            }
+            for (SkuDTO sku : dto.getSkuList()) {
+                Item item = itemMap.get(sku.getItemId());
+                if (sku.getNum() > item.getQuota()) {
+                    throw new BusinessException(ITEM_CHECK_QUOTA, item.getTitle(), item.getQuota());
+                }
             }
         }
         context.setItemMap(itemMap);
@@ -463,7 +491,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * @param orderList 生成的订单信息
      */
     private void after(ItemOrderCreateContext context, List<Order> orderList) {
-        memberService.updateScore(context.getMemberId(), ScoreType.PAY, context.getScoreAmount());
+        memberService.updateScore(context.getMemberId(), ScoreType.PAY, context.getTotalScore());
         int realPayAmount = orderList.stream().mapToInt(Order::getPayAmount).sum();
         if (realPayAmount <= 0) {
             String tradeNo = orderList.get(0).getTradeNo();

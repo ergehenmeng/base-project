@@ -12,6 +12,7 @@ import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.item.*;
 import com.eghm.vo.business.item.express.TotalExpressVO;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -271,7 +272,7 @@ public interface ItemService {
      * @param itemIds ids
      * @return 热销 (只要包含一个即为热销)
      */
-    boolean containHot(List<Long> itemIds);
+    boolean containHot(Collection<Long> itemIds);
 
     /**
      * 注销商户的零售商品

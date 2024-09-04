@@ -19,6 +19,8 @@ import com.eghm.service.business.OrderProxyService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.impl.*;
 import com.eghm.service.business.handler.context.*;
+import com.eghm.service.business.handler.dto.ItemDTO;
+import com.eghm.service.business.handler.dto.SkuDTO;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.business.order.OrderCreateVO;
@@ -31,6 +33,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author wyb
@@ -228,6 +232,11 @@ public class OrderController {
         ItemOrderCreateContext context = DataUtil.copy(dto, ItemOrderCreateContext.class);
         context.setGroupBooking(isGroupBooking);
         context.setMemberId(ApiHolder.getMemberId());
+        List<SkuDTO> skuList = dto.getItemList().stream().flatMap(item -> item.getSkuList().stream()).collect(Collectors.toList());
+        context.setItemIds(skuList.stream().map(SkuDTO::getItemId).collect(Collectors.toSet()));
+        context.setSkuIds(skuList.stream().map(SkuDTO::getSkuId).collect(Collectors.toSet()));
+        int totalScore = dto.getItemList().stream().mapToInt(ItemDTO::getScoreAmount).sum();
+        context.setTotalScore(totalScore);
         itemAccessHandler.createOrder(context);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);

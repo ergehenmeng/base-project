@@ -3,7 +3,8 @@ package com.eghm.annotation;
 import java.lang.annotation.*;
 
 /**
- * 仅仅为标签, 用来区分说明该字段是由后端设置进去而非前端传递过来的 一般在dto
+ * 标签注解
+ * 如果DTO中的某些字段是有后端赋值, 而非前端传递过来的, 则使用此注解进行标注,方便开发人员理解参数的来源
  *
  * @author 殿小二
  * @since 2020/8/25

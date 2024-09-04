@@ -1713,9 +1713,9 @@ public enum ErrorCode {
     BOOKING_GT_MONTH(2861, "拼团活动结束时间不能大于一个月"),
 
     /**
-     * 活动时间必须大于当前时间
+     * [%s]限购:d%件
      */
-    ITEM_CHECK_QUOTA(2864, "[%s]限购数量:d%"),
+    ITEM_CHECK_QUOTA(2864, "[%s]限购:d%件"),
 
     /**
      * 拼团活动不在有效期

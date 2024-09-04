@@ -479,7 +479,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public boolean containHot(List<Long> itemIds) {
+    public boolean containHot(Collection<Long> itemIds) {
         LambdaQueryWrapper<Item> wrapper = Wrappers.lambdaQuery();
         wrapper.in(Item::getId, itemIds);
         wrapper.eq(Item::getHotSell, true);

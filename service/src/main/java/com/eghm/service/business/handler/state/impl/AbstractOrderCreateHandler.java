@@ -104,7 +104,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
     protected void useDiscount(Order order, Long memberId, Long couponId, Long productId) {
         if (couponId != null) {
             log.info("订单[{}]使用了优惠券 [{}]", order.getOrderNo(), couponId);
-            Integer couponAmount = memberCouponService.getCouponAmountWithVerify(memberId, couponId, productId, order.getPayAmount());
+            Integer couponAmount = memberCouponService.getCouponAmountWithVerify(memberId, couponId, productId, order.getStoreId(), order.getPayAmount());
             order.setPayAmount(order.getPayAmount() - couponAmount);
             order.setCouponId(couponId);
             memberCouponService.useCoupon(couponId);

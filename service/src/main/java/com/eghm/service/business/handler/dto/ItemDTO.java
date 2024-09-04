@@ -1,27 +1,37 @@
 package com.eghm.service.business.handler.dto;
 
-import com.eghm.validation.annotation.RangeInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
- * @author wyb
- * @since 2023/6/14
+ * @author 二哥很猛
+ * @since 2024/9/4
  */
+
 @Data
 public class ItemDTO {
 
-    @ApiModelProperty(value = "商品id", required = true)
-    @NotNull(message = "商品不能为空")
-    private Long itemId;
+    @ApiModelProperty("优惠券id")
+    private Long couponId;
 
-    @RangeInt(min = 1, max = 99, message = "购买数量应为1~99")
-    @ApiModelProperty(value = "商品数量,最大99", required = true)
-    private Integer num;
+    @ApiModelProperty("店铺id")
+    @NotNull(message = "店铺不能为空")
+    private Long storeId;
 
-    @ApiModelProperty(value = "商品skuId", required = true)
-    @NotNull(message = "规格信息不能为空")
-    private Long skuId;
+    @ApiModelProperty("商品sku信息")
+    @NotEmpty(message = "请选择对应的商品")
+    private List<SkuDTO> skuList;
+
+    @ApiModelProperty("积分")
+    @Max(value = 100000, message = "积分不能超过100000")
+    private Integer scoreAmount = 0;
+
+    @ApiModelProperty("备注")
+    private String remark;
+
 }

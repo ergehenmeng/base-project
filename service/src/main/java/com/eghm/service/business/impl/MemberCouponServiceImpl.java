@@ -28,6 +28,8 @@ import com.eghm.vo.business.coupon.MemberCouponVO;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -107,7 +109,7 @@ public class MemberCouponServiceImpl implements MemberCouponService {
     }
 
     @Override
-    public Integer getCouponAmountWithVerify(Long memberId, Long couponId, Long productId, Integer amount) {
+    public Integer getCouponAmountWithVerify(Long memberId, @NonNull Long couponId, Long productId, Long storeId, Integer amount) {
         MemberCoupon coupon = memberCouponMapper.selectById(couponId);
         if (coupon == null) {
             log.error("优惠券不存在 [{}]", couponId);
@@ -144,6 +146,15 @@ public class MemberCouponServiceImpl implements MemberCouponService {
         }
         // 百分比折扣
         return amount * config.getDiscountValue() / 100;
+    }
+
+    @Override
+    public Integer getCouponAmountWithVerify(Long memberId, @NonNull Long couponId, List<Long> productIds, Long storeId, Integer amount) {
+        if (productIds.size() == 1) {
+            return this.getCouponAmountWithVerify(memberId, couponId, productIds.get(0), storeId, amount);
+        }
+
+        return null;
     }
 
     @Override
