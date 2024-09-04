@@ -28,7 +28,6 @@ import com.eghm.vo.business.coupon.MemberCouponVO;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -109,7 +108,8 @@ public class MemberCouponServiceImpl implements MemberCouponService {
     }
 
     @Override
-    public Integer getCouponAmountWithVerify(Long memberId, @NonNull Long couponId, Long productId, Long storeId, Integer amount) {
+    public Integer getCouponAmountWithVerify(Long memberId, @NonNull Long couponId, List<Long> productIds, Long storeId, Integer amount) {
+
         MemberCoupon coupon = memberCouponMapper.selectById(couponId);
         if (coupon == null) {
             log.error("优惠券不存在 [{}]", couponId);
@@ -125,18 +125,23 @@ public class MemberCouponServiceImpl implements MemberCouponService {
             throw new BusinessException(ErrorCode.COUPON_USE_ERROR);
         }
 
-        boolean match = couponScopeService.match(coupon.getCouponId(), productId);
-        if (!match) {
-            log.error("商品无法匹配该优惠券 [{}] [{}]", couponId, productId);
+        Coupon config = couponMapper.selectById(couponId);
+
+        if (config.getUseScope() == 1) {
+            if (!couponScopeService.match(couponId, productIds)) {
+                log.error("商品无法匹配该优惠券 [{}] [{}]", couponId, productIds);
+                throw new BusinessException(ErrorCode.COUPON_MATCH);
+            }
+        } else if (!storeId.equals(config.getStoreId())) {
+            log.error("商品对应的店铺无法匹配该优惠券设置的店铺 [{}] [{}] [{}]", couponId, productIds, storeId);
             throw new BusinessException(ErrorCode.COUPON_MATCH);
         }
-        Coupon config = couponMapper.selectById(coupon.getCouponId());
+
         LocalDateTime now = LocalDateTime.now();
         if (config.getUseStartTime().isAfter(now) || config.getUseEndTime().isBefore(now)) {
             log.error("优惠券不在有效期 [{}] [{}] [{}]", couponId, config.getStartTime(), config.getUseEndTime());
             throw new BusinessException(ErrorCode.COUPON_USE_ERROR);
         }
-
         if (config.getCouponType() == CouponType.DEDUCTION) {
             if (config.getDeductionValue() > amount) {
                 log.error("优惠券不满足使用条件 [{}] [{}]", couponId, amount);
@@ -149,21 +154,28 @@ public class MemberCouponServiceImpl implements MemberCouponService {
     }
 
     @Override
-    public Integer getCouponAmountWithVerify(Long memberId, @NonNull Long couponId, List<Long> productIds, Long storeId, Integer amount) {
-        if (productIds.size() == 1) {
-            return this.getCouponAmountWithVerify(memberId, couponId, productIds.get(0), storeId, amount);
-        }
-
-        return null;
-    }
-
-    @Override
     public void useCoupon(Long id) {
         LambdaUpdateWrapper<MemberCoupon> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(MemberCoupon::getId, id);
         wrapper.set(MemberCoupon::getState, CouponState.USED);
         wrapper.set(MemberCoupon::getUseTime, LocalDateTime.now());
         memberCouponMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void useCoupon(List<Long> ids) {
+        if (CollUtil.isEmpty(ids)) {
+            return;
+        }
+        LambdaUpdateWrapper<MemberCoupon> wrapper = Wrappers.lambdaUpdate();
+        wrapper.in(MemberCoupon::getId, ids);
+        wrapper.set(MemberCoupon::getState, CouponState.USED);
+        wrapper.set(MemberCoupon::getUseTime, LocalDateTime.now());
+        int update = memberCouponMapper.update(null, wrapper);
+        if (update != ids.size()) {
+            log.error("优惠券可能存在重复使用 [{}]", ids);
+            throw new BusinessException(ErrorCode.COUPON_USED);
+        }
     }
 
     @Override

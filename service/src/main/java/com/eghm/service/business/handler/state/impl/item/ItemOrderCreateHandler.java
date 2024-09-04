@@ -37,6 +37,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -262,8 +263,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     }
 
     /**
-     * 1. 设置上下文所需要的参数
-     * 2. 组装数据,减少后面遍历逻辑
+     * 1. 设置上下文所需要的参数(查询商品信息)
+     * 2. 组装数据,减少后续遍历或查询数据库
      * @param context 下单上下文
      * @return 下单信息
      */
@@ -492,6 +493,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      */
     private void after(ItemOrderCreateContext context, List<Order> orderList) {
         memberService.updateScore(context.getMemberId(), ScoreType.PAY, context.getTotalScore());
+        memberCouponService.useCoupon(orderList.stream().map(Order::getCouponId).filter(Objects::nonNull).collect(Collectors.toList()));
+
         int realPayAmount = orderList.stream().mapToInt(Order::getPayAmount).sum();
         if (realPayAmount <= 0) {
             String tradeNo = orderList.get(0).getTradeNo();

@@ -20,13 +20,13 @@ public interface CouponScopeService {
     void insertOnUpdate(Long couponId, List<Long> productIds, ProductType productType);
 
     /**
-     * 判断优惠券是否匹配该商品
+     * 判断优惠券是否匹配该商品, 注意: 所有商品都在优惠券使用范围内才会返回true
      *
-     * @param couponId  优惠券id
-     * @param productId 商品id
+     * @param couponId 优惠券id
+     * @param productIds 商品id
      * @return true:匹配 false:不匹配
      */
-    boolean match(Long couponId, Long productId);
+    boolean match(Long couponId, List<Long> productIds);
 
     /**
      * 根据优惠券id获取关联的商品id

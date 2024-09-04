@@ -68,18 +68,6 @@ public interface MemberCouponService {
     List<MemberCouponBaseVO> selectCoupon(Long memberId, Long itemId);
 
     /**
-     * 获取优惠券优惠的金额(校验优惠券是否符合使用条件)
-     *
-     * @param memberId  用户id
-     * @param couponId  用户优惠券id 不能为空
-     * @param productId 商品id 门票,房型,餐饮券等...
-     * @param storeId   商品所属店铺id
-     * @param amount    预支付金额 单位:分
-     * @return 优惠金额 单位:分
-     */
-    Integer getCouponAmountWithVerify(Long memberId, @NonNull Long couponId, Long productId, Long storeId, Integer amount);
-
-    /**
      * 获取优惠券优惠的金额(校验优惠券是否符合使用条件) 零售专用
      *
      * @param memberId  用户id
@@ -97,6 +85,13 @@ public interface MemberCouponService {
      * @param id id
      */
     void useCoupon(Long id);
+
+    /**
+     * 使用优惠券(更新优惠券状态为已使用)
+     *
+     * @param ids ids
+     */
+    void useCoupon(List<Long> ids);
 
     /**
      * 释放优惠券 <br>

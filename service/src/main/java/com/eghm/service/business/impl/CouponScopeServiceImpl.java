@@ -10,7 +10,9 @@ import com.eghm.service.business.CouponScopeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -32,12 +34,13 @@ public class CouponScopeServiceImpl implements CouponScopeService {
     }
 
     @Override
-    public boolean match(Long couponId, Long productId) {
+    public boolean match(Long couponId, List<Long> productIds) {
+        Set<Long> ids = new HashSet<>(productIds);
         LambdaQueryWrapper<CouponScope> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(CouponScope::getProductId, productId);
+        wrapper.eq(CouponScope::getProductId, ids);
         wrapper.eq(CouponScope::getCouponId, couponId);
         Long count = couponScopeMapper.selectCount(wrapper);
-        return count > 0;
+        return count == ids.size();
     }
 
     @Override

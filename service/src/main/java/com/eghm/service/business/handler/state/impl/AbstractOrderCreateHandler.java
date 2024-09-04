@@ -8,6 +8,7 @@ import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.service.business.handler.state.OrderCreateHandler;
 import com.eghm.state.machine.Context;
 import com.eghm.utils.TransactionUtil;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -104,7 +105,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
     protected void useDiscount(Order order, Long memberId, Long couponId, Long productId) {
         if (couponId != null) {
             log.info("订单[{}]使用了优惠券 [{}]", order.getOrderNo(), couponId);
-            Integer couponAmount = memberCouponService.getCouponAmountWithVerify(memberId, couponId, productId, order.getStoreId(), order.getPayAmount());
+            Integer couponAmount = memberCouponService.getCouponAmountWithVerify(memberId, couponId, Lists.newArrayList(productId), order.getStoreId(), order.getPayAmount());
             order.setPayAmount(order.getPayAmount() - couponAmount);
             order.setCouponId(couponId);
             memberCouponService.useCoupon(couponId);
