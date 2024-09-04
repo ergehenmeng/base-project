@@ -36,6 +36,10 @@ public class VoucherOrderCreateDTO {
     @Mobile(message = "联系人手机号格式错误")
     private String mobile;
 
+    @ApiModelProperty(value = "兑换码")
+    @Size(max = 20, message = "兑换码最大20字符")
+    private String cdKey;
+
     @ApiModelProperty("备注")
     @Size(max = 100, message = "备注最大100字符")
     private String remark;

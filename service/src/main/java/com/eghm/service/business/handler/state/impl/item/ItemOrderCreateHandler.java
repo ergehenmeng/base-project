@@ -208,8 +208,6 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         order.setCreateDate(LocalDate.now());
         order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
-        order.setCdKey(null);
-        order.setCdKeyAmount(null);
 
         Integer payAmount = aPackage.getItemAmount() + expressAmount - aPackage.getCouponAmount();
 
@@ -302,6 +300,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             Integer itemAmount = this.checkAndCalcTotalAmount(storePackage.getItemList(), context);
             storePackage.setItemAmount(itemAmount);
             if (storePackage.getCouponId() != null) {
+                // 用户在该店铺下单时使用了优惠券/校验优惠券是否可用并计算优惠了多少钱
                 List<Long> itemIds = storePackage.getItemList().stream().map(OrderPackage::getItemId).collect(Collectors.toList());
                 Integer couponAmount = memberCouponService.getCouponAmountWithVerify(context.getMemberId(), storePackage.getCouponId(), itemIds, storePackage.getStoreId(), itemAmount);
                 storePackage.setCouponAmount(couponAmount);

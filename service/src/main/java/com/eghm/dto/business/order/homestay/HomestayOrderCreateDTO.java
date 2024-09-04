@@ -61,6 +61,10 @@ public class HomestayOrderCreateDTO extends DateComparator {
     @NotNull(message = "离店日期不能为空")
     private LocalDate endDate;
 
+    @ApiModelProperty(value = "兑换码")
+    @Size(max = 20, message = "兑换码最大20字符")
+    private String cdKey;
+
     @ApiModelProperty("备注")
     @Size(max = 100, message = "备注最大100字符")
     private String remark;

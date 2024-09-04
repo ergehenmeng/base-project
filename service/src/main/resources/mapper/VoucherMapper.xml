@@ -71,32 +71,6 @@
         update voucher set score = #{score} where id = #{id}
     </update>
 
-    <select id="dayAppend" parameterType="com.eghm.dto.statistics.ProductRequest"  resultType="com.eghm.vo.business.statistics.ProductStatisticsVO">
-        select
-        <choose>
-            <when test="selectType == @com.eghm.enums.SelectType@YEAR">
-                create_month,
-            </when>
-            <otherwise>
-                create_date,
-            </otherwise>
-        </choose>
-        sum(id) as appendNum
-        from voucher
-        where create_date &gt;= #{startDate} and create_date &lt;= #{endDate} and deleted = false
-        <if test="merchantId != null">
-            and merchant_id = #{merchantId}
-        </if>
-        <choose>
-            <when test="selectType == @com.eghm.enums.SelectType@YEAR">
-                group by create_month
-            </when>
-            <otherwise>
-                group by create_date
-            </otherwise>
-        </choose>
-    </select>
-
     <select id="getProductPage" parameterType="com.eghm.dto.business.base.BaseProductQueryRequest" resultType="com.eghm.vo.business.base.BaseProductResponse">
         select
         t.id,

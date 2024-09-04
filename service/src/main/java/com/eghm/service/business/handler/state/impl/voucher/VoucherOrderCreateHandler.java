@@ -43,6 +43,8 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
 
     private final OrderMQService orderMQService;
 
+    private final RedeemCodeGrantService redeemCodeGrantService;
+
     public VoucherOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, RestaurantService restaurantService, OrderMQService orderMQService, VoucherService voucherService, VoucherOrderService voucherOrderService, RedeemCodeGrantService redeemCodeGrantService) {
         super(memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.restaurantService = restaurantService;
@@ -50,15 +52,18 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
         this.voucherOrderService = voucherOrderService;
         this.orderService = orderService;
         this.orderMQService = orderMQService;
+        this.redeemCodeGrantService = redeemCodeGrantService;
     }
 
     @Override
     protected VoucherOrderPayload getPayload(VoucherOrderCreateContext context) {
         Voucher voucher = voucherService.selectByIdShelve(context.getVoucherId());
         Restaurant restaurant = restaurantService.selectByIdShelve(voucher.getRestaurantId());
+        Integer redeemAmount = redeemCodeGrantService.getRedeemAmount(context.getCdKey(), restaurant.getId(), voucher.getId());
         VoucherOrderPayload payload = new VoucherOrderPayload();
         payload.setVoucher(voucher);
         payload.setRestaurant(restaurant);
+        payload.setCdKeyAmount(redeemAmount);
         return payload;
     }
 
@@ -97,6 +102,8 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
         order.setCreateTime(LocalDateTime.now());
         // 使用优惠券
         this.useDiscount(order, context.getMemberId(), context.getCouponId(), voucher.getId());
+        // 使用兑换码
+        this.useRedeemCode(order, context.getMemberId(), context.getCdKey(), payload.getCdKeyAmount());
         // 校验最低金额
         super.checkAmount(order);
         orderService.save(order);

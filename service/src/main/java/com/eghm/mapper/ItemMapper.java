@@ -120,7 +120,7 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @param tableName 商品表名
      * @return 列表
      */
-    List<ProductStatisticsVO> dayAppend(@Param("param") ProductRequest request, @Param("tableName") String tableName);
+    List<ProductStatisticsVO> dayAppend(ProductRequest request, @Param("tableName") String tableName);
 
     /**
      * 查询可以参加活动的商品列表

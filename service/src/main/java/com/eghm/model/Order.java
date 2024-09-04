@@ -161,12 +161,12 @@ public class Order extends BaseEntity {
     @ApiModelProperty("创建月份")
     private String createMonth;
 
-    @ApiModelProperty("兑换码")
+    @ApiModelProperty("兑换码(只支持线路/民宿/场馆)")
     private String cdKey;
 
     @ApiModelProperty("兑换码金额")
     private Integer cdKeyAmount;
 
-    @ApiModelProperty("使用的积分")
+    @ApiModelProperty("使用的积分(只支持零售)")
     private Integer scoreAmount;
 }

@@ -57,6 +57,10 @@ public class LineOrderCreateDTO {
     @AfterNow(message = "请选择合法的游玩日期")
     private LocalDate configDate;
 
+    @ApiModelProperty(value = "兑换码")
+    @Size(max = 20, message = "兑换码最大20字符")
+    private String cdKey;
+
     @ApiModelProperty("备注")
     @Size(max = 100, message = "备注最大100字符")
     private String remark;
