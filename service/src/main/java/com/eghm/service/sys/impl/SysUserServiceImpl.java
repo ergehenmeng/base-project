@@ -40,6 +40,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.eghm.constant.CommonConstant.MAX_ERROR_NUM;
 import static com.eghm.utils.CacheUtil.LOGIN_LOCK_CACHE;
 
 /**
@@ -219,7 +220,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public LoginResponse login(String userName, String password) {
         Integer present = LOGIN_LOCK_CACHE.getIfPresent(userName);
-        if (present != null && present > 5) {
+        if (present != null && present > MAX_ERROR_NUM) {
             throw new BusinessException(ErrorCode.USER_ERROR_LOCK);
         }
         SysUser user = this.getByMobile(userName);
