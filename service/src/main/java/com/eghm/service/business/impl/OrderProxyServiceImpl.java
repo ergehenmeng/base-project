@@ -19,6 +19,7 @@ import com.eghm.mapper.HomestayOrderMapper;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.access.AccessHandler;
+import com.eghm.service.business.handler.context.ItemRefundApplyContext;
 import com.eghm.service.business.handler.context.OrderCancelContext;
 import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.state.machine.StateHandler;
@@ -112,7 +113,7 @@ public class OrderProxyServiceImpl implements OrderProxyService {
                 log.warn("该商品已退款,无需重复退款 [{}] [{}]", orderNo, itemOrder.getId());
                 continue;
             }
-            RefundApplyContext context = new RefundApplyContext();
+            ItemRefundApplyContext context = new ItemRefundApplyContext();
             context.setMemberId(itemOrder.getMemberId());
             context.setNum(itemOrder.getNum());
             context.setItemOrderId(itemOrder.getId());

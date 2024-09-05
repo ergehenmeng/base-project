@@ -4,7 +4,6 @@ import com.eghm.model.ItemGroupOrder;
 import com.eghm.model.Order;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
 import com.eghm.vo.business.group.GroupOrderDetailVO;
-import com.eghm.vo.business.group.GroupOrderVO;
 
 import java.util.List;
 
@@ -78,15 +77,6 @@ public interface ItemGroupOrderService {
      * @return 列表
      */
     List<ItemGroupOrder> getGroupList(Long bookingId, Integer state);
-
-    /**
-     * 获取拼团信息
-     *
-     * @param bookingNo 拼团订单编号
-     * @param state 状态
-     * @return 列表
-     */
-    GroupOrderVO getGroupOrder(String bookingNo, Integer state);
 
     /**
      * 获取拼团详情

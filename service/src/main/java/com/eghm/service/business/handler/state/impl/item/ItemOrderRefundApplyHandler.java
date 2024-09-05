@@ -35,6 +35,7 @@ import static com.eghm.enums.ErrorCode.REFUND_DELIVERY;
 import static com.eghm.enums.ref.OrderState.PARTIAL_DELIVERY;
 
 /**
+ * 零售退款申请
  * @author 二哥很猛
  * @since 2022/9/9
  */
@@ -68,6 +69,98 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
     @Override
     protected void before(ItemRefundApplyContext context, Order order) {
         super.before(context, order);
+        this.checkAndSetPayload(context);
+    }
+
+    @Override
+    protected OrderRefundLog doProcess(ItemRefundApplyContext context, Order order) {
+        ItemOrder itemOrder = context.getItemOrder();
+        itemOrder.setRefundState(ItemRefundState.REFUND);
+
+        OrderRefundLog refundLog = DataUtil.copy(context, OrderRefundLog.class);
+        refundLog.setExpressFee(context.getExpressFee());
+        refundLog.setItemOrderId(itemOrder.getId());
+        refundLog.setRefundAmount(context.getRefundAmount());
+        refundLog.setMerchantId(order.getMerchantId());
+        refundLog.setApplyTime(LocalDateTime.now());
+        refundLog.setScoreAmount(context.getScoreAmount());
+        // 零售商品退款时默认是一个商品全部退, 不存在买了2件退1件的情况
+        refundLog.setNum(itemOrder.getNum());
+        refundLog.setState(0);
+        // 退款金额+手续费
+        // 正常情况下,零售只支持退款审核,默认48小时后自动退款, 但是特殊情况下,零售支持直接退款(拼团失败的订单,这些由平台主动发起的退款不需要审核)
+        if (this.getRefundType(order) == RefundType.AUDIT_REFUND) {
+            refundLog.setAuditState(AuditState.APPLY);
+            orderRefundLogService.insert(refundLog);
+            order.setRefundState(RefundState.APPLY);
+            orderService.updateById(order);
+            itemOrderService.updateById(itemOrder);
+            return refundLog;
+        }
+        refundLog.setAuditTime(LocalDateTime.now());
+        refundLog.setAuditState(AuditState.PASS);
+        refundLog.setAuditRemark("系统自动审核");
+        refundLog.setRefundNo(order.getProductType().generateTradeNo());
+        orderRefundLogService.insert(refundLog);
+
+        order.setRefundState(RefundState.PROGRESS);
+        // 审核通过后会将已退款金额和已退积分累加到订单上
+        order.setRefundAmount(order.getRefundAmount() + context.getRefundAmount());
+        order.setRefundScoreAmount(order.getRefundScoreAmount() + context.getScoreAmount());
+        orderService.updateById(order);
+
+        itemOrderService.updateById(itemOrder);
+        // 尝试发起退款(注意零元购要特殊处理)
+        this.tryStartRefund(refundLog, order);
+        return refundLog;
+    }
+
+    @Override
+    protected void after(ItemRefundApplyContext context, Order order, OrderRefundLog refundLog) {
+        log.info("零售商品订单退款申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
+        if (this.getRefundType(order) == RefundType.DIRECT_REFUND) {
+            itemGroupOrderService.refundGroupOrder(order);
+        } else {
+            RefundAudit audit = new RefundAudit();
+            audit.setRefundId(refundLog.getId());
+            audit.setOrderNo(context.getOrderNo());
+            audit.setRefundAmount(refundLog.getRefundAmount());
+            if (refundLog.getApplyType() == 1) {
+                log.info("零售退款(仅退款)申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
+                orderMQService.sendRefundAuditMessage(ExchangeQueue.ITEM_REFUND_CONFIRM, audit);
+            } else {
+                log.info("零售退款(退货退款)申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
+                orderMQService.sendReturnRefundAuditMessage(ExchangeQueue.ITEM_REFUND_CONFIRM, audit);
+            }
+        }
+    }
+
+    @Override
+    protected void orderStateCheck(ItemRefundApplyContext context, Order order) {
+        if (order.getState() != OrderState.UN_USED && order.getState() != OrderState.WAIT_TAKE &&
+                order.getState() != OrderState.WAIT_DELIVERY && order.getState() != PARTIAL_DELIVERY &&
+                order.getState() != OrderState.WAIT_RECEIVE && order.getState() != OrderState.COMPLETE) {
+            log.error("订单状态不是待使用或待发货, 无法退款 [{}] [{}]", context.getOrderNo(), order.getState());
+            throw new BusinessException(ErrorCode.STATE_NOT_REFUND);
+        }
+        this.afterSaleTimeExpireCheck(context, order);
+    }
+
+    @Override
+    protected void refundNumCheck(ItemRefundApplyContext context, Order order) {
+        int refundNum = orderRefundLogService.getTotalRefundNum(context.getOrderNo(), context.getItemOrderId());
+        if (refundNum > 0) {
+            throw new BusinessException(ErrorCode.ITEM_REFUND);
+        }
+    }
+
+    /**
+     * 申请退款订单基础校验通过后, 进行零售退款专项校验,
+     * 同时将查询订单订单等关信息设置到context中减少后续查询
+     *
+     * @param context 上下文
+     */
+    private void checkAndSetPayload(ItemRefundApplyContext context) {
         ItemOrder itemOrder = itemOrderService.selectByIdRequired(context.getItemOrderId());
         if (!itemOrder.getOrderNo().equals(context.getOrderNo())) {
             log.error("订单id与订单编号不匹配,无法申请退款 [{}] [{}]", context.getItemOrderId(), context.getOrderNo());
@@ -92,82 +185,13 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         context.setItemOrder(itemOrder);
     }
 
-    @Override
-    protected OrderRefundLog doProcess(ItemRefundApplyContext context, Order order) {
-        ItemOrder itemOrder = context.getItemOrder();
-        itemOrder.setRefundState(ItemRefundState.REFUND);
-
-        OrderRefundLog refundLog = DataUtil.copy(context, OrderRefundLog.class);
-        refundLog.setExpressFee(context.getExpressFee());
-        refundLog.setItemOrderId(itemOrder.getId());
-        refundLog.setRefundAmount(context.getRefundAmount());
-        refundLog.setMerchantId(order.getMerchantId());
-        refundLog.setApplyTime(LocalDateTime.now());
-        refundLog.setNum(itemOrder.getNum());
-        refundLog.setState(0);
-        // 退款金额+手续费
-        // 正常情况下,零售只支持退款审核,默认48小时后自动退款, 但是特殊情况下,零售支持直接退款(拼团失败的订单,这些由平台主动发起的退款不需要审核)
-        if (this.getRefundType(order) == RefundType.AUDIT_REFUND) {
-            refundLog.setAuditState(AuditState.APPLY);
-            orderRefundLogService.insert(refundLog);
-            order.setRefundState(RefundState.APPLY);
-            orderService.updateById(order);
-            itemOrderService.updateById(itemOrder);
-            return refundLog;
-        }
-        refundLog.setAuditTime(LocalDateTime.now());
-        refundLog.setAuditState(AuditState.PASS);
-        refundLog.setAuditRemark("系统自动审核");
-        refundLog.setRefundNo(order.getProductType().generateTradeNo());
-        orderRefundLogService.insert(refundLog);
-
-        order.setRefundState(RefundState.PROGRESS);
-        order.setRefundAmount(order.getRefundAmount() + context.getRefundAmount());
-        orderService.updateById(order);
-
-        itemOrderService.updateById(itemOrder);
-        // 尝试发起退款(注意零元购要特殊处理)
-        this.tryRefund(refundLog, order);
-        return refundLog;
-    }
-
-    @Override
-    protected void checkRefund(ItemRefundApplyContext context, Order order) {
-        super.checkRefundState(context, order);
-        this.checkOrderState(context, order);
-        int refundNum = orderRefundLogService.getTotalRefundNum(context.getOrderNo(), context.getItemOrderId());
-        if (refundNum > 0) {
-            throw new BusinessException(ErrorCode.ITEM_REFUND);
-        }
-    }
-
-    @Override
-    protected void after(RefundApplyContext context, Order order, OrderRefundLog refundLog) {
-        log.info("零售商品订单退款申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
-        if (this.getRefundType(order) == RefundType.DIRECT_REFUND) {
-            itemGroupOrderService.refundGroupOrder(order);
-        } else {
-            RefundAudit audit = new RefundAudit();
-            audit.setRefundId(refundLog.getId());
-            audit.setOrderNo(context.getOrderNo());
-            audit.setRefundAmount(refundLog.getRefundAmount());
-            if (refundLog.getApplyType() == 1) {
-                log.info("零售退款(仅退款)申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
-                orderMQService.sendRefundAuditMessage(ExchangeQueue.ITEM_REFUND_CONFIRM, audit);
-            } else {
-                log.info("零售退款(退货退款)申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
-                orderMQService.sendReturnRefundAuditMessage(ExchangeQueue.ITEM_REFUND_CONFIRM, audit);
-            }
-        }
-    }
-
     /**
      * 尝试发起退款, 如果是零元付,则不真实发起支付,而是模拟退款成功
      *
      * @param refundLog 支付流水记录
      * @param order 订单编号
      */
-    protected void tryRefund(OrderRefundLog refundLog, Order order) {
+    protected void tryStartRefund(OrderRefundLog refundLog, Order order) {
         if (refundLog.getRefundAmount() > 0) {
             orderService.startRefund(refundLog, order);
         } else {
@@ -185,24 +209,13 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         }
     }
 
-    @Override
-    protected void checkOrderState(ItemRefundApplyContext context, Order order) {
-        if (order.getState() != OrderState.UN_USED && order.getState() != OrderState.WAIT_TAKE &&
-                order.getState() != OrderState.WAIT_DELIVERY && order.getState() != PARTIAL_DELIVERY &&
-                order.getState() != OrderState.WAIT_RECEIVE && order.getState() != OrderState.COMPLETE) {
-            log.error("订单状态不是待使用或待发货, 无法退款 [{}] [{}]", context.getOrderNo(), order.getState());
-            throw new BusinessException(ErrorCode.STATE_NOT_REFUND);
-        }
-        this.checkAfterSaleTime(context, order);
-    }
-
     /**
      * 检查订单是否超过售后时间
      *
      * @param context 上下文
      * @param order 订单
      */
-    protected void checkAfterSaleTime(RefundApplyContext context, Order order) {
+    protected void afterSaleTimeExpireCheck(RefundApplyContext context, Order order) {
         if (order.getState() == OrderState.COMPLETE) {
             int anInt = sysConfigApi.getInt(ConfigConstant.SUPPORT_AFTER_SALE_TIME, 604800);
             LocalDateTime refundExpireTime = order.getCompleteTime().plusSeconds(anInt);

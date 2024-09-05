@@ -26,7 +26,7 @@ public class ItemOrderAutoRefundHandler extends ItemOrderRefundApplyHandler {
     }
 
     @Override
-    protected void checkAfterSaleTime(RefundApplyContext context, Order order) {
+    protected void afterSaleTimeExpireCheck(RefundApplyContext context, Order order) {
         log.info("平台发起退款,不校验售后时间 [{}]", context.getOrderNo());
     }
 

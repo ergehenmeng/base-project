@@ -99,7 +99,7 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
      * @param order     订单信息
      * @param refundLog 退款记录
      */
-    protected void after(RefundApplyContext context, Order order, OrderRefundLog refundLog) {
+    protected void after(T context, Order order, OrderRefundLog refundLog) {
         log.info("订单退款申请成功 [{}] [{}] [{}]", context, order.getState(), order.getRefundState());
         orderVisitorService.refundLock(order.getProductType(), context.getOrderNo(), refundLog.getId(), context.getVisitorIds(), VisitorState.REFUNDING);
     }
@@ -120,7 +120,11 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
             throw new BusinessException(ErrorCode.REFUND_NOT_SUPPORTED);
         }
 
-        this.checkRefund(context, order);
+        this.refundStateCheck(context, order);
+
+        this.orderStateCheck(context, order);
+
+        this.refundNumCheck(context, order);
     }
 
     /**
@@ -137,20 +141,16 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
     }
 
     /**
-     * 直接退款时,需要二次校验是否满足本次退款要求
+     * 校验退款状态是否满足退款要求
      *
-     * @param context 订单申请信息
-     * @param order   主订单
+     * @param context 上下文
+     * @param order 订单
      */
-    protected void checkRefund(T context, Order order) {
-        this.checkRefundState(context, order);
-        this.checkOrderState(context, order);
-        int refundNum = orderRefundLogService.getTotalRefundNum(context.getOrderNo(), null);
-        int useNum = this.getVerifyNum(order);
-        // 已核销+已退款+本次退款应该小于等于下单数量
-        if (order.getNum() < (refundNum + useNum + context.getNum())) {
-            log.error("累计退款数量(含本次)大于总支付数量 [{}] [{}] [{}] [{}] [{}]", order.getOrderNo(), order.getNum(), refundNum, context.getNum(), useNum);
-            throw new BusinessException(TOTAL_REFUND_MAX_NUM);
+    protected void refundStateCheck(T context, Order order) {
+        // 同一时间内不允许一个订单发起两次退款, 由于零售一个订单可能包含多个商品, 因此退款成功的商品可以继续退款
+        if (order.getRefundState() == RefundState.PROGRESS || order.getRefundState() == RefundState.APPLY) {
+            log.error("订单状态退款申请中, 无法退款 [{}] [{}]", context.getOrderNo(), order.getRefundState());
+            throw new BusinessException(ErrorCode.REFUND_STATE_INVALID);
         }
     }
 
@@ -160,7 +160,7 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
      * @param context 上下文
      * @param order 订单
      */
-    protected void checkOrderState(T context, Order order) {
+    protected void orderStateCheck(T context, Order order) {
         if (order.getState() != OrderState.UN_USED && order.getState() != OrderState.WAIT_TAKE &&
                 order.getState() != OrderState.WAIT_DELIVERY && order.getState() != PARTIAL_DELIVERY &&
                 order.getState() != OrderState.WAIT_RECEIVE) {
@@ -170,18 +170,18 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
     }
 
     /**
-     * 校验退款状态是否满足退款要求
+     * 根据已退款数量判断退款是否满足
      *
      * @param context 上下文
      * @param order 订单
      */
-    protected void checkRefundState(T context, Order order) {
-        // 同一时间内不允许一个订单发起两次退款, 由于零售一个订单可能包含多个商品, 因此退款成功的商品可以继续退款
-        if (order.getRefundState() != RefundState.FAIL && order.getRefundState() != RefundState.OFFLINE &&
-                order.getRefundState() != RefundState.NONE && order.getRefundState() != RefundState.SUCCESS &&
-                order.getRefundState() != RefundState.REFUSE) {
-            log.error("订单状态退款申请中, 无法退款 [{}] [{}]", context.getOrderNo(), order.getRefundState());
-            throw new BusinessException(ErrorCode.REFUND_STATE_INVALID);
+    protected void refundNumCheck(T context, Order order) {
+        int refundNum = orderRefundLogService.getTotalRefundNum(context.getOrderNo(), null);
+        int useNum = this.getVerifyNum(order);
+        // 已核销+已退款+本次退款应该小于等于下单数量
+        if (order.getNum() < (refundNum + useNum + context.getNum())) {
+            log.error("累计退款数量(含本次)大于总支付数量 [{}] [{}] [{}] [{}] [{}]", order.getOrderNo(), order.getNum(), refundNum, context.getNum(), useNum);
+            throw new BusinessException(TOTAL_REFUND_MAX_NUM);
         }
     }
 

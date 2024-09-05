@@ -3,6 +3,7 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.common.AlarmService;
 import com.eghm.constant.CommonConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
@@ -14,14 +15,12 @@ import com.eghm.model.GroupBooking;
 import com.eghm.model.Item;
 import com.eghm.model.ItemGroupOrder;
 import com.eghm.model.Order;
+import com.eghm.mq.service.MessageService;
 import com.eghm.service.business.GroupBookingService;
 import com.eghm.service.business.ItemGroupOrderService;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
-import com.eghm.mq.service.MessageService;
-import com.eghm.common.AlarmService;
 import com.eghm.vo.business.group.GroupMemberVO;
 import com.eghm.vo.business.group.GroupOrderDetailVO;
-import com.eghm.vo.business.group.GroupOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -123,17 +122,6 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
         wrapper.eq(ItemGroupOrder::getBookingId, bookingId);
         wrapper.eq(ItemGroupOrder::getState, state);
         return itemGroupOrderMapper.selectList(wrapper);
-    }
-
-    @Override
-    public GroupOrderVO getGroupOrder(String bookingNo, Integer state) {
-        List<ItemGroupOrder> groupList = this.getGroupList(bookingNo, state);
-        GroupOrderVO vo = new GroupOrderVO();
-        vo.setNum(groupList.size());
-        if (!groupList.isEmpty()) {
-            vo.setBookingId(groupList.get(0).getBookingId());
-        }
-        return vo;
     }
 
     @Override

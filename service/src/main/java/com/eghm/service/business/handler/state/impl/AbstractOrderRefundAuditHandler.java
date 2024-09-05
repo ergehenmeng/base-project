@@ -85,6 +85,7 @@ public abstract class AbstractOrderRefundAuditHandler implements ActionHandler<R
         refundLog.setAuditUserId(context.getAuditUserId());
         refundLog.setAuditTime(LocalDateTime.now());
         order.setRefundAmount(order.getRefundAmount() + context.getRefundAmount());
+        order.setRefundScoreAmount(order.getRefundScoreAmount() + refundLog.getScoreAmount());
         orderService.updateById(order);
         orderRefundLogService.updateById(refundLog);
     }
