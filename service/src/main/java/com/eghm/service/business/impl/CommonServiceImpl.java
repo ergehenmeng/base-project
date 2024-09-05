@@ -17,7 +17,6 @@ import com.eghm.service.business.CommonService;
 import com.eghm.service.business.handler.access.AccessHandler;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
-import com.eghm.service.business.handler.state.RefundNotifyHandler;
 import com.eghm.utils.DateUtil;
 import com.eghm.utils.SpringContextUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
@@ -103,12 +102,6 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public <T> T getHandler(ProductType productType, Class<T> clsHandler) {
         return SpringContextUtil.getBean(productType.getValue() + clsHandler.getSimpleName(), clsHandler);
-    }
-
-    @Override
-    public RefundNotifyHandler getRefundHandler(String orderNo) {
-        String prefix = ProductType.prefix(orderNo).getValue();
-        return SpringContextUtil.getBean(prefix + RefundNotifyHandler.class.getSimpleName(), RefundNotifyHandler.class);
     }
 
     @Override

@@ -11,7 +11,7 @@ import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.context.RefundAuditContext;
-import com.eghm.service.business.handler.state.RefundAuditHandler;
+import com.eghm.state.machine.ActionHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +28,7 @@ import static com.eghm.enums.ErrorCode.*;
  */
 @AllArgsConstructor
 @Slf4j
-public abstract class AbstractOrderRefundAuditHandler implements RefundAuditHandler {
+public abstract class AbstractOrderRefundAuditHandler implements ActionHandler<RefundAuditContext> {
 
     private final OrderService orderService;
 

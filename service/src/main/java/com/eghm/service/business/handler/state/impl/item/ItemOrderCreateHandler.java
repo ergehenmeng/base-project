@@ -24,9 +24,9 @@ import com.eghm.service.business.handler.access.impl.ItemAccessHandler;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.dto.*;
-import com.eghm.service.business.handler.state.OrderCreateHandler;
 import com.eghm.service.member.MemberAddressService;
 import com.eghm.service.member.MemberService;
+import com.eghm.state.machine.ActionHandler;
 import com.eghm.utils.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -52,7 +52,7 @@ import static com.eghm.enums.ErrorCode.*;
 @Slf4j
 @AllArgsConstructor
 @Service("itemOrderCreateHandler")
-public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreateContext> {
+public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateContext> {
 
     private final ItemOrderService itemOrderService;
 

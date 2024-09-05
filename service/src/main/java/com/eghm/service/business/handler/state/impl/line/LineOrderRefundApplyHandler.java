@@ -6,6 +6,7 @@ import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
+import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundApplyHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("lineOrderRefundApplyHandler")
 @Slf4j
-public class LineOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler {
+public class LineOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler<RefundApplyContext> {
 
     public LineOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                        OrderVisitorService orderVisitorService) {

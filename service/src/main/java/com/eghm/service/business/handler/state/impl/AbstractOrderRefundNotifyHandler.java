@@ -7,14 +7,14 @@ import com.eghm.enums.ref.RefundState;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
+import com.eghm.pay.enums.RefundStatus;
+import com.eghm.pay.vo.RefundVO;
 import com.eghm.service.business.AccountService;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VerifyLogService;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
-import com.eghm.service.business.handler.state.RefundNotifyHandler;
-import com.eghm.pay.enums.RefundStatus;
-import com.eghm.pay.vo.RefundVO;
+import com.eghm.state.machine.ActionHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -33,7 +33,7 @@ import static com.eghm.pay.enums.RefundStatus.*;
  */
 @AllArgsConstructor
 @Slf4j
-public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHandler {
+public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<RefundNotifyContext> {
 
     private final OrderService orderService;
 

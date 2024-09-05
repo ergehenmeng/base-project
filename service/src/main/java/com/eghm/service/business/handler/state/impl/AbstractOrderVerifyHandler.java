@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.state.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.eghm.common.JsonService;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.exception.BusinessException;
@@ -12,8 +13,7 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.VerifyLogService;
 import com.eghm.service.business.handler.context.OrderVerifyContext;
-import com.eghm.service.business.handler.state.OrderVerifyHandler;
-import com.eghm.common.JsonService;
+import com.eghm.state.machine.ActionHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
  */
 @Slf4j
 @AllArgsConstructor
-public abstract class AbstractOrderVerifyHandler implements OrderVerifyHandler {
+public abstract class AbstractOrderVerifyHandler implements ActionHandler<OrderVerifyContext> {
 
     private final OrderVisitorService orderVisitorService;
 

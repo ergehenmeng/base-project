@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("ticketOrderRefundApplyHandler")
 @Slf4j
-public class TicketOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler {
+public class TicketOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler<RefundApplyContext> {
 
     private final TicketOrderService ticketOrderService;
 

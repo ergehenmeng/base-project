@@ -6,7 +6,6 @@ import com.eghm.enums.ref.ProductType;
 import com.eghm.model.SysDictItem;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
-import com.eghm.service.business.handler.state.RefundNotifyHandler;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.statistics.ProductStatisticsVO;
 import com.eghm.vo.sys.SysAreaVO;
@@ -58,14 +57,6 @@ public interface CommonService {
      * @return accessHandler
      */
     <T> T getHandler(ProductType productType, Class<T> clsHandler);
-
-    /**
-     * 根据订单编号查询退款处理类
-     *
-     * @param orderNo 订单编号 以ProductType中的prefix开头的订单
-     * @return 退款处理类
-     */
-    RefundNotifyHandler getRefundHandler(String orderNo);
 
     /**
      * 根据给定的字典列表和标签id进行解析

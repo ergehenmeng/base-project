@@ -7,7 +7,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.context.PayNotifyContext;
-import com.eghm.service.business.handler.state.PayNotifyHandler;
+import com.eghm.state.machine.ActionHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 @AllArgsConstructor
 @Slf4j
-public abstract class AbstractItemOrderPayNotifyHandler implements PayNotifyHandler {
+public abstract class AbstractItemOrderPayNotifyHandler implements ActionHandler<PayNotifyContext> {
 
     private final OrderService orderService;
 

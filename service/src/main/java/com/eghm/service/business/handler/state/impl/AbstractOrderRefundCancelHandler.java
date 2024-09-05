@@ -9,7 +9,7 @@ import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.context.RefundCancelContext;
-import com.eghm.service.business.handler.state.RefundCancelHandler;
+import com.eghm.state.machine.ActionHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -26,7 +26,7 @@ import static com.eghm.enums.ErrorCode.*;
  */
 @AllArgsConstructor
 @Slf4j
-public abstract class AbstractOrderRefundCancelHandler implements RefundCancelHandler {
+public abstract class AbstractOrderRefundCancelHandler implements ActionHandler<RefundCancelContext> {
 
     private final OrderService orderService;
 

@@ -4,7 +4,7 @@ import com.eghm.enums.ref.OrderState;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.context.PayNotifyContext;
-import com.eghm.service.business.handler.state.PayNotifyHandler;
+import com.eghm.state.machine.ActionHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @AllArgsConstructor
 @Slf4j
-public abstract class AbstractOrderPayFailHandler implements PayNotifyHandler {
+public abstract class AbstractOrderPayFailHandler implements ActionHandler<PayNotifyContext> {
 
     private final OrderService orderService;
 

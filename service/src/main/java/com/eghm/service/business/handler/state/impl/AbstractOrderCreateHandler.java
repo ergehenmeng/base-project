@@ -5,7 +5,7 @@ import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.RedeemCodeGrantService;
 import com.eghm.service.business.handler.dto.VisitorDTO;
-import com.eghm.service.business.handler.state.OrderCreateHandler;
+import com.eghm.state.machine.ActionHandler;
 import com.eghm.state.machine.Context;
 import com.eghm.utils.TransactionUtil;
 import com.google.common.collect.Lists;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 @Slf4j
 @AllArgsConstructor
-public abstract class AbstractOrderCreateHandler<C extends Context, P> implements OrderCreateHandler<C> {
+public abstract class AbstractOrderCreateHandler<C extends Context, P> implements ActionHandler<C> {
 
     private final MemberCouponService memberCouponService;
 

@@ -11,7 +11,7 @@ import com.eghm.service.business.AccountService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.context.PayNotifyContext;
-import com.eghm.service.business.handler.state.PayNotifyHandler;
+import com.eghm.state.machine.ActionHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -20,14 +20,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 支付异步回调 成功
- * 注意: 该接口为抽象模板方法,只支持单商品下单的异步通知, 由于零售涉及购物车下单, 因此该方法不支持零售, 请直接实现 {@link PayNotifyHandler} 接口
+ * 注意: 该接口为抽象模板方法,只支持单商品下单的异步通知, 由于零售涉及购物车下单, 因此该方法不支持零售, 请直接实现 {@link ActionHandler} 接口
  *
  * @author 二哥很猛
  * @since 2022/8/20
  */
 @AllArgsConstructor
 @Slf4j
-public abstract class AbstractOrderPaySuccessHandler implements PayNotifyHandler {
+public abstract class AbstractOrderPaySuccessHandler implements ActionHandler<PayNotifyContext> {
 
     private final OrderService orderService;
 

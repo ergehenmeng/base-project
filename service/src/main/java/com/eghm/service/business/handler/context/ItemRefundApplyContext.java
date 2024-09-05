@@ -5,6 +5,7 @@ import com.eghm.model.ItemOrder;
 import com.eghm.state.machine.Context;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
@@ -14,7 +15,8 @@ import java.util.List;
  */
 
 @Data
-public class RefundApplyContext implements Context {
+@EqualsAndHashCode(callSuper = true)
+public class ItemRefundApplyContext extends RefundApplyContext implements Context {
 
     @ApiModelProperty(value = "订单编号", required = true)
     private String orderNo;

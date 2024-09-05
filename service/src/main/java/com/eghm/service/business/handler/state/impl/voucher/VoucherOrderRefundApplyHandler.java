@@ -9,6 +9,7 @@ import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.VoucherOrderService;
+import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundApplyHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service("voucherOrderRefundApplyHandler")
-public class VoucherOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler {
+public class VoucherOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler<RefundApplyContext> {
 
     private final VoucherOrderService voucherOrderService;
 

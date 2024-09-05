@@ -6,13 +6,12 @@ import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
-import com.eghm.service.business.MemberCouponService;
-import com.eghm.service.business.OrderService;
-import com.eghm.service.business.handler.context.OrderCancelContext;
-import com.eghm.service.business.handler.state.OrderCancelHandler;
 import com.eghm.pay.AggregatePayService;
 import com.eghm.pay.enums.TradeState;
 import com.eghm.pay.enums.TradeType;
+import com.eghm.service.business.MemberCouponService;
+import com.eghm.service.business.OrderService;
+import com.eghm.service.business.handler.context.OrderCancelContext;
 import com.eghm.state.machine.ActionHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +27,7 @@ import java.time.LocalDateTime;
  */
 @AllArgsConstructor
 @Slf4j
-public abstract class AbstractOrderCancelHandler implements OrderCancelHandler, ActionHandler<OrderCancelContext> {
+public abstract class AbstractOrderCancelHandler implements ActionHandler<OrderCancelContext> {
 
     private final OrderService orderService;
 

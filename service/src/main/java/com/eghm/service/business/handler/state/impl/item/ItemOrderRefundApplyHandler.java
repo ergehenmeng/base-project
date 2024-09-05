@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.state.impl.item;
 
 import com.eghm.common.OrderMQService;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.RefundAudit;
 import com.eghm.enums.ErrorCode;
@@ -12,14 +13,14 @@ import com.eghm.exception.BusinessException;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
+import com.eghm.pay.enums.RefundStatus;
+import com.eghm.pay.vo.RefundVO;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.access.impl.ItemAccessHandler;
+import com.eghm.service.business.handler.context.ItemRefundApplyContext;
 import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundApplyHandler;
-import com.eghm.pay.enums.RefundStatus;
-import com.eghm.pay.vo.RefundVO;
-import com.eghm.common.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.utils.SpringContextUtil;
@@ -39,7 +40,7 @@ import static com.eghm.enums.ref.OrderState.PARTIAL_DELIVERY;
  */
 @Service("itemOrderRefundApplyHandler")
 @Slf4j
-public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler {
+public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler<ItemRefundApplyContext> {
 
     private final ItemOrderService itemOrderService;
 
@@ -65,7 +66,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
     }
 
     @Override
-    protected void before(RefundApplyContext context, Order order) {
+    protected void before(ItemRefundApplyContext context, Order order) {
         super.before(context, order);
         ItemOrder itemOrder = itemOrderService.selectByIdRequired(context.getItemOrderId());
         if (!itemOrder.getOrderNo().equals(context.getOrderNo())) {
@@ -92,7 +93,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
     }
 
     @Override
-    protected OrderRefundLog doProcess(RefundApplyContext context, Order order) {
+    protected OrderRefundLog doProcess(ItemRefundApplyContext context, Order order) {
         ItemOrder itemOrder = context.getItemOrder();
         itemOrder.setRefundState(ItemRefundState.REFUND);
 
@@ -131,7 +132,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
     }
 
     @Override
-    protected void checkRefund(RefundApplyContext context, Order order) {
+    protected void checkRefund(ItemRefundApplyContext context, Order order) {
         super.checkRefundState(context, order);
         this.checkOrderState(context, order);
         int refundNum = orderRefundLogService.getTotalRefundNum(context.getOrderNo(), context.getItemOrderId());
@@ -185,7 +186,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
     }
 
     @Override
-    protected void checkOrderState(RefundApplyContext context, Order order) {
+    protected void checkOrderState(ItemRefundApplyContext context, Order order) {
         if (order.getState() != OrderState.UN_USED && order.getState() != OrderState.WAIT_TAKE &&
                 order.getState() != OrderState.WAIT_DELIVERY && order.getState() != PARTIAL_DELIVERY &&
                 order.getState() != OrderState.WAIT_RECEIVE && order.getState() != OrderState.COMPLETE) {

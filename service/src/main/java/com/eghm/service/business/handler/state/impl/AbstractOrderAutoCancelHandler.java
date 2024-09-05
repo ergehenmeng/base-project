@@ -4,12 +4,12 @@ import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.eghm.model.Order;
+import com.eghm.pay.AggregatePayService;
+import com.eghm.pay.enums.TradeType;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.context.OrderCancelContext;
-import com.eghm.service.business.handler.state.OrderAutoCancelHandler;
-import com.eghm.pay.AggregatePayService;
-import com.eghm.pay.enums.TradeType;
+import com.eghm.state.machine.ActionHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Propagation;
@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
  */
 @Slf4j
 @AllArgsConstructor
-public abstract class AbstractOrderAutoCancelHandler implements OrderAutoCancelHandler {
+public abstract class AbstractOrderAutoCancelHandler implements ActionHandler<OrderCancelContext> {
 
     private final OrderService orderService;
 

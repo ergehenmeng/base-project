@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
  */
 @Slf4j
 @Service("venueOrderRefundApplyHandler")
-public class VenueOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler {
+public class VenueOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler<RefundApplyContext> {
 
     private final OrderService orderService;
 

@@ -9,7 +9,7 @@ import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.context.RefundApplyContext;
-import com.eghm.service.business.handler.state.RefundApplyHandler;
+import com.eghm.state.machine.ActionHandler;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import lombok.AllArgsConstructor;
@@ -30,7 +30,7 @@ import static com.eghm.enums.ref.OrderState.PARTIAL_DELIVERY;
  */
 @AllArgsConstructor
 @Slf4j
-public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHandler {
+public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyContext> implements ActionHandler<T> {
 
     private final OrderService orderService;
 
@@ -40,7 +40,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void doAction(RefundApplyContext context) {
+    public void doAction(T context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
         this.before(context, order);
 
@@ -59,7 +59,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
      * @param order   订单信息
      * @return 退款记录
      */
-    protected OrderRefundLog doProcess(RefundApplyContext context, Order order) {
+    protected OrderRefundLog doProcess(T context, Order order) {
         this.checkRefundAmount(context, order);
         OrderRefundLog refundLog = DataUtil.copy(context, OrderRefundLog.class);
         refundLog.setApplyTime(LocalDateTime.now());
@@ -110,7 +110,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
      * @param context 订单申请信息
      * @param order   主订单
      */
-    protected void before(RefundApplyContext context, Order order) {
+    protected void before(T context, Order order) {
         if (!context.getMemberId().equals(order.getMemberId())) {
             log.error("订单不属于当前用户,无法退款 [{}] [{}] [{}]", context.getOrderNo(), order.getMemberId(), context.getMemberId());
             throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
@@ -129,7 +129,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
      * @param context 退款信息
      * @param order   订单信息
      */
-    protected void checkRefundAmount(RefundApplyContext context, Order order) {
+    protected void checkRefundAmount(T context, Order order) {
         int totalAmount = order.getPrice() * context.getNum();
         if (totalAmount < context.getRefundAmount()) {
             throw new BusinessException(REFUND_AMOUNT_MAX, DecimalUtil.centToYuan(totalAmount));
@@ -142,7 +142,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
      * @param context 订单申请信息
      * @param order   主订单
      */
-    protected void checkRefund(RefundApplyContext context, Order order) {
+    protected void checkRefund(T context, Order order) {
         this.checkRefundState(context, order);
         this.checkOrderState(context, order);
         int refundNum = orderRefundLogService.getTotalRefundNum(context.getOrderNo(), null);
@@ -160,7 +160,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
      * @param context 上下文
      * @param order 订单
      */
-    protected void checkOrderState(RefundApplyContext context, Order order) {
+    protected void checkOrderState(T context, Order order) {
         if (order.getState() != OrderState.UN_USED && order.getState() != OrderState.WAIT_TAKE &&
                 order.getState() != OrderState.WAIT_DELIVERY && order.getState() != PARTIAL_DELIVERY &&
                 order.getState() != OrderState.WAIT_RECEIVE) {
@@ -175,7 +175,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
      * @param context 上下文
      * @param order 订单
      */
-    protected void checkRefundState(RefundApplyContext context, Order order) {
+    protected void checkRefundState(T context, Order order) {
         // 同一时间内不允许一个订单发起两次退款, 由于零售一个订单可能包含多个商品, 因此退款成功的商品可以继续退款
         if (order.getRefundState() != RefundState.FAIL && order.getRefundState() != RefundState.OFFLINE &&
                 order.getRefundState() != RefundState.NONE && order.getRefundState() != RefundState.SUCCESS &&
@@ -201,7 +201,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
      * @param order 订单号
      * @return 记录
      */
-    protected OrderRefundLog createDefaultLog(RefundApplyContext context, Order order) {
+    protected OrderRefundLog createDefaultLog(T context, Order order) {
         OrderRefundLog refundLog = new OrderRefundLog();
         refundLog.setMemberId(order.getMemberId());
         refundLog.setMerchantId(order.getMerchantId());
