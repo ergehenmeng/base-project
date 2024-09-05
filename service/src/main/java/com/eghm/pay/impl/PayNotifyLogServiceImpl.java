@@ -44,9 +44,7 @@ public class PayNotifyLogServiceImpl implements PayNotifyLogService {
         log.setParams(new Gson().toJson(params));
         log.setTradeNo(params.get("out_trade_no"));
         log.setNotifyId(params.get("notify_id"));
-        if (stepType == StepType.REFUND) {
-            log.setRefundNo(params.get("out_biz_no"));
-        }
+        log.setRefundNo(params.get("out_biz_no"));
         payNotifyLogMapper.insert(log);
     }
 
