@@ -62,9 +62,9 @@ public class VoucherOrderResponse extends ExcelStyle {
     @ExcelProperty(value = "付款金额", index = 7, converter = CentToYuanConverter.class)
     private Integer payAmount;
 
-    @ApiModelProperty("优惠金额")
+    @ApiModelProperty("总优惠金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
-    @ExcelProperty(value = "优惠金额", index = 8, converter = CentToYuanConverter.class)
+    @ExcelProperty(value = "总优惠金额", index = 8, converter = CentToYuanConverter.class)
     private Integer discountAmount;
 
     @ApiModelProperty("下单时间")

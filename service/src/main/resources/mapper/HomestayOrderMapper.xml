@@ -14,7 +14,7 @@
         r.state,
         r.pay_time,
         r.pay_amount,
-        r.discount_amount,
+        r.discount_amount + r.discount_amount as discountAmount,
         r.create_time
         from `order` r
         inner join homestay_order t on t.order_no = r.order_no

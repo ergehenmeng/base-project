@@ -10,7 +10,7 @@
         t.venue_type,
         r.pay_type,
         r.pay_amount,
-        r.discount_amount,
+        r.discount_amount + r.cd_key_amount as discountAmount,
         r.nick_name,
         r.mobile,
         r.create_time,

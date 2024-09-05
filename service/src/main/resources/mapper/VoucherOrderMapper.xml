@@ -15,7 +15,7 @@
         r.mobile,
         r.num,
         r.state,
-        r.discount_amount,
+        r.discount_amount + r.cd_key_amount as discountAmount,
         r.pay_amount
         from `order` r
         inner join voucher_order t on t.order_no = r.order_no
