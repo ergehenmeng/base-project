@@ -266,6 +266,7 @@ public class SysUserServiceImpl implements SysUserService {
         response.setInit(user.getInitPwd().equals(user.getPwd()));
         response.setExpire(user.getPwdUpdateTime().plusDays(CommonConstant.PWD_UPDATE_TIPS).isBefore(LocalDateTime.now()));
         cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
+        LOGIN_LOCK_CACHE.invalidate(userName);
         return response;
     }
 

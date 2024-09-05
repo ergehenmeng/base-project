@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.concurrent.TimeUnit;
 
+import static com.eghm.constant.CommonConstant.SUBMIT_INTERVAL;
+
 /**
  * 内存缓存工具类
  *
@@ -26,4 +28,9 @@ public class CacheUtil {
      * 验证码缓存 默认1分钟失效
      */
     public static final Cache<String, String> CAPTCHA_CACHE = Caffeine.newBuilder().expireAfterWrite(1, TimeUnit.MINUTES).maximumSize(1000).build();
+
+    /**
+     * post请求间隔限制
+     */
+    public static final Cache<String, Boolean> INTERVAL_CACHE = Caffeine.newBuilder().expireAfterWrite(SUBMIT_INTERVAL, TimeUnit.MILLISECONDS).maximumSize(2000).build();
 }

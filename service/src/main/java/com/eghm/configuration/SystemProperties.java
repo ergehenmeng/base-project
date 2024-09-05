@@ -30,11 +30,6 @@ public class SystemProperties {
     private UploadType uploadType = UploadType.SYSTEM;
 
     /**
-     * 两次提交间隔时间,只针对post请求, 单位:秒
-     */
-    private Long submitInterval = 1L;
-
-    /**
      * 系统运行环境(默认准生产环境)
      */
     private Env env = Env.PRE;

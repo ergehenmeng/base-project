@@ -1,14 +1,11 @@
 package com.eghm.web.configuration.interceptor;
 
-import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.enums.ErrorCode;
-import com.eghm.cache.CacheService;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
-import com.eghm.web.annotation.SubmitInterval;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpMethod;
 import org.springframework.lang.NonNull;
@@ -16,7 +13,8 @@ import org.springframework.lang.NonNull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+
+import static com.eghm.utils.CacheUtil.INTERVAL_CACHE;
 
 /**
  * @author 殿小二
@@ -24,10 +22,6 @@ import java.util.concurrent.TimeUnit;
  */
 @AllArgsConstructor
 public class SubmitIntervalInterceptor implements InterceptorAdapter {
-
-    private final CacheService cacheService;
-
-    private final SystemProperties systemProperties;
 
     @Override
     public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
@@ -44,16 +38,11 @@ public class SubmitIntervalInterceptor implements InterceptorAdapter {
         } else {
             key = String.format(CacheConstant.SUBMIT_LIMIT, memberId, uri);
         }
-        if (cacheService.exist(key)) {
+        if (INTERVAL_CACHE.getIfPresent(key) != null) {
             WebUtil.printJson(response, ErrorCode.SUBMIT_FREQUENTLY);
             return false;
         }
-        SubmitInterval annotation = this.getAnnotation(handler, SubmitInterval.class);
-        if (annotation != null) {
-            cacheService.setValue(key, true, annotation.value(), TimeUnit.MILLISECONDS);
-        } else {
-            cacheService.setValue(key, true, systemProperties.getSubmitInterval());
-        }
+        INTERVAL_CACHE.put(key, true);
         return true;
     }
 
