@@ -88,10 +88,10 @@ public class Order extends BaseEntity {
     @ApiModelProperty(value = "订单金额=单价*数量")
     private Integer amount;
 
-    @ApiModelProperty(value = "总优惠金额")
+    @ApiModelProperty(value = "总优惠金额(优惠券优惠)")
     private Integer discountAmount;
 
-    @ApiModelProperty(value = "总付款金额=单价*数量+总快递费-总优惠金额-兑换码-积分")
+    @ApiModelProperty(value = "总付款金额=单价*数量+总快递费(如果有的话)-总优惠金额-兑换码(如果有的话)-积分(如果有的话)")
     private Integer payAmount;
 
     @ApiModelProperty("总快递费")
@@ -161,10 +161,10 @@ public class Order extends BaseEntity {
     @ApiModelProperty("创建月份")
     private String createMonth;
 
-    @ApiModelProperty("兑换码(只支持线路/民宿/场馆)")
+    @ApiModelProperty("兑换码(只支持线路/民宿/场馆/餐饮)")
     private String cdKey;
 
-    @ApiModelProperty("兑换码金额")
+    @ApiModelProperty("兑换码优惠金额")
     private Integer cdKeyAmount;
 
     @ApiModelProperty("使用的积分(只支持零售)")

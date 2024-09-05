@@ -1382,7 +1382,7 @@ CREATE TABLE `order`
     `refund_state`        tinyint(1)   DEFAULT '0' COMMENT '退款状态 1:退款申请中 2:退款中 3:退款拒绝 4:退款成功',
     `close_type`          tinyint(1)   DEFAULT NULL COMMENT '关闭类型 1:过期自动关闭 2:用户取消 3:退款完成',
     `amount`              int(10)      DEFAULT '0' COMMENT '订单金额(数量*单价)',
-    `discount_amount`     int(10)      DEFAULT '0' COMMENT '总优惠金额',
+    `discount_amount`     int(10)      DEFAULT '0' COMMENT '总优惠金额(优惠券)',
     `express_amount`      int(10)      DEFAULT '0' COMMENT '总快递费',
     `pay_amount`          int(10)      DEFAULT '0' COMMENT '总付款金额=单价*数量+总快递费-总优惠金额',
     `refund_amount`       int(10)      DEFAULT '0' COMMENT '已退款金额',

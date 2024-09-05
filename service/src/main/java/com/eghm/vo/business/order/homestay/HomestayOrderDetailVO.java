@@ -98,6 +98,12 @@ public class HomestayOrderDetailVO {
     @ApiModelProperty("核销码")
     private String verifyNo;
 
+    @ApiModelProperty("兑换码(只支持线路/民宿/场馆/餐饮)")
+    private String cdKey;
+
+    @ApiModelProperty("兑换码优惠金额")
+    private Integer cdKeyAmount;
+
     @ApiModelProperty("订单备注信息")
     private String remark;
 }

@@ -91,6 +91,12 @@ public class LineOrderDetailVO {
     @ApiModelProperty("游客信息")
     private List<VisitorVO> visitorList;
 
+    @ApiModelProperty("兑换码(只支持线路/民宿/场馆/餐饮)")
+    private String cdKey;
+
+    @ApiModelProperty("兑换码优惠金额")
+    private Integer cdKeyAmount;
+
     @ApiModelProperty("订单备注信息")
     private String remark;
 }
