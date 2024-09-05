@@ -95,6 +95,7 @@ public class LineOrderDetailVO {
     private String cdKey;
 
     @ApiModelProperty("兑换码优惠金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer cdKeyAmount;
 
     @ApiModelProperty("订单备注信息")

@@ -64,6 +64,7 @@ public class VoucherOrderDetailResponse {
     private String cdKey;
 
     @ApiModelProperty("兑换码优惠金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer cdKeyAmount;
 
     @ApiModelProperty("付款金额=单价*数量-总优惠金额-兑换码优惠")
