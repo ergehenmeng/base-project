@@ -235,10 +235,10 @@
         order by t.id desc
     </select>
 
-    <select id="dayAppend" parameterType="com.eghm.dto.statistics.ProductRequest" resultType="com.eghm.vo.business.statistics.ProductStatisticsVO">
+    <select id="dayAppend" resultType="com.eghm.vo.business.statistics.ProductStatisticsVO">
         select
             <choose>
-                <when test="selectType == @com.eghm.enums.SelectType@YEAR">
+                <when test="param.selectType == @com.eghm.enums.SelectType@YEAR">
                     create_month,
                 </when>
                 <otherwise>
@@ -248,17 +248,14 @@
             count(id) as appendNum
         from ${tableName}
         where deleted = false
-        <if test="startDate != null">
-            and create_date &gt;= #{startDate}
+        <if test="param.startDate != null">
+            and create_date &gt;= #{param.startDate}
         </if>
-        <if test="endDate != null">
-            and create_date &lt;= #{endDate}
-        </if>
-        <if test="merchantId != null">
-            and merchant_id = #{merchantId}
+        <if test="param.endDate != null">
+            and create_date &lt;= #{param.endDate}
         </if>
         <choose>
-            <when test="selectType == @com.eghm.enums.SelectType@YEAR">
+            <when test="param.selectType == @com.eghm.enums.SelectType@YEAR">
                 group by create_month
             </when>
             <otherwise>
