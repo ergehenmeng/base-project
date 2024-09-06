@@ -6,6 +6,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.model.MemberVisitLog;
 import com.eghm.mq.service.MessageService;
+import com.eghm.utils.DateUtil;
 import com.eghm.web.annotation.VisitRecord;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +57,7 @@ public class MemberVisitLogAspect {
         visitLog.setChannel(ApiHolder.getChannel());
         visitLog.setOpenId(request.getHeader(AppHeader.OPEN_ID));
         visitLog.setCreateDate(LocalDate.now());
+        visitLog.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         visitLog.setCreateTime(LocalDateTime.now());
         visitLog.setVisitType(visitRecord.value());
         messageService.send(ExchangeQueue.MEMBER_VISIT_LOG, visitLog);
