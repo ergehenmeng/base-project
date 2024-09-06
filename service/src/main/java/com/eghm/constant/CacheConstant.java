@@ -178,11 +178,6 @@ public class CacheConstant {
     public static final String ITEM_TAG = "item_tag";
 
     /**
-     * 图片验证码
-     */
-    public static final String IMAGE_CAPTCHA = "image_captcha:";
-
-    /**
      * 景区距离计算
      */
     public static final String GEO_SCENIC_DISTANCE = "geo_scenic_distance";

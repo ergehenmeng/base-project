@@ -1,6 +1,5 @@
 package com.eghm.web.controller;
 
-import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
 import com.eghm.utils.CacheUtil;
 import com.eghm.utils.IpUtil;
@@ -48,7 +47,7 @@ public class CaptchaController {
         }
         String ipAddress = IpUtil.getIpAddress(request);
         log.info("图形验证码[{}]:[{}]", ipAddress, authCode);
-        CacheUtil.CAPTCHA_CACHE.put(CacheConstant.IMAGE_CAPTCHA + ipAddress, authCode);
+        CacheUtil.CAPTCHA_CACHE.put(ipAddress, authCode);
         BufferedImage bi = producer.createImage(authImage);
         response.setDateHeader("Expires", 0);
         response.setHeader("Pragma", "no-cache");

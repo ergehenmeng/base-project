@@ -22,7 +22,6 @@ import org.springframework.util.CollectionUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
@@ -51,15 +50,6 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public void setValue(String key, Object value) {
         this.setValue(key, value, sysConfigApi.getLong(ConfigConstant.CACHE_EXPIRE));
-    }
-
-    @Override
-    public void setPersistent(String key, Object value) {
-        if (value instanceof String) {
-            redisTemplate.opsForValue().set(key, (String) value);
-        } else {
-            redisTemplate.opsForValue().set(key, jsonService.toJson(value));
-        }
     }
 
     @Override
@@ -120,11 +110,6 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public void increment(String key, long ops) {
-        redisTemplate.opsForValue().increment(key, ops);
-    }
-
-    @Override
     public boolean exist(String key) {
         Boolean hasKey = redisTemplate.hasKey(key);
         return Boolean.TRUE.equals(hasKey);
@@ -133,12 +118,6 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public boolean setIfAbsent(String key, String value) {
         Boolean absent = redisTemplate.opsForValue().setIfAbsent(key, value);
-        return Boolean.TRUE.equals(absent);
-    }
-
-    @Override
-    public boolean setIfAbsent(String key, String value, long expire) {
-        Boolean absent = redisTemplate.opsForValue().setIfAbsent(key, value, expire, TimeUnit.MILLISECONDS);
         return Boolean.TRUE.equals(absent);
     }
 
@@ -178,15 +157,6 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public int keySize(String key) {
-        Set<String> keys = redisTemplate.keys(key);
-        if (!CollectionUtils.isEmpty(keys)) {
-            return keys.size();
-        }
-        return 0;
-    }
-
-    @Override
     public void delete(String key) {
         redisTemplate.delete(key);
     }
@@ -214,16 +184,6 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public void setHashValue(String key, String hKey, String hValue) {
         redisTemplate.opsForHash().put(key, hKey, hValue);
-    }
-
-    @Override
-    public void setHashMap(String key, Map<String, String> hashValue) {
-        redisTemplate.opsForHash().putAll(key, hashValue);
-    }
-
-    @Override
-    public Map<Object, Object> getHasMap(String key) {
-        return redisTemplate.opsForHash().entries(key);
     }
 
     @Override
@@ -344,16 +304,6 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public Long getBitmapCount(String key) {
         return redisTemplate.execute((RedisCallback<Long>) connection -> connection.bitCount(key.getBytes(StandardCharsets.UTF_8)));
-    }
-
-    @Override
-    public void setExpire(String key, long expire) {
-        redisTemplate.expire(key, expire, TimeUnit.SECONDS);
-    }
-
-    @Override
-    public void setExpire(String key, long expire, TimeUnit unit) {
-        redisTemplate.expire(key, expire, unit);
     }
 
     @Override

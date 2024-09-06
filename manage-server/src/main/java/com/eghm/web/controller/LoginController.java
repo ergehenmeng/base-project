@@ -49,8 +49,7 @@ public class LoginController {
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("管理后台登陆")
     public RespBody<LoginResponse> login(@Validated @RequestBody LoginRequest request, HttpServletRequest servletRequest) {
-        String key = IpUtil.getIpAddress(servletRequest);
-        if (this.verifyCodeError(key, request.getVerifyCode())) {
+        if (this.verifyCodeError(IpUtil.getIpAddress(servletRequest), request.getVerifyCode())) {
             return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
         }
         LoginResponse response = sysUserService.login(request.getUserName(), request.getPwd());
@@ -73,7 +72,7 @@ public class LoginController {
     /**
      * 校验验证码
      *
-     * @param key  缓存key
+     * @param key  缓存key ip地址
      * @param code 用户输入的验证码
      * @return true:通过
      */
@@ -83,12 +82,11 @@ public class LoginController {
         if (env == Env.DEV || env == Env.TEST) {
             return false;
         }
-        String redisKey = CacheConstant.IMAGE_CAPTCHA + key;
-        String value = CAPTCHA_CACHE.getIfPresent(redisKey);
+        String value = CAPTCHA_CACHE.getIfPresent(key);
         if (value == null) {
             return true;
         }
-        CAPTCHA_CACHE.invalidate(redisKey);
+        CAPTCHA_CACHE.invalidate(key);
         return !code.equals(value);
     }
 

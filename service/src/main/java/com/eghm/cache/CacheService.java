@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.data.redis.core.ZSetOperations;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
@@ -24,14 +22,6 @@ public interface CacheService {
      * @param value value
      */
     void setValue(String key, Object value);
-
-    /**
-     * 缓存对象 永久不会失效(慎用)
-     *
-     * @param key   key
-     * @param value value
-     */
-    void setPersistent(String key, Object value);
 
     /**
      * 根据key 获取缓存信息,
@@ -64,14 +54,6 @@ public interface CacheService {
     void setValue(String key, Object value, long expire, TimeUnit unit);
 
     /**
-     * 缓存value值增加指定的数量
-     *
-     * @param key key
-     * @param ops ops
-     */
-    void increment(String key, long ops);
-
-    /**
      * 是否存在指定key的缓存
      *
      * @param key key
@@ -87,16 +69,6 @@ public interface CacheService {
      * @return true:添加成功 false:添加失败
      */
     boolean setIfAbsent(String key, String value);
-
-    /**
-     * 如果没有则添加否则不添加
-     *
-     * @param key    key
-     * @param value  value
-     * @param expire 过期时间 毫秒
-     * @return true:添加成功 false:添加失败
-     */
-    boolean setIfAbsent(String key, String value, long expire);
 
     /**
      * 缓存对象,并设置过期时间
@@ -144,14 +116,6 @@ public interface CacheService {
     long getExpire(String key);
 
     /**
-     * 获取指定key的总数 (模糊查询) 慎用
-     *
-     * @param key key
-     * @return 个数
-     */
-    int keySize(String key);
-
-    /**
      * 清除缓存
      *
      * @param key key
@@ -178,22 +142,6 @@ public interface CacheService {
      * @param hValue value
      */
     void setHashValue(String key, String hKey, String hValue);
-
-    /**
-     * 设置hash map
-     *
-     * @param key       key
-     * @param hashValue hashValue
-     */
-    void setHashMap(String key, Map<String, String> hashValue);
-
-    /**
-     * 查询hash上所有的key
-     *
-     * @param key key
-     * @return hashValue
-     */
-    Map<Object, Object> getHasMap(String key);
 
     /**
      * 设置hash值
@@ -322,23 +270,6 @@ public interface CacheService {
      * @return 个数
      */
     Long getBitmapCount(String key);
-
-    /**
-     * 设置过期时间
-     *
-     * @param key    key
-     * @param expire 过期时间,单位:秒
-     */
-    void setExpire(String key, long expire);
-
-    /**
-     * 设置过期时间
-     *
-     * @param key    key
-     * @param expire 过期时间
-     * @param unit   过期时间单位
-     */
-    void setExpire(String key, long expire, TimeUnit unit);
 
     /**
      * 插入set
