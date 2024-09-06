@@ -15,7 +15,7 @@
         <if test="param.state != null">
             and state = #{param.state}
         </if>
-        order by update_time desc, id desc
+        order by id desc, state desc
     </select>
 
     <select id="getTopList" resultType="com.eghm.model.SysNotice">
