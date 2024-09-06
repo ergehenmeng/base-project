@@ -2,10 +2,9 @@ package com.eghm.configuration.timer.job;
 
 import com.eghm.configuration.timer.BaseTask;
 import com.eghm.configuration.timer.SystemTimer;
-import com.eghm.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
@@ -32,6 +31,6 @@ public class TaskOperation extends BaseTask {
 
     @Override
     public void execute() {
-        log.info("任务执行:" + Thread.currentThread().getName() + " " + DateUtil.formatLong(new Date()));
+        log.info("任务执行:" + Thread.currentThread().getName() + " " + LocalDateTime.now());
     }
 }

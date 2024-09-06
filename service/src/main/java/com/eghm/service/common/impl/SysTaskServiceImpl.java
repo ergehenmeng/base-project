@@ -11,13 +11,14 @@ import com.eghm.mapper.SysTaskMapper;
 import com.eghm.model.SysTask;
 import com.eghm.service.common.SysTaskService;
 import com.eghm.utils.DataUtil;
-import com.eghm.utils.DateUtil;
 import com.eghm.vo.task.SysTaskResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.support.CronExpression;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
@@ -72,7 +73,7 @@ public class SysTaskServiceImpl implements SysTaskService {
         onceDetail.setBeanName(sysTask.getBeanName());
         onceDetail.setMethodName(sysTask.getMethodName());
         onceDetail.setArgs(args);
-        onceDetail.setExecuteTime(DateUtil.addSeconds(DateUtil.getNow(), 1));
+        onceDetail.setExecuteTime(LocalDateTime.now().plusSeconds(1));
         sysTaskRegistrar.addTask(onceDetail);
     }
 }

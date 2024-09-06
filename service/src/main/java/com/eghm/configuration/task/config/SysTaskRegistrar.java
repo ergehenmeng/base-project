@@ -1,5 +1,6 @@
 package com.eghm.configuration.task.config;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -153,7 +154,7 @@ public class SysTaskRegistrar {
      */
     public void addTask(OnceTask task) {
         String nid = task.getBeanName() + "-" + task.getMethodName() + "-" + counter.getAndIncrement();
-        ScheduledFuture<?> schedule = taskScheduler.schedule(new RunnableTask(task), task.getExecuteTime());
+        ScheduledFuture<?> schedule = taskScheduler.schedule(new RunnableTask(task), DateUtil.date(task.getExecuteTime()));
         scheduledFutures.put(nid, schedule);
     }
 

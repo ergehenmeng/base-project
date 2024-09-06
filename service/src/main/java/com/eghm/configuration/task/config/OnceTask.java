@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
@@ -18,6 +18,6 @@ public class OnceTask extends Task {
     /**
      * 任务执行的时间 (未来的某个时间)
      */
-    private Date executeTime;
+    private LocalDateTime executeTime;
 
 }

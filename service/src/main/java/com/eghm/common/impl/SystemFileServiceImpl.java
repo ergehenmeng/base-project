@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 
 /**
  * 保存文件路径格式=根路径+公共路径+文件分类路径+日期+文件名+后缀<br>
@@ -120,7 +121,7 @@ public class SystemFileServiceImpl implements FileService {
         }
         // fileName:3e1be532-4862-49f4-b053-2a2e594ba187.png
         String fileName = IdUtil.fastSimpleUUID() + originalFileName.substring(originalFileName.lastIndexOf("."));
-        return SystemConstant.DEFAULT_PATTERN + folderName + File.separator + DateUtil.formatShortLimit(DateUtil.getNow()) + File.separator + fileName;
+        return SystemConstant.DEFAULT_PATTERN + folderName + File.separator + DateUtil.formatShortLimit(LocalDate.now()) + File.separator + fileName;
     }
 
     /**
