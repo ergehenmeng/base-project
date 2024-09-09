@@ -16,6 +16,7 @@ import com.eghm.vo.business.order.OrderScanVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.item.ExpressDetailVO;
 import com.eghm.vo.business.order.item.ItemOrderRefundVO;
+import com.eghm.vo.business.statistics.MerchantStatisticsVO;
 import com.eghm.vo.business.statistics.OrderCardVO;
 import com.eghm.vo.business.statistics.OrderStatisticsVO;
 import com.eghm.vo.business.statistics.SaleStatisticsVO;
@@ -301,4 +302,11 @@ public interface OrderService extends IService<Order> {
      * @return list
      */
     List<SaleStatisticsVO> saleStatistics(Long merchantId, ProductType productType);
+
+    /**
+     * 商户总销售额排行统计
+     *
+     * @return list
+     */
+    List<MerchantStatisticsVO> merchantStatistics();
 }

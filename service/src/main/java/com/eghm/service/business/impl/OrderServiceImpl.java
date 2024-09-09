@@ -26,6 +26,7 @@ import com.eghm.enums.SelectType;
 import com.eghm.enums.ref.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemMapper;
+import com.eghm.mapper.MerchantMapper;
 import com.eghm.mapper.OrderMapper;
 import com.eghm.model.*;
 import com.eghm.mq.service.MessageService;
@@ -49,6 +50,7 @@ import com.eghm.vo.business.order.VisitorVO;
 import com.eghm.vo.business.order.item.ExpressDetailVO;
 import com.eghm.vo.business.order.item.ExpressVO;
 import com.eghm.vo.business.order.item.ItemOrderRefundVO;
+import com.eghm.vo.business.statistics.MerchantStatisticsVO;
 import com.eghm.vo.business.statistics.OrderCardVO;
 import com.eghm.vo.business.statistics.OrderStatisticsVO;
 import com.eghm.vo.business.statistics.SaleStatisticsVO;
@@ -67,9 +69,9 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.eghm.constant.CacheConstant.RANKING_AMOUNT;
-import static com.eghm.constant.CacheConstant.RANKING_MERCHANT_AMOUNT;
-import static com.eghm.constants.ConfigConstant.SALE_RANKING;
+import static com.eghm.constant.CacheConstant.*;
+import static com.eghm.constants.ConfigConstant.MERCHANT_SALE_RANKING;
+import static com.eghm.constants.ConfigConstant.PRODUCT_SALE_RANKING;
 
 /**
  * @author 二哥很猛
@@ -97,6 +99,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private final AccountService accountService;
 
     private final SysAreaService sysAreaService;
+
+    private final MerchantMapper merchantMapper;
 
     private final SystemProperties systemProperties;
 
@@ -611,14 +615,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public void incrementAmount(ProductType productType, Long merchantId, Long productId, Integer amount) {
-        cacheService.setSetIncrement(String.format(RANKING_AMOUNT, productType.getPrefix()), String.valueOf(productId), amount);
-        cacheService.setSetIncrement(String.format(RANKING_MERCHANT_AMOUNT, merchantId, productType.getPrefix()), String.valueOf(productId), amount);
+        cacheService.setSetIncrement(String.format(PRODUCT_RANKING, productType.getPrefix()), String.valueOf(productId), amount);
+        cacheService.setSetIncrement(String.format(MERCHANT_PRODUCT_RANKING, merchantId, productType.getPrefix()), String.valueOf(productId), amount);
+        cacheService.setSetIncrement(MERCHANT_RANKING, String.valueOf(merchantId), amount);
     }
 
     @Override
     public List<SaleStatisticsVO> saleStatistics(Long merchantId, ProductType productType) {
-        int limit = sysConfigApi.getInt(SALE_RANKING, 5);
-        String key = merchantId != null ? String.format(RANKING_MERCHANT_AMOUNT, merchantId, productType.getPrefix()) : String.format(RANKING_AMOUNT, productType.getPrefix());
+        int limit = sysConfigApi.getInt(PRODUCT_SALE_RANKING, 5);
+        String key = merchantId != null ? String.format(MERCHANT_PRODUCT_RANKING, merchantId, productType.getPrefix()) : String.format(PRODUCT_RANKING, productType.getPrefix());
         Set<ZSetOperations.TypedTuple<String>> serviceSet = cacheService.rangeWithScore(key,  limit - 1);
         if (CollUtil.isEmpty(serviceSet)) {
             return Lists.newArrayList();
@@ -632,6 +637,27 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             long productId = Long.parseLong(Objects.requireNonNull(typedTuple.getValue()));
             vo.setProductId(productId);
             vo.setProductName(stringMap.get(productId));
+            vo.setAmount(Optional.ofNullable(typedTuple.getScore()).orElse(0D).intValue());
+            voList.add(vo);
+        }
+        return voList;
+    }
+
+    @Override
+    public List<MerchantStatisticsVO> merchantStatistics() {
+        int limit = sysConfigApi.getInt(MERCHANT_SALE_RANKING, 10);
+        Set<ZSetOperations.TypedTuple<String>> serviceSet = cacheService.rangeWithScore(MERCHANT_RANKING,  limit - 1);
+        if (CollUtil.isEmpty(serviceSet)) {
+            return Lists.newArrayList();
+        }
+        List<Long> ids = serviceSet.stream().map(typedTuple -> Long.parseLong(Objects.requireNonNull(typedTuple.getValue()))).collect(Collectors.toList());
+        List<Merchant> merchantList = merchantMapper.selectBatchIds(ids);
+        Map<Long, String> stringMap = merchantList.stream().collect(Collectors.toMap(Merchant::getId, Merchant::getMerchantName));
+        List<MerchantStatisticsVO> voList = new ArrayList<>();
+        for (ZSetOperations.TypedTuple<String> typedTuple: serviceSet) {
+            MerchantStatisticsVO vo = new MerchantStatisticsVO();
+            long merchantId = Long.parseLong(Objects.requireNonNull(typedTuple.getValue()));
+            vo.setMerchantName(stringMap.get(merchantId));
             vo.setAmount(Optional.ofNullable(typedTuple.getScore()).orElse(0D).intValue());
             voList.add(vo);
         }

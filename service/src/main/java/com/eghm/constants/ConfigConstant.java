@@ -248,7 +248,12 @@ public class ConfigConstant {
     public static final String SCORE_MIN_WITHDRAW = "score_min_withdraw";
 
     /**
-     * 销售排行榜
+     * 商户品类销售排行榜
      */
-    public static final String SALE_RANKING = "sale_ranking";
+    public static final String PRODUCT_SALE_RANKING = "product_sale_ranking";
+
+    /**
+     * 商户销售排行榜
+     */
+    public static final String MERCHANT_SALE_RANKING = "merchant_sale_ranking";
 }

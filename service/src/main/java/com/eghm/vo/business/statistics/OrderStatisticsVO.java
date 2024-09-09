@@ -1,8 +1,10 @@
 package com.eghm.vo.business.statistics;
 
 import cn.hutool.core.util.RandomUtil;
+import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +32,7 @@ public class OrderStatisticsVO {
     private Integer orderNum = 0;
 
     @ApiModelProperty("支付金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer payAmount = 0;
 
     public OrderStatisticsVO(LocalDate createDate) {

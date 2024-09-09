@@ -3925,7 +3925,7 @@ INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('77', 'score_min_recharge', '积分最小充值金额', '1000', b'0', '默认10元(单位:分)', '2024-06-20 17:32:36', '2024-06-20 17:32:36');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('78', 'score_min_withdraw', '积分最小提现金额', '1000', b'0', '默认10元(单位:分)', '2024-06-20 22:26:20', '2024-06-20 22:26:20');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('79', 'merchant_auth_path', '商户授权绑定手机号地址', 'pages/index/index', b'0', '微信扫码跳转到商户绑定手机号页面的地址', '2024-07-31 15:25:26', '2024-07-31 16:20:27');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('80', 'sale_ranking', '销售排行榜', '5', b'0', '默认取5条', '2024-09-02 16:18:19', '2024-09-02 16:18:24');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('80', 'product_sale_ranking', '品类销售排行榜', '5', b'0', '默认取5条', '2024-09-02 16:18:19', '2024-09-02 16:18:24');
 
 
 INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `update_time` , `deleted`) VALUES ('6975', 'yuantong', '圆通速递', '2024-01-10T17:13:45', '2024-01-10T17:13:45' , b'0');

@@ -303,13 +303,18 @@ public class CacheConstant {
     public static final String WECHAT_QRCODE = "wechat_qrcode:";
 
     /**
-     * 总交易金额排行榜
+     * 商品品类总交易金额排行榜
      */
-    public static final String RANKING_AMOUNT = "ranking_amount:%s";
+    public static final String PRODUCT_RANKING = "product_ranking:%s";
 
     /**
-     * 商户交易金额排行榜
+     * 商户各品类交易金额排行榜
      */
-    public static final String RANKING_MERCHANT_AMOUNT = "ranking_merchant_amount:%s:%s";
+    public static final String MERCHANT_PRODUCT_RANKING = "merchant_product_ranking:%s:%s";
+
+    /**
+     * 各商户交易额总排行榜
+     */
+    public static final String MERCHANT_RANKING = "merchant_ranking";
 
 }

@@ -11,15 +11,12 @@ import lombok.Data;
  */
 
 @Data
-public class SaleStatisticsVO {
+public class MerchantStatisticsVO {
 
-    @ApiModelProperty("销售额")
+    @ApiModelProperty("商户名称")
+    private String merchantName;
+
+    @ApiModelProperty("销售额(含退款)")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer amount;
-
-    @ApiModelProperty("商品id")
-    private Long productId;
-
-    @ApiModelProperty("商品名称")
-    private String productName;
 }
