@@ -130,4 +130,12 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @return 列表
      */
     List<ActivityItemResponse> getActivityList(@Param("merchantId") Long merchantId, @Param("activityId") Long activityId);
+
+    /**
+     * 根据商品id列表查询商品信息
+     *
+     * @param itemIds 商品ids
+     * @return 列表 含删除的商品
+     */
+    List<Item> getByIds(@Param("ids") List<Long> itemIds);
 }

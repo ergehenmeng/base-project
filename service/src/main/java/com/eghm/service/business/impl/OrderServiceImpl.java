@@ -629,14 +629,20 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             return Lists.newArrayList();
         }
         List<Long> ids = serviceSet.stream().map(typedTuple -> Long.parseLong(Objects.requireNonNull(typedTuple.getValue()))).collect(Collectors.toList());
-        List<Item> itemList = itemMapper.selectBatchIds(ids);
-        Map<Long, String> stringMap = itemList.stream().collect(Collectors.toMap(Item::getId, Item::getTitle));
+        List<Item> itemList = itemMapper.getByIds(ids);
+        Map<Long, Item> stringMap = itemList.stream().collect(Collectors.toMap(Item::getId, Function.identity()));
         List<SaleStatisticsVO> voList = new ArrayList<>();
         for (ZSetOperations.TypedTuple<String> typedTuple: serviceSet) {
             SaleStatisticsVO vo = new SaleStatisticsVO();
             long productId = Long.parseLong(Objects.requireNonNull(typedTuple.getValue()));
             vo.setProductId(productId);
-            vo.setProductName(stringMap.get(productId));
+            Item item = stringMap.get(productId);
+            if (item == null) {
+                vo.setProductName("商品已删除");
+            } else {
+                vo.setProductName(item.getTitle());
+                vo.setProductImg(item.getCoverUrl());
+            }
             vo.setAmount(Optional.ofNullable(typedTuple.getScore()).orElse(0D).intValue());
             voList.add(vo);
         }

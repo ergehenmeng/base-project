@@ -112,8 +112,7 @@ public class StatisticsController {
 
     @GetMapping("/itemSale")
     @ApiOperation("零售销售额统计排行")
-    @SkipPerm
-    public RespBody<List<SaleStatisticsVO>> sale() {
+    public RespBody<List<SaleStatisticsVO>> itemSale() {
         List<SaleStatisticsVO> statistics = orderService.saleStatistics(SecurityHolder.getMerchantId(), ProductType.ITEM);
         return RespBody.success(statistics);
     }

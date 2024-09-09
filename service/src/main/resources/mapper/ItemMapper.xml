@@ -289,6 +289,13 @@
         </if>
     </select>
 
+    <select id="getByIds" resultType="com.eghm.model.Item">
+        select id, title, cover_url from item where id in
+        <foreach collection="ids" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
     <resultMap id="activityResultMap" type="com.eghm.vo.business.item.ActivityItemResponse">
         <id column="id" property="id" />
         <result column="title" property="title" />

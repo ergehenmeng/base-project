@@ -20,6 +20,9 @@ public class SaleStatisticsVO {
     @ApiModelProperty("商品id")
     private Long productId;
 
+    @ApiModelProperty("商品图片")
+    private String productImg;
+
     @ApiModelProperty("商品名称")
     private String productName;
 }
