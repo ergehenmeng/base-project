@@ -1,5 +1,6 @@
 package com.eghm.service.business.lottery.handler.impl;
 
+import com.eghm.cache.CacheProxyService;
 import com.eghm.dto.business.account.score.ScoreAccountDTO;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ScoreType;
@@ -12,7 +13,6 @@ import com.eghm.model.LotteryPrize;
 import com.eghm.service.business.ScoreAccountService;
 import com.eghm.service.business.lottery.LotteryPrizeService;
 import com.eghm.service.business.lottery.handler.PrizeHandler;
-import com.eghm.cache.CacheProxyService;
 import com.eghm.service.member.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

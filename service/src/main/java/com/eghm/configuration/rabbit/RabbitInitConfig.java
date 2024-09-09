@@ -1,9 +1,9 @@
 package com.eghm.configuration.rabbit;
 
+import com.eghm.common.AlarmService;
 import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.enums.ExchangeQueue;
-import com.eghm.common.AlarmService;
 import com.eghm.utils.LoggerUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

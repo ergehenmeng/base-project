@@ -1,12 +1,12 @@
 package com.eghm.handler.email;
 
+import com.eghm.common.EmailService;
 import com.eghm.configuration.template.TemplateEngine;
 import com.eghm.dto.email.SendEmail;
 import com.eghm.enums.EmailType;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.EmailTemplate;
-import com.eghm.common.EmailService;
 import com.eghm.service.common.EmailTemplateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

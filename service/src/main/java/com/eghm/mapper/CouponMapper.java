@@ -6,8 +6,8 @@ import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.dto.business.coupon.config.CouponQueryRequest;
 import com.eghm.model.Coupon;
 import com.eghm.vo.business.coupon.CouponBaseResponse;
-import com.eghm.vo.business.coupon.CouponVO;
 import com.eghm.vo.business.coupon.CouponResponse;
+import com.eghm.vo.business.coupon.CouponVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

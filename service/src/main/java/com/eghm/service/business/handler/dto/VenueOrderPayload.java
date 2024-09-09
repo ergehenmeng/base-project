@@ -1,6 +1,8 @@
 package com.eghm.service.business.handler.dto;
 
-import com.eghm.model.*;
+import com.eghm.model.Venue;
+import com.eghm.model.VenueSite;
+import com.eghm.model.VenueSitePrice;
 import lombok.Data;
 
 import java.util.List;

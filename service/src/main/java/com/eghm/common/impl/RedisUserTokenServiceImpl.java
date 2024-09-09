@@ -2,8 +2,8 @@ package com.eghm.common.impl;
 
 import cn.hutool.core.util.IdUtil;
 import com.eghm.cache.CacheService;
-import com.eghm.common.UserTokenService;
 import com.eghm.common.JsonService;
+import com.eghm.common.UserTokenService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.ext.UserToken;

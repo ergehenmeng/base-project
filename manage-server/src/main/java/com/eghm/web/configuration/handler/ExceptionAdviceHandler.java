@@ -2,7 +2,6 @@ package com.eghm.web.configuration.handler;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
 import com.eghm.common.AlarmService;
-import com.eghm.configuration.DatePropertyEditor;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
@@ -17,14 +16,10 @@ import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * @author 二哥很猛
@@ -37,12 +32,6 @@ import java.util.Date;
 public class ExceptionAdviceHandler {
 
     private final AlarmService alarmService;
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(Date.class, new DatePropertyEditor());
-        binder.registerCustomEditor(LocalDate.class, new DatePropertyEditor());
-    }
 
     /**
      * 业务异常统一拦截
