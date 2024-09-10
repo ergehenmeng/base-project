@@ -60,6 +60,14 @@ public class StatisticsController {
         return RespBody.success(statistics);
     }
 
+    @GetMapping("/orderDetail")
+    @ApiOperation("经营数据")
+    @SkipPerm
+    public RespBody<BusinessDetailVO> orderDetail() {
+        BusinessDetailVO statistics = orderService.businessStatistics(SecurityHolder.getMerchantId());
+        return RespBody.success(statistics);
+    }
+
     @GetMapping("/order")
     @ApiOperation("下单统计")
     @SkipPerm

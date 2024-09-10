@@ -16,10 +16,7 @@ import com.eghm.vo.business.order.OrderScanVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.item.ExpressDetailVO;
 import com.eghm.vo.business.order.item.ItemOrderRefundVO;
-import com.eghm.vo.business.statistics.MerchantStatisticsVO;
-import com.eghm.vo.business.statistics.OrderCardVO;
-import com.eghm.vo.business.statistics.OrderStatisticsVO;
-import com.eghm.vo.business.statistics.SaleStatisticsVO;
+import com.eghm.vo.business.statistics.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -249,6 +246,14 @@ public interface OrderService extends IService<Order> {
      * @return list
      */
     OrderCardVO orderStatistics(DateRequest request);
+
+    /**
+     * 订单发货等统计
+     *
+     * @param merchantId 商户ID
+     * @return 待发货, 待核销, 待退款审核等
+     */
+    BusinessDetailVO businessStatistics(Long merchantId);
 
     /**
      * 订单统计按天(按月)

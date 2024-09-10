@@ -149,4 +149,16 @@
         select member_id from `order` where deleted = false and create_date &gt;= #{orderTime} and state not in (-1, 0, 9, 10, 11)
         group by member_id having sum(pay_amount) &gt;= #{consumeAmount}
     </select>
+
+    <select id="waitDelivery" resultType="integer">
+        select count(1) from `order` where deleted = false and state in (4, 5) and merchant_id = #{merchantId}
+    </select>
+
+    <select id="refunding" resultType="integer">
+        select count(1) from `order` where deleted = false and state = 7 and merchant_id = #{merchantId}
+    </select>
+
+    <select id="waitVerify" resultType="integer">
+        select count(1) from `order` where deleted = false and state in (2, 3) and merchant_id = #{merchantId}
+    </select>
 </mapper>

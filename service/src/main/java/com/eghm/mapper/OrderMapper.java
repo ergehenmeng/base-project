@@ -119,4 +119,28 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @return 列表
      */
     List<Long> getOrderAmount(@Param("orderTime") LocalDate orderTime, @Param("consumeAmount") Integer consumeAmount);
+
+    /**
+     * 待发货零售商品数量
+     *
+     * @param merchantId 商户ID
+     * @return 待发货零售商品数量
+     */
+    Integer waitDelivery(@Param("merchantId") Long merchantId);
+
+    /**
+     * 待退款审核后的零售商品数量
+     *
+     * @param merchantId 商户ID
+     * @return 待退款审核后的零售商品数量
+     */
+    Integer refunding(@Param("merchantId") Long merchantId);
+
+    /**
+     * 待核销的数量
+     *
+     * @param merchantId 商户ID
+     * @return 待核销的数量
+     */
+    Integer waitVerify(@Param("merchantId") Long merchantId);
 }

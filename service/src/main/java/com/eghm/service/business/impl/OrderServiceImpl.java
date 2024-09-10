@@ -50,10 +50,7 @@ import com.eghm.vo.business.order.VisitorVO;
 import com.eghm.vo.business.order.item.ExpressDetailVO;
 import com.eghm.vo.business.order.item.ExpressVO;
 import com.eghm.vo.business.order.item.ItemOrderRefundVO;
-import com.eghm.vo.business.statistics.MerchantStatisticsVO;
-import com.eghm.vo.business.statistics.OrderCardVO;
-import com.eghm.vo.business.statistics.OrderStatisticsVO;
-import com.eghm.vo.business.statistics.SaleStatisticsVO;
+import com.eghm.vo.business.statistics.*;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -66,6 +63,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -533,6 +531,18 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         statistics.setRefundAmount(refundStatistics.getRefundAmount());
         statistics.setRefundNum(refundStatistics.getRefundNum());
         return statistics;
+    }
+
+    @Override
+    public BusinessDetailVO businessStatistics(Long merchantId) {
+        CompletableFuture<Integer> waitVerify = CompletableFuture.supplyAsync(() -> baseMapper.waitVerify(merchantId));
+        CompletableFuture<Integer> waitDelivery = CompletableFuture.supplyAsync(() -> baseMapper.waitDelivery(merchantId));
+        CompletableFuture<Integer> refunding = CompletableFuture.supplyAsync(() -> baseMapper.refunding(merchantId));
+        BusinessDetailVO vo = new BusinessDetailVO();
+        vo.setReadyNum(waitVerify.join());
+        vo.setVerifyNum(waitDelivery.join());
+        vo.setRefundNum(refunding.join());
+        return vo;
     }
 
     @Override
