@@ -3,10 +3,7 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.coupon.product.ItemCouponQueryDTO;
-import com.eghm.dto.business.item.ItemAddRequest;
-import com.eghm.dto.business.item.ItemEditRequest;
-import com.eghm.dto.business.item.ItemQueryDTO;
-import com.eghm.dto.business.item.ItemQueryRequest;
+import com.eghm.dto.business.item.*;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
@@ -283,4 +280,11 @@ public interface ItemService {
      * @param merchantId 商户ID
      */
     void logout(Long merchantId);
+
+    /**
+     * 增加零售商品的增加库存
+     *
+     * @param request sku及库存信息
+     */
+    void addStock(ItemAddStockRequest request);
 }

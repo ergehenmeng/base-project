@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.dto.business.item.ItemStockRequest;
 import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
@@ -110,6 +111,14 @@ public class ItemSkuServiceImpl implements ItemSkuService {
     }
 
     @Override
+    public void addStock(List<ItemStockRequest> skuList, Long itemId) {
+        if (CollUtil.isEmpty(skuList)) {
+            return;
+        }
+        skuList.forEach(itemAddStockRequest -> itemSkuMapper.addStock(itemAddStockRequest.getId(), itemAddStockRequest.getNum(), itemId));
+    }
+
+    @Override
     public Map<Long, ItemSku> getByIdShelveMap(Set<Long> ids) {
         if (CollUtil.isEmpty(ids)) {
             return Maps.newHashMapWithExpectedSize(1);
@@ -124,7 +133,7 @@ public class ItemSkuServiceImpl implements ItemSkuService {
 
     @Override
     public Integer calcTotalNum(Long itemId) {
-        return null;
+        return itemSkuMapper.calcTotalNum(itemId);
     }
 
     /**

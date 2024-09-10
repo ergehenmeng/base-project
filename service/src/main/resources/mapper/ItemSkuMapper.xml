@@ -7,6 +7,11 @@
         where id = #{skuId} and deleted = false and stock + #{num} &gt;= 0
     </update>
 
+    <update id="addStock" >
+        update item_sku set stock = stock + #{num}
+        where id = #{skuId} and deleted = false and stock + #{num} &gt;= 0 and item_id = #{itemId}
+    </update>
+
     <select id="calcTotalNum" resultType="integer">
         select sum(sale_num + virtual_num) from item_sku where item_id = #{itemId} and deleted = false
     </select>

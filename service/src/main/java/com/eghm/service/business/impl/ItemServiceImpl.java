@@ -13,10 +13,7 @@ import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.coupon.product.ItemCouponQueryDTO;
-import com.eghm.dto.business.item.ItemAddRequest;
-import com.eghm.dto.business.item.ItemEditRequest;
-import com.eghm.dto.business.item.ItemQueryDTO;
-import com.eghm.dto.business.item.ItemQueryRequest;
+import com.eghm.dto.business.item.*;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
 import com.eghm.dto.business.item.sku.ItemSkuRequest;
@@ -492,6 +489,13 @@ public class ItemServiceImpl implements ItemService {
         wrapper.set(Item::getState, State.FORCE_UN_SHELVE);
         wrapper.eq(Item::getMerchantId, merchantId);
         itemMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void addStock(ItemAddStockRequest request) {
+        Item item = this.selectByIdRequired(request.getItemId());
+        commonService.checkIllegal(item.getMerchantId());
+        itemSkuService.addStock(request.getSkuList(), request.getItemId());
     }
 
     /**

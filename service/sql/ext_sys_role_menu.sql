@@ -632,3 +632,4 @@ INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES (
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('869', '1707298744621969413', '1013', 'CURRENT_TIMESTAMP');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('870', '1707298744621969414', '1013', 'CURRENT_TIMESTAMP');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('871', '1707298744621969415', '1013', 'CURRENT_TIMESTAMP');
+INSERT INTO `sys_role_menu` ( `role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969413', '10121624', '2023-10-11 17:05:33');

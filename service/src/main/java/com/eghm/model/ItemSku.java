@@ -41,7 +41,7 @@ public class ItemSku extends BaseEntity {
     @ApiModelProperty(value = "销售价格")
     private Integer salePrice;
 
-    @ApiModelProperty(value = "库存")
+    @ApiModelProperty(value = "剩余库存")
     private Integer stock;
 
     @ApiModelProperty(value = "虚拟销量")

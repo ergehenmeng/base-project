@@ -1,23 +1,29 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.RecommendDTO;
 import com.eghm.dto.SortByDTO;
 import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.item.ItemAddRequest;
+import com.eghm.dto.business.item.ItemAddStockRequest;
 import com.eghm.dto.business.item.ItemEditRequest;
 import com.eghm.dto.business.item.ItemQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
+import com.eghm.model.ItemSku;
 import com.eghm.service.business.ItemService;
+import com.eghm.service.business.ItemSkuService;
+import com.eghm.utils.DataUtil;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.item.ActivityItemResponse;
 import com.eghm.vo.business.item.ItemDetailResponse;
 import com.eghm.vo.business.item.ItemResponse;
+import com.eghm.vo.business.item.ItemSkuStockResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -40,6 +46,8 @@ import java.util.List;
 public class ItemController {
 
     private final ItemService itemService;
+
+    private final ItemSkuService itemSkuService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
@@ -89,6 +97,23 @@ public class ItemController {
     @ApiOperation("下架")
     public RespBody<Void> unShelves(@Validated @RequestBody IdDTO dto) {
         itemService.updateState(dto.getId(), State.UN_SHELVE);
+        return RespBody.success();
+    }
+
+    @GetMapping("/getSku")
+    @ApiOperation("查看sku信息")
+    @SkipPerm
+    public RespBody<List<ItemSkuStockResponse>> getSku(@Validated IdDTO request) {
+        List<ItemSku> skuList = itemSkuService.getSkuList(request.getId());
+        List<ItemSkuStockResponse> responseList = DataUtil.copy(skuList, ItemSkuStockResponse.class);
+        return RespBody.success(responseList);
+    }
+
+    @PostMapping("/addStock")
+    @ApiOperation("增加库存")
+    @SkipPerm
+    public RespBody<Void> addStock(@RequestBody @Validated ItemAddStockRequest request) {
+        itemService.addStock(request);
         return RespBody.success();
     }
 

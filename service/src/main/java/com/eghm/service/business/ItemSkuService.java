@@ -1,5 +1,6 @@
 package com.eghm.service.business;
 
+import com.eghm.dto.business.item.ItemStockRequest;
 import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
@@ -71,6 +72,14 @@ public interface ItemSkuService {
      * @param map key=skuId, value=num (正数+库存 负数-库存)
      */
     void updateStock(Map<Long, Integer> map);
+
+    /**
+     * 增加库存
+     *
+     * @param skuList 库存信息
+     * @param itemId  零售id
+     */
+    void addStock(List<ItemStockRequest> skuList, Long itemId);
 
     /**
      * 主键查询商品sku信息
