@@ -151,14 +151,21 @@
     </select>
 
     <select id="waitDelivery" resultType="integer">
-        select count(1) from `order` where deleted = false and state in (4, 5) and merchant_id = #{merchantId}
+        select count(1) from `order` where deleted = false and state in (4, 5)
+
     </select>
 
     <select id="refunding" resultType="integer">
-        select count(1) from `order` where deleted = false and state = 7 and merchant_id = #{merchantId}
+        select count(1) from `order` where deleted = false and state = 7
+        <if test="merchantId != null">
+            and merchant_id = #{merchantId}
+        </if>
     </select>
 
     <select id="waitVerify" resultType="integer">
-        select count(1) from `order` where deleted = false and state in (2, 3) and merchant_id = #{merchantId}
+        select count(1) from `order` where deleted = false and state in (2, 3)
+        <if test="merchantId != null">
+            and merchant_id = #{merchantId}
+        </if>
     </select>
 </mapper>
