@@ -195,6 +195,11 @@ public class CommonConstant {
      */
     public static final String SCORE_RECHARGE_PREFIX = "SCZ";
 
+    /**
+     * websocket-用户key
+     */
+    public static final String SECURITY_USER = "SECURITY_USER";
+
     private CommonConstant() {
     }
 }
