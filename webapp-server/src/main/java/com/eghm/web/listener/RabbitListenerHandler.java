@@ -1,4 +1,4 @@
-package com.eghm.mq.listener;
+package com.eghm.web.listener;
 
 import cn.hutool.core.util.StrUtil;
 import com.eghm.cache.CacheService;
@@ -13,23 +13,20 @@ import com.eghm.enums.event.impl.*;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
-import com.eghm.model.ManageLog;
 import com.eghm.model.MemberVisitLog;
 import com.eghm.model.Order;
 import com.eghm.model.WebappLog;
+import com.eghm.mq.listener.AbstractListenerHandler;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.*;
 import com.eghm.service.member.LoginService;
-import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
 import com.eghm.state.machine.StateHandler;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.group.GroupOrderCancelVO;
 import com.rabbitmq.client.Channel;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -44,9 +41,8 @@ import static com.eghm.constant.CacheConstant.SUCCESS_PLACE_HOLDER;
  * @since 2022/7/28
  */
 @Component
-@AllArgsConstructor
 @Slf4j
-public class RabbitListenerHandler {
+public class RabbitListenerHandler extends AbstractListenerHandler {
 
     private final LineService lineService;
 
@@ -64,11 +60,7 @@ public class RabbitListenerHandler {
 
     private final VenueService venueService;
 
-    private final AlarmService alarmService;
-
     private final HomestayService homestayService;
-
-    private final ManageLogService manageLogService;
 
     private final WebappLogService webappLogService;
 
@@ -78,11 +70,28 @@ public class RabbitListenerHandler {
 
     private final ScenicTicketService scenicTicketService;
 
-    private final MemberCouponService memberCouponService;
-
     private final MemberVisitLogService memberVisitLogService;
 
     private final OrderEvaluationService orderEvaluationService;
+
+    public RabbitListenerHandler(JsonService jsonService, AlarmService alarmService, LineService lineService, JsonService jsonService1, ItemService itemService, LoginService loginService, CacheService cacheService, StateHandler stateHandler, OrderService orderService, VenueService venueService, HomestayService homestayService, WebappLogService webappLogService, OrderProxyService orderProxyService, RestaurantService restaurantService, ScenicTicketService scenicTicketService, MemberVisitLogService memberVisitLogService, OrderEvaluationService orderEvaluationService) {
+        super(jsonService, alarmService);
+        this.lineService = lineService;
+        this.jsonService = jsonService1;
+        this.itemService = itemService;
+        this.loginService = loginService;
+        this.cacheService = cacheService;
+        this.stateHandler = stateHandler;
+        this.orderService = orderService;
+        this.venueService = venueService;
+        this.homestayService = homestayService;
+        this.webappLogService = webappLogService;
+        this.orderProxyService = orderProxyService;
+        this.restaurantService = restaurantService;
+        this.scenicTicketService = scenicTicketService;
+        this.memberVisitLogService = memberVisitLogService;
+        this.orderEvaluationService = orderEvaluationService;
+    }
 
     /**
      * 零售商品消息队列订单过期处理
@@ -180,14 +189,6 @@ public class RabbitListenerHandler {
     @RabbitListener(queues = QueueConstant.LOGIN_LOG_QUEUE)
     public void loginLog(LoginRecord loginRecord, Message message, Channel channel) throws IOException {
         processMessageAck(loginRecord, message, channel, loginService::insertLoginLog);
-    }
-
-    /**
-     * 管理后台操作日志
-     */
-    @RabbitListener(queues = QueueConstant.MANAGE_OP_LOG_QUEUE)
-    public void manageOpLog(ManageLog log, Message message, Channel channel) throws IOException {
-        processMessageAck(log, message, channel, manageLogService::insertManageLog);
     }
 
     /**
@@ -348,18 +349,10 @@ public class RabbitListenerHandler {
     }
 
     /**
-     * 优惠券自动过期
-     */
-    @RabbitListener(queues = QueueConstant.COUPON_EXPIRE_QUEUE)
-    public void couponExpire(Long couponId, Message message, Channel channel) throws IOException {
-        processMessageAck(couponId, message, channel, memberCouponService::couponExpire);
-    }
-
-    /**
      * 零售退款自动审核通过
      */
     @RabbitListener(queues = QueueConstant.ITEM_REFUND_CONFIRM_QUEUE)
-    public void couponExpire(RefundAudit audit, Message message, Channel channel) throws IOException {
+    public void refundConfirm(RefundAudit audit, Message message, Channel channel) throws IOException {
         processMessageAck(audit, message, channel, a -> {
             RefundAuditContext context = DataUtil.copy(audit, RefundAuditContext.class);
             context.setState(1);
@@ -407,32 +400,6 @@ public class RabbitListenerHandler {
             cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), ERROR_PLACE_HOLDER, CommonConstant.ASYNC_MSG_EXPIRE);
         } finally {
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
-        }
-    }
-
-    /**
-     * 处理MQ中消息,并手动确认
-     *
-     * @param msg      消息
-     * @param message  message
-     * @param channel  channel
-     * @param consumer 业务
-     * @param <T>      消息类型
-     * @throws IOException e
-     */
-    public <T> void processMessageAck(T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
-        try {
-            consumer.accept(msg);
-        } catch (Exception e) {
-            log.error("队列[{}]处理消息异常 [{}]", message.getMessageProperties().getConsumerQueue(), jsonService.toJson(msg), e);
-            alarmService.sendMsg(String.format("队列[%s]消息消费失败[%s]", message.getMessageProperties().getConsumerQueue(), jsonService.toJson(msg)));
-        } finally {
-            MessageProperties properties = message.getMessageProperties();
-            if (Boolean.TRUE.equals(properties.getRedelivered())) {
-                channel.basicReject(message.getMessageProperties().getDeliveryTag(), false);
-            } else {
-                channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
-            }
         }
     }
 
