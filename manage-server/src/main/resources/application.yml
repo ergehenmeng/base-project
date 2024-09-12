@@ -67,3 +67,4 @@ system:
         - /favicon.ico
         - /manage/export/exportMenu
         - /resource/**
+        - /ws

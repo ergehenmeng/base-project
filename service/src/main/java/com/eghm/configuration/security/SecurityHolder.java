@@ -21,7 +21,7 @@ public class SecurityHolder {
     /**
      * 异步也能获取到用户信息
      */
-    private static final TransmittableThreadLocal<UserToken> LOCAL = TransmittableThreadLocal.withInitial(UserToken::new);
+    private static final TransmittableThreadLocal<UserToken> LOCAL = new TransmittableThreadLocal<>();
 
     public static void setToken(UserToken token) {
         LOCAL.set(token);

@@ -16,13 +16,16 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LoginResponse {
 
+    @ApiModelProperty("商户ID")
+    private Long merchantId;
+
     @ApiModelProperty("token")
     private String token;
 
     @ApiModelProperty("用户类型 0:系统管理员 1:系统用户 2:商户管理员 3:商户用户")
     private UserType userType;
 
-    @ApiModelProperty("商户类型")
+    @ApiModelProperty("商户类型 1 2 4 8 16 32")
     private Integer merchantType;
 
     @ApiModelProperty("昵称")
