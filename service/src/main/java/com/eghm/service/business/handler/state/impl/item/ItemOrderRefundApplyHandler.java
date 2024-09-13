@@ -13,6 +13,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
+import com.eghm.mq.service.MessageService;
 import com.eghm.pay.enums.RefundStatus;
 import com.eghm.pay.vo.RefundVO;
 import com.eghm.service.business.*;
@@ -55,8 +56,10 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
 
     private final SysConfigApi sysConfigApi;
 
+    private final MessageService messageService;
+
     public ItemOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService,
-                                       ItemGroupOrderService itemGroupOrderService, OrderMQService orderMQService, SysConfigApi sysConfigApi) {
+                                       ItemGroupOrderService itemGroupOrderService, OrderMQService orderMQService, SysConfigApi sysConfigApi, MessageService messageService) {
         super(orderService, orderRefundLogService, orderVisitorService);
         this.itemOrderService = itemOrderService;
         this.orderService = orderService;
@@ -64,6 +67,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         this.itemGroupOrderService = itemGroupOrderService;
         this.orderMQService = orderMQService;
         this.sysConfigApi = sysConfigApi;
+        this.messageService = messageService;
     }
 
     @Override
@@ -133,6 +137,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
                 log.info("零售退款(退货退款)申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
                 orderMQService.sendReturnRefundAuditMessage(ExchangeQueue.ITEM_REFUND_CONFIRM, audit);
             }
+            messageService.send(ExchangeQueue.ORDER_REFUND_AUDIT, audit);
         }
     }
 

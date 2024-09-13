@@ -37,7 +37,7 @@ public interface OrderMQService {
     void sendOrderCompleteMessage(ExchangeQueue exchangeQueue, String orderNo);
 
     /**
-     * 发送订单退款消息(仅退款)
+     * 发送订单退款消息(仅退款) 延迟审核消息 24小时
      *
      * @param exchangeQueue 队列类型
      * @param audit         退款信息
@@ -45,7 +45,7 @@ public interface OrderMQService {
     void sendRefundAuditMessage(ExchangeQueue exchangeQueue, RefundAudit audit);
 
     /**
-     * 发送订单退款消息(退货退款)
+     * 发送订单退款消息(退货退款) 延迟审核消息 7天
      *
      * @param exchangeQueue 队列类型
      * @param audit         退款信息
