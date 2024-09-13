@@ -14,6 +14,9 @@ public class RefundAudit {
     @ApiModelProperty("订单编号")
     private String orderNo;
 
+    @ApiModelProperty("商户ID")
+    private Long merchantId;
+
     @ApiModelProperty("退款id不能为空")
     private Long refundId;
 

@@ -1,6 +1,7 @@
 package com.eghm.web.controller;
 
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.ext.OrderPayNotify;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.mq.service.MessageService;
@@ -45,11 +46,8 @@ public class MessageController {
 
     @PostMapping("/sendBorder")
     @ApiOperation("发送广播消息")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "msg", value = "消息", required = true),
-    })
-    public RespBody<Void> sendMsg(@RequestParam("msg") String msg) {
-        messageService.send(ExchangeQueue.ORDER_PAY_SUCCESS, msg);
+    public RespBody<Void> sendMsg(@RequestBody OrderPayNotify notify) {
+        messageService.send(ExchangeQueue.ORDER_PAY_SUCCESS, notify);
         return RespBody.success();
     }
 }

@@ -6,6 +6,7 @@ import com.eghm.dto.ext.SocketMsg;
 import com.eghm.enums.ref.ProductType;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -36,6 +37,7 @@ public class WebSocketController {
 
     @GetMapping("/order/broadcast")
     @SkipPerm
+    @ApiOperation("广播消息测试")
     public RespBody<Void> broadcast(@RequestParam("merchantId") Long merchantId) {
         simpMessagingTemplate.convertAndSend(WEBSOCKET_PREFIX + "/order/broadcast/" + merchantId, SocketMsg.delivery(Lists.newArrayList(ProductType.ITEM.generateOrderNo())));
         return RespBody.success();

@@ -162,8 +162,12 @@ public enum ExchangeQueue {
     /**
      * 订单支付完成
      */
-    ORDER_PAY_SUCCESS("order_pay_success_exchange", ExchangeType.FANOUT, new String[]{QueueConstant.ORDER_PAY_RANKING_QUEUE}, "", true),
+    ORDER_PAY_SUCCESS("order_pay_success_exchange", ExchangeType.FANOUT, new String[]{ QueueConstant.ORDER_PAY_RANKING_QUEUE, QueueConstant.ORDER_PAY_NOTICE_QUEUE}, "", false),
 
+    /**
+     * 订单退款申请通知商户审核
+     */
+    ORDER_REFUND_AUDIT("order_refund_audit_exchange", ExchangeType.FANOUT, new String[]{QueueConstant.ORDER_AUDIT_NOTICE_QUEUE}, "", false)
     ;
 
     /**

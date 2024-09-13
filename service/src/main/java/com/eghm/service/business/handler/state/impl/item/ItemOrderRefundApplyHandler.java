@@ -124,6 +124,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
             RefundAudit audit = new RefundAudit();
             audit.setRefundId(refundLog.getId());
             audit.setOrderNo(context.getOrderNo());
+            audit.setMerchantId(order.getMerchantId());
             audit.setRefundAmount(refundLog.getRefundAmount());
             if (refundLog.getApplyType() == 1) {
                 log.info("零售退款(仅退款)申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
