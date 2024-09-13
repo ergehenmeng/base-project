@@ -31,8 +31,8 @@ public class AuthFilter extends AbstractIgnoreFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
-        String header = request.getHeader(manageProperties.getToken().getHeader());
-        String prefix = manageProperties.getToken().getPrefix();
+        String header = request.getHeader(manageProperties.getToken().getTokenName());
+        String prefix = manageProperties.getToken().getTokenPrefix();
         if (header != null && header.startsWith(prefix)) {
             Optional<UserToken> optional = userTokenService.parseToken(header.replace(prefix, ""));
             if (optional.isPresent()) {

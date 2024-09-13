@@ -38,7 +38,7 @@ public class RedisUserTokenServiceImpl implements UserTokenService {
         SystemProperties.ManageProperties.Token tokenConfig = systemProperties.getManage().getToken();
         String token = this.doCreateToken(user, merchantId, tokenConfig.getExpire(), authList, dataList);
         this.clearSetToken(user.getId(), token);
-        return tokenConfig.getPrefix() + token;
+        return tokenConfig.getTokenPrefix() + token;
     }
 
     @Override

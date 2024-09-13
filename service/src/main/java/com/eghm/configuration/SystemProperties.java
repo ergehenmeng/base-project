@@ -150,12 +150,12 @@ public class SystemProperties {
             /**
              * 在请求头中key
              */
-            private String header = "token";
+            private String tokenName = "token";
 
             /**
              * token前缀
              */
-            private String prefix = "Bearer ";
+            private String tokenPrefix = "Bearer ";
 
             /**
              * token默认过期时间 默认两个小时过期

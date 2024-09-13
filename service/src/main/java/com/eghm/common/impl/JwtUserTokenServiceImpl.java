@@ -31,7 +31,7 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
     @Override
     public String createToken(SysUser user, Long merchantId, List<String> authList, List<String> dataList) {
         SystemProperties.ManageProperties.Token token = systemProperties.getManage().getToken();
-        return token.getPrefix() + this.doCreateJwt(user, merchantId, token.getExpire(), authList, dataList);
+        return token.getTokenPrefix() + this.doCreateJwt(user, merchantId, token.getExpire(), authList, dataList);
     }
 
     @Override

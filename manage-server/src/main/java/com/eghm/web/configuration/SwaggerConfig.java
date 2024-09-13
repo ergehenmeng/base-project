@@ -69,12 +69,12 @@ public class SwaggerConfig {
             return params;
         }
         ParameterBuilder tokenParameter = new ParameterBuilder();
-        tokenParameter.name(token.getHeader())
+        tokenParameter.name(token.getTokenName())
                 .description("令牌")
                 .modelRef(new ModelRef("string"))
                 .parameterType("header")
                 .required(true)
-                .defaultValue(token.getPrefix() + token.getMockToken())
+                .defaultValue(token.getTokenPrefix() + token.getMockToken())
                 .build();
         params.add(tokenParameter.build());
         return params;

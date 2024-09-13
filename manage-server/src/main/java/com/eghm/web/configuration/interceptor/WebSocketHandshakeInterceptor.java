@@ -29,7 +29,7 @@ public class WebSocketHandshakeInterceptor implements ChannelInterceptor {
     public Message<?> preSend(@NonNull Message<?> message, @NonNull MessageChannel channel) {
         StompHeaderAccessor accessor = StompHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
         if (accessor != null) {
-            String tokenName = manageProperties.getToken().getHeader();
+            String tokenName = manageProperties.getToken().getTokenName();
             List<String> token = accessor.getNativeHeader(tokenName);
             Map<String, Object> attributes = accessor.getSessionAttributes();
             if (CollUtil.isNotEmpty(token) && attributes != null) {
