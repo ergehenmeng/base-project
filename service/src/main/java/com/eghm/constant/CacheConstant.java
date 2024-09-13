@@ -113,11 +113,6 @@ public class CacheConstant {
     public static final String IN_MAIL_TEMPLATE = "in_mail_template";
 
     /**
-     * 互斥锁
-     */
-    public static final String MUTEX_LOCK = "mutex_lock:";
-
-    /**
      * 锁屏状态
      */
     public static final String LOCK_SCREEN = "lock_screen:";
@@ -238,21 +233,6 @@ public class CacheConstant {
     public static final String WECHAT_REFUND_NOTIFY_LOCK = "wechat_refund_notify_lock:";
 
     /**
-     * 管理后台手动退款锁
-     */
-    public static final String MANUAL_REFUND_LOCK = "manual_refund_lock:";
-
-    /**
-     * 发货
-     */
-    public static final String SIPPING_LOCK = "sipping_lock:";
-
-    /**
-     * 取消订单
-     */
-    public static final String ORDER_REFUND = "order_refund:";
-
-    /**
      * token (user) 管理后台用户
      */
     public static final String USER_TOKEN = "user_token:";
@@ -261,11 +241,6 @@ public class CacheConstant {
      * 用户token映射
      */
     public static final String USER_TOKEN_MAPPING = "user_token_mapping";
-
-    /**
-     * 抽奖
-     */
-    public static final String LOTTERY_LOCK = "lottery_lock:%s:%s";
 
     /**
      * 文章点赞

@@ -12,7 +12,7 @@ import com.eghm.pay.enums.TradeState;
 import com.eghm.pay.vo.PayOrderVO;
 import com.eghm.service.business.ScanRechargeLogService;
 import com.eghm.service.business.ScoreAccountService;
-import com.eghm.service.business.handler.context.PayNotifyContext;
+import com.eghm.state.machine.context.PayNotifyContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

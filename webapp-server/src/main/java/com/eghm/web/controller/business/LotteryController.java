@@ -1,6 +1,6 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.constant.CacheConstant;
+import com.eghm.constant.LockKey;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.lottery.LotteryQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
@@ -65,7 +65,7 @@ public class LotteryController {
     @ApiOperation("抽奖")
     @AccessToken
     public RespBody<LotteryResultVO> handle(@RequestBody @Validated IdDTO dto) {
-        String key = String.format(CacheConstant.LOTTERY_LOCK, dto.getId(), ApiHolder.getMemberId());
+        String key = String.format(LockKey.LOTTERY_LOCK, dto.getId(), ApiHolder.getMemberId());
         return redisLock.lock(key, 30_000,
                 () -> RespBody.success(lotteryService.lottery(dto.getId(), ApiHolder.getMemberId())),
                 () -> RespBody.error(ErrorCode.LOTTERY_EXECUTE));

@@ -1,6 +1,6 @@
 package com.eghm.dto.business.order.ticket;
 
-import com.eghm.service.business.handler.dto.VisitorDTO;
+import com.eghm.state.machine.dto.VisitorDTO;
 import com.eghm.validation.annotation.AfterNow;
 import com.eghm.validation.annotation.Mobile;
 import com.eghm.validation.annotation.RangeInt;

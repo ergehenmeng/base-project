@@ -1,6 +1,6 @@
 package com.eghm.dto.business.order.item;
 
-import com.eghm.service.business.handler.dto.ItemDTO;
+import com.eghm.state.machine.dto.ItemDTO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

@@ -14,7 +14,7 @@ import com.eghm.mapper.OrderVisitorMapper;
 import com.eghm.model.OrderVisitor;
 import com.eghm.service.business.OrderVisitorRefundService;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.handler.dto.VisitorDTO;
+import com.eghm.state.machine.dto.VisitorDTO;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.model.ScanRechargeLog;
-import com.eghm.service.business.handler.context.PayNotifyContext;
+import com.eghm.state.machine.context.PayNotifyContext;
 
 /**
  * <p>

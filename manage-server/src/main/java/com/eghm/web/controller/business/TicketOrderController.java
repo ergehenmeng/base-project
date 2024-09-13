@@ -2,7 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.constant.CacheConstant;
+import com.eghm.constant.LockKey;
 import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
@@ -52,7 +52,7 @@ public class TicketOrderController {
     @PostMapping(value = "/offlineRefund", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("线下退款")
     public RespBody<Void> offlineRefund(@RequestBody @Validated OfflineRefundRequest request) {
-        return redisLock.lock(CacheConstant.MANUAL_REFUND_LOCK + request.getOrderNo(), 10_000, () -> {
+        return redisLock.lock(LockKey.ORDER_LOCK + request.getOrderNo(), 10_000, () -> {
             orderService.offlineRefund(request);
             return RespBody.success();
         });

@@ -4,7 +4,7 @@ import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.VisitorState;
 import com.eghm.model.OrderVisitor;
-import com.eghm.service.business.handler.dto.VisitorDTO;
+import com.eghm.state.machine.dto.VisitorDTO;
 
 import java.util.List;
 

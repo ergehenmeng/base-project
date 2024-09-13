@@ -1,6 +1,6 @@
 package com.eghm.web.controller;
 
-import com.eghm.constant.CacheConstant;
+import com.eghm.constant.LockKey;
 import com.eghm.constant.WeChatConstant;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.OrderState;
@@ -17,10 +17,10 @@ import com.eghm.pay.enums.TradeType;
 import com.eghm.pay.vo.RefundVO;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ScanRechargeLogService;
-import com.eghm.service.business.handler.access.AbstractAccessHandler;
-import com.eghm.service.business.handler.access.AccessHandler;
-import com.eghm.service.business.handler.context.PayNotifyContext;
-import com.eghm.service.business.handler.context.RefundNotifyContext;
+import com.eghm.state.machine.access.AbstractAccessHandler;
+import com.eghm.state.machine.access.AccessHandler;
+import com.eghm.state.machine.context.PayNotifyContext;
+import com.eghm.state.machine.context.RefundNotifyContext;
 import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
@@ -78,7 +78,7 @@ public class PayNotifyController {
         context.setOrderNo(orderNo);
         context.setTradeNo(tradeNo);
 
-        return this.aliResult(() -> redisLock.lockVoid(CacheConstant.ALI_PAY_NOTIFY_LOCK + orderNo, 10_000,
+        return this.aliResult(() -> redisLock.lockVoid(LockKey.ORDER_LOCK + orderNo, 10_000,
                 () -> this.handlePayNotify(context)));
     }
 
@@ -94,7 +94,7 @@ public class PayNotifyController {
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         RefundNotifyContext context = this.generateContext(tradeNo, refundNo, TradeType.ALI_PAY);
 
-        return this.aliResult(() -> redisLock.lockVoid(CacheConstant.ALI_REFUND_NOTIFY_LOCK + tradeNo, 10_000,
+        return this.aliResult(() -> redisLock.lockVoid(LockKey.ORDER_LOCK + tradeNo, 10_000,
                 () -> commonService.handleRefundNotify(context)));
     }
 
@@ -111,7 +111,7 @@ public class PayNotifyController {
         context.setOrderNo(orderNo);
         context.setTradeNo(payNotify.getResult().getOutTradeNo());
 
-        return this.wechatResult(response, () -> redisLock.lockVoid(CacheConstant.WECHAT_PAY_NOTIFY_LOCK + orderNo, 10_000,
+        return this.wechatResult(response, () -> redisLock.lockVoid(LockKey.ORDER_LOCK + orderNo, 10_000,
                 () -> this.handlePayNotify(context)));
     }
 
@@ -127,7 +127,7 @@ public class PayNotifyController {
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         RefundNotifyContext context = this.generateContext(tradeNo, refundNo, TradeType.WECHAT_JSAPI);
 
-        return this.wechatResult(response, () -> redisLock.lockVoid(CacheConstant.WECHAT_REFUND_NOTIFY_LOCK + tradeNo, 10_000,
+        return this.wechatResult(response, () -> redisLock.lockVoid(LockKey.ORDER_LOCK + tradeNo, 10_000,
                 () -> commonService.handleRefundNotify(context)));
     }
 
