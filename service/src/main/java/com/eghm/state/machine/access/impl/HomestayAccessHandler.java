@@ -6,12 +6,10 @@ import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.pay.AggregatePayService;
 import com.eghm.service.business.OrderService;
-import com.eghm.state.machine.access.AbstractAccessHandler;
-import com.eghm.state.machine.context.*;
-import com.eghm.service.business.handler.context.*;
 import com.eghm.state.machine.Context;
 import com.eghm.state.machine.StateHandler;
-import com.eghm.state.machine.handler.context.*;
+import com.eghm.state.machine.access.AbstractAccessHandler;
+import com.eghm.state.machine.context.*;
 import org.springframework.stereotype.Service;
 
 /**
@@ -44,7 +42,6 @@ public class HomestayAccessHandler extends AbstractAccessHandler {
 
     @Override
     public void refundAudit(RefundAuditContext context) {
-        Order order = orderService.getByOrderNo(context.getOrderNo());
         if (context.getState() == 1) {
             stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.REFUND.getValue(), HomestayEvent.REFUND_PASS, context);
         } else {

@@ -10,11 +10,10 @@ import com.eghm.model.OrderRefundLog;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.state.machine.context.RefundAuditContext;
 import com.eghm.state.machine.ActionHandler;
+import com.eghm.state.machine.context.RefundAuditContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -37,7 +36,6 @@ public abstract class AbstractOrderRefundAuditHandler implements ActionHandler<R
     private final OrderVisitorService orderVisitorService;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void doAction(RefundAuditContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
         OrderRefundLog refundLog = orderRefundLogService.selectByIdRequired(context.getRefundId());

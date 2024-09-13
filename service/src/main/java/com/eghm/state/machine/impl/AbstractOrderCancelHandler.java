@@ -11,11 +11,10 @@ import com.eghm.pay.enums.TradeState;
 import com.eghm.pay.enums.TradeType;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.OrderService;
-import com.eghm.state.machine.context.OrderCancelContext;
 import com.eghm.state.machine.ActionHandler;
+import com.eghm.state.machine.context.OrderCancelContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -36,7 +35,6 @@ public abstract class AbstractOrderCancelHandler implements ActionHandler<OrderC
     private final AggregatePayService aggregatePayService;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void doAction(OrderCancelContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
         this.before(order);

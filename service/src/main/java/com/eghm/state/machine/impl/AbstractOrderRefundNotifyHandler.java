@@ -13,13 +13,10 @@ import com.eghm.service.business.AccountService;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VerifyLogService;
-import com.eghm.state.machine.context.RefundNotifyContext;
 import com.eghm.state.machine.ActionHandler;
+import com.eghm.state.machine.context.RefundNotifyContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -43,9 +40,7 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
 
     private final VerifyLogService verifyLogService;
 
-    @Async
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void doAction(RefundNotifyContext context) {
         Order order = orderService.selectByTradeNo(context.getTradeNo());
         OrderRefundLog refundLog = orderRefundLogService.selectByRefundNo(context.getRefundNo());

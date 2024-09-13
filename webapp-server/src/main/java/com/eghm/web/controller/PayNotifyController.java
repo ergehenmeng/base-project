@@ -111,8 +111,7 @@ public class PayNotifyController {
         context.setOrderNo(orderNo);
         context.setTradeNo(payNotify.getResult().getOutTradeNo());
 
-        return this.wechatResult(response, () -> redisLock.lockVoid(LockKey.ORDER_LOCK + orderNo, 10_000,
-                () -> this.handlePayNotify(context)));
+        return this.wechatResult(response, () -> this.handlePayNotify(context));
     }
 
     @PostMapping(WECHAT_REFUND_NOTIFY_URL)
@@ -127,8 +126,7 @@ public class PayNotifyController {
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         RefundNotifyContext context = this.generateContext(tradeNo, refundNo, TradeType.WECHAT_JSAPI);
 
-        return this.wechatResult(response, () -> redisLock.lockVoid(LockKey.ORDER_LOCK + tradeNo, 10_000,
-                () -> commonService.handleRefundNotify(context)));
+        return this.wechatResult(response, () -> commonService.handleRefundNotify(context));
     }
 
     @PostMapping("/mockPaySuccess")

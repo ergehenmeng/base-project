@@ -10,13 +10,10 @@ import com.eghm.mq.service.MessageService;
 import com.eghm.service.business.AccountService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.state.machine.context.PayNotifyContext;
 import com.eghm.state.machine.ActionHandler;
+import com.eghm.state.machine.context.PayNotifyContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 支付异步回调 成功
@@ -37,9 +34,7 @@ public abstract class AbstractOrderPaySuccessHandler implements ActionHandler<Pa
 
     private final OrderVisitorService orderVisitorService;
 
-    @Async
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void doAction(PayNotifyContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
 

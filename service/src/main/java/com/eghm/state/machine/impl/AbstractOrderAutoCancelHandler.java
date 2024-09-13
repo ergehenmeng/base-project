@@ -8,12 +8,10 @@ import com.eghm.pay.AggregatePayService;
 import com.eghm.pay.enums.TradeType;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.OrderService;
-import com.eghm.state.machine.context.OrderCancelContext;
 import com.eghm.state.machine.ActionHandler;
+import com.eghm.state.machine.context.OrderCancelContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -34,7 +32,6 @@ public abstract class AbstractOrderAutoCancelHandler implements ActionHandler<Or
     private final AggregatePayService aggregatePayService;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void doAction(OrderCancelContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
         if (order.getState() == OrderState.CLOSE) {

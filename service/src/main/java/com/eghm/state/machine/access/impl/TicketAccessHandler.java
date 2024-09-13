@@ -6,12 +6,10 @@ import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.pay.AggregatePayService;
 import com.eghm.service.business.OrderService;
-import com.eghm.state.machine.access.AbstractAccessHandler;
-import com.eghm.state.machine.context.*;
-import com.eghm.service.business.handler.context.*;
 import com.eghm.state.machine.Context;
 import com.eghm.state.machine.StateHandler;
-import com.eghm.state.machine.handler.context.*;
+import com.eghm.state.machine.access.AbstractAccessHandler;
+import com.eghm.state.machine.context.*;
 import org.springframework.stereotype.Service;
 
 /**

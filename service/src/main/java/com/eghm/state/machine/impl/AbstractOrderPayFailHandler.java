@@ -3,13 +3,11 @@ package com.eghm.state.machine.impl;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
-import com.eghm.state.machine.context.PayNotifyContext;
 import com.eghm.state.machine.ActionHandler;
+import com.eghm.state.machine.context.PayNotifyContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 支付异步回调 失败
@@ -25,7 +23,6 @@ public abstract class AbstractOrderPayFailHandler implements ActionHandler<PayNo
 
     @Async
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void doAction(PayNotifyContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
 

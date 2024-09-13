@@ -8,13 +8,12 @@ import com.eghm.model.OrderRefundLog;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.state.machine.context.RefundApplyContext;
 import com.eghm.state.machine.ActionHandler;
+import com.eghm.state.machine.context.RefundApplyContext;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -39,7 +38,6 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
     private final OrderVisitorService orderVisitorService;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void doAction(T context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
         this.before(context, order);

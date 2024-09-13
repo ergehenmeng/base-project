@@ -3,16 +3,13 @@ package com.eghm.state.machine.access.impl;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
-import com.eghm.lock.RedisLock;
 import com.eghm.model.Order;
 import com.eghm.pay.AggregatePayService;
 import com.eghm.service.business.OrderService;
-import com.eghm.state.machine.context.*;
-import com.eghm.state.machine.access.AbstractAccessHandler;
-import com.eghm.service.business.handler.context.*;
 import com.eghm.state.machine.Context;
 import com.eghm.state.machine.StateHandler;
-import com.eghm.state.machine.handler.context.*;
+import com.eghm.state.machine.access.AbstractAccessHandler;
+import com.eghm.state.machine.context.*;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,13 +23,10 @@ public class ItemAccessHandler extends AbstractAccessHandler {
 
     private final OrderService orderService;
 
-    private final RedisLock redisLock;
-
-    public ItemAccessHandler(OrderService orderService, AggregatePayService aggregatePayService, StateHandler stateHandler, RedisLock redisLock) {
+    public ItemAccessHandler(OrderService orderService, AggregatePayService aggregatePayService, StateHandler stateHandler) {
         super(orderService, aggregatePayService);
         this.stateHandler = stateHandler;
         this.orderService = orderService;
-        this.redisLock = redisLock;
     }
 
     @Override

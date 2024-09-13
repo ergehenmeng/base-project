@@ -8,13 +8,10 @@ import com.eghm.model.OrderRefundLog;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.state.machine.context.RefundCancelContext;
 import com.eghm.state.machine.ActionHandler;
+import com.eghm.state.machine.context.RefundCancelContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import static com.eghm.enums.ErrorCode.*;
 
@@ -34,9 +31,7 @@ public abstract class AbstractOrderRefundCancelHandler implements ActionHandler<
 
     private final OrderRefundLogService orderRefundLogService;
 
-    @Async
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void doAction(RefundCancelContext context) {
         OrderRefundLog refundLog = this.getRefundLog(context);
         this.before(context, refundLog);

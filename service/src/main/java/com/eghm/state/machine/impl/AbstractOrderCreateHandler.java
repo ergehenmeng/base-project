@@ -4,14 +4,13 @@ import com.eghm.model.Order;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.RedeemCodeGrantService;
-import com.eghm.state.machine.dto.VisitorDTO;
 import com.eghm.state.machine.ActionHandler;
 import com.eghm.state.machine.Context;
+import com.eghm.state.machine.dto.VisitorDTO;
 import com.eghm.utils.TransactionUtil;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -33,7 +32,6 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
     private final RedeemCodeGrantService redeemCodeGrantService;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void doAction(C context) {
         P payload = this.getPayload(context);
         this.before(context, payload);

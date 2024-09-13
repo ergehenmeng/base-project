@@ -2,6 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constant.LockKey;
 import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.refund.RefundAuditRequest;
 import com.eghm.dto.business.order.refund.RefundLogQueryRequest;
@@ -10,6 +11,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
+import com.eghm.lock.RedisLock;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderRefundLogService;
@@ -36,6 +38,8 @@ import static com.eghm.enums.ErrorCode.ORDER_TYPE_MATCH;
 @AllArgsConstructor
 @RequestMapping(value = "/manage/refund/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RefundLogController {
+
+    private final RedisLock redisLock;
 
     private final CommonService commonService;
 
@@ -71,7 +75,7 @@ public class RefundLogController {
         context.setAuditUserId(userToken.getId());
         // 备注信息标注是谁审批的 方便快速查看
         context.setAuditRemark(userToken.getNickName() + ": " + request.getAuditRemark());
-        accessHandler.refundAudit(context);
+        redisLock.lockVoid(LockKey.ORDER_LOCK + request.getOrderNo(), 10_000, () -> accessHandler.refundAudit(context));
         return RespBody.success();
     }
 }
