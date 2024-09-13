@@ -48,7 +48,7 @@ public abstract class AbstractAccessHandler implements AccessHandler {
 
     @Override
     public void refundNotify(RefundNotifyContext context) {
-        Order order = orderService.selectByTradeNo(context.getTradeNo());
+        Order order = orderService.getByTradeNo(context.getTradeNo());
         context.setFrom(order.getState().getValue());
         RefundStatus refundSuccess = context.getResult().getState();
         if (refundSuccess == RefundStatus.REFUND_SUCCESS || refundSuccess == RefundStatus.SUCCESS) {
@@ -72,7 +72,7 @@ public abstract class AbstractAccessHandler implements AccessHandler {
      */
     public TradeState checkPaySuccess(PayNotifyContext context) {
         // 零售订单可能会查询多条 取第一条即可
-        Order order = orderService.selectByTradeNo(context.getTradeNo());
+        Order order = orderService.getByTradeNo(context.getTradeNo());
         TradeType tradeType = TradeType.valueOf(order.getPayType().name());
         PayOrderVO vo = aggregatePayService.queryOrder(tradeType, order.getTradeNo());
         context.setAmount(vo.getAmount());

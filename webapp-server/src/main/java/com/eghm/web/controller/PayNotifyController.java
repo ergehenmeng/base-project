@@ -1,12 +1,10 @@
 package com.eghm.web.controller;
 
-import com.eghm.constant.LockKey;
 import com.eghm.constant.WeChatConstant;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
-import com.eghm.lock.RedisLock;
 import com.eghm.pay.AggregatePayService;
 import com.eghm.pay.PayNotifyLogService;
 import com.eghm.pay.PayService;
@@ -50,8 +48,6 @@ import static com.eghm.constant.CommonConstant.*;
 @Slf4j
 public class PayNotifyController {
 
-    private final RedisLock redisLock;
-
     private final PayService aliPayService;
 
     private final CommonService commonService;
@@ -78,8 +74,7 @@ public class PayNotifyController {
         context.setOrderNo(orderNo);
         context.setTradeNo(tradeNo);
 
-        return this.aliResult(() -> redisLock.lockVoid(LockKey.ORDER_LOCK + orderNo, 10_000,
-                () -> this.handlePayNotify(context)));
+        return this.aliResult(() -> this.handlePayNotify(context));
     }
 
     @PostMapping(ALI_REFUND_NOTIFY_URL)
@@ -94,8 +89,7 @@ public class PayNotifyController {
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         RefundNotifyContext context = this.generateContext(tradeNo, refundNo, TradeType.ALI_PAY);
 
-        return this.aliResult(() -> redisLock.lockVoid(LockKey.ORDER_LOCK + tradeNo, 10_000,
-                () -> commonService.handleRefundNotify(context)));
+        return this.aliResult(() -> commonService.handleRefundNotify(context));
     }
 
     @PostMapping(WECHAT_PAY_NOTIFY_URL)

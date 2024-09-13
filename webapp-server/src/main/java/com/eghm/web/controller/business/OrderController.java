@@ -14,6 +14,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.AsyncKey;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
+import com.eghm.lock.RedisLock;
 import com.eghm.pay.vo.PrepayVO;
 import com.eghm.service.business.OrderProxyService;
 import com.eghm.service.business.OrderService;
@@ -46,6 +47,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrderController {
+
+    private final RedisLock redisLock;
 
     private final OrderService orderService;
 
@@ -144,7 +147,7 @@ public class OrderController {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         context.setApplyType(1);
-        ticketAccessHandler.refundApply(context);
+        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> ticketAccessHandler.refundApply(context));
         return RespBody.success();
     }
 
@@ -155,7 +158,7 @@ public class OrderController {
         context.setMemberId(ApiHolder.getMemberId());
         context.setApplyType(1);
         context.setNum(dto.getVisitorIds().size());
-        lineAccessHandler.refundApply(context);
+        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> lineAccessHandler.refundApply(context));
         return RespBody.success();
     }
 
@@ -166,7 +169,7 @@ public class OrderController {
         context.setMemberId(ApiHolder.getMemberId());
         context.setApplyType(1);
         context.setNum(dto.getVisitorIds().size());
-        homestayAccessHandler.refundApply(context);
+        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> homestayAccessHandler.refundApply(context));
         return RespBody.success();
     }
 
@@ -176,7 +179,7 @@ public class OrderController {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         context.setApplyType(1);
-        voucherAccessHandler.refundApply(context);
+        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> voucherAccessHandler.refundApply(context));
         return RespBody.success();
     }
 
@@ -186,7 +189,7 @@ public class OrderController {
         ItemRefundApplyContext context = DataUtil.copy(dto, ItemRefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         context.setItemOrderId(dto.getOrderId());
-        itemAccessHandler.refundApply(context);
+        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> itemAccessHandler.refundApply(context));
         return RespBody.success();
     }
 
@@ -196,7 +199,7 @@ public class OrderController {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setNum(1);
         context.setMemberId(ApiHolder.getMemberId());
-        venueAccessHandler.refundApply(context);
+        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> itemAccessHandler.refundApply(context));
         return RespBody.success();
     }
 

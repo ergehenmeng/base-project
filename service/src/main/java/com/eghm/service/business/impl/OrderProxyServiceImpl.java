@@ -18,12 +18,11 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.HomestayOrderMapper;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
+import com.eghm.state.machine.StateHandler;
 import com.eghm.state.machine.access.AccessHandler;
 import com.eghm.state.machine.context.ItemRefundApplyContext;
 import com.eghm.state.machine.context.OrderCancelContext;
 import com.eghm.state.machine.context.RefundApplyContext;
-import com.eghm.state.machine.StateHandler;
-import com.eghm.vo.business.group.GroupOrderCancelVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -57,10 +56,6 @@ public class OrderProxyServiceImpl implements OrderProxyService {
     private final HomestayOrderMapper homestayOrderMapper;
 
     private final OrderVisitorService orderVisitorService;
-
-    private final GroupBookingService groupBookingService;
-
-    private final ItemGroupOrderService itemGroupOrderService;
 
     private HomestayOrder getByOrderNo(String orderNo) {
         LambdaQueryWrapper<HomestayOrder> wrapper = Wrappers.lambdaQuery();
@@ -126,37 +121,6 @@ public class OrderProxyServiceImpl implements OrderProxyService {
     }
 
     @Override
-    public void cancelGroupOrder(GroupOrderCancelVO vo) {
-        log.info("开始取消拼团订单(全部) [{}]", vo.getBookingId());
-        GroupBooking booking = groupBookingService.getById(vo.getBookingId());
-        if (booking == null) {
-            log.warn("该拼团订单可能已删除 [{}]", vo.getBookingId());
-            return;
-        }
-        if (booking.getEndTime().isAfter(vo.getEndTime())) {
-            log.warn("拼团活动推后啦 [{}] [{}] [{}]", vo.getBookingId(), booking.getEndTime(), vo.getEndTime());
-            return;
-        }
-        if (booking.getEndTime().isBefore(vo.getEndTime())) {
-            log.warn("拼团活动提前啦 [{}] [{}] [{}]", vo.getBookingId(), booking.getEndTime(), vo.getEndTime());
-            return;
-        }
-        List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(vo.getBookingId(), 0);
-        groupList.forEach(this::doCancelGroupOrder);
-    }
-
-    @Override
-    public void cancelGroupOrder(String bookingNo) {
-        log.info("开始取消拼团订单(个人) [{}]", bookingNo);
-        List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(bookingNo, 0);
-        if (groupList.isEmpty()) {
-            log.warn("该拼团订单可能已成团或已取消,不做取消处理 [{}]", bookingNo);
-            return;
-        }
-        groupList.forEach(this::doCancelGroupOrder);
-    }
-
-    @Override
     public void cancel(String orderNo, Long memberId) {
         Order order = orderService.getByOrderNo(orderNo);
         if (!order.getMemberId().equals(memberId)) {
@@ -176,12 +140,8 @@ public class OrderProxyServiceImpl implements OrderProxyService {
         commonService.getHandler(orderNo, AccessHandler.class).cancel(context);
     }
 
-    /**
-     * 取消拼团订单
-     *
-     * @param group 拼团订单
-     */
-    private void doCancelGroupOrder(ItemGroupOrder group) {
+    @Override
+    public void doCancelGroupOrder(ItemGroupOrder group) {
         log.info("开始取消拼团订单 [{}]", group.getOrderNo());
         Order order = orderService.getByOrderNo(group.getOrderNo());
         try {

@@ -29,7 +29,7 @@ public abstract class AbstractItemOrderPayNotifyHandler implements ActionHandler
 
     @Override
     public void doAction(PayNotifyContext context) {
-        List<Order> orderList = orderService.selectByTradeNoList(context.getTradeNo());
+        List<Order> orderList = orderService.getByTradeNoList(context.getTradeNo());
         this.before(context, orderList);
         this.doProcess(context, orderList);
         this.after(context, orderList);

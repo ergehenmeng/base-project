@@ -5,15 +5,18 @@ import com.eghm.cache.CacheProxyService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
+import com.eghm.constant.LockKey;
 import com.eghm.dto.ext.StoreScope;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.SelectType;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
+import com.eghm.lock.RedisLock;
 import com.eghm.mapper.*;
 import com.eghm.model.*;
 import com.eghm.service.business.CommonService;
+import com.eghm.service.business.OrderService;
 import com.eghm.state.machine.access.AccessHandler;
 import com.eghm.state.machine.context.PayNotifyContext;
 import com.eghm.state.machine.context.RefundNotifyContext;
@@ -44,6 +47,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CommonServiceImpl implements CommonService {
 
+    private final RedisLock redisLock;
 
     private final ItemMapper itemMapper;
 
@@ -54,6 +58,8 @@ public class CommonServiceImpl implements CommonService {
     private final ScenicMapper scenicMapper;
 
     private final SysConfigApi sysConfigApi;
+
+    private final OrderService orderService;
 
     private final SysAreaMapper sysAreaMapper;
 
@@ -91,12 +97,22 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public void handlePayNotify(PayNotifyContext context) {
-        this.getHandler(context.getTradeNo(), AccessHandler.class).payNotify(context);
+        redisLock.lockVoid(LockKey.ORDER_LOCK + context.getOrderNo(), 10_000, () ->
+                this.getHandler(context.getTradeNo(), AccessHandler.class).payNotify(context)
+        );
     }
 
     @Override
     public void handleRefundNotify(RefundNotifyContext context) {
-        this.getHandler(context.getTradeNo(), AccessHandler.class).refundNotify(context);
+        Order order = orderService.getByTradeNo(context.getTradeNo());
+        if (order == null) {
+            log.error("订单不存在,无法执行退款回调 [{}]", context.getTradeNo());
+            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
+        }
+        // 在订单处理过程中, 最好使用一把锁增加锁范围防止重复处理, 同时由于退款回调可能先于退款申请(不需要审核的订单发起申请时会直接退), 所以这里使用订单号作为锁
+        redisLock.lockVoid(LockKey.ORDER_LOCK + order.getOrderNo(), 10_000, () ->
+                this.getHandler(context.getTradeNo(), AccessHandler.class).refundNotify(context)
+        );
     }
 
     @Override

@@ -152,7 +152,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public Order selectByTradeNo(String tradeNo) {
+    public Order getByTradeNo(String tradeNo) {
         LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Order::getTradeNo, tradeNo);
         wrapper.last(CommonConstant.LIMIT_ONE);
@@ -160,14 +160,14 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public List<Order> selectByTradeNoList(String tradeNo) {
+    public List<Order> getByTradeNoList(String tradeNo) {
         LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Order::getTradeNo, tradeNo);
         return baseMapper.selectList(wrapper);
     }
 
     @Override
-    public Order selectById(Long orderId) {
+    public Order getById(Long orderId) {
         return baseMapper.selectById(orderId);
     }
 

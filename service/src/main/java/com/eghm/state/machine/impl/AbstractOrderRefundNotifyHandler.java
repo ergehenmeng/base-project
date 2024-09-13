@@ -42,7 +42,7 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
 
     @Override
     public void doAction(RefundNotifyContext context) {
-        Order order = orderService.selectByTradeNo(context.getTradeNo());
+        Order order = orderService.getByTradeNo(context.getTradeNo());
         OrderRefundLog refundLog = orderRefundLogService.selectByRefundNo(context.getRefundNo());
 
         this.before(context, order, refundLog);

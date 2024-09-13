@@ -44,7 +44,7 @@ public interface OrderService extends IService<Order> {
      * @param tradeNo 交易流水号
      * @return 订单信息
      */
-    Order selectByTradeNo(String tradeNo);
+    Order getByTradeNo(String tradeNo);
 
     /**
      * 根据交易流水号查询订单 针对普通商品订单可能会出现一个交易流水号对应多类商品订单
@@ -52,7 +52,7 @@ public interface OrderService extends IService<Order> {
      * @param tradeNo 交易流水号
      * @return 订单列表
      */
-    List<Order> selectByTradeNoList(String tradeNo);
+    List<Order> getByTradeNoList(String tradeNo);
 
     /**
      * 查询订单信息
@@ -60,7 +60,7 @@ public interface OrderService extends IService<Order> {
      * @param orderId 主键
      * @return 订单信息
      */
-    Order selectById(Long orderId);
+    Order getById(Long orderId);
 
     /**
      * 根据订单查询订单信息,
