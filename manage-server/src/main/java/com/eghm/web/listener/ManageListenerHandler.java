@@ -21,13 +21,13 @@ import java.io.IOException;
  */
 @Component
 @Slf4j
-public class RabbitListenerHandler extends AbstractListenerHandler {
+public class ManageListenerHandler extends AbstractListenerHandler {
 
     private final ManageLogService manageLogService;
 
     private final MemberCouponService memberCouponService;
 
-    public RabbitListenerHandler(JsonService jsonService, AlarmService alarmService, ManageLogService manageLogService, MemberCouponService memberCouponService) {
+    public ManageListenerHandler(JsonService jsonService, AlarmService alarmService, ManageLogService manageLogService, MemberCouponService memberCouponService) {
         super(jsonService, alarmService);
         this.manageLogService = manageLogService;
         this.memberCouponService = memberCouponService;

@@ -36,8 +36,6 @@ spring:
           initial-interval: 10000
           enabled: true
           max-interval: 30000
-    ## 移动端和管理后台要分区创建mq
-    virtual-host: /webapp
 
 system:
   ali-pay:

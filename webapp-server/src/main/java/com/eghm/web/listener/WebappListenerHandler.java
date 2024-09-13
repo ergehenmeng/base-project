@@ -42,7 +42,7 @@ import static com.eghm.constant.CacheConstant.SUCCESS_PLACE_HOLDER;
  */
 @Component
 @Slf4j
-public class RabbitListenerHandler extends AbstractListenerHandler {
+public class WebappListenerHandler extends AbstractListenerHandler {
 
     private final LineService lineService;
 
@@ -74,7 +74,7 @@ public class RabbitListenerHandler extends AbstractListenerHandler {
 
     private final OrderEvaluationService orderEvaluationService;
 
-    public RabbitListenerHandler(JsonService jsonService, AlarmService alarmService, LineService lineService, JsonService jsonService1, ItemService itemService, LoginService loginService, CacheService cacheService, StateHandler stateHandler, OrderService orderService, VenueService venueService, HomestayService homestayService, WebappLogService webappLogService, OrderProxyService orderProxyService, RestaurantService restaurantService, ScenicTicketService scenicTicketService, MemberVisitLogService memberVisitLogService, OrderEvaluationService orderEvaluationService) {
+    public WebappListenerHandler(JsonService jsonService, AlarmService alarmService, LineService lineService, JsonService jsonService1, ItemService itemService, LoginService loginService, CacheService cacheService, StateHandler stateHandler, OrderService orderService, VenueService venueService, HomestayService homestayService, WebappLogService webappLogService, OrderProxyService orderProxyService, RestaurantService restaurantService, ScenicTicketService scenicTicketService, MemberVisitLogService memberVisitLogService, OrderEvaluationService orderEvaluationService) {
         super(jsonService, alarmService);
         this.lineService = lineService;
         this.jsonService = jsonService1;
@@ -151,28 +151,6 @@ public class RabbitListenerHandler extends AbstractListenerHandler {
     @RabbitListener(queues = QueueConstant.LINE_PAY_EXPIRE_QUEUE)
     public void lineExpire(String orderNo, Message message, Channel channel) throws IOException {
         this.doOrderExpire(orderNo, LineEvent.AUTO_CANCEL, message, channel);
-    }
-
-    /**
-     * 订单30分钟过期处理
-     *
-     * @param orderNo 订单编号
-     * @param event   状态机事件, 不同品类事件不一样
-     * @param message mq消息
-     * @param channel mq channel
-     */
-    private void doOrderExpire(String orderNo, IEvent event, Message message, Channel channel) throws IOException {
-        log.info("订单自动过期处理 [{}]", orderNo);
-        OrderCancelContext context = new OrderCancelContext();
-        context.setOrderNo(orderNo);
-        processMessageAck(context, message, channel, orderCancelContext -> {
-            Order order = orderService.getByOrderNo(orderNo);
-            if (order == null) {
-                log.warn("订单已删除, 无须自动取消 [{}]", orderNo);
-                return;
-            }
-            stateHandler.fireEvent(ProductType.prefix(orderNo), order.getState().getValue(), event, context);
-        });
     }
 
     /**
@@ -370,6 +348,28 @@ public class RabbitListenerHandler extends AbstractListenerHandler {
     public void orderPayRanking(OrderPayNotify notify, Message message, Channel channel) throws IOException {
         processMessageAck(notify, message, channel, s ->
                 orderService.incrementAmount(notify.getProductType(), notify.getMerchantId(), notify.getProductId(), notify.getAmount()));
+    }
+
+    /**
+     * 订单30分钟过期处理
+     *
+     * @param orderNo 订单编号
+     * @param event   状态机事件, 不同品类事件不一样
+     * @param message mq消息
+     * @param channel mq channel
+     */
+    private void doOrderExpire(String orderNo, IEvent event, Message message, Channel channel) throws IOException {
+        log.info("订单自动过期处理 [{}]", orderNo);
+        OrderCancelContext context = new OrderCancelContext();
+        context.setOrderNo(orderNo);
+        processMessageAck(context, message, channel, orderCancelContext -> {
+            Order order = orderService.getByOrderNo(orderNo);
+            if (order == null) {
+                log.warn("订单已删除, 无须自动取消 [{}]", orderNo);
+                return;
+            }
+            stateHandler.fireEvent(ProductType.prefix(orderNo), order.getState().getValue(), event, context);
+        });
     }
 
     /**
