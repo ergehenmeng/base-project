@@ -200,6 +200,11 @@ public class CommonConstant {
      */
     public static final String WEBSOCKET_PREFIX = "/websocket";
 
+    /**
+     * 管理后台用户ID
+     */
+    public static final String SECURITY_USER = "securityUser";
+
     private CommonConstant() {
     }
 }

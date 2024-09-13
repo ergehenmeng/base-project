@@ -1,17 +1,22 @@
 package com.eghm.web.configuration.interceptor;
 
-import cn.hutool.core.collection.CollUtil;
+import com.eghm.common.UserTokenService;
 import com.eghm.configuration.SystemProperties;
+import com.eghm.dto.ext.UserToken;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.lang.NonNull;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
-import org.springframework.messaging.support.ChannelInterceptor;
+import org.springframework.web.socket.WebSocketHandler;
+import org.springframework.web.socket.server.HandshakeInterceptor;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
+import java.util.Optional;
+
+import static com.eghm.constant.CommonConstant.SECURITY_USER;
 
 /**
  * websocket拦截器
@@ -21,21 +26,25 @@ import java.util.Map;
  */
 @Slf4j
 @AllArgsConstructor
-public class WebSocketHandshakeInterceptor implements ChannelInterceptor {
+public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
+
+    private final UserTokenService userTokenService;
 
     private final SystemProperties.ManageProperties manageProperties;
 
     @Override
-    public Message<?> preSend(@NonNull Message<?> message, @NonNull MessageChannel channel) {
-        StompHeaderAccessor accessor = StompHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-        if (accessor != null) {
-            String tokenName = manageProperties.getToken().getTokenName();
-            List<String> token = accessor.getNativeHeader(tokenName);
-            Map<String, Object> attributes = accessor.getSessionAttributes();
-            if (CollUtil.isNotEmpty(token) && attributes != null) {
-                attributes.put(tokenName, token.get(0));
-            }
+    public boolean beforeHandshake(@NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response, @NonNull WebSocketHandler wsHandler, @NonNull Map<String, Object> attributes) {
+        HttpServletRequest serverRequest = ((ServletServerHttpRequest) request).getServletRequest();
+        Optional<UserToken> optional = userTokenService.parseToken(serverRequest.getParameter(manageProperties.getToken().getTokenName()));
+        boolean present = optional.isPresent();
+        if (present) {
+            attributes.put(SECURITY_USER, optional.get());
         }
-        return message;
+        return present;
+    }
+
+    @Override
+    public void afterHandshake(@NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response, @NonNull WebSocketHandler wsHandler, Exception exception) {
+        log.info("有新客户端接入 [{}]", request.getRemoteAddress());
     }
 }

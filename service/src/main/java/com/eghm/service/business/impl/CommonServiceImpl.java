@@ -1,6 +1,7 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
@@ -16,7 +17,6 @@ import com.eghm.lock.RedisLock;
 import com.eghm.mapper.*;
 import com.eghm.model.*;
 import com.eghm.service.business.CommonService;
-import com.eghm.service.business.OrderService;
 import com.eghm.state.machine.access.AccessHandler;
 import com.eghm.state.machine.context.PayNotifyContext;
 import com.eghm.state.machine.context.RefundNotifyContext;
@@ -55,11 +55,11 @@ public class CommonServiceImpl implements CommonService {
 
     private final VenueMapper venueMapper;
 
+    private final OrderMapper orderMapper;
+
     private final ScenicMapper scenicMapper;
 
     private final SysConfigApi sysConfigApi;
-
-    private final OrderService orderService;
 
     private final SysAreaMapper sysAreaMapper;
 
@@ -104,7 +104,7 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public void handleRefundNotify(RefundNotifyContext context) {
-        Order order = orderService.getByTradeNo(context.getTradeNo());
+        Order order = orderMapper.selectOne(Wrappers.<Order>lambdaQuery().eq(Order::getTradeNo, context.getTradeNo()).last(CommonConstant.LIMIT_ONE));
         if (order == null) {
             log.error("订单不存在,无法执行退款回调 [{}]", context.getTradeNo());
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
