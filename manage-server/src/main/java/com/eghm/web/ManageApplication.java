@@ -2,8 +2,6 @@ package com.eghm.web;
 
 
 import com.eghm.configuration.annotation.EnableTask;
-import com.eghm.configuration.rabbit.RabbitConfig;
-import com.eghm.configuration.rabbit.RabbitInitConfig;
 import com.eghm.utils.LoggerUtil;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +15,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.Import;
 import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.EnableAsync;
 
@@ -34,7 +31,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @ComponentScan("com.eghm")
 @EnableAspectJAutoProxy(exposeProxy = true)
 @MapperScan(basePackages = "com.eghm.mapper")
-@Import({RabbitConfig.class, RabbitInitConfig.class})
 public class ManageApplication implements ApplicationContextAware {
 
     public static void main(String[] args) {

@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * RabbitMQ 消息队列初始化配置
@@ -19,6 +20,7 @@ import org.springframework.context.annotation.Bean;
  * @since 2023/12/6
  */
 @Slf4j
+@Configuration
 @AllArgsConstructor
 public class RabbitInitConfig {
 
