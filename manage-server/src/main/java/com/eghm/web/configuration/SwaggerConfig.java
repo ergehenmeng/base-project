@@ -3,7 +3,6 @@ package com.eghm.web.configuration;
 import com.eghm.configuration.SystemProperties;
 import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -32,7 +31,6 @@ import static springfox.documentation.builders.RequestHandlerSelectors.basePacka
 @EnableSwagger2WebMvc
 @Profile({"dev", "test"})
 @AllArgsConstructor
-@EnableConfigurationProperties(SystemProperties.class)
 public class SwaggerConfig {
 
     private final SystemProperties systemProperties;

@@ -64,9 +64,9 @@ import java.util.Properties;
  * @author 二哥很猛
  * @since 2018/9/13 11:19
  */
-@EnableConfigurationProperties({SystemProperties.class})
-@AllArgsConstructor
 @Slf4j
+@AllArgsConstructor
+@EnableConfigurationProperties({SystemProperties.class})
 public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDecorator, TaskExecutorCustomizer {
 
     private final ObjectMapper objectMapper;

@@ -4,7 +4,6 @@ import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.Config;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
  * @since 2022/7/25
  */
 @Configuration
-@EnableConfigurationProperties(SystemProperties.class)
 @AllArgsConstructor
 public class AliPayConfig {
 

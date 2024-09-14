@@ -12,7 +12,6 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
 import me.chanjar.weixin.mp.config.impl.WxMpMapConfigImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,7 +20,6 @@ import org.springframework.context.annotation.Configuration;
  * @since 2021/12/4 下午3:19
  */
 @Configuration
-@EnableConfigurationProperties(SystemProperties.class)
 @AllArgsConstructor
 public class WeChatConfig {
 

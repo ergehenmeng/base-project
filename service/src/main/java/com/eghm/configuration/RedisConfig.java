@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +28,6 @@ import java.time.Duration;
  */
 @Configuration
 @EnableCaching
-@EnableConfigurationProperties(SystemProperties.class)
 @AllArgsConstructor
 public class RedisConfig {
 

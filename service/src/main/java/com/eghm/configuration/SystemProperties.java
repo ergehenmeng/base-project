@@ -3,7 +3,6 @@ package com.eghm.configuration;
 import com.eghm.enums.*;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,6 @@ import java.util.List;
  */
 @ConfigurationProperties(prefix = SystemProperties.PREFIX)
 @Data
-@Component
 public class SystemProperties {
 
     static final String PREFIX = "system";
