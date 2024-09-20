@@ -18,6 +18,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.amqp.SimpleRabbitListenerContainerFactoryConfigurer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 
 /**
@@ -26,6 +27,7 @@ import org.springframework.core.task.SimpleAsyncTaskExecutor;
  * @author 二哥很猛 2022/6/10 11:21
  */
 @Slf4j
+@Configuration
 @AllArgsConstructor
 public class RabbitConfig {
 

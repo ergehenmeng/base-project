@@ -58,9 +58,8 @@ public class ExpressTemplateServiceImpl implements ExpressTemplateService {
     @Override
     public List<ExpressSelectResponse> selectList(Long merchantId) {
         LambdaQueryWrapper<ExpressTemplate> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(ExpressTemplate::getId, ExpressTemplate::getTitle, ExpressTemplate::getChargeMode);
+        wrapper.select(ExpressTemplate::getId, ExpressTemplate::getTitle, ExpressTemplate::getChargeMode, ExpressTemplate::getState);
         wrapper.eq(ExpressTemplate::getMerchantId, merchantId);
-        wrapper.eq(ExpressTemplate::getState, 1);
         wrapper.orderByDesc(ExpressTemplate::getId);
         List<ExpressTemplate> expressList = expressTemplateMapper.selectList(wrapper);
         return DataUtil.copy(expressList, ExpressSelectResponse.class);
