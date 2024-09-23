@@ -17,7 +17,7 @@ public interface FileService {
      * @param file 文件
      * @return 文件保存的相对路径
      */
-    FilePath saveFile(@NotNull MultipartFile file);
+    FilePath saveFile(String key, @NotNull MultipartFile file);
 
     /**
      * 保存文件
@@ -26,7 +26,7 @@ public interface FileService {
      * @param folder 文件保存的文件夹名称 (主路径由全局定义,父级文件夹可在此处自定义)
      * @return 文件保存的相对路径
      */
-    FilePath saveFile(@NotNull MultipartFile file, String folder);
+    FilePath saveFile(String key, @NotNull MultipartFile file, String folder);
 
     /**
      * 保存文件
@@ -36,7 +36,7 @@ public interface FileService {
      * @param maxSize 文件最大限制 byte
      * @return 文件保存的相对路径
      */
-    FilePath saveFile(@NotNull MultipartFile file, String folder, long maxSize);
+    FilePath saveFile(String key, @NotNull MultipartFile file, String folder, long maxSize);
 
     /**
      * 保存文件
@@ -45,6 +45,6 @@ public interface FileService {
      * @param maxSize 文件最大限制 byte
      * @return 文件保存的相对路径
      */
-    FilePath saveFile(@NotNull MultipartFile file, long maxSize);
+    FilePath saveFile(String key, @NotNull MultipartFile file, long maxSize);
 
 }

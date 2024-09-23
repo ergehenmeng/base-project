@@ -33,4 +33,9 @@ public class CacheUtil {
      * post请求间隔限制
      */
     public static final Cache<String, Boolean> INTERVAL_CACHE = Caffeine.newBuilder().expireAfterWrite(SUBMIT_INTERVAL, TimeUnit.MILLISECONDS).maximumSize(2000).build();
+
+    /**
+     * 文件单日上传限制
+     */
+    public static final Cache<String, Long> UPLOAD_LIMIT_CACHE = Caffeine.newBuilder().expireAfterWrite(1, TimeUnit.DAYS).maximumSize(10000).build();
 }

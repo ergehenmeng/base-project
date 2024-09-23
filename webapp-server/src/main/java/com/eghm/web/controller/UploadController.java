@@ -2,8 +2,11 @@ package com.eghm.web.controller;
 
 import com.eghm.common.FileService;
 import com.eghm.configuration.annotation.SkipLogger;
+import com.eghm.constant.CommonConstant;
+import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -35,8 +38,9 @@ public class UploadController {
     @ApiImplicitParam(name = "file", value = "file流", paramType = "formData", dataType = "file", required = true)
     @ApiOperation("单文件上传")
     @SkipLogger
+    @AccessToken
     public RespBody<FilePath> upload(@RequestParam("file") MultipartFile file) {
-        FilePath filePath = fileService.saveFile(file);
+        FilePath filePath = fileService.saveFile(CommonConstant.MEMBER + ApiHolder.getMemberId(), file);
         return RespBody.success(filePath);
     }
 }

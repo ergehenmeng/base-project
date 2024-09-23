@@ -1,6 +1,7 @@
 package com.eghm.common.impl;
 
 import cn.hutool.core.util.IdUtil;
+import com.eghm.common.AlarmService;
 import com.eghm.common.FileService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.ConfigConstant;
@@ -8,6 +9,7 @@ import com.eghm.constants.SystemConstant;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
+import com.eghm.utils.CacheUtil;
 import com.eghm.utils.DateUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +19,8 @@ import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+
+import static com.eghm.constant.CommonConstant.DAY_MAX_UPLOAD;
 
 /**
  * 保存文件路径格式=根路径+公共路径+文件分类路径+日期+文件名+后缀<br>
@@ -35,28 +39,35 @@ public class SystemFileServiceImpl implements FileService {
 
     private final SysConfigApi sysConfigApi;
 
+    private final AlarmService alarmService;
+
     private final SystemProperties systemProperties;
 
     @Override
-    public FilePath saveFile(@NotNull MultipartFile file) {
-        return this.saveFile(file, this.getDefaultFolder(), this.getSingleMaxSize());
+    public FilePath saveFile(String key, @NotNull MultipartFile file) {
+        return this.saveFile(key, file, this.getDefaultFolder(), this.getSingleMaxSize());
     }
 
     @Override
-    public FilePath saveFile(@NotNull MultipartFile file, String folder) {
-        return this.saveFile(file, folder, this.getSingleMaxSize());
+    public FilePath saveFile(String key, @NotNull MultipartFile file, String folder) {
+        return this.saveFile(key, file, folder, this.getSingleMaxSize());
     }
 
     @Override
-    public FilePath saveFile(@NotNull MultipartFile file, String folder, long maxSize) {
+    public FilePath saveFile(String key, @NotNull MultipartFile file, String folder, long maxSize) {
         this.checkSize(file, maxSize);
+        Long present = CacheUtil.UPLOAD_LIMIT_CACHE.getIfPresent(key);
+        if (present != null && present + file.getSize() > DAY_MAX_UPLOAD) {
+            log.warn("上单日传文件超出限制:[{}]", DAY_MAX_UPLOAD / 1024);
+            alarmService.sendMsg(String.format("上单日传文件超出限制,请注意监控:[%s] [%s]", key, (present + file.getSize())));
+        }
         String path = this.doSaveFile(file, folder);
         return FilePath.builder().path(path).address(this.getFileAddress()).size(file.getSize()).build();
     }
 
     @Override
-    public FilePath saveFile(@NotNull MultipartFile file, long maxSize) {
-        return this.saveFile(file, this.getDefaultFolder(), maxSize);
+    public FilePath saveFile(String key, @NotNull MultipartFile file, long maxSize) {
+        return this.saveFile(key, file, this.getDefaultFolder(), maxSize);
     }
 
     /**

@@ -3,6 +3,8 @@ package com.eghm.web.controller;
 
 import com.eghm.common.FileService;
 import com.eghm.configuration.annotation.SkipPerm;
+import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constant.CommonConstant;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.dto.ext.RespBody;
 import io.swagger.annotations.Api;
@@ -33,7 +35,7 @@ public class UploadController {
     @ApiOperation("单文件上传")
     @SkipPerm
     public RespBody<FilePath> upload(@RequestParam("file") MultipartFile file) {
-        FilePath filePath = fileService.saveFile(file);
+        FilePath filePath = fileService.saveFile(CommonConstant.USER + SecurityHolder.getUserId(), file);
         return RespBody.success(filePath);
     }
 }

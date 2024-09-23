@@ -1,5 +1,6 @@
 package com.eghm.configuration;
 
+import com.eghm.common.AlarmService;
 import com.eghm.common.FileService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.common.impl.SystemFileServiceImpl;
@@ -17,7 +18,7 @@ public class FileConfig {
 
     @Bean
     @ConditionalOnProperty(prefix = "system", name = "upload-type", havingValue = "system", matchIfMissing = true)
-    public FileService fileService(SystemProperties systemProperties, SysConfigApi sysConfigApi) {
-        return new SystemFileServiceImpl(sysConfigApi, systemProperties);
+    public FileService fileService(SystemProperties systemProperties, SysConfigApi sysConfigApi, AlarmService alarmService) {
+        return new SystemFileServiceImpl(sysConfigApi, alarmService, systemProperties);
     }
 }

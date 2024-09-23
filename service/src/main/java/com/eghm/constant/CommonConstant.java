@@ -201,9 +201,24 @@ public class CommonConstant {
     public static final String WEBSOCKET_PREFIX = "/websocket";
 
     /**
-     * 管理后台用户ID
+     * 管理后台用户ID websocket-key
      */
     public static final String SECURITY_USER = "securityUser";
+
+    /**
+     *
+     */
+    public static final String USER = "user:";
+
+    /**
+     *
+     */
+    public static final String MEMBER = "member:";
+
+    /**
+     * 单日上传限制: 默认512M
+     */
+    public static final long DAY_MAX_UPLOAD = 512 * 1024 * 1024L;
 
     private CommonConstant() {
     }
