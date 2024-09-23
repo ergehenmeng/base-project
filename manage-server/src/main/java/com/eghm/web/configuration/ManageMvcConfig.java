@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 import javax.servlet.DispatcherType;
@@ -32,8 +33,9 @@ public class ManageMvcConfig extends WebMvcConfig {
 
     private final UserTokenService userTokenService;
 
-    public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, UserTokenService userTokenService, SysMenuService sysMenuService, CacheService cacheService) {
-        super(objectMapper, systemProperties);
+    public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, UserTokenService userTokenService,
+                           SysMenuService sysMenuService, CacheService cacheService, TaskExecutor taskExecutor) {
+        super(objectMapper, taskExecutor, systemProperties);
         this.cacheService = cacheService;
         this.sysMenuService = sysMenuService;
         this.userTokenService = userTokenService;

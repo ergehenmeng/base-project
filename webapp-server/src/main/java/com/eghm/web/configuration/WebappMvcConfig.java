@@ -17,6 +17,7 @@ import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBea
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -43,8 +44,8 @@ public class WebappMvcConfig extends WebMvcConfig {
 
     private final MemberTokenService memberTokenService;
 
-    public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, MemberTokenService memberTokenService, CacheProxyService cacheProxyService) {
-        super(objectMapper, systemProperties);
+    public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, MemberTokenService memberTokenService, CacheProxyService cacheProxyService, TaskExecutor taskExecutor) {
+        super(objectMapper, taskExecutor, systemProperties);
         this.cacheProxyService = cacheProxyService;
         this.memberTokenService = memberTokenService;
     }

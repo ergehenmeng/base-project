@@ -1,7 +1,7 @@
 package com.eghm.configuration;
 
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.ttl.TtlRunnable;
+import com.alibaba.ttl.threadpool.TtlExecutors;
 import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
 import com.eghm.common.impl.DefaultAlarmServiceImpl;
@@ -37,16 +37,13 @@ import org.hibernate.validator.HibernateValidatorConfiguration;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.task.TaskExecutorCustomizer;
 import org.springframework.boot.validation.MessageInterpolatorFactory;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.task.TaskDecorator;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -57,19 +54,22 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.Executor;
 
 /**
  * 公用配置,所有web模块所公用的配置信息均可在该配置文件中声明
- *
+ * {@link AsyncConfigurer } 用来指定指定异步线程池和异常处理器
  * @author 二哥很猛
  * @since 2018/9/13 11:19
  */
 @Slf4j
 @AllArgsConstructor
 @EnableConfigurationProperties({SystemProperties.class})
-public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDecorator, TaskExecutorCustomizer {
+public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
 
     private final ObjectMapper objectMapper;
+
+    private final TaskExecutor taskExecutor;
 
     @Getter
     protected final SystemProperties systemProperties;
@@ -126,6 +126,11 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
         return (ex, method, params) -> log.error("@Async接口调用异常: [{}] [{}]", method.getName(), params, ex);
     }
 
+    @Override
+    public Executor getAsyncExecutor() {
+        return TtlExecutors.getTtlExecutor(taskExecutor);
+    }
+
     /**
      * 密码加密bean 独立于spring-security之外的工具类
      *
@@ -173,17 +178,6 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
         AnnotationIntrospector ai = objectMapper.getSerializationConfig().getAnnotationIntrospector();
         AnnotationIntrospector newAi = AnnotationIntrospectorPair.pair(ai, new DesensitizationAnnotationInterceptor());
         objectMapper.setAnnotationIntrospector(newAi);
-    }
-
-    @Override
-    @NonNull
-    public Runnable decorate(@NonNull Runnable runnable) {
-        return TtlRunnable.get(runnable);
-    }
-
-    @Override
-    public void customize(ThreadPoolTaskExecutor taskExecutor) {
-        taskExecutor.setThreadNamePrefix("异步线程-");
     }
 
     @Override

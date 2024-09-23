@@ -7,7 +7,6 @@ import com.eghm.state.machine.ActionHandler;
 import com.eghm.state.machine.context.PayNotifyContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
 
 /**
  * 支付异步回调 失败
@@ -21,7 +20,6 @@ public abstract class AbstractOrderPayFailHandler implements ActionHandler<PayNo
 
     private final OrderService orderService;
 
-    @Async
     @Override
     public void doAction(PayNotifyContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
