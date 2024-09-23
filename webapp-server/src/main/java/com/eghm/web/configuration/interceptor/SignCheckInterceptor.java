@@ -1,6 +1,7 @@
 package com.eghm.web.configuration.interceptor;
 
 import cn.hutool.core.codec.Base64Encoder;
+import cn.hutool.core.util.HexUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.crypto.SignUtil;
@@ -112,7 +113,7 @@ public class SignCheckInterceptor implements InterceptorAdapter {
         param.put(CommonConstant.TIMESTAMP, timestamp);
         String buildQuery = URLUtil.buildQuery(param, CommonConstant.CHARSET);
         Sign sign = SignUtil.sign(SignAlgorithm.SHA256withRSA, privateKey, publicKey);
-        boolean verify = sign.verify(buildQuery.getBytes(StandardCharsets.UTF_8), signature.getBytes(StandardCharsets.UTF_8));
+        boolean verify = sign.verify(buildQuery.getBytes(StandardCharsets.UTF_8), HexUtil.decodeHex(signature));
         if (!verify) {
             log.warn("rsa签名信息验证失败 [{}] [{}] [{}] [{}]", privateKey, publicKey, requestBody, signature);
             throw new BusinessException(ErrorCode.SIGNATURE_VERIFY_ERROR);
