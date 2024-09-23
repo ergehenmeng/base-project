@@ -216,9 +216,9 @@ public class CommonConstant {
     public static final String MEMBER = "member:";
 
     /**
-     * 单日上传限制: 默认512M
+     * 单日上传限制: 默认128M
      */
-    public static final long DAY_MAX_UPLOAD = 512 * 1024 * 1024L;
+    public static final long DAY_MAX_UPLOAD = 128 * 1024 * 1024L;
 
     private CommonConstant() {
     }

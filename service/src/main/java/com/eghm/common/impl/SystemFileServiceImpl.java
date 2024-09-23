@@ -57,12 +57,15 @@ public class SystemFileServiceImpl implements FileService {
     public FilePath saveFile(String key, @NotNull MultipartFile file, String folder, long maxSize) {
         this.checkSize(file, maxSize);
         Long present = CacheUtil.UPLOAD_LIMIT_CACHE.getIfPresent(key);
-        if (present != null && present + file.getSize() > DAY_MAX_UPLOAD) {
-            log.warn("上单日传文件超出限制:[{}]", DAY_MAX_UPLOAD / 1024);
-            alarmService.sendMsg(String.format("上单日传文件超出限制,请注意监控:[%s] [%s]", key, (present + file.getSize())));
+        long size = file.getSize() + (present == null ? 0 : present);
+        if (size > DAY_MAX_UPLOAD) {
+            log.warn("上单日传文件超出限制, 用户:[{}] 累计上传:[{}] ", key, size / 1024);
+            alarmService.sendMsg(String.format("上单日传文件超出限制,请注意监控, 用户:[%s] 今日累计上传:[%s]", key, (size / 1024) + "kb"));
         }
         String path = this.doSaveFile(file, folder);
-        return FilePath.builder().path(path).address(this.getFileAddress()).size(file.getSize()).build();
+        FilePath build = FilePath.builder().path(path).address(this.getFileAddress()).size(file.getSize()).build();
+        CacheUtil.UPLOAD_LIMIT_CACHE.put(key, size);
+        return build;
     }
 
     @Override
