@@ -9,7 +9,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.SmsType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.SmsLog;
-import com.eghm.service.common.SendSmsService;
+import com.eghm.common.SendSmsService;
 import com.eghm.service.sys.SmsLogService;
 import com.eghm.service.sys.SmsTemplateService;
 import com.eghm.utils.StringUtil;
@@ -57,17 +57,6 @@ public class SmsServiceImpl implements SmsService {
         this.sendSmsCode(smsType, mobile);
     }
 
-    /**
-     * 根据模板和参数填充数据
-     *
-     * @param template 模板
-     * @param params   参数
-     * @return 填充后的数据
-     */
-    private String formatTemplate(String template, Object... params) {
-        return MessageFormat.format(template, params);
-    }
-
     @Override
     public String getSmsCode(SmsType smsType, String mobile) {
         return cacheService.getValue(CacheConstant.SMS_PREFIX + smsType.getValue() + mobile);
@@ -111,7 +100,6 @@ public class SmsServiceImpl implements SmsService {
         this.doSendSms(mobile, content, SmsType.DEFAULT);
     }
 
-
     @Override
     public void sendSms(List<String> mobileList, String content) {
         mobileList.forEach(mobile -> this.sendSms(mobile, content));
@@ -138,6 +126,17 @@ public class SmsServiceImpl implements SmsService {
         int state = sendSmsService.sendSms(mobile, content);
         SmsLog smsLog = SmsLog.builder().content(content).mobile(mobile).smsType(smsType).state(state).build();
         smsLogService.addSmsLog(smsLog);
+    }
+
+    /**
+     * 根据模板和参数填充数据
+     *
+     * @param template 模板
+     * @param params   参数
+     * @return 填充后的数据
+     */
+    private String formatTemplate(String template, Object... params) {
+        return MessageFormat.format(template, params);
     }
 
     /**

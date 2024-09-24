@@ -21,11 +21,17 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 @Configuration
 public class ExecutorConfig implements TaskExecutorCustomizer {
 
+    /**
+     * Async 线程池
+     */
     @Bean
     public ThreadPoolTaskExecutor taskExecutor(TaskExecutorBuilder builder) {
         return builder.build();
     }
 
+    /**
+     * 定时任务线程池
+     */
     @Bean
     public ThreadPoolTaskScheduler taskScheduler(TaskSchedulerBuilder builder) {
         return builder.build();
