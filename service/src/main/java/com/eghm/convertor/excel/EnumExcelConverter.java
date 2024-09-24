@@ -10,7 +10,6 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -38,10 +37,6 @@ public class EnumExcelConverter implements Converter<Object> {
             throw new BusinessException(ErrorCode.ENUM_SUPPORTED);
         }
         Field valueAs = this.getAnnotationField(contentProperty);
-        if (valueAs == null) {
-            log.error("枚举类请使用@ExcelDesc标注要导出为Excel的字段 [{}]", value.getClass());
-            throw new BusinessException(ErrorCode.ENUM_SUPPORTED);
-        }
         return new WriteCellData<>(ReflectUtil.getFieldValue(value, valueAs).toString());
     }
 
@@ -51,7 +46,6 @@ public class EnumExcelConverter implements Converter<Object> {
      * @param contentProperty 原导出excel的字段
      * @return Field
      */
-    @Nullable
     private Field getAnnotationField(ExcelContentProperty contentProperty) {
         Class<?> fieldType = contentProperty.getField().getType();
         return FIELD_MAP.computeIfAbsent(fieldType, aClass -> {
@@ -61,7 +55,8 @@ public class EnumExcelConverter implements Converter<Object> {
                     return field;
                 }
             }
-            return null;
+            log.error("枚举类请使用@ExcelDesc标注要导出为Excel的字段 [{}]", fieldType);
+            throw new BusinessException(ErrorCode.ENUM_SUPPORTED);
         });
     }
 }
