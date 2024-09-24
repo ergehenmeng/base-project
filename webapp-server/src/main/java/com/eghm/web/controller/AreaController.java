@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
+ * 注意: 省市区信息不在管理后台维护,均以数据库维护为准, 修改后需要刷新缓存
+ *
  * @author 殿小二
  * @since 2020/9/4
  */

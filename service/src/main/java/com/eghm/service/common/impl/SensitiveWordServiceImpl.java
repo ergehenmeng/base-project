@@ -67,6 +67,7 @@ public class SensitiveWordServiceImpl implements SensitiveWordService {
             word.setKeyword(keyword);
             sensitiveWordMapper.insert(word);
         }
+        this.reloadLexicon();
     }
 
     @Override

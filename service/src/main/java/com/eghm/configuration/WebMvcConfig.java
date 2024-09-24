@@ -110,7 +110,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "abcdefhkmnprstwxy2345678ABCEFGHGKMNPRSTWXY");
         properties.setProperty(Constants.KAPTCHA_NOISE_IMPL, NoNoise.class.getName());
         properties.setProperty(Constants.KAPTCHA_OBSCURIFICATOR_IMPL, WaterRipple.class.getName());
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL, TextCaptchaProducer.class.getName());
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL, MathCaptchaProducer.class.getName());
         Config config = new Config(properties);
         captcha.setConfig(config);
         return captcha;

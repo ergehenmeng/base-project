@@ -50,7 +50,6 @@ public class AppVersionController {
         return RespBody.success();
     }
 
-
     @PostMapping(value = "/updateState", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("上下架")
     public RespBody<Void> updateState(@Validated @RequestBody StateRequest request) {
