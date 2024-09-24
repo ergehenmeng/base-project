@@ -94,7 +94,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public void create(MenuAddRequest request) {
-        this.redoTitle(request.getTitle(), null);
+        this.redoTitle(request.getTitle(), request.getPid(), null);
         this.checkDisplayState(request.getPid(), request.getDisplayState());
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
         copy.setId(String.valueOf(this.generateNextId(request.getPid())));
@@ -104,7 +104,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public void update(MenuEditRequest request) {
-        this.redoTitle(request.getTitle(), request.getId());
+        this.redoTitle(request.getTitle(), request.getPid(), request.getId());
         this.checkDisplayState(request.getPid(), request.getDisplayState());
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
         copy.setCode(StringUtil.encryptNumber(Long.parseLong(copy.getId())));
@@ -150,9 +150,10 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @param title 菜单名称
      * @param id    菜单id
      */
-    private void redoTitle(String title, String id) {
+    private void redoTitle(String title, String pid, String id) {
         LambdaQueryWrapper<SysMenu> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysMenu::getTitle, title);
+        wrapper.eq(SysMenu::getPid, pid);
         wrapper.ne(id != null, SysMenu::getId, id);
         Long count = sysMenuMapper.selectCount(wrapper);
         if (count > 0) {

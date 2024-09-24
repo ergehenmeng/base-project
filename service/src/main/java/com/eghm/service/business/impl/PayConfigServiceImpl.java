@@ -25,8 +25,9 @@ public class PayConfigServiceImpl implements PayConfigService {
     private final PayConfigMapper payConfigMapper;
 
     @Override
-    public List<PayConfig> getList() {
+    public List<PayConfig> getList(String queryName) {
         LambdaQueryWrapper<PayConfig> wrapper = Wrappers.lambdaQuery();
+        wrapper.like(PayConfig::getRemark, queryName);
         wrapper.orderByDesc(PayConfig::getId);
         return payConfigMapper.selectList(wrapper);
     }

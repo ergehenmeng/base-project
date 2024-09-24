@@ -2,6 +2,7 @@ package com.eghm.web.controller;
 
 import com.eghm.cache.ClearCacheService;
 import com.eghm.dto.business.pay.PayConfigEditRequest;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.PayConfig;
 import com.eghm.service.business.PayConfigService;
@@ -30,8 +31,8 @@ public class PayConfigController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<List<PayConfig>> listPage() {
-        List<PayConfig> byPage = payConfigService.getList();
+    public RespBody<List<PayConfig>> listPage(PagingQuery request) {
+        List<PayConfig> byPage = payConfigService.getList(request.getQueryName());
         return RespBody.success(byPage);
     }
 

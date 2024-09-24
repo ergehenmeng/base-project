@@ -17,7 +17,7 @@ public interface PayConfigService {
      *
      * @return 配置信息
      */
-    List<PayConfig> getList();
+    List<PayConfig> getList(String queryName);
 
     /**
     * 更新
