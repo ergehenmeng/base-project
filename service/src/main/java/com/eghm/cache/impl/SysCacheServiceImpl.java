@@ -5,6 +5,7 @@ import com.eghm.cache.SysCacheService;
 import com.eghm.constant.CacheConstant;
 import com.eghm.mapper.SysCacheMapper;
 import com.eghm.model.SysCache;
+import com.eghm.service.sys.BlackRosterService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ public class SysCacheServiceImpl implements SysCacheService {
     private final SysCacheMapper sysCacheMapper;
 
     private final ClearCacheService clearCacheService;
+
+    private final BlackRosterService blackRosterService;
 
     @Override
     public void clearCache(List<String> cacheNames) {
@@ -87,6 +90,9 @@ public class SysCacheServiceImpl implements SysCacheService {
                     break;
                 case CacheConstant.AUTH_CONFIG:
                     clearCacheService.clearAuthConfig();
+                    break;
+                case CacheConstant.BLACK_ROSTER:
+                    blackRosterService.reloadBlackRoster();
                     break;
                 default:
                     break;

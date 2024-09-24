@@ -48,10 +48,4 @@ public class BlackRosterController {
         return RespBody.success();
     }
 
-    @GetMapping("/reload")
-    @ApiOperation("刷新黑名单")
-    public RespBody<Void> reload() {
-        blackRosterService.reloadBlackRoster();
-        return RespBody.success();
-    }
 }
