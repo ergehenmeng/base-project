@@ -28,7 +28,7 @@
         <if test="param.topState != null">
             and t.top_state = #{param.topState}
         </if>
-        <if test="param.objectIds != null">
+        <if test="param.objectIds != null and param.objectIds.size() > 0 ">
             and t.object_id in
             <foreach collection="param.objectIds" item="item" separator="," open="(" close=")">
                 #{item}
