@@ -46,4 +46,8 @@ public class NewsDetailVO {
 
     @ApiModelProperty("是否已点赞")
     private Boolean isLiked;
+
+    @ApiModelProperty("是否支持评论")
+    private Boolean commentSupport;
+
 }

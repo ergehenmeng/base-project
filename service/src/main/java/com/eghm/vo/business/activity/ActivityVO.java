@@ -35,4 +35,8 @@ public class ActivityVO {
     @ApiModelProperty("更新时间")
     @JsonFormat(pattern = "MM-dd HH:mm")
     private LocalDateTime updateTime;
+
+    @ApiModelProperty("是否支持评论")
+    private Boolean commentSupport;
+
 }

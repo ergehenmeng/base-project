@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -37,5 +38,9 @@ public class NewsAddRequest {
 
     @ApiModelProperty(value = "视频")
     private String video;
+
+    @ApiModelProperty("是否支持评论 true:支持 false:不支持")
+    @NotNull(message = "是否支持评论不能为空")
+    private Boolean commentSupport;
 
 }

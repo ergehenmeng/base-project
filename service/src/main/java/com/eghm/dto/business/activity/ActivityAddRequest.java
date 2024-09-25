@@ -52,4 +52,8 @@ public class ActivityAddRequest {
 
     @ApiModelProperty("活动关联的景区id")
     private Long scenicId;
+
+    @ApiModelProperty("是否支持评论 true:支持 false:不支持")
+    @NotNull(message = "是否支持评论不能为空")
+    private Boolean commentSupport;
 }

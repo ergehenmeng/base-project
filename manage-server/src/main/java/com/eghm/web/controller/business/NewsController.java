@@ -38,7 +38,7 @@ public class NewsController {
         return RespBody.success(PageData.toPage(scenicPage));
     }
 
-    @ApiOperation("创建")
+    @ApiOperation("新增")
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> create(@Validated @RequestBody NewsAddRequest request) {
         newsService.create(request);
@@ -46,7 +46,7 @@ public class NewsController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody NewsEditRequest request) {
         newsService.update(request);
         return RespBody.success();

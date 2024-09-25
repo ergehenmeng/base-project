@@ -40,4 +40,7 @@ public class Activity extends BaseEntity {
 
     @ApiModelProperty("活动关联的景区")
     private Long scenicId;
+
+    @ApiModelProperty("是否支持评论")
+    private Boolean commentSupport;
 }

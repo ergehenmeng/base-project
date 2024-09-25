@@ -59,6 +59,8 @@ public class ActivityServiceImpl implements ActivityService {
                 continue;
             }
             Activity activity = DataUtil.copy(request, Activity.class);
+            // 批量新增的活动默认不支持评论
+            activity.setCommentSupport(false);
             activity.setNowDate(plusDays);
             activityMapper.insert(activity);
         }
@@ -76,7 +78,6 @@ public class ActivityServiceImpl implements ActivityService {
         // 同一天活动名称不能重复
         Activity select = activityMapper.selectById(request.getId());
         this.redoTitle(request.getTitle(), request.getId(), select.getNowDate());
-
         Activity activity = DataUtil.copy(request, Activity.class);
         activityMapper.updateById(activity);
     }

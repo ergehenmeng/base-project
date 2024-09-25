@@ -45,4 +45,6 @@ public class ActivityDetailResponse {
     @ApiModelProperty("景区名称")
     private String scenicName;
 
+    @ApiModelProperty("是否支持评论 true:支持 false:不支持")
+    private Boolean commentSupport;
 }

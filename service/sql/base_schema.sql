@@ -1202,18 +1202,19 @@ CREATE TABLE `member_coupon`
 DROP TABLE IF EXISTS `activity`;
 CREATE TABLE `activity`
 (
-    `id`          bigint(20) NOT NULL COMMENT '主键',
-    `title`       varchar(20)  DEFAULT NULL COMMENT '活动名称',
-    `now_date`    date         DEFAULT NULL COMMENT '日期',
-    `start_time`  char(5)      DEFAULT NULL COMMENT '开始时间HH:mm',
-    `end_time`    char(5)      DEFAULT NULL COMMENT '结束时间HH:mm',
-    `address`     varchar(100) DEFAULT NULL COMMENT '活动地点',
-    `cover_url`   varchar(500) DEFAULT NULL COMMENT '活动封面图片',
-    `introduce`   longtext COMMENT '活动详细介绍',
-    `scenic_id`   bigint(20) COMMENT '活动关联的景区',
-    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `id`              bigint(20) NOT NULL COMMENT '主键',
+    `title`           varchar(20)  DEFAULT NULL COMMENT '活动名称',
+    `now_date`        date         DEFAULT NULL COMMENT '日期',
+    `start_time`      char(5)      DEFAULT NULL COMMENT '开始时间HH:mm',
+    `end_time`        char(5)      DEFAULT NULL COMMENT '结束时间HH:mm',
+    `address`         varchar(100) DEFAULT NULL COMMENT '活动地点',
+    `cover_url`       varchar(500) DEFAULT NULL COMMENT '活动封面图片',
+    `introduce`       longtext COMMENT '活动详细介绍',
+    `scenic_id`       bigint(20) COMMENT '活动关联的景区',
+    `comment_support` bit(1)       DEFAULT b'0' COMMENT '是否支持评论 true:支持 false:不支持',
+    `create_time`     datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`         bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='活动信息表';
@@ -1866,18 +1867,19 @@ CREATE TABLE `item_order_express`
 DROP TABLE IF EXISTS news;
 CREATE TABLE `news`
 (
-    `id`          bigint(20) NOT NULL COMMENT '主键',
-    `title`       varchar(30)   DEFAULT NULL COMMENT '资讯标题',
-    `code`        varchar(20)   DEFAULT NULL COMMENT '资讯编码',
-    `depict`      varchar(200)  DEFAULT NULL COMMENT '一句话描述信息',
-    `image`       varchar(1000) DEFAULT NULL COMMENT '图集',
-    `content`     longtext COMMENT '详细信息',
-    `video`       varchar(200)  DEFAULT NULL COMMENT '视频',
-    `sort`        smallint(6)   DEFAULT '1' COMMENT '排序',
-    `like_num`    int(10)       DEFAULT '0' COMMENT '点赞数',
-    `create_time` datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `id`              bigint(20) NOT NULL COMMENT '主键',
+    `title`           varchar(30)   DEFAULT NULL COMMENT '资讯标题',
+    `code`            varchar(20)   DEFAULT NULL COMMENT '资讯编码',
+    `depict`          varchar(200)  DEFAULT NULL COMMENT '一句话描述信息',
+    `image`           varchar(1000) DEFAULT NULL COMMENT '图集',
+    `content`         longtext COMMENT '详细信息',
+    `video`           varchar(200)  DEFAULT NULL COMMENT '视频',
+    `sort`            smallint(6)   DEFAULT '1' COMMENT '排序',
+    `like_num`        int(10)       DEFAULT '0' COMMENT '点赞数',
+    `comment_support` bit(1)        DEFAULT b'0' COMMENT '是否支持评论 true:支持 false:不支持',
+    `create_time`     datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`     datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`         bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='资讯信息表';

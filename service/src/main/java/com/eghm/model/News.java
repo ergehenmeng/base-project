@@ -44,4 +44,7 @@ public class News extends BaseEntity {
     @ApiModelProperty("点赞数量")
     private Integer likeNum;
 
+    @ApiModelProperty("是否支持评论")
+    private Boolean commentSupport;
+
 }
