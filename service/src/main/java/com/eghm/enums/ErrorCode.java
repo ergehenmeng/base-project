@@ -1178,6 +1178,16 @@ public enum ErrorCode {
     ACTIVITY_TITLE_REDO(2546, "活动名称重复啦~"),
 
     /**
+     * 活动下架啦~
+     */
+    ACTIVITY_NULL(2547, "活动下架啦~"),
+
+    /**
+     * 该活动不支持评论
+     */
+    ACTIVITY_COMMENT_FORBID(2790, "该活动不支持评论"),
+
+    /**
      * 活动名称或ID不能为空
      */
     ACTIVITY_TITLE_NULL(2549, "活动名称或ID不能为空"),
@@ -1596,6 +1606,11 @@ public enum ErrorCode {
      * 文章从地球上消失啦~
      */
     NEWS_NULL(2789, "文章从地球上消失啦~"),
+
+    /**
+     * 该资讯不支持评论
+     */
+    NEWS_COMMENT_FORBID(2790, "该资讯不支持评论"),
 
     /**
      * 退款金额不能超过%s元

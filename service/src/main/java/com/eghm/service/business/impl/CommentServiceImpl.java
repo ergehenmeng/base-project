@@ -14,7 +14,9 @@ import com.eghm.dto.business.comment.CommentDTO;
 import com.eghm.dto.business.comment.CommentQueryDTO;
 import com.eghm.dto.business.comment.CommentQueryRequest;
 import com.eghm.dto.ext.ApiHolder;
+import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ObjectType;
+import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ActivityMapper;
 import com.eghm.mapper.CommentMapper;
 import com.eghm.mapper.NewsMapper;
@@ -110,6 +112,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void add(CommentDTO dto) {
+        this.checkComment(dto.getObjectId(), dto.getObjectType());
         Comment comment = DataUtil.copy(dto, Comment.class);
         comment.setGrade(comment.getReplyId() == null ? 1 : 2);
         commentMapper.insert(comment);
@@ -161,6 +164,38 @@ public class CommentServiceImpl implements CommentService {
         wrapper.eq(Comment::getId, id);
         wrapper.set(Comment::getTopState, state);
         commentMapper.update(null, wrapper);
+    }
+
+    /**
+     * 检查评论是否开启评价
+     *
+     * @param id 活动id或资讯id
+     * @param objectType 对象类型
+     */
+    private void checkComment(Long id, ObjectType objectType) {
+        if (objectType == ObjectType.NEWS) {
+            News news = newsMapper.selectById(id);
+            if (news == null) {
+                log.warn("资讯文章可能被删除,无法评价 [{}]", id);
+                throw new BusinessException(ErrorCode.NEWS_NULL);
+            }
+            if (Boolean.FALSE.equals(news.getCommentSupport())) {
+                log.warn("资讯文章未开启评论 [{}]", id);
+                throw new BusinessException(ErrorCode.NEWS_COMMENT_FORBID);
+            }
+        }
+        if (objectType == ObjectType.ACTIVITY) {
+            Activity activity = activityMapper.selectById(id);
+            if (activity == null) {
+                log.warn("活动可能被删除,无法评价 [{}]", id);
+                throw new BusinessException(ErrorCode.ACTIVITY_NULL);
+            }
+            if (Boolean.FALSE.equals(activity.getCommentSupport())) {
+                log.warn("活动未开启评论 [{}]", id);
+                throw new BusinessException(ErrorCode.ACTIVITY_COMMENT_FORBID);
+            }
+        }
+
     }
 
     /**
