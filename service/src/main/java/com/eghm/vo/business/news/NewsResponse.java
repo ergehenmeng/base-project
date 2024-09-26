@@ -32,6 +32,9 @@ public class NewsResponse {
     @ApiModelProperty("点赞数量")
     private Integer likeNum;
 
+    @ApiModelProperty("是否支持评论")
+    private Boolean commentSupport;
+
     @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
