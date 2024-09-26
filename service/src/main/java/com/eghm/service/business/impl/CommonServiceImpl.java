@@ -320,13 +320,13 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public List<SysAreaVO> getTreeAreaList() {
         List<SysAreaVO> areaList = cacheProxyService.getAreaList();
-        return treeBin(CommonConstant.ROOT, areaList);
+        return this.treeBin(CommonConstant.ROOT, areaList);
     }
 
     @Override
     public List<SysAreaVO> getTreeAreaList(List<Integer> gradeList) {
         List<SysAreaVO> areaList = sysAreaMapper.getList(gradeList);
-        return treeBin(CommonConstant.ROOT, areaList);
+        return this.treeBin(CommonConstant.ROOT, areaList);
     }
 
     private Map<LocalDate, Integer> getStatisticsDateMap(ProductRequest request, ProductType productType) {

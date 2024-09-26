@@ -54,7 +54,7 @@ public class NewsConfigServiceImpl implements NewsConfigService {
         this.redoTitle(request.getTitle(), null);
         this.redoCode(request.getCode());
         NewsConfig config = DataUtil.copy(request, NewsConfig.class);
-        this.newsConfigMapper.insert(config);
+        newsConfigMapper.insert(config);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class NewsConfigServiceImpl implements NewsConfigService {
         LambdaQueryWrapper<NewsConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(NewsConfig::getTitle, title);
         wrapper.ne(id != null, NewsConfig::getId, id);
-        Long count = this.newsConfigMapper.selectCount(wrapper);
+        Long count = newsConfigMapper.selectCount(wrapper);
         if (count > 0) {
             throw new BusinessException(ErrorCode.NEWS_CONFIG_TITLE_REDO);
         }
@@ -105,7 +105,7 @@ public class NewsConfigServiceImpl implements NewsConfigService {
     private void redoCode(String code) {
         LambdaQueryWrapper<NewsConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(NewsConfig::getCode, code);
-        Long count = this.newsConfigMapper.selectCount(wrapper);
+        Long count = newsConfigMapper.selectCount(wrapper);
         if (count > 0) {
             throw new BusinessException(ErrorCode.NEWS_CONFIG_CODE_REDO);
         }
