@@ -91,6 +91,10 @@ public class SmsServiceImpl implements SmsService {
     @Override
     public void sendSms(SmsType smsType, String mobile, Object... params) {
         String template = smsTemplateService.getTemplate(smsType.getValue());
+        if (template == null) {
+            log.warn("短信模板不存在或已禁用:[{}] [{}] [{}]", smsType, mobile, params);
+            return;
+        }
         String content = this.formatTemplate(template, params);
         this.doSendSms(mobile, content, smsType);
     }

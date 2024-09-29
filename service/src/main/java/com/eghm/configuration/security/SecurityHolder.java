@@ -23,8 +23,12 @@ public class SecurityHolder {
      */
     private static final TransmittableThreadLocal<UserToken> LOCAL = new TransmittableThreadLocal<>();
 
-    public static void setToken(UserToken token) {
-        LOCAL.set(token);
+    /**
+     * 设置当前登录用户的信息
+     * @param userToken 用户信息
+     */
+    public static void setToken(UserToken userToken) {
+        LOCAL.set(userToken);
     }
 
     /**
@@ -76,10 +80,16 @@ public class SecurityHolder {
         return getUserRequired().getMerchantId();
     }
 
+    /**
+     * @return 获取当前登录用户的商户id, 可能为空
+     */
     public static Optional<Long> getMerchantOptional() {
         return Optional.ofNullable(getMerchantId());
     }
 
+    /**
+     * 移除当前用户信息
+     */
     public static void remove() {
         LOCAL.remove();
     }

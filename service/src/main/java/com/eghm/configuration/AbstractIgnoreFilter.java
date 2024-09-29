@@ -19,7 +19,15 @@ public abstract class AbstractIgnoreFilter extends OncePerRequestFilter {
      */
     private final List<String> exclude = Lists.newArrayListWithCapacity(4);
 
+    /**
+     * 匹配器
+     */
     private final AntPathMatcher matcher = new AntPathMatcher();
+
+    @Override
+    protected boolean shouldNotFilter(@NonNull HttpServletRequest request) {
+        return this.anyMatch(exclude, request);
+    }
 
     /**
      * 排除不需要拦截的地址
@@ -28,11 +36,6 @@ public abstract class AbstractIgnoreFilter extends OncePerRequestFilter {
      */
     public void exclude(@NonNull String... matchUrl) {
         exclude.addAll(Lists.newArrayList(matchUrl));
-    }
-
-    @Override
-    protected boolean shouldNotFilter(@NonNull HttpServletRequest request) {
-        return this.anyMatch(exclude, request);
     }
 
     /**

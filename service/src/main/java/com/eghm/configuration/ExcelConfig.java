@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * 注册EasyExcel自定义转换器
- *
+ * 注意: 目前没有注册全局自定义转换器
  * @author wyb
  * @since 2023/3/31
  */
