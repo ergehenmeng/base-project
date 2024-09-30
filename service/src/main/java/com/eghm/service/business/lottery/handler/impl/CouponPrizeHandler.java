@@ -4,6 +4,7 @@ import com.eghm.dto.business.coupon.member.GrantCouponDTO;
 import com.eghm.enums.ref.PrizeType;
 import com.eghm.model.Lottery;
 import com.eghm.model.LotteryConfig;
+import com.eghm.model.LotteryPrize;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.lottery.LotteryPrizeService;
 import com.eghm.service.business.lottery.handler.PrizeHandler;
@@ -37,10 +38,11 @@ public class CouponPrizeHandler implements PrizeHandler {
     public void execute(Long memberId, Lottery lottery, LotteryConfig config) {
         log.info("抽中优惠券啦, [{}] [{}]", memberId, lottery);
         lotteryPrizeService.accumulationLotteryNum(config.getPrizeId());
+        LotteryPrize prize = lotteryPrizeService.selectById(config.getPrizeId());
 
         GrantCouponDTO dto = new GrantCouponDTO();
         dto.setNum(1);
-        dto.setCouponId(config.getPrizeId());
+        dto.setCouponId(prize.getRelationId());
         dto.setMemberIds(Lists.newArrayList(memberId));
         memberCouponService.grantCoupon(dto);
     }
