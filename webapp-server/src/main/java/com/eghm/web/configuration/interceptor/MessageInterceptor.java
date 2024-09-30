@@ -38,7 +38,7 @@ public class MessageInterceptor implements InterceptorAdapter {
 
     @Override
     public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
-        //app请求头信息
+        // app请求头信息
         String channel = request.getHeader(AppHeader.CHANNEL);
         String version = request.getHeader(AppHeader.VERSION);
         String osVersion = request.getHeader(AppHeader.OS_VERSION);

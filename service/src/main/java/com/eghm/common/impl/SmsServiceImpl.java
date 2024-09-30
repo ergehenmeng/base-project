@@ -161,25 +161,25 @@ public class SmsServiceImpl implements SmsService {
      * @param mobile  手机号
      */
     private void smsLimitCheck(String smsType, String mobile) {
-        //短信时间间隔判断
+        // 短信时间间隔判断
         String value = cacheService.getValue(CacheConstant.SMS_TYPE_INTERVAL + smsType + mobile);
         if (value != null) {
             throw new BusinessException(ErrorCode.SMS_FREQUENCY_FAST);
         }
         int smsTypeHourLimit = sysConfigApi.getInt(ConfigConstant.SMS_TYPE_HOUR_LIMIT);
-        //单位小时统一类型内短信限制
+        // 单位小时统一类型内短信限制
         boolean limit = cacheService.limit(CacheConstant.SMS_TYPE_HOUR_LIMIT + smsType + mobile, smsTypeHourLimit, 3600);
         if (limit) {
             throw new BusinessException(ErrorCode.SMS_HOUR_LIMIT);
         }
         int smsTypeDayLimit = sysConfigApi.getInt(ConfigConstant.SMS_TYPE_DAY_LIMIT);
-        //当天同一类型短信限制
+        // 当天同一类型短信限制
         limit = cacheService.limit(CacheConstant.SMS_TYPE_DAY_LIMIT + smsType + mobile, smsTypeDayLimit, 86400);
         if (limit) {
             throw new BusinessException(ErrorCode.SMS_DAY_LIMIT);
         }
         int smsDay = sysConfigApi.getInt(ConfigConstant.SMS_DAY_LIMIT);
-        //当天手机号限制
+        // 当天手机号限制
         limit = cacheService.limit(CacheConstant.SMS_DAY + mobile, smsDay, 86400);
         if (limit) {
             throw new BusinessException(ErrorCode.MOBILE_DAY_LIMIT);
@@ -193,7 +193,7 @@ public class SmsServiceImpl implements SmsService {
      */
     private void smsIpLimitCheck(String ip) {
         int ipLimit = sysConfigApi.getInt(ConfigConstant.SMS_IP_LIMIT);
-        //短信时间间隔判断
+        // 短信时间间隔判断
         boolean limit = cacheService.limit(CacheConstant.SMS_IP_LIMIT + ip, ipLimit, 86400);
         if (limit) {
             log.info("ip限制短信发送量已达上限 [{}]", ip);
