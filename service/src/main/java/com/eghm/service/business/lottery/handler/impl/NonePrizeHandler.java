@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class NonePrizeHandler implements PrizeHandler {
 
-
     @Override
     public boolean supported(PrizeType prizeType) {
         return prizeType == PrizeType.NONE;

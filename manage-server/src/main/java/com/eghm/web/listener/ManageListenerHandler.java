@@ -64,7 +64,7 @@ public class ManageListenerHandler extends AbstractListenerHandler {
      * 订单支付成功后，发送发货通知
      */
     @RabbitListener(queues = QueueConstant.ORDER_PAY_NOTICE_QUEUE)
-    public void deliveryNotice(OrderPayNotify notify, Message message, Channel channel) throws IOException {
+    public void payNotice(OrderPayNotify notify, Message message, Channel channel) throws IOException {
         processMessageAck(notify, message, channel, msg -> {
             if (msg.getProductType() == ProductType.ITEM) {
                 simpMessagingTemplate.convertAndSend(WEBSOCKET_PREFIX + "/order/broadcast/" + notify.getMerchantId(), SocketMsg.delivery(Lists.newArrayList(msg.getOrderNo())));
@@ -73,10 +73,10 @@ public class ManageListenerHandler extends AbstractListenerHandler {
     }
 
     /**
-     * 订单支付成功后，发送发货通知
+     * 退款申请后，发送审核通知
      */
     @RabbitListener(queues = QueueConstant.ORDER_AUDIT_NOTICE_QUEUE)
-    public void deliveryNotice(RefundAudit notify, Message message, Channel channel) throws IOException {
+    public void refundNotice(RefundAudit notify, Message message, Channel channel) throws IOException {
         processMessageAck(notify, message, channel, msg -> {
             if (msg.getOrderNo().startsWith(ProductType.ITEM.getPrefix())) {
                 simpMessagingTemplate.convertAndSend(WEBSOCKET_PREFIX + "/order/broadcast/" + notify.getMerchantId(), SocketMsg.refund(Lists.newArrayList(msg.getOrderNo())));
