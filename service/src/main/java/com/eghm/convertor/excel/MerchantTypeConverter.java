@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
+ * 商户类型转换器 支持多个类型
+ *
  * @author 二哥很猛
  * @since 2023/12/9
  */

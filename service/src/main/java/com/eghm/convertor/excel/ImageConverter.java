@@ -10,7 +10,7 @@ import com.eghm.utils.ResourceUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 用来导出excel图片, 注意:只支持单张图片
+ * 图片转换器 注意:只支持单张图片
  *
  * @author wyb
  * @since 2023/3/31

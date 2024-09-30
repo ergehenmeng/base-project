@@ -7,7 +7,7 @@ import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * easy excel转化枚举类
+ * boolean 转换器
  *
  * @author wyb
  * @since 2023/3/30

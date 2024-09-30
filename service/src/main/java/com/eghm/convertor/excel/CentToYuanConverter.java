@@ -8,7 +8,7 @@ import com.eghm.utils.DecimalUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * excel导出金额转换器
+ * 金额(分转元)转换器
  *
  * @author wyb
  * @since 2023/3/30
