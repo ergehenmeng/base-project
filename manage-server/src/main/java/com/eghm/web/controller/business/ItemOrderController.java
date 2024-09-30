@@ -3,7 +3,7 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.constant.LockKey;
+import com.eghm.constant.LockConstant;
 import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
@@ -73,7 +73,7 @@ public class ItemOrderController {
     @PostMapping(value = "/sipping", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("发货")
     public RespBody<Void> sipping(@RequestBody @Validated ItemSippingRequest request) {
-        return redisLock.lock(LockKey.ORDER_LOCK + request.getOrderNo(), 10_000, () -> {
+        return redisLock.lock(LockConstant.ORDER_LOCK + request.getOrderNo(), 10_000, () -> {
             orderService.sipping(request);
             return RespBody.success();
         });
@@ -95,7 +95,7 @@ public class ItemOrderController {
     @PostMapping(value = "/refund", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("退款")
     public RespBody<Void> refund(@RequestBody @Validated OrderDTO request) {
-        return redisLock.lock(LockKey.ORDER_LOCK + request.getOrderNo(), 10_000, () -> {
+        return redisLock.lock(LockConstant.ORDER_LOCK + request.getOrderNo(), 10_000, () -> {
             orderProxyService.refund(request.getOrderNo());
             return RespBody.success();
         });

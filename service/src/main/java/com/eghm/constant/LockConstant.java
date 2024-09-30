@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
  */
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class LockKey {
+public class LockConstant {
 
     /**
      * 互斥锁

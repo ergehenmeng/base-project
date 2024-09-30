@@ -6,7 +6,7 @@ import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
-import com.eghm.constant.LockKey;
+import com.eghm.constant.LockConstant;
 import com.eghm.constant.QueueConstant;
 import com.eghm.dto.ext.*;
 import com.eghm.enums.event.IEvent;
@@ -347,7 +347,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
             context.setAuditUserId(1L);
             // 备注信息标注是谁审批的 方便快速查看
             context.setAuditRemark("系统: 自动审核通过");
-            redisLock.lockVoid(LockKey.ORDER_LOCK + audit.getOrderNo(), 10_000, () ->
+            redisLock.lockVoid(LockConstant.ORDER_LOCK + audit.getOrderNo(), 10_000, () ->
                     stateHandler.fireEvent(ProductType.ITEM, OrderState.REFUND.getValue(), ItemEvent.REFUND_PASS, context)
             );
         });
@@ -408,7 +408,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      */
     private void doCancelGroupOrder(List<ItemGroupOrder> groupList) {
         for (ItemGroupOrder order : groupList) {
-            redisLock.lockVoid(LockKey.ORDER_LOCK + order.getOrderNo(), 10_000, () -> orderProxyService.doCancelGroupOrder(order));
+            redisLock.lockVoid(LockConstant.ORDER_LOCK + order.getOrderNo(), 10_000, () -> orderProxyService.doCancelGroupOrder(order));
         }
     }
 

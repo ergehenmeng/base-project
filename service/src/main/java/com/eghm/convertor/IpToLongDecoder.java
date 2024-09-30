@@ -24,7 +24,7 @@ public class IpToLongDecoder extends StdScalarDeserializer<Long> {
     }
 
     @Override
-    public Long deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+    public Long deserialize(JsonParser p, DeserializationContext ctx) throws IOException {
         String text = p.getText().trim();
         if (StrUtil.isEmpty(text)) {
             return null;

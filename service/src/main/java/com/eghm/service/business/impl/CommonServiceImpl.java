@@ -6,7 +6,7 @@ import com.eghm.cache.CacheProxyService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
-import com.eghm.constant.LockKey;
+import com.eghm.constant.LockConstant;
 import com.eghm.dto.ext.StoreScope;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.enums.ErrorCode;
@@ -97,7 +97,7 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public void handlePayNotify(PayNotifyContext context) {
-        redisLock.lockVoid(LockKey.ORDER_LOCK + context.getOrderNo(), 10_000, () ->
+        redisLock.lockVoid(LockConstant.ORDER_LOCK + context.getOrderNo(), 10_000, () ->
                 this.getHandler(context.getTradeNo(), AccessHandler.class).payNotify(context)
         );
     }
@@ -110,7 +110,7 @@ public class CommonServiceImpl implements CommonService {
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
         }
         // 在订单处理过程中, 最好使用一把锁增加锁范围防止重复处理, 同时由于退款回调可能先于退款申请(不需要审核的订单发起申请时会直接退), 所以这里使用订单号作为锁
-        redisLock.lockVoid(LockKey.ORDER_LOCK + order.getOrderNo(), 10_000, () ->
+        redisLock.lockVoid(LockConstant.ORDER_LOCK + order.getOrderNo(), 10_000, () ->
                 this.getHandler(context.getTradeNo(), AccessHandler.class).refundNotify(context)
         );
     }

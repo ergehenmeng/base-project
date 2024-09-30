@@ -2,7 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.constant.LockKey;
+import com.eghm.constant.LockConstant;
 import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.refund.RefundAuditRequest;
 import com.eghm.dto.business.order.refund.RefundLogQueryRequest;
@@ -75,7 +75,7 @@ public class RefundLogController {
         context.setAuditUserId(userToken.getId());
         // 备注信息标注是谁审批的 方便快速查看
         context.setAuditRemark(userToken.getNickName() + ": " + request.getAuditRemark());
-        redisLock.lockVoid(LockKey.ORDER_LOCK + request.getOrderNo(), 10_000, () -> accessHandler.refundAudit(context));
+        redisLock.lockVoid(LockConstant.ORDER_LOCK + request.getOrderNo(), 10_000, () -> accessHandler.refundAudit(context));
         return RespBody.success();
     }
 }

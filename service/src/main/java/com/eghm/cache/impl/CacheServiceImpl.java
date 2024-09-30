@@ -5,7 +5,7 @@ import com.eghm.common.JsonService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
-import com.eghm.constant.LockKey;
+import com.eghm.constant.LockConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
@@ -82,7 +82,7 @@ public class CacheServiceImpl implements CacheService {
      * @return 结果信息
      */
     private <T> T doSupplier(String key, Supplier<T> supplier) {
-        T result = redisLock.lock(LockKey.MUTEX_LOCK + key, CacheConstant.MUTEX_EXPIRE, supplier);
+        T result = redisLock.lock(LockConstant.MUTEX_LOCK + key, CacheConstant.MUTEX_EXPIRE, supplier);
         if (result != null) {
             this.setValue(key, result, sysConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
         } else {
