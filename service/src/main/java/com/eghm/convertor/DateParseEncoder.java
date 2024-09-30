@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 /**
- * 特殊处理数字的序列化
+ * 时间中文转换器
  *
  * @author 二哥很猛
  * @since 2023/9/16

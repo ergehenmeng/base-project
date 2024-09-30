@@ -10,6 +10,8 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
 /**
+ * 分转元序列化转换器(忽略无用的小数点)
+ *
  * @author 二哥很猛
  * @since 2022/3/30 18:17
  */

@@ -19,6 +19,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * 日期格式化注解工厂, 主要解决LocalDateTime、LocalDate、LocalTime的GET请求时的数据绑定
+ *
  * @author 二哥很猛
  * @since 2023/11/21
  */
@@ -33,7 +35,6 @@ public class DateAnnotationFormatterFactory extends EmbeddedValueResolutionSuppo
         fieldTypes.add(LocalDateTime.class);
         FIELD_TYPES = Collections.unmodifiableSet(fieldTypes);
     }
-
 
     @Override
     public final @NonNull Set<Class<?>> getFieldTypes() {

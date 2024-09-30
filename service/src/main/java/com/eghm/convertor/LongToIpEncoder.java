@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
 /**
+ * ip序列化器
+ *
  * @author 二哥很猛
  * @since 2023/8/1
  */

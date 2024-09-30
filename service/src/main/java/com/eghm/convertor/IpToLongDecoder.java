@@ -12,6 +12,8 @@ import java.io.IOException;
 import static com.eghm.enums.ErrorCode.IP_ILLEGAL;
 
 /**
+ * ip反序列化器
+ *
  * @author 二哥很猛
  * @since 2023/8/1
  */

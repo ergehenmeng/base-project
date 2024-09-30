@@ -11,6 +11,8 @@ import org.springframework.lang.NonNull;
 
 
 /**
+ * 枚举类型转换器工厂,解决knife4j-doc枚举类型显示异常及请求接口时类型绑定异常
+ *
  * @author 二哥很猛
  * @since 2023/10/10
  */

@@ -31,7 +31,6 @@ public class YuanToCentAnnotationFormatterFactory extends EmbeddedValueResolutio
         FIELD_TYPES = Collections.unmodifiableSet(fieldTypes);
     }
 
-
     @NotNull
     @Override
     public Set<Class<?>> getFieldTypes() {
