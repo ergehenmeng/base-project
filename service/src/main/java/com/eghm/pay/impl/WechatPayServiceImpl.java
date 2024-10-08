@@ -1,7 +1,7 @@
 package com.eghm.pay.impl;
 
 import com.eghm.configuration.SystemProperties;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.WeChatPayException;

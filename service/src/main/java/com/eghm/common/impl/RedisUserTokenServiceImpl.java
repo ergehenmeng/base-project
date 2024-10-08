@@ -5,7 +5,7 @@ import com.eghm.cache.CacheService;
 import com.eghm.common.JsonService;
 import com.eghm.common.UserTokenService;
 import com.eghm.configuration.SystemProperties;
-import com.eghm.constant.CacheConstant;
+import com.eghm.constants.CacheConstant;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.model.SysUser;
 import lombok.AllArgsConstructor;

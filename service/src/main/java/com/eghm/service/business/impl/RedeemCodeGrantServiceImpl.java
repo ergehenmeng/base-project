@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eghm.common.impl.SysConfigApi;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.redeem.RedeemCodeGrantQueryRequest;
 import com.eghm.dto.ext.RedeemScope;
 import com.eghm.enums.ErrorCode;

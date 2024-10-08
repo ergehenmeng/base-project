@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.eghm.constant.CommonConstant.WEBSOCKET_PREFIX;
+import static com.eghm.constants.CommonConstant.WEBSOCKET_PREFIX;
 
 /**
  * @author 二哥很猛

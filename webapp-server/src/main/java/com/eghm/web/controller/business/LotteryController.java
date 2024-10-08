@@ -1,6 +1,6 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.constant.LockConstant;
+import com.eghm.constants.LockConstant;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.lottery.LotteryQueryDTO;
 import com.eghm.dto.ext.ApiHolder;

@@ -4,7 +4,7 @@ import com.eghm.cache.CacheService;
 import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.constant.CacheConstant;
+import com.eghm.constants.CacheConstant;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
 import com.eghm.utils.WebUtil;

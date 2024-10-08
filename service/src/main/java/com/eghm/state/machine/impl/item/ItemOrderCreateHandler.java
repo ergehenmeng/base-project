@@ -5,7 +5,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.JsonService;
 import com.eghm.common.OrderMQService;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
 import com.eghm.dto.business.purchase.LimitSkuRequest;

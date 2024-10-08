@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.eghm.constant.CommonConstant.ROOT_NODE;
+import static com.eghm.constants.CommonConstant.ROOT_NODE;
 
 /**
  * 部门 service

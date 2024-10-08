@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.eghm.constant.CommonConstant.WITHDRAW_PREFIX;
+import static com.eghm.constants.CommonConstant.WITHDRAW_PREFIX;
 
 /**
  * <p>

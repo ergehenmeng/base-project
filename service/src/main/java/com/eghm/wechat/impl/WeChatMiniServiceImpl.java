@@ -8,7 +8,7 @@ import cn.binarywang.wx.miniapp.bean.urllink.GenerateUrlLinkRequest;
 import cn.hutool.crypto.digest.MD5;
 import com.eghm.cache.CacheService;
 import com.eghm.configuration.SystemProperties;
-import com.eghm.constant.CacheConstant;
+import com.eghm.constants.CacheConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.wechat.WeChatMiniService;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.eghm.constant.CommonConstant.SPECIAL_SPLIT;
+import static com.eghm.constants.CommonConstant.SPECIAL_SPLIT;
 
 /**
  * @author 二哥很猛

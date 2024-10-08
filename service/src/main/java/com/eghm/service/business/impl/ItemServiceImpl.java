@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.JsonService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.coupon.product.ItemCouponQueryDTO;
@@ -53,7 +53,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.eghm.constant.CommonConstant.ITEM_TAG_STEP;
+import static com.eghm.constants.CommonConstant.ITEM_TAG_STEP;
 import static com.eghm.enums.ErrorCode.EXPRESS_WEIGHT;
 import static com.eghm.enums.ErrorCode.ITEM_DOWN;
 

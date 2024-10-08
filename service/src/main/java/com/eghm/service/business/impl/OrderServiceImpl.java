@@ -14,7 +14,7 @@ import com.eghm.common.JsonService;
 import com.eghm.common.OrderMQService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.SystemProperties;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.dto.ext.ApiHolder;
@@ -67,7 +67,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.eghm.constant.CacheConstant.*;
+import static com.eghm.constants.CacheConstant.*;
 import static com.eghm.constants.ConfigConstant.MERCHANT_SALE_RANKING;
 import static com.eghm.constants.ConfigConstant.PRODUCT_SALE_RANKING;
 

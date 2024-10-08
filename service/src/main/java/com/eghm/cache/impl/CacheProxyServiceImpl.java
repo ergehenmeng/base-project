@@ -3,7 +3,7 @@ package com.eghm.cache.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.cache.CacheProxyService;
-import com.eghm.constant.CacheConstant;
+import com.eghm.constants.CacheConstant;
 import com.eghm.enums.Channel;
 import com.eghm.enums.EmailType;
 import com.eghm.mapper.*;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.eghm.constant.CommonConstant.LIMIT_ONE;
+import static com.eghm.constants.CommonConstant.LIMIT_ONE;
 
 /**
  * 缓存代理层<br/>

@@ -3,7 +3,7 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.item.ItemTagAddRequest;
 import com.eghm.dto.business.item.ItemTagEditRequest;
 import com.eghm.dto.business.item.ItemTagQueryRequest;
@@ -23,8 +23,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.eghm.constant.CommonConstant.ITEM_TAG_MAX_DEPTH;
-import static com.eghm.constant.CommonConstant.ITEM_TAG_STEP;
+import static com.eghm.constants.CommonConstant.ITEM_TAG_MAX_DEPTH;
+import static com.eghm.constants.CommonConstant.ITEM_TAG_STEP;
 
 /**
  * <p>

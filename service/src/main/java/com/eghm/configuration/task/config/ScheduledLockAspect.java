@@ -1,7 +1,7 @@
 package com.eghm.configuration.task.config;
 
 import com.eghm.common.AlarmService;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.lock.RedisLock;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

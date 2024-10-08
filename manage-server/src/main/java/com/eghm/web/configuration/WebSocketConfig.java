@@ -11,7 +11,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
-import static com.eghm.constant.CommonConstant.WEBSOCKET_PREFIX;
+import static com.eghm.constants.CommonConstant.WEBSOCKET_PREFIX;
 
 /**
  * @author 二哥很猛

@@ -1,4 +1,4 @@
-package com.eghm.constant;
+package com.eghm.constants;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

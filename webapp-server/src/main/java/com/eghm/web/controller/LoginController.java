@@ -3,7 +3,7 @@ package com.eghm.web.controller;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.MemberTokenService;
 import com.eghm.common.SmsService;
-import com.eghm.constant.AppHeader;
+import com.eghm.constants.AppHeader;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.login.*;

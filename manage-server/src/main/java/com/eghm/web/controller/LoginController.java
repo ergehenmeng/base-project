@@ -5,7 +5,7 @@ import com.eghm.common.UserTokenService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.constant.CacheConstant;
+import com.eghm.constants.CacheConstant;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.login.LoginRequest;

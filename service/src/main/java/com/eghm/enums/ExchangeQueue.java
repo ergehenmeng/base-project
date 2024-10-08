@@ -1,6 +1,6 @@
 package com.eghm.enums;
 
-import com.eghm.constant.QueueConstant;
+import com.eghm.constants.QueueConstant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -2,7 +2,7 @@ package com.eghm.web.listener;
 
 import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
-import com.eghm.constant.QueueConstant;
+import com.eghm.constants.QueueConstant;
 import com.eghm.dto.ext.OrderPayNotify;
 import com.eghm.dto.ext.RefundAudit;
 import com.eghm.dto.ext.SocketMsg;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-import static com.eghm.constant.CommonConstant.WEBSOCKET_PREFIX;
+import static com.eghm.constants.CommonConstant.WEBSOCKET_PREFIX;
 
 /**
  * @author 二哥很猛

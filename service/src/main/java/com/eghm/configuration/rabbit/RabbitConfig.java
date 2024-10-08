@@ -2,7 +2,7 @@ package com.eghm.configuration.rabbit;
 
 import com.alibaba.ttl.threadpool.TtlExecutors;
 import com.eghm.configuration.log.LogTraceHolder;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;

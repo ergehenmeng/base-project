@@ -1,7 +1,7 @@
 package com.eghm.configuration;
 
 
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import com.google.code.kaptcha.text.impl.DefaultTextCreator;
 
 import java.util.HashMap;

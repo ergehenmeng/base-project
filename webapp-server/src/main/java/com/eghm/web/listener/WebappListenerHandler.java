@@ -4,10 +4,10 @@ import cn.hutool.core.util.StrUtil;
 import com.eghm.cache.CacheService;
 import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
-import com.eghm.constant.CacheConstant;
-import com.eghm.constant.CommonConstant;
-import com.eghm.constant.LockConstant;
-import com.eghm.constant.QueueConstant;
+import com.eghm.constants.CacheConstant;
+import com.eghm.constants.CommonConstant;
+import com.eghm.constants.LockConstant;
+import com.eghm.constants.QueueConstant;
 import com.eghm.dto.ext.*;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.*;
@@ -34,8 +34,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static com.eghm.constant.CacheConstant.ERROR_PLACE_HOLDER;
-import static com.eghm.constant.CacheConstant.SUCCESS_PLACE_HOLDER;
+import static com.eghm.constants.CacheConstant.ERROR_PLACE_HOLDER;
+import static com.eghm.constants.CacheConstant.SUCCESS_PLACE_HOLDER;
 
 /**
  * @author 二哥很猛

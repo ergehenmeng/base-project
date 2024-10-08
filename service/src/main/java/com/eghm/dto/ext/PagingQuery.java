@@ -1,7 +1,7 @@
 package com.eghm.dto.ext;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

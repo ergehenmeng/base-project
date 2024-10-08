@@ -1,7 +1,7 @@
 package com.eghm.web.configuration.interceptor;
 
 import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.constant.CacheConstant;
+import com.eghm.constants.CacheConstant;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.utils.IpUtil;

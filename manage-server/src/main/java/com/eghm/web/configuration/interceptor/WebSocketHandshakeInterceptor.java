@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.eghm.constant.CommonConstant.SECURITY_USER;
+import static com.eghm.constants.CommonConstant.SECURITY_USER;
 
 /**
  * websocket拦截器

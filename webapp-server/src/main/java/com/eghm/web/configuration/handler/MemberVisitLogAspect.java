@@ -1,7 +1,7 @@
 package com.eghm.web.configuration.handler;
 
 
-import com.eghm.constant.AppHeader;
+import com.eghm.constants.AppHeader;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.model.MemberVisitLog;

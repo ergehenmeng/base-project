@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.account.AccountDTO;
 import com.eghm.dto.business.account.score.ScoreAccountDTO;
 import com.eghm.dto.business.account.score.ScoreRechargeDTO;
@@ -37,7 +37,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.eghm.constant.CommonConstant.*;
+import static com.eghm.constants.CommonConstant.*;
 
 /**
  * <p>

@@ -1,6 +1,6 @@
 package com.eghm.web.controller;
 
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.utils.CacheUtil;
 import com.eghm.utils.IpUtil;
 import com.google.code.kaptcha.Producer;

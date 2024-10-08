@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
 import com.eghm.common.UserTokenService;
 import com.eghm.configuration.encoder.Encoder;
-import com.eghm.constant.CacheConstant;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CacheConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.dto.user.PasswordEditRequest;
 import com.eghm.dto.user.UserAddRequest;
 import com.eghm.dto.user.UserEditRequest;
@@ -40,7 +40,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.eghm.constant.CommonConstant.MAX_ERROR_NUM;
+import static com.eghm.constants.CommonConstant.MAX_ERROR_NUM;
 import static com.eghm.utils.CacheUtil.LOGIN_LOCK_CACHE;
 
 /**

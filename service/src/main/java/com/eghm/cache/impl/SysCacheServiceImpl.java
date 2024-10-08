@@ -2,7 +2,7 @@ package com.eghm.cache.impl;
 
 import com.eghm.cache.ClearCacheService;
 import com.eghm.cache.SysCacheService;
-import com.eghm.constant.CacheConstant;
+import com.eghm.constants.CacheConstant;
 import com.eghm.mapper.SysCacheMapper;
 import com.eghm.model.SysCache;
 import com.eghm.service.sys.BlackRosterService;

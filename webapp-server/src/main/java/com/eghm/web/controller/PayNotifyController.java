@@ -1,6 +1,6 @@
 package com.eghm.web.controller;
 
-import com.eghm.constant.WeChatConstant;
+import com.eghm.constants.WeChatConstant;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
@@ -36,7 +36,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.eghm.constant.CommonConstant.*;
+import static com.eghm.constants.CommonConstant.*;
 
 /**
  * @author 二哥很猛

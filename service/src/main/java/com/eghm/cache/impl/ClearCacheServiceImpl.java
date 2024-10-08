@@ -1,7 +1,7 @@
 package com.eghm.cache.impl;
 
 import com.eghm.cache.ClearCacheService;
-import com.eghm.constant.CacheConstant;
+import com.eghm.constants.CacheConstant;
 import com.eghm.service.common.SensitiveWordService;
 import freemarker.template.Configuration;
 import lombok.RequiredArgsConstructor;

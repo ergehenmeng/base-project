@@ -1,8 +1,8 @@
 package com.eghm.mq.service.impl;
 
 import com.eghm.cache.CacheService;
-import com.eghm.constant.CacheConstant;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CacheConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.AsyncKey;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.mq.service.MessageService;

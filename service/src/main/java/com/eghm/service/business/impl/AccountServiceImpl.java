@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
 import com.eghm.configuration.SystemProperties;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.account.AccountDTO;
 import com.eghm.dto.business.freeze.AccountFreezeDTO;
 import com.eghm.dto.business.freeze.RefundChangeDTO;

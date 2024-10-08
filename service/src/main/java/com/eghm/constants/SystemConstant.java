@@ -1,11 +1,15 @@
 package com.eghm.constants;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.io.File;
 
 /**
  * @author 二哥很猛
  * @since 2018/11/23 15:25
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SystemConstant {
 
     /**
@@ -24,9 +28,5 @@ public class SystemConstant {
      * @see SystemConstant#DEFAULT_PATTERN
      */
     public static final String DEFAULT_FOLDER = "image";
-
-    private SystemConstant() {
-
-    }
 
 }

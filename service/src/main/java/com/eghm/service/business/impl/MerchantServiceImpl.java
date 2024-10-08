@@ -46,7 +46,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.eghm.constant.CacheConstant.MERCHANT_AUTH_CODE;
+import static com.eghm.constants.CacheConstant.MERCHANT_AUTH_CODE;
 
 /**
  * @author 殿小二

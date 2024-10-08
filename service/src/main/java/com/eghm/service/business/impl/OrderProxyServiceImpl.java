@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.AlarmService;
 import com.eghm.common.SmsService;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.order.homestay.HomestayOrderConfirmRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.SmsType;

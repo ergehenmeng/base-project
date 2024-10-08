@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
-import com.eghm.constant.CacheConstant;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CacheConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.collect.CollectQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.statistics.CollectRequest;
@@ -38,7 +38,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.eghm.constant.CacheConstant.MEMBER_COLLECT;
+import static com.eghm.constants.CacheConstant.MEMBER_COLLECT;
 
 /**
  * <p>

@@ -1,7 +1,7 @@
 package com.eghm.utils;
 
 import cn.hutool.extra.servlet.ServletUtil;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

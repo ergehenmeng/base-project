@@ -4,7 +4,7 @@ import com.eghm.cache.CacheProxyService;
 import com.eghm.common.MemberTokenService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.service.sys.BlackRosterService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;

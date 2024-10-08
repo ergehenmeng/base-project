@@ -1,4 +1,7 @@
-package com.eghm.constant;
+package com.eghm.constants;
+
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -7,6 +10,7 @@ import java.nio.charset.StandardCharsets;
  * @author 二哥很猛
  * @since 2018/1/8 14:41
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CommonConstant {
 
     /**
@@ -206,20 +210,18 @@ public class CommonConstant {
     public static final String SECURITY_USER = "securityUser";
 
     /**
-     *
+     * 管理后台文件上传前缀
      */
-    public static final String USER = "user:";
+    public static final String MANAGE = "manage:";
 
     /**
-     *
+     * 移动端文件上传前缀
      */
-    public static final String MEMBER = "member:";
+    public static final String WEBAPP = "webapp:";
 
     /**
      * 单日上传限制: 默认128M
      */
     public static final long DAY_MAX_UPLOAD = 128 * 1024 * 1024L;
 
-    private CommonConstant() {
-    }
 }

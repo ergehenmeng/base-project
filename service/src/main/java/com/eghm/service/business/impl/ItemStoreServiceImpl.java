@@ -40,7 +40,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.eghm.constant.CacheConstant.MEMBER_COLLECT;
+import static com.eghm.constants.CacheConstant.MEMBER_COLLECT;
 import static com.eghm.enums.ErrorCode.SHOP_NOT_PERFECT;
 
 /**

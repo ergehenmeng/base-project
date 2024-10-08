@@ -1,6 +1,6 @@
 package com.eghm.configuration.task.config;
 
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 
 /**
  * @author 二哥很猛

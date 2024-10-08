@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import com.eghm.common.FileService;
 import com.eghm.configuration.annotation.SkipLogger;
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.dto.ext.RespBody;
@@ -40,7 +40,7 @@ public class UploadController {
     @SkipLogger
     @AccessToken
     public RespBody<FilePath> upload(@RequestParam("file") MultipartFile file) {
-        FilePath filePath = fileService.saveFile(CommonConstant.MEMBER + ApiHolder.getMemberId(), file);
+        FilePath filePath = fileService.saveFile(CommonConstant.WEBAPP + ApiHolder.getMemberId(), file);
         return RespBody.success(filePath);
     }
 }

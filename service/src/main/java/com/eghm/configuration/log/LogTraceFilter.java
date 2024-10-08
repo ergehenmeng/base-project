@@ -1,6 +1,6 @@
 package com.eghm.configuration.log;
 
-import com.eghm.constant.CommonConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.utils.StringUtil;
 import org.slf4j.MDC;
 import org.springframework.lang.NonNull;

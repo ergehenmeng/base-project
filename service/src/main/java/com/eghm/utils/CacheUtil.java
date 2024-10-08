@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.eghm.constant.CommonConstant.SUBMIT_INTERVAL;
+import static com.eghm.constants.CommonConstant.SUBMIT_INTERVAL;
 
 /**
  * 内存缓存工具类

@@ -1,5 +1,6 @@
 package com.eghm.cache;
 
+import com.eghm.constants.CommonConstant;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.data.redis.core.ZSetOperations;
 
@@ -129,7 +130,7 @@ public interface CacheService {
      *
      * @param key      key
      * @param maxLimit 次数限制
-     * @param maxTtl   单位:毫秒 不能大于7天 {@link com.eghm.constant.CommonConstant#LIMIT_MAX_EXPIRE}
+     * @param maxTtl   单位:毫秒 不能大于7天 {@link CommonConstant#LIMIT_MAX_EXPIRE}
      * @return true:限制() false:不限制(表示没有达到最大值 可以执行后续操作)
      */
     boolean limit(String key, int maxLimit, long maxTtl);

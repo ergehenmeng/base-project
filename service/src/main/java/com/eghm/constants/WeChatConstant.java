@@ -1,9 +1,14 @@
-package com.eghm.constant;
+package com.eghm.constants;
+
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * @author 二哥很猛
  * @since 2018/8/14 16:57
  */
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WeChatConstant {
 
     /**
@@ -25,8 +30,5 @@ public class WeChatConstant {
      * 随机串
      */
     public static final String NONCE = "Wechatpay-Nonce";
-
-    private WeChatConstant() {
-    }
 
 }
