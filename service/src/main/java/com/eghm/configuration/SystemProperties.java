@@ -18,7 +18,7 @@ public class SystemProperties {
     static final String PREFIX = "system";
 
     /**
-     * 上传文件的路径 (系统时必填)
+     * 上传文件的绝对路径 (必填)
      */
     private String uploadDir;
 

@@ -183,17 +183,17 @@ public class CommonConstant {
     /**
      * 提现交易单号前缀
      */
-    public static final String WITHDRAW_PREFIX = "TX";
+    public static final String WITHDRAW_PREFIX = "W";
 
     /**
      * 积分提现交易单号前缀
      */
-    public static final String SCORE_WITHDRAW_PREFIX = "STX";
+    public static final String SCORE_WITHDRAW_PREFIX = "SW";
 
     /**
      * 积分充值交易单号前缀
      */
-    public static final String SCORE_RECHARGE_PREFIX = "SCZ";
+    public static final String SCORE_RECHARGE_PREFIX = "SR";
 
     /**
      * websocket消息路径前缀
