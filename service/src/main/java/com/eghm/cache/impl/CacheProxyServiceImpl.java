@@ -24,6 +24,7 @@ import static com.eghm.constants.CommonConstant.LIMIT_ONE;
 
 /**
  * 缓存代理层<br/>
+ * 防止循环依赖
  *
  * @author 二哥很猛
  * @since 2022/7/12

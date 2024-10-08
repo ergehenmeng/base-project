@@ -1,6 +1,6 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.configuration.annotation.SkipPerm;
+import com.eghm.annotation.SkipPerm;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.statistics.CollectRequest;

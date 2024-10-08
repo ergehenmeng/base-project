@@ -4,6 +4,8 @@ import java.lang.annotation.*;
 import java.time.temporal.ChronoUnit;
 
 /**
+ * 针对GET请求数据绑定时的日期格式化注解
+ *
  * @author 二哥很猛
  * @since 2023/11/21
  */

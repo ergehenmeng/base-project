@@ -1,6 +1,6 @@
 package com.eghm.configuration.task.job;
 
-import com.eghm.configuration.annotation.CronMark;
+import com.eghm.annotation.CronMark;
 import com.eghm.dto.ext.OrderRefund;
 import com.eghm.model.Order;
 import com.eghm.pay.AggregatePayService;

@@ -1,6 +1,6 @@
 package com.eghm.web.controller;
 
-import com.eghm.configuration.annotation.SkipPerm;
+import com.eghm.annotation.SkipPerm;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.ext.SocketMsg;
 import com.eghm.enums.ref.ProductType;

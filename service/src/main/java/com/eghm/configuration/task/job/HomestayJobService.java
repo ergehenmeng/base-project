@@ -1,7 +1,7 @@
 package com.eghm.configuration.task.job;
 
 import cn.hutool.core.util.StrUtil;
-import com.eghm.configuration.annotation.CronMark;
+import com.eghm.annotation.CronMark;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.utils.LoggerUtil;
 import lombok.AllArgsConstructor;

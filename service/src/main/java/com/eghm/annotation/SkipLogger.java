@@ -1,21 +1,21 @@
-package com.eghm.configuration.annotation;
+package com.eghm.annotation;
+
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * 管理后台跳过菜单及按钮权限校验标识符
- *
+ * 管理后台项目默认记录POST请求日志<br/>
+ * 移动端默认记录全部日志<br/>
+ * 如需不添加日志记录,则添加该注解(移动端和管理后台均有效)
  * @author 二哥很猛
- * @since 2022/11/4
  */
 @Documented
-@Target({METHOD, TYPE})
+@Target({METHOD})
 @Retention(RUNTIME)
-public @interface SkipPerm {
+public @interface SkipLogger {
 }

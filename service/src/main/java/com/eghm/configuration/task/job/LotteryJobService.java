@@ -1,6 +1,6 @@
 package com.eghm.configuration.task.job;
 
-import com.eghm.configuration.annotation.CronMark;
+import com.eghm.annotation.CronMark;
 import com.eghm.service.business.lottery.LotteryPrizeService;
 import com.eghm.service.business.lottery.LotteryService;
 import com.eghm.utils.LoggerUtil;

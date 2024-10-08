@@ -1,6 +1,6 @@
 package com.eghm.configuration.task.job;
 
-import com.eghm.configuration.annotation.CronMark;
+import com.eghm.annotation.CronMark;
 import com.eghm.service.business.TicketOrderService;
 import com.eghm.state.machine.access.impl.TicketAccessHandler;
 import com.eghm.state.machine.context.OrderVerifyContext;

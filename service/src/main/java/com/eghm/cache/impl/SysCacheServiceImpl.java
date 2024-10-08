@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
+ * 系统缓存清理服务类(所有系统级缓存清理的入口)
+ *
  * @author 二哥很猛
  * @since 2019/1/14 14:34
  */

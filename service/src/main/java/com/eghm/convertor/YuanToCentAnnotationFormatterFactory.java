@@ -1,6 +1,6 @@
 package com.eghm.convertor;
 
-import com.eghm.configuration.annotation.YuanToCentFormat;
+import com.eghm.annotation.YuanToCentFormat;
 import com.eghm.utils.DecimalUtil;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.support.EmbeddedValueResolutionSupport;

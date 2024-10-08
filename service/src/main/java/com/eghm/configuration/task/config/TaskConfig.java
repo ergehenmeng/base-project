@@ -1,6 +1,6 @@
 package com.eghm.configuration.task.config;
 
-import com.eghm.configuration.annotation.EnableTask;
+import com.eghm.annotation.EnableTask;
 import com.eghm.mapper.SysTaskMapper;
 import org.springframework.boot.task.TaskSchedulerCustomizer;
 import org.springframework.context.annotation.Bean;

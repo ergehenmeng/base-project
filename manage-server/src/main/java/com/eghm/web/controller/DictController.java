@@ -1,6 +1,6 @@
 package com.eghm.web.controller;
 
-import com.eghm.configuration.annotation.SkipPerm;
+import com.eghm.annotation.SkipPerm;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.dict.*;
 import com.eghm.dto.ext.RespBody;

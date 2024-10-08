@@ -1,7 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.configuration.annotation.SkipPerm;
+import com.eghm.annotation.SkipPerm;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.merchant.MerchantAddRequest;
 import com.eghm.dto.business.merchant.MerchantEditRequest;

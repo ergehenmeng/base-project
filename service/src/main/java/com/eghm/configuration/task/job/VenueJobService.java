@@ -3,7 +3,7 @@ package com.eghm.configuration.task.job;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.configuration.annotation.CronMark;
+import com.eghm.annotation.CronMark;
 import com.eghm.model.VenueSitePrice;
 import com.eghm.service.business.VenueSitePriceService;
 import com.eghm.utils.LoggerUtil;

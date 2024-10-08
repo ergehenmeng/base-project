@@ -3,6 +3,8 @@ package com.eghm.annotation;
 import java.lang.annotation.*;
 
 /**
+ * excel字典注解, 数据字典对应表 sys_dict
+ *
  * @author wyb
  * @since 2023/3/31
  */

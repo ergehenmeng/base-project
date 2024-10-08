@@ -1,7 +1,7 @@
 package com.eghm.web.configuration.interceptor;
 
 import cn.hutool.core.util.URLUtil;
-import com.eghm.configuration.annotation.SkipLogger;
+import com.eghm.annotation.SkipLogger;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.constants.AppHeader;
 import com.eghm.constants.CommonConstant;

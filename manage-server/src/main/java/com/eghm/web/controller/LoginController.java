@@ -3,7 +3,7 @@ package com.eghm.web.controller;
 import com.eghm.cache.CacheService;
 import com.eghm.common.UserTokenService;
 import com.eghm.configuration.SystemProperties;
-import com.eghm.configuration.annotation.SkipPerm;
+import com.eghm.annotation.SkipPerm;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.dto.ext.RespBody;

@@ -1,7 +1,7 @@
 package com.eghm.web;
 
 
-import com.eghm.configuration.annotation.EnableTask;
+import com.eghm.annotation.EnableTask;
 import com.eghm.utils.LoggerUtil;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;

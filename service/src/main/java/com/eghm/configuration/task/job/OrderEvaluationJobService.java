@@ -1,6 +1,6 @@
 package com.eghm.configuration.task.job;
 
-import com.eghm.configuration.annotation.CronMark;
+import com.eghm.annotation.CronMark;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.mapper.OrderEvaluationMapper;

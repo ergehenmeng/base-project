@@ -50,7 +50,7 @@ public class ManageLogAspect {
      * @return aop方法调用结果对象
      * @throws Throwable 异常
      */
-    @Around("@annotation(org.springframework.web.bind.annotation.PostMapping) && (!@annotation(com.eghm.configuration.annotation.SkipLogger)) && within(com.eghm.web.controller..*)")
+    @Around("@annotation(org.springframework.web.bind.annotation.PostMapping) && (!@annotation(com.eghm.annotation.SkipLogger)) && within(com.eghm.web.controller..*)")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
 
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();

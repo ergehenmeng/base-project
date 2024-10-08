@@ -1,4 +1,4 @@
-package com.eghm.configuration.annotation;
+package com.eghm.annotation;
 
 import com.eghm.configuration.task.config.TaskConfig;
 import org.springframework.context.annotation.Import;
@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * 启用定时任务功能
+ * 启用定时任务
  *
  * @author 殿小二
  * @since 2020/8/14

@@ -1,7 +1,7 @@
 package com.eghm.dto.business.shopping;
 
 import com.eghm.annotation.Assign;
-import com.eghm.configuration.annotation.YuanToCentFormat;
+import com.eghm.annotation.YuanToCentFormat;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.State;
 import io.swagger.annotations.ApiModelProperty;
