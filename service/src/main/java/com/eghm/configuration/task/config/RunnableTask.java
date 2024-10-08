@@ -1,5 +1,6 @@
 package com.eghm.configuration.task.config;
 
+import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.AlarmService;
@@ -9,7 +10,6 @@ import com.eghm.exception.BusinessException;
 import com.eghm.lock.RedisLock;
 import com.eghm.model.SysTaskLog;
 import com.eghm.service.common.SysTaskLogService;
-import com.eghm.utils.IpUtil;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -53,7 +53,7 @@ public class RunnableTask implements Runnable {
 
     @Override
     public void run() {
-        SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder().beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(IpUtil.getLocalIp());
+        SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder().beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(NetUtil.getLocalhostStr());
         String key = task.getBeanName() + CommonConstant.SPECIAL_SPLIT + task.getMethodName();
         LocalDateTime start = LocalDateTime.now();
         long startTime = System.currentTimeMillis();

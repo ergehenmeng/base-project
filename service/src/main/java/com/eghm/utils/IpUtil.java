@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.InetAddress;
 
 
 /**
@@ -30,20 +29,6 @@ public class IpUtil {
         }
         String ip = ServletUtil.getClientIP(request);
         return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : ip;
-    }
-
-    /**
-     * 获取本机ip地址
-     *
-     * @return 127.0.0.1
-     */
-    public static String getLocalIp() {
-        try {
-            return InetAddress.getLocalHost().getHostAddress();
-        } catch (Exception e) {
-            log.error("获取本机ip失败", e);
-        }
-        return null;
     }
 
 }

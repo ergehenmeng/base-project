@@ -30,7 +30,7 @@ public class SystemProperties {
     /**
      * 系统运行环境(默认准生产环境)
      */
-    private Env env = Env.PRE;
+    private Env env = Env.PROD;
 
     /**
      * 平台手续费收款商户
