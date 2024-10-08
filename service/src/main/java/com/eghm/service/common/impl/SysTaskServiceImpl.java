@@ -19,6 +19,7 @@ import org.springframework.scheduling.support.CronExpression;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 /**
  * @author 二哥很猛
@@ -73,7 +74,7 @@ public class SysTaskServiceImpl implements SysTaskService {
         onceDetail.setBeanName(sysTask.getBeanName());
         onceDetail.setMethodName(sysTask.getMethodName());
         onceDetail.setArgs(args);
-        onceDetail.setExecuteTime(LocalDateTime.now().plusSeconds(1));
+        onceDetail.setExecuteTime(LocalDateTime.now().plus(500, ChronoUnit.MILLIS));
         sysTaskRegistrar.addTask(onceDetail);
     }
 }
