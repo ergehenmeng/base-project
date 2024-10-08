@@ -17,7 +17,6 @@ import org.apache.ibatis.session.RowBounds;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * @author 二哥很猛
@@ -74,8 +73,4 @@ public class DataScopeInterceptor implements Interceptor {
         return executor.query(ms, paramMap, rowBounds, resultHandler, cacheKey, boundSql);
     }
 
-    @Override
-    public void setProperties(Properties properties) {
-        Interceptor.super.setProperties(properties);
-    }
 }

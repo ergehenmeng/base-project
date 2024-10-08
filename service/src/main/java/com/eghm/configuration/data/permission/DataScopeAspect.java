@@ -1,6 +1,7 @@
 package com.eghm.configuration.data.permission;
 
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.configuration.security.SecurityHolder;
@@ -69,7 +70,11 @@ public class DataScopeAspect {
         // 自定义
         if (user.getDataType() == DataType.CUSTOM) {
             List<String> deptList = user.getDataList();
-            builder.append(alias).append("dept_code in ( ").append(ArrayUtil.join(deptList.toArray(), ",")).append(" ) ");
+            if (CollUtil.isEmpty(deptList)) {
+                builder.append(" 1 = 2 ");
+            } else {
+                builder.append(alias).append("dept_code in ( ").append(ArrayUtil.join(deptList.toArray(), ",")).append(" ) ");
+            }
         }
         // 本部门及子部门
         if (user.getDataType() == DataType.DEPT) {
@@ -79,7 +84,7 @@ public class DataScopeAspect {
         if (user.getDataType() == DataType.SELF_DEPT) {
             builder.append(alias).append("dept_code = '").append(user.getDeptCode()).append("' ");
         }
-        // 自己,可能会涉及到部门变更,默认老部门信息无法查看,因此此处过滤部门信息
+        // 自己,可能会涉及到部门变更, 默认老部门信息无法查看, 因此此处过滤部门信息
         if (user.getDataType() == DataType.SELF) {
             builder.append(alias)
                     .append("dept_code = '").append(user.getDeptCode()).append("' and ")
