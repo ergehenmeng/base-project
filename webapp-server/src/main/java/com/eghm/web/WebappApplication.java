@@ -17,7 +17,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * 前后端分离
- * 默认不激活邮件功能,如需计划需要将下面 exclude = MailSenderAutoConfiguration.class 去掉, 同时在配置文件中填写正确的邮箱配置
+ * 默认不激活邮件功能,如需激活则将下面 exclude = MailSenderAutoConfiguration.class 去掉, 同时在配置文件中填写正确的邮箱配置
  *
  * @author 二哥很猛
  * @since 2019/8/9

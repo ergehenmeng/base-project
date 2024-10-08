@@ -12,6 +12,11 @@ import lombok.Data;
 public class PrepayDTO {
 
     /**
+     * 微信公众号或小程序appId
+     */
+    private String appId;
+
+    /**
      * 交易订单号
      */
     private String tradeNo;

@@ -7,7 +7,7 @@ import lombok.Getter;
 import java.util.stream.Stream;
 
 /**
- * https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_5_2.shtml
+ * <a href="https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_5_2.shtml">订单状态</a>
  *
  * @author 二哥很猛
  */
