@@ -219,27 +219,11 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public LoginResponse login(String userName, String password) {
-        Integer present = LOGIN_LOCK_CACHE.getIfPresent(userName);
-        if (present != null && present > MAX_ERROR_NUM) {
-            throw new BusinessException(ErrorCode.USER_ERROR_LOCK);
-        }
-        SysUser user = this.getByMobile(userName);
-        if (user == null) {
-            LOGIN_LOCK_CACHE.put(userName, present == null ? 1 : present + 1);
-            throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
-        }
-        boolean match = encoder.match(password, user.getPwd());
-        if (!match) {
-            LOGIN_LOCK_CACHE.put(userName, present == null ? 1 : present + 1);
-            throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
-        }
-        if (user.getState() == UserState.LOCK) {
-            throw new BusinessException(ErrorCode.USER_LOCKED_ERROR);
-        }
+        SysUser user = this.getAndCheckUser(userName, password);
         UserType userType = user.getUserType();
-        List<String> buttonList;
         // 如果用户拥有超管角色,则默认查询全部菜单等信息
         List<MenuResponse> leftMenu;
+        List<String> buttonList;
         if (userType == UserType.ADMINISTRATOR) {
             leftMenu = sysMenuService.getAdminLeftMenuList();
             buttonList = sysMenuService.getAdminPermCode();
@@ -247,20 +231,21 @@ public class SysUserServiceImpl implements SysUserService {
             buttonList = sysMenuService.getPermCode(user.getId());
             leftMenu = sysMenuService.getLeftMenuList(user.getId());
         }
+
         int merchantType = 0;
+        if (userType == UserType.MERCHANT_ADMIN) {
+            merchantType = sysUserMapper.getMerchantType(user.getId());
+        } else if (userType == UserType.MERCHANT_USER) {
+            merchantType = merchantUserMapper.getMerchantType(user.getId());
+        }
 
         // 数据权限(此处没有判断,逻辑不够严谨,仅仅为了代码简洁)
         List<String> customList = sysDataDeptService.getDeptList(user.getId());
         Long merchantId = this.getMerchantId(user.getId(), user.getUserType());
-        String token = userTokenService.createToken(user, merchantId, buttonList, customList);
-        // 根据用户名和权限创建jwtToken
-        LoginResponse response = new LoginResponse();
-        if (userType == UserType.MERCHANT_ADMIN) {
-            merchantType = sysUserMapper.getMerchantType(user.getId());
-        } else if (userType == UserType.MERCHANT_USER){
-            merchantType = merchantUserMapper.getMerchantType(user.getId());
 
-        }
+        String token = userTokenService.createToken(user, merchantId, buttonList, customList);
+
+        LoginResponse response = new LoginResponse();
         response.setMerchantId(merchantId);
         response.setToken(token);
         response.setNickName(user.getNickName());
@@ -279,6 +264,34 @@ public class SysUserServiceImpl implements SysUserService {
     public void updateById(SysUser user) {
         this.redoMobile(user.getMobile(), user.getId());
         sysUserMapper.updateById(user);
+    }
+
+    /**
+     * 获取用户信息并校验密码登是否匹配
+     *
+     * @param userName userName
+     * @param password password md5加密过
+     * @return 用户信息
+     */
+    private SysUser getAndCheckUser(String userName, String password) {
+        Integer present = LOGIN_LOCK_CACHE.getIfPresent(userName);
+        if (present != null && present > MAX_ERROR_NUM) {
+            throw new BusinessException(ErrorCode.USER_ERROR_LOCK);
+        }
+        SysUser user = this.getByMobile(userName);
+        if (user == null) {
+            LOGIN_LOCK_CACHE.put(userName, present == null ? 1 : present + 1);
+            throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
+        }
+        boolean match = encoder.match(password, user.getPwd());
+        if (!match) {
+            LOGIN_LOCK_CACHE.put(userName, present == null ? 1 : present + 1);
+            throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
+        }
+        if (user.getState() == UserState.LOCK) {
+            throw new BusinessException(ErrorCode.USER_LOCKED_ERROR);
+        }
+        return user;
     }
 
     /**
