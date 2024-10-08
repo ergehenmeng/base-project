@@ -65,6 +65,7 @@ public class WeChatConfig {
         WxPayConfig config = new WxPayConfig();
         SystemProperties.WeChatProperties weChatProperties = systemProperties.getWechat();
         config.setAppId(weChatProperties.getPayAppId());
+        config.setMchId(weChatProperties.getPayMerchantId());
         config.setSignType(WxPayConstants.SignType.HMAC_SHA256);
         config.setApiV3Key(weChatProperties.getPayApiV3Key());
         config.setCertSerialNo(weChatProperties.getPaySerialNo());

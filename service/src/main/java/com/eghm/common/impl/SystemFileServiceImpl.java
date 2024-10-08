@@ -4,8 +4,8 @@ import cn.hutool.core.util.IdUtil;
 import com.eghm.common.AlarmService;
 import com.eghm.common.FileService;
 import com.eghm.configuration.SystemProperties;
+import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.constants.SystemConstant;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
@@ -26,7 +26,7 @@ import static com.eghm.constants.CommonConstant.DAY_MAX_UPLOAD;
  * 保存文件路径格式=根路径+公共路径+文件分类路径+日期+文件名+后缀<br>
  * 返回给调用方的文件地址=公共路径+文件分类路径+日期+文件名+后缀<br>
  * <h4>说明</h4>
- * 根路径由{@link SystemProperties#getUploadDir()}决定<br>
+ * 根路径由{@link SystemProperties#getUploadPath()}决定<br>
  * 公共路径默认/resource/ 方便nginx或服务做静态资源拦截映射<br>
  * 日期默认yyyyMMdd<br>
  *
@@ -45,7 +45,7 @@ public class SystemFileServiceImpl implements FileService {
 
     @Override
     public FilePath saveFile(String key, MultipartFile file) {
-        return this.saveFile(key, file, this.getDefaultFolder(), this.getSingleMaxSize());
+        return this.saveFile(key, file, systemProperties.getUploadFolder(), this.getSingleMaxSize());
     }
 
     @Override
@@ -70,7 +70,7 @@ public class SystemFileServiceImpl implements FileService {
 
     @Override
     public FilePath saveFile(String key, @NotNull MultipartFile file, long maxSize) {
-        return this.saveFile(key, file, this.getDefaultFolder(), maxSize);
+        return this.saveFile(key, file, systemProperties.getUploadFolder(), maxSize);
     }
 
     /**
@@ -131,9 +131,9 @@ public class SystemFileServiceImpl implements FileService {
         if (originalFileName == null) {
             originalFileName = "default.png";
         }
-        // fileName:3e1be532-4862-49f4-b053-2a2e594ba187.png
+        // fileName: 3e1be532-4862-49f4-b053-2a2e594ba187.png
         String fileName = IdUtil.fastSimpleUUID() + originalFileName.substring(originalFileName.lastIndexOf("."));
-        return SystemConstant.DEFAULT_PATTERN + folderName + File.separator + DateUtil.formatShortLimit(LocalDate.now()) + File.separator + fileName;
+        return CommonConstant.ROOT_FOLDER + folderName + File.separator + DateUtil.formatShortLimit(LocalDate.now()) + File.separator + fileName;
     }
 
     /**
@@ -143,15 +143,11 @@ public class SystemFileServiceImpl implements FileService {
      * @return D:/file/data/
      */
     private String getFullPath(String filePath) {
-        return systemProperties.getUploadDir() + filePath;
+        return systemProperties.getUploadPath() + filePath;
     }
 
     private long getSingleMaxSize() {
         return sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE);
-    }
-
-    private String getDefaultFolder() {
-        return SystemConstant.DEFAULT_FOLDER;
     }
 
     private String getFileAddress() {

@@ -11,7 +11,7 @@ import com.eghm.configuration.encoder.BcEncoder;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.configuration.jackson.DesensitizationAnnotationInterceptor;
 import com.eghm.configuration.log.LogTraceFilter;
-import com.eghm.constants.SystemConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.convertor.DateAnnotationFormatterFactory;
 import com.eghm.convertor.EnumBinderConverterFactory;
 import com.eghm.convertor.YuanToCentAnnotationFormatterFactory;
@@ -118,7 +118,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resource/**").addResourceLocations("file:///" + systemProperties.getUploadDir() + SystemConstant.DEFAULT_PATTERN);
+        registry.addResourceHandler("/resource/**").addResourceLocations("file:///" + systemProperties.getUploadPath() + CommonConstant.ROOT_FOLDER);
     }
 
     @Override

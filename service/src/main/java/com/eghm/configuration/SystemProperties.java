@@ -20,7 +20,12 @@ public class SystemProperties {
     /**
      * 上传文件的绝对路径 (必填)
      */
-    private String uploadDir;
+    private String uploadPath;
+
+    /**
+     * 上传文件时父文件夹名称
+     */
+    private String uploadFolder = "image";
 
     /**
      * 上传文件方式
@@ -279,6 +284,11 @@ public class SystemProperties {
         private String payAppId;
 
         /**
+         * 微信支付商户号,注意:该参数优先级比较低
+         */
+        private String payMerchantId;
+
+        /**
          * apiV3 秘钥
          */
         private String payApiV3Key;
@@ -301,7 +311,7 @@ public class SystemProperties {
         /**
          * 异步通知域名
          */
-        private String notifyHost;
+        private String payNotifyHost;
 
     }
 

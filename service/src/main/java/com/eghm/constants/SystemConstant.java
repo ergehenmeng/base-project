@@ -22,11 +22,4 @@ public class SystemConstant {
      */
     public static final String DEFAULT_PATTERN = File.separator + "resource" + File.separator;
 
-    /**
-     * 默认文件上传时的文件夹名称 /resource/image/yyyyMMdd/default.png
-     *
-     * @see SystemConstant#DEFAULT_PATTERN
-     */
-    public static final String DEFAULT_FOLDER = "image";
-
 }

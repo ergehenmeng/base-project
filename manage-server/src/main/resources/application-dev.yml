@@ -35,19 +35,16 @@ spring:
           max-interval: 30000
 
 system:
-  # 全局配置
-  upload-dir: D://file
+  # 全局文件上传路径
+  upload-path: D://file
   # 管理后台配置
   manage:
     token:
-      jwt-secret: xC&ln9Q5pNn11RXUr7s#Owzm4nK16wGB3PTnM6OI@b51Q9NUrQTrTIQU6r&UTT9O
+      # 模拟token方便调试(可在redis设置永久有效)
       mock-token: 1fc33b2a04fb4573b51b5a7a56c13678
-  # 支付宝支付配置
-  ali-pay:
-    notify-host: https://localhost:8080
   # 微信小程序 公众号 微信支付配置
   wechat:
-    notify-host: https://localhost:8080
+    pay-notify-host: https://localhost:8080
     mini-version: trial
   # 系统环境
   env: dev

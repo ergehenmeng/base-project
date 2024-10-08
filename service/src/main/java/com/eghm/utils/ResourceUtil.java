@@ -52,7 +52,7 @@ public class ResourceUtil {
         String fileAddress = sysConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS);
         SystemProperties properties = SpringContextUtil.getApplicationContext().getBean(SystemProperties.class);
         if (path.startsWith(fileAddress)) {
-            return "file://" + properties.getUploadDir() + path.replace(fileAddress, "");
+            return "file://" + properties.getUploadPath() + path.replace(fileAddress, "");
         } else {
             return path;
         }

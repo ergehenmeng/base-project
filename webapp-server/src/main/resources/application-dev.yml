@@ -38,10 +38,10 @@ spring:
           max-interval: 30000
 
 system:
-  ali-pay:
-    notify-host: https://localhost:8080
+  # 全局文件上传路径
+  upload-path: D://file
   wechat:
-    notify-host: https://localhost:8080
+    pay-notify-host: https://localhost:8080
     mini-version: trial
   platform-merchant-id: 1707294309829128194
   api:

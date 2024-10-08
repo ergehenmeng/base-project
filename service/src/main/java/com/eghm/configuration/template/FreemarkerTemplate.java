@@ -1,6 +1,6 @@
 package com.eghm.configuration.template;
 
-import com.eghm.constants.SystemConstant;
+import com.eghm.constants.CommonConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import freemarker.template.Configuration;
@@ -58,7 +58,7 @@ public class FreemarkerTemplate implements TemplateEngine {
     @Override
     public String renderFile(String path, Map<String, Object> params) {
         try {
-            Template template = configuration.getTemplate(path, Locale.getDefault(), SystemConstant.CHARSET);
+            Template template = configuration.getTemplate(path, Locale.getDefault(), CommonConstant.CHARSET.displayName());
             return this.doRender(template, params);
         } catch (Exception e) {
             log.error("freemarker获取模板异常 path:[{}]", path, e);

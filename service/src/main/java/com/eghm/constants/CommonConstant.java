@@ -3,6 +3,7 @@ package com.eghm.constants;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -22,6 +23,11 @@ public class CommonConstant {
      * 系统默认字符集
      */
     public static final Charset CHARSET = StandardCharsets.UTF_8;
+
+    /**
+     * 文件相对路径的顶级路径
+     */
+    public static final String ROOT_FOLDER = File.separator + "resource" + File.separator;
 
     /**
      * 未知ip地址
