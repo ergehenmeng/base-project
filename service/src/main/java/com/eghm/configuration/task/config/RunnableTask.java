@@ -46,7 +46,7 @@ public class RunnableTask implements Runnable {
             this.sysTaskLogService = SpringContextUtil.getBean(SysTaskLogService.class);
             this.alarmService = SpringContextUtil.getBean(AlarmService.class);
         } catch (Exception e) {
-            log.error("系统中不存在指定的类或该方法 [{}] [{}] [{}]", task.getBeanName(), task.getMethodName(), task.getArgs(), e);
+            log.error("系统中不存在指定的类或该方法 [{}] [{}] 方法入参: [{}]", task.getBeanName(), task.getMethodName(), task.getArgs(), e);
             throw new BusinessException(ErrorCode.TASK_CONFIG_ERROR);
         }
     }
