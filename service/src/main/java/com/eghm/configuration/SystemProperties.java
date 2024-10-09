@@ -279,12 +279,12 @@ public class SystemProperties {
         private WeChatVersion miniVersion = WeChatVersion.RELEASE;
 
         /**
-         * 微信支付所在公众号或小程序的appId,注意:该参数优先级比较低
+         * 微信支付所在公众号或小程序的appId(全局设置),注意: 该参数优先级比下单时传入的appId低
          */
         private String payAppId;
 
         /**
-         * 微信支付商户号,注意:该参数优先级比较低
+         * 信支付商户号(全局设置), 注意: 该参数优先级比下单时传入的mchId低
          */
         private String payMerchantId;
 

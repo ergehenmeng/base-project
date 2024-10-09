@@ -59,7 +59,7 @@ public class WeChatConfig {
      * 微信支付
      */
     @Bean
-    @ConditionalOnProperty(prefix = "system.wechat", name = "pay-app-id")
+    @ConditionalOnProperty(prefix = "system.wechat", name = "pay-api-v3-key")
     public WxPayService wxPayService() {
         WxPayService service = new WxPayServiceImpl();
         WxPayConfig config = new WxPayConfig();
