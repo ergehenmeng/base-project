@@ -26,4 +26,7 @@ public class VoucherTagAddRequest {
     @ApiModelProperty(value = "状态 0:禁用 1:启用", required = true)
     private Boolean state;
 
+    @ApiModelProperty(value = "备注")
+    private String remark;
+
 }
