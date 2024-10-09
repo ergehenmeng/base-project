@@ -988,6 +988,11 @@ public enum ErrorCode {
     VOUCHER_QUOTA(2432, "单次购买上限为%s张"),
 
     /**
+     * 标签名称重复啦~
+     */
+    VOUCHER_TAG_REDO(2433, "标签名称重复啦~"),
+
+    /**
      * 线路名称重复
      */
     LINE_TITLE_REDO(2435, "线路名称重复"),
