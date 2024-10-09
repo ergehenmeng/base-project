@@ -15,10 +15,13 @@ import com.eghm.model.VoucherTag;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.VoucherTagService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.restaurant.TagSelectResponse;
 import com.eghm.vo.business.restaurant.VoucherTagResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
 * @author 二哥很猛
@@ -36,6 +39,11 @@ public class VoucherTagServiceImpl implements VoucherTagService {
     @Override
     public Page<VoucherTagResponse> getByPage(VoucherTagQueryRequest request) {
         return voucherTagMapper.getByPage(request.createPage(), request);
+    }
+
+    @Override
+    public List<TagSelectResponse> getList(Long restaurantId) {
+        return voucherTagMapper.getList(restaurantId);
     }
 
     @Override

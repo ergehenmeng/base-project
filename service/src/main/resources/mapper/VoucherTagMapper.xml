@@ -28,4 +28,15 @@
         </if>
     </select>
 
+    <select id="getList" resultType="com.eghm.vo.business.restaurant.TagSelectResponse">
+        select
+            t.id,
+            t.title,
+            t.state
+        from
+            voucher_tag t
+        where
+            t.deleted = 0 and t.restaurant_id = #{restaurantId} order by t.sort
+    </select>
+
 </mapper>

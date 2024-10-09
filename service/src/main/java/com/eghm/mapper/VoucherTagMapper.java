@@ -4,8 +4,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.VoucherTagQueryRequest;
 import com.eghm.model.VoucherTag;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.vo.business.restaurant.TagSelectResponse;
 import com.eghm.vo.business.restaurant.VoucherTagResponse;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -25,4 +28,12 @@ public interface VoucherTagMapper extends BaseMapper<VoucherTag> {
      * @return 列表
      */
     Page<VoucherTagResponse> getByPage(Page<VoucherTagResponse> page, @Param("param") VoucherTagQueryRequest request);
+
+    /**
+     * 获取标签列表
+     *
+     * @param restaurantId 店铺ID
+     * @return list
+     */
+    List<TagSelectResponse> getList(@Param("restaurantId") Long restaurantId);
 }

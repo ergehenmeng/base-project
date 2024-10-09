@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.VoucherTagAddRequest;
 import com.eghm.dto.business.VoucherTagEditRequest;
 import com.eghm.dto.business.VoucherTagQueryRequest;
+import com.eghm.vo.business.restaurant.TagSelectResponse;
 import com.eghm.vo.business.restaurant.VoucherTagResponse;
+
+import java.util.List;
 
 
 /**
@@ -19,6 +22,14 @@ public interface VoucherTagService {
     * @return 列表
     */
     Page<VoucherTagResponse> getByPage(VoucherTagQueryRequest request);
+
+    /**
+     * 获取列表
+     *
+     * @param restaurantId 店铺ID
+     * @return 列表
+     */
+    List<TagSelectResponse> getList(Long restaurantId);
 
     /**
     * 新增

@@ -969,6 +969,7 @@ CREATE TABLE `voucher`
     `merchant_id`   bigint(20)    DEFAULT NULL COMMENT '所属商家',
     `title`         varchar(50)   DEFAULT NULL COMMENT '商品名称',
     `state`         tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:平台下架',
+    `tag_id`        bigint(20)    DEFAULT NULL COMMENT '标签ID',
     `hot_sell`      bit(1)        DEFAULT b'0' COMMENT '是否为热销商品 true:是 false:不是',
     `cover_url`     varchar(1000) DEFAULT NULL COMMENT '封面图片',
     `line_price`    int(10)       DEFAULT NULL COMMENT '划线价',

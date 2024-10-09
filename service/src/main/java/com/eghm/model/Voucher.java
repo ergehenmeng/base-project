@@ -42,6 +42,9 @@ public class Voucher extends BaseEntity {
     @ApiModelProperty(value = "封面图片")
     private String coverUrl;
 
+    @ApiModelProperty(value = "标签id")
+    private Long tagId;
+
     @ApiModelProperty(value = "划线价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer linePrice;

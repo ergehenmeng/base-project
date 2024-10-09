@@ -36,6 +36,9 @@ public class VoucherEditRequest {
     @NotEmpty(message = "封面图片不能为空")
     private List<String> coverList;
 
+    @ApiModelProperty(value = "标签id")
+    private Long tagId;
+
     @ApiModelProperty(value = "划线价", required = true)
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer linePrice;

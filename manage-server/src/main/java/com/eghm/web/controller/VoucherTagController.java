@@ -9,6 +9,7 @@ import com.eghm.dto.business.VoucherTagQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.VoucherTagService;
+import com.eghm.vo.business.restaurant.TagSelectResponse;
 import com.eghm.vo.business.restaurant.VoucherTagResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +17,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
 * @author 二哥很猛
@@ -34,6 +37,13 @@ public class VoucherTagController {
     public RespBody<PageData<VoucherTagResponse>> listPage(VoucherTagQueryRequest request) {
         Page<VoucherTagResponse> byPage = voucherTagService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("列表")
+    public RespBody<List<TagSelectResponse>> list(@Validated IdDTO request) {
+        List<TagSelectResponse> list = voucherTagService.getList(request.getId());
+        return RespBody.success(list);
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
