@@ -60,7 +60,7 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
     }
 
     @Override
-    public void refundLock(ProductType productType, String orderNo, Long refundId, List<Long> visitorList, VisitorState state) {
+    public void refundLock(ProductType productType, String orderNo, Long refundId, List<Long> visitorList, VisitorState target, VisitorState... source) {
         if (CollUtil.isEmpty(visitorList)) {
             log.info("退款锁定用户为空,可能是非实名制用户 [{}] [{}] [{}]", orderNo, refundId, productType);
             return;
@@ -71,8 +71,8 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         wrapper.eq(OrderVisitor::getOrderNo, orderNo);
         wrapper.eq(OrderVisitor::getProductType, productType);
         wrapper.in(OrderVisitor::getId, visitorList);
-        wrapper.eq(OrderVisitor::getState, VisitorState.PAID);
-        wrapper.set(OrderVisitor::getState, state);
+        wrapper.in(OrderVisitor::getState, (Object[]) source);
+        wrapper.set(OrderVisitor::getState, target);
         int update = orderVisitorMapper.update(null, wrapper);
 
         // 退款锁定游客信息时,该游客一定是未核销的, 因此正常情况下更新的数量一定和visitorList数量一致的

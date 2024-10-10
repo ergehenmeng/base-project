@@ -48,7 +48,7 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
 
         OrderRefundLog refundLog = this.doProcess(context, order);
 
-        this.after(context, order, refundLog);
+        this.end(context, order, refundLog);
     }
 
     /**
@@ -83,6 +83,7 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
         order.setRefundAmount(order.getRefundAmount() + context.getRefundAmount());
         orderService.updateById(order);
         orderRefundLogService.insert(refundLog);
+        orderVisitorService.refundLock(order.getProductType(), context.getOrderNo(), refundLog.getId(), context.getVisitorIds(), VisitorState.REFUNDING, getSource());
 
         this.tryStartRefund(refundLog, order);
 
@@ -143,11 +144,18 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
      *
      * @param context   请求参数
      * @param order     订单信息
-     * @param refundLog 退款记录
      */
-    protected void after(T context, Order order, OrderRefundLog refundLog) {
-        log.info("订单退款申请成功 [{}] [{}] [{}]", context, order.getState(), order.getRefundState());
-        orderVisitorService.refundLock(order.getProductType(), context.getOrderNo(), refundLog.getId(), context.getVisitorIds(), VisitorState.REFUNDING);
+    protected void end(T context, Order order, OrderRefundLog refundLog) {
+        log.info("订单退款申请成功 [{}] [{}] [{}] [{}]", context, order.getState(), order.getRefundState(), refundLog.getId());
+    }
+
+    /**
+     * 退款申请前获取退款来源状态
+     * 默认只有已支付的才能支持退款
+     * @return 已支付
+     */
+    protected VisitorState[] getSource() {
+        return new VisitorState[]{ VisitorState.PAID };
     }
 
     /**
