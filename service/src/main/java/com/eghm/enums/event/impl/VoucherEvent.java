@@ -83,11 +83,6 @@ public enum VoucherEvent implements IEvent {
             , OrderState.WAIT_TAKE.getValue(), OrderState.WAIT_DELIVERY.getValue(), OrderState.PARTIAL_DELIVERY.getValue()
             , OrderState.WAIT_RECEIVE.getValue(), OrderState.REFUND.getValue()), OrderState.UN_USED.getValue()),
 
-    /**
-     * 平台退款
-     */
-    PLATFORM_REFUND(Lists.newArrayList(OrderState.PROGRESS.getValue(), OrderState.UN_USED.getValue(), OrderState.COMPLETE.getValue()), OrderState.CLOSE.getValue()),
-
     ;
 
     private final List<Integer> from;

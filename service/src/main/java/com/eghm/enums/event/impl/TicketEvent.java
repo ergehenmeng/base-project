@@ -78,11 +78,6 @@ public enum TicketEvent implements IEvent {
      */
     REFUND_REFUSE(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
 
-    /**
-     * 平台退款
-     */
-    PLATFORM_REFUND(Lists.newArrayList(OrderState.PROGRESS.getValue(), OrderState.UN_USED.getValue(), OrderState.COMPLETE.getValue()), OrderState.CLOSE.getValue()),
-
     ;
 
 
