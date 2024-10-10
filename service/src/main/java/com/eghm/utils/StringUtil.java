@@ -34,11 +34,6 @@ public class StringUtil {
     private static final String NUMBER_LOWER_LETTERS = "123456789abcdef";
 
     /**
-     * cd_key生成
-     */
-    private static final String CD_KEY = "23456789ABCDEFGHGKLMNPQRSTUVWXYZ";
-
-    /**
      * 进制串
      */
     private static final String ENCRYPT = "IFbH4SyMsPfeEw1CzQV6xtJK5ZUklOcDnYuNGArR9a0dphXiq8jg2mB7W3LTov";
@@ -250,11 +245,6 @@ public class StringUtil {
         }
         return result;
     }
-
-    public static String generateCdKey() {
-        return random(CD_KEY, 12) ;
-    }
-
 
     public static void main(String[] args) {
         int pid = 10191019;

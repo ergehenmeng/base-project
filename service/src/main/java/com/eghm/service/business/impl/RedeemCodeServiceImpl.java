@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -46,6 +47,11 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
     private final RedeemCodeScopeService redeemCodeScopeService;
 
     private final RedeemCodeGrantService redeemCodeGrantService;
+
+    /**
+     * cd_key生成
+     */
+    private static final String RANDOM_KEY = "23456789ABCDEFGHGKLMNPQRSTUVWXYZ";
 
     @Override
     public Page<RedeemCode> listPage(RedeemCodeQueryRequest request) {
@@ -122,7 +128,7 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
             RedeemCodeGrant grant = DataUtil.copy(select, RedeemCodeGrant.class, "id", "createTime", "updateTime", "deleted");
             grant.setState(0);
             grant.setRedeemCodeId(select.getId());
-            grant.setCdKey(StringUtil.generateCdKey());
+            grant.setCdKey(RandomUtil.randomString(RANDOM_KEY, 12));
             grantList.add(grant);
         }
         redeemCodeGrantService.saveBatch(grantList);
