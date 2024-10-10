@@ -42,8 +42,9 @@ public class TicketJobService {
                 ticketAccessHandler.verifyOrder(context);
             } catch (Exception e) {
                 log.error("门票订单核销失败 [{}]", order.getOrderNo(), e);
+                continue;
             }
-            log.info("门票订单自动核销 [{}] [{}]", order.getOrderNo(), context.getVerifyNum());
+            log.info("门票订单自动核销成功 [{}] [{}]", order.getOrderNo(), context.getVerifyNum());
         }
         LoggerUtil.print("门票自动核销定时任务执行完毕");
     }

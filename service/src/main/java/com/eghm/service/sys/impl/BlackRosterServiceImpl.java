@@ -15,6 +15,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.BlackRosterMapper;
 import com.eghm.model.BlackRoster;
 import com.eghm.service.sys.BlackRosterService;
+import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -57,18 +58,13 @@ public class BlackRosterServiceImpl implements BlackRosterService {
             log.warn("ip黑名单范围错误 [{}] [{}]", request.getStartIp(), request.getEndIp());
             throw new BusinessException(ErrorCode.IP_RANGE_ILLEGAL);
         }
-        BlackRoster roster = new BlackRoster();
-        roster.setStartIp(request.getStartIp());
-        roster.setEndIp(request.getEndIp());
-        roster.setRemark(request.getRemark());
+        BlackRoster roster = DataUtil.copy(request, BlackRoster.class);
         blackRosterMapper.insert(roster);
-        this.reloadBlackRoster();
     }
 
     @Override
     public void deleteById(Long id) {
         blackRosterMapper.deleteById(id);
-        this.reloadBlackRoster();
     }
 
     @Override
