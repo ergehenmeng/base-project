@@ -992,7 +992,7 @@ CREATE TABLE `voucher`
     `update_time`   datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`       bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
-    KEY `idx` (`restaurant_id`,`tag_id`)
+    KEY `idx` (`restaurant_id`, `tag_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='餐饮代金券';
 
@@ -2510,3 +2510,20 @@ CREATE TABLE `pay_config`
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 7
   DEFAULT CHARSET = utf8mb4 COMMENT ='支付配置表';
+
+CREATE TABLE `voucher_tag`
+(
+    `id`            bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `title`         varchar(10)  DEFAULT NULL COMMENT '标签名称',
+    `sort`          int(10)      DEFAULT '1' COMMENT '排序',
+    `state`         bit(1)       DEFAULT b'1' COMMENT '状态 0:禁用 1:正常',
+    `restaurant_id` bigint(20)   DEFAULT NULL COMMENT '餐饮商家id',
+    `merchant_id`   bigint(20)   DEFAULT NULL COMMENT '所属商品ID',
+    `remark`        varchar(100) DEFAULT NULL COMMENT '备注信息',
+    `create_time`   datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`   datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`       bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='餐饮券分类标签';
+

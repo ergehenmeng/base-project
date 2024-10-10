@@ -18,7 +18,6 @@ import com.eghm.service.business.RedeemCodeGrantService;
 import com.eghm.service.business.RedeemCodeScopeService;
 import com.eghm.service.business.RedeemCodeService;
 import com.eghm.utils.DataUtil;
-import com.eghm.utils.StringUtil;
 import com.eghm.vo.business.redeem.RedeemDetailResponse;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
