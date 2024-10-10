@@ -14,13 +14,11 @@ import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.mq.service.MessageService;
-import com.eghm.pay.enums.RefundStatus;
-import com.eghm.pay.vo.RefundVO;
 import com.eghm.service.business.*;
+import com.eghm.state.machine.access.AbstractAccessHandler;
 import com.eghm.state.machine.access.impl.ItemAccessHandler;
 import com.eghm.state.machine.context.ItemRefundApplyContext;
 import com.eghm.state.machine.context.RefundApplyContext;
-import com.eghm.state.machine.context.RefundNotifyContext;
 import com.eghm.state.machine.impl.AbstractOrderRefundApplyHandler;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
@@ -115,7 +113,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
 
         itemOrderService.updateById(itemOrder);
         // 尝试发起退款(注意零元购要特殊处理)
-        this.tryStartRefund(refundLog, order);
+        super.tryStartRefund(refundLog, order);
         return refundLog;
     }
 
@@ -160,6 +158,11 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         }
     }
 
+    @Override
+    protected AbstractAccessHandler getAccessHandler() {
+        return SpringContextUtil.getBean(ItemAccessHandler.class);
+    }
+
     /**
      * 申请退款订单基础校验通过后, 进行零售退款专项校验,
      * 同时将查询订单订单等关信息设置到context中减少后续查询
@@ -189,30 +192,6 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         context.setExpressFee(refund.getExpressFeeAmount());
         context.setScoreAmount(refund.getScoreAmount());
         context.setItemOrder(itemOrder);
-    }
-
-    /**
-     * 尝试发起退款, 如果是零元付,则不真实发起支付,而是模拟退款成功
-     * 注意: 发起真实退款时,可能会出现异步回调提前与当前事务的提交,导致退款异步通知逻辑获取到的订单信息不准确, 需要在回调和申请加锁
-     * @param refundLog 支付流水记录
-     * @param order 订单编号
-     */
-    protected void tryStartRefund(OrderRefundLog refundLog, Order order) {
-        if (refundLog.getRefundAmount() > 0) {
-            orderService.startRefund(refundLog, order);
-        } else {
-            log.error("退款金额为0, 直接模拟退款成功 [{}] [{}]", refundLog.getRefundNo(), refundLog.getRefundAmount());
-            RefundNotifyContext context = new RefundNotifyContext();
-            context.setTradeNo(order.getTradeNo());
-            context.setRefundNo(refundLog.getRefundNo());
-            context.setFrom(order.getState().getValue());
-            RefundVO result = new RefundVO();
-            result.setState(RefundStatus.REFUND_SUCCESS);
-            result.setAmount(0);
-            result.setSuccessTime(LocalDateTime.now());
-            context.setResult(result);
-            SpringContextUtil.getBean(ItemAccessHandler.class).refundSuccess(context);
-        }
     }
 
     /**

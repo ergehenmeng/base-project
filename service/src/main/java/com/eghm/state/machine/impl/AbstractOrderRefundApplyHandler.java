@@ -5,11 +5,15 @@ import com.eghm.enums.ref.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
+import com.eghm.pay.enums.RefundStatus;
+import com.eghm.pay.vo.RefundVO;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.state.machine.ActionHandler;
+import com.eghm.state.machine.access.AbstractAccessHandler;
 import com.eghm.state.machine.context.RefundApplyContext;
+import com.eghm.state.machine.context.RefundNotifyContext;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import lombok.AllArgsConstructor;
@@ -66,18 +70,62 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
         if (this.getRefundType(order) == RefundType.AUDIT_REFUND) {
             refundLog.setAuditState(AuditState.APPLY);
             order.setRefundState(RefundState.APPLY);
-        } else {
-            refundLog.setAuditState(AuditState.PASS);
-            refundLog.setAuditRemark("系统自动审核");
-            refundLog.setRefundNo(order.getProductType().generateTradeNo());
-            order.setRefundState(RefundState.PROGRESS);
-            refundLog.setAuditTime(LocalDateTime.now());
-            order.setRefundAmount(order.getRefundAmount() + context.getRefundAmount());
-            orderService.startRefund(refundLog, order);
+            orderService.updateById(order);
+            orderRefundLogService.insert(refundLog);
+            return refundLog;
         }
+
+        refundLog.setAuditState(AuditState.PASS);
+        refundLog.setAuditRemark("系统自动审核");
+        refundLog.setRefundNo(order.getProductType().generateTradeNo());
+        order.setRefundState(RefundState.PROGRESS);
+        refundLog.setAuditTime(LocalDateTime.now());
+        order.setRefundAmount(order.getRefundAmount() + context.getRefundAmount());
         orderService.updateById(order);
         orderRefundLogService.insert(refundLog);
+
+        this.tryStartRefund(refundLog, order);
+
         return refundLog;
+    }
+
+    /**
+     * 尝试发起退款, 如果是零元付,则不真实发起支付,而是模拟退款成功
+     * 注意: 发起真实退款时,可能会出现异步回调提前与当前事务的提交,导致退款异步通知逻辑获取到的订单信息不准确, 需要在回调和申请加锁
+     * 且此处并没有对品类做限制即所有商品都可以零元付退款
+     * @param refundLog 支付流水记录
+     * @param order 订单编号
+     */
+    protected void tryStartRefund(OrderRefundLog refundLog, Order order) {
+        if (refundLog.getRefundAmount() > 0) {
+            orderService.startRefund(refundLog, order);
+        } else {
+            log.error("退款金额为0, 直接模拟退款成功 [{}] [{}]", refundLog.getRefundNo(), refundLog.getRefundAmount());
+            AbstractAccessHandler beanHandler = this.getAccessHandler();
+            if (beanHandler == null) {
+                log.error("退款处理类为空, 模拟退款成功失败 [{}]", order.getOrderNo());
+                return;
+            }
+            RefundNotifyContext context = new RefundNotifyContext();
+            context.setTradeNo(order.getTradeNo());
+            context.setRefundNo(refundLog.getRefundNo());
+            context.setFrom(order.getState().getValue());
+            RefundVO result = new RefundVO();
+            result.setState(RefundStatus.REFUND_SUCCESS);
+            result.setAmount(0);
+            result.setSuccessTime(LocalDateTime.now());
+            context.setResult(result);
+            beanHandler.refundSuccess(context);
+        }
+    }
+
+    /**
+     * 模拟退款成功的handler, 主要用于零元付
+     *
+     * @return null 时默认不触发退款
+     */
+    protected AbstractAccessHandler getAccessHandler() {
+        return null;
     }
 
     /**
@@ -192,29 +240,4 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
         return 0;
     }
 
-    /**
-     * 创建默认退款记录
-     *
-     * @param context 上下文
-     * @param order 订单号
-     * @return 记录
-     */
-    protected OrderRefundLog createDefaultLog(T context, Order order) {
-        OrderRefundLog refundLog = new OrderRefundLog();
-        refundLog.setMemberId(order.getMemberId());
-        refundLog.setMerchantId(order.getMerchantId());
-        refundLog.setNum(context.getNum());
-        refundLog.setRefundAmount(0);
-        refundLog.setOrderNo(order.getOrderNo());
-        refundLog.setApplyType(1);
-        LocalDateTime now = LocalDateTime.now();
-        refundLog.setApplyTime(now);
-        refundLog.setAuditTime(now);
-        refundLog.setState(1);
-        refundLog.setAuditState(AuditState.PASS);
-        refundLog.setAuditRemark("零元购自动生成");
-        refundLog.setRefundNo(order.getProductType().generateTradeNo());
-        orderRefundLogService.insert(refundLog);
-        return refundLog;
-    }
 }

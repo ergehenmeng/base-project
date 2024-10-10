@@ -11,11 +11,14 @@ import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
+import com.eghm.state.machine.access.AbstractAccessHandler;
+import com.eghm.state.machine.access.impl.HomestayAccessHandler;
 import com.eghm.state.machine.context.HomestayOrderCreateContext;
 import com.eghm.state.machine.dto.HomestayOrderPayload;
 import com.eghm.state.machine.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
+import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -46,20 +49,17 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     private final OrderService orderService;
 
-    private final OrderMQService orderMQService;
-
     private final RedeemCodeGrantService redeemCodeGrantService;
 
     public HomestayOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService,
                                       HomestayService homestayService, HomestayRoomConfigService homestayRoomConfigService, HomestayOrderSnapshotService homestayOrderSnapshotService, RedeemCodeGrantService redeemCodeGrantService) {
-        super(memberCouponService, orderVisitorService, redeemCodeGrantService);
+        super(orderMQService, memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.homestayOrderService = homestayOrderService;
         this.homestayRoomService = homestayRoomService;
         this.homestayService = homestayService;
         this.homestayRoomConfigService = homestayRoomConfigService;
         this.homestayOrderSnapshotService = homestayOrderSnapshotService;
         this.orderService = orderService;
-        this.orderMQService = orderMQService;
         this.redeemCodeGrantService = redeemCodeGrantService;
     }
 
@@ -89,11 +89,6 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
     }
 
     @Override
-    protected void queueOrder(HomestayOrderCreateContext context) {
-        orderMQService.sendOrderCreateMessage(ExchangeQueue.HOMESTAY_ORDER, context);
-    }
-
-    @Override
     protected HomestayOrderPayload getPayload(HomestayOrderCreateContext context) {
         HomestayRoom homestayRoom = homestayRoomService.selectByIdShelve(context.getRoomId());
         Homestay homestay = homestayService.selectByIdShelve(homestayRoom.getHomestayId());
@@ -118,6 +113,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         order.setStoreId(payload.getHomestay().getId());
         order.setCoverUrl(payload.getHomestayRoom().getCoverUrl());
         order.setOrderNo(ProductType.HOMESTAY.generateOrderNo());
+        order.setTradeNo(ProductType.HOMESTAY.generateTradeNo());
         order.setTitle(payload.getHomestayRoom().getTitle());
         // 将每天的价格相加=总单价
         int salePrice = payload.getConfigList().stream().mapToInt(HomestayRoomConfig::getSalePrice).sum();
@@ -159,8 +155,12 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
     }
 
     @Override
-    protected void end(HomestayOrderCreateContext context, HomestayOrderPayload payload, Order order) {
-        orderMQService.sendOrderExpireMessage(ExchangeQueue.HOMESTAY_PAY_EXPIRE, order.getOrderNo());
+    protected AbstractAccessHandler getAccessHandler() {
+        return SpringContextUtil.getBean(HomestayAccessHandler.class);
     }
 
+    @Override
+    protected ExchangeQueue getExchangeQueue() {
+        return ExchangeQueue.HOMESTAY_PAY_EXPIRE;
+    }
 }

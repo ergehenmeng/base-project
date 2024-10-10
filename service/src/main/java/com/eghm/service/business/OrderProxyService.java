@@ -21,6 +21,13 @@ public interface OrderProxyService {
      *
      * @param orderNo 订单编号
      */
+    void itemRefund(String orderNo);
+
+    /**
+     * 退款 (非零售商品)
+     *
+     * @param orderNo 订单号
+     */
     void refund(String orderNo);
 
     /**

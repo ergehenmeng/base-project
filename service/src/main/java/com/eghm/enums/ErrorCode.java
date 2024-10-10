@@ -50,7 +50,7 @@ public enum ErrorCode {
     /**
      * 暂无访问权限 (黑名单拦截)
      */
-    SYSTEM_AUTH(405, "暂无访问权限"),
+    FORBIDDEN_ACCESS(405, "暂无访问权限"),
 
     /**
      * 系统繁忙,请稍后再试

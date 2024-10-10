@@ -60,6 +60,12 @@ public enum VenueEvent implements IEvent {
      * 退款失败
      */
     REFUND_FAIL(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.REFUND_ERROR.getValue()),
+
+    /**
+     * 平台退款
+     */
+    PLATFORM_REFUND(Lists.newArrayList(OrderState.PROGRESS.getValue(), OrderState.UN_USED.getValue(), OrderState.COMPLETE.getValue()), OrderState.CLOSE.getValue()),
+
     ;
 
     private final List<Integer> from;

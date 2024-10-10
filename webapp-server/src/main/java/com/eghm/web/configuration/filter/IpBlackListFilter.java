@@ -30,7 +30,7 @@ public class IpBlackListFilter implements Filter {
         String ipAddress = IpUtil.getIpAddress(servletRequest);
         if (blackRosterService.isInterceptIp(ipAddress)) {
             log.warn("ip在黑名单中,禁止访问 [{}]", ipAddress);
-            WebUtil.printJson(servletResponse, RespBody.error(ErrorCode.SYSTEM_AUTH));
+            WebUtil.printJson(servletResponse, RespBody.error(ErrorCode.FORBIDDEN_ACCESS));
         } else {
             chain.doFilter(request, response);
         }

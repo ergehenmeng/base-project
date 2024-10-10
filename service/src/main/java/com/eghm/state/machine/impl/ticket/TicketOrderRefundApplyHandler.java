@@ -11,8 +11,11 @@ import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.TicketOrderService;
+import com.eghm.state.machine.access.AbstractAccessHandler;
+import com.eghm.state.machine.access.impl.TicketAccessHandler;
 import com.eghm.state.machine.context.RefundApplyContext;
 import com.eghm.state.machine.impl.AbstractOrderRefundApplyHandler;
+import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -38,10 +41,6 @@ public class TicketOrderRefundApplyHandler extends AbstractOrderRefundApplyHandl
     @Override
     protected void before(RefundApplyContext context, Order order) {
         super.before(context, order);
-        if (order.getPayAmount() <= 0) {
-            log.error("订单金额小于0,无需退款 [{}]", context.getOrderNo());
-            throw new BusinessException(ErrorCode.TICKET_ORDER_FREE);
-        }
         TicketOrder ticketOrder = ticketOrderService.getByOrderNo(context.getOrderNo());
         if (Boolean.TRUE.equals(ticketOrder.getRealBuy()) && context.getNum() != context.getVisitorIds().size()) {
             log.error("退款数量和退款人数不一致 [{}] [{}] [{}]", context.getOrderNo(), context.getNum(), context.getVisitorIds().size());
@@ -52,6 +51,11 @@ public class TicketOrderRefundApplyHandler extends AbstractOrderRefundApplyHandl
     @Override
     protected int getVerifyNum(Order order) {
         return (int) orderVisitorService.getVerify(order.getOrderNo());
+    }
+
+    @Override
+    protected AbstractAccessHandler getAccessHandler() {
+        return SpringContextUtil.getBean(TicketAccessHandler.class);
     }
 
     @Override

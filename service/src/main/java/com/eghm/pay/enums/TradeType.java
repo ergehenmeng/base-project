@@ -51,6 +51,10 @@ public enum TradeType {
      */
     ALI_FACE_PAY("ALI_FACE_PAY", "支付宝当面付", PayChannel.ALIPAY),
 
+    /**
+     * 零元付
+     */
+    ZERO_PAY("ZERO_PAY", "零元付", PayChannel.NONE)
     ;
 
     /**

@@ -13,11 +13,14 @@ import com.eghm.model.LineOrder;
 import com.eghm.model.Order;
 import com.eghm.model.TravelAgency;
 import com.eghm.service.business.*;
+import com.eghm.state.machine.access.AbstractAccessHandler;
+import com.eghm.state.machine.access.impl.LineAccessHandler;
 import com.eghm.state.machine.context.LineOrderCreateContext;
 import com.eghm.state.machine.dto.LineOrderPayload;
 import com.eghm.state.machine.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
+import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -46,12 +49,10 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     private final OrderService orderService;
 
-    private final OrderMQService orderMQService;
-
     private final RedeemCodeGrantService redeemCodeGrantService;
 
     public LineOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, LineService lineService, TravelAgencyService travelAgencyService, LineConfigService lineConfigService, LineDayConfigService lineDayConfigService, LineOrderService lineOrderService, LineOrderSnapshotService lineOrderSnapshotService, RedeemCodeGrantService redeemCodeGrantService) {
-        super(memberCouponService, orderVisitorService, redeemCodeGrantService);
+        super(orderMQService, memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.lineService = lineService;
         this.travelAgencyService = travelAgencyService;
         this.lineConfigService = lineConfigService;
@@ -59,7 +60,6 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         this.lineOrderService = lineOrderService;
         this.lineOrderSnapshotService = lineOrderSnapshotService;
         this.orderService = orderService;
-        this.orderMQService = orderMQService;
         this.redeemCodeGrantService = redeemCodeGrantService;
     }
 
@@ -111,6 +111,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         order.setStoreId(payload.getTravelAgency().getId());
         order.setCoverUrl(payload.getLine().getCoverUrl());
         order.setOrderNo(ProductType.LINE.generateOrderNo());
+        order.setTradeNo(ProductType.LINE.generateTradeNo());
         order.setTitle(payload.getLine().getTitle());
         order.setPrice(payload.getConfig().getSalePrice());
         order.setPayAmount(context.getNum() * order.getPrice());
@@ -141,11 +142,6 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
     }
 
     @Override
-    protected void queueOrder(LineOrderCreateContext context) {
-        orderMQService.sendOrderCreateMessage(ExchangeQueue.LINE_ORDER, context);
-    }
-
-    @Override
     protected void next(LineOrderCreateContext context, LineOrderPayload payload, Order order) {
         super.addVisitor(order, context.getVisitorList());
         lineConfigService.updateStock(payload.getConfig().getId(), -order.getNum());
@@ -162,8 +158,13 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
     }
 
     @Override
-    protected void end(LineOrderCreateContext context, LineOrderPayload payload, Order order) {
-        orderMQService.sendOrderExpireMessage(ExchangeQueue.LINE_PAY_EXPIRE, order.getOrderNo());
+    protected AbstractAccessHandler getAccessHandler() {
+        return SpringContextUtil.getBean(LineAccessHandler.class);
+    }
+
+    @Override
+    protected ExchangeQueue getExchangeQueue() {
+        return ExchangeQueue.LINE_PAY_EXPIRE;
     }
 
     @Override

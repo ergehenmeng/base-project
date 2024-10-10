@@ -146,6 +146,10 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
 
     @Override
     public void paySuccessAddFreeze(Order order) {
+        if (order.getPayAmount() <= 0) {
+            log.info("支付金额小于等于0,不更新资金账户 [{}]", order.getOrderNo());
+            return;
+        }
         Merchant merchant = this.selectByIdRequired(order.getMerchantId());
         Integer actualAmount = this.calcActualAmount(order.getPayAmount(), merchant.getPlatformServiceRate());
         this.paySuccessUpdateAccount(order.getMerchantId(), actualAmount, order.getOrderNo(), order.getTradeNo());

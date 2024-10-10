@@ -6,18 +6,23 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.TicketEvent;
-import com.eghm.enums.ref.*;
+import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ref.RefundType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.Scenic;
 import com.eghm.model.ScenicTicket;
 import com.eghm.model.TicketOrder;
 import com.eghm.service.business.*;
+import com.eghm.state.machine.access.AbstractAccessHandler;
+import com.eghm.state.machine.access.impl.TicketAccessHandler;
 import com.eghm.state.machine.context.TicketOrderCreateContext;
 import com.eghm.state.machine.dto.TicketOrderPayload;
 import com.eghm.state.machine.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
+import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -40,18 +45,12 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
 
     private final OrderService orderService;
 
-    private final OrderMQService orderMQService;
-
-    private final OrderVisitorService orderVisitorService;
-
     public TicketOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, ScenicService scenicService, TicketOrderService ticketOrderService, RedeemCodeGrantService redeemCodeGrantService) {
-        super(memberCouponService, orderVisitorService, redeemCodeGrantService);
+        super(orderMQService, memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.scenicService = scenicService;
         this.scenicTicketService = scenicTicketService;
         this.ticketOrderService = ticketOrderService;
         this.orderService = orderService;
-        this.orderMQService = orderMQService;
-        this.orderVisitorService = orderVisitorService;
     }
 
     @Override
@@ -105,6 +104,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         order.setProductType(ProductType.TICKET);
         order.setCoverUrl(payload.getScenic().getCoverUrl());
         order.setOrderNo(ProductType.TICKET.generateOrderNo());
+        order.setTradeNo(ProductType.TICKET.generateTradeNo());
         order.setNum(context.getNum());
         order.setMobile(context.getMobile());
         order.setRemark(context.getRemark());
@@ -132,11 +132,6 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     }
 
     @Override
-    public void queueOrder(TicketOrderCreateContext context) {
-        orderMQService.sendOrderCreateMessage(ExchangeQueue.TICKET_ORDER, context);
-    }
-
-    @Override
     protected void next(TicketOrderCreateContext context, TicketOrderPayload payload, Order order) {
         super.addVisitor(order, context.getVisitorList());
         scenicTicketService.updateStock(payload.getTicket().getId(), -order.getNum());
@@ -150,14 +145,13 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     }
 
     @Override
-    protected void end(TicketOrderCreateContext context, TicketOrderPayload payload, Order order) {
-        if (order.getPayAmount() <= 0) {
-            log.info("订单是零元购商品,订单号:{}", order.getOrderNo());
-            orderService.paySuccess(order.getOrderNo(), order.getProductType().generateVerifyNo(), LocalDateTime.now(), OrderState.UN_USED, PayType.ZERO);
-            orderVisitorService.updateVisitor(order.getOrderNo(), VisitorState.PAID);
-        } else {
-            orderMQService.sendOrderExpireMessage(ExchangeQueue.TICKET_PAY_EXPIRE, order.getOrderNo());
-        }
+    protected AbstractAccessHandler getAccessHandler() {
+        return SpringContextUtil.getBean(TicketAccessHandler.class);
+    }
+
+    @Override
+    protected ExchangeQueue getExchangeQueue() {
+        return ExchangeQueue.TICKET_PAY_EXPIRE;
     }
 
     @Override

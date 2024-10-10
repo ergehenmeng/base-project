@@ -96,7 +96,7 @@ public class OrderProxyServiceImpl implements OrderProxyService {
 
 
     @Override
-    public void refund(String orderNo) {
+    public void itemRefund(String orderNo) {
         Order order = orderService.getByOrderNo(orderNo);
         if (order.getState() != OrderState.UN_USED && order.getState() != OrderState.WAIT_TAKE && order.getState() != OrderState.WAIT_DELIVERY) {
             log.warn("订单状态不匹配,无法退款 [{}] [{}]", orderNo, order.getState());
@@ -118,6 +118,11 @@ public class OrderProxyServiceImpl implements OrderProxyService {
             context.setOrderNo(orderNo);
             stateHandler.fireEvent(ProductType.prefix(orderNo), order.getState().getValue(), ItemEvent.PLATFORM_REFUND, context);
         }
+    }
+
+    @Override
+    public void refund(String orderNo) {
+
     }
 
     @Override
@@ -152,7 +157,7 @@ public class OrderProxyServiceImpl implements OrderProxyService {
                 stateHandler.fireEvent(ProductType.prefix(group.getOrderNo()), order.getState().getValue(), ItemEvent.AUTO_CANCEL, context);
             } else if (order.getState() == OrderState.UN_USED || order.getState() == OrderState.WAIT_TAKE || order.getState() == OrderState.WAIT_DELIVERY) {
                 log.info("拼团订单已支付自动取消 [{}]", group.getOrderNo());
-                this.refund(group.getOrderNo());
+                this.itemRefund(group.getOrderNo());
             } else {
                 log.info("拼团订单不合法 [{}] [{}] [{}]", group.getBookingNo(), group, order.getState());
             }

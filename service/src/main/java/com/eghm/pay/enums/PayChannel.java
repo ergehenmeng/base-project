@@ -12,6 +12,11 @@ import lombok.Getter;
 public enum PayChannel {
 
     /**
+     * 无需支付
+     */
+    NONE,
+
+    /**
      * 支付宝
      */
     WECHAT,

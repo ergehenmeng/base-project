@@ -8,17 +8,19 @@ import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VenueEvent;
 import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.PayType;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
+import com.eghm.state.machine.access.AbstractAccessHandler;
+import com.eghm.state.machine.access.impl.VenueAccessHandler;
 import com.eghm.state.machine.context.VenueOrderCreateContext;
 import com.eghm.state.machine.dto.VenueOrderPayload;
 import com.eghm.state.machine.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
+import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -48,21 +50,18 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
 
     private final OrderService orderService;
 
-    private final OrderMQService orderMQService;
-
     private final RedeemCodeGrantService redeemCodeGrantService;
 
     public VenueOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, VenueService venueService, JsonService jsonService,
                                    OrderMQService orderMQService, VenueSiteService venueSiteService, VenueOrderService venueOrderService, VenueSitePriceService venueSitePriceService,
                                    RedeemCodeGrantService redeemCodeGrantService) {
-        super(memberCouponService, orderVisitorService, redeemCodeGrantService);
+        super(orderMQService, memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.venueService = venueService;
         this.venueSiteService = venueSiteService;
         this.venueOrderService = venueOrderService;
         this.venueSitePriceService = venueSitePriceService;
         this.jsonService = jsonService;
         this.orderService = orderService;
-        this.orderMQService = orderMQService;
         this.redeemCodeGrantService = redeemCodeGrantService;
     }
 
@@ -123,6 +122,7 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
         order.setStoreId(venue.getId());
         order.setState(OrderState.UN_PAY);
         order.setOrderNo(ProductType.VENUE.generateOrderNo());
+        order.setTradeNo(ProductType.VENUE.generateTradeNo());
         order.setNum(1);
         order.setTitle(venue.getTitle() + "/" + payload.getVenueSite().getTitle());
         order.setPrice(payload.getPriceList().stream().mapToInt(VenueSitePrice::getPrice).sum());
@@ -151,11 +151,6 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
     }
 
     @Override
-    protected void queueOrder(VenueOrderCreateContext context) {
-        orderMQService.sendOrderCreateMessage(ExchangeQueue.VOUCHER_ORDER, context);
-    }
-
-    @Override
     protected void next(VenueOrderCreateContext context, VenueOrderPayload payload, Order order) {
         venueSitePriceService.updateStock(context.getPhaseList(), -1);
         VenueOrder venueOrder = DataUtil.copy(payload.getVenue(), VenueOrder.class, "id");
@@ -172,13 +167,13 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
     }
 
     @Override
-    protected void end(VenueOrderCreateContext context, VenueOrderPayload payload, Order order) {
-        if (order.getPayAmount() <= 0) {
-            log.info("场馆预约免费,订单号:{}", order.getOrderNo());
-            orderService.paySuccess(order.getOrderNo(), order.getProductType().generateVerifyNo(), LocalDateTime.now(), OrderState.UN_USED, PayType.ZERO);
-        } else {
-            orderMQService.sendOrderExpireMessage(ExchangeQueue.VENUE_PAY_EXPIRE, order.getOrderNo());
-        }
+    protected AbstractAccessHandler getAccessHandler() {
+        return SpringContextUtil.getBean(VenueAccessHandler.class);
+    }
+
+    @Override
+    protected ExchangeQueue getExchangeQueue() {
+        return ExchangeQueue.VENUE_PAY_EXPIRE;
     }
 
     @Override

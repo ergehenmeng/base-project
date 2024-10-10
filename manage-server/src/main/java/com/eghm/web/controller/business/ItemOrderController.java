@@ -96,7 +96,7 @@ public class ItemOrderController {
     @ApiOperation("退款")
     public RespBody<Void> refund(@RequestBody @Validated OrderDTO request) {
         return redisLock.lock(LockConstant.ORDER_LOCK + request.getOrderNo(), 10_000, () -> {
-            orderProxyService.refund(request.getOrderNo());
+            orderProxyService.itemRefund(request.getOrderNo());
             return RespBody.success();
         });
     }

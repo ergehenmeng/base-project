@@ -1,17 +1,24 @@
 package com.eghm.state.machine.impl;
 
+import com.eghm.common.OrderMQService;
+import com.eghm.dto.ext.AsyncKey;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.model.Order;
+import com.eghm.pay.enums.TradeType;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.RedeemCodeGrantService;
 import com.eghm.state.machine.ActionHandler;
 import com.eghm.state.machine.Context;
+import com.eghm.state.machine.access.AbstractAccessHandler;
+import com.eghm.state.machine.context.PayNotifyContext;
 import com.eghm.state.machine.dto.VisitorDTO;
 import com.eghm.utils.TransactionUtil;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -24,6 +31,8 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 public abstract class AbstractOrderCreateHandler<C extends Context, P> implements ActionHandler<C> {
+
+    private final OrderMQService orderMQService;
 
     private final MemberCouponService memberCouponService;
 
@@ -41,7 +50,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
             return;
         }
         this.next(context, payload, order);
-        this.end(context, payload, order);
+        this.end(order);
     }
 
     /**
@@ -55,7 +64,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
         if (this.isHotSell(context, payload)) {
             log.info("该商品为热销商品,走MQ队列处理");
             // 消息队列在事务之外发送减少事务持有时间
-            TransactionUtil.afterCommit(() -> this.queueOrder(context));
+            TransactionUtil.afterCommit(() -> orderMQService.sendOrderCreateMessage(getExchangeQueue(), (AsyncKey) context));
             return null;
         }
         return this.createOrder(context, payload);
@@ -81,15 +90,6 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
      */
     public boolean isHotSell(C context, P payload) {
         return true;
-    }
-
-    /**
-     * 通过消息队列进行下单
-     *
-     * @param context 下单信息
-     */
-    protected void queueOrder(C context) {
-
     }
 
     /**
@@ -183,12 +183,38 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
     protected abstract void next(C context, P payload, Order order);
 
     /**
-     * 订单创建后置处理,默认过期自动取消定时任务
+     * 获取对应品类的涉及支付的handler
      *
-     * @param context 下单信息
-     * @param payload 商品信息
+     * @return accessHandler
+     */
+    protected abstract AbstractAccessHandler getAccessHandler();
+
+    /**
+     * 获取发送消息的队列名称
+     *
+     * @return 队列信息
+     */
+    protected abstract ExchangeQueue getExchangeQueue();
+
+    /**
+     * 订单创建后置处理, 默认过期自动取消定时任务. 零元付时默认支付成功
+     *
      * @param order   主订单信息
      */
-    protected abstract void end(C context, P payload, Order order);
+    protected void end(Order order) {
+        if (order.getPayAmount() <= 0) {
+            log.info("订单是零元购商品,订单号:{}", order.getOrderNo());
+            PayNotifyContext notify = new PayNotifyContext();
+            notify.setTradeNo(order.getTradeNo());
+            notify.setOrderNo(order.getOrderNo());
+            notify.setSuccessTime(LocalDateTime.now());
+            notify.setAmount(order.getPayAmount());
+            notify.setTradeType(TradeType.ZERO_PAY);
+            notify.setFrom(order.getState().getValue());
+            this.getAccessHandler().paySuccess(notify);
+        } else {
+            orderMQService.sendOrderExpireMessage(this.getExchangeQueue(), order.getOrderNo());
+        }
+    }
 
 }

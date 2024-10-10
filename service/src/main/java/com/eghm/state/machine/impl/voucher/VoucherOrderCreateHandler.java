@@ -14,11 +14,14 @@ import com.eghm.model.Restaurant;
 import com.eghm.model.Voucher;
 import com.eghm.model.VoucherOrder;
 import com.eghm.service.business.*;
+import com.eghm.state.machine.access.AbstractAccessHandler;
+import com.eghm.state.machine.access.impl.VoucherAccessHandler;
 import com.eghm.state.machine.context.VoucherOrderCreateContext;
 import com.eghm.state.machine.dto.VoucherOrderPayload;
 import com.eghm.state.machine.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
+import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -41,17 +44,14 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
 
     private final OrderService orderService;
 
-    private final OrderMQService orderMQService;
-
     private final RedeemCodeGrantService redeemCodeGrantService;
 
     public VoucherOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, RestaurantService restaurantService, OrderMQService orderMQService, VoucherService voucherService, VoucherOrderService voucherOrderService, RedeemCodeGrantService redeemCodeGrantService) {
-        super(memberCouponService, orderVisitorService, redeemCodeGrantService);
+        super(orderMQService, memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.restaurantService = restaurantService;
         this.voucherService = voucherService;
         this.voucherOrderService = voucherOrderService;
         this.orderService = orderService;
-        this.orderMQService = orderMQService;
         this.redeemCodeGrantService = redeemCodeGrantService;
     }
 
@@ -90,6 +90,7 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
         order.setStoreId(payload.getRestaurant().getId());
         order.setState(OrderState.UN_PAY);
         order.setOrderNo(ProductType.VOUCHER.generateOrderNo());
+        order.setTradeNo(ProductType.VOUCHER.generateTradeNo());
         order.setTitle(voucher.getTitle());
         order.setPrice(voucher.getSalePrice());
         order.setPayAmount(order.getNum() * order.getPrice());
@@ -116,11 +117,6 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
     }
 
     @Override
-    protected void queueOrder(VoucherOrderCreateContext context) {
-        orderMQService.sendOrderCreateMessage(ExchangeQueue.VOUCHER_ORDER, context);
-    }
-
-    @Override
     protected void next(VoucherOrderCreateContext context, VoucherOrderPayload payload, Order order) {
         voucherService.updateStock(context.getVoucherId(), -context.getNum());
         VoucherOrder voucherOrder = DataUtil.copy(payload.getVoucher(), VoucherOrder.class, "id");
@@ -132,10 +128,14 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
     }
 
     @Override
-    protected void end(VoucherOrderCreateContext context, VoucherOrderPayload payload, Order order) {
-        orderMQService.sendOrderExpireMessage(ExchangeQueue.RESTAURANT_PAY_EXPIRE, order.getOrderNo());
+    protected AbstractAccessHandler getAccessHandler() {
+        return SpringContextUtil.getBean(VoucherAccessHandler.class);
     }
 
+    @Override
+    protected ExchangeQueue getExchangeQueue() {
+        return ExchangeQueue.RESTAURANT_PAY_EXPIRE;
+    }
 
     @Override
     public IEvent getEvent() {

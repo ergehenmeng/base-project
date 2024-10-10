@@ -18,6 +18,8 @@ import static com.eghm.pay.enums.TradeState.PAY_ERROR;
 import static com.eghm.pay.enums.TradeState.TRADE_CLOSED;
 
 /**
+ * 支付处理handler
+ *
  * @author wyb
  * @since 2023/5/5
  */
