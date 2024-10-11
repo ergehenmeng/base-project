@@ -115,10 +115,10 @@ public class MerchantServiceImpl implements MerchantService {
         this.checkCreditRedo(request.getCreditCode(), null);
         String pwd = sysConfigApi.getString(ConfigConstant.MERCHANT_PWD);
         SysUser user = new SysUser();
-        user.setUserType(UserType.MERCHANT_ADMIN);
         String encode = encoder.encode(MD5.create().digestHex(pwd));
         user.setInitPwd(encode);
         user.setPwd(encode);
+        user.setUserType(UserType.MERCHANT_ADMIN);
         user.setPwdUpdateTime(LocalDateTime.now());
         // 采用用户名登录
         user.setMobile(request.getAccount());
