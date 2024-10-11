@@ -26,6 +26,7 @@ public class TaskConfig implements TaskSchedulerCustomizer {
 
     @Override
     public void customize(ThreadPoolTaskScheduler taskScheduler) {
+        taskScheduler.setPoolSize(5);
         taskScheduler.setThreadNamePrefix("定时任务-");
         taskScheduler.setRemoveOnCancelPolicy(true);
     }

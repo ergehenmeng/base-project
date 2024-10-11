@@ -35,7 +35,7 @@ public class VenueOrderRefundApplyHandler extends AbstractOrderRefundApplyHandle
     }
 
     @Override
-    protected void after(RefundApplyContext context, Order order, OrderRefundLog refundLog) {
+    protected void end(RefundApplyContext context, Order order, OrderRefundLog refundLog) {
         log.info("场馆订单退款申请成功 [{}] [{}] [{}]", context, order.getState(), order.getRefundState());
     }
 
