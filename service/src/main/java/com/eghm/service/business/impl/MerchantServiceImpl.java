@@ -23,6 +23,7 @@ import com.eghm.enums.RoleMapping;
 import com.eghm.enums.SmsType;
 import com.eghm.enums.UserType;
 import com.eghm.enums.ref.RoleType;
+import com.eghm.enums.ref.UserState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MerchantMapper;
 import com.eghm.model.Account;
@@ -165,13 +166,13 @@ public class MerchantServiceImpl implements MerchantService {
     @Override
     public void lock(Long id) {
         Merchant merchant = this.selectByIdRequired(id);
-        sysUserService.lockUser(merchant.getUserId());
+        sysUserService.updateState(merchant.getUserId(), UserState.LOCK);
     }
 
     @Override
     public void unlock(Long id) {
         Merchant merchant = this.selectByIdRequired(id);
-        sysUserService.unlockUser(merchant.getUserId());
+        sysUserService.updateState(merchant.getUserId(), UserState.NORMAL);
     }
 
     @Override
@@ -276,7 +277,7 @@ public class MerchantServiceImpl implements MerchantService {
             log.error("商户[{}]有积分冻结,无法注销", merchantId);
             throw new BusinessException(ErrorCode.MERCHANT_SCORE_HAS_FREEZE);
         }
-        merchantMapper.deleteById(merchantId);
+        sysUserService.updateState(merchant.getUserId(), UserState.LOGOUT);
         log.info("开始注销零售店铺 [{}]", merchantId);
         itemStoreService.logout(merchantId);
         log.info("开始注销餐饮店铺 [{}]", merchantId);

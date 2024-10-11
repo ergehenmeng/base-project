@@ -9,6 +9,7 @@ import com.eghm.dto.business.merchant.MerchantUserEditRequest;
 import com.eghm.dto.business.merchant.MerchantUserQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.UserType;
+import com.eghm.enums.ref.UserState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MerchantUserMapper;
 import com.eghm.model.MerchantUser;
@@ -92,7 +93,7 @@ public class MerchantUserServiceImpl implements MerchantUserService {
     @Override
     public void lockUser(Long id) {
         MerchantUser merchant = this.getMerchantUser(id);
-        sysUserService.lockUser(merchant.getUserId());
+        sysUserService.updateState(merchant.getUserId(), UserState.LOCK);
         merchant.setUpdateTime(LocalDateTime.now());
         merchantUserMapper.updateById(merchant);
     }
@@ -100,7 +101,7 @@ public class MerchantUserServiceImpl implements MerchantUserService {
     @Override
     public void unlockUser(Long id) {
         MerchantUser merchant = this.getMerchantUser(id);
-        sysUserService.unlockUser(merchant.getUserId());
+        sysUserService.updateState(merchant.getUserId(), UserState.NORMAL);
         merchant.setUpdateTime(LocalDateTime.now());
         merchantUserMapper.updateById(merchant);
     }

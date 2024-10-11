@@ -202,18 +202,10 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public void lockUser(Long id) {
+    public void updateState(Long id, UserState state) {
         SysUser user = new SysUser();
         user.setId(id);
-        user.setState(UserState.LOCK);
-        sysUserMapper.updateById(user);
-    }
-
-    @Override
-    public void unlockUser(Long id) {
-        SysUser user = new SysUser();
-        user.setId(id);
-        user.setState(UserState.NORMAL);
+        user.setState(state);
         sysUserMapper.updateById(user);
     }
 

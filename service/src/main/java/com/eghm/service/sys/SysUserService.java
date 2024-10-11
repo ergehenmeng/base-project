@@ -5,6 +5,7 @@ import com.eghm.dto.user.PasswordEditRequest;
 import com.eghm.dto.user.UserAddRequest;
 import com.eghm.dto.user.UserEditRequest;
 import com.eghm.dto.user.UserQueryRequest;
+import com.eghm.enums.ref.UserState;
 import com.eghm.model.SysUser;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.user.UserResponse;
@@ -125,15 +126,9 @@ public interface SysUserService {
      * 锁定用户
      *
      * @param id userId
+     * @param state 用户状态
      */
-    void lockUser(Long id);
-
-    /**
-     * 解锁用户
-     *
-     * @param id id
-     */
-    void unlockUser(Long id);
+    void updateState(Long id, UserState state);
 
     /**
      * 系统用户登陆平台

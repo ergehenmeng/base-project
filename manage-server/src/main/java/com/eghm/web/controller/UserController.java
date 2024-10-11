@@ -11,6 +11,7 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.user.*;
+import com.eghm.enums.ref.UserState;
 import com.eghm.model.SysUser;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
@@ -95,14 +96,14 @@ public class UserController {
     @PostMapping(value = "/lock", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("锁定")
     public RespBody<Void> lock(@Validated @RequestBody IdDTO request) {
-        sysUserService.lockUser(request.getId());
+        sysUserService.updateState(request.getId(), UserState.LOCK);
         return RespBody.success();
     }
 
     @PostMapping(value = "/unlock", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("解锁")
     public RespBody<Void> unlock(@Validated @RequestBody IdDTO request) {
-        sysUserService.unlockUser(request.getId());
+        sysUserService.updateState(request.getId(), UserState.NORMAL);
         return RespBody.success();
     }
 
