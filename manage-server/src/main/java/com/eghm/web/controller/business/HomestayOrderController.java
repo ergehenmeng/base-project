@@ -9,6 +9,7 @@ import com.eghm.dto.business.order.homestay.HomestayOrderQueryRequest;
 import com.eghm.dto.business.order.refund.PlatformRefundRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.lock.RedisLock;
 import com.eghm.service.business.HomestayOrderService;
 import com.eghm.service.business.OrderProxyService;
@@ -60,6 +61,7 @@ public class HomestayOrderController {
     @ApiOperation("退款")
     public RespBody<Void> refund(@RequestBody @Validated PlatformRefundRequest request) {
         return redisLock.lock(LockConstant.ORDER_LOCK + request.getOrderNo(), 10_000, () -> {
+            request.setEvent(HomestayEvent.PLATFORM_REFUND);
             orderProxyService.refund(request);
             return RespBody.success();
         });

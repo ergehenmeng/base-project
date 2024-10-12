@@ -8,6 +8,7 @@ import com.eghm.dto.business.order.line.LineOrderQueryRequest;
 import com.eghm.dto.business.order.refund.PlatformRefundRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.event.impl.LineEvent;
 import com.eghm.lock.RedisLock;
 import com.eghm.service.business.LineOrderService;
 import com.eghm.service.business.OrderProxyService;
@@ -59,6 +60,7 @@ public class LineOrderController {
     @ApiOperation("退款")
     public RespBody<Void> refund(@RequestBody @Validated PlatformRefundRequest request) {
         return redisLock.lock(LockConstant.ORDER_LOCK + request.getOrderNo(), 10_000, () -> {
+            request.setEvent(LineEvent.PLATFORM_REFUND);
             orderProxyService.refund(request);
             return RespBody.success();
         });
