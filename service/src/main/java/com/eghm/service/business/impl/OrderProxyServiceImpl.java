@@ -6,6 +6,7 @@ import com.eghm.common.AlarmService;
 import com.eghm.common.SmsService;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.order.homestay.HomestayOrderConfirmRequest;
+import com.eghm.dto.business.order.refund.PlatformRefundRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.SmsType;
 import com.eghm.enums.event.impl.HomestayEvent;
@@ -121,7 +122,21 @@ public class OrderProxyServiceImpl implements OrderProxyService {
     }
 
     @Override
-    public void refund(String orderNo) {
+    public void refund(PlatformRefundRequest dto) {
+        Order order = orderService.getByOrderNo(dto.getOrderNo());
+        if (order.getState() != OrderState.UN_USED) {
+            log.warn("订单状态不匹配,无法退款 [{}] [{}]", dto.getOrderNo(), order.getState());
+            throw new BusinessException(ErrorCode.REFUND_STATE);
+        }
+        RefundApplyContext context = new RefundApplyContext();
+        context.setMemberId(order.getMemberId());
+        context.setNum(dto.getNum());
+        context.setApplyType(1);
+        context.setReason(dto.getReason());
+        context.setVisitorIds(dto.getVisitorIds());
+        context.setRefundAmount(dto.getRefundAmount());
+        context.setOrderNo(dto.getOrderNo());
+        stateHandler.fireEvent(ProductType.prefix(dto.getOrderNo()), order.getState().getValue(), dto.getEvent(), context);
 
     }
 

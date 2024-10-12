@@ -2,11 +2,14 @@ package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constants.LockConstant;
 import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.homestay.HomestayOrderConfirmRequest;
 import com.eghm.dto.business.order.homestay.HomestayOrderQueryRequest;
+import com.eghm.dto.business.order.refund.PlatformRefundRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.lock.RedisLock;
 import com.eghm.service.business.HomestayOrderService;
 import com.eghm.service.business.OrderProxyService;
 import com.eghm.utils.EasyExcelUtil;
@@ -32,6 +35,8 @@ import java.util.List;
 @RequestMapping(value = "/manage/homestay/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HomestayOrderController {
 
+    private final RedisLock redisLock;
+
     private final OrderProxyService orderProxyService;
 
     private final HomestayOrderService homestayOrderService;
@@ -49,6 +54,15 @@ public class HomestayOrderController {
     public RespBody<HomestayOrderDetailResponse> detail(@Validated OrderDTO dto) {
         HomestayOrderDetailResponse detail = homestayOrderService.detail(dto.getOrderNo());
         return RespBody.success(detail);
+    }
+
+    @PostMapping(value = "/refund", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("退款")
+    public RespBody<Void> refund(@RequestBody @Validated PlatformRefundRequest request) {
+        return redisLock.lock(LockConstant.ORDER_LOCK + request.getOrderNo(), 10_000, () -> {
+            orderProxyService.refund(request);
+            return RespBody.success();
+        });
     }
 
     @PostMapping(value = "/confirm", consumes = MediaType.APPLICATION_JSON_VALUE)

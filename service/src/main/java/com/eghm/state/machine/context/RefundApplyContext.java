@@ -27,7 +27,7 @@ public class RefundApplyContext implements Context {
     @ApiModelProperty(value = "申请方式 1:仅退款 2:退货退款")
     private Integer applyType;
 
-    @ApiModelProperty("退款游客id")
+    @ApiModelProperty("退款游客id(需要实名制时该字段不为空)")
     private List<Long> visitorIds;
 
     @Assign

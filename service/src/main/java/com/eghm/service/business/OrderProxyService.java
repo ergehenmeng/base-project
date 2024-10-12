@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.dto.business.order.homestay.HomestayOrderConfirmRequest;
+import com.eghm.dto.business.order.refund.PlatformRefundRequest;
 import com.eghm.model.ItemGroupOrder;
 
 /**
@@ -26,9 +27,9 @@ public interface OrderProxyService {
     /**
      * 退款 (非零售商品)
      *
-     * @param orderNo 订单号
+     * @param dto 退款信息
      */
-    void refund(String orderNo);
+    void refund(PlatformRefundRequest dto);
 
     /**
      * 取消订单 (通用)

@@ -2,11 +2,15 @@ package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constants.LockConstant;
 import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.line.LineOrderQueryRequest;
+import com.eghm.dto.business.order.refund.PlatformRefundRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.lock.RedisLock;
 import com.eghm.service.business.LineOrderService;
+import com.eghm.service.business.OrderProxyService;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.order.line.LineOrderDetailResponse;
 import com.eghm.vo.business.order.line.LineOrderResponse;
@@ -15,9 +19,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -32,7 +34,11 @@ import java.util.List;
 @RequestMapping(value = "/manage/line/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LineOrderController {
 
+    private final RedisLock redisLock;
+
     private final LineOrderService lineOrderService;
+
+    private final OrderProxyService orderProxyService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
@@ -47,6 +53,15 @@ public class LineOrderController {
     public RespBody<LineOrderDetailResponse> detail(@Validated OrderDTO dto) {
         LineOrderDetailResponse detail = lineOrderService.detail(dto.getOrderNo());
         return RespBody.success(detail);
+    }
+
+    @PostMapping(value = "/refund", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("退款")
+    public RespBody<Void> refund(@RequestBody @Validated PlatformRefundRequest request) {
+        return redisLock.lock(LockConstant.ORDER_LOCK + request.getOrderNo(), 10_000, () -> {
+            orderProxyService.refund(request);
+            return RespBody.success();
+        });
     }
 
     @GetMapping("/export")
