@@ -67,7 +67,7 @@ public class SignCheckInterceptor implements InterceptorAdapter {
             return false;
         }
         if (config.getExpireDate() == null || LocalDate.now().isAfter(config.getExpireDate())) {
-            log.warn("签名信息已过有效期,需要重新申请 [{}] [{}]", message.getAppKey(), config.getExpireDate());
+            log.warn("签名信息已过有效期, 需要重新申请 [{}] [{}]", message.getAppKey(), config.getExpireDate());
             WebUtil.printJson(response, ErrorCode.SIGNATURE_TIMESTAMP_ERROR);
             return false;
         }

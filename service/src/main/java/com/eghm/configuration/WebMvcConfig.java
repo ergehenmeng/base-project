@@ -31,7 +31,6 @@ import com.google.code.kaptcha.impl.NoNoise;
 import com.google.code.kaptcha.impl.WaterRipple;
 import com.google.code.kaptcha.util.Config;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.HibernateValidatorConfiguration;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
@@ -71,7 +70,6 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
 
     private final TaskExecutor taskExecutor;
 
-    @Getter
     protected final SystemProperties systemProperties;
 
     @Bean
