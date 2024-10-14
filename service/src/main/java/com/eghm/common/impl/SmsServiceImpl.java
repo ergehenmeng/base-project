@@ -2,6 +2,7 @@ package com.eghm.common.impl;
 
 import cn.hutool.core.util.IdUtil;
 import com.eghm.cache.CacheService;
+import com.eghm.common.SendSmsService;
 import com.eghm.common.SmsService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.ConfigConstant;
@@ -9,7 +10,6 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.SmsType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.SmsLog;
-import com.eghm.common.SendSmsService;
 import com.eghm.service.sys.SmsLogService;
 import com.eghm.service.sys.SmsTemplateService;
 import com.eghm.utils.StringUtil;

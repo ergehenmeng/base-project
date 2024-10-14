@@ -2,8 +2,8 @@ package com.eghm.state.machine.context;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.AsyncKey;
-import com.eghm.state.machine.dto.VisitorDTO;
 import com.eghm.state.machine.Context;
+import com.eghm.state.machine.dto.VisitorDTO;
 import com.eghm.validation.annotation.Mobile;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
