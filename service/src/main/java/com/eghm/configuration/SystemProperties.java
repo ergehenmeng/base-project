@@ -1,6 +1,7 @@
 package com.eghm.configuration;
 
 import com.eghm.enums.*;
+import com.google.code.kaptcha.text.impl.DefaultTextCreator;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -132,6 +133,11 @@ public class SystemProperties {
          * 权限
          */
         private Security security = new Security();
+
+        /**
+         * 验证码类型
+         */
+        private Class<? extends DefaultTextCreator> captchaType = MathCaptchaProducer.class;
 
         @Data
         public static class Security {
