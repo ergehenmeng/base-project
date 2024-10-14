@@ -93,7 +93,6 @@ public class ItemSkuServiceImpl implements ItemSkuService {
         return sku;
     }
 
-
     @Override
     public void updateStock(Long skuId, Integer num) {
         int stock = itemSkuMapper.updateStock(skuId, num);

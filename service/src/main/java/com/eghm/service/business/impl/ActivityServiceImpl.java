@@ -159,7 +159,6 @@ public class ActivityServiceImpl implements ActivityService {
                 .collect(Collectors.toList());
     }
 
-
     /**
      * 过滤某一天的活动并进行对象映射
      *

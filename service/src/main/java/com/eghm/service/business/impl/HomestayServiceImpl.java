@@ -226,6 +226,19 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         homestayRoomService.logout(merchantId);
     }
 
+    @Override
+    public void init(Merchant merchant) {
+        Homestay homestay = new Homestay();
+        homestay.setMerchantId(merchant.getId());
+        homestay.setState(State.UN_SHELVE);
+        homestayMapper.insert(homestay);
+    }
+
+    @Override
+    public boolean support(List<RoleType> roleTypes) {
+        return roleTypes.contains(RoleType.HOMESTAY);
+    }
+
     /**
      * 校验民宿名称是否被占用
      *
@@ -252,18 +265,5 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         if (CollUtil.isNotEmpty(listPage.getRecords())) {
             listPage.getRecords().forEach(response -> response.setDetailAddress(sysAreaService.parseArea(response.getCityId(), response.getCountyId(), response.getDetailAddress())));
         }
-    }
-
-    @Override
-    public void init(Merchant merchant) {
-        Homestay homestay = new Homestay();
-        homestay.setMerchantId(merchant.getId());
-        homestay.setState(State.UN_SHELVE);
-        homestayMapper.insert(homestay);
-    }
-
-    @Override
-    public boolean support(List<RoleType> roleTypes) {
-        return roleTypes.contains(RoleType.HOMESTAY);
     }
 }

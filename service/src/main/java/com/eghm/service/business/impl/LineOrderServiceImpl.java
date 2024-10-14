@@ -35,7 +35,6 @@ import java.util.List;
 @Slf4j
 public class LineOrderServiceImpl implements LineOrderService {
 
-
     private final OrderService orderService;
 
     private final SysAreaService sysAreaService;

@@ -199,6 +199,20 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         itemService.logout(merchantId);
     }
 
+    @Override
+    public void init(Merchant merchant) {
+        ItemStore shop = new ItemStore();
+        shop.setTitle(merchant.getMerchantName());
+        shop.setState(State.UN_SHELVE);
+        shop.setMerchantId(merchant.getId());
+        itemStoreMapper.insert(shop);
+    }
+
+    @Override
+    public boolean support(List<RoleType> roleTypes) {
+        return roleTypes.contains(RoleType.ITEM);
+    }
+
     /**
      * 校验店铺名称是否重复
      *
@@ -214,19 +228,5 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
             log.info("店铺名称重复 [{}] [{}]", title, id);
             throw new BusinessException(ErrorCode.SHOP_TITLE_REDO);
         }
-    }
-
-    @Override
-    public void init(Merchant merchant) {
-        ItemStore shop = new ItemStore();
-        shop.setTitle(merchant.getMerchantName());
-        shop.setState(State.UN_SHELVE);
-        shop.setMerchantId(merchant.getId());
-        itemStoreMapper.insert(shop);
-    }
-
-    @Override
-    public boolean support(List<RoleType> roleTypes) {
-        return roleTypes.contains(RoleType.ITEM);
     }
 }

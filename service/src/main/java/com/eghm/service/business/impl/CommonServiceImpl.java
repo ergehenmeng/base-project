@@ -229,7 +229,6 @@ public class CommonServiceImpl implements CommonService {
                 resultList.add(vo);
             }
         }
-
         return resultList;
     }
 
