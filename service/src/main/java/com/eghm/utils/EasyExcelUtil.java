@@ -87,7 +87,7 @@ public class EasyExcelUtil {
      * @param <T> 映射的对象
      */
     public static <T> void read(InputStream stream, Consumer<List<T>> consumer) {
-        read(stream, consumer, BATCH_SIZE);
+        read(stream, BATCH_SIZE, consumer);
     }
 
     /**
@@ -98,10 +98,10 @@ public class EasyExcelUtil {
      * @param batchSize 每批次读取条数
      * @param <T> 映射的对象
      */
-    public static <T> void read(InputStream stream, Consumer<List<T>> consumer, int batchSize) {
+    public static <T> void read(InputStream stream, int batchSize, Consumer<List<T>> consumer) {
         EasyExcel.read(stream, new ReadListener<T>() {
 
-            private final List<T> batchList = ListUtils.newArrayListWithExpectedSize(batchSize);
+            final List<T> batchList = ListUtils.newArrayListWithExpectedSize(batchSize);
 
             @Override
             public void invoke(T data, AnalysisContext context) {
@@ -116,6 +116,7 @@ public class EasyExcelUtil {
             public void doAfterAllAnalysed(AnalysisContext context) {
                 consumer.accept(batchList);
             }
+
         }).sheet().doRead();
     }
 

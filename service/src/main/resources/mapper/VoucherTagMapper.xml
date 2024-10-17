@@ -26,6 +26,7 @@
         <if test="param.queryName != null and param.queryName != ''">
             and t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler},'%')
         </if>
+        order by t.sort, t.id desc
     </select>
 
     <select id="getList" resultType="com.eghm.vo.business.restaurant.TagSelectResponse">
@@ -36,7 +37,7 @@
         from
             voucher_tag t
         where
-            t.deleted = 0 and t.restaurant_id = #{restaurantId} order by t.sort
+            t.deleted = 0 and t.restaurant_id = #{restaurantId} order by t.sort, t.id desc
     </select>
 
 </mapper>
