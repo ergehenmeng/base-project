@@ -25,6 +25,13 @@ spring:
     time-zone: GMT+8
     deserialization:
       read-unknown-enum-values-as-null: true
+  task:
+    scheduling:
+      pool:
+        ## 定时任务线程池大小
+        size: 5
+    execution:
+      thread-name-prefix: 定时任务-
   ## freemarker配置
   freemarker:
     suffix: .ftl
