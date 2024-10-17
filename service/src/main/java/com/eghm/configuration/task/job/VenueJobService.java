@@ -30,7 +30,7 @@ public class VenueJobService {
      */
     @CronMark
     public void deleteSitePrice(String args) {
-        LoggerUtil.print("删除场馆历史价格定时任务开始执行 [{}]", args);
+        LoggerUtil.print(String.format("删除场馆历史价格定时任务开始执行 [%s]", args));
         int keepDay = 7;
         if (StrUtil.isNotBlank(args)) {
             keepDay = Integer.parseInt(args);

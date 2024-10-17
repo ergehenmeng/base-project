@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
 /**
@@ -26,7 +25,7 @@ public class ScheduledLockAspect {
     private final AlarmService alarmService;
 
     @Around("@annotation(org.springframework.scheduling.annotation.Scheduled) && within(com.eghm.configuration.task..*)")
-    public Object around(@NotNull ProceedingJoinPoint joinPoint) {
+    public Object around(ProceedingJoinPoint joinPoint) {
         // 类名@方法名
         String lockKey = joinPoint.getSignature().getDeclaringType().getName() + CommonConstant.SPECIAL_SPLIT + joinPoint.getSignature().getName();
         return redisLock.lock(lockKey, CommonConstant.SCHEDULED_MAX_LOCK_TIME, () -> {

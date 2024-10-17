@@ -2,7 +2,6 @@ package com.eghm.convertor;
 
 import com.eghm.annotation.YuanToCentFormat;
 import com.eghm.utils.DecimalUtil;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.context.support.EmbeddedValueResolutionSupport;
 import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Formatter;
@@ -31,8 +30,8 @@ public class YuanToCentAnnotationFormatterFactory extends EmbeddedValueResolutio
         FIELD_TYPES = Collections.unmodifiableSet(fieldTypes);
     }
 
-    @NotNull
     @Override
+    @NonNull
     public Set<Class<?>> getFieldTypes() {
         return FIELD_TYPES;
     }
