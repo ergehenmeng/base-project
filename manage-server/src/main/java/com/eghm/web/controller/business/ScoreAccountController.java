@@ -11,8 +11,10 @@ import com.eghm.dto.business.account.score.ScoreScanRechargeDTO;
 import com.eghm.dto.business.account.score.ScoreWithdrawApplyDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
+import com.eghm.model.Account;
 import com.eghm.model.ScoreAccount;
 import com.eghm.pay.vo.PrepayVO;
+import com.eghm.service.business.AccountService;
 import com.eghm.service.business.ScoreAccountService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
@@ -40,6 +42,8 @@ import javax.servlet.http.HttpServletRequest;
 public class ScoreAccountController {
 
     private final SysConfigApi sysConfigApi;
+
+    private final AccountService accountService;
 
     private final ScoreAccountService scoreAccountService;
 
@@ -72,9 +76,11 @@ public class ScoreAccountController {
     @GetMapping(value = "/recharge/detail")
     @ApiOperation("充值信息")
     public RespBody<ScoreRechargeResponse> rechargeDetail() {
-        ScoreAccount account = scoreAccountService.getAccount(SecurityHolder.getMerchantId());
+        ScoreAccount scoreAccount = scoreAccountService.getAccount(SecurityHolder.getMerchantId());
+        Account account = accountService.getAccount(SecurityHolder.getMerchantId());
         ScoreRechargeResponse response = new ScoreRechargeResponse();
         response.setAmount(account.getAmount());
+        response.setScoreAmount(scoreAccount.getAmount());
         response.setMinRecharge(this.getScoreMinRecharge());
         return RespBody.success(response);
     }

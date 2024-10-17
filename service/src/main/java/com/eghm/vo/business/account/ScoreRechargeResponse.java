@@ -13,8 +13,12 @@ import lombok.Data;
 @Data
 public class ScoreRechargeResponse {
 
-    @ApiModelProperty(value = "可用积分")
+    @ApiModelProperty(value = "可用余额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer amount;
+
+    @ApiModelProperty(value = "可用积分")
+    private Integer scoreAmount;
 
     @ApiModelProperty(value = "最低充值金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
