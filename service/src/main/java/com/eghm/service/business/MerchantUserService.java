@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.merchant.MerchantUserAddRequest;
 import com.eghm.dto.business.merchant.MerchantUserEditRequest;
 import com.eghm.dto.business.merchant.MerchantUserQueryRequest;
+import com.eghm.model.MerchantUser;
 import com.eghm.vo.business.merchant.MerchantUserResponse;
 
 /**
@@ -54,5 +55,13 @@ public interface MerchantUserService {
      * @param id id
      */
     void unlockUser(Long id);
+
+    /**
+     * 根据id查询商户用户信息
+     *
+     * @param id id
+     * @return 商户用户
+     */
+    MerchantUser selectByIdRequired(Long id);
 
 }

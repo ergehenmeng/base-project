@@ -8,6 +8,7 @@ import com.eghm.dto.business.merchant.MerchantUserEditRequest;
 import com.eghm.dto.business.merchant.MerchantUserQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.model.MerchantUser;
 import com.eghm.service.business.MerchantUserService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.vo.business.merchant.MerchantUserResponse;
@@ -59,7 +60,8 @@ public class MerchantUserController {
     @GetMapping("/roleList")
     @ApiOperation("用户角色列表")
     public RespBody<List<Long>> roleList(@Validated IdDTO dto) {
-        List<Long> roleList = sysRoleService.getByUserId(dto.getId());
+        MerchantUser required = merchantUserService.selectByIdRequired(dto.getId());
+        List<Long> roleList = sysRoleService.getByUserId(required.getUserId());
         return RespBody.success(roleList);
     }
 

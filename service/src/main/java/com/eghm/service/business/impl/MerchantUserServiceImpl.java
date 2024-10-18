@@ -68,7 +68,7 @@ public class MerchantUserServiceImpl implements MerchantUserService {
 
     @Override
     public void update(MerchantUserEditRequest request) {
-        MerchantUser merchant = this.getMerchantUser(request.getId());
+        MerchantUser merchant = this.selectByIdRequired(request.getId());
 
         SysUser user = new SysUser();
         user.setId(merchant.getUserId());
@@ -85,14 +85,14 @@ public class MerchantUserServiceImpl implements MerchantUserService {
 
     @Override
     public void deleteById(Long id) {
-        MerchantUser merchant = this.getMerchantUser(id);
+        MerchantUser merchant = this.selectByIdRequired(id);
         sysUserService.deleteById(merchant.getUserId());
         merchantUserMapper.deleteById(id);
     }
 
     @Override
     public void lockUser(Long id) {
-        MerchantUser merchant = this.getMerchantUser(id);
+        MerchantUser merchant = this.selectByIdRequired(id);
         sysUserService.updateState(merchant.getUserId(), UserState.LOCK);
         merchant.setUpdateTime(LocalDateTime.now());
         merchantUserMapper.updateById(merchant);
@@ -100,25 +100,21 @@ public class MerchantUserServiceImpl implements MerchantUserService {
 
     @Override
     public void unlockUser(Long id) {
-        MerchantUser merchant = this.getMerchantUser(id);
+        MerchantUser merchant = this.selectByIdRequired(id);
         sysUserService.updateState(merchant.getUserId(), UserState.NORMAL);
         merchant.setUpdateTime(LocalDateTime.now());
         merchantUserMapper.updateById(merchant);
     }
 
-    /**
-     * 查询商户用户信息,并校验是否合法操作
-     *
-     * @param id id
-     * @return 商户用户信息
-     */
-    private MerchantUser getMerchantUser(Long id) {
-        MerchantUser merchant = merchantUserMapper.selectById(id);
-        if (merchant == null) {
-            log.warn("编辑用户, 商户用户未查询到 [{}]", id);
+    @Override
+    public MerchantUser selectByIdRequired(Long id) {
+        MerchantUser selected = merchantUserMapper.selectById(id);
+        if (selected == null) {
+            log.warn("商户用户未查询到 [{}]", id);
             throw new BusinessException(ErrorCode.MERCHANT_USER_NULL);
         }
-        commonService.checkIllegal(merchant.getMerchantId());
-        return merchant;
+        commonService.checkIllegal(selected.getMerchantId());
+        return selected;
     }
+
 }
