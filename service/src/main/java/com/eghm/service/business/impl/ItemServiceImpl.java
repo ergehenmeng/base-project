@@ -509,9 +509,7 @@ public class ItemServiceImpl implements ItemService {
             // 两级规格才合并
             ItemSpecResponse itemSpec = specList.get(1);
             for (ItemSkuResponse skuResponse : response.getSkuList()) {
-                if (itemSpec.getSpecName().equals(skuResponse.getPrimarySpecValue())) {
-                    skuResponse.setSecondSize(itemSpec.getValueList().size());
-                }
+                skuResponse.setSecondSize(itemSpec.getValueList().size());
             }
         }
     }
@@ -548,6 +546,7 @@ public class ItemServiceImpl implements ItemService {
             List<ItemSpecValueResponse> specValue = specMap.get(value);
             if (CollUtil.isNotEmpty(specValue)) {
                 ItemSpecResponse spec = new ItemSpecResponse();
+                spec.setSpecId(specValue.get(0).getId());
                 spec.setSpecName(specValue.get(0).getSpecName());
                 spec.setLevel(value.getValue());
                 spec.setValueList(specValue);

@@ -13,6 +13,9 @@ import java.util.List;
 @Data
 public class ItemSpecResponse {
 
+    @ApiModelProperty("规格id")
+    private Long specId;
+
     @ApiModelProperty(value = "规格名")
     private String specName;
 

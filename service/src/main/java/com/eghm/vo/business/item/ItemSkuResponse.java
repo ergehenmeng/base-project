@@ -25,6 +25,9 @@ public class ItemSkuResponse {
     @ApiModelProperty(value = "二级规格名(单规格为空)")
     private String secondSpecValue;
 
+    @ApiModelProperty(value = "一级规格值数量(方便前端设置单元格)")
+    private String specIds;
+
     @ApiModelProperty(value = "二级规格值数量(方便前端设置单元格)")
     private Integer secondSize;
 

@@ -276,7 +276,7 @@
             r.sku_pic,
             s.spec_pic
         from item t left join item_sku r on t.id = r.item_id
-        left join item_spec s on r.spec_id = s.id
+        left join item_spec s on r.spec_ids like concat('%', s.id, '%')
         where t.deleted = false and r.deleted = false
         <if test="merchantId != null">
             and t.merchant_id = #{merchantId}

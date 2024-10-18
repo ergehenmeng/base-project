@@ -293,7 +293,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
                 orderPackage.setNum(dto.getNum());
                 orderPackage.setItemId(dto.getItemId());
                 orderPackage.setSkuId(dto.getSkuId());
-                orderPackage.setSpec(specMap.get(this.getSpuId(orderPackage.getSku().getSpecId())));
+                orderPackage.setSpec(specMap.get(this.getSpuId(orderPackage.getSku().getSpecIds())));
                 orderList.add(orderPackage);
             }
 

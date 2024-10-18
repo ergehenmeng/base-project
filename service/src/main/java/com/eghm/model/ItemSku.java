@@ -30,7 +30,7 @@ public class ItemSku extends BaseEntity {
     private String secondSpecValue;
 
     @ApiModelProperty(value = "规格id,多个逗号分隔")
-    private String specId;
+    private String specIds;
 
     @ApiModelProperty(value = "成本价")
     private Integer costPrice;

@@ -45,7 +45,7 @@ public class ItemSkuServiceImpl implements ItemSkuService {
         for (ItemSkuRequest request : skuList) {
             ItemSku sku = DataUtil.copy(request, ItemSku.class, "id");
             sku.setItemId(item.getId());
-            sku.setSpecId(this.getSpecId(specMap, request));
+            sku.setSpecIds(this.getSpecId(specMap, request));
             itemSkuMapper.insert(sku);
         }
     }
@@ -61,7 +61,7 @@ public class ItemSkuServiceImpl implements ItemSkuService {
         for (ItemSkuRequest request : skuList) {
             ItemSku sku = DataUtil.copy(request, ItemSku.class);
             sku.setItemId(item.getId());
-            sku.setSpecId(this.getSpecId(specMap, request));
+            sku.setSpecIds(this.getSpecId(specMap, request));
             if (sku.getId() == null) {
                 itemSkuMapper.insert(sku);
             } else {
