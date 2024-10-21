@@ -135,17 +135,17 @@ public class CacheConstant {
     /**
      * 同一类型短信发送间隔 sms_type_interval::smsType+mobile
      */
-    public static final String SMS_TYPE_INTERVAL = "sms_type_interval:";
+    public static final String SMS_TYPE_INTERVAL = "sms_type_interval:%s:%s";
 
     /**
      * 同一类型短信单小时总次数 sms_type_hour_limit::smsType+mobile
      */
-    public static final String SMS_TYPE_HOUR_LIMIT = "sms_type_hour_limit:";
+    public static final String SMS_TYPE_HOUR_LIMIT = "sms_type_hour_limit:%s:%s";
 
     /**
      * 同一类型短信一天总次数 sms_type_day_limit::smsType+mobile
      */
-    public static final String SMS_TYPE_DAY_LIMIT = "sms_type_day_limit:";
+    public static final String SMS_TYPE_DAY_LIMIT = "sms_type_day_limit:%s:%s";
 
     /**
      * 同一天ip发送的短信数量 sms_type_day_limit:ip
@@ -155,7 +155,7 @@ public class CacheConstant {
     /**
      * 同一天同手机号最大次数 sms_day::mobile
      */
-    public static final String SMS_DAY = "sms_day:";
+    public static final String SMS_DAY = "sms_day:%s";
 
     /**
      * 用户签到缓存 member_sign_in::memberId
@@ -195,7 +195,7 @@ public class CacheConstant {
     /**
      * 短信前置
      */
-    public static final String SMS_PREFIX = "sms:";
+    public static final String SMS_PREFIX = "sms:%s:%s";
 
     /**
      * 短信验证码前置

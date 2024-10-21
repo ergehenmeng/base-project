@@ -48,7 +48,7 @@ public class SmsServiceImpl implements SmsService {
         this.doSendSms(mobile, content, smsType);
         this.saveSmsCode(smsType.getValue(), mobile, smsCode);
         long expire = sysConfigApi.getLong(ConfigConstant.SMS_TYPE_INTERVAL);
-        cacheService.setValue(CacheConstant.SMS_TYPE_INTERVAL + smsType.getValue() + mobile, true, expire);
+        cacheService.setValue(String.format(CacheConstant.SMS_TYPE_INTERVAL, smsType.getValue(), mobile), true, expire);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class SmsServiceImpl implements SmsService {
 
     @Override
     public String getSmsCode(SmsType smsType, String mobile) {
-        return cacheService.getValue(CacheConstant.SMS_PREFIX + smsType.getValue() + mobile);
+        return cacheService.getValue(String.format(CacheConstant.SMS_PREFIX, smsType.getValue(), mobile));
     }
 
     @Override
@@ -162,25 +162,25 @@ public class SmsServiceImpl implements SmsService {
      */
     private void smsLimitCheck(String smsType, String mobile) {
         // 短信时间间隔判断
-        String value = cacheService.getValue(CacheConstant.SMS_TYPE_INTERVAL + smsType + mobile);
+        String value = cacheService.getValue(String.format(CacheConstant.SMS_TYPE_INTERVAL, smsType, mobile));
         if (value != null) {
             throw new BusinessException(ErrorCode.SMS_FREQUENCY_FAST);
         }
         int smsTypeHourLimit = sysConfigApi.getInt(ConfigConstant.SMS_TYPE_HOUR_LIMIT);
         // 单位小时统一类型内短信限制
-        boolean limit = cacheService.limit(CacheConstant.SMS_TYPE_HOUR_LIMIT + smsType + mobile, smsTypeHourLimit, 3600);
+        boolean limit = cacheService.limit(String.format(CacheConstant.SMS_TYPE_HOUR_LIMIT, smsType, mobile), smsTypeHourLimit, 3600);
         if (limit) {
             throw new BusinessException(ErrorCode.SMS_HOUR_LIMIT);
         }
         int smsTypeDayLimit = sysConfigApi.getInt(ConfigConstant.SMS_TYPE_DAY_LIMIT);
         // 当天同一类型短信限制
-        limit = cacheService.limit(CacheConstant.SMS_TYPE_DAY_LIMIT + smsType + mobile, smsTypeDayLimit, 86400);
+        limit = cacheService.limit(String.format(CacheConstant.SMS_TYPE_DAY_LIMIT, smsType, mobile), smsTypeDayLimit, 86400);
         if (limit) {
             throw new BusinessException(ErrorCode.SMS_DAY_LIMIT);
         }
         int smsDay = sysConfigApi.getInt(ConfigConstant.SMS_DAY_LIMIT);
         // 当天手机号限制
-        limit = cacheService.limit(CacheConstant.SMS_DAY + mobile, smsDay, 86400);
+        limit = cacheService.limit(String.format(CacheConstant.SMS_DAY, mobile), smsDay, 86400);
         if (limit) {
             throw new BusinessException(ErrorCode.MOBILE_DAY_LIMIT);
         }

@@ -34,9 +34,9 @@ import javax.servlet.http.HttpServletRequest;
 @AllArgsConstructor
 public class ManageLogAspect {
 
-    private final SysConfigApi sysConfigApi;
-
     private final Gson gson = new Gson();
+
+    private final SysConfigApi sysConfigApi;
 
     private final MessageService messageService;
 
