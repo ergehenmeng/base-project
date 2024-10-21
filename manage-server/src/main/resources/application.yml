@@ -70,6 +70,8 @@ system:
         - /v2/api-docs
         - /swagger-resources/**
         - /manage/login
+        - /manage/sendSms
+        - /manage/smsLogin
         - /manage/logout
         - /favicon.ico
         - /manage/export/exportMenu

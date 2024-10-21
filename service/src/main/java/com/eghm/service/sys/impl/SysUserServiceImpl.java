@@ -7,16 +7,19 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
+import com.eghm.common.SmsService;
 import com.eghm.common.UserTokenService;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
+import com.eghm.dto.login.SmsLoginRequest;
 import com.eghm.dto.user.PasswordEditRequest;
 import com.eghm.dto.user.UserAddRequest;
 import com.eghm.dto.user.UserEditRequest;
 import com.eghm.dto.user.UserQueryRequest;
 import com.eghm.enums.DataType;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.SmsType;
 import com.eghm.enums.UserType;
 import com.eghm.enums.ref.UserState;
 import com.eghm.exception.BusinessException;
@@ -53,6 +56,8 @@ import static com.eghm.utils.CacheUtil.LOGIN_LOCK_CACHE;
 public class SysUserServiceImpl implements SysUserService {
 
     private final Encoder encoder;
+
+    private final SmsService smsService;
 
     private final CacheService cacheService;
 
@@ -212,6 +217,35 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public LoginResponse login(String userName, String password) {
         SysUser user = this.getAndCheckUser(userName, password);
+        return this.doLogin(user);
+    }
+
+    @Override
+    public void sendLoginSms(String mobile, String ip) {
+        SysUser user = this.getAndCheckUser(mobile);
+        smsService.sendSmsCode(SmsType.USER_LOGIN, user.getMobile(), ip);
+    }
+
+    @Override
+    public LoginResponse smsLogin(SmsLoginRequest request) {
+        smsService.verifySmsCode(SmsType.USER_LOGIN, request.getMobile(), request.getSmsCode());
+        SysUser user = this.getAndCheckUser(request.getMobile());
+        return this.doLogin(user);
+    }
+
+    @Override
+    public void updateById(SysUser user) {
+        this.redoMobile(user.getMobile(), user.getId());
+        sysUserMapper.updateById(user);
+    }
+
+    /**
+     * 管理后台登陆
+     *
+     * @param user 用户信息
+     * @return 返回前端信息
+     */
+    private LoginResponse doLogin(SysUser user) {
         UserType userType = user.getUserType();
         // 如果用户拥有超管角色,则默认查询全部菜单等信息
         List<MenuResponse> leftMenu;
@@ -248,14 +282,8 @@ public class SysUserServiceImpl implements SysUserService {
         response.setInit(user.getInitPwd().equals(user.getPwd()));
         response.setExpire(user.getPwdUpdateTime().plusDays(CommonConstant.PWD_UPDATE_TIPS).isBefore(LocalDateTime.now()));
         cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
-        LOGIN_LOCK_CACHE.invalidate(userName);
+        LOGIN_LOCK_CACHE.invalidate(user.getMobile());
         return response;
-    }
-
-    @Override
-    public void updateById(SysUser user) {
-        this.redoMobile(user.getMobile(), user.getId());
-        sysUserMapper.updateById(user);
     }
 
     /**
@@ -271,7 +299,7 @@ public class SysUserServiceImpl implements SysUserService {
             throw new BusinessException(ErrorCode.USER_ERROR_LOCK);
         }
         SysUser user = this.getByMobile(userName);
-        if (user == null) {
+        if (user == null || user.getState() == UserState.LOGOUT) {
             LOGIN_LOCK_CACHE.put(userName, present == null ? 1 : present + 1);
             throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
@@ -279,6 +307,27 @@ public class SysUserServiceImpl implements SysUserService {
         if (!match) {
             LOGIN_LOCK_CACHE.put(userName, present == null ? 1 : present + 1);
             throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
+        }
+        if (user.getState() == UserState.LOCK) {
+            throw new BusinessException(ErrorCode.USER_LOCKED_ERROR);
+        }
+        return user;
+    }
+
+    /**
+     * 根据手机号查询用户信息并校验基本信息
+     *
+     * @param mobile 手机号
+     * @return 用户信息
+     */
+    private SysUser getAndCheckUser(String mobile) {
+        Integer present = LOGIN_LOCK_CACHE.getIfPresent(mobile);
+        if (present != null && present > MAX_ERROR_NUM) {
+            throw new BusinessException(ErrorCode.USER_ERROR_LOCK);
+        }
+        SysUser user = this.getByMobile(mobile);
+        if (user == null || user.getState() == UserState.LOGOUT) {
+            throw new BusinessException(ErrorCode.USER_MOBILE_NULL);
         }
         if (user.getState() == UserState.LOCK) {
             throw new BusinessException(ErrorCode.USER_LOCKED_ERROR);

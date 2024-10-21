@@ -22,7 +22,12 @@ public enum SmsType implements ValueEnumBinder {
     /**
      * 登陆发送短信
      */
-    LOGIN("login", "登陆发送短信"),
+    MEMBER_LOGIN("member_login", "登陆发送短信"),
+
+    /**
+     * 登陆发送短信
+     */
+    USER_LOGIN("user_login", "登陆发送短信"),
 
     /**
      * 忘记登陆密码

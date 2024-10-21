@@ -157,7 +157,7 @@ public class MemberServiceImpl implements MemberService {
     public LoginTokenVO smsLogin(SmsLoginDTO login) {
         Member member = this.getByAccountRequired(login.getMobile());
         this.checkMemberLock(member);
-        smsService.verifySmsCode(SmsType.LOGIN, login.getMobile(), login.getSmsCode());
+        smsService.verifySmsCode(SmsType.MEMBER_LOGIN, login.getMobile(), login.getSmsCode());
         return this.doLogin(member, login.getIp());
     }
 
@@ -187,7 +187,7 @@ public class MemberServiceImpl implements MemberService {
             throw new BusinessException(ErrorCode.MEMBER_NOT_REGISTER);
         }
         this.checkMemberLock(member);
-        smsService.sendSmsCode(SmsType.LOGIN, member.getMobile(), ip);
+        smsService.sendSmsCode(SmsType.MEMBER_LOGIN, member.getMobile(), ip);
     }
 
     @Override

@@ -9,6 +9,8 @@ import com.eghm.constants.CacheConstant;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.login.LoginRequest;
+import com.eghm.dto.login.SmsLoginRequest;
+import com.eghm.dto.login.SmsVerifyRequest;
 import com.eghm.enums.Env;
 import com.eghm.enums.ErrorCode;
 import com.eghm.service.sys.SysUserService;
@@ -67,6 +69,24 @@ public class LoginController {
             userTokenService.logout(user.getToken());
         }
         return RespBody.success();
+    }
+
+    @PostMapping(value = "/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("发送登陆验证码")
+    public RespBody<LoginResponse> sendSms(@Validated @RequestBody SmsVerifyRequest request, HttpServletRequest servletRequest) {
+        if (this.verifyCodeError(IpUtil.getIpAddress(servletRequest), request.getVerifyCode())) {
+            return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
+        }
+        sysUserService.sendLoginSms(request.getMobile(), IpUtil.getIpAddress(servletRequest));
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/smsLogin", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("验证码登录")
+    public RespBody<LoginResponse> smsLogin(@Validated @RequestBody SmsLoginRequest request, HttpServletRequest servletRequest) {
+        request.setIp(IpUtil.getIpAddress(servletRequest));
+        LoginResponse response = sysUserService.smsLogin(request);
+        return RespBody.success(response);
     }
 
     /**

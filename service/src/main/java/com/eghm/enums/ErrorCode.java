@@ -328,6 +328,11 @@ public enum ErrorCode {
     ACCOUNT_PASSWORD_ERROR(2114, "账号或密码输入错误"),
 
     /**
+     * 手机号不存在
+     */
+    USER_MOBILE_NULL(2116, "手机号不存在"),
+
+    /**
      * 密码输入错误
      */
     PASSWORD_ERROR(2115, "密码输入错误"),
@@ -428,9 +433,9 @@ public enum ErrorCode {
     MEMBER_PASSWORD_ERROR(2114, "账号或密码错误"),
 
     /**
-     * 验证码已过期
+     * 验证码无效或已过期
      */
-    LOGIN_SMS_CODE_EXPIRE(2117, "验证码已过期"),
+    LOGIN_SMS_CODE_EXPIRE(2117, "验证码无效或已过期"),
 
     /**
      * 短信验证码错误
