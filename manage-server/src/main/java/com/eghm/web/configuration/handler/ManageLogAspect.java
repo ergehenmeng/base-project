@@ -60,7 +60,6 @@ public class ManageLogAspect {
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         UserToken user = SecurityHolder.getUser();
         if (user == null) {
-            log.warn("操作日志无法查询到登陆用户 url:[{}]", request.getRequestURI());
             return joinPoint.proceed();
         }
         ManageLog sy = new ManageLog();
