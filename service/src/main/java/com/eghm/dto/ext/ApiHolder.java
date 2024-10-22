@@ -3,6 +3,7 @@ package com.eghm.dto.ext;
 import com.alibaba.ttl.TransmittableThreadLocal;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -12,12 +13,10 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2019/8/22 14:22
  */
 @Slf4j
+@NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class ApiHolder {
 
     private static final TransmittableThreadLocal<RequestMessage> TOKEN_LOCAL = TransmittableThreadLocal.withInitial(RequestMessage::new);
-
-    private ApiHolder() {
-    }
 
     /**
      * 获取请求信息
@@ -81,15 +80,6 @@ public class ApiHolder {
      */
     public static String getVersion() {
         return get().getVersion();
-    }
-
-    /**
-     * 前后端分离方式:获取系统版本号 针对android和ios
-     *
-     * @return ios 10.4.1
-     */
-    public static String getOsVersion() {
-        return get().getOsVersion();
     }
 
     /**
