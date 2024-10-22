@@ -19,7 +19,7 @@ public interface ActivityService {
      *
      * @param request 活动信息
      */
-    void create(ActivityConfigRequest request);
+    void createBatch(ActivityConfigRequest request);
 
     /**
      * 创建活动(单个活动)

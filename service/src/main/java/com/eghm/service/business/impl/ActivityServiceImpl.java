@@ -49,7 +49,7 @@ public class ActivityServiceImpl implements ActivityService {
     private final ActivityMapper activityMapper;
 
     @Override
-    public void create(ActivityConfigRequest request) {
+    public void createBatch(ActivityConfigRequest request) {
         this.redoTitle(request.getTitle(), request.getStartDate(), request.getEndDate());
         long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
         commonService.checkMaxDay(ConfigConstant.ACTIVITY_CONFIG_MAX_DAY, between);

@@ -37,7 +37,7 @@ public class ActivityController {
     @PostMapping(value = "/config", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("配置活动")
     public RespBody<Void> config(@RequestBody @Validated ActivityConfigRequest request) {
-        activityService.create(request);
+        activityService.createBatch(request);
         return RespBody.success();
     }
 
