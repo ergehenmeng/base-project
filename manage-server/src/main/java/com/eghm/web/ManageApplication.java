@@ -1,6 +1,7 @@
 package com.eghm.web;
 
 
+import cn.hutool.core.net.NetUtil;
 import com.eghm.annotation.EnableTask;
 import com.eghm.utils.LoggerUtil;
 import com.eghm.utils.SpringContextUtil;
@@ -18,9 +19,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 /**
  * 程序启动入口
  * 排除RabbitConfig是因为管理后台暂不使用mq
@@ -36,9 +34,9 @@ import java.net.UnknownHostException;
 @MapperScan(basePackages = "com.eghm.mapper")
 public class ManageApplication implements ApplicationContextAware {
 
-    public static void main(String[] args) throws UnknownHostException {
+    public static void main(String[] args) {
         ConfigurableApplicationContext context = new SpringApplicationBuilder(ManageApplication.class).bannerMode(Banner.Mode.OFF).run(args);
-        LoggerUtil.print(String.format("Swagger文档: http://%s:%s/doc.html", InetAddress.getLocalHost().getHostAddress(), context.getEnvironment().getProperty("server.port")));
+        LoggerUtil.print(String.format("Swagger文档: http://%s:%s/doc.html", NetUtil.getLocalhostStr(), context.getEnvironment().getProperty("server.port")));
     }
 
     @Override
