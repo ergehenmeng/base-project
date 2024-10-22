@@ -12,6 +12,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.model.SmsLog;
 import com.eghm.service.sys.SmsLogService;
 import com.eghm.service.sys.SmsTemplateService;
+import com.eghm.utils.CacheUtil;
 import com.eghm.utils.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,9 @@ import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
 import java.util.List;
+
+import static com.eghm.constants.CommonConstant.MAX_ERROR_NUM;
+import static com.eghm.constants.CommonConstant.SMS_CODE_EXPIRE;
 
 /**
  * @author 二哥很猛
@@ -68,13 +72,21 @@ public class SmsServiceImpl implements SmsService {
         if (originalSmsCode == null) {
             throw new BusinessException(ErrorCode.LOGIN_SMS_CODE_EXPIRE);
         }
+        String key = smsType.getValue() + mobile;
+        Long present = CacheUtil.SMS_VERIFY_CACHE.getIfPresent(key);
+        if (present != null && present > MAX_ERROR_NUM) {
+            this.cleanSmsCode(smsType, mobile);
+            throw new BusinessException(ErrorCode.SMS_CODE_VERIFY_ERROR);
+        }
         if (!originalSmsCode.equalsIgnoreCase(smsCode)) {
+            CacheUtil.SMS_VERIFY_CACHE.put(key, present == null ? 1 : present + 1);
             throw new BusinessException(ErrorCode.LOGIN_SMS_CODE_ERROR);
         }
         this.cleanSmsCode(smsType, mobile);
+        CacheUtil.SMS_VERIFY_CACHE.invalidate(key);
         String uuid = IdUtil.fastSimpleUUID();
-        cacheService.setValue(CacheConstant.VERIFY_PREFIX + uuid, true, 300);
-        cacheService.setValue(CacheConstant.VERIFY_MOBILE_PREFIX + uuid, mobile, 300);
+        cacheService.setValue(CacheConstant.VERIFY_PREFIX + uuid, true, SMS_CODE_EXPIRE);
+        cacheService.setValue(CacheConstant.VERIFY_MOBILE_PREFIX + uuid, mobile, SMS_CODE_EXPIRE);
         return uuid;
     }
 

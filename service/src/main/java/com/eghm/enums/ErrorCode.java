@@ -438,6 +438,11 @@ public enum ErrorCode {
     LOGIN_SMS_CODE_EXPIRE(2117, "验证码无效或已过期"),
 
     /**
+     * 验证次数太多,请重新发送验证码
+     */
+    SMS_CODE_VERIFY_ERROR(2118, "验证次数太多,请重新发送验证码"),
+
+    /**
      * 短信验证码错误
      */
     LOGIN_SMS_CODE_ERROR(2120, "验证码输入错误"),

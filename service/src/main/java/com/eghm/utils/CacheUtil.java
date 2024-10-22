@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.concurrent.TimeUnit;
 
+import static com.eghm.constants.CommonConstant.SMS_CODE_EXPIRE;
 import static com.eghm.constants.CommonConstant.SUBMIT_INTERVAL;
 
 /**
@@ -38,4 +39,10 @@ public class CacheUtil {
      * 文件单日上传限制
      */
     public static final Cache<String, Long> UPLOAD_LIMIT_CACHE = Caffeine.newBuilder().expireAfterWrite(1, TimeUnit.DAYS).maximumSize(10000).build();
+
+    /**
+     * 验证码验证次数上限限制
+     */
+    public static final Cache<String, Long> SMS_VERIFY_CACHE = Caffeine.newBuilder().expireAfterWrite(SMS_CODE_EXPIRE, TimeUnit.SECONDS).maximumSize(10000).build();
+
 }

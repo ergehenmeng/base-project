@@ -38,7 +38,7 @@ public interface SmsService {
 
     /**
      * 验证短信验证码是否正确 (如果验证码正确,会将缓存中验证码删除,并生成唯一ID,再次放入缓存中,方便后续业务)
-     *
+     * 同样如果验证次数太多,依旧会返回验证失败
      * @param smsType 验证码类型
      * @param mobile  手机号
      * @param smsCode 待验证的验证码

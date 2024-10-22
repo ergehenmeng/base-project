@@ -41,6 +41,11 @@ public class CommonConstant {
     public static final int SUBMIT_INTERVAL = 1000;
 
     /**
+     * 验证码过期时间
+     */
+    public static final int SMS_CODE_EXPIRE = 600;
+
+    /**
      * 分页最大值
      */
     public static final int MAX_PAGE_SIZE = 50;
@@ -56,7 +61,7 @@ public class CommonConstant {
     public static final int PWD_UPDATE_TIPS = 90;
 
     /**
-     * 连续密码错误次数, 超过5次则锁定账户一段时间
+     * 连续密码或验证码错误次数, 超过5次则锁定账户一段时间或重新发送验证码
      */
     public static final int MAX_ERROR_NUM = 5;
 
