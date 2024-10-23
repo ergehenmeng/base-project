@@ -16,8 +16,9 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class TicketOrderCreateQueueHandler extends TicketOrderCreateHandler {
 
-    public TicketOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, ScenicService scenicService, TicketOrderService ticketOrderService, RedeemCodeGrantService redeemCodeGrantService) {
-        super(orderService, memberCouponService, orderVisitorService, orderMQService, scenicTicketService, scenicService, ticketOrderService, redeemCodeGrantService);
+    public TicketOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, ScenicService scenicService
+            , TicketOrderService ticketOrderService, RedeemCodeGrantService redeemCodeGrantService, TicketOrderSnapshotService ticketOrderSnapshotService) {
+        super(orderService, memberCouponService, orderVisitorService, orderMQService, scenicTicketService, scenicService, ticketOrderService, redeemCodeGrantService, ticketOrderSnapshotService);
     }
 
     @Override

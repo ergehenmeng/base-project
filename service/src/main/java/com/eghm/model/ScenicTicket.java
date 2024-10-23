@@ -3,6 +3,7 @@ package com.eghm.model;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.State;
+import com.eghm.enums.ref.TicketType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -37,7 +38,7 @@ public class ScenicTicket extends BaseEntity {
     private State state;
 
     @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
-    private Integer category;
+    private TicketType category;
 
     @ApiModelProperty("是否为热销商品 true:是 false:不是")
     private Boolean hotSell;

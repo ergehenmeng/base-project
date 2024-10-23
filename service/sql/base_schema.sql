@@ -1031,29 +1031,29 @@ CREATE TABLE `scenic`
 DROP TABLE IF EXISTS `scenic_ticket`;
 CREATE TABLE `scenic_ticket`
 (
-    `id`                bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `scenic_id`         bigint(20)          DEFAULT NULL COMMENT '门票所属景区',
-    `merchant_id`       bigint(20)          DEFAULT NULL COMMENT '所属商家',
-    `title`             varchar(50)         DEFAULT NULL COMMENT '门票名称',
-    `state`             tinyint(1)          DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:平台下架',
-    `category`          tinyint(2)          DEFAULT NULL COMMENT '门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合',
-    `hot_sell`          bit(1)              DEFAULT b'0' COMMENT '是否为热销商品 true:是 false:不是',
-    `line_price`        int(10)             DEFAULT NULL COMMENT '划线价',
-    `sale_price`        int(10)             DEFAULT '0' COMMENT '销售价',
-    `advance_day`       tinyint(2) unsigned DEFAULT NULL COMMENT '提前多少天购票',
-    `quota`             tinyint(2)          DEFAULT '99' COMMENT '单次最大购买数量',
-    `start_date`        date                DEFAULT NULL COMMENT '开始预订时间',
-    `end_date`          date                DEFAULT NULL COMMENT '截止预订时间',
-    `stock`             int(10)             DEFAULT '0' COMMENT '剩余库存',
-    `sale_num`          int(10)             DEFAULT '0' COMMENT '真实销售数量',
-    `total_num`         int(10)             DEFAULT '0' COMMENT '总销量=实际销量+虚拟销量',
-    `introduce`         longtext COMMENT '门票介绍',
-    `real_buy`          bit(1)              DEFAULT b'0' COMMENT '是否实名购票 0:不实名 1:实名',
-    `create_month`      varchar(20)         DEFAULT NULL COMMENT '创建月份',
-    `create_date`       date                DEFAULT null COMMENT '创建日期',
-    `create_time`       datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间(订单创建时间)',
-    `update_time`       datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`           bit(1)              DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
+    `id`           bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `scenic_id`    bigint(20)          DEFAULT NULL COMMENT '门票所属景区',
+    `merchant_id`  bigint(20)          DEFAULT NULL COMMENT '所属商家',
+    `title`        varchar(50)         DEFAULT NULL COMMENT '门票名称',
+    `state`        tinyint(1)          DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:平台下架',
+    `category`     tinyint(2)          DEFAULT NULL COMMENT '门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合',
+    `hot_sell`     bit(1)              DEFAULT b'0' COMMENT '是否为热销商品 true:是 false:不是',
+    `line_price`   int(10)             DEFAULT NULL COMMENT '划线价',
+    `sale_price`   int(10)             DEFAULT '0' COMMENT '销售价',
+    `advance_day`  tinyint(2) unsigned DEFAULT NULL COMMENT '提前多少天购票',
+    `quota`        tinyint(2)          DEFAULT '99' COMMENT '单次最大购买数量',
+    `start_date`   date                DEFAULT NULL COMMENT '开始预订时间',
+    `end_date`     date                DEFAULT NULL COMMENT '截止预订时间',
+    `stock`        int(10)             DEFAULT '0' COMMENT '剩余库存',
+    `sale_num`     int(10)             DEFAULT '0' COMMENT '真实销售数量',
+    `total_num`    int(10)             DEFAULT '0' COMMENT '总销量=实际销量+虚拟销量',
+    `introduce`    longtext COMMENT '门票介绍',
+    `real_buy`     bit(1)              DEFAULT b'0' COMMENT '是否实名购票 0:不实名 1:实名',
+    `create_month` varchar(20)         DEFAULT NULL COMMENT '创建月份',
+    `create_date`  date                DEFAULT null COMMENT '创建日期',
+    `create_time`  datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间(订单创建时间)',
+    `update_time`  datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`      bit(1)              DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='景区门票信息表';
@@ -1062,20 +1062,20 @@ CREATE TABLE `scenic_ticket`
 DROP TABLE IF EXISTS `ticket_order`;
 CREATE TABLE `ticket_order`
 (
-    `id`                bigint(20) NOT NULL COMMENT '主键',
-    `scenic_id`         bigint(20)   DEFAULT NULL COMMENT '门票所属景区id(冗余字段)',
-    `scenic_name`       varchar(50)  DEFAULT NULL COMMENT '景区名称(冗余字段)',
-    `order_no`          varchar(30)  DEFAULT NULL COMMENT '订单编号',
-    `line_price`        int(10)      DEFAULT NULL DEFAULT NULL COMMENT '划线价',
-    `category`          tinyint(2)   DEFAULT NULL COMMENT '门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合',
-    `visit_date`        date         DEFAULT NULL COMMENT '预计游玩日期',
-    `real_buy`          bit(1)       DEFAULT b'0' COMMENT '是否实名购票 0:不实名 1:实名',
-    `introduce`         longtext COMMENT '门票介绍',
-    `ticket_id`         bigint(20)   DEFAULT NULL COMMENT '门票id',
-    `use_time`          datetime     DEFAULT NULL COMMENT '使用时间',
-    `create_time`       datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`       datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`           varchar(255) DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `scenic_id`   bigint(20)  DEFAULT NULL COMMENT '门票所属景区id(冗余字段)',
+    `scenic_name` varchar(50) DEFAULT NULL COMMENT '景区名称(冗余字段)',
+    `order_no`    varchar(30) DEFAULT NULL COMMENT '订单编号',
+    `line_price`  int(10)     DEFAULT NULL DEFAULT NULL COMMENT '划线价',
+    `category`    tinyint(2)  DEFAULT NULL COMMENT '门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合',
+    `visit_date`  date        DEFAULT NULL COMMENT '预计游玩日期',
+    `real_buy`    bit(1)      DEFAULT b'0' COMMENT '是否实名购票 0:不实名 1:实名',
+    `introduce`   longtext COMMENT '门票介绍',
+    `ticket_id`   bigint(20)  DEFAULT NULL COMMENT '门票id',
+    `use_time`    datetime    DEFAULT NULL COMMENT '使用时间',
+    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)      DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='门票订单表';
@@ -1352,7 +1352,7 @@ CREATE TABLE `homestay_order`
     `remark`         varchar(200)  DEFAULT NULL COMMENT '确认备注信息',
     `create_time`    datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`        varchar(255)  DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
+    `deleted`        bit(1)        DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='民宿订单表';
@@ -2469,10 +2469,10 @@ CREATE TABLE `merchant_address`
     `city_id`        bigint(20)   DEFAULT NULL COMMENT '城市id',
     `county_id`      bigint(20)   DEFAULT NULL COMMENT '县区id',
     `detail_address` varchar(255) DEFAULT NULL COMMENT '详细地址',
-    `deleted`        bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     `remark`         varchar(200) DEFAULT NULL COMMENT '备注信息',
     `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`        bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
     KEY `idx_merchant_id` (`merchant_id`)
 ) ENGINE = InnoDB
@@ -2524,4 +2524,35 @@ CREATE TABLE `voucher_tag`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='餐饮券分类标签';
+
+CREATE TABLE `ticket_order_snapshot`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `scenic_id`   bigint(20)  DEFAULT NULL COMMENT '门票所属景区id',
+    `order_no`    varchar(30) DEFAULT NULL COMMENT '订单编号',
+    `line_price`  int(10)     DEFAULT NULL COMMENT '划线价',
+    `sale_price`  int(10)     DEFAULT NULL COMMENT '销售价',
+    `category`    tinyint(2)  DEFAULT NULL COMMENT '门票种类 门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学',
+    `real_buy`    bit(1)      DEFAULT b'0' COMMENT '是否实名购票 0:不实名 1:实名',
+    `introduce`   longtext COMMENT '门票介绍',
+    `ticket_id`   bigint(20)  DEFAULT NULL COMMENT '门票id',
+    `use_time`    datetime    DEFAULT NULL COMMENT '使用时间',
+    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)      DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='组合票订单表';
+
+CREATE TABLE `ticket_combine`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `ticket_id`   bigint(20) comment '组合票ID',
+    `relation_id` bigint(20) comment '关联票ID',
+    `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `deleted`     bit(1)   DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='组合票关联表';
+
 

@@ -9,6 +9,7 @@ import com.eghm.enums.event.impl.TicketEvent;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.RefundType;
+import com.eghm.enums.ref.TicketType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.Scenic;
@@ -45,12 +46,16 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
 
     private final OrderService orderService;
 
-    public TicketOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, ScenicService scenicService, TicketOrderService ticketOrderService, RedeemCodeGrantService redeemCodeGrantService) {
+    private final TicketOrderSnapshotService ticketOrderSnapshotService;
+
+    public TicketOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService,
+                                    ScenicService scenicService, TicketOrderService ticketOrderService, RedeemCodeGrantService redeemCodeGrantService, TicketOrderSnapshotService ticketOrderSnapshotService) {
         super(orderMQService, memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.scenicService = scenicService;
         this.scenicTicketService = scenicTicketService;
         this.ticketOrderService = ticketOrderService;
         this.orderService = orderService;
+        this.ticketOrderSnapshotService = ticketOrderSnapshotService;
     }
 
     @Override
@@ -141,6 +146,10 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         ticketOrder.setVisitDate(context.getVisitDate());
         ticketOrder.setScenicName(payload.getScenic().getScenicName());
         ticketOrderService.insert(ticketOrder);
+
+        if (payload.getTicket().getCategory() == TicketType.COMBINE) {
+            ticketOrderSnapshotService.insert(order.getOrderNo(), payload.getTicket().getId());
+        }
         context.setOrderNo(order.getOrderNo());
     }
 

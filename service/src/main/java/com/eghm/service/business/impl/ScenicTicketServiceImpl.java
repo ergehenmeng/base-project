@@ -13,6 +13,7 @@ import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.State;
+import com.eghm.enums.ref.TicketType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.mapper.ScenicTicketMapper;
@@ -21,6 +22,7 @@ import com.eghm.model.ScenicTicket;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ScenicService;
 import com.eghm.service.business.ScenicTicketService;
+import com.eghm.service.business.TicketCombineService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
 import com.eghm.utils.DecimalUtil;
@@ -49,6 +51,8 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     private final ScenicTicketMapper scenicTicketMapper;
 
+    private final TicketCombineService ticketCombineService;
+
     private final OrderEvaluationMapper orderEvaluationMapper;
 
     @Override
@@ -73,6 +77,10 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         ticket.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         scenicTicketMapper.insert(ticket);
         scenicService.updatePrice(request.getScenicId());
+
+        if (ticket.getCategory() == TicketType.COMBINE) {
+            ticketCombineService.insert(ticket.getId(), request.getTicketIds());
+        }
     }
 
     @Override
@@ -87,6 +95,9 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         ticket.setTotalNum(request.getVirtualNum() + scenicTicket.getSaleNum());
         scenicTicketMapper.updateById(ticket);
         scenicService.updatePrice(request.getScenicId());
+        if (ticket.getCategory() == TicketType.COMBINE) {
+            ticketCombineService.insert(ticket.getId(), request.getTicketIds());
+        }
     }
 
     @Override

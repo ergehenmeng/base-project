@@ -67,7 +67,6 @@ public enum TicketType implements EnumBinder {
     @ExcelDesc
     private final String name;
 
-
     @Override
     public String toString() {
         return value + ":" + name;

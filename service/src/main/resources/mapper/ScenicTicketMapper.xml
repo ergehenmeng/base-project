@@ -88,4 +88,18 @@
         </if>
         order by t.id desc
     </select>
+
+    <select id="getCombineList" resultType="com.eghm.model.ScenicTicket">
+        select
+            t.id,
+            t.scenic_id,
+            t.title,
+            t.line_price,
+            t.sale_price,
+            t.category,
+            t.introduce,
+            t.real_buy
+        from scenic_ticket t left join ticket_combine r on t.id = r.relation_id
+        where r.ticket_id = #{ticketId} and r.deleted = false and t.deleted = false and t.state = 1
+    </select>
 </mapper>

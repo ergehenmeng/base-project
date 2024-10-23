@@ -2,6 +2,7 @@ package com.eghm.dto.business.scenic.ticket;
 
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.dto.ext.DateComparator;
+import com.eghm.enums.ref.TicketType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author 二哥很猛 2022/6/15 21:13
@@ -39,8 +41,11 @@ public class ScenicTicketEditRequest extends DateComparator {
     private String title;
 
     @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合", required = true)
-    @OptionInt(value = {1, 2, 3}, message = "门票种类错误")
-    private Integer category;
+    @NotNull(message = "门票种类不能为空")
+    private TicketType category;
+
+    @ApiModelProperty(value = "组合票关联的票id")
+    private List<Long> ticketIds;
 
     @ApiModelProperty(value = "划线价")
     @JsonDeserialize(using = YuanToCentDecoder.class)
