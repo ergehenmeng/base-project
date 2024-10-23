@@ -14,7 +14,6 @@
         t.start_date,
         t.end_date,
         t.stock,
-        t.verification_type,
         t.real_buy,
         r.scenic_name,
         t.create_time,

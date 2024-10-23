@@ -110,15 +110,6 @@
         where t.id = #{orderId} and t.order_no = #{orderNo} and t.deleted = false
     </select>
 
-    <select id="getUnVerifyList" resultType="com.eghm.vo.business.order.ticket.TicketVerifyVO">
-        select
-            t.order_no,
-            t.merchant_id
-        from ticket_order r
-        inner join `order` t on t.order_no = r.order_no
-        where t.deleted = false and r.deleted = false and t.state = 2 and r.verification_type = 2 and r.visit_date &lt; curdate()
-    </select>
-
     <select id="detail" resultType="com.eghm.vo.business.order.ticket.TicketOrderDetailResponse">
         select
             t.order_no,
@@ -128,7 +119,6 @@
             t.scenic_name,
             t.category,
             r.trade_no,
-            t.verification_type,
             t.visit_date,
             r.pay_type,
             r.num,

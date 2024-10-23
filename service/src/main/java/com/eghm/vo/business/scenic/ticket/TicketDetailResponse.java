@@ -31,7 +31,7 @@ public class TicketDetailResponse {
     @ApiModelProperty("景区名称")
     private String scenicName;
 
-    @ApiModelProperty(value = "门票种类 1:成人票 2:老人票 3:儿童票")
+    @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
     private Integer category;
 
     @ApiModelProperty(value = "划线价")
@@ -61,9 +61,6 @@ public class TicketDetailResponse {
 
     @ApiModelProperty(value = "剩余库存")
     private Integer stock;
-
-    @ApiModelProperty(value = "核销方式 1:手动核销 2:自动核销(凌晨自动核销)")
-    private Integer verificationType;
 
     @ApiModelProperty(value = "是否实名购票 false:不实名 true:实名")
     private Boolean realBuy;

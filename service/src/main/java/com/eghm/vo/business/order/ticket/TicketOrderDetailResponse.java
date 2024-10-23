@@ -56,11 +56,8 @@ public class TicketOrderDetailResponse {
     @ApiModelProperty(value = "订单状态")
     private OrderState state;
 
-    @ApiModelProperty(value = "门票种类 1:成人票 2:老人票 3:儿童票")
+    @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
     private Integer category;
-
-    @ApiModelProperty(value = "核销方式 1:手动核销 2:自动核销(凌晨自动核销)")
-    private Integer verificationType;
 
     @ApiModelProperty("当前订单所处的退款状态 1:退款申请中 2:退款中 3:退款拒绝 4:退款成功 5:退款失败(该状态和退款中在C端用户看来都是退款中) 6:线下退款(该状态与退款成功在C端用户看来是一样的)")
     private RefundState refundState;

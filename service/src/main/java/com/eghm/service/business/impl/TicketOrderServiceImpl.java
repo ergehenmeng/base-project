@@ -19,7 +19,10 @@ import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
-import com.eghm.vo.business.order.ticket.*;
+import com.eghm.vo.business.order.ticket.TicketOrderDetailResponse;
+import com.eghm.vo.business.order.ticket.TicketOrderDetailVO;
+import com.eghm.vo.business.order.ticket.TicketOrderResponse;
+import com.eghm.vo.business.order.ticket.TicketOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -94,11 +97,6 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     @Override
     public ProductSnapshotVO getSnapshot(Long orderId, String orderNo) {
         return ticketOrderMapper.getSnapshot(orderId, orderNo);
-    }
-
-    @Override
-    public List<TicketVerifyVO> getUnVerifyList() {
-        return ticketOrderMapper.getUnVerifyList();
     }
 
     @Override

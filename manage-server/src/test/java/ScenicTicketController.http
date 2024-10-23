@@ -20,7 +20,6 @@ Content-Type: application/json
   "stock": 100,
   "introduce": "门票详细介绍-门票包含XX",
   "useScope": 31,
-  "verificationType": 1,
   "refundType": 0,
   "realBuy": false
 }
@@ -45,7 +44,6 @@ Content-Type: application/json
   "stock": 100,
   "introduce": "门票详细介绍-门票包含XX编辑",
   "useScope": 31,
-  "verificationType": 1,
   "refundType": 0,
   "realBuy": false
 }

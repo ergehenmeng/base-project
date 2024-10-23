@@ -9,7 +9,6 @@ import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.ref.State;
 import com.eghm.enums.ref.TicketType;
-import com.eghm.enums.ref.VerificationType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -41,7 +40,7 @@ public class TicketResponse extends ExcelStyle {
     @ExcelProperty(value = "所属景区", index = 1)
     private String scenicName;
 
-    @ApiModelProperty(value = "票种 1:成人票 2:老人票 3:儿童票")
+    @ApiModelProperty(value = "票种类型 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
     @ExcelProperty(value = "票种", index = 2, converter = EnumExcelConverter.class)
     private TicketType category;
 
@@ -73,10 +72,6 @@ public class TicketResponse extends ExcelStyle {
     @ApiModelProperty(value = "剩余库存")
     @ExcelProperty(value = "剩余库存", index = 8)
     private Integer stock;
-
-    @ApiModelProperty(value = "核销方式 1:手动核销 2:自动核销(凌晨自动核销)")
-    @ExcelProperty(value = "核销方式", index = 9, converter = EnumExcelConverter.class)
-    private VerificationType verificationType;
 
     @ApiModelProperty(value = "是否实名 false:不实名 true:实名")
     @ExcelProperty(value = "是否实名", index = 10, converter = BooleanExcelConverter.class)

@@ -39,11 +39,8 @@ public class TicketOrder extends BaseEntity {
     @ApiModelProperty("预计游玩日期")
     private LocalDate visitDate;
 
-    @ApiModelProperty(value = "门票种类 1: 成人票 2: 老人票 3:儿童票")
+    @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
     private Integer category;
-
-    @ApiModelProperty(value = "核销方式 1:手动核销 2:自动核销 (凌晨自动核销)")
-    private Integer verificationType;
 
     @ApiModelProperty(value = "是否实名购票 0:不实名 1:实名")
     private Boolean realBuy;

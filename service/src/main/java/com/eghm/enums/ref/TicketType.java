@@ -18,19 +18,40 @@ import lombok.Getter;
 public enum TicketType implements EnumBinder {
 
     /**
-     * 成人票
+     * 成人
      */
-    ADULT(1, "成人票"),
+    ADULT(1, "成人"),
 
     /**
-     * 老人票
+     * 老人
      */
-    OLD(2, "老人票"),
+    OLD(2, "老人"),
 
     /**
-     * 儿童票
+     * 儿童
      */
-    CHILD(3, "儿童票"),
+    CHILD(3, "儿童"),
+
+    /**
+     * 演出
+     */
+    SHOW(4, "演出"),
+
+    /**
+     * 活动
+     */
+    ACTIVITY(5, "活动"),
+
+    /**
+     *  研学
+     */
+    STUDY(6, "研学"),
+
+    /**
+     *  组合
+     */
+    COMBINE(7, "组合"),
+    ;
     ;
 
     /**
