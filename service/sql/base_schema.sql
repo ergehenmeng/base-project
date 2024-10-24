@@ -2528,6 +2528,7 @@ CREATE TABLE `voucher_tag`
 CREATE TABLE `ticket_order_snapshot`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
+    `title`       varchar(50) DEFAULT NULL COMMENT '门票名称',
     `scenic_id`   bigint(20)  DEFAULT NULL COMMENT '门票所属景区id',
     `order_no`    varchar(30) DEFAULT NULL COMMENT '订单编号',
     `line_price`  int(10)     DEFAULT NULL COMMENT '划线价',

@@ -2,6 +2,10 @@ package com.eghm.mapper;
 
 import com.eghm.model.TicketOrderSnapshot;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.vo.business.scenic.ticket.CombineTicketVO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface TicketOrderSnapshotMapper extends BaseMapper<TicketOrderSnapshot> {
 
+    /**
+     * 获取组合票订单信息
+     *
+     * @param orderNo 订单号
+     * @return 组合票订单信息
+     */
+    List<CombineTicketVO> getList(@Param("orderNo") String orderNo);
 }

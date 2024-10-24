@@ -1,5 +1,7 @@
 package com.eghm.vo.business.order;
 
+import com.eghm.enums.ref.TicketType;
+import com.eghm.vo.business.scenic.ticket.CombineTicketVO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -31,4 +33,6 @@ public class OrderScanVO {
     @ApiModelProperty("游客列表")
     private List<VisitorVO> visitorList;
 
+    @ApiModelProperty("组合门票(只有订单为门票且为组合票时才会有此项)")
+    private List<CombineTicketVO> combineTicket;
 }

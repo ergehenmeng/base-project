@@ -28,6 +28,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.mapper.MerchantMapper;
 import com.eghm.mapper.OrderMapper;
+import com.eghm.mapper.TicketOrderSnapshotMapper;
 import com.eghm.model.*;
 import com.eghm.mq.service.MessageService;
 import com.eghm.pay.AggregatePayService;
@@ -50,6 +51,7 @@ import com.eghm.vo.business.order.VisitorVO;
 import com.eghm.vo.business.order.item.ExpressDetailVO;
 import com.eghm.vo.business.order.item.ExpressVO;
 import com.eghm.vo.business.order.item.ItemOrderRefundVO;
+import com.eghm.vo.business.scenic.ticket.CombineTicketVO;
 import com.eghm.vo.business.statistics.*;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
@@ -119,6 +121,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private final MerchantAddressService merchantAddressService;
 
     private final OfflineRefundLogService offlineRefundLogService;
+
+    private final TicketOrderSnapshotMapper ticketOrderSnapshotMapper;
 
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType, String clientIp) {
@@ -345,6 +349,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(order.getOrderNo());
         List<VisitorVO> voList = DataUtil.copy(visitorList, VisitorVO.class);
         vo.setVisitorList(voList);
+        if (order.getProductType() == ProductType.TICKET) {
+            List<CombineTicketVO> mapperList = ticketOrderSnapshotMapper.getList(order.getOrderNo());
+            vo.setCombineTicket(mapperList);
+        }
         return vo;
     }
 
