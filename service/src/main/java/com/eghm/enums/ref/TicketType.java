@@ -48,7 +48,7 @@ public enum TicketType implements EnumBinder {
     STUDY(6, "研学"),
 
     /**
-     *  组合
+     *  组合 默认实名制
      */
     COMBINE(7, "组合"),
     ;

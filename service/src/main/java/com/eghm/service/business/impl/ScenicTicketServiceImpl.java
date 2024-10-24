@@ -28,6 +28,7 @@ import com.eghm.utils.DateUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
+import com.eghm.vo.business.scenic.ticket.CombineTicketVO;
 import com.eghm.vo.business.scenic.ticket.TicketResponse;
 import com.eghm.vo.business.scenic.ticket.TicketVO;
 import lombok.AllArgsConstructor;
@@ -133,7 +134,12 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     @Override
     public TicketVO detailById(Long id) {
         ScenicTicket ticket = this.selectByIdShelve(id);
-        return DataUtil.copy(ticket, TicketVO.class);
+        TicketVO vo = DataUtil.copy(ticket, TicketVO.class);
+        if (ticket.getCategory() == TicketType.COMBINE) {
+            List<ScenicTicket> ticketList = scenicTicketMapper.getCombineList(id);
+            vo.setCombineList(DataUtil.copy(ticketList, CombineTicketVO.class));
+        }
+        return vo;
     }
 
     @Override

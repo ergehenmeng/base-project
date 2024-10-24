@@ -40,6 +40,7 @@
         select
         id,
         title,
+        category,
         stock,
         line_price,
         sale_price

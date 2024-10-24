@@ -1,6 +1,7 @@
 package com.eghm.vo.business.scenic.ticket;
 
 import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.enums.ref.TicketType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -8,6 +9,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -23,7 +25,7 @@ public class TicketVO {
     private String title;
 
     @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
-    private Integer category;
+    private TicketType category;
 
     @ApiModelProperty(value = "划线价")
     @JsonSerialize(using = CentToYuanEncoder.class)
@@ -59,4 +61,6 @@ public class TicketVO {
     @ApiModelProperty("分数")
     private BigDecimal score;
 
+    @ApiModelProperty("组合票详细信息")
+    private List<CombineTicketVO> combineList;
 }
