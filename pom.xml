@@ -75,8 +75,6 @@
         <sharding-jdbc.version>2.0.3</sharding-jdbc.version>
         <!--redis客户端工具-->
         <redisson.version>3.17.7</redisson.version>
-        <!--cglib代理-->
-        <cglib.version>3.2.5</cglib.version>
         <!--lucene搜索-->
         <lucene.version>3.2.5</lucene.version>
         <!--api文档-->
