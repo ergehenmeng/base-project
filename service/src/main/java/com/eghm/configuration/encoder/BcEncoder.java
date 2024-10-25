@@ -1,7 +1,7 @@
 package com.eghm.configuration.encoder;
 
+import cn.hutool.crypto.digest.BCrypt;
 import lombok.extern.slf4j.Slf4j;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.regex.Pattern;
 
