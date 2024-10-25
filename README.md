@@ -24,10 +24,10 @@
 
 * 开启定时任务添加`@EnableTask`注解即可(建议使用)
     * 支持数据库配置cron定时,spring原生注解定时,单次执行的定时
-    * 在 `job_task` 表中 `bean_name` 字段为要执行定时任务的bean的名称 `cron_expression` 为cron表达式 `bean_method`
+    * 在 `sys_task` 表中 `bean_name` 字段为要执行定时任务的bean的名称 `cron_expression` 为cron表达式 `bean_method`
       为方法名 `args` 方法入参
     * 定时任务配置更新后需要 *手动刷新配置* 才能重新生效
-    * 只执行一次的定时任务可通过 `TaskConfiguration.addTask()` 实现
+    * 只执行一次的定时任务可通过 `SysTaskRegistrar.addTask()` 实现
     * demo例子`TestJobService` `OnceJobService`
     * 注意: bean方法定义时必须包含一个字符串类型的入参, 且方法必须是 `public`, 强烈建议方法上添加 `@ScheduledTask`
       注解作为定时任务标注一下
@@ -35,9 +35,8 @@
 
 ### 其他
 
-* 刷新缓存由缓存管理模块统一管理,后台需要开发其他缓存刷新功能,则在`ClearCacheService`,`SystemCacheService`中按指定格式修改
+* 刷新缓存由缓存管理模块统一管理,后台需要开发其他缓存刷新功能,则在`ClearCacheService`中按指定格式修改
 * 异步任务可采用原生`@Async` + `AsyncConfigurer`实现异步或者MQ
-* `KeyGenerator` 订单号生成类
 * `CacheProxyService` 缓存代理类(为了防止同一个类中调用本类其他带有 `@Cacheable` , `@CachePut`
   注解的方法无效问题而额外增加的类)
 * `EmailService` 简单发送邮件的工具类,配合 `HtmlTemplate` 类可实现发送html的邮件(样式图片必须定义在模板文件中)
@@ -92,8 +91,7 @@
 * 涉及分页查询必须继承 `PagingQuery` 类(内部会校验页容量等信息)
 * 分页响应对象最好为 `RespBody<Paging<T>>` ,做统一的处理
 * 禁止使用枚举ordinal()或name()作为参数进行传递,必须显式声明
-* 全局默认post请求有频率限制,具体在 `SubmitIntervalInterceptor` 声明, 可在配置文件中调整, 同时可通过 `@SubmitInterval`
-  调整个别接口的频率
+* 全局默认post请求有频率限制,具体在 `SubmitIntervalInterceptor` 声明, 可在配置文件中调整
 * `ProductType` 商品类型枚举, 提供常用方法, 例如: 生成订单编号 `generateOrderNo()`, 生成交易单号 `generateSerialNo`
 
 ## 其他开发说明
@@ -124,7 +122,7 @@
 * `@ExcelDict` 导出Excel时, 如果数据库保存的字段为数据字典,则可以通过该自动自动转换为格式化好的文本 (前提:
   数据字典必须已定义)
 * `XssEncoder` xss过滤工具, 防止xss攻击,使用方式: 在需要过滤xss的字段上添加 `@JsonDeserialize(using = XssEncoder.class)`
-* `com.eghm.validation.annotation` 包有自定义校验注解, 可根据实际场景使用. **注意:** `@sinceCompare` 日期比较, 需要 pojo
+* `com.eghm.validation.annotation` 包有自定义校验注解, 可根据实际场景使用. **注意:** `@DateCompare` 日期比较, 需要 pojo
   继承 `DateComparator` 或者 `DatePagingComparator` (一个带分页,一个不带分页), 或者在 pojo定义以便于实现特殊提示语.
 * `@WordChecker` 是敏感词校验注解
 * `@Desensitization` 脱敏注解,添加到需要进行脱敏的字段上, 例如: `@Desensitization(FieldType.MOBILE_PHONE)`
