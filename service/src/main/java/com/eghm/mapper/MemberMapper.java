@@ -3,17 +3,10 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.member.MemberQueryRequest;
-import com.eghm.dto.statistics.DateRequest;
 import com.eghm.model.Member;
-import com.eghm.model.MemberTag;
-import com.eghm.vo.business.statistics.MemberChannelVO;
-import com.eghm.vo.business.statistics.MemberRegisterVO;
-import com.eghm.vo.business.statistics.MemberSexVO;
 import com.eghm.vo.member.MemberResponse;
 import org.apache.ibatis.annotations.Param;
 
-import java.time.LocalDate;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -31,32 +24,6 @@ public interface MemberMapper extends BaseMapper<Member> {
     Page<MemberResponse> listPage(Page<MemberResponse> page, @Param("param") MemberQueryRequest request);
 
     /**
-     * 注册统计(渠道)
-     *
-     * @param startDate 开始日期
-     * @param endDate 结束日期
-     * @return  注册数量
-     */
-    List<MemberChannelVO> channelStatistics(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
-
-    /**
-     * 注册统计(性别)
-     *
-     * @param startDate 开始日期
-     * @param endDate 结束日期
-     * @return  注册数量
-     */
-    List<MemberSexVO> sexStatistics(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
-
-    /**
-     * 注册统计 按天或按月
-     *
-     * @param request 查询条件
-     * @return 注册数量
-     */
-    List<MemberRegisterVO> dayRegister(DateRequest request);
-
-    /**
      * 更新会员积分
      *
      * @param memberId 用户id
@@ -64,14 +31,6 @@ public interface MemberMapper extends BaseMapper<Member> {
      * @return 1
      */
     int updateScore(@Param("memberId") Long memberId, @Param("score") Integer score);
-
-    /**
-     * 查询在指定时间内注册的会员id
-     *
-     * @param memberTag 标签信息
-     * @return ids
-     */
-    Collection<Long> getMemberIds(MemberTag memberTag);
 
     /**
      * 查询会员手机号

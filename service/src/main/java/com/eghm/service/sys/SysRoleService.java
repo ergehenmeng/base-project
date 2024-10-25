@@ -37,7 +37,7 @@ public interface SysRoleService {
      *
      * @param id 主键
      */
-    void delete(Long id, Long merchantId);
+    void delete(Long id);
 
     /**
      * 添加角色信息

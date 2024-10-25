@@ -7,12 +7,10 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.member.MemberQueryRequest;
 import com.eghm.dto.member.log.LoginLogQueryRequest;
 import com.eghm.dto.member.tag.SendNotifyRequest;
-import com.eghm.dto.member.tag.SendSmsRequest;
 import com.eghm.model.LoginLog;
 import com.eghm.service.member.LoginService;
 import com.eghm.service.member.MemberNoticeService;
 import com.eghm.service.member.MemberService;
-import com.eghm.service.member.MemberTagScopeService;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.member.MemberResponse;
 import io.swagger.annotations.Api;
@@ -40,8 +38,6 @@ public class MemberController {
     private final MemberService memberService;
 
     private final MemberNoticeService memberNoticeService;
-
-    private final MemberTagScopeService memberTagScopeService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
@@ -92,10 +88,4 @@ public class MemberController {
         return RespBody.success();
     }
 
-    @PostMapping(value = "/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("发送消息")
-    public RespBody<Void> sendSms(@Validated @RequestBody SendSmsRequest request) {
-        memberTagScopeService.sendSms(request);
-        return RespBody.success();
-    }
 }

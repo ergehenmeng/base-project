@@ -23,8 +23,6 @@ import com.eghm.enums.SmsType;
 import com.eghm.enums.UserType;
 import com.eghm.enums.ref.UserState;
 import com.eghm.exception.BusinessException;
-import com.eghm.mapper.MerchantMapper;
-import com.eghm.mapper.MerchantUserMapper;
 import com.eghm.mapper.SysUserMapper;
 import com.eghm.model.SysDataDept;
 import com.eghm.model.SysUser;
@@ -65,15 +63,11 @@ public class SysUserServiceImpl implements SysUserService {
 
     private final SysRoleService sysRoleService;
 
-    private final MerchantMapper merchantMapper;
-
     private final SysMenuService sysMenuService;
 
     private final UserTokenService userTokenService;
 
     private final SysDataDeptService sysDataDeptService;
-
-    private final MerchantUserMapper merchantUserMapper;
 
     @Override
     public Page<UserResponse> getByPage(UserQueryRequest request) {
@@ -258,27 +252,17 @@ public class SysUserServiceImpl implements SysUserService {
             leftMenu = sysMenuService.getLeftMenuList(user.getId());
         }
 
-        int merchantType = 0;
-        if (userType == UserType.MERCHANT_ADMIN) {
-            merchantType = sysUserMapper.getMerchantType(user.getId());
-        } else if (userType == UserType.MERCHANT_USER) {
-            merchantType = merchantUserMapper.getMerchantType(user.getId());
-        }
-
         // 数据权限(此处没有判断,逻辑不够严谨,仅仅为了代码简洁)
         List<String> customList = sysDataDeptService.getDeptList(user.getId());
-        Long merchantId = this.getMerchantId(user.getId(), user.getUserType());
 
-        String token = userTokenService.createToken(user, merchantId, buttonList, customList);
+        String token = userTokenService.createToken(user, buttonList, customList);
 
         LoginResponse response = new LoginResponse();
-        response.setMerchantId(merchantId);
         response.setToken(token);
         response.setNickName(user.getNickName());
         response.setPermList(buttonList);
         response.setUserType(user.getUserType());
         response.setMenuList(leftMenu);
-        response.setMerchantType(merchantType);
         response.setInit(user.getInitPwd().equals(user.getPwd()));
         response.setExpire(user.getPwdUpdateTime().plusDays(CommonConstant.PWD_UPDATE_TIPS).isBefore(LocalDateTime.now()));
         cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
@@ -333,31 +317,6 @@ public class SysUserServiceImpl implements SysUserService {
             throw new BusinessException(ErrorCode.USER_LOCKED_ERROR);
         }
         return user;
-    }
-
-    /**
-     * 查询用户关联的商户id, 只针对普通商户
-     *
-     * @param userId   userId
-     * @param userType 用户类型
-     * @return merchantId
-     */
-    private Long getMerchantId(Long userId, UserType userType) {
-        Long merchantId = null;
-        if (userType == UserType.MERCHANT_ADMIN) {
-            merchantId = merchantMapper.getByUserId(userId);
-            if (merchantId == null) {
-                log.error("商户信息未查询到 [{}]", userId);
-                throw new BusinessException(ErrorCode.MERCHANT_NOT_FOUND);
-            }
-        } else if (userType == UserType.MERCHANT_USER) {
-            merchantId = merchantUserMapper.getByUserId(userId);
-            if (merchantId == null) {
-                log.error("商户普通用户信息未查询到 [{}]", userId);
-                throw new BusinessException(ErrorCode.MERCHANT_NOT_FOUND);
-            }
-        }
-        return merchantId;
     }
 
     /**

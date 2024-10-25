@@ -2,7 +2,6 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.annotation.SkipPerm;
-import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.CheckBox;
 import com.eghm.dto.ext.PageData;
@@ -60,7 +59,7 @@ public class SysRoleController {
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
-        sysRoleService.delete(dto.getId(), SecurityHolder.getMerchantId());
+        sysRoleService.delete(dto.getId());
         return RespBody.success();
     }
 

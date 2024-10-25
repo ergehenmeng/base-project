@@ -1,24 +1,10 @@
 package com.eghm.web.controller;
 
 import com.eghm.constants.WeChatConstant;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
-import com.eghm.pay.AggregatePayService;
 import com.eghm.pay.PayNotifyLogService;
 import com.eghm.pay.PayService;
-import com.eghm.pay.enums.PayChannel;
-import com.eghm.pay.enums.RefundStatus;
 import com.eghm.pay.enums.StepType;
-import com.eghm.pay.enums.TradeType;
-import com.eghm.pay.vo.RefundVO;
-import com.eghm.service.business.CommonService;
-import com.eghm.service.business.ScanRechargeLogService;
-import com.eghm.state.machine.access.AbstractAccessHandler;
-import com.eghm.state.machine.access.AccessHandler;
-import com.eghm.state.machine.context.PayNotifyContext;
-import com.eghm.state.machine.context.RefundNotifyContext;
 import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
@@ -28,11 +14,13 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,15 +38,10 @@ public class PayNotifyController {
 
     private final PayService aliPayService;
 
-    private final CommonService commonService;
-
     private final PayService wechatPayService;
 
     private final PayNotifyLogService payNotifyLogService;
 
-    private final AggregatePayService aggregatePayService;
-
-    private final ScanRechargeLogService scanRechargeLogService;
 
     @PostMapping(ALI_PAY_NOTIFY_URL)
     @ApiOperation("支付宝支付回调")
@@ -70,11 +53,8 @@ public class PayNotifyController {
         String orderNo = stringMap.get("body");
         String tradeNo = stringMap.get("out_trade_no");
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
-        PayNotifyContext context = new PayNotifyContext();
-        context.setOrderNo(orderNo);
-        context.setTradeNo(tradeNo);
 
-        return this.aliResult(() -> this.handlePayNotify(context));
+        return this.aliResult(() -> log.error("支付宝支付回调: [{}] [{}]", orderNo, tradeNo));
     }
 
     @PostMapping(ALI_REFUND_NOTIFY_URL)
@@ -87,9 +67,8 @@ public class PayNotifyController {
         String refundNo = stringMap.get("out_biz_no");
         String tradeNo = stringMap.get("out_trade_no");
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
-        RefundNotifyContext context = this.generateContext(tradeNo, refundNo, TradeType.ALI_PAY);
 
-        return this.aliResult(() -> commonService.handleRefundNotify(context));
+        return this.aliResult(() -> log.error("支付宝退款回调: [{}] [{}]", refundNo, tradeNo));
     }
 
     @PostMapping(WECHAT_PAY_NOTIFY_URL)
@@ -101,11 +80,7 @@ public class PayNotifyController {
 
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         String orderNo = payNotify.getResult().getAttach();
-        PayNotifyContext context = new PayNotifyContext();
-        context.setOrderNo(orderNo);
-        context.setTradeNo(payNotify.getResult().getOutTradeNo());
-
-        return this.wechatResult(response, () -> this.handlePayNotify(context));
+        return this.wechatResult(response, () ->  log.error("微信支付回调: [{}] ", orderNo));
     }
 
     @PostMapping(WECHAT_REFUND_NOTIFY_URL)
@@ -117,72 +92,8 @@ public class PayNotifyController {
 
         String refundNo = payNotify.getResult().getOutRefundNo();
         String tradeNo = payNotify.getResult().getOutTradeNo();
-        // 不以第三方返回的状态为准, 而是通过接口查询订单状态
-        RefundNotifyContext context = this.generateContext(tradeNo, refundNo, TradeType.WECHAT_JSAPI);
 
-        return this.wechatResult(response, () -> commonService.handleRefundNotify(context));
-    }
-
-    @PostMapping("/mockPaySuccess")
-    @ApiOperation("模拟支付成功(测试)")
-    public RespBody<Void> mockPaySuccess(@RequestParam String orderNo, @RequestParam String tradeNo) {
-        PayNotifyContext context = new PayNotifyContext();
-        context.setOrderNo(orderNo);
-        context.setTradeNo(tradeNo);
-        context.setTradeType(TradeType.WECHAT_MINI);
-        context.setSuccessTime(LocalDateTime.now());
-        context.setFrom(OrderState.UN_PAY.getValue());
-        ((AbstractAccessHandler)commonService.getHandler(tradeNo, AccessHandler.class)).paySuccess(context);
-        return RespBody.success();
-    }
-
-    @PostMapping("/mockRefundSuccess")
-    @ApiOperation("模拟退款成功(测试)")
-    public RespBody<Void> mockRefundSuccess(@RequestParam("tradeNo") String tradeNo, @RequestParam("refundNo") String refundNo) {
-        RefundNotifyContext context = new RefundNotifyContext();
-        context.setTradeNo(tradeNo);
-        context.setRefundNo(refundNo);
-        context.setFrom(OrderState.REFUND.getValue());
-        RefundVO result = new RefundVO();
-        result.setState(RefundStatus.REFUND_SUCCESS);
-        result.setPayChannel(PayChannel.WECHAT);
-        result.setSuccessTime(LocalDateTime.now());
-        context.setResult(result);
-        ((AbstractAccessHandler)commonService.getHandler(tradeNo, AccessHandler.class)).refundSuccess(context);
-        return RespBody.success();
-    }
-
-    /**
-     * 生成退款回调上下文
-     *
-     * @param tradeNo  交易单号
-     * @param refundNo  退款单号
-     * @param tradeType 支付类型 只需要知道是微信或支付宝即可
-     * @return 上下文
-     */
-    private RefundNotifyContext generateContext(String tradeNo, String refundNo, TradeType tradeType) {
-        RefundNotifyContext context = new RefundNotifyContext();
-        RefundVO refund = aggregatePayService.queryRefund(tradeType, tradeNo, refundNo);
-        context.setResult(refund);
-        context.setTradeNo(tradeNo);
-        context.setRefundNo(refundNo);
-        return context;
-    }
-
-    /**
-     * 支付回调业务处理
-     *
-     * @param context 上下文
-     */
-    private void handlePayNotify(PayNotifyContext context) {
-        ProductType productType = ProductType.ofPrefix(context.getOrderNo());
-        if (productType != null) {
-            log.info("开始进行商品支付回调异步处理 [{}]", context.getTradeNo());
-            commonService.handlePayNotify(context);
-        } else if (context.getTradeNo().startsWith(SCORE_RECHARGE_PREFIX)) {
-            log.info("开始进行扫码充值回调异步处理 [{}]", context.getTradeNo());
-            scanRechargeLogService.rechargeNotify(context);
-        }
+        return this.wechatResult(response, () -> log.error("微信退款回调: [{}] [{}]", refundNo, tradeNo));
     }
 
     /**

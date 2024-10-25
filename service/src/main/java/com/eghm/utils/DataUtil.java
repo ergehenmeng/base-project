@@ -1,9 +1,7 @@
 package com.eghm.utils;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.PageData;
-import com.eghm.vo.business.BaseConfigResponse;
 import com.google.common.collect.Lists;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -12,11 +10,12 @@ import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
-import java.util.function.BiPredicate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * 主要针对移动端或前后端分离<br>
@@ -131,37 +130,6 @@ public class DataUtil {
             log.error("bean复制异常,不执行consumer [{}] [{}]", source, cls);
         }
         return copy;
-    }
-
-    /**
-     * 按月填充日态
-     *
-     * @param configList 原配置信息
-     * @param filter     过滤条件
-     * @param supplier   结果对象(空对象)
-     * @param monthDay   月份
-     * @param <S>        原对象
-     * @param <T>        结果对象
-     * @return list
-     */
-    public static <S, T extends BaseConfigResponse> List<T> paddingMonth(List<S> configList, BiPredicate<S, LocalDate> filter, Supplier<T> supplier, LocalDate monthDay) {
-        int ofMonth = monthDay.lengthOfMonth();
-        List<T> responseList = new ArrayList<>(45);
-        // 月初到月末进行拼装
-        for (int i = 0; i < ofMonth; i++) {
-            LocalDate localDate = monthDay.plusDays(i);
-            Optional<S> optional = configList.stream().filter(config -> filter.test(config, localDate)).findFirst();
-            T response = supplier.get();
-            if (optional.isPresent()) {
-                BeanUtil.copyProperties(optional.get(), response);
-                response.setHasSet(true);
-            } else {
-                response.setHasSet(false);
-                response.setConfigDate(localDate);
-            }
-            responseList.add(response);
-        }
-        return responseList;
     }
 
     /**

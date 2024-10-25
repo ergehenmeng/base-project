@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.mapper.PoiLinePointMapper">
-
-    <select id="getList" resultType="long">
-        select point_id from poi_line_point where line_id = #{lineId} and deleted = false order by sort
-    </select>
-
-</mapper>

@@ -7,16 +7,13 @@ import com.eghm.dto.member.BindEmailDTO;
 import com.eghm.dto.member.ChangeEmailDTO;
 import com.eghm.dto.member.MemberDTO;
 import com.eghm.dto.member.SendEmailAuthCodeDTO;
-import com.eghm.enums.ref.VisitType;
 import com.eghm.service.member.MemberInviteLogService;
 import com.eghm.service.member.MemberNoticeService;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.member.MemberInviteVO;
 import com.eghm.vo.member.MemberVO;
-import com.eghm.vo.member.SignInVO;
 import com.eghm.web.annotation.AccessToken;
-import com.eghm.web.annotation.VisitRecord;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -83,23 +80,8 @@ public class MemberController {
         return RespBody.success();
     }
 
-    @PostMapping("/signIn")
-    @ApiOperation("用户签到")
-    public RespBody<Void> signIn() {
-        memberService.signIn(ApiHolder.getMemberId());
-        return RespBody.success();
-    }
-
-    @GetMapping("/getSignIn")
-    @ApiOperation("获取用户签到信息")
-    public RespBody<SignInVO> getSignIn() {
-        SignInVO signIn = memberService.getSignIn(ApiHolder.getMemberId());
-        return RespBody.success(signIn);
-    }
-
     @GetMapping("/my")
     @ApiOperation("我的")
-    @VisitRecord(VisitType.SELF_CENTER)
     public RespBody<MemberVO> my() {
         MemberVO vo = memberService.memberHome(ApiHolder.getMemberId());
         Long unRead = memberNoticeService.countUnRead(ApiHolder.getMemberId());

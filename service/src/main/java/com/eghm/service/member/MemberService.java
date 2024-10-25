@@ -6,11 +6,7 @@ import com.eghm.dto.login.AccountLoginDTO;
 import com.eghm.dto.login.SmsLoginDTO;
 import com.eghm.dto.member.*;
 import com.eghm.dto.register.RegisterMemberDTO;
-import com.eghm.dto.statistics.DateRequest;
-import com.eghm.enums.ScoreType;
 import com.eghm.model.Member;
-import com.eghm.vo.business.statistics.MemberRegisterVO;
-import com.eghm.vo.business.statistics.MemberStatisticsVO;
 import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.vo.member.MemberResponse;
 import com.eghm.vo.member.MemberVO;
@@ -205,21 +201,6 @@ public interface MemberService {
     void changeEmail(ChangeEmailDTO request);
 
     /**
-     * 用户签到
-     *
-     * @param memberId 用户id
-     */
-    void signIn(Long memberId);
-
-    /**
-     * 获取用户签到信息 只显示当月签到信息
-     *
-     * @param memberId memberId
-     * @return 签到信息
-     */
-    SignInVO getSignIn(Long memberId);
-
-    /**
      * 通过邀请码查询用户信息
      *
      * @param inviteCode 邀请码
@@ -305,28 +286,4 @@ public interface MemberService {
      */
     void edit(Long memberId, MemberDTO dto);
 
-    /**
-     * 注册渠道
-     *
-     * @param request 统计日期
-     * @return 人数
-     */
-    MemberStatisticsVO sexChannel(DateRequest request);
-
-    /**
-     * 统计注册人数
-     *
-     * @param request 统计日期
-     * @return 人数
-     */
-    List<MemberRegisterVO> dayRegister(DateRequest request);
-
-    /**
-     * 更新会员积分
-     *
-     * @param memberId 用户id
-     * @param scoreType 积分类型
-     * @param score 积分数量
-     */
-    void updateScore(Long memberId, ScoreType scoreType, Integer score);
 }

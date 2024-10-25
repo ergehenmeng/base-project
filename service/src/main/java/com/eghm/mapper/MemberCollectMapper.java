@@ -3,13 +3,9 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.collect.CollectQueryDTO;
-import com.eghm.dto.statistics.CollectRequest;
 import com.eghm.model.MemberCollect;
 import com.eghm.vo.business.collect.MemberCollectVO;
-import com.eghm.vo.business.statistics.CollectStatisticsVO;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * <p>
@@ -30,11 +26,4 @@ public interface MemberCollectMapper extends BaseMapper<MemberCollect> {
      */
     Page<MemberCollectVO> getByPage(Page<MemberCollectVO> page, @Param("param") CollectQueryDTO dto);
 
-    /**
-     * 按天查询收藏数量
-     *
-     * @param request 查询条件
-     * @return 收藏数量
-     */
-    List<CollectStatisticsVO> dayCollect(CollectRequest request);
 }

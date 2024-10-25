@@ -8,7 +8,6 @@ import com.eghm.dto.banner.BannerEditRequest;
 import com.eghm.dto.banner.BannerQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.poi.StateRequest;
 import com.eghm.service.common.BannerService;
 import com.eghm.vo.banner.BannerResponse;
 import io.swagger.annotations.Api;
@@ -67,7 +66,7 @@ public class BannerController {
 
     @PostMapping(value = "/updateState", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新状态")
-    public RespBody<Void> updateState(@Validated @RequestBody StateRequest request) {
+    public RespBody<Void> updateState(@Validated @RequestBody SortByDTO.StateRequest request) {
         bannerService.updateState(request.getId(), request.getState());
         return RespBody.success();
     }

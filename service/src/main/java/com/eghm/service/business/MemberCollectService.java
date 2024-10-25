@@ -1,10 +1,8 @@
 package com.eghm.service.business;
 
 import com.eghm.dto.business.collect.CollectQueryDTO;
-import com.eghm.dto.statistics.CollectRequest;
 import com.eghm.enums.ref.CollectType;
 import com.eghm.vo.business.collect.MemberCollectVO;
-import com.eghm.vo.business.statistics.CollectStatisticsVO;
 
 import java.util.List;
 
@@ -42,12 +40,4 @@ public interface MemberCollectService {
      * @return false : 未收藏 true : 已收藏
      */
     boolean checkCollect(Long collectId, CollectType collectType);
-
-    /**
-     * 获取收藏统计 按日
-     *
-     * @param request 查询条件
-     * @return 收藏统计
-     */
-    List<CollectStatisticsVO> dayCollect(CollectRequest request);
 }

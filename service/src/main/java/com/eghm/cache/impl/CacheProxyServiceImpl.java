@@ -8,10 +8,8 @@ import com.eghm.enums.Channel;
 import com.eghm.enums.EmailType;
 import com.eghm.mapper.*;
 import com.eghm.model.*;
-import com.eghm.service.business.ItemTagService;
 import com.eghm.vo.auth.AuthConfigVO;
 import com.eghm.vo.banner.BannerVO;
-import com.eghm.vo.business.item.ItemTagResponse;
 import com.eghm.vo.sys.SysAreaVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,15 +36,9 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     private final SysAreaMapper sysAreaMapper;
 
-    private final ExpressMapper expressMapper;
-
-    private final ItemTagService itemTagService;
-
     private final SysNoticeMapper sysNoticeMapper;
 
     private final SysConfigMapper sysConfigMapper;
-
-    private final PayConfigMapper payConfigMapper;
 
     private final AuthConfigMapper authConfigMapper;
 
@@ -54,21 +46,11 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     private final SysDictItemMapper sysDictItemMapper;
 
-    private final LotteryPrizeMapper lotteryPrizeMapper;
-
     private final PushTemplateMapper pushTemplateMapper;
 
     private final EmailTemplateMapper emailTemplateMapper;
 
     private final NoticeTemplateMapper noticeTemplateMapper;
-
-    @Override
-    @Cacheable(cacheNames = CacheConstant.EXPRESS, sync = true)
-    public List<Express> getExpressList() {
-        LambdaQueryWrapper<Express> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(Express::getExpressCode, Express::getExpressName);
-        return expressMapper.selectList(wrapper);
-    }
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_AREA_PID, key = "#pid", cacheManager = "longCacheManager", sync = true)
@@ -159,32 +141,10 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.ITEM_TAG, cacheManager = "longCacheManager")
-    public List<ItemTagResponse> getList() {
-        return itemTagService.getList(null);
-    }
-
-    @Override
-    @Cacheable(cacheNames = CacheConstant.LOTTERY_PRIZE, key = "#p0", unless = "#result == null" , cacheManager = "longCacheManager")
-    public LotteryPrize getPrizeById(Long id) {
-        return lotteryPrizeMapper.selectById(id);
-    }
-
-    @Override
     @Cacheable(cacheNames = CacheConstant.AUTH_CONFIG, key = "#appKey", unless = "#result == null")
     public AuthConfigVO getByAppKey(String appKey) {
         return authConfigMapper.getByAppKey(appKey);
     }
-
-    @Override
-    @Cacheable(cacheNames = CacheConstant.BANNER, cacheManager = "longCacheManager", key = "#channel", unless = "#result == null")
-    public PayConfig getByChannel(String channel) {
-        LambdaQueryWrapper<PayConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(PayConfig::getChannel, channel);
-        wrapper.last(LIMIT_ONE);
-        return payConfigMapper.selectOne(wrapper);
-    }
-
 
 
 }

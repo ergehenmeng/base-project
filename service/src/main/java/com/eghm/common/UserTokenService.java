@@ -17,12 +17,11 @@ public interface UserTokenService {
      * 根据用户信息创建 jwt refresh Token
      *
      * @param user       用户信息
-     * @param merchantId 商户id
      * @param authList   菜单权限列表
      * @param dataList   自定义数据权限
      * @return token
      */
-    String createToken(SysUser user, Long merchantId, List<String> authList, List<String> dataList);
+    String createToken(SysUser user, List<String> authList, List<String> dataList);
 
     /**
      * 解析token

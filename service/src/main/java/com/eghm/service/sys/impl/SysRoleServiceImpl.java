@@ -18,7 +18,6 @@ import com.eghm.mapper.SysRoleMapper;
 import com.eghm.mapper.SysUserRoleMapper;
 import com.eghm.model.SysRole;
 import com.eghm.model.SysUserRole;
-import com.eghm.service.business.CommonService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.sys.SysRoleResponse;
@@ -38,8 +37,6 @@ import java.util.List;
 public class SysRoleServiceImpl implements SysRoleService {
 
     private final SysRoleMapper sysRoleMapper;
-
-    private final CommonService commonService;
 
     private final SysUserRoleMapper sysUserRoleMapper;
 
@@ -65,22 +62,18 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public void delete(Long id, Long merchantId) {
+    public void delete(Long id) {
         SysRole sysRole = sysRoleMapper.selectById(id);
         if (sysRole == null) {
             return;
         }
-        if (sysRole.getRoleType() != RoleType.COMMON && sysRole.getRoleType() != RoleType.MERCHANT) {
+        if (sysRole.getRoleType() != RoleType.COMMON) {
             log.info("该角色为系统默认角色,无法删除 [{}] [{}]", id, sysRole.getRoleType());
             throw new BusinessException(ErrorCode.ROLE_FORBID_DELETE);
         }
         LambdaUpdateWrapper<SysRole> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(SysRole::getId, id);
-        if (merchantId != null) {
-            wrapper.eq(SysRole::getMerchantId, merchantId);
-        } else {
-            wrapper.isNull(SysRole::getMerchantId);
-        }
+        wrapper.isNull(SysRole::getMerchantId);
         wrapper.set(SysRole::getDeleted, true);
         sysRoleMapper.update(null, wrapper);
     }
@@ -118,13 +111,10 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public void authMenu(Long roleId, List<Long> menuIds) {
         UserType userType = SecurityHolder.getUserType();
-        if (userType != UserType.ADMINISTRATOR && userType != UserType.MERCHANT_ADMIN) {
+        if (userType != UserType.ADMINISTRATOR) {
             log.warn("为保证系统安全性,非管理员将无法进行菜单授权操作 [{}]", SecurityHolder.getUserId());
             throw new BusinessException(ErrorCode.ADMIN_AUTH);
         }
-        SysRole sysRole = this.selectByIdRequired(roleId);
-        commonService.checkIllegal(sysRole.getMerchantId());
-
         sysRoleMapper.deleteRoleMenu(roleId);
         if (CollUtil.isNotEmpty(menuIds)) {
             sysRoleMapper.batchInsertRoleMenu(roleId, menuIds);

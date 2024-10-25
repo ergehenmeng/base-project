@@ -45,75 +45,9 @@
         order by t.id desc
     </select>
 
-    <select id="channelStatistics" resultType="com.eghm.vo.business.statistics.MemberChannelVO">
-        select
-            count(id) as value,
-            `channel` as name
-        from `member` where deleted = false
-        <if test="startDate != null ">
-            and create_date &gt; #{startDate}
-        </if>
-        <if test="endDate != null ">
-            and create_date &lt;= #{endDate}
-        </if>
-        group by channel
-    </select>
-
-    <select id="sexStatistics" resultType="com.eghm.vo.business.statistics.MemberSexVO">
-        select
-        count(id) as value,
-        case when sex = 0 then '女' when `sex` = 1 then '男' else '未知' end as `name`
-        from `member` where deleted = false
-        <if test="startDate != null ">
-            and create_date &gt; #{startDate}
-        </if>
-        <if test="endDate != null ">
-            and create_date &lt;= #{endDate}
-        </if>
-        group by sex
-    </select>
-
-    <select id="dayRegister" resultType="com.eghm.vo.business.statistics.MemberRegisterVO" parameterType="com.eghm.dto.statistics.DateRequest">
-        select
-            <choose>
-                <when test="selectType == @com.eghm.enums.SelectType@YEAR">
-                    create_month,
-                </when>
-                <otherwise>
-                    create_date,
-                </otherwise>
-            </choose>
-            count(id) as registerNum
-        from `member` where deleted = false and create_time &gt;= #{startDate} and create_time &lt; #{endDate}
-        <choose>
-            <when test="selectType == @com.eghm.enums.SelectType@YEAR">
-                group by create_month
-            </when>
-            <otherwise>
-                group by create_date
-            </otherwise>
-        </choose>
-    </select>
-
     <update id="updateScore">
         update `member` set score = score + #{score} where id = #{memberId} and score + #{score} &gt; 0
     </update>
-
-    <select id="getMemberIds" resultType="java.lang.Long" parameterType="com.eghm.model.MemberTag">
-        select id from `member` where deleted = false
-        <if test="channel != null">
-            and channel = #{channel}
-        </if>
-        <if test="sex != null">
-            and sex = #{sex}
-        </if>
-        <if test="startDate != null ">
-            and create_date &gt;= #{startDate}
-        </if>
-        <if test="endDate != null ">
-            and create_date &lt;= #{endDate}
-        </if>
-    </select>
 
     <select id="getMobile" resultType="java.lang.String">
         select distinct mobile from `member` where deleted = false and id in

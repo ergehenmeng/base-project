@@ -25,7 +25,6 @@ import com.eghm.dto.login.AccountLoginDTO;
 import com.eghm.dto.login.SmsLoginDTO;
 import com.eghm.dto.member.*;
 import com.eghm.dto.register.RegisterMemberDTO;
-import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.DataException;
@@ -35,26 +34,18 @@ import com.eghm.handler.chain.annotation.HandlerEnum;
 import com.eghm.mapper.MemberMapper;
 import com.eghm.model.LoginDevice;
 import com.eghm.model.Member;
-import com.eghm.model.MemberScoreLog;
 import com.eghm.mq.service.MessageService;
 import com.eghm.service.member.LoginService;
-import com.eghm.service.member.MemberScoreLogService;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
 import com.eghm.utils.RegExpUtil;
 import com.eghm.utils.StringUtil;
-import com.eghm.vo.business.statistics.MemberChannelVO;
-import com.eghm.vo.business.statistics.MemberRegisterVO;
-import com.eghm.vo.business.statistics.MemberSexVO;
-import com.eghm.vo.business.statistics.MemberStatisticsVO;
 import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.vo.member.MemberResponse;
 import com.eghm.vo.member.MemberVO;
-import com.eghm.vo.member.SignInVO;
 import com.eghm.wechat.WeChatMiniService;
 import com.eghm.wechat.WeChatMpService;
-import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
@@ -63,11 +54,7 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -103,8 +90,6 @@ public class MemberServiceImpl implements MemberService {
     private final WeChatMiniService weChatMiniService;
 
     private final MemberTokenService memberTokenService;
-
-    private final MemberScoreLogService memberScoreLogService;
 
     @Override
     public Page<MemberResponse> getByPage(MemberQueryRequest request) {
@@ -329,36 +314,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void signIn(Long memberId) {
-        Member member = memberMapper.selectById(memberId);
-        long day = ChronoUnit.DAYS.between(member.getCreateTime().toLocalDate(), LocalDate.now());
-        String signKey = CacheConstant.MEMBER_SIGN_IN + memberId;
-        Boolean signIn = cacheService.getBitmap(signKey, day);
-        if (Boolean.TRUE.equals(signIn)) {
-            log.warn("用户重复签到 memberId:[{}]", memberId);
-            return;
-        }
-        // 今日签到记录到缓存中
-        cacheService.setBitmap(signKey, day, true);
-        int score = memberScoreLogService.getSignInScore();
-        this.updateScore(memberId, ScoreType.SIGN_IN, score);
-    }
-
-    @Override
-    public SignInVO getSignIn(Long memberId) {
-        Member member = memberMapper.selectById(memberId);
-        LocalDate registerDate = member.getCreateTime().toLocalDate();
-        long registerDays = ChronoUnit.DAYS.between(registerDate, LocalDate.now());
-        String signKey = CacheConstant.MEMBER_SIGN_IN + memberId;
-        boolean todaySign = cacheService.getBitmap(signKey, registerDays);
-        List<Boolean> monthList = this.getMonthSign(signKey, registerDate);
-        SignInVO vo = new SignInVO();
-        vo.setMonthSign(monthList);
-        vo.setTodaySign(todaySign);
-        return vo;
-    }
-
-    @Override
     public Member getByInviteCode(String inviteCode) {
         LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Member::getInviteCode, inviteCode);
@@ -471,57 +426,6 @@ public class MemberServiceImpl implements MemberService {
         memberMapper.updateById(member);
     }
 
-    @Override
-    public MemberStatisticsVO sexChannel(DateRequest request) {
-        List<MemberChannelVO> statistics = memberMapper.channelStatistics(request.getStartDate(), request.getEndDate());
-        List<MemberChannelVO> channelList = Lists.newArrayListWithCapacity(8);
-        Map<Channel, MemberChannelVO> voMap = statistics.stream().collect(Collectors.toMap(MemberChannelVO::getName, Function.identity()));
-        for (Channel value : Channel.values()) {
-            channelList.add(voMap.getOrDefault(value, new MemberChannelVO(value)));
-        }
-        List<MemberSexVO> sexList = memberMapper.sexStatistics(request.getStartDate(), request.getEndDate());
-        MemberStatisticsVO vo = new MemberStatisticsVO();
-        vo.setChannelList(channelList);
-        vo.setSexList(sexList);
-        return vo;
-    }
-
-    @Override
-    public List<MemberRegisterVO> dayRegister(DateRequest request) {
-        List<MemberRegisterVO> voList = memberMapper.dayRegister(request);
-        if (request.getSelectType() == SelectType.YEAR) {
-            Map<String, MemberRegisterVO> voMap = voList.stream().collect(Collectors.toMap(MemberRegisterVO::getCreateMonth, Function.identity()));
-            return DataUtil.paddingMonth(voMap, request.getStartDate(), request.getEndDate(), MemberRegisterVO::new);
-        } else {
-            Map<LocalDate, MemberRegisterVO> voMap = voList.stream().collect(Collectors.toMap(MemberRegisterVO::getCreateDate, Function.identity()));
-            return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), MemberRegisterVO::new);
-        }
-    }
-
-    @Override
-    public void updateScore(Long memberId, ScoreType scoreType, Integer score) {
-        if (score == 0) {
-            log.info("积分变动为零,不做任何处理 [{}] [{}]", memberId, score);
-            return;
-        }
-        Integer direction = scoreType.getDirection();
-        score = Math.abs(score);
-        if (direction == 2) {
-            score = - score;
-        }
-        int updated = memberMapper.updateScore(memberId, score);
-        if (updated != 1) {
-            log.error("更新积分失败 [{}] [{}] [{}]", memberId, scoreType, score);
-            throw new BusinessException(ErrorCode.MEMBER_SCORE_ERROR);
-        }
-
-        MemberScoreLog log = new MemberScoreLog();
-        log.setScore(score);
-        log.setMemberId(memberId);
-        log.setType(scoreType.getValue());
-        memberScoreLogService.insert(log);
-    }
-
     /**
      * 检查用户是否被封禁
      *
@@ -532,34 +436,6 @@ public class MemberServiceImpl implements MemberService {
             log.warn("账号已被封禁,无法登录 [{}]", member.getId());
             throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
         }
-    }
-
-    /**
-     * 计算用户本月签到的情况:<br/>
-     * 由于签到是从用户注册开始计算,因此需要根据注册时间计算偏移量得到本月签到
-     *
-     * @param signKey      用户签到key
-     * @param registerDate 注册日期
-     * @return 签到情况 最多31条
-     */
-    private List<Boolean> getMonthSign(String signKey, LocalDate registerDate) {
-        // 本月第一天
-        LocalDate startDay = LocalDate.now().withDayOfMonth(1);
-        // 从注册到本月初的日期
-        long offset = ChronoUnit.DAYS.between(registerDate, startDay);
-        // 本月签到的情况
-        Long bitmap64 = cacheService.getBitmapOffset(signKey, offset, LocalDate.now().getMonth().maxLength());
-        // 本月总天数
-        int monthDays = startDay.lengthOfMonth();
-        List<Boolean> monthList = Lists.newArrayListWithCapacity(31);
-
-        int bitmap = 1;
-        for (int i = 0; i < monthDays; i++) {
-            monthList.add((bitmap64 & bitmap) == bitmap);
-            bitmap64 >>= 1;
-        }
-        Collections.reverse(monthList);
-        return monthList;
     }
 
     /**

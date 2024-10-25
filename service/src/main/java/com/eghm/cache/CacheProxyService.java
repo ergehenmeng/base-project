@@ -5,7 +5,6 @@ import com.eghm.enums.EmailType;
 import com.eghm.model.*;
 import com.eghm.vo.auth.AuthConfigVO;
 import com.eghm.vo.banner.BannerVO;
-import com.eghm.vo.business.item.ItemTagResponse;
 import com.eghm.vo.sys.SysAreaVO;
 
 import java.util.List;
@@ -15,13 +14,6 @@ import java.util.List;
  * @since 2022/7/12
  */
 public interface CacheProxyService {
-
-    /**
-     * 获取所有快递信息
-     *
-     * @return list
-     */
-    List<Express> getExpressList();
 
     /**
      * 查询子级的地址列表
@@ -112,21 +104,6 @@ public interface CacheProxyService {
     List<SysDictItem> getDictByNid(String nid);
 
     /**
-     * 查询标签列表
-     *
-     * @return 标签
-     */
-    List<ItemTagResponse> getList();
-
-    /**
-     * 根据id查询中奖奖品信息
-     *
-     * @param id id
-     * @return 中奖奖品
-     */
-    LotteryPrize getPrizeById(Long id);
-
-    /**
      * 根据appKey查询第三方配置信息
      *
      * @param appKey appKey
@@ -134,11 +111,4 @@ public interface CacheProxyService {
      */
     AuthConfigVO getByAppKey(String appKey);
 
-    /**
-     * 根据客户端类型查询支付配置
-     *
-     * @param channel 客户端类型
-     * @return 支付渠道
-     */
-    PayConfig getByChannel(String channel);
 }
