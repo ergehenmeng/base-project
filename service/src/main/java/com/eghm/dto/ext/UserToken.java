@@ -19,7 +19,7 @@ public class UserToken {
     @ApiModelProperty("用户id")
     private Long id;
 
-    @ApiModelProperty("0: 系统管理员 1: 系统用户 2: 商户管理员 3:商户用户")
+    @ApiModelProperty("0: 系统管理员 1: 系统用户")
     private UserType userType;
 
     @ApiModelProperty("昵称")

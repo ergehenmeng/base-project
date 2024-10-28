@@ -749,7 +749,7 @@ CREATE TABLE `sys_user`
 (
     `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `nick_name`       varchar(20)         NOT NULL COMMENT '用户名称',
-    `user_type`       tinyint(2)          DEFAULT '1' COMMENT '用户类型 0: 超级管理员 1:系统用户 2: 商户用户',
+    `user_type`       tinyint(2)          DEFAULT '1' COMMENT '用户类型 0: 超级管理员 1:系统用户',
     `mobile`          char(11)            NOT NULL COMMENT '手机号码(登陆账户)',
     `state`           tinyint(1) unsigned DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
     `pwd`             varchar(256)        DEFAULT NULL COMMENT '登陆密码MD5',

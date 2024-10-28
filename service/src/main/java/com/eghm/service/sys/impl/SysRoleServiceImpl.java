@@ -42,20 +42,15 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public Page<SysRoleResponse> getByPage(PagingQuery request) {
-        Long merchantId = SecurityHolder.getMerchantId();
-        return sysRoleMapper.getByPage(request.createPage(), request.getQueryName(), merchantId);
+        return sysRoleMapper.getByPage(request.createPage(), request.getQueryName(), null);
     }
 
     @Override
     public void update(RoleEditRequest request) {
-        this.redoRole(request.getRoleName(), request.getId(), request.getMerchantId());
+        this.redoRole(request.getRoleName(), request.getId(), null);
         LambdaUpdateWrapper<SysRole> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(SysRole::getId, request.getId());
-        if (request.getMerchantId() == null) {
-            wrapper.isNull(SysRole::getMerchantId);
-        } else {
-            wrapper.eq(SysRole::getMerchantId, request.getMerchantId());
-        }
+        wrapper.isNull(SysRole::getMerchantId);
         wrapper.set(SysRole::getRoleName, request.getRoleName());
         wrapper.set(SysRole::getRemark, request.getRemark());
         sysRoleMapper.update(null, wrapper);
@@ -88,12 +83,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public List<CheckBox> getList() {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
-        Long merchantId = SecurityHolder.getMerchantId();
-        if (merchantId != null) {
-            wrapper.eq(SysRole::getMerchantId, merchantId);
-        } else {
-            wrapper.eq(SysRole::getRoleType, RoleType.COMMON);
-        }
+        wrapper.eq(SysRole::getRoleType, RoleType.COMMON);
         List<SysRole> roleList = sysRoleMapper.selectList(wrapper);
         return DataUtil.copy(roleList, sysRole -> CheckBox.builder().value(sysRole.getId()).desc(sysRole.getRoleName()).build());
     }

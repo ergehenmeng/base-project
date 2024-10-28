@@ -38,14 +38,6 @@ public interface SysMenuService {
     List<MenuResponse> getSystemList();
 
     /**
-     * 获取商户导航菜单列表,按钮(当前用户所拥有的商户菜单)
-     *
-     * @param userId 用户id
-     * @return 菜单列表
-     */
-    List<MenuResponse> getMerchantList(Long userId);
-
-    /**
      * 获取所有可用的菜单+按钮菜单
      *
      * @param request 查询条件

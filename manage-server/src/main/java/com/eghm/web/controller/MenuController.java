@@ -1,6 +1,5 @@
 package com.eghm.web.controller;
 
-import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.SortByDTO;
 import com.eghm.dto.ext.RespBody;
@@ -45,13 +44,6 @@ public class MenuController {
     @ApiOperation("管理员菜单")
     public RespBody<List<MenuResponse>> systemList() {
         List<MenuResponse> responseList = sysMenuService.getSystemList();
-        return RespBody.success(responseList);
-    }
-
-    @GetMapping("/merchantList")
-    @ApiOperation("商户菜单")
-    public RespBody<List<MenuResponse>> merchantList() {
-        List<MenuResponse> responseList = sysMenuService.getMerchantList(SecurityHolder.getUserId());
         return RespBody.success(responseList);
     }
 

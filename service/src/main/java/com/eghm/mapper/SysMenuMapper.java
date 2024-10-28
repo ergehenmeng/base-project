@@ -32,14 +32,6 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
     List<MenuResponse> getAdminMenuList(@Param("grade") Integer grade);
 
     /**
-     * 获取用户拥有的商户菜单
-     *
-     * @param userId 用户id
-     * @return 用户所有可查看商户菜单列表
-     */
-    List<MenuResponse> getMerchantMenuList(@Param("userId") Long userId);
-
-    /**
      * 查询所有菜单
      *
      * @return 菜单列表

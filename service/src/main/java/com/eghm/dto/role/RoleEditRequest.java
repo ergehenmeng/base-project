@@ -1,6 +1,5 @@
 package com.eghm.dto.role;
 
-import com.eghm.annotation.Assign;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -29,8 +28,4 @@ public class RoleEditRequest {
     @ApiModelProperty("备注信息")
     @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
-
-    @ApiModelProperty(value = "商户id", hidden = true)
-    @Assign
-    private Long merchantId;
 }

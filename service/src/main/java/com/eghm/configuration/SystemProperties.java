@@ -39,11 +39,6 @@ public class SystemProperties {
     private Env env = Env.PROD;
 
     /**
-     * 平台手续费收款商户
-     */
-    private Long platformMerchantId;
-
-    /**
      * 移动端 特有配置
      */
     private final ApiProperties api = new ApiProperties();

@@ -26,17 +26,7 @@ public enum UserType implements EnumBinder {
     /**
      * 系统用户
      */
-    SYS_USER(1, "系统用户"),
-
-    /**
-     * 商户用户
-     */
-    MERCHANT_ADMIN(2, "商户管理员"),
-
-    /**
-     * 商户普通用户
-     */
-    MERCHANT_USER(3, "商户普通用户");
+    SYS_USER(1, "系统用户"),;
 
 
     @JsonValue
