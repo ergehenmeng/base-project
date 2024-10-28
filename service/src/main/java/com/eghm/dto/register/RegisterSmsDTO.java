@@ -9,7 +9,7 @@ import lombok.Data;
  * @since 2019/9/3 14:26
  */
 @Data
-public class RegisterSendSmsDTO {
+public class RegisterSmsDTO {
 
     @Mobile
     @ApiModelProperty(required = true, value = "手机号码")

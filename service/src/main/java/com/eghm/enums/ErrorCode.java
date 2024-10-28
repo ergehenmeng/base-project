@@ -483,6 +483,11 @@ public enum ErrorCode {
     MOBILE_REGISTER_REDO(2141, "该手机号已注册"),
 
     /**
+     * 账号名被占用
+     */
+    ACCOUNT_REGISTER_REDO(2142, "账号名被占用"),
+
+    /**
      * cron表达式配置错误
      */
     CRON_CONFIG_ERROR(2144, "cron表达式配置错误"),

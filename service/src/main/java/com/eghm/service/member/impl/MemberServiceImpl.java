@@ -21,7 +21,8 @@ import com.eghm.dto.ext.*;
 import com.eghm.dto.login.AccountLoginDTO;
 import com.eghm.dto.login.SmsLoginDTO;
 import com.eghm.dto.member.*;
-import com.eghm.dto.register.RegisterMemberDTO;
+import com.eghm.dto.register.AccountRegisterDTO;
+import com.eghm.dto.register.MobileRegisterDTO;
 import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.DataException;
@@ -184,20 +185,27 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void registerSendSms(String mobile, String ip) {
-        this.registerRedoVerify(mobile);
+        this.mobileRedoVerify(mobile);
         smsService.sendSmsCode(SmsType.REGISTER, mobile, ip);
     }
 
     @Override
-    public LoginTokenVO registerByMobile(RegisterMemberDTO request) {
-        this.registerRedoVerify(request.getMobile());
+    public LoginTokenVO registerByMobile(MobileRegisterDTO request) {
+        this.mobileRedoVerify(request.getMobile());
         smsService.verifySmsCode(SmsType.REGISTER, request.getMobile(), request.getSmsCode());
-
         MemberRegister register = DataUtil.copy(request, MemberRegister.class);
-        register.setChannel(ApiHolder.getChannel());
-
+        register.setRegisterIp(request.getIp());
         Member member = this.doRegister(register);
+        return this.doLogin(member, register.getRegisterIp());
+    }
 
+    @Override
+    public LoginTokenVO registerByAccount(AccountRegisterDTO dto) {
+        this.accountRedoVerify(dto.getAccount());
+        MemberRegister register = new MemberRegister();
+        register.setRegisterIp(dto.getIp());
+        register.setPwd(encoder.encode(MD5.create().digestHex(dto.getPassword())));
+        Member member = this.doRegister(register);
         return this.doLogin(member, register.getRegisterIp());
     }
 
@@ -450,13 +458,28 @@ public class MemberServiceImpl implements MemberService {
      *
      * @param mobile 手机号
      */
-    private void registerRedoVerify(String mobile) {
+    private void mobileRedoVerify(String mobile) {
         LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Member::getMobile, mobile);
         Long count = memberMapper.selectCount(wrapper);
         if (count > 0) {
             log.error("手机号被占用,无法注册用户 [{}]", mobile);
             throw new BusinessException(ErrorCode.MOBILE_REGISTER_REDO);
+        }
+    }
+
+    /**
+     * 账号被占用校验
+     *
+     * @param account 账号
+     */
+    private void accountRedoVerify(String account) {
+        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Member::getAccount, account);
+        Long count = memberMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.error("账号名被占用,无法注册用户 [{}]", account);
+            throw new BusinessException(ErrorCode.ACCOUNT_REGISTER_REDO);
         }
     }
 

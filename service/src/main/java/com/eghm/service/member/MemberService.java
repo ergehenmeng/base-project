@@ -5,7 +5,8 @@ import com.eghm.dto.ext.MemberRegister;
 import com.eghm.dto.login.AccountLoginDTO;
 import com.eghm.dto.login.SmsLoginDTO;
 import com.eghm.dto.member.*;
-import com.eghm.dto.register.RegisterMemberDTO;
+import com.eghm.dto.register.AccountRegisterDTO;
+import com.eghm.dto.register.MobileRegisterDTO;
 import com.eghm.model.Member;
 import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.vo.member.MemberResponse;
@@ -113,7 +114,15 @@ public interface MemberService {
      * @param request 手机号及验证码信息
      * @return 注册后直接登陆
      */
-    LoginTokenVO registerByMobile(RegisterMemberDTO request);
+    LoginTokenVO registerByMobile(MobileRegisterDTO request);
+
+    /**
+     * 根据账号注册会员信息
+     *
+     * @param dto 账号密码
+     * @return 登录信息
+     */
+    LoginTokenVO registerByAccount(AccountRegisterDTO dto);
 
     /**
      * 强制将用户踢下线  (仅适用于移动端用户)

@@ -2,8 +2,10 @@ package com.eghm.web.controller;
 
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.register.RegisterMemberDTO;
-import com.eghm.dto.register.RegisterSendSmsDTO;
+import com.eghm.dto.register.AccountRegisterDTO;
+import com.eghm.dto.register.MobileRegisterDTO;
+import com.eghm.dto.register.RegisterSmsDTO;
+import com.eghm.enums.ErrorCode;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginTokenVO;
@@ -19,9 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.eghm.utils.CacheUtil.CAPTCHA_CACHE;
+
 /**
  * 注册相关接口
- *
+
  * @author 二哥很猛
  * @since 2019/8/20 10:18
  */
@@ -35,18 +39,38 @@ public class RegisterController {
 
     @PostMapping(value = "/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("注册发送验证码①")
-    public RespBody<Void> sendSms(@RequestBody @Validated RegisterSendSmsDTO dto, HttpServletRequest request) {
+    public RespBody<Void> sendSms(@RequestBody @Validated RegisterSmsDTO dto, HttpServletRequest request) {
         memberService.registerSendSms(dto.getMobile(), IpUtil.getIpAddress(request));
         return RespBody.success();
     }
 
-    @PostMapping(value = "/member", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("短信注册用户②")
-    public RespBody<LoginTokenVO> member(@RequestBody @Validated RegisterMemberDTO request, HttpServletRequest servletRequest) {
+    @PostMapping(value = "/mobile", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("手机号注册②")
+    public RespBody<LoginTokenVO> mobile(@RequestBody @Validated MobileRegisterDTO request, HttpServletRequest servletRequest) {
         request.setChannel(ApiHolder.getChannel());
         request.setIp(IpUtil.getIpAddress(servletRequest));
         LoginTokenVO tokenVO = memberService.registerByMobile(request);
         return RespBody.success(tokenVO);
     }
+
+    @PostMapping(value = "/account", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("账号密码登录①")
+    public RespBody<LoginTokenVO> account(@RequestBody @Validated AccountRegisterDTO request, HttpServletRequest servletRequest) {
+        String key = IpUtil.getIpAddress(servletRequest);
+        String code = CAPTCHA_CACHE.getIfPresent(key);
+        if (code == null) {
+            return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
+        }
+        CAPTCHA_CACHE.invalidate(code);
+        if (!code.equalsIgnoreCase(request.getVerifyCode())) {
+            return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
+        }
+
+        request.setChannel(ApiHolder.getChannel());
+        request.setIp(IpUtil.getIpAddress(servletRequest));
+        LoginTokenVO tokenVO = memberService.registerByAccount(request);
+        return RespBody.success(tokenVO);
+    }
+
 
 }

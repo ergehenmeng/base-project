@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
  * @since 2019/9/3 16:32
  */
 @Data
-public class RegisterMemberDTO {
+public class MobileRegisterDTO {
 
     @Mobile
     @ApiModelProperty(value = "手机号码", required = true)

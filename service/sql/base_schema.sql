@@ -247,6 +247,7 @@ CREATE TABLE `member`
     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `avatar`       varchar(200) DEFAULT NULL COMMENT '头像路径',
     `mobile`       char(11)     DEFAULT NULL COMMENT '手机号码',
+    `account`      varchar(20)  DEFAULT NULL COMMENT '账号',
     `union_id`     varchar(64)  DEFAULT NULL COMMENT '微信unionId',
     `nick_name`    varchar(20)  DEFAULT '' COMMENT '昵称',
     `email`        varchar(50)  DEFAULT NULL COMMENT '电子邮箱',
