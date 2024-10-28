@@ -17,14 +17,4 @@ public class DictConstant {
      */
     public static final String NOTICE_TYPE = "notice_type";
 
-    /**
-     * 景区标签
-     */
-    public static final String SCENIC_TAG = "scenic_tag";
-
-    /**
-     * 民宿标签
-     */
-    public static final String HOMESTAY_TAG = "homestay_tag";
-
 }

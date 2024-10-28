@@ -67,8 +67,4 @@ public class AppHeader {
      */
     public static final String TIMESTAMP = "timestamp";
 
-    /**
-     * openId (可能为空)
-     */
-    public static final String OPEN_ID = "Open-Id";
 }

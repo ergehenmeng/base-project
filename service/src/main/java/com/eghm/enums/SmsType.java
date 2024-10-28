@@ -14,6 +14,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum SmsType implements ValueEnumBinder {
+
     /**
      * 未指定短信类型,则为自定义短信:default
      */

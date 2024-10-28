@@ -101,24 +101,9 @@ public class CommonConstant {
     public static final String TRACE_ID = "traceId";
 
     /**
-     * 零售标签步长, 即:同级标签100~999即最多900个
-     */
-    public static final String ITEM_TAG_STEP = "100";
-
-    /**
-     * 最大层级是5级, 每一级三位长度的数字
-     */
-    public static final int ITEM_TAG_MAX_DEPTH = 15;
-
-    /**
      * 异步下单最大请求次数
      */
     public static final int MAX_ACCESS_NUM = 10;
-
-    /**
-     * 核销码刷新频率 60秒
-     */
-    public static final int MAX_VERIFY_NO_EXPIRE = 60_000;
 
     /**
      * 签名过期时间 60秒
@@ -139,11 +124,6 @@ public class CommonConstant {
      * Scheduled 定时任务最大锁时间
      */
     public static final long SCHEDULED_MAX_LOCK_TIME = 60;
-
-    /**
-     * 最小评分数量
-     */
-    public static final long MIN_SCORE_NUM = 5;
 
     /**
      * bitmap最大有效位 此处不使用64位的原因是针对无符号的u64最多只支持63位(最高位是符号位)
@@ -189,26 +169,6 @@ public class CommonConstant {
      * 微信支付异步回调
      */
     public static final String WECHAT_PAY_NOTIFY_URL = "/webapp/notify/weChat/pay";
-
-    /**
-     * 积分充值商品名称
-     */
-    public static final String SCORE_RECHARGE_GOOD_TITLE = "商户积分充值%s元";
-
-    /**
-     * 提现交易单号前缀
-     */
-    public static final String WITHDRAW_PREFIX = "W";
-
-    /**
-     * 积分提现交易单号前缀
-     */
-    public static final String SCORE_WITHDRAW_PREFIX = "SW";
-
-    /**
-     * 积分充值交易单号前缀
-     */
-    public static final String SCORE_RECHARGE_PREFIX = "SR";
 
     /**
      * websocket消息路径前缀

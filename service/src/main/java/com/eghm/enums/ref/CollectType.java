@@ -20,44 +20,15 @@ import java.util.Arrays;
 public enum CollectType implements EnumBinder {
 
     /**
-     * 景区
-     */
-    SCENIC(1, "景区"),
-
-    /**
-     * 民宿
-     */
-    HOMESTAY(2, "民宿"),
-
-    /**
-     * 零售门店
-     */
-    ITEM_STORE(3, "零售门店"),
-
-    /**
-     * 零售商品
-     */
-    ITEM(4, "零售商品"),
-
-    /**
-     * 线路商品
-     */
-    LINE(5, "线路商品"),
-
-    /**
-     * 餐饮门店
-     */
-    VOUCHER_STORE(6, "餐饮门店"),
-
-    /**
      * 资讯
      */
-    NEWS(7, "资讯"),
+    NEWS(1, "资讯"),
 
     /**
-     * travel_agency
+     * 公告(未完成)
      */
-    TRAVEL_AGENCY(8, "旅行社");
+    NOTICE(2, "公告"),
+    ;
 
     /**
      * 状态

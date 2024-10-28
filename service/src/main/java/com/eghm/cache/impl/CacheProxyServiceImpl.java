@@ -46,8 +46,6 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     private final SysDictItemMapper sysDictItemMapper;
 
-    private final PushTemplateMapper pushTemplateMapper;
-
     private final EmailTemplateMapper emailTemplateMapper;
 
     private final NoticeTemplateMapper noticeTemplateMapper;
@@ -94,16 +92,6 @@ public class CacheProxyServiceImpl implements CacheProxyService {
         wrapper.eq(NoticeTemplate::getCode, code);
         wrapper.last(LIMIT_ONE);
         return noticeTemplateMapper.selectOne(wrapper);
-    }
-
-    @Override
-    @Cacheable(cacheNames = CacheConstant.PUSH_TEMPLATE, key = "#p0", unless = "#result == null")
-    public PushTemplate getPushTemplate(String nid) {
-        LambdaQueryWrapper<PushTemplate> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(PushTemplate::getNid, nid);
-        wrapper.eq(PushTemplate::getState, true);
-        wrapper.last(LIMIT_ONE);
-        return pushTemplateMapper.selectOne(wrapper);
     }
 
     @Override

@@ -93,11 +93,6 @@ public class CacheConstant {
     public static final String SYS_AREA_PID = "sys_area_pid";
 
     /**
-     * 快递公司
-     */
-    public static final String EXPRESS = "express";
-
-    /**
      * 全国地址 按id查询
      */
     public static final String SYS_AREA_ID = "sys_area_id";
@@ -173,11 +168,6 @@ public class CacheConstant {
     public static final String ITEM_TAG = "item_tag";
 
     /**
-     * 景区距离计算
-     */
-    public static final String GEO_SCENIC_DISTANCE = "geo_scenic_distance";
-
-    /**
      * 全局距离计算
      */
     public static final String GEO_DISTANCE = "geo_distance";
@@ -208,11 +198,6 @@ public class CacheConstant {
     public static final String VERIFY_MOBILE_PREFIX = "verify_mobile:";
 
     /**
-     * 奖品总数量
-     */
-    public static final String LOTTERY_PRIZE_NUM = "lottery_prize_num:";
-
-    /**
      * token (user) 管理后台用户
      */
     public static final String USER_TOKEN = "user_token:";
@@ -233,21 +218,6 @@ public class CacheConstant {
     public static final String MEMBER_COLLECT = "member_collect:%s:%s";
 
     /**
-     * 留言点赞
-     */
-    public static final String COMMENT_GIVE_LIKE = "comment_give_like:";
-
-    /**
-     * 商户绑定微信授权码
-     */
-    public static final String MERCHANT_AUTH_CODE = "merchant_auth_code:";
-
-    /**
-     * 中奖奖品信息
-     */
-    public static final String LOTTERY_PRIZE = "lottery_prize";
-
-    /**
      * 支付配置信息
      */
     public static final String PAY_CONFIG = "pay_config";
@@ -256,20 +226,5 @@ public class CacheConstant {
      * 微信小程序二维码
      */
     public static final String WECHAT_QRCODE = "wechat_qrcode:";
-
-    /**
-     * 商品品类总交易金额排行榜
-     */
-    public static final String PRODUCT_RANKING = "product_ranking:%s";
-
-    /**
-     * 商户各品类交易金额排行榜
-     */
-    public static final String MERCHANT_PRODUCT_RANKING = "merchant_product_ranking:%s:%s";
-
-    /**
-     * 各商户交易额总排行榜
-     */
-    public static final String MERCHANT_RANKING = "merchant_ranking";
 
 }

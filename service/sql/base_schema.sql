@@ -1,3 +1,44 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : mysql-本地
+Source Server Version : 50727
+Source Host           : localhost:3306
+Source Database       : base_project
+
+Target Server Type    : MYSQL
+Target Server Version : 50727
+File Encoding         : 65001
+
+Date: 2024-10-28 09:29:09
+*/
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for app_version
+-- ----------------------------
+DROP TABLE IF EXISTS `app_version`;
+CREATE TABLE `app_version`
+(
+    `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `channel`      varchar(10)         NOT NULL DEFAULT '' COMMENT '版本类型 ANDROID IOS',
+    `version`      varchar(10)         NOT NULL COMMENT '版本号:1.2.8 范围(0.0.01~99.99.99)',
+    `version_no`   int(10)                      DEFAULT NULL COMMENT '数字格式化后的版本号',
+    `force_update` bit(1)                       DEFAULT b'0' COMMENT '是否强制更新 0:否 1:是',
+    `url`          varchar(500)                 DEFAULT NULL COMMENT '下载地址,android为实际下载地址,ios是跳转到app_store',
+    `create_time`  datetime                     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `remark`       varchar(500)                 DEFAULT NULL COMMENT '备注信息:版本更新的东西或解决的问题',
+    `deleted`      bit(1)                       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `update_time`  datetime                     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `state`        bit(1)                       DEFAULT b'0' COMMENT '上架状态 0:待上架 1:已上架',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='APP版本管理表';
+
+-- ----------------------------
+-- Table structure for auth_config
+-- ----------------------------
 DROP TABLE IF EXISTS `auth_config`;
 CREATE TABLE `auth_config`
 (
@@ -16,7 +57,9 @@ CREATE TABLE `auth_config`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='第三方授权配置信息表';
 
-
+-- ----------------------------
+-- Table structure for banner
+-- ----------------------------
 DROP TABLE IF EXISTS `banner`;
 CREATE TABLE `banner`
 (
@@ -40,6 +83,9 @@ CREATE TABLE `banner`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='轮播图表';
 
+-- ----------------------------
+-- Table structure for black_roster
+-- ----------------------------
 DROP TABLE IF EXISTS `black_roster`;
 CREATE TABLE `black_roster`
 (
@@ -54,6 +100,9 @@ CREATE TABLE `black_roster`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='访问黑名单';
 
+-- ----------------------------
+-- Table structure for email_template
+-- ----------------------------
 DROP TABLE IF EXISTS `email_template`;
 CREATE TABLE `email_template`
 (
@@ -68,6 +117,9 @@ CREATE TABLE `email_template`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='邮件模板';
 
+-- ----------------------------
+-- Table structure for feedback_log
+-- ----------------------------
 DROP TABLE IF EXISTS `feedback_log`;
 CREATE TABLE `feedback_log`
 (
@@ -92,6 +144,9 @@ CREATE TABLE `feedback_log`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='APP用户反馈信息表';
 
+-- ----------------------------
+-- Table structure for help_center
+-- ----------------------------
 DROP TABLE IF EXISTS `help_center`;
 CREATE TABLE `help_center`
 (
@@ -108,6 +163,28 @@ CREATE TABLE `help_center`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='帮助说明信息表';
 
+-- ----------------------------
+-- Table structure for image_log
+-- ----------------------------
+DROP TABLE IF EXISTS `image_log`;
+CREATE TABLE `image_log`
+(
+    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `title`       varchar(50)         DEFAULT NULL COMMENT '图片名称',
+    `image_type`  tinyint(3) unsigned DEFAULT NULL COMMENT '图片分类 数据字典:image_type',
+    `path`        varchar(200)        DEFAULT NULL COMMENT '文件存放地址',
+    `size`        bigint(15) unsigned DEFAULT NULL COMMENT '文件大小',
+    `remark`      varchar(200)        DEFAULT NULL COMMENT '备注信息',
+    `deleted`     bit(1)              DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `create_time` datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='图片上传记录';
+
+-- ----------------------------
+-- Table structure for login_device
+-- ----------------------------
 DROP TABLE IF EXISTS `login_device`;
 CREATE TABLE `login_device`
 (
@@ -122,6 +199,9 @@ CREATE TABLE `login_device`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='登陆设备管理表';
 
+-- ----------------------------
+-- Table structure for login_log
+-- ----------------------------
 DROP TABLE IF EXISTS `login_log`;
 CREATE TABLE `login_log`
 (
@@ -140,6 +220,9 @@ CREATE TABLE `login_log`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户登陆日志信息';
 
+-- ----------------------------
+-- Table structure for manage_log
+-- ----------------------------
 DROP TABLE IF EXISTS `manage_log`;
 CREATE TABLE `manage_log`
 (
@@ -155,6 +238,9 @@ CREATE TABLE `manage_log`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='管理后台操作记录';
 
+-- ----------------------------
+-- Table structure for member
+-- ----------------------------
 DROP TABLE IF EXISTS `member`;
 CREATE TABLE `member`
 (
@@ -188,6 +274,29 @@ CREATE TABLE `member`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='会员信息表';
 
+-- ----------------------------
+-- Table structure for member_collect
+-- ----------------------------
+DROP TABLE IF EXISTS `member_collect`;
+CREATE TABLE `member_collect`
+(
+    `id`           bigint(20) NOT NULL COMMENT '主键',
+    `member_id`    bigint(20)  DEFAULT NULL COMMENT '会员id',
+    `collect_id`   bigint(20)  DEFAULT NULL COMMENT '收藏id',
+    `collect_type` tinyint(2)  DEFAULT NULL COMMENT '收藏对象类型',
+    `state`        tinyint(1)  DEFAULT '1' COMMENT '收藏状态 0:取消收藏 1:加入收藏',
+    `create_month` varchar(20) DEFAULT NULL COMMENT '创建月份',
+    `create_date`  date        DEFAULT NULL COMMENT '创建日期',
+    `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`      bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='会员收藏记录表';
+
+-- ----------------------------
+-- Table structure for member_invite_log
+-- ----------------------------
 DROP TABLE IF EXISTS `member_invite_log`;
 CREATE TABLE `member_invite_log`
 (
@@ -200,6 +309,150 @@ CREATE TABLE `member_invite_log`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户邀请记录表';
 
+-- ----------------------------
+-- Table structure for member_notice
+-- ----------------------------
+DROP TABLE IF EXISTS `member_notice`;
+CREATE TABLE `member_notice`
+(
+    `id`            bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `member_id`     bigint(20)   DEFAULT NULL COMMENT '用户id',
+    `title`         varchar(50)  DEFAULT NULL COMMENT '消息标题',
+    `content`       varchar(500) DEFAULT NULL COMMENT '站内信内容',
+    `notice_type`   varchar(20)  DEFAULT NULL COMMENT '站内信类型',
+    `notice_log_id` bigint(20)   DEFAULT NULL COMMENT '所属通知日志ID',
+    `is_read`       bit(1)       DEFAULT b'0' COMMENT '状态 0:未读 1:已读',
+    `deleted`       bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `create_time`   datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`   datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`),
+    KEY `idx_member_id` (`member_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='用户站内信';
+
+-- ----------------------------
+-- Table structure for member_notice_log
+-- ----------------------------
+DROP TABLE IF EXISTS `member_notice_log`;
+CREATE TABLE `member_notice_log`
+(
+    `id`          varchar(20) NOT NULL COMMENT '主键',
+    `title`       varchar(20)   DEFAULT NULL COMMENT '通知名称',
+    `content`     varchar(1000) DEFAULT NULL COMMENT '通知内容',
+    `notice_type` varchar(20)   DEFAULT NULL COMMENT '消息类型',
+    `create_time` datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     tinyint(1)    DEFAULT '0' COMMENT '删除状态',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='会员站内信日志';
+
+-- ----------------------------
+-- Table structure for news
+-- ----------------------------
+DROP TABLE IF EXISTS `news`;
+CREATE TABLE `news`
+(
+    `id`              bigint(20) NOT NULL COMMENT '主键',
+    `title`           varchar(30)   DEFAULT NULL COMMENT '资讯标题',
+    `code`            varchar(20)   DEFAULT NULL COMMENT '资讯编码',
+    `depict`          varchar(200)  DEFAULT NULL COMMENT '一句话描述信息',
+    `image`           varchar(1000) DEFAULT NULL COMMENT '图集',
+    `content`         longtext COMMENT '详细信息',
+    `video`           varchar(200)  DEFAULT NULL COMMENT '视频',
+    `sort`            smallint(6)   DEFAULT '999' COMMENT '排序',
+    `like_num`        int(10)       DEFAULT '0' COMMENT '点赞数量',
+    `comment_support` bit(1)        DEFAULT b'0' COMMENT '是否支持评论 true:支持 false:不支持',
+    `create_time`     datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`     datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`         bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='资讯信息表';
+
+-- ----------------------------
+-- Table structure for news_config
+-- ----------------------------
+DROP TABLE IF EXISTS `news_config`;
+CREATE TABLE `news_config`
+(
+    `id`              bigint(20) NOT NULL COMMENT '主键',
+    `title`           varchar(30) DEFAULT NULL COMMENT '分类标题',
+    `code`            varchar(20) DEFAULT NULL COMMENT '资讯编码',
+    `include_title`   bit(1)      DEFAULT b'1' COMMENT '是否包含标题',
+    `include_depict`  bit(1)      DEFAULT b'0' COMMENT '是否包含描述信息',
+    `include_image`   bit(1)      DEFAULT b'0' COMMENT '是否包含图集',
+    `include_content` bit(1)      DEFAULT b'1' COMMENT '是否包含详细信息',
+    `include_video`   bit(1)      DEFAULT b'0' COMMENT '是否包含视频',
+    `create_time`     datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`     datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`         bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='资讯配置';
+
+-- ----------------------------
+-- Table structure for notice_template
+-- ----------------------------
+DROP TABLE IF EXISTS `notice_template`;
+CREATE TABLE `notice_template`
+(
+    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `code`        varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '消息模板code',
+    `title`       varchar(50)                                           DEFAULT NULL COMMENT '消息标题',
+    `content`     varchar(500)                                          DEFAULT NULL COMMENT '模板内容消息',
+    `remark`      varchar(200)                                          DEFAULT NULL,
+    `update_time` datetime                                              DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='站内信消息模板';
+
+-- ----------------------------
+-- Table structure for pay_notify_log
+-- ----------------------------
+DROP TABLE IF EXISTS `pay_notify_log`;
+CREATE TABLE `pay_notify_log`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `pay_channel` varchar(30) DEFAULT NULL COMMENT '交易方式 WECHAT:微信 ALI_PAY:支付宝',
+    `notify_id`   varchar(50) DEFAULT NULL COMMENT '异步通知唯一ID',
+    `step_type`   varchar(30) DEFAULT NULL COMMENT '通知类型 PAY: 支付异步通知 REFUND:退款异步通知',
+    `trade_no`    varchar(30) DEFAULT NULL COMMENT '交易流水号',
+    `refund_no`   varchar(30) DEFAULT NULL COMMENT '退款流水号',
+    `params`      text COMMENT '退款通知原始参数',
+    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `notify_id_unique` (`pay_channel`, `notify_id`) USING BTREE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='支付或退款异步通知记录表';
+
+-- ----------------------------
+-- Table structure for pay_request_log
+-- ----------------------------
+DROP TABLE IF EXISTS `pay_request_log`;
+CREATE TABLE `pay_request_log`
+(
+    `id`            bigint(20) NOT NULL COMMENT '主键',
+    `pay_channel`   varchar(30) DEFAULT NULL COMMENT '交易方式 WECHAT:微信 ALI_PAY:支付宝',
+    `order_no`      varchar(50) DEFAULT NULL COMMENT '订单编号',
+    `step_type`     varchar(20) DEFAULT NULL COMMENT '请求类型 PAY: 支付 REFUND:退款',
+    `trade_no`      varchar(30) DEFAULT NULL COMMENT '交易流水号',
+    `refund_no`     varchar(30) DEFAULT NULL COMMENT '退款流水号',
+    `request_body`  text COMMENT '请求参数',
+    `response_body` text COMMENT '响应参数',
+    `create_time`   datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`   datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`       bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`),
+    KEY `order_idx` (`order_no`, `pay_channel`) USING BTREE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='支付或退款请求记录表';
+
+-- ----------------------------
+-- Table structure for sensitive_word
+-- ----------------------------
 DROP TABLE IF EXISTS `sensitive_word`;
 CREATE TABLE `sensitive_word`
 (
@@ -212,6 +465,9 @@ CREATE TABLE `sensitive_word`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8 COMMENT ='敏感词库';
 
+-- ----------------------------
+-- Table structure for sms_log
+-- ----------------------------
 DROP TABLE IF EXISTS `sms_log`;
 CREATE TABLE `sms_log`
 (
@@ -226,6 +482,9 @@ CREATE TABLE `sms_log`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='短信日志记录表';
 
+-- ----------------------------
+-- Table structure for sms_template
+-- ----------------------------
 DROP TABLE IF EXISTS `sms_template`;
 CREATE TABLE `sms_template`
 (
@@ -238,6 +497,9 @@ CREATE TABLE `sms_template`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='短信模板类型';
 
+-- ----------------------------
+-- Table structure for sys_area
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_area`;
 CREATE TABLE `sys_area`
 (
@@ -252,6 +514,9 @@ CREATE TABLE `sys_area`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='省市县代码表';
 
+-- ----------------------------
+-- Table structure for sys_cache
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_cache`;
 CREATE TABLE `sys_cache`
 (
@@ -265,6 +530,9 @@ CREATE TABLE `sys_cache`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='缓存信息管理表';
 
+-- ----------------------------
+-- Table structure for sys_config
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_config`;
 CREATE TABLE `sys_config`
 (
@@ -281,6 +549,9 @@ CREATE TABLE `sys_config`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='系统参数配置信息表';
 
+-- ----------------------------
+-- Table structure for sys_data_dept
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_data_dept`;
 CREATE TABLE `sys_data_dept`
 (
@@ -292,6 +563,9 @@ CREATE TABLE `sys_data_dept`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户与部门数据权限关联表(自定义数据权限)';
 
+-- ----------------------------
+-- Table structure for sys_dept
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept`
 (
@@ -310,6 +584,9 @@ CREATE TABLE `sys_dept`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='部门信息表';
 
+-- ----------------------------
+-- Table structure for sys_dict
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_dict`;
 CREATE TABLE `sys_dict`
 (
@@ -326,6 +603,9 @@ CREATE TABLE `sys_dict`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='系统数据字典表';
 
+-- ----------------------------
+-- Table structure for sys_dict_item
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_item`;
 CREATE TABLE `sys_dict_item`
 (
@@ -340,6 +620,9 @@ CREATE TABLE `sys_dict_item`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='系统数据字典表';
 
+-- ----------------------------
+-- Table structure for sys_menu
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu`
 (
@@ -362,6 +645,9 @@ CREATE TABLE `sys_menu`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='系统菜单表';
 
+-- ----------------------------
+-- Table structure for sys_notice
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_notice`;
 CREATE TABLE `sys_notice`
 (
@@ -378,6 +664,9 @@ CREATE TABLE `sys_notice`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='系统公告';
 
+-- ----------------------------
+-- Table structure for sys_role
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role`
 (
@@ -394,6 +683,9 @@ CREATE TABLE `sys_role`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='角色表';
 
+-- ----------------------------
+-- Table structure for sys_role_menu
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu`
 (
@@ -408,6 +700,9 @@ CREATE TABLE `sys_role_menu`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='角色与菜单关系表';
 
+-- ----------------------------
+-- Table structure for sys_task
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_task`;
 CREATE TABLE `sys_task`
 (
@@ -427,6 +722,9 @@ CREATE TABLE `sys_task`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='定时任务配置表';
 
+-- ----------------------------
+-- Table structure for sys_task_log
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_task_log`;
 CREATE TABLE `sys_task_log`
 (
@@ -443,6 +741,9 @@ CREATE TABLE `sys_task_log`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='定时任务执行日志';
 
+-- ----------------------------
+-- Table structure for sys_user
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`
 (
@@ -465,9 +766,11 @@ CREATE TABLE `sys_user`
     KEY `status_index` (`state`) USING BTREE,
     KEY `name_index` (`nick_name`) USING BTREE
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4
-    COMMENT ='管理后台用户表';
+  DEFAULT CHARSET = utf8mb4 COMMENT ='管理后台用户表';
 
+-- ----------------------------
+-- Table structure for sys_user_role
+-- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role`
 (
@@ -479,6 +782,9 @@ CREATE TABLE `sys_user_role`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='角色与用户关系表';
 
+-- ----------------------------
+-- Table structure for webapp_log
+-- ----------------------------
 DROP TABLE IF EXISTS `webapp_log`;
 CREATE TABLE `webapp_log`
 (
@@ -501,85 +807,3 @@ CREATE TABLE `webapp_log`
     KEY `url_index` (`url`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='移动端操作记录';
-
-DROP TABLE IF EXISTS `app_version`;
-CREATE TABLE `app_version`
-(
-    `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `channel`      varchar(10)         NOT NULL DEFAULT '' COMMENT '版本类型 ANDROID IOS',
-    `version`      varchar(10)         NOT NULL COMMENT '版本号:1.2.8 范围(0.0.01~99.99.99)',
-    `version_no`   int(10)                      DEFAULT NULL COMMENT '数字格式化后的版本号',
-    `force_update` bit(1)                       DEFAULT b'0' COMMENT '是否强制更新 0:否 1:是',
-    `url`          varchar(500)                 DEFAULT NULL COMMENT '下载地址,android为实际下载地址,ios是跳转到app_store',
-    `create_time`  datetime                     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `remark`       varchar(500)                 DEFAULT NULL COMMENT '备注信息:版本更新的东西或解决的问题',
-    `deleted`      bit(1)                       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-    `update_time`  datetime                     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `state`        bit(1)                       DEFAULT b'0' COMMENT '上架状态 0:待上架 1:已上架',
-    PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='APP版本管理表';
-
-DROP TABLE IF EXISTS `image_log`;
-CREATE TABLE `image_log`
-(
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `title`       varchar(50)         DEFAULT NULL COMMENT '图片名称',
-    `image_type`  tinyint(3) unsigned DEFAULT NULL COMMENT '图片分类 数据字典:image_type',
-    `path`        varchar(200)        DEFAULT NULL COMMENT '文件存放地址',
-    `size`        bigint(15) unsigned DEFAULT NULL COMMENT '文件大小',
-    `remark`      varchar(200)        DEFAULT NULL COMMENT '备注信息',
-    `deleted`     bit(1)              DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-    `create_time` datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='图片上传记录';
-
-DROP TABLE IF EXISTS `member_notice`;
-CREATE TABLE `member_notice`
-(
-    `id`            bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `member_id`     bigint(20)   DEFAULT NULL COMMENT '用户id',
-    `title`         varchar(50)  DEFAULT NULL COMMENT '消息标题',
-    `content`       varchar(500) DEFAULT NULL COMMENT '站内信内容',
-    `notice_type`   varchar(20)  DEFAULT NULL COMMENT '站内信类型',
-    `notice_log_id` bigint(20)   DEFAULT NULL COMMENT '所属通知日志ID',
-    `is_read`       bit(1)       DEFAULT b'0' COMMENT '状态 0:未读 1:已读',
-    `deleted`       bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-    `create_time`   datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`   datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`),
-    KEY `idx_member_id` (`member_id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 1816721781118828546
-  DEFAULT CHARSET = utf8mb4 COMMENT ='用户站内信';
-
-DROP TABLE IF EXISTS `member_notice_log`;
-CREATE TABLE `member_notice_log`
-(
-    `id`          varchar(20) NOT NULL COMMENT '主键',
-    `title`       varchar(20)   DEFAULT NULL COMMENT '通知名称',
-    `content`     varchar(1000) DEFAULT NULL COMMENT '通知内容',
-    `notice_type` varchar(20)   DEFAULT NULL COMMENT '消息类型',
-    `create_time` datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     tinyint(1)    DEFAULT '0' COMMENT '删除状态',
-    PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='会员站内信日志';
-
-DROP TABLE IF EXISTS `notice_template`;
-CREATE TABLE `notice_template`
-(
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `code`        varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '消息模板code',
-    `title`       varchar(50)                                           DEFAULT NULL COMMENT '消息标题',
-    `content`     varchar(500)                                          DEFAULT NULL COMMENT '模板内容消息',
-    `remark`      varchar(200)                                          DEFAULT NULL,
-    `update_time` datetime                                              DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 3
-  DEFAULT CHARSET = utf8mb4 COMMENT ='站内信消息模板';
-
