@@ -16,14 +16,6 @@ import java.util.List;
 public interface CacheProxyService {
 
     /**
-     * 查询子级的地址列表
-     *
-     * @param pid 当前级地址id
-     * @return list
-     */
-    List<SysArea> getAreaByPid(Long pid);
-
-    /**
      * 查询地址列表
      *
      * @return list
@@ -70,14 +62,6 @@ public interface CacheProxyService {
      * @return 公告列表
      */
     List<SysNotice> getNoticeList(int limit);
-
-    /**
-     * 获取短信发送模板
-     *
-     * @param nid nid
-     * @return 短信内容模板
-     */
-    String getSmsTemplate(String nid);
 
     /**
      * 根据nid获取系统配置信息

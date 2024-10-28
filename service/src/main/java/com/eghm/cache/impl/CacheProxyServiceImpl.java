@@ -42,21 +42,11 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     private final AuthConfigMapper authConfigMapper;
 
-    private final SmsTemplateMapper smsTemplateMapper;
-
     private final SysDictItemMapper sysDictItemMapper;
 
     private final EmailTemplateMapper emailTemplateMapper;
 
     private final NoticeTemplateMapper noticeTemplateMapper;
-
-    @Override
-    @Cacheable(cacheNames = CacheConstant.SYS_AREA_PID, key = "#pid", cacheManager = "longCacheManager", sync = true)
-    public List<SysArea> getAreaByPid(Long pid) {
-        LambdaQueryWrapper<SysArea> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysArea::getPid, pid);
-        return sysAreaMapper.selectList(wrapper);
-    }
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_AREA, sync = true)
@@ -98,16 +88,6 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     @Cacheable(cacheNames = CacheConstant.SYS_NOTICE, cacheManager = "longCacheManager", unless = "#result.size() == 0")
     public List<SysNotice> getNoticeList(int limit) {
         return sysNoticeMapper.getTopList(limit);
-    }
-
-    @Override
-    @Cacheable(cacheNames = CacheConstant.SMS_TEMPLATE, key = "#p0", unless = "#result == null")
-    public String getSmsTemplate(String nid) {
-        LambdaQueryWrapper<SmsTemplate> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SmsTemplate::getNid, nid);
-        wrapper.last(LIMIT_ONE);
-        SmsTemplate template = smsTemplateMapper.selectOne(wrapper);
-        return template != null ? template.getContent() : null;
     }
 
     @Override

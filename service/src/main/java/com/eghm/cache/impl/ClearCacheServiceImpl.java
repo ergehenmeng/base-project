@@ -42,21 +42,9 @@ public class ClearCacheServiceImpl implements ClearCacheService {
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheConstant.SMS_TEMPLATE, allEntries = true)
-    public void clearSmsTemplate() {
-        log.info("短信模板缓存清除成功");
-    }
-
-    @Override
     public void clearSensitiveWord() {
         sensitiveWordService.reloadLexicon();
         log.info("敏感词缓存清除成功");
-    }
-
-    @Override
-    @CacheEvict(cacheNames = CacheConstant.PAY_CONFIG, allEntries = true)
-    public void clearPayConfig() {
-        log.info("支付配置缓存清除成功");
     }
 
     @Override
@@ -75,18 +63,6 @@ public class ClearCacheServiceImpl implements ClearCacheService {
     @CacheEvict(cacheNames = {CacheConstant.SYS_AREA_ID, CacheConstant.SYS_AREA_ID, CacheConstant.SYS_AREA_PID}, allEntries = true)
     public void clearSysArea() {
         log.info("省市区缓存清除成功");
-    }
-
-    @Override
-    @CacheEvict(cacheNames = CacheConstant.PUSH_TEMPLATE, allEntries = true)
-    public void clearPushTemplate() {
-        log.info("推送模板缓存清除成功");
-    }
-
-    @Override
-    @CacheEvict(cacheNames = CacheConstant.ITEM_TAG, allEntries = true)
-    public void clearItemTag() {
-        log.info("零售标签缓存清除成功");
     }
 
     @Override

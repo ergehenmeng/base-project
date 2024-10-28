@@ -11,15 +11,14 @@ import com.eghm.enums.SmsType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.SmsLog;
 import com.eghm.service.sys.SmsLogService;
-import com.eghm.service.sys.SmsTemplateService;
 import com.eghm.utils.CacheUtil;
 import com.eghm.utils.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.text.MessageFormat;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.eghm.constants.CommonConstant.MAX_ERROR_NUM;
 import static com.eghm.constants.CommonConstant.SMS_CODE_EXPIRE;
@@ -41,15 +40,11 @@ public class SmsServiceImpl implements SmsService {
 
     private final SendSmsService sendSmsService;
 
-    private final SmsTemplateService smsTemplateService;
-
     @Override
     public void sendSmsCode(SmsType smsType, String mobile) {
         this.smsLimitCheck(smsType.getValue(), mobile);
-        String template = smsTemplateService.getTemplate(smsType.getValue());
         String smsCode = StringUtil.randomNumber();
-        String content = this.formatTemplate(template, smsCode);
-        this.doSendSms(mobile, content, smsType);
+        this.doSendSms(mobile, smsType, smsCode);
         this.saveSmsCode(smsType.getValue(), mobile, smsCode);
         long expire = sysConfigApi.getLong(ConfigConstant.SMS_TYPE_INTERVAL);
         cacheService.setValue(String.format(CacheConstant.SMS_TYPE_INTERVAL, smsType.getValue(), mobile), true, expire);
@@ -100,27 +95,6 @@ public class SmsServiceImpl implements SmsService {
         return exist;
     }
 
-    @Override
-    public void sendSms(SmsType smsType, String mobile, Object... params) {
-        String template = smsTemplateService.getTemplate(smsType.getValue());
-        if (template == null) {
-            log.warn("短信模板不存在或已禁用:[{}] [{}] [{}]", smsType, mobile, params);
-            return;
-        }
-        String content = this.formatTemplate(template, params);
-        this.doSendSms(mobile, content, smsType);
-    }
-
-    @Override
-    public void sendSms(String mobile, String content) {
-        this.doSendSms(mobile, content, SmsType.DEFAULT);
-    }
-
-    @Override
-    public void sendSms(List<String> mobileList, String content) {
-        mobileList.forEach(mobile -> this.sendSms(mobile, content));
-    }
-
     /**
      * 删除短信验证码
      *
@@ -135,24 +109,19 @@ public class SmsServiceImpl implements SmsService {
      * 发送短信并记录短信日志
      *
      * @param mobile  手机号
-     * @param content 短信内容
      * @param smsType 短信类型
+     * @param params  参数
      */
-    private void doSendSms(String mobile, String content, SmsType smsType) {
-        int state = sendSmsService.sendSms(mobile, content);
-        SmsLog smsLog = SmsLog.builder().content(content).mobile(mobile).smsType(smsType).state(state).build();
+    private void doSendSms(String mobile, SmsType smsType, Object... params) {
+        Map<String, Object> param = new HashMap<>(4);
+        if (params.length > 0) {
+            for (int i = 0; i < params.length; i++) {
+                param.put("param" + i, params[i]);
+            }
+        }
+        int state = sendSmsService.sendSms(mobile, smsType.getTemplateId(), param);
+        SmsLog smsLog = SmsLog.builder().content(String.format(smsType.getContent(), params)).mobile(mobile).smsType(smsType).state(state).build();
         smsLogService.addSmsLog(smsLog);
-    }
-
-    /**
-     * 根据模板和参数填充数据
-     *
-     * @param template 模板
-     * @param params   参数
-     * @return 填充后的数据
-     */
-    private String formatTemplate(String template, Object... params) {
-        return MessageFormat.format(template, params);
     }
 
     /**

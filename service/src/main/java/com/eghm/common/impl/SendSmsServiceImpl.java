@@ -17,14 +17,8 @@ import java.util.Map;
 public class SendSmsServiceImpl implements SendSmsService {
 
     @Override
-    public int sendSms(String mobile, String content) {
-        log.info("发送短信, 手机号:[{}] 短信内容:[{}]", mobile, content);
-        return 0;
-    }
-
-    @Override
-    public int sendSms(String mobile, String templateName, Map<String, Object> params) {
-        log.info("发送短信, 手机号:[{}] 短信模板:[{}] 参数: [{}]", mobile, templateName, params);
+    public int sendSms(String mobile, String templateId, Map<String, Object> params) {
+        log.info("发送短信, 手机号:[{}] 短信模板:[{}] 参数: [{}]", mobile, templateId, params);
         return 0;
     }
 }

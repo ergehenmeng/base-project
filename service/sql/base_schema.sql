@@ -484,21 +484,6 @@ CREATE TABLE `sms_log`
   DEFAULT CHARSET = utf8mb4 COMMENT ='短信日志记录表';
 
 -- ----------------------------
--- Table structure for sms_template
--- ----------------------------
-DROP TABLE IF EXISTS `sms_template`;
-CREATE TABLE `sms_template`
-(
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `nid`         varchar(20)  DEFAULT NULL COMMENT '短信模板nid即短信类型',
-    `content`     varchar(120) DEFAULT NULL COMMENT '短信内容',
-    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='短信模板类型';
-
--- ----------------------------
 -- Table structure for sys_area
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_area`;

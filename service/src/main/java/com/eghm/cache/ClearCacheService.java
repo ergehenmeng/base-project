@@ -17,20 +17,9 @@ public interface ClearCacheService {
     void clearSysDict();
 
     /**
-     * 清空短信模板
-     */
-    void clearSmsTemplate();
-
-    /**
      * 重新加载敏感词
      */
     void clearSensitiveWord();
-
-    /**
-     * 清除支付配置
-     *
-     */
-    void clearPayConfig();
 
     /**
      * 清除banner缓存
@@ -46,16 +35,6 @@ public interface ClearCacheService {
      * 清除省市区缓存
      */
     void clearSysArea();
-
-    /**
-     * 清除推送模板
-     */
-    void clearPushTemplate();
-
-    /**
-     * 零售标签缓存清除
-     */
-    void clearItemTag();
 
     /**
      * 清除授权配置缓存
