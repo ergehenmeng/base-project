@@ -23,37 +23,27 @@ public enum SmsType implements ValueEnumBinder {
     /**
      * 登陆发送短信
      */
-    MEMBER_LOGIN("member_login", "登陆发送短信", "", ""),
+    MEMBER_LOGIN("member_login", "登陆发送短信", "", "您正在登陆EGHM平台，短信验证码：${param0}。如非本人操作，请忽略此短信"),
 
     /**
      * 登陆发送短信
      */
-    USER_LOGIN("user_login", "登陆发送短信", "", ""),
+    USER_LOGIN("user_login", "登陆发送短信", "", "您正在登陆EGHM管理平台，短信验证码：${param0}。如非本人操作，请忽略此短信"),
 
     /**
      * 忘记登陆密码
      */
-    FORGET("forget", "忘记密码发送短信", "", ""),
+    FORGET("forget", "忘记密码发送短信", "", "您正在修改EGHM平台登录密码，短信验证码：${param0}。如非本人操作，请忽略此短信"),
 
     /**
      * 注册发送短信
      */
-    REGISTER("register", "注册发送短信", "", ""),
-
-    /**
-     * 商户解绑微信号短信
-     */
-    MERCHANT_UNBIND("merchant_unbind", "商户解绑微信号短信", "", ""),
+    REGISTER("register", "注册发送短信", "", "您正在注册EGHM平台，短信验证码：${param0}。如非本人操作，请忽略此短信"),
 
     /**
      * 更换邮箱发送短信验证码
      */
-    CHANGE_EMAIL("change_email", "更换邮箱发送短信验证码", "", ""),
-
-    /**
-     * 确认无房,发送通知短信
-     */
-    CONFIRM_NO_ROOM("confirm_no_room", "确认无房,发送通知短信", "", ""),
+    CHANGE_EMAIL("change_email", "更换邮箱发送短信验证码", "", "您正在更换EGHM平台账号的邮箱，短信验证码：${param0}。如非本人操作，请忽略此短信"),
 
     ;
     @EnumValue
