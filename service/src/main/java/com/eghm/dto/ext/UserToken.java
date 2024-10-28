@@ -22,9 +22,6 @@ public class UserToken {
     @ApiModelProperty("0: 系统管理员 1: 系统用户 2: 商户管理员 3:商户用户")
     private UserType userType;
 
-    @ApiModelProperty("商户id")
-    private Long merchantId;
-
     @ApiModelProperty("昵称")
     private String nickName;
 

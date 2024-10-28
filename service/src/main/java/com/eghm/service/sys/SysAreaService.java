@@ -37,7 +37,6 @@ public interface SysAreaService {
      */
     String parseArea(Long provinceId, Long cityId, Long countyId, String address);
 
-
     /**
      * 根据省市县id进行拼接
      *

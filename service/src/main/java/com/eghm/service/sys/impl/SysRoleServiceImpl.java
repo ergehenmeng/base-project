@@ -122,34 +122,9 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public void authRole(Long userId, List<RoleType> roleList) {
-        sysUserRoleMapper.deleteByUserId(userId);
-        if (CollUtil.isEmpty(roleList)) {
-            return;
-        }
-        LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(SysRole::getId);
-        wrapper.in(SysRole::getRoleType, roleList);
-        List<SysRole> selectList = sysRoleMapper.selectList(wrapper);
-        for (SysRole sysRole : selectList) {
-            sysUserRoleMapper.insert(new SysUserRole(userId, sysRole.getId()));
-        }
-    }
-
-    @Override
     public void auth(Long userId, List<Long> roleList) {
         sysUserRoleMapper.deleteByUserId(userId);
         roleList.forEach(roleId -> sysUserRoleMapper.insert(new SysUserRole(userId, roleId)));
-    }
-
-    @Override
-    public SysRole selectByIdRequired(Long roleId) {
-        SysRole sysRole = sysRoleMapper.selectById(roleId);
-        if (sysRole == null) {
-            log.warn("角色不存在 [{}]", roleId);
-            throw new BusinessException(ErrorCode.ROLE_NULL);
-        }
-        return sysRole;
     }
 
     /**

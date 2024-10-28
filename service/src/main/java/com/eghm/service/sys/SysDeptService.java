@@ -15,14 +15,6 @@ import java.util.List;
 public interface SysDeptService {
 
     /**
-     * 主键查询部门节点信息
-     *
-     * @param id 主键
-     * @return 部门节点
-     */
-    SysDept getById(Long id);
-
-    /**
      * 获取所有的部门信息
      *
      * @param query 查询条件

@@ -72,22 +72,6 @@ public class SecurityHolder {
     }
 
     /**
-     * 获取当前用户对应的商户id
-     *
-     * @return 商户id, 注意: 如果用户没关联商户,则为空
-     */
-    public static Long getMerchantId() {
-        return getUserRequired().getMerchantId();
-    }
-
-    /**
-     * @return 获取当前登录用户的商户id, 可能为空
-     */
-    public static Optional<Long> getMerchantOptional() {
-        return Optional.ofNullable(getMerchantId());
-    }
-
-    /**
      * 移除当前用户信息
      */
     public static void remove() {

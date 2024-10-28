@@ -10,7 +10,6 @@ import com.eghm.model.Member;
 import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.vo.member.MemberResponse;
 import com.eghm.vo.member.MemberVO;
-import com.eghm.vo.member.SignInVO;
 
 import java.util.List;
 
@@ -35,14 +34,6 @@ public interface MemberService {
      * @return 列表
      */
     List<MemberResponse> getList(MemberQueryRequest request);
-
-    /**
-     * 主键查询
-     *
-     * @param memberId id
-     * @return member
-     */
-    Member getById(Long memberId);
 
     /**
      * 注册新用户,必须保证参数已校验,昵称如果为空默认由系统生成
@@ -149,13 +140,6 @@ public interface MemberService {
     void bindEmail(BindEmailDTO request);
 
     /**
-     * 用户实名制认证
-     *
-     * @param request 实名制信息
-     */
-    void realNameAuth(MemberAuthDTO request);
-
-    /**
      * 查看邮箱是会否被占用
      *
      * @param email 邮箱号
@@ -219,7 +203,7 @@ public interface MemberService {
 
     /**
      * 微信小程序授权登陆 (手机号码登录)
-     * 注意: 该接口未获取用户的unionId, 如需获取需要前端调用 wx.login拿到jsCode, 后端调用sns/jscode2session接口获取
+     * 注意: 该接口未获取用户的unionId, 如需获取需要前端调用 wx.login拿到jsCode, 后端调用sns/jsCode2session接口获取
      *
      * @param jsCode jsCode 注意:此jsCode仅仅获取手机号, 与获取unionId和openId的jsCode不同
      * @param openId openId
@@ -260,15 +244,6 @@ public interface MemberService {
      * @param password  新密码
      */
     void setPassword(String requestId, String password);
-
-    /**
-     * 判断用户是否连续签到
-     *
-     * @param memberId 用户id
-     * @param signDay  最大签到天数 不能超过32天
-     * @return true: 连续签到 false:不连续签到
-     */
-    boolean checkSeriesSign(Long memberId, int signDay);
 
     /**
      * 用户个人中心

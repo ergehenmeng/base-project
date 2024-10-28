@@ -5,8 +5,6 @@ import com.eghm.dto.ext.CheckBox;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.role.RoleAddRequest;
 import com.eghm.dto.role.RoleEditRequest;
-import com.eghm.enums.ref.RoleType;
-import com.eghm.model.SysRole;
 import com.eghm.vo.sys.SysRoleResponse;
 
 import java.util.List;
@@ -78,14 +76,6 @@ public interface SysRoleService {
     void authMenu(Long roleId, List<Long> menuIds);
 
     /**
-     * 商户角色授权 (角色类型)
-     *
-     * @param userId   商户对应于用户id
-     * @param roleList 商户角色code
-     */
-    void authRole(Long userId, List<RoleType> roleList);
-
-    /**
      * 商户角色授权 (角色id)
      *
      * @param userId   商户对应于用户id
@@ -93,12 +83,5 @@ public interface SysRoleService {
      */
     void auth(Long userId, List<Long> roleList);
 
-    /**
-     * 根据角色id查询角色信息
-     *
-     * @param roleId 角色id
-     * @return 角色信息
-     */
-    SysRole selectByIdRequired(Long roleId);
 }
 

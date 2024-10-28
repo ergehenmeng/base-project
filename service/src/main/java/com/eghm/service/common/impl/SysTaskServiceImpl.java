@@ -45,11 +45,6 @@ public class SysTaskServiceImpl implements SysTaskService {
     }
 
     @Override
-    public SysTask getById(Long id) {
-        return sysTaskMapper.selectById(id);
-    }
-
-    @Override
     public void update(TaskEditRequest request) {
         if (!CronExpression.isValidExpression(request.getCronExpression())) {
             throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);

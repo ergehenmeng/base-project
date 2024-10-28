@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -34,29 +33,15 @@ public class DateUtil {
 
     private static final String SHORT_DATE = "yyyy-MM-dd";
 
-    private static final String MIN_DATE_LIMIT = "MMdd";
-
     private static final String MIN_DATE = "yyyy-MM";
 
     public static final DateTimeFormatter SHORT_LIMIT_FORMAT = DateTimeFormatter.ofPattern(SHORT_DATE_LIMIT);
-
-    public static final DateTimeFormatter MIN_LIMIT_FORMAT = DateTimeFormatter.ofPattern(MIN_DATE_LIMIT);
 
     public static final DateTimeFormatter SIMPLE_FORMAT = DateTimeFormatter.ofPattern(SIMPLE_DATE);
 
     public static final DateTimeFormatter LONG_FORMAT = DateTimeFormatter.ofPattern(LONG_DATE);
 
     public static final DateTimeFormatter MIN_FORMAT = DateTimeFormatter.ofPattern(MIN_DATE);
-
-    /**
-     * 格式化日期 yyyy-MM-dd HH:mm:ss
-     *
-     * @param date date
-     * @return 字符串七日
-     */
-    public static String formatLong(TemporalAccessor date) {
-        return LONG_FORMAT.format(date);
-    }
 
     /**
      * 格式化日期 yyyyMMdd
@@ -69,16 +54,6 @@ public class DateUtil {
     }
 
     /**
-     * 格式化日期 MMdd
-     *
-     * @param date date
-     * @return 字符串日期
-     */
-    public static String formatMiniLimit(TemporalAccessor date) {
-        return MIN_LIMIT_FORMAT.format(date);
-    }
-
-    /**
      * 格式化日期 MM-dd HH:mm:ss
      *
      * @param date date
@@ -86,16 +61,6 @@ public class DateUtil {
      */
     public static String formatSimple(TemporalAccessor date) {
         return SIMPLE_FORMAT.format(date);
-    }
-
-    /**
-     * 月的第一天
-     *
-     * @param month 月份 yyyy-MM
-     * @return 该月的第一天
-     */
-    public static LocalDate parseFirstDayOfMonth(String month) {
-        return LocalDate.parse(month + "-01", DateTimeFormatter.ISO_DATE);
     }
 
     /**

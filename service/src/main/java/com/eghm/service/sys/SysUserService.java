@@ -79,14 +79,6 @@ public interface SysUserService {
     String initPassword(String mobile);
 
     /**
-     * 根据主键查询管理人员
-     *
-     * @param id 主键
-     * @return 用户信息
-     */
-    SysUser getById(Long id);
-
-    /**
      * 根据主键查询管理人员 不存在就抛异常
      *
      * @param id 主键
@@ -107,14 +99,6 @@ public interface SysUserService {
      * @param id 系统用户id
      */
     void resetPassword(Long id);
-
-    /**
-     * 重置密码
-     *
-     * @param id  id
-     * @param pwd 新密码
-     */
-    void resetPassword(Long id, String pwd);
 
     /**
      * 删除用户

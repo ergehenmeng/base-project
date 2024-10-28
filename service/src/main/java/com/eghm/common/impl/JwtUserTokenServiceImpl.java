@@ -41,7 +41,6 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
             DecodedJWT verify = verifier.verify(token);
             UserToken userToken = new UserToken();
             userToken.setId(verify.getClaim("id").asLong());
-            userToken.setMerchantId(verify.getClaim("merchantId").asLong());
             userToken.setUserType(UserType.of(verify.getClaim("userType").asInt()));
             userToken.setDataType(DataType.of(verify.getClaim("dataType").asInt()));
             userToken.setNickName(verify.getClaim("nickName").asString());

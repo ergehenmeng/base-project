@@ -89,11 +89,6 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     }
 
     @Override
-    public SysNotice getById(Long id) {
-        return sysNoticeMapper.selectById(id);
-    }
-
-    @Override
     public NoticeDetailVO detailById(Long id) {
         SysNotice notice = sysNoticeMapper.selectById(id);
         if (notice == null) {

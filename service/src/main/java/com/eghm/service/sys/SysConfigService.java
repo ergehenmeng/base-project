@@ -29,12 +29,4 @@ public interface SysConfigService {
      */
     void update(ConfigEditRequest request);
 
-    /**
-     * 根据主键获取系统参数
-     *
-     * @param id 主键
-     * @return 系统参数信息
-     */
-    SysConfig getById(Long id);
-
 }

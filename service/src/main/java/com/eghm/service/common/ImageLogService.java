@@ -42,12 +42,5 @@ public interface ImageLogService {
      */
     void update(ImageEditRequest request);
 
-    /**
-     * 根据主键查询
-     *
-     * @param id 主键
-     * @return 图片上传记录
-     */
-    ImageLog getById(Long id);
 }
 

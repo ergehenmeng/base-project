@@ -3,7 +3,6 @@ package com.eghm.service.sys.impl;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
@@ -143,11 +142,6 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public SysUser getById(Long id) {
-        return sysUserMapper.selectById(id);
-    }
-
-    @Override
     public SysUser getByIdRequired(Long id) {
         SysUser user = sysUserMapper.selectById(id);
         if (user == null) {
@@ -176,23 +170,12 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public void resetPassword(Long id) {
-        SysUser user = this.getById(id);
+        SysUser user = sysUserMapper.selectById(id);
         String password = this.initPassword(user.getMobile());
         user.setPwd(password);
         user.setInitPwd(password);
         user.setPwdUpdateTime(LocalDateTime.now());
         sysUserMapper.updateById(user);
-    }
-
-    @Override
-    public void resetPassword(Long id, String pwd) {
-        LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
-        String encode = encoder.encode(MD5.create().digestHex(pwd));
-        wrapper.eq(SysUser::getId, id);
-        wrapper.set(SysUser::getPwd, encode);
-        wrapper.set(SysUser::getInitPwd, encode);
-        wrapper.set(SysUser::getPwdUpdateTime, LocalDateTime.now());
-        sysUserMapper.update(null, wrapper);
     }
 
     @Override

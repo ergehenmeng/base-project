@@ -18,7 +18,7 @@ public class CollectDTO {
     @NotNull(message = "收藏id不能为空")
     private Long collectId;
 
-    @ApiModelProperty(value = "收藏对象类型(1:景区 2:民宿 3:零售门店 4:零售商品 5:线路商品 6:餐饮门店 7:资讯 8:旅行社)", required = true)
+    @ApiModelProperty(value = "收藏对象类型(1:资讯 2:公告)", required = true)
     @NotNull(message = "收藏对象类型不能为空")
     private CollectType collectType;
 }

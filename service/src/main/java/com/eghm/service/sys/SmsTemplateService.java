@@ -29,14 +29,6 @@ public interface SmsTemplateService {
     String getTemplate(String nid);
 
     /**
-     * 主键查询短信模板
-     *
-     * @param id id
-     * @return 短信模板
-     */
-    SmsTemplate getById(Long id);
-
-    /**
      * 更新短信模板
      *
      * @param request 前台参数

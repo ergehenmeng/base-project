@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.banner.BannerAddRequest;
 import com.eghm.dto.banner.BannerEditRequest;
 import com.eghm.dto.banner.BannerQueryRequest;
-import com.eghm.model.Banner;
 import com.eghm.vo.banner.BannerResponse;
 
 /**
@@ -20,14 +19,6 @@ public interface BannerService {
      * @return 列表
      */
     Page<BannerResponse> getByPage(BannerQueryRequest request);
-
-    /**
-     * 主键查询
-     *
-     * @param id id
-     * @return banner
-     */
-    Banner getById(Long id);
 
     /**
      * 新增轮播图信息

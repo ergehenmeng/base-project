@@ -43,11 +43,6 @@ public class SysDeptServiceImpl implements SysDeptService {
     private final SysDeptMapper sysDeptMapper;
 
     @Override
-    public SysDept getById(Long id) {
-        return sysDeptMapper.selectById(id);
-    }
-
-    @Override
     public List<SysDeptResponse> getList(PagingQuery query) {
         List<SysDeptResponse> responseList = sysDeptMapper.getList(query.getQueryName());
         return this.treeBin(ROOT_NODE, responseList);

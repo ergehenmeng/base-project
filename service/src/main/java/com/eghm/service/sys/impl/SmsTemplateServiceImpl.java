@@ -35,11 +35,6 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     }
 
     @Override
-    public SmsTemplate getById(Long id) {
-        return smsTemplateMapper.selectById(id);
-    }
-
-    @Override
     public void update(SmsTemplateEditRequest request) {
         SmsTemplate template = DataUtil.copy(request, SmsTemplate.class);
         smsTemplateMapper.updateById(template);

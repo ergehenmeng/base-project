@@ -44,8 +44,4 @@ public class ImageLogServiceImpl implements ImageLogService {
         imageLogMapper.updateById(log);
     }
 
-    @Override
-    public ImageLog getById(Long id) {
-        return imageLogMapper.selectById(id);
-    }
 }

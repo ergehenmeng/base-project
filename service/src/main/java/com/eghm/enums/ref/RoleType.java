@@ -23,39 +23,10 @@ public enum RoleType implements ValueEnumBinder {
     COMMON("common", "系统通用角色"),
 
     /**
-     * 景区商户角色
+     * 核销员 (待完成)
      */
-    SCENIC("scenic", "景区"),
-
-    /**
-     * 民宿商户角色
-     */
-    HOMESTAY("homestay", "民宿"),
-
-    /**
-     * 餐饮商户角色
-     */
-    VOUCHER("voucher", "餐饮"),
-
-    /**
-     * 零售商户角色
-     */
-    ITEM("item", "零售"),
-
-    /**
-     * 线路商户角色
-     */
-    LINE("line", "线路"),
-
-    /**
-     * 场馆商户角色
-     */
-    VENUE("venue", "场馆"),
-
-    /**
-     * 商户普通角色
-     */
-    MERCHANT("merchant", "商户普通角色");
+    VERIFY("verify", "核销员"),
+    ;
 
     /**
      * 角色code

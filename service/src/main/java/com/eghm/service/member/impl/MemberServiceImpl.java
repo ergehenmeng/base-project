@@ -1,9 +1,7 @@
 package com.eghm.service.member.impl;
 
 import cn.hutool.core.net.NetUtil;
-import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
@@ -14,7 +12,6 @@ import com.eghm.common.EmailService;
 import com.eghm.common.MemberTokenService;
 import com.eghm.common.SmsService;
 import com.eghm.common.impl.SysConfigApi;
-import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
@@ -51,7 +48,6 @@ import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -85,8 +81,6 @@ public class MemberServiceImpl implements MemberService {
 
     private final WeChatMpService weChatMpService;
 
-    private final SystemProperties systemProperties;
-
     private final WeChatMiniService weChatMiniService;
 
     private final MemberTokenService memberTokenService;
@@ -100,11 +94,6 @@ public class MemberServiceImpl implements MemberService {
     public List<MemberResponse> getList(MemberQueryRequest request) {
         Page<MemberResponse> listPage = memberMapper.listPage(request.createNullPage(), request);
         return listPage.getRecords();
-    }
-
-    @Override
-    public Member getById(Long memberId) {
-        return memberMapper.selectById(memberId);
     }
 
     @Override
@@ -236,17 +225,6 @@ public class MemberServiceImpl implements MemberService {
         emailCode.setEmailType(EmailType.BIND_EMAIL);
         emailService.verifyEmailCode(emailCode);
         member.setEmail(request.getEmail());
-        memberMapper.updateById(member);
-    }
-
-    @Override
-    public void realNameAuth(MemberAuthDTO request) {
-        Member member = new Member();
-        member.setId(request.getMemberId());
-        member.setRealName(request.getRealName());
-        member.setBirthday(IdcardUtil.getBirthByIdCard(request.getIdCard()));
-        member.setIdCard(SecureUtil.aes(systemProperties.getApi().getSecretKey().getBytes(StandardCharsets.UTF_8)).encryptBase64(request.getIdCard()));
-        member.setSex(IdcardUtil.getGenderByIdCard(request.getIdCard()));
         memberMapper.updateById(member);
     }
 
@@ -385,26 +363,6 @@ public class MemberServiceImpl implements MemberService {
         }
         member.setPwd(encoder.encode(MD5.create().digestHex(password)));
         memberMapper.updateById(member);
-    }
-
-    @Override
-    public boolean checkSeriesSign(Long memberId, int signDay) {
-        if (CommonConstant.BITMAP < signDay) {
-            log.error("接口不支持超过32天连续签到校验 [{}]", signDay);
-            return false;
-        }
-        Member member = memberMapper.selectById(memberId);
-        long registerDays = ChronoUnit.DAYS.between(member.getCreateTime().toLocalDate(), LocalDate.now());
-        String signKey = CacheConstant.MEMBER_SIGN_IN + memberId;
-        Long signNumber = cacheService.getBitmapOffset(signKey, registerDays - signDay, signDay);
-        int bitmap = 1;
-        for (int i = 0; i < signDay; i++) {
-            if ((signNumber & bitmap) != bitmap) {
-                return false;
-            }
-            signNumber >>= 1;
-        }
-        return true;
     }
 
     @Override
