@@ -33,8 +33,8 @@ public class ManageListenerHandler extends AbstractListenerHandler {
     /**
      * 管理后台操作日志
      */
-    @RabbitListener(queues = QueueConstant.MANAGE_OP_LOG_QUEUE)
-    public void manageOpLog(ManageLog log, Message message, Channel channel) throws IOException {
+    @RabbitListener(queues = QueueConstant.MANAGE_LOG_QUEUE)
+    public void manageLog(ManageLog log, Message message, Channel channel) throws IOException {
         processMessageAck(log, message, channel, manageLogService::insertManageLog);
     }
 

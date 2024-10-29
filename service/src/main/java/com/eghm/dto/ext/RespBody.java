@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class RespBody<T> {
 
     @ApiModelProperty("状态码,成功=200")
-    private Integer code = 200;
+    private Integer code = ErrorCode.SUCCESS.getCode();
 
     @ApiModelProperty("成功或失败的信息")
     private String msg = "success";
