@@ -1,4 +1,4 @@
-package com.eghm.dto.business.order.log;
+package com.eghm.dto.business.pay;
 
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.pay.enums.PayChannel;

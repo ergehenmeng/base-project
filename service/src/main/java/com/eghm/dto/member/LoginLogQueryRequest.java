@@ -1,4 +1,4 @@
-package com.eghm.dto.member.log;
+package com.eghm.dto.member;
 
 import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.PagingQuery;

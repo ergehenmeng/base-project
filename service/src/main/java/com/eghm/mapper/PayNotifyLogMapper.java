@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.business.order.log.PayLogQueryRequest;
+import com.eghm.dto.business.pay.PayLogQueryRequest;
 import com.eghm.model.PayNotifyLog;
 import com.eghm.vo.business.log.PayNotifyLogResponse;
 import org.apache.ibatis.annotations.Param;

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.LoginRecord;
-import com.eghm.dto.member.log.LoginLogQueryRequest;
+import com.eghm.dto.member.LoginLogQueryRequest;
 import com.eghm.mapper.LoginDeviceMapper;
 import com.eghm.mapper.LoginLogMapper;
 import com.eghm.model.LoginDevice;

@@ -2,7 +2,7 @@ package com.eghm.service.member;
 
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.SendNotice;
-import com.eghm.dto.member.tag.SendNotifyRequest;
+import com.eghm.dto.member.SendNotifyRequest;
 import com.eghm.vo.member.MemberNoticeVO;
 
 import java.util.List;

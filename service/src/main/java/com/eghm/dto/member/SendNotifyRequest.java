@@ -1,4 +1,4 @@
-package com.eghm.dto.member.tag;
+package com.eghm.dto.member;
 
 import com.eghm.enums.NoticeType;
 import com.eghm.validation.annotation.WordChecker;

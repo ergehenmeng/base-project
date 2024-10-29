@@ -2,7 +2,7 @@ package com.eghm.service.member;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.LoginRecord;
-import com.eghm.dto.member.log.LoginLogQueryRequest;
+import com.eghm.dto.member.LoginLogQueryRequest;
 import com.eghm.model.LoginDevice;
 import com.eghm.model.LoginLog;
 import com.eghm.vo.member.LoginDeviceVO;

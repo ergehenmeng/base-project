@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.template.TemplateEngine;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.SendNotice;
-import com.eghm.dto.member.tag.SendNotifyRequest;
+import com.eghm.dto.member.SendNotifyRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.NoticeType;
 import com.eghm.exception.BusinessException;

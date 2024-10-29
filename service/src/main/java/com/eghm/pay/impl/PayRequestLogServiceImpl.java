@@ -2,7 +2,7 @@ package com.eghm.pay.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.JsonService;
-import com.eghm.dto.business.order.log.PayLogQueryRequest;
+import com.eghm.dto.business.pay.PayLogQueryRequest;
 import com.eghm.mapper.PayRequestLogMapper;
 import com.eghm.model.PayRequestLog;
 import com.eghm.pay.PayRequestLogService;
