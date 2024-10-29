@@ -10,7 +10,6 @@ import com.eghm.configuration.SystemProperties;
 import com.eghm.enums.TemplateType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +21,6 @@ import java.util.Map;
  * @since 2019/8/20 17:01
  */
 @Slf4j
-@Service
 @AllArgsConstructor
 public class AliSmsServiceImpl implements SendSmsService {
 
