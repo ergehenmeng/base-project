@@ -1,6 +1,0 @@
-GET http://localhost:8080/manage/ticket/order/listPage?page=1&pageSize=10
-token: {{token}}
-###
-
-GET http://localhost:8080/manage/ticket/order/detail?orderNo=MP1727963047645229058
-token: {{token}}

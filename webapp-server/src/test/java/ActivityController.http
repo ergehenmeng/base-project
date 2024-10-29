@@ -1,7 +1,0 @@
-GET http://localhost:9090/webapp/activity/month?month=2023-12
-Channel: {{Channel}}
-
-###
-
-GET http://localhost:9090/webapp/activity/detail?id=1714560001303707659
-Channel: {{Channel}}

@@ -1,9 +1,0 @@
-GET http://localhost:8080/manage/voucher/order/listPage?page=1&pageSize=10&endDate=2023-11-11
-Token: {{token}}
-
-###
-
-GET http://localhost:8080/manage/voucher/order/detail?orderNo=CY1727964517874581506
-Token: {{token}}
-
-###

@@ -1,7 +1,0 @@
-POST http://localhost:9090/webapp/register/sendSms
-Channel: {{Channel}}
-Content-Type: application/json
-
-{
-  "mobile": ""
-}

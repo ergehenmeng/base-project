@@ -74,14 +74,6 @@ public interface SysDictService {
     void itemDelete(Long id);
 
     /**
-     * 根据主键查询
-     *
-     * @param id 主键
-     * @return 数据字典
-     */
-    SysDict getById(Long id);
-
-    /**
      * 根据nid与隐藏值获取显示信息 数据字典格式化数据
      *
      * @param nid         nid

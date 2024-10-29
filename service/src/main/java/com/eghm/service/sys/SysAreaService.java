@@ -9,14 +9,6 @@ import com.eghm.model.SysArea;
 public interface SysAreaService {
 
     /**
-     * 主键查询
-     *
-     * @param id id
-     * @return 地区
-     */
-    SysArea getById(Long id);
-
-    /**
      * 根据省市县id进行拼接
      *
      * @param provinceId 省份id

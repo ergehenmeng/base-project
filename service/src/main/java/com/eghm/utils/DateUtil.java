@@ -172,15 +172,6 @@ public class DateUtil {
     }
 
     /**
-     * 获得当前日期
-     *
-     * @return 当前时间
-     */
-    public static Date getNow() {
-        return new Date();
-    }
-
-    /**
      * 解析iso格式的日期
      *
      * @param dateTime yyyy-MM-dd'T'HH:mm:ss+08:00

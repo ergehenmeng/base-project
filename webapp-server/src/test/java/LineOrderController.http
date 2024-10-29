@@ -1,9 +1,0 @@
-http://localhost:9090/webapp/line/order/listPage?page=1&pageSize=10
-Channel: {{Channel}}
-Token: {{Token}}
-
-###
-
-http://localhost:9090/webapp/line/order/detail?orderNo=XL1716390347066417154
-Channel: {{Channel}}
-Token: {{Token}}

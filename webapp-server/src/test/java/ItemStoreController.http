@@ -1,8 +1,0 @@
-http://localhost:9090/webapp/store/home?id=1763046454489776134
-Channel: {{Channel}}
-
-###
-
-http://localhost:9090/webapp/store/recommend
-Channel: {{Channel}}
-

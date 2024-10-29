@@ -157,8 +157,8 @@ public class ExceptionAdviceHandler {
      * 支付宝异步通知
      */
     @ExceptionHandler(AliPayException.class)
-    public String aliPayException(HttpServletRequest request) {
-        log.error("支付宝异步通知异常 [{}]", request.getRequestURI());
+    public String aliPayException(HttpServletRequest request, AliPayException e) {
+        log.error("支付宝异步通知异常 [{}] [{}] [{}]", request.getRequestURI(), e.getCode(), e.getMessage());
         return "FAIL";
     }
 

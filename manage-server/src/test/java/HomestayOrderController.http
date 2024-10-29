@@ -1,9 +1,0 @@
-GET http://localhost:8080/manage/homestay/order/listPage?page=1&pageSize=10
-Token: {{token}}
-
-###
-
-GET http://localhost:8080/manage/homestay/order/detail?orderNo=CY1717124853345591298
-Token: {{token}}
-
-###

@@ -1,8 +1,0 @@
-http://localhost:9090/webapp/item/group/listPage?page=1&pageSize=10
-Channel: {{Channel}}
-
-
-
-###
-http://localhost:9090/webapp/item/limit/listPage?page=1&pageSize=10
-Channel: {{Channel}}

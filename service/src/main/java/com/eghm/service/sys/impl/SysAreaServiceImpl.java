@@ -18,14 +18,6 @@ public class SysAreaServiceImpl implements SysAreaService {
     private final CacheProxyService cacheProxyService;
 
     @Override
-    public SysArea getById(Long id) {
-        if (id == null) {
-            return null;
-        }
-        return cacheProxyService.getAreaById(id);
-    }
-
-    @Override
     public String parseArea(Long provinceId, Long cityId, Long countyId) {
         if (provinceId == null) {
             return this.parseArea(cityId, countyId);
