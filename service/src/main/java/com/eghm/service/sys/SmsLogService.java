@@ -1,7 +1,7 @@
 package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.sms.SmsLogQueryRequest;
+import com.eghm.dto.log.SmsLogQueryRequest;
 import com.eghm.model.SmsLog;
 import com.eghm.vo.log.SmsLogResponse;
 
