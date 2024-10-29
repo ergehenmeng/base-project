@@ -132,7 +132,7 @@ public class MemberServiceImpl implements MemberService {
     public LoginTokenVO smsLogin(SmsLoginDTO login) {
         Member member = this.getByAccountRequired(login.getMobile());
         this.checkMemberLock(member);
-        smsService.verifySmsCode(SmsType.MEMBER_LOGIN, login.getMobile(), login.getSmsCode());
+        smsService.verifySmsCode(SmsTemplateType.MEMBER_LOGIN, login.getMobile(), login.getSmsCode());
         return this.doLogin(member, login.getIp());
     }
 
@@ -162,7 +162,7 @@ public class MemberServiceImpl implements MemberService {
             throw new BusinessException(ErrorCode.MEMBER_NOT_REGISTER);
         }
         this.checkMemberLock(member);
-        smsService.sendSmsCode(SmsType.MEMBER_LOGIN, member.getMobile(), ip);
+        smsService.sendSmsCode(SmsTemplateType.MEMBER_LOGIN, member.getMobile(), ip);
     }
 
     @Override
@@ -171,7 +171,7 @@ public class MemberServiceImpl implements MemberService {
         if (member == null) {
             throw new BusinessException(ErrorCode.MEMBER_NOT_REGISTER);
         }
-        smsService.sendSmsCode(SmsType.FORGET, member.getMobile(), ip);
+        smsService.sendSmsCode(SmsTemplateType.FORGET, member.getMobile(), ip);
     }
 
     @Override
@@ -186,13 +186,13 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void registerSendSms(String mobile, String ip) {
         this.mobileRedoVerify(mobile);
-        smsService.sendSmsCode(SmsType.REGISTER, mobile, ip);
+        smsService.sendSmsCode(SmsTemplateType.REGISTER, mobile, ip);
     }
 
     @Override
     public LoginTokenVO registerByMobile(MobileRegisterDTO request) {
         this.mobileRedoVerify(request.getMobile());
-        smsService.verifySmsCode(SmsType.REGISTER, request.getMobile(), request.getSmsCode());
+        smsService.verifySmsCode(SmsTemplateType.REGISTER, request.getMobile(), request.getSmsCode());
         MemberRegister register = DataUtil.copy(request, MemberRegister.class);
         register.setRegisterIp(request.getIp());
         Member member = this.doRegister(register);
@@ -275,13 +275,13 @@ public class MemberServiceImpl implements MemberService {
             log.warn("未绑定手机号,无法发送邮箱验证短信 memberId:[{}]", memberId);
             throw new BusinessException(ErrorCode.MOBILE_NOT_BIND);
         }
-        smsService.sendSmsCode(SmsType.CHANGE_EMAIL, member.getMobile(), ip);
+        smsService.sendSmsCode(SmsTemplateType.CHANGE_EMAIL, member.getMobile(), ip);
     }
 
     @Override
     public void sendChangeEmailCode(SendEmailAuthCodeDTO request) {
         Member member = memberMapper.selectById(request.getMemberId());
-        smsService.verifySmsCode(SmsType.CHANGE_EMAIL, member.getMobile(), request.getSmsCode());
+        smsService.verifySmsCode(SmsTemplateType.CHANGE_EMAIL, member.getMobile(), request.getSmsCode());
         this.checkEmail(request.getEmail());
         SendEmail email = new SendEmail();
         email.setType(EmailType.BIND_EMAIL);

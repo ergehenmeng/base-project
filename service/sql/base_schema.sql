@@ -472,12 +472,12 @@ CREATE TABLE `sensitive_word`
 DROP TABLE IF EXISTS `sms_log`;
 CREATE TABLE `sms_log`
 (
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `sms_type`    varchar(20)         DEFAULT NULL COMMENT '短信分类',
-    `mobile`      char(11)            DEFAULT NULL COMMENT '手机号',
-    `content`     varchar(100)        DEFAULT NULL COMMENT '短信内容',
-    `create_time` datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '发送时间',
-    `state`       tinyint(1) unsigned DEFAULT '0' COMMENT '发送状态 0:发送中 1:已发送 2:发送失败',
+    `id`                bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `sms_template_type` varchar(20)         DEFAULT NULL COMMENT '短信模板',
+    `mobile`            char(11)            DEFAULT NULL COMMENT '手机号',
+    `content`           varchar(100)        DEFAULT NULL COMMENT '短信内容',
+    `create_time`       datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '发送时间',
+    `state`             tinyint(1) unsigned DEFAULT '0' COMMENT '发送状态 0:发送中 1:已发送 2:发送失败',
     PRIMARY KEY (`id`) USING BTREE,
     KEY `mobile_index` (`mobile`) USING BTREE
 ) ENGINE = InnoDB

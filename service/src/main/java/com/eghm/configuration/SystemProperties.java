@@ -73,6 +73,33 @@ public class SystemProperties {
      */
     private final AlarmMsg alarmMsg = new AlarmMsg();
 
+    /**
+     * 短信配置
+     */
+    private final Sms sms = new Sms();
+
+    @Data
+    public static class Sms {
+
+        private SmsType smsType = SmsType.ALI;
+
+        /**
+         * 签名信息
+         */
+        private String signName;
+
+        /**
+         * AccessKey ID
+         */
+        private String keyId;
+
+        /**
+         * AccessKey Secret
+         */
+        private String secretKey;
+
+    }
+
     @Data
     public static class Redis {
 

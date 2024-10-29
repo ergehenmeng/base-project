@@ -15,8 +15,8 @@
             <if test="param.queryName != null and param.queryName != ''">
                 and mobile like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
             </if>
-            <if test="param.smsType != null">
-                and sms_type = #{param.smsType}
+            <if test="param.smsTemplateType != null">
+                and sms_type = #{param.smsTemplateType}
             </if>
             <if test="param.state != null">
                 and state = #{param.state}

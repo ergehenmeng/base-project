@@ -118,17 +118,17 @@ public class CacheConstant {
     public static final String REFRESH_TOKEN = "refresh_token:";
 
     /**
-     * 同一类型短信发送间隔 sms_type_interval::smsType+mobile
+     * 同一类型短信发送间隔 sms_type_interval::smsTemplateType+mobile
      */
     public static final String SMS_TYPE_INTERVAL = "sms_type_interval:%s:%s";
 
     /**
-     * 同一类型短信单小时总次数 sms_type_hour_limit::smsType+mobile
+     * 同一类型短信单小时总次数 sms_type_hour_limit::smsTemplateType+mobile
      */
     public static final String SMS_TYPE_HOUR_LIMIT = "sms_type_hour_limit:%s:%s";
 
     /**
-     * 同一类型短信一天总次数 sms_type_day_limit::smsType+mobile
+     * 同一类型短信一天总次数 sms_type_day_limit::smsTemplateType+mobile
      */
     public static final String SMS_TYPE_DAY_LIMIT = "sms_type_day_limit:%s:%s";
 

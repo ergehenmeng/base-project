@@ -2,7 +2,7 @@ package com.eghm.dto.sms;
 
 import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.enums.SmsType;
+import com.eghm.enums.SmsTemplateType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,5 +32,5 @@ public class SmsLogQueryRequest extends PagingQuery {
     private Integer state;
 
     @ApiModelProperty("短信类型")
-    private SmsType smsType;
+    private SmsTemplateType smsTemplateType;
 }

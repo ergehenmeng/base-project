@@ -1,6 +1,6 @@
 package com.eghm.vo.log;
 
-import com.eghm.enums.SmsType;
+import com.eghm.enums.SmsTemplateType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,7 +19,7 @@ public class SmsLogResponse {
     private Long id;
 
     @ApiModelProperty("短信分类")
-    private SmsType smsType;
+    private SmsTemplateType smsTemplateType;
 
     @ApiModelProperty("手机号")
     private String mobile;
