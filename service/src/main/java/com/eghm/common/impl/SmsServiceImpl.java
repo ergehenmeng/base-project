@@ -7,7 +7,7 @@ import com.eghm.common.SmsService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.SmsTemplateType;
+import com.eghm.enums.TemplateType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.SmsLog;
 import com.eghm.service.sys.SmsLogService;
@@ -38,43 +38,43 @@ public class SmsServiceImpl implements SmsService {
     private final SendSmsService sendSmsService;
 
     @Override
-    public void sendSmsCode(SmsTemplateType smsTemplateType, String mobile) {
-        this.smsLimitCheck(smsTemplateType.getValue(), mobile);
+    public void sendSmsCode(TemplateType templateType, String mobile) {
+        this.smsLimitCheck(templateType.getValue(), mobile);
         String smsCode = StringUtil.randomNumber();
-        this.doSendSms(mobile, smsTemplateType, smsCode);
-        this.saveSmsCode(smsTemplateType.getValue(), mobile, smsCode);
+        this.doSendSms(mobile, templateType, smsCode);
+        this.saveSmsCode(templateType.getValue(), mobile, smsCode);
         long expire = sysConfigApi.getLong(ConfigConstant.SMS_TYPE_INTERVAL);
-        cacheService.setValue(String.format(CacheConstant.SMS_TYPE_INTERVAL, smsTemplateType.getValue(), mobile), true, expire);
+        cacheService.setValue(String.format(CacheConstant.SMS_TYPE_INTERVAL, templateType.getValue(), mobile), true, expire);
     }
 
     @Override
-    public void sendSmsCode(SmsTemplateType smsTemplateType, String mobile, String ip) {
+    public void sendSmsCode(TemplateType templateType, String mobile, String ip) {
         this.smsIpLimitCheck(ip);
-        this.sendSmsCode(smsTemplateType, mobile);
+        this.sendSmsCode(templateType, mobile);
     }
 
     @Override
-    public String getSmsCode(SmsTemplateType smsTemplateType, String mobile) {
-        return cacheService.getValue(String.format(CacheConstant.SMS_PREFIX, smsTemplateType.getValue(), mobile));
+    public String getSmsCode(TemplateType templateType, String mobile) {
+        return cacheService.getValue(String.format(CacheConstant.SMS_PREFIX, templateType.getValue(), mobile));
     }
 
     @Override
-    public String verifySmsCode(SmsTemplateType smsTemplateType, String mobile, String smsCode) {
-        String originalSmsCode = this.getSmsCode(smsTemplateType, mobile);
+    public String verifySmsCode(TemplateType templateType, String mobile, String smsCode) {
+        String originalSmsCode = this.getSmsCode(templateType, mobile);
         if (originalSmsCode == null) {
             throw new BusinessException(ErrorCode.LOGIN_SMS_CODE_EXPIRE);
         }
-        String key = smsTemplateType.getValue() + mobile;
+        String key = templateType.getValue() + mobile;
         Long present = CacheUtil.SMS_VERIFY_CACHE.getIfPresent(key);
         if (present != null && present > MAX_ERROR_NUM) {
-            this.cleanSmsCode(smsTemplateType, mobile);
+            this.cleanSmsCode(templateType, mobile);
             throw new BusinessException(ErrorCode.SMS_CODE_VERIFY_ERROR);
         }
         if (!originalSmsCode.equalsIgnoreCase(smsCode)) {
             CacheUtil.SMS_VERIFY_CACHE.put(key, present == null ? 1 : present + 1);
             throw new BusinessException(ErrorCode.LOGIN_SMS_CODE_ERROR);
         }
-        this.cleanSmsCode(smsTemplateType, mobile);
+        this.cleanSmsCode(templateType, mobile);
         CacheUtil.SMS_VERIFY_CACHE.invalidate(key);
         String uuid = IdUtil.fastSimpleUUID();
         cacheService.setValue(CacheConstant.VERIFY_PREFIX + uuid, true, SMS_CODE_EXPIRE);
@@ -95,58 +95,58 @@ public class SmsServiceImpl implements SmsService {
     /**
      * 删除短信验证码
      *
-     * @param smsTemplateType 短信类型
+     * @param templateType 短信类型
      * @param mobile  手机号码
      */
-    private void cleanSmsCode(SmsTemplateType smsTemplateType, String mobile) {
-        cacheService.delete(CacheConstant.SMS_PREFIX + smsTemplateType.getValue() + mobile);
+    private void cleanSmsCode(TemplateType templateType, String mobile) {
+        cacheService.delete(CacheConstant.SMS_PREFIX + templateType.getValue() + mobile);
     }
 
     /**
      * 发送短信并记录短信日志
      *
      * @param mobile  手机号
-     * @param smsTemplateType 短信类型
+     * @param templateType 短信类型
      * @param params  参数
      */
-    private void doSendSms(String mobile, SmsTemplateType smsTemplateType, String... params) {
-        int state = sendSmsService.sendSms(mobile, smsTemplateType, params);
-        SmsLog smsLog = SmsLog.builder().content(String.format(smsTemplateType.getContent(), (Object[]) params)).mobile(mobile).smsTemplateType(smsTemplateType).state(state).build();
+    private void doSendSms(String mobile, TemplateType templateType, String... params) {
+        int state = sendSmsService.sendSms(mobile, templateType, params);
+        SmsLog smsLog = SmsLog.builder().content(String.format(templateType.getContent(), (Object[]) params)).mobile(mobile).templateType(templateType).state(state).build();
         smsLogService.addSmsLog(smsLog);
     }
 
     /**
      * 保存发送的短信
      *
-     * @param smsTemplateType 短信类型
+     * @param templateType 短信类型
      * @param mobile  手机号码
      * @param smsCode 短信验证码
      */
-    private void saveSmsCode(String smsTemplateType, String mobile, String smsCode) {
-        cacheService.setValue(CacheConstant.SMS_PREFIX + smsTemplateType + mobile, smsCode, sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600));
+    private void saveSmsCode(String templateType, String mobile, String smsCode) {
+        cacheService.setValue(CacheConstant.SMS_PREFIX + templateType + mobile, smsCode, sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600));
     }
 
     /**
      * 根据短信类型和手机号判断短信发送间隔及短信次数是否上限
      *
-     * @param smsTemplateType 短信类型
+     * @param templateType 短信类型
      * @param mobile  手机号
      */
-    private void smsLimitCheck(String smsTemplateType, String mobile) {
+    private void smsLimitCheck(String templateType, String mobile) {
         // 短信时间间隔判断
-        String value = cacheService.getValue(String.format(CacheConstant.SMS_TYPE_INTERVAL, smsTemplateType, mobile));
+        String value = cacheService.getValue(String.format(CacheConstant.SMS_TYPE_INTERVAL, templateType, mobile));
         if (value != null) {
             throw new BusinessException(ErrorCode.SMS_FREQUENCY_FAST);
         }
-        int smsTemplateTypeHourLimit = sysConfigApi.getInt(ConfigConstant.SMS_TYPE_HOUR_LIMIT);
+        int templateTypeHourLimit = sysConfigApi.getInt(ConfigConstant.SMS_TYPE_HOUR_LIMIT);
         // 单位小时统一类型内短信限制
-        boolean limit = cacheService.limit(String.format(CacheConstant.SMS_TYPE_HOUR_LIMIT, smsTemplateType, mobile), smsTemplateTypeHourLimit, 3600);
+        boolean limit = cacheService.limit(String.format(CacheConstant.SMS_TYPE_HOUR_LIMIT, templateType, mobile), templateTypeHourLimit, 3600);
         if (limit) {
             throw new BusinessException(ErrorCode.SMS_HOUR_LIMIT);
         }
-        int smsTemplateTypeDayLimit = sysConfigApi.getInt(ConfigConstant.SMS_TYPE_DAY_LIMIT);
+        int templateTypeDayLimit = sysConfigApi.getInt(ConfigConstant.SMS_TYPE_DAY_LIMIT);
         // 当天同一类型短信限制
-        limit = cacheService.limit(String.format(CacheConstant.SMS_TYPE_DAY_LIMIT, smsTemplateType, mobile), smsTemplateTypeDayLimit, 86400);
+        limit = cacheService.limit(String.format(CacheConstant.SMS_TYPE_DAY_LIMIT, templateType, mobile), templateTypeDayLimit, 86400);
         if (limit) {
             throw new BusinessException(ErrorCode.SMS_DAY_LIMIT);
         }

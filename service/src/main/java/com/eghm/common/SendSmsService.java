@@ -1,6 +1,6 @@
 package com.eghm.common;
 
-import com.eghm.enums.SmsTemplateType;
+import com.eghm.enums.TemplateType;
 
 /**
  * 发送短信接口
@@ -14,9 +14,9 @@ public interface SendSmsService {
      * 根据模板发送短信
      *
      * @param mobile  手机号
-     * @param smsTemplateType 短信类型
+     * @param templateType 短信类型
      * @param params 模板参数
      * @return 发送状态 0:发送中 1:已发送 2:发送失败
      */
-    int sendSms(String mobile, SmsTemplateType smsTemplateType, String... params);
+    int sendSms(String mobile, TemplateType templateType, String... params);
 }

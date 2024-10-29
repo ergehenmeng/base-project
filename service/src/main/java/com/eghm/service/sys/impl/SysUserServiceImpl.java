@@ -18,7 +18,7 @@ import com.eghm.dto.user.UserEditRequest;
 import com.eghm.dto.user.UserQueryRequest;
 import com.eghm.enums.DataType;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.SmsTemplateType;
+import com.eghm.enums.TemplateType;
 import com.eghm.enums.UserType;
 import com.eghm.enums.ref.UserState;
 import com.eghm.exception.BusinessException;
@@ -200,12 +200,12 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void sendLoginSms(String mobile, String ip) {
         SysUser user = this.getAndCheckUser(mobile);
-        smsService.sendSmsCode(SmsTemplateType.USER_LOGIN, user.getMobile(), ip);
+        smsService.sendSmsCode(TemplateType.USER_LOGIN, user.getMobile(), ip);
     }
 
     @Override
     public LoginResponse smsLogin(SmsLoginRequest request) {
-        smsService.verifySmsCode(SmsTemplateType.USER_LOGIN, request.getMobile(), request.getSmsCode());
+        smsService.verifySmsCode(TemplateType.USER_LOGIN, request.getMobile(), request.getSmsCode());
         SysUser user = this.getAndCheckUser(request.getMobile());
         return this.doLogin(user);
     }

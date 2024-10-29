@@ -8,7 +8,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.login.*;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.SmsTemplateType;
+import com.eghm.enums.TemplateType;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginTokenVO;
@@ -73,7 +73,7 @@ public class LoginController {
     @ApiOperation("忘记密码验证短信验证码②")
     @PostMapping(value = "/forget/verify", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<String> verify(@RequestBody @Validated VerifySmsDTO request) {
-        String requestId = smsService.verifySmsCode(SmsTemplateType.FORGET, request.getMobile(), request.getSmsCode());
+        String requestId = smsService.verifySmsCode(TemplateType.FORGET, request.getMobile(), request.getSmsCode());
         return RespBody.success(requestId);
     }
 

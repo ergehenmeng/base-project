@@ -13,7 +13,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum SmsTemplateType implements ValueEnumBinder {
+public enum TemplateType implements ValueEnumBinder {
 
     /**
      * 未指定短信类型,则为自定义短信:default
