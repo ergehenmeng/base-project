@@ -26,11 +26,6 @@ public class CacheUtil {
     public static final Cache<String, Integer> LOGIN_LOCK_CACHE = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).maximumSize(1000).build();
 
     /**
-     * 验证码缓存 默认1分钟失效
-     */
-    public static final Cache<String, String> CAPTCHA_CACHE = Caffeine.newBuilder().expireAfterWrite(1, TimeUnit.MINUTES).maximumSize(1000).build();
-
-    /**
      * post请求间隔限制
      */
     public static final Cache<String, Boolean> INTERVAL_CACHE = Caffeine.newBuilder().expireAfterWrite(SUBMIT_INTERVAL, TimeUnit.MILLISECONDS).maximumSize(2000).build();

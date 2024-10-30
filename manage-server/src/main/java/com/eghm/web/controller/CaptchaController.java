@@ -1,8 +1,6 @@
 package com.eghm.web.controller;
 
 import com.eghm.constants.CommonConstant;
-import com.eghm.utils.CacheUtil;
-import com.eghm.utils.IpUtil;
 import com.google.code.kaptcha.Producer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -45,9 +44,9 @@ public class CaptchaController {
             authImage = splits[0];
             authCode = splits[1];
         }
-        String ipAddress = IpUtil.getIpAddress(request);
-        log.info("图形验证码[{}]:[{}]", ipAddress, authCode);
-        CacheUtil.CAPTCHA_CACHE.put(ipAddress, authCode);
+        HttpSession session = request.getSession();
+        session.setAttribute(CommonConstant.CAPTCHA_KEY, authCode);
+        log.info("图形验证码[{}]", authCode);
         BufferedImage bi = producer.createImage(authImage);
         response.setDateHeader("Expires", 0);
         response.setHeader("Pragma", "no-cache");

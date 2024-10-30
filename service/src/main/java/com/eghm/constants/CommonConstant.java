@@ -195,4 +195,8 @@ public class CommonConstant {
      */
     public static final long DAY_MAX_UPLOAD = 128 * 1024 * 1024L;
 
+    /**
+     * 验证码
+     */
+    public static final String CAPTCHA_KEY = "captcha_key";
 }
