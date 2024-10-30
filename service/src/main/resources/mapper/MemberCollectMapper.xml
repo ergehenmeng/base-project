@@ -18,4 +18,32 @@
         order by id desc
     </select>
 
+
+    <select id="dayCollect" resultType="com.eghm.vo.business.statistics.CollectStatisticsVO" parameterType="com.eghm.dto.statistics.CollectRequest">
+        SELECT
+        <choose>
+            <when test="selectType == @com.eghm.enums.SelectType@YEAR">
+                create_month,
+            </when>
+            <otherwise>
+                create_date,
+            </otherwise>
+        </choose>
+        COUNT(id) AS collectNum
+        FROM
+        member_collect
+        WHERE state = 1 and create_time &gt;= #{startDate} and create_time &lt; #{endDate} and deleted = false
+        <if test="collectType != null">
+            and collect_type = #{collectType}
+        </if>
+        <choose>
+            <when test="selectType == @com.eghm.enums.SelectType@YEAR">
+                group by create_month
+            </when>
+            <otherwise>
+                group by create_date
+            </otherwise>
+        </choose>
+    </select>
+
 </mapper>

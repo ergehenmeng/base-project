@@ -1,6 +1,7 @@
 package com.eghm.service.member;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.statistics.DateRequest;
 import com.eghm.dto.ext.MemberRegister;
 import com.eghm.dto.login.AccountLoginDTO;
 import com.eghm.dto.login.SmsLoginDTO;
@@ -8,6 +9,8 @@ import com.eghm.dto.member.*;
 import com.eghm.dto.register.AccountRegisterDTO;
 import com.eghm.dto.register.MobileRegisterDTO;
 import com.eghm.model.Member;
+import com.eghm.vo.business.statistics.MemberRegisterVO;
+import com.eghm.vo.business.statistics.MemberStatisticsVO;
 import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.vo.member.MemberResponse;
 import com.eghm.vo.member.MemberVO;
@@ -270,4 +273,19 @@ public interface MemberService {
      */
     void edit(Long memberId, MemberDTO dto);
 
+    /**
+     * 注册性别统计
+     *
+     * @param request 查询条件
+     * @return 统计
+     */
+    MemberStatisticsVO sexChannel(DateRequest request);
+
+    /**
+     * 统计注册人数
+     *
+     * @param request 统计日期
+     * @return 人数
+     */
+    List<MemberRegisterVO> dayRegister(DateRequest request);
 }

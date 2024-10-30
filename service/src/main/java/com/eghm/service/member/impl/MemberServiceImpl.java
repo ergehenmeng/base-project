@@ -16,6 +16,7 @@ import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.dto.business.statistics.DateRequest;
 import com.eghm.dto.email.SendEmail;
 import com.eghm.dto.ext.*;
 import com.eghm.dto.login.AccountLoginDTO;
@@ -39,11 +40,16 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
 import com.eghm.utils.RegExpUtil;
 import com.eghm.utils.StringUtil;
+import com.eghm.vo.business.statistics.MemberChannelVO;
+import com.eghm.vo.business.statistics.MemberRegisterVO;
+import com.eghm.vo.business.statistics.MemberSexVO;
+import com.eghm.vo.business.statistics.MemberStatisticsVO;
 import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.vo.member.MemberResponse;
 import com.eghm.vo.member.MemberVO;
 import com.eghm.wechat.WeChatMiniService;
 import com.eghm.wechat.WeChatMpService;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
@@ -52,6 +58,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -390,6 +399,33 @@ public class MemberServiceImpl implements MemberService {
         Member member = DataUtil.copy(dto, Member.class);
         member.setId(memberId);
         memberMapper.updateById(member);
+    }
+
+    @Override
+    public MemberStatisticsVO sexChannel(DateRequest request) {
+        List<MemberChannelVO> statistics = memberMapper.channelStatistics(request.getStartDate(), request.getEndDate());
+        List<MemberChannelVO> channelList = Lists.newArrayListWithCapacity(8);
+        Map<Channel, MemberChannelVO> voMap = statistics.stream().collect(Collectors.toMap(MemberChannelVO::getName, Function.identity()));
+        for (Channel value : Channel.values()) {
+            channelList.add(voMap.getOrDefault(value, new MemberChannelVO(value)));
+        }
+        List<MemberSexVO> sexList = memberMapper.sexStatistics(request.getStartDate(), request.getEndDate());
+        MemberStatisticsVO vo = new MemberStatisticsVO();
+        vo.setChannelList(channelList);
+        vo.setSexList(sexList);
+        return vo;
+    }
+
+    @Override
+    public List<MemberRegisterVO> dayRegister(DateRequest request) {
+        List<MemberRegisterVO> voList = memberMapper.dayRegister(request);
+        if (request.getSelectType() == SelectType.YEAR) {
+            Map<String, MemberRegisterVO> voMap = voList.stream().collect(Collectors.toMap(MemberRegisterVO::getCreateMonth, Function.identity()));
+            return DataUtil.paddingMonth(voMap, request.getStartDate(), request.getEndDate(), MemberRegisterVO::new);
+        } else {
+            Map<LocalDate, MemberRegisterVO> voMap = voList.stream().collect(Collectors.toMap(MemberRegisterVO::getCreateDate, Function.identity()));
+            return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), MemberRegisterVO::new);
+        }
     }
 
     /**

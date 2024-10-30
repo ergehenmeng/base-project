@@ -1,7 +1,5 @@
 package com.eghm.service.sys;
 
-import com.eghm.model.SysArea;
-
 /**
  * @author 二哥很猛
  * @since 2019/2/13 10:25

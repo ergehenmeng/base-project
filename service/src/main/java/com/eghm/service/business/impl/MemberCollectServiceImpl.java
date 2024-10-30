@@ -9,13 +9,17 @@ import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.collect.CollectQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.statistics.CollectRequest;
+import com.eghm.enums.SelectType;
 import com.eghm.enums.ref.CollectType;
 import com.eghm.mapper.MemberCollectMapper;
 import com.eghm.mapper.NewsMapper;
 import com.eghm.model.MemberCollect;
 import com.eghm.service.business.MemberCollectService;
+import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.collect.MemberCollectVO;
 import com.eghm.vo.business.news.NewsVO;
+import com.eghm.vo.business.statistics.CollectStatisticsVO;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -108,6 +112,18 @@ public class MemberCollectServiceImpl implements MemberCollectService {
         }
         String key = String.format(MEMBER_COLLECT, collectType.getValue(), collectId);
         return cacheService.hasHashKey(key, String.valueOf(memberId));
+    }
+
+    @Override
+    public List<CollectStatisticsVO> dayCollect(CollectRequest request) {
+        List<CollectStatisticsVO> voList = memberCollectMapper.dayCollect(request);
+        if (request.getSelectType() == SelectType.YEAR) {
+            Map<String, CollectStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(CollectStatisticsVO::getCreateMonth, Function.identity()));
+            return DataUtil.paddingMonth(voMap, request.getStartDate(), request.getEndDate(), CollectStatisticsVO::new);
+        } else {
+            Map<LocalDate, CollectStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(CollectStatisticsVO::getCreateDate, Function.identity()));
+            return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), CollectStatisticsVO::new);
+        }
     }
 
     /**
