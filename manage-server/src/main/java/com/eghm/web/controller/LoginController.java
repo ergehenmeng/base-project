@@ -102,10 +102,7 @@ public class LoginController {
             return false;
         }
         Object value = servletRequest.getSession().getAttribute(CommonConstant.CAPTCHA_KEY);
-        if (value == null) {
-            return true;
-        }
-        return !code.equals(value);
+        return value == null || !code.equalsIgnoreCase(value.toString());
     }
 
 }
