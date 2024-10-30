@@ -45,9 +45,8 @@ public class CaptchaController {
             authImage = splits[0];
             authCode = splits[1];
         }
-        String ipAddress = IpUtil.getIpAddress(request);
-        log.info("图形验证码[{}]:[{}]", ipAddress, authCode);
-        CacheUtil.CAPTCHA_CACHE.put(ipAddress, authCode);
+        request.getSession().setAttribute(CommonConstant.CAPTCHA_KEY, authCode);
+        log.info("图形验证码[{}]", authCode);
         BufferedImage bi = producer.createImage(authImage);
         response.setDateHeader("Expires", 0);
         response.setHeader("Pragma", "no-cache");
