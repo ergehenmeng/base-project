@@ -62,11 +62,7 @@ public class DataScopeAspect {
     private String createPermissionSql(UserToken user, DataScope scope) {
         StringBuilder builder = new StringBuilder();
         builder.append(" ( ");
-        // 全部
-        if (user.getDataType() == DataType.ALL) {
-            builder.append(" 1 = 1");
-        }
-        String alias = StrUtil.isBlank(scope.alias()) ? "" : scope.alias() + ".";
+        String alias = StrUtil.isBlank(scope.alias()) ? "" : scope.alias().trim() + ".";
         // 自定义
         if (user.getDataType() == DataType.CUSTOM) {
             List<String> deptList = user.getDataList();
@@ -88,7 +84,11 @@ public class DataScopeAspect {
         if (user.getDataType() == DataType.SELF) {
             builder.append(alias)
                     .append("dept_code = '").append(user.getDeptCode()).append("' and ")
-                    .append(alias).append(".user_id = ").append(user.getId());
+                    .append(alias).append("user_id = ").append(user.getId());
+        }
+        // 全部
+        if (user.getDataType() == DataType.ALL) {
+            builder.append(" 1 = 1 ");
         }
         builder.append(" ) ");
         return builder.toString();
