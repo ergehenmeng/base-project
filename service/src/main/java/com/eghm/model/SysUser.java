@@ -22,6 +22,9 @@ public class SysUser extends BaseEntity {
     @ApiModelProperty("用户姓名")
     private String nickName;
 
+    @ApiModelProperty("账户名(登陆账户)")
+    private String userName;
+
     @ApiModelProperty("手机号码(登陆账户)")
     private String mobile;
 

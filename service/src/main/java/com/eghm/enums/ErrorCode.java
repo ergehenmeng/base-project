@@ -173,6 +173,11 @@ public enum ErrorCode {
     MOBILE_REDO(2036, "手机号码被占用"),
 
     /**
+     * 账户名被占用
+     */
+    USER_NAME_REDO(2037, "账户名被占用"),
+
+    /**
      * 系统默认角色,禁止删除
      */
     ROLE_FORBID_DELETE(2039, "系统默认角色,禁止删除"),

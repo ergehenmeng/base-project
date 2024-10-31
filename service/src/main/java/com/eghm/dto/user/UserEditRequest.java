@@ -3,6 +3,7 @@ package com.eghm.dto.user;
 import com.eghm.validation.annotation.Mobile;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -23,6 +24,11 @@ public class UserEditRequest {
     @ApiModelProperty(value = "用户名称", required = true)
     @NotBlank(message = "用户名称不能为空")
     private String nickName;
+
+    @ApiModelProperty(value = "账户名", required = true)
+    @NotBlank(message = "账户名不能为空")
+    @Length(min = 6, max = 15, message = "账户名长度6-15位")
+    private String userName;
 
     @ApiModelProperty(value = "手机号", required = true)
     @Mobile
