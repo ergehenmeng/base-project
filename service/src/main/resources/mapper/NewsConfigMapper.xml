@@ -6,7 +6,7 @@
         select code,
                title
         from news_config
-        where deleted = false
+        where deleted = false order by id desc
     </select>
 
 </mapper>
