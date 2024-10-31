@@ -40,6 +40,8 @@ public class ExceptionAdviceHandler {
 
     private final MessageService messageService;
 
+    private static final String FAIL = "FAIL";
+
     /**
      * 特殊业务异常统一拦截
      *
@@ -148,7 +150,7 @@ public class ExceptionAdviceHandler {
     public Map<String, String> weChatPayException(HttpServletRequest request, WeChatPayException e) {
         log.error("微信异步通知异常 [{}] 错误信息: [{}] ", request.getRequestURI(), e.getCode(), e);
         Map<String, String> map = Maps.newHashMapWithExpectedSize(2);
-        map.put("code", "FAIL");
+        map.put("code", FAIL);
         map.put("message", e.getMessage());
         return map;
     }
@@ -159,7 +161,7 @@ public class ExceptionAdviceHandler {
     @ExceptionHandler(AliPayException.class)
     public String aliPayException(HttpServletRequest request, AliPayException e) {
         log.error("支付宝异步通知异常 [{}] [{}] [{}]", request.getRequestURI(), e.getCode(), e.getMessage());
-        return "FAIL";
+        return FAIL;
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
