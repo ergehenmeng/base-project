@@ -1,4 +1,4 @@
-package com.eghm.enums.ref;
+package com.eghm.enums;
 
 /**
  * @author 二哥很猛

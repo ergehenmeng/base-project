@@ -11,7 +11,7 @@ import com.eghm.dto.auth.AuthConfigAddRequest;
 import com.eghm.dto.auth.AuthConfigEditRequest;
 import com.eghm.dto.auth.AuthConfigQueryRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.SignType;
+import com.eghm.enums.SignType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.AuthConfigMapper;
 import com.eghm.model.AuthConfig;

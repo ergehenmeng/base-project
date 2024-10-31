@@ -1,6 +1,6 @@
 package com.eghm.vo.sys;
 
-import com.eghm.enums.ref.RoleType;
+import com.eghm.enums.RoleType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

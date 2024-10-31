@@ -6,7 +6,7 @@ import com.eghm.dto.user.PasswordEditRequest;
 import com.eghm.dto.user.UserAddRequest;
 import com.eghm.dto.user.UserEditRequest;
 import com.eghm.dto.user.UserQueryRequest;
-import com.eghm.enums.ref.UserState;
+import com.eghm.enums.UserState;
 import com.eghm.model.SysUser;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.user.UserResponse;

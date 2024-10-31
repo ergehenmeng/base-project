@@ -6,7 +6,13 @@ package com.eghm.enums;
  */
 public enum SmsChannel {
 
+    /**
+     * 阿里短信服务
+     */
     ALI,
 
+    /**
+     * 腾讯短信服务
+     */
     TENCENT
 }

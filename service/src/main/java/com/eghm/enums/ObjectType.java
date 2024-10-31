@@ -1,8 +1,7 @@
-package com.eghm.enums.ref;
+package com.eghm.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.annotation.ExcelDesc;
-import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -11,28 +10,26 @@ import lombok.Getter;
 import java.util.Arrays;
 
 /**
+ * 评论对象类型
+ *
  * @author 二哥很猛
- * @since 2024/1/16
+ * @since 2024/1/12
  */
 
 @Getter
 @AllArgsConstructor
-public enum UserState implements EnumBinder {
+public enum ObjectType implements EnumBinder {
 
     /**
-     * 锁定
+     * 资讯
      */
-    LOCK(0, "锁定"),
+    NEWS(1, "资讯"),
 
     /**
-     * 正常
+     * 活动
      */
-    NORMAL(1, "正常"),
-
-    /**
-     * 注销
-     */
-    LOGOUT(2, "注销");
+    ACTIVITY(2, "活动"),
+    ;
 
     /**
      * 状态
@@ -48,11 +45,11 @@ public enum UserState implements EnumBinder {
     private final String name;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static UserState of(Integer value) {
+    public static ObjectType of(Integer value) {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(UserState.values()).filter(type -> value.equals(type.value)).findFirst().orElse(null);
+        return Arrays.stream(ObjectType.values()).filter(auditState -> auditState.value == value).findFirst().orElse(null);
     }
 
     @Override

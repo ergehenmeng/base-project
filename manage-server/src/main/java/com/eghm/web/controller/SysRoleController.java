@@ -10,7 +10,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.role.RoleAddRequest;
 import com.eghm.dto.role.RoleAuthRequest;
 import com.eghm.dto.role.RoleEditRequest;
-import com.eghm.enums.ref.RoleType;
+import com.eghm.enums.RoleType;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.vo.sys.SysRoleResponse;
 import io.swagger.annotations.Api;

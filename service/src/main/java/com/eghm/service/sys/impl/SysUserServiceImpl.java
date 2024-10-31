@@ -21,7 +21,7 @@ import com.eghm.enums.DataType;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.TemplateType;
 import com.eghm.enums.UserType;
-import com.eghm.enums.ref.UserState;
+import com.eghm.enums.UserState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysUserMapper;
 import com.eghm.model.SysDataDept;

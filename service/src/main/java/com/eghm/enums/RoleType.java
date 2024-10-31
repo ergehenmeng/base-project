@@ -1,7 +1,6 @@
-package com.eghm.enums.ref;
+package com.eghm.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.eghm.enums.ValueEnumBinder;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;

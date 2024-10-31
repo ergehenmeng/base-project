@@ -14,7 +14,7 @@ import com.eghm.dto.business.news.NewsQueryRequest;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.CollectType;
+import com.eghm.enums.CollectType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.NewsMapper;
 import com.eghm.model.News;

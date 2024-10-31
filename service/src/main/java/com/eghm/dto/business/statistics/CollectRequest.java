@@ -3,7 +3,7 @@ package com.eghm.dto.business.statistics;
 import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.DateComparator;
 import com.eghm.enums.SelectType;
-import com.eghm.enums.ref.CollectType;
+import com.eghm.enums.CollectType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

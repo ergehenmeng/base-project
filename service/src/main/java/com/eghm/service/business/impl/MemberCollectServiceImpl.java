@@ -11,7 +11,7 @@ import com.eghm.dto.business.collect.CollectQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.business.statistics.CollectRequest;
 import com.eghm.enums.SelectType;
-import com.eghm.enums.ref.CollectType;
+import com.eghm.enums.CollectType;
 import com.eghm.mapper.MemberCollectMapper;
 import com.eghm.mapper.NewsMapper;
 import com.eghm.model.MemberCollect;
@@ -34,7 +34,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.eghm.constants.CacheConstant.MEMBER_COLLECT;
-import static com.eghm.enums.ref.CollectType.NEWS;
+import static com.eghm.enums.CollectType.NEWS;
 
 /**
  * <p>

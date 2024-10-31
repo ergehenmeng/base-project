@@ -1,6 +1,6 @@
 package com.eghm.vo.business.collect;
 
-import com.eghm.enums.ref.CollectType;
+import com.eghm.enums.CollectType;
 import com.eghm.vo.business.news.NewsVO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;

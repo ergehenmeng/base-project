@@ -1,8 +1,7 @@
-package com.eghm.enums.ref;
+package com.eghm.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.annotation.ExcelDesc;
-import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -12,23 +11,27 @@ import java.util.Arrays;
 
 /**
  * @author 二哥很猛
- * @since 2024/1/11
+ * @since 2024/1/16
  */
 
 @Getter
 @AllArgsConstructor
-public enum CollectType implements EnumBinder {
+public enum UserState implements EnumBinder {
 
     /**
-     * 资讯
+     * 锁定
      */
-    NEWS(1, "资讯"),
+    LOCK(0, "锁定"),
 
     /**
-     * 公告(未完成)
+     * 正常
      */
-    NOTICE(2, "公告"),
-    ;
+    NORMAL(1, "正常"),
+
+    /**
+     * 注销
+     */
+    LOGOUT(2, "注销");
 
     /**
      * 状态
@@ -44,11 +47,11 @@ public enum CollectType implements EnumBinder {
     private final String name;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static CollectType of(Integer value) {
+    public static UserState of(Integer value) {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(CollectType.values()).filter(couponMode -> couponMode.value == value).findFirst().orElse(null);
+        return Arrays.stream(UserState.values()).filter(type -> value.equals(type.value)).findFirst().orElse(null);
     }
 
     @Override

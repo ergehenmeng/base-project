@@ -1,4 +1,4 @@
-package com.eghm.enums.excel;
+package com.eghm.enums;
 
 /**
  * 使用easyExcel导出excel时格式化枚举使用

@@ -14,12 +14,24 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SelectType implements ValueEnumBinder {
 
+    /**
+     * 按周查询
+     */
     WEEK("week", "周"),
 
+    /**
+     * 按月查询
+     */
     MONTH("month", "月"),
 
+    /**
+     * 按年查询
+     */
     YEAR("year", "年"),
 
+    /**
+     * 自定义
+     */
     CUSTOM("custom", "自定义");
 
     @JsonValue

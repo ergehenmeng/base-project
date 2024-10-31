@@ -1,8 +1,10 @@
-package com.eghm.enums.event;
+package com.eghm.enums;
 
 import java.util.List;
 
 /**
+ * 状态机事件枚举
+ *
  * @author 二哥很猛
  * @since 2022/11/18
  */
