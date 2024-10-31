@@ -45,20 +45,4 @@ public class PageData<T> {
         return pageData;
     }
 
-    /**
-     * 减少不必要的参数给前端(不分页形式)
-     *
-     * @param list 分页信息
-     * @param <T>  T
-     * @return data
-     */
-    public static <T> PageData<T> toList(List<T> list) {
-        PageData<T> pageData = new PageData<>();
-        pageData.total = list.size();
-        pageData.rows = list;
-        pageData.page = 1;
-        pageData.pageSize = list.size();
-        return pageData;
-    }
-
 }

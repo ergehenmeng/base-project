@@ -2,7 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.eghm.dto.business.statistics.DateRequest;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.statistics.CollectRequest;
+import com.eghm.dto.business.statistics.CollectRequest;
 import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.member.MemberService;
 import com.eghm.vo.business.statistics.CollectStatisticsVO;

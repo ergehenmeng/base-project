@@ -18,8 +18,7 @@
         order by id desc
     </select>
 
-
-    <select id="dayCollect" resultType="com.eghm.vo.business.statistics.CollectStatisticsVO" parameterType="com.eghm.dto.statistics.CollectRequest">
+    <select id="dayCollect" resultType="com.eghm.vo.business.statistics.CollectStatisticsVO" parameterType="com.eghm.dto.business.statistics.CollectRequest">
         SELECT
         <choose>
             <when test="selectType == @com.eghm.enums.SelectType@YEAR">

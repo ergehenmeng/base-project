@@ -43,6 +43,5 @@ system:
   wechat:
     pay-notify-host: https://localhost:8080
     mini-version: trial
-  platform-merchant-id: 1707294309829128194
   api:
     mock-token: d3df31f547654e2185be6dccbd155700

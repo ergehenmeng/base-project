@@ -178,7 +178,7 @@ public class CacheServiceImpl implements CacheService {
             return true;
         }
         redisTemplate.opsForList().rightPush(key, String.valueOf(System.currentTimeMillis()));
-        redisTemplate.expire(key, CommonConstant.LIMIT_MAX_EXPIRE, TimeUnit.MILLISECONDS);
+        redisTemplate.expire(key, CommonConstant.LIMIT_MAX_EXPIRE, TimeUnit.SECONDS);
         return false;
     }
 

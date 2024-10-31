@@ -54,13 +54,8 @@ public class SmsServiceImpl implements SmsService {
     }
 
     @Override
-    public String getSmsCode(TemplateType templateType, String mobile) {
-        return cacheService.getValue(String.format(CacheConstant.SMS_PREFIX, templateType.getValue(), mobile));
-    }
-
-    @Override
     public String verifySmsCode(TemplateType templateType, String mobile, String smsCode) {
-        String originalSmsCode = this.getSmsCode(templateType, mobile);
+        String originalSmsCode = cacheService.getValue(String.format(CacheConstant.SMS_PREFIX, templateType.getValue(), mobile));
         if (originalSmsCode == null) {
             throw new BusinessException(ErrorCode.LOGIN_SMS_CODE_EXPIRE);
         }

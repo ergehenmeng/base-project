@@ -107,21 +107,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member doRegister(MemberRegister register) {
-        Member member = DataUtil.copy(register, Member.class);
-        member.setId(IdWorker.getId());
-        member.setCreateDate(LocalDate.now());
-        member.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
-        member.setInviteCode(StringUtil.encryptNumber(member.getId()));
-        if (StrUtil.isBlank(member.getNickName())) {
-            member.setNickName(sysConfigApi.getString(ConfigConstant.NICK_NAME_PREFIX) + System.nanoTime());
-        }
-        memberMapper.insert(member);
-        this.registerPostHandler(member, register);
-        return member;
-    }
-
-    @Override
     public LoginTokenVO accountLogin(AccountLoginDTO login) {
         Member member = this.getByAccount(login.getAccount());
         if (member == null || !encoder.match(MD5.create().digestHex(login.getPwd()), member.getPwd())) {
@@ -143,14 +128,6 @@ public class MemberServiceImpl implements MemberService {
         this.checkMemberLock(member);
         smsService.verifySmsCode(TemplateType.MEMBER_LOGIN, login.getMobile(), login.getSmsCode());
         return this.doLogin(member, login.getIp());
-    }
-
-    @Override
-    public Member getByAccount(String account) {
-        if (RegExpUtil.mobile(account)) {
-            return this.getByMobile(account);
-        }
-        return this.getByEmail(account);
     }
 
     @Override
@@ -181,15 +158,6 @@ public class MemberServiceImpl implements MemberService {
             throw new BusinessException(ErrorCode.MEMBER_NOT_REGISTER);
         }
         smsService.sendSmsCode(TemplateType.FORGET, member.getMobile(), ip);
-    }
-
-    @Override
-    public Member getByAccountRequired(String account) {
-        Member member = this.getByAccount(account);
-        if (member == null) {
-            throw new BusinessException(ErrorCode.MEMBER_NOT_FOUND);
-        }
-        return member;
     }
 
     @Override
@@ -243,38 +211,6 @@ public class MemberServiceImpl implements MemberService {
         emailService.verifyEmailCode(emailCode);
         member.setEmail(request.getEmail());
         memberMapper.updateById(member);
-    }
-
-    /**
-     * 查看邮箱是会否被占用
-     *
-     * @param email 邮箱号
-     */
-    @Override
-    public void checkEmail(String email) {
-        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Member::getEmail, email);
-        Long count = memberMapper.selectCount(wrapper);
-        if (count > 0) {
-            log.warn("邮箱号已被占用 email:[{}]", email);
-            throw new BusinessException(ErrorCode.EMAIL_OCCUPY_ERROR);
-        }
-    }
-
-    @Override
-    public Member getByEmail(String email) {
-        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Member::getEmail, email);
-        wrapper.last(CommonConstant.LIMIT_ONE);
-        return memberMapper.selectOne(wrapper);
-    }
-
-    @Override
-    public Member getByMobile(String mobile) {
-        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Member::getMobile, mobile);
-        wrapper.last(CommonConstant.LIMIT_ONE);
-        return memberMapper.selectOne(wrapper);
     }
 
     @Override
@@ -351,22 +287,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member getByMpOpenId(String openId) {
-        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Member::getMpOpenId, openId);
-        wrapper.last(CommonConstant.LIMIT_ONE);
-        return memberMapper.selectOne(wrapper);
-    }
-
-    @Override
-    public Member getByMaOpenId(String openId) {
-        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Member::getMaOpenId, openId);
-        wrapper.last(CommonConstant.LIMIT_ONE);
-        return memberMapper.selectOne(wrapper);
-    }
-
-    @Override
     public void setPassword(String requestId, String password) {
         String value = cacheService.getValue(CacheConstant.VERIFY_MOBILE_PREFIX + requestId);
         if (value == null) {
@@ -426,6 +346,121 @@ public class MemberServiceImpl implements MemberService {
             Map<LocalDate, MemberRegisterVO> voMap = voList.stream().collect(Collectors.toMap(MemberRegisterVO::getCreateDate, Function.identity()));
             return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), MemberRegisterVO::new);
         }
+    }
+
+    /**
+     * 根据openId查询用户信息
+     *
+     * @param openId 公众号openId
+     * @return 用户信息
+     */
+    private Member getByMpOpenId(String openId) {
+        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Member::getMpOpenId, openId);
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        return memberMapper.selectOne(wrapper);
+    }
+
+    /**
+     * 根据账号查询用户信息(如果不存在,则抛异常)
+     *
+     * @param account 手机号或邮箱
+     * @return 用户信息
+     */
+    private Member getByAccountRequired(String account) {
+        Member member = this.getByAccount(account);
+        if (member == null) {
+            throw new BusinessException(ErrorCode.MEMBER_NOT_FOUND);
+        }
+        return member;
+    }
+
+    /**
+     * 根据账号查询用户信息
+     *
+     * @param account 手机号或邮箱
+     * @return 用户信息
+     */
+    private Member getByAccount(String account) {
+        if (RegExpUtil.mobile(account)) {
+            return this.getByMobile(account);
+        }
+        return this.getByEmail(account);
+    }
+
+    /**
+     * 根据邮箱查询用户信息
+     *
+     * @param email 邮箱
+     * @return 用户信息
+     */
+    private Member getByEmail(String email) {
+        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Member::getEmail, email);
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        return memberMapper.selectOne(wrapper);
+    }
+
+    /**
+     * 根据手机号码查询用户
+     *
+     * @param mobile 手机号
+     * @return 用户信息
+     */
+    private Member getByMobile(String mobile) {
+        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Member::getMobile, mobile);
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        return memberMapper.selectOne(wrapper);
+    }
+
+    /**
+     * 根据openId查询用户信息
+     *
+     * @param openId 小程序openId
+     * @return 用户信息
+     */
+    private Member getByMaOpenId(String openId) {
+        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Member::getMaOpenId, openId);
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        return memberMapper.selectOne(wrapper);
+    }
+
+    /**
+     * 查看邮箱是会否被占用
+     *
+     * @param email 邮箱号
+     */
+    private void checkEmail(String email) {
+        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Member::getEmail, email);
+        Long count = memberMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.warn("邮箱号已被占用 email:[{}]", email);
+            throw new BusinessException(ErrorCode.EMAIL_OCCUPY_ERROR);
+        }
+    }
+
+
+    /**
+     * 注册新用户,必须保证参数已校验,昵称如果为空默认由系统生成
+     *
+     * @param register 用户注册信息
+     * @return 注册后的用户信息
+     */
+    private Member doRegister(MemberRegister register) {
+        Member member = DataUtil.copy(register, Member.class);
+        member.setId(IdWorker.getId());
+        member.setCreateDate(LocalDate.now());
+        member.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
+        member.setInviteCode(StringUtil.encryptNumber(member.getId()));
+        if (StrUtil.isBlank(member.getNickName())) {
+            member.setNickName(sysConfigApi.getString(ConfigConstant.NICK_NAME_PREFIX) + System.nanoTime());
+        }
+        memberMapper.insert(member);
+        this.registerPostHandler(member, register);
+        return member;
     }
 
     /**

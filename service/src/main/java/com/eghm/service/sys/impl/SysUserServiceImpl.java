@@ -75,13 +75,6 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public SysUser getByMobile(String mobile) {
-        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysUser::getMobile, mobile);
-        return sysUserMapper.selectOne(wrapper);
-    }
-
-    @Override
     public void updateLoginPassword(PasswordEditRequest request) {
         SysUser user = sysUserMapper.selectById(request.getUserId());
         this.checkPassword(request.getOldPwd(), user.getPwd());
@@ -89,14 +82,6 @@ public class SysUserServiceImpl implements SysUserService {
         user.setPwd(newPassword);
         user.setPwdUpdateTime(LocalDateTime.now());
         sysUserMapper.updateById(user);
-    }
-
-    @Override
-    public void checkPassword(String rawPassword, String targetPassword) {
-        boolean match = encoder.match(rawPassword, targetPassword);
-        if (!match) {
-            throw new BusinessException(ErrorCode.USER_PASSWORD_ERROR);
-        }
     }
 
     @Override
@@ -126,19 +111,6 @@ public class SysUserServiceImpl implements SysUserService {
             List<String> roleStringList = StrUtil.split(request.getDeptIds(), ',');
             roleStringList.forEach(s -> sysDataDeptService.insert(new SysDataDept(user.getId(), s)));
         }
-    }
-
-    @Override
-    public void insert(SysUser user) {
-        this.redoMobile(user.getMobile(), null);
-        user.setState(UserState.NORMAL);
-        sysUserMapper.insert(user);
-    }
-
-    @Override
-    public String initPassword(String mobile) {
-        String md5Password = MD5.create().digestHex(mobile.substring(5));
-        return encoder.encode(md5Password);
     }
 
     @Override
@@ -210,10 +182,40 @@ public class SysUserServiceImpl implements SysUserService {
         return this.doLogin(user);
     }
 
-    @Override
-    public void updateById(SysUser user) {
-        this.redoMobile(user.getMobile(), user.getId());
-        sysUserMapper.updateById(user);
+    /**
+     * 根据手机号生成初始化密码,手机号后六位
+     *
+     * @param mobile 手机号
+     * @return 加密密码
+     */
+    private String initPassword(String mobile) {
+        String md5Password = MD5.create().digestHex(mobile.substring(5));
+        return encoder.encode(md5Password);
+    }
+
+    /**
+     * 校验密码是否正确
+     *
+     * @param rawPassword    原始密码(用户输入的)
+     * @param targetPassword 真实加密后的密码(数据库保存的)
+     */
+    private void checkPassword(String rawPassword, String targetPassword) {
+        boolean match = encoder.match(rawPassword, targetPassword);
+        if (!match) {
+            throw new BusinessException(ErrorCode.USER_PASSWORD_ERROR);
+        }
+    }
+
+    /**
+     * 根据手机号码查询管理员信息
+     *
+     * @param mobile 手机号码
+     * @return 系统管理人员
+     */
+    private SysUser getByMobile(String mobile) {
+        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysUser::getMobile, mobile);
+        return sysUserMapper.selectOne(wrapper);
     }
 
     /**

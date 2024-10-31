@@ -26,27 +26,11 @@ public interface SysUserService {
     Page<UserResponse> getByPage(UserQueryRequest request);
 
     /**
-     * 根据手机号码查询管理员信息
-     *
-     * @param mobile 手机号码
-     * @return 系统管理人员
-     */
-    SysUser getByMobile(String mobile);
-
-    /**
      * 更新登陆密码
      *
      * @param request 前台参数
      */
     void updateLoginPassword(PasswordEditRequest request);
-
-    /**
-     * 校验密码是否正确
-     *
-     * @param rawPassword    原始密码(用户输入的)
-     * @param targetPassword 真实加密后的密码(数据库保存的)
-     */
-    void checkPassword(String rawPassword, String targetPassword);
 
     /**
      * 校验用户密码是否等于指定的密码
@@ -62,21 +46,6 @@ public interface SysUserService {
      * @param request 前台参数
      */
     void create(UserAddRequest request);
-
-    /**
-     * 添加管理人员
-     *
-     * @param user 管理人员
-     */
-    void insert(SysUser user);
-
-    /**
-     * 根据手机号生成初始化密码,手机号后六位
-     *
-     * @param mobile 手机号
-     * @return 加密密码
-     */
-    String initPassword(String mobile);
 
     /**
      * 根据主键查询管理人员 不存在就抛异常
@@ -139,13 +108,6 @@ public interface SysUserService {
      * @return 响应信息
      */
     LoginResponse smsLogin(SmsLoginRequest request);
-
-    /**
-     * 更新用户信息
-     *
-     * @param user user
-     */
-    void updateById(SysUser user);
 
 }
 

@@ -81,7 +81,10 @@ public class SystemProperties {
     @Data
     public static class Sms {
 
-        private SmsType smsType = SmsType.ALI;
+        /**
+         * 短信渠道
+         */
+        private SmsChannel smsChannel = SmsChannel.ALI;
 
         /**
          * 签名信息
@@ -183,16 +186,6 @@ public class SystemProperties {
 
     @Data
     public static class ApiProperties {
-
-        /**
-         * 系统版本号
-         */
-        private String version;
-
-        /**
-         * 加密秘钥,用于数据库字段加密
-         */
-        private String secretKey = "7ec9ebaf378217d94df28342a4ff007b";
 
         /**
          * 模拟登录的token

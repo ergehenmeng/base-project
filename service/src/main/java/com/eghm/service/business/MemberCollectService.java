@@ -1,7 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.dto.business.collect.CollectQueryDTO;
-import com.eghm.dto.statistics.CollectRequest;
+import com.eghm.dto.business.statistics.CollectRequest;
 import com.eghm.enums.ref.CollectType;
 import com.eghm.vo.business.collect.MemberCollectVO;
 import com.eghm.vo.business.statistics.CollectStatisticsVO;

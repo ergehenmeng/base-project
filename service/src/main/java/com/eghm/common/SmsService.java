@@ -26,15 +26,6 @@ public interface SmsService {
     void sendSmsCode(TemplateType templateType, String mobile, String ip);
 
     /**
-     * 获取短信验证码
-     *
-     * @param templateType 验证码类型
-     * @param mobile  手机号码
-     * @return 短信验证码
-     */
-    String getSmsCode(TemplateType templateType, String mobile);
-
-    /**
      * 验证短信验证码是否正确 (如果验证码正确,会将缓存中验证码删除,并生成唯一ID,再次放入缓存中,方便后续业务)
      * 同样如果验证次数太多,依旧会返回验证失败
      * @param templateType 验证码类型

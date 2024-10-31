@@ -1,4 +1,4 @@
-package com.eghm.dto.statistics;
+package com.eghm.dto.business.statistics;
 
 import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.DateComparator;
