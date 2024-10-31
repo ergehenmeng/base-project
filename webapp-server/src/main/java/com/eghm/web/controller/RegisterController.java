@@ -64,6 +64,4 @@ public class RegisterController {
         LoginTokenVO tokenVO = memberService.registerByAccount(request);
         return RespBody.success(tokenVO);
     }
-
-
 }

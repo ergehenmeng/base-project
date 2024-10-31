@@ -442,7 +442,6 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
-
     /**
      * 注册新用户,必须保证参数已校验,昵称如果为空默认由系统生成
      *

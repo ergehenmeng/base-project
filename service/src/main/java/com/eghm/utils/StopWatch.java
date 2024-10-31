@@ -100,7 +100,6 @@ public class StopWatch {
         taskList.add(new TimeClock(this.taskName, nowElapsed));
     }
 
-
     @Data
     private static final class TimeClock {
         private String taskName;

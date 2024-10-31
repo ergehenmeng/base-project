@@ -46,5 +46,4 @@ public class SubmitIntervalInterceptor implements InterceptorAdapter {
         return true;
     }
 
-
 }

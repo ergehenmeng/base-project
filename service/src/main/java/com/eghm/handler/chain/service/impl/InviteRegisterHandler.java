@@ -53,5 +53,4 @@ public class InviteRegisterHandler implements Handler {
         invoker.doHandler(messageData);
     }
 
-
 }

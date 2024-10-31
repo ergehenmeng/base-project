@@ -32,7 +32,6 @@ public class VersionUtil {
         return parseInt(source) >= parseInt(target);
     }
 
-
     private static String replace(String str) {
         for (String replace : REPLACE_CHAR) {
             str = str.replace(replace, "");

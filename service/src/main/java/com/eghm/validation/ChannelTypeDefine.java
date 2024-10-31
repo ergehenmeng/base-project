@@ -17,7 +17,6 @@ public class ChannelTypeDefine implements ConstraintValidator<ChannelType, Strin
 
     private Channel[] channels;
 
-
     @Override
     public void initialize(ChannelType constraintAnnotation) {
         this.required = constraintAnnotation.required();

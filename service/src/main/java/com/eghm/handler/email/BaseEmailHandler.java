@@ -89,7 +89,6 @@ public class BaseEmailHandler {
         return templateEngine.render(template.getContent(), params);
     }
 
-
     /**
      * 获取邮件模板渲染时的参数, 子类可以额外定义该参数以实现更复杂的显示效果
      *

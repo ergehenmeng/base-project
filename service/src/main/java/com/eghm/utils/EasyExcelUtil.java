@@ -120,7 +120,6 @@ public class EasyExcelUtil {
         }).sheet().doRead();
     }
 
-
     private static class FreezeRowHandler implements SheetWriteHandler {
         @Override
         public void afterSheetCreate(WriteWorkbookHolder writeWorkbookHolder, WriteSheetHolder writeSheetHolder) {

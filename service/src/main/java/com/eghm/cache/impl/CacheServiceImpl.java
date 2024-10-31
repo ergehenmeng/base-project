@@ -72,7 +72,6 @@ public class CacheServiceImpl implements CacheService {
         return this.doSupplier(key, supplier);
     }
 
-
     /**
      * 调用回调函数获取结果,并将结果缓存
      *

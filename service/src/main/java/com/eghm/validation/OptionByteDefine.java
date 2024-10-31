@@ -21,7 +21,6 @@ public class OptionByteDefine implements ConstraintValidator<OptionByte, Byte> {
      */
     private boolean required;
 
-
     @Override
     public void initialize(OptionByte constraintAnnotation) {
         this.values = constraintAnnotation.value();

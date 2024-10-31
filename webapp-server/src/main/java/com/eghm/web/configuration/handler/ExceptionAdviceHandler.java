@@ -164,6 +164,9 @@ public class ExceptionAdviceHandler {
         return FAIL;
     }
 
+    /**
+     * 参数为空校验
+     */
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public RespBody<Void> notNullException(HttpServletRequest request, MissingServletRequestParameterException e) {
         log.error("参数校验为空, 接口[{}]", request.getRequestURI());

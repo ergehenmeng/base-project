@@ -77,7 +77,6 @@ public class MessageInterceptor implements InterceptorAdapter {
         return true;
     }
 
-
     @Override
     public void afterCompletion(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler, Exception ex) {
         ApiHolder.remove();

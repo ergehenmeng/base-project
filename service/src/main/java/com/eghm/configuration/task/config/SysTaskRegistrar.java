@@ -158,7 +158,6 @@ public class SysTaskRegistrar {
         scheduledFutures.put(nid, schedule);
     }
 
-
     @PreDestroy
     public void destroy() {
         for (ScheduledFuture<?> future : scheduledFutures.values()) {

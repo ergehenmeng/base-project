@@ -25,7 +25,6 @@ public class BeanValidator {
 
     private static final ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class).configure().failFast(true).buildValidatorFactory();
 
-
     /**
      * 验证参数是否合法
      *

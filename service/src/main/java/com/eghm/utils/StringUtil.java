@@ -266,5 +266,4 @@ public class StringUtil {
         return String.format(insert, id, title, encryptNumber(id), pid, grade, sort);
     }
 
-
 }

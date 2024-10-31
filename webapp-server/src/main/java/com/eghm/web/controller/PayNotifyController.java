@@ -42,7 +42,6 @@ public class PayNotifyController {
 
     private final PayNotifyLogService payNotifyLogService;
 
-
     @PostMapping(ALI_PAY_NOTIFY_URL)
     @ApiOperation("支付宝支付回调")
     public String aliPay(HttpServletRequest request) {

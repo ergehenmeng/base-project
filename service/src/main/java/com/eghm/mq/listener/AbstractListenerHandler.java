@@ -64,7 +64,6 @@ public abstract class AbstractListenerHandler {
         }
     }
 
-
     /**
      * 处理MQ中消息,并手动确认,并将结果放入缓存方便客户端查询
      *

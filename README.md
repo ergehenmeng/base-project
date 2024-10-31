@@ -133,6 +133,6 @@
       其中 `requestBody` 是 post请求体中的数据, `timestamp` 是当前时间(毫秒). 注意:即使请求体为空也需要带上 `data` 字段
     * `RSA` **`signature`=SHA256withRSA(data=Base64(`requestBody`)&timestamp=`timestamp`)** 其中 `requestBody` 是
       post请求体中的数据, `timestamp` 是当前时间(毫秒). `appSecret` 是 `RSA` 的私钥, 采用 `SHA256withRSA` 方式进行签名
-* 注意: `TransactionConfig`中定义的事务管理器作用在 `com.eghm.service` 包, 因此,在该包不要定义非事务相关的业务(例如第三方接口调用, 工具类等), 否则可能会导致事务异常.
+* 注意: `TransactionConfig`中定义的事务管理器作用在 `com.eghm.service` 包, 因此在该包不要定义非事务相关的业务(例如第三方接口调用, 工具类等), 否则可能会导致事务异常.
 * 管理后台集成了Websocket, 采用stomp协议, 支持前端实时接收消息, 具体可参考 `WebSocketController`, 后台主动发送消息可注入 `SimpMessagingTemplate` 发送, 注意:需要移动端先订阅消息才可收到消息 
 * 移动端服务和管理后台服务是独立的, 双方之间如需通信, 可通过MQ, 注意: 消息消费端定义的位置
