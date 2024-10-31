@@ -169,3 +169,27 @@ INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('10201018', '商家销售排行', 'uX80', NULL, '102010', NULL, '/manage/statistics/merchantSale', '2', '90', b'1', NULL, '2', '2024-09-09 17:41:00', '2024-09-09 17:42:24');
 
 INSERT INTO `sys_user` (`id`, `nick_name`, `user_type`, `mobile`, `state`, `pwd`, `init_pwd`, `data_type`, `dept_code`, `deleted`, `pwd_update_time`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '0', 'superAdmin', '1', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', NULL, NULL, b'0', '2024-07-25 13:37:58', '2018-01-26 10:38:20', '2024-10-28 09:35:33', '');
+
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `dict_type`, `create_time`, `update_time`, `remark`) VALUES ('1', '图片分类', 'image_type', b'0', b'0', '1', '2024-10-31 16:26:53', '2024-10-31 16:28:29', '图片管理');
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `dict_type`, `create_time`, `update_time`, `remark`) VALUES ('3', '轮播图分类', 'banner_type', b'0', b'0', '1', '2024-10-31 16:26:53', '2024-10-31 16:28:29', '轮播管理');
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `dict_type`, `create_time`, `update_time`, `remark`) VALUES ('4', '公告类型', 'notice_type', b'0', b'0', '1', '2024-10-31 16:26:53', '2024-10-31 16:28:29', '公告管理');
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `dict_type`, `create_time`, `update_time`, `remark`) VALUES ('6', '问题分类', 'help_type', b'0', b'0', '1', '2024-10-31 16:26:53', '2024-10-31 16:28:29', '帮助中心');
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `dict_type`, `create_time`, `update_time`, `remark`) VALUES ('7', '反馈分类', 'feedback_type', b'0', b'0', '1', '2024-10-31 16:26:53', '2024-10-31 16:26:53', '意见反馈');
+
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('1', 'image_type', '1', 'PC首页', b'0', '2024-10-31 16:26:53', '2024-10-31 16:26:53');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('2', 'image_type', '2', 'APP首页', b'0', '2024-10-31 16:26:54', '2024-10-31 16:26:54');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('3', 'image_type', '3', 'H5首页', b'0', '2024-10-31 16:26:53', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('6', 'banner_type', '1', '首页轮播', b'0', '2024-10-31 16:26:54', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('8', 'notice_type', '1', '开园活动', b'0', '2024-10-31 16:26:53', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('9', 'notice_type', '2', '放假通知', b'0', '2024-10-31 16:26:54', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('13', 'help_type', '1', '业务问题', b'0', '2024-10-31 16:26:53', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('14', 'help_type', '2', '流程问题', b'0', '2024-10-31 16:26:54', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('15', 'help_type', '3', '异常相关', b'0', '2024-10-31 16:26:53', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('16', 'feedback_type', '1', '服务体验', b'0', '2024-10-31 16:26:54', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('17', 'feedback_type', '2', '投诉反馈', b'0', '2024-10-31 16:26:53', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('18', 'feedback_type', '3', '意见建议', b'0', '2024-10-31 16:26:54', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('19', 'feedback_type', '4', 'BUG反馈', b'0', '2024-10-31 16:26:53', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('20', 'feedback_type', '5', '违规操作', b'0', '2024-10-31 16:26:53', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('21', 'feedback_type', '6', '其他问题', b'0', '2024-10-31 16:26:54', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('22', 'image_type', '4', 'WX首页', b'0', '2024-10-31 16:26:53', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('23', 'image_type', '5', 'PAY首页', b'0', '2024-10-31 16:26:54', '2024-10-31 16:27:58');
