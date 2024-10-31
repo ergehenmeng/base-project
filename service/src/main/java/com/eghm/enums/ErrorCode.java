@@ -15,6 +15,9 @@ import lombok.Getter;
 @Getter
 public enum ErrorCode {
 
+    /**
+     * 请求成功
+     */
     SUCCESS(200, "请求成功"),
 
     /**
@@ -521,7 +524,6 @@ public enum ErrorCode {
      * 分类编号重复啦
      */
     NEWS_CONFIG_CODE_REDO(2786, "分类编号重复啦"),
-
 
     /**
      * 文章从地球上消失啦~
