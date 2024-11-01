@@ -192,7 +192,7 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 加密密码
      */
     private String initPassword(String mobile) {
-        String md5Password = MD5.create().digestHex(mobile.substring(5));
+        String md5Password = MD5.create().digestHex(mobile.substring(3));
         return encoder.encode(md5Password);
     }
 
