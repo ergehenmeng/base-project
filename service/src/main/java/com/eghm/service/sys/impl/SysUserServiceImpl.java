@@ -132,6 +132,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public void insert(SysUser user) {
+        this.redoUserName(user.getUserName(), null);
         this.redoMobile(user.getMobile(), null);
         user.setState(UserState.NORMAL);
         sysUserMapper.insert(user);
@@ -230,6 +231,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public void updateById(SysUser user) {
+        this.redoUserName(user.getUserName(), user.getId());
         this.redoMobile(user.getMobile(), user.getId());
         sysUserMapper.updateById(user);
     }

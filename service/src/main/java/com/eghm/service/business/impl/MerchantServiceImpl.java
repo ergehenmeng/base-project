@@ -118,6 +118,7 @@ public class MerchantServiceImpl implements MerchantService {
         String encode = encoder.encode(MD5.create().digestHex(pwd));
         user.setInitPwd(encode);
         user.setPwd(encode);
+        user.setUserName(request.getAccount());
         user.setUserType(UserType.MERCHANT_ADMIN);
         user.setPwdUpdateTime(LocalDateTime.now());
         // 采用用户名登录
@@ -146,6 +147,7 @@ public class MerchantServiceImpl implements MerchantService {
         Merchant merchant = DataUtil.copy(request, Merchant.class);
         merchantMapper.updateById(merchant);
         SysUser user = new SysUser();
+        user.setUserName(request.getAccount());
         user.setMobile(request.getAccount());
         user.setNickName(request.getMerchantName());
         user.setId(required.getUserId());
