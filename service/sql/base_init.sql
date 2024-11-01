@@ -3578,7 +3578,7 @@ INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `r
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('13', '省市区缓存', 'sys_area', '1', '2023-08-11 15:22:18', '省市区所有缓存');
 
 
-INSERT INTO `sys_user` (`id`, `nick_name`, `mobile`, `state`, `pwd`, `init_pwd`, `dept_code`, `data_type`, `deleted`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '13000000000', '0', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '0', 8, b'0', '2018-01-26 10:38:20', '2019-07-19 15:41:56', '');
+INSERT INTO `sys_user` (`id`, `nick_name`, `mobile`, `state`, `pwd`, `init_pwd`, `dept_code`, `data_type`, `deleted`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '13000000000', '0', '$2a$10$OUgNXwmRXEJcNR5cTAXb0.JmkahFa9Emx9BKl32EaA1yG/6anUVRi', '$2a$10$OUgNXwmRXEJcNR5cTAXb0.JmkahFa9Emx9BKl32EaA1yG/6anUVRi', '0', 8, b'0', '2018-01-26 10:38:20', '2019-07-19 15:41:56', '');
 
 
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969410', '景区商户', 'scenic', '2022-12-27 16:03:35', '2023-09-28 15:38:42', b'0', '系统默认角色(勿动)');

@@ -113,9 +113,8 @@ public class MerchantServiceImpl implements MerchantService {
         this.checkMerchantRedo(request.getMerchantName(), null);
         this.checkMobileRedo(request.getMobile(), null);
         this.checkCreditRedo(request.getCreditCode(), null);
-        String pwd = sysConfigApi.getString(ConfigConstant.MERCHANT_PWD);
         SysUser user = new SysUser();
-        String encode = encoder.encode(MD5.create().digestHex(pwd));
+        String encode = encoder.encode(MD5.create().digestHex(request.getMobile().substring(3)));
         user.setInitPwd(encode);
         user.setPwd(encode);
         user.setUserName(request.getAccount());
@@ -180,8 +179,7 @@ public class MerchantServiceImpl implements MerchantService {
     @Override
     public void resetPwd(Long id) {
         Merchant merchant = this.selectByIdRequired(id);
-        String pwd = sysConfigApi.getString(ConfigConstant.MERCHANT_PWD);
-        sysUserService.resetPassword(merchant.getUserId(), pwd);
+        sysUserService.resetPassword(merchant.getUserId(), merchant.getMobile().substring(3));
     }
 
     @Override

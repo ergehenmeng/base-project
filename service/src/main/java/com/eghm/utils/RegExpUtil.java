@@ -41,7 +41,7 @@ public class RegExpUtil {
 
     /**
      * 判断密码是否符合要求
-     * 8-16位,包含字母,数字,特殊字符
+     * 8-20位,包含字母,数字,特殊字符
      *
      * @param password 字符串
      * @return true:符合密码要求
