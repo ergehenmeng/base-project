@@ -22,7 +22,7 @@ public class AccountRegisterDTO {
     @NotEmpty(message = "账号不能为空")
     private String account;
 
-    @ApiModelProperty(value = "密码(8~16英文,字母和@#&_)", required = true)
+    @ApiModelProperty(value = "密码(8~20英文,字母和@#&_)", required = true)
     @Password
     private String password;
 

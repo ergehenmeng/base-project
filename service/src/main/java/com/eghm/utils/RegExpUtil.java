@@ -27,7 +27,7 @@ public class RegExpUtil {
     /**
      * 密码格式, 必须包含:大小写字母,数字,特殊字符(@#&_)
      */
-    private static final Pattern REGEXP_PASSWORD = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#&_]).{8,16}$");
+    private static final Pattern REGEXP_PASSWORD = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#&_]).{8,20}$");
 
     /**
      * 判断字符串格式是否为手机号

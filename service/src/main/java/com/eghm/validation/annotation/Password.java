@@ -13,7 +13,7 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * 密码校验, 默认是8~16英文,字母和下划线
+ * 密码校验, 默认是8~20英文,字母和下划线
  *
  * @author 二哥很猛
  * @since 2023/12/14 19:19
