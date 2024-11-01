@@ -82,7 +82,7 @@ public class ManageMvcConfig extends WebMvcConfig {
         AuthFilter requestFilter = new AuthFilter(userTokenService, manage);
         requestFilter.exclude(manage.getSecurity().getSkipAuth());
         registrationBean.setFilter(requestFilter);
-        registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
+        registrationBean.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ERROR);
         registrationBean.setOrder(Integer.MIN_VALUE + 5);
         return registrationBean;
     }

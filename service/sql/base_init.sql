@@ -193,3 +193,5 @@ INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('21', 'feedback_type', '6', '其他问题', b'0', '2024-10-31 16:26:54', '2024-10-31 16:27:58');
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('22', 'image_type', '4', 'WX首页', b'0', '2024-10-31 16:26:53', '2024-10-31 16:27:58');
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('23', 'image_type', '5', 'PAY首页', b'0', '2024-10-31 16:26:54', '2024-10-31 16:27:58');
+
+INSERT INTO `notice_template` (`id`, `code`, `title`, `content`, `remark`, `update_time`) VALUES ('1', 'feedback_process', '反馈结果', '您反馈的【${feedbackType}】 \"${content}\"问题，我们已接收。${reply}', NULL, '2024-05-27 11:43:35');

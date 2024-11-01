@@ -64,6 +64,8 @@ system:
     security:
       skip-auth:
         - /captcha
+        ## 默认错误页面不拦截
+        - ${server.error.path}
         - /**/captcha
         - /doc.html
         - /webjars/**

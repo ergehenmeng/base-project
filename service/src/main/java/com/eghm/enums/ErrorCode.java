@@ -46,9 +46,9 @@ public enum ErrorCode {
     ACCESS_DENIED(403, "亲~ 暂时没有访问权限哦"),
 
     /**
-     * 木有找到请求地址
+     * 请求地址不存在
      */
-    PAGE_NOT_FOUND(404, "木有找到请求地址"),
+    PAGE_NOT_FOUND(404, "请求地址不存在：%s"),
 
     /**
      * 暂无访问权限 (黑名单拦截)
