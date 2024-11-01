@@ -38,16 +38,6 @@ public class SmsServiceImpl implements SmsService {
     private final SendSmsService sendSmsService;
 
     @Override
-    public void sendSmsCode(TemplateType templateType, String mobile) {
-        this.smsLimitCheck(templateType.getValue(), mobile);
-        String smsCode = StringUtil.randomNumber();
-        this.doSendSms(mobile, templateType, smsCode);
-        this.saveSmsCode(templateType.getValue(), mobile, smsCode);
-        long expire = sysConfigApi.getLong(ConfigConstant.SMS_TYPE_INTERVAL);
-        cacheService.setValue(String.format(CacheConstant.SMS_TYPE_INTERVAL, templateType.getValue(), mobile), true, expire);
-    }
-
-    @Override
     public void sendSmsCode(TemplateType templateType, String mobile, String ip) {
         this.smsIpLimitCheck(ip);
         this.sendSmsCode(templateType, mobile);
@@ -85,6 +75,21 @@ public class SmsServiceImpl implements SmsService {
             cacheService.delete(key);
         }
         return exist;
+    }
+
+    /**
+     * 发送短信验证码
+     *
+     * @param templateType 短信验证码类型
+     * @param mobile  手机号
+     */
+    private void sendSmsCode(TemplateType templateType, String mobile) {
+        this.smsLimitCheck(templateType.getValue(), mobile);
+        String smsCode = StringUtil.randomNumber();
+        this.doSendSms(mobile, templateType, smsCode);
+        this.saveSmsCode(templateType.getValue(), mobile, smsCode);
+        long expire = sysConfigApi.getLong(ConfigConstant.SMS_TYPE_INTERVAL);
+        cacheService.setValue(String.format(CacheConstant.SMS_TYPE_INTERVAL, templateType.getValue(), mobile), true, expire);
     }
 
     /**

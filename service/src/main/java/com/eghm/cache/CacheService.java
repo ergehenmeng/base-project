@@ -2,10 +2,7 @@ package com.eghm.cache;
 
 import com.eghm.constants.CommonConstant;
 import com.fasterxml.jackson.core.type.TypeReference;
-import org.springframework.data.redis.core.ZSetOperations;
 
-import java.util.Date;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
@@ -15,14 +12,6 @@ import java.util.function.Supplier;
  * @since 2018/11/21 16:19
  */
 public interface CacheService {
-
-    /**
-     * 缓存对象 默认30分钟
-     *
-     * @param key   key
-     * @param value value
-     */
-    void setValue(String key, Object value);
 
     /**
      * 根据key 获取缓存信息,
@@ -61,24 +50,6 @@ public interface CacheService {
      * @return true:存在 false:不存在
      */
     boolean exist(String key);
-
-    /**
-     * 如果没有则添加否则不添加
-     *
-     * @param key   key
-     * @param value value
-     * @return true:添加成功 false:添加失败
-     */
-    boolean setIfAbsent(String key, String value);
-
-    /**
-     * 缓存对象,并设置过期时间
-     *
-     * @param key        key
-     * @param value      value
-     * @param expireTime 未来某个过期的时间
-     */
-    void setValue(String key, Object value, Date expireTime);
 
     /**
      * 获取缓存的信息
@@ -184,7 +155,7 @@ public interface CacheService {
     /**
      * 判断在指定key上是否有value
      *
-     * @param key key
+     * @param key   key
      * @param value value
      * @return boolean
      */
@@ -218,7 +189,7 @@ public interface CacheService {
     /**
      * 设置set值
      *
-     * @param key key
+     * @param key    key
      * @param values setValue
      */
     void setSetValue(String key, String... values);
@@ -233,38 +204,6 @@ public interface CacheService {
     boolean getBitmap(String key, Long ops);
 
     /**
-     * 判断在指定key上是否有succession个数连续为true(慎用)
-     * 采用bitField实现
-     *
-     * @param key        key
-     * @param end        当前尾节点
-     * @param succession 连续天数 该值越大性能越差
-     * @return 个数
-     */
-    boolean checkSerialBoost(String key, Long end, Integer succession);
-
-    /**
-     * 查询指定位置后long的长度
-     *
-     * @param key    key
-     * @param offset 位置
-     * @return long 默认取32位
-     */
-    Long getBitmapOffset(String key, Long offset);
-
-    /**
-     * 查询指定位置后long的长度
-     * 例如: 000011
-     * offset = 0, length = 32, 则会在该数字后不足部分补零 000011(后面补领长度: 32-6)
-     * offset = 2, length = 16, 则会在该数字后不足部分补零 00011(后面补领长度: 32-5)
-     * @param key    key
-     * @param offset 位置
-     * @param length 取多少位数字返回(不能超过63)
-     * @return long 默认取32位
-     */
-    Long getBitmapOffset(String key, Long offset, int length);
-
-    /**
      * 统计bitmap中为true的总个数
      *
      * @param key key
@@ -272,31 +211,5 @@ public interface CacheService {
      */
     Long getBitmapCount(String key);
 
-    /**
-     * 插入set
-     *
-     * @param key key
-     * @param value value
-     * @param score score
-     */
-    void setSet(String key, String value, double score);
-
-    /**
-     * 累计插入
-     *
-     * @param key key
-     * @param value value
-     * @param score score
-     */
-    void setSetIncrement(String key, String value, double score);
-
-    /**
-     * 获取set排行
-     *
-     * @param key key
-     * @param limit 多少个
-     * @return 列表
-     */
-    Set<ZSetOperations.TypedTuple<String>> rangeWithScore(String key, Integer limit);
 }
 

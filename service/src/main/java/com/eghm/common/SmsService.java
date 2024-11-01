@@ -13,14 +13,6 @@ public interface SmsService {
      *
      * @param templateType 短信验证码类型
      * @param mobile  手机号
-     */
-    void sendSmsCode(TemplateType templateType, String mobile);
-
-    /**
-     * 发送短信验证码
-     *
-     * @param templateType 短信验证码类型
-     * @param mobile  手机号
      * @param ip      ip
      */
     void sendSmsCode(TemplateType templateType, String mobile, String ip);
