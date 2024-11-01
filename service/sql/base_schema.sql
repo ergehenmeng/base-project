@@ -488,24 +488,24 @@ CREATE TABLE `sys_user`
 (
     `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `nick_name`       varchar(20)         NOT NULL COMMENT '用户名称',
+    `user_type`       tinyint(2)          DEFAULT '1' COMMENT '用户类型 0: 超级管理员 1:系统用户 2: 商户用户',
+    `user_name`       varchar(20)         DEFAULT NULL COMMENT '账号名(登陆账户)',
     `mobile`          char(11)            NOT NULL COMMENT '手机号码(登陆账户)',
-    `user_type`       tinyint(2)          DEFAULT 1 COMMENT '用户类型 1:系统用户 2:商户管理员 3:商户普通用户',
-    `data_type`       tinyint(2)          DEFAULT 1 COMMENT '数据权限(1:本人,2:本部门,4:本部门及子部门 8:全部 16:自定义),只针对系统用户',
-    `state`           tinyint(1) unsigned DEFAULT '1' COMMENT '用户状态:0:锁定 1:正常',
+    `state`           tinyint(1) unsigned DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
     `pwd`             varchar(256)        DEFAULT NULL COMMENT '登陆密码MD5',
     `init_pwd`        varchar(256)        DEFAULT NULL COMMENT '初始密码',
+    `data_type`       tinyint(2)          DEFAULT NULL COMMENT '数据权限(1:本人,2:本部门,4:本部门及子部门 8:全部 16:自定义',
     `dept_code`       varchar(20)         DEFAULT NULL COMMENT '所属部门编号',
-    `deleted`         bit(1)              DEFAULT b'0' COMMENT '删除状态 0:正常 1:已删除',
+    `deleted`         bit(1)              DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
     `pwd_update_time` datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '密码更新时间',
     `create_time`     datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`     datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`          varchar(200)        DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `name_index` (`nick_name`) USING BTREE,
     KEY `mobile_index` (`mobile`) USING BTREE,
-    KEY `status_index` (`state`) USING BTREE
+    KEY `status_index` (`state`) USING BTREE,
+    KEY `name_index` (`nick_name`) USING BTREE
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 3
   DEFAULT CHARSET = utf8mb4 COMMENT ='管理后台用户表';
 
 -- ----------------------------

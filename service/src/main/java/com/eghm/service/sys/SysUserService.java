@@ -26,14 +26,6 @@ public interface SysUserService {
     Page<UserResponse> getByPage(UserQueryRequest request);
 
     /**
-     * 根据手机号码查询管理员信息
-     *
-     * @param mobile 手机号码
-     * @return 系统管理人员
-     */
-    SysUser getByMobile(String mobile);
-
-    /**
      * 更新登陆密码
      *
      * @param request 前台参数

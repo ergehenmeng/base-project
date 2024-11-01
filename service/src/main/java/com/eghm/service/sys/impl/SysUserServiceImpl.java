@@ -1,5 +1,6 @@
 package com.eghm.service.sys.impl;
 
+import cn.hutool.core.util.PhoneUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -82,13 +83,6 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public SysUser getByMobile(String mobile) {
-        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysUser::getMobile, mobile);
-        return sysUserMapper.selectOne(wrapper);
-    }
-
-    @Override
     public void updateLoginPassword(PasswordEditRequest request) {
         SysUser user = sysUserMapper.selectById(request.getUserId());
         this.checkPassword(request.getOldPwd(), user.getPwd());
@@ -117,6 +111,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public void create(UserAddRequest request) {
+        this.redoUserName(request.getUserName(), null);
         this.redoMobile(request.getMobile(), null);
         SysUser user = DataUtil.copy(request, SysUser.class);
         user.setState(UserState.NORMAL);
@@ -164,8 +159,8 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public void update(UserEditRequest request) {
+        this.redoUserName(request.getUserName(), request.getId());
         this.redoMobile(request.getMobile(), request.getId());
-
         SysUser user = DataUtil.copy(request, SysUser.class);
         sysUserMapper.updateById(user);
         // 角色权限
@@ -240,6 +235,44 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     /**
+     * 根据用户名或手机号查询用户信息
+     *
+     * @param userName 用户名或电话号码
+     * @return 用户信息
+     */
+    private SysUser getByAccount(String userName) {
+        if (PhoneUtil.isMobile(userName)) {
+            return this.getByMobile(userName);
+        } else {
+            return this.getByUserName(userName);
+        }
+    }
+
+    /**
+     * 根据手机号码查询用户信息
+     *
+     * @param mobile 手机号码
+     * @return 用户信息
+     */
+    private SysUser getByMobile(String mobile) {
+        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysUser::getMobile, mobile);
+        return sysUserMapper.selectOne(wrapper);
+    }
+
+    /**
+     * 根据账户名查询用户信息
+     *
+     * @param userName 账户名
+     * @return 用户信息
+     */
+    private SysUser getByUserName(String userName) {
+        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysUser::getUserName, userName);
+        return sysUserMapper.selectOne(wrapper);
+    }
+
+    /**
      * 管理后台登陆
      *
      * @param user 用户信息
@@ -298,7 +331,7 @@ public class SysUserServiceImpl implements SysUserService {
         if (present != null && present > MAX_ERROR_NUM) {
             throw new BusinessException(ErrorCode.USER_ERROR_LOCK);
         }
-        SysUser user = this.getByMobile(userName);
+        SysUser user = this.getByAccount(userName);
         if (user == null || user.getState() == UserState.LOGOUT) {
             LOGIN_LOCK_CACHE.put(userName, present == null ? 1 : present + 1);
             throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
@@ -374,6 +407,23 @@ public class SysUserServiceImpl implements SysUserService {
         if (count > 0) {
             log.warn("手机号码被占用 [{}] [{}]", mobile, id);
             throw new BusinessException(ErrorCode.MOBILE_REDO);
+        }
+    }
+
+    /**
+     * 校验账户名是否重复
+     *
+     * @param userName 账户名
+     * @param id     id (更新时不能为空)
+     */
+    private void redoUserName(String userName, Long id) {
+        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysUser::getUserName, userName);
+        wrapper.ne(id != null, SysUser::getId, id);
+        Long count = sysUserMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.warn("账户名被占用 [{}] [{}]", userName, id);
+            throw new BusinessException(ErrorCode.USER_NAME_REDO);
         }
     }
 }

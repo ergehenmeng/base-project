@@ -323,6 +323,11 @@ public enum ErrorCode {
     IMAGE_CODE_ERROR(2072, "验证码输入错误"),
 
     /**
+     * 账户名被占用
+     */
+    USER_NAME_REDO(2037, "账户名被占用"),
+
+    /**
      * 账号或密码输入错误
      */
     ACCOUNT_PASSWORD_ERROR(2114, "账号或密码输入错误"),
