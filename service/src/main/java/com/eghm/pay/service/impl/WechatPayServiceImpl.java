@@ -1,11 +1,11 @@
-package com.eghm.pay.impl;
+package com.eghm.pay.service.impl;
 
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.CommonConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.WeChatPayException;
-import com.eghm.pay.PayService;
+import com.eghm.pay.service.PayService;
 import com.eghm.pay.dto.PrepayDTO;
 import com.eghm.pay.dto.RefundDTO;
 import com.eghm.pay.enums.*;

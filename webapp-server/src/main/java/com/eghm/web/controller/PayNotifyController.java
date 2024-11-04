@@ -2,8 +2,8 @@ package com.eghm.web.controller;
 
 import com.eghm.constants.WeChatConstant;
 import com.eghm.exception.BusinessException;
-import com.eghm.pay.PayNotifyLogService;
-import com.eghm.pay.PayService;
+import com.eghm.pay.service.PayNotifyLogService;
+import com.eghm.pay.service.PayService;
 import com.eghm.pay.enums.StepType;
 import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
