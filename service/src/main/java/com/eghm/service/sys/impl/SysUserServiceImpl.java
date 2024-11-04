@@ -101,9 +101,9 @@ public class SysUserServiceImpl implements SysUserService {
         SysUser user = DataUtil.copy(request, SysUser.class);
         user.setState(UserState.NORMAL);
         user.setUserType(UserType.SYS_USER);
-        String initPassword = this.initPassword(request.getMobile());
-        user.setPwd(initPassword);
-        user.setInitPwd(initPassword);
+        String password = this.initPassword(request.getMobile());
+        user.setPwd(password);
+        user.setInitPwd(password);
         user.setPwdUpdateTime(LocalDateTime.now());
         sysUserMapper.insert(user);
         // 角色权限
