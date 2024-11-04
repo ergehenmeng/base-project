@@ -8,7 +8,7 @@ import com.eghm.dto.notice.NoticeAddRequest;
 import com.eghm.dto.notice.NoticeEditRequest;
 import com.eghm.dto.notice.NoticeQueryRequest;
 import com.eghm.model.SysNotice;
-import com.eghm.service.common.SysNoticeService;
+import com.eghm.service.operate.SysNoticeService;
 import com.eghm.vo.notice.NoticeResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

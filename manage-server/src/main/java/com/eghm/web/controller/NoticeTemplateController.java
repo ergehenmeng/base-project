@@ -6,7 +6,7 @@ import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.template.NoticeTemplateRequest;
 import com.eghm.model.NoticeTemplate;
-import com.eghm.service.common.NoticeTemplateService;
+import com.eghm.service.operate.NoticeTemplateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

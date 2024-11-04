@@ -3,7 +3,7 @@ package com.eghm.web.controller;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.service.common.SysNoticeService;
+import com.eghm.service.operate.SysNoticeService;
 import com.eghm.vo.notice.NoticeDetailVO;
 import com.eghm.vo.notice.NoticeVO;
 import io.swagger.annotations.Api;

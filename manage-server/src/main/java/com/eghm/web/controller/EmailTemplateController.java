@@ -6,7 +6,7 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.EmailTemplate;
-import com.eghm.service.common.EmailTemplateService;
+import com.eghm.service.operate.EmailTemplateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

@@ -7,7 +7,7 @@ import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sensitvie.KeywordDTO;
 import com.eghm.model.SensitiveWord;
-import com.eghm.service.common.SensitiveWordService;
+import com.eghm.service.operate.SensitiveWordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

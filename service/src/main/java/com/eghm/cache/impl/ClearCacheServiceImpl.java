@@ -2,7 +2,7 @@ package com.eghm.cache.impl;
 
 import com.eghm.cache.ClearCacheService;
 import com.eghm.constants.CacheConstant;
-import com.eghm.service.common.SensitiveWordService;
+import com.eghm.service.operate.SensitiveWordService;
 import freemarker.template.Configuration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

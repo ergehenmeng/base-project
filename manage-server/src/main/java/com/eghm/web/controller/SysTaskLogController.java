@@ -5,7 +5,7 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.task.TaskLogQueryRequest;
-import com.eghm.service.common.SysTaskLogService;
+import com.eghm.service.sys.SysTaskLogService;
 import com.eghm.vo.log.SysTaskLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

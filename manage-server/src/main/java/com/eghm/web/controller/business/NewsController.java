@@ -9,7 +9,7 @@ import com.eghm.dto.business.news.NewsQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.News;
-import com.eghm.service.business.NewsService;
+import com.eghm.service.operate.NewsService;
 import com.eghm.vo.business.news.NewsResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

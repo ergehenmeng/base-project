@@ -7,7 +7,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.image.ImageAddRequest;
 import com.eghm.dto.image.ImageEditRequest;
 import com.eghm.dto.image.ImageQueryRequest;
-import com.eghm.service.common.ImageLogService;
+import com.eghm.service.operate.ImageLogService;
 import com.eghm.vo.log.ImageLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

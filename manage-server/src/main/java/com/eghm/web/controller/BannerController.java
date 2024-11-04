@@ -8,7 +8,7 @@ import com.eghm.dto.banner.BannerEditRequest;
 import com.eghm.dto.banner.BannerQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.service.common.BannerService;
+import com.eghm.service.operate.BannerService;
 import com.eghm.vo.banner.BannerResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -3,7 +3,7 @@ package com.eghm.web.controller.business;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.service.business.NewsService;
+import com.eghm.service.operate.NewsService;
 import com.eghm.vo.business.news.NewsDetailVO;
 import com.eghm.vo.business.news.NewsVO;
 import com.eghm.web.annotation.AccessToken;

@@ -1,7 +1,7 @@
 package com.eghm.web.controller;
 
 import com.eghm.dto.ext.RespBody;
-import com.eghm.service.business.CommonService;
+import com.eghm.common.CommonService;
 import com.eghm.vo.sys.SysAreaVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

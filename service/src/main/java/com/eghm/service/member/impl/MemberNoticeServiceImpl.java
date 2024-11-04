@@ -16,7 +16,7 @@ import com.eghm.mapper.MemberNoticeMapper;
 import com.eghm.model.MemberNotice;
 import com.eghm.model.MemberNoticeLog;
 import com.eghm.model.NoticeTemplate;
-import com.eghm.service.common.NoticeTemplateService;
+import com.eghm.service.operate.NoticeTemplateService;
 import com.eghm.service.member.MemberNoticeService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.member.MemberNoticeVO;

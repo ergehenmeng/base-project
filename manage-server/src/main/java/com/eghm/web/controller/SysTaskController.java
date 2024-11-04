@@ -7,7 +7,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.task.TaskEditRequest;
 import com.eghm.dto.task.TaskQueryRequest;
 import com.eghm.dto.task.TaskRunRequest;
-import com.eghm.service.common.SysTaskService;
+import com.eghm.service.sys.SysTaskService;
 import com.eghm.vo.task.SysTaskResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

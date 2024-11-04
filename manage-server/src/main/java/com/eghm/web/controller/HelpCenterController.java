@@ -9,7 +9,7 @@ import com.eghm.dto.help.HelpAddRequest;
 import com.eghm.dto.help.HelpEditRequest;
 import com.eghm.dto.help.HelpQueryRequest;
 import com.eghm.model.HelpCenter;
-import com.eghm.service.common.HelpCenterService;
+import com.eghm.service.operate.HelpCenterService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.help.HelpDetailResponse;
 import com.eghm.vo.help.HelpResponse;

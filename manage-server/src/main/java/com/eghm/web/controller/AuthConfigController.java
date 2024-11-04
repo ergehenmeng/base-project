@@ -7,7 +7,7 @@ import com.eghm.dto.auth.AuthConfigEditRequest;
 import com.eghm.dto.auth.AuthConfigQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.service.common.AuthConfigService;
+import com.eghm.service.operate.AuthConfigService;
 import com.eghm.vo.auth.AuthConfigResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

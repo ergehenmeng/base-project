@@ -7,7 +7,7 @@ import com.eghm.enums.EmailType;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.EmailTemplate;
-import com.eghm.service.common.EmailTemplateService;
+import com.eghm.service.operate.EmailTemplateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;

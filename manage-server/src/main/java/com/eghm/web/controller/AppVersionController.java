@@ -8,7 +8,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.version.VersionAddRequest;
 import com.eghm.dto.version.VersionEditRequest;
 import com.eghm.dto.version.VersionQueryRequest;
-import com.eghm.service.common.AppVersionService;
+import com.eghm.service.operate.AppVersionService;
 import com.eghm.vo.version.AppVersionResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
