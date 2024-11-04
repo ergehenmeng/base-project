@@ -111,15 +111,6 @@ public class StringUtil {
     }
 
     /**
-     * 生成6位随机字符串
-     *
-     * @return 字符串
-     */
-    public static String random() {
-        return random(DEFAULT_RANDOM_LENGTH);
-    }
-
-    /**
      * 生成指定长度的数字(短信验证码)
      *
      * @param length 长度
@@ -200,17 +191,6 @@ public class StringUtil {
             }
         }
         return builder.toString();
-    }
-
-    /**
-     * 获取随机数字
-     *
-     * @param minValue 随机数最小
-     * @param maxValue 随机数范围最大值 0~maxValue
-     * @return minValue >= x < maxValue
-     */
-    public static int random(int minValue, int maxValue) {
-        return ThreadLocalRandom.current().nextInt(maxValue - minValue) + minValue;
     }
 
     /**
