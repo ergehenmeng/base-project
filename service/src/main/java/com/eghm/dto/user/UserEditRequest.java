@@ -35,7 +35,6 @@ public class UserEditRequest {
     private String mobile;
 
     @ApiModelProperty(value = "所属部门编号", required = true)
-    @NotBlank(message = "所属部门不能为空")
     private String deptCode;
 
     @ApiModelProperty(value = "角色编号", required = true)

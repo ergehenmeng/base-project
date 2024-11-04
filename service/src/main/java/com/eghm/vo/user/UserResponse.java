@@ -22,6 +22,9 @@ public class UserResponse {
     @ApiModelProperty("用户姓名")
     private String nickName;
 
+    @ApiModelProperty("账户名(登陆账户)")
+    private String userName;
+
     @ApiModelProperty("部门名称")
     private String deptName;
 
