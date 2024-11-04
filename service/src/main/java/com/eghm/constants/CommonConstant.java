@@ -126,11 +126,6 @@ public class CommonConstant {
     public static final long SCHEDULED_MAX_LOCK_TIME = 60;
 
     /**
-     * bitmap最大有效位 此处不使用64位的原因是针对无符号的u64最多只支持63位(最高位是符号位)
-     */
-    public static final int BITMAP = 32;
-
-    /**
      * 父节点id
      */
     public static final String ROOT_NODE = "0";
