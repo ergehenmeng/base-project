@@ -57,7 +57,7 @@ public class TokenInterceptor implements InterceptorAdapter {
      * @return true:需要验签 false不需要
      */
     private boolean hasAccessToken(Object handler) {
-        return this.getClassAnnotation(handler, AccessToken.class) != null || this.getAnnotation(handler, AccessToken.class) != null;
+        return this.getAnnotation(handler, AccessToken.class) != null;
     }
 
 }
