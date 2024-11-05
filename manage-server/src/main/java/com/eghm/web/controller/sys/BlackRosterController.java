@@ -5,7 +5,7 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.roster.BlackRosterAddRequest;
+import com.eghm.dto.operate.roster.BlackRosterAddRequest;
 import com.eghm.model.BlackRoster;
 import com.eghm.service.sys.BlackRosterService;
 import io.swagger.annotations.Api;

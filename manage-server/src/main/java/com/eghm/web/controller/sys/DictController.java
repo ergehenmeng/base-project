@@ -4,6 +4,7 @@ import com.eghm.annotation.SkipPerm;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.dict.*;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.sys.dict.*;
 import com.eghm.model.SysDictItem;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;

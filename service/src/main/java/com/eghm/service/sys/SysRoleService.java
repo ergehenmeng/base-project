@@ -3,8 +3,8 @@ package com.eghm.service.sys;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.CheckBox;
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.role.RoleAddRequest;
-import com.eghm.dto.role.RoleEditRequest;
+import com.eghm.dto.sys.role.RoleAddRequest;
+import com.eghm.dto.sys.role.RoleEditRequest;
 import com.eghm.vo.sys.SysRoleResponse;
 
 import java.util.List;

@@ -1,10 +1,10 @@
 package com.eghm.service.operate;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.help.HelpAddRequest;
-import com.eghm.dto.help.HelpEditRequest;
-import com.eghm.dto.help.HelpQueryDTO;
-import com.eghm.dto.help.HelpQueryRequest;
+import com.eghm.dto.operate.help.HelpAddRequest;
+import com.eghm.dto.operate.help.HelpEditRequest;
+import com.eghm.dto.operate.help.HelpQueryDTO;
+import com.eghm.dto.operate.help.HelpQueryRequest;
 import com.eghm.model.HelpCenter;
 import com.eghm.vo.help.HelpCenterVO;
 import com.eghm.vo.help.HelpResponse;

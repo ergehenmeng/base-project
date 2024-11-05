@@ -1,9 +1,9 @@
 package com.eghm.service.operate;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.banner.BannerAddRequest;
-import com.eghm.dto.banner.BannerEditRequest;
-import com.eghm.dto.banner.BannerQueryRequest;
+import com.eghm.dto.operate.banner.BannerAddRequest;
+import com.eghm.dto.operate.banner.BannerEditRequest;
+import com.eghm.dto.operate.banner.BannerQueryRequest;
 import com.eghm.vo.banner.BannerResponse;
 
 /**

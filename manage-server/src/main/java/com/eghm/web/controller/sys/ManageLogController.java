@@ -3,7 +3,7 @@ package com.eghm.web.controller.sys;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.log.ManageQueryRequest;
+import com.eghm.dto.sys.log.ManageQueryRequest;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.vo.log.ManageLogResponse;
 import io.swagger.annotations.Api;

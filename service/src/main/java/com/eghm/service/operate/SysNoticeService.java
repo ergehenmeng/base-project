@@ -2,9 +2,9 @@ package com.eghm.service.operate;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.notice.NoticeAddRequest;
-import com.eghm.dto.notice.NoticeEditRequest;
-import com.eghm.dto.notice.NoticeQueryRequest;
+import com.eghm.dto.operate.notice.NoticeAddRequest;
+import com.eghm.dto.operate.notice.NoticeEditRequest;
+import com.eghm.dto.operate.notice.NoticeQueryRequest;
 import com.eghm.model.SysNotice;
 import com.eghm.vo.notice.NoticeDetailVO;
 import com.eghm.vo.notice.NoticeResponse;

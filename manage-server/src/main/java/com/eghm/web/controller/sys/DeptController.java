@@ -1,8 +1,8 @@
 package com.eghm.web.controller.sys;
 
 import com.eghm.dto.IdDTO;
-import com.eghm.dto.dept.DeptAddRequest;
-import com.eghm.dto.dept.DeptEditRequest;
+import com.eghm.dto.sys.dept.DeptAddRequest;
+import com.eghm.dto.sys.dept.DeptEditRequest;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.sys.SysDeptService;

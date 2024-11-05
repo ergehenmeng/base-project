@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.HelpCenterMapper">
 
-    <select id="getByPage" resultType="com.eghm.vo.help.HelpResponse" parameterType="com.eghm.dto.help.HelpQueryRequest">
+    <select id="getByPage" resultType="com.eghm.vo.help.HelpResponse" parameterType="com.eghm.dto.operate.help.HelpQueryRequest">
         select
         id,
         ask,
@@ -25,7 +25,7 @@
         order by sort, id desc
     </select>
 
-    <select id="getList" parameterType="com.eghm.dto.help.HelpQueryRequest" resultType="com.eghm.model.HelpCenter">
+    <select id="getList" parameterType="com.eghm.dto.operate.help.HelpQueryRequest" resultType="com.eghm.model.HelpCenter">
         select help_type, ask, answer from help_center where deleted = false and state = true and help_type = #{helpType}
         <if test="queryName != null and queryName != ''">
             and (ask like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%') or

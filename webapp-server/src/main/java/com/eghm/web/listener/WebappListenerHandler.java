@@ -7,7 +7,7 @@ import com.eghm.constants.QueueConstant;
 import com.eghm.dto.ext.LoginRecord;
 import com.eghm.model.WebappLog;
 import com.eghm.mq.listener.AbstractListenerHandler;
-import com.eghm.service.member.LoginService;
+import com.eghm.service.business.LoginService;
 import com.eghm.service.sys.WebappLogService;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;

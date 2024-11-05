@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.dto.dict.DictQueryRequest;
+import com.eghm.dto.sys.dict.DictQueryRequest;
 import com.eghm.model.SysDict;
 import com.eghm.vo.sys.DictResponse;
 

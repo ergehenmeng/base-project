@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.version.VersionQueryRequest;
+import com.eghm.dto.operate.version.VersionQueryRequest;
 import com.eghm.model.AppVersion;
 import com.eghm.vo.version.AppVersionResponse;
 import org.apache.ibatis.annotations.Param;

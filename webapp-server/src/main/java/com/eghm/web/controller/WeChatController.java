@@ -5,7 +5,7 @@ import com.eghm.dto.wechat.JsTicketDTO;
 import com.eghm.dto.wechat.MaLoginDTO;
 import com.eghm.dto.wechat.MaOpenLoginDTO;
 import com.eghm.dto.wechat.MpLoginDTO;
-import com.eghm.service.member.MemberService;
+import com.eghm.service.business.MemberService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginTokenVO;

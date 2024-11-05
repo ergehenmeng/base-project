@@ -5,7 +5,7 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.sensitvie.KeywordDTO;
+import com.eghm.dto.operate.sensitvie.KeywordDTO;
 import com.eghm.model.SensitiveWord;
 import com.eghm.service.operate.SensitiveWordService;
 import io.swagger.annotations.Api;

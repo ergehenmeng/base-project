@@ -1,11 +1,11 @@
 package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.login.SmsLoginRequest;
-import com.eghm.dto.user.PasswordEditRequest;
-import com.eghm.dto.user.UserAddRequest;
-import com.eghm.dto.user.UserEditRequest;
-import com.eghm.dto.user.UserQueryRequest;
+import com.eghm.dto.sys.login.SmsLoginRequest;
+import com.eghm.dto.sys.user.PasswordEditRequest;
+import com.eghm.dto.sys.user.UserAddRequest;
+import com.eghm.dto.sys.user.UserEditRequest;
+import com.eghm.dto.sys.user.UserQueryRequest;
 import com.eghm.enums.UserState;
 import com.eghm.model.SysUser;
 import com.eghm.vo.login.LoginResponse;

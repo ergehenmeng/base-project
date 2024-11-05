@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.task.TaskLogQueryRequest;
+import com.eghm.dto.sys.task.TaskLogQueryRequest;
 import com.eghm.service.sys.SysTaskLogService;
 import com.eghm.vo.log.SysTaskLogResponse;
 import io.swagger.annotations.Api;

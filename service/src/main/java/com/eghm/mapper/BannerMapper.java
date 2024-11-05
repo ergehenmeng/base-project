@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.banner.BannerQueryRequest;
+import com.eghm.dto.operate.banner.BannerQueryRequest;
 import com.eghm.model.Banner;
 import com.eghm.vo.banner.BannerResponse;
 import com.eghm.vo.banner.BannerVO;

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.SysTaskMapper">
 
-    <select id="getByPage" resultType="com.eghm.vo.task.SysTaskResponse" parameterType="com.eghm.dto.task.TaskQueryRequest">
+    <select id="getByPage" resultType="com.eghm.vo.task.SysTaskResponse" parameterType="com.eghm.dto.sys.task.TaskQueryRequest">
         select
             id,
             title,

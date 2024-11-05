@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.SmsLogMapper">
 
-    <select id="getByPage" resultType="com.eghm.vo.log.SmsLogResponse" parameterType="com.eghm.dto.log.SmsLogQueryRequest">
+    <select id="getByPage" resultType="com.eghm.vo.log.SmsLogResponse" parameterType="com.eghm.dto.sys.log.SmsLogQueryRequest">
         select
             id,
             mobile,

@@ -1,7 +1,7 @@
 package com.eghm.service.operate;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.email.EmailTemplateRequest;
+import com.eghm.dto.operate.email.EmailTemplateRequest;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.EmailType;
 import com.eghm.model.EmailTemplate;

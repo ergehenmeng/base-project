@@ -2,7 +2,7 @@ package com.eghm.handler.email;
 
 import com.eghm.common.EmailService;
 import com.eghm.configuration.template.TemplateEngine;
-import com.eghm.dto.email.SendEmail;
+import com.eghm.dto.operate.email.SendEmail;
 import com.eghm.enums.EmailType;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;

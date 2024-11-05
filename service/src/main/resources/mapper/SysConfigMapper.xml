@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.SysConfigMapper">
 
-    <select id="getByPage" resultType="com.eghm.vo.sys.SysConfigResponse" parameterType="com.eghm.dto.config.ConfigQueryRequest">
+    <select id="getByPage" resultType="com.eghm.vo.sys.SysConfigResponse" parameterType="com.eghm.dto.sys.config.ConfigQueryRequest">
         select
             id,
             title,

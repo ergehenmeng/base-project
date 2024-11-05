@@ -3,7 +3,7 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.statistics.DateRequest;
-import com.eghm.dto.member.MemberQueryRequest;
+import com.eghm.dto.business.member.MemberQueryRequest;
 import com.eghm.model.Member;
 import com.eghm.vo.business.statistics.MemberChannelVO;
 import com.eghm.vo.business.statistics.MemberRegisterVO;

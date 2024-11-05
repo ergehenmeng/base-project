@@ -4,7 +4,7 @@ import com.eghm.dto.business.statistics.DateRequest;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.business.statistics.CollectRequest;
 import com.eghm.service.business.MemberCollectService;
-import com.eghm.service.member.MemberService;
+import com.eghm.service.business.MemberService;
 import com.eghm.vo.business.statistics.CollectStatisticsVO;
 import com.eghm.vo.business.statistics.MemberRegisterVO;
 import com.eghm.vo.business.statistics.MemberStatisticsVO;
