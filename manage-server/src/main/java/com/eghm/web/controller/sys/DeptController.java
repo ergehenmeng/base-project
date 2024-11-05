@@ -1,4 +1,4 @@
-package com.eghm.web.controller;
+package com.eghm.web.controller.sys;
 
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.dept.DeptAddRequest;

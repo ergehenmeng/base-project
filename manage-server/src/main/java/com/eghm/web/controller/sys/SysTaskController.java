@@ -1,4 +1,4 @@
-package com.eghm.web.controller;
+package com.eghm.web.controller.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.task.config.SysTaskRegistrar;

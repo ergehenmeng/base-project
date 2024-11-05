@@ -1,4 +1,4 @@
-package com.eghm.web.controller;
+package com.eghm.web.controller.operate;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.email.EmailTemplateRequest;
