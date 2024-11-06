@@ -14,7 +14,7 @@
         from sys_config
         <where>
             <if test="param.locked != null">
-                and locked = #{request.locked}
+                and `locked` = #{param.locked}
             </if>
             <if test="param.queryName != null and param.queryName != ''">
                 and (title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%') or
