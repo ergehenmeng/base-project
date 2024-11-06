@@ -2,7 +2,6 @@ package com.eghm.web.controller.sys;
 
 import com.eghm.annotation.SkipPerm;
 import com.eghm.dto.IdDTO;
-import com.eghm.dto.dict.*;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sys.dict.*;
 import com.eghm.model.SysDictItem;

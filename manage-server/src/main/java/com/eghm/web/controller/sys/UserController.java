@@ -11,7 +11,6 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.sys.user.*;
-import com.eghm.dto.user.*;
 import com.eghm.enums.UserState;
 import com.eghm.model.SysUser;
 import com.eghm.service.sys.SysRoleService;

@@ -37,9 +37,6 @@
             <if test="displayState != null">
                 and t.display_state = #{displayState}
             </if>
-            <if test="grade != null">
-                and t.grade = #{grade}
-            </if>
         </where>
     </select>
 
