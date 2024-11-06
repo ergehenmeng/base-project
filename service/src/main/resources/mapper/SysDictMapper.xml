@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.SysDictMapper">
 
-    <select id="getList" resultMap="pageList" parameterType="com.eghm.dto.dict.DictQueryRequest">
+    <select id="getList" resultMap="pageList" parameterType="com.eghm.dto.sys.dict.DictQueryRequest">
         select t.id, t.title, t.nid, t.dict_type, t.remark, t.create_time, r.id as rid, r.show_value, r.hidden_value
         from sys_dict t
         left join sys_dict_item r on t.nid = r.nid and r.deleted = false

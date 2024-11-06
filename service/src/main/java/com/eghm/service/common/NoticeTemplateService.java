@@ -2,7 +2,7 @@ package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.template.NoticeTemplateRequest;
+import com.eghm.dto.operate.template.NoticeTemplateRequest;
 import com.eghm.model.NoticeTemplate;
 
 /**

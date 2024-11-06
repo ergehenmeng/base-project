@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.roster.BlackRosterAddRequest;
+import com.eghm.dto.operate.roster.BlackRosterAddRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.BlackRosterMapper;

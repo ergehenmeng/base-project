@@ -1,6 +1,7 @@
 package com.eghm.service.sys;
 
 import com.eghm.dto.dict.*;
+import com.eghm.dto.sys.dict.*;
 import com.eghm.model.SysDict;
 import com.eghm.model.SysDictItem;
 import com.eghm.vo.sys.DictResponse;

@@ -1,9 +1,9 @@
 package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.feedback.FeedbackAddDTO;
-import com.eghm.dto.feedback.FeedbackDisposeRequest;
-import com.eghm.dto.feedback.FeedbackQueryRequest;
+import com.eghm.dto.operate.feedback.FeedbackAddDTO;
+import com.eghm.dto.operate.feedback.FeedbackDisposeRequest;
+import com.eghm.dto.operate.feedback.FeedbackQueryRequest;
 import com.eghm.vo.feedback.FeedbackResponse;
 
 /**

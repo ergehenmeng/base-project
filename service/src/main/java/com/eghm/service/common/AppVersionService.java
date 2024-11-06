@@ -1,9 +1,9 @@
 package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.version.VersionAddRequest;
-import com.eghm.dto.version.VersionEditRequest;
-import com.eghm.dto.version.VersionQueryRequest;
+import com.eghm.dto.operate.version.VersionAddRequest;
+import com.eghm.dto.operate.version.VersionEditRequest;
+import com.eghm.dto.operate.version.VersionQueryRequest;
 import com.eghm.vo.version.AppVersionResponse;
 import com.eghm.vo.version.AppVersionVO;
 

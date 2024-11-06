@@ -2,8 +2,8 @@ package com.eghm.service.sys;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.config.ConfigEditRequest;
-import com.eghm.dto.config.ConfigQueryRequest;
+import com.eghm.dto.sys.config.ConfigEditRequest;
+import com.eghm.dto.sys.config.ConfigQueryRequest;
 import com.eghm.model.SysConfig;
 import com.eghm.vo.sys.SysConfigResponse;
 

@@ -1,7 +1,7 @@
 package com.eghm.service.sys;
 
-import com.eghm.dto.dept.DeptAddRequest;
-import com.eghm.dto.dept.DeptEditRequest;
+import com.eghm.dto.sys.dept.DeptAddRequest;
+import com.eghm.dto.sys.dept.DeptEditRequest;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.model.SysDept;
 import com.eghm.vo.sys.SysDeptResponse;

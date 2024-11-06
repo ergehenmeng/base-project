@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheProxyService;
-import com.eghm.dto.email.EmailTemplateRequest;
+import com.eghm.dto.sys.email.EmailTemplateRequest;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.EmailType;
 import com.eghm.mapper.EmailTemplateMapper;

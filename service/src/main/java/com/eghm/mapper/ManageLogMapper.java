@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.log.ManageQueryRequest;
+import com.eghm.dto.sys.log.ManageQueryRequest;
 import com.eghm.model.ManageLog;
 import com.eghm.vo.log.ManageLogResponse;
 import org.apache.ibatis.annotations.Param;

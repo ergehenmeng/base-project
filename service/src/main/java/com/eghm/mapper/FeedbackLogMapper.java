@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.feedback.FeedbackQueryRequest;
+import com.eghm.dto.operate.feedback.FeedbackQueryRequest;
 import com.eghm.model.FeedbackLog;
 import com.eghm.vo.feedback.FeedbackResponse;
 import org.apache.ibatis.annotations.Param;

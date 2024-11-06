@@ -2,7 +2,7 @@ package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.sms.SmsTemplateEditRequest;
+import com.eghm.dto.operate.sms.SmsTemplateEditRequest;
 import com.eghm.model.SmsTemplate;
 import com.eghm.vo.template.SmsTemplateResponse;
 

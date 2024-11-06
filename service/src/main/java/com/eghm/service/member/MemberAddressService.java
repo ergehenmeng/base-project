@@ -1,7 +1,7 @@
 package com.eghm.service.member;
 
-import com.eghm.dto.address.AddressAddDTO;
-import com.eghm.dto.address.AddressEditDTO;
+import com.eghm.dto.member.address.AddressAddDTO;
+import com.eghm.dto.member.address.AddressEditDTO;
 import com.eghm.model.MemberAddress;
 import com.eghm.vo.member.AddressVO;
 

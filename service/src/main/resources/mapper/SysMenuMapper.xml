@@ -36,7 +36,7 @@
         </if>
     </select>
 
-    <select id="getList" resultType="com.eghm.vo.menu.MenuFullResponse" parameterType="com.eghm.dto.menu.MenuQueryRequest">
+    <select id="getList" resultType="com.eghm.vo.menu.MenuFullResponse" parameterType="com.eghm.dto.sys.menu.MenuQueryRequest">
         SELECT
         t.id, t.title, t.icon, t.state, t.display_state, t.pid, t.path, t.sub_path, t.sort, t.grade, t.update_time, t.remark
         from sys_menu t

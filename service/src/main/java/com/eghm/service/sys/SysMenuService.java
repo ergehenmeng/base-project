@@ -1,8 +1,8 @@
 package com.eghm.service.sys;
 
-import com.eghm.dto.menu.MenuAddRequest;
-import com.eghm.dto.menu.MenuEditRequest;
-import com.eghm.dto.menu.MenuQueryRequest;
+import com.eghm.dto.sys.menu.MenuAddRequest;
+import com.eghm.dto.sys.menu.MenuEditRequest;
+import com.eghm.dto.sys.menu.MenuQueryRequest;
 import com.eghm.model.SysMenu;
 import com.eghm.vo.menu.MenuFullResponse;
 import com.eghm.vo.menu.MenuResponse;

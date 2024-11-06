@@ -1,8 +1,8 @@
 package com.eghm.web.controller;
 
 import com.eghm.dto.IdDTO;
-import com.eghm.dto.address.AddressAddDTO;
-import com.eghm.dto.address.AddressEditDTO;
+import com.eghm.dto.member.address.AddressAddDTO;
+import com.eghm.dto.member.address.AddressEditDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.member.MemberAddressService;

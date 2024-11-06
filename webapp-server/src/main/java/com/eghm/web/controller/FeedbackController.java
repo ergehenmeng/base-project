@@ -3,7 +3,7 @@ package com.eghm.web.controller;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.feedback.FeedbackAddDTO;
+import com.eghm.dto.operate.feedback.FeedbackAddDTO;
 import com.eghm.service.common.FeedbackService;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;

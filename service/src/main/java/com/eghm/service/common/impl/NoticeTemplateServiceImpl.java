@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.template.NoticeTemplateRequest;
+import com.eghm.dto.operate.template.NoticeTemplateRequest;
 import com.eghm.mapper.NoticeTemplateMapper;
 import com.eghm.model.NoticeTemplate;
 import com.eghm.service.common.NoticeTemplateService;

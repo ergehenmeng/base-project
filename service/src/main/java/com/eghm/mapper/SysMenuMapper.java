@@ -1,7 +1,7 @@
 package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.dto.menu.MenuQueryRequest;
+import com.eghm.dto.sys.menu.MenuQueryRequest;
 import com.eghm.model.SysMenu;
 import com.eghm.vo.menu.MenuFullResponse;
 import com.eghm.vo.menu.MenuResponse;

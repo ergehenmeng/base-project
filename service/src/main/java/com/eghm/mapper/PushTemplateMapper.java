@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.push.PushTemplateQueryRequest;
+import com.eghm.dto.operate.push.PushTemplateQueryRequest;
 import com.eghm.model.PushTemplate;
 import com.eghm.vo.template.PushTemplateResponse;
 import org.apache.ibatis.annotations.Param;

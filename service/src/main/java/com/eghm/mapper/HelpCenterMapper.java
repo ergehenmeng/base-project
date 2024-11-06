@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.help.HelpQueryRequest;
+import com.eghm.dto.sys.help.HelpQueryRequest;
 import com.eghm.model.HelpCenter;
 import com.eghm.vo.help.HelpResponse;
 import org.apache.ibatis.annotations.Param;

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.SysNoticeMapper">
 
-    <select id="getByPage" resultType="com.eghm.vo.notice.NoticeResponse" parameterType="com.eghm.dto.notice.NoticeQueryRequest">
+    <select id="getByPage" resultType="com.eghm.vo.notice.NoticeResponse" parameterType="com.eghm.dto.operate.notice.NoticeQueryRequest">
         select id, title, notice_type, state, create_time, update_time, cover_url
         from sys_notice
         where deleted = false

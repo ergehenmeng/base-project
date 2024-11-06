@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.auth.AuthConfigQueryRequest;
+import com.eghm.dto.operate.auth.AuthConfigQueryRequest;
 import com.eghm.model.AuthConfig;
 import com.eghm.vo.auth.AuthConfigResponse;
 import com.eghm.vo.auth.AuthConfigVO;

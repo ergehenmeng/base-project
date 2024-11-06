@@ -1,7 +1,7 @@
 package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.log.WebappQueryRequest;
+import com.eghm.dto.sys.log.WebappQueryRequest;
 import com.eghm.model.WebappLog;
 import com.eghm.vo.log.WebappLogResponse;
 

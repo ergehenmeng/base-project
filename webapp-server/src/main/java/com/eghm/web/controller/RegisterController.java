@@ -2,8 +2,8 @@ package com.eghm.web.controller;
 
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.register.RegisterMemberDTO;
-import com.eghm.dto.register.RegisterSendSmsDTO;
+import com.eghm.dto.member.register.RegisterMemberDTO;
+import com.eghm.dto.member.register.RegisterSendSmsDTO;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginTokenVO;

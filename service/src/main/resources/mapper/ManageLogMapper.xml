@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.ManageLogMapper">
 
-    <select id="getByPage" parameterType="com.eghm.dto.log.ManageQueryRequest" resultType="com.eghm.vo.log.ManageLogResponse">
+    <select id="getByPage" parameterType="com.eghm.dto.sys.log.ManageQueryRequest" resultType="com.eghm.vo.log.ManageLogResponse">
         select t.id, t.url, r.nick_name, r.mobile, t.request, t.ip, t.business_time, t.create_time, t.response
         from manage_log t left join sys_user r on t.user_id = r.id
         <where>

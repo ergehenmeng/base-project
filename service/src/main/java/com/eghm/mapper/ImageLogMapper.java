@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.image.ImageQueryRequest;
+import com.eghm.dto.sys.image.ImageQueryRequest;
 import com.eghm.model.ImageLog;
 import com.eghm.vo.log.ImageLogResponse;
 import org.apache.ibatis.annotations.Param;

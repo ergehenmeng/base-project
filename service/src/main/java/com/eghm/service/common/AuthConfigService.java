@@ -1,9 +1,9 @@
 package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.auth.AuthConfigAddRequest;
-import com.eghm.dto.auth.AuthConfigEditRequest;
-import com.eghm.dto.auth.AuthConfigQueryRequest;
+import com.eghm.dto.operate.auth.AuthConfigAddRequest;
+import com.eghm.dto.operate.auth.AuthConfigEditRequest;
+import com.eghm.dto.operate.auth.AuthConfigQueryRequest;
 import com.eghm.vo.auth.AuthConfigResponse;
 
 /**

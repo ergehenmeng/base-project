@@ -2,10 +2,10 @@ package com.eghm.service.member;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.MemberRegister;
-import com.eghm.dto.login.AccountLoginDTO;
-import com.eghm.dto.login.SmsLoginDTO;
+import com.eghm.dto.sys.login.AccountLoginDTO;
+import com.eghm.dto.sys.login.SmsLoginDTO;
 import com.eghm.dto.member.*;
-import com.eghm.dto.register.RegisterMemberDTO;
+import com.eghm.dto.member.register.RegisterMemberDTO;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.ScoreType;
 import com.eghm.model.Member;
