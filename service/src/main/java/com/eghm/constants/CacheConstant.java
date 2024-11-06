@@ -48,11 +48,6 @@ public class CacheConstant {
     public static final String SYS_DICT = "sys_dict";
 
     /**
-     * 短信模板
-     */
-    public static final String SMS_TEMPLATE = "sms_template";
-
-    /**
      * 敏感词
      */
     public static final String SENSITIVE_WORD = "sensitive_word";
@@ -66,11 +61,6 @@ public class CacheConstant {
      * 公告
      */
     public static final String SYS_NOTICE = "sys_notice";
-
-    /**
-     * 推送消息模板
-     */
-    public static final String PUSH_TEMPLATE = "push_template";
 
     /**
      * 黑名单缓存

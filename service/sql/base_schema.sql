@@ -244,24 +244,6 @@ CREATE TABLE `notice_template`
   DEFAULT CHARSET = utf8mb4 COMMENT ='站内信消息模板';
 
 -- ----------------------------
--- Table structure for push_template
--- ----------------------------
-DROP TABLE IF EXISTS `push_template`;
-CREATE TABLE `push_template`
-(
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `title`       varchar(50)  DEFAULT NULL COMMENT '消息名称',
-    `nid`         varchar(50)  DEFAULT NULL COMMENT '消息nid',
-    `state`       bit(1)       DEFAULT b'1' COMMENT '状态 0:关闭 1:开启',
-    `content`     varchar(200) DEFAULT NULL COMMENT '消息内容',
-    `tag`         varchar(50)  DEFAULT NULL COMMENT '标签(消息推送跳转页面,与移动端约定好)',
-    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
-    PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='推送消息模板表';
-
--- ----------------------------
 -- Table structure for sms_log
 -- ----------------------------
 DROP TABLE IF EXISTS `sms_log`;
@@ -277,22 +259,6 @@ CREATE TABLE `sms_log`
     KEY `mobile_index` (`mobile`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='短信日志记录表';
-
--- ----------------------------
--- Table structure for sms_template
--- ----------------------------
-DROP TABLE IF EXISTS `sms_template`;
-CREATE TABLE `sms_template`
-(
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `nid`         varchar(20)  DEFAULT NULL COMMENT '短信模板nid即短信类型',
-    `content`     varchar(120) DEFAULT NULL COMMENT '短信内容',
-    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 4
-  DEFAULT CHARSET = utf8mb4 COMMENT ='短信模板类型';
 
 -- ----------------------------
 -- Table structure for sys_area

@@ -3,7 +3,6 @@ package com.eghm.dto.business.scenic.ticket;
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.dto.ext.DateComparator;
 import com.eghm.enums.ref.TicketType;
-import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

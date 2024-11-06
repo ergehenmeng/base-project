@@ -72,28 +72,12 @@ public interface CacheProxyService {
     NoticeTemplate getNoticeTemplate(String code);
 
     /**
-     * 获取推送消息模板
-     *
-     * @param nid nid
-     * @return 模板消息
-     */
-    PushTemplate getPushTemplate(String nid);
-
-    /**
      * 获取公告前几条标题信息,具体多少条由系统参数notice_limit控制
      *
      * @param limit 显示的条数
      * @return 公告列表
      */
     List<SysNotice> getNoticeList(int limit);
-
-    /**
-     * 获取短信发送模板
-     *
-     * @param nid nid
-     * @return 短信内容模板
-     */
-    String getSmsTemplate(String nid);
 
     /**
      * 根据nid获取系统配置信息

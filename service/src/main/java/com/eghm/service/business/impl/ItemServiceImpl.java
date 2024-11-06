@@ -190,21 +190,6 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void checkIllegal(List<Long> itemIds, Long merchantId) {
-        if (CollUtil.isEmpty(itemIds)) {
-            return;
-        }
-        LambdaQueryWrapper<Item> wrapper = Wrappers.lambdaQuery();
-        wrapper.in(Item::getId, itemIds);
-        wrapper.ne(Item::getMerchantId, merchantId);
-        long count = itemMapper.selectCount(wrapper);
-        if (count > 0) {
-            log.error("非法零售数据操作 [{}] [{}]", merchantId, itemIds);
-            throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
-        }
-    }
-
-    @Override
     public void updateState(Long id, State state) {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getId, id);

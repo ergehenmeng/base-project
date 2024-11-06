@@ -70,13 +70,6 @@ public interface ScoreAccountService {
     void rechargeBalance(ScoreRechargeDTO dto);
 
     /**
-     * 积分充值成功 (一般在支付成功回调中调用该方法)
-     *
-     * @param tradeNo 交易单号
-     */
-    void rechargeBalanceSuccess(String tradeNo);
-
-    /**
      * 扫码支付
      *
      * @param dto 支付信息

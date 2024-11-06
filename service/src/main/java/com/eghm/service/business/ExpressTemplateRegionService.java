@@ -2,7 +2,6 @@ package com.eghm.service.business;
 
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ExpressTemplateRegionRequest;
-import com.eghm.model.ExpressTemplateRegion;
 
 import java.util.List;
 

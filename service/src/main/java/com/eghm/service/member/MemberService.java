@@ -231,7 +231,7 @@ public interface MemberService {
 
     /**
      * 微信小程序授权登陆 (手机号码登录)
-     * 注意: 该接口未获取用户的unionId, 如需获取需要前端调用 wx.login拿到jsCode, 后端调用sns/jscode2session接口获取
+     * 注意: 该接口未获取用户的unionId, 如需获取需要前端调用 wx.login拿到jsCode, 后端调用sns/jsCode2session接口获取
      *
      * @param jsCode jsCode 注意:此jsCode仅仅获取手机号, 与获取unionId和openId的jsCode不同
      * @param openId openId

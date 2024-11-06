@@ -178,17 +178,6 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
     }
 
     @Override
-    public void rechargeBalanceSuccess(String tradeNo) {
-        AccountLog accountLog = accountLogService.getByTradeNo(tradeNo);
-        ScoreAccountDTO accountDTO = new ScoreAccountDTO();
-        accountDTO.setMerchantId(accountLog.getMerchantId());
-        accountDTO.setAmount(accountLog.getAmount());
-        accountDTO.setChargeType(ChargeType.RECHARGE);
-        accountDTO.setTradeNo(tradeNo);
-        this.updateAccount(accountDTO);
-    }
-
-    @Override
     public PrepayVO rechargeScan(ScoreScanRechargeDTO dto) {
         PrepayDTO prepayDTO = new PrepayDTO();
         prepayDTO.setAmount(dto.getAmount());
@@ -220,6 +209,21 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         ScoreAccountDTO accountDTO = new ScoreAccountDTO();
         accountDTO.setMerchantId(merchantId);
         accountDTO.setAmount(amount);
+        accountDTO.setChargeType(ChargeType.RECHARGE);
+        accountDTO.setTradeNo(tradeNo);
+        this.updateAccount(accountDTO);
+    }
+
+    /**
+     * 积分充值成功 (一般在支付成功回调中调用该方法)
+     *
+     * @param tradeNo 交易单号
+     */
+    private void rechargeBalanceSuccess(String tradeNo) {
+        AccountLog accountLog = accountLogService.getByTradeNo(tradeNo);
+        ScoreAccountDTO accountDTO = new ScoreAccountDTO();
+        accountDTO.setMerchantId(accountLog.getMerchantId());
+        accountDTO.setAmount(accountLog.getAmount());
         accountDTO.setChargeType(ChargeType.RECHARGE);
         accountDTO.setTradeNo(tradeNo);
         this.updateAccount(accountDTO);

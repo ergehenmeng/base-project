@@ -74,11 +74,6 @@ public class SystemProperties {
     private final List<String> xssUrl = new ArrayList<>();
 
     /**
-     * 极光推送
-     */
-    private final PushProperties push = new PushProperties();
-
-    /**
      * 报警消息通知
      */
     private final AlarmMsg alarmMsg = new AlarmMsg();
@@ -236,25 +231,6 @@ public class SystemProperties {
          */
         private Channel mockChannel = Channel.WECHAT;
 
-    }
-
-    @Data
-    public static class PushProperties {
-
-        /**
-         * 推送地址
-         */
-        private String url;
-
-        /**
-         * 推送key
-         */
-        private String masterSecret;
-
-        /**
-         * 推送appKey
-         */
-        private String appKey;
     }
 
     @Data

@@ -9,7 +9,6 @@ import lombok.Getter;
 import java.util.Arrays;
 
 /**
- * 映射 sms_template表中的nid字段
  *
  * @author 殿小二
  * @since 2020/9/2

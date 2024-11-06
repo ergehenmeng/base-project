@@ -1,6 +1,5 @@
 package com.eghm.vo.business.order;
 
-import com.eghm.enums.ref.TicketType;
 import com.eghm.vo.business.scenic.ticket.CombineTicketVO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

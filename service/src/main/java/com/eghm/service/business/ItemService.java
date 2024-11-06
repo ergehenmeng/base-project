@@ -77,15 +77,6 @@ public interface ItemService {
     void checkBookingItem(Long itemId);
 
     /**
-     * 检查零售商品是否合法
-     * 即: 这些商品是否属于该商户
-     *
-     * @param itemIds itemId
-     * @param merchantId 商户ID
-     */
-    void checkIllegal(List<Long> itemIds, Long merchantId);
-
-    /**
      * 更新上下架状态
      *
      * @param id    id

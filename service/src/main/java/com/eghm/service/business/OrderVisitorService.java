@@ -111,11 +111,4 @@ public interface OrderVisitorService {
      */
     OrderState getOrderState(String orderNo);
 
-    /**
-     * 根据游客信息计算主订单的状态
-     *
-     * @param visitorList 游客信息
-     * @return 主订单状态
-     */
-    OrderState getOrderState(List<OrderVisitor> visitorList);
 }

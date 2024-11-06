@@ -162,8 +162,13 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         return this.getOrderState(visitorList);
     }
 
-    @Override
-    public OrderState getOrderState(List<OrderVisitor> visitorList) {
+    /**
+     * 根据游客信息计算主订单的状态
+     *
+     * @param visitorList 游客信息
+     * @return 主订单状态
+     */
+    private OrderState getOrderState(List<OrderVisitor> visitorList) {
         Optional<OrderVisitor> optional = visitorList.stream().filter(orderVisitor -> orderVisitor.getState() == VisitorState.PAID).findFirst();
         if (optional.isPresent()) {
             return OrderState.UN_USED;

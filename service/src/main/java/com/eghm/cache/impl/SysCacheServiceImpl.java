@@ -59,17 +59,11 @@ public class SysCacheServiceImpl implements SysCacheService {
                 case CacheConstant.SYS_DICT:
                     clearCacheService.clearSysDict();
                     break;
-                case CacheConstant.SMS_TEMPLATE:
-                    clearCacheService.clearSmsTemplate();
-                    break;
                 case CacheConstant.PAY_CONFIG:
                     clearCacheService.clearPayConfig();
                     break;
                 case CacheConstant.SENSITIVE_WORD:
                     clearCacheService.clearSensitiveWord();
-                    break;
-                case CacheConstant.PUSH_TEMPLATE:
-                    clearCacheService.clearPushTemplate();
                     break;
                 case CacheConstant.BANNER:
                     clearCacheService.clearBanner();
