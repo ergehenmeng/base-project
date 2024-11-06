@@ -1,15 +1,12 @@
 package com.eghm.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.eghm.enums.ref.RoleType;
 import com.eghm.exception.BusinessException;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 映射 sms_template表中的nid字段
