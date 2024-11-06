@@ -58,7 +58,7 @@ public class SystemFileServiceImpl implements FileService {
         this.checkSize(file, maxSize);
         Long present = CacheUtil.UPLOAD_LIMIT_CACHE.getIfPresent(key);
         long size = file.getSize() + (present == null ? 0 : present);
-        if (size > DAY_MAX_UPLOAD) {
+        if (size > DAY_MAX_UPLOAD.toBytes()) {
             log.warn("单日上传文件超出限制, 用户:[{}] 累计上传:[{}]kb ", key, size / 1024);
             alarmService.sendMsg(String.format("单日上传文件超出限制,请注意监控, 用户:%s 今日累计上传:%s", key, (size / 1024 / 1024) + "M"));
         }

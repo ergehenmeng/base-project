@@ -4,9 +4,9 @@ INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `r
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('6', '敏感词缓存', 'sensitive_word', '1', '2024-10-24 15:52:51', '敏感词缓存(重新加载)');
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('7', '短信模板缓存', 'sms_template', '1', '2024-10-24 15:52:51', '全局短信模板缓存(查询缓存)');
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('9', '黑名单缓存', 'black_roster', '1', '2024-10-24 15:52:51', '黑名单信息(查询缓存)');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('10', '邮件模板缓存', 'mail_template', '1', '2024-10-24 15:52:51', 'freemaker模板缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('10', '邮件模板缓存', 'mail_template', '1', '2024-10-24 15:52:51', 'freeMaker模板缓存');
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('13', '省市区缓存', 'sys_area', '1', '2024-10-24 15:52:51', '省市区所有缓存');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('14', '站内信缓存', 'in_mail_template', '1', '2024-10-24 15:52:51', '用于发送给用户站内性的模板');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('14', '站内信缓存', 'in_mail_template', '1', '2024-10-24 15:52:51', 'freeMaker模板缓存');
 
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('6', 'ios_latest_version', 'ios最新版本号', '1.2.3', b'0', '最新版本号,格式必须为x.x.x(版本必须已经上传)', '2018-09-28 10:50:03', '2018-09-28 10:50:03');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('7', 'android_latest_version', 'android最新版本', '1.2.3', b'0', '最新版本号,格式必须为x.x.x(版本必须已经上传)', '2018-09-28 10:50:41', '2018-09-28 10:50:41');
