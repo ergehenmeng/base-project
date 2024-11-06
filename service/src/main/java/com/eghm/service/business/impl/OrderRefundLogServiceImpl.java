@@ -40,11 +40,6 @@ public class OrderRefundLogServiceImpl implements OrderRefundLogService {
     }
 
     @Override
-    public OrderRefundLog selectById(Long id) {
-        return orderRefundLogMapper.selectById(id);
-    }
-
-    @Override
     public OrderRefundLog selectByIdRequired(Long id) {
         OrderRefundLog select = orderRefundLogMapper.selectById(id);
         if (select == null) {
@@ -101,4 +96,5 @@ public class OrderRefundLogServiceImpl implements OrderRefundLogService {
         wrapper.in(OrderRefundLog::getState, 0, 1);
         return orderRefundLogMapper.selectList(wrapper);
     }
+
 }

@@ -2,8 +2,6 @@ package com.eghm.common;
 
 import com.eghm.enums.SmsType;
 
-import java.util.List;
-
 /**
  * @author 二哥很猛
  * @since 2019/8/16 18:46
@@ -28,15 +26,6 @@ public interface SmsService {
     void sendSmsCode(SmsType smsType, String mobile, String ip);
 
     /**
-     * 获取短信验证码
-     *
-     * @param smsType 验证码类型
-     * @param mobile  手机号码
-     * @return 短信验证码
-     */
-    String getSmsCode(SmsType smsType, String mobile);
-
-    /**
      * 验证短信验证码是否正确 (如果验证码正确,会将缓存中验证码删除,并生成唯一ID,再次放入缓存中,方便后续业务)
      * 同样如果验证次数太多,依旧会返回验证失败
      * @param smsType 验证码类型
@@ -47,6 +36,15 @@ public interface SmsService {
     String verifySmsCode(SmsType smsType, String mobile, String smsCode);
 
     /**
+     * 发送短信并记录短信日志
+     *
+     * @param mobile  手机号
+     * @param smsType 短信类型
+     * @param params  参数
+     */
+    void sendSms(String mobile, SmsType smsType, String... params);
+
+    /**
      * 验证短信验证码凭证是否正确
      *
      * @param requestId requestId
@@ -54,28 +52,4 @@ public interface SmsService {
      */
     boolean verifyRequestId(String requestId);
 
-    /**
-     * 根据短信模板发送短信 (不需要次数校验)
-     *
-     * @param smsType 短信类型
-     * @param mobile  手机号
-     * @param params  短信模板参数
-     */
-    void sendSms(SmsType smsType, String mobile, Object... params);
-
-    /**
-     * 直接发送短信 (不需要校验次数)
-     *
-     * @param mobile  手机号
-     * @param content 短信内容
-     */
-    void sendSms(String mobile, String content);
-
-    /**
-     * 批量发送短信,一般为推广短信
-     *
-     * @param mobileList 手机号列表
-     * @param content    短信内容
-     */
-    void sendSms(List<String> mobileList, String content);
 }

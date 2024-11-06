@@ -2,8 +2,6 @@ package com.eghm.configuration.timer;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.Duration;
-
 /**
  * 任务接口
  *
@@ -30,10 +28,6 @@ public abstract class BaseTask implements Runnable {
      */
     protected BaseTask(long delayMs) {
         this.delayMs = delayMs;
-    }
-
-    protected BaseTask(Duration duration) {
-        this(duration.toMillis());
     }
 
     @Override

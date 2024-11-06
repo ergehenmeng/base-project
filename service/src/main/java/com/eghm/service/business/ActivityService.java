@@ -44,14 +44,6 @@ public interface ActivityService {
     List<ActivityResponse> getMonthActivity(ActivityQueryRequest request);
 
     /**
-     * 主键查询活动
-     *
-     * @param id id
-     * @return 活动
-     */
-    Activity selectById(Long id);
-
-    /**
      * 查询活动详情
      *
      * @param id id

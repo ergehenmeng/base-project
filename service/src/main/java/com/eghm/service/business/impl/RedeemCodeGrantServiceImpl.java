@@ -110,6 +110,7 @@ public class RedeemCodeGrantServiceImpl extends ServiceImpl<RedeemCodeGrantMappe
         wrapper.eq(RedeemCodeGrant::getCdKey, cdKey);
         wrapper.set(RedeemCodeGrant::getUseTime, LocalDateTime.now());
         wrapper.set(RedeemCodeGrant::getState, 1);
+        wrapper.set(RedeemCodeGrant::getMemberId, memberId);
         baseMapper.update(null, wrapper);
     }
 }

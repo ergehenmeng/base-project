@@ -113,7 +113,7 @@ public class LotteryServiceImpl implements LotteryService {
 
     @Override
     public LotteryResultVO lottery(Long lotteryId, Long memberId) {
-        Lottery lottery = this.selectById(lotteryId);
+        Lottery lottery = lotteryMapper.selectById(lotteryId);
         if (lottery == null) {
             log.error("抽奖活动可能已删除 [{}]", lotteryId);
             throw new BusinessException(ErrorCode.LOTTERY_NULL);
@@ -145,21 +145,6 @@ public class LotteryServiceImpl implements LotteryService {
         vo.setCoverUrl(prize.getCoverUrl());
         vo.setPrizeName(prize.getPrizeName());
         return vo;
-    }
-
-    @Override
-    public Lottery selectById(Long lotteryId) {
-        return lotteryMapper.selectById(lotteryId);
-    }
-
-    @Override
-    public Lottery selectByIdRequired(Long lotteryId) {
-        Lottery lottery = lotteryMapper.selectById(lotteryId);
-        if (lottery == null) {
-            log.error("抽奖活动可能已删除 [{}]", lotteryId);
-            throw new BusinessException(ErrorCode.LOTTERY_DELETE);
-        }
-        return lottery;
     }
 
     @Override
@@ -217,6 +202,21 @@ public class LotteryServiceImpl implements LotteryService {
         wrapper.lt(Lottery::getEndTime, LocalDateTime.now());
         List<Lottery> selectedList = lotteryMapper.selectList(wrapper);
         return selectedList.stream().map(Lottery::getId).collect(Collectors.toList());
+    }
+
+    /**
+     * 查询抽奖活动
+     *
+     * @param lotteryId 活动id
+     * @return 抽奖信息
+     */
+    private Lottery selectByIdRequired(Long lotteryId) {
+        Lottery lottery = lotteryMapper.selectById(lotteryId);
+        if (lottery == null) {
+            log.error("抽奖活动可能已删除 [{}]", lotteryId);
+            throw new BusinessException(ErrorCode.LOTTERY_DELETE);
+        }
+        return lottery;
     }
 
     /**

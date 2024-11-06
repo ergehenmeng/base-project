@@ -90,14 +90,6 @@ public interface GroupBookingService {
     GroupBooking getById(Long bookingId);
 
     /**
-     * 查询拼团信息
-     *
-     * @param bookingId 活动id
-     * @return 信息
-     */
-    GroupBooking getByIdRequired(Long bookingId);
-
-    /**
      * 获取拼团活动最终价格
      *
      * @param bookingId 活动id

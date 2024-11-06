@@ -103,15 +103,6 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
     }
 
     @Override
-    public HomestayRoomConfig getConfig(Long roomId, LocalDate configDate) {
-        LambdaQueryWrapper<HomestayRoomConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(HomestayRoomConfig::getHomestayRoomId, roomId);
-        wrapper.eq(HomestayRoomConfig::getConfigDate, configDate);
-        wrapper.last(CommonConstant.LIMIT_ONE);
-        return homestayRoomConfigMapper.selectOne(wrapper);
-    }
-
-    @Override
     public List<HomestayRoomConfig> getList(Long roomId, LocalDate startDate, LocalDate endDate) {
         LambdaQueryWrapper<HomestayRoomConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(HomestayRoomConfig::getHomestayRoomId, roomId);
@@ -167,6 +158,21 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
         LambdaUpdateWrapper<HomestayRoomConfig> wrapper = Wrappers.lambdaUpdate();
         wrapper.lt(HomestayRoomConfig::getConfigDate, localDate);
         homestayRoomConfigMapper.delete(wrapper);
+    }
+
+    /**
+     * 获取房间某一天的价格配置信息
+     *
+     * @param roomId     房间id
+     * @param configDate 日期
+     * @return 价格库存配置信息
+     */
+    private HomestayRoomConfig getConfig(Long roomId, LocalDate configDate) {
+        LambdaQueryWrapper<HomestayRoomConfig> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(HomestayRoomConfig::getHomestayRoomId, roomId);
+        wrapper.eq(HomestayRoomConfig::getConfigDate, configDate);
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        return homestayRoomConfigMapper.selectOne(wrapper);
     }
 
     /**

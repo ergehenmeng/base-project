@@ -62,14 +62,6 @@ public interface ItemService {
     ItemDetailResponse getDetailById(Long itemId);
 
     /**
-     * 主键查询零售商品
-     *
-     * @param itemId id
-     * @return 零售
-     */
-    Item selectById(Long itemId);
-
-    /**
      * 主键查询零售商品, 为空报错
      *
      * @param itemId id
@@ -249,14 +241,6 @@ public interface ItemService {
      * @return 列表
      */
     List<ActivityItemResponse> getActivityList(Long merchantId, Long activityId);
-
-    /**
-     * 设置sku拼团价格
-     *
-     * @param skuList sku 信息
-     * @param jsonValue 拼团价格json
-     */
-    void setDiscountSkuPrice(List<ItemSkuVO> skuList, String jsonValue);
 
     /**
      * 分页查询商品列表

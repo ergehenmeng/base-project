@@ -55,14 +55,6 @@ public interface OrderService extends IService<Order> {
     List<Order> getByTradeNoList(String tradeNo);
 
     /**
-     * 查询订单信息
-     *
-     * @param orderId 主键
-     * @return 订单信息
-     */
-    Order getById(Long orderId);
-
-    /**
      * 根据订单查询订单信息,
      * 如果订单已删除或者未支付则抛异常
      *

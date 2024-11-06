@@ -82,30 +82,12 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
     }
 
     @Override
-    public void updateState(String bookingNo, String orderNo, Integer state) {
-        LambdaUpdateWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(ItemGroupOrder::getBookingNo, bookingNo);
-        wrapper.eq(ItemGroupOrder::getOrderNo, orderNo);
-        wrapper.set(ItemGroupOrder::getState, state);
-        itemGroupOrderMapper.update(null, wrapper);
-    }
-
-    @Override
     public void delete(String bookingNo, String orderNo) {
         log.info("订单取消, 删除拼团订单 [{}] [{}]", bookingNo, orderNo);
         LambdaUpdateWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemGroupOrder::getBookingNo, bookingNo);
         wrapper.eq(ItemGroupOrder::getOrderNo, orderNo);
         itemGroupOrderMapper.delete(wrapper);
-    }
-
-    @Override
-    public ItemGroupOrder getGroupOrder(String bookingNo, String orderNo) {
-        LambdaQueryWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(ItemGroupOrder::getBookingNo, bookingNo);
-        wrapper.eq(ItemGroupOrder::getOrderNo, orderNo);
-        wrapper.last(CommonConstant.LIMIT_ONE);
-        return itemGroupOrderMapper.selectOne(wrapper);
     }
 
     @Override
@@ -174,7 +156,7 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
             return;
         }
         // 先把自己的拼团订单改为失败, 后续在根据是否是团长来决定是否要退款
-        this.updateState(order.getBookingNo(), order.getOrderNo(), 2);
+        this.updateState(order.getBookingNo(), order.getOrderNo());
         orderMapper.updateBookingState(order.getBookingNo(), order.getOrderNo(), 2);
 
         if (Boolean.TRUE.equals(groupOrder.getStarter())) {
@@ -184,5 +166,34 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
         } else {
             log.info("订单为拼团团员自身的退款[{}]: [{}]", order.getOrderNo(), order.getBookingNo());
         }
+    }
+
+    /**
+     * 更新拼团订单状态为失败
+     *
+     * @param bookingNo 拼团订单编号
+     * @param orderNo   订单编号
+     */
+    private void updateState(String bookingNo, String orderNo) {
+        LambdaUpdateWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(ItemGroupOrder::getBookingNo, bookingNo);
+        wrapper.eq(ItemGroupOrder::getOrderNo, orderNo);
+        wrapper.set(ItemGroupOrder::getState, 2);
+        itemGroupOrderMapper.update(null, wrapper);
+    }
+
+    /**
+     * 获取拼团订单
+     *
+     * @param bookingNo 拼团订单编号
+     * @param orderNo 订单id
+     * @return 拼团订单
+     */
+    private ItemGroupOrder getGroupOrder(String bookingNo, String orderNo) {
+        LambdaQueryWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(ItemGroupOrder::getBookingNo, bookingNo);
+        wrapper.eq(ItemGroupOrder::getOrderNo, orderNo);
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        return itemGroupOrderMapper.selectOne(wrapper);
     }
 }

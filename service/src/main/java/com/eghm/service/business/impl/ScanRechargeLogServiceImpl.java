@@ -58,8 +58,13 @@ public class ScanRechargeLogServiceImpl implements ScanRechargeLogService {
         }
     }
 
-    @Override
-    public ScanRechargeLog getByTradeNo(String tradeNo) {
+    /**
+     * 根据交易号查询充值记录
+     *
+     * @param tradeNo 交易单号
+     * @return 扫码充值记录
+     */
+    private ScanRechargeLog getByTradeNo(String tradeNo) {
         LambdaQueryWrapper<ScanRechargeLog> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ScanRechargeLog::getTradeNo, tradeNo);
         wrapper.last(CommonConstant.LIMIT_ONE);

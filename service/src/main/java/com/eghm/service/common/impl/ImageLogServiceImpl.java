@@ -43,9 +43,4 @@ public class ImageLogServiceImpl implements ImageLogService {
         ImageLog log = DataUtil.copy(request, ImageLog.class);
         imageLogMapper.updateById(log);
     }
-
-    @Override
-    public ImageLog getById(Long id) {
-        return imageLogMapper.selectById(id);
-    }
 }

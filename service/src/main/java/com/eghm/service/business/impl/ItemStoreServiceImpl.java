@@ -106,16 +106,6 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     }
 
     @Override
-    public ItemStore selectByIdShelve(Long id) {
-        ItemStore store = itemStoreMapper.selectById(id);
-        if (store == null || store.getState() != State.SHELVE) {
-            log.error("零售店铺已下架 [{}]", id);
-            throw new BusinessException(ErrorCode.SHOP_DOWN);
-        }
-        return store;
-    }
-
-    @Override
     public Map<Long, ItemStore> selectByIdShelveMap(List<Long> ids) {
         LambdaQueryWrapper<ItemStore> wrapper = Wrappers.lambdaQuery();
         wrapper.in(ItemStore::getId, ids);
@@ -211,6 +201,21 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     @Override
     public boolean support(List<RoleType> roleTypes) {
         return roleTypes.contains(RoleType.ITEM);
+    }
+
+    /**
+     * 主键查询, 删除或未上架则抛异常
+     *
+     * @param id id
+     * @return 店铺信息
+     */
+    private ItemStore selectByIdShelve(Long id) {
+        ItemStore store = itemStoreMapper.selectById(id);
+        if (store == null || store.getState() != State.SHELVE) {
+            log.error("零售店铺已下架 [{}]", id);
+            throw new BusinessException(ErrorCode.SHOP_DOWN);
+        }
+        return store;
     }
 
     /**

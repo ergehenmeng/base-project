@@ -265,22 +265,6 @@ public class MemberServiceImpl implements MemberService {
         memberMapper.updateById(member);
     }
 
-    /**
-     * 查看邮箱是会否被占用
-     *
-     * @param email 邮箱号
-     */
-    @Override
-    public void checkEmail(String email) {
-        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Member::getEmail, email);
-        Long count = memberMapper.selectCount(wrapper);
-        if (count > 0) {
-            log.warn("邮箱号已被占用 email:[{}]", email);
-            throw new BusinessException(ErrorCode.EMAIL_OCCUPY_ERROR);
-        }
-    }
-
     @Override
     public Member getByEmail(String email) {
         LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
@@ -520,6 +504,21 @@ public class MemberServiceImpl implements MemberService {
         log.setMemberId(memberId);
         log.setType(scoreType.getValue());
         memberScoreLogService.insert(log);
+    }
+
+    /**
+     * 查看邮箱是会否被占用
+     *
+     * @param email 邮箱号
+     */
+    private void checkEmail(String email) {
+        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Member::getEmail, email);
+        Long count = memberMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.warn("邮箱号已被占用 email:[{}]", email);
+            throw new BusinessException(ErrorCode.EMAIL_OCCUPY_ERROR);
+        }
     }
 
     /**

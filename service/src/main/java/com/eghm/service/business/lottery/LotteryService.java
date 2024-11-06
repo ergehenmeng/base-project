@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.lottery.LotteryAddRequest;
 import com.eghm.dto.business.lottery.LotteryEditRequest;
 import com.eghm.dto.business.lottery.LotteryQueryRequest;
-import com.eghm.model.Lottery;
 import com.eghm.vo.business.lottery.*;
 
 import java.util.List;
@@ -55,22 +54,6 @@ public interface LotteryService {
      * @param memberId  用户id
      */
     LotteryResultVO lottery(Long lotteryId, Long memberId);
-
-    /**
-     * 查询抽奖活动
-     *
-     * @param lotteryId 活动id
-     * @return 抽奖信息
-     */
-    Lottery selectById(Long lotteryId);
-
-    /**
-     * 查询抽奖活动
-     *
-     * @param lotteryId 活动id
-     * @return 抽奖信息
-     */
-    Lottery selectByIdRequired(Long lotteryId);
 
     /**
      * 查询抽奖详情信息 (管理后台)

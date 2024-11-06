@@ -59,13 +59,6 @@ public class ExpressTemplateRegionServiceImpl implements ExpressTemplateRegionSe
     }
 
     @Override
-    public List<ExpressTemplateRegion> getList(List<Long> expressIds) {
-        LambdaQueryWrapper<ExpressTemplateRegion> wrapper = Wrappers.lambdaQuery();
-        wrapper.in(ExpressTemplateRegion::getExpressId, expressIds);
-        return expressTemplateRegionMapper.selectList(wrapper);
-    }
-
-    @Override
     public Integer calcFee(ExpressFeeCalcDTO dto) {
         // 免运费的不参与计算
         List<ItemCalcDTO> filterList = dto.getOrderList().stream().filter(itemCalcDTO -> itemCalcDTO.getExpressId() != null).collect(Collectors.toList());
@@ -111,6 +104,18 @@ public class ExpressTemplateRegionServiceImpl implements ExpressTemplateRegionSe
             }
         }
         return totalFee;
+    }
+
+    /**
+     * 批量查询快递区域价格配置信息
+     *
+     * @param expressIds 快递模板id
+     * @return 配置信息
+     */
+    private List<ExpressTemplateRegion> getList(List<Long> expressIds) {
+        LambdaQueryWrapper<ExpressTemplateRegion> wrapper = Wrappers.lambdaQuery();
+        wrapper.in(ExpressTemplateRegion::getExpressId, expressIds);
+        return expressTemplateRegionMapper.selectList(wrapper);
     }
 
     /**

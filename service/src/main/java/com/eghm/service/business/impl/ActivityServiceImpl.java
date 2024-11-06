@@ -106,11 +106,6 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Activity selectById(Long id) {
-        return activityMapper.selectById(id);
-    }
-
-    @Override
     public ActivityDetailResponse getByDetail(Long id) {
         Activity activity = this.selectByIdRequired(id);
         ActivityDetailResponse response = DataUtil.copy(activity, ActivityDetailResponse.class);

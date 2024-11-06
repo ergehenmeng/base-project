@@ -7,7 +7,6 @@ import cn.jiguang.common.resp.APIConnectionException;
 import cn.jiguang.common.resp.APIRequestException;
 import cn.jpush.api.JPushClient;
 import cn.jpush.api.push.PushResult;
-import cn.jpush.api.push.model.Message;
 import cn.jpush.api.push.model.Platform;
 import cn.jpush.api.push.model.PushPayload;
 import cn.jpush.api.push.model.audience.Audience;
@@ -16,12 +15,7 @@ import cn.jpush.api.push.model.notification.IosNotification;
 import cn.jpush.api.push.model.notification.Notification;
 import com.eghm.common.PushService;
 import com.eghm.configuration.SystemProperties;
-import com.eghm.configuration.template.TemplateEngine;
-import com.eghm.dto.ext.PushMessage;
 import com.eghm.dto.ext.PushNotice;
-import com.eghm.dto.ext.PushTemplateNotice;
-import com.eghm.model.PushTemplate;
-import com.eghm.service.common.PushTemplateService;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,11 +40,7 @@ public class PushServiceImpl implements PushService {
 
     private JPushClient pushClient;
 
-    private final TemplateEngine templateEngine;
-
     private final SystemProperties systemProperties;
-
-    private final PushTemplateService pushTemplateService;
 
     @PostConstruct
     public void init() {
@@ -61,21 +51,6 @@ public class PushServiceImpl implements PushService {
         ApacheHttpClient client = new ApacheHttpClient(authCode, null, config);
         pushClient.getPushClient().setHttpClient(client);
         log.info("极光推送客户端初始化成功...");
-    }
-
-    @Override
-    public void pushNotification(PushTemplateNotice templateNotice) {
-        String nid = templateNotice.getPushType().getNid();
-        PushTemplate template = pushTemplateService.getTemplate(nid);
-        if (template == null) {
-            log.warn("未查询到推送模板:[{}]", nid);
-            return;
-        }
-        // 默认只对内容进行渲染操作
-        String content = templateEngine.render(template.getContent(), templateNotice.getParams());
-        PushNotice pushNotice = PushNotice.builder().alias(templateNotice.getAlias()).content(content).title(template.getTitle()).viewTag(template.getTag()).build();
-        pushNotice.getExtras().putAll(templateNotice.getExtras());
-        this.doPushNotification(pushNotice);
     }
 
     @Override
@@ -100,27 +75,6 @@ public class PushServiceImpl implements PushService {
         } catch (APIConnectionException | APIRequestException e) {
             log.error("推送通知异常:[{}]", pushNotice, e);
         }
-    }
-
-    @Override
-    public void pushMessage(PushMessage pushBuilder) {
-        try {
-            PushResult pushResult = pushClient.sendPush(this.getPushPayloadMessage(pushBuilder));
-            if (log.isDebugEnabled()) {
-                log.debug("推送消息异步响应:[{}]", pushResult);
-            }
-        } catch (Exception e) {
-            log.error("推送消息异常:[{}]", pushBuilder, e);
-        }
-    }
-
-
-    private PushPayload getPushPayloadMessage(PushMessage pushMessage) {
-        return PushPayload.newBuilder()
-                .setPlatform(Platform.all())
-                .setAudience(Audience.alias(pushMessage.getAlias()))
-                .setMessage(Message.newBuilder().setMsgContent(pushMessage.getContent()).addExtras(pushMessage.getExtras()).build())
-                .build();
     }
 
     /**

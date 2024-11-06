@@ -63,14 +63,6 @@ public interface CouponService {
      * @param id id
      * @return 优惠券
      */
-    Coupon selectById(Long id);
-
-    /**
-     * 主键查询
-     *
-     * @param id id
-     * @return 优惠券
-     */
     Coupon selectByIdRequired(Long id);
 
     /**

@@ -171,11 +171,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public Order getById(Long orderId) {
-        return baseMapper.selectById(orderId);
-    }
-
-    @Override
     public List<Order> getUnPay(List<String> orderNoList) {
         LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
         wrapper.select(Order::getId, Order::getTitle, Order::getPayAmount);

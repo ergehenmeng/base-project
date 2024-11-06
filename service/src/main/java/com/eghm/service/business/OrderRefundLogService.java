@@ -30,14 +30,6 @@ public interface OrderRefundLogService {
     void insert(OrderRefundLog log);
 
     /**
-     * 根据id查询退款记录
-     *
-     * @param id id
-     * @return 退款记录
-     */
-    OrderRefundLog selectById(Long id);
-
-    /**
      * 主键查询退款记录
      *
      * @param id id

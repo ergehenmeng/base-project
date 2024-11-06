@@ -97,16 +97,6 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
     }
 
     @Override
-    public RedeemCode selectByIdRequired(Long id) {
-        RedeemCode redeemCode = redeemCodeMapper.selectById(id);
-        if (redeemCode == null) {
-            log.error("兑换码不存在 [{}]", id);
-            throw new BusinessException(ErrorCode.REDEEM_CODE_NULL);
-        }
-        return redeemCode;
-    }
-
-    @Override
     public RedeemDetailResponse detail(Long id) {
         RedeemCode select = this.selectByIdRequired(id);
         RedeemDetailResponse response = DataUtil.copy(select, RedeemDetailResponse.class);
@@ -133,6 +123,21 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
         redeemCodeGrantService.saveBatch(grantList);
         select.setState(1);
         redeemCodeMapper.updateById(select);
+    }
+
+    /**
+     * 根据ID查询兑换码配置
+     *
+     * @param id id
+     * @return 查询配置
+     */
+    private RedeemCode selectByIdRequired(Long id) {
+        RedeemCode redeemCode = redeemCodeMapper.selectById(id);
+        if (redeemCode == null) {
+            log.error("兑换码不存在 [{}]", id);
+            throw new BusinessException(ErrorCode.REDEEM_CODE_NULL);
+        }
+        return redeemCode;
     }
 
     /**

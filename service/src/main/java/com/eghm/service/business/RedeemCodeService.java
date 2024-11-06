@@ -47,14 +47,6 @@ public interface RedeemCodeService {
     void delete(Long id);
 
     /**
-     * 根据ID查询兑换码配置
-     *
-     * @param id id
-     * @return 查询配置
-     */
-    RedeemCode selectByIdRequired(Long id);
-
-    /**
      * 详情
      * @param id id
      * @return 兑换码详情

@@ -163,16 +163,6 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     }
 
     @Override
-    public GroupBooking getByIdRequired(Long bookingId) {
-        GroupBooking booking = groupBookingMapper.getById(bookingId);
-        if (booking == null) {
-            log.warn("拼团活动未查询到 [{}]", bookingId);
-            throw new BusinessException(ErrorCode.BOOKING_NULL);
-        }
-        return booking;
-    }
-
-    @Override
     public Integer getFinalPrice(Long bookingId, Integer salePrice, Long skuId) {
         GroupBooking booking = groupBookingMapper.selectById(bookingId);
         if (booking == null) {
@@ -201,6 +191,21 @@ public class GroupBookingServiceImpl implements GroupBookingService {
             return salePrice;
         }
         return request.getDiscountPrice();
+    }
+
+    /**
+     * 查询拼团信息
+     *
+     * @param bookingId 活动id
+     * @return 信息
+     */
+    private GroupBooking getByIdRequired(Long bookingId) {
+        GroupBooking booking = groupBookingMapper.getById(bookingId);
+        if (booking == null) {
+            log.warn("拼团活动未查询到 [{}]", bookingId);
+            throw new BusinessException(ErrorCode.BOOKING_NULL);
+        }
+        return booking;
     }
 
     /**

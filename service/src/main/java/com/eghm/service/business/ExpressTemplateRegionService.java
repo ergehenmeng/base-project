@@ -25,14 +25,6 @@ public interface ExpressTemplateRegionService {
     void createOrUpdate(Long expressId, List<ExpressTemplateRegionRequest> regionList);
 
     /**
-     * 批量查询快递区域价格配置信息
-     *
-     * @param expressIds 快递模板id
-     * @return 配置信息
-     */
-    List<ExpressTemplateRegion> getList(List<Long> expressIds);
-
-    /**
      * 计算同一店铺的某个订单快递费
      * 1. 如果expressId为空表示免快递费
      * 2. 查询物流模板下所有的区域价格配置信息,并按expressId分组(一次性查询完,减少查询次数)

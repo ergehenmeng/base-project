@@ -170,11 +170,6 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item selectById(Long itemId) {
-        return itemMapper.selectById(itemId);
-    }
-
-    @Override
     public Item selectByIdRequired(Long itemId) {
         Item item = itemMapper.selectById(itemId);
         if (item == null) {
@@ -457,20 +452,6 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void setDiscountSkuPrice(List<ItemSkuVO> skuList, String jsonValue) {
-        List<DiscountJson> groupSkuList = jsonService.fromJsonList(jsonValue, DiscountJson.class);
-        Map<Long, DiscountJson> skuMap = groupSkuList.stream().collect(Collectors.toMap(DiscountJson::getSkuId, Function.identity()));
-        skuList.forEach(vo -> {
-            DiscountJson request = skuMap.get(vo.getId());
-            if (request != null && vo.getSalePrice().equals(request.getSalePrice()) && request.getDiscountPrice() != null) {
-                vo.setDiscountPrice(request.getDiscountPrice());
-            } else {
-                vo.setDiscountPrice(vo.getSalePrice());
-            }
-        });
-    }
-
-    @Override
     public Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request) {
         return itemMapper.getProductPage(Boolean.TRUE.equals(request.getLimit()) ? request.createPage() : request.createNullPage(), request);
     }
@@ -496,6 +477,25 @@ public class ItemServiceImpl implements ItemService {
         Item item = this.selectByIdRequired(request.getItemId());
         commonService.checkIllegal(item.getMerchantId());
         itemSkuService.addStock(request.getSkuList(), request.getItemId());
+    }
+
+    /**
+     * 设置sku拼团价格
+     *
+     * @param skuList sku 信息
+     * @param jsonValue 拼团价格json
+     */
+    private void setDiscountSkuPrice(List<ItemSkuVO> skuList, String jsonValue) {
+        List<DiscountJson> groupSkuList = jsonService.fromJsonList(jsonValue, DiscountJson.class);
+        Map<Long, DiscountJson> skuMap = groupSkuList.stream().collect(Collectors.toMap(DiscountJson::getSkuId, Function.identity()));
+        skuList.forEach(vo -> {
+            DiscountJson request = skuMap.get(vo.getId());
+            if (request != null && vo.getSalePrice().equals(request.getSalePrice()) && request.getDiscountPrice() != null) {
+                vo.setDiscountPrice(request.getDiscountPrice());
+            } else {
+                vo.setDiscountPrice(vo.getSalePrice());
+            }
+        });
     }
 
     /**

@@ -32,11 +32,6 @@ public class ExpressServiceImpl implements ExpressService {
     private final SystemProperties systemProperties;
 
     @Override
-    public List<ExpressVO> getExpressList(String expressNo, String expressCode) {
-        return this.getExpressList(expressNo, expressCode, null);
-    }
-
-    @Override
     public List<ExpressVO> getExpressList(String expressNo, String expressCode, String phone) {
         QueryTrackReq queryTrackReq = new QueryTrackReq();
         QueryTrackParam queryTrackParam = new QueryTrackParam();

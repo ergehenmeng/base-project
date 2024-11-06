@@ -1,7 +1,6 @@
 package com.eghm.service.common.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.cache.CacheProxyService;
 import com.eghm.dto.operate.push.PushTemplateEditRequest;
 import com.eghm.dto.operate.push.PushTemplateQueryRequest;
 import com.eghm.mapper.PushTemplateMapper;
@@ -20,23 +19,11 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class PushTemplateServiceImpl implements PushTemplateService {
 
-    private final CacheProxyService cacheProxyService;
-
     private final PushTemplateMapper pushTemplateMapper;
 
     @Override
     public Page<PushTemplateResponse> getByPage(PushTemplateQueryRequest request) {
        return pushTemplateMapper.getByPage(request.createPage(), request);
-    }
-
-    @Override
-    public PushTemplate getTemplate(String nid) {
-        return cacheProxyService.getPushTemplate(nid);
-    }
-
-    @Override
-    public PushTemplate getById(Long id) {
-        return pushTemplateMapper.selectById(id);
     }
 
     @Override

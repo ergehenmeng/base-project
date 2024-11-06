@@ -1,6 +1,5 @@
 package com.eghm.service.business;
 
-import com.eghm.model.ScanRechargeLog;
 import com.eghm.state.machine.context.PayNotifyContext;
 
 /**
@@ -19,13 +18,5 @@ public interface ScanRechargeLogService {
      * @param context 上下文
      */
     void rechargeNotify(PayNotifyContext context);
-
-    /**
-     * 根据交易号查询充值记录
-     *
-     * @param tradeNo 交易单号
-     * @return 扫码充值记录
-     */
-    ScanRechargeLog getByTradeNo(String tradeNo);
 
 }

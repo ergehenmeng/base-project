@@ -3,7 +3,6 @@ package com.eghm.service.common;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.operate.push.PushTemplateEditRequest;
 import com.eghm.dto.operate.push.PushTemplateQueryRequest;
-import com.eghm.model.PushTemplate;
 import com.eghm.vo.template.PushTemplateResponse;
 
 /**
@@ -19,22 +18,6 @@ public interface PushTemplateService {
      * @return 列表
      */
     Page<PushTemplateResponse> getByPage(PushTemplateQueryRequest request);
-
-    /**
-     * 获取推送消息模板
-     *
-     * @param nid nid
-     * @return 模板消息
-     */
-    PushTemplate getTemplate(String nid);
-
-    /**
-     * 主键查询推送模板
-     *
-     * @param id id
-     * @return 推送消息
-     */
-    PushTemplate getById(Long id);
 
     /**
      * 编辑保存推送模板

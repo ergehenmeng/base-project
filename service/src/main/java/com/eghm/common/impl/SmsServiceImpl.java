@@ -11,15 +11,11 @@ import com.eghm.enums.SmsType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.SmsLog;
 import com.eghm.service.sys.SmsLogService;
-import com.eghm.service.sys.SmsTemplateService;
 import com.eghm.utils.CacheUtil;
 import com.eghm.utils.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.text.MessageFormat;
-import java.util.List;
 
 import static com.eghm.constants.CommonConstant.MAX_ERROR_NUM;
 import static com.eghm.constants.CommonConstant.SMS_CODE_EXPIRE;
@@ -41,15 +37,11 @@ public class SmsServiceImpl implements SmsService {
 
     private final SendSmsService sendSmsService;
 
-    private final SmsTemplateService smsTemplateService;
-
     @Override
     public void sendSmsCode(SmsType smsType, String mobile) {
         this.smsLimitCheck(smsType.getValue(), mobile);
-        String template = smsTemplateService.getTemplate(smsType.getValue());
         String smsCode = StringUtil.randomNumber();
-        String content = this.formatTemplate(template, smsCode);
-        this.doSendSms(mobile, content, smsType);
+        this.sendSms(mobile, smsType, smsCode);
         this.saveSmsCode(smsType.getValue(), mobile, smsCode);
         long expire = sysConfigApi.getLong(ConfigConstant.SMS_TYPE_INTERVAL);
         cacheService.setValue(String.format(CacheConstant.SMS_TYPE_INTERVAL, smsType.getValue(), mobile), true, expire);
@@ -62,13 +54,8 @@ public class SmsServiceImpl implements SmsService {
     }
 
     @Override
-    public String getSmsCode(SmsType smsType, String mobile) {
-        return cacheService.getValue(String.format(CacheConstant.SMS_PREFIX, smsType.getValue(), mobile));
-    }
-
-    @Override
     public String verifySmsCode(SmsType smsType, String mobile, String smsCode) {
-        String originalSmsCode = this.getSmsCode(smsType, mobile);
+        String originalSmsCode = cacheService.getValue(String.format(CacheConstant.SMS_PREFIX, smsType.getValue(), mobile));
         if (originalSmsCode == null) {
             throw new BusinessException(ErrorCode.LOGIN_SMS_CODE_EXPIRE);
         }
@@ -100,25 +87,18 @@ public class SmsServiceImpl implements SmsService {
         return exist;
     }
 
+    /**
+     * 发送短信并记录短信日志
+     *
+     * @param mobile  手机号
+     * @param smsType 短信类型
+     * @param params  参数
+     */
     @Override
-    public void sendSms(SmsType smsType, String mobile, Object... params) {
-        String template = smsTemplateService.getTemplate(smsType.getValue());
-        if (template == null) {
-            log.warn("短信模板不存在或已禁用:[{}] [{}] [{}]", smsType, mobile, params);
-            return;
-        }
-        String content = this.formatTemplate(template, params);
-        this.doSendSms(mobile, content, smsType);
-    }
-
-    @Override
-    public void sendSms(String mobile, String content) {
-        this.doSendSms(mobile, content, SmsType.DEFAULT);
-    }
-
-    @Override
-    public void sendSms(List<String> mobileList, String content) {
-        mobileList.forEach(mobile -> this.sendSms(mobile, content));
+    public void sendSms(String mobile, SmsType smsType, String... params) {
+        int state = sendSmsService.sendSms(mobile, smsType, params);
+        SmsLog smsLog = SmsLog.builder().content(String.format(smsType.getContent(), (Object[]) params)).mobile(mobile).smsType(smsType).state(state).build();
+        smsLogService.addSmsLog(smsLog);
     }
 
     /**
@@ -129,30 +109,6 @@ public class SmsServiceImpl implements SmsService {
      */
     private void cleanSmsCode(SmsType smsType, String mobile) {
         cacheService.delete(CacheConstant.SMS_PREFIX + smsType.getValue() + mobile);
-    }
-
-    /**
-     * 发送短信并记录短信日志
-     *
-     * @param mobile  手机号
-     * @param content 短信内容
-     * @param smsType 短信类型
-     */
-    private void doSendSms(String mobile, String content, SmsType smsType) {
-        int state = sendSmsService.sendSms(mobile, content);
-        SmsLog smsLog = SmsLog.builder().content(content).mobile(mobile).smsType(smsType).state(state).build();
-        smsLogService.addSmsLog(smsLog);
-    }
-
-    /**
-     * 根据模板和参数填充数据
-     *
-     * @param template 模板
-     * @param params   参数
-     * @return 填充后的数据
-     */
-    private String formatTemplate(String template, Object... params) {
-        return MessageFormat.format(template, params);
     }
 
     /**
@@ -178,15 +134,15 @@ public class SmsServiceImpl implements SmsService {
         if (value != null) {
             throw new BusinessException(ErrorCode.SMS_FREQUENCY_FAST);
         }
-        int smsTypeHourLimit = sysConfigApi.getInt(ConfigConstant.SMS_TYPE_HOUR_LIMIT);
+        int templateTypeHourLimit = sysConfigApi.getInt(ConfigConstant.SMS_TYPE_HOUR_LIMIT);
         // 单位小时统一类型内短信限制
-        boolean limit = cacheService.limit(String.format(CacheConstant.SMS_TYPE_HOUR_LIMIT, smsType, mobile), smsTypeHourLimit, 3600);
+        boolean limit = cacheService.limit(String.format(CacheConstant.SMS_TYPE_HOUR_LIMIT, smsType, mobile), templateTypeHourLimit, 3600);
         if (limit) {
             throw new BusinessException(ErrorCode.SMS_HOUR_LIMIT);
         }
-        int smsTypeDayLimit = sysConfigApi.getInt(ConfigConstant.SMS_TYPE_DAY_LIMIT);
+        int templateTypeDayLimit = sysConfigApi.getInt(ConfigConstant.SMS_TYPE_DAY_LIMIT);
         // 当天同一类型短信限制
-        limit = cacheService.limit(String.format(CacheConstant.SMS_TYPE_DAY_LIMIT, smsType, mobile), smsTypeDayLimit, 86400);
+        limit = cacheService.limit(String.format(CacheConstant.SMS_TYPE_DAY_LIMIT, smsType, mobile), templateTypeDayLimit, 86400);
         if (limit) {
             throw new BusinessException(ErrorCode.SMS_DAY_LIMIT);
         }

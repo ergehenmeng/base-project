@@ -30,11 +30,6 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    public Banner getById(Long id) {
-        return bannerMapper.selectById(id);
-    }
-
-    @Override
     public void create(BannerAddRequest request) {
         Banner banner = DataUtil.copy(request, Banner.class);
         bannerMapper.insert(banner);

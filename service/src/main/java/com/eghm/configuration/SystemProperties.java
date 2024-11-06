@@ -88,6 +88,36 @@ public class SystemProperties {
      */
     private final Express100 express = new Express100();
 
+    /**
+     * 短信配置
+     */
+    private final Sms sms = new Sms();
+
+    @Data
+    public static class Sms {
+
+        /**
+         * 短信渠道
+         */
+        private SmsChannel smsChannel = SmsChannel.ALI;
+
+        /**
+         * 签名信息
+         */
+        private String signName;
+
+        /**
+         * AccessKey ID
+         */
+        private String keyId;
+
+        /**
+         * AccessKey Secret
+         */
+        private String secretKey;
+
+    }
+
     @Data
     public static class Express100 {
 

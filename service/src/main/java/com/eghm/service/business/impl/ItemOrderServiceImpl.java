@@ -77,11 +77,6 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     }
 
     @Override
-    public void insert(ItemOrder order) {
-        itemOrderMapper.insert(order);
-    }
-
-    @Override
     public List<ItemOrder> getByOrderNo(String orderNo) {
         LambdaQueryWrapper<ItemOrder> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ItemOrder::getOrderNo, orderNo);
@@ -225,7 +220,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         // 退款申请记录
         List<ItemRefundResponse> refundLog = orderRefundLogMapper.getItemRefundLog(orderNo);
         // 退款物流信息
-        refundLog.forEach(itemRefundResponse -> itemRefundResponse.setExpressList(expressService.getExpressList(itemRefundResponse.getExpressNo(), itemRefundResponse.getExpressCode())));
+        refundLog.forEach(itemRefundResponse -> itemRefundResponse.setExpressList(expressService.getExpressList(itemRefundResponse.getExpressNo(), itemRefundResponse.getExpressCode(), null)));
         response.setRefundList(refundLog);
         return response;
     }

@@ -34,13 +34,6 @@ public interface ItemOrderService {
     List<ItemOrderResponse> getList(ItemOrderQueryRequest request);
 
     /**
-     * 订单插入
-     *
-     * @param order 商品订单
-     */
-    void insert(ItemOrder order);
-
-    /**
      * 根据订单号查询商品订单
      *
      * @param orderNo 订单号

@@ -42,15 +42,6 @@ public interface MemberCouponService {
     void grantCoupon(GrantCouponDTO dto);
 
     /**
-     * 统计某个优惠券用户已领数量
-     *
-     * @param couponId 优惠券id
-     * @param memberId 用户id
-     * @return 个数
-     */
-    int receiveCount(Long couponId, Long memberId);
-
-    /**
      * 用户优惠券列表
      *
      * @param dto 查询条件

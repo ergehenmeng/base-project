@@ -52,7 +52,6 @@ public enum TicketType implements EnumBinder {
      */
     COMBINE(7, "组合"),
     ;
-    ;
 
     /**
      * 状态值

@@ -35,30 +35,12 @@ public interface ItemGroupOrderService {
     void updateState(String bookingNo, Integer state);
 
     /**
-     * 更新拼团订单状态
-     *
-     * @param bookingNo 拼团订单编号
-     * @param orderNo   订单编号
-     * @param state 状态
-     */
-    void updateState(String bookingNo, String orderNo, Integer state);
-
-    /**
      * 删除拼团订单
      *
      * @param bookingNo 拼团订单编号
      * @param orderNo 状态
      */
     void delete(String bookingNo, String orderNo);
-
-    /**
-     * 获取拼团订单
-     *
-     * @param bookingNo 拼团订单编号
-     * @param orderNo 订单id
-     * @return 拼团订单
-     */
-    ItemGroupOrder getGroupOrder(String bookingNo, String orderNo);
 
     /**
      * 获取拼团订单

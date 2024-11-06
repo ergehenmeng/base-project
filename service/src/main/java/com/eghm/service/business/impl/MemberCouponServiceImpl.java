@@ -88,15 +88,6 @@ public class MemberCouponServiceImpl implements MemberCouponService {
     }
 
     @Override
-    public int receiveCount(Long couponId, Long memberId) {
-        LambdaQueryWrapper<MemberCoupon> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(MemberCoupon::getCouponId, couponId);
-        wrapper.eq(MemberCoupon::getMemberId, memberId);
-        Long count = memberCouponMapper.selectCount(wrapper);
-        return count != null ? count.intValue() : 0;
-    }
-
-    @Override
     public List<MemberCouponVO> memberCouponPage(MemberCouponQueryPageDTO dto) {
         Page<MemberCouponVO> voPage = memberCouponMapper.memberCouponPage(dto.createPage(false), dto);
         return voPage.getRecords();
@@ -212,6 +203,21 @@ public class MemberCouponServiceImpl implements MemberCouponService {
     @Override
     public void couponExpire(Long couponId) {
         memberCouponMapper.couponExpire(couponId);
+    }
+
+    /**
+     * 统计某个优惠券用户已领数量
+     *
+     * @param couponId 优惠券id
+     * @param memberId 用户id
+     * @return 个数
+     */
+    private int receiveCount(Long couponId, Long memberId) {
+        LambdaQueryWrapper<MemberCoupon> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(MemberCoupon::getCouponId, couponId);
+        wrapper.eq(MemberCoupon::getMemberId, memberId);
+        Long count = memberCouponMapper.selectCount(wrapper);
+        return count != null ? count.intValue() : 0;
     }
 
     /**

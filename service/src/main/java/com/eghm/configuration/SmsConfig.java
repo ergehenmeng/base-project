@@ -1,0 +1,32 @@
+package com.eghm.configuration;
+
+import com.eghm.common.JsonService;
+import com.eghm.common.SendSmsService;
+import com.eghm.common.impl.AliSmsServiceImpl;
+import com.eghm.common.impl.TencentSmsServiceImpl;
+import lombok.AllArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * @author 二哥很猛
+ * @since 2024/11/6
+ */
+@Configuration
+@AllArgsConstructor
+public class SmsConfig {
+
+    @Bean
+    @ConditionalOnProperty(prefix = "system.sms", name = "sms-type", havingValue = "ali", matchIfMissing = true)
+    public SendSmsService aliSmsService(JsonService jsonService, SystemProperties systemProperties) {
+        return new AliSmsServiceImpl(jsonService, systemProperties);
+    }
+
+    @Bean
+    @ConditionalOnProperty(prefix = "system.sms", name = "sms-type", havingValue = "tencent")
+    public SendSmsService tencentSmsService(JsonService jsonService, SystemProperties systemProperties) {
+        return new TencentSmsServiceImpl(jsonService, systemProperties);
+    }
+
+}

@@ -102,13 +102,8 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
-    public Coupon selectById(Long id) {
-        return couponMapper.selectById(id);
-    }
-
-    @Override
     public Coupon selectByIdRequired(Long id) {
-        Coupon config = this.selectById(id);
+        Coupon config = couponMapper.selectById(id);
         if (config == null) {
             log.error("优惠券不存在 [{}]", id);
             throw new BusinessException(ErrorCode.COUPON_NOT_FOUND);

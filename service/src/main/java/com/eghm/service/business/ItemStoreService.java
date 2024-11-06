@@ -63,14 +63,6 @@ public interface ItemStoreService {
     /**
      * 主键查询, 删除或未上架则抛异常
      *
-     * @param id id
-     * @return 店铺信息
-     */
-    ItemStore selectByIdShelve(Long id);
-
-    /**
-     * 主键查询, 删除或未上架则抛异常
-     *
      * @param ids 批量查询
      * @return 店铺信息
      */
