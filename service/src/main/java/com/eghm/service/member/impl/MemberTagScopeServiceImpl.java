@@ -1,14 +1,17 @@
 package com.eghm.service.member.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.SmsService;
+import com.eghm.common.SendSmsService;
+import com.eghm.constants.CommonConstant;
 import com.eghm.dto.member.tag.SendNotifyRequest;
 import com.eghm.dto.member.tag.SendSmsRequest;
 import com.eghm.dto.member.tag.TagMemberQueryRequest;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.SmsType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MemberMapper;
 import com.eghm.mapper.MemberTagScopeMapper;
@@ -37,7 +40,7 @@ import java.util.List;
 @Service("memberTagScopeService")
 public class MemberTagScopeServiceImpl implements MemberTagScopeService {
 
-    private final SmsService smsService;
+    private final SendSmsService sendSmsService;
 
     private final MemberMapper memberMapper;
 
@@ -98,6 +101,10 @@ public class MemberTagScopeServiceImpl implements MemberTagScopeService {
         if (CollUtil.isEmpty(mobileList)) {
             return;
         }
-        smsService.sendSms(mobileList, request.getContent());
+        if (StrUtil.isBlank(request.getParams())) {
+            sendSmsService.sendSms(mobileList, SmsType.of(request.getTemplateId()));
+        } else {
+            sendSmsService.sendSms(mobileList, SmsType.of(request.getTemplateId()), request.getParams().split(CommonConstant.COMMA));
+        }
     }
 }

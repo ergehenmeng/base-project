@@ -1748,6 +1748,11 @@ public enum ErrorCode {
     BOOKING_GT_TIME(2858, "活动时间必须大于当前时间"),
 
     /**
+     * 短信模板未配置
+     */
+    SMS_TEMPLATE_NULL(2859, "短信模板未配置"),
+
+    /**
      * 拼团活动结束时间不能大于一个月
      */
     BOOKING_GT_MONTH(2861, "拼团活动结束时间不能大于一个月"),

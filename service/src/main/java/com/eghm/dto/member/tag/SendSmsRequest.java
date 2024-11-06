@@ -16,11 +16,12 @@ import java.util.List;
 @Data
 public class SendSmsRequest {
 
-    @ApiModelProperty("短信内容")
-    @NotBlank(message = "短信内容不能为空")
-    @Size(min = 10, max = 70, message = "短信内容长度10~70字符")
-    @WordChecker(message = "短信内容存在敏感词")
-    private String content;
+    @ApiModelProperty("短信模板id")
+    @NotBlank(message = "请选择短信模板")
+    private String templateId;
+
+    @ApiModelProperty("短信模板参数,逗号分隔")
+    private String params;
 
     @ApiModelProperty("会员id(二选一优先级最高)")
     private List<Long> memberIds;
