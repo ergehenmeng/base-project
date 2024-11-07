@@ -1,9 +1,8 @@
 package com.eghm.service.sys;
 
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.sys.dept.DeptAddRequest;
 import com.eghm.dto.sys.dept.DeptEditRequest;
-import com.eghm.dto.ext.PagingQuery;
-import com.eghm.model.SysDept;
 import com.eghm.vo.sys.SysDeptResponse;
 
 import java.util.List;
@@ -13,14 +12,6 @@ import java.util.List;
  * @since 2018/12/13 16:49
  */
 public interface SysDeptService {
-
-    /**
-     * 主键查询部门节点信息
-     *
-     * @param id 主键
-     * @return 部门节点
-     */
-    SysDept getById(Long id);
 
     /**
      * 获取所有的部门信息

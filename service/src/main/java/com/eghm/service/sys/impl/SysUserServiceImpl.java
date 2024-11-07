@@ -93,14 +93,6 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public void checkPassword(String rawPassword, String targetPassword) {
-        boolean match = encoder.match(rawPassword, targetPassword);
-        if (!match) {
-            throw new BusinessException(ErrorCode.USER_PASSWORD_ERROR);
-        }
-    }
-
-    @Override
     public void checkPassword(Long userId, String rawPassword) {
         SysUser user = sysUserMapper.selectById(userId);
         boolean match = encoder.match(rawPassword, user.getPwd());
@@ -139,17 +131,6 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public String initPassword(String mobile) {
-        String md5Password = MD5.create().digestHex(mobile.substring(3));
-        return encoder.encode(md5Password);
-    }
-
-    @Override
-    public SysUser getById(Long id) {
-        return sysUserMapper.selectById(id);
-    }
-
-    @Override
     public SysUser getByIdRequired(Long id) {
         SysUser user = sysUserMapper.selectById(id);
         if (user == null) {
@@ -178,7 +159,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public void resetPassword(Long id) {
-        SysUser user = this.getById(id);
+        SysUser user = sysUserMapper.selectById(id);
         String password = this.initPassword(user.getMobile());
         user.setPwd(password);
         user.setInitPwd(password);
@@ -234,6 +215,30 @@ public class SysUserServiceImpl implements SysUserService {
         this.redoUserName(user.getUserName(), user.getId());
         this.redoMobile(user.getMobile(), user.getId());
         sysUserMapper.updateById(user);
+    }
+
+    /**
+     * 根据手机号生成初始化密码,手机号后六位
+     *
+     * @param mobile 手机号
+     * @return 加密密码
+     */
+    private String initPassword(String mobile) {
+        String md5Password = MD5.create().digestHex(mobile.substring(3));
+        return encoder.encode(md5Password);
+    }
+
+    /**
+     * 校验密码是否正确
+     *
+     * @param rawPassword    原始密码(用户输入的)
+     * @param targetPassword 真实加密后的密码(数据库保存的)
+     */
+    private void checkPassword(String rawPassword, String targetPassword) {
+        boolean match = encoder.match(rawPassword, targetPassword);
+        if (!match) {
+            throw new BusinessException(ErrorCode.USER_PASSWORD_ERROR);
+        }
     }
 
     /**

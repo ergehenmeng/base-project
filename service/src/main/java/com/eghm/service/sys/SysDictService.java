@@ -1,7 +1,6 @@
 package com.eghm.service.sys;
 
 import com.eghm.dto.sys.dict.*;
-import com.eghm.model.SysDict;
 import com.eghm.model.SysDictItem;
 import com.eghm.vo.sys.DictResponse;
 
@@ -72,14 +71,6 @@ public interface SysDictService {
      * @param id 主键
      */
     void itemDelete(Long id);
-
-    /**
-     * 根据主键查询
-     *
-     * @param id 主键
-     * @return 数据字典
-     */
-    SysDict getById(Long id);
 
     /**
      * 根据nid与隐藏值获取显示信息 数据字典格式化数据

@@ -16,32 +16,19 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderCardVO {
 
-    /**
-     * 所有已支付的订单数量(含退款的订单)
-     */
-    @ApiModelProperty("订单数量")
+    @ApiModelProperty("订单数量(含退款的订单)")
     private Integer orderNum = 0;
 
-    /**
-     * 所有已支付的订单金额(含退款的订单)
-     */
-    @ApiModelProperty("支付金额")
+    @ApiModelProperty("支付金额(含退款的订单)")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer payAmount = 0;
 
-    /**
-     * 退款的订单(包含部分退款)
-     */
-    @ApiModelProperty("退款数量")
+    @ApiModelProperty("退款数量(包含部分退款)")
     private Integer refundNum = 0;
 
-    /**
-     * 退款金额(包含部分退款)
-     */
-    @ApiModelProperty("退款金额")
+    @ApiModelProperty("退款金额(包含部分退款)")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer refundAmount = 0;
-
 
     public void setOrderNum(Integer orderNum) {
         this.orderNum = orderNum + RandomUtil.randomInt(1000);

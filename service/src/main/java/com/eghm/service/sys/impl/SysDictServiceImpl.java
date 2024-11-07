@@ -101,11 +101,6 @@ public class SysDictServiceImpl implements SysDictService {
     }
 
     @Override
-    public SysDict getById(Long id) {
-        return sysDictMapper.selectById(id);
-    }
-
-    @Override
     public String getDictValue(String nid, Integer hiddenValue) {
         List<SysDictItem> dictList = cacheProxyService.getDictByNid(nid);
         for (SysDictItem dict : dictList) {

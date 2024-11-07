@@ -61,11 +61,6 @@ public class VoucherOrderServiceImpl implements VoucherOrderService {
     }
 
     @Override
-    public VoucherOrder selectById(Long id) {
-        return voucherOrderMapper.selectById(id);
-    }
-
-    @Override
     public ProductSnapshotVO getSnapshot(Long orderId, String orderNo) {
         return voucherOrderMapper.getSnapshot(orderId, orderNo);
     }

@@ -3,10 +3,10 @@ package com.eghm.service.sys.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.sys.dept.DeptAddRequest;
-import com.eghm.dto.sys.dept.DeptEditRequest;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.UserToken;
+import com.eghm.dto.sys.dept.DeptAddRequest;
+import com.eghm.dto.sys.dept.DeptEditRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysDeptMapper;
@@ -41,11 +41,6 @@ public class SysDeptServiceImpl implements SysDeptService {
     private static final String STEP = "100";
 
     private final SysDeptMapper sysDeptMapper;
-
-    @Override
-    public SysDept getById(Long id) {
-        return sysDeptMapper.selectById(id);
-    }
 
     @Override
     public List<SysDeptResponse> getList(PagingQuery query) {

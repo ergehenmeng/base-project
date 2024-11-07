@@ -4,7 +4,6 @@ package com.eghm.service.sys;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.sys.config.ConfigEditRequest;
 import com.eghm.dto.sys.config.ConfigQueryRequest;
-import com.eghm.model.SysConfig;
 import com.eghm.vo.sys.SysConfigResponse;
 
 
@@ -28,13 +27,5 @@ public interface SysConfigService {
      * @param request 待更新的参数对象
      */
     void update(ConfigEditRequest request);
-
-    /**
-     * 根据主键获取系统参数
-     *
-     * @param id 主键
-     * @return 系统参数信息
-     */
-    SysConfig getById(Long id);
 
 }

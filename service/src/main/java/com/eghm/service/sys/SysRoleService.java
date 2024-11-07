@@ -6,7 +6,6 @@ import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.sys.role.RoleAddRequest;
 import com.eghm.dto.sys.role.RoleEditRequest;
 import com.eghm.enums.ref.RoleType;
-import com.eghm.model.SysRole;
 import com.eghm.vo.sys.SysRoleResponse;
 
 import java.util.List;
@@ -93,12 +92,5 @@ public interface SysRoleService {
      */
     void auth(Long userId, List<Long> roleList);
 
-    /**
-     * 根据角色id查询角色信息
-     *
-     * @param roleId 角色id
-     * @return 角色信息
-     */
-    SysRole selectByIdRequired(Long roleId);
 }
 

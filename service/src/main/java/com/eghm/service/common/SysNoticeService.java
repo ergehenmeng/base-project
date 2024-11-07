@@ -63,14 +63,6 @@ public interface SysNoticeService {
     void delete(Long id);
 
     /**
-     * 主键查询公告信息
-     *
-     * @param id id
-     * @return 公告信息
-     */
-    SysNotice getById(Long id);
-
-    /**
      * 查询公告详情
      *
      * @param id id

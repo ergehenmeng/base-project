@@ -23,15 +23,15 @@ public class AppVersionVO {
     @ApiModelProperty(value = "是否为最新版本 true:是 false:否")
     private Boolean latest;
 
-    @ApiModelProperty(value = "最新版本号")
+    @ApiModelProperty(value = "最新版本号(非最新版本时才有该值)")
     private String version;
 
-    @ApiModelProperty(value = "是否为强制更新的版本")
+    @ApiModelProperty(value = "是否为强制更新的版本(非最新版本时才有该值)")
     private Boolean forceUpdate;
 
-    @ApiModelProperty(value = "新版本下载的地址")
+    @ApiModelProperty(value = "新版本下载的地址(非最新版本时才有该值)")
     private String url;
 
-    @ApiModelProperty(value = "版本更新说明")
+    @ApiModelProperty(value = "版本更新说明(非最新版本时才有该值)")
     private String remark;
 }

@@ -55,14 +55,6 @@ public interface VoucherOrderService {
     VoucherOrder getByOrderNo(String orderNo);
 
     /**
-     * 主键查询
-     *
-     * @param id id
-     * @return 餐饮订单
-     */
-    VoucherOrder selectById(Long id);
-
-    /**
      * 查询餐饮快照
      *
      * @param orderId 订单id

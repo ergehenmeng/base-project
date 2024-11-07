@@ -152,8 +152,13 @@ public class SysRoleServiceImpl implements SysRoleService {
         roleList.forEach(roleId -> sysUserRoleMapper.insert(new SysUserRole(userId, roleId)));
     }
 
-    @Override
-    public SysRole selectByIdRequired(Long roleId) {
+    /**
+     * 根据角色id查询角色信息
+     *
+     * @param roleId 角色id
+     * @return 角色信息
+     */
+    private SysRole selectByIdRequired(Long roleId) {
         SysRole sysRole = sysRoleMapper.selectById(roleId);
         if (sysRole == null) {
             log.warn("角色不存在 [{}]", roleId);

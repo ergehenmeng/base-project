@@ -7,8 +7,6 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
 import com.eghm.mapper.TicketOrderMapper;
 import com.eghm.model.OrderVisitor;
 import com.eghm.model.TicketOrder;
@@ -82,16 +80,6 @@ public class TicketOrderServiceImpl implements TicketOrderService {
         detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
         detail.setVerifyNo(orderService.encryptVerifyNo(detail.getVerifyNo()));
         return detail;
-    }
-
-    @Override
-    public TicketOrder selectByIdRequired(Long id) {
-        TicketOrder order = ticketOrderMapper.selectById(id);
-        if (order == null) {
-            log.error("门票订单信息未查询到 [{}]", id);
-            throw new BusinessException(ErrorCode.TICKET_ORDER_NULL);
-        }
-        return order;
     }
 
     @Override

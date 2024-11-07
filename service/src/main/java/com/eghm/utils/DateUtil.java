@@ -49,16 +49,6 @@ public class DateUtil {
     public static final DateTimeFormatter MIN_FORMAT = DateTimeFormatter.ofPattern(MIN_DATE);
 
     /**
-     * 格式化日期 yyyy-MM-dd HH:mm:ss
-     *
-     * @param date date
-     * @return 字符串七日
-     */
-    public static String formatLong(TemporalAccessor date) {
-        return LONG_FORMAT.format(date);
-    }
-
-    /**
      * 格式化日期 yyyyMMdd
      *
      * @param date date
@@ -204,15 +194,6 @@ public class DateUtil {
      */
     public static LocalDateTime parseLocalDateTime(String text) {
         return LocalDateTime.parse(text, LONG_FORMAT);
-    }
-
-    /**
-     * 获得当前日期
-     *
-     * @return 当前时间
-     */
-    public static Date getNow() {
-        return new Date();
     }
 
     /**

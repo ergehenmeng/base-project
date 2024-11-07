@@ -40,9 +40,4 @@ public class SysConfigServiceImpl implements SysConfigService {
         sysConfigMapper.updateById(DataUtil.copy(request, SysConfig.class));
     }
 
-    @Override
-    public SysConfig getById(Long id) {
-        return sysConfigMapper.selectById(id);
-    }
-
 }

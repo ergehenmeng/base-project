@@ -21,14 +21,6 @@ public interface SysTaskService {
     Page<SysTaskResponse> getByPage(TaskQueryRequest request);
 
     /**
-     * 主键查询
-     *
-     * @param id id
-     * @return 定时任务配置信息
-     */
-    SysTask getById(Long id);
-
-    /**
      * 编辑保存任务配置信息
      *
      * @param request 配置信息

@@ -67,14 +67,6 @@ public interface TicketOrderService {
     TicketOrderDetailVO getDetail(String orderNo, Long memberId);
 
     /**
-     * 查询商品订单,如果为空则抛异常
-     *
-     * @param id id
-     * @return 门票订单信息
-     */
-    TicketOrder selectByIdRequired(Long id);
-
-    /**
      * 查询订单商品快照
      *
      * @param orderId 订单id
