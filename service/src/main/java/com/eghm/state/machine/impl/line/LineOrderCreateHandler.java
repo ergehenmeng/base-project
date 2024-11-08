@@ -137,7 +137,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
     }
 
     @Override
-    public boolean isHotSell(LineOrderCreateContext context, LineOrderPayload payload) {
+    public boolean isHotSell(LineOrderPayload payload) {
         return payload.getLine().getHotSell();
     }
 

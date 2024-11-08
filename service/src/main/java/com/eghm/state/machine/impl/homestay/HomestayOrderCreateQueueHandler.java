@@ -4,7 +4,6 @@ import com.eghm.common.OrderMQService;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.service.business.*;
-import com.eghm.state.machine.context.HomestayOrderCreateContext;
 import com.eghm.state.machine.dto.HomestayOrderPayload;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -30,7 +29,7 @@ public class HomestayOrderCreateQueueHandler extends HomestayOrderCreateHandler 
     }
 
     @Override
-    public boolean isHotSell(HomestayOrderCreateContext context, HomestayOrderPayload payload) {
+    public boolean isHotSell(HomestayOrderPayload payload) {
         return false;
     }
 }

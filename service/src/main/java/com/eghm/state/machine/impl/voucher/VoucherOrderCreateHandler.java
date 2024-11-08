@@ -112,7 +112,7 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
     }
 
     @Override
-    public boolean isHotSell(VoucherOrderCreateContext context, VoucherOrderPayload payload) {
+    public boolean isHotSell(VoucherOrderPayload payload) {
         return payload.getVoucher().getHotSell();
     }
 

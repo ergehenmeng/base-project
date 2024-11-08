@@ -132,7 +132,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     }
 
     @Override
-    public boolean isHotSell(TicketOrderCreateContext context, TicketOrderPayload payload) {
+    public boolean isHotSell(TicketOrderPayload payload) {
         return payload.getTicket().getHotSell();
     }
 

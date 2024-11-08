@@ -27,7 +27,7 @@ public class LineOrderCreateQueueHandler extends LineOrderCreateHandler {
     }
 
     @Override
-    public boolean isHotSell(LineOrderCreateContext context, LineOrderPayload payload) {
+    public boolean isHotSell(LineOrderPayload payload) {
         return false;
     }
 }

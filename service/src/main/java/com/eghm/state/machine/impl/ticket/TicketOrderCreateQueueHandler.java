@@ -4,7 +4,6 @@ import com.eghm.common.OrderMQService;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.TicketEvent;
 import com.eghm.service.business.*;
-import com.eghm.state.machine.context.TicketOrderCreateContext;
 import com.eghm.state.machine.dto.TicketOrderPayload;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,7 @@ public class TicketOrderCreateQueueHandler extends TicketOrderCreateHandler {
     }
 
     @Override
-    public boolean isHotSell(TicketOrderCreateContext context, TicketOrderPayload payload) {
+    public boolean isHotSell(TicketOrderPayload payload) {
         return false;
     }
 

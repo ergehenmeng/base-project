@@ -26,7 +26,7 @@ public abstract class AbstractOrderPayFailHandler implements ActionHandler<PayNo
 
         this.doProcess(context, order);
 
-        this.after(context, order);
+        this.after(order);
     }
 
     /**
@@ -41,10 +41,9 @@ public abstract class AbstractOrderPayFailHandler implements ActionHandler<PayNo
     /**
      * 订单异步通知后置处理
      *
-     * @param context 支付失败异步通知
      * @param order   订单信息
      */
-    protected void after(PayNotifyContext context, Order order) {
+    protected void after(Order order) {
     }
 
 }

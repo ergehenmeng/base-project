@@ -146,7 +146,7 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
     }
 
     @Override
-    public boolean isHotSell(VenueOrderCreateContext context, VenueOrderPayload payload) {
+    public boolean isHotSell(VenueOrderPayload payload) {
         return false;
     }
 

@@ -61,7 +61,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
      * @return 主订单信息
      */
     protected Order doProcess(C context, P payload) {
-        if (this.isHotSell(context, payload)) {
+        if (this.isHotSell(payload)) {
             log.info("该商品为热销商品,走MQ队列处理");
             // 消息队列在事务之外发送减少事务持有时间
             TransactionUtil.afterCommit(() -> orderMQService.sendOrderCreateMessage(getExchangeQueue(), (AsyncKey) context));
@@ -84,11 +84,10 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
     /**
      * 是否为热销商品, 热销商品走mq下单,增加并发, 非热销商品直接下单
      *
-     * @param context 下单信息上下文
      * @param payload 下单关联信息
      * @return true 热销商品 false: 不是热销商品
      */
-    public boolean isHotSell(C context, P payload) {
+    public boolean isHotSell(P payload) {
         return true;
     }
 

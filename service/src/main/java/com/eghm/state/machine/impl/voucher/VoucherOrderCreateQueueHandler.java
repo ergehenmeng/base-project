@@ -4,7 +4,6 @@ import com.eghm.common.OrderMQService;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VoucherEvent;
 import com.eghm.service.business.*;
-import com.eghm.state.machine.context.VoucherOrderCreateContext;
 import com.eghm.state.machine.dto.VoucherOrderPayload;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ public class VoucherOrderCreateQueueHandler extends VoucherOrderCreateHandler {
     }
 
     @Override
-    public boolean isHotSell(VoucherOrderCreateContext context, VoucherOrderPayload payload) {
+    public boolean isHotSell(VoucherOrderPayload payload) {
         return false;
     }
 }

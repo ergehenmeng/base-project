@@ -6,7 +6,6 @@ import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VenueOrderService;
-import com.eghm.state.machine.context.PayNotifyContext;
 import com.eghm.state.machine.impl.AbstractOrderPayFailHandler;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +24,7 @@ public class VenueOrderPayFailHandler extends AbstractOrderPayFailHandler {
     }
 
     @Override
-    protected void after(PayNotifyContext context, Order order) {
+    protected void after(Order order) {
         venueOrderService.updateStock(order.getOrderNo(), 1);
     }
 
