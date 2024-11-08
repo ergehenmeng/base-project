@@ -1,9 +1,7 @@
 package com.eghm.service.member.impl;
 
 import cn.hutool.core.net.NetUtil;
-import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
@@ -14,18 +12,17 @@ import com.eghm.common.EmailService;
 import com.eghm.common.MemberTokenService;
 import com.eghm.common.SmsService;
 import com.eghm.common.impl.SysConfigApi;
-import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.sys.email.SendEmail;
 import com.eghm.dto.ext.*;
-import com.eghm.dto.sys.login.AccountLoginDTO;
-import com.eghm.dto.sys.login.SmsLoginDTO;
 import com.eghm.dto.member.*;
 import com.eghm.dto.member.register.RegisterMemberDTO;
 import com.eghm.dto.statistics.DateRequest;
+import com.eghm.dto.sys.email.SendEmail;
+import com.eghm.dto.sys.login.AccountLoginDTO;
+import com.eghm.dto.sys.login.SmsLoginDTO;
 import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.DataException;
@@ -60,7 +57,6 @@ import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
@@ -97,8 +93,6 @@ public class MemberServiceImpl implements MemberService {
     private final MessageService messageService;
 
     private final WeChatMpService weChatMpService;
-
-    private final SystemProperties systemProperties;
 
     private final WeChatMiniService weChatMiniService;
 
@@ -219,17 +213,6 @@ public class MemberServiceImpl implements MemberService {
         emailCode.setEmailType(EmailType.BIND_EMAIL);
         emailService.verifyEmailCode(emailCode);
         member.setEmail(request.getEmail());
-        memberMapper.updateById(member);
-    }
-
-    @Override
-    public void realNameAuth(MemberAuthDTO request) {
-        Member member = new Member();
-        member.setId(request.getMemberId());
-        member.setRealName(request.getRealName());
-        member.setBirthday(IdcardUtil.getBirthByIdCard(request.getIdCard()));
-        member.setIdCard(SecureUtil.aes(systemProperties.getApi().getSecretKey().getBytes(StandardCharsets.UTF_8)).encryptBase64(request.getIdCard()));
-        member.setSex(IdcardUtil.getGenderByIdCard(request.getIdCard()));
         memberMapper.updateById(member);
     }
 

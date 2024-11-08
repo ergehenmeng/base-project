@@ -38,16 +38,6 @@ public class SmsServiceImpl implements SmsService {
     private final SendSmsService sendSmsService;
 
     @Override
-    public void sendSmsCode(SmsType smsType, String mobile) {
-        this.smsLimitCheck(smsType.getValue(), mobile);
-        String smsCode = StringUtil.randomNumber();
-        this.sendSms(mobile, smsType, smsCode);
-        this.saveSmsCode(smsType.getValue(), mobile, smsCode);
-        long expire = sysConfigApi.getLong(ConfigConstant.SMS_TYPE_INTERVAL);
-        cacheService.setValue(String.format(CacheConstant.SMS_TYPE_INTERVAL, smsType.getValue(), mobile), true, expire);
-    }
-
-    @Override
     public void sendSmsCode(SmsType smsType, String mobile, String ip) {
         this.smsIpLimitCheck(ip);
         this.sendSmsCode(smsType, mobile);
@@ -99,6 +89,21 @@ public class SmsServiceImpl implements SmsService {
         int state = sendSmsService.sendSms(mobile, smsType, params);
         SmsLog smsLog = SmsLog.builder().content(String.format(smsType.getContent(), (Object[]) params)).mobile(mobile).smsType(smsType).state(state).build();
         smsLogService.addSmsLog(smsLog);
+    }
+
+    /**
+     * 发送短信验证码
+     *
+     * @param smsType 短信验证码类型
+     * @param mobile  手机号
+     */
+    private void sendSmsCode(SmsType smsType, String mobile) {
+        this.smsLimitCheck(smsType.getValue(), mobile);
+        String smsCode = StringUtil.randomNumber();
+        this.sendSms(mobile, smsType, smsCode);
+        this.saveSmsCode(smsType.getValue(), mobile, smsCode);
+        long expire = sysConfigApi.getLong(ConfigConstant.SMS_TYPE_INTERVAL);
+        cacheService.setValue(String.format(CacheConstant.SMS_TYPE_INTERVAL, smsType.getValue(), mobile), true, expire);
     }
 
     /**

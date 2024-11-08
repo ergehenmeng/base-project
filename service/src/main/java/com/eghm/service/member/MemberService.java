@@ -128,13 +128,6 @@ public interface MemberService {
     void bindEmail(BindEmailDTO request);
 
     /**
-     * 用户实名制认证
-     *
-     * @param request 实名制信息
-     */
-    void realNameAuth(MemberAuthDTO request);
-
-    /**
      * 更新邮箱发送短信验证码
      *
      * @param memberId memberId
