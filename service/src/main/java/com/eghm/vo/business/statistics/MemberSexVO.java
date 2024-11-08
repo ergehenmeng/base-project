@@ -18,7 +18,7 @@ public class MemberSexVO {
     private String name;
 
     @ApiModelProperty("人数")
-    private Integer value = 0;
+    private Integer value;
 
     public MemberSexVO() {
         this.value = RandomUtil.randomInt(500);
