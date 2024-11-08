@@ -55,15 +55,6 @@ public interface OrderService extends IService<Order> {
     List<Order> getByTradeNoList(String tradeNo);
 
     /**
-     * 根据订单查询订单信息,
-     * 如果订单已删除或者未支付则抛异常
-     *
-     * @param orderNoList 订单编号
-     * @return 订单信息
-     */
-    List<Order> getUnPay(List<String> orderNoList);
-
-    /**
      * 订单是否已支付
      *
      * @param order 订单信息
@@ -102,16 +93,6 @@ public interface OrderService extends IService<Order> {
      * @param order 订单
      */
     void startRefund(OrderRefundLog log, Order order);
-
-    /**
-     * 更新订单状态, 注意更新订单状态时,订单当前状态必须在旧状态中
-     *
-     * @param orderNoList 订单列表
-     * @param payTime  只有支付成功的状态此字段才不为空
-     * @param newState    新状态
-     * @param oldState    旧状态
-     */
-    void updateState(List<String> orderNoList, LocalDateTime payTime, OrderState newState, Object... oldState);
 
     /**
      * 更新订单状态, 注意更新订单状态时,订单当前状态必须在旧状态中- 重载方法
@@ -166,13 +147,6 @@ public interface OrderService extends IService<Order> {
     OrderScanVO getScanResult(String verifyNo, Long merchantId);
 
     /**
-     * 订单状态变更处理, 注意:只有订单状态变动时才需要调用该方法
-     *
-     * @param order 订单信息
-     */
-    void orderStateModify(Order order);
-
-    /**
      * 根据订单号查询订单下的商品信息
      *
      * @param orderNo 订单号
@@ -188,14 +162,6 @@ public interface OrderService extends IService<Order> {
      * @return 核销码
      */
     String refreshVerifyCode(String orderNo, Long memberId);
-
-    /**
-     * 根据核销码查询订单
-     *
-     * @param verifyNo 核销码
-     * @return 订单信息
-     */
-    Order getByVerifyNo(String verifyNo);
 
     /**
      * 零售发货

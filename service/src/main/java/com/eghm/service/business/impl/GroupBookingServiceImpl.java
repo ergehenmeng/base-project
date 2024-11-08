@@ -163,21 +163,6 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     }
 
     @Override
-    public Integer getFinalPrice(Long bookingId, Integer salePrice, Long skuId) {
-        GroupBooking booking = groupBookingMapper.selectById(bookingId);
-        if (booking == null) {
-            log.info("拼团活动未查询到,以原价为准 [{}]", bookingId);
-            return salePrice;
-        }
-        LocalDateTime now = LocalDateTime.now();
-        if (booking.getEndTime().isBefore(now) || booking.getStartTime().isAfter(now)) {
-            log.warn("拼团活动不在有效期 [{}] [{}] [{}]", bookingId, booking.getStartTime(), booking.getEndTime());
-            return salePrice;
-        }
-        return this.getFinalPrice(booking.getSkuValue(), salePrice, skuId);
-    }
-
-    @Override
     public Integer getFinalPrice(String skuValue, Integer salePrice, Long skuId) {
         if (skuValue == null) {
             log.warn("拼团优惠金额为空");

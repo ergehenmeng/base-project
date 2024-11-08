@@ -171,25 +171,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public List<Order> getUnPay(List<String> orderNoList) {
-        LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(Order::getId, Order::getTitle, Order::getPayAmount);
-        wrapper.in(Order::getOrderNo, orderNoList);
-        wrapper.eq(Order::getState, OrderState.UN_PAY);
-        List<Order> orderList = baseMapper.selectList(wrapper);
-        if (CollUtil.isEmpty(orderList)) {
-            log.error("订单可能已被删除 {}", orderNoList);
-            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
-        }
-
-        if (orderList.size() != orderNoList.size()) {
-            log.error("存在部分订单不是待支付 [{}]", orderNoList);
-            throw new BusinessException(ErrorCode.ORDER_PAID);
-        }
-        return orderList;
-    }
-
-    @Override
     public TradeState getOrderPayState(Order order) {
         if (StrUtil.isBlank(order.getTradeNo())) {
             log.info("订单未生成支付流水号 [{}]", order.getId());
@@ -246,24 +227,18 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public void updateState(List<String> orderNoList, LocalDateTime payTime, OrderState newState, Object... oldState) {
-        if (CollUtil.isEmpty(orderNoList)) {
+    public void updateState(String orderNo, OrderState newState, Object... oldState) {
+        if (orderNo == null) {
             log.error("订单号为空, 无法更新订单状态 [{}]", newState);
         }
         LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
-        wrapper.in(Order::getOrderNo, orderNoList);
+        wrapper.eq(Order::getOrderNo, orderNo);
         wrapper.in(oldState.length > 0, Order::getState, oldState);
         wrapper.set(Order::getState, newState);
-        wrapper.set(Order::getPayTime, payTime);
         int update = baseMapper.update(null, wrapper);
-        if (update != orderNoList.size()) {
-            log.warn("订单状态更新数据不一致 [{}] [{}] [{}]", orderNoList, newState, oldState);
+        if (update != 1) {
+            log.warn("订单状态更新数据不一致 [{}] [{}] [{}]", orderNo, newState, oldState);
         }
-    }
-
-    @Override
-    public void updateState(String orderNo, OrderState newState, Object... oldState) {
-        this.updateState(Lists.newArrayList(orderNo), null, newState, oldState);
     }
 
     @Override
@@ -352,31 +327,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public void orderStateModify(Order order) {
-        Order databaseOrder = this.getByOrderNo(order.getOrderNo());
-        if (databaseOrder.getState() == order.getState()) {
-            log.warn("订单状态未发生改变,不做处理 [{}]", order.getOrderNo());
-            return;
-        }
-        if (order.getState() == OrderState.COMPLETE) {
-            order.setCompleteTime(LocalDateTime.now());
-            TransactionUtil.afterCommit(() -> {
-                if (order.getProductType() == ProductType.TICKET) {
-                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.TICKET_COMPLETE_DELAY, order.getOrderNo());
-                } else if (order.getProductType() == ProductType.ITEM) {
-                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.ITEM_COMPLETE_DELAY, order.getOrderNo());
-                } else if (order.getProductType() == ProductType.LINE) {
-                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.LINE_COMPLETE_DELAY, order.getOrderNo());
-                } else if (order.getProductType() == ProductType.VOUCHER) {
-                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE_DELAY, order.getOrderNo());
-                } else if (order.getProductType() == ProductType.HOMESTAY) {
-                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.HOMESTAY_COMPLETE_DELAY, order.getOrderNo());
-                }
-            });
-        }
-    }
-
-    @Override
     public List<ProductSnapshotVO> getProductList(String orderNo) {
         ProductType productType = ProductType.prefix(orderNo);
         if (productType == ProductType.ITEM) {
@@ -406,19 +356,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
         }
         return this.encryptVerifyNo(order.getVerifyNo());
-    }
-
-    @Override
-    public Order getByVerifyNo(String verifyNo) {
-        LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Order::getVerifyNo, verifyNo);
-        wrapper.last(CommonConstant.LIMIT_ONE);
-        Order order = baseMapper.selectOne(wrapper);
-        if (order == null) {
-            log.error("根据核销码查询订单信息为空 [{}]", verifyNo);
-            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
-        }
-        return order;
     }
 
     @Override
@@ -681,6 +618,78 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             voList.add(vo);
         }
         return voList;
+    }
+
+    /**
+     * 订单状态变更处理, 注意:只有订单状态变动时才需要调用该方法
+     *
+     * @param order 订单信息
+     */
+    private void orderStateModify(Order order) {
+        Order databaseOrder = this.getByOrderNo(order.getOrderNo());
+        if (databaseOrder.getState() == order.getState()) {
+            log.warn("订单状态未发生改变,不做处理 [{}]", order.getOrderNo());
+            return;
+        }
+        if (order.getState() == OrderState.COMPLETE) {
+            order.setCompleteTime(LocalDateTime.now());
+            TransactionUtil.afterCommit(() -> {
+                if (order.getProductType() == ProductType.TICKET) {
+                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.TICKET_COMPLETE_DELAY, order.getOrderNo());
+                } else if (order.getProductType() == ProductType.ITEM) {
+                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.ITEM_COMPLETE_DELAY, order.getOrderNo());
+                } else if (order.getProductType() == ProductType.LINE) {
+                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.LINE_COMPLETE_DELAY, order.getOrderNo());
+                } else if (order.getProductType() == ProductType.VOUCHER) {
+                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE_DELAY, order.getOrderNo());
+                } else if (order.getProductType() == ProductType.HOMESTAY) {
+                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.HOMESTAY_COMPLETE_DELAY, order.getOrderNo());
+                }
+            });
+        }
+    }
+
+    /**
+     * 根据订单查询订单信息,
+     * 如果订单已删除或者未支付则抛异常
+     *
+     * @param orderNoList 订单编号
+     * @return 订单信息
+     */
+    private List<Order> getUnPay(List<String> orderNoList) {
+        LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(Order::getId, Order::getTitle, Order::getPayAmount);
+        wrapper.in(Order::getOrderNo, orderNoList);
+        wrapper.eq(Order::getState, OrderState.UN_PAY);
+        List<Order> orderList = baseMapper.selectList(wrapper);
+        if (CollUtil.isEmpty(orderList)) {
+            log.error("订单可能已被删除 {}", orderNoList);
+            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
+        }
+
+        if (orderList.size() != orderNoList.size()) {
+            log.error("存在部分订单不是待支付 [{}]", orderNoList);
+            throw new BusinessException(ErrorCode.ORDER_PAID);
+        }
+        return orderList;
+    }
+
+    /**
+     * 根据核销码查询订单
+     *
+     * @param verifyNo 核销码
+     * @return 订单信息
+     */
+    private Order getByVerifyNo(String verifyNo) {
+        LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Order::getVerifyNo, verifyNo);
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        Order order = baseMapper.selectOne(wrapper);
+        if (order == null) {
+            log.error("根据核销码查询订单信息为空 [{}]", verifyNo);
+            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
+        }
+        return order;
     }
 
     /**

@@ -44,7 +44,7 @@ public class VerifyLogResponse extends ExcelStyle {
     @ApiModelProperty(value = "核销时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ExcelProperty(value = "核销时间", index = 5)
-    @DateTimeFormat(    "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
 }

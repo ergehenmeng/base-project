@@ -92,16 +92,6 @@ public interface GroupBookingService {
     /**
      * 获取拼团活动最终价格
      *
-     * @param bookingId 活动id
-     * @param salePrice 原价格
-     * @param skuId skuId
-     * @return 最终价格
-     */
-    Integer getFinalPrice(Long bookingId, Integer salePrice, Long skuId);
-
-    /**
-     * 获取拼团活动最终价格
-     *
      * @param skuValue 价格配置信息
      * @param salePrice 原价格
      * @param skuId skuId
