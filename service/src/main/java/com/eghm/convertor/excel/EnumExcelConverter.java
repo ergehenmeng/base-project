@@ -27,15 +27,11 @@ public class EnumExcelConverter implements Converter<Object> {
 
     @Override
     public Class<?> supportJavaTypeKey() {
-        return Object.class;
+        return Enum.class;
     }
 
     @Override
     public WriteCellData<?> convertToExcelData(Object value, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
-        if (!(value instanceof Enum)) {
-            log.error("该类型不是枚举不支持使用EnumConverter转换器 [{}]", value.getClass());
-            throw new BusinessException(ErrorCode.ENUM_SUPPORTED);
-        }
         Field valueAs = this.getAnnotationField(contentProperty);
         return new WriteCellData<>(ReflectUtil.getFieldValue(value, valueAs).toString());
     }
