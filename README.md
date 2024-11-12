@@ -97,7 +97,8 @@
 ### 关于项目加密
 * 请参考 `manage-server` 项目中的pom.xml, 使用 `classfinal-maven-plugin` 插件进行加密
 * 参考 `classfinal-maven-plugin` 插件文档 https://gitee.com/roseboy/classfinal
-* 默认启动方式: java -javaagent:manage-server-encrypted.jar -jar manage-server-encrypted.jar
+* 绑定机器码 `java -jar classfinal-fatjar.jar -C` 在指定机器上生成机器码, 同时会在命令所属目录下生成 `classfinal-code.txt`, 内部就包含code, 将该code复制到pom.xml中的configuration.code节点上打包
+* 默认启动方式: `java -javaagent:manage-server-encrypted.jar -jar manage-server-encrypted.jar`, 如果要绑定机器码则在后面需要添加 `-code`
 
 ## 其他开发说明
 * 管理后台验证码有 `MathCaptchaProducer` `TextCaptchaProducer` 两种方式, 默认为 `MathCaptchaProducer`, 可在`WebMvcConfig#captcha`调整配置

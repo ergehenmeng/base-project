@@ -54,11 +54,13 @@
                 <artifactId>classfinal-maven-plugin</artifactId>
                 <version>1.2.1</version>
                 <configuration>
+                    <!--#表示不需要密码-->
                     <password>#</password>
                     <excludes>org.spring,org.apache</excludes>
                     <cfgfiles>application.yml,application-dev.yml</cfgfiles>
                     <packages>com.eghm</packages>
                     <libjars>service-1.0.jar</libjars>
+                    <code>893A39CE44A3B9C2782E7536AE58D6E9D41D8CD98F00B204E9800998ECF8427ED41D8CD98F00B204E9800998ECF8427E</code>
                 </configuration>
                 <executions>
                     <execution>
