@@ -12,9 +12,9 @@ import java.io.IOException;
  * @author 二哥很猛
  * @since 2023/9/16
  */
-public class NumberParseEncoder extends StdSerializer<Long> {
+public class NumberParseSerializer extends StdSerializer<Long> {
 
-    protected NumberParseEncoder() {
+    protected NumberParseSerializer() {
         super(Long.class);
     }
 

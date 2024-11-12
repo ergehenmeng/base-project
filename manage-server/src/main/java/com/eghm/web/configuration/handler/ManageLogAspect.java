@@ -52,7 +52,6 @@ public class ManageLogAspect {
      */
     @Around("@annotation(org.springframework.web.bind.annotation.PostMapping) && (!@annotation(com.eghm.annotation.SkipLogger)) && within(com.eghm.web.controller..*)")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes == null) {
             return joinPoint.proceed();

@@ -14,9 +14,9 @@ import java.io.IOException;
  * @author 二哥很猛
  * @since 2023/10/10
  */
-public class XssEncoder extends StdScalarDeserializer<String> {
+public class XssDeserializer extends StdScalarDeserializer<String> {
 
-    public XssEncoder() {
+    public XssDeserializer() {
         super(String.class);
     }
 

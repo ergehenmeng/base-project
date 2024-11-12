@@ -14,9 +14,9 @@ import java.time.LocalDateTime;
  * @author 二哥很猛
  * @since 2023/9/16
  */
-public class DateParseEncoder extends StdSerializer<LocalDateTime> {
+public class DateChineseSerializer extends StdSerializer<LocalDateTime> {
 
-    protected DateParseEncoder() {
+    protected DateChineseSerializer() {
         super(LocalDateTime.class);
     }
 

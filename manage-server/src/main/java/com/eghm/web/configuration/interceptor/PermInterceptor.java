@@ -71,7 +71,6 @@ public class PermInterceptor implements InterceptorAdapter {
         UserToken userToken = SecurityHolder.getUserRequired();
         List<String> codeList = userToken.getAuthList();
         List<String> codes = PERM_MAP.get(request.getRequestURI());
-
         return CollUtil.isNotEmpty(codeList) && CollUtil.isNotEmpty(codes) && CollUtil.containsAny(codeList, codes);
     }
 }

@@ -74,7 +74,7 @@ public abstract class AbstractListenerHandler {
      * @param <T>      消息类型
      * @throws IOException e
      */
-    public <T extends AsyncKey> void processMessageAckAsync(T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
+    protected <T extends AsyncKey> void processMessageAckAsync(T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
         try {
             log.info("开始处理MQ异步消息 [{}]", jsonService.toJson(msg));
             if (this.canConsumer(msg.getKey())) {

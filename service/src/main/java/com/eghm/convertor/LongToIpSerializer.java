@@ -13,9 +13,9 @@ import java.io.IOException;
  * @author 二哥很猛
  * @since 2023/8/1
  */
-public class LongToIpEncoder extends StdSerializer<Long> {
+public class LongToIpSerializer extends StdSerializer<Long> {
 
-    protected LongToIpEncoder() {
+    protected LongToIpSerializer() {
         super(Long.class);
     }
 

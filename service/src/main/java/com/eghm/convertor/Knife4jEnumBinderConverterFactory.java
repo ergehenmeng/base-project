@@ -1,5 +1,6 @@
 package com.eghm.convertor;
 
+import cn.hutool.core.util.StrUtil;
 import com.eghm.enums.EnumBinder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ValueEnumBinder;
@@ -11,14 +12,14 @@ import org.springframework.lang.NonNull;
 
 
 /**
- * 枚举类型转换器工厂,解决knife4j-doc枚举类型显示异常及请求接口时类型绑定异常
+ * 枚举类型转换器工厂,解决knife4j-doc枚举类型显示异常及请求接口时类型绑定异常,注意该转换类主要针对GET请求, post默认采用jackson中JsonCreator绑定
  *
  * @author 二哥很猛
  * @since 2023/10/10
  */
 @Slf4j
 @SuppressWarnings({"rawtypes", "unchecked"})
-public class EnumBinderConverterFactory implements ConverterFactory<String, Enum> {
+public class Knife4jEnumBinderConverterFactory implements ConverterFactory<String, Enum> {
 
     @NonNull
     @Override
@@ -36,7 +37,7 @@ public class EnumBinderConverterFactory implements ConverterFactory<String, Enum
 
         @Override
         public T convert(@NonNull String value) {
-            if (value.isEmpty()) {
+            if (StrUtil.isBlank(value)) {
                 return null;
             }
             // knife4j-doc枚举类型是通过toString展示的, 因此如果正常展示需要重写枚举的toString方法,即: value + ":" + desc,

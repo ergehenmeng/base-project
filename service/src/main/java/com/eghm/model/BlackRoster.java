@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.convertor.LongToIpEncoder;
+import com.eghm.convertor.LongToIpSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -16,11 +16,11 @@ import lombok.EqualsAndHashCode;
 public class BlackRoster extends BaseEntity {
 
     @ApiModelProperty("访问ip")
-    @JsonSerialize(using = LongToIpEncoder.class)
+    @JsonSerialize(using = LongToIpSerializer.class)
     private Long startIp;
 
     @ApiModelProperty("数字ip")
-    @JsonSerialize(using = LongToIpEncoder.class)
+    @JsonSerialize(using = LongToIpSerializer.class)
     private Long endIp;
 
     @ApiModelProperty("备注信息")
