@@ -45,6 +45,28 @@
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>dysmsapi20170525</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>credentials-java</artifactId>
+                    <groupId>com.aliyun</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>org.jacoco.agent</artifactId>
+                    <groupId>org.jacoco</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>dom4j</artifactId>
+                    <groupId>org.dom4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>tea</artifactId>
+                    <groupId>com.aliyun</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>tea</artifactId>
         </dependency>
         <dependency>
             <groupId>com.tencentcloudapi</groupId>
@@ -63,10 +85,6 @@
             <artifactId>p6spy</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.github.kuaidi100-api</groupId>
-            <artifactId>sdk</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.github.penggle</groupId>
             <artifactId>kaptcha</artifactId>
         </dependency>
@@ -77,10 +95,6 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.jpush.api</groupId>
-            <artifactId>jpush-client</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -148,6 +162,10 @@
                     <artifactId>guava</artifactId>
                     <groupId>com.google.guava</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>tea</artifactId>
+                    <groupId>com.aliyun</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -158,10 +176,6 @@
         <dependency>
             <artifactId>spring-rabbit</artifactId>
             <groupId>org.springframework.amqp</groupId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cola</groupId>
-            <artifactId>cola-component-statemachine</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.xiaoymin</groupId>

@@ -1,5 +1,6 @@
 package com.eghm.utils;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -101,13 +102,12 @@ public class StopWatch {
     }
 
     @Data
+    @AllArgsConstructor
     private static final class TimeClock {
-        private String taskName;
-        private long elapsedTime;
 
-        public TimeClock(String taskName, long elapsedTime) {
-            this.taskName = taskName;
-            this.elapsedTime = elapsedTime;
-        }
+        private final String taskName;
+
+        private final long elapsedTime;
+
     }
 }

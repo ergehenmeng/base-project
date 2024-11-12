@@ -37,40 +37,14 @@
         <guava.version>27.0.1-jre</guava.version>
         <!--apache工具类版本-->
         <commons.lang3.version>3.10</commons.lang3.version>
-        <!--common-io工具类-->
-        <commons.io.version>2.5</commons.io.version>
-        <!--common-编码工具类-->
-        <commons.codec.version>1.10</commons.codec.version>
         <!--json工具类版本-->
         <fastjson.version>2.0.46</fastjson.version>
         <!--打包跳过测试-->
         <skipTests>true</skipTests>
-        <!--netty-->
-        <netty.version>4.1.22.Final</netty.version>
-        <!--字节码asm-->
-        <asm.version>5.1</asm.version>
-        <!--http客户端-->
-        <httpclient.version>4.5.3</httpclient.version>
-        <!--zk客户端-->
-        <zookeeper.version>3.4.14</zookeeper.version>
-        <!--zookeeper客户端工具-->
-        <curator.version>2.12.0</curator.version>
-        <!--调度定时任务-->
-        <quartz.version>2.2.3</quartz.version>
-        <!--map queue扩展并发包-->
-        <jctools.version>2.1.1</jctools.version>
-        <!--common-file-upload上传-->
-        <fileupload.version>1.5</fileupload.version>
         <!--spring redis session共享-->
         <redis-session.version>1.2.1.RELEASE</redis-session.version>
-        <!--kafka客户端-->
-        <kafka.version>1.0.0</kafka.version>
-        <!--配置文件密码加密-->
-        <jasypt.version>3.0.2</jasypt.version>
         <!--生成编译的工具类-->
-        <lombok.version>1.18.0</lombok.version>
-        <!--阿里redis缓存-->
-        <jetcache.version>2.5.6</jetcache.version>
+        <lombok.version>1.18.34</lombok.version>
         <!--分布式数据库工具-->
         <sharding-jdbc.version>2.0.3</sharding-jdbc.version>
         <!--redis客户端工具-->
@@ -81,22 +55,10 @@
         <pinyin.version>2.5.1</pinyin.version>
         <!--mysql版本-->
         <mysql.version>8.0.29</mysql.version>
-        <!--极光推送-->
-        <jpush.version>3.7.3</jpush.version>
-        <!--实体映射工具类-->
-        <mapstruct.version>1.3.1.Final</mapstruct.version>
-        <!--字节码增强工具-->
-        <javassist.version>3.26.0-GA</javassist.version>
-        <!--动态代理-->
-        <cglib.version>3.2.12</cglib.version>
         <!--工具类-->
         <hutool.verison>5.8.3</hutool.verison>
-        <!--mybatis Ognl表达式支持-->
-        <ognl.version>3.2.10</ognl.version>
         <!--jwt版本依赖-->
         <jwt.version>4.4.0</jwt.version>
-        <!--retrofit版本-->
-        <retrofit.version>2.9.0</retrofit.version>
         <!--swagger2版本-->
         <knif4j.version>4.5.0</knif4j.version>
         <!--微信三方sdk包-->
@@ -105,24 +67,18 @@
         <ali-sdk.version>2.2.2</ali-sdk.version>
         <!--mybatis-plus-->
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
-        <!--totp-->
-        <totp.version>1.4.0</totp.version>
-        <!--状态机-->
-        <cola.version>4.3.1</cola.version>
         <!--异步线程变量-->
         <transmittable.version>2.14.2</transmittable.version>
         <!--excel导出-->
         <easyexcel.version>3.3.2</easyexcel.version>
         <!--jackson 1.8日期格式序列号兼容包-->
         <jackson-ext.version>2.13.4</jackson-ext.version>
-        <!--快递100-->
-        <kuaidi-version>1.0.12</kuaidi-version>
         <!--缓存-->
         <caffeine.version>2.9.3</caffeine.version>
-        <!-- bc加密 -->
-        <bcrypt.version>0.10.2</bcrypt.version>
         <!--阿里短信-->
         <ali.sms.version>3.1.0</ali.sms.version>
+        <!--阿里sdk依赖包 (短信,支付) -->
+        <ali.tea.verison>1.3.1</ali.tea.verison>
         <!--腾讯短信-->
         <tencent.sms.version>3.1.1043</tencent.sms.version>
     </properties>
@@ -154,6 +110,11 @@
                 <groupId>com.aliyun</groupId>
                 <artifactId>dysmsapi20170525</artifactId>
                 <version>${ali.sms.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>tea</artifactId>
+                <version>${ali.tea.verison}</version>
             </dependency>
             <dependency>
                 <groupId>com.tencentcloudapi</groupId>
@@ -205,32 +166,11 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>cn.jpush.api</groupId>
-                <artifactId>jpush-client</artifactId>
-                <version>${jpush.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>bcpkix-jdk15on</artifactId>
-                        <groupId>org.bouncycastle</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>bcprov-jdk15on</artifactId>
-                        <groupId>org.bouncycastle</groupId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.verison}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.cola</groupId>
-                <artifactId>cola-component-statemachine</artifactId>
-                <version>${cola.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
@@ -286,16 +226,6 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.warrenstrange</groupId>
-                <artifactId>googleauth</artifactId>
-                <version>${totp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.kuaidi100-api</groupId>
-                <artifactId>sdk</artifactId>
-                <version>${kuaidi-version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.ben-manes.caffeine</groupId>
