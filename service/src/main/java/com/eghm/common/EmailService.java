@@ -16,9 +16,8 @@ public interface EmailService {
      * @param to      邮件收件人地址
      * @param title   标题
      * @param content 内容
-     * @return true:发送成功
      */
-    boolean sendEmail(String to, String title, String content);
+    void sendEmail(String to, String title, String content);
 
     /**
      * 发送模板邮件

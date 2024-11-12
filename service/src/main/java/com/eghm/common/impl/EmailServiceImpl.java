@@ -2,8 +2,8 @@ package com.eghm.common.impl;
 
 import com.eghm.cache.CacheService;
 import com.eghm.common.EmailService;
-import com.eghm.dto.operate.email.SendEmail;
 import com.eghm.dto.ext.VerifyEmailCode;
+import com.eghm.dto.operate.email.SendEmail;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.ParameterException;
@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
@@ -38,8 +39,9 @@ public class EmailServiceImpl implements EmailService {
         this.javaMailSender = javaMailSender;
     }
 
+    @Async
     @Override
-    public boolean sendEmail(String to, String title, String content) {
+    public void sendEmail(String to, String title, String content) {
         if (javaMailSender == null) {
             throw new ParameterException(ErrorCode.MAIL_NOT_CONFIG);
         }
@@ -50,11 +52,10 @@ public class EmailServiceImpl implements EmailService {
             helper.setSubject(title);
             helper.setText(content);
             javaMailSender.send(mimeMessage);
-            return true;
+            log.info("发送邮件成功 to:[{}],title:[{}],content:[{}]", to, title, content);
         } catch (Exception e) {
             log.error("发送邮件异常 to:[{}],title:[{}],content:[{}]", to, title, content, e);
         }
-        return false;
     }
 
     @Override

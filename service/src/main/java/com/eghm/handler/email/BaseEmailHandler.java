@@ -58,9 +58,9 @@ public class BaseEmailHandler {
         // 邮件内容
         String content = this.getContent(template, email);
         // 发送邮件
-        boolean result = emailService.sendEmail(email.getEmail(), title, content);
+        emailService.sendEmail(email.getEmail(), title, content);
         // 后置处理
-        this.finallyProcess(email, template, result);
+        this.finallyProcess(email, template);
     }
 
 
@@ -105,10 +105,9 @@ public class BaseEmailHandler {
      *
      * @param email    发送邮件信息
      * @param template 模板信息
-     * @param result   发送结果状态 true:发送成功 false:发送失败
      */
-    protected void finallyProcess(SendEmail email, EmailTemplate template, boolean result) {
-        log.info("邮件发送成功 [{}] [{}] [{}]", email.getEmail(), template.getNid(), result);
+    protected void finallyProcess(SendEmail email, EmailTemplate template) {
+        log.info("邮件发送成功 [{}] [{}]", email.getEmail(), template.getNid());
     }
 
 }
