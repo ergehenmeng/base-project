@@ -94,6 +94,11 @@
 * 全局默认post请求有频率限制,具体在 `SubmitIntervalInterceptor` 声明, 可在配置文件中调整
 * `ProductType` 商品类型枚举, 提供常用方法, 例如: 生成订单编号 `generateOrderNo()`, 生成交易单号 `generateSerialNo`
 
+### 关于项目加密
+* 请参考 `manage-server` 项目中的pom.xml, 使用 `classfinal-maven-plugin` 插件进行加密
+* 参考 `classfinal-maven-plugin` 插件文档 https://gitee.com/roseboy/classfinal
+* 默认启动方式: java -javaagent:manage-server-encrypted.jar -jar manage-server-encrypted.jar
+
 ## 其他开发说明
 * 管理后台验证码有 `MathCaptchaProducer` `TextCaptchaProducer` 两种方式, 默认为 `MathCaptchaProducer`, 可在`WebMvcConfig#captcha`调整配置
 * 数据库涉及金额的字段, 统一使用 `INT` 类型, 避免浮点数精度丢失
