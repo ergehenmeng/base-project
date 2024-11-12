@@ -1,0 +1,55 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>仓库服务</title>
+    <meta name="renderer" content="webkit">
+    <meta name="robots" content="NOINDEX,NOFOLLOW">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <meta name='aplus-version' content='aplus@202420755'>
+    <meta name="aplus-waiting" content="MAN">
+    <link rel="dns-prefetch" href="//g.alicdn.com" />
+    <link rel="dns-prefetch" href="//img.alicdn.com" />
+    <link rel="dns-prefetch" href="//gw.alicdn.com" />
+    <link rel="dns-prefetch" href="//f.alicdn.com" />
+    <link rel="shortcut icon" href="//www.aliyun.com/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="//g.alicdn.com/aisc/at/1.5.2/teambition.min.css" />
+    <link rel="stylesheet" href="//g.alicdn.com/ais-fed/artifacts-maven-assets/0.0.28/index.css" />
+    <script nonce="a29c44585aa340aba525265a4c47c3b9">
+        (function(w, d, s, q, i) {
+            w[q] = w[q] || [];
+            var f = d.getElementsByTagName(s)[0],j = d.createElement(s);
+            j.async = true;
+            j.id = 'beacon-aplus';
+            j.src = 'https://d.alicdn.com/alilog/mlog/aplus.js?id=' + i;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'aplus_queue', '202420755');
+    </script>
+</head>
+
+<body>
+<script type="text/javascript" nonce="a29c44585aa340aba525265a4c47c3b9">
+    window.cdnPath = "//g.alicdn.com/ais-fed/artifacts-maven-assets/0.0.28/";
+
+    window.cdnVersion = "0.0.28";
+
+</script>
+<script src="//g.alicdn.com/code/lib/babel-polyfill/7.6.0/polyfill.min.js" nonce="a29c44585aa340aba525265a4c47c3b9"></script>
+
+
+<script src="//g.alicdn.com/code/lib/??react/16.8.6/umd/react.production.min.js,react-dom/16.8.6/umd/react-dom.production.min.js" nonce="a29c44585aa340aba525265a4c47c3b9"></script>
+
+<script src="//g.alicdn.com/aisc/at/1.5.2/at.min.js" nonce="a29c44585aa340aba525265a4c47c3b9"></script>
+
+<div id="container"></div>
+
+<script type="text/javascript" src="//g.alicdn.com/ais-fed/artifacts-maven-assets/0.0.28/index.js" nonce="a29c44585aa340aba525265a4c47c3b9"></script>
+
+</body>
+</html>
