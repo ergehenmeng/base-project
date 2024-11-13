@@ -21,7 +21,7 @@ import java.util.Map;
 public class SendEmail {
 
     @ApiModelProperty("接收邮件的地址")
-    private String email;
+    private String to;
 
     @ApiModelProperty("邮箱模板类型")
     private EmailType type;
@@ -35,7 +35,7 @@ public class SendEmail {
      * @param key   key
      * @param value value
      */
-    public void put(String key, Object value) {
+    public void addParam(String key, Object value) {
         if (params == null) {
             params = new HashMap<>();
         }

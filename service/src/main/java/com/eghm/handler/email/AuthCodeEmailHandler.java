@@ -47,7 +47,7 @@ public class AuthCodeEmailHandler extends BaseEmailHandler {
         // 将本次发送验证码和接收的对象一并放入到缓存中
         String cacheKey = email.getType().getValue() + ":" + memberId;
         cacheService.setHashValue(cacheKey, expire, AUTH_CODE, authCode);
-        cacheService.setHashValue(cacheKey, expire, EMAIL, email.getEmail());
+        cacheService.setHashValue(cacheKey, expire, EMAIL, email.getTo());
         params.put(AUTH_CODE, authCode);
         return params;
     }
