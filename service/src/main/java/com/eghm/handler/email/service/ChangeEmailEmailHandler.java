@@ -1,9 +1,5 @@
 package com.eghm.handler.email.service;
 
-import com.eghm.cache.CacheService;
-import com.eghm.common.EmailService;
-import com.eghm.common.impl.SysConfigApi;
-import com.eghm.configuration.template.TemplateEngine;
 import com.eghm.handler.email.AuthCodeEmailHandler;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +12,4 @@ import org.springframework.stereotype.Component;
 @Component("changeEmailHandler")
 public class ChangeEmailEmailHandler extends AuthCodeEmailHandler {
 
-    public ChangeEmailEmailHandler(CacheService cacheService, SysConfigApi sysConfigApi, EmailService emailService, TemplateEngine templateEngine) {
-        super(cacheService, sysConfigApi, emailService, templateEngine);
-    }
 }

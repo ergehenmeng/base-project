@@ -1,14 +1,11 @@
 package com.eghm.handler.email;
 
 import com.eghm.cache.CacheService;
-import com.eghm.common.EmailService;
 import com.eghm.common.impl.SysConfigApi;
-import com.eghm.configuration.template.TemplateEngine;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.operate.email.SendEmail;
 import com.eghm.model.EmailTemplate;
 import com.eghm.utils.StringUtil;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +17,6 @@ import java.util.Map;
  * @author 殿小二
  * @since 2020/9/3
  */
-@AllArgsConstructor
 @Component("baseAuthCodeHandler")
 public class AuthCodeEmailHandler extends BaseEmailHandler {
 
@@ -31,10 +27,6 @@ public class AuthCodeEmailHandler extends BaseEmailHandler {
     private CacheService cacheService;
 
     private SysConfigApi sysConfigApi;
-
-    private final EmailService emailService;
-
-    private final TemplateEngine templateEngine;
 
     @Autowired
     public void setSysConfigApi(SysConfigApi sysConfigApi) {
@@ -47,7 +39,7 @@ public class AuthCodeEmailHandler extends BaseEmailHandler {
     }
 
     @Override
-    protected Map<String, Object> renderParams(EmailTemplate template, SendEmail email) {
+    protected Map<String, Object> getRenderParams(EmailTemplate template, SendEmail email) {
         Map<String, Object> params = email.getParams();
         String memberId = params.get("memberId").toString();
         String authCode = StringUtil.randomNumber(8);
@@ -57,8 +49,6 @@ public class AuthCodeEmailHandler extends BaseEmailHandler {
         cacheService.setHashValue(cacheKey, expire, AUTH_CODE, authCode);
         cacheService.setHashValue(cacheKey, expire, EMAIL, email.getEmail());
         params.put(AUTH_CODE, authCode);
-        String content = templateEngine.render(template.getContent(), params);
-        emailService.sendEmail(email.getEmail(), template.getTitle(), content);
         return params;
     }
 }

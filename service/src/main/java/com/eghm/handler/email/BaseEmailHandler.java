@@ -85,7 +85,7 @@ public class BaseEmailHandler {
      * 邮件内容 子类可以重写该方法
      */
     protected String getContent(EmailTemplate template, SendEmail email) {
-        Map<String, Object> params = this.renderParams(template, email);
+        Map<String, Object> params = this.getRenderParams(template, email);
         return templateEngine.render(template.getContent(), params);
     }
 
@@ -96,7 +96,7 @@ public class BaseEmailHandler {
      * @param email    邮件发送的参数信息
      * @return 渲染参数 k-v
      */
-    protected Map<String, Object> renderParams(EmailTemplate template, SendEmail email) {
+    protected Map<String, Object> getRenderParams(EmailTemplate template, SendEmail email) {
         return email.getParams();
     }
 
