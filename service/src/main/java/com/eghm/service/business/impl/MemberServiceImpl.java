@@ -196,7 +196,8 @@ public class MemberServiceImpl implements MemberService {
         this.checkEmail(email);
         SendEmail sendEmail = new SendEmail();
         sendEmail.setType(EmailType.BIND_EMAIL);
-        sendEmail.put("memberId", memberId);
+        sendEmail.setTo(email);
+        sendEmail.addParam("memberId", memberId);
         emailService.sendEmail(sendEmail);
     }
 
@@ -229,8 +230,9 @@ public class MemberServiceImpl implements MemberService {
         smsService.verifySmsCode(TemplateType.CHANGE_EMAIL, member.getMobile(), request.getSmsCode());
         this.checkEmail(request.getEmail());
         SendEmail email = new SendEmail();
+        email.setTo(request.getEmail());
         email.setType(EmailType.BIND_EMAIL);
-        email.put("memberId", request.getMemberId());
+        email.addParam("memberId", request.getMemberId());
         emailService.sendEmail(email);
     }
 

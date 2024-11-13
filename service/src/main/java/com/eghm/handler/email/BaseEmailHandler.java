@@ -58,7 +58,7 @@ public class BaseEmailHandler {
         // 邮件内容
         String content = this.getContent(template, email);
         // 发送邮件
-        emailService.sendEmail(email.getEmail(), title, content);
+        emailService.sendEmail(email.getTo(), title, content);
         // 后置处理
         this.finallyProcess(email, template);
     }
@@ -107,7 +107,7 @@ public class BaseEmailHandler {
      * @param template 模板信息
      */
     protected void finallyProcess(SendEmail email, EmailTemplate template) {
-        log.info("邮件发送成功 [{}] [{}]", email.getEmail(), template.getNid());
+        log.info("邮件发送成功 [{}] [{}]", email.getTo(), template.getNid());
     }
 
 }
