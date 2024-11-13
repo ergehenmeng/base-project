@@ -18,10 +18,14 @@ spring:
       minimum-idle: 5
   mail:
     host: smtp.qq.com
-    password: udfhuaaapurbffg
+    password: wahdqqmlznmhbcae
     username: ergehenmeng@qq.com
+    port: 465
     properties:
-      mail.from: ergehenmeng@qq.com
+      ## 邮件发送者,遵循 RFC822 标准
+      mail.from: =?UTF-8?B?6L+Q6JCl5Zui6Zif?= <ergehenmeng@qq.com>
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
   rabbitmq:
     host: 127.0.0.1
     port: 5672

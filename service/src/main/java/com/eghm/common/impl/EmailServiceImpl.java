@@ -13,10 +13,12 @@ import com.eghm.utils.SpringContextUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 
@@ -33,6 +35,8 @@ public class EmailServiceImpl implements EmailService {
 
     private final CacheService cacheService;
 
+    private final MailProperties mailProperties;
+
     @Autowired(required = false)
     public void setJavaMailSender(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
@@ -46,6 +50,7 @@ public class EmailServiceImpl implements EmailService {
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+            helper.setFrom(InternetAddress.parse(mailProperties.getProperties().get("mail.from"))[0]);
             helper.addTo(to);
             helper.setSubject(title);
             helper.setText(content);
