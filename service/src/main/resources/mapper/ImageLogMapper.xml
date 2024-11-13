@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.ImageLogMapper">
 
-    <select id="getByPage" resultType="com.eghm.vo.log.ImageLogResponse" parameterType="com.eghm.dto.operate.image.ImageQueryRequest">
+    <select id="getByPage" resultType="com.eghm.vo.operate.log.ImageLogResponse" parameterType="com.eghm.dto.operate.image.ImageQueryRequest">
         select
         id,
         image_type,

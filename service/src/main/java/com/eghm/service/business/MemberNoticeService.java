@@ -3,7 +3,7 @@ package com.eghm.service.business;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.SendNotice;
 import com.eghm.dto.business.member.SendNotifyRequest;
-import com.eghm.vo.member.MemberNoticeVO;
+import com.eghm.vo.business.member.MemberNoticeVO;
 
 import java.util.List;
 

@@ -12,7 +12,7 @@ import com.eghm.dto.sys.role.RoleAuthRequest;
 import com.eghm.dto.sys.role.RoleEditRequest;
 import com.eghm.enums.RoleType;
 import com.eghm.service.sys.SysRoleService;
-import com.eghm.vo.sys.SysRoleResponse;
+import com.eghm.vo.sys.ext.SysRoleResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

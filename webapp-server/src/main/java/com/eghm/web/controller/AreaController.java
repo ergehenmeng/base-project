@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import com.eghm.dto.ext.RespBody;
 import com.eghm.common.CommonService;
-import com.eghm.vo.sys.SysAreaVO;
+import com.eghm.vo.sys.ext.SysAreaVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

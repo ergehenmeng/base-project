@@ -3,7 +3,7 @@ package com.eghm.service.sys;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.sys.task.TaskEditRequest;
 import com.eghm.dto.sys.task.TaskQueryRequest;
-import com.eghm.vo.task.SysTaskResponse;
+import com.eghm.vo.operate.task.SysTaskResponse;
 
 /**
  * @author 二哥很猛

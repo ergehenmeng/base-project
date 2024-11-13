@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.MemberMapper">
 
-    <select id="listPage" resultType="com.eghm.vo.member.MemberResponse" parameterType="com.eghm.dto.business.member.MemberQueryRequest">
+    <select id="listPage" resultType="com.eghm.vo.business.member.MemberResponse" parameterType="com.eghm.dto.business.member.MemberQueryRequest">
         select
         t.id,
         t.nick_name,

@@ -6,7 +6,7 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.mapper.SysAreaMapper;
 import com.eghm.model.SysDictItem;
 import com.eghm.common.CommonService;
-import com.eghm.vo.sys.SysAreaVO;
+import com.eghm.vo.sys.ext.SysAreaVO;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

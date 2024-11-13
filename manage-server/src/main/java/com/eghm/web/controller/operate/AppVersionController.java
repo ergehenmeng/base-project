@@ -9,7 +9,7 @@ import com.eghm.dto.operate.version.VersionAddRequest;
 import com.eghm.dto.operate.version.VersionEditRequest;
 import com.eghm.dto.operate.version.VersionQueryRequest;
 import com.eghm.service.operate.AppVersionService;
-import com.eghm.vo.version.AppVersionResponse;
+import com.eghm.vo.operate.version.AppVersionResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

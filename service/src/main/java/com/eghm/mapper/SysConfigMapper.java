@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.sys.config.ConfigQueryRequest;
 import com.eghm.model.SysConfig;
-import com.eghm.vo.sys.SysConfigResponse;
+import com.eghm.vo.sys.ext.SysConfigResponse;
 import org.apache.ibatis.annotations.Param;
 
 /**

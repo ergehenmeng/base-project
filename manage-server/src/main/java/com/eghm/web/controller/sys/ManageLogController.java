@@ -5,7 +5,7 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sys.log.ManageQueryRequest;
 import com.eghm.service.sys.ManageLogService;
-import com.eghm.vo.log.ManageLogResponse;
+import com.eghm.vo.operate.log.ManageLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

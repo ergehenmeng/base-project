@@ -6,7 +6,7 @@ import com.eghm.pay.dto.PrepayDTO;
 import com.eghm.pay.dto.RefundDTO;
 import com.eghm.pay.vo.PrepayVO;
 import com.eghm.pay.vo.RefundVO;
-import com.eghm.vo.business.log.PayRequestLogResponse;
+import com.eghm.vo.operate.log.PayRequestLogResponse;
 
 /**
  * <p>

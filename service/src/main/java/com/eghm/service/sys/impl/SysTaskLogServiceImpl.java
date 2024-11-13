@@ -5,7 +5,7 @@ import com.eghm.dto.sys.task.TaskLogQueryRequest;
 import com.eghm.mapper.SysTaskLogMapper;
 import com.eghm.model.SysTaskLog;
 import com.eghm.service.sys.SysTaskLogService;
-import com.eghm.vo.log.SysTaskLogResponse;
+import com.eghm.vo.operate.log.SysTaskLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

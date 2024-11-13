@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.operate.version.VersionAddRequest;
 import com.eghm.dto.operate.version.VersionEditRequest;
 import com.eghm.dto.operate.version.VersionQueryRequest;
-import com.eghm.vo.version.AppVersionResponse;
-import com.eghm.vo.version.AppVersionVO;
+import com.eghm.vo.operate.version.AppVersionResponse;
+import com.eghm.vo.operate.version.AppVersionVO;
 
 /**
  * @author 二哥很猛

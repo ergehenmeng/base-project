@@ -9,7 +9,7 @@ import com.eghm.dto.sys.user.UserQueryRequest;
 import com.eghm.enums.UserState;
 import com.eghm.model.SysUser;
 import com.eghm.vo.login.LoginResponse;
-import com.eghm.vo.user.UserResponse;
+import com.eghm.vo.sys.user.UserResponse;
 
 /**
  * @author 二哥很猛

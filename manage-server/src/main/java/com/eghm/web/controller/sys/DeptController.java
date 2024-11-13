@@ -6,7 +6,7 @@ import com.eghm.dto.sys.dept.DeptEditRequest;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.sys.SysDeptService;
-import com.eghm.vo.sys.SysDeptResponse;
+import com.eghm.vo.sys.ext.SysDeptResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

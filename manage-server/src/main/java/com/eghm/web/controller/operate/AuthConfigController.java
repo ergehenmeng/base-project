@@ -8,7 +8,7 @@ import com.eghm.dto.operate.auth.AuthConfigQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.operate.AuthConfigService;
-import com.eghm.vo.auth.AuthConfigResponse;
+import com.eghm.vo.operate.auth.AuthConfigResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

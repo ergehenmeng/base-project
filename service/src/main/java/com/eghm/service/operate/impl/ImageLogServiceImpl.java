@@ -8,7 +8,7 @@ import com.eghm.mapper.ImageLogMapper;
 import com.eghm.model.ImageLog;
 import com.eghm.service.operate.ImageLogService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.log.ImageLogResponse;
+import com.eghm.vo.operate.log.ImageLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

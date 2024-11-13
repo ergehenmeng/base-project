@@ -12,7 +12,7 @@ import com.eghm.service.business.LoginService;
 import com.eghm.service.business.MemberNoticeService;
 import com.eghm.service.business.MemberService;
 import com.eghm.utils.EasyExcelUtil;
-import com.eghm.vo.member.MemberResponse;
+import com.eghm.vo.business.member.MemberResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

@@ -5,7 +5,7 @@ import com.eghm.dto.sys.log.WebappQueryRequest;
 import com.eghm.mapper.WebappLogMapper;
 import com.eghm.model.WebappLog;
 import com.eghm.service.sys.WebappLogService;
-import com.eghm.vo.log.WebappLogResponse;
+import com.eghm.vo.operate.log.WebappLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

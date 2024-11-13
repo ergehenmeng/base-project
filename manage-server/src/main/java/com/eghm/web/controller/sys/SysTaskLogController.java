@@ -6,7 +6,7 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sys.task.TaskLogQueryRequest;
 import com.eghm.service.sys.SysTaskLogService;
-import com.eghm.vo.log.SysTaskLogResponse;
+import com.eghm.vo.operate.log.SysTaskLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

@@ -3,7 +3,7 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.MemberInviteLog;
-import com.eghm.vo.member.MemberInviteVO;
+import com.eghm.vo.business.member.MemberInviteVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

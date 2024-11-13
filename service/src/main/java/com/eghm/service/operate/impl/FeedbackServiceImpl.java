@@ -13,7 +13,7 @@ import com.eghm.model.FeedbackLog;
 import com.eghm.service.operate.FeedbackService;
 import com.eghm.service.business.MemberNoticeService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.feedback.FeedbackResponse;
+import com.eghm.vo.operate.feedback.FeedbackResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

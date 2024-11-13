@@ -4,8 +4,8 @@ import com.eghm.dto.sys.menu.MenuAddRequest;
 import com.eghm.dto.sys.menu.MenuEditRequest;
 import com.eghm.dto.sys.menu.MenuQueryRequest;
 import com.eghm.model.SysMenu;
-import com.eghm.vo.menu.MenuFullResponse;
-import com.eghm.vo.menu.MenuResponse;
+import com.eghm.vo.sys.menu.MenuFullResponse;
+import com.eghm.vo.sys.menu.MenuResponse;
 
 import java.util.List;
 

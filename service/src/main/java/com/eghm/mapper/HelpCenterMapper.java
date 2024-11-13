@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.operate.help.HelpQueryRequest;
 import com.eghm.model.HelpCenter;
-import com.eghm.vo.help.HelpResponse;
+import com.eghm.vo.operate.help.HelpResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

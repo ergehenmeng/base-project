@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.operate.feedback.FeedbackAddDTO;
 import com.eghm.dto.operate.feedback.FeedbackDisposeRequest;
 import com.eghm.dto.operate.feedback.FeedbackQueryRequest;
-import com.eghm.vo.feedback.FeedbackResponse;
+import com.eghm.vo.operate.feedback.FeedbackResponse;
 
 /**
  * @author 二哥很猛

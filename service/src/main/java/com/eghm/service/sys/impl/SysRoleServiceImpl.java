@@ -20,7 +20,7 @@ import com.eghm.model.SysRole;
 import com.eghm.model.SysUserRole;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.sys.SysRoleResponse;
+import com.eghm.vo.sys.ext.SysRoleResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

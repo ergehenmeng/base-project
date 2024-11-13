@@ -3,8 +3,8 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dto.sys.menu.MenuQueryRequest;
 import com.eghm.model.SysMenu;
-import com.eghm.vo.menu.MenuFullResponse;
-import com.eghm.vo.menu.MenuResponse;
+import com.eghm.vo.sys.menu.MenuFullResponse;
+import com.eghm.vo.sys.menu.MenuResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

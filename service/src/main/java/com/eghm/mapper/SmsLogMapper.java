@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.sys.log.SmsLogQueryRequest;
 import com.eghm.model.SmsLog;
-import com.eghm.vo.log.SmsLogResponse;
+import com.eghm.vo.operate.log.SmsLogResponse;
 import org.apache.ibatis.annotations.Param;
 
 public interface SmsLogMapper extends BaseMapper<SmsLog> {

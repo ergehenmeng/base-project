@@ -6,7 +6,7 @@ import com.eghm.dto.sys.config.ConfigQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.sys.SysConfigService;
-import com.eghm.vo.sys.SysConfigResponse;
+import com.eghm.vo.sys.ext.SysConfigResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

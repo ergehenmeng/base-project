@@ -17,7 +17,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.SignType;
 import com.eghm.exception.BusinessException;
 import com.eghm.utils.WebUtil;
-import com.eghm.vo.auth.AuthConfigVO;
+import com.eghm.vo.operate.auth.AuthConfigVO;
 import com.eghm.web.annotation.SignCheck;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

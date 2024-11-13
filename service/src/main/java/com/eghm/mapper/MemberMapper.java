@@ -8,7 +8,7 @@ import com.eghm.model.Member;
 import com.eghm.vo.business.statistics.MemberChannelVO;
 import com.eghm.vo.business.statistics.MemberRegisterVO;
 import com.eghm.vo.business.statistics.MemberSexVO;
-import com.eghm.vo.member.MemberResponse;
+import com.eghm.vo.business.member.MemberResponse;
 import org.apache.ibatis.annotations.Param;
 
 

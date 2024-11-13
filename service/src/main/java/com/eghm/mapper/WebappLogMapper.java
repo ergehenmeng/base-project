@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.sys.log.WebappQueryRequest;
 import com.eghm.model.WebappLog;
-import com.eghm.vo.log.WebappLogResponse;
+import com.eghm.vo.operate.log.WebappLogResponse;
 import org.apache.ibatis.annotations.Param;
 
 public interface WebappLogMapper extends BaseMapper<WebappLog> {

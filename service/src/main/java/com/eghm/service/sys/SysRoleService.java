@@ -5,7 +5,7 @@ import com.eghm.dto.ext.CheckBox;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.sys.role.RoleAddRequest;
 import com.eghm.dto.sys.role.RoleEditRequest;
-import com.eghm.vo.sys.SysRoleResponse;
+import com.eghm.vo.sys.ext.SysRoleResponse;
 
 import java.util.List;
 

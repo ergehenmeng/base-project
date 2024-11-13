@@ -14,7 +14,7 @@ import com.eghm.model.LoginLog;
 import com.eghm.service.business.LoginService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
-import com.eghm.vo.member.LoginDeviceVO;
+import com.eghm.vo.business.member.LoginDeviceVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

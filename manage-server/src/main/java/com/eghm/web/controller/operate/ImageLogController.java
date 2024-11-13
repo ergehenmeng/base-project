@@ -8,7 +8,7 @@ import com.eghm.dto.operate.image.ImageAddRequest;
 import com.eghm.dto.operate.image.ImageEditRequest;
 import com.eghm.dto.operate.image.ImageQueryRequest;
 import com.eghm.service.operate.ImageLogService;
-import com.eghm.vo.log.ImageLogResponse;
+import com.eghm.vo.operate.log.ImageLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

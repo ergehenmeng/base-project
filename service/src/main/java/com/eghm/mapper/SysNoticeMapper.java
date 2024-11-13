@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.operate.notice.NoticeQueryRequest;
 import com.eghm.model.SysNotice;
-import com.eghm.vo.notice.NoticeResponse;
+import com.eghm.vo.operate.notice.NoticeResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

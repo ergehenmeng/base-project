@@ -15,7 +15,7 @@ import com.eghm.model.SysDictItem;
 import com.eghm.common.CommonService;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.sys.DictResponse;
+import com.eghm.vo.sys.dict.DictResponse;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

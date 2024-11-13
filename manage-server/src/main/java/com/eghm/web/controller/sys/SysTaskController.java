@@ -8,7 +8,7 @@ import com.eghm.dto.sys.task.TaskEditRequest;
 import com.eghm.dto.sys.task.TaskQueryRequest;
 import com.eghm.dto.sys.task.TaskRunRequest;
 import com.eghm.service.sys.SysTaskService;
-import com.eghm.vo.task.SysTaskResponse;
+import com.eghm.vo.operate.task.SysTaskResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

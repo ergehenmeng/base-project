@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.operate.image.ImageAddRequest;
 import com.eghm.dto.operate.image.ImageEditRequest;
 import com.eghm.dto.operate.image.ImageQueryRequest;
-import com.eghm.vo.log.ImageLogResponse;
+import com.eghm.vo.operate.log.ImageLogResponse;
 
 /**
  * @author 二哥很猛

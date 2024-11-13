@@ -3,7 +3,7 @@ package com.eghm.service.sys;
 import com.eghm.dto.sys.dept.DeptAddRequest;
 import com.eghm.dto.sys.dept.DeptEditRequest;
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.vo.sys.SysDeptResponse;
+import com.eghm.vo.sys.ext.SysDeptResponse;
 
 import java.util.List;
 

@@ -12,11 +12,6 @@ public class SystemException extends RuntimeException {
 
     private final int code;
 
-    /**
-     * 构造方法
-     *
-     * @param error 错误类型枚举
-     */
     public SystemException(ErrorCode error) {
         this(error.getCode(), error.getMsg());
     }

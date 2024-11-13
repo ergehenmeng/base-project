@@ -6,7 +6,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.MemberNoticeService;
-import com.eghm.vo.member.MemberNoticeVO;
+import com.eghm.vo.business.member.MemberNoticeVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

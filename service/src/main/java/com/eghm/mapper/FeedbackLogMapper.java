@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.operate.feedback.FeedbackQueryRequest;
 import com.eghm.model.FeedbackLog;
-import com.eghm.vo.feedback.FeedbackResponse;
+import com.eghm.vo.operate.feedback.FeedbackResponse;
 import org.apache.ibatis.annotations.Param;
 
 public interface FeedbackLogMapper extends BaseMapper<FeedbackLog> {

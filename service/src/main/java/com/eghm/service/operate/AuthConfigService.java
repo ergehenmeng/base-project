@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.operate.auth.AuthConfigAddRequest;
 import com.eghm.dto.operate.auth.AuthConfigEditRequest;
 import com.eghm.dto.operate.auth.AuthConfigQueryRequest;
-import com.eghm.vo.auth.AuthConfigResponse;
+import com.eghm.vo.operate.auth.AuthConfigResponse;
 
 /**
  * @author 二哥很猛

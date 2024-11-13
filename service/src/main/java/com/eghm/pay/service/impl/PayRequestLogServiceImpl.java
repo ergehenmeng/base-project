@@ -11,7 +11,7 @@ import com.eghm.pay.dto.RefundDTO;
 import com.eghm.pay.enums.StepType;
 import com.eghm.pay.vo.PrepayVO;
 import com.eghm.pay.vo.RefundVO;
-import com.eghm.vo.business.log.PayRequestLogResponse;
+import com.eghm.vo.operate.log.PayRequestLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;

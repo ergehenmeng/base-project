@@ -18,7 +18,7 @@ import com.eghm.model.AuthConfig;
 import com.eghm.service.operate.AuthConfigService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.StringUtil;
-import com.eghm.vo.auth.AuthConfigResponse;
+import com.eghm.vo.operate.auth.AuthConfigResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

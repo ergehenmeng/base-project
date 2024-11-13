@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.sys.user.UserQueryRequest;
 import com.eghm.model.SysUser;
-import com.eghm.vo.user.UserResponse;
+import com.eghm.vo.sys.user.UserResponse;
 import org.apache.ibatis.annotations.Param;
 
 /**

@@ -23,16 +23,6 @@ public enum EmailType {
      */
     CHANGE_EMAIL("change_email", "更换邮箱", "changeEmailHandler"),
 
-    /**
-     * 找回密码时发送验证码
-     */
-    RETRIEVE_PASSWORD("retrieve_password", "找回密码", "retrievePasswordHandler"),
-
-    /**
-     * 定时任务报警
-     */
-    TASK_ALARM("task_alarm", "定时任务报警", "commonEmailHandler"),
-
     ;
     private final String value;
 

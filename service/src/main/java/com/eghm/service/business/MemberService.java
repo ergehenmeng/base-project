@@ -11,8 +11,8 @@ import com.eghm.model.Member;
 import com.eghm.vo.business.statistics.MemberRegisterVO;
 import com.eghm.vo.business.statistics.MemberStatisticsVO;
 import com.eghm.vo.login.LoginTokenVO;
-import com.eghm.vo.member.MemberResponse;
-import com.eghm.vo.member.MemberVO;
+import com.eghm.vo.business.member.MemberResponse;
+import com.eghm.vo.business.member.MemberVO;
 
 import java.util.List;
 

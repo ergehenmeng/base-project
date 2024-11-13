@@ -6,9 +6,9 @@ import com.eghm.dto.operate.notice.NoticeAddRequest;
 import com.eghm.dto.operate.notice.NoticeEditRequest;
 import com.eghm.dto.operate.notice.NoticeQueryRequest;
 import com.eghm.model.SysNotice;
-import com.eghm.vo.notice.NoticeDetailVO;
-import com.eghm.vo.notice.NoticeResponse;
-import com.eghm.vo.notice.NoticeVO;
+import com.eghm.vo.operate.notice.NoticeDetailVO;
+import com.eghm.vo.operate.notice.NoticeResponse;
+import com.eghm.vo.operate.notice.NoticeVO;
 
 import java.util.List;
 

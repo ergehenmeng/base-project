@@ -3,7 +3,7 @@ package com.eghm.service.sys;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.sys.log.WebappQueryRequest;
 import com.eghm.model.WebappLog;
-import com.eghm.vo.log.WebappLogResponse;
+import com.eghm.vo.operate.log.WebappLogResponse;
 
 /**
  * @author 二哥很猛

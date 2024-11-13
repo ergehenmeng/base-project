@@ -9,7 +9,7 @@ import com.eghm.dto.operate.notice.NoticeEditRequest;
 import com.eghm.dto.operate.notice.NoticeQueryRequest;
 import com.eghm.model.SysNotice;
 import com.eghm.service.operate.SysNoticeService;
-import com.eghm.vo.notice.NoticeResponse;
+import com.eghm.vo.operate.notice.NoticeResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

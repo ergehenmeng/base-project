@@ -10,7 +10,7 @@ import com.eghm.mapper.BannerMapper;
 import com.eghm.model.Banner;
 import com.eghm.service.operate.BannerService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.banner.BannerResponse;
+import com.eghm.vo.operate.banner.BannerResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

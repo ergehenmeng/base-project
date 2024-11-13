@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.operate.banner.BannerAddRequest;
 import com.eghm.dto.operate.banner.BannerEditRequest;
 import com.eghm.dto.operate.banner.BannerQueryRequest;
-import com.eghm.vo.banner.BannerResponse;
+import com.eghm.vo.operate.banner.BannerResponse;
 
 /**
  * @author 二哥很猛

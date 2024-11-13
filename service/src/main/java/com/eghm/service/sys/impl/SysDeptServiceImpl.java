@@ -13,7 +13,7 @@ import com.eghm.mapper.SysDeptMapper;
 import com.eghm.model.SysDept;
 import com.eghm.service.sys.SysDeptService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.sys.SysDeptResponse;
+import com.eghm.vo.sys.ext.SysDeptResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

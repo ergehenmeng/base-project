@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.sys.task.TaskLogQueryRequest;
 import com.eghm.model.SysTaskLog;
-import com.eghm.vo.log.SysTaskLogResponse;
+import com.eghm.vo.operate.log.SysTaskLogResponse;
 import org.apache.ibatis.annotations.Param;
 
 /**

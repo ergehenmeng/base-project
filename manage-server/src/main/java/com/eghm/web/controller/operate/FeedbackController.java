@@ -8,7 +8,7 @@ import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.operate.feedback.FeedbackDisposeRequest;
 import com.eghm.dto.operate.feedback.FeedbackQueryRequest;
 import com.eghm.service.operate.FeedbackService;
-import com.eghm.vo.feedback.FeedbackResponse;
+import com.eghm.vo.operate.feedback.FeedbackResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

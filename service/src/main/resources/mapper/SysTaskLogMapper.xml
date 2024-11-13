@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.SysTaskLogMapper">
 
-    <select id="getByPage" resultType="com.eghm.vo.log.SysTaskLogResponse" parameterType="com.eghm.dto.sys.task.TaskLogQueryRequest">
+    <select id="getByPage" resultType="com.eghm.vo.operate.log.SysTaskLogResponse" parameterType="com.eghm.dto.sys.task.TaskLogQueryRequest">
         select
             id,
             bean_name,

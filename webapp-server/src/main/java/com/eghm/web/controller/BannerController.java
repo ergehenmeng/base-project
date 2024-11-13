@@ -5,7 +5,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.Channel;
 import com.eghm.enums.ErrorCode;
-import com.eghm.vo.banner.BannerVO;
+import com.eghm.vo.operate.banner.BannerVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

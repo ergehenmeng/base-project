@@ -4,7 +4,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.model.SysDictItem;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.sys.DictVO;
+import com.eghm.vo.sys.dict.DictVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

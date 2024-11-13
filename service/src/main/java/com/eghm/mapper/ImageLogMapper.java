@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.operate.image.ImageQueryRequest;
 import com.eghm.model.ImageLog;
-import com.eghm.vo.log.ImageLogResponse;
+import com.eghm.vo.operate.log.ImageLogResponse;
 import org.apache.ibatis.annotations.Param;
 
 /**

@@ -7,7 +7,7 @@ import com.eghm.model.PayNotifyLog;
 import com.eghm.pay.service.PayNotifyLogService;
 import com.eghm.pay.enums.PayChannel;
 import com.eghm.pay.enums.StepType;
-import com.eghm.vo.business.log.PayNotifyLogResponse;
+import com.eghm.vo.operate.log.PayNotifyLogResponse;
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
 import com.google.gson.Gson;

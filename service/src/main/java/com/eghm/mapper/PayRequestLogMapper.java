@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.pay.PayLogQueryRequest;
 import com.eghm.model.PayRequestLog;
-import com.eghm.vo.business.log.PayRequestLogResponse;
+import com.eghm.vo.operate.log.PayRequestLogResponse;
 import org.apache.ibatis.annotations.Param;
 
 /**

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.SysMenuMapper">
 
-    <select id="getMenuList" resultType="com.eghm.vo.menu.MenuResponse">
+    <select id="getMenuList" resultType="com.eghm.vo.sys.menu.MenuResponse">
         SELECT
         t.id, t.title, t.icon, t.code, t.pid, t.path, t.sort, t.grade
         from sys_menu t
@@ -14,7 +14,7 @@
         </if>
     </select>
 
-    <select id="getAdminMenuList" resultType="com.eghm.vo.menu.MenuResponse">
+    <select id="getAdminMenuList" resultType="com.eghm.vo.sys.menu.MenuResponse">
         SELECT
         t.id, t.title, t.icon, t.code, t.pid, t.path, t.sort, t.grade
         from sys_menu t where t.state = true and (t.display_state &amp; 2) = 2
@@ -23,7 +23,7 @@
         </if>
     </select>
 
-    <select id="getList" resultType="com.eghm.vo.menu.MenuFullResponse" parameterType="com.eghm.dto.sys.menu.MenuQueryRequest">
+    <select id="getList" resultType="com.eghm.vo.sys.menu.MenuFullResponse" parameterType="com.eghm.dto.sys.menu.MenuQueryRequest">
         SELECT
         t.id, t.title, t.icon, t.state, t.display_state, t.pid, t.path, t.sub_path, t.sort, t.grade, t.update_time, t.remark
         from sys_menu t

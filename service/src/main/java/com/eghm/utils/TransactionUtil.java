@@ -77,12 +77,12 @@ public class TransactionUtil {
     @AllArgsConstructor
     static class AfterCommitHandler implements TransactionSynchronization {
 
-        private Runnable runnable;
+        private final Runnable runnable;
 
         /**
          * 执行错误时的补偿操作, 注意:由于事务提交后, 进行处理时,spring默认会把异常吃掉, 因此afterCompletion调用发生的异常需要通过消息的方式发给调用方
          */
-        private Consumer<Throwable> consumer;
+        private final Consumer<Throwable> consumer;
 
         @Override
         public void afterCompletion(int status) {

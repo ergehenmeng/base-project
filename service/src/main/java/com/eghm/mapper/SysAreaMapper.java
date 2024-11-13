@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.model.SysArea;
-import com.eghm.vo.sys.SysAreaVO;
+import com.eghm.vo.sys.ext.SysAreaVO;
 
 import java.util.List;
 

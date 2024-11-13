@@ -11,8 +11,8 @@ import com.eghm.mapper.HelpCenterMapper;
 import com.eghm.model.HelpCenter;
 import com.eghm.service.operate.HelpCenterService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.help.HelpCenterVO;
-import com.eghm.vo.help.HelpResponse;
+import com.eghm.vo.operate.help.HelpCenterVO;
+import com.eghm.vo.operate.help.HelpResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

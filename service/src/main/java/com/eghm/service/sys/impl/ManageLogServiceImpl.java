@@ -5,7 +5,7 @@ import com.eghm.dto.sys.log.ManageQueryRequest;
 import com.eghm.mapper.ManageLogMapper;
 import com.eghm.model.ManageLog;
 import com.eghm.service.sys.ManageLogService;
-import com.eghm.vo.log.ManageLogResponse;
+import com.eghm.vo.operate.log.ManageLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

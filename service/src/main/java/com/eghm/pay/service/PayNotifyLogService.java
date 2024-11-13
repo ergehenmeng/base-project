@@ -3,7 +3,7 @@ package com.eghm.pay.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.pay.PayLogQueryRequest;
 import com.eghm.pay.enums.StepType;
-import com.eghm.vo.business.log.PayNotifyLogResponse;
+import com.eghm.vo.operate.log.PayNotifyLogResponse;
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
 

@@ -6,8 +6,8 @@ import com.eghm.dto.operate.help.HelpEditRequest;
 import com.eghm.dto.operate.help.HelpQueryDTO;
 import com.eghm.dto.operate.help.HelpQueryRequest;
 import com.eghm.model.HelpCenter;
-import com.eghm.vo.help.HelpCenterVO;
-import com.eghm.vo.help.HelpResponse;
+import com.eghm.vo.operate.help.HelpCenterVO;
+import com.eghm.vo.operate.help.HelpResponse;
 
 import java.util.List;
 

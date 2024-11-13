@@ -17,14 +17,14 @@
         order by t.id desc, r.hidden_value
     </select>
 
-    <resultMap id="pageList" type="com.eghm.vo.sys.DictResponse">
+    <resultMap id="pageList" type="com.eghm.vo.sys.dict.DictResponse">
         <id property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="nid" column="nid"/>
         <result property="dictType" column="dict_type"/>
         <result property="remark" column="remark"/>
         <result property="createTime" column="create_time"/>
-        <collection property="itemList" ofType="com.eghm.vo.sys.DictItemResponse">
+        <collection property="itemList" ofType="com.eghm.vo.sys.dict.DictItemResponse">
             <id property="id" column="rid"/>
             <result property="hiddenValue" column="hidden_value"/>
             <result property="showValue" column="show_value"/>

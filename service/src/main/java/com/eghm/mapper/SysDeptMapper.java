@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.model.SysDept;
-import com.eghm.vo.sys.SysDeptResponse;
+import com.eghm.vo.sys.ext.SysDeptResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

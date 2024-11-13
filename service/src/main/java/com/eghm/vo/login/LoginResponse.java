@@ -1,7 +1,7 @@
 package com.eghm.vo.login;
 
 import com.eghm.enums.UserType;
-import com.eghm.vo.menu.MenuResponse;
+import com.eghm.vo.sys.menu.MenuResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

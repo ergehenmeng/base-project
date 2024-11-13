@@ -3,9 +3,9 @@ package com.eghm.cache;
 import com.eghm.enums.Channel;
 import com.eghm.enums.EmailType;
 import com.eghm.model.*;
-import com.eghm.vo.auth.AuthConfigVO;
-import com.eghm.vo.banner.BannerVO;
-import com.eghm.vo.sys.SysAreaVO;
+import com.eghm.vo.operate.auth.AuthConfigVO;
+import com.eghm.vo.operate.banner.BannerVO;
+import com.eghm.vo.sys.ext.SysAreaVO;
 
 import java.util.List;
 

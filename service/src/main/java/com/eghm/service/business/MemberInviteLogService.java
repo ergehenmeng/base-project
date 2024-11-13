@@ -2,7 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.model.MemberInviteLog;
-import com.eghm.vo.member.MemberInviteVO;
+import com.eghm.vo.business.member.MemberInviteVO;
 
 import java.util.List;
 

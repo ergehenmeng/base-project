@@ -5,7 +5,7 @@ import com.eghm.dto.sys.log.SmsLogQueryRequest;
 import com.eghm.mapper.SmsLogMapper;
 import com.eghm.model.SmsLog;
 import com.eghm.service.sys.SmsLogService;
-import com.eghm.vo.log.SmsLogResponse;
+import com.eghm.vo.operate.log.SmsLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;

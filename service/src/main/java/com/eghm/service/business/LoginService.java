@@ -5,7 +5,7 @@ import com.eghm.dto.ext.LoginRecord;
 import com.eghm.dto.business.member.LoginLogQueryRequest;
 import com.eghm.model.LoginDevice;
 import com.eghm.model.LoginLog;
-import com.eghm.vo.member.LoginDeviceVO;
+import com.eghm.vo.business.member.LoginDeviceVO;
 
 import java.util.List;
 

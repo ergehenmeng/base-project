@@ -10,7 +10,7 @@ import com.eghm.mapper.SysConfigMapper;
 import com.eghm.model.SysConfig;
 import com.eghm.service.sys.SysConfigService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.sys.SysConfigResponse;
+import com.eghm.vo.sys.ext.SysConfigResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

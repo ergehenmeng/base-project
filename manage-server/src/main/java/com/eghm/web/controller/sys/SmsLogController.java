@@ -5,7 +5,7 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sys.log.SmsLogQueryRequest;
 import com.eghm.service.sys.SmsLogService;
-import com.eghm.vo.log.SmsLogResponse;
+import com.eghm.vo.operate.log.SmsLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

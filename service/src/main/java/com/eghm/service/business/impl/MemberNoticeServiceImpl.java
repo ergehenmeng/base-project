@@ -19,7 +19,7 @@ import com.eghm.model.NoticeTemplate;
 import com.eghm.service.operate.NoticeTemplateService;
 import com.eghm.service.business.MemberNoticeService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.member.MemberNoticeVO;
+import com.eghm.vo.business.member.MemberNoticeVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

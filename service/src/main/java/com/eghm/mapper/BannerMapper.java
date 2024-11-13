@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.operate.banner.BannerQueryRequest;
 import com.eghm.model.Banner;
-import com.eghm.vo.banner.BannerResponse;
-import com.eghm.vo.banner.BannerVO;
+import com.eghm.vo.operate.banner.BannerResponse;
+import com.eghm.vo.operate.banner.BannerVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

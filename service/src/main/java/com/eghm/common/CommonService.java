@@ -1,7 +1,7 @@
 package com.eghm.common;
 
 import com.eghm.model.SysDictItem;
-import com.eghm.vo.sys.SysAreaVO;
+import com.eghm.vo.sys.ext.SysAreaVO;
 
 import java.util.List;
 

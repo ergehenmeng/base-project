@@ -9,7 +9,7 @@ import com.eghm.dto.operate.banner.BannerQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.operate.BannerService;
-import com.eghm.vo.banner.BannerResponse;
+import com.eghm.vo.operate.banner.BannerResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
