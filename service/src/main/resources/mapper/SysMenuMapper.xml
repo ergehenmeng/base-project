@@ -31,9 +31,6 @@
             select 1 from sys_role_menu s, sys_user_role o
             where s.role_id = o.role_id and t.id = s.menu_id and o.user_id = #{userId}
           )
-        <if test="grade != null">
-            and t.grade = #{grade}
-        </if>
     </select>
 
     <select id="getList" resultType="com.eghm.vo.menu.MenuFullResponse" parameterType="com.eghm.dto.sys.menu.MenuQueryRequest">
@@ -49,9 +46,6 @@
             </if>
             <if test="displayState != null">
                 and t.display_state = #{displayState}
-            </if>
-            <if test="grade != null">
-                and t.grade = #{grade}
             </if>
         </where>
     </select>
