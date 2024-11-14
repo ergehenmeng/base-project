@@ -35,11 +35,16 @@ public class EmailServiceImpl implements EmailService {
 
     private final CacheService cacheService;
 
-    private final MailProperties mailProperties;
+    private MailProperties mailProperties;
 
     @Autowired(required = false)
     public void setJavaMailSender(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
+    }
+
+    @Autowired(required = false)
+    public void setMailProperties(MailProperties mailProperties) {
+        this.mailProperties = mailProperties;
     }
 
     @Override
