@@ -1,5 +1,6 @@
 package com.eghm.common.impl;
 
+import cn.hutool.http.HtmlUtil;
 import com.eghm.cache.CacheService;
 import com.eghm.common.EmailService;
 import com.eghm.dto.ext.VerifyEmailCode;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 
 
 /**
@@ -49,16 +51,25 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendEmail(String to, String title, String content) {
+        this.sendEmail(to, HtmlUtil.unescape(title), content, false);
+    }
+
+    @Override
+    public void sendEmail(String to, String title, String content, boolean isHtml, File... files) {
         if (javaMailSender == null) {
             throw new ParameterException(ErrorCode.MAIL_NOT_CONFIG);
         }
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
             helper.setFrom(InternetAddress.parse(mailProperties.getProperties().get("mail.from"))[0]);
             helper.addTo(to);
             helper.setSubject(title);
             helper.setText(content);
+            helper.setEncodeFilenames(true);
+            for (File file : files) {
+                helper.addAttachment(file.getName(), file);
+            }
             javaMailSender.send(mimeMessage);
             log.info("发送邮件成功 to:[{}],title:[{}],content:[{}]", to, title, content);
         } catch (Exception e) {
