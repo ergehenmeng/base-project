@@ -1,5 +1,6 @@
 package com.eghm.service.sys.impl;
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.PhoneUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
@@ -12,16 +13,13 @@ import com.eghm.common.UserTokenService;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
+import com.eghm.dto.sys.login.Sms2LoginRequest;
 import com.eghm.dto.sys.login.SmsLoginRequest;
 import com.eghm.dto.sys.user.PasswordEditRequest;
 import com.eghm.dto.sys.user.UserAddRequest;
 import com.eghm.dto.sys.user.UserEditRequest;
 import com.eghm.dto.sys.user.UserQueryRequest;
-import com.eghm.enums.DataType;
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.TemplateType;
-import com.eghm.enums.UserType;
-import com.eghm.enums.UserState;
+import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysUserMapper;
 import com.eghm.model.SysDataDept;
@@ -30,7 +28,9 @@ import com.eghm.service.sys.SysDataDeptService;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
+import com.eghm.utils.CacheUtil;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.login.AuthV1Response;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.sys.menu.MenuResponse;
 import com.eghm.vo.sys.user.UserResponse;
@@ -182,6 +182,34 @@ public class SysUserServiceImpl implements SysUserService {
     public LoginResponse smsLogin(SmsLoginRequest request) {
         smsService.verifySmsCode(TemplateType.USER_LOGIN, request.getMobile(), request.getSmsCode());
         SysUser user = this.getAndCheckUser(request.getMobile());
+        return this.doLogin(user);
+    }
+
+
+    @Override
+    public AuthV1Response authLogin(String userName, String password, String ip) {
+        SysUser user = this.getAndCheckUser(userName, password);
+        smsService.sendSmsCode(TemplateType.USER_LOGIN, user.getMobile(), ip);
+        String secretId = IdUtil.fastSimpleUUID();
+        AuthV1Response response = new AuthV1Response();
+        response.setMobile(user.getMobile());
+        response.setSecretId(secretId);
+        CacheUtil.LOGIN_CACHE.put(secretId, user.getId());
+        return response;
+    }
+
+    @Override
+    public LoginResponse smsAuthLogin(Sms2LoginRequest request) {
+        Long userId = CacheUtil.LOGIN_CACHE.getIfPresent(request.getSecretId());
+        if (userId == null) {
+            log.error("登录信息中secretId不存在 [{}] [{}]", request.getSecretId(), request.getSmsCode());
+            throw new BusinessException(ErrorCode.LOGIN_TIMEOUT);
+        }
+        SysUser user = sysUserMapper.selectById(userId);
+        if (user == null) {
+            log.error("二次验证登录用户信息为空 [{}]", userId);
+            throw new BusinessException(ErrorCode.USER_NOT_FOUND);
+        }
         return this.doLogin(user);
     }
 

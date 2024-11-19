@@ -40,4 +40,9 @@ public class CacheUtil {
      */
     public static final Cache<String, Long> SMS_VERIFY_CACHE = Caffeine.newBuilder().expireAfterWrite(SMS_CODE_EXPIRE, TimeUnit.SECONDS).maximumSize(10000).build();
 
+    /**
+     * 账号密码+手机号验证码登陆第一步缓存
+     */
+    public static final Cache<String, Long> LOGIN_CACHE = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).maximumSize(1000).build();
+
 }

@@ -10,12 +10,14 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.sys.login.LoginRequest;
+import com.eghm.dto.sys.login.Sms2LoginRequest;
 import com.eghm.dto.sys.login.SmsLoginRequest;
 import com.eghm.dto.sys.login.SmsVerifyRequest;
 import com.eghm.enums.Env;
 import com.eghm.enums.ErrorCode;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.IpUtil;
+import com.eghm.vo.login.AuthV1Response;
 import com.eghm.vo.login.LoginResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -82,9 +84,25 @@ public class LoginController {
 
     @PostMapping(value = "/smsLogin", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("验证码登录")
-    public RespBody<LoginResponse> smsLogin(@Validated @RequestBody SmsLoginRequest request, HttpServletRequest servletRequest) {
-        request.setIp(IpUtil.getIpAddress(servletRequest));
+    public RespBody<LoginResponse> smsLogin(@Validated @RequestBody SmsLoginRequest request) {
         LoginResponse response = sysUserService.smsLogin(request);
+        return RespBody.success(response);
+    }
+
+    @PostMapping(value = "/authLogin", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("密码+验证码登录(1)")
+    public RespBody<AuthV1Response> authLogin(@Validated @RequestBody LoginRequest request, HttpServletRequest servletRequest) {
+        if (this.verifyCodeError(servletRequest, request.getVerifyCode())) {
+            return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
+        }
+        AuthV1Response response = sysUserService.authLogin(request.getUserName(), request.getPwd(), IpUtil.getIpAddress(servletRequest));
+        return RespBody.success(response);
+    }
+
+    @PostMapping(value = "/smsAuthLogin", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("密码+验证码登录(2)")
+    public RespBody<LoginResponse> smsAuthLogin(@Validated @RequestBody Sms2LoginRequest request) {
+        LoginResponse response = sysUserService.smsAuthLogin(request);
         return RespBody.success(response);
     }
 
