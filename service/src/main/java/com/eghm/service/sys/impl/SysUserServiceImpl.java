@@ -210,6 +210,7 @@ public class SysUserServiceImpl implements SysUserService {
             log.error("二次验证登录用户信息为空 [{}]", userId);
             throw new BusinessException(ErrorCode.USER_NOT_FOUND);
         }
+        smsService.verifySmsCode(TemplateType.USER_LOGIN, user.getMobile(), request.getSmsCode());
         return this.doLogin(user);
     }
 
