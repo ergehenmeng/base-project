@@ -13,7 +13,7 @@ import com.eghm.common.UserTokenService;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
-import com.eghm.dto.sys.login.Sms2LoginRequest;
+import com.eghm.dto.sys.login.AuthSmsRequest;
 import com.eghm.dto.sys.login.SmsLoginRequest;
 import com.eghm.dto.sys.user.PasswordEditRequest;
 import com.eghm.dto.sys.user.UserAddRequest;
@@ -30,7 +30,7 @@ import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.CacheUtil;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.login.AuthV1Response;
+import com.eghm.vo.login.AuthPwdResponse;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.sys.menu.MenuResponse;
 import com.eghm.vo.sys.user.UserResponse;
@@ -187,11 +187,11 @@ public class SysUserServiceImpl implements SysUserService {
 
 
     @Override
-    public AuthV1Response authLogin(String userName, String password, String ip) {
+    public AuthPwdResponse authPwd(String userName, String password, String ip) {
         SysUser user = this.getAndCheckUser(userName, password);
         smsService.sendSmsCode(TemplateType.USER_LOGIN, user.getMobile(), ip);
         String secretId = IdUtil.fastSimpleUUID();
-        AuthV1Response response = new AuthV1Response();
+        AuthPwdResponse response = new AuthPwdResponse();
         response.setMobile(user.getMobile());
         response.setSecretId(secretId);
         CacheUtil.LOGIN_CACHE.put(secretId, user.getId());
@@ -199,7 +199,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public LoginResponse smsAuthLogin(Sms2LoginRequest request) {
+    public LoginResponse authSms(AuthSmsRequest request) {
         Long userId = CacheUtil.LOGIN_CACHE.getIfPresent(request.getSecretId());
         if (userId == null) {
             log.error("登录信息中secretId不存在 [{}] [{}]", request.getSecretId(), request.getSmsCode());
@@ -211,6 +211,7 @@ public class SysUserServiceImpl implements SysUserService {
             throw new BusinessException(ErrorCode.USER_NOT_FOUND);
         }
         smsService.verifySmsCode(TemplateType.USER_LOGIN, user.getMobile(), request.getSmsCode());
+        CacheUtil.LOGIN_CACHE.invalidate(request.getSecretId());
         return this.doLogin(user);
     }
 

@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AuthV1Response {
+public class AuthPwdResponse {
 
     @ApiModelProperty("手机号")
     @Desensitization(FieldType.MOBILE_PHONE)

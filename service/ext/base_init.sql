@@ -21,6 +21,8 @@ INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('39', 'token_expire', '用户登陆过期时间', '604800', b'0', '单位:秒,默认7天过期', '2020-01-15 16:38:47', '2020-12-15 19:07:32');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('41', 'null_expire', '占位符缓存过期时间', '30', b'0', '单位:秒,超过该时间后,缓存过期', '2020-01-15 16:39:33', '2020-12-15 19:07:35');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('43', 'auth_code_expire', '验证码有效期', '600', b'0', '全局涉及验证码有限期默认10分钟', '2020-08-29 14:07:11', '2020-12-15 19:07:01');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('44', 'login_type', '登录方式', '3', b'0', '登录方式 1:密码登录 2:短信登录 4:密码+短信登录(必须密码+短信验证码同时登陆) 8:二维码登录(未实现)', '2024-11-20 10:20:24', '2024-11-20 10:20:35');
+
 
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('1010', '系统管理', 'Vz', 'Setting', '0', '/sys', NULL, '1', '4', b'1', '平台专享', '2', '2018-01-24 08:13:54', '2024-09-06 14:55:07');
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('101010', '菜单管理', 'EQU', 'Menu', '1010', '/sys/menu', NULL, '1', '1', b'1', '', '2', '2018-01-24 08:14:01', '2024-05-28 18:01:30');

@@ -1,7 +1,7 @@
 package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.sys.login.Sms2LoginRequest;
+import com.eghm.dto.sys.login.AuthSmsRequest;
 import com.eghm.dto.sys.login.SmsLoginRequest;
 import com.eghm.dto.sys.user.PasswordEditRequest;
 import com.eghm.dto.sys.user.UserAddRequest;
@@ -9,7 +9,7 @@ import com.eghm.dto.sys.user.UserEditRequest;
 import com.eghm.dto.sys.user.UserQueryRequest;
 import com.eghm.enums.UserState;
 import com.eghm.model.SysUser;
-import com.eghm.vo.login.AuthV1Response;
+import com.eghm.vo.login.AuthPwdResponse;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.sys.user.UserResponse;
 
@@ -119,7 +119,7 @@ public interface SysUserService {
      * @param ip  ip地址
      * @return token及权限
      */
-    AuthV1Response authLogin(String userName, String password, String ip);
+    AuthPwdResponse authPwd(String userName, String password, String ip);
 
     /**
      * 短信登陆管理后台(2)
@@ -127,7 +127,7 @@ public interface SysUserService {
      * @param request 请求信息
      * @return 响应信息
      */
-    LoginResponse smsAuthLogin(Sms2LoginRequest request);
+    LoginResponse authSms(AuthSmsRequest request);
 
 }
 

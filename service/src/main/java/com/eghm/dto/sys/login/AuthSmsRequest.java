@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
  * @since 2019/8/19 16:57
  */
 @Data
-public class Sms2LoginRequest {
+public class AuthSmsRequest {
 
     @Size(min = 4, max = 6, message = "短信验证码格式错误")
     @NotBlank(message = "短信验证码不能为空")
