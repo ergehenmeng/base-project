@@ -75,6 +75,8 @@ system:
         - /manage/sendSms
         - /manage/smsLogin
         - /manage/logout
+        - /manage/wechat/qrcode/url
+        - /manage/wechat/qrcode/login
         - /favicon.ico
         - /manage/export/exportMenu
         - /resource/**

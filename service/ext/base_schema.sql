@@ -745,6 +745,7 @@ CREATE TABLE `sys_user`
     `dept_code`       varchar(20)         DEFAULT NULL COMMENT '所属部门编号',
     `deleted`         bit(1)              DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
     `pwd_update_time` datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '密码更新时间',
+    `open_id`         varchar(50)         DEFAULT NULL COMMENT '微信openId',
     `create_time`     datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`     datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`          varchar(200)        DEFAULT NULL COMMENT '备注信息',

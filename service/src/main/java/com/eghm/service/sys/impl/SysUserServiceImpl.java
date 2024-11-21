@@ -167,8 +167,9 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public LoginResponse login(String userName, String password) {
+    public LoginResponse login(String userName, String password, String openId) {
         SysUser user = this.getAndCheckUser(userName, password);
+        this.tryBindingOpenId(user.getId(), openId);
         return this.doLogin(user);
     }
 
@@ -179,9 +180,10 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public LoginResponse smsLogin(SmsLoginRequest request) {
+    public LoginResponse smsLogin(SmsLoginRequest request, String openId) {
         smsService.verifySmsCode(TemplateType.USER_LOGIN, request.getMobile(), request.getSmsCode());
         SysUser user = this.getAndCheckUser(request.getMobile());
+        this.tryBindingOpenId(user.getId(), openId);
         return this.doLogin(user);
     }
 
@@ -199,7 +201,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public LoginResponse authSms(AuthSmsRequest request) {
+    public LoginResponse authSms(AuthSmsRequest request, String openId) {
         Long userId = CacheUtil.LOGIN_CACHE.getIfPresent(request.getSecretId());
         if (userId == null) {
             log.error("登录信息中secretId不存在 [{}] [{}]", request.getSecretId(), request.getSmsCode());
@@ -212,7 +214,60 @@ public class SysUserServiceImpl implements SysUserService {
         }
         smsService.verifySmsCode(TemplateType.USER_LOGIN, user.getMobile(), request.getSmsCode());
         CacheUtil.LOGIN_CACHE.invalidate(request.getSecretId());
+        this.tryBindingOpenId(user.getId(), openId);
         return this.doLogin(user);
+    }
+
+    @Override
+    public SysUser getByOpenId(String openId) {
+        return sysUserMapper.selectOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getOpenId, openId));
+    }
+
+    @Override
+    public LoginResponse doLogin(SysUser user) {
+        UserType userType = user.getUserType();
+        // 如果用户拥有超管角色,则默认查询全部菜单等信息
+        List<MenuResponse> leftMenu;
+        List<String> buttonList;
+        if (userType == UserType.ADMINISTRATOR) {
+            leftMenu = sysMenuService.getAdminLeftMenuList();
+            buttonList = sysMenuService.getAdminPermCode();
+        } else {
+            buttonList = sysMenuService.getPermCode(user.getId());
+            leftMenu = sysMenuService.getLeftMenuList(user.getId());
+        }
+
+        // 数据权限(此处没有判断,逻辑不够严谨,仅仅为了代码简洁)
+        List<String> customList = sysDataDeptService.getDeptList(user.getId());
+
+        String token = userTokenService.createToken(user, buttonList, customList);
+
+        LoginResponse response = new LoginResponse();
+        response.setToken(token);
+        response.setNickName(user.getNickName());
+        response.setPermList(buttonList);
+        response.setUserType(user.getUserType());
+        response.setMenuList(leftMenu);
+        response.setInit(user.getInitPwd().equals(user.getPwd()));
+        response.setExpire(user.getPwdUpdateTime().plusDays(CommonConstant.PWD_UPDATE_TIPS).isBefore(LocalDateTime.now()));
+        cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
+        LOGIN_LOCK_CACHE.invalidate(user.getMobile());
+        return response;
+    }
+
+    /**
+     * 尝试绑定openId
+     *
+     * @param id id
+     * @param openId openId
+     */
+    private void tryBindingOpenId(Long id, String openId) {
+        if (openId != null) {
+            SysUser user = new SysUser();
+            user.setId(id);
+            user.setOpenId(openId);
+            sysUserMapper.updateById(user);
+        }
     }
 
     /**
@@ -275,43 +330,6 @@ public class SysUserServiceImpl implements SysUserService {
         LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysUser::getUserName, userName);
         return sysUserMapper.selectOne(wrapper);
-    }
-
-    /**
-     * 管理后台登陆
-     *
-     * @param user 用户信息
-     * @return 返回前端信息
-     */
-    private LoginResponse doLogin(SysUser user) {
-        UserType userType = user.getUserType();
-        // 如果用户拥有超管角色,则默认查询全部菜单等信息
-        List<MenuResponse> leftMenu;
-        List<String> buttonList;
-        if (userType == UserType.ADMINISTRATOR) {
-            leftMenu = sysMenuService.getAdminLeftMenuList();
-            buttonList = sysMenuService.getAdminPermCode();
-        } else {
-            buttonList = sysMenuService.getPermCode(user.getId());
-            leftMenu = sysMenuService.getLeftMenuList(user.getId());
-        }
-
-        // 数据权限(此处没有判断,逻辑不够严谨,仅仅为了代码简洁)
-        List<String> customList = sysDataDeptService.getDeptList(user.getId());
-
-        String token = userTokenService.createToken(user, buttonList, customList);
-
-        LoginResponse response = new LoginResponse();
-        response.setToken(token);
-        response.setNickName(user.getNickName());
-        response.setPermList(buttonList);
-        response.setUserType(user.getUserType());
-        response.setMenuList(leftMenu);
-        response.setInit(user.getInitPwd().equals(user.getPwd()));
-        response.setExpire(user.getPwdUpdateTime().plusDays(CommonConstant.PWD_UPDATE_TIPS).isBefore(LocalDateTime.now()));
-        cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
-        LOGIN_LOCK_CACHE.invalidate(user.getMobile());
-        return response;
     }
 
     /**

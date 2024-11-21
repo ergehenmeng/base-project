@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author 二哥很猛
@@ -62,7 +63,8 @@ public class LoginController {
             return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
         }
         this.checkLoginType(LoginType.PASSWORD, ErrorCode.PWD_NOT_SUPPORTED);
-        LoginResponse response = sysUserService.login(request.getUserName(), request.getPwd());
+        String openId = (String) servletRequest.getSession().getAttribute(CommonConstant.OPEN_ID);
+        LoginResponse response = sysUserService.login(request.getUserName(), request.getPwd(), openId);
         return RespBody.success(response);
     }
 
@@ -92,9 +94,10 @@ public class LoginController {
 
     @PostMapping(value = "/smsLogin", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("验证码登录")
-    public RespBody<LoginResponse> smsLogin(@Validated @RequestBody SmsLoginRequest request) {
+    public RespBody<LoginResponse> smsLogin(@Validated @RequestBody SmsLoginRequest request, HttpSession session) {
         this.checkLoginType(LoginType.SMS, ErrorCode.SMS_NOT_SUPPORTED);
-        LoginResponse response = sysUserService.smsLogin(request);
+        String openId = (String) session.getAttribute(CommonConstant.OPEN_ID);
+        LoginResponse response = sysUserService.smsLogin(request, openId);
         return RespBody.success(response);
     }
 
@@ -111,9 +114,10 @@ public class LoginController {
 
     @PostMapping(value = "/authSms", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("密码+验证码登录(2)")
-    public RespBody<LoginResponse> authSms(@Validated @RequestBody AuthSmsRequest request) {
+    public RespBody<LoginResponse> authSms(@Validated @RequestBody AuthSmsRequest request, HttpSession session) {
         this.checkLoginType(LoginType.PASSWORD_SMS, ErrorCode.SMS_NOT_SUPPORTED);
-        LoginResponse response = sysUserService.authSms(request);
+        String openId = (String) session.getAttribute(CommonConstant.OPEN_ID);
+        LoginResponse response = sysUserService.authSms(request, openId);
         return RespBody.success(response);
     }
 

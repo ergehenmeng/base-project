@@ -99,6 +99,12 @@ public class ConfigConstant {
     /**
      * 登录方式 1:密码登录 2:短信登录 4:密码+短信登录(必须密码+短信验证码同时登陆) 8:二维码登录(未实现)
      * 注意: 支持异或操作 3:表示密码+短信登录 11:表示密码+短信+二维码登录, 但是由于4和1,2功能上是互斥的,因此不能同时存在
+     * 同时二维码登录不能独立存在,必须和124组合使用(因为首次需要绑定微信号)
      */
     public static final String LOGIN_TYPE = "login_type";
+
+    /**
+     * 微信扫码登录跳转地址
+     */
+    public static final String WECHAT_REDIRECT_URL = "wechat_redirect_url";
 }

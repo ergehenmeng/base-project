@@ -102,6 +102,7 @@
 
 ## 其他开发说明
 * 管理后台验证码有 `MathCaptchaProducer` `TextCaptchaProducer` 两种方式, 默认为 `MathCaptchaProducer`, 可在`WebMvcConfig#captcha`调整配置
+* 管理后台支持账号密码登陆, 短信验证码登陆, 账号密码+短信双认证登录, 扫码登录(未接入)
 * 数据库涉及金额的字段, 统一使用 `INT` 类型, 避免浮点数精度丢失
     * POST请求时: 后台可通过 `@JsonDeserialize(using = YuanToCentDecoder.class)` 自动转为分,
       同样后端的分也可以通过 `@JsonSerialize(using = CentToYuanEncoder.class)` 自动转为元返回给前端

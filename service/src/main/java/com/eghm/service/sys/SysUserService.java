@@ -91,9 +91,10 @@ public interface SysUserService {
      *
      * @param userName 账号
      * @param password 密码
+     * @param openId   openId
      * @return token及权限
      */
-    LoginResponse login(String userName, String password);
+    LoginResponse login(String userName, String password, String openId);
 
     /**
      * 登陆发送验证码
@@ -107,9 +108,10 @@ public interface SysUserService {
      * 短信登陆管理后台
      *
      * @param request 请求信息
+     * @param openId  openId
      * @return 响应信息
      */
-    LoginResponse smsLogin(SmsLoginRequest request);
+    LoginResponse smsLogin(SmsLoginRequest request, String openId);
 
     /**
      * 账号密码+手机验证码登录(1)
@@ -125,9 +127,25 @@ public interface SysUserService {
      * 短信登陆管理后台(2)
      *
      * @param request 请求信息
+     * @param openId  openId
      * @return 响应信息
      */
-    LoginResponse authSms(AuthSmsRequest request);
+    LoginResponse authSms(AuthSmsRequest request, String openId);
 
+    /**
+     * 根据openId获取用户信息
+     *
+     * @param openId openId
+     * @return 用户信息
+     */
+    SysUser getByOpenId(String openId);
+
+    /**
+     * 管理后台登陆
+     *
+     * @param user 用户信息
+     * @return 返回前端信息
+     */
+    LoginResponse doLogin(SysUser user);
 }
 

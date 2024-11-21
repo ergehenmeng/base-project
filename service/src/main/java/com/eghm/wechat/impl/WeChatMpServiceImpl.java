@@ -1,8 +1,12 @@
 package com.eghm.wechat.impl;
 
+import com.eghm.common.impl.SysConfigApi;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.wechat.WeChatMpService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
@@ -18,9 +22,12 @@ import org.springframework.stereotype.Service;
  */
 @Service("weChatMpService")
 @Slf4j
+@RequiredArgsConstructor
 public class WeChatMpServiceImpl implements WeChatMpService {
 
     private WxMpService wxMpService;
+
+    private final SysConfigApi sysConfigApi;
 
     @Autowired(required = false)
     public void setWxMpService(WxMpService wxMpService) {
@@ -47,6 +54,24 @@ public class WeChatMpServiceImpl implements WeChatMpService {
         } catch (WxErrorException e) {
             log.error("微信网页生成jsTicket异常 [{}]", url, e);
             throw new BusinessException(ErrorCode.MP_JS_TICKET);
+        }
+    }
+
+    @Override
+    public String qrConnectUrl(String state) {
+        this.verify();
+        String redirectUrl = sysConfigApi.getString(ConfigConstant.WECHAT_REDIRECT_URL);
+        return wxMpService.buildQrConnectUrl(redirectUrl, "snsapi_login", state);
+    }
+
+    @Override
+    public WxOAuth2AccessToken getAccessToken(String code) {
+        this.verify();
+        try {
+            return wxMpService.getOAuth2Service().getAccessToken(code);
+        } catch (WxErrorException e) {
+            log.error("微信扫码回调获取openId异常 [{}]", code, e);
+            throw new BusinessException(ErrorCode.MP_AUTH2_ERROR);
         }
     }
 
