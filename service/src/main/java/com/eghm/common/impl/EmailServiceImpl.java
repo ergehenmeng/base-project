@@ -65,7 +65,7 @@ public class EmailServiceImpl implements EmailService {
             helper.setFrom(InternetAddress.parse(mailProperties.getProperties().get("mail.from"))[0]);
             helper.addTo(to);
             helper.setSubject(title);
-            helper.setText(content);
+            helper.setText(content, isHtml);
             helper.setEncodeFilenames(true);
             for (File file : files) {
                 helper.addAttachment(file.getName(), file);

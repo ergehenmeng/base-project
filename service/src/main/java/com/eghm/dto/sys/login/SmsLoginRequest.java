@@ -1,6 +1,5 @@
 package com.eghm.dto.sys.login;
 
-import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.Mobile;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
