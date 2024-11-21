@@ -2,7 +2,7 @@ package com.eghm.configuration.task.job;
 
 import com.eghm.annotation.CronMark;
 import com.eghm.configuration.task.config.OnceTask;
-import com.eghm.configuration.task.config.SysTaskRegistrar;
+import com.eghm.configuration.task.config.TaskRegistrar;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,11 +18,11 @@ import java.time.LocalDateTime;
 @Slf4j
 public class TestJobService {
 
-    private SysTaskRegistrar sysTaskRegistrar;
+    private TaskRegistrar taskRegistrar;
 
     @Autowired(required = false)
-    public void setSysTaskRegistrar(SysTaskRegistrar sysTaskRegistrar) {
-        this.sysTaskRegistrar = sysTaskRegistrar;
+    public void setSysTaskRegistrar(TaskRegistrar taskRegistrar) {
+        this.taskRegistrar = taskRegistrar;
     }
 
     @CronMark
@@ -33,7 +33,7 @@ public class TestJobService {
         onceDetail.setMethodName("execute");
         onceDetail.setArgs("一次性任务入参");
         onceDetail.setExecuteTime(LocalDateTime.now().plusSeconds(10));
-        sysTaskRegistrar.addTask(onceDetail);
+        taskRegistrar.addTask(onceDetail);
     }
 
     @Scheduled(cron = "0 0 0-5 * * ?")

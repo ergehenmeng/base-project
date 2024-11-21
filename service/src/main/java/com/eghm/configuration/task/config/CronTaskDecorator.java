@@ -1,25 +1,23 @@
 package com.eghm.configuration.task.config;
 
 import com.eghm.constants.CommonConstant;
+import lombok.Getter;
 
 /**
  * @author 二哥很猛
  * @since 2019/9/6 14:54
  */
-public class SysCronTask extends org.springframework.scheduling.config.CronTask {
+public class CronTaskDecorator extends org.springframework.scheduling.config.CronTask {
 
     /**
      * 任务的唯一id用于打印日志等
      */
+    @Getter
     private final String nid;
 
-    SysCronTask(CronTask config) {
-        super(new RunnableTask(config), config.getCronExpression());
+    CronTaskDecorator(CronTask config) {
+        super(new Invoker(config), config.getCronExpression());
         this.nid = config.getBeanName() + CommonConstant.SPECIAL_SPLIT + config.getMethodName();
-    }
-
-    public String getNid() {
-        return nid;
     }
 
     @Override
@@ -30,7 +28,7 @@ public class SysCronTask extends org.springframework.scheduling.config.CronTask 
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        SysCronTask that = (SysCronTask) o;
+        CronTaskDecorator that = (CronTaskDecorator) o;
         return nid != null && nid.equals(that.nid);
     }
 

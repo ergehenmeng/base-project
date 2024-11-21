@@ -1,7 +1,7 @@
 package com.eghm.web.controller.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.configuration.task.config.SysTaskRegistrar;
+import com.eghm.configuration.task.config.TaskRegistrar;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sys.task.TaskEditRequest;
@@ -28,7 +28,7 @@ public class SysTaskController {
 
     private final SysTaskService sysTaskService;
 
-    private final SysTaskRegistrar sysTaskRegistrar;
+    private final TaskRegistrar taskRegistrar;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
@@ -47,7 +47,7 @@ public class SysTaskController {
     @PostMapping(value = "/refresh")
     @ApiOperation("刷新")
     public RespBody<Void> refresh() {
-        sysTaskRegistrar.reloadTask();
+        taskRegistrar.reloadTask();
         return RespBody.success();
     }
 

@@ -2,7 +2,7 @@ package com.eghm.service.sys.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.task.config.OnceTask;
-import com.eghm.configuration.task.config.SysTaskRegistrar;
+import com.eghm.configuration.task.config.TaskRegistrar;
 import com.eghm.dto.sys.task.TaskEditRequest;
 import com.eghm.dto.sys.task.TaskQueryRequest;
 import com.eghm.enums.ErrorCode;
@@ -32,11 +32,11 @@ public class SysTaskServiceImpl implements SysTaskService {
 
     private final SysTaskMapper sysTaskMapper;
 
-    private SysTaskRegistrar sysTaskRegistrar;
+    private TaskRegistrar taskRegistrar;
 
     @Autowired(required = false)
-    public void setSysTaskRegistrar(SysTaskRegistrar sysTaskRegistrar) {
-        this.sysTaskRegistrar = sysTaskRegistrar;
+    public void setTaskRegistrar(TaskRegistrar taskRegistrar) {
+        this.taskRegistrar = taskRegistrar;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class SysTaskServiceImpl implements SysTaskService {
 
     @Override
     public void execute(Long id, String args) {
-        if (sysTaskRegistrar == null) {
+        if (taskRegistrar == null) {
             log.error("当前服务尚未激活定时任务, 请使用@EnableTask激活 [{}] [{}]", id, args);
             throw new BusinessException(ErrorCode.TASK_CONFIG_NULL);
         }
@@ -70,6 +70,6 @@ public class SysTaskServiceImpl implements SysTaskService {
         onceDetail.setMethodName(sysTask.getMethodName());
         onceDetail.setArgs(args);
         onceDetail.setExecuteTime(LocalDateTime.now().plus(500, ChronoUnit.MILLIS));
-        sysTaskRegistrar.addTask(onceDetail);
+        taskRegistrar.addTask(onceDetail);
     }
 }

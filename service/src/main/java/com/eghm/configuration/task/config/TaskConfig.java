@@ -20,8 +20,8 @@ public class TaskConfig implements TaskSchedulerCustomizer {
      * 自定义定时任务bean
      */
     @Bean
-    public SysTaskRegistrar systemTaskRegistrar(SysTaskMapper sysTaskMapper, TaskScheduler taskScheduler) {
-        return new SysTaskRegistrar(sysTaskMapper, taskScheduler);
+    public TaskRegistrar systemTaskRegistrar(SysTaskMapper sysTaskMapper, TaskScheduler taskScheduler) {
+        return new TaskRegistrar(sysTaskMapper, taskScheduler);
     }
 
     @Override
