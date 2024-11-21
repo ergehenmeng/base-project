@@ -35,9 +35,9 @@ public class EmailServiceImpl implements EmailService {
 
     private JavaMailSender javaMailSender;
 
-    private final CacheService cacheService;
-
     private MailProperties mailProperties;
+
+    private final CacheService cacheService;
 
     @Autowired(required = false)
     public void setJavaMailSender(JavaMailSender javaMailSender) {
