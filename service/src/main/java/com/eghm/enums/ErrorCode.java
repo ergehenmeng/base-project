@@ -221,9 +221,9 @@ public enum ErrorCode {
     PID_MENU_STATE(2069, "菜单显示状态与父菜单不匹配"),
 
     /**
-     * 验证码错误或无效
+     * 验证码错误
      */
-    IMAGE_CODE_ERROR(2072, "验证码错误或无效"),
+    IMAGE_CODE_ERROR(2072, "验证码错误"),
 
     /**
      * 不支持手机号登录
