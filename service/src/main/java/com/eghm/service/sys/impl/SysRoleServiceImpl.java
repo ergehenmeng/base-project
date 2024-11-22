@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.dto.ext.CheckBox;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.sys.role.RoleAddRequest;

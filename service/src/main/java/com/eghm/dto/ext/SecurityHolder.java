@@ -1,7 +1,6 @@
-package com.eghm.configuration.security;
+package com.eghm.dto.ext;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
-import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.UserType;
 import com.eghm.exception.BusinessException;

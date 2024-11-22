@@ -5,7 +5,7 @@ import com.eghm.cache.CacheService;
 import com.eghm.common.UserTokenService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.SystemProperties;
-import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;

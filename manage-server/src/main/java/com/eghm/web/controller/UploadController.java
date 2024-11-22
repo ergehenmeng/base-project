@@ -3,7 +3,7 @@ package com.eghm.web.controller;
 
 import com.eghm.annotation.SkipPerm;
 import com.eghm.common.FileService;
-import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.dto.ext.RespBody;

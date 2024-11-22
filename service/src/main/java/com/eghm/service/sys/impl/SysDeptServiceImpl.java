@@ -2,7 +2,7 @@ package com.eghm.service.sys.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.dto.sys.dept.DeptAddRequest;
 import com.eghm.dto.sys.dept.DeptEditRequest;
 import com.eghm.dto.ext.PagingQuery;

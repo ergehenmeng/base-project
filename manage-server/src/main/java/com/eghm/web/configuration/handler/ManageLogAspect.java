@@ -1,7 +1,7 @@
 package com.eghm.web.configuration.handler;
 
 import com.eghm.common.impl.SysConfigApi;
-import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ExchangeQueue;
