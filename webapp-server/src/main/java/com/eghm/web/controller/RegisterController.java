@@ -56,6 +56,8 @@ public class RegisterController {
     @ApiOperation("账号密码登录①")
     public RespBody<LoginTokenVO> account(@RequestBody @Validated AccountRegisterDTO request, HttpServletRequest servletRequest) {
         Object value = servletRequest.getSession().getAttribute(CommonConstant.CAPTCHA_KEY);
+        // 验证码使用后即为无效
+        servletRequest.getSession().removeAttribute(CommonConstant.CAPTCHA_KEY);
         if (value == null || !request.getVerifyCode().equalsIgnoreCase(value.toString())) {
             return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
         }

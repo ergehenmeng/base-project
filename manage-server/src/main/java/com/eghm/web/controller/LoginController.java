@@ -148,6 +148,8 @@ public class LoginController {
             return false;
         }
         Object value = servletRequest.getSession().getAttribute(CommonConstant.CAPTCHA_KEY);
+        // 防止验证码多次使用
+        servletRequest.getSession().removeAttribute(CommonConstant.CAPTCHA_KEY);
         return value == null || !code.equalsIgnoreCase(value.toString());
     }
 
