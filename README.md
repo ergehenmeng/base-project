@@ -29,7 +29,7 @@
     * 定时任务配置更新后需要 *手动刷新配置* 才能重新生效
     * 只执行一次的定时任务可通过 `SysTaskRegistrar.addTask()` 实现
     * demo例子`TestJobService` `OnceJobService`
-    * 注意: bean方法定义时必须包含一个字符串类型的入参, 且方法必须是 `public`, 强烈建议方法上添加 `@ScheduledTask`
+    * 注意: bean方法定义时必须包含一个字符串类型的入参, 且方法必须是 `public`, 强烈建议方法上添加 `@CronTask`
       注解作为定时任务标注一下
 * `@Scheduled`(不推荐使用) 定时任务不受 `@EnableTask` 影响
 
@@ -42,7 +42,6 @@
 * `EmailService` 简单发送邮件的工具类,配合 `HtmlTemplate` 类可实现发送html的邮件(样式图片必须定义在模板文件中)
   ,模板路径放在 `spring.freemarker.template-loader-path` 即可, `spring.freemarker.settings.template_update_delay` 默认刷新间隔
 * `FileService` 文件上传工具类
-* `PushService` 极光推送工具类(未测试)
 * `SmsService` 短信发送工具类(未接入)
 * `HandlerChain` 精简版责任链工具类(有点鸡肋,没想到适用的场景),通过实现 `Handler` 接口并标注 `HandlerMark` 注解
 * 后台用户新增 默认密码手机号码后6位
