@@ -4,7 +4,6 @@ import com.eghm.cache.CacheService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.operate.email.SendEmail;
-import com.eghm.model.EmailTemplate;
 import com.eghm.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -39,7 +38,7 @@ public class AuthCodeEmailHandler extends BaseEmailHandler {
     }
 
     @Override
-    protected Map<String, Object> getRenderParams(EmailTemplate template, SendEmail email) {
+    protected Map<String, Object> getRenderParams(SendEmail email) {
         Map<String, Object> params = email.getParams();
         String memberId = params.get("memberId").toString();
         String authCode = StringUtil.randomNumber(8);

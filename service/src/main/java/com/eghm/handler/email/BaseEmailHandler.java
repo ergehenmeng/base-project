@@ -63,7 +63,6 @@ public class BaseEmailHandler {
         this.finallyProcess(email, template);
     }
 
-
     private EmailTemplate getValidTemplate(EmailType type) {
         EmailTemplate template = emailTemplateService.getByNid(type);
         if (template == null) {
@@ -85,18 +84,17 @@ public class BaseEmailHandler {
      * 邮件内容 子类可以重写该方法
      */
     protected String getContent(EmailTemplate template, SendEmail email) {
-        Map<String, Object> params = this.getRenderParams(template, email);
+        Map<String, Object> params = this.getRenderParams(email);
         return templateEngine.render(template.getContent(), params);
     }
 
     /**
      * 获取邮件模板渲染时的参数, 子类可以额外定义该参数以实现更复杂的显示效果
      *
-     * @param template 模板
      * @param email    邮件发送的参数信息
      * @return 渲染参数 k-v
      */
-    protected Map<String, Object> getRenderParams(EmailTemplate template, SendEmail email) {
+    protected Map<String, Object> getRenderParams(SendEmail email) {
         return email.getParams();
     }
 
