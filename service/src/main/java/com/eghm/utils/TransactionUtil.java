@@ -25,11 +25,11 @@ public class TransactionUtil {
 
     private static final TransactionTemplate TEMPLATE;
 
-    public static final AlarmService TALK_SERVICE;
+    public static final AlarmService ALARM_SERVICE;
 
     static {
         TEMPLATE = SpringContextUtil.getBean(TransactionTemplate.class);
-        TALK_SERVICE = SpringContextUtil.getBean(AlarmService.class);
+        ALARM_SERVICE = SpringContextUtil.getBean(AlarmService.class);
     }
 
     /**
@@ -96,11 +96,11 @@ public class TransactionUtil {
                             consumer.accept(e);
                         } catch (Exception e2) {
                             log.error("事务后置处理执行异常, 补充机制依旧异常", e2);
-                            TALK_SERVICE.sendMsg(String.format("事务后置处理执行异常,补充机制依旧异常, 错误信息: %s", ExceptionUtils.getStackTrace(e2)));
+                            ALARM_SERVICE.sendMsg(String.format("事务后置处理执行异常,补充机制依旧异常, 错误信息: %s", ExceptionUtils.getStackTrace(e2)));
                         }
                     } else {
                         String errorMsg = ExceptionUtils.getStackTrace(e);
-                        TALK_SERVICE.sendMsg(String.format("事务后置处理执行异常,且没有补充机制, 错误信息: %s", errorMsg));
+                        ALARM_SERVICE.sendMsg(String.format("事务后置处理执行异常,且没有补充机制, 错误信息: %s", errorMsg));
                     }
                 }
             }
