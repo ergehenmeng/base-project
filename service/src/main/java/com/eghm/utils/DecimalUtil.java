@@ -59,16 +59,7 @@ public class DecimalUtil {
      * @since 5.7.11
      */
     public static String centToYuanOmit(int cent) {
-        long yuan = cent / 100;
-        int centPart = cent % 100;
-        if (centPart == 0) {
-            return String.valueOf(yuan);
-        }
-        if (centPart < 10) {
-            return yuan + ".0" + centPart;
-        }
-        DecimalFormat format = new DecimalFormat("#####0.00");
-        return format.format(new Money(yuan, centPart).getAmount().doubleValue());
+        return new BigDecimal(centToYuan(cent)).stripTrailingZeros().toPlainString();
     }
 
     /**
