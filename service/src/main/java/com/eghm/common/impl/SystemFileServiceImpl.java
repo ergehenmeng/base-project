@@ -15,7 +15,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -49,28 +48,18 @@ public class SystemFileServiceImpl implements FileService {
     }
 
     @Override
-    public FilePath saveFile(String key, MultipartFile file, String folder) {
-        return this.saveFile(key, file, folder, this.getSingleMaxSize());
-    }
-
-    @Override
     public FilePath saveFile(String key, MultipartFile file, String folder, long maxSize) {
         this.checkSize(file, maxSize);
         Long present = CacheUtil.UPLOAD_LIMIT_CACHE.getIfPresent(key);
         long size = file.getSize() + (present == null ? 0 : present);
         if (size > DAY_MAX_UPLOAD.toBytes()) {
-            log.warn("单日上传文件超出限制, 用户:[{}] 累计上传:[{}]kb ", key, size / 1024);
-            alarmService.sendMsg(String.format("单日上传文件超出限制,请注意监控, 用户:%s 今日累计上传:%s", key, (size / 1024 / 1024) + "M"));
+            log.warn("系统单日上传文件超出限制, 用户:[{}] 累计上传:[{}]kb ", key, size / 1024);
+            alarmService.sendMsg(String.format("系统单日上传文件超出限制,请注意监控, 用户:%s 今日累计上传:%s", key, (size / 1024 / 1024) + "M"));
         }
         String path = this.doSaveFile(file, folder);
         FilePath build = FilePath.builder().path(path).address(this.getFileAddress()).size(file.getSize()).build();
         CacheUtil.UPLOAD_LIMIT_CACHE.put(key, size);
         return build;
-    }
-
-    @Override
-    public FilePath saveFile(String key, @NotNull MultipartFile file, long maxSize) {
-        return this.saveFile(key, file, systemProperties.getUploadFolder(), maxSize);
     }
 
     /**

@@ -291,9 +291,14 @@ public enum ErrorCode {
     UPLOAD_TOO_BIG(2090, "单文件最大:%sM"),
 
     /**
-     * 文件保存失败
+     * 文件名不存在
      */
-    FILE_SAVE_ERROR(2093, "文件保存失败"),
+    FILE_NAME_NOT_FOUND(2091, "文件名不存在"),
+
+    /**
+     * 文件上传失败
+     */
+    FILE_SAVE_ERROR(2093, "文件上传失败"),
 
     /**
      * 显示值重复啦~

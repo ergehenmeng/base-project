@@ -242,6 +242,11 @@ public class SystemProperties {
          */
         private String keySecret;
 
+        /**
+         * 访问域名
+         */
+        private String accessDomain;
+
     }
 
     @Data
