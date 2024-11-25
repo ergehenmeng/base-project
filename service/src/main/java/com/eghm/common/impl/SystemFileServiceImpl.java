@@ -74,19 +74,6 @@ public class SystemFileServiceImpl implements FileService {
     }
 
     /**
-     * 检查文件的大小限制
-     *
-     * @param file    文件
-     * @param maxSize 最大上传大小
-     */
-    private void checkSize(MultipartFile file, long maxSize) {
-        if (maxSize < file.getSize()) {
-            log.warn("上传文件过大:[{}]", file.getSize());
-            throw new BusinessException(ErrorCode.UPLOAD_TOO_BIG, maxSize / 1024);
-        }
-    }
-
-    /**
      * 保存上传的文件
      *
      * @param file   文件

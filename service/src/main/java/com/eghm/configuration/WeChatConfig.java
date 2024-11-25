@@ -29,13 +29,13 @@ public class WeChatConfig {
      * 微信公众号
      */
     @Bean
-    @ConditionalOnProperty(prefix = "system.wechat", name = "mp-app-id")
+    @ConditionalOnProperty(prefix = "system.wechat.mp", name = "app-id")
     public WxMpService wxMpService() {
         SystemProperties.WeChatProperties weChatProperties = systemProperties.getWechat();
         WxMpService service = new WxMpServiceImpl();
         WxMpMapConfigImpl config = new WxMpMapConfigImpl();
-        config.setAppId(weChatProperties.getMpAppId());
-        config.setSecret(weChatProperties.getMpAppSecret());
+        config.setAppId(weChatProperties.getMp().getAppId());
+        config.setSecret(weChatProperties.getMp().getAppSecret());
         service.setWxMpConfigStorage(config);
         return service;
     }
@@ -44,13 +44,13 @@ public class WeChatConfig {
      * 微信小程序
      */
     @Bean
-    @ConditionalOnProperty(prefix = "system.wechat", name = "mini-app-id")
+    @ConditionalOnProperty(prefix = "system.wechat.ma", name = "app-id")
     public WxMaService wxMaService() {
         WxMaService service = new WxMaServiceImpl();
         WxMaDefaultConfigImpl config = new WxMaDefaultConfigImpl();
         SystemProperties.WeChatProperties weChatProperties = systemProperties.getWechat();
-        config.setAppid(weChatProperties.getMiniAppId());
-        config.setSecret(weChatProperties.getMiniAppSecret());
+        config.setAppid(weChatProperties.getMa().getAppId());
+        config.setSecret(weChatProperties.getMa().getAppSecret());
         service.setWxMaConfig(config);
         return service;
     }
@@ -59,18 +59,16 @@ public class WeChatConfig {
      * 微信支付
      */
     @Bean
-    @ConditionalOnProperty(prefix = "system.wechat", name = "pay-api-v3-key")
+    @ConditionalOnProperty(prefix = "system.wechat.pay", name = "api-v3-key")
     public WxPayService wxPayService() {
         WxPayService service = new WxPayServiceImpl();
         WxPayConfig config = new WxPayConfig();
-        SystemProperties.WeChatProperties weChatProperties = systemProperties.getWechat();
-        config.setAppId(weChatProperties.getPayAppId());
-        config.setMchId(weChatProperties.getPayMerchantId());
+        SystemProperties.WxPay pay = systemProperties.getWechat().getPay();
+        config.setMchId(pay.getMchId());
         config.setSignType(WxPayConstants.SignType.HMAC_SHA256);
-        config.setApiV3Key(weChatProperties.getPayApiV3Key());
-        config.setCertSerialNo(weChatProperties.getPaySerialNo());
-        config.setPrivateKeyPath(weChatProperties.getPayPrivateKeyPath());
-        config.setPrivateCertPath(weChatProperties.getPayPrivateCertPath());
+        config.setApiV3Key(pay.getApiV3Key());
+        config.setCertSerialNo(pay.getSerialNo());
+        config.setPrivateKeyPath(pay.getPrivateKeyPath());
         service.setConfig(config);
         return service;
     }

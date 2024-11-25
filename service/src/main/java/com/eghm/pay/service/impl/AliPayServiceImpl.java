@@ -12,10 +12,10 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.AliPayException;
 import com.eghm.exception.BusinessException;
-import com.eghm.pay.service.PayService;
 import com.eghm.pay.dto.PrepayDTO;
 import com.eghm.pay.dto.RefundDTO;
 import com.eghm.pay.enums.*;
+import com.eghm.pay.service.PayService;
 import com.eghm.pay.vo.PayOrderVO;
 import com.eghm.pay.vo.PrepayVO;
 import com.eghm.pay.vo.RefundVO;
@@ -98,7 +98,7 @@ public class AliPayServiceImpl implements PayService {
     public RefundVO applyRefund(RefundDTO dto) {
         AlipayTradeRefundResponse response;
         try {
-            SystemProperties.AliPayProperties aliPay = systemProperties.getAliPay();
+            SystemProperties.AliPay aliPay = systemProperties.getAli().getPay();
             response = Factory.Payment.Common()
                     .asyncNotify(aliPay.getNotifyHost() + CommonConstant.ALI_REFUND_NOTIFY_URL)
                     .optional("out_request_no", dto.getRefundNo())
@@ -182,7 +182,7 @@ public class AliPayServiceImpl implements PayService {
     private PrepayVO createCommonPrepay(PrepayDTO dto) {
         AlipayTradeCreateResponse response;
         try {
-            SystemProperties.AliPayProperties aliPay = systemProperties.getAliPay();
+            SystemProperties.AliPay aliPay = systemProperties.getAli().getPay();
             response = Factory.Payment.Common().optional("body", dto.getAttach()).asyncNotify(aliPay.getNotifyHost() + CommonConstant.ALI_PAY_NOTIFY_URL)
                     .create(dto.getDescription(), dto.getTradeNo(), DecimalUtil.centToYuan(dto.getAmount()), dto.getBuyerId());
         } catch (Exception e) {
@@ -207,7 +207,7 @@ public class AliPayServiceImpl implements PayService {
     private PrepayVO createFacePrepay(PrepayDTO dto) {
         AlipayTradePrecreateResponse response;
         try {
-            SystemProperties.AliPayProperties aliPay = systemProperties.getAliPay();
+            SystemProperties.AliPay aliPay = systemProperties.getAli().getPay();
             response = Factory.Payment.FaceToFace().optional("body", dto.getAttach()).asyncNotify(aliPay.getNotifyHost() + CommonConstant.ALI_PAY_NOTIFY_URL)
                     .preCreate(dto.getDescription(), dto.getTradeNo(), DecimalUtil.centToYuan(dto.getAmount()));
         } catch (Exception e) {
