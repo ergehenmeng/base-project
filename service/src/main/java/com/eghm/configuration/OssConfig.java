@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
-public class FileConfig {
+public class OssConfig {
 
     @Bean
     @ConditionalOnProperty(prefix = "system", name = "upload-type", havingValue = "system", matchIfMissing = true)
