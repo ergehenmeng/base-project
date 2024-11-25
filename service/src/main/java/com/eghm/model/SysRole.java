@@ -25,6 +25,4 @@ public class SysRole extends BaseEntity {
     @ApiModelProperty("备注信息")
     private String remark;
 
-    @ApiModelProperty("商户id")
-    private Long merchantId;
 }

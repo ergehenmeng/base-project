@@ -5,14 +5,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.dto.ext.CheckBox;
 import com.eghm.dto.ext.PagingQuery;
+import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.dto.sys.role.RoleAddRequest;
 import com.eghm.dto.sys.role.RoleEditRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.UserType;
 import com.eghm.enums.RoleType;
+import com.eghm.enums.UserType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysRoleMapper;
 import com.eghm.mapper.SysUserRoleMapper;
@@ -42,15 +42,14 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public Page<SysRoleResponse> getByPage(PagingQuery request) {
-        return sysRoleMapper.getByPage(request.createPage(), request.getQueryName(), null);
+        return sysRoleMapper.getByPage(request.createPage(), request.getQueryName());
     }
 
     @Override
     public void update(RoleEditRequest request) {
-        this.redoRole(request.getRoleName(), request.getId(), null);
+        this.redoRole(request.getRoleName(), request.getId());
         LambdaUpdateWrapper<SysRole> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(SysRole::getId, request.getId());
-        wrapper.isNull(SysRole::getMerchantId);
         wrapper.set(SysRole::getRoleName, request.getRoleName());
         wrapper.set(SysRole::getRemark, request.getRemark());
         sysRoleMapper.update(null, wrapper);
@@ -68,14 +67,13 @@ public class SysRoleServiceImpl implements SysRoleService {
         }
         LambdaUpdateWrapper<SysRole> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(SysRole::getId, id);
-        wrapper.isNull(SysRole::getMerchantId);
         wrapper.set(SysRole::getDeleted, true);
         sysRoleMapper.update(null, wrapper);
     }
 
     @Override
     public void create(RoleAddRequest request) {
-        this.redoRole(request.getRoleName(), null, request.getMerchantId());
+        this.redoRole(request.getRoleName(), null);
         SysRole role = DataUtil.copy(request, SysRole.class);
         sysRoleMapper.insert(role);
     }
@@ -123,10 +121,9 @@ public class SysRoleServiceImpl implements SysRoleService {
      * @param name 角色名称
      * @param id   id 编辑时不能为空
      */
-    public void redoRole(String name, Long id, Long merchantId) {
+    public void redoRole(String name, Long id) {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysRole::getRoleName, name);
-        wrapper.eq(merchantId != null, SysRole::getMerchantId, merchantId);
         wrapper.ne(id != null, SysRole::getId, id);
         Long count = sysRoleMapper.selectCount(wrapper);
         if (count > 0) {

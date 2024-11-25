@@ -18,10 +18,9 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      *
      * @param page 分页
      * @param queryName 查询条件
-     * @param merchantId 商户id
      * @return 列表
      */
-    Page<SysRoleResponse> getByPage(Page<SysRoleResponse> page, @Param("queryName") String queryName, @Param("merchantId") Long merchantId);
+    Page<SysRoleResponse> getByPage(Page<SysRoleResponse> page, @Param("queryName") String queryName);
 
     /**
      * 获取角色拥有的菜单列表

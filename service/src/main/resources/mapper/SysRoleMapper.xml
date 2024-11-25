@@ -12,12 +12,6 @@
         update_time
         from sys_role
         where deleted = false
-        <if test="merchantId != null">
-            and merchant_id = #{merchantId}
-        </if>
-        <if test="merchantId == null">
-            and merchant_id is null
-        </if>
         <if test="queryName != null and queryName != ''">
             and role_name like concat('%', #{queryName, typeHandler=LikeTypeHandler},'%')
         </if>

@@ -27,8 +27,4 @@ public class RoleAddRequest {
     @ApiModelProperty(value = "角色类型", hidden= true)
     @Assign
     private RoleType roleType;
-
-    @ApiModelProperty(value = "商户id", hidden = true)
-    @Assign
-    private Long merchantId;
 }

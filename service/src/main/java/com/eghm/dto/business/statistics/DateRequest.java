@@ -1,6 +1,5 @@
 package com.eghm.dto.business.statistics;
 
-import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.DateComparator;
 import com.eghm.enums.SelectType;
@@ -33,9 +32,5 @@ public class DateRequest extends DateComparator {
 
     @ApiModelProperty(value = "查询类型")
     private SelectType selectType;
-
-    @Assign
-    @ApiModelProperty(value = "商户id", hidden = true)
-    private Long merchantId;
 
 }
