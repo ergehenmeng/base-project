@@ -12,7 +12,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum SelectType implements ValueEnumBinder {
+public enum SelectType implements EnumBinder<String> {
 
     /**
      * 按周查询
@@ -43,5 +43,10 @@ public enum SelectType implements ValueEnumBinder {
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value.equalsIgnoreCase(value.split(":")[0]);
     }
 }

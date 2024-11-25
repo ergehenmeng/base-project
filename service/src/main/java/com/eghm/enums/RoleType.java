@@ -14,7 +14,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum RoleType implements ValueEnumBinder {
+public enum RoleType implements EnumBinder<String> {
 
     /**
      * 系统通用角色
@@ -50,5 +50,10 @@ public enum RoleType implements ValueEnumBinder {
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value.equalsIgnoreCase(value.split(":")[0]);
     }
 }
