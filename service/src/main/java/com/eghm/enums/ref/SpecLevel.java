@@ -13,7 +13,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum SpecLevel implements EnumBinder {
+public enum SpecLevel implements EnumBinder<Integer> {
 
     /**
      * 一级规格
@@ -29,7 +29,7 @@ public enum SpecLevel implements EnumBinder {
 
     @EnumValue
     @JsonValue
-    private final int value;
+    private final Integer value;
 
     @ExcelDesc
     private final String name;
@@ -37,5 +37,10 @@ public enum SpecLevel implements EnumBinder {
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

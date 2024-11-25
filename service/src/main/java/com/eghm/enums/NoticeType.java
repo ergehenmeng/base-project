@@ -14,7 +14,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum NoticeType implements ValueEnumBinder {
+public enum NoticeType implements EnumBinder<String> {
 
     /**
      * 通用类通知
@@ -69,5 +69,10 @@ public enum NoticeType implements ValueEnumBinder {
     @Override
     public String toString() {
         return value + ":" + msg;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value.equals(value.split(":")[0]);
     }
 }

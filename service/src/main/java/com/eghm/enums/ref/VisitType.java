@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum VisitType implements EnumBinder {
+public enum VisitType implements EnumBinder<Integer> {
 
     /**
      * 首页
@@ -70,7 +70,7 @@ public enum VisitType implements EnumBinder {
      */
     @EnumValue
     @JsonValue
-    private final int value;
+    private final Integer value;
 
     /**
      * 名称
@@ -83,11 +83,16 @@ public enum VisitType implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(VisitType.values()).filter(type -> value == type.value).findFirst().orElse(null);
+        return Arrays.stream(VisitType.values()).filter(type -> value.intValue() == type.value).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

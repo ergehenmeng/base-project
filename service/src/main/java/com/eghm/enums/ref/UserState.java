@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum UserState implements EnumBinder {
+public enum UserState implements EnumBinder<Integer> {
 
     /**
      * 锁定
@@ -39,7 +39,7 @@ public enum UserState implements EnumBinder {
      */
     @EnumValue
     @JsonValue
-    private final int value;
+    private final Integer value;
 
     /**
      * 名称
@@ -58,5 +58,10 @@ public enum UserState implements EnumBinder {
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

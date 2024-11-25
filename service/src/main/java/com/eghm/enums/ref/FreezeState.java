@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum FreezeState implements EnumBinder {
+public enum FreezeState implements EnumBinder<Integer> {
 
     /**
      * 冻结中
@@ -34,7 +34,7 @@ public enum FreezeState implements EnumBinder {
      */
     @EnumValue
     @JsonValue
-    private final int value;
+    private final Integer value;
 
     /**
      * 名称
@@ -47,11 +47,16 @@ public enum FreezeState implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(FreezeState.values()).filter(auditState -> auditState.value == value).findFirst().orElse(null);
+        return Arrays.stream(FreezeState.values()).filter(auditState -> auditState.value == value.intValue()).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

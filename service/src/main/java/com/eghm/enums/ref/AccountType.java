@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum AccountType implements EnumBinder {
+public enum AccountType implements EnumBinder<Integer> {
 
     /**
      * 例如: 平台抽佣:5%, 单价500x2, 则支付收入500x2*0.95=950
@@ -53,7 +53,7 @@ public enum AccountType implements EnumBinder {
      */
     @EnumValue
     @JsonValue
-    private final int value;
+    private final Integer value;
 
     /**
      * 名称
@@ -71,11 +71,16 @@ public enum AccountType implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(AccountType.values()).filter(auditState -> auditState.value == value).findFirst().orElse(null);
+        return Arrays.stream(AccountType.values()).filter(auditState -> auditState.value == value.intValue()).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

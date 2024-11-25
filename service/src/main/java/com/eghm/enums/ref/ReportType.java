@@ -16,7 +16,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum ReportType implements EnumBinder {
+public enum ReportType implements EnumBinder<Integer> {
 
     /**
      * 淫秽色情
@@ -56,7 +56,7 @@ public enum ReportType implements EnumBinder {
 
     @EnumValue
     @JsonValue
-    private final int value;
+    private final Integer value;
 
     @ExcelDesc
     private final String name;
@@ -66,11 +66,16 @@ public enum ReportType implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(ReportType.values()).filter(type -> value == type.value).findFirst().orElse(null);
+        return Arrays.stream(ReportType.values()).filter(type -> value.intValue() == type.value).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

@@ -15,7 +15,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum CouponState implements EnumBinder {
+public enum CouponState implements EnumBinder<Integer> {
 
     /**
      * 未使用
@@ -37,7 +37,7 @@ public enum CouponState implements EnumBinder {
      */
     @JsonValue
     @EnumValue
-    private final int value;
+    private final Integer value;
 
     /**
      * 名称
@@ -49,11 +49,16 @@ public enum CouponState implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(CouponState.values()).filter(couponMode -> couponMode.value == value).findFirst().orElse(null);
+        return Arrays.stream(CouponState.values()).filter(couponMode -> couponMode.value == value.intValue()).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

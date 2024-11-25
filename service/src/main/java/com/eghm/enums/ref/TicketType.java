@@ -15,7 +15,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum TicketType implements EnumBinder {
+public enum TicketType implements EnumBinder<Integer> {
 
     /**
      * 成人
@@ -58,7 +58,7 @@ public enum TicketType implements EnumBinder {
      */
     @EnumValue
     @JsonValue
-    private final int value;
+    private final Integer value;
 
     /**
      * 名称
@@ -69,5 +69,10 @@ public enum TicketType implements EnumBinder {
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

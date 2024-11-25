@@ -2,8 +2,8 @@ package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.eghm.enums.EnumBinder;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ValueEnumBinder;
 import com.eghm.exception.BusinessException;
 import com.eghm.utils.DateUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -20,7 +20,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum ProductType implements ValueEnumBinder {
+public enum ProductType implements EnumBinder<String> {
 
     /**
      * 门票
@@ -149,5 +149,10 @@ public enum ProductType implements ValueEnumBinder {
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value.equals(value.split(":")[0]);
     }
 }

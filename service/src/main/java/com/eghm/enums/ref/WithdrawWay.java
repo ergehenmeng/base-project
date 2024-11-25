@@ -13,7 +13,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum WithdrawWay implements EnumBinder {
+public enum WithdrawWay implements EnumBinder<Integer> {
 
     /**
      * 手动提现
@@ -27,7 +27,7 @@ public enum WithdrawWay implements EnumBinder {
 
     @JsonValue
     @EnumValue
-    private final int value;
+    private final Integer value;
 
     @ExcelDesc
     private final String name;
@@ -35,5 +35,10 @@ public enum WithdrawWay implements EnumBinder {
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

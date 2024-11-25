@@ -15,7 +15,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum SmsType implements ValueEnumBinder {
+public enum SmsType implements EnumBinder<String> {
 
     /**
      * 未指定短信类型,则为自定义短信:default
@@ -86,5 +86,10 @@ public enum SmsType implements ValueEnumBinder {
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value.equals(value.split(":")[0]);
     }
 }

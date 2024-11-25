@@ -15,7 +15,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum LotteryState implements EnumBinder {
+public enum LotteryState implements EnumBinder<Integer> {
 
     /**
      * 未开始
@@ -38,7 +38,7 @@ public enum LotteryState implements EnumBinder {
      */
     @JsonValue
     @EnumValue
-    private final int value;
+    private final Integer value;
 
     /**
      * 名称
@@ -50,11 +50,16 @@ public enum LotteryState implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(LotteryState.values()).filter(type -> value == type.value).findFirst().orElse(null);
+        return Arrays.stream(LotteryState.values()).filter(type -> value.intValue() == type.value).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

@@ -18,7 +18,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum OrderState implements EnumBinder {
+public enum OrderState implements EnumBinder<Integer> {
 
     /**
      * 初始状态
@@ -91,7 +91,7 @@ public enum OrderState implements EnumBinder {
      */
     @JsonValue
     @EnumValue
-    private final int value;
+    private final Integer value;
 
     /**
      * 名称
@@ -104,12 +104,17 @@ public enum OrderState implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(OrderState.values()).filter(state -> state.value == value).findFirst().orElse(null);
+        return Arrays.stream(OrderState.values()).filter(state -> state.value == value.intValue()).findFirst().orElse(null);
     }
 
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

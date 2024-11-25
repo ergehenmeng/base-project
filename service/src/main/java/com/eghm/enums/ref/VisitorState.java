@@ -15,7 +15,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum VisitorState implements EnumBinder {
+public enum VisitorState implements EnumBinder<Integer> {
 
     /**
      * 待支付
@@ -49,7 +49,7 @@ public enum VisitorState implements EnumBinder {
      */
     @JsonValue
     @EnumValue
-    private final int value;
+    private final Integer value;
 
     /**
      * 名称
@@ -67,5 +67,10 @@ public enum VisitorState implements EnumBinder {
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

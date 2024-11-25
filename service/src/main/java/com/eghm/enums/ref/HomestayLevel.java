@@ -13,7 +13,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum HomestayLevel implements EnumBinder {
+public enum HomestayLevel implements EnumBinder<Integer> {
 
     /**
      * 无
@@ -44,7 +44,7 @@ public enum HomestayLevel implements EnumBinder {
 
     @EnumValue
     @JsonValue
-    private final int value;
+    private final Integer value;
 
     @ExcelDesc
     private final String name;
@@ -52,5 +52,10 @@ public enum HomestayLevel implements EnumBinder {
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

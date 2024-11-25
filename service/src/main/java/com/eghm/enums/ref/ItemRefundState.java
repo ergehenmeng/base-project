@@ -17,7 +17,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum ItemRefundState implements EnumBinder {
+public enum ItemRefundState implements EnumBinder<Integer> {
 
     /**
      * 初始状态
@@ -35,7 +35,7 @@ public enum ItemRefundState implements EnumBinder {
      */
     @JsonValue
     @EnumValue
-    private final int value;
+    private final Integer value;
 
     /**
      * 备注
@@ -47,11 +47,16 @@ public enum ItemRefundState implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(ItemRefundState.values()).filter(type -> value == type.value).findFirst().orElse(null);
+        return Arrays.stream(ItemRefundState.values()).filter(type -> value.intValue() == type.value).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

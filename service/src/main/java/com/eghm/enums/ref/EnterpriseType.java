@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum EnterpriseType implements EnumBinder {
+public enum EnterpriseType implements EnumBinder<Integer> {
 
     /**
      * 个体工商户
@@ -34,7 +34,7 @@ public enum EnterpriseType implements EnumBinder {
      */
     @EnumValue
     @JsonValue
-    private final int value;
+    private final Integer value;
 
     /**
      * 名称
@@ -47,11 +47,16 @@ public enum EnterpriseType implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(EnterpriseType.values()).filter(type -> value == type.value).findFirst().orElse(null);
+        return Arrays.stream(EnterpriseType.values()).filter(type -> value.intValue() == type.value).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

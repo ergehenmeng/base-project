@@ -13,7 +13,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Duration implements EnumBinder {
+public enum Duration implements EnumBinder<Integer> {
 
     ONE(1, "一日游"),
 
@@ -47,7 +47,7 @@ public enum Duration implements EnumBinder {
 
     @JsonValue
     @EnumValue
-    private final int value;
+    private final Integer value;
 
     @ExcelDesc
     private final String name;
@@ -55,5 +55,10 @@ public enum Duration implements EnumBinder {
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

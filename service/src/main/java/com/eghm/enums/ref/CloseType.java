@@ -18,7 +18,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum CloseType implements EnumBinder {
+public enum CloseType implements EnumBinder<Integer> {
 
     /**
      * 过期自动取消
@@ -41,7 +41,7 @@ public enum CloseType implements EnumBinder {
      */
     @EnumValue
     @JsonValue
-    private final int value;
+    private final Integer value;
 
     /**
      * 名称
@@ -54,11 +54,16 @@ public enum CloseType implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(CloseType.values()).filter(auditState -> auditState.value == value).findFirst().orElse(null);
+        return Arrays.stream(CloseType.values()).filter(auditState -> auditState.value == value.intValue()).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

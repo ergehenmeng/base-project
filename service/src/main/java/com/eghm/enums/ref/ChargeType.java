@@ -16,7 +16,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum ChargeType implements EnumBinder {
+public enum ChargeType implements EnumBinder<Integer> {
 
     /**
      * 充值
@@ -59,7 +59,7 @@ public enum ChargeType implements EnumBinder {
      */
     @EnumValue
     @JsonValue
-    private final int value;
+    private final Integer value;
 
     /**
      * 名称
@@ -76,11 +76,16 @@ public enum ChargeType implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(ChargeType.values()).filter(auditState -> auditState.value == value).findFirst().orElse(null);
+        return Arrays.stream(ChargeType.values()).filter(auditState -> auditState.value == value.intValue()).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

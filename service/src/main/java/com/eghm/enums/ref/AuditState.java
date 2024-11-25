@@ -17,7 +17,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum AuditState implements EnumBinder {
+public enum AuditState implements EnumBinder<Integer> {
 
     /**
      * 默认
@@ -45,7 +45,7 @@ public enum AuditState implements EnumBinder {
      */
     @EnumValue
     @JsonValue
-    private final int value;
+    private final Integer value;
 
     /**
      * 名称
@@ -57,12 +57,17 @@ public enum AuditState implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(AuditState.values()).filter(auditState -> auditState.value == value)
+        return Arrays.stream(AuditState.values()).filter(auditState -> auditState.value == value.intValue())
                 .findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

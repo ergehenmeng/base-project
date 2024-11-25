@@ -14,7 +14,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum ChargeMode implements EnumBinder {
+public enum ChargeMode implements EnumBinder<Integer> {
 
 
     /**
@@ -34,7 +34,7 @@ public enum ChargeMode implements EnumBinder {
      */
     @JsonValue
     @EnumValue
-    private final int value;
+    private final Integer value;
 
     /**
      * 名称
@@ -44,5 +44,10 @@ public enum ChargeMode implements EnumBinder {
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

@@ -16,7 +16,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum RefundType implements EnumBinder {
+public enum RefundType implements EnumBinder<Integer> {
 
     /**
      * 不支持退款
@@ -36,7 +36,7 @@ public enum RefundType implements EnumBinder {
 
     @EnumValue
     @JsonValue
-    private final int value;
+    private final Integer value;
 
     @ExcelDesc
     private final String name;
@@ -46,11 +46,16 @@ public enum RefundType implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(RefundType.values()).filter(type -> value == type.value).findFirst().orElse(null);
+        return Arrays.stream(RefundType.values()).filter(type -> value.intValue() == type.value).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

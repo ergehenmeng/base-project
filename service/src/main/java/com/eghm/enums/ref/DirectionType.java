@@ -16,7 +16,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum DirectionType implements EnumBinder {
+public enum DirectionType implements EnumBinder<Integer> {
 
     /**
      * 无须发货
@@ -32,7 +32,7 @@ public enum DirectionType implements EnumBinder {
 
     @JsonValue
     @EnumValue
-    private final int value;
+    private final Integer value;
 
     @ExcelDesc
     private final String name;
@@ -42,11 +42,16 @@ public enum DirectionType implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(DirectionType.values()).filter(type -> value == type.value).findFirst().orElse(null);
+        return Arrays.stream(DirectionType.values()).filter(type -> value.intValue() == type.value).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

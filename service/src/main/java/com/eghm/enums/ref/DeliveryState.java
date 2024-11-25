@@ -15,7 +15,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum DeliveryState implements EnumBinder {
+public enum DeliveryState implements EnumBinder<Integer> {
 
     /**
      * 初始状态
@@ -44,7 +44,7 @@ public enum DeliveryState implements EnumBinder {
 
     @JsonValue
     @EnumValue
-    private final int value;
+    private final Integer value;
 
     private final String name;
 
@@ -53,11 +53,16 @@ public enum DeliveryState implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(DeliveryState.values()).filter(type -> value == type.value).findFirst().orElse(null);
+        return Arrays.stream(DeliveryState.values()).filter(type -> value.intValue() == type.value).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

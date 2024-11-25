@@ -2,7 +2,6 @@ package com.eghm.convertor;
 
 import com.eghm.enums.EnumBinder;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ValueEnumBinder;
 import com.eghm.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
@@ -41,27 +40,15 @@ public class EnumBinderConverterFactory implements ConverterFactory<String, Enum
             }
             // knife4j-doc枚举类型是通过toString展示的, 因此如果正常展示需要重写枚举的toString方法,即: value + ":" + desc,
             // 同时调试入参也是通过toString作为参数传递给后端, 下面这句代码仅仅为了兼容knife4j页面调试
-            value = value.split(":")[0];
             if (EnumBinder.class.isAssignableFrom(enumType)) {
                 T[] enums = enumType.getEnumConstants();
-                int v = Integer.parseInt(value);
                 for (T e : enums) {
                     EnumBinder binder = (EnumBinder) e;
-                    if (v == binder.getValue()) {
+                    if (binder.match(value)) {
                         return e;
                     }
                 }
                 log.info("数字枚举类型映射失败 [{}] [{}]", enumType, value);
-                throw new BusinessException(ErrorCode.ENUMS_FORMAT);
-            } else if (ValueEnumBinder.class.isAssignableFrom(enumType)) {
-                T[] enums = enumType.getEnumConstants();
-                for (T e : enums) {
-                    ValueEnumBinder binder = (ValueEnumBinder) e;
-                    if (value.equals(binder.getValue())) {
-                        return e;
-                    }
-                }
-                log.info("字符串枚举类型映射失败 [{}] [{}]", enumType, value);
                 throw new BusinessException(ErrorCode.ENUMS_FORMAT);
             } else {
                 return (T) Enum.valueOf(this.enumType, value.trim());

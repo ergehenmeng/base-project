@@ -16,7 +16,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum DeliveryType implements EnumBinder {
+public enum DeliveryType implements EnumBinder<Integer> {
 
     /**
      * 快递包邮
@@ -31,7 +31,7 @@ public enum DeliveryType implements EnumBinder {
 
     @JsonValue
     @EnumValue
-    private final int value;
+    private final Integer value;
 
     @ExcelDesc
     private final String name;
@@ -41,11 +41,16 @@ public enum DeliveryType implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(DeliveryType.values()).filter(type -> value == type.value).findFirst().orElse(null);
+        return Arrays.stream(DeliveryType.values()).filter(type -> value.intValue() == type.value).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

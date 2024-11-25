@@ -15,7 +15,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum PrizeType implements EnumBinder {
+public enum PrizeType implements EnumBinder<Integer> {
 
     /**
      * 谢谢参与
@@ -36,7 +36,7 @@ public enum PrizeType implements EnumBinder {
 
     @EnumValue
     @JsonValue
-    private final int value;
+    private final Integer value;
 
     private final String name;
 
@@ -45,12 +45,16 @@ public enum PrizeType implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(PrizeType.values()).filter(prizeType -> prizeType.value == value).findFirst().orElse(null);
+        return Arrays.stream(PrizeType.values()).filter(prizeType -> prizeType.value == value.intValue()).findFirst().orElse(null);
     }
-
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }

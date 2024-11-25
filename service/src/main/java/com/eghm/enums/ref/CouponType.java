@@ -17,7 +17,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum CouponType implements EnumBinder {
+public enum CouponType implements EnumBinder<Integer> {
 
     /**
      * 抵扣券
@@ -34,7 +34,7 @@ public enum CouponType implements EnumBinder {
      */
     @JsonValue
     @EnumValue
-    private final int value;
+    private final Integer value;
 
     /**
      * 名称
@@ -46,11 +46,16 @@ public enum CouponType implements EnumBinder {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(CouponType.values()).filter(couponMode -> couponMode.value == value).findFirst().orElse(null);
+        return Arrays.stream(CouponType.values()).filter(couponMode -> couponMode.value == value.intValue()).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
         return value + ":" + name;
+    }
+
+    @Override
+    public boolean match(String value) {
+        return this.value == Integer.parseInt(value.split(":")[0]);
     }
 }
