@@ -33,15 +33,15 @@ public class PayLogController {
     @GetMapping("/sync/listPage")
     @ApiOperation("支付同步请求日志列表")
     public RespBody<PageData<PayRequestLogResponse>> syncListPage(PayLogQueryRequest request) {
-        Page<PayRequestLogResponse> merchantPage = payRequestLogService.getByPage(request);
-        return RespBody.success(PageData.toPage(merchantPage));
+        Page<PayRequestLogResponse> logPage = payRequestLogService.getByPage(request);
+        return RespBody.success(PageData.toPage(logPage));
     }
 
     @GetMapping("/async/listPage")
     @ApiOperation("支付异步响应日志列表")
     public RespBody<PageData<PayNotifyLogResponse>> asyncListPage(PayLogQueryRequest request) {
-        Page<PayNotifyLogResponse> merchantPage = payNotifyLogService.getByPage(request);
-        return RespBody.success(PageData.toPage(merchantPage));
+        Page<PayNotifyLogResponse> logPage = payNotifyLogService.getByPage(request);
+        return RespBody.success(PageData.toPage(logPage));
     }
 
 }

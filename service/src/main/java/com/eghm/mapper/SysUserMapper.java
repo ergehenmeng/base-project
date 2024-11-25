@@ -22,11 +22,4 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      */
     Page<UserResponse> listPage(Page<UserResponse> page, @Param("param") UserQueryRequest request);
 
-    /**
-     * 获取商户类型
-     *
-     * @param userId 用户id
-     * @return 商户类型 1 2 4 8 16 32
-     */
-    int getMerchantType(@Param("userId") Long userId);
 }
