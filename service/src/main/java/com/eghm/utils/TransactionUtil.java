@@ -23,13 +23,13 @@ import java.util.function.Consumer;
 @Slf4j
 public class TransactionUtil {
 
-    private static final TransactionTemplate TEMPLATE;
-
     public static final AlarmService ALARM_SERVICE;
 
+    private static final TransactionTemplate TEMPLATE;
+
     static {
-        TEMPLATE = SpringContextUtil.getBean(TransactionTemplate.class);
         ALARM_SERVICE = SpringContextUtil.getBean(AlarmService.class);
+        TEMPLATE = SpringContextUtil.getBean(TransactionTemplate.class);
     }
 
     /**
