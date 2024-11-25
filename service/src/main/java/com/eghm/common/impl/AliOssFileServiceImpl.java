@@ -37,7 +37,7 @@ public class AliOssFileServiceImpl implements FileService {
 
     @Override
     public FilePath saveFile(String key, MultipartFile file) {
-        return this.saveFile(key, file, systemProperties.getUploadFolder(), this.getSingleMaxSize());
+        return this.saveFile(key, file, systemProperties.getUploadFolder(), sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
     }
 
     @Override
@@ -86,10 +86,6 @@ public class AliOssFileServiceImpl implements FileService {
             throw new BusinessException(ErrorCode.FILE_SAVE_ERROR);
         }
         return FilePath.builder().path(fileName).address(systemProperties.getAli().getOss().getAccessDomain()).size(file.getSize()).build();
-    }
-
-    private long getSingleMaxSize() {
-        return sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE);
     }
 
 }

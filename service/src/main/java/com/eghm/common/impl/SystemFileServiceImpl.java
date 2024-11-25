@@ -44,7 +44,7 @@ public class SystemFileServiceImpl implements FileService {
 
     @Override
     public FilePath saveFile(String key, MultipartFile file) {
-        return this.saveFile(key, file, systemProperties.getUploadFolder(), this.getSingleMaxSize());
+        return this.saveFile(key, file, systemProperties.getUploadFolder(), sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
     }
 
     @Override
@@ -120,10 +120,6 @@ public class SystemFileServiceImpl implements FileService {
      */
     private String getFullPath(String filePath) {
         return systemProperties.getUploadPath() + filePath;
-    }
-
-    private long getSingleMaxSize() {
-        return sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE);
     }
 
     private String getFileAddress() {
