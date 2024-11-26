@@ -4,6 +4,7 @@ import cn.hutool.core.io.IoUtil;
 import com.eghm.constants.CommonConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.lang.NonNull;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
@@ -75,7 +76,7 @@ public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
      * @param content content
      * @return 默认不处理
      */
-    protected String filterBody(String content) {
+    protected @NonNull String filterBody(String content) {
         return content;
     }
 }
