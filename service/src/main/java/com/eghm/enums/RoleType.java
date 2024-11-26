@@ -54,6 +54,6 @@ public enum RoleType implements EnumBinder<String> {
 
     @Override
     public boolean match(String value) {
-        return this.value.equalsIgnoreCase(value.split(":")[0]);
+        return this.value.equals(value.split(":")[0]);
     }
 }
