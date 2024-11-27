@@ -34,7 +34,7 @@ public class MessageInterceptor implements InterceptorAdapter {
     /**
      * 请求头最大长度 默认256
      */
-    private static final int MAX_HEADER_LENGTH = 128;
+    private static final int MAX_HEADER_LENGTH = 256;
 
     @Override
     public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
