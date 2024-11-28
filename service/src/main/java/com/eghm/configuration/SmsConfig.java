@@ -19,13 +19,13 @@ import org.springframework.context.annotation.Configuration;
 public class SmsConfig {
 
     @Bean
-    @ConditionalOnProperty(prefix = "system.sms", name = "sms-type", havingValue = "ali", matchIfMissing = true)
+    @ConditionalOnProperty(prefix = "system.sms", name = "channel", havingValue = "ali", matchIfMissing = true)
     public SendSmsService aliSmsService(JsonService jsonService, SystemProperties systemProperties) {
         return new AliSmsServiceImpl(jsonService, systemProperties);
     }
 
     @Bean
-    @ConditionalOnProperty(prefix = "system.sms", name = "sms-type", havingValue = "tencent")
+    @ConditionalOnProperty(prefix = "system.sms", name = "channel", havingValue = "tencent")
     public SendSmsService tencentSmsService(JsonService jsonService, SystemProperties systemProperties) {
         return new TencentSmsServiceImpl(jsonService, systemProperties);
     }

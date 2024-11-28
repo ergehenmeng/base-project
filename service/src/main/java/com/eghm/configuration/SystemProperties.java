@@ -84,7 +84,7 @@ public class SystemProperties {
         /**
          * 短信渠道
          */
-        private SmsChannel smsChannel = SmsChannel.ALI;
+        private SmsChannel channel = SmsChannel.ALI;
 
         /**
          * 签名信息
