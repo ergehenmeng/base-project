@@ -29,10 +29,10 @@ public class NoticeController {
 
     private final SysNoticeService sysNoticeService;
 
-    @GetMapping("/limit")
+    @GetMapping("/top")
     @ApiOperation("首页公告Top-N")
-    public RespBody<List<NoticeVO>> list() {
-        List<NoticeVO> list = sysNoticeService.getList();
+    public RespBody<List<NoticeVO>> top() {
+        List<NoticeVO> list = sysNoticeService.getTop();
         return RespBody.success(list);
     }
 

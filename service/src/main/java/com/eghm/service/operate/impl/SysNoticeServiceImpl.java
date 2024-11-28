@@ -50,7 +50,7 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     }
 
     @Override
-    public List<NoticeVO> getList() {
+    public List<NoticeVO> getTop() {
         int noticeLimit = sysConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
         List<SysNotice> noticeList = cacheProxyService.getNoticeList(noticeLimit);
         return DataUtil.copy(noticeList, notice -> {
