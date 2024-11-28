@@ -2,6 +2,7 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanEncoder;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class RedeemCodeGrant extends BaseEntity {
     private String cdKey;
 
     @ApiModelProperty(value = "使用时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime useTime;
 
     @ApiModelProperty(value = "用户id")
@@ -45,9 +47,11 @@ public class RedeemCodeGrant extends BaseEntity {
     private Integer amount;
 
     @ApiModelProperty(value = "有效开始时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "有效截止时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
 }

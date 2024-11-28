@@ -3,6 +3,7 @@ package com.eghm.pay.vo;
 
 import com.eghm.pay.enums.TradeState;
 import com.eghm.pay.enums.TradeType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class PayOrderVO {
     private String attach;
 
     @ApiModelProperty("支付成功时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime successTime;
 
     @ApiModelProperty("交易单号(微信或支付宝方生成)")

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.DataType;
 import com.eghm.enums.UserType;
 import com.eghm.enums.ref.UserState;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -52,5 +53,6 @@ public class SysUser extends BaseEntity {
     private String remark;
 
     @ApiModelProperty("密码修改时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime pwdUpdateTime;
 }

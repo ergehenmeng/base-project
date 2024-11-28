@@ -2,6 +2,7 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.AuditState;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -64,12 +65,14 @@ public class OrderRefundLog extends BaseEntity {
     private Long auditUserId;
 
     @ApiModelProperty(value = "退款审核时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime auditTime;
 
     @ApiModelProperty(value = "审批意见或建议")
     private String auditRemark;
 
     @ApiModelProperty(value = "退款申请时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime applyTime;
 
     @ApiModelProperty(value = "物流公司(退货退款)")

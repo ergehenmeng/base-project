@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.CouponState;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -33,10 +34,12 @@ public class MemberCoupon extends BaseEntity {
     private CouponState state;
 
     @ApiModelProperty(value = "领取时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime receiveTime;
 
     @ApiModelProperty(value = "使用时间")
     @TableField(updateStrategy = FieldStrategy.IGNORED)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime useTime;
 
 }

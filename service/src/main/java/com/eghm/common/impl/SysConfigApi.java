@@ -62,22 +62,6 @@ public class SysConfigApi {
     /**
      * 根据nid获取系统参数配置信息
      *
-     * @param nid 唯一nid
-     * @return 系统参数结果 double
-     */
-    public double getDouble(String nid) {
-        String value = this.getString(nid);
-        try {
-            return Double.parseDouble(value);
-        } catch (Exception e) {
-            log.warn("系统参数转double异常 [{}]", value);
-        }
-        return 0D;
-    }
-
-    /**
-     * 根据nid获取系统参数配置信息
-     *
      * @param nid          唯一nid
      * @param defaultValue 解析失败时,返回默认值
      * @return 系统参数结果 double
@@ -155,23 +139,6 @@ public class SysConfigApi {
         } catch (Exception e) {
             log.warn("系统参数转long异常 [{}]", value);
             return defaultValue;
-        }
-    }
-
-    /**
-     * 根据nid获取系统参数配置信息的值
-     *
-     * @param nid 唯一nid
-     * @param cls 要转换的类型
-     * @return 系统参数结果值class, 如果异常则抛出
-     */
-    public <T> T getClass(String nid, Class<T> cls) {
-        String value = this.getString(nid);
-        try {
-            return jsonService.fromJson(value, cls);
-        } catch (Exception e) {
-            log.warn("系统参数转对象异常 [{}]", value);
-            throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);
         }
     }
 
