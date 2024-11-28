@@ -29,8 +29,8 @@ public class LoggerUtil {
      *
      * @param msg 日志信息
      */
-    public static void print(String msg) {
-        print(msg, PADDING_CHAR);
+    public static void print(String msg, Object... args) {
+        print(msg, PADDING_CHAR, args);
     }
 
     /**
@@ -39,7 +39,7 @@ public class LoggerUtil {
      * @param msg         日志信息
      * @param paddingChar 填充的字符
      */
-    public static void print(String msg, String paddingChar) {
+    public static void print(String msg, String paddingChar, Object... args) {
         if (StrUtil.isBlank(msg)) {
             log.info("LoggerUtil.print为空");
             return;
@@ -48,7 +48,7 @@ public class LoggerUtil {
         builder.append("\n\n");
         appendChar(builder, paddingChar);
         builder.append(" ");
-        builder.append(msg);
+        builder.append(String.format(msg, args));
         builder.append(" ");
         appendChar(builder, paddingChar);
         builder.append("\n");
