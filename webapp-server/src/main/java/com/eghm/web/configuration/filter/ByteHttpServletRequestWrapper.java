@@ -37,9 +37,7 @@ public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
     @Override
     public ServletInputStream getInputStream() throws IOException {
 
-        if (super.getHeader("Content-Type") == null) {
-            return super.getInputStream();
-        } else if (super.getHeader("Content-Type").startsWith(MediaType.MULTIPART_FORM_DATA_VALUE)) {
+        if (super.getHeader("Content-Type") == null || super.getHeader("Content-Type").startsWith(MediaType.MULTIPART_FORM_DATA_VALUE)) {
             return super.getInputStream();
         } else {
             if (this.body == null) {
