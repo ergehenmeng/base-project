@@ -12,23 +12,23 @@ import java.io.IOException;
  * @author 二哥很猛
  * @since 2023/9/16
  */
-public class NumberParseSerializer extends StdSerializer<Long> {
+public class NumberParseSerializer extends StdSerializer<Integer> {
 
     protected NumberParseSerializer() {
-        super(Long.class);
+        super(Integer.class);
     }
 
     @Override
-    public void serialize(Long value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+    public void serialize(Integer value, JsonGenerator gen, SerializerProvider provider) throws IOException {
         if (value != null) {
             if (value < 10) {
                 gen.writeString(String.valueOf(value));
             } else if (value < 100) {
-                gen.writeString((value - value % 10) + "+");
+                gen.writeString((value / 10) + "+");
             } else if (value < 1000) {
-                gen.writeString((value - value % 100) + "+");
+                gen.writeString((value / 100) + "+");
             } else if (value < 10000) {
-                gen.writeString((value - value % 1000) + "+");
+                gen.writeString((value / 1000) + "+");
             } else {
                 gen.writeString(value / 10000 + "万+");
             }
