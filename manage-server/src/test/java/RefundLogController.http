@@ -1,8 +1,8 @@
-GET http://localhost:8080/manage/refund/log/listPage?page=1&pageSize=10
+GET http://localhost:10086/manage/refund/log/listPage?page=1&pageSize=10
 token: {{token}}
 
 ###
-POST http://localhost:8080/manage/refund/log/audit
+POST http://localhost:10086/manage/refund/log/audit
 token: {{token}}
 Content-Type: application/json
 

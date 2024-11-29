@@ -1,8 +1,8 @@
-GET http://localhost:8080/manage/push/listPage?page=1&pageSize=10
+GET http://localhost:10086/manage/push/listPage?page=1&pageSize=10
 token: {{token}}
 
 ###
-POST http://localhost:8080/manage/push/update
+POST http://localhost:10086/manage/push/update
 token: {{token}}
 Content-Type: application/json
 

@@ -1,8 +1,8 @@
-GET http://localhost:8080/manage/scenic/ticket/listPage?page=1&pageSize=10
+GET http://localhost:10086/manage/scenic/ticket/listPage?page=1&pageSize=10
 token: {{token}}
 
 ###
-POST http://localhost:8080/manage/scenic/ticket/create
+POST http://localhost:10086/manage/scenic/ticket/create
 token: {{token}}
 Content-Type: application/json
 
@@ -10,7 +10,7 @@ Content-Type: application/json
   "scenicId": 1712041763678035970,
   "title": "全票",
   "category": 1,
-  "coverUrl": "http://localhost:8080/ticket/coverUrl.png",
+  "coverUrl": "http://localhost:10086/ticket/coverUrl.png",
   "linePrice": 80,
   "salePrice": 60,
   "advanceDay": 1,
@@ -25,7 +25,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/manage/scenic/ticket/update
+POST http://localhost:10086/manage/scenic/ticket/update
 token: {{token}}
 Content-Type: application/json
 
@@ -34,7 +34,7 @@ Content-Type: application/json
   "scenicId": 1712041763678035970,
   "title": "联票",
   "category": 1,
-  "coverUrl": "http://localhost:8080/ticket/coverUrl.png",
+  "coverUrl": "http://localhost:10086/ticket/coverUrl.png",
   "linePrice": 100,
   "salePrice": 68,
   "advanceDay": 1,
@@ -50,11 +50,11 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/manage/scenic/ticket/select?id=1608697527963467777
+GET http://localhost:10086/manage/scenic/ticket/select?id=1608697527963467777
 token: {{token}}
 
 ###
-POST http://localhost:8080/manage/scenic/ticket/shelves
+POST http://localhost:10086/manage/scenic/ticket/shelves
 token: {{token}}
 Content-Type: application/json
 
@@ -63,7 +63,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/manage/scenic/ticket/unShelves
+POST http://localhost:10086/manage/scenic/ticket/unShelves
 token: {{token}}
 Content-Type: application/json
 

@@ -1,9 +1,9 @@
-GET http://localhost:8080/manage/restaurant/voucher/listPage?page=1&pageSize=10
+GET http://localhost:10086/manage/restaurant/voucher/listPage?page=1&pageSize=10
 token: {{token}}
 
 ###
 
-POST http://localhost:8080/manage/restaurant/voucher/shelves
+POST http://localhost:10086/manage/restaurant/voucher/shelves
 token: {{token}}
 Content-Type: application/json
 
@@ -12,14 +12,14 @@ Content-Type: application/json
 }
 ###
 
-POST http://localhost:8080/manage/restaurant/voucher/create
+POST http://localhost:10086/manage/restaurant/voucher/create
 token: {{token}}
 Content-Type: application/json
 
 {
   "restaurantId": 1716687615256272898,
   "title": "麦当娜20元抵扣券",
-  "coverUrl": "http://localhost:8080/coverUrl.png",
+  "coverUrl": "http://localhost:10086/coverUrl.png",
   "linePrice": 20,
   "salePrice": 16,
   "stock": 100,
@@ -38,14 +38,14 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/manage/restaurant/voucher/update
+POST http://localhost:10086/manage/restaurant/voucher/update
 token: {{token}}
 Content-Type: application/json
 
 {
   "id": 1608705501880594433,
   "title": "麦当娜20元抵扣券",
-  "coverUrl": "http://localhost:8080/coverUrl.png",
+  "coverUrl": "http://localhost:10086/coverUrl.png",
   "linePrice": 20,
   "salePrice": 16,
   "stock": 100,

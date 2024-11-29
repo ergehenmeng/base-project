@@ -1,8 +1,8 @@
-GET http://localhost:8080/manage/poi/type/listPage?page=1&pageSize=10
+GET http://localhost:10086/manage/poi/type/listPage?page=1&pageSize=10
 token: {{token}}
 
 ###
-POST http://localhost:8080/manage/poi/type/create
+POST http://localhost:10086/manage/poi/type/create
 token: {{token}}
 Content-Type: application/json
 

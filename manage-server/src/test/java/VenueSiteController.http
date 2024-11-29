@@ -1,9 +1,9 @@
-GET http://localhost:8080/manage/venue/site/listPage?page=1&pageSize=10&venueId=1760922048632233986
+GET http://localhost:10086/manage/venue/site/listPage?page=1&pageSize=10&venueId=1760922048632233986
 token: {{token}}
 
 ###
 
-POST http://localhost:8080/manage/venue/site/create
+POST http://localhost:10086/manage/venue/site/create
 token: {{token}}
 Content-Type: application/json
 
@@ -15,7 +15,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/manage/venue/site/update
+POST http://localhost:10086/manage/venue/site/update
 token: {{token}}
 Content-Type: application/json
 
@@ -28,27 +28,17 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/manage/venue/site/select?id=1760924119553056770
+GET http://localhost:10086/manage/venue/site/select?id=1760924119553056770
 token: {{token}}
 
 ###
 
-GET http://localhost:8080/manage/venue/site/priceList?venueSiteId=1760924119553056770&nowDate=2024-02-23
+GET http://localhost:10086/manage/venue/site/priceList?venueSiteId=1760924119553056770&nowDate=2024-02-23
 token: {{token}}
 
 ###
 
-POST http://localhost:8080/manage/venue/site/shelves
-token: {{token}}
-Content-Type: application/json
-
-{
-  "id": 1760924119553056770
-}
-
-###
-
-POST http://localhost:8080/manage/venue/site/unShelves
+POST http://localhost:10086/manage/venue/site/shelves
 token: {{token}}
 Content-Type: application/json
 
@@ -58,7 +48,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/manage/venue/site/platformUnShelves
+POST http://localhost:10086/manage/venue/site/unShelves
 token: {{token}}
 Content-Type: application/json
 
@@ -68,7 +58,17 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/manage/venue/site/price/setup
+POST http://localhost:10086/manage/venue/site/platformUnShelves
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1760924119553056770
+}
+
+###
+
+POST http://localhost:10086/manage/venue/site/price/setup
 token: {{token}}
 Content-Type: application/json
 

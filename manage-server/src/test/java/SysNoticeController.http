@@ -1,9 +1,9 @@
-GET http://localhost:8080/manage/notice/listPage?page=0&pageSize=10
+GET http://localhost:10086/manage/notice/listPage?page=0&pageSize=10
 token: {{token}}
 
 ###
 
-POST http://localhost:8080/manage/notice/create
+POST http://localhost:10086/manage/notice/create
 token: {{token}}
 Content-Type: application/json
 
@@ -15,7 +15,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/manage/notice/update
+POST http://localhost:10086/manage/notice/update
 token: {{token}}
 Content-Type: application/json
 
@@ -28,7 +28,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/manage/notice/delete
+POST http://localhost:10086/manage/notice/delete
 token: {{token}}
 Content-Type: application/json
 
@@ -38,7 +38,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/manage/notice/publish
+POST http://localhost:10086/manage/notice/publish
 token: {{token}}
 Content-Type: application/json
 
@@ -48,7 +48,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/manage/notice/cancel
+POST http://localhost:10086/manage/notice/cancel
 token: {{token}}
 Content-Type: application/json
 
@@ -57,5 +57,5 @@ Content-Type: application/json
 }
 ###
 
-GET http://localhost:8080/manage/notice/select?id=1736677658498437121
+GET http://localhost:10086/manage/notice/select?id=1736677658498437121
 token: {{token}}

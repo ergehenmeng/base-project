@@ -21,7 +21,7 @@ services:
       dockerfile: Dockerfile
     ## 端口映射(容器端口:服务端口)
     ports:
-      - "9090:9090"
+      - "10010:10010"
     ## 挂载文件
     volumes:
       - /data/app/manage/logs:/home/app/manage/logs

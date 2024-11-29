@@ -1,9 +1,9 @@
-GET http://localhost:8080/manage/redeem/code/listPage?page=1&pageSize=10
+GET http://localhost:10086/manage/redeem/code/listPage?page=1&pageSize=10
 token: {{token}}
 
 
 ###
-POST http://localhost:8080/manage/redeem/code/create
+POST http://localhost:10086/manage/redeem/code/create
 token: {{token}}
 Content-Type: application/json
 
@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/manage/redeem/code/update
+POST http://localhost:10086/manage/redeem/code/update
 token: {{token}}
 Content-Type: application/json
 
@@ -41,12 +41,12 @@ Content-Type: application/json
 
 
 ###
-GET http://localhost:8080/manage/redeem/code/select?id=1760870016600793089
+GET http://localhost:10086/manage/redeem/code/select?id=1760870016600793089
 token: {{token}}
 
 
 ###
-GET http://localhost:8080/manage/redeem/code/scope?id=1760870016600793089
+GET http://localhost:10086/manage/redeem/code/scope?id=1760870016600793089
 token: {{token}}
 
 ###

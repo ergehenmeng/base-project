@@ -1,6 +1,6 @@
-GET http://localhost:8080/manage/task/log/listPage?page=0&pageSize=10
+GET http://localhost:10086/manage/task/log/listPage?page=0&pageSize=10
 token: {{token}}
 
 ###
-GET http://localhost:8080/manage/task/log/select?id=1736947027849793538
+GET http://localhost:10086/manage/task/log/select?id=1736947027849793538
 token: {{token}}

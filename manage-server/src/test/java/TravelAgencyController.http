@@ -1,9 +1,9 @@
-GET http://localhost:8080/manage/travel/listPage?page=1&pageSize=10
+GET http://localhost:10086/manage/travel/listPage?page=1&pageSize=10
 token: {{token}}
 
 ###
 
-POST http://localhost:8080/manage/travel/create
+POST http://localhost:10086/manage/travel/create
 token: {{token}}
 Content-Type: application/json
 
@@ -22,7 +22,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/manage/travel/update
+POST http://localhost:10086/manage/travel/update
 token: {{token}}
 Content-Type: application/json
 
@@ -42,7 +42,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/manage/travel/shelves
+POST http://localhost:10086/manage/travel/shelves
 token: {{token}}
 Content-Type: application/json
 

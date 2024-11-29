@@ -1,10 +1,10 @@
-GET http://localhost:9090/webapp/coupon/listPage?page=1&pageSize=20
+GET http://localhost:10010/webapp/coupon/listPage?page=1&pageSize=20
 Channel: WECHAT
 Token: {{Token}}
 
 ###
 
-POST http://localhost:9090/webapp/coupon/member/receive
+POST http://localhost:10010/webapp/coupon/member/receive
 Channel: {{Channel}}
 Content-Type: application/json
 Token: {{Token}}
@@ -14,11 +14,11 @@ Token: {{Token}}
 }
 
 ###
-GET http://localhost:9090/webapp/coupon/member/listPage?page=1&pageSize=10
+GET http://localhost:10010/webapp/coupon/member/listPage?page=1&pageSize=10
 Channel: {{Channel}}
 Token: {{Token}}
 
 ###
-GET http://localhost:9090/webapp/coupon/member/choose?id=1717389387411066882
+GET http://localhost:10010/webapp/coupon/member/choose?id=1717389387411066882
 Channel: {{Channel}}
 Token: {{Token}}

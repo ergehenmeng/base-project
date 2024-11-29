@@ -1,2 +1,2 @@
-GET http://localhost:8080/manage/shopping/cart/listPage?page=1&pageSize=10
+GET http://localhost:10086/manage/shopping/cart/listPage?page=1&pageSize=10
 token: {{token}}

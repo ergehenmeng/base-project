@@ -42,7 +42,7 @@ public class ResourceUtil {
     }
 
     /**
-     * 将远程地址转换为本地文件路径, 如：<a href="https://127.0.0.1:8080/xxx.png">https://127.0.0.1:8080/xxx.png</a> 转换为 file:///D:/xxx.png
+     * 将远程地址转换为本地文件路径, 如：<a href="https://127.0.0.1:10086/xxx.png">https://127.0.0.1:10086/xxx.png</a> 转换为 file:///D:/xxx.png
      * 注意: 如果是网络图片,则不需要转换机器本地路径
      * @param path path
      * @return local
