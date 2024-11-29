@@ -134,7 +134,7 @@ public class SysUserServiceImpl implements SysUserService {
         // 角色权限
         sysRoleService.auth(user.getId(), request.getRoleIds());
         // 数据权限, 在新增系统用户时,可以手动指定数据权限,此处既是将用户与其所拥有的的部门权限做关联,方便后续进行数据权限分组
-        if (request.getDataType() != null && request.getDataType() == DataType.CUSTOM.getValue()) {
+        if (request.getDataType() != null && request.getDataType().intValue() == DataType.CUSTOM.getValue()) {
             // 删除旧数据权限
             sysDataDeptService.deleteByUserId(user.getId());
             // 添加新数据权限

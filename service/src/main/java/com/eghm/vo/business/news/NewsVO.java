@@ -38,6 +38,9 @@ public class NewsVO {
     @ApiModelProperty("是否已点赞")
     private Boolean isLiked;
 
+    @ApiModelProperty("状态 false:未上架 true:已上架")
+    private Boolean state;
+
     @ApiModelProperty("是否已删除 false:未删除 true:已删除")
     private Boolean deleted;
 }

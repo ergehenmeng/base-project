@@ -20,6 +20,7 @@ import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.operate.notice.NoticeDetailVO;
 import com.eghm.vo.operate.notice.NoticeResponse;
+import com.eghm.vo.operate.notice.NoticeTopVO;
 import com.eghm.vo.operate.notice.NoticeVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,11 +51,11 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     }
 
     @Override
-    public List<NoticeVO> getTop() {
+    public List<NoticeTopVO> getTop() {
         int noticeLimit = sysConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
         List<SysNotice> noticeList = cacheProxyService.getNoticeList(noticeLimit);
         return DataUtil.copy(noticeList, notice -> {
-            NoticeVO vo = DataUtil.copy(notice, NoticeVO.class);
+            NoticeTopVO vo = DataUtil.copy(notice, NoticeTopVO.class);
             // 将公告类型包含到标题中 例如 紧急通知: 中印发生小规模冲突
             vo.setTitle(sysDictService.getDictValue(DictConstant.NOTICE_TYPE, notice.getNoticeType()) + ": " + vo.getTitle());
             return vo;

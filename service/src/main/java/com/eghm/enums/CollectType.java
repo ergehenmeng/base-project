@@ -24,7 +24,7 @@ public enum CollectType implements EnumBinder<Integer> {
     NEWS(1, "资讯"),
 
     /**
-     * 公告(未完成)
+     * 公告
      */
     NOTICE(2, "公告"),
     ;

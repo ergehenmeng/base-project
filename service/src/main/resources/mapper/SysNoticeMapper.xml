@@ -26,4 +26,12 @@
         order by update_time desc limit #{noticeLimit}
     </select>
 
+    <select id="getList" resultType="com.eghm.vo.operate.notice.NoticeVO">
+        select id, title, deleted, notice_type, cover_url, state
+        from sys_notice
+        where id in
+        <foreach collection="noticeIds" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
 </mapper>

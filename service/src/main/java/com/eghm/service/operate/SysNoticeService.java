@@ -8,6 +8,7 @@ import com.eghm.dto.operate.notice.NoticeQueryRequest;
 import com.eghm.model.SysNotice;
 import com.eghm.vo.operate.notice.NoticeDetailVO;
 import com.eghm.vo.operate.notice.NoticeResponse;
+import com.eghm.vo.operate.notice.NoticeTopVO;
 import com.eghm.vo.operate.notice.NoticeVO;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public interface SysNoticeService {
      *
      * @return 公告列表
      */
-    List<NoticeVO> getTop();
+    List<NoticeTopVO> getTop();
 
     /**
      * 分页查询列表

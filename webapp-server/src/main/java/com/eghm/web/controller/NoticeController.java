@@ -5,6 +5,7 @@ import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.operate.SysNoticeService;
 import com.eghm.vo.operate.notice.NoticeDetailVO;
+import com.eghm.vo.operate.notice.NoticeTopVO;
 import com.eghm.vo.operate.notice.NoticeVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,8 +32,8 @@ public class NoticeController {
 
     @GetMapping("/top")
     @ApiOperation("首页公告Top-N")
-    public RespBody<List<NoticeVO>> top() {
-        List<NoticeVO> list = sysNoticeService.getTop();
+    public RespBody<List<NoticeTopVO>> top() {
+        List<NoticeTopVO> list = sysNoticeService.getTop();
         return RespBody.success(list);
     }
 

@@ -8,18 +8,20 @@ import com.eghm.cache.CacheService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.collect.CollectQueryDTO;
-import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.business.statistics.CollectRequest;
-import com.eghm.enums.SelectType;
+import com.eghm.dto.ext.ApiHolder;
 import com.eghm.enums.CollectType;
+import com.eghm.enums.SelectType;
 import com.eghm.mapper.MemberCollectMapper;
 import com.eghm.mapper.NewsMapper;
+import com.eghm.mapper.SysNoticeMapper;
 import com.eghm.model.MemberCollect;
 import com.eghm.service.business.MemberCollectService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.collect.MemberCollectVO;
 import com.eghm.vo.business.news.NewsVO;
 import com.eghm.vo.business.statistics.CollectStatisticsVO;
+import com.eghm.vo.operate.notice.NoticeVO;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +31,6 @@ import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -53,6 +54,8 @@ public class MemberCollectServiceImpl implements MemberCollectService {
 
     private final CacheService cacheService;
 
+    private final SysNoticeMapper sysNoticeMapper;
+
     private final MemberCollectMapper memberCollectMapper;
 
     @Override
@@ -61,12 +64,14 @@ public class MemberCollectServiceImpl implements MemberCollectService {
         if (CollUtil.isNotEmpty(byPage.getRecords())) {
             Map<CollectType, List<Long>> collectMap = byPage.getRecords().stream().collect(Collectors.groupingBy(MemberCollectVO::getCollectType, Collectors.mapping(MemberCollectVO::getCollectId, Collectors.toList())));
             Map<Long, NewsVO> newsMap = this.getNewsMap(collectMap.get(NEWS));
-
+            Map<Long, NoticeVO> noticeMap = this.getNoticeMap(collectMap.get(CollectType.NOTICE));
             Iterator<MemberCollectVO> iterator = byPage.getRecords().iterator();
             while (iterator.hasNext()) {
                 MemberCollectVO vo = iterator.next();
                 if (vo.getCollectType() == NEWS) {
                     vo.setNews(newsMap.get(vo.getCollectId()));
+                } else if (vo.getCollectType() == CollectType.NOTICE) {
+                    vo.setNotice(noticeMap.get(vo.getCollectId()));
                 } else {
                     iterator.remove();
                 }
@@ -134,8 +139,11 @@ public class MemberCollectServiceImpl implements MemberCollectService {
      * @return true:合法 false:不合法
      */
     private boolean isLegal(Long collectId, CollectType collectType) {
-        if (Objects.requireNonNull(collectType) == NEWS) {
+        if (collectType == NEWS) {
             return newsMapper.selectById(collectId) != null;
+        }
+        if (collectType == CollectType.NOTICE) {
+            return sysNoticeMapper.selectById(collectId) != null;
         }
         return false;
     }
@@ -152,6 +160,20 @@ public class MemberCollectServiceImpl implements MemberCollectService {
         }
         List<NewsVO> voList = newsMapper.getList(newsIds);
         return voList.stream().collect(Collectors.toMap(NewsVO::getId, Function.identity()));
+    }
+
+    /**
+     * 查询公告信息
+     *
+     * @param noticeIds id
+     * @return 公告信息
+     */
+    private Map<Long, NoticeVO> getNoticeMap(List<Long> noticeIds) {
+        if (CollUtil.isEmpty(noticeIds)) {
+            return Maps.newLinkedHashMapWithExpectedSize(4);
+        }
+        List<NoticeVO> voList = sysNoticeMapper.getList(noticeIds);
+        return voList.stream().collect(Collectors.toMap(NoticeVO::getId, Function.identity()));
     }
 
     /**

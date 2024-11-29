@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.operate.notice.NoticeQueryRequest;
 import com.eghm.model.SysNotice;
 import com.eghm.vo.operate.notice.NoticeResponse;
+import com.eghm.vo.operate.notice.NoticeVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -30,4 +31,12 @@ public interface SysNoticeMapper extends BaseMapper<SysNotice> {
      * @return 公告列表
      */
     List<SysNotice> getTopList(@Param("noticeLimit") int noticeLimit);
+
+    /**
+     * 根据id查询公告
+     *
+     * @param noticeIds 公告id
+     * @return 列表
+     */
+    List<NoticeVO> getList(@Param("noticeIds") List<Long> noticeIds);
 }
