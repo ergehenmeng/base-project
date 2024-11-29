@@ -1,6 +1,7 @@
 package com.eghm.web.controller;
 
 import com.eghm.cache.CacheService;
+import com.eghm.common.GeoService;
 import com.eghm.dto.ext.RespBody;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -29,6 +30,8 @@ import java.util.Set;
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/redis", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RedisController {
+
+    private final GeoService geoService;
 
     private final CacheService cacheService;
 
@@ -97,6 +100,13 @@ public class RedisController {
     public RespBody<Void> setSet(@RequestParam("key") String key, @RequestParam("value") String value, @RequestParam("score") long score) {
         cacheService.setSet(key, value, score);
         return RespBody.success();
+    }
+
+    @GetMapping("/distance")
+    @ApiOperation("距离")
+    public RespBody<Double> distance(Double longitude, Double latitude, Double targetLongitude, Double targetLatitude) {
+        double distance = geoService.distance(longitude, latitude, targetLongitude, targetLatitude);
+        return RespBody.success(distance);
     }
 
     @GetMapping("/incr")

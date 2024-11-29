@@ -7,10 +7,14 @@ import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
-import org.springframework.data.geo.*;
+import org.springframework.data.geo.Circle;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.GeoResults;
+import org.springframework.data.geo.Point;
 import org.springframework.data.redis.connection.RedisGeoCommands;
 import org.springframework.data.redis.core.GeoOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.domain.geo.Metrics;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
@@ -33,7 +37,7 @@ public class GeoServiceImpl implements GeoService {
         String key2 = IdWorker.getIdStr();
         operations.add(key, new RedisGeoCommands.GeoLocation<>(key1, new Point(longitude, latitude)));
         operations.add(key, new RedisGeoCommands.GeoLocation<>(key2, new Point(targetLongitude, targetLatitude)));
-        Distance distance = operations.distance(key, key1, key2, Metrics.MILES);
+        Distance distance = operations.distance(key, key1, key2, Metrics.METERS);
         stringRedisTemplate.delete(key);
         return distance != null ? distance.getValue() : 0;
     }

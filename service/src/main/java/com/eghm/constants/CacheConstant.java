@@ -170,7 +170,7 @@ public class CacheConstant {
     /**
      * 全局距离计算
      */
-    public static final String GEO_DISTANCE = "geo_distance";
+    public static final String GEO_DISTANCE = "geo_distance:";
 
     /**
      * 消息队列异步key
