@@ -31,9 +31,7 @@ public class ExceptionUtil {
                 return;
             }
         }
-        if (log.isDebugEnabled()) {
-            log.debug("runnable not run, because error code is not match", e);
-        }
+        log.info("非业务异常,不做捕获操作", e);
     }
 
     /**
@@ -62,7 +60,7 @@ public class ExceptionUtil {
      * @param errorCode 错误码
      * @param callable 指定的逻辑
      */
-    public static void runVoid(Runnable runnable, ErrorCode errorCode, Runnable callable) {
+    public static void run(Runnable runnable, ErrorCode errorCode, Runnable callable) {
         try {
             runnable.run();
         } catch (BusinessException e) {
