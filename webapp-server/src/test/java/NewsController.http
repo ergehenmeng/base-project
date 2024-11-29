@@ -1,13 +1,13 @@
-GET http://localhost:9090/webapp/news/listPage?page=1&pageSize=10&code=LYGL
+GET http://localhost:10010/webapp/news/listPage?page=1&pageSize=10&code=LYGL
 token: {{Token}}
 
 ###
-GET http://localhost:9090/webapp/news/detail?id=1740661979186020354
+GET http://localhost:10010/webapp/news/detail?id=1740661979186020354
 token: {{Token}}
 
 ###
 
-POST http://localhost:9090/webapp/news/giveLike
+POST http://localhost:10010/webapp/news/giveLike
 token: {{Token}}
 Content-Type: application/json
 

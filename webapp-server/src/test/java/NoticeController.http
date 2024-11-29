@@ -1,14 +1,14 @@
-http://localhost:9090/webapp/notice/limit
+http://localhost:10010/webapp/notice/limit
 Channel: {{Channel}}
 
 ###
 
-http://localhost:9090/webapp/notice/listPage?page=1&pageSize=10
+http://localhost:10010/webapp/notice/listPage?page=1&pageSize=10
 Channel: {{Channel}}
 
 ###
 
-http://localhost:9090/webapp/notice/detail?id=123
+http://localhost:10010/webapp/notice/detail?id=123
 Channel: {{Channel}}
 
 ###

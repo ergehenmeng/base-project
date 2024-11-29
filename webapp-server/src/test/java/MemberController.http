@@ -1,29 +1,29 @@
-POST http://localhost:9090/webapp/member/signIn
+POST http://localhost:10010/webapp/member/signIn
 Channel: {{Channel}}
 Token: {{Token}}
 Content-Type: application/json
 
 
 ###
-GET http://localhost:9090/webapp/member/getSignIn
+GET http://localhost:10010/webapp/member/getSignIn
 Channel: {{Channel}}
 Token: {{Token}}
 
 
 ###
-GET http://localhost:9090/webapp/member/my
+GET http://localhost:10010/webapp/member/my
 Channel: {{Channel}}
 Token: {{Token}}
 
 
 ###
-GET http://localhost:9090/webapp/member/invitePage?page=1&pageSize=10
+GET http://localhost:10010/webapp/member/invitePage?page=1&pageSize=10
 Channel: {{Channel}}
 Token: {{Token}}
 
 
 ###
-POST http://localhost:9090/webapp/member/edit
+POST http://localhost:10010/webapp/member/edit
 Channel: {{Channel}}
 Token: {{Token}}
 Content-Type: application/json

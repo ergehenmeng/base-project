@@ -1,4 +1,4 @@
-POST http://localhost:9090/webapp/order/ticket/create
+POST http://localhost:10010/webapp/order/ticket/create
 Channel: {{Channel}}
 Content-Type: application/json
 Token: {{Token}}
@@ -13,7 +13,7 @@ Token: {{Token}}
 
 ###
 
-POST http://localhost:9090/webapp/order/item/create
+POST http://localhost:10010/webapp/order/item/create
 Channel: {{Channel}}
 Content-Type: application/json
 Token: {{Token}}
@@ -32,7 +32,7 @@ Token: {{Token}}
 
 ###
 
-POST http://localhost:9090/webapp/order/homestay/create
+POST http://localhost:10010/webapp/order/homestay/create
 Channel: {{Channel}}
 Content-Type: application/json
 Token: {{Token}}
@@ -59,7 +59,7 @@ Token: {{Token}}
 
 ###
 
-POST http://localhost:9090/webapp/order/line/create
+POST http://localhost:10010/webapp/order/line/create
 Channel: {{Channel}}
 Content-Type: application/json
 Token: {{Token}}
@@ -84,7 +84,7 @@ Token: {{Token}}
 }
 ###
 
-POST http://localhost:9090/webapp/order/voucher/create
+POST http://localhost:10010/webapp/order/voucher/create
 Channel: {{Channel}}
 Content-Type: application/json
 Token: {{Token}}
@@ -99,7 +99,7 @@ Token: {{Token}}
 
 ###
 
-POST http://localhost:9090/webapp/order/venue/create
+POST http://localhost:10010/webapp/order/venue/create
 Channel: {{Channel}}
 Content-Type: application/json
 Token: {{Token}}
@@ -115,7 +115,7 @@ Token: {{Token}}
 
 ###
 
-POST http://localhost:9090/webapp/order/pay
+POST http://localhost:10010/webapp/order/pay
 Channel: {{Channel}}
 Content-Type: application/json
 Token: {{Token}}
@@ -128,7 +128,7 @@ Token: {{Token}}
 
 ###
 
-POST http://localhost:9090/webapp/order/ticket/refundApply
+POST http://localhost:10010/webapp/order/ticket/refundApply
 Channel: {{Channel}}
 Content-Type: application/json
 Token: {{Token}}
@@ -142,7 +142,7 @@ Token: {{Token}}
 
 ###
 
-POST http://localhost:9090/webapp/order/line/refundApply
+POST http://localhost:10010/webapp/order/line/refundApply
 Channel: {{Channel}}
 Content-Type: application/json
 Token: {{Token}}
@@ -155,7 +155,7 @@ Token: {{Token}}
 
 ###
 
-POST http://localhost:9090/webapp/order/homestay/refundApply
+POST http://localhost:10010/webapp/order/homestay/refundApply
 Channel: {{Channel}}
 Content-Type: application/json
 Token: {{Token}}
@@ -168,7 +168,7 @@ Token: {{Token}}
 
 ###
 
-POST http://localhost:9090/webapp/order/voucher/refundApply
+POST http://localhost:10010/webapp/order/voucher/refundApply
 Channel: {{Channel}}
 Content-Type: application/json
 Token: {{Token}}
@@ -182,7 +182,7 @@ Token: {{Token}}
 
 ###
 
-POST http://localhost:9090/webapp/order/item/refundApply
+POST http://localhost:10010/webapp/order/item/refundApply
 Channel: {{Channel}}
 Content-Type: application/json
 Token: {{Token}}
@@ -194,7 +194,7 @@ Token: {{Token}}
 }
 
 ###
-GET http://localhost:9090/webapp/order/refresh?id=
+GET http://localhost:10010/webapp/order/refresh?id=
 Channel: {{Channel}}
 
 

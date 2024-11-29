@@ -1,4 +1,4 @@
-POST http://localhost:9090/webapp/lottery/handle
+POST http://localhost:10010/webapp/lottery/handle
 Channel: {{Channel}}
 Content-Type: application/json
 Token: {{Token}}
@@ -9,13 +9,13 @@ Token: {{Token}}
 
 
 ### 详情
-http://localhost:9090/webapp/lottery/detail?id=1777999724753305601
+http://localhost:10010/webapp/lottery/detail?id=1777999724753305601
 Channel: {{Channel}}
 Token: {{Token}}
 
 
 ### 抽奖记录
-http://localhost:9090/webapp/lottery/logPage?page=1&pageSize=10
+http://localhost:10010/webapp/lottery/logPage?page=1&pageSize=10
 Channel: {{Channel}}
 Token: {{Token}}
 ###

@@ -1,12 +1,12 @@
-GET http://localhost:9090/webapp/line/price/list?id=1714916427083575297
+GET http://localhost:10010/webapp/line/price/list?id=1714916427083575297
 Channel: {{Channel}}
 
 ###
 
-GET http://localhost:9090/webapp/line/detail?id=1714916427083575297
+GET http://localhost:10010/webapp/line/detail?id=1714916427083575297
 Channel: {{Channel}}
 
 ###
 
-GET http://localhost:9090/webapp/line/listPage?page=1&pageSize=10
+GET http://localhost:10010/webapp/line/listPage?page=1&pageSize=10
 Channel: {{Channel}}

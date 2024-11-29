@@ -1,7 +1,7 @@
-http://localhost:9090/webapp/voucher/order/listPage?page=1&pageSize=10
+http://localhost:10010/webapp/voucher/order/listPage?page=1&pageSize=10
 Token: {{Token}}
 
 ###
 
-http://localhost:9090/webapp/voucher/order/detail?orderNo=CY1717124853345591298
+http://localhost:10010/webapp/voucher/order/detail?orderNo=CY1717124853345591298
 Token: {{Token}}

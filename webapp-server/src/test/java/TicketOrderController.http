@@ -1,7 +1,7 @@
-http://localhost:9090/webapp/ticket/order/listPage?page=1&pageSize=10
+http://localhost:10010/webapp/ticket/order/listPage?page=1&pageSize=10
 Token: {{Token}}
 
 ###
 
-http://localhost:9090/webapp/ticket/order/detail?orderNo=MP1742099655827591170
+http://localhost:10010/webapp/ticket/order/detail?orderNo=MP1742099655827591170
 Token: {{Token}}

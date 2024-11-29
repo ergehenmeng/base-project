@@ -1,16 +1,16 @@
-GET http://localhost:9090/webapp/restaurant/listPage?page=1&pageSize=10&longitude=120.034411&latitude=30.234234
+GET http://localhost:10010/webapp/restaurant/listPage?page=1&pageSize=10&longitude=120.034411&latitude=30.234234
 Channel: {{Channel}}
 ###
 
-GET http://localhost:9090/webapp/restaurant/detail?id=1716687615256272898
+GET http://localhost:10010/webapp/restaurant/detail?id=1716687615256272898
 Channel: {{Channel}}
 
 ###
 
-GET http://localhost:9090/webapp/restaurant/voucher/listPage?page=1&pageSize=10&restaurantId=1716687615256272898
+GET http://localhost:10010/webapp/restaurant/voucher/listPage?page=1&pageSize=10&restaurantId=1716687615256272898
 ###
 
 
-GET http://localhost:9090/webapp/restaurant/voucher/detail?id=1716688620773548034
+GET http://localhost:10010/webapp/restaurant/voucher/detail?id=1716688620773548034
 Channel: {{Channel}}
 ###

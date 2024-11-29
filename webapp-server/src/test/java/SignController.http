@@ -1,4 +1,4 @@
-POST http://localhost:9090/signCheck
+POST http://localhost:10010/signCheck
 Channel: {{Channel}}
 Content-Type: application/json
 signature: 5e86d8d51d6f32b691bc8c9e1ce1e2ad
