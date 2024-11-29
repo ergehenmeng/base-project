@@ -1,6 +1,8 @@
 package com.eghm.state.machine.context;
 
 import com.eghm.annotation.Assign;
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.state.machine.Context;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -39,4 +41,10 @@ public class OrderVerifyContext implements Context {
 
     @ApiModelProperty("源状态")
     private Integer from;
+
+    @ApiModelProperty("产品类型")
+    private ProductType productType;
+
+    @ApiModelProperty("事件")
+    private IEvent event;
 }

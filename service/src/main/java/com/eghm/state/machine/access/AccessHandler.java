@@ -1,6 +1,5 @@
 package com.eghm.state.machine.access;
 
-import com.eghm.state.machine.Context;
 import com.eghm.state.machine.context.*;
 
 /**
@@ -8,13 +7,6 @@ import com.eghm.state.machine.context.*;
  * @since 2023/4/26
  */
 public interface AccessHandler {
-
-    /**
-     * 创建支付订单
-     *
-     * @param context 订单信息
-     */
-    void createOrder(Context context);
 
     /**
      * 支付异步通知
@@ -29,13 +21,6 @@ public interface AccessHandler {
      * @param context context
      */
     void refundNotify(RefundNotifyContext context);
-
-    /**
-     * 退款申请
-     *
-     * @param context context
-     */
-    void refundApply(RefundApplyContext context);
 
     /**
      * 退款审核

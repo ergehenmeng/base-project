@@ -14,11 +14,16 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.AsyncKey;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.*;
+import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.lock.RedisLock;
+import com.eghm.model.Order;
 import com.eghm.pay.vo.PrepayVO;
 import com.eghm.service.business.OrderProxyService;
 import com.eghm.service.business.OrderService;
-import com.eghm.state.machine.access.impl.*;
+import com.eghm.state.machine.StateHandler;
 import com.eghm.state.machine.context.*;
 import com.eghm.state.machine.dto.ItemDTO;
 import com.eghm.state.machine.dto.SkuDTO;
@@ -52,19 +57,9 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    private final ItemAccessHandler itemAccessHandler;
-
-    private final LineAccessHandler lineAccessHandler;
+    private final StateHandler stateHandler;
 
     private final OrderProxyService orderProxyService;
-
-    private final VenueAccessHandler venueAccessHandler;
-
-    private final TicketAccessHandler ticketAccessHandler;
-
-    private final VoucherAccessHandler voucherAccessHandler;
-
-    private final HomestayAccessHandler homestayAccessHandler;
 
     @PostMapping(value = "/item/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("零售创建订单")
@@ -86,7 +81,7 @@ public class OrderController {
     public RespBody<OrderCreateVO<String>> ticketCreate(@RequestBody @Validated TicketOrderCreateDTO dto) {
         TicketOrderCreateContext context = DataUtil.copy(dto, TicketOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
-        ticketAccessHandler.createOrder(context);
+        stateHandler.fireEvent(ProductType.TICKET, OrderState.NONE.getValue(), TicketEvent.CREATE, context);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }
@@ -99,7 +94,7 @@ public class OrderController {
         }
         HomestayOrderCreateContext context = DataUtil.copy(dto, HomestayOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
-        homestayAccessHandler.createOrder(context);
+        stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.NONE.getValue(), HomestayEvent.CREATE, context);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }
@@ -109,7 +104,7 @@ public class OrderController {
     public RespBody<OrderCreateVO<String>> lineCreate(@RequestBody @Validated LineOrderCreateDTO dto) {
         LineOrderCreateContext context = DataUtil.copy(dto, LineOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
-        lineAccessHandler.createOrder(context);
+        stateHandler.fireEvent(ProductType.LINE, OrderState.NONE.getValue(), LineEvent.CREATE, context);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }
@@ -119,7 +114,7 @@ public class OrderController {
     public RespBody<OrderCreateVO<String>> restaurantCreate(@RequestBody @Validated VoucherOrderCreateDTO dto) {
         VoucherOrderCreateContext context = DataUtil.copy(dto, VoucherOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
-        voucherAccessHandler.createOrder(context);
+        stateHandler.fireEvent(ProductType.VOUCHER, OrderState.NONE.getValue(), VoucherEvent.CREATE, context);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }
@@ -129,7 +124,7 @@ public class OrderController {
     public RespBody<OrderCreateVO<String>> venueCreate(@RequestBody @Validated VenueOrderCreateDTO dto) {
         VenueOrderCreateContext context = DataUtil.copy(dto, VenueOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
-        venueAccessHandler.createOrder(context);
+        stateHandler.fireEvent(ProductType.VENUE, OrderState.NONE.getValue(), VenueEvent.CREATE, context);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }
@@ -147,7 +142,7 @@ public class OrderController {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         context.setApplyType(1);
-        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> ticketAccessHandler.refundApply(context));
+        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.TICKET, TicketEvent.REFUND_APPLY));
         return RespBody.success();
     }
 
@@ -158,7 +153,7 @@ public class OrderController {
         context.setMemberId(ApiHolder.getMemberId());
         context.setApplyType(1);
         context.setNum(dto.getVisitorIds().size());
-        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> lineAccessHandler.refundApply(context));
+        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.LINE, LineEvent.REFUND_APPLY));
         return RespBody.success();
     }
 
@@ -169,7 +164,7 @@ public class OrderController {
         context.setMemberId(ApiHolder.getMemberId());
         context.setApplyType(1);
         context.setNum(dto.getVisitorIds().size());
-        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> homestayAccessHandler.refundApply(context));
+        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.HOMESTAY, HomestayEvent.REFUND_APPLY));
         return RespBody.success();
     }
 
@@ -179,7 +174,7 @@ public class OrderController {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         context.setApplyType(1);
-        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> voucherAccessHandler.refundApply(context));
+        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.VOUCHER, VoucherEvent.REFUND_APPLY));
         return RespBody.success();
     }
 
@@ -189,7 +184,7 @@ public class OrderController {
         ItemRefundApplyContext context = DataUtil.copy(dto, ItemRefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         context.setItemOrderId(dto.getOrderId());
-        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> itemAccessHandler.refundApply(context));
+        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.ITEM, ItemEvent.REFUND_APPLY));
         return RespBody.success();
     }
 
@@ -199,7 +194,7 @@ public class OrderController {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setNum(1);
         context.setMemberId(ApiHolder.getMemberId());
-        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> itemAccessHandler.refundApply(context));
+        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.VENUE, VenueEvent.REFUND_APPLY));
         return RespBody.success();
     }
 
@@ -225,6 +220,16 @@ public class OrderController {
     }
 
     /**
+     * 退款申请
+     *
+     * @param context 上下文
+     */
+    private void refundApply(RefundApplyContext context, ProductType productType, IEvent event) {
+        Order order = orderService.getByOrderNo(context.getOrderNo());
+        stateHandler.fireEvent(productType, order.getState().getValue(), event, context);
+    }
+
+    /**
      * 创建零售订单订单
      *
      * @param dto dto
@@ -240,7 +245,7 @@ public class OrderController {
         context.setSkuIds(skuList.stream().map(SkuDTO::getSkuId).collect(Collectors.toSet()));
         int totalScore = dto.getItemList().stream().mapToInt(ItemDTO::getScoreAmount).sum();
         context.setTotalScore(totalScore);
-        itemAccessHandler.createOrder(context);
+        stateHandler.fireEvent(ProductType.ITEM, OrderState.NONE.getValue(), ItemEvent.CREATE, context);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }

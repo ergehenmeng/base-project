@@ -79,7 +79,7 @@ public enum SmsType implements EnumBinder<String> {
 
     public static SmsType of(String value) {
         return Arrays.stream(SmsType.values())
-                .filter(map -> value.equalsIgnoreCase(map.getValue()))
+                .filter(map -> value.equals(map.getValue()))
                 .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.SMS_TEMPLATE_NULL));
     }
 

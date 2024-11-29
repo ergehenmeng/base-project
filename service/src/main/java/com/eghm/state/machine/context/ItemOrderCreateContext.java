@@ -2,6 +2,8 @@ package com.eghm.state.machine.context;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.AsyncKey;
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Item;
 import com.eghm.state.machine.Context;
 import com.eghm.state.machine.dto.ItemDTO;
@@ -85,4 +87,10 @@ public class ItemOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty(value = "使用的总积分(承载数据,减少后续重复运算)", hidden = true)
     @Assign
     private Integer totalScore;
+
+    @ApiModelProperty("产品类型")
+    private ProductType productType;
+
+    @ApiModelProperty("事件")
+    private IEvent event;
 }

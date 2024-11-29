@@ -3,10 +3,8 @@ package com.eghm.state.machine.access.impl;
 import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
-import com.eghm.model.Order;
 import com.eghm.pay.AggregatePayService;
 import com.eghm.service.business.OrderService;
-import com.eghm.state.machine.Context;
 import com.eghm.state.machine.StateHandler;
 import com.eghm.state.machine.access.AbstractAccessHandler;
 import com.eghm.state.machine.context.*;
@@ -21,23 +19,9 @@ public class HomestayAccessHandler extends AbstractAccessHandler {
 
     private final StateHandler stateHandler;
 
-    private final OrderService orderService;
-
     public HomestayAccessHandler(OrderService orderService, AggregatePayService aggregatePayService, StateHandler stateHandler) {
         super(orderService, aggregatePayService);
         this.stateHandler = stateHandler;
-        this.orderService = orderService;
-    }
-
-    @Override
-    public void createOrder(Context context) {
-        stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.NONE.getValue(), HomestayEvent.CREATE, context);
-    }
-
-    @Override
-    public void refundApply(RefundApplyContext context) {
-        Order order = orderService.getByOrderNo(context.getOrderNo());
-        stateHandler.fireEvent(ProductType.HOMESTAY, order.getState().getValue(), HomestayEvent.REFUND_APPLY, context);
     }
 
     @Override

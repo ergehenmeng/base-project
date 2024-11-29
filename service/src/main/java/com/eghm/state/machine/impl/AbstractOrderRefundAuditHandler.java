@@ -55,7 +55,7 @@ public abstract class AbstractOrderRefundAuditHandler implements ActionHandler<R
     private void doProcess(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
         refundLog.setAuditRemark(context.getAuditRemark());
         refundLog.setAuditTime(LocalDateTime.now());
-        if (context.getState() == AuditState.PASS.getValue()) {
+        if (context.getState().intValue() == AuditState.PASS.getValue()) {
             this.doPass(context, order, refundLog);
             this.passAfter(context, order, refundLog);
         } else {

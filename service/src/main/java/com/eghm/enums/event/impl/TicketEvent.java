@@ -82,9 +82,7 @@ public enum TicketEvent implements IEvent {
      * 平台退款
      */
     PLATFORM_REFUND(Lists.newArrayList(OrderState.PROGRESS.getValue(), OrderState.UN_USED.getValue()), OrderState.CLOSE.getValue()),
-
     ;
-
 
     private final List<Integer> from;
 

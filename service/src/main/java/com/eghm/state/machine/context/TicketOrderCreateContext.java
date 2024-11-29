@@ -60,5 +60,4 @@ public class TicketOrderCreateContext extends AsyncKey implements Context {
 
     @ApiModelProperty("源状态")
     private Integer from;
-
 }
