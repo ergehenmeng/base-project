@@ -9,6 +9,7 @@
             depict,
             image,
             sort,
+            state,
             comment_support,
             like_num,
             create_time,

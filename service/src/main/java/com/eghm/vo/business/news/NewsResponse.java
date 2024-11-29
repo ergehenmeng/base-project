@@ -29,6 +29,9 @@ public class NewsResponse {
     @ApiModelProperty(value = "排序")
     private Integer sort;
 
+    @ApiModelProperty(value = "状态 true:显示 false:隐藏")
+    private Boolean state;
+
     @ApiModelProperty("点赞数量")
     private Integer likeNum;
 
