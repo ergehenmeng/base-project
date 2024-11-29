@@ -3,11 +3,12 @@ package com.eghm.web.controller.operate;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.SortByDTO;
+import com.eghm.dto.StateRequest;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.operate.banner.BannerAddRequest;
 import com.eghm.dto.operate.banner.BannerEditRequest;
 import com.eghm.dto.operate.banner.BannerQueryRequest;
-import com.eghm.dto.ext.PageData;
-import com.eghm.dto.ext.RespBody;
 import com.eghm.service.operate.BannerService;
 import com.eghm.vo.operate.banner.BannerResponse;
 import io.swagger.annotations.Api;
@@ -66,7 +67,7 @@ public class BannerController {
 
     @PostMapping(value = "/updateState", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新状态")
-    public RespBody<Void> updateState(@Validated @RequestBody SortByDTO.StateRequest request) {
+    public RespBody<Void> updateState(@Validated @RequestBody StateRequest request) {
         bannerService.updateState(request.getId(), request.getState());
         return RespBody.success();
     }

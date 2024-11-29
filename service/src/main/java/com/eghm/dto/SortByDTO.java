@@ -23,19 +23,4 @@ public class SortByDTO {
     @RangeInt(max = 999, message = "排序字段应为0~999之间")
     private Integer sortBy;
 
-    /**
-     * @author 二哥很猛
-     * @since 2023/12/20
-     */
-
-    @Data
-    public static class StateRequest {
-
-        @ApiModelProperty(value = "id", required = true)
-        @NotNull(message = "id不能为空")
-        private Long id;
-
-        @ApiModelProperty(value = "状态 true:启用 false:禁用", required = true)
-        private Boolean state;
-    }
 }

@@ -3,6 +3,7 @@ package com.eghm.web.controller.operate;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.SortByDTO;
+import com.eghm.dto.StateRequest;
 import com.eghm.dto.business.news.NewsAddRequest;
 import com.eghm.dto.business.news.NewsEditRequest;
 import com.eghm.dto.business.news.NewsQueryRequest;
@@ -75,7 +76,7 @@ public class NewsController {
 
     @PostMapping(value = "/updateState", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新状态")
-    public RespBody<Void> updateState(@Validated @RequestBody SortByDTO.StateRequest request) {
+    public RespBody<Void> updateState(@Validated @RequestBody StateRequest request) {
         newsService.updateState(request.getId(), request.getState());
         return RespBody.success();
     }

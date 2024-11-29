@@ -2,6 +2,7 @@ package com.eghm.web.controller.sys;
 
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.SortByDTO;
+import com.eghm.dto.StateRequest;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sys.menu.MenuAddRequest;
 import com.eghm.dto.sys.menu.MenuEditRequest;
@@ -80,7 +81,7 @@ public class MenuController {
 
     @PostMapping(value = "/updateState", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新状态")
-    public RespBody<Void> updateState(@Validated @RequestBody SortByDTO.StateRequest request) {
+    public RespBody<Void> updateState(@Validated @RequestBody StateRequest request) {
         sysMenuService.updateState(String.valueOf(request.getId()), request.getState());
         permInterceptor.refresh();
         return RespBody.success();
