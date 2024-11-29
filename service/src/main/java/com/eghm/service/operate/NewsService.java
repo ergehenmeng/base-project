@@ -76,6 +76,14 @@ public interface NewsService {
     News selectById(Long id);
 
     /**
+     * 更新状态
+     *
+     * @param id 主键
+     * @param state 是否显示
+     */
+    void updateState(Long id, Boolean state);
+
+    /**
      * 点赞或取消点赞
      *
      * @param id id

@@ -17,6 +17,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.CollectType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.NewsMapper;
+import com.eghm.model.Banner;
 import com.eghm.model.News;
 import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.operate.NewsService;
@@ -103,6 +104,14 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public News selectById(Long id) {
         return newsMapper.selectById(id);
+    }
+
+    @Override
+    public void updateState(Long id, Boolean state) {
+        LambdaUpdateWrapper<News> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(News::getId, id);
+        wrapper.set(News::getState, state);
+        newsMapper.update(null, wrapper);
     }
 
     @Override

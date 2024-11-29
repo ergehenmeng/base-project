@@ -73,4 +73,10 @@ public class NewsController {
         return RespBody.success(news);
     }
 
+    @PostMapping(value = "/updateState", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("更新状态")
+    public RespBody<Void> updateState(@Validated @RequestBody SortByDTO.StateRequest request) {
+        newsService.updateState(request.getId(), request.getState());
+        return RespBody.success();
+    }
 }

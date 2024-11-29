@@ -1,4 +1,4 @@
-package com.eghm.handler.chain.service.impl;
+package com.eghm.handler.chain.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.eghm.dto.ext.MemberRegister;
@@ -22,9 +22,9 @@ import org.springframework.stereotype.Service;
  * @author 殿小二
  * @since 2020/9/14
  */
-@Service("inviteRegisterHandler")
-@Order(30)
 @Slf4j
+@Service
+@Order(30)
 @HandlerMark(HandlerEnum.REGISTER)
 @RequiredArgsConstructor
 public class InviteRegisterHandler implements Handler {

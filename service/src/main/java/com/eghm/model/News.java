@@ -47,4 +47,7 @@ public class News extends BaseEntity {
     @ApiModelProperty("是否支持评论")
     private Boolean commentSupport;
 
+    @ApiModelProperty("状态 false:不显示 true:显示")
+    private Boolean state;
+
 }

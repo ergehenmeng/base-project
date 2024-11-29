@@ -10,6 +10,8 @@ import lombok.Getter;
 import java.util.Arrays;
 
 /**
+ * 角色类型
+ *
  * @author 二哥很猛 2022/6/24 17:36
  */
 @Getter
@@ -17,14 +19,14 @@ import java.util.Arrays;
 public enum RoleType implements EnumBinder<String> {
 
     /**
-     * 系统通用角色
+     * 系统角色
      */
-    COMMON("common", "系统通用角色"),
+    COMMON("common", "系统角色"),
 
     /**
-     * 核销员 (待完成)
+     * 运营角色 (占坑)
      */
-    VERIFY("verify", "核销员"),
+    OPERATE("operate", "运营角色"),
     ;
 
     /**

@@ -45,6 +45,7 @@
             title,
             depict,
             image,
+            state,
             deleted
         from news where id in
         <foreach collection="newsIds" item="item" separator="," open="(" close=")">

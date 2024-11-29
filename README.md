@@ -139,3 +139,4 @@
 * 注意: `TransactionConfig`中定义的事务管理器作用在 `com.eghm.service` 包, 因此在该包不要定义非事务相关的业务(例如第三方接口调用, 工具类等), 否则可能会导致事务异常.
 * 管理后台集成了Websocket, 采用stomp协议, 支持前端实时接收消息, 具体可参考 `WebSocketController`, 后台主动发送消息可注入 `SimpMessagingTemplate` 发送, 注意:需要移动端先订阅消息才可收到消息 
 * 移动端服务和管理后台服务是独立的, 双方之间如需通信, 可通过MQ, 注意: 消息消费端定义的位置
+* `com.eghm.convertor` 包下有各种转换器, 主要是用于序列化,反序列化,Excel导出格式化转换器, 请根据实际场景使用
