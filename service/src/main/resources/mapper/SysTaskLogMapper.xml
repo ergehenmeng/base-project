@@ -16,7 +16,7 @@
         <where>
             <if test="param.queryName != null and param.queryName != ''">
                 and (bean_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%') or
-                method_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%') er
+                method_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%') or
                 ip like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%'))
             </if>
             <if test="param.state != null">
