@@ -26,12 +26,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public void sendDelay(ExchangeQueue queue, Object msg, int delay) {
-        this.sendDelay(queue.getExchange(), queue.getRoutingKey(), msg, delay);
-    }
-
-    @Override
-    public void sendDelay(String exchange, String routingKey, Object msg, int delay) {
-        rabbitTemplate.convertAndSend(exchange, routingKey, msg, message -> {
+        rabbitTemplate.convertAndSend(queue.getExchange(), queue.getRoutingKey(), msg, message -> {
             MessageProperties properties = message.getMessageProperties();
             properties.setDelay(delay * 1000);
             return message;
@@ -44,18 +39,9 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void send(String exchange, String routingKey, Object msg) {
-        rabbitTemplate.convertAndSend(exchange, routingKey, msg);
-    }
-
-    @Override
     public void sendAsync(ExchangeQueue queue, AsyncKey msg) {
-        this.sendAsync(queue.getExchange(), queue.getRoutingKey(), msg);
-    }
-
-    @Override
-    public void sendAsync(String exchange, String routingKey, AsyncKey msg) {
-        rabbitTemplate.convertAndSend(exchange, routingKey, msg);
+        rabbitTemplate.convertAndSend(queue.getExchange(), queue.getRoutingKey(), msg);
         cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), CacheConstant.PLACE_HOLDER, CommonConstant.ASYNC_MSG_EXPIRE);
     }
+
 }
