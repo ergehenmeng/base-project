@@ -103,9 +103,10 @@ public class StringUtil {
             return null;
         }
         StringBuilder builder = new StringBuilder();
+        ThreadLocalRandom random = ThreadLocalRandom.current();
         do {
             length--;
-            builder.append(scope.charAt(ThreadLocalRandom.current().nextInt(scope.length())));
+            builder.append(scope.charAt(random.nextInt(scope.length())));
         } while (length > 0);
         return builder.toString();
     }
