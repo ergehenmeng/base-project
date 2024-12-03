@@ -105,7 +105,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         }
         sysRoleMapper.deleteRoleMenu(roleId);
         if (CollUtil.isNotEmpty(menuIds)) {
-            sysRoleMapper.batchInsertRoleMenu(roleId, menuIds);
+            sysRoleMapper.batchInsert(roleId, menuIds);
         }
     }
 

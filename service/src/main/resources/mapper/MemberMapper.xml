@@ -45,18 +45,6 @@
         order by t.id desc
     </select>
 
-    <update id="updateScore">
-        update `member` set score = score + #{score} where id = #{memberId} and score + #{score} &gt; 0
-    </update>
-
-    <select id="getMobile" resultType="java.lang.String">
-        select distinct mobile from `member` where deleted = false and id in
-        <foreach collection="memberIds" item="item" open="(" close=")" separator=",">
-            #{item}
-        </foreach>
-    </select>
-
-
     <select id="channelStatistics" resultType="com.eghm.vo.business.statistics.MemberChannelVO">
         select
         count(id) as value,

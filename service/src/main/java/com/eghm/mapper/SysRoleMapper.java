@@ -45,7 +45,7 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      * @param menuIdList 菜单列表
      * @return 查询条数
      */
-    int batchInsertRoleMenu(@Param("roleId") Long roleId, @Param("menuIdList") List<Long> menuIdList);
+    int batchInsert(@Param("roleId") Long roleId, @Param("menuIdList") List<Long> menuIdList);
 
     /**
      * 统计用户是否拥有指定角色类型

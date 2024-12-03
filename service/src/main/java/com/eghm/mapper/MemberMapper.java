@@ -30,23 +30,6 @@ public interface MemberMapper extends BaseMapper<Member> {
     Page<MemberResponse> listPage(Page<MemberResponse> page, @Param("param") MemberQueryRequest request);
 
     /**
-     * 更新会员积分
-     *
-     * @param memberId 用户id
-     * @param score 积分数量
-     * @return 1
-     */
-    int updateScore(@Param("memberId") Long memberId, @Param("score") Integer score);
-
-    /**
-     * 查询会员手机号
-     *
-     * @param memberIds 会员id
-     * @return 手机号
-     */
-    List<String> getMobile(@Param("memberIds") List<Long> memberIds);
-
-    /**
      * 注册统计(渠道)
      *
      * @param startDate 开始日期
