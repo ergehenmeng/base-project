@@ -400,11 +400,11 @@ DROP TABLE IF EXISTS `notice_template`;
 CREATE TABLE `notice_template`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `code`        varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '消息模板code',
-    `title`       varchar(50)                                           DEFAULT NULL COMMENT '消息标题',
-    `content`     varchar(500)                                          DEFAULT NULL COMMENT '模板内容消息',
-    `remark`      varchar(200)                                          DEFAULT NULL COMMENT '备注信息',
-    `update_time` datetime                                              DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `code`        varchar(30)  DEFAULT NULL COMMENT '消息模板code',
+    `title`       varchar(50)  DEFAULT NULL COMMENT '消息标题',
+    `content`     varchar(500) DEFAULT NULL COMMENT '模板内容消息',
+    `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='站内信消息模板';
