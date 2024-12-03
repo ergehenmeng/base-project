@@ -5,6 +5,7 @@ import com.eghm.validation.annotation.OptionString;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.Arrays;
 
 /**
  * @author 二哥很猛
@@ -33,11 +34,6 @@ public class OptionStringDefine implements ConstraintValidator<OptionString, Str
         if (!required && StrUtil.isBlank(value)) {
             return true;
         }
-        for (String v : values) {
-            if (v.equals(value)) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.asList(values).contains(value);
     }
 }
