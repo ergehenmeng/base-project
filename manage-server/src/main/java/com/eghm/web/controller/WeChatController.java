@@ -85,6 +85,7 @@ public class WeChatController {
             response.setState(0);
             return RespBody.success(response);
         }
+        // 注意: 扫码后如果未绑定微信,则会跳转到登录页面,同时登录后自动绑定, 后续扫码后自动登录,如需更换微信,则需要解绑
         WxOAuth2AccessToken authed = weChatMpService.getAccessToken(code);
         SysUser sysUser = sysUserService.getByOpenId(authed.getOpenId());
         if (sysUser == null) {

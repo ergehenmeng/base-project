@@ -5,6 +5,7 @@ import cn.hutool.core.util.PhoneUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
@@ -13,6 +14,7 @@ import com.eghm.common.UserTokenService;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
+import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.dto.sys.login.AuthSmsRequest;
 import com.eghm.dto.sys.login.SmsLoginRequest;
 import com.eghm.dto.sys.user.PasswordEditRequest;
@@ -171,6 +173,14 @@ public class SysUserServiceImpl implements SysUserService {
         SysUser user = this.getAndCheckUser(userName, password);
         this.tryBindingOpenId(user.getId(), openId);
         return this.doLogin(user);
+    }
+
+    @Override
+    public void unbindWeChat() {
+        LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SysUser::getId, SecurityHolder.getUserId());
+        wrapper.set(SysUser::getOpenId, null);
+        sysUserMapper.update(null, wrapper);
     }
 
     @Override

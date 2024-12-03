@@ -5,11 +5,11 @@ import com.eghm.cache.CacheService;
 import com.eghm.common.UserTokenService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.SystemProperties;
-import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.sys.login.AuthSmsRequest;
 import com.eghm.dto.sys.login.LoginRequest;
@@ -78,6 +78,13 @@ public class LoginController {
             cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
             userTokenService.logout(user.getToken());
         }
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/unbindWeChat", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("解绑微信")
+    public RespBody<Void> unbindWeChat() {
+        sysUserService.unbindWeChat();
         return RespBody.success();
     }
 

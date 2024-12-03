@@ -97,6 +97,11 @@ public interface SysUserService {
     LoginResponse login(String userName, String password, String openId);
 
     /**
+     * 解绑微信
+     */
+    void unbindWeChat();
+
+    /**
      * 登陆发送验证码
      *
      * @param mobile 手机号码
