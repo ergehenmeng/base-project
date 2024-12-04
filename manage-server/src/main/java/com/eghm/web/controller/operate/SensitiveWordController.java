@@ -43,7 +43,7 @@ public class SensitiveWordController {
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除敏感词")
+    @ApiOperation("删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         sensitiveWordService.delete(dto.getId());
         return RespBody.success();

@@ -12,9 +12,7 @@ File Encoding         : 65001
 
 Date: 2024-10-28 09:29:09
 */
-
 SET FOREIGN_KEY_CHECKS = 0;
-
 -- ----------------------------
 -- Table structure for app_version
 -- ----------------------------
@@ -27,11 +25,11 @@ CREATE TABLE `app_version`
     `version_no`   int(10)                      DEFAULT NULL COMMENT '数字格式化后的版本号',
     `force_update` bit(1)                       DEFAULT b'0' COMMENT '是否强制更新 0:否 1:是',
     `url`          varchar(500)                 DEFAULT NULL COMMENT '下载地址,android为实际下载地址,ios是跳转到app_store',
-    `create_time`  datetime                     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `remark`       varchar(500)                 DEFAULT NULL COMMENT '备注信息:版本更新的东西或解决的问题',
-    `deleted`      bit(1)                       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-    `update_time`  datetime                     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `state`        bit(1)                       DEFAULT b'0' COMMENT '上架状态 0:待上架 1:已上架',
+    `remark`       varchar(500)                 DEFAULT NULL COMMENT '备注信息:版本更新的东西或解决的问题',
+    `create_time`  datetime                     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`  datetime                     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`      bit(1)                       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='APP版本管理表';
