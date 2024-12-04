@@ -28,4 +28,10 @@ public class MemberNoticeLog extends BaseEntity {
     @ApiModelProperty(value = "消息类型")
     private NoticeType noticeType;
 
+    @ApiModelProperty(value = "消息参数")
+    private String params;
+
+    @ApiModelProperty("发送人id")
+    private Long operatorId;
+
 }

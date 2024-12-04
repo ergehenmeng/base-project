@@ -734,11 +734,11 @@ CREATE TABLE `sys_notice`
 DROP TABLE IF EXISTS `sensitive_word`;
 CREATE TABLE `sensitive_word`
 (
-    `id`          varchar(64) NOT NULL COMMENT '主键',
-    `keyword`     varchar(200)         DEFAULT NULL COMMENT '敏感字',
-    `create_time` datetime             DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime             DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)      NOT NULL DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `keyword`     varchar(200)        DEFAULT NULL COMMENT '敏感字',
+    `create_time` datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)     NOT NULL DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='敏感词库';
@@ -2327,13 +2327,15 @@ CREATE TABLE `member_tag_scope`
 DROP TABLE IF EXISTS `member_notice_log`;
 CREATE TABLE `member_notice_log`
 (
-    `id`          varchar(20) NOT NULL COMMENT '主键',
+    `id`          bigint(20) NOT NULL COMMENT '主键',
     `title`       varchar(20)   DEFAULT NULL COMMENT '通知名称',
     `content`     varchar(1000) DEFAULT NULL COMMENT '通知内容',
     `notice_type` varchar(20)   DEFAULT NULL COMMENT '消息类型',
+    `params`      text          DEFAULT NULL COMMENT '消息参数',
+    `operator_id`  bigint(20)    DEFAULT NULL COMMENT '发送人id',
     `create_time` datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     tinyint(1)    DEFAULT 0 COMMENT '删除状态',
+    `deleted`     tinyint(1)    DEFAULT '0' COMMENT '删除状态',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='会员站内信日志';

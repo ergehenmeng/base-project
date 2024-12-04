@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.JsonService;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.configuration.template.TemplateEngine;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.SendNotice;
@@ -34,6 +36,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service("memberNoticeService")
 public class MemberNoticeServiceImpl implements MemberNoticeService {
+
+    private final JsonService jsonService;
 
     private final TemplateEngine templateEngine;
 
@@ -73,6 +77,8 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
     @Override
     public void sendNoticeBatch(SendNotifyRequest request) {
         MemberNoticeLog noticeLog = DataUtil.copy(request, MemberNoticeLog.class);
+        noticeLog.setParams(jsonService.toJson(request.getMemberIds()));
+        noticeLog.setOperatorId(SecurityHolder.getUserId());
         memberNoticeLogMapper.insert(noticeLog);
         request.getMemberIds().forEach(memberId -> {
             MemberNotice notice = new MemberNotice();
