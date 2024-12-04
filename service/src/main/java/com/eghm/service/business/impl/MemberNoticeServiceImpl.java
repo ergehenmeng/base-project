@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.JsonService;
 import com.eghm.configuration.template.TemplateEngine;
-import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.ext.SendNotice;
 import com.eghm.dto.business.member.SendNotifyRequest;
+import com.eghm.dto.ext.PagingQuery;
+import com.eghm.dto.ext.SecurityHolder;
+import com.eghm.dto.ext.SendNotice;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.NoticeType;
 import com.eghm.exception.BusinessException;
@@ -16,8 +18,8 @@ import com.eghm.mapper.MemberNoticeMapper;
 import com.eghm.model.MemberNotice;
 import com.eghm.model.MemberNoticeLog;
 import com.eghm.model.NoticeTemplate;
-import com.eghm.service.operate.NoticeTemplateService;
 import com.eghm.service.business.MemberNoticeService;
+import com.eghm.service.operate.NoticeTemplateService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.member.MemberNoticeVO;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service("memberNoticeService")
 public class MemberNoticeServiceImpl implements MemberNoticeService {
+
+    private final JsonService jsonService;
 
     private final TemplateEngine templateEngine;
 
@@ -72,6 +76,8 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
     @Override
     public void sendNoticeBatch(SendNotifyRequest request) {
         MemberNoticeLog noticeLog = DataUtil.copy(request, MemberNoticeLog.class);
+        noticeLog.setParams(jsonService.toJson(request.getMemberIds()));
+        noticeLog.setOperatorId(SecurityHolder.getUserId());
         memberNoticeLogMapper.insert(noticeLog);
         request.getMemberIds().forEach(memberId -> {
             MemberNotice notice = new MemberNotice();

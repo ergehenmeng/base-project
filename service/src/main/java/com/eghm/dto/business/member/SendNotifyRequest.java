@@ -34,10 +34,8 @@ public class SendNotifyRequest {
     @NotNull(message = "通知类型不能为空")
     private NoticeType noticeType;
 
-    @ApiModelProperty("会员id(二选一优先级最高)")
+    @ApiModelProperty("会员id")
+    @NotNull(message = "请选择会员")
     private List<Long> memberIds;
-
-    @ApiModelProperty("标签id(二选一优先级次之)")
-    private Long tagId;
 
 }
