@@ -17,7 +17,7 @@ import java.util.function.BiFunction;
  */
 public class MathCaptchaProducer extends DefaultTextCreator {
 
-    private static final int MAX = 19;
+    private static final int MAX = 29;
 
     private static final int MIN = 9;
 
