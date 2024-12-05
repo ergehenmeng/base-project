@@ -9,7 +9,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -17,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 注意: com.eghm.handler 包下所有的类并未被事务管理,因此请自行保证业务逻辑的完整性
+ *
  * @author 二哥很猛
  * @since 2018/12/19 17:47
  */
@@ -35,7 +36,6 @@ public class HandlerChain implements CommandLineRunner {
      * @param messageData 传递参数对象
      * @param markName    处理器类型
      */
-    @Transactional(rollbackFor = RuntimeException.class)
     public void execute(Object messageData, HandlerEnum markName) {
         List<Handler> handlers = handlerMap.get(markName);
         if (handlers != null) {
