@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 注意: com.eghm.handler 包下所有的类并未被事务管理,因此请自行保证业务逻辑的完整性
+ * 注意: com.eg.hm.handler 包下所有的类并未被事务管理,因此请自行保证业务逻辑的完整性
  *
  * @author 二哥很猛
  * @since 2018/12/19 17:47
