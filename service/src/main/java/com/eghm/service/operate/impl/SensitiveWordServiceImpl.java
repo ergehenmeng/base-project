@@ -33,7 +33,7 @@ public class SensitiveWordServiceImpl implements SensitiveWordService {
 
     @PostConstruct
     public void init() {
-        reloadLexicon();
+        this.reloadLexicon();
     }
 
     @Override

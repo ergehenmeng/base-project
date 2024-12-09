@@ -81,7 +81,6 @@ public class WechatPayServiceImpl implements PayService {
             request.setSceneInfo(sceneInfo);
             request.setPayer(null);
         }
-
         WxPayUnifiedOrderV3Result result;
         try {
             result = wxPayService.unifiedOrderV3(transferType, request);

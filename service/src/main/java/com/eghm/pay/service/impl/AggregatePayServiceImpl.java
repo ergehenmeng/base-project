@@ -34,7 +34,7 @@ public class AggregatePayServiceImpl implements AggregatePayService {
     public PrepayVO createPrepay(PrepayDTO dto) {
         PrepayVO vo = null;
         try {
-            vo = getPayService(dto.getTradeType()).createPrepay(dto);
+            vo = this.getPayService(dto.getTradeType()).createPrepay(dto);
         } finally {
             payRequestLogService.insertPayLog(dto, vo);
         }
@@ -43,19 +43,19 @@ public class AggregatePayServiceImpl implements AggregatePayService {
 
     @Override
     public PayOrderVO queryOrder(TradeType tradeType, String tradeNo) {
-        return getPayService(tradeType).queryOrder(tradeNo);
+        return this.getPayService(tradeType).queryOrder(tradeNo);
     }
 
     @Override
     public void closeOrder(TradeType tradeType, String tradeNo) {
-        getPayService(tradeType).closeOrder(tradeNo);
+        this.getPayService(tradeType).closeOrder(tradeNo);
     }
 
     @Override
     public void applyRefund(RefundDTO dto) {
         RefundVO vo = null;
         try {
-            vo = getPayService(dto.getTradeType()).applyRefund(dto);
+            vo = this.getPayService(dto.getTradeType()).applyRefund(dto);
         } finally {
             payRequestLogService.insertRefundLog(dto, vo);
         }
@@ -63,7 +63,7 @@ public class AggregatePayServiceImpl implements AggregatePayService {
 
     @Override
     public RefundVO queryRefund(TradeType tradeType, String tradeNo, String refundNo) {
-        return getPayService(tradeType).queryRefund(tradeNo, refundNo);
+        return this.getPayService(tradeType).queryRefund(tradeNo, refundNo);
     }
 
     /**

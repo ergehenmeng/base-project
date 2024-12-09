@@ -1,6 +1,6 @@
 package com.eghm.vo.business.member;
 
-import com.eghm.enums.NoticeType;
+import com.eghm.enums.MessageType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,7 +24,7 @@ public class MemberNoticeVO {
     private String content;
 
     @ApiModelProperty(value = "通知类型")
-    private NoticeType noticeType;
+    private MessageType messageType;
 
     @ApiModelProperty(value = "已读未读状态 true:已读 false:未读")
     private Boolean isRead;

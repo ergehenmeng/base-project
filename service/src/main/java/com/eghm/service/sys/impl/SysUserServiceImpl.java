@@ -130,7 +130,6 @@ public class SysUserServiceImpl implements SysUserService {
     public void update(UserEditRequest request) {
         this.redoUserName(request.getUserName(), request.getId());
         this.redoMobile(request.getMobile(), request.getId());
-
         SysUser user = DataUtil.copy(request, SysUser.class);
         sysUserMapper.updateById(user);
         // 角色权限
@@ -246,12 +245,9 @@ public class SysUserServiceImpl implements SysUserService {
             buttonList = sysMenuService.getPermCode(user.getId());
             leftMenu = sysMenuService.getLeftMenuList(user.getId());
         }
-
         // 数据权限(此处没有判断,逻辑不够严谨,仅仅为了代码简洁)
         List<String> customList = sysDataDeptService.getDeptList(user.getId());
-
         String token = userTokenService.createToken(user, buttonList, customList);
-
         LoginResponse response = new LoginResponse();
         response.setToken(token);
         response.setNickName(user.getNickName());

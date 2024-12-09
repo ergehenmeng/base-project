@@ -1,6 +1,6 @@
 package com.eghm.dto.business.member;
 
-import com.eghm.enums.NoticeType;
+import com.eghm.enums.MessageType;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -32,7 +32,7 @@ public class SendNotifyRequest {
 
     @ApiModelProperty("通知类型")
     @NotNull(message = "通知类型不能为空")
-    private NoticeType noticeType;
+    private MessageType messageType;
 
     @ApiModelProperty("会员id")
     @NotNull(message = "请选择会员")

@@ -1,6 +1,6 @@
 package com.eghm.dto.ext;
 
-import com.eghm.enums.NoticeType;
+import com.eghm.enums.MessageType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -16,7 +16,7 @@ import java.util.Map;
 public class SendNotice {
 
     @ApiModelProperty("站内信类型")
-    private NoticeType noticeType;
+    private MessageType messageType;
 
     @ApiModelProperty("参数类型 用于渲染消息模板")
     private Map<String, Object> params;

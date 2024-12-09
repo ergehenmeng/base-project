@@ -75,25 +75,21 @@ public class AppVersionServiceImpl implements AppVersionService {
     public AppVersionVO getLatestVersion() {
         String channel = ApiHolder.getChannel();
         String latestVersion = this.getLatestVersion(channel);
-
         String version = ApiHolder.getVersion();
         // 未找到最新版本,或者用户版本大于等于已上架版本
         if (version == null || VersionUtil.gte(version, latestVersion)) {
             return AppVersionVO.builder().latest(true).build();
         }
         AppVersion mapperVersion = appVersionMapper.getVersion(channel, latestVersion);
-
         if (mapperVersion == null) {
             alarmService.sendMsg(String.format("[%s] V%s最新版本尚未配置", channel, latestVersion));
             return AppVersionVO.builder().latest(true).build();
         }
-
         AppVersionVO response = DataUtil.copy(mapperVersion, AppVersionVO.class);
         // 最新版本是强制更新版本
         if (Boolean.TRUE.equals(response.getForceUpdate())) {
             return response;
         }
-
         // 用户自己当前的软件版本信息
         AppVersion appVersion = appVersionMapper.getVersion(channel, version);
         //未找到用户安装的版本信息,默认不强更
@@ -116,7 +112,6 @@ public class AppVersionServiceImpl implements AppVersionService {
             return;
         }
         String version = this.getLatestVersion(appVersion.getChannel());
-
         if (appVersion.getVersion().equals(version)) {
             log.error("当前版本无法被删除 [{}] [{}]", id, version);
             throw new BusinessException(ErrorCode.CURRENT_VERSION_DELETE);

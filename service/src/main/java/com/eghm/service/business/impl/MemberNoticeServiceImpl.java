@@ -11,7 +11,7 @@ import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.dto.ext.SendNotice;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.NoticeType;
+import com.eghm.enums.MessageType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MemberNoticeLogMapper;
 import com.eghm.mapper.MemberNoticeMapper;
@@ -58,15 +58,15 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
 
     @Override
     public void sendNotice(Long memberId, SendNotice sendNotice) {
-        NoticeType mailType = sendNotice.getNoticeType();
-        NoticeTemplate template = noticeTemplateService.getTemplate(mailType.getValue());
+        MessageType messageType = sendNotice.getMessageType();
+        NoticeTemplate template = noticeTemplateService.getTemplate(messageType.getValue());
         if (template == null) {
-            log.warn("站内性模板未配置 [{}]", mailType.getValue());
+            log.warn("站内性模板未配置 [{}]", messageType.getValue());
             throw new BusinessException(ErrorCode.IN_MAIL_NULL);
         }
         String content = templateEngine.render(template.getContent(), sendNotice.getParams());
         MemberNotice mail = new MemberNotice();
-        mail.setNoticeType(mailType);
+        mail.setMessageType(messageType);
         mail.setTitle(template.getTitle());
         mail.setContent(content);
         mail.setMemberId(memberId);
@@ -81,7 +81,7 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
         memberNoticeLogMapper.insert(noticeLog);
         request.getMemberIds().forEach(memberId -> {
             MemberNotice notice = new MemberNotice();
-            notice.setNoticeType(NoticeType.MARKETING);
+            notice.setMessageType(MessageType.MARKETING);
             notice.setTitle(request.getTitle());
             notice.setContent(request.getContent());
             notice.setMemberId(memberId);

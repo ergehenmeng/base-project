@@ -35,7 +35,7 @@ public class TencentSmsServiceImpl implements SendSmsService {
         request.setPhoneNumberSet(new String[] { mobile });
         request.setTemplateParamSet(params);
         try {
-            SendSmsResponse response = getClient().SendSms(request);
+            SendSmsResponse response = this.getClient().SendSms(request);
             return SUCCESS.equals(response.getSendStatusSet()[0].getCode()) ? 1 : 0;
         } catch (TencentCloudSDKException e) {
             log.error("腾讯短信发送异常 [{}] [{}] [{}]", mobile, templateType, jsonService.toJson(params), e);

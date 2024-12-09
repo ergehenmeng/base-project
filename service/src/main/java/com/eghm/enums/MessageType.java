@@ -14,7 +14,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum NoticeType implements EnumBinder<String> {
+public enum MessageType implements EnumBinder<String> {
 
     /**
      * 通用类通知
@@ -59,11 +59,11 @@ public enum NoticeType implements EnumBinder<String> {
     private final String viewTag;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static NoticeType of(String value) {
+    public static MessageType of(String value) {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(NoticeType.values()).filter(auditState -> value.equals(auditState.value)).findFirst().orElse(null);
+        return Arrays.stream(MessageType.values()).filter(auditState -> value.equals(auditState.value)).findFirst().orElse(null);
     }
 
     @Override

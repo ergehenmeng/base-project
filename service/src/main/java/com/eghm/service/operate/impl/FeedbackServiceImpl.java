@@ -7,7 +7,7 @@ import com.eghm.dto.operate.feedback.FeedbackAddDTO;
 import com.eghm.dto.operate.feedback.FeedbackDisposeRequest;
 import com.eghm.dto.operate.feedback.FeedbackQueryRequest;
 import com.eghm.enums.FeedbackType;
-import com.eghm.enums.NoticeType;
+import com.eghm.enums.MessageType;
 import com.eghm.mapper.FeedbackLogMapper;
 import com.eghm.model.FeedbackLog;
 import com.eghm.service.operate.FeedbackService;
@@ -51,7 +51,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         feedbackLogMapper.updateById(log);
         // 发送站内信
         SendNotice notice = new SendNotice();
-        notice.setNoticeType(NoticeType.FEEDBACK_PROCESS);
+        notice.setMessageType(MessageType.FEEDBACK_PROCESS);
         Map<String, Object> params = new HashMap<>();
         params.put("feedbackType", FeedbackType.of(log.getFeedbackType()).getMsg());
         params.put("content", StrUtil.maxLength(log.getContent(), 20));

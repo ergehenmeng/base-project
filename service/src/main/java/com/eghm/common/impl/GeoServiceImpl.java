@@ -59,7 +59,7 @@ public class GeoServiceImpl implements GeoService {
 
     @Override
     public LinkedHashMap<String, Double> radius(String key, double longitude, double latitude, double radius) {
-        return radius(key, longitude, latitude, radius, CommonConstant.GET_LIMIT);
+        return this.radius(key, longitude, latitude, radius, CommonConstant.GET_LIMIT);
     }
 
     @Override

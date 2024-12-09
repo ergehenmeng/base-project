@@ -72,7 +72,7 @@ public class SystemFileServiceImpl implements FileService {
     private String doSaveFile(MultipartFile file, String folder) {
         String filePath = this.getFilePath(file.getOriginalFilename(), folder);
         try {
-            file.transferTo(createFile(filePath));
+            file.transferTo(this.createFile(filePath));
         } catch (IOException e) {
             log.warn("上传文件保存失败", e);
             throw new BusinessException(ErrorCode.FILE_SAVE_ERROR);

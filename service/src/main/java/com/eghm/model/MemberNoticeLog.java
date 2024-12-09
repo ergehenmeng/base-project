@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.enums.NoticeType;
+import com.eghm.enums.MessageType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,7 +26,7 @@ public class MemberNoticeLog extends BaseEntity {
     private String content;
 
     @ApiModelProperty(value = "消息类型")
-    private NoticeType noticeType;
+    private MessageType messageType;
 
     @ApiModelProperty(value = "消息参数")
     private String params;
