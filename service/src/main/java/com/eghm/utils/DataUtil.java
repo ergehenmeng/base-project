@@ -36,17 +36,13 @@ public class DataUtil {
      * @return 结果
      */
     public static <S, T> PageData<T> copy(Page<S> page, Function<S, T> transfer) {
-
         PageData<T> paging = new PageData<>();
         List<T> formatList = Lists.newArrayList();
-
         page.getRecords().forEach(s -> formatList.add(transfer.apply(s)));
-
         paging.setRows(formatList);
         paging.setTotal((int) page.getTotal());
         paging.setPage((int) page.getCurrent());
         paging.setPageSize((int) page.getSize());
-
         return paging;
     }
 
@@ -60,17 +56,13 @@ public class DataUtil {
      * @return 结果
      */
     public static <S, T> PageData<T> copy(Page<S> page, Class<T> cls) {
-
         PageData<T> paging = new PageData<>();
         List<T> formatList = Lists.newArrayList();
-
         page.getRecords().forEach(s -> formatList.add(copy(s, cls)));
-
         paging.setRows(formatList);
         paging.setTotal((int) page.getTotal());
         paging.setPage((int) page.getCurrent());
         paging.setPageSize((int) page.getSize());
-
         return paging;
     }
 

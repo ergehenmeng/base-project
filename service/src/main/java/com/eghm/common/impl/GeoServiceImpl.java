@@ -7,10 +7,14 @@ import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
-import org.springframework.data.geo.*;
+import org.springframework.data.geo.Circle;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.GeoResults;
+import org.springframework.data.geo.Point;
 import org.springframework.data.redis.connection.RedisGeoCommands;
 import org.springframework.data.redis.core.GeoOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.domain.geo.Metrics;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
@@ -31,9 +35,9 @@ public class GeoServiceImpl implements GeoService {
         String key = CacheConstant.GEO_DISTANCE + IdWorker.getIdStr();
         String key1 = IdWorker.getIdStr();
         String key2 = IdWorker.getIdStr();
-        operations.add(key, new RedisGeoCommands.GeoLocation<>(key1, new Point(longitude, latitude)));
-        operations.add(key, new RedisGeoCommands.GeoLocation<>(key2, new Point(targetLongitude, targetLatitude)));
-        Distance distance = operations.distance(key, key1, key2, Metrics.MILES);
+        this.addPoint(key, key1, longitude, latitude);
+        this.addPoint(key, key2, targetLongitude, targetLatitude);
+        Distance distance = operations.distance(key, key1, key2, Metrics.METERS);
         stringRedisTemplate.delete(key);
         return distance != null ? distance.getValue() : 0;
     }
@@ -47,8 +51,8 @@ public class GeoServiceImpl implements GeoService {
     public double distance(String key, String id, double targetLongitude, double targetLatitude) {
         GeoOperations<String, String> operations = stringRedisTemplate.opsForGeo();
         String id2 = IdWorker.getIdStr();
-        operations.add(key, new RedisGeoCommands.GeoLocation<>(id2, new Point(targetLongitude, targetLatitude)));
-        Distance distance = operations.distance(key, id, id2, Metrics.MILES);
+        this.addPoint(key, id2, targetLongitude, targetLatitude);
+        Distance distance = operations.distance(key, id, id2, Metrics.METERS);
         operations.remove(key, id2);
         return distance != null ? distance.getValue() : 0;
     }
@@ -61,7 +65,7 @@ public class GeoServiceImpl implements GeoService {
     @Override
     public LinkedHashMap<String, Double> radius(String key, double longitude, double latitude, double radius, int limit) {
         GeoOperations<String, String> operations = stringRedisTemplate.opsForGeo();
-        GeoResults<RedisGeoCommands.GeoLocation<String>> geoResults = operations.radius(key, new Circle(new Point(longitude, latitude), new Distance(radius, Metrics.MILES)),
+        GeoResults<RedisGeoCommands.GeoLocation<String>> geoResults = operations.radius(key, new Circle(new Point(longitude, latitude), new Distance(radius, Metrics.METERS)),
                 RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs().includeDistance().sortAscending().limit(limit));
         if (geoResults == null || CollUtil.isEmpty(geoResults)) {
             return Maps.newLinkedHashMapWithExpectedSize(1);
