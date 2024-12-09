@@ -2,6 +2,7 @@ package com.eghm.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -59,7 +60,7 @@ public enum MessageType implements EnumBinder<String> {
     private final String viewTag;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static MessageType of(String value) {
+    public static MessageType of(@JsonProperty("value") String value) {
         if (value == null) {
             return null;
         }
