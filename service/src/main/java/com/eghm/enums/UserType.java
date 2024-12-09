@@ -27,8 +27,7 @@ public enum UserType implements EnumBinder<Integer> {
     /**
      * 系统用户
      */
-    SYS_USER(1, "系统用户"),;
-
+    SYS_USER(1, "系统用户");
 
     @JsonValue
     @EnumValue

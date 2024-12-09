@@ -43,9 +43,8 @@ public enum TemplateType implements EnumBinder<String> {
     /**
      * 更换邮箱
      */
-    CHANGE_EMAIL("change_email", "更换邮箱", "", "您正在更换EGHM平台账号的邮箱，短信验证码：${param0}。如非本人操作，请忽略此短信"),
+    CHANGE_EMAIL("change_email", "更换邮箱", "", "您正在更换EGHM平台账号的邮箱，短信验证码：${param0}。如非本人操作，请忽略此短信");
 
-    ;
     @EnumValue
     @JsonValue
     private final String value;

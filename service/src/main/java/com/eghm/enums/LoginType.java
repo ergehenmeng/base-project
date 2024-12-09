@@ -30,8 +30,7 @@ public enum LoginType {
     /**
      * 扫码
      */
-    QRCODE(8, "扫码"),
-    ;
+    QRCODE(8, "扫码");
 
     private final int value;
 

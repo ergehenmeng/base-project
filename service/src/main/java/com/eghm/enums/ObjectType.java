@@ -29,8 +29,7 @@ public enum ObjectType implements EnumBinder<Integer> {
     /**
      * 活动
      */
-    ACTIVITY(2, "活动"),
-    ;
+    ACTIVITY(2, "活动");
 
     /**
      * 状态

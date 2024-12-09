@@ -38,6 +38,5 @@ public enum Channel {
      */
     ALIPAY
 
-
 }
 

@@ -41,10 +41,8 @@ public enum DataType implements EnumBinder<Integer> {
     /**
      * 自定义数据权限
      */
-    CUSTOM(16, "自定义数据权限"),
+    CUSTOM(16, "自定义数据权限");
 
-
-    ;
     @JsonValue
     @EnumValue
     private final Integer value;

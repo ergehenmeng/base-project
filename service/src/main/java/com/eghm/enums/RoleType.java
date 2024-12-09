@@ -26,8 +26,7 @@ public enum RoleType implements EnumBinder<String> {
     /**
      * 运营角色 (占坑)
      */
-    OPERATE("operate", "运营角色"),
-    ;
+    OPERATE("operate", "运营角色");
 
     /**
      * 角色code
