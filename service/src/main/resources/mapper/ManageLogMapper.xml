@@ -22,5 +22,4 @@
         order by t.id desc
     </select>
 
-
 </mapper>

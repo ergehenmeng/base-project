@@ -30,4 +30,5 @@
             <result property="showValue" column="show_value"/>
         </collection>
     </resultMap>
+
 </mapper>

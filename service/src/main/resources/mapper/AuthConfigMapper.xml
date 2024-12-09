@@ -18,4 +18,5 @@
     <select id="getByAppKey" resultType="com.eghm.vo.operate.auth.AuthConfigVO">
         select app_key, public_key, private_key, expire_date from auth_config where app_key = #{appKey} limit 1
     </select>
+
 </mapper>

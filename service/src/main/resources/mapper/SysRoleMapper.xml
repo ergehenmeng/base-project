@@ -44,4 +44,5 @@
         where r.user_id = #{userId}
           and t.deleted = false and t.role_type = #{roleType}
     </select>
+
 </mapper>

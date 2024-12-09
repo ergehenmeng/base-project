@@ -12,4 +12,5 @@
             and (title like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%') )
         </if>
     </select>
+
 </mapper>
