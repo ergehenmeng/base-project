@@ -44,7 +44,7 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
             userToken.setUserType(UserType.of(verify.getClaim("userType").asInt()));
             userToken.setDataType(DataType.of(verify.getClaim("dataType").asInt()));
             userToken.setNickName(verify.getClaim("nickName").asString());
-            userToken.setAuthList(verify.getClaim("auth").asList(String.class));
+            userToken.setAuthList(verify.getClaim("authList").asList(String.class));
             userToken.setDeptCode(verify.getClaim("deptCode").asString());
             userToken.setDataList(verify.getClaim("dataList").asList(String.class));
             userToken.setToken(token);
@@ -77,7 +77,7 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
                 .withClaim("userType", user.getUserType().getValue())
                 .withClaim("dataType", user.getDataType().getValue())
                 .withClaim("dataList", dataList)
-                .withClaim("auth", authList);
+                .withClaim("authList", authList);
         return builder.withExpiresAt(DateUtil.offsetSecond(DateUtil.date(), expireSeconds)).sign(this.getAlgorithm());
     }
 
