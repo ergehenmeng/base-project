@@ -249,12 +249,12 @@ CREATE TABLE `notice_template`
 DROP TABLE IF EXISTS `sms_log`;
 CREATE TABLE `sms_log`
 (
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `sms_type`    varchar(20)         DEFAULT NULL COMMENT '短信分类',
-    `mobile`      char(11)            DEFAULT NULL COMMENT '手机号',
-    `content`     varchar(100)        DEFAULT NULL COMMENT '短信内容',
-    `create_time` datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '发送时间',
-    `state`       tinyint(1) unsigned DEFAULT '0' COMMENT '发送状态 0:发送中 1:已发送 2:发送失败',
+    `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `template_type` varchar(20)         DEFAULT NULL COMMENT '短信分类',
+    `mobile`        char(11)            DEFAULT NULL COMMENT '手机号',
+    `content`       varchar(100)        DEFAULT NULL COMMENT '短信内容',
+    `create_time`   datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '发送时间',
+    `state`         tinyint(1) unsigned DEFAULT '0' COMMENT '发送状态 0:发送中 1:已发送 2:发送失败',
     PRIMARY KEY (`id`) USING BTREE,
     KEY `mobile_index` (`mobile`) USING BTREE
 ) ENGINE = InnoDB
@@ -2332,7 +2332,7 @@ CREATE TABLE `member_notice_log`
     `content`     varchar(1000) DEFAULT NULL COMMENT '通知内容',
     `notice_type` varchar(20)   DEFAULT NULL COMMENT '消息类型',
     `params`      text          DEFAULT NULL COMMENT '消息参数',
-    `operator_id`  bigint(20)    DEFAULT NULL COMMENT '发送人id',
+    `operator_id` bigint(20)    DEFAULT NULL COMMENT '发送人id',
     `create_time` datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`     tinyint(1)    DEFAULT '0' COMMENT '删除状态',

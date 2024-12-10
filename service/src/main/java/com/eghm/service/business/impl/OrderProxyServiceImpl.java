@@ -8,7 +8,7 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.order.homestay.HomestayOrderConfirmRequest;
 import com.eghm.dto.business.order.refund.PlatformRefundRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.SmsType;
+import com.eghm.enums.TemplateType;
 import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.ConfirmState;
@@ -91,7 +91,7 @@ public class OrderProxyServiceImpl implements OrderProxyService {
             context.setOrderNo(request.getOrderNo());
             stateHandler.fireEvent(ProductType.HOMESTAY, order.getState().getValue(), HomestayEvent.CONFIRM_ROOM, context);
             // 发送短信通知
-            smsService.sendSms(order.getMobile(), SmsType.CONFIRM_NO_ROOM, request.getOrderNo());
+            smsService.sendSms(order.getMobile(), TemplateType.CONFIRM_NO_ROOM, request.getOrderNo());
         }
     }
 

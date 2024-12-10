@@ -3,7 +3,7 @@ package com.eghm.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.enums.SmsType;
+import com.eghm.enums.TemplateType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -34,7 +34,7 @@ public class SmsLog {
     private LocalDateTime createTime;
 
     @ApiModelProperty("短信分类")
-    private SmsType smsType;
+    private TemplateType templateType;
 
     @ApiModelProperty("手机号")
     private String mobile;

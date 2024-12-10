@@ -20,7 +20,7 @@ import com.eghm.dto.business.merchant.MerchantEditRequest;
 import com.eghm.dto.business.merchant.MerchantQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.RoleMapping;
-import com.eghm.enums.SmsType;
+import com.eghm.enums.TemplateType;
 import com.eghm.enums.UserType;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.enums.ref.UserState;
@@ -203,13 +203,13 @@ public class MerchantServiceImpl implements MerchantService {
             log.error("商户未绑定微信,无需解绑 [{}]", merchantId);
             throw new BusinessException(ErrorCode.MERCHANT_NO_BIND);
         }
-        smsService.sendSmsCode(SmsType.MERCHANT_UNBIND, merchant.getAuthMobile(), ip);
+        smsService.sendSmsCode(TemplateType.MERCHANT_UNBIND, merchant.getAuthMobile(), ip);
     }
 
     @Override
     public void unbind(Long merchantId, String smsCode) {
         Merchant merchant = this.selectByIdRequired(merchantId);
-        smsService.verifySmsCode(SmsType.MERCHANT_UNBIND, merchant.getAuthMobile(), smsCode);
+        smsService.verifySmsCode(TemplateType.MERCHANT_UNBIND, merchant.getAuthMobile(), smsCode);
         log.info("商户[{}]解绑微信号,旧信息:[{}] [{}]", merchant.getMerchantName(), merchant.getAuthMobile(), merchant.getOpenId());
         this.doUnbindMerchant(merchantId);
     }

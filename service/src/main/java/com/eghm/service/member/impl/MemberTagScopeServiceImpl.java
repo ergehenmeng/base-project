@@ -11,7 +11,7 @@ import com.eghm.dto.member.tag.SendNotifyRequest;
 import com.eghm.dto.member.tag.SendSmsRequest;
 import com.eghm.dto.member.tag.TagMemberQueryRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.SmsType;
+import com.eghm.enums.TemplateType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MemberMapper;
 import com.eghm.mapper.MemberTagScopeMapper;
@@ -102,9 +102,9 @@ public class MemberTagScopeServiceImpl implements MemberTagScopeService {
             return;
         }
         if (StrUtil.isBlank(request.getParams())) {
-            sendSmsService.sendSms(mobileList, SmsType.of(request.getTemplateId()));
+            sendSmsService.sendSms(mobileList, TemplateType.of(request.getTemplateId()));
         } else {
-            sendSmsService.sendSms(mobileList, SmsType.of(request.getTemplateId()), request.getParams().split(CommonConstant.COMMA));
+            sendSmsService.sendSms(mobileList, TemplateType.of(request.getTemplateId()), request.getParams().split(CommonConstant.COMMA));
         }
     }
 }

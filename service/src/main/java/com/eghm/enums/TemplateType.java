@@ -15,7 +15,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum SmsType implements EnumBinder<String> {
+public enum TemplateType implements EnumBinder<String> {
 
     /**
      * 未指定短信类型,则为自定义短信:default
@@ -77,8 +77,8 @@ public enum SmsType implements EnumBinder<String> {
      */
     private final String content;
 
-    public static SmsType of(String value) {
-        return Arrays.stream(SmsType.values())
+    public static TemplateType of(String value) {
+        return Arrays.stream(TemplateType.values())
                 .filter(map -> value.equals(map.getValue()))
                 .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.SMS_TEMPLATE_NULL));
     }

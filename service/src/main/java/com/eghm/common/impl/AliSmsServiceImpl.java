@@ -9,7 +9,7 @@ import com.eghm.common.JsonService;
 import com.eghm.common.SendSmsService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.CommonConstant;
-import com.eghm.enums.SmsType;
+import com.eghm.enums.TemplateType;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,12 +35,12 @@ public class AliSmsServiceImpl implements SendSmsService {
     private static final String SUCCESS = "OK";
 
     @Override
-    public int sendSms(String mobile, SmsType smsType, String... params) {
-        return this.sendSms(Lists.newArrayList(mobile), smsType, params);
+    public int sendSms(String mobile, TemplateType templateType, String... params) {
+        return this.sendSms(Lists.newArrayList(mobile), templateType, params);
     }
 
     @Override
-    public int sendSms(List<String> mobileList, SmsType smsType, String... params) {
+    public int sendSms(List<String> mobileList, TemplateType templateType, String... params) {
         Map<String, Object> param = new HashMap<>(4);
         if (params.length > 0) {
             for (int i = 0; i < params.length; i++) {
@@ -50,14 +50,14 @@ public class AliSmsServiceImpl implements SendSmsService {
         SendSmsRequest request = new SendSmsRequest();
         request.setSignName(systemProperties.getSms().getSignName());
         request.setPhoneNumbers(CollUtil.join(mobileList, CommonConstant.COMMA));
-        request.setTemplateCode(smsType.getTemplateId());
+        request.setTemplateCode(templateType.getTemplateId());
         String jsonParam = jsonService.toJson(param);
         request.setTemplateParam(jsonParam);
         try {
             SendSmsResponse response = getClient().sendSms(request);
             return SUCCESS.equals(response.getBody().getCode()) ? 1 : 0;
         } catch (Exception e) {
-            log.error("阿里云短信发送异常 [{}] [{}] [{}]", mobileList, smsType, jsonParam,  e);
+            log.error("阿里云短信发送异常 [{}] [{}] [{}]", mobileList, templateType, jsonParam,  e);
         }
         return 2;
     }

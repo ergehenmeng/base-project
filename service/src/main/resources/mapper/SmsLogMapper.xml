@@ -7,7 +7,7 @@
             id,
             mobile,
             content,
-            sms_type,
+            template_type,
             state,
             create_time
         from sms_log
@@ -15,8 +15,8 @@
             <if test="param.queryName != null and param.queryName != ''">
                 and mobile like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
             </if>
-            <if test="param.smsType != null">
-                and sms_type = #{param.smsType}
+            <if test="param.templateType != null">
+                and template_type = #{param.templateType}
             </if>
             <if test="param.state != null">
                 and state = #{param.state}
