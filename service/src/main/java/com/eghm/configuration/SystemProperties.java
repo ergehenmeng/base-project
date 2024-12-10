@@ -88,6 +88,174 @@ public class SystemProperties {
      */
     private final Sms sms = new Sms();
 
+    /**
+     * 支付宝配置
+     */
+    private final AliProperties ali = new AliProperties();
+
+    @Data
+    public static class AliProperties {
+
+        /**
+         * 支付宝配置
+         */
+        private final AliPay pay = new AliPay();
+
+        /**
+         * 阿里oss
+         */
+        private AliOss oss = new AliOss();
+
+    }
+
+    @Data
+    public static class WxMp {
+
+        /**
+         * 公众号appId
+         */
+        private String appId;
+
+        /**
+         * 公众号appSecret
+         */
+        private String appSecret;
+
+    }
+
+    @Data
+    public static class WxPay {
+
+        /**
+         * 商户号
+         */
+        private String mchId;
+
+        /**
+         * 商户私钥证书 api_client_key.pem (classpath)
+         */
+        private String privateKeyPath;
+
+        /**
+         * 商户证书序列号
+         */
+        private String serialNo;
+
+        /**
+         * 支付异步通知域名
+         */
+        private String notifyHost;
+
+        /**
+         * apiV3 秘钥
+         */
+        private String apiV3Key;
+    }
+
+    @Data
+    public static class WxMa {
+
+        /**
+         * 小程序appId
+         */
+        private String appId;
+
+        /**
+         * 小程序appId
+         */
+        private String appSecret;
+
+        /**
+         * 小程序版本, 默认:正式版
+         */
+        private WeChatVersion version = WeChatVersion.RELEASE;
+
+    }
+
+    @Data
+    public static class WeChatProperties {
+
+        /**
+         * 公众号配置
+         */
+        private final WxMp mp = new WxMp();
+
+        /**
+         * 小程序配置
+         */
+        private final WxMa ma = new WxMa();
+
+        /**
+         * 微信支付配置
+         */
+        private final WxPay pay = new WxPay();
+
+    }
+
+    @Data
+    public static class AliOss {
+
+        /**
+         * oss域名
+         */
+        private String endpoint;
+
+        /**
+         * Bucket所在地域
+         */
+        private String regionName;
+
+        /**
+         * bucket名称
+         */
+        private String bucketName;
+
+        /**
+         * accessKeyId
+         */
+        private String keyId;
+
+        /**
+         * accessKeySecret
+         */
+        private String keySecret;
+
+        /**
+         * 访问域名
+         */
+        private String accessDomain;
+
+    }
+
+    @Data
+    public static class AliPay {
+
+        /**
+         * 支付appId
+         */
+        private String appId;
+
+        /**
+         * 私钥
+         */
+        private String privateKey;
+
+        /**
+         * 公钥 (非正式模式)
+         */
+        private String publicKey;
+
+        /**
+         * 异步通知域名
+         */
+        private String notifyHost;
+
+        /**
+         * AES密钥（可选）
+         */
+        private String encryptKey;
+    }
+
     @Data
     public static class Sms {
 
@@ -260,71 +428,6 @@ public class SystemProperties {
          * AES密钥（可选）
          */
         private String encryptKey;
-    }
-
-    @Data
-    public static class WeChatProperties {
-
-        /**
-         * 公众号appId
-         */
-        private String mpAppId;
-
-        /**
-         * 公众号appSecret
-         */
-        private String mpAppSecret;
-
-        /**
-         * 小程序appId
-         */
-        private String miniAppId;
-
-        /**
-         * 小程序appId
-         */
-        private String miniAppSecret;
-
-        /**
-         * 小程序版本, 默认:正式版
-         */
-        private WeChatVersion miniVersion = WeChatVersion.RELEASE;
-
-        /**
-         * 微信支付所在公众号或小程序的appId(全局设置),注意: 该参数优先级比下单时传入的appId低
-         */
-        private String payAppId;
-
-        /**
-         * 信支付商户号(全局设置), 注意: 该参数优先级比下单时传入的mchId低
-         */
-        private String payMerchantId;
-
-        /**
-         * apiV3 秘钥
-         */
-        private String payApiV3Key;
-
-        /**
-         * 商户私钥证书 api_client_key.pem (classpath)
-         */
-        private String payPrivateKeyPath;
-
-        /**
-         * 商户公钥证书 api_client_cert.pem (classpath)
-         */
-        private String payPrivateCertPath;
-
-        /**
-         * apiV3证书序列号
-         */
-        private String paySerialNo;
-
-        /**
-         * 异步通知域名
-         */
-        private String payNotifyHost;
-
     }
 
     @Data

@@ -65,7 +65,7 @@ public class WechatPayServiceImpl implements PayService {
         request.setAttach(dto.getAttach());
         request.setDescription(dto.getDescription());
         SystemProperties.WeChatProperties wechat = systemProperties.getWechat();
-        request.setNotifyUrl(wechat.getPayNotifyHost() + CommonConstant.WECHAT_PAY_NOTIFY_URL);
+        request.setNotifyUrl(wechat.getPay().getNotifyHost() + CommonConstant.WECHAT_PAY_NOTIFY_URL);
         request.setOutTradeNo(dto.getTradeNo());
         WxPayUnifiedOrderV3Request.Payer payer = new WxPayUnifiedOrderV3Request.Payer();
         payer.setOpenid(dto.getBuyerId());
@@ -129,7 +129,7 @@ public class WechatPayServiceImpl implements PayService {
         amount.setTotal(dto.getTotal());
         amount.setCurrency("CNY");
         request.setAmount(amount);
-        request.setNotifyUrl(wechat.getPayNotifyHost() + CommonConstant.WECHAT_REFUND_NOTIFY_URL);
+        request.setNotifyUrl(wechat.getPay().getNotifyHost() + CommonConstant.WECHAT_REFUND_NOTIFY_URL);
         request.setOutTradeNo(dto.getTradeNo());
         request.setReason(dto.getReason());
         request.setOutRefundNo(dto.getRefundNo());

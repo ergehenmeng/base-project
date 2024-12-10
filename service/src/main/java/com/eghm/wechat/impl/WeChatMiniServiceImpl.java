@@ -79,7 +79,7 @@ public class WeChatMiniServiceImpl implements WeChatMiniService {
     public String generateUrl(String pageUrl, String query, int validDay) {
         this.verify();
         SystemProperties.WeChatProperties wechat = systemProperties.getWechat();
-        GenerateUrlLinkRequest request = GenerateUrlLinkRequest.builder().path(pageUrl).query(query).expireInterval(validDay).expireType(1).envVersion(wechat.getMiniVersion().getValue()).build();
+        GenerateUrlLinkRequest request = GenerateUrlLinkRequest.builder().path(pageUrl).query(query).expireInterval(validDay).expireType(1).envVersion(wechat.getMa().getVersion().getValue()).build();
         try {
             return wxMaService.getLinkService().generateUrlLink(request);
         } catch (WxErrorException e) {
@@ -96,7 +96,7 @@ public class WeChatMiniServiceImpl implements WeChatMiniService {
         try {
             // 根据请求参数的不同生成唯一标识,为了防止同一链接多次生成,此处使用MD5减少内存占用
             String scene = MD5.create().digestHex(path + SPECIAL_SPLIT + query);
-            byte[] bytes = qrcodeService.createWxaCodeUnlimitBytes(scene, path, false, systemProperties.getWechat().getMiniVersion().getValue(), 430, true, null, false);
+            byte[] bytes = qrcodeService.createWxaCodeUnlimitBytes(scene, path, false, systemProperties.getWechat().getMa().getVersion().getValue(), 430, true, null, false);
             cacheService.setValue(CacheConstant.WECHAT_QRCODE + scene, query, validDay, TimeUnit.DAYS);
             return bytes;
         } catch (WxErrorException e) {
