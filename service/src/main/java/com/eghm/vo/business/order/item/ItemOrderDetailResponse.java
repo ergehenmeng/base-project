@@ -31,7 +31,7 @@ public class ItemOrderDetailResponse {
     private String storeName;
 
     @ApiModelProperty("店铺id")
-    private String storeId;
+    private Long storeId;
 
     @ApiModelProperty("支付方式(支付成功才会有支付方式)")
     private PayType payType;
@@ -109,4 +109,7 @@ public class ItemOrderDetailResponse {
 
     @ApiModelProperty("改价记录")
     private List<OrderAdjustResponse> adjustList;
+
+    @ApiModelProperty("该用户其他未发货订单")
+    private List<ItemUnShippedOrderResponse> unShippedList;
 }

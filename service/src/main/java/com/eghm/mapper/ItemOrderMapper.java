@@ -81,6 +81,15 @@ public interface ItemOrderMapper extends BaseMapper<ItemOrder> {
     List<ItemShippedResponse> getShippedList(@Param("orderNo") String orderNo);
 
     /**
+     * 查询用户在某个店铺中其他未发货订单列表
+     * @param orderNo 订单号
+     * @param storeId  店铺id
+     * @param memberId 会员id
+     * @return 该用户未发货订单
+     */
+    List<ItemUnShippedOrderResponse> getUnShippedList(@Param("orderNo") String orderNo, @Param("storeId") Long storeId, @Param("memberId") Long memberId);
+
+    /**
      * 获取快照
      *
      * @param orderId 订单id

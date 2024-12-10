@@ -519,7 +519,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         }
     }
 
-
     @Override
     public ItemOrderRefundVO getItemRefund(Long orderId, Long memberId, boolean containAddress) {
         ItemOrderRefundVO refund = itemOrderService.getRefund(orderId, memberId);
@@ -712,7 +711,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             log.error("支付渠道不支持微信支付 [{}] [{}]", channel, tradeType);
             throw new BusinessException(ErrorCode.PAY_CHANNEL_REFRESH);
         }
-
     }
 
     /**

@@ -192,6 +192,11 @@
         left join item_order t on s.item_order_id = t.id where t.order_no = #{orderNo} and t.deleted = false
     </select>
 
+    <select id="getUnShippedList" resultType="com.eghm.vo.business.order.item.ItemUnShippedOrderResponse">
+        select t.title, t.order_no, t.cover_url
+        from order t where t.member_id = #{memberId} and t.deleted = false and t.state in (4, 5) and t.order_no &lt;&gt; #{orderNo} and t.store_id = #{storeId}
+    </select>
+
     <select id="getSnapshot" resultType="com.eghm.vo.business.order.item.ItemOrderSnapshotVO">
         select
             t.title,

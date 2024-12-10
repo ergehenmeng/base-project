@@ -15,6 +15,7 @@ import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.DeliveryState;
 import com.eghm.enums.ref.ItemRefundState;
+import com.eghm.enums.ref.OrderState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemOrderMapper;
 import com.eghm.mapper.OrderAdjustLogMapper;
@@ -209,6 +210,11 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         detail.setShippedList(shippedList);
         List<OrderAdjustResponse> mapperList = orderAdjustLogMapper.getList(orderNo);
         detail.setAdjustList(mapperList);
+        // 用户其他未发货订单
+        if (detail.getState() == OrderState.WAIT_DELIVERY || detail.getState() == OrderState.PARTIAL_DELIVERY) {
+            List<ItemUnShippedOrderResponse> unShippedList = itemOrderMapper.getUnShippedList(orderNo, detail.getStoreId(), merchantId);
+            detail.setUnShippedList(unShippedList);
+        }
         return detail;
     }
 
