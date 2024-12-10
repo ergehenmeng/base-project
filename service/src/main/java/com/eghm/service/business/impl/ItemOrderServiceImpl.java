@@ -234,11 +234,9 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     @Override
     public List<ItemOrder> getByIds(List<Long> ids) {
         LambdaQueryWrapper<ItemOrder> wrapper = Wrappers.lambdaQuery();
-
         wrapper.select(ItemOrder::getItemId, ItemOrder::getOrderNo, ItemOrder::getId,
                 ItemOrder::getNum, ItemOrder::getRefundState,
                 ItemOrder::getDeliveryType, ItemOrder::getDeliveryState);
-
         wrapper.in(ItemOrder::getId, ids);
         return itemOrderMapper.selectList(wrapper);
     }

@@ -69,7 +69,6 @@ public class MerchantUserServiceImpl implements MerchantUserService {
     @Override
     public void update(MerchantUserEditRequest request) {
         MerchantUser merchant = this.selectByIdRequired(request.getId());
-
         SysUser user = new SysUser();
         user.setId(merchant.getUserId());
         user.setNickName(request.getNickName());

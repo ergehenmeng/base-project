@@ -112,7 +112,6 @@ public class ItemServiceImpl implements ItemService {
         this.checkStore(merchantId, request.getStoreId());
         this.titleRedo(request.getTitle(), null, request.getStoreId());
         this.checkExpress(request.getExpressId(), request.getSkuList());
-
         Item item = DataUtil.copy(request, Item.class);
         item.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         item.setMerchantId(merchantId);
@@ -122,7 +121,6 @@ public class ItemServiceImpl implements ItemService {
         // 总销量需要添加虚拟销量
         item.setTotalNum(request.getSkuList().stream().filter(itemSkuRequest -> itemSkuRequest.getVirtualNum() != null).mapToInt(ItemSkuRequest::getVirtualNum).sum());
         itemMapper.insert(item);
-
         Map<String, Long> specMap = itemSpecService.insert(item, request.getSpecList());
         itemSkuService.insert(item, specMap, request.getSkuList());
     }
@@ -136,7 +134,6 @@ public class ItemServiceImpl implements ItemService {
         Item select = this.selectByIdRequired(request.getId());
         this.checkMultiSpec(select.getMultiSpec(), request.getMultiSpec());
         commonService.checkIllegal(select.getMerchantId());
-
         Item item = DataUtil.copy(request, Item.class);
         item.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         if (select.getBookingId() == null) {
@@ -215,7 +212,6 @@ public class ItemServiceImpl implements ItemService {
         wrapper.eq(Item::getMerchantId, merchantId);
         wrapper.set(Item::getLimitId, null);
         itemMapper.update(null, wrapper);
-
         LambdaUpdateWrapper<Item> updateWrapper = Wrappers.lambdaUpdate();
         updateWrapper.in(Item::getId, itemIds);
         updateWrapper.eq(Item::getMerchantId, merchantId);
@@ -346,9 +342,7 @@ public class ItemServiceImpl implements ItemService {
             log.info("为保证评分系统的公平性, 评价数量小于5条时默认不展示零售店铺评分 [{}]", vo.getStoreId());
             return;
         }
-
         itemStoreMapper.updateScore(vo.getStoreId(), DecimalUtil.calcAvgScore(storeScore.getTotalScore(), storeScore.getNum()));
-
         AvgScoreVO productScore = orderEvaluationService.getProductScore(vo.getProductId());
         if (productScore.getNum() < CommonConstant.MIN_SCORE_NUM) {
             log.info("为保证评分系统的公平性, 评价数量小于5条时默认不展示零售商品评分 [{}]", vo.getProductId());
@@ -369,7 +363,6 @@ public class ItemServiceImpl implements ItemService {
         detail.setItemState((detail.getState() == State.SHELVE) ? 1 : 0);
         detail.setCommentNum(vo.getCommentNum());
         detail.setGoodRate(vo.getRate());
-
         List<ItemSkuVO> skuList = itemSkuService.getByItemId(id);
         detail.setSkuList(skuList);
         if (Boolean.TRUE.equals(detail.getMultiSpec())) {

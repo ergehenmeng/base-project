@@ -100,7 +100,6 @@ public class MemberCouponServiceImpl implements MemberCouponService {
 
     @Override
     public Integer getCouponAmountWithVerify(Long memberId, @NonNull Long couponId, List<Long> productIds, Long storeId, Integer amount) {
-
         MemberCoupon coupon = memberCouponMapper.selectById(couponId);
         if (coupon == null) {
             log.error("优惠券不存在 [{}]", couponId);
@@ -110,14 +109,11 @@ public class MemberCouponServiceImpl implements MemberCouponService {
             log.error("优惠券不属于该用户所有 [{}] [{}]", memberId, couponId);
             throw new BusinessException(ErrorCode.COUPON_ILLEGAL);
         }
-
         if (coupon.getState() != CouponState.UNUSED) {
             log.error("优惠券状态非法 [{}] [{}]", coupon.getState(), couponId);
             throw new BusinessException(ErrorCode.COUPON_USE_ERROR);
         }
-
         Coupon config = couponMapper.selectById(couponId);
-
         if (config.getUseScope() == 1) {
             if (!couponScopeService.match(couponId, productIds)) {
                 log.error("商品无法匹配该优惠券 [{}] [{}]", couponId, productIds);
@@ -127,7 +123,6 @@ public class MemberCouponServiceImpl implements MemberCouponService {
             log.error("商品对应的店铺无法匹配该优惠券设置的店铺 [{}] [{}] [{}]", couponId, productIds, storeId);
             throw new BusinessException(ErrorCode.COUPON_MATCH);
         }
-
         LocalDateTime now = LocalDateTime.now();
         if (config.getUseStartTime().isAfter(now) || config.getUseEndTime().isBefore(now)) {
             log.error("优惠券不在有效期 [{}] [{}] [{}]", couponId, config.getStartTime(), config.getUseEndTime());
@@ -248,23 +243,19 @@ public class MemberCouponServiceImpl implements MemberCouponService {
      * @param dto    领取信息
      */
     private void checkCoupon(Coupon config, ReceiveCouponDTO dto) {
-
         if (config == null || config.getState() != 1 || (config.getStock() - dto.getNum()) <= 0) {
             log.error("领取优惠券失败, 优惠券可能库存不足 [{}] [{}]", config != null ? config.getState() : -1, config != null ? config.getStock() : -1);
             throw new BusinessException(ErrorCode.COUPON_EMPTY);
         }
-
         if (config.getMode() != dto.getMode()) {
             log.error("优惠券领取方式不匹配 [{}] [{}]", config.getId(), dto.getMode());
             throw new BusinessException(ErrorCode.COUPON_MODE_ERROR);
         }
-
         LocalDateTime now = LocalDateTime.now();
         if (config.getStartTime().isAfter(now) || config.getEndTime().isBefore(now)) {
             log.error("优惠券不在领取时间内 [{}] [{}] [{}]", config.getId(), config.getStartTime(), config.getEndTime());
             throw new BusinessException(ErrorCode.COUPON_INVALID_TIME);
         }
-
         int count = this.receiveCount(config.getId(), dto.getMemberId());
         if (count + dto.getNum() > config.getMaxLimit()) {
             log.error("已领取+待发放数量优惠券总和超过上限 [{}] [{}] [{}] [{}] [{}]", dto.getMemberId(), config.getId(), count, dto.getNum(), config.getMaxLimit());

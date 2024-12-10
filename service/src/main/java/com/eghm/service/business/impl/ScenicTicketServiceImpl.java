@@ -78,7 +78,6 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         ticket.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         scenicTicketMapper.insert(ticket);
         scenicService.updatePrice(request.getScenicId());
-
         if (ticket.getCategory() == TicketType.COMBINE) {
             ticketCombineService.insert(ticket.getId(), request.getTicketIds());
         }

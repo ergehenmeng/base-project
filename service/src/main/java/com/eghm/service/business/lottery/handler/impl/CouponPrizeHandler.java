@@ -39,7 +39,6 @@ public class CouponPrizeHandler implements PrizeHandler {
         log.info("抽中优惠券啦, [{}] [{}]", memberId, lottery);
         lotteryPrizeService.accumulationLotteryNum(config.getPrizeId());
         LotteryPrize prize = lotteryPrizeService.selectById(config.getPrizeId());
-
         GrantCouponDTO dto = new GrantCouponDTO();
         dto.setNum(1);
         dto.setCouponId(prize.getRelationId());

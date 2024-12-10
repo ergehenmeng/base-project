@@ -68,7 +68,6 @@ public class LoginServiceImpl implements LoginService {
         wrapper.eq(LoginDevice::getMemberId, memberId);
         wrapper.orderByDesc(LoginDevice::getId);
         List<LoginDevice> deviceList = loginDeviceMapper.selectList(wrapper);
-
         return DataUtil.copy(deviceList, device -> {
             LoginDeviceVO vo = DataUtil.copy(device, LoginDeviceVO.class, "loginTime");
             vo.setLoginTime(DateUtil.formatSimple(device.getLoginTime()));

@@ -121,7 +121,6 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
             evaluation.setSystemEvaluate(true);
             orderEvaluationMapper.insert(evaluation);
         }
-
         order.setEvaluateState(true);
         orderService.updateById(order);
     }

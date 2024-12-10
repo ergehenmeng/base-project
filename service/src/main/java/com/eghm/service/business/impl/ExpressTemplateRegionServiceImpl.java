@@ -66,16 +66,12 @@ public class ExpressTemplateRegionServiceImpl implements ExpressTemplateRegionSe
             log.info("所有商品都免邮费 [{}]", dto.getOrderList());
             return 0;
         }
-
         List<Long> expressIds = filterList.stream().map(ItemCalcDTO::getExpressId).collect(Collectors.toList());
         // 查询所有的物流信息,并按模板进行划分
         List<ExpressTemplateRegion> allRegionList = this.getList(expressIds);
-
         Map<Long, List<ExpressTemplateRegion>> expressRegionMap = allRegionList.stream().collect(Collectors.groupingBy(ExpressTemplateRegion::getExpressId, Collectors.toList()));
-
         // 按计件还是计费进行分组, 因为两套计算逻辑不一样
         Map<Integer, List<ItemCalcDTO>> chargeMap = filterList.stream().collect(Collectors.groupingBy(ItemCalcDTO::getChargeMode, Collectors.toList()));
-
         int totalFee = 0;
         // 按重量计费
         List<ItemCalcDTO> weightList = chargeMap.get(ChargeMode.WEIGHT.getValue());

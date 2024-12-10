@@ -45,9 +45,7 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
     public void doAction(T context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
         this.before(context, order);
-
         OrderRefundLog refundLog = this.doProcess(context, order);
-
         this.end(context, order, refundLog);
     }
 
@@ -74,7 +72,6 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
             orderRefundLogService.insert(refundLog);
             return refundLog;
         }
-
         refundLog.setAuditState(AuditState.PASS);
         refundLog.setAuditRemark("系统自动审核");
         refundLog.setRefundNo(order.getProductType().generateTradeNo());
@@ -84,9 +81,7 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
         orderService.updateById(order);
         orderRefundLogService.insert(refundLog);
         orderVisitorService.refundLock(order.getProductType(), context.getOrderNo(), refundLog.getId(), context.getVisitorIds(), VisitorState.REFUNDING, getSource());
-
         this.tryStartRefund(refundLog, order);
-
         return refundLog;
     }
 
@@ -173,11 +168,8 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
             log.error("该订单不支持退款 [{}]", context.getOrderNo());
             throw new BusinessException(ErrorCode.REFUND_NOT_SUPPORTED);
         }
-
         this.refundStateCheck(context, order);
-
         this.orderStateCheck(context, order);
-
         this.refundNumCheck(context, order);
     }
 

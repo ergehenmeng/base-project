@@ -77,9 +77,7 @@ public abstract class AbstractOrderVerifyHandler implements ActionHandler<OrderV
      */
     protected void doProcess(OrderVerifyContext context, Order order) {
         long verifyId = IdWorker.getId();
-
         int visited = orderVisitorService.visitorVerify(order.getOrderNo(), context.getVisitorList(), verifyId);
-
         // 为空则表示根据订单号核销全部未核销的订单 如果待核销的数量为0也表示全部核销
         if (CollUtil.isEmpty(context.getVisitorList()) || orderVisitorService.getUnVerify(context.getOrderNo()) <= 0) {
             order.setCompleteTime(LocalDateTime.now());
@@ -116,7 +114,6 @@ public abstract class AbstractOrderVerifyHandler implements ActionHandler<OrderV
         order.setState(OrderState.COMPLETE);
         order.setCompleteTime(LocalDateTime.now());
         orderService.updateById(order);
-
         VerifyLog verifyLog = new VerifyLog();
         verifyLog.setMerchantId(order.getMerchantId());
         verifyLog.setOrderNo(order.getOrderNo());

@@ -192,11 +192,23 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         wrapper.eq(Restaurant::getMerchantId, merchantId);
         wrapper.set(Restaurant::getState, State.FORCE_UN_SHELVE);
         restaurantMapper.update(null, wrapper);
-
         LambdaUpdateWrapper<Voucher> updateWrapper = Wrappers.lambdaUpdate();
         updateWrapper.eq(Voucher::getMerchantId, merchantId);
         updateWrapper.set(Voucher::getState, State.FORCE_UN_SHELVE);
         voucherMapper.update(null, updateWrapper);
+    }
+
+    @Override
+    public boolean support(List<RoleType> roleTypes) {
+        return roleTypes.contains(RoleType.VOUCHER);
+    }
+
+    @Override
+    public void init(Merchant merchant) {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setMerchantId(merchant.getId());
+        restaurant.setState(State.UN_SHELVE);
+        restaurantMapper.insert(restaurant);
     }
 
     /**
@@ -214,18 +226,5 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
             log.info("餐饮商家名称重复 [{}] [{}]", title, id);
             throw new BusinessException(ErrorCode.RESTAURANT_TITLE_REDO);
         }
-    }
-
-    @Override
-    public boolean support(List<RoleType> roleTypes) {
-        return roleTypes.contains(RoleType.VOUCHER);
-    }
-
-    @Override
-    public void init(Merchant merchant) {
-        Restaurant restaurant = new Restaurant();
-        restaurant.setMerchantId(merchant.getId());
-        restaurant.setState(State.UN_SHELVE);
-        restaurantMapper.insert(restaurant);
     }
 }

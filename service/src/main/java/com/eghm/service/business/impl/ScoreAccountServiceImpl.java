@@ -287,7 +287,6 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
             alarmService.sendMsg(String.format("账户提现积分余额不足 [%s]", account));
             throw new BusinessException(ErrorCode.MERCHANT_SCORE_WITHDRAW);
         }
-
         int update = scoreAccountMapper.updateAccount(account);
         if (update != 1) {
             log.error("更新账户信息失败 [{}]", account);

@@ -22,30 +22,10 @@ public interface SysAreaService {
      * @param provinceId 省份id
      * @param cityId     城市id
      * @param countyId   县区id
-     * @return 浙江省杭州市西湖区
-     */
-    String parseArea(Long provinceId, Long cityId, Long countyId);
-
-    /**
-     * 根据省市县id进行拼接
-     *
-     * @param provinceId 省份id
-     * @param cityId     城市id
-     * @param countyId   县区id
      * @param address    详细地址
      * @return 浙江省杭州市西湖区
      */
     String parseArea(Long provinceId, Long cityId, Long countyId, String address);
-
-
-    /**
-     * 根据省市县id进行拼接
-     *
-     * @param cityId   城市id
-     * @param countyId 县区id
-     * @return 杭州市西湖区
-     */
-    String parseArea(Long cityId, Long countyId);
 
     /**
      * 根据省市县id进行拼接
@@ -62,10 +42,10 @@ public interface SysAreaService {
      *
      * @param provinceId 省份
      * @param cityId     城市id
-     * @param split     分隔符
+     * @param separator     分隔符
      * @return 浙江省杭州市
      */
-    String parseProvinceCity(Long provinceId, Long cityId, String split);
+    String parseProvinceCity(Long provinceId, Long cityId, String separator);
 
     /**
      * 根据市id进行拼接

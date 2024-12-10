@@ -86,7 +86,6 @@ public class MemberCollectServiceImpl implements MemberCollectService {
             Map<Long, TravelVO> travelMap = this.getTravelMap(collectMap.get(CollectType.TRAVEL_AGENCY));
             Map<Long, NewsVO> newsMap = this.getNewsMap(collectMap.get(CollectType.NEWS));
             Map<Long, RestaurantVO> restaurantMap = this.getRestaurantMap(collectMap.get(CollectType.VOUCHER_STORE));
-
             Iterator<MemberCollectVO> iterator = byPage.getRecords().iterator();
             while (iterator.hasNext()) {
                 MemberCollectVO vo = iterator.next();

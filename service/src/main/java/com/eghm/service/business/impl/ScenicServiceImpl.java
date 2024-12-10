@@ -219,7 +219,6 @@ public class ScenicServiceImpl implements ScenicService {
         wrapper.eq(Scenic::getMerchantId, merchantId);
         wrapper.set(Scenic::getState, State.FORCE_UN_SHELVE);
         scenicMapper.update(null, wrapper);
-
         LambdaUpdateWrapper<ScenicTicket> updateWrapper = Wrappers.lambdaUpdate();
         updateWrapper.eq(ScenicTicket::getMerchantId, merchantId);
         updateWrapper.set(ScenicTicket::getState, State.FORCE_UN_SHELVE);

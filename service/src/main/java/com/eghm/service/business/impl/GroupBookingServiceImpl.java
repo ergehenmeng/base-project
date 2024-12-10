@@ -76,7 +76,6 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         this.checkTime(request.getStartTime(), request.getEndTime());
         this.redoTitle(request.getTitle(), null);
         itemService.checkBookingItem(request.getItemId());
-
         GroupBooking booking = DataUtil.copy(request, GroupBooking.class);
         booking.setSkuValue(jsonService.toJson(request.getSkuList()));
         booking.setMaxDiscountAmount(this.getMaxDiscountPrice(request.getSkuList()));
@@ -104,7 +103,6 @@ public class GroupBookingServiceImpl implements GroupBookingService {
             // 锁定新的商品
             itemService.updateGroupBooking(request.getItemId(), booking.getId());
         }
-
         GroupBooking groupBooking = DataUtil.copy(request, GroupBooking.class);
         groupBooking.setSkuValue(jsonService.toJson(request.getSkuList()));
         groupBooking.setMaxDiscountAmount(this.getMaxDiscountPrice(request.getSkuList()));

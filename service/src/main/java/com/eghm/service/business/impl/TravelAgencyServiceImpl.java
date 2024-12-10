@@ -162,7 +162,6 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         wrapper.eq(TravelAgency::getMerchantId, merchantId);
         wrapper.set(TravelAgency::getState, State.FORCE_UN_SHELVE);
         travelAgencyMapper.update(null, wrapper);
-
         LambdaUpdateWrapper<Line> updateWrapper = Wrappers.lambdaUpdate();
         updateWrapper.eq(Line::getMerchantId, merchantId);
         updateWrapper.set(Line::getState, State.FORCE_UN_SHELVE);

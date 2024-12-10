@@ -95,7 +95,6 @@ public class ActivityServiceImpl implements ActivityService {
         List<Activity> selectList = activityMapper.selectList(wrapper);
         int dayOfMonth = startDate.lengthOfMonth();
         List<ActivityResponse> responseList = Lists.newArrayListWithExpectedSize(31);
-
         for (int i = 0; i < dayOfMonth; i++) {
             ActivityResponse response = new ActivityResponse();
             response.setNowDate(startDate.plusDays(i));

@@ -59,7 +59,6 @@ public class SysTaskServiceImpl implements SysTaskService {
             log.error("当前服务尚未激活定时任务, 请使用@EnableTask激活 [{}] [{}]", id, args);
             throw new BusinessException(ErrorCode.TASK_CONFIG_NULL);
         }
-
         SysTask sysTask = sysTaskMapper.selectById(id);
         if (sysTask == null) {
             log.error("定时任务未查询到[{}]", id);

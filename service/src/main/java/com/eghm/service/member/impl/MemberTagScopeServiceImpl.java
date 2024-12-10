@@ -97,7 +97,6 @@ public class MemberTagScopeServiceImpl implements MemberTagScopeService {
         } else {
             mobileList = memberMapper.getMobile(request.getMemberIds());
         }
-
         if (CollUtil.isEmpty(mobileList)) {
             return;
         }

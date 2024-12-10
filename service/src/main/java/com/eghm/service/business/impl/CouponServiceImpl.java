@@ -189,7 +189,6 @@ public class CouponServiceImpl implements CouponService {
             return;
         }
         List<Long> couponIds = couponList.stream().map(CouponVO::getId).collect(Collectors.toList());
-
         Map<Long, Integer> receivedMap = memberCouponService.countMemberReceived(memberId, couponIds);
         couponList.forEach(vo -> vo.setReceived(receivedMap.getOrDefault(vo.getId(), 0) >= vo.getMaxLimit()));
     }

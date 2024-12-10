@@ -169,7 +169,6 @@ public class VenueServiceImpl implements VenueService {
         wrapper.eq(Venue::getMerchantId, merchantId);
         wrapper.set(Venue::getState, State.FORCE_UN_SHELVE);
         venueMapper.update(null, wrapper);
-
         LambdaUpdateWrapper<VenueSite> updateWrapper = Wrappers.lambdaUpdate();
         updateWrapper.eq(VenueSite::getMerchantId, merchantId);
         updateWrapper.set(VenueSite::getState, State.FORCE_UN_SHELVE);

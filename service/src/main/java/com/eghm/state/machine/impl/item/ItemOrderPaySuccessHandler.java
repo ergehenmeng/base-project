@@ -79,7 +79,6 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
     protected void doProcess(PayNotifyContext context, List<Order> orderList) {
         List<String> orderNoList = orderList.stream().map(Order::getOrderNo).collect(Collectors.toList());
         itemService.updateSaleNum(orderNoList);
-
         for (Order order : orderList) {
             if (order.getBookingNo() != null) {
                 log.info("该订单为拼团订单,更新拼团订单状态 [{}]", order.getOrderNo());

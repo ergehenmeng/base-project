@@ -180,12 +180,9 @@ public class MemberServiceImpl implements MemberService {
     public LoginTokenVO registerByMobile(RegisterMemberDTO request) {
         this.registerRedoVerify(request.getMobile());
         smsService.verifySmsCode(TemplateType.REGISTER, request.getMobile(), request.getSmsCode());
-
         MemberRegister register = DataUtil.copy(request, MemberRegister.class);
         register.setChannel(ApiHolder.getChannel());
-
         Member member = this.doRegister(register);
-
         return this.doLogin(member, register.getRegisterIp());
     }
 
@@ -419,7 +416,6 @@ public class MemberServiceImpl implements MemberService {
             log.error("更新积分失败 [{}] [{}] [{}]", memberId, scoreType, score);
             throw new BusinessException(ErrorCode.MEMBER_SCORE_ERROR);
         }
-
         MemberScoreLog log = new MemberScoreLog();
         log.setScore(score);
         log.setMemberId(memberId);
@@ -571,7 +567,6 @@ public class MemberServiceImpl implements MemberService {
         // 本月总天数
         int monthDays = startDay.lengthOfMonth();
         List<Boolean> monthList = Lists.newArrayListWithCapacity(31);
-
         int bitmap = 1;
         for (int i = 0; i < monthDays; i++) {
             monthList.add((bitmap64 & bitmap) == bitmap);

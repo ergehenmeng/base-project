@@ -51,7 +51,6 @@ public class ExpressServiceImpl implements ExpressService {
             log.error("快递查询异常 [{}] [{}] [{}]", expressNo, expressCode, phone, e);
             return Lists.newArrayList();
         }
-
         if (execute.getStatus() != 200) {
             log.error("快递信息查询失败 [{}] [{}] [{}] [{}]", expressNo, expressCode, phone, execute.getError());
             return Lists.newArrayList();

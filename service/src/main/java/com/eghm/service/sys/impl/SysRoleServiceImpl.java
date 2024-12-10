@@ -124,7 +124,6 @@ public class SysRoleServiceImpl implements SysRoleService {
         }
         SysRole sysRole = this.selectByIdRequired(roleId);
         commonService.checkIllegal(sysRole.getMerchantId());
-
         sysRoleMapper.deleteRoleMenu(roleId);
         if (CollUtil.isNotEmpty(menuIds)) {
             sysRoleMapper.batchInsertRoleMenu(roleId, menuIds);

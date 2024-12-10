@@ -90,14 +90,12 @@ public class LineServiceImpl implements LineService {
         this.titleRedo(request.getTitle(), request.getTravelAgencyId(), null);
         Long merchantId = SecurityHolder.getMerchantId();
         this.checkTravelAgency(request.getTravelAgencyId(), merchantId);
-
         Line line = DataUtil.copy(request, Line.class);
         line.setMerchantId(merchantId);
         line.setCreateDate(LocalDate.now());
         line.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         line.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         lineMapper.insert(line);
-
         lineDayConfigService.insertOrUpdate(line.getId(), request.getConfigList());
     }
 
@@ -189,9 +187,7 @@ public class LineServiceImpl implements LineService {
             log.info("为保证评分系统的公平性, 评价数量小于5条时默认不展示旅行社评分 [{}]", vo.getStoreId());
             return;
         }
-
         travelAgencyMapper.updateScore(vo.getStoreId(), DecimalUtil.calcAvgScore(storeScore.getTotalScore(), storeScore.getNum()));
-
         AvgScoreVO productScore = orderEvaluationMapper.getProductScore(vo.getProductId());
         if (productScore.getNum() < CommonConstant.MIN_SCORE_NUM) {
             log.info("为保证评分系统的公平性, 评价数量小于5条时默认不展示线路商品评分 [{}]", vo.getProductId());

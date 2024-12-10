@@ -68,10 +68,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         wrapper.eq(ShoppingCart::getItemId, dto.getItemId());
         wrapper.eq(ShoppingCart::getSkuId, dto.getSkuId());
         ShoppingCart shoppingCart = shoppingCartMapper.selectOne(wrapper);
-
         int num = shoppingCart == null ? dto.getQuantity() : shoppingCart.getQuantity() + dto.getQuantity();
         ItemSku sku = this.checkAndGetSku(dto, num);
-
         if (shoppingCart == null) {
             this.checkCarMax(dto.getMemberId());
             shoppingCart = DataUtil.copy(dto, ShoppingCart.class);
@@ -133,14 +131,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             log.error("超出商品最大限购数量, 无法更新购物车数量 [{}] [{}] [{}]", shoppingCart.getItemId(), item.getQuota(), quantity);
             throw new BusinessException(ITEM_QUOTA);
         }
-
         ItemSku itemSku = itemSkuService.selectByIdRequired(shoppingCart.getSkuId());
-
         if (itemSku.getStock() < quantity) {
             log.error("商品规格的库存不足, 无法更新购物车数量 [{}] [{}]", itemSku.getStock(), quantity);
             throw new BusinessException(SKU_STOCK);
         }
-
         shoppingCart.setQuantity(quantity);
         shoppingCartMapper.updateById(shoppingCart);
     }
@@ -170,7 +165,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             throw new BusinessException(ITEM_DOWN);
         }
         ItemSku itemSku = itemSkuService.selectByIdRequired(dto.getSkuId());
-
         if (!item.getId().equals(itemSku.getItemId())) {
             log.error("规格与商品不匹配 [{}] [{}]", dto.getSkuId(), dto.getItemId());
             throw new BusinessException(ITEM_SKU_MATCH);
@@ -179,7 +173,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             log.error("商品规格的库存不足 [{}] [{}]", itemSku.getStock(), quantity);
             throw new BusinessException(SKU_STOCK);
         }
-
         if (item.getQuota() < quantity) {
             log.error("超出商品的最大购买数量 [{}] [{}] [{}]", item.getId(), item.getQuota(), quantity);
             throw new BusinessException(ITEM_QUOTA);

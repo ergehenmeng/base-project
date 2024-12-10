@@ -57,7 +57,6 @@ public class ItemSkuServiceImpl implements ItemSkuService {
         wrapper.eq(ItemSku::getItemId, item.getId());
         wrapper.notIn(CollUtil.isNotEmpty(skuIds), ItemSku::getId, skuIds);
         itemSkuMapper.delete(wrapper);
-
         for (ItemSkuRequest request : skuList) {
             ItemSku sku = DataUtil.copy(request, ItemSku.class);
             sku.setItemId(item.getId());

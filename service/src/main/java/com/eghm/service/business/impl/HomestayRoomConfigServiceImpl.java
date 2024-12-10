@@ -52,7 +52,6 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
     public void setup(RoomConfigRequest request) {
         long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
         commonService.checkMaxDay(ConfigConstant.ROOM_CONFIG_MAX_DAY, between);
-
         HomestayRoomConfig config;
         List<Integer> week = request.getWeek();
         for (int i = 0; i <= between; i++) {
@@ -135,9 +134,7 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
         int maxDay = sysConfigApi.getInt(ConfigConstant.HOMESTAY_MAX_RESERVE_DAY, 30);
         LocalDate start = LocalDate.now();
         List<HomestayRoomConfig> configList = this.getList(roomId, start, start.plusDays(maxDay));
-
         List<RoomConfigVO> voList = Lists.newArrayListWithExpectedSize(maxDay);
-
         for (int i = 0; i < maxDay; i++) {
             LocalDate localDate = start.plusDays(i);
             Optional<HomestayRoomConfig> optional = configList.stream().filter(config -> config.getConfigDate().isEqual(localDate)).findFirst();

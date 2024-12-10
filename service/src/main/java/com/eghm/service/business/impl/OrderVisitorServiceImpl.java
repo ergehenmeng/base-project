@@ -66,7 +66,6 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
             return;
         }
         orderVisitorRefundService.insertVisitorRefund(orderNo, refundId, visitorList);
-
         LambdaUpdateWrapper<OrderVisitor> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(OrderVisitor::getOrderNo, orderNo);
         wrapper.eq(OrderVisitor::getProductType, productType);
@@ -74,7 +73,6 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         wrapper.in(OrderVisitor::getState, (Object[]) source);
         wrapper.set(OrderVisitor::getState, target);
         int update = orderVisitorMapper.update(null, wrapper);
-
         // 退款锁定游客信息时,该游客一定是未核销的, 因此正常情况下更新的数量一定和visitorList数量一致的
         // 除非用户自己选择游客信息存在已核销的用户
         if (visitorList.size() != update) {

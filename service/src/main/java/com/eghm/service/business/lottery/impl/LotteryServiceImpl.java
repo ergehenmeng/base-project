@@ -137,7 +137,6 @@ public class LotteryServiceImpl implements LotteryService {
         lotteryLog.setPrizeId(config.getPrizeId());
         lotteryLog.setWinning(config.getPrizeType() != PrizeType.NONE);
         lotteryLogService.insert(lotteryLog);
-
         LotteryResultVO vo = new LotteryResultVO();
         vo.setLocation(config.getLocation());
         vo.setWinning(lotteryLog.getWinning());
@@ -187,7 +186,6 @@ public class LotteryServiceImpl implements LotteryService {
         LocalDateTime startTime = LocalDateTimeUtil.beginOfDay(now);
         LocalDateTime endTime = LocalDateTimeUtil.endOfDay(now);
         long countLottery = lotteryLogService.countLottery(lottery.getId(), memberId, startTime, endTime);
-
         List<LotteryPrizeVO> prizeList = lotteryPrizeService.getPrizeList(lotteryId);
         LotteryDetailVO vo = DataUtil.copy(lottery, LotteryDetailVO.class);
         vo.setLotteryNum(countLottery);

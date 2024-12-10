@@ -55,7 +55,6 @@ public class ItemOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
             order.setCloseType(CloseType.REFUND);
         }
         order.setRefundState(RefundState.SUCCESS);
-
         ItemOrder itemOrder = itemOrderService.selectById(refundLog.getItemOrderId());
         // 退款完成库存增加
         itemSkuService.updateStock(itemOrder.getSkuId(), refundLog.getNum());

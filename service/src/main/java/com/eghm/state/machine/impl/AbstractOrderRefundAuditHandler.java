@@ -39,9 +39,7 @@ public abstract class AbstractOrderRefundAuditHandler implements ActionHandler<R
     public void doAction(RefundAuditContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
         OrderRefundLog refundLog = orderRefundLogService.selectByIdRequired(context.getRefundId());
-
         this.before(context, order, refundLog);
-
         this.doProcess(context, order, refundLog);
     }
 

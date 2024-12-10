@@ -100,7 +100,6 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
             account.setAmount(account.getAmount() + dto.getAmount());
         }
         this.updateById(account);
-
         AccountLog accountLog = DataUtil.copy(dto, AccountLog.class);
         accountLog.setDirection(accountLog.getAccountType().getDirection());
         accountLog.setSurplusAmount(account.getAmount() + account.getPayFreeze());
@@ -218,7 +217,6 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
         dto.setAccountType(AccountType.ORDER_PAY);
         dto.setTradeNo(tradeNo);
         this.updateAccount(dto);
-
         AccountFreezeDTO freezeDTO = new AccountFreezeDTO();
         freezeDTO.setMerchantId(merchantId);
         freezeDTO.setAmount(amount);
@@ -246,7 +244,6 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
         dto.setAccountType(AccountType.ORDER_REFUND);
         dto.setTradeNo(refundNo);
         this.updateAccount(dto);
-
         RefundChangeDTO refundDTO = new RefundChangeDTO();
         refundDTO.setMerchantId(merchantId);
         refundDTO.setRefundAmount(amount);

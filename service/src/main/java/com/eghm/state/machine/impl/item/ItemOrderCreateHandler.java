@@ -97,9 +97,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             return;
         }
         ItemOrderPayload payload = this.getPayload(context);
-
         List<Order> orderList = this.createOrder(context, payload);
-
         this.after(context, orderList);
     }
 
@@ -208,9 +206,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         order.setCreateDate(LocalDate.now());
         order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
-
         Integer payAmount = aPackage.getItemAmount() + expressAmount - aPackage.getCouponAmount();
-
         if (aPackage.getScoreAmount() <= 0) {
             order.setPayAmount(payAmount);
             order.setScoreAmount(0);
@@ -272,7 +268,6 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         List<Long> storeIds = context.getItemMap().values().stream().map(Item::getStoreId).distinct().collect(Collectors.toList());
         Map<Long, ItemStore> storeMap = itemStoreService.selectByIdShelveMap(storeIds);
         Map<Long, ItemSpec> specMap = itemSpecService.getByIdMap(context.getItemMap().keySet());
-
         List<StoreOrderPackage> packageList = new ArrayList<>();
         StoreOrderPackage storePackage;
         OrderPackage orderPackage;
@@ -284,7 +279,6 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             storePackage.setScoreAmount(vo.getScoreAmount());
             storePackage.setCouponId(vo.getCouponId());
             storePackage.setRemark(vo.getRemark());
-
             List<OrderPackage> orderList = new ArrayList<>();
             for (SkuDTO dto : vo.getSkuList()) {
                 orderPackage = new OrderPackage();
@@ -296,7 +290,6 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
                 orderPackage.setSpec(specMap.get(this.getSpuId(orderPackage.getSku().getSpecIds())));
                 orderList.add(orderPackage);
             }
-
             Integer itemAmount = this.checkAndCalcTotalAmount(storePackage.getItemList(), context);
             storePackage.setItemAmount(itemAmount);
             if (storePackage.getCouponId() != null) {
@@ -361,7 +354,6 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             context.setLimitId(limitId);
             return request.getDiscountPrice();
         }
-
         // 表示是拼团订单
         if (Boolean.TRUE.equals(context.getGroupBooking())) {
             log.info("开始计算拼团价格 [{}] [{}]", aPackage.getItemId(), aPackage.getSkuId());
@@ -493,7 +485,6 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
     private void after(ItemOrderCreateContext context, List<Order> orderList) {
         memberService.updateScore(context.getMemberId(), ScoreType.PAY, context.getTotalScore());
         memberCouponService.useCoupon(orderList.stream().map(Order::getCouponId).filter(Objects::nonNull).collect(Collectors.toList()));
-
         int realPayAmount = orderList.stream().mapToInt(Order::getPayAmount).sum();
         if (realPayAmount <= 0) {
             String tradeNo = orderList.get(0).getTradeNo();

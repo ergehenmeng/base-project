@@ -146,7 +146,6 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         ticketOrder.setVisitDate(context.getVisitDate());
         ticketOrder.setScenicName(payload.getScenic().getScenicName());
         ticketOrderService.insert(ticketOrder);
-
         if (payload.getTicket().getCategory() == TicketType.COMBINE) {
             ticketOrderSnapshotService.insert(order.getOrderNo(), payload.getTicket().getId());
         }

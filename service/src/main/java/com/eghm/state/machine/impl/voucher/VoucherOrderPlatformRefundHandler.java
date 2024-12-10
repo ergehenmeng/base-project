@@ -24,7 +24,6 @@ public class VoucherOrderPlatformRefundHandler extends VoucherOrderRefundApplyHa
         super(orderService, orderRefundLogService, orderVisitorService, voucherOrderService);
     }
 
-
     @Override
     public IEvent getEvent() {
         return VoucherEvent.PLATFORM_REFUND;

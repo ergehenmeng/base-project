@@ -64,7 +64,6 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         LimitPurchase purchase = DataUtil.copy(request, LimitPurchase.class);
         purchase.setCreateTime(LocalDateTime.now());
         limitPurchaseMapper.insert(purchase);
-
         List<Long> itemIds = request.getSkuList().stream().map(LimitSkuRequest::getItemId).distinct().collect(Collectors.toList());
         itemService.updateLimitPurchase(itemIds, purchase.getId());
         limitPurchaseItemService.insertOrUpdate(request.getSkuList(), purchase);
@@ -74,7 +73,6 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
     public void update(LimitPurchaseEditRequest request) {
         this.checkTime(request.getStartTime(), request.getEndTime());
         this.redoTitle(request.getTitle(), request.getId());
-
         LimitPurchase purchase = limitPurchaseMapper.selectById(request.getId());
         // 校验活动是否属于该商户
         commonService.checkIllegal(purchase.getMerchantId());
@@ -83,7 +81,6 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         }
         List<Long> itemIds = request.getSkuList().stream().map(LimitSkuRequest::getItemId).distinct().collect(Collectors.toList());
         itemService.updateLimitPurchase(itemIds, purchase.getId());
-
         LimitPurchase limitPurchase = DataUtil.copy(request, LimitPurchase.class);
         limitPurchaseMapper.updateById(limitPurchase);
         limitPurchaseItemService.insertOrUpdate(request.getSkuList(), purchase);

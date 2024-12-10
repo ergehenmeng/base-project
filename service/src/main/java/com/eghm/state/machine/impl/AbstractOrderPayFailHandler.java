@@ -23,9 +23,7 @@ public abstract class AbstractOrderPayFailHandler implements ActionHandler<PayNo
     @Override
     public void doAction(PayNotifyContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
-
         this.doProcess(context, order);
-
         this.after(order);
     }
 

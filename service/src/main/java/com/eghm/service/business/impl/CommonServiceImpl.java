@@ -127,7 +127,6 @@ public class CommonServiceImpl implements CommonService {
             log.error("数据字典为空,不做解析 [{}]", tagIds);
             return tagList;
         }
-
         String[] split = tagIds.split(",");
         for (String tagId : split) {
             dictList.stream().filter(sysDict -> sysDict.getHiddenValue() == Integer.parseInt(tagId))
@@ -214,7 +213,6 @@ public class CommonServiceImpl implements CommonService {
             } else {
                 allMap = this.getStatisticsDateMap(request, request.getProductType());
             }
-
             long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
             for (int i = 0; i < between; i++) {
                 LocalDate date = request.getStartDate().plusDays(i);

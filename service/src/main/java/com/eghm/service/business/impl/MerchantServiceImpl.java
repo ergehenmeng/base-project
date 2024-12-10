@@ -124,14 +124,12 @@ public class MerchantServiceImpl implements MerchantService {
         user.setMobile(request.getAccount());
         user.setNickName(request.getMerchantName());
         sysUserService.insert(user);
-
         Merchant merchant = DataUtil.copy(request, Merchant.class);
         BigDecimal platformServiceRate = BigDecimal.valueOf(sysConfigApi.getDouble(ConfigConstant.PLATFORM_SERVICE_RATE, 5D));
         merchant.setPlatformServiceRate(platformServiceRate);
         // 系统用户和商户关联
         merchant.setUserId(user.getId());
         merchantMapper.insert(merchant);
-
         List<RoleType> roleTypes = RoleMapping.parseRoleType(request.getType());
         sysRoleService.authRole(user.getId(), roleTypes);
         this.initStore(merchant, roleTypes);

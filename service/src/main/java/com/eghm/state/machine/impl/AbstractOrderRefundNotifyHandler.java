@@ -44,11 +44,8 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
     public void doAction(RefundNotifyContext context) {
         Order order = orderService.getByTradeNo(context.getTradeNo());
         OrderRefundLog refundLog = orderRefundLogService.selectByRefundNo(context.getRefundNo());
-
         this.before(context, order, refundLog);
-
         RefundStatus refundStatus = this.doProcess(context, order, refundLog);
-
         this.after(context, order, refundLog, refundStatus);
     }
 
@@ -85,9 +82,7 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
      * @return true: 退款成功 false:不成功
      */
     protected RefundStatus doProcess(RefundNotifyContext context, Order order, OrderRefundLog refundLog) {
-
         RefundVO refund = context.getResult();
-
         RefundStatus state = refund.getState();
         if (state == REFUND_SUCCESS || state == SUCCESS) {
             this.refundSuccessSetState(order, refundLog);

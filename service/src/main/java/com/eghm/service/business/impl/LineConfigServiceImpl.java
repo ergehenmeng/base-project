@@ -103,17 +103,13 @@ public class LineConfigServiceImpl implements LineConfigService {
         LambdaQueryWrapper<LineConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.between(LineConfig::getConfigDate, now, now.plusDays(max));
         wrapper.eq(LineConfig::getLineId, lineId);
-
         List<LineConfig> configList = lineConfigMapper.selectList(wrapper);
         List<LineConfigVO> responseList = new ArrayList<>();
-
         if (CollUtil.isEmpty(configList)) {
             return responseList;
         }
-
         for (int i = 0; i < max; i++) {
             LocalDate configDate = now.plusDays(i);
-
             LineConfigVO vo = new LineConfigVO();
             vo.setConfigDate(configDate);
             // 如果线路设置了提前日期,在提前日期之前默认无法预约
@@ -126,7 +122,6 @@ public class LineConfigServiceImpl implements LineConfigService {
                 } else {
                     vo.setState(0);
                 }
-
             }
             responseList.add(vo);
         }

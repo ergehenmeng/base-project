@@ -39,7 +39,6 @@ public abstract class AbstractOrderAutoCancelHandler implements ActionHandler<Or
             return;
         }
         this.doProcess(order);
-
         this.after(order);
     }
 

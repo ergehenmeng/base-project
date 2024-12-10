@@ -60,7 +60,6 @@ public class WithdrawServiceImpl implements WithdrawService {
         String tradeNo = this.generateWithdrawNo();
         dto.setTradeNo(tradeNo);
         ExceptionUtil.transfer(() -> accountService.updateAccount(dto), ErrorCode.MERCHANT_ACCOUNT_USE, ErrorCode.WITHDRAW_ENOUGH);
-
         WithdrawLog withdrawLog = DataUtil.copy(apply, WithdrawLog.class);
         withdrawLog.setWithdrawWay(1);
         withdrawLog.setState(0);

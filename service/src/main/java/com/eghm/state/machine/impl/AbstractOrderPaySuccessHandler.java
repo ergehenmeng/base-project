@@ -37,9 +37,7 @@ public abstract class AbstractOrderPaySuccessHandler implements ActionHandler<Pa
     @Override
     public void doAction(PayNotifyContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
-
         this.doProcess(context, order);
-
         this.after(context, order);
     }
 

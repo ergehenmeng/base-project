@@ -72,7 +72,6 @@ public class CommentServiceImpl implements CommentService {
             }
             request.setObjectIds(objectIds);
         }
-
         Page<CommentResponse> page = commentMapper.listPage(request.createPage(), request);
         if (CollUtil.isNotEmpty(page.getRecords())) {
             Map<ObjectType, List<Long>> collectMap = page.getRecords().stream().collect(Collectors.groupingBy(CommentResponse::getObjectType, Collectors.mapping(CommentResponse::getObjectId, Collectors.toList())));

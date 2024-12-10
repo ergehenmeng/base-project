@@ -59,7 +59,6 @@ public class VoucherTagServiceImpl implements VoucherTagService {
         this.redoTitle(request.getTitle(), request.getId());
         VoucherTag select = voucherTagMapper.selectById(request.getId());
         commonService.checkIllegal(select.getMerchantId());
-
         VoucherTag data = DataUtil.copy(request, VoucherTag.class);
         voucherTagMapper.updateById(data);
     }

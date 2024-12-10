@@ -26,40 +26,11 @@ public class SysAreaServiceImpl implements SysAreaService {
     }
 
     @Override
-    public String parseArea(Long provinceId, Long cityId, Long countyId) {
-        if (provinceId == null) {
-            return this.parseArea(cityId, countyId);
-        }
-        SysArea sysArea = cacheProxyService.getAreaById(provinceId);
-        if (sysArea == null) {
-            return this.parseArea(cityId, countyId);
-        }
-        return sysArea.getTitle() + this.parseArea(cityId, countyId);
-    }
-
-    @Override
     public String parseArea(Long provinceId, Long cityId, Long countyId, String address) {
         if (address == null) {
             return this.parseArea(provinceId, cityId, countyId);
         }
         return this.parseArea(provinceId, cityId, countyId) + address;
-    }
-
-    @Override
-    public String parseArea(Long cityId, Long countyId) {
-        if (cityId == null || countyId == null) {
-            return "";
-        }
-        String address = "";
-        SysArea sysArea = cacheProxyService.getAreaById(cityId);
-        if (sysArea != null) {
-            address += sysArea.getTitle();
-        }
-        sysArea = cacheProxyService.getAreaById(countyId);
-        if (sysArea != null) {
-            address += sysArea.getTitle();
-        }
-        return address;
     }
 
     @Override
@@ -71,7 +42,7 @@ public class SysAreaServiceImpl implements SysAreaService {
     }
 
     @Override
-    public String parseProvinceCity(Long provinceId, Long cityId, String split) {
+    public String parseProvinceCity(Long provinceId, Long cityId, String separator) {
         if (provinceId == null || cityId == null) {
             return "";
         }
@@ -80,11 +51,11 @@ public class SysAreaServiceImpl implements SysAreaService {
         if (sysArea != null) {
             address += sysArea.getTitle();
         }
-        String splitStr = split == null ? "" : split;
+        String separatorStr = separator == null ? "" : separator;
         sysArea = cacheProxyService.getAreaById(cityId);
         if (sysArea != null) {
             if (StrUtil.isNotBlank(address)) {
-                address += splitStr;
+                address += separatorStr;
             }
             address += sysArea.getTitle();
         }
@@ -102,4 +73,44 @@ public class SysAreaServiceImpl implements SysAreaService {
         }
         return "";
     }
+
+    /**
+     * 根据市县id进行拼接
+     *
+     * @param cityId     城市id
+     * @param countyId   县区id
+     * @return 杭州市西湖区
+     */
+    private String parseArea(Long cityId, Long countyId) {
+        if (cityId == null || countyId == null) {
+            return "";
+        }
+        String address = "";
+        SysArea sysArea = cacheProxyService.getAreaById(cityId);
+        if (sysArea != null) {
+            address += sysArea.getTitle();
+        }
+        sysArea = cacheProxyService.getAreaById(countyId);
+        if (sysArea != null) {
+            address += sysArea.getTitle();
+        }
+        return address;
+    }
+
+    /**
+     * 根据省市县id进行拼接
+     *
+     * @param provinceId 省份id
+     * @param cityId     城市id
+     * @param countyId   县区id
+     * @return 浙江省杭州市西湖区
+     */
+    private String parseArea(Long provinceId, Long cityId, Long countyId) {
+        SysArea sysArea;
+        if (provinceId == null || (sysArea = cacheProxyService.getAreaById(provinceId)) == null) {
+            return this.parseArea(cityId, countyId);
+        }
+        return sysArea.getTitle() + this.parseArea(cityId, countyId);
+    }
+
 }

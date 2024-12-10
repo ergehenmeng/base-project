@@ -75,7 +75,6 @@ public class OrderProxyServiceImpl implements OrderProxyService {
         homestayOrder.setConfirmState(request.getConfirmState());
         homestayOrder.setRemark(request.getRemark());
         homestayOrderMapper.updateById(homestayOrder);
-
         if (request.getConfirmState() == ConfirmState.FAIL_CONFIRM) {
             log.info("订单:[{}],确认无房开始执行退款逻辑", request.getOrderNo());
             Order order = orderService.getByOrderNo(request.getOrderNo());
