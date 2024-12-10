@@ -251,4 +251,9 @@ public class ConfigConstant {
      * 商户销售排行榜
      */
     public static final String MERCHANT_SALE_RANKING = "merchant_sale_ranking";
+
+    /**
+     * 微信扫码登录跳转地址
+     */
+    public static final String WECHAT_REDIRECT_URL = "wechat_redirect_url";
 }

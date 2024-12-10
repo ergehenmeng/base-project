@@ -11,6 +11,7 @@ import com.eghm.cache.CacheService;
 import com.eghm.common.SmsService;
 import com.eghm.common.UserTokenService;
 import com.eghm.configuration.encoder.Encoder;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.sys.login.SmsLoginRequest;
@@ -192,8 +193,9 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public LoginResponse login(String userName, String password) {
+    public LoginResponse login(String userName, String password, String openId) {
         SysUser user = this.getAndCheckUser(userName, password);
+        this.tryBindingOpenId(user.getId(), openId);
         return this.doLogin(user);
     }
 
@@ -204,9 +206,10 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public LoginResponse smsLogin(SmsLoginRequest request) {
+    public LoginResponse smsLogin(SmsLoginRequest request, String openId) {
         smsService.verifySmsCode(TemplateType.USER_LOGIN, request.getMobile(), request.getSmsCode());
         SysUser user = this.getAndCheckUser(request.getMobile());
+        this.tryBindingOpenId(user.getId(), openId);
         return this.doLogin(user);
     }
 
@@ -215,6 +218,72 @@ public class SysUserServiceImpl implements SysUserService {
         this.redoUserName(user.getUserName(), user.getId());
         this.redoMobile(user.getMobile(), user.getId());
         sysUserMapper.updateById(user);
+    }
+
+    @Override
+    public SysUser getByOpenId(String openId) {
+        return sysUserMapper.selectOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getOpenId, openId));
+    }
+
+    @Override
+    public LoginResponse doLogin(SysUser user) {
+        UserType userType = user.getUserType();
+        // 如果用户拥有超管角色,则默认查询全部菜单等信息
+        List<MenuResponse> leftMenu;
+        List<String> buttonList;
+        if (userType == UserType.ADMINISTRATOR) {
+            leftMenu = sysMenuService.getAdminLeftMenuList();
+            buttonList = sysMenuService.getAdminPermCode();
+        } else {
+            buttonList = sysMenuService.getPermCode(user.getId());
+            leftMenu = sysMenuService.getLeftMenuList(user.getId());
+        }
+        int merchantType = 0;
+        if (userType == UserType.MERCHANT_ADMIN) {
+            merchantType = sysUserMapper.getMerchantType(user.getId());
+        } else if (userType == UserType.MERCHANT_USER) {
+            merchantType = merchantUserMapper.getMerchantType(user.getId());
+        }
+        // 数据权限(此处没有判断,逻辑不够严谨,仅仅为了代码简洁)
+        List<String> customList = sysDataDeptService.getDeptList(user.getId());
+        Long merchantId = this.getMerchantId(user.getId(), user.getUserType());
+        String token = userTokenService.createToken(user, merchantId, buttonList, customList);
+        LoginResponse response = new LoginResponse();
+        response.setMerchantId(merchantId);
+        response.setToken(token);
+        response.setNickName(user.getNickName());
+        response.setPermList(buttonList);
+        response.setUserType(user.getUserType());
+        response.setMenuList(leftMenu);
+        response.setMerchantType(merchantType);
+        response.setInit(user.getInitPwd().equals(user.getPwd()));
+        response.setExpire(user.getPwdUpdateTime().plusDays(CommonConstant.PWD_UPDATE_TIPS).isBefore(LocalDateTime.now()));
+        cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
+        LOGIN_LOCK_CACHE.invalidate(user.getMobile());
+        return response;
+    }
+
+    @Override
+    public void unbindWeChat() {
+        LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SysUser::getId, SecurityHolder.getUserId());
+        wrapper.set(SysUser::getOpenId, null);
+        sysUserMapper.update(null, wrapper);
+    }
+
+    /**
+     * 尝试绑定openId
+     *
+     * @param id id
+     * @param openId openId
+     */
+    private void tryBindingOpenId(Long id, String openId) {
+        if (openId != null) {
+            SysUser user = new SysUser();
+            user.setId(id);
+            user.setOpenId(openId);
+            sysUserMapper.updateById(user);
+        }
     }
 
     /**
@@ -277,53 +346,6 @@ public class SysUserServiceImpl implements SysUserService {
         LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysUser::getUserName, userName);
         return sysUserMapper.selectOne(wrapper);
-    }
-
-    /**
-     * 管理后台登陆
-     *
-     * @param user 用户信息
-     * @return 返回前端信息
-     */
-    private LoginResponse doLogin(SysUser user) {
-        UserType userType = user.getUserType();
-        // 如果用户拥有超管角色,则默认查询全部菜单等信息
-        List<MenuResponse> leftMenu;
-        List<String> buttonList;
-        if (userType == UserType.ADMINISTRATOR) {
-            leftMenu = sysMenuService.getAdminLeftMenuList();
-            buttonList = sysMenuService.getAdminPermCode();
-        } else {
-            buttonList = sysMenuService.getPermCode(user.getId());
-            leftMenu = sysMenuService.getLeftMenuList(user.getId());
-        }
-
-        int merchantType = 0;
-        if (userType == UserType.MERCHANT_ADMIN) {
-            merchantType = sysUserMapper.getMerchantType(user.getId());
-        } else if (userType == UserType.MERCHANT_USER) {
-            merchantType = merchantUserMapper.getMerchantType(user.getId());
-        }
-
-        // 数据权限(此处没有判断,逻辑不够严谨,仅仅为了代码简洁)
-        List<String> customList = sysDataDeptService.getDeptList(user.getId());
-        Long merchantId = this.getMerchantId(user.getId(), user.getUserType());
-
-        String token = userTokenService.createToken(user, merchantId, buttonList, customList);
-
-        LoginResponse response = new LoginResponse();
-        response.setMerchantId(merchantId);
-        response.setToken(token);
-        response.setNickName(user.getNickName());
-        response.setPermList(buttonList);
-        response.setUserType(user.getUserType());
-        response.setMenuList(leftMenu);
-        response.setMerchantType(merchantType);
-        response.setInit(user.getInitPwd().equals(user.getPwd()));
-        response.setExpire(user.getPwdUpdateTime().plusDays(CommonConstant.PWD_UPDATE_TIPS).isBefore(LocalDateTime.now()));
-        cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
-        LOGIN_LOCK_CACHE.invalidate(user.getMobile());
-        return response;
     }
 
     /**

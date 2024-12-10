@@ -239,4 +239,9 @@ public class CommonConstant {
      * 验证码
      */
     public static final String CAPTCHA_KEY = "captcha_key";
+
+    /**
+     * openId session_key
+     */
+    public static final String OPEN_ID = "openId";
 }

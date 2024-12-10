@@ -53,7 +53,8 @@ public class LoginController {
         if (this.verifyCodeError(servletRequest, request.getVerifyCode())) {
             return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
         }
-        LoginResponse response = sysUserService.login(request.getUserName(), request.getPwd());
+        String openId = (String) servletRequest.getSession().getAttribute(CommonConstant.OPEN_ID);
+        LoginResponse response = sysUserService.login(request.getUserName(), request.getPwd(), openId);
         return RespBody.success(response);
     }
 
@@ -84,8 +85,17 @@ public class LoginController {
     @ApiOperation("验证码登录")
     public RespBody<LoginResponse> smsLogin(@Validated @RequestBody SmsLoginRequest request, HttpServletRequest servletRequest) {
         request.setIp(IpUtil.getIpAddress(servletRequest));
-        LoginResponse response = sysUserService.smsLogin(request);
+        String openId = (String) servletRequest.getSession().getAttribute(CommonConstant.OPEN_ID);
+        LoginResponse response = sysUserService.smsLogin(request, openId);
         return RespBody.success(response);
+    }
+
+    @PostMapping(value = "/unbindWeChat", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("解绑微信")
+    @SkipPerm
+    public RespBody<Void> unbindWeChat() {
+        sysUserService.unbindWeChat();
+        return RespBody.success();
     }
 
     /**

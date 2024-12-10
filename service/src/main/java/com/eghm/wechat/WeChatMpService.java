@@ -2,6 +2,7 @@ package com.eghm.wechat;
 
 import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
+import me.chanjar.weixin.common.bean.oauth2.WxOAuth2AccessToken;
 
 /**
  * 公众号
@@ -28,4 +29,20 @@ public interface WeChatMpService {
      * @return 签名信息
      */
     WxJsapiSignature jsTicket(String url);
+
+    /**
+     * 生成微信扫码登录链接
+     *
+     * @param state 唯一串
+     * @return url
+     */
+    String qrConnectUrl(String state);
+
+    /**
+     * 第三方页面授权获取微信用户信息 (微信扫码回调)
+     *
+     * @param code code
+     * @return openId
+     */
+    WxOAuth2AccessToken getAccessToken(String code);
 }

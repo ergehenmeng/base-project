@@ -52,6 +52,9 @@ public class SysUser extends BaseEntity {
     @ApiModelProperty("备注信息")
     private String remark;
 
+    @ApiModelProperty("微信openId")
+    private String openId;
+
     @ApiModelProperty("密码修改时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime pwdUpdateTime;

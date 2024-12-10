@@ -1948,6 +1948,11 @@ public enum ErrorCode {
     CD_KEY_USED(2972, "兑换码已使用"),
 
     /**
+     * 获取授权信息失败
+     */
+    MP_AUTH2_ERROR(7003, "获取授权信息失败"),
+
+    /**
      * 兑换码不适用该商品
      */
     CD_KEY_STORE_SCOPE(2975, "兑换码不适用该商品"),
