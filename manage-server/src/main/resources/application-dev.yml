@@ -44,7 +44,9 @@ system:
       mock-token: 1fc33b2a04fb4573b51b5a7a56c13678
   # 微信小程序 公众号 微信支付配置
   wechat:
-    pay-notify-host: https://localhost:8080
-    mini-version: trial
+    ma:
+      version: trial
+    pay:
+      notify-host: https://localhost:8080
   # 系统环境
   env: dev

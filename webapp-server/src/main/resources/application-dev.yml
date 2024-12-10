@@ -45,7 +45,9 @@ system:
   # 全局文件上传路径
   upload-path: D://file
   wechat:
-    pay-notify-host: https://localhost:8080
-    mini-version: trial
+    pay:
+      notify-host: https://localhost:8080
+    ma:
+      version: trial
   api:
     mock-token: d3df31f547654e2185be6dccbd155700
