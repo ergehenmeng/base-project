@@ -15,7 +15,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -49,11 +48,6 @@ public class SystemFileServiceImpl implements FileService {
     }
 
     @Override
-    public FilePath saveFile(String key, MultipartFile file, String folder) {
-        return this.saveFile(key, file, folder, this.getSingleMaxSize());
-    }
-
-    @Override
     public FilePath saveFile(String key, MultipartFile file, String folder, long maxSize) {
         this.checkSize(file, maxSize);
         Long present = CacheUtil.UPLOAD_LIMIT_CACHE.getIfPresent(key);
@@ -66,11 +60,6 @@ public class SystemFileServiceImpl implements FileService {
         FilePath build = FilePath.builder().path(path).address(this.getFileAddress()).size(file.getSize()).build();
         CacheUtil.UPLOAD_LIMIT_CACHE.put(key, size);
         return build;
-    }
-
-    @Override
-    public FilePath saveFile(String key, @NotNull MultipartFile file, long maxSize) {
-        return this.saveFile(key, file, systemProperties.getUploadFolder(), maxSize);
     }
 
     /**

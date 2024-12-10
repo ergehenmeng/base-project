@@ -39,7 +39,7 @@ public class AuthCodeEmailHandler extends BaseEmailHandler {
     }
 
     @Override
-    protected Map<String, Object> renderParams(EmailTemplate template, SendEmail email) {
+    protected Map<String, Object> renderParams(SendEmail email) {
         Map<String, Object> params = email.getParams();
         String memberId = params.get("memberId").toString();
         String authCode = StringUtil.randomNumber(8);

@@ -24,14 +24,6 @@ public interface CacheProxyService {
     List<Express> getExpressList();
 
     /**
-     * 查询子级的地址列表
-     *
-     * @param pid 当前级地址id
-     * @return list
-     */
-    List<SysArea> getAreaByPid(Long pid);
-
-    /**
      * 查询地址列表
      *
      * @return list
