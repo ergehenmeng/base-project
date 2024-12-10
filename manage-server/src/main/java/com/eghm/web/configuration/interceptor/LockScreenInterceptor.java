@@ -3,8 +3,8 @@ package com.eghm.web.configuration.interceptor;
 import com.eghm.annotation.SkipPerm;
 import com.eghm.cache.CacheService;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.constants.CacheConstant;
+import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
 import com.eghm.utils.WebUtil;
@@ -32,12 +32,10 @@ public class LockScreenInterceptor implements InterceptorAdapter {
             return true;
         }
         UserToken user = SecurityHolder.getUser();
-        if (user != null) {
-            String value = cacheService.getValue(CacheConstant.LOCK_SCREEN + user.getId());
-            if (value != null) {
-                WebUtil.printJson(response, ErrorCode.LOCK_SCREEN);
-                return false;
-            }
+        String value = cacheService.getValue(CacheConstant.LOCK_SCREEN + user.getId());
+        if (value != null) {
+            WebUtil.printJson(response, ErrorCode.LOCK_SCREEN);
+            return false;
         }
         return true;
     }
