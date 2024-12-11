@@ -242,8 +242,8 @@ public class SysUserServiceImpl implements SysUserService {
             leftMenu = sysMenuService.getAdminLeftMenuList();
             buttonList = sysMenuService.getAdminPermCode();
         } else {
-            buttonList = sysMenuService.getPermCode(user.getId());
             leftMenu = sysMenuService.getLeftMenuList(user.getId());
+            buttonList = sysMenuService.getPermCode(user.getId());
         }
         // 数据权限(此处没有判断,逻辑不够严谨,仅仅为了代码简洁)
         List<String> customList = sysDataDeptService.getDeptList(user.getId());
@@ -258,6 +258,7 @@ public class SysUserServiceImpl implements SysUserService {
         response.setExpire(user.getPwdUpdateTime().plusDays(CommonConstant.PWD_UPDATE_TIPS).isBefore(LocalDateTime.now()));
         cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
         LOGIN_LOCK_CACHE.invalidate(user.getMobile());
+        LOGIN_LOCK_CACHE.invalidate(user.getUserName());
         return response;
     }
 
@@ -367,7 +368,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     /**
-     * 根据手机号查询用户信息并校验基本信息
+     * 根据手机号查询用户信息并校验基本信息, 获取用户为空不增加错误次数,而是在发短信时校验次数
      *
      * @param mobile 手机号
      * @return 用户信息
