@@ -96,7 +96,6 @@ public class DataUtil {
         return copy(sourceList, s -> DataUtil.copy(s, cls, ignoreProperties));
     }
 
-
     public static <T> T copy(Object source, Class<T> cls, String... ignoreProperties) {
         if (source == null) {
             return null;
