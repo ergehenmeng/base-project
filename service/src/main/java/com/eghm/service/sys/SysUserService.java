@@ -104,7 +104,7 @@ public interface SysUserService {
      *
      * @param userName 账号
      * @param password 密码
-     * @param openId   openId
+     * @param openId   openId 可能为空
      * @return token及权限
      */
     LoginResponse login(String userName, String password, String openId);
