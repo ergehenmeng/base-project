@@ -12,7 +12,7 @@ import java.util.List;
  * @since 2022/9/7
  */
 @Data
-@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class MenuResponse {
 
     @ApiModelProperty("id主键")

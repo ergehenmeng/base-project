@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 @Data
-@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SysDeptResponse {
 
     @ApiModelProperty("部门id")
