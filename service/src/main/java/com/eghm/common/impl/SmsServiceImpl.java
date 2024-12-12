@@ -86,8 +86,10 @@ public class SmsServiceImpl implements SmsService {
     private void sendSmsCode(TemplateType templateType, String mobile) {
         this.smsLimitCheck(templateType.getValue(), mobile);
         String smsCode = StringUtil.randomNumber();
-        this.doSendSms(mobile, templateType, smsCode);
-        this.saveSmsCode(templateType.getValue(), mobile, smsCode);
+        int state = sendSmsService.sendSms(mobile, templateType, smsCode);
+        SmsLog smsLog = SmsLog.builder().content(String.format(templateType.getContent(), smsCode)).mobile(mobile).templateType(templateType).state(state).build();
+        smsLogService.addSmsLog(smsLog);
+        cacheService.setValue(String.format(CacheConstant.SMS_PREFIX, templateType, mobile), smsCode, sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600));
         long expire = sysConfigApi.getLong(ConfigConstant.SMS_TYPE_INTERVAL);
         cacheService.setValue(String.format(CacheConstant.SMS_TYPE_INTERVAL, templateType.getValue(), mobile), true, expire);
     }
@@ -103,19 +105,6 @@ public class SmsServiceImpl implements SmsService {
     }
 
     /**
-     * 发送短信并记录短信日志
-     *
-     * @param mobile  手机号
-     * @param templateType 短信类型
-     * @param params  参数
-     */
-    private void doSendSms(String mobile, TemplateType templateType, String... params) {
-        int state = sendSmsService.sendSms(mobile, templateType, params);
-        SmsLog smsLog = SmsLog.builder().content(String.format(templateType.getContent(), (Object[]) params)).mobile(mobile).templateType(templateType).state(state).build();
-        smsLogService.addSmsLog(smsLog);
-    }
-
-    /**
      * 保存发送的短信
      *
      * @param templateType 短信类型
@@ -123,7 +112,6 @@ public class SmsServiceImpl implements SmsService {
      * @param smsCode 短信验证码
      */
     private void saveSmsCode(String templateType, String mobile, String smsCode) {
-        cacheService.setValue(String.format(CacheConstant.SMS_PREFIX, templateType, mobile), smsCode, sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600));
     }
 
     /**
