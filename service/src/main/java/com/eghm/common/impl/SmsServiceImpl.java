@@ -138,21 +138,18 @@ public class SmsServiceImpl implements SmsService {
         if (value != null) {
             throw new BusinessException(ErrorCode.SMS_FREQUENCY_FAST);
         }
-        int templateTypeHourLimit = sysConfigApi.getInt(ConfigConstant.SMS_TYPE_HOUR_LIMIT);
         // 单位小时统一类型内短信限制
-        boolean limit = cacheService.limit(String.format(CacheConstant.SMS_TYPE_HOUR_LIMIT, templateType, mobile), templateTypeHourLimit, 3600);
+        boolean limit = cacheService.limit(String.format(CacheConstant.SMS_TYPE_HOUR_LIMIT, templateType, mobile), sysConfigApi.getInt(ConfigConstant.SMS_TYPE_HOUR_LIMIT), 3600);
         if (limit) {
             throw new BusinessException(ErrorCode.SMS_HOUR_LIMIT);
         }
-        int templateTypeDayLimit = sysConfigApi.getInt(ConfigConstant.SMS_TYPE_DAY_LIMIT);
         // 当天同一类型短信限制
-        limit = cacheService.limit(String.format(CacheConstant.SMS_TYPE_DAY_LIMIT, templateType, mobile), templateTypeDayLimit, 86400);
+        limit = cacheService.limit(String.format(CacheConstant.SMS_TYPE_DAY_LIMIT, templateType, mobile), sysConfigApi.getInt(ConfigConstant.SMS_TYPE_DAY_LIMIT), 86400);
         if (limit) {
             throw new BusinessException(ErrorCode.SMS_DAY_LIMIT);
         }
-        int smsDay = sysConfigApi.getInt(ConfigConstant.SMS_DAY_LIMIT);
         // 当天手机号限制
-        limit = cacheService.limit(String.format(CacheConstant.SMS_DAY, mobile), smsDay, 86400);
+        limit = cacheService.limit(String.format(CacheConstant.SMS_DAY, mobile), sysConfigApi.getInt(ConfigConstant.SMS_DAY_LIMIT), 86400);
         if (limit) {
             throw new BusinessException(ErrorCode.MOBILE_DAY_LIMIT);
         }
