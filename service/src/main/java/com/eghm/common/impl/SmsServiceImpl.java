@@ -105,16 +105,6 @@ public class SmsServiceImpl implements SmsService {
     }
 
     /**
-     * 保存发送的短信
-     *
-     * @param templateType 短信类型
-     * @param mobile  手机号码
-     * @param smsCode 短信验证码
-     */
-    private void saveSmsCode(String templateType, String mobile, String smsCode) {
-    }
-
-    /**
      * 根据短信类型和手机号判断短信发送间隔及短信次数是否上限
      *
      * @param templateType 短信类型
