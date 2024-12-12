@@ -11,7 +11,7 @@ import java.util.List;
  * @since 2020/9/3
  */
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SysAreaVO {
 
     @ApiModelProperty("区域id(唯一)")

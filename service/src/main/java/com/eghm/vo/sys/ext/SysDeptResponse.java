@@ -1,6 +1,7 @@
 package com.eghm.vo.sys.ext;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -13,6 +14,7 @@ import java.util.List;
  */
 
 @Data
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class SysDeptResponse {
 
     @ApiModelProperty("部门id")

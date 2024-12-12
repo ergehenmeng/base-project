@@ -49,7 +49,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     private final NoticeTemplateMapper noticeTemplateMapper;
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYS_AREA, key = "#root.methodName", sync = true)
+    @Cacheable(cacheNames = CacheConstant.SYS_AREA, key = "#root.methodName", unless = "#result.size() == 0")
     public List<SysAreaVO> getAreaList() {
         return sysAreaMapper.getList(null);
     }
