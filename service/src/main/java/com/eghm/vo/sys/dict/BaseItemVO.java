@@ -9,7 +9,7 @@ import lombok.Data;
  */
 
 @Data
-public class DictVO {
+public class BaseItemVO {
 
     @ApiModelProperty("数据字典隐藏值")
     private Integer hiddenValue;

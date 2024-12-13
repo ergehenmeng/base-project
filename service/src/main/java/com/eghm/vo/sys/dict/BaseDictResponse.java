@@ -10,11 +10,11 @@ import java.util.List;
  * @since 2024/5/24
  */
 @Data
-public class LoadDictResponse {
+public class BaseDictResponse {
 
     @ApiModelProperty("数据字典nid")
     private String nid;
 
     @ApiModelProperty("对应字典列表")
-    private List<DictVO> itemList;
+    private List<BaseItemVO> itemList;
 }

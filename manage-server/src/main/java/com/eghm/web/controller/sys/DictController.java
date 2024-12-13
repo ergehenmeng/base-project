@@ -8,8 +8,8 @@ import com.eghm.model.SysDictItem;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.sys.dict.DictResponse;
-import com.eghm.vo.sys.dict.DictVO;
-import com.eghm.vo.sys.dict.LoadDictResponse;
+import com.eghm.vo.sys.dict.BaseItemVO;
+import com.eghm.vo.sys.dict.BaseDictResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -86,12 +86,12 @@ public class DictController {
     @ApiOperation("查询数据字典")
     @SkipPerm
     @ApiImplicitParam(name = "nidList", value = "字典编码", required = true, dataType = "String")
-    public RespBody<List<LoadDictResponse>> itemList(@RequestParam("nidList") List<String> nidList) {
-        List<LoadDictResponse> responseList = new ArrayList<>(8);
+    public RespBody<List<BaseDictResponse>> itemList(@RequestParam("nidList") List<String> nidList) {
+        List<BaseDictResponse> responseList = new ArrayList<>(8);
         for (String nid : nidList) {
             List<SysDictItem> dictList = sysDictService.getDictByNid(nid);
-            List<DictVO> itemList = DataUtil.copy(dictList, DictVO.class);
-            LoadDictResponse response = new LoadDictResponse();
+            List<BaseItemVO> itemList = DataUtil.copy(dictList, BaseItemVO.class);
+            BaseDictResponse response = new BaseDictResponse();
             response.setItemList(itemList);
             response.setNid(nid);
             responseList.add(response);

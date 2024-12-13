@@ -1,5 +1,6 @@
 package com.eghm.vo.sys.menu;
 
+import cn.hutool.extra.pinyin.PinyinUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
@@ -46,4 +47,7 @@ public class MenuResponse {
     @ApiModelProperty("父节点ID,一级菜单默认为0")
     private String pid;
 
+    public static void main(String[] args) {
+        System.out.println(PinyinUtil.getFirstLetter("往哪搁".toCharArray()[0]));
+    }
 }

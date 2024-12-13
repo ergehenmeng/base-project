@@ -4,7 +4,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.model.SysDictItem;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.sys.dict.DictVO;
+import com.eghm.vo.sys.dict.BaseItemVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -33,8 +33,8 @@ public class DictController {
     @GetMapping("/list")
     @ApiOperation("列表")
     @ApiImplicitParam(name = "nid", value = "数据字典编号", required = true)
-    public RespBody<List<DictVO>> list(@RequestParam("nid") String nid) {
+    public RespBody<List<BaseItemVO>> list(@RequestParam("nid") String nid) {
         List<SysDictItem> byPage = sysDictService.getDictByNid(nid);
-        return RespBody.success(DataUtil.copy(byPage, DictVO.class));
+        return RespBody.success(DataUtil.copy(byPage, BaseItemVO.class));
     }
 }
