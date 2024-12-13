@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class VersionUtil {
 
-    private static final String[] REPLACE_CHAR = {"v"};
+    private static final String[] REPLACE_CHAR = { "v", "V" };
 
     /**
      * version是否大于等于指定的target版本
