@@ -41,6 +41,9 @@ public class EasyExcelUtil {
      */
     private static final int BATCH_SIZE = 500;
 
+    /**
+     * 冻结首行
+     */
     private static final SheetWriteHandler freezeRowHandler = new FreezeRowHandler();
 
     /**

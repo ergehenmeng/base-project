@@ -32,6 +32,12 @@ public class VersionUtil {
         return parseInt(source) >= parseInt(target);
     }
 
+    /**
+     * 替换掉版本号中的非数字字符
+     *
+     * @param str V1.23.12
+     * @return 1.23.12
+     */
     private static String replace(String str) {
         for (String replace : REPLACE_CHAR) {
             str = str.replace(replace, "");
