@@ -1,6 +1,7 @@
 package com.eghm.service.sys.impl;
 
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -12,7 +13,6 @@ import com.eghm.mapper.SysDictItemMapper;
 import com.eghm.mapper.SysDictMapper;
 import com.eghm.model.SysDict;
 import com.eghm.model.SysDictItem;
-import com.eghm.common.CommonService;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.sys.dict.DictResponse;
@@ -21,6 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,8 +35,6 @@ import java.util.Objects;
 @Service("sysDictService")
 @AllArgsConstructor
 public class SysDictServiceImpl implements SysDictService {
-
-    private final CommonService commonService;
 
     private final SysDictMapper sysDictMapper;
 
@@ -115,10 +114,17 @@ public class SysDictServiceImpl implements SysDictService {
     public List<String> getTags(String nid, String tagIds) {
         if (StrUtil.isBlank(tagIds)) {
             log.info("标签id为空,不查询标签字典 [{}]", nid);
-            return Lists.newArrayListWithCapacity(4);
+            return Lists.newArrayList();
         }
         List<SysDictItem> dictList = this.getDictByNid(nid);
-        return commonService.parseTags(dictList, tagIds);
+        if (CollUtil.isEmpty(dictList)) {
+            log.error("数据字典为空,不做解析 [{}]", tagIds);
+            return Lists.newArrayList();
+        }
+        List<String> tagList = Lists.newArrayListWithCapacity(4);
+        String[] split = tagIds.split(",");
+        Arrays.stream(split).forEach(tagId -> dictList.stream().filter(sysDict -> sysDict.getHiddenValue() == Integer.parseInt(tagId)).map(SysDictItem::getShowValue).findFirst().ifPresent(tagList::add));
+        return tagList;
     }
 
     /**

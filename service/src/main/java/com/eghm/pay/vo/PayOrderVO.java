@@ -3,7 +3,6 @@ package com.eghm.pay.vo;
 
 import com.eghm.pay.enums.TradeState;
 import com.eghm.pay.enums.TradeType;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -13,7 +12,6 @@ import java.time.LocalDateTime;
  * @author 二哥很猛
  */
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class PayOrderVO {
 
     @ApiModelProperty("支付id: 微信openId")

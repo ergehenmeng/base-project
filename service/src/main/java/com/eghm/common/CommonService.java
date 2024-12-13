@@ -1,6 +1,5 @@
 package com.eghm.common;
 
-import com.eghm.model.SysDictItem;
 import com.eghm.vo.sys.ext.SysAreaVO;
 
 import java.util.List;
@@ -10,15 +9,6 @@ import java.util.List;
  * @since 2022/7/23
  */
 public interface CommonService {
-
-    /**
-     * 根据给定的字典列表和标签id进行解析
-     *
-     * @param dictList 字典列表
-     * @param tagIds   标签id 逗号分割
-     * @return 标签名称
-     */
-    List<String> parseTags(List<SysDictItem> dictList, String tagIds);
 
     /**
      * 查询地址列表(树状结构)

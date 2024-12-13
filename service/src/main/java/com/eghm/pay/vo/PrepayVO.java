@@ -2,7 +2,6 @@ package com.eghm.pay.vo;
 
 import com.eghm.pay.enums.PayChannel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -13,7 +12,6 @@ import lombok.Data;
  * @author 二哥很猛
  */
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PrepayVO {
 
