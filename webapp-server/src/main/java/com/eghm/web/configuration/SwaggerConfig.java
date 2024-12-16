@@ -52,7 +52,7 @@ public class SwaggerConfig {
                 .select()
                 .apis(basePackage("com.eghm.web.controller"))
                 .paths(PathSelectors.any())
-                .build().globalOperationParameters(setParameterList());
+                .build().globalOperationParameters(this.setParameterList());
     }
 
     /**
