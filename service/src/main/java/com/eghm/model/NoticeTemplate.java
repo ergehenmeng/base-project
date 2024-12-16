@@ -36,7 +36,7 @@ public class NoticeTemplate {
     @ApiModelProperty("备注信息")
     private String remark;
 
-    @ApiModelProperty("更新日期")
+    @ApiModelProperty("更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)

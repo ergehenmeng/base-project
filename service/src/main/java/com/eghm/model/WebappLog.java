@@ -68,7 +68,7 @@ public class WebappLog {
     @ApiModelProperty("错误日志")
     private String errorMsg;
 
-    @ApiModelProperty("添加日期")
+    @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 

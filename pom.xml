@@ -49,8 +49,6 @@
         <sharding-jdbc.version>2.0.3</sharding-jdbc.version>
         <!--redis客户端工具-->
         <redisson.version>3.17.7</redisson.version>
-        <!--api文档-->
-        <swagger.verison>2.10.5</swagger.verison>
         <!--中文拼音解析-->
         <pinyin.version>2.5.1</pinyin.version>
         <!--mysql版本-->

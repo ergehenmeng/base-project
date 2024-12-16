@@ -42,7 +42,7 @@ public class MenuController {
     }
 
     @GetMapping("/systemList")
-    @ApiOperation("管理员菜单")
+    @ApiOperation("系统菜单(角色授权使用)")
     public RespBody<List<MenuResponse>> systemList() {
         List<MenuResponse> responseList = sysMenuService.getSystemList();
         return RespBody.success(responseList);
