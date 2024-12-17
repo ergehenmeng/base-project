@@ -6,6 +6,7 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.member.MemberQueryRequest;
 import com.eghm.dto.member.log.LoginLogQueryRequest;
+import com.eghm.dto.member.score.ScoreUpdateRequest;
 import com.eghm.dto.member.tag.SendNotifyRequest;
 import com.eghm.dto.member.tag.SendSmsRequest;
 import com.eghm.model.LoginLog;
@@ -98,4 +99,12 @@ public class MemberController {
         memberTagScopeService.sendSms(request);
         return RespBody.success();
     }
+
+    @PostMapping(value = "/updateScore", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("更新积分")
+    public RespBody<Void> updateScore(@Validated @RequestBody ScoreUpdateRequest request) {
+        memberService.updateScore(request.getId(), request.getScoreType(), request.getScore(), request.getRemark());
+        return RespBody.success();
+    }
+
 }

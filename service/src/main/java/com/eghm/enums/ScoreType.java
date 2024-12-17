@@ -1,7 +1,10 @@
 package com.eghm.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * @author 殿小二
@@ -35,7 +38,16 @@ public enum ScoreType {
      * 退款
      */
     REFUND(5, "退款", 1),
-    ;
+
+    /**
+     * 系统扣除
+     */
+    DEDUCTION(6, "系统扣除", 2),
+
+    /**
+     * 系统奖励
+     */
+    AWARD(7, "系统奖励", 1);
 
     /**
      * 类型
@@ -51,5 +63,13 @@ public enum ScoreType {
      * 1: 收入 2: 支出
      */
     private final Integer direction;
+
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static ScoreType of(Integer value) {
+        if (value == null) {
+            return null;
+        }
+        return Arrays.stream(ScoreType.values()).filter(scoreType -> scoreType.getValue() == value).findFirst().orElse(null);
+    }
 
 }

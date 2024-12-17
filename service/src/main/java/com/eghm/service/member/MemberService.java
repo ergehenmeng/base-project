@@ -258,4 +258,14 @@ public interface MemberService {
      * @param score 积分数量
      */
     void updateScore(Long memberId, ScoreType scoreType, Integer score);
+
+    /**
+     * 更新会员积分
+     *
+     * @param memberId 用户id
+     * @param scoreType 积分类型
+     * @param score 积分数量
+     * @param remark    备注信息
+     */
+    void updateScore(Long memberId, ScoreType scoreType, Integer score, String remark);
 }

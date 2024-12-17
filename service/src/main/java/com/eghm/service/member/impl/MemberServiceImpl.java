@@ -402,6 +402,23 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void updateScore(Long memberId, ScoreType scoreType, Integer score) {
+        this.doUpdateScore(memberId, scoreType, score, null);
+    }
+
+    @Override
+    public void updateScore(Long memberId, ScoreType scoreType, Integer score, String remark) {
+        this.doUpdateScore(memberId, scoreType, score, remark);
+    }
+
+    /**
+     * 更新会员积分
+     *
+     * @param memberId 用户id
+     * @param scoreType 积分类型
+     * @param score 积分数量
+     * @param remark    备注信息
+     */
+    private void doUpdateScore(Long memberId, ScoreType scoreType, Integer score, String remark) {
         if (score == 0) {
             log.info("积分变动为零,不做任何处理 [{}] [{}]", memberId, score);
             return;
@@ -418,6 +435,7 @@ public class MemberServiceImpl implements MemberService {
         }
         MemberScoreLog log = new MemberScoreLog();
         log.setScore(score);
+        log.setRemark(remark);
         log.setMemberId(memberId);
         log.setType(scoreType.getValue());
         memberScoreLogService.insert(log);
