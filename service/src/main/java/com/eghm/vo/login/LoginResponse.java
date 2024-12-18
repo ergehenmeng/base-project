@@ -28,6 +28,9 @@ public class LoginResponse {
     @ApiModelProperty("商户类型 1 2 4 8 16 32")
     private Integer merchantType;
 
+    @ApiModelProperty("系统名称")
+    private String systemName;
+
     @ApiModelProperty("用户名")
     private String userName;
 

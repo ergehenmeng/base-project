@@ -10,10 +10,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
 import com.eghm.common.SmsService;
 import com.eghm.common.UserTokenService;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.sys.login.SmsLoginRequest;
 import com.eghm.dto.sys.user.PasswordEditRequest;
 import com.eghm.dto.sys.user.UserAddRequest;
@@ -60,6 +62,8 @@ public class SysUserServiceImpl implements SysUserService {
     private final Encoder encoder;
 
     private final SmsService smsService;
+
+    private final SysConfigApi sysConfigApi;
 
     private final CacheService cacheService;
 
@@ -248,9 +252,11 @@ public class SysUserServiceImpl implements SysUserService {
         List<String> customList = sysDataDeptService.getDeptList(user.getId());
         Long merchantId = this.getMerchantId(user.getId(), user.getUserType());
         String token = userTokenService.createToken(user, merchantId, buttonList, customList);
+        String systemName = sysConfigApi.getString(ConfigConstant.SYSTEM_NAME);
         LoginResponse response = new LoginResponse();
         response.setMerchantId(merchantId);
         response.setToken(token);
+        response.setSystemName(systemName);
         response.setUserName(user.getUserName());
         response.setNickName(user.getNickName());
         response.setPermList(buttonList);

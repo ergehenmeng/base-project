@@ -256,4 +256,9 @@ public class ConfigConstant {
      * 微信扫码登录跳转地址
      */
     public static final String WECHAT_REDIRECT_URL = "wechat_redirect_url";
+
+    /**
+     * 系统名称
+     */
+    public static final String SYSTEM_NAME = "system_name";
 }
