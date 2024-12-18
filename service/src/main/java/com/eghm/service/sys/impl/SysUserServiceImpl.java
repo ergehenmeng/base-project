@@ -255,6 +255,7 @@ public class SysUserServiceImpl implements SysUserService {
         String systemName = sysConfigApi.getString(ConfigConstant.SYSTEM_NAME);
         LoginResponse response = new LoginResponse();
         response.setToken(token);
+        response.setBindWechat(user.getOpenId() != null);
         response.setUserName(user.getUserName());
         response.setSystemName(systemName);
         response.setNickName(user.getNickName());

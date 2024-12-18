@@ -28,6 +28,9 @@ public class LoginResponse {
     @ApiModelProperty("系统名称")
     private String systemName;
 
+    @ApiModelProperty("是否绑定微信")
+    private Boolean bindWechat;
+
     @ApiModelProperty("昵称")
     private String nickName;
 
