@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.member.MemberScoreQueryDTO;
+import com.eghm.dto.member.MemberScoreQueryRequest;
 import com.eghm.mapper.MemberScoreLogMapper;
 import com.eghm.model.MemberScoreLog;
 import com.eghm.service.member.MemberScoreLogService;
@@ -30,7 +31,12 @@ public class MemberScoreLogServiceImpl implements MemberScoreLogService {
     private final MemberScoreLogMapper memberScoreLogMapper;
 
     @Override
-    public List<MemberScoreVO> getByPage(MemberScoreQueryDTO request) {
+    public Page<MemberScoreVO> getByPage(MemberScoreQueryRequest request) {
+        return memberScoreLogMapper.getByPage(request.createPage(), request);
+    }
+
+    @Override
+    public List<MemberScoreVO> clientByPage(MemberScoreQueryDTO request) {
         LambdaQueryWrapper<MemberScoreLog> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(MemberScoreLog::getMemberId, request.getMemberId());
         wrapper.eq(request.getType() != null, MemberScoreLog::getType, request.getType());

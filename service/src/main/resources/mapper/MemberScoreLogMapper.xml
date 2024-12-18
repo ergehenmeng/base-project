@@ -2,4 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.MemberScoreLogMapper">
 
+    <select id="getByPage" resultType="com.eghm.vo.member.MemberScoreVO" >
+        select score, type, create_time, remark
+        from member_score_log
+        where member_id = #{param.memberId}
+        <if test="param.type != null">
+            and type = #{param.type}
+        </if>
+        order by id desc
+    </select>
+
 </mapper>

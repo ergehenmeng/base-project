@@ -10,7 +10,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,9 +31,9 @@ public class ScoreController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<List<MemberScoreVO>> listPage(@Validated MemberScoreQueryDTO request) {
+    public RespBody<List<MemberScoreVO>> listPage(MemberScoreQueryDTO request) {
         request.setMemberId(ApiHolder.getMemberId());
-        List<MemberScoreVO> page = memberScoreLogService.getByPage(request);
+        List<MemberScoreVO> page = memberScoreLogService.clientByPage(request);
         return RespBody.success(page);
     }
 }

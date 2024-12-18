@@ -5,17 +5,16 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.member.MemberQueryRequest;
+import com.eghm.dto.member.MemberScoreQueryRequest;
 import com.eghm.dto.member.log.LoginLogQueryRequest;
 import com.eghm.dto.member.score.ScoreUpdateRequest;
 import com.eghm.dto.member.tag.SendNotifyRequest;
 import com.eghm.dto.member.tag.SendSmsRequest;
 import com.eghm.model.LoginLog;
-import com.eghm.service.member.LoginService;
-import com.eghm.service.member.MemberNoticeService;
-import com.eghm.service.member.MemberService;
-import com.eghm.service.member.MemberTagScopeService;
+import com.eghm.service.member.*;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.member.MemberResponse;
+import com.eghm.vo.member.MemberScoreVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -41,6 +40,8 @@ public class MemberController {
     private final MemberService memberService;
 
     private final MemberNoticeService memberNoticeService;
+
+    private final MemberScoreLogService memberScoreLogService;
 
     private final MemberTagScopeService memberTagScopeService;
 
@@ -105,6 +106,13 @@ public class MemberController {
     public RespBody<Void> updateScore(@Validated @RequestBody ScoreUpdateRequest request) {
         memberService.updateScore(request.getId(), request.getScoreType(), request.getScore(), request.getRemark());
         return RespBody.success();
+    }
+
+    @GetMapping("/score/listPage")
+    @ApiOperation("积分列表")
+    public RespBody<PageData<MemberScoreVO>> listPage(@Validated MemberScoreQueryRequest request) {
+        Page<MemberScoreVO> page = memberScoreLogService.getByPage(request);
+        return RespBody.success(PageData.toPage(page));
     }
 
 }

@@ -22,4 +22,7 @@ public class MemberScoreVO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty("积分发放或消费时间")
     private LocalDateTime createTime;
+
+    @ApiModelProperty("积分发放或消费备注")
+    private String remark;
 }
