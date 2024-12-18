@@ -251,6 +251,7 @@ public class SysUserServiceImpl implements SysUserService {
         LoginResponse response = new LoginResponse();
         response.setMerchantId(merchantId);
         response.setToken(token);
+        response.setUserName(user.getUserName());
         response.setNickName(user.getNickName());
         response.setPermList(buttonList);
         response.setUserType(user.getUserType());
