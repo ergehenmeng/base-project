@@ -263,6 +263,7 @@ public class SysUserServiceImpl implements SysUserService {
         response.setUserType(user.getUserType());
         response.setMenuList(leftMenu);
         response.setMerchantType(merchantType);
+        response.setBindWechat(user.getOpenId() != null);
         response.setInit(user.getInitPwd().equals(user.getPwd()));
         response.setExpire(user.getPwdUpdateTime().plusDays(CommonConstant.PWD_UPDATE_TIPS).isBefore(LocalDateTime.now()));
         cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
