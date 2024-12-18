@@ -22,6 +22,12 @@ public class LoginResponse {
     @ApiModelProperty("用户类型 0:系统管理员 1:系统用户")
     private UserType userType;
 
+    @ApiModelProperty("用户名")
+    private String userName;
+
+    @ApiModelProperty("系统名称")
+    private String systemName;
+
     @ApiModelProperty("昵称")
     private String nickName;
 

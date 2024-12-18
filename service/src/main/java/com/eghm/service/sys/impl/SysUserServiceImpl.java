@@ -11,9 +11,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
 import com.eghm.common.SmsService;
 import com.eghm.common.UserTokenService;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.dto.sys.login.AuthSmsRequest;
 import com.eghm.dto.sys.login.SmsLoginRequest;
@@ -60,6 +62,8 @@ public class SysUserServiceImpl implements SysUserService {
     private final SmsService smsService;
 
     private final CacheService cacheService;
+
+    private final SysConfigApi sysConfigApi;
 
     private final SysUserMapper sysUserMapper;
 
@@ -248,8 +252,11 @@ public class SysUserServiceImpl implements SysUserService {
         // 数据权限(此处没有判断,逻辑不够严谨,仅仅为了代码简洁)
         List<String> customList = sysDataDeptService.getDeptList(user.getId());
         String token = userTokenService.createToken(user, buttonList, customList);
+        String systemName = sysConfigApi.getString(ConfigConstant.SYSTEM_NAME);
         LoginResponse response = new LoginResponse();
         response.setToken(token);
+        response.setUserName(user.getUserName());
+        response.setSystemName(systemName);
         response.setNickName(user.getNickName());
         response.setPermList(buttonList);
         response.setUserType(user.getUserType());
