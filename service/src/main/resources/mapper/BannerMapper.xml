@@ -30,7 +30,7 @@
             and client_type = #{param.clientType}
         </if>
         <if test="param.middleTime != null">
-            and start_time &lt;= #{param.middleTime} and end_time &gt;= #{param.middleTime}
+            and start_time &lt;= #{param.middleTime} and #{param.middleTime} &lt;= end_time
         </if>
         <if test="param.queryName != null and param.queryName != ''">
             and title like concat('%',#{param.queryName, typeHandler=LikeTypeHandler},'%')
