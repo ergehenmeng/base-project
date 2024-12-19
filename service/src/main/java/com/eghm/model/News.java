@@ -44,6 +44,9 @@ public class News extends BaseEntity {
     @ApiModelProperty(value = "排序")
     private Integer sort;
 
+    @ApiModelProperty(value = "状态 0:未发布 1:已发布")
+    private Boolean state;
+
     @ApiModelProperty("点赞数量")
     private Integer likeNum;
 

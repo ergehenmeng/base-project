@@ -30,7 +30,7 @@
            image,
            like_num,
            update_time
-        from news where deleted = false
+        from news where deleted = false and state = true
         <if test="queryName != null and queryName != ''">
             and title like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%')
         </if>

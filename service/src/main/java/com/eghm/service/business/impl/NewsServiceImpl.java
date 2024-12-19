@@ -96,7 +96,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public NewsDetailVO detail(Long id) {
         News news = newsMapper.selectById(id);
-        if (news == null) {
+        if (news == null || Boolean.FALSE.equals(news.getState())) {
             log.info("资讯文字已删除 [{}]", id);
             throw new BusinessException(ErrorCode.NEWS_NULL);
         }
@@ -130,6 +130,14 @@ public class NewsServiceImpl implements NewsService {
         LambdaUpdateWrapper<News> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(News::getId, id);
         wrapper.set(News::getSort, sortBy);
+        newsMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void updateState(Long id, Boolean state) {
+        LambdaUpdateWrapper<News> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(News::getId, id);
+        wrapper.set(News::getState, state);
         newsMapper.update(null, wrapper);
     }
 

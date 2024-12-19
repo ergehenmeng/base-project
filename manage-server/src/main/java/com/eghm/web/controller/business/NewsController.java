@@ -8,6 +8,7 @@ import com.eghm.dto.business.news.NewsEditRequest;
 import com.eghm.dto.business.news.NewsQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.poi.StateRequest;
 import com.eghm.model.News;
 import com.eghm.service.business.NewsService;
 import com.eghm.vo.business.news.NewsResponse;
@@ -63,6 +64,13 @@ public class NewsController {
     @ApiOperation("排序")
     public RespBody<Void> sort(@RequestBody @Validated SortByDTO dto) {
         newsService.sortBy(dto.getId(), dto.getSortBy());
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/updateState", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("更新状态")
+    public RespBody<Void> updateState(@Validated @RequestBody StateRequest request) {
+        newsService.updateState(request.getId(), request.getState());
         return RespBody.success();
     }
 

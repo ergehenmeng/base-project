@@ -89,4 +89,12 @@ public interface NewsService {
      * @param sortBy 排序 最大999
      */
     void sortBy(Long id, Integer sortBy);
+
+    /**
+     * 更新状态
+     *
+     * @param id id
+     * @param state 状态 false:隐藏 true:显示
+     */
+    void updateState(Long id, Boolean state);
 }
