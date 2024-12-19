@@ -38,7 +38,7 @@ public class Comment extends BaseEntity {
     private ObjectType objectType;
 
     @ApiModelProperty(value = "点赞数量")
-    private Integer likeNum;
+    private Integer praiseNum;
 
     @ApiModelProperty("回复id")
     private Long replyId;

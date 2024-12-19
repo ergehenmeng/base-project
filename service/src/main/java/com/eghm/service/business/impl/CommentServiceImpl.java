@@ -97,7 +97,7 @@ public class CommentServiceImpl implements CommentService {
     public List<CommentVO> getByPage(CommentQueryDTO dto) {
         int reportNum = sysConfigApi.getInt(ConfigConstant.COMMENT_REPORT_SHIELD, 20);
         Page<CommentVO> voPage = commentMapper.getByPage(dto.createPage(false), dto.getObjectId(), reportNum);
-        voPage.getRecords().forEach(vo -> vo.setIsLiked(this.hasGiveLiked(vo.getId())));
+        voPage.getRecords().forEach(vo -> vo.setHasPraise(hasPraise(vo.getId())));
         return voPage.getRecords();
     }
 
@@ -105,7 +105,7 @@ public class CommentServiceImpl implements CommentService {
     public List<CommentSecondVO> secondPage(CommentQueryDTO dto) {
         int reportNum = sysConfigApi.getInt(ConfigConstant.COMMENT_REPORT_SHIELD, 20);
         Page<CommentSecondVO> voPage = commentMapper.getSecondPage(dto.createPage(false), dto.getObjectId(), reportNum, dto.getPid());
-        voPage.getRecords().forEach(vo -> vo.setIsLiked(this.hasGiveLiked(vo.getId())));
+        voPage.getRecords().forEach(vo -> vo.setHasPraise(hasPraise(vo.getId())));
         return voPage.getRecords();
     }
 
@@ -138,14 +138,14 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void giveLike(Long id) {
         Long memberId = ApiHolder.getMemberId();
-        String key = CacheConstant.COMMENT_GIVE_LIKE + id;
-        boolean isLiked = cacheService.getHashValue(key, memberId.toString()) != null;
-        if (isLiked) {
+        String key = CacheConstant.COMMENT_PRAISE + id;
+        boolean hasPraise = cacheService.getHashValue(key, memberId.toString()) != null;
+        if (hasPraise) {
             cacheService.deleteHashKey(key, memberId.toString());
-            commentMapper.updateLikeNum(id, -1);
+            commentMapper.updatePraiseNum(id, -1);
         } else {
             cacheService.setHashValue(key, memberId.toString(), CacheConstant.PLACE_HOLDER);
-            commentMapper.updateLikeNum(id, 1);
+            commentMapper.updatePraiseNum(id, 1);
         }
     }
 
@@ -250,11 +250,11 @@ public class CommentServiceImpl implements CommentService {
      * @param id 文章id
      * @return true: 点赞了, 未点赞
      */
-    private Boolean hasGiveLiked(Long id) {
+    private Boolean hasPraise(Long id) {
         Long memberId = ApiHolder.tryGetMemberId();
         if (memberId == null) {
             return false;
         }
-        return cacheService.getHashValue(CacheConstant.COMMENT_GIVE_LIKE + id, memberId.toString()) != null;
+        return cacheService.getHashValue(CacheConstant.COMMENT_PRAISE + id, memberId.toString()) != null;
     }
 }

@@ -36,7 +36,7 @@ public class NewsResponse {
     private Boolean state;
 
     @ApiModelProperty("点赞数量")
-    private Integer likeNum;
+    private Integer praiseNum;
 
     @ApiModelProperty("是否支持评论")
     private Boolean commentSupport;

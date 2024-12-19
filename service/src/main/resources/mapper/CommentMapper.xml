@@ -13,7 +13,7 @@
             t.object_id,
             t.object_type,
             t.create_time,
-            t.like_num,
+            t.praise_num,
             m.nick_name,
             m.avatar
         from comment t
@@ -42,14 +42,14 @@
         t.id,
         t.content,
         t.create_time,
-        t.like_num,
+        t.praise_num,
         t.reply_num,
         m.nick_name,
         m.avatar
         from comment t
         left join `member` m on t.member_id = m.id
         where t.deleted = false and t.state = true and t.report_num &lt;= #{shieldNum} and t.object_id = #{objectId} and t.pid is null
-        order by t.top_state desc, t.like_num desc, t.id desc
+        order by t.top_state desc, t.praise_num desc, t.id desc
     </select>
 
     <select id="getSecondPage" resultType="com.eghm.vo.business.comment.CommentSecondVO">
@@ -58,7 +58,7 @@
         t.pid,
         t.content,
         t.create_time,
-        t.like_num,
+        t.praise_num,
         t.reply_num,
         t.reply_id,
         t.top_state,
@@ -77,11 +77,11 @@
         <if test="pid != null">
             and t.pid = #{pid}
         </if>
-        order by t.top_state desc, t.like_num desc, t.id desc
+        order by t.top_state desc, t.praise_num desc, t.id desc
     </select>
 
-    <update id="updateLikeNum">
-        update `comment` set like_num = like_num + #{likeNum} where id = #{id}
+    <update id="updatePraiseNum">
+        update `comment` set praise_num = praise_num + #{praiseNum} where id = #{id}
     </update>
 
     <update id="updateReplyNum">

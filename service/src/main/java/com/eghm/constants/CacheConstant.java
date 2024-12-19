@@ -215,7 +215,7 @@ public class CacheConstant {
     /**
      * 文章点赞
      */
-    public static final String NEWS_GIVE_LIKE = "news_give_like:";
+    public static final String NEWS_PRAISE = "news_praise:";
 
     /**
      * 商品收藏=member_collect:collect_type:collect_id
@@ -225,7 +225,7 @@ public class CacheConstant {
     /**
      * 留言点赞
      */
-    public static final String COMMENT_GIVE_LIKE = "comment_give_like:";
+    public static final String COMMENT_PRAISE = "comment_praise:";
 
     /**
      * 商户绑定微信授权码

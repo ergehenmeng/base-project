@@ -35,7 +35,7 @@ public class CommentSecondVO {
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "点赞数量")
-    private Integer likeNum;
+    private Integer praiseNum;
 
     @ApiModelProperty(value = "回复id")
     private Long replyId;
@@ -62,5 +62,5 @@ public class CommentSecondVO {
     private String replyContent;
 
     @ApiModelProperty("是否已点赞")
-    private Boolean isLiked;
+    private Boolean hasPraise;
 }

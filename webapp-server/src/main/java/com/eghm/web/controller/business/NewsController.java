@@ -46,11 +46,11 @@ public class NewsController {
         return RespBody.success(detail);
     }
 
-    @PostMapping(value = "/giveLike", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/praise", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("点赞")
     @AccessToken
-    public RespBody<Void> giveLike(@RequestBody @Validated IdDTO dto) {
-        newsService.giveLike(dto.getId());
+    public RespBody<Void> praise(@RequestBody @Validated IdDTO dto) {
+        newsService.praise(dto.getId());
         return RespBody.success();
     }
 }

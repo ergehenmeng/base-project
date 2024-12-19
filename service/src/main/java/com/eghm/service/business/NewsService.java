@@ -80,7 +80,7 @@ public interface NewsService {
      *
      * @param id id
      */
-    void giveLike(Long id);
+    void praise(Long id);
 
     /**
      * 排序

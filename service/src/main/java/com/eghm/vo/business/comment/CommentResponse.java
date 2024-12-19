@@ -50,6 +50,6 @@ public class CommentResponse {
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "点赞数量")
-    private Integer likeNum;
+    private Integer praiseNum;
 
 }

@@ -32,11 +32,11 @@ public class CommentVO {
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "点赞数量")
-    private Integer likeNum;
+    private Integer praiseNum;
 
     @ApiModelProperty(value = "被评论次数")
     private Integer replyNum;
 
     @ApiModelProperty("是否已点赞")
-    private Boolean isLiked;
+    private Boolean hasPraise;
 }

@@ -12,7 +12,7 @@
             image,
             sort,
             comment_support,
-            like_num,
+            praise_num,
             create_time,
             update_time
         from news where deleted = false and code = #{param.code}
@@ -32,7 +32,7 @@
            depict,
            tag_name,
            image,
-           like_num,
+            praise_num,
            update_time
         from news where deleted = false and state = true
         <if test="queryName != null and queryName != ''">
@@ -41,8 +41,8 @@
         order by sort, id desc
     </select>
 
-    <update id="updateLikeNum">
-        update news set like_num = like_num + #{likeNum} where id = #{id}
+    <update id="updatePraiseNum">
+        update news set praise_num = praise_num + #{praiseNum} where id = #{id}
     </update>
 
     <select id="getList" resultType="com.eghm.vo.business.news.NewsVO">
