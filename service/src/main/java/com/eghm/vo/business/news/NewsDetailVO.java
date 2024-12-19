@@ -38,7 +38,7 @@ public class NewsDetailVO {
     private String video;
 
     @ApiModelProperty("点赞数量")
-    private Integer giveLike;
+    private Integer praiseNum;
 
     @ApiModelProperty("是否收藏")
     private Boolean collect;
@@ -48,7 +48,7 @@ public class NewsDetailVO {
     private LocalDateTime updateTime;
 
     @ApiModelProperty("是否已点赞")
-    private Boolean isLiked;
+    private Boolean hasPraise;
 
     @ApiModelProperty("是否支持评论")
     private Boolean commentSupport;

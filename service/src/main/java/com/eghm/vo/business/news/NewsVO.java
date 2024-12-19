@@ -36,10 +36,10 @@ public class NewsVO {
     private LocalDateTime updateTime;
 
     @ApiModelProperty("点赞数量")
-    private Integer likeNum;
+    private Integer praiseNum;
 
     @ApiModelProperty("是否已点赞")
-    private Boolean isLiked;
+    private Boolean hasPraise;
 
     @ApiModelProperty("状态 false:未上架 true:已上架")
     private Boolean state;

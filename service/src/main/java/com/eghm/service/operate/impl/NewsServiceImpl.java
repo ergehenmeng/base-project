@@ -89,7 +89,7 @@ public class NewsServiceImpl implements NewsService {
     public List<NewsVO> getByPage(PagingQuery query) {
         Page<NewsVO> byPage = newsMapper.getByPage(query.createPage(false), query.getQueryName());
         List<NewsVO> records = byPage.getRecords();
-        records.forEach(newsVO -> newsVO.setIsLiked(this.hasGiveLiked(newsVO.getId())));
+        records.forEach(newsVO -> newsVO.setHasPraise(hasPraise(newsVO.getId())));
         return records;
     }
 
@@ -101,7 +101,7 @@ public class NewsServiceImpl implements NewsService {
             throw new BusinessException(ErrorCode.NEWS_NULL);
         }
         NewsDetailVO vo = DataUtil.copy(news, NewsDetailVO.class);
-        vo.setIsLiked(this.hasGiveLiked(news.getId()));
+        vo.setHasPraise(hasPraise(news.getId()));
         vo.setCollect(memberCollectService.checkCollect(id, CollectType.NEWS));
         return vo;
     }
@@ -120,16 +120,16 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public void giveLike(Long id) {
+    public void praise(Long id) {
         Long memberId = ApiHolder.getMemberId();
-        String key = CacheConstant.NEWS_GIVE_LIKE + id;
+        String key = CacheConstant.NEWS_PRAISE + id;
         boolean isLiked = cacheService.getHashValue(key, memberId.toString()) != null;
         if (isLiked) {
             cacheService.deleteHashKey(key, memberId.toString());
-            newsMapper.updateLikeNum(id, -1);
+            newsMapper.updatePraiseNum(id, -1);
         } else {
             cacheService.setHashValue(key, memberId.toString(), CacheConstant.PLACE_HOLDER);
-            newsMapper.updateLikeNum(id, 1);
+            newsMapper.updatePraiseNum(id, 1);
         }
     }
 
@@ -147,12 +147,12 @@ public class NewsServiceImpl implements NewsService {
      * @param id 文章id
      * @return true: 点赞了, false: 未点赞
      */
-    private Boolean hasGiveLiked(Long id) {
+    private Boolean hasPraise(Long id) {
         Long memberId = ApiHolder.tryGetMemberId();
         if (memberId == null) {
             return false;
         }
-        return cacheService.getHashValue(CacheConstant.NEWS_GIVE_LIKE + id, memberId.toString()) != null;
+        return cacheService.getHashValue(CacheConstant.NEWS_PRAISE + id, memberId.toString()) != null;
     }
 
     /**

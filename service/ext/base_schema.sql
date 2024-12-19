@@ -363,7 +363,7 @@ CREATE TABLE `news`
     `content`         longtext COMMENT '详细信息',
     `video`           varchar(200)  DEFAULT NULL COMMENT '视频',
     `sort`            smallint(6)   DEFAULT '999' COMMENT '排序',
-    `like_num`        int(10)       DEFAULT '0' COMMENT '点赞数量',
+    `praise_num`      int(10)       DEFAULT '0' COMMENT '点赞数量',
     `state`           bit(1)        DEFAULT b'1' COMMENT '状态 0:隐藏 1:显示',
     `comment_support` bit(1)        DEFAULT b'0' COMMENT '是否支持评论 true:支持 false:不支持',
     `create_time`     datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
