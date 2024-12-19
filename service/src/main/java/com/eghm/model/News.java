@@ -29,6 +29,9 @@ public class News extends BaseEntity {
     @ApiModelProperty(value = "一句话描述信息")
     private String depict;
 
+    @ApiModelProperty(value = "标签列表")
+    private String tagName;
+
     @ApiModelProperty(value = "图集")
     private String image;
 

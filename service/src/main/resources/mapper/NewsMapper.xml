@@ -10,6 +10,7 @@
             image,
             sort,
             state,
+            tag_name,
             comment_support,
             like_num,
             create_time,
@@ -26,6 +27,7 @@
            id,
            title,
            depict,
+           tag_name,
            image,
            like_num,
            update_time
@@ -45,6 +47,7 @@
             id,
             title,
             depict,
+            tag_name,
             image,
             state,
             deleted

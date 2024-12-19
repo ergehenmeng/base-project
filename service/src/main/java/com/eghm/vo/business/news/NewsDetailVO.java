@@ -28,6 +28,9 @@ public class NewsDetailVO {
     @ApiModelProperty(value = "图集")
     private String image;
 
+    @ApiModelProperty(value = "标签列表")
+    private String tagName;
+
     @ApiModelProperty(value = "详细信息")
     private String content;
 

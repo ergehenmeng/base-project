@@ -22,6 +22,9 @@ public class NewsVO {
     @ApiModelProperty(value = "资讯标题")
     private String title;
 
+    @ApiModelProperty(value = "标签列表")
+    private String tagName;
+
     @ApiModelProperty(value = "一句话描述信息")
     private String depict;
 

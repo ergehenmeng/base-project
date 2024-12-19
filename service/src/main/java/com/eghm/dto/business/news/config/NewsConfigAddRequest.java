@@ -29,6 +29,9 @@ public class NewsConfigAddRequest {
     @NotNull(message = "是否包含标题不能为空")
     private Boolean includeTitle;
 
+    @ApiModelProperty(value = "是否包含标签", required = true)
+    private Boolean includeTag;
+
     @ApiModelProperty(value = "是否包含描述信息", required = true)
     private Boolean includeDepict;
 

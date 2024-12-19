@@ -61,6 +61,9 @@ public class NewsServiceImpl implements NewsService {
         if (CollUtil.isNotEmpty(request.getImageList())) {
             copy.setImage(CollUtil.join(request.getImageList(), CommonConstant.COMMA));
         }
+        if (CollUtil.isNotEmpty(request.getTagList())) {
+            copy.setTagName(CollUtil.join(request.getTagList(), CommonConstant.COMMA));
+        }
         newsMapper.insert(copy);
     }
 
@@ -70,6 +73,9 @@ public class NewsServiceImpl implements NewsService {
         News copy = DataUtil.copy(request, News.class);
         if (CollUtil.isNotEmpty(request.getImageList())) {
             copy.setImage(CollUtil.join(request.getImageList(), CommonConstant.COMMA));
+        }
+        if (CollUtil.isNotEmpty(request.getTagList())) {
+            copy.setTagName(CollUtil.join(request.getTagList(), CommonConstant.COMMA));
         }
         newsMapper.updateById(copy);
     }

@@ -26,6 +26,9 @@ public class NewsResponse {
     @ApiModelProperty(value = "图集")
     private String image;
 
+    @ApiModelProperty(value = "标签列表")
+    private String tagName;
+
     @ApiModelProperty(value = "排序")
     private Integer sort;
 
