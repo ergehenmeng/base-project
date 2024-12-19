@@ -89,7 +89,7 @@ public class NewsServiceImpl implements NewsService {
     public List<NewsVO> getByPage(PagingQuery query) {
         Page<NewsVO> byPage = newsMapper.getByPage(query.createPage(false), query.getQueryName());
         List<NewsVO> records = byPage.getRecords();
-        records.forEach(newsVO -> newsVO.setHasPraise(hasPraise(newsVO.getId())));
+        records.forEach(newsVO -> newsVO.setHasPraise(this.hasPraise(newsVO.getId())));
         return records;
     }
 
@@ -101,7 +101,7 @@ public class NewsServiceImpl implements NewsService {
             throw new BusinessException(ErrorCode.NEWS_NULL);
         }
         NewsDetailVO vo = DataUtil.copy(news, NewsDetailVO.class);
-        vo.setHasPraise(hasPraise(news.getId()));
+        vo.setHasPraise(this.hasPraise(news.getId()));
         vo.setCollect(memberCollectService.checkCollect(id, CollectType.NEWS));
         return vo;
     }
@@ -123,8 +123,8 @@ public class NewsServiceImpl implements NewsService {
     public void praise(Long id) {
         Long memberId = ApiHolder.getMemberId();
         String key = CacheConstant.NEWS_PRAISE + id;
-        boolean isLiked = cacheService.getHashValue(key, memberId.toString()) != null;
-        if (isLiked) {
+        boolean hasPraise = cacheService.getHashValue(key, memberId.toString()) != null;
+        if (hasPraise) {
             cacheService.deleteHashKey(key, memberId.toString());
             newsMapper.updatePraiseNum(id, -1);
         } else {
