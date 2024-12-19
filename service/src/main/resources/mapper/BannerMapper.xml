@@ -30,7 +30,7 @@
             and client_type = #{param.clientType}
         </if>
         <if test="param.middleTime != null">
-            and start_time &lt;= #{param.middleTime} and #{param.middleTime} &lt;= end_time
+            and #{param.middleTime} between start_time and end_time
         </if>
         <if test="param.queryName != null and param.queryName != ''">
             and title like concat('%',#{param.queryName, typeHandler=LikeTypeHandler},'%')
@@ -41,9 +41,9 @@
     <select id="getBannerList" resultType="com.eghm.vo.operate.banner.BannerVO" >
         select
         title, img_url, jump_url, click
-        from banner where state = true and
+        from banner where state = true
         <!-- 非实时性数据,直接取数据库时间,结束时间 <= now或者没有结束时间 开始时间大于当前时间, 由于移动端使用了缓存,因此在更新时需要刷新缓存 -->
-        start_time &lt;= now() and now() &lt;= end_time
+        and now() between start_time and end_time
         and client_type = #{clientType} and banner_type = #{bannerType} order by sort
     </select>
 
