@@ -23,6 +23,9 @@ public class NewsResponse {
     @ApiModelProperty(value = "一句话描述信息")
     private String depict;
 
+    @ApiModelProperty(value = "标签")
+    private String tagName;
+
     @ApiModelProperty(value = "图集")
     private String image;
 

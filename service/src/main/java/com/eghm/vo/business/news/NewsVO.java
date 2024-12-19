@@ -28,6 +28,9 @@ public class NewsVO {
     @ApiModelProperty(value = "图集")
     private String image;
 
+    @ApiModelProperty(value = "标签列表")
+    private String tagName;
+
     @ApiModelProperty("更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;

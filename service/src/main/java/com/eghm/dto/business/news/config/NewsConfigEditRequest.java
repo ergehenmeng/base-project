@@ -31,6 +31,9 @@ public class NewsConfigEditRequest {
     @ApiModelProperty(value = "是否包含描述信息", required = true)
     private Boolean includeDepict;
 
+    @ApiModelProperty(value = "是否包含标签", required = true)
+    private Boolean includeTag;
+
     @ApiModelProperty(value = "是否包含图集", required = true)
     private Boolean includeImage;
 

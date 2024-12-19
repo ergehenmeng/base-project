@@ -34,6 +34,9 @@ public class NewsDetailVO {
     @ApiModelProperty(value = "视频")
     private String video;
 
+    @ApiModelProperty(value = "标签列表")
+    private String tagName;
+
     @ApiModelProperty("点赞数量")
     private Integer giveLike;
 

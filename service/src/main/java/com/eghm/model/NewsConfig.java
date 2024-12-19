@@ -30,6 +30,9 @@ public class NewsConfig extends BaseEntity {
     @ApiModelProperty(value = "是否包含描述信息")
     private Boolean includeDepict;
 
+    @ApiModelProperty(value = "是否包含标签")
+    private Boolean includeTag;
+
     @ApiModelProperty(value = "是否包含图集")
     private Boolean includeImage;
 
