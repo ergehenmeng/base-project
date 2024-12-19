@@ -32,6 +32,9 @@ public class NewsResponse {
     @ApiModelProperty(value = "排序")
     private Integer sort;
 
+    @ApiModelProperty("资讯状态")
+    private Boolean state;
+
     @ApiModelProperty("点赞数量")
     private Integer likeNum;
 

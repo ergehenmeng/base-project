@@ -8,6 +8,7 @@
             title,
             depict,
             tag_name,
+            state,
             image,
             sort,
             comment_support,
@@ -17,6 +18,9 @@
         from news where deleted = false and code = #{param.code}
         <if test="param.queryName != null and param.queryName != ''">
             and title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
+        </if>
+        <if test="param.state != null" >
+            and state = #{param.state}
         </if>
         order by sort, id desc
     </select>
