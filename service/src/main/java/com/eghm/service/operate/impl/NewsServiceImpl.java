@@ -145,7 +145,7 @@ public class NewsServiceImpl implements NewsService {
      * 判断用户是否已对文章或资讯点赞过
      *
      * @param id 文章id
-     * @return true: 点赞了, 未点赞
+     * @return true: 点赞了, false: 未点赞
      */
     private Boolean hasGiveLiked(Long id) {
         Long memberId = ApiHolder.tryGetMemberId();
