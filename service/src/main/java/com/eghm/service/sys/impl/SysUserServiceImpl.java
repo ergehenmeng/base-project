@@ -200,7 +200,6 @@ public class SysUserServiceImpl implements SysUserService {
         return this.doLogin(user);
     }
 
-
     @Override
     public AuthPwdResponse authPwd(String userName, String password, String ip) {
         SysUser user = this.getAndCheckUser(userName, password);

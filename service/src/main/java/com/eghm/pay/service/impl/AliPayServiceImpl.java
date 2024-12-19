@@ -73,7 +73,6 @@ public class AliPayServiceImpl implements PayService {
             log.error("支付宝支付订单查询响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
             throw new BusinessException(ErrorCode.ORDER_QUERY_ERROR);
         }
-
         PayOrderVO vo = new PayOrderVO();
         vo.setAttach(response.getBody());
         vo.setPayerId(response.getBuyerUserId());
@@ -138,7 +137,6 @@ public class AliPayServiceImpl implements PayService {
         vo.setSuccessTime(DateUtil.parseLocalDateTime(response.getGmtRefundPay()));
         vo.setAmount(DecimalUtil.yuanToCent(response.getSendBackFee()));
         vo.setChannel(RefundChannel.ORIGINAL);
-
         if (REFUND_SUCCESS.equals(response.getRefundStatus())) {
             vo.setState(RefundStatus.SUCCESS);
         } else {

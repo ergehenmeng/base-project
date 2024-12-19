@@ -38,7 +38,6 @@ public class DataScopeInterceptor implements Interceptor {
         Object paramObject = args[1];
         RowBounds rowBounds = (RowBounds) args[2];
         ResultHandler resultHandler = (ResultHandler) args[3];
-
         Executor executor = (Executor) invocation.getTarget();
         Map<String, Object> paramMap;
         if (paramObject == null) {
