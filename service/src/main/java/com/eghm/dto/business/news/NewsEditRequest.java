@@ -34,7 +34,7 @@ public class NewsEditRequest {
     private String depict;
 
     @ApiModelProperty(value = "标签列表")
-    @Size(min = 3, message = "标签不能超过3个")
+    @Size(max = 3, message = "标签不能超过3个")
     private List<String> tagList;
 
     @ApiModelProperty(value = "图集")
