@@ -64,11 +64,11 @@ public class CommentController {
         return RespBody.success();
     }
 
-    @PostMapping(value = "/giveLike", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/praise", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("点赞")
     @AccessToken
-    public RespBody<Void> giveLike(@Validated @RequestBody IdDTO dto) {
-        commentService.giveLike(dto.getId());
+    public RespBody<Void> praise(@Validated @RequestBody IdDTO dto) {
+        commentService.praise(dto.getId());
         return RespBody.success();
     }
 

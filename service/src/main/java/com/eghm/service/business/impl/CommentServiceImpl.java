@@ -136,7 +136,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void giveLike(Long id) {
+    public void praise(Long id) {
         Long memberId = ApiHolder.getMemberId();
         String key = CacheConstant.COMMENT_PRAISE + id;
         boolean hasPraise = cacheService.getHashValue(key, memberId.toString()) != null;

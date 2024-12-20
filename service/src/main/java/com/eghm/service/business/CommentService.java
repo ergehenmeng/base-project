@@ -64,7 +64,7 @@ public interface CommentService {
      *
      * @param id id
      */
-    void giveLike(Long id);
+    void praise(Long id);
 
     /**
      * 屏蔽评论或取消屏蔽
