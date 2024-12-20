@@ -9,8 +9,8 @@
             <if test="param.queryName != null and param.queryName != ''">
                 and (t.url like concat('%',#{param.queryName, typeHandler=LikeTypeHandler },'%') or
                 t.ip like concat('%',#{param.queryName, typeHandler=LikeTypeHandler},'%') or
-                r.nick_name like concat('%',#{param.extName, typeHandler=LikeTypeHandler},'%') or
-                r.mobile like concat('%',#{param.extName, typeHandler=LikeTypeHandler},'%'))
+                r.nick_name like concat('%',#{param.queryName, typeHandler=LikeTypeHandler},'%') or
+                r.mobile like concat('%',#{param.queryName, typeHandler=LikeTypeHandler},'%'))
             </if>
             <if test="param.startTime != null">
                 and t.create_time &gt;= #{param.startTime}
