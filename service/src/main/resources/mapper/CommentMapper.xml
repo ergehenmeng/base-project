@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.mapper.CommentMapper">
+
+    <select id="listPage" resultType="com.eghm.vo.operate.comment.CommentResponse" parameterType="com.eghm.dto.operate.comment.CommentQueryRequest">
+        select
+            t.id,
+            t.content,
+            t.state,
+            t.top_state,
+            t.report_num,
+            t.reply_num,
+            t.object_id,
+            t.object_type,
+            t.create_time,
+            t.praise_num,
+            m.nick_name,
+            m.avatar
+        from comment t
+        left join `member` m on t.member_id = m.id
+        where t.deleted = false
+        <if test="param.objectType != null">
+            and t.object_type = #{param.objectType}
+        </if>
+        <if test="param.state != null">
+            and t.state = #{param.state}
+        </if>
+        <if test="param.topState != null">
+            and t.top_state = #{param.topState}
+        </if>
+        <if test="param.objectIds != null and param.objectIds.size() > 0 ">
+            and t.object_id in
+            <foreach collection="param.objectIds" item="item" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        order by t.id desc
+    </select>
+
+    <select id="getByPage" resultType="com.eghm.vo.operate.comment.CommentVO">
+        select
+        t.id,
+        t.content,
+        t.create_time,
+        t.praise_num,
+        t.reply_num,
+        m.nick_name,
+        m.avatar
+        from comment t
+        left join `member` m on t.member_id = m.id
+        where t.deleted = false and t.state = true and t.report_num &lt;= #{shieldNum} and t.object_id = #{objectId} and t.pid is null
+        order by t.top_state desc, t.praise_num desc, t.id desc
+    </select>
+
+    <select id="getSecondPage" resultType="com.eghm.vo.operate.comment.CommentSecondVO">
+        select
+        t.id,
+        t.pid,
+        t.content,
+        t.create_time,
+        t.praise_num,
+        t.reply_num,
+        t.reply_id,
+        t.top_state,
+        m.nick_name,
+        m.avatar,
+        c.deleted as reply_deleted,
+        c.state as reply_state,
+        c.content as reply_content,
+        n.nick_name as reply_nick_name,
+        n.avatar as reply_avatar
+        from comment t
+        left join `member` m on t.member_id = m.id
+        left join comment c on t.reply_id = c.id
+        left join `member` n on c.member_id = n.id
+        where t.deleted = false and t.state = true and t.report_num &lt;= #{shieldNum} and t.object_id = #{objectId}
+        <if test="pid != null">
+            and t.pid = #{pid}
+        </if>
+        order by t.top_state desc, t.praise_num desc, t.id desc
+    </select>
+
+    <update id="updatePraiseNum">
+        update `comment` set praise_num = praise_num + #{praiseNum} where id = #{id}
+    </update>
+
+    <update id="updateReplyNum">
+        update `comment` set reply_num = reply_num + #{num} where id = #{id} and reply_num + #{num} &gt;= 0
+    </update>
+</mapper>

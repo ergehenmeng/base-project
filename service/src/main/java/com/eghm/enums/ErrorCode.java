@@ -586,6 +586,11 @@ public enum ErrorCode {
     NOTICE_NOT_FOUND(2504, "公告信息未查询到"),
 
     /**
+     * 该资讯不支持评论
+     */
+    NEWS_COMMENT_FORBID(2590, "该资讯不支持评论"),
+
+    /**
      * 资讯配置删除啦~
      */
     NEWS_CONFIG_NOT_EXIST(3098, "资讯配置删除啦~"),

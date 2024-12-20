@@ -17,6 +17,11 @@ public class ConfigConstant {
     public static final String OPERATION_LOG_SWITCH = "operation_log_switch";
 
     /**
+     * 留言被举报多少次自动屏蔽留言
+     */
+    public static final String COMMENT_REPORT_SHIELD = "comment_report_shield";
+
+    /**
      * 昵称前缀
      */
     public static final String NICK_NAME_PREFIX = "nick_name_prefix";
