@@ -42,9 +42,9 @@ public interface AuthConfigService {
     void deleteById(Long id);
 
     /**
-     * 刷新秘钥
+     * 重置秘钥
      *
      * @param id id
      */
-    void refresh(Long id);
+    void reset(Long id);
 }

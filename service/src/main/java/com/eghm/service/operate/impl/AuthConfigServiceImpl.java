@@ -71,7 +71,7 @@ public class AuthConfigServiceImpl implements AuthConfigService {
     }
 
     @Override
-    public void refresh(Long id) {
+    public void reset(Long id) {
         AuthConfig config = authConfigMapper.selectById(id);
         if (config == null) {
             throw new BusinessException(ErrorCode.AUTH_NOT_EXIST);

@@ -59,7 +59,7 @@ public class AuthConfigController {
     @PostMapping(value = "/reset", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("重置秘钥")
     public RespBody<Void> reset(@Validated @RequestBody IdDTO dto) {
-        authConfigService.refresh(dto.getId());
+        authConfigService.reset(dto.getId());
         return RespBody.success();
     }
 }
