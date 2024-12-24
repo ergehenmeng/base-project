@@ -23,7 +23,7 @@ public interface JsonService {
      *
      * @param json json字符串
      * @param cls  对象类型
-     * @param <T>  <T>
+     * @param <T>  <T> T
      * @return obj
      */
     <T> T fromJson(String json, Class<T> cls);
@@ -33,7 +33,7 @@ public interface JsonService {
      *
      * @param json      json
      * @param reference 泛型指定类型
-     * @param <T>       <T>
+     * @param <T>       <T> T
      * @return obj
      */
     <T> T fromJson(String json, TypeReference<T> reference);
@@ -43,7 +43,7 @@ public interface JsonService {
      *
      * @param json json
      * @param cls  cls
-     * @param <T>  <T>
+     * @param <T>  <T> T
      * @return list
      */
     <T> List<T> fromJsonList(String json, Class<T> cls);

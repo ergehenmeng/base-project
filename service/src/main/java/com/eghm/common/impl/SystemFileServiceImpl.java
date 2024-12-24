@@ -24,7 +24,7 @@ import static com.eghm.constants.CommonConstant.DAY_MAX_UPLOAD;
 /**
  * 保存文件路径格式=根路径+公共路径+文件分类路径+日期+文件名+后缀<br>
  * 返回给调用方的文件地址=公共路径+文件分类路径+日期+文件名+后缀<br>
- * <h4>说明</h4>
+ * <p>说明</p>
  * 根路径由{@link SystemProperties#getUploadPath()}决定<br>
  * 公共路径默认/resource/ 方便nginx或服务做静态资源拦截映射<br>
  * 日期默认yyyyMMdd<br>

@@ -12,6 +12,7 @@ public interface WeChatMiniService {
      * 微信小程序授权获取手机号
      *
      * @param jsCode jsCode
+     * @return 手机号
      */
     String authMobile(String jsCode);
 

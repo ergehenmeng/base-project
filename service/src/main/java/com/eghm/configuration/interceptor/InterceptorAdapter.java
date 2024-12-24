@@ -30,6 +30,7 @@ public interface InterceptorAdapter extends HandlerInterceptor {
      * @param response response
      * @param handler  handler
      * @return default true
+     * @throws IOException e
      */
     boolean beforeHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException;
 

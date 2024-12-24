@@ -18,6 +18,7 @@ public @interface HandlerMark {
 
     /**
      * 执行链分类标示符
+     * @return 分类标示符
      */
     HandlerEnum value();
 }

@@ -76,6 +76,7 @@ public interface MemberService {
      * 忘记密码发送验证码
      *
      * @param mobile 手机号码
+     * @param ip     ip地址
      */
     void sendForgetSms(String mobile, String ip);
 
@@ -83,6 +84,7 @@ public interface MemberService {
      * 注册发送验证码
      *
      * @param mobile 手机号码
+     * @param ip     ip地址
      */
     void registerSendSms(String mobile, String ip);
 

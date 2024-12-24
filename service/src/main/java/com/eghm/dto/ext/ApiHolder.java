@@ -45,6 +45,7 @@ public class ApiHolder {
 
     /**
      * 强制获取用户信息
+     * @return 用户id
      */
     public static Long getMemberId() {
         return getMemberId(true);
