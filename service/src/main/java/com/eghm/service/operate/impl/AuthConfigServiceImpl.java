@@ -47,14 +47,7 @@ public class AuthConfigServiceImpl implements AuthConfigService {
     public void create(AuthConfigAddRequest request) {
         this.redoTitle(request.getTitle(), null);
         AuthConfig config = DataUtil.copy(request, AuthConfig.class);
-        config.setAppKey(IdUtil.fastSimpleUUID());
-        if (request.getSignType() == SignType.RSA) {
-            RSA rsa = SecureUtil.rsa();
-            config.setPublicKey(rsa.getPublicKeyBase64());
-            config.setPrivateKey(rsa.getPrivateKeyBase64());
-        } else {
-            config.setPrivateKey(StringUtil.random(64));
-        }
+        this.generateSecretKey(config);
         // 不填,默认有效期一年
         if (config.getExpireDate() == null) {
             config.setExpireDate(LocalDate.now().plusYears(1));
@@ -75,6 +68,31 @@ public class AuthConfigServiceImpl implements AuthConfigService {
     public void deleteById(Long id) {
         authConfigMapper.deleteById(id);
         clearCacheService.clearAuthConfig();
+    }
+
+    @Override
+    public void refresh(Long id) {
+        AuthConfig config = authConfigMapper.selectById(id);
+        if (config == null) {
+            throw new BusinessException(ErrorCode.AUTH_NOT_EXIST);
+        }
+        this.generateSecretKey(config);
+        authConfigMapper.updateById(config);
+    }
+
+    /**
+     * 生成密钥
+     * @param config config
+     */
+    private void generateSecretKey(AuthConfig config) {
+        config.setAppKey(IdUtil.fastSimpleUUID());
+        if (config.getSignType() == SignType.RSA) {
+            RSA rsa = SecureUtil.rsa();
+            config.setPublicKey(rsa.getPublicKeyBase64());
+            config.setPrivateKey(rsa.getPrivateKeyBase64());
+        } else {
+            config.setPrivateKey(StringUtil.random(64));
+        }
     }
 
     /**

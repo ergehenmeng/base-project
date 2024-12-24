@@ -576,6 +576,11 @@ public enum ErrorCode {
     AUTH_TITLE_REDO(2747, "单位名称重复啦"),
 
     /**
+     * 授权信息未查询到
+     */
+    AUTH_NOT_EXIST(2748, "授权信息未查询到"),
+
+    /**
      * 访问渠道不能为空
      */
     CHANNEL_NULL(3050, "访问渠道不能为空"),

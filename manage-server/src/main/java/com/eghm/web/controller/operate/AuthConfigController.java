@@ -2,11 +2,11 @@ package com.eghm.web.controller.operate;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.operate.auth.AuthConfigAddRequest;
 import com.eghm.dto.operate.auth.AuthConfigEditRequest;
 import com.eghm.dto.operate.auth.AuthConfigQueryRequest;
-import com.eghm.dto.ext.PageData;
-import com.eghm.dto.ext.RespBody;
 import com.eghm.service.operate.AuthConfigService;
 import com.eghm.vo.operate.auth.AuthConfigResponse;
 import io.swagger.annotations.Api;
@@ -53,6 +53,13 @@ public class AuthConfigController {
     @ApiOperation("删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         authConfigService.deleteById(dto.getId());
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/reset", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("重置秘钥")
+    public RespBody<Void> reset(@Validated @RequestBody IdDTO dto) {
+        authConfigService.refresh(dto.getId());
         return RespBody.success();
     }
 }
