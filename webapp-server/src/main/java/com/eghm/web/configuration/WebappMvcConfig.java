@@ -9,7 +9,7 @@ import com.eghm.service.sys.BlackRosterService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
 import com.eghm.web.configuration.interceptor.MessageInterceptor;
-import com.eghm.web.configuration.interceptor.SignCheckInterceptor;
+import com.eghm.web.configuration.interceptor.AccessSignInterceptor;
 import com.eghm.web.configuration.interceptor.SubmitIntervalInterceptor;
 import com.eghm.web.configuration.interceptor.TokenInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -54,7 +54,7 @@ public class WebappMvcConfig extends WebMvcConfig {
     public void addInterceptors(@NonNull InterceptorRegistry registry) {
         String[] notifyUrl = new String[]{CommonConstant.ALI_PAY_NOTIFY_URL, CommonConstant.ALI_REFUND_NOTIFY_URL, CommonConstant.WECHAT_PAY_NOTIFY_URL, CommonConstant.WECHAT_REFUND_NOTIFY_URL};
         registry.addInterceptor(messageInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 5);
-        registry.addInterceptor(signCheckInterceptor()).order(Integer.MIN_VALUE + 10);
+        registry.addInterceptor(accessSignInterceptor()).order(Integer.MIN_VALUE + 10);
         registry.addInterceptor(tokenInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 15);
         registry.addInterceptor(submitIntervalInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 30);
     }
@@ -92,8 +92,8 @@ public class WebappMvcConfig extends WebMvcConfig {
      * 请求基础信息收集拦截器
      */
     @Bean
-    public HandlerInterceptor signCheckInterceptor() {
-        return new SignCheckInterceptor(cacheProxyService);
+    public HandlerInterceptor accessSignInterceptor() {
+        return new AccessSignInterceptor(cacheProxyService);
     }
 
     /**

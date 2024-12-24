@@ -130,8 +130,8 @@
 * `@WordChecker` 是敏感词校验注解
 * `@Desensitization` 脱敏注解,添加到需要进行脱敏的字段上, 例如: `@Desensitization(FieldType.MOBILE_PHONE)`
 * 签名功能, 目前支持 `MD5` `RSA` 两种, 在管理后台 `授权管理` 增加第三方商户信息, 同时将生成的 `appKey` 和 `appSecret`
-  给第三方, 第三方在请求接口时,需要在请求头带上 `appKey` 、 `signature` `timestmap` 三个字段. 目前 `@SignCheck`
-  只支持 `POST` 请求, 可在 `SignCheckInterceptor` 拦截器中进行二次扩展:
+  给第三方, 第三方在请求接口时,需要在请求头带上 `appKey` 、 `signature` `timestmap` 三个字段. 目前 `@AccessSign`
+  只支持 `POST` 请求, 可在 `AccessSignInterceptor` 拦截器中进行二次扩展:
     * `MD5` **`signature`=MD5(appSecret=`appSecret`&data=(Base64(`requestBody`))&timestamp=`timestamp`)**
       其中 `requestBody` 是 post请求体中的数据, `timestamp` 是当前时间(毫秒). 注意:即使请求体为空也需要带上 `data` 字段
     * `RSA` **`signature`=SHA256withRSA(data=Base64(`requestBody`)&timestamp=`timestamp`)** 其中 `requestBody` 是

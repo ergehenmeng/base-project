@@ -18,7 +18,7 @@ import com.eghm.enums.SignType;
 import com.eghm.exception.BusinessException;
 import com.eghm.utils.WebUtil;
 import com.eghm.vo.operate.auth.AuthConfigVO;
-import com.eghm.web.annotation.SignCheck;
+import com.eghm.web.annotation.AccessSign;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
@@ -37,13 +37,13 @@ import java.util.TreeMap;
  */
 @Slf4j
 @AllArgsConstructor
-public class SignCheckInterceptor implements InterceptorAdapter {
+public class AccessSignInterceptor implements InterceptorAdapter {
 
     private final CacheProxyService cacheProxyService;
 
     @Override
     public boolean beforeHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        SignCheck check = this.getAnnotation(handler, SignCheck.class);
+        AccessSign check = this.getAnnotation(handler, AccessSign.class);
         if (check == null || !HttpMethod.POST.matches(request.getMethod())) {
             return true;
         }

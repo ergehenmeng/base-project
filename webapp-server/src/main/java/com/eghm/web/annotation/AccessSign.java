@@ -1,7 +1,7 @@
 package com.eghm.web.annotation;
 
 import com.eghm.enums.SignType;
-import com.eghm.web.configuration.interceptor.SignCheckInterceptor;
+import com.eghm.web.configuration.interceptor.AccessSignInterceptor;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -17,12 +17,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  *
  * @author 二哥很猛
  * @since 2023/10/20 19:04
- * @see SignCheckInterceptor 登陆校验规则
+ * @see AccessSignInterceptor 登陆校验规则
  */
 @Documented
 @Target({METHOD, TYPE})
 @Retention(RUNTIME)
-public @interface SignCheck {
+public @interface AccessSign {
 
     /**
      * 签名方式
