@@ -26,7 +26,7 @@ public abstract class AbstractIgnoreFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(@NonNull HttpServletRequest request) {
-        return this.anyMatch(exclude, request);
+        return exclude.stream().anyMatch(url -> matcher.match(url, request.getRequestURI()));
     }
 
     /**
@@ -36,17 +36,6 @@ public abstract class AbstractIgnoreFilter extends OncePerRequestFilter {
      */
     public void exclude(@NonNull String... matchUrl) {
         exclude.addAll(Lists.newArrayList(matchUrl));
-    }
-
-    /**
-     * 根据给定的url列表, 确认请求url是否在指定url列表中
-     *
-     * @param urlList url列表
-     * @param request 请求request
-     * @return boolean  true:在urlList, false:不在
-     */
-    protected boolean anyMatch(List<String> urlList, HttpServletRequest request) {
-        return urlList.stream().anyMatch(url -> matcher.match(url, request.getRequestURI()));
     }
 
 }
