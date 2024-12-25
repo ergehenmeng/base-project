@@ -41,6 +41,7 @@ public class BannerAddRequest {
     private String imgUrl;
 
     @ApiModelProperty(value = "点击后跳转的地址")
+    @Size(max = 100, message = "跳转地址长度不能超过100")
     private String jumpUrl;
 
     @ApiModelProperty(value = "开始展示时间(可在指定时间后开始展示)")
@@ -58,6 +59,7 @@ public class BannerAddRequest {
 
     @ApiModelProperty(value = "备注信息")
     @WordChecker(message = "备注信息存在敏感词")
+    @Size(max = 100, message = "备注信息长度不能超过100")
     private String remark;
 
 }

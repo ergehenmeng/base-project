@@ -6,9 +6,11 @@ import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 /**
@@ -43,6 +45,7 @@ public class BannerEditRequest {
     private String imgUrl;
 
     @ApiModelProperty(value = "点击后跳转的地址")
+    @Size(max = 100, message = "跳转地址长度不能超过100")
     private String jumpUrl;
 
     @ApiModelProperty(value = "开始展示时间(可在指定时间后开始展示)")
@@ -60,5 +63,6 @@ public class BannerEditRequest {
 
     @ApiModelProperty(value = "备注信息")
     @WordChecker(message = "备注信息存在敏感词")
+    @Size(max = 100, message = "备注信息长度不能超过100")
     private String remark;
 }
