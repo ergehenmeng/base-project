@@ -1,11 +1,6 @@
-/api-web/target
-/common/target
-/manage-web/target
+/webapp-server/target
+/manage-server/target
 /service/target
 /*.iml
 /service/*.iml
 /.idea
-/dao/target
-/model/target
-/cron-job/*.iml
-/*.log

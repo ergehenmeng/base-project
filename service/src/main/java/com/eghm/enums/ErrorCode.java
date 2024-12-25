@@ -231,11 +231,6 @@ public enum ErrorCode {
     SMS_NOT_SUPPORTED(2073, "不支持手机号登录"),
 
     /**
-     * 不支持密码+手机号登录
-     */
-    PWD_SMS_NOT_SUPPORTED(2074, "不支持密码+手机号登录"),
-
-    /**
      * 不支持账号密码登录
      */
     PWD_NOT_SUPPORTED(2075, "不支持账号密码登录"),

@@ -7,12 +7,12 @@ import lombok.Getter;
  * @author 二哥很猛
  * @since 2019/9/6 14:54
  */
+@Getter
 public class CronTaskDecorator extends org.springframework.scheduling.config.CronTask {
 
     /**
      * 任务的唯一id用于打印日志等
      */
-    @Getter
     private final String nid;
 
     CronTaskDecorator(CronTask config) {

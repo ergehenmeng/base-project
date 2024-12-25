@@ -65,7 +65,7 @@ public class SysConfigApi {
         try {
             return Integer.parseInt(value);
         } catch (Exception e) {
-            log.warn("系统参数转int异常 [{}]", value);
+            log.warn("系统参数转int异常(无默认值) [{}]", value);
             return 0;
         }
     }
@@ -82,7 +82,7 @@ public class SysConfigApi {
         try {
             return Integer.parseInt(value);
         } catch (Exception e) {
-            log.warn("系统参数转int异常 [{}]", value);
+            log.warn("系统参数转int异常(有默认值) [{}]", value);
             return defaultValue;
         }
     }
@@ -98,7 +98,7 @@ public class SysConfigApi {
         try {
             return Long.parseLong(value);
         } catch (Exception e) {
-            log.warn("系统参数转long异常 [{}]", value);
+            log.warn("系统参数转long异常(无默认值) [{}]", value);
             return 0L;
         }
     }
@@ -115,7 +115,7 @@ public class SysConfigApi {
         try {
             return Long.parseLong(value);
         } catch (Exception e) {
-            log.warn("系统参数转long异常 [{}]", value);
+            log.warn("系统参数转long异常(有默认值) [{}]", value);
             return defaultValue;
         }
     }
