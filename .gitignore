@@ -2,5 +2,5 @@
 /manage-server/target
 /service/target
 /*.iml
-/service/*.iml
+/**/*.iml
 /.idea
