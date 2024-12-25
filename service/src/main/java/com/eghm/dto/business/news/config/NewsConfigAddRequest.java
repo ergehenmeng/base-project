@@ -30,12 +30,15 @@ public class NewsConfigAddRequest {
     private Boolean includeTitle;
 
     @ApiModelProperty(value = "是否包含标签", required = true)
+    @NotNull(message = "是否包含标签不能为空")
     private Boolean includeTag;
 
     @ApiModelProperty(value = "是否包含描述信息", required = true)
+    @NotNull(message = "是否包含描述信息不能为空")
     private Boolean includeDepict;
 
     @ApiModelProperty(value = "是否包含图集", required = true)
+    @NotNull(message = "是否包含图集不能为空")
     private Boolean includeImage;
 
     @ApiModelProperty(value = "是否包含详细信息", required = true)
@@ -43,5 +46,6 @@ public class NewsConfigAddRequest {
     private Boolean includeContent;
 
     @ApiModelProperty(value = "是否包含视频", required = true)
+    @NotNull(message = "是否包含视频不能为空")
     private Boolean includeVideo;
 }
