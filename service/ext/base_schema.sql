@@ -424,7 +424,7 @@ CREATE TABLE `pay_notify_log`
     `trade_no`    varchar(30)         DEFAULT NULL COMMENT '交易流水号',
     `refund_no`   varchar(30)         DEFAULT NULL COMMENT '退款流水号',
     `params`      text COMMENT '退款通知原始参数',
-    `state`       tinyint(1) unsigned DEFAULT '0' COMMENT '发送状态 0:未回访 1:回放成功 2:回放失败',
+    `state`       tinyint(1) unsigned DEFAULT '0' COMMENT '发送状态 0:未回放 1:回放成功',
     `create_time` datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`     bit(1)              DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
