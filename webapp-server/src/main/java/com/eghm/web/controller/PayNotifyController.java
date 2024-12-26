@@ -48,11 +48,9 @@ public class PayNotifyController {
         Map<String, String> stringMap = this.parseAliRequest(request);
         aliPayService.verifyNotify(stringMap);
         payNotifyLogService.insertAliLog(stringMap, StepType.PAY);
-
         String orderNo = stringMap.get("body");
         String tradeNo = stringMap.get("out_trade_no");
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
-
         return this.aliResult(() -> log.error("支付宝支付回调: [{}] [{}]", orderNo, tradeNo));
     }
 
@@ -62,11 +60,9 @@ public class PayNotifyController {
         Map<String, String> stringMap = this.parseAliRequest(request);
         aliPayService.verifyNotify(stringMap);
         payNotifyLogService.insertAliLog(stringMap, StepType.REFUND);
-
         String refundNo = stringMap.get("out_biz_no");
         String tradeNo = stringMap.get("out_trade_no");
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
-
         return this.aliResult(() -> log.error("支付宝退款回调: [{}] [{}]", refundNo, tradeNo));
     }
 
@@ -76,7 +72,6 @@ public class PayNotifyController {
         SignatureHeader header = this.parseWechatHeader(httpHeader);
         WxPayNotifyV3Result payNotify = wechatPayService.parsePayNotify(requestBody, header);
         payNotifyLogService.insertWechatPayLog(payNotify);
-
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         String orderNo = payNotify.getResult().getAttach();
         return this.wechatResult(response, () ->  log.error("微信支付回调: [{}] ", orderNo));
@@ -88,10 +83,8 @@ public class PayNotifyController {
         SignatureHeader header = this.parseWechatHeader(httpHeader);
         WxPayRefundNotifyV3Result payNotify = wechatPayService.parseRefundNotify(requestBody, header);
         payNotifyLogService.insertWechatRefundLog(payNotify);
-
         String refundNo = payNotify.getResult().getOutRefundNo();
         String tradeNo = payNotify.getResult().getOutTradeNo();
-
         return this.wechatResult(response, () -> log.error("微信退款回调: [{}] [{}]", refundNo, tradeNo));
     }
 
