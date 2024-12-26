@@ -75,9 +75,9 @@ public class SysDeptServiceImpl implements SysDeptService {
     /**
      * 判断部门是否重复
      *
-     * @param title 部门名称
+     * @param title      部门名称
      * @param parentCode 父节点
-     * @param id id
+     * @param id         id
      */
     private void redoTitle(String title, String parentCode, Long id) {
         LambdaQueryWrapper<SysDept> wrapper = Wrappers.lambdaQuery();
@@ -117,10 +117,9 @@ public class SysDeptServiceImpl implements SysDeptService {
      * @return 菜单列表 树状结构
      */
     private List<SysDeptResponse> treeBin(String code, List<SysDeptResponse> menuList) {
-        return menuList.stream()
-                .filter(parent -> Objects.equals(code, parent.getParentCode()))
-                .peek(parent -> parent.setChildren(this.treeBin(parent.getCode(), menuList)))
-                .collect(Collectors.toList());
+        List<SysDeptResponse> responseList = menuList.stream().filter(parent -> Objects.equals(code, parent.getParentCode())).collect(Collectors.toList());
+        responseList.forEach(parent -> parent.setChildren(this.treeBin(parent.getCode(), menuList)));
+        return responseList;
     }
 
 }

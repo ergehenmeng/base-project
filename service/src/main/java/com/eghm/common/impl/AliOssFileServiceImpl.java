@@ -62,11 +62,12 @@ public class AliOssFileServiceImpl implements FileService {
      * @return folder/uuid.txt
      */
     private String generateFileName(MultipartFile file, String folder) {
-        if (file.getOriginalFilename() == null) {
+        String fileName = file.getOriginalFilename();
+        if (fileName == null) {
             throw new BusinessException(ErrorCode.FILE_NAME_NOT_FOUND);
         }
-        int index = file.getOriginalFilename().lastIndexOf(".");
-        String suffix = file.getOriginalFilename().substring(index);
+        int index = fileName.lastIndexOf(".");
+        String suffix = fileName.substring(index);
         return folder + "/" + UUID.randomUUID() + suffix;
     }
 
