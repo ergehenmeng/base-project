@@ -19,11 +19,6 @@ public enum Env {
     PROD,
 
     /**
-     * 灰度环境
-     */
-    PRE,
-
-    /**
      * 测试环境
      */
     TEST,

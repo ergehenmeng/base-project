@@ -15,24 +15,15 @@ import lombok.Getter;
 public enum SelectType implements EnumBinder<String> {
 
     /**
-     * 按周查询
+     * 按天查询
      */
-    WEEK("week", "周"),
+    DAY("day", "天"),
 
     /**
      * 按月查询
      */
     MONTH("month", "月"),
-
-    /**
-     * 按年查询
-     */
-    YEAR("year", "年"),
-
-    /**
-     * 自定义
-     */
-    CUSTOM("custom", "自定义");
+    ;
 
     @JsonValue
     @EnumValue
