@@ -1,9 +1,12 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.pay.PayLogQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ErrorCode;
+import com.eghm.model.PayNotifyLog;
 import com.eghm.pay.service.PayNotifyLogService;
 import com.eghm.pay.service.PayRequestLogService;
 import com.eghm.vo.operate.log.PayNotifyLogResponse;
@@ -11,15 +14,16 @@ import com.eghm.vo.operate.log.PayRequestLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author wyb
  * @since 2023/6/13
  */
+@Slf4j
 @RestController
 @Api(tags = "支付日志")
 @AllArgsConstructor
@@ -44,4 +48,18 @@ public class PayLogController {
         return RespBody.success(PageData.toPage(logPage));
     }
 
+    @PostMapping("/async/playback")
+    @ApiOperation("异步回调回放")
+    public RespBody<Void> playback(@RequestBody @Validated IdDTO dto) {
+        PayNotifyLog notifyLog = payNotifyLogService.selectById(dto.getId());
+        if (notifyLog == null) {
+            return RespBody.error(ErrorCode.NOTIFY_LOG_NULL);
+        }
+        if (notifyLog.getState() == 1) {
+            return RespBody.error(ErrorCode.NOTIFY_CALLBACK_SUCCESS);
+        }
+        log.info("待补全异步回调回放逻辑, id:[{}]", dto.getId());
+        payNotifyLogService.playbackSuccess(dto.getId());
+        return RespBody.success();
+    }
 }

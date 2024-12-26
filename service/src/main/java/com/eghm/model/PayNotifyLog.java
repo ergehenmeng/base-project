@@ -38,4 +38,6 @@ public class PayNotifyLog extends BaseEntity {
     @ApiModelProperty(value = "通知原始参数")
     private String params;
 
+    @ApiModelProperty(value = "发送状态 0:未回放 1:回放成功")
+    private Integer state;
 }

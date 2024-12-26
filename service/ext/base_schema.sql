@@ -418,15 +418,16 @@ DROP TABLE IF EXISTS `pay_notify_log`;
 CREATE TABLE `pay_notify_log`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
-    `pay_channel` varchar(30) DEFAULT NULL COMMENT '交易方式 WECHAT:微信 ALI_PAY:支付宝',
-    `notify_id`   varchar(50) DEFAULT NULL COMMENT '异步通知唯一ID',
-    `step_type`   varchar(30) DEFAULT NULL COMMENT '通知类型 PAY: 支付异步通知 REFUND:退款异步通知',
-    `trade_no`    varchar(30) DEFAULT NULL COMMENT '交易流水号',
-    `refund_no`   varchar(30) DEFAULT NULL COMMENT '退款流水号',
+    `pay_channel` varchar(30)         DEFAULT NULL COMMENT '交易方式 WECHAT:微信 ALI_PAY:支付宝',
+    `notify_id`   varchar(50)         DEFAULT NULL COMMENT '异步通知唯一ID',
+    `step_type`   varchar(30)         DEFAULT NULL COMMENT '通知类型 PAY: 支付异步通知 REFUND:退款异步通知',
+    `trade_no`    varchar(30)         DEFAULT NULL COMMENT '交易流水号',
+    `refund_no`   varchar(30)         DEFAULT NULL COMMENT '退款流水号',
     `params`      text COMMENT '退款通知原始参数',
-    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `state`       tinyint(1) unsigned DEFAULT '0' COMMENT '发送状态 0:未回访 1:回放成功 2:回放失败',
+    `create_time` datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)              DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
     UNIQUE KEY `pn_idx` (`pay_channel`, `notify_id`) USING BTREE
 ) ENGINE = InnoDB

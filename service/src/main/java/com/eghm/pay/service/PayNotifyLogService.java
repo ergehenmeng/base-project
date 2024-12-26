@@ -2,6 +2,7 @@ package com.eghm.pay.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.pay.PayLogQueryRequest;
+import com.eghm.model.PayNotifyLog;
 import com.eghm.pay.enums.StepType;
 import com.eghm.vo.operate.log.PayNotifyLogResponse;
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
@@ -44,4 +45,19 @@ public interface PayNotifyLogService {
      * @param result 通知原始数据
      */
     void insertWechatRefundLog(WxPayRefundNotifyV3Result result);
+
+    /**
+     * 根据id查询异步回调信息
+     *
+     * @param id id
+     * @return 异步回调
+     */
+    PayNotifyLog selectById(Long id);
+
+    /**
+     * 修改异步回调状态
+     *
+     * @param id id
+     */
+    void playbackSuccess(Long id);
 }

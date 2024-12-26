@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.pay.PayLogQueryRequest;
 import com.eghm.mapper.PayNotifyLogMapper;
 import com.eghm.model.PayNotifyLog;
-import com.eghm.pay.service.PayNotifyLogService;
 import com.eghm.pay.enums.PayChannel;
 import com.eghm.pay.enums.StepType;
+import com.eghm.pay.service.PayNotifyLogService;
 import com.eghm.vo.operate.log.PayNotifyLogResponse;
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
@@ -75,5 +75,18 @@ public class PayNotifyLogServiceImpl implements PayNotifyLogService {
         log.setRefundNo(notifyResult.getOutRefundNo());
         log.setNotifyId(result.getRawData().getId());
         payNotifyLogMapper.insert(log);
+    }
+
+    @Override
+    public PayNotifyLog selectById(Long id) {
+        return payNotifyLogMapper.selectById(id);
+    }
+
+    @Override
+    public void playbackSuccess(Long id) {
+        PayNotifyLog log = new PayNotifyLog();
+        log.setId(id);
+        log.setState(1);
+        payNotifyLogMapper.updateById(log);
     }
 }

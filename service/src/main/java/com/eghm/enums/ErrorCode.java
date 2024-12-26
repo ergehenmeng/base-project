@@ -591,6 +591,16 @@ public enum ErrorCode {
     NEWS_COMMENT_FORBID(2590, "该资讯不支持评论"),
 
     /**
+     * 异步日志未查询到
+     */
+    NOTIFY_LOG_NULL(2592, "异步日志未查询到"),
+
+    /**
+     * 回放成功,无需重复操作
+     */
+    NOTIFY_CALLBACK_SUCCESS(2593, "回放成功,无需重复操作"),
+
+    /**
      * 资讯配置删除啦~
      */
     NEWS_CONFIG_NOT_EXIST(3098, "资讯配置删除啦~"),
