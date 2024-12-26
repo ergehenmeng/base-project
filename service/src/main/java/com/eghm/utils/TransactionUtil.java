@@ -38,11 +38,7 @@ public class TransactionUtil {
      * @param runnable r
      */
     public static void afterCommit(Runnable runnable) {
-        if (TransactionSynchronizationManager.isSynchronizationActive() && TransactionSynchronizationManager.isActualTransactionActive()) {
-            TransactionSynchronizationManager.registerSynchronization(new AfterCommitHandler(runnable, null));
-        } else {
-            log.error("当前事务未同步,无法注册事件");
-        }
+        afterCommit(runnable, null);
     }
 
     /**
@@ -55,7 +51,7 @@ public class TransactionUtil {
         if (TransactionSynchronizationManager.isSynchronizationActive() && TransactionSynchronizationManager.isActualTransactionActive() ) {
             TransactionSynchronizationManager.registerSynchronization(new AfterCommitHandler(runnable, consumer));
         } else {
-            log.error("当前事务未同步,无法注册事件");
+            log.error("当前事务未同步,无法注册事件 [{}]", consumer);
         }
     }
 

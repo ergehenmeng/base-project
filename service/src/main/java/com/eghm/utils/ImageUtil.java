@@ -41,17 +41,14 @@ public class ImageUtil {
      * 生成组合头像
      */
     public static byte[] merge(List<String> paths) throws IOException {
-
         if (paths.size() > MAX_IMAGE) {
             paths = paths.subList(0, MAX_IMAGE);
         }
-
         List<Image> bufferedImages = new ArrayList<>();
         int imgSize = getWidth(paths.size());
         for (String path : paths) {
             bufferedImages.add(Img.from(new URL(path)).scale(imgSize, imgSize).getImg());
         }
-
         BufferedImage outImage = new BufferedImage(SIZE, SIZE, BufferedImage.TYPE_INT_RGB);
         // 生成画布
         Graphics g = outImage.getGraphics();
@@ -59,7 +56,6 @@ public class ImageUtil {
         // 设置背景色
         g2d.setBackground(new Color(255, 255, 255));
         g2d.clearRect(0, 0, SIZE, SIZE);
-
         int size = bufferedImages.size();
         int x;
         int y;

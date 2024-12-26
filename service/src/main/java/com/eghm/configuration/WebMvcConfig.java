@@ -146,7 +146,6 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
      */
     @PostConstruct
     public void jsonNullToString() {
-
         JsonSerializer<Object> arraySerializer = new JsonSerializer<Object>() {
             @Override
             public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
@@ -154,7 +153,6 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
                 gen.writeEndArray();
             }
         };
-
         objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new BeanSerializerModifier() {
             @Override
             public List<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc, List<BeanPropertyWriter> beanProperties) {

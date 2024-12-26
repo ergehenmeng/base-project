@@ -50,14 +50,10 @@ public class RedisConfig {
      * @return CacheManager
      */
     private CacheManager getCacheManager(RedisConnectionFactory connectionFactory, int expire) {
-        return RedisCacheManager
-                .builder(connectionFactory)
-                .cacheDefaults(
-                        RedisCacheConfiguration
-                                .defaultCacheConfig()
-                                .entryTtl(Duration.ofSeconds(expire))
-                                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(valueSerializer()))
+        return RedisCacheManager.builder(connectionFactory).cacheDefaults(
+                RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofSeconds(expire))
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(valueSerializer()))
                 ).build();
     }
 

@@ -232,7 +232,6 @@ public class StringUtil {
         StringBuilder builder = new StringBuilder();
         builder.append("\r\n");
         builder.append(sql(pid, "替换", 102010, 2, 110)).append("\r\n");
-
         int start = Integer.parseInt(pid + "10");
         int index = 1;
         for (int i = start; i <= start + 20; i++) {

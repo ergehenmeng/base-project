@@ -34,10 +34,8 @@ public class HolidayUtil {
         List<String> holidayList = filterWeekend(holiday);
         //周末调休加班
         List<String> overtimeList = filterWorkday(overtime);
-
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, Calendar.JANUARY, 1);
-
         //52个周末均显示
         for (int i = 0; i < 365; i++) {
             int week = calendar.get(Calendar.DAY_OF_WEEK);
