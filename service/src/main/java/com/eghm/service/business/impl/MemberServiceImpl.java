@@ -341,7 +341,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public List<MemberRegisterVO> dayRegister(DateRequest request) {
         List<MemberRegisterVO> voList = memberMapper.dayRegister(request);
-        if (request.getSelectType() == SelectType.YEAR) {
+        if (request.getSelectType() == SelectType.MONTH) {
             Map<String, MemberRegisterVO> voMap = voList.stream().collect(Collectors.toMap(MemberRegisterVO::getCreateMonth, Function.identity()));
             return DataUtil.paddingMonth(voMap, request.getStartDate(), request.getEndDate(), MemberRegisterVO::new);
         } else {
