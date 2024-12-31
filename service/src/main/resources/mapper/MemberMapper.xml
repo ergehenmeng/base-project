@@ -76,7 +76,7 @@
     <select id="dayRegister" resultType="com.eghm.vo.business.statistics.MemberRegisterVO" parameterType="com.eghm.dto.business.statistics.DateRequest">
         select
         <choose>
-            <when test="selectType == @com.eghm.enums.SelectType@MONTH">
+            <when test="selectType == @com.eghm.enums.SelectType@YEAR">
                 create_month,
             </when>
             <otherwise>
@@ -86,7 +86,7 @@
         count(id) as registerNum
         from `member` where deleted = false and create_time &gt;= #{startDate} and create_time &lt; #{endDate}
         <choose>
-            <when test="selectType == @com.eghm.enums.SelectType@MONTH">
+            <when test="selectType == @com.eghm.enums.SelectType@YEAR">
                 group by create_month
             </when>
             <otherwise>

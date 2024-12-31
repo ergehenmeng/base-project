@@ -21,7 +21,7 @@
     <select id="dayCollect" resultType="com.eghm.vo.business.statistics.CollectStatisticsVO" parameterType="com.eghm.dto.business.statistics.CollectRequest">
         SELECT
         <choose>
-            <when test="selectType == @com.eghm.enums.SelectType@MONTH">
+            <when test="selectType == @com.eghm.enums.SelectType@YEAR">
                 create_month,
             </when>
             <otherwise>
@@ -36,7 +36,7 @@
             and collect_type = #{collectType}
         </if>
         <choose>
-            <when test="selectType == @com.eghm.enums.SelectType@MONTH">
+            <when test="selectType == @com.eghm.enums.SelectType@YEAR">
                 group by create_month
             </when>
             <otherwise>

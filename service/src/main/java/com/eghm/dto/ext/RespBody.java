@@ -30,7 +30,7 @@ public class RespBody<T> {
         this.data = data;
     }
 
-    public RespBody(Integer code, String msg) {
+    private RespBody(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }

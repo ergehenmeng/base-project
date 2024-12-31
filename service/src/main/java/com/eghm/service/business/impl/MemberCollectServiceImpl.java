@@ -122,7 +122,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
     @Override
     public List<CollectStatisticsVO> dayCollect(CollectRequest request) {
         List<CollectStatisticsVO> voList = memberCollectMapper.dayCollect(request);
-        if (request.getSelectType() == SelectType.MONTH) {
+        if (request.getSelectType() == SelectType.YEAR) {
             Map<String, CollectStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(CollectStatisticsVO::getCreateMonth, Function.identity()));
             return DataUtil.paddingMonth(voMap, request.getStartDate(), request.getEndDate(), CollectStatisticsVO::new);
         } else {
