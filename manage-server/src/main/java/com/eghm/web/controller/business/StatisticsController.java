@@ -56,9 +56,14 @@ public class StatisticsController {
         return RespBody.success(statistics);
     }
 
+    /**
+     * 设置默认值
+     *
+     * @param request request
+     */
     private void setNull(DateRequest request) {
         if (request.getStartDate() == null && request.getEndDate() == null) {
-            LocalDate endDate = LocalDate.now().plusDays(1);
+            LocalDate endDate = LocalDate.now();
             request.setEndDate(endDate);
             request.setStartDate(endDate.minusMonths(1));
         }
