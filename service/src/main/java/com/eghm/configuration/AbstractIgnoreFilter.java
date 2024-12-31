@@ -5,7 +5,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ public abstract class AbstractIgnoreFilter extends OncePerRequestFilter {
     private final AntPathMatcher matcher = new AntPathMatcher();
 
     @Override
-    protected boolean shouldNotFilter(@NonNull HttpServletRequest request) {
+    protected boolean shouldNotFilter(@NonNull jakarta.servlet.http.HttpServletRequest request) {
         return exclude.stream().anyMatch(url -> matcher.match(url, request.getRequestURI()));
     }
 

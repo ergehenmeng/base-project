@@ -76,7 +76,7 @@ public class StopWatch {
         StringBuilder builder = new StringBuilder("\nStopWatch 总耗时: ").append(TimeUnit.NANOSECONDS.toMillis(totalElapsedTime)).append(" ms");
         builder.append("\n");
         for (TimeClock clock : taskList) {
-            builder.append("[").append(clock.getTaskName()).append("] 耗时(ms): ").append(TimeUnit.NANOSECONDS.toMillis(clock.getElapsedTime())).append("\n");
+            builder.append("[").append(clock.taskName()).append("] 耗时(ms): ").append(TimeUnit.NANOSECONDS.toMillis(clock.elapsedTime())).append("\n");
         }
         return builder.toString();
     }
@@ -101,13 +101,5 @@ public class StopWatch {
         taskList.add(new TimeClock(this.taskName, nowElapsed));
     }
 
-    @Data
-    @AllArgsConstructor
-    private static final class TimeClock {
-
-        private final String taskName;
-
-        private final long elapsedTime;
-
-    }
+    private record TimeClock(String taskName, long elapsedTime) {}
 }

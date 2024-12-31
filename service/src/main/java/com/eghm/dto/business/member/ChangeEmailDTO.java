@@ -2,11 +2,11 @@ package com.eghm.dto.business.member;
 
 import com.eghm.annotation.Assign;
 import io.swagger.annotations.ApiModelProperty;
+import jakarta.validation.constraints.Email;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author 殿小二

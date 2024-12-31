@@ -103,20 +103,11 @@ public class ImageUtil {
      * @return 宽度
      */
     private static int getWidth(int num) {
-        switch (num) {
-            case 2:
-            case 3:
-            case 4:
-                return (SIZE - 3 * GAP) / 2;
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-                return (SIZE - 4 * GAP) / 3;
-            default:
-                return 0;
-        }
+        return switch (num) {
+            case 2, 3, 4 -> (SIZE - 3 * GAP) / 2;
+            case 5, 6, 7, 8, 9 -> (SIZE - 4 * GAP) / 3;
+            default -> 0;
+        };
     }
 
     /**

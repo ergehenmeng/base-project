@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Configuration
 @AllArgsConstructor
-public class RabbitInitConfig {
+public class RabbitInitConfig implements InitializingBean {
 
     private final AmqpAdmin amqpAdmin;
 
@@ -30,8 +30,8 @@ public class RabbitInitConfig {
 
     private final RabbitTemplate rabbitTemplate;
 
-    @Bean
-    public void init() {
+    @Override
+    public void afterPropertiesSet() {
         for (ExchangeQueue value : ExchangeQueue.values()) {
             String exchangeType = value.getExchangeType().name().toLowerCase();
             ExchangeBuilder builder = new ExchangeBuilder(value.getExchange(), exchangeType).durable(true);

@@ -3,8 +3,8 @@ package com.eghm.validation;
 import com.eghm.dto.ext.LocalDateCompare;
 import com.eghm.validation.annotation.DateCompare;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import java.time.temporal.ChronoUnit;
 
 /**

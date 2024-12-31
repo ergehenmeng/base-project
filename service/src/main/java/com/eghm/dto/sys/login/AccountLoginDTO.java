@@ -3,10 +3,9 @@ package com.eghm.dto.sys.login;
 import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.Password;
 import io.swagger.annotations.ApiModelProperty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 
 /**
  * @author 二哥很猛

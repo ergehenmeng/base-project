@@ -12,11 +12,11 @@ import com.eghm.mapper.SensitiveWordMapper;
 import com.eghm.model.SensitiveWord;
 import com.eghm.service.operate.SensitiveWordService;
 import com.eghm.utils.LoggerUtil;
+import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.stream.Collectors;
 

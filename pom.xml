@@ -16,17 +16,17 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.18</version>
+        <version>3.2.12</version>
         <relativePath/>
     </parent>
 
     <properties>
         <!--spring boot版本-->
-        <spring.boot.version>2.7.18</spring.boot.version>
+        <spring.boot.version>3.2.12</spring.boot.version>
         <!--项目编码-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--jdk编译版本-->
-        <java.jdk.version>1.8</java.jdk.version>
+        <java.jdk.version>17</java.jdk.version>
         <!--图形验证码版本-->
         <kaptcha.version>2.3.2</kaptcha.version>
         <!--sql日志打印版本-->
@@ -41,18 +41,18 @@
         <fastjson.version>2.0.46</fastjson.version>
         <!--打包跳过测试-->
         <skipTests>true</skipTests>
-        <!--spring redis session共享-->
-        <redis-session.version>1.2.1.RELEASE</redis-session.version>
         <!--生成编译的工具类-->
         <lombok.version>1.18.34</lombok.version>
         <!--分布式数据库工具-->
         <sharding-jdbc.version>2.0.3</sharding-jdbc.version>
         <!--redis客户端工具-->
-        <redisson.version>3.17.7</redisson.version>
+        <redisson.version>3.37.0</redisson.version>
+        <!--redisson-netty客户端-->
+        <netty.version>4.1.107.Final</netty.version>
         <!--中文拼音解析-->
         <pinyin.version>2.5.1</pinyin.version>
         <!--mysql版本-->
-        <mysql.version>8.0.29</mysql.version>
+        <mysql.version>8.4.0</mysql.version>
         <!--工具类-->
         <hutool.version>5.8.33</hutool.version>
         <!--jwt版本依赖-->
@@ -70,7 +70,7 @@
         <!--excel导出-->
         <easyexcel.version>3.3.2</easyexcel.version>
         <!--jackson 1.8日期格式序列号兼容包-->
-        <jackson-ext.version>2.13.4</jackson-ext.version>
+        <jackson-ext.version>2.15.4</jackson-ext.version>
         <!--缓存-->
         <caffeine.version>2.9.3</caffeine.version>
         <!--阿里短信-->
@@ -163,13 +163,8 @@
                 <version>${pinyin.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.fasterxml.jackson.datatype</groupId>
-                <artifactId>jackson-datatype-jsr310</artifactId>
-                <version>${jackson-ext.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
                 <version>${mysql.version}</version>
             </dependency>
             <!--验证码-->

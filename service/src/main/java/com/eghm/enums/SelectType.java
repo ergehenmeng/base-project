@@ -33,7 +33,6 @@ public enum SelectType implements EnumBinder<String> {
      * 自定义
      */
     CUSTOM("custom", "自定义");
-    ;
 
     @JsonValue
     @EnumValue

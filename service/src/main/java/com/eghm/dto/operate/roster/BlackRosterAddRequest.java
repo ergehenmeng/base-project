@@ -3,10 +3,10 @@ package com.eghm.dto.operate.roster;
 import com.eghm.convertor.IpToLongDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛

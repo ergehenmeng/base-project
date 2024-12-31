@@ -50,9 +50,9 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     private final SysMenuMapper sysMenuMapper;
 
-    private final Comparator<MenuResponse> comparator = Comparator.comparing(MenuResponse::getSort);
+    private static final Comparator<MenuResponse> comparator = Comparator.comparing(MenuResponse::getSort);
 
-    private final Comparator<MenuFullResponse> fullComparator = Comparator.comparing(MenuFullResponse::getSort);
+    private static final Comparator<MenuFullResponse> fullComparator = Comparator.comparing(MenuFullResponse::getSort);
 
     @Override
     public List<MenuResponse> getLeftMenuList(Long userId) {

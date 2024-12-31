@@ -19,7 +19,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * @author 二哥很猛
@@ -56,12 +56,10 @@ public class ExceptionAdviceHandler {
         log.error("系统异常 [{}]", request.getRequestURI(), e);
         // json绑定异常
         if (e instanceof HttpMessageNotReadableException) {
-            if (e.getCause() instanceof ValueInstantiationException && e.getCause().getCause() instanceof BusinessException) {
-                BusinessException exception = (BusinessException) e.getCause().getCause();
+            if (e.getCause() instanceof ValueInstantiationException && e.getCause().getCause() instanceof BusinessException exception) {
                 return RespBody.error(exception.getCode(), exception.getMessage());
             }
-            if (e.getCause() instanceof JsonMappingException && e.getCause().getCause() instanceof BusinessException) {
-                BusinessException exception = (BusinessException) e.getCause().getCause();
+            if (e.getCause() instanceof JsonMappingException && e.getCause().getCause() instanceof BusinessException exception) {
                 return RespBody.error(exception.getCode(), exception.getMessage());
             }
         }

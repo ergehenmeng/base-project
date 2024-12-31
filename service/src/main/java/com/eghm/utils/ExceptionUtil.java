@@ -24,12 +24,9 @@ public class ExceptionUtil {
      * @param runnable 指定的逻辑
      */
     public static void error(Throwable e, ErrorCode errorCode, Runnable runnable) {
-        if (e instanceof BusinessException) {
-            BusinessException businessException = (BusinessException) e;
-            if (businessException.getCode() == errorCode.getCode()) {
-                runnable.run();
-                return;
-            }
+        if (e instanceof BusinessException businessException && businessException.getCode() == errorCode.getCode()) {
+            runnable.run();
+            return;
         }
         log.info("非业务异常,不做捕获操作", e);
     }

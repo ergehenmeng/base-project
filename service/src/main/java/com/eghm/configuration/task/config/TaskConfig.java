@@ -2,7 +2,7 @@ package com.eghm.configuration.task.config;
 
 import com.eghm.annotation.EnableTask;
 import com.eghm.mapper.SysTaskMapper;
-import org.springframework.boot.task.TaskSchedulerCustomizer;
+import org.springframework.boot.task.ThreadPoolTaskSchedulerCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -14,7 +14,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
  * @since 2019/9/6 14:49
  */
 @EnableScheduling
-public class TaskConfig implements TaskSchedulerCustomizer {
+public class TaskConfig implements ThreadPoolTaskSchedulerCustomizer {
 
     /**
      * 自定义定时任务bean

@@ -91,8 +91,8 @@ public class CacheServiceImpl implements CacheService {
             log.error("缓存值不能为空 [{}]", key);
             throw new BusinessException(ErrorCode.CACHE_VALUE_NULL);
         }
-        if (value instanceof String) {
-            redisTemplate.opsForValue().set(key, (String) value, expire, unit);
+        if (value instanceof String v) {
+            redisTemplate.opsForValue().set(key, v, expire, unit);
         } else {
             redisTemplate.opsForValue().set(key, jsonService.toJson(value), expire, unit);
         }
@@ -222,7 +222,7 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public Long getBitmapCount(String key) {
-        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.bitCount(key.getBytes(StandardCharsets.UTF_8)));
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.stringCommands().bitCount(key.getBytes(StandardCharsets.UTF_8)));
     }
 
 }

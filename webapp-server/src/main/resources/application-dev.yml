@@ -1,11 +1,12 @@
 server:
   port: 10010
 spring:
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    timeout: 30s
-    database: 5
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      timeout: 30s
+      database: 5
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:p6spy:mysql://127.0.0.1:3306/base_project?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&tinyInt1isBit=false

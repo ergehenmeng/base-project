@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
+
 /**
  * @author 二哥很猛
  * @since 2019/9/11 15:37
@@ -39,9 +41,6 @@ public class SysTaskLogController {
     @ApiOperation("详情")
     public RespBody<String> select(@Validated IdDTO dto) {
         String errorMsg = sysTaskLogService.getErrorMsg(dto.getId());
-        if (errorMsg == null) {
-            return RespBody.success("暂无错误信息");
-        }
-        return RespBody.success(errorMsg);
+        return RespBody.success(Objects.requireNonNullElse(errorMsg, "暂无错误信息"));
     }
 }

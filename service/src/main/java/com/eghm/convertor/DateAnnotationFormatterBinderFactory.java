@@ -14,8 +14,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -29,11 +27,7 @@ public class DateAnnotationFormatterBinderFactory extends EmbeddedValueResolutio
     private static final Set<Class<?>> FIELD_TYPES;
 
     static {
-        Set<Class<?>> fieldTypes = new HashSet<>(8);
-        fieldTypes.add(LocalDate.class);
-        fieldTypes.add(LocalTime.class);
-        fieldTypes.add(LocalDateTime.class);
-        FIELD_TYPES = Collections.unmodifiableSet(fieldTypes);
+        FIELD_TYPES = Set.of(LocalDate.class, LocalTime.class, LocalDateTime.class);
     }
 
     @Override

@@ -3,10 +3,9 @@ package com.eghm.dto.operate.notice;
 import com.eghm.validation.annotation.WordChecker;
 import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛

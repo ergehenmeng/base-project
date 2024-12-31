@@ -62,9 +62,7 @@ public class LoggerUtil {
      * @param paddingChar 填充的字符
      */
     private static void appendChar(StringBuilder builder, String paddingChar) {
-        for (int i = 0; i < MAX_LENGTH; i++) {
-            builder.append(paddingChar);
-        }
+        builder.append(String.valueOf(paddingChar).repeat(MAX_LENGTH));
     }
 
 }

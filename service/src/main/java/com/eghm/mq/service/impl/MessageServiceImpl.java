@@ -28,7 +28,7 @@ public class MessageServiceImpl implements MessageService {
     public void sendDelay(ExchangeQueue queue, Object msg, int delay) {
         rabbitTemplate.convertAndSend(queue.getExchange(), queue.getRoutingKey(), msg, message -> {
             MessageProperties properties = message.getMessageProperties();
-            properties.setDelay(delay * 1000);
+            properties.setDelayLong(delay * 1000L);
             return message;
         });
     }

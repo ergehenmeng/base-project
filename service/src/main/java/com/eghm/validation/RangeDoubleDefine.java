@@ -2,8 +2,8 @@ package com.eghm.validation;
 
 import com.eghm.validation.annotation.RangeDouble;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * 校验规则定义

@@ -40,7 +40,7 @@
         </where>
     </select>
 
-    <select id="getMaxId" resultType="string">
+    <select id="getMaxId" resultType="java.lang.String">
         select id from sys_menu where pid = #{pid} and state = true order by id desc limit 1
     </select>
 

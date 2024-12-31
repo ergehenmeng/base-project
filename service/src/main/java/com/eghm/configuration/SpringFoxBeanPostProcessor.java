@@ -9,7 +9,6 @@ import springfox.documentation.spring.web.plugins.WebMvcRequestHandlerProvider;
 
 import java.lang.reflect.Field;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 解决高版本SpringBoot与Swagger集成时由于依赖了actuator兼容性做的特殊处理
@@ -30,7 +29,7 @@ public class SpringFoxBeanPostProcessor implements BeanPostProcessor {
     private <T extends RequestMappingInfoHandlerMapping> void customizeSpringfoxHandlerMappings(List<T> mappings) {
         List<T> copy = mappings.stream()
                 .filter(mapping -> mapping.getPatternParser() == null)
-                .collect(Collectors.toList());
+                .toList();
         mappings.clear();
         mappings.addAll(copy);
     }
