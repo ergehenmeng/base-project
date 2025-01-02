@@ -2,7 +2,7 @@ package com.eghm.vo.business.news;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -16,34 +16,34 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class NewsVO {
 
-    @ApiModelProperty(value = "id")
+    @Schema(description = "id")
     private Long id;
 
-    @ApiModelProperty(value = "资讯标题")
+    @Schema(description = "资讯标题")
     private String title;
 
-    @ApiModelProperty(value = "标签列表")
+    @Schema(description = "标签列表")
     private String tagName;
 
-    @ApiModelProperty(value = "一句话描述信息")
+    @Schema(description = "一句话描述信息")
     private String depict;
 
-    @ApiModelProperty(value = "图集")
+    @Schema(description = "图集")
     private String image;
 
-    @ApiModelProperty("更新时间")
+    @Schema(description = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
-    @ApiModelProperty("点赞数量")
+    @Schema(description = "点赞数量")
     private Integer praiseNum;
 
-    @ApiModelProperty("是否已点赞")
+    @Schema(description = "是否已点赞")
     private Boolean hasPraise;
 
-    @ApiModelProperty("状态 false:未上架 true:已上架")
+    @Schema(description = "状态 false:未上架 true:已上架")
     private Boolean state;
 
-    @ApiModelProperty("是否已删除 false:未删除 true:已删除")
+    @Schema(description = "是否已删除 false:未删除 true:已删除")
     private Boolean deleted;
 }

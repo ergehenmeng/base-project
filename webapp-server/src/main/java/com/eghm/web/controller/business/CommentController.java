@@ -11,8 +11,8 @@ import com.eghm.service.operate.CommentService;
 import com.eghm.vo.operate.comment.CommentSecondVO;
 import com.eghm.vo.operate.comment.CommentVO;
 import com.eghm.web.annotation.AccessToken;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 
 @RestController
-@Api(tags = "评论留言")
+@Tag(name= "评论留言")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/comment", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CommentController {
@@ -36,19 +36,19 @@ public class CommentController {
     private final CommentReportService commentReportService;
 
     @GetMapping("/listPage")
-    @ApiOperation("评论列表")
+    @Operation(summary = "评论列表")
     public RespBody<List<CommentVO>> getByPage(@Validated CommentQueryDTO dto) {
         return RespBody.success(commentService.getByPage(dto));
     }
 
     @GetMapping("/secondPage")
-    @ApiOperation("二级评论")
+    @Operation(summary = "二级评论")
     public RespBody<List<CommentSecondVO>> secondPage(@Validated CommentQueryDTO dto) {
         return RespBody.success(commentService.secondPage(dto));
     }
 
     @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("添加评论")
+    @Operation(summary = "添加评论")
     @AccessToken
     public RespBody<Void> add(@Validated @RequestBody CommentDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
@@ -57,7 +57,7 @@ public class CommentController {
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除评论")
+    @Operation(summary = "删除评论")
     @AccessToken
     public RespBody<Void> add(@Validated @RequestBody IdDTO dto) {
         commentService.delete(dto.getId(), ApiHolder.getMemberId());
@@ -65,7 +65,7 @@ public class CommentController {
     }
 
     @PostMapping(value = "/praise", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("点赞")
+    @Operation(summary = "点赞")
     @AccessToken
     public RespBody<Void> praise(@Validated @RequestBody IdDTO dto) {
         commentService.praise(dto.getId());
@@ -73,7 +73,7 @@ public class CommentController {
     }
 
     @PostMapping(value = "/report", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("举报评论")
+    @Operation(summary = "举报评论")
     @AccessToken
     public RespBody<Void> report(@Validated @RequestBody CommentReportDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());

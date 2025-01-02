@@ -3,7 +3,7 @@ package com.eghm.vo.login;
 import com.eghm.enums.UserType;
 import com.eghm.vo.sys.menu.MenuResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -16,33 +16,33 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LoginResponse {
 
-    @ApiModelProperty("token")
+    @Schema(description = "token")
     private String token;
 
-    @ApiModelProperty("用户类型 0:系统管理员 1:系统用户")
+    @Schema(description = "用户类型 0:系统管理员 1:系统用户")
     private UserType userType;
 
-    @ApiModelProperty("用户名")
+    @Schema(description = "用户名")
     private String userName;
 
-    @ApiModelProperty("系统名称")
+    @Schema(description = "系统名称")
     private String systemName;
 
-    @ApiModelProperty("是否绑定微信")
+    @Schema(description = "是否绑定微信")
     private Boolean bindWechat;
 
-    @ApiModelProperty("昵称")
+    @Schema(description = "昵称")
     private String nickName;
 
-    @ApiModelProperty("是否初始密码")
+    @Schema(description = "是否初始密码")
     private Boolean init;
 
-    @ApiModelProperty("密码是否过期(90天没修改即过期)")
+    @Schema(description = "密码是否过期(90天没修改即过期)")
     private Boolean expire;
 
-    @ApiModelProperty("按钮权限列表")
+    @Schema(description = "按钮权限列表")
     private List<String> permList;
 
-    @ApiModelProperty("菜单权限列表")
+    @Schema(description = "菜单权限列表")
     private List<MenuResponse> menuList;
 }

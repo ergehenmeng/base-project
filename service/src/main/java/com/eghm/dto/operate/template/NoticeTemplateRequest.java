@@ -1,6 +1,6 @@
 package com.eghm.dto.operate.template;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotBlank;
@@ -14,18 +14,18 @@ import jakarta.validation.constraints.NotNull;
 @Data
 public class NoticeTemplateRequest {
 
-    @ApiModelProperty(value = "id主键", required = true)
+    @Schema(description = "id主键", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "标题", required = true)
+    @Schema(description = "标题", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "标题不能为空")
     private String title;
 
-    @ApiModelProperty(value = "通知内容", required = true)
+    @Schema(description = "通知内容", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "通知内容不能为空")
     private String content;
 
-    @ApiModelProperty(value = "备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 }

@@ -7,9 +7,11 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.web.annotation.AccessToken;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @since 2019/8/28 17:09
  */
 @RestController
-@Api(tags = "图片上传")
+@Tag(name= "图片上传")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/file", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UploadController {
@@ -35,8 +37,8 @@ public class UploadController {
     private final FileService fileService;
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @ApiImplicitParam(name = "file", value = "file流", paramType = "formData", dataType = "file", required = true)
-    @ApiOperation("单文件上传")
+    @Parameter(name = "file", description = "file流", required = true, in = ParameterIn.DEFAULT, schema = @Schema(name = "file", format = "binary"))
+    @Operation(summary = "单文件上传")
     @SkipLogger
     @AccessToken
     public RespBody<FilePath> upload(@RequestParam("file") MultipartFile file) {

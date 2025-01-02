@@ -2,7 +2,7 @@ package com.eghm.vo.operate.auth;
 
 import com.eghm.enums.SignType;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -15,33 +15,33 @@ import java.time.LocalDateTime;
 @Data
 public class AuthConfigResponse {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty("单位名称")
+    @Schema(description = "单位名称")
     private String title;
 
-    @ApiModelProperty("appKey")
+    @Schema(description = "appKey")
     private String appKey;
 
-    @ApiModelProperty("私钥")
+    @Schema(description = "私钥")
     public String privateKey;
 
-    @ApiModelProperty("签名方式")
+    @Schema(description = "签名方式")
     private SignType signType;
 
-    @ApiModelProperty("过期时间")
+    @Schema(description = "过期时间")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate expireDate;
 
-    @ApiModelProperty("备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 
-    @ApiModelProperty("添加时间")
+    @Schema(description = "添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("更新时间")
+    @Schema(description = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }

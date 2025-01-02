@@ -1,6 +1,6 @@
 package com.eghm.dto.sys.config;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotBlank;
@@ -15,19 +15,19 @@ import jakarta.validation.constraints.NotNull;
 @Data
 public class ConfigEditRequest {
 
-    @ApiModelProperty(value = "id", required = true)
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "参数名称", required = true)
+    @Schema(description = "参数名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "参数名称不能为空")
     private String title;
 
-    @ApiModelProperty(value = "参数值", required = true)
+    @Schema(description = "参数值", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "参数值不能为空")
     private String content;
 
-    @ApiModelProperty(value = "备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 
 }

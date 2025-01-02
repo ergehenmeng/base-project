@@ -35,7 +35,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.HibernateValidatorConfiguration;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
-import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.validation.MessageInterpolatorFactory;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -71,11 +70,6 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
     private final TaskExecutor taskExecutor;
 
     protected final SystemProperties systemProperties;
-
-    @Bean
-    public static BeanPostProcessor springFoxBeanPostProcessor() {
-        return new SpringFoxBeanPostProcessor();
-    }
 
     /**
      * 设置校验为快速失败

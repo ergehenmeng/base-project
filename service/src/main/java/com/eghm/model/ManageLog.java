@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -19,28 +19,28 @@ import java.time.LocalDateTime;
 public class ManageLog {
 
     @TableId(type = IdType.ASSIGN_ID)
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty("请求地址")
+    @Schema(description = "请求地址")
     private String url;
 
-    @ApiModelProperty("操作人")
+    @Schema(description = "操作人")
     private Long userId;
 
-    @ApiModelProperty("请求参数")
+    @Schema(description = "请求参数")
     private String request;
 
-    @ApiModelProperty("添加时间")
+    @Schema(description = "添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("访问ip")
+    @Schema(description = "访问ip")
     private String ip;
 
-    @ApiModelProperty("业务耗时")
+    @Schema(description = "业务耗时")
     private Long businessTime;
 
-    @ApiModelProperty("响应参数")
+    @Schema(description = "响应参数")
     private String response;
 }

@@ -1,7 +1,7 @@
 package com.eghm.dto.sys.dict;
 
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,6 +13,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class DictQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("字典分类: 1: 系统字典 2: 业务字典")
+    @Schema(description = "字典分类: 1: 系统字典 2: 业务字典")
     private Integer dictType;
 }

@@ -1,7 +1,7 @@
 package com.eghm.dto.business.member;
 
 import com.eghm.annotation.Assign;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -15,16 +15,16 @@ import jakarta.validation.constraints.NotBlank;
 @Data
 public class BindEmailDTO {
 
-    @ApiModelProperty(value = "绑定的邮箱号", required = true)
+    @Schema(description = "绑定的邮箱号", requiredMode = Schema.RequiredMode.REQUIRED)
     @Email(message = "邮箱地址不能为空")
     private String email;
 
-    @ApiModelProperty(value = "邮箱验证码", required = true)
+    @Schema(description = "邮箱验证码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "验证码不能为空")
     @Length(min = 4, max = 6, message = "验证码格式不合法")
     private String authCode;
 
     @Assign
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     private Long memberId;
 }

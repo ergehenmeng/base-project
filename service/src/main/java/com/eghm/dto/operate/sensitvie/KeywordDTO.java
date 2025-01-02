@@ -1,6 +1,6 @@
 package com.eghm.dto.operate.sensitvie;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotBlank;
@@ -14,6 +14,6 @@ import jakarta.validation.constraints.NotBlank;
 public class KeywordDTO {
 
     @NotBlank(message = "敏感词不能为空")
-    @ApiModelProperty("敏感词")
+    @Schema(description = "敏感词")
     private String keyword;
 }

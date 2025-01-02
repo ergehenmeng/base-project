@@ -10,8 +10,8 @@ import com.eghm.dto.operate.notice.NoticeQueryRequest;
 import com.eghm.model.SysNotice;
 import com.eghm.service.operate.SysNoticeService;
 import com.eghm.vo.operate.notice.NoticeResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -22,14 +22,14 @@ import org.springframework.web.bind.annotation.*;
  * @since 2019/8/23 13:35
  */
 @RestController
-@Api(tags = "公告管理")
+@Tag(name= "公告管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/notice", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SysNoticeController {
 
     private final SysNoticeService sysNoticeService;
 
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     @GetMapping("/listPage")
     public RespBody<PageData<NoticeResponse>> listPage(NoticeQueryRequest request) {
         Page<NoticeResponse> byPage = sysNoticeService.getByPage(request);
@@ -37,42 +37,42 @@ public class SysNoticeController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增")
+    @Operation(summary = "新增")
     public RespBody<Void> create(@Validated @RequestBody NoticeAddRequest request) {
         sysNoticeService.create(request);
         return RespBody.success();
     }
 
     @GetMapping("/select")
-    @ApiOperation("查看")
+    @Operation(summary = "查看")
     public RespBody<SysNotice> select(@Validated IdDTO dto) {
         SysNotice notice = sysNoticeService.getByIdRequired(dto.getId());
         return RespBody.success(notice);
     }
 
     @PostMapping(value = "/publish", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("发布")
+    @Operation(summary = "发布")
     public RespBody<Void> publish(@Validated @RequestBody IdDTO request) {
         sysNoticeService.publish(request.getId());
         return RespBody.success();
     }
 
     @PostMapping(value = "/cancel", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("取消发布")
+    @Operation(summary = "取消发布")
     public RespBody<Void> cancel(@Validated @RequestBody IdDTO request) {
         sysNoticeService.cancelPublish(request.getId());
         return RespBody.success();
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO request) {
         sysNoticeService.delete(request.getId());
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑")
     public RespBody<Void> update(@Validated @RequestBody NoticeEditRequest request) {
         sysNoticeService.update(request);
         return RespBody.success();

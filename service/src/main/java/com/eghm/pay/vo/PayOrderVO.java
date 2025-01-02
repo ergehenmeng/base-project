@@ -3,7 +3,7 @@ package com.eghm.pay.vo;
 
 import com.eghm.pay.enums.TradeState;
 import com.eghm.pay.enums.TradeType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -14,25 +14,25 @@ import java.time.LocalDateTime;
 @Data
 public class PayOrderVO {
 
-    @ApiModelProperty("支付id: 微信openId")
+    @Schema(description = "支付id: 微信openId")
     private String payerId;
 
-    @ApiModelProperty("交易状态")
+    @Schema(description = "交易状态")
     private TradeState tradeState;
 
-    @ApiModelProperty("支付方式")
+    @Schema(description = "支付方式")
     private TradeType tradeType;
 
-    @ApiModelProperty("支付金额")
+    @Schema(description = "支付金额")
     private Integer amount;
 
-    @ApiModelProperty("附加信息")
+    @Schema(description = "附加信息")
     private String attach;
 
-    @ApiModelProperty("支付成功时间")
+    @Schema(description = "支付成功时间")
     private LocalDateTime successTime;
 
-    @ApiModelProperty("交易单号(微信或支付宝方生成)")
+    @Schema(description = "交易单号(微信或支付宝方生成)")
     private String transactionId;
 
 }

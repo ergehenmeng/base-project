@@ -2,7 +2,7 @@ package com.eghm.dto.operate.auth;
 
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.SignType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class AuthConfigQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("签名方式")
+    @Schema(description = "签名方式")
     private SignType signType;
 
 }

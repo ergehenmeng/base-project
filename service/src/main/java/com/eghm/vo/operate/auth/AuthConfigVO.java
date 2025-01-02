@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -17,16 +17,16 @@ import java.time.LocalDate;
 @Data
 public class AuthConfigVO {
 
-    @ApiModelProperty("appKey")
+    @Schema(description = "appKey")
     private String appKey;
 
-    @ApiModelProperty("公钥")
+    @Schema(description = "公钥")
     private String publicKey;
 
-    @ApiModelProperty("私钥")
+    @Schema(description = "私钥")
     private String privateKey;
 
-    @ApiModelProperty("过期日期")
+    @Schema(description = "过期日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)

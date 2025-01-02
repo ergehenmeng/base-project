@@ -1,7 +1,7 @@
 package com.eghm.vo.business.member;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -12,33 +12,33 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MemberVO {
 
-    @ApiModelProperty("头像")
+    @Schema(description = "头像")
     private String avatar;
 
-    @ApiModelProperty("今日是否签到")
+    @Schema(description = "今日是否签到")
     private Boolean signed;
 
-    @ApiModelProperty("站内信未读数量")
+    @Schema(description = "站内信未读数量")
     private Long unRead;
 
-    @ApiModelProperty("昵称")
+    @Schema(description = "昵称")
     private String nickName;
 
-    @ApiModelProperty("手机号码")
+    @Schema(description = "手机号码")
     private String mobile;
 
-    @ApiModelProperty("微信openId")
+    @Schema(description = "微信openId")
     private String openId;
 
-    @ApiModelProperty("电子邮箱")
+    @Schema(description = "电子邮箱")
     private String email;
 
-    @ApiModelProperty("总积分数")
+    @Schema(description = "总积分数")
     private Integer score;
 
-    @ApiModelProperty("邀请码")
+    @Schema(description = "邀请码")
     private String inviteCode;
 
-    @ApiModelProperty("性别 性别 0:未知 1:男 2:女 ")
+    @Schema(description = "性别 性别 0:未知 1:男 2:女 ")
     private Integer sex;
 }

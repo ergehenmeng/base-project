@@ -1,7 +1,5 @@
 package com.eghm.utils;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

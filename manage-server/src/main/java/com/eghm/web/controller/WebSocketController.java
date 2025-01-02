@@ -2,8 +2,8 @@ package com.eghm.web.controller;
 
 import com.eghm.annotation.SkipPerm;
 import com.eghm.dto.ext.RespBody;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -25,7 +25,7 @@ import static com.eghm.constants.CommonConstant.WEBSOCKET_PREFIX;
 @Slf4j
 @RestController
 @AllArgsConstructor
-@Api(tags = "websocket消息订阅")
+@Tag(name= "websocket消息订阅")
 public class WebSocketController {
 
     private final SimpMessagingTemplate simpMessagingTemplate;
@@ -37,7 +37,7 @@ public class WebSocketController {
 
     @PostMapping("/broadcast/{objectId}")
     @SkipPerm
-    @ApiOperation("广播消息测试")
+    @Operation(summary = "广播消息测试")
     public RespBody<Void> broadcast(@PathVariable("objectId") Long objectId, @RequestBody Map<String, Object> param) {
         simpMessagingTemplate.convertAndSend(WEBSOCKET_PREFIX + "/broadcast/" + objectId, param);
         return RespBody.success();

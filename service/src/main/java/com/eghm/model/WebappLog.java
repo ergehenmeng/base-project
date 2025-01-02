@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.Channel;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,49 +26,49 @@ import java.time.LocalDateTime;
 public class WebappLog {
 
     @TableId(type = IdType.ASSIGN_ID)
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     private Long memberId;
 
-    @ApiModelProperty("软件版本号 针对app端,例如 1.2.7")
+    @Schema(description = "软件版本号 针对app端,例如 1.2.7")
     private String version;
 
-    @ApiModelProperty("注册渠道 PC,ANDROID,IOS,H5,WECHAT,ALIPAY")
+    @Schema(description = "注册渠道 PC,ANDROID,IOS,H5,WECHAT,ALIPAY")
     private Channel channel;
 
-    @ApiModelProperty("客户端平台版本号 ios: 10.4.1,android:8.1.0")
+    @Schema(description = "客户端平台版本号 ios: 10.4.1,android:8.1.0")
     private String osVersion;
 
-    @ApiModelProperty("设备厂商")
+    @Schema(description = "设备厂商")
     private String deviceBrand;
 
-    @ApiModelProperty("设备型号")
+    @Schema(description = "设备型号")
     private String deviceModel;
 
-    @ApiModelProperty("设备唯一编号")
+    @Schema(description = "设备唯一编号")
     private String serialNumber;
 
-    @ApiModelProperty("访问ip")
+    @Schema(description = "访问ip")
     private String ip;
 
-    @ApiModelProperty("访问耗时")
+    @Schema(description = "访问耗时")
     private Long elapsedTime;
 
-    @ApiModelProperty("访问链接")
+    @Schema(description = "访问链接")
     private String url;
 
-    @ApiModelProperty("请求参数(json)")
+    @Schema(description = "请求参数(json)")
     private String requestParam;
 
-    @ApiModelProperty("请求堆栈id")
+    @Schema(description = "请求堆栈id")
     private String traceId;
 
-    @ApiModelProperty("错误日志")
+    @Schema(description = "错误日志")
     private String errorMsg;
 
-    @ApiModelProperty("添加时间")
+    @Schema(description = "添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 

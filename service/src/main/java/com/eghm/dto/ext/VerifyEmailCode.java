@@ -1,7 +1,7 @@
 package com.eghm.dto.ext;
 
 import com.eghm.enums.EmailType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -13,15 +13,15 @@ import lombok.Data;
 @Data
 public class VerifyEmailCode {
 
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     private Long memberId;
 
-    @ApiModelProperty("邮箱")
+    @Schema(description = "邮箱")
     private String email;
 
-    @ApiModelProperty("验证码")
+    @Schema(description = "验证码")
     private String authCode;
 
-    @ApiModelProperty("验证码邮件类型")
+    @Schema(description = "验证码邮件类型")
     private EmailType emailType;
 }

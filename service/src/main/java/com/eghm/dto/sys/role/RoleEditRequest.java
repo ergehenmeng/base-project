@@ -1,6 +1,6 @@
 package com.eghm.dto.sys.role;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotBlank;
@@ -16,16 +16,16 @@ import jakarta.validation.constraints.Size;
 @Data
 public class RoleEditRequest {
 
-    @ApiModelProperty(value = "主键id", required = true)
+    @Schema(description = "主键id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "角色名称", required = true)
+    @Schema(description = "角色名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "角色名称不能为空")
     @Size(max = 210, message = "角色名称最大10字符")
     private String roleName;
 
-    @ApiModelProperty("备注信息")
+    @Schema(description = "备注信息")
     @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 }

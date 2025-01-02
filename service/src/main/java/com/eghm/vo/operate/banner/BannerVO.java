@@ -1,6 +1,6 @@
 package com.eghm.vo.operate.banner;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -10,16 +10,16 @@ import lombok.Data;
 @Data
 public class BannerVO {
 
-    @ApiModelProperty("图片标题")
+    @Schema(description = "图片标题")
     private String title;
 
-    @ApiModelProperty("图片地址")
+    @Schema(description = "图片地址")
     private String imgUrl;
 
-    @ApiModelProperty("是否可点击 true:可以 false:不可以")
+    @Schema(description = "是否可点击 true:可以 false:不可以")
     private Boolean click;
 
-    @ApiModelProperty("点击跳转的url")
+    @Schema(description = "点击跳转的url")
     private String jumpUrl;
 
 }

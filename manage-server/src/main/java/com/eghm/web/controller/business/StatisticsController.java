@@ -8,8 +8,8 @@ import com.eghm.service.business.MemberService;
 import com.eghm.vo.business.statistics.CollectStatisticsVO;
 import com.eghm.vo.business.statistics.MemberRegisterVO;
 import com.eghm.vo.business.statistics.MemberStatisticsVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 
 @RestController
-@Api(tags = "统计分析")
+@Tag(name= "统计分析")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/statistics", produces = MediaType.APPLICATION_JSON_VALUE)
 public class StatisticsController {
@@ -35,14 +35,14 @@ public class StatisticsController {
     private final MemberCollectService memberCollectService;
 
     @GetMapping("/sexChannel")
-    @ApiOperation("注册渠道统计")
+    @Operation(summary = "注册渠道统计")
     public RespBody<MemberStatisticsVO> sexChannel(DateRequest request) {
         MemberStatisticsVO statistics = memberService.sexChannel(request);
         return RespBody.success(statistics);
     }
 
     @GetMapping("/dayRegister")
-    @ApiOperation("注册统计(按天)")
+    @Operation(summary = "注册统计(按天)")
     public RespBody<List<MemberRegisterVO>> dayRegister(DateRequest request) {
         this.setNull(request);
         List<MemberRegisterVO> statistics = memberService.dayRegister(request);
@@ -50,7 +50,7 @@ public class StatisticsController {
     }
 
     @GetMapping("/collect")
-    @ApiOperation("收藏量")
+    @Operation(summary = "收藏量")
     public RespBody<List<CollectStatisticsVO>> collect(CollectRequest request) {
         List<CollectStatisticsVO> statistics = memberCollectService.dayCollect(request);
         return RespBody.success(statistics);

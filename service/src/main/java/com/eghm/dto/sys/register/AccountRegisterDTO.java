@@ -2,7 +2,7 @@ package com.eghm.dto.sys.register;
 
 import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.Password;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -17,27 +17,27 @@ import jakarta.validation.constraints.NotEmpty;
 @Data
 public class AccountRegisterDTO {
 
-    @ApiModelProperty(value = "账号", required = true)
+    @Schema(description = "账号", requiredMode = Schema.RequiredMode.REQUIRED)
     @Length(min = 6, max = 16, message = "账号长度6-16位")
     @NotEmpty(message = "账号不能为空")
     private String account;
 
-    @ApiModelProperty(value = "密码(8~20英文,字母和@#&_)", required = true)
+    @Schema(description = "密码(8~20英文,字母和@#&_)", requiredMode = Schema.RequiredMode.REQUIRED)
     @Password
     private String password;
 
-    @ApiModelProperty(value = "验证码", required = true)
+    @Schema(description = "验证码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "验证码不能为空")
     private String verifyCode;
 
-    @ApiModelProperty(value = "邀请码(非必填)")
+    @Schema(description = "邀请码(非必填)")
     private String inviteCode;
 
     @Assign
-    @ApiModelProperty(value = "注册渠道(ANDROID,IOS,PC,H5)", hidden = true)
+    @Schema(description = "注册渠道(ANDROID,IOS,PC,H5)", hidden = true)
     private String channel;
 
     @Assign
-    @ApiModelProperty(value = "注册ip", hidden = true)
+    @Schema(description = "注册ip", hidden = true)
     private String ip;
 }

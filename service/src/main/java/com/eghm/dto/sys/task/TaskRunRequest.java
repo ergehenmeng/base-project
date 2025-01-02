@@ -1,6 +1,6 @@
 package com.eghm.dto.sys.task;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotNull;
@@ -12,10 +12,10 @@ import jakarta.validation.constraints.NotNull;
 @Data
 public class TaskRunRequest {
 
-    @ApiModelProperty(value = "任务id", required = true)
+    @Schema(description = "任务id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "任务id不能为空")
     private Long id;
 
-    @ApiModelProperty("任务参数")
+    @Schema(description = "任务参数")
     private String args;
 }

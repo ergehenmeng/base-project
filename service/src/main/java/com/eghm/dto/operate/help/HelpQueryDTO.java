@@ -1,6 +1,6 @@
 package com.eghm.dto.operate.help;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,10 +14,10 @@ import jakarta.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = false)
 public class HelpQueryDTO {
 
-    @ApiModelProperty(value = "帮助说明类型:system_dict表中help_type字段", required = true)
+    @Schema(description = "帮助说明类型:system_dict表中help_type字段", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "帮助分类不能为空")
     private Integer helpType;
 
-    @ApiModelProperty("关键字搜索(问或答)")
+    @Schema(description = "关键字搜索(问或答)")
     private String queryName;
 }

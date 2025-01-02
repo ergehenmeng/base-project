@@ -8,8 +8,8 @@ import com.eghm.pay.enums.StepType;
 import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -31,7 +31,7 @@ import static com.eghm.constants.CommonConstant.*;
  * @since 2022/7/25
  */
 @RestController
-@Api(tags = "支付回调管理")
+@Tag(name= "支付回调管理")
 @AllArgsConstructor
 @Slf4j
 public class PayNotifyController {
@@ -43,7 +43,7 @@ public class PayNotifyController {
     private final PayNotifyLogService payNotifyLogService;
 
     @PostMapping(ALI_PAY_NOTIFY_URL)
-    @ApiOperation("支付宝支付回调")
+    @Operation(summary = "支付宝支付回调")
     public String aliPay(HttpServletRequest request) {
         Map<String, String> stringMap = this.parseAliRequest(request);
         aliPayService.verifyNotify(stringMap);
@@ -55,7 +55,7 @@ public class PayNotifyController {
     }
 
     @PostMapping(ALI_REFUND_NOTIFY_URL)
-    @ApiOperation("支付宝退款回调")
+    @Operation(summary = "支付宝退款回调")
     public String aliRefund(HttpServletRequest request) {
         Map<String, String> stringMap = this.parseAliRequest(request);
         aliPayService.verifyNotify(stringMap);
@@ -67,7 +67,7 @@ public class PayNotifyController {
     }
 
     @PostMapping(WECHAT_PAY_NOTIFY_URL)
-    @ApiOperation("微信支付回调")
+    @Operation(summary = "微信支付回调")
     public Map<String, String> weChatPay(@RequestHeader HttpHeaders httpHeader, @RequestBody String requestBody, HttpServletResponse response) {
         SignatureHeader header = this.parseWechatHeader(httpHeader);
         WxPayNotifyV3Result payNotify = wechatPayService.parsePayNotify(requestBody, header);
@@ -78,7 +78,7 @@ public class PayNotifyController {
     }
 
     @PostMapping(WECHAT_REFUND_NOTIFY_URL)
-    @ApiOperation("微信退款回调")
+    @Operation(summary = "微信退款回调")
     public Map<String, String> weChatRefund(@RequestHeader HttpHeaders httpHeader, @RequestBody String requestBody, HttpServletResponse response) {
         SignatureHeader header = this.parseWechatHeader(httpHeader);
         WxPayRefundNotifyV3Result payNotify = wechatPayService.parseRefundNotify(requestBody, header);

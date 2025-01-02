@@ -3,7 +3,7 @@ package com.eghm.dto.operate.comment;
 import com.eghm.annotation.Assign;
 import com.eghm.enums.ReportType;
 import com.eghm.validation.annotation.WordChecker;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotNull;
@@ -17,20 +17,20 @@ import jakarta.validation.constraints.Size;
 @Data
 public class CommentReportDTO {
 
-    @ApiModelProperty(value = "举报类型")
+    @Schema(description = "举报类型")
     @NotNull(message = "请选择要举报的类型")
     private ReportType reportType;
 
-    @ApiModelProperty(value = "举报内容")
+    @Schema(description = "举报内容")
     @Size(max = 100, message = "举报内容最大100字符")
     @WordChecker(message = "举报内容包含敏感词汇")
     private String content;
 
-    @ApiModelProperty(value = "评论id", required = true)
+    @Schema(description = "评论id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "请选择要举报的评论")
     private Long commentId;
 
-    @ApiModelProperty(value = "用户id", hidden = true)
+    @Schema(description = "用户id", hidden = true)
     @Assign
     private Long memberId;
 }

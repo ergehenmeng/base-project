@@ -9,8 +9,8 @@ import com.eghm.dto.operate.auth.AuthConfigEditRequest;
 import com.eghm.dto.operate.auth.AuthConfigQueryRequest;
 import com.eghm.service.operate.AuthConfigService;
 import com.eghm.vo.operate.auth.AuthConfigResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2023/10/20
  */
 @RestController
-@Api(tags = "第三方授权")
+@Tag(name= "第三方授权")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthConfigController {
@@ -29,35 +29,35 @@ public class AuthConfigController {
     private final AuthConfigService authConfigService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<AuthConfigResponse>> listPage(AuthConfigQueryRequest request) {
         Page<AuthConfigResponse> byPage = authConfigService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增")
+    @Operation(summary = "新增")
     public RespBody<Void> create(@Validated @RequestBody AuthConfigAddRequest request) {
         authConfigService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑")
     public RespBody<Void> update(@Validated @RequestBody AuthConfigEditRequest request) {
         authConfigService.update(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         authConfigService.deleteById(dto.getId());
         return RespBody.success();
     }
 
     @PostMapping(value = "/reset", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("重置秘钥")
+    @Operation(summary = "重置秘钥")
     public RespBody<Void> reset(@Validated @RequestBody IdDTO dto) {
         authConfigService.reset(dto.getId());
         return RespBody.success();

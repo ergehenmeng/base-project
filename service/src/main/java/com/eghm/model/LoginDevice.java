@@ -3,7 +3,7 @@ package com.eghm.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -16,22 +16,22 @@ import java.time.LocalDateTime;
 public class LoginDevice {
 
     @TableId(type = IdType.ASSIGN_ID)
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     private Long memberId;
 
-    @ApiModelProperty("设备唯一序列号")
+    @Schema(description = "设备唯一序列号")
     private String serialNumber;
 
-    @ApiModelProperty("设备型号")
+    @Schema(description = "设备型号")
     private String deviceModel;
 
-    @ApiModelProperty("登陆ip")
+    @Schema(description = "登陆ip")
     private Long ip;
 
-    @ApiModelProperty("最近一次登陆的时间")
+    @Schema(description = "最近一次登陆的时间")
     private LocalDateTime loginTime;
 
 }

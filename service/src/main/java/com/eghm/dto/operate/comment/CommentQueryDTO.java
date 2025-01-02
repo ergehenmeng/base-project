@@ -1,7 +1,7 @@
 package com.eghm.dto.operate.comment;
 
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,10 +15,10 @@ import jakarta.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = true)
 public class CommentQueryDTO extends PagingQuery {
 
-    @ApiModelProperty(value = "评价对象id", required = true)
+    @Schema(description = "评价对象id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long objectId;
 
-    @ApiModelProperty("父评论ID")
+    @Schema(description = "父评论ID")
     private Long pid;
 }

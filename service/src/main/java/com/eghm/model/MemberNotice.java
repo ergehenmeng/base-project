@@ -2,7 +2,7 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.MessageType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,22 +16,22 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class MemberNotice extends BaseEntity {
 
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     private Long memberId;
 
-    @ApiModelProperty("消息标题")
+    @Schema(description = "消息标题")
     private String title;
 
-    @ApiModelProperty("站内信内容")
+    @Schema(description = "站内信内容")
     private String content;
 
-    @ApiModelProperty("站内信分类")
+    @Schema(description = "站内信分类")
     private MessageType messageType;
 
-    @ApiModelProperty("状态 0:未读 1:已读")
+    @Schema(description = "状态 0:未读 1:已读")
     private Boolean isRead;
 
-    @ApiModelProperty("消息所属日志id")
+    @Schema(description = "消息所属日志id")
     private Long noticeLogId ;
 
 }

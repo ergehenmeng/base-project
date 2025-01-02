@@ -4,7 +4,7 @@ import com.eghm.enums.CollectType;
 import com.eghm.vo.business.news.NewsVO;
 import com.eghm.vo.operate.notice.NoticeVO;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -16,15 +16,15 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MemberCollectVO {
 
-    @ApiModelProperty(value = "收藏id")
+    @Schema(description = "收藏id")
     private Long collectId;
 
-    @ApiModelProperty(value = "收藏对象类型(1:资讯 2:公告)")
+    @Schema(description = "收藏对象类型(1:资讯 2:公告)")
     private CollectType collectType;
 
-    @ApiModelProperty("资讯")
+    @Schema(description = "资讯")
     private NewsVO news;
 
-    @ApiModelProperty("公告")
+    @Schema(description = "公告")
     private NoticeVO notice;
 }

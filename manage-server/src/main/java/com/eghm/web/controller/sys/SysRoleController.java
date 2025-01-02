@@ -13,8 +13,8 @@ import com.eghm.dto.sys.role.RoleEditRequest;
 import com.eghm.enums.RoleType;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.vo.sys.ext.SysRoleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -27,7 +27,7 @@ import java.util.List;
  * @since 2018/11/26 15:21
  */
 @RestController
-@Api(tags = "角色管理")
+@Tag(name= "角色管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/role", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SysRoleController {
@@ -35,14 +35,14 @@ public class SysRoleController {
     private final SysRoleService sysRoleService;
 
     @GetMapping("/listPage")
-    @ApiOperation("角色列表(分页)")
+    @Operation(summary = "角色列表(分页)")
     public RespBody<PageData<SysRoleResponse>> listPage(PagingQuery request) {
         Page<SysRoleResponse> page = sysRoleService.getByPage(request);
         return RespBody.success(PageData.toPage(page));
     }
 
     @GetMapping("/list")
-    @ApiOperation("角色列表(不分页)")
+    @Operation(summary = "角色列表(不分页)")
     @SkipPerm
     public RespBody<List<CheckBox>> list() {
         List<CheckBox> roleList = sysRoleService.getList();
@@ -50,21 +50,21 @@ public class SysRoleController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑")
     public RespBody<Void> update(@Validated @RequestBody RoleEditRequest request) {
         sysRoleService.update(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         sysRoleService.delete(dto.getId());
         return RespBody.success();
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增")
+    @Operation(summary = "新增")
     public RespBody<Void> create(@Validated @RequestBody RoleAddRequest request) {
         request.setRoleType(RoleType.COMMON);
         sysRoleService.create(request);
@@ -72,14 +72,14 @@ public class SysRoleController {
     }
 
     @GetMapping("/menu")
-    @ApiOperation("查询角色关联菜单列表")
+    @Operation(summary = "查询角色关联菜单列表")
     public RespBody<List<String>> menu(@Validated IdDTO dto) {
         List<String> menuIds = sysRoleService.getRoleMenu(dto.getId());
         return RespBody.success(menuIds);
     }
 
     @PostMapping(value = "/auth", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("角色菜单授权")
+    @Operation(summary = "角色菜单授权")
     public RespBody<Void> authRole(@Validated @RequestBody RoleAuthRequest request) {
         sysRoleService.authMenu(request.getRoleId(), request.getMenuIds());
         return RespBody.success();

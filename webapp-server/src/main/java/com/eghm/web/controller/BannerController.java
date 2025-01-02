@@ -6,9 +6,9 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.Channel;
 import com.eghm.enums.ErrorCode;
 import com.eghm.vo.operate.banner.BannerVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,7 @@ import java.util.List;
  * @since 2020/9/4
  */
 @RestController
-@Api(tags = "轮播图")
+@Tag(name= "轮播图")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/banner", produces = MediaType.APPLICATION_JSON_VALUE)
 public class BannerController {
@@ -31,8 +31,8 @@ public class BannerController {
     private final CacheProxyService cacheProxyService;
 
     @GetMapping("/list")
-    @ApiOperation("查询可用的轮播图列表")
-    @ApiImplicitParam(name = "bannerType", value = "轮播图分类id", required = true)
+     @Operation(summary = "查询可用的轮播图列表")
+    @Parameter(name = "bannerType", description = "轮播图分类id", required = true)
     public RespBody<List<BannerVO>> list(@RequestParam("bannerType") Integer bannerType) {
         String channel = ApiHolder.getChannel();
         if (null == channel) {

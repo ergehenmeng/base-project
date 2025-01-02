@@ -1,10 +1,10 @@
 package com.eghm.web.controller;
 
-import com.eghm.dto.ext.RespBody;
 import com.eghm.common.CommonService;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.vo.sys.ext.SysAreaVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,14 +20,14 @@ import java.util.List;
  * @since 2020/9/4
  */
 @RestController
-@Api(tags = "省份区域")
+@Tag(name = "省份区域")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/area", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AreaController {
 
     private final CommonService commonService;
 
-    @ApiOperation("获取省市区列表")
+    @Operation(summary = "获取省市区列表")
     @GetMapping("/list")
     public RespBody<List<SysAreaVO>> list() {
         List<SysAreaVO> voList = commonService.getTreeAreaList();

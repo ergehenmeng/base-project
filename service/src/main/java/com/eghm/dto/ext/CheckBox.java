@@ -1,6 +1,6 @@
 package com.eghm.dto.ext;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,10 +18,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CheckBox {
 
-    @ApiModelProperty("实际值")
+    @Schema(description = "实际值")
     private Long value;
 
-    @ApiModelProperty("显示值")
+    @Schema(description = "显示值")
     private String desc;
 
 }

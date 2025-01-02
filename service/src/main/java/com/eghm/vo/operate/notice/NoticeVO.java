@@ -1,7 +1,7 @@
 package com.eghm.vo.operate.notice;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -14,22 +14,22 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class NoticeVO {
 
-    @ApiModelProperty("公告id")
+    @Schema(description = "公告id")
     private Long id;
 
-    @ApiModelProperty("公告名称")
+    @Schema(description = "公告名称")
     private String title;
 
-    @ApiModelProperty("公告类型名称")
+    @Schema(description = "公告类型名称")
     private String noticeType;
 
-    @ApiModelProperty("封面图片")
+    @Schema(description = "封面图片")
     private String coverUrl;
 
-    @ApiModelProperty("状态 false:未上架 true:已上架")
+    @Schema(description = "状态 false:未上架 true:已上架")
     private Boolean state;
 
-    @ApiModelProperty("是否已删除 false:未删除 true:已删除")
+    @Schema(description = "是否已删除 false:未删除 true:已删除")
     private Boolean deleted;
 
 }

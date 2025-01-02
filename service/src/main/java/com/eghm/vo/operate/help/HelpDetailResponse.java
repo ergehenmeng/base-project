@@ -1,6 +1,6 @@
 package com.eghm.vo.operate.help;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -10,19 +10,19 @@ import lombok.Data;
 @Data
 public class HelpDetailResponse {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty("帮助分类")
+    @Schema(description = "帮助分类")
     private Integer helpType;
 
-    @ApiModelProperty("问题标题")
+    @Schema(description = "问题标题")
     private String ask;
 
-    @ApiModelProperty("状态 0:不显示 1:显示")
+    @Schema(description = "状态 0:不显示 1:显示")
     private Integer state;
 
-    @ApiModelProperty("回答(html)")
+    @Schema(description = "回答(html)")
     private String answer;
 
 }

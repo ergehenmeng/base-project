@@ -2,7 +2,7 @@ package com.eghm.dto.sys.role;
 
 import com.eghm.annotation.Assign;
 import com.eghm.enums.RoleType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotBlank;
@@ -15,16 +15,16 @@ import jakarta.validation.constraints.Size;
 @Data
 public class RoleAddRequest {
 
-    @ApiModelProperty(value = "角色名称", required = true)
+    @Schema(description = "角色名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "角色名称不能为空")
     @Size(max = 210, message = "角色名称最大10字符")
     private String roleName;
 
-    @ApiModelProperty("备注信息")
+    @Schema(description = "备注信息")
     @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 
-    @ApiModelProperty(value = "角色类型", hidden= true)
+    @Schema(description = "角色类型", hidden= true)
     @Assign
     private RoleType roleType;
 }

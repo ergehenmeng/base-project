@@ -1,6 +1,6 @@
 package com.eghm.dto.sys.login;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotBlank;
@@ -12,15 +12,15 @@ import jakarta.validation.constraints.NotBlank;
 @Data
 public class LoginRequest {
 
-    @ApiModelProperty(value = "账号", required = true)
+    @Schema(description = "账号", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "账号不能为空")
     private String userName;
 
-    @ApiModelProperty(value = "密码", required = true)
+    @Schema(description = "密码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "密码不能为空")
     private String pwd;
 
-    @ApiModelProperty(value = "验证码", required = true)
+    @Schema(description = "验证码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "验证码不能为空")
     private String verifyCode;
 }

@@ -1,7 +1,7 @@
 package com.eghm.dto.sys.user;
 
 import com.eghm.annotation.Assign;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -12,15 +12,15 @@ import org.hibernate.validator.constraints.Length;
 @Data
 public class PasswordEditRequest {
 
-    @ApiModelProperty(value = "旧密码", required = true)
+    @Schema(description = "旧密码", requiredMode = Schema.RequiredMode.REQUIRED)
     @Length(min = 32, max = 32, message = "旧密码格式错误")
     private String oldPwd;
 
-    @ApiModelProperty(value = "新密码", required = true)
+    @Schema(description = "新密码", requiredMode = Schema.RequiredMode.REQUIRED)
     @Length(min = 32, max = 32, message = "新密码格式错误")
     private String newPwd;
 
     @Assign
-    @ApiModelProperty(value = "用户id", required = true)
+    @Schema(description = "用户id", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long userId;
 }

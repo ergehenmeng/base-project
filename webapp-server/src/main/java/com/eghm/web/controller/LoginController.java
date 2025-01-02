@@ -12,8 +12,8 @@ import com.eghm.enums.TemplateType;
 import com.eghm.service.business.MemberService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginTokenVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -30,7 +30,7 @@ import jakarta.servlet.http.HttpServletRequest;
  */
 @Slf4j
 @RestController
-@Api(tags = "登陆、密码功能")
+@Tag(name= "登陆、密码功能")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LoginController {
@@ -41,21 +41,21 @@ public class LoginController {
 
     private final MemberTokenService memberTokenService;
 
-    @ApiOperation("发送登陆验证码①")
+    @Operation(summary = "发送登陆验证码①")
     @PostMapping(value = "/login/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> loginSendSms(@RequestBody @Validated SendSmsDTO dto, HttpServletRequest request) {
         memberService.sendLoginSms(dto.getMobile(), IpUtil.getIpAddress(request));
         return RespBody.success();
     }
 
-    @ApiOperation("短信验证码登陆②")
+    @Operation(summary = "短信验证码登陆②")
     @PostMapping(value = "/login/mobile", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<LoginTokenVO> mobile(@RequestBody @Validated SmsLoginDTO login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         return RespBody.success(memberService.smsLogin(login));
     }
 
-    @ApiOperation("手机或邮箱密码登陆③")
+    @Operation(summary = "手机或邮箱密码登陆③")
     @PostMapping(value = "/login/account", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<LoginTokenVO> account(@RequestBody @Validated AccountLoginDTO login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
@@ -63,21 +63,21 @@ public class LoginController {
         return RespBody.success(memberService.accountLogin(login));
     }
 
-    @ApiOperation("忘记密码发送验证码①")
+    @Operation(summary = "忘记密码发送验证码①")
     @PostMapping(value = "/forget/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> forgetSendSms(@RequestBody @Validated SendSmsDTO dto, HttpServletRequest request) {
         memberService.sendForgetSms(dto.getMobile(), IpUtil.getIpAddress(request));
         return RespBody.success();
     }
 
-    @ApiOperation("忘记密码验证短信验证码②")
+    @Operation(summary = "忘记密码验证短信验证码②")
     @PostMapping(value = "/forget/verify", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<String> verify(@RequestBody @Validated VerifySmsDTO request) {
         String requestId = smsService.verifySmsCode(TemplateType.FORGET, request.getMobile(), request.getSmsCode());
         return RespBody.success(requestId);
     }
 
-    @ApiOperation("忘记密码设置新密码③")
+    @Operation(summary = "忘记密码设置新密码③")
     @PostMapping(value = "/forget/setPwd", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> setPwd(@RequestBody @Validated SetPasswordDTO request) {
         boolean flag = smsService.verifyRequestId(request.getRequestId());
@@ -88,7 +88,7 @@ public class LoginController {
         return RespBody.success();
     }
 
-    @ApiOperation("刷新token")
+    @Operation(summary = "刷新token")
     @PostMapping(value = "/token/refresh")
     public RespBody<String> refresh(@RequestHeader(value = AppHeader.REFRESH_TOKEN, required = false) String refreshToken) {
         if (StrUtil.isBlank(refreshToken)) {

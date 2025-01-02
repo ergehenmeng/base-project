@@ -14,8 +14,8 @@ import com.eghm.utils.IpUtil;
 import com.eghm.vo.business.member.MemberInviteVO;
 import com.eghm.vo.business.member.MemberVO;
 import com.eghm.web.annotation.AccessToken;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -31,7 +31,7 @@ import java.util.List;
  */
 @AccessToken
 @RestController
-@Api(tags = "用户相关接口")
+@Tag(name= "用户相关接口")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/member", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberController {
@@ -43,14 +43,14 @@ public class MemberController {
     private final MemberInviteLogService memberInviteLogService;
 
     @PostMapping(value = "/sendBindEmailCode", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("绑定邮箱发送验证码请求①")
+    @Operation(summary = "绑定邮箱发送验证码请求①")
     public RespBody<Void> sendBindEmail(@RequestBody @Validated SendEmailAuthCodeDTO request) {
         memberService.sendBindEmail(request.getEmail(), ApiHolder.getMemberId());
         return RespBody.success();
     }
 
     @PostMapping(value = "/bindEmail", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("首次绑定邮箱②")
+    @Operation(summary = "首次绑定邮箱②")
     public RespBody<Void> bindEmail(@RequestBody @Validated BindEmailDTO request) {
         request.setMemberId(ApiHolder.getMemberId());
         memberService.bindEmail(request);
@@ -58,14 +58,14 @@ public class MemberController {
     }
 
     @PostMapping(value = "/sendChangeEmailSms")
-    @ApiOperation("发送换绑邮箱的短信验证码①")
+    @Operation(summary = "发送换绑邮箱的短信验证码①")
     public RespBody<Void> sendChangeEmailSms(HttpServletRequest request) {
         memberService.sendChangeEmailSms(ApiHolder.getMemberId(), IpUtil.getIpAddress(request));
         return RespBody.success();
     }
 
     @PostMapping(value = "/sendChangeEmailCode", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("发送换绑邮箱的邮箱验证码②")
+    @Operation(summary = "发送换绑邮箱的邮箱验证码②")
     public RespBody<Void> sendChangeEmailCode(@RequestBody @Validated SendEmailAuthCodeDTO request) {
         request.setMemberId(ApiHolder.getMemberId());
         memberService.sendChangeEmailCode(request);
@@ -73,7 +73,7 @@ public class MemberController {
     }
 
     @PostMapping(value = "/bindChangeEmail", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("绑定新邮箱账号③")
+    @Operation(summary = "绑定新邮箱账号③")
     public RespBody<Void> bindChangeEmail(@RequestBody @Validated ChangeEmailDTO request) {
         request.setMemberId(ApiHolder.getMemberId());
         memberService.changeEmail(request);
@@ -81,7 +81,7 @@ public class MemberController {
     }
 
     @GetMapping("/my")
-    @ApiOperation("我的")
+    @Operation(summary = "我的")
     public RespBody<MemberVO> my() {
         MemberVO vo = memberService.memberHome(ApiHolder.getMemberId());
         Long unRead = memberNoticeService.countUnRead(ApiHolder.getMemberId());
@@ -90,14 +90,14 @@ public class MemberController {
     }
 
     @PostMapping(value = "/edit", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑保存会员信息")
+    @Operation(summary = "编辑保存会员信息")
     public RespBody<Void> edit(@RequestBody @Validated MemberDTO dto) {
         memberService.edit(ApiHolder.getMemberId(), dto);
         return RespBody.success();
     }
 
     @GetMapping("/invitePage")
-    @ApiOperation("邀请记录")
+    @Operation(summary = "邀请记录")
     public RespBody<List<MemberInviteVO>> invitePage(PagingQuery query) {
         List<MemberInviteVO> byPage = memberInviteLogService.getByPage(query, ApiHolder.getMemberId());
         return RespBody.success(byPage);

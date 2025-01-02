@@ -1,7 +1,7 @@
 package com.eghm.dto;
 
 import com.eghm.validation.annotation.RangeInt;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotNull;
@@ -15,11 +15,11 @@ import jakarta.validation.constraints.NotNull;
 @Data
 public class SortByDTO {
 
-    @ApiModelProperty(value = "id", required = true)
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "id", required = true)
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.REQUIRED)
     @RangeInt(max = 999, message = "排序字段应为0~999之间")
     private Integer sortBy;
 

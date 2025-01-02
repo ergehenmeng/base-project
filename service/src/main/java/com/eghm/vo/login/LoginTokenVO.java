@@ -1,6 +1,6 @@
 package com.eghm.vo.login;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LoginTokenVO {
 
-    @ApiModelProperty("登陆token")
+    @Schema(description = "登陆token")
     private String token;
 
-    @ApiModelProperty("刷新token")
+    @Schema(description = "刷新token")
     private String refreshToken;
 }

@@ -2,7 +2,7 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,37 +20,37 @@ import lombok.EqualsAndHashCode;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class News extends BaseEntity {
 
-    @ApiModelProperty(value = "资讯标题")
+    @Schema(description = "资讯标题")
     private String title;
 
-    @ApiModelProperty(value = "资讯编码")
+    @Schema(description = "资讯编码")
     private String code;
 
-    @ApiModelProperty(value = "一句话描述信息")
+    @Schema(description = "一句话描述信息")
     private String depict;
 
-    @ApiModelProperty(value = "标签列表")
+    @Schema(description = "标签列表")
     private String tagName;
 
-    @ApiModelProperty(value = "图集")
+    @Schema(description = "图集")
     private String image;
 
-    @ApiModelProperty(value = "详细信息")
+    @Schema(description = "详细信息")
     private String content;
 
-    @ApiModelProperty(value = "视频")
+    @Schema(description = "视频")
     private String video;
 
-    @ApiModelProperty(value = "排序")
+    @Schema(description = "排序")
     private Integer sort;
 
-    @ApiModelProperty("点赞数量")
+    @Schema(description = "点赞数量")
     private Integer praiseNum;
 
-    @ApiModelProperty("是否支持评论")
+    @Schema(description = "是否支持评论")
     private Boolean commentSupport;
 
-    @ApiModelProperty("状态 false:不显示 true:显示")
+    @Schema(description = "状态 false:不显示 true:显示")
     private Boolean state;
 
 }

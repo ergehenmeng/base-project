@@ -1,6 +1,6 @@
 package com.eghm.vo.operate.notice;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -12,9 +12,9 @@ import lombok.Data;
 @Data
 public class NoticeTopVO {
 
-    @ApiModelProperty("公告id")
+    @Schema(description = "公告id")
     private Long id;
 
-    @ApiModelProperty("公告名称")
+    @Schema(description = "公告名称")
     private String title;
 }

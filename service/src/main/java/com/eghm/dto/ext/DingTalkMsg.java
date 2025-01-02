@@ -1,7 +1,7 @@
 package com.eghm.dto.ext;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -11,17 +11,17 @@ import lombok.Data;
 @Data
 public class DingTalkMsg {
 
-    @ApiModelProperty("消息类型")
+    @Schema(description = "消息类型")
     @JsonProperty("msgtype")
     private String msgType;
 
-    @ApiModelProperty("文本消息")
+    @Schema(description = "文本消息")
     private Text text;
 
     @Data
     public static class Text {
 
-        @ApiModelProperty("内容")
+        @Schema(description = "内容")
         private String content;
     }
 }

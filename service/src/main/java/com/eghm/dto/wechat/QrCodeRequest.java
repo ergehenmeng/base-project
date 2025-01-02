@@ -1,6 +1,6 @@
 package com.eghm.dto.wechat;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotBlank;
@@ -13,14 +13,14 @@ import jakarta.validation.constraints.NotBlank;
 @Data
 public class QrCodeRequest {
 
-    @ApiModelProperty("链接地址")
+    @Schema(description = "链接地址")
     @NotBlank(message = "链接地址不能为空")
     private String pageUrl;
 
-    @ApiModelProperty("页面参数")
+    @Schema(description = "页面参数")
     private String query;
 
-    @ApiModelProperty("有效日期")
+    @Schema(description = "有效日期")
     private Integer validDay = 1;
 
 }

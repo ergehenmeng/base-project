@@ -3,7 +3,7 @@ package com.eghm.dto.business.statistics;
 import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.DateComparator;
 import com.eghm.enums.SelectType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,17 +20,17 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = false)
 public class DateRequest extends DateComparator {
 
-    @ApiModelProperty(value = "开始日期 yyyy-MM-dd", required = true)
+    @Schema(description = "开始日期 yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "开始日期不能为空")
     private LocalDate startDate;
 
-    @ApiModelProperty(value = "截止日期 yyyy-MM-dd", required = true)
+    @Schema(description = "截止日期 yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
     @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
     @NotNull(message = "截止日期不能为空")
     private LocalDate endDate;
 
-    @ApiModelProperty(value = "查询类型")
+    @Schema(description = "查询类型")
     private SelectType selectType;
 
 }

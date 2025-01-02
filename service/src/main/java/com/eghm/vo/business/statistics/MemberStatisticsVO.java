@@ -1,6 +1,6 @@
 package com.eghm.vo.business.statistics;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -13,9 +13,9 @@ import java.util.List;
 @Data
 public class MemberStatisticsVO {
 
-    @ApiModelProperty("渠道统计")
+    @Schema(description = "渠道统计")
     private List<MemberChannelVO> channelList;
 
-    @ApiModelProperty("性别统计")
+    @Schema(description = "性别统计")
     private List<MemberSexVO> sexList;
 }

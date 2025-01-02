@@ -6,8 +6,8 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.LoginService;
 import com.eghm.vo.business.member.LoginDeviceVO;
 import com.eghm.web.annotation.AccessToken;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -21,21 +21,21 @@ import java.util.List;
  */
 @AccessToken
 @RestController
-@Api(tags = "登陆设备")
+@Tag(name= "登陆设备")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/member/device", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DeviceController {
 
     private final LoginService loginService;
 
-    @ApiOperation("用户登陆过的设备列表")
+    @Operation(summary = "用户登陆过的设备列表")
     @GetMapping("/list")
     public RespBody<List<LoginDeviceVO>> list() {
         List<LoginDeviceVO> voList = loginService.getByMemberId(ApiHolder.getMemberId());
         return RespBody.success(voList);
     }
 
-    @ApiOperation("解除设备绑定")
+    @Operation(summary = "解除设备绑定")
     @PostMapping(value = "/unbind", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> unbind(@RequestBody @Validated IdDTO dto) {
         loginService.deleteLoginDevice(ApiHolder.getMemberId(), dto.getId());

@@ -1,6 +1,6 @@
 package com.eghm.dto.sys.task;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
@@ -14,33 +14,33 @@ import jakarta.validation.constraints.NotNull;
 @Data
 public class TaskEditRequest {
 
-    @ApiModelProperty(value = "id主键", required = true)
+    @Schema(description = "id主键", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "定时任务名称", required = true)
+    @Schema(description = "定时任务名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "定时任务名称不能为空")
     private String title;
 
-    @ApiModelProperty(value = "cron表达式", required = true)
+    @Schema(description = "cron表达式", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "cron表达式不能为空")
     private String cronExpression;
 
-    @ApiModelProperty(value = "方法参数")
+    @Schema(description = "方法参数")
     private String args;
 
-    @ApiModelProperty(value = "报警邮箱")
+    @Schema(description = "报警邮箱")
     private String alarmEmail;
 
-    @ApiModelProperty("锁持有时间,毫秒")
+    @Schema(description = "锁持有时间,毫秒")
     @NotNull(message = "锁持有时间不能为空")
     @Range(min = 30000, max = 3600000, message = "锁持有时间应在30000~3600000ms之间")
     private Long lockTime;
 
-    @ApiModelProperty(value = "状态 0:未开启 1:已开启", required = true)
+    @Schema(description = "状态 0:未开启 1:已开启", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "任务状态不能为空")
     private Boolean state;
 
-    @ApiModelProperty(value = "备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 }

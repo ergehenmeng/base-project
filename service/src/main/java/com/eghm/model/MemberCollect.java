@@ -2,7 +2,7 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.CollectType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,21 +21,21 @@ import java.time.LocalDate;
 @TableName("member_collect")
 public class MemberCollect extends BaseEntity {
 
-    @ApiModelProperty(value = "会员id")
+    @Schema(description = "会员id")
     private Long memberId;
 
-    @ApiModelProperty(value = "收藏id")
+    @Schema(description = "收藏id")
     private Long collectId;
 
-    @ApiModelProperty(value = "收藏对象类型 (1::资讯 2:公告)")
+    @Schema(description = "收藏对象类型 (1::资讯 2:公告)")
     private CollectType collectType;
 
-    @ApiModelProperty(value = "0:取消收藏, 1:加入收藏")
+    @Schema(description = "0:取消收藏, 1:加入收藏")
     private Integer state;
 
-    @ApiModelProperty("创建日期")
+    @Schema(description = "创建日期")
     private LocalDate createDate;
 
-    @ApiModelProperty(value = "创建月份")
+    @Schema(description = "创建月份")
     private String createMonth;
 }

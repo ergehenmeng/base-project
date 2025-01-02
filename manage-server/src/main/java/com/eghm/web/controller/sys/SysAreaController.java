@@ -5,8 +5,8 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.common.CommonService;
 import com.eghm.vo.sys.ext.SysAreaVO;
 import com.google.common.collect.Lists;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,14 +20,14 @@ import java.util.List;
  * @since 2024/6/4
  */
 @RestController
-@Api(tags = "省市县")
+@Tag(name= "省市县")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/area", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SysAreaController {
 
     private final CommonService commonService;
 
-    @ApiOperation("获取省市区列表")
+    @Operation(summary = "获取省市区列表")
     @GetMapping("/list")
     @SkipPerm
     public RespBody<List<SysAreaVO>> list() {
@@ -35,7 +35,7 @@ public class SysAreaController {
         return RespBody.success(voList);
     }
 
-    @ApiOperation("获取省市列表")
+    @Operation(summary = "获取省市列表")
     @GetMapping("/provinceList")
     @SkipPerm
     public RespBody<List<SysAreaVO>> provinceList() {

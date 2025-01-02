@@ -3,7 +3,7 @@ package com.eghm.dto.operate.comment;
 import com.eghm.annotation.Assign;
 import com.eghm.enums.ObjectType;
 import com.eghm.validation.annotation.WordChecker;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -17,27 +17,27 @@ import lombok.Data;
 @Data
 public class CommentDTO {
 
-    @ApiModelProperty(value = "评论内容", required = true)
+    @Schema(description = "评论内容", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "评论内容不能为空")
     @Size(max = 200, message = "评论内容最大200字符")
     @WordChecker(message = "评论内容包含敏感词汇")
     private String content;
 
-    @ApiModelProperty(value = "评论对象id", required = true)
+    @Schema(description = "评论对象id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "评论对象id不能为空")
     private Long objectId;
 
-    @ApiModelProperty(value = "评论对象类型 (1:资讯 2:活动)", required = true)
+    @Schema(description = "评论对象类型 (1:资讯 2:活动)", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "评论对象类型不能为空")
     private ObjectType objectType;
 
-    @ApiModelProperty("父评论")
+    @Schema(description = "父评论")
     private Long pid;
 
-    @ApiModelProperty("评论id")
+    @Schema(description = "评论id")
     private Long replyId;
 
-    @ApiModelProperty(value = "用户id", hidden = true)
+    @Schema(description = "用户id", hidden = true)
     @Assign
     private Long memberId;
 }

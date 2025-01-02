@@ -10,8 +10,8 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.service.business.MemberService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginTokenVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -29,7 +29,7 @@ import jakarta.servlet.http.HttpServletRequest;
  * @since 2019/8/20 10:18
  */
 @RestController
-@Api(tags = "注册")
+@Tag(name= "注册")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/register", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RegisterController {
@@ -37,14 +37,14 @@ public class RegisterController {
     private final MemberService memberService;
 
     @PostMapping(value = "/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("注册发送验证码①")
+    @Operation(summary = "注册发送验证码①")
     public RespBody<Void> sendSms(@RequestBody @Validated RegisterSmsDTO dto, HttpServletRequest request) {
         memberService.registerSendSms(dto.getMobile(), IpUtil.getIpAddress(request));
         return RespBody.success();
     }
 
     @PostMapping(value = "/mobile", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("手机号注册②")
+    @Operation(summary = "手机号注册②")
     public RespBody<LoginTokenVO> mobile(@RequestBody @Validated MobileRegisterDTO request, HttpServletRequest servletRequest) {
         request.setChannel(ApiHolder.getChannel());
         request.setIp(IpUtil.getIpAddress(servletRequest));
@@ -53,7 +53,7 @@ public class RegisterController {
     }
 
     @PostMapping(value = "/account", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("账号密码登录①")
+    @Operation(summary = "账号密码登录①")
     public RespBody<LoginTokenVO> account(@RequestBody @Validated AccountRegisterDTO request, HttpServletRequest servletRequest) {
         Object value = servletRequest.getSession().getAttribute(CommonConstant.CAPTCHA_KEY);
         // 验证码使用后即为无效

@@ -1,7 +1,7 @@
 package com.eghm.dto.operate.email;
 
 import com.eghm.enums.EmailType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,13 +20,13 @@ import java.util.Map;
 @AllArgsConstructor
 public class SendEmail {
 
-    @ApiModelProperty("接收邮件的地址")
+    @Schema(description = "接收邮件的地址")
     private String to;
 
-    @ApiModelProperty("邮箱模板类型")
+    @Schema(description = "邮箱模板类型")
     private EmailType type;
 
-    @ApiModelProperty("附加信息 可以用于渲染模板,也可以用作参数的传递")
+    @Schema(description = "附加信息 可以用于渲染模板,也可以用作参数的传递")
     private Map<String, Object> params;
 
     /**

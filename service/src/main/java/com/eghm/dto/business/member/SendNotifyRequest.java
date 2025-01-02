@@ -2,7 +2,7 @@ package com.eghm.dto.business.member;
 
 import com.eghm.enums.MessageType;
 import com.eghm.validation.annotation.WordChecker;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotBlank;
@@ -18,23 +18,23 @@ import java.util.List;
 @Data
 public class SendNotifyRequest {
 
-    @ApiModelProperty("消息名称")
+    @Schema(description = "消息名称")
     @NotBlank(message = "消息名称不能为空")
     @Size(min = 2, max = 20, message = "消息名称长度2~20位")
     @WordChecker(message = "消息名称存在敏感词")
     private String title;
 
-    @ApiModelProperty("内容")
+    @Schema(description = "内容")
     @NotBlank(message = "内容不能为空")
     @Size(min = 10, max = 200, message = "内容长度10~200位")
     @WordChecker(message = "内容存在敏感词")
     private String content;
 
-    @ApiModelProperty("通知类型")
+    @Schema(description = "通知类型")
     @NotNull(message = "通知类型不能为空")
     private MessageType messageType;
 
-    @ApiModelProperty("会员id")
+    @Schema(description = "会员id")
     @NotNull(message = "请选择会员")
     private List<Long> memberIds;
 

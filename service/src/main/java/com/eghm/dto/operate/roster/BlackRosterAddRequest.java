@@ -2,7 +2,7 @@ package com.eghm.dto.operate.roster;
 
 import com.eghm.convertor.IpToLongDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -15,17 +15,17 @@ import org.hibernate.validator.constraints.Length;
 @Data
 public class BlackRosterAddRequest {
 
-    @ApiModelProperty(value = "ip地址开始", required = true)
+    @Schema(description = "ip地址开始", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonDeserialize(using = IpToLongDeserializer.class)
     @NotNull(message = "开始ip地址不能为空")
     private Long startIp;
 
-    @ApiModelProperty(value = "ip地址结束", required = true)
+    @Schema(description = "ip地址结束", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonDeserialize(using = IpToLongDeserializer.class)
     @NotNull(message = "结束ip地址不能为空")
     private Long endIp;
 
-    @ApiModelProperty("备注信息")
+    @Schema(description = "备注信息")
     @Length(max = 100, message = "备注信息最大100字符")
     private String remark;
 

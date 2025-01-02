@@ -1,7 +1,7 @@
 package com.eghm.vo.sys.ext;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -14,21 +14,21 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SysAreaVO {
 
-    @ApiModelProperty("区域id(唯一)")
+    @Schema(description = "区域id(唯一)")
     private Long id;
 
-    @ApiModelProperty("区域名称")
+    @Schema(description = "区域名称")
     private String title;
 
-    @ApiModelProperty("邮编")
+    @Schema(description = "邮编")
     private String zipCode;
 
-    @ApiModelProperty("地区首字母")
+    @Schema(description = "地区首字母")
     private String mark;
 
-    @ApiModelProperty("父节点")
+    @Schema(description = "父节点")
     private Long pid;
 
-    @ApiModelProperty("子节点")
+    @Schema(description = "子节点")
     private List<SysAreaVO> children;
 }

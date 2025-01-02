@@ -3,7 +3,7 @@ package com.eghm.web.controller;
 import com.eghm.annotation.SkipPerm;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpServletRequest;
  * @since 2024/11/1
  */
 @Slf4j
-@Api(tags = "错误提示", hidden = true)
+@Tag(name= "错误提示")
 @RestController
 @RequestMapping("${server.error.path:${error.path:/error}}")
 public class ErrorController extends AbstractErrorController {

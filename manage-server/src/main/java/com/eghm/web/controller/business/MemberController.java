@@ -13,8 +13,8 @@ import com.eghm.service.business.MemberNoticeService;
 import com.eghm.service.business.MemberService;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.member.MemberResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +28,7 @@ import java.util.List;
  * @since 2023/8/18 14:16
  */
 @RestController
-@Api(tags = "会员信息")
+@Tag(name= "会员信息")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/member", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberController {
@@ -40,49 +40,49 @@ public class MemberController {
     private final MemberNoticeService memberNoticeService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<MemberResponse>> listPage(MemberQueryRequest request) {
         Page<MemberResponse> byPage = memberService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping(value = "/freeze", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("冻结")
+    @Operation(summary = "冻结")
     public RespBody<Void> freeze(@Validated @RequestBody IdDTO dto) {
         memberService.updateState(dto.getId(), false);
         return RespBody.success();
     }
 
     @PostMapping(value = "/unfreeze", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("解冻")
+    @Operation(summary = "解冻")
     public RespBody<Void> unfreeze(@Validated @RequestBody IdDTO dto) {
         memberService.updateState(dto.getId(), true);
         return RespBody.success();
     }
 
     @PostMapping(value = "/offline", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("强制下线")
+    @Operation(summary = "强制下线")
     public RespBody<Void> offline(@Validated @RequestBody IdDTO dto) {
         memberService.offline(dto.getId());
         return RespBody.success();
     }
 
     @GetMapping("/export")
-    @ApiOperation("导出")
+    @Operation(summary = "导出")
     public void export(HttpServletResponse response, MemberQueryRequest request) {
         List<MemberResponse> byPage = memberService.getList(request);
         EasyExcelUtil.export(response, "会员信息", byPage, MemberResponse.class);
     }
 
     @GetMapping("/loginPage")
-    @ApiOperation("登录日志列表")
+    @Operation(summary = "登录日志列表")
     public RespBody<PageData<LoginLog>> loginPage(@Validated LoginLogQueryRequest request) {
         Page<LoginLog> byPage = loginService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping(value = "/sendNotice", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("发送通知")
+    @Operation(summary = "发送通知")
     public RespBody<Void> sendNotice(@Validated @RequestBody SendNotifyRequest request) {
         memberNoticeService.sendNoticeBatch(request);
         return RespBody.success();

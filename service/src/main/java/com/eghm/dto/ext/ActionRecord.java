@@ -1,7 +1,7 @@
 package com.eghm.dto.ext;
 
 import com.eghm.annotation.Assign;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,11 +16,11 @@ import lombok.Setter;
 public class ActionRecord {
 
     @Assign
-    @ApiModelProperty(value = "操作人姓名", hidden = true)
+    @Schema(description = "操作人姓名", hidden = true)
     private String userName;
 
     @Assign
-    @ApiModelProperty(value = "操作人id", hidden = true)
+    @Schema(description = "操作人id", hidden = true)
     private Long userId;
 
 }

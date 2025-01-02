@@ -2,7 +2,7 @@ package com.eghm.vo.operate.comment;
 
 import com.eghm.convertor.DateParseSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -15,52 +15,52 @@ import java.time.LocalDateTime;
 @Data
 public class CommentSecondVO {
 
-    @ApiModelProperty("留言id")
+    @Schema(description = "留言id")
     private Long id;
 
-    @ApiModelProperty("父评论ID")
+    @Schema(description = "父评论ID")
     private Long pid;
 
-    @ApiModelProperty("昵称")
+    @Schema(description = "昵称")
     private String nickName;
 
-    @ApiModelProperty("头像")
+    @Schema(description = "头像")
     private String avatar;
 
-    @ApiModelProperty(value = "评论信息")
+    @Schema(description = "评论信息")
     private String content;
 
-    @ApiModelProperty("评论时间")
+    @Schema(description = "评论时间")
     @JsonSerialize(using = DateParseSerializer.class)
     private LocalDateTime createTime;
 
-    @ApiModelProperty(value = "点赞数量")
+    @Schema(description = "点赞数量")
     private Integer praiseNum;
 
-    @ApiModelProperty(value = "回复id")
+    @Schema(description = "回复id")
     private Long replyId;
 
-    @ApiModelProperty(value = "被评论次数")
+    @Schema(description = "被评论次数")
     private Integer replyNum;
 
-    @ApiModelProperty(value = "置顶状态 0:未置顶 1:置顶")
+    @Schema(description = "置顶状态 0:未置顶 1:置顶")
     private Integer topState;
 
-    @ApiModelProperty(value = "被回复的评论是否删除")
+    @Schema(description = "被回复的评论是否删除")
     private Boolean replyDeleted;
 
-    @ApiModelProperty(value = "被回复的评论是否屏蔽")
+    @Schema(description = "被回复的评论是否屏蔽")
     private Boolean replyState;
 
-    @ApiModelProperty(value = "回复昵称")
+    @Schema(description = "回复昵称")
     private String replyNickName;
 
-    @ApiModelProperty(value = "回复头像")
+    @Schema(description = "回复头像")
     private String replyAvatar;
 
-    @ApiModelProperty(value = "回复内容")
+    @Schema(description = "回复内容")
     private String replyContent;
 
-    @ApiModelProperty("是否已点赞")
+    @Schema(description = "是否已点赞")
     private Boolean hasPraise;
 }

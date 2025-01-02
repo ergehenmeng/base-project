@@ -1,6 +1,6 @@
 package com.eghm.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import jakarta.validation.constraints.NotNull;
@@ -12,11 +12,11 @@ import jakarta.validation.constraints.NotNull;
 @Data
 public class StateRequest {
 
-    @ApiModelProperty(value = "id", required = true)
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "状态 true:启用 false:禁用", required = true)
+    @Schema(description = "状态 true:启用 false:禁用", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "状态不能为空")
     private Boolean state;
 }

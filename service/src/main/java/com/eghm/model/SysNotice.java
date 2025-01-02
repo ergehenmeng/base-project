@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -25,19 +25,19 @@ public class SysNotice extends BaseEntity {
      */
     public static final int STATE_1 = 1;
 
-    @ApiModelProperty("公告标题")
+    @Schema(description = "公告标题")
     private String title;
 
-    @ApiModelProperty("公告类型(数据字典表notice_type)")
+    @Schema(description = "公告类型(数据字典表notice_type)")
     private Integer noticeType;
 
-    @ApiModelProperty("封面图片")
+    @Schema(description = "封面图片")
     private String coverUrl;
 
-    @ApiModelProperty("公告内容(富文本)")
+    @Schema(description = "公告内容(富文本)")
     private String content;
 
-    @ApiModelProperty("是否发布 0:未发布 1:已发布")
+    @Schema(description = "是否发布 0:未发布 1:已发布")
     private Integer state;
 
 }

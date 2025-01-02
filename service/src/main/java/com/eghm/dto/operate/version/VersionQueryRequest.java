@@ -2,7 +2,7 @@ package com.eghm.dto.operate.version;
 
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.validation.annotation.OptionString;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,10 +14,10 @@ import lombok.Setter;
 @Getter
 public class VersionQueryRequest extends PagingQuery {
 
-    @ApiModelProperty(value = "上架状态 false:待上架 true:已上架")
+    @Schema(description = "上架状态 false:待上架 true:已上架")
     private Boolean state;
 
-    @ApiModelProperty(value = "平台: ANDROID, IOS")
+    @Schema(description = "平台: ANDROID, IOS")
     @OptionString(value = {"ANDROID", "IOS"}, message = "请选择正确的平台", required = false)
     private String channel;
 

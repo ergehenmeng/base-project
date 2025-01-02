@@ -1,7 +1,7 @@
 package com.eghm.dto.ext;
 
 import com.eghm.enums.MessageType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.Map;
@@ -15,12 +15,12 @@ import java.util.Map;
 @Data
 public class SendNotice {
 
-    @ApiModelProperty("站内信类型")
+    @Schema(description = "站内信类型")
     private MessageType messageType;
 
-    @ApiModelProperty("参数类型 用于渲染消息模板")
+    @Schema(description = "参数类型 用于渲染消息模板")
     private Map<String, Object> params;
 
-    @ApiModelProperty("附加的参数类型 用于前端业务跳转等")
+    @Schema(description = "附加的参数类型 用于前端业务跳转等")
     private Map<String, String> extras;
 }

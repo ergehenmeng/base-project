@@ -2,7 +2,7 @@ package com.eghm.dto.sys.user;
 
 import com.eghm.enums.DataType;
 import com.eghm.validation.annotation.Mobile;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -20,33 +20,33 @@ import java.util.List;
 @Data
 public class UserAddRequest {
 
-    @ApiModelProperty(value = "用户名称", required = true)
+    @Schema(description = "用户名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "用户名称不能为空")
     @Size(max = 10, message = "用户名称最多10字符")
     private String nickName;
 
-    @ApiModelProperty(value = "账户名", required = true)
+    @Schema(description = "账户名", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "账户名不能为空")
     @Length(min = 6, max = 15, message = "账户名长度6-15位")
     private String userName;
 
-    @ApiModelProperty(value = "手机号", required = true)
+    @Schema(description = "手机号", requiredMode = Schema.RequiredMode.REQUIRED)
     @Mobile
     private String mobile;
 
-    @ApiModelProperty(value = "所属部门")
+    @Schema(description = "所属部门")
     private String deptCode;
 
-    @ApiModelProperty(value = "角色编号", required = true)
+    @Schema(description = "角色编号", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "请选择角色")
     private List<Long> roleIds;
 
-    @ApiModelProperty("数据权限(1:本人 2:本部门 4:本部门及子部门 8:全部 16:自定义)")
+    @Schema(description = "数据权限(1:本人 2:本部门 4:本部门及子部门 8:全部 16:自定义)")
     private DataType dataType;
 
-    @ApiModelProperty("数据权限部门id,逗号分割")
+    @Schema(description = "数据权限部门id,逗号分割")
     private String deptIds;
 
-    @ApiModelProperty("备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 }
