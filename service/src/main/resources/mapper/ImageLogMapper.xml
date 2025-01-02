@@ -3,15 +3,7 @@
 <mapper namespace="com.eghm.mapper.ImageLogMapper">
 
     <select id="getByPage" resultType="com.eghm.vo.operate.log.ImageLogResponse" parameterType="com.eghm.dto.operate.image.ImageQueryRequest">
-        select
-        id,
-        image_type,
-        path,
-        remark,
-        size,
-        title,
-        create_time,
-        update_time
+        select id, image_type, path, remark, size, title, create_time, update_time
         from image_log where deleted = false
         <if test="param.imageType != null">
             and image_type = #{param.imageType}

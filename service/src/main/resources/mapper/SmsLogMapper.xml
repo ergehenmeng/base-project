@@ -3,13 +3,7 @@
 <mapper namespace="com.eghm.mapper.SmsLogMapper">
 
     <select id="getByPage" resultType="com.eghm.vo.operate.log.SmsLogResponse" parameterType="com.eghm.dto.sys.log.SmsLogQueryRequest">
-        select
-            id,
-            mobile,
-            content,
-            template_type,
-            state,
-            create_time
+        select id, mobile, content, template_type, state, create_time
         from sms_log
         <where>
             <if test="param.queryName != null and param.queryName != ''">

@@ -3,21 +3,7 @@
 <mapper namespace="com.eghm.mapper.FeedbackLogMapper">
 
     <select id="getByPage" parameterType="com.eghm.dto.operate.feedback.FeedbackQueryRequest" resultType="com.eghm.vo.operate.feedback.FeedbackResponse">
-        select
-        t.id,
-        t.state,
-        t.feedback_type,
-        t.version,
-        t.system_version,
-        t.content,
-        t.image_url,
-        t.create_time,
-        t.update_time,
-        t.device_brand,
-        t.device_model,
-        r.nick_name,
-        r.mobile,
-        t.remark
+        select t.id, t.state, t.feedback_type, t.version, t.system_version, t.content, t.image_url, t.create_time, t.update_time, t.device_brand, t.device_model, r.nick_name, r.mobile, t.remark
         from feedback_log t
         left join `member` r on t.member_id = r.id
         <where>

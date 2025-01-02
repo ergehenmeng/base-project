@@ -3,9 +3,7 @@
 <mapper namespace="com.eghm.mapper.SysDataDeptMapper">
 
     <select id="getDeptList" resultType="java.util.List">
-        select dept_code
-        from sys_data_dept
-        where user_id = #{userId}
+        select dept_code from sys_data_dept where user_id = #{userId}
     </select>
 
 </mapper>

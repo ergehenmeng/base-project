@@ -23,14 +23,7 @@
     </select>
 
     <select id="getByPage" resultType="com.eghm.vo.business.news.NewsVO">
-        select 
-           id,
-           title,
-           depict,
-           tag_name,
-           image,
-            praise_num,
-           update_time
+        select  id, title, depict, tag_name, image, praise_num, update_time
         from news where deleted = false
         <if test="queryName != null and queryName != ''">
             and title like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%')

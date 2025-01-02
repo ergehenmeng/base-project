@@ -35,5 +35,5 @@ public class DictResponse {
     private LocalDateTime createTime;
 
     @Schema(description = "数据项列表")
-    private List<DictItemResponse> itemList;
+    private List<DictItemResponse> subList;
 }

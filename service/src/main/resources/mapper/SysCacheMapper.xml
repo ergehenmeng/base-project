@@ -3,10 +3,7 @@
 <mapper namespace="com.eghm.mapper.SysCacheMapper">
 
     <update id="updateCache" parameterType="com.eghm.model.SysCache">
-        update sys_cache set
-        state = #{state},
-        update_time = #{updateTime}
-        where cache_name = #{cacheName}
+        update sys_cache set state = #{state}, update_time = #{updateTime} where cache_name = #{cacheName}
     </update>
 
 </mapper>

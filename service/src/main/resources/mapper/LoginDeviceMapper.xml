@@ -9,8 +9,7 @@
     </insert>
 
     <select id="getBySerialNumber" resultType="com.eghm.model.LoginDevice">
-        select
-        id, member_id, serial_number, device_model, login_time,ip
+        select id, member_id, serial_number, device_model, login_time,ip
         from login_device where member_id = #{memberId} and serial_number = #{serialNumber} order by id desc limit 1
     </select>
 

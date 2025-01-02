@@ -3,16 +3,7 @@
 <mapper namespace="com.eghm.mapper.PayNotifyLogMapper">
 
     <select id="getByPage" resultType="com.eghm.vo.operate.log.PayNotifyLogResponse" parameterType="com.eghm.dto.business.pay.PayLogQueryRequest">
-        select
-        id,
-        pay_channel,
-        notify_id,
-        step_type,
-        trade_no,
-        refund_no,
-        params,
-        state,
-        create_time
+        select id, pay_channel, notify_id, step_type, trade_no, refund_no, params, state, create_time
         from pay_notify_log where deleted = false
         <if test="param.payChannel != null">
             and pay_channel = #{param.payChannel}

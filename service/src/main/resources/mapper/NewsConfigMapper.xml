@@ -3,10 +3,7 @@
 <mapper namespace="com.eghm.mapper.NewsConfigMapper">
 
     <select id="getList" resultType="com.eghm.vo.business.news.NewsConfigResponse">
-        select code,
-               title
-        from news_config
-        where deleted = false order by id desc
+        select code, title from news_config where deleted = false order by id desc
     </select>
 
 </mapper>

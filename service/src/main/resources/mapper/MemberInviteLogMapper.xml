@@ -3,15 +3,10 @@
 <mapper namespace="com.eghm.mapper.MemberInviteLogMapper">
 
     <select id="getByPage" resultType="com.eghm.vo.business.member.MemberInviteVO">
-        select
-        r.nick_name,
-        r.avatar,
-        r.mobile,
-        t.create_time
+        select r.nick_name, r.avatar, r.mobile, t.create_time
         from member_invite_log t
         left join `member` r on t.invite_member_id = r.id
-        where t.member_id = #{memberId}
-        order by t.id desc
+        where t.member_id = #{memberId} order by t.id desc
     </select>
 
 </mapper>

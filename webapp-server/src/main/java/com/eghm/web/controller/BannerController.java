@@ -31,7 +31,7 @@ public class BannerController {
     private final CacheProxyService cacheProxyService;
 
     @GetMapping("/list")
-     @Operation(summary = "查询可用的轮播图列表")
+    @Operation(summary = "查询可用的轮播图列表")
     @Parameter(name = "bannerType", description = "轮播图分类id", required = true)
     public RespBody<List<BannerVO>> list(@RequestParam("bannerType") Integer bannerType) {
         String channel = ApiHolder.getChannel();

@@ -4,11 +4,10 @@
 
     <select id="getByPage" resultType="com.eghm.vo.operate.notice.NoticeResponse" parameterType="com.eghm.dto.operate.notice.NoticeQueryRequest">
         select id, title, notice_type, state, create_time, update_time, cover_url
-        from sys_notice
-        where deleted = false
-          <if test="param.queryName != null and param.queryName != ''">
+        from sys_notice where deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
             and title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
-          </if>
+        </if>
         <if test="param.noticeType != null">
             and notice_type = #{param.noticeType}
         </if>
@@ -19,17 +18,14 @@
     </select>
 
     <select id="getTopList" resultType="com.eghm.model.SysNotice">
-        select id, title
-        from sys_notice
-        where state = 1
-          and deleted = false
+        select id, title from sys_notice
+        where state = 1 and deleted = false
         order by update_time desc limit #{noticeLimit}
     </select>
 
     <select id="getList" resultType="com.eghm.vo.operate.notice.NoticeVO">
         select id, title, deleted, notice_type, cover_url, state
-        from sys_notice
-        where id in
+        from sys_notice where id in
         <foreach collection="noticeIds" item="item" separator="," open="(" close=")">
             #{item}
         </foreach>

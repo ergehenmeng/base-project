@@ -3,20 +3,7 @@
 <mapper namespace="com.eghm.mapper.MemberMapper">
 
     <select id="listPage" resultType="com.eghm.vo.business.member.MemberResponse" parameterType="com.eghm.dto.business.member.MemberQueryRequest">
-        select
-        t.id,
-        t.nick_name,
-        t.mobile,
-        t.email,
-        t.state,
-        t.score,
-        t.invite_code,
-        t.real_name,
-        t.birthday,
-        t.sex,
-        t.channel,
-        t.avatar,
-        t.create_time
+        select t.id, t.nick_name, t.mobile, t.email, t.state, t.score, t.invite_code, t.real_name, t.birthday, t.sex, t.channel, t.avatar, t.create_time
         from `member` t where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
             and (
@@ -46,9 +33,7 @@
     </select>
 
     <select id="channelStatistics" resultType="com.eghm.vo.business.statistics.MemberChannelVO">
-        select
-        count(id) as value,
-        `channel` as name
+        select count(id) as value, `channel` as name
         from `member` where deleted = false
         <if test="startDate != null ">
             and create_date &gt; #{startDate}
@@ -60,8 +45,7 @@
     </select>
 
     <select id="sexStatistics" resultType="com.eghm.vo.business.statistics.MemberSexVO">
-        select
-        count(id) as value,
+        select count(id) as value,
         case when sex = 0 then '女' when `sex` = 1 then '男' else '未知' end as `name`
         from `member` where deleted = false
         <if test="startDate != null ">

@@ -3,15 +3,8 @@
 <mapper namespace="com.eghm.mapper.SysRoleMapper">
 
     <select id="getByPage" resultType="com.eghm.vo.sys.ext.SysRoleResponse" >
-        select
-        id,
-        create_time,
-        remark,
-        role_name,
-        role_type,
-        update_time
-        from sys_role
-        where deleted = false
+        select id, create_time, remark, role_name, role_type, update_time
+        from sys_role where deleted = false
         <if test="queryName != null and queryName != ''">
             and role_name like concat('%', #{queryName, typeHandler=LikeTypeHandler},'%')
         </if>
@@ -19,15 +12,11 @@
     </select>
 
     <select id="getRoleMenu" resultType="string">
-        select t.menu_id
-        from sys_role_menu t, sys_menu r
-        where t.menu_id = r.id and role_id = #{roleId} and r.grade = 2
+        select t.menu_id from sys_role_menu t, sys_menu r where t.menu_id = r.id and role_id = #{roleId} and r.grade = 2
     </select>
 
     <delete id="deleteRoleMenu">
-        delete
-        from sys_role_menu
-        where role_id = #{roleId}
+        delete from sys_role_menu where role_id = #{roleId}
     </delete>
 
     <insert id="batchInsert">
@@ -38,11 +27,9 @@
     </insert>
 
     <select id="countByRoleType" resultType="int">
-        select count(t.id)
-        from sys_role t
+        select count(t.id) from sys_role t
         left join sys_user_role r on t.id = r.role_id
-        where r.user_id = #{userId}
-          and t.deleted = false and t.role_type = #{roleType}
+        where r.user_id = #{userId} and t.deleted = false and t.role_type = #{roleType}
     </select>
 
 </mapper>

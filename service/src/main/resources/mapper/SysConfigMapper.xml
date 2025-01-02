@@ -3,14 +3,7 @@
 <mapper namespace="com.eghm.mapper.SysConfigMapper">
 
     <select id="getByPage" resultType="com.eghm.vo.sys.ext.SysConfigResponse" parameterType="com.eghm.dto.sys.config.ConfigQueryRequest">
-        select
-            id,
-            title,
-            content,
-            nid,
-            remark,
-            locked,
-            update_time
+        select id, title, content, nid, remark, locked, update_time
         from sys_config
         <where>
             <if test="param.locked != null">

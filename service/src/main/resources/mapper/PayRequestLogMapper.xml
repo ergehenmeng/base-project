@@ -3,16 +3,7 @@
 <mapper namespace="com.eghm.mapper.PayRequestLogMapper">
 
     <select id="getByPage" resultType="com.eghm.vo.operate.log.PayRequestLogResponse" parameterType="com.eghm.dto.business.pay.PayLogQueryRequest">
-        select
-        id,
-        pay_channel,
-        order_no,
-        step_type ,
-        trade_no,
-        refund_no,
-        request_body,
-        response_body,
-        create_time
+        select id, pay_channel, order_no, step_type, trade_no, refund_no, request_body, response_body, create_time
         from pay_request_log where deleted = false
         <if test="param.payChannel != null">
             and pay_channel = #{param.payChannel}

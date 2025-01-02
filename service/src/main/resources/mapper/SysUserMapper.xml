@@ -3,18 +3,7 @@
 <mapper namespace="com.eghm.mapper.SysUserMapper">
 
     <select id="listPage" resultType="com.eghm.vo.sys.user.UserResponse" parameterType="com.eghm.dto.sys.user.UserQueryRequest">
-        select
-        t.id,
-        t.nick_name,
-        t.user_name,
-        r.title as deptName,
-        t.mobile,
-        t.user_type,
-        t.data_type,
-        t.state,
-        t.remark,
-        t.create_time,
-        t.update_time
+        select t.id, t.nick_name, t.user_name, r.title as deptName, t.mobile, t.user_type, t.data_type, t.state, t.remark, t.create_time, t.update_time
         from sys_user t
         left join sys_dept r on t.dept_code = r.code where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">

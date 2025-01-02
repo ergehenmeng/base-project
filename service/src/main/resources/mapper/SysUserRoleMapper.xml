@@ -3,9 +3,7 @@
 <mapper namespace="com.eghm.mapper.SysUserRoleMapper">
 
     <select id="getByUserId" resultType="java.lang.Long">
-        select role_id
-        from sys_user_role
-        where user_id = #{userId}
+        select role_id from sys_user_role where user_id = #{userId}
     </select>
 
     <delete id="deleteByUserId" >

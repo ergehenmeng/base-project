@@ -3,13 +3,7 @@
 <mapper namespace="com.eghm.mapper.CommentReportMapper">
 
     <select id="getByPage" resultType="com.eghm.vo.operate.comment.CommentReportResponse" parameterType="com.eghm.dto.operate.comment.CommentReportQueryRequest">
-        select
-        m.nick_name,
-        c.content as commentContent,
-        t.object_type,
-        t.report_type,
-        t.content,
-        t.create_time
+        select m.nick_name, c.content as commentContent, t.object_type, t.report_type, t.content, t.create_time
         from comment_report t
         left join `member` m on t.member_id = m.id
         left join comment c on t.comment_id = c.id

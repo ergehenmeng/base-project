@@ -3,8 +3,7 @@
 <mapper namespace="com.eghm.mapper.AuthConfigMapper">
 
     <select id="getByPage" resultType="com.eghm.vo.operate.auth.AuthConfigResponse" parameterType="com.eghm.dto.operate.auth.AuthConfigQueryRequest">
-        select
-            id, app_key, private_key, title, remark, sign_type, create_time, update_time, expire_date
+        select id, app_key, private_key, title, remark, sign_type, create_time, update_time, expire_date
         from auth_config where deleted = false
         <if test="param.signType != null">
             and sign_type = #{param.signType}

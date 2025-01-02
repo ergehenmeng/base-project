@@ -3,12 +3,7 @@
 <mapper namespace="com.eghm.mapper.SysAreaMapper">
 
     <select id="getList" resultType="com.eghm.vo.sys.ext.SysAreaVO">
-        select
-        id,
-        title,
-        zip_code,
-        mark,
-        pid
+        select id, title, zip_code, mark, pid
         from sys_area
         <if test="gradeList != null and gradeList.size() > 0">
         where grade in

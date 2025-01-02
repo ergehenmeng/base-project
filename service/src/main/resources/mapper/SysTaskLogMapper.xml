@@ -3,15 +3,7 @@
 <mapper namespace="com.eghm.mapper.SysTaskLogMapper">
 
     <select id="getByPage" resultType="com.eghm.vo.operate.log.SysTaskLogResponse" parameterType="com.eghm.dto.sys.task.TaskLogQueryRequest">
-        select
-            id,
-            bean_name,
-            args,
-            elapsed_time,
-            ip,
-            method_name,
-            start_time,
-            state
+        select id, bean_name, args, elapsed_time, ip, method_name, start_time, state
         from sys_task_log
         <where>
             <if test="param.queryName != null and param.queryName != ''">

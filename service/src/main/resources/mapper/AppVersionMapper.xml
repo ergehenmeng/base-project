@@ -3,8 +3,7 @@
 <mapper namespace="com.eghm.mapper.AppVersionMapper">
 
     <select id="getByPage" resultType="com.eghm.vo.operate.version.AppVersionResponse" parameterType="com.eghm.dto.operate.version.VersionQueryRequest">
-        select
-            id, channel, version, version_no, force_update, url, create_time, remark, state, update_time
+        select id, channel, version, version_no, force_update, url, create_time, remark, state, update_time
         from app_version where deleted = false
         <if test="param.channel != null and param.channel != ''">
             and channel = #{param.channel}
@@ -19,17 +18,14 @@
     </select>
 
     <select id="getVersion" resultType="com.eghm.model.AppVersion">
-        select
-            id, channel, version, version_no, force_update, url, create_time, remark, deleted, update_time
+        select id, channel, version, version_no, force_update, url, create_time, remark, deleted, update_time
         from app_version where channel = #{channel} and deleted = false and version = #{version} limit 1
     </select>
 
     <select id="getForceUpdateVersion" resultType="com.eghm.model.AppVersion">
-        select
-            id, channel, version,version_no, force_update, url, create_time, remark, deleted, update_time
+        select id, channel, version,version_no, force_update, url, create_time, remark, deleted, update_time
         from app_version
-        where
-            channel = #{channel}
+        where channel = #{channel}
         and deleted = false
         and force_update = true
         and version_no &gt; #{startVersion}

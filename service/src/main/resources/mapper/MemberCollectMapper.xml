@@ -3,9 +3,7 @@
 <mapper namespace="com.eghm.mapper.MemberCollectMapper">
 
     <select id="getByPage" resultType="com.eghm.vo.business.collect.MemberCollectVO">
-        select
-        collect_id,
-        collect_type
+        select collect_id, collect_type
         from member_collect where member_id = #{param.memberId} and deleted = false and state = 1
         <choose>
             <when test="param.type == 1">

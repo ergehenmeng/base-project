@@ -3,23 +3,8 @@
 <mapper namespace="com.eghm.mapper.BannerMapper">
 
     <select id="getByPage" resultType="com.eghm.vo.operate.banner.BannerResponse" parameterType="com.eghm.dto.operate.banner.BannerQueryRequest">
-        select
-            id,
-            banner_type,
-            click,
-            client_type,
-            create_time,
-            end_time,
-            img_url,
-            jump_url,
-            remark,
-            sort,
-            start_time,
-            state,
-            title,
-            update_time
-        from banner
-        where deleted = false
+        select id, banner_type, click, client_type, create_time, end_time, img_url, jump_url, remark, sort, start_time, state, title, update_time
+        from banner where deleted = false
         <if test="param.state != null">
             and state = #{param.state}
         </if>
@@ -39,8 +24,7 @@
     </select>
 
     <select id="getBannerList" resultType="com.eghm.vo.operate.banner.BannerVO" >
-        select
-        title, img_url, jump_url, click
+        select title, img_url, jump_url, click
         from banner where state = true
         <!-- 非实时性数据,直接取数据库时间,结束时间 <= now或者没有结束时间 开始时间大于当前时间, 由于移动端使用了缓存,因此在更新时需要刷新缓存 -->
         and now() between start_time and end_time
