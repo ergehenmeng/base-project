@@ -25,16 +25,14 @@ public class SwaggerConfig {
 
     @Bean
     public GroupedOpenApi userApi(){
-        String[] paths = { "/**" };
-        String[] packagedToMatch = { "com.eghm.web.controller" };
         SystemProperties.ApiProperties properties = systemProperties.getApi();
         return GroupedOpenApi.builder().group("移动端API接口")
-                .pathsToMatch(paths)
+                .pathsToMatch("/**")
                 .addOperationCustomizer((operation, handlerMethod) -> {
                     operation.addParametersItem(new HeaderParameter().name("Channel").required(true).description("操作渠道").schema(new StringSchema()._default(properties.getMockChannel().name()).name("Channel").description("操作渠道")));
                     return operation.addParametersItem(new HeaderParameter().name("Token").required(true).description("令牌").schema(new StringSchema()._default(properties.getMockToken()).name("Token").description("令牌")));
                 })
-                .packagesToScan(packagedToMatch).build();
+                .packagesToScan("com.eghm.web.controller").build();
     }
 
     @Bean
@@ -43,7 +41,7 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("移动端API接口")
                         .version("1.0")
-                        .description( "针对移动端开发基础接口文档")
+                        .description("移动端接口文档")
                         .termsOfService("https://webapp.eghm.top/"));
     }
 
