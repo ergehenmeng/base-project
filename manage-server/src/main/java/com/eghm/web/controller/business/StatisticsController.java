@@ -11,6 +11,7 @@ import com.eghm.vo.business.statistics.MemberStatisticsVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,14 +37,14 @@ public class StatisticsController {
 
     @GetMapping("/sexChannel")
     @Operation(summary = "注册渠道统计")
-    public RespBody<MemberStatisticsVO> sexChannel(DateRequest request) {
+    public RespBody<MemberStatisticsVO> sexChannel(@ParameterObject DateRequest request) {
         MemberStatisticsVO statistics = memberService.sexChannel(request);
         return RespBody.success(statistics);
     }
 
     @GetMapping("/dayRegister")
     @Operation(summary = "注册统计(按天)")
-    public RespBody<List<MemberRegisterVO>> dayRegister(DateRequest request) {
+    public RespBody<List<MemberRegisterVO>> dayRegister(@ParameterObject DateRequest request) {
         this.setNull(request);
         List<MemberRegisterVO> statistics = memberService.dayRegister(request);
         return RespBody.success(statistics);
@@ -51,7 +52,7 @@ public class StatisticsController {
 
     @GetMapping("/collect")
     @Operation(summary = "收藏量")
-    public RespBody<List<CollectStatisticsVO>> collect(CollectRequest request) {
+    public RespBody<List<CollectStatisticsVO>> collect(@ParameterObject CollectRequest request) {
         List<CollectStatisticsVO> statistics = memberCollectService.dayCollect(request);
         return RespBody.success(statistics);
     }

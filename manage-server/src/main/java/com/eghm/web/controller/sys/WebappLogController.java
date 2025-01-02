@@ -9,6 +9,7 @@ import com.eghm.vo.operate.log.WebappLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,7 @@ public class WebappLogController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<WebappLogResponse>> listPage(@Validated WebappQueryRequest request) {
+    public RespBody<PageData<WebappLogResponse>> listPage(@ParameterObject @Validated WebappQueryRequest request) {
         Page<WebappLogResponse> page = webappLogService.getByPage(request);
         return RespBody.success(PageData.toPage(page));
     }

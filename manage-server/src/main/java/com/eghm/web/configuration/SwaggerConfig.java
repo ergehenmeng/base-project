@@ -27,7 +27,7 @@ public class SwaggerConfig {
         String[] paths = { "/**" };
         String[] packagedToMatch = { "com.eghm.web.controller" };
         SystemProperties.ManageProperties properties = systemProperties.getManage();
-        return GroupedOpenApi.builder().group("移动端API接口")
+        return GroupedOpenApi.builder().group("管理端API接口")
                 .pathsToMatch(paths)
                 .addOperationCustomizer((operation, handlerMethod) -> {
                     if (properties.getToken() == null) {
@@ -43,10 +43,10 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("移动端API接口")
+                        .title("管理端API接口")
                         .version("1.0")
-                        .description( "针对移动端开发基础接口文档")
-                        .termsOfService("https://www.eghm.top/"));
+                        .description( "针对管理端开发基础接口文档")
+                        .termsOfService("https://manage.eghm.top/"));
     }
 
 }

@@ -15,6 +15,7 @@ import com.eghm.vo.business.news.NewsResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class NewsController {
 
     @Operation(summary = "列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<NewsResponse>> getByPage(@Validated NewsQueryRequest request) {
+    public RespBody<PageData<NewsResponse>> getByPage(@ParameterObject @Validated NewsQueryRequest request) {
         Page<NewsResponse> scenicPage = newsService.getByPage(request);
         return RespBody.success(PageData.toPage(scenicPage));
     }
@@ -69,7 +70,7 @@ public class NewsController {
 
     @Operation(summary = "详情")
     @GetMapping("/select")
-    public RespBody<News> select(@Validated IdDTO request) {
+    public RespBody<News> select(@ParameterObject @Validated IdDTO request) {
         News news = newsService.selectById(request.getId());
         return RespBody.success(news);
     }

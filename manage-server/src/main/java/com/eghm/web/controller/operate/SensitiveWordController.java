@@ -11,6 +11,7 @@ import com.eghm.service.operate.SensitiveWordService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class SensitiveWordController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<SensitiveWord>> listPage(PagingQuery query) {
+    public RespBody<PageData<SensitiveWord>> listPage(@ParameterObject PagingQuery query) {
         Page<SensitiveWord> byPage = sensitiveWordService.getByPage(query);
         return RespBody.success(PageData.toPage(byPage));
     }

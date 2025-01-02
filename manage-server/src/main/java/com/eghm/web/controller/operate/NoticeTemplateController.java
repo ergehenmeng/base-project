@@ -10,6 +10,7 @@ import com.eghm.service.operate.NoticeTemplateService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class NoticeTemplateController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<NoticeTemplate>> listPage(PagingQuery request) {
+    public RespBody<PageData<NoticeTemplate>> listPage(@ParameterObject PagingQuery request) {
         Page<NoticeTemplate> byPage = noticeTemplateService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }

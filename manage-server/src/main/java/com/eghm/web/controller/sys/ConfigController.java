@@ -10,6 +10,7 @@ import com.eghm.vo.sys.ext.SysConfigResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class ConfigController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<SysConfigResponse>> listPage(ConfigQueryRequest request) {
+    public RespBody<PageData<SysConfigResponse>> listPage(@ParameterObject ConfigQueryRequest request) {
         Page<SysConfigResponse> listByPage = sysConfigService.getByPage(request);
         return RespBody.success(PageData.toPage(listByPage));
     }

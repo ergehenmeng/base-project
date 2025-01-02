@@ -12,6 +12,7 @@ import com.eghm.vo.operate.task.SysTaskResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class SysTaskController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<SysTaskResponse>> listPage(TaskQueryRequest request) {
+    public RespBody<PageData<SysTaskResponse>> listPage(@ParameterObject TaskQueryRequest request) {
         Page<SysTaskResponse> byPage = sysTaskService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }

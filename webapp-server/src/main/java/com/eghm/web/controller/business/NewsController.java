@@ -10,6 +10,7 @@ import com.eghm.web.annotation.AccessToken;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -31,14 +32,14 @@ public class NewsController {
 
     @Operation(summary = "列表")
     @GetMapping("/listPage")
-    public RespBody<List<NewsVO>> getByPage(PagingQuery request) {
+    public RespBody<List<NewsVO>> getByPage(@ParameterObject PagingQuery request) {
         List<NewsVO> scenicPage = newsService.getByPage(request);
         return RespBody.success(scenicPage);
     }
 
     @Operation(summary = "详情")
     @GetMapping("/detail")
-    public RespBody<NewsDetailVO> detail(@Validated IdDTO dto) {
+    public RespBody<NewsDetailVO> detail(@ParameterObject @Validated IdDTO dto) {
         NewsDetailVO detail = newsService.detail(dto.getId());
         return RespBody.success(detail);
     }

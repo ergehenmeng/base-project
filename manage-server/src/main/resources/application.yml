@@ -58,7 +58,6 @@ mybatis-plus:
   type-aliases-package: com.eghm.model.dto;com.eghm.model.vo;com.eghm.handler.mysql
   configuration:
     map-underscore-to-camel-case: true
-
 system:
   manage:
     security:
@@ -66,11 +65,9 @@ system:
         - /captcha
         ## 默认错误页面不拦截
         - ${server.error.path}
-        - /**/captcha
         - /doc.html
         - /webjars/**
-        - /v2/api-docs
-        - /swagger-resources/**
+        - /v3/api-docs/**
         - /manage/login
         - /manage/sendSms
         - /manage/smsLogin

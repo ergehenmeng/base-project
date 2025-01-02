@@ -10,6 +10,7 @@ import com.eghm.web.annotation.AccessToken;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class MemberCollectController {
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     @AccessToken
-    public RespBody<List<MemberCollectVO>> listPage(CollectQueryDTO dto) {
+    public RespBody<List<MemberCollectVO>> listPage(@ParameterObject CollectQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<MemberCollectVO> byPage = memberCollectService.getByPage(dto);
         return RespBody.success(byPage);

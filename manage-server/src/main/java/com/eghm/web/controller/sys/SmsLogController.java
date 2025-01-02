@@ -9,6 +9,7 @@ import com.eghm.vo.operate.log.SmsLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,7 @@ public class SmsLogController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<SmsLogResponse>> listPage(SmsLogQueryRequest request) {
+    public RespBody<PageData<SmsLogResponse>> listPage(@ParameterObject SmsLogQueryRequest request) {
         Page<SmsLogResponse> byPage = smsLogService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }

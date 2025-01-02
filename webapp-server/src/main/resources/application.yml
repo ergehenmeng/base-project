@@ -29,8 +29,6 @@ spring:
       template_update_delay: 7200s
     cache: true
     template-loader-path: file:////usr/local/template,classpath:/templates/
-
-
 # mybatis配置
 mybatis-plus:
   mapper-locations:

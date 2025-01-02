@@ -44,7 +44,7 @@ public class SwaggerConfig {
                         .title("移动端API接口")
                         .version("1.0")
                         .description( "针对移动端开发基础接口文档")
-                        .termsOfService("https://www.eghm.top/"));
+                        .termsOfService("https://webapp.eghm.top/"));
     }
 
 }

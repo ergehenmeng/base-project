@@ -11,6 +11,7 @@ import com.eghm.web.annotation.AccessToken;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class MemberNoticeController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<List<MemberNoticeVO>> listPage(PagingQuery query) {
+    public RespBody<List<MemberNoticeVO>> listPage(@ParameterObject PagingQuery query) {
         List<MemberNoticeVO> paging = memberNoticeService.getByPage(query, ApiHolder.getMemberId());
         return RespBody.success(paging);
     }

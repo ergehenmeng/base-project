@@ -11,6 +11,7 @@ import com.eghm.service.sys.BlackRosterService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class BlackRosterController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<BlackRoster>> listPage(PagingQuery request) {
+    public RespBody<PageData<BlackRoster>> listPage(@ParameterObject PagingQuery request) {
         Page<BlackRoster> listByPage = blackRosterService.getByPage(request);
         return RespBody.success(PageData.toPage(listByPage));
     }

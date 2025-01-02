@@ -34,7 +34,6 @@ spring:
           initial-interval: 10000
           enabled: true
           max-interval: 30000
-
 system:
   # 全局文件上传路径
   upload-path: D://file
