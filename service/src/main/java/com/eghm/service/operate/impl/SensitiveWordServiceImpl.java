@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author eghm
@@ -44,7 +43,7 @@ public class SensitiveWordServiceImpl implements SensitiveWordService {
             if (CollUtil.isEmpty(wordList)) {
                 return new Page<>();
             }
-            wrapper.in(SensitiveWord::getKeyword, wordList.stream().map(FoundWord::getFoundWord).collect(Collectors.toList()));
+            wrapper.in(SensitiveWord::getKeyword, wordList.stream().map(FoundWord::getFoundWord).toList());
         }
         wrapper.orderByDesc(SensitiveWord::getId);
         return sensitiveWordMapper.selectPage(query.createPage(), wrapper);

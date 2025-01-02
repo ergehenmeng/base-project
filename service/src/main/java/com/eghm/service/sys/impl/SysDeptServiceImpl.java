@@ -2,11 +2,11 @@ package com.eghm.service.sys.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.SecurityHolder;
+import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.sys.dept.DeptAddRequest;
 import com.eghm.dto.sys.dept.DeptEditRequest;
-import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysDeptMapper;
@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static com.eghm.constants.CommonConstant.ROOT_NODE;
 
@@ -117,7 +116,7 @@ public class SysDeptServiceImpl implements SysDeptService {
      * @return 菜单列表 树状结构
      */
     private List<SysDeptResponse> treeBin(String code, List<SysDeptResponse> menuList) {
-        List<SysDeptResponse> responseList = menuList.stream().filter(parent -> Objects.equals(code, parent.getParentCode())).collect(Collectors.toList());
+        List<SysDeptResponse> responseList = menuList.stream().filter(parent -> Objects.equals(code, parent.getParentCode())).toList();
         responseList.forEach(parent -> parent.setChildren(this.treeBin(parent.getCode(), menuList)));
         return responseList;
     }

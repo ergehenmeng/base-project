@@ -183,7 +183,7 @@ public class CommentServiceImpl implements CommentService {
         LambdaQueryWrapper<News> wrapper = Wrappers.lambdaQuery();
         wrapper.select(News::getId);
         wrapper.like(News::getTitle, queryName);
-        return newsMapper.selectList(wrapper).stream().map(News::getId).collect(Collectors.toList());
+        return newsMapper.selectList(wrapper).stream().map(News::getId).toList();
     }
 
     /**
