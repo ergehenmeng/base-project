@@ -35,7 +35,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.HibernateValidatorConfiguration;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.validation.MessageInterpolatorFactory;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -63,7 +62,6 @@ import java.util.concurrent.Executor;
  */
 @Slf4j
 @AllArgsConstructor
-@EnableConfigurationProperties({SystemProperties.class})
 public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
 
     private final ObjectMapper objectMapper;
