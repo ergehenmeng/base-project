@@ -12,7 +12,7 @@ import lombok.Data;
 public class RegisterSmsDTO {
 
     @Mobile
-    @Schema(requiredMode = Schema.RequiredMode.REQUIRED, description = "手机号码")
+    @Schema(description = "手机号码", requiredMode = Schema.RequiredMode.REQUIRED)
     private String mobile;
 
 }

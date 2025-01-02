@@ -25,8 +25,10 @@
         <spring.boot.version>3.2.12</spring.boot.version>
         <!--项目编码-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--jdk编译版本-->
-        <java.jdk.version>17</java.jdk.version>
+        <!--maven编译版本-->
+        <maven.compiler.source>17</maven.compiler.source>
+        <!--maven编译版本-->
+        <maven.compiler.target>17</maven.compiler.target>
         <!--图形验证码版本-->
         <kaptcha.version>2.3.2</kaptcha.version>
         <!--sql日志打印版本-->
@@ -276,10 +278,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>${java.jdk.version}</source>
-                        <target>${java.jdk.version}</target>
-                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
