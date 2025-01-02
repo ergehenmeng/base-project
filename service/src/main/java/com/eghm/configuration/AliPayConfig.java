@@ -15,11 +15,9 @@ import org.springframework.context.annotation.Configuration;
 @AllArgsConstructor
 public class AliPayConfig {
 
-    private final SystemProperties systemProperties;
-
     @Bean
     @ConditionalOnProperty(prefix = "system.ali-pay", name = "app-id")
-    public Config config() {
+    public Config config(SystemProperties systemProperties) {
         SystemProperties.AliPay pay = systemProperties.getAli().getPay();
         Config config = new Config();
         config.protocol = "https";

@@ -10,6 +10,7 @@ import com.eghm.web.configuration.filter.AuthFilter;
 import com.eghm.web.configuration.interceptor.LockScreenInterceptor;
 import com.eghm.web.configuration.interceptor.PermInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,7 +35,7 @@ public class ManageMvcConfig extends WebMvcConfig {
     private final UserTokenService userTokenService;
 
     public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, UserTokenService userTokenService,
-                           SysMenuService sysMenuService, CacheService cacheService, TaskExecutor taskExecutor) {
+                           SysMenuService sysMenuService, CacheService cacheService, @Qualifier("taskExecutor") TaskExecutor taskExecutor) {
         super(objectMapper, taskExecutor, systemProperties);
         this.cacheService = cacheService;
         this.sysMenuService = sysMenuService;

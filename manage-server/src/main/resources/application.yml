@@ -62,12 +62,12 @@ system:
   manage:
     security:
       skip-auth:
-        - /captcha
         ## 默认错误页面不拦截
         - ${server.error.path}
         - /doc.html
         - /webjars/**
         - /v3/api-docs/**
+        - /manage/captcha
         - /manage/login
         - /manage/sendSms
         - /manage/smsLogin
