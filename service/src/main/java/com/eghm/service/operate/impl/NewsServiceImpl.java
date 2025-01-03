@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
+import com.eghm.common.impl.CommonServiceImpl;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.news.NewsAddRequest;
@@ -46,6 +47,8 @@ public class NewsServiceImpl implements NewsService {
     private final NewsMapper newsMapper;
 
     private final CacheService cacheService;
+
+    private final CommonServiceImpl commonService;
 
     private final MemberCollectService memberCollectService;
 
@@ -123,14 +126,7 @@ public class NewsServiceImpl implements NewsService {
     public void praise(Long id) {
         Long memberId = ApiHolder.getMemberId();
         String key = CacheConstant.NEWS_PRAISE + id;
-        boolean hasPraise = cacheService.getHashValue(key, memberId.toString()) != null;
-        if (hasPraise) {
-            cacheService.deleteHashKey(key, memberId.toString());
-            newsMapper.updatePraiseNum(id, -1);
-        } else {
-            cacheService.setHashValue(key, memberId.toString(), CacheConstant.PLACE_HOLDER);
-            newsMapper.updatePraiseNum(id, 1);
-        }
+        commonService.praise(key, memberId.toString(), praise -> newsMapper.updatePraiseNum(id, praise ? 1 : -1));
     }
 
     @Override

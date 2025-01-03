@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
+import com.eghm.common.impl.CommonServiceImpl;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.ConfigConstant;
@@ -58,6 +59,8 @@ public class CommentServiceImpl implements CommentService {
     private final CacheService cacheService;
 
     private final CommentMapper commentMapper;
+
+    private final CommonServiceImpl commonService;
 
     @Override
     public Page<CommentResponse> listPage(CommentQueryRequest request) {
@@ -127,14 +130,7 @@ public class CommentServiceImpl implements CommentService {
     public void praise(Long id) {
         Long memberId = ApiHolder.getMemberId();
         String key = CacheConstant.COMMENT_PRAISE + id;
-        boolean hasPraise = cacheService.getHashValue(key, memberId.toString()) != null;
-        if (hasPraise) {
-            cacheService.deleteHashKey(key, memberId.toString());
-            commentMapper.updatePraiseNum(id, -1);
-        } else {
-            cacheService.setHashValue(key, memberId.toString(), CacheConstant.PLACE_HOLDER);
-            commentMapper.updatePraiseNum(id, 1);
-        }
+        commonService.praise(key, memberId.toString(), praise -> commentMapper.updatePraiseNum(id, praise ? 1 : -1));
     }
 
     @Override

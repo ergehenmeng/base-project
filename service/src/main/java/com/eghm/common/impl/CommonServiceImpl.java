@@ -1,7 +1,9 @@
 package com.eghm.common.impl;
 
 import com.eghm.cache.CacheProxyService;
+import com.eghm.cache.CacheService;
 import com.eghm.common.CommonService;
+import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.mapper.SysAreaMapper;
 import com.eghm.vo.sys.ext.SysAreaVO;
@@ -10,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.IntConsumer;
 
 /**
  * @author 二哥很猛
@@ -19,6 +23,8 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class CommonServiceImpl implements CommonService {
+
+    private final CacheService cacheService;
 
     private final SysAreaMapper sysAreaMapper;
 
@@ -34,6 +40,17 @@ public class CommonServiceImpl implements CommonService {
     public List<SysAreaVO> getTreeAreaList(List<Integer> gradeList) {
         List<SysAreaVO> areaList = sysAreaMapper.getList(gradeList);
         return this.treeBin(CommonConstant.ROOT, areaList);
+    }
+
+    @Override
+    public void praise(String key, String hashKey, Consumer<Boolean> consumer) {
+        boolean praise = cacheService.getHashValue(key, hashKey) == null;
+        if (praise) {
+            cacheService.setHashValue(key, hashKey, CacheConstant.PLACE_HOLDER);
+        } else {
+            cacheService.deleteHashKey(key, hashKey);
+        }
+        consumer.accept(praise);
     }
 
     /**

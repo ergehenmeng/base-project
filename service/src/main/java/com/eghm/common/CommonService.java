@@ -3,6 +3,8 @@ package com.eghm.common;
 import com.eghm.vo.sys.ext.SysAreaVO;
 
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.IntConsumer;
 
 /**
  * @author 二哥很猛
@@ -24,4 +26,13 @@ public interface CommonService {
      * @return list
      */
     List<SysAreaVO> getTreeAreaList(List<Integer> gradeList);
+
+    /**
+     * 点赞或取消点赞
+     *
+     * @param key key
+     * @param hashKey value
+     * @param consumer 后置处理 true:点赞 false:取消点赞
+     */
+    void praise(String key, String hashKey, Consumer<Boolean> consumer);
 }
