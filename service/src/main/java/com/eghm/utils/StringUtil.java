@@ -172,7 +172,7 @@ public class StringUtil {
      * @param chinese 中文字符
      * @return 二哥很猛 -> EGHM
      */
-    public static String getCompleteInitial(String chinese) {
+    public static String getInitialLetter(String chinese) {
         if (StrUtil.isBlank(chinese)) {
             return null;
         }
