@@ -44,32 +44,6 @@ public class RedisConfig {
     }
 
     /**
-     * 获取缓存管理器
-     *
-     * @param expire 过期时间 默认单位 秒
-     * @return CacheManager
-     */
-    private CacheManager getCacheManager(RedisConnectionFactory connectionFactory, int expire) {
-        return RedisCacheManager.builder(connectionFactory).cacheDefaults(
-                RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofSeconds(expire))
-                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(valueSerializer()))
-                ).build();
-    }
-
-    /**
-     * 值序列化方式,此处已经采用jackson序列化,因为jackson可以根据缓存中json中的附加信息生成相应类(尤其是泛型对象),gson只能手动指定
-     *
-     * @return jackson
-     */
-    private RedisSerializer<Object> valueSerializer() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
-        return new Jackson2JsonRedisSerializer<>(mapper, Object.class);
-    }
-
-    /**
      * 系统级缓存管理器 默认永不过期
      *
      * @return bean
@@ -86,7 +60,7 @@ public class RedisConfig {
      * @return bean
      */
     @Bean("shortCacheManager")
-    public CacheManager smallCacheManager(RedisConnectionFactory connectionFactory) {
+    public CacheManager shortCacheManager(RedisConnectionFactory connectionFactory) {
         return this.getCacheManager(connectionFactory, systemProperties.getRedis().getShortExpire());
     }
 
@@ -96,7 +70,33 @@ public class RedisConfig {
      * @return bean
      */
     @Bean("smallCacheManager")
-    public CacheManager shortCacheManager(RedisConnectionFactory connectionFactory) {
+    public CacheManager smallCacheManager(RedisConnectionFactory connectionFactory) {
         return this.getCacheManager(connectionFactory, systemProperties.getRedis().getSmallExpire());
+    }
+
+    /**
+     * 获取缓存管理器
+     *
+     * @param expire 过期时间 默认单位 秒
+     * @return CacheManager
+     */
+    private CacheManager getCacheManager(RedisConnectionFactory connectionFactory, int expire) {
+        return RedisCacheManager.builder(connectionFactory).cacheDefaults(
+                RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofSeconds(expire))
+                        .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+                        .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(valueSerializer()))
+        ).build();
+    }
+
+    /**
+     * 值序列化方式,此处已经采用jackson序列化,因为jackson可以根据缓存中json中的附加信息生成相应类(尤其是泛型对象),gson只能手动指定
+     *
+     * @return jackson
+     */
+    private RedisSerializer<Object> valueSerializer() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+        return new Jackson2JsonRedisSerializer<>(mapper, Object.class);
     }
 }
