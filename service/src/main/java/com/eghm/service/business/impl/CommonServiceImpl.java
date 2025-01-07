@@ -344,7 +344,7 @@ public class CommonServiceImpl implements CommonService {
      * @return list
      */
     private List<SysAreaVO> treeBin(Long pid, List<SysAreaVO> voList) {
-        List<SysAreaVO> collectList = voList.stream().filter(parent -> pid.equals(parent.getPid())).collect(Collectors.toList());
+        List<SysAreaVO> collectList = voList.stream().filter(parent -> pid.equals(parent.getPid())).toList();
         collectList.forEach(parent -> parent.setChildren(this.treeBin(parent.getId(), voList)));
         return collectList;
     }

@@ -18,6 +18,7 @@ import com.eghm.vo.business.order.venue.VenueOrderResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +44,7 @@ public class VenueOrderController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<VenueOrderResponse>> listPage(VenueOrderQueryRequest request) {
+    public RespBody<PageData<VenueOrderResponse>> listPage(@ParameterObject VenueOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VenueOrderResponse> page = venueOrderService.listPage(request);
         return RespBody.success(PageData.toPage(page));
@@ -51,7 +52,7 @@ public class VenueOrderController {
 
     @GetMapping("/detail")
     @Operation(summary = "详情")
-    public RespBody<VenueOrderDetailResponse> detail(@Validated OrderDTO dto) {
+    public RespBody<VenueOrderDetailResponse> detail(@ParameterObject @Validated OrderDTO dto) {
         VenueOrderDetailResponse detail = venueOrderService.detail(dto.getOrderNo());
         return RespBody.success(detail);
     }
@@ -68,7 +69,7 @@ public class VenueOrderController {
 
     @GetMapping("/export")
     @Operation(summary = "导出")
-    public void export(HttpServletResponse response, VenueOrderQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject VenueOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<VenueOrderResponse> byPage = venueOrderService.getList(request);
         EasyExcelUtil.export(response, "场馆订单", byPage, VenueOrderResponse.class);

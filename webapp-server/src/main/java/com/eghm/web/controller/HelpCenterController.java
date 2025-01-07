@@ -7,6 +7,7 @@ import com.eghm.vo.help.HelpCenterVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,7 @@ public class HelpCenterController {
 
     @GetMapping("/list")
     @Operation(summary = "列表")
-    public RespBody<List<HelpCenterVO>> list(@Validated HelpQueryDTO dto) {
+    public RespBody<List<HelpCenterVO>> list(@ParameterObject @Validated HelpQueryDTO dto) {
         List<HelpCenterVO> voList = helpCenterService.list(dto);
         return RespBody.success(voList);
     }

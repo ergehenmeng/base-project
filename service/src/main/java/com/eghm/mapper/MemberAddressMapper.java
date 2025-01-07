@@ -24,15 +24,13 @@ public interface MemberAddressMapper extends BaseMapper<MemberAddress> {
      *
      * @param memberId memberId
      * @param state    状态
-     * @return 批量多少条
      */
-    int updateState(@Param("memberId") Long memberId, @Param("state") Integer state);
+    void updateState(@Param("memberId") Long memberId, @Param("state") Integer state);
 
     /**
      * 主键+memberId更新地址
      *
      * @param address address
-     * @return 1
      */
-    int updateByMemberId(MemberAddress address);
+    void updateByMemberId(MemberAddress address);
 }

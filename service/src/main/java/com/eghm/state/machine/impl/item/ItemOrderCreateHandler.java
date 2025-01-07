@@ -265,7 +265,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
     private ItemOrderPayload getPayload(ItemOrderCreateContext context) {
         MemberAddress memberAddress = memberAddressService.getById(context.getAddressId(), context.getMemberId());
         Map<Long, ItemSku> skuMap = itemSkuService.getByIdShelveMap(context.getSkuIds());
-        List<Long> storeIds = context.getItemMap().values().stream().map(Item::getStoreId).distinct().collect(Collectors.toList());
+        List<Long> storeIds = context.getItemMap().values().stream().map(Item::getStoreId).distinct().toList();
         Map<Long, ItemStore> storeMap = itemStoreService.selectByIdShelveMap(storeIds);
         Map<Long, ItemSpec> specMap = itemSpecService.getByIdMap(context.getItemMap().keySet());
         List<StoreOrderPackage> packageList = new ArrayList<>();
@@ -294,7 +294,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             storePackage.setItemAmount(itemAmount);
             if (storePackage.getCouponId() != null) {
                 // 用户在该店铺下单时使用了优惠券/校验优惠券是否可用并计算优惠了多少钱
-                List<Long> itemIds = storePackage.getItemList().stream().map(OrderPackage::getItemId).collect(Collectors.toList());
+                List<Long> itemIds = storePackage.getItemList().stream().map(OrderPackage::getItemId).toList();
                 Integer couponAmount = memberCouponService.getCouponAmountWithVerify(context.getMemberId(), storePackage.getCouponId(), itemIds, storePackage.getStoreId(), itemAmount);
                 storePackage.setCouponAmount(couponAmount);
             }
@@ -484,7 +484,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      */
     private void after(ItemOrderCreateContext context, List<Order> orderList) {
         memberService.updateScore(context.getMemberId(), ScoreType.PAY, context.getTotalScore());
-        memberCouponService.useCoupon(orderList.stream().map(Order::getCouponId).filter(Objects::nonNull).collect(Collectors.toList()));
+        memberCouponService.useCoupon(orderList.stream().map(Order::getCouponId).filter(Objects::nonNull).toList());
         int realPayAmount = orderList.stream().mapToInt(Order::getPayAmount).sum();
         if (realPayAmount <= 0) {
             String tradeNo = orderList.get(0).getTradeNo();
@@ -495,7 +495,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             // 此次没有采用bean注入的方式获取handler? 因为构造方法注入会产生循环依赖
             SpringContextUtil.getBean(ItemAccessHandler.class).paySuccess(notify);
         } else {
-            List<String> noList = orderList.stream().map(Order::getOrderNo).collect(Collectors.toList());
+            List<String> noList = orderList.stream().map(Order::getOrderNo).toList();
             // 30分钟过期定时任务
             TransactionUtil.afterCommit(() -> orderList.forEach(order -> orderMQService.sendOrderExpireMessage(ExchangeQueue.ITEM_PAY_EXPIRE, order.getOrderNo())));
             context.setOrderNo(CollUtil.join(noList, CommonConstant.COMMA));

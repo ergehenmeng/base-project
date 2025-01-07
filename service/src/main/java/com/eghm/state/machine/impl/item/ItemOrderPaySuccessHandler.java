@@ -21,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 普通商品订单支付通知
@@ -77,7 +76,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
      */
     @Override
     protected void doProcess(PayNotifyContext context, List<Order> orderList) {
-        List<String> orderNoList = orderList.stream().map(Order::getOrderNo).collect(Collectors.toList());
+        List<String> orderNoList = orderList.stream().map(Order::getOrderNo).toList();
         itemService.updateSaleNum(orderNoList);
         for (Order order : orderList) {
             if (order.getBookingNo() != null) {

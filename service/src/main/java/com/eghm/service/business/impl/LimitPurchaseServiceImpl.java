@@ -28,7 +28,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -64,7 +63,7 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         LimitPurchase purchase = DataUtil.copy(request, LimitPurchase.class);
         purchase.setCreateTime(LocalDateTime.now());
         limitPurchaseMapper.insert(purchase);
-        List<Long> itemIds = request.getSkuList().stream().map(LimitSkuRequest::getItemId).distinct().collect(Collectors.toList());
+        List<Long> itemIds = request.getSkuList().stream().map(LimitSkuRequest::getItemId).distinct().toList();
         itemService.updateLimitPurchase(itemIds, purchase.getId());
         limitPurchaseItemService.insertOrUpdate(request.getSkuList(), purchase);
     }
@@ -79,7 +78,7 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         if (purchase.getStartTime().isBefore(LocalDateTime.now())) {
             throw new BusinessException(ErrorCode.ACTIVITY_NOT_EDIT);
         }
-        List<Long> itemIds = request.getSkuList().stream().map(LimitSkuRequest::getItemId).distinct().collect(Collectors.toList());
+        List<Long> itemIds = request.getSkuList().stream().map(LimitSkuRequest::getItemId).distinct().toList();
         itemService.updateLimitPurchase(itemIds, purchase.getId());
         LimitPurchase limitPurchase = DataUtil.copy(request, LimitPurchase.class);
         limitPurchaseMapper.updateById(limitPurchase);
@@ -114,7 +113,7 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         LimitPurchaseDetailResponse response = DataUtil.copy(purchase, LimitPurchaseDetailResponse.class);
         List<LimitSkuResponse> skuList = limitPurchaseItemService.getLimitList(id);
         response.setSkuList(skuList);
-        response.setItemIds(skuList.stream().map(LimitSkuResponse::getItemId).distinct().collect(Collectors.toList()));
+        response.setItemIds(skuList.stream().map(LimitSkuResponse::getItemId).distinct().toList());
         return response;
     }
 

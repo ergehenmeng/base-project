@@ -21,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.eghm.constants.CommonConstant.ITEM_TAG_MAX_DEPTH;
 import static com.eghm.constants.CommonConstant.ITEM_TAG_STEP;
@@ -114,10 +113,10 @@ public class ItemTagServiceImpl implements ItemTagService {
      * @param responseList 所有节点
      */
     private List<ItemTagResponse> treeBin(String pid, List<ItemTagResponse> responseList) {
-        return responseList.stream()
-                .filter(response -> pid.equals(response.getPid()))
-                .peek(response -> response.setChildren(this.treeBin(response.getId(), responseList)))
-                .collect(Collectors.toList());
+        List<ItemTagResponse> resultList = responseList.stream()
+                .filter(response -> pid.equals(response.getPid())).toList();
+        resultList.forEach(response -> response.setChildren(this.treeBin(response.getId(), responseList)));
+        return resultList;
     }
 
 }

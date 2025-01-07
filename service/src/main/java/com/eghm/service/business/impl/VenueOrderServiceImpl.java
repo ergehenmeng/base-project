@@ -27,7 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -82,7 +81,7 @@ public class VenueOrderServiceImpl implements VenueOrderService {
     public void updateStock(String orderNo, Integer num) {
         VenueOrder venueOrder = this.getByOrderNo(orderNo);
         List<VenuePhase> phaseList = jsonService.fromJsonList(venueOrder.getTimePhase(), VenuePhase.class);
-        List<Long> ids = phaseList.stream().map(VenuePhase::getId).collect(Collectors.toList());
+        List<Long> ids = phaseList.stream().map(VenuePhase::getId).toList();
         if (CollUtil.isNotEmpty(ids)) {
             venueSitePriceService.updateStock(ids, num);
         } else {

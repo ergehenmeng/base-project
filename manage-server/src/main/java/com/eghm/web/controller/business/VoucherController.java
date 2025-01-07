@@ -20,6 +20,7 @@ import com.eghm.vo.business.restaurant.VoucherResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class VoucherController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<VoucherResponse>> listPage(VoucherQueryRequest request) {
+    public RespBody<PageData<VoucherResponse>> listPage(@ParameterObject VoucherQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VoucherResponse> roomPage = voucherService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
@@ -49,7 +50,7 @@ public class VoucherController {
 
     @GetMapping("/productListPage")
     @Operation(summary = "列表(含店铺)")
-    public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
+    public RespBody<PageData<BaseProductResponse>> productListPage(@ParameterObject BaseProductQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseProductResponse> listPage = voucherService.getProductPage(request);
         return RespBody.success(PageData.toPage(listPage));

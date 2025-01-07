@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -49,6 +48,6 @@ public class CouponScopeServiceImpl implements CouponScopeService {
         wrapper.select(CouponScope::getProductId);
         wrapper.eq(CouponScope::getCouponId, couponId);
         List<CouponScope> scopeList = couponScopeMapper.selectList(wrapper);
-        return scopeList.stream().map(CouponScope::getProductId).collect(Collectors.toList());
+        return scopeList.stream().map(CouponScope::getProductId).toList();
     }
 }

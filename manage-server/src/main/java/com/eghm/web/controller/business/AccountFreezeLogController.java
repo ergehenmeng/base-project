@@ -11,6 +11,7 @@ import com.eghm.vo.business.freeze.AccountFreezeLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,7 @@ public class AccountFreezeLogController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<AccountFreezeLogResponse>> listPage(AccountFreezeQueryRequest request) {
+    public RespBody<PageData<AccountFreezeLogResponse>> listPage(@ParameterObject AccountFreezeQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<AccountFreezeLogResponse> byPage = accountFreezeLogService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
@@ -42,7 +43,7 @@ public class AccountFreezeLogController {
 
     @GetMapping("/export")
     @Operation(summary = "导出")
-    public void export(HttpServletResponse response, AccountFreezeQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject AccountFreezeQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<AccountFreezeLogResponse> byPage = accountFreezeLogService.getList(request);
         EasyExcelUtil.export(response, "冻结记录", byPage, AccountFreezeLogResponse.class);

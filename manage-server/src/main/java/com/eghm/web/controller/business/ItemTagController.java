@@ -12,6 +12,7 @@ import com.eghm.vo.business.item.ItemTagResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class ItemTagController {
     @GetMapping("/list")
     @Operation(summary = "列表")
     @SkipPerm
-    public RespBody<List<ItemTagResponse>> list(ItemTagQueryRequest request) {
+    public RespBody<List<ItemTagResponse>> list(@ParameterObject ItemTagQueryRequest request) {
         List<ItemTagResponse> serviceList = itemTagService.getList(request);
         return RespBody.success(serviceList);
     }

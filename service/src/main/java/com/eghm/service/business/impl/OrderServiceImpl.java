@@ -577,7 +577,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         if (CollUtil.isEmpty(serviceSet)) {
             return Lists.newArrayList();
         }
-        List<Long> ids = serviceSet.stream().map(typedTuple -> Long.parseLong(Objects.requireNonNull(typedTuple.getValue()))).collect(Collectors.toList());
+        List<Long> ids = serviceSet.stream().map(typedTuple -> Long.parseLong(Objects.requireNonNull(typedTuple.getValue()))).toList();
         List<Item> itemList = itemMapper.getByIds(ids);
         Map<Long, Item> stringMap = itemList.stream().collect(Collectors.toMap(Item::getId, Function.identity()));
         List<SaleStatisticsVO> voList = new ArrayList<>();
@@ -605,7 +605,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         if (CollUtil.isEmpty(serviceSet)) {
             return Lists.newArrayList();
         }
-        List<Long> ids = serviceSet.stream().map(typedTuple -> Long.parseLong(Objects.requireNonNull(typedTuple.getValue()))).collect(Collectors.toList());
+        List<Long> ids = serviceSet.stream().map(typedTuple -> Long.parseLong(Objects.requireNonNull(typedTuple.getValue()))).toList();
         List<Merchant> merchantList = merchantMapper.selectByIds(ids);
         Map<Long, String> stringMap = merchantList.stream().collect(Collectors.toMap(Merchant::getId, Merchant::getMerchantName));
         List<MerchantStatisticsVO> voList = new ArrayList<>();

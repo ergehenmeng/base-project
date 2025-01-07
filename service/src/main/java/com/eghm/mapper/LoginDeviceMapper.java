@@ -12,7 +12,7 @@ public interface LoginDeviceMapper extends BaseMapper<LoginDevice> {
     /**
      * 添加或更新登陆设备信息(仅仅为了精简代码)
      */
-    int insertOrUpdateSelective(LoginDevice device);
+    void insertOrUpdateSelective(LoginDevice device);
 
     /**
      * 查找指定设备是否有登陆日志
@@ -28,8 +28,7 @@ public interface LoginDeviceMapper extends BaseMapper<LoginDevice> {
      *
      * @param memberId memberId
      * @param id       id
-     * @return 1
      */
-    int deleteLoginDevice(@Param("memberId") Long memberId, @Param("id") Long id);
+    void deleteLoginDevice(@Param("memberId") Long memberId, @Param("id") Long id);
 
 }

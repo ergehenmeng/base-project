@@ -19,6 +19,7 @@ import com.eghm.vo.business.order.homestay.HomestayOrderResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +45,7 @@ public class HomestayOrderController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<HomestayOrderResponse>> listPage(HomestayOrderQueryRequest request) {
+    public RespBody<PageData<HomestayOrderResponse>> listPage(@ParameterObject HomestayOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<HomestayOrderResponse> byPage = homestayOrderService.listPage(request);
         return RespBody.success(PageData.toPage(byPage));
@@ -52,7 +53,7 @@ public class HomestayOrderController {
 
     @GetMapping("/detail")
     @Operation(summary = "详情")
-    public RespBody<HomestayOrderDetailResponse> detail(@Validated OrderDTO dto) {
+    public RespBody<HomestayOrderDetailResponse> detail(@ParameterObject @Validated OrderDTO dto) {
         HomestayOrderDetailResponse detail = homestayOrderService.detail(dto.getOrderNo());
         return RespBody.success(detail);
     }
@@ -76,7 +77,7 @@ public class HomestayOrderController {
 
     @GetMapping("/export")
     @Operation(summary = "导出Excel")
-    public void export(HttpServletResponse response, HomestayOrderQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject HomestayOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<HomestayOrderResponse> byPage = homestayOrderService.getList(request);
         EasyExcelUtil.export(response, "民宿订单", byPage, HomestayOrderResponse.class);

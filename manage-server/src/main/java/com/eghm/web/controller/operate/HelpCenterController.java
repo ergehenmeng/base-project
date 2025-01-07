@@ -16,6 +16,7 @@ import com.eghm.vo.help.HelpResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class HelpCenterController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<HelpResponse>> listPage(@Validated HelpQueryRequest request) {
+    public RespBody<PageData<HelpResponse>> listPage(@ParameterObject @Validated HelpQueryRequest request) {
         Page<HelpResponse> byPage = helpCenterService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
@@ -53,9 +54,9 @@ public class HelpCenterController {
         return RespBody.success();
     }
 
-    @GetMapping(value = "/select")
+    @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<HelpDetailResponse> select(@Validated IdDTO dto) {
+    public RespBody<HelpDetailResponse> select(@ParameterObject @Validated IdDTO dto) {
         HelpCenter center = helpCenterService.selectById(dto.getId());
         HelpDetailResponse response = DataUtil.copy(center, HelpDetailResponse.class);
         return RespBody.success(response);

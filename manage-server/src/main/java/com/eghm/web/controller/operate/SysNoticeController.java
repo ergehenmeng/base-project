@@ -13,6 +13,7 @@ import com.eghm.vo.notice.NoticeResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class SysNoticeController {
 
     @Operation(summary = "列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<NoticeResponse>> listPage(NoticeQueryRequest request) {
+    public RespBody<PageData<NoticeResponse>> listPage(@ParameterObject NoticeQueryRequest request) {
         Page<NoticeResponse> byPage = sysNoticeService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
@@ -45,7 +46,7 @@ public class SysNoticeController {
 
     @GetMapping("/select")
     @Operation(summary = "查看")
-    public RespBody<SysNotice> select(@Validated IdDTO dto) {
+    public RespBody<SysNotice> select(@ParameterObject @Validated IdDTO dto) {
         SysNotice notice = sysNoticeService.getByIdRequired(dto.getId());
         return RespBody.success(notice);
     }

@@ -103,8 +103,8 @@ public class CacheServiceImpl implements CacheService {
             log.error("缓存值不能为空 [{}]", key);
             throw new BusinessException(ErrorCode.CACHE_VALUE_NULL);
         }
-        if (value instanceof String) {
-            redisTemplate.opsForValue().set(key, (String) value, expire, unit);
+        if (value instanceof String val) {
+            redisTemplate.opsForValue().set(key, val, expire, unit);
         } else {
             redisTemplate.opsForValue().set(key, jsonService.toJson(value), expire, unit);
         }

@@ -43,8 +43,8 @@ public class DataScopeInterceptor implements Interceptor {
         Map<String, Object> paramMap;
         if (paramObject == null) {
             paramMap = new HashMap<>();
-        } else if (paramObject instanceof Map) {
-            paramMap = new HashMap<>((Map) paramObject);
+        } else if (paramObject instanceof Map map) {
+            paramMap = map;
         } else {
             paramMap = new HashMap<>();
             boolean hasTypeHandler = ms.getConfiguration().getTypeHandlerRegistry().hasTypeHandler(paramObject.getClass());

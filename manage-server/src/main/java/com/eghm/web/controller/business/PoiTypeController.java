@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class PoiTypeController {
 
     @Operation(summary = "列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<PoiTypeResponse>> getByPage(PoiTypeQueryRequest request) {
+    public RespBody<PageData<PoiTypeResponse>> getByPage(@ParameterObject PoiTypeQueryRequest request) {
         Page<PoiTypeResponse> byPage = poiTypeService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }

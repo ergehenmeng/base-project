@@ -32,7 +32,6 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static com.eghm.enums.ErrorCode.*;
 
@@ -188,7 +187,7 @@ public class CouponServiceImpl implements CouponService {
         if (memberId == null || CollUtil.isEmpty(couponList)) {
             return;
         }
-        List<Long> couponIds = couponList.stream().map(CouponVO::getId).collect(Collectors.toList());
+        List<Long> couponIds = couponList.stream().map(CouponVO::getId).toList();
         Map<Long, Integer> receivedMap = memberCouponService.countMemberReceived(memberId, couponIds);
         couponList.forEach(vo -> vo.setReceived(receivedMap.getOrDefault(vo.getId(), 0) >= vo.getMaxLimit()));
     }

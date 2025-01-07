@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,7 @@ public class DictController {
 
     @GetMapping("/list")
     @Operation(summary = "列表")
-    public RespBody<List<DictResponse>> list(DictQueryRequest request) {
+    public RespBody<List<DictResponse>> list(@ParameterObject DictQueryRequest request) {
         List<DictResponse> byPage = sysDictService.getList(request);
         return RespBody.success(byPage);
     }

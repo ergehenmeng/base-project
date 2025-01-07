@@ -21,6 +21,7 @@ import com.eghm.vo.business.line.TravelResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +43,7 @@ public class TravelAgencyController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<TravelResponse>> listPage(TravelAgencyQueryRequest request) {
+    public RespBody<PageData<TravelResponse>> listPage(@ParameterObject TravelAgencyQueryRequest request) {
         // 默认查询当前商户, 如果是管理员则可以查询所有商户,因此商户ID支持前端传递
         SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         Page<TravelResponse> roomPage = travelAgencyService.getByPage(request);

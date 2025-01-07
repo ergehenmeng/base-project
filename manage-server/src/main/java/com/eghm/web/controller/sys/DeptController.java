@@ -10,6 +10,7 @@ import com.eghm.vo.sys.SysDeptResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class DeptController {
 
     @GetMapping("/list")
     @Operation(summary = "部门列表(不分页)")
-    public RespBody<List<SysDeptResponse>> list(PagingQuery query) {
+    public RespBody<List<SysDeptResponse>> list(@ParameterObject PagingQuery query) {
         List<SysDeptResponse> list = sysDeptService.getList(query);
         return RespBody.success(list);
     }

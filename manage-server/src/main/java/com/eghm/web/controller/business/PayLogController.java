@@ -11,6 +11,7 @@ import com.eghm.vo.business.log.PayRequestLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,14 +33,14 @@ public class PayLogController {
 
     @GetMapping("/sync/listPage")
     @Operation(summary = "支付同步请求日志列表")
-    public RespBody<PageData<PayRequestLogResponse>> syncListPage(PayLogQueryRequest request) {
+    public RespBody<PageData<PayRequestLogResponse>> syncListPage(@ParameterObject PayLogQueryRequest request) {
         Page<PayRequestLogResponse> merchantPage = payRequestLogService.getByPage(request);
         return RespBody.success(PageData.toPage(merchantPage));
     }
 
     @GetMapping("/async/listPage")
     @Operation(summary = "支付异步响应日志列表")
-    public RespBody<PageData<PayNotifyLogResponse>> asyncListPage(PayLogQueryRequest request) {
+    public RespBody<PageData<PayNotifyLogResponse>> asyncListPage(@ParameterObject PayLogQueryRequest request) {
         Page<PayNotifyLogResponse> merchantPage = payNotifyLogService.getByPage(request);
         return RespBody.success(PageData.toPage(merchantPage));
     }

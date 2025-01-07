@@ -20,6 +20,7 @@ import com.eghm.web.annotation.VisitRecord;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -116,7 +117,7 @@ public class MemberController {
 
     @GetMapping("/invitePage")
     @Operation(summary = "邀请记录")
-    public RespBody<List<MemberInviteVO>> invitePage(PagingQuery query) {
+    public RespBody<List<MemberInviteVO>> invitePage(@ParameterObject PagingQuery query) {
         List<MemberInviteVO> byPage = memberInviteLogService.getByPage(query, ApiHolder.getMemberId());
         return RespBody.success(byPage);
     }

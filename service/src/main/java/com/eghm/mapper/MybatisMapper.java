@@ -16,7 +16,7 @@ public interface MybatisMapper {
      */
     SysConfig getById(Long id);
 
-    int updateState();
+    void updateState();
 
-    int updateState2();
+    void updateState2();
 }

@@ -29,7 +29,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 该类为了解决构造方法注入循环依赖
@@ -79,7 +78,7 @@ public class OrderProxyServiceImpl implements OrderProxyService {
             log.info("订单:[{}],确认无房开始执行退款逻辑", request.getOrderNo());
             Order order = orderService.getByOrderNo(request.getOrderNo());
             List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(request.getOrderNo());
-            List<Long> visitorIds = visitorList.stream().map(OrderVisitor::getId).collect(Collectors.toList());
+            List<Long> visitorIds = visitorList.stream().map(OrderVisitor::getId).toList();
             RefundApplyContext context = new RefundApplyContext();
             context.setMemberId(order.getMemberId());
             context.setNum(visitorIds.size());

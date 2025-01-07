@@ -62,7 +62,7 @@ public class ItemSpecServiceImpl implements ItemSpecService {
             this.deleteByItemId(item.getId());
             return Maps.newHashMap();
         }
-        List<Long> specIds = specList.stream().flatMap(itemSpecRequest -> itemSpecRequest.getValueList().stream().map(ItemSpecRequest.SpecValue::getId).filter(Objects::nonNull)).collect(Collectors.toList());
+        List<Long> specIds = specList.stream().flatMap(itemSpecRequest -> itemSpecRequest.getValueList().stream().map(ItemSpecRequest.SpecValue::getId).filter(Objects::nonNull)).toList();
         this.deleteByNotInIds(item.getId(), specIds);
         return this.insert(item, specList);
     }

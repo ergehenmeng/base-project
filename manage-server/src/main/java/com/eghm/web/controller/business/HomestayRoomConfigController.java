@@ -12,6 +12,7 @@ import com.eghm.vo.business.homestay.room.config.RoomConfigResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +46,7 @@ public class HomestayRoomConfigController {
 
     @GetMapping("/month")
     @Operation(summary = "房态信息(月)")
-    public RespBody<List<RoomConfigResponse>> getList(@Validated RoomConfigQueryRequest request) {
+    public RespBody<List<RoomConfigResponse>> getList(@ParameterObject @Validated RoomConfigQueryRequest request) {
         homestayRoomService.selectByIdRequired(request.getRoomId());
         List<RoomConfigResponse> responseList = homestayRoomConfigService.getList(request);
         return RespBody.success(responseList);

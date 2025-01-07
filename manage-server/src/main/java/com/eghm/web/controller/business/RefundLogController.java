@@ -23,6 +23,7 @@ import com.eghm.vo.business.order.refund.RefundLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,7 @@ public class RefundLogController {
 
     @GetMapping("/listPage")
     @Operation(summary = "退款申请列表")
-    public RespBody<PageData<RefundLogResponse>> listPage(RefundLogQueryRequest request) {
+    public RespBody<PageData<RefundLogResponse>> listPage(@ParameterObject RefundLogQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<RefundLogResponse> roomPage = orderRefundLogService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
@@ -57,7 +58,7 @@ public class RefundLogController {
 
     @GetMapping("/item/detail")
     @Operation(summary = "零售退款详情")
-    public RespBody<ItemOrderRefundDetailResponse> detail(@Validated OrderDTO dto) {
+    public RespBody<ItemOrderRefundDetailResponse> detail(@ParameterObject @Validated OrderDTO dto) {
         ItemOrderRefundDetailResponse response = itemOrderService.refundDetail(dto.getOrderNo());
         return RespBody.success(response);
     }

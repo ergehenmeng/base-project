@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -56,7 +55,7 @@ public class LineDayConfigServiceImpl implements LineDayConfigService {
      * @param configList 配置信息
      */
     private void deleteNotIn(Long lineId, List<LineDayConfigRequest> configList) {
-        List<Integer> indexList = configList.stream().map(LineDayConfigRequest::getRouteIndex).collect(Collectors.toList());
+        List<Integer> indexList = configList.stream().map(LineDayConfigRequest::getRouteIndex).toList();
         LambdaUpdateWrapper<LineDayConfig> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(LineDayConfig::getLineId, lineId);
         wrapper.notIn(LineDayConfig::getRouteIndex, indexList);

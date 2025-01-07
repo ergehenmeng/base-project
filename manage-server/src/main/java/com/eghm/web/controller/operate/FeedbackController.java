@@ -12,6 +12,7 @@ import com.eghm.vo.feedback.FeedbackResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class FeedbackController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<FeedbackResponse>> listPage(FeedbackQueryRequest request) {
+    public RespBody<PageData<FeedbackResponse>> listPage(@ParameterObject FeedbackQueryRequest request) {
         Page<FeedbackResponse> byPage = feedbackService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }

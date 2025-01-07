@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -66,7 +65,7 @@ public class HolidayUtil {
             instance.setTime(date);
             int week = instance.get(Calendar.DAY_OF_WEEK);
             return week != 1 && week != 7;
-        }).collect(Collectors.toList());
+        }).toList();
     }
 
     /**
@@ -82,6 +81,6 @@ public class HolidayUtil {
             instance.setTime(date);
             int week = instance.get(Calendar.DAY_OF_WEEK);
             return week == 1 || week == 7;
-        }).collect(Collectors.toList());
+        }).toList();
     }
 }

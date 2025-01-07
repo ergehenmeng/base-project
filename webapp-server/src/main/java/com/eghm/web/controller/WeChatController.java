@@ -71,7 +71,7 @@ public class WeChatController {
         return RespBody.success(DataUtil.copy(signature, JsTicketVO.class));
     }
 
-    @GetMapping(value = "/ma/scene")
+    @GetMapping("/ma/scene")
     @Operation(summary = "解析小程序二维码参数")
     @Parameter(name = "scene", description = "小程序码参数", required = true, in = ParameterIn.QUERY)
     public RespBody<String> scene(@RequestParam("scene") String scene) {

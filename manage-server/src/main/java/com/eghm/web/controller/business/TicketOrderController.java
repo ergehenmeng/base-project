@@ -20,6 +20,7 @@ import com.eghm.vo.business.order.ticket.TicketOrderResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +49,7 @@ public class TicketOrderController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<TicketOrderResponse>> listPage(TicketOrderQueryRequest request) {
+    public RespBody<PageData<TicketOrderResponse>> listPage(@ParameterObject TicketOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<TicketOrderResponse> byPage = ticketOrderService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
@@ -75,14 +76,14 @@ public class TicketOrderController {
 
     @GetMapping("/detail")
     @Operation(summary = "详情")
-    public RespBody<TicketOrderDetailResponse> detail(@Validated OrderDTO dto) {
+    public RespBody<TicketOrderDetailResponse> detail(@ParameterObject @Validated OrderDTO dto) {
         TicketOrderDetailResponse detail = ticketOrderService.detail(dto.getOrderNo());
         return RespBody.success(detail);
     }
 
     @GetMapping("/export")
     @Operation(summary = "导出")
-    public void export(HttpServletResponse response, TicketOrderQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject TicketOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<TicketOrderResponse> byPage = ticketOrderService.getList(request);
         EasyExcelUtil.export(response, "门票订单", byPage, TicketOrderResponse.class);

@@ -199,7 +199,7 @@ public class LotteryServiceImpl implements LotteryService {
         wrapper.select(Lottery::getId);
         wrapper.lt(Lottery::getEndTime, LocalDateTime.now());
         List<Lottery> selectedList = lotteryMapper.selectList(wrapper);
-        return selectedList.stream().map(Lottery::getId).collect(Collectors.toList());
+        return selectedList.stream().map(Lottery::getId).toList();
     }
 
     /**

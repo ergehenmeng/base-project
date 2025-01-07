@@ -14,7 +14,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -41,7 +40,7 @@ public class OfflineRefundLogServiceImpl implements OfflineRefundLogService {
         if (CollUtil.isEmpty(selectList)) {
             return Lists.newArrayList();
         }
-        return selectList.stream().flatMap(refundLog -> jsonService.fromJsonList(refundLog.getNote(), Long.class).stream()).distinct().collect(Collectors.toList());
+        return selectList.stream().flatMap(refundLog -> jsonService.fromJsonList(refundLog.getNote(), Long.class).stream()).distinct().toList();
     }
 
     @Override

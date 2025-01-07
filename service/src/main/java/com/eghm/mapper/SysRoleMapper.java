@@ -35,25 +35,15 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      * 删除角色菜单关联信息 物理删除
      *
      * @param roleId 角色id
-     * @return 删除条件
      */
-    int deleteRoleMenu(@Param("roleId") Long roleId);
+    void deleteRoleMenu(@Param("roleId") Long roleId);
 
     /**
      * 批量添加角色菜单关联信息
      *
      * @param roleId     角色id
      * @param menuIdList 菜单列表
-     * @return 查询条数
      */
-    int batchInsertRoleMenu(@Param("roleId") Long roleId, @Param("menuIdList") List<Long> menuIdList);
+    void batchInsertRoleMenu(@Param("roleId") Long roleId, @Param("menuIdList") List<Long> menuIdList);
 
-    /**
-     * 统计用户是否拥有指定角色类型
-     *
-     * @param userId   用户ID
-     * @param roleType 角色类型
-     * @return >0 表示有
-     */
-    int countByRoleType(@Param("userId") Long userId, @Param("roleType") String roleType);
 }

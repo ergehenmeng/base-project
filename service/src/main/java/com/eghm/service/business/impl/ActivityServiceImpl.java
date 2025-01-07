@@ -29,7 +29,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -150,7 +149,7 @@ public class ActivityServiceImpl implements ActivityService {
         }
         return activityList.stream()
                 .map(activityCalendar -> DataUtil.copy(activityCalendar, ActivityBaseDTO.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     /**
@@ -163,7 +162,7 @@ public class ActivityServiceImpl implements ActivityService {
     private List<ActivityBaseDTO> filterDateActivity(List<Activity> selectList, LocalDate date) {
         return selectList.stream().filter(activityCalendar -> activityCalendar.getNowDate().isEqual(date))
                 .map(activityCalendar -> DataUtil.copy(activityCalendar, ActivityBaseDTO.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     /**

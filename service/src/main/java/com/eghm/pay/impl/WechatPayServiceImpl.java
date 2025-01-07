@@ -218,8 +218,7 @@ public class WechatPayServiceImpl implements PayService {
         PrepayVO response = new PrepayVO();
         response.setPayChannel(PayChannel.WECHAT);
         switch (tradeType) {
-            case WECHAT_MINI:
-            case WECHAT_JSAPI:
+            case WECHAT_MINI, WECHAT_JSAPI:
                 response.setTimeStamp(timestamp);
                 response.setPackageValue("prepay_id=" + result.getPrepayId());
                 response.setNonceStr(nonceStr);

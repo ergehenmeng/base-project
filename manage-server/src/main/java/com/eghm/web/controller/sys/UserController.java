@@ -21,6 +21,7 @@ import com.eghm.vo.user.UserResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +46,7 @@ public class UserController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<UserResponse>> listPage(UserQueryRequest request) {
+    public RespBody<PageData<UserResponse>> listPage(@ParameterObject UserQueryRequest request) {
         Page<UserResponse> page = sysUserService.getByPage(request);
         return RespBody.success(PageData.toPage(page));
     }
@@ -59,7 +60,7 @@ public class UserController {
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<UserDetailResponse> select(@Validated IdDTO dto) {
+    public RespBody<UserDetailResponse> select(@ParameterObject @Validated IdDTO dto) {
         SysUser user = sysUserService.getByIdRequired(dto.getId());
         UserDetailResponse response = DataUtil.copy(user, UserDetailResponse.class);
         List<Long> roleList = sysRoleService.getByUserId(dto.getId());

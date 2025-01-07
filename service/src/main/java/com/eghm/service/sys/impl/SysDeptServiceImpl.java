@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static com.eghm.constants.CommonConstant.ROOT_NODE;
 
@@ -117,10 +116,9 @@ public class SysDeptServiceImpl implements SysDeptService {
      * @return 菜单列表 树状结构
      */
     private List<SysDeptResponse> treeBin(String code, List<SysDeptResponse> menuList) {
-        return menuList.stream()
-                .filter(parent -> Objects.equals(code, parent.getParentCode()))
-                .peek(parent -> parent.setChildren(this.treeBin(parent.getCode(), menuList)))
-                .collect(Collectors.toList());
+        List<SysDeptResponse> responseList = menuList.stream().filter(parent -> Objects.equals(code, parent.getParentCode())).toList();
+        responseList.forEach(parent -> parent.setChildren(this.treeBin(parent.getCode(), menuList)));
+        return responseList;
     }
 
 }

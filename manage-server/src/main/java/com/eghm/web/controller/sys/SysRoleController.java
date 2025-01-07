@@ -17,6 +17,7 @@ import com.eghm.vo.sys.SysRoleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class SysRoleController {
 
     @GetMapping("/listPage")
     @Operation(summary = "角色列表(分页)")
-    public RespBody<PageData<SysRoleResponse>> listPage(PagingQuery request) {
+    public RespBody<PageData<SysRoleResponse>> listPage(@ParameterObject PagingQuery request) {
         Page<SysRoleResponse> page = sysRoleService.getByPage(request);
         return RespBody.success(PageData.toPage(page));
     }
@@ -74,7 +75,7 @@ public class SysRoleController {
 
     @GetMapping("/menu")
     @Operation(summary = "查询角色关联菜单列表")
-    public RespBody<List<String>> menu(@Validated IdDTO dto) {
+    public RespBody<List<String>> menu(@ParameterObject @Validated IdDTO dto) {
         List<String> menuIds = sysRoleService.getRoleMenu(dto.getId());
         return RespBody.success(menuIds);
     }

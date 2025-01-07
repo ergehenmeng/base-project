@@ -25,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -101,7 +100,7 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
         RedeemCode select = this.selectByIdRequired(id);
         RedeemDetailResponse response = DataUtil.copy(select, RedeemDetailResponse.class);
         List<StoreScope>  scopeList = redeemCodeScopeService.getScopeList(id);
-        response.setStoreIds(scopeList.stream().map(StoreScope::getStoreId).collect(Collectors.toList()));
+        response.setStoreIds(scopeList.stream().map(StoreScope::getStoreId).toList());
         return response;
     }
 

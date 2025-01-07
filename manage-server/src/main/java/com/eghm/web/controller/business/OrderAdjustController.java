@@ -8,6 +8,7 @@ import com.eghm.vo.business.order.adjust.OrderAdjustResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class OrderAdjustController {
 
     @Operation(summary = "列表")
     @GetMapping("/list")
-    public RespBody<List<OrderAdjustResponse>> getList(@Validated OrderDTO dto) {
+    public RespBody<List<OrderAdjustResponse>> getList(@ParameterObject @Validated OrderDTO dto) {
         List<OrderAdjustResponse> responseList = orderAdjustLogService.getList(dto.getOrderNo());
         return RespBody.success(responseList);
     }

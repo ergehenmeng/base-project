@@ -21,6 +21,7 @@ import com.eghm.vo.business.restaurant.RestaurantResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +43,7 @@ public class RestaurantController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<RestaurantResponse>> listPage(RestaurantQueryRequest request) {
+    public RespBody<PageData<RestaurantResponse>> listPage(@ParameterObject RestaurantQueryRequest request) {
         SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         Page<RestaurantResponse> roomPage = restaurantService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));

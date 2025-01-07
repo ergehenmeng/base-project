@@ -61,12 +61,12 @@ public class ExpressTemplateRegionServiceImpl implements ExpressTemplateRegionSe
     @Override
     public Integer calcFee(ExpressFeeCalcDTO dto) {
         // 免运费的不参与计算
-        List<ItemCalcDTO> filterList = dto.getOrderList().stream().filter(itemCalcDTO -> itemCalcDTO.getExpressId() != null).collect(Collectors.toList());
+        List<ItemCalcDTO> filterList = dto.getOrderList().stream().filter(itemCalcDTO -> itemCalcDTO.getExpressId() != null).toList();
         if (CollUtil.isEmpty(filterList)) {
             log.info("所有商品都免邮费 [{}]", dto.getOrderList());
             return 0;
         }
-        List<Long> expressIds = filterList.stream().map(ItemCalcDTO::getExpressId).collect(Collectors.toList());
+        List<Long> expressIds = filterList.stream().map(ItemCalcDTO::getExpressId).toList();
         // 查询所有的物流信息,并按模板进行划分
         List<ExpressTemplateRegion> allRegionList = this.getList(expressIds);
         Map<Long, List<ExpressTemplateRegion>> expressRegionMap = allRegionList.stream().collect(Collectors.groupingBy(ExpressTemplateRegion::getExpressId, Collectors.toList()));

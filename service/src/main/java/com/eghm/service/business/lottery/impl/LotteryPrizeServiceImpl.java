@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -109,7 +108,7 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
         if (selectList.isEmpty()) {
             return;
         }
-        List<Long> prizeIds = selectList.stream().map(LotteryPrize::getId).collect(Collectors.toList());
+        List<Long> prizeIds = selectList.stream().map(LotteryPrize::getId).toList();
         this.clearSemaphore(prizeIds);
     }
 

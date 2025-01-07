@@ -9,6 +9,7 @@ import com.eghm.vo.notice.NoticeVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,14 +39,14 @@ public class NoticeController {
 
     @GetMapping("/listPage")
     @Operation(summary = "公告列表")
-    public RespBody<List<NoticeVO>> listPage(PagingQuery query) {
+    public RespBody<List<NoticeVO>> listPage(@ParameterObject PagingQuery query) {
         List<NoticeVO> list = sysNoticeService.getList(query);
         return RespBody.success(list);
     }
 
     @GetMapping("/detail")
     @Operation(summary = "公告详细信息")
-    public RespBody<NoticeDetailVO> detail(@Validated IdDTO dto) {
+    public RespBody<NoticeDetailVO> detail(@ParameterObject @Validated IdDTO dto) {
         NoticeDetailVO detailed = sysNoticeService.detailById(dto.getId());
         return RespBody.success(detailed);
     }

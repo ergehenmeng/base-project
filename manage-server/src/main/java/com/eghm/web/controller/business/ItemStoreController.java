@@ -20,6 +20,7 @@ import com.eghm.vo.business.item.store.ItemStoreResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class ItemStoreController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<ItemStoreResponse>> listPage(ItemStoreQueryRequest request) {
+    public RespBody<PageData<ItemStoreResponse>> listPage(@ParameterObject ItemStoreQueryRequest request) {
         SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         Page<ItemStoreResponse> byPage = itemStoreService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
@@ -49,7 +50,7 @@ public class ItemStoreController {
 
     @GetMapping("/storeListPage")
     @Operation(summary = "列表含店铺信息")
-    public RespBody<PageData<BaseStoreResponse>> storeListPage(BaseStoreQueryRequest request) {
+    public RespBody<PageData<BaseStoreResponse>> storeListPage(@ParameterObject BaseStoreQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseStoreResponse> listPage = itemStoreService.getStorePage(request);
         return RespBody.success(PageData.toPage(listPage));
@@ -78,7 +79,7 @@ public class ItemStoreController {
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<ItemStore> select(@Validated IdDTO dto) {
+    public RespBody<ItemStore> select(@ParameterObject @Validated IdDTO dto) {
         ItemStore store = itemStoreService.selectByIdRequired(dto.getId());
         return RespBody.success(store);
     }

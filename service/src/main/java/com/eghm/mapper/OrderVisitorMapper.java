@@ -20,7 +20,7 @@ public interface OrderVisitorMapper extends BaseMapper<OrderVisitor> {
      *
      * @param orderNo  订单号
      * @param refundId 退款记录
-     * @return count
+     * @param state    state
      */
-    int refundVisitor(@Param("orderNo") String orderNo, @Param("refundId") Long refundId, @Param("state") VisitorState state);
+    void refundVisitor(@Param("orderNo") String orderNo, @Param("refundId") Long refundId, @Param("state") VisitorState state);
 }

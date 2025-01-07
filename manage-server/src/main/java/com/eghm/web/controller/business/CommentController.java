@@ -13,6 +13,7 @@ import com.eghm.vo.business.comment.CommentResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -34,14 +35,14 @@ public class CommentController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<CommentResponse>> listPage(CommentQueryRequest request) {
+    public RespBody<PageData<CommentResponse>> listPage(@ParameterObject CommentQueryRequest request) {
         Page<CommentResponse> byPage = commentService.listPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @GetMapping("/report/listPage")
     @Operation(summary = "举报列表")
-    public RespBody<PageData<CommentReportResponse>> reportListPage(CommentReportQueryRequest request) {
+    public RespBody<PageData<CommentReportResponse>> reportListPage(@ParameterObject CommentReportQueryRequest request) {
         Page<CommentReportResponse> byPage = commentReportService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }

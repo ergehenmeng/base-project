@@ -24,12 +24,11 @@ public class ExceptionUtil {
      * @param runnable 指定的逻辑
      */
     public static void error(Throwable e, ErrorCode errorCode, Runnable runnable) {
-        if (e instanceof BusinessException businessException) {
-            if (businessException.getCode() == errorCode.getCode()) {
+        if (e instanceof BusinessException businessException && businessException.getCode() == errorCode.getCode()) {
                 runnable.run();
                 return;
             }
-        }
+
         if (log.isDebugEnabled()) {
             log.debug("runnable not run, because error code is not match", e);
         }

@@ -14,6 +14,7 @@ import com.eghm.web.annotation.AccessToken;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -37,13 +38,13 @@ public class CommentController {
 
     @GetMapping("/listPage")
     @Operation(summary = "评论列表")
-    public RespBody<List<CommentVO>> getByPage(@Validated CommentQueryDTO dto) {
+    public RespBody<List<CommentVO>> getByPage(@ParameterObject @Validated CommentQueryDTO dto) {
         return RespBody.success(commentService.getByPage(dto));
     }
 
     @GetMapping("/secondPage")
     @Operation(summary = "二级评论")
-    public RespBody<List<CommentSecondVO>> secondPage(@Validated CommentQueryDTO dto) {
+    public RespBody<List<CommentSecondVO>> secondPage(@ParameterObject @Validated CommentQueryDTO dto) {
         return RespBody.success(commentService.secondPage(dto));
     }
 

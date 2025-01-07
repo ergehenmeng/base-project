@@ -10,6 +10,7 @@ import com.google.common.collect.Lists;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +41,7 @@ public class StoreController {
 
     @GetMapping("/storeList")
     @Operation(summary = "店铺列表(不分页)")
-    public RespBody<List<BaseStoreResponse>> storeList(BaseStoreQueryRequest request) {
+    public RespBody<List<BaseStoreResponse>> storeList(@ParameterObject BaseStoreQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         request.setLimit(false);
         List<BaseStoreResponse> responseList = Lists.newArrayList();

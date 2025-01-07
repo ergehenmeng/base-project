@@ -52,7 +52,7 @@ public class ItemSkuServiceImpl implements ItemSkuService {
 
     @Override
     public void update(Item item, Map<String, Long> specMap, List<ItemSkuRequest> skuList) {
-        List<Long> skuIds = skuList.stream().map(ItemSkuRequest::getId).filter(Objects::nonNull).collect(Collectors.toList());
+        List<Long> skuIds = skuList.stream().map(ItemSkuRequest::getId).filter(Objects::nonNull).toList();
         LambdaUpdateWrapper<ItemSku> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemSku::getItemId, item.getId());
         wrapper.notIn(CollUtil.isNotEmpty(skuIds), ItemSku::getId, skuIds);
