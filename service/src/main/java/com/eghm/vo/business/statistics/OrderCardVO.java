@@ -4,7 +4,7 @@ import cn.hutool.core.util.RandomUtil;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -16,17 +16,17 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderCardVO {
 
-    @ApiModelProperty("订单数量(含退款的订单)")
+    @Schema(description = "订单数量(含退款的订单)")
     private Integer orderNum = 0;
 
-    @ApiModelProperty("支付金额(含退款的订单)")
+    @Schema(description = "支付金额(含退款的订单)")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer payAmount = 0;
 
-    @ApiModelProperty("退款数量(包含部分退款)")
+    @Schema(description = "退款数量(包含部分退款)")
     private Integer refundNum = 0;
 
-    @ApiModelProperty("退款金额(包含部分退款)")
+    @Schema(description = "退款金额(包含部分退款)")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer refundAmount = 0;
 

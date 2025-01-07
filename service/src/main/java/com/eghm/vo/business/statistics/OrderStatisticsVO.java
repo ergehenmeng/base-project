@@ -5,7 +5,7 @@ import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,17 +21,17 @@ import java.time.LocalDate;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderStatisticsVO {
 
-    @ApiModelProperty("下单日期")
+    @Schema(description = "下单日期")
     @JsonFormat(pattern = "MM-dd")
     private LocalDate createDate;
 
-    @ApiModelProperty("下单月份")
+    @Schema(description = "下单月份")
     private String createMonth;
 
-    @ApiModelProperty("订单数量")
+    @Schema(description = "订单数量")
     private Integer orderNum = 0;
 
-    @ApiModelProperty("支付金额")
+    @Schema(description = "支付金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer payAmount = 0;
 

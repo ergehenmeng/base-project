@@ -5,8 +5,8 @@ import com.eghm.dto.business.order.adjust.OrderAdjustRequest;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.OrderAdjustLogService;
 import com.eghm.vo.business.order.adjust.OrderAdjustResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -20,21 +20,21 @@ import java.util.List;
  */
 
 @RestController
-@Api(tags = "订单改价")
+@Tag(name="订单改价")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/order/adjust", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrderAdjustController {
 
     private final OrderAdjustLogService orderAdjustLogService;
 
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     @GetMapping("/list")
     public RespBody<List<OrderAdjustResponse>> getList(@Validated OrderDTO dto) {
         List<OrderAdjustResponse> responseList = orderAdjustLogService.getList(dto.getOrderNo());
         return RespBody.success(responseList);
     }
 
-    @ApiOperation("零售改价")
+    @Operation(summary = "零售改价")
     @PostMapping(value = "/item", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> item(@RequestBody @Validated OrderAdjustRequest request) {
         orderAdjustLogService.itemAdjust(request);

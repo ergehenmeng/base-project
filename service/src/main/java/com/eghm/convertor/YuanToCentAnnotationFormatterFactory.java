@@ -10,8 +10,6 @@ import org.springframework.format.Printer;
 import org.springframework.lang.NonNull;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
@@ -24,10 +22,7 @@ public class YuanToCentAnnotationFormatterFactory extends EmbeddedValueResolutio
     private static final Set<Class<?>> FIELD_TYPES;
 
     static {
-        Set<Class<?>> fieldTypes = new HashSet<>(4);
-        fieldTypes.add(Integer.class);
-        fieldTypes.add(Long.class);
-        FIELD_TYPES = Collections.unmodifiableSet(fieldTypes);
+        FIELD_TYPES = Set.of(Integer.class, Long.class);
     }
 
     @Override

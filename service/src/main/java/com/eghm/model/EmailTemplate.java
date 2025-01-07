@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,22 +17,22 @@ import java.time.LocalDateTime;
 public class EmailTemplate {
 
     @TableId(type = IdType.ASSIGN_ID)
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty("模板唯一编码")
+    @Schema(description = "模板唯一编码")
     private String nid;
 
-    @ApiModelProperty("模板标题")
+    @Schema(description = "模板标题")
     private String title;
 
-    @ApiModelProperty("模板内容")
+    @Schema(description = "模板内容")
     private String content;
 
-    @ApiModelProperty("备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 
-    @ApiModelProperty("更新时间")
+    @Schema(description = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }

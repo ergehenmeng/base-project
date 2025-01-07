@@ -1,9 +1,9 @@
 package com.eghm.dto.business.merchant;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author 二哥很猛
@@ -13,15 +13,15 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class MerchantAuthDTO {
 
-    @ApiModelProperty(value = "授权码", required = true)
+    @Schema(description = "授权码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "授权码不能为空")
     private String authCode;
 
-    @ApiModelProperty(value = "授权手机号", required = true)
+    @Schema(description = "授权手机号", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "授权手机号不能为空")
     private String mobile;
 
-    @ApiModelProperty(value = "授权openId", required = true)
+    @Schema(description = "授权openId", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "openId不能为空")
     private String openId;
 

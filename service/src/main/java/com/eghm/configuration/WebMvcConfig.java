@@ -30,12 +30,11 @@ import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.impl.NoNoise;
 import com.google.code.kaptcha.impl.WaterRipple;
 import com.google.code.kaptcha.util.Config;
+import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.HibernateValidatorConfiguration;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
-import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.validation.MessageInterpolatorFactory;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -47,7 +46,6 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -63,7 +61,6 @@ import java.util.concurrent.Executor;
  */
 @Slf4j
 @AllArgsConstructor
-@EnableConfigurationProperties({SystemProperties.class})
 public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
 
     private final ObjectMapper objectMapper;
@@ -71,11 +68,6 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
     private final TaskExecutor taskExecutor;
 
     protected final SystemProperties systemProperties;
-
-    @Bean
-    public static BeanPostProcessor springFoxBeanPostProcessor() {
-        return new SpringFoxBeanPostProcessor();
-    }
 
     /**
      * 设置校验为快速失败
@@ -147,7 +139,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
     @PostConstruct
     public void jsonNullToString() {
 
-        JsonSerializer<Object> arraySerializer = new JsonSerializer<Object>() {
+        JsonSerializer<Object> arraySerializer = new JsonSerializer<>() {
             @Override
             public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
                 gen.writeStartArray();

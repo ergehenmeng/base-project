@@ -2,10 +2,10 @@ package com.eghm.dto.poi;
 
 import com.eghm.validation.annotation.WordChecker;
 import com.google.gson.annotations.Expose;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -17,47 +17,47 @@ import java.util.List;
 @Data
 public class PoiPointEditRequest {
 
-    @ApiModelProperty(value = "id", required = true)
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "点位名称", required = true)
+    @Schema(description = "点位名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @Size(max = 20, message = "点位名称最大20字符")
     @NotBlank(message = "点位名称不能为空")
     @WordChecker(message = "点位名称存在敏感词")
     private String title;
 
-    @ApiModelProperty(value = "区域", required = true)
+    @Schema(description = "区域", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "请选择区域")
     private String areaCode;
 
-    @ApiModelProperty(value = "封面图", required = true)
+    @Schema(description = "封面图", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "封面图不能为空")
     private List<String> coverList;
 
-    @ApiModelProperty(value = "点位类型", required = true)
+    @Schema(description = "点位类型", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "请选择点位类型")
     private Long typeId;
 
-    @ApiModelProperty(value = "经度", required = true)
+    @Schema(description = "经度", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "经度不能为空")
     @DecimalMin(value = "-180", message = "经度应(-180, 180]范围内", inclusive = false)
     @DecimalMax(value = "180", message = "经度应(-180, 180]范围内")
     private BigDecimal longitude;
 
-    @ApiModelProperty(value = "纬度", required = true)
+    @Schema(description = "纬度", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "纬度不能为空")
     @DecimalMin(value = "-90", message = "纬度应[-90, 90]范围内")
     @DecimalMax(value = "90", message = "纬度应[-90, 90]范围内")
     private BigDecimal latitude;
 
-    @ApiModelProperty(value = "详细地址", required = true)
+    @Schema(description = "详细地址", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "详细地址不能为空")
     @Size(max = 50, message = "详细地址最大50字符")
     @WordChecker(message = "详细地址存在敏感词")
     private String detailAddress;
 
-    @ApiModelProperty(value = "详细介绍", required = true)
+    @Schema(description = "详细介绍", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "详细介绍不能为空")
     @WordChecker(message = "详细介绍存在敏感词")
     @Expose(serialize = false)

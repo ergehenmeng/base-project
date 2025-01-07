@@ -1,10 +1,10 @@
 package com.eghm.dto.business.order.evaluation;
 
 import com.eghm.annotation.Assign;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -13,14 +13,14 @@ import javax.validation.constraints.NotNull;
 @Data
 public class OrderEvaluationShieldDTO {
 
-    @ApiModelProperty(value = "id", required = true)
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty("屏蔽原因")
+    @Schema(description = "屏蔽原因")
     private String remark;
 
     @Assign
-    @ApiModelProperty(value = "用户id", hidden = true)
+    @Schema(description = "用户id", hidden = true)
     private Long userId;
 }

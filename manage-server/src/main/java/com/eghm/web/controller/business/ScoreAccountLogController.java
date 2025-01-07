@@ -8,15 +8,15 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.ScoreAccountLogService;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.account.ScoreAccountLogResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -25,7 +25,7 @@ import java.util.List;
  */
 
 @RestController
-@Api(tags = "商户积分")
+@Tag(name="商户积分")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/score/account/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ScoreAccountLogController {
@@ -33,14 +33,14 @@ public class ScoreAccountLogController {
     private final ScoreAccountLogService scoreAccountLogService;
 
     @GetMapping("/listPage")
-    @ApiOperation("积分变动列表")
+    @Operation(summary = "积分变动列表")
     public RespBody<PageData<ScoreAccountLogResponse>> listPage(ScoreAccountQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ScoreAccountLogResponse> byPage = scoreAccountLogService.listPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @ApiOperation("导出")
+    @Operation(summary = "导出")
     @GetMapping("/export")
     public void export(HttpServletResponse response, ScoreAccountQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());

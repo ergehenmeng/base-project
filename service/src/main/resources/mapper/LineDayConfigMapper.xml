@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.LineDayConfigMapper">
 
-    <insert id="insertOrUpdate" parameterType="com.eghm.model.LineDayConfig">
+    <insert id="insertUpdate" parameterType="com.eghm.model.LineDayConfig">
         insert into line_day_config(id, line_id, route_index, start_point, end_point, traffic_type, repast, `depict`)
         values (#{id}, #{lineId}, #{routeIndex}, #{startPoint}, #{endPoint}, #{trafficType}, #{repast}, #{depict}) on duplicate key
         update start_point = #{startPoint}, end_point = #{endPoint}, traffic_type = #{trafficType}, repast = #{repast}, `depict` = #{depict}

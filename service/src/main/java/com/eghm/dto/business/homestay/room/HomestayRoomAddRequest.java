@@ -5,13 +5,13 @@ import com.eghm.enums.ref.RoomType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.google.gson.annotations.Expose;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -21,48 +21,48 @@ import java.util.List;
 @Data
 public class HomestayRoomAddRequest {
 
-    @ApiModelProperty(value = "民宿id", required = true)
+    @Schema(description = "民宿id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "民宿id不能为空")
     private Long homestayId;
 
-    @ApiModelProperty(value = "房型名称", required = true)
+    @Schema(description = "房型名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @Size(min = 2, max = 20, message = "房型名称应为2~20位")
     @NotBlank(message = "房型名称不能为空")
     @WordChecker(message = "房型名称存在敏感词")
     private String title;
 
-    @ApiModelProperty(value = "房型类型 1:标间 2:大床房 3:双人房 4:钟点房 5:套房 6:合租", required = true)
+    @Schema(description = "房型类型 1:标间 2:大床房 3:双人房 4:钟点房 5:套房 6:合租", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "房型类型不能为空")
     private RoomType roomType;
 
-    @ApiModelProperty(value = "封面图片", required = true)
+    @Schema(description = "封面图片", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "封面图片不能为空")
     private List<String> coverList;
 
-    @ApiModelProperty(value = "订单确认方式: 1:自动确认 2:手动确认", required = true)
+    @Schema(description = "订单确认方式: 1:自动确认 2:手动确认", requiredMode = Schema.RequiredMode.REQUIRED)
     @OptionInt(value = {1, 2}, message = "订单确认方式不合法")
     private Integer confirmType;
 
-    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款", required = true)
+    @Schema(description = "退款方式 0:不支持 1:直接退款 2:审核后退款", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "退款方式不能为空")
     private RefundType refundType;
 
-    @ApiModelProperty(value = "退款描述")
+    @Schema(description = "退款描述")
     @WordChecker(message = "退款描述存在敏感词")
     private String refundDescribe;
 
-    @ApiModelProperty(value = "面积", required = true)
+    @Schema(description = "面积", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "面积不能为空")
     private Integer dimension;
 
-    @ApiModelProperty(value = "居住人数", required = true)
+    @Schema(description = "居住人数", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "户型不能为空")
     private Integer resident;
 
-    @ApiModelProperty(value = "屋内设施")
+    @Schema(description = "屋内设施")
     private List<String> infrastructureList;
 
-    @ApiModelProperty(value = "详细介绍", required = true)
+    @Schema(description = "详细介绍", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "详细介绍不能为空")
     @WordChecker(message = "详细介绍存在敏感词")
     @Expose(serialize = false)

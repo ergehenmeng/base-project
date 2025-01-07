@@ -2,7 +2,7 @@
 package com.eghm.vo.business.lottery;
 
 import com.eghm.enums.ref.PrizeType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -13,16 +13,16 @@ import lombok.Data;
 @Data
 public class LotteryPrizeVO {
 
-    @ApiModelProperty(value = "奖品名称")
+    @Schema(description = "奖品名称")
     private String prizeName;
 
-    @ApiModelProperty(value = "中奖商品类型 0:谢谢参与 1:优惠券 2:积分")
+    @Schema(description = "中奖商品类型 0:谢谢参与 1:优惠券 2:积分")
     private PrizeType prizeType;
 
-    @ApiModelProperty(value = "奖品图片")
+    @Schema(description = "奖品图片")
     private String coverUrl;
 
-    @ApiModelProperty(value = "中奖位置 1-8")
+    @Schema(description = "中奖位置 1-8")
     private Integer location;
 
 }

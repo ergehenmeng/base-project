@@ -2,10 +2,10 @@ package com.eghm.dto.business.purchase;
 
 import com.eghm.convertor.YuanToCentDecoder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -15,20 +15,20 @@ import javax.validation.constraints.NotNull;
 @Data
 public class LimitSkuRequest {
 
-    @ApiModelProperty(value = "商品id", required = true)
+    @Schema(description = "商品id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "商品id不能为空")
     private Long itemId;
 
-    @ApiModelProperty(value = "skuId", required = true)
+    @Schema(description = "skuId", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "skuId不能为空")
     private Long skuId;
 
-    @ApiModelProperty(value = "销售价", required = true)
+    @Schema(description = "销售价", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "销售价不能为空")
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty(value = "限时价", required = true)
+    @Schema(description = "限时价", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "限时价不能为空")
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer discountPrice;

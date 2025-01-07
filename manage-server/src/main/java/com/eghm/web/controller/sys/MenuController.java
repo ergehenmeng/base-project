@@ -12,8 +12,8 @@ import com.eghm.service.sys.SysMenuService;
 import com.eghm.vo.menu.MenuFullResponse;
 import com.eghm.vo.menu.MenuResponse;
 import com.eghm.web.configuration.interceptor.PermInterceptor;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -26,7 +26,7 @@ import java.util.List;
  * @since 2018/1/30 09:30
  */
 @RestController
-@Api(tags = "菜单管理")
+@Tag(name="菜单管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/menu", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MenuController {
@@ -36,28 +36,28 @@ public class MenuController {
     private final PermInterceptor permInterceptor;
 
     @GetMapping("/list")
-    @ApiOperation("全部菜单")
+    @Operation(summary = "全部菜单")
     public RespBody<List<MenuFullResponse>> list(MenuQueryRequest request) {
         List<MenuFullResponse> responseList = sysMenuService.getList(request);
         return RespBody.success(responseList);
     }
 
     @GetMapping("/systemList")
-    @ApiOperation("管理员菜单")
+    @Operation(summary = "管理员菜单")
     public RespBody<List<MenuResponse>> systemList() {
         List<MenuResponse> responseList = sysMenuService.getSystemList();
         return RespBody.success(responseList);
     }
 
     @GetMapping("/merchantList")
-    @ApiOperation("商户菜单")
+    @Operation(summary = "商户菜单")
     public RespBody<List<MenuResponse>> merchantList() {
         List<MenuResponse> responseList = sysMenuService.getMerchantList(SecurityHolder.getUserId());
         return RespBody.success(responseList);
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("添加菜单")
+    @Operation(summary = "添加菜单")
     public synchronized RespBody<Void> create(@Validated @RequestBody MenuAddRequest request) {
         sysMenuService.create(request);
         permInterceptor.refresh();
@@ -65,7 +65,7 @@ public class MenuController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("修改菜单")
+    @Operation(summary = "修改菜单")
     public RespBody<Void> update(@Validated @RequestBody MenuEditRequest request) {
         sysMenuService.update(request);
         permInterceptor.refresh();
@@ -73,7 +73,7 @@ public class MenuController {
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除菜单")
+    @Operation(summary = "删除菜单")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         sysMenuService.delete(String.valueOf(dto.getId()));
         permInterceptor.refresh();
@@ -81,14 +81,14 @@ public class MenuController {
     }
 
     @PostMapping(value = "/sort", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新排序")
+    @Operation(summary = "更新排序")
     public RespBody<Void> sort(@RequestBody @Validated SortByDTO dto) {
         sysMenuService.sortBy(String.valueOf(dto.getId()), dto.getSortBy());
         return RespBody.success();
     }
 
     @PostMapping(value = "/updateState", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新状态")
+    @Operation(summary = "更新状态")
     public RespBody<Void> updateState(@Validated @RequestBody StateRequest request) {
         sysMenuService.updateState(String.valueOf(request.getId()), request.getState());
         permInterceptor.refresh();

@@ -3,10 +3,10 @@ package com.eghm.dto.business.account.score;
 import com.eghm.annotation.Assign;
 import com.eghm.convertor.YuanToCentDecoder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -16,11 +16,11 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ScoreRechargeDTO {
 
-    @ApiModelProperty("商户id")
+    @Schema(description = "商户id")
     @Assign
     private Long merchantId;
 
-    @ApiModelProperty(value = "充值金额", required = true)
+    @Schema(description = "充值金额", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonDeserialize(using = YuanToCentDecoder.class)
     @NotNull(message = "请输入充值金额")
     private Integer amount;

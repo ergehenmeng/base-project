@@ -20,7 +20,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * 操作日志
@@ -95,7 +95,7 @@ public class ManageLogAspect {
     private String formatRequest(Object[] args) {
         StringBuilder builder = new StringBuilder();
         for (Object object : args) {
-            if (builder.length() > 0) {
+            if (!builder.isEmpty()) {
                 builder.append("|");
             }
             // 过滤内置参数

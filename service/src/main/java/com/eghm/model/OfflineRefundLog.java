@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,22 +18,22 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class OfflineRefundLog extends BaseEntity {
 
-    @ApiModelProperty(value = "订单编号")
+    @Schema(description = "订单编号")
     private String orderNo;
 
-    @ApiModelProperty(value = "退款金额")
+    @Schema(description = "退款金额")
     private Integer refundAmount;
 
-    @ApiModelProperty(value = "线下退款关联信息(json)")
+    @Schema(description = "线下退款关联信息(json)")
     private String note;
 
-    @ApiModelProperty(value = "退款凭证(转账记录)")
+    @Schema(description = "退款凭证(转账记录)")
     private String certificate;
 
-    @ApiModelProperty(value = "备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 
-    @ApiModelProperty(value = "用户id")
+    @Schema(description = "用户id")
     private Long userId;
 
 }

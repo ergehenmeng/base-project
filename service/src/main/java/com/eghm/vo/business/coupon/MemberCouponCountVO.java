@@ -1,6 +1,6 @@
 package com.eghm.vo.business.coupon;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -11,9 +11,9 @@ import lombok.Data;
 @Data
 public class MemberCouponCountVO {
 
-    @ApiModelProperty("优惠券id")
+    @Schema(description = "优惠券id")
     private Long couponId;
 
-    @ApiModelProperty("优惠券已领取数量")
+    @Schema(description = "优惠券已领取数量")
     private Integer num;
 }

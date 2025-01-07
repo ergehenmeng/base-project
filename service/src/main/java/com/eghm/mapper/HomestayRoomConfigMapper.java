@@ -22,7 +22,7 @@ public interface HomestayRoomConfigMapper extends BaseMapper<HomestayRoomConfig>
      * @param config 房态信息
      * @return 条数
      */
-    int insertOrUpdate(HomestayRoomConfig config);
+    int insertUpdate(HomestayRoomConfig config);
 
     /**
      * 更新指定时间段内房态的库存信息

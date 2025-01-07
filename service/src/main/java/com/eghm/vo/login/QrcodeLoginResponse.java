@@ -1,7 +1,7 @@
 package com.eghm.vo.login;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -13,9 +13,9 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class QrcodeLoginResponse {
 
-    @ApiModelProperty("登录成功后的信息")
+    @Schema(description = "登录成功后的信息")
     private LoginResponse data;
 
-    @ApiModelProperty("状态码 0:未绑定(跳转到登录页面) 1:已绑定(绑定后登录信息不为空)")
+    @Schema(description = "状态码 0:未绑定(跳转到登录页面) 1:已绑定(绑定后登录信息不为空)")
     private Integer state;
 }

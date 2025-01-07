@@ -1,9 +1,9 @@
 package com.eghm.dto.sys.user;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author 二哥很猛
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class CheckPwdRequest {
 
-    @ApiModelProperty(value = "密码", required = true)
+    @Schema(description = "密码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "密码不能为空")
     private String pwd;
 }

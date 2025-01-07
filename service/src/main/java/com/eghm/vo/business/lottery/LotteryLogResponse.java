@@ -1,7 +1,7 @@
 package com.eghm.vo.business.lottery;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -14,19 +14,19 @@ import java.time.LocalDateTime;
 @Data
 public class LotteryLogResponse {
 
-    @ApiModelProperty("昵称")
+    @Schema(description = "昵称")
     private String nickName;
 
-    @ApiModelProperty("是否中奖 false:未中奖 true:中奖")
+    @Schema(description = "是否中奖 false:未中奖 true:中奖")
     private Boolean winning;
 
-    @ApiModelProperty("奖品名称")
+    @Schema(description = "奖品名称")
     private String prizeTitle;
 
-    @ApiModelProperty("中奖数量")
+    @Schema(description = "中奖数量")
     private Integer winNum;
 
-    @ApiModelProperty("中奖时间时间")
+    @Schema(description = "中奖时间时间")
     @JsonFormat(pattern = "MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 }

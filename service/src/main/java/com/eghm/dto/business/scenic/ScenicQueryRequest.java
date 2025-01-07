@@ -1,7 +1,7 @@
 package com.eghm.dto.business.scenic;
 
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,9 +15,9 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class ScenicQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("上架状态 0:待上架 1:已上架")
+    @Schema(description = "上架状态 0:待上架 1:已上架")
     private Integer state;
 
-    @ApiModelProperty(value = "景区所属商户id")
+    @Schema(description = "景区所属商户id")
     private Long merchantId;
 }

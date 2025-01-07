@@ -2,8 +2,8 @@ package com.eghm.validation;
 
 import com.eghm.validation.annotation.OptionInt;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * @author 二哥很猛

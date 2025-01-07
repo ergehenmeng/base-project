@@ -1,7 +1,7 @@
 package com.eghm.vo.business.group;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -12,16 +12,16 @@ import lombok.Data;
 @Data
 public class GroupMemberVO {
 
-    @ApiModelProperty("头像")
+    @Schema(description = "头像")
     private String avatar;
 
-    @ApiModelProperty("昵称")
+    @Schema(description = "昵称")
     private String nickName;
 
-    @ApiModelProperty("是否为团长")
+    @Schema(description = "是否为团长")
     private Boolean starter;
 
-    @ApiModelProperty("拼团id")
+    @Schema(description = "拼团id")
     @JsonIgnore
     private Long bookingId;
 }

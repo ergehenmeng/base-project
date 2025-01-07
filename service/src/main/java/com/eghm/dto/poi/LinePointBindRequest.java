@@ -1,10 +1,10 @@
 package com.eghm.dto.poi;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -14,11 +14,11 @@ import java.util.List;
 @Data
 public class LinePointBindRequest {
 
-    @ApiModelProperty(value = "线路", required = true)
+    @Schema(description = "线路", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "线路id不能为空")
     private Long lineId;
 
-    @ApiModelProperty(value = "点位列表", required = true)
+    @Schema(description = "点位列表", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "请选择点位")
     @Size(min = 2, message = "最少绑定两个点位")
     private List<Long> pointIds;

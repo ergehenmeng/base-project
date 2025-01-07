@@ -14,8 +14,8 @@ import com.eghm.service.business.lottery.LotteryService;
 import com.eghm.vo.business.lottery.LotteryDetailResponse;
 import com.eghm.vo.business.lottery.LotteryLogResponse;
 import com.eghm.vo.business.lottery.LotteryResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2023/8/2
  */
 @RestController
-@Api(tags = "抽奖配置")
+@Tag(name="抽奖配置")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/lottery", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LotteryController {
@@ -36,7 +36,7 @@ public class LotteryController {
     private final LotteryLogService lotteryLogService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<LotteryResponse>> listPage(@Validated LotteryQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<LotteryResponse> merchantPage = lotteryService.getByPage(request);
@@ -44,7 +44,7 @@ public class LotteryController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增")
+    @Operation(summary = "新增")
     public RespBody<Void> create(@RequestBody @Validated LotteryAddRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         lotteryService.create(request);
@@ -52,7 +52,7 @@ public class LotteryController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新")
+    @Operation(summary = "更新")
     public RespBody<Void> update(@RequestBody @Validated LotteryEditRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         lotteryService.update(request);
@@ -60,21 +60,21 @@ public class LotteryController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     public RespBody<LotteryDetailResponse> detail(@Validated IdDTO dto) {
         LotteryDetailResponse response = lotteryService.getDetailById(dto.getId());
         return RespBody.success(response);
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO request) {
         lotteryService.delete(request.getId());
         return RespBody.success();
     }
 
     @GetMapping("/logPage")
-    @ApiOperation("抽奖记录")
+    @Operation(summary = "抽奖记录")
     public RespBody<PageData<LotteryLogResponse>> logPage(@Validated LotteryLotQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<LotteryLogResponse> byPage = lotteryLogService.getByPage(request);

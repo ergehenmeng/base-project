@@ -1,7 +1,7 @@
 package com.eghm.dto.sys.help;
 
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,10 +13,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class HelpQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("帮助说明类型")
+    @Schema(description = "帮助说明类型")
     private Integer helpType;
 
-    @ApiModelProperty("是否显示 0:不显示 1:显示")
+    @Schema(description = "是否显示 0:不显示 1:显示")
     private Integer state;
 
 }

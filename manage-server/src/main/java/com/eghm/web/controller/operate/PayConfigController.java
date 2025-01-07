@@ -6,8 +6,8 @@ import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.PayConfig;
 import com.eghm.service.business.PayConfigService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -20,7 +20,7 @@ import java.util.List;
 * @since 2024-04-15
 */
 @RestController
-@Api(tags = "支付管理")
+@Tag(name="支付管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/pay/config", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PayConfigController {
@@ -30,14 +30,14 @@ public class PayConfigController {
     private final ClearCacheService clearCacheService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<List<PayConfig>> listPage(PagingQuery request) {
         List<PayConfig> byPage = payConfigService.getList(request.getQueryName());
         return RespBody.success(byPage);
     }
 
     @PostMapping(value = "/update",consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑")
     public RespBody<Void> update(@Validated @RequestBody PayConfigEditRequest request) {
         payConfigService.update(request);
         clearCacheService.clearPayConfig();

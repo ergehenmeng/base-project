@@ -1,7 +1,7 @@
 package com.eghm.dto.operate.feedback;
 
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,10 +15,10 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class FeedbackQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("分类信息(数据字典)")
+    @Schema(description = "分类信息(数据字典)")
     private Integer feedbackType;
 
-    @ApiModelProperty("状态 false:待解决 true:已解决")
+    @Schema(description = "状态 false:待解决 true:已解决")
     private Boolean state;
 
 }

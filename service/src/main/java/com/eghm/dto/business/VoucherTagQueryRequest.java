@@ -1,7 +1,7 @@
 package com.eghm.dto.business;
 
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,9 +13,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class VoucherTagQueryRequest extends PagingQuery {
 
-    @ApiModelProperty(value = "状态 0:禁用 1:启用")
+    @Schema(description = "状态 0:禁用 1:启用")
     private Boolean state;
 
-    @ApiModelProperty(value = "所属店铺ID")
+    @Schema(description = "所属店铺ID")
     private Long restaurantId;
 }

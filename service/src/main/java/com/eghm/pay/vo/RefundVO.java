@@ -5,7 +5,7 @@ import com.eghm.pay.enums.RefundChannel;
 import com.eghm.pay.enums.RefundStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,30 +17,30 @@ import java.time.LocalDateTime;
 @Data
 public class RefundVO {
 
-    @ApiModelProperty("退款渠道")
+    @Schema(description = "退款渠道")
     private RefundChannel channel;
 
-    @ApiModelProperty("退款入账账户")
+    @Schema(description = "退款入账账户")
     private String channelAccount;
 
-    @ApiModelProperty("退款状态")
+    @Schema(description = "退款状态")
     private RefundStatus state;
 
-    @ApiModelProperty("本次退款金额")
+    @Schema(description = "本次退款金额")
     private Integer amount;
 
-    @ApiModelProperty("累计退款成功金额(支付宝专用)")
+    @Schema(description = "累计退款成功金额(支付宝专用)")
     private Integer totalAmount;
 
-    @ApiModelProperty("退款成功时间")
+    @Schema(description = "退款成功时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime successTime;
 
-    @ApiModelProperty("退款受理时间")
+    @Schema(description = "退款受理时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("支付渠道 WECHAT:微信, ALIPAY:支付宝, 其他属性不做处理")
+    @Schema(description = "支付渠道 WECHAT:微信, ALIPAY:支付宝, 其他属性不做处理")
     @JsonIgnore
     private PayChannel payChannel;
 

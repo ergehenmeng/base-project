@@ -2,8 +2,8 @@ package com.eghm.web.controller;
 
 import com.eghm.constants.CommonConstant;
 import com.google.code.kaptcha.Producer;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -26,7 +26,7 @@ import java.io.IOException;
  */
 @RestController
 @Slf4j
-@Api(tags = "图形验证码")
+@Tag(name="图形验证码")
 @AllArgsConstructor
 @RequestMapping("/manage")
 public class CaptchaController {
@@ -34,7 +34,7 @@ public class CaptchaController {
     private final Producer producer;
 
     @GetMapping("/captcha")
-    @ApiOperation("获取图形验证码")
+    @Operation(summary = "获取图形验证码")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authCode = producer.createText();
         String[] splits = authCode.split(CommonConstant.SPECIAL_SPLIT);

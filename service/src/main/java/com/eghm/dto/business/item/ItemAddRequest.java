@@ -6,13 +6,13 @@ import com.eghm.enums.ref.DeliveryType;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.google.gson.annotations.Expose;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -22,61 +22,61 @@ import java.util.List;
 @Data
 public class ItemAddRequest {
 
-    @ApiModelProperty(value = "商品名称", required = true)
+    @Schema(description = "商品名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @Size(min = 2, max = 20, message = "商品名称长度2~20位")
     @NotBlank(message = "商品名称不能为空")
     @WordChecker(message = "商品名称存在敏感词")
     private String title;
 
-    @ApiModelProperty(value = "店铺id", required = true)
+    @Schema(description = "店铺id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "店铺id不能为空")
     private Long storeId;
 
-    @ApiModelProperty(value = "标签id", required = true)
+    @Schema(description = "标签id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "请选择品类标签")
     private String tagId;
 
-    @ApiModelProperty(value = "商品描述信息", required = true)
+    @Schema(description = "商品描述信息", requiredMode = Schema.RequiredMode.REQUIRED)
     @Size(min = 5, max = 40, message = "商品描述信息长度5~40字符")
     @NotBlank(message = "商品描述信息不能为空")
     @WordChecker(message = "商品描述信息存在敏感词")
     private String depict;
 
-    @ApiModelProperty(value = "是否为多规格商品 true:是 false:不是", required = true)
+    @Schema(description = "是否为多规格商品 true:是 false:不是", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "规格类型不能为空")
     private Boolean multiSpec;
 
-    @ApiModelProperty(value = "封面图", required = true)
+    @Schema(description = "封面图", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "封面图片不能为空")
     private List<String> coverList;
 
-    @ApiModelProperty(value = "购买须知", required = true)
+    @Schema(description = "购买须知", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "购买须知不能为空")
     @WordChecker(message = "购买须知存在敏感词")
     @Expose(serialize = false)
     private String purchaseNotes;
 
-    @ApiModelProperty(value = "限购数量", required = true)
+    @Schema(description = "限购数量", requiredMode = Schema.RequiredMode.REQUIRED)
     @RangeInt(min = 1, max = 999, message = "限购数量1~999之间")
     private Integer quota;
 
-    @ApiModelProperty(value = "交付方式 1:快递包邮 2:门店自提", required = true)
+    @Schema(description = "交付方式 1:快递包邮 2:门店自提", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "交付方式不能为空")
     private DeliveryType deliveryType;
 
-    @ApiModelProperty(value = "商品介绍信息", required = true)
+    @Schema(description = "商品介绍信息", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "商品介绍信息不能为空")
     @WordChecker(message = "商品介绍信息存在敏感词")
     @Expose(serialize = false)
     private String introduce;
 
-    @ApiModelProperty("物流模板id(为空表示包邮)")
+    @Schema(description = "物流模板id(为空表示包邮)")
     private Long expressId;
 
-    @ApiModelProperty(value = "sku列表", required = true)
+    @Schema(description = "sku列表", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "sku不能为空")
     private List<ItemSkuRequest> skuList;
 
-    @ApiModelProperty("规格列表")
+    @Schema(description = "规格列表")
     private List<ItemSpecRequest> specList;
 }

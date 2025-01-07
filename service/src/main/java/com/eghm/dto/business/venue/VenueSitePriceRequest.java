@@ -3,12 +3,12 @@ package com.eghm.dto.business.venue;
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.DateComparator;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,28 +22,28 @@ import java.util.List;
 public class VenueSitePriceRequest extends DateComparator {
 
     @Assign
-    @ApiModelProperty(value = "所属场馆", hidden = true)
+    @Schema(description = "所属场馆", hidden = true)
     private Long venueId;
 
-    @ApiModelProperty(value = "场地id", required = true)
+    @Schema(description = "场地id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "请选择场地")
     private Long venueSiteId;
 
-    @ApiModelProperty(value = "周期 1:星期一 2:星期二 ... 7:星期日", required = true)
+    @Schema(description = "周期 1:星期一 2:星期二 ... 7:星期日", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "请选择周期")
     public transient List<Integer> week;
 
-    @ApiModelProperty(value = "开始日期yyyy-MM-dd", required = true)
+    @Schema(description = "开始日期yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "开始日期不能为空")
     private LocalDate startDate;
 
-    @ApiModelProperty(value = "截止日期yyyy-MM-dd", required = true)
+    @Schema(description = "截止日期yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "截止日期不能为空")
     private LocalDate endDate;
 
-    @ApiModelProperty(value = "场次价格",required = true)
+    @Schema(description = "场次价格",requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "请设置场次价格")
     private transient List<PriceRequest> priceList;
 }

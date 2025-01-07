@@ -1,6 +1,6 @@
 package com.eghm.vo.business.item.express;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -10,15 +10,15 @@ import lombok.Data;
 @Data
 public class ExpressSelectResponse {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "模板名称")
+    @Schema(description = "模板名称")
     private String title;
 
-    @ApiModelProperty(value = "计费方式 1:按件数 2:按重量")
+    @Schema(description = "计费方式 1:按件数 2:按重量")
     private Integer chargeMode;
 
-    @ApiModelProperty(value = "状态 0:禁用 1:启用")
+    @Schema(description = "状态 0:禁用 1:启用")
     private Integer state;
 }

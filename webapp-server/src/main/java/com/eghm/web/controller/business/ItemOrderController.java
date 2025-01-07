@@ -12,9 +12,9 @@ import com.eghm.service.business.OrderService;
 import com.eghm.vo.business.order.item.*;
 import com.eghm.web.annotation.AccessToken;
 import com.eghm.web.annotation.VisitRecord;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 @AccessToken
 @RestController
-@Api(tags = "零售订单")
+@Tag(name="零售订单")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/item/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemOrderController {
@@ -38,7 +38,7 @@ public class ItemOrderController {
     private final ItemOrderService itemOrderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<List<ItemOrderVO>> listPage(@Validated ItemOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<ItemOrderVO> voList = itemOrderService.getByPage(dto);
@@ -46,7 +46,7 @@ public class ItemOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     @VisitRecord(VisitType.ORDER_DETAIL)
     public RespBody<ItemOrderDetailVO> detail(@Validated OrderDTO dto) {
         ItemOrderDetailVO detail = itemOrderService.getDetail(dto.getOrderNo(), ApiHolder.getMemberId());
@@ -54,36 +54,36 @@ public class ItemOrderController {
     }
 
     @GetMapping("/express")
-    @ApiOperation("快递信息详情")
+    @Operation(summary = "快递信息详情")
     public RespBody<ExpressDetailVO> express(@Validated IdDTO dto) {
         ExpressDetailVO detail = orderService.expressDetail(dto.getId());
         return RespBody.success(detail);
     }
 
     @GetMapping("/snapshotList")
-    @ApiOperation("快照列表")
+    @Operation(summary = "快照列表")
     public RespBody<List<ItemOrderListVO>> snapshotList(@Validated OrderDTO dto) {
         List<ItemOrderListVO> detailList = itemOrderService.getItemList(dto.getOrderNo());
         return RespBody.success(detailList);
     }
 
     @GetMapping("/snapshot")
-    @ApiOperation("快照详情")
-    @ApiImplicitParam(name = "orderId", value = "订单id", required = true)
+    @Operation(summary = "快照详情")
+    @Parameter(name = "orderId", description = "订单id", required = true)
     public RespBody<ItemOrderSnapshotVO> snapshot(@RequestParam("orderId") Long orderId) {
         ItemOrderSnapshotVO detail = itemOrderService.getSnapshot(orderId, ApiHolder.getMemberId());
         return RespBody.success(detail);
     }
 
     @GetMapping("/toRefund")
-    @ApiOperation("进入退款页")
+    @Operation(summary = "进入退款页")
     public RespBody<ItemOrderRefundVO> toRefund(@RequestParam("orderId") Long orderId) {
         ItemOrderRefundVO detail = orderService.getItemRefund(orderId, ApiHolder.getMemberId(), true);
         return RespBody.success(detail);
     }
 
     @PostMapping(value = "/confirmReceipt", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("确认收货")
+    @Operation(summary = "确认收货")
     public RespBody<Void> confirmReceipt(@Validated @RequestBody ConfirmReceiptDTO dto) {
         orderService.confirmReceipt(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success();

@@ -2,7 +2,7 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.PrizeType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,31 +19,31 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class LotteryPrize extends BaseEntity {
 
-    @ApiModelProperty(value = "商户id")
+    @Schema(description = "商户id")
     private Long merchantId;
 
-    @ApiModelProperty(value = "抽奖活动id")
+    @Schema(description = "抽奖活动id")
     private Long lotteryId;
 
-    @ApiModelProperty(value = "奖品名称")
+    @Schema(description = "奖品名称")
     private String prizeName;
 
-    @ApiModelProperty(value = "奖品类型 0:谢谢参与 1:优惠券 2:积分")
+    @Schema(description = "奖品类型 0:谢谢参与 1:优惠券 2:积分")
     private PrizeType prizeType;
 
-    @ApiModelProperty("关联商品ID")
+    @Schema(description = "关联商品ID")
     private Long relationId;
 
-    @ApiModelProperty(value = "单次中奖发放数量")
+    @Schema(description = "单次中奖发放数量")
     private Integer num;
 
-    @ApiModelProperty(value = "奖品总数量")
+    @Schema(description = "奖品总数量")
     private Integer totalNum;
 
-    @ApiModelProperty(value = "已抽中数量")
+    @Schema(description = "已抽中数量")
     private Integer winNum;
 
-    @ApiModelProperty(value = "奖品图片")
+    @Schema(description = "奖品图片")
     private String coverUrl;
 
 }

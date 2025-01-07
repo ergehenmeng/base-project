@@ -27,6 +27,7 @@ import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.v3.util.SignUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,29 +59,7 @@ public class WechatPayServiceImpl implements PayService {
     @Override
     public PrepayVO createPrepay(PrepayDTO dto) {
         TradeTypeEnum transferType = transferType(dto.getTradeType());
-        WxPayUnifiedOrderV3Request request = new WxPayUnifiedOrderV3Request();
-        WxPayUnifiedOrderV3Request.Amount amount = new WxPayUnifiedOrderV3Request.Amount();
-        amount.setTotal(dto.getAmount());
-        request.setAmount(amount);
-        request.setAttach(dto.getAttach());
-        request.setDescription(dto.getDescription());
-        SystemProperties.WeChatProperties wechat = systemProperties.getWechat();
-        request.setNotifyUrl(wechat.getPay().getNotifyHost() + CommonConstant.WECHAT_PAY_NOTIFY_URL);
-        request.setOutTradeNo(dto.getTradeNo());
-        WxPayUnifiedOrderV3Request.Payer payer = new WxPayUnifiedOrderV3Request.Payer();
-        payer.setOpenid(dto.getBuyerId());
-        request.setPayer(payer);
-        // H5支付额外包含一些东西, 同时不需要付款人信息
-        if (transferType == TradeTypeEnum.H5) {
-            WxPayUnifiedOrderV3Request.SceneInfo sceneInfo = new WxPayUnifiedOrderV3Request.SceneInfo();
-            sceneInfo.setPayerClientIp(dto.getClientIp());
-            WxPayUnifiedOrderV3Request.H5Info h5Info = new WxPayUnifiedOrderV3Request.H5Info();
-            h5Info.setType(dto.getSceneType());
-            sceneInfo.setH5Info(h5Info);
-            request.setSceneInfo(sceneInfo);
-            request.setPayer(null);
-        }
-
+        WxPayUnifiedOrderV3Request request = this.getWxPayUnifiedOrderV3Request(dto, transferType);
         WxPayUnifiedOrderV3Result result;
         try {
             result = wxPayService.unifiedOrderV3(transferType, request);
@@ -122,17 +101,7 @@ public class WechatPayServiceImpl implements PayService {
 
     @Override
     public RefundVO applyRefund(RefundDTO dto) {
-        SystemProperties.WeChatProperties wechat = systemProperties.getWechat();
-        WxPayRefundV3Request request = new WxPayRefundV3Request();
-        WxPayRefundV3Request.Amount amount = new WxPayRefundV3Request.Amount();
-        amount.setRefund(dto.getAmount());
-        amount.setTotal(dto.getTotal());
-        amount.setCurrency("CNY");
-        request.setAmount(amount);
-        request.setNotifyUrl(wechat.getPay().getNotifyHost() + CommonConstant.WECHAT_REFUND_NOTIFY_URL);
-        request.setOutTradeNo(dto.getTradeNo());
-        request.setReason(dto.getReason());
-        request.setOutRefundNo(dto.getRefundNo());
+        WxPayRefundV3Request request = getWxPayRefundV3Request(dto);
         WxPayRefundV3Result result;
         try {
             result = wxPayService.refundV3(request);
@@ -179,6 +148,61 @@ public class WechatPayServiceImpl implements PayService {
     public void verifyNotify(Map<String, String> param) {
         log.error("微信不支持该接口 [{}]", param);
         throw new BusinessException(ErrorCode.NOT_SUPPORTED);
+    }
+
+    /**
+     * 获取微信支付统一下单请求参数
+     *
+     * @param dto 原始请求参数
+     * @param transferType 微信支付方式
+     * @return 最终请求参数
+     */
+    private WxPayUnifiedOrderV3Request getWxPayUnifiedOrderV3Request(PrepayDTO dto, TradeTypeEnum transferType) {
+        WxPayUnifiedOrderV3Request request = new WxPayUnifiedOrderV3Request();
+        WxPayUnifiedOrderV3Request.Amount amount = new WxPayUnifiedOrderV3Request.Amount();
+        amount.setTotal(dto.getAmount());
+        request.setAmount(amount);
+        request.setAttach(dto.getAttach());
+        request.setDescription(dto.getDescription());
+        SystemProperties.WeChatProperties wechat = systemProperties.getWechat();
+        request.setNotifyUrl(wechat.getPay().getNotifyHost() + CommonConstant.WECHAT_PAY_NOTIFY_URL);
+        request.setOutTradeNo(dto.getTradeNo());
+        WxPayUnifiedOrderV3Request.Payer payer = new WxPayUnifiedOrderV3Request.Payer();
+        payer.setOpenid(dto.getBuyerId());
+        request.setPayer(payer);
+        // H5支付额外包含一些东西, 同时不需要付款人信息
+        if (transferType == TradeTypeEnum.H5) {
+            WxPayUnifiedOrderV3Request.SceneInfo sceneInfo = new WxPayUnifiedOrderV3Request.SceneInfo();
+            sceneInfo.setPayerClientIp(dto.getClientIp());
+            WxPayUnifiedOrderV3Request.H5Info h5Info = new WxPayUnifiedOrderV3Request.H5Info();
+            h5Info.setType(dto.getSceneType());
+            sceneInfo.setH5Info(h5Info);
+            request.setSceneInfo(sceneInfo);
+            request.setPayer(null);
+        }
+        return request;
+    }
+
+    /**
+     * 组装退款请求参数
+     *
+     * @param dto 退款信息
+     * @return 微信退款请求参数
+     */
+    @NotNull
+    private WxPayRefundV3Request getWxPayRefundV3Request(RefundDTO dto) {
+        SystemProperties.WeChatProperties wechat = systemProperties.getWechat();
+        WxPayRefundV3Request request = new WxPayRefundV3Request();
+        WxPayRefundV3Request.Amount amount = new WxPayRefundV3Request.Amount();
+        amount.setRefund(dto.getAmount());
+        amount.setTotal(dto.getTotal());
+        amount.setCurrency("CNY");
+        request.setAmount(amount);
+        request.setNotifyUrl(wechat.getPay().getNotifyHost() + CommonConstant.WECHAT_REFUND_NOTIFY_URL);
+        request.setOutTradeNo(dto.getTradeNo());
+        request.setReason(dto.getReason());
+        request.setOutRefundNo(dto.getRefundNo());
+        return request;
     }
 
     /**

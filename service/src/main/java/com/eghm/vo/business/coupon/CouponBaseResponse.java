@@ -1,6 +1,6 @@
 package com.eghm.vo.business.coupon;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -14,13 +14,13 @@ import lombok.Data;
 @Data
 public class CouponBaseResponse {
 
-    @ApiModelProperty(value = "优惠券id")
+    @Schema(description = "优惠券id")
     private Long id;
 
-    @ApiModelProperty(value = "优惠券名称")
+    @Schema(description = "优惠券名称")
     private String title;
 
-    @ApiModelProperty("状态 0:未启用 1:已启用")
+    @Schema(description = "状态 0:未启用 1:已启用")
     private Integer state;
 
 }

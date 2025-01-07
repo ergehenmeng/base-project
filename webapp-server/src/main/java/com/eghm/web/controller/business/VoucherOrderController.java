@@ -11,8 +11,8 @@ import com.eghm.vo.business.order.restaurant.VoucherOrderSnapshotVO;
 import com.eghm.vo.business.order.restaurant.VoucherOrderVO;
 import com.eghm.web.annotation.AccessToken;
 import com.eghm.web.annotation.VisitRecord;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 @AccessToken
 @RestController
-@Api(tags = "餐饮订单")
+@Tag(name="餐饮订单")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/voucher/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoucherOrderController {
@@ -36,7 +36,7 @@ public class VoucherOrderController {
     private final VoucherOrderService voucherOrderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<List<VoucherOrderVO>> listPage(@Validated VoucherOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<VoucherOrderVO> voList = voucherOrderService.getByPage(dto);
@@ -44,7 +44,7 @@ public class VoucherOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     @VisitRecord(VisitType.ORDER_DETAIL)
     public RespBody<VoucherOrderDetailVO> detail(@Validated OrderDTO dto) {
         VoucherOrderDetailVO detail = voucherOrderService.getDetail(dto.getOrderNo(), ApiHolder.getMemberId());
@@ -52,7 +52,7 @@ public class VoucherOrderController {
     }
 
     @GetMapping("/snapshot")
-    @ApiOperation("快照详情")
+    @Operation(summary = "快照详情")
     public RespBody<VoucherOrderSnapshotVO> snapshot(@Validated OrderDTO dto) {
         VoucherOrderSnapshotVO detail = voucherOrderService.snapshotDetail(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success(detail);

@@ -1,7 +1,7 @@
 package com.eghm.dto.operate.banner;
 
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,16 +18,16 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class BannerQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("轮播图类型")
+    @Schema(description = "轮播图类型")
     private Integer bannerType;
 
-    @ApiModelProperty("客户端类型 PC, ANDROID, IOS, H5, WECHAT ")
+    @Schema(description = "客户端类型 PC, ANDROID, IOS, H5, WECHAT ")
     private String clientType;
 
-    @ApiModelProperty("播放时间(在该时间段播放) yyyy-MM-dd HH:mm")
+    @Schema(description = "播放时间(在该时间段播放) yyyy-MM-dd HH:mm")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime middleTime;
 
-    @ApiModelProperty("状态 true:正常 false:禁用")
+    @Schema(description = "状态 true:正常 false:禁用")
     private Boolean state;
 }

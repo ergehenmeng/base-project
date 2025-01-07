@@ -23,8 +23,7 @@ public class BigDecimalOmitEncoder extends StdSerializer<Object> {
 
     @Override
     public void serialize(Object value, JsonGenerator gen, SerializerProvider provider) throws IOException {
-        if (value instanceof BigDecimal) {
-            BigDecimal val = (BigDecimal) value;
+        if (value instanceof BigDecimal val) {
             gen.writeString(val.stripTrailingZeros().toPlainString());
         } else {
             throw new BusinessException(ErrorCode.CONVERT_ERROR);

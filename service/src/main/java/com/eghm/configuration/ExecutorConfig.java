@@ -1,9 +1,9 @@
 package com.eghm.configuration;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.task.TaskExecutorBuilder;
-import org.springframework.boot.task.TaskExecutorCustomizer;
-import org.springframework.boot.task.TaskSchedulerBuilder;
+import org.springframework.boot.task.ThreadPoolTaskExecutorBuilder;
+import org.springframework.boot.task.ThreadPoolTaskExecutorCustomizer;
+import org.springframework.boot.task.ThreadPoolTaskSchedulerBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.AbstractMessageBrokerConfiguration;
@@ -19,13 +19,13 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
  */
 
 @Configuration
-public class ExecutorConfig implements TaskExecutorCustomizer {
+public class ExecutorConfig implements ThreadPoolTaskExecutorCustomizer {
 
     /**
      * Async 线程池
      */
     @Bean
-    public ThreadPoolTaskExecutor taskExecutor(TaskExecutorBuilder builder) {
+    public ThreadPoolTaskExecutor taskExecutor(ThreadPoolTaskExecutorBuilder builder) {
         return builder.build();
     }
 
@@ -33,7 +33,7 @@ public class ExecutorConfig implements TaskExecutorCustomizer {
      * 定时任务线程池
      */
     @Bean
-    public ThreadPoolTaskScheduler taskScheduler(TaskSchedulerBuilder builder) {
+    public ThreadPoolTaskScheduler taskScheduler(ThreadPoolTaskSchedulerBuilder builder) {
         return builder.build();
     }
 

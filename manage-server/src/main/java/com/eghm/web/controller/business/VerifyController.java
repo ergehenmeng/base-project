@@ -16,15 +16,15 @@ import com.eghm.state.machine.context.OrderVerifyContext;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.order.OrderScanVO;
 import com.eghm.vo.business.verify.VerifyLogResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 import static com.eghm.enums.ErrorCode.VERIFY_ORDER_ERROR;
@@ -35,7 +35,7 @@ import static com.eghm.enums.ErrorCode.VERIFY_TYPE_ERROR;
  * @since 2023/6/13
  */
 @RestController
-@Api(tags = "商户核销")
+@Tag(name="商户核销")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/verify", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VerifyController {
@@ -47,7 +47,7 @@ public class VerifyController {
     private final VerifyLogService verifyLogService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<VerifyLogResponse>> listPage(VerifyLogQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VerifyLogResponse> roomPage = verifyLogService.getByPage(request);
@@ -55,8 +55,8 @@ public class VerifyController {
     }
 
     @GetMapping("/scan")
-    @ApiOperation("查询扫码结果")
-    @ApiImplicitParam(name = "verifyNo", value = "核销码", required = true)
+    @Operation(summary = "查询扫码结果")
+    @Parameter(name = "verifyNo", description = "核销码", required = true)
     public RespBody<OrderScanVO> scan(@RequestParam("verifyNo") String verifyNo) {
         verifyNo = orderService.decryptVerifyNo(verifyNo);
         ProductType productType = ProductType.prefix(verifyNo);
@@ -69,7 +69,7 @@ public class VerifyController {
     }
 
     @PostMapping(value = "/verify", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("核销")
+    @Operation(summary = "核销")
     public RespBody<Integer> verify(@RequestBody @Validated OrderVerifyDTO dto) {
         ProductType productType = ProductType.prefix(dto.getOrderNo());
         AccessHandler accessHandler = commonService.getHandler(productType, AccessHandler.class);
@@ -88,7 +88,7 @@ public class VerifyController {
     }
 
     @GetMapping("/export")
-    @ApiOperation("民宿导出")
+    @Operation(summary = "民宿导出")
     public void export(HttpServletResponse response, VerifyLogQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<VerifyLogResponse> byPage = verifyLogService.getList(request);

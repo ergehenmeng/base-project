@@ -2,12 +2,12 @@ package com.eghm.dto.operate.feedback;
 
 import com.eghm.dto.ext.ActionRecord;
 import com.eghm.validation.annotation.WordChecker;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * 反馈处理
@@ -19,11 +19,11 @@ import javax.validation.constraints.NotNull;
 @Getter
 public class FeedbackDisposeRequest extends ActionRecord {
 
-    @ApiModelProperty(value = "id", required = true)
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "回复信息", required = true)
+    @Schema(description = "回复信息", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "回复信息不能为空")
     @WordChecker(message = "回复信息存在敏感字")
     private String remark;

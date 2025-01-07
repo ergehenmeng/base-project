@@ -3,7 +3,7 @@ package com.eghm.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 public class SysDataDept {
 
     @TableId(type = IdType.ASSIGN_ID)
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     private Long userId;
 
-    @ApiModelProperty("部门id")
+    @Schema(description = "部门id")
     private String deptCode;
 
     public SysDataDept(Long userId, String deptCode) {

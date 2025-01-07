@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -13,19 +13,19 @@ import java.time.LocalDate;
 @TableName("sys_holiday")
 public class SysHoliday {
 
-    @ApiModelProperty("主键")
+    @Schema(description = "主键")
     private Long id;
 
-    @ApiModelProperty("日期")
+    @Schema(description = "日期")
     private LocalDate calendar;
 
-    @ApiModelProperty("月份 yyyy-MM")
+    @Schema(description = "月份 yyyy-MM")
     private String dateMonth;
 
-    @ApiModelProperty("类型 1:工作日 2:休息日")
+    @Schema(description = "类型 1:工作日 2:休息日")
     private Integer type;
 
-    @ApiModelProperty("星期几")
+    @Schema(description = "星期几")
     private Integer weekday;
 
 }

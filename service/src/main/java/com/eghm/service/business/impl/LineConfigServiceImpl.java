@@ -67,7 +67,7 @@ public class LineConfigServiceImpl implements LineConfigService {
             LineConfig config = DataUtil.copy(request, LineConfig.class);
             config.setId(IdWorker.getId());
             config.setConfigDate(localDate);
-            lineConfigMapper.insertOrUpdate(config);
+            lineConfigMapper.insertUpdate(config);
         }
     }
 

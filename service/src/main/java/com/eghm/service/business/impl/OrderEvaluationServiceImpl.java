@@ -222,30 +222,14 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
      * @return 商品信息
      */
     private ProductSnapshotVO getSnapshot(Long orderId, String orderNo, ProductType productType) {
-        ProductSnapshotVO vo;
-        switch (productType) {
-            case TICKET:
-                vo = ticketOrderService.getSnapshot(orderId, orderNo);
-                break;
-            case ITEM:
-                vo = itemOrderService.getSnapshot(orderId, orderNo);
-                break;
-            case LINE:
-                vo = lineOrderService.getSnapshot(orderId, orderNo);
-                break;
-            case HOMESTAY:
-                vo = homestayOrderService.getSnapshot(orderId, orderNo);
-                break;
-            case VOUCHER:
-                vo = voucherOrderService.getSnapshot(orderId, orderNo);
-                break;
-            case VENUE:
-                vo = venueOrderService.getSnapshot(orderId, orderNo);
-                break;
-            default:
-                vo = null;
-                break;
-        }
+        ProductSnapshotVO vo = switch (productType) {
+            case TICKET -> ticketOrderService.getSnapshot(orderId, orderNo);
+            case ITEM -> itemOrderService.getSnapshot(orderId, orderNo);
+            case LINE -> lineOrderService.getSnapshot(orderId, orderNo);
+            case HOMESTAY -> homestayOrderService.getSnapshot(orderId, orderNo);
+            case VOUCHER -> voucherOrderService.getSnapshot(orderId, orderNo);
+            case VENUE -> venueOrderService.getSnapshot(orderId, orderNo);
+        };
         if (vo == null) {
             log.error("订单信息未查询,无法评价 [{}] [{}] [{}]", orderId, orderNo, productType);
             throw new BusinessException(ErrorCode.PRODUCT_SNAPSHOT_NULL);

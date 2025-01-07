@@ -98,7 +98,7 @@ public class OrderProxyServiceImpl implements OrderProxyService {
     public void itemRefund(String orderNo) {
         Order order = orderService.getByOrderNo(orderNo);
         if (order.getState() != OrderState.UN_USED && order.getState() != OrderState.WAIT_TAKE && order.getState() != OrderState.WAIT_DELIVERY) {
-            log.warn("订单状态不匹配,无法退款 [{}] [{}]", orderNo, order.getState());
+            log.warn("零售订单状态不匹配,无法退款 [{}] [{}]", orderNo, order.getState());
             throw new BusinessException(ErrorCode.REFUND_STATE);
         }
         List<ItemOrder> itemList = itemOrderService.getByOrderNo(orderNo);
@@ -123,7 +123,7 @@ public class OrderProxyServiceImpl implements OrderProxyService {
     public void refund(PlatformRefundRequest dto) {
         Order order = orderService.getByOrderNo(dto.getOrderNo());
         if (order.getState() != OrderState.UN_USED) {
-            log.warn("订单状态不匹配,无法退款 [{}] [{}]", dto.getOrderNo(), order.getState());
+            log.warn("平台订单状态不匹配,无法退款 [{}] [{}]", dto.getOrderNo(), order.getState());
             throw new BusinessException(ErrorCode.REFUND_STATE);
         }
         RefundApplyContext context = new RefundApplyContext();

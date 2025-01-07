@@ -1,9 +1,9 @@
 package com.eghm.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * 用于单一id对象映射
@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class IdDTO {
 
-    @ApiModelProperty(value = "id", required = true)
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 }

@@ -10,9 +10,9 @@ import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.activity.ActivityResponse;
 import com.eghm.vo.business.activity.ActivityVO;
 import com.eghm.web.annotation.VisitRecord;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +28,7 @@ import java.util.List;
  * @since 2023/1/9
  */
 @RestController
-@Api(tags = "活动")
+@Tag(name="活动")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/activity", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ActivityController {
@@ -36,8 +36,8 @@ public class ActivityController {
     private final ActivityService activityService;
 
     @GetMapping("/month")
-    @ApiImplicitParam(name = "month", value = "月份yyyy-MM", required = true)
-    @ApiOperation("查询月活动")
+    @Parameter(name = "month", description = "月份yyyy-MM", required = true)
+    @Operation(summary = "查询月活动")
     public RespBody<List<ActivityResponse>> month(@RequestParam("month") String month) {
         ActivityQueryRequest request = new ActivityQueryRequest();
         request.setMonth(month);
@@ -46,7 +46,7 @@ public class ActivityController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("活动详情")
+    @Operation(summary = "活动详情")
     @VisitRecord(VisitType.ACTIVITY)
     public RespBody<ActivityVO> detail(@Validated IdDTO dto) {
         Activity activity = activityService.selectByIdRequired(dto.getId());

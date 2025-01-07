@@ -3,11 +3,11 @@ package com.eghm.dto.business.coupon.product;
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.DeliveryType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -17,24 +17,24 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = true)
 public class ItemCouponQueryDTO extends PagingQuery {
 
-    @ApiModelProperty(value = "交付方式 1:快递包邮 2:自提")
+    @Schema(description = "交付方式 1:快递包邮 2:自提")
     private DeliveryType deliveryType;
 
-    @ApiModelProperty("排序规则 0:默认排序 1:按价格排序 2:按销售量排序 3:评分排序")
+    @Schema(description = "排序规则 0:默认排序 1:按价格排序 2:按销售量排序 3:评分排序")
     private Integer sortBy;
 
-    @ApiModelProperty(value = "优惠券id", required = true)
+    @Schema(description = "优惠券id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "优惠券id不能为空")
     private Long couponId;
 
-    @ApiModelProperty("标签id")
+    @Schema(description = "标签id")
     private String tagId;
 
-    @ApiModelProperty(value = "店铺id", hidden = true)
+    @Schema(description = "店铺id", hidden = true)
     @Assign
     private Long storeId;
 
-    @ApiModelProperty(value = "使用范围 1:店铺券 2:商品券", hidden = true)
+    @Schema(description = "使用范围 1:店铺券 2:商品券", hidden = true)
     @Assign
     private Integer useScope;
 }

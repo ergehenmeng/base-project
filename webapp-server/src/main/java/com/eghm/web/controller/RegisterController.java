@@ -7,8 +7,8 @@ import com.eghm.dto.member.register.RegisterSendSmsDTO;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginTokenVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * 注册相关接口
@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2019/8/20 10:18
  */
 @RestController
-@Api(tags = "注册")
+@Tag(name="注册")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/register", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RegisterController {
@@ -34,14 +34,14 @@ public class RegisterController {
     private final MemberService memberService;
 
     @PostMapping(value = "/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("注册发送验证码①")
+    @Operation(summary = "注册发送验证码①")
     public RespBody<Void> sendSms(@RequestBody @Validated RegisterSendSmsDTO dto, HttpServletRequest request) {
         memberService.registerSendSms(dto.getMobile(), IpUtil.getIpAddress(request));
         return RespBody.success();
     }
 
     @PostMapping(value = "/member", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("短信注册用户②")
+    @Operation(summary = "短信注册用户②")
     public RespBody<LoginTokenVO> member(@RequestBody @Validated RegisterMemberDTO request, HttpServletRequest servletRequest) {
         request.setChannel(ApiHolder.getChannel());
         request.setIp(IpUtil.getIpAddress(servletRequest));

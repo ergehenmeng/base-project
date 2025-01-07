@@ -2,7 +2,7 @@ package com.eghm.state.machine.dto;
 
 import com.eghm.model.ItemStore;
 import com.eghm.model.MemberAddress;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -15,31 +15,31 @@ import java.util.List;
 @Data
 public class StoreOrderPackage {
 
-    @ApiModelProperty("店铺id")
+    @Schema(description = "店铺id")
     private Long storeId;
 
-    @ApiModelProperty("零售店铺信息")
+    @Schema(description = "零售店铺信息")
     private ItemStore itemStore;
 
-    @ApiModelProperty("订单商品信息")
+    @Schema(description = "订单商品信息")
     private List<OrderPackage> itemList;
 
-    @ApiModelProperty("优惠券id")
+    @Schema(description = "优惠券id")
     private Long couponId;
 
-    @ApiModelProperty("积分")
+    @Schema(description = "积分")
     private Integer scoreAmount = 0;
 
-    @ApiModelProperty("优惠券抵扣金额")
+    @Schema(description = "优惠券抵扣金额")
     private Integer couponAmount;
 
-    @ApiModelProperty("商品总金额(注意:没有扣除优惠金额且不含快递费)")
+    @Schema(description = "商品总金额(注意:没有扣除优惠金额且不含快递费)")
     private Integer itemAmount;
 
-    @ApiModelProperty("收货地址")
+    @Schema(description = "收货地址")
     private MemberAddress memberAddress;
 
-    @ApiModelProperty("订单备注")
+    @Schema(description = "订单备注")
     private String remark;
 
 }

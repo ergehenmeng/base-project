@@ -1,10 +1,10 @@
 package com.eghm.dto.sys.login;
 
 import com.eghm.validation.annotation.Mobile;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author 二哥很猛
@@ -14,10 +14,10 @@ import javax.validation.constraints.NotBlank;
 public class SmsVerifyRequest {
 
     @Mobile
-    @ApiModelProperty(value = "手机号码", required = true)
+    @Schema(description = "手机号码", requiredMode = Schema.RequiredMode.REQUIRED)
     private String mobile;
 
-    @ApiModelProperty(value = "图形验证码", required = true)
+    @Schema(description = "图形验证码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "验证码不能为空")
     private String verifyCode;
 }

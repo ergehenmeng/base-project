@@ -2,7 +2,7 @@ package com.eghm.vo.poi;
 
 import com.eghm.convertor.BigDecimalOmitEncoder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -19,22 +19,22 @@ import java.util.List;
 @Data
 public class PoiLineVO {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "线路名称")
+    @Schema(description = "线路名称")
     private String title;
 
-    @ApiModelProperty(value = "封面图")
+    @Schema(description = "封面图")
     private String coverUrl;
 
-    @ApiModelProperty(value = "预计游玩时间")
+    @Schema(description = "预计游玩时间")
     @JsonSerialize(using = BigDecimalOmitEncoder.class)
     private BigDecimal playTime;
 
-    @ApiModelProperty("线路详情")
+    @Schema(description = "线路详情")
     private String introduce;
 
-    @ApiModelProperty("点位列表")
+    @Schema(description = "点位列表")
     private List<PoiPointVO> pointList;
 }

@@ -2,7 +2,7 @@ package com.eghm.vo.business.order.restaurant;
 
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -16,47 +16,47 @@ import java.time.LocalDate;
 @Data
 public class VoucherOrderSnapshotVO {
 
-    @ApiModelProperty("图片")
+    @Schema(description = "图片")
     private String coverUrl;
 
-    @ApiModelProperty("餐饮券名称")
+    @Schema(description = "餐饮券名称")
     private String title;
 
-    @ApiModelProperty("餐饮店名称")
+    @Schema(description = "餐饮店名称")
     private String restaurantName;
 
-    @ApiModelProperty("餐饮店logo")
+    @Schema(description = "餐饮店logo")
     private String restaurantLogoUrl;
 
-    @ApiModelProperty("餐饮店id")
+    @Schema(description = "餐饮店id")
     private Long restaurantId;
 
-    @ApiModelProperty(value = "划线价")
+    @Schema(description = "划线价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer linePrice;
 
-    @ApiModelProperty(value = "销售价")
+    @Schema(description = "销售价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty(value = "购买说明")
+    @Schema(description = "购买说明")
     private String depict;
 
-    @ApiModelProperty(value = "有效期购买之日起(与开始日期和截止日期互斥)")
+    @Schema(description = "有效期购买之日起(与开始日期和截止日期互斥)")
     private Integer validDays;
 
-    @ApiModelProperty(value = "生效时间(包含)")
+    @Schema(description = "生效时间(包含)")
     private LocalDate effectDate;
 
-    @ApiModelProperty(value = "失效日期(包含)")
+    @Schema(description = "失效日期(包含)")
     private LocalDate expireDate;
 
-    @ApiModelProperty(value = "使用开始时间")
+    @Schema(description = "使用开始时间")
     private String effectTime;
 
-    @ApiModelProperty(value = "使用截止时间")
+    @Schema(description = "使用截止时间")
     private String expireTime;
 
-    @ApiModelProperty(value = "详细介绍")
+    @Schema(description = "详细介绍")
     private String introduce;
 }

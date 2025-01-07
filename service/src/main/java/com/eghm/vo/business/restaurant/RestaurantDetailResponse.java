@@ -1,6 +1,6 @@
 package com.eghm.vo.business.restaurant;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -13,46 +13,46 @@ import java.math.BigDecimal;
 @Data
 public class RestaurantDetailResponse {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "商家名称")
+    @Schema(description = "商家名称")
     private String title;
 
-    @ApiModelProperty(value = "所属商户id")
+    @Schema(description = "所属商户id")
     private Long merchantId;
 
-    @ApiModelProperty("商家logo")
+    @Schema(description = "商家logo")
     private String logoUrl;
 
-    @ApiModelProperty(value = "商家封面")
+    @Schema(description = "商家封面")
     private String coverUrl;
 
-    @ApiModelProperty(value = "营业时间")
+    @Schema(description = "营业时间")
     private String openTime;
 
-    @ApiModelProperty(value = "省份")
+    @Schema(description = "省份")
     private Long provinceId;
 
-    @ApiModelProperty(value = "城市id")
+    @Schema(description = "城市id")
     private Long cityId;
 
-    @ApiModelProperty(value = "县区id")
+    @Schema(description = "县区id")
     private Long countyId;
 
-    @ApiModelProperty("详细地址")
+    @Schema(description = "详细地址")
     private String detailAddress;
 
-    @ApiModelProperty(value = "经度")
+    @Schema(description = "经度")
     private BigDecimal longitude;
 
-    @ApiModelProperty(value = "纬度")
+    @Schema(description = "纬度")
     private BigDecimal latitude;
 
-    @ApiModelProperty(value = "商家热线")
+    @Schema(description = "商家热线")
     private String phone;
 
-    @ApiModelProperty(value = "商家介绍")
+    @Schema(description = "商家介绍")
     private String introduce;
 
 }

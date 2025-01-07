@@ -1,7 +1,7 @@
 package com.eghm.vo.sys;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -15,25 +15,25 @@ import java.util.List;
 @Data
 public class DictResponse {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty("字典中文名称")
+    @Schema(description = "字典中文名称")
     private String title;
 
-    @ApiModelProperty("字典编码")
+    @Schema(description = "字典编码")
     private String nid;
 
-    @ApiModelProperty("字典分类: 1: 系统字典 2: 业务字典")
+    @Schema(description = "字典分类: 1: 系统字典 2: 业务字典")
     private Integer dictType;
 
-    @ApiModelProperty("备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 
-    @ApiModelProperty("添加时间")
+    @Schema(description = "添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("数据项列表")
+    @Schema(description = "数据项列表")
     private List<DictItemResponse> itemList;
 }

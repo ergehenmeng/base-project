@@ -21,14 +21,14 @@ import com.eghm.vo.business.line.LineDayConfigResponse;
 import com.eghm.vo.business.line.LineDetailResponse;
 import com.eghm.vo.business.line.LineResponse;
 import com.google.common.collect.Lists;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -36,7 +36,7 @@ import java.util.List;
  * @since 2022/11/26
  */
 @RestController
-@Api(tags = "线路")
+@Tag(name="线路")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/line", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LineController {
@@ -45,7 +45,7 @@ public class LineController {
 
     private final LineDayConfigService lineDayConfigService;
 
-    @ApiOperation("查询线路列表")
+    @Operation(summary = "查询线路列表")
     @GetMapping("/listPage")
     public RespBody<PageData<LineResponse>> getByPage(LineQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
@@ -54,14 +54,14 @@ public class LineController {
     }
 
     @GetMapping("/productListPage")
-    @ApiOperation("列表(含店铺)")
+    @Operation(summary = "列表(含店铺)")
     public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseProductResponse> listPage = lineService.getProductPage(request);
         return RespBody.success(PageData.toPage(listPage));
     }
 
-    @ApiOperation("新增")
+    @Operation(summary = "新增")
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> create(@Validated @RequestBody LineAddRequest request) {
         lineService.create(request);
@@ -69,14 +69,14 @@ public class LineController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑")
     public RespBody<Void> update(@Validated @RequestBody LineEditRequest request) {
         lineService.update(request);
         return RespBody.success();
     }
 
     @GetMapping("/select")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     public RespBody<LineDetailResponse> select(@Validated IdDTO request) {
         Line line = lineService.selectByIdRequired(request.getId());
         LineDetailResponse response = DataUtil.copy(line, LineDetailResponse.class);
@@ -92,34 +92,34 @@ public class LineController {
     }
 
     @PostMapping(value = "/shelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("上架")
+    @Operation(summary = "上架")
     public RespBody<Void> shelves(@Validated @RequestBody IdDTO dto) {
         lineService.updateState(dto.getId(), State.SHELVE);
         return RespBody.success();
     }
 
     @PostMapping(value = "/unShelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("下架")
+    @Operation(summary = "下架")
     public RespBody<Void> unShelves(@Validated @RequestBody IdDTO dto) {
         lineService.updateState(dto.getId(), State.UN_SHELVE);
         return RespBody.success();
     }
 
     @PostMapping(value = "/platformUnShelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("平台下架")
+    @Operation(summary = "平台下架")
     public RespBody<Void> platformUnShelves(@RequestBody @Validated IdDTO dto) {
         lineService.updateState(dto.getId(), State.FORCE_UN_SHELVE);
         return RespBody.success();
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         lineService.deleteById(dto.getId());
         return RespBody.success();
     }
 
-    @ApiOperation("导出")
+    @Operation(summary = "导出")
     @GetMapping("/export")
     public void export(HttpServletResponse response, LineQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());

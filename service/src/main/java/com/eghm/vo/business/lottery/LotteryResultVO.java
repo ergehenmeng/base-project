@@ -1,6 +1,6 @@
 package com.eghm.vo.business.lottery;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -11,15 +11,15 @@ import lombok.Data;
 @Data
 public class LotteryResultVO {
 
-    @ApiModelProperty(value = "抽奖位置")
+    @Schema(description = "抽奖位置")
     private Integer location;
 
-    @ApiModelProperty("是否中奖 0:未中奖 1:中奖")
+    @Schema(description = "是否中奖 0:未中奖 1:中奖")
     private Boolean winning;
 
-    @ApiModelProperty("奖品名称")
+    @Schema(description = "奖品名称")
     private String prizeName;
 
-    @ApiModelProperty(value = "奖品图片")
+    @Schema(description = "奖品图片")
     private String coverUrl;
 }

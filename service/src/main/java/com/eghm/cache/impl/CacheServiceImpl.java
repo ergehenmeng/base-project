@@ -304,7 +304,7 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public Long getBitmapCount(String key) {
-        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.bitCount(key.getBytes(StandardCharsets.UTF_8)));
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.stringCommands().bitCount(key.getBytes(StandardCharsets.UTF_8)));
     }
 
     @Override

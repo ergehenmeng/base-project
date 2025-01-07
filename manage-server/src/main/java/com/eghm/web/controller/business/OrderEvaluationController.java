@@ -9,8 +9,8 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.OrderEvaluationService;
 import com.eghm.vo.business.evaluation.OrderEvaluationResponse;
 import com.eghm.vo.business.order.OrderCreateVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2023/8/29
  */
 @RestController
-@Api(tags = "订单评价")
+@Tag(name="订单评价")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/order/evaluation", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrderEvaluationController {
@@ -29,14 +29,14 @@ public class OrderEvaluationController {
     private final OrderEvaluationService orderEvaluationService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<OrderEvaluationResponse>> listPage(@Validated OrderEvaluationQueryRequest dto) {
         Page<OrderEvaluationResponse> byPage = orderEvaluationService.listPage(dto);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping(value = "/shield", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("屏蔽")
+    @Operation(summary = "屏蔽")
     public RespBody<OrderCreateVO<String>> audit(@RequestBody @Validated OrderEvaluationShieldDTO dto) {
         dto.setUserId(SecurityHolder.getUserId());
         orderEvaluationService.shield(dto);

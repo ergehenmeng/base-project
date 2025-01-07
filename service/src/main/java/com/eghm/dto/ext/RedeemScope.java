@@ -1,6 +1,6 @@
 package com.eghm.dto.ext;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -12,9 +12,9 @@ import java.util.List;
 @Data
 public class RedeemScope {
 
-    @ApiModelProperty("兑换码配置id")
+    @Schema(description = "兑换码配置id")
     private Long redeemCodeId;
 
-    @ApiModelProperty("商品ids")
+    @Schema(description = "商品ids")
     private List<Long> productIds;
 }

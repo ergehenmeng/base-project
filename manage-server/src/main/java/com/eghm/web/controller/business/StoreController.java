@@ -7,8 +7,8 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.*;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.google.common.collect.Lists;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ import java.util.List;
  * @author 二哥很猛 2024/6/30
  */
 @RestController
-@Api(tags = "店铺信息")
+@Tag(name="店铺信息")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/store", produces = MediaType.APPLICATION_JSON_VALUE)
 public class StoreController {
@@ -39,7 +39,7 @@ public class StoreController {
     private final TravelAgencyService travelAgencyService;
 
     @GetMapping("/storeList")
-    @ApiOperation("店铺列表(不分页)")
+    @Operation(summary = "店铺列表(不分页)")
     public RespBody<List<BaseStoreResponse>> storeList(BaseStoreQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         request.setLimit(false);

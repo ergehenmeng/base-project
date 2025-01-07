@@ -2,11 +2,11 @@ package com.eghm.dto.operate.version;
 
 import com.eghm.validation.annotation.OptionString;
 import com.eghm.validation.annotation.WordChecker;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -15,23 +15,23 @@ import javax.validation.constraints.NotNull;
 @Data
 public class VersionAddRequest {
 
-    @ApiModelProperty(required = true, value = "上架平台 ANDROID IOS")
+    @Schema(description = "上架平台 ANDROID IOS", requiredMode = Schema.RequiredMode.REQUIRED)
     @OptionString(value = {"ANDROID", "IOS"}, message = "请选择正确的上架平台")
     private String channel;
 
-    @ApiModelProperty(required = true, value = "版本号(0.0.01~99.99.99)")
+    @Schema(description = "版本号(0.0.01~99.99.99)", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "版本号不能为空")
     private String version;
 
-    @ApiModelProperty(required = true, value = "是否强制更新 false:否 true:是")
+    @Schema(description = "是否强制更新 false:否 true:是", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "强制更新状态不能为空")
     private Boolean forceUpdate;
 
-    @ApiModelProperty(required = true, value = "下载地址,android为实际下载地址,ios是跳转到app_store")
+    @Schema(description = "下载地址,android为实际下载地址,ios是跳转到app_store", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "下载地址不能为空")
     private String url;
 
-    @ApiModelProperty(required = true, value = "备注信息:版本更新的东西或解决的问题")
+    @Schema(description = "备注信息:版本更新的东西或解决的问题")
     @WordChecker(message = "备注信息存在敏感词")
     private String remark;
 }

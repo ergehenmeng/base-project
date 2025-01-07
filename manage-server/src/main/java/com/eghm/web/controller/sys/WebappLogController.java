@@ -6,8 +6,8 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sys.log.WebappQueryRequest;
 import com.eghm.service.sys.WebappLogService;
 import com.eghm.vo.log.WebappLogResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023/7/24
  */
 @RestController
-@Api(tags = "会员操作日志")
+@Tag(name="会员操作日志")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/webapp/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class WebappLogController {
@@ -28,7 +28,7 @@ public class WebappLogController {
     private final WebappLogService webappLogService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<WebappLogResponse>> listPage(@Validated WebappQueryRequest request) {
         Page<WebappLogResponse> page = webappLogService.getByPage(request);
         return RespBody.success(PageData.toPage(page));

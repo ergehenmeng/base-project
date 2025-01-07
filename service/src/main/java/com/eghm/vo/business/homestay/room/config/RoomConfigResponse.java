@@ -3,7 +3,7 @@ package com.eghm.vo.business.homestay.room.config;
 import com.eghm.convertor.CentToYuanOmitEncoder;
 import com.eghm.vo.business.BaseConfigResponse;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,18 +19,18 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RoomConfigResponse extends BaseConfigResponse {
 
-    @ApiModelProperty("是否可订 false:不可订 true:可定")
+    @Schema(description = "是否可订 false:不可订 true:可定")
     private Boolean state;
 
-    @ApiModelProperty("划线价")
+    @Schema(description = "划线价")
     @JsonSerialize(using = CentToYuanOmitEncoder.class)
     private Integer linePrice;
 
-    @ApiModelProperty("销售价")
+    @Schema(description = "销售价")
     @JsonSerialize(using = CentToYuanOmitEncoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty("库存数")
+    @Schema(description = "库存数")
     private Integer stock;
 
 }

@@ -8,9 +8,9 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
 import com.eghm.vo.business.order.OrderCreateVO;
 import com.eghm.web.annotation.AccessToken;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @AccessToken
 @RestController
-@Api(tags = "订单异步查询")
+@Tag(name="订单异步查询")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/order/async", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrderAsyncController {
@@ -32,8 +32,8 @@ public class OrderAsyncController {
     private final CacheService cacheService;
 
     @GetMapping("/result")
-    @ApiOperation("异步查询下单结果")
-    @ApiImplicitParam(name = "key", value = "查询key", required = true)
+    @Operation(summary = "异步查询下单结果")
+    @Parameter(name = "key", description = "查询key", required = true)
     public RespBody<OrderCreateVO<String>> getResult(@RequestParam("key") String key) {
         String hashValue = cacheService.getValue(CacheConstant.MQ_ASYNC_KEY + key);
         OrderCreateVO<String> vo = new OrderCreateVO<>();
@@ -58,8 +58,8 @@ public class OrderAsyncController {
     }
 
     @GetMapping("/cancel")
-    @ApiOperation("异步下单取消")
-    @ApiImplicitParam(name = "key", value = "查询的key", required = true)
+    @Operation(summary = "异步下单取消")
+    @Parameter(name = "key", description = "查询的key", required = true)
     public RespBody<Void> cancel(@RequestParam("key") String key) {
         String redisKey = CacheConstant.MQ_ASYNC_KEY + key;
         boolean hashValue = cacheService.exist(redisKey);

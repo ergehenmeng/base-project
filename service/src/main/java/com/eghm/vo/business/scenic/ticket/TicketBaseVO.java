@@ -3,7 +3,7 @@ package com.eghm.vo.business.scenic.ticket;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.TicketType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -15,23 +15,23 @@ import lombok.Data;
 @Data
 public class TicketBaseVO {
 
-    @ApiModelProperty("门票id")
+    @Schema(description = "门票id")
     private Long id;
 
-    @ApiModelProperty(value = "门票名称")
+    @Schema(description = "门票名称")
     private String title;
 
-    @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
+    @Schema(description = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
     private TicketType category;
 
-    @ApiModelProperty(value = "划线价")
+    @Schema(description = "划线价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer linePrice;
 
-    @ApiModelProperty(value = "销售价")
+    @Schema(description = "销售价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty(value = "剩余库存, 0:为售罄")
+    @Schema(description = "剩余库存, 0:为售罄")
     private Integer stock;
 }

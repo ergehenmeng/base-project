@@ -1,5 +1,8 @@
 package com.eghm.configuration.timer;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 存放TimerTask任务 双向链表结构 最后一个对象的下一个元素持有第一个元素引用 第一个元素的前一个对象持有最后一个元素的引用
  *
@@ -21,16 +24,17 @@ public class Entry {
     /**
      * 存放entry的列表,相互引用
      */
+    @Setter
+    @Getter
     private TaskBucket taskBucket;
 
-    /**
-     * 真实要执行的任务对象
-     */
+    @Getter
     private final BaseTask baseTask;
 
     /**
      * 任务延迟执行时间 (2000 + Date.millisTime()) 表示:2000毫秒之后执行
      */
+    @Getter
     private final long expireMs;
 
     /**
@@ -67,24 +71,4 @@ public class Entry {
         }
     }
 
-    /**
-     * 获取任务
-     *
-     * @return timerTask
-     */
-    public BaseTask getBaseTask() {
-        return baseTask;
-    }
-
-    public long getExpireMs() {
-        return expireMs;
-    }
-
-    public TaskBucket getTaskBucket() {
-        return taskBucket;
-    }
-
-    public void setTaskBucket(TaskBucket taskBucket) {
-        this.taskBucket = taskBucket;
-    }
 }

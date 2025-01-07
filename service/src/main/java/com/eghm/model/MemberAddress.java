@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -23,37 +23,37 @@ public class MemberAddress extends BaseEntity {
      */
     public static final int STATE_COMMON = 0;
 
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     private Long memberId;
 
-    @ApiModelProperty("状态 0: 普通地址  1:默认地址")
+    @Schema(description = "状态 0: 普通地址  1:默认地址")
     private Integer state;
 
-    @ApiModelProperty("收货人姓名")
+    @Schema(description = "收货人姓名")
     private String nickName;
 
-    @ApiModelProperty("收货人手机号")
+    @Schema(description = "收货人手机号")
     private String mobile;
 
-    @ApiModelProperty("省份id")
+    @Schema(description = "省份id")
     private Long provinceId;
 
-    @ApiModelProperty("省份名称")
+    @Schema(description = "省份名称")
     private String provinceName;
 
-    @ApiModelProperty("城市id")
+    @Schema(description = "城市id")
     private Long cityId;
 
-    @ApiModelProperty("城市名称")
+    @Schema(description = "城市名称")
     private String cityName;
 
-    @ApiModelProperty("县区id")
+    @Schema(description = "县区id")
     private Long countyId;
 
-    @ApiModelProperty("县区")
+    @Schema(description = "县区")
     private String countyName;
 
-    @ApiModelProperty("详细地址")
+    @Schema(description = "详细地址")
     private String detailAddress;
 
 }

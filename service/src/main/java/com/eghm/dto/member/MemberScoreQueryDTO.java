@@ -2,7 +2,7 @@ package com.eghm.dto.member;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,10 +16,10 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class MemberScoreQueryDTO extends PagingQuery {
 
-    @ApiModelProperty("积分类型")
+    @Schema(description = "积分类型")
     private Integer type;
 
     @Assign
-    @ApiModelProperty(value = "登录人id", hidden = true)
+    @Schema(description = "登录人id", hidden = true)
     private Long memberId;
 }

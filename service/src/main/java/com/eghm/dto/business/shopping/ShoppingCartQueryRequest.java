@@ -4,7 +4,7 @@ import com.eghm.annotation.Assign;
 import com.eghm.annotation.YuanToCentFormat;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.State;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,21 +16,21 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class ShoppingCartQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("是否为热销商品 true:是 false:不是")
+    @Schema(description = "是否为热销商品 true:是 false:不是")
     private Boolean hotSell;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
+    @Schema(description = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
-    @ApiModelProperty("最低价格")
+    @Schema(description = "最低价格")
     @YuanToCentFormat
     private Integer minPrice;
 
-    @ApiModelProperty("最高价格")
+    @Schema(description = "最高价格")
     @YuanToCentFormat
     private Integer maxPrice;
 
-    @ApiModelProperty(value = "商户id", hidden = true)
+    @Schema(description = "商户id", hidden = true)
     @Assign
     private Long merchantId;
 }

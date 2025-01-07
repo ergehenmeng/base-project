@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,38 +26,38 @@ import java.util.List;
 @ToString(callSuper = true)
 public class TicketOrderCreateContext extends AsyncKey implements Context {
 
-    @ApiModelProperty("门票id")
+    @Schema(description = "门票id")
     private Long ticketId;
 
-    @ApiModelProperty("手机号码")
+    @Schema(description = "手机号码")
     private String mobile;
 
-    @ApiModelProperty("游玩日期")
+    @Schema(description = "游玩日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate visitDate;
 
-    @ApiModelProperty("购票数量")
+    @Schema(description = "购票数量")
     private Integer num;
 
-    @ApiModelProperty("游客信息")
+    @Schema(description = "游客信息")
     private List<VisitorDTO> visitorList;
 
-    @ApiModelProperty("优惠券id")
+    @Schema(description = "优惠券id")
     private Long couponId;
 
-    @ApiModelProperty("备注")
+    @Schema(description = "备注")
     private String remark;
 
-    @ApiModelProperty("订单编号")
+    @Schema(description = "订单编号")
     @Assign
     private String orderNo;
 
     @Assign
-    @ApiModelProperty(hidden = true, value = "用户id")
+    @Schema(description = "用户id")
     private Long memberId;
 
-    @ApiModelProperty("源状态")
+    @Schema(description = "源状态")
     private Integer from;
 }

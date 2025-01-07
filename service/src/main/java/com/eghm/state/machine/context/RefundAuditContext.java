@@ -4,7 +4,7 @@ import com.eghm.annotation.Assign;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.state.machine.Context;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -15,31 +15,31 @@ import lombok.Data;
 @Data
 public class RefundAuditContext implements Context {
 
-    @ApiModelProperty("订单编号")
+    @Schema(description = "订单编号")
     private String orderNo;
 
-    @ApiModelProperty("退款记录id")
+    @Schema(description = "退款记录id")
     private Long refundId;
 
-    @ApiModelProperty("审核状态 1:通过 2:拒绝")
+    @Schema(description = "审核状态 1:通过 2:拒绝")
     private Integer state;
 
-    @ApiModelProperty("实际退款金额")
+    @Schema(description = "实际退款金额")
     private Integer refundAmount;
 
-    @ApiModelProperty("审批意见")
+    @Schema(description = "审批意见")
     private String auditRemark;
 
-    @ApiModelProperty(value = "审批人id", hidden = true)
+    @Schema(description = "审批人id", hidden = true)
     @Assign
     private Long auditUserId;
 
-    @ApiModelProperty("源状态")
+    @Schema(description = "源状态")
     private Integer from;
 
-    @ApiModelProperty("产品类型")
+    @Schema(description = "产品类型")
     private ProductType productType;
 
-    @ApiModelProperty("事件")
+    @Schema(description = "事件")
     private IEvent event;
 }

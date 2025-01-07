@@ -4,7 +4,7 @@ import com.eghm.convertor.NumberParseEncoder;
 import com.eghm.vo.business.item.ItemVO;
 import com.eghm.vo.business.lottery.LotteryVO;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -17,43 +17,43 @@ import java.util.List;
 @Data
 public class ItemStoreHomeVO {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty("店铺名称")
+    @Schema(description = "店铺名称")
     private String title;
 
-    @ApiModelProperty(value = "店铺logo")
+    @Schema(description = "店铺logo")
     private String logoUrl;
 
-    @ApiModelProperty("封面图")
+    @Schema(description = "封面图")
     private String coverUrl;
 
-    @ApiModelProperty("是否收藏")
+    @Schema(description = "是否收藏")
     private Boolean collect;
 
-    @ApiModelProperty("总收藏数量")
+    @Schema(description = "总收藏数量")
     @JsonSerialize(using = NumberParseEncoder.class)
     private Long commentNum;
 
-    @ApiModelProperty(value = "营业时间")
+    @Schema(description = "营业时间")
     private String openTime;
 
-    @ApiModelProperty(value = "经度")
+    @Schema(description = "经度")
     private BigDecimal longitude;
 
-    @ApiModelProperty(value = "纬度")
+    @Schema(description = "纬度")
     private BigDecimal latitude;
 
-    @ApiModelProperty(value = "商家电话")
+    @Schema(description = "商家电话")
     private String telephone;
 
-    @ApiModelProperty(value = "商家介绍")
+    @Schema(description = "商家介绍")
     private String introduce;
 
-    @ApiModelProperty("推荐商品列表")
+    @Schema(description = "推荐商品列表")
     private List<ItemVO> itemList;
 
-    @ApiModelProperty("抽奖列表")
+    @Schema(description = "抽奖列表")
     List<LotteryVO> lotteryList;
 }

@@ -1,11 +1,11 @@
 package com.eghm.dto.business.restaurant.voucher;
 
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -15,13 +15,13 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = true)
 public class VoucherQueryDTO extends PagingQuery {
 
-    @ApiModelProperty(value = "餐饮商家id", required = true)
+    @Schema(description = "餐饮商家id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "商家id不能为空")
     private Long restaurantId;
 
-    @ApiModelProperty("按售价排序(1:正序 2:倒序)")
+    @Schema(description = "按售价排序(1:正序 2:倒序)")
     private Integer sortByPrice;
 
-    @ApiModelProperty("按销量排序(1:正序 2:倒序)")
+    @Schema(description = "按销量排序(1:正序 2:倒序)")
     private Integer sortBySale;
 }

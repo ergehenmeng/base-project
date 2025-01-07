@@ -1,10 +1,10 @@
 package com.eghm.dto.business.merchant;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 /**
  * @author 二哥很猛
@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @Data
 public class MerchantUnbindDTO {
 
-    @ApiModelProperty(value = "验证码", required = true)
+    @Schema(description = "验证码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "验证码不能为空")
     @Size(min = 4, max = 6, message = "验证码格式错误")
     private String smsCode;

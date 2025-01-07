@@ -2,7 +2,7 @@ package com.eghm.dto.ext;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constants.CommonConstant;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,13 +16,13 @@ import lombok.Setter;
 @Setter
 public class PagingQuery {
 
-    @ApiModelProperty(value = "第几页", required = true, example = "1")
+    @Schema(description = "第几页", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
     private Integer page = 1;
 
-    @ApiModelProperty(value = "页容量", required = true, example = "10")
+    @Schema(description = "页容量", requiredMode = Schema.RequiredMode.REQUIRED, example = "10")
     private Integer pageSize = 10;
 
-    @ApiModelProperty(value = "搜索条件")
+    @Schema(description = "搜索条件")
     private String queryName;
 
     /**

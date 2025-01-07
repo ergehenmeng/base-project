@@ -3,13 +3,13 @@ package com.eghm.dto.business.order;
 import com.eghm.annotation.Assign;
 import com.eghm.convertor.YuanToCentDecoder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -19,30 +19,30 @@ import java.util.List;
 @Data
 public class OfflineRefundRequest {
 
-    @ApiModelProperty(value = "订单编号", required = true)
+    @Schema(description = "订单编号", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "订单编号不能为空")
     private String orderNo;
 
-    @ApiModelProperty(value = "游客id", required = true)
+    @Schema(description = "游客id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "请选择要退款的游客")
     private List<Long> visitorList;
 
-    @ApiModelProperty(value = "退款金额", required = true)
+    @Schema(description = "退款金额", requiredMode = Schema.RequiredMode.REQUIRED)
     @Min(value = 1, message = "退款金额最少0.01元")
     @NotNull(message = "退款金额不能为空")
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer refundAmount;
 
-    @ApiModelProperty(value = "退款凭证(转账记录)", required = true)
+    @Schema(description = "退款凭证(转账记录)", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "退款凭证不能为空")
     private String certificate;
 
-    @ApiModelProperty(value = "备注信息", required = true)
+    @Schema(description = "备注信息", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "备注信息不能为空")
     private String remark;
 
     @Assign
-    @ApiModelProperty(value = "用户id", hidden = true)
+    @Schema(description = "用户id", hidden = true)
     private Long userId;
 
 }

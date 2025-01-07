@@ -1,6 +1,6 @@
 package com.eghm.vo.poi;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -11,9 +11,9 @@ import lombok.Data;
 @Data
 public class BasePoiAreaResponse {
 
-    @ApiModelProperty(value = "区域名称")
+    @Schema(description = "区域名称")
     private String title;
 
-    @ApiModelProperty(value = "区域编号")
+    @Schema(description = "区域编号")
     private String code;
 }

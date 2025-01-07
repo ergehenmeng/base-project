@@ -1,11 +1,11 @@
 package com.eghm.dto.business.order.item;
 
 import com.eghm.state.machine.dto.ItemDTO;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -15,15 +15,15 @@ import java.util.List;
 @Data
 public class ItemOrderCreateDTO {
 
-    @ApiModelProperty(value = "收货地址id", required = true)
+    @Schema(description = "收货地址id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "收货地址不能为空")
     private Long addressId;
 
-    @ApiModelProperty(value = "店铺商品信息", required = true)
+    @Schema(description = "店铺商品信息", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "请选择商品")
     private List<ItemDTO> itemList;
 
-    @ApiModelProperty("拼团活动编号")
+    @Schema(description = "拼团活动编号")
     private String bookingNo;
 
 }

@@ -3,7 +3,7 @@ package com.eghm.vo.business.coupon;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.CouponType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -15,23 +15,23 @@ import lombok.Data;
 @Data
 public class MemberCouponBaseVO {
 
-    @ApiModelProperty("id")
+    @Schema(description = "id")
     private Long id;
 
-    @ApiModelProperty("优惠券名称")
+    @Schema(description = "优惠券名称")
     private String title;
 
-    @ApiModelProperty("优惠券类型 1:抵扣券 2:折扣券")
+    @Schema(description = "优惠券类型 1:抵扣券 2:折扣券")
     private CouponType couponType;
 
-    @ApiModelProperty("抵扣金额")
+    @Schema(description = "抵扣金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer deductionValue;
 
-    @ApiModelProperty(value = "折扣比例 1-100")
+    @Schema(description = "折扣比例 1-100")
     private Integer discountValue;
 
-    @ApiModelProperty("使用门槛, 0:表示不限制")
+    @Schema(description = "使用门槛, 0:表示不限制")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer useThreshold;
 

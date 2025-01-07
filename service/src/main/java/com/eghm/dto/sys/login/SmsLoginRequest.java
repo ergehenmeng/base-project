@@ -2,11 +2,11 @@ package com.eghm.dto.sys.login;
 
 import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.Mobile;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 /**
  * @author 二哥很猛
@@ -17,14 +17,14 @@ public class SmsLoginRequest {
 
     @Size(min = 4, max = 6, message = "短信验证码格式错误")
     @NotBlank(message = "短信验证码不能为空")
-    @ApiModelProperty(value = "短信验证码4-6位", required = true)
+    @Schema(description = "短信验证码4-6位", requiredMode = Schema.RequiredMode.REQUIRED)
     private String smsCode;
 
     @Mobile
-    @ApiModelProperty(value = "手机号", required = true)
+    @Schema(description = "手机号", requiredMode = Schema.RequiredMode.REQUIRED)
     private String mobile;
 
-    @ApiModelProperty(value = "ip", hidden = true)
+    @Schema(description = "ip", hidden = true)
     @Assign
     private String ip;
 }

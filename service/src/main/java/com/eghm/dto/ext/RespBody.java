@@ -2,7 +2,7 @@ package com.eghm.dto.ext;
 
 import com.eghm.enums.ErrorCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,13 +17,13 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RespBody<T> {
 
-    @ApiModelProperty("状态码,成功=200")
+    @Schema(description = "状态码,成功=200")
     private Integer code = 200;
 
-    @ApiModelProperty("成功或失败的信息")
+    @Schema(description = "成功或失败的信息")
     private String msg = "success";
 
-    @ApiModelProperty("成功时可能包含的数据集")
+    @Schema(description = "成功时可能包含的数据集")
     private T data;
 
     private RespBody(T data) {

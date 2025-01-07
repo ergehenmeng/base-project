@@ -9,8 +9,8 @@ import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.HomestayRoomService;
 import com.eghm.vo.business.homestay.room.config.RoomConfigResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -22,7 +22,7 @@ import java.util.List;
  * @author 二哥很猛 2022/6/29
  */
 @RestController
-@Api(tags = "房态设置")
+@Tag(name="房态设置")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/homestay/room/config", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HomestayRoomConfigController {
@@ -34,7 +34,7 @@ public class HomestayRoomConfigController {
     private final HomestayRoomConfigService homestayRoomConfigService;
 
     @PostMapping(value = "/setup", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("设置房态")
+    @Operation(summary = "设置房态")
     public RespBody<Void> setup(@Validated @RequestBody RoomConfigRequest request) {
         HomestayRoom room = homestayRoomService.selectByIdRequired(request.getRoomId());
         commonService.checkIllegal(room.getMerchantId());
@@ -44,7 +44,7 @@ public class HomestayRoomConfigController {
     }
 
     @GetMapping("/month")
-    @ApiOperation("房态信息(月)")
+    @Operation(summary = "房态信息(月)")
     public RespBody<List<RoomConfigResponse>> getList(@Validated RoomConfigQueryRequest request) {
         homestayRoomService.selectByIdRequired(request.getRoomId());
         List<RoomConfigResponse> responseList = homestayRoomConfigService.getList(request);
@@ -52,7 +52,7 @@ public class HomestayRoomConfigController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑")
     public RespBody<Void> update(@Validated @RequestBody RoomConfigEditRequest request) {
         HomestayRoom room = homestayRoomService.selectById(request.getRoomId());
         commonService.checkIllegal(room.getMerchantId());

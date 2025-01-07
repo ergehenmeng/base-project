@@ -11,8 +11,8 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.LimitPurchaseService;
 import com.eghm.vo.business.limit.LimitPurchaseDetailResponse;
 import com.eghm.vo.business.limit.LimitPurchaseResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-@Api(tags = "限时购")
+@Tag(name="限时购")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/limit/purchase", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LimitPurchaseController {
@@ -32,7 +32,7 @@ public class LimitPurchaseController {
     private final LimitPurchaseService limitPurchaseService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<LimitPurchaseResponse>> listPage(LimitPurchaseQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<LimitPurchaseResponse> byPage = limitPurchaseService.getByPage(request);
@@ -40,7 +40,7 @@ public class LimitPurchaseController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("创建")
+    @Operation(summary = "创建")
     public RespBody<Void> create(@RequestBody @Validated LimitPurchaseAddRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         limitPurchaseService.create(request);
@@ -48,21 +48,21 @@ public class LimitPurchaseController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑")
     public RespBody<Void> update(@RequestBody @Validated LimitPurchaseEditRequest request) {
         limitPurchaseService.update(request);
         return RespBody.success();
     }
 
     @GetMapping("/detail")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     public RespBody<LimitPurchaseDetailResponse> detail(@Validated IdDTO dto) {
         LimitPurchaseDetailResponse response = limitPurchaseService.detailById(dto.getId());
         return RespBody.success(response);
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         limitPurchaseService.delete(dto.getId());
         return RespBody.success();

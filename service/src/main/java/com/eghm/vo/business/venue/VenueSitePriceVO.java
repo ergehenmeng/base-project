@@ -3,7 +3,7 @@ package com.eghm.vo.business.venue;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -17,28 +17,28 @@ import java.time.LocalTime;
 @Data
 public class VenueSitePriceVO {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "开始时间")
+    @Schema(description = "开始时间")
     @JsonFormat(pattern = "HH:mm")
     private LocalTime startTime;
 
-    @ApiModelProperty(value = "结束时间")
+    @Schema(description = "结束时间")
     @JsonFormat(pattern = "HH:mm")
     private LocalTime endTime;
 
-    @ApiModelProperty("当前日期")
+    @Schema(description = "当前日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate nowDate;
 
-    @ApiModelProperty("可预订数量 默认1")
+    @Schema(description = "可预订数量 默认1")
     private Integer stock;
 
-    @ApiModelProperty("是否可预定 false:不可预定 true:可预定")
+    @Schema(description = "是否可预定 false:不可预定 true:可预定")
     private Boolean state;
 
-    @ApiModelProperty(value = "价格")
+    @Schema(description = "价格")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer price;
 

@@ -1,7 +1,7 @@
 package com.eghm.dto.poi;
 
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class PoiTypeQueryRequest extends PagingQuery {
 
-    @ApiModelProperty(value = "所属区域编号")
+    @Schema(description = "所属区域编号")
     private String areaCode;
 
 }

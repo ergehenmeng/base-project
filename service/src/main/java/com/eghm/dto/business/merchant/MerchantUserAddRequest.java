@@ -2,13 +2,13 @@ package com.eghm.dto.business.merchant;
 
 import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.Mobile;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -18,28 +18,28 @@ import java.util.List;
 @Data
 public class MerchantUserAddRequest {
 
-    @ApiModelProperty(value = "昵称", required = true)
+    @Schema(description = "昵称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "昵称不能为空")
     @Size(min = 2, max = 10, message = "昵称长度2~10位")
     private String nickName;
 
-    @ApiModelProperty(value = "登录手机号", required = true)
+    @Schema(description = "登录手机号", requiredMode = Schema.RequiredMode.REQUIRED)
     @Mobile
     private String mobile;
 
-    @ApiModelProperty(value = "密码", required = true)
+    @Schema(description = "密码", requiredMode = Schema.RequiredMode.REQUIRED)
     @Length(min = 32, max = 32, message = "密码格式错误")
     private String password;
 
-    @ApiModelProperty("备注信息")
+    @Schema(description = "备注信息")
     @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 
-    @ApiModelProperty("角色id列表")
+    @Schema(description = "角色id列表")
     @NotEmpty(message = "请选择角色")
     private List<Long> roleIds;
 
-    @ApiModelProperty(value = "商户ID", hidden = true)
+    @Schema(description = "商户ID", hidden = true)
     @Assign
     private Long merchantId;
 }

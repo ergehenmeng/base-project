@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -23,27 +23,27 @@ import java.time.LocalDateTime;
 @TableName("redeem_code")
 public class RedeemCode extends BaseEntity {
 
-    @ApiModelProperty(value = "cd名称")
+    @Schema(description = "cd名称")
     private String title;
 
-    @ApiModelProperty(value = "有效开始时间")
+    @Schema(description = "有效开始时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
 
-    @ApiModelProperty(value = "有效截止时间")
+    @Schema(description = "有效截止时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
-    @ApiModelProperty("金额")
+    @Schema(description = "金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer amount;
 
-    @ApiModelProperty(value = "发放数量")
+    @Schema(description = "发放数量")
     private Integer num;
 
-    @ApiModelProperty(value = "状态 0:待发放 1:已发放")
+    @Schema(description = "状态 0:待发放 1:已发放")
     private Integer state;
 
-    @ApiModelProperty("备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 }

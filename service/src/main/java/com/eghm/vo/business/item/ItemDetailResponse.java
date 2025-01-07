@@ -1,7 +1,7 @@
 package com.eghm.vo.business.item;
 
 import com.eghm.enums.ref.DeliveryType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -14,45 +14,45 @@ import java.util.List;
 @Data
 public class ItemDetailResponse {
 
-    @ApiModelProperty("id(编辑时不能为空)")
+    @Schema(description = "id(编辑时不能为空)")
     private Long id;
 
-    @ApiModelProperty(value = "商品名称")
+    @Schema(description = "商品名称")
     private String title;
 
-    @ApiModelProperty(value = "商品描述信息")
+    @Schema(description = "商品描述信息")
     private String depict;
 
-    @ApiModelProperty(value = "店铺id")
+    @Schema(description = "店铺id")
     private Long storeId;
 
-    @ApiModelProperty(value = "标签id")
+    @Schema(description = "标签id")
     private List<String> tagList;
 
-    @ApiModelProperty(value = "是否为多规格商品 true:是 false:不是")
+    @Schema(description = "是否为多规格商品 true:是 false:不是")
     private Boolean multiSpec;
 
-    @ApiModelProperty(value = "封面图")
+    @Schema(description = "封面图")
     private String coverUrl;
 
-    @ApiModelProperty(value = "购买须知")
+    @Schema(description = "购买须知")
     private String purchaseNotes;
 
-    @ApiModelProperty(value = "限购数量")
+    @Schema(description = "限购数量")
     private Integer quota;
 
-    @ApiModelProperty(value = "交付方式 1:快递包邮 2:门店自提 ")
+    @Schema(description = "交付方式 1:快递包邮 2:门店自提 ")
     private DeliveryType deliveryType;
 
-    @ApiModelProperty("物流模板id(为空表示包邮)")
+    @Schema(description = "物流模板id(为空表示包邮)")
     private Long expressId;
 
-    @ApiModelProperty(value = "商品介绍信息")
+    @Schema(description = "商品介绍信息")
     private String introduce;
 
-    @ApiModelProperty("规格信息(单规格为空)")
+    @Schema(description = "规格信息(单规格为空)")
     private List<ItemSpecResponse> specList;
 
-    @ApiModelProperty("sku信息")
+    @Schema(description = "sku信息")
     private List<ItemSkuResponse> skuList;
 }

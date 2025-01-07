@@ -11,8 +11,8 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.VoucherTagService;
 import com.eghm.vo.business.restaurant.TagSelectResponse;
 import com.eghm.vo.business.restaurant.VoucherTagResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +25,7 @@ import java.util.List;
 * @since 2024-10-09
 */
 @RestController
-@Api(tags = "餐饮券标签管理")
+@Tag(name="餐饮券标签管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/voucher/tag", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoucherTagController {
@@ -33,42 +33,42 @@ public class VoucherTagController {
     private final VoucherTagService voucherTagService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<VoucherTagResponse>> listPage(VoucherTagQueryRequest request) {
         Page<VoucherTagResponse> byPage = voucherTagService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @GetMapping("/list")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<List<TagSelectResponse>> list(@Validated IdDTO request) {
         List<TagSelectResponse> list = voucherTagService.getList(request.getId());
         return RespBody.success(list);
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增")
+    @Operation(summary = "新增")
     public RespBody<Void> create(@Validated @RequestBody VoucherTagAddRequest request) {
         voucherTagService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update",consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑")
     public RespBody<Void> update(@Validated @RequestBody VoucherTagEditRequest request) {
         voucherTagService.update(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/sort", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("排序")
+    @Operation(summary = "排序")
     public RespBody<Void> sort(@RequestBody @Validated SortByDTO dto) {
         voucherTagService.sortBy(dto.getId(), dto.getSortBy());
         return RespBody.success();
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO request) {
         voucherTagService.delete(request.getId());
         return RespBody.success();

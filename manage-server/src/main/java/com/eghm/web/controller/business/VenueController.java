@@ -18,14 +18,14 @@ import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.venue.BaseVenueResponse;
 import com.eghm.vo.business.venue.VenueDetailResponse;
 import com.eghm.vo.business.venue.VenueResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -34,7 +34,7 @@ import java.util.List;
  */
 
 @RestController
-@Api(tags = "场馆")
+@Tag(name="场馆")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/venue", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VenueController {
@@ -42,7 +42,7 @@ public class VenueController {
     private final VenueService venueService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<VenueResponse>> listPage(VenueQueryRequest request) {
         SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         Page<VenueResponse> byPage = venueService.listPage(request);
@@ -50,7 +50,7 @@ public class VenueController {
     }
 
     @GetMapping("/storeListPage")
-    @ApiOperation("列表含商户信息")
+    @Operation(summary = "列表含商户信息")
     public RespBody<PageData<BaseStoreResponse>> storeListPage(BaseStoreQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseStoreResponse> listPage = venueService.getStorePage(request);
@@ -58,63 +58,63 @@ public class VenueController {
     }
 
     @GetMapping("/list")
-    @ApiOperation("场馆列表")
+    @Operation(summary = "场馆列表")
     public RespBody<List<BaseVenueResponse>> list() {
         List<BaseVenueResponse> list = venueService.getList(SecurityHolder.getMerchantId());
         return RespBody.success(list);
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增")
+    @Operation(summary = "新增")
     public RespBody<Void> create(@Validated @RequestBody VenueAddRequest request) {
         venueService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新")
+    @Operation(summary = "更新")
     public RespBody<Void> update(@Validated @RequestBody VenueEditRequest request) {
         venueService.update(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/shelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("上架")
+    @Operation(summary = "上架")
     public RespBody<Void> shelves(@Validated @RequestBody IdDTO dto) {
         venueService.updateState(dto.getId(), State.SHELVE);
         return RespBody.success();
     }
 
     @PostMapping(value = "/unShelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("下架")
+    @Operation(summary = "下架")
     public RespBody<Void> unShelves(@Validated @RequestBody IdDTO dto) {
         venueService.updateState(dto.getId(), State.UN_SHELVE);
         return RespBody.success();
     }
 
     @PostMapping(value = "/platformUnShelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("平台下架")
+    @Operation(summary = "平台下架")
     public RespBody<Void> platformUnShelves(@RequestBody @Validated IdDTO dto) {
         venueService.updateState(dto.getId(), State.FORCE_UN_SHELVE);
         return RespBody.success();
     }
 
     @GetMapping("/select")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     public RespBody<VenueDetailResponse> select(@Validated IdDTO dto) {
         Venue venue = venueService.selectByIdRequired(dto.getId());
         return RespBody.success(DataUtil.copy(venue, VenueDetailResponse.class));
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         venueService.delete(dto.getId());
         return RespBody.success();
     }
 
     @GetMapping("/export")
-    @ApiOperation("导出")
+    @Operation(summary = "导出")
     public void export(HttpServletResponse response, VenueQueryRequest request) {
         SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         List<VenueResponse> byPage = venueService.getList(request);

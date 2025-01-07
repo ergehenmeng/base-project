@@ -1,6 +1,6 @@
 package com.eghm.vo.business.venue;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -11,10 +11,10 @@ import lombok.Data;
 @Data
 public class VenueSiteVO {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "场地名称")
+    @Schema(description = "场地名称")
     private String title;
 
 }

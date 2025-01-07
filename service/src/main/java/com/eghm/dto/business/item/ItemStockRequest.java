@@ -1,10 +1,10 @@
 package com.eghm.dto.business.item;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -14,11 +14,11 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ItemStockRequest {
 
-    @ApiModelProperty("sku_id")
+    @Schema(description = "sku_id")
     @NotNull(message = "请选择规格")
     private Long id;
 
-    @ApiModelProperty("增加的库存数量")
+    @Schema(description = "增加的库存数量")
     @Min(value = 0, message = "库存数量不能小于0")
     @NotNull(message = "库存数量不能为空")
     private Integer num;

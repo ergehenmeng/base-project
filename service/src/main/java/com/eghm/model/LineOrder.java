@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,46 +20,46 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class LineOrder extends BaseEntity {
 
-    @ApiModelProperty(value = "线路名称")
+    @Schema(description = "线路名称")
     private String title;
 
-    @ApiModelProperty(value = "创建人id")
+    @Schema(description = "创建人id")
     private Long memberId;
 
-    @ApiModelProperty(value = "线路id")
+    @Schema(description = "线路id")
     private Long lineId;
 
-    @ApiModelProperty("线路配置id(冗余字段)")
+    @Schema(description = "线路配置id(冗余字段)")
     private Long lineConfigId;
 
-    @ApiModelProperty(value = "订单编号")
+    @Schema(description = "订单编号")
     private String orderNo;
 
-    @ApiModelProperty("游玩日期")
+    @Schema(description = "游玩日期")
     private LocalDate visitDate;
 
-    @ApiModelProperty(value = "所属旅行社id")
+    @Schema(description = "所属旅行社id")
     private Long travelAgencyId;
 
-    @ApiModelProperty(value = "出发省份id")
+    @Schema(description = "出发省份id")
     private Long startProvinceId;
 
-    @ApiModelProperty(value = "出发城市id")
+    @Schema(description = "出发城市id")
     private Long startCityId;
 
-    @ApiModelProperty(value = "封面图片")
+    @Schema(description = "封面图片")
     private String coverUrl;
 
-    @ApiModelProperty(value = "几日游 1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10: 10日游 11:11日游 12:十二日游")
+    @Schema(description = "几日游 1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10: 10日游 11:11日游 12:十二日游")
     private Integer duration;
 
-    @ApiModelProperty("划线价")
+    @Schema(description = "划线价")
     private Integer linePrice;
 
-    @ApiModelProperty("销售价")
+    @Schema(description = "销售价")
     private Integer salePrice;
 
-    @ApiModelProperty(value = "商品介绍")
+    @Schema(description = "商品介绍")
     private String introduce;
 
 }

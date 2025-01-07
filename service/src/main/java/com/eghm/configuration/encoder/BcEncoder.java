@@ -35,7 +35,7 @@ public class BcEncoder implements Encoder {
     @Override
     public boolean match(String rawPassword, String encodedPassword) {
 
-        if (encodedPassword == null || encodedPassword.length() == 0) {
+        if (encodedPassword == null || encodedPassword.isEmpty()) {
             return false;
         }
 

@@ -3,7 +3,7 @@ package com.eghm.vo.business.coupon;
 import com.eghm.annotation.Desensitization;
 import com.eghm.enums.FieldType;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -16,27 +16,27 @@ import java.time.LocalDateTime;
 @Data
 public class MemberCouponResponse {
 
-    @ApiModelProperty("优惠券id")
+    @Schema(description = "优惠券id")
     private Long id;
 
-    @ApiModelProperty("用户昵称")
+    @Schema(description = "用户昵称")
     private String nickName;
 
-    @ApiModelProperty("手机号")
+    @Schema(description = "手机号")
     @Desensitization(FieldType.MOBILE_PHONE)
     private String mobile;
 
-    @ApiModelProperty("使用状态 0:未使用 1:已使用 2:已过期")
+    @Schema(description = "使用状态 0:未使用 1:已使用 2:已过期")
     private Integer state;
 
-    @ApiModelProperty("使用所属订单号")
+    @Schema(description = "使用所属订单号")
     private String orderNo;
 
-    @ApiModelProperty("领取时间")
+    @Schema(description = "领取时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime receiveTime;
 
-    @ApiModelProperty("使用时间")
+    @Schema(description = "使用时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime useTime;
 

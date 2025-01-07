@@ -1,5 +1,6 @@
 package com.eghm.configuration.timer;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -14,6 +15,7 @@ public abstract class BaseTask implements Runnable {
     /**
      * 延迟多长时间执行 毫秒值
      */
+    @Getter
     private final long delayMs;
 
     /**
@@ -70,10 +72,6 @@ public abstract class BaseTask implements Runnable {
             this.entry.remove();
         }
         this.entry = entry;
-    }
-
-    public long getDelayMs() {
-        return delayMs;
     }
 
     protected void exception(RuntimeException e) {

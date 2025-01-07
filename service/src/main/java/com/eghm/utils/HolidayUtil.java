@@ -45,9 +45,9 @@ public class HolidayUtil {
             String formatMonth = DateUtil.format(calendar.getTime(), "yyyy-MM");
             boolean contains = ((week == 1 || week == 7) && !overtimeList.contains(format)) || holidayList.contains(format);
             if (contains) {
-                log.info("insert into sys_holiday(calendar,date_month,type,weekday)values('" + format + "','" + formatMonth + "',2," + week + "); ");
+                log.info("insert into sys_holiday(calendar,date_month,type,weekday)values('{}','{}',2,{}); ", format, formatMonth, week);
             } else {
-                log.info("insert into sys_holiday(calendar,date_month,type,weekday)values('" + format + "','" + formatMonth + "',1," + week + "); ");
+                log.info("insert into sys_holiday(calendar,date_month,type,weekday)values('{}','{}',1,{}); ", format, formatMonth, week);
             }
             calendar.add(Calendar.DAY_OF_WEEK, 1);
         }

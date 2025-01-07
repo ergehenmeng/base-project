@@ -1,9 +1,9 @@
 package com.eghm.dto.sys.role;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -12,11 +12,11 @@ import java.util.List;
 @Data
 public class RoleAuthRequest {
 
-    @ApiModelProperty(value = "角色id", required = true)
+    @Schema(description = "角色id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "请选择要授权的角色")
     private Long roleId;
 
-    @ApiModelProperty("菜单ids")
+    @Schema(description = "菜单ids")
     private List<Long> menuIds;
 
 }

@@ -1,6 +1,6 @@
 package com.eghm.vo.business.venue;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -13,15 +13,15 @@ import java.util.List;
 @Data
 public class VenueSiteDetailResponse {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "场地封面图片")
+    @Schema(description = "场地封面图片")
     private String coverUrl;
 
-    @ApiModelProperty(value = "场地名称")
+    @Schema(description = "场地名称")
     private String title;
 
-    @ApiModelProperty("场地价格介绍")
+    @Schema(description = "场地价格介绍")
     private List<VenueSitePriceVO> priceList;
 }

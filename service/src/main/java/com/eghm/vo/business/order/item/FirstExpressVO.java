@@ -1,6 +1,6 @@
 package com.eghm.vo.business.order.item;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -11,9 +11,9 @@ import lombok.Data;
 @Data
 public class FirstExpressVO {
 
-    @ApiModelProperty("快递id")
+    @Schema(description = "快递id")
     private Long id;
 
-    @ApiModelProperty("快递内容(最新节点)")
+    @Schema(description = "快递内容(最新节点)")
     private String content;
 }

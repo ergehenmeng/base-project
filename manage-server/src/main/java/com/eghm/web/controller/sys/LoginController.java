@@ -17,8 +17,8 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -27,14 +27,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * @author 二哥很猛
  * @since 2022/1/28 17:01
  */
 @RestController
-@Api(tags = "登陆")
+@Tag(name="登陆")
 @AllArgsConstructor
 @RequestMapping(value = "/manage", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LoginController {
@@ -48,7 +48,7 @@ public class LoginController {
     private final UserTokenService userTokenService;
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("管理后台登陆")
+    @Operation(summary = "管理后台登陆")
     public RespBody<LoginResponse> login(@Validated @RequestBody LoginRequest request, HttpServletRequest servletRequest) {
         if (this.verifyCodeError(servletRequest, request.getVerifyCode())) {
             return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
@@ -59,7 +59,7 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
-    @ApiOperation("退出登录")
+    @Operation(summary = "退出登录")
     @SkipPerm
     public RespBody<Void> logout() {
         UserToken user = SecurityHolder.getUser();
@@ -72,7 +72,7 @@ public class LoginController {
     }
 
     @PostMapping(value = "/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("发送登陆验证码")
+    @Operation(summary = "发送登陆验证码")
     public RespBody<LoginResponse> sendSms(@Validated @RequestBody SmsVerifyRequest request, HttpServletRequest servletRequest) {
         if (this.verifyCodeError(servletRequest, request.getVerifyCode())) {
             return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
@@ -82,7 +82,7 @@ public class LoginController {
     }
 
     @PostMapping(value = "/smsLogin", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("验证码登录")
+    @Operation(summary = "验证码登录")
     public RespBody<LoginResponse> smsLogin(@Validated @RequestBody SmsLoginRequest request, HttpServletRequest servletRequest) {
         request.setIp(IpUtil.getIpAddress(servletRequest));
         String openId = (String) servletRequest.getSession().getAttribute(CommonConstant.OPEN_ID);
@@ -91,7 +91,7 @@ public class LoginController {
     }
 
     @PostMapping(value = "/unbindWeChat", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("解绑微信")
+    @Operation(summary = "解绑微信")
     @SkipPerm
     public RespBody<Void> unbindWeChat() {
         sysUserService.unbindWeChat();

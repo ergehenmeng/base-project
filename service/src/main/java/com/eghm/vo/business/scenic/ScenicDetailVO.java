@@ -4,7 +4,7 @@ import com.eghm.convertor.BigDecimalOmitEncoder;
 import com.eghm.vo.business.activity.ActivityBaseDTO;
 import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -17,52 +17,52 @@ import java.util.List;
 @Data
 public class ScenicDetailVO {
 
-    @ApiModelProperty("景区ID")
+    @Schema(description = "景区ID")
     private Long id;
 
-    @ApiModelProperty("封面图")
+    @Schema(description = "封面图")
     private String coverUrl;
 
-    @ApiModelProperty("景区名称")
+    @Schema(description = "景区名称")
     private String scenicName;
 
-    @ApiModelProperty("景区等级 5:5A 4:4A 3:3A 0:其他")
+    @Schema(description = "景区等级 5:5A 4:4A 3:3A 0:其他")
     private Integer level;
 
-    @ApiModelProperty("景区电话")
+    @Schema(description = "景区电话")
     private String phone;
 
-    @ApiModelProperty(value = "景区营业时间")
+    @Schema(description = "景区营业时间")
     private String openTime;
 
-    @ApiModelProperty("景区标签")
+    @Schema(description = "景区标签")
     private List<String> tagList;
 
-    @ApiModelProperty("是否收藏")
+    @Schema(description = "是否收藏")
     private Boolean collect;
 
-    @ApiModelProperty("景区信息描述")
+    @Schema(description = "景区信息描述")
     private String depict;
 
-    @ApiModelProperty("距离 单位:m")
+    @Schema(description = "距离 单位:m")
     @JsonSerialize(using = BigDecimalOmitEncoder.class)
     private BigDecimal distance;
 
-    @ApiModelProperty(value = "详细地址(含省市县)")
+    @Schema(description = "详细地址(含省市县)")
     private String detailAddress;
 
-    @ApiModelProperty(value = "经度", hidden = true)
+    @Schema(description = "经度", hidden = true)
     private BigDecimal longitude;
 
-    @ApiModelProperty(value = "纬度", hidden = true)
+    @Schema(description = "纬度", hidden = true)
     private BigDecimal latitude;
 
-    @ApiModelProperty(value = "景区详细介绍信息")
+    @Schema(description = "景区详细介绍信息")
     private String introduce;
 
-    @ApiModelProperty("景区门票列表")
+    @Schema(description = "景区门票列表")
     private List<TicketBaseVO> ticketList;
 
-    @ApiModelProperty("景区活动")
+    @Schema(description = "景区活动")
     private List<ActivityBaseDTO> activityList;
 }

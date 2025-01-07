@@ -1,6 +1,6 @@
 package com.eghm.vo.business.shopping;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -13,12 +13,12 @@ import java.util.List;
 @Data
 public class ShoppingCartVO {
 
-    @ApiModelProperty("店铺名称")
+    @Schema(description = "店铺名称")
     private String storeTitle;
 
-    @ApiModelProperty("店铺id")
+    @Schema(description = "店铺id")
     private Long storeId;
 
-    @ApiModelProperty("购物车商品列表")
+    @Schema(description = "购物车商品列表")
     private List<ShoppingCartItemVO> itemList;
 }

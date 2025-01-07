@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,27 +18,27 @@ import lombok.EqualsAndHashCode;
 @TableName("merchant_address")
 public class MerchantAddress extends BaseEntity {
 
-    @ApiModelProperty(value = "商户id")
+    @Schema(description = "商户id")
     private Long merchantId;
 
-    @ApiModelProperty(value = "昵称")
+    @Schema(description = "昵称")
     private String nickName;
 
-    @ApiModelProperty(value = "手机号码")
+    @Schema(description = "手机号码")
     private String mobile;
 
-    @ApiModelProperty(value = "省份id")
+    @Schema(description = "省份id")
     private Long provinceId;
 
-    @ApiModelProperty(value = "城市id")
+    @Schema(description = "城市id")
     private Long cityId;
 
-    @ApiModelProperty(value = "县区id")
+    @Schema(description = "县区id")
     private Long countyId;
 
-    @ApiModelProperty(value = "详细地址")
+    @Schema(description = "详细地址")
     private String detailAddress;
 
-    @ApiModelProperty("备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 }

@@ -106,7 +106,7 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
     @Override
     protected void before(VenueOrderCreateContext context, VenueOrderPayload payload) {
         int size = context.getPhaseList().size();
-        List<VenueSitePrice> priceList = payload.getPriceList().stream().filter(phase -> phase.getStock() > 0 && phase.getState()).collect(Collectors.toList());
+        List<VenueSitePrice> priceList = payload.getPriceList().stream().filter(phase -> phase.getStock() > 0 && phase.getState()).toList();
         if (size != priceList.size()) {
             log.error("时间段可能已被预约,库存不足 [{}] [{}]", context.getPhaseList(), payload.getPriceList());
             throw new BusinessException(ErrorCode.VENUE_STOCK);

@@ -15,14 +15,14 @@ import com.eghm.service.business.OrderProxyService;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.order.line.LineOrderDetailResponse;
 import com.eghm.vo.business.order.line.LineOrderResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -30,7 +30,7 @@ import java.util.List;
  * @since 2023/6/8
  */
 @RestController
-@Api(tags = "线路订单")
+@Tag(name="线路订单")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/line/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LineOrderController {
@@ -42,7 +42,7 @@ public class LineOrderController {
     private final OrderProxyService orderProxyService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<LineOrderResponse>> listPage(LineOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<LineOrderResponse> byPage = lineOrderService.listPage(request);
@@ -50,14 +50,14 @@ public class LineOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     public RespBody<LineOrderDetailResponse> detail(@Validated OrderDTO dto) {
         LineOrderDetailResponse detail = lineOrderService.detail(dto.getOrderNo());
         return RespBody.success(detail);
     }
 
     @PostMapping(value = "/refund", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("退款")
+    @Operation(summary = "退款")
     public RespBody<Void> refund(@RequestBody @Validated PlatformRefundRequest request) {
         return redisLock.lock(LockConstant.ORDER_LOCK + request.getOrderNo(), 10_000, () -> {
             request.setEvent(LineEvent.PLATFORM_REFUND);
@@ -67,7 +67,7 @@ public class LineOrderController {
     }
 
     @GetMapping("/export")
-    @ApiOperation("导出")
+    @Operation(summary = "导出")
     public void export(HttpServletResponse response, LineOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<LineOrderResponse> byPage = lineOrderService.getList(request);

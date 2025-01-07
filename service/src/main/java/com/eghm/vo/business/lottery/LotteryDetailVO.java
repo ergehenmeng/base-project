@@ -2,7 +2,7 @@ package com.eghm.vo.business.lottery;
 
 import com.eghm.enums.ref.LotteryState;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -16,39 +16,39 @@ import java.util.List;
 @Data
 public class LotteryDetailVO {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "活动名称")
+    @Schema(description = "活动名称")
     private String title;
 
-    @ApiModelProperty(value = "开始时间")
+    @Schema(description = "开始时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
 
-    @ApiModelProperty(value = "结束时间")
+    @Schema(description = "结束时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
-    @ApiModelProperty(value = "活动状态 0:未开始 1:进行中 2:已结束")
+    @Schema(description = "活动状态 0:未开始 1:进行中 2:已结束")
     private LotteryState state;
 
-    @ApiModelProperty(value = "单日抽奖次数限制")
+    @Schema(description = "单日抽奖次数限制")
     private Integer lotteryDay;
 
-    @ApiModelProperty("今日已抽奖次数")
+    @Schema(description = "今日已抽奖次数")
     private Long lotteryNum;
 
-    @ApiModelProperty(value = "抽奖页面封面图")
+    @Schema(description = "抽奖页面封面图")
     private String coverUrl;
 
-    @ApiModelProperty(value = "抽奖标题")
+    @Schema(description = "抽奖标题")
     private String subTitle;
 
-    @ApiModelProperty(value = "抽奖规则")
+    @Schema(description = "抽奖规则")
     private String rule;
 
-    @ApiModelProperty("奖品列表")
+    @Schema(description = "奖品列表")
     private List<LotteryPrizeVO> prizeList;
 
 }

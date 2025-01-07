@@ -6,8 +6,8 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.HomestayService;
 import com.eghm.vo.business.homestay.HomestayDetailVO;
 import com.eghm.vo.business.homestay.HomestayVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -22,7 +22,7 @@ import java.util.List;
  * @since 2023/1/9
  */
 @RestController
-@Api(tags = "民宿")
+@Tag(name="民宿")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/homestay", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HomestayController {
@@ -30,14 +30,14 @@ public class HomestayController {
     private final HomestayService homestayService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<List<HomestayVO>> listPage(@Validated HomestayQueryDTO dto) {
         List<HomestayVO> byPage = homestayService.getByPage(dto);
         return RespBody.success(byPage);
     }
 
     @GetMapping("/detail")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     public RespBody<HomestayDetailVO> detail(@Validated IdDTO dto) {
         HomestayDetailVO detail = homestayService.detailById(dto.getId());
         return RespBody.success(detail);

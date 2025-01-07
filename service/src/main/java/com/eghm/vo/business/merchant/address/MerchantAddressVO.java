@@ -1,7 +1,7 @@
 
 package com.eghm.vo.business.merchant.address;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -12,12 +12,12 @@ import lombok.Data;
 @Data
 public class MerchantAddressVO {
 
-    @ApiModelProperty(value = "昵称")
+    @Schema(description = "昵称")
     private String nickName;
 
-    @ApiModelProperty(value = "手机号码")
+    @Schema(description = "手机号码")
     private String mobile;
 
-    @ApiModelProperty(value = "详细地址")
+    @Schema(description = "详细地址")
     private String detailAddress;
 }

@@ -16,14 +16,14 @@ import com.eghm.service.business.OrderProxyService;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.order.homestay.HomestayOrderDetailResponse;
 import com.eghm.vo.business.order.homestay.HomestayOrderResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -31,7 +31,7 @@ import java.util.List;
  * @since 2023/6/8
  */
 @RestController
-@Api(tags = "民宿订单")
+@Tag(name="民宿订单")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/homestay/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HomestayOrderController {
@@ -43,7 +43,7 @@ public class HomestayOrderController {
     private final HomestayOrderService homestayOrderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<HomestayOrderResponse>> listPage(HomestayOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<HomestayOrderResponse> byPage = homestayOrderService.listPage(request);
@@ -51,14 +51,14 @@ public class HomestayOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     public RespBody<HomestayOrderDetailResponse> detail(@Validated OrderDTO dto) {
         HomestayOrderDetailResponse detail = homestayOrderService.detail(dto.getOrderNo());
         return RespBody.success(detail);
     }
 
     @PostMapping(value = "/refund", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("退款")
+    @Operation(summary = "退款")
     public RespBody<Void> refund(@RequestBody @Validated PlatformRefundRequest request) {
         return redisLock.lock(LockConstant.ORDER_LOCK + request.getOrderNo(), 10_000, () -> {
             request.setEvent(HomestayEvent.PLATFORM_REFUND);
@@ -68,14 +68,14 @@ public class HomestayOrderController {
     }
 
     @PostMapping(value = "/confirm", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("确认订单")
+    @Operation(summary = "确认订单")
     public RespBody<Void> confirm(@RequestBody @Validated HomestayOrderConfirmRequest request) {
         orderProxyService.confirm(request);
         return RespBody.success();
     }
 
     @GetMapping("/export")
-    @ApiOperation("导出Excel")
+    @Operation(summary = "导出Excel")
     public void export(HttpServletResponse response, HomestayOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<HomestayOrderResponse> byPage = homestayOrderService.getList(request);

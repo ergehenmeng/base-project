@@ -24,14 +24,14 @@ import com.eghm.vo.business.item.ActivityItemResponse;
 import com.eghm.vo.business.item.ItemDetailResponse;
 import com.eghm.vo.business.item.ItemResponse;
 import com.eghm.vo.business.item.ItemSkuStockResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -40,7 +40,7 @@ import java.util.List;
  */
 
 @RestController
-@Api(tags = "零售管理")
+@Tag(name="零售管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/item", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemController {
@@ -50,7 +50,7 @@ public class ItemController {
     private final ItemSkuService itemSkuService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<ItemResponse>> listPage(ItemQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ItemResponse> byPage = itemService.getByPage(request);
@@ -58,7 +58,7 @@ public class ItemController {
     }
 
     @GetMapping("/productListPage")
-    @ApiOperation("列表(含店铺)")
+    @Operation(summary = "列表(含店铺)")
     public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseProductResponse> listPage = itemService.getProductPage(request);
@@ -66,42 +66,42 @@ public class ItemController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增")
+    @Operation(summary = "新增")
     public RespBody<Void> create(@Validated @RequestBody ItemAddRequest request) {
         itemService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑")
     public RespBody<Void> update(@Validated @RequestBody ItemEditRequest request) {
         itemService.update(request);
         return RespBody.success();
     }
 
     @GetMapping("/select")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     public RespBody<ItemDetailResponse> select(@Validated IdDTO dto) {
         ItemDetailResponse detail = itemService.getDetailById(dto.getId());
         return RespBody.success(detail);
     }
 
     @PostMapping(value = "/shelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("上架")
+    @Operation(summary = "上架")
     public RespBody<Void> shelves(@Validated @RequestBody IdDTO dto) {
         itemService.updateState(dto.getId(), State.SHELVE);
         return RespBody.success();
     }
 
     @PostMapping(value = "/unShelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("下架")
+    @Operation(summary = "下架")
     public RespBody<Void> unShelves(@Validated @RequestBody IdDTO dto) {
         itemService.updateState(dto.getId(), State.UN_SHELVE);
         return RespBody.success();
     }
 
     @GetMapping("/getSku")
-    @ApiOperation("查看sku信息")
+    @Operation(summary = "查看sku信息")
     @SkipPerm
     public RespBody<List<ItemSkuStockResponse>> getSku(@Validated IdDTO request) {
         List<ItemSku> skuList = itemSkuService.getSkuList(request.getId());
@@ -110,7 +110,7 @@ public class ItemController {
     }
 
     @PostMapping("/addStock")
-    @ApiOperation("增加库存")
+    @Operation(summary = "增加库存")
     @SkipPerm
     public RespBody<Void> addStock(@RequestBody @Validated ItemAddStockRequest request) {
         itemService.addStock(request);
@@ -118,42 +118,42 @@ public class ItemController {
     }
 
     @PostMapping(value = "/platformUnShelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("平台下架")
+    @Operation(summary = "平台下架")
     public RespBody<Void> platformUnShelves(@RequestBody @Validated IdDTO dto) {
         itemService.updateState(dto.getId(), State.FORCE_UN_SHELVE);
         return RespBody.success();
     }
 
     @PostMapping(value = "/recommend", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("设置推荐商品")
+    @Operation(summary = "设置推荐商品")
     public RespBody<Void> recommend(@RequestBody @Validated RecommendDTO dto) {
         itemService.setRecommend(dto.getId(), dto.getRecommend());
         return RespBody.success();
     }
 
     @PostMapping(value = "/sort", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("排序")
+    @Operation(summary = "排序")
     public RespBody<Void> sort(@RequestBody @Validated SortByDTO dto) {
         itemService.sortBy(dto.getId(), dto.getSortBy());
         return RespBody.success();
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         itemService.deleteById(dto.getId());
         return RespBody.success();
     }
 
     @GetMapping("/activityList")
-    @ApiOperation("未参加活动的商品列表")
+    @Operation(summary = "未参加活动的商品列表")
     public RespBody<List<ActivityItemResponse>> activityList(IdDTO dto) {
         List<ActivityItemResponse> activityList = itemService.getActivityList(SecurityHolder.getMerchantId(), dto.getId());
         return RespBody.success(activityList);
     }
 
     @GetMapping("/export")
-    @ApiOperation("导出")
+    @Operation(summary = "导出")
     public void export(HttpServletResponse response, ItemQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<ItemResponse> byPage = itemService.getList(request);

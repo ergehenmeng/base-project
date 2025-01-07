@@ -1,6 +1,6 @@
 package com.eghm.vo.member;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -10,30 +10,30 @@ import lombok.Data;
 @Data
 public class AddressVO {
 
-    @ApiModelProperty("id")
+    @Schema(description = "id")
     private Long id;
 
-    @ApiModelProperty("省份id")
+    @Schema(description = "省份id")
     private Long provinceId;
 
-    @ApiModelProperty("省份名称")
+    @Schema(description = "省份名称")
     private String provinceName;
 
-    @ApiModelProperty("城市id")
+    @Schema(description = "城市id")
     private Long cityId;
 
-    @ApiModelProperty("城市名称")
+    @Schema(description = "城市名称")
     private String cityName;
 
-    @ApiModelProperty("县区id")
+    @Schema(description = "县区id")
     private Long countyId;
 
-    @ApiModelProperty("县区名称")
+    @Schema(description = "县区名称")
     private String countyName;
 
-    @ApiModelProperty("详细地址")
+    @Schema(description = "详细地址")
     private String detailAddress;
 
-    @ApiModelProperty("状态 0:普通地址 1:默认地址")
+    @Schema(description = "状态 0:普通地址 1:默认地址")
     private Integer state;
 }

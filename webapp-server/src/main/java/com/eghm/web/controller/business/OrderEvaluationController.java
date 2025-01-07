@@ -10,8 +10,8 @@ import com.eghm.vo.business.evaluation.EvaluationGroupVO;
 import com.eghm.vo.business.evaluation.OrderEvaluationVO;
 import com.eghm.vo.business.order.OrderCreateVO;
 import com.eghm.web.annotation.AccessToken;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 @AccessToken
 @RestController
-@Api(tags = "订单评价")
+@Tag(name="订单评价")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/order/evaluation", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrderEvaluationController {
@@ -33,7 +33,7 @@ public class OrderEvaluationController {
     private final OrderEvaluationService orderEvaluationService;
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("订单评论")
+    @Operation(summary = "订单评论")
     public RespBody<OrderCreateVO<String>> create(@RequestBody @Validated OrderEvaluationDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         orderEvaluationService.create(dto);
@@ -41,14 +41,14 @@ public class OrderEvaluationController {
     }
 
     @GetMapping("/count")
-    @ApiOperation("统计商品评论数")
+    @Operation(summary = "统计商品评论数")
     public RespBody<EvaluationGroupVO> count(@Validated IdDTO dto) {
         EvaluationGroupVO vo = orderEvaluationService.groupEvaluation(dto.getId());
         return RespBody.success(vo);
     }
 
     @GetMapping("/listPage")
-    @ApiOperation("商品评论列表")
+    @Operation(summary = "商品评论列表")
     public RespBody<List<OrderEvaluationVO>> listPage(@Validated OrderEvaluationQueryDTO dto) {
         List<OrderEvaluationVO> byPage = orderEvaluationService.getByPage(dto);
         return RespBody.success(byPage);

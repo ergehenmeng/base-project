@@ -2,12 +2,12 @@ package com.eghm.dto.business.venue;
 
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.VenueType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
 
 /**
@@ -19,19 +19,19 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 public class VenueQueryDTO extends PagingQuery {
 
-    @ApiModelProperty(value = "场馆类型")
+    @Schema(description = "场馆类型")
     private VenueType venueType;
 
-    @ApiModelProperty("经度")
+    @Schema(description = "经度")
     @DecimalMin(value = "-180", message = "经度应(-180, 180]范围内", inclusive = false)
     @DecimalMax(value = "180", message = "经度应(-180, 180]范围内")
     private BigDecimal longitude;
 
-    @ApiModelProperty("纬度")
+    @Schema(description = "纬度")
     @DecimalMin(value = "-90", message = "纬度应[-90, 90]范围内")
     @DecimalMax(value = "90", message = "纬度应[-90, 90]范围内")
     private BigDecimal latitude;
 
-    @ApiModelProperty("是否按距离排序")
+    @Schema(description = "是否按距离排序")
     private Boolean sortByDistance = false;
 }

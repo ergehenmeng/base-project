@@ -52,8 +52,8 @@
         <if test="param.roomType != null">
             and room_type = #{param.roomType}
         </if>
-        <if test="resident != null">
-            and resident &gt;= #{resident}
+        <if test="param.resident != null">
+            and resident &gt;= #{param.resident}
         </if>
         order by id desc
     </select>

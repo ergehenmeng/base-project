@@ -9,14 +9,14 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.WithdrawService;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.withdraw.WithdrawLogResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -24,7 +24,7 @@ import java.util.List;
  * @since 2024/2/19
  */
 @RestController
-@Api(tags = "商户提现")
+@Tag(name="商户提现")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/merchant/withdraw", produces = MediaType.APPLICATION_JSON_VALUE)
 public class WithdrawController {
@@ -32,7 +32,7 @@ public class WithdrawController {
     private final WithdrawService withdrawService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<WithdrawLogResponse>> listPage(WithdrawQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<WithdrawLogResponse> roomPage = withdrawService.getByPage(request);
@@ -40,7 +40,7 @@ public class WithdrawController {
     }
 
     @GetMapping("/export")
-    @ApiOperation("导出")
+    @Operation(summary = "导出")
     public void export(HttpServletResponse response, WithdrawQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<WithdrawLogResponse> byPage = withdrawService.getList(request);
@@ -48,7 +48,7 @@ public class WithdrawController {
     }
 
     @PostMapping(value = "/apply", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("提现申请")
+    @Operation(summary = "提现申请")
     public RespBody<Void> apply(@Validated @RequestBody WithdrawApplyDTO dto) {
         dto.setMerchantId(SecurityHolder.getMerchantId());
         withdrawService.apply(dto);

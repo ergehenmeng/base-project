@@ -2,7 +2,7 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,34 +22,34 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class TicketOrder extends BaseEntity {
 
-    @ApiModelProperty("门票所属景区(冗余字段)")
+    @Schema(description = "门票所属景区(冗余字段)")
     private Long scenicId;
 
-    @ApiModelProperty("景区名称")
+    @Schema(description = "景区名称")
     private String scenicName;
 
-    @ApiModelProperty(value = "门票id")
+    @Schema(description = "门票id")
     private Long ticketId;
 
-    @ApiModelProperty(value = "订单号")
+    @Schema(description = "订单号")
     private String orderNo;
 
-    @ApiModelProperty("划线价")
+    @Schema(description = "划线价")
     private Integer linePrice;
 
-    @ApiModelProperty("预计游玩日期")
+    @Schema(description = "预计游玩日期")
     private LocalDate visitDate;
 
-    @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
+    @Schema(description = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
     private Integer category;
 
-    @ApiModelProperty(value = "是否实名购票 0:不实名 1:实名")
+    @Schema(description = "是否实名购票 0:不实名 1:实名")
     private Boolean realBuy;
 
-    @ApiModelProperty(value = "门票介绍")
+    @Schema(description = "门票介绍")
     private String introduce;
 
-    @ApiModelProperty("门票核销时间")
+    @Schema(description = "门票核销时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime useTime;
 }

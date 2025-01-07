@@ -1,10 +1,10 @@
 package com.eghm.dto.business.item;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -15,11 +15,11 @@ import java.util.List;
 @Data
 public class ItemAddStockRequest {
 
-    @ApiModelProperty(value = "商品id")
+    @Schema(description = "商品id")
     @NotNull(message = "商品id不能为空")
     private Long itemId;
 
-    @ApiModelProperty(value = "规格列表")
+    @Schema(description = "规格列表")
     @NotEmpty(message = "规格列表不能为空")
     private List<ItemStockRequest> skuList;
 }

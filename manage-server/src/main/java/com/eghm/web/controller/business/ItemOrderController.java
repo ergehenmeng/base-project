@@ -19,14 +19,14 @@ import com.eghm.service.business.OrderService;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.order.item.ItemOrderDetailResponse;
 import com.eghm.vo.business.order.item.ItemOrderResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -34,7 +34,7 @@ import java.util.List;
  * @since 2023/6/8
  */
 @RestController
-@Api(tags = "零售订单")
+@Tag(name="零售订单")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/item/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemOrderController {
@@ -52,7 +52,7 @@ public class ItemOrderController {
     private final OrderExpressService orderExpressService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<ItemOrderResponse>> listPage(ItemOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ItemOrderResponse> byPage = itemOrderService.listPage(request);
@@ -60,7 +60,7 @@ public class ItemOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     public RespBody<ItemOrderDetailResponse> detail(@Validated OrderDTO dto) {
         ItemOrderDetailResponse detail = itemOrderService.detail(dto.getOrderNo());
         return RespBody.success(detail);
@@ -71,7 +71,7 @@ public class ItemOrderController {
      * 2. 针对不需要发货的商品, 商品无法勾选发货
      */
     @PostMapping(value = "/sipping", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("发货")
+    @Operation(summary = "发货")
     public RespBody<Void> sipping(@RequestBody @Validated ItemSippingRequest request) {
         return redisLock.lock(LockConstant.ORDER_LOCK + request.getOrderNo(), 10_000, () -> {
             orderService.sipping(request);
@@ -80,20 +80,20 @@ public class ItemOrderController {
     }
 
     @GetMapping("/expressList")
-    @ApiOperation("获取快递列表")
+    @Operation(summary = "获取快递列表")
     public RespBody<List<Express>> getExpressList() {
         return RespBody.success(cacheProxyService.getExpressList());
     }
 
     @PostMapping(value = "/updateExpress", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新快递单号")
+    @Operation(summary = "更新快递单号")
     public RespBody<Void> updateExpress(@RequestBody @Validated OrderExpressRequest request) {
         orderExpressService.update(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/refund", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("退款")
+    @Operation(summary = "退款")
     public RespBody<Void> refund(@RequestBody @Validated OrderDTO request) {
         return redisLock.lock(LockConstant.ORDER_LOCK + request.getOrderNo(), 10_000, () -> {
             orderProxyService.itemRefund(request.getOrderNo());
@@ -102,7 +102,7 @@ public class ItemOrderController {
     }
 
     @GetMapping("/export")
-    @ApiOperation("导出Excel")
+    @Operation(summary = "导出Excel")
     public void export(HttpServletResponse response, ItemOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<ItemOrderResponse> byPage = itemOrderService.getList(request);

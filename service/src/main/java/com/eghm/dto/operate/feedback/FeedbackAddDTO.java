@@ -2,7 +2,7 @@ package com.eghm.dto.operate.feedback;
 
 import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.WordChecker;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -14,33 +14,33 @@ import lombok.Data;
 @Data
 public class FeedbackAddDTO {
 
-    @ApiModelProperty(value = "反馈内容分类", required = true)
+    @Schema(description = "反馈内容分类", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer feedbackType;
 
-    @ApiModelProperty(value = "反馈内容", required = true)
+    @Schema(description = "反馈内容", requiredMode = Schema.RequiredMode.REQUIRED)
     @WordChecker(message = "反馈内容存在敏感字")
     private String content;
 
-    @ApiModelProperty("图片地址")
+    @Schema(description = "图片地址")
     private String imageUrl;
 
-    @ApiModelProperty(value = "用户id", hidden = true)
+    @Schema(description = "用户id", hidden = true)
     @Assign
     private Long memberId;
 
-    @ApiModelProperty(value = "设备品牌", hidden = true)
+    @Schema(description = "设备品牌", hidden = true)
     @Assign
     private String deviceBrand;
 
-    @ApiModelProperty(value = "设备型号", hidden = true)
+    @Schema(description = "设备型号", hidden = true)
     @Assign
     private String deviceModel;
 
-    @ApiModelProperty(value = "软件版本", hidden = true)
+    @Schema(description = "软件版本", hidden = true)
     @Assign
     private String version;
 
-    @ApiModelProperty(value = "系统版本", hidden = true)
+    @Schema(description = "系统版本", hidden = true)
     @Assign
     private String systemVersion;
 

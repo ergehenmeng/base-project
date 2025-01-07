@@ -1,7 +1,7 @@
 package com.eghm.dto.member.register;
 
 import com.eghm.validation.annotation.Mobile;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -12,7 +12,7 @@ import lombok.Data;
 public class RegisterSendSmsDTO {
 
     @Mobile
-    @ApiModelProperty(required = true, value = "手机号码")
+    @Schema(description = "手机号码", requiredMode = Schema.RequiredMode.REQUIRED)
     private String mobile;
 
 }

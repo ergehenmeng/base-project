@@ -8,7 +8,7 @@ import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.FieldType;
 import com.eghm.enums.ref.RedeemState;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,30 +22,30 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 public class RedeemCodeGrantResponse extends ExcelStyle {
 
-    @ApiModelProperty("cdKey")
+    @Schema(description = "cdKey")
     @Desensitization(FieldType.MOBILE_PHONE)
     @ExcelProperty(value = "cdKey",index = 0)
     private String cdKey;
 
-    @ApiModelProperty("使用状态 0:待使用 1:已使用 2:已过期")
+    @Schema(description = "使用状态 0:待使用 1:已使用 2:已过期")
     @ExcelProperty(index = 1, value = "使用状态", converter = EnumExcelConverter.class)
     private RedeemState state;
 
-    @ApiModelProperty("发放时间")
+    @Schema(description = "发放时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ExcelProperty(value = "发放时间", index = 2)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("用户昵称")
+    @Schema(description = "用户昵称")
     @ExcelProperty(value = "用户昵称", index = 3)
     private String nickName;
 
-    @ApiModelProperty("手机号")
+    @Schema(description = "手机号")
     @ExcelProperty(value = "手机号", index = 4)
     private String mobile;
 
-    @ApiModelProperty("使用时间")
+    @Schema(description = "使用时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ExcelProperty(value = "使用时间", index = 5)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")

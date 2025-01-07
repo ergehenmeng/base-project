@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -18,19 +18,19 @@ import java.time.LocalDateTime;
 public class ItemOrderExpress {
 
     @TableId(type = IdType.ASSIGN_ID)
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty("零售订单id")
+    @Schema(description = "零售订单id")
     private Long itemOrderId;
 
-    @ApiModelProperty("快递信息id")
+    @Schema(description = "快递信息id")
     private Long expressId;
 
-    @ApiModelProperty("订单号")
+    @Schema(description = "订单号")
     private String orderNo;
 
-    @ApiModelProperty("添加时间")
+    @Schema(description = "添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 

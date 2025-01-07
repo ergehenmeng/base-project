@@ -1,6 +1,6 @@
 package com.eghm.vo.business.item;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -13,16 +13,16 @@ import java.util.List;
 @Data
 public class ItemSpecResponse {
 
-    @ApiModelProperty("规格id")
+    @Schema(description = "规格id")
     private Long specId;
 
-    @ApiModelProperty(value = "规格名")
+    @Schema(description = "规格名")
     private String specName;
 
-    @ApiModelProperty(value = "标签级别(1:一级标签 2:二级标签)")
+    @Schema(description = "标签级别(1:一级标签 2:二级标签)")
     private Integer level;
 
-    @ApiModelProperty(value = "规格值列表")
+    @Schema(description = "规格值列表")
     private List<ItemSpecValueResponse> valueList;
 
 }

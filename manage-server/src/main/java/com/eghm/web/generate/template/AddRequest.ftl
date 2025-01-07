@@ -1,14 +1,14 @@
 package ${template.packageName};
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 /**
 * @author 二哥很猛
@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 public class ${template.fileName}AddRequest {
 
 <#list template.fieldList as field>
-    @ApiModelProperty(value = "${field.desc!}", required = true)
+    @Schema(description = "${field.desc!}", requiredMode = Schema.RequiredMode.REQUIRED)
     <#if field.fieldType == "String">
     @NotBlank(message = "${field.desc!}不能为空")
     </#if>

@@ -3,7 +3,7 @@ package com.eghm.model;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,22 +20,22 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class Account extends BaseEntity {
 
-    @ApiModelProperty(value = "商户id")
+    @Schema(description = "商户id")
     private Long merchantId;
 
-    @ApiModelProperty(value = "可提现金额")
+    @Schema(description = "可提现金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer amount;
 
-    @ApiModelProperty(value = "支付冻结金额")
+    @Schema(description = "支付冻结金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer payFreeze;
 
-    @ApiModelProperty(value = "提现冻结金额")
+    @Schema(description = "提现冻结金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer withdrawFreeze;
 
-    @ApiModelProperty(value = "版本号")
+    @Schema(description = "版本号")
     private Integer version;
 
 }

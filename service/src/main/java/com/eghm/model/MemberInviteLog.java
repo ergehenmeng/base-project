@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,10 +13,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class MemberInviteLog extends BaseEntity {
 
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     private Long memberId;
 
-    @ApiModelProperty("邀请人id")
+    @Schema(description = "邀请人id")
     private Long inviteMemberId;
 
 }

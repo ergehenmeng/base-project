@@ -18,7 +18,7 @@ import java.util.Map;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LogTraceHolder {
 
-    private static final TransmittableThreadLocal<Map<String, String>> TTL_MDC = new TransmittableThreadLocal<Map<String, String>>() {
+    private static final TransmittableThreadLocal<Map<String, String>> TTL_MDC = new TransmittableThreadLocal<>() {
 
         /**
          * 在多线程数据传递的时候，将数据复制一份给MDC

@@ -11,8 +11,8 @@ import com.eghm.vo.business.order.line.LineOrderSnapshotDetailVO;
 import com.eghm.vo.business.order.line.LineOrderVO;
 import com.eghm.web.annotation.AccessToken;
 import com.eghm.web.annotation.VisitRecord;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 @AccessToken
 @RestController
-@Api(tags = "线路订单")
+@Tag(name="线路订单")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/line/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LineOrderController {
@@ -36,7 +36,7 @@ public class LineOrderController {
     private final LineOrderService lineOrderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<List<LineOrderVO>> listPage(@Validated LineOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<LineOrderVO> voList = lineOrderService.getByPage(dto);
@@ -44,7 +44,7 @@ public class LineOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     @VisitRecord(VisitType.ORDER_DETAIL)
     public RespBody<LineOrderDetailVO> detail(@Validated OrderDTO dto) {
         LineOrderDetailVO detail = lineOrderService.getDetail(dto.getOrderNo(), ApiHolder.getMemberId());
@@ -52,7 +52,7 @@ public class LineOrderController {
     }
 
     @GetMapping("/snapshot")
-    @ApiOperation("订单快照")
+    @Operation(summary = "订单快照")
     public RespBody<LineOrderSnapshotDetailVO> snapshot(@Validated OrderDTO dto) {
         LineOrderSnapshotDetailVO detail = lineOrderService.snapshotDetail(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success(detail);

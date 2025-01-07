@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,18 +18,18 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class LotteryLog extends BaseEntity {
 
-    @ApiModelProperty(value = "抽奖活动id")
+    @Schema(description = "抽奖活动id")
     private Long lotteryId;
 
-    @ApiModelProperty(value = "用户id")
+    @Schema(description = "用户id")
     private Long memberId;
 
-    @ApiModelProperty(value = "抽奖位置")
+    @Schema(description = "抽奖位置")
     private Integer location;
 
-    @ApiModelProperty("是否中奖 false:未中奖 true:中奖")
+    @Schema(description = "是否中奖 false:未中奖 true:中奖")
     private Boolean winning;
 
-    @ApiModelProperty("中奖奖品")
+    @Schema(description = "中奖奖品")
     private Long prizeId;
 }

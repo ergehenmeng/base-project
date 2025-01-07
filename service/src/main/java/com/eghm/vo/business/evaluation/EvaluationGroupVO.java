@@ -1,6 +1,6 @@
 package com.eghm.vo.business.evaluation;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -10,15 +10,15 @@ import lombok.Data;
 @Data
 public class EvaluationGroupVO {
 
-    @ApiModelProperty("好评")
+    @Schema(description = "好评")
     private Long high;
 
-    @ApiModelProperty("中评")
+    @Schema(description = "中评")
     private Long medium;
 
-    @ApiModelProperty("差评")
+    @Schema(description = "差评")
     private Long bad;
 
-    @ApiModelProperty("有图")
+    @Schema(description = "有图")
     private Long img;
 }

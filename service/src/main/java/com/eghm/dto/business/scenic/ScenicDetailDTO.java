@@ -1,9 +1,9 @@
 package com.eghm.dto.business.scenic;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
@@ -13,13 +13,13 @@ import java.math.BigDecimal;
 @Data
 public class ScenicDetailDTO {
 
-    @ApiModelProperty(value = "景区id", required = true)
+    @Schema(description = "景区id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "请选择景区")
     private Long scenicId;
 
-    @ApiModelProperty("经度")
+    @Schema(description = "经度")
     private BigDecimal longitude;
 
-    @ApiModelProperty("纬度")
+    @Schema(description = "纬度")
     private BigDecimal latitude;
 }

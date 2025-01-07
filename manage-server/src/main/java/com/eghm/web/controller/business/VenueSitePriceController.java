@@ -7,8 +7,8 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.model.VenueSite;
 import com.eghm.service.business.VenueSitePriceService;
 import com.eghm.service.business.VenueSiteService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@Api(tags = "场地价格")
+@Tag(name="场地价格")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/venue/site/price", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VenueSitePriceController {
@@ -33,7 +33,7 @@ public class VenueSitePriceController {
     private final VenueSitePriceService venueSitePriceService;
 
     @PostMapping(value = "/setup", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("设置价格")
+    @Operation(summary = "设置价格")
     public RespBody<Void> setup(@Validated @RequestBody VenueSitePriceRequest request) {
         VenueSite venueSite = venueSiteService.selectByIdRequired(request.getVenueSiteId());
         request.setVenueId(venueSite.getVenueId());
@@ -42,14 +42,14 @@ public class VenueSitePriceController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新")
+    @Operation(summary = "更新")
     public RespBody<Void> update(@Validated @RequestBody VenueSitePriceUpdateRequest request) {
         venueSitePriceService.update(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         venueSitePriceService.delete(dto.getId());
         return RespBody.success();

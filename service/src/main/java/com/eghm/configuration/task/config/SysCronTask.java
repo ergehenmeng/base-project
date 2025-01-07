@@ -1,11 +1,13 @@
 package com.eghm.configuration.task.config;
 
 import com.eghm.constants.CommonConstant;
+import lombok.Getter;
 
 /**
  * @author 二哥很猛
  * @since 2019/9/6 14:54
  */
+@Getter
 public class SysCronTask extends org.springframework.scheduling.config.CronTask {
 
     /**
@@ -16,10 +18,6 @@ public class SysCronTask extends org.springframework.scheduling.config.CronTask 
     SysCronTask(CronTask config) {
         super(new RunnableTask(config), config.getCronExpression());
         this.nid = config.getBeanName() + CommonConstant.SPECIAL_SPLIT + config.getMethodName();
-    }
-
-    public String getNid() {
-        return nid;
     }
 
     @Override

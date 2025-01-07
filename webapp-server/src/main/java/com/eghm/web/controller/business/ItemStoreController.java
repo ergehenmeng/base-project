@@ -5,8 +5,8 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.ItemStoreService;
 import com.eghm.vo.business.item.store.ItemStoreHomeVO;
 import com.eghm.vo.business.item.store.ItemStoreVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -21,7 +21,7 @@ import java.util.List;
  * @since 2022/7/22
  */
 @RestController
-@Api(tags = "店铺")
+@Tag(name="店铺")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/store", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemStoreController {
@@ -29,14 +29,14 @@ public class ItemStoreController {
     private final ItemStoreService itemStoreService;
 
     @GetMapping("/home")
-    @ApiOperation("店铺首页")
+    @Operation(summary = "店铺首页")
     public RespBody<ItemStoreHomeVO> home(@Validated IdDTO dto) {
         ItemStoreHomeVO detail = itemStoreService.homeDetail(dto.getId());
         return RespBody.success(detail);
     }
 
     @GetMapping("/recommend")
-    @ApiOperation("推荐店铺列表")
+    @Operation(summary = "推荐店铺列表")
     public RespBody<List<ItemStoreVO>> recommend() {
         List<ItemStoreVO> recommend = itemStoreService.getRecommend();
         return RespBody.success(recommend);

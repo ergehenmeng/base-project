@@ -1,6 +1,6 @@
 package com.eghm.vo.sys;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -11,9 +11,9 @@ import lombok.Data;
 @Data
 public class DictVO {
 
-    @ApiModelProperty("数据字典隐藏值")
+    @Schema(description = "数据字典隐藏值")
     private Integer hiddenValue;
 
-    @ApiModelProperty("显示值")
+    @Schema(description = "显示值")
     private String showValue;
 }

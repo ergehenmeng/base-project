@@ -76,12 +76,12 @@ public abstract class BaseTest {
         try {
             mockMvc.perform(builder).andDo(mvcResult -> {
                 String content = mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8);
-                RespBody<LoginResponse> respBody = jsonService.fromJson(content, new TypeReference<RespBody<LoginResponse>>() {
+                RespBody<LoginResponse> respBody = jsonService.fromJson(content, new TypeReference<>() {
                 });
                 headers.add("token", respBody.getData().getToken());
             });
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("模拟登录异常", e);
         }
     }
 

@@ -20,8 +20,8 @@ import com.eghm.state.machine.context.RefundAuditContext;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.item.ItemOrderRefundDetailResponse;
 import com.eghm.vo.business.order.refund.RefundLogResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -34,7 +34,7 @@ import static com.eghm.enums.ErrorCode.ORDER_TYPE_MATCH;
  * @since 2023/6/7
  */
 @RestController
-@Api(tags = "退款管理")
+@Tag(name="退款管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/refund/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RefundLogController {
@@ -48,7 +48,7 @@ public class RefundLogController {
     private final OrderRefundLogService orderRefundLogService;
 
     @GetMapping("/listPage")
-    @ApiOperation("退款申请列表")
+    @Operation(summary = "退款申请列表")
     public RespBody<PageData<RefundLogResponse>> listPage(RefundLogQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<RefundLogResponse> roomPage = orderRefundLogService.getByPage(request);
@@ -56,14 +56,14 @@ public class RefundLogController {
     }
 
     @GetMapping("/item/detail")
-    @ApiOperation("零售退款详情")
+    @Operation(summary = "零售退款详情")
     public RespBody<ItemOrderRefundDetailResponse> detail(@Validated OrderDTO dto) {
         ItemOrderRefundDetailResponse response = itemOrderService.refundDetail(dto.getOrderNo());
         return RespBody.success(response);
     }
 
     @PostMapping(value = "/audit", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("退款审核")
+    @Operation(summary = "退款审核")
     public RespBody<Void> audit(@Validated @RequestBody RefundAuditRequest request) {
         ProductType productType = ProductType.prefix(request.getOrderNo());
         AccessHandler accessHandler = commonService.getHandler(productType, AccessHandler.class);

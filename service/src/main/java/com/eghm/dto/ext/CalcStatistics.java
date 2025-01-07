@@ -1,7 +1,7 @@
 package com.eghm.dto.ext;
 
 import com.eghm.enums.ref.ProductType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -11,12 +11,12 @@ import lombok.Data;
 @Data
 public class CalcStatistics {
 
-    @ApiModelProperty("店铺Id")
+    @Schema(description = "店铺Id")
     private Long storeId;
 
-    @ApiModelProperty("商品id")
+    @Schema(description = "商品id")
     private Long productId;
 
-    @ApiModelProperty("商品类型 ticket:门票 homestay:民宿 voucher:餐饮券 item:零售 line:线路 venue:场馆")
+    @Schema(description = "商品类型 ticket:门票 homestay:民宿 voucher:餐饮券 item:零售 line:线路 venue:场馆")
     private ProductType productType;
 }

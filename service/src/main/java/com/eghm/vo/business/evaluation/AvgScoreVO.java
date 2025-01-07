@@ -1,6 +1,6 @@
 package com.eghm.vo.business.evaluation;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AvgScoreVO {
 
-    @ApiModelProperty("订单数量")
+    @Schema(description = "订单数量")
     private Integer num;
 
-    @ApiModelProperty("分数")
+    @Schema(description = "分数")
     private Integer totalScore;
 
-    @ApiModelProperty("店铺id")
+    @Schema(description = "店铺id")
     private Long storeId;
 }

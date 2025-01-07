@@ -17,14 +17,14 @@ import com.eghm.service.business.TicketOrderService;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.order.ticket.TicketOrderDetailResponse;
 import com.eghm.vo.business.order.ticket.TicketOrderResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -32,7 +32,7 @@ import java.util.List;
  * @since 2023/6/8
  */
 @RestController
-@Api(tags = "门票订单")
+@Tag(name="门票订单")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/ticket/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TicketOrderController {
@@ -47,7 +47,7 @@ public class TicketOrderController {
 
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<TicketOrderResponse>> listPage(TicketOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<TicketOrderResponse> byPage = ticketOrderService.getByPage(request);
@@ -55,7 +55,7 @@ public class TicketOrderController {
     }
 
     @PostMapping(value = "/offlineRefund", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("线下退款")
+    @Operation(summary = "线下退款")
     public RespBody<Void> offlineRefund(@RequestBody @Validated OfflineRefundRequest request) {
         return redisLock.lock(LockConstant.ORDER_LOCK + request.getOrderNo(), 10_000, () -> {
             orderService.offlineRefund(request);
@@ -64,7 +64,7 @@ public class TicketOrderController {
     }
 
     @PostMapping(value = "/refund", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("退款")
+    @Operation(summary = "退款")
     public RespBody<Void> refund(@RequestBody @Validated PlatformRefundRequest request) {
         return redisLock.lock(LockConstant.ORDER_LOCK + request.getOrderNo(), 10_000, () -> {
             request.setEvent(TicketEvent.PLATFORM_REFUND);
@@ -74,14 +74,14 @@ public class TicketOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     public RespBody<TicketOrderDetailResponse> detail(@Validated OrderDTO dto) {
         TicketOrderDetailResponse detail = ticketOrderService.detail(dto.getOrderNo());
         return RespBody.success(detail);
     }
 
     @GetMapping("/export")
-    @ApiOperation("导出")
+    @Operation(summary = "导出")
     public void export(HttpServletResponse response, TicketOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<TicketOrderResponse> byPage = ticketOrderService.getList(request);

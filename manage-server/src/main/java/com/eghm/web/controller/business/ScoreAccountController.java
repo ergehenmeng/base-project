@@ -21,14 +21,14 @@ import com.eghm.utils.DecimalUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.business.account.ScoreAccountResponse;
 import com.eghm.vo.business.account.ScoreRechargeResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * @author 二哥很猛
@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 
 @RestController
-@Api(tags = "商户积分")
+@Tag(name="商户积分")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/merchant/score", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ScoreAccountController {
@@ -48,21 +48,21 @@ public class ScoreAccountController {
     private final ScoreAccountService scoreAccountService;
 
     @GetMapping("/account")
-    @ApiOperation("积分中心")
+    @Operation(summary = "积分中心")
     public RespBody<ScoreAccountResponse> account() {
         ScoreAccount account = scoreAccountService.getAccount(SecurityHolder.getMerchantId());
         return RespBody.success(DataUtil.copy(account, ScoreAccountResponse.class));
     }
 
     @GetMapping(value = "/withdraw/detail")
-    @ApiOperation("提现信息")
+    @Operation(summary = "提现信息")
     public RespBody<String> withdrawDetail() {
         Integer withdraw = this.getScoreMinWithdraw();
         return RespBody.success(DecimalUtil.centToYuan(withdraw));
     }
 
     @PostMapping(value = "/withdraw/apply", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("提现申请")
+    @Operation(summary = "提现申请")
     public RespBody<Void> apply(@Validated @RequestBody ScoreWithdrawApplyDTO dto) {
         Integer withdraw = this.getScoreMinWithdraw();
         if (dto.getAmount() < withdraw) {
@@ -74,7 +74,7 @@ public class ScoreAccountController {
     }
 
     @GetMapping(value = "/recharge/detail")
-    @ApiOperation("充值信息")
+    @Operation(summary = "充值信息")
     public RespBody<ScoreRechargeResponse> rechargeDetail() {
         ScoreAccount scoreAccount = scoreAccountService.getAccount(SecurityHolder.getMerchantId());
         Account account = accountService.getAccount(SecurityHolder.getMerchantId());
@@ -86,7 +86,7 @@ public class ScoreAccountController {
     }
 
     @PostMapping(value = "/recharge/balance", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("余额充值")
+    @Operation(summary = "余额充值")
     public RespBody<Void> rechargeBalance(@Validated @RequestBody ScoreRechargeDTO dto) {
         Integer recharge = this.getScoreMinRecharge();
         if (dto.getAmount() < recharge) {
@@ -98,7 +98,7 @@ public class ScoreAccountController {
     }
 
     @PostMapping(value = "/recharge/scan", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("扫码充值")
+    @Operation(summary = "扫码充值")
     public RespBody<String> rechargeScan(@Validated @RequestBody ScoreScanRechargeDTO dto, HttpServletRequest request) {
         Integer recharge = this.getScoreMinRecharge();
         if (dto.getAmount() < recharge) {

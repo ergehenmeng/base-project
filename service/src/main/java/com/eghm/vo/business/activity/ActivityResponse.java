@@ -1,6 +1,6 @@
 package com.eghm.vo.business.activity;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -13,10 +13,10 @@ import java.util.List;
 @Data
 public class ActivityResponse {
 
-    @ApiModelProperty("日期")
+    @Schema(description = "日期")
     private LocalDate nowDate;
 
-    @ApiModelProperty("活动列表")
+    @Schema(description = "活动列表")
     private List<ActivityBaseDTO> activityList;
 
 }

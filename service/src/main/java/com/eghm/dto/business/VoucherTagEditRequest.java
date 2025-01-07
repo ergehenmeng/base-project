@@ -1,11 +1,11 @@
 package com.eghm.dto.business;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
 * @author 二哥很猛
@@ -14,22 +14,22 @@ import javax.validation.constraints.Size;
 @Data
 public class VoucherTagEditRequest {
 
-    @ApiModelProperty(value = "主键", required = true)
+    @Schema(description = "主键", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "主键不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "标签名称", required = true)
+    @Schema(description = "标签名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "标签名称不能为空")
     @Size(max = 10, message = "标签名称最大10字符")
     private String title;
 
-    @ApiModelProperty(value = "餐饮商家id", required = true)
+    @Schema(description = "餐饮商家id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "请选择所属店铺")
     private Long restaurantId;
 
-    @ApiModelProperty(value = "状态 0:禁用 1:启用", required = true)
+    @Schema(description = "状态 0:禁用 1:启用", requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean state;
 
-    @ApiModelProperty(value = "备注")
+    @Schema(description = "备注")
     private String remark;
 }

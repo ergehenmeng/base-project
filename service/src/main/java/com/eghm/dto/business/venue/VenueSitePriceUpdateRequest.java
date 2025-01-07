@@ -2,10 +2,10 @@ package com.eghm.dto.business.venue;
 
 import com.eghm.convertor.YuanToCentDecoder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -15,16 +15,16 @@ import javax.validation.constraints.NotNull;
 @Data
 public class VenueSitePriceUpdateRequest {
 
-    @ApiModelProperty(value = "id", required = true)
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "价格")
+    @Schema(description = "价格")
     @JsonDeserialize(using = YuanToCentDecoder.class)
     @NotNull(message = "请输入价格")
     private Integer price;
 
-    @ApiModelProperty(value = "状态 0:不可预定 1:可预定", required = true)
+    @Schema(description = "状态 0:不可预定 1:可预定", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "请选择状态")
     private Integer state;
 }

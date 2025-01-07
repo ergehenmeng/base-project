@@ -11,14 +11,14 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.business.merchant.MerchantAuthResponse;
 import com.eghm.vo.business.merchant.MerchantDetailResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * 商家自己查看自己的信息
@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author 二哥很猛 2024/1/21
  */
 @RestController
-@Api(tags = "商家中心")
+@Tag(name="商家中心")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/merchant/center", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MerchantCenterController {
@@ -36,7 +36,7 @@ public class MerchantCenterController {
     private final MerchantService merchantService;
 
     @GetMapping("/detail")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     public RespBody<MerchantDetailResponse> detail() {
         Merchant merchant = merchantService.selectByIdRequired(SecurityHolder.getMerchantId());
         MerchantDetailResponse response = DataUtil.copy(merchant, MerchantDetailResponse.class);
@@ -46,21 +46,21 @@ public class MerchantCenterController {
     }
 
     @PostMapping(value = "/sendSms")
-    @ApiOperation("发送解绑短信")
+    @Operation(summary = "发送解绑短信")
     public RespBody<Void> sendSms(HttpServletRequest request) {
         merchantService.sendUnbindSms(SecurityHolder.getMerchantId(), IpUtil.getIpAddress(request));
         return RespBody.success();
     }
 
     @PostMapping(value = "/unbind", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("解绑")
+    @Operation(summary = "解绑")
     public RespBody<Void> unbind(@RequestBody @Validated MerchantUnbindDTO dto) {
         merchantService.unbind(SecurityHolder.getMerchantId(), dto.getSmsCode());
         return RespBody.success();
     }
 
     @GetMapping("/generate")
-    @ApiOperation("生成二维码")
+    @Operation(summary = "生成二维码")
     public RespBody<MerchantAuthResponse> generate() {
         MerchantAuthResponse vo = merchantService.generateAuthCode(SecurityHolder.getMerchantId());
         return RespBody.success(vo);

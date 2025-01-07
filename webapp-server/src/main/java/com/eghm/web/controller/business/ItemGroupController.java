@@ -8,9 +8,9 @@ import com.eghm.service.business.ItemGroupOrderService;
 import com.eghm.vo.business.group.GroupItemVO;
 import com.eghm.vo.business.group.GroupOrderDetailVO;
 import com.eghm.web.annotation.VisitRecord;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 
 @RestController
-@Api(tags = "拼团商品")
+@Tag(name="拼团商品")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/item/group", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemGroupController {
@@ -36,7 +36,7 @@ public class ItemGroupController {
     private final ItemGroupOrderService itemGroupOrderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     @VisitRecord(VisitType.PRODUCT_LIST)
     public RespBody<List<GroupItemVO>> listPage(GroupBookingQueryDTO dto) {
         List<GroupItemVO> voList = groupBookingService.listPage(dto);
@@ -44,9 +44,9 @@ public class ItemGroupController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("拼团详情")
+    @Operation(summary = "拼团详情")
     @VisitRecord(VisitType.PRODUCT_DETAIL)
-    @ApiImplicitParam(name = "bookingNo", value = "拼团订单号", required = true)
+    @Parameter(name = "bookingNo", description = "拼团订单号", required = true)
     public RespBody<GroupOrderDetailVO> detail(@RequestParam("bookingNo") String bookingNo) {
         GroupOrderDetailVO detail = itemGroupOrderService.getGroupDetail(bookingNo);
         return RespBody.success(detail);

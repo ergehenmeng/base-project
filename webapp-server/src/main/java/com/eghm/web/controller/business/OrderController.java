@@ -31,14 +31,14 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.business.order.OrderCreateVO;
 import com.eghm.web.annotation.AccessToken;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,7 +48,7 @@ import java.util.stream.Collectors;
  */
 @AccessToken
 @RestController
-@Api(tags = "订单")
+@Tag(name="订单")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrderController {
@@ -62,13 +62,13 @@ public class OrderController {
     private final OrderProxyService orderProxyService;
 
     @PostMapping(value = "/item/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("零售创建订单")
+    @Operation(summary = "零售创建订单")
     public RespBody<OrderCreateVO<String>> itemCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
         return this.createItemOrder(dto, false);
     }
 
     @PostMapping(value = "/item/group/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("零售拼团创建订单")
+    @Operation(summary = "零售拼团创建订单")
     public RespBody<OrderCreateVO<String>> itemGroupCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
         if (dto.getItemList().size() > 1) {
             return RespBody.error(ErrorCode.ITEM_MULTIPLE_BOOKING);
@@ -77,7 +77,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/ticket/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("门票创建订单")
+    @Operation(summary = "门票创建订单")
     public RespBody<OrderCreateVO<String>> ticketCreate(@RequestBody @Validated TicketOrderCreateDTO dto) {
         TicketOrderCreateContext context = DataUtil.copy(dto, TicketOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
@@ -87,7 +87,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/homestay/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("民宿创建订单")
+    @Operation(summary = "民宿创建订单")
     public RespBody<OrderCreateVO<String>> homestayCreate(@RequestBody @Validated HomestayOrderCreateDTO dto) {
         if (dto.getVisitorList().size() != dto.getNum()) {
             return RespBody.error(ErrorCode.VISITOR_NO_MATCH);
@@ -100,7 +100,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/line/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("线路创建订单")
+    @Operation(summary = "线路创建订单")
     public RespBody<OrderCreateVO<String>> lineCreate(@RequestBody @Validated LineOrderCreateDTO dto) {
         LineOrderCreateContext context = DataUtil.copy(dto, LineOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
@@ -110,7 +110,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/voucher/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("餐饮创建订单")
+    @Operation(summary = "餐饮创建订单")
     public RespBody<OrderCreateVO<String>> restaurantCreate(@RequestBody @Validated VoucherOrderCreateDTO dto) {
         VoucherOrderCreateContext context = DataUtil.copy(dto, VoucherOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
@@ -120,7 +120,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/venue/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("场馆预约创建订单")
+    @Operation(summary = "场馆预约创建订单")
     public RespBody<OrderCreateVO<String>> venueCreate(@RequestBody @Validated VenueOrderCreateDTO dto) {
         VenueOrderCreateContext context = DataUtil.copy(dto, VenueOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
@@ -130,14 +130,14 @@ public class OrderController {
     }
 
     @PostMapping(value = "/pay", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("拉起支付")
+    @Operation(summary = "拉起支付")
     public RespBody<PrepayVO> pay(@RequestBody @Validated OrderPayDTO dto, HttpServletRequest request) {
         PrepayVO vo = orderService.createPrepay(dto.getOrderNo(), dto.getBuyerId(), dto.getTradeType(), IpUtil.getIpAddress(request));
         return RespBody.success(vo);
     }
 
     @PostMapping(value = "/ticket/refundApply", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("门票退款申请")
+    @Operation(summary = "门票退款申请")
     public RespBody<Void> ticketRefundApply(@RequestBody @Validated TicketRefundApplyDTO dto) {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
@@ -147,7 +147,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/line/refundApply", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("线路退款申请")
+    @Operation(summary = "线路退款申请")
     public RespBody<Void> lineRefundApply(@RequestBody @Validated LineRefundApplyDTO dto) {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
@@ -158,7 +158,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/homestay/refundApply", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("民宿退款申请")
+    @Operation(summary = "民宿退款申请")
     public RespBody<Void> homestayRefundApply(@RequestBody @Validated HomestayRefundApplyDTO dto) {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
@@ -169,7 +169,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/voucher/refundApply", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("餐饮退款申请")
+    @Operation(summary = "餐饮退款申请")
     public RespBody<Void> voucherRefundApply(@RequestBody @Validated VoucherRefundApplyDTO dto) {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
@@ -179,7 +179,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/item/refundApply", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("零售退款申请")
+    @Operation(summary = "零售退款申请")
     public RespBody<Void> itemRefundApply(@RequestBody @Validated ItemRefundApplyDTO dto) {
         ItemRefundApplyContext context = DataUtil.copy(dto, ItemRefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
@@ -189,7 +189,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/venue/refundApply", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("场馆退款申请")
+    @Operation(summary = "场馆退款申请")
     public RespBody<Void> venueRefundApply(@RequestBody @Validated VenueRefundApplyDTO dto) {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setNum(1);
@@ -199,21 +199,21 @@ public class OrderController {
     }
 
     @GetMapping("/refresh")
-    @ApiOperation("刷新核销码")
+    @Operation(summary = "刷新核销码")
     public RespBody<String> refresh(@Validated OrderDTO dto) {
         String verifyCode = orderService.refreshVerifyCode(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success(verifyCode);
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除订单")
+    @Operation(summary = "删除订单")
     public RespBody<Void> delete(@Validated @RequestBody OrderDTO dto) {
         orderService.deleteOrder(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success();
     }
 
     @PostMapping(value = "/cancel", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("取消订单")
+    @Operation(summary = "取消订单")
     public RespBody<Void> cancel(@Validated @RequestBody OrderDTO dto) {
         orderProxyService.cancel(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success();
@@ -240,7 +240,7 @@ public class OrderController {
         ItemOrderCreateContext context = DataUtil.copy(dto, ItemOrderCreateContext.class);
         context.setGroupBooking(isGroupBooking);
         context.setMemberId(ApiHolder.getMemberId());
-        List<SkuDTO> skuList = dto.getItemList().stream().flatMap(item -> item.getSkuList().stream()).collect(Collectors.toList());
+        List<SkuDTO> skuList = dto.getItemList().stream().flatMap(item -> item.getSkuList().stream()).toList();
         context.setItemIds(skuList.stream().map(SkuDTO::getItemId).collect(Collectors.toSet()));
         context.setSkuIds(skuList.stream().map(SkuDTO::getSkuId).collect(Collectors.toSet()));
         int totalScore = dto.getItemList().stream().mapToInt(ItemDTO::getScoreAmount).sum();

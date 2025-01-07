@@ -1,6 +1,6 @@
 package com.eghm.vo.business.activity;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -10,18 +10,18 @@ import lombok.Data;
 @Data
 public class ActivityBaseDTO {
 
-    @ApiModelProperty("活动id")
+    @Schema(description = "活动id")
     private Long id;
 
-    @ApiModelProperty("活动名称")
+    @Schema(description = "活动名称")
     private String title;
 
-    @ApiModelProperty("活动图片")
+    @Schema(description = "活动图片")
     private String coverUrl;
 
-    @ApiModelProperty(value = "活动地点")
+    @Schema(description = "活动地点")
     private String address;
 
-    @ApiModelProperty(value = "活动时间")
+    @Schema(description = "活动时间")
     private String activityTime;
 }

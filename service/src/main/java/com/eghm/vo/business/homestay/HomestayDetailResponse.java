@@ -1,6 +1,6 @@
 package com.eghm.vo.business.homestay;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -13,54 +13,54 @@ import java.math.BigDecimal;
 @Data
 public class HomestayDetailResponse {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "民宿名称")
+    @Schema(description = "民宿名称")
     private String title;
 
-    @ApiModelProperty(value = "民宿所属商家")
+    @Schema(description = "民宿所属商家")
     private Long merchantId;
 
-    @ApiModelProperty(value = "星级 5:五星级 4:四星级 3:三星级 0: 其他")
+    @Schema(description = "星级 5:五星级 4:四星级 3:三星级 0: 其他")
     private Integer level;
 
-    @ApiModelProperty(value = "省份")
+    @Schema(description = "省份")
     private Long provinceId;
 
-    @ApiModelProperty(value = "城市")
+    @Schema(description = "城市")
     private Long cityId;
 
-    @ApiModelProperty(value = "县区")
+    @Schema(description = "县区")
     private Long countyId;
 
-    @ApiModelProperty(value = "详细地址")
+    @Schema(description = "详细地址")
     private String detailAddress;
 
-    @ApiModelProperty(value = "经度")
+    @Schema(description = "经度")
     private BigDecimal longitude;
 
-    @ApiModelProperty(value = "纬度")
+    @Schema(description = "纬度")
     private BigDecimal latitude;
 
-    @ApiModelProperty(value = "描述信息")
+    @Schema(description = "描述信息")
     private String intro;
 
-    @ApiModelProperty(value = "封面图片")
+    @Schema(description = "封面图片")
     private String coverUrl;
 
-    @ApiModelProperty(value = "详细介绍")
+    @Schema(description = "详细介绍")
     private String introduce;
 
-    @ApiModelProperty(value = "联系电话")
+    @Schema(description = "联系电话")
     private String phone;
 
-    @ApiModelProperty(value = "特色服务")
+    @Schema(description = "特色服务")
     private String keyService;
 
-    @ApiModelProperty("入住须知")
+    @Schema(description = "入住须知")
     private String notesIn;
 
-    @ApiModelProperty(value = "标签")
+    @Schema(description = "标签")
     private String tag;
 }

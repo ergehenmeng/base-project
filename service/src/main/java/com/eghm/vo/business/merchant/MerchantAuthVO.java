@@ -1,6 +1,6 @@
 package com.eghm.vo.business.merchant;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -11,15 +11,15 @@ import lombok.Data;
 @Data
 public class MerchantAuthVO {
 
-    @ApiModelProperty("商户名称")
+    @Schema(description = "商户名称")
     private String merchantName;
 
-    @ApiModelProperty("法人姓名")
+    @Schema(description = "法人姓名")
     private String legalName;
 
-    @ApiModelProperty("授权手机号")
+    @Schema(description = "授权手机号")
     private String authMobile;
 
-    @ApiModelProperty("是否已经绑定微信号")
+    @Schema(description = "是否已经绑定微信号")
     private Boolean hasBind;
 }

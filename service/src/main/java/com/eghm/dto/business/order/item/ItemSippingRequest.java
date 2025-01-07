@@ -1,11 +1,11 @@
 package com.eghm.dto.business.order.item;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -15,19 +15,19 @@ import java.util.List;
 @Data
 public class ItemSippingRequest {
 
-    @ApiModelProperty(value = "订单ID", required = true)
+    @Schema(description = "订单ID", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "请选择要发货的商品")
     private List<Long> orderIds;
 
-    @ApiModelProperty(value = "订单号", required = true)
+    @Schema(description = "订单号", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "订单号不能为空")
     private String orderNo;
 
-    @ApiModelProperty(value = "快递编号", required = true)
+    @Schema(description = "快递编号", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "快递编号不能为空")
     private String expressCode;
 
-    @ApiModelProperty(value = "快递单号", required = true)
+    @Schema(description = "快递单号", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "快递单号不能为空")
     @Size(max = 20, message = "快递单号长度最大20位")
     private String expressNo;

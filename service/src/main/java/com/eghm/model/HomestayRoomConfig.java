@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -25,40 +25,40 @@ import java.time.LocalDateTime;
 public class HomestayRoomConfig {
 
     @TableId(type = IdType.ASSIGN_ID)
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "房型id")
+    @Schema(description = "房型id")
     private Long homestayRoomId;
 
-    @ApiModelProperty(value = "民宿id")
+    @Schema(description = "民宿id")
     private Long homestayId;
 
-    @ApiModelProperty("状态 false:不可预定 true:可预定")
+    @Schema(description = "状态 false:不可预定 true:可预定")
     private Boolean state;
 
-    @ApiModelProperty(value = "日期")
+    @Schema(description = "日期")
     private LocalDate configDate;
 
-    @ApiModelProperty(value = "划线价")
+    @Schema(description = "划线价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer linePrice;
 
-    @ApiModelProperty(value = "销售价")
+    @Schema(description = "销售价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty(value = "剩余库存")
+    @Schema(description = "剩余库存")
     private Integer stock;
 
-    @ApiModelProperty(value = "已预订数量")
+    @Schema(description = "已预订数量")
     private Integer saleNum;
 
-    @ApiModelProperty("添加日期")
+    @Schema(description = "添加日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("更新日期")
+    @Schema(description = "更新日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }

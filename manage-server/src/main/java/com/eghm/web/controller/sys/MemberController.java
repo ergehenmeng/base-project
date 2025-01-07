@@ -15,14 +15,14 @@ import com.eghm.service.member.*;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.member.MemberResponse;
 import com.eghm.vo.member.MemberScoreVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -30,7 +30,7 @@ import java.util.List;
  * @since 2023/8/18 14:16
  */
 @RestController
-@Api(tags = "会员信息")
+@Tag(name="会员信息")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/member", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberController {
@@ -46,70 +46,70 @@ public class MemberController {
     private final MemberTagScopeService memberTagScopeService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<MemberResponse>> listPage(MemberQueryRequest request) {
         Page<MemberResponse> byPage = memberService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping(value = "/freeze", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("冻结")
+    @Operation(summary = "冻结")
     public RespBody<Void> freeze(@Validated @RequestBody IdDTO dto) {
         memberService.updateState(dto.getId(), false);
         return RespBody.success();
     }
 
     @PostMapping(value = "/unfreeze", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("解冻")
+    @Operation(summary = "解冻")
     public RespBody<Void> unfreeze(@Validated @RequestBody IdDTO dto) {
         memberService.updateState(dto.getId(), true);
         return RespBody.success();
     }
 
     @PostMapping(value = "/offline", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("强制下线")
+    @Operation(summary = "强制下线")
     public RespBody<Void> offline(@Validated @RequestBody IdDTO dto) {
         memberService.offline(dto.getId());
         return RespBody.success();
     }
 
     @GetMapping("/export")
-    @ApiOperation("导出")
+    @Operation(summary = "导出")
     public void export(HttpServletResponse response, MemberQueryRequest request) {
         List<MemberResponse> byPage = memberService.getList(request);
         EasyExcelUtil.export(response, "会员信息", byPage, MemberResponse.class);
     }
 
     @GetMapping("/loginPage")
-    @ApiOperation("登录日志列表")
+    @Operation(summary = "登录日志列表")
     public RespBody<PageData<LoginLog>> loginPage(@Validated LoginLogQueryRequest request) {
         Page<LoginLog> byPage = loginService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping(value = "/sendNotice", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("发送通知")
+    @Operation(summary = "发送通知")
     public RespBody<Void> sendNotice(@Validated @RequestBody SendNotifyRequest request) {
         memberNoticeService.sendNoticeBatch(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("发送消息")
+    @Operation(summary = "发送消息")
     public RespBody<Void> sendSms(@Validated @RequestBody SendSmsRequest request) {
         memberTagScopeService.sendSms(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/updateScore", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新积分")
+    @Operation(summary = "更新积分")
     public RespBody<Void> updateScore(@Validated @RequestBody ScoreUpdateRequest request) {
         memberService.updateScore(request.getId(), request.getScoreType(), request.getScore(), request.getRemark());
         return RespBody.success();
     }
 
     @GetMapping("/score/listPage")
-    @ApiOperation("积分列表")
+    @Operation(summary = "积分列表")
     public RespBody<PageData<MemberScoreVO>> listPage(@Validated MemberScoreQueryRequest request) {
         Page<MemberScoreVO> page = memberScoreLogService.getByPage(request);
         return RespBody.success(PageData.toPage(page));

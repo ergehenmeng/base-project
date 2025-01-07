@@ -3,7 +3,7 @@ package com.eghm.state.machine.dto;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
 import com.eghm.model.ItemSpec;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -13,24 +13,24 @@ import lombok.Data;
 @Data
 public class OrderPackage {
 
-    @ApiModelProperty("产品id")
+    @Schema(description = "产品id")
     private Long itemId;
 
-    @ApiModelProperty("产品skuId")
+    @Schema(description = "产品skuId")
     private Long skuId;
 
-    @ApiModelProperty("产品购买数量")
+    @Schema(description = "产品购买数量")
     private Integer num;
 
-    @ApiModelProperty("商品一级的spu")
+    @Schema(description = "商品一级的spu")
     private ItemSpec spec;
 
-    @ApiModelProperty("产品信息")
+    @Schema(description = "产品信息")
     private Item item;
 
-    @ApiModelProperty("sku信息")
+    @Schema(description = "sku信息")
     private ItemSku sku;
 
-    @ApiModelProperty("真实销售单价(拼团时是拼团价,限时购时是限时购价格)")
+    @Schema(description = "真实销售单价(拼团时是拼团价,限时购时是限时购价格)")
     private Integer finalPrice;
 }

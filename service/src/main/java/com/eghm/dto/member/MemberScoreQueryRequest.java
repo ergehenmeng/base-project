@@ -1,12 +1,12 @@
 package com.eghm.dto.member;
 
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @author 殿小二
@@ -17,10 +17,10 @@ import javax.validation.constraints.NotNull;
 @ToString(callSuper = true)
 public class MemberScoreQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("积分类型")
+    @Schema(description = "积分类型")
     private Integer type;
 
-    @ApiModelProperty(value = "登录人id")
+    @Schema(description = "登录人id")
     @NotNull(message = "登录人id不能为空")
     private Long memberId;
 

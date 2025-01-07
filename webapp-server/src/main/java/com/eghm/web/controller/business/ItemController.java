@@ -13,8 +13,8 @@ import com.eghm.vo.business.item.ItemSkuDetailVO;
 import com.eghm.vo.business.item.ItemVO;
 import com.eghm.vo.business.item.express.TotalExpressVO;
 import com.eghm.web.annotation.VisitRecord;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 
 @RestController
-@Api(tags = "商品信息")
+@Tag(name="商品信息")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/item", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemController {
@@ -36,7 +36,7 @@ public class ItemController {
     private final ItemService itemService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     @VisitRecord(VisitType.PRODUCT_LIST)
     public RespBody<List<ItemVO>> listPage(ItemQueryDTO dto) {
         List<ItemVO> byPage = itemService.getByPage(dto);
@@ -44,7 +44,7 @@ public class ItemController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     @VisitRecord(VisitType.PRODUCT_DETAIL)
     public RespBody<ItemDetailVO> detail(@Validated IdDTO dto) {
         ItemDetailVO detail = itemService.detailById(dto.getId());
@@ -52,21 +52,21 @@ public class ItemController {
     }
 
     @GetMapping("/skuDetail")
-    @ApiOperation("规格详情")
+    @Operation(summary = "规格详情")
     public RespBody<ItemSkuDetailVO> skuDetail(@Validated IdDTO dto) {
         ItemSkuDetailVO detail = itemService.skuDetailById(dto.getId());
         return RespBody.success(detail);
     }
 
     @GetMapping("/recommend")
-    @ApiOperation("商品推荐列表")
+    @Operation(summary = "商品推荐列表")
     public RespBody<List<ItemVO>> recommend() {
         List<ItemVO> recommend = itemService.getRecommend();
         return RespBody.success(recommend);
     }
 
     @PostMapping(value = "/calcExpress", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("计算快递费")
+    @Operation(summary = "计算快递费")
     public RespBody<TotalExpressVO> calcExpress(@RequestBody @Validated List<ExpressFeeCalcDTO> dtoList) {
         if (CollUtil.isEmpty(dtoList)) {
             return RespBody.error(ErrorCode.ORDER_ITEM_NULL);

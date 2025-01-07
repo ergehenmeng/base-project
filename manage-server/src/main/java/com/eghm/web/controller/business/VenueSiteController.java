@@ -18,8 +18,8 @@ import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.venue.VenueSiteDetailResponse;
 import com.eghm.vo.business.venue.VenueSitePriceVO;
 import com.eghm.vo.business.venue.VenueSiteResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -33,7 +33,7 @@ import java.util.List;
  */
 
 @RestController
-@Api(tags = "场馆场地")
+@Tag(name="场馆场地")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/venue/site", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VenueSiteController {
@@ -43,7 +43,7 @@ public class VenueSiteController {
     private final VenueSitePriceService venueSitePriceService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<VenueSiteResponse>> listPage(@Validated VenueSiteQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VenueSiteResponse> byPage = venueSiteService.getByPage(request);
@@ -51,7 +51,7 @@ public class VenueSiteController {
     }
 
     @GetMapping("/productListPage")
-    @ApiOperation("列表(含店铺)")
+    @Operation(summary = "列表(含店铺)")
     public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseProductResponse> listPage = venueSiteService.getProductPage(request);
@@ -59,63 +59,63 @@ public class VenueSiteController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增")
+    @Operation(summary = "新增")
     public RespBody<Void> create(@Validated @RequestBody VenueSiteAddRequest request) {
         venueSiteService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新")
+    @Operation(summary = "更新")
     public RespBody<Void> update(@Validated @RequestBody VenueSiteEditRequest request) {
         venueSiteService.update(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/shelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("上架")
+    @Operation(summary = "上架")
     public RespBody<Void> shelves(@Validated @RequestBody IdDTO dto) {
         venueSiteService.updateState(dto.getId(), State.SHELVE);
         return RespBody.success();
     }
 
     @PostMapping(value = "/unShelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("下架")
+    @Operation(summary = "下架")
     public RespBody<Void> unShelves(@Validated @RequestBody IdDTO dto) {
         venueSiteService.updateState(dto.getId(), State.UN_SHELVE);
         return RespBody.success();
     }
 
     @PostMapping(value = "/platformUnShelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("平台下架")
+    @Operation(summary = "平台下架")
     public RespBody<Void> platformUnShelves(@RequestBody @Validated IdDTO dto) {
         venueSiteService.updateState(dto.getId(), State.FORCE_UN_SHELVE);
         return RespBody.success();
     }
 
     @PostMapping(value = "/sort", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("排序")
+    @Operation(summary = "排序")
     public RespBody<Void> sort(@RequestBody @Validated SortByDTO dto) {
         venueSiteService.sortBy(dto.getId(), dto.getSortBy());
         return RespBody.success();
     }
 
     @GetMapping("/select")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     public RespBody<VenueSiteDetailResponse> select(@Validated IdDTO dto) {
         VenueSiteDetailResponse response = venueSiteService.getDetail(dto.getId());
         return RespBody.success(response);
     }
 
     @GetMapping("/priceList")
-    @ApiOperation("场地价格信息")
+    @Operation(summary = "场地价格信息")
     public RespBody<List<VenueSitePriceVO>> priceList(@Validated VenueSitePriceQueryRequest request) {
         List<VenueSitePriceVO> priceList = venueSitePriceService.getPriceList(request.getVenueSiteId(), request.getNowDate());
         return RespBody.success(priceList);
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         venueSiteService.delete(dto.getId());
         return RespBody.success();

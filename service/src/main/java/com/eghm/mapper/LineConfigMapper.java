@@ -22,7 +22,7 @@ public interface LineConfigMapper extends BaseMapper<LineConfig> {
      * @param config 线路日态
      * @return 条数
      */
-    int insertOrUpdate(LineConfig config);
+    int insertUpdate(LineConfig config);
 
     /**
      * 更新库存信息

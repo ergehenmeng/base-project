@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,9 +15,9 @@ import lombok.EqualsAndHashCode;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Express extends BaseEntity {
 
-    @ApiModelProperty("快递公司编码")
+    @Schema(description = "快递公司编码")
     private String expressCode;
 
-    @ApiModelProperty("快递公司名称")
+    @Schema(description = "快递公司名称")
     private String expressName;
 }

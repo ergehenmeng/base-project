@@ -2,7 +2,7 @@ package com.eghm.vo.business.item.express;
 
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -14,10 +14,10 @@ import java.util.List;
 @Data
 public class TotalExpressVO {
 
-    @ApiModelProperty("总快递费")
+    @Schema(description = "总快递费")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer totalFee;
 
-    @ApiModelProperty("每个店铺的快递费")
+    @Schema(description = "每个店铺的快递费")
     private List<StoreExpressVO> storeList;
 }

@@ -1,6 +1,6 @@
 package com.eghm.vo.business.order.item;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -10,12 +10,12 @@ import lombok.Data;
 @Data
 public class ItemUnShippedOrderResponse {
 
-    @ApiModelProperty("订单编号")
+    @Schema(description = "订单编号")
     private String orderNo;
 
-    @ApiModelProperty("商品名称")
+    @Schema(description = "商品名称")
     private String title;
 
-    @ApiModelProperty("商品封面图")
+    @Schema(description = "商品封面图")
     private String coverUrl;
 }

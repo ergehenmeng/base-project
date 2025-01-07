@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.eghm</groupId>
     <artifactId>parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -16,115 +16,75 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.8</version>
+        <version>3.2.12</version>
         <relativePath/>
     </parent>
 
     <properties>
         <!--spring boot版本-->
-        <spring.boot.version>2.7.8</spring.boot.version>
+        <spring.boot.version>3.2.12</spring.boot.version>
         <!--项目编码-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--jdk编译版本-->
-        <java.jdk.version>1.8</java.jdk.version>
+        <!--maven编译版本-->
+        <maven.compiler.source>17</maven.compiler.source>
+        <!--maven编译版本-->
+        <maven.compiler.target>17</maven.compiler.target>
         <!--图形验证码版本-->
         <kaptcha.version>2.3.2</kaptcha.version>
         <!--sql日志打印版本-->
         <log4jdbc.version>1.2</log4jdbc.version>
         <!--sql日志打印-->
-        <p6spy.version>3.8.6</p6spy.version>
+        <p6spy.version>3.9.1</p6spy.version>
         <!--guava工具类版本-->
-        <guava.version>27.0.1-jre</guava.version>
+        <guava.version>33.0.0-jre</guava.version>
         <!--apache工具类版本-->
-        <commons.lang3.version>3.10</commons.lang3.version>
-        <!--common-io工具类-->
-        <commons.io.version>2.5</commons.io.version>
-        <!--common-编码工具类-->
-        <commons.codec.version>1.10</commons.codec.version>
+        <commons.lang3.version>3.17.0</commons.lang3.version>
         <!--json工具类版本-->
-        <fastjson.version>2.0.46</fastjson.version>
+        <fastjson.version>2.0.52</fastjson.version>
         <!--打包跳过测试-->
         <skipTests>true</skipTests>
-        <!--netty-->
-        <netty.version>4.1.22.Final</netty.version>
-        <!--字节码asm-->
-        <asm.version>5.1</asm.version>
-        <!--http客户端-->
-        <httpclient.version>4.5.3</httpclient.version>
-        <!--zk客户端-->
-        <zookeeper.version>3.4.14</zookeeper.version>
-        <!--zookeeper客户端工具-->
-        <curator.version>2.12.0</curator.version>
-        <!--调度定时任务-->
-        <quartz.version>2.2.3</quartz.version>
-        <!--map queue扩展并发包-->
-        <jctools.version>2.1.1</jctools.version>
-        <!--common-file-upload上传-->
-        <fileupload.version>1.5</fileupload.version>
-        <!--spring redis session共享-->
-        <redis-session.version>1.2.1.RELEASE</redis-session.version>
-        <!--kafka客户端-->
-        <kafka.version>1.0.0</kafka.version>
-        <!--配置文件密码加密-->
-        <jasypt.version>3.0.2</jasypt.version>
         <!--生成编译的工具类-->
-        <lombok.version>1.18.0</lombok.version>
-        <!--阿里redis缓存-->
-        <jetcache.version>2.5.6</jetcache.version>
+        <lombok.version>1.18.34</lombok.version>
         <!--分布式数据库工具-->
         <sharding-jdbc.version>2.0.3</sharding-jdbc.version>
         <!--redis客户端工具-->
-        <redisson.version>3.17.7</redisson.version>
-        <!--api文档-->
-        <swagger.verison>2.10.5</swagger.verison>
+        <redisson.version>3.37.0</redisson.version>
+        <!--redisson-netty客户端-->
+        <netty.version>4.1.107.Final</netty.version>
         <!--中文拼音解析-->
         <pinyin.version>2.5.1</pinyin.version>
         <!--mysql版本-->
-        <mysql.version>8.0.29</mysql.version>
-        <!--极光推送-->
-        <jpush.version>3.7.3</jpush.version>
-        <!--实体映射工具类-->
-        <mapstruct.version>1.3.1.Final</mapstruct.version>
-        <!--字节码增强工具-->
-        <javassist.version>3.26.0-GA</javassist.version>
-        <!--动态代理-->
-        <cglib.version>3.2.12</cglib.version>
+        <mysql.version>8.4.0</mysql.version>
         <!--工具类-->
-        <hutool.verison>5.8.3</hutool.verison>
-        <!--mybatis Ognl表达式支持-->
-        <ognl.version>3.2.10</ognl.version>
+        <hutool.version>5.8.33</hutool.version>
         <!--jwt版本依赖-->
         <jwt.version>4.4.0</jwt.version>
-        <!--retrofit版本-->
-        <retrofit.version>2.9.0</retrofit.version>
         <!--swagger2版本-->
-        <knif4j.version>4.5.0</knif4j.version>
+        <knif4j.version>4.4.0</knif4j.version>
         <!--微信三方sdk包-->
         <wx-sdk.version>4.6.0</wx-sdk.version>
         <!--支付宝sdk-->
         <ali-sdk.version>2.2.2</ali-sdk.version>
         <!--mybatis-plus-->
-        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
-        <!--totp-->
-        <totp.version>1.4.0</totp.version>
-        <!--状态机-->
-        <cola.version>4.3.1</cola.version>
+        <mybatis-plus.version>3.5.9</mybatis-plus.version>
         <!--异步线程变量-->
-        <transmittable.version>2.14.2</transmittable.version>
+        <transmittable.version>2.14.5</transmittable.version>
         <!--excel导出-->
-        <easyexcel.version>3.3.2</easyexcel.version>
+        <easyexcel.version>4.0.3</easyexcel.version>
         <!--jackson 1.8日期格式序列号兼容包-->
-        <jackson-ext.version>2.13.4</jackson-ext.version>
-        <!--快递100-->
-        <kuaidi-version>1.0.12</kuaidi-version>
+        <jackson-ext.version>2.15.4</jackson-ext.version>
         <!--缓存-->
-        <caffeine.version>2.9.3</caffeine.version>
-        <!-- bc加密 -->
-        <bcrypt.version>0.10.2</bcrypt.version>
+        <caffeine.version>3.1.8</caffeine.version>
         <!--阿里短信-->
         <ali.sms.version>3.1.0</ali.sms.version>
         <!--腾讯短信-->
         <tencent.sms.version>3.1.1043</tencent.sms.version>
+        <!--阿里oss-->
+        <ali.oss.version>3.17.4</ali.oss.version>
+        <!--状态机-->
+        <cola.version>4.3.1</cola.version>
+        <!--快递100-->
+        <kuaidi-version>1.0.12</kuaidi-version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -141,14 +101,11 @@
                 <version>${jwt.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.aliyun</groupId>
-                <artifactId>dysmsapi20170525</artifactId>
-                <version>${ali.sms.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.tencentcloudapi</groupId>
-                <artifactId>tencentcloud-sdk-java-sms</artifactId>
-                <version>${tencent.sms.version}</version>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-bom</artifactId>
+                <version>${hutool.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.redisson</groupId>
@@ -161,19 +118,65 @@
                 <version>${transmittable.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>dysmsapi20170525</artifactId>
+                <version>${ali.sms.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>dom4j</artifactId>
+                        <groupId>org.dom4j</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>tea</artifactId>
+                        <groupId>com.aliyun</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>org.jacoco.agent</artifactId>
+                        <groupId>org.jacoco</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>credentials-java</artifactId>
+                        <groupId>com.aliyun</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${ali.oss.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>org.jacoco.agent</artifactId>
+                        <groupId>org.jacoco</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-bom</artifactId>
+                <version>${mybatis-plus.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.tencentcloudapi</groupId>
+                <artifactId>tencentcloud-sdk-java-sms</artifactId>
+                <version>${tencent.sms.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.belerweb</groupId>
                 <artifactId>pinyin4j</artifactId>
                 <version>${pinyin.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.fasterxml.jackson.datatype</groupId>
-                <artifactId>jackson-datatype-jsr310</artifactId>
-                <version>${jackson-ext.version}</version>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql.version}</version>
             </dependency>
             <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.version}</version>
+                <groupId>com.alibaba.cola</groupId>
+                <artifactId>cola-component-statemachine</artifactId>
+                <version>${cola.version}</version>
             </dependency>
             <!--验证码-->
             <dependency>
@@ -205,36 +208,15 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
-                <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>cn.jpush.api</groupId>
-                <artifactId>jpush-client</artifactId>
-                <version>${jpush.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>bcpkix-jdk15on</artifactId>
-                        <groupId>org.bouncycastle</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>bcprov-jdk15on</artifactId>
-                        <groupId>org.bouncycastle</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.verison}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.cola</groupId>
-                <artifactId>cola-component-statemachine</artifactId>
-                <version>${cola.version}</version>
+                <groupId>com.github.kuaidi100-api</groupId>
+                <artifactId>sdk</artifactId>
+                <version>${kuaidi-version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-openapi2-spring-boot-starter</artifactId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
                 <version>${knif4j.version}</version>
             </dependency>
             <dependency>
@@ -265,6 +247,16 @@
                 <groupId>com.github.binarywang</groupId>
                 <artifactId>weixin-java-pay</artifactId>
                 <version>${wx-sdk.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>guava</artifactId>
+                        <groupId>com.google.guava</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>commons-io</artifactId>
+                        <groupId>commons-io</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.alipay.sdk</groupId>
@@ -275,27 +267,16 @@
                         <artifactId>bcprov-jdk15on</artifactId>
                         <groupId>org.bouncycastle</groupId>
                     </exclusion>
+                    <exclusion>
+                        <artifactId>guava</artifactId>
+                        <groupId>com.google.guava</groupId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>easyexcel</artifactId>
                 <version>${easyexcel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.warrenstrange</groupId>
-                <artifactId>googleauth</artifactId>
-                <version>${totp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.kuaidi100-api</groupId>
-                <artifactId>sdk</artifactId>
-                <version>${kuaidi-version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.ben-manes.caffeine</groupId>
@@ -311,10 +292,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>${java.jdk.version}</source>
-                        <target>${java.jdk.version}</target>
-                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>

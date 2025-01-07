@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -22,35 +22,35 @@ import java.time.LocalDateTime;
 public class LineDayConfig {
 
     @TableId(type = IdType.ASSIGN_ID)
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "线路商品id")
+    @Schema(description = "线路商品id")
     private Long lineId;
 
-    @ApiModelProperty(value = "行程排序(第几天)")
+    @Schema(description = "行程排序(第几天)")
     private Integer routeIndex;
 
-    @ApiModelProperty(value = "出发地点")
+    @Schema(description = "出发地点")
     private String startPoint;
 
-    @ApiModelProperty(value = "结束地点")
+    @Schema(description = "结束地点")
     private String endPoint;
 
-    @ApiModelProperty(value = "交通方式 1:飞机 2:汽车 3:轮船 4:火车 5:其他")
+    @Schema(description = "交通方式 1:飞机 2:汽车 3:轮船 4:火车 5:其他")
     private Integer trafficType;
 
-    @ApiModelProperty(value = "包含就餐 1:早餐 2:午餐 4:晚餐")
+    @Schema(description = "包含就餐 1:早餐 2:午餐 4:晚餐")
     private Integer repast;
 
-    @ApiModelProperty(value = "详细描述信息")
+    @Schema(description = "详细描述信息")
     private String depict;
 
-    @ApiModelProperty("添加日期")
+    @Schema(description = "添加日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("更新日期")
+    @Schema(description = "更新日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }

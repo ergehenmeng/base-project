@@ -1,6 +1,6 @@
 package com.eghm.dto.ext;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -11,12 +11,12 @@ import lombok.Data;
 @Data
 public class DiscountJson {
 
-    @ApiModelProperty("skuId")
+    @Schema(description = "skuId")
     private Long skuId;
 
-    @ApiModelProperty("销售价")
+    @Schema(description = "销售价")
     private Integer salePrice;
 
-    @ApiModelProperty("优惠金额")
+    @Schema(description = "优惠金额")
     private Integer discountPrice;
 }

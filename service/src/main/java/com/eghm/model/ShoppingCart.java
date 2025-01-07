@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,31 +20,31 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class ShoppingCart extends BaseEntity {
 
-    @ApiModelProperty(value = "用户id")
+    @Schema(description = "用户id")
     private Long memberId;
 
-    @ApiModelProperty("商户id(冗余)")
+    @Schema(description = "商户id(冗余)")
     private Long merchantId;
 
-    @ApiModelProperty("商铺id")
+    @Schema(description = "商铺id")
     private Long storeId;
 
-    @ApiModelProperty(value = "商品id")
+    @Schema(description = "商品id")
     private Long itemId;
 
-    @ApiModelProperty(value = "商品规格id")
+    @Schema(description = "商品规格id")
     private Long skuId;
 
-    @ApiModelProperty(value = "商品售价(冗余)")
+    @Schema(description = "商品售价(冗余)")
     private Integer salePrice;
 
-    @ApiModelProperty(value = "数量")
+    @Schema(description = "数量")
     private Integer quantity;
 
-    @ApiModelProperty(value = "创建日期")
+    @Schema(description = "创建日期")
     private LocalDate createDate;
 
-    @ApiModelProperty("创建月份")
+    @Schema(description = "创建月份")
     private String createMonth;
 
 }

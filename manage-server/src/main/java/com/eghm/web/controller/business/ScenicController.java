@@ -18,29 +18,29 @@ import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.scenic.BaseScenicResponse;
 import com.eghm.vo.business.scenic.ScenicDetailResponse;
 import com.eghm.vo.business.scenic.ScenicResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
  * @author 二哥很猛 2022/6/17 19:06
  */
 @RestController
-@Api(tags = "景区")
+@Tag(name="景区")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/scenic", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ScenicController {
 
     private final ScenicService scenicService;
 
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     @GetMapping("/listPage")
     public RespBody<PageData<ScenicResponse>> getByPage(ScenicQueryRequest request) {
         SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
@@ -48,7 +48,7 @@ public class ScenicController {
         return RespBody.success(PageData.toPage(scenicPage));
     }
 
-    @ApiModelProperty("列表(不分页)")
+    @Schema(description = "列表(不分页)")
     @GetMapping("/list")
     public RespBody<List<BaseScenicResponse>> list() {
         List<BaseScenicResponse> scenicList = scenicService.getList(SecurityHolder.getMerchantId());
@@ -56,14 +56,14 @@ public class ScenicController {
     }
 
     @GetMapping("/storeListPage")
-    @ApiOperation("列表含商户信息")
+    @Operation(summary = "列表含商户信息")
     public RespBody<PageData<BaseStoreResponse>> storeListPage(BaseStoreQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseStoreResponse> listPage = scenicService.getStorePage(request);
         return RespBody.success(PageData.toPage(listPage));
     }
 
-    @ApiOperation("新增")
+    @Operation(summary = "新增")
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> create(@Validated @RequestBody ScenicAddRequest request) {
         scenicService.createScenic(request);
@@ -71,49 +71,49 @@ public class ScenicController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑")
     public RespBody<Void> update(@Validated @RequestBody ScenicEditRequest request) {
         scenicService.updateScenic(request);
         return RespBody.success();
     }
 
     @GetMapping("/select")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     public RespBody<ScenicDetailResponse> select(@Validated IdDTO request) {
         Scenic scenic = scenicService.selectById(request.getId());
         return RespBody.success(DataUtil.copy(scenic, ScenicDetailResponse.class));
     }
 
     @PostMapping(value = "/shelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("上架")
+    @Operation(summary = "上架")
     public RespBody<Void> shelves(@Validated @RequestBody IdDTO dto) {
         scenicService.updateState(dto.getId(), State.SHELVE);
         return RespBody.success();
     }
 
     @PostMapping(value = "/unShelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("下架")
+    @Operation(summary = "下架")
     public RespBody<Void> unShelves(@Validated @RequestBody IdDTO dto) {
         scenicService.updateState(dto.getId(), State.UN_SHELVE);
         return RespBody.success();
     }
 
     @PostMapping(value = "/platformUnShelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("平台下架")
+    @Operation(summary = "平台下架")
     public RespBody<Void> platformUnShelves(@RequestBody @Validated IdDTO dto) {
         scenicService.updateState(dto.getId(), State.FORCE_UN_SHELVE);
         return RespBody.success();
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         scenicService.deleteById(dto.getId());
         return RespBody.success();
     }
 
     @GetMapping("/export")
-    @ApiOperation("导出")
+    @Operation(summary = "导出")
     public void export(HttpServletResponse response, ScenicQueryRequest request) {
         SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         List<ScenicResponse> byPage = scenicService.getList(request);

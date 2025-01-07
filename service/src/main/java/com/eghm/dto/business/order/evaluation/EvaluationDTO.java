@@ -4,7 +4,7 @@ import com.eghm.convertor.XssEncoder;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -15,27 +15,27 @@ import org.hibernate.validator.constraints.Length;
 @Data
 public class EvaluationDTO {
 
-    @ApiModelProperty(value = "订单子表id")
+    @Schema(description = "订单子表id")
     private Long orderId;
 
-    @ApiModelProperty("店铺评分1-5分(零售 线路 餐饮 民宿 场馆)")
+    @Schema(description = "店铺评分1-5分(零售 线路 餐饮 民宿 场馆)")
     @RangeInt(min = 1, max = 5, message = "店铺评分不合法", required = false)
     private Integer storeScore;
 
-    @ApiModelProperty(value = "物流评分1-5分(零售)")
+    @Schema(description = "物流评分1-5分(零售)")
     @RangeInt(min = 1, max = 5, message = "物流评分不合法", required = false)
     private Integer logisticsScore;
 
-    @ApiModelProperty(value = "综合评分1-5分(零售 线路 餐饮 门票 场馆)")
+    @Schema(description = "综合评分1-5分(零售 线路 餐饮 门票 场馆)")
     @RangeInt(min = 1, max = 5, message = "综合评分不合法", required = false)
     private Integer score;
 
-    @ApiModelProperty(value = "评论")
+    @Schema(description = "评论")
     @JsonDeserialize(using = XssEncoder.class)
     @Length(min = 5, max = 200, message = "评论信息应在5~200字符之间")
     @WordChecker(message = "评论信息包含敏感词")
     private String comment;
 
-    @ApiModelProperty(value = "评论图片")
+    @Schema(description = "评论图片")
     private String commentPic;
 }

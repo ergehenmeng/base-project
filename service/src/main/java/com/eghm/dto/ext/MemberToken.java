@@ -1,7 +1,7 @@
 package com.eghm.dto.ext;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,19 +19,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MemberToken {
 
-    @ApiModelProperty("token")
+    @Schema(description = "token")
     @JsonProperty("t")
     private String token;
 
-    @ApiModelProperty("刷新token")
+    @Schema(description = "刷新token")
     @JsonProperty("rt")
     private String refreshToken;
 
-    @ApiModelProperty("会员id")
+    @Schema(description = "会员id")
     @JsonProperty("mid")
     private Long memberId;
 
-    @ApiModelProperty("登陆来源 ANDROID IOS")
+    @Schema(description = "登陆来源 ANDROID IOS")
     @JsonProperty("c")
     private String channel;
 

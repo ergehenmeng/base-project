@@ -1,7 +1,7 @@
 package com.eghm.vo.notice;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -15,26 +15,26 @@ import java.time.LocalDateTime;
 @Data
 public class NoticeResponse {
 
-    @ApiModelProperty("公告id")
+    @Schema(description = "公告id")
     private Long id;
 
-    @ApiModelProperty("公告名称")
+    @Schema(description = "公告名称")
     private String title;
 
-    @ApiModelProperty("公告类型(数据字典表notice_type)")
+    @Schema(description = "公告类型(数据字典表notice_type)")
     private Integer noticeType;
 
-    @ApiModelProperty("是否发布 0:未发布 1:已发布")
+    @Schema(description = "是否发布 0:未发布 1:已发布")
     private Integer state;
 
-    @ApiModelProperty("封面图片")
+    @Schema(description = "封面图片")
     private String coverUrl;
 
-    @ApiModelProperty("添加时间")
+    @Schema(description = "添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("更新时间")
+    @Schema(description = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }

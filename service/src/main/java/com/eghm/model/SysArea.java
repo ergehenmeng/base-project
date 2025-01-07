@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -28,22 +28,22 @@ public class SysArea {
      */
     public static final int COUNTY = 3;
 
-    @ApiModelProperty("区域代码")
+    @Schema(description = "区域代码")
     private Long id;
 
-    @ApiModelProperty("区域名称")
+    @Schema(description = "区域名称")
     private String title;
 
-    @ApiModelProperty("父级区域代码")
+    @Schema(description = "父级区域代码")
     private Long pid;
 
-    @ApiModelProperty("邮编")
+    @Schema(description = "邮编")
     private String zipCode;
 
-    @ApiModelProperty("标示符-首字母")
+    @Schema(description = "标示符-首字母")
     private String mark;
 
-    @ApiModelProperty("分类 省份1级 市2级 县3级")
+    @Schema(description = "分类 省份1级 市2级 县3级")
     private Integer grade;
 
 }

@@ -4,7 +4,7 @@ import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -16,56 +16,56 @@ import java.time.LocalDate;
 @Data
 public class TicketDetailResponse {
 
-    @ApiModelProperty("门票id")
+    @Schema(description = "门票id")
     private Long id;
 
-    @ApiModelProperty(value = "门票所属景区")
+    @Schema(description = "门票所属景区")
     private Long scenicId;
 
-    @ApiModelProperty(value = "门票状态 0:待上架 1:已上架 2: 强制下架")
+    @Schema(description = "门票状态 0:待上架 1:已上架 2: 强制下架")
     private State state;
 
-    @ApiModelProperty(value = "门票名称")
+    @Schema(description = "门票名称")
     private String title;
 
-    @ApiModelProperty("景区名称")
+    @Schema(description = "景区名称")
     private String scenicName;
 
-    @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
+    @Schema(description = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
     private Integer category;
 
-    @ApiModelProperty(value = "划线价")
+    @Schema(description = "划线价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer linePrice;
 
-    @ApiModelProperty(value = "销售价")
+    @Schema(description = "销售价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty(value = "虚拟销量")
+    @Schema(description = "虚拟销量")
     private Integer virtualNum;
 
-    @ApiModelProperty(value = "单次最大购买数量")
+    @Schema(description = "单次最大购买数量")
     private Integer quota;
 
-    @ApiModelProperty(value = "提前多少天购票")
+    @Schema(description = "提前多少天购票")
     private Integer advanceDay;
 
-    @ApiModelProperty(value = "开始预订时间")
+    @Schema(description = "开始预订时间")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
-    @ApiModelProperty(value = "截止预订时间")
+    @Schema(description = "截止预订时间")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
-    @ApiModelProperty(value = "剩余库存")
+    @Schema(description = "剩余库存")
     private Integer stock;
 
-    @ApiModelProperty(value = "是否实名购票 false:不实名 true:实名")
+    @Schema(description = "是否实名购票 false:不实名 true:实名")
     private Boolean realBuy;
 
-    @ApiModelProperty(value = "门票介绍")
+    @Schema(description = "门票介绍")
     private String introduce;
 
 }

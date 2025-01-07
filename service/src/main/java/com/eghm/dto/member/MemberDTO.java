@@ -1,11 +1,11 @@
 package com.eghm.dto.member;
 
 import com.eghm.validation.annotation.OptionInt;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author 二哥很猛
@@ -15,15 +15,15 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class MemberDTO {
 
-    @ApiModelProperty("头像")
+    @Schema(description = "头像")
     private String avatar;
 
-    @ApiModelProperty(value = "昵称", required = true)
+    @Schema(description = "昵称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "昵称不能为空")
     @Length(min = 1, max = 6, message = "昵称长度最多6个字符")
     private String nickName;
 
-    @ApiModelProperty(value = "性别", required = true)
+    @Schema(description = "性别", requiredMode = Schema.RequiredMode.REQUIRED)
     @OptionInt(value = {0, 1, 2}, message = "请选择性别")
     private Integer sex;
 

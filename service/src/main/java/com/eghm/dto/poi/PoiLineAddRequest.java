@@ -2,13 +2,13 @@ package com.eghm.dto.poi;
 
 import com.eghm.validation.annotation.WordChecker;
 import com.google.gson.annotations.Expose;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -19,25 +19,25 @@ import java.util.List;
 @Data
 public class PoiLineAddRequest {
 
-    @ApiModelProperty(value = "线路名称", required = true)
+    @Schema(description = "线路名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "线路名称不能为空")
     @Size(max = 20, message = "线路名称最大20字符")
     @WordChecker(message = "线路名称存在敏感词")
     private String title;
 
-    @ApiModelProperty(value = "所属区域编号", required = true)
+    @Schema(description = "所属区域编号", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "请选择区域")
     private String areaCode;
 
-    @ApiModelProperty(value = "封面图", required = true)
+    @Schema(description = "封面图", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "封面图不能为空")
     private List<String> coverList;
 
-    @ApiModelProperty(value = "预计游玩时间", required = true)
+    @Schema(description = "预计游玩时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "预计游玩时间不能为空")
     private BigDecimal playTime;
 
-    @ApiModelProperty(value = "详细介绍", required = true)
+    @Schema(description = "详细介绍", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "详细介绍不能为空")
     @WordChecker(message = "详细介绍存在敏感词")
     @Expose(serialize = false)

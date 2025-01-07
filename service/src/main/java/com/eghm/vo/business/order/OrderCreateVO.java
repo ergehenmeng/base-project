@@ -1,7 +1,7 @@
 package com.eghm.vo.business.order;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -13,10 +13,10 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderCreateVO<T> {
 
-    @ApiModelProperty("结果状态 0:处理中(#) 1:成功(@) 2:失败(&:系统异常, 其他则是业务异常)")
+    @Schema(description = "结果状态 0:处理中(#) 1:成功(@) 2:失败(&:系统异常, 其他则是业务异常)")
     private Integer state;
 
-    @ApiModelProperty("错误信息")
+    @Schema(description = "错误信息")
     private String msg;
 
     private T data;

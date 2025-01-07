@@ -1,7 +1,7 @@
 package com.eghm.vo.business.limit;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -12,13 +12,13 @@ import lombok.Data;
 @Data
 public class LimitItemResponse {
 
-    @ApiModelProperty("商品id")
+    @Schema(description = "商品id")
     private Long itemId;
 
-    @ApiModelProperty("商品名称")
+    @Schema(description = "商品名称")
     private String title;
 
-    @ApiModelProperty("规格优惠配置json")
+    @Schema(description = "规格优惠配置json")
     @JsonIgnore
     private String skuValue;
 }

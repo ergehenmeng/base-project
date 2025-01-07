@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,16 +18,16 @@ import lombok.EqualsAndHashCode;
 @TableName("poi_type")
 public class PoiType extends BaseEntity {
 
-    @ApiModelProperty(value = "poi类型名称")
+    @Schema(description = "poi类型名称")
     private String title;
 
-    @ApiModelProperty(value = "区域编号")
+    @Schema(description = "区域编号")
     private String areaCode;
 
-    @ApiModelProperty(value = "点位类型icon")
+    @Schema(description = "点位类型icon")
     private String icon;
 
-    @ApiModelProperty(value = "点位排序 小<->大")
+    @Schema(description = "点位排序 小<->大")
     private Integer sort;
 
 }

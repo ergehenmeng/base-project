@@ -4,7 +4,7 @@ import com.eghm.convertor.CentToYuanOmitEncoder;
 import com.eghm.vo.business.BaseConfigResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -20,18 +20,18 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LineConfigResponse extends BaseConfigResponse {
 
-    @ApiModelProperty("是否可订 0:不可订 1:可定")
+    @Schema(description = "是否可订 0:不可订 1:可定")
     private Boolean state;
 
-    @ApiModelProperty("划线价")
+    @Schema(description = "划线价")
     @JsonSerialize(using = CentToYuanOmitEncoder.class)
     private Integer linePrice;
 
-    @ApiModelProperty("销售价")
+    @Schema(description = "销售价")
     @JsonSerialize(using = CentToYuanOmitEncoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty("库存数")
+    @Schema(description = "库存数")
     private Integer stock;
 
 }

@@ -6,7 +6,7 @@ import com.eghm.enums.UserType;
 import com.eghm.enums.ref.UserState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,42 +20,42 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class SysUser extends BaseEntity {
 
-    @ApiModelProperty("用户姓名")
+    @Schema(description = "用户姓名")
     private String nickName;
 
-    @ApiModelProperty("账户名(登陆账户)")
+    @Schema(description = "账户名(登陆账户)")
     private String userName;
 
-    @ApiModelProperty("手机号码(登陆账户)")
+    @Schema(description = "手机号码(登陆账户)")
     private String mobile;
 
-    @ApiModelProperty("用户类型 0: 超级管理员 1: 系统用户 2: 商户管理员 3: 商户普通用户")
+    @Schema(description = "用户类型 0: 超级管理员 1: 系统用户 2: 商户管理员 3: 商户普通用户")
     private UserType userType;
 
-    @ApiModelProperty("数据权限 只针对系统用户有效")
+    @Schema(description = "数据权限 只针对系统用户有效")
     private DataType dataType;
 
-    @ApiModelProperty("用户状态:0:锁定,1:正常 2:注销")
+    @Schema(description = "用户状态:0:锁定,1:正常 2:注销")
     private UserState state;
 
-    @ApiModelProperty("登陆密码")
+    @Schema(description = "登陆密码")
     @JsonIgnore
     private String pwd;
 
-    @ApiModelProperty("初始密码")
+    @Schema(description = "初始密码")
     @JsonIgnore
     private String initPwd;
 
-    @ApiModelProperty("部门编号")
+    @Schema(description = "部门编号")
     private String deptCode;
 
-    @ApiModelProperty("备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 
-    @ApiModelProperty("微信openId")
+    @Schema(description = "微信openId")
     private String openId;
 
-    @ApiModelProperty("密码修改时间")
+    @Schema(description = "密码修改时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime pwdUpdateTime;
 }

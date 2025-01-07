@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.SignType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,26 +19,26 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class AuthConfig extends BaseEntity {
 
-    @ApiModelProperty("单位名称")
+    @Schema(description = "单位名称")
     private String title;
 
-    @ApiModelProperty("appKey")
+    @Schema(description = "appKey")
     private String appKey;
 
-    @ApiModelProperty("公钥(不对外暴露)")
+    @Schema(description = "公钥(不对外暴露)")
     @JsonIgnore
     private String publicKey;
 
-    @ApiModelProperty("私钥")
+    @Schema(description = "私钥")
     public String privateKey;
 
-    @ApiModelProperty("签名方式")
+    @Schema(description = "签名方式")
     private SignType signType;
 
-    @ApiModelProperty("过期时间")
+    @Schema(description = "过期时间")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate expireDate;
 
-    @ApiModelProperty("备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 }

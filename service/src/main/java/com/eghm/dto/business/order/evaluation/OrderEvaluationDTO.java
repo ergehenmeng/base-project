@@ -1,11 +1,11 @@
 package com.eghm.dto.business.order.evaluation;
 
 import com.eghm.annotation.Assign;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
@@ -15,18 +15,18 @@ import java.util.List;
 @Data
 public class OrderEvaluationDTO {
 
-    @ApiModelProperty(value = "订单编号", required = true)
+    @Schema(description = "订单编号", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "订单编号不能为空")
     private String orderNo;
 
-    @ApiModelProperty(value = "是否匿名评论 0:非匿名 1:匿名")
+    @Schema(description = "是否匿名评论 0:非匿名 1:匿名")
     private Boolean anonymity = false;
 
-    @ApiModelProperty(value = "评价信息", required = true)
+    @Schema(description = "评价信息", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "评价信息不能为空")
     private List<EvaluationDTO> commentList;
 
     @Assign
-    @ApiModelProperty(value = "用户id", hidden = true)
+    @Schema(description = "用户id", hidden = true)
     private Long memberId;
 }

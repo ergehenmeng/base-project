@@ -1,6 +1,6 @@
 package com.eghm.vo.business.restaurant;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -14,12 +14,12 @@ import lombok.Data;
 @Data
 public class TagSelectResponse {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "标签名称")
+    @Schema(description = "标签名称")
     private String title;
 
-    @ApiModelProperty(value = "状态 0:禁用 1:正常")
+    @Schema(description = "状态 0:禁用 1:正常")
     private Boolean state;
 }

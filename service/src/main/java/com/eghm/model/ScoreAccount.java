@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,19 +18,19 @@ import lombok.EqualsAndHashCode;
 @TableName("score_account")
 public class ScoreAccount extends BaseEntity {
 
-    @ApiModelProperty(value = "商户id")
+    @Schema(description = "商户id")
     private Long merchantId;
 
-    @ApiModelProperty(value = "可用积分")
+    @Schema(description = "可用积分")
     private Integer amount;
 
-    @ApiModelProperty(value = "支付冻结积分")
+    @Schema(description = "支付冻结积分")
     private Integer payFreeze;
 
-    @ApiModelProperty(value = "提现冻结积分")
+    @Schema(description = "提现冻结积分")
     private Integer withdrawFreeze;
 
-    @ApiModelProperty(value = "版本号")
+    @Schema(description = "版本号")
     private Integer version;
 
 }

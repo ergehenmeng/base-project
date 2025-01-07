@@ -9,8 +9,8 @@ import com.eghm.dto.business.item.ItemTagQueryRequest;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.ItemTagService;
 import com.eghm.vo.business.item.ItemTagResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -23,7 +23,7 @@ import java.util.List;
  * @since 2023/8/9
  */
 @RestController
-@Api(tags = "零售标签")
+@Tag(name="零售标签")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/item/tag", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemTagController {
@@ -31,7 +31,7 @@ public class ItemTagController {
     private final ItemTagService itemTagService;
 
     @GetMapping("/list")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     @SkipPerm
     public RespBody<List<ItemTagResponse>> list(ItemTagQueryRequest request) {
         List<ItemTagResponse> serviceList = itemTagService.getList(request);
@@ -39,28 +39,28 @@ public class ItemTagController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增")
+    @Operation(summary = "新增")
     public RespBody<Void> create(@Validated @RequestBody ItemTagAddRequest request) {
         itemTagService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑")
     public RespBody<Void> update(@Validated @RequestBody ItemTagEditRequest request) {
         itemTagService.update(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/sort", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新排序")
+    @Operation(summary = "更新排序")
     public RespBody<Void> sort(@RequestBody @Validated SortByDTO dto) {
         itemTagService.sortBy(String.valueOf(dto.getId()), dto.getSortBy());
         return RespBody.success();
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         itemTagService.deleteById(dto.getId());
         return RespBody.success();

@@ -1,6 +1,6 @@
 package com.eghm.dto.business.activity;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -10,9 +10,9 @@ import lombok.Data;
 @Data
 public class ActivityDeleteRequest {
 
-    @ApiModelProperty("活动标题")
+    @Schema(description = "活动标题")
     private String title;
 
-    @ApiModelProperty("id")
+    @Schema(description = "id")
     private Long id;
 }

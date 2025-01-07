@@ -1,7 +1,7 @@
 package com.eghm.vo.business.limit;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -14,31 +14,31 @@ import java.time.LocalDateTime;
 @Data
 public class LimitPurchaseResponse {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "活动名称")
+    @Schema(description = "活动名称")
     private String title;
 
-    @ApiModelProperty(value = "开始时间")
+    @Schema(description = "开始时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
 
-    @ApiModelProperty(value = "结束时间")
+    @Schema(description = "结束时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
-    @ApiModelProperty(value = "提前预告小时")
+    @Schema(description = "提前预告小时")
     private Integer advanceHour;
 
-    @ApiModelProperty("添加时间")
+    @Schema(description = "添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("修改时间")
+    @Schema(description = "修改时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
-    @ApiModelProperty("备注")
+    @Schema(description = "备注")
     private String remark;
 }

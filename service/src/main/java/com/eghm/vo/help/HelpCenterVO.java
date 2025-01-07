@@ -1,6 +1,6 @@
 package com.eghm.vo.help;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -10,12 +10,12 @@ import lombok.Data;
 @Data
 public class HelpCenterVO {
 
-    @ApiModelProperty("帮助分类")
+    @Schema(description = "帮助分类")
     private Integer helpType;
 
-    @ApiModelProperty("问题标题")
+    @Schema(description = "问题标题")
     private String ask;
 
-    @ApiModelProperty("回答")
+    @Schema(description = "回答")
     private String answer;
 }

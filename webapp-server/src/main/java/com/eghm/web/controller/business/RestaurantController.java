@@ -12,8 +12,8 @@ import com.eghm.vo.business.restaurant.RestaurantVO;
 import com.eghm.vo.business.restaurant.VoucherDetailVO;
 import com.eghm.vo.business.restaurant.VoucherVO;
 import com.eghm.web.annotation.VisitRecord;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +28,7 @@ import java.util.List;
  * @since 2022/6/30
  */
 @RestController
-@Api(tags = "餐饮门店")
+@Tag(name="餐饮门店")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/restaurant", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantController {
@@ -38,21 +38,21 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<List<RestaurantVO>> listPage(RestaurantQueryDTO dto) {
         List<RestaurantVO> byPage = restaurantService.getByPage(dto);
         return RespBody.success(byPage);
     }
 
     @GetMapping("/detail")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     public RespBody<RestaurantDetailVO> detail(@Validated IdDTO dto) {
         RestaurantDetailVO detail = restaurantService.detailById(dto.getId());
         return RespBody.success(detail);
     }
 
     @GetMapping("/voucher/listPage")
-    @ApiOperation("餐饮券列表")
+    @Operation(summary = "餐饮券列表")
     @VisitRecord(VisitType.PRODUCT_LIST)
     public RespBody<List<VoucherVO>> voucherListPage(@Validated VoucherQueryDTO dto) {
         List<VoucherVO> voList = voucherService.getByPage(dto);
@@ -60,7 +60,7 @@ public class RestaurantController {
     }
 
     @GetMapping("/voucher/detail")
-    @ApiOperation("餐饮券详情")
+    @Operation(summary = "餐饮券详情")
     @VisitRecord(VisitType.PRODUCT_DETAIL)
     public RespBody<VoucherDetailVO> voucherDetail(@Validated IdDTO dto) {
         VoucherDetailVO detail = voucherService.getDetail(dto.getId());

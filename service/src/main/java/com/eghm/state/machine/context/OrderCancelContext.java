@@ -3,7 +3,7 @@ package com.eghm.state.machine.context;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.state.machine.Context;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -13,15 +13,15 @@ import lombok.Data;
 @Data
 public class OrderCancelContext implements Context {
 
-    @ApiModelProperty("订单编号")
+    @Schema(description = "订单编号")
     private String orderNo;
 
-    @ApiModelProperty("源状态")
+    @Schema(description = "源状态")
     private Integer from;
 
-    @ApiModelProperty("产品类型")
+    @Schema(description = "产品类型")
     private ProductType productType;
 
-    @ApiModelProperty("事件")
+    @Schema(description = "事件")
     private IEvent event;
 }

@@ -1,7 +1,7 @@
 package com.eghm.vo.business.item.express;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -14,26 +14,26 @@ import java.util.List;
 @Data
 public class ExpressTemplateResponse {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "模板名称")
+    @Schema(description = "模板名称")
     private String title;
 
-    @ApiModelProperty(value = "状态 0:禁用 1:启用")
+    @Schema(description = "状态 0:禁用 1:启用")
     private Integer state;
 
-    @ApiModelProperty(value = "计费方式 1:按件数 2:按重量")
+    @Schema(description = "计费方式 1:按件数 2:按重量")
     private Integer chargeMode;
 
-    @ApiModelProperty("添加时间")
+    @Schema(description = "添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("更新时间")
+    @Schema(description = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
-    @ApiModelProperty("区域价格配置列表")
+    @Schema(description = "区域价格配置列表")
     private List<ExpressRegionResponse> regionList;
 }

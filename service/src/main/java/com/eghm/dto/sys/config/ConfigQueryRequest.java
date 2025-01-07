@@ -2,7 +2,7 @@ package com.eghm.dto.sys.config;
 
 
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class ConfigQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("是否禁止编辑 true:禁止编辑 false:可以编辑")
+    @Schema(description = "是否禁止编辑 true:禁止编辑 false:可以编辑")
     private Boolean locked;
 
 }

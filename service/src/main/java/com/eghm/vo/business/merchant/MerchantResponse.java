@@ -8,7 +8,7 @@ import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.ref.EnterpriseType;
 import com.eghm.enums.ref.UserState;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -27,60 +27,60 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class MerchantResponse extends ExcelStyle {
 
-    @ApiModelProperty(value = "id")
+    @Schema(description = "id")
     private Long id;
 
-    @ApiModelProperty(value = "商家名称")
+    @Schema(description = "商家名称")
     @ExcelProperty(value = "商家名称", index = 0)
     private String merchantName;
 
-    @ApiModelProperty(value = "商家类型 1:景区 2:民宿 4:餐饮 8:零售 16:线路 32:场馆")
+    @Schema(description = "商家类型 1:景区 2:民宿 4:餐饮 8:零售 16:线路 32:场馆")
     @ExcelProperty(value = "商家类型", index = 1, converter = MerchantTypeConverter.class)
     private Integer type;
 
-    @ApiModelProperty(value = "商家状态: 0:锁定 1:正常 2:销户")
+    @Schema(description = "商家状态: 0:锁定 1:正常 2:销户")
     @ExcelProperty(value = "商家状态", index = 2, converter = EnumExcelConverter.class)
     private UserState state;
 
-    @ApiModelProperty(value = "联系人电话")
+    @Schema(description = "联系人电话")
     @ExcelProperty(value = "联系人电话", index = 3)
     private String mobile;
 
-    @ApiModelProperty(value = "账户名")
+    @Schema(description = "账户名")
     @ExcelProperty(value = "账户名", index = 4)
     private String account;
 
-    @ApiModelProperty(value = "微信授权手机号")
+    @Schema(description = "微信授权手机号")
     @ExcelProperty(value = "微信授权手机号", index = 5)
     private String authMobile;
 
-    @ApiModelProperty(value = "企业类型: 1:个人 2:企业")
+    @Schema(description = "企业类型: 1:个人 2:企业")
     @ExcelProperty(value = "企业类型", index = 6, converter = EnumExcelConverter.class)
     private EnterpriseType enterpriseType;
 
-    @ApiModelProperty(value = "法人姓名")
+    @Schema(description = "法人姓名")
     @ExcelProperty(value = "法人姓名", index = 7)
     private String legalName;
 
-    @ApiModelProperty(value = "法人身份证")
+    @Schema(description = "法人身份证")
     @ExcelProperty(value = "法人身份证", index = 8)
     private String legalIdCard;
 
-    @ApiModelProperty(value = "社会统一信用代码")
+    @Schema(description = "社会统一信用代码")
     @ExcelProperty(value = "社会统一信用代码", index = 9)
     private String creditCode;
 
-    @ApiModelProperty(value = "平台服务费,单位:%")
+    @Schema(description = "平台服务费,单位:%")
     @ExcelProperty(value = "平台服务费(%)", index = 10)
     private BigDecimal platformServiceRate;
 
-    @ApiModelProperty(value = "创建时间")
+    @Schema(description = "创建时间")
     @ExcelProperty(value = "创建时间", index = 11)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty(value = "修改时间")
+    @Schema(description = "修改时间")
     @ExcelProperty(value = "修改时间", index = 12)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

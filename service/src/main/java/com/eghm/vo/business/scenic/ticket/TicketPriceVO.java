@@ -1,6 +1,6 @@
 package com.eghm.vo.business.scenic.ticket;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -12,9 +12,9 @@ import lombok.Data;
 @Data
 public class TicketPriceVO {
 
-    @ApiModelProperty("最低价")
+    @Schema(description = "最低价")
     private Integer minPrice;
 
-    @ApiModelProperty("最高价")
+    @Schema(description = "最高价")
     private Integer maxPrice;
 }

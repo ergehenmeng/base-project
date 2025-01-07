@@ -7,8 +7,8 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.ShoppingCartService;
 import com.eghm.vo.business.shopping.ShoppingCartResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2022/7/23
  */
 @RestController
-@Api(tags = "购物车管理")
+@Tag(name="购物车管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/shopping/cart", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ShoppingCartController {
@@ -28,7 +28,7 @@ public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<ShoppingCartResponse>> listPage(ShoppingCartQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ShoppingCartResponse> byPage = shoppingCartService.getByPage(request);

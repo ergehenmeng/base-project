@@ -1,7 +1,7 @@
 package com.eghm.vo.business.merchant.address;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -14,29 +14,29 @@ import java.time.LocalDateTime;
 @Data
 public class MerchantAddressResponse {
 
-    @ApiModelProperty(value = "id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "商户id")
+    @Schema(description = "商户id")
     private Long merchantId;
 
-    @ApiModelProperty(value = "昵称")
+    @Schema(description = "昵称")
     private String nickName;
 
-    @ApiModelProperty(value = "手机号码")
+    @Schema(description = "手机号码")
     private String mobile;
 
-    @ApiModelProperty(value = "详细地址")
+    @Schema(description = "详细地址")
     private String detailAddress;
 
-    @ApiModelProperty("添加时间")
+    @Schema(description = "添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("更新时间")
+    @Schema(description = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
-    @ApiModelProperty("备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 }

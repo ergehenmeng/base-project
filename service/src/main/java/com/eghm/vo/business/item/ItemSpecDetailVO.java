@@ -1,6 +1,6 @@
 package com.eghm.vo.business.item;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -10,12 +10,12 @@ import lombok.Data;
 @Data
 public class ItemSpecDetailVO {
 
-    @ApiModelProperty("id")
+    @Schema(description = "id")
     private Long id;
 
-    @ApiModelProperty(value = "规格名称")
+    @Schema(description = "规格名称")
     private String specValue;
 
-    @ApiModelProperty(value = "规格图片(一级规格必填), 优先级比sku_pic低")
+    @Schema(description = "规格图片(一级规格必填), 优先级比sku_pic低")
     private String specPic;
 }

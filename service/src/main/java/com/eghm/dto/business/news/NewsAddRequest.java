@@ -1,11 +1,11 @@
 package com.eghm.dto.business.news;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -16,34 +16,34 @@ import java.util.List;
 @Data
 public class NewsAddRequest {
 
-    @ApiModelProperty(value = "资讯标题", required = true)
+    @Schema(description = "资讯标题", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "标题不能为空")
     @Size(max = 20, message = "标题长度不能超过20")
     private String title;
 
-    @ApiModelProperty(value = "资讯编码", required = true)
+    @Schema(description = "资讯编码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "编码不能为空")
     @Size(max = 20, message = "编码长度不能超过20")
     private String code;
 
-    @ApiModelProperty(value = "一句话描述信息")
+    @Schema(description = "一句话描述信息")
     private String depict;
 
-    @ApiModelProperty(value = "标签列表")
+    @Schema(description = "标签列表")
     @Size(max = 3, message = "标签不能超过3个")
     private List<String> tagList;
 
-    @ApiModelProperty(value = "图集")
+    @Schema(description = "图集")
     private List<String> imageList;
 
-    @ApiModelProperty(value = "详细信息", required = true)
+    @Schema(description = "详细信息", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "详细信息不能为空")
     private String content;
 
-    @ApiModelProperty(value = "视频")
+    @Schema(description = "视频")
     private String video;
 
-    @ApiModelProperty("是否支持评论 true:支持 false:不支持")
+    @Schema(description = "是否支持评论 true:支持 false:不支持")
     @NotNull(message = "是否支持评论不能为空")
     private Boolean commentSupport;
 

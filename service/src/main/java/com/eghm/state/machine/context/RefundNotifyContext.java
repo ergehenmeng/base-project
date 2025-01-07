@@ -4,7 +4,7 @@ import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.pay.vo.RefundVO;
 import com.eghm.state.machine.Context;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -14,21 +14,21 @@ import lombok.Data;
 @Data
 public class RefundNotifyContext implements Context {
 
-    @ApiModelProperty("支付流水号")
+    @Schema(description = "支付流水号")
     private String tradeNo;
 
-    @ApiModelProperty("退款流水号")
+    @Schema(description = "退款流水号")
     private String refundNo;
 
-    @ApiModelProperty("退款结果")
+    @Schema(description = "退款结果")
     private RefundVO result;
 
-    @ApiModelProperty("源状态")
+    @Schema(description = "源状态")
     private Integer from;
 
-    @ApiModelProperty("产品类型")
+    @Schema(description = "产品类型")
     private ProductType productType;
 
-    @ApiModelProperty("事件")
+    @Schema(description = "事件")
     private IEvent event;
 }

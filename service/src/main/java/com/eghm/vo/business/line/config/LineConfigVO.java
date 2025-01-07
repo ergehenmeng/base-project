@@ -4,7 +4,7 @@ import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -17,24 +17,24 @@ import java.time.LocalDate;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LineConfigVO {
 
-    @ApiModelProperty("id")
+    @Schema(description = "id")
     private Long id;
 
-    @ApiModelProperty("日期")
+    @Schema(description = "日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate configDate;
 
-    @ApiModelProperty("是否可订 0:不可订 1:可定")
+    @Schema(description = "是否可订 0:不可订 1:可定")
     private Integer state;
 
-    @ApiModelProperty("划线价")
+    @Schema(description = "划线价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer linePrice;
 
-    @ApiModelProperty("销售价")
+    @Schema(description = "销售价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty("库存数")
+    @Schema(description = "库存数")
     private Integer stock;
 }

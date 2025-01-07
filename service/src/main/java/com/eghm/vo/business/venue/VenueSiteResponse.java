@@ -1,7 +1,7 @@
 package com.eghm.vo.business.venue;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -14,32 +14,32 @@ import java.time.LocalDateTime;
 @Data
 public class VenueSiteResponse {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "场地封面图片")
+    @Schema(description = "场地封面图片")
     private String coverUrl;
 
-    @ApiModelProperty(value = "场地名称")
+    @Schema(description = "场地名称")
     private String title;
 
-    @ApiModelProperty(value = "所属场馆id")
+    @Schema(description = "所属场馆id")
     private String venueId;
 
-    @ApiModelProperty(value = "所属场馆")
+    @Schema(description = "所属场馆")
     private String venueName;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
+    @Schema(description = "状态 0:待上架 1:已上架 2:强制下架")
     private Integer state;
 
-    @ApiModelProperty(value = "排序 小<->大")
+    @Schema(description = "排序 小<->大")
     private Integer sort;
 
-    @ApiModelProperty("添加时间")
+    @Schema(description = "添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("更新时间")
+    @Schema(description = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }

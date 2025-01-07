@@ -4,7 +4,7 @@ import com.eghm.annotation.Assign;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.state.machine.Context;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -17,35 +17,35 @@ import java.util.List;
 @Data
 public class RefundApplyContext implements Context {
 
-    @ApiModelProperty(value = "订单编号", required = true)
+    @Schema(description = "订单编号", requiredMode = Schema.RequiredMode.REQUIRED)
     private String orderNo;
 
-    @ApiModelProperty(value = "申请退款金额(含快递费)", required = true)
+    @Schema(description = "申请退款金额(含快递费)", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer refundAmount;
 
-    @ApiModelProperty(value = "退款原因", required = true)
+    @Schema(description = "退款原因", requiredMode = Schema.RequiredMode.REQUIRED)
     private String reason;
 
-    @ApiModelProperty(value = "申请方式 1:仅退款 2:退货退款")
+    @Schema(description = "申请方式 1:仅退款 2:退货退款")
     private Integer applyType;
 
-    @ApiModelProperty("退款游客id(需要实名制时该字段不为空)")
+    @Schema(description = "退款游客id(需要实名制时该字段不为空)")
     private List<Long> visitorIds;
 
     @Assign
-    @ApiModelProperty(value = "退款数量(非零售时该字段必传)")
+    @Schema(description = "退款数量(非零售时该字段必传)")
     private Integer num;
 
     @Assign
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     private Long memberId;
 
-    @ApiModelProperty("源状态")
+    @Schema(description = "源状态")
     private Integer from;
 
-    @ApiModelProperty("产品类型")
+    @Schema(description = "产品类型")
     private ProductType productType;
 
-    @ApiModelProperty("事件")
+    @Schema(description = "事件")
     private IEvent event;
 }

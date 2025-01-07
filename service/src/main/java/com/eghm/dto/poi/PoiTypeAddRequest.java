@@ -1,11 +1,11 @@
 package com.eghm.dto.poi;
 
 import com.eghm.validation.annotation.WordChecker;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 /**
  * @author 二哥很猛
@@ -15,20 +15,20 @@ import javax.validation.constraints.Size;
 @Data
 public class PoiTypeAddRequest {
 
-    @ApiModelProperty(value = "类型名称", required = true)
+    @Schema(description = "类型名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @Size(max = 20, message = "类型名称最大20字符")
     @NotBlank(message = "类型名称不能为空")
     @WordChecker(message = "类型名称包含敏感词")
     private String title;
 
-    @ApiModelProperty(value = "区域", required = true)
+    @Schema(description = "区域", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "请选择区域")
     private String areaCode;
 
-    @ApiModelProperty(value = "icon", required = true)
+    @Schema(description = "icon", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "icon不能为空")
     private String icon;
 
-    @ApiModelProperty(value = "排序")
+    @Schema(description = "排序")
     private Integer sort;
 }

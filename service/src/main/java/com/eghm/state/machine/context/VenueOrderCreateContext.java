@@ -3,7 +3,7 @@ package com.eghm.state.machine.context;
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.AsyncKey;
 import com.eghm.state.machine.Context;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -19,32 +19,32 @@ import java.util.List;
 @ToString(callSuper = true)
 public class VenueOrderCreateContext extends AsyncKey implements Context {
 
-    @ApiModelProperty("优惠券id")
+    @Schema(description = "优惠券id")
     private Long couponId;
 
-    @ApiModelProperty("昵称")
+    @Schema(description = "昵称")
     private String nickName;
 
-    @ApiModelProperty("联系人电话")
+    @Schema(description = "联系人电话")
     private String mobile;
 
-    @ApiModelProperty("时间段id")
+    @Schema(description = "时间段id")
     private List<Long> phaseList;
 
-    @ApiModelProperty("备注")
+    @Schema(description = "备注")
     private String remark;
 
-    @ApiModelProperty("兑换码")
+    @Schema(description = "兑换码")
     private String cdKey;
 
     @Assign
-    @ApiModelProperty("订单编号")
+    @Schema(description = "订单编号")
     private String orderNo;
 
     @Assign
-    @ApiModelProperty(hidden = true, value = "用户id")
+    @Schema(description = "用户id")
     private Long memberId;
 
-    @ApiModelProperty("源状态")
+    @Schema(description = "源状态")
     private Integer from;
 }

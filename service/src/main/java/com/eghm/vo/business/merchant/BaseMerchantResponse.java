@@ -1,6 +1,6 @@
 package com.eghm.vo.business.merchant;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -14,12 +14,12 @@ import lombok.Data;
 @Data
 public class BaseMerchantResponse {
 
-    @ApiModelProperty(value = "id")
+    @Schema(description = "id")
     private Long id;
 
-    @ApiModelProperty(value = "商家名称")
+    @Schema(description = "商家名称")
     private String merchantName;
     
-    @ApiModelProperty("法人姓名")
+    @Schema(description = "法人姓名")
     private String legalName;
 }

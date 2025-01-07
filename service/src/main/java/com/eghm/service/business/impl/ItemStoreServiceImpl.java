@@ -110,7 +110,7 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         LambdaQueryWrapper<ItemStore> wrapper = Wrappers.lambdaQuery();
         wrapper.in(ItemStore::getId, ids);
         wrapper.eq(ItemStore::getState, State.SHELVE);
-        List<ItemStore> storeList = itemStoreMapper.selectBatchIds(ids);
+        List<ItemStore> storeList = itemStoreMapper.selectByIds(ids);
         if (storeList.size() != ids.size()) {
             log.error("存在已删除零售店铺 {}", ids);
             throw new BusinessException(ErrorCode.ANY_SHOP_DOWN);

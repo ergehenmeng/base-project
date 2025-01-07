@@ -3,10 +3,10 @@ package com.eghm.dto.business.line;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.google.gson.annotations.Expose;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
@@ -16,26 +16,26 @@ import java.util.List;
 @Data
 public class LineDayConfigRequest {
 
-    @ApiModelProperty(value = "行程排序(第几天)", required = true)
+    @Schema(description = "行程排序(第几天)", requiredMode = Schema.RequiredMode.REQUIRED)
     @OptionInt(value = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}, message = "行程排序不合法")
     private Integer routeIndex;
 
-    @ApiModelProperty(value = "出发地点", required = true)
+    @Schema(description = "出发地点", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "出发地点不能为空")
     private String startPoint;
 
-    @ApiModelProperty(value = "结束地点", required = true)
+    @Schema(description = "结束地点", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "结束地点不能为空")
     private String endPoint;
 
-    @ApiModelProperty(value = "交通方式 1:飞机 2:汽车 3:轮船 4:火车 5:其他", required = true)
+    @Schema(description = "交通方式 1:飞机 2:汽车 3:轮船 4:火车 5:其他", requiredMode = Schema.RequiredMode.REQUIRED)
     @OptionInt(value = {1, 2, 3, 4, 5}, message = "交通方式不合法")
     private Integer trafficType;
 
-    @ApiModelProperty(value = "包含就餐 1:早餐 2:午餐 4:晚餐", required = true)
+    @Schema(description = "包含就餐 1:早餐 2:午餐 4:晚餐", requiredMode = Schema.RequiredMode.REQUIRED)
     private List<Integer> repastList;
 
-    @ApiModelProperty(value = "详细描述信息", required = true)
+    @Schema(description = "详细描述信息", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "详细信息不能为空")
     @WordChecker(message = "详细信息存在敏感词")
     @Expose(serialize = false)

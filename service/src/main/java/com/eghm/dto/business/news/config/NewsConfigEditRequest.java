@@ -1,11 +1,11 @@
 package com.eghm.dto.business.news.config;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * @author 二哥很猛
@@ -15,32 +15,32 @@ import javax.validation.constraints.Size;
 @Data
 public class NewsConfigEditRequest {
 
-    @ApiModelProperty(value = "id主键", required = true)
+    @Schema(description = "id主键", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "分类标题", required = true)
+    @Schema(description = "分类标题", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "分类标题不能为空")
     @Size(max = 10, message = "分类标题最大10字符")
     private String title;
 
-    @ApiModelProperty(value = "是否包含标题", required = true)
+    @Schema(description = "是否包含标题", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "是否包含标题不能为空")
     private Boolean includeTitle;
 
-    @ApiModelProperty(value = "是否包含描述信息", required = true)
+    @Schema(description = "是否包含描述信息", requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean includeDepict;
 
-    @ApiModelProperty(value = "是否包含标签", required = true)
+    @Schema(description = "是否包含标签", requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean includeTag;
 
-    @ApiModelProperty(value = "是否包含图集", required = true)
+    @Schema(description = "是否包含图集", requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean includeImage;
 
-    @ApiModelProperty(value = "是否包含详细信息", required = true)
+    @Schema(description = "是否包含详细信息", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "是否包含详细信息不能为空")
     private Boolean includeContent;
 
-    @ApiModelProperty(value = "是否包含视频", required = true)
+    @Schema(description = "是否包含视频", requiredMode = Schema.RequiredMode.REQUIRED)
     private Boolean includeVideo;
 }

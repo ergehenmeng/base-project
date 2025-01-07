@@ -1,6 +1,6 @@
 package com.eghm.vo.business.line;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -16,37 +16,37 @@ import java.math.BigDecimal;
 @Data
 public class TravelDetailVO {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "旅行社名称")
+    @Schema(description = "旅行社名称")
     private String title;
 
-    @ApiModelProperty("店铺logo")
+    @Schema(description = "店铺logo")
     private String logoUrl;
 
-    @ApiModelProperty(value = "详细地址")
+    @Schema(description = "详细地址")
     private String detailAddress;
 
-    @ApiModelProperty("是否收藏")
+    @Schema(description = "是否收藏")
     private Boolean collect;
 
-    @ApiModelProperty(value = "经度")
+    @Schema(description = "经度")
     private BigDecimal longitude;
 
-    @ApiModelProperty(value = "纬度")
+    @Schema(description = "纬度")
     private BigDecimal latitude;
 
-    @ApiModelProperty(value = "旅行社描述信息")
+    @Schema(description = "旅行社描述信息")
     private String depict;
 
-    @ApiModelProperty(value = "旅行社图片")
+    @Schema(description = "旅行社图片")
     private String coverUrl;
 
-    @ApiModelProperty(value = "旅行社详细介绍信息")
+    @Schema(description = "旅行社详细介绍信息")
     private String introduce;
 
-    @ApiModelProperty("评分")
+    @Schema(description = "评分")
     private BigDecimal score;
 
 }

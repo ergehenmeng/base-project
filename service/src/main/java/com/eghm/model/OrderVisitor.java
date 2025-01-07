@@ -3,7 +3,7 @@ package com.eghm.model;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.VisitorState;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,22 +20,22 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class OrderVisitor extends BaseEntity {
 
-    @ApiModelProperty(value = "商品类型 ticket:门票 homestay:民宿 voucher:餐饮券 item:零售 line:线路 venue:场馆")
+    @Schema(description = "商品类型 ticket:门票 homestay:民宿 voucher:餐饮券 item:零售 line:线路 venue:场馆")
     private ProductType productType;
 
-    @ApiModelProperty(value = "订单编号")
+    @Schema(description = "订单编号")
     private String orderNo;
 
-    @ApiModelProperty("游客使用状态")
+    @Schema(description = "游客使用状态")
     private VisitorState state;
 
-    @ApiModelProperty("关联的核销记录id")
+    @Schema(description = "关联的核销记录id")
     private Long verifyId;
 
-    @ApiModelProperty(value = "游客姓名")
+    @Schema(description = "游客姓名")
     private String memberName;
 
-    @ApiModelProperty(value = "身份证号码")
+    @Schema(description = "身份证号码")
     private String idCard;
 
 }

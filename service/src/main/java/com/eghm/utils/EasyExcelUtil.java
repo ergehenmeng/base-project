@@ -2,7 +2,6 @@ package com.eghm.utils;
 
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.http.Header;
-import cn.hutool.poi.excel.ExcelUtil;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.read.listener.ReadListener;
@@ -11,11 +10,11 @@ import com.alibaba.excel.util.ListUtils;
 import com.alibaba.excel.write.handler.SheetWriteHandler;
 import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
 import com.alibaba.excel.write.metadata.holder.WriteWorkbookHolder;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -30,6 +29,8 @@ import java.util.function.Consumer;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Slf4j
 public class EasyExcelUtil {
+
+    public static final String XLSX_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
     /**
      * 默认sheetName
@@ -72,7 +73,7 @@ public class EasyExcelUtil {
         }
         try {
             response.setHeader(Header.CONTENT_DISPOSITION.getValue(), "attachment;filename=" + URLUtil.encode(fileName, StandardCharsets.UTF_8));
-            response.setContentType(ExcelUtil.XLSX_CONTENT_TYPE);
+            response.setContentType(XLSX_CONTENT_TYPE);
             EasyExcel.write(response.getOutputStream(), cls).sheet(sheetName).registerWriteHandler(freezeRowHandler).doWrite(rowValues);
         } catch (Exception e) {
             log.error("导出Excel异常 [{}] [{}]", fileName, cls, e);

@@ -1,7 +1,7 @@
 package com.eghm.dto.sys.image;
 
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class ImageQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("图片分类(数据字典image_type)")
+    @Schema(description = "图片分类(数据字典image_type)")
     private Integer imageType;
 
 }

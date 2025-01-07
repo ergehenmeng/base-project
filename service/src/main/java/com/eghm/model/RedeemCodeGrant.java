@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -23,34 +23,34 @@ import java.time.LocalDateTime;
 @TableName("redeem_code_grant")
 public class RedeemCodeGrant extends BaseEntity {
 
-    @ApiModelProperty(value = "配置id")
+    @Schema(description = "配置id")
     private Long redeemCodeId;
 
-    @ApiModelProperty(value = "cd名称")
+    @Schema(description = "cd名称")
     private String title;
 
-    @ApiModelProperty(value = "cd_key")
+    @Schema(description = "cd_key")
     private String cdKey;
 
-    @ApiModelProperty(value = "使用时间")
+    @Schema(description = "使用时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime useTime;
 
-    @ApiModelProperty(value = "用户id")
+    @Schema(description = "用户id")
     private Long memberId;
 
-    @ApiModelProperty(value = "使用状态 0:待使用 1:已使用 2:已过期")
+    @Schema(description = "使用状态 0:待使用 1:已使用 2:已过期")
     private Integer state;
 
-    @ApiModelProperty("金额")
+    @Schema(description = "金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer amount;
 
-    @ApiModelProperty(value = "有效开始时间")
+    @Schema(description = "有效开始时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
 
-    @ApiModelProperty(value = "有效截止时间")
+    @Schema(description = "有效截止时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 

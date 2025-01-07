@@ -1,6 +1,6 @@
 package com.eghm.vo.business.group;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -13,18 +13,18 @@ import java.util.List;
 @Data
 public class GroupOrderDetailVO {
 
-    @ApiModelProperty("拼团人员列表")
+    @Schema(description = "拼团人员列表")
     private List<GroupMemberVO> memberList;
 
-    @ApiModelProperty("成团人数")
+    @Schema(description = "成团人数")
     private Integer bookingNum;
 
-    @ApiModelProperty("商品ID")
+    @Schema(description = "商品ID")
     private Long itemId;
 
-    @ApiModelProperty("商品名称")
+    @Schema(description = "商品名称")
     private String itemName;
 
-    @ApiModelProperty("商品图")
+    @Schema(description = "商品图")
     private String itemCoverUrl;
 }

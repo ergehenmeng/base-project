@@ -1,11 +1,11 @@
 package com.eghm.dto.business.redeem;
 
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -15,10 +15,10 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = true)
 public class RedeemCodeGrantQueryRequest extends PagingQuery {
 
-    @ApiModelProperty(value = "状态 0:待使用 1:已使用 2:已过期")
+    @Schema(description = "状态 0:待使用 1:已使用 2:已过期")
     private Integer state;
 
-    @ApiModelProperty(value = "兑换码配置id", required = true)
+    @Schema(description = "兑换码配置id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "兑换码配置id不能为空")
     private Long redeemCodeId;
 }

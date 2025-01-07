@@ -6,8 +6,8 @@ import com.eghm.enums.ref.VisitType;
 import com.eghm.service.business.LimitPurchaseItemService;
 import com.eghm.vo.business.limit.LimitItemVO;
 import com.eghm.web.annotation.VisitRecord;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 @RestController
-@Api(tags = "限时购商品")
+@Tag(name="限时购商品")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/item/limit", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemLimitController {
@@ -30,7 +30,7 @@ public class ItemLimitController {
     private final LimitPurchaseItemService limitPurchaseItemService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     @VisitRecord(VisitType.PRODUCT_LIST)
     public RespBody<List<LimitItemVO>> listPage(LimitPurchaseQueryDTO dto) {
         List<LimitItemVO> voList = limitPurchaseItemService.getByPage(dto);

@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,22 +20,22 @@ import java.math.BigDecimal;
 @TableName("poi_line")
 public class PoiLine extends BaseEntity {
 
-    @ApiModelProperty(value = "线路名称")
+    @Schema(description = "线路名称")
     private String title;
 
-    @ApiModelProperty("状态 0:未上架 1:已上架")
+    @Schema(description = "状态 0:未上架 1:已上架")
     private Integer state;
 
-    @ApiModelProperty(value = "封面图")
+    @Schema(description = "封面图")
     private String coverUrl;
 
-    @ApiModelProperty(value = "所属区域编号")
+    @Schema(description = "所属区域编号")
     private String areaCode;
 
-    @ApiModelProperty(value = "详细介绍")
+    @Schema(description = "详细介绍")
     private String introduce;
 
-    @ApiModelProperty(value = "预计游玩时间(单位:小时)")
+    @Schema(description = "预计游玩时间(单位:小时)")
     private BigDecimal playTime;
 
 }

@@ -1,7 +1,7 @@
 package com.eghm.vo.business.merchant;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -14,10 +14,10 @@ import java.time.LocalDateTime;
 @Data
 public class MerchantAuthResponse {
 
-    @ApiModelProperty("授权码base64图片")
+    @Schema(description = "授权码base64图片")
     private String authCode;
 
-    @ApiModelProperty("授权码过期时间")
+    @Schema(description = "授权码过期时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime expireTime;
 }

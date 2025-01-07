@@ -10,8 +10,8 @@ import com.eghm.vo.business.order.venue.VenueOrderDetailVO;
 import com.eghm.vo.business.order.venue.VenueOrderVO;
 import com.eghm.web.annotation.AccessToken;
 import com.eghm.web.annotation.VisitRecord;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 @AccessToken
 @RestController
-@Api(tags = "场馆订单")
+@Tag(name="场馆订单")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/venue/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VenueOrderController {
@@ -35,7 +35,7 @@ public class VenueOrderController {
     private final VenueOrderService venueOrderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<List<VenueOrderVO>> listPage(@Validated VenueOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<VenueOrderVO> voList = venueOrderService.getByPage(dto);
@@ -43,7 +43,7 @@ public class VenueOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     @VisitRecord(VisitType.ORDER_DETAIL)
     public RespBody<VenueOrderDetailVO> detail(@Validated OrderDTO dto) {
         VenueOrderDetailVO detail = venueOrderService.getDetail(dto.getOrderNo(), ApiHolder.getMemberId());

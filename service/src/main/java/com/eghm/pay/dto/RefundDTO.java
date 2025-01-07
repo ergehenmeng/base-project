@@ -1,7 +1,7 @@
 package com.eghm.pay.dto;
 
 import com.eghm.pay.enums.TradeType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -11,24 +11,24 @@ import lombok.Data;
 @Data
 public class RefundDTO {
 
-    @ApiModelProperty(value = "订单号", hidden = true)
+    @Schema(description = "订单号", hidden = true)
     private String orderNo;
 
-    @ApiModelProperty(value = "商户支付流水号", required = true)
+    @Schema(description = "商户支付流水号", requiredMode = Schema.RequiredMode.REQUIRED)
     private String tradeNo;
 
-    @ApiModelProperty(value = "商户退款流水号", required = true)
+    @Schema(description = "商户退款流水号", requiredMode = Schema.RequiredMode.REQUIRED)
     private String refundNo;
 
-    @ApiModelProperty("退款金额")
+    @Schema(description = "退款金额")
     private Integer amount;
 
-    @ApiModelProperty("原支付金额")
+    @Schema(description = "原支付金额")
     private Integer total;
 
-    @ApiModelProperty("交易方式")
+    @Schema(description = "交易方式")
     private TradeType tradeType;
 
-    @ApiModelProperty("退款原因")
+    @Schema(description = "退款原因")
     private String reason;
 }

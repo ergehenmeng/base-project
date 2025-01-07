@@ -4,7 +4,7 @@ package com.eghm.dto.business.venue;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.State;
 import com.eghm.enums.ref.VenueType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,12 +17,12 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class VenueQueryRequest extends PagingQuery {
 
-    @ApiModelProperty(value = "场馆类型")
+    @Schema(description = "场馆类型")
     private VenueType venueType;
 
-    @ApiModelProperty("状态 0:待上架 1:已上架 2:强制下架")
+    @Schema(description = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
-    @ApiModelProperty(value = "商户ID")
+    @Schema(description = "商户ID")
     private Long merchantId;
 }

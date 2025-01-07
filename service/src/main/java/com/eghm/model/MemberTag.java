@@ -5,7 +5,7 @@ import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.Channel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -24,34 +24,34 @@ import java.time.LocalDate;
 @TableName("member_tag")
 public class MemberTag extends BaseEntity {
 
-    @ApiModelProperty(value = "标签名称")
+    @Schema(description = "标签名称")
     private String title;
 
-    @ApiModelProperty(value = "注册开始日期")
+    @Schema(description = "注册开始日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate registerStartDate;
 
-    @ApiModelProperty(value = "注册截止日期")
+    @Schema(description = "注册截止日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate registerEndDate;
 
-    @ApiModelProperty(value = "最近几天有消费")
+    @Schema(description = "最近几天有消费")
     private Integer consumeDay;
 
-    @ApiModelProperty(value = "最低消费次数")
+    @Schema(description = "最低消费次数")
     private Integer consumeNum;
 
-    @ApiModelProperty(value = "最低消费金额")
+    @Schema(description = "最低消费金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer consumeAmount;
 
-    @ApiModelProperty("注册渠道 PC,ANDROID,IOS,H5,OTHER")
+    @Schema(description = "注册渠道 PC,ANDROID,IOS,H5,OTHER")
     private Channel channel;
 
-    @ApiModelProperty("性别 0:未知 1:男 2:女 ")
+    @Schema(description = "性别 0:未知 1:男 2:女 ")
     private Integer sex;
 
-    @ApiModelProperty(value = "符合该标签的会员数")
+    @Schema(description = "符合该标签的会员数")
     private Integer memberNum;
 
 }

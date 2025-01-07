@@ -1,7 +1,7 @@
 package com.eghm.vo.version;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,18 +20,18 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AppVersionVO {
 
-    @ApiModelProperty(value = "是否为最新版本 true:是 false:否")
+    @Schema(description = "是否为最新版本 true:是 false:否")
     private Boolean latest;
 
-    @ApiModelProperty(value = "最新版本号(非最新版本时才有该值)")
+    @Schema(description = "最新版本号(非最新版本时才有该值)")
     private String version;
 
-    @ApiModelProperty(value = "是否为强制更新的版本(非最新版本时才有该值)")
+    @Schema(description = "是否为强制更新的版本(非最新版本时才有该值)")
     private Boolean forceUpdate;
 
-    @ApiModelProperty(value = "新版本下载的地址(非最新版本时才有该值)")
+    @Schema(description = "新版本下载的地址(非最新版本时才有该值)")
     private String url;
 
-    @ApiModelProperty(value = "版本更新说明(非最新版本时才有该值)")
+    @Schema(description = "版本更新说明(非最新版本时才有该值)")
     private String remark;
 }

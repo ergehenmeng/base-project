@@ -33,7 +33,7 @@ public class MessageServiceImpl implements MessageService {
     public void sendDelay(String exchange, String routingKey, Object msg, int delay) {
         rabbitTemplate.convertAndSend(exchange, routingKey, msg, message -> {
             MessageProperties properties = message.getMessageProperties();
-            properties.setDelay(delay * 1000);
+            properties.setDelayLong(delay * 1000L);
             return message;
         });
     }

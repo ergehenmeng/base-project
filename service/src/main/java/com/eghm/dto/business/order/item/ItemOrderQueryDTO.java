@@ -2,7 +2,7 @@ package com.eghm.dto.business.order.item;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,10 +14,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class ItemOrderQueryDTO extends PagingQuery {
 
-    @ApiModelProperty("订单状态 空:全部 1:待付款 2:待收货 3:待评价 4:售后订单")
+    @Schema(description = "订单状态 空:全部 1:待付款 2:待收货 3:待评价 4:售后订单")
     private Integer tabState;
 
-    @ApiModelProperty(value = "用户id", hidden = true)
+    @Schema(description = "用户id", hidden = true)
     @Assign
     private Long memberId;
 }

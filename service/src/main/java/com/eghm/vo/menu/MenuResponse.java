@@ -2,7 +2,7 @@ package com.eghm.vo.menu;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -15,35 +15,35 @@ import java.util.List;
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class MenuResponse {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private String id;
 
-    @ApiModelProperty("菜单名称")
+    @Schema(description = "菜单名称")
     private String title;
 
-    @ApiModelProperty("图标")
+    @Schema(description = "图标")
     private String icon;
 
-    @ApiModelProperty("菜单标示符 唯一")
+    @Schema(description = "菜单标示符 唯一")
     private String code;
 
-    @ApiModelProperty("菜单地址")
+    @Schema(description = "菜单地址")
     private String path;
 
-    @ApiModelProperty("按钮地址")
+    @Schema(description = "按钮地址")
     private String subPath;
 
-    @ApiModelProperty("菜单级别 1:导航 2:按钮")
+    @Schema(description = "菜单级别 1:导航 2:按钮")
     private Integer grade;
 
-    @ApiModelProperty("子菜单")
+    @Schema(description = "子菜单")
     private List<MenuResponse> children;
 
-    @ApiModelProperty("排序")
+    @Schema(description = "排序")
     @JsonIgnore
     private Integer sort;
 
-    @ApiModelProperty("父节点ID,一级菜单默认为0")
+    @Schema(description = "父节点ID,一级菜单默认为0")
     private String pid;
 
 }

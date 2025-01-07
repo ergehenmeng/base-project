@@ -4,7 +4,7 @@ import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.pay.enums.TradeType;
 import com.eghm.state.machine.Context;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -16,27 +16,27 @@ import java.time.LocalDateTime;
 @Data
 public class PayNotifyContext implements Context {
 
-    @ApiModelProperty("订单编号")
+    @Schema(description = "订单编号")
     private String orderNo;
 
-    @ApiModelProperty("支付流水号")
+    @Schema(description = "支付流水号")
     private String tradeNo;
 
-    @ApiModelProperty("支付方式")
+    @Schema(description = "支付方式")
     private TradeType tradeType;
 
-    @ApiModelProperty("支付金额")
+    @Schema(description = "支付金额")
     private Integer amount;
 
-    @ApiModelProperty("支付成功时间")
+    @Schema(description = "支付成功时间")
     private LocalDateTime successTime;
 
-    @ApiModelProperty("源状态")
+    @Schema(description = "源状态")
     private Integer from;
 
-    @ApiModelProperty("产品类型")
+    @Schema(description = "产品类型")
     private ProductType productType;
 
-    @ApiModelProperty("事件")
+    @Schema(description = "事件")
     private IEvent event;
 }

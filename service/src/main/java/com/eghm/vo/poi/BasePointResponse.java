@@ -1,6 +1,6 @@
 package com.eghm.vo.poi;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -13,21 +13,21 @@ import java.math.BigDecimal;
 @Data
 public class BasePointResponse {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "封面图")
+    @Schema(description = "封面图")
     private String coverUrl;
 
-    @ApiModelProperty(value = "点位名称")
+    @Schema(description = "点位名称")
     private String title;
 
-    @ApiModelProperty(value = "所属类型")
+    @Schema(description = "所属类型")
     private String typeTitle;
 
-    @ApiModelProperty(value = "经度")
+    @Schema(description = "经度")
     private BigDecimal longitude;
 
-    @ApiModelProperty(value = "维度")
+    @Schema(description = "维度")
     private BigDecimal latitude;
 }

@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,40 +20,40 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 public class ItemSku extends BaseEntity {
 
-    @ApiModelProperty(value = "零售id")
+    @Schema(description = "零售id")
     private Long itemId;
 
-    @ApiModelProperty(value = "一级规格名")
+    @Schema(description = "一级规格名")
     private String primarySpecValue;
 
-    @ApiModelProperty(value = "二级规格名")
+    @Schema(description = "二级规格名")
     private String secondSpecValue;
 
-    @ApiModelProperty(value = "规格id,多个逗号分隔")
+    @Schema(description = "规格id,多个逗号分隔")
     private String specIds;
 
-    @ApiModelProperty(value = "成本价")
+    @Schema(description = "成本价")
     private Integer costPrice;
 
-    @ApiModelProperty(value = "划线价")
+    @Schema(description = "划线价")
     private Integer linePrice;
 
-    @ApiModelProperty(value = "销售价格")
+    @Schema(description = "销售价格")
     private Integer salePrice;
 
-    @ApiModelProperty(value = "剩余库存")
+    @Schema(description = "剩余库存")
     private Integer stock;
 
-    @ApiModelProperty(value = "虚拟销量")
+    @Schema(description = "虚拟销量")
     private Integer virtualNum;
 
-    @ApiModelProperty(value = "销售量")
+    @Schema(description = "销售量")
     private Integer saleNum;
 
-    @ApiModelProperty("重量")
+    @Schema(description = "重量")
     private BigDecimal weight;
 
-    @ApiModelProperty(value = "sku图片(优先级最高)")
+    @Schema(description = "sku图片(优先级最高)")
     private String skuPic;
 
 }

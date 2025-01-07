@@ -83,13 +83,7 @@ public class SysConfigApi {
      * @return 系统参数结果值int 如果转换失败为0
      */
     public int getInt(String nid) {
-        String value = this.getString(nid);
-        try {
-            return Integer.parseInt(value);
-        } catch (Exception e) {
-            log.warn("系统参数转int异常 [{}]", value);
-            return 0;
-        }
+        return this.getInt(nid, 0);
     }
 
     /**
@@ -116,13 +110,7 @@ public class SysConfigApi {
      * @return 系统参数结果值long 如果转换失败为0
      */
     public long getLong(String nid) {
-        String value = this.getString(nid);
-        try {
-            return Long.parseLong(value);
-        } catch (Exception e) {
-            log.warn("系统参数转long异常 [{}]", value);
-            return 0L;
-        }
+        return this.getLong(nid, 0L);
     }
 
     /**

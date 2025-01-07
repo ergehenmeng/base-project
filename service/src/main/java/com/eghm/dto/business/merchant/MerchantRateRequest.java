@@ -1,11 +1,11 @@
 package com.eghm.dto.business.merchant;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
@@ -15,11 +15,11 @@ import java.math.BigDecimal;
 @Data
 public class MerchantRateRequest {
 
-    @ApiModelProperty(value = "id", required = true)
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "平台服务费,单位:%", required = true)
+    @Schema(description = "平台服务费,单位:%", requiredMode = Schema.RequiredMode.REQUIRED)
     @DecimalMin(value = "0", message = "平台服务费应在0~10之间")
     @DecimalMax(value = "10", message = "平台服务费应在0~10之间")
     private BigDecimal platformServiceRate;

@@ -1,6 +1,6 @@
 package com.eghm.vo.member;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -12,10 +12,10 @@ import java.util.List;
 @Data
 public class SignInVO {
 
-    @ApiModelProperty("今日是否签到 true:已签到 false:未签到")
+    @Schema(description = "今日是否签到 true:已签到 false:未签到")
     private Boolean todaySign;
 
-    @ApiModelProperty("本月签到信息(1号~今日)")
+    @Schema(description = "本月签到信息(1号~今日)")
     private List<Boolean> monthSign;
 
 }

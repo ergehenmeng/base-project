@@ -4,7 +4,7 @@ import com.eghm.convertor.BigDecimalOmitEncoder;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -17,40 +17,40 @@ import java.math.BigDecimal;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemSkuVO {
 
-    @ApiModelProperty("id")
+    @Schema(description = "id")
     private Long id;
 
-    @ApiModelProperty(value = "规格id,多个逗号分隔")
+    @Schema(description = "规格id,多个逗号分隔")
     private String specId;
 
-    @ApiModelProperty(value = "一级规格名")
+    @Schema(description = "一级规格名")
     private String primarySpecValue;
 
-    @ApiModelProperty(value = "二级规格名")
+    @Schema(description = "二级规格名")
     private String secondSpecValue;
 
-    @ApiModelProperty(value = "划线价")
+    @Schema(description = "划线价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer linePrice;
 
-    @ApiModelProperty(value = "销售价格")
+    @Schema(description = "销售价格")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty("拼团或限时购价格")
+    @Schema(description = "拼团或限时购价格")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer discountPrice;
 
-    @ApiModelProperty(value = "库存")
+    @Schema(description = "库存")
     private Integer stock;
 
-    @ApiModelProperty(value = "销售量")
+    @Schema(description = "销售量")
     private Integer saleNum;
 
-    @ApiModelProperty("重量")
+    @Schema(description = "重量")
     @JsonSerialize(using = BigDecimalOmitEncoder.class)
     private BigDecimal weight;
 
-    @ApiModelProperty(value = "sku图片(优先级最高)")
+    @Schema(description = "sku图片(优先级最高)")
     private String skuPic;
 }

@@ -1,7 +1,7 @@
 package com.eghm.vo.member;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -13,16 +13,16 @@ import java.time.LocalDateTime;
 @Data
 public class MemberScoreVO {
 
-    @ApiModelProperty("积分值")
+    @Schema(description = "积分值")
     private Integer score;
 
-    @ApiModelProperty("积分类型")
+    @Schema(description = "积分类型")
     private Integer type;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty("积分发放或消费时间")
+    @Schema(description = "积分发放或消费时间")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("积分发放或消费备注")
+    @Schema(description = "积分发放或消费备注")
     private String remark;
 }

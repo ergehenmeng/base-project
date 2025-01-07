@@ -31,6 +31,6 @@ public class TaskOperation extends BaseTask {
 
     @Override
     public void execute() {
-        log.info("任务执行:" + Thread.currentThread().getName() + " " + LocalDateTime.now());
+        log.info("任务执行:{} {}", Thread.currentThread().getName(), LocalDateTime.now());
     }
 }

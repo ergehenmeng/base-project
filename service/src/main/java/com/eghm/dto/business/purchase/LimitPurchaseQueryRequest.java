@@ -2,7 +2,7 @@ package com.eghm.dto.business.purchase;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,6 +16,6 @@ import lombok.EqualsAndHashCode;
 public class LimitPurchaseQueryRequest extends PagingQuery {
 
     @Assign
-    @ApiModelProperty(value = "商户id", hidden = true)
+    @Schema(description = "商户id", hidden = true)
     private Long merchantId;
 }

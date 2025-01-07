@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -25,38 +25,38 @@ import java.time.LocalDateTime;
 public class LoginLog {
 
     @TableId(type = IdType.ASSIGN_ID)
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     private Long memberId;
 
-    @ApiModelProperty("登陆渠道")
+    @Schema(description = "登陆渠道")
     private String channel;
 
-    @ApiModelProperty("登陆ip")
+    @Schema(description = "登陆ip")
     @JsonSerialize(using = LongToIpEncoder.class)
     private Long ip;
 
-    @ApiModelProperty("设备厂商")
+    @Schema(description = "设备厂商")
     private String deviceBrand;
 
-    @ApiModelProperty("设备型号")
+    @Schema(description = "设备型号")
     private String deviceModel;
 
-    @ApiModelProperty("软件版本")
+    @Schema(description = "软件版本")
     private String softwareVersion;
 
-    @ApiModelProperty("设备唯一编号")
+    @Schema(description = "设备唯一编号")
     private String serialNumber;
 
-    @ApiModelProperty("添加时间")
+    @Schema(description = "添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime createTime;
 
     @TableLogic(delval = "1")
-    @ApiModelProperty("是否已删除 0:未删除 1:已删除")
+    @Schema(description = "是否已删除 0:未删除 1:已删除")
     private Boolean deleted;
 }

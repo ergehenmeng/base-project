@@ -1,9 +1,9 @@
 package com.eghm.configuration.timer;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -177,14 +177,6 @@ public class SystemTimer {
                 shutdownHandler.shutdown(queue);
             }
         }
-    }
-
-    public void setShutdownHandler(ShutdownHandler shutdownHandler) {
-        this.shutdownHandler = shutdownHandler;
-    }
-
-    public void setExecutor(ExecutorService executor) {
-        this.executor = executor;
     }
 
     @PreDestroy

@@ -1,7 +1,7 @@
 package com.eghm.vo.business.group;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -18,36 +18,36 @@ import java.util.List;
 @Data
 public class GroupBookingDetailResponse {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "活动名称")
+    @Schema(description = "活动名称")
     private String title;
 
-    @ApiModelProperty(value = "零售id")
+    @Schema(description = "零售id")
     private Long itemId;
 
-    @ApiModelProperty(value = "封面图")
+    @Schema(description = "封面图")
     private String coverUrl;
 
-    @ApiModelProperty("商品名称")
+    @Schema(description = "商品名称")
     private String itemName;
 
-    @ApiModelProperty(value = "开始时间")
+    @Schema(description = "开始时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
 
-    @ApiModelProperty(value = "截止时间")
+    @Schema(description = "截止时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
-    @ApiModelProperty(value = "拼团人数")
+    @Schema(description = "拼团人数")
     private Integer num;
 
-    @ApiModelProperty(value = "拼团有效期,单位:分钟")
+    @Schema(description = "拼团有效期,单位:分钟")
     private Integer expireTime;
 
-    @ApiModelProperty("价格信息")
+    @Schema(description = "价格信息")
     private List<GroupBookSkuResponse> skuList;
 
 }

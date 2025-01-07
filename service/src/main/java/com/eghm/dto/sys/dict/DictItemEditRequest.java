@@ -1,11 +1,11 @@
 package com.eghm.dto.sys.dict;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * @author 二哥很猛
@@ -14,19 +14,19 @@ import javax.validation.constraints.Size;
 @Data
 public class DictItemEditRequest {
 
-    @ApiModelProperty(value = "id", required = true)
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "字典编码", required = true)
+    @Schema(description = "字典编码", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "字典编码不能为空")
     private String nid;
 
-    @ApiModelProperty(value = "数据字典隐藏值", required = true)
+    @Schema(description = "数据字典隐藏值", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "隐藏值不能为空")
     private Integer hiddenValue;
 
-    @ApiModelProperty(value = "显示值", required = true)
+    @Schema(description = "显示值", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "显示值不能为空")
     @Size(min = 1, max = 20, message = "显示值长度1~20位")
     private String showValue;

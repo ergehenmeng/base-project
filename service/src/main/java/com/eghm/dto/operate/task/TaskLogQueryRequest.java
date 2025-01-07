@@ -1,7 +1,7 @@
 package com.eghm.dto.operate.task;
 
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 public class TaskLogQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("状态: true:执行成功 false:执行失败")
+    @Schema(description = "状态: true:执行成功 false:执行失败")
     private Boolean state;
 
 }

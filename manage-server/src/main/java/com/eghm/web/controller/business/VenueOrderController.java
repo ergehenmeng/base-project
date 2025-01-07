@@ -15,14 +15,14 @@ import com.eghm.service.business.VenueOrderService;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.order.venue.VenueOrderDetailResponse;
 import com.eghm.vo.business.order.venue.VenueOrderResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -30,7 +30,7 @@ import java.util.List;
  * @since 2024/2/4
  */
 @RestController
-@Api(tags = "场馆订单")
+@Tag(name="场馆订单")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/venue/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VenueOrderController {
@@ -42,7 +42,7 @@ public class VenueOrderController {
     private final VenueOrderService venueOrderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<VenueOrderResponse>> listPage(VenueOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VenueOrderResponse> page = venueOrderService.listPage(request);
@@ -50,14 +50,14 @@ public class VenueOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     public RespBody<VenueOrderDetailResponse> detail(@Validated OrderDTO dto) {
         VenueOrderDetailResponse detail = venueOrderService.detail(dto.getOrderNo());
         return RespBody.success(detail);
     }
 
     @PostMapping(value = "/refund", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("退款")
+    @Operation(summary = "退款")
     public RespBody<Void> refund(@RequestBody @Validated PlatformRefundRequest request) {
         return redisLock.lock(LockConstant.ORDER_LOCK + request.getOrderNo(), 10_000, () -> {
             request.setEvent(VenueEvent.PLATFORM_REFUND);
@@ -67,7 +67,7 @@ public class VenueOrderController {
     }
 
     @GetMapping("/export")
-    @ApiOperation("导出")
+    @Operation(summary = "导出")
     public void export(HttpServletResponse response, VenueOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<VenueOrderResponse> byPage = venueOrderService.getList(request);

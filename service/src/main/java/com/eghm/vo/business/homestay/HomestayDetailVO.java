@@ -1,7 +1,7 @@
 package com.eghm.vo.business.homestay;
 
 import com.eghm.vo.business.homestay.room.HomestayRoomListVO;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -15,51 +15,51 @@ import java.util.List;
 @Data
 public class HomestayDetailVO {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "民宿名称")
+    @Schema(description = "民宿名称")
     private String title;
 
-    @ApiModelProperty(value = "星级 5:五星级 4:四星级 3:三星级 0:其他")
+    @Schema(description = "星级 5:五星级 4:四星级 3:三星级 0:其他")
     private Integer level;
 
-    @ApiModelProperty(value = "详细地址")
+    @Schema(description = "详细地址")
     private String detailAddress;
 
-    @ApiModelProperty(value = "经度")
+    @Schema(description = "经度")
     private BigDecimal longitude;
 
-    @ApiModelProperty(value = "纬度")
+    @Schema(description = "纬度")
     private BigDecimal latitude;
 
-    @ApiModelProperty(value = "描述信息")
+    @Schema(description = "描述信息")
     private String intro;
 
-    @ApiModelProperty(value = "封面图片")
+    @Schema(description = "封面图片")
     private String coverUrl;
 
-    @ApiModelProperty(value = "详细介绍")
+    @Schema(description = "详细介绍")
     private String introduce;
 
-    @ApiModelProperty("是否收藏")
+    @Schema(description = "是否收藏")
     private Boolean collect;
 
-    @ApiModelProperty(value = "联系电话")
+    @Schema(description = "联系电话")
     private String phone;
 
-    @ApiModelProperty(value = "入住须知")
+    @Schema(description = "入住须知")
     private String notesIn;
 
-    @ApiModelProperty(value = "特色服务")
+    @Schema(description = "特色服务")
     private String keyService;
 
-    @ApiModelProperty("分数")
+    @Schema(description = "分数")
     private BigDecimal score;
 
-    @ApiModelProperty(value = "标签")
+    @Schema(description = "标签")
     private List<String> tagList;
 
-    @ApiModelProperty("推荐房型列表")
+    @Schema(description = "推荐房型列表")
     private List<HomestayRoomListVO> recommendRoomList;
 }

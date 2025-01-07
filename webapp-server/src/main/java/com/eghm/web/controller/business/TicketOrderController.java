@@ -10,8 +10,8 @@ import com.eghm.vo.business.order.ticket.TicketOrderDetailVO;
 import com.eghm.vo.business.order.ticket.TicketOrderVO;
 import com.eghm.web.annotation.AccessToken;
 import com.eghm.web.annotation.VisitRecord;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 @AccessToken
 @RestController
-@Api(tags = "门票订单")
+@Tag(name="门票订单")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/ticket/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TicketOrderController {
@@ -35,7 +35,7 @@ public class TicketOrderController {
     private final TicketOrderService ticketOrderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<List<TicketOrderVO>> listPage(@Validated TicketOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<TicketOrderVO> voList = ticketOrderService.getByPage(dto);
@@ -43,7 +43,7 @@ public class TicketOrderController {
     }
 
     @GetMapping("/detail")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     @VisitRecord(VisitType.ORDER_DETAIL)
     public RespBody<TicketOrderDetailVO> detail(@Validated OrderDTO dto) {
         TicketOrderDetailVO detail = ticketOrderService.getDetail(dto.getOrderNo(), ApiHolder.getMemberId());

@@ -12,9 +12,9 @@ import com.eghm.service.business.MerchantAddressService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.merchant.address.MerchantAddressDetailResponse;
 import com.eghm.vo.business.merchant.address.MerchantAddressResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -27,7 +27,7 @@ import java.util.List;
  * @since 2024/3/18
  */
 @RestController
-@Api(tags = "商户收货地址")
+@Tag(name="商户收货地址")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/merchant/address", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MerchantAddressController {
@@ -35,15 +35,15 @@ public class MerchantAddressController {
     private final MerchantAddressService merchantAddressService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<MerchantAddressResponse>> list(PagingQuery query) {
         PageData<MerchantAddressResponse> byPage = merchantAddressService.getByPage(query);
         return RespBody.success(byPage);
     }
 
     @GetMapping("/list")
-    @ApiOperation("列表(全部)")
-    @ApiImplicitParam(name = "merchantId", value = "商户id", required = true)
+    @Operation(summary = "列表(全部)")
+    @Parameter(name = "merchantId", description = "商户id", required = true)
     public RespBody<List<MerchantAddressResponse>> list(@RequestParam("merchantId") Long merchantId) {
         if (merchantId == null) {
             merchantId = SecurityHolder.getMerchantId();
@@ -53,7 +53,7 @@ public class MerchantAddressController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("添加")
+    @Operation(summary = "添加")
     public RespBody<Void> create(@RequestBody @Validated AddressAddRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         merchantAddressService.create(request);
@@ -61,7 +61,7 @@ public class MerchantAddressController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑")
     public RespBody<Void> update(@RequestBody @Validated AddressEditRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         merchantAddressService.update(request);
@@ -69,14 +69,14 @@ public class MerchantAddressController {
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         merchantAddressService.delete(dto.getId());
         return RespBody.success();
     }
 
     @GetMapping(value = "/select")
-    @ApiOperation("查询")
+    @Operation(summary = "查询")
     public RespBody<MerchantAddressDetailResponse> select(@Validated IdDTO dto) {
         MerchantAddress address = merchantAddressService.selectByIdRequired(dto.getId());
         return RespBody.success(DataUtil.copy(address, MerchantAddressDetailResponse.class));

@@ -129,20 +129,4 @@ public class TimingWheel {
             }
         }
     }
-
-    public long getScaleMs() {
-        return scaleMs;
-    }
-
-    public int getWheelSize() {
-        return wheelSize;
-    }
-
-    public long getInterval() {
-        return interval;
-    }
-
-    public AtomicInteger getTaskCounter() {
-        return taskCounter;
-    }
 }

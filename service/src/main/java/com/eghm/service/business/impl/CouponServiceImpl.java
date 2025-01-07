@@ -150,7 +150,7 @@ public class CouponServiceImpl implements CouponService {
     public CouponVO getDetail(Long id) {
         CouponVO detail = couponMapper.getDetail(id);
         if (detail == null) {
-            log.error("优惠券不存在 [{}]", id);
+            log.error("优惠券详情不存在 [{}]", id);
             throw new BusinessException(COUPON_NULL);
         }
         Long memberId = ApiHolder.tryGetMemberId();

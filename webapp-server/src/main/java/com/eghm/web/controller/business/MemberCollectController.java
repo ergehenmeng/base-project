@@ -7,8 +7,8 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.MemberCollectService;
 import com.eghm.vo.business.collect.MemberCollectVO;
 import com.eghm.web.annotation.AccessToken;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 @RestController
-@Api(tags = "收藏商品")
+@Tag(name="收藏商品")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/collect", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberCollectController {
@@ -30,7 +30,7 @@ public class MemberCollectController {
     private final MemberCollectService memberCollectService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     @AccessToken
     public RespBody<List<MemberCollectVO>> listPage(CollectQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
@@ -39,7 +39,7 @@ public class MemberCollectController {
     }
 
     @PostMapping(value = "/collect", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("收藏/取消收藏")
+    @Operation(summary = "收藏/取消收藏")
     @AccessToken
     public RespBody<Void> collect(@RequestBody @Validated CollectDTO dto) {
         memberCollectService.collect(dto.getCollectId(), dto.getCollectType());

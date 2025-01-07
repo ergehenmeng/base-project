@@ -33,10 +33,41 @@
             parameterType="com.eghm.dto.business.restaurant.RestaurantQueryDTO">
         <choose>
             <when test="param.sortByDistance">
-                <include refid="getByPageSortDistanceSql"/>
+                select s.* from ( select
+                id,
+                title,
+                longitude,
+                latitude,
+                open_time,
+                st_distance_sphere(point(longitude, latitude),point(#{param.longitude}, #{param.latitude})) as distance,
+                cover_url,
+                logo_url,
+                phone
+                from restaurant where state = 1 and deleted = false
+                <if test="param.queryName != null and param.queryName != ''">
+                    and title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
+                </if>
+                ) s
+                order by s.distance, s.id desc
             </when>
             <otherwise>
-                <include refid="getByPageSql"/>
+                select
+                id,
+                title,
+                longitude,
+                latitude,
+                open_time,
+                <if test="param.longitude != null and param.latitude != null">
+                    st_distance_sphere(point(longitude, latitude), point(#{param.longitude}, #{param.latitude})) as distance,
+                </if>
+                cover_url,
+                logo_url,
+                phone
+                from restaurant where state = 1 and deleted = false
+                <if test="param.queryName != null and param.queryName != ''">
+                    and title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
+                </if>
+                order by id desc
             </otherwise>
         </choose>
     </select>
@@ -53,45 +84,6 @@
         order by id desc
     </select>
 
-    <!--无距离排序,不进行子查询-->
-    <sql id="getByPageSql">
-        select
-        id,
-        title,
-        longitude,
-        latitude,
-        open_time,
-        <if test="param.longitude != null and param.latitude != null">
-            st_distance_sphere(point(longitude, latitude), point(#{param.longitude}, #{param.latitude})) as distance,
-        </if>
-        cover_url,
-        logo_url,
-        phone
-        from restaurant where state = 1 and deleted = false
-        <if test="param.queryName != null and param.queryName != ''">
-            and title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
-        </if>
-        order by id desc
-    </sql>
-    <!--有距离排序-->
-    <sql id="getByPageSortDistanceSql">
-        select s.* from ( select
-        id,
-        title,
-        longitude,
-        latitude,
-        open_time,
-        st_distance_sphere(point(longitude, latitude),point(#{param.longitude}, #{param.latitude})) as distance,
-        cover_url,
-        logo_url,
-        phone
-        from restaurant where state = 1 and deleted = false
-        <if test="param.queryName != null and param.queryName != ''">
-            and title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
-        </if>
-        ) s
-        order by s.distance, s.id desc
-    </sql>
     <update id="updateScore">
         update restaurant set score = #{score} where id = #{id}
     </update>

@@ -2,7 +2,7 @@ package com.eghm.dto.business.order.voucher;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,10 +14,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class VoucherOrderQueryDTO extends PagingQuery {
 
-    @ApiModelProperty("餐饮订单状态")
+    @Schema(description = "餐饮订单状态")
     private Integer orderState;
 
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     @Assign
     private Long memberId;
 }

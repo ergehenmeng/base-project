@@ -12,8 +12,8 @@ import com.eghm.dto.sys.role.RoleEditRequest;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.vo.sys.SysRoleResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -26,7 +26,7 @@ import java.util.List;
  * @since 2024/1/26
  */
 @RestController
-@Api(tags = "商户角色管理")
+@Tag(name="商户角色管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/merchant/role", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MerchantRoleController {
@@ -34,14 +34,14 @@ public class MerchantRoleController {
     private final SysRoleService sysRoleService;
 
     @GetMapping("/listPage")
-    @ApiOperation("角色列表(分页)")
+    @Operation(summary = "角色列表(分页)")
     public RespBody<PageData<SysRoleResponse>> listPage(PagingQuery request) {
         Page<SysRoleResponse> page = sysRoleService.getByPage(request);
         return RespBody.success(PageData.toPage(page));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增")
+    @Operation(summary = "新增")
     public RespBody<Void> create(@Validated @RequestBody RoleAddRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         request.setRoleType(RoleType.MERCHANT);
@@ -50,7 +50,7 @@ public class MerchantRoleController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑")
     public RespBody<Void> update(@Validated @RequestBody RoleEditRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         sysRoleService.update(request);
@@ -58,21 +58,21 @@ public class MerchantRoleController {
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         sysRoleService.delete(dto.getId(), SecurityHolder.getMerchantId());
         return RespBody.success();
     }
 
     @GetMapping("/menu")
-    @ApiOperation("查询角色关联菜单列表(选中的)")
+    @Operation(summary = "查询角色关联菜单列表(选中的)")
     public RespBody<List<String>> menu(@Validated IdDTO dto) {
         List<String> menuIds = sysRoleService.getRoleMenu(dto.getId());
         return RespBody.success(menuIds);
     }
 
     @PostMapping(value = "/auth", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("角色菜单授权")
+    @Operation(summary = "角色菜单授权")
     public RespBody<Void> authRole(@Validated @RequestBody RoleAuthRequest request) {
         sysRoleService.authMenu(request.getRoleId(), request.getMenuIds());
         return RespBody.success();

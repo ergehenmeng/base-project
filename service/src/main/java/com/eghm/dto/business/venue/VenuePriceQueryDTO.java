@@ -1,10 +1,10 @@
 package com.eghm.dto.business.venue;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**
@@ -15,11 +15,11 @@ import java.time.LocalDate;
 @Data
 public class VenuePriceQueryDTO {
 
-    @ApiModelProperty(value = "场次id", required = true)
+    @Schema(description = "场次id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "请选择场次")
     private Long venueSiteId;
 
-    @ApiModelProperty(value = "日期 yyyy-MM-dd", required = true)
+    @Schema(description = "日期 yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "请选择日期")
     private LocalDate nowDate;

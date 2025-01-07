@@ -3,7 +3,7 @@ package com.eghm.state.machine.context;
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.AsyncKey;
 import com.eghm.state.machine.Context;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,36 +17,36 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class VoucherOrderCreateContext extends AsyncKey implements Context {
 
-    @ApiModelProperty("餐饮券id")
+    @Schema(description = "餐饮券id")
     private Long voucherId;
 
-    @ApiModelProperty("数量")
+    @Schema(description = "数量")
     private Integer num;
 
-    @ApiModelProperty("优惠券id")
+    @Schema(description = "优惠券id")
     private Long couponId;
 
-    @ApiModelProperty("昵称")
+    @Schema(description = "昵称")
     private String nickName;
 
-    @ApiModelProperty("联系人电话")
+    @Schema(description = "联系人电话")
     private String mobile;
 
-    @ApiModelProperty("备注")
+    @Schema(description = "备注")
     private String remark;
 
-    @ApiModelProperty("兑换码")
+    @Schema(description = "兑换码")
     private String cdKey;
 
     @Assign
-    @ApiModelProperty(hidden = true, value = "用户id")
+    @Schema(description = "用户id")
     private Long memberId;
 
-    @ApiModelProperty("订单编号")
+    @Schema(description = "订单编号")
     @Assign
     private String orderNo;
 
-    @ApiModelProperty("源状态")
+    @Schema(description = "源状态")
     private Integer from;
 }
 

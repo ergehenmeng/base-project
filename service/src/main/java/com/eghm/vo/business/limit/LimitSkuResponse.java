@@ -2,7 +2,7 @@ package com.eghm.vo.business.limit;
 
 import com.eghm.convertor.CentToYuanOmitEncoder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -13,23 +13,23 @@ import lombok.Data;
 @Data
 public class LimitSkuResponse {
 
-    @ApiModelProperty("商品id")
+    @Schema(description = "商品id")
     private Long itemId;
 
-    @ApiModelProperty("商品名称")
+    @Schema(description = "商品名称")
     private String title;
 
-    @ApiModelProperty("sku数量")
+    @Schema(description = "sku数量")
     private Integer skuSize;
 
-    @ApiModelProperty("skuId")
+    @Schema(description = "skuId")
     private Long skuId;
 
-    @ApiModelProperty("销售价")
+    @Schema(description = "销售价")
     @JsonSerialize(using = CentToYuanOmitEncoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty("限时价")
+    @Schema(description = "限时价")
     @JsonSerialize(using = CentToYuanOmitEncoder.class)
     private Integer discountPrice;
 }

@@ -3,11 +3,11 @@ package com.eghm.dto.business.coupon.config;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -19,26 +19,26 @@ import java.util.List;
 @Data
 public class CouponEditRequest {
 
-    @ApiModelProperty(value = "id", required = true)
+    @Schema(description = "id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "库存(发放数量)", required = true)
+    @Schema(description = "库存(发放数量)", requiredMode = Schema.RequiredMode.REQUIRED)
     @RangeInt(max = 9999, message = "库存应为0~9999")
     private Integer stock;
 
-    @ApiModelProperty(value = "单人领取限制", required = true)
+    @Schema(description = "单人领取限制", requiredMode = Schema.RequiredMode.REQUIRED)
     @RangeInt(min = 1, max = 99, message = "单人领取限制1~99")
     private Integer maxLimit;
 
-    @ApiModelProperty(value = "使用说明", required = true)
+    @Schema(description = "使用说明", requiredMode = Schema.RequiredMode.REQUIRED)
     @Size(max = 100, message = "使用说明最大100字符")
     @WordChecker(message = "使用说明存在敏感词")
     private String instruction;
 
-    @ApiModelProperty(value = "商品类型 ticket:门票 homestay:民宿 voucher:餐饮券 item:零售 line:线路 venue:场馆")
+    @Schema(description = "商品类型 ticket:门票 homestay:民宿 voucher:餐饮券 item:零售 line:线路 venue:场馆")
     private ProductType productType;
 
-    @ApiModelProperty("关联的商品列表")
+    @Schema(description = "关联的商品列表")
     private List<Long> productIds;
 }

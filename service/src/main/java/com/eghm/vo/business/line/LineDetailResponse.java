@@ -1,7 +1,7 @@
 package com.eghm.vo.business.line;
 
 import com.eghm.enums.ref.RefundType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -13,42 +13,42 @@ import java.util.List;
 @Data
 public class LineDetailResponse {
 
-    @ApiModelProperty("id")
+    @Schema(description = "id")
     private Long id;
 
-    @ApiModelProperty(value = "所属旅行社id")
+    @Schema(description = "所属旅行社id")
     private Long travelAgencyId;
 
-    @ApiModelProperty(value = "线路名称")
+    @Schema(description = "线路名称")
     private String title;
 
-    @ApiModelProperty(value = "出发省份id")
+    @Schema(description = "出发省份id")
     private Long startProvinceId;
 
-    @ApiModelProperty(value = "出发城市id")
+    @Schema(description = "出发城市id")
     private Long startCityId;
 
-    @ApiModelProperty(value = "封面图片")
+    @Schema(description = "封面图片")
     private String coverUrl;
 
-    @ApiModelProperty(value = "虚拟销售量")
+    @Schema(description = "虚拟销售量")
     private Integer virtualNum;
 
-    @ApiModelProperty(value = "几日游 1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10:10日游 11:11日游 12:十二日游")
+    @Schema(description = "几日游 1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10:10日游 11:11日游 12:十二日游")
     private Integer duration;
 
-    @ApiModelProperty(value = "提前天数")
+    @Schema(description = "提前天数")
     private Integer advanceDay;
 
-    @ApiModelProperty(value = "是否支持退款 0:不支持 1:直接退款 2:审核后退款")
+    @Schema(description = "是否支持退款 0:不支持 1:直接退款 2:审核后退款")
     private RefundType refundType;
 
-    @ApiModelProperty(value = "退款描述")
+    @Schema(description = "退款描述")
     private String refundDescribe;
 
-    @ApiModelProperty(value = "商品介绍")
+    @Schema(description = "商品介绍")
     private String introduce;
 
-    @ApiModelProperty("线路每日行程")
+    @Schema(description = "线路每日行程")
     private List<LineDayConfigResponse> configList;
 }

@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,12 +13,12 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class SysDictItem extends BaseEntity {
 
-    @ApiModelProperty("字典编码")
+    @Schema(description = "字典编码")
     private String nid;
 
-    @ApiModelProperty("数据字典隐藏值")
+    @Schema(description = "数据字典隐藏值")
     private Integer hiddenValue;
 
-    @ApiModelProperty("显示值")
+    @Schema(description = "显示值")
     private String showValue;
 }

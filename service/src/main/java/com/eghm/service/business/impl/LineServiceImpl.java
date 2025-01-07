@@ -167,7 +167,7 @@ public class LineServiceImpl implements LineService {
     public LineDetailVO detailById(Long id) {
         LineDetailVO vo = lineMapper.getById(id);
         if (vo == null) {
-            log.error("该线路商品已下架 [{}]", id);
+            log.error("线路商品详情已下架 [{}]", id);
             throw new BusinessException(LINE_DOWN);
         }
         List<LineDayConfig> dayConfigList = lineDayConfigService.getByLineId(id);

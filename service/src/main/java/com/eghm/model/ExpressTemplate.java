@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,16 +18,16 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class ExpressTemplate extends BaseEntity {
 
-    @ApiModelProperty("商户id")
+    @Schema(description = "商户id")
     private Long merchantId;
 
-    @ApiModelProperty(value = "模板名称")
+    @Schema(description = "模板名称")
     private String title;
 
-    @ApiModelProperty(value = "状态 0:禁用 1:启用")
+    @Schema(description = "状态 0:禁用 1:启用")
     private Integer state;
 
-    @ApiModelProperty(value = "计费方式 1:按件数 2:按重量")
+    @Schema(description = "计费方式 1:按件数 2:按重量")
     private Integer chargeMode;
 
 }

@@ -4,8 +4,8 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sys.help.HelpQueryDTO;
 import com.eghm.service.common.HelpCenterService;
 import com.eghm.vo.help.HelpCenterVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -20,7 +20,7 @@ import java.util.List;
  * @since 2020/11/12
  */
 @RestController
-@Api(tags = "帮助中心")
+@Tag(name="帮助中心")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/help", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HelpCenterController {
@@ -28,7 +28,7 @@ public class HelpCenterController {
     private final HelpCenterService helpCenterService;
 
     @GetMapping("/list")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<List<HelpCenterVO>> list(@Validated HelpQueryDTO dto) {
         List<HelpCenterVO> voList = helpCenterService.list(dto);
         return RespBody.success(voList);

@@ -2,7 +2,7 @@ package com.eghm.dto.business.group;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,10 +15,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class GroupBookingQueryRequest extends PagingQuery {
 
-    @ApiModelProperty(" 0:未开始 1:进行中 2:已结束")
+    @Schema(description = " 0:未开始 1:进行中 2:已结束")
     private Integer state;
 
     @Assign
-    @ApiModelProperty(value = "商户id", hidden = true)
+    @Schema(description = "商户id", hidden = true)
     private Long merchantId;
 }

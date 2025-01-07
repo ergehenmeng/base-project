@@ -1,6 +1,6 @@
 package com.eghm.state.machine.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 public class ItemOrderPayload {
 
-    @ApiModelProperty("按店铺分组的所有下单信息")
+    @Schema(description = "按店铺分组的所有下单信息")
     private List<StoreOrderPackage> packageList;
 
 }

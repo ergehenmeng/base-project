@@ -63,12 +63,10 @@ system:
   manage:
     security:
       skip-auth:
-        - /captcha
-        - /**/captcha
         - /doc.html
         - /webjars/**
-        - /v2/api-docs
-        - /swagger-resources/**
+        - /v3/api-docs/**
+        - /manage/captcha
         - /manage/login
         - /manage/sendSms
         - /manage/smsLogin

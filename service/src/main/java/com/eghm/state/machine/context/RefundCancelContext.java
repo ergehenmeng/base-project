@@ -4,7 +4,7 @@ import com.eghm.annotation.Assign;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.state.machine.Context;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -16,25 +16,25 @@ import lombok.Data;
 @Data
 public class RefundCancelContext implements Context {
 
-    @ApiModelProperty("订单号")
+    @Schema(description = "订单号")
     private String orderNo;
 
-    @ApiModelProperty(value = "游客id(民宿/线路/门票)")
+    @Schema(description = "游客id(民宿/线路/门票)")
     private Long visitorId;
 
-    @ApiModelProperty(value = "零售订单id")
+    @Schema(description = "零售订单id")
     private Long itemOrderId;
 
     @Assign
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     private Long memberId;
 
-    @ApiModelProperty("源状态")
+    @Schema(description = "源状态")
     private Integer from;
 
-    @ApiModelProperty("产品类型")
+    @Schema(description = "产品类型")
     private ProductType productType;
 
-    @ApiModelProperty("事件")
+    @Schema(description = "事件")
     private IEvent event;
 }

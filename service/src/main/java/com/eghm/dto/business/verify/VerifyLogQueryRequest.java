@@ -3,7 +3,7 @@ package com.eghm.dto.business.verify;
 import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.DatePagingComparator;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,15 +18,15 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class VerifyLogQueryRequest extends DatePagingComparator {
 
-    @ApiModelProperty("开始时间 yyyy-MM-dd")
+    @Schema(description = "开始时间 yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
-    @ApiModelProperty("截止时间 yyyy-MM-dd")
+    @Schema(description = "截止时间 yyyy-MM-dd")
     @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
     private LocalDate endDate;
 
-    @ApiModelProperty(value = "商户id", hidden = true)
+    @Schema(description = "商户id", hidden = true)
     @Assign
     private Long merchantId;
 }

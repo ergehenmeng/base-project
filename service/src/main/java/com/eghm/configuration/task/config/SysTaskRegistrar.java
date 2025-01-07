@@ -1,6 +1,5 @@
 package com.eghm.configuration.task.config;
 
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -10,13 +9,14 @@ import com.eghm.mapper.SysTaskMapper;
 import com.eghm.model.SysTask;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.LoggerUtil;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.support.CronExpression;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -154,7 +154,7 @@ public class SysTaskRegistrar {
      */
     public void addTask(OnceTask task) {
         String nid = task.getBeanName() + "-" + task.getMethodName() + "-" + counter.getAndIncrement();
-        ScheduledFuture<?> schedule = taskScheduler.schedule(new RunnableTask(task), DateUtil.date(task.getExecuteTime()));
+        ScheduledFuture<?> schedule = taskScheduler.schedule(new RunnableTask(task), Instant.from(task.getExecuteTime()));
         scheduledFutures.put(nid, schedule);
     }
 

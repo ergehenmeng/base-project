@@ -1,6 +1,6 @@
 package com.eghm.vo.business.order.item;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -13,9 +13,9 @@ import lombok.Data;
 @Data
 public class ExpressVO {
 
-    @ApiModelProperty("时间")
+    @Schema(description = "时间")
     private String time;
 
-    @ApiModelProperty("节点内容")
+    @Schema(description = "节点内容")
     private String content;
 }

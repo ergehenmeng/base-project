@@ -1,10 +1,10 @@
 package com.eghm.dto.business.shopping;
 
 import com.eghm.validation.annotation.RangeInt;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * 购物车商品数量更新
@@ -15,11 +15,11 @@ import javax.validation.constraints.NotNull;
 @Data
 public class CartQuantityDTO {
 
-    @ApiModelProperty(value = "购物车商品", required = true)
+    @Schema(description = "购物车商品", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "新数量", required = true)
+    @Schema(description = "新数量", requiredMode = Schema.RequiredMode.REQUIRED)
     @RangeInt(max = 99, message = "商品数量应为1~99")
     private Integer quantity;
 }

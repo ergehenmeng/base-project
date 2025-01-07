@@ -2,7 +2,7 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.State;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,27 +21,27 @@ import java.time.LocalDate;
 @TableName("venue_site")
 public class VenueSite extends BaseEntity {
 
-    @ApiModelProperty(value = "场地封面图片")
+    @Schema(description = "场地封面图片")
     private String coverUrl;
 
-    @ApiModelProperty(value = "场地名称")
+    @Schema(description = "场地名称")
     private String title;
 
-    @ApiModelProperty(value = "所属场馆")
+    @Schema(description = "所属场馆")
     private Long venueId;
 
-    @ApiModelProperty(value = "所属商户")
+    @Schema(description = "所属商户")
     private Long merchantId;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
+    @Schema(description = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
-    @ApiModelProperty(value = "排序 小<->大")
+    @Schema(description = "排序 小<->大")
     private Integer sort;
 
-    @ApiModelProperty("创建日期")
+    @Schema(description = "创建日期")
     private LocalDate createDate;
 
-    @ApiModelProperty(value = "创建月份")
+    @Schema(description = "创建月份")
     private String createMonth;
 }

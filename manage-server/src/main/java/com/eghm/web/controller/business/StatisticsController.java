@@ -11,8 +11,8 @@ import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.*;
 import com.eghm.service.member.MemberService;
 import com.eghm.vo.business.statistics.*;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 
 @RestController
-@Api(tags = "统计分析")
+@Tag(name="统计分析")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/statistics", produces = MediaType.APPLICATION_JSON_VALUE)
 public class StatisticsController {
@@ -46,14 +46,14 @@ public class StatisticsController {
     private final MemberVisitLogService memberVisitLogService;
 
     @GetMapping("/sexChannel")
-    @ApiOperation("注册渠道统计")
+    @Operation(summary = "注册渠道统计")
     public RespBody<MemberStatisticsVO> sexChannel(DateRequest request) {
         MemberStatisticsVO statistics = memberService.sexChannel(request);
         return RespBody.success(statistics);
     }
 
     @GetMapping("/dayRegister")
-    @ApiOperation("注册统计(按天)")
+    @Operation(summary = "注册统计(按天)")
     public RespBody<List<MemberRegisterVO>> dayRegister(DateRequest request) {
         this.setNull(request);
         List<MemberRegisterVO> statistics = memberService.dayRegister(request);
@@ -61,7 +61,7 @@ public class StatisticsController {
     }
 
     @GetMapping("/orderDetail")
-    @ApiOperation("经营数据")
+    @Operation(summary = "经营数据")
     @SkipPerm
     public RespBody<BusinessDetailVO> orderDetail() {
         BusinessDetailVO statistics = orderService.businessStatistics(SecurityHolder.getMerchantId());
@@ -69,7 +69,7 @@ public class StatisticsController {
     }
 
     @GetMapping("/order")
-    @ApiOperation("下单统计")
+    @Operation(summary = "下单统计")
     @SkipPerm
     public RespBody<OrderCardVO> order(DateRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
@@ -78,7 +78,7 @@ public class StatisticsController {
     }
 
     @GetMapping("/dayOrder")
-    @ApiOperation("下单统计(按天)")
+    @Operation(summary = "下单统计(按天)")
     @SkipPerm
     public RespBody<List<OrderStatisticsVO>> dayOrder(DateRequest request) {
         this.setNull(request);
@@ -88,28 +88,28 @@ public class StatisticsController {
     }
 
     @GetMapping("/visit")
-    @ApiOperation("浏览量")
+    @Operation(summary = "浏览量")
     public RespBody<List<MemberVisitVO>> visit(VisitRequest request) {
         List<MemberVisitVO> statistics = memberVisitLogService.dayVisit(request);
         return RespBody.success(statistics);
     }
 
     @GetMapping("/collect")
-    @ApiOperation("收藏量")
+    @Operation(summary = "收藏量")
     public RespBody<List<CollectStatisticsVO>> collect(CollectRequest request) {
         List<CollectStatisticsVO> statistics = memberCollectService.dayCollect(request);
         return RespBody.success(statistics);
     }
 
     @GetMapping("/append")
-    @ApiOperation("新增商品数")
+    @Operation(summary = "新增商品数")
     public RespBody<List<ProductStatisticsVO>> append(ProductRequest request) {
         List<ProductStatisticsVO> statistics = commonService.dayAppend(request);
         return RespBody.success(statistics);
     }
 
     @GetMapping("/cart")
-    @ApiOperation("加购统计")
+    @Operation(summary = "加购统计")
     @SkipPerm
     public RespBody<List<CartStatisticsVO>> cart(DateRequest request) {
         this.setNull(request);
@@ -119,14 +119,14 @@ public class StatisticsController {
     }
 
     @GetMapping("/itemSale")
-    @ApiOperation("零售销售额统计排行")
+    @Operation(summary = "零售销售额统计排行")
     public RespBody<List<SaleStatisticsVO>> itemSale() {
         List<SaleStatisticsVO> statistics = orderService.saleStatistics(SecurityHolder.getMerchantId(), ProductType.ITEM);
         return RespBody.success(statistics);
     }
 
     @GetMapping("/merchantSale")
-    @ApiOperation("商户销售额统计排行")
+    @Operation(summary = "商户销售额统计排行")
     public RespBody<List<MerchantStatisticsVO>> merchantSale() {
         List<MerchantStatisticsVO> statistics = orderService.merchantStatistics();
         return RespBody.success(statistics);

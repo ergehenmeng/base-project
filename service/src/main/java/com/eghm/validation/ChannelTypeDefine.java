@@ -4,8 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import com.eghm.enums.Channel;
 import com.eghm.validation.annotation.ChannelType;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * @author 二哥很猛

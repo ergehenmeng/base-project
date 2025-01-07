@@ -2,13 +2,13 @@ package com.eghm.dto.business.item.sku;
 
 import com.eghm.enums.ref.SpecLevel;
 import com.eghm.validation.annotation.WordChecker;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -19,33 +19,33 @@ import java.util.List;
 @Data
 public class ItemSpecRequest {
 
-    @ApiModelProperty(value = "规格名", required = true)
+    @Schema(description = "规格名", requiredMode = Schema.RequiredMode.REQUIRED)
     @Size(min = 1, max = 20, message = "规格名长度1~20位")
     @NotBlank(message = "规格名不能为空")
     @WordChecker(message = "规格名存在敏感词")
     private String specName;
 
-    @ApiModelProperty(value = "规格值", required = true)
+    @Schema(description = "规格值", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "规格值不能为空")
     private List<SpecValue> valueList;
 
-    @ApiModelProperty(value = "规格等级(1:一级规格 2:二级规格)", required = true)
+    @Schema(description = "规格等级(1:一级规格 2:二级规格)", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "规格等级不能为空")
     private SpecLevel level;
 
     @Data
     public static class SpecValue {
 
-        @ApiModelProperty(value = "规格值id(编辑时不能为空)")
+        @Schema(description = "规格值id(编辑时不能为空)")
         private Long id;
 
-        @ApiModelProperty(value = "规格值", required = true)
+        @Schema(description = "规格值", requiredMode = Schema.RequiredMode.REQUIRED)
         @Size(min = 1, max = 20, message = "规格值长度1~20位")
         @NotBlank(message = "规格值不能为空")
         @WordChecker(message = "规格值存在敏感词")
         private String name;
 
-        @ApiModelProperty(value = "规格图片(一级规格必填), 优先级比sku_pic低", required = true)
+        @Schema(description = "规格图片(一级规格必填), 优先级比sku_pic低", requiredMode = Schema.RequiredMode.REQUIRED)
         private String pic;
     }
 }

@@ -46,10 +46,74 @@
     <select id="getByPage" resultType="com.eghm.vo.business.homestay.HomestayVO" parameterType="com.eghm.dto.business.homestay.HomestayQueryDTO">
         <choose>
             <when test="param.sortByDistance != null or param.sortByPrice != null">
-                <include refid="getByPageSortSql" />
+                select s.* from ( select
+                t.id,
+                t.title,
+                t.longitude,
+                t.latitude,
+                st_distance_sphere(point(t.longitude, t.latitude), point(#{param.longitude}, #{param.latitude})) as distance,
+                t.`level`,
+                t.city_id as cityId,
+                t.county_id as countyId,
+                t.detail_address as detailAddress,
+                t.cover_url as coverUrl,
+                t.phone,
+                t.tag as tagIds,
+                r.minPrice
+                from homestay t
+                inner join (select homestay_id, count(1) as staynum, min(sale_price) as minPrice from homestay_room_config where config_date between #{param.startDate} and #{param.endDate}
+                and stock > 0 and state = true group by homestay_id, homestay_room_id having count(homestay_room_id) = #{param.stayNum}) r on t.id = r.homestay_id
+                where t.state = 1 and t.deleted = false
+                <if test="param.queryName != null and param.queryName != ''">
+                    and t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
+                </if>
+                <if test="param.level != null">
+                    and t.`level` = #{param.level}
+                </if>
+                ) s
+                <choose>
+                    <when test="param.sortByDistance == 1">
+                        order by s.distance, s.id desc
+                    </when>
+                    <when test="param.sortByDistance == 2">
+                        order by s.distance desc, s.id desc
+                    </when>
+                    <when test="param.sortByPrice == 1">
+                        order by s.minPrice, s.id desc
+                    </when>
+                    <otherwise>
+                        order by s.minPrice desc, s.id desc
+                    </otherwise>
+                </choose>
             </when>
             <otherwise>
-                <include refid="getByPageSql"/>
+                select
+                t.id,
+                t.title,
+                t.longitude,
+                t.latitude,
+                <if test="param.longitude != null and param.latitude != null">
+                    st_distance_sphere(point(t.longitude, t.latitude), point(#{param.longitude}, #{param.latitude})) as distance,
+                </if>
+                t.`level`,
+                t.city_id,
+                t.county_id,
+                t.detail_address,
+                t.cover_url,
+                t.phone,
+                t.tag as tagIds,
+                r.minPrice
+                from homestay t
+                inner join (select homestay_id, count(1) as staynum, min(sale_price) as minPrice from homestay_room_config where config_date between #{param.startDate} and #{param.endDate}
+                and stock > 0 and state = true group by homestay_id, homestay_room_id having count(homestay_room_id) = #{param.stayNum}) r on t.id = r.homestay_id
+                where t.state = 1 and t.deleted = false
+                <if test="param.queryName != null and param.queryName != ''">
+                    and t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
+                </if>
+                <if test="param.level != null">
+                    and t.`level` = #{param.level}
+                </if>
+                order by t.id desc
             </otherwise>
         </choose>
     </select>
@@ -104,80 +168,6 @@
             #{item}
         </foreach>
     </select>
-
-    <!--无距离排序,不进行子查询-->
-    <sql id="getByPageSql">
-        select
-        t.id,
-        t.title,
-        t.longitude,
-        t.latitude,
-        <if test="param.longitude != null and param.latitude != null">
-            st_distance_sphere(point(t.longitude, t.latitude), point(#{param.longitude}, #{param.latitude})) as distance,
-        </if>
-        t.`level`,
-        t.city_id,
-        t.county_id,
-        t.detail_address,
-        t.cover_url,
-        t.phone,
-        t.tag as tagIds,
-        r.minPrice
-        from homestay t
-        inner join (select homestay_id, count(1) as staynum, min(sale_price) as minPrice from homestay_room_config where config_date between #{param.startDate} and #{param.endDate}
-        and stock > 0 and state = true group by homestay_id, homestay_room_id having count(homestay_room_id) = #{param.stayNum}) r on t.id = r.homestay_id
-        where t.state = 1 and t.deleted = false
-        <if test="param.queryName != null and param.queryName != ''">
-            and t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
-        </if>
-        <if test="param.level != null">
-            and t.`level` = #{param.level}
-        </if>
-        order by t.id desc
-    </sql>
-
-    <!--有距离排序-->
-    <sql id="getByPageSortSql">
-        select s.* from ( select
-        t.id,
-        t.title,
-        t.longitude,
-        t.latitude,
-        st_distance_sphere(point(t.longitude, t.latitude), point(#{param.longitude}, #{param.latitude})) as distance,
-        t.`level`,
-        t.city_id as cityId,
-        t.county_id as countyId,
-        t.detail_address as detailAddress,
-        t.cover_url as coverUrl,
-        t.phone,
-        t.tag as tagIds,
-        r.minPrice
-        from homestay t
-        inner join (select homestay_id, count(1) as staynum, min(sale_price) as minPrice from homestay_room_config where config_date between #{param.startDate} and #{param.endDate}
-        and stock > 0 and state = true group by homestay_id, homestay_room_id having count(homestay_room_id) = #{param.stayNum}) r on t.id = r.homestay_id
-        where t.state = 1 and t.deleted = false
-        <if test="param.queryName != null and param.queryName != ''">
-            and t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
-        </if>
-        <if test="param.level != null">
-            and t.`level` = #{param.level}
-        </if>
-        ) s
-        <choose>
-            <when test="param.sortByDistance == 1">
-                order by s.distance, s.id desc
-            </when>
-            <when test="param.sortByDistance == 2">
-                order by s.distance desc, s.id desc
-            </when>
-            <when test="param.sortByPrice == 1">
-                order by s.minPrice, s.id desc
-            </when>
-            <otherwise>
-                order by s.minPrice desc, s.id desc
-            </otherwise>
-        </choose>
-    </sql>
 
     <update id="updateScore">
         update homestay set score = #{score} where id = #{id}

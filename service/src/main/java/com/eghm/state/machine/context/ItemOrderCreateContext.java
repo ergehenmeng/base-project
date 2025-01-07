@@ -7,7 +7,7 @@ import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Item;
 import com.eghm.state.machine.Context;
 import com.eghm.state.machine.dto.ItemDTO;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,70 +27,70 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 public class ItemOrderCreateContext extends AsyncKey implements Context {
 
-    @ApiModelProperty("商品信息按店铺分组")
+    @Schema(description = "商品信息按店铺分组")
     private List<ItemDTO> itemList;
 
-    @ApiModelProperty("拼团活动编号(团长发起拼团时为空, 团员拼团时该字段不能为空)")
+    @Schema(description = "拼团活动编号(团长发起拼团时为空, 团员拼团时该字段不能为空)")
     private String bookingNo;
 
-    @ApiModelProperty("收货地址id")
+    @Schema(description = "收货地址id")
     private Long addressId;
 
-    @ApiModelProperty(value = "是否为拼团订单(拼团活动只能选一个店铺的一个商品)", hidden = true)
+    @Schema(description = "是否为拼团订单(拼团活动只能选一个店铺的一个商品)", hidden = true)
     @Assign
     private Boolean groupBooking;
 
-    @ApiModelProperty("源状态")
+    @Schema(description = "源状态")
     @Assign
     private Integer from;
 
-    @ApiModelProperty(value = "订单编号(值传递,多个逗号分隔)", hidden = true)
+    @Schema(description = "订单编号(值传递,多个逗号分隔)", hidden = true)
     @Assign
     private String orderNo;
 
     @Assign
-    @ApiModelProperty(value = "用户id", hidden = true)
+    @Schema(description = "用户id", hidden = true)
     private Long memberId;
 
-    @ApiModelProperty(value = "已拼单数量(承载数据,值传递)", hidden = true)
+    @Schema(description = "已拼单数量(承载数据,值传递)", hidden = true)
     @Assign
     private Integer bookingNum;
 
-    @ApiModelProperty(value = "拼团id(承载数据,值传递)", hidden = true)
+    @Schema(description = "拼团id(承载数据,值传递)", hidden = true)
     @Assign
     private Long bookingId;
 
-    @ApiModelProperty(value = "是否为拼团发起者(承载数据,值传递)", hidden = true)
+    @Schema(description = "是否为拼团发起者(承载数据,值传递)", hidden = true)
     @Assign
     private Boolean starter = false;
 
-    @ApiModelProperty(value = "拼团过期时间(承载数据,值传递)", hidden = true)
+    @Schema(description = "拼团过期时间(承载数据,值传递)", hidden = true)
     @Assign
     private Integer expireTime;
 
-    @ApiModelProperty(value = "限时购活动id(承载数据,值传递)", hidden = true)
+    @Schema(description = "限时购活动id(承载数据,值传递)", hidden = true)
     @Assign
     private Long limitId;
 
-    @ApiModelProperty(value = "商品信息(承载数据,减少后续重复查询)", hidden = true)
+    @Schema(description = "商品信息(承载数据,减少后续重复查询)", hidden = true)
     @Assign
     private Map<Long, Item> itemMap;
 
-    @ApiModelProperty(value = "商品id(承载数据,减少后续重复运算)", hidden = true)
+    @Schema(description = "商品id(承载数据,减少后续重复运算)", hidden = true)
     @Assign
     private Set<Long> itemIds;
 
-    @ApiModelProperty(value = "商品skuId(承载数据,减少后续重复运算)", hidden = true)
+    @Schema(description = "商品skuId(承载数据,减少后续重复运算)", hidden = true)
     @Assign
     private Set<Long> skuIds;
 
-    @ApiModelProperty(value = "使用的总积分(承载数据,减少后续重复运算)", hidden = true)
+    @Schema(description = "使用的总积分(承载数据,减少后续重复运算)", hidden = true)
     @Assign
     private Integer totalScore;
 
-    @ApiModelProperty("产品类型")
+    @Schema(description = "产品类型")
     private ProductType productType;
 
-    @ApiModelProperty("事件")
+    @Schema(description = "事件")
     private IEvent event;
 }

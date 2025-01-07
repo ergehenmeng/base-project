@@ -1,11 +1,11 @@
 package com.eghm.dto.business.item.express;
 
 import com.eghm.annotation.Assign;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
@@ -15,35 +15,35 @@ import java.math.BigDecimal;
 @Data
 public class ItemCalcDTO {
 
-    @ApiModelProperty(value = "商品ID", required = true)
+    @Schema(description = "商品ID", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "请选择商品")
     private Long itemId;
 
-    @ApiModelProperty(value = "skuId", required = true)
+    @Schema(description = "skuId", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "请选择商品规格")
     private Long skuId;
 
-    @ApiModelProperty(value = "数量", required = true)
+    @Schema(description = "数量", requiredMode = Schema.RequiredMode.REQUIRED)
     @Min(value = 1, message = "购买数量必须大于等于1")
     @NotNull(message = "商品数量不能为空")
     private Integer num;
 
     @Assign
-    @ApiModelProperty(value = "物流模板id", hidden = true)
+    @Schema(description = "物流模板id", hidden = true)
     private Long expressId;
 
     @Assign
-    @ApiModelProperty(value = "快递计费方式 1:计件 2:计费", hidden = true)
+    @Schema(description = "快递计费方式 1:计件 2:计费", hidden = true)
     private Integer chargeMode;
 
     @Assign
-    @ApiModelProperty(value = "重量", hidden = true)
+    @Schema(description = "重量", hidden = true)
     private BigDecimal weight;
 
     /**
      * 计算好每个商品的快递费后会填充到该字段上
      */
     @Assign
-    @ApiModelProperty(value = "快递费", hidden = true)
+    @Schema(description = "快递费", hidden = true)
     private Integer expressFee = 0;
 }

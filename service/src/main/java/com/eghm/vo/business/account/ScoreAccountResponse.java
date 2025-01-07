@@ -1,7 +1,7 @@
 package com.eghm.vo.business.account;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,16 +17,16 @@ import java.time.LocalDateTime;
 @Data
 public class ScoreAccountResponse {
 
-    @ApiModelProperty(value = "可用积分")
+    @Schema(description = "可用积分")
     private Integer amount;
 
-    @ApiModelProperty(value = "支付冻结积分")
+    @Schema(description = "支付冻结积分")
     private Integer payFreeze;
 
-    @ApiModelProperty(value = "提现冻结积分")
+    @Schema(description = "提现冻结积分")
     private Integer withdrawFreeze;
 
-    @ApiModelProperty("更新时间")
+    @Schema(description = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 

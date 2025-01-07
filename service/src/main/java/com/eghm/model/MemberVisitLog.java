@@ -11,7 +11,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -31,35 +31,35 @@ import java.time.LocalDateTime;
 @TableName("member_visit_log")
 public class MemberVisitLog {
 
-    @ApiModelProperty(value = "主键")
+    @Schema(description = "主键")
     @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
-    @ApiModelProperty(value = "用户ID")
+    @Schema(description = "用户ID")
     private Long memberId;
 
-    @ApiModelProperty(value = "openId")
+    @Schema(description = "openId")
     private String openId;
 
-    @ApiModelProperty(value = "访问渠道")
+    @Schema(description = "访问渠道")
     private String channel;
 
-    @ApiModelProperty(value = "访问日期")
+    @Schema(description = "访问日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate createDate;
 
-    @ApiModelProperty(value = "创建时间")
+    @Schema(description = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime createTime;
 
-    @ApiModelProperty(value = "创建月份")
+    @Schema(description = "创建月份")
     private String createMonth;
 
-    @ApiModelProperty(value = "页面类型")
+    @Schema(description = "页面类型")
     private VisitType visitType;
 
 }

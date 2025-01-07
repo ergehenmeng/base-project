@@ -2,7 +2,7 @@ package com.eghm.dto.business.restaurant.voucher;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,13 +14,13 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class VoucherQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("状态 0:待上架 1:已上架")
+    @Schema(description = "状态 0:待上架 1:已上架")
     private Integer state;
 
-    @ApiModelProperty("餐饮商家id")
+    @Schema(description = "餐饮商家id")
     private Long restaurantId;
 
-    @ApiModelProperty(value = "商家id", hidden = true)
+    @Schema(description = "商家id", hidden = true)
     @Assign
     private Long merchantId;
 }

@@ -107,11 +107,11 @@
         <if test="sex != null">
             and sex = #{sex}
         </if>
-        <if test="startDate != null ">
-            and create_date &gt;= #{startDate}
+        <if test="registerStartDate != null ">
+            and create_date &gt;= #{registerStartDate}
         </if>
-        <if test="endDate != null ">
-            and create_date &lt;= #{endDate}
+        <if test="registerEndDate != null ">
+            and create_date &lt;= #{registerEndDate}
         </if>
     </select>
 

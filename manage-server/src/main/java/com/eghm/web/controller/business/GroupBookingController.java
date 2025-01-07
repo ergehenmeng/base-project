@@ -11,8 +11,8 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.GroupBookingService;
 import com.eghm.vo.business.group.GroupBookingDetailResponse;
 import com.eghm.vo.business.group.GroupBookingResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-@Api(tags = "拼团活动")
+@Tag(name="拼团活动")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/group/booking", produces = MediaType.APPLICATION_JSON_VALUE)
 public class GroupBookingController {
@@ -32,7 +32,7 @@ public class GroupBookingController {
     private final GroupBookingService groupBookingService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<GroupBookingResponse>> listPage(GroupBookingQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<GroupBookingResponse> byPage = groupBookingService.getByPage(request);
@@ -40,7 +40,7 @@ public class GroupBookingController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("创建")
+    @Operation(summary = "创建")
     public RespBody<Void> create(@RequestBody @Validated GroupBookingAddRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         groupBookingService.create(request);
@@ -48,21 +48,21 @@ public class GroupBookingController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑")
     public RespBody<Void> update(@RequestBody @Validated GroupBookingEditRequest request) {
         groupBookingService.update(request);
         return RespBody.success();
     }
 
     @GetMapping("/detail")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     public RespBody<GroupBookingDetailResponse> detail(@Validated IdDTO dto) {
         GroupBookingDetailResponse detail = groupBookingService.detail(dto.getId());
         return RespBody.success(detail);
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         groupBookingService.delete(dto.getId());
         return RespBody.success();

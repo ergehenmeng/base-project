@@ -1,6 +1,6 @@
 package com.eghm.vo.business.item.express;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -10,12 +10,12 @@ import lombok.Data;
 @Data
 public class ExpressTemplateVO {
 
-    @ApiModelProperty("零售Id")
+    @Schema(description = "零售Id")
     private Long itemId;
 
-    @ApiModelProperty("物流模板Id")
+    @Schema(description = "物流模板Id")
     private Long expressId;
 
-    @ApiModelProperty("物流计费方式 1:计件 2:计时")
+    @Schema(description = "物流计费方式 1:计件 2:计时")
     private Integer chargeMode;
 }

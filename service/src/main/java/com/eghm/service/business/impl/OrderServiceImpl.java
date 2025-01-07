@@ -251,7 +251,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         wrapper.set(Order::getVerifyNo, verifyNo);
         int update = baseMapper.update(null, wrapper);
         if (update != 1) {
-            log.warn("订单状态更新数据不一致 [{}] [{}] [{}]", orderNo, newState, payType);
+            log.warn("订单支付成功状态更新数据不一致 [{}] [{}] [{}]", orderNo, newState, payType);
         }
     }
 
@@ -606,7 +606,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             return Lists.newArrayList();
         }
         List<Long> ids = serviceSet.stream().map(typedTuple -> Long.parseLong(Objects.requireNonNull(typedTuple.getValue()))).collect(Collectors.toList());
-        List<Merchant> merchantList = merchantMapper.selectBatchIds(ids);
+        List<Merchant> merchantList = merchantMapper.selectByIds(ids);
         Map<Long, String> stringMap = merchantList.stream().collect(Collectors.toMap(Merchant::getId, Merchant::getMerchantName));
         List<MerchantStatisticsVO> voList = new ArrayList<>();
         for (ZSetOperations.TypedTuple<String> typedTuple: serviceSet) {
@@ -757,7 +757,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             throw new BusinessException(ErrorCode.MEMBER_REFUND_MATCH);
         }
         List<Long> refundVisitorIds = offlineRefundLogService.getRefundLog(orderNo);
-        List<OrderVisitor> hasRefundList = visitors.stream().filter(orderVisitor -> refundVisitorIds.contains(orderVisitor.getId())).collect(Collectors.toList());
+        List<OrderVisitor> hasRefundList = visitors.stream().filter(orderVisitor -> refundVisitorIds.contains(orderVisitor.getId())).toList();
         if (!hasRefundList.isEmpty()) {
             String userList = hasRefundList.stream().map(OrderVisitor::getMemberName).collect(Collectors.joining(","));
             throw new BusinessException(ErrorCode.MEMBER_HAS_REFUND, userList);

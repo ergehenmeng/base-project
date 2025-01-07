@@ -5,7 +5,7 @@ import cn.hutool.core.util.ReflectUtil;
 import com.eghm.configuration.template.FreemarkerTemplate;
 import com.eghm.dto.ext.GenerateFile;
 import com.eghm.dto.ext.GenerateService;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -106,14 +106,14 @@ public class GenerateUtil {
         template.setFileName(cls.getSimpleName());
         List<GenerateFile.FieldDesc> descList = new ArrayList<>();
         for (Field field : fields) {
-            ApiModelProperty annotation = field.getAnnotation(ApiModelProperty.class);
+            Schema annotation = field.getAnnotation(Schema.class);
             if ( annotation == null) {
                 continue;
             }
             GenerateFile.FieldDesc desc = new GenerateFile.FieldDesc();
             desc.setFieldName(field.getName());
             desc.setFieldType(field.getType().getSimpleName());
-            String value = annotation.value();
+            String value = annotation.description();
             if (value != null) {
                 desc.setDesc(value.split(" ")[0]);
             } else {

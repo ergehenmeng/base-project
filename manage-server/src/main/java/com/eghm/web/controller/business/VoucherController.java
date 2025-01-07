@@ -17,14 +17,14 @@ import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.restaurant.VoucherDetailResponse;
 import com.eghm.vo.business.restaurant.VoucherResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -32,7 +32,7 @@ import java.util.List;
  * @since 2022/6/30
  */
 @RestController
-@Api(tags = "餐饮券")
+@Tag(name="餐饮券")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/restaurant/voucher", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoucherController {
@@ -40,7 +40,7 @@ public class VoucherController {
     private final VoucherService voucherService;
 
     @GetMapping("/listPage")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<PageData<VoucherResponse>> listPage(VoucherQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VoucherResponse> roomPage = voucherService.getByPage(request);
@@ -48,7 +48,7 @@ public class VoucherController {
     }
 
     @GetMapping("/productListPage")
-    @ApiOperation("列表(含店铺)")
+    @Operation(summary = "列表(含店铺)")
     public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseProductResponse> listPage = voucherService.getProductPage(request);
@@ -56,42 +56,42 @@ public class VoucherController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增")
+    @Operation(summary = "新增")
     public RespBody<Void> create(@Validated @RequestBody VoucherAddRequest request) {
         voucherService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("更新")
+    @Operation(summary = "更新")
     public RespBody<Void> update(@Validated @RequestBody VoucherEditRequest request) {
         voucherService.update(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/shelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("上架")
+    @Operation(summary = "上架")
     public RespBody<Void> shelves(@Validated @RequestBody IdDTO dto) {
         voucherService.updateState(dto.getId(), State.SHELVE);
         return RespBody.success();
     }
 
     @PostMapping(value = "/unShelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("下架")
+    @Operation(summary = "下架")
     public RespBody<Void> unShelves(@Validated @RequestBody IdDTO dto) {
         voucherService.updateState(dto.getId(), State.UN_SHELVE);
         return RespBody.success();
     }
 
     @PostMapping(value = "/platformUnShelves", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("平台下架")
+    @Operation(summary = "平台下架")
     public RespBody<Void> platformUnShelves(@RequestBody @Validated IdDTO dto) {
         voucherService.updateState(dto.getId(), State.FORCE_UN_SHELVE);
         return RespBody.success();
     }
 
     @GetMapping("/select")
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     public RespBody<VoucherDetailResponse> select(@Validated IdDTO dto) {
         Voucher voucher = voucherService.selectByIdRequired(dto.getId());
         VoucherDetailResponse response = DataUtil.copy(voucher, VoucherDetailResponse.class);
@@ -100,14 +100,14 @@ public class VoucherController {
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         voucherService.deleteById(dto.getId());
         return RespBody.success();
     }
 
     @GetMapping("/export")
-    @ApiOperation("导出")
+    @Operation(summary = "导出")
     public void export(HttpServletResponse response, VoucherQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<VoucherResponse> byPage = voucherService.getList(request);

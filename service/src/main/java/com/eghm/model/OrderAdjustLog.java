@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,22 +18,22 @@ import lombok.EqualsAndHashCode;
 @TableName("order_adjust_log")
 public class OrderAdjustLog extends BaseEntity {
 
-    @ApiModelProperty(value = "订单编号")
+    @Schema(description = "订单编号")
     private String orderNo;
 
-    @ApiModelProperty("商品名称")
+    @Schema(description = "商品名称")
     private String productName;
 
-    @ApiModelProperty(value = "操作人id")
+    @Schema(description = "操作人id")
     private Long userId;
 
-    @ApiModelProperty(value = "操作人姓名")
+    @Schema(description = "操作人姓名")
     private String userName;
 
-    @ApiModelProperty(value = "原价格")
+    @Schema(description = "原价格")
     private Integer sourcePrice;
 
-    @ApiModelProperty(value = "新价格")
+    @Schema(description = "新价格")
     private Integer targetPrice;
 
 }

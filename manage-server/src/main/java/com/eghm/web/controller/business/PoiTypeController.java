@@ -9,9 +9,9 @@ import com.eghm.dto.poi.PoiTypeEditRequest;
 import com.eghm.dto.poi.PoiTypeQueryRequest;
 import com.eghm.service.business.PoiTypeService;
 import com.eghm.vo.poi.PoiTypeResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -24,21 +24,21 @@ import java.util.List;
  * @since 2023/12/20
  */
 @RestController
-@Api(tags = "poi类型")
+@Tag(name="poi类型")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/poi/type", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PoiTypeController {
 
     private final PoiTypeService poiTypeService;
 
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     @GetMapping("/listPage")
     public RespBody<PageData<PoiTypeResponse>> getByPage(PoiTypeQueryRequest request) {
         Page<PoiTypeResponse> byPage = poiTypeService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @ApiOperation("新增")
+    @Operation(summary = "新增")
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> create(@Validated @RequestBody PoiTypeAddRequest request) {
         poiTypeService.create(request);
@@ -46,22 +46,22 @@ public class PoiTypeController {
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑")
     public RespBody<Void> update(@Validated @RequestBody PoiTypeEditRequest request) {
         poiTypeService.update(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         poiTypeService.deleteById(dto.getId());
         return RespBody.success();
     }
 
     @GetMapping("/list")
-    @ApiOperation("全部")
-    @ApiImplicitParam(name = "areaCode", value = "区域编码", required = true)
+    @Operation(summary = "全部")
+    @Parameter(name = "areaCode", description = "区域编码", required = true)
     public RespBody<List<PoiTypeResponse>> list(@RequestParam("areaCode") String areaCode) {
         List<PoiTypeResponse> serviceList = poiTypeService.getList(areaCode);
         return RespBody.success(serviceList);

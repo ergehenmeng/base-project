@@ -14,8 +14,6 @@ spring:
     time-zone: GMT+8
     deserialization:
       read-unknown-enum-values-as-null: true
-  mvc:
-    throw-exception-if-no-handler-found: true
   freemarker:
     check-template-location: false
     content-type: text/html

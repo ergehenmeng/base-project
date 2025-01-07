@@ -1,10 +1,10 @@
 package com.eghm.dto.sys.email;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -13,18 +13,18 @@ import javax.validation.constraints.NotNull;
 @Data
 public class EmailTemplateRequest {
 
-    @ApiModelProperty(value = "id主键", required = true)
+    @Schema(description = "id主键", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "标题", required = true)
+    @Schema(description = "标题", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "标题不能为空")
     private String title;
 
-    @ApiModelProperty(value = "模板内容", required = true)
+    @Schema(description = "模板内容", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "模板内容不能为空")
     private String content;
 
-    @ApiModelProperty("备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 }

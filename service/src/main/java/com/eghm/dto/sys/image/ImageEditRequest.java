@@ -1,11 +1,11 @@
 package com.eghm.dto.sys.image;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * @author 二哥很猛
@@ -14,19 +14,19 @@ import javax.validation.constraints.Size;
 @Data
 public class ImageEditRequest {
 
-    @ApiModelProperty(value = "id主键", required = true)
+    @Schema(description = "id主键", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "图片名称", required = true)
+    @Schema(description = "图片名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "图片名称不能为空")
     private String title;
 
-    @ApiModelProperty(value = "图片类型", required = true)
+    @Schema(description = "图片类型", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "图片类型不能为空")
     private Integer imageType;
 
-    @ApiModelProperty("备注信息")
+    @Schema(description = "备注信息")
     @Size(max = 100, message = "备注信息不能超过100字")
     private String remark;
 

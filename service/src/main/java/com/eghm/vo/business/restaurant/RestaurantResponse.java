@@ -6,7 +6,7 @@ import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,43 +20,43 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class RestaurantResponse extends ExcelStyle {
 
-    @ApiModelProperty(value = "id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "logo图片")
+    @Schema(description = "logo图片")
     private String logoUrl;
 
-    @ApiModelProperty(value = "商家名称")
+    @Schema(description = "商家名称")
     @ExcelProperty(value = "商家名称", index = 0)
     private String title;
 
-    @ApiModelProperty(value = "所属商户")
+    @Schema(description = "所属商户")
     @ExcelProperty(value = "所属商户", index = 1)
     private String merchantName;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
+    @Schema(description = "状态 0:待上架 1:已上架 2:强制下架")
     @ExcelProperty(value = "状态", index = 2, converter = EnumExcelConverter.class)
     private State state;
 
-    @ApiModelProperty(value = "营业时间")
+    @Schema(description = "营业时间")
     @ExcelProperty(value = "营业时间", index = 3)
     private String openTime;
 
-    @ApiModelProperty(value = "商家热线")
+    @Schema(description = "商家热线")
     @ExcelProperty(value = "商家热线", index = 4)
     private String phone;
 
-    @ApiModelProperty("详细地址")
+    @Schema(description = "详细地址")
     @ExcelProperty(value = "详细地址", index = 5)
     private String detailAddress;
 
-    @ApiModelProperty("创建时间")
+    @Schema(description = "创建时间")
     @ExcelProperty(value = "创建时间", index = 6)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("更新时间")
+    @Schema(description = "更新时间")
     @ExcelProperty(value = "更新时间", index = 7)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

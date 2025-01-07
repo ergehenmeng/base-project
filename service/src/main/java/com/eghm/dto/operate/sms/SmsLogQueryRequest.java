@@ -3,7 +3,7 @@ package com.eghm.dto.operate.sms;
 import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.TemplateType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,17 +20,17 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class SmsLogQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("开始日期 yyyy-MM-dd")
+    @Schema(description = "开始日期 yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
-    @ApiModelProperty("开始日期 yyyy-MM-dd")
+    @Schema(description = "开始日期 yyyy-MM-dd")
     @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
     private LocalDate endDate;
 
-    @ApiModelProperty("短信发送状态 0:发送中 1:发送成功 2:发送失败")
+    @Schema(description = "短信发送状态 0:发送中 1:发送成功 2:发送失败")
     private Integer state;
 
-    @ApiModelProperty("短信类型")
+    @Schema(description = "短信类型")
     private TemplateType templateType;
 }

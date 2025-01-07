@@ -1,6 +1,6 @@
 package com.eghm.vo.business.evaluation;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -10,10 +10,10 @@ import lombok.Data;
 @Data
 public class ApplauseRateVO {
 
-    @ApiModelProperty("评论总数量")
+    @Schema(description = "评论总数量")
     private Long commentNum;
 
-    @ApiModelProperty("好评率百分比")
+    @Schema(description = "好评率百分比")
     private Integer rate;
 
 }

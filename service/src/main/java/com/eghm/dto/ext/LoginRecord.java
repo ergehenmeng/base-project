@@ -1,6 +1,6 @@
 package com.eghm.dto.ext;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,24 +18,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LoginRecord {
 
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     private Long memberId;
 
-    @ApiModelProperty("ip")
+    @Schema(description = "ip")
     private Long ip;
 
-    @ApiModelProperty("登陆渠道")
+    @Schema(description = "登陆渠道")
     private String channel;
 
-    @ApiModelProperty("设备厂商")
+    @Schema(description = "设备厂商")
     private String deviceBrand;
 
-    @ApiModelProperty("设备型号")
+    @Schema(description = "设备型号")
     private String deviceModel;
 
-    @ApiModelProperty("软件版本")
+    @Schema(description = "软件版本")
     private String softwareVersion;
 
-    @ApiModelProperty("设备唯一编号")
+    @Schema(description = "设备唯一编号")
     private String serialNumber;
 }

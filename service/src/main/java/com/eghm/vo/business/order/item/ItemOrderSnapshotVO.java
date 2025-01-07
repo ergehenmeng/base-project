@@ -4,7 +4,7 @@ import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.DeliveryType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -16,44 +16,44 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemOrderSnapshotVO {
 
-    @ApiModelProperty(value = "商品名称")
+    @Schema(description = "商品名称")
     private String title;
 
-    @ApiModelProperty(value = "商品所属店铺")
+    @Schema(description = "商品所属店铺")
     private Long storeId;
 
-    @ApiModelProperty(value = "商品所属店铺")
+    @Schema(description = "商品所属店铺")
     private String storeName;
 
-    @ApiModelProperty(value = "店铺logo")
+    @Schema(description = "店铺logo")
     private String storeLogoUrl;
 
-    @ApiModelProperty(value = "商品描述信息")
+    @Schema(description = "商品描述信息")
     private String depict;
 
-    @ApiModelProperty(value = "封面图")
+    @Schema(description = "封面图")
     private String coverUrl;
 
-    @ApiModelProperty(value = "规格名称(多规格)")
+    @Schema(description = "规格名称(多规格)")
     private String skuTitle;
 
-    @ApiModelProperty(value = "封面图")
+    @Schema(description = "封面图")
     private String skuCoverUrl;
 
-    @ApiModelProperty(value = "销售价格")
+    @Schema(description = "销售价格")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty(value = "划线价")
+    @Schema(description = "划线价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer linePrice;
 
-    @ApiModelProperty(value = "购买须知")
+    @Schema(description = "购买须知")
     private String purchaseNotes;
 
-    @ApiModelProperty(value = "交付方式 1:门店自提 2:快递包邮")
+    @Schema(description = "交付方式 1:门店自提 2:快递包邮")
     private DeliveryType deliveryType;
 
-    @ApiModelProperty(value = "商品介绍信息")
+    @Schema(description = "商品介绍信息")
     private String introduce;
 }

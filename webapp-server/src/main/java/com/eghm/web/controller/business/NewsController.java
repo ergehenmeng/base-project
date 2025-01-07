@@ -9,8 +9,8 @@ import com.eghm.vo.business.news.NewsDetailVO;
 import com.eghm.vo.business.news.NewsVO;
 import com.eghm.web.annotation.AccessToken;
 import com.eghm.web.annotation.VisitRecord;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -24,21 +24,21 @@ import java.util.List;
  */
 
 @RestController
-@Api(tags = "新闻资讯")
+@Tag(name="新闻资讯")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/news", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NewsController {
 
     private final NewsService newsService;
 
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     @GetMapping("/listPage")
     public RespBody<List<NewsVO>> getByPage(PagingQuery request) {
         List<NewsVO> scenicPage = newsService.getByPage(request);
         return RespBody.success(scenicPage);
     }
 
-    @ApiOperation("详情")
+    @Operation(summary = "详情")
     @GetMapping("/detail")
     @VisitRecord(VisitType.NOTICE_NEWS)
     public RespBody<NewsDetailVO> detail(@Validated IdDTO dto) {
@@ -47,7 +47,7 @@ public class NewsController {
     }
 
     @PostMapping(value = "/praise", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("点赞")
+    @Operation(summary = "点赞")
     @AccessToken
     public RespBody<Void> praise(@RequestBody @Validated IdDTO dto) {
         newsService.praise(dto.getId());

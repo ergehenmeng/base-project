@@ -3,8 +3,8 @@ package com.eghm.validation;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.validation.annotation.OptionString;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * @author 二哥很猛

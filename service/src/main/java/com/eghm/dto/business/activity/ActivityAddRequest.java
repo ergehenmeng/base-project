@@ -3,12 +3,12 @@ package com.eghm.dto.business.activity;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.gson.annotations.Expose;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 /**
@@ -18,42 +18,42 @@ import java.time.LocalDate;
 @Data
 public class ActivityAddRequest {
 
-    @ApiModelProperty(value = "活动名称", required = true)
+    @Schema(description = "活动名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @Size(min = 2, max = 20, message = "活动名称长度2~20位")
     @NotBlank(message = "活动名称不能为空")
     @WordChecker(message = "活动名称存在敏感词")
     private String title;
 
-    @ApiModelProperty(value = "活动日期", required = true)
+    @Schema(description = "活动日期", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "活动日期不能为空")
     private LocalDate nowDate;
 
-    @ApiModelProperty(value = "活动时间", required = true)
+    @Schema(description = "活动时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "活动时间不能为空")
     @Size(max = 20, message = "活动时间最多20字符")
     private String activityTime;
 
-    @ApiModelProperty(value = "活动地点", required = true)
+    @Schema(description = "活动地点", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "活动地点不能为空")
     @WordChecker(message = "活动地点存在敏感词")
     @Size(max = 50, message = "活动地点最多50字符")
     private String address;
 
-    @ApiModelProperty(value = "活动封面图片", required = true)
+    @Schema(description = "活动封面图片", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "活动封面图片不能为空")
     private String coverUrl;
 
-    @ApiModelProperty(value = "活动详细介绍", required = true)
+    @Schema(description = "活动详细介绍", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "活动详细介绍不能为空")
     @WordChecker(message = "活动详细介绍存在敏感词")
     @Expose(serialize = false)
     private String introduce;
 
-    @ApiModelProperty("活动关联的景区id")
+    @Schema(description = "活动关联的景区id")
     private Long scenicId;
 
-    @ApiModelProperty("是否支持评论 true:支持 false:不支持")
+    @Schema(description = "是否支持评论 true:支持 false:不支持")
     @NotNull(message = "是否支持评论不能为空")
     private Boolean commentSupport;
 }

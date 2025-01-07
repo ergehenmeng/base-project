@@ -1,9 +1,9 @@
 package com.eghm.dto.wechat;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author 二哥很猛
@@ -13,13 +13,13 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class ShortUrlRequest {
 
-    @ApiModelProperty("链接地址")
+    @Schema(description = "链接地址")
     @NotBlank(message = "链接地址不能为空")
     private String pageUrl;
 
-    @ApiModelProperty("页面标题")
+    @Schema(description = "页面标题")
     private String pageTitle;
 
-    @ApiModelProperty("是否持久有效")
+    @Schema(description = "是否持久有效")
     private Boolean persistent = false;
 }

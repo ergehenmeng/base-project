@@ -1,7 +1,7 @@
 package com.eghm.vo.log;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -13,31 +13,31 @@ import java.time.LocalDateTime;
 @Data
 public class ManageLogResponse {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty("操作人姓名")
+    @Schema(description = "操作人姓名")
     private String nickName;
 
-    @ApiModelProperty("操作人手机号")
+    @Schema(description = "操作人手机号")
     private String mobile;
 
-    @ApiModelProperty("请求地址")
+    @Schema(description = "请求地址")
     private String url;
 
-    @ApiModelProperty("请求参数")
+    @Schema(description = "请求参数")
     private String request;
 
-    @ApiModelProperty("访问ip")
+    @Schema(description = "访问ip")
     private String ip;
 
-    @ApiModelProperty("接口耗时(ms)")
+    @Schema(description = "接口耗时(ms)")
     private Long businessTime;
 
-    @ApiModelProperty("访问时间")
+    @Schema(description = "访问时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("响应结果")
+    @Schema(description = "响应结果")
     private String response;
 }

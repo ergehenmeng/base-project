@@ -1,6 +1,6 @@
 package com.eghm.vo.sys;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -12,9 +12,9 @@ import java.util.List;
 @Data
 public class LoadDictResponse {
 
-    @ApiModelProperty("数据字典nid")
+    @Schema(description = "数据字典nid")
     private String nid;
 
-    @ApiModelProperty("对应字典列表")
+    @Schema(description = "对应字典列表")
     private List<DictVO> itemList;
 }

@@ -69,7 +69,7 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
             config.setStock(request.getStock());
             config.setLinePrice(request.getLinePrice());
             config.setSalePrice(request.getSalePrice());
-            homestayRoomConfigMapper.insertOrUpdate(config);
+            homestayRoomConfigMapper.insertUpdate(config);
         }
     }
 

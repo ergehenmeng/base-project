@@ -121,7 +121,7 @@ public class ItemSkuServiceImpl implements ItemSkuService {
         if (CollUtil.isEmpty(ids)) {
             return Maps.newHashMapWithExpectedSize(1);
         }
-        List<ItemSku> skuList = itemSkuMapper.selectBatchIds(ids);
+        List<ItemSku> skuList = itemSkuMapper.selectByIds(ids);
         if (skuList.size() != ids.size()) {
             log.info("存在已下架的商品规格 {}", ids);
             throw new BusinessException(SKU_DOWN);

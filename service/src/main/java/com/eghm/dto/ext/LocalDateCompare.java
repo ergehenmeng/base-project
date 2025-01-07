@@ -1,6 +1,6 @@
 package com.eghm.dto.ext;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -13,9 +13,9 @@ import java.time.LocalDate;
 @Data
 public class LocalDateCompare {
 
-    @ApiModelProperty(value = "开始日期", hidden = true)
+    @Schema(description = "开始日期", hidden = true)
     private LocalDate startDate;
 
-    @ApiModelProperty(value = "截止日期", hidden = true)
+    @Schema(description = "截止日期", hidden = true)
     private LocalDate endDate;
 }

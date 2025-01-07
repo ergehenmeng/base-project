@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -23,23 +23,23 @@ import java.time.LocalDateTime;
 @TableName("pay_config")
 public class PayConfig {
 
-    @ApiModelProperty(value = "主键")
+    @Schema(description = "主键")
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
-    @ApiModelProperty(value = "客户端类型 PC,ANDROID,IOS,H5,WECHAT,ALIPAY")
+    @Schema(description = "客户端类型 PC,ANDROID,IOS,H5,WECHAT,ALIPAY")
     private String channel;
 
-    @ApiModelProperty(value = "是否开启微信支付")
+    @Schema(description = "是否开启微信支付")
     private Boolean wechatPay;
 
-    @ApiModelProperty(value = "是否开启支付宝支付")
+    @Schema(description = "是否开启支付宝支付")
     private Boolean aliPay;
 
-    @ApiModelProperty("备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 
-    @ApiModelProperty(value = "更新时间")
+    @Schema(description = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 

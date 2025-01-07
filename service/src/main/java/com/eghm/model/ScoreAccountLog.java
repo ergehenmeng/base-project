@@ -2,7 +2,7 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.ChargeType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,25 +19,25 @@ import lombok.EqualsAndHashCode;
 @TableName("score_account_log")
 public class ScoreAccountLog extends BaseEntity {
 
-    @ApiModelProperty(value = "商户id")
+    @Schema(description = "商户id")
     private Long merchantId;
 
-    @ApiModelProperty(value = "积分变动类型(1:充值 2:支付收入 3:支付退款 4:抽奖支出 5:提现支出 6:关注赠送 7: 提现失败)")
+    @Schema(description = "积分变动类型(1:充值 2:支付收入 3:支付退款 4:抽奖支出 5:提现支出 6:关注赠送 7: 提现失败)")
     private ChargeType chargeType;
 
-    @ApiModelProperty(value = "变动积分")
+    @Schema(description = "变动积分")
     private Integer amount;
 
-    @ApiModelProperty(value = "1:收入 2:支出")
+    @Schema(description = "1:收入 2:支出")
     private Integer direction;
 
-    @ApiModelProperty(value = "变动后的积分(可用积分)")
+    @Schema(description = "变动后的积分(可用积分)")
     private Integer surplusAmount;
 
-    @ApiModelProperty("关联的交易单号(订单号或者提现单号)")
+    @Schema(description = "关联的交易单号(订单号或者提现单号)")
     private String tradeNo;
 
-    @ApiModelProperty(value = "备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 
 }

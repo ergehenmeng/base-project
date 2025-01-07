@@ -1,6 +1,6 @@
 package com.eghm.vo.wechat;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -11,15 +11,15 @@ import lombok.Data;
 @Data
 public class JsTicketVO {
 
-    @ApiModelProperty("签名")
+    @Schema(description = "签名")
     private String signature;
 
-    @ApiModelProperty("时间戳")
+    @Schema(description = "时间戳")
     private Long timestamp;
 
-    @ApiModelProperty("随机字符串")
+    @Schema(description = "随机字符串")
     private String nonceStr;
 
-    @ApiModelProperty("公众号appId")
+    @Schema(description = "公众号appId")
     private String appId;
 }

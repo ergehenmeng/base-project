@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.ProductType;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,20 +23,20 @@ import java.time.LocalDateTime;
 @TableName("coupon_scope")
 public class CouponScope {
 
-    @ApiModelProperty(value = "主键")
+    @Schema(description = "主键")
     @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
-    @ApiModelProperty(value = "优惠券id")
+    @Schema(description = "优惠券id")
     private Long couponId;
 
-    @ApiModelProperty(value = "商品类型 ticket:门票 homestay:民宿 voucher:餐饮券 item:零售 line:线路 venue:场馆")
+    @Schema(description = "商品类型 ticket:门票 homestay:民宿 voucher:餐饮券 item:零售 line:线路 venue:场馆")
     private ProductType productType;
 
-    @ApiModelProperty(value = "商品id")
+    @Schema(description = "商品id")
     private Long productId;
 
-    @ApiModelProperty(value = "添加时间")
+    @Schema(description = "添加时间")
     private LocalDateTime createTime;
 
     public CouponScope(Long couponId, ProductType productType, Long productId) {

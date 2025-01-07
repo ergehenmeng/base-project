@@ -2,7 +2,7 @@ package com.eghm.dto.ext;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -17,16 +17,16 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PageData<T> {
 
-    @ApiModelProperty("总条数")
+    @Schema(description = "总条数")
     private Integer total;
 
-    @ApiModelProperty("结果集")
+    @Schema(description = "结果集")
     private List<T> rows;
 
-    @ApiModelProperty("第几页")
+    @Schema(description = "第几页")
     private Integer page;
 
-    @ApiModelProperty("页容量")
+    @Schema(description = "页容量")
     private Integer pageSize;
 
     /**

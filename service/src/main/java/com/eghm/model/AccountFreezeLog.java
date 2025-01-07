@@ -6,7 +6,7 @@ import com.eghm.enums.ref.ChangeType;
 import com.eghm.enums.ref.FreezeState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -25,26 +25,26 @@ import java.time.LocalDateTime;
 @TableName("account_freeze_log")
 public class AccountFreezeLog extends BaseEntity {
 
-    @ApiModelProperty(value = "商户id")
+    @Schema(description = "商户id")
     private Long merchantId;
 
-    @ApiModelProperty(value = "状态 1:冻结中 2:已解冻")
+    @Schema(description = "状态 1:冻结中 2:已解冻")
     private FreezeState state;
 
-    @ApiModelProperty(value = "冻结金额")
+    @Schema(description = "冻结金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer amount;
 
-    @ApiModelProperty(value = "状态变更原因 1:支付冻结 2:退款解冻 3:订单完成解冻")
+    @Schema(description = "状态变更原因 1:支付冻结 2:退款解冻 3:订单完成解冻")
     private ChangeType changeType;
 
-    @ApiModelProperty(value = "订单编号")
+    @Schema(description = "订单编号")
     private String orderNo;
 
-    @ApiModelProperty(value = "备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 
-    @ApiModelProperty(value = "解冻时间")
+    @Schema(description = "解冻时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime unfreezeTime;
 

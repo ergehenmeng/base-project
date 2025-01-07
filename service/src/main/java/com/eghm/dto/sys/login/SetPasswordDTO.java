@@ -1,10 +1,10 @@
 package com.eghm.dto.sys.login;
 
 import com.eghm.validation.annotation.Password;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author 二哥很猛
@@ -13,11 +13,11 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class SetPasswordDTO {
 
-    @ApiModelProperty(value = "请求唯一ID", required = true)
+    @Schema(description = "请求唯一ID", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "请求ID不能为空")
     private String requestId;
 
-    @ApiModelProperty(value = "密码", required = true)
+    @Schema(description = "密码", requiredMode = Schema.RequiredMode.REQUIRED)
     @Password
     private String password;
 }

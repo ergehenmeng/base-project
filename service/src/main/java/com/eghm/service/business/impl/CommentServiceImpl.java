@@ -211,7 +211,7 @@ public class CommentServiceImpl implements CommentService {
         LambdaQueryWrapper<Activity> activityWrapper = Wrappers.lambdaQuery();
         activityWrapper.select(Activity::getId);
         activityWrapper.like(Activity::getTitle, queryName);
-        List<Long> activityIds = activityMapper.selectList(activityWrapper).stream().map(Activity::getId).collect(Collectors.toList());
+        List<Long> activityIds = activityMapper.selectList(activityWrapper).stream().map(Activity::getId).toList();
         objectIds.addAll(activityIds);
         return objectIds;
     }

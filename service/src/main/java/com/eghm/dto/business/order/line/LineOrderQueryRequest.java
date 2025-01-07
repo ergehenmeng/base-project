@@ -4,7 +4,7 @@ import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.DatePagingComparator;
 import com.eghm.enums.ref.OrderState;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,21 +19,21 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class LineOrderQueryRequest extends DatePagingComparator {
 
-    @ApiModelProperty("线路订单状态")
+    @Schema(description = "线路订单状态")
     private OrderState orderState;
 
-    @ApiModelProperty("开始日期")
+    @Schema(description = "开始日期")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
-    @ApiModelProperty("截止日期")
+    @Schema(description = "截止日期")
     @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
     private LocalDate endDate;
 
-    @ApiModelProperty("是否使用优惠券")
+    @Schema(description = "是否使用优惠券")
     private Boolean useVoucher;
 
     @Assign
-    @ApiModelProperty(hidden = true, value = "商户ID")
+    @Schema(description = "商户ID", hidden = true)
     private Long merchantId;
 }

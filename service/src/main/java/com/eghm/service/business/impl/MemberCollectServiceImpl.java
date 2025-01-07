@@ -183,26 +183,16 @@ public class MemberCollectServiceImpl implements MemberCollectService {
      * @return true:合法 false:不合法
      */
     private boolean isLegal(Long collectId, CollectType collectType) {
-        switch (collectType) {
-            case SCENIC:
-                return scenicMapper.selectById(collectId) != null;
-            case HOMESTAY:
-                return homestayMapper.selectById(collectId) != null;
-            case ITEM_STORE:
-                return itemStoreMapper.selectById(collectId) != null;
-            case ITEM:
-                return itemMapper.selectById(collectId) != null;
-            case LINE:
-                return lineMapper.selectById(collectId) != null;
-            case TRAVEL_AGENCY:
-                return travelAgencyMapper.selectById(collectId) != null;
-            case NEWS:
-                return newsMapper.selectById(collectId) != null;
-            case VOUCHER_STORE:
-                return restaurantMapper.selectById(collectId) != null;
-            default:
-                return false;
-        }
+        return switch (collectType) {
+            case SCENIC -> scenicMapper.selectById(collectId) != null;
+            case HOMESTAY -> homestayMapper.selectById(collectId) != null;
+            case ITEM_STORE -> itemStoreMapper.selectById(collectId) != null;
+            case ITEM -> itemMapper.selectById(collectId) != null;
+            case LINE -> lineMapper.selectById(collectId) != null;
+            case TRAVEL_AGENCY -> travelAgencyMapper.selectById(collectId) != null;
+            case NEWS -> newsMapper.selectById(collectId) != null;
+            case VOUCHER_STORE -> restaurantMapper.selectById(collectId) != null;
+        };
     }
 
     /**

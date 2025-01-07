@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -23,35 +23,35 @@ import java.time.LocalDateTime;
 public class LineConfig {
 
     @TableId(type = IdType.ASSIGN_ID)
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "线路商品id")
+    @Schema(description = "线路商品id")
     private Long lineId;
 
-    @ApiModelProperty("状态 false:不可预定 true:可预定")
+    @Schema(description = "状态 false:不可预定 true:可预定")
     private Boolean state;
 
-    @ApiModelProperty(value = "配置日期")
+    @Schema(description = "配置日期")
     private LocalDate configDate;
 
-    @ApiModelProperty(value = "总库存")
+    @Schema(description = "总库存")
     private Integer stock;
 
-    @ApiModelProperty(value = "销售价格")
+    @Schema(description = "销售价格")
     private Integer salePrice;
 
-    @ApiModelProperty(value = "划线价格")
+    @Schema(description = "划线价格")
     private Integer linePrice;
 
-    @ApiModelProperty(value = "销售数量")
+    @Schema(description = "销售数量")
     private Integer saleNum;
 
-    @ApiModelProperty("添加日期")
+    @Schema(description = "添加日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("更新日期")
+    @Schema(description = "更新日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }

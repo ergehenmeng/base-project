@@ -2,7 +2,7 @@ package com.eghm.vo.business.comment;
 
 import com.eghm.enums.ref.ObjectType;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -15,41 +15,41 @@ import java.time.LocalDateTime;
 @Data
 public class CommentResponse {
 
-    @ApiModelProperty("留言id")
+    @Schema(description = "留言id")
     private Long id;
 
-    @ApiModelProperty("评论对象标题")
+    @Schema(description = "评论对象标题")
     private String objectName;
 
-    @ApiModelProperty("昵称")
+    @Schema(description = "昵称")
     private String nickName;
 
-    @ApiModelProperty("头像")
+    @Schema(description = "头像")
     private String avatar;
 
-    @ApiModelProperty("状态 0:已屏蔽 1:正常")
+    @Schema(description = "状态 0:已屏蔽 1:正常")
     private Boolean state;
 
-    @ApiModelProperty("置顶状态 0:未置顶 1:置顶")
+    @Schema(description = "置顶状态 0:未置顶 1:置顶")
     private Integer topState;
 
-    @ApiModelProperty("评论对象id")
+    @Schema(description = "评论对象id")
     private Long objectId;
 
-    @ApiModelProperty("被举报次数")
+    @Schema(description = "被举报次数")
     private Integer reportNum;
 
-    @ApiModelProperty("评论对象类型 (1:资讯 2:活动)")
+    @Schema(description = "评论对象类型 (1:资讯 2:活动)")
     private ObjectType objectType;
 
-    @ApiModelProperty(value = "评论信息")
+    @Schema(description = "评论信息")
     private String content;
 
-    @ApiModelProperty("评论时间")
+    @Schema(description = "评论时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty(value = "点赞数量")
+    @Schema(description = "点赞数量")
     private Integer praiseNum;
 
 }

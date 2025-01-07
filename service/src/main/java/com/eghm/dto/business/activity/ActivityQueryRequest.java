@@ -1,9 +1,9 @@
 package com.eghm.dto.business.activity;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author 二哥很猛
@@ -12,10 +12,10 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class ActivityQueryRequest {
 
-    @ApiModelProperty("月份 yyyy-MM")
+    @Schema(description = "月份 yyyy-MM")
     @NotBlank(message = "月份不能为空")
     private String month;
 
-    @ApiModelProperty("景区id")
+    @Schema(description = "景区id")
     private Long scenicId;
 }

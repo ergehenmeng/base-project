@@ -6,7 +6,7 @@ import com.eghm.enums.ref.PayType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -21,35 +21,35 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemOrderVO {
 
-    @ApiModelProperty("订单编号")
+    @Schema(description = "订单编号")
     private String orderNo;
 
-    @ApiModelProperty("店铺名称")
+    @Schema(description = "店铺名称")
     private String storeName;
 
-    @ApiModelProperty("店铺id")
+    @Schema(description = "店铺id")
     private String storeId;
 
-    @ApiModelProperty("图片")
+    @Schema(description = "图片")
     private String coverUrl;
 
-    @ApiModelProperty("支付方式(支付成功才会有支付方式)")
+    @Schema(description = "支付方式(支付成功才会有支付方式)")
     private PayType payType;
 
-    @ApiModelProperty("购买数量")
+    @Schema(description = "购买数量")
     private Integer num;
 
-    @ApiModelProperty(value = "订单状态")
+    @Schema(description = "订单状态")
     private OrderState state;
 
-    @ApiModelProperty("总付款金额")
+    @Schema(description = "总付款金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer payAmount;
 
-    @ApiModelProperty("订单完成时间")
+    @Schema(description = "订单完成时间")
     @JsonIgnore
     private LocalDateTime completeTime;
 
-    @ApiModelProperty("是否支持售后退款")
+    @Schema(description = "是否支持售后退款")
     private Boolean supportRefund;
 }

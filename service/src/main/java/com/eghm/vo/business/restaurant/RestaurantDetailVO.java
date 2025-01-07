@@ -1,7 +1,7 @@
 package com.eghm.vo.business.restaurant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -14,51 +14,51 @@ import java.math.BigDecimal;
 @Data
 public class RestaurantDetailVO {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "商家名称")
+    @Schema(description = "商家名称")
     private String title;
 
-    @ApiModelProperty("商家logo")
+    @Schema(description = "商家logo")
     private String logoUrl;
 
-    @ApiModelProperty(value = "商家封面")
+    @Schema(description = "商家封面")
     private String coverUrl;
 
-    @ApiModelProperty(value = "营业时间")
+    @Schema(description = "营业时间")
     private String openTime;
 
-    @ApiModelProperty("是否收藏")
+    @Schema(description = "是否收藏")
     private Boolean collect;
 
-    @ApiModelProperty(value = "省份")
+    @Schema(description = "省份")
     @JsonIgnore
     private Long provinceId;
 
-    @ApiModelProperty(value = "城市id")
+    @Schema(description = "城市id")
     @JsonIgnore
     private Long cityId;
 
-    @ApiModelProperty(value = "县区id")
+    @Schema(description = "县区id")
     @JsonIgnore
     private Long countyId;
 
-    @ApiModelProperty("详细地址")
+    @Schema(description = "详细地址")
     private String detailAddress;
 
-    @ApiModelProperty(value = "经度")
+    @Schema(description = "经度")
     private BigDecimal longitude;
 
-    @ApiModelProperty(value = "纬度")
+    @Schema(description = "纬度")
     private BigDecimal latitude;
 
-    @ApiModelProperty(value = "商家热线")
+    @Schema(description = "商家热线")
     private String phone;
 
-    @ApiModelProperty(value = "商家介绍")
+    @Schema(description = "商家介绍")
     private String introduce;
 
-    @ApiModelProperty("分数")
+    @Schema(description = "分数")
     private BigDecimal score;
 }

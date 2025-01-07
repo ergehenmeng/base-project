@@ -208,14 +208,14 @@ public class MerchantServiceImpl implements MerchantService {
     public void unbind(Long merchantId, String smsCode) {
         Merchant merchant = this.selectByIdRequired(merchantId);
         smsService.verifySmsCode(TemplateType.MERCHANT_UNBIND, merchant.getAuthMobile(), smsCode);
-        log.info("商户[{}]解绑微信号,旧信息:[{}] [{}]", merchant.getMerchantName(), merchant.getAuthMobile(), merchant.getOpenId());
+        log.info("商户自己[{}]解绑微信号,旧信息:[{}] [{}]", merchant.getMerchantName(), merchant.getAuthMobile(), merchant.getOpenId());
         this.doUnbindMerchant(merchantId);
     }
 
     @Override
     public void unbind(Long merchantId) {
         Merchant merchant = this.selectByIdRequired(merchantId);
-        log.info("商户[{}]解绑微信号,旧信息:[{}] [{}]", merchant.getMerchantName(), merchant.getAuthMobile(), merchant.getOpenId());
+        log.info("管理员解绑商户[{}]解绑微信号,旧信息:[{}] [{}]", merchant.getMerchantName(), merchant.getAuthMobile(), merchant.getOpenId());
         this.doUnbindMerchant(merchantId);
     }
 

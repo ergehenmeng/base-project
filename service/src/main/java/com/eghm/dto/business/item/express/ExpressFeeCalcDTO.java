@@ -1,10 +1,10 @@
 package com.eghm.dto.business.item.express;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -16,15 +16,15 @@ import java.util.List;
 @Data
 public class ExpressFeeCalcDTO {
 
-    @ApiModelProperty(value = "店铺id", required = true)
+    @Schema(description = "店铺id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "店铺id不能为空")
     private Long storeId;
 
-    @ApiModelProperty(value = "收货地址中的区县id", required = true)
+    @Schema(description = "收货地址中的区县id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "请选择收货地址")
     private Long countyId;
 
-    @ApiModelProperty(value = "购买的商品数量", required = true)
+    @Schema(description = "购买的商品数量", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "请选择购买的商品")
     private List<ItemCalcDTO> orderList;
 

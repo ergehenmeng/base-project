@@ -2,12 +2,12 @@ package com.eghm.dto.business.lottery;
 
 import com.eghm.enums.ref.PrizeType;
 import com.eghm.validation.annotation.WordChecker;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @author 殿小二
@@ -16,28 +16,28 @@ import javax.validation.constraints.NotNull;
 @Data
 public class LotteryPrizeRequest {
 
-    @ApiModelProperty(value = "奖品名称", required = true)
+    @Schema(description = "奖品名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "奖品名称不能为空")
     @Length(min = 1, max = 10, message = "奖品名称长度应为2~10字符")
     @WordChecker(message = "奖品名称存在敏感词")
     private String prizeName;
 
-    @ApiModelProperty(value = "奖品类型 0:谢谢参与 1:优惠券 2:积分", required = true)
+    @Schema(description = "奖品类型 0:谢谢参与 1:优惠券 2:积分", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "奖品类型不能为空")
     private PrizeType prizeType;
 
-    @ApiModelProperty("关联商品ID")
+    @Schema(description = "关联商品ID")
     private Long relationId;
 
-    @ApiModelProperty(value = "单次中奖发放数量", required = true)
+    @Schema(description = "单次中奖发放数量", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "单次中奖数量不能为空")
     private Integer num;
 
-    @ApiModelProperty(value = "奖品总数量", required = true)
+    @Schema(description = "奖品总数量", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "奖品数量不能为空")
     private Integer totalNum;
 
-    @ApiModelProperty(value = "奖品图片", required = true)
+    @Schema(description = "奖品图片", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "奖品图片不能为空")
     private String coverUrl;
 

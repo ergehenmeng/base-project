@@ -2,7 +2,7 @@ package com.eghm.dto.business.order.homestay;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,10 +14,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class HomestayOrderQueryDTO extends PagingQuery {
 
-    @ApiModelProperty("民宿订单状态")
+    @Schema(description = "民宿订单状态")
     private Integer orderState;
 
-    @ApiModelProperty(value = "用户id", hidden = true)
+    @Schema(description = "用户id", hidden = true)
     @Assign
     private Long memberId;
 }

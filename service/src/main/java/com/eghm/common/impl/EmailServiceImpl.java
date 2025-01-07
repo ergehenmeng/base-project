@@ -2,22 +2,21 @@ package com.eghm.common.impl;
 
 import com.eghm.cache.CacheService;
 import com.eghm.common.EmailService;
-import com.eghm.dto.sys.email.SendEmail;
 import com.eghm.dto.ext.VerifyEmailCode;
+import com.eghm.dto.sys.email.SendEmail;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.ParameterException;
 import com.eghm.handler.email.AuthCodeEmailHandler;
 import com.eghm.handler.email.BaseEmailHandler;
 import com.eghm.utils.SpringContextUtil;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
-import javax.mail.internet.MimeMessage;
 
 
 /**

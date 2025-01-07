@@ -18,5 +18,5 @@ public interface LineDayConfigMapper extends BaseMapper<LineDayConfig> {
      *
      * @param config 配置信息
      */
-    int insertOrUpdate(LineDayConfig config);
+    int insertUpdate(LineDayConfig config);
 }

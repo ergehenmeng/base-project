@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,50 +26,50 @@ import java.util.List;
 @ToString(callSuper = true)
 public class HomestayOrderCreateContext extends AsyncKey implements Context {
 
-    @ApiModelProperty("商品id")
+    @Schema(description = "商品id")
     private Long roomId;
 
-    @ApiModelProperty("优惠券id")
+    @Schema(description = "优惠券id")
     private Long couponId;
 
-    @ApiModelProperty("联系人姓名")
+    @Schema(description = "联系人姓名")
     private String nickName;
 
-    @ApiModelProperty("联系人电话")
+    @Schema(description = "联系人电话")
     private String mobile;
 
-    @ApiModelProperty("房间数")
+    @Schema(description = "房间数")
     private Integer num;
 
-    @ApiModelProperty("入住人信息列表")
+    @Schema(description = "入住人信息列表")
     private List<VisitorDTO> visitorList;
 
-    @ApiModelProperty("开始日期")
+    @Schema(description = "开始日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate startDate;
 
-    @ApiModelProperty("截止日期")
+    @Schema(description = "截止日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate endDate;
 
-    @ApiModelProperty("兑换码")
+    @Schema(description = "兑换码")
     private String cdKey;
 
-    @ApiModelProperty("备注")
+    @Schema(description = "备注")
     private String remark;
 
     @Assign
-    @ApiModelProperty("订单编号")
+    @Schema(description = "订单编号")
     private String orderNo;
 
     @Assign
-    @ApiModelProperty(hidden = true, value = "用户id")
+    @Schema(description = "用户id", hidden = true)
     private Long memberId;
 
-    @ApiModelProperty("源状态")
+    @Schema(description = "源状态")
     private Integer from;
 }

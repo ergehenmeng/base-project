@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,13 +18,13 @@ import lombok.EqualsAndHashCode;
 @TableName("poi_line_point")
 public class PoiLinePoint extends BaseEntity {
 
-    @ApiModelProperty(value = "线路id")
+    @Schema(description = "线路id")
     private Long lineId;
 
-    @ApiModelProperty(value = "点位id")
+    @Schema(description = "点位id")
     private Long pointId;
 
-    @ApiModelProperty(value = "排序")
+    @Schema(description = "排序")
     private Integer sort;
 
 }

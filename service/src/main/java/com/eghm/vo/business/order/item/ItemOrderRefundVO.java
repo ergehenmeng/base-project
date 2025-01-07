@@ -6,7 +6,7 @@ import com.eghm.enums.ref.ItemRefundState;
 import com.eghm.vo.business.merchant.address.MerchantAddressVO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -18,45 +18,45 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemOrderRefundVO {
 
-    @ApiModelProperty("订单id")
+    @Schema(description = "订单id")
     private Long id;
 
-    @ApiModelProperty(value = "商品名称")
+    @Schema(description = "商品名称")
     private String title;
 
-    @ApiModelProperty("配送状态 0:初始 1:待发货 2:待收货 3:待自提 4:已收货")
+    @Schema(description = "配送状态 0:初始 1:待发货 2:待收货 3:待自提 4:已收货")
     private DeliveryState deliveryState;
 
-    @ApiModelProperty("退款状态 0:未退款 1:已退款")
+    @Schema(description = "退款状态 0:未退款 1:已退款")
     private ItemRefundState refundState;
 
-    @ApiModelProperty("订单编号")
+    @Schema(description = "订单编号")
     private String orderNo;
 
-    @ApiModelProperty("下单总数量")
+    @Schema(description = "下单总数量")
     private Integer num;
 
-    @ApiModelProperty(value = "商品封面图(如果有sku图则优先显示sku图,否则显示商品图)")
+    @Schema(description = "商品封面图(如果有sku图则优先显示sku图,否则显示商品图)")
     private String coverUrl;
 
-    @ApiModelProperty(value = "规格名称(多规格)")
+    @Schema(description = "规格名称(多规格)")
     private String skuTitle;
 
-    @ApiModelProperty(value = "销售价格")
+    @Schema(description = "销售价格")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty(value = "退款金额")
+    @Schema(description = "退款金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer refundAmount;
 
-    @ApiModelProperty(value = "退款快递费")
+    @Schema(description = "退款快递费")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer expressFeeAmount;
 
-    @ApiModelProperty("退款积分")
+    @Schema(description = "退款积分")
     private Integer scoreAmount;
 
-    @ApiModelProperty("店铺收货地址")
+    @Schema(description = "店铺收货地址")
     private MerchantAddressVO storeAddress;
 }

@@ -10,9 +10,9 @@ import com.eghm.utils.DataUtil;
 import com.eghm.vo.sys.DictResponse;
 import com.eghm.vo.sys.DictVO;
 import com.eghm.vo.sys.LoadDictResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -26,7 +26,7 @@ import java.util.List;
  * @since 2019/1/14 11:10
  */
 @RestController
-@Api(tags = "数据字典管理")
+@Tag(name="数据字典管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/dict", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DictController {
@@ -34,58 +34,58 @@ public class DictController {
     private final SysDictService sysDictService;
 
     @GetMapping("/list")
-    @ApiOperation("列表")
+    @Operation(summary = "列表")
     public RespBody<List<DictResponse>> list(DictQueryRequest request) {
         List<DictResponse> byPage = sysDictService.getList(request);
         return RespBody.success(byPage);
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("新增")
+    @Operation(summary = "新增")
     public RespBody<Void> create(@Validated @RequestBody DictAddRequest request) {
         sysDictService.create(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑")
     public RespBody<Void> update(@Validated @RequestBody DictEditRequest request) {
         sysDictService.update(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         sysDictService.delete(dto.getId());
         return RespBody.success();
     }
 
     @PostMapping(value = "/item/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("选项新增")
+    @Operation(summary = "选项新增")
     public RespBody<Void> itemCreate(@Validated @RequestBody DictItemAddRequest request) {
         sysDictService.itemCreate(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/item/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("选项编辑")
+    @Operation(summary = "选项编辑")
     public RespBody<Void> itemUpdate(@Validated @RequestBody DictItemEditRequest request) {
         sysDictService.itemUpdate(request);
         return RespBody.success();
     }
 
     @PostMapping(value = "/item/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("选项删除")
+    @Operation(summary = "选项删除")
     public RespBody<Void> itemDelete(@Validated @RequestBody IdDTO dto) {
         sysDictService.itemDelete(dto.getId());
         return RespBody.success();
     }
 
     @GetMapping("/itemList")
-    @ApiOperation("查询数据字典")
+    @Operation(summary = "查询数据字典")
     @SkipPerm
-    @ApiImplicitParam(name = "nidList", value = "字典编码", required = true, dataType = "String")
+    @Parameter(name = "nidList", description = "字典编码", required = true)
     public RespBody<List<LoadDictResponse>> itemList(@RequestParam("nidList") List<String> nidList) {
         List<LoadDictResponse> responseList = new ArrayList<>(8);
         for (String nid : nidList) {

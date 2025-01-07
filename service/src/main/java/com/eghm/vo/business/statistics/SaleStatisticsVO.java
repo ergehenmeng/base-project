@@ -2,7 +2,7 @@ package com.eghm.vo.business.statistics;
 
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -13,16 +13,16 @@ import lombok.Data;
 @Data
 public class SaleStatisticsVO {
 
-    @ApiModelProperty("销售额")
+    @Schema(description = "销售额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer amount;
 
-    @ApiModelProperty("商品id")
+    @Schema(description = "商品id")
     private Long productId;
 
-    @ApiModelProperty("商品图片")
+    @Schema(description = "商品图片")
     private String productImg;
 
-    @ApiModelProperty("商品名称")
+    @Schema(description = "商品名称")
     private String productName;
 }

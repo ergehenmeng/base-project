@@ -1,7 +1,7 @@
 package com.eghm.vo.business.restaurant;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,32 +17,32 @@ import java.time.LocalDateTime;
 @Data
 public class VoucherTagResponse  {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty("添加时间")
+    @Schema(description = "添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("更新时间")
+    @Schema(description = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
-    @ApiModelProperty(value = "标签名称")
+    @Schema(description = "标签名称")
     private String title;
 
-    @ApiModelProperty(value = "排序")
+    @Schema(description = "排序")
     private Integer sort;
 
-    @ApiModelProperty(value = "餐饮店铺ID")
+    @Schema(description = "餐饮店铺ID")
     private Long restaurantId;
 
-    @ApiModelProperty(value = "餐饮店铺名称")
+    @Schema(description = "餐饮店铺名称")
     private String restaurantName;
 
-    @ApiModelProperty(value = "状态 0:禁用 1:正常")
+    @Schema(description = "状态 0:禁用 1:正常")
     private Boolean state;
 
-    @ApiModelProperty(value = "备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 }

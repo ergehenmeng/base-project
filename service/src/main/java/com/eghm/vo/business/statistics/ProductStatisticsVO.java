@@ -3,7 +3,7 @@ package com.eghm.vo.business.statistics;
 import cn.hutool.core.util.RandomUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,14 +19,14 @@ import java.time.LocalDate;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductStatisticsVO {
 
-    @ApiModelProperty(value = "日期")
+    @Schema(description = "日期")
     @JsonFormat(pattern = "MM-dd")
     private LocalDate createDate;
 
-    @ApiModelProperty(value = "新增月份")
+    @Schema(description = "新增月份")
     private String createMonth;
 
-    @ApiModelProperty(value = "新增数量")
+    @Schema(description = "新增数量")
     private Integer appendNum = 0;
 
     public void setAppendNum(Integer appendNum) {

@@ -1,7 +1,7 @@
 package com.eghm.vo.business.item;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -14,16 +14,16 @@ import java.util.List;
 @Data
 public class ActivityItemResponse {
 
-    @ApiModelProperty(value = "商品id")
+    @Schema(description = "商品id")
     private Long id;
 
-    @ApiModelProperty(value = "商品名称")
+    @Schema(description = "商品名称")
     private String title;
 
-    @ApiModelProperty("图片")
+    @Schema(description = "图片")
     @JsonIgnore
     private String coverUrl;
 
-    @ApiModelProperty("规格列表")
+    @Schema(description = "规格列表")
     private List<BaseSkuResponse> skuList;
 }

@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,28 +20,28 @@ import java.math.BigDecimal;
 @TableName("poi_point")
 public class PoiPoint extends BaseEntity {
 
-    @ApiModelProperty(value = "点位名称")
+    @Schema(description = "点位名称")
     private String title;
 
-    @ApiModelProperty(value = "封面图")
+    @Schema(description = "封面图")
     private String coverUrl;
 
-    @ApiModelProperty(value = "所属类型")
+    @Schema(description = "所属类型")
     private Long typeId;
 
-    @ApiModelProperty(value = "区域编号(冗余)")
+    @Schema(description = "区域编号(冗余)")
     private String areaCode;
 
-    @ApiModelProperty(value = "经度")
+    @Schema(description = "经度")
     private BigDecimal longitude;
 
-    @ApiModelProperty(value = "维度")
+    @Schema(description = "维度")
     private BigDecimal latitude;
 
-    @ApiModelProperty(value = "详细地址")
+    @Schema(description = "详细地址")
     private String detailAddress;
 
-    @ApiModelProperty(value = "详细介绍")
+    @Schema(description = "详细介绍")
     private String introduce;
 
 }

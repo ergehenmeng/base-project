@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.DeliveryState;
 import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.ItemRefundState;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,73 +21,73 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class ItemOrder extends BaseEntity {
 
-    @ApiModelProperty(value = "商品id")
+    @Schema(description = "商品id")
     private Long itemId;
 
-    @ApiModelProperty(value = "商品名称")
+    @Schema(description = "商品名称")
     private String title;
 
-    @ApiModelProperty("退款状态 0:未退款 1:已退款")
+    @Schema(description = "退款状态 0:未退款 1:已退款")
     private ItemRefundState refundState;
 
-    @ApiModelProperty("配送状态 0:初始 1:待发货 2:待收货 3:待自提 4:已收货")
+    @Schema(description = "配送状态 0:初始 1:待发货 2:待收货 3:待自提 4:已收货")
     private DeliveryState deliveryState;
 
-    @ApiModelProperty("数量")
+    @Schema(description = "数量")
     private Integer num;
 
-    @ApiModelProperty(value = "订单编号")
+    @Schema(description = "订单编号")
     private String orderNo;
 
-    @ApiModelProperty(value = "商品所属店铺")
+    @Schema(description = "商品所属店铺")
     private Long storeId;
 
-    @ApiModelProperty(value = "商品描述信息")
+    @Schema(description = "商品描述信息")
     private String depict;
 
-    @ApiModelProperty(value = "封面图")
+    @Schema(description = "封面图")
     private String coverUrl;
 
-    @ApiModelProperty("订单所属用户ID(冗余)")
+    @Schema(description = "订单所属用户ID(冗余)")
     private Long memberId;
 
-    @ApiModelProperty(value = "规格名称(多规格)")
+    @Schema(description = "规格名称(多规格)")
     private String skuTitle;
 
-    @ApiModelProperty(value = "skuId")
+    @Schema(description = "skuId")
     private Long skuId;
 
-    @ApiModelProperty(value = "specId")
+    @Schema(description = "specId")
     private String specId;
 
     /**
      * skuPic优先级最高, specPic次之, 商品封面图第一张最低
      */
-    @ApiModelProperty(value = "sku封面图")
+    @Schema(description = "sku封面图")
     private String skuCoverUrl;
 
-    @ApiModelProperty(value = "销售价格")
+    @Schema(description = "销售价格")
     private Integer salePrice;
 
-    @ApiModelProperty(value = "划线价")
+    @Schema(description = "划线价")
     private Integer linePrice;
 
-    @ApiModelProperty(value = "成本价")
+    @Schema(description = "成本价")
     private Integer costPrice;
 
-    @ApiModelProperty("快递费")
+    @Schema(description = "快递费")
     private Integer expressFee;
 
-    @ApiModelProperty(value = "购买须知")
+    @Schema(description = "购买须知")
     private String purchaseNotes;
 
-    @ApiModelProperty(value = "限购数量")
+    @Schema(description = "限购数量")
     private Integer quota;
 
-    @ApiModelProperty(value = "交付方式 1:门店自提 2:快递包邮")
+    @Schema(description = "交付方式 1:门店自提 2:快递包邮")
     private DeliveryType deliveryType;
 
-    @ApiModelProperty(value = "商品介绍信息")
+    @Schema(description = "商品介绍信息")
     private String introduce;
 
 }

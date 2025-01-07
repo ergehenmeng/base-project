@@ -9,7 +9,7 @@ import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -27,44 +27,44 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class VoucherResponse extends ExcelStyle {
 
-    @ApiModelProperty("id主键")
+    @Schema(description = "id主键")
     private Long id;
 
-    @ApiModelProperty(value = "商品图片")
+    @Schema(description = "商品图片")
     private String coverUrl;
 
-    @ApiModelProperty(value = "商品名称")
+    @Schema(description = "商品名称")
     @ExcelProperty(value = "商品名称", index = 0)
     private String title;
 
-    @ApiModelProperty(value = "所属店铺")
+    @Schema(description = "所属店铺")
     @ExcelProperty(value = "所属店铺", index = 1)
     private String restaurantName;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
+    @Schema(description = "状态 0:待上架 1:已上架 2:强制下架")
     @ExcelProperty(value = "状态", index = 2, converter = EnumExcelConverter.class)
     private State state;
 
-    @ApiModelProperty(value = "销售价")
+    @Schema(description = "销售价")
     @ExcelProperty(value = "销售价", index = 3, converter = CentToYuanConverter.class)
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty(value = "销量")
+    @Schema(description = "销量")
     @ExcelProperty(value = "销量", index = 4)
     private Integer saleNum;
 
-    @ApiModelProperty(value = "限购数量")
+    @Schema(description = "限购数量")
     @ExcelProperty(value = "限购数量", index = 5)
     private Integer quota;
 
-    @ApiModelProperty("添加时间")
+    @Schema(description = "添加时间")
     @ExcelProperty(value = "添加时间", index = 6)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    @ApiModelProperty("修改时间")
+    @Schema(description = "修改时间")
     @ExcelProperty(value = "修改时间", index = 7)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

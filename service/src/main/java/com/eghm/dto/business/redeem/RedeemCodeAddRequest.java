@@ -5,12 +5,12 @@ import com.eghm.dto.ext.StoreScope;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,34 +22,34 @@ import java.util.List;
 @Data
 public class RedeemCodeAddRequest {
 
-    @ApiModelProperty(value = "兑换码名称", required = true)
+    @Schema(description = "兑换码名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "兑换码名称不能为空")
     @Size(max = 20, message = "兑换码名称最大20字符")
     private String title;
 
-    @ApiModelProperty(value = "有效开始时间", required = true)
+    @Schema(description = "有效开始时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "开始时间不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
 
-    @ApiModelProperty(value = "有效截止时间", required = true)
+    @Schema(description = "有效截止时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "结束时间不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
-    @ApiModelProperty(value = "金额", required = true)
+    @Schema(description = "金额", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer amount;
 
-    @ApiModelProperty(value = "发放数量", required = true)
+    @Schema(description = "发放数量", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "发放数量不能为空")
     @RangeInt(min = 1, max = 999, message = "发放数量应在1-999之间")
     private Integer num;
 
-    @ApiModelProperty("使用范围")
+    @Schema(description = "使用范围")
     private List<StoreScope> storeList;
 
-    @ApiModelProperty("备注信息")
+    @Schema(description = "备注信息")
     @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 }
