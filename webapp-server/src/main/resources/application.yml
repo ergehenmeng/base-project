@@ -14,6 +14,9 @@ spring:
     time-zone: GMT+8
     deserialization:
       read-unknown-enum-values-as-null: true
+  task:
+    execution:
+      thread-name-prefix: 异步任务-
   freemarker:
     check-template-location: false
     content-type: text/html
