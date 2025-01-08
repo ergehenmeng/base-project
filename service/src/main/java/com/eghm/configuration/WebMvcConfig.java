@@ -181,7 +181,10 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
         if (alarmMsg.getAlarmType() == AlarmType.DING_TALK) {
             return new DingTalkAlarmServiceImpl(jsonService, systemProperties);
         }
-        return new FeiShuAlarmServiceImpl(jsonService, systemProperties);
+        if (alarmMsg.getAlarmType() == AlarmType.FEI_SHU) {
+            return new FeiShuAlarmServiceImpl(jsonService, systemProperties);
+        }
+        return new DefaultAlarmServiceImpl();
     }
 
     /**
