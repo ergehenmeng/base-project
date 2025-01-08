@@ -32,7 +32,7 @@ spring:
         size: 5
       thread-name-prefix: 定时任务-
     execution:
-      thread-name-prefix: 异步线程-
+      thread-name-prefix: 异步任务-
   ## freemarker配置
   freemarker:
     suffix: .ftl
