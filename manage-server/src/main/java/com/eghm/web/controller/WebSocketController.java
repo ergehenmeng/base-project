@@ -5,6 +5,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.ext.SocketMsg;
 import com.eghm.enums.ref.ProductType;
 import com.google.common.collect.Lists;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
@@ -38,6 +39,7 @@ public class WebSocketController {
     @GetMapping("/order/broadcast")
     @SkipPerm
     @Operation(summary = "广播消息测试")
+    @Parameter(name = "merchantId", description = "商户id", required = true)
     public RespBody<Void> broadcast(@RequestParam("merchantId") Long merchantId) {
         simpMessagingTemplate.convertAndSend(WEBSOCKET_PREFIX + "/order/broadcast/" + merchantId, SocketMsg.delivery(Lists.newArrayList(ProductType.ITEM.generateOrderNo())));
         return RespBody.success();

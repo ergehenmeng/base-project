@@ -11,6 +11,7 @@ import com.eghm.vo.business.account.ScoreAccountLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,7 @@ public class ScoreAccountLogController {
 
     @GetMapping("/listPage")
     @Operation(summary = "积分变动列表")
-    public RespBody<PageData<ScoreAccountLogResponse>> listPage(ScoreAccountQueryRequest request) {
+    public RespBody<PageData<ScoreAccountLogResponse>> listPage(@ParameterObject ScoreAccountQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ScoreAccountLogResponse> byPage = scoreAccountLogService.listPage(request);
         return RespBody.success(PageData.toPage(byPage));
