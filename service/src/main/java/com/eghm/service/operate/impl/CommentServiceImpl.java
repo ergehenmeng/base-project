@@ -130,7 +130,7 @@ public class CommentServiceImpl implements CommentService {
     public void praise(Long id) {
         Long memberId = ApiHolder.getMemberId();
         String key = CacheConstant.COMMENT_PRAISE + id;
-        commonService.praise(key, memberId.toString(), praise -> commentMapper.updatePraiseNum(id, praise ? 1 : -1));
+        commonService.praise(key, memberId.toString(), praise -> commentMapper.updatePraiseNum(id, Boolean.TRUE.equals(praise) ? 1 : -1));
     }
 
     @Override

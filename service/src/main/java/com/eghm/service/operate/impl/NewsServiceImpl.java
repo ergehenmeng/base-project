@@ -116,7 +116,7 @@ public class NewsServiceImpl implements NewsService {
     public void praise(Long id) {
         Long memberId = ApiHolder.getMemberId();
         String key = CacheConstant.NEWS_PRAISE + id;
-        commonService.praise(key, memberId.toString(), praise -> newsMapper.updatePraiseNum(id, praise ? 1 : -1));
+        commonService.praise(key, memberId.toString(), praise -> newsMapper.updatePraiseNum(id, Boolean.TRUE.equals(praise) ? 1 : -1));
     }
 
     @Override
