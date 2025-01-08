@@ -129,6 +129,7 @@ public class TaskRegistrar {
             if (shouldCancel) {
                 entry.getValue().cancel(false);
                 iterator.remove();
+                cronTaskMap.remove(entry.getKey());
             }
         }
     }
