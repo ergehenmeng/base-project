@@ -128,6 +128,7 @@ public class SysTaskRegistrar {
             boolean shouldCancel = (isEmpty || taskList.stream().map(SysCronTask::getNid).noneMatch(s -> s.equals(entry.getKey())));
             if (shouldCancel) {
                 entry.getValue().cancel(false);
+                cronTaskMap.remove(entry.getKey());
                 iterator.remove();
             }
         }

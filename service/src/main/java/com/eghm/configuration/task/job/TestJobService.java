@@ -28,12 +28,12 @@ public class TestJobService {
 
     @CronMark
     public void execute(String args) {
-        log.error("我是个数据库配置的Job, 我的作用是触发一次性任务 [{}] [{}]", args, LocalDateTime.now());
+        log.error("我是个数据库配置的Job, 我的作用是触发一个30s后执行一次性任务 [{}] [{}]", args, LocalDateTime.now());
         OnceTask onceDetail = new OnceTask();
         onceDetail.setBeanName("onceJobService");
         onceDetail.setMethodName("execute");
         onceDetail.setArgs("一次性任务入参");
-        onceDetail.setExecuteTime(LocalDateTime.now().plusSeconds(10));
+        onceDetail.setExecuteTime(LocalDateTime.now().plusSeconds(30));
         sysTaskRegistrar.addTask(onceDetail);
     }
 
