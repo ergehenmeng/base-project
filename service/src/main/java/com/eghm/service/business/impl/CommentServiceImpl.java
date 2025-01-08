@@ -24,6 +24,7 @@ import com.eghm.model.Activity;
 import com.eghm.model.Comment;
 import com.eghm.model.News;
 import com.eghm.service.business.CommentService;
+import com.eghm.service.business.CommonService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.activity.ActivityVO;
 import com.eghm.vo.business.comment.CommentResponse;
@@ -58,6 +59,8 @@ public class CommentServiceImpl implements CommentService {
     private final SysConfigApi sysConfigApi;
 
     private final CacheService cacheService;
+
+    private final CommonService commonService;
 
     private final CommentMapper commentMapper;
 
@@ -139,14 +142,7 @@ public class CommentServiceImpl implements CommentService {
     public void praise(Long id) {
         Long memberId = ApiHolder.getMemberId();
         String key = CacheConstant.COMMENT_PRAISE + id;
-        boolean hasPraise = cacheService.getHashValue(key, memberId.toString()) != null;
-        if (hasPraise) {
-            cacheService.deleteHashKey(key, memberId.toString());
-            commentMapper.updatePraiseNum(id, -1);
-        } else {
-            cacheService.setHashValue(key, memberId.toString(), CacheConstant.PLACE_HOLDER);
-            commentMapper.updatePraiseNum(id, 1);
-        }
+        commonService.praise(key, memberId.toString(), praise -> commentMapper.updatePraiseNum(id, Boolean.TRUE.equals(praise) ? 1 : -1));
     }
 
     @Override

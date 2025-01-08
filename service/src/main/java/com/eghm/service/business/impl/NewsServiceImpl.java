@@ -18,6 +18,7 @@ import com.eghm.enums.ref.CollectType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.NewsMapper;
 import com.eghm.model.News;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.business.NewsService;
 import com.eghm.utils.DataUtil;
@@ -46,6 +47,8 @@ public class NewsServiceImpl implements NewsService {
     private final NewsMapper newsMapper;
 
     private final CacheService cacheService;
+
+    private final CommonService commonService;
 
     private final MemberCollectService memberCollectService;
 
@@ -115,14 +118,7 @@ public class NewsServiceImpl implements NewsService {
     public void praise(Long id) {
         Long memberId = ApiHolder.getMemberId();
         String key = CacheConstant.NEWS_PRAISE + id;
-        boolean hasPraise = cacheService.getHashValue(key, memberId.toString()) != null;
-        if (hasPraise) {
-            cacheService.deleteHashKey(key, memberId.toString());
-            newsMapper.updatePraiseNum(id, -1);
-        } else {
-            cacheService.setHashValue(key, memberId.toString(), CacheConstant.PLACE_HOLDER);
-            newsMapper.updatePraiseNum(id, 1);
-        }
+        commonService.praise(key, memberId.toString(), praise -> newsMapper.updatePraiseNum(id, Boolean.TRUE.equals(praise) ? 1 : -1));
     }
 
     @Override

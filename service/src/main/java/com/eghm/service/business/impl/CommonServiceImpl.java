@@ -3,8 +3,10 @@ package com.eghm.service.business.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.cache.CacheProxyService;
+import com.eghm.cache.CacheService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.LockConstant;
 import com.eghm.dto.ext.StoreScope;
@@ -36,6 +38,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -60,6 +63,8 @@ public class CommonServiceImpl implements CommonService {
     private final ScenicMapper scenicMapper;
 
     private final SysConfigApi sysConfigApi;
+
+    private final CacheService cacheService;
 
     private final SysAreaMapper sysAreaMapper;
 
@@ -324,6 +329,17 @@ public class CommonServiceImpl implements CommonService {
     public List<SysAreaVO> getTreeAreaList(List<Integer> gradeList) {
         List<SysAreaVO> areaList = sysAreaMapper.getList(gradeList);
         return this.treeBin(CommonConstant.ROOT, areaList);
+    }
+
+    @Override
+    public void praise(String key, String hashKey, Consumer<Boolean> consumer) {
+        boolean praise = cacheService.getHashValue(key, hashKey) == null;
+        if (praise) {
+            cacheService.setHashValue(key, hashKey, CacheConstant.PLACE_HOLDER);
+        } else {
+            cacheService.deleteHashKey(key, hashKey);
+        }
+        consumer.accept(praise);
     }
 
     private Map<LocalDate, Integer> getStatisticsDateMap(ProductRequest request, ProductType productType) {
