@@ -5,6 +5,8 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.model.SysCache;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -38,7 +40,7 @@ public class CacheController {
 
     @GetMapping("/clear")
     @Operation(summary = "清除缓存")
-    @Parameter(name = "cacheNames", description = "缓存名称(数组)", required = true)
+    @Parameter(name = "cacheNames", description = "缓存名称(数组)", example = "a,b,c", required = true, array = @ArraySchema(schema = @Schema(type = "string")))
     public RespBody<Void> clear(@RequestParam("cacheNames") List<String> cacheNames) {
         sysCacheService.clearCache(cacheNames);
         return RespBody.success();

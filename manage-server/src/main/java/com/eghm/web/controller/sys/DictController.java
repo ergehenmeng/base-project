@@ -12,7 +12,8 @@ import com.eghm.vo.sys.dict.BaseItemVO;
 import com.eghm.vo.sys.dict.DictResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
@@ -87,7 +88,7 @@ public class DictController {
     @GetMapping("/itemList")
     @Operation(summary = "查询数据字典")
     @SkipPerm
-    @Parameter(name = "nidList", description = "字典编码", required = true, in = ParameterIn.QUERY)
+    @Parameter(name = "nidList", description = "字典编码(数组)", example = "a,b,c", required = true, array = @ArraySchema(schema = @Schema(type = "string")))
     public RespBody<List<BaseDictResponse>> itemList(@RequestParam("nidList") List<String> nidList) {
         List<BaseDictResponse> responseList = new ArrayList<>(8);
         for (String nid : nidList) {
