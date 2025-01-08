@@ -138,27 +138,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
      */
     @PostConstruct
     public void jsonNullToString() {
-
-        JsonSerializer<Object> arraySerializer = new JsonSerializer<>() {
-            @Override
-            public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-                gen.writeStartArray();
-                gen.writeEndArray();
-            }
-        };
-
-        objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new BeanSerializerModifier() {
-            @Override
-            public List<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc, List<BeanPropertyWriter> beanProperties) {
-                for (BeanPropertyWriter writer : beanProperties) {
-                    JavaType javaType = writer.getType();
-                    if (javaType.isArrayType() || javaType.isCollectionLikeType()) {
-                        writer.assignNullSerializer(arraySerializer);
-                    }
-                }
-                return beanProperties;
-            }
-        }));
+        objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new BeanJsonSerializerModifier()));
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
         simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
@@ -204,4 +184,29 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
         return new FeiShuAlarmServiceImpl(jsonService, systemProperties);
     }
 
+    /**
+     * 针对 空数组或集合进行序列化时 返回空数组 '[]',而不是 null
+     */
+    public static class BeanJsonSerializerModifier extends BeanSerializerModifier {
+
+        @Override
+        public List<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc, List<BeanPropertyWriter> beanProperties) {
+            for (BeanPropertyWriter writer : beanProperties) {
+                JavaType javaType = writer.getType();
+                if (javaType.isArrayType() || javaType.isCollectionLikeType()) {
+                    writer.assignNullSerializer(new ArrayJsonSerializer());
+                }
+            }
+            return beanProperties;
+        }
+    }
+
+    public static class ArrayJsonSerializer extends JsonSerializer<Object> {
+
+        @Override
+        public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+            gen.writeStartArray();
+            gen.writeEndArray();
+        }
+    }
 }

@@ -1,11 +1,11 @@
 package com.eghm.configuration;
 
 import com.google.common.collect.Lists;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.lang.NonNull;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -17,16 +17,16 @@ public abstract class AbstractIgnoreFilter extends OncePerRequestFilter {
     /**
      * 排除忽略的地址或者模糊匹配的url
      */
-    private final List<String> exclude = Lists.newArrayListWithCapacity(4);
+    private static final List<String> exclude = Lists.newArrayListWithCapacity(4);
 
     /**
      * 匹配器
      */
-    private final AntPathMatcher matcher = new AntPathMatcher();
+    private static final AntPathMatcher matcher = new AntPathMatcher();
 
     @Override
     protected boolean shouldNotFilter(@NonNull HttpServletRequest request) {
-        return this.anyMatch(exclude, request);
+        return exclude.stream().anyMatch(url -> matcher.match(url, request.getRequestURI()));
     }
 
     /**
@@ -36,17 +36,6 @@ public abstract class AbstractIgnoreFilter extends OncePerRequestFilter {
      */
     public void exclude(@NonNull String... matchUrl) {
         exclude.addAll(Lists.newArrayList(matchUrl));
-    }
-
-    /**
-     * 根据给定的url列表, 确认请求url是否在指定url列表中
-     *
-     * @param urlList url列表
-     * @param request 请求request
-     * @return boolean  true:在urlList, false:不在
-     */
-    protected boolean anyMatch(List<String> urlList, HttpServletRequest request) {
-        return urlList.stream().anyMatch(url -> matcher.match(url, request.getRequestURI()));
     }
 
 }

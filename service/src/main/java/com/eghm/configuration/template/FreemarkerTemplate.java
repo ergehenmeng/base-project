@@ -39,6 +39,17 @@ public class FreemarkerTemplate implements TemplateEngine {
         }
     }
 
+    @Override
+    public String renderFile(String path, Map<String, Object> params) {
+        try {
+            Template template = configuration.getTemplate(path, Locale.getDefault(), CommonConstant.CHARSET.displayName());
+            return this.doRender(template, params);
+        } catch (Exception e) {
+            log.error("freemarker获取模板异常 path:[{}]", path, e);
+            throw new BusinessException(ErrorCode.TEMPLATE_RENDER_ERROR);
+        }
+    }
+
     /**
      * 渲染
      *
@@ -52,17 +63,6 @@ public class FreemarkerTemplate implements TemplateEngine {
         try (StringWriter writer = new StringWriter()) {
             template.process(params, writer);
             return writer.toString();
-        }
-    }
-
-    @Override
-    public String renderFile(String path, Map<String, Object> params) {
-        try {
-            Template template = configuration.getTemplate(path, Locale.getDefault(), CommonConstant.CHARSET.displayName());
-            return this.doRender(template, params);
-        } catch (Exception e) {
-            log.error("freemarker获取模板异常 path:[{}]", path, e);
-            throw new BusinessException(ErrorCode.TEMPLATE_RENDER_ERROR);
         }
     }
 }
