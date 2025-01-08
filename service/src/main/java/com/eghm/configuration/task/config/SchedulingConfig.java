@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @since 2019/9/6 14:49
  */
 @EnableScheduling
-public class TaskConfig {
+public class SchedulingConfig {
 
     /**
      * 自定义定时任务bean

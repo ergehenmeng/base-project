@@ -30,8 +30,9 @@ spring:
       pool:
         ## 定时任务线程池大小
         size: 5
-    execution:
       thread-name-prefix: 定时任务-
+    execution:
+      thread-name-prefix: 异步线程-
   ## freemarker配置
   freemarker:
     suffix: .ftl

@@ -2,8 +2,8 @@ package com.eghm.configuration;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.task.ThreadPoolTaskExecutorBuilder;
-import org.springframework.boot.task.ThreadPoolTaskExecutorCustomizer;
 import org.springframework.boot.task.ThreadPoolTaskSchedulerBuilder;
+import org.springframework.boot.task.ThreadPoolTaskSchedulerCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.AbstractMessageBrokerConfiguration;
@@ -19,7 +19,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
  */
 
 @Configuration
-public class ExecutorConfig implements ThreadPoolTaskExecutorCustomizer {
+public class ExecutorConfig implements ThreadPoolTaskSchedulerCustomizer {
 
     /**
      * Async 线程池
@@ -38,7 +38,7 @@ public class ExecutorConfig implements ThreadPoolTaskExecutorCustomizer {
     }
 
     @Override
-    public void customize(ThreadPoolTaskExecutor taskExecutor) {
-        taskExecutor.setThreadNamePrefix("异步线程-");
+    public void customize(ThreadPoolTaskScheduler taskScheduler) {
+        taskScheduler.setRemoveOnCancelPolicy(true);
     }
 }
