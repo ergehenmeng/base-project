@@ -6,7 +6,6 @@ import cn.hutool.crypto.asymmetric.RSA;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.cache.ClearCacheService;
 import com.eghm.dto.operate.auth.AuthConfigAddRequest;
 import com.eghm.dto.operate.auth.AuthConfigEditRequest;
 import com.eghm.dto.operate.auth.AuthConfigQueryRequest;
@@ -36,8 +35,6 @@ public class AuthConfigServiceImpl implements AuthConfigService {
 
     private final AuthConfigMapper authConfigMapper;
 
-    private final ClearCacheService clearCacheService;
-
     @Override
     public Page<AuthConfigResponse> getByPage(AuthConfigQueryRequest request) {
         return authConfigMapper.getByPage(request.createPage(), request);
@@ -53,7 +50,6 @@ public class AuthConfigServiceImpl implements AuthConfigService {
             config.setExpireDate(LocalDate.now().plusYears(1));
         }
         authConfigMapper.insert(config);
-        clearCacheService.clearAuthConfig();
     }
 
     @Override
@@ -61,13 +57,11 @@ public class AuthConfigServiceImpl implements AuthConfigService {
         this.redoTitle(request.getTitle(), request.getId());
         AuthConfig config = DataUtil.copy(request, AuthConfig.class);
         authConfigMapper.updateById(config);
-        clearCacheService.clearAuthConfig();
     }
 
     @Override
     public void deleteById(Long id) {
         authConfigMapper.deleteById(id);
-        clearCacheService.clearAuthConfig();
     }
 
     @Override
