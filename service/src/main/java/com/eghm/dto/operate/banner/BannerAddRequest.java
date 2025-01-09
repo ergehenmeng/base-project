@@ -1,9 +1,11 @@
 package com.eghm.dto.operate.banner;
 
+import com.eghm.configuration.gson.LocalDateTimeAdapter;
 import com.eghm.enums.Channel;
 import com.eghm.validation.annotation.OptionString;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -46,11 +48,13 @@ public class BannerAddRequest {
     @ApiModelProperty(value = "开始展示时间(可在指定时间后开始展示)")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @NotNull(message = "开始时间不能为空")
+    @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "取消展示的时间(只在某个时间段展示)")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @NotNull(message = "结束时间不能为空")
+    @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "是否可点击 true:可以 false:不可以", required = true)

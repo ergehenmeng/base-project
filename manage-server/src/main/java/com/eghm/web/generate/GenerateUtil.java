@@ -58,6 +58,12 @@ public class GenerateUtil {
         String addPath = generate(cls, requestPackage, "AddRequest");
         String editPath = generate(cls, requestPackage, "EditRequest");
         String queryPath = generate(cls, requestPackage, "QueryRequest");
+        gen(addFileStr, editFileStr, queryFileStr, addPath, editPath, queryPath);
+
+        generateService(cls, implPackage, requestPackage, freemarkerTemplate);
+    }
+
+    private static void gen(String addFileStr, String editFileStr, String queryFileStr, String addPath, String editPath, String queryPath) throws IOException {
         BufferedWriter writer = FileUtil.getWriter(addPath, StandardCharsets.UTF_8, false);
         writer.write(addFileStr);
         writer.flush();
@@ -68,8 +74,6 @@ public class GenerateUtil {
         writer.write(queryFileStr);
         writer.flush();
         writer.close();
-
-        generateService(cls, implPackage, requestPackage, freemarkerTemplate);
     }
 
     private static void generateService(Class<?> cls, String implPackage, String requestPackage, FreemarkerTemplate freemarkerTemplate) throws URISyntaxException, IOException {
@@ -87,16 +91,7 @@ public class GenerateUtil {
         String servicePath = generate(cls, implPackage, "Service");
         String controllerPath = new File(url.toURI()).getParentFile().getParentFile().getAbsolutePath() + ROOT_PACKAGE + "com\\eghm\\web\\controller\\" + cls.getSimpleName() + "Controller.java";
         String serviceImplPath = generate(cls, implPackage + ".impl", "ServiceImpl");
-        BufferedWriter writer = FileUtil.getWriter(servicePath, StandardCharsets.UTF_8, false);
-        writer.write(serviceStr);
-        writer.flush();
-        writer = FileUtil.getWriter(serviceImplPath, StandardCharsets.UTF_8, false);
-        writer.write(serviceImplStr);
-        writer.flush();
-        writer = FileUtil.getWriter(controllerPath, StandardCharsets.UTF_8, false);
-        writer.write(controllerStr);
-        writer.flush();
-        writer.close();
+        gen(serviceStr, serviceImplStr, controllerStr, servicePath, serviceImplPath, controllerPath);
     }
 
     private static GenerateFile generateRequest(Class<?> cls, String packageName) {

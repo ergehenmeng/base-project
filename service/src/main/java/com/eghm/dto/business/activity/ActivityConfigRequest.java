@@ -1,9 +1,11 @@
 package com.eghm.dto.business.activity;
 
+import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.dto.ext.DateComparator;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,11 +40,13 @@ public class ActivityConfigRequest extends DateComparator {
     @ApiModelProperty(value = "开始日期yyyy-MM-dd", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "开始日期不能为空")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate startDate;
 
     @ApiModelProperty(value = "截止日期yyyy-MM-dd", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "截止日期不能为空")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate endDate;
 
     @ApiModelProperty(value = "活动时间", required = true)
