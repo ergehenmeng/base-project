@@ -1,6 +1,8 @@
 package com.eghm.dto.operate.auth;
 
+import com.eghm.configuration.gson.LocalDateAdapter;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -27,6 +29,7 @@ public class AuthConfigEditRequest {
 
     @Schema(description = "过期时间(默认一年过期)")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate expireDate;
 
     @Schema(description = "备注信息")

@@ -34,7 +34,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @AllArgsConstructor
 public class ManageLogAspect {
 
-    private final Gson gson = new Gson();
+    private final Gson gson;
 
     private final SysConfigApi sysConfigApi;
 
