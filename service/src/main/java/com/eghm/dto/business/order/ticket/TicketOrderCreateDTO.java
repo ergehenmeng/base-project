@@ -1,10 +1,12 @@
 package com.eghm.dto.business.order.ticket;
 
+import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.state.machine.dto.VisitorDTO;
 import com.eghm.validation.annotation.AfterNow;
 import com.eghm.validation.annotation.Mobile;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -33,6 +35,7 @@ public class TicketOrderCreateDTO {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "游玩日期不能为空")
     @AfterNow(message = "请选择合适的游玩日期")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate visitDate;
 
     @Schema(description = "购票数量")

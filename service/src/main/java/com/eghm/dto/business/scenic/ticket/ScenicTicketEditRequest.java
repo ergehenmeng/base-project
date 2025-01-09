@@ -1,5 +1,6 @@
 package com.eghm.dto.business.scenic.ticket;
 
+import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.dto.ext.DateComparator;
 import com.eghm.enums.ref.TicketType;
@@ -7,6 +8,7 @@ import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -65,10 +67,12 @@ public class ScenicTicketEditRequest extends DateComparator {
 
     @Schema(description = "开始预订时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate startDate;
 
     @Schema(description = "截止预订时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate endDate;
 
     @Schema(description = "剩余库存", requiredMode = Schema.RequiredMode.REQUIRED)

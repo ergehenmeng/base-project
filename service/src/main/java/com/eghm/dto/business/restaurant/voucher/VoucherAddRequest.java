@@ -1,9 +1,11 @@
 package com.eghm.dto.business.restaurant.voucher;
 
+import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -67,9 +69,11 @@ public class VoucherAddRequest {
     private Integer validDays;
 
     @Schema(description = "生效时间(包含)")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate effectDate;
 
     @Schema(description = "失效日期(包含)")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate expireDate;
 
     @Schema(description = "使用开始时间", requiredMode = Schema.RequiredMode.REQUIRED)

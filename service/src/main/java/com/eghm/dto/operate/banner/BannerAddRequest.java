@@ -1,15 +1,17 @@
 package com.eghm.dto.operate.banner;
 
+import com.eghm.configuration.gson.LocalDateTimeAdapter;
 import com.eghm.enums.Channel;
 import com.eghm.validation.annotation.OptionString;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
 /**
@@ -46,11 +48,13 @@ public class BannerAddRequest {
     @Schema(description = "开始展示时间(可在指定时间后开始展示)")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @NotNull(message = "开始时间不能为空")
+    @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime startTime;
 
     @Schema(description = "取消展示的时间(只在某个时间段展示)")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @NotNull(message = "结束时间不能为空")
+    @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime endTime;
 
     @Schema(description = "是否可点击 true:可以 false:不可以", requiredMode = Schema.RequiredMode.REQUIRED)

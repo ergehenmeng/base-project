@@ -61,12 +61,7 @@ public class NewsServiceImpl implements NewsService {
     public void create(NewsAddRequest request) {
         this.redoTitle(request.getTitle(), request.getCode(), null);
         News copy = DataUtil.copy(request, News.class);
-        if (CollUtil.isNotEmpty(request.getImageList())) {
-            copy.setImage(CollUtil.join(request.getImageList(), CommonConstant.COMMA));
-        }
-        if (CollUtil.isNotEmpty(request.getTagList())) {
-            copy.setTagName(CollUtil.join(request.getTagList(), CommonConstant.COMMA));
-        }
+        this.setRequest(copy, request.getImageList(), request.getTagList());
         newsMapper.insert(copy);
     }
 
@@ -74,12 +69,7 @@ public class NewsServiceImpl implements NewsService {
     public void update(NewsEditRequest request) {
         this.redoTitle(request.getTitle(), request.getCode(), request.getId());
         News copy = DataUtil.copy(request, News.class);
-        if (CollUtil.isNotEmpty(request.getImageList())) {
-            copy.setImage(CollUtil.join(request.getImageList(), CommonConstant.COMMA));
-        }
-        if (CollUtil.isNotEmpty(request.getTagList())) {
-            copy.setTagName(CollUtil.join(request.getTagList(), CommonConstant.COMMA));
-        }
+        this.setRequest(copy, request.getImageList(), request.getTagList());
         newsMapper.updateById(copy);
     }
 
@@ -135,6 +125,22 @@ public class NewsServiceImpl implements NewsService {
         wrapper.eq(News::getId, id);
         wrapper.set(News::getState, state);
         newsMapper.update(null, wrapper);
+    }
+
+    /**
+     * 设置请求参数
+     *
+     * @param copy 资讯
+     * @param imageList 图片
+     * @param tagList 标签
+     */
+    private void setRequest(News copy, List<String> imageList, List<String> tagList) {
+        if (CollUtil.isNotEmpty(imageList)) {
+            copy.setImage(CollUtil.join(imageList, CommonConstant.COMMA));
+        }
+        if (CollUtil.isNotEmpty(tagList)) {
+            copy.setTagName(CollUtil.join(tagList, CommonConstant.COMMA));
+        }
     }
 
     /**

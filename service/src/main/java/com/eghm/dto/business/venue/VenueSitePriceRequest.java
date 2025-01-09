@@ -1,8 +1,10 @@
 package com.eghm.dto.business.venue;
 
 import com.eghm.annotation.Assign;
+import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.dto.ext.DateComparator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,11 +38,13 @@ public class VenueSitePriceRequest extends DateComparator {
     @Schema(description = "开始日期yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "开始日期不能为空")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate startDate;
 
     @Schema(description = "截止日期yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "截止日期不能为空")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate endDate;
 
     @Schema(description = "场次价格",requiredMode = Schema.RequiredMode.REQUIRED)

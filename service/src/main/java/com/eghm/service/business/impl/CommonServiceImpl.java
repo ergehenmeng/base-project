@@ -221,14 +221,7 @@ public class CommonServiceImpl implements CommonService {
             long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
             for (int i = 0; i < between; i++) {
                 LocalDate date = request.getStartDate().plusDays(i);
-                ProductStatisticsVO vo = new ProductStatisticsVO(date);
-                vo.setAppendNum(itemMap.getOrDefault(date, 0) +
-                        lineMap.getOrDefault(date, 0) +
-                        voucherMap.getOrDefault(date, 0) +
-                        ticketMap.getOrDefault(date, 0) +
-                        roomMap.getOrDefault(date, 0) +
-                        siteMap.getOrDefault(date, 0) +
-                        allMap.getOrDefault(date, 0));
+                ProductStatisticsVO vo = this.createProductStatistics(date, itemMap, lineMap, voucherMap, ticketMap, roomMap, siteMap, allMap);
                 resultList.add(vo);
             }
         }
@@ -340,6 +333,34 @@ public class CommonServiceImpl implements CommonService {
             cacheService.deleteHashKey(key, hashKey);
         }
         consumer.accept(praise);
+    }
+
+    /**
+     * 创建指定日期统计对象
+     *
+     * @param date 日期
+     * @param itemMap 零售商品
+     * @param lineMap 线路商品
+     * @param voucherMap 优惠券商品
+     * @param ticketMap 票商品
+     * @param roomMap Homestay商品
+     * @param siteMap venue商品
+     * @param allMap 全部商品(与上面互斥)
+     * @return vo
+     */
+    private ProductStatisticsVO createProductStatistics(LocalDate date, Map<LocalDate, Integer> itemMap,
+                                 Map<LocalDate, Integer> lineMap, Map<LocalDate, Integer> voucherMap,
+                                 Map<LocalDate, Integer> ticketMap, Map<LocalDate, Integer> roomMap,
+                                 Map<LocalDate, Integer> siteMap, Map<LocalDate, Integer> allMap) {
+        ProductStatisticsVO vo = new ProductStatisticsVO(date);
+        vo.setAppendNum(itemMap.getOrDefault(date, 0) +
+                lineMap.getOrDefault(date, 0) +
+                voucherMap.getOrDefault(date, 0) +
+                ticketMap.getOrDefault(date, 0) +
+                roomMap.getOrDefault(date, 0) +
+                siteMap.getOrDefault(date, 0) +
+                allMap.getOrDefault(date, 0));
+        return vo;
     }
 
     private Map<LocalDate, Integer> getStatisticsDateMap(ProductRequest request, ProductType productType) {

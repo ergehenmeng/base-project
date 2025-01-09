@@ -1,11 +1,13 @@
 package com.eghm.dto.business.order.homestay;
 
+import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.dto.ext.DateComparator;
 import com.eghm.state.machine.dto.VisitorDTO;
 import com.eghm.validation.annotation.AfterNow;
 import com.eghm.validation.annotation.Mobile;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -54,11 +56,13 @@ public class HomestayOrderCreateDTO extends DateComparator {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "入店日期不能为空")
     @AfterNow(message = "请选择合法的入店日期")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate startDate;
 
     @Schema(description = "离店日期(不含晚上)", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "离店日期不能为空")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate endDate;
 
     @Schema(description = "兑换码")

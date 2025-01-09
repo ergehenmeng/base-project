@@ -1,8 +1,10 @@
 package com.eghm.dto.business.activity;
 
+import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -27,6 +29,7 @@ public class ActivityAddRequest {
     @Schema(description = "活动日期", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "活动日期不能为空")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate nowDate;
 
     @Schema(description = "活动时间", requiredMode = Schema.RequiredMode.REQUIRED)

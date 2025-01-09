@@ -1,11 +1,13 @@
 package com.eghm.dto.member.tag;
 
+import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.enums.Channel;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -35,10 +37,12 @@ public class MemberTagEditRequest {
     @Schema(description = "注册开始日期", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "注册开始日期不能为空")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate registerStartDate;
 
     @Schema(description = "注册截止日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate registerEndDate;
 
     @Schema(description = "最近几天有消费")

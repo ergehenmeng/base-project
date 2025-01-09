@@ -1,9 +1,11 @@
 package com.eghm.dto.business.line.config;
 
+import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -24,6 +26,7 @@ public class LineConfigOneRequest {
     @Schema(description = "日期 yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "日期不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate configDate;
 
     @Schema(description = "状态 0:不可用 1:可用", requiredMode = Schema.RequiredMode.REQUIRED)

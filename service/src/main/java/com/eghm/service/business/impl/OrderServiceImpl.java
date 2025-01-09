@@ -66,6 +66,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -577,44 +578,60 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         if (CollUtil.isEmpty(serviceSet)) {
             return Lists.newArrayList();
         }
-        List<Long> ids = serviceSet.stream().map(typedTuple -> Long.parseLong(Objects.requireNonNull(typedTuple.getValue()))).toList();
-        List<Item> itemList = itemMapper.getByIds(ids);
-        Map<Long, Item> stringMap = itemList.stream().collect(Collectors.toMap(Item::getId, Function.identity()));
-        List<SaleStatisticsVO> voList = new ArrayList<>();
-        for (ZSetOperations.TypedTuple<String> typedTuple: serviceSet) {
+        return this.getRangeList(key, limit - 1, ids -> {
+            List<Item> itemList = itemMapper.getByIds(ids);
+            return itemList.stream().collect(Collectors.toMap(Item::getId, Function.identity()));
+        }, (typedTuple, item) -> {
             SaleStatisticsVO vo = new SaleStatisticsVO();
-            long productId = Long.parseLong(Objects.requireNonNull(typedTuple.getValue()));
-            vo.setProductId(productId);
-            Item item = stringMap.get(productId);
             if (item == null) {
                 vo.setProductName("商品已删除");
             } else {
+                vo.setProductId(item.getId());
                 vo.setProductName(item.getTitle());
                 vo.setProductImg(item.getCoverUrl());
             }
             vo.setAmount(Optional.ofNullable(typedTuple.getScore()).orElse(0D).intValue());
-            voList.add(vo);
-        }
-        return voList;
+            return vo;
+        });
     }
 
     @Override
     public List<MerchantStatisticsVO> merchantStatistics() {
         int limit = sysConfigApi.getInt(MERCHANT_SALE_RANKING, 10);
-        Set<ZSetOperations.TypedTuple<String>> serviceSet = cacheService.rangeWithScore(MERCHANT_RANKING,  limit - 1);
+        return this.getRangeList(MERCHANT_RANKING,  limit - 1, ids -> {
+            List<Merchant> merchantList = merchantMapper.selectByIds(ids);
+            return merchantList.stream().collect(Collectors.toMap(Merchant::getId, Merchant::getMerchantName));
+        }, (typedTuple, merchant) -> {
+            MerchantStatisticsVO vo = new MerchantStatisticsVO();
+            vo.setMerchantName(merchant);
+            vo.setAmount(Optional.ofNullable(typedTuple.getScore()).orElse(0D).intValue());
+            return vo;
+        });
+    }
+
+    /**
+     * 根据指定的key获取排行榜中前limit名的数据, 并将数据转换成指定的对象, 数据来源由function, 数据处理函数由consumer
+     *
+     * @param key key
+     * @param limit 前limit名
+     * @param function 根据ids 获取数据(含数据格式化)
+     * @param consumer 根据匹配到的数据做二次处理
+     * @param <T> 返回对象
+     * @param <S> 格式化的数据对象
+     * @return list
+     */
+    private <T, S> List<T> getRangeList(String key, int limit, Function<List<Long>, Map<Long, S>> function, BiFunction<ZSetOperations.TypedTuple<String>, S, T> consumer) {
+        Set<ZSetOperations.TypedTuple<String>> serviceSet = cacheService.rangeWithScore(key,  limit);
         if (CollUtil.isEmpty(serviceSet)) {
             return Lists.newArrayList();
         }
         List<Long> ids = serviceSet.stream().map(typedTuple -> Long.parseLong(Objects.requireNonNull(typedTuple.getValue()))).toList();
-        List<Merchant> merchantList = merchantMapper.selectByIds(ids);
-        Map<Long, String> stringMap = merchantList.stream().collect(Collectors.toMap(Merchant::getId, Merchant::getMerchantName));
-        List<MerchantStatisticsVO> voList = new ArrayList<>();
+        Map<Long, S> stringMap = function.apply(ids);
+        List<T> voList = new ArrayList<>();
         for (ZSetOperations.TypedTuple<String> typedTuple: serviceSet) {
-            MerchantStatisticsVO vo = new MerchantStatisticsVO();
             long merchantId = Long.parseLong(Objects.requireNonNull(typedTuple.getValue()));
-            vo.setMerchantName(stringMap.get(merchantId));
-            vo.setAmount(Optional.ofNullable(typedTuple.getScore()).orElse(0D).intValue());
-            voList.add(vo);
+            S s = stringMap.get(merchantId);
+            voList.add(consumer.apply(typedTuple, s));
         }
         return voList;
     }

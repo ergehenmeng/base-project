@@ -1,10 +1,12 @@
 package com.eghm.dto.business.redeem;
 
+import com.eghm.configuration.gson.LocalDateTimeAdapter;
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.dto.ext.StoreScope;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -34,11 +36,13 @@ public class RedeemCodeEditRequest {
     @Schema(description = "有效开始时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "开始时间不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime startTime;
 
     @Schema(description = "有效截止时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "结束时间不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime endTime;
 
     @Schema(description = "金额", requiredMode = Schema.RequiredMode.REQUIRED)
