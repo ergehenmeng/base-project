@@ -1,7 +1,10 @@
 package com.eghm.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.eghm.annotation.JsonDesc;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -35,8 +38,11 @@ public enum FeedbackType {
      */
     OTHER(4, "其他问题");
 
+    @JsonValue
+    @EnumValue
     private final int value;
 
+    @JsonDesc
     private final String msg;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)

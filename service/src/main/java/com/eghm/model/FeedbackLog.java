@@ -1,6 +1,9 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.convertor.EnumDescSerializer;
+import com.eghm.enums.FeedbackType;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,8 +22,9 @@ public class FeedbackLog extends BaseEntity {
     @Schema(description = "状态: 0:待解决 1:已解决")
     private Boolean state;
 
-    @Schema(description = "状态: 反馈类型分类")
-    private Integer feedbackType;
+    @Schema(description = "反馈类型")
+    @JsonSerialize(using = EnumDescSerializer.class)
+    private FeedbackType feedbackType;
 
     @Schema(description = "软件版本")
     private String version;
