@@ -3,11 +3,13 @@ package com.eghm.web.controller;
 import com.eghm.annotation.SkipPerm;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -21,7 +23,7 @@ import jakarta.servlet.http.HttpServletRequest;
  * @since 2024/11/1
  */
 @Slf4j
-@Tag(name= "错误提示")
+@Tag(name = "错误重定向")
 @RestController
 @RequestMapping("${server.error.path:${error.path:/error}}")
 public class ErrorController extends AbstractErrorController {
@@ -30,8 +32,9 @@ public class ErrorController extends AbstractErrorController {
         super(errorAttributes);
     }
 
-    @RequestMapping
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
     @SkipPerm
+    @Operation(summary = "错误信息")
     public RespBody<Void> error(HttpServletRequest request) {
         WebRequest webRequest = new ServletWebRequest(request);
         Object path = webRequest.getAttribute(RequestDispatcher.ERROR_REQUEST_URI, RequestAttributes.SCOPE_REQUEST);
