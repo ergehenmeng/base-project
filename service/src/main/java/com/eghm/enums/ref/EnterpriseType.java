@@ -2,7 +2,6 @@ package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.annotation.ExcelDesc;
-import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -17,7 +16,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum EnterpriseType implements EnumBinder<Integer> {
+public enum EnterpriseType {
 
     /**
      * 个体工商户
@@ -34,7 +33,7 @@ public enum EnterpriseType implements EnumBinder<Integer> {
      */
     @EnumValue
     @JsonValue
-    private final Integer value;
+    private final int value;
 
     /**
      * 名称
@@ -47,16 +46,7 @@ public enum EnterpriseType implements EnumBinder<Integer> {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(EnterpriseType.values()).filter(type -> value.intValue() == type.value).findFirst().orElse(null);
+        return Arrays.stream(EnterpriseType.values()).filter(type -> value == type.value).findFirst().orElse(null);
     }
 
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
-    }
 }

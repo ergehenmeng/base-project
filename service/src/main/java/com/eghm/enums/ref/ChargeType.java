@@ -1,7 +1,6 @@
 package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -16,7 +15,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum ChargeType implements EnumBinder<Integer> {
+public enum ChargeType {
 
     /**
      * 充值
@@ -51,15 +50,14 @@ public enum ChargeType implements EnumBinder<Integer> {
     /**
      * 提现失败解冻
      */
-    WITHDRAW_FAIL(7, "提现失败", 1),
-    ;
+    WITHDRAW_FAIL(7, "提现失败", 1);
 
     /**
      * 状态值
      */
     @EnumValue
     @JsonValue
-    private final Integer value;
+    private final int value;
 
     /**
      * 名称
@@ -76,16 +74,6 @@ public enum ChargeType implements EnumBinder<Integer> {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(ChargeType.values()).filter(auditState -> auditState.value == value.intValue()).findFirst().orElse(null);
-    }
-
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
+        return Arrays.stream(ChargeType.values()).filter(auditState -> auditState.value == value).findFirst().orElse(null);
     }
 }

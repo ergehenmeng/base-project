@@ -675,7 +675,7 @@ public class ItemServiceImpl implements ItemService {
     private void checkExpress(Long expressId, List<ItemSkuRequest> skuList) {
         if (expressId != null) {
             ExpressTemplate selected = expressTemplateService.selectByIdRequired(expressId);
-            if (selected.getChargeMode().intValue() == ChargeMode.WEIGHT.getValue()) {
+            if (selected.getChargeMode() == ChargeMode.WEIGHT.getValue()) {
                 boolean anyMatch = skuList.stream().anyMatch(itemSkuRequest -> itemSkuRequest.getWeight() == null);
                 if (anyMatch) {
                     throw new BusinessException(EXPRESS_WEIGHT);

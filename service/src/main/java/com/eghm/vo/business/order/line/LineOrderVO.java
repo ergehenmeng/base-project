@@ -37,7 +37,7 @@ public class LineOrderVO {
     @Schema(description = "购买数量")
     private Integer num;
 
-    @Schema(description = "订单状态")
+    @Schema(description = "订单状态 0:待支付 1:支付中 2:待使用 3:待自提 4:待发货 5:部分发货 6:待收货 7:退款中 8:订单完成 9:已关闭 10:支付异常 11:退款异常")
     private OrderState state;
 
     @Schema(description = "总付款金额")

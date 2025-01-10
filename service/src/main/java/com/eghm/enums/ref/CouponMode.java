@@ -1,7 +1,6 @@
 package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -17,7 +16,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum CouponMode implements EnumBinder<Integer> {
+public enum CouponMode {
 
     /**
      * 页面领取
@@ -34,7 +33,7 @@ public enum CouponMode implements EnumBinder<Integer> {
      */
     @JsonValue
     @EnumValue
-    private final Integer value;
+    private final int value;
 
     /**
      * 名称
@@ -46,16 +45,7 @@ public enum CouponMode implements EnumBinder<Integer> {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(CouponMode.values()).filter(couponMode -> couponMode.value == value.intValue()).findFirst().orElse(null);
+        return Arrays.stream(CouponMode.values()).filter(couponMode -> couponMode.value == value).findFirst().orElse(null);
     }
 
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
-    }
 }

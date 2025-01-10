@@ -35,7 +35,7 @@ public class ItemOrderRefundDetailResponse {
     @Schema(description = "支付方式(支付成功才会有支付方式)")
     private PayType payType;
 
-    @Schema(description = "订单状态")
+    @Schema(description = "订单状态 0:待支付 1:支付中 2:待使用 3:待自提 4:待发货 5:部分发货 6:待收货 7:退款中 8:订单完成 9:已关闭 10:支付异常 11:退款异常")
     private OrderState state;
 
     @Schema(description = "当前订单所处的退款状态 1:退款申请中 2:退款中 3:退款拒绝 4:退款成功 5:退款失败(该状态和退款中在C端用户看来都是退款中) 6:线下退款(该状态与退款成功在C端用户看来是一样的)")

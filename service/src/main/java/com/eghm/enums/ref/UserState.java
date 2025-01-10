@@ -2,7 +2,6 @@ package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.annotation.ExcelDesc;
-import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -17,7 +16,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum UserState implements EnumBinder<Integer> {
+public enum UserState {
 
     /**
      * 锁定
@@ -39,7 +38,7 @@ public enum UserState implements EnumBinder<Integer> {
      */
     @EnumValue
     @JsonValue
-    private final Integer value;
+    private final int value;
 
     /**
      * 名称
@@ -55,13 +54,4 @@ public enum UserState implements EnumBinder<Integer> {
         return Arrays.stream(UserState.values()).filter(type -> value.equals(type.value)).findFirst().orElse(null);
     }
 
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
-    }
 }

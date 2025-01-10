@@ -17,7 +17,7 @@ import jakarta.validation.constraints.Size;
 @Data
 public class CommentReportDTO {
 
-    @Schema(description = "举报类型")
+    @Schema(description = "原因 (1:淫秽色情 2:营销广告 3:违法信息 4:网络暴力 5:虚假谣言 6:养老诈骗 7:其他)")
     @NotNull(message = "请选择要举报的类型")
     private ReportType reportType;
 

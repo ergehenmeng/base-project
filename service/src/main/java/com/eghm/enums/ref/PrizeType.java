@@ -1,7 +1,6 @@
 package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -15,7 +14,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum PrizeType implements EnumBinder<Integer> {
+public enum PrizeType {
 
     /**
      * 谢谢参与
@@ -30,13 +29,11 @@ public enum PrizeType implements EnumBinder<Integer> {
     /**
      * 积分
      */
-    SCORE(2, "积分"),
-
-    ;
+    SCORE(2, "积分");
 
     @EnumValue
     @JsonValue
-    private final Integer value;
+    private final int value;
 
     private final String name;
 
@@ -45,16 +42,6 @@ public enum PrizeType implements EnumBinder<Integer> {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(PrizeType.values()).filter(prizeType -> prizeType.value == value.intValue()).findFirst().orElse(null);
-    }
-
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
+        return Arrays.stream(PrizeType.values()).filter(prizeType -> prizeType.value == value).findFirst().orElse(null);
     }
 }

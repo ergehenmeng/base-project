@@ -28,7 +28,7 @@ public class UserDetailResponse {
     @Schema(description = "部门编号")
     private String deptCode;
 
-    @Schema(description = "权限类型")
+    @Schema(description = "数据权限(1:本人 2:本部门 4:本部门及子部门 8:全部 16:自定义)")
     private DataType dataType;
 
     @Schema(description = "备注信息")

@@ -2,7 +2,6 @@ package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.annotation.ExcelDesc;
-import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -16,7 +15,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum RoomType implements EnumBinder<Integer> {
+public enum RoomType {
 
     /**
      * 标间
@@ -46,12 +45,11 @@ public enum RoomType implements EnumBinder<Integer> {
     /**
      * 合租房
      */
-    JOIN(6, "合租房"),
-    ;
+    JOIN(6, "合租房");
 
     @JsonValue
     @EnumValue
-    private final Integer value;
+    private final int value;
 
     @ExcelDesc
     private final String name;
@@ -61,16 +59,6 @@ public enum RoomType implements EnumBinder<Integer> {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(RoomType.values()).filter(type -> value.intValue() == type.value).findFirst().orElse(null);
-    }
-
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
+        return Arrays.stream(RoomType.values()).filter(type -> value == type.value).findFirst().orElse(null);
     }
 }
