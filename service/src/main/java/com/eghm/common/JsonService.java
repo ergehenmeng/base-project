@@ -38,13 +38,4 @@ public interface JsonService {
      */
     <T> T fromJson(String json, TypeReference<T> reference);
 
-    /**
-     * 将json转换为对象 list格式
-     *
-     * @param json json
-     * @param cls  cls
-     * @param <T>  <T> T
-     * @return list
-     */
-    <T> List<T> fromJsonList(String json, Class<T> cls);
 }
