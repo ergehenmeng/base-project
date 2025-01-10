@@ -2,7 +2,6 @@ package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.annotation.ExcelDesc;
-import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -18,7 +17,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum CloseType implements EnumBinder<Integer> {
+public enum CloseType {
 
     /**
      * 过期自动取消
@@ -33,15 +32,14 @@ public enum CloseType implements EnumBinder<Integer> {
     /**
      * 退款成功
      */
-    REFUND(3, "退款成功"),
+    REFUND(3, "退款成功");
 
-    ;
     /**
      * 状态
      */
     @EnumValue
     @JsonValue
-    private final Integer value;
+    private final int value;
 
     /**
      * 名称
@@ -54,16 +52,7 @@ public enum CloseType implements EnumBinder<Integer> {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(CloseType.values()).filter(auditState -> auditState.value == value.intValue()).findFirst().orElse(null);
+        return Arrays.stream(CloseType.values()).filter(auditState -> auditState.value == value).findFirst().orElse(null);
     }
 
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
-    }
 }

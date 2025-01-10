@@ -28,7 +28,7 @@ public class CommentReportResponse {
     @ApiModelProperty(value = "举报内容")
     private String content;
 
-    @ApiModelProperty(value = "(1:淫秽色情 2:营销广告 3:违法信息 4:网络暴力 5:虚假谣言 6:养老诈骗 7:其他)")
+    @ApiModelProperty(value = "举报原因 (1:淫秽色情 2:营销广告 3:违法信息 4:网络暴力 5:虚假谣言 6:养老诈骗 7:其他)")
     private ReportType reportType;
 
     @ApiModelProperty("添加时间")

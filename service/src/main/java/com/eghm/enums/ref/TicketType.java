@@ -2,7 +2,6 @@ package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.annotation.ExcelDesc;
-import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +14,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum TicketType implements EnumBinder<Integer> {
+public enum TicketType {
 
     /**
      * 成人
@@ -50,15 +49,14 @@ public enum TicketType implements EnumBinder<Integer> {
     /**
      *  组合 默认实名制,且组合票内不能继续套组合票
      */
-    COMBINE(7, "组合"),
-    ;
+    COMBINE(7, "组合");
 
     /**
      * 状态值
      */
     @EnumValue
     @JsonValue
-    private final Integer value;
+    private final int value;
 
     /**
      * 名称
@@ -66,13 +64,4 @@ public enum TicketType implements EnumBinder<Integer> {
     @ExcelDesc
     private final String name;
 
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
-    }
 }

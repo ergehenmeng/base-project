@@ -4,6 +4,8 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
+import com.eghm.enums.Gender;
+import com.eghm.enums.MemberState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
@@ -41,7 +43,7 @@ public class MemberResponse extends ExcelStyle {
 
     @ApiModelProperty("状态 0:注销 1正常")
     @ExcelProperty(value = "状态", index = 3, converter = EnumExcelConverter.class)
-    private Boolean state;
+    private MemberState state;
 
     @ApiModelProperty("总积分数")
     @ExcelProperty(value = "积分", index = 4)
@@ -53,7 +55,7 @@ public class MemberResponse extends ExcelStyle {
 
     @ApiModelProperty("性别 0:未知 1:男 2:女 ")
     @ExcelProperty(value = "性别", index = 6, converter = EnumExcelConverter.class)
-    private Integer sex;
+    private Gender sex;
 
     @ApiModelProperty("真实姓名")
     @ExcelProperty(value = "真实姓名", index = 7)

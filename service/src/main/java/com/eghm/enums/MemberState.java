@@ -1,6 +1,5 @@
 package com.eghm.enums;
 
-import cn.hutool.core.util.BooleanUtil;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.annotation.ExcelDesc;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -14,7 +13,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum MemberState implements EnumBinder<Boolean> {
+public enum MemberState {
 
     /**
      * 正常
@@ -38,14 +37,4 @@ public enum MemberState implements EnumBinder<Boolean> {
      */
     @ExcelDesc
     private final String name;
-
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == BooleanUtil.toBoolean(value);
-    }
 }

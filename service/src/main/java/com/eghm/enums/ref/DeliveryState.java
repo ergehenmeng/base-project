@@ -1,7 +1,6 @@
 package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -15,7 +14,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum DeliveryState implements EnumBinder<Integer> {
+public enum DeliveryState {
 
     /**
      * 初始状态
@@ -44,7 +43,7 @@ public enum DeliveryState implements EnumBinder<Integer> {
 
     @JsonValue
     @EnumValue
-    private final Integer value;
+    private final int value;
 
     private final String name;
 
@@ -53,16 +52,7 @@ public enum DeliveryState implements EnumBinder<Integer> {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(DeliveryState.values()).filter(type -> value.intValue() == type.value).findFirst().orElse(null);
+        return Arrays.stream(DeliveryState.values()).filter(type -> value == type.value).findFirst().orElse(null);
     }
 
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
-    }
 }

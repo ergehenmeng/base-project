@@ -14,7 +14,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum NoticeType implements EnumBinder<String> {
+public enum NoticeType {
 
     /**
      * 通用类通知
@@ -64,15 +64,5 @@ public enum NoticeType implements EnumBinder<String> {
             return null;
         }
         return Arrays.stream(NoticeType.values()).filter(auditState -> value.equals(auditState.value)).findFirst().orElse(null);
-    }
-
-    @Override
-    public String toString() {
-        return value + ":" + msg;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value.equals(value.split(":")[0]);
     }
 }

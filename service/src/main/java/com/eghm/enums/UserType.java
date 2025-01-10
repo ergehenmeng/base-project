@@ -16,7 +16,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum UserType implements EnumBinder<Integer> {
+public enum UserType {
 
     /**
      * 系统管理员
@@ -38,10 +38,9 @@ public enum UserType implements EnumBinder<Integer> {
      */
     MERCHANT_USER(3, "商户普通用户");
 
-
     @JsonValue
     @EnumValue
-    private final Integer value;
+    private final int value;
 
     private final String name;
 
@@ -50,17 +49,8 @@ public enum UserType implements EnumBinder<Integer> {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(UserType.values()).filter(auditState -> auditState.value == value.intValue())
+        return Arrays.stream(UserType.values()).filter(auditState -> auditState.value == value)
                 .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.USER_TYPE_NULL));
     }
 
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
-    }
 }

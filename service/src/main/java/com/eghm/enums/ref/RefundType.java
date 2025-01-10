@@ -2,7 +2,6 @@ package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.annotation.ExcelDesc;
-import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -16,7 +15,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum RefundType implements EnumBinder<Integer> {
+public enum RefundType {
 
     /**
      * 不支持退款
@@ -31,12 +30,11 @@ public enum RefundType implements EnumBinder<Integer> {
     /**
      * 审核后退款
      */
-    AUDIT_REFUND(2, "审核后退款"),
-    ;
+    AUDIT_REFUND(2, "审核后退款");
 
     @EnumValue
     @JsonValue
-    private final Integer value;
+    private final int value;
 
     @ExcelDesc
     private final String name;
@@ -46,16 +44,7 @@ public enum RefundType implements EnumBinder<Integer> {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(RefundType.values()).filter(type -> value.intValue() == type.value).findFirst().orElse(null);
+        return Arrays.stream(RefundType.values()).filter(type -> value == type.value).findFirst().orElse(null);
     }
 
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
-    }
 }

@@ -2,7 +2,6 @@ package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.eghm.enums.EnumBinder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.utils.DateUtil;
@@ -20,7 +19,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum ProductType implements EnumBinder<String> {
+public enum ProductType {
 
     /**
      * 门票
@@ -144,15 +143,5 @@ public enum ProductType implements EnumBinder<String> {
      */
     public String generateVerifyNo() {
         return prefix + DateUtil.formatShortLimit(LocalDate.now()) + IdWorker.getIdStr();
-    }
-
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value.equals(value.split(":")[0]);
     }
 }

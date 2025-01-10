@@ -12,7 +12,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum SelectType implements EnumBinder<String> {
+public enum SelectType {
 
     WEEK("week", "周"),
 
@@ -27,14 +27,4 @@ public enum SelectType implements EnumBinder<String> {
     private final String value;
 
     private final String name;
-
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value.equals(value.split(":")[0]);
-    }
 }

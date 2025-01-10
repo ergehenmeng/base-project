@@ -2,7 +2,6 @@ package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.annotation.ExcelDesc;
-import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -16,7 +15,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum DirectionType implements EnumBinder<Integer> {
+public enum DirectionType {
 
     /**
      * 无须发货
@@ -26,13 +25,11 @@ public enum DirectionType implements EnumBinder<Integer> {
     /**
      * 快递包邮
      */
-    DISBURSE(2, "支出"),
-
-    ;
+    DISBURSE(2, "支出");
 
     @JsonValue
     @EnumValue
-    private final Integer value;
+    private final int value;
 
     @ExcelDesc
     private final String name;
@@ -42,16 +39,7 @@ public enum DirectionType implements EnumBinder<Integer> {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(DirectionType.values()).filter(type -> value.intValue() == type.value).findFirst().orElse(null);
+        return Arrays.stream(DirectionType.values()).filter(type -> value == type.value).findFirst().orElse(null);
     }
 
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
-    }
 }
