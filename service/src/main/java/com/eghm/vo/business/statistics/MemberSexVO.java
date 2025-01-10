@@ -1,6 +1,7 @@
 package com.eghm.vo.business.statistics;
 
 import cn.hutool.core.util.RandomUtil;
+import com.eghm.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -18,9 +19,10 @@ public class MemberSexVO {
     private String name;
 
     @Schema(description = "人数")
-    private Integer value = 0;
+    private Integer value;
 
     public MemberSexVO() {
         this.value = RandomUtil.randomInt(500);
+        this.name = Gender.values()[RandomUtil.randomInt(2)].getName();
     }
 }
