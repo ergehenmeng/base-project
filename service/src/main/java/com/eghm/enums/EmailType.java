@@ -31,9 +31,8 @@ public enum EmailType {
     /**
      * 定时任务报警
      */
-    TASK_ALARM("task_alarm", "定时任务报警", "commonEmailHandler"),
+    TASK_ALARM("task_alarm", "定时任务报警", "commonEmailHandler");
 
-    ;
     private final String value;
 
     private final String msg;
