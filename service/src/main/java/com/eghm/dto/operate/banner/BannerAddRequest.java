@@ -1,6 +1,5 @@
 package com.eghm.dto.operate.banner;
 
-import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.configuration.gson.LocalDateTimeAdapter;
 import com.eghm.enums.Channel;
 import com.eghm.validation.annotation.OptionString;
@@ -8,11 +7,11 @@ import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
 /**

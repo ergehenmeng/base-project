@@ -2,7 +2,6 @@ package com.eghm.configuration;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.task.ThreadPoolTaskExecutorBuilder;
-import org.springframework.boot.task.ThreadPoolTaskExecutorCustomizer;
 import org.springframework.boot.task.ThreadPoolTaskSchedulerBuilder;
 import org.springframework.boot.task.ThreadPoolTaskSchedulerCustomizer;
 import org.springframework.context.annotation.Bean;
