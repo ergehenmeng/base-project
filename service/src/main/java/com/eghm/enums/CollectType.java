@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum CollectType implements EnumBinder<Integer> {
+public enum CollectType {
 
     /**
      * 资讯
@@ -50,13 +50,4 @@ public enum CollectType implements EnumBinder<Integer> {
         return Arrays.stream(CollectType.values()).filter(couponMode -> couponMode.value == value.intValue()).findFirst().orElse(null);
     }
 
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
-    }
 }

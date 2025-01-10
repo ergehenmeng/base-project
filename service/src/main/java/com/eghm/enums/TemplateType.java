@@ -13,7 +13,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum TemplateType implements EnumBinder<String> {
+public enum TemplateType {
 
     /**
      * 未指定短信类型,则为自定义短信:default
@@ -64,13 +64,4 @@ public enum TemplateType implements EnumBinder<String> {
      */
     private final String content;
 
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value.equalsIgnoreCase(value.split(":")[0]);
-    }
 }

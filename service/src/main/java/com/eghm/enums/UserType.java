@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum UserType implements EnumBinder<Integer> {
+public enum UserType {
 
     /**
      * 系统管理员
@@ -44,13 +44,4 @@ public enum UserType implements EnumBinder<Integer> {
                 .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.USER_TYPE_NULL));
     }
 
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
-    }
 }

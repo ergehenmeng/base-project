@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum UserState implements EnumBinder<Integer> {
+public enum UserState {
 
     /**
      * 锁定
@@ -55,13 +55,4 @@ public enum UserState implements EnumBinder<Integer> {
         return Arrays.stream(UserState.values()).filter(type -> value.equals(type.value)).findFirst().orElse(null);
     }
 
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
-    }
 }

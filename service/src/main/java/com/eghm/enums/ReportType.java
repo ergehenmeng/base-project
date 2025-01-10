@@ -15,7 +15,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum ReportType implements EnumBinder<Integer> {
+public enum ReportType {
 
     /**
      * 淫秽色情
@@ -68,13 +68,4 @@ public enum ReportType implements EnumBinder<Integer> {
         return Arrays.stream(ReportType.values()).filter(type -> value.intValue() == type.value).findFirst().orElse(null);
     }
 
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
-    }
 }

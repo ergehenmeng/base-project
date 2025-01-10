@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum ObjectType implements EnumBinder<Integer> {
+public enum ObjectType {
 
     /**
      * 资讯
@@ -52,13 +52,4 @@ public enum ObjectType implements EnumBinder<Integer> {
         return Arrays.stream(ObjectType.values()).filter(auditState -> auditState.value == value.intValue()).findFirst().orElse(null);
     }
 
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
-    }
 }

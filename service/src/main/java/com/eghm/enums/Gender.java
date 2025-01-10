@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum Gender implements EnumBinder<Integer> {
+public enum Gender {
 
     /**
      * 未知
@@ -49,13 +49,4 @@ public enum Gender implements EnumBinder<Integer> {
                 .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.USER_TYPE_NULL));
     }
 
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
-    }
 }

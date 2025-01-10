@@ -16,7 +16,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum DataType implements EnumBinder<Integer> {
+public enum DataType {
 
     /**
      * 个人权限
@@ -58,13 +58,4 @@ public enum DataType implements EnumBinder<Integer> {
                 .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.DATA_TYPE_ERROR));
     }
 
-    @Override
-    public String toString() {
-        return value + ":" + msg;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
-    }
 }
