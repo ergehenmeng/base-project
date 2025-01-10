@@ -39,9 +39,8 @@ public class EnumDescSerializer extends JsonSerializer<Enum<?>> {
         }
         gen.writeStartObject();
         try {
-            String fieldName = gen.getOutputContext().getParent().getCurrentName();
-            gen.writeStringField(fieldName, ReflectUtil.getFieldValue(value, valueField).toString());
-            gen.writeStringField(fieldName + "Desc", ReflectUtil.getFieldValue(value, descField).toString());
+            gen.writeObjectField("value", ReflectUtil.getFieldValue(value, valueField));
+            gen.writeStringField("name", ReflectUtil.getFieldValue(value, descField).toString());
         } catch (Exception e) {
             log.error("枚举转换异常", e);
             throw new BusinessException(ErrorCode.ENUMS_FORMAT);

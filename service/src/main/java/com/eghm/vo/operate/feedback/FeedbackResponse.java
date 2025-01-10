@@ -1,9 +1,7 @@
 package com.eghm.vo.operate.feedback;
 
-import com.eghm.convertor.EnumDescSerializer;
 import com.eghm.enums.FeedbackType;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -22,11 +20,7 @@ public class FeedbackResponse {
     @Schema(description = "状态: false:待解决 true:已解决")
     private Boolean state;
 
-    @Schema(description = "状态: 反馈类型分类")
-    private Integer feedbackTypes;
-
-    @Schema(description = "状态: 反馈类型分类")
-    @JsonSerialize(using = EnumDescSerializer.class)
+    @Schema(description = "反馈类型分类")
     private FeedbackType feedbackType;
 
     @Schema(description = "软件版本")

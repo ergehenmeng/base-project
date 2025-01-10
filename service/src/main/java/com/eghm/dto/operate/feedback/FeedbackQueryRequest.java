@@ -1,6 +1,7 @@
 package com.eghm.dto.operate.feedback;
 
 import com.eghm.dto.ext.PagingQuery;
+import com.eghm.enums.FeedbackType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,8 +16,8 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class FeedbackQueryRequest extends PagingQuery {
 
-    @Schema(description = "分类信息(数据字典)")
-    private Integer feedbackType;
+    @Schema(description = "分类信息(数据字典)", enumAsRef = true)
+    private FeedbackType feedbackType;
 
     @Schema(description = "状态 false:待解决 true:已解决")
     private Boolean state;
