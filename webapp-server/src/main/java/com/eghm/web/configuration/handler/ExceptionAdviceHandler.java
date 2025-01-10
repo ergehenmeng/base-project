@@ -136,7 +136,7 @@ public class ExceptionAdviceHandler {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public RespBody<Void> exception(HttpServletRequest request, MethodArgumentNotValidException e) {
-        log.error("参数校验异常, 接口[{}]", request.getRequestURI());
+        log.error("参数校验异常, 接口[{}]", request.getRequestURI(), e);
         return WebUtil.fieldValid(e.getBindingResult());
     }
 
