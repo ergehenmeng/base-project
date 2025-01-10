@@ -18,7 +18,7 @@ public class SmsLogResponse {
     @Schema(description = "id主键")
     private Long id;
 
-    @Schema(description = "短信分类")
+    @Schema(description = "短信分类 default:自定义 member_login:登陆 user_login:登陆(后台), forget:忘记密码, register:注册, change_email:更换邮箱")
     private TemplateType templateType;
 
     @Schema(description = "手机号")

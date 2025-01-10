@@ -30,7 +30,7 @@ public class SendNotifyRequest {
     @WordChecker(message = "内容存在敏感词")
     private String content;
 
-    @Schema(description = "通知类型")
+    @Schema(description = "通知类型 common:通用, marketing:营销, feedback_process:反馈处理, evaluation_refuse:订单评价内容不合规")
     @NotNull(message = "通知类型不能为空")
     private MessageType messageType;
 

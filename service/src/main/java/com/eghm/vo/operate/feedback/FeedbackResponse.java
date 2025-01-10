@@ -20,7 +20,7 @@ public class FeedbackResponse {
     @Schema(description = "状态: false:待解决 true:已解决")
     private Boolean state;
 
-    @Schema(description = "反馈类型分类")
+    @Schema(description = "分类 1:功能异常 2:产品建议 3:安全问题 4:其他问题")
     private FeedbackType feedbackType;
 
     @Schema(description = "软件版本")

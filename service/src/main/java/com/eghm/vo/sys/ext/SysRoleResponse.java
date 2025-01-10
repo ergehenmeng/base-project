@@ -21,7 +21,7 @@ public class SysRoleResponse {
     @Schema(description = "角色名称")
     private String roleName;
 
-    @Schema(description = "角色类型")
+    @Schema(description = "角色类型 common:系统角色 operate:运营角色")
     private RoleType roleType;
 
     @Schema(description = "备注信息")

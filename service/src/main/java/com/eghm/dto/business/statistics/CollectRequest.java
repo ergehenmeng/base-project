@@ -35,6 +35,6 @@ public class CollectRequest extends DateComparator {
     @NotNull(message = "收藏类型不能为空")
     private CollectType collectType;
 
-    @Schema(description = "查询类型")
+    @Schema(description = "查询类型 week:周 month:月 year:年 custom:自定义")
     private SelectType selectType;
 }

@@ -34,7 +34,7 @@ public class UserResponse {
     @Schema(description = "用户类型 1:系统用户 2:商户管理员 3:商户普通用户")
     private Integer userType;
 
-    @Schema(description = "数据权限 只针对系统用户有效")
+    @Schema(description = "数据权限(1:个人 2:本部门 4:本部门+子部门 8:所有 16:自定义")
     private DataType dataType;
 
     @Schema(description = "用户状态 0:锁定 1:正常")

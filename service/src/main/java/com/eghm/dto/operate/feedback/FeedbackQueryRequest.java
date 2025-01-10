@@ -16,7 +16,7 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class FeedbackQueryRequest extends PagingQuery {
 
-    @Schema(description = "分类信息(数据字典)")
+    @Schema(description = "分类 1:功能异常 2:产品建议 3:安全问题 4:其他问题")
     private FeedbackType feedbackType;
 
     @Schema(description = "状态 false:待解决 true:已解决")

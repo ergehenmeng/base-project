@@ -28,7 +28,7 @@ public class CommentReportResponse {
     @Schema(description = "举报内容")
     private String content;
 
-    @Schema(description = "(1:淫秽色情 2:营销广告 3:违法信息 4:网络暴力 5:虚假谣言 6:养老诈骗 7:其他)")
+    @Schema(description = "举报类型: (1:淫秽色情 2:营销广告 3:违法信息 4:网络暴力 5:虚假谣言 6:养老诈骗 7:其他)")
     private ReportType reportType;
 
     @Schema(description = "添加时间")
