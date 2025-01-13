@@ -21,16 +21,16 @@ public enum MemberState {
     NORMAL(true, "正常"),
 
     /**
-     * 注销
+     * 冻结
      */
-    LOGOUT(false, "注销");
+    FREEZE(false, "冻结");
 
     /**
      * 状态
      */
     @EnumValue
     @JsonValue
-    private final Boolean value;
+    private final boolean value;
 
     /**
      * 名称

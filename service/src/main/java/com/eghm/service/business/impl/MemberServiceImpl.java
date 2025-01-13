@@ -18,8 +18,8 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.member.*;
 import com.eghm.dto.business.statistics.DateRequest;
-import com.eghm.dto.operate.email.SendEmail;
 import com.eghm.dto.ext.*;
+import com.eghm.dto.operate.email.SendEmail;
 import com.eghm.dto.sys.login.AccountLoginDTO;
 import com.eghm.dto.sys.login.SmsLoginDTO;
 import com.eghm.dto.sys.register.AccountRegisterDTO;
@@ -40,13 +40,13 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
 import com.eghm.utils.RegExpUtil;
 import com.eghm.utils.StringUtil;
+import com.eghm.vo.business.member.MemberResponse;
+import com.eghm.vo.business.member.MemberVO;
 import com.eghm.vo.business.statistics.MemberChannelVO;
 import com.eghm.vo.business.statistics.MemberRegisterVO;
 import com.eghm.vo.business.statistics.MemberSexVO;
 import com.eghm.vo.business.statistics.MemberStatisticsVO;
 import com.eghm.vo.login.LoginTokenVO;
-import com.eghm.vo.business.member.MemberResponse;
-import com.eghm.vo.business.member.MemberVO;
 import com.eghm.wechat.WeChatMiniService;
 import com.eghm.wechat.WeChatMpService;
 import com.google.common.collect.Lists;
@@ -136,7 +136,7 @@ public class MemberServiceImpl implements MemberService {
         member.setId(memberId);
         member.setState(state);
         memberMapper.updateById(member);
-        if (Boolean.FALSE.equals(member.getState())) {
+        if (member.getState().equals(MemberState.FREEZE.isValue())) {
             this.offline(member.getId());
         }
     }
@@ -465,12 +465,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     /**
-     * 检查用户是否被封禁
+     * 检查用户是否被封禁 (非空才校验)
      *
      * @param member 用户
      */
     private void checkMemberLock(Member member) {
-        if (member != null && Boolean.FALSE.equals(member.getState())) {
+        if (member != null && member.getState().equals(MemberState.FREEZE.isValue())) {
             log.warn("账号已被封禁,无法登录 [{}]", member.getId());
             throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
         }
