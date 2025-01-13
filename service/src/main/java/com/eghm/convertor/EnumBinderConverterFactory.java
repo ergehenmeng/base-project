@@ -36,8 +36,11 @@ public class EnumBinderConverterFactory implements ConverterFactory<String, Enum
 
         private final Class<T> enumType;
 
+        private final Method jsonCreatorMethod;
+
         public EnumBinderConverter(Class<T> enumType) {
             this.enumType = enumType;
+            this.jsonCreatorMethod = getJsonCreatorMethod(enumType);
         }
 
         @Override
@@ -45,19 +48,35 @@ public class EnumBinderConverterFactory implements ConverterFactory<String, Enum
             if (value.isEmpty()) {
                 return null;
             }
-            Method[] methods = enumType.getDeclaredMethods();
-            for (Method method : methods) {
-                JsonCreator creator = method.getDeclaredAnnotation(JsonCreator.class);
-                if (creator != null && method.getParameterCount() == 1 && (method.getParameterTypes()[0] == String.class || method.getParameterTypes()[0] == Integer.class)) {
-                    try {
-                        return (T) method.invoke(null, value);
-                    } catch (Exception e) {
-                        log.info("枚举类型映射失败 [{}] [{}]", enumType, value);
-                        throw new BusinessException(ErrorCode.ENUMS_FORMAT);
+            if (jsonCreatorMethod != null) {
+                try {
+                    if (jsonCreatorMethod.getParameterTypes()[0] == Integer.class) {
+                        return (T) jsonCreatorMethod.invoke(null, Integer.parseInt(value));
                     }
+                    return (T) jsonCreatorMethod.invoke(null, value);
+                } catch (Exception e) {
+                    log.error("自定义@JsonCreator绑定异常, [{}] [{}]", value, jsonCreatorMethod, e);
+                    throw new BusinessException(ErrorCode.ENUMS_FORMAT);
                 }
             }
             return (T) Enum.valueOf(this.enumType, value.trim());
+        }
+
+        /**
+         * 获取JsonCreator注解的方法 (静态方法)
+         *
+         * @param clazz 枚举类
+         * @return 包含JsonCreator注解的方法 (注意:方法入参为String或Integer)
+         */
+        private static Method getJsonCreatorMethod(Class<?> clazz) {
+            Method[] methods = clazz.getDeclaredMethods();
+            for (Method method : methods) {
+                JsonCreator creator = method.getDeclaredAnnotation(JsonCreator.class);
+                if (creator != null && method.getParameterCount() == 1 && (method.getParameterTypes()[0] == String.class || method.getParameterTypes()[0] == Integer.class)) {
+                    return method;
+                }
+            }
+            return null;
         }
     }
 }
