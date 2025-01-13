@@ -4,6 +4,10 @@ import cn.hutool.core.lang.Validator;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
 import com.google.gson.Gson;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.http.MediaType;
@@ -13,10 +17,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -28,22 +28,6 @@ import java.io.PrintWriter;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WebUtil {
-
-    /**
-     * 直接返回前台json格式信息
-     *
-     * @param response 响应对象
-     * @param object   json内容
-     * @throws IOException exception
-     */
-    public static void printJson(HttpServletResponse response, RespBody<Void> object) throws IOException {
-        response.setCharacterEncoding("UTF-8");
-        try (PrintWriter writer = response.getWriter()) {
-            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            writer.write(new Gson().toJson(object));
-            writer.flush();
-        }
-    }
 
     /**
      * 直接返回前台错误json格式信息

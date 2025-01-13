@@ -26,7 +26,7 @@ public class VersionUtil {
      *
      * @param source 原版本号
      * @param target 目标版本号
-     * @return 如果source大于等于target则true   否则false
+     * @return 如果source大于等于target则true 否则false
      */
     public static boolean gte(String source, String target) {
         return parseInt(source) >= parseInt(target);
