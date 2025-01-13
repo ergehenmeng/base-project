@@ -41,23 +41,13 @@ public class TokenInterceptor implements InterceptorAdapter {
             if (memberToken != null) {
                 message.setMemberId(memberToken.getMemberId());
             }
-            if (message.getMemberId() == null && this.hasAccessToken(handler)) {
+            if (message.getMemberId() == null && this.getAnnotation(handler, AccessToken.class) != null) {
                 // 如果用户需要登陆,且用户未获取到,则抛异常
                 log.warn("用户登录已失效,接口需要登录 token:[{}]", token);
                 throw new BusinessException(ErrorCode.LOGIN_TIMEOUT);
             }
         }
         return true;
-    }
-
-    /**
-     * 是否需要登陆校验
-     *
-     * @param handler handlerMethod
-     * @return true:需要验签 false不需要
-     */
-    private boolean hasAccessToken(Object handler) {
-        return this.getAnnotation(handler, AccessToken.class) != null;
     }
 
 }
