@@ -7,17 +7,18 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
+ * 红包工具类(仿微信随机红包)
+ *
  * @author wyb
  * @since 2023/3/28 11:05
  */
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class RedPacketUtil {
+public class RedEnvelopeUtil {
 
     /**
      * 红包最小金额 单位:分
@@ -47,7 +48,7 @@ public class RedPacketUtil {
 
     /**
      * 随机发放红包金额
-     *
+     * 每个红包的金额必须大于最小金额,且不能大于剩余平均金额的2倍, (因为是向下取整,因此最后一个红包是总的剩余金额,也不会为0,且不受上述规则限制)
      * @param amount 总金额, 单位:分
      * @param num    人数
      * @return 金额
@@ -66,8 +67,7 @@ public class RedPacketUtil {
             result.add(value);
             surplus = surplus - value;
         }
-        // 打乱顺序
-        Collections.shuffle(result, random);
+        // 按需决定是否打乱顺序
         return result;
     }
 
@@ -84,5 +84,4 @@ public class RedPacketUtil {
         }
         return result;
     }
-
 }
