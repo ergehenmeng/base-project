@@ -2,9 +2,13 @@ package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.annotation.ExcelDesc;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * 票种
@@ -64,4 +68,11 @@ public enum TicketType {
     @ExcelDesc
     private final String name;
 
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static TicketType of(@JsonProperty("value") Integer value) {
+        if (value == null) {
+            return null;
+        }
+        return Arrays.stream(TicketType.values()).filter(type -> value == type.value).findFirst().orElse(null);
+    }
 }

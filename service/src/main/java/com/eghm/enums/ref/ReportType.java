@@ -3,6 +3,7 @@ package com.eghm.enums.ref;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.annotation.ExcelDesc;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -61,7 +62,7 @@ public enum ReportType {
     private final String name;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static ReportType of(Integer value) {
+    public static ReportType of(@JsonProperty("value") Integer value) {
         if (value == null) {
             return null;
         }

@@ -67,9 +67,4 @@ public enum MerchantType {
         }
         return list;
     }
-
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
 }
