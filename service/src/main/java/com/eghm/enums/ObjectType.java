@@ -36,7 +36,7 @@ public enum ObjectType {
      */
     @EnumValue
     @JsonValue
-    private final Integer value;
+    private final int value;
 
     /**
      * 名称
@@ -49,7 +49,7 @@ public enum ObjectType {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(ObjectType.values()).filter(auditState -> auditState.value == value.intValue()).findFirst().orElse(null);
+        return Arrays.stream(ObjectType.values()).filter(auditState -> auditState.value == value).findFirst().orElse(null);
     }
 
 }

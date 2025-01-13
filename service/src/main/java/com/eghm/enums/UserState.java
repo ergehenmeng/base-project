@@ -39,7 +39,7 @@ public enum UserState {
      */
     @EnumValue
     @JsonValue
-    private final Integer value;
+    private final int value;
 
     /**
      * 名称
@@ -52,7 +52,7 @@ public enum UserState {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(UserState.values()).filter(type -> value.equals(type.value)).findFirst().orElse(null);
+        return Arrays.stream(UserState.values()).filter(type -> value == type.value).findFirst().orElse(null);
     }
 
 }

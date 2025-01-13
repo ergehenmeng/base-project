@@ -55,7 +55,7 @@ public enum ReportType {
 
     @EnumValue
     @JsonValue
-    private final Integer value;
+    private final int value;
 
     @ExcelDesc
     private final String name;
@@ -65,7 +65,7 @@ public enum ReportType {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(ReportType.values()).filter(type -> value.intValue() == type.value).findFirst().orElse(null);
+        return Arrays.stream(ReportType.values()).filter(type -> value == type.value).findFirst().orElse(null);
     }
 
 }

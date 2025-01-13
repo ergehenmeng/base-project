@@ -37,13 +37,13 @@ public class DateAnnotationFormatterBinderFactory extends EmbeddedValueResolutio
 
     @Override
     public @NonNull Printer<?> getPrinter(@NonNull DateFormatter annotation, @NonNull Class<?> fieldType) {
-        DateTimeFormatter formatter = getFormatter(annotation);
+        DateTimeFormatter formatter = this.getFormatter(annotation);
         return new TemporalAccessorPrinter(formatter);
     }
 
     @Override
     public @NonNull Parser<?> getParser(@NonNull DateFormatter annotation, @NonNull Class<?> fieldType) {
-        DateTimeFormatter formatter = getFormatter(annotation);
+        DateTimeFormatter formatter = this.getFormatter(annotation);
         return new DateAnnotationFormatterParser(fieldType, formatter, annotation.offset(), annotation.unit());
     }
 
@@ -55,7 +55,7 @@ public class DateAnnotationFormatterBinderFactory extends EmbeddedValueResolutio
      */
     protected DateTimeFormatter getFormatter(DateFormatter annotation) {
         DateTimeFormatterFactory factory = new DateTimeFormatterFactory();
-        String pattern = resolveEmbeddedValue(annotation.pattern());
+        String pattern = super.resolveEmbeddedValue(annotation.pattern());
         if (StringUtils.hasLength(pattern)) {
             factory.setPattern(pattern);
         }

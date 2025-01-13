@@ -36,7 +36,7 @@ public enum Gender {
 
     @JsonValue
     @EnumValue
-    private final Integer value;
+    private final int value;
 
     private final String name;
 
@@ -45,7 +45,7 @@ public enum Gender {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(Gender.values()).filter(auditState -> auditState.value == value.intValue())
+        return Arrays.stream(Gender.values()).filter(auditState -> auditState.value == value)
                 .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.USER_TYPE_NULL));
     }
 

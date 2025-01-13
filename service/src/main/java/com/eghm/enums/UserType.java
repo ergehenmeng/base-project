@@ -31,7 +31,7 @@ public enum UserType {
 
     @JsonValue
     @EnumValue
-    private final Integer value;
+    private final int value;
 
     private final String name;
 
@@ -40,7 +40,7 @@ public enum UserType {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(UserType.values()).filter(auditState -> auditState.value == value.intValue())
+        return Arrays.stream(UserType.values()).filter(auditState -> auditState.value == value)
                 .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.USER_TYPE_NULL));
     }
 

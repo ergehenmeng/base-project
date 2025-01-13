@@ -39,7 +39,7 @@ public class DateAnnotationFormatterParser implements Parser<Temporal> {
     @Override
     public @NonNull Temporal parse(@NonNull String text, @NonNull Locale locale) {
         try {
-            Temporal parse = doParse(text, locale, this.formatter);
+            Temporal parse = this.doParse(text, locale, this.formatter);
             return parse.plus(this.offset, this.unit);
         } catch (DateTimeParseException ex) {
             log.info("日期参数解析失败 [{}]", text, ex);

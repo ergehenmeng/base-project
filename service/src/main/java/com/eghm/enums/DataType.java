@@ -45,7 +45,7 @@ public enum DataType {
 
     @JsonValue
     @EnumValue
-    private final Integer value;
+    private final int value;
 
     private final String msg;
 
@@ -54,7 +54,7 @@ public enum DataType {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(DataType.values()).filter(auditState -> auditState.value == value.intValue())
+        return Arrays.stream(DataType.values()).filter(auditState -> auditState.value == value)
                 .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.DATA_TYPE_ERROR));
     }
 

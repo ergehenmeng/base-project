@@ -34,7 +34,7 @@ public enum CollectType {
      */
     @EnumValue
     @JsonValue
-    private final Integer value;
+    private final int value;
 
     /**
      * 名称
@@ -47,7 +47,7 @@ public enum CollectType {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(CollectType.values()).filter(couponMode -> couponMode.value == value.intValue()).findFirst().orElse(null);
+        return Arrays.stream(CollectType.values()).filter(couponMode -> couponMode.value == value).findFirst().orElse(null);
     }
 
 }
