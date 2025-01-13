@@ -236,6 +236,11 @@ public enum ErrorCode {
     PWD_NOT_SUPPORTED(2075, "不支持账号密码登录"),
 
     /**
+     * 不支持扫码登录
+     */
+    QRCODE_NOT_SUPPORTED(2076, "不支持扫码登录"),
+
+    /**
      * 账号或密码输入错误
      */
     ACCOUNT_PASSWORD_ERROR(2114, "账号或密码输入错误"),
