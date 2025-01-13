@@ -1,9 +1,13 @@
 package com.eghm.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * @author 二哥很猛
@@ -27,4 +31,12 @@ public enum SelectType {
     private final String value;
 
     private final String name;
+
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static SelectType of(@JsonProperty("value") String value) {
+        if (value == null) {
+            return null;
+        }
+        return Arrays.stream(SelectType.values()).filter(select -> select.value.equals(value)).findFirst().orElse(null);
+    }
 }

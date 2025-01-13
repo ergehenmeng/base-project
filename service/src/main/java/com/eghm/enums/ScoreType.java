@@ -1,6 +1,7 @@
 package com.eghm.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -65,7 +66,7 @@ public enum ScoreType {
     private final Integer direction;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static ScoreType of(Integer value) {
+    public static ScoreType of(@JsonProperty("value") Integer value) {
         if (value == null) {
             return null;
         }

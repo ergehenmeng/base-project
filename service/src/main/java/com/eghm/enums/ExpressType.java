@@ -1,6 +1,7 @@
 package com.eghm.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -75,19 +76,19 @@ public enum ExpressType {
      */
     OTHER("other", "其他");
 
-    private final String code;
+    private final String value;
 
     private final String name;
 
     /**
      * 快递公司映射
      *
-     * @param code code
+     * @param value value
      * @return 角色列表
      */
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static ExpressType of(String code) {
+    public static ExpressType of(@JsonProperty("value") String value) {
         return Arrays.stream(ExpressType.values())
-                .filter(map -> code.equals(map.getCode())).findFirst().orElse(OTHER);
+                .filter(map -> value.equals(map.getValue())).findFirst().orElse(OTHER);
     }
 }

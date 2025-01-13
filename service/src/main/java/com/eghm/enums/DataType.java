@@ -3,6 +3,7 @@ package com.eghm.enums;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.exception.BusinessException;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -49,7 +50,7 @@ public enum DataType {
     private final String msg;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static DataType of(Integer value) {
+    public static DataType of(@JsonProperty("value") Integer value) {
         if (value == null) {
             return null;
         }

@@ -6,6 +6,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.utils.DateUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -91,7 +92,7 @@ public enum ProductType {
     private final String tableName;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static ProductType of(String value) {
+    public static ProductType of(@JsonProperty("value") String value) {
         return Arrays.stream(ProductType.values()).filter(productType -> productType.getValue().equals(value))
                 .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.PRODUCT_TYPE_MATCH));
     }

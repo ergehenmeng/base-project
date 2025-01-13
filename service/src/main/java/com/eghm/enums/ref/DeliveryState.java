@@ -2,6 +2,7 @@ package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,7 +49,7 @@ public enum DeliveryState {
     private final String name;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static DeliveryState of(Integer value) {
+    public static DeliveryState of(@JsonProperty("value") Integer value) {
         if (value == null) {
             return null;
         }

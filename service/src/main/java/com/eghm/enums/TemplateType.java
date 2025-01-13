@@ -1,7 +1,8 @@
 package com.eghm.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.eghm.exception.BusinessException;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -77,9 +78,10 @@ public enum TemplateType {
      */
     private final String content;
 
-    public static TemplateType of(String value) {
+    @JsonCreator
+    public static TemplateType of(@JsonProperty("value") String value) {
         return Arrays.stream(TemplateType.values())
                 .filter(map -> value.equals(map.getValue()))
-                .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.SMS_TEMPLATE_NULL));
+                .findFirst().orElse(null);
     }
 }
