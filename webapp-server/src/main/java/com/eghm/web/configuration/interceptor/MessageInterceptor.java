@@ -1,5 +1,6 @@
 package com.eghm.web.configuration.interceptor;
 
+import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.URLUtil;
 import com.eghm.annotation.SkipLogger;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
@@ -11,14 +12,13 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.ParameterException;
 import com.eghm.utils.WebUtil;
 import com.google.common.collect.Maps;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
@@ -110,7 +110,7 @@ public class MessageInterceptor implements InterceptorAdapter {
         // 此处选择只针对json格式的post请求才会读取流信息
         if (HttpMethod.POST.matches(request.getMethod()) && request.getHeader("Content-Type").startsWith(MediaType.APPLICATION_JSON_VALUE)) {
             try {
-                return IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
+                return IoUtil.read(request.getInputStream(), CommonConstant.CHARSET);
             } catch (IOException e) {
                 log.warn("获取POST请求参数信息异常", e);
                 throw new ParameterException(ErrorCode.READ_PARAM_ERROR);
