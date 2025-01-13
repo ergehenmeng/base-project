@@ -24,7 +24,7 @@
         <result property="dictType" column="dict_type"/>
         <result property="remark" column="remark"/>
         <result property="createTime" column="create_time"/>
-        <collection property="subList" ofType="com.eghm.vo.sys.dict.DictItemResponse">
+        <collection property="itemList" ofType="com.eghm.vo.sys.dict.DictItemResponse">
             <id property="id" column="rid"/>
             <result property="hiddenValue" column="hidden_value"/>
             <result property="showValue" column="show_value"/>
