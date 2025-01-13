@@ -3,7 +3,7 @@ package com.eghm.configuration.template;
 import java.util.Map;
 
 /**
- * html模板渲染 默认实现freemarker,可使用thymeleaf实现
+ * html模板渲染 默认实现freemarker,可使用thymeleaf实现(需自行实现)
  *
  * @author 二哥很猛
  * @since 2019/7/10 15:47

@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
+ * 由于日志记录 WebappLogAspect/WebappLogAspect 请求参数序列化时依赖gson, 所以需要自定义日期格式化适配器
+ *
  * @author 二哥很猛
  * @since 2025/1/9
  */

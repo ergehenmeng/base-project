@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * mybatis-plus 分页插件 + 数据权限
+ *
  * @author 二哥很猛
  * @since 2021/12/25 13:44
  */

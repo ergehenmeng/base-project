@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * 短信配置 阿里云短信 + 腾讯云短信
+ *
  * @author 二哥很猛
  * @since 2024/10/29
  */

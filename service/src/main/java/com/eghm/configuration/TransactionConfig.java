@@ -14,6 +14,8 @@ import org.springframework.transaction.interceptor.TransactionAttributeSource;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
 
 /**
+ * 事务配置 支持 注解事务和声明式事务
+ *
  * @author 二哥很猛
  * @since 2018/1/11 15:15
  */

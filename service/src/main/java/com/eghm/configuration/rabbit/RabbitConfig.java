@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 
 /**
- * mq配置
+ * rabbitmq增强配置 支持日志链路追踪,方便排查问题
  *
  * @author 二哥很猛 2022/6/10 11:21
  */

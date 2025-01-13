@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.introspect.Annotated;
 import com.fasterxml.jackson.databind.introspect.NopAnnotationIntrospector;
 
 /**
+ * 对返回前端的字段脱敏
+ *
  * @author 二哥很猛
  * @since 2023/12/27
  */

@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
+ * 验证码阴影
+ *
  * @author wyb
  * @since 2023/5/18
  */

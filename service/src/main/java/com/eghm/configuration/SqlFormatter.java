@@ -4,6 +4,8 @@ import cn.hutool.core.util.StrUtil;
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
 
 /**
+ * SQL格式化
+ *
  * @author 二哥很猛
  * @since 2021/12/25 22:35
  */

@@ -17,6 +17,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * oss 配置 阿里 + 本地
+ *
  * @author 二哥很猛
  * @since 2024/5/24
  */

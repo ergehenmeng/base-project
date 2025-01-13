@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * 支付宝支付配置
+ *
  * @author 二哥很猛
  * @since 2022/7/25
  */

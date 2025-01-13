@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 
 /**
+ * 对返回前端的字段脱敏
+ *
  * @author 二哥很猛
  * @since 2023/12/27
  */

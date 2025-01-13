@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * token配置 (管理后台)
+ *
  * @author 二哥很猛
  * @since 2023/7/14
  */
