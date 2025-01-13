@@ -6,9 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.lang.NonNull;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionSynchronization;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -62,11 +59,9 @@ public class TransactionUtil {
      */
     public static void manualCommit(Runnable runnable) {
         // 采用静态方式为了减少从容器中查询bean所消耗的时间
-        TEMPLATE.execute(new TransactionCallbackWithoutResult() {
-            @Override
-            protected void doInTransactionWithoutResult(@NonNull TransactionStatus status) {
-                runnable.run();
-            }
+        TEMPLATE.execute(status -> {
+            runnable.run();
+            return null;
         });
     }
 
