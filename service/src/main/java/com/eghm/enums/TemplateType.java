@@ -1,9 +1,13 @@
 package com.eghm.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * 映射
@@ -64,4 +68,11 @@ public enum TemplateType {
      */
     private final String content;
 
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static TemplateType of(@JsonProperty("value") String value) {
+        if (value == null) {
+            return null;
+        }
+        return Arrays.stream(TemplateType.values()).filter(select -> select.value.equals(value)).findFirst().orElse(null);
+    }
 }
