@@ -45,12 +45,4 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      */
     void batchInsert(@Param("roleId") Long roleId, @Param("menuIdList") List<Long> menuIdList);
 
-    /**
-     * 统计用户是否拥有指定角色类型
-     *
-     * @param userId   用户ID
-     * @param roleType 角色类型
-     * @return >0 表示有
-     */
-    int countByRoleType(@Param("userId") Long userId, @Param("roleType") String roleType);
 }

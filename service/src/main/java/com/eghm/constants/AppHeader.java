@@ -28,7 +28,7 @@ public class AppHeader {
     public static final String OS_VERSION = "Os-Version";
 
     /**
-     * 基础参数   设备厂商
+     * 基础参数 设备厂商
      */
     public static final String DEVICE_BRAND = "Device-Brand";
 

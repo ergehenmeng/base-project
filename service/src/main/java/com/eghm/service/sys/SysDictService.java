@@ -81,12 +81,4 @@ public interface SysDictService {
      */
     String getDictValue(String nid, Integer hiddenValue);
 
-    /**
-     * 批量查询字典标签
-     *
-     * @param nid    标签分类标识符
-     * @param tagIds 一系列标签 逗号分割
-     * @return 标签列表
-     */
-    List<String> getTags(String nid, String tagIds);
 }
