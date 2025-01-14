@@ -26,7 +26,7 @@ public class ScheduledLockAspect {
 
     @Around("@annotation(org.springframework.scheduling.annotation.Scheduled) && within(com.eghm.configuration.task..*)")
     public Object around(ProceedingJoinPoint joinPoint) {
-        // 类名@方法名
+        // 使用 `类名@方法名` 作为 lockKey, 减少并发
         String lockKey = joinPoint.getSignature().getDeclaringType().getName() + CommonConstant.SPECIAL_SPLIT + joinPoint.getSignature().getName();
         return redisLock.lock(lockKey, CommonConstant.SCHEDULED_MAX_LOCK_TIME, () -> {
             try {

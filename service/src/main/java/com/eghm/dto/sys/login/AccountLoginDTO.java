@@ -2,6 +2,7 @@ package com.eghm.dto.sys.login;
 
 import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.Password;
+import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -21,6 +22,7 @@ public class AccountLoginDTO {
     @Password(message = "密码格式错误")
     @Schema(description = "密码,MD5小写加密过", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "密码不能为空")
+    @Expose(serialize = false)
     private String pwd;
 
     @Schema(description = "ip", hidden = true)

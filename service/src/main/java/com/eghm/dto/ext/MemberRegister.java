@@ -1,5 +1,6 @@
 package com.eghm.dto.ext;
 
+import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -32,6 +33,7 @@ public class MemberRegister {
     private String email;
 
     @Schema(description = "密码")
+    @Expose(serialize = false)
     private String pwd;
 
     @Schema(description = "注册渠道")
