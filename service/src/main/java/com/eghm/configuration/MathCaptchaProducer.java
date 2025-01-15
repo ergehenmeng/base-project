@@ -17,9 +17,9 @@ import java.util.function.BiFunction;
  */
 public class MathCaptchaProducer extends DefaultTextCreator {
 
-    private static final int MAX = 29;
+    private static final int MAX = 50;
 
-    private static final int MIN = 9;
+    private static final int MIN = 10;
 
     private static final Map<Integer, BiFunction<Integer, Integer, String>> MATH_MAP = new HashMap<>(4);
 
@@ -32,8 +32,8 @@ public class MathCaptchaProducer extends DefaultTextCreator {
     @Override
     public String getText() {
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        int x = random.nextInt(MAX) + 1;
-        int y = random.nextInt(MIN) + 1;
+        int x = random.nextInt(MAX);
+        int y = random.nextInt(MIN);
         int symbol = random.nextInt(MATH_MAP.size());
         return MATH_MAP.get(symbol).apply(x, y);
     }
