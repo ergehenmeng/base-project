@@ -23,7 +23,7 @@ public class SwaggerConfig {
     private final SystemProperties systemProperties;
 
     @Bean
-    public GroupedOpenApi userApi(){
+    public GroupedOpenApi userApi() {
         SystemProperties.ManageProperties properties = systemProperties.getManage();
         return GroupedOpenApi.builder().group("管理端API接口")
                 .pathsToMatch("/**")
