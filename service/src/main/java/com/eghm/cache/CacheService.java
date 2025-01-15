@@ -164,29 +164,12 @@ public interface CacheService {
     boolean hasSetKey(String key, Object value);
 
     /**
-     * 获取hash的长度
-     *
-     * @param key key
-     * @return 数量
-     */
-    long getHashSize(String key);
-
-    /**
      * 删除hash中的某个key
      *
      * @param key   主key
      * @param hKeys hKeys
      */
     void deleteHashKey(String key, Object... hKeys);
-
-    /**
-     * 设置bitmap值
-     *
-     * @param key   key
-     * @param ops   下标
-     * @param value 值
-     */
-    void setBitmap(String key, Long ops, Boolean value);
 
     /**
      * 设置set值
@@ -204,14 +187,6 @@ public interface CacheService {
      * @return boolean
      */
     boolean getBitmap(String key, Long ops);
-
-    /**
-     * 统计bitmap中为true的总个数
-     *
-     * @param key key
-     * @return 个数
-     */
-    Long getBitmapCount(String key);
 
 }
 

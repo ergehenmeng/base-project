@@ -37,6 +37,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * 步长默认2位数即 10~99
      */
     private static final String STEP = "10";
+
     /**
      * 同级别最多有90个菜单
      */

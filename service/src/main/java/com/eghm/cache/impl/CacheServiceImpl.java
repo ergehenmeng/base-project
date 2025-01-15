@@ -13,11 +13,9 @@ import com.eghm.lock.RedisLock;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
@@ -196,18 +194,8 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public long getHashSize(String key) {
-        return redisTemplate.opsForHash().size(key);
-    }
-
-    @Override
     public void deleteHashKey(String key, Object... hKeys) {
         redisTemplate.opsForHash().delete(key, hKeys);
-    }
-
-    @Override
-    public void setBitmap(String key, Long ops, Boolean value) {
-        redisTemplate.opsForValue().setBit(key, ops, value);
     }
 
     @Override
@@ -218,11 +206,6 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public boolean getBitmap(String key, Long ops) {
         return Boolean.TRUE.equals(redisTemplate.opsForValue().getBit(key, ops));
-    }
-
-    @Override
-    public Long getBitmapCount(String key) {
-        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.stringCommands().bitCount(key.getBytes(StandardCharsets.UTF_8)));
     }
 
 }
