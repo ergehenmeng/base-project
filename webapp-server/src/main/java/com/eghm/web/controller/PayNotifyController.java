@@ -74,7 +74,7 @@ public class PayNotifyController {
         payNotifyLogService.insertWechatPayLog(payNotify);
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         String orderNo = payNotify.getResult().getAttach();
-        return this.wechatResult(response, () ->  log.error("微信支付回调: [{}] ", orderNo));
+        return this.wechatResult(response, () -> log.error("微信支付回调: [{}] ", orderNo));
     }
 
     @PostMapping(WECHAT_REFUND_NOTIFY_URL)

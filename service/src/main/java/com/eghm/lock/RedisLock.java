@@ -28,19 +28,7 @@ public interface RedisLock {
      * @param lockTime 锁最大持续时间,单位:毫秒
      * @param runnable 获取成功后执行业务
      */
-    void lockVoid(String key, long lockTime, Runnable runnable);
-
-    /**
-     * 获取锁后执行指定逻辑
-     *
-     * @param key      key
-     * @param waitTime 最大等待时间, 单位:毫秒
-     * @param lockTime 锁最大持续时间,单位:毫秒
-     * @param supplier 获取成功后执行业务
-     * @param <T>      T
-     * @return T
-     */
-    <T> T lock(String key, long waitTime, long lockTime, Supplier<T> supplier);
+    void lock(String key, long lockTime, Runnable runnable);
 
     /**
      * 获取锁后执行指定逻辑,如果获取失败则执行失败策略

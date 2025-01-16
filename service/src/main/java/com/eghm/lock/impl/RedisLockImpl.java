@@ -29,16 +29,11 @@ public class RedisLockImpl implements RedisLock {
     }
 
     @Override
-    public void lockVoid(String key, long lockTime, Runnable runnable) {
+    public void lock(String key, long lockTime, Runnable runnable) {
         this.lock(key, 0, lockTime, () -> {
             runnable.run();
             return null;
         }, null);
-    }
-
-    @Override
-    public <T> T lock(String key, long waitTime, long lockTime, Supplier<T> supplier) {
-        return this.lock(key, waitTime, lockTime, supplier, null);
     }
 
     @Override
@@ -61,7 +56,7 @@ public class RedisLockImpl implements RedisLock {
                 return supplier.get();
             }
         } catch (InterruptedException e) {
-            log.error("锁中断异常 [{}]", key, e);
+            log.error("lock锁中断异常 [{}]", key, e);
             Thread.currentThread().interrupt();
         } finally {
             if (lock != null && lock.isHeldByCurrentThread()) {

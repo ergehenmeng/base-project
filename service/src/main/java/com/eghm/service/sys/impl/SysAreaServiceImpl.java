@@ -1,6 +1,5 @@
 package com.eghm.service.sys.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.model.SysArea;
 import com.eghm.service.sys.SysAreaService;
@@ -30,14 +29,6 @@ public class SysAreaServiceImpl implements SysAreaService {
     }
 
     @Override
-    public String parseArea(Long provinceId, Long cityId, Long countyId, String address) {
-        if (address == null) {
-            return this.parseArea(provinceId, cityId, countyId);
-        }
-        return this.parseArea(provinceId, cityId, countyId) + address;
-    }
-
-    @Override
     public String parseArea(Long cityId, Long countyId) {
         if (cityId == null || countyId == null) {
             return "";
@@ -62,36 +53,4 @@ public class SysAreaServiceImpl implements SysAreaService {
         return this.parseArea(cityId, countyId) + address;
     }
 
-    @Override
-    public String parseProvinceCity(Long provinceId, Long cityId, String split) {
-        if (provinceId == null || cityId == null) {
-            return "";
-        }
-        SysArea sysArea = cacheProxyService.getAreaById(provinceId);
-        String address = "";
-        if (sysArea != null) {
-            address += sysArea.getTitle();
-        }
-        String splitStr = split == null ? "" : split;
-        sysArea = cacheProxyService.getAreaById(cityId);
-        if (sysArea != null) {
-            if (StrUtil.isNotBlank(address)) {
-                address += splitStr;
-            }
-            address += sysArea.getTitle();
-        }
-        return address;
-    }
-
-    @Override
-    public String parseCity(Long cityId) {
-        if (cityId == null) {
-            return "";
-        }
-        SysArea sysArea = cacheProxyService.getAreaById(cityId);
-        if (sysArea != null) {
-            return sysArea.getTitle();
-        }
-        return "";
-    }
 }

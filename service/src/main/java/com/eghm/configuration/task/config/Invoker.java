@@ -25,11 +25,11 @@ import java.time.LocalDateTime;
 @Slf4j
 public class Invoker implements Runnable {
 
-    private final AbstractTask task;
-
     private final Object bean;
 
     private final Method method;
+
+    private final AbstractTask task;
 
     private final RedisLock redisLock;
 
@@ -59,7 +59,7 @@ public class Invoker implements Runnable {
         long startTime = System.currentTimeMillis();
         try {
             // 外层加锁防止多实例运行时有并发执行问题, 幂等由业务进行控制
-            redisLock.lockVoid(key, task.getLockTime(), () -> ReflectUtil.invoke(bean, method, task.getArgs()));
+            redisLock.lock(key, task.getLockTime(), () -> ReflectUtil.invoke(bean, method, task.getArgs()));
         } catch (Exception e) {
             // 异常时记录日志并发送邮件
             log.error("定时任务执行异常 bean:[{}] method: [{}]", task.getBeanName(), task.getMethodName(), e);

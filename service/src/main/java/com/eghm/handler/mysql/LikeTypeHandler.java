@@ -1,6 +1,7 @@
 package com.eghm.handler.mysql;
 
 import cn.hutool.core.util.StrUtil;
+import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
@@ -13,6 +14,7 @@ import java.sql.SQLException;
  * @author wyb
  * @since 2023/4/3
  */
+@NoArgsConstructor
 public class LikeTypeHandler extends BaseTypeHandler<String> {
 
     @Override
