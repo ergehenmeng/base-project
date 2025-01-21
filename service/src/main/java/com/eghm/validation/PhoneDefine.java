@@ -2,11 +2,10 @@ package com.eghm.validation;
 
 
 import cn.hutool.core.util.PhoneUtil;
-import cn.hutool.core.util.StrUtil;
 import com.eghm.validation.annotation.Phone;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * @author 二哥很猛
@@ -26,6 +25,6 @@ public class PhoneDefine implements ConstraintValidator<Phone, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return (!required && StrUtil.isBlank(value)) || (PhoneUtil.isMobile(value) || PhoneUtil.isTel(value) || PhoneUtil.isTel400800(value));
+        return (!required && isBlank(value)) || (PhoneUtil.isMobile(value) || PhoneUtil.isTel(value) || PhoneUtil.isTel400800(value));
     }
 }

@@ -1,6 +1,5 @@
 package com.eghm.common.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.eghm.common.JsonService;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.ParameterException;
@@ -10,6 +9,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * @author 殿小二
@@ -37,7 +38,7 @@ public class JsonServiceImpl implements JsonService {
 
     @Override
     public <T> T fromJson(String json, Class<T> cls) {
-        if (StrUtil.isBlank(json)) {
+        if (isBlank(json)) {
             return null;
         }
         try {
@@ -50,7 +51,7 @@ public class JsonServiceImpl implements JsonService {
 
     @Override
     public <T> T fromJson(String json, TypeReference<T> reference) {
-        if (StrUtil.isBlank(json)) {
+        if (isBlank(json)) {
             return null;
         }
         try {

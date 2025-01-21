@@ -25,6 +25,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.atomic.AtomicLong;
 
+import static com.eghm.utils.StringUtil.isBlank;
+
 /**
  * @author 二哥很猛
  */
@@ -141,7 +143,7 @@ public class TaskRegistrar {
      */
     private void verifyCronExpression(List<CronTaskDecorator> taskList) {
         for (CronTaskDecorator task : taskList) {
-            if (StrUtil.isBlank(task.getExpression()) || !CronExpression.isValidExpression(task.getExpression())) {
+            if (isBlank(task.getExpression()) || !CronExpression.isValidExpression(task.getExpression())) {
                 log.error("定时任务表达式配置错误 nid:[{}],cron:[{}]", task.getNid(), task.getExpression());
                 throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
             }

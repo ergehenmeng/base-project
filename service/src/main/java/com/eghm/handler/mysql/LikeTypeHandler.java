@@ -1,6 +1,5 @@
 package com.eghm.handler.mysql;
 
-import cn.hutool.core.util.StrUtil;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
@@ -9,6 +8,8 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author wyb
@@ -19,7 +20,7 @@ public class LikeTypeHandler extends BaseTypeHandler<String> {
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, String parameter, JdbcType jdbcType) throws SQLException {
-        parameter = StrUtil.isNotBlank(parameter) ? parameter.replace("%", "\\%").replace("_", "\\_") : null;
+        parameter = isNotBlank(parameter) ? parameter.replace("%", "\\%").replace("_", "\\_") : null;
         ps.setString(i, parameter);
     }
 

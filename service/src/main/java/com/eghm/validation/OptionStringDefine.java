@@ -1,11 +1,12 @@
 package com.eghm.validation;
 
-import cn.hutool.core.util.StrUtil;
 import com.eghm.validation.annotation.OptionString;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+
 import java.util.Arrays;
+
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * @author 二哥很猛
@@ -31,7 +32,7 @@ public class OptionStringDefine implements ConstraintValidator<OptionString, Str
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (!required && StrUtil.isBlank(value)) {
+        if (!required && isBlank(value)) {
             return true;
         }
         return Arrays.asList(values).contains(value);

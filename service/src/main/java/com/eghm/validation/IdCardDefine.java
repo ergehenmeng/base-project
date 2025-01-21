@@ -2,11 +2,12 @@ package com.eghm.validation;
 
 
 import cn.hutool.core.util.IdcardUtil;
-import cn.hutool.core.util.StrUtil;
 import com.eghm.validation.annotation.IdCard;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+
+import static com.eghm.utils.StringUtil.isBlank;
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author 二哥很猛
@@ -26,6 +27,6 @@ public class IdCardDefine implements ConstraintValidator<IdCard, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return (!required && StrUtil.isBlank(value)) || (StrUtil.isNotBlank(value) && IdcardUtil.isValidCard18(value));
+        return (!required && isBlank(value)) || (isNotBlank(value) && IdcardUtil.isValidCard18(value));
     }
 }

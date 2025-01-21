@@ -1,6 +1,5 @@
 package com.eghm.common.impl;
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.http.HttpUtil;
@@ -17,6 +16,8 @@ import org.springframework.scheduling.annotation.Async;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author 二哥很猛
@@ -65,7 +66,7 @@ public class DingTalkAlarmServiceImpl implements AlarmService {
         SystemProperties.AlarmMsg alarmMsg = systemProperties.getAlarmMsg();
         Map<String, Object> paramMap = new HashMap<>(4);
         paramMap.put("access_token", alarmMsg.getWebHook());
-        if (StrUtil.isNotBlank(alarmMsg.getSecret())) {
+        if (isNotBlank(alarmMsg.getSecret())) {
             long timestamp = System.currentTimeMillis();
             String unSign = timestamp + "\n" + alarmMsg.getSecret();
             String sign = SecureUtil.hmacSha256(alarmMsg.getSecret()).digestBase64(unSign, true);

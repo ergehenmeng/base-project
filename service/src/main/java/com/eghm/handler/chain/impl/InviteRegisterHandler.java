@@ -1,6 +1,5 @@
 package com.eghm.handler.chain.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.eghm.dto.ext.MemberRegister;
 import com.eghm.handler.chain.Handler;
 import com.eghm.handler.chain.HandlerInvoker;
@@ -15,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * 邀请记录
@@ -39,7 +40,7 @@ public class InviteRegisterHandler implements Handler {
         log.info("注册添加邀请记录");
         MemberRegister register = data.getMemberRegister();
         Member dataMember = data.getMember();
-        if (StrUtil.isNotBlank(register.getInviteCode())) {
+        if (isNotBlank(register.getInviteCode())) {
             Member member = memberService.getByInviteCode(register.getInviteCode());
             if (member != null) {
                 MemberInviteLog inviteLog = new MemberInviteLog();

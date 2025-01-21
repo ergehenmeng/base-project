@@ -1,6 +1,5 @@
 package com.eghm.web.controller;
 
-import cn.hutool.core.util.StrUtil;
 import com.eghm.common.MemberTokenService;
 import com.eghm.common.SmsService;
 import com.eghm.constants.AppHeader;
@@ -12,15 +11,16 @@ import com.eghm.enums.TemplateType;
 import com.eghm.service.business.MemberService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginTokenVO;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpServletRequest;
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * 登陆,找回密码相关
@@ -91,7 +91,7 @@ public class LoginController {
     @Operation(summary = "刷新token")
     @PostMapping(value = "/token/refresh")
     public RespBody<String> refresh(@RequestHeader(value = AppHeader.REFRESH_TOKEN, required = false) String refreshToken) {
-        if (StrUtil.isBlank(refreshToken)) {
+        if (isBlank(refreshToken)) {
             log.warn("请求头没有包含Refresh-Token,无法刷新");
             return RespBody.error(ErrorCode.REFRESH_TOKEN_EXPIRE);
         }

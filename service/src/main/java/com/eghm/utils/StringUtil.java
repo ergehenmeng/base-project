@@ -1,7 +1,7 @@
 package com.eghm.utils;
 
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,7 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.security.SecureRandom;
 
 /**
  * 字符串日常工具类
@@ -103,12 +103,43 @@ public class StringUtil {
             return null;
         }
         StringBuilder builder = new StringBuilder();
-        ThreadLocalRandom random = ThreadLocalRandom.current();
+        SecureRandom random = new SecureRandom();
         do {
             length--;
             builder.append(scope.charAt(random.nextInt(scope.length())));
         } while (length > 0);
         return builder.toString();
+    }
+
+    /**
+     * 字符串是否为空白
+     *
+     * @param str str
+     * @return boolean false:不为空 true:为空
+     */
+    public static boolean isBlank(String str) {
+        return str == null || str.isEmpty() || str.trim().isEmpty();
+    }
+
+    /**
+     * 字符串是否为空白
+     *
+     * @param str str
+     * @return boolean false:不为空 true:为空
+     */
+    public static boolean isNotBlank(String str) {
+        return !isBlank(str);
+    }
+
+    /**
+     * 限制字符串长度，如果超过指定长度，截取指定长度并在末尾加"..."
+     *
+     * @param string 字符串
+     * @param length 最大长度
+     * @return 格式化后的字符串
+     */
+    public static String maxLength(CharSequence string, int length) {
+        return CharSequenceUtil.maxLength(string, length);
     }
 
     /**
@@ -150,7 +181,7 @@ public class StringUtil {
      * @return 首字母
      */
     public static String getInitial(String chinese) {
-        if (StrUtil.isBlank(chinese)) {
+        if (isBlank(chinese)) {
             return null;
         }
         char charAt = chinese.charAt(0);
@@ -173,7 +204,7 @@ public class StringUtil {
      * @return 二哥很猛 -> EGHM
      */
     public static String getInitialLetter(String chinese) {
-        if (StrUtil.isBlank(chinese)) {
+        if (isBlank(chinese)) {
             return null;
         }
         StringBuilder builder = new StringBuilder();

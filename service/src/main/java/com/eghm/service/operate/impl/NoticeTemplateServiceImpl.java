@@ -1,6 +1,5 @@
 package com.eghm.service.operate.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -13,6 +12,8 @@ import com.eghm.service.operate.NoticeTemplateService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author 殿小二
@@ -29,7 +30,7 @@ public class NoticeTemplateServiceImpl implements NoticeTemplateService {
     @Override
     public Page<NoticeTemplate> getByPage(PagingQuery query) {
         LambdaQueryWrapper<NoticeTemplate> wrapper = Wrappers.lambdaQuery();
-        wrapper.and(StrUtil.isNotBlank(query.getQueryName()), queryWrapper -> queryWrapper.like(NoticeTemplate::getTitle, query.getQueryName()).or().like(NoticeTemplate::getContent, query.getQueryName()));
+        wrapper.and(isNotBlank(query.getQueryName()), queryWrapper -> queryWrapper.like(NoticeTemplate::getTitle, query.getQueryName()).or().like(NoticeTemplate::getContent, query.getQueryName()));
         wrapper.orderByDesc(NoticeTemplate::getId);
         return noticeTemplateMapper.selectPage(query.createPage(), wrapper);
     }

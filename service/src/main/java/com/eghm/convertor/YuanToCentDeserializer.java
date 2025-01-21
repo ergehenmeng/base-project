@@ -1,6 +1,5 @@
 package com.eghm.convertor;
 
-import cn.hutool.core.util.StrUtil;
 import com.eghm.utils.DecimalUtil;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -8,6 +7,8 @@ import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * @author 二哥很猛
@@ -22,7 +23,7 @@ public class YuanToCentDeserializer extends StdScalarDeserializer<Integer> {
     @Override
     public Integer deserialize(JsonParser p, DeserializationContext ctx) throws IOException {
         String text = p.getText().trim();
-        if (StrUtil.isEmpty(text)) {
+        if (isBlank(text)) {
             return null;
         }
         double value = new BigDecimal(text).doubleValue();

@@ -1,7 +1,6 @@
 package com.eghm.convertor;
 
 import cn.hutool.core.net.Ipv4Util;
-import cn.hutool.core.util.StrUtil;
 import com.eghm.exception.BusinessException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -10,6 +9,7 @@ import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
 import java.io.IOException;
 
 import static com.eghm.enums.ErrorCode.IP_ILLEGAL;
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * ip反序列化器
@@ -26,7 +26,7 @@ public class IpToLongDeserializer extends StdScalarDeserializer<Long> {
     @Override
     public Long deserialize(JsonParser p, DeserializationContext ctx) throws IOException {
         String text = p.getText().trim();
-        if (StrUtil.isEmpty(text)) {
+        if (isBlank(text)) {
             return null;
         }
         try {

@@ -1,7 +1,6 @@
 package com.eghm.web.configuration.interceptor;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.eghm.annotation.SkipPerm;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.dto.ext.SecurityHolder;
@@ -10,19 +9,21 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.model.SysMenu;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.WebUtil;
+import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.util.StringUtils;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author 二哥很猛
@@ -41,7 +42,7 @@ public class PermInterceptor implements InterceptorAdapter {
         List<SysMenu> selectList = sysMenuService.getButtonList();
         PERM_MAP.clear();
         for (SysMenu menu : selectList) {
-            if (StrUtil.isNotBlank(menu.getSubPath())) {
+            if (isNotBlank(menu.getSubPath())) {
                 for (String subUrl : StringUtils.tokenizeToStringArray(menu.getSubPath(), ",; ")) {
                     List<String> codeList = PERM_MAP.getOrDefault(subUrl, new ArrayList<>(8));
                     codeList.add(menu.getCode());

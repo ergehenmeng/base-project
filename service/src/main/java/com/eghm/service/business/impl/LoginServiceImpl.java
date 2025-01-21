@@ -1,12 +1,11 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.ext.LoginRecord;
 import com.eghm.dto.business.member.LoginLogQueryRequest;
+import com.eghm.dto.ext.LoginRecord;
 import com.eghm.mapper.LoginDeviceMapper;
 import com.eghm.mapper.LoginLogMapper;
 import com.eghm.model.LoginDevice;
@@ -19,6 +18,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author 二哥很猛
@@ -36,7 +37,7 @@ public class LoginServiceImpl implements LoginService {
     public Page<LoginLog> getByPage(LoginLogQueryRequest request) {
         LambdaQueryWrapper<LoginLog> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(LoginLog::getMemberId, request.getMemberId());
-        wrapper.eq(StrUtil.isNotBlank(request.getChannel()), LoginLog::getChannel, request.getChannel());
+        wrapper.eq(isNotBlank(request.getChannel()), LoginLog::getChannel, request.getChannel());
         wrapper.ge(request.getStartDate() != null, LoginLog::getCreateTime, request.getStartDate());
         wrapper.le(request.getEndDate() != null, LoginLog::getCreateTime, request.getEndDate());
         wrapper.orderByDesc(LoginLog::getId);

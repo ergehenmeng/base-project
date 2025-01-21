@@ -1,6 +1,5 @@
 package com.eghm.utils;
 
-import cn.hutool.core.util.StrUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +9,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAccessor;
+
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * @author 二哥很猛
@@ -138,7 +139,7 @@ public class DateUtil {
      * @return 日期
      */
     public static LocalDateTime parseIso(String dateTime) {
-        if (StrUtil.isBlank(dateTime)) {
+        if (isBlank(dateTime)) {
             return null;
         }
         return LocalDateTime.parse(dateTime, DateTimeFormatter.ISO_OFFSET_DATE_TIME);

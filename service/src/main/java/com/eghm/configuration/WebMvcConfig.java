@@ -1,6 +1,5 @@
 package com.eghm.configuration;
 
-import cn.hutool.core.util.StrUtil;
 import com.alibaba.ttl.threadpool.TtlExecutors;
 import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
@@ -20,7 +19,6 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.introspect.AnnotationIntrospectorPair;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
@@ -31,7 +29,7 @@ import com.google.code.kaptcha.util.Config;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.HibernateValidatorConfiguration;
+import org.hibernate.validator.BaseHibernateValidatorConfiguration;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.boot.validation.MessageInterpolatorFactory;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -50,6 +48,8 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Executor;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * 公用配置,所有web模块所公用的配置信息均可在该配置文件中声明
@@ -75,7 +75,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
         LocalValidatorFactoryBean factoryBean = new LocalValidatorFactoryBean();
         MessageInterpolatorFactory interpolatorFactory = new MessageInterpolatorFactory(applicationContext);
         factoryBean.setMessageInterpolator(interpolatorFactory.getObject());
-        factoryBean.getValidationPropertyMap().put(HibernateValidatorConfiguration.FAIL_FAST, "true");
+        factoryBean.getValidationPropertyMap().put(BaseHibernateValidatorConfiguration.FAIL_FAST, "true");
         return factoryBean;
     }
 
@@ -143,7 +143,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
         simpleModule.addSerializer(BigDecimal.class, ToStringSerializer.instance);
         objectMapper.registerModule(simpleModule);
         AnnotationIntrospector ai = objectMapper.getSerializationConfig().getAnnotationIntrospector();
-        AnnotationIntrospector newAi = AnnotationIntrospectorPair.pair(ai, new DesensitizationAnnotationInterceptor());
+        AnnotationIntrospector newAi = AnnotationIntrospector.pair(ai, new DesensitizationAnnotationInterceptor());
         objectMapper.setAnnotationIntrospector(newAi);
     }
 
@@ -172,7 +172,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
         if (alarmMsg.getAlarmType() == AlarmType.DEFAULT) {
             return new DefaultAlarmServiceImpl();
         }
-        if (StrUtil.isNotBlank(alarmMsg.getWebHook())) {
+        if (isNotBlank(alarmMsg.getWebHook())) {
             throw new BusinessException(ErrorCode.WEB_HOOK_NULL);
         }
         if (alarmMsg.getAlarmType() == AlarmType.DING_TALK) {

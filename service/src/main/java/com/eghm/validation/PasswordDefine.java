@@ -1,12 +1,13 @@
 package com.eghm.validation;
 
 
-import cn.hutool.core.util.StrUtil;
 import com.eghm.utils.RegExpUtil;
 import com.eghm.validation.annotation.Password;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+
+import static com.eghm.utils.StringUtil.isBlank;
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author 二哥很猛
@@ -26,7 +27,7 @@ public class PasswordDefine implements ConstraintValidator<Password, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return (!required && StrUtil.isBlank(value)) || (StrUtil.isNotBlank(value) && RegExpUtil.password(value));
+        return (!required && isBlank(value)) || (isNotBlank(value) && RegExpUtil.password(value));
     }
 
 }

@@ -1,6 +1,5 @@
 package com.eghm.mq.listener;
 
-import cn.hutool.core.util.StrUtil;
 import com.eghm.cache.CacheService;
 import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
@@ -19,6 +18,7 @@ import java.util.function.Consumer;
 
 import static com.eghm.constants.CacheConstant.ERROR_PLACE_HOLDER;
 import static com.eghm.constants.CacheConstant.SUCCESS_PLACE_HOLDER;
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * 抽象的监听器rabbit处理类
@@ -106,12 +106,12 @@ public abstract class AbstractListenerHandler {
     private boolean canConsumer(String asyncKey) {
         String hasValue = cacheService.getValue(CacheConstant.MQ_ASYNC_KEY + asyncKey);
         // 可能key过期了
-        if (StrUtil.isBlank(hasValue)) {
+        if (isBlank(hasValue)) {
             return false;
         }
         String accessStr = hasValue.replace(CacheConstant.PLACE_HOLDER, "");
         // 前端还没请求呢, 可以直接处理
-        if (StrUtil.isBlank(accessStr)) {
+        if (isBlank(accessStr)) {
             return true;
         }
         // 表示已经处理过了, 此次是重试

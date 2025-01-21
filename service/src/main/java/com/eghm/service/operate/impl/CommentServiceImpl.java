@@ -1,7 +1,6 @@
 package com.eghm.service.operate.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -38,6 +37,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static com.eghm.utils.StringUtil.isNotBlank;
+
 /**
  * <p>
  * 评论记录表 服务实现类
@@ -64,7 +65,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Page<CommentResponse> listPage(CommentQueryRequest request) {
-        if (StrUtil.isNotBlank(request.getQueryName())) {
+        if (isNotBlank(request.getQueryName())) {
             List<Long> objectIds = this.getObjectIds(request.getQueryName());
             if (CollUtil.isEmpty(objectIds)) {
                 return new Page<>();
