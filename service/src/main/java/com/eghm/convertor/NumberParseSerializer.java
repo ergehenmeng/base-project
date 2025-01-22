@@ -14,6 +14,14 @@ import java.io.IOException;
  */
 public class NumberParseSerializer extends StdSerializer<Integer> {
 
+    private static final int TEN = 10;
+
+    private static final int HUNDRED = 100;
+
+    private static final int THOUSAND = 1000;
+
+    private static final int TEN_THOUSAND = 10000;
+
     protected NumberParseSerializer() {
         super(Integer.class);
     }
@@ -21,16 +29,16 @@ public class NumberParseSerializer extends StdSerializer<Integer> {
     @Override
     public void serialize(Integer value, JsonGenerator gen, SerializerProvider provider) throws IOException {
         if (value != null) {
-            if (value < 10) {
+            if (value < TEN) {
                 gen.writeString(String.valueOf(value));
-            } else if (value < 100) {
-                gen.writeString((value / 10) + "+");
-            } else if (value < 1000) {
-                gen.writeString((value / 100) + "+");
-            } else if (value < 10000) {
-                gen.writeString((value / 1000) + "+");
+            } else if (value < HUNDRED) {
+                gen.writeString((value / TEN) + "+");
+            } else if (value < THOUSAND) {
+                gen.writeString((value / HUNDRED) + "+");
+            } else if (value < TEN_THOUSAND) {
+                gen.writeString((value / THOUSAND) + "+");
             } else {
-                gen.writeString(value / 10000 + "万+");
+                gen.writeString(value / TEN_THOUSAND + "万+");
             }
         }
     }

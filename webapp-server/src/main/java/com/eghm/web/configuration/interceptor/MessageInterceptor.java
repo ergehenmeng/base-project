@@ -2,6 +2,7 @@ package com.eghm.web.configuration.interceptor;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.URLUtil;
+import cn.hutool.http.Header;
 import com.eghm.annotation.SkipLogger;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.constants.AppHeader;
@@ -108,7 +109,7 @@ public class MessageInterceptor implements InterceptorAdapter {
         // 注意: 由于request.getInputStream()方法只能读取一遍
         // 如果采用x-www-form-urlencoded post请求方式, 即使将request包装成ByteHttpServletRequestWrapper, 依旧无法通过request.getParameterValue等方法获取参数
         // 此处选择只针对json格式的post请求才会读取流信息
-        if (HttpMethod.POST.matches(request.getMethod()) && request.getHeader("Content-Type").startsWith(MediaType.APPLICATION_JSON_VALUE)) {
+        if (HttpMethod.POST.matches(request.getMethod()) && request.getHeader(Header.CONTENT_TYPE.getValue()).startsWith(MediaType.APPLICATION_JSON_VALUE)) {
             try {
                 return IoUtil.read(request.getInputStream(), CommonConstant.CHARSET);
             } catch (IOException e) {

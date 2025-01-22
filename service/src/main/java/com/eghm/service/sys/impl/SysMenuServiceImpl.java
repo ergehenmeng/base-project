@@ -1,12 +1,12 @@
 package com.eghm.service.sys.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.dto.sys.menu.MenuAddRequest;
 import com.eghm.dto.sys.menu.MenuEditRequest;
 import com.eghm.dto.sys.menu.MenuQueryRequest;
+import com.eghm.enums.DisplayState;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysMenuMapper;
@@ -175,7 +175,7 @@ public class SysMenuServiceImpl implements SysMenuService {
             log.warn("父菜单节点不存在 [{}]", pid);
             throw new BusinessException(ErrorCode.PID_MENU_NULL);
         }
-        if (sysMenu.getDisplayState() != 3 && !sysMenu.getDisplayState().equals(displayState)) {
+        if (sysMenu.getDisplayState() != DisplayState.ALL.getValue() && !sysMenu.getDisplayState().equals(displayState)) {
             log.warn("菜单节点显示状态不满足要求 [{}] [{}] [{}]", pid, sysMenu.getDisplayState(), displayState);
             throw new BusinessException(ErrorCode.PID_MENU_STATE);
         }

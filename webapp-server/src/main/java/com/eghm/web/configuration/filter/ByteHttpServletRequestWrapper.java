@@ -1,15 +1,16 @@
 package com.eghm.web.configuration.filter;
 
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.http.Header;
 import com.eghm.constants.CommonConstant;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
-import org.springframework.lang.NonNull;
-
 import jakarta.servlet.ReadListener;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
+import org.springframework.lang.NonNull;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
     @Override
     public ServletInputStream getInputStream() throws IOException {
 
-        if (super.getHeader("Content-Type") == null || super.getHeader("Content-Type").startsWith(MediaType.MULTIPART_FORM_DATA_VALUE)) {
+        if (super.getHeader(Header.CONTENT_TYPE.getValue()) == null || super.getHeader(Header.CONTENT_TYPE.getValue()).startsWith(MediaType.MULTIPART_FORM_DATA_VALUE)) {
             return super.getInputStream();
         } else {
             if (this.body == null) {

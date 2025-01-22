@@ -35,7 +35,6 @@ public class CommonConstant {
      */
     public static final String UNKNOWN = "unknown";
 
-
     /**
      * 两次提交间隔时间,只针对post请求, 单位: 毫秒
      */

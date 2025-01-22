@@ -37,13 +37,15 @@ public class PermInterceptor implements InterceptorAdapter {
 
     private final SysMenuService sysMenuService;
 
+    public static final String DELIMITERS = ",; ";
+
     @PostConstruct
     public void refresh() {
         List<SysMenu> selectList = sysMenuService.getButtonList();
         PERM_MAP.clear();
         for (SysMenu menu : selectList) {
             if (isNotBlank(menu.getSubPath())) {
-                for (String subUrl : StringUtils.tokenizeToStringArray(menu.getSubPath(), ",; ")) {
+                for (String subUrl : StringUtils.tokenizeToStringArray(menu.getSubPath(), DELIMITERS)) {
                     List<String> codeList = PERM_MAP.getOrDefault(subUrl, new ArrayList<>(8));
                     codeList.add(menu.getCode());
                     PERM_MAP.put(subUrl, codeList);

@@ -28,6 +28,8 @@ public class DateUtil {
 
     private static final String MIN_DATE = "yyyy-MM";
 
+    private static final int SECOND_MINUTE = 60;
+
     public static final DateTimeFormatter SHORT_LIMIT_FORMAT = DateTimeFormatter.ofPattern(SHORT_DATE_LIMIT);
 
     public static final DateTimeFormatter SIMPLE_FORMAT = DateTimeFormatter.ofPattern(SIMPLE_DATE);
@@ -153,11 +155,11 @@ public class DateUtil {
      */
     public static String chineseValue(LocalDateTime dateTime) {
         LocalDateTime nowTime = LocalDateTime.now();
-        if (diffSecond(dateTime, nowTime) < 60) {
+        if (diffSecond(dateTime, nowTime) < SECOND_MINUTE) {
             return "刚刚";
         }
         long minute = diffMinute(dateTime, nowTime);
-        if (minute < 60) {
+        if (minute < SECOND_MINUTE) {
             return minute + "分钟前";
         }
         long day = diffDay(dateTime, nowTime);
