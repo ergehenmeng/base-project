@@ -1,7 +1,7 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
+import static com.eghm.utils.StringUtil.isBlank;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -412,14 +412,14 @@ public class ItemServiceImpl implements ItemService {
                 sku.setItemId(response.getId());
                 sku.setTitle(response.getTitle());
                 sku.setSkuSize(skuList.size());
-                if (StrUtil.isBlank(sku.getSkuPic())) {
-                    if (StrUtil.isBlank(sku.getSpecPic())) {
+                if (isBlank(sku.getSkuPic())) {
+                    if (isBlank(sku.getSpecPic())) {
                         sku.setSkuPic(response.getCoverUrl());
                     } else {
                         sku.setSkuPic(sku.getSpecPic());
                     }
                 }
-                if (StrUtil.isBlank(sku.getSecondSpecValue())) {
+                if (isBlank(sku.getSecondSpecValue())) {
                     sku.setSpecValue(sku.getPrimarySpecValue());
                 } else {
                     sku.setSpecValue(sku.getPrimarySpecValue() + "/" + sku.getSecondSpecValue());
@@ -499,7 +499,7 @@ public class ItemServiceImpl implements ItemService {
      * @return 列表
      */
     private List<String> parseTagId(String tagId) {
-        if (StrUtil.isBlank(tagId)) {
+        if (isBlank(tagId)) {
             return Collections.emptyList();
         }
         int length = tagId.length();

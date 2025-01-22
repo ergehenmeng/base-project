@@ -1,6 +1,6 @@
 package com.eghm.utils;
 
-import cn.hutool.core.util.StrUtil;
+import static com.eghm.utils.StringUtil.isBlank;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +40,7 @@ public class LoggerUtil {
      * @param paddingChar 填充的字符
      */
     public static void print(String msg, String paddingChar) {
-        if (StrUtil.isBlank(msg)) {
+        if (isBlank(msg)) {
             log.info("LoggerUtil.print为空");
             return;
         }

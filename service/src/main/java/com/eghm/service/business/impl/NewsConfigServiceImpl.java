@@ -1,6 +1,5 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -21,6 +20,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.eghm.utils.StringUtil.isNotBlank;
+
 /**
  * <p>
  * 资讯配置 服务实现类
@@ -39,7 +40,7 @@ public class NewsConfigServiceImpl implements NewsConfigService {
     @Override
     public Page<NewsConfig> getByPage(PagingQuery query) {
         LambdaQueryWrapper<NewsConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(query.getQueryName()), NewsConfig::getTitle, query.getQueryName());
+        wrapper.like(isNotBlank(query.getQueryName()), NewsConfig::getTitle, query.getQueryName());
         wrapper.orderByDesc(NewsConfig::getId);
         return newsConfigMapper.selectPage(query.createPage(), wrapper);
     }

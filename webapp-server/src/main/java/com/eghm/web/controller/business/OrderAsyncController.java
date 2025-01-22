@@ -1,6 +1,5 @@
 package com.eghm.web.controller.business;
 
-import cn.hutool.core.util.StrUtil;
 import com.eghm.cache.CacheService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
@@ -17,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author 二哥很猛
@@ -81,7 +82,7 @@ public class OrderAsyncController {
     private void setProcessResult(String key, String hashValue, OrderCreateVO<String> vo) {
         String accessStr = hashValue.replace(CacheConstant.PLACE_HOLDER, "");
         int accessNum = 0;
-        if (StrUtil.isNotBlank(accessStr)) {
+        if (isNotBlank(accessStr)) {
             accessNum = Integer.parseInt(accessStr);
             // 超过最大请求次数, 订单还在队列中处理,默认直接提示商品火爆
             if (accessNum >= CommonConstant.MAX_ACCESS_NUM) {

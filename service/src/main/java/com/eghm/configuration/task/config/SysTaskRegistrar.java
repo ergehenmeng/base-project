@@ -1,6 +1,6 @@
 package com.eghm.configuration.task.config;
 
-import cn.hutool.core.util.StrUtil;
+import static com.eghm.utils.StringUtil.isBlank;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.enums.ErrorCode;
@@ -141,7 +141,7 @@ public class SysTaskRegistrar {
      */
     private void verifyCronExpression(List<SysCronTask> taskList) {
         for (SysCronTask task : taskList) {
-            if (StrUtil.isBlank(task.getExpression()) || !CronExpression.isValidExpression(task.getExpression())) {
+            if (isBlank(task.getExpression()) || !CronExpression.isValidExpression(task.getExpression())) {
                 log.error("定时任务表达式配置错误 nid:[{}],cron:[{}]", task.getNid(), task.getExpression());
                 throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
             }

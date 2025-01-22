@@ -1,7 +1,7 @@
 package com.eghm.service.member.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
+import static com.eghm.utils.StringUtil.isBlank;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -100,7 +100,7 @@ public class MemberTagScopeServiceImpl implements MemberTagScopeService {
         if (CollUtil.isEmpty(mobileList)) {
             return;
         }
-        if (StrUtil.isBlank(request.getParams())) {
+        if (isBlank(request.getParams())) {
             sendSmsService.sendSms(mobileList, TemplateType.of(request.getTemplateId()));
         } else {
             sendSmsService.sendSms(mobileList, TemplateType.of(request.getTemplateId()), request.getParams().split(CommonConstant.COMMA));

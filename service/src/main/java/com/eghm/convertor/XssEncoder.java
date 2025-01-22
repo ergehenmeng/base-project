@@ -1,12 +1,13 @@
 package com.eghm.convertor;
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HtmlUtil;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
 
 import java.io.IOException;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * 针对前端传递过来的数据进行xss过滤
@@ -23,7 +24,7 @@ public class XssEncoder extends StdScalarDeserializer<String> {
     @Override
     public String deserialize(JsonParser p, DeserializationContext context) throws IOException {
         String text = p.getText();
-        if (StrUtil.isNotBlank(text)) {
+        if (isNotBlank(text)) {
             text = HtmlUtil.escape(text);
         }
         return text;

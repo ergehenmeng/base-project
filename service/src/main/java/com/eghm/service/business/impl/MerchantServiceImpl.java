@@ -2,7 +2,7 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.StrUtil;
+import static com.eghm.utils.StringUtil.isBlank;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -48,6 +48,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.eghm.constants.CacheConstant.MERCHANT_AUTH_CODE;
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author 殿小二
@@ -184,7 +185,7 @@ public class MerchantServiceImpl implements MerchantService {
     public void binding(MerchantAuthDTO dto) {
         long merchantId = this.getMerchantId(dto.getAuthCode());
         Merchant merchant = this.selectByIdRequired(merchantId);
-        if (StrUtil.isNotBlank(merchant.getOpenId())) {
+        if (isNotBlank(merchant.getOpenId())) {
             log.error("商户已绑定微信,需要先解绑 [{}] [{}] [{}]", merchantId, merchant.getAuthMobile(), merchant.getOpenId());
             throw new BusinessException(ErrorCode.MERCHANT_BINDING);
         }
@@ -197,7 +198,7 @@ public class MerchantServiceImpl implements MerchantService {
     @Override
     public void sendUnbindSms(Long merchantId, String ip) {
         Merchant merchant = this.selectByIdRequired(merchantId);
-        if (StrUtil.isBlank(merchant.getAuthMobile())) {
+        if (isBlank(merchant.getAuthMobile())) {
             log.error("商户未绑定微信,无需解绑 [{}]", merchantId);
             throw new BusinessException(ErrorCode.MERCHANT_NO_BIND);
         }
@@ -248,7 +249,7 @@ public class MerchantServiceImpl implements MerchantService {
         MerchantAuthVO vo = new MerchantAuthVO();
         vo.setMerchantName(merchant.getMerchantName());
         vo.setLegalName(merchant.getLegalName());
-        boolean hasBind = StrUtil.isNotBlank(merchant.getAuthMobile());
+        boolean hasBind = isNotBlank(merchant.getAuthMobile());
         vo.setHasBind(hasBind);
         if (hasBind) {
             vo.setAuthMobile(merchant.getAuthMobile());
@@ -299,7 +300,7 @@ public class MerchantServiceImpl implements MerchantService {
      */
     private long getMerchantId(String authCode) {
         String value = cacheService.getValue(MERCHANT_AUTH_CODE + authCode);
-        if (StrUtil.isBlank(value)) {
+        if (isBlank(value)) {
             log.warn("授权码已过期,请重新生成 [{}]", authCode);
             throw new BusinessException(ErrorCode.MERCHANT_CODE_EXPIRE);
         }

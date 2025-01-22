@@ -1,6 +1,5 @@
 package com.eghm.service.member.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -20,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.eghm.utils.StringUtil.isNotBlank;
+
 /**
  * @author 二哥很猛
  * @since 2023/3/23
@@ -36,7 +37,7 @@ public class LoginServiceImpl implements LoginService {
     public Page<LoginLog> getByPage(LoginLogQueryRequest request) {
         LambdaQueryWrapper<LoginLog> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(LoginLog::getMemberId, request.getMemberId());
-        wrapper.eq(StrUtil.isNotBlank(request.getChannel()), LoginLog::getChannel, request.getChannel());
+        wrapper.eq(isNotBlank(request.getChannel()), LoginLog::getChannel, request.getChannel());
         wrapper.ge(request.getStartDate() != null, LoginLog::getCreateTime, request.getStartDate());
         wrapper.le(request.getEndDate() != null, LoginLog::getCreateTime, request.getEndDate());
         wrapper.orderByDesc(LoginLog::getId);

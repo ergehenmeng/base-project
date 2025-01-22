@@ -2,7 +2,7 @@ package com.eghm.validation;
 
 
 import cn.hutool.core.util.PhoneUtil;
-import cn.hutool.core.util.StrUtil;
+import static com.eghm.utils.StringUtil.isBlank;
 import com.eghm.validation.annotation.Mobile;
 
 import jakarta.validation.ConstraintValidator;
@@ -26,6 +26,6 @@ public class MobileDefine implements ConstraintValidator<Mobile, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return (!required && StrUtil.isBlank(value)) || PhoneUtil.isMobile(value);
+        return (!required && isBlank(value)) || PhoneUtil.isMobile(value);
     }
 }

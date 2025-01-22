@@ -1,7 +1,6 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.AES;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -70,9 +69,11 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static cn.hutool.core.text.StrSplitter.split;
 import static com.eghm.constants.CacheConstant.*;
 import static com.eghm.constants.ConfigConstant.MERCHANT_SALE_RANKING;
 import static com.eghm.constants.ConfigConstant.PRODUCT_SALE_RANKING;
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * @author 二哥很猛
@@ -129,7 +130,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType, String clientIp) {
         this.checkPayChannel(ApiHolder.getChannel(), tradeType);
 
-        List<String> orderNoList = StrUtil.split(orderNo, ',');
+        List<String> orderNoList = split(orderNo, ',');
         ProductType productType = ProductType.prefix(orderNoList.get(0));
         String tradeNo = productType.generateTradeNo();
 
@@ -173,7 +174,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public TradeState getOrderPayState(Order order) {
-        if (StrUtil.isBlank(order.getTradeNo())) {
+        if (isBlank(order.getTradeNo())) {
             log.info("订单未生成支付流水号 [{}]", order.getId());
             return TradeState.NOT_PAY;
         }

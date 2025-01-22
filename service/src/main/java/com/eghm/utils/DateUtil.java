@@ -1,6 +1,6 @@
 package com.eghm.utils;
 
-import cn.hutool.core.util.StrUtil;
+import static com.eghm.utils.StringUtil.isBlank;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.ParameterException;
 import lombok.AccessLevel;
@@ -203,7 +203,7 @@ public class DateUtil {
      * @return 日期
      */
     public static LocalDateTime parseIso(String dateTime) {
-        if (StrUtil.isBlank(dateTime)) {
+        if (isBlank(dateTime)) {
             return null;
         }
         return LocalDateTime.parse(dateTime, DateTimeFormatter.ISO_OFFSET_DATE_TIME);

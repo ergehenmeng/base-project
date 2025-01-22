@@ -1,7 +1,6 @@
 package com.eghm.web.configuration.interceptor;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.eghm.annotation.SkipPerm;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.security.SecurityHolder;
@@ -24,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static com.eghm.utils.StringUtil.isNotBlank;
+
 /**
  * @author 二哥很猛
  * @since 2022/11/4
@@ -41,7 +42,7 @@ public class PermInterceptor implements InterceptorAdapter {
         List<SysMenu> selectList = sysMenuService.getButtonList();
         PERM_MAP.clear();
         for (SysMenu menu : selectList) {
-            if (StrUtil.isNotBlank(menu.getSubPath())) {
+            if (isNotBlank(menu.getSubPath())) {
                 for (String subUrl : StringUtils.tokenizeToStringArray(menu.getSubPath(), ",; ")) {
                     List<String> codeList = PERM_MAP.getOrDefault(subUrl, new ArrayList<>(8));
                     codeList.add(menu.getCode());

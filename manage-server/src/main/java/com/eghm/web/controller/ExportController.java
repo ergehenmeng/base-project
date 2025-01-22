@@ -5,17 +5,17 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.menu.MenuResponse;
 import com.eghm.vo.sys.MenuExportVO;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.servlet.http.HttpServletResponse;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * demo 导出示例
@@ -35,7 +35,7 @@ public class ExportController {
     @Operation(summary = "导出菜单列表")
     public void exportMenu(HttpServletResponse response) {
         List<MenuResponse> menuList = sysMenuService.getSystemList();
-        Random random = ThreadLocalRandom.current();
+        Random random = new SecureRandom();
         List<MenuExportVO> voList = DataUtil.copy(menuList, sysMenu -> {
             MenuExportVO vo = DataUtil.copy(sysMenu, MenuExportVO.class);
             vo.setMock(MenuExportVO.MockEnum.random(random.nextInt(3)));

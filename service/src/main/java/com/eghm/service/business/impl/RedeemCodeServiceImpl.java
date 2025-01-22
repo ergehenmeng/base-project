@@ -1,7 +1,6 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.util.RandomUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -25,6 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * <p>
@@ -54,7 +55,7 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
     @Override
     public Page<RedeemCode> listPage(RedeemCodeQueryRequest request) {
         LambdaQueryWrapper<RedeemCode> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), RedeemCode::getTitle, request.getQueryName());
+        wrapper.like(isNotBlank(request.getQueryName()), RedeemCode::getTitle, request.getQueryName());
         wrapper.eq(request.getState() != null, RedeemCode::getState, request.getState());
         wrapper.orderByDesc(RedeemCode::getId);
         return redeemCodeMapper.selectPage(request.createPage(), wrapper);

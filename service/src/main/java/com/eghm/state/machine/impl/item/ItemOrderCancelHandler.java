@@ -1,6 +1,5 @@
 package com.eghm.state.machine.impl.item;
 
-import cn.hutool.core.util.StrUtil;
 import com.eghm.enums.ScoreType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
@@ -17,6 +16,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author 二哥很猛
@@ -48,7 +49,7 @@ public class ItemOrderCancelHandler extends AbstractOrderCancelHandler {
         List<ItemOrder> orderList = itemOrderService.getByOrderNo(order.getOrderNo());
         Map<Long, Integer> skuNumMap = orderList.stream().collect(Collectors.toMap(ItemOrder::getSkuId, ItemOrder::getNum));
         itemSkuService.updateStock(skuNumMap);
-        if (StrUtil.isNotBlank(order.getBookingNo())) {
+        if (isNotBlank(order.getBookingNo())) {
             itemGroupOrderService.delete(order.getBookingNo(), order.getOrderNo());
         }
         if (order.getScoreAmount() > 0) {

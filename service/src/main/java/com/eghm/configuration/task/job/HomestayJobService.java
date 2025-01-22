@@ -1,12 +1,13 @@
 package com.eghm.configuration.task.job;
 
-import cn.hutool.core.util.StrUtil;
 import com.eghm.annotation.CronMark;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.utils.LoggerUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author 二哥很猛
@@ -27,7 +28,7 @@ public class HomestayJobService {
     public void deleteDayPrice(String args) {
         LoggerUtil.print(String.format("删除民宿历史价格定时任务开始执行 [%s]", args));
         int keepDay = 7;
-        if (StrUtil.isNotBlank(args)) {
+        if (isNotBlank(args)) {
             keepDay = Integer.parseInt(args);
         }
         homestayRoomConfigService.deletePrice(keepDay);

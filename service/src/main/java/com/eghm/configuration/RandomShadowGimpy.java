@@ -9,7 +9,7 @@ import com.jhlabs.image.TransformFilter;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.concurrent.ThreadLocalRandom;
+import java.security.SecureRandom;
 
 /**
  * @author wyb
@@ -26,7 +26,7 @@ public class RandomShadowGimpy extends Configurable implements GimpyEngine {
         shadowFilter.setRadius(10);
         shadowFilter.setDistance(5);
         shadowFilter.setOpacity(1);
-        ThreadLocalRandom random = ThreadLocalRandom.current();
+        SecureRandom random = new SecureRandom();
         RippleFilter rippleFilter = new RippleFilter();
         rippleFilter.setWaveType(RippleFilter.SINE);
         rippleFilter.setXAmplitude(7.6F);

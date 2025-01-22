@@ -1,7 +1,9 @@
 package com.eghm.validation;
 
 
-import cn.hutool.core.util.StrUtil;
+import static com.eghm.utils.StringUtil.isBlank;
+import static com.eghm.utils.StringUtil.isNotBlank;
+
 import com.eghm.utils.RegExpUtil;
 import com.eghm.validation.annotation.Password;
 
@@ -26,7 +28,7 @@ public class PasswordDefine implements ConstraintValidator<Password, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return (!required && StrUtil.isBlank(value)) || (StrUtil.isNotBlank(value) && RegExpUtil.password(value));
+        return (!required && isBlank(value)) || (isNotBlank(value) && RegExpUtil.password(value));
     }
 
 }

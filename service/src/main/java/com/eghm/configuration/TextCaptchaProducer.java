@@ -3,7 +3,7 @@ package com.eghm.configuration;
 
 import com.google.code.kaptcha.text.impl.DefaultTextCreator;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.security.SecureRandom;
 
 /**
  * 重写Random随机数
@@ -18,8 +18,9 @@ public class TextCaptchaProducer extends DefaultTextCreator {
         int length = getConfig().getTextProducerCharLength();
         char[] chars = getConfig().getTextProducerCharString();
         StringBuilder text = new StringBuilder();
+        SecureRandom random = new SecureRandom();
         for (int i = 0; i < length; i++) {
-            text.append(chars[ThreadLocalRandom.current().nextInt(chars.length)]);
+            text.append(chars[random.nextInt(chars.length)]);
         }
         return text.toString();
     }

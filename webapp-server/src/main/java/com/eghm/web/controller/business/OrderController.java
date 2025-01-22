@@ -1,6 +1,5 @@
 package com.eghm.web.controller.business;
 
-import cn.hutool.core.util.StrUtil;
 import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.OrderPayDTO;
 import com.eghm.dto.business.order.homestay.HomestayOrderCreateDTO;
@@ -41,6 +40,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author wyb
@@ -259,12 +260,12 @@ public class OrderController {
      */
     private OrderCreateVO<String> generateResult(AsyncKey context, String orderNo) {
         OrderCreateVO<String> vo = new OrderCreateVO<>();
-        if (StrUtil.isNotBlank(context.getKey())) {
+        if (isNotBlank(context.getKey())) {
             vo.setState(0);
             vo.setData(context.getKey());
             return vo;
         }
-        if (StrUtil.isNotBlank(orderNo)) {
+        if (isNotBlank(orderNo)) {
             vo.setState(1);
             vo.setData(orderNo);
             return vo;

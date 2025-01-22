@@ -28,11 +28,11 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -261,7 +261,7 @@ public class LotteryServiceImpl implements LotteryService {
         if (lottery.getWinNum() <= lotteryWin) {
             return losingLottery;
         }
-        int index = ThreadLocalRandom.current().nextInt(10000);
+        int index = new SecureRandom().nextInt(10000);
         return configList.stream().filter(config -> config.getStartRange() >= index && index < config.getEndRange()).findFirst().orElse(losingLottery);
     }
 
