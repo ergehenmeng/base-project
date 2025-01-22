@@ -63,7 +63,7 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
         OrderRefundLog refundLog = DataUtil.copy(context, OrderRefundLog.class);
         refundLog.setApplyTime(LocalDateTime.now());
         refundLog.setMerchantId(order.getMerchantId());
-        refundLog.setState(0);
+        refundLog.setState(RefundLogState.REFUNDING);
         if (this.getRefundType(order) == RefundType.AUDIT_REFUND) {
             refundLog.setAuditState(AuditState.APPLY);
             order.setRefundState(RefundState.APPLY);

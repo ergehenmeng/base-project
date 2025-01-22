@@ -1,9 +1,6 @@
 package com.eghm.state.machine.impl;
 
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.AuditState;
-import com.eghm.enums.RefundState;
-import com.eghm.enums.VisitorState;
+import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
@@ -75,7 +72,7 @@ public abstract class AbstractOrderRefundAuditHandler implements ActionHandler<R
     protected void doPass(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
         order.setRefundState(RefundState.PROGRESS);
         refundLog.setAuditState(AuditState.PASS);
-        refundLog.setState(0);
+        refundLog.setState(RefundLogState.REFUNDING);
         refundLog.setRefundAmount(context.getRefundAmount());
         refundLog.setRefundNo(order.getProductType().generateTradeNo());
         refundLog.setAuditUserId(context.getAuditUserId());
@@ -99,7 +96,7 @@ public abstract class AbstractOrderRefundAuditHandler implements ActionHandler<R
     protected void doRefuse(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
         order.setRefundState(RefundState.REFUSE);
         refundLog.setAuditState(AuditState.REFUSE);
-        refundLog.setState(4);
+        refundLog.setState(RefundLogState.REFUSE);
         refundLog.setAuditUserId(context.getAuditUserId());
         orderService.updateById(order);
         orderRefundLogService.updateById(refundLog);
