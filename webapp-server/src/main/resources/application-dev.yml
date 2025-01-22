@@ -51,13 +51,3 @@ system:
       version: trial
   api:
     mock-token: d3df31f547654e2185be6dccbd155700
-management:
-  endpoint:
-    env:
-      enabled: true
-    info:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: health,info,env,metrics,loggers,logfile,prometheus,beans
