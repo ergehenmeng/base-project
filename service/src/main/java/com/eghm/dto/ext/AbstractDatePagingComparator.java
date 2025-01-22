@@ -10,7 +10,7 @@ import java.time.LocalDate;
  * @author 二哥很猛
  * @since 2023/10/19
  */
-public abstract class DateComparator implements Serializable {
+public abstract class AbstractDatePagingComparator extends PagingQuery implements Serializable {
 
     @Schema(hidden = true)
     private final transient LocalDateCompare dateCompare = new LocalDateCompare();

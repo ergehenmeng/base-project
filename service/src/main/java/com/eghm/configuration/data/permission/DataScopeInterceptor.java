@@ -41,11 +41,11 @@ public class DataScopeInterceptor implements Interceptor {
         Executor executor = (Executor) invocation.getTarget();
         Map<String, Object> paramMap;
         if (paramObject == null) {
-            paramMap = new HashMap<>();
+            paramMap = new HashMap<>(4);
         } else if (paramObject instanceof Map map) {
             paramMap = map;
         } else {
-            paramMap = new HashMap<>();
+            paramMap = new HashMap<>(8);
             boolean hasTypeHandler = ms.getConfiguration().getTypeHandlerRegistry().hasTypeHandler(paramObject.getClass());
             MetaObject metaObject = SystemMetaObject.forObject(paramObject);
             if (!hasTypeHandler) {

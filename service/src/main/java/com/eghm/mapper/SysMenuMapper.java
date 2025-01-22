@@ -34,6 +34,7 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
     /**
      * 查询所有菜单
      *
+     * @param request 查询条件
      * @return 菜单列表
      */
     List<MenuFullResponse> getList(MenuQueryRequest request);

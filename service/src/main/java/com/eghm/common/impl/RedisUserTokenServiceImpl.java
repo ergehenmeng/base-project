@@ -70,7 +70,7 @@ public class RedisUserTokenServiceImpl implements UserTokenService {
      * @return jwtToken
      */
     private String doCreateToken(SysUser user, int expireSeconds, List<String> authList, List<String> dataList) {
-        Map<String, Object> hashMap = new HashMap<>();
+        Map<String, Object> hashMap = new HashMap<>(16);
         hashMap.put("id", user.getId());
         hashMap.put("nickName", user.getNickName());
         if (user.getDataType() != null) {

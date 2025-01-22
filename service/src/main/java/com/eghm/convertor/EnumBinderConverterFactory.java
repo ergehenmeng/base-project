@@ -72,7 +72,8 @@ public class EnumBinderConverterFactory implements ConverterFactory<String, Enum
             Method[] methods = clazz.getDeclaredMethods();
             for (Method method : methods) {
                 JsonCreator creator = method.getDeclaredAnnotation(JsonCreator.class);
-                if (creator != null && method.getParameterCount() == 1 && (method.getParameterTypes()[0] == String.class || method.getParameterTypes()[0] == Integer.class)) {
+                boolean annotation = creator != null && method.getParameterCount() == 1 && (method.getParameterTypes()[0] == String.class || method.getParameterTypes()[0] == Integer.class);
+                if (annotation) {
                     return method;
                 }
             }
