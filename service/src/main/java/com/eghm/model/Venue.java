@@ -1,8 +1,8 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.enums.ref.State;
-import com.eghm.enums.ref.VenueType;
+import com.eghm.enums.State;
+import com.eghm.enums.VenueType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

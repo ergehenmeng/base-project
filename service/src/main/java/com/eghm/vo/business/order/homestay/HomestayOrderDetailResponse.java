@@ -1,7 +1,7 @@
 package com.eghm.vo.business.order.homestay;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.enums.ref.*;
+import com.eghm.enums.*;
 import com.eghm.vo.business.order.VisitorVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

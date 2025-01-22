@@ -1,6 +1,6 @@
 package com.eghm.dto.business.collect;
 
-import com.eghm.enums.ref.CollectType;
+import com.eghm.enums.CollectType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

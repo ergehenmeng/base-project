@@ -37,7 +37,7 @@ public class SendEmail {
      */
     public void addParam(String key, Object value) {
         if (params == null) {
-            params = new HashMap<>();
+            params = new HashMap<>(8);
         }
         params.put(key, value);
     }

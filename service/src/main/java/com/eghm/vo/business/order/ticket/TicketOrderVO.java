@@ -1,8 +1,8 @@
 package com.eghm.vo.business.order.ticket;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.PayType;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.PayType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

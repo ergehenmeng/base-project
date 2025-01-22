@@ -1,7 +1,7 @@
 package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.enums.ref.VisitorState;
+import com.eghm.enums.VisitorState;
 import com.eghm.model.OrderVisitor;
 import org.apache.ibatis.annotations.Param;
 

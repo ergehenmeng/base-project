@@ -9,13 +9,12 @@ import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,7 +50,7 @@ public class LineOrderCreateDTO {
 
     @Schema(description = "线路人数列表", requiredMode = Schema.RequiredMode.REQUIRED)
     @Size(max = 99, message = "人数不能超过99人")
-    private List<VisitorDTO> visitorList = new ArrayList<>();
+    private List<VisitorDTO> visitorList;
 
     @Schema(description = "游玩日期", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonFormat(pattern = "yyyy-MM-dd")

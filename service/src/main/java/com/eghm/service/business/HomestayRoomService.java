@@ -6,7 +6,7 @@ import com.eghm.dto.business.homestay.room.HomestayRoomAddRequest;
 import com.eghm.dto.business.homestay.room.HomestayRoomEditRequest;
 import com.eghm.dto.business.homestay.room.HomestayRoomQueryDTO;
 import com.eghm.dto.business.homestay.room.HomestayRoomQueryRequest;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.model.HomestayRoom;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.homestay.room.HomestayRoomListVO;

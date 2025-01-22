@@ -1,6 +1,6 @@
 package com.eghm.mq.service;
 
-import com.eghm.dto.ext.AsyncKey;
+import com.eghm.dto.ext.BaseAsyncKey;
 import com.eghm.enums.ExchangeQueue;
 
 /**
@@ -50,7 +50,7 @@ public interface MessageService {
      * @param queue 队列及交换机
      * @param msg   消息
      */
-    void sendAsync(ExchangeQueue queue, AsyncKey msg);
+    void sendAsync(ExchangeQueue queue, BaseAsyncKey msg);
 
     /**
      * 发送异步消息(后续消息处理结果会放在缓存中)
@@ -59,5 +59,5 @@ public interface MessageService {
      * @param routingKey key
      * @param msg        消息
      */
-    void sendAsync(String exchange, String routingKey, AsyncKey msg);
+    void sendAsync(String exchange, String routingKey, BaseAsyncKey msg);
 }

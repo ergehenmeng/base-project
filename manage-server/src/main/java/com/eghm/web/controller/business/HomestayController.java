@@ -9,7 +9,7 @@ import com.eghm.dto.business.homestay.HomestayEditRequest;
 import com.eghm.dto.business.homestay.HomestayQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.model.Homestay;
 import com.eghm.service.business.HomestayService;
 import com.eghm.utils.DataUtil;

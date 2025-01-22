@@ -1,6 +1,6 @@
 package com.eghm.vo.business.scenic.ticket;
 
-import com.eghm.enums.ref.TicketType;
+import com.eghm.enums.TicketType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

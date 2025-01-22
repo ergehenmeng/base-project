@@ -14,7 +14,7 @@ import com.eghm.dto.business.comment.CommentQueryDTO;
 import com.eghm.dto.business.comment.CommentQueryRequest;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.ObjectType;
+import com.eghm.enums.ObjectType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ActivityMapper;
 import com.eghm.mapper.CommentMapper;

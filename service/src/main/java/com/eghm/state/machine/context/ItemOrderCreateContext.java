@@ -1,9 +1,9 @@
 package com.eghm.state.machine.context;
 
 import com.eghm.annotation.Assign;
-import com.eghm.dto.ext.AsyncKey;
+import com.eghm.dto.ext.BaseAsyncKey;
 import com.eghm.enums.event.IEvent;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 import com.eghm.model.Item;
 import com.eghm.state.machine.Context;
 import com.eghm.state.machine.dto.ItemDTO;
@@ -25,7 +25,7 @@ import java.util.Set;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class ItemOrderCreateContext extends AsyncKey implements Context {
+public class ItemOrderCreateContext extends BaseAsyncKey implements Context {
 
     @Schema(description = "商品信息按店铺分组")
     private List<ItemDTO> itemList;

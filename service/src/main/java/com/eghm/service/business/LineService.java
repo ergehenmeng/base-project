@@ -7,7 +7,7 @@ import com.eghm.dto.business.line.LineEditRequest;
 import com.eghm.dto.business.line.LineQueryDTO;
 import com.eghm.dto.business.line.LineQueryRequest;
 import com.eghm.dto.ext.CalcStatistics;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.model.Line;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.line.LineDetailVO;

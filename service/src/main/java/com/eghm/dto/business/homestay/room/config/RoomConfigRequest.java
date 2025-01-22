@@ -2,7 +2,7 @@ package com.eghm.dto.business.homestay.room.config;
 
 import com.eghm.annotation.Assign;
 import com.eghm.convertor.YuanToCentDeserializer;
-import com.eghm.dto.ext.DateComparator;
+import com.eghm.dto.ext.AbstractDateComparator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class RoomConfigRequest extends DateComparator {
+public class RoomConfigRequest extends AbstractDateComparator {
 
     @Schema(description = "周期", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "请选择周期")

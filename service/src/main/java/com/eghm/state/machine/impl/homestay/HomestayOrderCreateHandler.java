@@ -1,13 +1,13 @@
 package com.eghm.state.machine.impl.homestay;
 
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
-import com.eghm.enums.ref.ConfirmState;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ConfirmState;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
@@ -51,9 +51,9 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     private final RedeemCodeGrantService redeemCodeGrantService;
 
-    public HomestayOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService,
+    public HomestayOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMqService orderMqService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService,
                                       HomestayService homestayService, HomestayRoomConfigService homestayRoomConfigService, HomestayOrderSnapshotService homestayOrderSnapshotService, RedeemCodeGrantService redeemCodeGrantService) {
-        super(orderMQService, memberCouponService, orderVisitorService, redeemCodeGrantService);
+        super(orderMqService, memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.homestayOrderService = homestayOrderService;
         this.homestayRoomService = homestayRoomService;
         this.homestayService = homestayService;

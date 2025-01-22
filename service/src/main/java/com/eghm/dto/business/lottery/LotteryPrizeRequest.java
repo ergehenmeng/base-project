@@ -1,6 +1,6 @@
 package com.eghm.dto.business.lottery;
 
-import com.eghm.enums.ref.PrizeType;
+import com.eghm.enums.PrizeType;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

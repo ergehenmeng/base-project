@@ -1,6 +1,6 @@
 package com.eghm.vo.business.scenic;
 
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

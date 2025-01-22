@@ -30,6 +30,7 @@ public class RabbitInitConfig implements InitializingBean {
 
     private final RabbitTemplate rabbitTemplate;
 
+    @Override
     public void afterPropertiesSet() {
         for (ExchangeQueue value : ExchangeQueue.values()) {
             String exchangeType = value.getExchangeType().name().toLowerCase();

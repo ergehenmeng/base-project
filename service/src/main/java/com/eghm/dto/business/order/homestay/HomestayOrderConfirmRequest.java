@@ -1,6 +1,6 @@
 package com.eghm.dto.business.order.homestay;
 
-import com.eghm.enums.ref.ConfirmState;
+import com.eghm.enums.ConfirmState;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

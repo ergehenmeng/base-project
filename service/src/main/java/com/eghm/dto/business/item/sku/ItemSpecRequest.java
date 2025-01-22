@@ -1,6 +1,6 @@
 package com.eghm.dto.business.item.sku;
 
-import com.eghm.enums.ref.SpecLevel;
+import com.eghm.enums.SpecLevel;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

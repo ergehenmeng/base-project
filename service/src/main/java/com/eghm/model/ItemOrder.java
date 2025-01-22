@@ -1,9 +1,9 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.enums.ref.DeliveryState;
-import com.eghm.enums.ref.DeliveryType;
-import com.eghm.enums.ref.ItemRefundState;
+import com.eghm.enums.DeliveryState;
+import com.eghm.enums.DeliveryType;
+import com.eghm.enums.ItemRefundState;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -1,6 +1,6 @@
 package com.eghm.dto.business.account.score;
 
-import com.eghm.enums.ref.ChargeType;
+import com.eghm.enums.ChargeType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

@@ -1,0 +1,78 @@
+package com.eghm.enums;
+
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.eghm.annotation.ExcelDesc;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.util.Arrays;
+
+/**
+ * 票种
+ *
+ * @author 二哥很猛
+ * @since 2024/7/2
+ */
+@Getter
+@AllArgsConstructor
+public enum TicketType {
+
+    /**
+     * 成人
+     */
+    ADULT(1, "成人"),
+
+    /**
+     * 老人
+     */
+    OLD(2, "老人"),
+
+    /**
+     * 儿童
+     */
+    CHILD(3, "儿童"),
+
+    /**
+     * 演出
+     */
+    SHOW(4, "演出"),
+
+    /**
+     * 活动
+     */
+    ACTIVITY(5, "活动"),
+
+    /**
+     *  研学
+     */
+    STUDY(6, "研学"),
+
+    /**
+     *  组合 默认实名制,且组合票内不能继续套组合票
+     */
+    COMBINE(7, "组合");
+
+    /**
+     * 状态值
+     */
+    @EnumValue
+    @JsonValue
+    private final int value;
+
+    /**
+     * 名称
+     */
+    @ExcelDesc
+    private final String name;
+
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static TicketType of(@JsonProperty("value") Integer value) {
+        if (value == null) {
+            return null;
+        }
+        return Arrays.stream(TicketType.values()).filter(type -> value == type.value).findFirst().orElse(null);
+    }
+}

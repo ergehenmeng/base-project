@@ -1,7 +1,7 @@
 package com.eghm.vo.business.lottery;
 
 import com.eghm.convertor.CentToYuanOmitSerializer;
-import com.eghm.enums.ref.PrizeType;
+import com.eghm.enums.PrizeType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

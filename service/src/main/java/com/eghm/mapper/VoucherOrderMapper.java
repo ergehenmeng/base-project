@@ -40,6 +40,7 @@ public interface VoucherOrderMapper extends BaseMapper<VoucherOrder> {
     /**
      * 分页查询餐饮订单列表
      *
+     * @param page 分页消息
      * @param dto 查询条件
      * @return 列表
      */

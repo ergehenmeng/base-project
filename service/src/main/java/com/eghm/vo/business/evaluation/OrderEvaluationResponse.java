@@ -1,6 +1,6 @@
 package com.eghm.vo.business.evaluation;
 
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

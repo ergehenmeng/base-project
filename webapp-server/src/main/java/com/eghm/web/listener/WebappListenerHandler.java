@@ -11,8 +11,8 @@ import com.eghm.constants.QueueConstant;
 import com.eghm.dto.ext.*;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.*;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.lock.RedisLock;
 import com.eghm.model.*;
@@ -444,7 +444,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      * @param <T>      消息类型
      * @throws IOException e
      */
-    public <T extends AsyncKey> void processMessageAckAsync(T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
+    public <T extends BaseAsyncKey> void processMessageAckAsync(T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
         try {
             log.info("开始处理MQ异步消息 [{}]", jsonService.toJson(msg));
             if (this.canConsumer(msg.getKey())) {

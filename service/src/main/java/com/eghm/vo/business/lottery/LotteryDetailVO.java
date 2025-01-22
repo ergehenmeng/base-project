@@ -1,6 +1,6 @@
 package com.eghm.vo.business.lottery;
 
-import com.eghm.enums.ref.LotteryState;
+import com.eghm.enums.LotteryState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

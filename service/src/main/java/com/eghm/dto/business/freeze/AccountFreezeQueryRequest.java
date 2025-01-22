@@ -3,9 +3,9 @@ package com.eghm.dto.business.freeze;
 
 import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
-import com.eghm.dto.ext.DatePagingComparator;
-import com.eghm.enums.ref.ChangeType;
-import com.eghm.enums.ref.FreezeState;
+import com.eghm.dto.ext.AbstractDatePagingComparator;
+import com.eghm.enums.ChangeType;
+import com.eghm.enums.FreezeState;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,7 +19,7 @@ import java.time.LocalDate;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AccountFreezeQueryRequest extends DatePagingComparator {
+public class AccountFreezeQueryRequest extends AbstractDatePagingComparator {
 
     @Schema(description = "状态 1:冻结中 2:已解冻")
     private FreezeState state;

@@ -2,8 +2,8 @@ package com.eghm.web.controller;
 
 import com.eghm.constants.WeChatConstant;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.pay.AggregatePayService;
 import com.eghm.pay.PayNotifyLogService;

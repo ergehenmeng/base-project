@@ -6,7 +6,7 @@ import com.eghm.dto.business.restaurant.voucher.VoucherAddRequest;
 import com.eghm.dto.business.restaurant.voucher.VoucherEditRequest;
 import com.eghm.dto.business.restaurant.voucher.VoucherQueryDTO;
 import com.eghm.dto.business.restaurant.voucher.VoucherQueryRequest;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.model.Voucher;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.restaurant.VoucherDetailVO;

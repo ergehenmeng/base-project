@@ -8,12 +8,11 @@ import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,7 +43,7 @@ public class TicketOrderCreateDTO {
 
     @Schema(description = "游客信息", requiredMode = Schema.RequiredMode.REQUIRED)
     @Size(max = 99, message = "游客数量最大99人")
-    private List<VisitorDTO> visitorList = new ArrayList<>();
+    private List<VisitorDTO> visitorList;
 
     @Schema(description = "优惠券id")
     private Long couponId;

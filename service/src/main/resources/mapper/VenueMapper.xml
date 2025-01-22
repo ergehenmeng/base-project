@@ -71,12 +71,12 @@
                 </if>
                 ) s
                 <choose>
-                    <when test="param.sortByDistance == 1">
-                        order by s.distance, s.id desc
-                    </when>
-                    <when test="param.sortByDistance == 2">
+                    <when test="param.sortByDistance == null">
                         order by s.distance desc, s.id desc
                     </when>
+                    <otherwise>
+                        order by s.distance, s.id desc
+                    </otherwise>
                 </choose>
             </when>
             <otherwise>

@@ -2,7 +2,7 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

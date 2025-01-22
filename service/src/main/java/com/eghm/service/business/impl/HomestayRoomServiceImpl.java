@@ -14,7 +14,7 @@ import com.eghm.dto.business.homestay.room.HomestayRoomEditRequest;
 import com.eghm.dto.business.homestay.room.HomestayRoomQueryDTO;
 import com.eghm.dto.business.homestay.room.HomestayRoomQueryRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.HomestayRoomMapper;
 import com.eghm.model.HomestayRoom;

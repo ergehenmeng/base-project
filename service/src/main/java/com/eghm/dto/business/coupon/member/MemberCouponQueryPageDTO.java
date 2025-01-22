@@ -18,9 +18,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class MemberCouponQueryPageDTO extends PagingQuery {
 
-    @Schema(description = "使用状态 0:未使用 1:已使用 2:已过期 ")
+    @Schema(description = "使用状态 空:全部 0:未使用 1:已使用 2:已过期 ")
     @OptionInt(value = {0, 1, 2}, message = "使用状态非法", required = false)
-    private Integer state = 0;
+    private Integer state;
 
     @Schema(description = "用户id", hidden = true)
     @Assign

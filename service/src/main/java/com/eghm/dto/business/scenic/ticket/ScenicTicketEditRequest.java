@@ -2,8 +2,8 @@ package com.eghm.dto.business.scenic.ticket;
 
 import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.convertor.YuanToCentDeserializer;
-import com.eghm.dto.ext.DateComparator;
-import com.eghm.enums.ref.TicketType;
+import com.eghm.dto.ext.AbstractDateComparator;
+import com.eghm.enums.TicketType;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class ScenicTicketEditRequest extends DateComparator {
+public class ScenicTicketEditRequest extends AbstractDateComparator {
 
     @Schema(description = "景区id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "景区id不能为空")

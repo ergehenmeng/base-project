@@ -1,7 +1,7 @@
 package com.eghm.vo.business.scenic.ticket;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.enums.ref.TicketType;
+import com.eghm.enums.TicketType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

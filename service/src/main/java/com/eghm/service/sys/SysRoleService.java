@@ -5,7 +5,7 @@ import com.eghm.dto.ext.CheckBox;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.sys.role.RoleAddRequest;
 import com.eghm.dto.sys.role.RoleEditRequest;
-import com.eghm.enums.ref.RoleType;
+import com.eghm.enums.RoleType;
 import com.eghm.vo.sys.SysRoleResponse;
 
 import java.util.List;
@@ -35,6 +35,7 @@ public interface SysRoleService {
      * 删除角色信息
      *
      * @param id 主键
+     * @param merchantId 商户ID
      */
     void delete(Long id, Long merchantId);
 

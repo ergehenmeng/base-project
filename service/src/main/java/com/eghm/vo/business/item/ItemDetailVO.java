@@ -2,8 +2,8 @@ package com.eghm.vo.business.item;
 
 import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.convertor.NumberParseSerializer;
-import com.eghm.enums.ref.DeliveryType;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.DeliveryType;
+import com.eghm.enums.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -93,14 +93,14 @@ public class ItemDetailVO {
     private Integer goodRate;
 
     @Schema(description = "是否为拼团商品")
-    private Boolean groupBooking = false;
+    private Boolean groupBooking;
 
     @Schema(description = "拼团活动id")
     @JsonIgnore
     private Long bookingId;
 
     @Schema(description = "是否为限时购商品")
-    private Boolean limitPurchase = false;
+    private Boolean limitPurchase;
 
     @Schema(description = "限时购活动id")
     @JsonIgnore
@@ -124,4 +124,8 @@ public class ItemDetailVO {
     @Schema(description = "规格sku信息(单规格时只有一条)")
     private List<ItemSkuVO> skuList;
 
+    public ItemDetailVO() {
+        this.groupBooking = false;
+        this.limitPurchase = false;
+    }
 }

@@ -1,13 +1,13 @@
 package com.eghm.state.machine.impl.voucher;
 
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VoucherEvent;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
-import com.eghm.enums.ref.RefundType;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.ProductType;
+import com.eghm.enums.RefundType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.Restaurant;
@@ -46,8 +46,8 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
 
     private final RedeemCodeGrantService redeemCodeGrantService;
 
-    public VoucherOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, RestaurantService restaurantService, OrderMQService orderMQService, VoucherService voucherService, VoucherOrderService voucherOrderService, RedeemCodeGrantService redeemCodeGrantService) {
-        super(orderMQService, memberCouponService, orderVisitorService, redeemCodeGrantService);
+    public VoucherOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, RestaurantService restaurantService, OrderMqService orderMqService, VoucherService voucherService, VoucherOrderService voucherOrderService, RedeemCodeGrantService redeemCodeGrantService) {
+        super(orderMqService, memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.restaurantService = restaurantService;
         this.voucherService = voucherService;
         this.voucherOrderService = voucherOrderService;

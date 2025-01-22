@@ -4,7 +4,7 @@ import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.line.LineOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.VisitType;
+import com.eghm.enums.VisitType;
 import com.eghm.service.business.LineOrderService;
 import com.eghm.vo.business.order.line.LineOrderDetailVO;
 import com.eghm.vo.business.order.line.LineOrderSnapshotDetailVO;

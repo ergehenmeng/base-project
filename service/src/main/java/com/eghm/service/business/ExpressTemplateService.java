@@ -77,6 +77,7 @@ public interface ExpressTemplateService {
      * 主键查询快递模板
      *
      * @param id id
+     * @return 模板消息
      */
     ExpressTemplate selectByIdRequired(Long id);
 }

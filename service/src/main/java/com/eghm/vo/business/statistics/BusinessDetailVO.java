@@ -15,23 +15,18 @@ import lombok.Data;
 public class BusinessDetailVO {
 
     @Schema(description = "待发货订单")
-    private Integer readyNum = 0;
+    private Integer readyNum;
 
     @Schema(description = "退款数量中")
-    private Integer refundNum = 0;
+    private Integer refundNum;
 
     @Schema(description = "待核销订单")
-    private Integer verifyNum = 0;
+    private Integer verifyNum;
 
-    public void setReadyNum(Integer readyNum) {
+    public BusinessDetailVO() {
         this.readyNum = RandomUtil.randomInt(1000);
-    }
-
-    public void setRefundNum(Integer refundNum) {
         this.refundNum = RandomUtil.randomInt(500);
-    }
-
-    public void setVerifyNum(Integer verifyNum) {
         this.verifyNum = RandomUtil.randomInt(100);
     }
+
 }

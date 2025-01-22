@@ -13,7 +13,7 @@ import com.eghm.dto.business.restaurant.voucher.VoucherEditRequest;
 import com.eghm.dto.business.restaurant.voucher.VoucherQueryDTO;
 import com.eghm.dto.business.restaurant.voucher.VoucherQueryRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.VoucherMapper;
 import com.eghm.model.Voucher;

@@ -14,10 +14,7 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
 import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.DeliveryState;
-import com.eghm.enums.ref.ItemRefundState;
-import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemOrderMapper;
 import com.eghm.mapper.OrderAdjustLogMapper;
@@ -171,7 +168,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     public List<ItemOrderVO> getByPage(ItemOrderQueryDTO dto) {
         Page<ItemOrderVO> voPage = itemOrderMapper.getList(dto.createPage(false), dto);
         // 如果选择售后订单, 需要判断是否支持售后退款
-        if (CollUtil.isNotEmpty(voPage.getRecords()) && dto.getTabState() != null && dto.getTabState() == 4) {
+        if (CollUtil.isNotEmpty(voPage.getRecords()) && dto.getTabState() != null && dto.getTabState() == TabState.AFTER_SALE) {
             int afterSaleTime = sysConfigApi.getInt(ConfigConstant.SUPPORT_AFTER_SALE_TIME, 604800);
             LocalDateTime now = LocalDateTime.now();
             voPage.getRecords().forEach(item -> item.setSupportRefund(item.getCompleteTime() != null && item.getCompleteTime().plusSeconds(afterSaleTime).isBefore(now)));

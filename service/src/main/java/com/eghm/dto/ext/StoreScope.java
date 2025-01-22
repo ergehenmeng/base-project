@@ -1,6 +1,6 @@
 package com.eghm.dto.ext;
 
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

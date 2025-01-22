@@ -1,7 +1,6 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import static com.eghm.utils.StringUtil.isBlank;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -12,6 +11,7 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.redeem.RedeemCodeGrantQueryRequest;
 import com.eghm.dto.ext.RedeemScope;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.RedeemGrantState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.RedeemCodeGrantMapper;
 import com.eghm.mapper.RedeemCodeScopeMapper;
@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.eghm.constants.ConfigConstant.REDEEM_CODE_SCOPE;
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * <p>
@@ -71,11 +72,11 @@ public class RedeemCodeGrantServiceImpl extends ServiceImpl<RedeemCodeGrantMappe
             log.error("兑换码无效 [{}]", cdKey);
             throw new BusinessException(ErrorCode.CD_KEY_INVALID);
         }
-        if (selected.getState() == 1) {
+        if (selected.getState() == RedeemGrantState.WAIT_USE) {
             log.error("兑换码已兑换完 [{}]", cdKey);
             throw new BusinessException(ErrorCode.CD_KEY_USED);
         }
-        if (selected.getState() == 2) {
+        if (selected.getState() == RedeemGrantState.USED) {
             log.error("兑换码已过期 [{}]", cdKey);
             throw new BusinessException(ErrorCode.CD_KEY_EXPIRE);
         }

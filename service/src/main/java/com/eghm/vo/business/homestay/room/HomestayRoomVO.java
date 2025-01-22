@@ -1,7 +1,7 @@
 package com.eghm.vo.business.homestay.room;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.enums.ref.RefundType;
+import com.eghm.enums.RefundType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

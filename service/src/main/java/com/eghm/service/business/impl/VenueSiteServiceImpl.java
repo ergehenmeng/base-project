@@ -12,7 +12,7 @@ import com.eghm.dto.business.venue.VenueSiteAddRequest;
 import com.eghm.dto.business.venue.VenueSiteEditRequest;
 import com.eghm.dto.business.venue.VenueSiteQueryRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.VenueSiteMapper;
 import com.eghm.model.VenueSite;

@@ -9,7 +9,7 @@ import com.eghm.dto.business.scenic.ScenicEditRequest;
 import com.eghm.dto.business.scenic.ScenicQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.model.Scenic;
 import com.eghm.service.business.ScenicService;
 import com.eghm.utils.DataUtil;

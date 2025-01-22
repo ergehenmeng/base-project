@@ -1,7 +1,7 @@
 package com.eghm.vo.business.coupon;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.enums.ref.CouponType;
+import com.eghm.enums.CouponType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -25,7 +25,7 @@ public class CouponVO {
     private String title;
 
     @Schema(description = "是否已领取 true:已领取 false:未领取")
-    private Boolean received = false;
+    private Boolean received;
 
     @Schema(description = "领取上限", hidden = true)
     @JsonIgnore

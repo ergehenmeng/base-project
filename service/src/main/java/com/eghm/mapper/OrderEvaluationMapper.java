@@ -44,6 +44,7 @@ public interface OrderEvaluationMapper extends BaseMapper<OrderEvaluation> {
     /**
      * 统计店铺总评分
      *
+     * @param storeId 店铺ID
      * @return 评分数
      */
     AvgScoreVO getStoreScore(@Param("storeId") Long storeId);

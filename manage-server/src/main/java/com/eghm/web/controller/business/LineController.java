@@ -9,7 +9,8 @@ import com.eghm.dto.business.line.LineEditRequest;
 import com.eghm.dto.business.line.LineQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.RepastType;
+import com.eghm.enums.State;
 import com.eghm.model.Line;
 import com.eghm.model.LineDayConfig;
 import com.eghm.service.business.LineDayConfigService;
@@ -21,14 +22,14 @@ import com.eghm.vo.business.line.LineDayConfigResponse;
 import com.eghm.vo.business.line.LineDetailResponse;
 import com.eghm.vo.business.line.LineResponse;
 import com.google.common.collect.Lists;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -138,14 +139,11 @@ public class LineController {
             return Lists.newArrayList();
         }
         List<Integer> list = Lists.newArrayList();
-        if ((repast & 1) == 1) {
-            list.add(1);
-        }
-        if ((repast & 2) == 2) {
-            list.add(2);
-        }
-        if ((repast & 4) == 4) {
-            list.add(4);
+        for (RepastType value : RepastType.values()) {
+            if ((repast & value.getValue()) == value.getValue()) {
+                list.add(value.getValue());
+                return list;
+            }
         }
         return list;
     }

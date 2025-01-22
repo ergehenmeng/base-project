@@ -7,6 +7,9 @@ import com.eghm.model.WebappLog;
 import com.eghm.vo.log.WebappLogResponse;
 import org.apache.ibatis.annotations.Param;
 
+/**
+ * @author eghm
+ */
 public interface WebappLogMapper extends BaseMapper<WebappLog> {
 
     /**

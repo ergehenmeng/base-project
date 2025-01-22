@@ -1,7 +1,7 @@
 package com.eghm.dto.business.venue;
 
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.enums.ref.VenueType;
+import com.eghm.enums.VenueType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,6 +32,6 @@ public class VenueQueryDTO extends PagingQuery {
     @DecimalMax(value = "90", message = "纬度应[-90, 90]范围内")
     private BigDecimal latitude;
 
-    @Schema(description = "是否按距离排序")
-    private Boolean sortByDistance = false;
+    @Schema(description = "是否按距离排序 1:正序 2:倒序")
+    private Boolean sortByDistance;
 }

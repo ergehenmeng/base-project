@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -67,7 +67,7 @@ public class OrderEvaluation extends BaseEntity {
     @Schema(description = "用户id")
     private Long memberId;
 
-    @Schema(description = "是否匿名评论 0:非匿名1:匿名")
+    @Schema(description = "是否匿名评论 0:非匿名 1:匿名")
     private Boolean anonymity;
 
     @Schema(description = "审核拒绝原因")

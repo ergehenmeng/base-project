@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class GroupBookingQueryDTO extends PagingQuery {
 
-    @Schema(description = "排序规则 0:默认排序 1:按价格排序 2:按销售量排序 3:好评率 4:优惠金额 ")
-    private Integer sortBy = 0;
+    @Schema(description = "排序规则 空:默认排序 1:按价格排序 2:按销售量排序 3:好评率 4:优惠金额 ")
+    private Integer sortBy;
 
 }

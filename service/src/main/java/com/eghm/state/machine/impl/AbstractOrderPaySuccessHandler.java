@@ -2,9 +2,9 @@ package com.eghm.state.machine.impl;
 
 import com.eghm.dto.ext.OrderPayNotify;
 import com.eghm.enums.ExchangeQueue;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.PayType;
-import com.eghm.enums.ref.VisitorState;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.PayType;
+import com.eghm.enums.VisitorState;
 import com.eghm.model.Order;
 import com.eghm.mq.service.MessageService;
 import com.eghm.service.business.AccountService;

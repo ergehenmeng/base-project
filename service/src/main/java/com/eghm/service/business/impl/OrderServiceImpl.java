@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.cache.CacheService;
 import com.eghm.common.JsonService;
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.CommonConstant;
@@ -18,11 +18,7 @@ import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.statistics.DateRequest;
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ExchangeQueue;
-import com.eghm.enums.ExpressType;
-import com.eghm.enums.SelectType;
-import com.eghm.enums.ref.*;
+import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.mapper.MerchantMapper;
@@ -94,7 +90,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     private final CommonService commonService;
 
-    private final OrderMQService orderMQService;
+    private final OrderMqService orderMQService;
 
     private final MessageService messageService;
 
@@ -125,6 +121,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private final OfflineRefundLogService offlineRefundLogService;
 
     private final TicketOrderSnapshotMapper ticketOrderSnapshotMapper;
+
+    private static final int PRODUCT_TITLE_LENGTH = 50;
 
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType, String clientIp) {
@@ -557,7 +555,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             refund.setExpressFeeAmount(0);
         }
         // 只有待收货的商品才需要额外携带收货地址方便用户填写邮寄地址
-        if (containAddress && (refund.getDeliveryState() == DeliveryState.WAIT_TAKE || refund.getDeliveryState() == DeliveryState.CONFIRM_TASK)) {
+        containAddress = containAddress && (refund.getDeliveryState() == DeliveryState.WAIT_TAKE || refund.getDeliveryState() == DeliveryState.CONFIRM_TASK);
+        if (containAddress) {
             MerchantAddressVO address = merchantAddressService.getAddress(order.getStoreId());
             refund.setStoreAddress(address);
         }
@@ -789,8 +788,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
      * @return 商品名称
      */
     private String getGoodsTitle(StringBuilder builder) {
-        if (builder.length() > 50) {
-            return builder.substring(0, 50);
+        if (builder.length() > PRODUCT_TITLE_LENGTH) {
+            return builder.substring(0, PRODUCT_TITLE_LENGTH);
         }
         return builder.toString();
     }

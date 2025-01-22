@@ -1,6 +1,6 @@
 package com.eghm.web.annotation;
 
-import com.eghm.enums.ref.SignType;
+import com.eghm.enums.SignType;
 import com.eghm.web.configuration.interceptor.SignCheckInterceptor;
 
 import java.lang.annotation.Documented;

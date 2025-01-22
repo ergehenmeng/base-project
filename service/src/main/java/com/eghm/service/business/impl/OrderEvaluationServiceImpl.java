@@ -8,8 +8,8 @@ import com.eghm.dto.business.order.evaluation.*;
 import com.eghm.dto.ext.SendNotice;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.NoticeType;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.model.Order;
@@ -93,7 +93,7 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
             evaluation.setSkuTitle(snapshot.getSkuTitle());
             evaluation.setProductCover(snapshot.getProductCover());
             evaluation.setProductType(snapshot.getProductType());
-            evaluation.setAnonymity(dto.getAnonymity());
+            evaluation.setAnonymity(Boolean.TRUE.equals(dto.getAnonymity()));
             orderEvaluationMapper.insert(evaluation);
         }
         order.setEvaluateState(true);

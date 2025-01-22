@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.IdUtil;
 import static com.eghm.utils.StringUtil.isBlank;
 import com.eghm.common.JsonService;
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
@@ -13,10 +13,10 @@ import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.ScoreType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
-import com.eghm.enums.ref.RefundState;
-import com.eghm.enums.ref.RefundType;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.ProductType;
+import com.eghm.enums.RefundState;
+import com.eghm.enums.RefundType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
@@ -69,7 +69,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
 
     private final JsonService jsonService;
 
-    private final OrderMQService orderMQService;
+    private final OrderMqService orderMQService;
 
     private final MemberAddressService memberAddressService;
 
@@ -127,7 +127,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         String tradeNo = ProductType.ITEM.generateTradeNo();
         for (StoreOrderPackage aPackage : payload.getPackageList()) {
             Map<Long, Integer> skuExpressMap = this.calcExpressFee(aPackage.getStoreId(), aPackage.getMemberAddress().getCountyId(), aPackage.getItemList());
-            int expressAmount = skuExpressMap.values().stream().reduce(Integer::sum).orElse(0);
+            int expressAmount = skuExpressMap.values().stream().filter(Objects::nonNull).reduce(Integer::sum).orElse(0);
             Order order = this.generateOrder(context, aPackage, payload.getPackageList().size() > 1, expressAmount, tradeNo);
             orderService.save(order);
             // 新增零售订单
@@ -464,8 +464,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         Map<Long, Item> itemMap = itemService.getByIdShelveMap(context.getItemIds());
         for (ItemDTO dto : context.getItemList()) {
             if (context.getTotalScore() > 0) {
-                int surplus = dto.getScoreAmount() % 100;
-                if (surplus > 0) {
+                if (dto.getScoreAmount() != null && dto.getScoreAmount() % 100 > 0) {
                     throw new BusinessException(SCORE_INTEGER);
                 }
             }

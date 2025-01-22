@@ -20,5 +20,5 @@ public class CollectQueryDTO extends PagingQuery {
     private Long memberId;
 
     @Schema(description = "1:商品 2:店铺")
-    private Integer type = 1;
+    private Integer type;
 }

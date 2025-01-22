@@ -29,11 +29,11 @@ public class OrderStatisticsVO {
     private String createMonth;
 
     @Schema(description = "订单数量")
-    private Integer orderNum = 0;
+    private Integer orderNum;
 
     @Schema(description = "支付金额")
     @JsonSerialize(using = CentToYuanSerializer.class)
-    private Integer payAmount = 0;
+    private Integer payAmount;
 
     public OrderStatisticsVO(LocalDate createDate) {
         this.createDate = createDate;

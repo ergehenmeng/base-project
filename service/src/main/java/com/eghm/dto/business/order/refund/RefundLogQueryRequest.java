@@ -3,7 +3,7 @@ package com.eghm.dto.business.order.refund;
 import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.enums.ref.AuditState;
+import com.eghm.enums.AuditState;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

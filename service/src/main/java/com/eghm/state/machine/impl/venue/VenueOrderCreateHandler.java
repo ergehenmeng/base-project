@@ -1,15 +1,15 @@
 package com.eghm.state.machine.impl.venue;
 
 import com.eghm.common.JsonService;
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.dto.ext.VenuePhase;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VenueEvent;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
-import com.eghm.enums.ref.RefundType;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.ProductType;
+import com.eghm.enums.RefundType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
@@ -53,9 +53,9 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
     private final RedeemCodeGrantService redeemCodeGrantService;
 
     public VenueOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, VenueService venueService, JsonService jsonService,
-                                   OrderMQService orderMQService, VenueSiteService venueSiteService, VenueOrderService venueOrderService, VenueSitePriceService venueSitePriceService,
+                                   OrderMqService orderMqService, VenueSiteService venueSiteService, VenueOrderService venueOrderService, VenueSitePriceService venueSitePriceService,
                                    RedeemCodeGrantService redeemCodeGrantService) {
-        super(orderMQService, memberCouponService, orderVisitorService, redeemCodeGrantService);
+        super(orderMqService, memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.venueService = venueService;
         this.venueSiteService = venueSiteService;
         this.venueOrderService = venueOrderService;

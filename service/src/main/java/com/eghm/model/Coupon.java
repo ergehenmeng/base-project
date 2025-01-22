@@ -2,9 +2,9 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.enums.ref.CouponMode;
-import com.eghm.enums.ref.CouponType;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.CouponMode;
+import com.eghm.enums.CouponType;
+import com.eghm.enums.ProductType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

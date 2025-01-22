@@ -4,7 +4,7 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.dto.business.restaurant.voucher.VoucherQueryDTO;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.VisitType;
+import com.eghm.enums.VisitType;
 import com.eghm.service.business.RestaurantService;
 import com.eghm.service.business.VoucherService;
 import com.eghm.vo.business.restaurant.RestaurantDetailVO;

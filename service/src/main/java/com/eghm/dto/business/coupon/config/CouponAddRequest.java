@@ -2,9 +2,9 @@ package com.eghm.dto.business.coupon.config;
 
 import com.eghm.annotation.Assign;
 import com.eghm.convertor.YuanToCentDeserializer;
-import com.eghm.enums.ref.CouponMode;
-import com.eghm.enums.ref.CouponType;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.CouponMode;
+import com.eghm.enums.CouponType;
+import com.eghm.enums.ProductType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;

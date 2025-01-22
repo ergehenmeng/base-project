@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.lottery.*;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.LotteryState;
-import com.eghm.enums.ref.PrizeType;
+import com.eghm.enums.LotteryState;
+import com.eghm.enums.PrizeType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LotteryMapper;
 import com.eghm.model.Lottery;
@@ -58,6 +58,8 @@ public class LotteryServiceImpl implements LotteryService {
     private final LotteryPrizeService lotteryPrizeService;
 
     private final LotteryConfigService lotteryConfigService;
+
+    private static final int LOTTERY_RATE = 10000;
 
     @Override
     public Page<LotteryResponse> getByPage(LotteryQueryRequest request) {
@@ -261,7 +263,7 @@ public class LotteryServiceImpl implements LotteryService {
         if (lottery.getWinNum() <= lotteryWin) {
             return losingLottery;
         }
-        int index = new SecureRandom().nextInt(10000);
+        int index = new SecureRandom().nextInt(LOTTERY_RATE);
         return configList.stream().filter(config -> config.getStartRange() >= index && index < config.getEndRange()).findFirst().orElse(losingLottery);
     }
 
@@ -317,7 +319,7 @@ public class LotteryServiceImpl implements LotteryService {
      */
     private void checkConfig(List<LotteryConfigRequest> configList) {
         Optional<Integer> optional = configList.stream().map(LotteryConfigRequest::getWeight).reduce(Integer::sum);
-        if (optional.isEmpty() || optional.get() != 10000) {
+        if (optional.isEmpty() || optional.get() != LOTTERY_RATE) {
             throw new BusinessException(ErrorCode.LOTTERY_RATIO);
         }
     }

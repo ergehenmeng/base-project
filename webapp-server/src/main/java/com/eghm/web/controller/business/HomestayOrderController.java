@@ -4,7 +4,7 @@ import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.homestay.HomestayOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.VisitType;
+import com.eghm.enums.VisitType;
 import com.eghm.service.business.HomestayOrderService;
 import com.eghm.vo.business.order.homestay.HomestayOrderDetailVO;
 import com.eghm.vo.business.order.homestay.HomestayOrderSnapshotVO;

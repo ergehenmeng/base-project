@@ -14,7 +14,7 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.SignType;
+import com.eghm.enums.SignType;
 import com.eghm.exception.BusinessException;
 import com.eghm.utils.WebUtil;
 import com.eghm.vo.auth.AuthConfigVO;

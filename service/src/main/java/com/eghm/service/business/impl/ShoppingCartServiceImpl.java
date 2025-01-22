@@ -10,7 +10,7 @@ import com.eghm.dto.business.shopping.CartDTO;
 import com.eghm.dto.business.shopping.ShoppingCartQueryRequest;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.SelectType;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ShoppingCartMapper;
 import com.eghm.model.Item;

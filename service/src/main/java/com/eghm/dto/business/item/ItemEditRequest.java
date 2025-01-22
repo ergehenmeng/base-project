@@ -2,7 +2,7 @@ package com.eghm.dto.business.item;
 
 import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.dto.business.item.sku.ItemSpecRequest;
-import com.eghm.enums.ref.DeliveryType;
+import com.eghm.enums.DeliveryType;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.google.gson.annotations.Expose;

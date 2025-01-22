@@ -6,7 +6,7 @@ import com.eghm.annotation.Desensitization;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.FieldType;
-import com.eghm.enums.ref.RedeemState;
+import com.eghm.enums.RedeemState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

@@ -17,16 +17,16 @@ public abstract class AbstractIgnoreFilter extends OncePerRequestFilter {
     /**
      * 排除忽略的地址或者模糊匹配的url
      */
-    private static final List<String> exclude = Lists.newArrayListWithCapacity(4);
+    private static final List<String> EXCLUDE = Lists.newArrayListWithCapacity(4);
 
     /**
      * 匹配器
      */
-    private static final AntPathMatcher matcher = new AntPathMatcher();
+    private static final AntPathMatcher MATCHER = new AntPathMatcher();
 
     @Override
     protected boolean shouldNotFilter(@NonNull HttpServletRequest request) {
-        return exclude.stream().anyMatch(url -> matcher.match(url, request.getRequestURI()));
+        return EXCLUDE.stream().anyMatch(url -> MATCHER.match(url, request.getRequestURI()));
     }
 
     /**
@@ -35,7 +35,7 @@ public abstract class AbstractIgnoreFilter extends OncePerRequestFilter {
      * @param matchUrl 不需要拦截的地址
      */
     public void exclude(@NonNull String... matchUrl) {
-        exclude.addAll(Lists.newArrayList(matchUrl));
+        EXCLUDE.addAll(Lists.newArrayList(matchUrl));
     }
 
 }

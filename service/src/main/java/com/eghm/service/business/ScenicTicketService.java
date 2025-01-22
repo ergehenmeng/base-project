@@ -6,7 +6,7 @@ import com.eghm.dto.business.scenic.ticket.ScenicTicketAddRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketEditRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.dto.ext.CalcStatistics;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.model.ScenicTicket;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.scenic.ticket.TicketResponse;

@@ -2,7 +2,7 @@ package com.eghm.dto.business.line.config;
 
 import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.convertor.YuanToCentDeserializer;
-import com.eghm.dto.ext.DateComparator;
+import com.eghm.dto.ext.AbstractDateComparator;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class LineConfigRequest extends DateComparator {
+public class LineConfigRequest extends AbstractDateComparator {
 
     @Schema(description = "周期", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "请选择周期")

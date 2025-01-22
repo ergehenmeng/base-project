@@ -2,8 +2,8 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.enums.ref.ChangeType;
-import com.eghm.enums.ref.FreezeState;
+import com.eghm.enums.ChangeType;
+import com.eghm.enums.FreezeState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;

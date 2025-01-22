@@ -10,6 +10,7 @@ import com.eghm.dto.business.coupon.product.CouponProductDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
+import com.eghm.enums.UseScope;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.CouponMapper;
 import com.eghm.model.Coupon;
@@ -168,10 +169,10 @@ public class CouponServiceImpl implements CouponService {
      * @param productIds 商品id
      */
     private void checkScope(Integer useScope, List<Long> productIds) {
-        if (useScope == 1 && CollUtil.isNotEmpty(productIds)) {
+        if (useScope == UseScope.STORE.getValue() && CollUtil.isNotEmpty(productIds)) {
             throw new BusinessException(COUPON_SCOPE_ILLEGAL);
         }
-        if (useScope == 2 && CollUtil.isEmpty(productIds)) {
+        if (useScope == UseScope.PRODUCT.getValue() && CollUtil.isEmpty(productIds)) {
             throw new BusinessException(COUPON_SCOPE_NULL);
         }
     }

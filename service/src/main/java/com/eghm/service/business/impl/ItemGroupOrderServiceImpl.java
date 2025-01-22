@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.AlarmService;
 import com.eghm.constants.CommonConstant;
+import com.eghm.enums.BookingState;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.exception.BusinessException;
@@ -135,11 +136,11 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
             log.info("该订单非拼团订单不做额外处理 [{}]", order.getOrderNo());
             return;
         }
-        if (order.getBookingState() == 1) {
+        if (order.getBookingState() == BookingState.SUCCESS.getValue()) {
             log.warn("订单已拼团成功,无需同步退款[{}] [{}]", order.getOrderNo(), order.getBookingNo());
             return;
         }
-        if (order.getBookingState() == 2) {
+        if (order.getBookingState() == BookingState.FAIL.getValue()) {
             log.warn("订单已拼团失败,无需同步退款[{}] [{}]", order.getOrderNo(), order.getBookingNo());
             return;
         }

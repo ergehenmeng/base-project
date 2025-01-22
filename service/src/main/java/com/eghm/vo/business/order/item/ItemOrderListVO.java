@@ -1,8 +1,8 @@
 package com.eghm.vo.business.order.item;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.enums.ref.DeliveryState;
-import com.eghm.enums.ref.ItemRefundState;
+import com.eghm.enums.DeliveryState;
+import com.eghm.enums.ItemRefundState;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;

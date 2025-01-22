@@ -66,24 +66,22 @@
         <if test="param.queryName != null and param.queryName != ''">
             and r.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%')
         </if>
-        <if test="param.sortBy != null">
-            <choose>
-                <when test="param.sortBy == 1">
-                    order by r.min_price, r.recommend desc
-                </when>
-                <when test="param.sortBy == 2">
-                    order by r.total_num desc, r.recommend desc
-                </when>
-                <when test="param.sortBy == 3">
-                    order by r.score desc, r.recommend desc
-                </when>
-                <when test="param.sortBy == 4">
-                    order by t.max_discount_amount desc, r.recommend desc
-                </when>
-                <otherwise>
-                    order by r.recommend desc, t.id desc
-                </otherwise>
-            </choose>
-        </if>
+        <choose>
+            <when test="param.sortBy == null">
+                order by r.recommend desc, t.id desc
+            </when>
+            <when test="param.sortBy == 1">
+                order by r.min_price, r.recommend desc
+            </when>
+            <when test="param.sortBy == 2">
+                order by r.total_num desc, r.recommend desc
+            </when>
+            <when test="param.sortBy == 3">
+                order by r.score desc, r.recommend desc
+            </when>
+            <otherwise>
+                order by t.max_discount_amount desc, r.recommend desc
+            </otherwise>
+        </choose>
     </select>
 </mapper>

@@ -3,7 +3,7 @@ package com.eghm.web.controller;
 import com.eghm.annotation.SkipPerm;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.ext.SocketMsg;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 import com.google.common.collect.Lists;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

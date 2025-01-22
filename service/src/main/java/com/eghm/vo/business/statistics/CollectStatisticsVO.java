@@ -27,7 +27,7 @@ public class CollectStatisticsVO {
     private String createMonth;
 
     @Schema(description = "收藏数量")
-    private Integer collectNum = 0;
+    private Integer collectNum;
 
     public CollectStatisticsVO(LocalDate createDate) {
         this.createDate = createDate;

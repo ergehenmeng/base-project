@@ -29,5 +29,5 @@ public class RestaurantQueryDTO extends PagingQuery {
     private BigDecimal latitude;
 
     @Schema(description = "是否按距离排序")
-    private Boolean sortByDistance = false;
+    private Boolean sortByDistance;
 }

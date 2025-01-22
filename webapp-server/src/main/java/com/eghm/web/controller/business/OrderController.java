@@ -10,13 +10,13 @@ import com.eghm.dto.business.order.ticket.TicketOrderCreateDTO;
 import com.eghm.dto.business.order.venue.VenueOrderCreateDTO;
 import com.eghm.dto.business.order.voucher.VoucherOrderCreateDTO;
 import com.eghm.dto.ext.ApiHolder;
-import com.eghm.dto.ext.AsyncKey;
+import com.eghm.dto.ext.BaseAsyncKey;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.*;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.ProductType;
 import com.eghm.lock.RedisLock;
 import com.eghm.model.Order;
 import com.eghm.pay.vo.PrepayVO;
@@ -39,6 +39,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.eghm.utils.StringUtil.isNotBlank;
@@ -244,7 +245,7 @@ public class OrderController {
         List<SkuDTO> skuList = dto.getItemList().stream().flatMap(item -> item.getSkuList().stream()).toList();
         context.setItemIds(skuList.stream().map(SkuDTO::getItemId).collect(Collectors.toSet()));
         context.setSkuIds(skuList.stream().map(SkuDTO::getSkuId).collect(Collectors.toSet()));
-        int totalScore = dto.getItemList().stream().mapToInt(ItemDTO::getScoreAmount).sum();
+        int totalScore = dto.getItemList().stream().filter(Objects::nonNull).mapToInt(ItemDTO::getScoreAmount).sum();
         context.setTotalScore(totalScore);
         stateHandler.fireEvent(ProductType.ITEM, OrderState.NONE.getValue(), ItemEvent.CREATE, context);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
@@ -258,7 +259,7 @@ public class OrderController {
      * @param orderNo 订单编号
      * @return vo
      */
-    private OrderCreateVO<String> generateResult(AsyncKey context, String orderNo) {
+    private OrderCreateVO<String> generateResult(BaseAsyncKey context, String orderNo) {
         OrderCreateVO<String> vo = new OrderCreateVO<>();
         if (isNotBlank(context.getKey())) {
             vo.setState(0);

@@ -13,7 +13,7 @@ import com.eghm.dto.business.item.ItemEditRequest;
 import com.eghm.dto.business.item.ItemQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.model.ItemSku;
 import com.eghm.service.business.ItemService;
 import com.eghm.service.business.ItemSkuService;

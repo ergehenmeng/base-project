@@ -1,6 +1,6 @@
 package com.eghm.dto.business.account;
 
-import com.eghm.enums.ref.AccountType;
+import com.eghm.enums.AccountType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

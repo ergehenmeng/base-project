@@ -1,7 +1,7 @@
 package com.eghm.vo.business.comment;
 
-import com.eghm.enums.ref.ObjectType;
-import com.eghm.enums.ref.ReportType;
+import com.eghm.enums.ObjectType;
+import com.eghm.enums.ReportType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

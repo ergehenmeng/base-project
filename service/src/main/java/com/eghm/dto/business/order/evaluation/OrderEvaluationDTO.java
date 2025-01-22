@@ -20,7 +20,7 @@ public class OrderEvaluationDTO {
     private String orderNo;
 
     @Schema(description = "是否匿名评论 0:非匿名 1:匿名")
-    private Boolean anonymity = false;
+    private Boolean anonymity;
 
     @Schema(description = "评价信息", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "评价信息不能为空")

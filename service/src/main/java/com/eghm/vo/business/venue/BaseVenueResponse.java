@@ -2,7 +2,7 @@ package com.eghm.vo.business.venue;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.eghm.convertor.excel.EnumExcelConverter;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

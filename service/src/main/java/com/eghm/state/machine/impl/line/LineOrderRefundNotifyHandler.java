@@ -1,12 +1,12 @@
 package com.eghm.state.machine.impl.line;
 
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.LineEvent;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
-import com.eghm.enums.ref.VisitorState;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.ProductType;
+import com.eghm.enums.VisitorState;
 import com.eghm.model.LineOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
@@ -31,17 +31,17 @@ public class LineOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
 
     private final OrderVisitorService orderVisitorService;
 
-    private final OrderMQService orderMQService;
+    private final OrderMqService orderMqService;
 
     public LineOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                         VerifyLogService verifyLogService, LineOrderService lineOrderService, LineConfigService lineConfigService,
-                                        OrderVisitorService orderVisitorService, OrderMQService orderMQService,
+                                        OrderVisitorService orderVisitorService, OrderMqService orderMqService,
                                         AccountService accountService) {
         super(orderService, accountService, orderRefundLogService, verifyLogService);
         this.lineOrderService = lineOrderService;
         this.lineConfigService = lineConfigService;
         this.orderVisitorService = orderVisitorService;
-        this.orderMQService = orderMQService;
+        this.orderMqService = orderMqService;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class LineOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
             }
         }
         if (order.getState() == OrderState.COMPLETE) {
-            orderMQService.sendOrderCompleteMessage(ExchangeQueue.LINE_COMPLETE_DELAY, order.getOrderNo());
+            orderMqService.sendOrderCompleteMessage(ExchangeQueue.LINE_COMPLETE_DELAY, order.getOrderNo());
         }
     }
 

@@ -1,7 +1,7 @@
 package com.eghm.vo.business.order.refund;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.enums.ref.AuditState;
+import com.eghm.enums.AuditState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;

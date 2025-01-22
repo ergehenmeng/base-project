@@ -53,6 +53,7 @@ public interface TicketOrderMapper extends BaseMapper<TicketOrder> {
      * 查询订单商品快照
      *
      * @param orderId 订单id
+     * @param orderNo 订单号
      * @return 订单信息
      */
     ProductSnapshotVO getSnapshot(@Param("orderId") Long orderId, @Param("orderNo") String orderNo);

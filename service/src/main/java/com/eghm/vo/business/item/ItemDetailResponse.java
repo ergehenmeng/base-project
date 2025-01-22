@@ -1,6 +1,6 @@
 package com.eghm.vo.business.item;
 
-import com.eghm.enums.ref.DeliveryType;
+import com.eghm.enums.DeliveryType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

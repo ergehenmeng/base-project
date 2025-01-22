@@ -1,8 +1,8 @@
 package com.eghm.vo.business.order.item;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.PayType;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.PayType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

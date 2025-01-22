@@ -2,9 +2,9 @@ package com.eghm.dto.business.order.ticket;
 
 import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
-import com.eghm.dto.ext.DatePagingComparator;
-import com.eghm.enums.ref.CloseType;
-import com.eghm.enums.ref.OrderState;
+import com.eghm.dto.ext.AbstractDatePagingComparator;
+import com.eghm.enums.CloseType;
+import com.eghm.enums.OrderState;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,7 +18,7 @@ import java.time.LocalDate;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class TicketOrderQueryRequest extends DatePagingComparator {
+public class TicketOrderQueryRequest extends AbstractDatePagingComparator {
 
     @Schema(description = "订单状态 0:待支付 1:支付中 2:待使用 3:待自提 4:待发货 5:部分发货 6:待收货 7:退款中 8:订单完成 9:已关闭 10:支付异常 11:退款异常")
     private OrderState state;

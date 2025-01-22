@@ -1,8 +1,8 @@
 package com.eghm.state.machine.access.impl;
 
 import com.eghm.enums.event.impl.VoucherEvent;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.pay.AggregatePayService;
 import com.eghm.service.business.OrderService;

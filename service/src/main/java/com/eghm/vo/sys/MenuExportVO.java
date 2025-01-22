@@ -39,7 +39,6 @@ public class MenuExportVO extends ExcelStyle {
     @ExcelProperty("菜单地址")
     private String path;
 
-    // 前提需要在sys_dict中定义menu_grade
     @Schema(description = "菜单级别 1:导航菜单 2:按钮菜单")
     @ExcelDict("menu_grade")
     @ExcelProperty("菜单级别")
@@ -53,10 +52,19 @@ public class MenuExportVO extends ExcelStyle {
     @AllArgsConstructor
     public enum MockEnum {
 
+        /**
+         * 初始化
+         */
         INIT(0, "初始化"),
 
+        /**
+         * 开始
+         */
         START(1, "开始"),
 
+        /**
+         * 结束
+         */
         END(2, "结束");
 
         private final int value;

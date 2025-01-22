@@ -1,6 +1,6 @@
 package com.eghm.state.machine.impl;
 
-import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.OrderState;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.state.machine.ActionHandler;

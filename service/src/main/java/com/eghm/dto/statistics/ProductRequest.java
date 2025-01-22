@@ -1,9 +1,9 @@
 package com.eghm.dto.statistics;
 
 import com.eghm.annotation.DateFormatter;
-import com.eghm.dto.ext.DateComparator;
+import com.eghm.dto.ext.AbstractDateComparator;
 import com.eghm.enums.SelectType;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,7 +19,7 @@ import java.time.LocalDate;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class ProductRequest extends DateComparator {
+public class ProductRequest extends AbstractDateComparator {
 
     @Schema(description = "开始日期 yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
     @DateTimeFormat(pattern = "yyyy-MM-dd")

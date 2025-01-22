@@ -1,6 +1,6 @@
 package com.eghm.state.machine.impl.line;
 
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.LineEvent;
 import com.eghm.service.business.*;
@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class LineOrderCreateQueueHandler extends LineOrderCreateHandler {
 
-    public LineOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, LineService lineService, TravelAgencyService travelAgencyService, LineConfigService lineConfigService, LineDayConfigService lineDayConfigService, LineOrderService lineOrderService, LineOrderSnapshotService lineOrderSnapshotService, RedeemCodeGrantService redeemCodeGrantService) {
-        super(orderService, memberCouponService, orderVisitorService, orderMQService, lineService, travelAgencyService, lineConfigService, lineDayConfigService, lineOrderService, lineOrderSnapshotService, redeemCodeGrantService);
+    public LineOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMqService orderMqService, LineService lineService, TravelAgencyService travelAgencyService, LineConfigService lineConfigService, LineDayConfigService lineDayConfigService, LineOrderService lineOrderService, LineOrderSnapshotService lineOrderSnapshotService, RedeemCodeGrantService redeemCodeGrantService) {
+        super(orderService, memberCouponService, orderVisitorService, orderMqService, lineService, travelAgencyService, lineConfigService, lineDayConfigService, lineOrderService, lineOrderSnapshotService, redeemCodeGrantService);
     }
 
     @Override

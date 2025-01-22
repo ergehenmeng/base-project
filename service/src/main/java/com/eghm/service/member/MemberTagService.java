@@ -56,6 +56,7 @@ public interface MemberTagService {
      * 查询标签信息
      *
      * @param id id
+     * @return 会员标签
      */
     MemberTag selectByIdRequired(Long id);
 }

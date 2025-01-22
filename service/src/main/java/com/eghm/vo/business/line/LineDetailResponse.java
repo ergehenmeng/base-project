@@ -1,6 +1,6 @@
 package com.eghm.vo.business.line;
 
-import com.eghm.enums.ref.RefundType;
+import com.eghm.enums.RefundType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

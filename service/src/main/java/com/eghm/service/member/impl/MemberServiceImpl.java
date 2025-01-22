@@ -425,9 +425,9 @@ public class MemberServiceImpl implements MemberService {
             log.info("积分变动为零,不做任何处理 [{}] [{}]", memberId, score);
             return;
         }
-        Integer direction = scoreType.getDirection();
+        DirectionType direction = scoreType.getDirection();
         score = Math.abs(score);
-        if (direction == 2) {
+        if (direction == DirectionType.DISBURSE) {
             score = - score;
         }
         int updated = memberMapper.updateScore(memberId, score);

@@ -1,7 +1,7 @@
 package com.eghm.dto.member.tag;
 
 import com.eghm.annotation.DateFormatter;
-import com.eghm.dto.ext.DatePagingComparator;
+import com.eghm.dto.ext.AbstractDatePagingComparator;
 import com.eghm.validation.annotation.OptionInt;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -20,7 +20,7 @@ import java.time.LocalDate;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class TagMemberQueryRequest extends DatePagingComparator {
+public class TagMemberQueryRequest extends AbstractDatePagingComparator {
 
     @Schema(description = "标签id")
     @NotNull(message = "请选择标签")

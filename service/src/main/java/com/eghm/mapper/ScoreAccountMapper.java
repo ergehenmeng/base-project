@@ -16,6 +16,7 @@ public interface ScoreAccountMapper extends BaseMapper<ScoreAccount> {
     /**
      * 更新账户信息
      * @param account 账户信息
+     * @return 1
      */
     int updateAccount(ScoreAccount account);
 }

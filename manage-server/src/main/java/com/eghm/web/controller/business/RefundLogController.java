@@ -9,7 +9,7 @@ import com.eghm.dto.business.order.refund.RefundLogQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.ext.UserToken;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.lock.RedisLock;
 import com.eghm.service.business.CommonService;

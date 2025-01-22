@@ -9,7 +9,7 @@ import com.eghm.dto.business.restaurant.RestaurantEditRequest;
 import com.eghm.dto.business.restaurant.RestaurantQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.model.Restaurant;
 import com.eghm.service.business.RestaurantService;
 import com.eghm.utils.DataUtil;

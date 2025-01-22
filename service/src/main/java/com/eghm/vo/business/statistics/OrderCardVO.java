@@ -17,18 +17,18 @@ import lombok.Data;
 public class OrderCardVO {
 
     @Schema(description = "订单数量(含退款的订单)")
-    private Integer orderNum = 0;
+    private Integer orderNum;
 
     @Schema(description = "支付金额(含退款的订单)")
     @JsonSerialize(using = CentToYuanSerializer.class)
-    private Integer payAmount = 0;
+    private Integer payAmount;
 
     @Schema(description = "退款数量(包含部分退款)")
-    private Integer refundNum = 0;
+    private Integer refundNum;
 
     @Schema(description = "退款金额(包含部分退款)")
     @JsonSerialize(using = CentToYuanSerializer.class)
-    private Integer refundAmount = 0;
+    private Integer refundAmount;
 
     public void setOrderNum(Integer orderNum) {
         this.orderNum = orderNum + RandomUtil.randomInt(1000);

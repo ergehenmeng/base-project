@@ -1,10 +1,10 @@
 package com.eghm.vo.business.order.venue;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.PayType;
-import com.eghm.enums.ref.RefundState;
-import com.eghm.enums.ref.VenueType;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.PayType;
+import com.eghm.enums.RefundState;
+import com.eghm.enums.VenueType;
 import com.eghm.vo.business.venue.VenuePhaseVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;

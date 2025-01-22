@@ -2,7 +2,7 @@ package com.eghm.dto.business.venue;
 
 import com.eghm.annotation.Assign;
 import com.eghm.configuration.gson.LocalDateAdapter;
-import com.eghm.dto.ext.DateComparator;
+import com.eghm.dto.ext.AbstractDateComparator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,7 +21,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class VenueSitePriceRequest extends DateComparator {
+public class VenueSitePriceRequest extends AbstractDateComparator {
 
     @Assign
     @Schema(description = "所属场馆", hidden = true)

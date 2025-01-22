@@ -36,7 +36,7 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public OpenAPI customOpenAPI() {
+    public OpenAPI customOpenApi() {
         return new OpenAPI()
                 .info(new Info()
                         .title("移动端API接口")

@@ -1,7 +1,6 @@
 package com.eghm.state.machine.impl;
 
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.*;
+import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
@@ -23,7 +22,7 @@ import java.time.LocalDateTime;
 
 import static com.eghm.enums.ErrorCode.REFUND_AMOUNT_MAX;
 import static com.eghm.enums.ErrorCode.TOTAL_REFUND_MAX_NUM;
-import static com.eghm.enums.ref.OrderState.PARTIAL_DELIVERY;
+import static com.eghm.enums.OrderState.PARTIAL_DELIVERY;
 
 /**
  * 退款申请默认实现

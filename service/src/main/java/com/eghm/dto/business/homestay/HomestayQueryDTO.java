@@ -1,7 +1,7 @@
 package com.eghm.dto.business.homestay;
 
 import com.eghm.annotation.Assign;
-import com.eghm.dto.ext.DatePagingComparator;
+import com.eghm.dto.ext.AbstractDatePagingComparator;
 import com.eghm.validation.annotation.OptionInt;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -21,7 +21,7 @@ import java.time.LocalDate;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class HomestayQueryDTO extends DatePagingComparator {
+public class HomestayQueryDTO extends AbstractDatePagingComparator {
 
     @Schema(description = "经度")
     @DecimalMin(value = "-180", message = "经度应(-180, 180]范围内", inclusive = false)

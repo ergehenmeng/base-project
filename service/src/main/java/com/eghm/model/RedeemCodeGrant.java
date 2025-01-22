@@ -2,6 +2,7 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.enums.RedeemGrantState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -40,7 +41,7 @@ public class RedeemCodeGrant extends BaseEntity {
     private Long memberId;
 
     @Schema(description = "使用状态 0:待使用 1:已使用 2:已过期")
-    private Integer state;
+    private RedeemGrantState state;
 
     @Schema(description = "金额")
     @JsonSerialize(using = CentToYuanSerializer.class)

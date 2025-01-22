@@ -52,6 +52,7 @@ public interface LotteryService {
      *
      * @param lotteryId 活动id
      * @param memberId  用户id
+     * @return 抽奖结果: 1 中奖，0 未中奖
      */
     LotteryResultVO lottery(Long lotteryId, Long memberId);
 

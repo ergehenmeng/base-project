@@ -1,7 +1,7 @@
 package com.eghm.service.business.lottery.handler.impl;
 
 import com.eghm.dto.business.coupon.member.GrantCouponDTO;
-import com.eghm.enums.ref.PrizeType;
+import com.eghm.enums.PrizeType;
 import com.eghm.model.Lottery;
 import com.eghm.model.LotteryConfig;
 import com.eghm.model.LotteryPrize;

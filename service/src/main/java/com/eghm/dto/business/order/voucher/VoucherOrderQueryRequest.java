@@ -2,8 +2,8 @@ package com.eghm.dto.business.order.voucher;
 
 import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
-import com.eghm.dto.ext.DatePagingComparator;
-import com.eghm.enums.ref.OrderState;
+import com.eghm.dto.ext.AbstractDatePagingComparator;
+import com.eghm.enums.OrderState;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,7 +17,7 @@ import java.time.LocalDate;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class VoucherOrderQueryRequest extends DatePagingComparator {
+public class VoucherOrderQueryRequest extends AbstractDatePagingComparator {
 
     @Schema(description = "餐饮订单状态")
     private OrderState orderState;

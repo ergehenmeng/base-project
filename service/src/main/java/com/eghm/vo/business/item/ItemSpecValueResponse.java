@@ -1,6 +1,6 @@
 package com.eghm.vo.business.item;
 
-import com.eghm.enums.ref.SpecLevel;
+import com.eghm.enums.SpecLevel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;

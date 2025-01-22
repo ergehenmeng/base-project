@@ -1,11 +1,11 @@
 package com.eghm.state.machine.impl.voucher;
 
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VoucherEvent;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.ProductType;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.model.VoucherOrder;
@@ -28,15 +28,15 @@ public class VoucherOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHa
 
     private final VoucherOrderService voucherOrderService;
 
-    private final OrderMQService orderMQService;
+    private final OrderMqService orderMqService;
 
     public VoucherOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                            VerifyLogService verifyLogService, VoucherService voucherService, VoucherOrderService voucherOrderService,
-                                           OrderMQService orderMQService, AccountService accountService) {
+                                           OrderMqService orderMqService, AccountService accountService) {
         super(orderService, accountService, orderRefundLogService, verifyLogService);
         this.voucherService = voucherService;
         this.voucherOrderService = voucherOrderService;
-        this.orderMQService = orderMQService;
+        this.orderMqService = orderMqService;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class VoucherOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHa
             }
         }
         if (order.getState() == OrderState.COMPLETE) {
-            orderMQService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE_DELAY, order.getOrderNo());
+            orderMqService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE_DELAY, order.getOrderNo());
         }
     }
 

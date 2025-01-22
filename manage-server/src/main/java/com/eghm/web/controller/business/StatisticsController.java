@@ -7,7 +7,7 @@ import com.eghm.dto.statistics.CollectRequest;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.dto.statistics.VisitRequest;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 import com.eghm.service.business.*;
 import com.eghm.service.member.MemberService;
 import com.eghm.vo.business.statistics.*;

@@ -1,8 +1,8 @@
 package com.eghm.state.machine.impl;
 
-import com.eghm.enums.ref.CloseType;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.PayType;
+import com.eghm.enums.CloseType;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.PayType;
 import com.eghm.model.Order;
 import com.eghm.pay.AggregatePayService;
 import com.eghm.pay.enums.TradeType;

@@ -2,7 +2,7 @@ package com.eghm.dto.business.order.venue;
 
 import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
-import com.eghm.dto.ext.DatePagingComparator;
+import com.eghm.dto.ext.AbstractDatePagingComparator;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +16,7 @@ import java.time.LocalDate;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class VenueOrderQueryDTO extends DatePagingComparator {
+public class VenueOrderQueryDTO extends AbstractDatePagingComparator {
 
     @Schema(description = "订单状态")
     private Integer state;

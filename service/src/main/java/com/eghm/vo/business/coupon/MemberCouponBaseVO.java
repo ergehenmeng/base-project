@@ -1,7 +1,7 @@
 package com.eghm.vo.business.coupon;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.enums.ref.CouponType;
+import com.eghm.enums.CouponType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

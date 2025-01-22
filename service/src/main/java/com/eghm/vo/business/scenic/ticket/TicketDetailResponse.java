@@ -1,7 +1,7 @@
 package com.eghm.vo.business.scenic.ticket;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;

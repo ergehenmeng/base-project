@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 @Slf4j
 public class RunnableTask implements Runnable {
 
-    private final Task task;
+    private final AbstractTask task;
 
     private final Object bean;
 
@@ -37,7 +37,7 @@ public class RunnableTask implements Runnable {
 
     private final SysTaskLogService sysTaskLogService;
 
-    RunnableTask(Task task) {
+    RunnableTask(AbstractTask task) {
         this.task = task;
         try {
             this.bean = SpringContextUtil.getBean(task.getBeanName());
@@ -84,7 +84,7 @@ public class RunnableTask implements Runnable {
      * @return 方法
      * @throws NoSuchMethodException e
      */
-    private Method findMethod(Task task, Object bean) throws NoSuchMethodException {
+    private Method findMethod(AbstractTask task, Object bean) throws NoSuchMethodException {
         Class<?> cls = AopUtils.isAopProxy(bean) ? bean.getClass().getSuperclass() : bean.getClass();
         if (isBlank(task.getArgs())) {
             return cls.getMethod(task.getMethodName());

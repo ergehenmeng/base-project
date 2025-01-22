@@ -12,6 +12,7 @@ public interface WeChatMiniService {
      * 微信小程序授权获取手机号
      *
      * @param jsCode jsCode
+     * @return 手机号
      */
     String authMobile(String jsCode);
 
@@ -43,7 +44,7 @@ public interface WeChatMiniService {
      * @param validDay 有效时间(跟微信无关,是请求参数的缓存时间)
      * @return 二维码字节
      */
-    byte[] generateQRCode(String path, String query, int validDay);
+    byte[] generateQrCode(String path, String query, int validDay);
 
     /**
      * 解析小程序码参数

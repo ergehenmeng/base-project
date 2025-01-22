@@ -1,6 +1,6 @@
 package com.eghm.vo.business.homestay.room;
 
-import com.eghm.enums.ref.RoomType;
+import com.eghm.enums.RoomType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

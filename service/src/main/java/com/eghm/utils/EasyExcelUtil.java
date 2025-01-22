@@ -42,7 +42,7 @@ public class EasyExcelUtil {
      */
     private static final int BATCH_SIZE = 500;
 
-    private static final SheetWriteHandler freezeRowHandler = new FreezeRowHandler();
+    private static final SheetWriteHandler FREEZE_ROW_HANDLER = new FreezeRowHandler();
 
     /**
      * 导出xlsx表格
@@ -74,7 +74,7 @@ public class EasyExcelUtil {
         try {
             response.setHeader(Header.CONTENT_DISPOSITION.getValue(), "attachment;filename=" + URLEncodeUtil.encode(fileName, StandardCharsets.UTF_8));
             response.setContentType(XLSX_CONTENT_TYPE);
-            EasyExcelFactory.write(response.getOutputStream(), cls).sheet(sheetName).registerWriteHandler(freezeRowHandler).doWrite(rowValues);
+            EasyExcelFactory.write(response.getOutputStream(), cls).sheet(sheetName).registerWriteHandler(FREEZE_ROW_HANDLER).doWrite(rowValues);
         } catch (Exception e) {
             log.error("导出Excel异常 [{}] [{}]", fileName, cls, e);
         }

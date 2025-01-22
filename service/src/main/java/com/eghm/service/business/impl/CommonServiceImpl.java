@@ -13,7 +13,7 @@ import com.eghm.dto.ext.StoreScope;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.SelectType;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.lock.RedisLock;
 import com.eghm.mapper.*;

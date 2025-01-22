@@ -2,7 +2,7 @@ package com.eghm.dto.business.venue;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

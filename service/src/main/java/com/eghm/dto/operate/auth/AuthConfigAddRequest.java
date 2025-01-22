@@ -1,7 +1,7 @@
 package com.eghm.dto.operate.auth;
 
 import com.eghm.configuration.gson.LocalDateAdapter;
-import com.eghm.enums.ref.SignType;
+import com.eghm.enums.SignType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
