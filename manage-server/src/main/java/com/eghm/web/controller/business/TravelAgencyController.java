@@ -9,7 +9,7 @@ import com.eghm.dto.business.travel.TravelAgencyEditRequest;
 import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.model.TravelAgency;
 import com.eghm.service.business.TravelAgencyService;
 import com.eghm.utils.DataUtil;

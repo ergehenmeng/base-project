@@ -5,7 +5,7 @@ import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.travel.TravelAgencyAddRequest;
 import com.eghm.dto.business.travel.TravelAgencyEditRequest;
 import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.model.TravelAgency;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.line.BaseTravelResponse;

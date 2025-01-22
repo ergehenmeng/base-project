@@ -1,7 +1,7 @@
 package com.eghm.state.machine.impl.item;
 
 import com.eghm.common.JsonService;
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.service.business.*;
@@ -20,9 +20,9 @@ import org.springframework.stereotype.Service;
 public class ItemOrderCreateQueueHandler extends ItemOrderCreateHandler {
 
     public ItemOrderCreateQueueHandler(ItemOrderService itemOrderService, ItemService itemService, ItemSkuService itemSkuService, ItemSpecService itemSpecService, ItemStoreService itemStoreService, OrderService orderService,
-                                       OrderMQService orderMQService, MemberAddressService memberAddressService, ItemGroupOrderService itemGroupOrderService, GroupBookingService groupBookingService, LimitPurchaseItemService limitPurchaseItemService,
+                                       OrderMqService orderMqService, MemberAddressService memberAddressService, ItemGroupOrderService itemGroupOrderService, GroupBookingService groupBookingService, LimitPurchaseItemService limitPurchaseItemService,
                                        JsonService jsonService, MemberService memberService, MemberCouponService memberCouponService) {
-        super(itemOrderService, itemService, itemSkuService, itemSpecService, itemStoreService, orderService, jsonService, orderMQService, memberAddressService, itemGroupOrderService, groupBookingService, limitPurchaseItemService, memberService, memberCouponService);
+        super(itemOrderService, itemService, itemSkuService, itemSpecService, itemStoreService, orderService, jsonService, orderMqService, memberAddressService, itemGroupOrderService, groupBookingService, limitPurchaseItemService, memberService, memberCouponService);
     }
 
     @Override

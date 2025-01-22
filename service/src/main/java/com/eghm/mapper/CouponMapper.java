@@ -36,6 +36,7 @@ public interface CouponMapper extends BaseMapper<Coupon> {
      *
      * @param id  优惠券id
      * @param num 数量 负数-库存 正数+库存
+     * @return 1
      */
     int updateStock(@Param("id") Long id, @Param("num") int num);
 

@@ -4,7 +4,7 @@ import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.venue.VenueOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.VisitType;
+import com.eghm.enums.VisitType;
 import com.eghm.service.business.VenueOrderService;
 import com.eghm.vo.business.order.venue.VenueOrderDetailVO;
 import com.eghm.vo.business.order.venue.VenueOrderVO;

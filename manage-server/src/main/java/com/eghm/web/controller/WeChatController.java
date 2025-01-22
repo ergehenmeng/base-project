@@ -59,7 +59,7 @@ public class WeChatController {
     @PostMapping(value = "/qrcode", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("小程序码")
     public RespBody<String> authMobile(@RequestBody @Validated QrCodeRequest request) {
-        byte[] bytes = weChatMiniService.generateQRCode(request.getPageUrl(), request.getQuery(), request.getValidDay());
+        byte[] bytes = weChatMiniService.generateQrCode(request.getPageUrl(), request.getQuery(), request.getValidDay());
         return RespBody.success(ImgUtil.toBase64(ImgUtil.toImage(bytes), ImgUtil.IMAGE_TYPE_PNG));
     }
 

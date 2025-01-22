@@ -1,6 +1,6 @@
 package com.eghm.dto.business.coupon.config;
 
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;

@@ -1,7 +1,7 @@
 package com.eghm.state.machine.impl;
 
-import com.eghm.common.OrderMQService;
-import com.eghm.dto.ext.AsyncKey;
+import com.eghm.common.OrderMqService;
+import com.eghm.dto.ext.BaseAsyncKey;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.model.Order;
 import com.eghm.pay.enums.TradeType;
@@ -32,7 +32,7 @@ import java.util.List;
 @AllArgsConstructor
 public abstract class AbstractOrderCreateHandler<C extends Context, P> implements ActionHandler<C> {
 
-    private final OrderMQService orderMQService;
+    private final OrderMqService orderMqService;
 
     private final MemberCouponService memberCouponService;
 
@@ -64,7 +64,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
         if (this.isHotSell(payload)) {
             log.info("该商品为热销商品,走MQ队列处理");
             // 消息队列在事务之外发送减少事务持有时间
-            TransactionUtil.afterCommit(() -> orderMQService.sendOrderCreateMessage(getExchangeQueue(), (AsyncKey) context));
+            TransactionUtil.afterCommit(() -> orderMqService.sendOrderCreateMessage(getExchangeQueue(), (BaseAsyncKey) context));
             return null;
         }
         return this.createOrder(context, payload);
@@ -212,7 +212,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
             notify.setFrom(order.getState().getValue());
             this.getAccessHandler().paySuccess(notify);
         } else {
-            orderMQService.sendOrderExpireMessage(this.getExchangeQueue(), order.getOrderNo());
+            orderMqService.sendOrderExpireMessage(this.getExchangeQueue(), order.getOrderNo());
         }
     }
 

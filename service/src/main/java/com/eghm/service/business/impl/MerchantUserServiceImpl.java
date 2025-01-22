@@ -8,7 +8,7 @@ import com.eghm.dto.business.merchant.MerchantUserEditRequest;
 import com.eghm.dto.business.merchant.MerchantUserQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.UserType;
-import com.eghm.enums.ref.UserState;
+import com.eghm.enums.UserState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MerchantUserMapper;
 import com.eghm.model.MerchantUser;

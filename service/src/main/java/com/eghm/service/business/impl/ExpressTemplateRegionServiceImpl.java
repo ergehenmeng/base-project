@@ -9,7 +9,7 @@ import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ExpressTemplateRegionRequest;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.ChargeMode;
+import com.eghm.enums.ChargeMode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ExpressTemplateRegionMapper;
 import com.eghm.model.ExpressTemplateRegion;

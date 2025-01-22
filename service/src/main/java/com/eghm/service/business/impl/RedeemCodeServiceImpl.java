@@ -9,6 +9,7 @@ import com.eghm.dto.business.redeem.RedeemCodeEditRequest;
 import com.eghm.dto.business.redeem.RedeemCodeQueryRequest;
 import com.eghm.dto.ext.StoreScope;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.RedeemGrantState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.RedeemCodeMapper;
 import com.eghm.model.RedeemCode;
@@ -116,7 +117,7 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
         List<RedeemCodeGrant> grantList = Lists.newArrayListWithExpectedSize(select.getNum());
         for (int i = 0; i < select.getNum(); i++) {
             RedeemCodeGrant grant = DataUtil.copy(select, RedeemCodeGrant.class, "id", "createTime", "updateTime", "deleted");
-            grant.setState(0);
+            grant.setState(RedeemGrantState.WAIT_USE);
             grant.setRedeemCodeId(select.getId());
             grant.setCdKey(RandomUtil.randomString(RANDOM_KEY, 12));
             grantList.add(grant);

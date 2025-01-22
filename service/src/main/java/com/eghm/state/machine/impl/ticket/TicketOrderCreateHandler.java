@@ -1,15 +1,15 @@
 package com.eghm.state.machine.impl.ticket;
 
 import cn.hutool.core.collection.CollUtil;
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.TicketEvent;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
-import com.eghm.enums.ref.RefundType;
-import com.eghm.enums.ref.TicketType;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.ProductType;
+import com.eghm.enums.RefundType;
+import com.eghm.enums.TicketType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.Scenic;
@@ -48,9 +48,9 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
 
     private final TicketOrderSnapshotService ticketOrderSnapshotService;
 
-    public TicketOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService,
+    public TicketOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMqService orderMqService, ScenicTicketService scenicTicketService,
                                     ScenicService scenicService, TicketOrderService ticketOrderService, RedeemCodeGrantService redeemCodeGrantService, TicketOrderSnapshotService ticketOrderSnapshotService) {
-        super(orderMQService, memberCouponService, orderVisitorService, redeemCodeGrantService);
+        super(orderMqService, memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.scenicService = scenicService;
         this.scenicTicketService = scenicTicketService;
         this.ticketOrderService = ticketOrderService;

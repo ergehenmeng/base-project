@@ -10,7 +10,7 @@ import com.eghm.dto.business.coupon.member.GrantCouponDTO;
 import com.eghm.dto.business.coupon.member.MemberCouponQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.service.business.CouponService;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.vo.business.coupon.CouponBaseResponse;

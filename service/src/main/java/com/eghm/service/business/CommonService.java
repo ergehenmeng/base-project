@@ -2,7 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.dto.ext.StoreScope;
 import com.eghm.dto.statistics.ProductRequest;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 import com.eghm.model.SysDictItem;
 import com.eghm.state.machine.context.PayNotifyContext;
 import com.eghm.state.machine.context.RefundNotifyContext;
@@ -30,7 +30,9 @@ public interface CommonService {
      * 根据订单编号查询处理类
      *
      * @param orderNo 订单编号 以ProductType中的prefix开头的订单
+     * @param clsHandler cls
      * @return 处理类
+     * @param <T> T
      */
     <T> T getHandler(String orderNo, Class<T> clsHandler);
 

@@ -2,7 +2,7 @@ package com.eghm.dto.business.coupon.config;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.enums.ref.CouponMode;
+import com.eghm.enums.CouponMode;
 import com.eghm.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

@@ -6,7 +6,7 @@ import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;

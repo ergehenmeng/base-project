@@ -1,11 +1,11 @@
 package com.eghm.state.machine.impl.homestay;
 
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.ProductType;
 import com.eghm.model.HomestayOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
@@ -28,15 +28,15 @@ public class HomestayOrderRefundNotifyHandler extends AbstractOrderRefundNotifyH
 
     private final HomestayRoomConfigService homestayRoomConfigService;
 
-    private final OrderMQService orderMQService;
+    private final OrderMqService orderMqService;
 
     public HomestayOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                             VerifyLogService verifyLogService, HomestayOrderService homestayOrderService, HomestayRoomConfigService homestayRoomConfigService,
-                                            OrderMQService orderMQService, AccountService accountService) {
+                                            OrderMqService orderMqService, AccountService accountService) {
         super(orderService, accountService, orderRefundLogService, verifyLogService);
         this.homestayOrderService = homestayOrderService;
         this.homestayRoomConfigService = homestayRoomConfigService;
-        this.orderMQService = orderMQService;
+        this.orderMqService = orderMqService;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class HomestayOrderRefundNotifyHandler extends AbstractOrderRefundNotifyH
             }
         }
         if (order.getState() == OrderState.COMPLETE) {
-            orderMQService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE_DELAY, order.getOrderNo());
+            orderMqService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE_DELAY, order.getOrderNo());
         }
     }
 

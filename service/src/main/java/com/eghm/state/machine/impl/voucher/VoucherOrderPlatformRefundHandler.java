@@ -2,7 +2,7 @@ package com.eghm.state.machine.impl.voucher;
 
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VoucherEvent;
-import com.eghm.enums.ref.RefundType;
+import com.eghm.enums.RefundType;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;

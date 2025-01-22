@@ -18,12 +18,24 @@ import java.util.Arrays;
 @AllArgsConstructor
 public enum SelectType {
 
+    /**
+     * 周
+     */
     WEEK("week", "周"),
 
+    /**
+     * 月
+     */
     MONTH("month", "月"),
 
+    /**
+     * 年
+     */
     YEAR("year", "年"),
 
+    /**
+     * 自定义
+     */
     CUSTOM("custom", "自定义");
 
     @JsonValue

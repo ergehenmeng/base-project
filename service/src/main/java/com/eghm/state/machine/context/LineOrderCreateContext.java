@@ -1,7 +1,7 @@
 package com.eghm.state.machine.context;
 
 import com.eghm.annotation.Assign;
-import com.eghm.dto.ext.AsyncKey;
+import com.eghm.dto.ext.BaseAsyncKey;
 import com.eghm.state.machine.Context;
 import com.eghm.state.machine.dto.VisitorDTO;
 import com.eghm.validation.annotation.Mobile;
@@ -29,7 +29,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class LineOrderCreateContext extends AsyncKey implements Context {
+public class LineOrderCreateContext extends BaseAsyncKey implements Context {
 
     @ApiModelProperty("商品id")
     @NotNull(message = "商品不能为空")

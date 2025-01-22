@@ -1,12 +1,12 @@
 package com.eghm.state.machine.impl.ticket;
 
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.TicketEvent;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
-import com.eghm.enums.ref.VisitorState;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.ProductType;
+import com.eghm.enums.VisitorState;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.pay.enums.RefundStatus;
@@ -28,15 +28,15 @@ public class TicketOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHan
 
     private final OrderVisitorService orderVisitorService;
 
-    private final OrderMQService orderMQService;
+    private final OrderMqService orderMqService;
 
     public TicketOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                           VerifyLogService verifyLogService, ScenicTicketService scenicTicketService, OrderVisitorService orderVisitorService,
-                                          OrderMQService orderMQService, AccountService accountService) {
+                                          OrderMqService orderMqService, AccountService accountService) {
         super(orderService, accountService, orderRefundLogService, verifyLogService);
         this.scenicTicketService = scenicTicketService;
         this.orderVisitorService = orderVisitorService;
-        this.orderMQService = orderMQService;
+        this.orderMqService = orderMqService;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class TicketOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHan
             scenicTicketService.releaseStock(order.getOrderNo(), refundLog.getNum());
         }
         if (order.getState() == OrderState.COMPLETE) {
-            orderMQService.sendOrderCompleteMessage(ExchangeQueue.TICKET_COMPLETE_DELAY, order.getOrderNo());
+            orderMqService.sendOrderCompleteMessage(ExchangeQueue.TICKET_COMPLETE_DELAY, order.getOrderNo());
         }
     }
 

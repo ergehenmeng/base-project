@@ -3,7 +3,7 @@ package com.eghm.web.controller.business;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.line.LineQueryDTO;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.VisitType;
+import com.eghm.enums.VisitType;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineService;
 import com.eghm.vo.business.line.LineDetailVO;

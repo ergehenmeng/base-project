@@ -3,7 +3,7 @@ package com.eghm.state.machine.impl.ticket;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.TicketEvent;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.TicketOrder;

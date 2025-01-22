@@ -1,6 +1,6 @@
 package com.eghm.vo.business.collect;
 
-import com.eghm.enums.ref.CollectType;
+import com.eghm.enums.CollectType;
 import com.eghm.vo.business.homestay.HomestayVO;
 import com.eghm.vo.business.item.ItemVO;
 import com.eghm.vo.business.item.store.ItemStoreVO;

@@ -1,6 +1,6 @@
 package com.eghm.dto.business.venue;
 
-import com.eghm.enums.ref.VenueType;
+import com.eghm.enums.VenueType;
 import com.eghm.validation.annotation.Phone;
 import com.eghm.validation.annotation.WordChecker;
 import com.google.gson.annotations.Expose;

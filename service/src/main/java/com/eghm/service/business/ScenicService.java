@@ -3,7 +3,7 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.scenic.*;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.model.Scenic;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.scenic.BaseScenicResponse;
@@ -38,6 +38,7 @@ public interface ScenicService {
     /**
      * 获取景区列表
      *
+     * @param merchantId 商户ID
      * @return 商户id
      */
     List<BaseScenicResponse> getList(Long merchantId);

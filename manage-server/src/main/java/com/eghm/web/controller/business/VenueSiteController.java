@@ -11,7 +11,7 @@ import com.eghm.dto.business.venue.VenueSitePriceQueryRequest;
 import com.eghm.dto.business.venue.VenueSiteQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.service.business.VenueSitePriceService;
 import com.eghm.service.business.VenueSiteService;
 import com.eghm.vo.business.base.BaseProductResponse;

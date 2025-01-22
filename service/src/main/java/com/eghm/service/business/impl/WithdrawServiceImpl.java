@@ -6,7 +6,7 @@ import com.eghm.dto.business.account.AccountDTO;
 import com.eghm.dto.business.withdraw.WithdrawApplyDTO;
 import com.eghm.dto.business.withdraw.WithdrawQueryRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.AccountType;
+import com.eghm.enums.AccountType;
 import com.eghm.mapper.WithdrawLogMapper;
 import com.eghm.model.WithdrawLog;
 import com.eghm.service.business.AccountService;

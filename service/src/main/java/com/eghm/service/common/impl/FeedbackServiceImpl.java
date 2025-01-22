@@ -53,7 +53,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         // 发送站内信
         SendNotice notice = new SendNotice();
         notice.setNoticeType(NoticeType.FEEDBACK_PROCESS);
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>(4);
         params.put("feedbackType", FeedbackType.of(log.getFeedbackType()).getMsg());
         params.put("content", maxLength(log.getContent(), 20));
         params.put("reply", request.getRemark());

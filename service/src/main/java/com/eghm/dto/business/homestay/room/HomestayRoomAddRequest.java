@@ -1,7 +1,7 @@
 package com.eghm.dto.business.homestay.room;
 
-import com.eghm.enums.ref.RefundType;
-import com.eghm.enums.ref.RoomType;
+import com.eghm.enums.RefundType;
+import com.eghm.enums.RoomType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.google.gson.annotations.Expose;

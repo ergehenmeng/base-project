@@ -6,7 +6,7 @@ import com.eghm.dto.business.item.ItemQueryDTO;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.VisitType;
+import com.eghm.enums.VisitType;
 import com.eghm.service.business.ItemService;
 import com.eghm.vo.business.item.ItemDetailVO;
 import com.eghm.vo.business.item.ItemSkuDetailVO;

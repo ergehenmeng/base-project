@@ -1,12 +1,12 @@
 package com.eghm.state.machine.impl.line;
 
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.LineEvent;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Line;
 import com.eghm.model.LineOrder;
@@ -51,8 +51,8 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     private final RedeemCodeGrantService redeemCodeGrantService;
 
-    public LineOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, LineService lineService, TravelAgencyService travelAgencyService, LineConfigService lineConfigService, LineDayConfigService lineDayConfigService, LineOrderService lineOrderService, LineOrderSnapshotService lineOrderSnapshotService, RedeemCodeGrantService redeemCodeGrantService) {
-        super(orderMQService, memberCouponService, orderVisitorService, redeemCodeGrantService);
+    public LineOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMqService orderMqService, LineService lineService, TravelAgencyService travelAgencyService, LineConfigService lineConfigService, LineDayConfigService lineDayConfigService, LineOrderService lineOrderService, LineOrderSnapshotService lineOrderSnapshotService, RedeemCodeGrantService redeemCodeGrantService) {
+        super(orderMqService, memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.lineService = lineService;
         this.travelAgencyService = travelAgencyService;
         this.lineConfigService = lineConfigService;

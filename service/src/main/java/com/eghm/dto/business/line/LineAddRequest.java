@@ -1,6 +1,6 @@
 package com.eghm.dto.business.line;
 
-import com.eghm.enums.ref.RefundType;
+import com.eghm.enums.RefundType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;

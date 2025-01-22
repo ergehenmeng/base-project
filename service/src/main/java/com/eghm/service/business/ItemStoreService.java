@@ -5,7 +5,7 @@ import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.item.store.ItemStoreAddRequest;
 import com.eghm.dto.business.item.store.ItemStoreEditRequest;
 import com.eghm.dto.business.item.store.ItemStoreQueryRequest;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.model.ItemStore;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.item.store.BaseItemStoreResponse;

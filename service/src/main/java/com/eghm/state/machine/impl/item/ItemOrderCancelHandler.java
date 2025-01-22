@@ -3,7 +3,7 @@ package com.eghm.state.machine.impl.item;
 import com.eghm.enums.ScoreType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
 import com.eghm.pay.AggregatePayService;

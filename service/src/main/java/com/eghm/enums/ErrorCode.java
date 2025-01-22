@@ -15,6 +15,9 @@ import lombok.Getter;
 @Getter
 public enum ErrorCode {
 
+    /**
+     * 请求成功
+     */
     SUCCESS(200, "请求成功"),
 
     /**

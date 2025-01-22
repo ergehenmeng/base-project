@@ -1,6 +1,6 @@
 package com.eghm.service.business.lottery.handler;
 
-import com.eghm.enums.ref.PrizeType;
+import com.eghm.enums.PrizeType;
 import com.eghm.model.Lottery;
 import com.eghm.model.LotteryConfig;
 

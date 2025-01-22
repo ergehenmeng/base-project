@@ -3,7 +3,7 @@ package com.eghm.web.controller.business;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.homestay.room.HomestayRoomQueryDTO;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.VisitType;
+import com.eghm.enums.VisitType;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.HomestayRoomService;
 import com.eghm.vo.business.homestay.room.HomestayRoomListVO;

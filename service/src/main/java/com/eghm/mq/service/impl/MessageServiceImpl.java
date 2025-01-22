@@ -3,7 +3,7 @@ package com.eghm.mq.service.impl;
 import com.eghm.cache.CacheService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
-import com.eghm.dto.ext.AsyncKey;
+import com.eghm.dto.ext.BaseAsyncKey;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.mq.service.MessageService;
 import lombok.RequiredArgsConstructor;
@@ -49,12 +49,12 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void sendAsync(ExchangeQueue queue, AsyncKey msg) {
+    public void sendAsync(ExchangeQueue queue, BaseAsyncKey msg) {
         this.sendAsync(queue.getExchange(), queue.getRoutingKey(), msg);
     }
 
     @Override
-    public void sendAsync(String exchange, String routingKey, AsyncKey msg) {
+    public void sendAsync(String exchange, String routingKey, BaseAsyncKey msg) {
         rabbitTemplate.convertAndSend(exchange, routingKey, msg);
         cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), CacheConstant.PLACE_HOLDER, CommonConstant.ASYNC_MSG_EXPIRE);
     }

@@ -1,11 +1,11 @@
 package com.eghm.state.machine.impl.item;
 
 import com.eghm.common.JsonService;
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 import com.eghm.model.Order;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.OrderService;
@@ -22,17 +22,17 @@ import org.springframework.stereotype.Service;
 @Service("itemOrderVerifyHandler")
 public class ItemOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
-    private final OrderMQService orderMQService;
+    private final OrderMqService orderMqService;
 
     public ItemOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService,
-                                  JsonService jsonService, OrderMQService orderMQService, CommonService commonService) {
+                                  JsonService jsonService, OrderMqService orderMqService, CommonService commonService) {
         super(orderVisitorService, orderService, verifyLogService, jsonService, commonService);
-        this.orderMQService = orderMQService;
+        this.orderMqService = orderMqService;
     }
 
     @Override
     protected void end(OrderVerifyContext context, Order order) {
-        orderMQService.sendOrderCompleteMessage(ExchangeQueue.ITEM_COMPLETE_DELAY, context.getOrderNo());
+        orderMqService.sendOrderCompleteMessage(ExchangeQueue.ITEM_COMPLETE_DELAY, context.getOrderNo());
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.eghm.service.business;
 
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
-import com.eghm.enums.ref.VisitorState;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.ProductType;
+import com.eghm.enums.VisitorState;
 import com.eghm.model.OrderVisitor;
 import com.eghm.state.machine.dto.VisitorDTO;
 
@@ -57,6 +57,7 @@ public interface OrderVisitorService {
      *
      * @param orderNo  订单
      * @param refundId 退款记录id
+     * @param state  游客使用状态
      */
     void refundVisitor(String orderNo, Long refundId, VisitorState state);
 

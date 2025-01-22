@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.common.JsonService;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.OrderState;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.VerifyLog;

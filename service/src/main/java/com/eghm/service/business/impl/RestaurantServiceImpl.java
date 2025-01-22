@@ -13,10 +13,10 @@ import com.eghm.dto.business.restaurant.RestaurantEditRequest;
 import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.dto.business.restaurant.RestaurantQueryRequest;
 import com.eghm.dto.ext.CalcStatistics;
+import com.eghm.enums.CollectType;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.CollectType;
-import com.eghm.enums.ref.RoleType;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.RoleType;
+import com.eghm.enums.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.mapper.RestaurantMapper;
@@ -138,7 +138,8 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
 
     @Override
     public List<RestaurantVO> getByPage(RestaurantQueryDTO dto) {
-        if (Boolean.TRUE.equals(dto.getSortByDistance()) && (dto.getLongitude() == null || dto.getLatitude() == null)) {
+        boolean position = Boolean.TRUE.equals(dto.getSortByDistance()) && (dto.getLongitude() == null || dto.getLatitude() == null);
+        if (position) {
             log.info("餐饮列表未获取到用户经纬度, 无法进行距离排序 [{}] [{}]", dto.getLongitude(), dto.getLatitude());
             throw new BusinessException(ErrorCode.POSITION_NO);
         }

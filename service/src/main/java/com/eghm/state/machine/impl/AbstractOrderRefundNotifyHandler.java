@@ -1,9 +1,6 @@
 package com.eghm.state.machine.impl;
 
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.CloseType;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.RefundState;
+import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
@@ -65,7 +62,7 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
             log.error("根据退款流水号未查询到退款记录,不做退款处理 [{}]", context.getRefundNo());
             throw new BusinessException(ErrorCode.REFUND_LOG_NULL);
         }
-        if (refundLog.getState() == 1 || refundLog.getState() == 2) {
+        if (refundLog.getState() == RefundLogState.SUCCESS || refundLog.getState() == RefundLogState.FAIL) {
             log.error("退款订单状态已更新,不进行退款处理 [{}]", context.getRefundNo());
             throw new BusinessException(ErrorCode.REFUND_LOG_STATE);
         }
@@ -86,10 +83,10 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
         RefundStatus state = refund.getState();
         if (state == REFUND_SUCCESS || state == SUCCESS) {
             this.refundSuccessSetState(order, refundLog);
-            refundLog.setState(1);
+            refundLog.setState(RefundLogState.SUCCESS);
         } else if (state == ABNORMAL || state == CLOSED) {
             this.refundFailSetState(order, refundLog);
-            refundLog.setState(2);
+            refundLog.setState(RefundLogState.FAIL);
         }
         orderRefundLogService.updateById(refundLog);
         orderService.updateById(order);

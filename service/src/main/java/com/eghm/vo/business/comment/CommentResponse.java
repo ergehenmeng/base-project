@@ -1,6 +1,6 @@
 package com.eghm.vo.business.comment;
 
-import com.eghm.enums.ref.ObjectType;
+import com.eghm.enums.ObjectType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

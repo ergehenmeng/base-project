@@ -1,6 +1,6 @@
 package com.eghm.web.annotation;
 
-import com.eghm.enums.ref.VisitType;
+import com.eghm.enums.VisitType;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

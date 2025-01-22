@@ -10,7 +10,7 @@ import com.eghm.dto.business.item.store.ItemStoreEditRequest;
 import com.eghm.dto.business.item.store.ItemStoreQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.model.ItemStore;
 import com.eghm.service.business.ItemStoreService;
 import com.eghm.utils.EasyExcelUtil;

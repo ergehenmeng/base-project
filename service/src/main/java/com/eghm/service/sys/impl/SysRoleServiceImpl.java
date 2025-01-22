@@ -12,7 +12,7 @@ import com.eghm.dto.sys.role.RoleAddRequest;
 import com.eghm.dto.sys.role.RoleEditRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.UserType;
-import com.eghm.enums.ref.RoleType;
+import com.eghm.enums.RoleType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysRoleMapper;
 import com.eghm.mapper.SysUserRoleMapper;

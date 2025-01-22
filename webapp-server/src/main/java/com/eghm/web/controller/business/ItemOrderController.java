@@ -6,7 +6,7 @@ import com.eghm.dto.business.order.item.ConfirmReceiptDTO;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.VisitType;
+import com.eghm.enums.VisitType;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderService;
 import com.eghm.vo.business.order.item.*;

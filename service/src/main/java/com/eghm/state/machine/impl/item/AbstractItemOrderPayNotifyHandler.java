@@ -2,7 +2,7 @@ package com.eghm.state.machine.impl.item;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.OrderState;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;

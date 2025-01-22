@@ -1,7 +1,7 @@
 package com.eghm.state.machine.context;
 
 import com.eghm.annotation.Assign;
-import com.eghm.dto.ext.AsyncKey;
+import com.eghm.dto.ext.BaseAsyncKey;
 import com.eghm.state.machine.Context;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class VoucherOrderCreateContext extends AsyncKey implements Context {
+public class VoucherOrderCreateContext extends BaseAsyncKey implements Context {
 
     @ApiModelProperty("餐饮券id")
     private Long voucherId;

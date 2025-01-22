@@ -3,7 +3,7 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eghm.dto.business.order.adjust.OrderAdjustRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.OrderState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderAdjustLogMapper;
 import com.eghm.model.ItemOrder;

@@ -7,7 +7,7 @@ import com.eghm.dto.business.venue.VenueEditRequest;
 import com.eghm.dto.business.venue.VenueQueryDTO;
 import com.eghm.dto.business.venue.VenueQueryRequest;
 import com.eghm.dto.ext.CalcStatistics;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.model.Venue;
 import com.eghm.vo.business.base.BaseStoreResponse;
 import com.eghm.vo.business.venue.BaseVenueResponse;

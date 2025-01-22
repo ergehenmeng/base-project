@@ -1,6 +1,5 @@
 package com.eghm.enums;
 
-import com.eghm.enums.ref.RoleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

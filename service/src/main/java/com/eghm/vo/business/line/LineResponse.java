@@ -5,7 +5,7 @@ import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.Duration;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;

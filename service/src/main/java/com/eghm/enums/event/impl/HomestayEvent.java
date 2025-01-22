@@ -1,7 +1,7 @@
 package com.eghm.enums.event.impl;
 
 import com.eghm.enums.event.IEvent;
-import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.OrderState;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

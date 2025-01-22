@@ -1,7 +1,7 @@
 package com.eghm.state.machine.context;
 
 import com.eghm.annotation.Assign;
-import com.eghm.dto.ext.AsyncKey;
+import com.eghm.dto.ext.BaseAsyncKey;
 import com.eghm.state.machine.Context;
 import com.eghm.state.machine.dto.VisitorDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -24,7 +24,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class HomestayOrderCreateContext extends AsyncKey implements Context {
+public class HomestayOrderCreateContext extends BaseAsyncKey implements Context {
 
     @ApiModelProperty("商品id")
     private Long roomId;

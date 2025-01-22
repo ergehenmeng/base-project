@@ -5,7 +5,7 @@ import com.eghm.dto.business.shopping.CartDTO;
 import com.eghm.dto.business.shopping.CartQuantityDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.VisitType;
+import com.eghm.enums.VisitType;
 import com.eghm.service.business.ShoppingCartService;
 import com.eghm.vo.business.shopping.ShoppingCartVO;
 import com.eghm.web.annotation.AccessToken;

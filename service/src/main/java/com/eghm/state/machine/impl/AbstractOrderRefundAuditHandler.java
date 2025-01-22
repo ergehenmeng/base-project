@@ -1,9 +1,9 @@
 package com.eghm.state.machine.impl;
 
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.AuditState;
-import com.eghm.enums.ref.RefundState;
-import com.eghm.enums.ref.VisitorState;
+import com.eghm.enums.AuditState;
+import com.eghm.enums.RefundState;
+import com.eghm.enums.VisitorState;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;

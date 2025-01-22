@@ -7,7 +7,7 @@ import com.eghm.dto.member.BindEmailDTO;
 import com.eghm.dto.member.ChangeEmailDTO;
 import com.eghm.dto.member.MemberDTO;
 import com.eghm.dto.member.SendEmailAuthCodeDTO;
-import com.eghm.enums.ref.VisitType;
+import com.eghm.enums.VisitType;
 import com.eghm.service.member.MemberInviteLogService;
 import com.eghm.service.member.MemberNoticeService;
 import com.eghm.service.member.MemberService;

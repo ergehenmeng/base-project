@@ -1,6 +1,6 @@
 package com.eghm.state.machine.impl.voucher;
 
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VoucherEvent;
 import com.eghm.service.business.*;
@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class VoucherOrderCreateQueueHandler extends VoucherOrderCreateHandler {
 
-    public VoucherOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, RestaurantService restaurantService, OrderMQService orderMQService, VoucherService voucherService, VoucherOrderService voucherOrderService, RedeemCodeGrantService redeemCodeGrantService) {
-        super(orderService, memberCouponService, orderVisitorService, restaurantService, orderMQService, voucherService, voucherOrderService, redeemCodeGrantService);
+    public VoucherOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, RestaurantService restaurantService, OrderMqService orderMqService, VoucherService voucherService, VoucherOrderService voucherOrderService, RedeemCodeGrantService redeemCodeGrantService) {
+        super(orderService, memberCouponService, orderVisitorService, restaurantService, orderMqService, voucherService, voucherOrderService, redeemCodeGrantService);
     }
 
     @Override

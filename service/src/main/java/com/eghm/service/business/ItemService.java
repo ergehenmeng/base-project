@@ -6,7 +6,7 @@ import com.eghm.dto.business.coupon.product.ItemCouponQueryDTO;
 import com.eghm.dto.business.item.*;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.ext.CalcStatistics;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import com.eghm.model.Item;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.item.*;

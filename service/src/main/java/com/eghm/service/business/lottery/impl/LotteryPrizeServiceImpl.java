@@ -7,7 +7,7 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.dto.business.lottery.LotteryPrizeRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.PrizeType;
+import com.eghm.enums.PrizeType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LotteryPrizeMapper;
 import com.eghm.model.LotteryPrize;

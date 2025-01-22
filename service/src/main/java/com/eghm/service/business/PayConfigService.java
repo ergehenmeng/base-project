@@ -15,6 +15,7 @@ public interface PayConfigService {
     /**
      * 获取支付配置列表
      *
+     * @param queryName 搜索条件
      * @return 配置信息
      */
     List<PayConfig> getList(String queryName);

@@ -2,7 +2,7 @@ package com.eghm.state.machine.impl.homestay;
 
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 import com.eghm.model.HomestayOrder;
 import com.eghm.model.Order;
 import com.eghm.pay.AggregatePayService;

@@ -6,7 +6,7 @@ import com.eghm.constants.QueueConstant;
 import com.eghm.dto.ext.OrderPayNotify;
 import com.eghm.dto.ext.RefundAudit;
 import com.eghm.dto.ext.SocketMsg;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 import com.eghm.model.ManageLog;
 import com.eghm.mq.listener.AbstractListenerHandler;
 import com.eghm.service.business.MemberCouponService;

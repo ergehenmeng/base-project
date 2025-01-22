@@ -79,6 +79,9 @@
         from order_evaluation t left join `member` r on t.member_id = r.id
         where t.deleted = false and t.state = 1 and t.product_id = #{param.productId}
         <choose>
+            <when test="param.queryType == null">
+                order by t.update_time desc
+            </when>
             <when test="param.queryType == 1">
                 order by t.id desc
             </when>
@@ -91,11 +94,8 @@
             <when test="param.queryType == 4">
                 and t.score = 1 order by t.update_time desc
             </when>
-            <when test="param.queryType == 5">
-                and t.comment_pic is not null order by t.update_time desc
-            </when>
             <otherwise>
-                order by t.update_time desc
+                and t.comment_pic is not null order by t.update_time desc
             </otherwise>
         </choose>
     </select>

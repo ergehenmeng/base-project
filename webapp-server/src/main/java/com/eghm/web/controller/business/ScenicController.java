@@ -4,7 +4,7 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.scenic.ScenicDetailDTO;
 import com.eghm.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.VisitType;
+import com.eghm.enums.VisitType;
 import com.eghm.service.business.ScenicService;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.vo.business.scenic.ScenicDetailVO;

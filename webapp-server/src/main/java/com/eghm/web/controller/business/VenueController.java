@@ -4,7 +4,7 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.venue.VenuePriceQueryDTO;
 import com.eghm.dto.business.venue.VenueQueryDTO;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.VisitType;
+import com.eghm.enums.VisitType;
 import com.eghm.service.business.VenueService;
 import com.eghm.service.business.VenueSitePriceService;
 import com.eghm.service.business.VenueSiteService;

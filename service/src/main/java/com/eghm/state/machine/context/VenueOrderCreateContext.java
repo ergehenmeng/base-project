@@ -1,7 +1,7 @@
 package com.eghm.state.machine.context;
 
 import com.eghm.annotation.Assign;
-import com.eghm.dto.ext.AsyncKey;
+import com.eghm.dto.ext.BaseAsyncKey;
 import com.eghm.state.machine.Context;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class VenueOrderCreateContext extends AsyncKey implements Context {
+public class VenueOrderCreateContext extends BaseAsyncKey implements Context {
 
     @ApiModelProperty("优惠券id")
     private Long couponId;

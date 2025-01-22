@@ -1,14 +1,12 @@
 package com.eghm.state.machine.impl.item;
 
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.RefundAudit;
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ExchangeQueue;
+import com.eghm.enums.*;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
-import com.eghm.enums.ref.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
@@ -31,7 +29,7 @@ import java.time.LocalDateTime;
 
 import static com.eghm.enums.ErrorCode.REFUND_AMOUNT_MAX;
 import static com.eghm.enums.ErrorCode.REFUND_DELIVERY;
-import static com.eghm.enums.ref.OrderState.PARTIAL_DELIVERY;
+import static com.eghm.enums.OrderState.PARTIAL_DELIVERY;
 
 /**
  * 零售退款申请
@@ -50,20 +48,20 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
 
     private final ItemGroupOrderService itemGroupOrderService;
 
-    private final OrderMQService orderMQService;
+    private final OrderMqService orderMqService;
 
     private final SysConfigApi sysConfigApi;
 
     private final MessageService messageService;
 
     public ItemOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService,
-                                       ItemGroupOrderService itemGroupOrderService, OrderMQService orderMQService, SysConfigApi sysConfigApi, MessageService messageService) {
+                                       ItemGroupOrderService itemGroupOrderService, OrderMqService orderMqService, SysConfigApi sysConfigApi, MessageService messageService) {
         super(orderService, orderRefundLogService, orderVisitorService);
         this.itemOrderService = itemOrderService;
         this.orderService = orderService;
         this.orderRefundLogService = orderRefundLogService;
         this.itemGroupOrderService = itemGroupOrderService;
-        this.orderMQService = orderMQService;
+        this.orderMqService = orderMqService;
         this.sysConfigApi = sysConfigApi;
         this.messageService = messageService;
     }
@@ -127,10 +125,10 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
             audit.setRefundAmount(refundLog.getRefundAmount());
             if (refundLog.getApplyType() == 1) {
                 log.info("零售退款(仅退款)申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
-                orderMQService.sendRefundAuditMessage(ExchangeQueue.ITEM_REFUND_CONFIRM, audit);
+                orderMqService.sendRefundAuditMessage(ExchangeQueue.ITEM_REFUND_CONFIRM, audit);
             } else {
                 log.info("零售退款(退货退款)申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
-                orderMQService.sendReturnRefundAuditMessage(ExchangeQueue.ITEM_REFUND_CONFIRM, audit);
+                orderMqService.sendReturnRefundAuditMessage(ExchangeQueue.ITEM_REFUND_CONFIRM, audit);
             }
             messageService.send(ExchangeQueue.ORDER_REFUND_AUDIT, audit);
         }

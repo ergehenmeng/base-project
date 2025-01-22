@@ -15,6 +15,15 @@ import java.lang.annotation.Annotation;
  */
 public interface InterceptorAdapter extends HandlerInterceptor {
 
+    /**
+     * 拦截器前置处理, 默认不是Controller不做拦截
+     *
+     * @param request  current HTTP request
+     * @param response current HTTP response
+     * @param handler  chosen handler to execute, for type and/or instance evaluation
+     * @return default true
+     * @throws Exception e
+     */
     @Override
     default boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception {
         if (!(handler instanceof HandlerMethod)) {
@@ -30,6 +39,7 @@ public interface InterceptorAdapter extends HandlerInterceptor {
      * @param response response
      * @param handler  handler
      * @return default true
+     * @throws IOException e
      */
     boolean beforeHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException;
 

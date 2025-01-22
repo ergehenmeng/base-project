@@ -1,6 +1,6 @@
 package com.eghm.state.machine.impl.homestay;
 
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.service.business.*;
@@ -18,9 +18,9 @@ import org.springframework.stereotype.Service;
 @Service("homestayOrderCreateQueueHandler")
 public class HomestayOrderCreateQueueHandler extends HomestayOrderCreateHandler {
 
-    public HomestayOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService, HomestayService homestayService,
+    public HomestayOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMqService orderMqService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService, HomestayService homestayService,
                                            HomestayRoomConfigService homestayRoomConfigService, HomestayOrderSnapshotService homestayOrderSnapshotService, RedeemCodeGrantService redeemCodeGrantService) {
-        super(orderService, memberCouponService, orderVisitorService, orderMQService, homestayOrderService, homestayRoomService, homestayService, homestayRoomConfigService, homestayOrderSnapshotService, redeemCodeGrantService);
+        super(orderService, memberCouponService, orderVisitorService, orderMqService, homestayOrderService, homestayRoomService, homestayService, homestayRoomConfigService, homestayOrderSnapshotService, redeemCodeGrantService);
     }
 
     @Override

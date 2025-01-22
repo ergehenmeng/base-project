@@ -1,7 +1,7 @@
 package com.eghm.dto.business.activity;
 
 import com.eghm.configuration.gson.LocalDateAdapter;
-import com.eghm.dto.ext.DateComparator;
+import com.eghm.dto.ext.AbstractDateComparator;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.gson.annotations.Expose;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class ActivityConfigRequest extends DateComparator {
+public class ActivityConfigRequest extends AbstractDateComparator {
 
     @ApiModelProperty(value = "周期 1:星期一 2:星期二 ... 7:星期日", required = true)
     @NotEmpty(message = "请选择周期")

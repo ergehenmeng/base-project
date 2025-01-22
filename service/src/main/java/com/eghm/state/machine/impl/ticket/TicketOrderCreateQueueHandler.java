@@ -1,6 +1,6 @@
 package com.eghm.state.machine.impl.ticket;
 
-import com.eghm.common.OrderMQService;
+import com.eghm.common.OrderMqService;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.TicketEvent;
 import com.eghm.service.business.*;
@@ -15,9 +15,9 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class TicketOrderCreateQueueHandler extends TicketOrderCreateHandler {
 
-    public TicketOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, ScenicService scenicService
+    public TicketOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMqService orderMqService, ScenicTicketService scenicTicketService, ScenicService scenicService
             , TicketOrderService ticketOrderService, RedeemCodeGrantService redeemCodeGrantService, TicketOrderSnapshotService ticketOrderSnapshotService) {
-        super(orderService, memberCouponService, orderVisitorService, orderMQService, scenicTicketService, scenicService, ticketOrderService, redeemCodeGrantService, ticketOrderSnapshotService);
+        super(orderService, memberCouponService, orderVisitorService, orderMqService, scenicTicketService, scenicService, ticketOrderService, redeemCodeGrantService, ticketOrderSnapshotService);
     }
 
     @Override

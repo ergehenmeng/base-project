@@ -1,10 +1,9 @@
 package com.eghm.state.machine.impl.item;
 
 import com.eghm.dto.business.account.score.ScoreAccountDTO;
-import com.eghm.enums.ScoreType;
+import com.eghm.enums.*;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
-import com.eghm.enums.ref.*;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;

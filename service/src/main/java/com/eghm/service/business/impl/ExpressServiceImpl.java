@@ -29,6 +29,8 @@ import java.util.List;
 @Service("expressService")
 public class ExpressServiceImpl implements ExpressService {
 
+    private static final int OK = 200;
+
     private final SystemProperties systemProperties;
 
     @Override
@@ -51,14 +53,14 @@ public class ExpressServiceImpl implements ExpressService {
             log.error("快递查询异常 [{}] [{}] [{}]", expressNo, expressCode, phone, e);
             return Lists.newArrayList();
         }
-        if (execute.getStatus() != 200) {
+        if (execute.getStatus() != OK) {
             log.error("快递信息查询失败 [{}] [{}] [{}] [{}]", expressNo, expressCode, phone, execute.getError());
             return Lists.newArrayList();
         }
         String body = execute.getBody();
         JSONObject jsonObject = JSON.parseObject(body);
         int status = jsonObject.getIntValue("status");
-        if (status != 200) {
+        if (status != OK) {
             log.error("快递信息查询结果失败 [{}] [{}] [{}]", expressNo, expressCode, phone);
             return Lists.newArrayList();
         }

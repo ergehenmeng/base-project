@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 
 import java.util.List;
 

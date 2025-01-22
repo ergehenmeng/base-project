@@ -35,6 +35,7 @@ public interface OrderProxyService {
      * 取消订单 (通用)
      *
      * @param orderNo 订单编号(通用)
+     * @param memberId 会员id
      */
     void cancel(String orderNo, Long memberId);
 

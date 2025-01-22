@@ -3,8 +3,8 @@ package com.eghm.state.machine.impl.item;
 import com.eghm.enums.ScoreType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.ProductType;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.member.MemberService;
@@ -42,7 +42,8 @@ public class ItemOrderPayFailHandler extends AbstractItemOrderPayNotifyHandler {
     @Override
     protected void after(PayNotifyContext context, List<Order> orderList) {
         for (Order order : orderList) {
-            if ((order.getState() == OrderState.UN_PAY || order.getState() == OrderState.PROGRESS) && order.getScoreAmount() > 0) {
+            boolean flag = (order.getState() == OrderState.UN_PAY || order.getState() == OrderState.PROGRESS) && order.getScoreAmount() > 0;
+            if (flag) {
                 memberService.updateScore(order.getMemberId(), ScoreType.PAY_CANCEL, order.getScoreAmount());
             }
         }

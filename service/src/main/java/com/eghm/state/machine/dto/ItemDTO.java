@@ -29,7 +29,7 @@ public class ItemDTO {
 
     @ApiModelProperty("积分")
     @Max(value = 100000, message = "积分不能超过100000")
-    private Integer scoreAmount = 0;
+    private Integer scoreAmount;
 
     @ApiModelProperty("备注")
     private String remark;

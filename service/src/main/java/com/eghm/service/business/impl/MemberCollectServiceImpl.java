@@ -11,7 +11,7 @@ import com.eghm.dto.business.collect.CollectQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.statistics.CollectRequest;
 import com.eghm.enums.SelectType;
-import com.eghm.enums.ref.CollectType;
+import com.eghm.enums.CollectType;
 import com.eghm.mapper.*;
 import com.eghm.model.MemberCollect;
 import com.eghm.service.business.MemberCollectService;

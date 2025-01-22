@@ -44,7 +44,7 @@ public class GenerateUtil {
     }
 
     public static void generateRequest(Class<?> cls, String requestPackage, String implPackage, FreemarkerTemplate freemarkerTemplate) throws URISyntaxException, IOException {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(8);
         map.put("template", GenerateUtil.generateRequest(cls, requestPackage));
         URL url = GenerateUtil.class.getResource("/");
         assert url != null;
@@ -77,7 +77,7 @@ public class GenerateUtil {
     }
 
     private static void generateService(Class<?> cls, String implPackage, String requestPackage, FreemarkerTemplate freemarkerTemplate) throws URISyntaxException, IOException {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(8);
         map.put("template", GenerateUtil.generateService(cls, implPackage, requestPackage));
         URL url = GenerateUtil.class.getResource("/");
         assert url != null;
