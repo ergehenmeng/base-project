@@ -175,7 +175,7 @@ public class WechatPayServiceImpl implements PayService {
             WxPayUnifiedOrderV3Request.SceneInfo sceneInfo = new WxPayUnifiedOrderV3Request.SceneInfo();
             sceneInfo.setPayerClientIp(dto.getClientIp());
             WxPayUnifiedOrderV3Request.H5Info h5Info = new WxPayUnifiedOrderV3Request.H5Info();
-            h5Info.setType(dto.getSceneType());
+            h5Info.setType("Wap");
             sceneInfo.setH5Info(h5Info);
             request.setSceneInfo(sceneInfo);
             request.setPayer(null);

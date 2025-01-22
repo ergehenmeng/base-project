@@ -50,9 +50,4 @@ public class PrepayDTO {
      * 付款人ip(微信H5必填)
      */
     private String clientIp;
-
-    /**
-     * 场景类型 iOS, Android, Wap (微信H5必填)
-     */
-    private String sceneType = "Wap";
 }

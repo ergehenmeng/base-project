@@ -21,7 +21,7 @@ public class MemberChannelVO {
     private Channel name;
 
     @Schema(description = "人数")
-    private Integer value = 0;
+    private Integer value;
 
     public MemberChannelVO(Channel name) {
         this.name = name;
