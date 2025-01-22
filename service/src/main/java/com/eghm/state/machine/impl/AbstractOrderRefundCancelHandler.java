@@ -2,6 +2,7 @@ package com.eghm.state.machine.impl;
 
 import com.eghm.enums.AuditState;
 import com.eghm.enums.OrderState;
+import com.eghm.enums.RefundLogState;
 import com.eghm.enums.VisitorState;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.OrderRefundLog;
@@ -67,7 +68,7 @@ public abstract class AbstractOrderRefundCancelHandler implements ActionHandler<
      * @param refundLog 退款记录
      */
     protected void doProcess(RefundCancelContext context, OrderRefundLog refundLog) {
-        refundLog.setState(3);
+        refundLog.setState(RefundLogState.CANCEL);
         refundLog.setAuditState(AuditState.CANCEL);
         refundLog.setOrderNo(context.getOrderNo());
         orderRefundLogService.updateById(refundLog);
