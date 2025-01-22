@@ -1,6 +1,6 @@
 package com.eghm.dto.business.order.adjust;
 
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.dto.ext.ActionRecord;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,7 +27,7 @@ public class OrderAdjustRequest extends ActionRecord {
     private Long id;
 
     @Schema(description = "新价格")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "请输入新价格")
     private Integer price;
 

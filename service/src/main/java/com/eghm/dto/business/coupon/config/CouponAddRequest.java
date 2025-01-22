@@ -1,7 +1,7 @@
 package com.eghm.dto.business.coupon.config;
 
 import com.eghm.annotation.Assign;
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.enums.ref.CouponMode;
 import com.eghm.enums.ref.CouponType;
 import com.eghm.enums.ref.ProductType;
@@ -57,7 +57,7 @@ public class CouponAddRequest {
     private Long storeId;
 
     @Schema(description = "抵扣金额 单位:元")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer deductionValue;
 
     @Schema(description = "折扣比例 10-99")
@@ -65,7 +65,7 @@ public class CouponAddRequest {
     private Integer discountValue;
 
     @Schema(description = "使用门槛 0:不限制 大于0表示限制启用金额 单位:元")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer useThreshold;
 
     @Schema(description = "商品类型 ticket:门票 homestay:民宿 voucher:餐饮券 item:零售 line:线路 venue:场馆")

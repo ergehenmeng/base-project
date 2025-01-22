@@ -1,6 +1,6 @@
 package com.eghm.vo.business.restaurant;
 
-import com.eghm.convertor.CentToYuanOmitEncoder;
+import com.eghm.convertor.CentToYuanOmitSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -32,11 +32,11 @@ public class VoucherDetailResponse {
     private String coverUrl;
 
     @Schema(description = "划线价")
-    @JsonSerialize(using = CentToYuanOmitEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer linePrice;
 
     @Schema(description = "销售价")
-    @JsonSerialize(using = CentToYuanOmitEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer salePrice;
 
     @Schema(description = "剩余库存")

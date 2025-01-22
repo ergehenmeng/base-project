@@ -1,7 +1,7 @@
 package com.eghm.dto.business.redeem;
 
 import com.eghm.configuration.gson.LocalDateTimeAdapter;
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.dto.ext.StoreScope;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -42,7 +42,7 @@ public class RedeemCodeAddRequest {
     private LocalDateTime endTime;
 
     @Schema(description = "金额", requiredMode = Schema.RequiredMode.REQUIRED)
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer amount;
 
     @Schema(description = "发放数量", requiredMode = Schema.RequiredMode.REQUIRED)

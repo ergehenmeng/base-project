@@ -1,6 +1,6 @@
 package com.eghm.vo.business.account;
 
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -14,13 +14,13 @@ import lombok.Data;
 public class ScoreRechargeResponse {
 
     @Schema(description = "可用余额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer amount;
 
     @Schema(description = "可用积分")
     private Integer scoreAmount;
 
     @Schema(description = "最低充值金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer minRecharge;
 }

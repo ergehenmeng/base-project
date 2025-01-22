@@ -1,7 +1,7 @@
 package com.eghm.dto.business.homestay.room.config;
 
 import com.eghm.annotation.Assign;
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -36,11 +36,11 @@ public class RoomConfigEditRequest {
     private Integer stock;
 
     @Schema(description = "划线价")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer linePrice;
 
     @Schema(description = "销售价")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "销售价不能为空")
     private Integer salePrice;
 

@@ -1,6 +1,6 @@
 package com.eghm.vo.business.homestay;
 
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -55,7 +55,7 @@ public class HomestayVO {
     private String phone;
 
     @Schema(description = "最低价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer minPrice;
 
     @Schema(description = "标签")

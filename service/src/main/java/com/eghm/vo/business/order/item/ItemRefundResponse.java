@@ -1,6 +1,6 @@
 package com.eghm.vo.business.order.item;
 
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.enums.ref.AuditState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -22,15 +22,15 @@ public class ItemRefundResponse {
     private Long id;
 
     @Schema(description = "申请退款金额(含快递费)")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer applyAmount;
 
     @Schema(description = "退款快递费")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer expressFee;
 
     @Schema(description = "实际退款金额(总费用)")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer refundAmount;
 
     @Schema(description = "退款原因")

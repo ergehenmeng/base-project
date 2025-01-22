@@ -1,7 +1,7 @@
 package com.eghm.vo.business.item;
 
-import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.convertor.NumberParseEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.convertor.NumberParseSerializer;
 import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -70,7 +70,7 @@ public class ItemDetailVO {
     private DeliveryType deliveryType;
 
     @Schema(description = "最低价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer minPrice;
 
     @Schema(description = "总销售量=实际销售+虚拟销量")
@@ -86,7 +86,7 @@ public class ItemDetailVO {
     private Boolean hotSell;
 
     @Schema(description = "评论总数量")
-    @JsonSerialize(using = NumberParseEncoder.class)
+    @JsonSerialize(using = NumberParseSerializer.class)
     private Long commentNum;
 
     @Schema(description = "好评率百分比")

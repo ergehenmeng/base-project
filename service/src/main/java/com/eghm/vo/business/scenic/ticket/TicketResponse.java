@@ -2,7 +2,7 @@ package com.eghm.vo.business.scenic.ticket;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.convertor.excel.BooleanExcelConverter;
 import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
@@ -49,7 +49,7 @@ public class TicketResponse extends ExcelStyle {
     private State state;
 
     @Schema(description = "销售价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     @ExcelProperty(value = "销售价", index = 4, converter = CentToYuanConverter.class)
     private Integer salePrice;
 

@@ -1,7 +1,7 @@
 package com.eghm.dto.business.account.score;
 
 import com.eghm.annotation.Assign;
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -21,7 +21,7 @@ public class ScoreWithdrawApplyDTO {
     private Long merchantId;
 
     @Schema(description = "提现金额", requiredMode = Schema.RequiredMode.REQUIRED)
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "请输入提现金额")
     private Integer amount;
 }

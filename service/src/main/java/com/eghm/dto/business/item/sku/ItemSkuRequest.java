@@ -1,6 +1,6 @@
 package com.eghm.dto.business.item.sku;
 
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -29,16 +29,16 @@ public class ItemSkuRequest {
     private String secondSpecValue;
 
     @Schema(description = "成本价")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer costPrice;
 
     @Schema(description = "划线价")
     @NotNull(message = "划线价不能为空")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer linePrice;
 
     @Schema(description = "销售价格")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "销售价不能为空不能为空")
     private Integer salePrice;
 

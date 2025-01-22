@@ -1,7 +1,7 @@
 package com.eghm.vo.business.item.express;
 
-import com.eghm.convertor.BigDecimalOmitEncoder;
-import com.eghm.convertor.CentToYuanOmitEncoder;
+import com.eghm.convertor.BigDecimalOmitSerializer;
+import com.eghm.convertor.CentToYuanOmitSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -20,19 +20,19 @@ public class ExpressRegionResponse {
     private Long regionId;
 
     @Schema(description = "首件或首重")
-    @JsonSerialize(using = BigDecimalOmitEncoder.class)
+    @JsonSerialize(using = BigDecimalOmitSerializer.class)
     private BigDecimal firstPart;
 
     @Schema(description = "首件或首重的价格")
-    @JsonSerialize(using = CentToYuanOmitEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer firstPrice;
 
     @Schema(description = "续重或续件")
-    @JsonSerialize(using = BigDecimalOmitEncoder.class)
+    @JsonSerialize(using = BigDecimalOmitSerializer.class)
     private BigDecimal nextPart;
 
     @Schema(description = "续重或续件的单价")
-    @JsonSerialize(using = CentToYuanOmitEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer nextUnitPrice;
 
     @Schema(description = "区域编号(逗号分隔)")

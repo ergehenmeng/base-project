@@ -1,6 +1,6 @@
 package com.eghm.vo.business.coupon;
 
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.enums.ref.CouponType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,14 +25,14 @@ public class MemberCouponBaseVO {
     private CouponType couponType;
 
     @Schema(description = "抵扣金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer deductionValue;
 
     @Schema(description = "折扣比例 1-100")
     private Integer discountValue;
 
     @Schema(description = "使用门槛, 0:表示不限制")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer useThreshold;
 
 }

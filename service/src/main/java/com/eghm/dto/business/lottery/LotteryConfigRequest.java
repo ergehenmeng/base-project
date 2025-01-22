@@ -1,6 +1,6 @@
 package com.eghm.dto.business.lottery;
 
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -28,7 +28,7 @@ public class LotteryConfigRequest {
 
     @Schema(description = "中奖比例", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "中奖概率不能为空")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer weight;
 
 }

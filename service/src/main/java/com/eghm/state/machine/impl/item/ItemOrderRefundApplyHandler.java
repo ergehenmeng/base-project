@@ -178,7 +178,8 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
             throw new BusinessException(ErrorCode.ORDER_REFUND_APPLY);
         }
         // 如果是未发货,则退款金额=商品金额+快递费, 如果是已发货则退款金额=商品金额
-        if ((itemOrder.getDeliveryState() == DeliveryState.WAIT_TAKE || itemOrder.getDeliveryState() == DeliveryState.CONFIRM_TASK) && context.getApplyType() == 2) {
+        boolean isDelivery = (itemOrder.getDeliveryState() == DeliveryState.WAIT_TAKE || itemOrder.getDeliveryState() == DeliveryState.CONFIRM_TASK) && context.getApplyType() == 2;
+        if (isDelivery) {
             throw new BusinessException(REFUND_DELIVERY);
         }
         ItemOrderRefundVO refund = orderService.getItemRefund(context.getItemOrderId(), context.getMemberId(), false);

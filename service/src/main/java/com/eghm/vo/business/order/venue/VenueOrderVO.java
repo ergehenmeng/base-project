@@ -1,6 +1,6 @@
 package com.eghm.vo.business.order.venue;
 
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.eghm.enums.ref.RefundState;
@@ -41,7 +41,7 @@ public class VenueOrderVO {
     private RefundState refundState;
 
     @Schema(description = "总付款金额=单价*数量+总快递费-总优惠金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer payAmount;
 
 }

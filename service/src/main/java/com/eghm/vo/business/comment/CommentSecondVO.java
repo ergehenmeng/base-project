@@ -1,6 +1,6 @@
 package com.eghm.vo.business.comment;
 
-import com.eghm.convertor.DateParseEncoder;
+import com.eghm.convertor.DateParseSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -31,7 +31,7 @@ public class CommentSecondVO {
     private String content;
 
     @Schema(description = "评论时间")
-    @JsonSerialize(using = DateParseEncoder.class)
+    @JsonSerialize(using = DateParseSerializer.class)
     private LocalDateTime createTime;
 
     @Schema(description = "点赞数量")

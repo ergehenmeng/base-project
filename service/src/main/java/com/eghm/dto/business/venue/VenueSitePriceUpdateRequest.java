@@ -1,6 +1,6 @@
 package com.eghm.dto.business.venue;
 
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -20,7 +20,7 @@ public class VenueSitePriceUpdateRequest {
     private Long id;
 
     @Schema(description = "价格")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "请输入价格")
     private Integer price;
 

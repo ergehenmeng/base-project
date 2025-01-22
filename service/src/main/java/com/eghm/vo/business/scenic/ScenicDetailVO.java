@@ -1,6 +1,6 @@
 package com.eghm.vo.business.scenic;
 
-import com.eghm.convertor.BigDecimalOmitEncoder;
+import com.eghm.convertor.BigDecimalOmitSerializer;
 import com.eghm.vo.business.activity.ActivityBaseDTO;
 import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -45,7 +45,7 @@ public class ScenicDetailVO {
     private String depict;
 
     @Schema(description = "距离 单位:m")
-    @JsonSerialize(using = BigDecimalOmitEncoder.class)
+    @JsonSerialize(using = BigDecimalOmitSerializer.class)
     private BigDecimal distance;
 
     @Schema(description = "详细地址(含省市县)")

@@ -1,6 +1,6 @@
 package com.eghm.dto.operate.roster;
 
-import com.eghm.convertor.IpToLongDecoder;
+import com.eghm.convertor.IpToLongDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -16,12 +16,12 @@ import jakarta.validation.constraints.NotNull;
 public class BlackRosterAddRequest {
 
     @Schema(description = "ip地址开始", requiredMode = Schema.RequiredMode.REQUIRED)
-    @JsonDeserialize(using = IpToLongDecoder.class)
+    @JsonDeserialize(using = IpToLongDeserializer.class)
     @NotNull(message = "开始ip地址不能为空")
     private Long startIp;
 
     @Schema(description = "ip地址结束", requiredMode = Schema.RequiredMode.REQUIRED)
-    @JsonDeserialize(using = IpToLongDecoder.class)
+    @JsonDeserialize(using = IpToLongDeserializer.class)
     @NotNull(message = "结束ip地址不能为空")
     private Long endIp;
 

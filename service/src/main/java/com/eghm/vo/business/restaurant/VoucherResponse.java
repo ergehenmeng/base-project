@@ -2,7 +2,7 @@ package com.eghm.vo.business.restaurant;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
@@ -47,7 +47,7 @@ public class VoucherResponse extends ExcelStyle {
 
     @Schema(description = "销售价")
     @ExcelProperty(value = "销售价", index = 3, converter = CentToYuanConverter.class)
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer salePrice;
 
     @Schema(description = "销量")

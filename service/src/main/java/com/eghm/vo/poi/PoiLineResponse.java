@@ -1,6 +1,6 @@
 package com.eghm.vo.poi;
 
-import com.eghm.convertor.BigDecimalOmitEncoder;
+import com.eghm.convertor.BigDecimalOmitSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -39,7 +39,7 @@ public class PoiLineResponse {
     private String areaTitle;
 
     @Schema(description = "预计游玩时间(单位:小时)")
-    @JsonSerialize(using = BigDecimalOmitEncoder.class)
+    @JsonSerialize(using = BigDecimalOmitSerializer.class)
     private BigDecimal playTime;
 
     @Schema(description = "区域经度")

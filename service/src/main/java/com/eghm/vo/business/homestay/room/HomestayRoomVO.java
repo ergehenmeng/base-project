@@ -1,6 +1,6 @@
 package com.eghm.vo.business.homestay.room;
 
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.enums.ref.RefundType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -48,6 +48,6 @@ public class HomestayRoomVO {
     private String refundDescribe;
 
     @Schema(description = "最低价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer minPrice;
 }

@@ -1,7 +1,7 @@
 package com.eghm.dto.business.scenic.ticket;
 
 import com.eghm.configuration.gson.LocalDateAdapter;
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.dto.ext.DateComparator;
 import com.eghm.enums.ref.TicketType;
 import com.eghm.validation.annotation.WordChecker;
@@ -49,12 +49,12 @@ public class ScenicTicketEditRequest extends DateComparator {
     private List<Long> ticketIds;
 
     @Schema(description = "划线价")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer linePrice;
 
     @Schema(description = "销售价", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "销售价不能为空")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer salePrice;
 
     @Schema(description = "提前多少天购票", requiredMode = Schema.RequiredMode.REQUIRED)

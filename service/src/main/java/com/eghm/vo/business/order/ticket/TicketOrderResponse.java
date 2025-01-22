@@ -2,7 +2,7 @@ package com.eghm.vo.business.order.ticket;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
@@ -49,12 +49,12 @@ public class TicketOrderResponse extends ExcelStyle {
     private String mobile;
 
     @Schema(description = "付款金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     @ExcelProperty(value = "付款金额", index = 6, converter = CentToYuanConverter.class)
     private Integer payAmount;
 
     @Schema(description = "优惠金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     @ExcelProperty(value = "优惠金额", index = 7, converter = CentToYuanConverter.class)
     private Integer discountAmount;
 

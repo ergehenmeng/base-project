@@ -1,6 +1,6 @@
 package com.eghm.dto.business.item.express;
 
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -26,7 +26,7 @@ public class ExpressTemplateRegionRequest {
     @Schema(description = "首件或首重的价格", requiredMode = Schema.RequiredMode.REQUIRED)
     @Min(value = 0, message = "首件或首重的价格不能小于0")
     @NotNull(message = "首件或首重的价格不能为空")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer firstPrice;
 
     @Schema(description = "续重或续件", requiredMode = Schema.RequiredMode.REQUIRED)
@@ -37,7 +37,7 @@ public class ExpressTemplateRegionRequest {
     @Schema(description = "续重或续件的单价", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "续重或续件的单价不能为空")
     @Min(value = 0, message = "续重或续件的单价不能小于0")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer nextUnitPrice;
 
     @Schema(description = "区域编号(逗号分隔)", requiredMode = Schema.RequiredMode.REQUIRED)

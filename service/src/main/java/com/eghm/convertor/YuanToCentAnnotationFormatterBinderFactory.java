@@ -17,7 +17,7 @@ import java.util.Set;
  * @author 二哥很猛
  * @since 2023/10/8
  */
-public class YuanToCentAnnotationFormatterFactory extends EmbeddedValueResolutionSupport implements AnnotationFormatterFactory<YuanToCentFormat> {
+public class YuanToCentAnnotationFormatterBinderFactory extends EmbeddedValueResolutionSupport implements AnnotationFormatterFactory<YuanToCentFormat> {
 
     private static final Set<Class<?>> FIELD_TYPES;
 

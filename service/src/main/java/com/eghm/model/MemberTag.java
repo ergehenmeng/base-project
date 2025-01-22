@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.enums.Channel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -42,7 +42,7 @@ public class MemberTag extends BaseEntity {
     private Integer consumeNum;
 
     @Schema(description = "最低消费金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer consumeAmount;
 
     @Schema(description = "注册渠道 PC,ANDROID,IOS,H5,OTHER")

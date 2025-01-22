@@ -2,7 +2,7 @@ package com.eghm.vo.business.withdraw;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
@@ -37,12 +37,12 @@ public class WithdrawLogResponse extends ExcelStyle {
     private WithdrawWay withdrawWay;
 
     @Schema(description = "提现金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     @ExcelProperty(value = "提现金额", index = 3, converter = CentToYuanConverter.class)
     private Integer amount;
 
     @Schema(description = "提现手续费")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     @ExcelProperty(value = "提现手续费", index = 4, converter = CentToYuanConverter.class)
     private Integer fee;
 

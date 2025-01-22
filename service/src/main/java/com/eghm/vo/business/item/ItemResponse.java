@@ -2,7 +2,7 @@ package com.eghm.vo.business.item;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.convertor.excel.BooleanExcelConverter;
 import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
@@ -55,12 +55,12 @@ public class ItemResponse extends ExcelStyle {
     private DeliveryType deliveryType;
 
     @Schema(description = "最低价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     @ExcelProperty(value = "最低价格", index = 5, converter = CentToYuanConverter.class)
     private Integer minPrice;
 
     @Schema(description = "最高价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     @ExcelProperty(value = "最高价格", index = 6, converter = CentToYuanConverter.class)
     private Integer maxPrice;
 

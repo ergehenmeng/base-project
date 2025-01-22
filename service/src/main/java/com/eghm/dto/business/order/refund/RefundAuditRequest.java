@@ -1,6 +1,6 @@
 package com.eghm.dto.business.order.refund;
 
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.validation.annotation.OptionInt;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -32,7 +32,7 @@ public class RefundAuditRequest {
 
     @Schema(description = "实际退款金额", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "退款金额不能为空")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer refundAmount;
 
     @Schema(description = "审批意见", requiredMode = Schema.RequiredMode.REQUIRED)

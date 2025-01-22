@@ -1,7 +1,7 @@
 package com.eghm.dto.business.line.config;
 
 import com.eghm.configuration.gson.LocalDateAdapter;
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.dto.ext.DateComparator;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -53,11 +53,11 @@ public class LineConfigRequest extends DateComparator {
     private Integer stock;
 
     @Schema(description = "划线价")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer linePrice;
 
     @Schema(description = "销售价", requiredMode = Schema.RequiredMode.REQUIRED)
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "销售价不能为空")
     private Integer salePrice;
 

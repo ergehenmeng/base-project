@@ -1,6 +1,6 @@
 package com.eghm.vo.business.order.restaurant;
 
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.eghm.enums.ref.RefundState;
@@ -55,15 +55,15 @@ public class VoucherOrderDetailVO {
     private RefundState refundState;
 
     @Schema(description = "单价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer price;
 
     @Schema(description = "优惠金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer discountAmount;
 
     @Schema(description = "总付款金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer payAmount;
 
     @Schema(description = "创建订单时间")
@@ -106,7 +106,7 @@ public class VoucherOrderDetailVO {
     private String cdKey;
 
     @Schema(description = "兑换码优惠金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer cdKeyAmount;
 
     @Schema(description = "订单备注信息")

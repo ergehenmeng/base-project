@@ -1,6 +1,6 @@
 package com.eghm.vo.business.order.ticket;
 
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
@@ -44,7 +44,7 @@ public class TicketOrderDetailResponse {
     private Integer num;
 
     @Schema(description = "单价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer price;
 
     @Schema(description = "订单联系人")
@@ -66,11 +66,11 @@ public class TicketOrderDetailResponse {
     private CloseType closeType;
 
     @Schema(description = "付款金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer payAmount;
 
     @Schema(description = "总优惠金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer discountAmount;
 
     @Schema(description = "门票核销时间")

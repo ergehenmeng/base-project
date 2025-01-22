@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.enums.ref.State;
 import com.eghm.enums.ref.TicketType;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -44,11 +44,11 @@ public class ScenicTicket extends BaseEntity {
     private Boolean hotSell;
 
     @Schema(description = "划线价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer linePrice;
 
     @Schema(description = "销售价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer salePrice;
 
     @Schema(description = "提前多少天购票")

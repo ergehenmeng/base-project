@@ -1,7 +1,7 @@
 package com.eghm.dto.business.shopping;
 
 import com.eghm.annotation.Assign;
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,7 +25,7 @@ public class CartDTO {
     private Long skuId;
 
     @Schema(description = "商品售价(冗余)")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer salePrice;
 
     @Schema(description = "数量", requiredMode = Schema.RequiredMode.REQUIRED)

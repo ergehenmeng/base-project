@@ -1,7 +1,7 @@
 package com.eghm.dto.business.order;
 
 import com.eghm.annotation.Assign;
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -30,7 +30,7 @@ public class OfflineRefundRequest {
     @Schema(description = "退款金额", requiredMode = Schema.RequiredMode.REQUIRED)
     @Min(value = 1, message = "退款金额最少0.01元")
     @NotNull(message = "退款金额不能为空")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer refundAmount;
 
     @Schema(description = "退款凭证(转账记录)", requiredMode = Schema.RequiredMode.REQUIRED)

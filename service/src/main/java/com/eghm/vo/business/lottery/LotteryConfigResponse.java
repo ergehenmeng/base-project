@@ -1,6 +1,6 @@
 package com.eghm.vo.business.lottery;
 
-import com.eghm.convertor.CentToYuanOmitEncoder;
+import com.eghm.convertor.CentToYuanOmitSerializer;
 import com.eghm.enums.ref.PrizeType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -24,7 +24,7 @@ public class LotteryConfigResponse {
     private Integer location;
 
     @Schema(description = "中奖权重")
-    @JsonSerialize(using = CentToYuanOmitEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer weight;
 
     @Schema(description = "奖品图片")

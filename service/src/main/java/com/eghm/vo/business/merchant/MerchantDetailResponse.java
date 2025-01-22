@@ -1,6 +1,6 @@
 package com.eghm.vo.business.merchant;
 
-import com.eghm.convertor.BigDecimalOmitEncoder;
+import com.eghm.convertor.BigDecimalOmitSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -44,7 +44,7 @@ public class MerchantDetailResponse {
     private List<Integer> typeList;
 
     @Schema(description = "平台服务费,单位:%")
-    @JsonSerialize(using = BigDecimalOmitEncoder.class)
+    @JsonSerialize(using = BigDecimalOmitSerializer.class)
     private BigDecimal platformServiceRate;
 
     @Schema(description = "联系人电话")

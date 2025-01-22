@@ -1,6 +1,6 @@
 package com.eghm.vo.business.item.store;
 
-import com.eghm.convertor.NumberParseEncoder;
+import com.eghm.convertor.NumberParseSerializer;
 import com.eghm.vo.business.item.ItemVO;
 import com.eghm.vo.business.lottery.LotteryVO;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -33,7 +33,7 @@ public class ItemStoreHomeVO {
     private Boolean collect;
 
     @Schema(description = "总收藏数量")
-    @JsonSerialize(using = NumberParseEncoder.class)
+    @JsonSerialize(using = NumberParseSerializer.class)
     private Long commentNum;
 
     @Schema(description = "营业时间")

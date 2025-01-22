@@ -1,6 +1,6 @@
 package com.eghm.vo.business.homestay.room.config;
 
-import com.eghm.convertor.CentToYuanOmitEncoder;
+import com.eghm.convertor.CentToYuanOmitSerializer;
 import com.eghm.vo.business.BaseConfigResponse;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,11 +23,11 @@ public class RoomConfigResponse extends BaseConfigResponse {
     private Boolean state;
 
     @Schema(description = "划线价")
-    @JsonSerialize(using = CentToYuanOmitEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer linePrice;
 
     @Schema(description = "销售价")
-    @JsonSerialize(using = CentToYuanOmitEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer salePrice;
 
     @Schema(description = "库存数")

@@ -1,7 +1,7 @@
 package com.eghm.vo.business.item;
 
-import com.eghm.convertor.BigDecimalOmitEncoder;
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.BigDecimalOmitSerializer;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -32,15 +32,15 @@ public class ItemSkuResponse {
     private Integer secondSize;
 
     @Schema(description = "成本价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer costPrice;
 
     @Schema(description = "划线价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer linePrice;
 
     @Schema(description = "销售价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer salePrice;
 
     @Schema(description = "库存")
@@ -53,7 +53,7 @@ public class ItemSkuResponse {
     private String skuPic;
 
     @Schema(description = "重量")
-    @JsonSerialize(using = BigDecimalOmitEncoder.class)
+    @JsonSerialize(using = BigDecimalOmitSerializer.class)
     private BigDecimal weight;
 
 }

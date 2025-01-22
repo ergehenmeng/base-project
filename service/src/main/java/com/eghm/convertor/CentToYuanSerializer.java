@@ -10,14 +10,14 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
 /**
- * 分转元序列化转换器(忽略无用的小数点)
+ * 分转元转换器
  *
  * @author 二哥很猛
  * @since 2022/3/30 18:17
  */
-public class CentToYuanOmitEncoder extends StdSerializer<Object> {
+public class CentToYuanSerializer extends StdSerializer<Object> {
 
-    public CentToYuanOmitEncoder() {
+    public CentToYuanSerializer() {
         super(Object.class);
     }
 
@@ -26,9 +26,9 @@ public class CentToYuanOmitEncoder extends StdSerializer<Object> {
         if (value instanceof Integer) {
             int val = (int) value;
             if (val == 0) {
-                gen.writeString("0");
+                gen.writeString("0.00");
             } else {
-                gen.writeString(DecimalUtil.centToYuanOmit(val));
+                gen.writeString(DecimalUtil.centToYuan(val));
             }
         } else {
             throw new BusinessException(ErrorCode.CONVERT_ERROR);

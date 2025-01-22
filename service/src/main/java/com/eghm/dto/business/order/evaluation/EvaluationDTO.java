@@ -1,6 +1,6 @@
 package com.eghm.dto.business.order.evaluation;
 
-import com.eghm.convertor.XssEncoder;
+import com.eghm.convertor.XssSerializer;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -31,7 +31,7 @@ public class EvaluationDTO {
     private Integer score;
 
     @Schema(description = "评论")
-    @JsonDeserialize(using = XssEncoder.class)
+    @JsonDeserialize(using = XssSerializer.class)
     @Length(min = 5, max = 200, message = "评论信息应在5~200字符之间")
     @WordChecker(message = "评论信息包含敏感词")
     private String comment;

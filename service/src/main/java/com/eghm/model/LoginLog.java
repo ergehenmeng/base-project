@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.convertor.LongToIpEncoder;
+import com.eghm.convertor.LongToIpSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -35,7 +35,7 @@ public class LoginLog {
     private String channel;
 
     @Schema(description = "登陆ip")
-    @JsonSerialize(using = LongToIpEncoder.class)
+    @JsonSerialize(using = LongToIpSerializer.class)
     private Long ip;
 
     @Schema(description = "设备厂商")

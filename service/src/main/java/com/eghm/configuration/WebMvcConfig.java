@@ -11,9 +11,9 @@ import com.eghm.configuration.encoder.Encoder;
 import com.eghm.configuration.jackson.DesensitizationAnnotationInterceptor;
 import com.eghm.configuration.log.LogTraceFilter;
 import com.eghm.constants.CommonConstant;
-import com.eghm.convertor.DateAnnotationFormatterFactory;
+import com.eghm.convertor.DateAnnotationFormatterBinderFactory;
 import com.eghm.convertor.EnumBinderConverterFactory;
-import com.eghm.convertor.YuanToCentAnnotationFormatterFactory;
+import com.eghm.convertor.YuanToCentAnnotationFormatterBinderFactory;
 import com.eghm.enums.AlarmType;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
@@ -153,8 +153,8 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverterFactory(new EnumBinderConverterFactory());
-        registry.addFormatterForFieldAnnotation(new YuanToCentAnnotationFormatterFactory());
-        registry.addFormatterForFieldAnnotation(new DateAnnotationFormatterFactory());
+        registry.addFormatterForFieldAnnotation(new YuanToCentAnnotationFormatterBinderFactory());
+        registry.addFormatterForFieldAnnotation(new DateAnnotationFormatterBinderFactory());
     }
 
     /**

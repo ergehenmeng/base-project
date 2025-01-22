@@ -14,9 +14,9 @@ import static com.eghm.utils.StringUtil.isBlank;
  * @author 二哥很猛
  * @since 2022/3/30 18:44
  */
-public class YuanToCentDecoder extends StdScalarDeserializer<Integer> {
+public class YuanToCentDeserializer extends StdScalarDeserializer<Integer> {
 
-    protected YuanToCentDecoder() {
+    protected YuanToCentDeserializer() {
         super(Integer.class);
     }
 

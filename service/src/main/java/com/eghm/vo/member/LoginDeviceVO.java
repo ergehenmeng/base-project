@@ -1,6 +1,6 @@
 package com.eghm.vo.member;
 
-import com.eghm.convertor.LongToIpEncoder;
+import com.eghm.convertor.LongToIpSerializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -26,6 +26,6 @@ public class LoginDeviceVO {
     private String serialNumber;
 
     @Schema(description = "登陆ip")
-    @JsonSerialize(using = LongToIpEncoder.class)
+    @JsonSerialize(using = LongToIpSerializer.class)
     private Long ip;
 }

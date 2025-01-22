@@ -1,7 +1,7 @@
 package com.eghm.vo.business.scenic;
 
-import com.eghm.convertor.BigDecimalOmitEncoder;
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.BigDecimalOmitSerializer;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -34,11 +34,11 @@ public class ScenicVO {
     private String depict;
 
     @Schema(description = "最低价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer minPrice;
 
     @Schema(description = "距离 单位:m")
-    @JsonSerialize(using = BigDecimalOmitEncoder.class)
+    @JsonSerialize(using = BigDecimalOmitSerializer.class)
     private BigDecimal distance;
 
     @Schema(description = "状态 0:待上架 1:已上架 2:强制下架")
