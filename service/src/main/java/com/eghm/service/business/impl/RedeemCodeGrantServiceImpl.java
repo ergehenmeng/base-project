@@ -1,7 +1,7 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
+import static com.eghm.utils.StringUtil.isBlank;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -60,7 +60,7 @@ public class RedeemCodeGrantServiceImpl extends ServiceImpl<RedeemCodeGrantMappe
 
     @Override
     public Integer getRedeemAmount(String cdKey, Long storeId, Long productId) {
-        if (StrUtil.isBlank(cdKey)) {
+        if (isBlank(cdKey)) {
             return 0;
         }
         LambdaQueryWrapper<RedeemCodeGrant> wrapper = Wrappers.lambdaQuery();

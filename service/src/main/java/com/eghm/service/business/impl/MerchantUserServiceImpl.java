@@ -1,6 +1,5 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.encoder.Encoder;
@@ -25,6 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author 二哥很猛
@@ -73,7 +74,7 @@ public class MerchantUserServiceImpl implements MerchantUserService {
         user.setId(merchant.getUserId());
         user.setNickName(request.getNickName());
         user.setMobile(request.getMobile());
-        if (StrUtil.isNotBlank(request.getPassword())) {
+        if (isNotBlank(request.getPassword())) {
             user.setPwd(encoder.encode(request.getPassword()));
             user.setInitPwd(user.getPwd());
         }

@@ -1,6 +1,5 @@
 package com.eghm.configuration.task.config;
 
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -17,6 +16,7 @@ import org.springframework.scheduling.support.CronExpression;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -155,7 +155,7 @@ public class SysTaskRegistrar {
      */
     public void addTask(OnceTask task) {
         String nid = task.getBeanName() + "-" + task.getMethodName() + "-" + counter.getAndIncrement();
-        ScheduledFuture<?> schedule = taskScheduler.schedule(new RunnableTask(task), DateUtil.date(task.getExecuteTime()));
+        ScheduledFuture<?> schedule = taskScheduler.schedule(new RunnableTask(task), task.getExecuteTime().atZone(ZoneOffset.systemDefault()).toInstant());
         scheduledFutures.put(nid, schedule);
     }
 

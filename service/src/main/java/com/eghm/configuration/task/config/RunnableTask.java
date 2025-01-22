@@ -2,7 +2,7 @@ package com.eghm.configuration.task.config;
 
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.ReflectUtil;
-import cn.hutool.core.util.StrUtil;
+import static com.eghm.utils.StringUtil.isBlank;
 import com.eghm.common.AlarmService;
 import com.eghm.constants.CommonConstant;
 import com.eghm.enums.ErrorCode;
@@ -86,7 +86,7 @@ public class RunnableTask implements Runnable {
      */
     private Method findMethod(Task task, Object bean) throws NoSuchMethodException {
         Class<?> cls = AopUtils.isAopProxy(bean) ? bean.getClass().getSuperclass() : bean.getClass();
-        if (StrUtil.isBlank(task.getArgs())) {
+        if (isBlank(task.getArgs())) {
             return cls.getMethod(task.getMethodName());
         }
         return cls.getMethod(task.getMethodName(), String.class);

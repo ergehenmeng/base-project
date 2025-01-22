@@ -1,6 +1,6 @@
 package com.eghm.service.sys.impl;
 
-import cn.hutool.core.util.StrUtil;
+import static com.eghm.utils.StringUtil.isBlank;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -194,7 +194,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     private Long generateNextId(String pid) {
         String maxId = sysMenuMapper.getMaxId(pid);
         // 空表示当前菜单没有子菜单,直接生成第一个子菜单
-        if (StrUtil.isBlank(maxId)) {
+        if (isBlank(maxId)) {
             return Long.parseLong(pid + STEP);
         }
         // 如果最后三位是99这表示,已经最大了,再+1会进位,因此不能超过99

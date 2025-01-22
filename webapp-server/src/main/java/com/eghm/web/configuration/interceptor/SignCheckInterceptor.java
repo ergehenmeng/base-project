@@ -2,7 +2,7 @@ package com.eghm.web.configuration.interceptor;
 
 import cn.hutool.core.codec.Base64Encoder;
 import cn.hutool.core.util.HexUtil;
-import cn.hutool.core.util.StrUtil;
+import static com.eghm.utils.StringUtil.isBlank;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.crypto.SignUtil;
 import cn.hutool.crypto.asymmetric.Sign;
@@ -48,7 +48,7 @@ public class SignCheckInterceptor implements InterceptorAdapter {
             return true;
         }
         RequestMessage message = ApiHolder.get();
-        if (StrUtil.isBlank(message.getAppKey()) || StrUtil.isBlank(message.getSignature()) || StrUtil.isBlank(message.getTimestamp())) {
+        if (isBlank(message.getAppKey()) || isBlank(message.getSignature()) || isBlank(message.getTimestamp())) {
             log.warn("请求头签名信息不全 [{}] [{}] [{}]", message.getAppKey(), message.getSignature(), message.getTimestamp());
             WebUtil.printJson(response, ErrorCode.SIGNATURE_ERROR);
             return false;

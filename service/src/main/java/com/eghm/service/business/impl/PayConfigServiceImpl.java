@@ -1,6 +1,5 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.dto.business.pay.PayConfigEditRequest;
@@ -13,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
 * @author 二哥很猛
@@ -28,7 +29,7 @@ public class PayConfigServiceImpl implements PayConfigService {
     @Override
     public List<PayConfig> getList(String queryName) {
         LambdaQueryWrapper<PayConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(queryName), PayConfig::getRemark, queryName);
+        wrapper.like(isNotBlank(queryName), PayConfig::getRemark, queryName);
         wrapper.orderByDesc(PayConfig::getId);
         return payConfigMapper.selectList(wrapper);
     }

@@ -385,9 +385,9 @@ public class SystemProperties {
         private String version;
 
         /**
-         * 加密秘钥,用于数据库字段加密
+         * 加密秘钥,用于数据库字段加密(注意:秘钥丢失后数据不可逆)
          */
-        private String secretKey = "7ec9ebaf378217d94df28342a4ff007b";
+        private String secretKey;
 
         /**
          * 模拟登录的token

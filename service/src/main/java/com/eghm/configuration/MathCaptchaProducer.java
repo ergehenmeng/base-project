@@ -4,9 +4,9 @@ package com.eghm.configuration;
 import com.eghm.constants.CommonConstant;
 import com.google.code.kaptcha.text.impl.DefaultTextCreator;
 
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiFunction;
 
 /**
@@ -31,7 +31,7 @@ public class MathCaptchaProducer extends DefaultTextCreator {
 
     @Override
     public String getText() {
-        ThreadLocalRandom random = ThreadLocalRandom.current();
+        SecureRandom random = new SecureRandom();
         int x = random.nextInt(MAX) + 1;
         int y = random.nextInt(MIN) + 1;
         int symbol = random.nextInt(MATH_MAP.size());

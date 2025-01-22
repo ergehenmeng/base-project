@@ -1,6 +1,6 @@
 package com.eghm.common.impl;
 
-import cn.hutool.core.util.StrUtil;
+import static com.eghm.utils.StringUtil.isBlank;
 import com.eghm.common.JsonService;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.ParameterException;
@@ -41,7 +41,7 @@ public class JsonServiceImpl implements JsonService {
 
     @Override
     public <T> T fromJson(String json, Class<T> cls) {
-        if (StrUtil.isBlank(json)) {
+        if (isBlank(json)) {
             return null;
         }
         try {
@@ -54,7 +54,7 @@ public class JsonServiceImpl implements JsonService {
 
     @Override
     public <T> T fromJson(String json, TypeReference<T> reference) {
-        if (StrUtil.isBlank(json)) {
+        if (isBlank(json)) {
             return null;
         }
         try {
@@ -67,7 +67,7 @@ public class JsonServiceImpl implements JsonService {
 
     @Override
     public <T> List<T> fromJsonList(String json, Class<T> cls) {
-        if (StrUtil.isBlank(json)) {
+        if (isBlank(json)) {
             return Lists.newArrayList();
         }
         try {

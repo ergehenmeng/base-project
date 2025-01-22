@@ -1,7 +1,6 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -23,6 +22,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author 二哥很猛
@@ -107,7 +108,7 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
                 throw new BusinessException(ErrorCode.VERIFY_EXPIRE_ERROR);
             }
             String unPaid = selectList.stream().filter(orderVisitor -> orderVisitor.getState() != VisitorState.PAID).map(OrderVisitor::getMemberName).collect(Collectors.joining(","));
-            if (StrUtil.isNotBlank(unPaid)) {
+            if (isNotBlank(unPaid)) {
                 log.error("用户[{}]不是待使用状态,无法进行核销 orderNo:[{}] [{}]", unPaid, orderNo, visitorList);
                 throw new BusinessException(ErrorCode.VISITOR_VERIFY_ERROR, unPaid);
             }

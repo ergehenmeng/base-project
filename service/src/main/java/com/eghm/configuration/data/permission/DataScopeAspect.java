@@ -3,7 +3,7 @@ package com.eghm.configuration.data.permission;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
-import cn.hutool.core.util.StrUtil;
+import static com.eghm.utils.StringUtil.isBlank;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.DataType;
@@ -62,7 +62,7 @@ public class DataScopeAspect {
     private String createPermissionSql(UserToken user, DataScope scope) {
         StringBuilder builder = new StringBuilder();
         builder.append(" ( ");
-        String alias = StrUtil.isBlank(scope.alias()) ? "" : scope.alias().trim() + ".";
+        String alias = isBlank(scope.alias()) ? "" : scope.alias().trim() + ".";
         // 自定义
         if (user.getDataType() == DataType.CUSTOM) {
             List<String> deptList = user.getDataList();

@@ -1,7 +1,6 @@
 package com.eghm.service.member.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -25,6 +24,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * <p>
@@ -51,7 +52,7 @@ public class MemberTagServiceImpl implements MemberTagService {
     @Override
     public Page<MemberTag> getByPage(MemberTagQueryRequest request) {
         LambdaQueryWrapper<MemberTag> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), MemberTag::getTitle, request.getQueryName());
+        wrapper.like(isNotBlank(request.getQueryName()), MemberTag::getTitle, request.getQueryName());
         wrapper.orderByDesc(MemberTag::getId);
         return memberTagMapper.selectPage(request.createPage(), wrapper);
     }

@@ -1,7 +1,6 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -30,6 +29,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.eghm.utils.StringUtil.isBlank;
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author 二哥很猛
@@ -127,11 +129,11 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public void delete(ActivityDeleteRequest request) {
-        if (request.getId() == null && StrUtil.isBlank(request.getTitle())) {
+        if (request.getId() == null && isBlank(request.getTitle())) {
             throw new BusinessException(ErrorCode.ACTIVITY_TITLE_NULL);
         }
         LambdaUpdateWrapper<Activity> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(StrUtil.isNotBlank(request.getTitle()), Activity::getTitle, request.getTitle());
+        wrapper.eq(isNotBlank(request.getTitle()), Activity::getTitle, request.getTitle());
         wrapper.eq(request.getId() != null, Activity::getId, request.getId());
         activityMapper.delete(wrapper);
     }

@@ -1,6 +1,5 @@
 package com.eghm.common.impl;
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.http.HttpUtil;
 import com.eghm.common.AlarmService;
@@ -12,6 +11,8 @@ import com.eghm.utils.SpringContextUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
+
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author 二哥很猛
@@ -49,7 +50,7 @@ public class FeiShuAlarmServiceImpl implements AlarmService {
                 "[信息]: " + content;
         text.setContent(builder);
         msg.setText(text);
-        if (StrUtil.isNotBlank(systemProperties.getAlarmMsg().getSecret())) {
+        if (isNotBlank(systemProperties.getAlarmMsg().getSecret())) {
             long timestamp = System.currentTimeMillis();
             String unSign = timestamp + "\n" + systemProperties.getAlarmMsg().getSecret();
             String sign = SecureUtil.hmacSha256(systemProperties.getAlarmMsg().getSecret()).digestBase64(unSign, true);

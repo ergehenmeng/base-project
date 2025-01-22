@@ -1,7 +1,6 @@
 package com.eghm.service.sys.impl;
 
 import cn.hutool.core.util.PhoneUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -47,6 +46,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static cn.hutool.core.text.StrSplitter.split;
 import static com.eghm.constants.CommonConstant.MAX_ERROR_NUM;
 import static com.eghm.utils.CacheUtil.LOGIN_LOCK_CACHE;
 
@@ -122,7 +122,7 @@ public class SysUserServiceImpl implements SysUserService {
         sysRoleService.auth(user.getId(), request.getRoleIds());
         // 数据权限
         if (request.getDataType() == DataType.CUSTOM) {
-            List<String> roleStringList = StrUtil.split(request.getDeptIds(), ',');
+            List<String> roleStringList = split(request.getDeptIds(), ',');
             roleStringList.forEach(s -> sysDataDeptService.insert(new SysDataDept(user.getId(), s)));
         }
     }
@@ -157,7 +157,7 @@ public class SysUserServiceImpl implements SysUserService {
             // 删除旧数据权限
             sysDataDeptService.deleteByUserId(user.getId());
             // 添加新数据权限
-            List<String> roleStringList = StrUtil.split(request.getDeptIds(), ',');
+            List<String> roleStringList = split(request.getDeptIds(), ',');
             roleStringList.forEach(s -> sysDataDeptService.insert(new SysDataDept(user.getId(), s)));
         }
     }

@@ -2,7 +2,9 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
+import static com.eghm.utils.StringUtil.isBlank;
+import static com.eghm.utils.StringUtil.isNotBlank;
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -111,7 +113,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
                 order.setSkuCoverUrl(skuPic);
             } else {
                 ItemSpec spec = aPackage.getSpec();
-                if (spec != null && StrUtil.isNotBlank(spec.getSpecPic())) {
+                if (spec != null && isNotBlank(spec.getSpecPic())) {
                     order.setSkuCoverUrl(spec.getSpecPic());
                 } else {
                     order.setSkuCoverUrl(aPackage.getItem().getCoverUrl());
@@ -270,7 +272,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
      * @return sku名称
      */
     private String getSkuTitle(ItemSku sku) {
-        if (StrUtil.isBlank(sku.getSecondSpecValue())) {
+        if (isBlank(sku.getSecondSpecValue())) {
             return sku.getPrimarySpecValue();
         }
         return sku.getPrimarySpecValue() + "/" + sku.getSecondSpecValue();

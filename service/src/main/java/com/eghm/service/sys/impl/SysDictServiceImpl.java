@@ -1,7 +1,7 @@
 package com.eghm.service.sys.impl;
 
 
-import cn.hutool.core.util.StrUtil;
+import static com.eghm.utils.StringUtil.isBlank;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.cache.CacheProxyService;
@@ -113,7 +113,7 @@ public class SysDictServiceImpl implements SysDictService {
 
     @Override
     public List<String> getTags(String nid, String tagIds) {
-        if (StrUtil.isBlank(tagIds)) {
+        if (isBlank(tagIds)) {
             log.info("标签id为空,不查询标签字典 [{}]", nid);
             return Lists.newArrayListWithCapacity(4);
         }

@@ -1,6 +1,5 @@
 package com.eghm.service.common.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.SendNotice;
 import com.eghm.dto.operate.feedback.FeedbackAddDTO;
@@ -19,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.eghm.utils.StringUtil.maxLength;
 
 /**
  * @author 二哥很猛
@@ -54,7 +55,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         notice.setNoticeType(NoticeType.FEEDBACK_PROCESS);
         Map<String, Object> params = new HashMap<>();
         params.put("feedbackType", FeedbackType.of(log.getFeedbackType()).getMsg());
-        params.put("content", StrUtil.maxLength(log.getContent(), 20));
+        params.put("content", maxLength(log.getContent(), 20));
         params.put("reply", request.getRemark());
         notice.setParams(params);
         memberNoticeService.sendNotice(log.getMemberId(), notice);

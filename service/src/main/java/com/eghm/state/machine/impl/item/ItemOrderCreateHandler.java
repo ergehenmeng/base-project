@@ -2,7 +2,7 @@ package com.eghm.state.machine.impl.item;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.StrUtil;
+import static com.eghm.utils.StringUtil.isBlank;
 import com.eghm.common.JsonService;
 import com.eghm.common.OrderMQService;
 import com.eghm.constants.CommonConstant;
@@ -42,6 +42,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.eghm.enums.ErrorCode.*;
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * 注意: 目前优惠券逻辑没有使用, 需要补全逻辑
@@ -379,7 +380,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         if (bookingId == null) {
             throw new BusinessException(ITEM_GROUP_OVER);
         }
-        if (StrUtil.isBlank(context.getBookingNo())) {
+        if (isBlank(context.getBookingNo())) {
             context.setBookingId(bookingId);
             context.setBookingNo(StringUtil.encryptNumber(IdUtil.getSnowflakeNextId()));
             context.setBookingNum(0);
@@ -417,7 +418,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      * @return 列表
      */
     private Long getSpuId(String spuList) {
-        if (StrUtil.isNotBlank(spuList)) {
+        if (isNotBlank(spuList)) {
             return Long.parseLong(spuList.split(CommonConstant.COMMA)[0]);
         }
         return null;
