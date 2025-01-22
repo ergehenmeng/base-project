@@ -83,6 +83,8 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
 
     private final MemberCouponService memberCouponService;
 
+    private static final int MAX_PRODUCT_LENGTH = 100;
+
     /**
      * 普通订单下单处理逻辑
      * 说明: 由于普通订单存在购物车概念,在下单时会出现多店铺+多商品同时下单支付,因此需要按店铺进行分组生成多个订单
@@ -232,7 +234,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      */
     private String getTitle(List<OrderPackage> packageList) {
         String collect = packageList.stream().map(orderPackage -> orderPackage.getItem().getTitle()).collect(Collectors.joining(CommonConstant.COMMA));
-        if (collect.length() > 100) {
+        if (collect.length() > MAX_PRODUCT_LENGTH) {
             return collect.substring(0, 100) + "等";
         }
         return collect;

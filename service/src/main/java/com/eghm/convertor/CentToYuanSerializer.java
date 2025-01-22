@@ -15,9 +15,9 @@ import java.io.IOException;
  * @author 二哥很猛
  * @since 2022/3/30 18:17
  */
-public class CentToYuanEncoder extends StdSerializer<Object> {
+public class CentToYuanSerializer extends StdSerializer<Object> {
 
-    public CentToYuanEncoder() {
+    public CentToYuanSerializer() {
         super(Object.class);
     }
 

@@ -1,6 +1,7 @@
 package com.eghm.web.configuration.filter;
 
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.http.Header;
 import com.eghm.constants.CommonConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -36,9 +37,9 @@ public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
     @Override
     public ServletInputStream getInputStream() throws IOException {
 
-        if (super.getHeader("Content-Type") == null) {
+        if (super.getHeader(Header.CONTENT_TYPE.getValue()) == null) {
             return super.getInputStream();
-        } else if (super.getHeader("Content-Type").startsWith(MediaType.MULTIPART_FORM_DATA_VALUE)) {
+        } else if (super.getHeader(Header.CONTENT_TYPE.getValue()).startsWith(MediaType.MULTIPART_FORM_DATA_VALUE)) {
             return super.getInputStream();
         } else {
             if (this.body == null) {

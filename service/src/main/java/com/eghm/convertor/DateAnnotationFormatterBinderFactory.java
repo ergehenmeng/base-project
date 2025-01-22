@@ -24,7 +24,7 @@ import java.util.Set;
  * @author 二哥很猛
  * @since 2023/11/21
  */
-public class DateAnnotationFormatterFactory extends EmbeddedValueResolutionSupport implements AnnotationFormatterFactory<DateFormatter> {
+public class DateAnnotationFormatterBinderFactory extends EmbeddedValueResolutionSupport implements AnnotationFormatterFactory<DateFormatter> {
 
     private static final Set<Class<?>> FIELD_TYPES;
 
@@ -50,7 +50,7 @@ public class DateAnnotationFormatterFactory extends EmbeddedValueResolutionSuppo
     @Override
     public @NonNull Parser<?> getParser(@NonNull DateFormatter annotation, @NonNull Class<?> fieldType) {
         DateTimeFormatter formatter = getFormatter(annotation);
-        return new DateFormatterParser(fieldType, formatter, annotation.offset(), annotation.unit());
+        return new DateAnnotationFormatterParser(fieldType, formatter, annotation.offset(), annotation.unit());
     }
 
     /**

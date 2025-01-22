@@ -19,7 +19,7 @@ import java.util.Locale;
  * @since 2023/11/21
  */
 @Slf4j
-public class DateFormatterParser implements Parser<Temporal> {
+public class DateAnnotationFormatterParser implements Parser<Temporal> {
 
     private final long offset;
 
@@ -29,7 +29,7 @@ public class DateFormatterParser implements Parser<Temporal> {
 
     private final Class<?> temporalAccessorType;
 
-    public DateFormatterParser(Class<?> temporalAccessorType, DateTimeFormatter formatter, long offset, ChronoUnit unit) {
+    public DateAnnotationFormatterParser(Class<?> temporalAccessorType, DateTimeFormatter formatter, long offset, ChronoUnit unit) {
         this.temporalAccessorType = temporalAccessorType;
         this.formatter = formatter;
         this.offset = offset;

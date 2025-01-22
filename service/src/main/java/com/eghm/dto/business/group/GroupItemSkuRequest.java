@@ -1,6 +1,6 @@
 package com.eghm.dto.business.group;
 
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,11 +21,11 @@ public class GroupItemSkuRequest {
 
     @ApiModelProperty(value = "销售价", required = true)
     @NotNull(message = "销售价不能为空")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer salePrice;
 
     @ApiModelProperty(value = "拼团价", required = true)
     @NotNull(message = "拼团价不能为空")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer discountPrice;
 }

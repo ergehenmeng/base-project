@@ -17,9 +17,9 @@ import static com.eghm.utils.StringUtil.isBlank;
  * @author 二哥很猛
  * @since 2023/8/1
  */
-public class IpToLongDecoder extends StdScalarDeserializer<Long> {
+public class IpToLongDeserializer extends StdScalarDeserializer<Long> {
 
-    protected IpToLongDecoder() {
+    protected IpToLongDeserializer() {
         super(Long.class);
     }
 
