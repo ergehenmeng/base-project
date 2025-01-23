@@ -462,10 +462,10 @@ DROP TABLE IF EXISTS `sensitive_word`;
 CREATE TABLE `sensitive_word`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
-    `keyword`     varchar(200)        DEFAULT NULL COMMENT '敏感字',
-    `create_time` datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)     NOT NULL DEFAULT b'0' COMMENT '删除状态: 0:未删除 1:已删除',
+    `keyword`     varchar(200) DEFAULT NULL COMMENT '敏感字',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态: 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8 COMMENT ='敏感词库';
@@ -526,10 +526,10 @@ CREATE TABLE `sys_cache`
 DROP TABLE IF EXISTS `sys_config`;
 CREATE TABLE `sys_config`
 (
-    `id`          bigint(20)   NOT NULL COMMENT '主键',
-    `nid`         varchar(50)  NOT NULL COMMENT '参数标示符',
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `nid`         varchar(50) COMMENT '参数标示符',
     `title`       varchar(50)  DEFAULT NULL COMMENT '参数名称',
-    `content`     varchar(500) NOT NULL COMMENT '参数值',
+    `content`     varchar(500) COMMENT '参数值',
     `locked`      bit(1)       DEFAULT b'0' COMMENT '锁定状态(禁止编辑) 0:未锁定,1:锁定',
     `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
     `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -617,10 +617,10 @@ DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu`
 (
     `id`            varchar(20) NOT NULL COMMENT '主键',
-    `title`         varchar(20) NOT NULL COMMENT '菜单名称',
-    `code`          varchar(50) NOT NULL COMMENT '菜单标示符(自动生成)',
+    `title`         varchar(20) COMMENT '菜单名称',
+    `code`          varchar(50) COMMENT '菜单标示符(自动生成)',
     `icon`          varchar(30)  DEFAULT NULL COMMENT '图标地址(菜单才有icon)',
-    `pid`           varchar(20) NOT NULL COMMENT '父节点ID,一级菜单默认为0',
+    `pid`           varchar(20) COMMENT '父节点ID,一级菜单默认为0',
     `path`          varchar(200) DEFAULT NULL COMMENT '菜单地址',
     `sub_path`      varchar(500) DEFAULT NULL COMMENT '权限拦截路径',
     `grade`         tinyint(1)   DEFAULT '1' COMMENT '菜单级别 1:导航菜单 2:按钮菜单',
@@ -678,9 +678,9 @@ CREATE TABLE `sys_role`
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu`
 (
-    `id`          bigint(20)  NOT NULL COMMENT '主键',
-    `role_id`     bigint(20)  NOT NULL COMMENT '角色Id',
-    `menu_id`     varchar(20) NOT NULL COMMENT '菜单Id',
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `role_id`     bigint(20) COMMENT '角色Id',
+    `menu_id`     varchar(20) COMMENT '菜单Id',
     `create_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE KEY `rm_idx` (`role_id`, `menu_id`),
@@ -696,16 +696,16 @@ DROP TABLE IF EXISTS `sys_task`;
 CREATE TABLE `sys_task`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
-    `title`           varchar(50)         DEFAULT NULL COMMENT '定时任务名称',
-    `bean_name`       varchar(200)        DEFAULT NULL COMMENT 'bean名称 必须实现Task接口',
-    `method_name`     varchar(50)         DEFAULT NULL COMMENT '方法名',
-    `args`            varchar(300)        DEFAULT NULL COMMENT '方法入参',
-    `cron_expression` varchar(50)         DEFAULT NULL COMMENT 'cron表达式',
-    `alarm_email`     varchar(30)         DEFAULT NULL COMMENT '错误报警邮箱',
-    `state`           tinyint(1)          DEFAULT '1' COMMENT '状态 0:关闭 1:开启',
-    `lock_time`       bigint(20) NOT NULL DEFAULT '30000' COMMENT '锁定时间(多副本时防止并发),单位:毫秒',
-    `update_time`     datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `remark`          varchar(255)        DEFAULT NULL COMMENT '备注信息',
+    `title`           varchar(50)  DEFAULT NULL COMMENT '定时任务名称',
+    `bean_name`       varchar(200) DEFAULT NULL COMMENT 'bean名称 必须实现Task接口',
+    `method_name`     varchar(50)  DEFAULT NULL COMMENT '方法名',
+    `args`            varchar(300) DEFAULT NULL COMMENT '方法入参',
+    `cron_expression` varchar(50)  DEFAULT NULL COMMENT 'cron表达式',
+    `alarm_email`     varchar(30)  DEFAULT NULL COMMENT '错误报警邮箱',
+    `state`           tinyint(1)   DEFAULT '1' COMMENT '状态 0:关闭 1:开启',
+    `lock_time`       bigint(20)   DEFAULT '30000' COMMENT '锁定时间(多副本时防止并发),单位:毫秒',
+    `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `remark`          varchar(255) DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`),
     UNIQUE KEY `bm_idx` (`bean_name`, `method_name`) USING BTREE COMMENT 'nid必须唯一'
 ) ENGINE = InnoDB
@@ -736,11 +736,11 @@ CREATE TABLE `sys_task_log`
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`
 (
-    `id`              bigint(20)  NOT NULL COMMENT '主键',
-    `nick_name`       varchar(20) NOT NULL COMMENT '用户名称',
+    `id`              bigint(20) NOT NULL COMMENT '主键',
+    `nick_name`       varchar(20) COMMENT '用户名称',
     `user_type`       tinyint(2)   DEFAULT '1' COMMENT '用户类型 0: 超级管理员 1:系统用户 2: 商户用户',
     `user_name`       varchar(20)  DEFAULT NULL COMMENT '账号名(登陆账户)',
-    `mobile`          char(11)    NOT NULL COMMENT '手机号码(登陆账户)',
+    `mobile`          char(11) COMMENT '手机号码(登陆账户)',
     `state`           tinyint(1)   DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
     `pwd`             varchar(256) DEFAULT NULL COMMENT '登陆密码MD5',
     `init_pwd`        varchar(256) DEFAULT NULL COMMENT '初始密码',
@@ -766,8 +766,8 @@ DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role`
 (
     `id`      bigint(20) NOT NULL COMMENT '主键',
-    `user_id` bigint(20) NOT NULL COMMENT '用户id',
-    `role_id` bigint(20) NOT NULL COMMENT '角色id',
+    `user_id` bigint(20) COMMENT '用户id',
+    `role_id` bigint(20) COMMENT '角色id',
     PRIMARY KEY (`id`) USING BTREE,
     KEY `ur_idx` (`user_id`, `role_id`) USING BTREE
 ) ENGINE = InnoDB
