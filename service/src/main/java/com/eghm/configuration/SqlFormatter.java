@@ -1,6 +1,5 @@
 package com.eghm.configuration;
 
-import cn.hutool.core.util.StrUtil;
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
 
 import static com.eghm.utils.StringUtil.isNotBlank;

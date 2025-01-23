@@ -37,10 +37,10 @@ public class InviteRegisterHandler implements Handler {
     @Override
     public void doHandler(Object messageData, HandlerInvoker invoker) {
         MessageData data = (MessageData) messageData;
-        log.info("注册添加邀请记录");
         MemberRegister register = data.getMemberRegister();
         Member dataMember = data.getMember();
         if (isNotBlank(register.getInviteCode())) {
+            log.info("会员注册新增邀请记录");
             Member member = memberService.getByInviteCode(register.getInviteCode());
             if (member != null) {
                 MemberInviteLog inviteLog = new MemberInviteLog();
