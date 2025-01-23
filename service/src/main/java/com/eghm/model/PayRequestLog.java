@@ -26,7 +26,7 @@ public class PayRequestLog extends BaseEntity {
     @Schema(description = "订单编号")
     private String orderNo;
 
-    @Schema(description = "请求类型 PAY: 支付异步通知 REFUND:退款异步通知")
+    @Schema(description = "请求类型 PAY:支付异步通知 REFUND:退款异步通知")
     private StepType stepType;
 
     @Schema(description = "交易流水号")

@@ -23,7 +23,7 @@ public class DictAddRequest {
     @NotBlank(message = "字典编码不能为空")
     private String nid;
 
-    @Schema(description = "字典分类: 1: 系统字典 2: 业务字典")
+    @Schema(description = "字典分类: 1:系统字典 2:业务字典")
     @NotNull(message = "字典分类不能为空")
     private Integer dictType;
 

@@ -19,7 +19,7 @@ public class UserToken {
     @Schema(description = "用户id")
     private Long id;
 
-    @Schema(description = "0: 系统管理员 1: 系统用户")
+    @Schema(description = "0:系统管理员 1:系统用户")
     private UserType userType;
 
     @Schema(description = "昵称")
