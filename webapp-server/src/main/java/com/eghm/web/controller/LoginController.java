@@ -1,6 +1,5 @@
 package com.eghm.web.controller;
 
-import static com.eghm.utils.StringUtil.isBlank;
 import com.eghm.common.MemberTokenService;
 import com.eghm.common.SmsService;
 import com.eghm.constants.AppHeader;
@@ -12,15 +11,16 @@ import com.eghm.enums.TemplateType;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginTokenVO;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpServletRequest;
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * 登陆,找回密码相关
@@ -55,12 +55,19 @@ public class LoginController {
         return RespBody.success(memberService.smsLogin(login));
     }
 
-    @Operation(summary = "手机或邮箱密码登陆③")
+    @Operation(summary = "手机或邮箱密码登陆❶")
     @PostMapping(value = "/login/account", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RespBody<LoginTokenVO> account(@RequestBody @Validated AccountLoginDTO login, HttpServletRequest request) {
+    public RespBody<LoginTokenVO> account(@RequestBody @Validated MemberLoginDTO login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         login.setSerialNumber(ApiHolder.get().getSerialNumber());
         return RespBody.success(memberService.accountLogin(login));
+    }
+
+    @Operation(summary = "验证码二次校验❷")
+    @PostMapping(value = "/login/double/check", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public RespBody<LoginTokenVO> doubleCheck(@RequestBody @Validated DoubleCheckDTO login, HttpServletRequest request) {
+        login.setIp(IpUtil.getIpAddress(request));
+        return RespBody.success(memberService.doubleCheck(login));
     }
 
     @Operation(summary = "忘记密码发送验证码①")

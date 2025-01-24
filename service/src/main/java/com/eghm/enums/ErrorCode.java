@@ -511,6 +511,11 @@ public enum ErrorCode {
     NEW_DEVICE_LOGIN(2153, "新设备登陆校验"),
 
     /**
+     * 登录信息无效
+     */
+    LOGIN_NULL(2154, "登录信息无效"),
+
+    /**
      * 账号在其他设备上登陆
      */
     KICK_OFF_LINE(2156, "账号在其他设备上登陆"),

@@ -13,7 +13,7 @@ import jakarta.validation.constraints.NotEmpty;
  * @since 2019/8/19 16:55
  */
 @Data
-public class AccountLoginDTO {
+public class MemberLoginDTO {
 
     @NotEmpty(message = "登陆账号不能为空")
     @Schema(description = "手机号或邮箱", requiredMode = Schema.RequiredMode.REQUIRED)
