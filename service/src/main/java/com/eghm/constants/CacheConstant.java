@@ -48,6 +48,11 @@ public class CacheConstant {
     public static final String SYS_DICT = "sys_dict";
 
     /**
+     * 新设备登录
+     */
+    public static final String NEW_DEVICE_LOGIN = "new_device_login:";
+
+    /**
      * 敏感词
      */
     public static final String SENSITIVE_WORD = "sensitive_word";

@@ -411,6 +411,11 @@ public enum ErrorCode {
     NEW_DEVICE_LOGIN(2153, "新设备登陆校验"),
 
     /**
+     * 登录信息无效
+     */
+    LOGIN_NULL(2154, "登录信息无效"),
+
+    /**
      * 邮件服务可能未配置
      */
     MAIL_NOT_CONFIG(2159, "邮件服务可能未配置"),

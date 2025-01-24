@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.member.*;
 import com.eghm.dto.business.statistics.DateRequest;
 import com.eghm.dto.sys.login.AccountLoginDTO;
+import com.eghm.dto.sys.login.DoubleCheckDTO;
 import com.eghm.dto.sys.login.SmsLoginDTO;
 import com.eghm.dto.sys.register.AccountRegisterDTO;
 import com.eghm.dto.sys.register.MobileRegisterDTO;
@@ -45,6 +46,14 @@ public interface MemberService {
      * @return 登陆成功后的用户信息
      */
     LoginTokenVO accountLogin(AccountLoginDTO login);
+
+    /**
+     * 账号/邮箱密码登陆后的二次校验
+     *
+     * @param dto 二次校验信息
+     * @return 登陆成功后的用户信息
+     */
+    LoginTokenVO doubleCheck(DoubleCheckDTO dto);
 
     /**
      * 短信验证码+手机号登陆

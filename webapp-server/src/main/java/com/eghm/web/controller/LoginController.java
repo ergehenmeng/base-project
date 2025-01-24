@@ -55,12 +55,19 @@ public class LoginController {
         return RespBody.success(memberService.smsLogin(login));
     }
 
-    @Operation(summary = "手机或邮箱密码登陆③")
+    @Operation(summary = "手机或邮箱密码登陆❶")
     @PostMapping(value = "/login/account", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<LoginTokenVO> account(@RequestBody @Validated AccountLoginDTO login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         login.setSerialNumber(ApiHolder.get().getSerialNumber());
         return RespBody.success(memberService.accountLogin(login));
+    }
+
+    @Operation(summary = "验证码二次校验❷")
+    @PostMapping(value = "/login/double/check", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public RespBody<LoginTokenVO> doubleCheck(@RequestBody @Validated DoubleCheckDTO login, HttpServletRequest request) {
+        login.setIp(IpUtil.getIpAddress(request));
+        return RespBody.success(memberService.doubleCheck(login));
     }
 
     @Operation(summary = "忘记密码发送验证码①")

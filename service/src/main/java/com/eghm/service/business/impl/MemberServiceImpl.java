@@ -1,6 +1,7 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.net.NetUtil;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
@@ -20,6 +21,7 @@ import com.eghm.dto.business.statistics.DateRequest;
 import com.eghm.dto.ext.*;
 import com.eghm.dto.operate.email.SendEmail;
 import com.eghm.dto.sys.login.AccountLoginDTO;
+import com.eghm.dto.sys.login.DoubleCheckDTO;
 import com.eghm.dto.sys.login.SmsLoginDTO;
 import com.eghm.dto.sys.register.AccountRegisterDTO;
 import com.eghm.dto.sys.register.MobileRegisterDTO;
@@ -119,9 +121,26 @@ public class MemberServiceImpl implements MemberService {
         LoginDevice loginLog = loginService.getBySerialNumber(member.getId(), request.getSerialNumber());
         if (loginLog == null && isNotBlank(member.getMobile())) {
             // 新设备登陆时,如果使用密码登陆需要验证短信,当然前提是用户已经绑定手机号码
+            smsService.sendSmsCode(TemplateType.MEMBER_LOGIN, member.getMobile(), login.getIp());
+            String uuid = IdUtil.fastSimpleUUID();
+            cacheService.setValue(CacheConstant.NEW_DEVICE_LOGIN + uuid, member.getMobile(), 300);
             throw new DataException(ErrorCode.NEW_DEVICE_LOGIN, member.getMobile());
         }
         return this.doLogin(member, login.getIp());
+    }
+
+    @Override
+    public LoginTokenVO doubleCheck(DoubleCheckDTO dto) {
+        String mobile = cacheService.getValue(CacheConstant.NEW_DEVICE_LOGIN + dto.getUuid());
+        if (isBlank(mobile) ) {
+            log.error("登录信息未查询到 [{}]", dto);
+            throw new BusinessException(ErrorCode.LOGIN_NULL);
+        }
+        Member member = this.getByMobile(mobile);
+        this.checkMemberLock(member);
+        smsService.verifySmsCode(TemplateType.MEMBER_LOGIN, mobile, dto.getSmsCode());
+        cacheService.delete(CacheConstant.NEW_DEVICE_LOGIN + dto.getUuid());
+        return this.doLogin(member, dto.getIp());
     }
 
     @Override
