@@ -82,7 +82,7 @@ public class SysDeptServiceImpl implements SysDeptService {
         LambdaQueryWrapper<SysDept> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysDept::getTitle, title);
         wrapper.eq(SysDept::getParentCode, parentCode);
-        wrapper.ne(SysDept::getId, id);
+        wrapper.ne(id != null, SysDept::getId, id);
         if (sysDeptMapper.selectCount(wrapper) > 0) {
             throw new BusinessException(ErrorCode.DEPARTMENT_TITLE_REPEAT);
         }
