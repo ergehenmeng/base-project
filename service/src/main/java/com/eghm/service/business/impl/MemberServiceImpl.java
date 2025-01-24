@@ -603,6 +603,6 @@ public class MemberServiceImpl implements MemberService {
                 .serialNumber(request.getSerialNumber())
                 .build();
         messageService.send(ExchangeQueue.LOGIN_LOG, loginRecord);
-        return LoginTokenVO.builder().token(memberToken.getToken()).refreshToken(memberToken.getRefreshToken()).build();
+        return new LoginTokenVO(memberToken.getToken(), memberToken.getRefreshToken());
     }
 }

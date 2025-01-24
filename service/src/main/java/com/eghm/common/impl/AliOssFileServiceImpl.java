@@ -86,7 +86,7 @@ public class AliOssFileServiceImpl implements FileService {
             log.error("ALI_OSS文件上传失败, 文件名:[{}]", fileName, e);
             throw new BusinessException(ErrorCode.FILE_SAVE_ERROR);
         }
-        return FilePath.builder().path(fileName).address(systemProperties.getAli().getOss().getAccessDomain()).size(file.getSize()).build();
+        return new FilePath(fileName, systemProperties.getAli().getOss().getAccessDomain(), file.getSize());
     }
 
 }

@@ -47,13 +47,11 @@ public class DingTalkAlarmServiceImpl implements AlarmService {
     private String createTextMsg(String content) {
         DingTalkMsg msg = new DingTalkMsg();
         msg.setMsgType("text");
-        DingTalkMsg.Text text = new DingTalkMsg.Text();
         String appName = SpringContextUtil.getApplicationContext().getEnvironment().getProperty("spring.application.name");
         String builder = "[traceId]: " + LogTraceHolder.getTraceId() + "\n" +
                 "[服务名]: " + appName + "\n" +
                 "[信息]: " + content;
-        text.setContent(builder);
-        msg.setText(text);
+        msg.setText(new DingTalkMsg.Text(builder));
         return jsonService.toJson(msg);
     }
 

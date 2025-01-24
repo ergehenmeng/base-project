@@ -42,13 +42,11 @@ public class FeiShuAlarmServiceImpl implements AlarmService {
      */
     private String createTextMsg(String content) {
         FeiShuMsg msg = new FeiShuMsg();
-        FeiShuMsg.Text text = new FeiShuMsg.Text();
         String appName = SpringContextUtil.getApplicationContext().getEnvironment().getProperty("spring.application.name");
         String builder = "[traceId]: " + LogTraceHolder.getTraceId() + "\n" +
                 "[服务名]: " + appName + "\n" +
                 "[信息]: " + content;
-        text.setContent(builder);
-        msg.setText(text);
+        msg.setText(new FeiShuMsg.Text(builder));
         msg.setMsgType("text");
         if (isNotBlank(systemProperties.getAlarmMsg().getSecret())) {
             long timestamp = System.currentTimeMillis();

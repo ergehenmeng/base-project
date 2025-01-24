@@ -18,10 +18,7 @@ public class DingTalkMsg {
     @Schema(description = "文本消息")
     private Text text;
 
-    @Data
-    public static class Text {
-
-        @Schema(description = "内容")
-        private String content;
+    @Schema(description = "文本消息")
+    public record Text(String content) {
     }
 }

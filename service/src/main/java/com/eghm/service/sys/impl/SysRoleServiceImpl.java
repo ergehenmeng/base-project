@@ -83,7 +83,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysRole::getRoleType, RoleType.COMMON);
         List<SysRole> roleList = sysRoleMapper.selectList(wrapper);
-        return DataUtil.copy(roleList, sysRole -> CheckBox.builder().value(sysRole.getId()).desc(sysRole.getRoleName()).build());
+        return DataUtil.copy(roleList, sysRole -> new CheckBox(sysRole.getId(), sysRole.getRoleName()));
     }
 
     @Override

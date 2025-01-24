@@ -57,7 +57,7 @@ public class SystemFileServiceImpl implements FileService {
             alarmService.sendMsg(String.format("系统单日上传文件超出限制,请注意监控, 用户:%s 今日累计上传:%s", key, (size / 1024 / 1024) + "M"));
         }
         String path = this.doSaveFile(file, folder);
-        FilePath build = FilePath.builder().path(path).address(this.getFileAddress()).size(file.getSize()).build();
+        FilePath build = new FilePath(path, this.getFileAddress(), file.getSize());
         CacheUtil.UPLOAD_LIMIT_CACHE.put(key, size);
         return build;
     }
