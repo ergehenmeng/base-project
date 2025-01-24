@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Slf4j
 @RestController
-@Tag(name= "微信相关")
+@Tag(name = "微信相关")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/wechat", produces = MediaType.APPLICATION_JSON_VALUE)
 public class WeChatController {

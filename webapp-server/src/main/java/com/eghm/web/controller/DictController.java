@@ -23,7 +23,7 @@ import java.util.List;
  */
 
 @RestController
-@Tag(name= "数据字典")
+@Tag(name = "数据字典")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/dict", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DictController {

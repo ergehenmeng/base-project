@@ -14,6 +14,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
  * 线程池配置
  * 为了在此配置线程池呢? 因为SpringBoot内置的线程池是在{@link ConditionalOnMissingBean} 时才会创建,
  * 由于项目集成了Websocket, 内部会自动创建线程池 {@link AbstractMessageBrokerConfiguration#messageBrokerTaskScheduler} 导致内置线程池无法创建,且相关的线程池的配置接口都无效
+ *
  * @author 二哥很猛
  * @since 2024/9/23
  */
@@ -41,5 +42,5 @@ public class ExecutorConfig implements ThreadPoolTaskSchedulerCustomizer {
     public void customize(ThreadPoolTaskScheduler taskScheduler) {
         taskScheduler.setRemoveOnCancelPolicy(true);
     }
-    
+
 }

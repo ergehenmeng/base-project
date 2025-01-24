@@ -30,7 +30,7 @@ import static com.eghm.utils.StringUtil.isBlank;
  */
 @Slf4j
 @RestController
-@Tag(name= "登陆、密码功能")
+@Tag(name = "登陆、密码功能")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LoginController {

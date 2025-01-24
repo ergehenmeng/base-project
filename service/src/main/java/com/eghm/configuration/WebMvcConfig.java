@@ -54,6 +54,7 @@ import static com.eghm.utils.StringUtil.isNotBlank;
 /**
  * 公用配置,所有web模块所公用的配置信息均可在该配置文件中声明
  * {@link AsyncConfigurer } 用来指定指定异步线程池和异常处理器
+ *
  * @author 二哥很猛
  * @since 2018/9/13 11:19
  */

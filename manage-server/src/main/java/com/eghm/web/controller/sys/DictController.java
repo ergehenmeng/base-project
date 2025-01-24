@@ -29,7 +29,7 @@ import java.util.List;
  * @since 2019/1/14 11:10
  */
 @RestController
-@Tag(name= "数据字典管理")
+@Tag(name = "数据字典管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/dict", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DictController {

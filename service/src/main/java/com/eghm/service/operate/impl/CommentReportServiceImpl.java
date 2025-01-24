@@ -67,7 +67,7 @@ public class CommentReportServiceImpl implements CommentReportService {
     /**
      * 获取用户的评论举报记录
      *
-     * @param memberId 用户id
+     * @param memberId  用户id
      * @param commentId 评论id
      * @return 评论举报记录
      */

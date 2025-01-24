@@ -16,7 +16,7 @@ public interface MemberInviteLogMapper extends BaseMapper<MemberInviteLog> {
     /**
      * 分页查询邀请记录
      *
-     * @param page   分页
+     * @param page     分页
      * @param memberId 会员id
      * @return 分页查询邀请记录
      */

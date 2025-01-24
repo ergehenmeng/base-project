@@ -21,7 +21,7 @@ import java.util.List;
  */
 @AccessToken
 @RestController
-@Tag(name= "登陆设备")
+@Tag(name = "登陆设备")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/member/device", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DeviceController {

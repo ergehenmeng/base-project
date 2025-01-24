@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2020/11/12
  */
 @RestController
-@Tag(name= "帮助中心")
+@Tag(name = "帮助中心")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/help", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HelpCenterController {

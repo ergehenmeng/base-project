@@ -153,7 +153,7 @@ public class CommentServiceImpl implements CommentService {
     /**
      * 检查评论是否开启评价
      *
-     * @param id 活动id或资讯id
+     * @param id         活动id或资讯id
      * @param objectType 对象类型
      */
     private void checkComment(Long id, ObjectType objectType) {

@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2019/8/28 14:16
  */
 @RestController
-@Tag(name= "反馈管理")
+@Tag(name = "反馈管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/feedback", produces = MediaType.APPLICATION_JSON_VALUE)
 public class FeedbackController {

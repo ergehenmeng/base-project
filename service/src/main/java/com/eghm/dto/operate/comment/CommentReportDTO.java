@@ -4,10 +4,9 @@ import com.eghm.annotation.Assign;
 import com.eghm.enums.ReportType;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 /**
  * @author 二哥很猛

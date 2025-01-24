@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2023/12/15
  */
 @RestController
-@Tag(name= "站内信模板")
+@Tag(name = "站内信模板")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/notice/template", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NoticeTemplateController {

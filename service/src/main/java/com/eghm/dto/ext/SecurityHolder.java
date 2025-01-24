@@ -22,6 +22,7 @@ public class SecurityHolder {
 
     /**
      * 设置当前登录用户的信息
+     *
      * @param userToken 用户信息
      */
     public static void setToken(UserToken userToken) {

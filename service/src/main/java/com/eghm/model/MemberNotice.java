@@ -32,6 +32,6 @@ public class MemberNotice extends BaseEntity {
     private Boolean isRead;
 
     @Schema(description = "消息所属日志id")
-    private Long noticeLogId ;
+    private Long noticeLogId;
 
 }

@@ -61,7 +61,7 @@ public interface PayService {
     /**
      * 查询退款单号
      *
-     * @param tradeNo 退款流水号
+     * @param tradeNo  退款流水号
      * @param refundNo 退款流水号
      * @return 退款信息
      */

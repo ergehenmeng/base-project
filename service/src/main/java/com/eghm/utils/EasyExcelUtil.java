@@ -86,9 +86,9 @@ public class EasyExcelUtil {
     /**
      * 读取excel
      *
-     * @param stream excel文件流
+     * @param stream   excel文件流
      * @param consumer 数据处理回调
-     * @param <T> 映射的对象
+     * @param <T>      映射的对象
      */
     public static <T> void read(InputStream stream, Consumer<List<T>> consumer) {
         read(stream, BATCH_SIZE, consumer);
@@ -97,10 +97,10 @@ public class EasyExcelUtil {
     /**
      * 读取excel
      *
-     * @param stream excel文件流
-     * @param consumer 数据处理回调
+     * @param stream    excel文件流
+     * @param consumer  数据处理回调
      * @param batchSize 每批次读取条数
-     * @param <T> 映射的对象
+     * @param <T>       映射的对象
      */
     public static <T> void read(InputStream stream, int batchSize, Consumer<List<T>> consumer) {
         EasyExcelFactory.read(stream, new ReadExcelListener<>(consumer, batchSize)).sheet().doRead();

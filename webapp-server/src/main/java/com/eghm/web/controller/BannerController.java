@@ -23,7 +23,7 @@ import java.util.List;
  * @since 2020/9/4
  */
 @RestController
-@Tag(name= "轮播图")
+@Tag(name = "轮播图")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/banner", produces = MediaType.APPLICATION_JSON_VALUE)
 public class BannerController {

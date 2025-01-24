@@ -38,7 +38,7 @@ public interface AppVersionService {
     /**
      * 更新状态
      *
-     * @param id id
+     * @param id    id
      * @param state 状态
      */
     void updateState(Long id, Boolean state);

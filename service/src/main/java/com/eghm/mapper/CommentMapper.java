@@ -22,7 +22,7 @@ public interface CommentMapper extends BaseMapper<Comment> {
     /**
      * 分页查询评论列表 (管理后台)
      *
-     * @param page 分页信息
+     * @param page    分页信息
      * @param request 查询条件
      * @return 列表
      */
@@ -32,7 +32,7 @@ public interface CommentMapper extends BaseMapper<Comment> {
      * 分页查询评论列表 某个对象的评论列表 (移动端)
      *
      * @param page      分页对象
-     * @param objectId 评论对象id
+     * @param objectId  评论对象id
      * @param shieldNum 举报屏蔽次数
      * @return 列表
      */
@@ -42,7 +42,7 @@ public interface CommentMapper extends BaseMapper<Comment> {
      * 分页查询评论列表 某个对象的评论列表 (移动端)
      *
      * @param page      分页对象
-     * @param objectId 评论对象id
+     * @param objectId  评论对象id
      * @param shieldNum 举报屏蔽次数
      * @param pid       父评论ID
      * @return 列表
@@ -52,7 +52,7 @@ public interface CommentMapper extends BaseMapper<Comment> {
     /**
      * 更新点赞数量
      *
-     * @param id      id
+     * @param id        id
      * @param praiseNum 点赞数量
      */
     void updatePraiseNum(@Param("id") Long id, @Param("praiseNum") Integer praiseNum);
@@ -60,7 +60,7 @@ public interface CommentMapper extends BaseMapper<Comment> {
     /**
      * 更新评论回复数量
      *
-     * @param id id
+     * @param id  id
      * @param num 回复数量
      */
     void updateReplyNum(@Param("id") Long id, @Param("num") Integer num);

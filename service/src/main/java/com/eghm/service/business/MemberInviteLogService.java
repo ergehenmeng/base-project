@@ -15,7 +15,7 @@ public interface MemberInviteLogService {
     /**
      * 邀请记录
      *
-     * @param query 分页查询
+     * @param query    分页查询
      * @param memberId 会员ID
      * @return 列表
      */

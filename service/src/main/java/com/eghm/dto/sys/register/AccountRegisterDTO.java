@@ -3,11 +3,10 @@ package com.eghm.dto.sys.register;
 import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.Password;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import org.hibernate.validator.constraints.Length;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * @author 二哥很猛

@@ -21,7 +21,7 @@ import java.util.List;
  * @since 2020/11/12
  */
 @RestController
-@Tag(name= "帮助中心")
+@Tag(name = "帮助中心")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/help", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HelpCenterController {

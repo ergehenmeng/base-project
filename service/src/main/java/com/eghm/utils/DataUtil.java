@@ -97,10 +97,10 @@ public class DataUtil {
     /**
      * 对象复制
      *
-     * @param source 原
-     * @param cls 目标
+     * @param source           原
+     * @param cls              目标
      * @param ignoreProperties 忽略哪些属性
-     * @param <T> T
+     * @param <T>              T
      * @return cls
      */
     public static <T> T copy(Object source, Class<T> cls, String... ignoreProperties) {

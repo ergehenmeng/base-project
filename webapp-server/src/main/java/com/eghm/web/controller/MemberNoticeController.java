@@ -23,7 +23,7 @@ import java.util.List;
  */
 @AccessToken
 @RestController
-@Tag(name= "站内信")
+@Tag(name = "站内信")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/member/notice", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberNoticeController {

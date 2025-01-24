@@ -28,7 +28,7 @@ import java.io.IOException;
  */
 @RestController
 @Slf4j
-@Tag(name= "图形验证码")
+@Tag(name = "图形验证码")
 @AllArgsConstructor
 @RequestMapping("/manage")
 public class CaptchaController {

@@ -23,8 +23,8 @@ public interface NewsMapper extends BaseMapper<News> {
     /**
      * 分页查询资讯
      *
-     * @param page      分页信息
-     * @param request    查询条件
+     * @param page    分页信息
+     * @param request 查询条件
      * @return 列表
      */
     Page<NewsResponse> listPage(Page<NewsResponse> page, @Param("param") NewsQueryRequest request);
@@ -41,7 +41,7 @@ public interface NewsMapper extends BaseMapper<News> {
     /**
      * 更新点赞数量
      *
-     * @param id      id
+     * @param id        id
      * @param praiseNum 点赞数量
      */
     void updatePraiseNum(@Param("id") Long id, @Param("praiseNum") Integer praiseNum);

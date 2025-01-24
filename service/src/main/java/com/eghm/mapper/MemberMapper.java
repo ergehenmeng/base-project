@@ -33,8 +33,8 @@ public interface MemberMapper extends BaseMapper<Member> {
      * 注册统计(渠道)
      *
      * @param startDate 开始日期
-     * @param endDate 结束日期
-     * @return  注册数量
+     * @param endDate   结束日期
+     * @return 注册数量
      */
     List<MemberChannelVO> channelStatistics(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
@@ -42,8 +42,8 @@ public interface MemberMapper extends BaseMapper<Member> {
      * 注册统计(性别)
      *
      * @param startDate 开始日期
-     * @param endDate 结束日期
-     * @return  注册数量
+     * @param endDate   结束日期
+     * @return 注册数量
      */
     List<MemberSexVO> sexStatistics(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 

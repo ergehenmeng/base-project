@@ -23,7 +23,7 @@ import java.util.List;
  */
 
 @RestController
-@Tag(name= "收藏商品")
+@Tag(name = "收藏商品")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/collect", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberCollectController {

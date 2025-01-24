@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2019/8/22 11:22
  */
 @RestController
-@Tag(name= "banner管理")
+@Tag(name = "banner管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/banner", produces = MediaType.APPLICATION_JSON_VALUE)
 public class BannerController {
@@ -45,7 +45,7 @@ public class BannerController {
         return RespBody.success();
     }
 
-    @PostMapping(value = "/update",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "编辑")
     public RespBody<Void> update(@Validated @RequestBody BannerEditRequest request) {
         bannerService.update(request);

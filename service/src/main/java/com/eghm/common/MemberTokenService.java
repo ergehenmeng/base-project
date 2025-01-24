@@ -31,6 +31,7 @@ public interface MemberTokenService {
     /**
      * 删除指定渠道用户的token,包含刷新token以及映射token等
      * 注意: 如果channel为空,则删除所有渠道的token
+     *
      * @param memberId 会员id
      * @param channel  对应渠道
      */

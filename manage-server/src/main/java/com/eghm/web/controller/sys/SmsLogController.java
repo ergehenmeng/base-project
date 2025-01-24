@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2019/8/21 16:12
  */
 @RestController
-@Tag(name= "短信日志管理")
+@Tag(name = "短信日志管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/sms/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SmsLogController {

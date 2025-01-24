@@ -13,6 +13,7 @@ import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.Map;
 import java.util.Optional;
 
@@ -21,6 +22,7 @@ import static com.eghm.constants.CommonConstant.SECURITY_USER;
 /**
  * websocket拦截器
  * 将token放入websocket session中
+ *
  * @author 二哥很猛
  * @since 2024/9/11
  */

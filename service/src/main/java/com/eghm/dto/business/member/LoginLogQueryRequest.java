@@ -3,11 +3,11 @@ package com.eghm.dto.business.member;
 import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**

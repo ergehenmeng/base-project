@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2023/12/15
  */
 @RestController
-@Tag(name= "邮件模板管理")
+@Tag(name = "邮件模板管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/email/template", produces = MediaType.APPLICATION_JSON_VALUE)
 public class EmailTemplateController {

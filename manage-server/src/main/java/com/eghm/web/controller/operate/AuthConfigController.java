@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2023/10/20
  */
 @RestController
-@Tag(name= "第三方授权")
+@Tag(name = "第三方授权")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthConfigController {

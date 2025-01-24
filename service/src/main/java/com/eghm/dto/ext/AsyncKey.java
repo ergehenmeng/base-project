@@ -8,6 +8,7 @@ public interface AsyncKey {
 
     /**
      * 异步结果唯一key
+     *
      * @return 异步唯一key
      */
     String getKey();

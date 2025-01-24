@@ -66,7 +66,7 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
      * @param user          用户信息
      * @param expireSeconds 过期时间
      * @param authList      权限信息
-     * @param dataList   数据权限
+     * @param dataList      数据权限
      * @return jwtToken
      */
     private String doCreateJwt(SysUser user, int expireSeconds, List<String> authList, List<String> dataList) {

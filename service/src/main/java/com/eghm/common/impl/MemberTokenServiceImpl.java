@@ -83,10 +83,10 @@ public class MemberTokenServiceImpl implements MemberTokenService {
     /**
      * 删除指定客户端所有跟token相关的信息
      *
-     * @param memberId 会员id
-     * @param accessToken token
+     * @param memberId     会员id
+     * @param accessToken  token
      * @param refreshToken refreshToken
-     * @param channel 对应渠道
+     * @param channel      对应渠道
      */
     private void doCleanToken(Long memberId, String accessToken, String refreshToken, String channel) {
         cacheService.deleteHashKey(CacheConstant.MEMBER_TOKEN_MAPPING, memberId + CommonConstant.SPECIAL_SPLIT + channel);

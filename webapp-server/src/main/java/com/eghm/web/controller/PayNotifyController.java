@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ import static com.eghm.constants.CommonConstant.*;
  * @since 2022/7/25
  */
 @RestController
-@Tag(name= "支付回调管理")
+@Tag(name = "支付回调管理")
 @AllArgsConstructor
 @Slf4j
 public class PayNotifyController {

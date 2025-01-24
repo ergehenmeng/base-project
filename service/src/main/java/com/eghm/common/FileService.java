@@ -35,7 +35,7 @@ public interface FileService {
     /**
      * 校验文件大小
      *
-     * @param file 文件
+     * @param file    文件
      * @param maxSize 最大限制
      */
     default void checkSize(MultipartFile file, long maxSize) {

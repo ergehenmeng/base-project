@@ -23,7 +23,7 @@ public interface CommentService {
     /**
      * 分页获取评论列表
      *
-     * @param request  查询条件
+     * @param request 查询条件
      * @return 列表
      */
     Page<CommentResponse> listPage(CommentQueryRequest request);
@@ -54,7 +54,7 @@ public interface CommentService {
     /**
      * 删除评论
      *
-     * @param id  id
+     * @param id       id
      * @param memberId 用户id
      */
     void delete(Long id, Long memberId);
@@ -69,7 +69,7 @@ public interface CommentService {
     /**
      * 屏蔽评论或取消屏蔽
      *
-     * @param id id
+     * @param id    id
      * @param state false: 屏蔽 true: 显示
      */
     void updateState(Long id, boolean state);
@@ -77,7 +77,7 @@ public interface CommentService {
     /**
      * 置顶状态更新
      *
-     * @param id id
+     * @param id    id
      * @param state 状态
      */
     void updateTopState(Long id, Integer state);

@@ -67,7 +67,7 @@ public class PagingQuery {
     /**
      * 创建不分页对象, 该方法存在的目的是为了和底层列表共用同一个查询方法, 用于:导出excel,前端全列表搜索等
      *
-     * @param <T>   查询对象
+     * @param <T> 查询对象
      * @return 分页对象
      */
     public <T> Page<T> createNullPage() {

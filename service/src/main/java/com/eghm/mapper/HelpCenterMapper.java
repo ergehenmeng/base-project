@@ -16,7 +16,8 @@ public interface HelpCenterMapper extends BaseMapper<HelpCenter> {
 
     /**
      * 分页查询
-     * @param page 分页参数
+     *
+     * @param page    分页参数
      * @param request 查询条件
      * @return list
      */

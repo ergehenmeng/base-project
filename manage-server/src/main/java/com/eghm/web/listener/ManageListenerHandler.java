@@ -38,4 +38,4 @@ public class ManageListenerHandler extends AbstractListenerHandler {
         processMessageAck(log, message, channel, manageLogService::insertManageLog);
     }
 
- }
+}

@@ -3,10 +3,9 @@ package com.eghm.dto.sys.role;
 import com.eghm.annotation.Assign;
 import com.eghm.enums.RoleType;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 /**
  * @author 二哥很猛
@@ -24,7 +23,7 @@ public class RoleAddRequest {
     @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 
-    @Schema(description = "角色类型", hidden= true)
+    @Schema(description = "角色类型", hidden = true)
     @Assign
     private RoleType roleType;
 }

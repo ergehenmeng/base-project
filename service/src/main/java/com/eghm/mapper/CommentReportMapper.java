@@ -20,7 +20,7 @@ public interface CommentReportMapper extends BaseMapper<CommentReport> {
     /**
      * 分页查询举报列表
      *
-     * @param page 分页
+     * @param page    分页
      * @param request 查询条件
      * @return 列表
      */

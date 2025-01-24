@@ -24,7 +24,7 @@ import java.util.Objects;
  * @since 2019/9/11 15:37
  */
 @RestController
-@Tag(name= "定时任务日志")
+@Tag(name = "定时任务日志")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/task/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SysTaskLogController {

@@ -132,7 +132,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public LoginTokenVO doubleCheck(DoubleCheckDTO dto) {
         String mobile = cacheService.getValue(CacheConstant.NEW_DEVICE_LOGIN + dto.getUuid());
-        if (isBlank(mobile) ) {
+        if (isBlank(mobile)) {
             log.error("登录信息未查询到 [{}]", dto);
             throw new BusinessException(ErrorCode.LOGIN_NULL);
         }

@@ -81,7 +81,7 @@ public class SmsServiceImpl implements SmsService {
      * 发送短信验证码
      *
      * @param templateType 短信验证码类型
-     * @param mobile  手机号
+     * @param mobile       手机号
      */
     private void sendSmsCode(TemplateType templateType, String mobile) {
         this.smsLimitCheck(templateType.getValue(), mobile);
@@ -98,7 +98,7 @@ public class SmsServiceImpl implements SmsService {
      * 删除短信验证码
      *
      * @param templateType 短信类型
-     * @param mobile  手机号码
+     * @param mobile       手机号码
      */
     private void cleanSmsCode(TemplateType templateType, String mobile) {
         cacheService.delete(String.format(CacheConstant.SMS_PREFIX, templateType.getValue(), mobile));
@@ -108,7 +108,7 @@ public class SmsServiceImpl implements SmsService {
      * 根据短信类型和手机号判断短信发送间隔及短信次数是否上限
      *
      * @param templateType 短信类型
-     * @param mobile  手机号
+     * @param mobile       手机号
      */
     private void smsLimitCheck(String templateType, String mobile) {
         // 短信时间间隔判断

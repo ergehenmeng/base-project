@@ -24,11 +24,11 @@ public interface EmailService {
     /**
      * 发送带附件的邮件
      *
-     * @param to 收件人
-     * @param title 邮件标题
+     * @param to      收件人
+     * @param title   邮件标题
      * @param content 内容
-     * @param isHtml 是否为html邮件
-     * @param files 附件
+     * @param isHtml  是否为html邮件
+     * @param files   附件
      */
     void sendEmail(String to, String title, String content, boolean isHtml, File... files);
 

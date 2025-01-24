@@ -130,9 +130,9 @@ public class NewsServiceImpl implements NewsService {
     /**
      * 设置请求参数
      *
-     * @param copy 资讯
+     * @param copy      资讯
      * @param imageList 图片
-     * @param tagList 标签
+     * @param tagList   标签
      */
     private void setRequest(News copy, List<String> imageList, List<String> tagList) {
         if (CollUtil.isNotEmpty(imageList)) {

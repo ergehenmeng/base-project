@@ -25,7 +25,7 @@ import static com.eghm.constants.CommonConstant.WEBSOCKET_PREFIX;
 @Slf4j
 @RestController
 @AllArgsConstructor
-@Tag(name= "websocket消息订阅")
+@Tag(name = "websocket消息订阅")
 public class WebSocketController {
 
     private final SimpMessagingTemplate simpMessagingTemplate;

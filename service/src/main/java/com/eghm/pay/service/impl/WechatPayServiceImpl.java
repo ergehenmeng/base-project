@@ -153,7 +153,7 @@ public class WechatPayServiceImpl implements PayService {
     /**
      * 获取微信支付统一下单请求参数
      *
-     * @param dto 原始请求参数
+     * @param dto          原始请求参数
      * @param transferType 微信支付方式
      * @return 最终请求参数
      */

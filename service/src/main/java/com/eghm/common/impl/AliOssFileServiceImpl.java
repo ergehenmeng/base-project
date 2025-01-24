@@ -57,7 +57,7 @@ public class AliOssFileServiceImpl implements FileService {
     /**
      * 生成文件名 + 文件后缀
      *
-     * @param file 原文件
+     * @param file   原文件
      * @param folder 文件夹
      * @return folder/uuid.txt
      */
@@ -74,13 +74,13 @@ public class AliOssFileServiceImpl implements FileService {
     /**
      * oss 上传文件
      *
-     * @param file file
+     * @param file   file
      * @param folder 父文件夹
      * @return 上传后的文件路径
      */
     private FilePath doUploadFile(MultipartFile file, String folder) {
         String fileName = this.generateFileName(file, folder);
-        try (InputStream inputStream = file.getInputStream()){
+        try (InputStream inputStream = file.getInputStream()) {
             ossClient.putObject(systemProperties.getAli().getOss().getBucketName(), fileName, inputStream);
         } catch (Exception e) {
             log.error("ALI_OSS文件上传失败, 文件名:[{}]", fileName, e);

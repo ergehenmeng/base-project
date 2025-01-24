@@ -3,10 +3,9 @@ package com.eghm.dto.operate.version;
 import com.eghm.validation.annotation.OptionString;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 /**
  * @author 二哥很猛

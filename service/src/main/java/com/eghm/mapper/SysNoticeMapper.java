@@ -18,7 +18,7 @@ public interface SysNoticeMapper extends BaseMapper<SysNotice> {
     /**
      * 分页查询公告信息
      *
-     * @param page 分页
+     * @param page    分页
      * @param request 查询条件
      * @return 列表
      */

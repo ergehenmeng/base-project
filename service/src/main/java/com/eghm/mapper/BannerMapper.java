@@ -18,7 +18,7 @@ public interface BannerMapper extends BaseMapper<Banner> {
     /**
      * 分页查询
      *
-     * @param page 分页参数
+     * @param page    分页参数
      * @param request 查询参数
      * @return 列表
      */
@@ -27,7 +27,7 @@ public interface BannerMapper extends BaseMapper<Banner> {
     /**
      * 根据模块类型及客户单类型查询轮播图列表,只查询非过期的轮播图
      *
-     * @param bannerType   模块类型由dict表维护
+     * @param bannerType 模块类型由dict表维护
      * @param clientType 客户单类型
      * @return 轮播图列表
      */

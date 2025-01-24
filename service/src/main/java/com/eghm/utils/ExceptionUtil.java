@@ -19,9 +19,9 @@ public class ExceptionUtil {
     /**
      * 如果是指定的业务异常, 则执行runnable
      *
-     * @param e 错误信息
+     * @param e         错误信息
      * @param errorCode 错误码
-     * @param runnable 指定的逻辑
+     * @param runnable  指定的逻辑
      */
     public static void error(Throwable e, ErrorCode errorCode, Runnable runnable) {
         if (e instanceof BusinessException businessException && businessException.getCode() == errorCode.getCode()) {
@@ -34,10 +34,10 @@ public class ExceptionUtil {
     /**
      * 如果是指定方法抛了指定的异常, 则执行runnable
      *
-     * @param supplier 指定逻辑
+     * @param supplier  指定逻辑
      * @param errorCode 错误码
-     * @param callable 指定的逻辑
-     * @param <T> 返回值类型
+     * @param callable  指定的逻辑
+     * @param <T>       返回值类型
      */
     public static <T> T run(Supplier<T> supplier, ErrorCode errorCode, Supplier<T> callable) {
         try {
@@ -53,9 +53,9 @@ public class ExceptionUtil {
     /**
      * 如果是指定方法抛了指定的异常, 则执行runnable
      *
-     * @param runnable 指定逻辑
+     * @param runnable  指定逻辑
      * @param errorCode 错误码
-     * @param callable 指定的逻辑
+     * @param callable  指定的逻辑
      */
     public static void run(Runnable runnable, ErrorCode errorCode, Runnable callable) {
         try {
@@ -72,9 +72,9 @@ public class ExceptionUtil {
     /**
      * 如果方法抛出了指定的异常
      *
-     * @param runnable 指定逻辑
+     * @param runnable  指定逻辑
      * @param errorCode 错误码
-     * @param callable 新的错误码
+     * @param callable  新的错误码
      */
     public static void transfer(Runnable runnable, ErrorCode errorCode, ErrorCode callable) {
         try {

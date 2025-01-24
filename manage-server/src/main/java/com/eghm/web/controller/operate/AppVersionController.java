@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2019/8/22 15:08
  */
 @RestController
-@Tag(name= "版本管理")
+@Tag(name = "版本管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/version", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AppVersionController {

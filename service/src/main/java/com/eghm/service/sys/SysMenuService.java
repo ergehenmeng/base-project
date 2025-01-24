@@ -84,7 +84,7 @@ public interface SysMenuService {
     /**
      * 更新菜单排序
      *
-     * @param id    id
+     * @param id     id
      * @param sortBy 排序
      */
     void sortBy(String id, Integer sortBy);

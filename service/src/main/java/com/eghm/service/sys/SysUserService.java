@@ -81,7 +81,7 @@ public interface SysUserService {
     /**
      * 锁定用户
      *
-     * @param id userId
+     * @param id    userId
      * @param state 用户状态
      */
     void updateState(Long id, UserState state);
@@ -123,7 +123,7 @@ public interface SysUserService {
      *
      * @param userName 账号
      * @param password 密码
-     * @param ip  ip地址
+     * @param ip       ip地址
      * @return token及权限
      */
     AuthPwdResponse authPwd(String userName, String password, String ip);

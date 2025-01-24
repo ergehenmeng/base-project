@@ -48,13 +48,14 @@ public class AliSmsServiceImpl implements SendSmsService {
             SendSmsResponse response = getClient().sendSms(request);
             return SUCCESS.equals(response.getBody().getCode()) ? 1 : 0;
         } catch (Exception e) {
-            log.error("阿里云短信发送异常 [{}] [{}] [{}]", mobile, templateType, jsonParam,  e);
+            log.error("阿里云短信发送异常 [{}] [{}] [{}]", mobile, templateType, jsonParam, e);
         }
         return 2;
     }
 
     /**
      * 阿里
+     *
      * @return client
      * @throws Exception e
      */

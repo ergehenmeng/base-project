@@ -27,7 +27,7 @@ import java.util.List;
  */
 
 @RestController
-@Tag(name= "资讯配置")
+@Tag(name = "资讯配置")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/news/config", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NewsConfigController {

@@ -3,12 +3,12 @@ package com.eghm.dto.sys.user;
 import com.eghm.enums.DataType;
 import com.eghm.validation.annotation.Mobile;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import org.hibernate.validator.constraints.Length;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+import org.hibernate.validator.constraints.Length;
+
 import java.util.List;
 
 /**

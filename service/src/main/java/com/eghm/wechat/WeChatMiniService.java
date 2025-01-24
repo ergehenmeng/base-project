@@ -19,8 +19,8 @@ public interface WeChatMiniService {
     /**
      * 生成小程序短链链接
      *
-     * @param pageUrl 链接地址 相对路径(/pages/publishHomework/publishHomework?query1=q1) 必须是已发布的路径
-     * @param pageTitle 页面标题
+     * @param pageUrl    链接地址 相对路径(/pages/publishHomework/publishHomework?query1=q1) 必须是已发布的路径
+     * @param pageTitle  页面标题
      * @param persistent 是否长久有效, 默认 false
      * @return 链接
      */
@@ -29,8 +29,8 @@ public interface WeChatMiniService {
     /**
      * 生成小程序加密url
      *
-     * @param pageUrl 链接地址 相对路径(/pages/publishHomework/publishHomework) 必须是已发布的路径
-     * @param query  请求参数
+     * @param pageUrl  链接地址 相对路径(/pages/publishHomework/publishHomework) 必须是已发布的路径
+     * @param query    请求参数
      * @param validDay 有效日
      * @return 链接
      */
@@ -39,8 +39,8 @@ public interface WeChatMiniService {
     /**
      * 生成小程序二维码
      *
-     * @param path 相对路径
-     * @param query 请求参数
+     * @param path     相对路径
+     * @param query    请求参数
      * @param validDay 有效时间(跟微信无关,是请求参数的缓存时间)
      * @return 二维码字节
      */

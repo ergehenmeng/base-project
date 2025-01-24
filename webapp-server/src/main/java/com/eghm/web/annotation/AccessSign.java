@@ -16,8 +16,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 只支持post接口签名
  *
  * @author 二哥很猛
- * @since 2023/10/20 19:04
  * @see AccessSignInterceptor 登陆校验规则
+ * @since 2023/10/20 19:04
  */
 @Documented
 @Target({METHOD, TYPE})

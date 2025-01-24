@@ -99,5 +99,6 @@ public class StopWatch {
         taskList.add(new TimeClock(this.taskName, nowElapsed));
     }
 
-    private record TimeClock(String taskName, long elapsedTime) {}
+    private record TimeClock(String taskName, long elapsedTime) {
+    }
 }

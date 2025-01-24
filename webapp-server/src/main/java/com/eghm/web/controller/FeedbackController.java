@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2019/8/28 13:42
  */
 @RestController
-@Tag(name= "问题反馈")
+@Tag(name = "问题反馈")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/feedback", produces = MediaType.APPLICATION_JSON_VALUE)
 public class FeedbackController {

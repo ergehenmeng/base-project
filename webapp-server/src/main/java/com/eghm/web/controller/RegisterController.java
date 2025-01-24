@@ -24,12 +24,12 @@ import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * 注册相关接口
-
+ *
  * @author 二哥很猛
  * @since 2019/8/20 10:18
  */
 @RestController
-@Tag(name= "注册")
+@Tag(name = "注册")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/register", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RegisterController {

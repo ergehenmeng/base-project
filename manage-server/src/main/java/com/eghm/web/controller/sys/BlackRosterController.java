@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2023/8/2
  */
 @RestController
-@Tag(name= "访问黑名单")
+@Tag(name = "访问黑名单")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/black/roster", produces = MediaType.APPLICATION_JSON_VALUE)
 public class BlackRosterController {

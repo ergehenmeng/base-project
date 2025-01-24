@@ -8,8 +8,8 @@ import java.lang.annotation.*;
  * 如果要使用数据权限,则需要在指定的方法上添加该注解(service层),在方法内的Mapper参数中通过 DataScopeAspect#getScope()传递即可
  *
  * @author 殿小二
- * @since 2020/8/14
  * @see DataScopeAspect
+ * @since 2020/8/14
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

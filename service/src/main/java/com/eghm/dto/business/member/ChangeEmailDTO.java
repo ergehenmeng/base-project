@@ -3,10 +3,9 @@ package com.eghm.dto.business.member;
 import com.eghm.annotation.Assign;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-
-import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author 殿小二

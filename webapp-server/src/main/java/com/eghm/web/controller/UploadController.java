@@ -29,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @since 2019/8/28 17:09
  */
 @RestController
-@Tag(name= "图片上传")
+@Tag(name = "图片上传")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/file", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UploadController {

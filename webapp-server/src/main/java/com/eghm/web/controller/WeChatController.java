@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @AllArgsConstructor
-@Tag(name= "微信授权")
+@Tag(name = "微信授权")
 @RequestMapping(value = "/webapp/wechat", produces = MediaType.APPLICATION_JSON_VALUE)
 public class WeChatController {
 

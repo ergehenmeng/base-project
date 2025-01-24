@@ -33,7 +33,7 @@ public interface CacheProxyService {
     /**
      * 根据客户端类型及模板获取轮播图信息
      *
-     * @param channel  客户端类型
+     * @param channel    客户端类型
      * @param bannerType banner所属模块,数据字典的值
      * @return 轮播图列表
      */

@@ -134,7 +134,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
     /**
      * 判断收藏对象是否合法
      *
-     * @param collectId 收藏对象
+     * @param collectId   收藏对象
      * @param collectType 收藏对象类型
      * @return true:合法 false:不合法
      */

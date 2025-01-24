@@ -29,8 +29,8 @@ public interface CommonService {
     /**
      * 点赞或取消点赞
      *
-     * @param key key
-     * @param hashKey value
+     * @param key      key
+     * @param hashKey  value
      * @param consumer 后置处理 true:点赞 false:取消点赞
      */
     void praise(String key, String hashKey, Consumer<Boolean> consumer);

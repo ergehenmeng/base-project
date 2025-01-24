@@ -29,7 +29,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
 
     private final WebappLogService webappLogService;
 
-    public WebappListenerHandler(JsonService jsonService, AlarmService alarmService,  LoginService loginService, CacheService cacheService, WebappLogService webappLogService) {
+    public WebappListenerHandler(JsonService jsonService, AlarmService alarmService, LoginService loginService, CacheService cacheService, WebappLogService webappLogService) {
         super(jsonService, cacheService, alarmService);
         this.loginService = loginService;
         this.webappLogService = webappLogService;

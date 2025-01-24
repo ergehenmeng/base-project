@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * 开启定时任务{@link EnableTask}后会自动激活该类
+ *
  * @author 二哥很猛
  * @since 2019/9/6 14:49
  */

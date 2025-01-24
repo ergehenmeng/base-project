@@ -22,7 +22,7 @@ import java.util.List;
  * @since 2019/1/17 16:27
  */
 @RestController
-@Tag(name= "部门管理")
+@Tag(name = "部门管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/dept", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DeptController {

@@ -41,7 +41,7 @@ import jakarta.servlet.http.HttpSession;
  * @since 2022/1/28 17:01
  */
 @RestController
-@Tag(name= "登陆")
+@Tag(name = "登陆")
 @AllArgsConstructor
 @RequestMapping(value = "/manage", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LoginController {
@@ -132,7 +132,7 @@ public class LoginController {
     /**
      * 校验登录方式是否开启
      *
-     * @param type 登录方式
+     * @param type      登录方式
      * @param errorCode 错误时报错
      */
     private void checkLoginType(LoginType type, ErrorCode errorCode) {
@@ -146,7 +146,7 @@ public class LoginController {
      * 校验验证码
      *
      * @param servletRequest request
-     * @param code 用户输入的验证码
+     * @param code           用户输入的验证码
      * @return true:通过
      */
     private boolean verifyCodeError(HttpServletRequest servletRequest, String code) {

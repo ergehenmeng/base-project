@@ -33,7 +33,7 @@ import java.util.List;
  * @since 2018/11/26 17:10
  */
 @RestController
-@Tag(name= "系统用户管理")
+@Tag(name = "系统用户管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {

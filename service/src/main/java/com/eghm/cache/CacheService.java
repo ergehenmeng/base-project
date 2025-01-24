@@ -140,8 +140,8 @@ public interface CacheService {
      * @param key  key
      * @param hKey hashKey
      * @param type 指定类型
+     * @param <T>  T
      * @return hValue
-     * @param <T> T
      */
     <T> T getHashValue(String key, String hKey, Class<T> type);
 

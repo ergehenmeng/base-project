@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020/9/4
  */
 @RestController
-@Tag(name= "更新版本")
+@Tag(name = "更新版本")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/version", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VersionController {

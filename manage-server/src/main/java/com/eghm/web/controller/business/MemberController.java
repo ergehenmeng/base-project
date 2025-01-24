@@ -22,6 +22,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ import java.util.List;
  * @since 2023/8/18 14:16
  */
 @RestController
-@Tag(name= "会员信息")
+@Tag(name = "会员信息")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/member", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberController {

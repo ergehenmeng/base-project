@@ -24,7 +24,7 @@ import java.util.List;
  * @since 2020/9/5
  */
 @RestController
-@Tag(name= "系统公告")
+@Tag(name = "系统公告")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/notice", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NoticeController {

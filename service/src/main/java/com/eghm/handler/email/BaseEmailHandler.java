@@ -91,7 +91,7 @@ public class BaseEmailHandler {
     /**
      * 获取邮件模板渲染时的参数, 子类可以额外定义该参数以实现更复杂的显示效果
      *
-     * @param email    邮件发送的参数信息
+     * @param email 邮件发送的参数信息
      * @return 渲染参数 k-v
      */
     protected Map<String, Object> getRenderParams(SendEmail email) {

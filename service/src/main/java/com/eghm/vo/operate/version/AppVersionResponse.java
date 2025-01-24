@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @author 二哥很猛
  */
 @Data
-public class AppVersionResponse  {
+public class AppVersionResponse {
 
     @Schema(description = "id主键")
     private Long id;

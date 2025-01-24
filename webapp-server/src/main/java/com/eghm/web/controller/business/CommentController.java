@@ -27,7 +27,7 @@ import java.util.List;
  */
 
 @RestController
-@Tag(name= "评论留言")
+@Tag(name = "评论留言")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/comment", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CommentController {

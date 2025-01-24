@@ -3,10 +3,9 @@ package com.eghm.dto.sys.register;
 import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.Mobile;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 /**
  * 用户注册 密码注册(3步)或验证码注册(2)

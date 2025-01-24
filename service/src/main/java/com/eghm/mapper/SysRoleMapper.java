@@ -16,7 +16,7 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
     /**
      * 分页查询
      *
-     * @param page 分页
+     * @param page      分页
      * @param queryName 查询条件
      * @return 列表
      */

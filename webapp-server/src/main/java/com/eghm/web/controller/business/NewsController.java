@@ -23,7 +23,7 @@ import java.util.List;
  */
 
 @RestController
-@Tag(name= "新闻资讯")
+@Tag(name = "新闻资讯")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/news", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NewsController {

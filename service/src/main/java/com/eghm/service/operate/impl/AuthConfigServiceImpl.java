@@ -76,6 +76,7 @@ public class AuthConfigServiceImpl implements AuthConfigService {
 
     /**
      * 生成密钥
+     *
      * @param config config
      */
     private void generateSecretKey(AuthConfig config) {

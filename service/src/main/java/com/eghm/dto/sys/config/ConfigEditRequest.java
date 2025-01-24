@@ -1,10 +1,9 @@
 package com.eghm.dto.sys.config;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 /**
  * 更新系统配置信息的请求参数类

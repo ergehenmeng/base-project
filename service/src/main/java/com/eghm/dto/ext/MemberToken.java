@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 /**
  * token令牌
  * 序列号时命名尽量短,减少redis内存占用
+ *
  * @author 二哥很猛
  * @since 2018/8/14 17:37
  */

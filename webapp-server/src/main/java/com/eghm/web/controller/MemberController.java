@@ -23,6 +23,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ import java.util.List;
  */
 @AccessToken
 @RestController
-@Tag(name= "用户相关接口")
+@Tag(name = "用户相关接口")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/member", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberController {

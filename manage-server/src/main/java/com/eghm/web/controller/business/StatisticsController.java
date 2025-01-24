@@ -26,7 +26,7 @@ import java.util.List;
  */
 
 @RestController
-@Tag(name= "统计分析")
+@Tag(name = "统计分析")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/statistics", produces = MediaType.APPLICATION_JSON_VALUE)
 public class StatisticsController {

@@ -273,7 +273,7 @@ public class SysUserServiceImpl implements SysUserService {
     /**
      * 尝试绑定openId
      *
-     * @param id id
+     * @param id     id
      * @param openId openId
      */
     private void tryBindingOpenId(Long id, String openId) {
@@ -417,7 +417,7 @@ public class SysUserServiceImpl implements SysUserService {
      * 校验账户名是否重复
      *
      * @param userName 账户名
-     * @param id     id (更新时不能为空)
+     * @param id       id (更新时不能为空)
      */
     private void redoUserName(String userName, Long id) {
         LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();

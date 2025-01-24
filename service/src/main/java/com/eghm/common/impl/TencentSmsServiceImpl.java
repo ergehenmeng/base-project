@@ -32,7 +32,7 @@ public class TencentSmsServiceImpl implements SendSmsService {
         SendSmsRequest request = new SendSmsRequest();
         request.setSignName(systemProperties.getSms().getSignName());
         request.setTemplateId(templateType.getTemplateId());
-        request.setPhoneNumberSet(new String[] { mobile });
+        request.setPhoneNumberSet(new String[]{mobile});
         request.setTemplateParamSet(params);
         try {
             SendSmsResponse response = this.getClient().SendSms(request);

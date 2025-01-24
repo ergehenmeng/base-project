@@ -110,7 +110,7 @@ public class SysDictServiceImpl implements SysDictService {
      * 校验数据字典是否重复
      *
      * @param title 名称
-     * @param id id 编辑时不能为空
+     * @param id    id 编辑时不能为空
      */
     private void redoTitle(String title, Long id) {
         LambdaQueryWrapper<SysDict> wrapper = Wrappers.lambdaQuery();
@@ -139,7 +139,7 @@ public class SysDictServiceImpl implements SysDictService {
      *
      * @param showValue 显示值
      * @param nid       字典编码
-     * @param id id 编辑时不能为空
+     * @param id        id 编辑时不能为空
      */
     private void redoItemShow(String showValue, String nid, Long id) {
         LambdaQueryWrapper<SysDictItem> wrapper = Wrappers.lambdaQuery();
@@ -155,8 +155,8 @@ public class SysDictServiceImpl implements SysDictService {
      * 校验数据字典子项value是否重复
      *
      * @param hiddenValue 隐藏值
-     * @param nid    字典编码
-     * @param id id 编辑时不能为空
+     * @param nid         字典编码
+     * @param id          id 编辑时不能为空
      */
     private void redoItemHidden(Integer hiddenValue, String nid, Long id) {
         LambdaQueryWrapper<SysDictItem> wrapper = Wrappers.lambdaQuery();

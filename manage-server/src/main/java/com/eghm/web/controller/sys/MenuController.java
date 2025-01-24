@@ -26,7 +26,7 @@ import java.util.List;
  * @since 2018/1/30 09:30
  */
 @RestController
-@Tag(name= "菜单管理")
+@Tag(name = "菜单管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/menu", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MenuController {

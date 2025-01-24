@@ -15,7 +15,7 @@ public interface SysTaskLogMapper extends BaseMapper<SysTaskLog> {
     /**
      * 分页查询
      *
-     * @param page 分页参数
+     * @param page    分页参数
      * @param request 查询参数
      * @return 分页结果
      */

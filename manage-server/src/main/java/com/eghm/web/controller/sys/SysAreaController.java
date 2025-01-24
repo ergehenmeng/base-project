@@ -20,7 +20,7 @@ import java.util.List;
  * @since 2024/6/4
  */
 @RestController
-@Tag(name= "省市县")
+@Tag(name = "省市县")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/area", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SysAreaController {
