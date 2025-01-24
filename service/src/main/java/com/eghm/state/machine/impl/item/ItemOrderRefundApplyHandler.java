@@ -101,10 +101,10 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         refundLog.setAuditRemark("系统自动审核");
         refundLog.setRefundNo(order.getProductType().generateTradeNo());
         orderRefundLogService.insert(refundLog);
-        order.setRefundState(RefundState.PROGRESS);
         // 审核通过后会将已退款金额和已退积分累加到订单上
         order.setRefundAmount(order.getRefundAmount() + context.getRefundAmount());
         order.setRefundScoreAmount(order.getRefundScoreAmount() + context.getScoreAmount());
+        order.setRefundState(RefundState.PROGRESS);
         orderService.updateById(order);
         itemOrderService.updateById(itemOrder);
         // 尝试发起退款(注意零元购要特殊处理)

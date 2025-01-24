@@ -21,9 +21,9 @@ public enum MemberState {
     NORMAL(true, "正常"),
 
     /**
-     * 注销
+     * 冻结
      */
-    LOGOUT(false, "注销");
+    FREEZE(false, "冻结");
 
     /**
      * 状态

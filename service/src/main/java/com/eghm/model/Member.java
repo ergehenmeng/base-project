@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.MemberState;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -39,7 +40,7 @@ public class Member extends BaseEntity {
     private String pwd;
 
     @ApiModelProperty("状态 0:冻结 1:正常")
-    private Boolean state;
+    private MemberState state;
 
     @ApiModelProperty("总积分数")
     private Integer score;

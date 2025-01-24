@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.member.*;
 import com.eghm.dto.member.register.RegisterMemberDTO;
 import com.eghm.dto.statistics.DateRequest;
-import com.eghm.dto.sys.login.AccountLoginDTO;
+import com.eghm.dto.sys.login.DoubleCheckDTO;
+import com.eghm.dto.sys.login.MemberLoginDTO;
 import com.eghm.dto.sys.login.SmsLoginDTO;
+import com.eghm.enums.MemberState;
 import com.eghm.enums.ScoreType;
 import com.eghm.model.Member;
 import com.eghm.vo.business.statistics.MemberRegisterVO;
@@ -53,7 +55,15 @@ public interface MemberService {
      * @param login 登陆信息
      * @return 登陆成功后的用户信息
      */
-    LoginTokenVO accountLogin(AccountLoginDTO login);
+    LoginTokenVO accountLogin(MemberLoginDTO login);
+
+    /**
+     * 账号/邮箱密码登陆后的二次校验
+     *
+     * @param dto 二次校验信息
+     * @return 登陆成功后的用户信息
+     */
+    LoginTokenVO doubleCheck(DoubleCheckDTO dto);
 
     /**
      * 短信验证码+手机号登陆
@@ -71,7 +81,7 @@ public interface MemberService {
      * @param memberId 用户id
      * @param state    新状态 true:解冻 false:冻结
      */
-    void updateState(Long memberId, Boolean state);
+    void updateState(Long memberId, MemberState state);
 
     /**
      * 登陆发送验证码

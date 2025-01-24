@@ -193,6 +193,11 @@ public class CacheConstant {
     public static final String VERIFY_PREFIX = "verify:";
 
     /**
+     * 新设备登录
+     */
+    public static final String NEW_DEVICE_LOGIN = "new_device_login:";
+
+    /**
      * 短信验证码手机号前缀
      */
     public static final String VERIFY_MOBILE_PREFIX = "verify_mobile:";

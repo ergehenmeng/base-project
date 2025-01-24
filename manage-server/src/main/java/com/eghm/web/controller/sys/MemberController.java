@@ -10,6 +10,7 @@ import com.eghm.dto.member.log.LoginLogQueryRequest;
 import com.eghm.dto.member.score.ScoreUpdateRequest;
 import com.eghm.dto.member.tag.SendNotifyRequest;
 import com.eghm.dto.member.tag.SendSmsRequest;
+import com.eghm.enums.MemberState;
 import com.eghm.model.LoginLog;
 import com.eghm.service.member.*;
 import com.eghm.utils.EasyExcelUtil;
@@ -55,14 +56,14 @@ public class MemberController {
     @PostMapping(value = "/freeze", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("冻结")
     public RespBody<Void> freeze(@Validated @RequestBody IdDTO dto) {
-        memberService.updateState(dto.getId(), false);
+        memberService.updateState(dto.getId(), MemberState.FREEZE);
         return RespBody.success();
     }
 
     @PostMapping(value = "/unfreeze", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("解冻")
     public RespBody<Void> unfreeze(@Validated @RequestBody IdDTO dto) {
-        memberService.updateState(dto.getId(), true);
+        memberService.updateState(dto.getId(), MemberState.NORMAL);
         return RespBody.success();
     }
 

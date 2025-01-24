@@ -1,6 +1,7 @@
 package com.eghm.service.member.impl;
 
 import cn.hutool.core.net.NetUtil;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
@@ -20,7 +21,8 @@ import com.eghm.dto.member.*;
 import com.eghm.dto.member.register.RegisterMemberDTO;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.dto.sys.email.SendEmail;
-import com.eghm.dto.sys.login.AccountLoginDTO;
+import com.eghm.dto.sys.login.DoubleCheckDTO;
+import com.eghm.dto.sys.login.MemberLoginDTO;
 import com.eghm.dto.sys.login.SmsLoginDTO;
 import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
@@ -44,6 +46,7 @@ import com.eghm.vo.business.statistics.MemberChannelVO;
 import com.eghm.vo.business.statistics.MemberRegisterVO;
 import com.eghm.vo.business.statistics.MemberSexVO;
 import com.eghm.vo.business.statistics.MemberStatisticsVO;
+import com.eghm.vo.login.DoubleCheckVO;
 import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.vo.member.MemberResponse;
 import com.eghm.vo.member.MemberVO;
@@ -119,7 +122,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public LoginTokenVO accountLogin(AccountLoginDTO login) {
+    public LoginTokenVO accountLogin(MemberLoginDTO login) {
         Member member = this.getByAccount(login.getAccount());
         if (member == null || !encoder.match(MD5.create().digestHex(login.getPwd()), member.getPwd())) {
             throw new BusinessException(ErrorCode.MEMBER_PASSWORD_ERROR);
@@ -129,9 +132,26 @@ public class MemberServiceImpl implements MemberService {
         LoginDevice loginLog = loginService.getBySerialNumber(member.getId(), request.getSerialNumber());
         if (loginLog == null && isNotBlank(member.getMobile())) {
             // 新设备登陆时,如果使用密码登陆需要验证短信,当然前提是用户已经绑定手机号码
-            throw new DataException(ErrorCode.NEW_DEVICE_LOGIN, member.getMobile());
+            smsService.sendSmsCode(TemplateType.MEMBER_LOGIN, member.getMobile(), login.getIp());
+            String uuid = IdUtil.fastSimpleUUID();
+            cacheService.setValue(CacheConstant.NEW_DEVICE_LOGIN + uuid, member.getMobile(), 300);
+            throw new DataException(ErrorCode.NEW_DEVICE_LOGIN, new DoubleCheckVO(member.getMobile(), uuid));
         }
         return this.doLogin(member, login.getIp());
+    }
+
+    @Override
+    public LoginTokenVO doubleCheck(DoubleCheckDTO dto) {
+        String mobile = cacheService.getValue(CacheConstant.NEW_DEVICE_LOGIN + dto.getUuid());
+        if (isBlank(mobile) ) {
+            log.error("登录信息未查询到 [{}]", dto);
+            throw new BusinessException(ErrorCode.LOGIN_NULL);
+        }
+        Member member = this.getByMobile(mobile);
+        this.checkMemberLock(member);
+        smsService.verifySmsCode(TemplateType.MEMBER_LOGIN, mobile, dto.getSmsCode());
+        cacheService.delete(CacheConstant.NEW_DEVICE_LOGIN + dto.getUuid());
+        return this.doLogin(member, dto.getIp());
     }
 
     @Override
@@ -143,12 +163,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void updateState(Long memberId, Boolean state) {
+    public void updateState(Long memberId, MemberState state) {
         Member member = new Member();
         member.setId(memberId);
         member.setState(state);
         memberMapper.updateById(member);
-        if (Boolean.FALSE.equals(member.getState())) {
+        if (member.getState() == MemberState.FREEZE) {
             this.offline(member.getId());
         }
     }
@@ -563,7 +583,7 @@ public class MemberServiceImpl implements MemberService {
      * @param member 用户
      */
     private void checkMemberLock(Member member) {
-        if (member != null && Boolean.FALSE.equals(member.getState())) {
+        if (member != null && member.getState() == MemberState.FREEZE) {
             log.warn("账号已被封禁,无法登录 [{}]", member.getId());
             throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
         }
