@@ -78,11 +78,6 @@ public class CacheConstant {
     public static final String SYS_AREA = "sys_area";
 
     /**
-     * 全国地址,按pid查询
-     */
-    public static final String SYS_AREA_PID = "sys_area_pid";
-
-    /**
      * 快递公司
      */
     public static final String EXPRESS = "express";
