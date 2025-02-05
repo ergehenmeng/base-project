@@ -9,6 +9,7 @@ import com.eghm.vo.business.activity.ActivityResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class ActivityController {
 
     @GetMapping("/month")
     @Operation(summary = "查询月活动")
-    public RespBody<List<ActivityResponse>> month(@Validated ActivityQueryRequest request) {
+    public RespBody<List<ActivityResponse>> month(@ParameterObject @Validated ActivityQueryRequest request) {
         List<ActivityResponse> monthActivity = activityService.getMonthActivity(request);
         return RespBody.success(monthActivity);
     }
