@@ -54,7 +54,7 @@ public class HelpCenterController {
         return RespBody.success();
     }
 
-    @GetMapping(value = "/select")
+    @GetMapping("/select")
     @Operation(summary = "详情")
     public RespBody<HelpDetailResponse> select(@ParameterObject @Validated IdDTO dto) {
         HelpCenter center = helpCenterService.selectById(dto.getId());

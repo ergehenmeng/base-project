@@ -69,7 +69,7 @@ public class WeChatController {
         return RespBody.success(ImgUtil.toBase64(ImgUtil.toImage(bytes), ImgUtil.IMAGE_TYPE_PNG));
     }
 
-    @GetMapping(value = "/qrcode/url")
+    @GetMapping("/qrcode/url")
     @Operation(summary = "获取PC扫码跳转地址")
     public RespBody<String> getQrConnectUrl(HttpSession session) {
         int loginType = sysConfigApi.getInt(ConfigConstant.LOGIN_TYPE);
@@ -81,7 +81,7 @@ public class WeChatController {
         return RespBody.success(weChatMpService.qrConnectUrl(state));
     }
 
-    @GetMapping(value = "/qrcode/login")
+    @GetMapping("/qrcode/login")
     @Operation(summary = "扫码成功回调")
     @Parameter(name = "state", description = "本地唯一state", required = true, in = ParameterIn.QUERY)
     @Parameter(name = "code", description = "微信返回code", required = true, in = ParameterIn.QUERY)

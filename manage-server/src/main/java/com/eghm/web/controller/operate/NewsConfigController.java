@@ -70,7 +70,7 @@ public class NewsConfigController {
     }
 
     @Operation(summary = "查询资讯配置")
-    @GetMapping(value = "/select")
+    @GetMapping("/select")
     @Parameter(name = "code", description = "资讯编码", required = true)
     public RespBody<NewsConfig> select(@RequestParam("code") String code) {
         NewsConfig config = newsConfigService.getByCode(code);
