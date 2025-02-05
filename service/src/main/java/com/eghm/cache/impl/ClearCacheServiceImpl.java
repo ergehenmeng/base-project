@@ -66,7 +66,7 @@ public class ClearCacheServiceImpl implements ClearCacheService {
     }
 
     @Override
-    @CacheEvict(cacheNames = {CacheConstant.SYS_AREA_ID, CacheConstant.SYS_AREA_ID, CacheConstant.SYS_AREA_PID}, allEntries = true)
+    @CacheEvict(cacheNames = CacheConstant.SYS_AREA_ID, allEntries = true)
     public void clearSysArea() {
         log.info("省市区缓存清除成功");
     }
