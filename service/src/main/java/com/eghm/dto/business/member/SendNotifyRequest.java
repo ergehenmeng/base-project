@@ -4,6 +4,7 @@ import com.eghm.enums.MessageType;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -35,7 +36,7 @@ public class SendNotifyRequest {
     private MessageType messageType;
 
     @Schema(description = "会员id")
-    @NotNull(message = "请选择会员")
+    @NotEmpty(message = "请选择会员")
     private List<Long> memberIds;
 
 }
