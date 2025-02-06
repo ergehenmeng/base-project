@@ -2,26 +2,26 @@ package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.member.LoginLogQueryRequest;
+import com.eghm.dto.business.member.MemberQueryRequest;
+import com.eghm.dto.business.member.SendNotifyRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.business.member.MemberQueryRequest;
-import com.eghm.dto.business.member.LoginLogQueryRequest;
-import com.eghm.dto.business.member.SendNotifyRequest;
+import com.eghm.enums.MemberState;
 import com.eghm.model.LoginLog;
 import com.eghm.service.business.LoginService;
 import com.eghm.service.business.MemberNoticeService;
 import com.eghm.service.business.MemberService;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.member.MemberResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.List;
 
@@ -51,14 +51,14 @@ public class MemberController {
     @PostMapping(value = "/freeze", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "冻结")
     public RespBody<Void> freeze(@Validated @RequestBody IdDTO dto) {
-        memberService.updateState(dto.getId(), false);
+        memberService.updateState(dto.getId(), MemberState.FREEZE);
         return RespBody.success();
     }
 
     @PostMapping(value = "/unfreeze", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "解冻")
     public RespBody<Void> unfreeze(@Validated @RequestBody IdDTO dto) {
-        memberService.updateState(dto.getId(), true);
+        memberService.updateState(dto.getId(), MemberState.NORMAL);
         return RespBody.success();
     }
 

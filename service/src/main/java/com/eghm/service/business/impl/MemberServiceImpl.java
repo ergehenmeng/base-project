@@ -152,12 +152,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void updateState(Long memberId, Boolean state) {
+    public void updateState(Long memberId, MemberState state) {
         Member member = new Member();
         member.setId(memberId);
         member.setState(state);
         memberMapper.updateById(member);
-        if (member.getState().equals(MemberState.FREEZE.isValue())) {
+        if (MemberState.FREEZE == state) {
             this.offline(member.getId());
         }
     }
@@ -488,10 +488,10 @@ public class MemberServiceImpl implements MemberService {
     /**
      * 检查用户是否被封禁 (非空才校验)
      *
-     * @param member 用户
+     * @param member 用户信息
      */
     private void checkMemberLock(Member member) {
-        if (member != null && member.getState().equals(MemberState.FREEZE.isValue())) {
+        if (member != null && member.getState() == MemberState.FREEZE) {
             log.warn("账号已被封禁,无法登录 [{}]", member.getId());
             throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
         }

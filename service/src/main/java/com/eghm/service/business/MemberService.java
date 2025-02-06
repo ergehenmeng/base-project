@@ -8,6 +8,7 @@ import com.eghm.dto.sys.login.DoubleCheckDTO;
 import com.eghm.dto.sys.login.SmsLoginDTO;
 import com.eghm.dto.sys.register.AccountRegisterDTO;
 import com.eghm.dto.sys.register.MobileRegisterDTO;
+import com.eghm.enums.MemberState;
 import com.eghm.model.Member;
 import com.eghm.vo.business.statistics.MemberRegisterVO;
 import com.eghm.vo.business.statistics.MemberStatisticsVO;
@@ -71,7 +72,7 @@ public interface MemberService {
      * @param memberId 用户id
      * @param state    新状态 true:解冻 false:冻结
      */
-    void updateState(Long memberId, Boolean state);
+    void updateState(Long memberId, MemberState state);
 
     /**
      * 登陆发送验证码
