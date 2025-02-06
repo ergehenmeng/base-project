@@ -36,8 +36,11 @@ public class PrepayVO {
     @Schema(description = "h5支付url")
     private String h5Url;
 
-    @Schema(description = "扫码支付url")
+    @Schema(description = "扫码支付url(微信)")
     private String qrCodeUrl;
+
+    @Schema(description = "扫码支付iframe(支付宝)")
+    private String qrCodeHtml;
 
     @Schema(description = "预支付id 微信app支付专用")
     private String prepayId;

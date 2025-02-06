@@ -32,9 +32,9 @@ public enum TradeType {
     WECHAT_MINI("JSAPI", "微信小程序支付", PayChannel.WECHAT),
 
     /**
-     * 微信扫描支付
+     * 微信扫码支付
      */
-    WECHAT_NATIVE("NATIVE", "微信扫描支付", PayChannel.WECHAT),
+    WECHAT_NATIVE("NATIVE", "微信扫码支付", PayChannel.WECHAT),
 
     /**
      * H5支付 (微信外H5拉起支付)
