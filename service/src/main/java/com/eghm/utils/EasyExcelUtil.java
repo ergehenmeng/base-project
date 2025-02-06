@@ -6,10 +6,10 @@ import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.read.listener.ReadListener;
 import com.alibaba.excel.support.ExcelTypeEnum;
-import com.alibaba.excel.util.ListUtils;
 import com.alibaba.excel.write.handler.SheetWriteHandler;
 import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
 import com.alibaba.excel.write.metadata.holder.WriteWorkbookHolder;
+import com.google.common.collect.Lists;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -100,32 +100,57 @@ public class EasyExcelUtil {
      * @param <T> 映射的对象
      */
     public static <T> void read(InputStream stream, int batchSize, Consumer<List<T>> consumer) {
-        EasyExcelFactory.read(stream, new ReadListener<T>() {
-
-            final List<T> batchList = ListUtils.newArrayListWithExpectedSize(batchSize);
-
-            @Override
-            public void invoke(T data, AnalysisContext context) {
-                batchList.add(data);
-                if (batchList.size() >= batchSize) {
-                    consumer.accept(batchList);
-                    batchList.clear();
-                }
-            }
-
-            @Override
-            public void doAfterAllAnalysed(AnalysisContext context) {
-                consumer.accept(batchList);
-            }
-
-        }).sheet().doRead();
+        EasyExcelFactory.read(stream, new ReadExcelListener<>(consumer, batchSize)).sheet().doRead();
     }
 
-
     private static class FreezeRowHandler implements SheetWriteHandler {
+
         @Override
         public void afterSheetCreate(WriteWorkbookHolder writeWorkbookHolder, WriteSheetHolder writeSheetHolder) {
             writeSheetHolder.getSheet().createFreezePane(0, 1, 0, 1);
+        }
+    }
+
+    /**
+     * 读取excel
+     *
+     * @param <T> T
+     */
+    private static class ReadExcelListener<T> implements ReadListener<T> {
+
+        /**
+         * 批量读取到的数据
+         */
+        private final List<T> batchList;
+
+        /**
+         * 单次最多读取多少条数据
+         */
+        private final int batchSize;
+
+        /**
+         * 读取到数据后处理
+         */
+        private final Consumer<List<T>> consumer;
+
+        public ReadExcelListener(Consumer<List<T>> consumer, int batchSize) {
+            this.consumer = consumer;
+            this.batchSize = batchSize;
+            this.batchList = Lists.newArrayListWithExpectedSize(batchSize);
+        }
+
+        @Override
+        public void invoke(T data, AnalysisContext context) {
+            batchList.add(data);
+            if (batchList.size() >= batchSize) {
+                consumer.accept(batchList);
+                batchList.clear();
+            }
+        }
+
+        @Override
+        public void doAfterAllAnalysed(AnalysisContext context) {
+            consumer.accept(batchList);
         }
     }
 }

@@ -51,7 +51,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-import static com.eghm.utils.StringUtil.isNotBlank;
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * 公用配置,所有web模块所公用的配置信息均可在该配置文件中声明
@@ -175,7 +175,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
         if (alarmMsg.getAlarmType() == AlarmType.DEFAULT) {
             return new DefaultAlarmServiceImpl();
         }
-        if (isNotBlank(alarmMsg.getWebHook())) {
+        if (isBlank(alarmMsg.getWebHook())) {
             throw new BusinessException(ErrorCode.WEB_HOOK_NULL);
         }
         if (alarmMsg.getAlarmType() == AlarmType.DING_TALK) {
