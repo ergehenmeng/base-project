@@ -6,8 +6,6 @@ import com.eghm.common.JsonService;
 import com.eghm.common.impl.DefaultAlarmServiceImpl;
 import com.eghm.common.impl.DingTalkAlarmServiceImpl;
 import com.eghm.common.impl.FeiShuAlarmServiceImpl;
-import com.eghm.configuration.encoder.BcEncoder;
-import com.eghm.configuration.encoder.Encoder;
 import com.eghm.configuration.jackson.DesensitizationAnnotationInterceptor;
 import com.eghm.configuration.log.LogTraceFilter;
 import com.eghm.constants.CommonConstant;
@@ -117,16 +115,6 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
     @Override
     public Executor getAsyncExecutor() {
         return TtlExecutors.getTtlExecutor(taskExecutor);
-    }
-
-    /**
-     * 密码加密bean 独立于spring-security之外的工具类
-     *
-     * @return bean
-     */
-    @Bean
-    public Encoder encoder() {
-        return new BcEncoder();
     }
 
     /**
