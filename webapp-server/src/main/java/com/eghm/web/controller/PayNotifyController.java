@@ -67,7 +67,7 @@ public class PayNotifyController {
         aliPayService.verifyNotify(stringMap);
         payNotifyLogService.insertAliLog(stringMap, StepType.PAY);
 
-        String orderNo = stringMap.get("body");
+        String orderNo = stringMap.get("passback_params");
         String tradeNo = stringMap.get("out_trade_no");
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         PayNotifyContext context = new PayNotifyContext();
