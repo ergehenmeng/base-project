@@ -42,6 +42,9 @@ public class EasyExcelUtil {
      */
     private static final int BATCH_SIZE = 500;
 
+    /**
+     * 冻结首行配置
+     */
     private static final SheetWriteHandler FREEZE_ROW_HANDLER = new FreezeRowHandler();
 
     /**
@@ -103,6 +106,9 @@ public class EasyExcelUtil {
         EasyExcelFactory.read(stream, new ReadExcelListener<>(consumer, batchSize)).sheet().doRead();
     }
 
+    /**
+     * 冻结首行
+     */
     private static class FreezeRowHandler implements SheetWriteHandler {
 
         @Override
