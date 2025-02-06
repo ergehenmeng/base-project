@@ -6,11 +6,12 @@ import cn.hutool.http.HttpUtil;
 import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
 import com.eghm.configuration.SystemProperties;
-import com.eghm.configuration.log.LogTraceHolder;
+import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.DingTalkMsg;
 import com.eghm.utils.SpringContextUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.scheduling.annotation.Async;
 
 import java.nio.charset.StandardCharsets;
@@ -48,9 +49,9 @@ public class DingTalkAlarmServiceImpl implements AlarmService {
         DingTalkMsg msg = new DingTalkMsg();
         msg.setMsgType("text");
         String appName = SpringContextUtil.getApplicationContext().getEnvironment().getProperty("spring.application.name");
-        String builder = "[traceId]: " + LogTraceHolder.getTraceId() + "\n" +
-                "[服务名]: " + appName + "\n" +
-                "[信息]: " + content;
+        String builder = "【服务名】：" + appName + "\n" +
+                "【traceId】：" + MDC.get(CommonConstant.TRACE_ID) + "\n" +
+                "【报警信息】：" + content;
         msg.setText(new DingTalkMsg.Text(builder));
         return jsonService.toJson(msg);
     }
