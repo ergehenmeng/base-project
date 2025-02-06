@@ -47,9 +47,9 @@ public enum TradeType {
     ALI_PAY("ALI_PAY", "支付宝支付", PayChannel.ALIPAY),
 
     /**
-     * 支付宝当面付
+     * 支付宝PC扫码付
      */
-    ALI_FACE_PAY("ALI_FACE_PAY", "支付宝当面付", PayChannel.ALIPAY),
+    ALI_PC_PAY("ALI_PC_PAY", "支付宝PC扫码付", PayChannel.ALIPAY),
 
     /**
      * 零元付
