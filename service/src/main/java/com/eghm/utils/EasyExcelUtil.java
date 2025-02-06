@@ -113,6 +113,9 @@ public class EasyExcelUtil {
      */
     private static class ReadExcelListener<T> implements ReadListener<T> {
 
+        /**
+         * 批量读取到的数据
+         */
         private final List<T> batchList;
 
         /**
