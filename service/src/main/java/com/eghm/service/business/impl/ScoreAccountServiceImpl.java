@@ -187,6 +187,7 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         prepayDTO.setTradeNo(tradeNo);
         // 默认传递交易单号
         prepayDTO.setAttach(tradeNo);
+        // 微信扫码支付/支付宝当面付
         if (dto.getPayChannel() == PayChannel.WECHAT) {
             prepayDTO.setTradeType(TradeType.WECHAT_NATIVE);
         } else {
