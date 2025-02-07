@@ -1,8 +1,6 @@
 package com.eghm.web.configuration.handler;
 
-import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.model.ManageLog;
@@ -10,17 +8,17 @@ import com.eghm.mq.service.MessageService;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
 import com.google.gson.Gson;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * 操作日志
@@ -34,9 +32,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @AllArgsConstructor
 public class ManageLogAspect {
 
-    private final Gson gson = new Gson();
-
-    private final SysConfigApi sysConfigApi;
+    private final Gson gson;
 
     private final MessageService messageService;
 
@@ -50,9 +46,8 @@ public class ManageLogAspect {
      * @return aop方法调用结果对象
      * @throws Throwable 异常
      */
-    @Around("@annotation(org.springframework.web.bind.annotation.PostMapping) && (!@annotation(com.eghm.annotation.SkipLogger)) && within(com.eghm.web.controller..*)")
-    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-
+    @Around("(!@annotation(com.eghm.annotation.SkipLogger)) && within(com.eghm.web.controller..*)")
+    public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes == null) {
             return joinPoint.proceed();
@@ -73,18 +68,16 @@ public class ManageLogAspect {
         long start = System.currentTimeMillis();
         Object proceed = joinPoint.proceed();
         sy.setBusinessTime(System.currentTimeMillis() - start);
-        if (proceed != null) {
-            sy.setResponse(gson.toJson(proceed));
-        }
-        boolean logSwitch = sysConfigApi.getBoolean(ConfigConstant.OPERATION_LOG_SWITCH);
-        if (logSwitch) {
-            messageService.send(ExchangeQueue.MANAGE_OP_LOG, sy);
-        } else {
+        if (HttpMethod.GET.name().equals(request.getMethod())) {
             log.info("请求地址:[{}], 请求参数:[{}], 请求ip:[{}], 用户id:[{}], 耗时:[{}]ms", sy.getUrl(), sy.getRequest(), sy.getIp(), sy.getUserId(), sy.getBusinessTime());
+        } else {
+            if (proceed != null) {
+                sy.setResponse(gson.toJson(proceed));
+            }
+            messageService.send(ExchangeQueue.MANAGE_OP_LOG, sy);
         }
         return proceed;
     }
-
 
     /**
      * 格式化请求参数 逗号分割

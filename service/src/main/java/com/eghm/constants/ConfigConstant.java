@@ -12,11 +12,6 @@ import lombok.NoArgsConstructor;
 public class ConfigConstant {
 
     /**
-     * 操作日志开关
-     */
-    public static final String OPERATION_LOG_SWITCH = "operation_log_switch";
-
-    /**
      * 昵称前缀
      */
     public static final String NICK_NAME_PREFIX = "nick_name_prefix";
