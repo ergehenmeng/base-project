@@ -48,13 +48,11 @@
         <!--分布式数据库工具-->
         <sharding-jdbc.version>2.0.3</sharding-jdbc.version>
         <!--redis客户端工具-->
-        <redisson.version>3.37.0</redisson.version>
-        <!--redisson-netty客户端-->
-        <netty.version>4.1.107.Final</netty.version>
+        <redisson.version>3.41.0</redisson.version>
         <!--中文拼音解析-->
         <pinyin.version>2.5.1</pinyin.version>
         <!--mysql版本-->
-        <mysql.version>8.4.0</mysql.version>
+        <mysql.version>9.1.0</mysql.version>
         <!--工具类-->
         <hutool.version>5.8.33</hutool.version>
         <!--jwt版本依赖-->
@@ -62,7 +60,7 @@
         <!--swagger2版本-->
         <knif4j.version>4.4.0</knif4j.version>
         <!--微信三方sdk包-->
-        <wx-sdk.version>4.6.0</wx-sdk.version>
+        <wx-sdk.version>4.7.0</wx-sdk.version>
         <!--支付宝sdk-->
         <ali-sdk.version>2.2.2</ali-sdk.version>
         <!--mybatis-plus-->
