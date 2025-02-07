@@ -48,7 +48,7 @@ public class WeChatMiniServiceImpl implements WeChatMiniService {
         this.verify();
         WxMaPhoneNumberInfo phoneNoInfo;
         try {
-            phoneNoInfo = wxMaService.getUserService().getPhoneNoInfo(jsCode);
+            phoneNoInfo = wxMaService.getUserService().getPhoneNumber(jsCode);
         } catch (WxErrorException e) {
             log.error("小程序授权手机号异常 [{}]", jsCode, e);
             throw new BusinessException(ErrorCode.MA_JS_AUTH);
