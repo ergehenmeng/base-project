@@ -2,8 +2,10 @@ package com.eghm.dto.business.order.homestay;
 
 import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
+import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.dto.ext.AbstractDatePagingComparator;
 import com.eghm.enums.OrderState;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,10 +26,12 @@ public class HomestayOrderQueryRequest extends AbstractDatePagingComparator {
 
     @Schema(description = "开始日期")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate startDate;
 
     @Schema(description = "截止日期")
     @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate endDate;
 
     @Schema(description = "是否使用优惠券")

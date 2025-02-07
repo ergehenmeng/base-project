@@ -1,7 +1,9 @@
 package com.eghm.dto.business.group;
 
+import com.eghm.configuration.gson.LocalDateTimeAdapter;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -36,11 +38,13 @@ public class GroupBookingEditRequest {
     @Schema(description = "开始时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "开始时间不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime startTime;
 
     @Schema(description = "结束时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "结束时间不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime endTime;
 
     @Schema(description = "拼团人数", requiredMode = Schema.RequiredMode.REQUIRED)

@@ -1,10 +1,12 @@
 package com.eghm.dto.business.homestay.room.config;
 
 import com.eghm.annotation.Assign;
+import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.dto.ext.AbstractDateComparator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,11 +39,13 @@ public class RoomConfigRequest extends AbstractDateComparator {
     @Schema(description = "开始日期 yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "开始日期不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate startDate;
 
     @Schema(description = "截止日期 yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "截止日期不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate endDate;
 
     @Schema(description = "状态 false:不可用 true:可用", requiredMode = Schema.RequiredMode.REQUIRED)

@@ -1,8 +1,10 @@
 package com.eghm.dto.business.lottery;
 
+import com.eghm.configuration.gson.LocalDateTimeAdapter;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -40,11 +42,13 @@ public class LotteryEditRequest {
     @Schema(description = "开始时间 yyyy-MM-dd HH:mm", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @NotNull(message = "开始时间不能为空")
+    @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime startTime;
 
     @Schema(description = "结束时间 yyyy-MM-dd HH:mm", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonFormat(pattern = "yyyy-MM-dd HH:m")
     @NotNull(message = "结束时间不能为空")
+    @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime endTime;
 
     @Schema(description = "单日抽奖次数限制", requiredMode = Schema.RequiredMode.REQUIRED)

@@ -1,6 +1,7 @@
 package com.eghm.dto.business.coupon.config;
 
 import com.eghm.annotation.Assign;
+import com.eghm.configuration.gson.LocalDateTimeAdapter;
 import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.enums.CouponMode;
 import com.eghm.enums.CouponType;
@@ -10,6 +11,7 @@ import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -73,18 +75,22 @@ public class CouponAddRequest {
 
     @Schema(description = "发放开始时间 yyyy-MM-dd HH:mm")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime startTime;
 
     @Schema(description = "发放截止时间 yyyy-MM-dd HH:mm")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime endTime;
 
     @Schema(description = "可以使用的开始时间 yyyy-MM-dd HH:mm")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime useStartTime;
 
     @Schema(description = "可以使用的截止时间 yyyy-MM-dd HH:mm")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime useEndTime;
 
     @Schema(description = "使用说明")

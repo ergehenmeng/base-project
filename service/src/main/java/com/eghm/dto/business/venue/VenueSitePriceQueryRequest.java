@@ -1,5 +1,7 @@
 package com.eghm.dto.business.venue;
 
+import com.eghm.configuration.gson.LocalDateAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,5 +23,6 @@ public class VenueSitePriceQueryRequest {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "请选择日期")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate nowDate;
 }

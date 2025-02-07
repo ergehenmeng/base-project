@@ -1,8 +1,10 @@
 package com.eghm.dto.business.homestay;
 
 import com.eghm.annotation.Assign;
+import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.dto.ext.AbstractDatePagingComparator;
 import com.eghm.validation.annotation.OptionInt;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -46,11 +48,13 @@ public class HomestayQueryDTO extends AbstractDatePagingComparator {
     @Schema(description = "开始日期(含)", requiredMode = Schema.RequiredMode.REQUIRED)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "入住日期不能为空")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate startDate;
 
     @Schema(description = "截止日期(不含)", requiredMode = Schema.RequiredMode.REQUIRED)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "离店日期不能为空")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate endDate;
 
     @Schema(description = "入住天数", hidden = true)

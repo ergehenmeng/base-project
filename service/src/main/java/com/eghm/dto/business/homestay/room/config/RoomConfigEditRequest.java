@@ -1,10 +1,12 @@
 package com.eghm.dto.business.homestay.room.config;
 
 import com.eghm.annotation.Assign;
+import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -25,6 +27,7 @@ public class RoomConfigEditRequest {
     @Schema(description = "日期yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "日期不能为空")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate configDate;
 
     @Schema(description = "状态 false:不可用 true:可用", requiredMode = Schema.RequiredMode.REQUIRED)
