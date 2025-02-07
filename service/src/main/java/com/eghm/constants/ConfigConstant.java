@@ -12,11 +12,6 @@ import lombok.NoArgsConstructor;
 public class ConfigConstant {
 
     /**
-     * 操作日志开关
-     */
-    public static final String OPERATION_LOG_SWITCH = "operation_log_switch";
-
-    /**
      * 留言被举报多少次自动屏蔽留言
      */
     public static final String COMMENT_REPORT_SHIELD = "comment_report_shield";

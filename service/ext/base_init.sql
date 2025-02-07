@@ -10,7 +10,6 @@ INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `r
 
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('6', 'ios_latest_version', 'ios最新版本号', '1.2.3', b'0', '最新版本号,格式必须为x.x.x(版本必须已经上传)', '2018-09-28 10:50:03', '2018-09-28 10:50:03');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('7', 'android_latest_version', 'android最新版本', '1.2.3', b'0', '最新版本号,格式必须为x.x.x(版本必须已经上传)', '2018-09-28 10:50:41', '2018-09-28 10:50:41');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('14', 'operation_log_switch', '操作日志开关', 'true', b'0', '操作日志开关 false:不开启操作日志 true:开启操作日志', '2019-01-17 16:50:54', '2024-06-24 15:49:20');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('19', 'single_client_login', '是否开启单设备单点登录', 'true', b'0', 'false:不开启 true:开启', '2019-08-13 15:45:39', '2020-07-23 13:55:48');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('20', 'nick_name_prefix', '默认昵称前缀', 'eghm_', b'0', '昵称为空时会自动生成以此为前缀的昵称', '2019-08-19 16:06:04', '2019-08-19 16:06:04');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('21', 'sms_type_interval', '同一类型短信发送间隔', '60', b'0', '单位秒', '2019-08-20 17:18:53', '2019-08-20 17:18:53');
