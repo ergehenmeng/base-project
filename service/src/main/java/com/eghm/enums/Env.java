@@ -19,6 +19,11 @@ public enum Env {
     PROD,
 
     /**
+     * 预发布环境
+     */
+    PRE,
+
+    /**
      * 测试环境
      */
     TEST,

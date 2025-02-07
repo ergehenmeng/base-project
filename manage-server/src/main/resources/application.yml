@@ -5,6 +5,7 @@ server:
       timeout: 1800s
   tomcat:
     uri-encoding: UTF-8
+  port: 8080
 ## spring应用上下文配置
 spring:
   application:

@@ -45,11 +45,11 @@ system:
   # 微信小程序 公众号 微信支付配置
   wechat:
     ma:
-      version: develop
+      version: trial
     pay:
       notify-host: https://localhost:8080
   # 系统环境
-  env: dev
+  env: test
   alarm-msg:
     web-hook: 7bbdb2b279eb7a7e5a9bf0c4d554977d671238ea8c0bd245f5ceaeaf485a4c26
     alarm-type: ding_talk
