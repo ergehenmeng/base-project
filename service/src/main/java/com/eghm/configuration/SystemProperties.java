@@ -261,11 +261,6 @@ public class SystemProperties {
         private String publicKey;
 
         /**
-         * 异步通知域名
-         */
-        private String notifyHost;
-
-        /**
          * AES密钥（可选）
          */
         private String encryptKey;
@@ -303,11 +298,6 @@ public class SystemProperties {
          * 商户证书序列号
          */
         private String serialNo;
-
-        /**
-         * 支付异步通知域名
-         */
-        private String notifyHost;
 
         /**
          * apiV3 秘钥
