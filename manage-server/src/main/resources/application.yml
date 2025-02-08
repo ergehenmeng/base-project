@@ -62,22 +62,21 @@ mybatis-plus:
     map-underscore-to-camel-case: true
 system:
   manage:
-    security:
-      skip-auth:
-        ## 默认错误页面不拦截
-        - ${server.error.path}
-        - /doc.html
-        - /webjars/**
-        - /actuator/**
-        - /v3/api-docs/**
-        - /manage/captcha
-        - /manage/login
-        - /manage/sendSms
-        - /manage/smsLogin
-        - /manage/logout
-        - /manage/wechat/qrcode/url
-        - /manage/wechat/qrcode/login
-        - /favicon.ico
-        - /manage/export/exportMenu
-        - /resource/**
-        - /ws
+    white-list:
+      ## 默认错误页面不拦截
+      - ${server.error.path}
+      - /doc.html
+      - /webjars/**
+      - /actuator/**
+      - /v3/api-docs/**
+      - /manage/captcha
+      - /manage/login
+      - /manage/sendSms
+      - /manage/smsLogin
+      - /manage/logout
+      - /manage/wechat/qrcode/url
+      - /manage/wechat/qrcode/login
+      - /favicon.ico
+      - /manage/export/exportMenu
+      - /resource/**
+      - /ws

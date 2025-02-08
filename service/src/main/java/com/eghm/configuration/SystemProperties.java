@@ -133,23 +133,14 @@ public class SystemProperties {
         private Token token = new Token();
 
         /**
-         * 权限
+         * 不需要token校验的url
          */
-        private Security security = new Security();
+        private String[] whiteList = new String[]{};
 
         /**
          * 验证码类型
          */
         private Class<? extends DefaultTextCreator> captchaType = MathCaptchaProducer.class;
-
-        @Data
-        public static class Security {
-
-            /**
-             * 不进行登陆检验和权限校验, 注意如果需要登录,但不需要权限校验请使用@SkipPerm
-             */
-            private String[] skipAuth = new String[]{};
-        }
 
         @Data
         public static class Token {
