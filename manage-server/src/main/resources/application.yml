@@ -68,6 +68,7 @@ system:
         - ${server.error.path}
         - /doc.html
         - /webjars/**
+        - /actuator/**
         - /v3/api-docs/**
         - /manage/captcha
         - /manage/login
