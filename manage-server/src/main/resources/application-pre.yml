@@ -46,8 +46,6 @@ system:
   wechat:
     ma:
       version: trial
-    pay:
-      notify-host: https://localhost:8080
   # 系统环境
   env: pre
   alarm-msg:

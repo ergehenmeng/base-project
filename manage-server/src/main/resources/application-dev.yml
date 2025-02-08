@@ -46,8 +46,6 @@ system:
   wechat:
     ma:
       version: develop
-    pay:
-      notify-host: https://localhost:8080
   # 系统环境
   env: dev
   alarm-msg:

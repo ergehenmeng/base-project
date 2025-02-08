@@ -39,7 +39,7 @@ public class WebappMvcConfig extends WebMvcConfig {
     /**
      * 过滤器不拦截的地址
      */
-    private static final String[] FILTER_EXCLUDE_URL = {"/swagger/**", "/swagger-resources/**", "/v2/api-docs", "/error", "/resource/**", "/actuator/**"};
+    private static final String[] FILTER_EXCLUDE_URL = {"/swagger/**", "/swagger-resources/**", "/v3/api-docs", "/error", "/resource/**", "/actuator/**"};
 
     private final CacheProxyService cacheProxyService;
 
