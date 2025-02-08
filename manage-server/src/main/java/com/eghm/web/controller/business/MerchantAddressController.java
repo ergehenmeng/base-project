@@ -42,7 +42,7 @@ public class MerchantAddressController {
     }
 
     @GetMapping("/list")
-    @Operation(summary = "列表(全部)")
+    @Operation(summary = "列表(不分页)")
     @Parameter(name = "merchantId", description = "商户id", required = true)
     public RespBody<List<MerchantAddressResponse>> list(@RequestParam("merchantId") Long merchantId) {
         if (merchantId == null) {
