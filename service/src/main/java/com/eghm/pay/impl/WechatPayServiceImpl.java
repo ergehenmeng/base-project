@@ -1,7 +1,8 @@
 package com.eghm.pay.impl;
 
-import com.eghm.configuration.SystemProperties;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constants.CommonConstant;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.WeChatPayException;
@@ -42,9 +43,10 @@ import java.util.Optional;
 @Service("wechatPayService")
 @Slf4j
 public class WechatPayServiceImpl implements PayService {
+
     private WxPayService wxPayService;
 
-    private final SystemProperties systemProperties;
+    private final SysConfigApi sysConfigApi;
 
     @Autowired(required = false)
     public void setWxPayService(WxPayService wxPayService) {
@@ -164,8 +166,7 @@ public class WechatPayServiceImpl implements PayService {
         request.setAmount(amount);
         request.setAttach(dto.getAttach());
         request.setDescription(dto.getDescription());
-        SystemProperties.WeChatProperties wechat = systemProperties.getWechat();
-        request.setNotifyUrl(wechat.getPay().getNotifyHost() + CommonConstant.WECHAT_PAY_NOTIFY_URL);
+        request.setNotifyUrl(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.WECHAT_PAY_NOTIFY_URL);
         request.setOutTradeNo(dto.getTradeNo());
         WxPayUnifiedOrderV3Request.Payer payer = new WxPayUnifiedOrderV3Request.Payer();
         payer.setOpenid(dto.getBuyerId());
@@ -191,14 +192,13 @@ public class WechatPayServiceImpl implements PayService {
      */
     @NotNull
     private WxPayRefundV3Request getWxPayRefundV3Request(RefundDTO dto) {
-        SystemProperties.WeChatProperties wechat = systemProperties.getWechat();
         WxPayRefundV3Request request = new WxPayRefundV3Request();
         WxPayRefundV3Request.Amount amount = new WxPayRefundV3Request.Amount();
         amount.setRefund(dto.getAmount());
         amount.setTotal(dto.getTotal());
         amount.setCurrency("CNY");
         request.setAmount(amount);
-        request.setNotifyUrl(wechat.getPay().getNotifyHost() + CommonConstant.WECHAT_REFUND_NOTIFY_URL);
+        request.setNotifyUrl(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.WECHAT_REFUND_NOTIFY_URL);
         request.setOutTradeNo(dto.getTradeNo());
         request.setReason(dto.getReason());
         request.setOutRefundNo(dto.getRefundNo());

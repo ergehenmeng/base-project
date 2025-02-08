@@ -20,15 +20,15 @@ public class AliPayConfig {
     @Bean
     @ConditionalOnProperty(prefix = "system.ali-pay", name = "app-id")
     public Config config() {
-        SystemProperties.AliPayProperties properties = systemProperties.getAliPay();
+        SystemProperties.AliPay pay = systemProperties.getAli().getPay();
         Config config = new Config();
         config.protocol = "https";
         config.gatewayHost = "openapi.alipay.com";
         config.signType = "RSA2";
-        config.appId = properties.getAppId();
-        config.merchantPrivateKey = properties.getPrivateKey();
-        config.alipayPublicKey = properties.getPublicKey();
-        config.encryptKey = properties.getEncryptKey();
+        config.appId = pay.getAppId();
+        config.merchantPrivateKey = pay.getPrivateKey();
+        config.alipayPublicKey = pay.getPublicKey();
+        config.encryptKey = pay.getEncryptKey();
         Factory.setOptions(config);
         return config;
     }

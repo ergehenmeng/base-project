@@ -3587,10 +3587,6 @@ INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_t
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969415', '场馆商户', 'venue', '2024-02-19 15:22:58', '2024-02-19 15:24:53', b'0', '系统默认角色(勿动)');
 
 
-INSERT INTO `member` (`id`, `avatar`, `mobile`, `mp_open_id`, `nick_name`, `email`, `pwd`, `state`, `real_name`, `id_card`, `birthday`, `invite_code`, `sex`, `score`, `channel`, `register_ip`, `create_time`, `update_time`, `deleted`) VALUES ('1', 'http://localhost:9002/cover.png', '13136113695', NULL, '二哥真的很猛', '664956140@qq.com', NULL, b'1', NULL, NULL, NULL, 'F', '2', '0', '0', '0', '2019-10-25 15:59:22', '2023-12-15 14:25:06', b'0');
-
-
-
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'member_login', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:16', '短信登陆发送验证码');
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('2', 'register', '您正在注册EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:18', '注册短信验证码');
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('3', 'change_email', '您正在更换EGHM平台账号的邮箱，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:44:19', NULL);
@@ -3922,6 +3918,7 @@ INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('79', 'merchant_auth_path', '商户授权绑定手机号地址', 'pages/index/index', b'0', '微信扫码跳转到商户绑定手机号页面的地址', '2024-07-31 15:25:26', '2024-07-31 16:20:27');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('80', 'product_sale_ranking', '品类销售排行榜', '5', b'0', '默认取5条', '2024-09-02 16:18:19', '2024-09-02 16:18:24');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('81', 'merchant_sale_ranking', '商户销售排行榜', '10', b'0', '默认取10条', '2024-09-09 11:15:10', '2024-09-09 11:17:10');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('18', 'pay_notify_host', '支付或退款回调地址', 'http://127.0.0.1:10086', b'1', 'false:不开启 true:开启', '2019-08-13 15:45:39', '2020-07-23 13:55:48');
 
 
 INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `update_time` , `deleted`) VALUES ('6975', 'yuantong', '圆通速递', '2024-01-10T17:13:45', '2024-01-10T17:13:45' , b'0');
@@ -5355,17 +5352,6 @@ INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `upd
 INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `update_time` , `deleted`) VALUES ('8403', 'ztjieda', '泰捷达国际物流', '2024-01-10T17:13:45', '2024-01-10T17:13:45' , b'0');
 INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `update_time` , `deleted`) VALUES ('8404', 'ztong', '智通物流', '2024-01-10T17:13:45', '2024-01-10T17:13:45' , b'0');
 
-INSERT INTO `sys_config` (`id`,`nid`,`title`,`content`,`locked`,`remark`,`create_time`,`update_time`) VALUES ('68','platform_service_rate','平台手续费','5',b'0','平台手续费,单位:%','2024-01-22T13:14:34','2024-01-22T13:14:34');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('69', 'redeem_code_scope', '兑换码商品使用范围', '[]', b'0', '格式: [{\"redeemCodeId\":\"兑换码配置ID\",\"productIds\":[商品ID,逗号分隔]}]', '2024-02-19 12:02:14', '2024-02-19 12:03:11');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('70', 'comment_report_shield', '评论自动屏蔽次数', '20', b'0', '超过该参数,评论自动屏蔽', '2024-02-20 17:56:11', '2024-02-20 17:56:11');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('71', 'venue_site_max_day', '场馆班次最大设置日期区间', '30', b'0', '默认设置不超过30天', '2024-02-23 16:45:28', '2024-02-23 16:45:43');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('72', 'order_evaluate_time', '系统默认评价时间', '2592000', b'0', '订单完成后多长时间系统进行默认评价, 默认30天 单位:秒', '2024-03-19 13:30:10', '2024-03-19 13:30:19');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('73', 'delay_routing_time', '订单分账延迟时间', '1209600', b'1', '订单完成多久才进行分账, 默认14天后, 单位:秒 (注意该时间必须大于零售支持售后退款的时间,因为在售后时间内,即使订单完成依旧可以退款,此次不能太早进行分账)', '2024-03-19 13:32:17', '2024-03-19 14:00:59');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('74', 'support_after_sale_time', '零售支持售后退款时间', '604800', b'1', '即:订单完成后几天内依旧可以进行售后退款 默认:7天 单位:秒', '2024-03-19 13:34:16', '2024-03-19 13:34:34');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('75', 'order_return_refund_time', '退货退款自动审核时间', '604800', b'0', '订单(发起退货退款)自动确认退款时间 默认7天', '2024-03-19 14:11:17', '2024-03-19 14:11:17');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('76', 'order_refund_confirm_time', '仅退款自动审核时间', '172800', b'0', '订单(发起仅退款)自动确认退款时间 默认2天', '2024-03-19 14:12:19', '2024-03-19 14:12:19');
-
-
 INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `lock_time`, `update_time`, `remark`) VALUES ('2', '测试定时任务', 'testJobService', 'execute', NULL, '0 0/30 * * * ?', '664956140@qq.com', '0', '30000', '2024-02-23 17:26:41', NULL);
 INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `lock_time`, `update_time`, `remark`) VALUES ('3', '删除场馆历史价格信息', 'venueJobService', 'deleteSitePrice', '3', '0 0 8 * * ?', '664956140@qq.com', '1', '30000', '2024-02-23 17:48:53', '参数表示最多保留几天的数据');
 INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `lock_time`, `update_time`, `remark`) VALUES ('5', '支付处理中的订单处理', 'orderJobService', 'payProcess', NULL, '0 1/2 * * * ?', '664956140@qq.com', '1', '30000', '2024-02-23 17:30:37', NULL);
@@ -5398,9 +5384,6 @@ INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `dict_type`, 
 INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `dict_type`, `create_time`, `update_time`, `remark`) VALUES ('15', '配套家电', 'appliance', b'0', b'0', '1', '2024-08-06 14:13:46', '2024-08-07 09:40:52', '房型管理');
 INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `dict_type`, `create_time`, `update_time`, `remark`) VALUES ('16', '客房景观', 'landscape', b'0', b'0', '1', '2024-08-06 14:16:55', '2024-08-07 09:40:56', '房型管理');
 
-
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('77', 'score_min_recharge', '积分最小充值金额', '1000', b'0', '默认10元(单位:分)', '2024-06-20 17:32:36', '2024-06-20 17:32:36');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('78', 'score_min_withdraw', '积分最小提现金额', '1000', b'0', '默认10元(单位:分)', '2024-06-20 22:26:20', '2024-06-20 22:26:20');
 
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('1', 'image_type', '1', 'PC首页', b'0', '2018-11-27 17:14:49', '2024-07-26 10:05:21');
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('2', 'image_type', '2', 'APP首页', b'0', '2018-11-27 17:15:33', '2024-07-26 10:05:13');

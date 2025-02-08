@@ -12,6 +12,11 @@ import lombok.NoArgsConstructor;
 public class ConfigConstant {
 
     /**
+     * 支付或退款回调地址
+     */
+    public static final String PAY_NOTIFY_HOST = "pay_notify_host";
+
+    /**
      * 昵称前缀
      */
     public static final String NICK_NAME_PREFIX = "nick_name_prefix";

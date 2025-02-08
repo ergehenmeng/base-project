@@ -62,17 +62,20 @@ mybatis-plus:
 
 system:
   manage:
-    security:
-      skip-auth:
-        - /doc.html
-        - /webjars/**
-        - /v3/api-docs/**
-        - /manage/captcha
-        - /manage/login
-        - /manage/sendSms
-        - /manage/smsLogin
-        - /manage/logout
-        - /favicon.ico
-        - /manage/export/exportMenu
-        - /resource/**
-        - /ws
+    white-list:
+      - ${server.error.path}
+      - /doc.html
+      - /webjars/**
+      - /actuator/**
+      - /v3/api-docs/**
+      - /manage/captcha
+      - /manage/login
+      - /manage/sendSms
+      - /manage/smsLogin
+      - /manage/logout
+      - /favicon.ico
+      - /manage/wechat/qrcode/url
+      - /manage/wechat/qrcode/login
+      - /manage/export/exportMenu
+      - /resource/**
+      - /ws

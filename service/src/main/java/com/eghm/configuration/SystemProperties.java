@@ -48,7 +48,7 @@ public class SystemProperties {
     /**
      * 移动端 特有配置
      */
-    private final ApiProperties api = new ApiProperties();
+    private final WebappProperties api = new WebappProperties();
 
     /**
      * 管理后台 特有配置
@@ -59,11 +59,6 @@ public class SystemProperties {
      * 微信配置
      */
     private final WeChatProperties wechat = new WeChatProperties();
-
-    /**
-     * 支付宝配置
-     */
-    private final AliPayProperties aliPay = new AliPayProperties();
 
     /**
      * redis配置
@@ -142,11 +137,6 @@ public class SystemProperties {
          * 商户证书序列号
          */
         private String serialNo;
-
-        /**
-         * 支付异步通知域名
-         */
-        private String notifyHost;
 
         /**
          * apiV3 秘钥
@@ -248,11 +238,6 @@ public class SystemProperties {
         private String publicKey;
 
         /**
-         * 异步通知域名
-         */
-        private String notifyHost;
-
-        /**
          * AES密钥（可选）
          */
         private String encryptKey;
@@ -325,23 +310,14 @@ public class SystemProperties {
         private Token token = new Token();
 
         /**
-         * 权限
+         * 不校验token的url
          */
-        private Security security = new Security();
+        private String[] whiteList = new String[]{};
 
         /**
          * 验证码类型
          */
         private Class<? extends DefaultTextCreator> captchaType = MathCaptchaProducer.class;
-
-        @Data
-        public static class Security {
-
-            /**
-             * 不进行登陆检验和权限校验, 注意如果需要登录,但不需要权限校验请使用@SkipPerm
-             */
-            private String[] skipAuth = new String[]{};
-        }
 
         @Data
         public static class Token {
@@ -379,7 +355,7 @@ public class SystemProperties {
     }
 
     @Data
-    public static class ApiProperties {
+    public static class WebappProperties {
 
         /**
          * 系统版本号
@@ -401,35 +377,6 @@ public class SystemProperties {
          */
         private Channel mockChannel = Channel.WECHAT;
 
-    }
-
-    @Data
-    public static class AliPayProperties {
-
-        /**
-         * 支付appId
-         */
-        private String appId;
-
-        /**
-         * 私钥
-         */
-        private String privateKey;
-
-        /**
-         * 公钥 (非正式模式)
-         */
-        private String publicKey;
-
-        /**
-         * 异步通知域名
-         */
-        private String notifyHost;
-
-        /**
-         * AES密钥（可选）
-         */
-        private String encryptKey;
     }
 
     @Data
