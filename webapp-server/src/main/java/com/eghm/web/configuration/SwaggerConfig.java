@@ -25,7 +25,7 @@ public class SwaggerConfig {
 
     @Bean
     public GroupedOpenApi userApi() {
-        SystemProperties.ApiProperties properties = systemProperties.getApi();
+        SystemProperties.WebappProperties properties = systemProperties.getApi();
         return GroupedOpenApi.builder().group("移动端API接口")
                 .pathsToMatch("/**")
                 .addOperationCustomizer((operation, handlerMethod) -> {

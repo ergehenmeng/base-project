@@ -43,7 +43,7 @@ public class SystemProperties {
     /**
      * 移动端 特有配置
      */
-    private final ApiProperties api = new ApiProperties();
+    private final WebappProperties api = new WebappProperties();
 
     /**
      * 管理后台 特有配置
@@ -178,7 +178,7 @@ public class SystemProperties {
     }
 
     @Data
-    public static class ApiProperties {
+    public static class WebappProperties {
 
         /**
          * 模拟登录的token
