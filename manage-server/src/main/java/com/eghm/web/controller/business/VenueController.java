@@ -59,7 +59,7 @@ public class VenueController {
     }
 
     @GetMapping("/list")
-    @Operation(summary = "场馆列表")
+    @Operation(summary = "列表(不分页)")
     public RespBody<List<BaseVenueResponse>> list() {
         List<BaseVenueResponse> list = venueService.getList(SecurityHolder.getMerchantId());
         return RespBody.success(list);

@@ -40,7 +40,7 @@ public class VoucherTagController {
     }
 
     @GetMapping("/list")
-    @Operation(summary = "列表")
+    @Operation(summary = "列表(不分页)")
     public RespBody<List<TagSelectResponse>> list(@Validated IdDTO request) {
         List<TagSelectResponse> list = voucherTagService.getList(request.getId());
         return RespBody.success(list);

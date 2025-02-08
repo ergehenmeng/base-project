@@ -118,7 +118,7 @@ public class MerchantController {
     }
     
     @GetMapping("/list")
-    @Operation(summary = "列表")
+    @Operation(summary = "列表(不分页)")
     @SkipPerm
     public RespBody<List<BaseMerchantResponse>> list() {
         List<BaseMerchantResponse> merchantList = merchantService.getList();

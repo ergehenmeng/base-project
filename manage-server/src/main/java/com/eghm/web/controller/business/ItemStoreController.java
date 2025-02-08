@@ -57,7 +57,7 @@ public class ItemStoreController {
     }
 
     @GetMapping("/list")
-    @Operation(summary = "店铺列表")
+    @Operation(summary = "列表(不分页)")
     public RespBody<List<BaseItemStoreResponse>> list() {
         List<BaseItemStoreResponse> responseList = itemStoreService.getList(SecurityHolder.getMerchantId());
         return RespBody.success(responseList);

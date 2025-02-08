@@ -48,7 +48,7 @@ public class HomestayController {
     }
 
     @GetMapping("/list")
-    @Operation(summary = "列表")
+    @Operation(summary = "列表(不分页)")
     public RespBody<List<BaseHomestayResponse>> list() {
         List<BaseHomestayResponse> responseList = homestayService.getList();
         return RespBody.success(responseList);

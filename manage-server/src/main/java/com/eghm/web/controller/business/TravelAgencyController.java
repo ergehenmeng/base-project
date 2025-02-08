@@ -59,7 +59,7 @@ public class TravelAgencyController {
     }
 
     @GetMapping("/list")
-    @Operation(summary = "列表")
+    @Operation(summary = "列表(不分页)")
     public RespBody<List<BaseTravelResponse>> list() {
         List<BaseTravelResponse> list = travelAgencyService.getList(SecurityHolder.getMerchantId());
         return RespBody.success(list);

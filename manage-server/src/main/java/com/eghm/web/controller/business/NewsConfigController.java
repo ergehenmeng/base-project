@@ -62,7 +62,7 @@ public class NewsConfigController {
         return RespBody.success();
     }
 
-    @Operation(summary = "全部资讯分类")
+    @Operation(summary = "列表(不分页)")
     @GetMapping("/list")
     public RespBody<List<NewsConfigResponse>> list() {
         List<NewsConfigResponse> configList = newsConfigService.getList();
