@@ -42,8 +42,6 @@ system:
   # 全局文件上传路径
   upload-path: D://file
   wechat:
-    pay:
-      notify-host: https://localhost:8080
     ma:
       version: trial
   platform-merchant-id: 1707294309829128194
