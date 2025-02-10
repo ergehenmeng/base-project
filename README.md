@@ -2,14 +2,11 @@
 
 #### 运行环境及技术
 
-* java1.8+
-* redis3.2+
-* mysql5.7+
-* spring boot 2.7.8
-* spring security(废弃)
-* mybatis
-* freemarker
-* nginx
+* java 17+
+* redis 3.2+
+* mysql 5.7+
+* spring-boot 3.2.x
+* mybatis-plus 3.5.9
 
 ## 管理后台
 
@@ -31,7 +28,7 @@
     * demo例子`TestJobService` `OnceJobService`
     * 注意: bean方法定义时必须包含一个字符串类型的入参, 且方法必须是 `public`, 强烈建议方法上添加 `@CronTask`
       注解作为定时任务标注一下
-* `@Scheduled`(不推荐使用) 定时任务不受 `@EnableTask` 影响
+* 开启 `@EnableTask` 后, `@Schedule` 也可以正常使用(但是不推荐)
 
 ### 其他
 
