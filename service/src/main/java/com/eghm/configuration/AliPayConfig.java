@@ -18,7 +18,7 @@ public class AliPayConfig {
     private final SystemProperties systemProperties;
 
     @Bean
-    @ConditionalOnProperty(prefix = "system.ali-pay", name = "app-id")
+    @ConditionalOnProperty(prefix = "system.ali.pay", name = "app-id")
     public Config config() {
         SystemProperties.AliPay pay = systemProperties.getAli().getPay();
         Config config = new Config();
