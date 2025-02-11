@@ -73,7 +73,7 @@ public class CacheServiceImpl implements CacheService {
             this.setValue(key, result, sysConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
         } else {
             // 数据库也没有查询到,填充默认值
-            this.setValue(key, CacheConstant.PLACE_HOLDER, sysConfigApi.getLong(ConfigConstant.NULL_EXPIRE, DEFAULT_EXPIRE));
+            this.setValue(key, CacheConstant.PLACE_HOLDER, DEFAULT_EXPIRE);
         }
         return result;
     }

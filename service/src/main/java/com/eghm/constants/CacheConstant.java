@@ -13,9 +13,9 @@ import lombok.NoArgsConstructor;
 public class CacheConstant {
 
     /**
-     * 默认过期数据 30s
+     * 默认过期数据 60s
      */
-    public static final long DEFAULT_EXPIRE = 30;
+    public static final long DEFAULT_EXPIRE = 60;
 
     /**
      * 互斥等待时间 10s

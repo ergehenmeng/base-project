@@ -72,11 +72,6 @@ public class ConfigConstant {
     public static final String CACHE_EXPIRE = "cache_expire";
 
     /**
-     * 空数据(占位数据)默认过期时间
-     */
-    public static final String NULL_EXPIRE = "null_expire";
-
-    /**
      * 登陆token过期时间
      */
     public static final String TOKEN_EXPIRE = "token_expire";
