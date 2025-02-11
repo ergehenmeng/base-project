@@ -1,6 +1,7 @@
 package com.eghm.vo.business.merchant;
 
 import com.eghm.convertor.BigDecimalOmitSerializer;
+import com.eghm.enums.WithdrawWay;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -46,6 +47,9 @@ public class MerchantDetailResponse {
     @Schema(description = "平台服务费,单位:%")
     @JsonSerialize(using = BigDecimalOmitSerializer.class)
     private BigDecimal platformServiceRate;
+
+    @Schema(description = "提现方式 1:手动提现 2:自动提现")
+    private WithdrawWay withdrawWay;
 
     @Schema(description = "联系人电话")
     private String mobile;

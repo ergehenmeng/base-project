@@ -2,9 +2,13 @@ package com.eghm.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.annotation.ExcelDesc;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * @author 二哥很猛
@@ -31,4 +35,11 @@ public enum WithdrawWay {
     @ExcelDesc
     private final String name;
 
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static WithdrawWay of(@JsonProperty("value") Integer value) {
+        if (value == null) {
+            return null;
+        }
+        return Arrays.stream(WithdrawWay.values()).filter(type -> value.equals(type.value)).findFirst().orElse(null);
+    }
 }

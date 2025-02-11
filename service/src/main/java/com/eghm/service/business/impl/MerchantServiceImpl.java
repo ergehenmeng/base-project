@@ -2,7 +2,6 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.util.IdUtil;
-import static com.eghm.utils.StringUtil.isBlank;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -18,12 +17,7 @@ import com.eghm.dto.business.merchant.MerchantAddRequest;
 import com.eghm.dto.business.merchant.MerchantAuthDTO;
 import com.eghm.dto.business.merchant.MerchantEditRequest;
 import com.eghm.dto.business.merchant.MerchantQueryRequest;
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.RoleMapping;
-import com.eghm.enums.TemplateType;
-import com.eghm.enums.UserType;
-import com.eghm.enums.RoleType;
-import com.eghm.enums.UserState;
+import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MerchantMapper;
 import com.eghm.model.Account;
@@ -48,6 +42,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.eghm.constants.CacheConstant.MERCHANT_AUTH_CODE;
+import static com.eghm.utils.StringUtil.isBlank;
 import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
@@ -128,6 +123,7 @@ public class MerchantServiceImpl implements MerchantService {
         Merchant merchant = DataUtil.copy(request, Merchant.class);
         BigDecimal platformServiceRate = BigDecimal.valueOf(sysConfigApi.getDouble(ConfigConstant.PLATFORM_SERVICE_RATE, 5D));
         merchant.setPlatformServiceRate(platformServiceRate);
+        merchant.setWithdrawWay(WithdrawWay.MANUAL);
         // 系统用户和商户关联
         merchant.setUserId(user.getId());
         merchantMapper.insert(merchant);
@@ -211,6 +207,14 @@ public class MerchantServiceImpl implements MerchantService {
         smsService.verifySmsCode(TemplateType.MERCHANT_UNBIND, merchant.getAuthMobile(), smsCode);
         log.info("商户自己[{}]解绑微信号,旧信息:[{}] [{}]", merchant.getMerchantName(), merchant.getAuthMobile(), merchant.getOpenId());
         this.doUnbindMerchant(merchantId);
+    }
+
+    @Override
+    public void changeWithdrawWay(Long merchantId, WithdrawWay withdrawWay) {
+        Merchant merchant = new Merchant();
+        merchant.setId(merchantId);
+        merchant.setWithdrawWay(withdrawWay);
+        merchantMapper.updateById(merchant);
     }
 
     @Override
