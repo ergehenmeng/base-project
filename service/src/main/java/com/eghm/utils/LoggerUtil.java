@@ -1,9 +1,10 @@
 package com.eghm.utils;
 
-import static com.eghm.utils.StringUtil.isBlank;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * @author wyb
@@ -62,7 +63,7 @@ public class LoggerUtil {
      * @param paddingChar 填充的字符
      */
     private static void appendChar(StringBuilder builder, String paddingChar) {
-        builder.append(String.valueOf(paddingChar).repeat(MAX_LENGTH));
+        builder.append(paddingChar.repeat(MAX_LENGTH));
     }
 
 }

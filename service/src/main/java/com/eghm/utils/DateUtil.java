@@ -1,6 +1,5 @@
 package com.eghm.utils;
 
-import static com.eghm.utils.StringUtil.isBlank;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.ParameterException;
 import lombok.AccessLevel;
@@ -17,6 +16,8 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAccessor;
 import java.util.Date;
+
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * @author 二哥很猛
