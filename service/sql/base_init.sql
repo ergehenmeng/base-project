@@ -3856,31 +3856,18 @@ INSERT INTO `pay_bank` VALUES ('250', 'AMERICANEXPRESS', 'AMERICANEXPRESS', '202
 INSERT INTO `pay_bank` VALUES ('251', 'DISCOVER', 'DISCOVER', '2021-07-24 17:51:55', '2021-07-24 17:51:55');
 INSERT INTO `pay_bank` VALUES ('252', 'OTHERS', '其他(银行卡以外)', '2021-07-24 17:51:55', '2021-07-24 17:51:55');
 
-
 update sys_user set pwd = '$2a$10$WIfMgLnfKf7NERTun09ahuD0lHupFO7AZ.n8cgGZBf7zAYOo7y5Ga' where id = 1;
 
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('1', 'system_name', '管理系统名称', '未来之家管理系统', b'0', '左上角系统名称', '2018-01-12 10:01:04', '2023-12-14 11:43:13');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('2', 'enterprise_name', '企业名称', '二哥很猛', b'0', NULL, '2018-02-08 14:38:59', '2018-02-08 14:38:59');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('3', 'enterprise_address', '企业地址', '浙江省杭州市余杭区中泰街道338号', b'0', NULL, '2018-02-08 14:40:01', '2018-02-08 14:40:01');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('4', 'enterprise_phone', '企业电话', '0571-00000000', b'0', NULL, '2018-02-08 14:40:46', '2018-02-08 14:40:46');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('5', 'enterprise_email', '企业邮箱', '664956140@qq.com', b'0', NULL, '2018-02-08 14:41:22', '2018-02-08 14:41:22');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('1', 'system_name', '管理系统名称', 'EGHM', b'0', '左上角系统名称', '2018-01-12 10:01:04', '2024-12-18 14:54:07');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('6', 'ios_latest_version', 'ios最新版本号', '1.2.3', b'0', '最新版本号,格式必须为x.x.x(版本必须已经上传)', '2018-09-28 10:50:03', '2018-09-28 10:50:03');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('7', 'android_latest_version', 'android最新版本', '1.2.3', b'0', '最新版本号,格式必须为x.x.x(版本必须已经上传)', '2018-09-28 10:50:41', '2018-09-28 10:50:41');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('11', 'webapp_domain', '前台系统域名', 'https://webapp.eghm.top', b'0', '前台提供服务的域名', '2018-11-25 21:02:17', '2018-11-25 21:02:17');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('12', 'sys_ip', '前台系统IP', 'http://127.0.0.1:8080', b'0', '前台提供服务的ip', '2018-11-25 21:03:13', '2018-11-25 21:03:13');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('13', 'manage_domain', '管理后台域名', 'https://manage.eghm.top', b'0', '备注', '2018-11-29 16:41:04', '2024-07-25 10:12:23');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('19', 'single_client_login', '是否开启单设备单点登录', 'true', b'0', 'false:不开启 true:开启', '2019-08-13 15:45:39', '2020-07-23 13:55:48');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('20', 'nick_name_prefix', '默认昵称前缀', 'eghm_', b'0', '昵称为空时会自动生成以此为前缀的昵称', '2019-08-19 16:06:04', '2019-08-19 16:06:04');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('21', 'sms_type_interval', '同一类型短信发送间隔', '60', b'0', '单位秒', '2019-08-20 17:18:53', '2019-08-20 17:18:53');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('25', 'notice_limit', '公告显示多少条', '5', b'0', '首页公告轮播条数', '2019-08-22 11:53:19', '2019-08-22 11:53:19');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('27', 'file_server_address', '文件服务器地址', 'http://127.0.0.1:8080', b'0', NULL, '2019-08-28 17:25:14', '2019-11-15 16:44:51');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('27', 'file_server_address', '文件服务器地址', 'http://127.0.0.1:10086', b'0', NULL, '2019-08-28 17:25:14', '2024-12-19 10:53:36');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('32', 'single_max_file_size', '单文件最大上传限制', '5242880', b'0', '单位 byte 默认200M', '2019-11-15 16:44:28', '2020-07-23 14:46:31');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('35', 'signature_verification', '接口签名验证', 'false', b'0', '是否开启接口签名验证 false:关闭 true:开启', '2019-11-21 11:19:29', '2020-07-23 14:07:39');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('36', 'android_max_size', '安卓软件包最大限制', '104857600', b'0', '安卓软件包大小限制 单位byte 最大100M', '2019-11-22 17:05:36', '2019-11-22 17:09:37');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('37', 'analog_sms_code', '模拟短信验证码', '9527', b'0', '短信功能未开启时,所有验证码短信都以此验证码为准', '2019-11-25 11:54:05', '2019-11-25 11:54:44');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('38', 'cache_expire', '非注解缓存默认过期时间', '1800', b'0', '单位:秒 默认失效时间30分钟', '2020-01-15 16:21:47', '2020-12-15 19:07:30');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('39', 'token_expire', '用户登陆过期时间', '604800', b'0', '单位:秒,默认7天过期', '2020-01-15 16:38:47', '2020-12-15 19:07:32');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('41', 'null_expire', '占位符缓存过期时间', '30', b'0', '单位:秒,超过该时间后,缓存过期', '2020-01-15 16:39:33', '2020-12-15 19:07:35');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('43', 'auth_code_expire', '验证码有效期', '600', b'0', '全局涉及验证码有限期默认10分钟', '2020-08-29 14:07:11', '2020-12-15 19:07:01');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('44', 'sign_in_score', '签到积分奖励数', '8', b'0', '表示积分1~7之间随机发放', '2020-09-07 10:02:28', '2020-09-07 10:03:02');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('46', 'room_config_max_day', '房间价格批量设置日期最大间隔', '90', b'0', '默认90天,该值越大保存时会越慢', '2022-06-30 11:13:32', '2022-07-23 15:07:54');
@@ -3889,7 +3876,6 @@ INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('49', 'shopping_car_max', '用户购物车商品数量', '20', b'0', '默认20个,即单个用户最大添加20中商品', '2022-07-23 15:08:30', '2022-07-23 15:09:24');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('50', 'order_expire_time', '订单过期时', '1800', b'0', '默认30分钟过期', '2022-07-28 13:48:34', '2024-03-19 16:25:18');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('51', 'line_config_max_day', '线路价格批量设置最大间隔', '90', b'0', '默认90天,该值越大保存时会越慢', '2022-12-27 13:13:18', '2022-12-27 13:13:52');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('52', 'merchant_pwd', '商户默认密码', 'eghm123456', b'0', NULL, '2022-12-27 14:52:19', '2022-12-27 14:52:19');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('53', 'line_max_day', '线路可预约的最大天数', '60', b'0', '即可以预约从当前时间到之后60日的线路', '2023-01-05 18:23:59', '2023-01-05 18:23:59');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('54', 'scenic_activity_limit', '景区关联的活动查询时最大日期', '7', b'0', '7即从今日开始到未来七天景区关联的活动都会显示在该景区内', '2023-01-09 14:50:59', '2023-01-09 14:50:59');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('55', 'homestay_max_reserve_day', '民宿最低价查询的时间维度', '30', b'0', '30即从今日开始到未来30天内民宿房型的最低价', '2023-01-10 16:23:51', '2023-01-11 10:07:15');
@@ -3916,10 +3902,8 @@ INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('77', 'score_min_recharge', '积分最小充值金额', '1000', b'0', '默认10元(单位:分)', '2024-06-20 17:32:36', '2024-06-20 17:32:36');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('78', 'score_min_withdraw', '积分最小提现金额', '1000', b'0', '默认10元(单位:分)', '2024-06-20 22:26:20', '2024-06-20 22:26:20');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('79', 'merchant_auth_path', '商户授权绑定手机号地址', 'pages/index/index', b'0', '微信扫码跳转到商户绑定手机号页面的地址', '2024-07-31 15:25:26', '2024-07-31 16:20:27');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('80', 'product_sale_ranking', '品类销售排行榜', '5', b'0', '默认取5条', '2024-09-02 16:18:19', '2024-09-02 16:18:24');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('80', 'product_sale_ranking', '各品类销售排行榜', '5', b'0', '默认取5条', '2024-09-02 16:18:19', '2024-09-09 10:48:35');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('81', 'merchant_sale_ranking', '商户销售排行榜', '10', b'0', '默认取10条', '2024-09-09 11:15:10', '2024-09-09 11:17:10');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('18', 'pay_notify_host', '支付或退款回调地址', 'http://127.0.0.1:10086', b'1', 'false:不开启 true:开启', '2019-08-13 15:45:39', '2020-07-23 13:55:48');
-
 
 INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `update_time` , `deleted`) VALUES ('6975', 'yuantong', '圆通速递', '2024-01-10T17:13:45', '2024-01-10T17:13:45' , b'0');
 INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `update_time` , `deleted`) VALUES ('6976', 'shentong', '申通快递', '2024-01-10T17:13:45', '2024-01-10T17:13:45' , b'0');
