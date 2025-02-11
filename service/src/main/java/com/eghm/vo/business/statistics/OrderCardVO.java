@@ -31,18 +31,18 @@ public class OrderCardVO {
     private Integer refundAmount;
 
     public void setOrderNum(Integer orderNum) {
-        this.orderNum = orderNum + RandomUtil.randomInt(1000);
+        this.orderNum = (orderNum != null ? orderNum : 0) + RandomUtil.randomInt(1000);
     }
 
     public void setPayAmount(Integer payAmount) {
-        this.payAmount = payAmount + RandomUtil.randomInt(1000000);
+        this.payAmount = (payAmount != null ? payAmount : 0) + RandomUtil.randomInt(1000000);
     }
 
     public void setRefundNum(Integer refundNum) {
-        this.refundNum = refundNum + RandomUtil.randomInt(1000);
+        this.refundNum = (refundNum != null ? refundNum : 0) + RandomUtil.randomInt(1000);
     }
 
     public void setRefundAmount(Integer refundAmount) {
-        this.refundAmount = refundAmount + RandomUtil.randomInt(1000000);
+        this.refundAmount = (refundAmount != null ? refundAmount : 0) + RandomUtil.randomInt(1000000);
     }
 }

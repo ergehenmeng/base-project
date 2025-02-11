@@ -30,7 +30,7 @@ public class ProductStatisticsVO {
     private Integer appendNum;
 
     public void setAppendNum(Integer appendNum) {
-        this.appendNum = appendNum + RandomUtil.randomInt(300);
+        this.appendNum = (appendNum != null ? appendNum : 100) + RandomUtil.randomInt(300);
     }
 
     public ProductStatisticsVO(LocalDate createDate) {
