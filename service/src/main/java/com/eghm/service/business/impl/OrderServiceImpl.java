@@ -23,7 +23,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.mapper.MerchantMapper;
 import com.eghm.mapper.OrderMapper;
-import com.eghm.mapper.TicketOrderSnapshotMapper;
+import com.eghm.mapper.TicketOrderCombineMapper;
 import com.eghm.model.*;
 import com.eghm.mq.service.MessageService;
 import com.eghm.pay.AggregatePayService;
@@ -120,18 +120,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     private final OfflineRefundLogService offlineRefundLogService;
 
-    private final TicketOrderSnapshotMapper ticketOrderSnapshotMapper;
+    private final TicketOrderCombineMapper ticketOrderCombineMapper;
 
     private static final int PRODUCT_TITLE_LENGTH = 50;
 
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType, String clientIp) {
         this.checkPayChannel(ApiHolder.getChannel(), tradeType);
-
         List<String> orderNoList = split(orderNo, ',');
         ProductType productType = ProductType.prefix(orderNoList.get(0));
         String tradeNo = productType.generateTradeNo();
-
         List<Order> orderList = this.getUnPay(orderNoList);
         StringBuilder builder = new StringBuilder();
         int totalAmount = 0;
@@ -143,7 +141,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             totalAmount += order.getPayAmount();
             baseMapper.updateById(order);
         }
-
         PrepayDTO dto = new PrepayDTO();
         dto.setAttach(orderNo);
         dto.setDescription(this.getGoodsTitle(builder));
@@ -285,16 +282,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public void offlineRefund(OfflineRefundRequest request) {
         Order order = this.getRefuningOrder(request.getOrderNo());
-
         boolean refundSuccess = orderRefundLogService.hasRefundSuccess(order.getOrderNo(), request.getVisitorList());
-
         if (refundSuccess) {
             log.warn("待线下退款的游客列表中, 存在退款中的游客 [{}] {}", request.getOrderNo(), request.getVisitorList());
             throw new BusinessException(ErrorCode.MEMBER_HAS_REFUNDING);
         }
-
         this.checkHasRefund(request.getVisitorList(), request.getOrderNo());
-
         offlineRefundLogService.insertLog(request);
         orderVisitorService.updateRefund(request.getVisitorList(), request.getOrderNo());
         // 计算主订单状态
@@ -320,7 +313,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         List<VisitorVO> voList = DataUtil.copy(visitorList, VisitorVO.class);
         vo.setVisitorList(voList);
         if (order.getProductType() == ProductType.TICKET) {
-            List<CombineTicketVO> mapperList = ticketOrderSnapshotMapper.getList(order.getOrderNo());
+            List<CombineTicketVO> mapperList = ticketOrderCombineMapper.getList(order.getOrderNo());
             vo.setCombineTicket(mapperList);
         }
         return vo;
@@ -407,7 +400,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             throw new BusinessException(ErrorCode.EXPRESS_SELECT_NULL);
         }
         Order order = this.getByOrderNo(express.getOrderNo());
-
         ExpressDetailVO vo = new ExpressDetailVO();
         vo.setExpressNo(express.getExpressNo());
         vo.setExpressName(ExpressType.of(express.getExpressCode()).getName());
@@ -682,7 +674,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             log.error("订单可能已被删除 {}", orderNoList);
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
         }
-
         if (orderList.size() != orderNoList.size()) {
             log.error("存在部分订单不是待支付 [{}]", orderNoList);
             throw new BusinessException(ErrorCode.ORDER_PAID);

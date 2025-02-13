@@ -76,7 +76,6 @@ public class VerifyController {
         if (accessHandler == null) {
             throw new BusinessException(VERIFY_TYPE_ERROR);
         }
-
         OrderVerifyContext context = new OrderVerifyContext();
         context.setOrderNo(dto.getOrderNo());
         context.setUserId(SecurityHolder.getUserId());

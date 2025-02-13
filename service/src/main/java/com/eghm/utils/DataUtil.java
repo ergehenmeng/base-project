@@ -96,6 +96,15 @@ public class DataUtil {
         return copy(sourceList, s -> DataUtil.copy(s, cls, ignoreProperties));
     }
 
+    /**
+     * 对象复制
+     *
+     * @param source 原对象
+     * @param cls 新对象类型
+     * @param ignoreProperties 忽略属性
+     * @param <T> T
+     * @return T
+     */
     public static <T> T copy(Object source, Class<T> cls, String... ignoreProperties) {
         if (source == null) {
             return null;
@@ -114,6 +123,15 @@ public class DataUtil {
         }
     }
 
+    /**
+     * 对象复制
+     *
+     * @param source 原对象
+     * @param cls 新对象类型
+     * @param consumer  拷贝的后置处理
+     * @param ignoreProperties 忽略属性
+     * @param <T> T
+     */
     public static <T> void copy(Object source, Class<T> cls, Consumer<T> consumer, String... ignoreProperties) {
         T copy = copy(source, cls, ignoreProperties);
         if (copy != null) {

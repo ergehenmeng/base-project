@@ -8,7 +8,7 @@ package com.eghm.service.business;
  * @author 二哥很猛
  * @since 2024-10-23
  */
-public interface TicketOrderSnapshotService {
+public interface TicketOrderCombineService {
 
     /**
      * 插入组合门票订单

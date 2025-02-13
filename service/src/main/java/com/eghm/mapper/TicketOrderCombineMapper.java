@@ -1,6 +1,6 @@
 package com.eghm.mapper;
 
-import com.eghm.model.TicketOrderSnapshot;
+import com.eghm.model.TicketOrderCombine;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.vo.business.scenic.ticket.CombineTicketVO;
 import org.apache.ibatis.annotations.Param;
@@ -15,7 +15,7 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2024-10-23
  */
-public interface TicketOrderSnapshotMapper extends BaseMapper<TicketOrderSnapshot> {
+public interface TicketOrderCombineMapper extends BaseMapper<TicketOrderCombine> {
 
     /**
      * 获取组合票订单信息

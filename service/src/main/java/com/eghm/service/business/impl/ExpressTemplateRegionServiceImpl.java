@@ -185,6 +185,14 @@ public class ExpressTemplateRegionServiceImpl implements ExpressTemplateRegionSe
         return region.getFirstPrice() + nextNum * region.getNextUnitPrice();
     }
 
+    /**
+     * 匹配快递区域
+     *
+     * @param countyId 配送区域
+     * @param regionList 支持配送区域
+     * @param itemId 景区ID
+     * @return 快递区域
+     */
     private ExpressTemplateRegion matchRegion(Long countyId, List<ExpressTemplateRegion> regionList, Long itemId) {
         return regionList.stream().filter(expressTemplateRegion -> expressTemplateRegion.getRegionCode().contains(String.valueOf(countyId))).findFirst()
                 .orElseThrow(() -> {

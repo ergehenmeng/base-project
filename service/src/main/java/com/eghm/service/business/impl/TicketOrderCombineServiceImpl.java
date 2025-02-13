@@ -1,10 +1,10 @@
 package com.eghm.service.business.impl;
 
 import com.eghm.mapper.ScenicTicketMapper;
-import com.eghm.mapper.TicketOrderSnapshotMapper;
+import com.eghm.mapper.TicketOrderCombineMapper;
 import com.eghm.model.ScenicTicket;
-import com.eghm.model.TicketOrderSnapshot;
-import com.eghm.service.business.TicketOrderSnapshotService;
+import com.eghm.model.TicketOrderCombine;
+import com.eghm.service.business.TicketOrderCombineService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,20 +21,20 @@ import java.util.List;
  */
 @Service
 @AllArgsConstructor
-public class TicketOrderSnapshotServiceImpl implements TicketOrderSnapshotService {
+public class TicketOrderCombineServiceImpl implements TicketOrderCombineService {
 
     private final ScenicTicketMapper scenicTicketMapper;
 
-    private final TicketOrderSnapshotMapper ticketOrderSnapshotMapper;
+    private final TicketOrderCombineMapper ticketOrderCombineMapper;
 
     @Override
     public void insert(String orderNo, Long ticketId) {
         List<ScenicTicket> ticketList = scenicTicketMapper.getCombineList(ticketId);
         ticketList.forEach(ticket -> {
-            TicketOrderSnapshot snapshot = DataUtil.copy(ticket, TicketOrderSnapshot.class, "id");
+            TicketOrderCombine snapshot = DataUtil.copy(ticket, TicketOrderCombine.class, "id");
             snapshot.setOrderNo(orderNo);
             snapshot.setTicketId(ticket.getId());
-            ticketOrderSnapshotMapper.insert(snapshot);
+            ticketOrderCombineMapper.insert(snapshot);
         });
     }
 }

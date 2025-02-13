@@ -46,16 +46,16 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
 
     private final OrderService orderService;
 
-    private final TicketOrderSnapshotService ticketOrderSnapshotService;
+    private final TicketOrderCombineService ticketOrderCombineService;
 
     public TicketOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMqService orderMqService, ScenicTicketService scenicTicketService,
-                                    ScenicService scenicService, TicketOrderService ticketOrderService, RedeemCodeGrantService redeemCodeGrantService, TicketOrderSnapshotService ticketOrderSnapshotService) {
+                                    ScenicService scenicService, TicketOrderService ticketOrderService, RedeemCodeGrantService redeemCodeGrantService, TicketOrderCombineService ticketOrderCombineService) {
         super(orderMqService, memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.scenicService = scenicService;
         this.scenicTicketService = scenicTicketService;
         this.ticketOrderService = ticketOrderService;
         this.orderService = orderService;
-        this.ticketOrderSnapshotService = ticketOrderSnapshotService;
+        this.ticketOrderCombineService = ticketOrderCombineService;
     }
 
     @Override
@@ -147,7 +147,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         ticketOrder.setScenicName(payload.getScenic().getScenicName());
         ticketOrderService.insert(ticketOrder);
         if (payload.getTicket().getCategory() == TicketType.COMBINE) {
-            ticketOrderSnapshotService.insert(order.getOrderNo(), payload.getTicket().getId());
+            ticketOrderCombineService.insert(order.getOrderNo(), payload.getTicket().getId());
         }
         context.setOrderNo(order.getOrderNo());
     }

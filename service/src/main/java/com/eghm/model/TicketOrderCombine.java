@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("ticket_order_snapshot")
-public class TicketOrderSnapshot extends BaseEntity {
+@TableName("ticket_order_combine")
+public class TicketOrderCombine extends BaseEntity {
 
     @Schema(description = "门票所属景区id")
     private Long scenicId;

@@ -65,7 +65,11 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
     }
 
     /**
-     * 1.
+     * 1. 零售支付成功回调 更新销售量
+     * 2. 如果使用积分使用积分,更新积分记录
+     * 3. 更新订单状态
+     * 4. 增加冻结记录
+     * 5. 排行榜统计
      *
      * @param context   支付成功或失败上下文
      * @param orderList 订单列表

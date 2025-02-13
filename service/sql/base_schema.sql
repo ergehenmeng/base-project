@@ -2468,6 +2468,7 @@ CREATE TABLE `pay_config`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='支付配置表';
 
+DROP TABLE IF EXISTS `voucher_tag`;
 CREATE TABLE `voucher_tag`
 (
     `id`            bigint(20) NOT NULL COMMENT '主键',
@@ -2484,7 +2485,8 @@ CREATE TABLE `voucher_tag`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='餐饮券分类标签';
 
-CREATE TABLE `ticket_order_snapshot`
+DROP TABLE IF EXISTS `ticket_order_combine`;
+CREATE TABLE `ticket_order_combine`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
     `title`       varchar(50) DEFAULT NULL COMMENT '门票名称',
@@ -2504,6 +2506,7 @@ CREATE TABLE `ticket_order_snapshot`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='组合票订单表';
 
+DROP TABLE IF EXISTS `ticket_combine`;
 CREATE TABLE `ticket_combine`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',

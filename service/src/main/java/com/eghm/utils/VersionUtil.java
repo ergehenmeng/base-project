@@ -32,13 +32,6 @@ public class VersionUtil {
         return parseInt(source) >= parseInt(target);
     }
 
-    private static String replace(String str) {
-        for (String replace : REPLACE_CHAR) {
-            str = str.replace(replace, "");
-        }
-        return str;
-    }
-
     /**
      * 将版本号转换为数字,以2位的版本号补零计算得到
      *
@@ -58,4 +51,11 @@ public class VersionUtil {
         return Integer.parseInt(builder.toString());
     }
 
+
+    private static String replace(String str) {
+        for (String replace : REPLACE_CHAR) {
+            str = str.replace(replace, "");
+        }
+        return str;
+    }
 }
