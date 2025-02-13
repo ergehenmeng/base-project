@@ -15,16 +15,18 @@ import com.eghm.service.business.ScenicTicketService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
+import com.eghm.vo.business.scenic.ticket.TicketBaseResponse;
 import com.eghm.vo.business.scenic.ticket.TicketDetailResponse;
 import com.eghm.vo.business.scenic.ticket.TicketResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -67,6 +69,14 @@ public class ScenicTicketController {
     public RespBody<Void> update(@RequestBody @Validated ScenicTicketEditRequest request) {
         scenicTicketService.update(request);
         return RespBody.success();
+    }
+
+    @GetMapping("/list")
+    @Operation(summary = "列表(不含组合票)")
+    @Parameter(name = "scenicId", description = "请求参数", required = true)
+    public RespBody<List<TicketBaseResponse>> list(@RequestParam("scenicId") Long scenicId) {
+        List<TicketBaseResponse> responseList = scenicTicketService.getList(SecurityHolder.getMerchantId(), scenicId);
+        return RespBody.success(responseList);
     }
 
     @GetMapping("/select")

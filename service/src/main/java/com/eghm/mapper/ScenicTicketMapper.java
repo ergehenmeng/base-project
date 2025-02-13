@@ -6,6 +6,7 @@ import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.model.ScenicTicket;
 import com.eghm.vo.business.base.BaseProductResponse;
+import com.eghm.vo.business.scenic.ticket.TicketBaseResponse;
 import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import com.eghm.vo.business.scenic.ticket.TicketPriceVO;
 import com.eghm.vo.business.scenic.ticket.TicketResponse;
@@ -90,4 +91,13 @@ public interface ScenicTicketMapper extends BaseMapper<ScenicTicket> {
      * @return 关联的组合票列表
      */
     List<ScenicTicket> getCombineList(@Param("ticketId") Long ticketId);
+
+    /**
+     * 获取景区门票列表(不含组合票)
+     *
+     * @param merchantId 商户ID
+     * @param scenicId 景区ID
+     * @return 列表
+     */
+    List<TicketBaseResponse> getList(@Param("merchantId") Long merchantId, @Param("scenicId") Long scenicId);
 }

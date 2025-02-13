@@ -29,6 +29,7 @@ import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
 import com.eghm.vo.business.scenic.ticket.CombineTicketVO;
+import com.eghm.vo.business.scenic.ticket.TicketBaseResponse;
 import com.eghm.vo.business.scenic.ticket.TicketResponse;
 import com.eghm.vo.business.scenic.ticket.TicketVO;
 import lombok.AllArgsConstructor;
@@ -92,12 +93,17 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         commonService.checkIllegal(scenicTicket.getMerchantId());
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
         // 总销量要根据真实销量计算
-        ticket.setTotalNum(request.getVirtualNum() + scenicTicket.getSaleNum());
+        ticket.setTotalNum((request.getVirtualNum() != null ? request.getVirtualNum() : 0) + scenicTicket.getSaleNum());
         scenicTicketMapper.updateById(ticket);
         scenicService.updatePrice(request.getScenicId());
         if (ticket.getCategory() == TicketType.COMBINE) {
             ticketCombineService.insert(ticket.getId(), request.getTicketIds());
         }
+    }
+
+    @Override
+    public List<TicketBaseResponse> getList(Long merchantId, Long scenicId) {
+        return scenicTicketMapper.getList(merchantId, scenicId);
     }
 
     @Override
