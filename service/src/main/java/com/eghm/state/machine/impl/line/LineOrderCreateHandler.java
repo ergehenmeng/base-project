@@ -37,19 +37,19 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     private final LineService lineService;
 
-    private final TravelAgencyService travelAgencyService;
-
-    private final LineConfigService lineConfigService;
-
-    private final LineDayConfigService lineDayConfigService;
+    private final OrderService orderService;
 
     private final LineOrderService lineOrderService;
 
-    private final LineOrderSnapshotService lineOrderSnapshotService;
+    private final LineConfigService lineConfigService;
 
-    private final OrderService orderService;
+    private final TravelAgencyService travelAgencyService;
+
+    private final LineDayConfigService lineDayConfigService;
 
     private final RedeemCodeGrantService redeemCodeGrantService;
+
+    private final LineOrderSnapshotService lineOrderSnapshotService;
 
     public LineOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMqService orderMqService, LineService lineService, TravelAgencyService travelAgencyService, LineConfigService lineConfigService, LineDayConfigService lineDayConfigService, LineOrderService lineOrderService, LineOrderSnapshotService lineOrderSnapshotService, RedeemCodeGrantService redeemCodeGrantService) {
         super(orderMqService, memberCouponService, orderVisitorService, redeemCodeGrantService);

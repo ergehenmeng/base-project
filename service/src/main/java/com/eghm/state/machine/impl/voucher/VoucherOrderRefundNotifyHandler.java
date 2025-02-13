@@ -24,16 +24,16 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class VoucherOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandler {
 
+    private final OrderMqService orderMqService;
+
     private final VoucherService voucherService;
 
     private final VoucherOrderService voucherOrderService;
 
-    private final OrderMqService orderMqService;
-
     public VoucherOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                            VerifyLogService verifyLogService, VoucherService voucherService, VoucherOrderService voucherOrderService,
                                            OrderMqService orderMqService, AccountService accountService) {
-        super(orderService, accountService, orderRefundLogService, verifyLogService);
+        super(orderService, accountService, verifyLogService, orderRefundLogService);
         this.voucherService = voucherService;
         this.voucherOrderService = voucherOrderService;
         this.orderMqService = orderMqService;

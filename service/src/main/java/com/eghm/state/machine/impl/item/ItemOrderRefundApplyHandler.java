@@ -41,23 +41,23 @@ import static com.eghm.enums.OrderState.PARTIAL_DELIVERY;
 @Slf4j
 public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler<ItemRefundApplyContext> {
 
-    private final ItemOrderService itemOrderService;
-
     private final OrderService orderService;
+
+    private final SysConfigApi sysConfigApi;
+
+    private final OrderMqService orderMqService;
+
+    private final MessageService messageService;
+
+    private final ItemOrderService itemOrderService;
 
     private final OrderRefundLogService orderRefundLogService;
 
     private final ItemGroupOrderService itemGroupOrderService;
 
-    private final OrderMqService orderMqService;
-
-    private final SysConfigApi sysConfigApi;
-
-    private final MessageService messageService;
-
     public ItemOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService,
                                        ItemGroupOrderService itemGroupOrderService, OrderMqService orderMqService, SysConfigApi sysConfigApi, MessageService messageService) {
-        super(orderService, orderRefundLogService, orderVisitorService);
+        super(orderService, orderVisitorService, orderRefundLogService);
         this.itemOrderService = itemOrderService;
         this.orderService = orderService;
         this.orderRefundLogService = orderRefundLogService;

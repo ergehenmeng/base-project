@@ -33,19 +33,19 @@ import java.util.List;
 @Slf4j
 public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<HomestayOrderCreateContext, HomestayOrderPayload> {
 
-    private final HomestayOrderService homestayOrderService;
+    private final OrderService orderService;
+
+    private final HomestayService homestayService;
 
     private final HomestayRoomService homestayRoomService;
 
-    private final HomestayService homestayService;
+    private final HomestayOrderService homestayOrderService;
+
+    private final RedeemCodeGrantService redeemCodeGrantService;
 
     private final HomestayRoomConfigService homestayRoomConfigService;
 
     private final HomestayOrderSnapshotService homestayOrderSnapshotService;
-
-    private final OrderService orderService;
-
-    private final RedeemCodeGrantService redeemCodeGrantService;
 
     public HomestayOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMqService orderMqService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService,
                                       HomestayService homestayService, HomestayRoomConfigService homestayRoomConfigService, HomestayOrderSnapshotService homestayOrderSnapshotService, RedeemCodeGrantService redeemCodeGrantService) {

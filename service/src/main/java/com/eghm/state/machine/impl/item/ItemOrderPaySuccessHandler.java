@@ -33,21 +33,21 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
 
     private final ItemService itemService;
 
-    private final ScoreAccountService scoreAccountService;
+    private final AlarmService alarmService;
 
     private final OrderService orderService;
 
-    private final ItemGroupOrderService itemGroupOrderService;
-
-    private final GroupBookingService groupBookingService;
-
-    private final AlarmService alarmService;
-
     private final AccountService accountService;
+
+    private final MessageService messageService;
 
     private final ItemOrderService itemOrderService;
 
-    private final MessageService messageService;
+    private final GroupBookingService groupBookingService;
+
+    private final ScoreAccountService scoreAccountService;
+
+    private final ItemGroupOrderService itemGroupOrderService;
 
     public ItemOrderPaySuccessHandler(ScoreAccountService scoreAccountService, OrderService orderService, ItemService itemService, ItemGroupOrderService itemGroupOrderService,
                                       GroupBookingService groupBookingService, AlarmService alarmService, AccountService accountService, ItemOrderService itemOrderService,

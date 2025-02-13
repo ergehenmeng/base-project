@@ -36,13 +36,13 @@ import java.time.LocalDateTime;
 @Slf4j
 public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<VoucherOrderCreateContext, VoucherOrderPayload> {
 
+    private final OrderService orderService;
+
     private final VoucherService voucherService;
 
     private final RestaurantService restaurantService;
 
     private final VoucherOrderService voucherOrderService;
-
-    private final OrderService orderService;
 
     private final RedeemCodeGrantService redeemCodeGrantService;
 

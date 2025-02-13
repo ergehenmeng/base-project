@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 public class LineOrderRefundPassHandler extends AbstractOrderRefundAuditHandler {
 
     public LineOrderRefundPassHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService) {
-        super(orderService, orderRefundLogService, orderVisitorService);
+        super(orderService, orderVisitorService, orderRefundLogService);
     }
 
     @Override

@@ -38,13 +38,13 @@ import java.time.LocalDateTime;
 @Slf4j
 public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketOrderCreateContext, TicketOrderPayload> {
 
-    private final ScenicTicketService scenicTicketService;
+    private final OrderService orderService;
 
     private final ScenicService scenicService;
 
     private final TicketOrderService ticketOrderService;
 
-    private final OrderService orderService;
+    private final ScenicTicketService scenicTicketService;
 
     private final TicketOrderCombineService ticketOrderCombineService;
 

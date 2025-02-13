@@ -24,16 +24,16 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class TicketOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandler {
 
+    private final OrderMqService orderMqService;
+
     private final ScenicTicketService scenicTicketService;
 
     private final OrderVisitorService orderVisitorService;
 
-    private final OrderMqService orderMqService;
-
     public TicketOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                           VerifyLogService verifyLogService, ScenicTicketService scenicTicketService, OrderVisitorService orderVisitorService,
                                           OrderMqService orderMqService, AccountService accountService) {
-        super(orderService, accountService, orderRefundLogService, verifyLogService);
+        super(orderService, accountService, verifyLogService, orderRefundLogService);
         this.scenicTicketService = scenicTicketService;
         this.orderVisitorService = orderVisitorService;
         this.orderMqService = orderMqService;

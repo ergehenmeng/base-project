@@ -26,7 +26,7 @@ public class VoucherOrderRefundApplyHandler extends AbstractOrderRefundApplyHand
 
     public VoucherOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService,
                                           VoucherOrderService voucherOrderService) {
-        super(orderService, orderRefundLogService, orderVisitorService);
+        super(orderService, orderVisitorService, orderRefundLogService);
         this.voucherOrderService = voucherOrderService;
     }
 

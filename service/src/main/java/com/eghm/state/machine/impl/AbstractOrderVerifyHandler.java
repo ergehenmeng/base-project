@@ -29,15 +29,15 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public abstract class AbstractOrderVerifyHandler implements ActionHandler<OrderVerifyContext> {
 
-    private final OrderVisitorService orderVisitorService;
+    private final JsonService jsonService;
 
     private final OrderService orderService;
 
+    private final CommonService commonService;
+
     private final VerifyLogService verifyLogService;
 
-    private final JsonService jsonService;
-
-    private final CommonService commonService;
+    private final OrderVisitorService orderVisitorService;
 
     @Override
     public void doAction(OrderVerifyContext context) {

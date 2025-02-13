@@ -33,9 +33,9 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
 
     private final AccountService accountService;
 
-    private final OrderRefundLogService orderRefundLogService;
-
     private final VerifyLogService verifyLogService;
+
+    private final OrderRefundLogService orderRefundLogService;
 
     @Override
     public void doAction(RefundNotifyContext context) {

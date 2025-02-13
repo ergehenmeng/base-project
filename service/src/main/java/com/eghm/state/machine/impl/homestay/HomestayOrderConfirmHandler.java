@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 public class HomestayOrderConfirmHandler extends AbstractOrderRefundApplyHandler<RefundApplyContext> {
 
     public HomestayOrderConfirmHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService) {
-        super(orderService, orderRefundLogService, orderVisitorService);
+        super(orderService, orderVisitorService, orderRefundLogService);
     }
 
     @Override

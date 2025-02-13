@@ -25,7 +25,7 @@ public class ItemOrderRefundRefuseHandler extends AbstractOrderRefundAuditHandle
     private final ItemOrderService itemOrderService;
 
     public ItemOrderRefundRefuseHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService) {
-        super(orderService, orderRefundLogService, orderVisitorService);
+        super(orderService, orderVisitorService, orderRefundLogService);
         this.itemOrderService = itemOrderService;
     }
 

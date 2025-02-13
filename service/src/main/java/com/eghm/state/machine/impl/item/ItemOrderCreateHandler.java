@@ -50,9 +50,15 @@ import static com.eghm.utils.StringUtil.isNotBlank;
 @Service("itemOrderCreateHandler")
 public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateContext> {
 
-    private final ItemOrderService itemOrderService;
-
     private final ItemService itemService;
+
+    private final JsonService jsonService;
+
+    private final OrderService orderService;
+
+    private final MemberService memberService;
+
+    private final OrderMqService orderMQService;
 
     private final ItemSkuService itemSkuService;
 
@@ -60,23 +66,17 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
 
     private final ItemStoreService itemStoreService;
 
-    private final OrderService orderService;
+    private final ItemOrderService itemOrderService;
 
-    private final JsonService jsonService;
+    private final GroupBookingService groupBookingService;
 
-    private final OrderMqService orderMQService;
+    private final MemberCouponService memberCouponService;
 
     private final MemberAddressService memberAddressService;
 
     private final ItemGroupOrderService itemGroupOrderService;
 
-    private final GroupBookingService groupBookingService;
-
     private final LimitPurchaseItemService limitPurchaseItemService;
-
-    private final MemberService memberService;
-
-    private final MemberCouponService memberCouponService;
 
     private static final int MAX_PRODUCT_LENGTH = 100;
 

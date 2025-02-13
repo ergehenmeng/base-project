@@ -33,7 +33,7 @@ public class TicketOrderRefundApplyHandler extends AbstractOrderRefundApplyHandl
 
     public TicketOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService,
                                          TicketOrderService ticketOrderService) {
-        super(orderService, orderRefundLogService, orderVisitorService);
+        super(orderService, orderVisitorService, orderRefundLogService);
         this.ticketOrderService = ticketOrderService;
         this.orderVisitorService = orderVisitorService;
     }

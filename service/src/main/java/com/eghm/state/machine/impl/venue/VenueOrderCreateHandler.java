@@ -38,6 +38,10 @@ import java.util.stream.Collectors;
 @Slf4j
 public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrderCreateContext, VenueOrderPayload> {
 
+    private final JsonService jsonService;
+
+    private final OrderService orderService;
+
     private final VenueService venueService;
 
     private final VenueSiteService venueSiteService;
@@ -45,10 +49,6 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
     private final VenueOrderService venueOrderService;
 
     private final VenueSitePriceService venueSitePriceService;
-
-    private final JsonService jsonService;
-
-    private final OrderService orderService;
 
     private final RedeemCodeGrantService redeemCodeGrantService;
 

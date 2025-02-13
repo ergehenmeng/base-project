@@ -20,9 +20,9 @@ import org.springframework.stereotype.Service;
 @Service("lineOrderCancelHandler")
 public class LineOrderCancelHandler extends AbstractOrderCancelHandler {
 
-    private final LineConfigService lineConfigService;
-
     private final LineOrderService lineOrderService;
+
+    private final LineConfigService lineConfigService;
 
     public LineOrderCancelHandler(OrderService orderService, MemberCouponService memberCouponService,
                                   LineConfigService lineConfigService, LineOrderService lineOrderService, AggregatePayService aggregatePayService) {

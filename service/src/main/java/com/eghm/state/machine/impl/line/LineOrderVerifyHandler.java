@@ -3,9 +3,9 @@ package com.eghm.state.machine.impl.line;
 import com.eghm.common.JsonService;
 import com.eghm.common.OrderMqService;
 import com.eghm.enums.ExchangeQueue;
+import com.eghm.enums.ProductType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.LineEvent;
-import com.eghm.enums.ProductType;
 import com.eghm.model.Order;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.OrderService;
@@ -26,7 +26,7 @@ public class LineOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     public LineOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService,
                                   JsonService jsonService, OrderMqService orderMqService, CommonService commonService) {
-        super(orderVisitorService, orderService, verifyLogService, jsonService, commonService);
+        super(jsonService, orderService, commonService, verifyLogService, orderVisitorService);
         this.orderMqService = orderMqService;
     }
 

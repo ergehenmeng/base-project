@@ -25,7 +25,7 @@ public class ItemOrderRefundPassHandler extends AbstractOrderRefundAuditHandler 
     private final ItemGroupOrderService itemGroupOrderService;
 
     public ItemOrderRefundPassHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemGroupOrderService itemGroupOrderService) {
-        super(orderService, orderRefundLogService, orderVisitorService);
+        super(orderService, orderVisitorService, orderRefundLogService);
         this.itemGroupOrderService = itemGroupOrderService;
     }
 

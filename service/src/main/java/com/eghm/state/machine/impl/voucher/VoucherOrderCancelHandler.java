@@ -22,9 +22,9 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class VoucherOrderCancelHandler extends AbstractOrderCancelHandler {
 
-    private final VoucherOrderService voucherOrderService;
-
     private final VoucherService voucherService;
+
+    private final VoucherOrderService voucherOrderService;
 
     public VoucherOrderCancelHandler(OrderService orderService, MemberCouponService memberCouponService, VoucherOrderService voucherOrderService, VoucherService voucherService, AggregatePayService aggregatePayService) {
         super(orderService, memberCouponService, aggregatePayService);
