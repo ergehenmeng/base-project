@@ -28,10 +28,7 @@ import com.eghm.utils.DateUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
-import com.eghm.vo.business.scenic.ticket.CombineTicketVO;
-import com.eghm.vo.business.scenic.ticket.TicketBaseResponse;
-import com.eghm.vo.business.scenic.ticket.TicketResponse;
-import com.eghm.vo.business.scenic.ticket.TicketVO;
+import com.eghm.vo.business.scenic.ticket.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -102,8 +99,8 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     }
 
     @Override
-    public List<TicketBaseResponse> getList(Long merchantId, Long scenicId) {
-        return scenicTicketMapper.getList(merchantId, scenicId);
+    public List<TicketBaseResponse> getList(Long merchantId, Long scenicId, Long id) {
+        return scenicTicketMapper.getList(merchantId, scenicId, id);
     }
 
     @Override
@@ -114,6 +111,17 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
             throw new BusinessException(ErrorCode.TICKET_DOWN);
         }
         return ticket;
+    }
+
+    @Override
+    public TicketDetailResponse detail(Long id) {
+        ScenicTicket scenicTicket = this.selectByIdRequired(id);
+        TicketDetailResponse response = DataUtil.copy(scenicTicket, TicketDetailResponse.class);
+        response.setVirtualNum(scenicTicket.getTotalNum() - scenicTicket.getSaleNum());
+        if (scenicTicket.getCategory() == TicketType.COMBINE) {
+            response.setTicketIds(ticketCombineService.getCombineTicketIds(id));
+        }
+        return response;
     }
 
     @Override

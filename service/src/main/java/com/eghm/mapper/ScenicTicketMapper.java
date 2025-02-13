@@ -97,7 +97,8 @@ public interface ScenicTicketMapper extends BaseMapper<ScenicTicket> {
      *
      * @param merchantId 商户ID
      * @param scenicId 景区ID
+     * @param id  门票ID
      * @return 列表
      */
-    List<TicketBaseResponse> getList(@Param("merchantId") Long merchantId, @Param("scenicId") Long scenicId);
+    List<TicketBaseResponse> getList(@Param("merchantId") Long merchantId, @Param("scenicId") Long scenicId, @Param("id") Long id);
 }

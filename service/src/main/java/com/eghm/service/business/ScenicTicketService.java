@@ -10,6 +10,7 @@ import com.eghm.enums.State;
 import com.eghm.model.ScenicTicket;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.scenic.ticket.TicketBaseResponse;
+import com.eghm.vo.business.scenic.ticket.TicketDetailResponse;
 import com.eghm.vo.business.scenic.ticket.TicketResponse;
 import com.eghm.vo.business.scenic.ticket.TicketVO;
 
@@ -55,9 +56,10 @@ public interface ScenicTicketService {
      *
      * @param merchantId 商户ID
      * @param scenicId 景区ID
+     * @param id    门票ID
      * @return 门票信息
      */
-    List<TicketBaseResponse> getList(Long merchantId, Long scenicId);
+    List<TicketBaseResponse> getList(Long merchantId, Long scenicId, Long id);
 
     /**
      * 查询门票
@@ -66,6 +68,14 @@ public interface ScenicTicketService {
      * @return 景区门票信息 为空时则会报错
      */
     ScenicTicket selectByIdRequired(Long id);
+
+    /**
+     * 查询门票详细信息 (管理后台)
+     *
+     * @param id id
+     * @return 详情
+     */
+    TicketDetailResponse detail(Long id);
 
     /**
      * 查询上架的门票

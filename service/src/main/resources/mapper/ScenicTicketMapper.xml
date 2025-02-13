@@ -109,7 +109,7 @@
             t.id,
             t.title,
             t.category
-        from scenic_ticket t where t.deleted = false and t.merchant_id = #{merchantId} and t.scenic_id = #{scenicId} and t.category &lt;&gt; 7
+        from scenic_ticket t where t.deleted = false and t.merchant_id = #{merchantId} and t.scenic_id = #{scenicId} and t.category &lt;&gt; 7 and t.id &lt;&gt; #{id}
         order by t.id desc
     </select>
 

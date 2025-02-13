@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
 public class TicketCombine implements Serializable {
 
     @Schema(description = "主键")
-    @TableId(value = "id", type = IdType.INPUT)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     @Schema(description = "组合票ID")

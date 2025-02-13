@@ -29,4 +29,9 @@ public class TicketCombineServiceImpl implements TicketCombineService {
         combineTicketIds.forEach(combineTicketId -> ticketCombineMapper.insert(new TicketCombine(ticketId, combineTicketId)));
     }
 
+    @Override
+    public List<Long> getCombineTicketIds(Long ticketId) {
+        return ticketCombineMapper.getCombineTicketIds(ticketId);
+    }
+
 }

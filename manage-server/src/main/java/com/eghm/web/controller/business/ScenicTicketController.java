@@ -10,9 +10,7 @@ import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.State;
-import com.eghm.model.ScenicTicket;
 import com.eghm.service.business.ScenicTicketService;
-import com.eghm.utils.DataUtil;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.scenic.ticket.TicketBaseResponse;
@@ -73,19 +71,18 @@ public class ScenicTicketController {
 
     @GetMapping("/list")
     @Operation(summary = "列表(不含组合票)")
-    @Parameter(name = "scenicId", description = "请求参数", required = true)
-    public RespBody<List<TicketBaseResponse>> list(@RequestParam("scenicId") Long scenicId) {
-        List<TicketBaseResponse> responseList = scenicTicketService.getList(SecurityHolder.getMerchantId(), scenicId);
+    @Parameter(name = "scenicId", description = "所属景区ID", required = true)
+    @Parameter(name = "id", description = "门票ID", required = true)
+    public RespBody<List<TicketBaseResponse>> list(@RequestParam("id") Long id, @RequestParam("scenicId") Long scenicId) {
+        List<TicketBaseResponse> responseList = scenicTicketService.getList(SecurityHolder.getMerchantId(), scenicId, id);
         return RespBody.success(responseList);
     }
 
     @GetMapping("/select")
     @Operation(summary = "详情")
     public RespBody<TicketDetailResponse> select(@Validated IdDTO dto) {
-        ScenicTicket scenicTicket = scenicTicketService.selectByIdRequired(dto.getId());
-        TicketDetailResponse response = DataUtil.copy(scenicTicket, TicketDetailResponse.class);
-        response.setVirtualNum(scenicTicket.getTotalNum() - scenicTicket.getSaleNum());
-        return RespBody.success(DataUtil.copy(scenicTicket, TicketDetailResponse.class));
+        TicketDetailResponse response = scenicTicketService.detail(dto.getId());
+        return RespBody.success(response);
     }
 
     @PostMapping(value = "/shelves", consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -2,12 +2,14 @@ package com.eghm.vo.business.scenic.ticket;
 
 import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.enums.State;
+import com.eghm.enums.TicketType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -32,7 +34,7 @@ public class TicketDetailResponse {
     private String scenicName;
 
     @Schema(description = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
-    private Integer category;
+    private TicketType category;
 
     @Schema(description = "划线价")
     @JsonSerialize(using = CentToYuanSerializer.class)
@@ -41,6 +43,9 @@ public class TicketDetailResponse {
     @Schema(description = "销售价")
     @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer salePrice;
+
+    @Schema(description = "组合票ID")
+    private List<Long> ticketIds;
 
     @Schema(description = "虚拟销量")
     private Integer virtualNum;
