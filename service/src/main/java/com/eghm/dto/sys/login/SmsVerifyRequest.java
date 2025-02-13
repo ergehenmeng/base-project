@@ -2,9 +2,8 @@ package com.eghm.dto.sys.login;
 
 import com.eghm.validation.annotation.Mobile;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
 /**
  * @author 二哥很猛

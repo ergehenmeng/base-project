@@ -38,7 +38,7 @@ public abstract class AbstractItemOrderPayNotifyHandler implements ActionHandler
     /**
      * 订单信息校验
      *
-     * @param context 异步通知上下文
+     * @param context   异步通知上下文
      * @param orderList 订单信息
      */
     private void before(PayNotifyContext context, List<Order> orderList) {
@@ -57,7 +57,7 @@ public abstract class AbstractItemOrderPayNotifyHandler implements ActionHandler
     /**
      * 处理支付通知 主逻辑
      *
-     * @param context 支付成功或失败上下文
+     * @param context   支付成功或失败上下文
      * @param orderList 订单列表
      */
     protected abstract void doProcess(PayNotifyContext context, List<Order> orderList);
@@ -65,7 +65,7 @@ public abstract class AbstractItemOrderPayNotifyHandler implements ActionHandler
     /**
      * 支付成功后处理
      *
-     * @param context 支付成功或失败上下文
+     * @param context   支付成功或失败上下文
      * @param orderList 订单列表
      */
     protected void after(PayNotifyContext context, List<Order> orderList) {

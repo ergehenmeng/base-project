@@ -2,12 +2,11 @@ package com.eghm.dto.member.score;
 
 import com.eghm.enums.ScoreType;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import org.hibernate.validator.constraints.Length;
-
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * @author 二哥很猛

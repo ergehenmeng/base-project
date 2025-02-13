@@ -2,11 +2,10 @@ package com.eghm.dto.member;
 
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import jakarta.validation.constraints.NotNull;
 
 /**
  * @author 殿小二

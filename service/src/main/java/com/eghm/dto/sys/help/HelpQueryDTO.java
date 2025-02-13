@@ -1,10 +1,9 @@
 package com.eghm.dto.sys.help;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import jakarta.validation.constraints.NotNull;
 
 /**
  * @author 殿小二

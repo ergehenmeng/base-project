@@ -2,10 +2,9 @@ package com.eghm.dto.member;
 
 import com.eghm.validation.annotation.OptionInt;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-
-import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author 二哥很猛

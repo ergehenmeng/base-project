@@ -2,12 +2,11 @@ package com.eghm.dto.sys.dept;
 
 import com.eghm.dto.ext.ActionRecord;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author 二哥很猛

@@ -1,9 +1,9 @@
 package com.eghm.dto.member.tag;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
-import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 
 /**

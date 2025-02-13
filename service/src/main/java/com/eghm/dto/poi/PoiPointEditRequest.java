@@ -3,9 +3,9 @@ package com.eghm.dto.poi;
 import com.eghm.validation.annotation.WordChecker;
 import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
-import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.List;
 

@@ -2,21 +2,15 @@ package com.eghm.state.machine.impl.item;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.IdUtil;
-import static com.eghm.utils.StringUtil.isBlank;
 import com.eghm.common.JsonService;
 import com.eghm.common.OrderMqService;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
 import com.eghm.dto.business.purchase.LimitSkuRequest;
-import com.eghm.enums.ExchangeQueue;
-import com.eghm.enums.ScoreType;
+import com.eghm.enums.*;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
-import com.eghm.enums.OrderState;
-import com.eghm.enums.ProductType;
-import com.eghm.enums.RefundState;
-import com.eghm.enums.RefundType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
@@ -42,6 +36,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.eghm.enums.ErrorCode.*;
+import static com.eghm.utils.StringUtil.isBlank;
 import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
@@ -165,11 +160,11 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      * 1. 生成主订单
      * 2. 计算待支付金额 (限时购, 拼团,积分)
      *
-     * @param context     上下文
-     * @param aPackage    下单信息
+     * @param context       上下文
+     * @param aPackage      下单信息
      * @param multiple      是否为多笔订单同时支付
      * @param expressAmount 快递费
-     * @param tradeNo    交易单号
+     * @param tradeNo       交易单号
      * @return 订单信息
      */
     private Order generateOrder(ItemOrderCreateContext context, StoreOrderPackage aPackage, boolean multiple, int expressAmount, String tradeNo) {
@@ -261,6 +256,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
     /**
      * 1. 设置上下文所需要的参数(查询商品信息)
      * 2. 组装数据,减少后续遍历或查询数据库
+     *
      * @param context 下单上下文
      * @return 下单信息
      */
@@ -330,7 +326,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      * 2. 如果在拼团中, 拼团过了有效期则自动取消
      *
      * @param aPackage 商品信息
-     * @param context context
+     * @param context  context
      * @return 单价
      */
     private Integer checkAndCalcFinalPrice(OrderPackage aPackage, ItemOrderCreateContext context) {
@@ -375,7 +371,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      * 校验并设置拼团信息
      *
      * @param bookingId 拼团id
-     * @param context context
+     * @param context   context
      */
     private void checkAndSetBooking(Long bookingId, ItemOrderCreateContext context) {
         if (bookingId == null) {
@@ -415,6 +411,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
 
     /**
      * 查询sku中的一级spuId
+     *
      * @param spuList spuList,多个逗号分隔
      * @return 列表
      */
@@ -443,6 +440,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
 
     /**
      * 前置校验
+     *
      * @param context 下单信息
      */
     private void before(ItemOrderCreateContext context) {
@@ -478,7 +476,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
     /**
      * 订单创建成功的后置校验
      *
-     * @param context 下单信息
+     * @param context   下单信息
      * @param orderList 生成的订单信息
      */
     private void after(ItemOrderCreateContext context, List<Order> orderList) {
