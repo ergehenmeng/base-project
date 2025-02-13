@@ -5395,7 +5395,6 @@ INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('28', 'key_service', '2', '24小时前台', b'0', '2024-06-08 13:53:33', '2024-06-08 13:53:44');
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('29', 'key_service', '3', '可带宠物', b'0', '2024-06-08 13:53:54', '2024-06-08 13:54:08');
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('30', 'key_service', '4', '免费停车', b'0', '2024-06-08 13:54:25', '2024-06-08 13:54:25');
-INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('31', 'key_service', '5', '付费停车', b'0', '2024-06-08 13:55:41', '2024-06-08 13:55:41');
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('32', 'key_service', '6', '健身房', b'0', '2024-06-08 13:56:11', '2024-06-08 13:56:11');
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('33', 'key_service', '7', '泳池', b'0', '2024-06-08 13:56:45', '2024-06-08 13:56:45');
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('34', 'key_service', '8', '餐厅', b'0', '2024-06-08 13:56:56', '2024-06-08 13:56:56');

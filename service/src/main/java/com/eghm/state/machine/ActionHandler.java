@@ -4,6 +4,7 @@ import com.alibaba.cola.statemachine.Action;
 import com.alibaba.cola.statemachine.Condition;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ProductType;
+import org.springframework.lang.NonNull;
 
 /**
  * @author 二哥很猛
@@ -44,7 +45,7 @@ public interface ActionHandler<C extends Context> extends Action<Integer, IEvent
      * @param context 上下文信息
      */
     @Override
-    default void execute(Integer from, Integer to, IEvent event, C context) {
+    default void execute(Integer from, Integer to, IEvent event, @NonNull C context) {
         context.setFrom(from);
         this.doAction(context);
     }

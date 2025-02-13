@@ -95,7 +95,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
     public void doAction(ItemOrderCreateContext context) {
         this.before(context);
         if (this.isHotSell(context)) {
-            log.info("该商品为热销商品,走MQ队列处理");
+            log.info("该商品为热销商品,走MQ队列处理 [{}]", context.getItemList());
             TransactionUtil.afterCommit(() -> this.queueOrder(context));
             return;
         }
@@ -126,17 +126,16 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         // 此处了兼容零元购, 先生成tradeNo保证数据完整性, 如果非零元购则在拉起支付时重新生成tradeNo
         String tradeNo = ProductType.ITEM.generateTradeNo();
         for (StoreOrderPackage aPackage : payload.getPackageList()) {
-            Map<Long, Integer> skuExpressMap = this.calcExpressFee(aPackage.getStoreId(), aPackage.getMemberAddress().getCountyId(), aPackage.getItemList());
+            Map<Long, Integer> skuExpressMap = this.calcExpressFee(aPackage);
             int expressAmount = skuExpressMap.values().stream().filter(Objects::nonNull).reduce(Integer::sum).orElse(0);
             Order order = this.generateOrder(context, aPackage, payload.getPackageList().size() > 1, expressAmount, tradeNo);
             orderService.save(order);
             // 新增零售订单
             itemOrderService.insert(order.getOrderNo(), context.getMemberId(), aPackage.getItemList(), skuExpressMap);
             // 更新sku库存
-            Map<Long, Integer> skuNumMap = aPackage.getItemList().stream().collect(Collectors.toMap(OrderPackage::getSkuId, sku -> -sku.getNum()));
-            itemSkuService.updateStock(skuNumMap);
+            this.updateSkuStock(aPackage.getItemList());
             // 如果是拼团订单的话 一定是单商品
-            itemGroupOrderService.save(context, order, aPackage.getItemList().get(0).getItemId());
+            this.saveGroupOrder(context, order, aPackage.getItemList().get(0).getItemId());
             orderList.add(order);
         }
         return orderList;
@@ -429,17 +428,15 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
     /**
      * 计算每个sku商品快递费用
      *
-     * @param storeId  店铺名称
-     * @param countyId 收货县区
-     * @param itemList 下单商品(单个店铺所有商品)
+     * @param aPackage 下单信息
      * @return sku-express 单位:分
      */
-    private Map<Long, Integer> calcExpressFee(Long storeId, Long countyId, List<OrderPackage> itemList) {
+    private Map<Long, Integer> calcExpressFee(StoreOrderPackage aPackage) {
         ExpressFeeCalcDTO dto = new ExpressFeeCalcDTO();
-        List<ItemCalcDTO> dtoList = DataUtil.copy(itemList, ItemCalcDTO.class);
+        List<ItemCalcDTO> dtoList = DataUtil.copy(aPackage.getItemList(), ItemCalcDTO.class);
         dto.setOrderList(dtoList);
-        dto.setStoreId(storeId);
-        dto.setCountyId(countyId);
+        dto.setStoreId(aPackage.getStoreId());
+        dto.setCountyId(aPackage.getMemberAddress().getCountyId());
         itemService.calcStoreExpressFee(dto);
         return dtoList.stream().collect(Collectors.toMap(ItemCalcDTO::getSkuId, ItemCalcDTO::getExpressFee));
     }
@@ -513,4 +510,26 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
     public ProductType getStateMachineType() {
         return ProductType.ITEM;
     }
+
+    /**
+     * 更新sku库存
+     *
+     * @param itemList 下单商品列表
+     */
+    private void updateSkuStock(List<OrderPackage> itemList) {
+        Map<Long, Integer> skuNumMap = itemList.stream().collect(Collectors.toMap(OrderPackage::getSkuId, sku -> -sku.getNum()));
+        itemSkuService.updateStock(skuNumMap);
+    }
+
+    /**
+     * 保存拼团订单
+     *
+     * @param context 下单信息
+     * @param order   主订单
+     * @param itemId  商品ID
+     */
+    private void saveGroupOrder(ItemOrderCreateContext context, Order order, Long itemId) {
+        itemGroupOrderService.save(context, order, itemId);
+    }
+
 }
