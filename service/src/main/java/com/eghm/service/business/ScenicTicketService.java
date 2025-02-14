@@ -102,7 +102,7 @@ public interface ScenicTicketService {
     TicketVO detailById(Long id);
 
     /**
-     * 更新门票库存信息
+     * 更新门票库存信息和销量
      *
      * @param id  id
      * @param num 更新数量 负数-库存 正数+库存
