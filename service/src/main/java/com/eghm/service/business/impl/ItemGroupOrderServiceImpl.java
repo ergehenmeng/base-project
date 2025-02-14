@@ -157,7 +157,7 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
         }
         // 先把自己的拼团订单改为失败, 后续在根据是否是团长来决定是否要退款
         this.updateState(order.getBookingNo(), order.getOrderNo());
-        orderMapper.updateBookingState(order.getBookingNo(), order.getOrderNo(), 2);
+        orderMapper.updateBookingState(order.getBookingNo(), order.getOrderNo(), BookingState.FAIL.getValue());
         if (Boolean.TRUE.equals(groupOrder.getStarter())) {
             // 延迟队列(因为是团长自己退款,相当于解散拼团了, 因此需要取消拼团订单团员的所有订单), 延迟5秒防止当前事务没有提交, 该消息就已经被消费导致重复退款报错
             log.info("订单为拼团发起者,开始同步退款 [{}]: [{}]", order.getOrderNo(), order.getBookingNo());
