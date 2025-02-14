@@ -18,8 +18,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class LineOrderPlatformRefundHandler extends LineOrderRefundApplyHandler {
 
-    public LineOrderPlatformRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
-                                          OrderVisitorService orderVisitorService) {
+    public LineOrderPlatformRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService) {
         super(orderService, orderRefundLogService, orderVisitorService);
     }
 

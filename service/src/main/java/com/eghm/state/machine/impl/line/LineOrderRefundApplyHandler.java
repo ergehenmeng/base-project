@@ -19,8 +19,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class LineOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler<RefundApplyContext> {
 
-    public LineOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
-                                       OrderVisitorService orderVisitorService) {
+    public LineOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService) {
         super(orderService, orderVisitorService, orderRefundLogService);
     }
 

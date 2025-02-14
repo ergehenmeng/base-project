@@ -19,8 +19,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class HomestayOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler<RefundApplyContext> {
 
-    public HomestayOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
-                                           OrderVisitorService orderVisitorService) {
+    public HomestayOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService) {
         super(orderService, orderVisitorService, orderRefundLogService);
     }
 

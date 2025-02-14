@@ -19,8 +19,7 @@ import org.springframework.stereotype.Service;
 @Service("voucherOrderPlatformRefundHandler")
 public class VoucherOrderPlatformRefundHandler extends VoucherOrderRefundApplyHandler {
 
-    public VoucherOrderPlatformRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService,
-                                             VoucherOrderService voucherOrderService) {
+    public VoucherOrderPlatformRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, VoucherOrderService voucherOrderService) {
         super(orderService, orderRefundLogService, orderVisitorService, voucherOrderService);
     }
 

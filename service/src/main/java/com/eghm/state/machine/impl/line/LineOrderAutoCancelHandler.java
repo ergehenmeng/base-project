@@ -24,8 +24,7 @@ public class LineOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler {
 
     private final LineConfigService lineConfigService;
 
-    public LineOrderAutoCancelHandler(OrderService orderService, MemberCouponService memberCouponService,
-                                      LineOrderService lineOrderService, LineConfigService lineConfigService, AggregatePayService aggregatePayService) {
+    public LineOrderAutoCancelHandler(OrderService orderService, MemberCouponService memberCouponService, LineOrderService lineOrderService, LineConfigService lineConfigService, AggregatePayService aggregatePayService) {
         super(orderService, memberCouponService, aggregatePayService);
         this.lineOrderService = lineOrderService;
         this.lineConfigService = lineConfigService;

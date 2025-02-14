@@ -18,8 +18,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class HomestayOrderPlatformRefundHandler extends HomestayOrderRefundApplyHandler {
 
-    public HomestayOrderPlatformRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
-                                              OrderVisitorService orderVisitorService) {
+    public HomestayOrderPlatformRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService) {
         super(orderService, orderRefundLogService, orderVisitorService);
     }
 
