@@ -7,7 +7,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ScanRechargeLogMapper;
 import com.eghm.model.ScanRechargeLog;
-import com.eghm.pay.AggregatePayService;
+import com.eghm.pay.service.AggregatePayService;
 import com.eghm.pay.enums.TradeState;
 import com.eghm.pay.vo.PayOrderVO;
 import com.eghm.service.business.ScanRechargeLogService;

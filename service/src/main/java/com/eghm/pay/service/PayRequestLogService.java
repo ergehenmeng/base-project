@@ -1,4 +1,4 @@
-package com.eghm.pay;
+package com.eghm.pay.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.log.PayLogQueryRequest;

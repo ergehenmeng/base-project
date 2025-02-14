@@ -1,4 +1,4 @@
-package com.eghm.pay.impl;
+package com.eghm.pay.service.impl;
 
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.payment.common.models.AlipayTradeCreateResponse;
@@ -12,7 +12,7 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.AliPayException;
 import com.eghm.exception.BusinessException;
-import com.eghm.pay.PayService;
+import com.eghm.pay.service.PayService;
 import com.eghm.pay.dto.PrepayDTO;
 import com.eghm.pay.dto.RefundDTO;
 import com.eghm.pay.enums.*;

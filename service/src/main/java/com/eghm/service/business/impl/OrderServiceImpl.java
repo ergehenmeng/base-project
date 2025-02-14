@@ -26,7 +26,7 @@ import com.eghm.mapper.OrderMapper;
 import com.eghm.mapper.TicketOrderCombineMapper;
 import com.eghm.model.*;
 import com.eghm.mq.service.MessageService;
-import com.eghm.pay.AggregatePayService;
+import com.eghm.pay.service.AggregatePayService;
 import com.eghm.pay.dto.PrepayDTO;
 import com.eghm.pay.dto.RefundDTO;
 import com.eghm.pay.enums.PayChannel;

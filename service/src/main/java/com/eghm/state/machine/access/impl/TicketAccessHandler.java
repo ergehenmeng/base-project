@@ -3,7 +3,7 @@ package com.eghm.state.machine.access.impl;
 import com.eghm.enums.event.impl.TicketEvent;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.ProductType;
-import com.eghm.pay.AggregatePayService;
+import com.eghm.pay.service.AggregatePayService;
 import com.eghm.service.business.OrderService;
 import com.eghm.state.machine.StateHandler;
 import com.eghm.state.machine.access.AbstractAccessHandler;

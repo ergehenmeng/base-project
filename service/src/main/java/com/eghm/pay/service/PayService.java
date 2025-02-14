@@ -1,4 +1,4 @@
-package com.eghm.pay;
+package com.eghm.pay.service;
 
 import com.eghm.pay.dto.PrepayDTO;
 import com.eghm.pay.dto.RefundDTO;

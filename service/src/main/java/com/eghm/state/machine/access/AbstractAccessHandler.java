@@ -1,7 +1,7 @@
 package com.eghm.state.machine.access;
 
 import com.eghm.model.Order;
-import com.eghm.pay.AggregatePayService;
+import com.eghm.pay.service.AggregatePayService;
 import com.eghm.pay.enums.RefundStatus;
 import com.eghm.pay.enums.TradeState;
 import com.eghm.pay.enums.TradeType;

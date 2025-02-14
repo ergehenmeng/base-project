@@ -5,7 +5,7 @@ import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.model.HomestayOrder;
 import com.eghm.model.Order;
-import com.eghm.pay.AggregatePayService;
+import com.eghm.pay.service.AggregatePayService;
 import com.eghm.service.business.HomestayOrderService;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.MemberCouponService;

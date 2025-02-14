@@ -5,7 +5,7 @@ import com.eghm.enums.event.impl.LineEvent;
 import com.eghm.enums.ProductType;
 import com.eghm.model.LineOrder;
 import com.eghm.model.Order;
-import com.eghm.pay.AggregatePayService;
+import com.eghm.pay.service.AggregatePayService;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineOrderService;
 import com.eghm.service.business.MemberCouponService;

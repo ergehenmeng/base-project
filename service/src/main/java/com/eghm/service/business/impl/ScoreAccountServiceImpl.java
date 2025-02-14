@@ -20,7 +20,7 @@ import com.eghm.mapper.ScanRechargeLogMapper;
 import com.eghm.mapper.ScoreAccountLogMapper;
 import com.eghm.mapper.ScoreAccountMapper;
 import com.eghm.model.*;
-import com.eghm.pay.AggregatePayService;
+import com.eghm.pay.service.AggregatePayService;
 import com.eghm.pay.dto.PrepayDTO;
 import com.eghm.pay.enums.PayChannel;
 import com.eghm.pay.enums.TradeType;

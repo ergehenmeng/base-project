@@ -6,7 +6,7 @@ import com.eghm.enums.OrderState;
 import com.eghm.enums.PayType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
-import com.eghm.pay.AggregatePayService;
+import com.eghm.pay.service.AggregatePayService;
 import com.eghm.pay.enums.TradeState;
 import com.eghm.pay.enums.TradeType;
 import com.eghm.service.business.MemberCouponService;
