@@ -14,7 +14,4 @@ public class ParameterException extends SystemException {
         super(error);
     }
 
-    public ParameterException(int code, String msg) {
-        super(code, msg);
-    }
 }

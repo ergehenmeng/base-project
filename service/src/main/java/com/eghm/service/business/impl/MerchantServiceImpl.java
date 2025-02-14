@@ -109,14 +109,13 @@ public class MerchantServiceImpl implements MerchantService {
         this.checkMerchantRedo(request.getMerchantName(), null);
         this.checkMobileRedo(request.getMobile(), null);
         this.checkCreditRedo(request.getCreditCode(), null);
-        SysUser user = new SysUser();
         String encode = encoder.encode(MD5.create().digestHex(request.getMobile().substring(3)));
+        SysUser user = new SysUser();
         user.setInitPwd(encode);
         user.setPwd(encode);
         user.setUserName(request.getAccount());
         user.setUserType(UserType.MERCHANT_ADMIN);
         user.setPwdUpdateTime(LocalDateTime.now());
-        // 采用用户名登录
         user.setMobile(request.getAccount());
         user.setNickName(request.getMerchantName());
         sysUserService.insert(user);

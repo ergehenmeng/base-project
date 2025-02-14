@@ -78,13 +78,13 @@ public class MemberCollectServiceImpl implements MemberCollectService {
         Page<MemberCollectVO> byPage = memberCollectMapper.getByPage(query.createPage(false), query);
         if (CollUtil.isNotEmpty(byPage.getRecords())) {
             Map<CollectType, List<Long>> collectMap = byPage.getRecords().stream().collect(Collectors.groupingBy(MemberCollectVO::getCollectType, Collectors.mapping(MemberCollectVO::getCollectId, Collectors.toList())));
-            Map<Long, ScenicVO> scenicMap = this.getScenicMap(collectMap.get(CollectType.SCENIC));
-            Map<Long, HomestayVO> homestayMap = this.getHomestayMap(collectMap.get(CollectType.HOMESTAY));
-            Map<Long, ItemStoreVO> itemStoreMap = this.getItemStoreMap(collectMap.get(CollectType.ITEM_STORE));
             Map<Long, ItemVO> itemMap = this.getItemMap(collectMap.get(CollectType.ITEM));
             Map<Long, LineVO> lineMap = this.getLineMap(collectMap.get(CollectType.LINE));
-            Map<Long, TravelVO> travelMap = this.getTravelMap(collectMap.get(CollectType.TRAVEL_AGENCY));
             Map<Long, NewsVO> newsMap = this.getNewsMap(collectMap.get(CollectType.NEWS));
+            Map<Long, ScenicVO> scenicMap = this.getScenicMap(collectMap.get(CollectType.SCENIC));
+            Map<Long, TravelVO> travelMap = this.getTravelMap(collectMap.get(CollectType.TRAVEL_AGENCY));
+            Map<Long, HomestayVO> homestayMap = this.getHomestayMap(collectMap.get(CollectType.HOMESTAY));
+            Map<Long, ItemStoreVO> itemStoreMap = this.getItemStoreMap(collectMap.get(CollectType.ITEM_STORE));
             Map<Long, RestaurantVO> restaurantMap = this.getRestaurantMap(collectMap.get(CollectType.VOUCHER_STORE));
             Iterator<MemberCollectVO> iterator = byPage.getRecords().iterator();
             while (iterator.hasNext()) {
@@ -184,14 +184,14 @@ public class MemberCollectServiceImpl implements MemberCollectService {
      */
     private boolean isLegal(Long collectId, CollectType collectType) {
         return switch (collectType) {
+            case ITEM -> itemMapper.selectById(collectId) != null;
+            case LINE -> lineMapper.selectById(collectId) != null;
+            case NEWS -> newsMapper.selectById(collectId) != null;
             case SCENIC -> scenicMapper.selectById(collectId) != null;
             case HOMESTAY -> homestayMapper.selectById(collectId) != null;
             case ITEM_STORE -> itemStoreMapper.selectById(collectId) != null;
-            case ITEM -> itemMapper.selectById(collectId) != null;
-            case LINE -> lineMapper.selectById(collectId) != null;
-            case TRAVEL_AGENCY -> travelAgencyMapper.selectById(collectId) != null;
-            case NEWS -> newsMapper.selectById(collectId) != null;
             case VOUCHER_STORE -> restaurantMapper.selectById(collectId) != null;
+            case TRAVEL_AGENCY -> travelAgencyMapper.selectById(collectId) != null;
         };
     }
 

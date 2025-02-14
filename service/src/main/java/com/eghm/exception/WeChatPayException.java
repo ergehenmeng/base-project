@@ -11,8 +11,4 @@ public class WeChatPayException extends SystemException {
     public WeChatPayException(ErrorCode error) {
         super(error);
     }
-
-    public WeChatPayException(int code, String msg) {
-        super(code, msg);
-    }
 }

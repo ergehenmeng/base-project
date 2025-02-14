@@ -12,7 +12,4 @@ public class AliPayException extends SystemException {
         super(error);
     }
 
-    public AliPayException(int code, String msg) {
-        super(code, msg);
-    }
 }

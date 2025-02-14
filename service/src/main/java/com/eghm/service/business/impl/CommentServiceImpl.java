@@ -191,7 +191,6 @@ public class CommentServiceImpl implements CommentService {
                 throw new BusinessException(ErrorCode.ACTIVITY_COMMENT_FORBID);
             }
         }
-
     }
 
     /**

@@ -381,7 +381,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         orderList.forEach(itemOrder -> itemOrder.setDeliveryState(DeliveryState.WAIT_TAKE));
         itemOrderService.updateBatchById(orderList);
         orderExpressService.insert(request);
-
         Long count = itemOrderService.countWaitDelivery(request.getOrderNo());
         if (count == 0) {
             order.setState(OrderState.WAIT_RECEIVE);
