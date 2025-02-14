@@ -37,10 +37,10 @@ public class ItemOrderCancelHandler extends AbstractOrderCancelHandler {
 
     public ItemOrderCancelHandler(MemberService memberService, OrderService orderService, MemberCouponService memberCouponService, ItemSkuService itemSkuService, ItemOrderService itemOrderService, ItemGroupOrderService itemGroupOrderService, AggregatePayService aggregatePayService) {
         super(orderService, memberCouponService, aggregatePayService);
+        this.memberService = memberService;
         this.itemSkuService = itemSkuService;
         this.itemOrderService = itemOrderService;
         this.itemGroupOrderService = itemGroupOrderService;
-        this.memberService = memberService;
     }
 
     @Override

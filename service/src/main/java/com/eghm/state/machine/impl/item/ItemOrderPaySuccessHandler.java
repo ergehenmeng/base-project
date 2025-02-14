@@ -54,14 +54,14 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
                                       MessageService messageService) {
         super(orderService);
         this.itemService = itemService;
-        this.orderService = orderService;
-        this.itemGroupOrderService = itemGroupOrderService;
-        this.groupBookingService = groupBookingService;
         this.alarmService = alarmService;
-        this.scoreAccountService = scoreAccountService;
+        this.orderService = orderService;
         this.accountService = accountService;
         this.messageService = messageService;
         this.itemOrderService = itemOrderService;
+        this.groupBookingService = groupBookingService;
+        this.scoreAccountService = scoreAccountService;
+        this.itemGroupOrderService = itemGroupOrderService;
     }
 
     /**
@@ -141,7 +141,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
         List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(bookingNo, 0);
         if (groupList.size() >= booking.getNum()) {
             itemGroupOrderService.updateState(bookingNo, 1);
-            orderService.updateBookingState(bookingNo, 1);
+            orderService.updateBookingState(bookingNo, BookingState.SUCCESS);
         } else {
             log.info("拼团订单尚未满员 [{}] [{}] [{}]", bookingNo, booking.getNum(), groupList.size());
         }

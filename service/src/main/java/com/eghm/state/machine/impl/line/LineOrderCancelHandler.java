@@ -26,8 +26,8 @@ public class LineOrderCancelHandler extends AbstractOrderCancelHandler {
 
     public LineOrderCancelHandler(OrderService orderService, MemberCouponService memberCouponService, LineConfigService lineConfigService, LineOrderService lineOrderService, AggregatePayService aggregatePayService) {
         super(orderService, memberCouponService, aggregatePayService);
-        this.lineConfigService = lineConfigService;
         this.lineOrderService = lineOrderService;
+        this.lineConfigService = lineConfigService;
     }
 
     @Override

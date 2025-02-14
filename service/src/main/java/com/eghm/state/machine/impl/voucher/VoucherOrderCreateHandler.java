@@ -48,10 +48,10 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
 
     public VoucherOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, RestaurantService restaurantService, OrderMqService orderMqService, VoucherService voucherService, VoucherOrderService voucherOrderService, RedeemCodeGrantService redeemCodeGrantService) {
         super(orderMqService, memberCouponService, orderVisitorService, redeemCodeGrantService);
-        this.restaurantService = restaurantService;
-        this.voucherService = voucherService;
-        this.voucherOrderService = voucherOrderService;
         this.orderService = orderService;
+        this.voucherService = voucherService;
+        this.restaurantService = restaurantService;
+        this.voucherOrderService = voucherOrderService;
         this.redeemCodeGrantService = redeemCodeGrantService;
     }
 

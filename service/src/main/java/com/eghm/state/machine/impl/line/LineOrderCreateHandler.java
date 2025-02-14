@@ -54,13 +54,13 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
     public LineOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMqService orderMqService, LineService lineService, TravelAgencyService travelAgencyService, LineConfigService lineConfigService, LineDayConfigService lineDayConfigService, LineOrderService lineOrderService, LineOrderSnapshotService lineOrderSnapshotService, RedeemCodeGrantService redeemCodeGrantService) {
         super(orderMqService, memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.lineService = lineService;
-        this.travelAgencyService = travelAgencyService;
-        this.lineConfigService = lineConfigService;
-        this.lineDayConfigService = lineDayConfigService;
-        this.lineOrderService = lineOrderService;
-        this.lineOrderSnapshotService = lineOrderSnapshotService;
         this.orderService = orderService;
+        this.lineOrderService = lineOrderService;
+        this.lineConfigService = lineConfigService;
+        this.travelAgencyService = travelAgencyService;
+        this.lineDayConfigService = lineDayConfigService;
         this.redeemCodeGrantService = redeemCodeGrantService;
+        this.lineOrderSnapshotService = lineOrderSnapshotService;
     }
 
     @Override

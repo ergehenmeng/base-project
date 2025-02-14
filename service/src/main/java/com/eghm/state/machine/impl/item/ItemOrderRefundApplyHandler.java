@@ -58,13 +58,13 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
     public ItemOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService,
                                        ItemGroupOrderService itemGroupOrderService, OrderMqService orderMqService, SysConfigApi sysConfigApi, MessageService messageService) {
         super(orderService, orderVisitorService, orderRefundLogService);
-        this.itemOrderService = itemOrderService;
         this.orderService = orderService;
+        this.sysConfigApi = sysConfigApi;
+        this.orderMqService = orderMqService;
+        this.messageService = messageService;
+        this.itemOrderService = itemOrderService;
         this.orderRefundLogService = orderRefundLogService;
         this.itemGroupOrderService = itemGroupOrderService;
-        this.orderMqService = orderMqService;
-        this.sysConfigApi = sysConfigApi;
-        this.messageService = messageService;
     }
 
     @Override

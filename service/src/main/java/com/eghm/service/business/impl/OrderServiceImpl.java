@@ -490,7 +490,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public void updateBookingState(String bookingNo, Integer bookingState) {
+    public void updateBookingState(String bookingNo, BookingState bookingState) {
         log.info("修改订单拼团状态: [{}] [{}]", bookingNo, bookingState);
         LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Order::getBookingNo, bookingNo);

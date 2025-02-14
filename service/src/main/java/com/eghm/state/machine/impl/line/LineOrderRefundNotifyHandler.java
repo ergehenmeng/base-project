@@ -38,10 +38,10 @@ public class LineOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
                                         OrderVisitorService orderVisitorService, OrderMqService orderMqService,
                                         AccountService accountService) {
         super(orderService, accountService, verifyLogService, orderRefundLogService);
+        this.orderMqService = orderMqService;
         this.lineOrderService = lineOrderService;
         this.lineConfigService = lineConfigService;
         this.orderVisitorService = orderVisitorService;
-        this.orderMqService = orderMqService;
     }
 
     @Override

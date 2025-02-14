@@ -56,12 +56,12 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
                                    OrderMqService orderMqService, VenueSiteService venueSiteService, VenueOrderService venueOrderService, VenueSitePriceService venueSitePriceService,
                                    RedeemCodeGrantService redeemCodeGrantService) {
         super(orderMqService, memberCouponService, orderVisitorService, redeemCodeGrantService);
+        this.jsonService = jsonService;
         this.venueService = venueService;
+        this.orderService = orderService;
         this.venueSiteService = venueSiteService;
         this.venueOrderService = venueOrderService;
         this.venueSitePriceService = venueSitePriceService;
-        this.jsonService = jsonService;
-        this.orderService = orderService;
         this.redeemCodeGrantService = redeemCodeGrantService;
     }
 

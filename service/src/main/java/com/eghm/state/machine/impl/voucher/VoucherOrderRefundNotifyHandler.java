@@ -35,8 +35,8 @@ public class VoucherOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHa
                                            OrderMqService orderMqService, AccountService accountService) {
         super(orderService, accountService, verifyLogService, orderRefundLogService);
         this.voucherService = voucherService;
-        this.voucherOrderService = voucherOrderService;
         this.orderMqService = orderMqService;
+        this.voucherOrderService = voucherOrderService;
     }
 
     @Override

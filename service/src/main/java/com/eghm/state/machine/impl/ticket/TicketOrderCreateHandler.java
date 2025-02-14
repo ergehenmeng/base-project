@@ -51,10 +51,10 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     public TicketOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMqService orderMqService, ScenicTicketService scenicTicketService,
                                     ScenicService scenicService, TicketOrderService ticketOrderService, RedeemCodeGrantService redeemCodeGrantService, TicketOrderCombineService ticketOrderCombineService) {
         super(orderMqService, memberCouponService, orderVisitorService, redeemCodeGrantService);
-        this.scenicService = scenicService;
-        this.scenicTicketService = scenicTicketService;
-        this.ticketOrderService = ticketOrderService;
         this.orderService = orderService;
+        this.scenicService = scenicService;
+        this.ticketOrderService = ticketOrderService;
+        this.scenicTicketService = scenicTicketService;
         this.ticketOrderCombineService = ticketOrderCombineService;
     }
 

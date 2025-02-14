@@ -28,8 +28,8 @@ public class VoucherOrderCancelHandler extends AbstractOrderCancelHandler {
 
     public VoucherOrderCancelHandler(OrderService orderService, MemberCouponService memberCouponService, VoucherOrderService voucherOrderService, VoucherService voucherService, AggregatePayService aggregatePayService) {
         super(orderService, memberCouponService, aggregatePayService);
-        this.voucherOrderService = voucherOrderService;
         this.voucherService = voucherService;
+        this.voucherOrderService = voucherOrderService;
     }
 
     @Override

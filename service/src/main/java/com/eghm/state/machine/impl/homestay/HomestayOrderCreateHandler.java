@@ -50,13 +50,13 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
     public HomestayOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMqService orderMqService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService,
                                       HomestayService homestayService, HomestayRoomConfigService homestayRoomConfigService, HomestayOrderSnapshotService homestayOrderSnapshotService, RedeemCodeGrantService redeemCodeGrantService) {
         super(orderMqService, memberCouponService, orderVisitorService, redeemCodeGrantService);
-        this.homestayOrderService = homestayOrderService;
-        this.homestayRoomService = homestayRoomService;
+        this.orderService = orderService;
         this.homestayService = homestayService;
+        this.homestayRoomService = homestayRoomService;
+        this.homestayOrderService = homestayOrderService;
+        this.redeemCodeGrantService = redeemCodeGrantService;
         this.homestayRoomConfigService = homestayRoomConfigService;
         this.homestayOrderSnapshotService = homestayOrderSnapshotService;
-        this.orderService = orderService;
-        this.redeemCodeGrantService = redeemCodeGrantService;
     }
 
     @Override

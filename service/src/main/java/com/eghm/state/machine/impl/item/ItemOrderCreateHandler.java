@@ -199,7 +199,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         order.setLimitId(context.getLimitId());
         order.setBookingId(context.getBookingId());
         order.setBookingNo(context.getBookingNo());
-        order.setBookingState(0);
+        order.setBookingState(BookingState.WAITING);
         order.setCreateDate(LocalDate.now());
         order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());

@@ -136,11 +136,11 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
             log.info("该订单非拼团订单不做额外处理 [{}]", order.getOrderNo());
             return;
         }
-        if (order.getBookingState() == BookingState.SUCCESS.getValue()) {
+        if (order.getBookingState() == BookingState.SUCCESS) {
             log.warn("订单已拼团成功,无需同步退款[{}] [{}]", order.getOrderNo(), order.getBookingNo());
             return;
         }
-        if (order.getBookingState() == BookingState.FAIL.getValue()) {
+        if (order.getBookingState() == BookingState.FAIL) {
             log.warn("订单已拼团失败,无需同步退款[{}] [{}]", order.getOrderNo(), order.getBookingNo());
             return;
         }

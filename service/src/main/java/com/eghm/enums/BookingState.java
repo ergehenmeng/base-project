@@ -1,5 +1,7 @@
 package com.eghm.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -26,6 +28,8 @@ public enum BookingState {
      */
     FAIL(2, "拼团失败");
 
+    @EnumValue
+    @JsonValue
     private final int value;
 
     private final String name;
