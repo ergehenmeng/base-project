@@ -138,9 +138,9 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
             alarmService.sendMsg(String.format("支付成功更新拼团时, 未查询到拼团活动 [%s] [%s]", bookingNo, bookingId));
             return;
         }
-        List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(bookingNo, 0);
+        List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(bookingNo, BookingState.WAITING);
         if (groupList.size() >= booking.getNum()) {
-            itemGroupOrderService.updateState(bookingNo, 1);
+            itemGroupOrderService.updateState(bookingNo, BookingState.SUCCESS);
             orderService.updateBookingState(bookingNo, BookingState.SUCCESS);
         } else {
             log.info("拼团订单尚未满员 [{}] [{}] [{}]", bookingNo, booking.getNum(), groupList.size());

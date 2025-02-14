@@ -8,6 +8,7 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.constants.LockConstant;
 import com.eghm.constants.QueueConstant;
 import com.eghm.dto.ext.*;
+import com.eghm.enums.BookingState;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.ProductType;
 import com.eghm.enums.event.IEvent;
@@ -369,7 +370,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      */
     private void cancelGroupOrder(String bookingNo) {
         log.info("开始取消拼团订单(个人) [{}]", bookingNo);
-        List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(bookingNo, 0);
+        List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(bookingNo, BookingState.WAITING);
         if (groupList.isEmpty()) {
             log.warn("该拼团订单可能已成团或已取消,不做取消处理 [{}]", bookingNo);
             return;
@@ -397,7 +398,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
             log.warn("拼团活动提前啦 [{}] [{}] [{}]", vo.getBookingId(), booking.getEndTime(), vo.getEndTime());
             return;
         }
-        List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(vo.getBookingId(), 0);
+        List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(vo.getBookingId(), BookingState.WAITING);
         this.doCancelGroupOrder(groupList);
     }
 

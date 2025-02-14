@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.BookingState;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,7 +23,7 @@ public class ItemGroupOrder extends BaseEntity {
     private String bookingNo;
 
     @Schema(description = "状态 0:拼团中 1:拼团成功 2:拼团失败")
-    private Integer state;
+    private BookingState state;
 
     @Schema(description = "是否为拼团发起者")
     private Boolean starter;

@@ -1,5 +1,6 @@
 package com.eghm.service.business;
 
+import com.eghm.enums.BookingState;
 import com.eghm.model.ItemGroupOrder;
 import com.eghm.model.Order;
 import com.eghm.state.machine.context.ItemOrderCreateContext;
@@ -32,7 +33,7 @@ public interface ItemGroupOrderService {
      * @param bookingNo 拼团订单编号
      * @param state 状态
      */
-    void updateState(String bookingNo, Integer state);
+    void updateState(String bookingNo, BookingState state);
 
     /**
      * 删除拼团订单
@@ -49,7 +50,7 @@ public interface ItemGroupOrderService {
      * @param state  状态
      * @return 列表
      */
-    List<ItemGroupOrder> getGroupList(String bookingNo, Integer state);
+    List<ItemGroupOrder> getGroupList(String bookingNo, BookingState state);
 
     /**
      * 获取拼团订单
@@ -58,7 +59,7 @@ public interface ItemGroupOrderService {
      * @param state 状态
      * @return 列表
      */
-    List<ItemGroupOrder> getGroupList(Long bookingId, Integer state);
+    List<ItemGroupOrder> getGroupList(Long bookingId, BookingState state);
 
     /**
      * 获取拼团详情
