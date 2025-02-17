@@ -35,7 +35,7 @@ public interface AccountService {
      * @param merchantId 商户id
      * @param amount 提现金额
      */
-    void withdrawSuccess(Long merchantId, Integer amount);
+    void withdrawApply(Long merchantId, Integer amount);
 
     /**
      * 提现失败,解冻金额

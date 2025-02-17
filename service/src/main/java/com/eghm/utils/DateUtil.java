@@ -29,8 +29,6 @@ public class DateUtil {
 
     private static final String SHORT_DATE_LIMIT = "yyyyMMdd";
 
-    private static final String SHORT_DATE = "yyyy-MM-dd";
-
     private static final String MIN_DATE_LIMIT = "MMdd";
 
     private static final String MIN_DATE = "yyyy-MM";

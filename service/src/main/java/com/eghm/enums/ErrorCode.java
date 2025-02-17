@@ -1446,6 +1446,11 @@ public enum ErrorCode {
     MERCHANT_SCORE_WITHDRAW(2834, "商户退款冻结积分不足"),
 
     /**
+     * 提现记录不存在
+     */
+    WITHDRAW_LOG_NULL(2835, "提现记录不存在"),
+
+    /**
      * 房间数与入住信息不匹配
      */
     VISITOR_NO_MATCH(2840, "房间数与入住信息不匹配"),

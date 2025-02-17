@@ -116,7 +116,7 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
     }
 
     @Override
-    public void withdrawSuccess(Long merchantId, Integer amount) {
+    public void withdrawApply(Long merchantId, Integer amount) {
         Account account = this.getAccount(merchantId);
         account.setWithdrawFreeze(account.getWithdrawFreeze() - amount);
         this.updateById(account);
