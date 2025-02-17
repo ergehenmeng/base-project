@@ -61,11 +61,6 @@ public enum ErrorCode {
     SYSTEM_ERROR(500, "系统繁忙,请稍后再试"),
 
     /**
-     * 线程中断异常
-     */
-    THREAD_INTERRUPTED(501, "线程中断异常"),
-
-    /**
      * 应用上下文尚未完全启动
      */
     SPRING_ON_LOADING(505, "Spring上下文尚未完全启动"),
@@ -76,74 +71,9 @@ public enum ErrorCode {
     JSON_FORMAT_ERROR(1000, "数据转换异常"),
 
     /**
-     * pbe加密失败
-     */
-    ENCRYPT_ERROR(1005, "数据加密失败"),
-
-    /**
      * 地址不支持%s请求
      */
     METHOD_NOT_SUPPORTED(1010, "地址不支持%s请求"),
-
-    /**
-     * 字符集转换错误
-     */
-    CHARSET_CONVERT_ERROR(2267, "字符集转换错误"),
-
-    /**
-     * 数据解密失败
-     */
-    DECRYPT_ERROR(1003, "数据解密失败"),
-
-    /**
-     * 数据加解密失败
-     */
-    ENCRYPT_DECRYPT_ERROR(1004, "数据加解密失败"),
-
-    /**
-     * 对象转换异常
-     */
-    BEAN_COPY_ERROR(1005, "对象转换异常"),
-
-    /**
-     * 数据加密异常,请联系管理人员
-     */
-    SHA_256_ERROR(1006, "数据加密异常"),
-
-    /**
-     * 验签异常
-     */
-    SIGN_NULL_ERROR(1007, "验签异常"),
-
-    /**
-     * 验签失败
-     */
-    SIGN_ERROR(1008, "验签失败"),
-
-    /**
-     * 未指定方法实现
-     */
-    NOT_IMPLEMENT(1009, "未指定方法实现"),
-
-    /**
-     * 参数转换异常
-     */
-    PARAMETER_CASE_ERROR(1010, "参数转换异常"),
-
-    /**
-     * 未知主机名
-     */
-    UN_KNOW_HOSTNAME(1011, "未知主机名"),
-
-    /**
-     * 未知主机地址
-     */
-    UN_KNOW_HOST_ADDRESS(1012, "未知主机地址"),
-
-    /**
-     * 请求接口非法
-     */
-    REQUEST_INTERFACE_ERROR(1013, "请求接口非法"),
 
     /**
      * 请求参数非法
@@ -151,19 +81,9 @@ public enum ErrorCode {
     REQUEST_PARAM_ILLEGAL(1014, "请求参数非法"),
 
     /**
-     * 请求解析异常
-     */
-    REQUEST_RESOLVE_ERROR(1015, "请求解析异常"),
-
-    /**
      * 签名信息为空
      */
     SIGNATURE_ERROR(1018, "签名信息为空"),
-
-    /**
-     * 时间戳为空
-     */
-    SIGNATURE_TIMESTAMP_NULL(1020, "数字签名为空"),
 
     /**
      * 签名信息已过期
@@ -251,11 +171,6 @@ public enum ErrorCode {
     DATE_CASE_ERROR(2027, "日期格式转换异常"),
 
     /**
-     * 日期格式必须为yyyy-MM-dd
-     */
-    DATE_ERROR(2030, "日期格式必须为yyyy-MM-dd"),
-
-    /**
      * 模板解析失败
      */
     TEMPLATE_RENDER_ERROR(2033, "模板解析失败"),
@@ -294,16 +209,6 @@ public enum ErrorCode {
      * 系统配置信息未查询到
      */
     CONFIG_NOT_FOUND_ERROR(2054, "系统配置信息未查询到"),
-
-    /**
-     * 系统配置信息更新失败
-     */
-    UPDATE_CONFIG_ERROR(2057, "系统配置信息更新失败"),
-
-    /**
-     * 菜单信息更新失败
-     */
-    UPDATE_MENU_ERROR(2060, "菜单信息更新失败"),
 
     /**
      * 父菜单不存在
@@ -391,11 +296,6 @@ public enum ErrorCode {
     FILE_NAME_NOT_FOUND(2091, "文件名不存在"),
 
     /**
-     * 创建文件失败
-     */
-    FILE_CREATE_ERROR(2096, "创建文件失败"),
-
-    /**
      * 显示值重复啦~
      */
     DICT_SHOW_REPEAT_ERROR(2097, "显示值重复啦~"),
@@ -424,11 +324,6 @@ public enum ErrorCode {
      * 同级菜单最多90个
      */
     MENU_MAX_ERROR(2102, "同级菜单最多90个"),
-
-    /**
-     * 用户已在其他设备上登陆
-     */
-    MULTIPLE_CLIENT_LOGIN(2105, "用户已在其他设备上登陆"),
 
     /**
      * 用户不存在
@@ -501,16 +396,6 @@ public enum ErrorCode {
     CRON_CONFIG_ERROR(2144, "cron表达式配置错误"),
 
     /**
-     * 按钮菜单无法添加子菜单
-     */
-    SUB_MENU_ERROR(2147, "按钮菜单无法添加子菜单"),
-
-    /**
-     * 内容不能为空
-     */
-    TEXT_CONTENT_EMPTY(2150, "内容不能为空"),
-
-    /**
      * 新设备登陆校验
      */
     NEW_DEVICE_LOGIN(2153, "新设备登陆校验"),
@@ -519,11 +404,6 @@ public enum ErrorCode {
      * 登录信息无效
      */
     LOGIN_NULL(2154, "登录信息无效"),
-
-    /**
-     * 账号在其他设备上登陆
-     */
-    KICK_OFF_LINE(2156, "账号在其他设备上登陆"),
 
     /**
      * 邮件服务可能未配置
@@ -571,16 +451,6 @@ public enum ErrorCode {
     MOBILE_NOT_BIND(2180, "请先绑定手机号"),
 
     /**
-     * 请勿重复签到
-     */
-    SIGN_IN_REDO(2183, "请勿重复签到"),
-
-    /**
-     * 数据格式异常
-     */
-    DATA_ERROR(2186, "数据格式异常"),
-
-    /**
      * 用户地址未查询到
      */
     MEMBER_ADDRESS_NULL(2252, "用户地址未查询到"),
@@ -606,21 +476,6 @@ public enum ErrorCode {
     IN_MAIL_NULL(2201, "站内信模板未配置"),
 
     /**
-     * 开奖程序出错啦
-     */
-    LOTTERY_ERROR(2204, "开奖程序出错啦"),
-
-    /**
-     * 请先配置支付信息
-     */
-    PAY_CONFIG_ERROR(2207, "请先配置支付信息"),
-
-    /**
-     * 支付接口超时
-     */
-    CREATE_PAY_ERROR(2222, "支付接口超时"),
-
-    /**
      * 未知支付方式(微信)
      */
     UNKNOWN_PAY_TYPE(2213, "未知支付方式"),
@@ -629,16 +484,6 @@ public enum ErrorCode {
      * 订单查询失败
      */
     ORDER_QUERY_ERROR(2216, "订单查询失败"),
-
-    /**
-     * 订单关闭失败
-     */
-    ORDER_CLOSE(2219, "订单关闭失败"),
-
-    /**
-     * 支付响应错误
-     */
-    PAY_ERROR(2222, "支付响应错误"),
 
     /**
      * 支付订单创建失败
@@ -731,11 +576,6 @@ public enum ErrorCode {
     MERCHANT_MOBILE_REDO(2276, "商户手机号被占用"),
 
     /**
-     * 商户角色未配置
-     */
-    MERCHANT_ROLE_NULL(2279, "商户角色未配置"),
-
-    /**
      * 民宿名称被占用
      */
     HOMESTAY_TITLE_REDO(2282, "民宿名称被占用"),
@@ -769,11 +609,6 @@ public enum ErrorCode {
      * 优惠券不在领取时间
      */
     COUPON_INVALID_TIME(2297, "优惠券不在领取时间内"),
-
-    /**
-     * 优惠券领取上限啦
-     */
-    COUPON_MAX(2300, "优惠券领取上限啦~"),
 
     /**
      * 优惠券领取方式不匹配
@@ -886,16 +721,6 @@ public enum ErrorCode {
     ORDER_PAID(2360, "订单状态已变更"),
 
     /**
-     * 商品无需发货
-     */
-    ITEM_NO_SHIPMENT(2361, "商品无需发货"),
-
-    /**
-     * 自提商品无需发货
-     */
-    ITEM_SELF_PICK(2362, "自提商品无需发货"),
-
-    /**
      * 订单已支付,无法取消
      */
     ORDER_PAID_CANCEL(2363, "订单已支付,无法取消"),
@@ -936,11 +761,6 @@ public enum ErrorCode {
     REFUND_NOT_FOUND(2384, "退款记录未查询到"),
 
     /**
-     * 累计退款金额大于实付金额
-     */
-    TOTAL_REFUND_MAX(2387, "累计退款金额大于实付金额"),
-
-    /**
      * 请勿重复退款
      */
     ITEM_REFUND(2390, "请勿重复退款"),
@@ -964,11 +784,6 @@ public enum ErrorCode {
      * 订单状态不符合退款要求
      */
     VISITOR_STATE_ERROR(2402, "订单状态不符合退款要求"),
-
-    /**
-     * 订单状态不匹配
-     */
-    ORDER_STATE_MATCH(2405, "订单状态不匹配"),
 
     /**
      * 订单状态不匹配,无法核销
@@ -1071,11 +886,6 @@ public enum ErrorCode {
     LINE_STOCK_NULL(2462, "线路库存不足"),
 
     /**
-     * 商品退款数量不匹配
-     */
-    REFUND_MUM_MATCH(2465, "商品退款数量不匹配"),
-
-    /**
      * 订单状态不匹配,无法退款
      */
     REFUND_STATE(2468, "订单状态不匹配,无法退款"),
@@ -1091,11 +901,6 @@ public enum ErrorCode {
     STATE_MACHINE_REGISTER(2474, "状态机[%s]未注册"),
 
     /**
-     * 该景区尚未提交审核
-     */
-    SCENIC_NOT_UP(2477, "该景区尚未提交审核"),
-
-    /**
      * 景区不存在或已删除
      */
     SCENIC_DELETE(2480, "景区不存在或已删除"),
@@ -1109,26 +914,6 @@ public enum ErrorCode {
      * 景区名称重复
      */
     SCENIC_REDO(2486, "景区名称重复"),
-
-    /**
-     * 该景区尚未提交审核
-     */
-    SCENIC_TICKET_NOT_UP(2489, "该门票尚未提交审核"),
-
-    /**
-     * 该民宿尚未提交审核
-     */
-    HOMESTAY_NOT_UP(2492, "该民宿尚未提交审核"),
-
-    /**
-     * 门票订单未查询到
-     */
-    TICKET_ORDER_NULL(2495, "门票订单未查询到"),
-
-    /**
-     * 免费票无需退款
-     */
-    TICKET_ORDER_FREE(2498, "免费票无需退款"),
 
     /**
      * 商品类型不匹配
@@ -1151,29 +936,9 @@ public enum ErrorCode {
     RESTAURANT_NULL(2510, "店铺信息未查询到"),
 
     /**
-     * 线路所属旅行社下架啦
-     */
-    TRAVEL_AGENCY_DOWN(2513, "线路所属旅行社下架啦"),
-
-    /**
-     * 退款方式不支持
-     */
-    REFUND_TYPE_NOT_MATCH(2516, "退款方式不支持"),
-
-    /**
      * 商户账号或密码错误
      */
     MERCHANT_NOT_FOUND(2519, "商户账号或密码错误"),
-
-    /**
-     * 商户账号锁定,请联系管理员解锁
-     */
-    MERCHANT_LOCKED(2522, "商户账号锁定,请联系管理员解锁"),
-
-    /**
-     * 商户账号或密码错误
-     */
-    MERCHANT_PWD_ERROR(2525, "商户账号或密码错误"),
 
     /**
      * 餐饮券名称重复
@@ -1396,11 +1161,6 @@ public enum ErrorCode {
     VERIFY_ORDER_ERROR(2648, "订单不支持扫码核销"),
 
     /**
-     * 核销状态不存在
-     */
-    VERIFY_STATE_ERROR(2651, "核销状态不存在"),
-
-    /**
      * 红包金额太小啦~
      */
     RED_PACKET_ERROR(2654, "红包金额太小啦~"),
@@ -1431,16 +1191,6 @@ public enum ErrorCode {
     MEMBER_HAS_REFUNDING(2669, "存在退款中的游客,不支持线下退款"),
 
     /**
-     * 存在退款中的商品,不支持线下退款
-     */
-    ITEM_HAS_REFUNDING(2672, "存在退款中的商品,不支持线下退款"),
-
-    /**
-     * 存在退款中的游客,不支持线下退款
-     */
-    MEMBER_REFUNDING(2675, "存在退款中的游客,请稍后再试"),
-
-    /**
      * 该账号已禁用,详细情况请联系客服
      */
     MEMBER_LOGIN_FORBID(2678, "账号已禁用,详细情况请联系客服"),
@@ -1459,21 +1209,6 @@ public enum ErrorCode {
      * 标签层级太深,不支持创建
      */
     TAG_DEPTH(2687, "标签层级太深,不支持创建"),
-
-    /**
-     * 该快递模板无权限操作
-     */
-    EXPRESS_NULL(2690, "该快递模板无权限操作"),
-
-    /**
-     * 商品不属于同一个店铺
-     */
-    ITEM_NOT_STORE(2693, "商品不属于同一个店铺"),
-
-    /**
-     * 存在已下架的商品
-     */
-    ITEM_MAY_DOWN(2696, "存在已下架的商品"),
 
     /**
      * 该地区暂不支持配送
@@ -1574,11 +1309,6 @@ public enum ErrorCode {
      * 区域名称重复
      */
     AREA_TITLE_REDO(2753, "区域名称重复"),
-
-    /**
-     * 区域信息未查询到
-     */
-    AREA_NOT_EXIST(2754, "区域信息未查询到"),
 
     /**
      * 区域编号重复
@@ -1711,19 +1441,9 @@ public enum ErrorCode {
     MERCHANT_SCORE_USE(2828, "商户可用积分不足"),
 
     /**
-     * 商户冻结积分不足
-     */
-    MERCHANT_SCORE_PAY(2831, "商户支付冻结积分不足"),
-
-    /**
      * 商户退款冻结积分不足
      */
     MERCHANT_SCORE_WITHDRAW(2834, "商户退款冻结积分不足"),
-
-    /**
-     * 页面类型不存在
-     */
-    VISIT_TYPE_NULL(2837, "页面类型不存在"),
 
     /**
      * 房间数与入住信息不匹配
@@ -1764,11 +1484,6 @@ public enum ErrorCode {
      * 活动时间必须大于当前时间
      */
     BOOKING_GT_TIME(2858, "活动时间必须大于当前时间"),
-
-    /**
-     * 短信模板未配置
-     */
-    SMS_TEMPLATE_NULL(2859, "短信模板未配置"),
 
     /**
      * 拼团活动结束时间不能大于一个月
@@ -1821,11 +1536,6 @@ public enum ErrorCode {
     LIMIT_GT_MONTH(2885, "活动时间跨度不能大于一个月"),
 
     /**
-     * 该商品已存在限时购活动
-     */
-    LIMIT_ITEM_REDO(2888, "该商品已存在限时购活动"),
-
-    /**
      * 进行中的活动暂无法删除
      */
     LIMIT_UNDERWAY_DELETE(2891, "进行中的活动暂无法删除"),
@@ -1859,16 +1569,6 @@ public enum ErrorCode {
      * 场地信息未查询到
      */
     VENUE_SITE_NULL(2909, "场地信息未查询到"),
-
-    /**
-     * 场次名称重复啦~
-     */
-    VENUE_SESSION_REDO(2912, "场地名称重复啦~"),
-
-    /**
-     * 场次信息未查询到
-     */
-    VENUE_SESSION_NULL(2915, "场地信息未查询到"),
 
     /**
      * 该时间段已被预约
@@ -1914,11 +1614,6 @@ public enum ErrorCode {
      * 兑换码已发放,无法删除
      */
     REDEEM_CODE_DELETE(2942, "兑换码已发放,无法删除"),
-
-    /**
-     * 兑换码已发放,无法修改
-     */
-    REDEEM_CODE_UPDATE(2945, "兑换码已发放,无法修改"),
 
     /**
      * 兑换码已发放
@@ -2046,11 +1741,6 @@ public enum ErrorCode {
     PRIZE_WIN_ERROR(3008, "中奖数量更新失败"),
 
     /**
-     * 抽奖活动已经结束啦
-     */
-    LOTTERY_CONFIG_NULL(3011, "抽奖活动已经结束啦"),
-
-    /**
      * 进行中抽奖活动无法直接删除
      */
     LOTTERY_NOT_DELETE(3012, "进行中抽奖活动无法直接删除"),
@@ -2064,11 +1754,6 @@ public enum ErrorCode {
      * 订单冻结记录已解冻
      */
     FREEZE_LOG_UNFREEZE(3017, "订单冻结记录已解冻"),
-
-    /**
-     * 冻结金额和解冻金额不匹配
-     */
-    FREEZE_LOG_AMOUNT(3020, "冻结金额和解冻金额不匹配"),
 
     /**
      * 标签名称重复啦~
@@ -2094,11 +1779,6 @@ public enum ErrorCode {
      * 请选择会员
      */
     SCORE_INTEGER(3035, "积分必须的100倍数"),
-
-    /**
-     * 积分太多啦~
-     */
-    SCORE_SURPLUS(3038, "积分太多啦~"),
 
     /**
      * 您的可用积分不足
@@ -2186,11 +1866,6 @@ public enum ErrorCode {
     HOMESTAY_NOT_COMPLETE(3083, "请先补全民宿信息"),
 
     /**
-     * 请先补全景区信息
-     */
-    TICKET_NOT_COMPLETE(3086, "请先补全景区信息"),
-
-    /**
      * 店铺信息不存在
      */
     STORE_NOT_EXIST(3089, "店铺信息不存在"),
@@ -2259,11 +1934,6 @@ public enum ErrorCode {
      * 小程序二维码生成失败
      */
     MA_QRCODE_ERROR(7018, "小程序二维码生成失败"),
-
-    /**
-     * 钉钉客户端初始化异常
-     */
-    DING_TALK_INIT(8000, "钉钉客户端初始化异常"),
 
     /**
      * 钉钉客户端初始化异常
