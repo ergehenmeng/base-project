@@ -386,6 +386,11 @@ public enum ErrorCode {
     FILE_SAVE_ERROR(2093, "文件保存失败"),
 
     /**
+     * 文件名不存在
+     */
+    FILE_NAME_NOT_FOUND(2091, "文件名不存在"),
+
+    /**
      * 创建文件失败
      */
     FILE_CREATE_ERROR(2096, "创建文件失败"),

@@ -67,23 +67,6 @@ public enum VoucherEvent implements IEvent {
     REFUND_FAIL(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.REFUND_ERROR.getValue()),
 
     /**
-     * 退款审核通过
-     */
-    REFUND_PASS(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
-
-    /**
-     * 退款审核拒绝
-     */
-    REFUND_REFUSE(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
-
-    /**
-     * 退款申请取消
-     */
-    REFUND_CANCEL(Lists.newArrayList(OrderState.UN_USED.getValue()
-            , OrderState.WAIT_TAKE.getValue(), OrderState.WAIT_DELIVERY.getValue(), OrderState.PARTIAL_DELIVERY.getValue()
-            , OrderState.WAIT_RECEIVE.getValue(), OrderState.REFUND.getValue()), OrderState.UN_USED.getValue()),
-
-    /**
      * 平台退款
      */
     PLATFORM_REFUND(Lists.newArrayList(OrderState.PROGRESS.getValue(), OrderState.UN_USED.getValue()), OrderState.CLOSE.getValue()),
