@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.GeoService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
@@ -16,8 +18,8 @@ import com.eghm.dto.business.homestay.HomestayEditRequest;
 import com.eghm.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.dto.business.homestay.HomestayQueryRequest;
 import com.eghm.dto.ext.CalcStatistics;
-import com.eghm.enums.ErrorCode;
 import com.eghm.enums.CollectType;
+import com.eghm.enums.ErrorCode;
 import com.eghm.enums.RoleType;
 import com.eghm.enums.State;
 import com.eghm.exception.BusinessException;
@@ -55,6 +57,8 @@ import static com.eghm.enums.ErrorCode.HOMESTAY_SEARCH_MAX;
 @AllArgsConstructor
 @Slf4j
 public class HomestayServiceImpl implements HomestayService, MerchantInitService {
+
+    private final GeoService geoService;
 
     private final SysConfigApi sysConfigApi;
 
@@ -99,6 +103,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         homestay.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
         homestay.setKeyService(CollUtil.join(request.getServiceList(), ","));
         homestayMapper.insert(homestay);
+        geoService.addPoint(CacheConstant.GEO_POINT_HOMESTAY, homestay.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
 
     @Override
@@ -110,6 +115,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         homestay.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
         homestay.setKeyService(CollUtil.join(request.getServiceList(), ","));
         homestayMapper.updateById(homestay);
+        geoService.addPoint(CacheConstant.GEO_POINT_HOMESTAY, homestay.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
 
     @Override

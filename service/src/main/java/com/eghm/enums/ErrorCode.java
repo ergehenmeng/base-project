@@ -1731,6 +1731,11 @@ public enum ErrorCode {
     VISITOR_NO_MATCH(2840, "房间数与入住信息不匹配"),
 
     /**
+     * %d点之后不可预约当天房型
+     */
+    TODAY_TIME_ILLEGAL(2841, "%d点之后不可预约当天房型"),
+
+    /**
      * 拼团活动名称重复
      */
     REDO_TITLE_BOOKING(2843, "拼团活动名称重复"),

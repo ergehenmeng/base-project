@@ -267,14 +267,6 @@ public interface CacheService {
     Long getBitmapOffset(String key, Long offset, int length);
 
     /**
-     * 统计bitmap中为true的总个数
-     *
-     * @param key key
-     * @return 个数
-     */
-    Long getBitmapCount(String key);
-
-    /**
      * 插入set
      *
      * @param key key

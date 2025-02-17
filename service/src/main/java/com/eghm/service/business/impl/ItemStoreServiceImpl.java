@@ -6,15 +6,17 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
+import com.eghm.common.GeoService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constants.CacheConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.item.store.ItemStoreAddRequest;
 import com.eghm.dto.business.item.store.ItemStoreEditRequest;
 import com.eghm.dto.business.item.store.ItemStoreQueryRequest;
-import com.eghm.enums.ErrorCode;
 import com.eghm.enums.CollectType;
+import com.eghm.enums.ErrorCode;
 import com.eghm.enums.RoleType;
 import com.eghm.enums.State;
 import com.eghm.exception.BusinessException;
@@ -52,6 +54,8 @@ import static com.eghm.enums.ErrorCode.SHOP_NOT_PERFECT;
 @Slf4j
 public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitService {
 
+    private final GeoService geoService;
+
     private final ItemService itemService;
 
     private final SysConfigApi sysConfigApi;
@@ -83,6 +87,7 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         shop.setState(State.UN_SHELVE);
         shop.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
         itemStoreMapper.insert(shop);
+        geoService.addPoint(CacheConstant.GEO_POINT_STORE, shop.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
 
     @Override
@@ -93,6 +98,7 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         ItemStore shop = DataUtil.copy(request, ItemStore.class);
         shop.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
         itemStoreMapper.updateById(shop);
+        geoService.addPoint(CacheConstant.GEO_POINT_STORE, shop.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
 
     @Override

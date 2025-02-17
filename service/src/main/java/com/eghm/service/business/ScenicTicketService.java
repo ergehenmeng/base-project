@@ -62,14 +62,6 @@ public interface ScenicTicketService {
     List<TicketBaseResponse> getList(Long merchantId, Long scenicId, Long id);
 
     /**
-     * 查询门票
-     *
-     * @param id 主键
-     * @return 景区门票信息 为空时则会报错
-     */
-    ScenicTicket selectByIdRequired(Long id);
-
-    /**
      * 查询门票详细信息 (管理后台)
      *
      * @param id id

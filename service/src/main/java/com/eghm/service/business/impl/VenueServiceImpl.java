@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.GeoService;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.venue.VenueAddRequest;
@@ -51,6 +53,8 @@ import java.util.List;
 @Service("venueService")
 public class VenueServiceImpl implements VenueService {
 
+    private final GeoService geoService;
+
     private final VenueMapper venueMapper;
 
     private final CommonService commonService;
@@ -93,6 +97,7 @@ public class VenueServiceImpl implements VenueService {
         venue.setState(State.UN_SHELVE);
         venue.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         venueMapper.insert(venue);
+        geoService.addPoint(CacheConstant.GEO_POINT_VENUE, venue.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
 
     @Override
@@ -104,6 +109,7 @@ public class VenueServiceImpl implements VenueService {
         Venue venue = DataUtil.copy(request, Venue.class);
         venue.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         venueMapper.updateById(venue);
+        geoService.addPoint(CacheConstant.GEO_POINT_VENUE, venue.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
 
     @Override

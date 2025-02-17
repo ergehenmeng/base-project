@@ -87,10 +87,4 @@ public interface RedisLock {
      */
     void lock(String key, long lockTime);
 
-    /**
-     * 释放锁
-     *
-     * @param key key
-     */
-    void unlock(String key);
 }

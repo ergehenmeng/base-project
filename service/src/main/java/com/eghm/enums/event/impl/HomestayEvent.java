@@ -1,7 +1,7 @@
 package com.eghm.enums.event.impl;
 
-import com.eghm.enums.event.IEvent;
 import com.eghm.enums.OrderState;
+import com.eghm.enums.event.IEvent;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,11 +45,6 @@ public enum HomestayEvent implements IEvent {
      * 核销
      */
     VERIFY(Lists.newArrayList(OrderState.UN_USED.getValue()), OrderState.COMPLETE.getValue()),
-
-    /**
-     * 自动确认
-     */
-    AUTO_CONFIRM(Lists.newArrayList(OrderState.UN_USED.getValue()), OrderState.COMPLETE.getValue()),
 
     /**
      * 订单取消

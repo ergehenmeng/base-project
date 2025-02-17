@@ -81,12 +81,4 @@ public class RedisLockImpl implements RedisLock {
     public void lock(String key, long lockTime) {
         redissonClient.getLock(key).lock(lockTime, TimeUnit.MILLISECONDS);
     }
-
-    @Override
-    public void unlock(String key) {
-        RLock rLock = redissonClient.getLock(key);
-        if (rLock.isLocked() && rLock.isHeldByCurrentThread()) {
-            rLock.unlock();
-        }
-    }
 }

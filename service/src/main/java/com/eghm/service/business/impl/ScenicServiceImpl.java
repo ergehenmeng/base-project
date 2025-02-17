@@ -95,6 +95,7 @@ public class ScenicServiceImpl implements ScenicService {
         scenic.setMerchantId(SecurityHolder.getMerchantId());
         scenic.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         scenicMapper.insert(scenic);
+        geoService.addPoint(CacheConstant.GEO_POINT_SCENIC, scenic.getId().toString(), scenic.getLongitude().doubleValue(), scenic.getLatitude().doubleValue());
     }
 
     @Override
@@ -105,6 +106,7 @@ public class ScenicServiceImpl implements ScenicService {
         Scenic scenic = DataUtil.copy(request, Scenic.class);
         scenic.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         scenicMapper.updateById(scenic);
+        geoService.addPoint(CacheConstant.GEO_POINT_SCENIC, scenic.getId().toString(), scenic.getLongitude().doubleValue(), scenic.getLatitude().doubleValue());
     }
 
     @Override
@@ -154,7 +156,7 @@ public class ScenicServiceImpl implements ScenicService {
         LinkedHashMap<String, Double> hashMap = new LinkedHashMap<>();
         containDistance = containDistance && dto.getLongitude() != null && dto.getLatitude() != null;
         if (containDistance) {
-            hashMap = geoService.radius(CacheConstant.GEO_SCENIC_DISTANCE, dto.getLongitude().doubleValue(), dto.getLatitude().doubleValue(), 10);
+            hashMap = geoService.radius(CacheConstant.GEO_POINT_SCENIC, dto.getLongitude().doubleValue(), dto.getLatitude().doubleValue(), 10);
         }
         for (ScenicVO vo : voList) {
             // 封面图默认取第一张
@@ -170,7 +172,7 @@ public class ScenicServiceImpl implements ScenicService {
         ScenicDetailVO vo = DataUtil.copy(scenic, ScenicDetailVO.class, "tag");
         // 用户未开启定位, 不查询距离
         if (dto.getLongitude() != null && dto.getLatitude() != null) {
-            double distance = geoService.distance(CacheConstant.GEO_SCENIC_DISTANCE, String.valueOf(dto.getScenicId()), dto.getLongitude().doubleValue(), dto.getLatitude().doubleValue());
+            double distance = geoService.distance(CacheConstant.GEO_POINT_SCENIC, String.valueOf(dto.getScenicId()), dto.getLongitude().doubleValue(), dto.getLatitude().doubleValue());
             vo.setDistance(BigDecimal.valueOf(distance));
         }
         // 景区地址

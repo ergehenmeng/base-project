@@ -1,13 +1,9 @@
 package com.eghm.utils;
 
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.ParameterException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -101,26 +97,6 @@ public class DateUtil {
     public static String format(Date date, String pattern) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         return formatter.format(date.toInstant().atZone(ZoneId.systemDefault()));
-    }
-
-    /**
-     * 将字符串转为Date
-     *
-     * @param date 日期格式的字符串 yyyy-MM-dd
-     * @return 日期date
-     */
-    public static Date parseShort(String date) {
-        return parseDate(date, SHORT_DATE);
-    }
-
-    public static Date parseDate(String date, String pattern) {
-        SimpleDateFormat format = new SimpleDateFormat(pattern);
-        try {
-            return format.parse(date);
-        } catch (ParseException e) {
-            log.warn("日期格式解析错误 date:[{}], pattern:[{}]", date, pattern, e);
-            throw new ParameterException(ErrorCode.DATE_CASE_ERROR);
-        }
     }
 
     /**

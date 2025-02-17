@@ -1,5 +1,7 @@
 package com.eghm.web.controller.business;
 
+import com.eghm.common.impl.SysConfigApi;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.OrderPayDTO;
 import com.eghm.dto.business.order.homestay.HomestayOrderCreateDTO;
@@ -38,6 +40,8 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -61,7 +65,11 @@ public class OrderController {
 
     private final StateHandler stateHandler;
 
+    private final SysConfigApi sysConfigApi;
+
     private final OrderProxyService orderProxyService;
+
+    private static final int TODAY_MAX_ORDER_HOUR = 22;
 
     @PostMapping(value = "/item/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "零售创建订单")
@@ -93,6 +101,10 @@ public class OrderController {
     public RespBody<OrderCreateVO<String>> homestayCreate(@RequestBody @Validated HomestayOrderCreateDTO dto) {
         if (dto.getVisitorList().size() != dto.getNum()) {
             return RespBody.error(ErrorCode.VISITOR_NO_MATCH);
+        }
+        int limit;
+        if (LocalDate.now().isEqual(dto.getStartDate()) && LocalDateTime.now().getHour() >= (limit = sysConfigApi.getInt(ConfigConstant.HOMESTAY_TODAY_LIMIT, TODAY_MAX_ORDER_HOUR))) {
+            return RespBody.error(ErrorCode.TODAY_TIME_ILLEGAL, limit);
         }
         HomestayOrderCreateContext context = DataUtil.copy(dto, HomestayOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());

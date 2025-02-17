@@ -5,14 +5,16 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.GeoService;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.travel.TravelAgencyAddRequest;
 import com.eghm.dto.business.travel.TravelAgencyEditRequest;
 import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
-import com.eghm.enums.ErrorCode;
 import com.eghm.enums.CollectType;
+import com.eghm.enums.ErrorCode;
 import com.eghm.enums.RoleType;
 import com.eghm.enums.State;
 import com.eghm.exception.BusinessException;
@@ -50,6 +52,8 @@ import static com.eghm.enums.ErrorCode.STORE_NOT_COMPLETE;
 @AllArgsConstructor
 public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantInitService {
 
+    private final GeoService geoService;
+
     private final LineMapper lineMapper;
 
     private final CommonService commonService;
@@ -86,6 +90,7 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         agency.setState(State.UN_SHELVE);
         agency.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         travelAgencyMapper.insert(agency);
+        geoService.addPoint(CacheConstant.GEO_POINT_TRAVEL, agency.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
 
     @Override
@@ -96,6 +101,7 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         TravelAgency agency = DataUtil.copy(request, TravelAgency.class);
         agency.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         travelAgencyMapper.updateById(agency);
+        geoService.addPoint(CacheConstant.GEO_POINT_TRAVEL, agency.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
 
     @Override

@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.GeoService;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.restaurant.RestaurantAddRequest;
@@ -55,6 +57,8 @@ import static com.eghm.enums.ErrorCode.STORE_NOT_COMPLETE;
 @Slf4j
 public class RestaurantServiceImpl implements RestaurantService, MerchantInitService {
 
+    private final GeoService geoService;
+
     private final CommonService commonService;
 
     private final VoucherMapper voucherMapper;
@@ -90,6 +94,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         restaurant.setState(State.UN_SHELVE);
         restaurant.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         restaurantMapper.insert(restaurant);
+        geoService.addPoint(CacheConstant.GEO_POINT_RESTAURANT, restaurant.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
 
     @Override
@@ -100,6 +105,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         Restaurant restaurant = DataUtil.copy(request, Restaurant.class);
         restaurant.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         restaurantMapper.updateById(restaurant);
+        geoService.addPoint(CacheConstant.GEO_POINT_RESTAURANT, restaurant.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
 
     @Override

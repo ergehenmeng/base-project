@@ -13,6 +13,27 @@ import org.springframework.lang.NonNull;
 public interface ActionHandler<C extends Context> extends Action<Integer, IEvent, C>, Condition<C> {
 
     /**
+     * 执行动作
+     *
+     * @param from 原状态
+     * @param to 新状态
+     * @param event 触发事件
+     * @param context 上下文信息
+     */
+    @Override
+    default void execute(Integer from, Integer to, IEvent event, @NonNull C context) {
+        context.setFrom(from);
+        this.doAction(context);
+    }
+
+    /**
+     * 真实业务处理
+     *
+     * @param context 上下文信息
+     */
+    void doAction(C context);
+
+    /**
      * 触发的事件类型
      *
      * @return 事件类型
@@ -35,26 +56,5 @@ public interface ActionHandler<C extends Context> extends Action<Integer, IEvent
     default boolean isSatisfied(C context) {
         return true;
     }
-
-    /**
-     * 执行动作
-     *
-     * @param from 原状态
-     * @param to 新状态
-     * @param event 触发事件
-     * @param context 上下文信息
-     */
-    @Override
-    default void execute(Integer from, Integer to, IEvent event, @NonNull C context) {
-        context.setFrom(from);
-        this.doAction(context);
-    }
-
-    /**
-     * 真实业务处理
-     *
-     * @param context 上下文信息
-     */
-    void doAction(C context);
 
 }

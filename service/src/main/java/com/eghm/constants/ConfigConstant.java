@@ -256,4 +256,9 @@ public class ConfigConstant {
      * 系统名称
      */
     public static final String SYSTEM_NAME = "system_name";
+
+    /**
+     * 房型当天日期限制
+     */
+    public static final String HOMESTAY_TODAY_LIMIT = "homestay_today_limit";
 }
