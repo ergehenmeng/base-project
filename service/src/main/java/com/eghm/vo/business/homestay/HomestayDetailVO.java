@@ -54,6 +54,9 @@ public class HomestayDetailVO {
     @Schema(description = "特色服务")
     private String keyService;
 
+    @Schema(description = "距离 单位:m")
+    private Integer distance;
+
     @Schema(description = "分数")
     private BigDecimal score;
 

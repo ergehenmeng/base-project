@@ -19,11 +19,6 @@ import java.util.Arrays;
 public enum DirectionType {
 
     /**
-     * 调整 (无收入和支出)
-     */
-    ADJUST(0, "调整"),
-
-    /**
      * 收入
      */
     INCOME(1, "收入"),

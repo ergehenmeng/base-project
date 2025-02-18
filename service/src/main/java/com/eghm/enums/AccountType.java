@@ -39,7 +39,7 @@ public enum AccountType {
     /**
      * 例如提现提现1000, 手续费5块,则提现冻结1000, 到账995
      */
-    WITHDRAW_APPLY(4, "提现支出", 2),
+    WITHDRAW_APPLY(4, "提现申请", 2),
 
     /**
      * 提现成功

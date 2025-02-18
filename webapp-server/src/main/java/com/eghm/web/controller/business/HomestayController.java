@@ -1,6 +1,6 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.homestay.HomestayDTO;
 import com.eghm.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.HomestayService;
@@ -38,8 +38,8 @@ public class HomestayController {
 
     @GetMapping("/detail")
     @Operation(summary = "详情")
-    public RespBody<HomestayDetailVO> detail(@Validated IdDTO dto) {
-        HomestayDetailVO detail = homestayService.detailById(dto.getId());
+    public RespBody<HomestayDetailVO> detail(@Validated HomestayDTO dto) {
+        HomestayDetailVO detail = homestayService.detailById(dto);
         return RespBody.success(detail);
     }
 }
