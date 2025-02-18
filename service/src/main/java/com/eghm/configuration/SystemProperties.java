@@ -4,6 +4,7 @@ import com.eghm.enums.*;
 import com.google.code.kaptcha.text.impl.DefaultTextCreator;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,9 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2022/1/29 16:25
  */
-@ConfigurationProperties(prefix = SystemProperties.PREFIX)
 @Data
+@Component
+@ConfigurationProperties(prefix = SystemProperties.PREFIX)
 public class SystemProperties {
 
     static final String PREFIX = "system";

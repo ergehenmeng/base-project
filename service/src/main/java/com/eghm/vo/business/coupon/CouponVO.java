@@ -25,7 +25,7 @@ public class CouponVO {
     private String title;
 
     @ApiModelProperty("是否已领取 true:已领取 false:未领取")
-    private Boolean received = false;
+    private Boolean received;
 
     @ApiModelProperty(value = "领取上限", hidden = true)
     @JsonIgnore

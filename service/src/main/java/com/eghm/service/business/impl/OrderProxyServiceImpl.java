@@ -98,7 +98,7 @@ public class OrderProxyServiceImpl implements OrderProxyService {
     public void itemRefund(String orderNo) {
         Order order = orderService.getByOrderNo(orderNo);
         if (order.getState() != OrderState.UN_USED && order.getState() != OrderState.WAIT_TAKE && order.getState() != OrderState.WAIT_DELIVERY) {
-            log.warn("订单状态不匹配,无法退款 [{}] [{}]", orderNo, order.getState());
+            log.warn("零售订单状态不匹配,无法退款 [{}] [{}]", orderNo, order.getState());
             throw new BusinessException(ErrorCode.REFUND_STATE);
         }
         List<ItemOrder> itemList = itemOrderService.getByOrderNo(orderNo);

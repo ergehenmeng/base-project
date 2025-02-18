@@ -2,6 +2,8 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.enums.WithdrawState;
+import com.eghm.enums.WithdrawWay;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -27,10 +29,10 @@ public class WithdrawLog extends BaseEntity {
     private Long merchantId;
 
     @ApiModelProperty(value = "0:提现中 1:提现成功 2:提现失败")
-    private Integer state;
+    private WithdrawState state;
 
     @ApiModelProperty(value = "1:手动提现 2:自动提现")
-    private Integer withdrawWay;
+    private WithdrawWay withdrawWay;
 
     @ApiModelProperty(value = "提现金额")
     @JsonSerialize(using = CentToYuanSerializer.class)

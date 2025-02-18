@@ -5,10 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.GeoService;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.travel.TravelAgencyAddRequest;
+import com.eghm.dto.business.travel.TravelAgencyDTO;
 import com.eghm.dto.business.travel.TravelAgencyEditRequest;
 import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
 import com.eghm.enums.ErrorCode;
@@ -50,6 +53,8 @@ import static com.eghm.enums.ErrorCode.STORE_NOT_COMPLETE;
 @AllArgsConstructor
 public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantInitService {
 
+    private final GeoService geoService;
+
     private final LineMapper lineMapper;
 
     private final CommonService commonService;
@@ -86,6 +91,7 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         agency.setState(State.UN_SHELVE);
         agency.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         travelAgencyMapper.insert(agency);
+        geoService.addPoint(CacheConstant.GEO_POINT_TRAVEL, agency.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
 
     @Override
@@ -96,6 +102,7 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         TravelAgency agency = DataUtil.copy(request, TravelAgency.class);
         agency.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         travelAgencyMapper.updateById(agency);
+        geoService.addPoint(CacheConstant.GEO_POINT_TRAVEL, agency.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
 
     @Override
@@ -143,11 +150,14 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     }
 
     @Override
-    public TravelDetailVO detail(Long id) {
-        TravelAgency travelAgency = this.selectByIdShelve(id);
+    public TravelDetailVO detail(TravelAgencyDTO dto) {
+        TravelAgency travelAgency = this.selectByIdShelve(dto.getId());
         TravelDetailVO vo = DataUtil.copy(travelAgency, TravelDetailVO.class);
         vo.setDetailAddress(sysAreaService.parseArea(travelAgency.getCityId(), travelAgency.getCountyId(), vo.getDetailAddress()));
-        vo.setCollect(memberCollectService.checkCollect(id, CollectType.TRAVEL_AGENCY));
+        vo.setCollect(memberCollectService.checkCollect(dto.getId(), CollectType.TRAVEL_AGENCY));
+        if (dto.getLongitude() != null && dto.getLatitude() != null) {
+            vo.setDistance((int)geoService.distance(CacheConstant.GEO_POINT_TRAVEL, String.valueOf(dto.getId()), dto.getLongitude().doubleValue(), dto.getLatitude().doubleValue()));
+        }
         return vo;
     }
 

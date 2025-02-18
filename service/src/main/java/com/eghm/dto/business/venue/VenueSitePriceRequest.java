@@ -2,7 +2,6 @@ package com.eghm.dto.business.venue;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.AbstractDateComparator;
-import com.eghm.dto.ext.AbstractDateComparator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

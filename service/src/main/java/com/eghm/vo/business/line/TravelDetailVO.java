@@ -49,4 +49,6 @@ public class TravelDetailVO {
     @ApiModelProperty("评分")
     private BigDecimal score;
 
+    @ApiModelProperty(value = "距离 单位:m")
+    private Integer distance;
 }

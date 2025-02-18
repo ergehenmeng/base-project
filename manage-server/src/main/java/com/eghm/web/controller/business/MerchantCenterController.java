@@ -2,6 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.merchant.MerchantUnbindDTO;
+import com.eghm.dto.business.merchant.MerchantWithdrawChangeRequest;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.MerchantType;
 import com.eghm.model.Merchant;
@@ -56,6 +57,13 @@ public class MerchantCenterController {
     @ApiOperation("解绑")
     public RespBody<Void> unbind(@RequestBody @Validated MerchantUnbindDTO dto) {
         merchantService.unbind(SecurityHolder.getMerchantId(), dto.getSmsCode());
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/withdrawWay", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("修改提现方式")
+    public RespBody<Void> withdrawWay(@RequestBody @Validated MerchantWithdrawChangeRequest request) {
+        merchantService.changeWithdrawWay(SecurityHolder.getMerchantId(), request.getWithdrawWay());
         return RespBody.success();
     }
 

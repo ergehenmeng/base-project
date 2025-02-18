@@ -53,6 +53,9 @@ public class RestaurantDetailVO {
     @ApiModelProperty(value = "纬度")
     private BigDecimal latitude;
 
+    @ApiModelProperty(value = "距离,单位:m")
+    private Integer distance;
+
     @ApiModelProperty(value = "商家热线")
     private String phone;
 

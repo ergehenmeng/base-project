@@ -2,10 +2,7 @@ package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
-import com.eghm.dto.business.venue.VenueAddRequest;
-import com.eghm.dto.business.venue.VenueEditRequest;
-import com.eghm.dto.business.venue.VenueQueryDTO;
-import com.eghm.dto.business.venue.VenueQueryRequest;
+import com.eghm.dto.business.venue.*;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.State;
 import com.eghm.model.Venue;
@@ -107,10 +104,10 @@ public interface VenueService {
     /**
      * 获取场馆详情
      *
-     * @param id id
+     * @param dto id
      * @return 场馆详情
      */
-    VenueDetailVO getDetail(Long id);
+    VenueDetailVO getDetail(VenueDTO dto);
 
     /**
      * 分页查询列表(含商户信息)

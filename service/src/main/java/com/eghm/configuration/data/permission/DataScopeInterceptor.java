@@ -30,6 +30,8 @@ public class DataScopeInterceptor implements Interceptor {
 
     private static final String DATA_SCOPE = "dataScope";
 
+    private static final int DEFAULT_ARGS_LENGTH = 4;
+
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Override
     public Object intercept(Invocation invocation) throws SQLException {
@@ -42,11 +44,11 @@ public class DataScopeInterceptor implements Interceptor {
         Executor executor = (Executor) invocation.getTarget();
         Map<String, Object> paramMap;
         if (paramObject == null) {
-            paramMap = new HashMap<>();
+            paramMap = new HashMap<>(8);
         } else if (paramObject instanceof Map) {
             paramMap = new HashMap<>((Map) paramObject);
         } else {
-            paramMap = new HashMap<>();
+            paramMap = new HashMap<>(8);
             boolean hasTypeHandler = ms.getConfiguration().getTypeHandlerRegistry().hasTypeHandler(paramObject.getClass());
             MetaObject metaObject = SystemMetaObject.forObject(paramObject);
             if (!hasTypeHandler) {
@@ -63,7 +65,7 @@ public class DataScopeInterceptor implements Interceptor {
         paramMap.put(DATA_SCOPE, DataScopeAspect.getScope());
         BoundSql boundSql;
         CacheKey cacheKey;
-        if (args.length == 4) {
+        if (args.length == DEFAULT_ARGS_LENGTH) {
             boundSql = ms.getBoundSql(paramMap);
             cacheKey = executor.createCacheKey(ms, paramMap, rowBounds, boundSql);
         } else {

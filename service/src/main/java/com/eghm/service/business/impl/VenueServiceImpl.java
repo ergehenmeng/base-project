@@ -5,13 +5,12 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.GeoService;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
-import com.eghm.dto.business.venue.VenueAddRequest;
-import com.eghm.dto.business.venue.VenueEditRequest;
-import com.eghm.dto.business.venue.VenueQueryDTO;
-import com.eghm.dto.business.venue.VenueQueryRequest;
+import com.eghm.dto.business.venue.*;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.State;
@@ -50,6 +49,8 @@ import java.util.List;
 @AllArgsConstructor
 @Service("venueService")
 public class VenueServiceImpl implements VenueService {
+
+    private final GeoService geoService;
 
     private final VenueMapper venueMapper;
 
@@ -93,6 +94,7 @@ public class VenueServiceImpl implements VenueService {
         venue.setState(State.UN_SHELVE);
         venue.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         venueMapper.insert(venue);
+        geoService.addPoint(CacheConstant.GEO_POINT_VENUE, venue.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
 
     @Override
@@ -104,6 +106,7 @@ public class VenueServiceImpl implements VenueService {
         Venue venue = DataUtil.copy(request, Venue.class);
         venue.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         venueMapper.updateById(venue);
+        geoService.addPoint(CacheConstant.GEO_POINT_VENUE, venue.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
 
     @Override
@@ -153,9 +156,13 @@ public class VenueServiceImpl implements VenueService {
     }
 
     @Override
-    public VenueDetailVO getDetail(Long id) {
-        Venue venue = this.selectByIdShelve(id);
-        return DataUtil.copy(venue, VenueDetailVO.class);
+    public VenueDetailVO getDetail(VenueDTO dto) {
+        Venue venue = this.selectByIdShelve(dto.getId());
+        VenueDetailVO vo = DataUtil.copy(venue, VenueDetailVO.class);
+        if (dto.getLatitude() != null && dto.getLongitude() != null) {
+            vo.setDistance((int) geoService.distance(CacheConstant.GEO_POINT_VENUE, String.valueOf(venue.getId()), dto.getLongitude().doubleValue(), dto.getLatitude().doubleValue()));
+        }
+        return vo;
     }
 
     @Override

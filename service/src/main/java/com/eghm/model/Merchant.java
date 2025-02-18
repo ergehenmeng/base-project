@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.WithdrawWay;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -58,6 +59,9 @@ public class Merchant extends BaseEntity {
 
     @ApiModelProperty(value = "省份id")
     private Long provinceId;
+
+    @ApiModelProperty(value = "提现方式 1:手动提现 2:自动提现")
+    private WithdrawWay withdrawWay;
 
     @ApiModelProperty(value = "城市id")
     private Long cityId;

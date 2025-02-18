@@ -156,7 +156,7 @@ public class Order extends BaseEntity {
      * 2. 退款审核通过后即为拼团失败
      */
     @ApiModelProperty("拼团状态 0:待成团 1:拼团成功 2:拼团失败")
-    private Integer bookingState;
+    private BookingState bookingState;
 
     @ApiModelProperty("创建日期")
     private LocalDate createDate;

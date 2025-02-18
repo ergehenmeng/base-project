@@ -61,6 +61,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -126,11 +127,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType, String clientIp) {
         this.checkPayChannel(ApiHolder.getChannel(), tradeType);
-
         List<String> orderNoList = split(orderNo, ',');
         ProductType productType = ProductType.prefix(orderNoList.get(0));
         String tradeNo = productType.generateTradeNo();
-
         List<Order> orderList = this.getUnPay(orderNoList);
         StringBuilder builder = new StringBuilder();
         int totalAmount = 0;
@@ -142,7 +141,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             totalAmount += order.getPayAmount();
             baseMapper.updateById(order);
         }
-
         PrepayDTO dto = new PrepayDTO();
         dto.setAttach(orderNo);
         dto.setDescription(this.getGoodsTitle(builder));
@@ -250,7 +248,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         wrapper.set(Order::getVerifyNo, verifyNo);
         int update = baseMapper.update(null, wrapper);
         if (update != 1) {
-            log.warn("订单状态更新数据不一致 [{}] [{}] [{}]", orderNo, newState, payType);
+            log.warn("支付成功订单状态更新数据不一致 [{}] [{}] [{}]", orderNo, newState, payType);
         }
     }
 
@@ -291,9 +289,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             log.warn("待线下退款的游客列表中, 存在退款中的游客 [{}] {}", request.getOrderNo(), request.getVisitorList());
             throw new BusinessException(ErrorCode.MEMBER_HAS_REFUNDING);
         }
-
         this.checkHasRefund(request.getVisitorList(), request.getOrderNo());
-
         offlineRefundLogService.insertLog(request);
         orderVisitorService.updateRefund(request.getVisitorList(), request.getOrderNo());
         // 计算主订单状态
@@ -387,7 +383,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         orderList.forEach(itemOrder -> itemOrder.setDeliveryState(DeliveryState.WAIT_TAKE));
         itemOrderService.updateBatchById(orderList);
         orderExpressService.insert(request);
-
         Long count = itemOrderService.countWaitDelivery(request.getOrderNo());
         if (count == 0) {
             order.setState(OrderState.WAIT_RECEIVE);
@@ -406,7 +401,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             throw new BusinessException(ErrorCode.EXPRESS_SELECT_NULL);
         }
         Order order = this.getByOrderNo(express.getOrderNo());
-
         ExpressDetailVO vo = new ExpressDetailVO();
         vo.setExpressNo(express.getExpressNo());
         vo.setExpressName(ExpressType.of(express.getExpressCode()).getName());
@@ -497,7 +491,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public void updateBookingState(String bookingNo, Integer bookingState) {
+    public void updateBookingState(String bookingNo, BookingState bookingState) {
         log.info("修改订单拼团状态: [{}] [{}]", bookingNo, bookingState);
         LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Order::getBookingNo, bookingNo);
@@ -573,48 +567,64 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public List<SaleStatisticsVO> saleStatistics(Long merchantId, ProductType productType) {
         int limit = sysConfigApi.getInt(PRODUCT_SALE_RANKING, 5);
         String key = merchantId != null ? String.format(MERCHANT_PRODUCT_RANKING, merchantId, productType.getPrefix()) : String.format(PRODUCT_RANKING, productType.getPrefix());
-        Set<ZSetOperations.TypedTuple<String>> serviceSet = cacheService.rangeWithScore(key,  limit - 1);
+        Set<ZSetOperations.TypedTuple<String>> serviceSet = cacheService.rangeWithScore(key, limit - 1);
         if (CollUtil.isEmpty(serviceSet)) {
             return Lists.newArrayList();
         }
-        List<Long> ids = serviceSet.stream().map(typedTuple -> Long.parseLong(Objects.requireNonNull(typedTuple.getValue()))).collect(Collectors.toList());
-        List<Item> itemList = itemMapper.getByIds(ids);
-        Map<Long, Item> stringMap = itemList.stream().collect(Collectors.toMap(Item::getId, Function.identity()));
-        List<SaleStatisticsVO> voList = new ArrayList<>();
-        for (ZSetOperations.TypedTuple<String> typedTuple: serviceSet) {
+        return this.getRangeList(key, limit - 1, ids -> {
+            List<Item> itemList = itemMapper.getByIds(ids);
+            return itemList.stream().collect(Collectors.toMap(Item::getId, Function.identity()));
+        }, (typedTuple, item) -> {
             SaleStatisticsVO vo = new SaleStatisticsVO();
-            long productId = Long.parseLong(Objects.requireNonNull(typedTuple.getValue()));
-            vo.setProductId(productId);
-            Item item = stringMap.get(productId);
             if (item == null) {
                 vo.setProductName("商品已删除");
             } else {
+                vo.setProductId(item.getId());
                 vo.setProductName(item.getTitle());
                 vo.setProductImg(item.getCoverUrl());
             }
             vo.setAmount(Optional.ofNullable(typedTuple.getScore()).orElse(0D).intValue());
-            voList.add(vo);
-        }
-        return voList;
+            return vo;
+        });
     }
 
     @Override
     public List<MerchantStatisticsVO> merchantStatistics() {
         int limit = sysConfigApi.getInt(MERCHANT_SALE_RANKING, 10);
-        Set<ZSetOperations.TypedTuple<String>> serviceSet = cacheService.rangeWithScore(MERCHANT_RANKING,  limit - 1);
+        return this.getRangeList(MERCHANT_RANKING, limit - 1, ids -> {
+            List<Merchant> merchantList = merchantMapper.selectBatchIds(ids);
+            return merchantList.stream().collect(Collectors.toMap(Merchant::getId, Merchant::getMerchantName));
+        }, (typedTuple, merchant) -> {
+            MerchantStatisticsVO vo = new MerchantStatisticsVO();
+            vo.setMerchantName(merchant);
+            vo.setAmount(Optional.ofNullable(typedTuple.getScore()).orElse(0D).intValue());
+            return vo;
+        });
+    }
+
+    /**
+     * 根据指定的key获取排行榜中前limit名的数据, 并将数据转换成指定的对象, 数据来源由function, 数据处理函数由consumer
+     *
+     * @param key      key
+     * @param limit    前limit名
+     * @param function 根据ids 获取数据(含数据格式化)
+     * @param consumer 根据匹配到的数据做二次处理
+     * @param <T>      返回对象
+     * @param <S>      格式化的数据对象
+     * @return list
+     */
+    private <T, S> List<T> getRangeList(String key, int limit, Function<List<Long>, Map<Long, S>> function, BiFunction<ZSetOperations.TypedTuple<String>, S, T> consumer) {
+        Set<ZSetOperations.TypedTuple<String>> serviceSet = cacheService.rangeWithScore(key, limit);
         if (CollUtil.isEmpty(serviceSet)) {
             return Lists.newArrayList();
         }
         List<Long> ids = serviceSet.stream().map(typedTuple -> Long.parseLong(Objects.requireNonNull(typedTuple.getValue()))).collect(Collectors.toList());
-        List<Merchant> merchantList = merchantMapper.selectBatchIds(ids);
-        Map<Long, String> stringMap = merchantList.stream().collect(Collectors.toMap(Merchant::getId, Merchant::getMerchantName));
-        List<MerchantStatisticsVO> voList = new ArrayList<>();
-        for (ZSetOperations.TypedTuple<String> typedTuple: serviceSet) {
-            MerchantStatisticsVO vo = new MerchantStatisticsVO();
+        Map<Long, S> stringMap = function.apply(ids);
+        List<T> voList = new ArrayList<>();
+        for (ZSetOperations.TypedTuple<String> typedTuple : serviceSet) {
             long merchantId = Long.parseLong(Objects.requireNonNull(typedTuple.getValue()));
-            vo.setMerchantName(stringMap.get(merchantId));
-            vo.setAmount(Optional.ofNullable(typedTuple.getScore()).orElse(0D).intValue());
-            voList.add(vo);
+            S s = stringMap.get(merchantId);
+            voList.add(consumer.apply(typedTuple, s));
         }
         return voList;
     }
@@ -665,7 +675,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             log.error("订单可能已被删除 {}", orderNoList);
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
         }
-
         if (orderList.size() != orderNoList.size()) {
             log.error("存在部分订单不是待支付 [{}]", orderNoList);
             throw new BusinessException(ErrorCode.ORDER_PAID);
@@ -694,7 +703,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     /**
      * 校验支付渠道是否支持
      *
-     * @param channel 客户端类型
+     * @param channel   客户端类型
      * @param tradeType 支付渠道
      */
     private void checkPayChannel(String channel, TradeType tradeType) {
@@ -716,9 +725,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     /**
      * 按比例计算退款金额或积分
      *
-     * @param saleAmount 商品售价
+     * @param saleAmount  商品售价
      * @param totalAmount 订单总价
-     * @param amount 优惠金额或积分
+     * @param amount      优惠金额或积分
      * @return 优惠金额或积分
      */
     private static Integer calcRateAmount(Integer saleAmount, Integer totalAmount, Integer amount) {

@@ -2,6 +2,7 @@ package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.withdraw.WithdrawApplyDTO;
+import com.eghm.dto.business.withdraw.WithdrawNotifyDTO;
 import com.eghm.dto.business.withdraw.WithdrawQueryRequest;
 import com.eghm.vo.business.withdraw.WithdrawLogResponse;
 
@@ -39,4 +40,11 @@ public interface WithdrawService {
      * @param dto 提现信息
      */
     void apply(WithdrawApplyDTO dto);
+
+    /**
+     * 提现结果通知
+     *
+     * @param dto 提现信息
+     */
+    void notify(WithdrawNotifyDTO dto);
 }

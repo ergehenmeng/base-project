@@ -93,14 +93,14 @@ public class ItemDetailVO {
     private Integer goodRate;
 
     @ApiModelProperty("是否为拼团商品")
-    private Boolean groupBooking = false;
+    private Boolean groupBooking;
 
     @ApiModelProperty("拼团活动id")
     @JsonIgnore
     private Long bookingId;
 
     @ApiModelProperty("是否为限时购商品")
-    private Boolean limitPurchase = false;
+    private Boolean limitPurchase;
 
     @ApiModelProperty("限时购活动id")
     @JsonIgnore
@@ -124,4 +124,8 @@ public class ItemDetailVO {
     @ApiModelProperty("规格sku信息(单规格时只有一条)")
     private List<ItemSkuVO> skuList;
 
+    public ItemDetailVO() {
+        this.groupBooking = false;
+        this.limitPurchase = false;
+    }
 }

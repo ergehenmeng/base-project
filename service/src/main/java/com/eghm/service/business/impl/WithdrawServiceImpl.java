@@ -1,12 +1,19 @@
 package com.eghm.service.business.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.account.AccountDTO;
 import com.eghm.dto.business.withdraw.WithdrawApplyDTO;
+import com.eghm.dto.business.withdraw.WithdrawNotifyDTO;
 import com.eghm.dto.business.withdraw.WithdrawQueryRequest;
-import com.eghm.enums.ErrorCode;
 import com.eghm.enums.AccountType;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.WithdrawState;
+import com.eghm.enums.WithdrawWay;
+import com.eghm.exception.BusinessException;
 import com.eghm.mapper.WithdrawLogMapper;
 import com.eghm.model.WithdrawLog;
 import com.eghm.service.business.AccountService;
@@ -56,17 +63,46 @@ public class WithdrawServiceImpl implements WithdrawService {
         AccountDTO dto = new AccountDTO();
         dto.setMerchantId(apply.getMerchantId());
         dto.setAmount(apply.getAmount());
-        dto.setAccountType(AccountType.WITHDRAW);
+        dto.setAccountType(AccountType.WITHDRAW_APPLY);
         String tradeNo = this.generateWithdrawNo();
         dto.setTradeNo(tradeNo);
         ExceptionUtil.transfer(() -> accountService.updateAccount(dto), ErrorCode.MERCHANT_ACCOUNT_USE, ErrorCode.WITHDRAW_ENOUGH);
         WithdrawLog withdrawLog = DataUtil.copy(apply, WithdrawLog.class);
-        withdrawLog.setWithdrawWay(1);
-        withdrawLog.setState(0);
+        withdrawLog.setWithdrawWay(WithdrawWay.MANUAL);
+        withdrawLog.setState(WithdrawState.APPLY);
         withdrawLog.setCreateTime(LocalDateTime.now());
         withdrawLog.setRefundNo(tradeNo);
         withdrawLogMapper.insert(withdrawLog);
-        accountService.withdrawSuccess(apply.getMerchantId(), apply.getAmount());
+    }
+
+    @Override
+    public void notify(WithdrawNotifyDTO dto) {
+        LambdaQueryWrapper<WithdrawLog> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(WithdrawLog::getRefundNo, dto.getTradeNo());
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        WithdrawLog withdrawLog = withdrawLogMapper.selectOne(wrapper);
+        if (withdrawLog == null) {
+            log.error("未找到对应的提现记录 [{}]", dto.getTradeNo());
+            throw new BusinessException(ErrorCode.WITHDRAW_LOG_NULL);
+        }
+        if (withdrawLog.getState() != WithdrawState.APPLY) {
+            log.warn("提现记录状态异常, 订单已更新 [{}] [{}] [{}]", dto.getTradeNo(), dto.getState(), withdrawLog.getState());
+            return;
+        }
+        withdrawLog.setState(dto.getState());
+        withdrawLog.setOutRefundNo(dto.getOutRefundNo());
+        withdrawLog.setPaymentTime(dto.getWithdrawTime());
+        withdrawLogMapper.updateById(withdrawLog);
+        AccountDTO account = new AccountDTO();
+        account.setMerchantId(withdrawLog.getMerchantId());
+        account.setAmount(withdrawLog.getAmount());
+        account.setTradeNo(withdrawLog.getRefundNo());
+        if (dto.getState() == WithdrawState.SUCCESS) {
+            account.setAccountType(AccountType.WITHDRAW_SUCCESS);
+        } else {
+            account.setAccountType(AccountType.WITHDRAW_FAIL);
+        }
+        accountService.updateAccount(account);
     }
 
     /**

@@ -13,7 +13,7 @@ public interface LoginDeviceMapper extends BaseMapper<LoginDevice> {
      * 添加或更新登陆设备信息(仅仅为了精简代码)
      * @param device 根据唯一性约束唯一性，如果存在则更新，不存在则插入
      */
-    int insertOrUpdateSelective(LoginDevice device);
+    void insertOrUpdateSelective(LoginDevice device);
 
     /**
      * 查找指定设备是否有登陆日志

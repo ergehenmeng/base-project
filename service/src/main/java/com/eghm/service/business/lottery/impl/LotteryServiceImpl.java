@@ -59,6 +59,8 @@ public class LotteryServiceImpl implements LotteryService {
 
     private final LotteryConfigService lotteryConfigService;
 
+    private static final int LOTTERY_RATE = 10000;
+
     @Override
     public Page<LotteryResponse> getByPage(LotteryQueryRequest request) {
         return lotteryMapper.getByPage(request.createPage(), request);
@@ -115,7 +117,7 @@ public class LotteryServiceImpl implements LotteryService {
     public LotteryResultVO lottery(Long lotteryId, Long memberId) {
         Lottery lottery = lotteryMapper.selectById(lotteryId);
         if (lottery == null) {
-            log.error("抽奖活动可能已删除 [{}]", lotteryId);
+            log.error("抽奖活动详情可能已删除 [{}]", lotteryId);
             throw new BusinessException(ErrorCode.LOTTERY_NULL);
         }
         this.checkLottery(lottery, memberId);
@@ -261,7 +263,7 @@ public class LotteryServiceImpl implements LotteryService {
         if (lottery.getWinNum() <= lotteryWin) {
             return losingLottery;
         }
-        int index = new SecureRandom().nextInt(10000);
+        int index = new SecureRandom().nextInt(LOTTERY_RATE);
         return configList.stream().filter(config -> config.getStartRange() >= index && index < config.getEndRange()).findFirst().orElse(losingLottery);
     }
 
@@ -317,7 +319,7 @@ public class LotteryServiceImpl implements LotteryService {
      */
     private void checkConfig(List<LotteryConfigRequest> configList) {
         Optional<Integer> optional = configList.stream().map(LotteryConfigRequest::getWeight).reduce(Integer::sum);
-        if (!optional.isPresent() || optional.get() != 10000) {
+        if (!optional.isPresent() || optional.get() != LOTTERY_RATE) {
             throw new BusinessException(ErrorCode.LOTTERY_RATIO);
         }
     }

@@ -39,12 +39,22 @@ public enum AccountType {
     /**
      * 例如提现提现1000, 手续费5块,则提现冻结1000, 到账995
      */
-    WITHDRAW(4, "提现支出", 2),
+    WITHDRAW_APPLY(4, "提现申请", 2),
+
+    /**
+     * 提现成功
+     */
+    WITHDRAW_SUCCESS(5, "提现成功", 0),
+
+    /**
+     * 提现失败
+     */
+    WITHDRAW_FAIL(6, "提现失败", 1),
 
     /**
      * 积分充值支出
      */
-    SCORE_RECHARGE(5, "积分充值支出", 2);
+    SCORE_RECHARGE(7, "积分充值支出", 2);
 
     /**
      * 状态值

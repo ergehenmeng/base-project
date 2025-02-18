@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.dto.statistics.DateRequest;
+import com.eghm.enums.BookingState;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.PayType;
 import com.eghm.enums.ProductType;
@@ -227,7 +228,7 @@ public interface OrderService extends IService<Order> {
      * @param bookingNo 拼团单号
      * @param bookingState 拼团状态
      */
-    void updateBookingState(String bookingNo, Integer bookingState);
+    void updateBookingState(String bookingNo, BookingState bookingState);
 
     /**
      * 检查当前用户是否已在拼团订单中

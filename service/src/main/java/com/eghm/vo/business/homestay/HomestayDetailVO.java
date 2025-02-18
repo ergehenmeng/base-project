@@ -57,6 +57,9 @@ public class HomestayDetailVO {
     @ApiModelProperty("分数")
     private BigDecimal score;
 
+    @ApiModelProperty(value = "距离 单位:m")
+    private Integer distance;
+
     @ApiModelProperty(value = "标签")
     private List<String> tagList;
 

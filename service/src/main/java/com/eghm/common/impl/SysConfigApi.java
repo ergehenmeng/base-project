@@ -104,7 +104,7 @@ public class SysConfigApi {
         try {
             return Integer.parseInt(value);
         } catch (Exception e) {
-            log.warn("系统参数转int异常 [{}]", value);
+            log.warn("系统参数转int异常(默认) [{}]", value);
             return defaultValue;
         }
     }
@@ -137,7 +137,7 @@ public class SysConfigApi {
         try {
             return Long.parseLong(value);
         } catch (Exception e) {
-            log.warn("系统参数转long异常 [{}]", value);
+            log.warn("系统参数转long异常(默认) [{}]", value);
             return defaultValue;
         }
     }

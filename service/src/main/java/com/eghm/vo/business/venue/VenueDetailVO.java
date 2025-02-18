@@ -46,4 +46,8 @@ public class VenueDetailVO {
 
     @ApiModelProperty(value = "场馆详细信息")
     private String introduce;
+
+    @ApiModelProperty(value = "距离 单位:m")
+    private Integer distance;
+
 }

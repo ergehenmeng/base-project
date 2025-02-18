@@ -17,32 +17,32 @@ import lombok.Data;
 public class OrderCardVO {
 
     @ApiModelProperty("订单数量(含退款的订单)")
-    private Integer orderNum = 0;
+    private Integer orderNum;
 
     @ApiModelProperty("支付金额(含退款的订单)")
     @JsonSerialize(using = CentToYuanSerializer.class)
-    private Integer payAmount = 0;
+    private Integer payAmount;
 
     @ApiModelProperty("退款数量(包含部分退款)")
-    private Integer refundNum = 0;
+    private Integer refundNum;
 
     @ApiModelProperty("退款金额(包含部分退款)")
     @JsonSerialize(using = CentToYuanSerializer.class)
-    private Integer refundAmount = 0;
+    private Integer refundAmount;
 
     public void setOrderNum(Integer orderNum) {
-        this.orderNum = orderNum + RandomUtil.randomInt(1000);
+        this.orderNum = (orderNum != null ? orderNum : 0) + RandomUtil.randomInt(1000);
     }
 
     public void setPayAmount(Integer payAmount) {
-        this.payAmount = payAmount + RandomUtil.randomInt(1000000);
+        this.payAmount = (payAmount != null ? payAmount : 0) + RandomUtil.randomInt(1000000);
     }
 
     public void setRefundNum(Integer refundNum) {
-        this.refundNum = refundNum + RandomUtil.randomInt(1000);
+        this.refundNum = (refundNum != null ? refundNum : 0) + RandomUtil.randomInt(1000);
     }
 
     public void setRefundAmount(Integer refundAmount) {
-        this.refundAmount = refundAmount + RandomUtil.randomInt(1000000);
+        this.refundAmount = (refundAmount != null ? refundAmount : 0) + RandomUtil.randomInt(1000000);
     }
 }

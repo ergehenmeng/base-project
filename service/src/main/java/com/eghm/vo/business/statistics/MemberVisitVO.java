@@ -27,7 +27,7 @@ public class MemberVisitVO {
     private String createMonth;
 
     @ApiModelProperty("订单数量")
-    private Integer visitNum = 0;
+    private Integer visitNum;
 
     public MemberVisitVO(LocalDate createDate) {
         this.createDate = createDate;

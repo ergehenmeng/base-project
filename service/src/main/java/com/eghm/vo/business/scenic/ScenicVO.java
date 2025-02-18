@@ -1,8 +1,6 @@
 package com.eghm.vo.business.scenic;
 
-import com.eghm.convertor.BigDecimalOmitSerializer;
 import com.eghm.convertor.CentToYuanSerializer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -38,18 +36,15 @@ public class ScenicVO {
     private Integer minPrice;
 
     @ApiModelProperty("距离 单位:m")
-    @JsonSerialize(using = BigDecimalOmitSerializer.class)
-    private BigDecimal distance;
+    private Integer distance;
 
     @ApiModelProperty("状态 0:待上架 1:已上架 2:强制下架")
     private Integer state;
 
-    @ApiModelProperty(value = "经度", hidden = true)
-    @JsonIgnore
+    @ApiModelProperty(value = "经度")
     private BigDecimal longitude;
 
-    @ApiModelProperty(value = "纬度", hidden = true)
-    @JsonIgnore
+    @ApiModelProperty(value = "纬度")
     private BigDecimal latitude;
 
 }

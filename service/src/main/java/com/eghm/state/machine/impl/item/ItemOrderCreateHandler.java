@@ -200,7 +200,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         order.setLimitId(context.getLimitId());
         order.setBookingId(context.getBookingId());
         order.setBookingNo(context.getBookingNo());
-        order.setBookingState(0);
+        order.setBookingState(BookingState.WAITING);
         order.setCreateDate(LocalDate.now());
         order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
@@ -385,7 +385,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             log.info("团长创建拼团订单 [{}] [{}]", context.getMemberId(), context.getBookingNo());
             return;
         }
-        List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(context.getBookingNo(), 0);
+        List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(context.getBookingNo(), BookingState.WAITING);
         if (CollUtil.isEmpty(groupList)) {
             log.info("团员创建拼团订单,但没有待拼团的订单 [{}]", context.getBookingNo());
             throw new BusinessException(ITEM_GROUP_COMPLETE);

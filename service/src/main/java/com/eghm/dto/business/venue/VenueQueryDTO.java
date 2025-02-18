@@ -33,5 +33,5 @@ public class VenueQueryDTO extends PagingQuery {
     private BigDecimal latitude;
 
     @ApiModelProperty("是否按距离排序")
-    private Boolean sortByDistance = false;
+    private Boolean sortByDistance;
 }

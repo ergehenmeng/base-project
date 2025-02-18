@@ -1,6 +1,8 @@
 package com.eghm.common;
 
 import com.eghm.dto.ext.FilePath;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -29,4 +31,15 @@ public interface FileService {
      */
     FilePath saveFile(String key, MultipartFile file, String folder, long maxSize);
 
+    /**
+     * 校验文件大小
+     *
+     * @param file    文件
+     * @param maxSize 最大限制
+     */
+    default void checkSize(MultipartFile file, long maxSize) {
+        if (maxSize < file.getSize()) {
+            throw new BusinessException(ErrorCode.UPLOAD_TOO_BIG, maxSize / 1024);
+        }
+    }
 }

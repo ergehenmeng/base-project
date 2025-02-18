@@ -11,8 +11,8 @@ public interface MybatisMapper {
     /**
      * test
      *
-     * @param id
-     * @return
+     * @param id id
+     * @return x
      */
     SysConfig getById(Long id);
 

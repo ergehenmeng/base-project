@@ -20,7 +20,7 @@ public class OrderEvaluationDTO {
     private String orderNo;
 
     @ApiModelProperty(value = "是否匿名评论 0:非匿名 1:匿名")
-    private Boolean anonymity = false;
+    private Boolean anonymity;
 
     @ApiModelProperty(value = "评价信息", required = true)
     @NotEmpty(message = "评价信息不能为空")

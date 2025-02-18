@@ -235,17 +235,6 @@ public interface CacheService {
     boolean getBitmap(String key, Long ops);
 
     /**
-     * 判断在指定key上是否有succession个数连续为true(慎用)
-     * 采用bitField实现
-     *
-     * @param key        key
-     * @param end        当前尾节点
-     * @param succession 连续天数 该值越大性能越差
-     * @return 个数
-     */
-    boolean checkSerialBoost(String key, Long end, Integer succession);
-
-    /**
      * 查询指定位置后long的长度
      *
      * @param key    key
@@ -265,14 +254,6 @@ public interface CacheService {
      * @return long 默认取32位
      */
     Long getBitmapOffset(String key, Long offset, int length);
-
-    /**
-     * 统计bitmap中为true的总个数
-     *
-     * @param key key
-     * @return 个数
-     */
-    Long getBitmapCount(String key);
 
     /**
      * 插入set

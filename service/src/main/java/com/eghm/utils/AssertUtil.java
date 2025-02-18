@@ -24,7 +24,7 @@ public class AssertUtil {
      */
     public static void assertNotNull(Object obj, ErrorCode errorCode, String message, Object arg1) {
         if (obj == null) {
-            log.error(message + " [{}]", arg1);
+            log.error("{} [{}]", message, arg1);
             throw new BusinessException(errorCode);
         }
     }
@@ -40,7 +40,7 @@ public class AssertUtil {
      */
     public static void assertNotNull(Object obj, ErrorCode errorCode, String message, Object arg1, Object arg2) {
         if (obj == null) {
-            log.error(message + " [{}] [{}]", arg1, arg2);
+            log.error("{} [{}] [{}]", message, arg1, arg2);
             throw new BusinessException(errorCode);
         }
     }
@@ -57,7 +57,7 @@ public class AssertUtil {
      */
     public static void assertNotNull(Object obj, ErrorCode errorCode, String message, Object arg1, Object arg2, Object arg3) {
         if (obj == null) {
-            log.error(message + " [{}] [{}] [{}]", arg1, arg2, arg3);
+            log.error("{} [{}] [{}] [{}]", message, arg1, arg2, arg3);
             throw new BusinessException(errorCode);
         }
     }

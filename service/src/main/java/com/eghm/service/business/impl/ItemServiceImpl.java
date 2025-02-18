@@ -355,7 +355,7 @@ public class ItemServiceImpl implements ItemService {
     public ItemDetailVO detailById(Long id) {
         ItemDetailVO detail = itemMapper.detailById(id);
         if (detail == null) {
-            log.error("该零售商品已删除啦 [{}]", id);
+            log.error("该零售商品详情已删除啦 [{}]", id);
             throw new BusinessException(ITEM_DOWN);
         }
         ApplauseRateVO vo = orderEvaluationService.calcApplauseRate(id);

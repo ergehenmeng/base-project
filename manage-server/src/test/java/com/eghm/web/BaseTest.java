@@ -81,7 +81,7 @@ public abstract class BaseTest {
                 headers.add("token", respBody.getData().getToken());
             });
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("请求错误", e);
         }
     }
 

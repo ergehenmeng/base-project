@@ -21,7 +21,7 @@ public class MemberChannelVO {
     private Channel name;
 
     @ApiModelProperty("人数")
-    private Integer value = 0;
+    private Integer value;
 
     public MemberChannelVO(Channel name) {
         this.name = name;

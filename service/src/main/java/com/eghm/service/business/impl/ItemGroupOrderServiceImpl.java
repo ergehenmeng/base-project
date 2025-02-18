@@ -66,7 +66,7 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
         groupOrder.setStarter(context.getStarter());
         groupOrder.setItemId(itemId);
         groupOrder.setBookingId(context.getBookingId());
-        groupOrder.setState(0);
+        groupOrder.setState(BookingState.WAITING);
         itemGroupOrderMapper.insert(groupOrder);
         // 团长发起的订单,需要发送消息方便取消订单
         if (Boolean.TRUE.equals(context.getStarter())) {
@@ -75,7 +75,7 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
     }
 
     @Override
-    public void updateState(String bookingNo, Integer state) {
+    public void updateState(String bookingNo, BookingState state) {
         LambdaUpdateWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemGroupOrder::getBookingNo, bookingNo);
         wrapper.set(ItemGroupOrder::getState, state);
@@ -92,7 +92,7 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
     }
 
     @Override
-    public List<ItemGroupOrder> getGroupList(String bookingNo, Integer state) {
+    public List<ItemGroupOrder> getGroupList(String bookingNo, BookingState state) {
         LambdaQueryWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ItemGroupOrder::getBookingNo, bookingNo);
         wrapper.eq(ItemGroupOrder::getState, state);
@@ -100,7 +100,7 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
     }
 
     @Override
-    public List<ItemGroupOrder> getGroupList(Long bookingId, Integer state) {
+    public List<ItemGroupOrder> getGroupList(Long bookingId, BookingState state) {
         LambdaQueryWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ItemGroupOrder::getBookingId, bookingId);
         wrapper.eq(ItemGroupOrder::getState, state);
@@ -136,11 +136,11 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
             log.info("该订单非拼团订单不做额外处理 [{}]", order.getOrderNo());
             return;
         }
-        if (order.getBookingState() == BookingState.SUCCESS.getValue()) {
+        if (order.getBookingState() == BookingState.SUCCESS) {
             log.warn("订单已拼团成功,无需同步退款[{}] [{}]", order.getOrderNo(), order.getBookingNo());
             return;
         }
-        if (order.getBookingState() == BookingState.FAIL.getValue()) {
+        if (order.getBookingState() == BookingState.FAIL) {
             log.warn("订单已拼团失败,无需同步退款[{}] [{}]", order.getOrderNo(), order.getBookingNo());
             return;
         }
@@ -150,7 +150,7 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
             alarmService.sendMsg(String.format("订单[%s]无拼团记录,无法同步退款 [%s]", order.getOrderNo(), order.getBookingNo()));
             return;
         }
-        if (groupOrder.getState() != 0) {
+        if (groupOrder.getState() != BookingState.WAITING) {
             log.error("订单拼单状态异常,无法同步退款[{}] [{}]", order.getOrderNo(), order.getBookingNo());
             alarmService.sendMsg(String.format("订单[%s]拼单状态异常,无法同步退款 [%s]", order.getOrderNo(), order.getBookingNo()));
             return;
@@ -177,7 +177,7 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
         LambdaUpdateWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemGroupOrder::getBookingNo, bookingNo);
         wrapper.eq(ItemGroupOrder::getOrderNo, orderNo);
-        wrapper.set(ItemGroupOrder::getState, 2);
+        wrapper.set(ItemGroupOrder::getState, BookingState.FAIL);
         itemGroupOrderMapper.update(null, wrapper);
     }
 

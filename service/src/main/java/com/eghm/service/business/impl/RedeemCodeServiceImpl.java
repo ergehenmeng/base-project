@@ -91,7 +91,7 @@ public class RedeemCodeServiceImpl implements RedeemCodeService {
     public void delete(Long id) {
         RedeemCode select = this.selectByIdRequired(id);
         if (select.getState() == 1) {
-            log.error("兑换码已发放 [{}]", id);
+            log.error("删除兑换码时已发放 [{}]", id);
             throw new BusinessException(ErrorCode.REDEEM_CODE_DELETE);
         }
         redeemCodeMapper.deleteById(id);

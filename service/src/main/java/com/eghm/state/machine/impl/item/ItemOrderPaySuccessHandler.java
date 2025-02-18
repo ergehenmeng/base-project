@@ -3,13 +3,9 @@ package com.eghm.state.machine.impl.item;
 import com.eghm.common.AlarmService;
 import com.eghm.dto.business.account.score.ScoreAccountDTO;
 import com.eghm.dto.ext.OrderPayNotify;
-import com.eghm.enums.ExchangeQueue;
+import com.eghm.enums.*;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
-import com.eghm.enums.ChargeType;
-import com.eghm.enums.DeliveryType;
-import com.eghm.enums.OrderState;
-import com.eghm.enums.ProductType;
 import com.eghm.model.GroupBooking;
 import com.eghm.model.ItemGroupOrder;
 import com.eghm.model.ItemOrder;
@@ -139,10 +135,10 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
             alarmService.sendMsg(String.format("支付成功更新拼团时, 未查询到拼团活动 [%s] [%s]", bookingNo, bookingId));
             return;
         }
-        List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(bookingNo, 0);
+        List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(bookingNo, BookingState.WAITING);
         if (groupList.size() >= booking.getNum()) {
-            itemGroupOrderService.updateState(bookingNo, 1);
-            orderService.updateBookingState(bookingNo, 1);
+            itemGroupOrderService.updateState(bookingNo, BookingState.SUCCESS);
+            orderService.updateBookingState(bookingNo, BookingState.SUCCESS);
         } else {
             log.info("拼团订单尚未满员 [{}] [{}] [{}]", bookingNo, booking.getNum(), groupList.size());
         }

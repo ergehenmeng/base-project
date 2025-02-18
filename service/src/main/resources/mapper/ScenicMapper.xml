@@ -48,6 +48,9 @@
         scenic_name,
         cover_url,
         depict,
+        <if test="param.longitude != null and param.latitude != null">
+            st_distance_sphere(point(longitude, latitude), point(#{param.longitude}, #{param.latitude})) as distance,
+        </if>
         longitude,
         latitude,
         `level`,

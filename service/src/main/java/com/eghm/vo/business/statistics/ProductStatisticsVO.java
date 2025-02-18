@@ -27,7 +27,7 @@ public class ProductStatisticsVO {
     private String createMonth;
 
     @ApiModelProperty(value = "新增数量")
-    private Integer appendNum = 0;
+    private Integer appendNum;
 
     public void setAppendNum(Integer appendNum) {
         this.appendNum = appendNum + RandomUtil.randomInt(300);

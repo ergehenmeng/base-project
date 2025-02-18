@@ -222,15 +222,6 @@ public interface MemberService {
     void setPassword(String requestId, String password);
 
     /**
-     * 判断用户是否连续签到
-     *
-     * @param memberId 用户id
-     * @param signDay  最大签到天数 不能超过32天
-     * @return true: 连续签到 false:不连续签到
-     */
-    boolean checkSeriesSign(Long memberId, int signDay);
-
-    /**
      * 用户个人中心
      *
      * @param memberId memberId

@@ -27,6 +27,7 @@ import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.v3.util.SignUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -80,7 +81,6 @@ public class WechatPayServiceImpl implements PayService {
             request.setSceneInfo(sceneInfo);
             request.setPayer(null);
         }
-
         WxPayUnifiedOrderV3Result result;
         try {
             result = wxPayService.unifiedOrderV3(transferType, request);
@@ -122,17 +122,7 @@ public class WechatPayServiceImpl implements PayService {
 
     @Override
     public RefundVO applyRefund(RefundDTO dto) {
-        SystemProperties.WeChatProperties wechat = systemProperties.getWechat();
-        WxPayRefundV3Request request = new WxPayRefundV3Request();
-        WxPayRefundV3Request.Amount amount = new WxPayRefundV3Request.Amount();
-        amount.setRefund(dto.getAmount());
-        amount.setTotal(dto.getTotal());
-        amount.setCurrency("CNY");
-        request.setAmount(amount);
-        request.setNotifyUrl(wechat.getPay().getNotifyHost() + CommonConstant.WECHAT_REFUND_NOTIFY_URL);
-        request.setOutTradeNo(dto.getTradeNo());
-        request.setReason(dto.getReason());
-        request.setOutRefundNo(dto.getRefundNo());
+        WxPayRefundV3Request request = this.getWxPayRefundV3Request(dto);
         WxPayRefundV3Result result;
         try {
             result = wxPayService.refundV3(request);
@@ -179,6 +169,28 @@ public class WechatPayServiceImpl implements PayService {
     public void verifyNotify(Map<String, String> param) {
         log.error("微信不支持该接口 [{}]", param);
         throw new BusinessException(ErrorCode.NOT_SUPPORTED);
+    }
+
+    /**
+     * 组装退款请求参数
+     *
+     * @param dto 退款信息
+     * @return 微信退款请求参数
+     */
+    @NotNull
+    private WxPayRefundV3Request getWxPayRefundV3Request(RefundDTO dto) {
+        SystemProperties.WeChatProperties wechat = systemProperties.getWechat();
+        WxPayRefundV3Request request = new WxPayRefundV3Request();
+        WxPayRefundV3Request.Amount amount = new WxPayRefundV3Request.Amount();
+        amount.setRefund(dto.getAmount());
+        amount.setTotal(dto.getTotal());
+        amount.setCurrency("CNY");
+        request.setAmount(amount);
+        request.setNotifyUrl(wechat.getPay().getNotifyHost() + CommonConstant.WECHAT_REFUND_NOTIFY_URL);
+        request.setOutTradeNo(dto.getTradeNo());
+        request.setReason(dto.getReason());
+        request.setOutRefundNo(dto.getRefundNo());
+        return request;
     }
 
     /**

@@ -11,7 +11,6 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +40,7 @@ public class TicketOrderCreateDTO {
 
     @ApiModelProperty(value = "游客信息", required = true)
     @Size(max = 99, message = "游客数量最大99人")
-    private List<VisitorDTO> visitorList = new ArrayList<>();
+    private List<VisitorDTO> visitorList;
 
     @ApiModelProperty("优惠券id")
     private Long couponId;

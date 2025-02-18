@@ -27,7 +27,7 @@ public class CartStatisticsVO {
     private String createMonth;
 
     @ApiModelProperty(value = "新增数量")
-    private Integer cartNum = 0;
+    private Integer cartNum;
 
     public CartStatisticsVO(LocalDate createDate) {
         this.createDate = createDate;

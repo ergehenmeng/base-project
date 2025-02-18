@@ -125,6 +125,8 @@
         <ali.sms.version>3.1.0</ali.sms.version>
         <!--腾讯短信-->
         <tencent.sms.version>3.1.1043</tencent.sms.version>
+        <!--阿里oss-->
+        <ali.oss.version>3.17.4</ali.oss.version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -159,6 +161,22 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>transmittable-thread-local</artifactId>
                 <version>${transmittable.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${ali.oss.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>org.jacoco.agent</artifactId>
+                        <groupId>org.jacoco</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>httpclient</artifactId>
+                        <groupId>org.apache.httpcomponents</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.belerweb</groupId>

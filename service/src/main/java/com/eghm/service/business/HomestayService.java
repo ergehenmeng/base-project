@@ -2,10 +2,7 @@ package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
-import com.eghm.dto.business.homestay.HomestayAddRequest;
-import com.eghm.dto.business.homestay.HomestayEditRequest;
-import com.eghm.dto.business.homestay.HomestayQueryDTO;
-import com.eghm.dto.business.homestay.HomestayQueryRequest;
+import com.eghm.dto.business.homestay.*;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.State;
 import com.eghm.model.Homestay;
@@ -101,10 +98,10 @@ public interface HomestayService {
     /**
      * 民宿详细信息查询 包含推荐房型
      *
-     * @param homestayId 民宿id
+     * @param dto 民宿id
      * @return 民宿信息
      */
-    HomestayDetailVO detailById(Long homestayId);
+    HomestayDetailVO detailById(HomestayDTO dto);
 
     /**
      * 更新民宿和房型分数

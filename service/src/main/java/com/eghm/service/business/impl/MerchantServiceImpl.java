@@ -18,12 +18,7 @@ import com.eghm.dto.business.merchant.MerchantAddRequest;
 import com.eghm.dto.business.merchant.MerchantAuthDTO;
 import com.eghm.dto.business.merchant.MerchantEditRequest;
 import com.eghm.dto.business.merchant.MerchantQueryRequest;
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.RoleMapping;
-import com.eghm.enums.TemplateType;
-import com.eghm.enums.UserType;
-import com.eghm.enums.RoleType;
-import com.eghm.enums.UserState;
+import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MerchantMapper;
 import com.eghm.model.Account;
@@ -128,6 +123,7 @@ public class MerchantServiceImpl implements MerchantService {
         Merchant merchant = DataUtil.copy(request, Merchant.class);
         BigDecimal platformServiceRate = BigDecimal.valueOf(sysConfigApi.getDouble(ConfigConstant.PLATFORM_SERVICE_RATE, 5D));
         merchant.setPlatformServiceRate(platformServiceRate);
+        merchant.setWithdrawWay(WithdrawWay.MANUAL);
         // 系统用户和商户关联
         merchant.setUserId(user.getId());
         merchantMapper.insert(merchant);
@@ -209,15 +205,23 @@ public class MerchantServiceImpl implements MerchantService {
     public void unbind(Long merchantId, String smsCode) {
         Merchant merchant = this.selectByIdRequired(merchantId);
         smsService.verifySmsCode(TemplateType.MERCHANT_UNBIND, merchant.getAuthMobile(), smsCode);
-        log.info("商户[{}]解绑微信号,旧信息:[{}] [{}]", merchant.getMerchantName(), merchant.getAuthMobile(), merchant.getOpenId());
+        log.info("商户[{}]解绑微信号(短信),旧信息:[{}] [{}]", merchant.getMerchantName(), merchant.getAuthMobile(), merchant.getOpenId());
         this.doUnbindMerchant(merchantId);
     }
 
     @Override
     public void unbind(Long merchantId) {
         Merchant merchant = this.selectByIdRequired(merchantId);
-        log.info("商户[{}]解绑微信号,旧信息:[{}] [{}]", merchant.getMerchantName(), merchant.getAuthMobile(), merchant.getOpenId());
+        log.info("商户[{}]解绑微信号(后台),旧信息:[{}] [{}]", merchant.getMerchantName(), merchant.getAuthMobile(), merchant.getOpenId());
         this.doUnbindMerchant(merchantId);
+    }
+
+    @Override
+    public void changeWithdrawWay(Long merchantId, WithdrawWay withdrawWay) {
+        Merchant merchant = new Merchant();
+        merchant.setId(merchantId);
+        merchant.setWithdrawWay(withdrawWay);
+        merchantMapper.updateById(merchant);
     }
 
     @Override

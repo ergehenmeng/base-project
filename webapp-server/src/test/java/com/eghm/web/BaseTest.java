@@ -6,6 +6,7 @@ import com.eghm.vo.login.LoginTokenVO;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import java.util.Map;
  * @author 二哥很猛
  * @since 2019/11/21 15:07
  */
+@Slf4j
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = WebappApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public abstract class BaseTest {
@@ -64,7 +66,7 @@ public abstract class BaseTest {
                             .content(content))
                     .andReturn().getResponse().getContentAsString();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("请求错误", e);
         }
         return null;
     }

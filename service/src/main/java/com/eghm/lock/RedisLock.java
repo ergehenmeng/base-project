@@ -79,18 +79,4 @@ public interface RedisLock {
      */
     <T> T lock(String key, long waitTime, long lockTime, Supplier<T> supplier, Supplier<T> failSupplier);
 
-    /**
-     * 加锁
-     *
-     * @param key      key
-     * @param lockTime 锁定时间
-     */
-    void lock(String key, long lockTime);
-
-    /**
-     * 释放锁
-     *
-     * @param key key
-     */
-    void unlock(String key);
 }

@@ -26,14 +26,12 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.impl.NoNoise;
-import com.google.code.kaptcha.impl.WaterRipple;
 import com.google.code.kaptcha.util.Config;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.BaseHibernateValidatorConfiguration;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.validation.MessageInterpolatorFactory;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -53,7 +51,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-import static com.eghm.utils.StringUtil.isNotBlank;
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * 公用配置,所有web模块所公用的配置信息均可在该配置文件中声明
@@ -63,7 +61,6 @@ import static com.eghm.utils.StringUtil.isNotBlank;
  */
 @Slf4j
 @AllArgsConstructor
-@EnableConfigurationProperties({SystemProperties.class})
 public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
 
     private final ObjectMapper objectMapper;
@@ -107,7 +104,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "4");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "abcdefhkmnprstwxy2345678ABCEFGHGKMNPRSTWXY");
         properties.setProperty(Constants.KAPTCHA_NOISE_IMPL, NoNoise.class.getName());
-        properties.setProperty(Constants.KAPTCHA_OBSCURIFICATOR_IMPL, WaterRipple.class.getName());
+        properties.setProperty(Constants.KAPTCHA_OBSCURIFICATOR_IMPL, RandomDissolveGimpy.class.getName());
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL, systemProperties.getManage().getCaptchaType().getName());
         Config config = new Config(properties);
         captcha.setConfig(config);
@@ -203,13 +200,16 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
         if (alarmMsg.getAlarmType() == AlarmType.DEFAULT) {
             return new DefaultAlarmServiceImpl();
         }
-        if (isNotBlank(alarmMsg.getWebHook())) {
+        if (isBlank(alarmMsg.getWebHook())) {
             throw new BusinessException(ErrorCode.WEB_HOOK_NULL);
         }
         if (alarmMsg.getAlarmType() == AlarmType.DING_TALK) {
             return new DingTalkAlarmServiceImpl(jsonService, systemProperties);
         }
-        return new FeiShuAlarmServiceImpl(jsonService, systemProperties);
+        if (alarmMsg.getAlarmType() == AlarmType.FEI_SHU) {
+            return new FeiShuAlarmServiceImpl(jsonService, systemProperties);
+        }
+        return new DefaultAlarmServiceImpl();
     }
 
 }

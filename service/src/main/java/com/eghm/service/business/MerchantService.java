@@ -5,6 +5,7 @@ import com.eghm.dto.business.merchant.MerchantAddRequest;
 import com.eghm.dto.business.merchant.MerchantAuthDTO;
 import com.eghm.dto.business.merchant.MerchantEditRequest;
 import com.eghm.dto.business.merchant.MerchantQueryRequest;
+import com.eghm.enums.WithdrawWay;
 import com.eghm.model.Merchant;
 import com.eghm.vo.business.merchant.BaseMerchantResponse;
 import com.eghm.vo.business.merchant.MerchantAuthResponse;
@@ -123,6 +124,14 @@ public interface MerchantService {
      * @param rate   费率,单位:%
      */
     void adjustRate(Long merchantId, BigDecimal rate);
+
+    /**
+     * 修改提现方式
+     *
+     * @param merchantId 商户ID
+     * @param withdrawWay 提现方式
+     */
+    void changeWithdrawWay(Long merchantId, WithdrawWay withdrawWay);
 
     /**
      * 生成授权码

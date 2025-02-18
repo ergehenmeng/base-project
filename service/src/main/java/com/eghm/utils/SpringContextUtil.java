@@ -3,6 +3,7 @@ package com.eghm.utils;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.SystemException;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
@@ -17,11 +18,8 @@ import org.springframework.context.ApplicationContext;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SpringContextUtil {
 
+    @Getter
     private static ApplicationContext applicationContext;
-
-    public static ApplicationContext getApplicationContext() {
-        return applicationContext;
-    }
 
     public static void setApplicationContext(ApplicationContext applicationContext) {
         SpringContextUtil.applicationContext = applicationContext;

@@ -2,10 +2,7 @@ package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
-import com.eghm.dto.business.restaurant.RestaurantAddRequest;
-import com.eghm.dto.business.restaurant.RestaurantEditRequest;
-import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
-import com.eghm.dto.business.restaurant.RestaurantQueryRequest;
+import com.eghm.dto.business.restaurant.*;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.State;
 import com.eghm.model.Restaurant;
@@ -96,10 +93,10 @@ public interface RestaurantService {
     /**
      * 查询餐饮店详情
      *
-     * @param id id
+     * @param dto id
      * @return 详细信息
      */
-    RestaurantDetailVO detailById(Long id);
+    RestaurantDetailVO detailById(RestaurantDTO dto);
 
     /**
      * 逻辑删除 (只有平台用户能操作)

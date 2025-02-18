@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.venue.VenueDTO;
 import com.eghm.dto.business.venue.VenuePriceQueryDTO;
 import com.eghm.dto.business.venue.VenueQueryDTO;
 import com.eghm.dto.ext.RespBody;
@@ -50,8 +51,8 @@ public class VenueController {
 
     @GetMapping("/detail")
     @ApiOperation("详情")
-    public RespBody<VenueDetailVO> detail(@Validated IdDTO dto) {
-        VenueDetailVO detail = venueService.getDetail(dto.getId());
+    public RespBody<VenueDetailVO> detail(@Validated VenueDTO dto) {
+        VenueDetailVO detail = venueService.getDetail(dto);
         return RespBody.success(detail);
     }
 

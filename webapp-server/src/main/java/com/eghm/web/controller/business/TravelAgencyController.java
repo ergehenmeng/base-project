@@ -1,6 +1,6 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.travel.TravelAgencyDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.TravelAgencyService;
 import com.eghm.vo.business.line.TravelDetailVO;
@@ -27,8 +27,8 @@ public class TravelAgencyController {
 
     @GetMapping("/detail")
     @ApiOperation("详情")
-    public RespBody<TravelDetailVO> detail(@Validated IdDTO request) {
-        TravelDetailVO detail = travelAgencyService.detail(request.getId());
+    public RespBody<TravelDetailVO> detail(@Validated TravelAgencyDTO dto) {
+        TravelDetailVO detail = travelAgencyService.detail(dto);
         return RespBody.success(detail);
     }
 

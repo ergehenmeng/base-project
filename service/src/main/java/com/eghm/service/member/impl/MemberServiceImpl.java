@@ -357,26 +357,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean checkSeriesSign(Long memberId, int signDay) {
-        if (CommonConstant.BITMAP < signDay) {
-            log.error("接口不支持超过32天连续签到校验 [{}]", signDay);
-            return false;
-        }
-        Member member = memberMapper.selectById(memberId);
-        long registerDays = ChronoUnit.DAYS.between(member.getCreateTime().toLocalDate(), LocalDate.now());
-        String signKey = CacheConstant.MEMBER_SIGN_IN + memberId;
-        Long signNumber = cacheService.getBitmapOffset(signKey, registerDays - signDay, signDay);
-        int bitmap = 1;
-        for (int i = 0; i < signDay; i++) {
-            if ((signNumber & bitmap) != bitmap) {
-                return false;
-            }
-            signNumber >>= 1;
-        }
-        return true;
-    }
-
-    @Override
     public MemberVO memberHome(Long memberId) {
         Member member = memberMapper.selectById(memberId);
         MemberVO vo = DataUtil.copy(member, MemberVO.class);

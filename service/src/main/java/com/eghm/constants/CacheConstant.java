@@ -158,9 +158,29 @@ public class CacheConstant {
     public static final String ITEM_TAG = "item_tag";
 
     /**
-     * 景区距离计算
+     * 景区点位
      */
-    public static final String GEO_SCENIC_DISTANCE = "geo_scenic_distance";
+    public static final String GEO_POINT_SCENIC = "geo_point:scenic";
+
+    /**
+     * 民宿点位
+     */
+    public static final String GEO_POINT_HOMESTAY = "geo_point:homestay";
+
+    /**
+     * 场馆点位
+     */
+    public static final String GEO_POINT_VENUE = "geo_point:venue";
+
+    /**
+     * 旅游社点位
+     */
+    public static final String GEO_POINT_TRAVEL = "geo_point:travel";
+
+    /**
+     * 餐饮店点位
+     */
+    public static final String GEO_POINT_RESTAURANT = "geo_point:restaurant";
 
     /**
      * 全局距离计算

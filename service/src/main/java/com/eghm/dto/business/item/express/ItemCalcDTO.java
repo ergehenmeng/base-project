@@ -45,5 +45,5 @@ public class ItemCalcDTO {
      */
     @Assign
     @ApiModelProperty(value = "快递费", hidden = true)
-    private Integer expressFee = 0;
+    private Integer expressFee;
 }

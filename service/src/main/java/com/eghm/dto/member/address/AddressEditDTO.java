@@ -52,5 +52,5 @@ public class AddressEditDTO {
     private String detailAddress;
 
     @ApiModelProperty(value = "是否为默认地址 true:是 false:不是")
-    private Boolean state = false;
+    private Boolean state;
 }

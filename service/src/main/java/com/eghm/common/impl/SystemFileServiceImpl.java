@@ -52,7 +52,7 @@ public class SystemFileServiceImpl implements FileService {
         this.checkSize(file, maxSize);
         Long present = CacheUtil.UPLOAD_LIMIT_CACHE.getIfPresent(key);
         long size = file.getSize() + (present == null ? 0 : present);
-        if (size > DAY_MAX_UPLOAD) {
+        if (size > DAY_MAX_UPLOAD.toBytes()) {
             log.warn("单日上传文件超出限制, 用户:[{}] 累计上传:[{}]kb ", key, size / 1024);
             alarmService.sendMsg(String.format("单日上传文件超出限制,请注意监控, 用户:%s 今日累计上传:%s", key, (size / 1024 / 1024) + "M"));
         }
@@ -60,19 +60,6 @@ public class SystemFileServiceImpl implements FileService {
         FilePath build = FilePath.builder().path(path).address(this.getFileAddress()).size(file.getSize()).build();
         CacheUtil.UPLOAD_LIMIT_CACHE.put(key, size);
         return build;
-    }
-
-    /**
-     * 检查文件的大小限制
-     *
-     * @param file    文件
-     * @param maxSize 最大上传大小
-     */
-    private void checkSize(MultipartFile file, long maxSize) {
-        if (maxSize < file.getSize()) {
-            log.warn("上传文件过大:[{}]", file.getSize());
-            throw new BusinessException(ErrorCode.UPLOAD_TOO_BIG, maxSize / 1024);
-        }
     }
 
     /**

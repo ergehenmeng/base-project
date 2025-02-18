@@ -147,7 +147,7 @@ public class LineServiceImpl implements LineService {
     public Line selectByIdShelve(Long id) {
         Line line = lineMapper.selectById(id);
         if (line == null || line.getState() != State.SHELVE) {
-            log.error("该线路商品已下架 [{}]", id);
+            log.error("该线路商品详情已下架 [{}]", id);
             throw new BusinessException(LINE_DOWN);
         }
         return line;
