@@ -48,7 +48,7 @@ public class RestaurantController {
     @GetMapping("/detail")
     @ApiOperation("详情")
     public RespBody<RestaurantDetailVO> detail(@Validated RestaurantDTO dto) {
-        RestaurantDetailVO detail = restaurantService.detailById(dto.getId());
+        RestaurantDetailVO detail = restaurantService.detailById(dto);
         return RespBody.success(detail);
     }
 
