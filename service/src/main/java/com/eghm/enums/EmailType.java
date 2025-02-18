@@ -21,12 +21,7 @@ public enum EmailType {
     /**
      * 更换邮箱 发送短信验证码
      */
-    CHANGE_EMAIL("change_email", "更换邮箱", "changeEmailHandler"),
-
-    /**
-     * 找回密码时发送验证码
-     */
-    RETRIEVE_PASSWORD("retrieve_password", "找回密码", "retrievePasswordHandler");
+    CHANGE_EMAIL("change_email", "更换邮箱", "changeEmailHandler");
 
     private final String value;
 
