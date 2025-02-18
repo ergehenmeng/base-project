@@ -49,4 +49,7 @@ public class TravelDetailVO {
     @Schema(description = "评分")
     private BigDecimal score;
 
+    @Schema(description = "距离 单位:m")
+    private Integer distance;
+
 }

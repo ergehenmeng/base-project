@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.restaurant.RestaurantDTO;
 import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.dto.business.restaurant.voucher.VoucherQueryDTO;
 import com.eghm.dto.ext.RespBody;
@@ -46,8 +47,8 @@ public class RestaurantController {
 
     @GetMapping("/detail")
     @Operation(summary = "详情")
-    public RespBody<RestaurantDetailVO> detail(@Validated IdDTO dto) {
-        RestaurantDetailVO detail = restaurantService.detailById(dto.getId());
+    public RespBody<RestaurantDetailVO> detail(@Validated RestaurantDTO dto) {
+        RestaurantDetailVO detail = restaurantService.detailById(dto);
         return RespBody.success(detail);
     }
 

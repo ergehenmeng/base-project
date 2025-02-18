@@ -192,7 +192,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         // 针对针对标签,位置和最低价进行赋值或解析
         for (HomestayVO vo : voList) {
             vo.setTagList(commonService.parseTags(dictList, vo.getTagIds()));
-            vo.setDetailAddress(sysAreaService.parseArea(vo.getCityId(), vo.getCountyId(), vo.getDetailAddress()) );
+            vo.setDetailAddress(sysAreaService.parseArea(vo.getCityId(), vo.getCountyId(), vo.getDetailAddress()));
         }
         return voList;
     }

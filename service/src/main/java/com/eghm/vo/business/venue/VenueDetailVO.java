@@ -41,6 +41,9 @@ public class VenueDetailVO {
     @Schema(description = "纬度")
     private BigDecimal latitude;
 
+    @Schema(description = "距离 单位:m")
+    private Integer distance;
+
     @Schema(description = "商家电话")
     private String telephone;
 

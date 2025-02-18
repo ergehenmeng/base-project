@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.GeoService;
-import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
@@ -55,8 +54,6 @@ public class ScenicServiceImpl implements ScenicService {
     private final GeoService geoService;
 
     private final ScenicMapper scenicMapper;
-
-    private final SysConfigApi sysConfigApi;
 
     private final CommonService commonService;
 

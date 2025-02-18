@@ -173,11 +173,6 @@ public class CacheConstant {
     public static final String GEO_POINT_VENUE = "geo_point:venue";
 
     /**
-     * 店铺点位
-     */
-    public static final String GEO_POINT_STORE = "geo_point:store";
-
-    /**
      * 旅游社点位
      */
     public static final String GEO_POINT_TRAVEL = "geo_point:travel";

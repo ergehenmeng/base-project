@@ -53,6 +53,9 @@ public class RestaurantDetailVO {
     @Schema(description = "纬度")
     private BigDecimal latitude;
 
+    @Schema(description = "距离,单位:m")
+    private Integer distance;
+
     @Schema(description = "商家热线")
     private String phone;
 

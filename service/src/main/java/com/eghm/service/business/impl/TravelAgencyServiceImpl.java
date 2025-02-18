@@ -11,6 +11,7 @@ import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.travel.TravelAgencyAddRequest;
+import com.eghm.dto.business.travel.TravelAgencyDTO;
 import com.eghm.dto.business.travel.TravelAgencyEditRequest;
 import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
 import com.eghm.enums.CollectType;
@@ -149,11 +150,14 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     }
 
     @Override
-    public TravelDetailVO detail(Long id) {
-        TravelAgency travelAgency = this.selectByIdShelve(id);
+    public TravelDetailVO detail(TravelAgencyDTO dto) {
+        TravelAgency travelAgency = this.selectByIdShelve(dto.getId());
         TravelDetailVO vo = DataUtil.copy(travelAgency, TravelDetailVO.class);
         vo.setDetailAddress(sysAreaService.parseArea(travelAgency.getCityId(), travelAgency.getCountyId(), vo.getDetailAddress()));
-        vo.setCollect(memberCollectService.checkCollect(id, CollectType.TRAVEL_AGENCY));
+        vo.setCollect(memberCollectService.checkCollect(dto.getId(), CollectType.TRAVEL_AGENCY));
+        if (dto.getLongitude() != null && dto.getLatitude() != null) {
+            vo.setDistance((int)geoService.distance(CacheConstant.GEO_POINT_TRAVEL, String.valueOf(dto.getId()), dto.getLongitude().doubleValue(), dto.getLatitude().doubleValue()));
+        }
         return vo;
     }
 

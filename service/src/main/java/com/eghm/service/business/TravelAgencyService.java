@@ -3,6 +3,7 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.travel.TravelAgencyAddRequest;
+import com.eghm.dto.business.travel.TravelAgencyDTO;
 import com.eghm.dto.business.travel.TravelAgencyEditRequest;
 import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
 import com.eghm.enums.State;
@@ -92,10 +93,10 @@ public interface TravelAgencyService {
     /**
      * 旅行社详情
      *
-     * @param id id
+     * @param dto dto
      * @return 详情
      */
-    TravelDetailVO detail(Long id);
+    TravelDetailVO detail(TravelAgencyDTO dto);
 
     /**
      * 分页查询列表(含商户信息)
