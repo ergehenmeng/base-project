@@ -1,6 +1,5 @@
 package com.eghm.web.listener;
 
-import static com.eghm.utils.StringUtil.isBlank;
 import com.eghm.cache.CacheService;
 import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
@@ -10,10 +9,10 @@ import com.eghm.constants.LockConstant;
 import com.eghm.constants.QueueConstant;
 import com.eghm.dto.ext.*;
 import com.eghm.enums.BookingState;
-import com.eghm.enums.event.IEvent;
-import com.eghm.enums.event.impl.*;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.ProductType;
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.lock.RedisLock;
 import com.eghm.model.*;
@@ -37,6 +36,7 @@ import java.util.function.Consumer;
 
 import static com.eghm.constants.CacheConstant.ERROR_PLACE_HOLDER;
 import static com.eghm.constants.CacheConstant.SUCCESS_PLACE_HOLDER;
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * @author 二哥很猛

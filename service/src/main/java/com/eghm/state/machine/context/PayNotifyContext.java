@@ -1,7 +1,7 @@
 package com.eghm.state.machine.context;
 
-import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ProductType;
+import com.eghm.enums.event.IEvent;
 import com.eghm.pay.enums.TradeType;
 import com.eghm.state.machine.Context;
 import io.swagger.annotations.ApiModelProperty;

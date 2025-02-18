@@ -2,7 +2,6 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.util.IdUtil;
-import static com.eghm.utils.StringUtil.isBlank;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -43,6 +42,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.eghm.constants.CacheConstant.MERCHANT_AUTH_CODE;
+import static com.eghm.utils.StringUtil.isBlank;
 import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**

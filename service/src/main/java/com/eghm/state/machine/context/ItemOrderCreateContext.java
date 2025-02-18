@@ -2,8 +2,8 @@ package com.eghm.state.machine.context;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.BaseAsyncKey;
-import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ProductType;
+import com.eghm.enums.event.IEvent;
 import com.eghm.model.Item;
 import com.eghm.state.machine.Context;
 import com.eghm.state.machine.dto.ItemDTO;

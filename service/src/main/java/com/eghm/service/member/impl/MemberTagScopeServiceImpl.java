@@ -1,7 +1,6 @@
 package com.eghm.service.member.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import static com.eghm.utils.StringUtil.isBlank;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -25,6 +24,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * <p>

@@ -3,7 +3,6 @@ package com.eghm.configuration.data.permission;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
-import static com.eghm.utils.StringUtil.isBlank;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.DataType;
@@ -12,6 +11,8 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
 import java.util.List;
+
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * 生成数据权限拦截sql

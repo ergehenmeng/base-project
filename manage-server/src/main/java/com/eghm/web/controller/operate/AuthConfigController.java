@@ -2,11 +2,11 @@ package com.eghm.web.controller.operate;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.operate.auth.AuthConfigAddRequest;
 import com.eghm.dto.operate.auth.AuthConfigEditRequest;
 import com.eghm.dto.operate.auth.AuthConfigQueryRequest;
-import com.eghm.dto.ext.PageData;
-import com.eghm.dto.ext.RespBody;
 import com.eghm.service.common.AuthConfigService;
 import com.eghm.vo.auth.AuthConfigResponse;
 import io.swagger.annotations.Api;

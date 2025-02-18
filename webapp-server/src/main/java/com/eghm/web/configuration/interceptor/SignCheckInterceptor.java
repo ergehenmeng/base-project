@@ -2,7 +2,6 @@ package com.eghm.web.configuration.interceptor;
 
 import cn.hutool.core.codec.Base64Encoder;
 import cn.hutool.core.util.HexUtil;
-import static com.eghm.utils.StringUtil.isBlank;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.crypto.SignUtil;
 import cn.hutool.crypto.asymmetric.Sign;
@@ -30,6 +29,8 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.TreeMap;
+
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * @author 二哥很猛

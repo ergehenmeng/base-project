@@ -1,10 +1,11 @@
 package com.eghm.validation;
 
-import static com.eghm.utils.StringUtil.isBlank;
 import com.eghm.validation.annotation.OptionString;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * @author 二哥很猛

@@ -1,9 +1,10 @@
 package com.eghm.utils;
 
-import static com.eghm.utils.StringUtil.isBlank;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * @author wyb

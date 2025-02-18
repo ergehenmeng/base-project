@@ -1,13 +1,9 @@
 package com.eghm.state.machine.impl.homestay;
 
 import com.eghm.common.OrderMqService;
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ExchangeQueue;
+import com.eghm.enums.*;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
-import com.eghm.enums.ConfirmState;
-import com.eghm.enums.OrderState;
-import com.eghm.enums.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.*;
 import com.eghm.service.business.*;

@@ -2,7 +2,6 @@ package com.eghm.state.machine.impl.item;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.IdUtil;
-import static com.eghm.utils.StringUtil.isBlank;
 import com.eghm.common.JsonService;
 import com.eghm.common.OrderMqService;
 import com.eghm.constants.CommonConstant;
@@ -37,6 +36,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.eghm.enums.ErrorCode.*;
+import static com.eghm.utils.StringUtil.isBlank;
 import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**

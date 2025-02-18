@@ -2,10 +2,10 @@ package com.eghm.service.business.lottery.handler.impl;
 
 import com.eghm.cache.CacheProxyService;
 import com.eghm.dto.business.account.score.ScoreAccountDTO;
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ScoreType;
 import com.eghm.enums.ChargeType;
+import com.eghm.enums.ErrorCode;
 import com.eghm.enums.PrizeType;
+import com.eghm.enums.ScoreType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Lottery;
 import com.eghm.model.LotteryConfig;

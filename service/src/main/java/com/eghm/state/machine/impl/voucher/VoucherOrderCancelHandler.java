@@ -1,8 +1,8 @@
 package com.eghm.state.machine.impl.voucher;
 
+import com.eghm.enums.ProductType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VoucherEvent;
-import com.eghm.enums.ProductType;
 import com.eghm.model.Order;
 import com.eghm.model.VoucherOrder;
 import com.eghm.pay.AggregatePayService;

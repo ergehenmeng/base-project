@@ -2,11 +2,12 @@ package com.eghm.validation;
 
 
 import cn.hutool.core.util.PhoneUtil;
-import static com.eghm.utils.StringUtil.isBlank;
 import com.eghm.validation.annotation.Phone;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * @author 二哥很猛

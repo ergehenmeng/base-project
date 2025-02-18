@@ -1,8 +1,8 @@
 package com.eghm.state.machine.impl.homestay;
 
+import com.eghm.enums.ProductType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
-import com.eghm.enums.ProductType;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
