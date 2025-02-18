@@ -117,11 +117,6 @@ public class ConfigConstant {
     public static final String ACTIVITY_CONFIG_MAX_DAY = "activity_config_max_day";
 
     /**
-     * 是否包含景区距离字段
-     */
-    public static final String SCENIC_CONTAIN_DISTANCE = "scenic_contain_distance";
-
-    /**
      * 购物车数量最大值
      */
     public static final String SHOPPING_CAR_MAX = "shopping_car_max";

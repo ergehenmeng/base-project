@@ -10,12 +10,11 @@ import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
-import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.scenic.*;
-import com.eghm.enums.ErrorCode;
 import com.eghm.enums.CollectType;
+import com.eghm.enums.ErrorCode;
 import com.eghm.enums.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ScenicMapper;
@@ -42,7 +41,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -151,18 +149,7 @@ public class ScenicServiceImpl implements ScenicService {
         if (CollUtil.isEmpty(voList)) {
             return voList;
         }
-        // 由于距离计算比较耗时, 因此按需决定是否要支持距离
-        boolean containDistance = sysConfigApi.getBoolean(ConfigConstant.SCENIC_CONTAIN_DISTANCE);
-        LinkedHashMap<String, Double> hashMap = new LinkedHashMap<>();
-        containDistance = containDistance && dto.getLongitude() != null && dto.getLatitude() != null;
-        if (containDistance) {
-            hashMap = geoService.radius(CacheConstant.GEO_POINT_SCENIC, dto.getLongitude().doubleValue(), dto.getLatitude().doubleValue(), 10);
-        }
-        for (ScenicVO vo : voList) {
-            // 封面图默认取第一张
-            vo.setCoverUrl(vo.getCoverUrl().split(CommonConstant.COMMA)[0]);
-            vo.setDistance(containDistance ? BigDecimal.valueOf(hashMap.get(String.valueOf(vo.getId()))) : null);
-        }
+        voList.forEach(vo -> vo.setCoverUrl(vo.getCoverUrl().split(CommonConstant.COMMA)[0]));
         return voList;
     }
 

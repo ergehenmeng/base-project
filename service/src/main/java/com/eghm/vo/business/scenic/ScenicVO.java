@@ -2,7 +2,6 @@ package com.eghm.vo.business.scenic;
 
 import com.eghm.convertor.BigDecimalOmitSerializer;
 import com.eghm.convertor.CentToYuanSerializer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -44,12 +43,10 @@ public class ScenicVO {
     @Schema(description = "状态 0:待上架 1:已上架 2:强制下架")
     private Integer state;
 
-    @Schema(description = "经度", hidden = true)
-    @JsonIgnore
+    @Schema(description = "经度")
     private BigDecimal longitude;
 
-    @Schema(description = "纬度", hidden = true)
-    @JsonIgnore
+    @Schema(description = "纬度")
     private BigDecimal latitude;
 
 }
