@@ -81,6 +81,7 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
             // 金额小于0不做任何操作
             return;
         }
+        boolean saveLog = true;
         Account account = this.getAccount(dto.getMerchantId());
         if (dto.getAccountType() == AccountType.ORDER_PAY) {
             // 支付回调中调用该方法
@@ -88,7 +89,7 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
         } else if (dto.getAccountType() == AccountType.ORDER_REFUND) {
             // 退款回调时调用该方法
             account.setPayFreeze(account.getPayFreeze() - dto.getAmount());
-        } else if (dto.getAccountType() == AccountType.WITHDRAW) {
+        } else if (dto.getAccountType() == AccountType.WITHDRAW_APPLY) {
             // 提现申请时调用该方法
             account.setAmount(account.getAmount() - dto.getAmount());
             account.setWithdrawFreeze(account.getWithdrawFreeze() + dto.getAmount());
@@ -98,12 +99,22 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
         } else if (dto.getAccountType() == AccountType.SCORE_WITHDRAW) {
             // 需要在积分提现异步处理中调用该方法
             account.setAmount(account.getAmount() + dto.getAmount());
+        } else if (dto.getAccountType() == AccountType.WITHDRAW_SUCCESS) {
+            // 在提现成功异步处理中调用该方法
+            account.setWithdrawFreeze(account.getWithdrawFreeze() - dto.getAmount());
+            saveLog = false;
+        } else if (dto.getAccountType() == AccountType.WITHDRAW_FAIL) {
+            // 在提现失败异步处理中调用该方法
+            account.setWithdrawFreeze(account.getWithdrawFreeze() - dto.getAmount());
+            account.setAmount(account.getAmount() + dto.getAmount());
         }
         this.updateById(account);
-        AccountLog accountLog = DataUtil.copy(dto, AccountLog.class);
-        accountLog.setDirection(accountLog.getAccountType().getDirection());
-        accountLog.setSurplusAmount(account.getAmount() + account.getPayFreeze());
-        accountLogMapper.insert(accountLog);
+        if (saveLog) {
+            AccountLog accountLog = DataUtil.copy(dto, AccountLog.class);
+            accountLog.setDirection(accountLog.getAccountType().getDirection());
+            accountLog.setSurplusAmount(account.getAmount() + account.getPayFreeze());
+            accountLogMapper.insert(accountLog);
+        }
     }
 
     @Override

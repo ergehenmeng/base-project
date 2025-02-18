@@ -63,7 +63,7 @@ public class WithdrawServiceImpl implements WithdrawService {
         AccountDTO dto = new AccountDTO();
         dto.setMerchantId(apply.getMerchantId());
         dto.setAmount(apply.getAmount());
-        dto.setAccountType(AccountType.WITHDRAW);
+        dto.setAccountType(AccountType.WITHDRAW_APPLY);
         String tradeNo = this.generateWithdrawNo();
         dto.setTradeNo(tradeNo);
         ExceptionUtil.transfer(() -> accountService.updateAccount(dto), ErrorCode.MERCHANT_ACCOUNT_USE, ErrorCode.WITHDRAW_ENOUGH);
@@ -94,6 +94,16 @@ public class WithdrawServiceImpl implements WithdrawService {
         withdrawLog.setOutRefundNo(dto.getOutRefundNo());
         withdrawLog.setPaymentTime(dto.getWithdrawTime());
         withdrawLogMapper.updateById(withdrawLog);
+        AccountDTO account = new AccountDTO();
+        account.setMerchantId(withdrawLog.getMerchantId());
+        account.setAmount(withdrawLog.getAmount());
+        account.setTradeNo(withdrawLog.getRefundNo());
+        if (dto.getState() == WithdrawState.SUCCESS) {
+            account.setAccountType(AccountType.WITHDRAW_SUCCESS);
+        } else {
+            account.setAccountType(AccountType.WITHDRAW_FAIL);
+        }
+        accountService.updateAccount(account);
     }
 
     /**
