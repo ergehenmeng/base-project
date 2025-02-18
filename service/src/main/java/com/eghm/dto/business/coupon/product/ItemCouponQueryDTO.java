@@ -2,7 +2,7 @@ package com.eghm.dto.business.coupon.product;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.enums.ref.DeliveryType;
+import com.eghm.enums.DeliveryType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

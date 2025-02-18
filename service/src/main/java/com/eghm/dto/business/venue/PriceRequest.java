@@ -1,6 +1,6 @@
 package com.eghm.dto.business.venue;
 
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -28,7 +28,7 @@ public class PriceRequest {
     private LocalTime endTime;
 
     @ApiModelProperty(value = "价格", required = true)
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "请输入价格")
     private Integer price;
 }

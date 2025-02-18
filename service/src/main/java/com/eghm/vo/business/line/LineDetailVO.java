@@ -1,7 +1,7 @@
 package com.eghm.vo.business.line;
 
-import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.enums.ref.RefundType;
+import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.enums.RefundType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -36,7 +36,7 @@ public class LineDetailVO {
     private String startPoint;
 
     @ApiModelProperty("起售价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer minPrice;
 
     @ApiModelProperty(value = "封面图片")

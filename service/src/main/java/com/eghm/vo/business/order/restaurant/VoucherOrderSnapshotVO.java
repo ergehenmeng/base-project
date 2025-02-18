@@ -1,6 +1,6 @@
 package com.eghm.vo.business.order.restaurant;
 
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -32,11 +32,11 @@ public class VoucherOrderSnapshotVO {
     private Long restaurantId;
 
     @ApiModelProperty(value = "划线价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer linePrice;
 
     @ApiModelProperty(value = "销售价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer salePrice;
 
     @ApiModelProperty(value = "购买说明")

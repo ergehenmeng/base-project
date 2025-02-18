@@ -1,8 +1,8 @@
 package com.eghm.dto.business.scenic.ticket;
 
-import com.eghm.convertor.YuanToCentDecoder;
-import com.eghm.dto.ext.DateComparator;
-import com.eghm.enums.ref.TicketType;
+import com.eghm.convertor.YuanToCentDeserializer;
+import com.eghm.dto.ext.AbstractDateComparator;
+import com.eghm.enums.TicketType;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class ScenicTicketEditRequest extends DateComparator {
+public class ScenicTicketEditRequest extends AbstractDateComparator {
 
     @ApiModelProperty(value = "景区id", required = true)
     @NotNull(message = "景区id不能为空")
@@ -47,12 +47,12 @@ public class ScenicTicketEditRequest extends DateComparator {
     private List<Long> ticketIds;
 
     @ApiModelProperty(value = "划线价")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer linePrice;
 
     @ApiModelProperty(value = "销售价", required = true)
     @NotNull(message = "销售价不能为空")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer salePrice;
 
     @ApiModelProperty(value = "提前多少天购票", required = true)

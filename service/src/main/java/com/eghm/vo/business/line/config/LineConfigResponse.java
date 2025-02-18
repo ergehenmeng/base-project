@@ -1,6 +1,6 @@
 package com.eghm.vo.business.line.config;
 
-import com.eghm.convertor.CentToYuanOmitEncoder;
+import com.eghm.convertor.CentToYuanOmitSerializer;
 import com.eghm.vo.business.BaseConfigResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -24,11 +24,11 @@ public class LineConfigResponse extends BaseConfigResponse {
     private Boolean state;
 
     @ApiModelProperty("划线价")
-    @JsonSerialize(using = CentToYuanOmitEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer linePrice;
 
     @ApiModelProperty("销售价")
-    @JsonSerialize(using = CentToYuanOmitEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer salePrice;
 
     @ApiModelProperty("库存数")

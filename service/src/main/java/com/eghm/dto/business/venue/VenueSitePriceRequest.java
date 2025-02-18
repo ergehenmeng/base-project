@@ -1,7 +1,8 @@
 package com.eghm.dto.business.venue;
 
 import com.eghm.annotation.Assign;
-import com.eghm.dto.ext.DateComparator;
+import com.eghm.dto.ext.AbstractDateComparator;
+import com.eghm.dto.ext.AbstractDateComparator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,7 +20,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class VenueSitePriceRequest extends DateComparator {
+public class VenueSitePriceRequest extends AbstractDateComparator {
 
     @Assign
     @ApiModelProperty(value = "所属场馆", hidden = true)

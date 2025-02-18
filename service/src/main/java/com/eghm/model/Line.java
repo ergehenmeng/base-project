@@ -1,8 +1,8 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.enums.ref.RefundType;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.RefundType;
+import com.eghm.enums.State;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

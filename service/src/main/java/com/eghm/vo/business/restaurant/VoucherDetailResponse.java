@@ -1,6 +1,6 @@
 package com.eghm.vo.business.restaurant;
 
-import com.eghm.convertor.CentToYuanOmitEncoder;
+import com.eghm.convertor.CentToYuanOmitSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -32,11 +32,11 @@ public class VoucherDetailResponse {
     private String coverUrl;
 
     @ApiModelProperty(value = "划线价")
-    @JsonSerialize(using = CentToYuanOmitEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer linePrice;
 
     @ApiModelProperty(value = "销售价")
-    @JsonSerialize(using = CentToYuanOmitEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer salePrice;
 
     @ApiModelProperty(value = "剩余库存")

@@ -1,8 +1,7 @@
 package com.eghm.utils;
 
-import cn.hutool.core.net.URLEncodeUtil;
+import cn.hutool.core.util.URLUtil;
 import cn.hutool.http.Header;
-import cn.hutool.poi.excel.ExcelUtil;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.context.AnalysisContext;
@@ -44,7 +43,7 @@ public class EasyExcelUtil {
      */
     private static final int BATCH_SIZE = 500;
 
-    private static final SheetWriteHandler freezeRowHandler = new FreezeRowHandler();
+    private static final SheetWriteHandler FREEZE_ROW_HANDLER = new FreezeRowHandler();
 
     /**
      * 导出xlsx表格
@@ -76,7 +75,7 @@ public class EasyExcelUtil {
         try {
             response.setHeader(Header.CONTENT_DISPOSITION.getValue(), "attachment;filename=" + URLUtil.encode(fileName, StandardCharsets.UTF_8));
             response.setContentType(XLSX_CONTENT_TYPE);
-            EasyExcel.write(response.getOutputStream(), cls).sheet(sheetName).registerWriteHandler(freezeRowHandler).doWrite(rowValues);
+            EasyExcel.write(response.getOutputStream(), cls).sheet(sheetName).registerWriteHandler(FREEZE_ROW_HANDLER).doWrite(rowValues);
         } catch (Exception e) {
             log.error("导出Excel异常 [{}] [{}]", fileName, cls, e);
         }

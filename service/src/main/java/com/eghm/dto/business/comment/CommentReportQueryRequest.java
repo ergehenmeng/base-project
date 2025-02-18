@@ -1,8 +1,8 @@
 package com.eghm.dto.business.comment;
 
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.enums.ref.ObjectType;
-import com.eghm.enums.ref.ReportType;
+import com.eghm.enums.ObjectType;
+import com.eghm.enums.ReportType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

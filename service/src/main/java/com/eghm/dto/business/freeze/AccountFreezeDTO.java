@@ -1,6 +1,6 @@
 package com.eghm.dto.business.freeze;
 
-import com.eghm.enums.ref.ChangeType;
+import com.eghm.enums.ChangeType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

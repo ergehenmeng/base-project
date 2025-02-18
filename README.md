@@ -96,8 +96,8 @@
 ## 其他开发说明
 * 管理后台验证码有 `MathCaptchaProducer` `TextCaptchaProducer` 两种方式, 默认为 `MathCaptchaProducer`, 可在`WebMvcConfig#captcha`调整配置
 * 数据库涉及金额的字段, 统一使用 `INT` 类型, 避免浮点数精度丢失
-    * POST请求时: 后台可通过 `@JsonDeserialize(using = YuanToCentDecoder.class)` 自动转为分,
-      同样后端的分也可以通过 `@JsonSerialize(using = CentToYuanEncoder.class)` 自动转为元返回给前端
+    * POST请求时: 后台可通过 `@JsonDeserialize(using = YuanToCentDeserializer.class)` 自动转为分,
+      同样后端的分也可以通过 `@JsonSerialize(using = CentToYuanSerializer.class)` 自动转为元返回给前端
     * GET请求时: 前端传递金额格式为元,后端通过 `@YuanToCentFormat` 注解自动转为分.
 * `DateFormatter` 日期格式化注解与 `DateTimeFormat` 类似, 支持 `LocalDate` `LocalDateTime` `LocalTime`类型, 在GET请求时,
   前端传递日期格式为范围  `yyyy-MM-dd` 时, 例如: 查询 `2023-11-11` 到 `2023-11-11`的日期, 实际上查询的是 `2023-11-11`

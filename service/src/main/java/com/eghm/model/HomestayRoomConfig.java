@@ -3,7 +3,7 @@ package com.eghm.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -41,11 +41,11 @@ public class HomestayRoomConfig {
     private LocalDate configDate;
 
     @ApiModelProperty(value = "划线价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer linePrice;
 
     @ApiModelProperty(value = "销售价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer salePrice;
 
     @ApiModelProperty(value = "剩余库存")

@@ -3,7 +3,7 @@ package com.eghm.dto.business.shopping;
 import com.eghm.annotation.Assign;
 import com.eghm.annotation.YuanToCentFormat;
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

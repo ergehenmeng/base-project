@@ -1,6 +1,6 @@
 package com.eghm.dto.business.redeem;
 
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.dto.ext.StoreScope;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -38,7 +38,7 @@ public class RedeemCodeAddRequest {
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "金额", required = true)
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer amount;
 
     @ApiModelProperty(value = "发放数量", required = true)

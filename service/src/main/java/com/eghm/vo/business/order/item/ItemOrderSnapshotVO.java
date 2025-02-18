@@ -1,7 +1,7 @@
 package com.eghm.vo.business.order.item;
 
-import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.enums.ref.DeliveryType;
+import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.enums.DeliveryType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -41,11 +41,11 @@ public class ItemOrderSnapshotVO {
     private String skuCoverUrl;
 
     @ApiModelProperty(value = "销售价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer salePrice;
 
     @ApiModelProperty(value = "划线价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer linePrice;
 
     @ApiModelProperty(value = "购买须知")

@@ -1,6 +1,6 @@
 package com.eghm.vo.business.order;
 
-import com.eghm.enums.ref.VisitorState;
+import com.eghm.enums.VisitorState;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

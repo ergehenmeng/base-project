@@ -1,6 +1,6 @@
 package com.eghm.dto.member.tag;
 
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.enums.Channel;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.WordChecker;
@@ -45,11 +45,11 @@ public class MemberTagEditRequest {
     private Integer consumeDay;
 
     @ApiModelProperty(value = "最低消费次数")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer consumeNum;
 
     @ApiModelProperty(value = "最低消费金额")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer consumeAmount;
 
     @ApiModelProperty("注册渠道 PC ANDROID IOS H5 OTHER")

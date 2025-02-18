@@ -2,7 +2,7 @@ package com.eghm.vo.business.freeze;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
@@ -34,7 +34,7 @@ public class AccountFreezeLogResponse extends ExcelStyle {
     private String orderNo;
 
     @ApiModelProperty(value = "冻结金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     @ExcelProperty(value = "冻结金额", index = 2, converter = CentToYuanConverter.class)
     private Integer amount;
 

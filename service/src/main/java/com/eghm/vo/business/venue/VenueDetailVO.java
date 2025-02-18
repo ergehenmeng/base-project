@@ -1,6 +1,6 @@
 package com.eghm.vo.business.venue;
 
-import com.eghm.enums.ref.VenueType;
+import com.eghm.enums.VenueType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

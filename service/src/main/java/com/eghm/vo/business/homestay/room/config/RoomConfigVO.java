@@ -1,6 +1,6 @@
 package com.eghm.vo.business.homestay.room.config;
 
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -30,11 +30,11 @@ public class RoomConfigVO {
     private LocalDate configDate;
 
     @ApiModelProperty("划线价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer linePrice;
 
     @ApiModelProperty("销售价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer salePrice;
 
     @ApiModelProperty("库存数")

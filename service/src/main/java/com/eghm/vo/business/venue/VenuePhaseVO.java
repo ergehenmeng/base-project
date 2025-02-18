@@ -1,6 +1,6 @@
 package com.eghm.vo.business.venue;
 
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -28,6 +28,6 @@ public class VenuePhaseVO {
     private LocalTime endTime;
 
     @ApiModelProperty(value = "价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer price;
 }

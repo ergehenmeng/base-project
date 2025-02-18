@@ -1,7 +1,7 @@
 package com.eghm.vo.business.shopping;
 
-import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.enums.ref.State;
+import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.enums.State;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,11 +24,11 @@ public class ShoppingCartResponse {
     private String coverUrl;
 
     @ApiModelProperty(value = "最低价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer minPrice;
 
     @ApiModelProperty(value = "最高价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer maxPrice;
 
     @ApiModelProperty("是否为热销商品 true:是 false:不是")

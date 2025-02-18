@@ -1,7 +1,7 @@
 package com.eghm.vo.business.order.homestay;
 
-import com.eghm.enums.ref.RefundType;
-import com.eghm.enums.ref.RoomType;
+import com.eghm.enums.RefundType;
+import com.eghm.enums.RoomType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

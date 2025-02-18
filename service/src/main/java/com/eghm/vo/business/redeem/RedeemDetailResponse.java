@@ -1,6 +1,6 @@
 package com.eghm.vo.business.redeem;
 
-import com.eghm.convertor.CentToYuanOmitEncoder;
+import com.eghm.convertor.CentToYuanOmitSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -32,7 +32,7 @@ public class RedeemDetailResponse {
     private LocalDateTime endTime;
 
     @ApiModelProperty("金额")
-    @JsonSerialize(using = CentToYuanOmitEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer amount;
 
     @ApiModelProperty(value = "发放数量")

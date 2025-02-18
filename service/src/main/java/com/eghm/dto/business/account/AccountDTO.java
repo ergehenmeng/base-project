@@ -1,6 +1,6 @@
 package com.eghm.dto.business.account;
 
-import com.eghm.enums.ref.AccountType;
+import com.eghm.enums.AccountType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

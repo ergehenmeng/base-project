@@ -1,6 +1,6 @@
 package com.eghm.vo.business.item;
 
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -38,7 +38,7 @@ public class BaseSkuResponse {
     private String specValue;
 
     @ApiModelProperty(value = "销售价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer salePrice;
 
     @ApiModelProperty(value = "规格图片(可能为空)")

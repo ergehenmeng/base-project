@@ -7,9 +7,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author wyb
@@ -55,7 +55,7 @@ public class RedPacketUtil {
     private static List<Integer> generateRandom(int amount, int num) {
         List<Integer> result = Lists.newArrayListWithExpectedSize(num);
         int surplus = amount;
-        SecureRandom random = new SecureRandom();
+        ThreadLocalRandom random = ThreadLocalRandom.current();
         for (int i = 0; i < num; i++) {
             if (i == num - 1) {
                 result.add(surplus);

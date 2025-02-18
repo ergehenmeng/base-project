@@ -2,7 +2,7 @@ package com.eghm.dto.business.withdraw;
 
 import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
-import com.eghm.dto.ext.DatePagingComparator;
+import com.eghm.dto.ext.AbstractDatePagingComparator;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +16,7 @@ import java.time.LocalDate;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class WithdrawQueryRequest extends DatePagingComparator {
+public class WithdrawQueryRequest extends AbstractDatePagingComparator {
 
     @ApiModelProperty(value = "商户id", hidden = true)
     @Assign

@@ -2,14 +2,9 @@ package com.eghm.state.machine.impl.ticket;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.OrderMqService;
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ExchangeQueue;
+import com.eghm.enums.*;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.TicketEvent;
-import com.eghm.enums.OrderState;
-import com.eghm.enums.ProductType;
-import com.eghm.enums.RefundType;
-import com.eghm.enums.TicketType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.Scenic;

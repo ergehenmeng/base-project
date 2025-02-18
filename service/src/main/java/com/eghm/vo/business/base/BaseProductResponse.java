@@ -1,6 +1,6 @@
 package com.eghm.vo.business.base;
 
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ProductType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

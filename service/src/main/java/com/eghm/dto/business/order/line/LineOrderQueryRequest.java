@@ -2,8 +2,8 @@ package com.eghm.dto.business.order.line;
 
 import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
-import com.eghm.dto.ext.DatePagingComparator;
-import com.eghm.enums.ref.OrderState;
+import com.eghm.dto.ext.AbstractDatePagingComparator;
+import com.eghm.enums.OrderState;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,7 +17,7 @@ import java.time.LocalDate;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class LineOrderQueryRequest extends DatePagingComparator {
+public class LineOrderQueryRequest extends AbstractDatePagingComparator {
 
     @ApiModelProperty("线路订单状态")
     private OrderState orderState;

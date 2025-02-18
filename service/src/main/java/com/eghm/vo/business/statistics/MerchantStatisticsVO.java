@@ -1,6 +1,6 @@
 package com.eghm.vo.business.statistics;
 
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -17,6 +17,6 @@ public class MerchantStatisticsVO {
     private String merchantName;
 
     @ApiModelProperty("销售额(含退款)")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer amount;
 }

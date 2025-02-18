@@ -1,7 +1,7 @@
 package com.eghm.dto.business.item.store;
 
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

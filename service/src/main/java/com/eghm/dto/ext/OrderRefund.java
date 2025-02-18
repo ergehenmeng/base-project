@@ -1,6 +1,6 @@
 package com.eghm.dto.ext;
 
-import com.eghm.enums.ref.PayType;
+import com.eghm.enums.PayType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

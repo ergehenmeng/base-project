@@ -1,7 +1,8 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.enums.ref.AuditState;
+import com.eghm.enums.AuditState;
+import com.eghm.enums.RefundLogState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -56,7 +57,7 @@ public class OrderRefundLog extends BaseEntity {
     private Integer applyType;
 
     @ApiModelProperty(value = "退款状态 0:退款中 1:退款成功 2:退款失败 3:取消退款 4:拒绝退款")
-    private Integer state;
+    private RefundLogState state;
 
     @ApiModelProperty(value = "审核状态 (0:待审核 1:审核通过 2:审核拒绝 3:取消审核)")
     private AuditState auditState;

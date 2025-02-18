@@ -1,9 +1,9 @@
 package com.eghm.vo.business.item;
 
-import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.convertor.NumberParseEncoder;
-import com.eghm.enums.ref.DeliveryType;
-import com.eghm.enums.ref.State;
+import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.convertor.NumberParseSerializer;
+import com.eghm.enums.DeliveryType;
+import com.eghm.enums.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -70,7 +70,7 @@ public class ItemDetailVO {
     private DeliveryType deliveryType;
 
     @ApiModelProperty(value = "最低价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer minPrice;
 
     @ApiModelProperty(value = "总销售量=实际销售+虚拟销量")
@@ -86,7 +86,7 @@ public class ItemDetailVO {
     private Boolean hotSell;
 
     @ApiModelProperty("评论总数量")
-    @JsonSerialize(using = NumberParseEncoder.class)
+    @JsonSerialize(using = NumberParseSerializer.class)
     private Long commentNum;
 
     @ApiModelProperty("好评率百分比")

@@ -1,7 +1,7 @@
 package com.eghm.dto.business.line.config;
 
-import com.eghm.convertor.YuanToCentDecoder;
-import com.eghm.dto.ext.DateComparator;
+import com.eghm.convertor.YuanToCentDeserializer;
+import com.eghm.dto.ext.AbstractDateComparator;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class LineConfigRequest extends DateComparator {
+public class LineConfigRequest extends AbstractDateComparator {
 
     @ApiModelProperty(value = "周期", required = true)
     @NotEmpty(message = "请选择周期")
@@ -49,11 +49,11 @@ public class LineConfigRequest extends DateComparator {
     private Integer stock;
 
     @ApiModelProperty("划线价")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer linePrice;
 
     @ApiModelProperty(value = "销售价", required = true)
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "销售价不能为空")
     private Integer salePrice;
 

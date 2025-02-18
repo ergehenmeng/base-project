@@ -1,6 +1,6 @@
 package com.eghm.vo.poi;
 
-import com.eghm.convertor.BigDecimalOmitEncoder;
+import com.eghm.convertor.BigDecimalOmitSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -29,7 +29,7 @@ public class PoiLineVO {
     private String coverUrl;
 
     @ApiModelProperty(value = "预计游玩时间")
-    @JsonSerialize(using = BigDecimalOmitEncoder.class)
+    @JsonSerialize(using = BigDecimalOmitSerializer.class)
     private BigDecimal playTime;
 
     @ApiModelProperty("线路详情")

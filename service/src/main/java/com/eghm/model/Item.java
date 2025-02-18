@@ -3,9 +3,9 @@ package com.eghm.model;
 import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.enums.ref.DeliveryType;
-import com.eghm.enums.ref.State;
+import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.enums.DeliveryType;
+import com.eghm.enums.State;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -68,11 +68,11 @@ public class Item extends BaseEntity {
     private DeliveryType deliveryType;
 
     @ApiModelProperty(value = "最低价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer minPrice;
 
     @ApiModelProperty(value = "最高价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer maxPrice;
 
     @ApiModelProperty(value = "销售数量(所有规格销售总量)")

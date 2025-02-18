@@ -1,6 +1,6 @@
 package com.eghm.vo.business.limit;
 
-import com.eghm.convertor.CentToYuanOmitEncoder;
+import com.eghm.convertor.CentToYuanOmitSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -26,10 +26,10 @@ public class LimitSkuResponse {
     private Long skuId;
 
     @ApiModelProperty("销售价")
-    @JsonSerialize(using = CentToYuanOmitEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer salePrice;
 
     @ApiModelProperty("限时价")
-    @JsonSerialize(using = CentToYuanOmitEncoder.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer discountPrice;
 }

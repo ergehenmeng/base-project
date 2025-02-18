@@ -1,7 +1,7 @@
 package com.eghm.dto.sys.role;
 
 import com.eghm.annotation.Assign;
-import com.eghm.enums.ref.RoleType;
+import com.eghm.enums.RoleType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

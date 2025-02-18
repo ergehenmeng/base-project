@@ -1,8 +1,8 @@
 package com.eghm.state.machine.impl.line;
 
+import com.eghm.enums.RefundType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.LineEvent;
-import com.eghm.enums.RefundType;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;

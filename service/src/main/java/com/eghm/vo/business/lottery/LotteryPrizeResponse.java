@@ -1,6 +1,6 @@
 package com.eghm.vo.business.lottery;
 
-import com.eghm.enums.ref.PrizeType;
+import com.eghm.enums.PrizeType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

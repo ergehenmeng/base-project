@@ -2,7 +2,7 @@ package com.eghm.dto.business.homestay.room;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.enums.ref.RefundType;
+import com.eghm.enums.RefundType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

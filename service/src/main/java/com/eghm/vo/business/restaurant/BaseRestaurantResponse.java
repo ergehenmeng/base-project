@@ -1,6 +1,6 @@
 package com.eghm.vo.business.restaurant;
 
-import com.eghm.enums.ref.State;
+import com.eghm.enums.State;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

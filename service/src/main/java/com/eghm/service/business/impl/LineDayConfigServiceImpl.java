@@ -37,7 +37,7 @@ public class LineDayConfigServiceImpl implements LineDayConfigService {
             if (CollUtil.isNotEmpty(request.getRepastList())) {
                 config.setRepast(request.getRepastList().stream().mapToInt(Integer::intValue).sum());
             }
-            lineDayConfigMapper.insertUpdate(config);
+            lineDayConfigMapper.insertOrUpdate(config);
         }
     }
 

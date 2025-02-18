@@ -1,7 +1,7 @@
 package com.eghm.dto.business.account.score;
 
 import com.eghm.annotation.Assign;
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.pay.enums.PayChannel;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,7 +22,7 @@ public class ScoreScanRechargeDTO {
     private Long merchantId;
 
     @ApiModelProperty(value = "充值金额", required = true)
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "请输入充值金额")
     private Integer amount;
 

@@ -1,6 +1,6 @@
 package com.eghm.dto.business.restaurant.voucher;
 
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
@@ -40,12 +40,12 @@ public class VoucherEditRequest {
     private Long tagId;
 
     @ApiModelProperty(value = "划线价", required = true)
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer linePrice;
 
     @ApiModelProperty(value = "销售价", required = true)
     @NotNull(message = "销售价不能为空")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer salePrice;
 
     @ApiModelProperty(value = "剩余库存", required = true)

@@ -1,10 +1,11 @@
 package com.eghm.dto.sys.login;
 
 import com.eghm.annotation.Assign;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * @author 二哥很猛
@@ -14,14 +15,14 @@ import lombok.Data;
 public class DoubleCheckDTO {
 
     @NotEmpty(message = "请求id不能为空")
-    @Schema(description = "请求id", requiredMode = Schema.RequiredMode.REQUIRED)
+    @ApiModelProperty(value = "请求id", required = true)
     private String uuid;
 
-    @Schema(description = "短信验证码", requiredMode = Schema.RequiredMode.REQUIRED)
+    @ApiModelProperty(value = "短信验证码", required = true)
     @NotBlank(message = "验证码不能为空")
     private String smsCode;
 
-    @Schema(description = "ip", hidden = true)
+    @ApiModelProperty(value = "ip", hidden = true)
     @Assign
     private String ip;
 }

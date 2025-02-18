@@ -1,7 +1,7 @@
 package com.eghm.vo.business.statistics;
 
 import cn.hutool.core.util.RandomUtil;
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,14 +20,14 @@ public class OrderCardVO {
     private Integer orderNum = 0;
 
     @ApiModelProperty("支付金额(含退款的订单)")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer payAmount = 0;
 
     @ApiModelProperty("退款数量(包含部分退款)")
     private Integer refundNum = 0;
 
     @ApiModelProperty("退款金额(包含部分退款)")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer refundAmount = 0;
 
     public void setOrderNum(Integer orderNum) {

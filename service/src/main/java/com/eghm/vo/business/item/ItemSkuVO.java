@@ -1,7 +1,7 @@
 package com.eghm.vo.business.item;
 
-import com.eghm.convertor.BigDecimalOmitEncoder;
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.BigDecimalOmitSerializer;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -30,15 +30,15 @@ public class ItemSkuVO {
     private String secondSpecValue;
 
     @ApiModelProperty(value = "划线价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer linePrice;
 
     @ApiModelProperty(value = "销售价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer salePrice;
 
     @ApiModelProperty("拼团或限时购价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer discountPrice;
 
     @ApiModelProperty(value = "库存")
@@ -48,7 +48,7 @@ public class ItemSkuVO {
     private Integer saleNum;
 
     @ApiModelProperty("重量")
-    @JsonSerialize(using = BigDecimalOmitEncoder.class)
+    @JsonSerialize(using = BigDecimalOmitSerializer.class)
     private BigDecimal weight;
 
     @ApiModelProperty(value = "sku图片(优先级最高)")

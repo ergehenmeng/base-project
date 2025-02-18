@@ -1,8 +1,8 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.enums.ref.*;
+import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.enums.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -47,7 +47,7 @@ public class Order extends BaseEntity {
      * 零售由于可能是多商品同时下单, 该字段没有意义, 因此会为空
      */
     @ApiModelProperty(value = "单价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer price;
 
     @ApiModelProperty(value = "数量")
@@ -71,7 +71,7 @@ public class Order extends BaseEntity {
     @ApiModelProperty("支付方式")
     private PayType payType;
 
-    @ApiModelProperty(value = "订单状态")
+    @ApiModelProperty(value = "订单状态 0:待支付 1:支付中 2:待使用 3:待自提 4:待发货 5:部分发货 6:待收货 7:退款中 8:订单完成 9:已关闭 10:支付异常 11:退款异常")
     private OrderState state;
 
     @ApiModelProperty("当前订单所处的退款状态 1:退款申请中 2:退款中 3:退款拒绝 4:退款成功 5:退款失败(该状态和退款中在C端用户看来都是退款中) 6:线下退款(该状态与退款成功在C端用户看来是一样的)")

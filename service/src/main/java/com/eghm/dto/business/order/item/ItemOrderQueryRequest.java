@@ -2,9 +2,9 @@ package com.eghm.dto.business.order.item;
 
 import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
-import com.eghm.dto.ext.DatePagingComparator;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.RefundState;
+import com.eghm.dto.ext.AbstractDatePagingComparator;
+import com.eghm.enums.OrderState;
+import com.eghm.enums.RefundState;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,7 +18,7 @@ import java.time.LocalDate;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ItemOrderQueryRequest extends DatePagingComparator {
+public class ItemOrderQueryRequest extends AbstractDatePagingComparator {
 
     @ApiModelProperty("门票订单状态")
     private OrderState orderState;

@@ -1,7 +1,7 @@
 package com.eghm.dto.business.homestay.room;
 
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.enums.ref.RoomType;
+import com.eghm.enums.RoomType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

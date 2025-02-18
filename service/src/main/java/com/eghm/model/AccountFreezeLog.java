@@ -1,9 +1,9 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.enums.ref.ChangeType;
-import com.eghm.enums.ref.FreezeState;
+import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.enums.ChangeType;
+import com.eghm.enums.FreezeState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -32,7 +32,7 @@ public class AccountFreezeLog extends BaseEntity {
     private FreezeState state;
 
     @ApiModelProperty(value = "冻结金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer amount;
 
     @ApiModelProperty(value = "状态变更原因 1:支付冻结 2:退款解冻 3:订单完成解冻")

@@ -1,8 +1,8 @@
 package com.eghm.vo.business.order.item;
 
-import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.enums.ref.DeliveryState;
-import com.eghm.enums.ref.ItemRefundState;
+import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.enums.DeliveryState;
+import com.eghm.enums.ItemRefundState;
 import com.eghm.vo.business.merchant.address.MerchantAddressVO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -43,15 +43,15 @@ public class ItemOrderRefundVO {
     private String skuTitle;
 
     @ApiModelProperty(value = "销售价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer salePrice;
 
     @ApiModelProperty(value = "退款金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer refundAmount;
 
     @ApiModelProperty(value = "退款快递费")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer expressFeeAmount;
 
     @ApiModelProperty("退款积分")

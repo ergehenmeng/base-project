@@ -2,7 +2,7 @@ package com.eghm.vo.business.order.line;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
-import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
@@ -41,7 +41,7 @@ public class LineOrderResponse extends ExcelStyle {
     @ExcelProperty(value = "旅行社名称", index = 2)
     private String travelName;
 
-    @ApiModelProperty(value = "订单状态")
+    @ApiModelProperty(value = "订单状态 0:待支付 1:支付中 2:待使用 3:待自提 4:待发货 5:部分发货 6:待收货 7:退款中 8:订单完成 9:已关闭 10:支付异常 11:退款异常")
     @ExcelProperty(value = "订单状态", index = 3, converter = EnumExcelConverter.class)
     private OrderState state;
 
@@ -58,12 +58,12 @@ public class LineOrderResponse extends ExcelStyle {
     private String mobile;
 
     @ApiModelProperty("付款金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     @ExcelProperty(value = "付款金额", index = 7, converter = CentToYuanConverter.class)
     private Integer payAmount;
 
     @ApiModelProperty("总优惠金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
+    @JsonSerialize(using = CentToYuanSerializer.class)
     @ExcelProperty(value = "总优惠金额", index = 8, converter = CentToYuanConverter.class)
     private Integer discountAmount;
 

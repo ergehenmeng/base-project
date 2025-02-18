@@ -2,8 +2,8 @@ package com.eghm.dto.business.account.score;
 
 import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
-import com.eghm.dto.ext.DatePagingComparator;
-import com.eghm.enums.ref.ChargeType;
+import com.eghm.dto.ext.AbstractDatePagingComparator;
+import com.eghm.enums.ChargeType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,7 +17,7 @@ import java.time.LocalDate;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ScoreAccountQueryRequest extends DatePagingComparator {
+public class ScoreAccountQueryRequest extends AbstractDatePagingComparator {
 
     @ApiModelProperty("变动类型(1:充值 2:支付收入 3:支付退款 4:抽奖支出 5:提现支出 6:关注赠送 7:提现失败)")
     private ChargeType chargeType;

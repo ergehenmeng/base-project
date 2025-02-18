@@ -1,6 +1,6 @@
 package com.eghm.dto.business.order.homestay;
 
-import com.eghm.dto.ext.DateComparator;
+import com.eghm.dto.ext.AbstractDateComparator;
 import com.eghm.state.machine.dto.VisitorDTO;
 import com.eghm.validation.annotation.AfterNow;
 import com.eghm.validation.annotation.Mobile;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class HomestayOrderCreateDTO extends DateComparator {
+public class HomestayOrderCreateDTO extends AbstractDateComparator {
 
     @ApiModelProperty(value = "商品id", required = true)
     @NotNull(message = "商品不能为空")

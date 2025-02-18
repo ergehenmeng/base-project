@@ -1,6 +1,6 @@
 package com.eghm.dto.business.line.config;
 
-import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -35,11 +35,11 @@ public class LineConfigOneRequest {
     private Integer stock;
 
     @ApiModelProperty("划线价")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer linePrice;
 
     @ApiModelProperty(value = "销售价", required = true)
-    @JsonDeserialize(using = YuanToCentDecoder.class)
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "销售价不能为空")
     private Integer salePrice;
 
