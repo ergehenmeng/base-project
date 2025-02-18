@@ -30,22 +30,6 @@ public interface AccountService {
     void orderComplete(Long merchantId, String orderNo);
 
     /**
-     * 提现成功,更新冻结金额
-     *
-     * @param merchantId 商户id
-     * @param amount 提现金额
-     */
-    void withdrawApply(Long merchantId, Integer amount);
-
-    /**
-     * 提现失败,解冻金额
-     *
-     * @param merchantId 商户id
-     * @param amount 提现金额
-     */
-    void withdrawFail(Long merchantId, Integer amount);
-
-    /**
      * 查询商户账户信息
      *
      * @param merchantId 商户id

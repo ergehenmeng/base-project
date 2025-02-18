@@ -127,21 +127,6 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
     }
 
     @Override
-    public void withdrawApply(Long merchantId, Integer amount) {
-        Account account = this.getAccount(merchantId);
-        account.setWithdrawFreeze(account.getWithdrawFreeze() - amount);
-        this.updateById(account);
-    }
-
-    @Override
-    public void withdrawFail(Long merchantId, Integer amount) {
-        Account account = this.getAccount(merchantId);
-        account.setAmount(account.getAmount() + amount);
-        account.setWithdrawFreeze(account.getWithdrawFreeze() - amount);
-        this.updateById(account);
-    }
-
-    @Override
     public Account getAccount(Long merchantId) {
         LambdaQueryWrapper<Account> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Account::getMerchantId, merchantId);

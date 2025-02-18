@@ -73,7 +73,6 @@ public class WithdrawServiceImpl implements WithdrawService {
         withdrawLog.setCreateTime(LocalDateTime.now());
         withdrawLog.setRefundNo(tradeNo);
         withdrawLogMapper.insert(withdrawLog);
-        accountService.withdrawApply(apply.getMerchantId(), apply.getAmount());
     }
 
     @Override
