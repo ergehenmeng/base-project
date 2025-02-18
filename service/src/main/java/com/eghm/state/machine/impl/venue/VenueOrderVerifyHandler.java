@@ -2,9 +2,9 @@ package com.eghm.state.machine.impl.venue;
 
 import com.eghm.common.JsonService;
 import com.eghm.enums.ExchangeQueue;
+import com.eghm.enums.ProductType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VenueEvent;
-import com.eghm.enums.ProductType;
 import com.eghm.model.Order;
 import com.eghm.mq.service.MessageService;
 import com.eghm.service.business.CommonService;

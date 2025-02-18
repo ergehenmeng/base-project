@@ -1,14 +1,13 @@
 package com.eghm.validation;
 
 
-import static com.eghm.utils.StringUtil.isBlank;
-import static com.eghm.utils.StringUtil.isNotBlank;
-
 import com.eghm.utils.RegExpUtil;
 import com.eghm.validation.annotation.Password;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+
+import static com.eghm.utils.StringUtil.isBlank;
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author 二哥很猛

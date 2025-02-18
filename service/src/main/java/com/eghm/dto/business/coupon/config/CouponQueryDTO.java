@@ -3,10 +3,9 @@ package com.eghm.dto.business.coupon.config;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.CouponType;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import jakarta.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛

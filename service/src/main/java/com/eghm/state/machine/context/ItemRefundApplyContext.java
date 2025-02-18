@@ -1,8 +1,8 @@
 package com.eghm.state.machine.context;
 
 import com.eghm.annotation.Assign;
-import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ProductType;
+import com.eghm.enums.event.IEvent;
 import com.eghm.model.ItemOrder;
 import com.eghm.state.machine.Context;
 import io.swagger.v3.oas.annotations.media.Schema;

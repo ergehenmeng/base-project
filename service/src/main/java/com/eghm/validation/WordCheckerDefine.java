@@ -1,13 +1,13 @@
 package com.eghm.validation;
 
-import static com.eghm.utils.StringUtil.isBlank;
 import cn.hutool.dfa.FoundWord;
 import cn.hutool.dfa.SensitiveUtil;
 import com.eghm.validation.annotation.WordChecker;
-import lombok.extern.slf4j.Slf4j;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import lombok.extern.slf4j.Slf4j;
+
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * 校验规则定义

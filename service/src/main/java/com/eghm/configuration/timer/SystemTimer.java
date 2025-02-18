@@ -2,6 +2,7 @@ package com.eghm.configuration.timer;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.*;
@@ -32,11 +33,6 @@ public class SystemTimer {
     private static final int DEFAULT_CORE_THREAD = 5;
 
     /**
-     * 默认步长 200毫秒
-     */
-    private static final int DEFAULT_STEP = 200;
-
-    /**
      * 最底层时间轮对象
      */
     private final TimingWheel rootWheel;
@@ -48,27 +44,23 @@ public class SystemTimer {
 
     private final AtomicInteger taskCounter = new AtomicInteger(0);
 
-    private final AtomicInteger threadCounter = new AtomicInteger(1);
+    private static final AtomicInteger THREAD_COUNTER = new AtomicInteger(1);
 
     /**
      * 工作线程
      */
-    private ExecutorService executor;
+    private final ExecutorService executor;
 
     /**
      * 指针线程
      */
-    private ExecutorService bossExecutor;
+    private static final ScheduledExecutorService BOSS_EXECUTOR = Executors.newScheduledThreadPool(1);
 
     /**
      * 关闭处理
      */
+    @Setter
     private ShutdownHandler shutdownHandler;
-
-    /**
-     * 是否开启任务
-     */
-    private volatile boolean started = false;
 
     /**
      * 全局时间轮定时器
@@ -77,44 +69,25 @@ public class SystemTimer {
      * @param wheelSize 初始值 一圈的格数
      */
     public SystemTimer(long scaleMs, int wheelSize) {
+        this(scaleMs, wheelSize, new ThreadPoolExecutor(DEFAULT_CORE_THREAD, DEFAULT_MAX_THREAD, 5, TimeUnit.SECONDS, new ArrayBlockingQueue<>(DEFAULT_QUEUE_CAPACITY), r -> new Thread(r, "时间轮线程-" + THREAD_COUNTER.getAndIncrement())));
+    }
+
+    /**
+     * 全局时间轮定时器
+     *
+     * @param scaleMs   初始值 一格多少毫秒
+     * @param wheelSize 初始值 一圈的格数
+     */
+    public SystemTimer(long scaleMs, int wheelSize, ExecutorService executor) {
         this.rootWheel = new TimingWheel(scaleMs, wheelSize, System.currentTimeMillis(), taskCounter, queue);
+        this.executor = executor;
     }
 
     /**
      * 启动时间轮
      */
     public void start() {
-        this.start(DEFAULT_STEP);
-    }
-
-    /**
-     * 启动时间轮,以{step}的时间速度进行轮训
-     *
-     * @param step 步长
-     */
-    public void start(long step) {
-        if (executor == null) {
-            executor = new ThreadPoolExecutor(DEFAULT_CORE_THREAD, DEFAULT_MAX_THREAD,
-                    5, TimeUnit.SECONDS, new ArrayBlockingQueue<>(DEFAULT_QUEUE_CAPACITY), r -> new Thread(r, "时间轮线程-" + threadCounter.getAndIncrement()));
-        }
-        this.initTimer(step);
-    }
-
-    /**
-     * 初始化刻度线程
-     *
-     * @param ms 毫秒
-     */
-    private void initTimer(long ms) {
-        if (!started) {
-            started = true;
-            this.bossExecutor = Executors.newFixedThreadPool(1);
-            bossExecutor.submit(() -> {
-                while (started) {
-                    this.advanceClock(ms);
-                }
-            });
-        }
+        BOSS_EXECUTOR.schedule(this::advanceClock, 1, TimeUnit.SECONDS);
     }
 
     /**
@@ -142,11 +115,10 @@ public class SystemTimer {
     /**
      * 时间移动步长
      *
-     * @param ms 毫秒
      */
-    private void advanceClock(long ms) {
+    private void advanceClock() {
         try {
-            TaskBucket bucket = queue.poll(ms, TimeUnit.MILLISECONDS);
+            TaskBucket bucket = queue.poll(200, TimeUnit.MILLISECONDS);
             while (bucket != null) {
                 rootWheel.advanceClock(bucket.getExpire());
                 bucket.flush(this::addEntry);
@@ -169,13 +141,10 @@ public class SystemTimer {
      * 关闭定时任务执行器
      */
     public void shutdown() {
-        if (started) {
-            started = false;
-            executor.shutdown();
-            bossExecutor.shutdown();
-            if (shutdownHandler != null) {
-                shutdownHandler.shutdown(queue);
-            }
+        executor.shutdown();
+        BOSS_EXECUTOR.shutdown();
+        if (shutdownHandler != null) {
+            shutdownHandler.shutdown(queue);
         }
     }
 

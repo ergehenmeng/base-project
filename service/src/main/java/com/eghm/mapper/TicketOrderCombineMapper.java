@@ -1,7 +1,7 @@
 package com.eghm.mapper;
 
-import com.eghm.model.TicketOrderCombine;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.model.TicketOrderCombine;
 import com.eghm.vo.business.scenic.ticket.CombineTicketVO;
 import org.apache.ibatis.annotations.Param;
 

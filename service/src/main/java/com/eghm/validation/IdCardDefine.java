@@ -2,13 +2,12 @@ package com.eghm.validation;
 
 
 import cn.hutool.core.util.IdcardUtil;
-import static com.eghm.utils.StringUtil.isBlank;
-import static com.eghm.utils.StringUtil.isNotBlank;
-
 import com.eghm.validation.annotation.IdCard;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+
+import static com.eghm.utils.StringUtil.isBlank;
+import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author 二哥很猛

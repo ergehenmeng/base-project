@@ -1,7 +1,7 @@
 package com.eghm.common;
 
-import com.eghm.dto.sys.email.SendEmail;
 import com.eghm.dto.ext.VerifyEmailCode;
+import com.eghm.dto.sys.email.SendEmail;
 import com.eghm.handler.email.AuthCodeEmailHandler;
 
 /**

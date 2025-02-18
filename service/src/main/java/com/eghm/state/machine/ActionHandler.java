@@ -2,8 +2,8 @@ package com.eghm.state.machine;
 
 import com.alibaba.cola.statemachine.Action;
 import com.alibaba.cola.statemachine.Condition;
-import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ProductType;
+import com.eghm.enums.event.IEvent;
 import org.springframework.lang.NonNull;
 
 /**

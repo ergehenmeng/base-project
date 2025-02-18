@@ -3,15 +3,15 @@ package com.eghm.dto.statistics;
 import com.eghm.annotation.DateFormatter;
 import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.dto.ext.AbstractDateComparator;
-import com.eghm.enums.SelectType;
 import com.eghm.enums.ProductType;
+import com.eghm.enums.SelectType;
 import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**

@@ -1,9 +1,8 @@
 package com.eghm.dto.business.activity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
 /**
  * @author 二哥很猛

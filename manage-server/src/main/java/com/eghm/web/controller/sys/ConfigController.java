@@ -1,14 +1,14 @@
 package com.eghm.web.controller.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.sys.config.ConfigEditRequest;
-import com.eghm.dto.sys.config.ConfigQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.sys.config.ConfigEditRequest;
+import com.eghm.dto.sys.config.ConfigQueryRequest;
 import com.eghm.service.sys.SysConfigService;
 import com.eghm.vo.sys.SysConfigResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;

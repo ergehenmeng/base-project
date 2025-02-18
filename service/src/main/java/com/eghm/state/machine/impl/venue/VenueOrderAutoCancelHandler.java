@@ -1,8 +1,8 @@
 package com.eghm.state.machine.impl.venue;
 
+import com.eghm.enums.ProductType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VenueEvent;
-import com.eghm.enums.ProductType;
 import com.eghm.model.Order;
 import com.eghm.pay.service.AggregatePayService;
 import com.eghm.service.business.MemberCouponService;

@@ -3,11 +3,11 @@ package com.eghm.dto.business.venue;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.VenueType;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
 
 /**

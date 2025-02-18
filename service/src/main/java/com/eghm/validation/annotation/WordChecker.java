@@ -1,10 +1,10 @@
 package com.eghm.validation.annotation;
 
 import com.eghm.validation.WordCheckerDefine;
-
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import jakarta.validation.ReportAsSingleViolation;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

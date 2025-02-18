@@ -2,9 +2,8 @@ package com.eghm.dto.business.shopping;
 
 import com.eghm.validation.annotation.RangeInt;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 /**
  * 购物车商品数量更新

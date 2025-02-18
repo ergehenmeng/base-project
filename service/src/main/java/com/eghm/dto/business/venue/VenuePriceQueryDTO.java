@@ -3,10 +3,10 @@ package com.eghm.dto.business.venue;
 import com.eghm.configuration.gson.LocalDateAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**

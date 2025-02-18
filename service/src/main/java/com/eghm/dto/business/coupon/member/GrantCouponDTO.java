@@ -2,9 +2,9 @@ package com.eghm.dto.business.coupon.member;
 
 import com.eghm.annotation.Assign;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 /**

@@ -2,10 +2,9 @@ package com.eghm.dto.business.news;
 
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author 二哥很猛

@@ -3,10 +3,9 @@ package com.eghm.dto.business.coupon.member;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.validation.annotation.OptionInt;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import jakarta.validation.constraints.NotNull;
 
 /**
  * 用户优惠券中心列表查询

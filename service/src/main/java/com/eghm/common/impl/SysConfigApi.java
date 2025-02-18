@@ -7,7 +7,6 @@ import com.eghm.exception.ParameterException;
 import com.eghm.service.sys.impl.SysConfigServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,21 +41,6 @@ public class SysConfigApi {
             throw new ParameterException(ErrorCode.CONFIG_NOT_FOUND_ERROR);
         }
         return content;
-    }
-
-    /**
-     * 根据nid获取系统参数配置信息的值,支持以下类型(yes,true,on,y,t,n,f,no,off,false,1,0)
-     *
-     * @param nid 唯一nid
-     * @return 系统参数结果值boolean
-     */
-    public boolean getBoolean(String nid) {
-        String value = this.getString(nid);
-        try {
-            return BooleanUtils.toBoolean(Integer.parseInt(value));
-        } catch (Exception e) {
-            return BooleanUtils.toBoolean(value);
-        }
     }
 
     /**

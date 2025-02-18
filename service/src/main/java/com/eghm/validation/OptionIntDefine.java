@@ -1,7 +1,6 @@
 package com.eghm.validation;
 
 import com.eghm.validation.annotation.OptionInt;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

@@ -1,14 +1,14 @@
 package com.eghm.web.controller.sys;
 
 import com.eghm.dto.IdDTO;
-import com.eghm.dto.sys.dept.DeptAddRequest;
-import com.eghm.dto.sys.dept.DeptEditRequest;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.sys.dept.DeptAddRequest;
+import com.eghm.dto.sys.dept.DeptEditRequest;
 import com.eghm.service.sys.SysDeptService;
 import com.eghm.vo.sys.SysDeptResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;

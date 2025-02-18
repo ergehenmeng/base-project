@@ -1,6 +1,5 @@
 package com.eghm.common.impl;
 
-import static com.eghm.utils.StringUtil.isBlank;
 import com.eghm.common.JsonService;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.ParameterException;
@@ -14,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * @author 殿小二

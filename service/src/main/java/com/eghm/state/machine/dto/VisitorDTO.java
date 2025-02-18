@@ -2,10 +2,9 @@ package com.eghm.state.machine.dto;
 
 import com.eghm.validation.annotation.IdCard;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 /**
  * @author 二哥很猛

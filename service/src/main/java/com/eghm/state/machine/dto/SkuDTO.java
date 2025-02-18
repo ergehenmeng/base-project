@@ -2,9 +2,8 @@ package com.eghm.state.machine.dto;
 
 import com.eghm.validation.annotation.RangeInt;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 /**
  * @author wyb
