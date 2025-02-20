@@ -75,6 +75,7 @@ public class AggregatePayServiceImpl implements AggregatePayService {
     private PayService getPayService(TradeType tradeType) {
         for (PayService service : serviceList) {
             if (service.supported(tradeType)) {
+                service.checkConfig();
                 return service;
             }
         }

@@ -59,6 +59,13 @@ public class WechatPayServiceImpl implements PayService {
     }
 
     @Override
+    public void checkConfig() {
+        if (wxPayService == null) {
+            throw new BusinessException(ErrorCode.PAY_NOT_CONFIG);
+        }
+    }
+
+    @Override
     public PrepayVO createPrepay(PrepayDTO dto) {
         TradeTypeEnum transferType = transferType(dto.getTradeType());
         WxPayUnifiedOrderV3Request request = new WxPayUnifiedOrderV3Request();
