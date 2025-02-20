@@ -106,16 +106,12 @@ public class ScoreAccountController {
         }
         dto.setMerchantId(SecurityHolder.getMerchantId());
         dto.setClientIp(IpUtil.getIpAddress(request));
-        try {
-            PrepayVO prepayVO = scoreAccountService.rechargeScan(dto);
-            QrConfig config = new QrConfig();
-            config.setHeight(200);
-            config.setWidth(200);
-            String generate = QrCodeUtil.generateAsBase64(prepayVO.getQrCodeUrl(), config, ImgUtil.IMAGE_TYPE_JPG);
-            return RespBody.success(generate);
-        } catch (Exception e) {
-            return RespBody.error(ErrorCode.RECHARGE_CREATE_ERROR);
-        }
+        PrepayVO prepayVO = scoreAccountService.rechargeScan(dto);
+        QrConfig config = new QrConfig();
+        config.setHeight(200);
+        config.setWidth(200);
+        String generate = QrCodeUtil.generateAsBase64(prepayVO.getQrCodeUrl(), config, ImgUtil.IMAGE_TYPE_JPG);
+        return RespBody.success(generate);
     }
 
     /**

@@ -7,6 +7,7 @@ import com.alipay.easysdk.payment.common.models.AlipayTradeQueryResponse;
 import com.alipay.easysdk.payment.common.models.AlipayTradeRefundResponse;
 import com.alipay.easysdk.payment.facetoface.models.AlipayTradePrecreateResponse;
 import com.eghm.common.impl.SysConfigApi;
+import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.enums.ErrorCode;
@@ -49,9 +50,19 @@ public class AliPayServiceImpl implements PayService {
 
     private final SysConfigApi sysConfigApi;
 
+    private final SystemProperties systemProperties;
+
     @Override
     public boolean supported(TradeType tradeType) {
         return tradeType.getPayChannel() == PayChannel.ALIPAY;
+    }
+
+    @Override
+    public void checkConfig() {
+        SystemProperties.AliPay pay = systemProperties.getAli().getPay();
+        if (pay.getAppId() == null) {
+            throw new BusinessException(ErrorCode.ALI_PAY_NOT_CONFIG);
+        }
     }
 
     @Override
@@ -75,7 +86,6 @@ public class AliPayServiceImpl implements PayService {
             log.error("支付宝支付订单查询响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
             throw new BusinessException(ErrorCode.ORDER_QUERY_ERROR);
         }
-
         PayOrderVO vo = new PayOrderVO();
         vo.setAttach(response.getBody());
         vo.setPayerId(response.getBuyerUserId());
