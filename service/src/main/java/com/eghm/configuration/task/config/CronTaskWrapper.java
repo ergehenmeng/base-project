@@ -1,6 +1,8 @@
 package com.eghm.configuration.task.config;
 
 import com.eghm.constants.CommonConstant;
+import com.eghm.model.SysTask;
+import com.eghm.utils.DataUtil;
 import lombok.Getter;
 
 /**
@@ -8,16 +10,16 @@ import lombok.Getter;
  * @since 2019/9/6 14:54
  */
 @Getter
-public class SysCronTask extends org.springframework.scheduling.config.CronTask {
+public class CronTaskWrapper extends org.springframework.scheduling.config.CronTask {
 
     /**
      * 任务的唯一id用于打印日志等
      */
     private final String nid;
 
-    SysCronTask(CronTask config) {
-        super(new RunnableTask(config), config.getCronExpression());
-        this.nid = config.getBeanName() + CommonConstant.SPECIAL_SPLIT + config.getMethodName();
+    CronTaskWrapper(SysTask task) {
+        super(new Invoker(DataUtil.copy(task, CronTask.class)), task.getCronExpression());
+        this.nid = task.getBeanName() + CommonConstant.SPECIAL_SPLIT + task.getMethodName();
     }
 
     @Override
@@ -28,7 +30,7 @@ public class SysCronTask extends org.springframework.scheduling.config.CronTask 
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        SysCronTask that = (SysCronTask) o;
+        CronTaskWrapper that = (CronTaskWrapper) o;
         return nid != null && nid.equals(that.nid);
     }
 

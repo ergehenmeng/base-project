@@ -19,8 +19,8 @@ public class SchedulingConfig {
      * 自定义定时任务bean
      */
     @Bean
-    public SysTaskRegistrar systemTaskRegistrar(SysTaskMapper sysTaskMapper, @Qualifier("taskScheduler") TaskScheduler taskScheduler) {
-        return new SysTaskRegistrar(sysTaskMapper, taskScheduler);
+    public TaskRegistrar systemTaskRegistrar(SysTaskMapper sysTaskMapper, @Qualifier("taskScheduler") TaskScheduler taskScheduler) {
+        return new TaskRegistrar(sysTaskMapper, taskScheduler);
     }
 
 }
