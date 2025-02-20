@@ -1,7 +1,5 @@
 package com.eghm.lock.impl;
 
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
 import com.eghm.lock.RedisLock;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,20 +35,8 @@ public class RedisLockImpl implements RedisLock {
     }
 
     @Override
-    public <T> T lock(String key, long waitTime, long lockTime, Supplier<T> supplier) {
-        return this.lock(key, waitTime, lockTime, supplier, null);
-    }
-
-    @Override
     public <T> T lock(String key, long lockTime, Supplier<T> supplier, Supplier<T> failSupplier) {
         return this.lock(key, 0, lockTime, supplier, failSupplier);
-    }
-
-    @Override
-    public <T> T lock(String key, long lockTime, Supplier<T> supplier, ErrorCode error) {
-        return this.lock(key, 0, lockTime, supplier, () -> {
-            throw new BusinessException(error);
-        });
     }
 
     @Override

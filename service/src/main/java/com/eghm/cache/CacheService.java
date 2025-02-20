@@ -4,7 +4,6 @@ import com.eghm.constants.CommonConstant;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.data.redis.core.ZSetOperations;
 
-import java.util.Date;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
@@ -72,15 +71,6 @@ public interface CacheService {
     boolean setIfAbsent(String key, String value);
 
     /**
-     * 缓存对象,并设置过期时间
-     *
-     * @param key        key
-     * @param value      value
-     * @param expireTime 未来某个过期的时间
-     */
-    void setValue(String key, Object value, Date expireTime);
-
-    /**
      * 获取缓存的信息
      *
      * @param key key
@@ -97,16 +87,6 @@ public interface CacheService {
      * @return 缓存结果对象
      */
     <T> T getValue(String key, Class<T> cls);
-
-    /**
-     * 获取缓存信息
-     *
-     * @param key  缓存key
-     * @param type 返回值为泛型时的定义类型
-     * @param <T>  泛型结果
-     * @return 缓存结果对象
-     */
-    <T> T getValue(String key, TypeReference<T> type);
 
     /**
      * 获取key的过期时间

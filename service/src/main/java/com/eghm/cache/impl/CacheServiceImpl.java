@@ -19,7 +19,6 @@ import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -70,26 +69,6 @@ public class CacheServiceImpl implements CacheService {
         return this.doSupplier(key, supplier);
     }
 
-
-    /**
-     * 调用回调函数获取结果,并将结果缓存
-     *
-     * @param key      缓存的key
-     * @param supplier 会到函数
-     * @param <T>      结果类型
-     * @return 结果信息
-     */
-    private <T> T doSupplier(String key, Supplier<T> supplier) {
-        T result = redisLock.lock(LockConstant.MUTEX_LOCK + key, CacheConstant.MUTEX_EXPIRE, supplier);
-        if (result != null) {
-            this.setValue(key, result, sysConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
-        } else {
-            // 数据库也没有查询到,填充默认值
-            this.setValue(key, CacheConstant.PLACE_HOLDER, sysConfigApi.getLong(ConfigConstant.NULL_EXPIRE, DEFAULT_EXPIRE));
-        }
-        return result;
-    }
-
     @Override
     public void setValue(String key, Object value, long expire) {
         this.setValue(key, value, expire, TimeUnit.SECONDS);
@@ -121,12 +100,6 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public void setValue(String key, Object value, Date expireTime) {
-        this.setValue(key, value);
-        redisTemplate.expireAt(key, expireTime);
-    }
-
-    @Override
     public String getValue(String key) {
         return redisTemplate.opsForValue().get(key);
     }
@@ -136,15 +109,6 @@ public class CacheServiceImpl implements CacheService {
         String o = this.getValue(key);
         if (o != null) {
             return jsonService.fromJson(o, cls);
-        }
-        return null;
-    }
-
-    @Override
-    public <T> T getValue(String key, TypeReference<T> type) {
-        String value = this.getValue(key);
-        if (value != null) {
-            return jsonService.fromJson(value, type);
         }
         return null;
     }
@@ -269,4 +233,22 @@ public class CacheServiceImpl implements CacheService {
         return redisTemplate.opsForZSet().reverseRangeWithScores(key, 0, limit);
     }
 
+    /**
+     * 调用回调函数获取结果,并将结果缓存
+     *
+     * @param key      缓存的key
+     * @param supplier 会到函数
+     * @param <T>      结果类型
+     * @return 结果信息
+     */
+    private <T> T doSupplier(String key, Supplier<T> supplier) {
+        T result = redisLock.lock(LockConstant.MUTEX_LOCK + key, CacheConstant.MUTEX_EXPIRE, supplier);
+        if (result != null) {
+            this.setValue(key, result, sysConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
+        } else {
+            // 数据库也没有查询到,填充默认值
+            this.setValue(key, CacheConstant.PLACE_HOLDER, sysConfigApi.getLong(ConfigConstant.NULL_EXPIRE, DEFAULT_EXPIRE));
+        }
+        return result;
+    }
 }
