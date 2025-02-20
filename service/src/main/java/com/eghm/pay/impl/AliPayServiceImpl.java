@@ -6,8 +6,9 @@ import com.alipay.easysdk.payment.common.models.AlipayTradeFastpayRefundQueryRes
 import com.alipay.easysdk.payment.common.models.AlipayTradeQueryResponse;
 import com.alipay.easysdk.payment.common.models.AlipayTradeRefundResponse;
 import com.alipay.easysdk.payment.facetoface.models.AlipayTradePrecreateResponse;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constants.CommonConstant;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.AliPayException;
 import com.eghm.exception.BusinessException;
@@ -46,7 +47,7 @@ public class AliPayServiceImpl implements PayService {
      */
     private static final String REFUND_SUCCESS = "REFUND_SUCCESS";
 
-    private final SystemProperties systemProperties;
+    private final SysConfigApi sysConfigApi;
 
     @Override
     public boolean supported(TradeType tradeType) {
@@ -99,9 +100,8 @@ public class AliPayServiceImpl implements PayService {
     public RefundVO applyRefund(RefundDTO dto) {
         AlipayTradeRefundResponse response;
         try {
-            SystemProperties.AliPayProperties aliPay = systemProperties.getAliPay();
             response = Factory.Payment.Common()
-                    .asyncNotify(aliPay.getNotifyHost() + CommonConstant.ALI_REFUND_NOTIFY_URL)
+                    .asyncNotify(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_REFUND_NOTIFY_URL)
                     .optional("out_request_no", dto.getRefundNo())
                     .optional("refund_reason", dto.getReason())
                     .refund(dto.getTradeNo(), DecimalUtil.centToYuan(dto.getAmount()));
@@ -183,8 +183,7 @@ public class AliPayServiceImpl implements PayService {
     private PrepayVO createCommonPrepay(PrepayDTO dto) {
         AlipayTradeCreateResponse response;
         try {
-            SystemProperties.AliPayProperties aliPay = systemProperties.getAliPay();
-            response = Factory.Payment.Common().optional("body", dto.getAttach()).asyncNotify(aliPay.getNotifyHost() + CommonConstant.ALI_PAY_NOTIFY_URL)
+            response = Factory.Payment.Common().optional("body", dto.getAttach()).asyncNotify(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_PAY_NOTIFY_URL)
                     .create(dto.getDescription(), dto.getTradeNo(), DecimalUtil.centToYuan(dto.getAmount()), dto.getBuyerId());
         } catch (Exception e) {
             log.error("支付宝创建支付订单失败 [{}]", dto, e);
@@ -208,8 +207,7 @@ public class AliPayServiceImpl implements PayService {
     private PrepayVO createFacePrepay(PrepayDTO dto) {
         AlipayTradePrecreateResponse response;
         try {
-            SystemProperties.AliPayProperties aliPay = systemProperties.getAliPay();
-            response = Factory.Payment.FaceToFace().optional("body", dto.getAttach()).asyncNotify(aliPay.getNotifyHost() + CommonConstant.ALI_PAY_NOTIFY_URL)
+            response = Factory.Payment.FaceToFace().optional("body", dto.getAttach()).asyncNotify(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_PAY_NOTIFY_URL)
                     .preCreate(dto.getDescription(), dto.getTradeNo(), DecimalUtil.centToYuan(dto.getAmount()));
         } catch (Exception e) {
             log.error("支付宝扫码付创建支付订单失败 [{}]", dto, e);

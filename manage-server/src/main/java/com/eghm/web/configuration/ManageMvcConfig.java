@@ -44,9 +44,9 @@ public class ManageMvcConfig extends WebMvcConfig {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        SystemProperties.ManageProperties.Security security = systemProperties.getManage().getSecurity();
-        registry.addInterceptor(permInterceptor()).excludePathPatterns(security.getSkipAuth());
-        registry.addInterceptor(lockScreenInterceptor()).excludePathPatterns(security.getSkipAuth());
+        String[] whiteList = systemProperties.getManage().getWhiteList();
+        registry.addInterceptor(permInterceptor()).excludePathPatterns(whiteList);
+        registry.addInterceptor(lockScreenInterceptor()).excludePathPatterns(whiteList);
     }
 
     /**
@@ -81,7 +81,7 @@ public class ManageMvcConfig extends WebMvcConfig {
         SystemProperties.ManageProperties manage = systemProperties.getManage();
         FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean<>();
         AuthFilter requestFilter = new AuthFilter(userTokenService, manage);
-        requestFilter.exclude(manage.getSecurity().getSkipAuth());
+        requestFilter.exclude(manage.getWhiteList());
         registrationBean.setFilter(requestFilter);
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
         registrationBean.setOrder(Integer.MIN_VALUE + 5);

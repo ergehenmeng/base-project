@@ -66,7 +66,7 @@ public class SwaggerConfig {
         }
         ParameterBuilder token = new ParameterBuilder();
         List<Parameter> params = new ArrayList<>();
-        SystemProperties.ApiProperties properties = systemProperties.getApi();
+        SystemProperties.WebappProperties properties = systemProperties.getApi();
         String header = "header";
         String headerType = "string";
         token.name("Channel").description("操作渠道").modelRef(new ModelRef(headerType)).parameterType(header).required(true).defaultValue(properties.getMockChannel().name()).build();

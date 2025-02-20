@@ -102,7 +102,6 @@ public class SystemProperties {
          * 阿里oss
          */
         private AliOss oss = new AliOss();
-
     }
 
     @Data
