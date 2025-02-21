@@ -7796,7 +7796,7 @@ INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `
 VALUES ('38', 'cache_expire', '非注解缓存默认过期时间', '1800', b'0', '单位:秒 默认失效时间30分钟',
         '2020-01-15 16:21:47', '2020-12-15 19:07:30');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`)
-VALUES ('39', 'token_expire', '用户登陆过期时间', '604800', b'0', '单位:秒,默认7天过期', '2020-01-15 16:38:47',
+VALUES ('39', 'token_expire', '移动端用户登陆过期时间', '604800', b'0', '单位:秒,默认7天过期', '2020-01-15 16:38:47',
         '2020-12-15 19:07:32');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`)
 VALUES ('41', 'null_expire', '占位符缓存过期时间', '30', b'0', '单位:秒,超过该时间后,缓存过期', '2020-01-15 16:39:33',

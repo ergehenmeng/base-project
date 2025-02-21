@@ -173,20 +173,16 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
             log.info("民宿预定日期搜索超过最大预定天数 [{}]", stayNum);
             throw new BusinessException(HOMESTAY_SEARCH_MAX, maxDay);
         }
-        // 入住天数
         dto.setStayNum(stayNum);
-        // 离店日期不含当天
+        // 离店日期不含当天, 即入住:2025-02-12 离店:2025-02-13 即实际上算在2025-02-12
         dto.setEndDate(dto.getEndDate().minusDays(1));
-        // 分页查询
         Page<HomestayVO> page = homestayMapper.getByPage(dto.createPage(false), dto);
         List<HomestayVO> voList = page.getRecords();
         if (CollUtil.isEmpty(voList)) {
             return voList;
         }
-        // 标签/地址等字段填充
-        // 查询数据字典,匹配标签列表
         List<SysDictItem> dictList = sysDictService.getDictByNid(DictConstant.HOMESTAY_TAG);
-        // 针对针对标签,位置和最低价进行赋值或解析
+        // 针对针对标签,位置进行赋值或解析
         for (HomestayVO vo : voList) {
             vo.setTagList(commonService.parseTags(dictList, vo.getTagIds()));
             vo.setDetailAddress(sysAreaService.parseArea(vo.getCityId(), vo.getCountyId(), vo.getDetailAddress()) );

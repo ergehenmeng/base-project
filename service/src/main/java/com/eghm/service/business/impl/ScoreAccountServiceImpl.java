@@ -109,7 +109,6 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         accountLog.setDirection(dto.getChargeType().getDirection());
         accountLog.setSurplusAmount(account.getAmount() + account.getPayFreeze());
         scoreAccountLogMapper.insert(accountLog);
-
     }
 
     @Override
