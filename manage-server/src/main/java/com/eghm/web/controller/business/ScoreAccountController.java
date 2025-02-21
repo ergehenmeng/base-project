@@ -66,7 +66,7 @@ public class ScoreAccountController {
     public RespBody<Void> apply(@Validated @RequestBody ScoreWithdrawApplyDTO dto) {
         Integer withdraw = this.getScoreMinWithdraw();
         if (dto.getAmount() < withdraw) {
-            return RespBody.error(ErrorCode.SCORE_WITHDRAW_MIN, DecimalUtil.centToYuan(withdraw));
+            return RespBody.error(ErrorCode.SCORE_WITHDRAW_MIN, DecimalUtil.centToYuanOmit(withdraw));
         }
         dto.setMerchantId(SecurityHolder.getMerchantId());
         scoreAccountService.applyWithdraw(dto);
@@ -90,7 +90,7 @@ public class ScoreAccountController {
     public RespBody<Void> rechargeBalance(@Validated @RequestBody ScoreRechargeDTO dto) {
         Integer recharge = this.getScoreMinRecharge();
         if (dto.getAmount() < recharge) {
-            return RespBody.error(ErrorCode.SCORE_RECHARGE_MIN, DecimalUtil.centToYuan(recharge));
+            return RespBody.error(ErrorCode.SCORE_RECHARGE_MIN, DecimalUtil.centToYuanOmit(recharge));
         }
         dto.setMerchantId(SecurityHolder.getMerchantId());
         scoreAccountService.rechargeBalance(dto);
@@ -102,7 +102,7 @@ public class ScoreAccountController {
     public RespBody<String> rechargeScan(@Validated @RequestBody ScoreScanRechargeDTO dto, HttpServletRequest request) {
         Integer recharge = this.getScoreMinRecharge();
         if (dto.getAmount() < recharge) {
-            return RespBody.error(ErrorCode.SCORE_RECHARGE_MIN, DecimalUtil.centToYuan(recharge));
+            return RespBody.error(ErrorCode.SCORE_RECHARGE_MIN, DecimalUtil.centToYuanOmit(recharge));
         }
         dto.setMerchantId(SecurityHolder.getMerchantId());
         dto.setClientIp(IpUtil.getIpAddress(request));
