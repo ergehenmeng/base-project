@@ -6,6 +6,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.wechat.LinkUrlRequest;
 import com.eghm.dto.wechat.QrCodeRequest;
 import com.eghm.dto.wechat.ShortUrlRequest;
+import com.eghm.enums.ErrorCode;
 import com.eghm.model.SysUser;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.vo.login.LoginResponse;
@@ -92,6 +93,20 @@ public class WeChatController {
         LoginResponse doneLogin = sysUserService.doLogin(sysUser);
         response.setData(doneLogin);
         response.setState(1);
+        return RespBody.success(response);
+    }
+
+    @GetMapping(value = "/auth/login")
+    @Operation(summary = "授权登录")
+    @Parameter(name = "code", description = "微信返回code", required = true)
+    public RespBody<LoginResponse> authLogin(@RequestParam("code") String code) {
+        String mobile = weChatMiniService.authMobile(code);
+        SysUser sysUser = sysUserService.getByMobile(mobile);
+        if (sysUser == null) {
+            log.error("微信授权登录时, 该手机号尚未绑定账号 [{}]", mobile);
+            return RespBody.error(ErrorCode.MA_AUTH_ERROR);
+        }
+        LoginResponse response = sysUserService.doLogin(sysUser);
         return RespBody.success(response);
     }
 }

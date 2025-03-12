@@ -142,6 +142,14 @@ public interface SysUserService {
     SysUser getByOpenId(String openId);
 
     /**
+     * 根据手机号获取用户信息
+     *
+     * @param mobile 手机号 (如果没绑定手机号则返回null)
+     * @return 用户信息
+     */
+    SysUser getByMobile(String mobile);
+
+    /**
      * 管理后台登陆
      *
      * @param user 用户信息

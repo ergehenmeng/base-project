@@ -226,6 +226,13 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
+    public SysUser getByMobile(String mobile) {
+        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysUser::getMobile, mobile);
+        return sysUserMapper.selectOne(wrapper);
+    }
+
+    @Override
     public LoginResponse doLogin(SysUser user) {
         UserType userType = user.getUserType();
         // 如果用户拥有超管角色,则默认查询全部菜单等信息
@@ -326,18 +333,6 @@ public class SysUserServiceImpl implements SysUserService {
         } else {
             return this.getByUserName(userName);
         }
-    }
-
-    /**
-     * 根据手机号码查询用户信息
-     *
-     * @param mobile 手机号码
-     * @return 用户信息
-     */
-    private SysUser getByMobile(String mobile) {
-        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysUser::getMobile, mobile);
-        return sysUserMapper.selectOne(wrapper);
     }
 
     /**
