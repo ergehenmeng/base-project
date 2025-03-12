@@ -2,6 +2,7 @@ package com.eghm.wechat.impl;
 
 import cn.binarywang.wx.miniapp.api.WxMaQrcodeService;
 import cn.binarywang.wx.miniapp.api.WxMaService;
+import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import cn.binarywang.wx.miniapp.bean.shortlink.GenerateShortLinkRequest;
 import cn.binarywang.wx.miniapp.bean.urllink.GenerateUrlLinkRequest;
@@ -58,6 +59,23 @@ public class WeChatMiniServiceImpl implements WeChatMiniService {
             throw new BusinessException(ErrorCode.MA_AUTH_NULL);
         }
         return phoneNoInfo.getPhoneNumber();
+    }
+
+    @Override
+    public String getOpenId(String jsCode) {
+        this.verify();
+        WxMaJscode2SessionResult result;
+        try {
+            result = wxMaService.getUserService().getSessionInfo(jsCode);
+        } catch (WxErrorException e) {
+            log.error("授权获取openId失败 [{}]", jsCode, e);
+            throw new BusinessException(ErrorCode.MA_JS_ERROR);
+        }
+        if (result == null) {
+            log.error("授权获取openId为空 [{}]", jsCode);
+            throw new BusinessException(ErrorCode.MA_JS_ERROR);
+        }
+        return result.getOpenid();
     }
 
     @Override

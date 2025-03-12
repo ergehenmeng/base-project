@@ -91,7 +91,7 @@ public class LoginController {
     }
 
     @PostMapping(value = "/unbindWeChat", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("解绑微信")
+    @ApiOperation("解绑微信(开放平台)")
     @SkipPerm
     public RespBody<Void> unbindWeChat() {
         sysUserService.unbindWeChat();

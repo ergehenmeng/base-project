@@ -3,13 +3,11 @@ package com.eghm.web.controller;
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.util.IdUtil;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.wechat.LinkUrlRequest;
-import com.eghm.dto.wechat.QrCodeRequest;
-import com.eghm.dto.wechat.ShortUrlRequest;
+import com.eghm.dto.wechat.*;
+import com.eghm.enums.ErrorCode;
 import com.eghm.model.SysUser;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.vo.login.LoginResponse;
-import com.eghm.vo.login.QrcodeLoginResponse;
 import com.eghm.wechat.WeChatMiniService;
 import com.eghm.wechat.WeChatMpService;
 import io.swagger.annotations.Api;
@@ -77,25 +75,42 @@ public class WeChatController {
             @ApiImplicitParam(name = "state", value = "本地唯一state", required = true),
             @ApiImplicitParam(name = "code", value = "微信返回code", required = true)
     })
-    public RespBody<QrcodeLoginResponse> callback(@RequestParam("state") String state, @RequestParam("code") String code, HttpSession session) {
+    public RespBody<LoginResponse> callback(@RequestParam("state") String state, @RequestParam("code") String code, HttpSession session) {
         Object stateValue = session.getAttribute("state");
-        QrcodeLoginResponse response = new QrcodeLoginResponse();
         if (stateValue == null || !stateValue.equals(state)) {
             log.error("state校验失败 本地:[{}] 入参:[{}]", stateValue, state);
-            response.setState(0);
-            return RespBody.success(response);
+            return RespBody.error(ErrorCode.AUTH_ERROR);
         }
         WxOAuth2AccessToken authed = weChatMpService.getAccessToken(code);
-        SysUser sysUser = sysUserService.getByOpenId(authed.getOpenId());
+        SysUser sysUser = sysUserService.getByMpOpenId(authed.getOpenId());
         if (sysUser == null) {
             log.warn("微信扫码尚未绑定账号 [{}]", authed.getOpenId());
             session.setAttribute("openId", authed.getOpenId());
-            response.setState(0);
-            return RespBody.success(response);
+            return RespBody.error(ErrorCode.AUTH_BIND_ERROR);
         }
-        LoginResponse doneLogin = sysUserService.doLogin(sysUser);
-        response.setData(doneLogin);
-        response.setState(1);
+        LoginResponse response = sysUserService.doLogin(sysUser);
+        return RespBody.success(response);
+    }
+
+    /**
+     * 2023.10月 微信小程序手机号授权登录需要收费,因此只需要第一次进行授权手机号登录,后续采用openId登录
+     */
+    @PostMapping(value = "/mobile/login")
+    @ApiOperation("小程序手机号授权登录")
+    public RespBody<LoginResponse> authLogin(@RequestBody @Validated MaMobileLoginRequest request) {
+        String mobile = weChatMiniService.authMobile(request.getCode());
+        LoginResponse response = sysUserService.maLogin(mobile, request.getOpenId());
+        return RespBody.success(response);
+    }
+
+    /**
+     * 2023.10月 微信小程序手机号授权登录需要收费,因此只需要第一次进行授权手机号登录,后续采用openId登录
+     */
+    @PostMapping(value = "/code/login")
+    @ApiOperation("小程序openId授权登录")
+    public RespBody<LoginResponse> authLogin(@RequestBody @Validated MaOpenLoginRequest request) {
+        String openId = weChatMiniService.getOpenId(request.getCode());
+        LoginResponse response = sysUserService.openIdLogin(openId);
         return RespBody.success(response);
     }
 }

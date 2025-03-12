@@ -58,7 +58,7 @@ CREATE TABLE `banner`
     `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `type_client_type_index` (`banner_type`, `client_type`) USING BTREE COMMENT '组合索引'
+    KEY `bc_idx` (`banner_type`, `client_type`) USING BTREE COMMENT '组合索引'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='轮播图表';
 
@@ -92,7 +92,7 @@ CREATE TABLE `email_template`
     `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`),
-    KEY `idx_nid` (`nid`)
+    KEY `n_idx` (`nid`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='邮件模板';
 
@@ -118,7 +118,7 @@ CREATE TABLE `webapp_log`
     `elapsed_time`  bigint(20)    DEFAULT NULL COMMENT '耗时',
     `create_time`   datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`),
-    KEY `url_index` (`url`)
+    KEY `u_idx` (`url`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='移动端操作记录';
 
@@ -145,7 +145,7 @@ CREATE TABLE `feedback_log`
     `user_name`      varchar(20)  DEFAULT NULL COMMENT '处理人姓名',
     `remark`         varchar(200) DEFAULT NULL COMMENT '备注',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `index_status` (`state`) USING BTREE
+    KEY `s_idx` (`state`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='APP用户反馈信息表';
 
@@ -200,7 +200,7 @@ CREATE TABLE `login_device`
     `device_model`  varchar(50)  DEFAULT NULL COMMENT '设备型号',
     `login_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '最近一次登陆的时间',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `idx_unique_complex` (`member_id`, `serial_number`) USING BTREE
+    UNIQUE KEY `ms_idx` (`member_id`, `serial_number`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='登陆设备管理表';
 
@@ -221,7 +221,7 @@ CREATE TABLE `login_log`
     `serial_number`    varchar(64) DEFAULT NULL COMMENT '设备唯一编号',
     `deleted`          bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `idx_member_serial` (`member_id`, `serial_number`) USING BTREE
+    KEY `ms_idx` (`member_id`, `serial_number`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户登陆日志信息';
 
@@ -254,7 +254,7 @@ CREATE TABLE `sms_log`
     `create_time`   datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '发送时间',
     `state`         tinyint(1)   DEFAULT '0' COMMENT '发送状态 0:发送中 1:已发送 2:发送失败',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `mobile_index` (`mobile`) USING BTREE
+    KEY `m_idx` (`mobile`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='短信日志记录表';
 
@@ -306,7 +306,7 @@ CREATE TABLE `sys_config`
     `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `nid_index` (`nid`) USING BTREE
+    KEY `n_idx` (`nid`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='系统参数配置信息表';
 
@@ -320,7 +320,7 @@ CREATE TABLE `sys_data_dept`
     `user_id`   bigint(20)  DEFAULT NULL COMMENT '用户id',
     `dept_code` varchar(20) DEFAULT NULL COMMENT '部门编号',
     PRIMARY KEY (`id`),
-    KEY `idx_user_id` (`user_id`)
+    KEY `u_idx` (`user_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户与部门数据权限关联表(自定义数据权限)';
 
@@ -341,7 +341,7 @@ CREATE TABLE `sys_dept`
     `user_id`     bigint(20)   DEFAULT NULL COMMENT '操作人id',
     `user_name`   varchar(20)  DEFAULT NULL COMMENT '操作人姓名',
     PRIMARY KEY (`id`) USING BTREE,
-    UNIQUE KEY `code_index` (`code`) USING BTREE
+    UNIQUE KEY `c_idx` (`code`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='部门信息表';
 
@@ -417,7 +417,7 @@ CREATE TABLE `sys_menu`
     `create_time`   datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`   datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `pid_index` (`pid`) USING BTREE
+    KEY `p_idx` (`pid`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='系统菜单表';
 
@@ -446,25 +446,27 @@ CREATE TABLE `manage_log`
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`
 (
-    `id`              bigint(20) NOT NULL COMMENT '主键',
-    `nick_name`       varchar(20) COMMENT '用户名称',
-    `user_type`       tinyint(2)   DEFAULT '1' COMMENT '用户类型 0: 超级管理员 1:系统用户 2: 商户用户',
-    `user_name`       varchar(20)  DEFAULT NULL COMMENT '账号名(登陆账户)',
-    `mobile`          char(11) COMMENT '手机号码(登陆账户)',
-    `state`           tinyint(1)   DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
-    `pwd`             varchar(256) DEFAULT NULL COMMENT '登陆密码MD5',
-    `init_pwd`        varchar(256) DEFAULT NULL COMMENT '初始密码',
-    `data_type`       tinyint(2)   DEFAULT NULL COMMENT '数据权限(1:本人,2:本部门,4:本部门及子部门 8:全部 16:自定义',
-    `dept_code`       varchar(20)  DEFAULT NULL COMMENT '所属部门编号',
-    `deleted`         bit(1)       DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
-    `pwd_update_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '密码更新时间',
-    `create_time`     datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `remark`          varchar(200) DEFAULT NULL COMMENT '备注信息',
+    `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `nick_name`       varchar(20)         NOT NULL COMMENT '用户名称',
+    `user_name`       varchar(20)         DEFAULT NULL COMMENT '账户名',
+    `user_type`       tinyint(2)          DEFAULT '1' COMMENT '用户类型 0: 超级管理员 1:系统用户 2: 商户用户',
+    `mobile`          char(11)            NOT NULL COMMENT '手机号码(登陆账户)',
+    `state`           tinyint(1) unsigned DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
+    `pwd`             varchar(256)        DEFAULT NULL COMMENT '登陆密码MD5',
+    `init_pwd`        varchar(256)        DEFAULT NULL COMMENT '初始密码',
+    `data_type`       tinyint(2)          DEFAULT NULL COMMENT '数据权限(1:本人,2:本部门,4:本部门及子部门 8:全部 16:自定义',
+    `dept_code`       varchar(20)         DEFAULT NULL COMMENT '所属部门编号',
+    `deleted`         bit(1)              DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
+    `pwd_update_time` datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '密码更新时间',
+    `ma_open_id`      varchar(50)         DEFAULT NULL COMMENT '小程序openId',
+    `mp_open_id`      varchar(50)         DEFAULT NULL COMMENT '微信开发平台openId',
+    `create_time`     datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`     datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `remark`          varchar(200)        DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `mobile_index` (`mobile`) USING BTREE,
-    KEY `status_index` (`state`) USING BTREE,
-    KEY `name_index` (`nick_name`) USING BTREE
+    KEY `m_idx` (`mobile`) USING BTREE,
+    KEY `s_idx` (`state`) USING BTREE,
+    KEY `n_idx` (`nick_name`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='管理后台用户表';
 
@@ -478,7 +480,7 @@ CREATE TABLE `sys_user_role`
     `user_id` bigint(20) COMMENT '用户id',
     `role_id` bigint(20) COMMENT '角色id',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `user_role_idx` (`user_id`, `role_id`) USING BTREE
+    KEY `ur_idx` (`user_id`, `role_id`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='角色与用户关系表';
 
@@ -497,7 +499,7 @@ CREATE TABLE `sys_role`
     `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:正常 1:已删除',
     `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `role_name_index` (`role_name`) USING BTREE
+    KEY `r_idx` (`role_name`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='角色表';
 
@@ -512,9 +514,9 @@ CREATE TABLE `sys_role_menu`
     `menu_id`     varchar(20) COMMENT '菜单Id',
     `create_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`) USING BTREE,
-    UNIQUE KEY `r_m_idx` (`role_id`, `menu_id`),
-    KEY `role_id_index` (`role_id`) USING BTREE,
-    KEY `menu_id_index` (`menu_id`) USING BTREE
+    UNIQUE KEY `rm_idx` (`role_id`, `menu_id`),
+    KEY `r_idx` (`role_id`) USING BTREE,
+    KEY `m_idx` (`menu_id`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='角色与菜单关系表';
 
@@ -552,7 +554,7 @@ CREATE TABLE `sys_task`
     `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`          varchar(255) DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `unique_index` (`bean_name`, `method_name`) USING BTREE COMMENT 'nid必须唯一'
+    UNIQUE KEY `bm_idx` (`bean_name`, `method_name`) USING BTREE COMMENT 'nid必须唯一'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='定时任务配置表';
 
@@ -608,9 +610,9 @@ CREATE TABLE `member`
     `update_time`  datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`      bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `mobile_index` (`mobile`) USING BTREE,
-    KEY `email_index` (`email`) USING BTREE,
-    KEY `channel_index` (`channel`) USING BTREE
+    KEY `m_idx` (`mobile`) USING BTREE,
+    KEY `e_idx` (`email`) USING BTREE,
+    KEY `c_idx` (`channel`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='前台用户基本信息表';
 
@@ -636,7 +638,7 @@ CREATE TABLE `member_address`
     `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`),
-    KEY `idx_member_id` (`member_id`)
+    KEY `m_idx` (`member_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户收货地址表';
 
@@ -651,7 +653,7 @@ CREATE TABLE `member_invite_log`
     `invite_member_id` bigint(20) DEFAULT NULL COMMENT '被邀请人id',
     `create_time`      datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`),
-    KEY `idx_member_id` (`member_id`)
+    KEY `m_idx` (`member_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户邀请记录表';
 
@@ -820,7 +822,7 @@ CREATE TABLE `homestay_room_config`
     `create_time`      datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`      datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `date_index` (`homestay_room_id`, `config_date`)
+    UNIQUE KEY `hc_idx` (`homestay_room_id`, `config_date`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='房间价格配置表';
 
@@ -867,7 +869,7 @@ CREATE TABLE `line_config`
     `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `date_index` (`line_id`, `config_date`)
+    UNIQUE KEY `lc_idx` (`line_id`, `config_date`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='线路商品配置表';
 
@@ -885,7 +887,7 @@ CREATE TABLE `line_day_config`
     `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `line_index` (`line_id`, `route_index`)
+    UNIQUE KEY `lr_idx` (`line_id`, `route_index`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='线路每日行程配置信息';
 
@@ -947,7 +949,7 @@ CREATE TABLE `voucher`
     `update_time`   datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`       bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
-    KEY `idx` (`restaurant_id`, `tag_id`)
+    KEY `rt_idx` (`restaurant_id`, `tag_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='餐饮代金券';
 
@@ -1188,7 +1190,7 @@ CREATE TABLE `pay_notify_log`
     `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `notify_id_unique` (`pay_channel`, `notify_id`) USING BTREE
+    UNIQUE KEY `pn_idx` (`pay_channel`, `notify_id`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='支付或退款异步通知记录表';
 
@@ -1207,7 +1209,7 @@ CREATE TABLE `pay_request_log`
     `update_time`   datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`       bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
-    KEY `order_idx` (`order_no`, `pay_channel`) USING BTREE
+    KEY `op_idx` (`order_no`, `pay_channel`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='支付或退款请求记录表';
 
@@ -1366,8 +1368,8 @@ CREATE TABLE `order`
     `update_time`         datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`             bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
-    KEY `merchant_idx` (`merchant_id`),
-    KEY `member_idx` (`member_id`, `order_no`)
+    KEY `m_idx` (`merchant_id`),
+    KEY `mo_idx` (`member_id`, `order_no`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单表';
 
@@ -1504,7 +1506,7 @@ CREATE TABLE `shopping_cart`
     `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`      bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
-    KEY `member_id_index` (`member_id`)
+    KEY `m_idx` (`member_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='购物车表';
 
@@ -1540,7 +1542,7 @@ CREATE TABLE `item`
     `update_time`    datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`        bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
-    KEY `tag_idx` (`tag_id`)
+    KEY `t_idx` (`tag_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='零售商品信息';
 
@@ -1661,7 +1663,7 @@ CREATE TABLE `lottery_log`
     `update_time` datetime   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`     bit(1)     DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
-    KEY `lottery_member_idx` (`lottery_id`, `member_id`)
+    KEY `lm_idx` (`lottery_id`, `member_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='抽奖记录表';
 
@@ -1723,7 +1725,7 @@ CREATE TABLE `express_template_region`
     `update_time`     datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
     `deleted`         bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
-    KEY `express_idx` (`express_id`)
+    KEY `e_idx` (`express_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='快递模板区域';
 
@@ -1739,7 +1741,7 @@ CREATE TABLE `express_template`
     `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
-    KEY `merchant_idx` (`merchant_id`)
+    KEY `m_idx` (`merchant_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='快递模板表';
 
@@ -1770,7 +1772,7 @@ CREATE TABLE `order_evaluation`
     `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`         bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
-    KEY `product_idx` (`product_id`)
+    KEY `p_idx` (`product_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单评价';
 
@@ -2200,7 +2202,7 @@ create table redeem_code_grant
     `update_time`    datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`        bit(1)      DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `key_unique_complex` (`cd_key`) USING BTREE
+    UNIQUE KEY `c_idx` (`cd_key`) USING BTREE
 ) ENGINE = InnoDB COMMENT ='兑换码发放表';
 
 DROP TABLE IF EXISTS score_account;
@@ -2433,7 +2435,7 @@ CREATE TABLE `merchant_address`
     `update_time`    datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`        bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
-    KEY `idx_merchant_id` (`merchant_id`)
+    KEY `m_idx` (`merchant_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商户收货地址表';
 
