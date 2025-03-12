@@ -380,22 +380,6 @@ CREATE TABLE `sys_dict_item`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='数据字典选项表';
 
-
--- ----------------------------
--- Table structure for sys_holiday
--- ----------------------------
-DROP TABLE IF EXISTS `sys_holiday`;
-CREATE TABLE `sys_holiday`
-(
-    `id`         bigint(20) NOT NULL COMMENT '主键',
-    `calendar`   date       DEFAULT NULL COMMENT '日期',
-    `date_month` char(7)    DEFAULT NULL COMMENT '月份 yyyy-MM',
-    `weekday`    tinyint(1) DEFAULT NULL COMMENT '星期几',
-    `state`      tinyint(1) DEFAULT '0' COMMENT '是否为节假日 0:否 1:是',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='系统节假日表';
-
 -- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
