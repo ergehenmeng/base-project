@@ -137,7 +137,6 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         String tradeNo = this.generateWithdrawNo();
         accountDTO.setTradeNo(tradeNo);
         this.updateAccount(accountDTO);
-        this.withdrawSuccess(tradeNo);
     }
 
     @Override
