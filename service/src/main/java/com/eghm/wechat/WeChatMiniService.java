@@ -17,6 +17,14 @@ public interface WeChatMiniService {
     String authMobile(String jsCode);
 
     /**
+     * 获取openId
+     *
+     * @param jsCode jsCode
+     * @return openId
+     */
+    String getOpenId(String jsCode);
+
+    /**
      * 生成小程序短链链接
      *
      * @param pageUrl 链接地址 相对路径(/pages/publishHomework/publishHomework?query1=q1) 必须是已发布的路径
