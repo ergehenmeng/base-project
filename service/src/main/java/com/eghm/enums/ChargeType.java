@@ -41,7 +41,7 @@ public enum ChargeType {
     /**
      * 提现支出
      */
-    WITHDRAW(5, "提现支出", 2),
+    WITHDRAW_APPLY(5, "提现支出", 2),
 
     /**
      * 关注赠送

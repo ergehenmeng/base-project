@@ -95,12 +95,12 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
             account.setPayFreeze(account.getPayFreeze() - dto.getAmount());
         } else if (dto.getChargeType() == ChargeType.DRAW || dto.getChargeType() == ChargeType.ATTENTION_GIFT) {
             account.setAmount(account.getAmount() - dto.getAmount());
-        } else if (dto.getChargeType() == ChargeType.WITHDRAW) {
+        } else if (dto.getChargeType() == ChargeType.WITHDRAW_APPLY) {
             // 提现申请中调用该方法
             account.setAmount(account.getAmount() - dto.getAmount());
             account.setWithdrawFreeze(account.getWithdrawFreeze() + dto.getAmount());
         } else if (dto.getChargeType() == ChargeType.WITHDRAW_FAIL) {
-            // 提现回调中调用该方法
+            // 提现回调中调用该方法 注意:提现成功虽然会更新账户信息,但是不会增加积分记录因为在提现申请时已经记录过了
             account.setAmount(account.getAmount() + dto.getAmount());
             account.setWithdrawFreeze(account.getWithdrawFreeze() - dto.getAmount());
         }
@@ -132,11 +132,10 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         ScoreAccountDTO accountDTO = new ScoreAccountDTO();
         accountDTO.setMerchantId(dto.getMerchantId());
         accountDTO.setAmount(dto.getAmount());
-        accountDTO.setChargeType(ChargeType.WITHDRAW);
+        accountDTO.setChargeType(ChargeType.WITHDRAW_APPLY);
         String tradeNo = this.generateWithdrawNo();
         accountDTO.setTradeNo(tradeNo);
         this.updateAccount(accountDTO);
-        this.withdrawSuccess(tradeNo);
     }
 
     @Override
