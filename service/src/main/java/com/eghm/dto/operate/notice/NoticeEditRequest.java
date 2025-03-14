@@ -1,9 +1,6 @@
 package com.eghm.dto.operate.notice;
 
-import com.eghm.convertor.JoinerDeserializer;
-import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.validation.annotation.WordChecker;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -28,7 +25,6 @@ public class NoticeEditRequest {
 
     @Schema(description = "封面图片", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "封面图片不能为空")
-    @JsonDeserialize(using = JoinerDeserializer.class)
     private String coverUrl;
 
     @Schema(description = "公告类型(数据字典表sys_notice_type)", requiredMode = Schema.RequiredMode.REQUIRED)
