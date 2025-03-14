@@ -1,15 +1,16 @@
 package com.eghm.dto.business.homestay;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.Phone;
 import com.eghm.validation.annotation.WordChecker;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @author 二哥很猛 2022/6/25 14:31
@@ -67,8 +68,9 @@ public class HomestayEditRequest {
     private String intro;
 
     @ApiModelProperty(value = "封面图片,逗号分隔", required = true)
-    @NotEmpty(message = "封面图片不能为空")
-    private List<String> coverList;
+    @NotBlank(message = "封面图片不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String coverUrl;
 
     @ApiModelProperty(value = "详细介绍", required = true)
     @NotBlank(message = "详细介绍不能为空")
@@ -86,7 +88,8 @@ public class HomestayEditRequest {
     private String notesIn;
     
     @ApiModelProperty(value = "特色服务")
-    private List<Integer> serviceList;
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String keyService;
 
     @ApiModelProperty(value = "标签,逗号分隔")
     @WordChecker

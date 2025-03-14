@@ -88,7 +88,6 @@ public class ScenicServiceImpl implements ScenicService {
         Scenic scenic = DataUtil.copy(request, Scenic.class);
         scenic.setState(State.UN_SHELVE);
         scenic.setMerchantId(SecurityHolder.getMerchantId());
-        scenic.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         scenicMapper.insert(scenic);
         geoService.addPoint(CacheConstant.GEO_POINT_SCENIC, scenic.getId().toString(), scenic.getLongitude().doubleValue(), scenic.getLatitude().doubleValue());
     }
@@ -99,7 +98,6 @@ public class ScenicServiceImpl implements ScenicService {
         Scenic select = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(select.getMerchantId());
         Scenic scenic = DataUtil.copy(request, Scenic.class);
-        scenic.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         scenicMapper.updateById(scenic);
         geoService.addPoint(CacheConstant.GEO_POINT_SCENIC, scenic.getId().toString(), scenic.getLongitude().doubleValue(), scenic.getLatitude().doubleValue());
     }

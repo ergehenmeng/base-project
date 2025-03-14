@@ -92,7 +92,6 @@ public class VenueServiceImpl implements VenueService {
         Venue venue = DataUtil.copy(request, Venue.class);
         venue.setMerchantId(merchantId);
         venue.setState(State.UN_SHELVE);
-        venue.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         venueMapper.insert(venue);
         geoService.addPoint(CacheConstant.GEO_POINT_VENUE, venue.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
@@ -104,7 +103,6 @@ public class VenueServiceImpl implements VenueService {
         Venue required = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(required.getMerchantId());
         Venue venue = DataUtil.copy(request, Venue.class);
-        venue.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         venueMapper.updateById(venue);
         geoService.addPoint(CacheConstant.GEO_POINT_VENUE, venue.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }

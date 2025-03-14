@@ -1,9 +1,11 @@
 package com.eghm.dto.business.line;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.enums.RefundType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -44,8 +46,9 @@ public class LineEditRequest {
     private Long startCityId;
 
     @ApiModelProperty(value = "封面图片", required = true)
-    @NotEmpty(message = "封面图片不能为空")
-    private List<String> coverList;
+    @NotBlank(message = "封面图片不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String coverUrl;
 
     @ApiModelProperty(value = "虚拟销售量", required = true)
     @RangeInt(max = 9999, message = "虚拟销量应为0~9999")

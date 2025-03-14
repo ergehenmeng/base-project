@@ -1,13 +1,14 @@
 package com.eghm.dto.business.restaurant;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.validation.annotation.WordChecker;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -31,8 +32,9 @@ public class RestaurantAddRequest {
     private Long merchantId;
 
     @ApiModelProperty(value = "商家封面", required = true)
-    @NotEmpty(message = "封面图片不能为空")
-    private List<String> coverList;
+    @NotBlank(message = "封面图片不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String coverUrl;
 
     @ApiModelProperty(value = "营业时间", required = true)
     @NotBlank(message = "营业时间不能为空")

@@ -1,13 +1,11 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
 import com.eghm.constants.CacheConstant;
-import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.news.NewsAddRequest;
 import com.eghm.dto.business.news.NewsEditRequest;
 import com.eghm.dto.business.news.NewsQueryRequest;
@@ -61,7 +59,6 @@ public class NewsServiceImpl implements NewsService {
     public void create(NewsAddRequest request) {
         this.redoTitle(request.getTitle(), request.getCode(), null);
         News copy = DataUtil.copy(request, News.class);
-        this.setRequest(copy, request.getImageList(), request.getTagList());
         newsMapper.insert(copy);
     }
 
@@ -69,7 +66,6 @@ public class NewsServiceImpl implements NewsService {
     public void update(NewsEditRequest request) {
         this.redoTitle(request.getTitle(), request.getCode(), request.getId());
         News copy = DataUtil.copy(request, News.class);
-        this.setRequest(copy, request.getImageList(), request.getTagList());
         newsMapper.updateById(copy);
     }
 
@@ -125,22 +121,6 @@ public class NewsServiceImpl implements NewsService {
         wrapper.eq(News::getId, id);
         wrapper.set(News::getState, state);
         newsMapper.update(null, wrapper);
-    }
-
-    /**
-     * 设置请求参数
-     *
-     * @param copy 资讯
-     * @param imageList 图片
-     * @param tagList 标签
-     */
-    private void setRequest(News copy, List<String> imageList, List<String> tagList) {
-        if (CollUtil.isNotEmpty(imageList)) {
-            copy.setImage(CollUtil.join(imageList, CommonConstant.COMMA));
-        }
-        if (CollUtil.isNotEmpty(tagList)) {
-            copy.setTagName(CollUtil.join(tagList, CommonConstant.COMMA));
-        }
     }
 
     /**

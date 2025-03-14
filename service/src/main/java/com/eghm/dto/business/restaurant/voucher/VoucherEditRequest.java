@@ -1,5 +1,6 @@
 package com.eghm.dto.business.restaurant.voucher;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -9,7 +10,6 @@ import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -33,8 +33,9 @@ public class VoucherEditRequest {
     private String title;
 
     @ApiModelProperty(value = "封面图片", required = true)
-    @NotEmpty(message = "封面图片不能为空")
-    private List<String> coverList;
+    @NotBlank(message = "封面图片不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String coverUrl;
 
     @ApiModelProperty(value = "标签id")
     private Long tagId;

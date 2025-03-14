@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.GeoService;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CacheConstant;
-import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.travel.TravelAgencyAddRequest;
 import com.eghm.dto.business.travel.TravelAgencyDTO;
@@ -89,7 +88,6 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         this.redoTitle(request.getTitle(), null);
         TravelAgency agency = DataUtil.copy(request, TravelAgency.class);
         agency.setState(State.UN_SHELVE);
-        agency.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         travelAgencyMapper.insert(agency);
         geoService.addPoint(CacheConstant.GEO_POINT_TRAVEL, agency.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
@@ -100,7 +98,6 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         TravelAgency travelAgency = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(travelAgency.getMerchantId());
         TravelAgency agency = DataUtil.copy(request, TravelAgency.class);
-        agency.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         travelAgencyMapper.updateById(agency);
         geoService.addPoint(CacheConstant.GEO_POINT_TRAVEL, agency.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }

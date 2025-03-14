@@ -1,15 +1,16 @@
 package com.eghm.dto.business.venue;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.enums.VenueType;
 import com.eghm.validation.annotation.Phone;
 import com.eghm.validation.annotation.WordChecker;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -34,8 +35,9 @@ public class VenueEditRequest {
     private VenueType venueType;
 
     @ApiModelProperty(value = "封面图", required = true)
-    @NotEmpty(message = "场馆封面图不能为空")
-    private List<String> coverList;
+    @NotBlank(message = "场馆封面图不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String coverUrl;
 
     @ApiModelProperty(value = "营业时间", required = true)
     @NotBlank(message = "营业时间不能为空")

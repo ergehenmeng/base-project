@@ -1,12 +1,13 @@
 package com.eghm.dto.business.news;
 
+import com.eghm.convertor.JoinerDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -30,11 +31,12 @@ public class NewsAddRequest {
     private String depict;
 
     @ApiModelProperty(value = "标签列表")
-    @Size(max = 3, message = "标签不能超过3个")
-    private List<String> tagList;
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String tagName;
 
     @ApiModelProperty(value = "图集")
-    private List<String> imageList;
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String image;
 
     @ApiModelProperty(value = "详细信息", required = true)
     @NotBlank(message = "详细信息不能为空")

@@ -131,6 +131,11 @@ public enum ErrorCode {
     ENUM_SUPPORTED(1046, "转换器不支持非枚举类"),
 
     /**
+     * 数据格式转换异常
+     */
+    SPLIT_ERROR(1047, "数据格式转换异常"),
+
+    /**
      * 定时任务尚未激活
      */
     TASK_CONFIG_NULL(1048, "定时任务尚未激活"),

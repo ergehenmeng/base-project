@@ -1,18 +1,18 @@
 package com.eghm.dto.business.homestay.room;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.enums.RefundType;
 import com.eghm.enums.RoomType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.WordChecker;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -40,8 +40,9 @@ public class HomestayRoomEditRequest {
     private RoomType roomType;
 
     @ApiModelProperty(value = "封面图片", required = true)
-    @NotEmpty(message = "封面图片不能为空")
-    private List<String> coverList;
+    @NotBlank(message = "封面图片不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String coverUrl;
 
     @ApiModelProperty(value = "订单确认方式: 1:自动确认 2:手动确认", required = true)
     @OptionInt(value = {1, 2}, message = "订单确认方式不合法")
@@ -64,7 +65,8 @@ public class HomestayRoomEditRequest {
     private Integer resident;
 
     @ApiModelProperty(value = "屋内设施")
-    private List<String> infrastructureList;
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String infrastructure;
 
     @ApiModelProperty(value = "详细介绍", required = true)
     @NotBlank(message = "详细介绍不能为空")

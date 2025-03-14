@@ -1,6 +1,5 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -81,7 +80,6 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         this.redoTitle(request.getTitle(), null);
         ItemStore shop = DataUtil.copy(request, ItemStore.class);
         shop.setState(State.UN_SHELVE);
-        shop.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
         itemStoreMapper.insert(shop);
     }
 
@@ -91,7 +89,6 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         ItemStore itemStore = itemStoreMapper.selectById(request.getId());
         commonService.checkIllegal(itemStore.getMerchantId());
         ItemStore shop = DataUtil.copy(request, ItemStore.class);
-        shop.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
         itemStoreMapper.updateById(shop);
     }
 

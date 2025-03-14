@@ -1,15 +1,16 @@
 package com.eghm.dto.business.scenic;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.Phone;
 import com.eghm.validation.annotation.WordChecker;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -76,8 +77,9 @@ public class ScenicAddRequest {
     private String depict;
 
     @ApiModelProperty(value = "景区图片", required = true)
-    @NotEmpty(message = "景区图片不能为空")
-    private List<String> coverList;
+    @NotBlank(message = "景区图片不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String coverUrl;
 
     @ApiModelProperty(value = "详细介绍信息", required = true)
     @NotBlank(message = "详细介绍不能为空")

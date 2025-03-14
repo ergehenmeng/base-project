@@ -109,7 +109,6 @@ public class ItemServiceImpl implements ItemService {
         this.titleRedo(request.getTitle(), null, request.getStoreId());
         this.checkExpress(request.getExpressId(), request.getSkuList());
         Item item = DataUtil.copy(request, Item.class);
-        item.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         item.setMerchantId(merchantId);
         item.setCreateDate(LocalDate.now());
         item.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
@@ -131,7 +130,6 @@ public class ItemServiceImpl implements ItemService {
         this.checkMultiSpec(select.getMultiSpec(), request.getMultiSpec());
         commonService.checkIllegal(select.getMerchantId());
         Item item = DataUtil.copy(request, Item.class);
-        item.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         if (select.getBookingId() == null) {
             Map<String, Long> specMap = itemSpecService.update(item, request.getSpecList());
             itemSkuService.update(item, specMap, request.getSkuList());
