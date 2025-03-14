@@ -52,8 +52,11 @@ public class SysUser extends BaseEntity {
     @Schema(description = "备注信息")
     private String remark;
 
-    @Schema(description = "微信openId")
-    private String openId;
+    @Schema(description ="微信小程序openId")
+    private String maOpenId;
+
+    @Schema(description = "微信开放平台openId")
+    private String mpOpenId;
 
     @Schema(description = "密码修改时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

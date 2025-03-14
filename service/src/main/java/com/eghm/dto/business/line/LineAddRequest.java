@@ -1,9 +1,11 @@
 package com.eghm.dto.business.line;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.enums.RefundType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
@@ -37,8 +39,9 @@ public class LineAddRequest {
     private Long startCityId;
 
     @Schema(description = "封面图片", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotEmpty(message = "封面图片不能为空")
-    private List<String> coverList;
+    @NotBlank(message = "封面图片不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String coverUrl;
 
     @Schema(description = "虚拟销售量", requiredMode = Schema.RequiredMode.REQUIRED)
     @Min(value = 0, message = "虚拟销量不能小于0")

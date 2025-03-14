@@ -1,6 +1,7 @@
 package com.eghm.vo.business.order.homestay;
 
 import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.enums.*;
 import com.eghm.vo.business.order.VisitorVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -20,6 +21,7 @@ import java.util.List;
 public class HomestayOrderDetailResponse {
 
     @Schema(description = "图片")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @Schema(description = "订单编号")

@@ -1,5 +1,7 @@
 package com.eghm.vo.business.restaurant;
 
+import com.eghm.convertor.SplitterJsonSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -26,6 +28,7 @@ public class RestaurantDetailResponse {
     private String logoUrl;
 
     @Schema(description = "商家封面")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @Schema(description = "营业时间")

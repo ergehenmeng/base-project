@@ -1,6 +1,8 @@
 package com.eghm.vo.business.item.store;
 
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -23,6 +25,7 @@ public class ItemStoreVO {
     private String logoUrl;
 
     @Schema(description = "封面图")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @Schema(description = "商家电话")

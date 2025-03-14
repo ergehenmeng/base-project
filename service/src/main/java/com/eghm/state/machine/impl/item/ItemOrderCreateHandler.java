@@ -458,10 +458,8 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         // 校验限购数量和积分是否是100的整数
         Map<Long, Item> itemMap = itemService.getByIdShelveMap(context.getItemIds());
         for (ItemDTO dto : context.getItemList()) {
-            if (context.getTotalScore() > 0) {
-                if (dto.getScoreAmount() != null && dto.getScoreAmount() % 100 > 0) {
-                    throw new BusinessException(SCORE_INTEGER);
-                }
+            if (context.getTotalScore() > 0 && dto.getScoreAmount() != null && dto.getScoreAmount() % 100 > 0) {
+                throw new BusinessException(SCORE_INTEGER);
             }
             for (SkuDTO sku : dto.getSkuList()) {
                 Item item = itemMap.get(sku.getItemId());

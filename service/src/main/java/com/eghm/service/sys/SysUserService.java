@@ -139,7 +139,32 @@ public interface SysUserService {
      * @param openId openId
      * @return 用户信息
      */
-    SysUser getByOpenId(String openId);
+    SysUser getByMpOpenId(String openId);
+
+    /**
+     * 根据手机号获取用户信息
+     *
+     * @param mobile 手机号 (如果没绑定手机号则返回null)
+     * @return 用户信息
+     */
+    SysUser getByMobile(String mobile);
+
+    /**
+     * 小程序手机号授权登录, 通过获取手机号授权登录, 并绑定openId
+     *
+     * @param mobile 手机号
+     * @param maOpenId openId
+     * @return 登录信息
+     */
+    LoginResponse maLogin(String mobile, String maOpenId);
+
+    /**
+     * 小程序openId授权登录
+     *
+     * @param maOpenId openId
+     * @return 登录信息
+     */
+    LoginResponse openIdLogin(String maOpenId);
 
     /**
      * 管理后台登陆

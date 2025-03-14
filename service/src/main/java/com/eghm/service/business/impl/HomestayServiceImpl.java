@@ -97,8 +97,6 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         this.titleRedo(request.getTitle(), null);
         Homestay homestay = DataUtil.copy(request, Homestay.class);
         homestay.setState(State.UN_SHELVE);
-        homestay.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
-        homestay.setKeyService(CollUtil.join(request.getServiceList(), ","));
         homestayMapper.insert(homestay);
         geoService.addPoint(CacheConstant.GEO_POINT_HOMESTAY, homestay.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
@@ -109,8 +107,6 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         Homestay required = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(required.getMerchantId());
         Homestay homestay = DataUtil.copy(request, Homestay.class);
-        homestay.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
-        homestay.setKeyService(CollUtil.join(request.getServiceList(), ","));
         homestayMapper.updateById(homestay);
         geoService.addPoint(CacheConstant.GEO_POINT_HOMESTAY, homestay.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }

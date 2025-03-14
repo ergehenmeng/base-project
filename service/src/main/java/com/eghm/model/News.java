@@ -1,7 +1,9 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,9 +32,11 @@ public class News extends BaseEntity {
     private String depict;
 
     @Schema(description = "图集")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String image;
 
     @Schema(description = "标签列表")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String tagName;
 
     @Schema(description = "详细信息")

@@ -1,5 +1,7 @@
 package com.eghm.vo.business.activity;
 
+import com.eghm.convertor.SplitterJsonSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -17,6 +19,7 @@ public class ActivityBaseDTO {
     private String title;
 
     @Schema(description = "活动图片")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @Schema(description = "活动地点")

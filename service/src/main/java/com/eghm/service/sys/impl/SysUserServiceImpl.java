@@ -22,6 +22,7 @@ import com.eghm.dto.sys.user.UserEditRequest;
 import com.eghm.dto.sys.user.UserQueryRequest;
 import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
+import com.eghm.exception.DataException;
 import com.eghm.mapper.MerchantMapper;
 import com.eghm.mapper.MerchantUserMapper;
 import com.eghm.mapper.SysUserMapper;
@@ -195,7 +196,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public LoginResponse login(String userName, String password, String openId) {
         SysUser user = this.getAndCheckUser(userName, password);
-        this.tryBindingOpenId(user.getId(), openId);
+        this.tryBindingMpOpenId(user.getId(), openId);
         return this.doLogin(user);
     }
 
@@ -209,7 +210,7 @@ public class SysUserServiceImpl implements SysUserService {
     public LoginResponse smsLogin(SmsLoginRequest request, String openId) {
         smsService.verifySmsCode(TemplateType.USER_LOGIN, request.getMobile(), request.getSmsCode());
         SysUser user = this.getAndCheckUser(request.getMobile());
-        this.tryBindingOpenId(user.getId(), openId);
+        this.tryBindingMpOpenId(user.getId(), openId);
         return this.doLogin(user);
     }
 
@@ -221,8 +222,36 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public SysUser getByOpenId(String openId) {
-        return sysUserMapper.selectOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getOpenId, openId));
+    public SysUser getByMpOpenId(String openId) {
+        return sysUserMapper.selectOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getMpOpenId, openId));
+    }
+
+    @Override
+    public SysUser getByMobile(String mobile) {
+        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysUser::getMobile, mobile);
+        return sysUserMapper.selectOne(wrapper);
+    }
+
+    @Override
+    public LoginResponse maLogin(String mobile, String maOpenId) {
+        SysUser sysUser = this.getByMobile(mobile);
+        if (sysUser == null) {
+            log.error("微信授权登录时, 该手机号尚未绑定账号 [{}] [{}]", mobile, maOpenId);
+            throw new BusinessException(ErrorCode.MA_AUTH_ERROR);
+        }
+        this.tryBindingMaOpenId(sysUser.getId(), maOpenId);
+        return this.doLogin(sysUser);
+    }
+
+    @Override
+    public LoginResponse openIdLogin(String maOpenId) {
+        SysUser sysUser = this.getByMaOpenId(maOpenId);
+        if (sysUser == null) {
+            log.error("微信小程序授权登录时, 该openId尚未绑定账号 [{}]", maOpenId);
+            throw new DataException(ErrorCode.MA_LOGIN_AUTH, maOpenId);
+        }
+        return this.doLogin(sysUser);
     }
 
     @Override
@@ -259,7 +288,7 @@ public class SysUserServiceImpl implements SysUserService {
         response.setUserType(user.getUserType());
         response.setMenuList(leftMenu);
         response.setMerchantType(merchantType);
-        response.setBindWechat(user.getOpenId() != null);
+        response.setBindWechat(user.getMpOpenId() != null);
         response.setInit(user.getInitPwd().equals(user.getPwd()));
         response.setExpire(user.getPwdUpdateTime().plusDays(CommonConstant.PWD_UPDATE_TIPS).isBefore(LocalDateTime.now()));
         cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
@@ -271,21 +300,46 @@ public class SysUserServiceImpl implements SysUserService {
     public void unbindWeChat() {
         LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(SysUser::getId, SecurityHolder.getUserId());
-        wrapper.set(SysUser::getOpenId, null);
+        wrapper.set(SysUser::getMpOpenId, null);
         sysUserMapper.update(null, wrapper);
     }
 
     /**
-     * 尝试绑定openId
+     * 根据微信openId查询用户
+     *
+     * @param openId openId
+     * @return 用户信息
+     */
+    private SysUser getByMaOpenId(String openId) {
+        return sysUserMapper.selectOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getMpOpenId, openId));
+    }
+
+    /**
+     * 尝试绑定openId 开放平台
      *
      * @param id id
      * @param openId openId
      */
-    private void tryBindingOpenId(Long id, String openId) {
+    private void tryBindingMpOpenId(Long id, String openId) {
         if (openId != null) {
             SysUser user = new SysUser();
             user.setId(id);
-            user.setOpenId(openId);
+            user.setMpOpenId(openId);
+            sysUserMapper.updateById(user);
+        }
+    }
+
+    /**
+     * 尝试绑定openId 小程序
+     *
+     * @param id id
+     * @param openId openId
+     */
+    private void tryBindingMaOpenId(Long id, String openId) {
+        if (openId != null) {
+            SysUser user = new SysUser();
+            user.setId(id);
+            user.setMaOpenId(openId);
             sysUserMapper.updateById(user);
         }
     }
@@ -326,18 +380,6 @@ public class SysUserServiceImpl implements SysUserService {
         } else {
             return this.getByUserName(userName);
         }
-    }
-
-    /**
-     * 根据手机号码查询用户信息
-     *
-     * @param mobile 手机号码
-     * @return 用户信息
-     */
-    private SysUser getByMobile(String mobile) {
-        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysUser::getMobile, mobile);
-        return sysUserMapper.selectOne(wrapper);
     }
 
     /**

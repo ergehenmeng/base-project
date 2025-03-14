@@ -3575,9 +3575,7 @@ INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `r
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('12', '系统公告缓存', 'sys_notice', '1', '2023-08-11 15:22:18', '系统公告位缓存');
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('13', '省市区缓存', 'sys_area', '1', '2023-08-11 15:22:18', '省市区所有缓存');
 
-
-INSERT INTO `sys_user` (`id`, `nick_name`, `mobile`, `state`, `pwd`, `init_pwd`, `dept_code`, `data_type`, `deleted`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '13000000000', '0', '$2a$10$OUgNXwmRXEJcNR5cTAXb0.JmkahFa9Emx9BKl32EaA1yG/6anUVRi', '$2a$10$OUgNXwmRXEJcNR5cTAXb0.JmkahFa9Emx9BKl32EaA1yG/6anUVRi', '0', 8, b'0', '2018-01-26 10:38:20', '2019-07-19 15:41:56', '');
-
+INSERT INTO `sys_user` (`id`, `nick_name`, `user_name`, `user_type`, `mobile`, `state`, `pwd`, `init_pwd`, `data_type`, `dept_code`, `deleted`, `pwd_update_time`, `ma_open_id`, `mp_open_id`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', 'superAdmin', '0', '13000000000', '1', '$2a$10$OUgNXwmRXEJcNR5cTAXb0.JmkahFa9Emx9BKl32EaA1yG/6anUVRi', '$2a$10$OUgNXwmRXEJcNR5cTAXb0.JmkahFa9Emx9BKl32EaA1yG/6anUVRi', '8', NULL, b'0', '2024-07-25 13:37:58', NULL, NULL, '2018-01-26 10:38:20', '2024-12-18 16:58:34', '');
 
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969410', '景区商户', 'scenic', '2022-12-27 16:03:35', '2023-09-28 15:38:42', b'0', '系统默认角色(勿动)');
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969411', '民宿商户', 'homestay', '2022-12-27 16:03:50', '2023-09-28 15:38:48', b'0', '系统默认角色(勿动)');
@@ -3585,13 +3583,6 @@ INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_t
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969413', '零售商户', 'item', '2022-12-27 16:04:06', '2023-10-11 17:03:54', b'0', '系统默认角色(勿动)');
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969414', '线路商户', 'line', '2022-12-27 16:04:10', '2023-09-28 15:38:58', b'0', '系统默认角色(勿动)');
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969415', '场馆商户', 'venue', '2024-02-19 15:22:58', '2024-02-19 15:24:53', b'0', '系统默认角色(勿动)');
-
-
-INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'member_login', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:16', '短信登陆发送验证码');
-INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('2', 'register', '您正在注册EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:18', '注册短信验证码');
-INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('3', 'change_email', '您正在更换EGHM平台账号的邮箱，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:44:19', NULL);
-INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('4', 'merchant_unbind', '您正在解绑EGHM平台商户微信手机号，短信验证码：{0}。如非本人操作，请忽略此短信', '2024-06-19 17:25:49', NULL);
-INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('5', 'user_login', '您正在登陆EGHM管理平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2024-10-21 10:44:36', NULL);
 
 INSERT INTO `notice_template` (`id`, `code`, `title`, `content`, `update_time`) VALUES ('1', 'feedback_process', '反馈结果', '您反馈的【${feedbackType}】 "${content}"问题，我们已接收。${replay}', '2020-09-14 15:54:18');
 INSERT INTO `notice_template` (`id`, `code`, `title`, `content`, `update_time`) VALUES ('2', 'evaluation_refuse', '订单评价内容不合规', '您购买的【${productTitle}】商品, 单号:${orderNo},评价内容不合规, 原因:${remark}, 我们已做屏蔽处理', '2020-09-14 15:54:18');
@@ -5453,3 +5444,4 @@ INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('1816666159912353793', 'image_type', '5', 'PAY首页', b'0', '2024-07-26 10:45:39', '2024-07-26 10:45:39');
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('1816667114871488514', 'scenic_tag', '5', '避暑胜地', b'0', '2024-07-26 10:49:26', '2024-07-26 10:49:26');
 
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('82', 'pay_notify_host', '支付异步通知地址', 'http://localhost:8080/', b'0', '支付或退款异步回调地址', '2025-02-20 16:43:17', '2025-02-20 16:43:32');

@@ -24,7 +24,7 @@ import static com.eghm.utils.StringUtil.isBlank;
  * @since 2019/9/6 15:27
  */
 @Slf4j
-public class RunnableTask implements Runnable {
+public class Invoker implements Runnable {
 
     private final AbstractTask task;
 
@@ -38,7 +38,7 @@ public class RunnableTask implements Runnable {
 
     private final SysTaskLogService sysTaskLogService;
 
-    RunnableTask(AbstractTask task) {
+    Invoker(AbstractTask task) {
         this.task = task;
         try {
             this.bean = SpringContextUtil.getBean(task.getBeanName());

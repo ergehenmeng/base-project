@@ -1,18 +1,17 @@
 package com.eghm.dto.business.homestay.room;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.enums.RefundType;
 import com.eghm.enums.RoomType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.WordChecker;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -40,8 +39,9 @@ public class HomestayRoomEditRequest {
     private RoomType roomType;
 
     @Schema(description = "封面图片", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotEmpty(message = "封面图片不能为空")
-    private List<String> coverList;
+    @NotBlank(message = "封面图片不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String coverUrl;
 
     @Schema(description = "订单确认方式: 1:自动确认 2:手动确认", requiredMode = Schema.RequiredMode.REQUIRED)
     @OptionInt(value = {1, 2}, message = "订单确认方式不合法")
@@ -64,7 +64,8 @@ public class HomestayRoomEditRequest {
     private Integer resident;
 
     @Schema(description = "屋内设施")
-    private List<String> infrastructureList;
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String infrastructure;
 
     @Schema(description = "详细介绍", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "详细介绍不能为空")

@@ -41,6 +41,8 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import static com.eghm.constants.CommonConstant.COMMA;
+
 /**
  * @author 二哥很猛
  * @since 2022/7/23
@@ -132,7 +134,7 @@ public class CommonServiceImpl implements CommonService {
             log.error("数据字典为空,不做解析 [{}]", tagIds);
             return tagList;
         }
-        String[] split = tagIds.split(",");
+        String[] split = tagIds.split(COMMA);
         for (String tagId : split) {
             dictList.stream().filter(sysDict -> sysDict.getHiddenValue() == Integer.parseInt(tagId))
                     .map(SysDictItem::getShowValue)

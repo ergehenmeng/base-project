@@ -1,13 +1,14 @@
 package com.eghm.dto.poi;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.validation.annotation.WordChecker;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -28,8 +29,9 @@ public class PoiPointAddRequest {
     private String areaCode;
 
     @Schema(description = "封面图", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotEmpty(message = "封面图不能为空")
-    private List<String> coverList;
+    @NotBlank(message = "封面图不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String coverUrl;
 
     @Schema(description = "点位类型", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "请选择点位类型")

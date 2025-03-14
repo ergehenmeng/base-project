@@ -1,9 +1,11 @@
 package com.eghm.dto.business.activity;
 
 import com.eghm.configuration.gson.LocalDateAdapter;
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.dto.ext.AbstractDateComparator;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -62,6 +64,7 @@ public class ActivityConfigRequest extends AbstractDateComparator {
 
     @Schema(description = "活动封面图片", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "活动封面图片不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
     private String coverUrl;
 
     @Schema(description = "活动详细介绍", requiredMode = Schema.RequiredMode.REQUIRED)

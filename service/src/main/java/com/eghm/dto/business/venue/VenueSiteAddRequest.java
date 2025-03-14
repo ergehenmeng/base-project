@@ -1,14 +1,13 @@
 package com.eghm.dto.business.venue;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.validation.annotation.WordChecker;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -25,8 +24,9 @@ public class VenueSiteAddRequest {
     private String title;
 
     @Schema(description = "场地封面图片", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotEmpty(message = "场地封面图片不能为空")
-    private List<String> coverList;
+    @NotBlank(message = "场地封面图片不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String coverUrl;
 
     @Schema(description = "所属场馆", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "请选择所属场馆")

@@ -1,14 +1,15 @@
 package com.eghm.dto.business.item.store;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.validation.annotation.Phone;
 import com.eghm.validation.annotation.WordChecker;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -33,8 +34,9 @@ public class ItemStoreEditRequest {
     private String logoUrl;
 
     @Schema(description = "封面图", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotEmpty(message = "店铺封面图不能为空")
-    private List<String> coverList;
+    @NotBlank(message = "店铺封面图不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String coverUrl;
 
     @Schema(description = "营业时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "营业时间不能为空")

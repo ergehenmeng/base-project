@@ -1,10 +1,12 @@
 package com.eghm.dto.business.item;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.dto.business.item.sku.ItemSpecRequest;
 import com.eghm.enums.DeliveryType;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -45,8 +47,9 @@ public class ItemEditRequest {
     private Boolean multiSpec;
 
     @Schema(description = "封面图", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotEmpty(message = "封面图片不能为空")
-    private List<String> coverList;
+    @NotBlank(message = "封面图片不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String coverUrl;
 
     @Schema(description = "购买须知", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "购买须知不能为空")

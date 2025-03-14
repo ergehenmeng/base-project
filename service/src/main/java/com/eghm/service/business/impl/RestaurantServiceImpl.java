@@ -1,6 +1,5 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -89,7 +88,6 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         this.redoTitle(request.getTitle(), null);
         Restaurant restaurant = DataUtil.copy(request, Restaurant.class);
         restaurant.setState(State.UN_SHELVE);
-        restaurant.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         restaurantMapper.insert(restaurant);
         geoService.addPoint(CacheConstant.GEO_POINT_RESTAURANT, restaurant.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
@@ -100,7 +98,6 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         Restaurant required = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(required.getMerchantId());
         Restaurant restaurant = DataUtil.copy(request, Restaurant.class);
-        restaurant.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         restaurantMapper.updateById(restaurant);
         geoService.addPoint(CacheConstant.GEO_POINT_RESTAURANT, restaurant.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }

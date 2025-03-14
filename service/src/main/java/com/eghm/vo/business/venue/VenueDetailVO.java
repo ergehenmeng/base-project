@@ -1,6 +1,8 @@
 package com.eghm.vo.business.venue;
 
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.enums.VenueType;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -24,6 +26,7 @@ public class VenueDetailVO {
     private VenueType venueType;
 
     @Schema(description = "场馆封面图")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @Schema(description = "城市id")

@@ -1,6 +1,8 @@
 package com.eghm.dto.business.activity;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.validation.annotation.WordChecker;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -31,17 +33,18 @@ public class ActivityEditRequest {
     private String activityTime;
 
     @Schema(description = "活动地点", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "活动地点不能为空")
+    @NotBlank(message = "活动地点不能为空")
     @WordChecker(message = "活动地点存在敏感词")
     @Size(max = 50, message = "活动地点最多50字符")
     private String address;
 
     @Schema(description = "活动封面图片", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "活动封面图片不能为空")
+    @NotBlank(message = "活动封面图片不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
     private String coverUrl;
 
     @Schema(description = "活动详细介绍", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "活动详细介绍不能为空")
+    @NotBlank(message = "活动详细介绍不能为空")
     @WordChecker(message = "活动详细介绍存在敏感词")
     @Expose(serialize = false)
     private String introduce;
