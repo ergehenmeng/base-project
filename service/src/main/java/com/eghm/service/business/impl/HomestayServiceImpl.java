@@ -44,6 +44,7 @@ import org.springframework.stereotype.Service;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import static com.eghm.constants.CommonConstant.COMMA;
 import static com.eghm.enums.ErrorCode.HOMESTAY_NOT_COMPLETE;
 import static com.eghm.enums.ErrorCode.HOMESTAY_SEARCH_MAX;
 
@@ -97,8 +98,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         this.titleRedo(request.getTitle(), null);
         Homestay homestay = DataUtil.copy(request, Homestay.class);
         homestay.setState(State.UN_SHELVE);
-        homestay.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
-        homestay.setKeyService(CollUtil.join(request.getServiceList(), ","));
+        homestay.setKeyService(CollUtil.join(request.getServiceList(), COMMA));
         homestayMapper.insert(homestay);
         geoService.addPoint(CacheConstant.GEO_POINT_HOMESTAY, homestay.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }
@@ -109,8 +109,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         Homestay required = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(required.getMerchantId());
         Homestay homestay = DataUtil.copy(request, Homestay.class);
-        homestay.setCoverUrl(CollUtil.join(request.getCoverList(), ","));
-        homestay.setKeyService(CollUtil.join(request.getServiceList(), ","));
+        homestay.setKeyService(CollUtil.join(request.getServiceList(), COMMA));
         homestayMapper.updateById(homestay);
         geoService.addPoint(CacheConstant.GEO_POINT_HOMESTAY, homestay.getId().toString(), request.getLongitude().doubleValue(), request.getLatitude().doubleValue());
     }

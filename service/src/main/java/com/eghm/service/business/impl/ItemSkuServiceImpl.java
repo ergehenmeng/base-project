@@ -26,6 +26,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.eghm.constants.CommonConstant.COMMA;
 import static com.eghm.enums.ErrorCode.SKU_DOWN;
 import static com.eghm.enums.ErrorCode.SKU_STOCK;
 
@@ -150,7 +151,7 @@ public class ItemSkuServiceImpl implements ItemSkuService {
             }
             return String.valueOf(primaryId);
         }
-        return primaryId + "," + secondId;
+        return primaryId + COMMA + secondId;
     }
 
 }

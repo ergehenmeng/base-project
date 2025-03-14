@@ -94,7 +94,6 @@ public class LineServiceImpl implements LineService {
         line.setMerchantId(merchantId);
         line.setCreateDate(LocalDate.now());
         line.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
-        line.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         lineMapper.insert(line);
         lineDayConfigService.insertOrUpdate(line.getId(), request.getConfigList());
     }
@@ -107,7 +106,6 @@ public class LineServiceImpl implements LineService {
         Line sourceLine = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(sourceLine.getMerchantId());
         Line line = DataUtil.copy(request, Line.class);
-        line.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         // 总销量要根据真实销量计算
         line.setTotalNum(request.getVirtualNum() + sourceLine.getSaleNum());
         lineMapper.updateById(line);

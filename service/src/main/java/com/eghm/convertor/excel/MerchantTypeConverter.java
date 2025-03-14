@@ -9,6 +9,8 @@ import com.eghm.enums.MerchantType;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import static com.eghm.constants.CommonConstant.COMMA;
+
 /**
  * 商户类型转换器 支持多个类型
  *
@@ -27,7 +29,7 @@ public class MerchantTypeConverter implements Converter<Integer> {
         if (value == null) {
             return new WriteCellData<>("");
         }
-        String merchantName = Arrays.stream(MerchantType.values()).filter(map -> (map.getValue() & value) == map.getValue()).map(MerchantType::getName).collect(Collectors.joining(","));
+        String merchantName = Arrays.stream(MerchantType.values()).filter(map -> (map.getValue() & value) == map.getValue()).map(MerchantType::getName).collect(Collectors.joining(COMMA));
         return new WriteCellData<>(merchantName);
     }
 

@@ -67,6 +67,7 @@ import java.util.stream.Collectors;
 
 import static cn.hutool.core.text.StrSplitter.split;
 import static com.eghm.constants.CacheConstant.*;
+import static com.eghm.constants.CommonConstant.COMMA;
 import static com.eghm.constants.ConfigConstant.MERCHANT_SALE_RANKING;
 import static com.eghm.constants.ConfigConstant.PRODUCT_SALE_RANKING;
 import static com.eghm.utils.StringUtil.isBlank;
@@ -137,7 +138,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             // 支付方式先占坑
             order.setPayType(PayType.valueOf(tradeType.name()));
             order.setTradeNo(tradeNo);
-            builder.append(order.getTitle()).append(",");
+            builder.append(order.getTitle()).append(COMMA);
             totalAmount += order.getPayAmount();
             baseMapper.updateById(order);
         }
@@ -766,7 +767,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         List<Long> refundVisitorIds = offlineRefundLogService.getRefundLog(orderNo);
         List<OrderVisitor> hasRefundList = visitors.stream().filter(orderVisitor -> refundVisitorIds.contains(orderVisitor.getId())).toList();
         if (!hasRefundList.isEmpty()) {
-            String userList = hasRefundList.stream().map(OrderVisitor::getMemberName).collect(Collectors.joining(","));
+            String userList = hasRefundList.stream().map(OrderVisitor::getMemberName).collect(Collectors.joining(COMMA));
             throw new BusinessException(ErrorCode.MEMBER_HAS_REFUND, userList);
         }
     }

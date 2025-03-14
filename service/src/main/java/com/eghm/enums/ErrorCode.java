@@ -81,6 +81,11 @@ public enum ErrorCode {
     JSON_FORMAT_ERROR(1000, "数据转换异常"),
 
     /**
+     * 数据格式转换异常
+     */
+    SPLIT_ERROR(1047, "数据格式转换异常"),
+
+    /**
      * 地址不支持%s请求
      */
     METHOD_NOT_SUPPORTED(1010, "地址不支持%s请求"),

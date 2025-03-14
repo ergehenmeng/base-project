@@ -47,7 +47,6 @@ public class PoiPointServiceImpl implements PoiPointService {
     public void create(PoiPointAddRequest request) {
         this.redoTitle(request.getTitle(), null);
         PoiPoint poiPoint = DataUtil.copy(request, PoiPoint.class);
-        poiPoint.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         poiPointMapper.insert(poiPoint);
     }
 
@@ -55,7 +54,6 @@ public class PoiPointServiceImpl implements PoiPointService {
     public void update(PoiPointEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId());
         PoiPoint poiPoint = DataUtil.copy(request, PoiPoint.class);
-        poiPoint.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         poiPointMapper.updateById(poiPoint);
     }
 

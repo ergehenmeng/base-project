@@ -1,12 +1,10 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.restaurant.voucher.VoucherAddRequest;
 import com.eghm.dto.business.restaurant.voucher.VoucherEditRequest;
@@ -64,7 +62,6 @@ public class VoucherServiceImpl implements VoucherService {
         voucher.setMerchantId(SecurityHolder.getMerchantId());
         voucher.setCreateDate(LocalDate.now());
         voucher.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
-        voucher.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         voucherMapper.insert(voucher);
     }
 
@@ -76,7 +73,6 @@ public class VoucherServiceImpl implements VoucherService {
         Voucher voucher = DataUtil.copy(request, Voucher.class);
         // 总销量要根据真实销量计算
         voucher.setTotalNum(request.getVirtualNum() + select.getSaleNum());
-        voucher.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         voucherMapper.updateById(voucher);
     }
 

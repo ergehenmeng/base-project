@@ -1,16 +1,16 @@
 package com.eghm.dto.poi;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.validation.annotation.WordChecker;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -34,8 +34,9 @@ public class PoiLineEditRequest {
     private String areaCode;
 
     @Schema(description = "封面图", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotEmpty(message = "封面图不能为空")
-    private List<String> coverList;
+    @NotBlank(message = "封面图不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String coverUrl;
 
     @Schema(description = "预计游玩时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "预计游玩时间不能为空")

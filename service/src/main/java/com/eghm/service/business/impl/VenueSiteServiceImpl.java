@@ -1,12 +1,10 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.base.BaseProductQueryRequest;
 import com.eghm.dto.business.venue.VenueSiteAddRequest;
 import com.eghm.dto.business.venue.VenueSiteEditRequest;
@@ -65,7 +63,6 @@ public class VenueSiteServiceImpl implements VenueSiteService {
         venueSite.setMerchantId(SecurityHolder.getMerchantId());
         venueSite.setCreateDate(LocalDate.now());
         venueSite.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
-        venueSite.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         venueSiteMapper.insert(venueSite);
     }
 
@@ -75,7 +72,6 @@ public class VenueSiteServiceImpl implements VenueSiteService {
         VenueSite required = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(required.getMerchantId());
         VenueSite venueSite = DataUtil.copy(request, VenueSite.class);
-        venueSite.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         venueSiteMapper.updateById(venueSite);
     }
 

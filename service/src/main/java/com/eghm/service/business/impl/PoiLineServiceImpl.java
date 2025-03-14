@@ -59,7 +59,6 @@ public class PoiLineServiceImpl implements PoiLineService {
         this.redoTitle(request.getTitle(), null);
         PoiLine poiLine = DataUtil.copy(request, PoiLine.class);
         poiLine.setState(0);
-        poiLine.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         poiLineMapper.insert(poiLine);
     }
 
@@ -67,7 +66,6 @@ public class PoiLineServiceImpl implements PoiLineService {
     public void update(PoiLineEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId());
         PoiLine poiLine = DataUtil.copy(request, PoiLine.class);
-        poiLine.setCoverUrl(CollUtil.join(request.getCoverList(), CommonConstant.COMMA));
         poiLineMapper.updateById(poiLine);
     }
 
