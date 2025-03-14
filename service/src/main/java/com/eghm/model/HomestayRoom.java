@@ -1,11 +1,9 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.enums.RefundType;
 import com.eghm.enums.RoomType;
 import com.eghm.enums.State;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

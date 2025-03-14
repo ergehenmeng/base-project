@@ -11,7 +11,6 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @author 二哥很猛 2022/6/25 14:31
@@ -89,7 +88,8 @@ public class HomestayEditRequest {
     private String notesIn;
     
     @Schema(description = "特色服务")
-    private List<Integer> serviceList;
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String keyService;
 
     @Schema(description = "标签,逗号分隔")
     @WordChecker

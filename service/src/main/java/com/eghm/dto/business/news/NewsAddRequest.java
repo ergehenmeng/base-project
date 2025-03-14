@@ -1,12 +1,12 @@
 package com.eghm.dto.business.news;
 
+import com.eghm.convertor.JoinerDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -29,12 +29,13 @@ public class NewsAddRequest {
     @Schema(description = "一句话描述信息")
     private String depict;
 
-    @Schema(description = "标签列表")
-    @Size(max = 3, message = "标签不能超过3个")
-    private List<String> tagList;
-
     @Schema(description = "图集")
-    private List<String> imageList;
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String image;
+
+    @Schema(description = "标签列表")
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String tagName;
 
     @Schema(description = "详细信息", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "详细信息不能为空")
