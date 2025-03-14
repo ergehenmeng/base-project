@@ -17,4 +17,8 @@ public class NoticeVO {
 
     @ApiModelProperty("公告名称")
     private String title;
+
+    @ApiModelProperty("封面图片")
+    private String coverUrl;
+
 }

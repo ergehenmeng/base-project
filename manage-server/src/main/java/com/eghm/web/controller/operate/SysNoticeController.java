@@ -43,6 +43,13 @@ public class SysNoticeController {
         return RespBody.success();
     }
 
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("编辑")
+    public RespBody<Void> update(@Validated @RequestBody NoticeEditRequest request) {
+        sysNoticeService.update(request);
+        return RespBody.success();
+    }
+
     @GetMapping("/select")
     @ApiOperation("查看")
     public RespBody<SysNotice> select(@Validated IdDTO dto) {
@@ -71,10 +78,4 @@ public class SysNoticeController {
         return RespBody.success();
     }
 
-    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("编辑")
-    public RespBody<Void> update(@Validated @RequestBody NoticeEditRequest request) {
-        sysNoticeService.update(request);
-        return RespBody.success();
-    }
 }
