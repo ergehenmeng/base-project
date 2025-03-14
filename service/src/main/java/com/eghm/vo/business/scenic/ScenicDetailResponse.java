@@ -1,6 +1,8 @@
 package com.eghm.vo.business.scenic;
 
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.enums.State;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -27,6 +29,7 @@ public class ScenicDetailResponse {
     private Integer level;
 
     @ApiModelProperty("景区标签")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String tag;
 
     @ApiModelProperty(value = "景区营业时间")
@@ -36,6 +39,7 @@ public class ScenicDetailResponse {
     private String phone;
 
     @ApiModelProperty(value = "景区图片")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "省份id")

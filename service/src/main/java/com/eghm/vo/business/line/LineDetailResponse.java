@@ -1,6 +1,8 @@
 package com.eghm.vo.business.line;
 
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.enums.RefundType;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -29,6 +31,7 @@ public class LineDetailResponse {
     private Long startCityId;
 
     @ApiModelProperty(value = "封面图片")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "虚拟销售量")

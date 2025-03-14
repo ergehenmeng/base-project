@@ -1,6 +1,9 @@
 package com.eghm.dto.business.merchant;
 
+import com.eghm.convertor.JoinerDeserializer;
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.validation.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -45,6 +48,7 @@ public class MerchantAddRequest {
 
     @ApiModelProperty(value = "营业执照图片", required = true)
     @NotBlank(message = "营业执照不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
     private String businessLicenseUrl;
 
     @ApiModelProperty(value = "法人姓名", required = true)
@@ -58,6 +62,7 @@ public class MerchantAddRequest {
 
     @ApiModelProperty(value = "法人身份证图片", required = true)
     @NotBlank(message = "法人身份证不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
     private String legalUrl;
 
     @ApiModelProperty(value = "省份id", required = true)

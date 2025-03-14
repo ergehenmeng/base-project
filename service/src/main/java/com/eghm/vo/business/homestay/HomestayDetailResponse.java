@@ -1,5 +1,7 @@
 package com.eghm.vo.business.homestay;
 
+import com.eghm.convertor.SplitterJsonSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -47,6 +49,7 @@ public class HomestayDetailResponse {
     private String intro;
 
     @ApiModelProperty(value = "封面图片")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "详细介绍")
@@ -56,11 +59,13 @@ public class HomestayDetailResponse {
     private String phone;
 
     @ApiModelProperty(value = "特色服务")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String keyService;
 
     @ApiModelProperty("入住须知")
     private String notesIn;
 
     @ApiModelProperty(value = "标签")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String tag;
 }

@@ -43,6 +43,7 @@ public class ScenicEditRequest {
 
     @ApiModelProperty("景区标签")
     @WordChecker(message = "景区标签存在敏感词")
+    @JsonDeserialize(using = JoinerDeserializer.class)
     private String tag;
 
     @ApiModelProperty(value = "省份id", required = true)
