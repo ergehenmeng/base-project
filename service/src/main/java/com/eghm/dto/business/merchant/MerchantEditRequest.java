@@ -1,13 +1,11 @@
 package com.eghm.dto.business.merchant;
 
 import com.eghm.convertor.JoinerDeserializer;
-import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.validation.annotation.Mobile;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

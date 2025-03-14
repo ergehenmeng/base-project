@@ -1,7 +1,6 @@
 package com.eghm.vo.business.merchant;
 
 import com.eghm.convertor.BigDecimalOmitSerializer;
-import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.enums.WithdrawWay;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

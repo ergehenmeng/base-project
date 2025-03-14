@@ -1,7 +1,6 @@
 package com.eghm.dto.business.merchant;
 
 import com.eghm.convertor.JoinerDeserializer;
-import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.validation.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
