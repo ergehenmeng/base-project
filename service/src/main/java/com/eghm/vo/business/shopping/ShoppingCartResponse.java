@@ -1,6 +1,7 @@
 package com.eghm.vo.business.shopping;
 
 import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.enums.State;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,6 +22,7 @@ public class ShoppingCartResponse {
     private String title;
 
     @Schema(description = "商品图片")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @Schema(description = "最低价格")

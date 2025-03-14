@@ -1,6 +1,8 @@
 package com.eghm.vo.business.line;
 
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -31,6 +33,7 @@ public class TravelVO {
     private String depict;
 
     @Schema(description = "旅行社图片")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @Schema(description = "评分")

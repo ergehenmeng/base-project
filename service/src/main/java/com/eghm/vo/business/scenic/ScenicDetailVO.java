@@ -1,6 +1,7 @@
 package com.eghm.vo.business.scenic;
 
 import com.eghm.convertor.BigDecimalOmitSerializer;
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.vo.business.activity.ActivityBaseDTO;
 import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -21,6 +22,7 @@ public class ScenicDetailVO {
     private Long id;
 
     @Schema(description = "封面图")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @Schema(description = "景区名称")

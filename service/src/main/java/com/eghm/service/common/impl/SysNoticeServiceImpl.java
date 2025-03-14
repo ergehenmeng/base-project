@@ -64,7 +64,7 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     @Override
     public List<NoticeVO> getList(PagingQuery query) {
         LambdaQueryWrapper<SysNotice> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(SysNotice::getId, SysNotice::getTitle);
+        wrapper.select(SysNotice::getId, SysNotice::getTitle, SysNotice::getCoverUrl);
         wrapper.eq(SysNotice::getState, true);
         wrapper.orderByDesc(SysNotice::getId);
         Page<SysNotice> selectedPage = sysNoticeMapper.selectPage(query.createPage(false), wrapper);

@@ -1,5 +1,7 @@
 package com.eghm.vo.notice;
 
+import com.eghm.convertor.SplitterJsonSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -17,4 +19,9 @@ public class NoticeVO {
 
     @Schema(description = "公告名称")
     private String title;
+
+    @Schema(description = "封面图片")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
+    private String coverUrl;
+
 }
