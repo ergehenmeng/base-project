@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 import java.io.IOException;
 
+import static com.eghm.constants.CommonConstant.COMMA;
+
 /**
  * @author 二哥很猛
  * @since 2023/1/17
@@ -15,7 +17,7 @@ public class SplitterJsonSerializer extends JsonSerializer<String> {
     private final String delimiter;
 
     public SplitterJsonSerializer() {
-        this(",");
+        this(COMMA);
     }
 
     public SplitterJsonSerializer(String delimiter) {

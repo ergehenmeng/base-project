@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
+import static com.eghm.constants.CommonConstant.COMMA;
+
 /**
  * @author 二哥很猛
  * @since 2023/1/17
@@ -20,7 +22,7 @@ public class JoinerDeserializer extends JsonDeserializer<String> {
     private final String delimiter;
 
     public JoinerDeserializer() {
-        this(",");
+        this(COMMA);
     }
 
     public JoinerDeserializer(String delimiter) {

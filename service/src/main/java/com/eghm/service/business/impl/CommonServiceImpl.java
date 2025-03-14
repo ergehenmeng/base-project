@@ -132,7 +132,7 @@ public class CommonServiceImpl implements CommonService {
             log.error("数据字典为空,不做解析 [{}]", tagIds);
             return tagList;
         }
-        String[] split = tagIds.split(",");
+        String[] split = tagIds.split(CommonConstant.COMMA);
         for (String tagId : split) {
             dictList.stream().filter(sysDict -> sysDict.getHiddenValue() == Integer.parseInt(tagId))
                     .map(SysDictItem::getShowValue)
