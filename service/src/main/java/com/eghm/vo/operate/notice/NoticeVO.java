@@ -1,6 +1,8 @@
 package com.eghm.vo.operate.notice;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -24,6 +26,7 @@ public class NoticeVO {
     private String noticeType;
 
     @ApiModelProperty("封面图片")
+    @JsonDeserialize(using = JoinerDeserializer.class)
     private String coverUrl;
 
     @ApiModelProperty("状态 false:未上架 true:已上架")

@@ -1,6 +1,8 @@
 package com.eghm.dto.operate.notice;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.validation.annotation.WordChecker;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -26,6 +28,7 @@ public class NoticeEditRequest {
 
     @ApiModelProperty(value = "封面图片", required = true)
     @NotBlank(message = "封面图片不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "公告类型(数据字典表sys_notice_type)", required = true)

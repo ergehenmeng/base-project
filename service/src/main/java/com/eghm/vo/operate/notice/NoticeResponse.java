@@ -1,6 +1,8 @@
 package com.eghm.vo.operate.notice;
 
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -28,6 +30,7 @@ public class NoticeResponse {
     private Integer state;
 
     @ApiModelProperty("封面图片")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @ApiModelProperty("添加时间")
