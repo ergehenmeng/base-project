@@ -2,6 +2,7 @@ package com.eghm.vo.business.homestay.room;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.convertor.excel.BooleanExcelConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
@@ -9,6 +10,7 @@ import com.eghm.enums.RefundType;
 import com.eghm.enums.RoomType;
 import com.eghm.enums.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,6 +29,7 @@ public class HomestayRoomResponse extends ExcelStyle {
     private Long id;
 
     @ApiModelProperty(value = "封面图片")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @ApiModelProperty("房型名称")

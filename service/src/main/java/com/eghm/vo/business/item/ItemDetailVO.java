@@ -2,6 +2,7 @@ package com.eghm.vo.business.item;
 
 import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.convertor.NumberParseSerializer;
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.enums.DeliveryType;
 import com.eghm.enums.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -55,6 +56,7 @@ public class ItemDetailVO {
     private String depict;
 
     @ApiModelProperty(value = "封面图")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "购买须知")

@@ -1,5 +1,7 @@
 package com.eghm.vo.business.venue;
 
+import com.eghm.convertor.SplitterJsonSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -17,6 +19,7 @@ public class VenueSiteDetailResponse {
     private Long id;
 
     @ApiModelProperty(value = "场地封面图片")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "场地名称")

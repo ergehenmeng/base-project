@@ -1,6 +1,8 @@
 package com.eghm.vo.business.base;
 
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.enums.ProductType;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -19,6 +21,7 @@ public class BaseProductResponse {
     private ProductType productType;
 
     @ApiModelProperty("商品url")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @ApiModelProperty("商品名称")

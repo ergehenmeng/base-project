@@ -1,6 +1,8 @@
 package com.eghm.vo.business.order;
 
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.vo.business.scenic.ticket.CombineTicketVO;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -21,6 +23,7 @@ public class OrderScanVO {
     private String title;
 
     @ApiModelProperty("商品封面图")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @ApiModelProperty("订单数量")

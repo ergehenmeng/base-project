@@ -1,6 +1,7 @@
 package com.eghm.vo.business.order.restaurant;
 
 import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.PayType;
 import com.eghm.enums.RefundState;
@@ -25,6 +26,7 @@ import java.time.LocalDateTime;
 public class VoucherOrderDetailVO {
 
     @ApiModelProperty("图片")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @ApiModelProperty("订单编号")

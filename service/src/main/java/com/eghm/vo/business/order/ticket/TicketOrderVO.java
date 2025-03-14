@@ -1,6 +1,7 @@
 package com.eghm.vo.business.order.ticket;
 
 import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.PayType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -17,6 +18,7 @@ import lombok.Data;
 public class TicketOrderVO {
 
     @ApiModelProperty("图片")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @ApiModelProperty("订单编号")

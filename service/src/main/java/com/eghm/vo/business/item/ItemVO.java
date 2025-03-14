@@ -1,6 +1,7 @@
 package com.eghm.vo.business.item;
 
 import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,6 +22,7 @@ public class ItemVO {
     private String title;
 
     @ApiModelProperty("图片")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "最低价格")

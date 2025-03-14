@@ -1,6 +1,7 @@
 package com.eghm.vo.business.order.item;
 
 import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.PayType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,6 +32,7 @@ public class ItemOrderVO {
     private String storeId;
 
     @ApiModelProperty("图片")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @ApiModelProperty("支付方式(支付成功才会有支付方式)")

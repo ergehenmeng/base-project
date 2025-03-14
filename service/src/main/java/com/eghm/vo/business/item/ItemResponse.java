@@ -3,6 +3,7 @@ package com.eghm.vo.business.item;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.convertor.excel.BooleanExcelConverter;
 import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
@@ -32,6 +33,7 @@ public class ItemResponse extends ExcelStyle {
     private Long storeId;
 
     @ApiModelProperty("封面图")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "商品名称")
