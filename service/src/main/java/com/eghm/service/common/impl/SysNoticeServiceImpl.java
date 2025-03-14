@@ -20,6 +20,7 @@ import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.notice.NoticeDetailVO;
 import com.eghm.vo.notice.NoticeResponse;
+import com.eghm.vo.notice.NoticeTopVO;
 import com.eghm.vo.notice.NoticeVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,11 +51,11 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     }
 
     @Override
-    public List<NoticeVO> getList() {
+    public List<NoticeTopVO> getTop() {
         int noticeLimit = sysConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
         List<SysNotice> noticeList = cacheProxyService.getNoticeList(noticeLimit);
         return DataUtil.copy(noticeList, notice -> {
-            NoticeVO vo = DataUtil.copy(notice, NoticeVO.class);
+            NoticeTopVO vo = DataUtil.copy(notice, NoticeTopVO.class);
             // 将公告类型包含到标题中 例如 紧急通知: 中印发生小规模冲突
             vo.setTitle(sysDictService.getDictValue(DictConstant.NOTICE_TYPE, notice.getNoticeType()) + ": " + vo.getTitle());
             return vo;
@@ -62,9 +63,9 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     }
 
     @Override
-    public List<NoticeVO> getList(PagingQuery query) {
+    public List<NoticeVO> getByPage(PagingQuery query) {
         LambdaQueryWrapper<SysNotice> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(SysNotice::getId, SysNotice::getTitle);
+        wrapper.select(SysNotice::getId, SysNotice::getTitle, SysNotice::getCoverUrl,  SysNotice::getNoticeType);
         wrapper.eq(SysNotice::getState, true);
         wrapper.orderByDesc(SysNotice::getId);
         Page<SysNotice> selectedPage = sysNoticeMapper.selectPage(query.createPage(false), wrapper);

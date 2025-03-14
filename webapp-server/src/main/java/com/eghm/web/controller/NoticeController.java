@@ -5,6 +5,7 @@ import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.common.SysNoticeService;
 import com.eghm.vo.notice.NoticeDetailVO;
+import com.eghm.vo.notice.NoticeTopVO;
 import com.eghm.vo.notice.NoticeVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,17 +31,17 @@ public class NoticeController {
 
     private final SysNoticeService sysNoticeService;
 
-    @GetMapping("/limit")
+    @GetMapping("/top")
     @Operation(summary = "首页公告Top-N")
-    public RespBody<List<NoticeVO>> list() {
-        List<NoticeVO> list = sysNoticeService.getList();
+    public RespBody<List<NoticeTopVO>> top() {
+        List<NoticeTopVO> list = sysNoticeService.getTop();
         return RespBody.success(list);
     }
 
     @GetMapping("/listPage")
     @Operation(summary = "公告列表")
     public RespBody<List<NoticeVO>> listPage(@ParameterObject PagingQuery query) {
-        List<NoticeVO> list = sysNoticeService.getList(query);
+        List<NoticeVO> list = sysNoticeService.getByPage(query);
         return RespBody.success(list);
     }
 
