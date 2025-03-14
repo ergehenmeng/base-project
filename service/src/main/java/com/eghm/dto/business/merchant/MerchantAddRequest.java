@@ -1,6 +1,8 @@
 package com.eghm.dto.business.merchant;
 
+import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.validation.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -45,6 +47,7 @@ public class MerchantAddRequest {
 
     @Schema(description = "营业执照图片", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "营业执照不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
     private String businessLicenseUrl;
 
     @Schema(description = "法人姓名", requiredMode = Schema.RequiredMode.REQUIRED)
@@ -58,6 +61,7 @@ public class MerchantAddRequest {
 
     @Schema(description = "法人身份证图片", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "法人身份证不能为空")
+    @JsonDeserialize(using = JoinerDeserializer.class)
     private String legalUrl;
 
     @Schema(description = "省份id", requiredMode = Schema.RequiredMode.REQUIRED)

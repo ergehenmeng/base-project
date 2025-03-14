@@ -1,6 +1,8 @@
 package com.eghm.vo.business.item;
 
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.enums.DeliveryType;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -33,6 +35,7 @@ public class ItemDetailResponse {
     private Boolean multiSpec;
 
     @Schema(description = "封面图")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @Schema(description = "购买须知")

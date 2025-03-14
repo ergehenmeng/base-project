@@ -1,8 +1,10 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.enums.State;
 import com.eghm.validation.annotation.Phone;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -40,6 +42,7 @@ public class ItemStore extends BaseEntity {
 
     @Schema(description = "封面图")
     @NotBlank(message = "店铺封面图不能为空")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @Schema(description = "营业时间")

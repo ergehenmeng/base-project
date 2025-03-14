@@ -34,8 +34,19 @@ public class SplitterJsonSerializer extends JsonSerializer<String> {
         String[] parts = value.split(delimiter);
         gen.writeStartArray();
         for (String part : parts) {
-            gen.writeString(part.trim());
+            this.doWrite(gen, part);
         }
         gen.writeEndArray();
+    }
+
+    /**
+     * 序列化
+     *
+     * @param gen gen
+     * @param value value
+     * @throws IOException e
+     */
+    protected void doWrite(JsonGenerator gen, String value) throws IOException {
+        gen.writeString(value.trim());
     }
 }

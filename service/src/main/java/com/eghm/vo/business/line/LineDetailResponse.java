@@ -1,6 +1,8 @@
 package com.eghm.vo.business.line;
 
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.enums.RefundType;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -29,6 +31,7 @@ public class LineDetailResponse {
     private Long startCityId;
 
     @Schema(description = "封面图片")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @Schema(description = "虚拟销售量")

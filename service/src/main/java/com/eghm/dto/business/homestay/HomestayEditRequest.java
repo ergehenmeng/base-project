@@ -93,6 +93,7 @@ public class HomestayEditRequest {
 
     @Schema(description = "标签,逗号分隔")
     @WordChecker
+    @JsonDeserialize(using = JoinerDeserializer.class)
     private String tag;
 
 }

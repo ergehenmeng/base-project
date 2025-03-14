@@ -1,7 +1,9 @@
 package com.eghm.vo.business.homestay.room;
 
+import com.eghm.convertor.SplitterJsonSerializer;
 import com.eghm.enums.RefundType;
 import com.eghm.enums.RoomType;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -34,9 +36,11 @@ public class HomestayRoomDetailResponse {
     private Integer confirmType;
 
     @Schema(description = "封面图片")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String coverUrl;
 
     @Schema(description = "屋内设施")
+    @JsonSerialize(using = SplitterJsonSerializer.class)
     private String infrastructure;
 
     @Schema(description = "详细介绍")
