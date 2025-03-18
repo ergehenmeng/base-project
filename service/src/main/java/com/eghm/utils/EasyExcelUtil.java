@@ -1,8 +1,10 @@
 package com.eghm.utils;
 
+import cn.hutool.core.net.URLEncodeUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.http.Header;
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.read.listener.ReadListener;
 import com.alibaba.excel.support.ExcelTypeEnum;
@@ -45,7 +47,7 @@ public class EasyExcelUtil {
     /**
      * 冻结首行
      */
-    private static final SheetWriteHandler freezeRowHandler = new FreezeRowHandler();
+    private static final SheetWriteHandler FREEZE_ROW_HANDLER = new FreezeRowHandler();
 
     /**
      * 导出xlsx表格
@@ -75,9 +77,9 @@ public class EasyExcelUtil {
             fileName = fileName + ExcelTypeEnum.XLSX.getValue();
         }
         try {
-            response.setHeader(Header.CONTENT_DISPOSITION.getValue(), "attachment;filename=" + URLUtil.encode(fileName, StandardCharsets.UTF_8));
+            response.setHeader(Header.CONTENT_DISPOSITION.getValue(), "attachment;filename=" + URLEncodeUtil.encode(fileName, StandardCharsets.UTF_8));
             response.setContentType(XLSX_CONTENT_TYPE);
-            EasyExcel.write(response.getOutputStream(), cls).sheet(sheetName).registerWriteHandler(freezeRowHandler).doWrite(rowValues);
+            EasyExcelFactory.write(response.getOutputStream(), cls).sheet(sheetName).registerWriteHandler(FREEZE_ROW_HANDLER).doWrite(rowValues);
         } catch (Exception e) {
             log.error("导出Excel异常 [{}] [{}]", fileName, cls, e);
         }
@@ -103,7 +105,8 @@ public class EasyExcelUtil {
      * @param <T> 映射的对象
      */
     public static <T> void read(InputStream stream, int batchSize, Consumer<List<T>> consumer) {
-        EasyExcel.read(stream, new ReadListener<T>() {
+
+        EasyExcelFactory.read(stream, new ReadListener<T>() {
 
             final List<T> batchList = ListUtils.newArrayListWithExpectedSize(batchSize);
 
@@ -125,6 +128,7 @@ public class EasyExcelUtil {
     }
 
     private static class FreezeRowHandler implements SheetWriteHandler {
+
         @Override
         public void afterSheetCreate(WriteWorkbookHolder writeWorkbookHolder, WriteSheetHolder writeSheetHolder) {
             writeSheetHolder.getSheet().createFreezePane(0, 1, 0, 1);
