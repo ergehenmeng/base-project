@@ -81,6 +81,11 @@ public enum ErrorCode {
     JSON_FORMAT_ERROR(1000, "数据转换异常"),
 
     /**
+     * ExcelSpinner未配置加载项
+     */
+    SPINNER_ERROR(1002, "@ExcelSpinner未配置加载项"),
+
+    /**
      * 地址不支持%s请求
      */
     METHOD_NOT_SUPPORTED(1010, "地址不支持%s请求"),
