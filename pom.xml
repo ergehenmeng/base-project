@@ -68,7 +68,7 @@
         <!--异步线程变量-->
         <transmittable.version>2.14.2</transmittable.version>
         <!--excel导出-->
-        <easyexcel.version>3.3.2</easyexcel.version>
+        <easyexcel.version>4.0.3</easyexcel.version>
         <!--jackson 1.8日期格式序列号兼容包-->
         <jackson-ext.version>2.13.4</jackson-ext.version>
         <!--缓存-->

@@ -19,7 +19,7 @@ public @interface ExcelSpinner {
     String[] source() default {};
 
     /**
-     * @return 动态下拉选项
+     * @return 动态下拉选项 默认只支持一个
      */
     Class<? extends DynamicSpinner>[] sourceClass() default {};
 
