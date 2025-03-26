@@ -6,12 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAccessor;
-import java.util.Date;
 
 import static com.eghm.utils.StringUtil.isBlank;
 
@@ -83,18 +81,6 @@ public class DateUtil {
      */
     public static LocalDate parseFirstDayOfMonth(String month) {
         return LocalDate.parse(month + "-01", DateTimeFormatter.ISO_DATE);
-    }
-
-    /**
-     * 根据给定的字符串格式来格式化日期
-     *
-     * @param date    日期
-     * @param pattern 日期格式字符串
-     * @return 日期字符串
-     */
-    public static String format(Date date, String pattern) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        return formatter.format(date.toInstant().atZone(ZoneId.systemDefault()));
     }
 
     /**
