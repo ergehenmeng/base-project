@@ -27,7 +27,6 @@ public class TestJobService {
         this.sysTaskRegistrar = sysTaskRegistrar;
     }
 
-
     @CronMark
     public void execute(String args) {
         log.error("我是个数据库配置的Job, 我的作用是触发一个30s后执行一次性任务 [{}] [{}]", args, LocalDateTime.now());

@@ -26,11 +26,11 @@ import static com.eghm.utils.StringUtil.isBlank;
 @Slf4j
 public class RunnableTask implements Runnable {
 
-    private final AbstractTask task;
-
     private final Object bean;
 
     private final Method method;
+
+    private final AbstractTask task;
 
     private final RedisLock redisLock;
 

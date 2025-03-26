@@ -227,13 +227,6 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public SysUser getByMobile(String mobile) {
-        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysUser::getMobile, mobile);
-        return sysUserMapper.selectOne(wrapper);
-    }
-
-    @Override
     public LoginResponse maLogin(String mobile, String maOpenId) {
         SysUser sysUser = this.getByMobile(mobile);
         if (sysUser == null) {
@@ -302,6 +295,18 @@ public class SysUserServiceImpl implements SysUserService {
         wrapper.eq(SysUser::getId, SecurityHolder.getUserId());
         wrapper.set(SysUser::getMpOpenId, null);
         sysUserMapper.update(null, wrapper);
+    }
+
+    /**
+     * 根据手机号获取用户信息
+     *
+     * @param mobile 手机号 (如果没绑定手机号则返回null)
+     * @return 用户信息
+     */
+    private SysUser getByMobile(String mobile) {
+        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysUser::getMobile, mobile);
+        return sysUserMapper.selectOne(wrapper);
     }
 
     /**
