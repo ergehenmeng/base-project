@@ -18,13 +18,13 @@ public class RandomDissolveGimpy extends Configurable implements GimpyEngine {
     @Override
     public BufferedImage getDistortedImage(BufferedImage baseImage) {
         BufferedImage distortedImage = new BufferedImage(baseImage.getWidth(), baseImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        Graphics2D graph = (Graphics2D) distortedImage.getGraphics();
+        Graphics2D graph = distortedImage.createGraphics();
         ThreadLocalRandom random = ThreadLocalRandom.current();
         DissolveFilter dissolveFilter = new DissolveFilter();
-        dissolveFilter.setDensity(0.6F + (float) random.nextDouble(0.2F));
+        dissolveFilter.setDensity((float) random.nextDouble(0.6F, 0.8F));
         MarbleFilter marbleFilter = new MarbleFilter();
-        marbleFilter.setXScale(1.0F + (float) random.nextDouble(0.2F));
-        marbleFilter.setYScale(1.0F + (float) random.nextDouble(0.2F));
+        marbleFilter.setXScale((float) random.nextDouble(1.0F, 1.2F));
+        marbleFilter.setYScale((float) random.nextDouble(1.0F, 1.2F));
         BufferedImage effectImage = dissolveFilter.filter(baseImage, null);
         effectImage = marbleFilter.filter(effectImage, null);
         graph.drawImage(effectImage, 0, 0, null, null);
