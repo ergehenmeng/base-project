@@ -210,7 +210,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         List<OrderAdjustResponse> mapperList = orderAdjustLogMapper.getList(orderNo);
         detail.setAdjustList(mapperList);
         // 用户其他未发货订单
-        if (detail.getState() == OrderState.WAIT_DELIVERY || detail.getState() == OrderState.PARTIAL_DELIVERY) {
+        if (detail.getState() == OrderState.WAIT_DELIVERY) {
             List<ItemUnShippedOrderResponse> unShippedList = itemOrderMapper.getUnShippedList(orderNo, detail.getStoreId(), merchantId);
             detail.setUnShippedList(unShippedList);
         }

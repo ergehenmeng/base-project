@@ -13,6 +13,7 @@ import com.eghm.model.OrderRefundLog;
 import com.eghm.pay.enums.TradeState;
 import com.eghm.pay.enums.TradeType;
 import com.eghm.pay.vo.PrepayVO;
+import com.eghm.dto.business.order.RefundCancelDTO;
 import com.eghm.vo.business.order.OrderScanVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.item.ExpressDetailVO;
@@ -273,4 +274,11 @@ public interface OrderService extends IService<Order> {
      * @return list
      */
     List<MerchantStatisticsVO> merchantStatistics();
+
+    /**
+     * 用户主动退款取消
+     *
+     * @param dto 退款信息
+     */
+    void refundCancel(RefundCancelDTO dto);
 }

@@ -96,7 +96,7 @@ public class LineOrderDetailResponse {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate visitDate;
 
-    @ApiModelProperty("几日游 1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10: 10日游 11:11日游 12:十二日游 13:十三日游 14:十四日游 15:十五日游")
+    @ApiModelProperty("几日游 1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10:十日游 11:11日游 12:十二日游 13:十三日游 14:十四日游 15:十五日游")
     private Integer duration;
 
     @ApiModelProperty("出发省份")

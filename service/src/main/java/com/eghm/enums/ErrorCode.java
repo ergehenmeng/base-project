@@ -1656,9 +1656,9 @@ public enum ErrorCode {
     REFUND_LOG_CANCEL(2957, "请勿重复取消退款"),
 
     /**
-     * 退款进行中,无法取消
+     * 退款已审核,无法取消
      */
-    REFUND_LOG_AUDIT(2960, "退款进行中,无法取消"),
+    REFUND_LOG_AUDIT(2960, "退款已审核,无法取消"),
 
     /**
      * 无需退款审核

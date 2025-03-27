@@ -2,6 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.OrderPayDTO;
+import com.eghm.dto.business.order.RefundCancelDTO;
 import com.eghm.dto.business.order.homestay.HomestayOrderCreateDTO;
 import com.eghm.dto.business.order.item.ItemOrderCreateDTO;
 import com.eghm.dto.business.order.line.LineOrderCreateDTO;
@@ -167,6 +168,22 @@ public class OrderController {
         context.setApplyType(1);
         context.setNum(dto.getVisitorIds().size());
         redisLock.lockVoid(context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.HOMESTAY, HomestayEvent.REFUND_APPLY));
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/homestay/refundCancel", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("民宿退款申请取消")
+    public RespBody<Void> refundCancel(@RequestBody @Validated RefundCancelDTO dto) {
+        dto.setMemberId(ApiHolder.getMemberId());
+        redisLock.lockVoid(dto.getOrderNo(), 10_000, () -> orderService.refundCancel(dto));
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/homestay/lineCancel", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("线路退款申请取消")
+    public RespBody<Void> lineCancel(@RequestBody @Validated RefundCancelDTO dto) {
+        dto.setMemberId(ApiHolder.getMemberId());
+        redisLock.lockVoid(dto.getOrderNo(), 10_000, () -> orderService.refundCancel(dto));
         return RespBody.success();
     }
 

@@ -15,6 +15,7 @@ import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.order.OfflineRefundRequest;
+import com.eghm.dto.business.order.RefundCancelDTO;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.statistics.DateRequest;
@@ -70,6 +71,7 @@ import static com.eghm.constants.CacheConstant.*;
 import static com.eghm.constants.CommonConstant.COMMA;
 import static com.eghm.constants.ConfigConstant.MERCHANT_SALE_RANKING;
 import static com.eghm.constants.ConfigConstant.PRODUCT_SALE_RANKING;
+import static com.eghm.enums.ErrorCode.*;
 import static com.eghm.utils.StringUtil.isBlank;
 
 /**
@@ -283,9 +285,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public void offlineRefund(OfflineRefundRequest request) {
         Order order = this.getRefuningOrder(request.getOrderNo());
-
         boolean refundSuccess = orderRefundLogService.hasRefundSuccess(order.getOrderNo(), request.getVisitorList());
-
         if (refundSuccess) {
             log.warn("待线下退款的游客列表中, 存在退款中的游客 [{}] {}", request.getOrderNo(), request.getVisitorList());
             throw new BusinessException(ErrorCode.MEMBER_HAS_REFUNDING);
@@ -294,7 +294,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         offlineRefundLogService.insertLog(request);
         orderVisitorService.updateRefund(request.getVisitorList(), request.getOrderNo());
         // 计算主订单状态
-        OrderState orderState = orderVisitorService.getOrderState(order.getOrderNo());
+        OrderState orderState = orderVisitorService.getOrderState(order);
         order.setState(orderState);
         if (order.getState() == OrderState.CLOSE) {
             order.setCloseTime(LocalDateTime.now());
@@ -357,7 +357,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public void sipping(ItemSippingRequest request) {
         Order order = this.getByOrderNo(request.getOrderNo());
-        if (order.getState() != OrderState.WAIT_DELIVERY && order.getState() != OrderState.PARTIAL_DELIVERY) {
+        if (order.getState() != OrderState.WAIT_DELIVERY) {
             log.error("订单状态已发生变化,不支持发货 [{}] [{}]", request.getOrderNo(), order.getState());
             throw new BusinessException(ErrorCode.ORDER_PAID);
         }
@@ -388,8 +388,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         if (count == 0) {
             order.setState(OrderState.WAIT_RECEIVE);
             messageService.sendDelay(ExchangeQueue.ITEM_SIPPING, order.getOrderNo(), 14);
-        } else {
-            order.setState(OrderState.PARTIAL_DELIVERY);
         }
         baseMapper.updateById(order);
     }
@@ -601,6 +599,31 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             vo.setAmount(Optional.ofNullable(typedTuple.getScore()).orElse(0D).intValue());
             return vo;
         });
+    }
+
+    @Override
+    public void refundCancel(RefundCancelDTO dto) {
+        OrderRefundLog refundLog = orderRefundLogService.getVisitRefundLog(dto.getOrderNo(), dto.getVisitorId());
+        if (refundLog == null) {
+            log.error("退款记录不存在,订单号:[{}]", dto.getOrderNo());
+            throw new BusinessException(REFUND_LOG_NULL);
+        }
+        if (refundLog.getAuditState() == AuditState.CANCEL || refundLog.getAuditState() == AuditState.REFUSE) {
+            log.error("退款已取消,无法取消,订单号:[{}]", dto.getOrderNo());
+            throw new BusinessException(REFUND_LOG_CANCEL);
+        }
+        if (refundLog.getAuditState() == AuditState.PASS) {
+            log.error("退款审核通过,无法取消,订单号:[{}]", dto.getOrderNo());
+            throw new BusinessException(REFUND_LOG_AUDIT);
+        }
+        refundLog.setState(RefundLogState.CANCEL);
+        refundLog.setAuditState(AuditState.CANCEL);
+        refundLog.setOrderNo(dto.getOrderNo());
+        orderRefundLogService.updateById(refundLog);
+        orderVisitorService.refundVisitor(dto.getOrderNo(), refundLog.getId(), VisitorState.PAID);
+        Order order = this.getByOrderNo(dto.getOrderNo());
+        OrderState orderState = orderVisitorService.getOrderState(order);
+        this.updateState(dto.getOrderNo(), null, orderState);
     }
 
     /**
