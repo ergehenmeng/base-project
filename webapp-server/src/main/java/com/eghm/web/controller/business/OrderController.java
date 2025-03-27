@@ -171,22 +171,6 @@ public class OrderController {
         return RespBody.success();
     }
 
-    @PostMapping(value = "/homestay/refundCancel", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("民宿退款申请取消")
-    public RespBody<Void> refundCancel(@RequestBody @Validated RefundCancelDTO dto) {
-        dto.setMemberId(ApiHolder.getMemberId());
-        redisLock.lockVoid(dto.getOrderNo(), 10_000, () -> orderService.refundCancel(dto));
-        return RespBody.success();
-    }
-
-    @PostMapping(value = "/homestay/lineCancel", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("线路退款申请取消")
-    public RespBody<Void> lineCancel(@RequestBody @Validated RefundCancelDTO dto) {
-        dto.setMemberId(ApiHolder.getMemberId());
-        redisLock.lockVoid(dto.getOrderNo(), 10_000, () -> orderService.refundCancel(dto));
-        return RespBody.success();
-    }
-
     @PostMapping(value = "/voucher/refundApply", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("餐饮退款申请")
     public RespBody<Void> voucherRefundApply(@RequestBody @Validated VoucherRefundApplyDTO dto) {
@@ -214,6 +198,22 @@ public class OrderController {
         context.setNum(1);
         context.setMemberId(ApiHolder.getMemberId());
         redisLock.lockVoid(context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.VENUE, VenueEvent.REFUND_APPLY));
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/homestay/refundCancel", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("民宿退款申请取消")
+    public RespBody<Void> refundCancel(@RequestBody @Validated RefundCancelDTO dto) {
+        dto.setMemberId(ApiHolder.getMemberId());
+        redisLock.lockVoid(dto.getOrderNo(), 10_000, () -> orderService.refundCancel(dto));
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/homestay/lineCancel", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("线路退款申请取消")
+    public RespBody<Void> lineCancel(@RequestBody @Validated RefundCancelDTO dto) {
+        dto.setMemberId(ApiHolder.getMemberId());
+        redisLock.lockVoid(dto.getOrderNo(), 10_000, () -> orderService.refundCancel(dto));
         return RespBody.success();
     }
 

@@ -25,6 +25,6 @@ public class RefundCancelDTO {
     private Long visitorId;
 
     @Assign
-    @ApiModelProperty("用户id")
+    @ApiModelProperty(value = "用户id", hidden = true)
     private Long memberId;
 }
