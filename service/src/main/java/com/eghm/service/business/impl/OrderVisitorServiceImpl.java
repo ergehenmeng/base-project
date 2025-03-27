@@ -10,6 +10,7 @@ import com.eghm.enums.ProductType;
 import com.eghm.enums.VisitorState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderVisitorMapper;
+import com.eghm.model.Order;
 import com.eghm.model.OrderVisitor;
 import com.eghm.service.business.OrderVisitorRefundService;
 import com.eghm.service.business.OrderVisitorService;
@@ -157,18 +158,8 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
     }
 
     @Override
-    public OrderState getOrderState(String orderNo) {
-        List<OrderVisitor> visitorList = this.getByOrderNo(orderNo);
-        return this.getOrderState(visitorList);
-    }
-
-    /**
-     * 根据游客信息计算主订单的状态
-     *
-     * @param visitorList 游客信息
-     * @return 主订单状态
-     */
-    private OrderState getOrderState(List<OrderVisitor> visitorList) {
+    public OrderState getOrderState(Order order) {
+        List<OrderVisitor> visitorList = this.getByOrderNo(order.getOrderNo());
         Optional<OrderVisitor> optional = visitorList.stream().filter(orderVisitor -> orderVisitor.getState() == VisitorState.PAID).findFirst();
         if (optional.isPresent()) {
             return OrderState.UN_USED;
@@ -191,4 +182,5 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         // 全部退款完成
         return OrderState.CLOSE;
     }
+
 }

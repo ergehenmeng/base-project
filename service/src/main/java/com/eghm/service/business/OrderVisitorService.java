@@ -3,6 +3,7 @@ package com.eghm.service.business;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.ProductType;
 import com.eghm.enums.VisitorState;
+import com.eghm.model.Order;
 import com.eghm.model.OrderVisitor;
 import com.eghm.state.machine.dto.VisitorDTO;
 
@@ -107,9 +108,9 @@ public interface OrderVisitorService {
     /**
      * 根据游客信息计算主订单的状态
      *
-     * @param orderNo 订单编号
+     * @param order 订单
      * @return 主订单状态
      */
-    OrderState getOrderState(String orderNo);
+    OrderState getOrderState(Order order);
 
 }

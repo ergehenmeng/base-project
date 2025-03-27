@@ -29,7 +29,6 @@ import java.time.LocalDateTime;
 
 import static com.eghm.enums.ErrorCode.REFUND_AMOUNT_MAX;
 import static com.eghm.enums.ErrorCode.REFUND_DELIVERY;
-import static com.eghm.enums.OrderState.PARTIAL_DELIVERY;
 
 /**
  * 零售退款申请
@@ -138,8 +137,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
     @Override
     protected void orderStateCheck(ItemRefundApplyContext context, Order order) {
         if (order.getState() != OrderState.UN_USED && order.getState() != OrderState.WAIT_TAKE &&
-                order.getState() != OrderState.WAIT_DELIVERY && order.getState() != PARTIAL_DELIVERY &&
-                order.getState() != OrderState.WAIT_RECEIVE && order.getState() != OrderState.COMPLETE) {
+                order.getState() != OrderState.WAIT_DELIVERY && order.getState() != OrderState.WAIT_RECEIVE && order.getState() != OrderState.COMPLETE) {
             log.error("订单状态不是待使用或待发货, 无法退款 [{}] [{}]", context.getOrderNo(), order.getState());
             throw new BusinessException(ErrorCode.STATE_NOT_REFUND);
         }

@@ -51,11 +51,6 @@ public enum OrderState {
     WAIT_DELIVERY(4, "待发货"),
 
     /**
-     * 部分发货(已发货了一部分)
-     */
-    PARTIAL_DELIVERY(5, "部分发货"),
-
-    /**
      * 待收货(需要发货的商品)
      */
     WAIT_RECEIVE(6, "待收货"),
