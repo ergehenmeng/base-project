@@ -76,7 +76,7 @@ public interface OrderRefundLogMapper extends BaseMapper<OrderRefundLog> {
     List<ItemRefundResponse> getItemRefundLog(@Param("orderNo") String orderNo);
 
     /**
-     * 查询游客退款记录
+     * 查询游客退款记录, 注意: 由于游客可以针对某民宿, 线路类商品一个订单进行退款,退款取消, 因此会产生多条退款记录,优先最新一条
      *
      * @param orderNo 订单信息
      * @param visitorId 退款人信息

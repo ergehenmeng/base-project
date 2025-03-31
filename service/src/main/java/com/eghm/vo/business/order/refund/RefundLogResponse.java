@@ -41,6 +41,9 @@ public class RefundLogResponse {
     @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer expressFee;
 
+    @ApiModelProperty(value = "退款积分")
+    private Integer scoreAmount;
+
     @ApiModelProperty(value = "退款原因")
     private String reason;
 

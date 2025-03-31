@@ -17,6 +17,7 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.RefundCancelDTO;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
+import com.eghm.dto.business.order.refund.ItemRefundCancelDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.*;
@@ -69,6 +70,7 @@ import java.util.stream.Collectors;
 import static cn.hutool.core.text.StrSplitter.split;
 import static com.eghm.constants.CacheConstant.*;
 import static com.eghm.constants.CommonConstant.COMMA;
+import static com.eghm.constants.CommonConstant.RECEIVE_TIME;
 import static com.eghm.constants.ConfigConstant.MERCHANT_SALE_RANKING;
 import static com.eghm.constants.ConfigConstant.PRODUCT_SALE_RANKING;
 import static com.eghm.enums.ErrorCode.*;
@@ -381,13 +383,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             log.error("发货订单中存在无需发货的订单 [{}]", request.getOrderIds());
             throw new BusinessException(ErrorCode.CHOOSE_EXPRESS);
         }
-        orderList.forEach(itemOrder -> itemOrder.setDeliveryState(DeliveryState.WAIT_TAKE));
+        orderList.forEach(itemOrder -> {
+            itemOrder.setDeliveryState(DeliveryState.WAIT_TAKE);
+            itemOrder.setShipTime(LocalDateTime.now());
+        });
         itemOrderService.updateBatchById(orderList);
         orderExpressService.insert(request);
         Long count = itemOrderService.countWaitDelivery(request.getOrderNo());
         if (count == 0) {
             order.setState(OrderState.WAIT_RECEIVE);
-            messageService.sendDelay(ExchangeQueue.ITEM_SIPPING, order.getOrderNo(), 14);
+            messageService.sendDelay(ExchangeQueue.ITEM_SIPPING, order.getOrderNo(), RECEIVE_TIME);
         }
         baseMapper.updateById(order);
     }
@@ -604,18 +609,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public void refundCancel(RefundCancelDTO dto) {
         OrderRefundLog refundLog = orderRefundLogService.getVisitRefundLog(dto.getOrderNo(), dto.getVisitorId());
-        if (refundLog == null) {
-            log.error("退款记录不存在,订单号:[{}]", dto.getOrderNo());
-            throw new BusinessException(REFUND_LOG_NULL);
-        }
-        if (refundLog.getAuditState() == AuditState.CANCEL || refundLog.getAuditState() == AuditState.REFUSE) {
-            log.error("退款已取消,无法取消,订单号:[{}]", dto.getOrderNo());
-            throw new BusinessException(REFUND_LOG_CANCEL);
-        }
-        if (refundLog.getAuditState() == AuditState.PASS) {
-            log.error("退款审核通过,无法取消,订单号:[{}]", dto.getOrderNo());
-            throw new BusinessException(REFUND_LOG_AUDIT);
-        }
+        this.checkRefundCancel(refundLog, dto.getOrderNo());
         refundLog.setState(RefundLogState.CANCEL);
         refundLog.setAuditState(AuditState.CANCEL);
         refundLog.setOrderNo(dto.getOrderNo());
@@ -624,6 +618,63 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         Order order = this.getByOrderNo(dto.getOrderNo());
         OrderState orderState = orderVisitorService.getOrderState(order);
         this.updateState(dto.getOrderNo(), null, orderState);
+    }
+
+    @Override
+    public void itemRefundCancel(ItemRefundCancelDTO dto) {
+        OrderRefundLog refundLog = orderRefundLogService.getItemRefundLog(dto.getOrderNo(), dto.getItemOrderId());
+        this.checkRefundCancel(refundLog, dto.getOrderNo());
+        refundLog.setState(RefundLogState.CANCEL);
+        refundLog.setAuditState(AuditState.CANCEL);
+        refundLog.setOrderNo(dto.getOrderNo());
+        orderRefundLogService.updateById(refundLog);
+        Order order = this.getByOrderNo(dto.getOrderNo());
+        List<ItemOrder> itemOrderList = itemOrderService.getByOrderNo(dto.getOrderNo());
+        Optional<ItemOrder> optional = itemOrderList.stream().filter(itemOrder -> itemOrder.getId().equals(dto.getItemOrderId())).findFirst();
+        if (!optional.isPresent()) {
+            log.error("退款取消查询订单信息为空 [{}] [{}]", dto.getOrderNo(), dto.getItemOrderId());
+            throw new BusinessException(ORDER_NOT_FOUND);
+        }
+        ItemOrder itemOrder = optional.get();
+        // 判断是否还有未发货的商品, 如果有则订单为待发货
+        boolean match = itemOrderList.stream().anyMatch(item -> item.getShipTime() == null);
+        if (match) {
+            order.setState(OrderState.WAIT_DELIVERY);
+        } else {
+            // 如果没有则判断是否已经超过收货时间, 超过收货时间则订单为已完成
+            Optional<ItemOrder> orderOptional = itemOrderList.stream().max(Comparator.comparing(ItemOrder::getShipTime));
+            if (orderOptional.get().getShipTime().plusSeconds(RECEIVE_TIME).isBefore(LocalDateTime.now())) {
+                order.setState(OrderState.COMPLETE);
+                order.setCompleteTime(LocalDateTime.now());
+                orderMQService.sendOrderCompleteMessage(ExchangeQueue.ITEM_COMPLETE_DELAY, order.getOrderNo());
+            } else {
+                order.setState(OrderState.WAIT_RECEIVE);
+            }
+        }
+        order.setRefundState(RefundState.NONE);
+        itemOrder.setRefundState(ItemRefundState.INIT);
+        baseMapper.updateById(order);
+    }
+
+    /**
+     * 检查退款记录是否可以取消
+     *
+     * @param refundLog 退款记录
+     * @param orderNo  订单号
+     */
+    private void checkRefundCancel(OrderRefundLog refundLog, String orderNo) {
+        if (refundLog == null) {
+            log.error("退款记录不存在,订单号:[{}]", orderNo);
+            throw new BusinessException(REFUND_LOG_NULL);
+        }
+        if (refundLog.getAuditState() == AuditState.CANCEL || refundLog.getAuditState() == AuditState.REFUSE) {
+            log.error("退款已取消,无法取消,订单号:[{}] [{}]", refundLog.getOrderNo(), refundLog.getItemOrderId());
+            throw new BusinessException(REFUND_LOG_CANCEL);
+        }
+        if (refundLog.getAuditState() == AuditState.PASS) {
+            log.error("退款审核通过,无法取消,订单号:[{}] [{}]", refundLog.getOrderNo(), refundLog.getItemOrderId());
+            throw new BusinessException(REFUND_LOG_AUDIT);
+        }
     }
 
     /**

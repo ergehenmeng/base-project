@@ -33,6 +33,9 @@ public class ItemRefundResponse {
     @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer refundAmount;
 
+    @ApiModelProperty(value = "退款积分")
+    private Integer scoreAmount;
+
     @ApiModelProperty(value = "退款原因")
     private String reason;
 

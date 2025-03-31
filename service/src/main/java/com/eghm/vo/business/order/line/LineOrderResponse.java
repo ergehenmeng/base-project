@@ -43,7 +43,7 @@ public class LineOrderResponse extends ExcelStyle {
     @ExcelProperty(value = "旅行社名称", index = 2)
     private String travelName;
 
-    @ApiModelProperty(value = "订单状态 0:待支付 1:支付中 2:待使用 3:待自提 4:待发货 5:部分发货 6:待收货 7:退款中 8:订单完成 9:已关闭 10:支付异常 11:退款异常")
+    @ApiModelProperty(value = "订单状态 0:待支付 1:支付中 2:待使用 3:待自提 4:待发货 5:待收货 6:退款中 7:订单完成 8:已关闭 9:支付异常 10:退款异常")
     @ExcelProperty(value = "订单状态", index = 3, converter = EnumExcelConverter.class)
     private OrderState state;
 

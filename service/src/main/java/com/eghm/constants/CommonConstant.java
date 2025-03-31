@@ -72,6 +72,11 @@ public class CommonConstant {
     public static final String COMMA = ",";
 
     /**
+     * 发货后默认14天自动收货
+     */
+    public static final int RECEIVE_TIME = 1209600;
+
+    /**
      * 特殊分隔符
      */
     public static final String SPECIAL_SPLIT = "@";

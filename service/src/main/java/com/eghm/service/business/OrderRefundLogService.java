@@ -38,13 +38,22 @@ public interface OrderRefundLogService {
     OrderRefundLog selectByIdRequired(Long id);
 
     /**
-     * 根据订单号查询退款记录
-     *
+     * 根据订单号查询退款记录<br/>
+     * 注意: 由于游客可以针对某民宿, 线路类商品一个订单进行退款,退款取消, 因此会产生多条退款记录,优先最新一条
      * @param orderNo 订单号
      * @param visitorId 退款人信息
      * @return 退款记录
      */
     OrderRefundLog getVisitRefundLog(String orderNo, Long visitorId);
+
+    /**
+     * 根据订单号和商品订单id查询退款记录
+     *
+     * @param orderNo 订单编号
+     * @param itemOrderId 商品订单id
+     * @return 退款记录
+     */
+    OrderRefundLog getItemRefundLog(String orderNo, Long itemOrderId);
 
     /**
      * 根据id更新退款记录

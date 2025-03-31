@@ -3,6 +3,7 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
+import com.eghm.dto.business.order.refund.ItemRefundCancelDTO;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.BookingState;
 import com.eghm.enums.OrderState;
@@ -281,4 +282,11 @@ public interface OrderService extends IService<Order> {
      * @param dto 退款信息
      */
     void refundCancel(RefundCancelDTO dto);
+
+    /**
+     * 零售用户主动退款取消
+     *
+     * @param dto 退款信息
+     */
+    void itemRefundCancel(ItemRefundCancelDTO dto);
 }

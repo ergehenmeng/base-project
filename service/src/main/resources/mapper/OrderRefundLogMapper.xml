@@ -36,6 +36,7 @@
             t.num,
             t.refund_amount,
             t.express_fee,
+            t.score_amount,
             t.reason,
             t.state,
             t.audit_state,
@@ -87,7 +88,7 @@
             r.cover_url,
             t.order_no,
             t.num,
-            t.apply_amount,
+            t.score_amount,
             t.express_fee,
             t.refund_amount,
             t.reason,
@@ -110,7 +111,7 @@
             t.id,
             t.order_no,
             t.num,
-            t.apply_amount,
+            t.score_amount,
             t.express_fee,
             t.refund_amount,
             t.reason,
@@ -124,7 +125,7 @@
             t.create_time,
             t.update_time
         from order_refund_log t left join order_visitor_refund r on t.id = r.refund_id
-        where t.order_no = #{orderNo} and t.deleted = false and r.visitor_id = #{visitorId}
+        where t.order_no = #{orderNo} and t.deleted = false and r.visitor_id = #{visitorId} order by id desc limit 1
     </select>
 
 </mapper>

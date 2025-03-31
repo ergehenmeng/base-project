@@ -55,6 +55,16 @@ public class OrderRefundLogServiceImpl implements OrderRefundLogService {
     }
 
     @Override
+    public OrderRefundLog getItemRefundLog(String orderNo, Long itemOrderId) {
+        LambdaQueryWrapper<OrderRefundLog> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(OrderRefundLog::getOrderNo, orderNo);
+        wrapper.eq(OrderRefundLog::getItemOrderId, itemOrderId);
+        wrapper.orderByDesc(OrderRefundLog::getId);
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        return orderRefundLogMapper.selectOne(wrapper);
+    }
+
+    @Override
     public void updateById(OrderRefundLog log) {
         orderRefundLogMapper.updateById(log);
     }
