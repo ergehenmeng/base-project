@@ -1450,6 +1450,7 @@ CREATE TABLE `item_order`
     `quota`          smallint(3)   DEFAULT '1' COMMENT '限购数量',
     `delivery_type`  tinyint(1)    DEFAULT NULL COMMENT '交付方式 1:门店自提 2:快递包邮',
     `introduce`      longtext COMMENT '商品介绍信息',
+    `ship_time`      datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '发货时间',
     `create_time`    datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`        bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',

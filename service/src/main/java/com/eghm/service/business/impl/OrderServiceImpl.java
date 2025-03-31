@@ -70,6 +70,7 @@ import java.util.stream.Collectors;
 import static cn.hutool.core.text.StrSplitter.split;
 import static com.eghm.constants.CacheConstant.*;
 import static com.eghm.constants.CommonConstant.COMMA;
+import static com.eghm.constants.CommonConstant.RECEIVE_TIME;
 import static com.eghm.constants.ConfigConstant.MERCHANT_SALE_RANKING;
 import static com.eghm.constants.ConfigConstant.PRODUCT_SALE_RANKING;
 import static com.eghm.enums.ErrorCode.*;
@@ -624,8 +625,32 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         refundLog.setAuditState(AuditState.CANCEL);
         refundLog.setOrderNo(dto.getOrderNo());
         orderRefundLogService.updateById(refundLog);
+        Order order = this.getByOrderNo(dto.getOrderNo());
         List<ItemOrder> itemOrderList = itemOrderService.getByOrderNo(dto.getOrderNo());
-
+        Optional<ItemOrder> optional = itemOrderList.stream().filter(itemOrder -> itemOrder.getId().equals(dto.getItemOrderId())).findFirst();
+        if (optional.isEmpty()) {
+            log.error("退款取消查询订单信息为空 [{}] [{}]", dto.getOrderNo(), dto.getItemOrderId());
+            throw new BusinessException(ORDER_NOT_FOUND);
+        }
+        ItemOrder itemOrder = optional.get();
+        // 判断是否还有未发货的商品, 如果有则订单为待发货
+        boolean match = itemOrderList.stream().anyMatch(item -> item.getShipTime() == null);
+        if (match) {
+            order.setState(OrderState.WAIT_DELIVERY);
+        } else {
+            // 如果没有则判断是否已经超过收货时间, 超过收货时间则订单为已完成
+            Optional<ItemOrder> orderOptional = itemOrderList.stream().max(Comparator.comparing(ItemOrder::getShipTime));
+            if (orderOptional.get().getShipTime().plusSeconds(RECEIVE_TIME).isBefore(LocalDateTime.now())) {
+                order.setState(OrderState.COMPLETE);
+                order.setCompleteTime(LocalDateTime.now());
+                orderMQService.sendOrderCompleteMessage(ExchangeQueue.ITEM_COMPLETE_DELAY, order.getOrderNo());
+            } else {
+                order.setState(OrderState.WAIT_RECEIVE);
+            }
+        }
+        order.setRefundState(RefundState.NONE);
+        itemOrder.setRefundState(ItemRefundState.INIT);
+        baseMapper.updateById(order);
     }
 
     /**

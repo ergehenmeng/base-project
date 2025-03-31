@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 商品订单表
@@ -32,6 +34,9 @@ public class ItemOrder extends BaseEntity {
 
     @Schema(description = "配送状态 0:初始 1:待发货 2:待收货 3:待自提 4:已收货")
     private DeliveryState deliveryState;
+
+    @Schema(description = "发货时间")
+    private LocalDateTime shipTime;
 
     @Schema(description = "数量")
     private Integer num;
