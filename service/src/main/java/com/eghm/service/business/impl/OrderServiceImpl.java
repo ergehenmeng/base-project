@@ -17,6 +17,7 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.RefundCancelDTO;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
+import com.eghm.dto.business.order.refund.ItemRefundCancelDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.*;
@@ -604,18 +605,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public void refundCancel(RefundCancelDTO dto) {
         OrderRefundLog refundLog = orderRefundLogService.getVisitRefundLog(dto.getOrderNo(), dto.getVisitorId());
-        if (refundLog == null) {
-            log.error("退款记录不存在,订单号:[{}]", dto.getOrderNo());
-            throw new BusinessException(REFUND_LOG_NULL);
-        }
-        if (refundLog.getAuditState() == AuditState.CANCEL || refundLog.getAuditState() == AuditState.REFUSE) {
-            log.error("退款已取消,无法取消,订单号:[{}]", dto.getOrderNo());
-            throw new BusinessException(REFUND_LOG_CANCEL);
-        }
-        if (refundLog.getAuditState() == AuditState.PASS) {
-            log.error("退款审核通过,无法取消,订单号:[{}]", dto.getOrderNo());
-            throw new BusinessException(REFUND_LOG_AUDIT);
-        }
+        this.checkRefundCancel(refundLog, dto.getOrderNo());
         refundLog.setState(RefundLogState.CANCEL);
         refundLog.setAuditState(AuditState.CANCEL);
         refundLog.setOrderNo(dto.getOrderNo());
@@ -624,6 +614,39 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         Order order = this.getByOrderNo(dto.getOrderNo());
         OrderState orderState = orderVisitorService.getOrderState(order);
         this.updateState(dto.getOrderNo(), null, orderState);
+    }
+
+    @Override
+    public void itemRefundCancel(ItemRefundCancelDTO dto) {
+        OrderRefundLog refundLog = orderRefundLogService.getItemRefundLog(dto.getOrderNo(), dto.getItemOrderId());
+        this.checkRefundCancel(refundLog, dto.getOrderNo());
+        refundLog.setState(RefundLogState.CANCEL);
+        refundLog.setAuditState(AuditState.CANCEL);
+        refundLog.setOrderNo(dto.getOrderNo());
+        orderRefundLogService.updateById(refundLog);
+        List<ItemOrder> itemOrderList = itemOrderService.getByOrderNo(dto.getOrderNo());
+
+    }
+
+    /**
+     * 检查退款记录是否可以取消
+     *
+     * @param refundLog 退款记录
+     * @param orderNo   订单号
+     */
+    private void checkRefundCancel(OrderRefundLog refundLog, String orderNo) {
+        if (refundLog == null) {
+            log.error("退款记录不存在,订单号:[{}]", orderNo);
+            throw new BusinessException(REFUND_LOG_NULL);
+        }
+        if (refundLog.getAuditState() == AuditState.CANCEL || refundLog.getAuditState() == AuditState.REFUSE) {
+            log.error("退款已取消,无法取消,订单号:[{}] [{}]", refundLog.getOrderNo(), refundLog.getItemOrderId());
+            throw new BusinessException(REFUND_LOG_CANCEL);
+        }
+        if (refundLog.getAuditState() == AuditState.PASS) {
+            log.error("退款审核通过,无法取消,订单号:[{}] [{}]", refundLog.getOrderNo(), refundLog.getItemOrderId());
+            throw new BusinessException(REFUND_LOG_AUDIT);
+        }
     }
 
     /**

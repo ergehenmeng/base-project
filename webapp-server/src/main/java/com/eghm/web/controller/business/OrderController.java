@@ -55,7 +55,7 @@ import static com.eghm.utils.StringUtil.isNotBlank;
  */
 @AccessToken
 @RestController
-@Tag(name="订单")
+@Tag(name = "订单")
 @AllArgsConstructor
 @RequestMapping(value = "/webapp/order", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrderController {
@@ -213,22 +213,21 @@ public class OrderController {
         return RespBody.success();
     }
 
-    @PostMapping(value = "/homestay/refundCancel", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "民宿退款申请取消")
-    public RespBody<Void> refundCancel(@RequestBody @Validated RefundCancelDTO dto) {
+    @PostMapping(value = {"/homestay/refundCancel", "/line/refundCancel"}, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "民宿/线路退款申请取消")
+    public RespBody<Void> homestayCancel(@RequestBody @Validated RefundCancelDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         redisLock.lockVoid(dto.getOrderNo(), 10_000, () -> orderService.refundCancel(dto));
         return RespBody.success();
     }
 
-    @PostMapping(value = "/homestay/lineCancel", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "线路退款申请取消")
-    public RespBody<Void> lineCancel(@RequestBody @Validated RefundCancelDTO dto) {
+    @PostMapping(value = {"/item/refundCancel"}, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "零售退款申请取消")
+    public RespBody<Void> itemCancel(@RequestBody @Validated ItemRefundCancelDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
-        redisLock.lockVoid(dto.getOrderNo(), 10_000, () -> orderService.refundCancel(dto));
+        redisLock.lockVoid(dto.getOrderNo(), 10_000, () -> orderService.itemRefundCancel(dto));
         return RespBody.success();
     }
-
 
     @GetMapping("/refresh")
     @Operation(summary = "刷新核销码")
@@ -264,7 +263,7 @@ public class OrderController {
     /**
      * 创建零售订单订单
      *
-     * @param dto dto
+     * @param dto            dto
      * @param isGroupBooking 是否为拼团订单
      * @return 订单
      */
