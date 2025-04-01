@@ -40,6 +40,6 @@
         <if test="param.endDate != null">
             and t.payment_time &lt; #{param.endDate}
         </if>
-        order by id desc
+        order by t.id desc
     </select>
 </mapper>
