@@ -74,18 +74,18 @@ public class TicketResponse extends ExcelStyle {
     private Integer stock;
 
     @Schema(description = "是否实名 false:不实名 true:实名")
-    @ExcelProperty(value = "是否实名", index = 10, converter = BooleanExcelConverter.class)
+    @ExcelProperty(value = "是否实名", index = 9, converter = BooleanExcelConverter.class)
     private Boolean realBuy;
 
     @Schema(description = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "创建时间", index = 11)
+    @ExcelProperty(value = "创建时间", index = 10)
     @DateTimeFormat(value = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @Schema(description = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "更新时间", index = 12)
+    @ExcelProperty(value = "更新时间", index = 11)
     @DateTimeFormat(value = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }
