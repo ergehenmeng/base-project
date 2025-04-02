@@ -7,7 +7,7 @@ import com.eghm.dto.business.coupon.config.CouponEditRequest;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.dto.business.coupon.config.CouponQueryRequest;
 import com.eghm.dto.business.coupon.product.CouponProductDTO;
-import com.eghm.dto.ext.ApiHolder;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.UseScope;

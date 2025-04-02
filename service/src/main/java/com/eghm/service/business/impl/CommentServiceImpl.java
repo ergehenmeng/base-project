@@ -12,7 +12,7 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.comment.CommentDTO;
 import com.eghm.dto.business.comment.CommentQueryDTO;
 import com.eghm.dto.business.comment.CommentQueryRequest;
-import com.eghm.dto.ext.ApiHolder;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ObjectType;
 import com.eghm.exception.BusinessException;

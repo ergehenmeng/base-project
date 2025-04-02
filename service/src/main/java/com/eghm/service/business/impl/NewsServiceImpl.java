@@ -9,7 +9,7 @@ import com.eghm.constants.CacheConstant;
 import com.eghm.dto.business.news.NewsAddRequest;
 import com.eghm.dto.business.news.NewsEditRequest;
 import com.eghm.dto.business.news.NewsQueryRequest;
-import com.eghm.dto.ext.ApiHolder;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.CollectType;
 import com.eghm.enums.ErrorCode;
