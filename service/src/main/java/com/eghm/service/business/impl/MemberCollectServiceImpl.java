@@ -8,7 +8,7 @@ import com.eghm.cache.CacheService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.collect.CollectQueryDTO;
-import com.eghm.dto.ext.ApiHolder;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.statistics.CollectRequest;
 import com.eghm.enums.CollectType;
 import com.eghm.enums.SelectType;

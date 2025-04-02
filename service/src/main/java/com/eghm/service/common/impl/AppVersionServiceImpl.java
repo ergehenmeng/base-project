@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.AlarmService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.ext.ApiHolder;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.operate.version.VersionAddRequest;
 import com.eghm.dto.operate.version.VersionEditRequest;
 import com.eghm.dto.operate.version.VersionQueryRequest;

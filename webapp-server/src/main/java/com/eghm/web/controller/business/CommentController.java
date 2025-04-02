@@ -4,7 +4,7 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.comment.CommentDTO;
 import com.eghm.dto.business.comment.CommentQueryDTO;
 import com.eghm.dto.business.comment.CommentReportDTO;
-import com.eghm.dto.ext.ApiHolder;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.CommentReportService;
 import com.eghm.service.business.CommentService;

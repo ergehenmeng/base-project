@@ -4,7 +4,7 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.item.ConfirmReceiptDTO;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
-import com.eghm.dto.ext.ApiHolder;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.VisitType;
 import com.eghm.service.business.ItemOrderService;
