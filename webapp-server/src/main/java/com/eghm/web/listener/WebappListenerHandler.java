@@ -83,7 +83,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
     private final OrderEvaluationService orderEvaluationService;
 
     public WebappListenerHandler(JsonService jsonService, AlarmService alarmService, RedisLock redisLock, LineService lineService, JsonService jsonService1, ItemService itemService, LoginService loginService, CacheService cacheService, StateHandler stateHandler, OrderService orderService, VenueService venueService, HomestayService homestayService, WebappLogService webappLogService, OrderProxyService orderProxyService, RestaurantService restaurantService, ScenicTicketService scenicTicketService, GroupBookingService groupBookingService, ItemGroupOrderService itemGroupOrderService, MemberVisitLogService memberVisitLogService, OrderEvaluationService orderEvaluationService) {
-        super(jsonService, alarmService);
+        super(redisLock, jsonService, alarmService);
         this.redisLock = redisLock;
         this.lineService = lineService;
         this.jsonService = jsonService1;
@@ -187,7 +187,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.TICKET_ORDER_QUEUE)
     public void ticketOrder(TicketOrderCreateContext context, Message message, Channel channel) throws IOException {
-        this.processMessageAckAsync(context, message, channel, order -> {
+        this.processMessageAckAsyncLock(LockConstant.TICKET_ORDER_LOCK + context.getTicketId(), context, message, channel, order -> {
             stateHandler.fireEvent(ProductType.TICKET, OrderState.NONE.getValue(), TicketEvent.CREATE_QUEUE, context);
             cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
         });
@@ -200,7 +200,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.ITEM_ORDER_QUEUE)
     public void itemOrder(ItemOrderCreateContext context, Message message, Channel channel) throws IOException {
-        this.processMessageAckAsync(context, message, channel, order -> {
+        this.processMessageAckAsyncLock(LockConstant.ITEM_ORDER_LOCK + context.getMemberId(), context, message, channel, order -> {
             stateHandler.fireEvent(ProductType.ITEM, OrderState.NONE.getValue(), ItemEvent.CREATE_QUEUE, context);
             cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
         });
@@ -213,7 +213,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.LINE_ORDER_QUEUE)
     public void lineOrder(LineOrderCreateContext context, Message message, Channel channel) throws IOException {
-        this.processMessageAckAsync(context, message, channel, order -> {
+        this.processMessageAckAsyncLock(LockConstant.LINE_ORDER_LOCK + context.getLineId(), context, message, channel, order -> {
             stateHandler.fireEvent(ProductType.LINE, OrderState.NONE.getValue(), LineEvent.CREATE_QUEUE, context);
             cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
         });
@@ -226,7 +226,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.HOMESTAY_ORDER_QUEUE)
     public void homestayOrder(HomestayOrderCreateContext context, Message message, Channel channel) throws IOException {
-        this.processMessageAckAsync(context, message, channel, order -> {
+        this.processMessageAckAsyncLock(LockConstant.HOMESTAY_ORDER_LOCK + context.getRoomId(), context, message, channel, order -> {
             stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.NONE.getValue(), HomestayEvent.CREATE_QUEUE, context);
             cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
         });
@@ -239,7 +239,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.VOUCHER_ORDER_QUEUE)
     public void voucherOrder(VoucherOrderCreateContext context, Message message, Channel channel) throws IOException {
-        this.processMessageAckAsync(context, message, channel, order -> {
+        this.processMessageAckAsyncLock(LockConstant.VOUCHER_ORDER_LOCK + context.getCouponId(), context, message, channel, order -> {
             stateHandler.fireEvent(ProductType.VOUCHER, OrderState.NONE.getValue(), VoucherEvent.CREATE_QUEUE, context);
             cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
         });
@@ -342,16 +342,14 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.ITEM_REFUND_CONFIRM_QUEUE)
     public void refundConfirm(RefundAudit audit, Message message, Channel channel) throws IOException {
-        processMessageAck(audit, message, channel, a -> {
-            RefundAuditContext context = DataUtil.copy(audit, RefundAuditContext.class);
-            context.setState(1);
-            context.setAuditUserId(1L);
-            // 备注信息标注是谁审批的 方便快速查看
-            context.setAuditRemark("系统: 自动审核通过");
-            redisLock.lockVoid(LockConstant.ORDER_LOCK + audit.getOrderNo(), 10_000, () ->
-                    stateHandler.fireEvent(ProductType.ITEM, OrderState.REFUND.getValue(), ItemEvent.REFUND_PASS, context)
-            );
-        });
+        RefundAuditContext context = DataUtil.copy(audit, RefundAuditContext.class);
+        context.setState(1);
+        context.setAuditUserId(1L);
+        // 备注信息标注是谁审批的 方便快速查看
+        context.setAuditRemark("系统: 自动审核通过");
+        processMessageAckLock(LockConstant.ORDER_LOCK + audit.getOrderNo(), audit, message, channel, a ->
+                stateHandler.fireEvent(ProductType.ITEM, OrderState.REFUND.getValue(), ItemEvent.REFUND_PASS, context)
+        );
     }
 
     /**
@@ -445,11 +443,11 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      * @param <T>      消息类型
      * @throws IOException e
      */
-    public <T extends BaseAsyncKey> void processMessageAckAsync(T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
+    public <T extends BaseAsyncKey> void processMessageAckAsyncLock(String lockKey, T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
         try {
             log.info("开始处理MQ异步消息 [{}]", jsonService.toJson(msg));
             if (this.canConsumer(msg.getKey())) {
-                consumer.accept(msg);
+                redisLock.lockVoid(lockKey, 10_000, () -> consumer.accept(msg));
                 // 消费成功,将结果放入缓存方便前端查询结果
                 cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), SUCCESS_PLACE_HOLDER, CommonConstant.ASYNC_MSG_EXPIRE);
             } else {

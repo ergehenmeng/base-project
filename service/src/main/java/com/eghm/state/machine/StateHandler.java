@@ -13,8 +13,6 @@ import com.eghm.exception.BusinessException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.EnumMap;
@@ -75,7 +73,6 @@ public class StateHandler {
      * @param event       事件
      * @param context     上下文内容
      */
-    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void fireEvent(ProductType machineType, Integer from, IEvent event, Context context) {
         this.getStateMachine(machineType).fireEvent(from, event, context);
     }

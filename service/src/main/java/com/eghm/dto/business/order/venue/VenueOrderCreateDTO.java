@@ -16,10 +16,6 @@ import java.util.List;
 @Data
 public class VenueOrderCreateDTO {
 
-    @ApiModelProperty(value = "场次id", required = true)
-    @NotNull(message = "请选择场次")
-    private Long venueSiteId;
-
     @ApiModelProperty(value = "时间段id", required = true)
     @NotEmpty(message = "请选择时间段")
     private List<Long> phaseList;
