@@ -1,7 +1,6 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.net.NetUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
@@ -18,8 +17,8 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.member.*;
 import com.eghm.dto.business.statistics.DateRequest;
-import com.eghm.dto.operate.email.SendEmail;
 import com.eghm.dto.ext.*;
+import com.eghm.dto.operate.email.SendEmail;
 import com.eghm.dto.sys.login.AccountLoginDTO;
 import com.eghm.dto.sys.login.SmsLoginDTO;
 import com.eghm.dto.sys.register.AccountRegisterDTO;
@@ -40,13 +39,13 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
 import com.eghm.utils.RegExpUtil;
 import com.eghm.utils.StringUtil;
+import com.eghm.vo.business.member.MemberResponse;
+import com.eghm.vo.business.member.MemberVO;
 import com.eghm.vo.business.statistics.MemberChannelVO;
 import com.eghm.vo.business.statistics.MemberRegisterVO;
 import com.eghm.vo.business.statistics.MemberSexVO;
 import com.eghm.vo.business.statistics.MemberStatisticsVO;
 import com.eghm.vo.login.LoginTokenVO;
-import com.eghm.vo.business.member.MemberResponse;
-import com.eghm.vo.business.member.MemberVO;
 import com.eghm.wechat.WeChatMiniService;
 import com.eghm.wechat.WeChatMpService;
 import com.google.common.collect.Lists;
@@ -115,7 +114,7 @@ public class MemberServiceImpl implements MemberService {
         this.checkMemberLock(member);
         RequestMessage request = ApiHolder.get();
         LoginDevice loginLog = loginService.getBySerialNumber(member.getId(), request.getSerialNumber());
-        if (loginLog == null && StrUtil.isNotBlank(member.getMobile())) {
+        if (loginLog == null && StringUtil.isNotBlank(member.getMobile())) {
             // 新设备登陆时,如果使用密码登陆需要验证短信,当然前提是用户已经绑定手机号码
             throw new DataException(ErrorCode.NEW_DEVICE_LOGIN, member.getMobile());
         }
@@ -204,7 +203,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void bindEmail(BindEmailDTO request) {
         Member member = memberMapper.selectById(request.getMemberId());
-        if (StrUtil.isNotBlank(member.getEmail())) {
+        if (StringUtil.isNotBlank(member.getEmail())) {
             throw new BusinessException(ErrorCode.EMAIL_REDO_BIND);
         }
         VerifyEmailCode emailCode = DataUtil.copy(request, VerifyEmailCode.class);
@@ -217,7 +216,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void sendChangeEmailSms(Long memberId, String ip) {
         Member member = memberMapper.selectById(memberId);
-        if (StrUtil.isBlank(member.getMobile())) {
+        if (StringUtil.isBlank(member.getMobile())) {
             log.warn("未绑定手机号,无法发送邮箱验证短信 memberId:[{}]", memberId);
             throw new BusinessException(ErrorCode.MOBILE_NOT_BIND);
         }
@@ -456,7 +455,7 @@ public class MemberServiceImpl implements MemberService {
         member.setCreateDate(LocalDate.now());
         member.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         member.setInviteCode(StringUtil.encryptNumber(member.getId()));
-        if (StrUtil.isBlank(member.getNickName())) {
+        if (StringUtil.isBlank(member.getNickName())) {
             member.setNickName(sysConfigApi.getString(ConfigConstant.NICK_NAME_PREFIX) + System.nanoTime());
         }
         memberMapper.insert(member);

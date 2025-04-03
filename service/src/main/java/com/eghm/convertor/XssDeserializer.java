@@ -1,7 +1,7 @@
 package com.eghm.convertor;
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HtmlUtil;
+import com.eghm.utils.StringUtil;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
@@ -23,7 +23,7 @@ public class XssDeserializer extends StdScalarDeserializer<String> {
     @Override
     public String deserialize(JsonParser p, DeserializationContext context) throws IOException {
         String text = p.getText();
-        if (StrUtil.isNotBlank(text)) {
+        if (StringUtil.isNotBlank(text)) {
             text = HtmlUtil.escape(text);
         }
         return text;

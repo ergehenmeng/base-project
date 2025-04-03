@@ -2,7 +2,6 @@ package com.eghm.web.configuration.interceptor;
 
 import cn.hutool.core.codec.Base64Encoder;
 import cn.hutool.core.util.HexUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.crypto.SignUtil;
 import cn.hutool.crypto.asymmetric.Sign;
@@ -16,6 +15,7 @@ import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.SignType;
 import com.eghm.exception.BusinessException;
+import com.eghm.utils.StringUtil;
 import com.eghm.utils.WebUtil;
 import com.eghm.vo.operate.auth.AuthConfigVO;
 import com.eghm.web.annotation.AccessSign;
@@ -48,7 +48,7 @@ public class AccessSignInterceptor implements InterceptorAdapter {
             return true;
         }
         RequestMessage message = ApiHolder.get();
-        if (StrUtil.isBlank(message.getAppKey()) || StrUtil.isBlank(message.getSignature()) || StrUtil.isBlank(message.getTimestamp())) {
+        if (StringUtil.isBlank(message.getAppKey()) || StringUtil.isBlank(message.getSignature()) || StringUtil.isBlank(message.getTimestamp())) {
             log.warn("请求头签名信息不全 [{}] [{}] [{}]", message.getAppKey(), message.getSignature(), message.getTimestamp());
             WebUtil.printJson(response, ErrorCode.SIGNATURE_ERROR);
             return false;

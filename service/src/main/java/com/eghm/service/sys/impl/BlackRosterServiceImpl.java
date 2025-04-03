@@ -2,7 +2,6 @@ package com.eghm.service.sys.impl;
 
 import cn.hutool.core.lang.PatternPool;
 import cn.hutool.core.net.Ipv4Util;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -16,6 +15,7 @@ import com.eghm.mapper.BlackRosterMapper;
 import com.eghm.model.BlackRoster;
 import com.eghm.service.sys.BlackRosterService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -39,7 +39,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
     @Override
     public Page<BlackRoster> getByPage(PagingQuery request) {
         LambdaQueryWrapper<BlackRoster> wrapper = Wrappers.lambdaQuery();
-        if (StrUtil.isNotBlank(request.getQueryName())) {
+        if (StringUtil.isNotBlank(request.getQueryName())) {
             if (PatternPool.IPV4.matcher(request.getQueryName()).matches()) {
                 long aLong = Ipv4Util.ipv4ToLong(request.getQueryName());
                 wrapper.ge(BlackRoster::getEndIp, aLong);

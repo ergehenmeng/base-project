@@ -1,7 +1,6 @@
 package com.eghm.service.operate.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.dfa.FoundWord;
 import cn.hutool.dfa.SensitiveUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -12,6 +11,7 @@ import com.eghm.mapper.SensitiveWordMapper;
 import com.eghm.model.SensitiveWord;
 import com.eghm.service.operate.SensitiveWordService;
 import com.eghm.utils.LoggerUtil;
+import com.eghm.utils.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -39,7 +39,7 @@ public class SensitiveWordServiceImpl implements SensitiveWordService {
     @Override
     public Page<SensitiveWord> getByPage(PagingQuery query) {
         LambdaQueryWrapper<SensitiveWord> wrapper = Wrappers.lambdaQuery();
-        if (StrUtil.isNotBlank(query.getQueryName())) {
+        if (StringUtil.isNotBlank(query.getQueryName())) {
             List<FoundWord> wordList = SensitiveUtil.getFoundAllSensitive(query.getQueryName());
             if (CollUtil.isEmpty(wordList)) {
                 return new Page<>();

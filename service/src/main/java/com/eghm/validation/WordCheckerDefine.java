@@ -1,8 +1,8 @@
 package com.eghm.validation;
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.dfa.FoundWord;
 import cn.hutool.dfa.SensitiveUtil;
+import com.eghm.utils.StringUtil;
 import com.eghm.validation.annotation.WordChecker;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,7 +20,7 @@ public class WordCheckerDefine implements ConstraintValidator<WordChecker, Strin
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (StrUtil.isBlank(value)) {
+        if (StringUtil.isBlank(value)) {
             return true;
         }
         FoundWord sensitive = SensitiveUtil.getFoundFirstSensitive(value);

@@ -1,14 +1,15 @@
 package com.eghm.pay.service.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.payment.common.models.AlipayTradeCreateResponse;
 import com.alipay.easysdk.payment.common.models.AlipayTradeFastpayRefundQueryResponse;
 import com.alipay.easysdk.payment.common.models.AlipayTradeQueryResponse;
 import com.alipay.easysdk.payment.common.models.AlipayTradeRefundResponse;
 import com.alipay.easysdk.payment.facetoface.models.AlipayTradePrecreateResponse;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.CommonConstant;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.AliPayException;
 import com.eghm.exception.BusinessException;
@@ -31,6 +32,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+import static com.eghm.utils.StringUtil.isNotBlank;
+
 /**
  * @author 二哥很猛
  * @since 2022/7/24
@@ -44,6 +47,8 @@ public class AliPayServiceImpl implements PayService {
      * 退款成功
      */
     private static final String REFUND_SUCCESS = "REFUND_SUCCESS";
+
+    private final SysConfigApi sysConfigApi;
 
     private final SystemProperties systemProperties;
 
@@ -69,7 +74,7 @@ public class AliPayServiceImpl implements PayService {
             log.error("支付宝查询支付订单失败 [{}]", tradeNo, e);
             throw new BusinessException(ErrorCode.ORDER_QUERY_ERROR);
         }
-        if (StrUtil.isNotBlank(response.getSubCode())) {
+        if (isNotBlank(response.getSubCode())) {
             log.error("支付宝支付订单查询响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
             throw new BusinessException(ErrorCode.ORDER_QUERY_ERROR);
         }
@@ -97,9 +102,8 @@ public class AliPayServiceImpl implements PayService {
     public RefundVO applyRefund(RefundDTO dto) {
         AlipayTradeRefundResponse response;
         try {
-            SystemProperties.AliPay aliPay = systemProperties.getAli().getPay();
             response = Factory.Payment.Common()
-                    .asyncNotify(aliPay.getNotifyHost() + CommonConstant.ALI_REFUND_NOTIFY_URL)
+                    .asyncNotify(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_REFUND_NOTIFY_URL)
                     .optional("out_request_no", dto.getRefundNo())
                     .optional("refund_reason", dto.getReason())
                     .refund(dto.getTradeNo(), DecimalUtil.centToYuan(dto.getAmount()));
@@ -107,7 +111,7 @@ public class AliPayServiceImpl implements PayService {
             log.error("支付宝退款申请发起失败 [{}]", dto, e);
             throw new BusinessException(ErrorCode.ALI_REFUND_APPLY);
         }
-        if (StrUtil.isNotBlank(response.getSubCode())) {
+        if (isNotBlank(response.getSubCode())) {
             log.error("支付宝退款申请响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
             throw new BusinessException(ErrorCode.ALI_REFUND_APPLY);
         }
@@ -129,7 +133,7 @@ public class AliPayServiceImpl implements PayService {
             log.error("支付宝退款状态查询失败 [{}] [{}]", tradeNo, refundNo, e);
             throw new BusinessException(ErrorCode.REFUND_QUERY);
         }
-        if (StrUtil.isNotBlank(response.getSubCode())) {
+        if (isNotBlank(response.getSubCode())) {
             log.error("支付宝退款状态查询响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
             throw new BusinessException(ErrorCode.REFUND_QUERY);
         }
@@ -180,14 +184,13 @@ public class AliPayServiceImpl implements PayService {
     private PrepayVO createCommonPrepay(PrepayDTO dto) {
         AlipayTradeCreateResponse response;
         try {
-            SystemProperties.AliPay aliPay = systemProperties.getAli().getPay();
-            response = Factory.Payment.Common().optional("body", dto.getAttach()).asyncNotify(aliPay.getNotifyHost() + CommonConstant.ALI_PAY_NOTIFY_URL)
+            response = Factory.Payment.Common().optional("body", dto.getAttach()).asyncNotify(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_PAY_NOTIFY_URL)
                     .create(dto.getDescription(), dto.getTradeNo(), DecimalUtil.centToYuan(dto.getAmount()), dto.getBuyerId());
         } catch (Exception e) {
             log.error("支付宝创建支付订单失败 [{}]", dto, e);
             throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
         }
-        if (StrUtil.isNotBlank(response.getSubCode())) {
+        if (isNotBlank(response.getSubCode())) {
             log.error("支付宝下单响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
             throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
         }
@@ -205,14 +208,13 @@ public class AliPayServiceImpl implements PayService {
     private PrepayVO createFacePrepay(PrepayDTO dto) {
         AlipayTradePrecreateResponse response;
         try {
-            SystemProperties.AliPay aliPay = systemProperties.getAli().getPay();
-            response = Factory.Payment.FaceToFace().optional("body", dto.getAttach()).asyncNotify(aliPay.getNotifyHost() + CommonConstant.ALI_PAY_NOTIFY_URL)
+            response = Factory.Payment.FaceToFace().optional("body", dto.getAttach()).asyncNotify(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_PAY_NOTIFY_URL)
                     .preCreate(dto.getDescription(), dto.getTradeNo(), DecimalUtil.centToYuan(dto.getAmount()));
         } catch (Exception e) {
             log.error("支付宝扫码付创建支付订单失败 [{}]", dto, e);
             throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
         }
-        if (StrUtil.isNotBlank(response.getSubCode())) {
+        if (isNotBlank(response.getSubCode())) {
             log.error("支付宝扫码付下单响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
             throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
         }

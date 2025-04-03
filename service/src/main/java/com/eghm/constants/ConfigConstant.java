@@ -12,6 +12,11 @@ import lombok.NoArgsConstructor;
 public class ConfigConstant {
 
     /**
+     * 支付或退款回调地址
+     */
+    public static final String PAY_NOTIFY_HOST = "pay_notify_host";
+
+    /**
      * 操作日志开关
      */
     public static final String OPERATION_LOG_SWITCH = "operation_log_switch";

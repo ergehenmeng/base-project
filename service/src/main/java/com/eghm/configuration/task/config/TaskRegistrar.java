@@ -1,7 +1,6 @@
 package com.eghm.configuration.task.config;
 
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.enums.ErrorCode;
@@ -10,6 +9,7 @@ import com.eghm.mapper.SysTaskMapper;
 import com.eghm.model.SysTask;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.LoggerUtil;
+import com.eghm.utils.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.TaskScheduler;
@@ -140,7 +140,7 @@ public class TaskRegistrar {
      */
     private void verifyCronExpression(List<CronTaskDecorator> taskList) {
         for (CronTaskDecorator task : taskList) {
-            if (StrUtil.isBlank(task.getExpression()) || !CronExpression.isValidExpression(task.getExpression())) {
+            if (StringUtil.isBlank(task.getExpression()) || !CronExpression.isValidExpression(task.getExpression())) {
                 log.error("定时任务表达式配置错误 nid:[{}],cron:[{}]", task.getNid(), task.getExpression());
                 throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
             }

@@ -1,9 +1,9 @@
 package com.eghm.service.sys.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.model.SysArea;
 import com.eghm.service.sys.SysAreaService;
+import com.eghm.utils.StringUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -75,7 +75,7 @@ public class SysAreaServiceImpl implements SysAreaService {
         String splitStr = split == null ? "" : split;
         sysArea = cacheProxyService.getAreaById(cityId);
         if (sysArea != null) {
-            if (StrUtil.isNotBlank(address)) {
+            if (StringUtil.isNotBlank(address)) {
                 address += splitStr;
             }
             address += sysArea.getTitle();

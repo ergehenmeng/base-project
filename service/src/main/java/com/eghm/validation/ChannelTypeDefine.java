@@ -1,7 +1,7 @@
 package com.eghm.validation;
 
-import cn.hutool.core.util.StrUtil;
 import com.eghm.enums.Channel;
+import com.eghm.utils.StringUtil;
 import com.eghm.validation.annotation.ChannelType;
 
 import javax.validation.ConstraintValidator;
@@ -25,7 +25,7 @@ public class ChannelTypeDefine implements ConstraintValidator<ChannelType, Strin
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (!required && StrUtil.isBlank(value)) {
+        if (!required && StringUtil.isBlank(value)) {
             return true;
         }
         for (Channel channel : channels) {

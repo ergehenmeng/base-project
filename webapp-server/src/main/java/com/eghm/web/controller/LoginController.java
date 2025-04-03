@@ -1,6 +1,5 @@
 package com.eghm.web.controller;
 
-import cn.hutool.core.util.StrUtil;
 import com.eghm.common.MemberTokenService;
 import com.eghm.common.SmsService;
 import com.eghm.constants.AppHeader;
@@ -11,6 +10,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.TemplateType;
 import com.eghm.service.business.MemberService;
 import com.eghm.utils.IpUtil;
+import com.eghm.utils.StringUtil;
 import com.eghm.vo.login.LoginTokenVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -91,7 +91,7 @@ public class LoginController {
     @ApiOperation("刷新token")
     @PostMapping(value = "/token/refresh")
     public RespBody<String> refresh(@RequestHeader(value = AppHeader.REFRESH_TOKEN, required = false) String refreshToken) {
-        if (StrUtil.isBlank(refreshToken)) {
+        if (StringUtil.isBlank(refreshToken)) {
             log.warn("请求头没有包含Refresh-Token,无法刷新");
             return RespBody.error(ErrorCode.REFRESH_TOKEN_EXPIRE);
         }

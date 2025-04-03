@@ -1,7 +1,6 @@
 package com.eghm.web.configuration.interceptor;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.eghm.annotation.SkipPerm;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.dto.ext.SecurityHolder;
@@ -9,6 +8,7 @@ import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
 import com.eghm.model.SysMenu;
 import com.eghm.service.sys.SysMenuService;
+import com.eghm.utils.StringUtil;
 import com.eghm.utils.WebUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,13 +36,15 @@ public class PermInterceptor implements InterceptorAdapter {
 
     private final SysMenuService sysMenuService;
 
+    private static final String DELIMITER = ",; ";
+
     @PostConstruct
     public void refresh() {
         List<SysMenu> selectList = sysMenuService.getButtonList();
         PERM_MAP.clear();
         for (SysMenu menu : selectList) {
-            if (StrUtil.isNotBlank(menu.getSubPath())) {
-                for (String subUrl : StringUtils.tokenizeToStringArray(menu.getSubPath(), ",; ")) {
+            if (StringUtil.isNotBlank(menu.getSubPath())) {
+                for (String subUrl : StringUtils.tokenizeToStringArray(menu.getSubPath(), DELIMITER)) {
                     List<String> codeList = PERM_MAP.getOrDefault(subUrl, new ArrayList<>(8));
                     codeList.add(menu.getCode());
                     PERM_MAP.put(subUrl, codeList);

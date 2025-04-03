@@ -2,7 +2,6 @@ package com.eghm.configuration.task.config;
 
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.ReflectUtil;
-import cn.hutool.core.util.StrUtil;
 import com.eghm.common.AlarmService;
 import com.eghm.constants.CommonConstant;
 import com.eghm.enums.ErrorCode;
@@ -11,6 +10,7 @@ import com.eghm.lock.RedisLock;
 import com.eghm.model.SysTaskLog;
 import com.eghm.service.sys.SysTaskLogService;
 import com.eghm.utils.SpringContextUtil;
+import com.eghm.utils.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.aop.support.AopUtils;
@@ -86,7 +86,7 @@ public class Invoker implements Runnable {
      */
     private Method findMethod(AbstractTask task, Object bean) throws NoSuchMethodException {
         Class<?> cls = AopUtils.isAopProxy(bean) ? bean.getClass().getSuperclass() : bean.getClass();
-        if (StrUtil.isBlank(task.getArgs())) {
+        if (StringUtil.isBlank(task.getArgs())) {
             return cls.getMethod(task.getMethodName());
         }
         return cls.getMethod(task.getMethodName(), String.class);

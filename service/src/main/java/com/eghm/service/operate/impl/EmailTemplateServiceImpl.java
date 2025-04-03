@@ -1,17 +1,17 @@
 package com.eghm.service.operate.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheProxyService;
-import com.eghm.dto.operate.email.EmailTemplateRequest;
 import com.eghm.dto.ext.PagingQuery;
+import com.eghm.dto.operate.email.EmailTemplateRequest;
 import com.eghm.enums.EmailType;
 import com.eghm.mapper.EmailTemplateMapper;
 import com.eghm.model.EmailTemplate;
 import com.eghm.service.operate.EmailTemplateService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.StringUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,7 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
     @Override
     public Page<EmailTemplate> getByPage(PagingQuery query) {
         LambdaQueryWrapper<EmailTemplate> wrapper = Wrappers.lambdaQuery();
-        wrapper.and(StrUtil.isNotBlank(query.getQueryName()), queryWrapper -> queryWrapper.like(EmailTemplate::getTitle, query.getQueryName()).or().like(EmailTemplate::getContent, query.getQueryName()));
+        wrapper.and(StringUtil.isNotBlank(query.getQueryName()), queryWrapper -> queryWrapper.like(EmailTemplate::getTitle, query.getQueryName()).or().like(EmailTemplate::getContent, query.getQueryName()));
         wrapper.orderByDesc(EmailTemplate::getId);
         return emailTemplateMapper.selectPage(query.createPage(), wrapper);
     }

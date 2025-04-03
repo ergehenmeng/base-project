@@ -1,7 +1,6 @@
 package com.eghm.service.operate.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -23,6 +22,7 @@ import com.eghm.model.Comment;
 import com.eghm.model.News;
 import com.eghm.service.operate.CommentService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.StringUtil;
 import com.eghm.vo.business.news.NewsVO;
 import com.eghm.vo.operate.comment.CommentResponse;
 import com.eghm.vo.operate.comment.CommentSecondVO;
@@ -61,7 +61,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Page<CommentResponse> listPage(CommentQueryRequest request) {
-        if (StrUtil.isNotBlank(request.getQueryName())) {
+        if (StringUtil.isNotBlank(request.getQueryName())) {
             List<Long> objectIds = this.getObjectIds(request.getQueryName());
             if (CollUtil.isEmpty(objectIds)) {
                 return new Page<>();

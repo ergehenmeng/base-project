@@ -1,6 +1,5 @@
 package com.eghm.service.operate.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -14,6 +13,7 @@ import com.eghm.mapper.NewsConfigMapper;
 import com.eghm.model.NewsConfig;
 import com.eghm.service.operate.NewsConfigService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.StringUtil;
 import com.eghm.vo.business.news.NewsConfigResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +39,7 @@ public class NewsConfigServiceImpl implements NewsConfigService {
     @Override
     public Page<NewsConfig> getByPage(PagingQuery query) {
         LambdaQueryWrapper<NewsConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(query.getQueryName()), NewsConfig::getTitle, query.getQueryName());
+        wrapper.like(StringUtil.isNotBlank(query.getQueryName()), NewsConfig::getTitle, query.getQueryName());
         wrapper.orderByDesc(NewsConfig::getId);
         return newsConfigMapper.selectPage(query.createPage(), wrapper);
     }

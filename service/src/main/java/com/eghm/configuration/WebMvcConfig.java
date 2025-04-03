@@ -1,6 +1,5 @@
 package com.eghm.configuration;
 
-import cn.hutool.core.util.StrUtil;
 import com.alibaba.ttl.threadpool.TtlExecutors;
 import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
@@ -18,9 +17,9 @@ import com.eghm.convertor.YuanToCentAnnotationFormatterBinderFactory;
 import com.eghm.enums.AlarmType;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
+import com.eghm.utils.StringUtil;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.introspect.AnnotationIntrospectorPair;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
@@ -28,11 +27,10 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.impl.NoNoise;
-import com.google.code.kaptcha.impl.WaterRipple;
 import com.google.code.kaptcha.util.Config;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.HibernateValidatorConfiguration;
+import org.hibernate.validator.BaseHibernateValidatorConfiguration;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.validation.MessageInterpolatorFactory;
@@ -83,7 +81,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
         LocalValidatorFactoryBean factoryBean = new LocalValidatorFactoryBean();
         MessageInterpolatorFactory interpolatorFactory = new MessageInterpolatorFactory(applicationContext);
         factoryBean.setMessageInterpolator(interpolatorFactory.getObject());
-        factoryBean.getValidationPropertyMap().put(HibernateValidatorConfiguration.FAIL_FAST, "true");
+        factoryBean.getValidationPropertyMap().put(BaseHibernateValidatorConfiguration.FAIL_FAST, "true");
         return factoryBean;
     }
 
@@ -170,7 +168,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
         simpleModule.addSerializer(BigDecimal.class, ToStringSerializer.instance);
         objectMapper.registerModule(simpleModule);
         AnnotationIntrospector ai = objectMapper.getSerializationConfig().getAnnotationIntrospector();
-        AnnotationIntrospector newAi = AnnotationIntrospectorPair.pair(ai, new DesensitizationAnnotationInterceptor());
+        AnnotationIntrospector newAi = AnnotationIntrospector.pair(ai, new DesensitizationAnnotationInterceptor());
         objectMapper.setAnnotationIntrospector(newAi);
     }
 
@@ -199,7 +197,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
         if (alarmMsg.getAlarmType() == AlarmType.DEFAULT) {
             return new DefaultAlarmServiceImpl();
         }
-        if (StrUtil.isNotBlank(alarmMsg.getWebHook())) {
+        if (StringUtil.isNotBlank(alarmMsg.getWebHook())) {
             throw new BusinessException(ErrorCode.WEB_HOOK_NULL);
         }
         if (alarmMsg.getAlarmType() == AlarmType.DING_TALK) {

@@ -1,6 +1,6 @@
 package com.eghm.service.operate.impl;
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.SendNotice;
 import com.eghm.dto.operate.feedback.FeedbackAddDTO;
@@ -10,8 +10,8 @@ import com.eghm.enums.FeedbackType;
 import com.eghm.enums.MessageType;
 import com.eghm.mapper.FeedbackLogMapper;
 import com.eghm.model.FeedbackLog;
-import com.eghm.service.operate.FeedbackService;
 import com.eghm.service.business.MemberNoticeService;
+import com.eghm.service.operate.FeedbackService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.operate.feedback.FeedbackResponse;
 import lombok.AllArgsConstructor;
@@ -52,9 +52,9 @@ public class FeedbackServiceImpl implements FeedbackService {
         // 发送站内信
         SendNotice notice = new SendNotice();
         notice.setMessageType(MessageType.FEEDBACK_PROCESS);
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>(4);
         params.put("feedbackType", FeedbackType.of(log.getFeedbackType()).getMsg());
-        params.put("content", StrUtil.maxLength(log.getContent(), 20));
+        params.put("content", CharSequenceUtil.maxLength(log.getContent(), 20));
         params.put("reply", request.getRemark());
         notice.setParams(params);
         memberNoticeService.sendNotice(log.getMemberId(), notice);

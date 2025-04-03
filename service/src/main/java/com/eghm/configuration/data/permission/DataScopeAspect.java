@@ -3,10 +3,10 @@ package com.eghm.configuration.data.permission;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
-import cn.hutool.core.util.StrUtil;
 import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.DataType;
+import com.eghm.utils.StringUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -66,7 +66,7 @@ public class DataScopeAspect {
         if (user.getDataType() == DataType.ALL) {
             builder.append(" 1 = 1");
         }
-        String alias = StrUtil.isBlank(scope.alias()) ? "" : scope.alias() + ".";
+        String alias = StringUtil.isBlank(scope.alias()) ? "" : scope.alias() + ".";
         // 自定义
         if (user.getDataType() == DataType.CUSTOM) {
             List<String> deptList = user.getDataList();

@@ -66,11 +66,11 @@ public class SwaggerConfig {
         }
         ParameterBuilder token = new ParameterBuilder();
         List<Parameter> params = new ArrayList<>();
-        SystemProperties.ApiProperties properties = systemProperties.getApi();
+        SystemProperties.WebappProperties api = systemProperties.getApi();
         String header = "header";
         String headerType = "string";
-        token.name("Channel").description("操作渠道").modelRef(new ModelRef(headerType)).parameterType(header).required(true).defaultValue(properties.getMockChannel().name()).build();
-        token.name("Token").description("令牌").modelRef(new ModelRef(headerType)).parameterType(header).required(true).defaultValue(properties.getMockToken()).build();
+        token.name("Channel").description("操作渠道").modelRef(new ModelRef(headerType)).parameterType(header).required(true).defaultValue(api.getMockChannel().name()).build();
+        token.name("Token").description("令牌").modelRef(new ModelRef(headerType)).parameterType(header).required(true).defaultValue(api.getMockToken()).build();
         params.add(token.build());
         return params;
     }

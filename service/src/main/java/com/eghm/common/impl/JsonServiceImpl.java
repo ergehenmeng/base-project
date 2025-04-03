@@ -1,9 +1,9 @@
 package com.eghm.common.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.eghm.common.JsonService;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.ParameterException;
+import com.eghm.utils.StringUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
@@ -41,7 +41,7 @@ public class JsonServiceImpl implements JsonService {
 
     @Override
     public <T> T fromJson(String json, Class<T> cls) {
-        if (StrUtil.isBlank(json)) {
+        if (StringUtil.isBlank(json)) {
             return null;
         }
         try {
@@ -54,7 +54,7 @@ public class JsonServiceImpl implements JsonService {
 
     @Override
     public <T> T fromJson(String json, TypeReference<T> reference) {
-        if (StrUtil.isBlank(json)) {
+        if (StringUtil.isBlank(json)) {
             return null;
         }
         try {
@@ -67,7 +67,7 @@ public class JsonServiceImpl implements JsonService {
 
     @Override
     public <T> List<T> fromJsonList(String json, Class<T> cls) {
-        if (StrUtil.isBlank(json)) {
+        if (StringUtil.isBlank(json)) {
             return Lists.newArrayList();
         }
         try {
