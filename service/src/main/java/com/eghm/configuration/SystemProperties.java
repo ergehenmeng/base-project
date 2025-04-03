@@ -66,11 +66,6 @@ public class SystemProperties {
     private final Redis redis = new Redis();
 
     /**
-     * 需要进行xss校验的url
-     */
-    private final List<String> xssUrl = new ArrayList<>();
-
-    /**
      * 报警消息通知
      */
     private final AlarmMsg alarmMsg = new AlarmMsg();

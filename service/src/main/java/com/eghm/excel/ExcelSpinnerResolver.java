@@ -1,12 +1,12 @@
 package com.eghm.excel;
 
-import cn.hutool.core.text.CharSequenceUtil;
 import com.eghm.annotation.ExcelSpinner;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.SysDictItem;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.SpringContextUtil;
+import com.eghm.utils.StringUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -62,7 +62,7 @@ public class ExcelSpinnerResolver {
         }
         // 方式三：获取码值下拉数据（动态下拉）
         String key = spinner.value();
-        if (CharSequenceUtil.isNotBlank(key)) {
+        if (StringUtil.isNotBlank(key)) {
             try {
                 SysDictService service = SpringContextUtil.getBean(SysDictService.class);
                 List<SysDictItem> itemList = service.getDictByNid(key);

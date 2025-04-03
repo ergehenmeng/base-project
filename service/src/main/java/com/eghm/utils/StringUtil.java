@@ -71,7 +71,6 @@ public class StringUtil {
         CHINA_FORMAT.setVCharType(HanyuPinyinVCharType.WITH_V);
     }
 
-
     /**
      * 字符串是否为空白
      *
