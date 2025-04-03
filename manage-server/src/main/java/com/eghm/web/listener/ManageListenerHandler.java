@@ -7,6 +7,7 @@ import com.eghm.dto.ext.OrderPayNotify;
 import com.eghm.dto.ext.RefundAudit;
 import com.eghm.dto.ext.SocketMsg;
 import com.eghm.enums.ProductType;
+import com.eghm.lock.RedisLock;
 import com.eghm.model.ManageLog;
 import com.eghm.mq.listener.AbstractListenerHandler;
 import com.eghm.service.business.MemberCouponService;
@@ -37,8 +38,8 @@ public class ManageListenerHandler extends AbstractListenerHandler {
 
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-    public ManageListenerHandler(JsonService jsonService, AlarmService alarmService, ManageLogService manageLogService, MemberCouponService memberCouponService, SimpMessagingTemplate simpMessagingTemplate) {
-        super(jsonService, alarmService);
+    public ManageListenerHandler(RedisLock redisLock, JsonService jsonService, AlarmService alarmService, ManageLogService manageLogService, MemberCouponService memberCouponService, SimpMessagingTemplate simpMessagingTemplate) {
+        super(redisLock, jsonService, alarmService);
         this.manageLogService = manageLogService;
         this.memberCouponService = memberCouponService;
         this.simpMessagingTemplate = simpMessagingTemplate;

@@ -2,6 +2,7 @@ package com.eghm.mq.listener;
 
 import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
+import com.eghm.lock.RedisLock;
 import com.rabbitmq.client.Channel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,8 @@ import java.util.function.Consumer;
 @AllArgsConstructor
 public abstract class AbstractListenerHandler {
 
+    private final RedisLock redisLock;
+
     private final JsonService jsonService;
 
     private final AlarmService alarmService;
@@ -43,6 +46,33 @@ public abstract class AbstractListenerHandler {
         } catch (Exception e) {
             log.error("队列[{}]处理消息异常 [{}]", message.getMessageProperties().getConsumerQueue(), jsonService.toJson(msg), e);
             alarmService.sendMsg(String.format("队列[%s]消息消费失败[%s]", message.getMessageProperties().getConsumerQueue(), jsonService.toJson(msg)));
+        } finally {
+            MessageProperties properties = message.getMessageProperties();
+            if (Boolean.TRUE.equals(properties.getRedelivered())) {
+                channel.basicReject(message.getMessageProperties().getDeliveryTag(), false);
+            } else {
+                channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+            }
+        }
+    }
+
+    /**
+     * 处理MQ中消息,并手动确认
+     *
+     * @param lockKey  lockKey
+     * @param msg      消息
+     * @param message  message
+     * @param channel  channel
+     * @param consumer 业务
+     * @param <T>      消息类型
+     * @throws IOException e
+     */
+    public <T> void processMessageAckLock(String lockKey, T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
+        try {
+            redisLock.lockVoid(lockKey, 10_000, () -> consumer.accept(msg));
+        } catch (Exception e) {
+            log.error("Lock队列[{}]处理消息异常 [{}]", message.getMessageProperties().getConsumerQueue(), jsonService.toJson(msg), e);
+            alarmService.sendMsg(String.format("Lock队列[%s]消息消费失败[%s]", message.getMessageProperties().getConsumerQueue(), jsonService.toJson(msg)));
         } finally {
             MessageProperties properties = message.getMessageProperties();
             if (Boolean.TRUE.equals(properties.getRedelivered())) {

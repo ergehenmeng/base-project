@@ -5,6 +5,8 @@ import com.alibaba.cola.statemachine.Condition;
 import com.eghm.enums.ProductType;
 import com.eghm.enums.event.IEvent;
 import org.springframework.lang.NonNull;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 二哥很猛
@@ -21,6 +23,7 @@ public interface ActionHandler<C extends Context> extends Action<Integer, IEvent
      * @param context 上下文信息
      */
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     default void execute(Integer from, Integer to, IEvent event, @NonNull C context) {
         context.setFrom(from);
         this.doAction(context);

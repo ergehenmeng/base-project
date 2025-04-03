@@ -3,7 +3,6 @@ package com.eghm.dto.business.order.venue;
 import com.eghm.validation.annotation.Mobile;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -15,10 +14,6 @@ import java.util.List;
  */
 @Data
 public class VenueOrderCreateDTO {
-
-    @Schema(description = "场次id", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "请选择场次")
-    private Long venueSiteId;
 
     @Schema(description = "时间段id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "请选择时间段")
