@@ -1,6 +1,7 @@
 package com.eghm.utils;
 
 
+import cn.hutool.core.text.CharSequenceUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -183,6 +184,17 @@ public class StringUtil {
      */
     public static boolean isNotBlank(String str) {
         return !isBlank(str);
+    }
+
+    /**
+     * 限制字符串长度，如果超过指定长度，截取指定长度并在末尾加"..."
+     *
+     * @param string 字符串
+     * @param length 最大长度
+     * @return 格式化后的字符串
+     */
+    public static String maxLength(CharSequence string, int length) {
+        return CharSequenceUtil.maxLength(string, length);
     }
 
     /**
