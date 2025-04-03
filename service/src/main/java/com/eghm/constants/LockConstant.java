@@ -56,4 +56,8 @@ public class LockConstant {
      */
     public static final String LINE_ORDER_LOCK = "line_order_lock:";
 
+    /**
+     * 退款锁
+     */
+    public static final String REFUND_LOCK = "refund_lock:";
 }

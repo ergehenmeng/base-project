@@ -31,6 +31,16 @@ public interface RedisLock {
     void lockVoid(String key, long lockTime, Runnable runnable);
 
     /**
+     * 获取锁后执行指定逻辑 与上述唯一的区别是该方法没有返回值
+     *
+     * @param key      key
+     * @param lockTime 锁最大持续时间,单位:毫秒
+     * @param runnable 获取成功后执行业务
+     * @param errorCode 锁获取失败异常
+     */
+    void lockVoid(String key, long lockTime, Runnable runnable, ErrorCode errorCode);
+
+    /**
      * 获取锁后执行指定逻辑
      *
      * @param key      key

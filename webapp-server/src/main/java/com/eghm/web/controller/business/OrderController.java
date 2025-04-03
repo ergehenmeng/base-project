@@ -93,7 +93,7 @@ public class OrderController {
     public RespBody<OrderCreateVO<String>> ticketCreate(@RequestBody @Validated TicketOrderCreateDTO dto) {
         TicketOrderCreateContext context = DataUtil.copy(dto, TicketOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
-        redisLock.lockVoid(LockConstant.TICKET_ORDER_LOCK + context.getTicketId(), 10_000, () -> stateHandler.fireEvent(ProductType.TICKET, OrderState.NONE.getValue(), TicketEvent.CREATE, context));
+        redisLock.lockVoid(LockConstant.TICKET_ORDER_LOCK + context.getTicketId(), 10_000, () -> stateHandler.fireEvent(ProductType.TICKET, OrderState.NONE.getValue(), TicketEvent.CREATE, context), ErrorCode.ORDER_CREATE_LOCK);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }
@@ -110,7 +110,7 @@ public class OrderController {
         }
         HomestayOrderCreateContext context = DataUtil.copy(dto, HomestayOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
-        redisLock.lockVoid(LockConstant.HOMESTAY_ORDER_LOCK + context.getRoomId(), 10_000, () -> stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.NONE.getValue(), HomestayEvent.CREATE, context));
+        redisLock.lockVoid(LockConstant.HOMESTAY_ORDER_LOCK + context.getRoomId(), 10_000, () -> stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.NONE.getValue(), HomestayEvent.CREATE, context), ErrorCode.ORDER_CREATE_LOCK);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }
@@ -120,7 +120,7 @@ public class OrderController {
     public RespBody<OrderCreateVO<String>> lineCreate(@RequestBody @Validated LineOrderCreateDTO dto) {
         LineOrderCreateContext context = DataUtil.copy(dto, LineOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
-        redisLock.lockVoid(LockConstant.LINE_ORDER_LOCK + context.getLineId(), 10_000, () -> stateHandler.fireEvent(ProductType.LINE, OrderState.NONE.getValue(), LineEvent.CREATE, context));
+        redisLock.lockVoid(LockConstant.LINE_ORDER_LOCK + context.getLineId(), 10_000, () -> stateHandler.fireEvent(ProductType.LINE, OrderState.NONE.getValue(), LineEvent.CREATE, context), ErrorCode.ORDER_CREATE_LOCK);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }
@@ -130,7 +130,7 @@ public class OrderController {
     public RespBody<OrderCreateVO<String>> restaurantCreate(@RequestBody @Validated VoucherOrderCreateDTO dto) {
         VoucherOrderCreateContext context = DataUtil.copy(dto, VoucherOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
-        redisLock.lockVoid(LockConstant.VOUCHER_ORDER_LOCK + context.getVoucherId(), 10_000, () -> stateHandler.fireEvent(ProductType.VOUCHER, OrderState.NONE.getValue(), VoucherEvent.CREATE, context));
+        redisLock.lockVoid(LockConstant.VOUCHER_ORDER_LOCK + context.getVoucherId(), 10_000, () -> stateHandler.fireEvent(ProductType.VOUCHER, OrderState.NONE.getValue(), VoucherEvent.CREATE, context), ErrorCode.ORDER_CREATE_LOCK);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }
@@ -140,7 +140,7 @@ public class OrderController {
     public RespBody<OrderCreateVO<String>> venueCreate(@RequestBody @Validated VenueOrderCreateDTO dto) {
         VenueOrderCreateContext context = DataUtil.copy(dto, VenueOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
-        redisLock.lockVoid(LockConstant.VENUE_ORDER_LOCK + context.getMemberId(), 10_000, () -> stateHandler.fireEvent(ProductType.VENUE, OrderState.NONE.getValue(), VenueEvent.CREATE, context));
+        redisLock.lockVoid(LockConstant.VENUE_ORDER_LOCK + context.getMemberId(), 10_000, () -> stateHandler.fireEvent(ProductType.VENUE, OrderState.NONE.getValue(), VenueEvent.CREATE, context), ErrorCode.ORDER_CREATE_LOCK);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }
@@ -158,7 +158,7 @@ public class OrderController {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         context.setApplyType(1);
-        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.TICKET, TicketEvent.REFUND_APPLY));
+        redisLock.lockVoid(LockConstant.REFUND_LOCK + context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.TICKET, TicketEvent.REFUND_APPLY));
         return RespBody.success();
     }
 
@@ -169,7 +169,7 @@ public class OrderController {
         context.setMemberId(ApiHolder.getMemberId());
         context.setApplyType(1);
         context.setNum(dto.getVisitorIds().size());
-        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.LINE, LineEvent.REFUND_APPLY));
+        redisLock.lockVoid(LockConstant.REFUND_LOCK + context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.LINE, LineEvent.REFUND_APPLY));
         return RespBody.success();
     }
 
@@ -180,7 +180,7 @@ public class OrderController {
         context.setMemberId(ApiHolder.getMemberId());
         context.setApplyType(1);
         context.setNum(dto.getVisitorIds().size());
-        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.HOMESTAY, HomestayEvent.REFUND_APPLY));
+        redisLock.lockVoid(LockConstant.REFUND_LOCK + context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.HOMESTAY, HomestayEvent.REFUND_APPLY));
         return RespBody.success();
     }
 
@@ -190,7 +190,7 @@ public class OrderController {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         context.setApplyType(1);
-        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.VOUCHER, VoucherEvent.REFUND_APPLY));
+        redisLock.lockVoid(LockConstant.REFUND_LOCK + context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.VOUCHER, VoucherEvent.REFUND_APPLY));
         return RespBody.success();
     }
 
@@ -200,7 +200,7 @@ public class OrderController {
         ItemRefundApplyContext context = DataUtil.copy(dto, ItemRefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         context.setItemOrderId(dto.getOrderId());
-        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.ITEM, ItemEvent.REFUND_APPLY));
+        redisLock.lockVoid(LockConstant.REFUND_LOCK + context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.ITEM, ItemEvent.REFUND_APPLY));
         return RespBody.success();
     }
 
@@ -210,7 +210,7 @@ public class OrderController {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setNum(1);
         context.setMemberId(ApiHolder.getMemberId());
-        redisLock.lockVoid(context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.VENUE, VenueEvent.REFUND_APPLY));
+        redisLock.lockVoid(LockConstant.REFUND_LOCK + context.getOrderNo(), 10_000, () -> this.refundApply(context, ProductType.VENUE, VenueEvent.REFUND_APPLY));
         return RespBody.success();
     }
 
@@ -277,7 +277,7 @@ public class OrderController {
         context.setSkuIds(skuList.stream().map(SkuDTO::getSkuId).collect(Collectors.toSet()));
         int totalScore = dto.getItemList().stream().filter(Objects::nonNull).mapToInt(ItemDTO::getScoreAmount).sum();
         context.setTotalScore(totalScore);
-        redisLock.lockVoid(LockConstant.ITEM_ORDER_LOCK + context.getMemberId(), 10_000, () -> stateHandler.fireEvent(ProductType.ITEM, OrderState.NONE.getValue(), ItemEvent.CREATE, context));
+        redisLock.lockVoid(LockConstant.ITEM_ORDER_LOCK + context.getMemberId(), 10_000, () -> stateHandler.fireEvent(ProductType.ITEM, OrderState.NONE.getValue(), ItemEvent.CREATE, context), ErrorCode.ORDER_CREATE_LOCK);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }

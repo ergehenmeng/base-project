@@ -1846,6 +1846,11 @@ public enum ErrorCode {
     ORDER_NOT_PAY(3059, "该订单尚未支付,不支持退款"),
 
     /**
+     * 下单人数太多啦~
+     */
+    ORDER_CREATE_LOCK(3060, "下单人数太多啦~"),
+
+    /**
      * 只有未支付的订单才可修改单价
      */
     ORDER_NOT_ADJUST(3062, "只有未支付的订单才可修改单价"),
