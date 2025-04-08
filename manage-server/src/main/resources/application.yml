@@ -77,5 +77,6 @@ system:
       - /manage/wechat/qrcode/url
       - /manage/wechat/qrcode/login
       - /manage/export/exportMenu
+      - /order/broadcast
       - /resource/**
       - /ws
