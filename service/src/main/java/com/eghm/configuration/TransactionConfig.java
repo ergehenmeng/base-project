@@ -36,11 +36,13 @@ public class TransactionConfig {
         readOnly.setReadOnly(true);
         NameMatchTransactionAttributeSource attributeSource = new NameMatchTransactionAttributeSource();
         attributeSource.addTransactionalMethod("add*", required);
+        attributeSource.addTransactionalMethod("save*", required);
         attributeSource.addTransactionalMethod("insert*", required);
         attributeSource.addTransactionalMethod("update*", required);
         attributeSource.addTransactionalMethod("edit*", required);
         attributeSource.addTransactionalMethod("set*", required);
         attributeSource.addTransactionalMethod("delete*", required);
+        attributeSource.addTransactionalMethod("remove*", required);
         attributeSource.addTransactionalMethod("select*", readOnly);
         attributeSource.addTransactionalMethod("get*", readOnly);
         attributeSource.addTransactionalMethod("list*", readOnly);
