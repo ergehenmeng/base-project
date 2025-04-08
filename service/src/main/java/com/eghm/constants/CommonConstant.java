@@ -42,7 +42,7 @@ public class CommonConstant {
     public static final int SUBMIT_INTERVAL = 1000;
 
     /**
-     * 验证码过期时间
+     * 验证码过期时间 单位: 秒
      */
     public static final int SMS_CODE_EXPIRE = 600;
 
@@ -72,7 +72,7 @@ public class CommonConstant {
     public static final String COMMA = ",";
 
     /**
-     * 发货后默认14天自动收货
+     * 发货后默认14天自动收货 单位: 秒
      */
     public static final int RECEIVE_TIME = 1209600;
 
@@ -87,7 +87,7 @@ public class CommonConstant {
     public static final String LIMIT_ONE = " limit 1 ";
 
     /**
-     * 异步消息在MQ中最大存放时间
+     * 异步消息结果在redis中最大存放时间 即:前端轮训查询最多持续30秒
      */
     public static final long ASYNC_MSG_EXPIRE = 30;
 
@@ -127,12 +127,12 @@ public class CommonConstant {
     public static final int MAX_VERIFY_NO_EXPIRE = 60_000;
 
     /**
-     * 签名过期时间 60秒
+     * 签名客户端服务端时间差最大 60秒
      */
     public static final long MAX_SIGN_EXPIRE = 60_000;
 
     /**
-     * 最大锁屏时间 1天
+     * 最大锁屏时间 1天 单位:秒
      */
     public static final long MAX_LOCK_SCREEN = 86_400;
 
@@ -142,7 +142,7 @@ public class CommonConstant {
     public static final long LIMIT_MAX_EXPIRE = 604_800;
 
     /**
-     * Scheduled 定时任务最大锁时间
+     * Scheduled 定时任务最大锁时间 单位: 秒
      */
     public static final long SCHEDULED_MAX_LOCK_TIME = 60;
 
