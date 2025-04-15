@@ -12,6 +12,7 @@ import com.eghm.vo.member.MemberResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class MemberTagController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<MemberTag>> listPage(MemberTagQueryRequest request) {
+    public RespBody<PageData<MemberTag>> listPage(@ParameterObject MemberTagQueryRequest request) {
         Page<MemberTag> byPage = memberTagService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
@@ -61,7 +62,7 @@ public class MemberTagController {
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<MemberTag> select(@Validated IdDTO request) {
+    public RespBody<MemberTag> select(@Validated @ParameterObject IdDTO request) {
         MemberTag memberTag = memberTagService.selectByIdRequired(request.getId());
         return RespBody.success(memberTag);
     }
@@ -75,7 +76,7 @@ public class MemberTagController {
 
     @GetMapping("/memberPage")
     @Operation(summary = "对应标签会员列表")
-    public RespBody<PageData<MemberResponse>> memberPage(@Validated TagMemberQueryRequest request) {
+    public RespBody<PageData<MemberResponse>> memberPage(@Validated @ParameterObject TagMemberQueryRequest request) {
         Page<MemberResponse> byPage = memberTagScopeService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }

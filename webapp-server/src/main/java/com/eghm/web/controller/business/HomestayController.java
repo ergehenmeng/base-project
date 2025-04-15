@@ -9,6 +9,7 @@ import com.eghm.vo.business.homestay.HomestayVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,14 +32,14 @@ public class HomestayController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<List<HomestayVO>> listPage(@Validated HomestayQueryDTO dto) {
+    public RespBody<List<HomestayVO>> listPage(@Validated @ParameterObject HomestayQueryDTO dto) {
         List<HomestayVO> byPage = homestayService.getByPage(dto);
         return RespBody.success(byPage);
     }
 
     @GetMapping("/detail")
     @Operation(summary = "详情")
-    public RespBody<HomestayDetailVO> detail(@Validated HomestayDTO dto) {
+    public RespBody<HomestayDetailVO> detail(@Validated @ParameterObject HomestayDTO dto) {
         HomestayDetailVO detail = homestayService.detailById(dto);
         return RespBody.success(detail);
     }

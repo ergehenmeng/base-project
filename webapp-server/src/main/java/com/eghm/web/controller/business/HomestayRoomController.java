@@ -13,6 +13,7 @@ import com.eghm.web.annotation.VisitRecord;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,7 @@ public class HomestayRoomController {
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     @VisitRecord(VisitType.PRODUCT_LIST)
-    public RespBody<List<HomestayRoomListVO>> listPage(@Validated HomestayRoomQueryDTO request) {
+    public RespBody<List<HomestayRoomListVO>> listPage(@Validated @ParameterObject HomestayRoomQueryDTO request) {
         List<HomestayRoomListVO> listPage = homestayRoomService.listPage(request);
         return RespBody.success(listPage);
     }
@@ -45,14 +46,14 @@ public class HomestayRoomController {
     @GetMapping("/detail")
     @Operation(summary = "详情")
     @VisitRecord(VisitType.PRODUCT_DETAIL)
-    public RespBody<HomestayRoomVO> detail(@Validated IdDTO dto) {
+    public RespBody<HomestayRoomVO> detail(@Validated @ParameterObject IdDTO dto) {
         HomestayRoomVO detail = homestayRoomService.detailById(dto.getId());
         return RespBody.success(detail);
     }
 
     @GetMapping("/priceList")
     @Operation(summary = "房型价格")
-    public RespBody<List<RoomConfigVO>> priceList(@Validated IdDTO dto) {
+    public RespBody<List<RoomConfigVO>> priceList(@Validated @ParameterObject IdDTO dto) {
         List<RoomConfigVO> voList = homestayRoomConfigService.getList(dto.getId());
         return RespBody.success(voList);
     }

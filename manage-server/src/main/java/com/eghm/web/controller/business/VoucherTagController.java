@@ -14,6 +14,7 @@ import com.eghm.vo.business.restaurant.VoucherTagResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -34,14 +35,14 @@ public class VoucherTagController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<VoucherTagResponse>> listPage(VoucherTagQueryRequest request) {
+    public RespBody<PageData<VoucherTagResponse>> listPage(@ParameterObject VoucherTagQueryRequest request) {
         Page<VoucherTagResponse> byPage = voucherTagService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @GetMapping("/list")
     @Operation(summary = "列表(不分页)")
-    public RespBody<List<TagSelectResponse>> list(@Validated IdDTO request) {
+    public RespBody<List<TagSelectResponse>> list(@Validated @ParameterObject IdDTO request) {
         List<TagSelectResponse> list = voucherTagService.getList(request.getId());
         return RespBody.success(list);
     }

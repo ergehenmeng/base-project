@@ -20,6 +20,7 @@ import com.eghm.vo.business.coupon.MemberCouponResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +43,7 @@ public class CouponController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<CouponResponse>> listPage(@Validated CouponQueryRequest request) {
+    public RespBody<PageData<CouponResponse>> listPage(@Validated @ParameterObject CouponQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<CouponResponse> configPage = couponService.getByPage(request);
         return RespBody.success(PageData.toPage(configPage));
@@ -65,7 +66,7 @@ public class CouponController {
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<CouponDetailResponse> select(@Validated IdDTO dto) {
+    public RespBody<CouponDetailResponse> select(@Validated @ParameterObject IdDTO dto) {
         CouponDetailResponse coupon = couponService.getById(dto.getId());
         return RespBody.success(coupon);
     }
@@ -100,7 +101,7 @@ public class CouponController {
 
     @GetMapping("/receivePage")
     @Operation(summary = "领取列表")
-    public RespBody<PageData<MemberCouponResponse>> receivePage(@Validated MemberCouponQueryRequest request) {
+    public RespBody<PageData<MemberCouponResponse>> receivePage(@Validated @ParameterObject MemberCouponQueryRequest request) {
         Page<MemberCouponResponse> byPage = memberCouponService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }

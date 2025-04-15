@@ -22,6 +22,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class HomestayRoomController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<HomestayRoomResponse>> listPage(HomestayRoomQueryRequest request) {
+    public RespBody<PageData<HomestayRoomResponse>> listPage(@ParameterObject HomestayRoomQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<HomestayRoomResponse> roomPage = homestayRoomService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
@@ -49,7 +50,7 @@ public class HomestayRoomController {
 
     @GetMapping("/productListPage")
     @Operation(summary = "列表(含店铺)")
-    public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
+    public RespBody<PageData<BaseProductResponse>> productListPage(@ParameterObject BaseProductQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseProductResponse> listPage = homestayRoomService.getProductPage(request);
         return RespBody.success(PageData.toPage(listPage));
@@ -71,7 +72,7 @@ public class HomestayRoomController {
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<HomestayRoomDetailResponse> select(@Validated IdDTO dto) {
+    public RespBody<HomestayRoomDetailResponse> select(@Validated @ParameterObject IdDTO dto) {
         HomestayRoom homestayRoom = homestayRoomService.selectByIdRequired(dto.getId());
         return RespBody.success(DataUtil.copy(homestayRoom, HomestayRoomDetailResponse.class));
     }
@@ -113,7 +114,7 @@ public class HomestayRoomController {
 
     @GetMapping("/export")
     @Operation(summary = "导出")
-    public void export(HttpServletResponse response, HomestayRoomQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject HomestayRoomQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<HomestayRoomResponse> byPage = homestayRoomService.getList(request);
         EasyExcelUtil.export(response, "房型信息", byPage, HomestayRoomResponse.class);

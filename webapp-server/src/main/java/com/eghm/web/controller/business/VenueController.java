@@ -17,6 +17,7 @@ import com.eghm.web.annotation.VisitRecord;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,14 +45,14 @@ public class VenueController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<List<VenueVO>> listPage(@Validated VenueQueryDTO dto) {
+    public RespBody<List<VenueVO>> listPage(@Validated @ParameterObject VenueQueryDTO dto) {
         List<VenueVO> voList = venueService.getByPage(dto);
         return RespBody.success(voList);
     }
 
     @GetMapping("/detail")
     @Operation(summary = "详情")
-    public RespBody<VenueDetailVO> detail(@Validated VenueDTO dto) {
+    public RespBody<VenueDetailVO> detail(@Validated @ParameterObject VenueDTO dto) {
         VenueDetailVO detail = venueService.getDetail(dto);
         return RespBody.success(detail);
     }
@@ -59,14 +60,14 @@ public class VenueController {
     @GetMapping("/siteList")
     @Operation(summary = "场地列表")
     @VisitRecord(VisitType.PRODUCT_LIST)
-    public RespBody<List<VenueSiteVO>> siteList(@Validated IdDTO dto) {
+    public RespBody<List<VenueSiteVO>> siteList(@Validated @ParameterObject IdDTO dto) {
         List<VenueSiteVO> voList = venueSiteService.getList(dto.getId());
         return RespBody.success(voList);
     }
 
     @GetMapping("/priceList")
     @Operation(summary = "场次价格")
-    public RespBody<List<VenueSitePriceVO>> priceList(@Validated VenuePriceQueryDTO dto) {
+    public RespBody<List<VenueSitePriceVO>> priceList(@Validated @ParameterObject VenuePriceQueryDTO dto) {
         List<VenueSitePriceVO> voList = venueSitePriceService.getPriceList(dto.getVenueSiteId(), dto.getNowDate());
         return RespBody.success(voList);
     }

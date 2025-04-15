@@ -20,6 +20,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +49,7 @@ public class MemberController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<MemberResponse>> listPage(MemberQueryRequest request) {
+    public RespBody<PageData<MemberResponse>> listPage(@ParameterObject MemberQueryRequest request) {
         Page<MemberResponse> byPage = memberService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
@@ -76,14 +77,14 @@ public class MemberController {
 
     @GetMapping("/export")
     @Operation(summary = "导出")
-    public void export(HttpServletResponse response, MemberQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject MemberQueryRequest request) {
         List<MemberResponse> byPage = memberService.getList(request);
         EasyExcelUtil.export(response, "会员信息", byPage, MemberResponse.class);
     }
 
     @GetMapping("/loginPage")
     @Operation(summary = "登录日志列表")
-    public RespBody<PageData<LoginLog>> loginPage(@Validated LoginLogQueryRequest request) {
+    public RespBody<PageData<LoginLog>> loginPage(@Validated @ParameterObject LoginLogQueryRequest request) {
         Page<LoginLog> byPage = loginService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
@@ -111,7 +112,7 @@ public class MemberController {
 
     @GetMapping("/score/listPage")
     @Operation(summary = "积分列表")
-    public RespBody<PageData<MemberScoreVO>> listPage(@Validated MemberScoreQueryRequest request) {
+    public RespBody<PageData<MemberScoreVO>> listPage(@Validated @ParameterObject MemberScoreQueryRequest request) {
         Page<MemberScoreVO> page = memberScoreLogService.getByPage(request);
         return RespBody.success(PageData.toPage(page));
     }

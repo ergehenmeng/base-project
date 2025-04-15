@@ -16,6 +16,7 @@ import com.eghm.web.annotation.VisitRecord;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +39,7 @@ public class ItemController {
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     @VisitRecord(VisitType.PRODUCT_LIST)
-    public RespBody<List<ItemVO>> listPage(ItemQueryDTO dto) {
+    public RespBody<List<ItemVO>> listPage(@ParameterObject ItemQueryDTO dto) {
         List<ItemVO> byPage = itemService.getByPage(dto);
         return RespBody.success(byPage);
     }
@@ -46,14 +47,14 @@ public class ItemController {
     @GetMapping("/detail")
     @Operation(summary = "详情")
     @VisitRecord(VisitType.PRODUCT_DETAIL)
-    public RespBody<ItemDetailVO> detail(@Validated IdDTO dto) {
+    public RespBody<ItemDetailVO> detail(@Validated @ParameterObject IdDTO dto) {
         ItemDetailVO detail = itemService.detailById(dto.getId());
         return RespBody.success(detail);
     }
 
     @GetMapping("/skuDetail")
     @Operation(summary = "规格详情")
-    public RespBody<ItemSkuDetailVO> skuDetail(@Validated IdDTO dto) {
+    public RespBody<ItemSkuDetailVO> skuDetail(@Validated @ParameterObject IdDTO dto) {
         ItemSkuDetailVO detail = itemService.skuDetailById(dto.getId());
         return RespBody.success(detail);
     }

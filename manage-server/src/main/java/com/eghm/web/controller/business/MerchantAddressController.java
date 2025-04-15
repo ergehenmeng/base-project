@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class MerchantAddressController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<MerchantAddressResponse>> list(PagingQuery query) {
+    public RespBody<PageData<MerchantAddressResponse>> list(@ParameterObject PagingQuery query) {
         PageData<MerchantAddressResponse> byPage = merchantAddressService.getByPage(query);
         return RespBody.success(byPage);
     }
@@ -77,7 +78,7 @@ public class MerchantAddressController {
 
     @GetMapping(value = "/select")
     @Operation(summary = "查询")
-    public RespBody<MerchantAddressDetailResponse> select(@Validated IdDTO dto) {
+    public RespBody<MerchantAddressDetailResponse> select(@Validated @ParameterObject IdDTO dto) {
         MerchantAddress address = merchantAddressService.selectByIdRequired(dto.getId());
         return RespBody.success(DataUtil.copy(address, MerchantAddressDetailResponse.class));
     }

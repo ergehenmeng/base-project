@@ -21,6 +21,7 @@ import com.eghm.vo.business.venue.VenueSiteResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +45,7 @@ public class VenueSiteController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<VenueSiteResponse>> listPage(@Validated VenueSiteQueryRequest request) {
+    public RespBody<PageData<VenueSiteResponse>> listPage(@Validated @ParameterObject VenueSiteQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VenueSiteResponse> byPage = venueSiteService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
@@ -52,7 +53,7 @@ public class VenueSiteController {
 
     @GetMapping("/productListPage")
     @Operation(summary = "列表(含店铺)")
-    public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
+    public RespBody<PageData<BaseProductResponse>> productListPage(@ParameterObject BaseProductQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseProductResponse> listPage = venueSiteService.getProductPage(request);
         return RespBody.success(PageData.toPage(listPage));
@@ -102,14 +103,14 @@ public class VenueSiteController {
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<VenueSiteDetailResponse> select(@Validated IdDTO dto) {
+    public RespBody<VenueSiteDetailResponse> select(@Validated @ParameterObject IdDTO dto) {
         VenueSiteDetailResponse response = venueSiteService.getDetail(dto.getId());
         return RespBody.success(response);
     }
 
     @GetMapping("/priceList")
     @Operation(summary = "场地价格信息")
-    public RespBody<List<VenueSitePriceVO>> priceList(@Validated VenueSitePriceQueryRequest request) {
+    public RespBody<List<VenueSitePriceVO>> priceList(@Validated @ParameterObject VenueSitePriceQueryRequest request) {
         List<VenueSitePriceVO> priceList = venueSitePriceService.getPriceList(request.getVenueSiteId(), request.getNowDate());
         return RespBody.success(priceList);
     }

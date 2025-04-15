@@ -26,6 +26,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +49,7 @@ public class LineController {
 
     @Operation(summary = "查询线路列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<LineResponse>> getByPage(LineQueryRequest request) {
+    public RespBody<PageData<LineResponse>> getByPage(@ParameterObject LineQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<LineResponse> scenicPage = lineService.getByPage(request);
         return RespBody.success(PageData.toPage(scenicPage));
@@ -56,7 +57,7 @@ public class LineController {
 
     @GetMapping("/productListPage")
     @Operation(summary = "列表(含店铺)")
-    public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
+    public RespBody<PageData<BaseProductResponse>> productListPage(@ParameterObject BaseProductQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseProductResponse> listPage = lineService.getProductPage(request);
         return RespBody.success(PageData.toPage(listPage));
@@ -78,7 +79,7 @@ public class LineController {
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<LineDetailResponse> select(@Validated IdDTO request) {
+    public RespBody<LineDetailResponse> select(@Validated @ParameterObject IdDTO request) {
         Line line = lineService.selectByIdRequired(request.getId());
         LineDetailResponse response = DataUtil.copy(line, LineDetailResponse.class);
         List<LineDayConfig> dayList = lineDayConfigService.getByLineId(request.getId());

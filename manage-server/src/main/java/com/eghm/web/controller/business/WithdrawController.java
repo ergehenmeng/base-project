@@ -12,6 +12,7 @@ import com.eghm.vo.business.withdraw.WithdrawLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class WithdrawController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<WithdrawLogResponse>> listPage(WithdrawQueryRequest request) {
+    public RespBody<PageData<WithdrawLogResponse>> listPage(@ParameterObject WithdrawQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<WithdrawLogResponse> roomPage = withdrawService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
@@ -41,7 +42,7 @@ public class WithdrawController {
 
     @GetMapping("/export")
     @Operation(summary = "导出")
-    public void export(HttpServletResponse response, WithdrawQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject WithdrawQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<WithdrawLogResponse> byPage = withdrawService.getList(request);
         EasyExcelUtil.export(response, "提现记录", byPage, WithdrawLogResponse.class);

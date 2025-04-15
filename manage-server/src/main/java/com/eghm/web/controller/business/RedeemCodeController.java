@@ -18,6 +18,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class RedeemCodeController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<RedeemCode>> listPage(RedeemCodeQueryRequest request) {
+    public RespBody<PageData<RedeemCode>> listPage(@ParameterObject RedeemCodeQueryRequest request) {
         Page<RedeemCode> listPage = redeemCodeService.listPage(request);
         return RespBody.success(PageData.toPage(listPage));
     }
@@ -62,7 +63,7 @@ public class RedeemCodeController {
 
     @GetMapping("/detail")
     @Operation(summary = "详情")
-    public RespBody<RedeemDetailResponse> detail(@Validated IdDTO dto) {
+    public RespBody<RedeemDetailResponse> detail(@Validated @ParameterObject IdDTO dto) {
         RedeemDetailResponse response =  redeemCodeService.detail(dto.getId());
         return RespBody.success(response);
     }
@@ -83,14 +84,14 @@ public class RedeemCodeController {
 
     @GetMapping("/grant/listPage")
     @Operation(summary = "兑换码列表")
-    public RespBody<PageData<RedeemCodeGrantResponse>> grantListPage(@Validated RedeemCodeGrantQueryRequest request) {
+    public RespBody<PageData<RedeemCodeGrantResponse>> grantListPage(@Validated @ParameterObject RedeemCodeGrantQueryRequest request) {
         Page<RedeemCodeGrantResponse> listPage = redeemCodeGrantService.listPage(request);
         return RespBody.success(PageData.toPage(listPage));
     }
 
     @GetMapping("/grant/export")
     @Operation(summary = "导出")
-    public void grantExport(HttpServletResponse response, @Validated RedeemCodeGrantQueryRequest request) {
+    public void grantExport(HttpServletResponse response, @Validated @ParameterObject RedeemCodeGrantQueryRequest request) {
         List<RedeemCodeGrantResponse> byPage = redeemCodeGrantService.getList(request);
         EasyExcelUtil.export(response, "兑换码", byPage, RedeemCodeGrantResponse.class);
     }

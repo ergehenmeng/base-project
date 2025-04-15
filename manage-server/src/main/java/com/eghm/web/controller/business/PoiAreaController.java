@@ -14,6 +14,7 @@ import com.eghm.vo.poi.PoiAreaResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class PoiAreaController {
 
     @Operation(summary = "列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<PoiAreaResponse>> getByPage(PagingQuery request) {
+    public RespBody<PageData<PoiAreaResponse>> getByPage(@ParameterObject PagingQuery request) {
         Page<PoiAreaResponse> byPage = poiAreaService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }

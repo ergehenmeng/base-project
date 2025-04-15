@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,7 +49,7 @@ public class ActivityController {
     @GetMapping("/detail")
     @Operation(summary = "活动详情")
     @VisitRecord(VisitType.ACTIVITY)
-    public RespBody<ActivityVO> detail(@Validated IdDTO dto) {
+    public RespBody<ActivityVO> detail(@Validated @ParameterObject IdDTO dto) {
         Activity activity = activityService.selectByIdRequired(dto.getId());
         return RespBody.success(DataUtil.copy(activity, ActivityVO.class));
     }

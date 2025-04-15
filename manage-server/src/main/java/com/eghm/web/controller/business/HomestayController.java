@@ -22,6 +22,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class HomestayController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<HomestayResponse>> listPage(HomestayQueryRequest request) {
+    public RespBody<PageData<HomestayResponse>> listPage(@ParameterObject HomestayQueryRequest request) {
         SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         Page<HomestayResponse> byPage = homestayService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
@@ -56,7 +57,7 @@ public class HomestayController {
 
     @GetMapping("/storeListPage")
     @Operation(summary = "列表含商户信息")
-    public RespBody<PageData<BaseStoreResponse>> storeListPage(BaseStoreQueryRequest request) {
+    public RespBody<PageData<BaseStoreResponse>> storeListPage(@ParameterObject BaseStoreQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseStoreResponse> listPage = homestayService.getStorePage(request);
         return RespBody.success(PageData.toPage(listPage));
@@ -106,14 +107,14 @@ public class HomestayController {
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<HomestayDetailResponse> select(@Validated IdDTO dto) {
+    public RespBody<HomestayDetailResponse> select(@Validated @ParameterObject IdDTO dto) {
         Homestay homestay = homestayService.selectByIdRequired(dto.getId());
         return RespBody.success(DataUtil.copy(homestay, HomestayDetailResponse.class));
     }
 
     @GetMapping("/export")
     @Operation(summary = "民宿导出")
-    public void export(HttpServletResponse response, HomestayQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject HomestayQueryRequest request) {
         SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         List<HomestayResponse> byPage = homestayService.getList(request);
         EasyExcelUtil.export(response, "民宿信息", byPage, HomestayResponse.class);

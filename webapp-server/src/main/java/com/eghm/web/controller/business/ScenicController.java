@@ -14,6 +14,7 @@ import com.eghm.web.annotation.VisitRecord;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +39,7 @@ public class ScenicController {
 
     @GetMapping("/listPage")
     @Operation(summary = "景区列表")
-    public RespBody<List<ScenicVO>> listPage(ScenicQueryDTO dto) {
+    public RespBody<List<ScenicVO>> listPage(@ParameterObject ScenicQueryDTO dto) {
         List<ScenicVO> byPage = scenicService.getByPage(dto);
         return RespBody.success(byPage);
     }
@@ -46,7 +47,7 @@ public class ScenicController {
     @GetMapping("/detail")
     @Operation(summary = "景区详情")
     @VisitRecord(VisitType.PRODUCT_LIST)
-    public RespBody<ScenicDetailVO> scenicDetail(@Validated ScenicDetailDTO dto) {
+    public RespBody<ScenicDetailVO> scenicDetail(@Validated @ParameterObject ScenicDetailDTO dto) {
         ScenicDetailVO detail = scenicService.detailById(dto);
         return RespBody.success(detail);
     }
@@ -54,7 +55,7 @@ public class ScenicController {
     @GetMapping("/ticket/detail")
     @Operation(summary = "景区门票详情")
     @VisitRecord(VisitType.PRODUCT_DETAIL)
-    public RespBody<TicketVO> ticketDetail(@Validated IdDTO dto) {
+    public RespBody<TicketVO> ticketDetail(@Validated @ParameterObject IdDTO dto) {
         TicketVO vo = scenicTicketService.detailById(dto.getId());
         return RespBody.success(vo);
     }

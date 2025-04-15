@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,7 @@ public class AccountLogController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<AccountLogResponse>> listPage(AccountQueryRequest request) {
+    public RespBody<PageData<AccountLogResponse>> listPage(@ParameterObject AccountQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<AccountLogResponse> byPage = accountLogService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
@@ -42,7 +43,7 @@ public class AccountLogController {
 
     @Operation(summary = "导出")
     @GetMapping("/export")
-    public void export(HttpServletResponse response, AccountQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject AccountQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<AccountLogResponse> byPage = accountLogService.getList(request);
         EasyExcelUtil.export(response, "资金变动记录", byPage, AccountLogResponse.class);

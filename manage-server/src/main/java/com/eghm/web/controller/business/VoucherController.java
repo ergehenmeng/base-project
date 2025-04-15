@@ -93,7 +93,7 @@ public class VoucherController {
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<VoucherDetailResponse> select(@Validated IdDTO dto) {
+    public RespBody<VoucherDetailResponse> select(@Validated @ParameterObject IdDTO dto) {
         Voucher voucher = voucherService.selectByIdRequired(dto.getId());
         VoucherDetailResponse response = DataUtil.copy(voucher, VoucherDetailResponse.class);
         response.setVirtualNum(voucher.getTotalNum() - voucher.getSaleNum());
@@ -109,7 +109,7 @@ public class VoucherController {
 
     @GetMapping("/export")
     @Operation(summary = "导出")
-    public void export(HttpServletResponse response, VoucherQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject VoucherQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<VoucherResponse> byPage = voucherService.getList(request);
         EasyExcelUtil.export(response, "餐饮券", byPage, VoucherResponse.class);

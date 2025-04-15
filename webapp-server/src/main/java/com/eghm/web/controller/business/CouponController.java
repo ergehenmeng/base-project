@@ -21,6 +21,7 @@ import com.eghm.web.annotation.VisitRecord;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +47,7 @@ public class CouponController {
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     @VisitRecord(VisitType.MARKETING)
-    public RespBody<List<CouponVO>> listPage(@Validated CouponQueryDTO dto) {
+    public RespBody<List<CouponVO>> listPage(@Validated @ParameterObject CouponQueryDTO dto) {
         List<CouponVO> byPage = couponService.getByPage(dto);
         return RespBody.success(byPage);
     }
@@ -63,7 +64,7 @@ public class CouponController {
     @GetMapping("/member/listPage")
     @Operation(summary = "我的优惠券列表")
     @AccessToken
-    public RespBody<List<MemberCouponVO>> listPage(@Validated MemberCouponQueryPageDTO dto) {
+    public RespBody<List<MemberCouponVO>> listPage(@Validated @ParameterObject MemberCouponQueryPageDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<MemberCouponVO> voList = memberCouponService.memberCouponPage(dto);
         return RespBody.success(voList);
@@ -72,28 +73,28 @@ public class CouponController {
     @GetMapping("/member/choose")
     @Operation(summary = "选择商品可以使用的优惠券")
     @AccessToken
-    public RespBody<List<MemberCouponBaseVO>> choose(@Validated IdDTO dto) {
+    public RespBody<List<MemberCouponBaseVO>> choose(@Validated @ParameterObject IdDTO dto) {
         List<MemberCouponBaseVO> selectCoupon = memberCouponService.selectCoupon(ApiHolder.getMemberId(), dto.getId());
         return RespBody.success(selectCoupon);
     }
 
     @GetMapping("/detail")
     @Operation(summary = "优惠券详情")
-    public RespBody<CouponVO> detail(@Validated IdDTO dto) {
+    public RespBody<CouponVO> detail(@Validated @ParameterObject IdDTO dto) {
         CouponVO detail = couponService.getDetail(dto.getId());
         return RespBody.success(detail);
     }
 
     @GetMapping("/couponList")
     @Operation(summary = "商品页可以领取的优惠券(全部)")
-    public RespBody<List<CouponVO>> couponList(@Validated CouponProductDTO dto) {
+    public RespBody<List<CouponVO>> couponList(@Validated @ParameterObject CouponProductDTO dto) {
         List<CouponVO> voList = couponService.getProductCoupon(dto);
         return RespBody.success(voList);
     }
 
     @GetMapping("/itemCouponScope")
     @Operation(summary = "优惠券匹配的商品列表(零售)")
-    public RespBody<List<ItemVO>> itemCouponScope(@Validated ItemCouponQueryDTO dto) {
+    public RespBody<List<ItemVO>> itemCouponScope(@Validated @ParameterObject ItemCouponQueryDTO dto) {
         List<ItemVO> voList = itemService.getCouponScopeByPage(dto);
         return RespBody.success(voList);
     }

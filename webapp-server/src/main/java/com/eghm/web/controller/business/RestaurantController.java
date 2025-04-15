@@ -16,6 +16,7 @@ import com.eghm.web.annotation.VisitRecord;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,14 +41,14 @@ public class RestaurantController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<List<RestaurantVO>> listPage(RestaurantQueryDTO dto) {
+    public RespBody<List<RestaurantVO>> listPage(@ParameterObject RestaurantQueryDTO dto) {
         List<RestaurantVO> byPage = restaurantService.getByPage(dto);
         return RespBody.success(byPage);
     }
 
     @GetMapping("/detail")
     @Operation(summary = "详情")
-    public RespBody<RestaurantDetailVO> detail(@Validated RestaurantDTO dto) {
+    public RespBody<RestaurantDetailVO> detail(@Validated @ParameterObject RestaurantDTO dto) {
         RestaurantDetailVO detail = restaurantService.detailById(dto);
         return RespBody.success(detail);
     }
@@ -55,7 +56,7 @@ public class RestaurantController {
     @GetMapping("/voucher/listPage")
     @Operation(summary = "餐饮券列表")
     @VisitRecord(VisitType.PRODUCT_LIST)
-    public RespBody<List<VoucherVO>> voucherListPage(@Validated VoucherQueryDTO dto) {
+    public RespBody<List<VoucherVO>> voucherListPage(@Validated @ParameterObject VoucherQueryDTO dto) {
         List<VoucherVO> voList = voucherService.getByPage(dto);
         return RespBody.success(voList);
     }
@@ -63,7 +64,7 @@ public class RestaurantController {
     @GetMapping("/voucher/detail")
     @Operation(summary = "餐饮券详情")
     @VisitRecord(VisitType.PRODUCT_DETAIL)
-    public RespBody<VoucherDetailVO> voucherDetail(@Validated IdDTO dto) {
+    public RespBody<VoucherDetailVO> voucherDetail(@Validated @ParameterObject IdDTO dto) {
         VoucherDetailVO detail = voucherService.getDetail(dto.getId());
         return RespBody.success(detail);
     }

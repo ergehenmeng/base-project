@@ -7,6 +7,7 @@ import com.eghm.vo.business.line.TravelDetailVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,7 @@ public class TravelAgencyController {
 
     @GetMapping("/detail")
     @Operation(summary = "详情")
-    public RespBody<TravelDetailVO> detail(@Validated TravelAgencyDTO dto) {
+    public RespBody<TravelDetailVO> detail(@Validated @ParameterObject TravelAgencyDTO dto) {
         TravelDetailVO detail = travelAgencyService.detail(dto);
         return RespBody.success(detail);
     }

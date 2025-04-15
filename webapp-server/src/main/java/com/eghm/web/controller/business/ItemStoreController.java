@@ -8,6 +8,7 @@ import com.eghm.vo.business.item.store.ItemStoreVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ public class ItemStoreController {
 
     @GetMapping("/home")
     @Operation(summary = "店铺首页")
-    public RespBody<ItemStoreHomeVO> home(@Validated IdDTO dto) {
+    public RespBody<ItemStoreHomeVO> home(@Validated @ParameterObject IdDTO dto) {
         ItemStoreHomeVO detail = itemStoreService.homeDetail(dto.getId());
         return RespBody.success(detail);
     }

@@ -14,6 +14,7 @@ import com.eghm.web.annotation.VisitRecord;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,7 @@ public class LineOrderController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<List<LineOrderVO>> listPage(@Validated LineOrderQueryDTO dto) {
+    public RespBody<List<LineOrderVO>> listPage(@Validated @ParameterObject LineOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<LineOrderVO> voList = lineOrderService.getByPage(dto);
         return RespBody.success(voList);
@@ -46,14 +47,14 @@ public class LineOrderController {
     @GetMapping("/detail")
     @Operation(summary = "详情")
     @VisitRecord(VisitType.ORDER_DETAIL)
-    public RespBody<LineOrderDetailVO> detail(@Validated OrderDTO dto) {
+    public RespBody<LineOrderDetailVO> detail(@Validated @ParameterObject OrderDTO dto) {
         LineOrderDetailVO detail = lineOrderService.getDetail(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success(detail);
     }
 
     @GetMapping("/snapshot")
     @Operation(summary = "订单快照")
-    public RespBody<LineOrderSnapshotDetailVO> snapshot(@Validated OrderDTO dto) {
+    public RespBody<LineOrderSnapshotDetailVO> snapshot(@Validated @ParameterObject OrderDTO dto) {
         LineOrderSnapshotDetailVO detail = lineOrderService.snapshotDetail(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success(detail);
     }

@@ -9,6 +9,7 @@ import com.eghm.web.annotation.VisitRecord;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,7 @@ public class ItemLimitController {
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     @VisitRecord(VisitType.PRODUCT_LIST)
-    public RespBody<List<LimitItemVO>> listPage(LimitPurchaseQueryDTO dto) {
+    public RespBody<List<LimitItemVO>> listPage(@ParameterObject LimitPurchaseQueryDTO dto) {
         List<LimitItemVO> voList = limitPurchaseItemService.getByPage(dto);
         return RespBody.success(voList);
     }

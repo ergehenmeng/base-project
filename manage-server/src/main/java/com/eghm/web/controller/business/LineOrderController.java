@@ -18,6 +18,7 @@ import com.eghm.vo.business.order.line.LineOrderResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +44,7 @@ public class LineOrderController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<LineOrderResponse>> listPage(LineOrderQueryRequest request) {
+    public RespBody<PageData<LineOrderResponse>> listPage(@ParameterObject LineOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<LineOrderResponse> byPage = lineOrderService.listPage(request);
         return RespBody.success(PageData.toPage(byPage));
@@ -51,7 +52,7 @@ public class LineOrderController {
 
     @GetMapping("/detail")
     @Operation(summary = "详情")
-    public RespBody<LineOrderDetailResponse> detail(@Validated OrderDTO dto) {
+    public RespBody<LineOrderDetailResponse> detail(@Validated @ParameterObject OrderDTO dto) {
         LineOrderDetailResponse detail = lineOrderService.detail(dto.getOrderNo());
         return RespBody.success(detail);
     }
@@ -68,7 +69,7 @@ public class LineOrderController {
 
     @GetMapping("/export")
     @Operation(summary = "导出")
-    public void export(HttpServletResponse response, LineOrderQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject LineOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<LineOrderResponse> byPage = lineOrderService.getList(request);
         EasyExcelUtil.export(response, "线路订单", byPage, LineOrderResponse.class);

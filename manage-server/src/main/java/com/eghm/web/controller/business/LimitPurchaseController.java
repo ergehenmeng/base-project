@@ -14,6 +14,7 @@ import com.eghm.vo.business.limit.LimitPurchaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class LimitPurchaseController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<LimitPurchaseResponse>> listPage(LimitPurchaseQueryRequest request) {
+    public RespBody<PageData<LimitPurchaseResponse>> listPage(@ParameterObject LimitPurchaseQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<LimitPurchaseResponse> byPage = limitPurchaseService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
@@ -56,7 +57,7 @@ public class LimitPurchaseController {
 
     @GetMapping("/detail")
     @Operation(summary = "详情")
-    public RespBody<LimitPurchaseDetailResponse> detail(@Validated IdDTO dto) {
+    public RespBody<LimitPurchaseDetailResponse> detail(@Validated @ParameterObject IdDTO dto) {
         LimitPurchaseDetailResponse response = limitPurchaseService.detailById(dto.getId());
         return RespBody.success(response);
     }

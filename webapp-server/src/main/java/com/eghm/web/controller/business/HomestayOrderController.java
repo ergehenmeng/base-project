@@ -14,6 +14,7 @@ import com.eghm.web.annotation.VisitRecord;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,7 @@ public class HomestayOrderController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<List<HomestayOrderVO>> listPage(@Validated HomestayOrderQueryDTO dto) {
+    public RespBody<List<HomestayOrderVO>> listPage(@Validated @ParameterObject HomestayOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<HomestayOrderVO> voList = homestayOrderService.getByPage(dto);
         return RespBody.success(voList);
@@ -46,14 +47,14 @@ public class HomestayOrderController {
     @GetMapping("/detail")
     @Operation(summary = "详情")
     @VisitRecord(VisitType.ORDER_DETAIL)
-    public RespBody<HomestayOrderDetailVO> detail(@Validated OrderDTO dto) {
+    public RespBody<HomestayOrderDetailVO> detail(@Validated @ParameterObject OrderDTO dto) {
         HomestayOrderDetailVO detail = homestayOrderService.getDetail(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success(detail);
     }
 
     @GetMapping("/snapshot")
     @Operation(summary = "快照详情")
-    public RespBody<HomestayOrderSnapshotVO> snapshot(@Validated OrderDTO dto) {
+    public RespBody<HomestayOrderSnapshotVO> snapshot(@Validated @ParameterObject OrderDTO dto) {
         HomestayOrderSnapshotVO detail = homestayOrderService.snapshotDetail(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success(detail);
     }

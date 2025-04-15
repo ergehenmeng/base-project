@@ -13,6 +13,7 @@ import com.eghm.vo.poi.PoiPointResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class PoiPointController {
 
     @Operation(summary = "列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<PoiPointResponse>> getByPage(PoiPointQueryRequest request) {
+    public RespBody<PageData<PoiPointResponse>> getByPage(@ParameterObject PoiPointQueryRequest request) {
         Page<PoiPointResponse> byPage = poiPointService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
@@ -59,7 +60,7 @@ public class PoiPointController {
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<PoiPoint> select(@Validated IdDTO dto) {
+    public RespBody<PoiPoint> select(@Validated @ParameterObject IdDTO dto) {
         PoiPoint poiPoint = poiPointService.selectByIdRequired(dto.getId());
         return RespBody.success(poiPoint);
     }

@@ -58,7 +58,7 @@ public class ActivityController {
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<ActivityDetailResponse> select(@Validated IdDTO dto) {
+    public RespBody<ActivityDetailResponse> select(@Validated @ParameterObject IdDTO dto) {
         ActivityDetailResponse response = activityService.getByDetail(dto.getId());
         return RespBody.success(response);
     }

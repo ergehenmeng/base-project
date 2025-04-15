@@ -19,6 +19,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +44,7 @@ public class VoucherOrderController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<VoucherOrderResponse>> listPage(VoucherOrderQueryRequest request) {
+    public RespBody<PageData<VoucherOrderResponse>> listPage(@ParameterObject VoucherOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VoucherOrderResponse> byPage = voucherOrderService.listPage(request);
         return RespBody.success(PageData.toPage(byPage));
@@ -51,7 +52,7 @@ public class VoucherOrderController {
 
     @GetMapping("/detail")
     @Operation(summary = "详情")
-    public RespBody<VoucherOrderDetailResponse> detail(@Validated OrderDTO dto) {
+    public RespBody<VoucherOrderDetailResponse> detail(@Validated @ParameterObject OrderDTO dto) {
         VoucherOrderDetailResponse detail = voucherOrderService.detail(dto.getOrderNo());
         return RespBody.success(detail);
     }
@@ -68,7 +69,7 @@ public class VoucherOrderController {
 
     @GetMapping("/export")
     @Operation(summary = "导出")
-    public void export(HttpServletResponse response, VoucherOrderQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject VoucherOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<VoucherOrderResponse> byPage = voucherOrderService.getList(request);
         EasyExcelUtil.export(response, "餐饮订单", byPage, VoucherOrderResponse.class);

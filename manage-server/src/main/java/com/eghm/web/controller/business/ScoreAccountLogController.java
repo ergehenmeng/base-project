@@ -43,7 +43,7 @@ public class ScoreAccountLogController {
 
     @Operation(summary = "导出")
     @GetMapping("/export")
-    public void export(HttpServletResponse response, ScoreAccountQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject ScoreAccountQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<ScoreAccountLogResponse> byPage = scoreAccountLogService.getList(request);
         EasyExcelUtil.export(response, "积分变动记录", byPage, ScoreAccountLogResponse.class);

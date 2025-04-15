@@ -28,6 +28,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +52,7 @@ public class ItemController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<ItemResponse>> listPage(ItemQueryRequest request) {
+    public RespBody<PageData<ItemResponse>> listPage(@ParameterObject ItemQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ItemResponse> byPage = itemService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
@@ -59,7 +60,7 @@ public class ItemController {
 
     @GetMapping("/productListPage")
     @Operation(summary = "列表(含店铺)")
-    public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
+    public RespBody<PageData<BaseProductResponse>> productListPage(@ParameterObject BaseProductQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseProductResponse> listPage = itemService.getProductPage(request);
         return RespBody.success(PageData.toPage(listPage));
@@ -81,7 +82,7 @@ public class ItemController {
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<ItemDetailResponse> select(@Validated IdDTO dto) {
+    public RespBody<ItemDetailResponse> select(@Validated @ParameterObject IdDTO dto) {
         ItemDetailResponse detail = itemService.getDetailById(dto.getId());
         return RespBody.success(detail);
     }
@@ -103,7 +104,7 @@ public class ItemController {
     @GetMapping("/getSku")
     @Operation(summary = "查看sku信息")
     @SkipPerm
-    public RespBody<List<ItemSkuStockResponse>> getSku(@Validated IdDTO request) {
+    public RespBody<List<ItemSkuStockResponse>> getSku(@Validated @ParameterObject IdDTO request) {
         List<ItemSku> skuList = itemSkuService.getSkuList(request.getId());
         List<ItemSkuStockResponse> responseList = DataUtil.copy(skuList, ItemSkuStockResponse.class);
         return RespBody.success(responseList);
@@ -147,14 +148,14 @@ public class ItemController {
 
     @GetMapping("/activityList")
     @Operation(summary = "未参加活动的商品列表")
-    public RespBody<List<ActivityItemResponse>> activityList(IdDTO dto) {
+    public RespBody<List<ActivityItemResponse>> activityList(@ParameterObject IdDTO dto) {
         List<ActivityItemResponse> activityList = itemService.getActivityList(SecurityHolder.getMerchantId(), dto.getId());
         return RespBody.success(activityList);
     }
 
     @GetMapping("/export")
     @Operation(summary = "导出")
-    public void export(HttpServletResponse response, ItemQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject ItemQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<ItemResponse> byPage = itemService.getList(request);
         EasyExcelUtil.export(response, "零售信息", byPage, ItemResponse.class);

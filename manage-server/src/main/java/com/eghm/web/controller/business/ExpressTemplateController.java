@@ -12,6 +12,7 @@ import com.eghm.vo.business.item.express.ExpressTemplateResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -71,7 +72,7 @@ public class ExpressTemplateController {
 
     @GetMapping(value = "/select")
     @Operation(summary = "查询")
-    public RespBody<ExpressTemplateResponse> select(@Validated IdDTO dto) {
+    public RespBody<ExpressTemplateResponse> select(@Validated @ParameterObject IdDTO dto) {
         ExpressTemplateResponse selected = expressTemplateService.selectById(dto.getId());
         return RespBody.success(selected);
     }

@@ -51,7 +51,7 @@ public class RestaurantController {
 
     @GetMapping("/storeListPage")
     @Operation(summary = "列表含商户信息")
-    public RespBody<PageData<BaseStoreResponse>> storeListPage(BaseStoreQueryRequest request) {
+    public RespBody<PageData<BaseStoreResponse>> storeListPage(@ParameterObject BaseStoreQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseStoreResponse> listPage = restaurantService.getStorePage(request);
         return RespBody.success(PageData.toPage(listPage));
@@ -104,7 +104,7 @@ public class RestaurantController {
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<RestaurantDetailResponse> select(@Validated IdDTO dto) {
+    public RespBody<RestaurantDetailResponse> select(@Validated @ParameterObject IdDTO dto) {
         Restaurant restaurant = restaurantService.selectByIdRequired(dto.getId());
         return RespBody.success(DataUtil.copy(restaurant, RestaurantDetailResponse.class));
     }
@@ -121,7 +121,7 @@ public class RestaurantController {
 
     @GetMapping("/export")
     @Operation(summary = "导出")
-    public void export(HttpServletResponse response, RestaurantQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject RestaurantQueryRequest request) {
         SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         List<RestaurantResponse> byPage = restaurantService.getList(request);
         EasyExcelUtil.export(response, "餐饮店铺", byPage, RestaurantResponse.class);

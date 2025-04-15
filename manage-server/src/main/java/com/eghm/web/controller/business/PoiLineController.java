@@ -15,6 +15,7 @@ import com.eghm.vo.poi.PoiLineResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class PoiLineController {
 
     @Operation(summary = "列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<PoiLineResponse>> getByPage(PoiLineQueryRequest request) {
+    public RespBody<PageData<PoiLineResponse>> getByPage(@ParameterObject PoiLineQueryRequest request) {
         Page<PoiLineResponse> byPage = poiLineService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
@@ -82,14 +83,14 @@ public class PoiLineController {
 
     @GetMapping("/bindDetail")
     @Operation(summary = "绑定详情")
-    public RespBody<LinePointResponse> bindDetail(@Validated IdDTO dto) {
+    public RespBody<LinePointResponse> bindDetail(@Validated @ParameterObject IdDTO dto) {
         LinePointResponse response = poiLineService.getLinePoint(dto.getId());
         return RespBody.success(response);
     }
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<PoiLine> select(@Validated IdDTO dto) {
+    public RespBody<PoiLine> select(@Validated @ParameterObject IdDTO dto) {
         PoiLine poiLine = poiLineService.selectByIdRequired(dto.getId());
         return RespBody.success(poiLine);
     }

@@ -17,6 +17,7 @@ import com.eghm.vo.business.lottery.LotteryResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class LotteryController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<LotteryResponse>> listPage(@Validated LotteryQueryRequest request) {
+    public RespBody<PageData<LotteryResponse>> listPage(@Validated @ParameterObject LotteryQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<LotteryResponse> merchantPage = lotteryService.getByPage(request);
         return RespBody.success(PageData.toPage(merchantPage));
@@ -61,7 +62,7 @@ public class LotteryController {
 
     @GetMapping("/detail")
     @Operation(summary = "详情")
-    public RespBody<LotteryDetailResponse> detail(@Validated IdDTO dto) {
+    public RespBody<LotteryDetailResponse> detail(@Validated @ParameterObject IdDTO dto) {
         LotteryDetailResponse response = lotteryService.getDetailById(dto.getId());
         return RespBody.success(response);
     }
@@ -75,7 +76,7 @@ public class LotteryController {
 
     @GetMapping("/logPage")
     @Operation(summary = "抽奖记录")
-    public RespBody<PageData<LotteryLogResponse>> logPage(@Validated LotteryLotQueryRequest request) {
+    public RespBody<PageData<LotteryLogResponse>> logPage(@Validated @ParameterObject LotteryLotQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<LotteryLogResponse> byPage = lotteryLogService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));

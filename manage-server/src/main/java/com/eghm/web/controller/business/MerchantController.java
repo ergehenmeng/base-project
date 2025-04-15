@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +41,7 @@ public class MerchantController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<MerchantResponse>> listPage(@Validated MerchantQueryRequest request) {
+    public RespBody<PageData<MerchantResponse>> listPage(@Validated @ParameterObject MerchantQueryRequest request) {
         Page<MerchantResponse> merchantPage = merchantService.getByPage(request);
         return RespBody.success(PageData.toPage(merchantPage));
     }
@@ -61,7 +62,7 @@ public class MerchantController {
 
     @GetMapping("/detail")
     @Operation(summary = "详情")
-    public RespBody<MerchantDetailVO> detail(@Validated IdDTO dto) {
+    public RespBody<MerchantDetailVO> detail(@Validated @ParameterObject IdDTO dto) {
         Merchant merchant = merchantService.selectByIdRequired(dto.getId());
         MerchantDetailVO vo = DataUtil.copy(merchant, MerchantDetailVO.class);
         vo.setTypeList(MerchantType.parse(merchant.getType()));
@@ -112,7 +113,7 @@ public class MerchantController {
 
     @GetMapping("/export")
     @Operation(summary = "导出")
-    public void export(HttpServletResponse response, MerchantQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject MerchantQueryRequest request) {
         List<MerchantResponse> byPage = merchantService.getList(request);
         EasyExcelUtil.export(response, "商户信息", byPage, MerchantResponse.class);
     }

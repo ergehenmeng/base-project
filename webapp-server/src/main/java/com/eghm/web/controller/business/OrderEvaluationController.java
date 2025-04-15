@@ -13,6 +13,7 @@ import com.eghm.web.annotation.AccessToken;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -42,14 +43,14 @@ public class OrderEvaluationController {
 
     @GetMapping("/count")
     @Operation(summary = "统计商品评论数")
-    public RespBody<EvaluationGroupVO> count(@Validated IdDTO dto) {
+    public RespBody<EvaluationGroupVO> count(@Validated @ParameterObject IdDTO dto) {
         EvaluationGroupVO vo = orderEvaluationService.groupEvaluation(dto.getId());
         return RespBody.success(vo);
     }
 
     @GetMapping("/listPage")
     @Operation(summary = "商品评论列表")
-    public RespBody<List<OrderEvaluationVO>> listPage(@Validated OrderEvaluationQueryDTO dto) {
+    public RespBody<List<OrderEvaluationVO>> listPage(@Validated @ParameterObject OrderEvaluationQueryDTO dto) {
         List<OrderEvaluationVO> byPage = orderEvaluationService.getByPage(dto);
         return RespBody.success(byPage);
     }

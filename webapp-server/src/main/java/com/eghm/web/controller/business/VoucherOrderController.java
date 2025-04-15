@@ -14,6 +14,7 @@ import com.eghm.web.annotation.VisitRecord;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,7 @@ public class VoucherOrderController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<List<VoucherOrderVO>> listPage(@Validated VoucherOrderQueryDTO dto) {
+    public RespBody<List<VoucherOrderVO>> listPage(@Validated @ParameterObject VoucherOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<VoucherOrderVO> voList = voucherOrderService.getByPage(dto);
         return RespBody.success(voList);
@@ -46,14 +47,14 @@ public class VoucherOrderController {
     @GetMapping("/detail")
     @Operation(summary = "详情")
     @VisitRecord(VisitType.ORDER_DETAIL)
-    public RespBody<VoucherOrderDetailVO> detail(@Validated OrderDTO dto) {
+    public RespBody<VoucherOrderDetailVO> detail(@Validated @ParameterObject OrderDTO dto) {
         VoucherOrderDetailVO detail = voucherOrderService.getDetail(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success(detail);
     }
 
     @GetMapping("/snapshot")
     @Operation(summary = "快照详情")
-    public RespBody<VoucherOrderSnapshotVO> snapshot(@Validated OrderDTO dto) {
+    public RespBody<VoucherOrderSnapshotVO> snapshot(@Validated @ParameterObject OrderDTO dto) {
         VoucherOrderSnapshotVO detail = voucherOrderService.snapshotDetail(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success(detail);
     }

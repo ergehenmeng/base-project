@@ -13,6 +13,7 @@ import com.eghm.web.annotation.VisitRecord;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +37,7 @@ public class TicketOrderController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<List<TicketOrderVO>> listPage(@Validated TicketOrderQueryDTO dto) {
+    public RespBody<List<TicketOrderVO>> listPage(@Validated @ParameterObject TicketOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<TicketOrderVO> voList = ticketOrderService.getByPage(dto);
         return RespBody.success(voList);
@@ -45,7 +46,7 @@ public class TicketOrderController {
     @GetMapping("/detail")
     @Operation(summary = "详情")
     @VisitRecord(VisitType.ORDER_DETAIL)
-    public RespBody<TicketOrderDetailVO> detail(@Validated OrderDTO dto) {
+    public RespBody<TicketOrderDetailVO> detail(@Validated @ParameterObject OrderDTO dto) {
         TicketOrderDetailVO detail = ticketOrderService.getDetail(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success(detail);
     }

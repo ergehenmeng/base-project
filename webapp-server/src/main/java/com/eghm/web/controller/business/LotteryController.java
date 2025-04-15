@@ -18,6 +18,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -52,7 +53,7 @@ public class LotteryController {
 
     @GetMapping("/detail")
     @Operation(summary = "抽奖详情")
-    public RespBody<LotteryDetailVO> detail(@Validated IdDTO dto) {
+    public RespBody<LotteryDetailVO> detail(@Validated @ParameterObject IdDTO dto) {
         Long memberId = ApiHolder.tryGetMemberId();
         LotteryDetailVO detail = lotteryService.detail(dto.getId(), memberId);
         return RespBody.success(detail);
@@ -71,7 +72,7 @@ public class LotteryController {
     @GetMapping("/logPage")
     @Operation(summary = "中奖记录")
     @AccessToken
-    public RespBody<List<LotteryLogVO>> logPage(LotteryQueryDTO dto) {
+    public RespBody<List<LotteryLogVO>> logPage(@ParameterObject LotteryQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<LotteryLogVO> voList = lotteryLogService.getList(dto);
         return RespBody.success(voList);

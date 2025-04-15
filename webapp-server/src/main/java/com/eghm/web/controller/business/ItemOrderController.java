@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +40,7 @@ public class ItemOrderController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<List<ItemOrderVO>> listPage(@Validated ItemOrderQueryDTO dto) {
+    public RespBody<List<ItemOrderVO>> listPage(@Validated @ParameterObject ItemOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<ItemOrderVO> voList = itemOrderService.getByPage(dto);
         return RespBody.success(voList);
@@ -48,21 +49,21 @@ public class ItemOrderController {
     @GetMapping("/detail")
     @Operation(summary = "详情")
     @VisitRecord(VisitType.ORDER_DETAIL)
-    public RespBody<ItemOrderDetailVO> detail(@Validated OrderDTO dto) {
+    public RespBody<ItemOrderDetailVO> detail(@Validated @ParameterObject OrderDTO dto) {
         ItemOrderDetailVO detail = itemOrderService.getDetail(dto.getOrderNo(), ApiHolder.getMemberId());
         return RespBody.success(detail);
     }
 
     @GetMapping("/express")
     @Operation(summary = "快递信息详情")
-    public RespBody<ExpressDetailVO> express(@Validated IdDTO dto) {
+    public RespBody<ExpressDetailVO> express(@Validated @ParameterObject IdDTO dto) {
         ExpressDetailVO detail = orderService.expressDetail(dto.getId());
         return RespBody.success(detail);
     }
 
     @GetMapping("/snapshotList")
     @Operation(summary = "快照列表")
-    public RespBody<List<ItemOrderListVO>> snapshotList(@Validated OrderDTO dto) {
+    public RespBody<List<ItemOrderListVO>> snapshotList(@Validated @ParameterObject OrderDTO dto) {
         List<ItemOrderListVO> detailList = itemOrderService.getItemList(dto.getOrderNo());
         return RespBody.success(detailList);
     }

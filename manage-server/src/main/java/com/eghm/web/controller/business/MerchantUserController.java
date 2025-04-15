@@ -15,6 +15,7 @@ import com.eghm.vo.business.merchant.MerchantUserResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class MerchantUserController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<MerchantUserResponse>> listPage(MerchantUserQueryRequest request) {
+    public RespBody<PageData<MerchantUserResponse>> listPage(@ParameterObject MerchantUserQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<MerchantUserResponse> merchantPage = merchantUserService.getByPage(request);
         return RespBody.success(PageData.toPage(merchantPage));
@@ -59,7 +60,7 @@ public class MerchantUserController {
 
     @GetMapping("/roleList")
     @Operation(summary = "用户角色列表")
-    public RespBody<List<Long>> roleList(@Validated IdDTO dto) {
+    public RespBody<List<Long>> roleList(@Validated @ParameterObject IdDTO dto) {
         MerchantUser required = merchantUserService.selectByIdRequired(dto.getId());
         List<Long> roleList = sysRoleService.getByUserId(required.getUserId());
         return RespBody.success(roleList);

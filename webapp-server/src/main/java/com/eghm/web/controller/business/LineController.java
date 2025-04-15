@@ -13,6 +13,7 @@ import com.eghm.web.annotation.VisitRecord;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +39,7 @@ public class LineController {
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     @VisitRecord(VisitType.PRODUCT_LIST)
-    public RespBody<List<LineVO>> getByPage(LineQueryDTO dto) {
+    public RespBody<List<LineVO>> getByPage(@ParameterObject LineQueryDTO dto) {
         List<LineVO> byPage = lineService.getByPage(dto);
         return RespBody.success(byPage);
     }
@@ -46,14 +47,14 @@ public class LineController {
     @GetMapping("/detail")
     @Operation(summary = "详情")
     @VisitRecord(VisitType.PRODUCT_DETAIL)
-    public RespBody<LineDetailVO> detail(@Validated IdDTO request) {
+    public RespBody<LineDetailVO> detail(@Validated @ParameterObject IdDTO request) {
         LineDetailVO detail = lineService.detailById(request.getId());
         return RespBody.success(detail);
     }
 
     @GetMapping("/price/list")
     @Operation(summary = "线路日价格")
-    public RespBody<List<LineConfigVO>> getPriceList(@Validated IdDTO dto) {
+    public RespBody<List<LineConfigVO>> getPriceList(@Validated @ParameterObject IdDTO dto) {
         List<LineConfigVO> voList = lineConfigService.getPriceList(dto.getId());
         return RespBody.success(voList);
     }

@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class ScenicTicketController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<TicketResponse>> listPage(ScenicTicketQueryRequest request) {
+    public RespBody<PageData<TicketResponse>> listPage(@ParameterObject ScenicTicketQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<TicketResponse> responsePage = scenicTicketService.getByPage(request);
         return RespBody.success(PageData.toPage(responsePage));
@@ -49,7 +50,7 @@ public class ScenicTicketController {
 
     @GetMapping("/productListPage")
     @Operation(summary = "列表(含店铺)")
-    public RespBody<PageData<BaseProductResponse>> productListPage(BaseProductQueryRequest request) {
+    public RespBody<PageData<BaseProductResponse>> productListPage(@ParameterObject BaseProductQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseProductResponse> listPage = scenicTicketService.getProductPage(request);
         return RespBody.success(PageData.toPage(listPage));
@@ -115,7 +116,7 @@ public class ScenicTicketController {
 
     @GetMapping("/export")
     @Operation(summary = "导出")
-    public void export(HttpServletResponse response, ScenicTicketQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject ScenicTicketQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<TicketResponse> byPage = scenicTicketService.getList(request);
         EasyExcelUtil.export(response, "门票列表", byPage, TicketResponse.class);

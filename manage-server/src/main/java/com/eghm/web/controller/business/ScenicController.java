@@ -23,6 +23,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +43,7 @@ public class ScenicController {
 
     @Operation(summary = "列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<ScenicResponse>> getByPage(ScenicQueryRequest request) {
+    public RespBody<PageData<ScenicResponse>> getByPage(@ParameterObject ScenicQueryRequest request) {
         SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         Page<ScenicResponse> scenicPage = scenicService.getByPage(request);
         return RespBody.success(PageData.toPage(scenicPage));
@@ -57,7 +58,7 @@ public class ScenicController {
 
     @GetMapping("/storeListPage")
     @Operation(summary = "列表含商户信息")
-    public RespBody<PageData<BaseStoreResponse>> storeListPage(BaseStoreQueryRequest request) {
+    public RespBody<PageData<BaseStoreResponse>> storeListPage(@ParameterObject BaseStoreQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseStoreResponse> listPage = scenicService.getStorePage(request);
         return RespBody.success(PageData.toPage(listPage));
@@ -79,7 +80,7 @@ public class ScenicController {
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<ScenicDetailResponse> select(@Validated IdDTO request) {
+    public RespBody<ScenicDetailResponse> select(@Validated @ParameterObject IdDTO request) {
         Scenic scenic = scenicService.selectById(request.getId());
         return RespBody.success(DataUtil.copy(scenic, ScenicDetailResponse.class));
     }
@@ -114,7 +115,7 @@ public class ScenicController {
 
     @GetMapping("/export")
     @Operation(summary = "导出")
-    public void export(HttpServletResponse response, ScenicQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject ScenicQueryRequest request) {
         SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         List<ScenicResponse> byPage = scenicService.getList(request);
         EasyExcelUtil.export(response, "景区列表", byPage, ScenicResponse.class);

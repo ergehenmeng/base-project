@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +39,7 @@ public class ItemGroupController {
     @GetMapping("/listPage")
     @Operation(summary = "列表")
     @VisitRecord(VisitType.PRODUCT_LIST)
-    public RespBody<List<GroupItemVO>> listPage(GroupBookingQueryDTO dto) {
+    public RespBody<List<GroupItemVO>> listPage(@ParameterObject GroupBookingQueryDTO dto) {
         List<GroupItemVO> voList = groupBookingService.listPage(dto);
         return RespBody.success(voList);
     }

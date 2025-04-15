@@ -52,7 +52,7 @@ public class TravelAgencyController {
 
     @GetMapping("/storeListPage")
     @Operation(summary = "列表含商户信息")
-    public RespBody<PageData<BaseStoreResponse>> storeListPage(BaseStoreQueryRequest request) {
+    public RespBody<PageData<BaseStoreResponse>> storeListPage(@ParameterObject BaseStoreQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<BaseStoreResponse> listPage = travelAgencyService.getStorePage(request);
         return RespBody.success(PageData.toPage(listPage));
@@ -102,7 +102,7 @@ public class TravelAgencyController {
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<TravelDetailResponse> select(@Validated IdDTO dto) {
+    public RespBody<TravelDetailResponse> select(@Validated @ParameterObject IdDTO dto) {
         TravelAgency travelAgency = travelAgencyService.selectByIdRequired(dto.getId());
         return RespBody.success(DataUtil.copy(travelAgency, TravelDetailResponse.class));
     }
@@ -116,7 +116,7 @@ public class TravelAgencyController {
 
     @GetMapping("/export")
     @Operation(summary = "导出")
-    public void export(HttpServletResponse response, TravelAgencyQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject TravelAgencyQueryRequest request) {
         SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         List<TravelResponse> byPage = travelAgencyService.getList(request);
         EasyExcelUtil.export(response, "旅行社列表", byPage, TravelResponse.class);
