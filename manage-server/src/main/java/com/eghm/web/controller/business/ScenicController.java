@@ -19,7 +19,6 @@ import com.eghm.vo.business.scenic.BaseScenicResponse;
 import com.eghm.vo.business.scenic.ScenicDetailResponse;
 import com.eghm.vo.business.scenic.ScenicResponse;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -49,7 +48,7 @@ public class ScenicController {
         return RespBody.success(PageData.toPage(scenicPage));
     }
 
-    @Schema(description = "列表(不分页)")
+    @Operation(summary = "列表(不分页)")
     @GetMapping("/list")
     public RespBody<List<BaseScenicResponse>> list() {
         List<BaseScenicResponse> scenicList = scenicService.getList(SecurityHolder.getMerchantId());

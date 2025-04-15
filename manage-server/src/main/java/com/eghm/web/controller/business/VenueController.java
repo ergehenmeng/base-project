@@ -102,7 +102,7 @@ public class VenueController {
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<VenueDetailResponse> select(@Validated IdDTO dto) {
+    public RespBody<VenueDetailResponse> select(@Validated @ParameterObject IdDTO dto) {
         Venue venue = venueService.selectByIdRequired(dto.getId());
         return RespBody.success(DataUtil.copy(venue, VenueDetailResponse.class));
     }

@@ -81,7 +81,7 @@ public class ScenicTicketController {
 
     @GetMapping("/select")
     @Operation(summary = "详情")
-    public RespBody<TicketDetailResponse> select(@Validated IdDTO dto) {
+    public RespBody<TicketDetailResponse> select(@Validated @ParameterObject IdDTO dto) {
         TicketDetailResponse response = scenicTicketService.detail(dto.getId());
         return RespBody.success(response);
     }

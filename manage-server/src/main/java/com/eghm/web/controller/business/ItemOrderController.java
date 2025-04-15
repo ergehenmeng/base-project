@@ -103,7 +103,7 @@ public class ItemOrderController {
     }
 
     @GetMapping("/export")
-    @Operation(summary = "导出Excel")
+    @Operation(summary = "导出")
     public void export(HttpServletResponse response, @ParameterObject ItemOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<ItemOrderResponse> byPage = itemOrderService.getList(request);

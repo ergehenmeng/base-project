@@ -121,7 +121,7 @@ public class ItemStoreController {
 
     @GetMapping("/export")
     @Operation(summary = "导出")
-    public void export(HttpServletResponse response, ItemStoreQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject ItemStoreQueryRequest request) {
         SecurityHolder.getMerchantOptional().ifPresent(request::setMerchantId);
         List<ItemStoreResponse> byPage = itemStoreService.getList(request);
         EasyExcelUtil.export(response, "零售店铺信息", byPage, ItemStoreResponse.class);

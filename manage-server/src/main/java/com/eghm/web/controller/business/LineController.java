@@ -123,7 +123,7 @@ public class LineController {
 
     @Operation(summary = "导出")
     @GetMapping("/export")
-    public void export(HttpServletResponse response, LineQueryRequest request) {
+    public void export(HttpServletResponse response, @ParameterObject LineQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         List<LineResponse> byPage = lineService.getList(request);
         EasyExcelUtil.export(response, "线路信息", byPage, LineResponse.class);
