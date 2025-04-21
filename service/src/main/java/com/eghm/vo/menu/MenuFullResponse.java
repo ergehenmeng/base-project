@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -43,6 +42,9 @@ public class MenuFullResponse {
     @Schema(description = "菜单类型: 1:商户菜单(该菜单或按钮只对商户开放) 2:系统菜单(该菜单或按钮只对系统人员开放) 3:通用菜单(该菜单或按钮对商户和系统人员都开放)")
     private Integer displayState;
 
+    @Schema(description = "是否有子节点")
+    private Boolean hasChildren;
+
     @Schema(description = "排序")
     private Integer sort;
 
@@ -52,8 +54,5 @@ public class MenuFullResponse {
     @Schema(description = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
-
-    @Schema(description = "子菜单")
-    private List<MenuFullResponse> children;
 
 }
