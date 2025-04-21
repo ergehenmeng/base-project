@@ -38,7 +38,7 @@ public class LotteryController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<LotteryResponse>> listPage(@Validated @ParameterObject LotteryQueryRequest request) {
+    public RespBody<PageData<LotteryResponse>> listPage(@ParameterObject LotteryQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<LotteryResponse> merchantPage = lotteryService.getByPage(request);
         return RespBody.success(PageData.toPage(merchantPage));

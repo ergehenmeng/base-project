@@ -18,8 +18,8 @@ import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.venue.VenueSiteDetailResponse;
 import com.eghm.vo.business.venue.VenueSitePriceVO;
 import com.eghm.vo.business.venue.VenueSiteResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
@@ -45,7 +45,7 @@ public class VenueSiteController {
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<VenueSiteResponse>> listPage(@Validated @ParameterObject VenueSiteQueryRequest request) {
+    public RespBody<PageData<VenueSiteResponse>> listPage(@ParameterObject VenueSiteQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VenueSiteResponse> byPage = venueSiteService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
