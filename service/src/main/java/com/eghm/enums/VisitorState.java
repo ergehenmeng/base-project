@@ -40,9 +40,7 @@ public enum VisitorState {
     /**
      * 已退款(钱已到账)
      */
-    REFUND(4, "已退款"),
-
-    ;
+    REFUND(4, "已退款");
 
     /**
      * 状态值
