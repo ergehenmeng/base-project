@@ -9,6 +9,7 @@ import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.lang.NonNull;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -74,7 +75,11 @@ public class EnumBinderConverterFactory implements ConverterFactory<String, Enum
                 JsonCreator creator = method.getDeclaredAnnotation(JsonCreator.class);
                 boolean hasJsonCreator = creator != null && method.getParameterCount() == 1 && (method.getParameterTypes()[0] == String.class || method.getParameterTypes()[0] == Integer.class);
                 if (hasJsonCreator) {
-                    return method;
+                    if (Modifier.isStatic(method.getModifiers())) {
+                        return method;
+                    } else {
+                        log.warn("枚举类[{}]中存在JsonCreator注解的方法必须是静态类才能绑定数据", clazz.getName());
+                    }
                 }
             }
             return null;
