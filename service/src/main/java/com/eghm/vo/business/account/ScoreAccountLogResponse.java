@@ -41,8 +41,8 @@ public class ScoreAccountLogResponse extends ExcelStyle {
     @ExcelProperty(value = "收支类型", index = 3, converter = EnumExcelConverter.class)
     private DirectionType direction;
 
-    @Schema(description = "变动后的积分(可用积分)")
-    @ExcelProperty(value = "变动后的积分(可用积分)", index = 4)
+    @Schema(description = "变动后的积分")
+    @ExcelProperty(value = "变动后的积分", index = 4)
     private Integer surplusAmount;
 
     @Schema(description = "关联单号")
