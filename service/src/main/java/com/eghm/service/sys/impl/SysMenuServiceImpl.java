@@ -76,8 +76,11 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public List<MenuFullResponse> getList(MenuQueryRequest request) {
-        List<MenuFullResponse> responseList = sysMenuMapper.getList(request);
-        return this.treeBinB(ROOT, responseList);
+        // 由于是懒加载, 如果有查询条件, 则将pid置为null
+        if (StringUtil.isNotBlank(request.getQueryName())) {
+            request.setPid(null);
+        }
+        return sysMenuMapper.getList(request);
     }
 
     @Override
@@ -212,18 +215,6 @@ public class SysMenuServiceImpl implements SysMenuService {
     private List<MenuResponse> treeBin(String pid, List<MenuResponse> menuList) {
         List<MenuResponse> responseList = menuList.stream().filter(parent -> Objects.equals(pid, parent.getPid())).sorted(COMPARATOR).toList();
         responseList.forEach(parent -> parent.setChildren(this.treeBin(parent.getId(), menuList)));
-        return responseList;
-    }
-
-    /**
-     * 将菜单列表树化
-     *
-     * @param menuList 菜单列表
-     * @return 菜单列表 树状结构
-     */
-    private List<MenuFullResponse> treeBinB(String pid, List<MenuFullResponse> menuList) {
-        List<MenuFullResponse> responseList = menuList.stream().filter(parent -> Objects.equals(pid, parent.getPid())).sorted(FULL_COMPARATOR).toList();
-        responseList.forEach(parent -> parent.setChildren(this.treeBinB(parent.getId(), menuList)));
         return responseList;
     }
 }
