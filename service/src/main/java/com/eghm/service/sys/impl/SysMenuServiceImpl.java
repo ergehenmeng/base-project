@@ -54,8 +54,6 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     private final Comparator<MenuResponse> comparator = Comparator.comparing(MenuResponse::getSort);
 
-    private final Comparator<MenuFullResponse> fullComparator = Comparator.comparing(MenuFullResponse::getSort);
-
     @Override
     public List<MenuResponse> getLeftMenuList(Long userId) {
         List<MenuResponse> list = sysMenuMapper.getMenuList(userId, 1);
@@ -82,8 +80,11 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public List<MenuFullResponse> getList(MenuQueryRequest request) {
-        List<MenuFullResponse> responseList = sysMenuMapper.getList(request);
-        return this.treeBinB(ROOT, responseList);
+        // 由于是懒加载, 如果有查询条件, 则将pid置为null
+        if (StringUtil.isNotBlank(request.getQueryName())) {
+            request.setPid(null);
+        }
+        return sysMenuMapper.getList(request);
     }
 
     @Override
@@ -222,16 +223,4 @@ public class SysMenuServiceImpl implements SysMenuService {
                 .sorted(comparator).collect(Collectors.toList());
     }
 
-    /**
-     * 将菜单列表树化
-     *
-     * @param menuList 菜单列表
-     * @return 菜单列表 树状结构
-     */
-    private List<MenuFullResponse> treeBinB(String pid, List<MenuFullResponse> menuList) {
-        return menuList.stream()
-                .filter(parent -> Objects.equals(pid, parent.getPid()))
-                .peek(parent -> parent.setChildren(this.treeBinB(parent.getId(), menuList)))
-                .sorted(fullComparator).collect(Collectors.toList());
-    }
 }

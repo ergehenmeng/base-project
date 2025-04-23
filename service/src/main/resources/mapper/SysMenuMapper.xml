@@ -35,19 +35,17 @@
 
     <select id="getList" resultType="com.eghm.vo.menu.MenuFullResponse" parameterType="com.eghm.dto.sys.menu.MenuQueryRequest">
         SELECT
-        t.id, t.title, t.icon, t.state, t.display_state, t.pid, t.path, t.sub_path, t.sort, t.grade, t.update_time, t.remark
+        t.id, t.title, t.icon, t.state, t.display_state, t.grade = 1 as hasChildren, t.pid, t.path, t.sub_path, t.sort, t.grade, t.update_time, t.remark
         from sys_menu t
         <where>
             <if test="queryName != null and queryName != ''">
-                and t.title like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%')
+                and (t.title like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%') or t.remark like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%') )
             </if>
-            <if test="state != null">
-                and t.state = #{state}
-            </if>
-            <if test="displayState != null">
-                and t.display_state = #{displayState}
+            <if test="pid != null and pid != ''">
+                and t.pid = #{pid}
             </if>
         </where>
+        order by t.sort
     </select>
 
     <select id="getMaxId" resultType="string">
