@@ -27,7 +27,7 @@ public class MemberRegisterVO {
     private String createMonth;
 
     @ApiModelProperty("注册人数")
-    private Integer registerNum = 0;
+    private Integer registerNum;
 
     public MemberRegisterVO(LocalDate createDate) {
         this.createDate = createDate;

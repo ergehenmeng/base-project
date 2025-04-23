@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BeanValidator {
 
-    private static final ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class).configure().failFast(true).buildValidatorFactory();
+    private static final ValidatorFactory VALIDATOR_FACTORY = Validation.byProvider(HibernateValidator.class).configure().failFast(true).buildValidatorFactory();
 
     /**
      * 验证参数是否合法
@@ -34,7 +34,7 @@ public class BeanValidator {
      * @param <T> 参数类型
      */
     public static <T> void validate(T t, Consumer<String> consumer, Class<?>... groups) {
-        Validator validator = validatorFactory.getValidator();
+        Validator validator = VALIDATOR_FACTORY.getValidator();
         Set<ConstraintViolation<T>> validate = validator.validate(t, groups);
         if (CollUtil.isNotEmpty(validate)) {
             Iterator<ConstraintViolation<T>> iterator = validate.iterator();

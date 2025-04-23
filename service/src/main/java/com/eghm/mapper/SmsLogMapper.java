@@ -7,6 +7,9 @@ import com.eghm.model.SmsLog;
 import com.eghm.vo.operate.log.SmsLogResponse;
 import org.apache.ibatis.annotations.Param;
 
+/**
+ * @author eghm
+ */
 public interface SmsLogMapper extends BaseMapper<SmsLog> {
 
     /**

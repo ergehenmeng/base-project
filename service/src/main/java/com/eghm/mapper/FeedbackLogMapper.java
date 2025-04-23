@@ -7,6 +7,9 @@ import com.eghm.model.FeedbackLog;
 import com.eghm.vo.operate.feedback.FeedbackResponse;
 import org.apache.ibatis.annotations.Param;
 
+/**
+ * @author eghm
+ */
 public interface FeedbackLogMapper extends BaseMapper<FeedbackLog> {
 
     /**

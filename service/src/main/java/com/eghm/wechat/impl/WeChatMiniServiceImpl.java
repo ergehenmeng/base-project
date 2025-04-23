@@ -89,7 +89,7 @@ public class WeChatMiniServiceImpl implements WeChatMiniService {
     }
 
     @Override
-    public byte[] generateQRCode(String path, String query, int validDay) {
+    public byte[] generateQrCode(String path, String query, int validDay) {
         log.info("开始生成小程序码 path: [{}] query: [{}]", path, query);
         this.verify();
         WxMaQrcodeService qrcodeService = wxMaService.getQrcodeService();

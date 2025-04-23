@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.dto.sys.menu.MenuAddRequest;
 import com.eghm.dto.sys.menu.MenuEditRequest;
 import com.eghm.dto.sys.menu.MenuQueryRequest;
+import com.eghm.enums.DisplayState;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysMenuMapper;
@@ -51,8 +52,6 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     private final Comparator<MenuResponse> comparator = Comparator.comparing(MenuResponse::getSort);
 
-    private final Comparator<MenuFullResponse> fullComparator = Comparator.comparing(MenuFullResponse::getSort);
-
     @Override
     public List<MenuResponse> getLeftMenuList(Long userId) {
         List<MenuResponse> list = sysMenuMapper.getMenuList(userId, 1);
@@ -73,8 +72,11 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public List<MenuFullResponse> getList(MenuQueryRequest request) {
-        List<MenuFullResponse> responseList = sysMenuMapper.getList(request);
-        return this.treeBinB(ROOT, responseList);
+        // 由于是懒加载, 如果有查询条件, 则将pid置为null
+        if (StringUtil.isNotBlank(request.getQueryName())) {
+            request.setPid(null);
+        }
+        return sysMenuMapper.getList(request);
     }
 
     @Override
@@ -172,7 +174,7 @@ public class SysMenuServiceImpl implements SysMenuService {
             log.warn("父菜单节点不存在 [{}]", pid);
             throw new BusinessException(ErrorCode.PID_MENU_NULL);
         }
-        if (sysMenu.getDisplayState() != 3 && !sysMenu.getDisplayState().equals(displayState)) {
+        if (sysMenu.getDisplayState() != DisplayState.ALL.getValue() && !sysMenu.getDisplayState().equals(displayState)) {
             log.warn("菜单节点显示状态不满足要求 [{}] [{}] [{}]", pid, sysMenu.getDisplayState(), displayState);
             throw new BusinessException(ErrorCode.PID_MENU_STATE);
         }
@@ -212,15 +214,4 @@ public class SysMenuServiceImpl implements SysMenuService {
         return responseList;
     }
 
-    /**
-     * 将菜单列表树化
-     *
-     * @param menuList 菜单列表
-     * @return 菜单列表 树状结构
-     */
-    private List<MenuFullResponse> treeBinB(String pid, List<MenuFullResponse> menuList) {
-        List<MenuFullResponse> responseList = menuList.stream().filter(parent -> Objects.equals(pid, parent.getPid())).sorted(fullComparator).collect(Collectors.toList());
-        responseList.forEach(parent -> parent.setChildren(this.treeBinB(parent.getId(), menuList)));
-        return responseList;
-    }
 }
