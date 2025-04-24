@@ -61,23 +61,20 @@ mybatis-plus:
 
 system:
   manage:
-    security:
-      skip-auth:
-        - /captcha
-        ## 默认错误页面不拦截
-        - ${server.error.path}
-        - /**/captcha
-        - /doc.html
-        - /webjars/**
-        - /v2/api-docs
-        - /swagger-resources/**
-        - /manage/login
-        - /manage/sendSms
-        - /manage/smsLogin
-        - /manage/logout
-        - /manage/wechat/qrcode/url
-        - /manage/wechat/qrcode/login
-        - /favicon.ico
-        - /manage/export/exportMenu
-        - /resource/**
-        - /ws
+    white-list:
+      - ${server.error.path}
+      - /doc.html
+      - /webjars/**
+      - /actuator/**
+      - /swagger-resources
+      - /v2/api-docs/**
+      - /manage/captcha
+      - /manage/login
+      - /manage/sendSms
+      - /manage/smsLogin
+      - /manage/logout
+      - /favicon.ico
+      - /manage/wechat/qrcode/url
+      - /manage/wechat/qrcode/login
+      - /resource/**
+      - /ws
