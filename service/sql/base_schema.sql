@@ -840,8 +840,8 @@ CREATE TABLE `line_config`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='线路商品配置表';
 
-DROP TABLE IF EXISTS `line_day_config`;
-CREATE TABLE `line_day_config`
+DROP TABLE IF EXISTS `line_config_day`;
+CREATE TABLE `line_config_day`
 (
     `id`           bigint(20) NOT NULL COMMENT '主键',
     `line_id`      bigint(20)  DEFAULT NULL COMMENT '线路商品id',

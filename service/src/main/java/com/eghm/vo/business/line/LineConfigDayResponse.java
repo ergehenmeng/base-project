@@ -10,7 +10,7 @@ import java.util.List;
  * @since 2022/12/26
  */
 @Data
-public class LineDayConfigResponse {
+public class LineConfigDayResponse {
 
     @Schema(description = "id主键")
     private Long id;

@@ -14,7 +14,7 @@ import java.util.List;
  * @since 2022/8/27
  */
 @Data
-public class LineDayConfigRequest {
+public class LineConfigDayRequest {
 
     @Schema(description = "行程排序(第几天)", requiredMode = Schema.RequiredMode.REQUIRED)
     @OptionInt(value = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}, message = "行程排序不合法")

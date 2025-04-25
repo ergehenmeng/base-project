@@ -12,13 +12,13 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.RepastType;
 import com.eghm.enums.State;
 import com.eghm.model.Line;
-import com.eghm.model.LineDayConfig;
-import com.eghm.service.business.LineDayConfigService;
+import com.eghm.model.LineConfigDay;
+import com.eghm.service.business.LineConfigDayService;
 import com.eghm.service.business.LineService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
-import com.eghm.vo.business.line.LineDayConfigResponse;
+import com.eghm.vo.business.line.LineConfigDayResponse;
 import com.eghm.vo.business.line.LineDetailResponse;
 import com.eghm.vo.business.line.LineResponse;
 import com.google.common.collect.Lists;
@@ -45,7 +45,7 @@ public class LineController {
 
     private final LineService lineService;
 
-    private final LineDayConfigService lineDayConfigService;
+    private final LineConfigDayService lineConfigDayService;
 
     @Operation(summary = "查询线路列表")
     @GetMapping("/listPage")
@@ -82,9 +82,9 @@ public class LineController {
     public RespBody<LineDetailResponse> select(@Validated @ParameterObject IdDTO request) {
         Line line = lineService.selectByIdRequired(request.getId());
         LineDetailResponse response = DataUtil.copy(line, LineDetailResponse.class);
-        List<LineDayConfig> dayList = lineDayConfigService.getByLineId(request.getId());
+        List<LineConfigDay> dayList = lineConfigDayService.getByLineId(request.getId());
         response.setConfigList(DataUtil.copy(dayList, config -> {
-            LineDayConfigResponse configResponse = DataUtil.copy(config, LineDayConfigResponse.class);
+            LineConfigDayResponse configResponse = DataUtil.copy(config, LineConfigDayResponse.class);
             configResponse.setRepastList(this.parseRepast(config.getRepast()));
             return configResponse;
         }));

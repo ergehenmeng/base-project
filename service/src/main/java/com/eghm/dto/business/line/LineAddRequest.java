@@ -72,5 +72,5 @@ public class LineAddRequest {
 
     @Schema(description = "每日配置信息", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "每日线路配置不能为空")
-    private List<LineDayConfigRequest> configList;
+    private List<LineConfigDayRequest> configList;
 }
