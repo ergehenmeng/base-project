@@ -77,5 +77,5 @@ public class LineDetailVO {
     private Long startCityId;
 
     @ApiModelProperty("线路每日行程")
-    private List<LineDayConfigResponse> dayList;
+    private List<LineConfigDayResponse> dayList;
 }

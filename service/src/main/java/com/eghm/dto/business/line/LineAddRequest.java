@@ -72,5 +72,5 @@ public class LineAddRequest {
 
     @ApiModelProperty(value = "每日配置信息", required = true)
     @NotEmpty(message = "每日线路配置不能为空")
-    private List<LineDayConfigRequest> configList;
+    private List<LineConfigDayRequest> configList;
 }

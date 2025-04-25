@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.model.LineDayConfig;
+import com.eghm.model.LineConfigDay;
 
 import java.util.List;
 
@@ -17,5 +17,5 @@ public interface LineOrderSnapshotService {
      * @param orderNo    订单编号
      * @param configList 每日线路配置信息
      */
-    void insert(Long lineId, String orderNo, List<LineDayConfig> configList);
+    void insert(Long lineId, String orderNo, List<LineConfigDay> configList);
 }

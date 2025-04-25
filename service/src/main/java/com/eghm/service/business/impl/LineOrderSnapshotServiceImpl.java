@@ -1,7 +1,7 @@
 package com.eghm.service.business.impl;
 
 import com.eghm.mapper.LineOrderSnapshotMapper;
-import com.eghm.model.LineDayConfig;
+import com.eghm.model.LineConfigDay;
 import com.eghm.model.LineOrderSnapshot;
 import com.eghm.service.business.LineOrderSnapshotService;
 import com.eghm.utils.DataUtil;
@@ -23,8 +23,8 @@ public class LineOrderSnapshotServiceImpl implements LineOrderSnapshotService {
     private final LineOrderSnapshotMapper lineOrderSnapshotMapper;
 
     @Override
-    public void insert(Long lineId, String orderNo, List<LineDayConfig> configList) {
-        for (LineDayConfig config : configList) {
+    public void insert(Long lineId, String orderNo, List<LineConfigDay> configList) {
+        for (LineConfigDay config : configList) {
             LineOrderSnapshot snapshot = DataUtil.copy(config, LineOrderSnapshot.class, "id");
             snapshot.setLineId(lineId);
             snapshot.setOrderNo(orderNo);

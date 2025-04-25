@@ -41,7 +41,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     private final LineConfigService lineConfigService;
 
-    private final LineDayConfigService lineDayConfigService;
+    private final LineConfigDayService lineConfigDayService;
 
     private final LineOrderService lineOrderService;
 
@@ -51,12 +51,12 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     private final RedeemCodeGrantService redeemCodeGrantService;
 
-    public LineOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMqService orderMqService, LineService lineService, TravelAgencyService travelAgencyService, LineConfigService lineConfigService, LineDayConfigService lineDayConfigService, LineOrderService lineOrderService, LineOrderSnapshotService lineOrderSnapshotService, RedeemCodeGrantService redeemCodeGrantService) {
+    public LineOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMqService orderMqService, LineService lineService, TravelAgencyService travelAgencyService, LineConfigService lineConfigService, LineConfigDayService lineConfigDayService, LineOrderService lineOrderService, LineOrderSnapshotService lineOrderSnapshotService, RedeemCodeGrantService redeemCodeGrantService) {
         super(orderMqService, memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.lineService = lineService;
         this.travelAgencyService = travelAgencyService;
         this.lineConfigService = lineConfigService;
-        this.lineDayConfigService = lineDayConfigService;
+        this.lineConfigDayService = lineConfigDayService;
         this.lineOrderService = lineOrderService;
         this.lineOrderSnapshotService = lineOrderSnapshotService;
         this.orderService = orderService;
@@ -71,7 +71,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         payload.setLine(line);
         payload.setTravelAgency(travelAgency);
         payload.setConfig(lineConfigService.getConfig(context.getLineId(), context.getConfigDate()));
-        payload.setDayList(lineDayConfigService.getByLineId(context.getLineId()));
+        payload.setDayList(lineConfigDayService.getByLineId(context.getLineId()));
         Integer redeemAmount = redeemCodeGrantService.getRedeemAmount(context.getCdKey(), travelAgency.getId(), context.getLineId());
         payload.setCdKeyAmount(redeemAmount);
         return payload;

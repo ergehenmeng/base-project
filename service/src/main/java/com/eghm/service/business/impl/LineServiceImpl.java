@@ -21,7 +21,7 @@ import com.eghm.mapper.LineMapper;
 import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.mapper.TravelAgencyMapper;
 import com.eghm.model.Line;
-import com.eghm.model.LineDayConfig;
+import com.eghm.model.LineConfigDay;
 import com.eghm.model.TravelAgency;
 import com.eghm.service.business.*;
 import com.eghm.service.sys.SysAreaService;
@@ -30,7 +30,7 @@ import com.eghm.utils.DateUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
-import com.eghm.vo.business.line.LineDayConfigResponse;
+import com.eghm.vo.business.line.LineConfigDayResponse;
 import com.eghm.vo.business.line.LineDetailVO;
 import com.eghm.vo.business.line.LineResponse;
 import com.eghm.vo.business.line.LineVO;
@@ -65,7 +65,7 @@ public class LineServiceImpl implements LineService {
 
     private final TravelAgencyService travelAgencyService;
 
-    private final LineDayConfigService lineDayConfigService;
+    private final LineConfigDayService lineConfigDayService;
 
     private final MemberCollectService memberCollectService;
 
@@ -95,7 +95,7 @@ public class LineServiceImpl implements LineService {
         line.setCreateDate(LocalDate.now());
         line.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         lineMapper.insert(line);
-        lineDayConfigService.insertOrUpdate(line.getId(), request.getConfigList());
+        lineConfigDayService.insertOrUpdate(line.getId(), request.getConfigList());
     }
 
     @Override
@@ -109,7 +109,7 @@ public class LineServiceImpl implements LineService {
         // 总销量要根据真实销量计算
         line.setTotalNum(request.getVirtualNum() + sourceLine.getSaleNum());
         lineMapper.updateById(line);
-        lineDayConfigService.insertOrUpdate(line.getId(), request.getConfigList());
+        lineConfigDayService.insertOrUpdate(line.getId(), request.getConfigList());
     }
 
     @Override
@@ -168,8 +168,8 @@ public class LineServiceImpl implements LineService {
             log.error("该线路商品已下架 [{}]", id);
             throw new BusinessException(LINE_DOWN);
         }
-        List<LineDayConfig> dayConfigList = lineDayConfigService.getByLineId(id);
-        vo.setDayList(DataUtil.copy(dayConfigList, LineDayConfigResponse.class));
+        List<LineConfigDay> dayConfigList = lineConfigDayService.getByLineId(id);
+        vo.setDayList(DataUtil.copy(dayConfigList, LineConfigDayResponse.class));
         // 出发地格式化
         vo.setStartPoint(sysAreaService.parseCity(vo.getStartCityId()));
         // 最低参考价

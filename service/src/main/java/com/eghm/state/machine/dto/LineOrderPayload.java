@@ -2,7 +2,7 @@ package com.eghm.state.machine.dto;
 
 import com.eghm.model.Line;
 import com.eghm.model.LineConfig;
-import com.eghm.model.LineDayConfig;
+import com.eghm.model.LineConfigDay;
 import com.eghm.model.TravelAgency;
 import lombok.Data;
 
@@ -33,7 +33,7 @@ public class LineOrderPayload {
     /**
      * 线路每日行程配置
      */
-    private List<LineDayConfig> dayList;
+    private List<LineConfigDay> dayList;
 
     /**
      * cdKey金额

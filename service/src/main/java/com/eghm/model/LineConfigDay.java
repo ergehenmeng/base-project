@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
  * @since 2022-08-26
  */
 @Data
-@TableName("line_day_config")
-public class LineDayConfig {
+@TableName("line_config_day")
+public class LineConfigDay {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")
