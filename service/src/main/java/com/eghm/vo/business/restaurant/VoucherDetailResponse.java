@@ -44,6 +44,9 @@ public class VoucherDetailResponse {
     @ApiModelProperty(value = "剩余库存")
     private Integer stock;
 
+    @ApiModelProperty(value = "标签id")
+    private Long tagId;
+
     @ApiModelProperty(value = "虚拟销量")
     private Integer virtualNum;
 
