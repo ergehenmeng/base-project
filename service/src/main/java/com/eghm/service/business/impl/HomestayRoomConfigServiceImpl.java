@@ -182,7 +182,7 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
     private List<HomestayRoomConfig> getMonthConfig(LocalDate month, Long roomId) {
         LambdaQueryWrapper<HomestayRoomConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(HomestayRoomConfig::getHomestayRoomId, roomId);
-        LocalDate endDate = month.plusMonths(1);
+        LocalDate endDate = month.plusMonths(1).plusDays(7);
         wrapper.ge(HomestayRoomConfig::getConfigDate, month);
         wrapper.lt(HomestayRoomConfig::getConfigDate, endDate);
         return homestayRoomConfigMapper.selectList(wrapper);

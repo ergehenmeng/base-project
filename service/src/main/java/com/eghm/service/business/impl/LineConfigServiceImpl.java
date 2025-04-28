@@ -162,7 +162,7 @@ public class LineConfigServiceImpl implements LineConfigService {
     private List<LineConfig> getMonthConfig(LocalDate month, Long lineId) {
         LambdaQueryWrapper<LineConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(LineConfig::getLineId, lineId);
-        LocalDate endDate = month.plusMonths(1);
+        LocalDate endDate = month.plusMonths(1).plusDays(7);
         wrapper.ge(LineConfig::getConfigDate, month);
         wrapper.lt(LineConfig::getConfigDate, endDate);
         return lineConfigMapper.selectList(wrapper);
