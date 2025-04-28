@@ -1,5 +1,6 @@
 package com.eghm.vo.business.homestay.room;
 
+import com.eghm.convertor.SplitterArrayIntSerializer;
 import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.RefundType;
 import com.eghm.enums.RoomType;
@@ -40,7 +41,7 @@ public class HomestayRoomDetailResponse {
     private String coverUrl;
 
     @ApiModelProperty(value = "屋内设施")
-    @JsonSerialize(using = SplitterArraySerializer.class)
+    @JsonSerialize(using = SplitterArrayIntSerializer.class)
     private String infrastructure;
 
     @ApiModelProperty(value = "详细介绍")

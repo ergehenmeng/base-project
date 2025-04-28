@@ -1,6 +1,8 @@
 package com.eghm.vo.business.homestay.room;
 
 import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.convertor.SplitterArrayIntSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.RefundType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -33,9 +35,11 @@ public class HomestayRoomVO {
     private RefundType roomType;
 
     @ApiModelProperty(value = "封面图片")
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "屋内设施")
+    @JsonSerialize(using = SplitterArrayIntSerializer.class)
     private String infrastructure;
 
     @ApiModelProperty(value = "详细介绍")
