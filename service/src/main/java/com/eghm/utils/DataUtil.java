@@ -115,8 +115,8 @@ public class DataUtil {
      * @return list
      */
     public static <S, T extends BaseConfigResponse> List<T> paddingMonth(List<S> configList, BiPredicate<S, LocalDate> filter, Supplier<T> supplier, LocalDate monthDay) {
-        int ofMonth = monthDay.lengthOfMonth();
-        List<T> responseList = new ArrayList<>(45);
+        int ofMonth = monthDay.lengthOfMonth() + 7;
+        List<T> responseList = new ArrayList<>(52);
         // 月初到月末进行拼装
         for (int i = 0; i < ofMonth; i++) {
             LocalDate localDate = monthDay.plusDays(i);
