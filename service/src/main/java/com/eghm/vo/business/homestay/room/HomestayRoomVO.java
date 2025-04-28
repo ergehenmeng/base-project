@@ -1,6 +1,7 @@
 package com.eghm.vo.business.homestay.room;
 
 import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.convertor.SplitterArrayIntSerializer;
 import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.RefundType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -38,6 +39,7 @@ public class HomestayRoomVO {
     private String coverUrl;
 
     @Schema(description = "屋内设施")
+    @JsonSerialize(using = SplitterArrayIntSerializer.class)
     private String infrastructure;
 
     @Schema(description = "详细介绍")

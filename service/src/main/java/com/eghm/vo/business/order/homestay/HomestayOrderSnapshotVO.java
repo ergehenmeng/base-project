@@ -1,5 +1,6 @@
 package com.eghm.vo.business.order.homestay;
 
+import com.eghm.convertor.SplitterArrayIntSerializer;
 import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.RefundType;
 import com.eghm.enums.RoomType;
@@ -49,6 +50,7 @@ public class HomestayOrderSnapshotVO {
     private String refundDescribe;
 
     @Schema(description = "屋内设施")
+    @JsonSerialize(using = SplitterArrayIntSerializer.class)
     private String infrastructure;
 
 }
