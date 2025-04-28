@@ -64,6 +64,9 @@ public class VoucherDetailResponse {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate expireDate;
 
+    @Schema(description = "标签id")
+    private Long tagId;
+
     @Schema(description = "使用开始时间 HH:mm")
     private String effectTime;
 
