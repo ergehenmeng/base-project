@@ -1,6 +1,7 @@
 package com.eghm.vo.business.homestay;
 
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArrayIntSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.vo.business.homestay.room.HomestayRoomListVO;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -39,7 +40,7 @@ public class HomestayDetailVO {
     private String intro;
 
     @ApiModelProperty(value = "封面图片")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "详细介绍")
@@ -55,6 +56,7 @@ public class HomestayDetailVO {
     private String notesIn;
 
     @ApiModelProperty(value = "特色服务")
+    @JsonSerialize(using = SplitterArrayIntSerializer.class)
     private String keyService;
 
     @ApiModelProperty("分数")

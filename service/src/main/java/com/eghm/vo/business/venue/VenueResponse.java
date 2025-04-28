@@ -2,7 +2,7 @@ package com.eghm.vo.business.venue;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.State;
@@ -29,7 +29,7 @@ public class VenueResponse extends ExcelStyle {
     private Long id;
 
     @ApiModelProperty(value = "场馆封面图")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @ApiModelProperty("市")

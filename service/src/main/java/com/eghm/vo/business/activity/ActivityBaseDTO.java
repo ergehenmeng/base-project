@@ -1,6 +1,6 @@
 package com.eghm.vo.business.activity;
 
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,7 +19,7 @@ public class ActivityBaseDTO {
     private String title;
 
     @ApiModelProperty("活动图片")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "活动地点")

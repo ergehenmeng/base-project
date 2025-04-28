@@ -1,6 +1,6 @@
 package com.eghm.vo.business.venue;
 
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.VenueType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,7 +26,7 @@ public class VenueDetailResponse {
     private VenueType venueType;
 
     @ApiModelProperty(value = "场馆封面图")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "营业时间")

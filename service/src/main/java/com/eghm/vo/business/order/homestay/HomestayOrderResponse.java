@@ -3,7 +3,7 @@ package com.eghm.vo.business.order.homestay;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.convertor.excel.CentToYuanConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 public class HomestayOrderResponse extends ExcelStyle {
 
     @ApiModelProperty("封面")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @ApiModelProperty("订单编号")

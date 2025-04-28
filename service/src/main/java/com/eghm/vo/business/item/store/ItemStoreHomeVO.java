@@ -1,7 +1,7 @@
 package com.eghm.vo.business.item.store;
 
 import com.eghm.convertor.NumberParseSerializer;
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.vo.business.item.ItemVO;
 import com.eghm.vo.business.lottery.LotteryVO;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -28,7 +28,7 @@ public class ItemStoreHomeVO {
     private String logoUrl;
 
     @ApiModelProperty("封面图")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @ApiModelProperty("是否收藏")

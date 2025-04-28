@@ -1,7 +1,7 @@
 package com.eghm.vo.poi;
 
 import com.eghm.convertor.BigDecimalOmitSerializer;
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,7 +27,7 @@ public class PoiLineVO {
     private String title;
 
     @ApiModelProperty(value = "封面图")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "预计游玩时间")

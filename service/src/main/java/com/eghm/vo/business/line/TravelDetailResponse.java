@@ -1,6 +1,6 @@
 package com.eghm.vo.business.line;
 
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.State;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -47,7 +47,7 @@ public class TravelDetailResponse {
     private String detailAddress;
 
     @ApiModelProperty(value = "旅行社图片")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "经度")

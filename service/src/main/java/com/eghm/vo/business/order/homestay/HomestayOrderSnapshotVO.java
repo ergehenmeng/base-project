@@ -1,6 +1,6 @@
 package com.eghm.vo.business.order.homestay;
 
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.RefundType;
 import com.eghm.enums.RoomType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -18,7 +18,7 @@ public class HomestayOrderSnapshotVO {
     private String title;
 
     @ApiModelProperty(value = "封面图片")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "酒店id")

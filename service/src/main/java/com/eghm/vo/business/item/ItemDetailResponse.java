@@ -1,6 +1,6 @@
 package com.eghm.vo.business.item;
 
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.DeliveryType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -35,7 +35,7 @@ public class ItemDetailResponse {
     private Boolean multiSpec;
 
     @ApiModelProperty(value = "封面图")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "购买须知")

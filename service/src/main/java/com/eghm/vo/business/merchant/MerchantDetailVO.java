@@ -1,6 +1,6 @@
 package com.eghm.vo.business.merchant;
 
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -28,7 +28,7 @@ public class MerchantDetailVO {
     private String creditCode;
 
     @ApiModelProperty(value = "营业执照图片")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String businessLicenseUrl;
 
     @ApiModelProperty(value = "法人姓名")
@@ -38,7 +38,7 @@ public class MerchantDetailVO {
     private String legalIdCard;
 
     @ApiModelProperty(value = "法人身份证图片")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String legalUrl;
 
     @ApiModelProperty(value = "商家类型 1:景区 2:民宿 4:餐饮 8:零售 16:线路 32:场馆")

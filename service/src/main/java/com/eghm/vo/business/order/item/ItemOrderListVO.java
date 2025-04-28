@@ -1,7 +1,7 @@
 package com.eghm.vo.business.order.item;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.DeliveryState;
 import com.eghm.enums.ItemRefundState;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -37,7 +37,7 @@ public class ItemOrderListVO {
     private Integer num;
 
     @ApiModelProperty(value = "商品封面图(如果有sku图则优先显示sku图,否则显示商品图)")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "规格名称(多规格)")

@@ -1,7 +1,7 @@
 package com.eghm.vo.business.order.venue;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.PayType;
 import com.eghm.enums.RefundState;
@@ -41,7 +41,7 @@ public class VenueOrderDetailVO {
     private VenueType venueType;
 
     @ApiModelProperty(value = "场馆封面图")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "支付方式")

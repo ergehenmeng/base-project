@@ -1,6 +1,6 @@
 package com.eghm.vo.business.order.item;
 
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,6 +19,6 @@ public class ItemUnShippedOrderResponse {
     private String title;
 
     @ApiModelProperty("商品封面图")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 }

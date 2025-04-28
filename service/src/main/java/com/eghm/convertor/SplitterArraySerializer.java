@@ -12,15 +12,15 @@ import static com.eghm.constants.CommonConstant.COMMA;
  * @author 二哥很猛
  * @since 2023/1/17
  */
-public class SplitterJsonSerializer extends JsonSerializer<String> {
+public class SplitterArraySerializer extends JsonSerializer<String> {
 
     private final String delimiter;
 
-    public SplitterJsonSerializer() {
+    public SplitterArraySerializer() {
         this(COMMA);
     }
 
-    public SplitterJsonSerializer(String delimiter) {
+    public SplitterArraySerializer(String delimiter) {
         this.delimiter = delimiter;
     }
 
@@ -34,8 +34,20 @@ public class SplitterJsonSerializer extends JsonSerializer<String> {
         String[] parts = value.split(delimiter);
         gen.writeStartArray();
         for (String part : parts) {
-            gen.writeString(part.trim());
+            this.doWrite(gen, part.trim());
         }
         gen.writeEndArray();
     }
+
+    /**
+     * 写数据
+     *
+     * @param gen gen
+     * @param value value
+     * @throws IOException e
+     */
+    protected void doWrite(JsonGenerator gen, String value) throws IOException {
+        gen.writeString(value);
+    }
+
 }
