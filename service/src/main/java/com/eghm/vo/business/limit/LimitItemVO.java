@@ -1,7 +1,7 @@
 package com.eghm.vo.business.limit;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -21,7 +21,7 @@ public class LimitItemVO {
     private String title;
 
     @Schema(description = "图片")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @Schema(description = "最低价格")

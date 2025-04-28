@@ -12,15 +12,15 @@ import static com.eghm.constants.CommonConstant.COMMA;
  * @author 二哥很猛
  * @since 2023/1/17
  */
-public class SplitterJsonSerializer extends JsonSerializer<String> {
+public class SplitterArraySerializer extends JsonSerializer<String> {
 
     private final String delimiter;
 
-    public SplitterJsonSerializer() {
+    public SplitterArraySerializer() {
         this(COMMA);
     }
 
-    public SplitterJsonSerializer(String delimiter) {
+    public SplitterArraySerializer(String delimiter) {
         this.delimiter = delimiter;
     }
 

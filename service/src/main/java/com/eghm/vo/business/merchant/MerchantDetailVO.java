@@ -1,6 +1,6 @@
 package com.eghm.vo.business.merchant;
 
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -28,7 +28,7 @@ public class MerchantDetailVO {
     private String creditCode;
 
     @Schema(description = "营业执照图片")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String businessLicenseUrl;
 
     @Schema(description = "法人姓名")
@@ -38,7 +38,7 @@ public class MerchantDetailVO {
     private String legalIdCard;
 
     @Schema(description = "法人身份证图片")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String legalUrl;
 
     @Schema(description = "商家类型 1:景区 2:民宿 4:餐饮 8:零售 16:线路 32:场馆")

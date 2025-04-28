@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -29,7 +29,7 @@ public class PoiLine extends BaseEntity {
     private Integer state;
 
     @Schema(description = "封面图")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @Schema(description = "所属区域编号")

@@ -1,7 +1,7 @@
 package com.eghm.vo.business.shopping;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -28,7 +28,7 @@ public class ShoppingCartItemVO {
     private Long id;
 
     @Schema(description = "商品图片")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @Schema(description = "商品名称")

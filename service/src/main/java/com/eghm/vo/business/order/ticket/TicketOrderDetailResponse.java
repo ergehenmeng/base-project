@@ -1,7 +1,7 @@
 package com.eghm.vo.business.order.ticket;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.CloseType;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.PayType;
@@ -30,7 +30,7 @@ public class TicketOrderDetailResponse {
     private String title;
 
     @Schema(description = "封面图片")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @Schema(description = "景区名称")

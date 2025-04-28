@@ -8,7 +8,7 @@ import java.io.IOException;
  * @author 二哥很猛
  * @since 2023/1/17
  */
-public class SplitterIntJsonSerializer extends SplitterJsonSerializer {
+public class SplitterArrayIntSerializer extends SplitterArraySerializer {
 
     @Override
     protected void doWrite(JsonGenerator gen, String value) throws IOException {

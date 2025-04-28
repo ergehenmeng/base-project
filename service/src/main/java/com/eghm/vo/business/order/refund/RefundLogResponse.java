@@ -1,7 +1,7 @@
 package com.eghm.vo.business.order.refund;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.AuditState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -24,7 +24,7 @@ public class RefundLogResponse {
     private String title;
 
     @Schema(description = "封面图片")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @Schema(description = "订单编号")

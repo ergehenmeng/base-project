@@ -1,7 +1,7 @@
 package com.eghm.vo.business.order.restaurant;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.PayType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -18,7 +18,7 @@ import lombok.Data;
 public class VoucherOrderVO {
 
     @Schema(description = "图片")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @Schema(description = "订单编号")

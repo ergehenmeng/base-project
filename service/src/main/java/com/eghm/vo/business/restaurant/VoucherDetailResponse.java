@@ -1,7 +1,7 @@
 package com.eghm.vo.business.restaurant;
 
 import com.eghm.convertor.CentToYuanOmitSerializer;
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -30,7 +30,7 @@ public class VoucherDetailResponse {
     private String title;
 
     @Schema(description = "封面图片")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @Schema(description = "划线价")

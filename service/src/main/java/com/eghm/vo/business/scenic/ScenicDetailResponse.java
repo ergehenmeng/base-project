@@ -1,6 +1,6 @@
 package com.eghm.vo.business.scenic;
 
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.State;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -29,7 +29,7 @@ public class ScenicDetailResponse {
     private Integer level;
 
     @Schema(description = "景区标签")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String tag;
 
     @Schema(description = "景区营业时间")
@@ -39,7 +39,7 @@ public class ScenicDetailResponse {
     private String phone;
 
     @Schema(description = "景区图片")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @Schema(description = "省份id")

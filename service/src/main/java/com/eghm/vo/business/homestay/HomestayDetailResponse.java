@@ -1,7 +1,7 @@
 package com.eghm.vo.business.homestay;
 
-import com.eghm.convertor.SplitterIntJsonSerializer;
-import com.eghm.convertor.SplitterJsonSerializer;
+import com.eghm.convertor.SplitterArrayIntSerializer;
+import com.eghm.convertor.SplitterArraySerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -50,7 +50,7 @@ public class HomestayDetailResponse {
     private String intro;
 
     @Schema(description = "封面图片")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
     @Schema(description = "详细介绍")
@@ -60,13 +60,13 @@ public class HomestayDetailResponse {
     private String phone;
 
     @Schema(description = "特色服务")
-    @JsonSerialize(using = SplitterIntJsonSerializer.class)
+    @JsonSerialize(using = SplitterArrayIntSerializer.class)
     private String keyService;
 
     @Schema(description = "入住须知")
     private String notesIn;
 
     @Schema(description = "标签")
-    @JsonSerialize(using = SplitterJsonSerializer.class)
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String tag;
 }
