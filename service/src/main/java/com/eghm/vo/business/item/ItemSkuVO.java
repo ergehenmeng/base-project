@@ -21,13 +21,7 @@ public class ItemSkuVO {
     private Long id;
 
     @Schema(description = "规格id,多个逗号分隔")
-    private String specId;
-
-    @Schema(description = "一级规格名")
-    private String primarySpecValue;
-
-    @Schema(description = "二级规格名")
-    private String secondSpecValue;
+    private String specIds;
 
     @Schema(description = "划线价")
     @JsonSerialize(using = CentToYuanSerializer.class)

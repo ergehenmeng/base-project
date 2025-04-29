@@ -54,6 +54,11 @@ public class ShoppingCartItemVO {
     @Schema(description = "规格库存数")
     private Integer stock;
 
-    @Schema(description = "sku状态 1:已上架 0/2:已下架")
+    @Schema(description = "sku状态 1:已上架 0/2:已失效")
     private Integer skuState;
-}
+
+    @Schema(description = "商品状态 1:已上架 0/2:已下架")
+    private Integer productState;
+
+    @Schema(description = "店铺状态 1:已上架 0/2:已下架")
+    private Integer storeState;}
