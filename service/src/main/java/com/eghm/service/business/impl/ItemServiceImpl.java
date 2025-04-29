@@ -303,12 +303,6 @@ public class ItemServiceImpl implements ItemService {
         return vo;
     }
 
-    /**
-     * 计算单店铺快递费用
-     *
-     * @param dto 一个店铺内下单的商品信息
-     * @return 费用 分:
-     */
     @Override
     public Integer calcStoreExpressFee(ExpressFeeCalcDTO dto) {
         List<Long> itemIds = dto.getOrderList().stream().map(ItemCalcDTO::getItemId).toList();
