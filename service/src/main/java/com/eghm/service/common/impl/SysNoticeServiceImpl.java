@@ -53,22 +53,17 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     public List<NoticeVO> getList() {
         int noticeLimit = sysConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
         List<SysNotice> noticeList = cacheProxyService.getNoticeList(noticeLimit);
-        return DataUtil.copy(noticeList, notice -> {
-            NoticeVO vo = DataUtil.copy(notice, NoticeVO.class);
-            // 将公告类型包含到标题中 例如 紧急通知: 中印发生小规模冲突
-            vo.setTitle(sysDictService.getDictValue(DictConstant.NOTICE_TYPE, notice.getNoticeType()) + ": " + vo.getTitle());
-            return vo;
-        });
+        return this.parseNotice(noticeList);
     }
 
     @Override
     public List<NoticeVO> getList(PagingQuery query) {
         LambdaQueryWrapper<SysNotice> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(SysNotice::getId, SysNotice::getTitle, SysNotice::getCoverUrl);
+        wrapper.select(SysNotice::getId, SysNotice::getTitle, SysNotice::getCoverUrl, SysNotice::getCoverUrl);
         wrapper.eq(SysNotice::getState, true);
         wrapper.orderByDesc(SysNotice::getId);
         Page<SysNotice> selectedPage = sysNoticeMapper.selectPage(query.createPage(false), wrapper);
-        return DataUtil.copy(selectedPage.getRecords(), NoticeVO.class);
+        return this.parseNotice(selectedPage.getRecords());
     }
 
     @Override
@@ -124,5 +119,20 @@ public class SysNoticeServiceImpl implements SysNoticeService {
         notice.setState(SysNotice.STATE_0);
         notice.setId(id);
         sysNoticeMapper.updateById(notice);
+    }
+
+    /**
+     * 转换公告类型
+     *
+     * @param noticeList 公告信息
+     * @return 转换后的公告信息
+     */
+    private List<NoticeVO> parseNotice(List<SysNotice> noticeList) {
+        return DataUtil.copy(noticeList, notice -> {
+            NoticeVO vo = DataUtil.copy(notice, NoticeVO.class, "noticeType");
+            // 将公告类型包含到标题中 例如 紧急通知: 中印发生小规模冲突
+            vo.setNoticeType(sysDictService.getDictValue(DictConstant.NOTICE_TYPE, notice.getNoticeType()));
+            return vo;
+        });
     }
 }

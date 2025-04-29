@@ -113,7 +113,7 @@ public class SmsServiceImpl implements SmsService {
      * @param mobile  手机号码
      */
     private void cleanSmsCode(TemplateType templateType, String mobile) {
-        cacheService.delete(CacheConstant.SMS_PREFIX + templateType.getValue() + mobile);
+        cacheService.delete(String.format(CacheConstant.SMS_PREFIX, templateType.getValue(), mobile));
     }
 
     /**
@@ -124,7 +124,7 @@ public class SmsServiceImpl implements SmsService {
      * @param smsCode 短信验证码
      */
     private void saveSmsCode(String smsType, String mobile, String smsCode) {
-        cacheService.setValue(CacheConstant.SMS_PREFIX + smsType + mobile, smsCode, sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600));
+        cacheService.setValue(String.format(CacheConstant.SMS_PREFIX, smsType, mobile), smsCode, sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600));
     }
 
     /**

@@ -7128,24 +7128,18 @@ INSERT INTO `sys_area`
 VALUES ('820108', '聖方濟各堂區', '820100', '999078', 'S', '3');
 
 
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`)
-VALUES ('1', '系统参数缓存', 'sys_config', '1', '2020-01-03 08:03:36', '全局系统参数缓存(查询缓存)');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`)
-VALUES ('2', '数据字典缓存', 'sys_dict', '1', '2020-01-03 08:03:36', '全局数据字典缓存(查询缓存)');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`)
-VALUES ('5', '签名配置缓存', 'auth_config', '1', '2023-08-11 15:22:18', '第三方请求签名配置缓存');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`)
-VALUES ('6', '敏感词缓存', 'sensitive_word', '1', '2023-10-11 19:32:28', '敏感词缓存(重新加载)');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`)
-VALUES ('9', '零售标签缓存', 'item_tag', '1', '2020-01-03 08:03:36', '零售标签(查询缓存)');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`)
-VALUES ('10', '邮件模板缓存', 'mail_template', '1', '2020-01-11 14:39:28', 'freemarker模板缓存');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`)
-VALUES ('11', 'banner缓存', 'banner', '1', '2023-08-11 14:39:28', 'banner广告位缓存');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`)
-VALUES ('12', '系统公告缓存', 'sys_notice', '1', '2023-08-11 15:22:18', '系统公告位缓存');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`)
-VALUES ('13', '省市区缓存', 'sys_area', '1', '2023-08-11 15:22:18', '省市区所有缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('1', '系统参数缓存', 'sys_config', '1', '2025-01-08 15:35:59', '全局系统参数缓存(查询缓存)');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('2', '数据字典缓存', 'sys_dict', '1', '2025-01-08 15:43:06', '全局数据字典缓存(查询缓存)');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('5', '签名配置缓存', 'auth_config', '1', '2025-01-08 15:43:06', '第三方请求签名配置缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('6', '敏感词缓存', 'sensitive_word', '1', '2025-01-08 15:06:05', '敏感词缓存(重新加载)');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('9', '黑名单缓存', 'black_roster', '1', '2024-10-24 15:52:51', '黑名单信息(查询缓存)');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('10', '邮件模板缓存', 'email_template', '1', '2025-04-29 10:08:05', 'freemaker模板缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('13', '省市区缓存', 'sys_area', '1', '2024-10-24 15:52:51', '省市区所有缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('14', '站内信缓存', 'in_mail_template', '1', '2024-10-24 15:52:51', '用于发送给用户站内性的模板');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('15', '零售标签缓存', 'item_tag', '1', '2025-04-29 10:11:29', '零售标签缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('16', '公告缓存', 'sys_notice', '1', '2025-04-29 10:11:45', '首页公告缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('17', '支付配置缓存', 'pay_config', '1', '2025-04-29 10:27:42', '支付渠道缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('18', '轮播图缓存', 'banner', '1', '2025-04-29 10:28:01', '首页轮播缓存');
 
 
 INSERT INTO `sys_user` (`id`, `nick_name`, `mobile`, `state`, `pwd`, `init_pwd`, `dept_code`, `data_type`, `deleted`,
@@ -7181,23 +7175,6 @@ INSERT INTO `member` (`id`, `avatar`, `mobile`, `mp_open_id`, `nick_name`, `emai
 VALUES ('1', 'http://localhost:9002/cover.png', '13136113695', NULL, '二哥真的很猛', '664956140@qq.com', NULL, b'1',
         NULL, NULL, NULL, 'F', '2', '0', '0', '0', '2019-10-25 15:59:22', '2023-12-15 14:25:06', b'0');
 
-
-
-INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`)
-VALUES ('1', 'member_login', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:16',
-        '短信登陆发送验证码');
-INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`)
-VALUES ('2', 'register', '您正在注册EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:18',
-        '注册短信验证码');
-INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`)
-VALUES ('3', 'change_email', '您正在更换EGHM平台账号的邮箱，短信验证码：{0}。如非本人操作，请忽略此短信',
-        '2020-09-02 17:44:19', NULL);
-INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`)
-VALUES ('4', 'merchant_unbind', '您正在解绑EGHM平台商户微信手机号，短信验证码：{0}。如非本人操作，请忽略此短信',
-        '2024-06-19 17:25:49', NULL);
-INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`)
-VALUES ('5', 'user_login', '您正在登陆EGHM管理平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2024-10-21 10:44:36',
-        NULL);
 
 INSERT INTO `notice_template` (`id`, `code`, `title`, `content`, `update_time`)
 VALUES ('1', 'feedback_process', '反馈结果', '您反馈的【${feedbackType}】 "${content}"问题，我们已接收。${replay}',

@@ -7,6 +7,11 @@ package com.eghm.enums;
 public enum SmsChannel {
 
     /**
+     * 默认短信
+     */
+    DEFAULT,
+
+    /**
      * 阿里云短信
      */
     ALI,
