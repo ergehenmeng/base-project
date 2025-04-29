@@ -96,6 +96,9 @@
         <if test="param.deliveryType != null">
             and t.delivery_type = #{param.deliveryType}
         </if>
+        <if test="param.storeId != null">
+            and t.store_id = #{param.storeId}
+        </if>
         <if test="param.sortBy != null">
             <choose>
                 <when test="param.sortBy == 1">

@@ -14,6 +14,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class ItemQueryDTO extends PagingQuery {
 
+    @ApiModelProperty("店铺id")
+    private Long storeId;
+
     @ApiModelProperty(value = "交付方式 1:快递包邮 2:自提")
     private DeliveryType deliveryType;
 

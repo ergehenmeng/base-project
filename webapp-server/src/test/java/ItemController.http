@@ -1,8 +1,13 @@
-http://localhost:10010/webapp/item/listPage?page=1&pageSize=10
+http://localhost:10010/webapp/item/listPage?page=1&pageSize=10&storeId=1763046454489776134
 Channel: {{Channel}}
 
 ###
 http://localhost:10010/webapp/item/detail?id=1763082719536959490
+Channel: {{Channel}}
+Token: {{Token}}
+
+### 购物车使用
+http://localhost:10010/webapp/item/skuDetail?id=1763082719536959490
 Channel: {{Channel}}
 Token: {{Token}}
 
