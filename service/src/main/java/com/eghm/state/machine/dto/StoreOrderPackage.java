@@ -28,7 +28,7 @@ public class StoreOrderPackage {
     private Long couponId;
 
     @ApiModelProperty("积分")
-    private Integer scoreAmount = 0;
+    private Integer scoreAmount;
 
     @ApiModelProperty("优惠券抵扣金额")
     private Integer couponAmount;

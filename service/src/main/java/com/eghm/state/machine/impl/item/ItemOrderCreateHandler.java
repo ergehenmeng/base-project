@@ -22,6 +22,7 @@ import com.eghm.state.machine.context.ItemOrderCreateContext;
 import com.eghm.state.machine.context.PayNotifyContext;
 import com.eghm.state.machine.dto.*;
 import com.eghm.utils.*;
+import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -269,12 +270,18 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         List<StoreOrderPackage> packageList = new ArrayList<>();
         StoreOrderPackage storePackage;
         OrderPackage orderPackage;
+        // 组织用户在某个店铺下单时的商品信息并计算预计付款金额/优惠金额
         for (ItemDTO vo : context.getItemList()) {
             storePackage = new StoreOrderPackage();
             storePackage.setStoreId(vo.getStoreId());
-            storePackage.setItemStore(storeMap.get(vo.getStoreId()));
+            ItemStore itemStore = storeMap.get(vo.getStoreId());
+            if (itemStore == null) {
+                log.error("商品所属店铺与传递的店铺不一致, storeId: [{}]", vo.getStoreId());
+                throw new BusinessException(ErrorCode.STORE_NOT_EXIST);
+            }
+            storePackage.setItemStore(itemStore);
             storePackage.setMemberAddress(memberAddress);
-            storePackage.setScoreAmount(vo.getScoreAmount());
+            storePackage.setScoreAmount(vo.getScoreAmount() != null ? vo.getScoreAmount() : 0);
             storePackage.setCouponId(vo.getCouponId());
             storePackage.setRemark(vo.getRemark());
             List<OrderPackage> orderList = new ArrayList<>();
@@ -288,6 +295,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
                 orderPackage.setSpec(specMap.get(this.getSpuId(orderPackage.getSku().getSpecIds())));
                 orderList.add(orderPackage);
             }
+            storePackage.setItemList(orderList);
             Integer itemAmount = this.checkAndCalcTotalAmount(storePackage.getItemList(), context);
             storePackage.setItemAmount(itemAmount);
             if (storePackage.getCouponId() != null) {
@@ -295,8 +303,10 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
                 List<Long> itemIds = storePackage.getItemList().stream().map(OrderPackage::getItemId).collect(Collectors.toList());
                 Integer couponAmount = memberCouponService.getCouponAmountWithVerify(context.getMemberId(), storePackage.getCouponId(), itemIds, storePackage.getStoreId(), itemAmount);
                 storePackage.setCouponAmount(couponAmount);
+            } else {
+                storePackage.setCouponAmount(0);
             }
-            storePackage.setItemList(orderList);
+            packageList.add(storePackage);
         }
         ItemOrderPayload orderDTO = new ItemOrderPayload();
         orderDTO.setPackageList(packageList);
@@ -435,7 +445,11 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         dto.setOrderList(dtoList);
         dto.setStoreId(storeId);
         dto.setCountyId(countyId);
-        itemService.calcStoreExpressFee(dto);
+        Integer express = itemService.calcStoreExpressFee(dto);
+        // 累计快递费小于等于0,则每个sku肯定免费
+        if (express <= 0) {
+            return Maps.newHashMap();
+        }
         return dtoList.stream().collect(Collectors.toMap(ItemCalcDTO::getSkuId, ItemCalcDTO::getExpressFee));
     }
 
