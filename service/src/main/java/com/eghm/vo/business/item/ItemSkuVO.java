@@ -21,13 +21,7 @@ public class ItemSkuVO {
     private Long id;
 
     @ApiModelProperty(value = "规格id,多个逗号分隔")
-    private String specId;
-
-    @ApiModelProperty(value = "一级规格名")
-    private String primarySpecValue;
-
-    @ApiModelProperty(value = "二级规格名")
-    private String secondSpecValue;
+    private String specIds;
 
     @ApiModelProperty(value = "划线价")
     @JsonSerialize(using = CentToYuanSerializer.class)

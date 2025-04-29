@@ -217,10 +217,9 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @return 菜单列表 树状结构
      */
     private List<MenuResponse> treeBin(String pid, List<MenuResponse> menuList) {
-        return menuList.stream()
-                .filter(parent -> Objects.equals(pid, parent.getPid()))
-                .peek(parent -> parent.setChildren(this.treeBin(parent.getId(), menuList)))
-                .sorted(comparator).collect(Collectors.toList());
+        List<MenuResponse> responseList = menuList.stream().filter(parent -> Objects.equals(pid, parent.getPid())).sorted(comparator).collect(Collectors.toList());
+        responseList.forEach(parent -> parent.setChildren(this.treeBin(parent.getId(), menuList)));
+        return responseList;
     }
 
 }

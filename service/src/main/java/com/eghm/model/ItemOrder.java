@@ -66,7 +66,7 @@ public class ItemOrder extends BaseEntity {
     private String specId;
 
     /**
-     * skuPic优先级最高, specPic次之, 商品封面图第一张最低
+     * skuPic优先级最高, 商品封面图第一张次之
      */
     @ApiModelProperty(value = "sku封面图")
     private String skuCoverUrl;

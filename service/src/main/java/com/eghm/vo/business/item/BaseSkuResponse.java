@@ -41,10 +41,6 @@ public class BaseSkuResponse {
     @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer salePrice;
 
-    @ApiModelProperty(value = "规格图片(可能为空)")
-    @JsonIgnore
-    private String specPic;
-
     @ApiModelProperty(value = "sku图片(可能为空)")
     private String skuPic;
 }

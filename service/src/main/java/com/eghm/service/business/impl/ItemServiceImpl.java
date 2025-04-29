@@ -407,11 +407,7 @@ public class ItemServiceImpl implements ItemService {
                 sku.setTitle(response.getTitle());
                 sku.setSkuSize(skuList.size());
                 if (isBlank(sku.getSkuPic())) {
-                    if (isBlank(sku.getSpecPic())) {
-                        sku.setSkuPic(response.getCoverUrl());
-                    } else {
-                        sku.setSkuPic(sku.getSpecPic());
-                    }
+                    sku.setSkuPic(response.getCoverUrl());
                 }
                 if (isBlank(sku.getSecondSpecValue())) {
                     sku.setSpecValue(sku.getPrimarySpecValue());

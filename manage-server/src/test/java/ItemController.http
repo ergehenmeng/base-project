@@ -60,12 +60,10 @@ Content-Type: application/json
   "specList": [{
     "specName": "颜色",
     "specValue": "红色",
-    "specPic": "http://localhost:8080/sku/coverUrl.png",
     "level": 1
   },{
     "specName": "颜色",
     "specValue": "黑色",
-    "specPic": "http://localhost:8080/sku/coverUrl.png",
     "level": 1
   },{
     "specName": "尺寸",

@@ -51,7 +51,8 @@
         if(second_spec_value is null, ps.primary_spec_value, concat(ps.primary_spec_value, '-', ps.second_spec_value)) as skuName,
         ps.stock,
         ps.deleted as skuState,
-        r.state as productState
+        r.state as productState,
+        m.state as storeState
         from shopping_cart t
         left join item_store m on t.store_id = m.id
         left join item r on t.item_id = r.id

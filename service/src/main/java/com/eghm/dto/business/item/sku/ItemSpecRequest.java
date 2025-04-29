@@ -27,6 +27,7 @@ public class ItemSpecRequest {
 
     @ApiModelProperty(value = "规格值", required = true)
     @NotEmpty(message = "规格值不能为空")
+    @Size(max = 50, message = "规格值不能超过50个")
     private List<SpecValue> valueList;
 
     @ApiModelProperty(value = "规格等级(1:一级规格 2:二级规格)", required = true)
@@ -44,8 +45,5 @@ public class ItemSpecRequest {
         @NotBlank(message = "规格值不能为空")
         @WordChecker(message = "规格值存在敏感词")
         private String name;
-
-        @ApiModelProperty(value = "规格图片(一级规格必填), 优先级比sku_pic低", required = true)
-        private String pic;
     }
 }

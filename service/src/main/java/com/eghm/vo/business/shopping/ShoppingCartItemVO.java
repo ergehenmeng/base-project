@@ -54,6 +54,12 @@ public class ShoppingCartItemVO {
     @ApiModelProperty("规格库存数")
     private Integer stock;
 
-    @ApiModelProperty("sku状态 1:已上架 0/2:已下架")
+    @ApiModelProperty("sku状态 1:已上架 0/2:已失效")
     private Integer skuState;
+
+    @ApiModelProperty("商品状态 1:已上架 0/2:已下架")
+    private Integer productState;
+
+    @ApiModelProperty("店铺状态 1:已上架 0/2:已下架")
+    private Integer storeState;
 }

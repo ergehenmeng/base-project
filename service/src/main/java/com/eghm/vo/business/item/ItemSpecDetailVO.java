@@ -16,6 +16,4 @@ public class ItemSpecDetailVO {
     @ApiModelProperty(value = "规格名称")
     private String specValue;
 
-    @ApiModelProperty(value = "规格图片(一级规格必填), 优先级比sku_pic低")
-    private String specPic;
 }
