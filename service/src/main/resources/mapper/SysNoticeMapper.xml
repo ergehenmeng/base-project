@@ -19,11 +19,11 @@
     </select>
 
     <select id="getTopList" resultType="com.eghm.model.SysNotice">
-        select id, title
+        select id, title, notice_type
         from sys_notice
         where state = 1
           and deleted = false
-        order by update_time desc limit #{noticeLimit}
+        order by update_time desc limit #{limit}
     </select>
 
 </mapper>

@@ -26,10 +26,4 @@ public class NoticeVO {
     @Schema(description = "封面图片")
     private String coverUrl;
 
-    @Schema(description = "状态 false:未上架 true:已上架")
-    private Boolean state;
-
-    @Schema(description = "是否已删除 false:未删除 true:已删除")
-    private Boolean deleted;
-
 }

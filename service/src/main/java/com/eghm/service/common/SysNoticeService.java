@@ -32,7 +32,7 @@ public interface SysNoticeService {
      *
      * @return 公告列表
      */
-    List<NoticeTopVO> getTop();
+    List<NoticeVO> getTop();
 
     /**
      * 分页查询列表

@@ -3565,15 +3565,18 @@ INSERT INTO `sys_area` VALUES ('820107', '路氹填海區', '820100', '999078', 
 INSERT INTO `sys_area` VALUES ('820108', '聖方濟各堂區', '820100', '999078', 'S', '3');
 
 
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('1', '系统参数缓存', 'sys_config', '1', '2020-01-03 08:03:36', '全局系统参数缓存(查询缓存)');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('2', '数据字典缓存', 'sys_dict', '1', '2020-01-03 08:03:36', '全局数据字典缓存(查询缓存)');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('5', '签名配置缓存', 'auth_config', '1', '2023-08-11 15:22:18', '第三方请求签名配置缓存');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('6', '敏感词缓存', 'sensitive_word', '1', '2023-10-11 19:32:28', '敏感词缓存(重新加载)');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('9', '零售标签缓存', 'item_tag', '1', '2020-01-03 08:03:36', '零售标签(查询缓存)');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('10', '邮件模板缓存', 'mail_template', '1', '2020-01-11 14:39:28', 'freemarker模板缓存');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('11', 'banner缓存', 'banner', '1', '2023-08-11 14:39:28', 'banner广告位缓存');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('12', '系统公告缓存', 'sys_notice', '1', '2023-08-11 15:22:18', '系统公告位缓存');
-INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('13', '省市区缓存', 'sys_area', '1', '2023-08-11 15:22:18', '省市区所有缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('1', '系统参数缓存', 'sys_config', '1', '2025-01-08 15:35:59', '全局系统参数缓存(查询缓存)');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('2', '数据字典缓存', 'sys_dict', '1', '2025-01-08 15:43:06', '全局数据字典缓存(查询缓存)');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('5', '签名配置缓存', 'auth_config', '1', '2025-01-08 15:43:06', '第三方请求签名配置缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('6', '敏感词缓存', 'sensitive_word', '1', '2025-01-08 15:06:05', '敏感词缓存(重新加载)');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('9', '黑名单缓存', 'black_roster', '1', '2024-10-24 15:52:51', '黑名单信息(查询缓存)');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('10', '邮件模板缓存', 'email_template', '1', '2025-04-29 10:08:05', 'freemaker模板缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('13', '省市区缓存', 'sys_area', '1', '2024-10-24 15:52:51', '省市区所有缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('14', '站内信缓存', 'in_mail_template', '1', '2024-10-24 15:52:51', '用于发送给用户站内性的模板');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('15', '零售标签缓存', 'item_tag', '1', '2025-04-29 10:11:29', '零售标签缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('16', '公告缓存', 'sys_notice', '1', '2025-04-29 10:11:45', '首页公告缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('17', '支付配置缓存', 'pay_config', '1', '2025-04-29 10:27:42', '支付渠道缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('18', '轮播图缓存', 'banner', '1', '2025-04-29 10:28:01', '首页轮播缓存');
 
 INSERT INTO `sys_user` (`id`, `nick_name`, `user_name`, `user_type`, `mobile`, `state`, `pwd`, `init_pwd`, `data_type`, `dept_code`, `deleted`, `pwd_update_time`, `ma_open_id`, `mp_open_id`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', 'superAdmin', '0', '13000000000', '1', '$2a$10$OUgNXwmRXEJcNR5cTAXb0.JmkahFa9Emx9BKl32EaA1yG/6anUVRi', '$2a$10$OUgNXwmRXEJcNR5cTAXb0.JmkahFa9Emx9BKl32EaA1yG/6anUVRi', '8', NULL, b'0', '2024-07-25 13:37:58', NULL, NULL, '2018-01-26 10:38:20', '2024-12-18 16:58:34', '');
 
