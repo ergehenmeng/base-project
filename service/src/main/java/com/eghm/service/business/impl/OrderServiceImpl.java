@@ -559,15 +559,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public void incrementAmount(ProductType productType, Long merchantId, Long productId, Integer amount) {
-        cacheService.setSetIncrement(String.format(PRODUCT_RANKING, productType.getPrefix()), String.valueOf(productId), amount);
-        cacheService.setSetIncrement(String.format(MERCHANT_PRODUCT_RANKING, merchantId, productType.getPrefix()), String.valueOf(productId), amount);
+        cacheService.setSetIncrement(String.format(PRODUCT_RANKING, productType.getValue()), String.valueOf(productId), amount);
+        cacheService.setSetIncrement(String.format(MERCHANT_PRODUCT_RANKING, merchantId, productType.getValue()), String.valueOf(productId), amount);
         cacheService.setSetIncrement(MERCHANT_RANKING, String.valueOf(merchantId), amount);
     }
 
     @Override
     public List<SaleStatisticsVO> saleStatistics(Long merchantId, ProductType productType) {
         int limit = sysConfigApi.getInt(PRODUCT_SALE_RANKING, 5);
-        String key = merchantId != null ? String.format(MERCHANT_PRODUCT_RANKING, merchantId, productType.getPrefix()) : String.format(PRODUCT_RANKING, productType.getPrefix());
+        String key = merchantId != null ? String.format(MERCHANT_PRODUCT_RANKING, merchantId, productType.getValue()) : String.format(PRODUCT_RANKING, productType.getValue());
         Set<ZSetOperations.TypedTuple<String>> serviceSet = cacheService.rangeWithScore(key,  limit - 1);
         if (CollUtil.isEmpty(serviceSet)) {
             return Lists.newArrayList();
