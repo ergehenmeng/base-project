@@ -109,12 +109,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
             if (skuPic != null) {
                 order.setSkuCoverUrl(skuPic);
             } else {
-                ItemSpec spec = aPackage.getSpec();
-                if (spec != null && isNotBlank(spec.getSpecPic())) {
-                    order.setSkuCoverUrl(spec.getSpecPic());
-                } else {
-                    order.setSkuCoverUrl(aPackage.getItem().getCoverUrl());
-                }
+                order.setSkuCoverUrl(aPackage.getItem().getCoverUrl());
             }
             order.setNum(aPackage.getNum());
             order.setDeliveryType(aPackage.getItem().getDeliveryType());

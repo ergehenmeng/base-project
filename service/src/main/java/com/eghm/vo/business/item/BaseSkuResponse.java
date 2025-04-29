@@ -41,10 +41,6 @@ public class BaseSkuResponse {
     @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer salePrice;
 
-    @Schema(description = "规格图片(可能为空)")
-    @JsonIgnore
-    private String specPic;
-
     @Schema(description = "sku图片(可能为空)")
     private String skuPic;
 }

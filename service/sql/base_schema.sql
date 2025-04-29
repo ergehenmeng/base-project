@@ -1544,7 +1544,6 @@ CREATE TABLE `item_spec`
     `item_id`     bigint(20)   DEFAULT NULL COMMENT '商品id',
     `spec_name`   varchar(30)  DEFAULT NULL COMMENT '规格名',
     `spec_value`  varchar(30)  DEFAULT NULL COMMENT '规格名称',
-    `spec_pic`    varchar(255) DEFAULT NULL COMMENT '规格图片(一级规格必填), 优先级比sku_pic低',
     `sort`        smallint(4)  DEFAULT NULL COMMENT '排序',
     `level`       tinyint(1)   DEFAULT NULL COMMENT '标签级别 一级标签 二级标签',
     `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

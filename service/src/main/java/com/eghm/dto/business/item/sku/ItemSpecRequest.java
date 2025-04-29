@@ -27,6 +27,7 @@ public class ItemSpecRequest {
 
     @Schema(description = "规格值", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "规格值不能为空")
+    @Size(max = 50, message = "规格值不能超过50个")
     private List<SpecValue> valueList;
 
     @Schema(description = "规格等级(1:一级规格 2:二级规格)", requiredMode = Schema.RequiredMode.REQUIRED)
@@ -45,7 +46,5 @@ public class ItemSpecRequest {
         @WordChecker(message = "规格值存在敏感词")
         private String name;
 
-        @Schema(description = "规格图片(一级规格必填), 优先级比sku_pic低", requiredMode = Schema.RequiredMode.REQUIRED)
-        private String pic;
     }
 }

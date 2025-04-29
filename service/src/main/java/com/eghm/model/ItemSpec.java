@@ -34,9 +34,6 @@ public class ItemSpec extends BaseEntity {
     @Schema(description = "规格值")
     private String specValue;
 
-    @Schema(description = "规格图片(一级规格必填), 优先级比sku_pic低")
-    private String specPic;
-
     @Schema(description = "排序")
     private Integer sort;
 

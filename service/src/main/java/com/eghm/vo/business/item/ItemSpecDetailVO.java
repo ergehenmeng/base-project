@@ -16,6 +16,4 @@ public class ItemSpecDetailVO {
     @Schema(description = "规格名称")
     private String specValue;
 
-    @Schema(description = "规格图片(一级规格必填), 优先级比sku_pic低")
-    private String specPic;
 }
