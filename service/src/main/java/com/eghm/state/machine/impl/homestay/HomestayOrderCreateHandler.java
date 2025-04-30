@@ -1,6 +1,7 @@
 package com.eghm.state.machine.impl.homestay;
 
 import com.eghm.common.OrderMqService;
+import com.eghm.constants.CommonConstant;
 import com.eghm.enums.*;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
@@ -107,7 +108,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         order.setState(OrderState.UN_PAY);
         order.setMerchantId(payload.getHomestay().getMerchantId());
         order.setStoreId(payload.getHomestay().getId());
-        order.setCoverUrl(payload.getHomestayRoom().getCoverUrl());
+        order.setCoverUrl(payload.getHomestayRoom().getCoverUrl().split(CommonConstant.COMMA)[0]);
         order.setOrderNo(ProductType.HOMESTAY.generateOrderNo());
         order.setTradeNo(ProductType.HOMESTAY.generateTradeNo());
         order.setTitle(payload.getHomestayRoom().getTitle());
