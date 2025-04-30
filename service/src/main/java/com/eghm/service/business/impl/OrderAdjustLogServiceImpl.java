@@ -12,7 +12,6 @@ import com.eghm.model.OrderAdjustLog;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderAdjustLogService;
 import com.eghm.service.business.OrderService;
-import com.eghm.vo.business.order.adjust.OrderAdjustResponse;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,11 +36,6 @@ public class OrderAdjustLogServiceImpl extends ServiceImpl<OrderAdjustLogMapper,
     private final OrderService orderService;
 
     private final ItemOrderService itemOrderService;
-
-    @Override
-    public List<OrderAdjustResponse> getList(String orderNo) {
-        return baseMapper.getList(orderNo);
-    }
 
     @Override
     public void itemAdjust(OrderAdjustRequest request) {
