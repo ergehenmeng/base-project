@@ -1,8 +1,10 @@
 package com.eghm.web.controller.business;
 
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.adjust.OrderAdjustRequest;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.ext.UserToken;
 import com.eghm.service.business.OrderAdjustLogService;
 import com.eghm.vo.business.order.adjust.OrderAdjustResponse;
 import io.swagger.annotations.Api;
@@ -37,6 +39,9 @@ public class OrderAdjustController {
     @ApiOperation("零售改价")
     @PostMapping(value = "/item", consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespBody<Void> item(@RequestBody @Validated OrderAdjustRequest request) {
+        UserToken user = SecurityHolder.getUser();
+        request.setUserId(user.getId());
+        request.setUserName(user.getNickName());
         orderAdjustLogService.itemAdjust(request);
         return RespBody.success();
     }
