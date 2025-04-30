@@ -66,7 +66,8 @@ public class HomestayDetailVO {
     private BigDecimal score;
 
     @Schema(description = "标签")
-    private List<String> tagList;
+    @JsonSerialize(using = SplitterArraySerializer.class)
+    private List<String> tag;
 
     @Schema(description = "推荐房型列表")
     private List<HomestayRoomListVO> recommendRoomList;

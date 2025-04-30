@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -60,12 +59,9 @@ public class HomestayVO {
     @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer minPrice;
 
-    @Schema(description = "标签")
-    @JsonIgnore
-    private String tagIds;
-
     @Schema(description = "标签列表")
-    private List<String> tagList;
+    @JsonSerialize(using = SplitterArraySerializer.class)
+    private String tag;
 
     @Schema(description = "状态 0:待上架 1:已上架 2:强制下架")
     private Integer state;
