@@ -4,6 +4,7 @@ import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.convertor.SplitterArrayIntSerializer;
 import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.RefundType;
+import com.eghm.enums.RoomType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -32,7 +33,7 @@ public class HomestayRoomVO {
     private Integer resident;
 
     @ApiModelProperty(value = "房型类型 1:标间 2:大床房 3:双人房 4:钟点房 5:套房 6:合租")
-    private RefundType roomType;
+    private RoomType roomType;
 
     @ApiModelProperty(value = "封面图片")
     @JsonSerialize(using = SplitterArraySerializer.class)

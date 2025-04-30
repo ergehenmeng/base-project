@@ -157,6 +157,6 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     @Override
     protected ExchangeQueue getExchangeQueue() {
-        return ExchangeQueue.HOMESTAY_PAY_EXPIRE;
+        return ExchangeQueue.HOMESTAY_ORDER;
     }
 }

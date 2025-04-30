@@ -225,11 +225,8 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      * @param context 下单信息
      */
     @RabbitListener(queues = QueueConstant.HOMESTAY_ORDER_QUEUE)
-    public void homestayOrder(HomestayOrderCreateContext context, Message message, Channel channel) throws IOException {
-        this.processMessageAckAsyncLock(LockConstant.HOMESTAY_ORDER_LOCK + context.getRoomId(), context, message, channel, order -> {
-            stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.NONE.getValue(), HomestayEvent.CREATE_QUEUE, context);
-            cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
-        });
+    public void homestayOrder(String msg, Message message, Channel channel) throws IOException {
+        log.info("收到消息 [{}]", msg);
     }
 
     /**
