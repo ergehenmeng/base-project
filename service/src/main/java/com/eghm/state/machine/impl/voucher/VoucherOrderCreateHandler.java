@@ -130,7 +130,7 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
 
     @Override
     protected ExchangeQueue getExchangeQueue() {
-        return ExchangeQueue.RESTAURANT_PAY_EXPIRE;
+        return ExchangeQueue.VOUCHER_ORDER;
     }
 
     @Override
