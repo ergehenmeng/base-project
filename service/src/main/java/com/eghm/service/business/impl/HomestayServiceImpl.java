@@ -11,7 +11,6 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.constants.DictConstant;
 import com.eghm.dto.business.base.BaseStoreQueryRequest;
 import com.eghm.dto.business.homestay.*;
 import com.eghm.dto.ext.CalcStatistics;
@@ -24,10 +23,8 @@ import com.eghm.mapper.HomestayMapper;
 import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.model.Homestay;
 import com.eghm.model.Merchant;
-import com.eghm.model.SysDictItem;
 import com.eghm.service.business.*;
 import com.eghm.service.sys.SysAreaService;
-import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
@@ -62,8 +59,6 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     private final CommonService commonService;
 
     private final HomestayMapper homestayMapper;
-
-    private final SysDictService sysDictService;
 
     private final SysAreaService sysAreaService;
 
@@ -177,10 +172,8 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         if (CollUtil.isEmpty(voList)) {
             return voList;
         }
-        List<SysDictItem> dictList = sysDictService.getDictByNid(DictConstant.HOMESTAY_TAG);
         // 针对针对标签,位置进行赋值或解析
         for (HomestayVO vo : voList) {
-            vo.setTagList(commonService.parseTags(dictList, vo.getTagIds()));
             vo.setDetailAddress(sysAreaService.parseArea(vo.getCityId(), vo.getCountyId(), vo.getDetailAddress()) );
         }
         return voList;
@@ -191,7 +184,6 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         Homestay homestay = this.selectByIdShelve(dto.getId());
         HomestayDetailVO vo = DataUtil.copy(homestay, HomestayDetailVO.class);
         vo.setDetailAddress(sysAreaService.parseArea(homestay.getCityId(), homestay.getCountyId(), homestay.getDetailAddress()));
-        vo.setTagList(sysDictService.getTags(DictConstant.HOMESTAY_TAG, homestay.getTag()));
         vo.setRecommendRoomList(homestayRoomService.getRecommendRoom(dto.getId()));
         vo.setCollect(memberCollectService.checkCollect(dto.getId(), CollectType.HOMESTAY));
         if (dto.getLatitude() != null && dto.getLongitude() != null) {

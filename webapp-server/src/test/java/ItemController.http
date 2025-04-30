@@ -2,7 +2,7 @@ http://localhost:10010/webapp/item/listPage?page=1&pageSize=10&storeId=176304645
 Channel: {{Channel}}
 
 ###
-http://localhost:10010/webapp/item/detail?id=1763082719536959490
+http://localhost:10010/webapp/item/detail?id=1820275686682574850
 Channel: {{Channel}}
 Token: {{Token}}
 

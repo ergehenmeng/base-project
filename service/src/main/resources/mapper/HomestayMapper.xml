@@ -121,7 +121,7 @@
         t.detail_address,
         t.cover_url,
         t.phone,
-        t.tag as tagIds,
+        t.tag,
         r.minPrice
         from homestay t
         inner join (select homestay_id, count(1) as staynum, min(sale_price) as minPrice from homestay_room_config where config_date between #{param.startDate} and #{param.endDate}
@@ -150,7 +150,7 @@
         t.detail_address as detailAddress,
         t.cover_url as coverUrl,
         t.phone,
-        t.tag as tagIds,
+        t.tag,
         r.minPrice
         from homestay t
         inner join (select homestay_id, count(1) as staynum, min(sale_price) as minPrice from homestay_room_config where config_date between #{param.startDate} and #{param.endDate}

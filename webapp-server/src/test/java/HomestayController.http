@@ -3,5 +3,5 @@ Channel: {{Channel}}
 
 ###
 
-GET http://localhost:10010/webapp/homestay/detail?id=1710940638564323330
+GET http://localhost:10010/webapp/homestay/detail?id=1818206956582862849
 Channel: {{Channel}}
