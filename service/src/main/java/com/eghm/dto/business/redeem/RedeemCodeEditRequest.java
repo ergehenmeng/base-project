@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -43,10 +44,10 @@ public class RedeemCodeEditRequest {
 
     @ApiModelProperty(value = "金额", required = true)
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "金额不能小于0")
     private Integer amount;
 
     @ApiModelProperty(value = "发放数量", required = true)
-    @NotNull(message = "发放数量不能为空")
     @RangeInt(min = 1, max = 999, message = "发放数量应在1-999之间")
     private Integer num;
 

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -33,6 +34,7 @@ public class RefundAuditRequest {
     @ApiModelProperty(value = "实际退款金额", required = true)
     @NotNull(message = "退款金额不能为空")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 1, message = "退款金额不能小于0.01")
     private Integer refundAmount;
 
     @ApiModelProperty(value = "审批意见", required = true)

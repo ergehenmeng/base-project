@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -46,6 +47,7 @@ public class MemberTagAddRequest {
 
     @ApiModelProperty(value = "最低消费金额")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "最低消费金额不能小于0")
     private Integer consumeAmount;
 
     @ApiModelProperty("注册渠道 PC ANDROID IOS H5 OTHER")

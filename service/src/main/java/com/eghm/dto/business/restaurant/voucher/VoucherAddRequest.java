@@ -49,7 +49,6 @@ public class VoucherAddRequest {
     private Integer salePrice;
 
     @ApiModelProperty(value = "剩余库存", required = true)
-    @NotNull(message = "库存不能为空")
     @RangeInt(max = 9999, message = "库存数应在0~9999之间")
     private Integer stock;
 
@@ -64,8 +63,7 @@ public class VoucherAddRequest {
     private String depict;
 
     @ApiModelProperty(value = "限购数量", required = true)
-    @NotNull(message = "限购数量不能为空")
-    @Max(value = 99, message = "限购数量不能大于99")
+    @RangeInt(min = 1, max = 999, message = "限购数量应在1~999之间")
     private Integer quota;
 
     @ApiModelProperty(value = "有效期购买之日起")

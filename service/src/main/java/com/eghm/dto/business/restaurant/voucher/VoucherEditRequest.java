@@ -9,7 +9,10 @@ import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 /**
@@ -53,7 +56,6 @@ public class VoucherEditRequest {
     private Integer salePrice;
 
     @ApiModelProperty(value = "剩余库存", required = true)
-    @NotNull(message = "库存不能为空")
     @RangeInt(max = 9999, message = "库存数应在0~9999之间")
     private Integer stock;
 
@@ -68,8 +70,7 @@ public class VoucherEditRequest {
     private String depict;
 
     @ApiModelProperty(value = "限购数量", required = true)
-    @NotNull(message = "限购数量不能为空")
-    @Max(value = 99, message = "限购数量不能大于99")
+    @RangeInt(min = 1, max = 999, message = "限购数量应在1~999之间")
     private Integer quota;
 
     @ApiModelProperty(value = "有效期购买之日起")

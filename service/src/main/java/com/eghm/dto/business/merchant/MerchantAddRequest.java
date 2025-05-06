@@ -33,7 +33,6 @@ public class MerchantAddRequest {
     private String account;
 
     @ApiModelProperty(value = "商家类型 1:景区 2:民宿 4:餐饮 8:零售 16:线路 32:场馆(多选时数字相加)", required = true)
-    @NotNull(message = "请选择商家类型")
     @RangeInt(min = 1, max = 63, message = "商家类型错误")
     private Integer type;
 

@@ -63,7 +63,7 @@ public class ScenicTicketEditRequest extends AbstractDateComparator {
     private Integer advanceDay;
 
     @ApiModelProperty(value = "单次最大购买数量", required = true)
-    @NotNull(message = "单次最大购买数量不能为空")
+    @RangeInt(min = 1, max = 999, message = "单次最大购买数量应在1~999之间")
     private Integer quota;
 
     @ApiModelProperty(value = "开始预订时间", required = true)
@@ -75,7 +75,6 @@ public class ScenicTicketEditRequest extends AbstractDateComparator {
     private LocalDate endDate;
 
     @ApiModelProperty(value = "剩余库存", required = true)
-    @NotNull(message = "库存不能为空")
     @RangeInt(max = 9999, message = "库存数应在0~9999之间")
     private Integer stock;
 

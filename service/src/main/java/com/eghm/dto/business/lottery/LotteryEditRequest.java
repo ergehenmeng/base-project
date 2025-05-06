@@ -48,17 +48,14 @@ public class LotteryEditRequest {
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "单日抽奖次数限制", required = true)
-    @NotNull(message = "单日抽奖次数不能为空")
     @RangeInt(min = 1, max = 9999, message = "单日抽奖次数应为1~9999次")
     private Integer lotteryDay;
 
     @ApiModelProperty(value = "总抽奖次数限制", required = true)
-    @NotNull(message = "总抽奖次数不能为空")
     @RangeInt(min = 1, max = 9999, message = "总抽奖次数应为1~9999次")
     private Integer lotteryTotal;
 
     @ApiModelProperty(value = "中奖次数限制", required = true)
-    @NotNull(message = "中奖次数不能为空")
     @RangeInt(min = 1, max = 9999, message = "中奖次数应为1~9999次")
     private Integer winNum;
 

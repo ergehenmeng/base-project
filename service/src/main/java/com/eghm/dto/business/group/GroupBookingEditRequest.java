@@ -44,7 +44,6 @@ public class GroupBookingEditRequest {
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "拼团人数", required = true)
-    @NotNull(message = "拼团人数不能为空")
     @RangeInt(min = 2, max = 99, message = "拼团人数必须在2-99之间")
     private Integer num;
 
