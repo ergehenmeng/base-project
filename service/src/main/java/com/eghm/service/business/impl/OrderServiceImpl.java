@@ -1,6 +1,7 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.AES;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -13,12 +14,12 @@ import com.eghm.common.JsonService;
 import com.eghm.common.OrderMqService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.RefundCancelDTO;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.dto.business.order.refund.ItemRefundCancelDTO;
-import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
@@ -67,7 +68,6 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static cn.hutool.core.text.StrSplitter.split;
 import static com.eghm.constants.CacheConstant.*;
 import static com.eghm.constants.CommonConstant.COMMA;
 import static com.eghm.constants.CommonConstant.RECEIVE_TIME;
@@ -132,7 +132,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType, String clientIp) {
         this.checkPayChannel(ApiHolder.getChannel(), tradeType);
-        List<String> orderNoList = split(orderNo, ',');
+        List<String> orderNoList = StrUtil.split(orderNo, ',');
         ProductType productType = ProductType.prefix(orderNoList.get(0));
         String tradeNo = productType.generateTradeNo();
         List<Order> orderList = this.getUnPay(orderNoList);
