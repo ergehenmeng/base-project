@@ -58,7 +58,7 @@ public class VoucherAddRequest {
     private Integer stock;
 
     @Schema(description = "虚拟销量", requiredMode = Schema.RequiredMode.REQUIRED)
-    @RangeInt(max = 9999, message = "虚拟销量应在0~9999之间")
+    @RangeInt(max = 9999, message = "虚拟销量应在0~9999之间", required = false)
     private Integer virtualNum = 0;
 
     @Schema(description = "购买说明", requiredMode = Schema.RequiredMode.REQUIRED)

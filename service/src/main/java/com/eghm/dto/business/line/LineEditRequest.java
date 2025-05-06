@@ -51,7 +51,7 @@ public class LineEditRequest {
     private String coverUrl;
 
     @Schema(description = "虚拟销售量", requiredMode = Schema.RequiredMode.REQUIRED)
-    @RangeInt(max = 9999, message = "虚拟销量应在0~9999之间")
+    @RangeInt(max = 9999, message = "虚拟销量应在0~9999之间", required = false)
     private Integer virtualNum;
 
     @Schema(description = "1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10:十日游 11:十一日游 12:十二日游 13:十三日游 14:十四日游 15:十五日游", requiredMode = Schema.RequiredMode.REQUIRED)
