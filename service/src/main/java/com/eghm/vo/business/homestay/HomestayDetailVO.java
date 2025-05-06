@@ -67,7 +67,7 @@ public class HomestayDetailVO {
 
     @ApiModelProperty(value = "标签")
     @JsonSerialize(using = SplitterArraySerializer.class)
-    private List<String> tag;
+    private String tag;
 
     @ApiModelProperty("推荐房型列表")
     private List<HomestayRoomListVO> recommendRoomList;

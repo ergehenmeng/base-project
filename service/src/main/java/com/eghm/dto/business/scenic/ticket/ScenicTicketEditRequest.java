@@ -75,7 +75,7 @@ public class ScenicTicketEditRequest extends AbstractDateComparator {
     private LocalDate endDate;
 
     @ApiModelProperty(value = "剩余库存", required = true)
-    @RangeInt(max = 9999, message = "库存数应在0~9999之间")
+    @RangeInt(max = 99999, message = "库存数应在0~99999之间")
     private Integer stock;
 
     @ApiModelProperty(value = "虚拟销量", required = true)

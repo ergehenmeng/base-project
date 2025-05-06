@@ -2,7 +2,7 @@ GET http://localhost:10010/webapp/scenic/listPage?page=1&pageSize=10&queryName=
 Channel: {{Channel}}
 ###
 
-GET http://localhost:10010/webapp/scenic/detail?scenicId=1712041763678035970
+GET http://localhost:10010/webapp/scenic/detail?scenicId=1819216515686014978
 Channel: {{Channel}}
 
 

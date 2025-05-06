@@ -1,5 +1,6 @@
 package com.eghm.vo.business.scenic;
 
+import com.eghm.convertor.SplitterArrayIntSerializer;
 import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.State;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -29,7 +30,7 @@ public class ScenicDetailResponse {
     private Integer level;
 
     @ApiModelProperty("景区标签")
-    @JsonSerialize(using = SplitterArraySerializer.class)
+    @JsonSerialize(using = SplitterArrayIntSerializer.class)
     private String tag;
 
     @ApiModelProperty(value = "景区营业时间")
