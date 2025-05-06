@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -29,6 +30,7 @@ public class OrderAdjustRequest extends ActionRecord {
     @ApiModelProperty(value = "新价格")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "请输入新价格")
+    @Min(value = 0, message = "新价格不能小于0")
     private Integer price;
 
 }

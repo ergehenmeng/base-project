@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -22,6 +23,7 @@ public class VenueSitePriceUpdateRequest {
     @ApiModelProperty(value = "价格")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "请输入价格")
+    @Min(value = 0, message = "价格不能小于0")
     private Integer price;
 
     @ApiModelProperty(value = "状态 0:不可预定 1:可预定", required = true)

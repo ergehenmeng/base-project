@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalTime;
 
@@ -30,5 +31,6 @@ public class PriceRequest {
     @ApiModelProperty(value = "价格", required = true)
     @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "请输入价格")
+    @Min(value = 0, message = "价格不能小于0")
     private Integer price;
 }
