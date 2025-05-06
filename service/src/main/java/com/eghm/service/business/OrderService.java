@@ -90,6 +90,13 @@ public interface OrderService extends IService<Order> {
     List<Order> getProcessList();
 
     /**
+     * 查询未支付订单列表
+     *
+     * @return 订单列表
+     */
+    List<Order> getNoPayList();
+
+    /**
      * 发起退款操作
      *
      * @param log   退款记录

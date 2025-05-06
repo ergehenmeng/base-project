@@ -2,6 +2,9 @@ package com.eghm.configuration.task.job;
 
 import com.eghm.annotation.CronMark;
 import com.eghm.dto.ext.OrderRefund;
+import com.eghm.enums.ProductType;
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.*;
 import com.eghm.model.Order;
 import com.eghm.pay.AggregatePayService;
 import com.eghm.pay.enums.TradeType;
@@ -9,7 +12,9 @@ import com.eghm.pay.vo.RefundVO;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
+import com.eghm.state.machine.StateHandler;
 import com.eghm.state.machine.access.AccessHandler;
+import com.eghm.state.machine.context.OrderCancelContext;
 import com.eghm.state.machine.context.PayNotifyContext;
 import com.eghm.state.machine.context.RefundNotifyContext;
 import com.eghm.utils.LoggerUtil;
@@ -29,6 +34,8 @@ import java.util.List;
 public class OrderJobService {
 
     private final OrderService orderService;
+
+    private final StateHandler stateHandler;
 
     private final CommonService commonService;
 
@@ -77,6 +84,35 @@ public class OrderJobService {
             }
         }
         LoggerUtil.print("订单退款中定时任务执行完毕");
+    }
+
+    /**
+     * 订单自动过期(防止mq消费失败)
+     */
+    @CronMark
+    public void expireProcess() {
+        LoggerUtil.print("订单自动取消定时任务开始执行");
+        List<Order> noPayList = orderService.getNoPayList();
+        for (Order order : noPayList) {
+            OrderCancelContext context = new OrderCancelContext();
+            context.setOrderNo(order.getOrderNo());
+            IEvent event;
+            if (order.getProductType() == ProductType.TICKET) {
+                event = TicketEvent.AUTO_CANCEL;
+            } else if (order.getProductType() == ProductType.ITEM) {
+                event = ItemEvent.AUTO_CANCEL;
+            } else if (order.getProductType() == ProductType.VOUCHER) {
+                event = VoucherEvent.AUTO_CANCEL;
+            } else if (order.getProductType() == ProductType.HOMESTAY) {
+                event = HomestayEvent.AUTO_CANCEL;
+            } else if (order.getProductType() == ProductType.LINE) {
+                event = LineEvent.AUTO_CANCEL;
+            } else {
+                event = VenueEvent.AUTO_CANCEL;
+            }
+            stateHandler.fireEvent(order.getProductType(), order.getState().getValue(), event, context);
+        }
+        LoggerUtil.print("订单自动取消定时任务执行完毕");
     }
 
 }
