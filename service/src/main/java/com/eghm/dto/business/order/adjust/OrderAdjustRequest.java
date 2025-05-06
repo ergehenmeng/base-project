@@ -4,6 +4,7 @@ import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.dto.ext.ActionRecord;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class OrderAdjustRequest extends ActionRecord {
     @Schema(description = "新价格")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "请输入新价格")
+    @Min(value = 0, message = "新价格不能小于0")
     private Integer price;
 
 }
