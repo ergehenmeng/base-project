@@ -3,6 +3,7 @@ package com.eghm.dto.business.venue;
 import com.eghm.convertor.YuanToCentDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -21,6 +22,7 @@ public class VenueSitePriceUpdateRequest {
     @Schema(description = "价格")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "请输入价格")
+    @Min(value = 0, message = "价格不能小于0")
     private Integer price;
 
     @Schema(description = "状态 0:不可预定 1:可预定", requiredMode = Schema.RequiredMode.REQUIRED)

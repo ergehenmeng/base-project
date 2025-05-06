@@ -4,6 +4,7 @@ import com.eghm.convertor.YuanToCentDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -30,5 +31,6 @@ public class PriceRequest {
     @Schema(description = "价格", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "请输入价格")
+    @Min(value = 0, message = "价格不能小于0")
     private Integer price;
 }
