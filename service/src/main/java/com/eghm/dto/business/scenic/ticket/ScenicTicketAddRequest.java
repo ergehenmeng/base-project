@@ -78,8 +78,8 @@ public class ScenicTicketAddRequest extends AbstractDateComparator {
     @JsonAdapter(LocalDateAdapter.class)
     private LocalDate endDate;
 
-    @Schema(description = "剩余库存", requiredMode = Schema.RequiredMode.REQUIRED)
-    @RangeInt(max = 9999, message = "库存数应在0~9999之间")
+    @Schema(description = "库存", requiredMode = Schema.RequiredMode.REQUIRED)
+    @RangeInt(max = 99999, message = "库存数应在0~99999之间")
     private Integer stock;
 
     @Schema(description = "门票介绍", requiredMode = Schema.RequiredMode.REQUIRED)
