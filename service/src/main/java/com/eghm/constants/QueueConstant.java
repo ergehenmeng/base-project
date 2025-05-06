@@ -36,7 +36,7 @@ public class QueueConstant {
     /**
      * 餐饮券过期队列
      */
-    public static final String RESTAURANT_PAY_EXPIRE_QUEUE = "restaurant_pay_expire_queue";
+    public static final String VOUCHER_PAY_EXPIRE_QUEUE = "voucher_pay_expire_queue";
 
     /**
      * 线路过期队列

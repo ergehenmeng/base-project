@@ -153,8 +153,13 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     }
 
     @Override
-    protected ExchangeQueue getExchangeQueue() {
+    protected ExchangeQueue getCreateOrderExchange() {
         return ExchangeQueue.TICKET_ORDER;
+    }
+
+    @Override
+    protected ExchangeQueue getExpireExchange() {
+        return ExchangeQueue.TICKET_PAY_EXPIRE;
     }
 
     @Override

@@ -64,7 +64,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
         if (this.isHotSell(payload)) {
             log.info("该商品为热销商品,走MQ队列处理");
             // 消息队列在事务之外发送减少事务持有时间
-            TransactionUtil.afterCommit(() -> orderMqService.sendOrderCreateMessage(getExchangeQueue(), (BaseAsyncKey) context));
+            TransactionUtil.afterCommit(() -> orderMqService.sendOrderCreateMessage(getCreateOrderExchange(), (BaseAsyncKey) context));
             return null;
         }
         return this.createOrder(context, payload);
@@ -193,7 +193,14 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
      *
      * @return 队列信息
      */
-    protected abstract ExchangeQueue getExchangeQueue();
+    protected abstract ExchangeQueue getCreateOrderExchange();
+
+    /**
+     * 订单自动取消消息队列名称
+     *
+     * @return 队列信息
+     */
+    protected abstract ExchangeQueue getExpireExchange();
 
     /**
      * 订单创建后置处理, 默认过期自动取消定时任务. 零元付时默认支付成功
@@ -212,7 +219,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
             notify.setFrom(order.getState().getValue());
             this.getAccessHandler().paySuccess(notify);
         } else {
-            orderMqService.sendOrderExpireMessage(this.getExchangeQueue(), order.getOrderNo());
+            orderMqService.sendOrderExpireMessage(this.getExpireExchange(), order.getOrderNo());
         }
     }
 
