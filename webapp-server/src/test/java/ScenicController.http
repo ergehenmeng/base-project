@@ -8,6 +8,6 @@ Channel: {{Channel}}
 
 ###
 
-GET http://localhost:10010/webapp/scenic/ticket/detail?id=1712044044993486850
+GET http://localhost:10010/webapp/scenic/ticket/detail?id=1819246887106777090
 Channel: {{Channel}}
 ###

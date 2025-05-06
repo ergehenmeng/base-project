@@ -4,11 +4,15 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-  "ticketId": 1713787820047183874,
+  "ticketId": 1819246887106777090,
   "mobile": "13136113294",
   "num": 1,
-  "visitDate": "2023-12-12",
-  "remark": "少点套路"
+  "visitDate": "2025-05-12",
+  "remark": "少点套路",
+  "visitorList": [{
+    "memberName": "彭铭",
+    "idCard": "332722197111166924"
+  }]
 }
 
 ###
