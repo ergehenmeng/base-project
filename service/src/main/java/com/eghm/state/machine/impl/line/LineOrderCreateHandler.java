@@ -163,8 +163,13 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
     }
 
     @Override
-    protected ExchangeQueue getExchangeQueue() {
+    protected ExchangeQueue getCreateOrderExchange() {
         return ExchangeQueue.LINE_ORDER;
+    }
+
+    @Override
+    protected ExchangeQueue getExpireExchange() {
+        return ExchangeQueue.LINE_PAY_EXPIRE;
     }
 
     @Override

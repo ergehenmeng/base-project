@@ -37,7 +37,7 @@ public enum ExchangeQueue {
     /**
      * 餐饮券订单未支付时取消队列 延迟队列
      */
-    RESTAURANT_PAY_EXPIRE("restaurant_pay_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.RESTAURANT_PAY_EXPIRE_QUEUE}, "", true),
+    VOUCHER_PAY_EXPIRE("voucher_pay_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.VOUCHER_PAY_EXPIRE_QUEUE}, "", true),
 
     /**
      * 线路订单未支付时取消队列 延迟队列

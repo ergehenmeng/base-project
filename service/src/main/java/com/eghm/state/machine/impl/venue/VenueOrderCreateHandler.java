@@ -167,8 +167,13 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
     }
 
     @Override
-    protected ExchangeQueue getExchangeQueue() {
-        return ExchangeQueue.VOUCHER_ORDER;
+    protected ExchangeQueue getCreateOrderExchange() {
+        return null;
+    }
+
+    @Override
+    protected ExchangeQueue getExpireExchange() {
+        return ExchangeQueue.VENUE_PAY_EXPIRE;
     }
 
     @Override

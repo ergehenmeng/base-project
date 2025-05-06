@@ -11,6 +11,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -23,6 +24,7 @@ import java.util.List;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 @ToString(callSuper = true)
 public class HomestayOrderCreateContext extends BaseAsyncKey implements Context {
 
@@ -72,4 +74,6 @@ public class HomestayOrderCreateContext extends BaseAsyncKey implements Context 
 
     @ApiModelProperty("源状态")
     private Integer from;
+
+
 }

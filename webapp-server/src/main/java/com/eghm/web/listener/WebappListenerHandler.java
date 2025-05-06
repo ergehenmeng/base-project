@@ -149,7 +149,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      *
      * @param orderNo 订单编号
      */
-    @RabbitListener(queues = QueueConstant.RESTAURANT_PAY_EXPIRE_QUEUE)
+    @RabbitListener(queues = QueueConstant.VOUCHER_PAY_EXPIRE_QUEUE)
     public void voucherExpire(String orderNo, Message message, Channel channel) throws IOException {
         this.doOrderExpire(orderNo, VoucherEvent.AUTO_CANCEL, message, channel);
     }
@@ -187,7 +187,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.TICKET_ORDER_QUEUE)
     public void ticketOrder(TicketOrderCreateContext context, Message message, Channel channel) throws IOException {
-        this.processMessageAckAsyncLock(LockConstant.TICKET_ORDER_LOCK + context.getTicketId(), context, message, channel, order -> {
+        this.processMessageAckAsync(context, message, channel, order -> {
             stateHandler.fireEvent(ProductType.TICKET, OrderState.NONE.getValue(), TicketEvent.CREATE_QUEUE, context);
             cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
         });
@@ -200,7 +200,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.ITEM_ORDER_QUEUE)
     public void itemOrder(ItemOrderCreateContext context, Message message, Channel channel) throws IOException {
-        this.processMessageAckAsyncLock(LockConstant.ITEM_ORDER_LOCK + context.getMemberId(), context, message, channel, order -> {
+        this.processMessageAckAsync(context, message, channel, order -> {
             stateHandler.fireEvent(ProductType.ITEM, OrderState.NONE.getValue(), ItemEvent.CREATE_QUEUE, context);
             cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
         });
@@ -213,7 +213,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.LINE_ORDER_QUEUE)
     public void lineOrder(LineOrderCreateContext context, Message message, Channel channel) throws IOException {
-        this.processMessageAckAsyncLock(LockConstant.LINE_ORDER_LOCK + context.getLineId(), context, message, channel, order -> {
+        this.processMessageAckAsync(context, message, channel, order -> {
             stateHandler.fireEvent(ProductType.LINE, OrderState.NONE.getValue(), LineEvent.CREATE_QUEUE, context);
             cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
         });
@@ -226,7 +226,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.HOMESTAY_ORDER_QUEUE)
     public void homestayOrder(HomestayOrderCreateContext context, Message message, Channel channel) throws IOException {
-        this.processMessageAckAsyncLock(LockConstant.HOMESTAY_ORDER_LOCK + context.getRoomId(), context, message, channel, order -> {
+        this.processMessageAckAsync(context, message, channel, order -> {
             stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.NONE.getValue(), HomestayEvent.CREATE_QUEUE, context);
             cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
         });
@@ -239,7 +239,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.VOUCHER_ORDER_QUEUE)
     public void voucherOrder(VoucherOrderCreateContext context, Message message, Channel channel) throws IOException {
-        this.processMessageAckAsyncLock(LockConstant.VOUCHER_ORDER_LOCK + context.getCouponId(), context, message, channel, order -> {
+        this.processMessageAckAsync(context, message, channel, order -> {
             stateHandler.fireEvent(ProductType.VOUCHER, OrderState.NONE.getValue(), VoucherEvent.CREATE_QUEUE, context);
             cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
         });
@@ -443,11 +443,11 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      * @param <T>      消息类型
      * @throws IOException e
      */
-    public <T extends BaseAsyncKey> void processMessageAckAsyncLock(String lockKey, T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
+    public <T extends BaseAsyncKey> void processMessageAckAsync(T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
         try {
             log.info("开始处理MQ异步消息 [{}]", jsonService.toJson(msg));
             if (this.canConsumer(msg.getKey())) {
-                redisLock.lockVoid(lockKey, 10_000, () -> consumer.accept(msg));
+                consumer.accept(msg);
                 // 消费成功,将结果放入缓存方便前端查询结果
                 cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), SUCCESS_PLACE_HOLDER, CommonConstant.ASYNC_MSG_EXPIRE);
             } else {
