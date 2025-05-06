@@ -72,7 +72,7 @@ public class VoucherServiceImpl implements VoucherService {
         commonService.checkIllegal(select.getMerchantId());
         Voucher voucher = DataUtil.copy(request, Voucher.class);
         // 总销量要根据真实销量计算
-        voucher.setTotalNum(request.getVirtualNum() + select.getSaleNum());
+        voucher.setTotalNum((request.getVirtualNum() != null ? request.getVirtualNum() : 0) + select.getSaleNum());
         voucherMapper.updateById(voucher);
     }
 
