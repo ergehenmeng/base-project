@@ -24,7 +24,7 @@ public class CouponEditRequest {
     private Long id;
 
     @ApiModelProperty(value = "库存(发放数量)", required = true)
-    @RangeInt(max = 9999, message = "库存应为0~9999")
+    @RangeInt(min = 1, max = 9999, message = "库存应为0~9999")
     private Integer stock;
 
     @ApiModelProperty(value = "单人领取限制", required = true)

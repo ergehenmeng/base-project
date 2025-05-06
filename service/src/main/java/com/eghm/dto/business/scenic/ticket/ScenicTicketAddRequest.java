@@ -3,6 +3,7 @@ package com.eghm.dto.business.scenic.ticket;
 import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.dto.ext.AbstractDateComparator;
 import com.eghm.enums.TicketType;
+import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -44,11 +45,13 @@ public class ScenicTicketAddRequest extends AbstractDateComparator {
 
     @ApiModelProperty(value = "划线价")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "划线价不能小于0")
     private Integer linePrice;
 
     @ApiModelProperty(value = "销售价", required = true)
     @NotNull(message = "销售价不能为空")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "销售价不能小于0")
     private Integer salePrice;
 
     @ApiModelProperty(value = "提前多少天购票", required = true)
@@ -60,7 +63,7 @@ public class ScenicTicketAddRequest extends AbstractDateComparator {
     private Integer quota;
 
     @ApiModelProperty(value = "虚拟销量", required = true)
-    @Min(value = 0, message = "虚拟销量不能小于0")
+    @RangeInt(max = 9999, message = "虚拟销量应在0~9999之间")
     private Integer virtualNum;
 
     @ApiModelProperty(value = "开始预订时间", required = true)
@@ -73,6 +76,7 @@ public class ScenicTicketAddRequest extends AbstractDateComparator {
 
     @ApiModelProperty(value = "剩余库存", required = true)
     @NotNull(message = "库存不能为空")
+    @RangeInt(max = 9999, message = "剩余库存数应在0~9999之间")
     private Integer stock;
 
     @ApiModelProperty(value = "门票介绍", required = true)

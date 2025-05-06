@@ -44,7 +44,7 @@ public class LineAddRequest {
     private String coverUrl;
 
     @ApiModelProperty(value = "虚拟销售量", required = true)
-    @Min(value = 0, message = "虚拟销量不能小于0")
+    @RangeInt(max = 9999, message = "虚拟销量应在0~9999之间")
     private Integer virtualNum;
 
     @ApiModelProperty(value = "几日游 1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10:十日游 11:十一日游 12:十二日游 13:十三日游 14:十四日游 15:十五日游", required = true)

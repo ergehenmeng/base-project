@@ -3,6 +3,7 @@ package com.eghm.dto.business.homestay.room.config;
 import com.eghm.annotation.Assign;
 import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.dto.ext.AbstractDateComparator;
+import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -49,17 +50,18 @@ public class RoomConfigRequest extends AbstractDateComparator {
     private Boolean state;
 
     @ApiModelProperty(value = "库存不能为空", required = true)
-    @Max(value = 9999, message = "最大库存9999")
-    @Min(value = 0, message = "库存不能小于0")
+    @RangeInt(max = 9999, message = "库存数应在0~9999之间")
     private Integer stock;
 
     @ApiModelProperty("划线价")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "划线价不能小于0")
     private Integer linePrice;
 
     @ApiModelProperty(value = "销售价", required = true)
     @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "销售价不能为空")
+    @Min(value = 0, message = "销售价不能小于0")
     private Integer salePrice;
 
     @ApiModelProperty(value = "民宿id", hidden = true)

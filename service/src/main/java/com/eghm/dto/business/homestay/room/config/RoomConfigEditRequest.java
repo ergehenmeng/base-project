@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -32,16 +33,18 @@ public class RoomConfigEditRequest {
     private Boolean state;
 
     @ApiModelProperty(value = "库存不能为空", required = true)
-    @RangeInt(max = 9999, message = "最大库存9999")
+    @RangeInt(max = 9999, message = "库存数应在0~9999之间")
     private Integer stock;
 
     @ApiModelProperty("划线价")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "划线价不能小于0")
     private Integer linePrice;
 
     @ApiModelProperty("销售价")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "销售价不能为空")
+    @Min(value = 0, message = "销售价不能小于0")
     private Integer salePrice;
 
     @ApiModelProperty(value = "民宿id", hidden = true)
