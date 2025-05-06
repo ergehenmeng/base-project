@@ -50,7 +50,7 @@ public class TicketDetailResponse {
     @Schema(description = "虚拟销量")
     private Integer virtualNum;
 
-    @Schema(description = "单次最大购买数量")
+    @Schema(description = "单日最大购买数量")
     private Integer quota;
 
     @Schema(description = "提前多少天购票")

@@ -67,12 +67,8 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     protected void before(TicketOrderCreateContext context, TicketOrderPayload payload) {
         int num = context.getVisitorList().size();
         ScenicTicket ticket = payload.getTicket();
-        if (ticket.getStock() - num < 0) {
-            log.error("门票库存不足 [{}] [{}] [{}]", ticket.getId(), ticket.getStock(), num);
-            throw new BusinessException(ErrorCode.TICKET_STOCK);
-        }
         if (ticket.getQuota() < num) {
-            log.error("超出门票单次购买上限 [{}] [{}] [{}]", ticket.getId(), ticket.getQuota(), num);
+            log.error("单次购买超出门票单日购买上限 [{}] [{}] [{}]", ticket.getId(), ticket.getQuota(), num);
             throw new BusinessException(ErrorCode.TICKET_QUOTA, ticket.getQuota());
         }
         Integer advanceDay = payload.getTicket().getAdvanceDay();
@@ -89,6 +85,16 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         if (!context.getVisitorList().isEmpty() && context.getVisitorList().size() != context.getNum()) {
             log.error("实名制购票录入游客信息与数量不匹配 [{}] [{}] [{}]", ticket.getId(), context.getNum(), context.getVisitorList());
             throw new BusinessException(ErrorCode.TICKET_VISITOR);
+        }
+        int buyCount = ticketOrderService.buyCount(context.getVisitDate(), context.getMemberId());
+        if (ticket.getQuota() < buyCount) {
+            log.error("单日购买超出门票单日购买上限 [{}] [{}] [{}]", ticket.getId(), ticket.getQuota(), buyCount);
+            throw new BusinessException(ErrorCode.TICKET_QUOTA, ticket.getQuota());
+        }
+        buyCount = ticketOrderService.buyCount(context.getVisitDate(), null);
+        if (ticket.getStock() < buyCount) {
+            log.error("门票库存余额不足 [{}] [{}] [{}]", ticket.getId(), ticket.getStock(), buyCount);
+            throw new BusinessException(ErrorCode.TICKET_STOCK);
         }
     }
 

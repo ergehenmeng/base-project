@@ -25,6 +25,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -97,5 +98,10 @@ public class TicketOrderServiceImpl implements TicketOrderService {
             detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
         }
         return detail;
+    }
+
+    @Override
+    public int buyCount(LocalDate visitDate, Long memberId) {
+        return ticketOrderMapper.buyCount(visitDate, memberId);
     }
 }

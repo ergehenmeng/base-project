@@ -65,8 +65,8 @@ public class ScenicTicketEditRequest extends AbstractDateComparator {
     @Min(value = 0, message = "提前购票时间不能小于0")
     private Integer advanceDay;
 
-    @Schema(description = "单次最大购买数量", requiredMode = Schema.RequiredMode.REQUIRED)
-    @RangeInt(min = 1, max = 999, message = "单次最大购买数量应在1~999之间")
+    @Schema(description = "单日最大购买数量", requiredMode = Schema.RequiredMode.REQUIRED)
+    @RangeInt(min = 1, max = 99, message = "单日最大购买数量应在1~99之间")
     private Integer quota;
 
     @Schema(description = "开始预订时间", requiredMode = Schema.RequiredMode.REQUIRED)

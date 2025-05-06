@@ -10,6 +10,7 @@ import com.eghm.vo.business.order.ticket.TicketOrderDetailVO;
 import com.eghm.vo.business.order.ticket.TicketOrderResponse;
 import com.eghm.vo.business.order.ticket.TicketOrderVO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -82,4 +83,13 @@ public interface TicketOrderService {
      * @return 订单详细信息
      */
     TicketOrderDetailResponse detail(String orderNo);
+
+    /**
+     * 查询用户某天的门票订单数量
+     *
+     * @param visitDate 游玩日期
+     * @param memberId 会员id
+     * @return 门票订单总数
+     */
+    int buyCount(LocalDate visitDate, Long memberId);
 }

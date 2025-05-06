@@ -12,6 +12,8 @@ import com.eghm.vo.business.order.ticket.TicketOrderResponse;
 import com.eghm.vo.business.order.ticket.TicketOrderVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDate;
+
 /**
  * <p>
  * 门票订单表 Mapper 接口
@@ -66,4 +68,13 @@ public interface TicketOrderMapper extends BaseMapper<TicketOrder> {
      * @return 订单详情
      */
     TicketOrderDetailResponse detail(@Param("orderNo") String orderNo, @Param("merchantId") Long merchantId);
+
+    /**
+     * 查询用户某天的购买门票订单总量
+     *
+     * @param visitDate 日期
+     * @param memberId 会员id
+     * @return id
+     */
+    int buyCount(@Param("visitDate") LocalDate visitDate, @Param("memberId") Long memberId);
 }
