@@ -49,8 +49,8 @@
     </select>
 
     <update id="updateStock" >
-        update scenic_ticket set stock = stock + #{num}, sale_num = sale_num - #{num}, total_num = total_num - #{num}
-        where id = #{id} and stock + #{num} &gt;= 0 and deleted = false
+        update scenic_ticket set sale_num = sale_num - #{num}, total_num = total_num - #{num}
+        where id = #{id} and deleted = false
     </update>
 
     <update id="releaseStock">

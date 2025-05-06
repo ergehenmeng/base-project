@@ -967,7 +967,7 @@ CREATE TABLE `scenic_ticket`
     `line_price`   int(10)     DEFAULT NULL COMMENT '划线价',
     `sale_price`   int(10)     DEFAULT '0' COMMENT '销售价',
     `advance_day`  tinyint(2)  DEFAULT NULL COMMENT '提前多少天购票',
-    `quota`        tinyint(2)  DEFAULT '99' COMMENT '单次最大购买数量',
+    `quota`        tinyint(2)  DEFAULT '99' COMMENT '单日最大购买数量',
     `start_date`   date        DEFAULT NULL COMMENT '开始预订时间',
     `end_date`     date        DEFAULT NULL COMMENT '截止预订时间',
     `stock`        int(10)     DEFAULT '0' COMMENT '剩余库存',

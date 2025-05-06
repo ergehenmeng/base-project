@@ -38,7 +38,7 @@ public class TicketVO {
     @ApiModelProperty(value = "提前多少天购票")
     private Integer advanceDay;
 
-    @ApiModelProperty(value = "单次最大购买数量")
+    @ApiModelProperty(value = "单日最大购买数量")
     private Integer quota;
 
     @ApiModelProperty(value = "开始预订时间")

@@ -45,7 +45,7 @@ public class TicketDetailResponse {
     @ApiModelProperty(value = "虚拟销量")
     private Integer virtualNum;
 
-    @ApiModelProperty(value = "单次最大购买数量")
+    @ApiModelProperty(value = "单日最大购买数量")
     private Integer quota;
 
     @ApiModelProperty(value = "提前多少天购票")

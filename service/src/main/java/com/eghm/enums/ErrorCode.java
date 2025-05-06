@@ -721,9 +721,9 @@ public enum ErrorCode {
     TICKET_ADVANCE_DAY(2348, "请提前%s天购买门票"),
 
     /**
-     * 门票单次购买上限为%s张
+     * 单日购买上限为%s张
      */
-    TICKET_QUOTA(2351, "单次购买上限为%s张"),
+    TICKET_QUOTA(2351, "单日购买上限为%s张"),
 
     /**
      * 订单类型不匹配

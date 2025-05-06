@@ -58,8 +58,8 @@ public class ScenicTicketAddRequest extends AbstractDateComparator {
     @NotNull(message = "提前购票时间不能为空")
     private Integer advanceDay;
 
-    @ApiModelProperty(value = "单次最大购买数量", required = true)
-    @RangeInt(min = 1, max = 999, message = "单次最大购买数量应在1~999之间")
+    @ApiModelProperty(value = "单日最大购买数量", required = true)
+    @RangeInt(min = 1, max = 99, message = "单日最大购买数量应在1~99之间")
     private Integer quota;
 
     @ApiModelProperty(value = "虚拟销量", required = true)
