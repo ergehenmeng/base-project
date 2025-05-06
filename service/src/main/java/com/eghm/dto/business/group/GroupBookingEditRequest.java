@@ -48,7 +48,6 @@ public class GroupBookingEditRequest {
     private LocalDateTime endTime;
 
     @Schema(description = "拼团人数", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "拼团人数不能为空")
     @RangeInt(min = 2, max = 99, message = "拼团人数必须在2-99之间")
     private Integer num;
 

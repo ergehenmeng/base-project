@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -47,10 +48,10 @@ public class RedeemCodeEditRequest {
 
     @Schema(description = "金额", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "金额不能小于0")
     private Integer amount;
 
     @Schema(description = "发放数量", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "发放数量不能为空")
     @RangeInt(min = 1, max = 999, message = "发放数量应在1-999之间")
     private Integer num;
 

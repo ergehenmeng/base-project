@@ -31,6 +31,7 @@ public class ItemSkuRequest {
 
     @Schema(description = "成本价")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "成本价不能小于0")
     private Integer costPrice;
 
     @Schema(description = "划线价")

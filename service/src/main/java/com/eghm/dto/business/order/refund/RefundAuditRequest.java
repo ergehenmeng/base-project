@@ -4,6 +4,7 @@ import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.validation.annotation.OptionInt;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class RefundAuditRequest {
     @Schema(description = "实际退款金额", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "退款金额不能为空")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 1, message = "退款金额不能小于0.01")
     private Integer refundAmount;
 
     @Schema(description = "审批意见", requiredMode = Schema.RequiredMode.REQUIRED)

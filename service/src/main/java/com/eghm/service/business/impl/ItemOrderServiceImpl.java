@@ -18,7 +18,6 @@ import com.eghm.mapper.OrderAdjustLogMapper;
 import com.eghm.mapper.OrderRefundLogMapper;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.ItemSku;
-import com.eghm.model.ItemSpec;
 import com.eghm.service.business.ExpressService;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderExpressService;
@@ -38,7 +37,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.eghm.utils.StringUtil.isBlank;
-import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
  * @author 二哥很猛

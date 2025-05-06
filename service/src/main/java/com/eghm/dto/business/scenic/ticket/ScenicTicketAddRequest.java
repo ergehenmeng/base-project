@@ -61,7 +61,7 @@ public class ScenicTicketAddRequest extends AbstractDateComparator {
     private Integer advanceDay;
 
     @Schema(description = "单次最大购买数量", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "单次最大购买数量不能为空")
+    @RangeInt(min = 1, max = 999, message = "单次最大购买数量应在1~999之间")
     private Integer quota;
 
     @Schema(description = "虚拟销量", requiredMode = Schema.RequiredMode.REQUIRED)

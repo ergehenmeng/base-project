@@ -52,17 +52,14 @@ public class LotteryEditRequest {
     private LocalDateTime endTime;
 
     @Schema(description = "单日抽奖次数限制", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "单日抽奖次数不能为空")
     @RangeInt(min = 1, max = 9999, message = "单日抽奖次数应为1~9999次")
     private Integer lotteryDay;
 
     @Schema(description = "总抽奖次数限制", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "总抽奖次数不能为空")
     @RangeInt(min = 1, max = 9999, message = "总抽奖次数应为1~9999次")
     private Integer lotteryTotal;
 
     @Schema(description = "中奖次数限制", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "中奖次数不能为空")
     @RangeInt(min = 1, max = 9999, message = "中奖次数应为1~9999次")
     private Integer winNum;
 

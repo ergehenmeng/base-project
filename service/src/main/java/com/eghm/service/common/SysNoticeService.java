@@ -8,7 +8,6 @@ import com.eghm.dto.operate.notice.NoticeQueryRequest;
 import com.eghm.model.SysNotice;
 import com.eghm.vo.notice.NoticeDetailVO;
 import com.eghm.vo.notice.NoticeResponse;
-import com.eghm.vo.notice.NoticeTopVO;
 import com.eghm.vo.notice.NoticeVO;
 
 import java.util.List;

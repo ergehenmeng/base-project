@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -50,6 +51,7 @@ public class MemberTagAddRequest {
 
     @Schema(description = "最低消费金额")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "最低消费金额不能小于0")
     private Integer consumeAmount;
 
     @Schema(description = "注册渠道 PC ANDROID IOS H5 OTHER")

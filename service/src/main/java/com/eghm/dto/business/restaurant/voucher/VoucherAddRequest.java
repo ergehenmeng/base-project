@@ -9,7 +9,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -65,8 +68,7 @@ public class VoucherAddRequest {
     private String depict;
 
     @Schema(description = "限购数量", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "限购数量不能为空")
-    @Max(value = 99, message = "限购数量不能大于99")
+    @RangeInt(min = 1, max = 999, message = "限购数量应在1~999之间")
     private Integer quota;
 
     @Schema(description = "有效期购买之日起")
