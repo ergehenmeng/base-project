@@ -119,7 +119,6 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      */
     private List<Order> createOrder(ItemOrderCreateContext context, ItemOrderPayload payload) {
         List<Order> orderList = new ArrayList<>(8);
-        // 此处了兼容零元购, 先生成tradeNo保证数据完整性, 如果非零元购则在拉起支付时重新生成tradeNo
         String tradeNo = ProductType.ITEM.generateTradeNo();
         for (StoreOrderPackage aPackage : payload.getPackageList()) {
             Map<Long, Integer> skuExpressMap = this.calcExpressFee(aPackage);
@@ -183,7 +182,6 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         order.setMultiple(multiple);
         // 零售商品只支持审核后退款且没有退款描述
         order.setRefundType(RefundType.AUDIT_REFUND);
-        order.setTradeNo(tradeNo);
         order.setState(OrderState.UN_PAY);
         order.setRefundState(RefundState.NONE);
         order.setAmount(aPackage.getItemAmount());
@@ -217,6 +215,10 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
                 order.setScoreAmount(payAmount);
                 order.setPayAmount(0);
             }
+        }
+        // 如果零元购的话, 由于不走支付, 则需要生成一个交易单号保证数据完整性且模拟支付成功保证完整链路正常
+        if (order.getPayAmount() <= 0) {
+            order.setTradeNo(tradeNo);
         }
         return order;
     }

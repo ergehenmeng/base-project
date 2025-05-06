@@ -86,7 +86,6 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
         order.setStoreId(payload.getRestaurant().getId());
         order.setState(OrderState.UN_PAY);
         order.setOrderNo(ProductType.VOUCHER.generateOrderNo());
-        order.setTradeNo(ProductType.VOUCHER.generateTradeNo());
         order.setTitle(voucher.getTitle());
         order.setPrice(voucher.getSalePrice());
         order.setPayAmount(order.getNum() * order.getPrice());

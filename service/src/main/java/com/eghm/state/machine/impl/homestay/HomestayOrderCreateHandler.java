@@ -110,7 +110,6 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         order.setStoreId(payload.getHomestay().getId());
         order.setCoverUrl(payload.getHomestayRoom().getCoverUrl().split(CommonConstant.COMMA)[0]);
         order.setOrderNo(ProductType.HOMESTAY.generateOrderNo());
-        order.setTradeNo(ProductType.HOMESTAY.generateTradeNo());
         order.setTitle(payload.getHomestayRoom().getTitle());
         // 将每天的价格相加=总单价
         int salePrice = payload.getConfigList().stream().mapToInt(HomestayRoomConfig::getSalePrice).sum();

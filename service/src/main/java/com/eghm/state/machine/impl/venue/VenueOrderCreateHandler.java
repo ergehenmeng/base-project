@@ -118,7 +118,6 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
         order.setStoreId(venue.getId());
         order.setState(OrderState.UN_PAY);
         order.setOrderNo(ProductType.VENUE.generateOrderNo());
-        order.setTradeNo(ProductType.VENUE.generateTradeNo());
         order.setNum(1);
         order.setTitle(venue.getTitle() + "/" + payload.getVenueSite().getTitle());
         order.setPrice(payload.getPriceList().stream().mapToInt(VenueSitePrice::getPrice).sum());
