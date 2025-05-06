@@ -451,7 +451,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
                 // 消费成功,将结果放入缓存方便前端查询结果
                 cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), SUCCESS_PLACE_HOLDER, CommonConstant.ASYNC_MSG_EXPIRE);
             } else {
-                log.warn("消息已超时,不做任何业务处理 [{}]", msg);
+                log.warn("消息已超时,不做任何业务处理");
             }
         } catch (BusinessException e) {
             log.error("队列[{}]处理消息业务异常 [{}] [{}] [{}] [{}]", message.getMessageProperties().getConsumerQueue(), msg, message, e.getCode(), e.getMessage());
