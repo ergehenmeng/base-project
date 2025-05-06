@@ -3,6 +3,7 @@ package com.eghm.dto.business.purchase;
 import com.eghm.convertor.YuanToCentDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -25,10 +26,12 @@ public class LimitSkuRequest {
     @Schema(description = "销售价", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "销售价不能为空")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "销售价不能小于0")
     private Integer salePrice;
 
     @Schema(description = "限时价", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "限时价不能为空")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "限时价不能小于0")
     private Integer discountPrice;
 }

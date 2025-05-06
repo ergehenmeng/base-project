@@ -5,6 +5,7 @@ import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -35,18 +36,21 @@ public class ItemSkuRequest {
     @Schema(description = "划线价")
     @NotNull(message = "划线价不能为空")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "划线价不能小于0")
     private Integer linePrice;
 
     @Schema(description = "销售价格")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "销售价不能为空不能为空")
+    @Min(value = 0, message = "销售价不能小于0")
     private Integer salePrice;
 
     @Schema(description = "重量")
+    @Min(value = 0, message = "重量不能小于0")
     private BigDecimal weight;
 
     @Schema(description = "库存")
-    @RangeInt(max = 9999, message = "库存数应为0~9999")
+    @RangeInt(max = 9999, message = "库存数应在0~9999之间")
     private Integer stock;
 
     @Schema(description = "虚拟销量")

@@ -46,11 +46,13 @@ public class ScenicTicketAddRequest extends AbstractDateComparator {
 
     @Schema(description = "划线价")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "划线价不能小于0")
     private Integer linePrice;
 
     @Schema(description = "销售价", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "销售价不能为空")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "销售价不能小于0")
     private Integer salePrice;
 
     @Schema(description = "提前多少天购票", requiredMode = Schema.RequiredMode.REQUIRED)

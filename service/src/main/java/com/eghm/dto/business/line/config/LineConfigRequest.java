@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -49,16 +50,18 @@ public class LineConfigRequest extends AbstractDateComparator {
     private Boolean state;
 
     @Schema(description = "库存不能为空", requiredMode = Schema.RequiredMode.REQUIRED)
-    @RangeInt(max = 9999, message = "最大库存9999")
+    @RangeInt(max = 9999, message = "库存数应在0~9999之间")
     private Integer stock;
 
     @Schema(description = "划线价")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "划线价不能小于0")
     private Integer linePrice;
 
     @Schema(description = "销售价", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "销售价不能为空")
+    @Min(value = 0, message = "销售价不能小于0")
     private Integer salePrice;
 
 }

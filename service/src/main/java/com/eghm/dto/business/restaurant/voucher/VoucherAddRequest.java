@@ -3,6 +3,7 @@ package com.eghm.dto.business.restaurant.voucher;
 import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.convertor.YuanToCentDeserializer;
+import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
@@ -40,19 +41,21 @@ public class VoucherAddRequest {
 
     @Schema(description = "划线价")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "划线价不能小于0")
     private Integer linePrice;
 
     @Schema(description = "销售价", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "销售价不能为空")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "销售价不能小于0")
     private Integer salePrice;
 
     @Schema(description = "剩余库存", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "库存不能为空")
+    @RangeInt(max = 9999, message = "剩余库存应在0~9999之间")
     private Integer stock;
 
     @Schema(description = "虚拟销量", requiredMode = Schema.RequiredMode.REQUIRED)
-    @Min(value = 0, message = "虚拟销量不能小于0")
+    @RangeInt(max = 9999, message = "虚拟销量应在0~9999之间")
     private Integer virtualNum = 0;
 
     @Schema(description = "购买说明", requiredMode = Schema.RequiredMode.REQUIRED)

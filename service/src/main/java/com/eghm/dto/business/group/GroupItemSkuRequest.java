@@ -3,6 +3,7 @@ package com.eghm.dto.business.group;
 import com.eghm.convertor.YuanToCentDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -21,10 +22,12 @@ public class GroupItemSkuRequest {
     @Schema(description = "销售价", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "销售价不能为空")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "销售价不能小于0")
     private Integer salePrice;
 
     @Schema(description = "拼团价", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "拼团价不能为空")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "拼团价不能小于0")
     private Integer discountPrice;
 }

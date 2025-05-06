@@ -59,11 +59,13 @@ public class RoomConfigRequest extends AbstractDateComparator {
 
     @Schema(description = "划线价")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
+    @Min(value = 0, message = "划线价不能小于0")
     private Integer linePrice;
 
     @Schema(description = "销售价", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonDeserialize(using = YuanToCentDeserializer.class)
     @NotNull(message = "销售价不能为空")
+    @Min(value = 0, message = "销售价不能小于0")
     private Integer salePrice;
 
     @Schema(description = "民宿id", hidden = true)
