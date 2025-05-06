@@ -4,6 +4,7 @@ import com.eghm.annotation.Assign;
 import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.dto.ext.AbstractDateComparator;
+import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.JsonAdapter;
@@ -53,8 +54,7 @@ public class RoomConfigRequest extends AbstractDateComparator {
     private Boolean state;
 
     @Schema(description = "库存不能为空", requiredMode = Schema.RequiredMode.REQUIRED)
-    @Max(value = 9999, message = "最大库存9999")
-    @Min(value = 0, message = "库存不能小于0")
+    @RangeInt(max = 9999, message = "库存数应在0~9999之间")
     private Integer stock;
 
     @Schema(description = "划线价")

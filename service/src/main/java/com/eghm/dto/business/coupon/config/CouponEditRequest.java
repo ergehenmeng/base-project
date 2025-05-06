@@ -24,7 +24,7 @@ public class CouponEditRequest {
     private Long id;
 
     @Schema(description = "库存(发放数量)", requiredMode = Schema.RequiredMode.REQUIRED)
-    @RangeInt(max = 9999, message = "库存应为0~9999")
+    @RangeInt(min = 1, max = 9999, message = "库存应在1~9999之间")
     private Integer stock;
 
     @Schema(description = "单人领取限制", requiredMode = Schema.RequiredMode.REQUIRED)

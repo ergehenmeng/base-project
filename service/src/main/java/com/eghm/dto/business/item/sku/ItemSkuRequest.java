@@ -54,7 +54,7 @@ public class ItemSkuRequest {
     private Integer stock;
 
     @Schema(description = "虚拟销量")
-    @RangeInt(max = 9999, message = "虚拟销量应为0~9999")
+    @RangeInt(max = 9999, message = "虚拟销量应在0~9999之间")
     private Integer virtualNum;
 
     @Schema(description = "sku图片(优先级最高)")

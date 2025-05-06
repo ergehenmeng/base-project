@@ -36,7 +36,7 @@ public class RoomConfigEditRequest {
     private Boolean state;
 
     @Schema(description = "库存不能为空", requiredMode = Schema.RequiredMode.REQUIRED)
-    @RangeInt(max = 9999, message = "最大库存9999")
+    @RangeInt(max = 9999, message = "库存数应在0~9999之间")
     private Integer stock;
 
     @Schema(description = "划线价")

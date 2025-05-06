@@ -4,6 +4,7 @@ import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.dto.ext.AbstractDateComparator;
 import com.eghm.enums.TicketType;
+import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -78,7 +79,7 @@ public class ScenicTicketAddRequest extends AbstractDateComparator {
     private LocalDate endDate;
 
     @Schema(description = "剩余库存", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "库存不能为空")
+    @RangeInt(max = 9999, message = "库存数应在0~9999之间")
     private Integer stock;
 
     @Schema(description = "门票介绍", requiredMode = Schema.RequiredMode.REQUIRED)
