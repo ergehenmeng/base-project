@@ -65,10 +65,9 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
 
     @Override
     protected void before(TicketOrderCreateContext context, TicketOrderPayload payload) {
-        int num = context.getVisitorList().size();
         ScenicTicket ticket = payload.getTicket();
-        if (ticket.getQuota() < num) {
-            log.error("单次购买超出门票单日购买上限 [{}] [{}] [{}]", ticket.getId(), ticket.getQuota(), num);
+        if (ticket.getQuota() < context.getNum()) {
+            log.error("单次购买超出门票单日购买上限 [{}] [{}] [{}]", ticket.getId(), ticket.getQuota(), context.getNum());
             throw new BusinessException(ErrorCode.TICKET_QUOTA, ticket.getQuota());
         }
         Integer advanceDay = payload.getTicket().getAdvanceDay();
@@ -82,7 +81,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
             log.error("实名制购票录入游客信息不匹配 [{}]", ticket.getId());
             throw new BusinessException(ErrorCode.TICKET_VISITOR);
         }
-        if (!context.getVisitorList().isEmpty() && context.getVisitorList().size() != context.getNum()) {
+        if (CollUtil.isNotEmpty(context.getVisitorList()) && context.getVisitorList().size() != context.getNum()) {
             log.error("实名制购票录入游客信息与数量不匹配 [{}] [{}] [{}]", ticket.getId(), context.getNum(), context.getVisitorList());
             throw new BusinessException(ErrorCode.TICKET_VISITOR);
         }
