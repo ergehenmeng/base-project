@@ -55,7 +55,7 @@ public class ItemSkuRequest {
     private Integer stock;
 
     @ApiModelProperty(value = "虚拟销量")
-    @RangeInt(max = 9999, message = "虚拟销量应在0~9999之间")
+    @RangeInt(max = 9999, message = "虚拟销量应在0~9999之间", required = false)
     private Integer virtualNum;
 
     @ApiModelProperty(value = "sku图片(优先级最高)")

@@ -60,7 +60,7 @@ public class VoucherEditRequest {
     private Integer stock;
 
     @ApiModelProperty(value = "虚拟销量", required = true)
-    @RangeInt(max = 9999, message = "虚拟销量应在0~9999之间")
+    @RangeInt(max = 9999, message = "虚拟销量应在0~9999之间", required = false)
     private Integer virtualNum;
 
     @ApiModelProperty(value = "购买说明", required = true)
