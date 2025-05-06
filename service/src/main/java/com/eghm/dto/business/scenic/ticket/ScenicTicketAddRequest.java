@@ -65,7 +65,7 @@ public class ScenicTicketAddRequest extends AbstractDateComparator {
     private Integer quota;
 
     @Schema(description = "虚拟销量", requiredMode = Schema.RequiredMode.REQUIRED)
-    @Min(value = 0, message = "虚拟销量不能小于0")
+    @RangeInt(max = 9999, message = "虚拟销量应在0~9999之间", required = false)
     private Integer virtualNum;
 
     @Schema(description = "开始预订时间", requiredMode = Schema.RequiredMode.REQUIRED)
