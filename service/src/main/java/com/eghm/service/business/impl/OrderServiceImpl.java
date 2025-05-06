@@ -16,6 +16,7 @@ import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.security.ApiHolder;
 import com.eghm.constants.CommonConstant;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.RefundCancelDTO;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
@@ -212,6 +213,17 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
         wrapper.select(Order::getOrderNo, Order::getProductType, Order::getTradeNo, Order::getPayType);
         wrapper.eq(Order::getState, OrderState.PROGRESS);
+        return baseMapper.selectList(wrapper);
+    }
+
+    @Override
+    public List<Order> getNoPayList() {
+        LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(Order::getOrderNo, Order::getProductType, Order::getState);
+        wrapper.eq(Order::getState, OrderState.UN_PAY);
+        int expireTime = sysConfigApi.getInt(ConfigConstant.ORDER_EXPIRE_TIME);
+        // 为了不和消息队列时间冲突, 该时间额外加60秒
+        wrapper.lt(Order::getCreateTime, LocalDateTime.now().minusSeconds(expireTime + 60L));
         return baseMapper.selectList(wrapper);
     }
 
