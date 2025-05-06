@@ -107,7 +107,7 @@ public class LineServiceImpl implements LineService {
         commonService.checkIllegal(sourceLine.getMerchantId());
         Line line = DataUtil.copy(request, Line.class);
         // 总销量要根据真实销量计算
-        line.setTotalNum(request.getVirtualNum() + sourceLine.getSaleNum());
+        line.setTotalNum((request.getVirtualNum() != null ? request.getVirtualNum() : 0) + sourceLine.getSaleNum());
         lineMapper.updateById(line);
         lineConfigDayService.insertOrUpdate(line.getId(), request.getConfigList());
     }

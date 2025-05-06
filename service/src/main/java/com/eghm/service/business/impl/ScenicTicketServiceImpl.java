@@ -92,7 +92,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         commonService.checkIllegal(scenicTicket.getMerchantId());
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
         // 总销量要根据真实销量计算
-        ticket.setTotalNum(request.getVirtualNum() + scenicTicket.getSaleNum());
+        ticket.setTotalNum((request.getVirtualNum() == null ? 0 : request.getVirtualNum()) + scenicTicket.getSaleNum());
         scenicTicketMapper.updateById(ticket);
         scenicService.updatePrice(request.getScenicId());
         if (ticket.getCategory() == TicketType.COMBINE) {
