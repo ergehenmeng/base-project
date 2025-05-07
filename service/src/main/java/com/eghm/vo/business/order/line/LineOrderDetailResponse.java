@@ -108,7 +108,7 @@ public class LineOrderDetailResponse {
     private Long startCityId;
 
     @ApiModelProperty("出发省份城市")
-    private String startProvinceCity;
+    private String startCity;
 
     @ApiModelProperty("游客信息")
     private List<VisitorVO> visitorList;
