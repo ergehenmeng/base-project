@@ -133,7 +133,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType, String clientIp) {
         this.checkPayChannel(ApiHolder.getChannel(), tradeType);
-        List<String> orderNoList = StringUtil.split(orderNo, ",");
+        List<String> orderNoList = StringUtil.split(orderNo, COMMA);
         ProductType productType = ProductType.prefix(orderNoList.get(0));
         String tradeNo = productType.generateTradeNo();
         List<Order> orderList = this.getUnPay(orderNoList);
