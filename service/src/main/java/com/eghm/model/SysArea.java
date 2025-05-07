@@ -37,9 +37,6 @@ public class SysArea {
     @ApiModelProperty("父级区域代码")
     private Long pid;
 
-    @ApiModelProperty("邮编")
-    private String zipCode;
-
     @ApiModelProperty("标示符-首字母")
     private String mark;
 
