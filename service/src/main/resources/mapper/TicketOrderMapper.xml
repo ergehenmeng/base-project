@@ -151,7 +151,7 @@
             count(t.id)
         from `order` t
         left join ticket_order r on r.order_no = t.order_no
-        where t.deleted = false and r.visit_date = #{visitDate} and t.state in (1, 2, 3, 4, 5, 6, 7, 9, 10)
+        where t.deleted = false and r.visit_date = #{visitDate} and t.state in (0, 1, 2, 3, 4, 5, 6, 7, 9, 10)
         <if test="memberId != null">
             and t.member_id = #{memberId}
         </if>
