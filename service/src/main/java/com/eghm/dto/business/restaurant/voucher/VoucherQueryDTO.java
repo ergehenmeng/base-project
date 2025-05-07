@@ -14,6 +14,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class VoucherQueryDTO extends PagingQuery {
 
+    @Schema(description = "标签id")
+    private Long tagId;
+
     @Schema(description = "餐饮商家id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "商家id不能为空")
     private Long restaurantId;

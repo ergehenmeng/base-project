@@ -6,6 +6,7 @@ import com.eghm.dto.business.VoucherTagEditRequest;
 import com.eghm.dto.business.VoucherTagQueryRequest;
 import com.eghm.vo.business.restaurant.TagSelectResponse;
 import com.eghm.vo.business.restaurant.VoucherTagResponse;
+import com.eghm.vo.business.restaurant.VoucherTagVO;
 
 import java.util.List;
 
@@ -30,6 +31,14 @@ public interface VoucherTagService {
      * @return 列表
      */
     List<TagSelectResponse> getList(Long restaurantId);
+
+    /**
+     * 获取标签列表
+     *
+     * @param restaurantId 店铺id
+     * @return 列表
+     */
+    List<VoucherTagVO> getTagList(Long restaurantId);
 
     /**
     * 新增

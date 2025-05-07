@@ -17,6 +17,7 @@ import com.eghm.service.business.VoucherTagService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.restaurant.TagSelectResponse;
 import com.eghm.vo.business.restaurant.VoucherTagResponse;
+import com.eghm.vo.business.restaurant.VoucherTagVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,11 @@ public class VoucherTagServiceImpl implements VoucherTagService {
     @Override
     public List<TagSelectResponse> getList(Long restaurantId) {
         return voucherTagMapper.getList(restaurantId);
+    }
+
+    @Override
+    public List<VoucherTagVO> getTagList(Long restaurantId) {
+        return voucherTagMapper.getTagList(restaurantId);
     }
 
     @Override
