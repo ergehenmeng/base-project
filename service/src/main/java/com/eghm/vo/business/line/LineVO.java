@@ -33,6 +33,10 @@ public class LineVO {
     @ApiModelProperty("出发城市")
     private String startCity;
 
+    @ApiModelProperty("出发省份(前端忽略该字段)")
+    @JsonIgnore
+    private Long startProvinceId;
+
     @ApiModelProperty("出发城市(前端忽略该字段)")
     @JsonIgnore
     private Long startCityId;

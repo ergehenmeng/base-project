@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -25,6 +26,7 @@ import com.eghm.model.LineConfigDay;
 import com.eghm.model.TravelAgency;
 import com.eghm.service.business.*;
 import com.eghm.service.sys.SysAreaService;
+import com.eghm.utils.CommonUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
 import com.eghm.utils.DecimalUtil;
@@ -136,8 +138,7 @@ public class LineServiceImpl implements LineService {
     public List<LineVO> getByPage(LineQueryDTO dto) {
         Page<LineVO> voPage = lineMapper.getByPage(dto.createPage(false), dto);
         List<LineVO> voList = voPage.getRecords();
-        // 转义城市名称
-        voList.forEach(vo -> vo.setStartCity(sysAreaService.parseCity(vo.getStartCityId())));
+        voList.forEach(vo -> vo.setStartCity(sysAreaService.parseProvinceCity(vo.getStartProvinceId(), vo.getStartCityId(), "-")));
         return voList;
     }
 
@@ -169,7 +170,11 @@ public class LineServiceImpl implements LineService {
             throw new BusinessException(LINE_DOWN);
         }
         List<LineConfigDay> dayConfigList = lineConfigDayService.getByLineId(id);
-        vo.setDayList(DataUtil.copy(dayConfigList, LineConfigDayResponse.class));
+        vo.setDayList(DataUtil.copy(dayConfigList, configDay -> {
+            LineConfigDayResponse response = BeanUtil.copyProperties(configDay, LineConfigDayResponse.class);
+            response.setRepastList(CommonUtil.parseRepast(configDay.getRepast()));
+            return response;
+        }));
         // 出发地格式化
         vo.setStartPoint(sysAreaService.parseCity(vo.getStartCityId()));
         // 最低参考价

@@ -47,6 +47,7 @@
         t.travel_agency_id,
         s.logo_url as travelLogoUrl,
         s.title as travelAgencyName,
+        t.start_province_id,
         t.start_city_id,
         t.cover_url,
         t.total_num,
