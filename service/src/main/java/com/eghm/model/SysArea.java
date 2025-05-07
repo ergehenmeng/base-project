@@ -37,9 +37,6 @@ public class SysArea {
     @Schema(description = "父级区域代码")
     private Long pid;
 
-    @Schema(description = "邮编")
-    private String zipCode;
-
     @Schema(description = "标示符-首字母")
     private String mark;
 
