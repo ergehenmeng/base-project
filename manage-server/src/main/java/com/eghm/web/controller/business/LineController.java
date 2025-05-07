@@ -9,19 +9,18 @@ import com.eghm.dto.business.line.LineEditRequest;
 import com.eghm.dto.business.line.LineQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.RepastType;
 import com.eghm.enums.State;
 import com.eghm.model.Line;
 import com.eghm.model.LineConfigDay;
 import com.eghm.service.business.LineConfigDayService;
 import com.eghm.service.business.LineService;
+import com.eghm.utils.CommonUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.line.LineConfigDayResponse;
 import com.eghm.vo.business.line.LineDetailResponse;
 import com.eghm.vo.business.line.LineResponse;
-import com.google.common.collect.Lists;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
@@ -85,7 +84,7 @@ public class LineController {
         List<LineConfigDay> dayList = lineConfigDayService.getByLineId(request.getId());
         response.setConfigList(DataUtil.copy(dayList, config -> {
             LineConfigDayResponse configResponse = DataUtil.copy(config, LineConfigDayResponse.class);
-            configResponse.setRepastList(this.parseRepast(config.getRepast()));
+            configResponse.setRepastList(CommonUtil.parseRepast(config.getRepast()));
             return configResponse;
         }));
         // 虚拟销量需要计算
@@ -129,23 +128,4 @@ public class LineController {
         EasyExcelUtil.export(response, "线路信息", byPage, LineResponse.class);
     }
 
-    /**
-     * 包含就餐 1:早餐 2:午餐 4:晚餐
-     *
-     * @param repast 最大7
-     * @return list
-     */
-    private List<Integer> parseRepast(Integer repast) {
-        if (repast == null) {
-            return Lists.newArrayList();
-        }
-        List<Integer> list = Lists.newArrayList();
-        for (RepastType value : RepastType.values()) {
-            if ((repast & value.getValue()) == value.getValue()) {
-                list.add(value.getValue());
-                return list;
-            }
-        }
-        return list;
-    }
 }

@@ -33,6 +33,10 @@ public class LineVO {
     @Schema(description = "出发城市")
     private String startCity;
 
+    @Schema(description = "出发省份(前端忽略该字段)")
+    @JsonIgnore
+    private Long startProvinceId;
+
     @Schema(description = "出发城市(前端忽略该字段)")
     @JsonIgnore
     private Long startCityId;
