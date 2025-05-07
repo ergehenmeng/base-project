@@ -127,7 +127,7 @@ Token: {{Token}}
 {
   "orderNo": "",
   "buyerId": "",
-  "tradeType": ""
+  "tradeType": "ZERO_PAY"
 }
 
 ###

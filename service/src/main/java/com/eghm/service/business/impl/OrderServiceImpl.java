@@ -1,7 +1,6 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.AES;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -42,6 +41,7 @@ import com.eghm.service.business.*;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.StringUtil;
 import com.eghm.utils.TransactionUtil;
 import com.eghm.vo.business.merchant.address.MerchantAddressVO;
 import com.eghm.vo.business.order.OrderScanVO;
@@ -133,7 +133,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType, String clientIp) {
         this.checkPayChannel(ApiHolder.getChannel(), tradeType);
-        List<String> orderNoList = StrUtil.split(orderNo, ',');
+        List<String> orderNoList = StringUtil.split(orderNo, ",");
         ProductType productType = ProductType.prefix(orderNoList.get(0));
         String tradeNo = productType.generateTradeNo();
         List<Order> orderList = this.getUnPay(orderNoList);
@@ -244,6 +244,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public void updateState(String orderNo, OrderState newState, Object... oldState) {
         if (orderNo == null) {
             log.error("订单号为空, 无法更新订单状态 [{}]", newState);
+            return;
         }
         LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Order::getOrderNo, orderNo);

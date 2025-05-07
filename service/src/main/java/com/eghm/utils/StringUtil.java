@@ -12,6 +12,7 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 
 import java.security.SecureRandom;
+import java.util.List;
 
 /**
  * 字符串日常工具类
@@ -111,6 +112,16 @@ public class StringUtil {
      */
     public static String random(int length) {
         return random(NUMBER_LETTERS, length);
+    }
+
+    /**
+     * split
+     *
+     * @param str str
+     * @return 定长字符串
+     */
+    public static List<String> split(String str, String split) {
+        return CharSequenceUtil.split(str, split);
     }
 
     /**
