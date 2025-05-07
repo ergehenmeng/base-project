@@ -16,4 +16,14 @@
         </foreach>
         </if>
     </select>
+
+    <select id="getByPid" resultType="com.eghm.vo.sys.SysAreaVO">
+        select
+        id,
+        title,
+        mark,
+        pid
+        from sys_area
+        where pid = #{pid}
+    </select>
 </mapper>

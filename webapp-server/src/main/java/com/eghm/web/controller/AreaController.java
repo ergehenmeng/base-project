@@ -1,14 +1,17 @@
 package com.eghm.web.controller;
 
+import com.eghm.cache.CacheProxyService;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.CommonService;
 import com.eghm.vo.sys.SysAreaVO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -27,10 +30,20 @@ public class AreaController {
 
     private final CommonService commonService;
 
+    private final CacheProxyService cacheProxyService;
+
     @ApiOperation("获取省市区列表")
     @GetMapping("/list")
     public RespBody<List<SysAreaVO>> list() {
         List<SysAreaVO> voList = commonService.getTreeAreaList();
+        return RespBody.success(voList);
+    }
+
+    @ApiOperation("获取省市区列表")
+    @GetMapping("/pid")
+    @ApiImplicitParam(name = "pid", value = "父节点id", required = true, dataType = "Long")
+    public RespBody<List<SysAreaVO>> pid(@RequestParam("pid") Long pid) {
+        List<SysAreaVO> voList = cacheProxyService.getAreaPid(pid);
         return RespBody.success(voList);
     }
 }

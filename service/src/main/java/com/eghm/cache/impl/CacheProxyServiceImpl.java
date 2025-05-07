@@ -67,6 +67,12 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
+    @Cacheable(cacheNames = CacheConstant.SYS_AREA_PID, sync = true)
+    public List<SysAreaVO> getAreaPid(Long pid) {
+        return sysAreaMapper.getByPid(pid);
+    }
+
+    @Override
     @Cacheable(cacheNames = CacheConstant.SYS_AREA, sync = true)
     public List<SysAreaVO> getAreaList() {
         return sysAreaMapper.getList(null);
