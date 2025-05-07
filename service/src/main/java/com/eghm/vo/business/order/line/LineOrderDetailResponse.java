@@ -108,7 +108,7 @@ public class LineOrderDetailResponse {
     private Long startCityId;
 
     @Schema(description = "出发省份城市")
-    private String startProvinceCity;
+    private String startCity;
 
     @Schema(description = "游客信息")
     private List<VisitorVO> visitorList;
