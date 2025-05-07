@@ -51,6 +51,9 @@
         <if test="param.queryName != null and param.queryName != ''">
             and title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
+        <if test="param.tagId != null" >
+            and tag_id = #{param.tagId}
+        </if>
         <choose>
             <when test="param.sortByPrice == 1">
                 order by sale_price, id desc

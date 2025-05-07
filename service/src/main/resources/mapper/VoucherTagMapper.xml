@@ -40,4 +40,14 @@
             t.deleted = 0 and t.restaurant_id = #{restaurantId} order by t.sort, t.id desc
     </select>
 
+    <select id="getTagList" resultType="com.eghm.vo.business.restaurant.VoucherTagVO">
+        select
+            t.id,
+            t.title
+        from
+            voucher_tag t
+        where
+            t.deleted = 0 and t.state = true and t.restaurant_id = #{restaurantId} order by t.sort, t.id desc
+    </select>
+
 </mapper>

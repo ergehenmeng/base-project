@@ -8,18 +8,18 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.VisitType;
 import com.eghm.service.business.RestaurantService;
 import com.eghm.service.business.VoucherService;
-import com.eghm.vo.business.restaurant.RestaurantDetailVO;
-import com.eghm.vo.business.restaurant.RestaurantVO;
-import com.eghm.vo.business.restaurant.VoucherDetailVO;
-import com.eghm.vo.business.restaurant.VoucherVO;
+import com.eghm.service.business.VoucherTagService;
+import com.eghm.vo.business.restaurant.*;
 import com.eghm.web.annotation.VisitRecord;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -38,6 +38,8 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
 
+    private final VoucherTagService voucherTagService;
+
     @GetMapping("/listPage")
     @ApiOperation("列表")
     public RespBody<List<RestaurantVO>> listPage(RestaurantQueryDTO dto) {
@@ -50,6 +52,14 @@ public class RestaurantController {
     public RespBody<RestaurantDetailVO> detail(@Validated RestaurantDTO dto) {
         RestaurantDetailVO detail = restaurantService.detailById(dto);
         return RespBody.success(detail);
+    }
+
+    @GetMapping("/tag")
+    @ApiOperation("标签")
+    @ApiImplicitParam(name = "restaurantId", value = "店铺id")
+    public RespBody<List<VoucherTagVO>> tag(@RequestParam("restaurantId") Long restaurantId) {
+        List<VoucherTagVO> tagList = voucherTagService.getTagList(restaurantId);
+        return RespBody.success(tagList);
     }
 
     @GetMapping("/voucher/listPage")

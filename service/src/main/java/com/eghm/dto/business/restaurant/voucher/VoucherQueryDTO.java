@@ -15,6 +15,9 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = true)
 public class VoucherQueryDTO extends PagingQuery {
 
+    @ApiModelProperty(value = "标签id")
+    private Long tagId;
+
     @ApiModelProperty(value = "餐饮商家id", required = true)
     @NotNull(message = "商家id不能为空")
     private Long restaurantId;

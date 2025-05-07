@@ -6,6 +6,7 @@ import com.eghm.dto.business.VoucherTagQueryRequest;
 import com.eghm.model.VoucherTag;
 import com.eghm.vo.business.restaurant.TagSelectResponse;
 import com.eghm.vo.business.restaurant.VoucherTagResponse;
+import com.eghm.vo.business.restaurant.VoucherTagVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -36,4 +37,12 @@ public interface VoucherTagMapper extends BaseMapper<VoucherTag> {
      * @return list
      */
     List<TagSelectResponse> getList(@Param("restaurantId") Long restaurantId);
+
+    /**
+     * 获取标签列表
+     *
+     * @param restaurantId 店铺ID
+     * @return list
+     */
+    List<VoucherTagVO> getTagList(@Param("restaurantId") Long restaurantId);
 }
