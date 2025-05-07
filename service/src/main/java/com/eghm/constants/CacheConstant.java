@@ -73,6 +73,11 @@ public class CacheConstant {
     public static final String EMAIL_TEMPLATE = "email_template";
 
     /**
+     * 某个地区的地址
+     */
+    public static final String SYS_AREA_PID = "sys_area_pid";
+
+    /**
      * 全国地址
      */
     public static final String SYS_AREA = "sys_area";
