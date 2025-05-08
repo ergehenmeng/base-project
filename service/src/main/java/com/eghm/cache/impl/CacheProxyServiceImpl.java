@@ -3,6 +3,7 @@ package com.eghm.cache.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.cache.CacheProxyService;
+import com.eghm.common.JsonService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.enums.Channel;
 import com.eghm.enums.EmailType;
@@ -12,6 +13,7 @@ import com.eghm.service.business.ItemTagService;
 import com.eghm.vo.auth.AuthConfigVO;
 import com.eghm.vo.banner.BannerVO;
 import com.eghm.vo.business.item.ItemTagResponse;
+import com.eghm.vo.business.item.ItemTagVO;
 import com.eghm.vo.sys.SysAreaVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +35,8 @@ import static com.eghm.constants.CommonConstant.LIMIT_ONE;
 @AllArgsConstructor
 @Slf4j
 public class CacheProxyServiceImpl implements CacheProxyService {
+
+    private final JsonService jsonService;
 
     private final BannerMapper bannerMapper;
 
@@ -134,8 +138,10 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.ITEM_TAG, cacheManager = "longCacheManager")
-    public List<ItemTagResponse> getList() {
-        return itemTagService.getList(null);
+    public List<ItemTagVO> getList() {
+        List<ItemTagResponse> responseList = itemTagService.getList(null);
+        String json = jsonService.toJson(responseList);
+        return jsonService.fromJsonList(json, ItemTagVO.class);
     }
 
     @Override
