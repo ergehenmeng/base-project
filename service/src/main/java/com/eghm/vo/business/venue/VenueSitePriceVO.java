@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
@@ -27,10 +26,6 @@ public class VenueSitePriceVO {
     @ApiModelProperty(value = "结束时间")
     @JsonFormat(pattern = "HH:mm")
     private LocalTime endTime;
-
-    @ApiModelProperty("当前日期")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate nowDate;
 
     @ApiModelProperty("可预订数量 默认1")
     private Integer stock;

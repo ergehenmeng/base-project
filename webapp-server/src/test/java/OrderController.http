@@ -103,8 +103,8 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-  "venueSiteId": 1760924119553056770,
-  "phaseList": [1760952249583960070],
+  "venueSiteId": 1920293426334121985,
+  "phaseList": [1920293794774368258,1920293794774368259],
   "nickName": "钓鱼佬",
   "mobile": "13433212312",
   "remark": "备注信息"

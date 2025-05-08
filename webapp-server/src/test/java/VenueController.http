@@ -2,13 +2,13 @@ GET http://localhost:10010/webapp/venue/listPage?page=1&pageSize=10&longitude=12
 Channel: {{Channel}}
 
 ###
-GET http://localhost:10010/webapp/venue/detail?id=1760922048632233986
+GET http://localhost:10010/webapp/venue/detail?id=1920291568467165186
 Channel: {{Channel}}
 
 ###
-GET http://localhost:10010/webapp/venue/siteList?id=1760922048632233986
+GET http://localhost:10010/webapp/venue/siteList?id=1920291568467165186
 Channel: {{Channel}}
 
 ###
-GET http://localhost:10010/webapp/venue/priceList?venueSiteId=1760924119553056770&nowDate=2024-02-26
+GET http://localhost:10010/webapp/venue/priceList?venueSiteId=1920293426334121985&nowDate=2025-05-08
 Channel: {{Channel}}
