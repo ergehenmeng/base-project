@@ -560,7 +560,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             refund.setRefundAmount(order.getPayAmount());
             refund.setScoreAmount(order.getScoreAmount());
         }
-        // 已经发货的快递费不退
+        // 已经发货的快递费默认为0
         if (refund.getDeliveryState() == DeliveryState.CONFIRM_TASK || refund.getDeliveryState() == DeliveryState.WAIT_TAKE) {
             refund.setExpressFeeAmount(0);
         }
