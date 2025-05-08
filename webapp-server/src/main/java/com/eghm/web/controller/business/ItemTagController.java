@@ -2,7 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.eghm.cache.CacheProxyService;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.vo.business.item.ItemTagResponse;
+import com.eghm.vo.business.item.ItemTagVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -27,8 +27,8 @@ public class ItemTagController {
 
     @GetMapping("/list")
     @Operation(summary = "列表")
-    public RespBody<List<ItemTagResponse>> list() {
-        List<ItemTagResponse> serviceList = cacheProxyService.getList();
+    public RespBody<List<ItemTagVO>> list() {
+        List<ItemTagVO> serviceList = cacheProxyService.getList();
         return RespBody.success(serviceList);
     }
 

@@ -5,7 +5,7 @@ import com.eghm.enums.EmailType;
 import com.eghm.model.*;
 import com.eghm.vo.auth.AuthConfigVO;
 import com.eghm.vo.banner.BannerVO;
-import com.eghm.vo.business.item.ItemTagResponse;
+import com.eghm.vo.business.item.ItemTagVO;
 import com.eghm.vo.sys.SysAreaVO;
 
 import java.util.List;
@@ -100,7 +100,7 @@ public interface CacheProxyService {
      *
      * @return 标签
      */
-    List<ItemTagResponse> getList();
+    List<ItemTagVO> getList();
 
     /**
      * 根据id查询中奖奖品信息

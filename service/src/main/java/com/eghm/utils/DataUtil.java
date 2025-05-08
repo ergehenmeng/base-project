@@ -8,7 +8,6 @@ import com.google.common.collect.Lists;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -112,9 +111,9 @@ public class DataUtil {
         try {
             T t = cls.getDeclaredConstructor().newInstance();
             if (ignoreProperties != null && ignoreProperties.length > 0) {
-                BeanUtils.copyProperties(source, t, ignoreProperties);
+                BeanUtil.copyProperties(source, t, ignoreProperties);
             } else {
-                BeanUtils.copyProperties(source, t);
+                BeanUtil.copyProperties(source, t);
             }
             return t;
         } catch (Exception e) {
