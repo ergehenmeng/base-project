@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
@@ -27,10 +26,6 @@ public class VenueSitePriceVO {
     @Schema(description = "结束时间")
     @JsonFormat(pattern = "HH:mm")
     private LocalTime endTime;
-
-    @Schema(description = "当前日期")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate nowDate;
 
     @Schema(description = "可预订数量 默认1")
     private Integer stock;

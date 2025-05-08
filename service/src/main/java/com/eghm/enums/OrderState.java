@@ -53,32 +53,32 @@ public enum OrderState {
     /**
      * 待收货(需要发货的商品)
      */
-    WAIT_RECEIVE(6, "待收货"),
+    WAIT_RECEIVE(5, "待收货"),
 
     /**
      * 退款中
      */
-    REFUND(7, "退款中"),
+    REFUND(6, "退款中"),
 
     /**
      * 订单完成(已收货或已核销或已入住) 注意: 针对核销类商品直接由待使用变成已完成
      */
-    COMPLETE(8, "订单完成"),
+    COMPLETE(7, "订单完成"),
 
     /**
      * 已关闭
      */
-    CLOSE(9, "已关闭"),
+    CLOSE(8, "已关闭"),
 
     /**
      * 支付异常
      */
-    PAY_ERROR(10, "支付异常"),
+    PAY_ERROR(9, "支付异常"),
 
     /**
      * 退款异常
      */
-    REFUND_ERROR(11, "退款异常");
+    REFUND_ERROR(10, "退款异常");
 
     /**
      * 状态
