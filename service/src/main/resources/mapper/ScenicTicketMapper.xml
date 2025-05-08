@@ -20,7 +20,10 @@
         t.update_time
         from scenic_ticket t
         left join scenic r on t.scenic_id = r.id
-        where t.deleted = false and t.merchant_id = #{param.merchantId}
+        where t.deleted = false
+        <if test="param.merchantId != null">
+            and t.merchant_id = #{param.merchantId}
+        </if>
         <if test="param.scenicId != null">
             and t.scenic_id = #{param.scenicId}
         </if>
