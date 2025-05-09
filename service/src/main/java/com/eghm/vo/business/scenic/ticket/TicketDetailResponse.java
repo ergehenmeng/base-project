@@ -1,6 +1,6 @@
 package com.eghm.vo.business.scenic.ticket;
 
-import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.convertor.CentToYuanOmitSerializer;
 import com.eghm.enums.State;
 import com.eghm.enums.TicketType;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -37,11 +37,11 @@ public class TicketDetailResponse {
     private TicketType category;
 
     @Schema(description = "划线价")
-    @JsonSerialize(using = CentToYuanSerializer.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer linePrice;
 
     @Schema(description = "销售价")
-    @JsonSerialize(using = CentToYuanSerializer.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer salePrice;
 
     @Schema(description = "组合票ID")

@@ -92,7 +92,7 @@ public class ManageLogAspect {
                 builder.append("|");
             }
             // 过滤内置参数
-            if (WebUtil.isAutoInject(object.getClass())) {
+            if (object == null || WebUtil.isAutoInject(object.getClass())) {
                 continue;
             }
             builder.append(gson.toJson(object));
