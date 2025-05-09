@@ -811,6 +811,11 @@ public enum ErrorCode {
     ORDER_NOT_VERIFY(2408, "订单状态不匹配,无法核销"),
 
     /**
+     * 订单已完成,请勿重复核销
+     */
+    ORDER_VERIFIED(2409, "订单已完成,请勿重复核销"),
+
+    /**
      * 该房型已下架
      */
     HOMESTAY_ROOM_DOWN(2411, "该房型已下架"),

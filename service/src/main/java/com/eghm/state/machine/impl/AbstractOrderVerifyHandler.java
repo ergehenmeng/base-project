@@ -64,6 +64,9 @@ public abstract class AbstractOrderVerifyHandler implements ActionHandler<OrderV
         if (order.getState() == OrderState.REFUND) {
             throw new BusinessException(ErrorCode.ORDER_REFUND_PROCESS);
         }
+        if (order.getState() == OrderState.COMPLETE) {
+            throw new BusinessException(ErrorCode.ORDER_VERIFIED);
+        }
         if (order.getState() != OrderState.UN_USED) {
             throw new BusinessException(ErrorCode.ORDER_NOT_VERIFY);
         }
