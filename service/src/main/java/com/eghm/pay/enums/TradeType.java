@@ -54,7 +54,7 @@ public enum TradeType {
     /**
      * 零元付
      */
-    ZERO_PAY("ZERO_PAY", "零元付", PayChannel.NONE)
+    ZERO("ZERO_PAY", "零元付", PayChannel.NONE)
     ;
 
     /**

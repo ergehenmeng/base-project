@@ -215,9 +215,9 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
             notify.setOrderNo(order.getOrderNo());
             notify.setSuccessTime(LocalDateTime.now());
             notify.setAmount(order.getPayAmount());
-            notify.setTradeType(TradeType.ZERO_PAY);
+            notify.setTradeType(TradeType.ZERO);
             notify.setFrom(order.getState().getValue());
-            this.getAccessHandler().paySuccess(notify);
+            TransactionUtil.afterCommit(() -> this.getAccessHandler().paySuccess(notify));
         } else {
             orderMqService.sendOrderExpireMessage(this.getExpireExchange(), order.getOrderNo());
         }
