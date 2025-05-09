@@ -9,6 +9,7 @@ import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.State;
 import com.eghm.model.ScenicTicket;
 import com.eghm.vo.business.base.BaseProductResponse;
+import com.eghm.vo.business.scenic.ticket.TicketBaseResponse;
 import com.eghm.vo.business.scenic.ticket.TicketResponse;
 import com.eghm.vo.business.scenic.ticket.TicketVO;
 
@@ -34,6 +35,16 @@ public interface ScenicTicketService {
      * @return 列表
      */
     List<TicketResponse> getList(ScenicTicketQueryRequest request);
+
+    /**
+     * 查询某个景区下的门票列表 (不分页)
+     *
+     * @param merchantId 商户ID
+     * @param scenicId 景区ID
+     * @param id    门票ID
+     * @return 门票信息
+     */
+    List<TicketBaseResponse> getList(Long merchantId, Long scenicId, Long id);
 
     /**
      * 创建景区门票

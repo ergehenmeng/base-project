@@ -15,9 +15,12 @@ import com.eghm.service.business.ScenicTicketService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
+import com.eghm.vo.business.scenic.ticket.TicketBaseResponse;
 import com.eghm.vo.business.scenic.ticket.TicketDetailResponse;
 import com.eghm.vo.business.scenic.ticket.TicketResponse;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -76,6 +79,17 @@ public class ScenicTicketController {
         TicketDetailResponse response = DataUtil.copy(scenicTicket, TicketDetailResponse.class);
         response.setVirtualNum(scenicTicket.getTotalNum() - scenicTicket.getSaleNum());
         return RespBody.success(DataUtil.copy(scenicTicket, TicketDetailResponse.class));
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("列表(不含组合票)")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "门票ID", required = true),
+            @ApiImplicitParam(name = "scenicId", value = "景区ID", required = true)
+    })
+    public RespBody<List<TicketBaseResponse>> list(@RequestParam("id") Long id, @RequestParam("scenicId") Long scenicId) {
+        List<TicketBaseResponse> responseList = scenicTicketService.getList(SecurityHolder.getMerchantId(), scenicId, id);
+        return RespBody.success(responseList);
     }
 
     @PostMapping(value = "/shelves", consumes = MediaType.APPLICATION_JSON_VALUE)

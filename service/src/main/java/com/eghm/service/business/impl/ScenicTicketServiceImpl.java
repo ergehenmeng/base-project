@@ -29,6 +29,7 @@ import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.base.BaseProductResponse;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
 import com.eghm.vo.business.scenic.ticket.CombineTicketVO;
+import com.eghm.vo.business.scenic.ticket.TicketBaseResponse;
 import com.eghm.vo.business.scenic.ticket.TicketResponse;
 import com.eghm.vo.business.scenic.ticket.TicketVO;
 import lombok.AllArgsConstructor;
@@ -64,6 +65,11 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     @Override
     public List<TicketResponse> getList(ScenicTicketQueryRequest request) {
         return scenicTicketMapper.getByPage(request.createNullPage(), request).getRecords();
+    }
+
+    @Override
+    public List<TicketBaseResponse> getList(Long merchantId, Long scenicId, Long id) {
+        return scenicTicketMapper.getList(merchantId, scenicId, id);
     }
 
     @Override
