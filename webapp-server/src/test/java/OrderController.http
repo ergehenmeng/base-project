@@ -4,7 +4,7 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-  "ticketId": 1819246887106777090,
+  "ticketId": 1889934475715518465,
   "mobile": "13136113294",
   "num": 1,
   "visitDate": "2025-05-12",

@@ -40,6 +40,7 @@ system:
   # 全局文件上传路径
   upload-path: D://file
   platform-merchant-id: 1707294309829128194
+  secret-key: fyU0l7x9onsRzrL08DlWiWOeADSdfac9
   api:
     mock-token: d3df31f547654e2185be6dccbd155700
   wechat:

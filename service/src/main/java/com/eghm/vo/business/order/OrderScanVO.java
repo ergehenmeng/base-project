@@ -1,12 +1,12 @@
 package com.eghm.vo.business.order;
 
+import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.vo.business.scenic.ticket.CombineTicketVO;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -30,7 +30,8 @@ public class OrderScanVO {
     private Integer num;
 
     @ApiModelProperty("总付款金额")
-    private BigDecimal payAmount;
+    @JsonSerialize(using = CentToYuanSerializer.class)
+    private Integer payAmount;
 
     @ApiModelProperty("游客列表")
     private List<VisitorVO> visitorList;

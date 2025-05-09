@@ -264,11 +264,11 @@ CREATE TABLE `sms_log`
 DROP TABLE IF EXISTS `sys_area`;
 CREATE TABLE `sys_area`
 (
-    `id`       bigint(20) NOT NULL COMMENT '区域代码 唯一',
-    `title`    varchar(50) DEFAULT NULL COMMENT '区域名称',
-    `pid`      bigint(20)  DEFAULT '0' COMMENT '父级区域代码',
-    `mark`     char(1)     DEFAULT NULL COMMENT '标示符-首字母',
-    `grade`    tinyint(1)  DEFAULT NULL COMMENT '分类 省份1级 市2级 县3级',
+    `id`    bigint(20) NOT NULL COMMENT '区域代码 唯一',
+    `title` varchar(50) DEFAULT NULL COMMENT '区域名称',
+    `pid`   bigint(20)  DEFAULT '0' COMMENT '父级区域代码',
+    `mark`  char(1)     DEFAULT NULL COMMENT '标示符-首字母',
+    `grade` tinyint(1)  DEFAULT NULL COMMENT '分类 省份1级 市2级 县3级',
     PRIMARY KEY (`id`),
     KEY `idx_pid` (`pid`)
 ) ENGINE = InnoDB
@@ -1000,7 +1000,7 @@ CREATE TABLE `ticket_order`
     `use_time`    datetime    DEFAULT NULL COMMENT '使用时间',
     `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)      DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
+    `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='门票订单表';
@@ -1542,14 +1542,14 @@ DROP TABLE IF EXISTS `item_spec`;
 CREATE TABLE `item_spec`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
-    `item_id`     bigint(20)   DEFAULT NULL COMMENT '商品id',
-    `spec_name`   varchar(30)  DEFAULT NULL COMMENT '规格名',
-    `spec_value`  varchar(30)  DEFAULT NULL COMMENT '规格名称',
-    `sort`        smallint(4)  DEFAULT NULL COMMENT '排序',
-    `level`       tinyint(1)   DEFAULT NULL COMMENT '标签级别 一级标签 二级标签',
-    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `item_id`     bigint(20)  DEFAULT NULL COMMENT '商品id',
+    `spec_name`   varchar(30) DEFAULT NULL COMMENT '规格名',
+    `spec_value`  varchar(30) DEFAULT NULL COMMENT '规格名称',
+    `sort`        smallint(4) DEFAULT NULL COMMENT '排序',
+    `level`       tinyint(1)  DEFAULT NULL COMMENT '标签级别 一级标签 二级标签',
+    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品规格配置表';
@@ -2468,7 +2468,7 @@ CREATE TABLE `ticket_order_snapshot`
     `use_time`    datetime    DEFAULT NULL COMMENT '使用时间',
     `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)      DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
+    `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='组合票订单表';

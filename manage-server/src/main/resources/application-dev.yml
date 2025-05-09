@@ -37,6 +37,7 @@ spring:
 system:
   # 全局文件上传路径
   upload-path: D://file
+  secret-key: fyU0l7x9onsRzrL08DlWiWOeADSdfac9
   # 管理后台配置
   manage:
     token:

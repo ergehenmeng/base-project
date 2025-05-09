@@ -46,6 +46,11 @@ public class SystemProperties {
     private Long platformMerchantId;
 
     /**
+     * 加密秘钥,用于数据库字段加密(注意:秘钥丢失后数据不可逆)
+     */
+    private String secretKey;
+
+    /**
      * 移动端 特有配置
      */
     private final WebappProperties api = new WebappProperties();
@@ -360,11 +365,6 @@ public class SystemProperties {
          * 系统版本号
          */
         private String version;
-
-        /**
-         * 加密秘钥,用于数据库字段加密(注意:秘钥丢失后数据不可逆)
-         */
-        private String secretKey;
 
         /**
          * 模拟登录的token
