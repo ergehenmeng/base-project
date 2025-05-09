@@ -272,7 +272,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public String decryptVerifyNo(String verifyNo) {
-        AES aes = SecureUtil.aes(systemProperties.getApi().getSecretKey().getBytes(StandardCharsets.UTF_8));
+        AES aes = SecureUtil.aes(systemProperties.getSecretKey().getBytes(StandardCharsets.UTF_8));
         String decryptStr;
         try {
             decryptStr = aes.decryptStr(verifyNo);
@@ -293,7 +293,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         if (verifyNo == null) {
             return null;
         }
-        AES aes = SecureUtil.aes(systemProperties.getApi().getSecretKey().getBytes(StandardCharsets.UTF_8));
+        AES aes = SecureUtil.aes(systemProperties.getSecretKey().getBytes(StandardCharsets.UTF_8));
         return aes.encryptBase64(System.currentTimeMillis() + CommonConstant.SPECIAL_SPLIT + verifyNo);
     }
 

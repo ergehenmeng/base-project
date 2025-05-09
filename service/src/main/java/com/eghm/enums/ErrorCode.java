@@ -1141,9 +1141,9 @@ public enum ErrorCode {
     ORDER_ERROR(2624, "商品太火爆啦,请稍后再试"),
 
     /**
-     * 核销码已过期, 请重新扫码
+     * 请刷新核销码后再扫描
      */
-    VERIFY_EXPIRE_ERROR(2627, "核销码已过期, 请重新扫码"),
+    VERIFY_EXPIRE_ERROR(2627, "请刷新核销码后再扫描"),
 
     /**
      * 用户[%s]状态异常,无法核销
