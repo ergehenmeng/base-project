@@ -40,6 +40,8 @@ spring:
 system:
   # 全局文件上传路径
   upload-path: D://file
+  # 全局密钥
+  secret-key: fyU0l7x9onsRzrL08DlWiWOeADSdfac9
   wechat:
     ma:
       version: trial
