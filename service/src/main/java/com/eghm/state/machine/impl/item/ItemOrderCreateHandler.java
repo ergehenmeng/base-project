@@ -504,7 +504,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             notify.setSuccessTime(LocalDateTime.now());
             notify.setTradeNo(tradeNo);
             // 此次没有采用bean注入的方式获取handler? 因为构造方法注入会产生循环依赖
-            SpringContextUtil.getBean(ItemAccessHandler.class).paySuccess(notify);
+            TransactionUtil.afterCommit(() -> SpringContextUtil.getBean(ItemAccessHandler.class).paySuccess(notify));
         } else {
             List<String> noList = orderList.stream().map(Order::getOrderNo).collect(Collectors.toList());
             // 30分钟过期定时任务

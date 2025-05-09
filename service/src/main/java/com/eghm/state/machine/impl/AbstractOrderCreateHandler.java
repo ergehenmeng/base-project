@@ -215,9 +215,10 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
             notify.setOrderNo(order.getOrderNo());
             notify.setSuccessTime(LocalDateTime.now());
             notify.setAmount(order.getPayAmount());
-            notify.setTradeType(TradeType.ZERO_PAY);
+            notify.setTradeType(TradeType.ZERO);
             notify.setFrom(order.getState().getValue());
-            this.getAccessHandler().paySuccess(notify);
+            // 零元购会触发支付成功的状态流, 支付成功会额外开启事务,因此此处需要等事务提交后再执行异步通知
+            TransactionUtil.afterCommit(() -> this.getAccessHandler().paySuccess(notify));
         } else {
             orderMqService.sendOrderExpireMessage(this.getExpireExchange(), order.getOrderNo());
         }

@@ -1,7 +1,7 @@
 package com.eghm.vo.business.item;
 
 import com.eghm.convertor.BigDecimalOmitSerializer;
-import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.convertor.CentToYuanOmitSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -32,15 +32,15 @@ public class ItemSkuResponse {
     private Integer secondSize;
 
     @ApiModelProperty(value = "成本价")
-    @JsonSerialize(using = CentToYuanSerializer.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer costPrice;
 
     @ApiModelProperty(value = "划线价")
-    @JsonSerialize(using = CentToYuanSerializer.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer linePrice;
 
     @ApiModelProperty(value = "销售价格")
-    @JsonSerialize(using = CentToYuanSerializer.class)
+    @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer salePrice;
 
     @ApiModelProperty(value = "库存")
