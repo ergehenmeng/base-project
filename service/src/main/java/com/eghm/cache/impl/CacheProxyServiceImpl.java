@@ -140,6 +140,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     @Cacheable(cacheNames = CacheConstant.ITEM_TAG, cacheManager = "longCacheManager")
     public List<ItemTagVO> getList() {
         List<ItemTagResponse> responseList = itemTagService.getList(null);
+        // bean.copy不支持深度复制,需json转换一道
         String json = jsonService.toJson(responseList);
         return jsonService.fromJsonList(json, ItemTagVO.class);
     }
