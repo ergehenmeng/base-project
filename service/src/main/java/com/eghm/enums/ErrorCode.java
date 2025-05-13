@@ -1301,6 +1301,11 @@ public enum ErrorCode {
     COMBINE_ORDER_NULL(2730, "套票订单未查询到"),
 
     /**
+     * 请勿重复核销该门票
+     */
+    COMBINE_ORDER_REDO_VERIFY(2731, "请勿重复核销该门票"),
+
+    /**
      * 物流信息未查询到
      */
     ORDER_EXPRESS_NULL(2733, "物流信息未查询到"),

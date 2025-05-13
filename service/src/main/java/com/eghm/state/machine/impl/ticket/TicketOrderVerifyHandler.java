@@ -56,6 +56,10 @@ public class TicketOrderVerifyHandler extends AbstractOrderVerifyHandler {
                 throw new BusinessException(ErrorCode.COMBINE_ORDER_NULL);
             }
             TicketOrderCombine orderCombine = optional.get();
+            if (orderCombine.getUseTime() != null) {
+                log.error("组合订单重复核销 [{}] [{}]", context.getOrderNo(), context.getCombineId());
+                throw new BusinessException(ErrorCode.COMBINE_ORDER_REDO_VERIFY);
+            }
             orderCombine.setUseTime(now);
             ticketOrderCombineService.updateById(orderCombine);
             boolean match = combineList.stream().anyMatch(combine -> combine.getUseTime() == null);
