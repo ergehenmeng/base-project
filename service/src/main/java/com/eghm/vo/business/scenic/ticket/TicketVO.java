@@ -24,7 +24,7 @@ public class TicketVO {
     @ApiModelProperty(value = "门票名称")
     private String title;
 
-    @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
+    @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:套票")
     private TicketType category;
 
     @ApiModelProperty(value = "划线价")
@@ -61,6 +61,6 @@ public class TicketVO {
     @ApiModelProperty("分数")
     private BigDecimal score;
 
-    @ApiModelProperty("组合票详细信息")
+    @ApiModelProperty("套票票详细信息")
     private List<CombineTicketVO> combineList;
 }

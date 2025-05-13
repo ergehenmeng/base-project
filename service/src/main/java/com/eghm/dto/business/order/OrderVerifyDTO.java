@@ -22,6 +22,9 @@ public class OrderVerifyDTO {
     @NotEmpty(message = "请选择要核销的游客")
     private List<Long> visitorList;
 
+    @ApiModelProperty(value = "套票票子订单id(只有门票订单且为套票票才需要该字段)")
+    private Long combineId;
+
     @ApiModelProperty("备注信息")
     private String remark;
 }

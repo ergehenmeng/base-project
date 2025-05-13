@@ -33,7 +33,7 @@ public class TicketDetailResponse {
     @ApiModelProperty("景区名称")
     private String scenicName;
 
-    @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
+    @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:套票")
     private TicketType category;
 
     @ApiModelProperty(value = "划线价")
@@ -47,7 +47,7 @@ public class TicketDetailResponse {
     @ApiModelProperty(value = "虚拟销量")
     private Integer virtualNum;
 
-    @ApiModelProperty(value = "组合票ID")
+    @ApiModelProperty(value = "套票票ID")
     private List<Long> ticketIds;
 
     @ApiModelProperty(value = "单日最大购买数量")

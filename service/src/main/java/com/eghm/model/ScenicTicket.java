@@ -37,7 +37,7 @@ public class ScenicTicket extends BaseEntity {
     @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
-    @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
+    @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:套票")
     private TicketType category;
 
     @ApiModelProperty("是否为热销商品 true:是 false:不是")

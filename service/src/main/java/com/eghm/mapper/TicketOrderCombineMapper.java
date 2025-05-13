@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * <p>
- * 组合票订单表 Mapper 接口
+ * 套票票订单表 Mapper 接口
  * </p>
  *
  * @author 二哥很猛
@@ -18,10 +18,10 @@ import java.util.List;
 public interface TicketOrderCombineMapper extends BaseMapper<TicketOrderCombine> {
 
     /**
-     * 获取组合票订单信息
+     * 获取套票票订单信息
      *
      * @param orderNo 订单号
-     * @return 组合票订单信息
+     * @return 套票票订单信息
      */
     List<CombineTicketVO> getList(@Param("orderNo") String orderNo);
 }

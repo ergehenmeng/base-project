@@ -721,6 +721,11 @@ public enum ErrorCode {
     TICKET_ADVANCE_DAY(2348, "请提前%s天购买门票"),
 
     /**
+     * 套票只支持单张购买
+     */
+    TICKET_COMBINE_BUY(2349, "套票只支持单张购买"),
+
+    /**
      * 单日购买上限为%s张
      */
     TICKET_QUOTA(2351, "单日购买上限为%s张"),
@@ -1289,6 +1294,11 @@ public enum ErrorCode {
      * 物流模板为计重方式,请填写商品重量
      */
     EXPRESS_WEIGHT(2729, "物流模板为计重方式,请填写商品重量"),
+
+    /**
+     * 套票订单未查询到
+     */
+    COMBINE_ORDER_NULL(2730, "套票订单未查询到"),
 
     /**
      * 订单信息未查询到

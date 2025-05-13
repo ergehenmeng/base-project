@@ -36,6 +36,6 @@ public class OrderScanVO {
     @ApiModelProperty("游客列表")
     private List<VisitorVO> visitorList;
 
-    @ApiModelProperty("组合门票(只有订单为门票且为组合票时才会有此项)")
+    @ApiModelProperty("套票门票(只有订单为门票且为套票票时才会有此项)")
     private List<CombineTicketVO> combineTicket;
 }

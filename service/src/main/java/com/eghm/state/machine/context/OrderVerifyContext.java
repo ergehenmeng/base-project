@@ -2,6 +2,7 @@ package com.eghm.state.machine.context;
 
 import com.eghm.annotation.Assign;
 import com.eghm.enums.ProductType;
+import com.eghm.enums.TicketType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.state.machine.Context;
 import io.swagger.annotations.ApiModelProperty;
@@ -27,6 +28,9 @@ public class OrderVerifyContext implements Context {
     @ApiModelProperty("核销备注信息")
     private String remark;
 
+    @ApiModelProperty(value = "套票票子订单id(只有门票订单且为套票票才需要该字段)")
+    private Long combineId;
+
     @Assign
     @ApiModelProperty(value = "当前登录用户ID", hidden = true)
     private Long userId;
@@ -38,6 +42,10 @@ public class OrderVerifyContext implements Context {
     @ApiModelProperty(value = "商户id", hidden = true)
     @Assign
     private Long merchantId;
+
+    @ApiModelProperty(value = "门票类型", hidden = true)
+    @Assign
+    private TicketType category;
 
     @ApiModelProperty("源状态")
     private Integer from;

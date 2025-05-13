@@ -80,7 +80,7 @@ public class ScenicTicketController {
     }
 
     @GetMapping("/list")
-    @ApiOperation("列表(不含组合票)")
+    @ApiOperation("列表(不含套票票)")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "门票ID"),
             @ApiImplicitParam(name = "scenicId", value = "景区ID", required = true)

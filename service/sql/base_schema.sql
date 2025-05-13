@@ -58,7 +58,7 @@ CREATE TABLE `banner`
     `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `bc_idx` (`banner_type`, `client_type`) USING BTREE COMMENT '组合索引'
+    KEY `bc_idx` (`banner_type`, `client_type`) USING BTREE COMMENT '套票索引'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='轮播图表';
 
@@ -961,7 +961,7 @@ CREATE TABLE `scenic_ticket`
     `merchant_id`  bigint(20)  DEFAULT NULL COMMENT '所属商家',
     `title`        varchar(50) DEFAULT NULL COMMENT '门票名称',
     `state`        tinyint(1)  DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:平台下架',
-    `category`     tinyint(2)  DEFAULT NULL COMMENT '门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合',
+    `category`     tinyint(2)  DEFAULT NULL COMMENT '门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:套票',
     `hot_sell`     bit(1)      DEFAULT b'0' COMMENT '是否为热销商品 true:是 false:不是',
     `line_price`   int(10)     DEFAULT NULL COMMENT '划线价',
     `sale_price`   int(10)     DEFAULT '0' COMMENT '销售价',
@@ -992,7 +992,7 @@ CREATE TABLE `ticket_order`
     `scenic_name` varchar(50) DEFAULT NULL COMMENT '景区名称(冗余字段)',
     `order_no`    varchar(30) DEFAULT NULL COMMENT '订单编号',
     `line_price`  int(10)     DEFAULT NULL COMMENT '划线价',
-    `category`    tinyint(2)  DEFAULT NULL COMMENT '门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合',
+    `category`    tinyint(2)  DEFAULT NULL COMMENT '门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:套票',
     `visit_date`  date        DEFAULT NULL COMMENT '预计游玩日期',
     `real_buy`    bit(1)      DEFAULT b'0' COMMENT '是否实名购票 0:不实名 1:实名',
     `introduce`   longtext COMMENT '门票介绍',
@@ -2471,17 +2471,17 @@ CREATE TABLE `ticket_order_snapshot`
     `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='组合票订单表';
+  DEFAULT CHARSET = utf8mb4 COMMENT ='套票票订单表';
 
 CREATE TABLE `ticket_combine`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
-    `ticket_id`   bigint(20) comment '组合票ID',
+    `ticket_id`   bigint(20) comment '套票票ID',
     `relation_id` bigint(20) comment '关联票ID',
     `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `deleted`     bit(1)   DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='组合票关联表';
+  DEFAULT CHARSET = utf8mb4 COMMENT ='套票票关联表';
 
 

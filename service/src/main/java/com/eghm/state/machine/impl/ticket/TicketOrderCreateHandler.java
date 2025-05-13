@@ -70,6 +70,10 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
             log.error("单次购买超出门票单日购买上限 [{}] [{}] [{}]", ticket.getId(), ticket.getQuota(), context.getNum());
             throw new BusinessException(ErrorCode.TICKET_QUOTA, ticket.getQuota());
         }
+        if (ticket.getCategory() == TicketType.COMBINE && context.getNum() > 1) {
+            log.error("套票门票不支持批量购买 [{}]", ticket.getId());
+            throw new BusinessException(ErrorCode.TICKET_COMBINE_BUY);
+        }
         Integer advanceDay = payload.getTicket().getAdvanceDay();
         LocalDate canVisitDate = LocalDate.now().plusDays(advanceDay);
         if (context.getVisitDate().isBefore(canVisitDate)) {

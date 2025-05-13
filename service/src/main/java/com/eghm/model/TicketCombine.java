@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 组合票关联表
+ * 套票票关联表
  * </p>
  *
  * @author 二哥很猛
@@ -30,7 +30,7 @@ public class TicketCombine implements Serializable {
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
-    @ApiModelProperty(value = "组合票ID")
+    @ApiModelProperty(value = "套票票ID")
     private Long ticketId;
 
     @ApiModelProperty(value = "关联票ID")

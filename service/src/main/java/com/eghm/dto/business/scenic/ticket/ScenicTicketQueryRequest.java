@@ -23,7 +23,7 @@ public class ScenicTicketQueryRequest extends PagingQuery {
     @Assign
     private Long merchantId;
 
-    @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
+    @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:套票")
     @OptionInt(value = {1, 2, 3}, message = "门票种类错误", required = false)
     private Integer category;
 
