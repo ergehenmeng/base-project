@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 组合票订单表
+ * 套票票订单表
  * </p>
  *
  * @author 二哥很猛

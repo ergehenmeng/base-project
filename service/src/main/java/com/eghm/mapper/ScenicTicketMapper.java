@@ -85,15 +85,15 @@ public interface ScenicTicketMapper extends BaseMapper<ScenicTicket> {
     Page<BaseProductResponse> getProductPage(Page<BaseProductResponse> page, @Param("param") BaseProductQueryRequest request);
 
     /**
-     * 获取组合票信息 注意:只包含上架的门票
+     * 获取套票票信息 注意:只包含上架的门票
      *
      * @param ticketId 门票ID
-     * @return 关联的组合票列表
+     * @return 关联的套票票列表
      */
     List<ScenicTicket> getCombineList(@Param("ticketId") Long ticketId);
 
     /**
-     * 获取景区门票列表(不含组合票)
+     * 获取景区门票列表(不含套票票)
      *
      * @param merchantId 商户ID
      * @param scenicId 景区ID

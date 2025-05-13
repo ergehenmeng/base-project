@@ -40,7 +40,7 @@ public class TicketResponse extends ExcelStyle {
     @ExcelProperty(value = "所属景区", index = 1)
     private String scenicName;
 
-    @Schema(description = "票种类型 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
+    @Schema(description = "票种类型 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:套票")
     @ExcelProperty(value = "票种", index = 2, converter = EnumExcelConverter.class)
     private TicketType category;
 

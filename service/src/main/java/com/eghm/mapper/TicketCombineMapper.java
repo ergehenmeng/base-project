@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * <p>
- * 组合票关联表 Mapper 接口
+ * 套票票关联表 Mapper 接口
  * </p>
  *
  * @author 二哥很猛
@@ -17,10 +17,10 @@ import java.util.List;
 public interface TicketCombineMapper extends BaseMapper<TicketCombine> {
 
     /**
-     * 根据门票id获取关联的组合票id
+     * 根据门票id获取关联的套票票id
      *
      * @param ticketId 门票ID
-     * @return 组合票ID集合
+     * @return 套票票ID集合
      */
     List<Long> getCombineTicketIds(@Param("ticketId") Long ticketId);
 }

@@ -38,7 +38,7 @@ public class ImageUtil {
     private static final int GAP = 10;
 
     /**
-     * 生成组合头像
+     * 生成套票头像
      */
     public static byte[] merge(List<String> paths) throws IOException {
 

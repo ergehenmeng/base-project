@@ -41,7 +41,7 @@ public class TicketOrder extends BaseEntity {
     @Schema(description = "预计游玩日期")
     private LocalDate visitDate;
 
-    @Schema(description = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
+    @Schema(description = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:套票")
     private TicketType category;
 
     @Schema(description = "是否实名购票 0:不实名 1:实名")

@@ -2,7 +2,7 @@ package com.eghm.service.business;
 
 /**
  * <p>
- * 组合票订单表 服务类
+ * 套票票订单表 服务类
  * </p>
  *
  * @author 二哥很猛
@@ -11,7 +11,7 @@ package com.eghm.service.business;
 public interface TicketOrderCombineService {
 
     /**
-     * 插入组合门票订单
+     * 插入套票门票订单
      *
      * @param orderNo 订单号
      * @param ticketId 门票ID

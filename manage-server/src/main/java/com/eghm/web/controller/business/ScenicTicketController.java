@@ -71,7 +71,7 @@ public class ScenicTicketController {
     }
 
     @GetMapping("/list")
-    @Operation(summary = "列表(不含组合票)")
+    @Operation(summary = "列表(不含套票票)")
     @Parameter(name = "scenicId", description = "所属景区ID", required = true)
     @Parameter(name = "id", description = "门票ID")
     public RespBody<List<TicketBaseResponse>> list(@RequestParam(value = "id", required = false) Long id, @RequestParam("scenicId") Long scenicId) {

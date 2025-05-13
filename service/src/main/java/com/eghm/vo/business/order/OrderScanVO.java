@@ -34,6 +34,6 @@ public class OrderScanVO {
     @Schema(description = "游客列表")
     private List<VisitorVO> visitorList;
 
-    @Schema(description = "组合门票(只有订单为门票且为组合票时才会有此项)")
+    @Schema(description = "套票门票(只有订单为门票且为套票票时才会有此项)")
     private List<CombineTicketVO> combineTicket;
 }

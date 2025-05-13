@@ -24,7 +24,7 @@ public class TicketVO {
     @Schema(description = "门票名称")
     private String title;
 
-    @Schema(description = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
+    @Schema(description = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:套票")
     private TicketType category;
 
     @Schema(description = "划线价")
@@ -61,6 +61,6 @@ public class TicketVO {
     @Schema(description = "分数")
     private BigDecimal score;
 
-    @Schema(description = "组合票详细信息")
+    @Schema(description = "套票票详细信息")
     private List<CombineTicketVO> combineList;
 }

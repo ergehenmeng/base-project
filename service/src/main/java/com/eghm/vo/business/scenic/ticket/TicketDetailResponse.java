@@ -33,7 +33,7 @@ public class TicketDetailResponse {
     @Schema(description = "景区名称")
     private String scenicName;
 
-    @Schema(description = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
+    @Schema(description = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:套票")
     private TicketType category;
 
     @Schema(description = "划线价")
@@ -44,7 +44,7 @@ public class TicketDetailResponse {
     @JsonSerialize(using = CentToYuanOmitSerializer.class)
     private Integer salePrice;
 
-    @Schema(description = "组合票ID")
+    @Schema(description = "套票票ID")
     private List<Long> ticketIds;
 
     @Schema(description = "虚拟销量")
