@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.TicketType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -41,7 +42,7 @@ public class TicketOrder extends BaseEntity {
     private LocalDate visitDate;
 
     @Schema(description = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学 7:组合")
-    private Integer category;
+    private TicketType category;
 
     @Schema(description = "是否实名购票 0:不实名 1:实名")
     private Boolean realBuy;
