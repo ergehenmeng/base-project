@@ -2,6 +2,9 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.model.TicketCombine;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,11 @@ import com.eghm.model.TicketCombine;
  */
 public interface TicketCombineMapper extends BaseMapper<TicketCombine> {
 
+    /**
+     * 根据门票id获取关联的组合票id
+     *
+     * @param ticketId 门票ID
+     * @return 组合票ID集合
+     */
+    List<Long> getCombineTicketIds(@Param("ticketId") Long ticketId);
 }

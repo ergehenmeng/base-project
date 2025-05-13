@@ -26,7 +26,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.mapper.MerchantMapper;
 import com.eghm.mapper.OrderMapper;
-import com.eghm.mapper.TicketOrderSnapshotMapper;
+import com.eghm.mapper.TicketOrderCombineMapper;
 import com.eghm.model.*;
 import com.eghm.mq.service.MessageService;
 import com.eghm.pay.AggregatePayService;
@@ -126,7 +126,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     private final OfflineRefundLogService offlineRefundLogService;
 
-    private final TicketOrderSnapshotMapper ticketOrderSnapshotMapper;
+    private final TicketOrderCombineMapper ticketOrderCombineMapper;
 
     private static final int PRODUCT_TITLE_LENGTH = 50;
 
@@ -331,7 +331,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         List<VisitorVO> voList = DataUtil.copy(visitorList, VisitorVO.class);
         vo.setVisitorList(voList);
         if (order.getProductType() == ProductType.TICKET) {
-            List<CombineTicketVO> mapperList = ticketOrderSnapshotMapper.getList(order.getOrderNo());
+            List<CombineTicketVO> mapperList = ticketOrderCombineMapper.getList(order.getOrderNo());
             vo.setCombineTicket(mapperList);
         }
         return vo;

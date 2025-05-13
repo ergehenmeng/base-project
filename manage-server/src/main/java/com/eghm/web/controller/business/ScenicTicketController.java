@@ -75,10 +75,8 @@ public class ScenicTicketController {
     @GetMapping("/select")
     @ApiOperation("详情")
     public RespBody<TicketDetailResponse> select(@Validated IdDTO dto) {
-        ScenicTicket scenicTicket = scenicTicketService.selectByIdRequired(dto.getId());
-        TicketDetailResponse response = DataUtil.copy(scenicTicket, TicketDetailResponse.class);
-        response.setVirtualNum(scenicTicket.getTotalNum() - scenicTicket.getSaleNum());
-        return RespBody.success(DataUtil.copy(scenicTicket, TicketDetailResponse.class));
+        TicketDetailResponse response = scenicTicketService.detail(dto.getId());
+        return RespBody.success(response);
     }
 
     @GetMapping("/list")

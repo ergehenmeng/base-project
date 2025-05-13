@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.TicketType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,11 +19,14 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("ticket_order_snapshot")
-public class TicketOrderSnapshot extends BaseEntity {
+@TableName("ticket_order_combine")
+public class TicketOrderCombine extends BaseEntity {
 
     @ApiModelProperty(value = "门票所属景区id")
     private Long scenicId;
+
+    @ApiModelProperty(value = "门票名称")
+    private String title;
 
     @ApiModelProperty(value = "订单编号")
     private String orderNo;
@@ -34,7 +38,7 @@ public class TicketOrderSnapshot extends BaseEntity {
     private Integer salePrice;
 
     @ApiModelProperty(value = "门票种类 1:成人 2:老人 3:儿童  4:演出 5:活动 6:研学")
-    private Integer category;
+    private TicketType category;
 
     @ApiModelProperty(value = "是否实名购票 0:不实名 1:实名")
     private Boolean realBuy;

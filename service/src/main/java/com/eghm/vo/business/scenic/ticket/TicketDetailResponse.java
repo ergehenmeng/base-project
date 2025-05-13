@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -45,6 +46,9 @@ public class TicketDetailResponse {
 
     @ApiModelProperty(value = "虚拟销量")
     private Integer virtualNum;
+
+    @ApiModelProperty(value = "组合票ID")
+    private List<Long> ticketIds;
 
     @ApiModelProperty(value = "单日最大购买数量")
     private Integer quota;

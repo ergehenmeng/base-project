@@ -20,4 +20,11 @@ public interface TicketCombineService {
      */
     void insert(Long ticketId, List<Long> combineTicketIds);
 
+    /**
+     * 获取关联的门票ID集合
+     *
+     * @param ticketId 门票id
+     * @return 组合票id
+     */
+    List<Long> getCombineTicketIds(Long ticketId);
 }
