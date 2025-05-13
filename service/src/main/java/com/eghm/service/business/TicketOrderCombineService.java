@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.model.TicketOrderCombine;
+import com.eghm.vo.business.order.ticket.CombineOrderResponse;
 
 import java.util.List;
 
@@ -44,4 +45,12 @@ public interface TicketOrderCombineService {
      * @param combine 套票信息
      */
     void updateById(TicketOrderCombine combine);
+
+    /**
+     * 查询订单所有组合票信息
+     *
+     * @param orderNo 订单编号
+     * @return 票信息
+     */
+    List<CombineOrderResponse> getCombineList(String orderNo);
 }

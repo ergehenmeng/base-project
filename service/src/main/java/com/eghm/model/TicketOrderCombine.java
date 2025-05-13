@@ -24,6 +24,9 @@ public class TicketOrderCombine extends BaseEntity {
     @Schema(description = "门票所属景区id")
     private Long scenicId;
 
+    @Schema(description = "门票名称")
+    private String title;
+
     @Schema(description = "订单编号")
     private String orderNo;
 

@@ -8,6 +8,7 @@ import com.eghm.model.ScenicTicket;
 import com.eghm.model.TicketOrderCombine;
 import com.eghm.service.business.TicketOrderCombineService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.order.ticket.CombineOrderResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -55,5 +56,10 @@ public class TicketOrderCombineServiceImpl implements TicketOrderCombineService 
     @Override
     public void updateById(TicketOrderCombine combine) {
         ticketOrderCombineMapper.updateById(combine);
+    }
+
+    @Override
+    public List<CombineOrderResponse> getCombineList(String orderNo) {
+        return ticketOrderCombineMapper.getCombineList(orderNo);
     }
 }

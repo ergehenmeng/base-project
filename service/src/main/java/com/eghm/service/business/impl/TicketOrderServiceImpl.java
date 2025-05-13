@@ -7,20 +7,19 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
+import com.eghm.enums.TicketType;
 import com.eghm.mapper.TicketOrderMapper;
 import com.eghm.model.OrderVisitor;
 import com.eghm.model.TicketOrder;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
+import com.eghm.service.business.TicketOrderCombineService;
 import com.eghm.service.business.TicketOrderService;
 import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
-import com.eghm.vo.business.order.ticket.TicketOrderDetailResponse;
-import com.eghm.vo.business.order.ticket.TicketOrderDetailVO;
-import com.eghm.vo.business.order.ticket.TicketOrderResponse;
-import com.eghm.vo.business.order.ticket.TicketOrderVO;
+import com.eghm.vo.business.order.ticket.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -42,6 +41,8 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     private final TicketOrderMapper ticketOrderMapper;
 
     private final OrderVisitorService orderVisitorService;
+
+    private final TicketOrderCombineService ticketOrderCombineService;
 
     @Override
     public Page<TicketOrderResponse> getByPage(TicketOrderQueryRequest request) {
@@ -96,6 +97,10 @@ public class TicketOrderServiceImpl implements TicketOrderService {
         if (Boolean.TRUE.equals(detail.getRealBuy())) {
             List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
             detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
+        }
+        if (detail.getCategory() == TicketType.COMBINE.getValue()) {
+            List<CombineOrderResponse> combineList = ticketOrderCombineService.getCombineList(orderNo);
+            detail.setCombineList(combineList);
         }
         return detail;
     }

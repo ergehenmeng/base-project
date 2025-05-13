@@ -101,6 +101,9 @@ public class TicketOrderDetailResponse {
     @Schema(description = "购票人列表")
     private List<VisitorVO> visitorList;
 
+    @Schema(description = "组合票信息")
+    private List<CombineOrderResponse> combineList;
+
     @Schema(description = "订单备注信息")
     private String remark;
 }
