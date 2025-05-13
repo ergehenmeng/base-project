@@ -101,6 +101,9 @@ public class TicketOrderDetailResponse {
     @ApiModelProperty("购票人列表")
     private List<VisitorVO> visitorList;
 
+    @ApiModelProperty("组合票信息")
+    private List<CombineOrderResponse> combineList;
+
     @ApiModelProperty("订单备注信息")
     private String remark;
 }

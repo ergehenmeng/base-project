@@ -10,4 +10,14 @@
         from ticket_order_combine
         where order_no = #{orderNo} and deleted = false
     </select>
+
+    <select id="getCombineList" resultType="com.eghm.vo.business.order.ticket.CombineOrderResponse">
+        select
+            title,
+            category,
+            use_time
+        from ticket_order_combine
+        where order_no = #{orderNo} and deleted = false
+    </select>
+
 </mapper>
