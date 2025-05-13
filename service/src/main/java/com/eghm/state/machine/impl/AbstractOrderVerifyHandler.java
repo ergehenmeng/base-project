@@ -79,13 +79,9 @@ public abstract class AbstractOrderVerifyHandler implements ActionHandler<OrderV
      * @param order   订单信息
      */
     protected void doProcess(OrderVerifyContext context, Order order) {
+        this.calcOrderState(context, order);
         long verifyId = IdWorker.getId();
-        int visited = orderVisitorService.visitorVerify(order.getOrderNo(), context.getVisitorList(), verifyId);
-        // 为空则表示根据订单号核销全部未核销的订单 如果待核销的数量为0也表示全部核销
-        if (CollUtil.isEmpty(context.getVisitorList()) || orderVisitorService.getUnVerify(context.getOrderNo()) <= 0) {
-            order.setCompleteTime(LocalDateTime.now());
-            order.setState(OrderState.COMPLETE);
-        }
+        int visited = this.tryVerifyVisitor(context, order, verifyId);
         orderService.updateById(order);
         VerifyLog verifyLog = new VerifyLog();
         verifyLog.setId(verifyId);
@@ -125,5 +121,31 @@ public abstract class AbstractOrderVerifyHandler implements ActionHandler<OrderV
         verifyLog.setNum(order.getNum());
         verifyLogService.insert(verifyLog);
         context.setVerifyNum(order.getNum());
+    }
+
+    /**
+     * 尝试核销游客
+     *
+     * @param context 核销信息
+     * @param order 订单信息
+     * @param verifyId 核销记录id
+     * @return 核销成功的人数
+     */
+    protected int tryVerifyVisitor(OrderVerifyContext context, Order order, Long verifyId) {
+        return orderVisitorService.visitorVerify(order.getOrderNo(), context.getVisitorList(), verifyId);
+    }
+
+    /**
+     * 计算订单状态
+     *
+     * @param context 核销信息
+     * @param order 订单信息
+     */
+    protected void calcOrderState(OrderVerifyContext context, Order order) {
+        // 为空则表示根据订单号核销全部未核销的订单 如果待核销的数量为0也表示全部核销
+        if (CollUtil.isEmpty(context.getVisitorList()) || orderVisitorService.getUnVerify(context.getOrderNo()) <= 0) {
+            order.setCompleteTime(LocalDateTime.now());
+            order.setState(OrderState.COMPLETE);
+        }
     }
 }

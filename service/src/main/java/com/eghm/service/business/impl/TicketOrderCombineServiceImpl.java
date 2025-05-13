@@ -1,5 +1,7 @@
 package com.eghm.service.business.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.mapper.ScenicTicketMapper;
 import com.eghm.mapper.TicketOrderCombineMapper;
 import com.eghm.model.ScenicTicket;
@@ -36,5 +38,22 @@ public class TicketOrderCombineServiceImpl implements TicketOrderCombineService 
             snapshot.setTicketId(ticket.getId());
             ticketOrderCombineMapper.insert(snapshot);
         });
+    }
+
+    @Override
+    public TicketOrderCombine selectById(Long combineId) {
+        return ticketOrderCombineMapper.selectById(combineId);
+    }
+
+    @Override
+    public List<TicketOrderCombine> getByOrderNo(String orderNo) {
+        LambdaQueryWrapper<TicketOrderCombine> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(TicketOrderCombine::getOrderNo, orderNo);
+        return ticketOrderCombineMapper.selectList(wrapper);
+    }
+
+    @Override
+    public void updateById(TicketOrderCombine combine) {
+        ticketOrderCombineMapper.updateById(combine);
     }
 }

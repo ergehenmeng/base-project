@@ -92,4 +92,11 @@ public interface TicketOrderService {
      * @return 门票订单总数
      */
     int buyCount(LocalDate visitDate, Long memberId);
+
+    /**
+     * 更新门票订单信息
+     *
+     * @param ticketOrder 订单信息
+     */
+    void updateById(TicketOrder ticketOrder);
 }

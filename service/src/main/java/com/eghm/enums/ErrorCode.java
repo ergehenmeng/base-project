@@ -1296,6 +1296,11 @@ public enum ErrorCode {
     PRODUCT_SNAPSHOT_NULL(2732, "订单信息未查询到"),
 
     /**
+     * 套票订单未查询到
+     */
+    COMBINE_ORDER_NULL(2730, "套票订单未查询到"),
+
+    /**
      * 物流信息未查询到
      */
     ORDER_EXPRESS_NULL(2733, "物流信息未查询到"),

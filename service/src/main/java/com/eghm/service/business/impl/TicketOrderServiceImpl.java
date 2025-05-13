@@ -104,4 +104,9 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     public int buyCount(LocalDate visitDate, Long memberId) {
         return ticketOrderMapper.buyCount(visitDate, memberId);
     }
+
+    @Override
+    public void updateById(TicketOrder ticketOrder) {
+        ticketOrderMapper.updateById(ticketOrder);
+    }
 }

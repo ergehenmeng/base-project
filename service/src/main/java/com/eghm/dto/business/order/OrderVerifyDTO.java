@@ -22,6 +22,9 @@ public class OrderVerifyDTO {
     @NotEmpty(message = "请选择要核销的游客")
     private List<Long> visitorList;
 
+    @Schema(description = "套票票子订单id(只有门票订单且为套票票才需要该字段)")
+    private Long combineId;
+
     @Schema(description = "备注信息")
     private String remark;
 }
