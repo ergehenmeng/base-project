@@ -77,6 +77,7 @@ public class VerifyController {
             throw new BusinessException(VERIFY_TYPE_ERROR);
         }
         OrderVerifyContext context = new OrderVerifyContext();
+        context.setCombineId(dto.getCombineId());
         context.setOrderNo(dto.getOrderNo());
         context.setUserId(SecurityHolder.getUserId());
         context.setMerchantId(SecurityHolder.getMerchantId());
