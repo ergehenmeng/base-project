@@ -6,8 +6,11 @@ import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
+import com.eghm.state.machine.access.AbstractAccessHandler;
+import com.eghm.state.machine.access.impl.HomestayAccessHandler;
 import com.eghm.state.machine.context.RefundApplyContext;
 import com.eghm.state.machine.impl.AbstractOrderRefundApplyHandler;
+import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,11 @@ public class HomestayOrderRefundApplyHandler extends AbstractOrderRefundApplyHan
 
     public HomestayOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService) {
         super(orderService, orderVisitorService, orderRefundLogService);
+    }
+
+    @Override
+    protected AbstractAccessHandler getAccessHandler() {
+        return SpringContextUtil.getBean(HomestayAccessHandler.class);
     }
 
     @Override
