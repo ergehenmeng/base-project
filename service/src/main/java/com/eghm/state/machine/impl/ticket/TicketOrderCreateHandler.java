@@ -130,6 +130,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         order.setCreateTime(LocalDateTime.now());
         // 使用优惠券
         this.useDiscount(order, context.getMemberId(), context.getCouponId(), ticket.getId());
+        super.checkAmount(order);
         orderService.save(order);
         return order;
     }
@@ -168,11 +169,6 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     @Override
     protected ExchangeQueue getExpireExchange() {
         return ExchangeQueue.TICKET_PAY_EXPIRE;
-    }
-
-    @Override
-    protected Integer getLowestAmount() {
-        return 0;
     }
 
     @Override

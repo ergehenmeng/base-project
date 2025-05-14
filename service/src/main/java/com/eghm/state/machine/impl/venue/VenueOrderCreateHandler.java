@@ -176,11 +176,6 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
     }
 
     @Override
-    protected Integer getLowestAmount() {
-        return 0;
-    }
-
-    @Override
     public IEvent getEvent() {
         return VenueEvent.CREATE;
     }

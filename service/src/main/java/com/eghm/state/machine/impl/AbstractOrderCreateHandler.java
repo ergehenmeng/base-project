@@ -133,18 +133,12 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
      * @param order 订单信息
      */
     protected void checkAmount(Order order) {
-        if (order.getPayAmount() < 0) {
-            log.info("订单实付金额小于0, 强制最小支付一分钱 [{}] [{}]", order.getOrderNo(), order.getPayAmount());
-            order.setPayAmount(this.getLowestAmount());
+        if (order.getPayAmount() <= 0) {
+            log.info("订单实付金额小于0, 强制支付最小金额0元 [{}] [{}]", order.getOrderNo(), order.getPayAmount());
+            order.setPayAmount(0);
+            // 如果零元购的话, 由于不走支付, 则需要生成一个交易单号保证数据完整性且模拟支付成功保证完整链路正常
+            order.setTradeNo(order.getProductType().generateTradeNo());
         }
-    }
-
-    /**
-     * 当使用优惠券等后, 实付金额小于0时的最低实付金额
-     * @return 默认1分钱
-     */
-    protected Integer getLowestAmount() {
-        return 1;
     }
 
     /**
