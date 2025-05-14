@@ -147,9 +147,14 @@ public class ConfigConstant {
     public static final String LINE_MAX_DAY = "line_max_day";
 
     /**
-     * 民宿最大预定时间维度
+     * 民宿最大预定时间维度 价格展示
      */
     public static final String HOMESTAY_MAX_RESERVE_DAY = "homestay_max_reserve_day";
+
+    /**
+     * 民宿单次预订天数限制
+     */
+    public static final String HOMESTAY_MAX_ORDER_DAY = "homestay_max_order_day";
 
     /**
      * 房型最大推荐数量

@@ -841,6 +841,11 @@ public enum ErrorCode {
     HOMESTAY_STOCK(2420, "房间已预订满"),
 
     /**
+     * 最多可预订%s天
+     */
+    HOMESTAY_ORDER_LIMIT(2421, "最多可预订%s天"),
+
+    /**
      * 餐饮券未查询到
      */
     VOUCHER_NULL(2423, "餐饮券未查询到"),
