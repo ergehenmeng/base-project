@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.OrderVisitorRefundMapper">
 
+    <update id="refundSuccess">
+        update order_visitor_refund t, order_visitor r
+        set r.state = 4
+        where t.visitor_id = r.id and t.order_no = #{orderNo}
+        and t.refund_id = #{refundId}
+    </update>
+
 </mapper>

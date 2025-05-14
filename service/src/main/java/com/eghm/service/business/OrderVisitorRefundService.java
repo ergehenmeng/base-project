@@ -20,4 +20,12 @@ public interface OrderVisitorRefundService {
      * @param visitorList 退款人
      */
     void insertVisitorRefund(String orderNo, Long refundId, List<Long> visitorList);
+
+    /**
+     * 退款成功更新退款记录关联的游客状态
+     *
+     * @param orderNo 订单号
+     * @param refundId 退款单号
+     */
+    void refundSuccess(String orderNo, Long refundId);
 }

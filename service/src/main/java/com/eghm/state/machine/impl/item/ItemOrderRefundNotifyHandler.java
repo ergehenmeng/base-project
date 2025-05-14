@@ -35,8 +35,8 @@ public class ItemOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
 
     public ItemOrderRefundNotifyHandler(MemberService memberService, OrderService orderService, OrderRefundLogService orderRefundLogService,
                                         VerifyLogService verifyLogService, ItemSkuService itemSkuService, ItemOrderService itemOrderService,
-                                        AccountService accountService, ScoreAccountService scoreAccountService) {
-        super(orderService, accountService, orderRefundLogService, verifyLogService);
+                                        AccountService accountService, ScoreAccountService scoreAccountService, OrderVisitorRefundService orderVisitorRefundService) {
+        super(orderService, accountService, orderRefundLogService, verifyLogService, orderVisitorRefundService);
         this.memberService = memberService;
         this.itemSkuService = itemSkuService;
         this.itemOrderService = itemOrderService;
