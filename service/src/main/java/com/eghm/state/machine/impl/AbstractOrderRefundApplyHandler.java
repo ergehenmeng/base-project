@@ -97,7 +97,7 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
             log.error("退款金额为0, 直接模拟退款成功 [{}] [{}]", refundLog.getRefundNo(), refundLog.getRefundAmount());
             AbstractAccessHandler beanHandler = this.getAccessHandler();
             if (beanHandler == null) {
-                log.error("退款处理类为空, 模拟退款成功失败 [{}]", order.getOrderNo());
+                log.error("退款处理类为空, 模拟退款成功失败, 可能该品类不支持零元购 [{}]", order.getOrderNo());
                 return;
             }
             RefundNotifyContext context = new RefundNotifyContext();
