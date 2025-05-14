@@ -36,9 +36,9 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
 
     private final OrderService orderService;
 
-    private final OrderRefundLogService orderRefundLogService;
-
     private final OrderVisitorService orderVisitorService;
+
+    private final OrderRefundLogService orderRefundLogService;
 
     @Override
     public void doAction(T context) {

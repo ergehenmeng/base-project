@@ -25,7 +25,7 @@ public class VenueOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHand
     public VenueOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                          VerifyLogService verifyLogService, VenueOrderService venueOrderService, AccountService accountService,
                                          OrderVisitorRefundService orderVisitorRefundService) {
-        super(orderService, accountService, orderRefundLogService, verifyLogService, orderVisitorRefundService);
+        super(orderService, accountService, verifyLogService, orderRefundLogService, orderVisitorRefundService);
         this.venueOrderService = venueOrderService;
     }
 

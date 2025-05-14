@@ -30,9 +30,9 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
 
     private final AccountService accountService;
 
-    private final OrderRefundLogService orderRefundLogService;
-
     private final VerifyLogService verifyLogService;
+
+    private final OrderRefundLogService orderRefundLogService;
 
     private final OrderVisitorRefundService orderVisitorRefundService;
 

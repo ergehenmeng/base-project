@@ -25,23 +25,23 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class LineOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandler {
 
+    private final OrderMqService orderMqService;
+
     private final LineOrderService lineOrderService;
 
     private final LineConfigService lineConfigService;
 
     private final OrderVisitorService orderVisitorService;
 
-    private final OrderMqService orderMqService;
-
     public LineOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                         VerifyLogService verifyLogService, LineOrderService lineOrderService, LineConfigService lineConfigService,
                                         OrderVisitorService orderVisitorService, OrderMqService orderMqService,
                                         AccountService accountService, OrderVisitorRefundService orderVisitorRefundService) {
-        super(orderService, accountService, orderRefundLogService, verifyLogService, orderVisitorRefundService);
+        super(orderService, accountService, verifyLogService, orderRefundLogService, orderVisitorRefundService);
+        this.orderMqService = orderMqService;
         this.lineOrderService = lineOrderService;
         this.lineConfigService = lineConfigService;
         this.orderVisitorService = orderVisitorService;
-        this.orderMqService = orderMqService;
     }
 
     @Override

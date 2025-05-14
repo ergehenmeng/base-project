@@ -24,16 +24,16 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class HomestayOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandler {
 
+    private final OrderMqService orderMqService;
+
     private final HomestayOrderService homestayOrderService;
 
     private final HomestayRoomConfigService homestayRoomConfigService;
 
-    private final OrderMqService orderMqService;
-
     public HomestayOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                             VerifyLogService verifyLogService, HomestayOrderService homestayOrderService, HomestayRoomConfigService homestayRoomConfigService,
                                             OrderMqService orderMqService, AccountService accountService, OrderVisitorRefundService orderVisitorRefundService) {
-        super(orderService, accountService, orderRefundLogService, verifyLogService, orderVisitorRefundService);
+        super(orderService, accountService, verifyLogService, orderRefundLogService, orderVisitorRefundService);
         this.homestayOrderService = homestayOrderService;
         this.homestayRoomConfigService = homestayRoomConfigService;
         this.orderMqService = orderMqService;

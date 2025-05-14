@@ -28,7 +28,7 @@ public class VenueOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     public VenueOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService,
                                    JsonService jsonService, MessageService messageService, CommonService commonService) {
-        super(orderVisitorService, orderService, verifyLogService, jsonService, commonService);
+        super(jsonService, orderService, commonService, verifyLogService, orderVisitorService);
         this.messageService = messageService;
     }
 

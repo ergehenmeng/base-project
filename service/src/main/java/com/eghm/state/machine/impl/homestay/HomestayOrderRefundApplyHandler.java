@@ -24,7 +24,7 @@ public class HomestayOrderRefundApplyHandler extends AbstractOrderRefundApplyHan
 
     public HomestayOrderRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                            OrderVisitorService orderVisitorService) {
-        super(orderService, orderRefundLogService, orderVisitorService);
+        super(orderService, orderVisitorService, orderRefundLogService);
     }
 
     @Override

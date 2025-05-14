@@ -29,14 +29,14 @@ public class ItemOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
 
     private final ItemOrderService itemOrderService;
 
-    private final OrderRefundLogService orderRefundLogService;
-
     private final ScoreAccountService scoreAccountService;
+
+    private final OrderRefundLogService orderRefundLogService;
 
     public ItemOrderRefundNotifyHandler(MemberService memberService, OrderService orderService, OrderRefundLogService orderRefundLogService,
                                         VerifyLogService verifyLogService, ItemSkuService itemSkuService, ItemOrderService itemOrderService,
                                         AccountService accountService, ScoreAccountService scoreAccountService, OrderVisitorRefundService orderVisitorRefundService) {
-        super(orderService, accountService, orderRefundLogService, verifyLogService, orderVisitorRefundService);
+        super(orderService, accountService, verifyLogService, orderRefundLogService, orderVisitorRefundService);
         this.memberService = memberService;
         this.itemSkuService = itemSkuService;
         this.itemOrderService = itemOrderService;

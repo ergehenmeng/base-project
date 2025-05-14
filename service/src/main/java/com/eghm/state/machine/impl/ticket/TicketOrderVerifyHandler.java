@@ -36,7 +36,7 @@ public class TicketOrderVerifyHandler extends AbstractOrderVerifyHandler {
     public TicketOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService,
                                     JsonService jsonService, OrderMqService orderMqService, CommonService commonService,
                                     TicketOrderService ticketOrderService, TicketOrderCombineService ticketOrderCombineService) {
-        super(orderVisitorService, orderService, verifyLogService, jsonService, commonService);
+        super(jsonService, orderService, commonService, verifyLogService, orderVisitorService);
         this.orderMqService = orderMqService;
         this.ticketOrderService = ticketOrderService;
         this.ticketOrderCombineService = ticketOrderCombineService;

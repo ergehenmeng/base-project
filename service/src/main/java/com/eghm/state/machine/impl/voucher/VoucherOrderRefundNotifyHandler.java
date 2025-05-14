@@ -26,17 +26,17 @@ public class VoucherOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHa
 
     private final VoucherService voucherService;
 
-    private final VoucherOrderService voucherOrderService;
-
     private final OrderMqService orderMqService;
+
+    private final VoucherOrderService voucherOrderService;
 
     public VoucherOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                            VerifyLogService verifyLogService, VoucherService voucherService, VoucherOrderService voucherOrderService,
                                            OrderMqService orderMqService, AccountService accountService, OrderVisitorRefundService orderVisitorRefundService) {
-        super(orderService, accountService, orderRefundLogService, verifyLogService, orderVisitorRefundService);
+        super(orderService, accountService, verifyLogService, orderRefundLogService, orderVisitorRefundService);
         this.voucherService = voucherService;
-        this.voucherOrderService = voucherOrderService;
         this.orderMqService = orderMqService;
+        this.voucherOrderService = voucherOrderService;
     }
 
     @Override

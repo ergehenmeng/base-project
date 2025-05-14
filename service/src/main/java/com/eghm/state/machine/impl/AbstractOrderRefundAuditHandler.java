@@ -28,9 +28,9 @@ public abstract class AbstractOrderRefundAuditHandler implements ActionHandler<R
 
     private final OrderService orderService;
 
-    private final OrderRefundLogService orderRefundLogService;
-
     private final OrderVisitorService orderVisitorService;
+
+    private final OrderRefundLogService orderRefundLogService;
 
     @Override
     public void doAction(RefundAuditContext context) {
