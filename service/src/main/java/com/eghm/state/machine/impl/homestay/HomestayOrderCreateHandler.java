@@ -1,7 +1,9 @@
 package com.eghm.state.machine.impl.homestay;
 
 import com.eghm.common.OrderMqService;
+import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constants.CommonConstant;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.enums.*;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
@@ -36,6 +38,8 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     private final OrderService orderService;
 
+    private final SysConfigApi sysConfigApi;
+
     private final HomestayService homestayService;
 
     private final HomestayRoomService homestayRoomService;
@@ -48,10 +52,11 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     private final HomestayOrderSnapshotService homestayOrderSnapshotService;
 
-    public HomestayOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMqService orderMqService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService,
+    public HomestayOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMqService orderMqService, SysConfigApi sysConfigApi, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService,
                                       HomestayService homestayService, HomestayRoomConfigService homestayRoomConfigService, HomestayOrderSnapshotService homestayOrderSnapshotService, RedeemCodeGrantService redeemCodeGrantService) {
         super(orderMqService, memberCouponService, orderVisitorService, redeemCodeGrantService);
         this.orderService = orderService;
+        this.sysConfigApi = sysConfigApi;
         this.homestayService = homestayService;
         this.homestayRoomService = homestayRoomService;
         this.homestayOrderService = homestayOrderService;
@@ -72,6 +77,11 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         if (match) {
             log.error("房间库存不足 [{}] [{}] [{}]", context.getRoomId(), context.getStartDate(), context.getEndDate());
             throw new BusinessException(ErrorCode.HOMESTAY_STOCK);
+        }
+        int maxOrderDay = sysConfigApi.getInt(ConfigConstant.HOMESTAY_MAX_ORDER_DAY, 7);
+        if (size > maxOrderDay) {
+            log.error("该时间段下单天数超过最大限制 [{}] [{}] [{}] [{}]", context.getRoomId(), context.getStartDate(), context.getEndDate(), maxOrderDay);
+            throw new BusinessException(ErrorCode.HOMESTAY_ORDER_LIMIT, maxOrderDay);
         }
     }
 
