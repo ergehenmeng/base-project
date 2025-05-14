@@ -6,10 +6,7 @@ import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.pay.enums.RefundStatus;
 import com.eghm.pay.vo.RefundVO;
-import com.eghm.service.business.AccountService;
-import com.eghm.service.business.OrderRefundLogService;
-import com.eghm.service.business.OrderService;
-import com.eghm.service.business.VerifyLogService;
+import com.eghm.service.business.*;
 import com.eghm.state.machine.ActionHandler;
 import com.eghm.state.machine.context.RefundNotifyContext;
 import lombok.AllArgsConstructor;
@@ -36,6 +33,8 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
     private final VerifyLogService verifyLogService;
 
     private final OrderRefundLogService orderRefundLogService;
+
+    private final OrderVisitorRefundService orderVisitorRefundService;
 
     @Override
     public void doAction(RefundNotifyContext context) {
@@ -117,6 +116,7 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
                         order.getId(), order.getState(), order.getNum(), verifiedNum, refundNum);
             }
         }
+        orderVisitorRefundService.refundSuccess(order.getOrderNo(), refundLog.getId());
         order.setRefundState(RefundState.SUCCESS);
     }
 

@@ -32,4 +32,9 @@ public class OrderVisitorRefundServiceImpl implements OrderVisitorRefundService 
             orderVisitorRefundMapper.insert(refund);
         }
     }
+
+    @Override
+    public void refundSuccess(String orderNo, Long refundId) {
+        orderVisitorRefundMapper.refundSuccess(orderNo, refundId);
+    }
 }
