@@ -2,7 +2,7 @@ GET http://localhost:10086/manage/verify/listPage?page=1&pageSize=10
 token: {{token}}
 
 ###
-GET http://localhost:10086/manage/verify/scan?verifyNo=ulDyjkQlakGiAKmMuQwPoqBqtWTEk6v4oKJ0pIwHlUapEo7SEYOnfdhidTKn7ZEw
+GET http://localhost:10086/manage/verify/scan?verifyNo=Ac7d/2be9WIISvNSej26kqBqtWTEk6v4oKJ0pIwHlUapEo7SEYOnfdhidTKn7ZEw
 token: {{token}}
 
 ###
@@ -15,6 +15,6 @@ Content-Type: application/json
   "visitorList": [
     1922167729690361857
   ],
-  "combineId": 1922167729820385281,
+  "combineId": 1922167729820385282,
   "remark": "xxx"
 }

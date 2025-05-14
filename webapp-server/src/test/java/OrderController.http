@@ -4,10 +4,10 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-  "ticketId": 1889934475715518465,
+  "ticketId": 1889934914091593730,
   "mobile": "13136113294",
   "num": 1,
-  "visitDate": "2025-05-12",
+  "visitDate": "2025-05-23",
   "remark": "少点套路",
   "visitorList": [{
     "memberName": "彭铭",
@@ -45,17 +45,14 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-  "roomId": 1818896979821719553,
-  "num": 2,
+  "roomId": 1922489102564360193,
+  "num": 1,
   "mobile": "13136113453",
   "nickName": "二哥",
-  "startDate": "2025-05-27",
-  "endDate": "2025-05-29",
+  "startDate": "2025-05-24",
+  "endDate": "2025-05-25",
   "remark": "备注信息",
   "visitorList": [{
-    "idCard": "620622196011141794",
-    "memberName": "山邦家"
-  },{
     "idCard": "211422197202046042",
     "memberName": "从君菁"
   }]
@@ -69,10 +66,10 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-  "lineId": 1818471772440133633,
+  "lineId": 1922592289036267522,
   "mobile": "13322231231",
   "nickName": "二哥很猛",
-  "configDate": "2025-05-26",
+  "configDate": "2025-05-16",
   "num": 1,
   "visitorList": [{
     "memberName": "xxs",

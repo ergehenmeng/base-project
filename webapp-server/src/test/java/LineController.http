@@ -1,9 +1,9 @@
-GET http://localhost:10010/webapp/line/price/list?id=1818471772440133633
+GET http://localhost:10010/webapp/line/price/list?id=1922592289036267522
 Channel: {{Channel}}
 
 ###
 
-GET http://localhost:10010/webapp/line/detail?id=1818471772440133633
+GET http://localhost:10010/webapp/line/detail?id=1922592289036267522
 Channel: {{Channel}}
 
 ###
