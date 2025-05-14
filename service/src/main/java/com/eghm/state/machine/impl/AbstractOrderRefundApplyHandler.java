@@ -15,6 +15,7 @@ import com.eghm.state.machine.context.RefundApplyContext;
 import com.eghm.state.machine.context.RefundNotifyContext;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
+import com.eghm.utils.TransactionUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -94,7 +95,7 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
         if (refundLog.getRefundAmount() > 0) {
             orderService.startRefund(refundLog, order);
         } else {
-            log.error("退款金额为0, 直接模拟退款成功 [{}] [{}]", refundLog.getRefundNo(), refundLog.getRefundAmount());
+            log.info("退款金额为0, 直接模拟退款成功 [{}] [{}]", refundLog.getRefundNo(), refundLog.getRefundAmount());
             AbstractAccessHandler beanHandler = this.getAccessHandler();
             if (beanHandler == null) {
                 log.error("退款处理类为空, 模拟退款成功失败, 可能该品类不支持零元购 [{}]", order.getOrderNo());
@@ -102,6 +103,7 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
             }
             RefundNotifyContext context = new RefundNotifyContext();
             context.setTradeNo(order.getTradeNo());
+            context.setFrom(OrderState.REFUND.getValue());
             context.setRefundNo(refundLog.getRefundNo());
             context.setFrom(order.getState().getValue());
             RefundVO result = new RefundVO();
@@ -109,7 +111,7 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
             result.setAmount(0);
             result.setSuccessTime(LocalDateTime.now());
             context.setResult(result);
-            beanHandler.refundSuccess(context);
+            TransactionUtil.afterCommit(() -> beanHandler.refundSuccess(context));
         }
     }
 
