@@ -90,6 +90,9 @@ public class VenueOrderDetailResponse {
     @ApiModelProperty("核销码")
     private String verifyNo;
 
+    @ApiModelProperty("支付流水号")
+    private String tradeNo;
+
     @ApiModelProperty("备注信息")
     private String remark;
 

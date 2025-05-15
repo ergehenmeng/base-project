@@ -93,6 +93,7 @@
             r.pay_amount,
             r.create_time,
             r.pay_time,
+            r.trade_no,
             r.refund_amount,
             r.complete_time,
             r.nick_name,
