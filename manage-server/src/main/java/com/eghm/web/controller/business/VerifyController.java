@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -28,13 +29,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.eghm.enums.ErrorCode.VERIFY_ORDER_ERROR;
-import static com.eghm.enums.ErrorCode.VERIFY_TYPE_ERROR;
+import static com.eghm.enums.ErrorCode.*;
 
 /**
  * @author wyb
  * @since 2023/6/13
  */
+@Slf4j
 @RestController
 @Tag(name="商户核销")
 @AllArgsConstructor
@@ -57,9 +58,16 @@ public class VerifyController {
 
     @GetMapping("/scan")
     @Operation(summary = "查询扫码结果")
-    @Parameter(name = "verifyNo", description = "核销码", required = true)
-    public RespBody<OrderScanVO> scan(@RequestParam("verifyNo") String verifyNo) {
-        verifyNo = orderService.decryptVerifyNo(verifyNo);
+    @Parameter(name = "verifyNo", description = "核销码(二选一)")
+    @Parameter(name = "orderNo", description = "订单号(二选一)")
+    public RespBody<OrderScanVO> scan(@RequestParam(value = "verifyNo", required = false) String verifyNo, @RequestParam(value = "orderNo", required = false) String orderNo) {
+        if (verifyNo == null && orderNo == null) {
+            log.warn("核销码或订单号不能为空");
+            return RespBody.error(VERIFY_NO_ERROR);
+        }
+        if (verifyNo == null) {
+            verifyNo = orderService.getByOrderNo(orderNo).getVerifyNo();
+        }
         ProductType productType = ProductType.prefix(verifyNo);
         if (productType == ProductType.HOMESTAY || productType == ProductType.LINE || productType == ProductType.TICKET || productType == ProductType.VOUCHER) {
             OrderScanVO vo = orderService.getScanResult(verifyNo, SecurityHolder.getMerchantId());
