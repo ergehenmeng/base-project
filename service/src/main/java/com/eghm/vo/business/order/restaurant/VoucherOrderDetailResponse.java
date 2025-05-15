@@ -73,6 +73,9 @@ public class VoucherOrderDetailResponse {
     @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer payAmount;
 
+    @Schema(description = "支付流水号")
+    private String tradeNo;
+
     @Schema(description = "下单时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;

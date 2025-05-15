@@ -134,6 +134,7 @@
             r.pay_amount,
             r.create_time,
             r.pay_time,
+            r.trade_no,
             r.mobile,
             r.close_time,
             r.close_type,
