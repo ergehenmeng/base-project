@@ -125,9 +125,10 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
     }
 
     @Override
-    public long getUnVerify(String orderNo) {
+    public long getUnVerify(String orderNo, List<Long> visitorIds) {
         LambdaQueryWrapper<OrderVisitor> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(OrderVisitor::getOrderNo, orderNo);
+        wrapper.notIn(CollUtil.isNotEmpty(visitorIds), OrderVisitor::getId, visitorIds);
         wrapper.eq(OrderVisitor::getState, VisitorState.PAID);
         return orderVisitorMapper.selectCount(wrapper);
     }
