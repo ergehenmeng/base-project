@@ -7,10 +7,7 @@ import com.eghm.enums.ProductType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VoucherEvent;
 import com.eghm.model.Order;
-import com.eghm.service.business.CommonService;
-import com.eghm.service.business.OrderService;
-import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.VerifyLogService;
+import com.eghm.service.business.*;
 import com.eghm.state.machine.context.OrderVerifyContext;
 import com.eghm.state.machine.impl.AbstractOrderVerifyHandler;
 import org.springframework.stereotype.Service;
@@ -24,15 +21,19 @@ public class VoucherOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     private final OrderMqService orderMqService;
 
+    private final VoucherOrderService voucherOrderService;
+
     public VoucherOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService,
-                                     JsonService jsonService, OrderMqService orderMqService, CommonService commonService) {
+                                     JsonService jsonService, OrderMqService orderMqService, CommonService commonService, VoucherOrderService voucherOrderService) {
         super(jsonService, orderService, commonService, verifyLogService, orderVisitorService);
         this.orderMqService = orderMqService;
+        this.voucherOrderService = voucherOrderService;
     }
 
     @Override
     protected void doProcess(OrderVerifyContext context, Order order) {
         super.noVisitProcess(context, order);
+        voucherOrderService.verifyNum(context.getOrderNo(), order.getNum());
     }
 
     @Override
