@@ -18,8 +18,10 @@ import com.eghm.vo.business.order.OrderScanVO;
 import com.eghm.vo.business.verify.VerifyLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +29,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static com.eghm.enums.ErrorCode.VERIFY_ORDER_ERROR;
-import static com.eghm.enums.ErrorCode.VERIFY_TYPE_ERROR;
+import static com.eghm.enums.ErrorCode.*;
 
 /**
  * @author wyb
  * @since 2023/6/13
  */
+@Slf4j
 @RestController
 @Api(tags = "商户核销")
 @AllArgsConstructor
@@ -56,9 +58,18 @@ public class VerifyController {
 
     @GetMapping("/scan")
     @ApiOperation("查询扫码结果")
-    @ApiImplicitParam(name = "verifyNo", value = "核销码", required = true)
-    public RespBody<OrderScanVO> scan(@RequestParam("verifyNo") String verifyNo) {
-        verifyNo = orderService.decryptVerifyNo(verifyNo);
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "verifyNo", value = "核销码(二选一)", dataType = "String"),
+            @ApiImplicitParam(name = "orderNo", value = "订单编号(二选一)", dataType = "String")
+    })
+    public RespBody<OrderScanVO> scan(@RequestParam(value = "verifyNo", required = false) String verifyNo, @RequestParam(value = "orderNo", required = false) String orderNo) {
+        if (verifyNo == null && orderNo == null) {
+            log.warn("核销码或订单号不能为空");
+            return RespBody.error(VERIFY_NO_ERROR);
+        }
+        if (verifyNo == null) {
+            verifyNo = orderService.getByOrderNo(orderNo).getVerifyNo();
+        }
         ProductType productType = ProductType.prefix(verifyNo);
         if (productType == ProductType.HOMESTAY || productType == ProductType.LINE || productType == ProductType.TICKET || productType == ProductType.VOUCHER) {
             OrderScanVO vo = orderService.getScanResult(verifyNo, SecurityHolder.getMerchantId());
