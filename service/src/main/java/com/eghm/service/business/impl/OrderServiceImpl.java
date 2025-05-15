@@ -294,7 +294,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             return null;
         }
         AES aes = SecureUtil.aes(systemProperties.getSecretKey().getBytes(StandardCharsets.UTF_8));
-        return aes.encryptBase64(System.currentTimeMillis() + CommonConstant.SPECIAL_SPLIT + verifyNo);
+        return aes.encryptHex(System.currentTimeMillis() + CommonConstant.SPECIAL_SPLIT + verifyNo);
     }
 
     @Override
