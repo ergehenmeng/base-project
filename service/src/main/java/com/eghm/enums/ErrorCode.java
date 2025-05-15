@@ -1161,9 +1161,9 @@ public enum ErrorCode {
     VERIFY_EXPIRE_ERROR(2627, "请刷新核销码后再扫描"),
 
     /**
-     * 用户[%s]状态异常,无法核销
+     * %s状态已变更，无法核销
      */
-    VISITOR_VERIFY_ERROR(2630, "用户[%s]无法核销"),
+    VISITOR_VERIFY_ERROR(2630, "%s状态已变更，无法核销"),
 
     /**
      * 核销码不属于该商户,无法核销
