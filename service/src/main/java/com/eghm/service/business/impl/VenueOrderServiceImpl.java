@@ -12,6 +12,7 @@ import com.eghm.dto.business.order.venue.VenueOrderQueryRequest;
 import com.eghm.dto.ext.VenuePhase;
 import com.eghm.mapper.VenueOrderMapper;
 import com.eghm.model.VenueOrder;
+import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VenueOrderService;
 import com.eghm.service.business.VenueSitePriceService;
 import com.eghm.service.sys.SysAreaService;
@@ -42,6 +43,8 @@ import java.util.List;
 public class VenueOrderServiceImpl implements VenueOrderService {
 
     private final JsonService jsonService;
+
+    private final OrderService orderService;
 
     private final SysAreaService sysAreaService;
 
@@ -104,6 +107,7 @@ public class VenueOrderServiceImpl implements VenueOrderService {
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
         detail.setDetailAddress(sysAreaService.parseArea(detail.getCityId(), detail.getCountyId(), detail.getDetailAddress()));
         detail.setPhaseList(jsonService.fromJsonList(detail.getTimePhase(), VenuePhaseVO.class));
+        detail.setVerifyNo(orderService.encryptVerifyNo(detail.getVerifyNo()));
         return detail;
     }
 
