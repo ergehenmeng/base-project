@@ -1,6 +1,7 @@
 package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
@@ -9,6 +10,7 @@ import com.eghm.dto.business.order.voucher.VoucherOrderQueryDTO;
 import com.eghm.dto.business.order.voucher.VoucherOrderQueryRequest;
 import com.eghm.mapper.VoucherOrderMapper;
 import com.eghm.model.VoucherOrder;
+import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VoucherOrderService;
 import com.eghm.utils.AssertUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
@@ -27,6 +29,8 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class VoucherOrderServiceImpl implements VoucherOrderService {
+
+    private final OrderService orderService;
 
     private final VoucherOrderMapper voucherOrderMapper;
 
@@ -69,6 +73,7 @@ public class VoucherOrderServiceImpl implements VoucherOrderService {
     public VoucherOrderDetailVO getDetail(String orderNo, Long memberId) {
         VoucherOrderDetailVO detail = voucherOrderMapper.getDetail(orderNo, memberId);
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
+        detail.setVerifyNo(orderService.encryptVerifyNo(detail.getVerifyNo()));
         return detail;
     }
 
@@ -85,5 +90,13 @@ public class VoucherOrderServiceImpl implements VoucherOrderService {
         VoucherOrderSnapshotVO detail = voucherOrderMapper.snapshotDetail(orderNo, memberId);
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
         return detail;
+    }
+
+    @Override
+    public void verifyNum(String orderNo, Integer verifyNum) {
+        LambdaUpdateWrapper<VoucherOrder> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(VoucherOrder::getOrderNo, orderNo);
+        wrapper.set(VoucherOrder::getUseNum, verifyNum);
+        voucherOrderMapper.update(null, wrapper);
     }
 }

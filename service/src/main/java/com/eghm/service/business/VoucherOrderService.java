@@ -88,4 +88,12 @@ public interface VoucherOrderService {
      * @return 订单快照详情
      */
     VoucherOrderSnapshotVO snapshotDetail(String orderNo, Long memberId);
+
+    /**
+     * 核销餐饮订单
+     *
+     * @param orderNo 订单号
+     * @param verifyNum 核销数量
+     */
+    void verifyNum(String orderNo, Integer verifyNum);
 }

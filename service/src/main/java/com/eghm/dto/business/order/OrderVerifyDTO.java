@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
@@ -18,8 +17,7 @@ public class OrderVerifyDTO {
     @NotBlank(message = "订单号不能为空")
     private String orderNo;
 
-    @ApiModelProperty(value = "待核销的游客id", required = true)
-    @NotEmpty(message = "请选择要核销的游客")
+    @ApiModelProperty(value = "待核销的游客id")
     private List<Long> visitorList;
 
     @ApiModelProperty(value = "套票票子订单id(只有门票订单且为套票票才需要该字段)")
