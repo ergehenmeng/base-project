@@ -2,7 +2,7 @@ GET http://localhost:10086/manage/verify/listPage?page=1&pageSize=10
 token: {{token}}
 
 ###
-GET http://localhost:10086/manage/verify/scan?verifyNo=Ac7d/2be9WIISvNSej26kqBqtWTEk6v4oKJ0pIwHlUapEo7SEYOnfdhidTKn7ZEw
+GET http://localhost:10086/manage/verify/scan?verifyNo=c4b8836afb55e2cfe7952a86569fc050ec2049048ae38e4714fbb8cf83f483c112c94de1015fce6c5f8baa8e39dbfce0
 token: {{token}}
 
 ###
@@ -11,10 +11,9 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "orderNo": "MP1922167729593892865",
+  "orderNo": "XL1922904827203497986",
   "visitorList": [
-    1922167729690361857
+    1922904827266412546
   ],
-  "combineId": 1922167729820385282,
   "remark": "xxx"
 }

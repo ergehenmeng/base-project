@@ -108,6 +108,9 @@ public class VoucherOrderDetailResponse {
     @ApiModelProperty(value = "使用截止时间")
     private String expireTime;
 
+    @ApiModelProperty("支付流水号")
+    private String tradeNo;
+
     @ApiModelProperty("订单关闭时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime closeTime;

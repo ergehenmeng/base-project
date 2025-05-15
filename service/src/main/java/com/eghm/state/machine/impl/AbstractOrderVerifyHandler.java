@@ -143,7 +143,7 @@ public abstract class AbstractOrderVerifyHandler implements ActionHandler<OrderV
      */
     protected void calcOrderState(OrderVerifyContext context, Order order) {
         // 为空则表示根据订单号核销全部未核销的订单 如果待核销的数量为0也表示全部核销
-        if (CollUtil.isEmpty(context.getVisitorList()) || orderVisitorService.getUnVerify(context.getOrderNo()) <= 0) {
+        if (CollUtil.isEmpty(context.getVisitorList()) || orderVisitorService.getUnVerify(context.getOrderNo(), context.getVisitorList()) <= 0) {
             order.setCompleteTime(LocalDateTime.now());
             order.setState(OrderState.COMPLETE);
         }

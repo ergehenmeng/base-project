@@ -139,6 +139,7 @@
             r.close_type,
             r.nick_name,
             r.cd_key,
+            r.trade_no,
             r.cd_key_amount,
             t.valid_days,
             t.effect_date,
