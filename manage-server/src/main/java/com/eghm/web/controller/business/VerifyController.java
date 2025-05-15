@@ -67,6 +67,8 @@ public class VerifyController {
         }
         if (verifyNo == null) {
             verifyNo = orderService.getByOrderNo(orderNo).getVerifyNo();
+        } else {
+            verifyNo = orderService.decryptVerifyNo(verifyNo);
         }
         ProductType productType = ProductType.prefix(verifyNo);
         if (productType == ProductType.HOMESTAY || productType == ProductType.LINE || productType == ProductType.TICKET || productType == ProductType.VOUCHER) {
