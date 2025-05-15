@@ -73,7 +73,7 @@ public class VerifyController {
             verifyNo = orderService.decryptVerifyNo(verifyNo);
         }
         ProductType productType = ProductType.prefix(verifyNo);
-        if (productType == ProductType.HOMESTAY || productType == ProductType.LINE || productType == ProductType.TICKET || productType == ProductType.VOUCHER) {
+        if (productType != ProductType.ITEM) {
             OrderScanVO vo = orderService.getScanResult(verifyNo, SecurityHolder.getMerchantId());
             return RespBody.success(vo);
         } else {
