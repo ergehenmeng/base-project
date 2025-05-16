@@ -56,7 +56,7 @@
         <if test="param.startDate != null and param.endDate != null">
             and r.pay_time between #{param.startDate} and #{param.endDate}
         </if>
-        order by t.id desc
+        order by r.id desc
     </select>
 
     <select id="getProductNum" resultType="int">
