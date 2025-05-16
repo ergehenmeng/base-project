@@ -34,9 +34,6 @@ public class PayNotifyContext implements Context {
     @Schema(description = "源状态")
     private Integer from;
 
-    @Schema(description = "产品类型")
-    private ProductType productType;
-
     @Schema(description = "事件")
     private IEvent event;
 }

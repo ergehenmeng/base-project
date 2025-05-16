@@ -276,7 +276,7 @@ public class OrderController {
         List<SkuDTO> skuList = dto.getItemList().stream().flatMap(item -> item.getSkuList().stream()).toList();
         context.setItemIds(skuList.stream().map(SkuDTO::getItemId).collect(Collectors.toSet()));
         context.setSkuIds(skuList.stream().map(SkuDTO::getSkuId).collect(Collectors.toSet()));
-        int totalScore = dto.getItemList().stream().filter(Objects::nonNull).mapToInt(ItemDTO::getScoreAmount).sum();
+        int totalScore = dto.getItemList().stream().map(ItemDTO::getScoreAmount).filter(Objects::nonNull).reduce(0, Integer::sum);
         context.setTotalScore(totalScore);
         redisLock.lockVoid(LockConstant.ITEM_ORDER_LOCK + context.getMemberId(), 10_000, () -> stateHandler.fireEvent(ProductType.ITEM, OrderState.NONE.getValue(), ItemEvent.CREATE, context), ErrorCode.ORDER_CREATE_LOCK);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());

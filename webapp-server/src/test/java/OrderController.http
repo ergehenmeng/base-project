@@ -19,12 +19,15 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-  "addressId": 1722175064609751041,
-  "remark": "订单备注",
+  "addressId": 1768538178234945537,
   "itemList": [{
-    "itemId": 1717389387411066882,
-    "skuId": 1717389387478175745,
-    "num": 2
+    "storeId": 1818206459138408449,
+    "remark": "订单备注",
+    "skuList": [{
+      "itemId": 1923191025987403778,
+      "num": 2,
+      "skuId": 1923191025987403779
+    }]
   }]
 }
 

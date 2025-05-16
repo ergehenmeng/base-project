@@ -13,6 +13,7 @@ import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.*;
+import com.eghm.pay.enums.TradeType;
 import com.eghm.service.business.*;
 import com.eghm.service.member.MemberAddressService;
 import com.eghm.service.member.MemberService;
@@ -302,7 +303,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             storePackage.setItemAmount(itemAmount);
             if (storePackage.getCouponId() != null) {
                 // 用户在该店铺下单时使用了优惠券/校验优惠券是否可用并计算优惠了多少钱
-                List<Long> itemIds = storePackage.getItemList().stream().map(OrderPackage::getItemId).collect(Collectors.toList());
+                List<Long> itemIds = storePackage.getItemList().stream().map(OrderPackage::getItemId).toList();
                 Integer couponAmount = memberCouponService.getCouponAmountWithVerify(context.getMemberId(), storePackage.getCouponId(), itemIds, storePackage.getStoreId(), itemAmount);
                 storePackage.setCouponAmount(couponAmount);
             } else {
@@ -501,16 +502,19 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             String tradeNo = orderList.get(0).getTradeNo();
             log.info("该零售订单可能使用积分或优惠券,属于零元付,不做真实支付 [{}]", tradeNo);
             PayNotifyContext notify = new PayNotifyContext();
+            notify.setFrom(OrderState.PROGRESS.getValue());
             notify.setSuccessTime(LocalDateTime.now());
             notify.setTradeNo(tradeNo);
+            notify.setAmount(0);
+            notify.setTradeType(TradeType.ZERO);
             // 此次没有采用bean注入的方式获取handler? 因为构造方法注入会产生循环依赖. 零元购会触发支付成功的状态流, 支付成功会额外开启事务,因此此处需要等事务提交后再执行异步通知
             TransactionUtil.afterCommit(() -> SpringContextUtil.getBean(ItemAccessHandler.class).paySuccess(notify));
         } else {
-            List<String> noList = orderList.stream().map(Order::getOrderNo).toList();
             // 30分钟过期定时任务
             TransactionUtil.afterCommit(() -> orderList.forEach(order -> orderMQService.sendOrderExpireMessage(ExchangeQueue.ITEM_PAY_EXPIRE, order.getOrderNo())));
-            context.setOrderNo(CollUtil.join(noList, CommonConstant.COMMA));
         }
+        List<String> noList = orderList.stream().map(Order::getOrderNo).toList();
+        context.setOrderNo(CollUtil.join(noList, CommonConstant.COMMA));
     }
 
     @Override
