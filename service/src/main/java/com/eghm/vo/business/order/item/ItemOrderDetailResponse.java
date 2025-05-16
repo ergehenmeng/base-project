@@ -66,6 +66,9 @@ public class ItemOrderDetailResponse {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime payTime;
 
+    @ApiModelProperty("支付流水号")
+    private String tradeNo;
+
     @ApiModelProperty("完成时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime completeTime;

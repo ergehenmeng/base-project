@@ -92,6 +92,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
             List<ItemOrder> itemOrderList = itemOrderService.getByOrderNo(order.getOrderNo());
             boolean anyMatch = itemOrderList.stream().anyMatch(itemOrder -> itemOrder.getDeliveryType() == DeliveryType.EXPRESS);
             order.setPayTime(context.getSuccessTime());
+            order.setPayType(PayType.valueOf(context.getTradeType().name()));
             order.setState(anyMatch ? OrderState.WAIT_DELIVERY : OrderState.WAIT_TAKE);
             orderService.updateById(order);
             // 更新item_order状态
