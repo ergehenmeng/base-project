@@ -505,7 +505,6 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             notify.setFrom(OrderState.PROGRESS.getValue());
             notify.setSuccessTime(LocalDateTime.now());
             notify.setTradeNo(tradeNo);
-            notify.setAmount(0);
             notify.setTradeType(TradeType.ZERO);
             // 此次没有采用bean注入的方式获取handler? 因为构造方法注入会产生循环依赖
             TransactionUtil.afterCommit(() -> SpringContextUtil.getBean(ItemAccessHandler.class).paySuccess(notify));

@@ -96,7 +96,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
             order.setState(anyMatch ? OrderState.WAIT_DELIVERY : OrderState.WAIT_TAKE);
             orderService.updateById(order);
             // 更新item_order状态
-            itemOrderService.paySuccess(context.getOrderNo());
+            itemOrderService.paySuccess(context.getTradeNo());
             // 更新增加冻结记录
             accountService.paySuccessAddFreeze(order);
             // 发送消息

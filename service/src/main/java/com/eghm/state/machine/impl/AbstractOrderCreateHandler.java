@@ -206,9 +206,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
             log.info("订单是零元购商品,订单号:{}", order.getOrderNo());
             PayNotifyContext notify = new PayNotifyContext();
             notify.setTradeNo(order.getTradeNo());
-            notify.setOrderNo(order.getOrderNo());
             notify.setSuccessTime(LocalDateTime.now());
-            notify.setAmount(order.getPayAmount());
             notify.setTradeType(TradeType.ZERO);
             notify.setFrom(order.getState().getValue());
             // 零元购会触发支付成功的状态流, 支付成功会额外开启事务,因此此处需要等事务提交后再执行异步通知

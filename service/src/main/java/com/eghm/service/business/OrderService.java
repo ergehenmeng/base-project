@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.dto.business.order.refund.ItemRefundCancelDTO;
+import com.eghm.dto.ext.PaymentOrder;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.BookingState;
 import com.eghm.enums.OrderState;
@@ -87,7 +88,7 @@ public interface OrderService extends IService<Order> {
      *
      * @return 订单信息
      */
-    List<Order> getProcessList();
+    List<PaymentOrder> getPaymentList();
 
     /**
      * 查询未支付订单列表

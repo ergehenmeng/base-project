@@ -36,7 +36,7 @@ public abstract class AbstractOrderPaySuccessHandler implements ActionHandler<Pa
 
     @Override
     public void doAction(PayNotifyContext context) {
-        Order order = orderService.getByOrderNo(context.getOrderNo());
+        Order order = orderService.getByTradeNo(context.getTradeNo());
         this.doProcess(context, order);
         this.after(context, order);
     }
@@ -57,7 +57,7 @@ public abstract class AbstractOrderPaySuccessHandler implements ActionHandler<Pa
      * @param order   订单信息
      */
     protected void after(PayNotifyContext context, Order order) {
-        log.info("订单支付成功, 更新游客和冻结金额 [{}] [{}] [{}]", context.getOrderNo(), context.getTradeNo(), context.getAmount());
+        log.info("订单支付成功, 更新游客和冻结金额 [{}] ", context.getTradeNo());
         orderVisitorService.updateVisitor(order.getOrderNo(), VisitorState.PAID);
         accountService.paySuccessAddFreeze(order);
         this.sendPaySuccessMessage(context, order);
@@ -70,9 +70,8 @@ public abstract class AbstractOrderPaySuccessHandler implements ActionHandler<Pa
      * @param order 订单信息
      */
     protected void sendPaySuccessMessage(PayNotifyContext context, Order order) {
-        log.info("订单支付成功, 发送支付成功MQ [{}]", context.getOrderNo());
+        log.info("订单支付成功, 发送支付成功MQ [{}]", context.getTradeNo());
         OrderPayNotify payNotify = new OrderPayNotify();
-        payNotify.setAmount(context.getAmount());
         payNotify.setMerchantId(order.getMerchantId());
         payNotify.setOrderNo(order.getOrderNo());
         payNotify.setProductId(getProductId(order));

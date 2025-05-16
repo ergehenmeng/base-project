@@ -102,7 +102,7 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public void handlePayNotify(PayNotifyContext context) {
-        redisLock.lockVoid(LockConstant.ORDER_LOCK + context.getOrderNo(), 10_000, () ->
+        redisLock.lockVoid(LockConstant.ORDER_LOCK + context.getTradeNo(), 10_000, () ->
                 this.getHandler(context.getTradeNo(), AccessHandler.class).payNotify(context)
         );
     }

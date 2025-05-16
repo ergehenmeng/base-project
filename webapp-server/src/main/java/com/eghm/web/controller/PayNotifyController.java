@@ -66,14 +66,10 @@ public class PayNotifyController {
         Map<String, String> stringMap = this.parseAliRequest(request);
         aliPayService.verifyNotify(stringMap);
         payNotifyLogService.insertAliLog(stringMap, StepType.PAY);
-
-        String orderNo = stringMap.get("body");
         String tradeNo = stringMap.get("out_trade_no");
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         PayNotifyContext context = new PayNotifyContext();
-        context.setOrderNo(orderNo);
         context.setTradeNo(tradeNo);
-
         return this.aliResult(() -> this.handlePayNotify(context));
     }
 
@@ -83,12 +79,10 @@ public class PayNotifyController {
         Map<String, String> stringMap = this.parseAliRequest(request);
         aliPayService.verifyNotify(stringMap);
         payNotifyLogService.insertAliLog(stringMap, StepType.REFUND);
-
         String refundNo = stringMap.get("out_biz_no");
         String tradeNo = stringMap.get("out_trade_no");
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         RefundNotifyContext context = this.generateContext(tradeNo, refundNo, TradeType.ALI_PAY);
-
         return this.aliResult(() -> commonService.handleRefundNotify(context));
     }
 
@@ -98,13 +92,9 @@ public class PayNotifyController {
         SignatureHeader header = this.parseWechatHeader(httpHeader);
         WxPayNotifyV3Result payNotify = wechatPayService.parsePayNotify(requestBody, header);
         payNotifyLogService.insertWechatPayLog(payNotify);
-
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
-        String orderNo = payNotify.getResult().getAttach();
         PayNotifyContext context = new PayNotifyContext();
-        context.setOrderNo(orderNo);
         context.setTradeNo(payNotify.getResult().getOutTradeNo());
-
         return this.wechatResult(response, () -> this.handlePayNotify(context));
     }
 
@@ -125,9 +115,8 @@ public class PayNotifyController {
 
     @PostMapping("/mockPaySuccess")
     @ApiOperation("模拟支付成功(测试)")
-    public RespBody<Void> mockPaySuccess(@RequestParam String orderNo, @RequestParam String tradeNo) {
+    public RespBody<Void> mockPaySuccess(@RequestParam String tradeNo) {
         PayNotifyContext context = new PayNotifyContext();
-        context.setOrderNo(orderNo);
         context.setTradeNo(tradeNo);
         context.setTradeType(TradeType.WECHAT_MINI);
         context.setSuccessTime(LocalDateTime.now());
@@ -175,7 +164,7 @@ public class PayNotifyController {
      * @param context 上下文
      */
     private void handlePayNotify(PayNotifyContext context) {
-        ProductType productType = ProductType.ofPrefix(context.getOrderNo());
+        ProductType productType = ProductType.ofPrefix(context.getTradeNo());
         if (productType != null) {
             log.info("开始进行商品支付回调异步处理 [{}]", context.getTradeNo());
             commonService.handlePayNotify(context);

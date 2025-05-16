@@ -110,7 +110,7 @@ public interface ItemOrderMapper extends BaseMapper<ItemOrder> {
     /**
      * 订单支付成功,更新配送状态
      *
-     * @param orderNo 订单号
+     * @param tradeNo 订单号
      */
-    void paySuccess(@Param("orderNo") String orderNo);
+    void paySuccess(@Param("tradeNo") String tradeNo);
 }

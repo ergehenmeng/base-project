@@ -36,7 +36,7 @@ public class ItemOrderPayFailHandler extends AbstractItemOrderPayNotifyHandler {
 
     @Override
     protected void doProcess(PayNotifyContext context, List<Order> orderList) {
-        log.error("零售异步支付失败 [{}]", context.getOrderNo());
+        log.error("零售异步支付失败 [{}]", context.getTradeNo());
     }
 
     @Override

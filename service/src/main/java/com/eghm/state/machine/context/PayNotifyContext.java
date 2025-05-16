@@ -15,17 +15,11 @@ import java.time.LocalDateTime;
 @Data
 public class PayNotifyContext implements Context {
 
-    @ApiModelProperty("订单编号")
-    private String orderNo;
-
     @ApiModelProperty("支付流水号")
     private String tradeNo;
 
     @ApiModelProperty("支付方式")
     private TradeType tradeType;
-
-    @ApiModelProperty("支付金额")
-    private Integer amount;
 
     @ApiModelProperty("支付成功时间")
     private LocalDateTime successTime;

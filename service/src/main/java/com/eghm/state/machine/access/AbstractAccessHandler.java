@@ -36,16 +36,16 @@ public abstract class AbstractAccessHandler implements AccessHandler {
     public void payNotify(PayNotifyContext context) {
         TradeState paySuccess = this.checkPaySuccess(context);
         if (paySuccess == TradeState.SUCCESS || paySuccess == TradeState.TRADE_SUCCESS || paySuccess == TradeState.TRADE_FINISHED) {
-            log.info("订单支付成功,开始执行业务逻辑 [{}] [{}]", context.getOrderNo(), paySuccess);
+            log.info("订单支付成功,开始执行业务逻辑 [{}] [{}]", context.getTradeNo(), paySuccess);
             this.paySuccess(context);
             return;
         }
         if (paySuccess == TradeState.CLOSED || paySuccess == TradeState.NOT_PAY || paySuccess == PAY_ERROR || paySuccess == TRADE_CLOSED) {
-            log.info("订单支付失败,开始执行业务逻辑 [{}] [{}]", context.getOrderNo(), paySuccess);
+            log.info("订单支付失败,开始执行业务逻辑 [{}] [{}]", context.getTradeNo(), paySuccess);
             this.payFail(context);
             return;
         }
-        log.warn("订单支付状态处理中,不做业务处理 [{}] [{}]", context.getOrderNo(), paySuccess);
+        log.warn("订单支付状态处理中,不做业务处理 [{}] [{}]", context.getTradeNo(), paySuccess);
     }
 
     @Override
@@ -77,7 +77,6 @@ public abstract class AbstractAccessHandler implements AccessHandler {
         Order order = orderService.getByTradeNo(context.getTradeNo());
         TradeType tradeType = TradeType.valueOf(order.getPayType().name());
         PayOrderVO vo = aggregatePayService.queryOrder(tradeType, order.getTradeNo());
-        context.setAmount(vo.getAmount());
         context.setSuccessTime(vo.getSuccessTime());
         context.setTradeType(vo.getTradeType());
         context.setFrom(order.getState().getValue());

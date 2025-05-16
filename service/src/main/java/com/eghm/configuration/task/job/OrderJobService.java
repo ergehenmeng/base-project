@@ -2,6 +2,7 @@ package com.eghm.configuration.task.job;
 
 import com.eghm.annotation.CronMark;
 import com.eghm.dto.ext.OrderRefund;
+import com.eghm.dto.ext.PaymentOrder;
 import com.eghm.enums.ProductType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.*;
@@ -48,16 +49,15 @@ public class OrderJobService {
      */
     @CronMark
     public void payProcess() {
-        LoggerUtil.print("订单支付中定时任务开始执行");
-        List<Order> processList = orderService.getProcessList();
-        for (Order order : processList) {
+        List<PaymentOrder> processList = orderService.getPaymentList();
+        for (PaymentOrder order : processList) {
             PayNotifyContext context = new PayNotifyContext();
-            context.setOrderNo(order.getOrderNo());
             context.setTradeNo(order.getTradeNo());
+            context.setTradeType(TradeType.valueOf(order.getPayType().getName()));
             try {
-                commonService.getHandler(order.getOrderNo(), AccessHandler.class).payNotify(context);
+                commonService.getHandler(order.getTradeNo(), AccessHandler.class).payNotify(context);
             } catch (Exception e) {
-                log.error("支付中的订单处理异常 [{}]", order.getOrderNo(), e);
+                log.error("支付中的订单处理异常 [{}]", order.getTradeNo(), e);
             }
         }
         LoggerUtil.print("订单支付中定时任务执行完毕");
@@ -68,7 +68,6 @@ public class OrderJobService {
      */
     @CronMark
     public void refundProcess() {
-        LoggerUtil.print("订单退款中定时任务开始执行");
         List<OrderRefund> refundList = orderRefundLogService.getRefundProcess();
         for (OrderRefund refund : refundList) {
             TradeType tradeType = TradeType.of(refund.getPayType().getName());

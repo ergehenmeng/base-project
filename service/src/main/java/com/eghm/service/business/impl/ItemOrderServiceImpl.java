@@ -252,8 +252,8 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     }
 
     @Override
-    public void paySuccess(String orderNo) {
-        itemOrderMapper.paySuccess(orderNo);
+    public void paySuccess(String tradeNo) {
+        itemOrderMapper.paySuccess(tradeNo);
     }
 
     @Override
