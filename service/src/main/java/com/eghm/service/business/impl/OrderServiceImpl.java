@@ -446,6 +446,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order.setCompleteTime(LocalDateTime.now());
         order.setState(OrderState.COMPLETE);
         baseMapper.updateById(order);
+        itemOrderService.confirmReceipt(orderNo);
         orderMQService.sendOrderCompleteMessage(ExchangeQueue.ITEM_COMPLETE_DELAY, order.getOrderNo());
     }
 

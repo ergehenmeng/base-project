@@ -3,6 +3,7 @@ package com.eghm.service.business.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.JsonService;
@@ -253,6 +254,15 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     @Override
     public void paySuccess(String orderNo) {
         itemOrderMapper.paySuccess(orderNo);
+    }
+
+    @Override
+    public void confirmReceipt(String orderNo) {
+        LambdaUpdateWrapper<ItemOrder> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(ItemOrder::getOrderNo, orderNo);
+        wrapper.eq(ItemOrder::getRefundState, ItemRefundState.INIT);
+        wrapper.set(ItemOrder::getDeliveryState, DeliveryState.CONFIRM_TASK);
+        itemOrderMapper.update(null, wrapper);
     }
 
     /**
