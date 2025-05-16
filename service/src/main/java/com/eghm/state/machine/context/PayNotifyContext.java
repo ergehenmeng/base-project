@@ -1,6 +1,5 @@
 package com.eghm.state.machine.context;
 
-import com.eghm.enums.ProductType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.pay.enums.TradeType;
 import com.eghm.state.machine.Context;
@@ -33,9 +32,6 @@ public class PayNotifyContext implements Context {
 
     @ApiModelProperty("源状态")
     private Integer from;
-
-    @ApiModelProperty("产品类型")
-    private ProductType productType;
 
     @ApiModelProperty("事件")
     private IEvent event;

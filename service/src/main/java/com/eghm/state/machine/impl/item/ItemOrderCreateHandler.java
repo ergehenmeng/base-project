@@ -13,6 +13,7 @@ import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.*;
+import com.eghm.pay.enums.TradeType;
 import com.eghm.service.business.*;
 import com.eghm.service.member.MemberAddressService;
 import com.eghm.service.member.MemberService;
@@ -501,16 +502,19 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             String tradeNo = orderList.get(0).getTradeNo();
             log.info("该零售订单可能使用积分或优惠券,属于零元付,不做真实支付 [{}]", tradeNo);
             PayNotifyContext notify = new PayNotifyContext();
+            notify.setFrom(OrderState.PROGRESS.getValue());
             notify.setSuccessTime(LocalDateTime.now());
             notify.setTradeNo(tradeNo);
+            notify.setAmount(0);
+            notify.setTradeType(TradeType.ZERO);
             // 此次没有采用bean注入的方式获取handler? 因为构造方法注入会产生循环依赖
             TransactionUtil.afterCommit(() -> SpringContextUtil.getBean(ItemAccessHandler.class).paySuccess(notify));
         } else {
-            List<String> noList = orderList.stream().map(Order::getOrderNo).collect(Collectors.toList());
             // 30分钟过期定时任务
             TransactionUtil.afterCommit(() -> orderList.forEach(order -> orderMQService.sendOrderExpireMessage(ExchangeQueue.ITEM_PAY_EXPIRE, order.getOrderNo())));
-            context.setOrderNo(CollUtil.join(noList, CommonConstant.COMMA));
         }
+        List<String> noList = orderList.stream().map(Order::getOrderNo).collect(Collectors.toList());
+        context.setOrderNo(CollUtil.join(noList, CommonConstant.COMMA));
     }
 
     @Override
