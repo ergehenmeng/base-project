@@ -7461,5 +7461,5 @@ VALUES ('1816667114871488514', 'scenic_tag', '5', '避暑胜地', b'0', '2024-07
 
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('82', 'pay_notify_host', '支付异步通知地址', 'http://localhost:8080/', b'0', '支付或退款异步回调地址', '2025-02-20 16:43:17', '2025-02-20 16:43:32');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('83', 'homestay_max_order_day', '民宿单次下单天数限制', '15', b'0', '单次只能预订15天的房', '2025-05-14 10:41:30', '2025-05-14 10:41:49');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('84', 'item_confirm_receipt', '零售自动确认收货时间', '1209600', b'0', '零售确认收货时间 默认发货后14天自动确认收货', '2025-05-16 16:45:26', '2025-05-16 16:45:26');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('84', 'item_confirm_receipt', '零售自动确认收货时间', '1209600', b'0', '零售确认收货时间 默认发货后14天自动确认收货(单位:秒)', '2025-05-16 16:45:26', '2025-05-16 16:45:26');
 
