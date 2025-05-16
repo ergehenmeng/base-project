@@ -261,4 +261,9 @@ public class ConfigConstant {
      * 房型当天日期限制
      */
     public static final String HOMESTAY_TODAY_LIMIT = "homestay_today_limit";
+
+    /**
+     * 零售确认收货时间 默认发货后14天自动确认收货
+     */
+    public static final String ITEM_CONFIRM_RECEIPT = "item_confirm_receipt";
 }

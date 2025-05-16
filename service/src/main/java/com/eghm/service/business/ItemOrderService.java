@@ -178,4 +178,11 @@ public interface ItemOrderService {
      * @param orderNo 订单编号
      */
     void paySuccess(String orderNo);
+
+    /**
+     * 确认收货
+     *
+     * @param orderNo 订单编号
+     */
+    void confirmReceipt(String orderNo);
 }

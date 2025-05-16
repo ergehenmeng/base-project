@@ -122,11 +122,6 @@ public class CommonConstant {
     public static final int MAX_VERIFY_NO_EXPIRE = 60_000;
 
     /**
-     * 发货后默认14天自动收货
-     */
-    public static final int RECEIVE_TIME = 1209600;
-
-    /**
      * 签名过期时间 60秒
      */
     public static final long MAX_SIGN_EXPIRE = 60_000;
