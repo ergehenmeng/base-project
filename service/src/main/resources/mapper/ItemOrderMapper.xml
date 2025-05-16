@@ -156,6 +156,7 @@
             r.create_time,
             r.close_type,
             r.pay_time,
+            r.trade_no,
             r.remark,
             r.complete_time,
             r.close_time,
