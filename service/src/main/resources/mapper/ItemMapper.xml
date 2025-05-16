@@ -13,7 +13,6 @@
         t.state,
         t.recommend,
         t.sort,
-        t.quota,
         t.delivery_type,
         t.max_price,
         t.min_price,
