@@ -91,7 +91,6 @@ public class OrderJobService {
      */
     @CronMark
     public void expireProcess() {
-        LoggerUtil.print("订单自动取消定时任务开始执行");
         List<Order> noPayList = orderService.getNoPayList();
         for (Order order : noPayList) {
             OrderCancelContext context = new OrderCancelContext();
@@ -112,7 +111,6 @@ public class OrderJobService {
             }
             stateHandler.fireEvent(order.getProductType(), order.getState().getValue(), event, context);
         }
-        LoggerUtil.print("订单自动取消定时任务执行完毕");
     }
 
 }
