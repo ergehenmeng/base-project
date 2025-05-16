@@ -71,7 +71,6 @@ import java.util.stream.Collectors;
 
 import static com.eghm.constants.CacheConstant.*;
 import static com.eghm.constants.CommonConstant.COMMA;
-import static com.eghm.constants.CommonConstant.RECEIVE_TIME;
 import static com.eghm.constants.ConfigConstant.MERCHANT_SALE_RANKING;
 import static com.eghm.constants.ConfigConstant.PRODUCT_SALE_RANKING;
 import static com.eghm.enums.ErrorCode.*;
@@ -405,7 +404,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         Long count = itemOrderService.countWaitDelivery(request.getOrderNo());
         if (count == 0) {
             order.setState(OrderState.WAIT_RECEIVE);
-            messageService.sendDelay(ExchangeQueue.ITEM_SIPPING, order.getOrderNo(), RECEIVE_TIME);
+            int receipt = sysConfigApi.getInt(ConfigConstant.ITEM_CONFIRM_RECEIPT, 1209600);
+            messageService.sendDelay(ExchangeQueue.ITEM_SIPPING, order.getOrderNo(), receipt);
         }
         baseMapper.updateById(order);
     }
@@ -656,7 +656,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         } else {
             // 如果没有则判断是否已经超过收货时间, 超过收货时间则订单为已完成
             Optional<ItemOrder> orderOptional = itemOrderList.stream().max(Comparator.comparing(ItemOrder::getShipTime));
-            if (orderOptional.get().getShipTime().plusSeconds(RECEIVE_TIME).isBefore(LocalDateTime.now())) {
+            int receipt = sysConfigApi.getInt(ConfigConstant.ITEM_CONFIRM_RECEIPT, 1209600);
+            if (orderOptional.get().getShipTime().plusSeconds(receipt).isBefore(LocalDateTime.now())) {
                 order.setState(OrderState.COMPLETE);
                 order.setCompleteTime(LocalDateTime.now());
                 orderMQService.sendOrderCompleteMessage(ExchangeQueue.ITEM_COMPLETE_DELAY, order.getOrderNo());
