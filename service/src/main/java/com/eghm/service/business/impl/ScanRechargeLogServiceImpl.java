@@ -44,17 +44,17 @@ public class ScanRechargeLogServiceImpl implements ScanRechargeLogService {
         ScanRechargeLog rechargeLog = this.getByTradeNo(context.getTradeNo());
         PayOrderVO orderVO = aggregatePayService.queryOrder(rechargeLog.getTradeType(), context.getTradeNo());
         if (orderVO.getTradeState() == TradeState.SUCCESS || orderVO.getTradeState() == TradeState.TRADE_SUCCESS || orderVO.getTradeState() == TradeState.TRADE_FINISHED) {
-            log.info("扫码充值成功 [{}]", context.getOrderNo());
+            log.info("扫码充值成功 [{}]", context.getTradeNo());
             scoreAccountService.rechargeScanSuccess(rechargeLog.getMerchantId(), rechargeLog.getAmount(), context.getTradeNo());
             rechargeLog.setState(1);
             rechargeLog.setPayTime(orderVO.getSuccessTime());
             scanRechargeLogMapper.updateById(rechargeLog);
         } else if (orderVO.getTradeState() == TradeState.CLOSED || orderVO.getTradeState() == TradeState.NOT_PAY || orderVO.getTradeState() == PAY_ERROR || orderVO.getTradeState() == TRADE_CLOSED) {
-            log.info("扫码充值失败 [{}]", context.getOrderNo());
+            log.info("扫码充值失败 [{}]", context.getTradeNo());
             rechargeLog.setState(3);
             scanRechargeLogMapper.updateById(rechargeLog);
         } else {
-            log.info("扫码充值未知状态 [{}]", context.getOrderNo());
+            log.info("扫码充值未知状态 [{}]", context.getTradeNo());
         }
     }
 

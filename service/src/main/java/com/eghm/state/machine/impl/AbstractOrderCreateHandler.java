@@ -206,9 +206,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
             log.info("订单是零元购商品,订单号:{}", order.getOrderNo());
             PayNotifyContext notify = new PayNotifyContext();
             notify.setTradeNo(order.getTradeNo());
-            notify.setOrderNo(order.getOrderNo());
             notify.setSuccessTime(LocalDateTime.now());
-            notify.setAmount(order.getPayAmount());
             notify.setTradeType(TradeType.ZERO);
             notify.setFrom(order.getState().getValue());
             TransactionUtil.afterCommit(() -> this.getAccessHandler().paySuccess(notify));

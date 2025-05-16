@@ -1,6 +1,7 @@
 package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.dto.ext.PaymentOrder;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.model.Order;
 import com.eghm.vo.business.order.ProductSnapshotVO;
@@ -143,4 +144,11 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @return 待核销的数量
      */
     Integer waitVerify(@Param("merchantId") Long merchantId);
+
+    /**
+     * 查询所有支付中的交易单号
+     *
+     * @return 交易单号
+     */
+    List<PaymentOrder> getPaymentList();
 }

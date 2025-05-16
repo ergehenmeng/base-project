@@ -20,6 +20,7 @@ import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.RefundCancelDTO;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.dto.business.order.refund.ItemRefundCancelDTO;
+import com.eghm.dto.ext.PaymentOrder;
 import com.eghm.dto.statistics.DateRequest;
 import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
@@ -208,11 +209,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public List<Order> getProcessList() {
-        LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(Order::getOrderNo, Order::getProductType, Order::getTradeNo, Order::getPayType);
-        wrapper.eq(Order::getState, OrderState.PROGRESS);
-        return baseMapper.selectList(wrapper);
+    public List<PaymentOrder> getPaymentList() {
+        return baseMapper.getPaymentList();
     }
 
     @Override

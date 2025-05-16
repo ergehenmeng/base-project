@@ -170,4 +170,9 @@
             and merchant_id = #{merchantId}
         </if>
     </select>
+
+    <select id="getPaymentList" resultType="com.eghm.dto.ext.PaymentOrder">
+        select distinct trade_no, pay_type from `order` where deleted = false and state = 1
+    </select>
+
 </mapper>

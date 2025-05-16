@@ -175,9 +175,9 @@ public interface ItemOrderService {
     /**
      * 订单支付成功,更新零售订单状态
      *
-     * @param orderNo 订单编号
+     * @param tradeNo 交易单号
      */
-    void paySuccess(String orderNo);
+    void paySuccess(String tradeNo);
 
     /**
      * 确认收货

@@ -9,6 +9,8 @@ import com.eghm.service.business.VenueOrderService;
 import com.eghm.state.machine.impl.AbstractOrderPayFailHandler;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author wyb
  * @since 2024/2/4
@@ -24,8 +26,8 @@ public class VenueOrderPayFailHandler extends AbstractOrderPayFailHandler {
     }
 
     @Override
-    protected void after(Order order) {
-        venueOrderService.updateStock(order.getOrderNo(), 1);
+    protected void after(List<Order> orderList) {
+        venueOrderService.updateStock(orderList.get(0).getOrderNo(), 1);
     }
 
     @Override

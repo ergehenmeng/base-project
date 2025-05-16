@@ -8,6 +8,8 @@ import com.eghm.state.machine.context.PayNotifyContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+
 /**
  * 支付异步回调 失败
  *
@@ -22,26 +24,28 @@ public abstract class AbstractOrderPayFailHandler implements ActionHandler<PayNo
 
     @Override
     public void doAction(PayNotifyContext context) {
-        Order order = orderService.getByOrderNo(context.getOrderNo());
-        this.doProcess(context, order);
-        this.after(order);
+        List<Order> orderList = orderService.getByTradeNoList(context.getTradeNo());
+        this.doProcess(context, orderList);
+        this.after(orderList);
     }
 
     /**
      * 订单失败处理逻辑, 更新订单状态
      *
-     * @param order 订单信息
+     * @param orderList 订单信息
      */
-    protected void doProcess(PayNotifyContext context, Order order) {
-        orderService.updateState(order.getOrderNo(), OrderState.UN_PAY, OrderState.of(context.getFrom()));
+    protected void doProcess(PayNotifyContext context, List<Order> orderList) {
+        for (Order order : orderList) {
+            orderService.updateState(order.getOrderNo(), OrderState.UN_PAY, OrderState.of(context.getFrom()));
+        }
     }
 
     /**
      * 订单异步通知后置处理
      *
-     * @param order   订单信息
+     * @param orderList 订单列表
      */
-    protected void after(Order order) {
+    protected void after(List<Order> orderList) {
     }
 
 }
