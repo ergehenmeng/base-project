@@ -48,45 +48,41 @@ public class ItemResponse extends ExcelStyle {
     @ExcelProperty(value = "状态", index = 2, converter = EnumExcelConverter.class)
     private State state;
 
-    @Schema(description = "限购数量")
-    @ExcelProperty(value = "限购数量", index = 3)
-    private Integer quota;
-
     @Schema(description = "交付方式 1:门店自提 2:快递")
-    @ExcelProperty(value = "交付方式", index = 4, converter = EnumExcelConverter.class)
+    @ExcelProperty(value = "交付方式", index = 3, converter = EnumExcelConverter.class)
     private DeliveryType deliveryType;
 
     @Schema(description = "最低价格")
     @JsonSerialize(using = CentToYuanSerializer.class)
-    @ExcelProperty(value = "最低价格", index = 5, converter = CentToYuanConverter.class)
+    @ExcelProperty(value = "最低价格", index = 4, converter = CentToYuanConverter.class)
     private Integer minPrice;
 
     @Schema(description = "最高价格")
     @JsonSerialize(using = CentToYuanSerializer.class)
-    @ExcelProperty(value = "最高价格", index = 6, converter = CentToYuanConverter.class)
+    @ExcelProperty(value = "最高价格", index = 5, converter = CentToYuanConverter.class)
     private Integer maxPrice;
 
     @Schema(description = "销售数量(所有规格销售总量)")
-    @ExcelProperty(value = "销量", index = 7)
+    @ExcelProperty(value = "销量", index = 6)
     private Integer saleNum;
 
     @Schema(description = "排序")
-    @ExcelProperty(value = "排序", index = 8)
+    @ExcelProperty(value = "排序", index = 7)
     private Integer sort;
 
     @Schema(description = "平台推荐")
-    @ExcelProperty(value = "平台推荐", index = 9, converter = BooleanExcelConverter.class)
+    @ExcelProperty(value = "平台推荐", index = 8, converter = BooleanExcelConverter.class)
     private Boolean recommend;
 
     @Schema(description = "添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "添加时间", index = 10)
+    @ExcelProperty(value = "添加时间", index = 9)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @Schema(description = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "更新时间", index = 11)
+    @ExcelProperty(value = "更新时间", index = 10)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }
