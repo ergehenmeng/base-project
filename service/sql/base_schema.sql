@@ -1781,7 +1781,7 @@ DROP TABLE IF EXISTS item_order_express;
 CREATE TABLE `item_order_express`
 (
     `id`            bigint(20) NOT NULL COMMENT '主键',
-    `item_order_id` varchar(30) DEFAULT NULL COMMENT '零售订单id',
+    `item_order_id` bigint(20)  DEFAULT NULL COMMENT '零售订单id',
     `order_no`      varchar(30) DEFAULT NULL COMMENT '订单号(冗余)',
     `express_id`    bigint(20) comment '快递信息id',
     `create_time`   datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
