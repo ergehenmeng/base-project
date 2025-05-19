@@ -64,7 +64,7 @@ public class Item extends BaseEntity {
     @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private Long expressId;
 
-    @Schema(description = "交付方式 1:快递包邮 2:自提")
+    @Schema(description = "交付方式 0:无须发货 1:快递包邮 2:门店自提")
     private DeliveryType deliveryType;
 
     @Schema(description = "最低价格")

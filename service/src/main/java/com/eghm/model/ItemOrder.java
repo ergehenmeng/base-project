@@ -89,7 +89,7 @@ public class ItemOrder extends BaseEntity {
     @Schema(description = "限购数量")
     private Integer quota;
 
-    @Schema(description = "交付方式 1:门店自提 2:快递包邮")
+    @Schema(description = "交付方式 0:无须发货 1:快递包邮 2:门店自提")
     private DeliveryType deliveryType;
 
     @Schema(description = "商品介绍信息")
