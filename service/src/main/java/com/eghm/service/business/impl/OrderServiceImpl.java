@@ -384,7 +384,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             throw new BusinessException(ErrorCode.CHOOSE_NO_REFUND);
         }
         anyMatch = orderList.stream().anyMatch(itemOrder -> itemOrder.getDeliveryState() == DeliveryState.WAIT_DELIVERY);
-        if (anyMatch) {
+        if (!anyMatch) {
             log.error("发货订单中存在已发货的订单 [{}]", request.getOrderIds());
             throw new BusinessException(ErrorCode.CHOOSE_NO_DELIVERY);
         }
