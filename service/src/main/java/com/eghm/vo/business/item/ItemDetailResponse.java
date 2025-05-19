@@ -44,7 +44,7 @@ public class ItemDetailResponse {
     @ApiModelProperty(value = "限购数量")
     private Integer quota;
 
-    @ApiModelProperty(value = "交付方式 1:快递包邮 2:门店自提 ")
+    @ApiModelProperty(value = "交付方式 0:无须发货 1:快递包邮 2:门店自提")
     private DeliveryType deliveryType;
 
     @ApiModelProperty("物流模板id(为空表示包邮)")

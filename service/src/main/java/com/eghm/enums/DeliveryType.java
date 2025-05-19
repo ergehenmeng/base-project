@@ -19,6 +19,11 @@ import java.util.Arrays;
 public enum DeliveryType {
 
     /**
+     * 默认
+     */
+    NONE(0, "无需发货"),
+
+    /**
      * 快递包邮
      */
     EXPRESS(1, "快递包邮"),

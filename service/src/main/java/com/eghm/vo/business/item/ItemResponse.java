@@ -48,7 +48,7 @@ public class ItemResponse extends ExcelStyle {
     @ExcelProperty(value = "状态", index = 2, converter = EnumExcelConverter.class)
     private State state;
 
-    @ApiModelProperty(value = "交付方式 1:门店自提 2:快递")
+    @ApiModelProperty(value = "交付方式 0:无须发货 1:快递包邮 2:门店自提")
     @ExcelProperty(value = "交付方式", index = 3, converter = EnumExcelConverter.class)
     private DeliveryType deliveryType;
 

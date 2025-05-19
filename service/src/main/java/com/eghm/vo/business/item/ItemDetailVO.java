@@ -68,7 +68,7 @@ public class ItemDetailVO {
     @ApiModelProperty("物流模板(为空表示包邮)")
     private Long expressId;
 
-    @ApiModelProperty(value = "交付方式 1:门店自提 2:快递包邮")
+    @ApiModelProperty(value = "交付方式 0:无须发货 1:快递包邮 2:门店自提")
     private DeliveryType deliveryType;
 
     @ApiModelProperty(value = "最低价格")
