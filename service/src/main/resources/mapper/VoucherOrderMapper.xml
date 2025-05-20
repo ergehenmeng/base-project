@@ -121,6 +121,7 @@
             t.order_no,
             r.cover_url,
             r.title,
+            t.voucher_id,
             r.pay_type,
             r.refund_type,
             r.refund_state,

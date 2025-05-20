@@ -33,6 +33,9 @@ public class VoucherOrderDetailResponse {
     @ApiModelProperty("名称")
     private String title;
 
+    @ApiModelProperty("餐饮券id")
+    private Long voucherId;
+
     @ApiModelProperty("餐饮商家名称")
     private String restaurantName;
 
