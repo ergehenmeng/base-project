@@ -116,6 +116,7 @@
             t.order_no,
             r.cover_url,
             r.title,
+            t.line_id,
             m.title as travelName,
             r.verify_no,
             t.duration,

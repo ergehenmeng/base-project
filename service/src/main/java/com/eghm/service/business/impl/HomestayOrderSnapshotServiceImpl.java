@@ -25,7 +25,7 @@ public class HomestayOrderSnapshotServiceImpl implements HomestayOrderSnapshotSe
     @Override
     public void orderSnapshot(String orderNo, List<HomestayRoomConfig> configList) {
         for (HomestayRoomConfig config : configList) {
-            HomestayOrderSnapshot snapshot = DataUtil.copy(config, HomestayOrderSnapshot.class);
+            HomestayOrderSnapshot snapshot = DataUtil.copy(config, HomestayOrderSnapshot.class, "id");
             snapshot.setOrderNo(orderNo);
             homestayOrderSnapshotMapper.insert(snapshot);
         }

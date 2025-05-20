@@ -34,6 +34,9 @@ public class LineOrderDetailResponse {
     @ApiModelProperty("线路名称")
     private String title;
 
+    @ApiModelProperty("线路id")
+    private Long lineId;
+
     @ApiModelProperty("旅行社名称")
     private String travelName;
 
