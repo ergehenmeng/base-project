@@ -29,6 +29,12 @@ public class TicketOrderDetailResponse {
     @ApiModelProperty("门票名称")
     private String title;
 
+    @ApiModelProperty("景区id")
+    private Long scenicId;
+
+    @ApiModelProperty("门票id")
+    private Long ticketId;
+
     @ApiModelProperty(value = "封面图片")
     @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;

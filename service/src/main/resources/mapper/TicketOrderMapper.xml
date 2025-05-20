@@ -116,6 +116,7 @@
             r.cover_url,
             r.title,
             t.scenic_id,
+            t.ticket_id,
             t.scenic_name,
             t.category,
             r.trade_no,
