@@ -39,6 +39,9 @@ public class HomestayOrderDetailResponse {
     @ApiModelProperty("民宿id")
     private Long homestayId;
 
+    @ApiModelProperty("房型id")
+    private Long roomId;
+
     @ApiModelProperty("支付方式(支付成功才会有支付方式)")
     private PayType payType;
 

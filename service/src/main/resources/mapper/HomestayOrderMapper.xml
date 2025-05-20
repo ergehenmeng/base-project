@@ -122,6 +122,7 @@
             r.trade_no,
             m.title as homestayName,
             t.homestay_id,
+            t.room_id,
             r.pay_type,
             r.refund_type,
             r.refund_state,
