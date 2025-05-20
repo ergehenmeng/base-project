@@ -71,4 +71,11 @@ public interface LineConfigService {
      * @return 最低价 单位:分
      */
     Integer getMinPrice(Long lineId, LocalDate startDate);
+
+    /**
+     * 删除多余的价格配置信息
+     *
+     * @param keepDay 历史价格信息保留天数
+     */
+    void deletePrice(Integer keepDay);
 }

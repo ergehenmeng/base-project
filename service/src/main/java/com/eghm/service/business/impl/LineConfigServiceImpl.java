@@ -3,6 +3,7 @@ package com.eghm.service.business.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.impl.SysConfigApi;
@@ -16,6 +17,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LineConfigMapper;
 import com.eghm.mapper.LineMapper;
+import com.eghm.model.HomestayRoomConfig;
 import com.eghm.model.Line;
 import com.eghm.model.LineConfig;
 import com.eghm.service.business.CommonService;
@@ -150,6 +152,14 @@ public class LineConfigServiceImpl implements LineConfigService {
     public Integer getMinPrice(Long lineId, LocalDate startDate) {
         Integer minPrice = lineConfigMapper.getMinPrice(lineId, startDate);
         return minPrice != null ? minPrice : 0;
+    }
+
+    @Override
+    public void deletePrice(Integer keepDay) {
+        LocalDate localDate = LocalDate.now().minusDays(keepDay);
+        LambdaUpdateWrapper<LineConfig> wrapper = Wrappers.lambdaUpdate();
+        wrapper.lt(LineConfig::getConfigDate, localDate);
+        lineConfigMapper.delete(wrapper);
     }
 
     /**
