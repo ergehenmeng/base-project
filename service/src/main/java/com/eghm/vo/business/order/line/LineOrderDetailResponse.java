@@ -34,6 +34,9 @@ public class LineOrderDetailResponse {
     @Schema(description = "线路名称")
     private String title;
 
+    @Schema(description = "线路id")
+    private String lineId;
+
     @Schema(description = "旅行社名称")
     private String travelName;
 

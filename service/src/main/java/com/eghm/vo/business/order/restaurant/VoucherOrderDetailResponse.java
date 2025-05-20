@@ -33,6 +33,9 @@ public class VoucherOrderDetailResponse {
     @Schema(description = "名称")
     private String title;
 
+    @Schema(description = "餐饮券id")
+    private Long voucherId;
+
     @Schema(description = "餐饮商家名称")
     private String restaurantName;
 
