@@ -317,8 +317,17 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public OrderScanVO getScanResult(String verifyNo, Long merchantId) {
-        Order order = this.getByVerifyNo(verifyNo);
+    public OrderScanVO getScanResult(String verifyNo, String orderNo, Long merchantId) {
+        Order order;
+        if (orderNo != null) {
+            order = this.getByOrderNo(orderNo);
+        } else {
+            order = this.getByVerifyNo(this.decryptVerifyNo(verifyNo));
+        }
+        ProductType productType = order.getProductType();
+        if (productType == ProductType.ITEM) {
+            throw new BusinessException(VERIFY_ORDER_ERROR);
+        }
         if (commonService.checkIsIllegal(merchantId)) {
             log.warn("核销码不属于当前商户下的订单 [{}] [{}] [{}]", verifyNo, merchantId, order.getMerchantId());
             throw new BusinessException(ErrorCode.VERIFY_ACCESS_DENIED);

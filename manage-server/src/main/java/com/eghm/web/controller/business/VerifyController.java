@@ -29,7 +29,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static com.eghm.enums.ErrorCode.*;
+import static com.eghm.enums.ErrorCode.VERIFY_NO_ERROR;
+import static com.eghm.enums.ErrorCode.VERIFY_TYPE_ERROR;
 
 /**
  * @author wyb
@@ -67,18 +68,8 @@ public class VerifyController {
             log.warn("核销码或订单号不能为空");
             return RespBody.error(VERIFY_NO_ERROR);
         }
-        if (verifyNo == null) {
-            verifyNo = orderService.getByOrderNo(orderNo).getVerifyNo();
-        } else {
-            verifyNo = orderService.decryptVerifyNo(verifyNo);
-        }
-        ProductType productType = ProductType.prefix(verifyNo);
-        if (productType != ProductType.ITEM) {
-            OrderScanVO vo = orderService.getScanResult(verifyNo, SecurityHolder.getMerchantId());
-            return RespBody.success(vo);
-        } else {
-            return RespBody.error(VERIFY_ORDER_ERROR);
-        }
+        OrderScanVO vo = orderService.getScanResult(verifyNo, orderNo, SecurityHolder.getMerchantId());
+        return RespBody.success(vo);
     }
 
     @PostMapping(value = "/verify", consumes = MediaType.APPLICATION_JSON_VALUE)

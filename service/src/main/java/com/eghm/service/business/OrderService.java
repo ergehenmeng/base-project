@@ -151,11 +151,12 @@ public interface OrderService extends IService<Order> {
     /**
      * 查询扫码后的订单结果
      *
-     * @param verifyNo   核销码
+     * @param verifyNo   核销码(加密过的)
+     * @param orderNo  订单号
      * @param merchantId 商户ID
      * @return 订单及游客信息
      */
-    OrderScanVO getScanResult(String verifyNo, Long merchantId);
+    OrderScanVO getScanResult(String verifyNo, String orderNo, Long merchantId);
 
     /**
      * 根据订单号查询订单下的商品信息
