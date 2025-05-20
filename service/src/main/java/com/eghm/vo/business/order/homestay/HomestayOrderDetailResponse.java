@@ -39,6 +39,9 @@ public class HomestayOrderDetailResponse {
     @Schema(description = "民宿id")
     private Long homestayId;
 
+    @Schema(description = "房型id")
+    private Long roomId;
+
     @Schema(description = "支付方式(支付成功才会有支付方式)")
     private PayType payType;
 

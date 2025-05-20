@@ -50,7 +50,7 @@ public class HomestayOrderCreateDTO extends AbstractDateComparator {
     @Schema(description = "入住人员信息列表", requiredMode = Schema.RequiredMode.REQUIRED)
     @Size(min = 1, max = 9, message = "入住人数不能超过9人")
     @NotEmpty(message = "住房人信息不能为空")
-    private transient List<VisitorDTO> visitorList;
+    private List<VisitorDTO> visitorList;
 
     @Schema(description = "入店日期(含晚上)", requiredMode = Schema.RequiredMode.REQUIRED)
     @JsonFormat(pattern = "yyyy-MM-dd")

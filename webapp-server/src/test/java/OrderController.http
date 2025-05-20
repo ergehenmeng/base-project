@@ -4,11 +4,15 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-  "ticketId": 1713787820047183874,
+  "ticketId": 1889934475715518465,
   "mobile": "13136113294",
   "num": 1,
-  "visitDate": "2023-12-12",
-  "remark": "少点套路"
+  "visitDate": "2025-05-22",
+  "remark": "少点套路",
+  "visitorList": [{
+    "idCard": "620622196011141794",
+    "memberName": "山邦家"
+  }]
 }
 
 ###
@@ -45,20 +49,14 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-  "roomId": 1714565181759881218,
+  "roomId": 1922489102564360193,
   "num": 1,
   "mobile": "13136113453",
   "nickName": "二哥",
-  "startDate": "2023-11-25",
-  "endDate": "2023-11-26",
+  "startDate": "2025-05-27",
+  "endDate": "2025-05-28",
   "remark": "备注信息",
   "visitorList": [{
-    "idCard": "620622196011141794",
-    "memberName": "山邦家"
-  },{
-    "idCard": "150301196310204723",
-    "memberName": "吕佳园"
-  },{
     "idCard": "211422197202046042",
     "memberName": "从君菁"
   }]

@@ -29,6 +29,12 @@ public class TicketOrderDetailResponse {
     @Schema(description = "门票名称")
     private String title;
 
+    @Schema(description = "景区id")
+    private Long scenicId;
+
+    @Schema(description = "门票id")
+    private Long ticketId;
+
     @Schema(description = "封面图片")
     @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
