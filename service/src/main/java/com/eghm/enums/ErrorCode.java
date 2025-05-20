@@ -1191,9 +1191,9 @@ public enum ErrorCode {
     VERIFY_TYPE_ERROR(2645, "核销类型匹配"),
 
     /**
-     * 订单不支持扫码核销
+     * 核销码无效,请重新扫码
      */
-    VERIFY_ORDER_ERROR(2648, "订单不支持扫码核销"),
+    VERIFY_ORDER_ERROR(2648, "核销码无效,请重新扫码"),
 
     /**
      * 红包金额太小啦~
