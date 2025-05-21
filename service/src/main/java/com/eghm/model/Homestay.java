@@ -48,7 +48,6 @@ public class Homestay extends BaseEntity {
     private Long cityId;
 
     @Schema(description = "县区")
-    @NotNull(message = "县区不能为空")
     private Long countyId;
 
     @Schema(description = "详细地址")

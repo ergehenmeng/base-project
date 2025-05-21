@@ -29,6 +29,9 @@ public class MerchantAddressDetailResponse {
     @Schema(description = "县区id")
     private Long countyId;
 
+    @Schema(description = "地址类型 1: 收货地址 2: 自提地址")
+    private Integer addressType;
+
     @Schema(description = "详细地址")
     private String detailAddress;
 

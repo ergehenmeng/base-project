@@ -29,6 +29,9 @@ public class MerchantAddressResponse {
     @Schema(description = "详细地址")
     private String detailAddress;
 
+    @Schema(description = "地址类型 1: 收货地址 2: 自提地址")
+    private Integer addressType;
+
     @Schema(description = "添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;

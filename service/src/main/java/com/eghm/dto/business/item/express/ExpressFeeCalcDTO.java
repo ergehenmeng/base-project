@@ -20,8 +20,7 @@ public class ExpressFeeCalcDTO {
     @NotNull(message = "店铺id不能为空")
     private Long storeId;
 
-    @Schema(description = "收货地址中的区县id", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "请选择收货地址")
+    @Schema(description = "收货地址中的区县id")
     private Long countyId;
 
     @Schema(description = "购买的商品数量", requiredMode = Schema.RequiredMode.REQUIRED)

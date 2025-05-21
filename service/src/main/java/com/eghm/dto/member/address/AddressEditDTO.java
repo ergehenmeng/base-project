@@ -41,8 +41,7 @@ public class AddressEditDTO {
     @NotNull(message = "城市不能为空")
     private Long cityId;
 
-    @Schema(description = "县区id", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "县区不能为空")
+    @Schema(description = "县区id")
     private Long countyId;
 
     @Schema(description = "详细地址", requiredMode = Schema.RequiredMode.REQUIRED)

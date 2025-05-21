@@ -71,8 +71,7 @@ public class MerchantAddRequest {
     @NotNull(message = "请选择城市")
     private Long cityId;
 
-    @Schema(description = "县区id", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "请选择县区")
+    @Schema(description = "县区id")
     private Long countyId;
 
     @Schema(description = "详细地址", requiredMode = Schema.RequiredMode.REQUIRED)

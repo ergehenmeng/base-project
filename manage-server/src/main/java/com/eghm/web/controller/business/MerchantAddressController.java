@@ -44,8 +44,9 @@ public class MerchantAddressController {
 
     @GetMapping("/list")
     @Operation(summary = "列表(不分页)")
-    @Parameter(name = "merchantId", description = "商户id", required = true)
-    public RespBody<List<MerchantAddressResponse>> list(@RequestParam("merchantId") Long merchantId) {
+    @Parameter(name = "merchantId", description = "商户id")
+    @Parameter(name = "merchantId", description = "商户id")
+    public RespBody<List<MerchantAddressResponse>> list(@RequestParam(value = "merchantId", required = false) Long merchantId) {
         if (merchantId == null) {
             merchantId = SecurityHolder.getMerchantId();
         }

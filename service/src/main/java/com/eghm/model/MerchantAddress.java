@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 商户收货地址表
+ * 商户收发货地址表
  * </p>
  *
  * @author 二哥很猛
@@ -38,6 +38,9 @@ public class MerchantAddress extends BaseEntity {
 
     @Schema(description = "详细地址")
     private String detailAddress;
+
+    @Schema(description = "地址类型 1: 收货地址 2: 自提地址")
+    private Integer addressType;
 
     @Schema(description = "备注信息")
     private String remark;

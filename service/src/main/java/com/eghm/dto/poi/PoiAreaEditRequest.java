@@ -48,8 +48,7 @@ public class PoiAreaEditRequest {
     @NotNull(message = "城市不能为空")
     private Long cityId;
 
-    @Schema(description = "区县id", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "区县不能为空")
+    @Schema(description = "区县id")
     private Long countyId;
 
     @Schema(description = "详细地址", requiredMode = Schema.RequiredMode.REQUIRED)
