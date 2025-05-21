@@ -59,9 +59,10 @@ public class MerchantAddressServiceImpl implements MerchantAddressService {
     }
 
     @Override
-    public List<MerchantAddressResponse> getList(Long merchantId) {
+    public List<MerchantAddressResponse> getList(Long merchantId, Integer addressType) {
         LambdaQueryWrapper<MerchantAddress> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(MerchantAddress::getMerchantId, merchantId);
+        wrapper.eq(merchantId != null, MerchantAddress::getMerchantId, merchantId);
+        wrapper.eq(addressType != null, MerchantAddress::getAddressType, addressType);
         wrapper.orderByDesc(MerchantAddress::getId);
         List<MerchantAddress> selectList = merchantAddressMapper.selectList(wrapper);
         return DataUtil.copy(selectList, this::transfer);
