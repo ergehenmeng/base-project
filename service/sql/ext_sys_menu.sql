@@ -751,16 +751,16 @@ VALUES ('10121611', '列表', '8SO0', NULL, '101216', NULL, '/manage/item/listPa
         b'1', NULL, '3', '2022-12-16 14:35:30', '2024-06-11 09:40:07');
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`,
                         `display_state`, `create_time`, `update_time`)
-VALUES ('10121612', '新增', 'jSO0', NULL, '101216', NULL, '/manage/item/create,/manage/item/store/list', '2', '30',
+VALUES ('10121612', '新增', 'jSO0', NULL, '101216', NULL, '/manage/item/create,/manage/item/store/list,/manage/merchant/address/list', '2', '30',
         b'1', NULL, '1', '2022-12-16 14:35:30', '2024-06-11 09:40:09');
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`,
                         `display_state`, `create_time`, `update_time`)
 VALUES ('10121613', '编辑', 'gSO0', NULL, '101216', NULL,
-        '/manage/item/update,/manage/item/select,/manage/item/store/list', '2', '40', b'1', NULL, '1',
+        '/manage/item/update,/manage/item/select,/manage/item/store/list,/manage/merchant/address/list', '2', '40', b'1', NULL, '1',
         '2022-12-16 14:35:30', '2024-06-11 09:40:12');
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`,
                         `display_state`, `create_time`, `update_time`)
-VALUES ('10121614', '详情', '2SO0', NULL, '101216', NULL, '/manage/item/select,/manage/item/store/list', '2', '50',
+VALUES ('10121614', '详情', '2SO0', NULL, '101216', NULL, '/manage/item/select,/manage/item/store/list,/manage/merchant/address/list', '2', '50',
         b'1', NULL, '3', '2022-12-16 14:35:31', '2024-06-11 09:40:17');
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`,
                         `display_state`, `create_time`, `update_time`)
