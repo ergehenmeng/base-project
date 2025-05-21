@@ -45,6 +45,10 @@ public class AddressEditRequest {
     @ApiModelProperty(value = "县区id")
     private Long countyId;
 
+    @ApiModelProperty(value = "地址类型 1: 收货地址 2: 自提地址")
+    @NotNull(message = "请选择地址类型")
+    private Integer addressType;
+
     @ApiModelProperty(value = "详细地址", required = true)
     @NotEmpty(message = "详细地址不能为空")
     @Size(max = 50, message = "详细地址最大50字符")

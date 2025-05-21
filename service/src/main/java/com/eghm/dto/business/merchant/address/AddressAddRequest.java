@@ -38,6 +38,10 @@ public class AddressAddRequest {
     @NotNull(message = "城市不能为空")
     private Long cityId;
 
+    @ApiModelProperty(value = "地址类型 1: 收货地址 2: 自提地址")
+    @NotNull(message = "请选择地址类型")
+    private Integer addressType;
+
     @ApiModelProperty(value = "县区id")
     private Long countyId;
 

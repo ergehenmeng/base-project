@@ -36,6 +36,9 @@ public class MerchantAddress extends BaseEntity {
     @ApiModelProperty(value = "县区id")
     private Long countyId;
 
+    @ApiModelProperty("地址类型 1: 收货地址 2: 自提地址")
+    private Integer addressType;
+
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
 

@@ -29,6 +29,9 @@ public class MerchantAddressResponse {
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
 
+    @ApiModelProperty(value = "地址类型 1: 收货地址 2: 自提地址")
+    private Integer addressType;
+
     @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;

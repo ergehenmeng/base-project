@@ -14,6 +14,7 @@ import com.eghm.vo.business.merchant.address.MerchantAddressDetailResponse;
 import com.eghm.vo.business.merchant.address.MerchantAddressResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -43,12 +44,15 @@ public class MerchantAddressController {
 
     @GetMapping("/list")
     @ApiOperation("列表(全部)")
-    @ApiImplicitParam(name = "merchantId", value = "商户id", required = true)
-    public RespBody<List<MerchantAddressResponse>> list(@RequestParam("merchantId") Long merchantId) {
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "merchantId", value = "商户id"),
+            @ApiImplicitParam(name = "addressType", value = "地址分类 1:收货地址 2:自提地址")
+    })
+    public RespBody<List<MerchantAddressResponse>> list(@RequestParam(value = "addressType", required = false) Integer addressType, @RequestParam(value = "merchantId", required = false) Long merchantId) {
         if (merchantId == null) {
             merchantId = SecurityHolder.getMerchantId();
         }
-        List<MerchantAddressResponse> voList = merchantAddressService.getList(merchantId);
+        List<MerchantAddressResponse> voList = merchantAddressService.getList(merchantId, addressType);
         return RespBody.success(voList);
     }
 
@@ -63,7 +67,6 @@ public class MerchantAddressController {
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("编辑")
     public RespBody<Void> update(@RequestBody @Validated AddressEditRequest request) {
-        request.setMerchantId(SecurityHolder.getMerchantId());
         merchantAddressService.update(request);
         return RespBody.success();
     }
