@@ -48,8 +48,7 @@ public class RestaurantAddRequest {
     @NotNull(message = "城市不能为空")
     private Long cityId;
 
-    @ApiModelProperty(value = "县区id", required = true)
-    @NotNull(message = "县区不能为空")
+    @ApiModelProperty(value = "县区id")
     private Long countyId;
 
     @ApiModelProperty(value = "详细地址", required = true)

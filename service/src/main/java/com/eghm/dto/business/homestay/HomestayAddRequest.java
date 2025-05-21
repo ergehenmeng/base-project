@@ -40,8 +40,7 @@ public class HomestayAddRequest {
     @NotNull(message = "城市不能为空")
     private Long cityId;
 
-    @ApiModelProperty(value = "县区", required = true)
-    @NotNull(message = "县区不能为空")
+    @ApiModelProperty(value = "县区")
     private Long countyId;
 
     @ApiModelProperty(value = "详细地址", required = true)

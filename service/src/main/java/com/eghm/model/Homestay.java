@@ -48,7 +48,6 @@ public class Homestay extends BaseEntity {
     private Long cityId;
 
     @ApiModelProperty(value = "县区")
-    @NotNull(message = "县区不能为空")
     private Long countyId;
 
     @ApiModelProperty(value = "详细地址")

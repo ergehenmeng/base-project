@@ -54,8 +54,7 @@ public class ScenicEditRequest {
     @NotNull(message = "请选择城市")
     private Long cityId;
 
-    @ApiModelProperty(value = "县区id", required = true)
-    @NotNull(message = "请选择县区")
+    @ApiModelProperty(value = "县区id")
     private Long countyId;
 
     @ApiModelProperty(value = "详细地址", required = true)

@@ -20,8 +20,7 @@ public class ExpressFeeCalcDTO {
     @NotNull(message = "店铺id不能为空")
     private Long storeId;
 
-    @ApiModelProperty(value = "收货地址中的区县id", required = true)
-    @NotNull(message = "请选择收货地址")
+    @ApiModelProperty(value = "收货地址中的区县id")
     private Long countyId;
 
     @ApiModelProperty(value = "购买的商品数量", required = true)

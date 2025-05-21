@@ -49,7 +49,6 @@ public class TravelAgency extends BaseEntity {
     private Long cityId;
 
     @ApiModelProperty(value = "县区id")
-    @NotNull(message = "请选择县区")
     private Long countyId;
 
     @ApiModelProperty(value = "详细地址")
