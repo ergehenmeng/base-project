@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.support.CronExpression;
 
-import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -155,7 +155,7 @@ public class TaskRegistrar {
      */
     public void addTask(OnceTask task) {
         String nid = task.getBeanName() + "-" + task.getMethodName() + "-" + counter.getAndIncrement();
-        ScheduledFuture<?> schedule = taskScheduler.schedule(new Invoker(task), task.getExecuteTime().atZone(ZoneOffset.systemDefault()).toInstant());
+        ScheduledFuture<?> schedule = taskScheduler.schedule(new Invoker(task), task.getExecuteTime().atZone(ZoneId.systemDefault()).toInstant());
         scheduledFutures.put(nid, schedule);
     }
 
