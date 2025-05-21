@@ -14,6 +14,7 @@ import com.eghm.mapper.ItemStoreMapper;
 import com.eghm.mapper.MerchantAddressMapper;
 import com.eghm.model.ItemStore;
 import com.eghm.model.MerchantAddress;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.MerchantAddressService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
@@ -41,6 +42,8 @@ import static com.eghm.enums.ErrorCode.MERCHANT_ADDRESS_NULL;
 @AllArgsConstructor
 @Service("merchantAddressService")
 public class MerchantAddressServiceImpl implements MerchantAddressService {
+
+    private final CommonService commonService;
 
     private final SysAreaService sysAreaService;
 
@@ -75,20 +78,18 @@ public class MerchantAddressServiceImpl implements MerchantAddressService {
 
     @Override
     public void update(AddressEditRequest request) {
+        MerchantAddress selected = this.selectByIdRequired(request.getId());
+        commonService.checkIllegal(selected.getMerchantId());
+        if (!selected.getAddressType().equals(request.getAddressType())) {
+            this.checkAddress(request.getId(), selected.getMerchantId());
+        }
         DataUtil.copy(request, MerchantAddress.class, merchantAddressMapper::updateById);
     }
 
     @Override
     public void delete(Long id) {
         Long merchantId = SecurityHolder.getMerchantId();
-        LambdaQueryWrapper<ItemStore> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(ItemStore::getDepotAddressId, id);
-        wrapper.eq(ItemStore::getMerchantId, merchantId);
-        Long count = itemStoreMapper.selectCount(wrapper);
-        if (count > 0) {
-            log.error("仓库收货地址被使用,无法删除 [{}]", id);
-            throw new BusinessException(ADDRESS_OCCUPIED);
-        }
+        this.checkAddress(id, merchantId);
         LambdaUpdateWrapper<MerchantAddress> updateWrapper = Wrappers.lambdaUpdate();
         updateWrapper.eq(MerchantAddress::getId, id);
         updateWrapper.eq(MerchantAddress::getMerchantId, merchantId);
@@ -116,6 +117,23 @@ public class MerchantAddressServiceImpl implements MerchantAddressService {
         vo.setMobile(address.getMobile());
         vo.setDetailAddress(sysAreaService.parseArea(address.getProvinceId(), address.getCityId(), address.getCountyId(), address.getDetailAddress()));
         return vo;
+    }
+
+    /**
+     * 检查地址是否被使用
+     *
+     * @param id id
+     * @param merchantId 商户id
+     */
+    private void checkAddress(Long id, Long merchantId) {
+        LambdaQueryWrapper<ItemStore> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(ItemStore::getDepotAddressId, id);
+        wrapper.eq(ItemStore::getMerchantId, merchantId);
+        Long count = itemStoreMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.error("收货/自提地址被使用,无法切换或删除 [{}]", id);
+            throw new BusinessException(ADDRESS_OCCUPIED);
+        }
     }
 
     /**

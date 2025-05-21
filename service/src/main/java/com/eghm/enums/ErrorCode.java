@@ -1851,9 +1851,9 @@ public enum ErrorCode {
     VISIT_DATE_ILLEGAL(3053, "请选择合适的预约日期"),
 
     /**
-     * 该地址已被店铺占用,请先更换店铺地址
+     * 该地址已被使用
      */
-    ADDRESS_OCCUPIED(3056, "该地址已被店铺占用,请先更换店铺地址"),
+    ADDRESS_OCCUPIED(3056, "该地址已被使用"),
 
     /**
      * 收货地址不存在

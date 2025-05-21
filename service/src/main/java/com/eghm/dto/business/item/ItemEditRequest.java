@@ -61,7 +61,7 @@ public class ItemEditRequest {
     @RangeInt(min = 1, max = 999, message = "限购数量1~999之间")
     private Integer quota;
 
-    @Schema(description = "交付方式 0:无须发货 1:快递包邮 2:门店自提", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "交付方式 0:无须发货 1:快递 2:自提 3:快递+自提", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "请选择交付方式")
     private DeliveryType deliveryType;
 
@@ -73,6 +73,9 @@ public class ItemEditRequest {
 
     @Schema(description = "物流模板id(为空表示包邮)")
     private Long expressId;
+
+    @Schema(description = "自提点id(自提时不能为空)")
+    private Long pickupId;
 
     @Schema(description = "sku列表", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "sku不能为空")

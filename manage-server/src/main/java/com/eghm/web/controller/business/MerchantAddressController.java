@@ -66,7 +66,6 @@ public class MerchantAddressController {
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "编辑")
     public RespBody<Void> update(@RequestBody @Validated AddressEditRequest request) {
-        request.setMerchantId(SecurityHolder.getMerchantId());
         merchantAddressService.update(request);
         return RespBody.success();
     }

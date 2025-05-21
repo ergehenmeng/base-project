@@ -68,7 +68,7 @@ public class ItemDetailVO {
     @Schema(description = "物流模板(为空表示包邮)")
     private Long expressId;
 
-    @Schema(description = "交付方式 0:无须发货 1:快递包邮 2:门店自提")
+    @Schema(description = "交付方式 0:无须发货 1:快递 2:自提 3:快递+自提")
     private DeliveryType deliveryType;
 
     @Schema(description = "最低价格")

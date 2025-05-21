@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class ItemCouponQueryDTO extends PagingQuery {
 
-    @Schema(description = "交付方式 0:无须发货 1:快递包邮 2:门店自提")
+    @Schema(description = "交付方式 0:无须发货 1:快递 2:自提 3:快递+自提")
     private DeliveryType deliveryType;
 
     @Schema(description = "排序规则 0:默认排序 1:按价格排序 2:按销售量排序 3:评分排序")
