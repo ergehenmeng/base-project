@@ -45,13 +45,11 @@ public class MerchantAddressController {
     @GetMapping("/list")
     @Operation(summary = "列表(不分页)")
     @Parameter(name = "merchantId", description = "商户id")
-    @Parameter(name = "addressType", description = "地址分类 1:收货地址 2:自提地址")
-    public RespBody<List<MerchantAddressResponse>> list(@RequestParam(value = "addressType", required = false) Integer addressType,
-                                                        @RequestParam(value = "merchantId", required = false) Long merchantId) {
+    public RespBody<List<MerchantAddressResponse>> list(@RequestParam(value = "merchantId", required = false) Long merchantId) {
         if (merchantId == null) {
             merchantId = SecurityHolder.getMerchantId();
         }
-        List<MerchantAddressResponse> voList = merchantAddressService.getList(merchantId, addressType);
+        List<MerchantAddressResponse> voList = merchantAddressService.getList(merchantId);
         return RespBody.success(voList);
     }
 

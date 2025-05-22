@@ -1541,6 +1541,16 @@ public enum ErrorCode {
     ITEM_CHECK_QUOTA(2864, "[%s]限购:d%件"),
 
     /**
+     * 商品%s不支持%s
+     */
+    ITEM_DELIVERY_VALID(2865, "商品%s不支持%s"),
+
+    /**
+     * 商品规格不匹配
+     */
+    ITEM_SKU_VALID(2866, "商品规格不匹配"),
+
+    /**
      * 拼团活动不在有效期
      */
     ITEM_GROUP_NULL(2867, "拼团活动不在有效期"),
