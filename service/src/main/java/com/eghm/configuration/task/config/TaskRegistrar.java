@@ -31,7 +31,7 @@ import static com.eghm.utils.StringUtil.isBlank;
  */
 @Slf4j
 @AllArgsConstructor
-public class SysTaskRegistrar {
+public class TaskRegistrar {
 
     private final SysTaskMapper sysTaskMapper;
 
@@ -40,7 +40,7 @@ public class SysTaskRegistrar {
     /**
      * 周期定时任务
      */
-    private final Map<String, SysCronTask> cronTaskMap = new ConcurrentHashMap<>(32);
+    private final Map<String, CronTaskWrapper> cronTaskMap = new ConcurrentHashMap<>(32);
 
     /**
      * 任务执行句柄
@@ -60,9 +60,9 @@ public class SysTaskRegistrar {
         LambdaQueryWrapper<SysTask> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysTask::getState, true);
         List<SysTask> taskConfigList = sysTaskMapper.selectList(wrapper);
-        List<SysCronTask> taskList = new ArrayList<>();
+        List<CronTaskWrapper> taskList = new ArrayList<>();
         for (SysTask taskConfig : taskConfigList) {
-            SysCronTask triggerTask = new SysCronTask(DataUtil.copy(taskConfig, CronTask.class));
+            CronTaskWrapper triggerTask = new CronTaskWrapper(DataUtil.copy(taskConfig, CronTask.class));
             taskList.add(triggerTask);
         }
         this.doRefreshTask(taskList);
@@ -74,7 +74,7 @@ public class SysTaskRegistrar {
      *
      * @param taskList 新的定时任务配置列表
      */
-    private void doRefreshTask(List<SysCronTask> taskList) {
+    private void doRefreshTask(List<CronTaskWrapper> taskList) {
         // cron校验
         this.verifyCronExpression(taskList);
         // 移除不需要运行的任务
@@ -88,8 +88,8 @@ public class SysTaskRegistrar {
      *
      * @param taskList 待添加的定时任务列表
      */
-    private void addCronTask(List<SysCronTask> taskList) {
-        for (SysCronTask task : taskList) {
+    private void addCronTask(List<CronTaskWrapper> taskList) {
+        for (CronTaskWrapper task : taskList) {
             this.addCronTask(task);
         }
     }
@@ -99,7 +99,7 @@ public class SysTaskRegistrar {
      *
      * @param task 待添加的定时任务
      */
-    private void addCronTask(SysCronTask task) {
+    private void addCronTask(CronTaskWrapper task) {
         if (cronTaskMap.containsKey(task.getNid()) && cronTaskMap.get(task.getNid()).getExpression().equals(task.getExpression())) {
             log.info("定时任务配置信息未发生变化 nid:[{}]", task.getNid());
             return;
@@ -118,15 +118,15 @@ public class SysTaskRegistrar {
      * 1.如果旧定时任务与新的要执行的定时任务一样,则不移除.在添加定时任务时再判断(减少过多的停止任务的操作)
      *
      * @param taskList 指定的任务列表
-     * @see SysTaskRegistrar#addTask(OnceTask)
+     * @see TaskRegistrar#addTask(OnceTask)
      */
-    private void removeCronTask(List<SysCronTask> taskList) {
+    private void removeCronTask(List<CronTaskWrapper> taskList) {
         boolean isEmpty = taskList.isEmpty();
         Iterator<Map.Entry<String, ScheduledFuture<?>>> iterator = scheduledFutures.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, ScheduledFuture<?>> entry = iterator.next();
             // 将所有不在指定任务列表的中已经在运行的任务全部取消
-            boolean shouldCancel = (isEmpty || taskList.stream().map(SysCronTask::getNid).noneMatch(s -> s.equals(entry.getKey())));
+            boolean shouldCancel = (isEmpty || taskList.stream().map(CronTaskWrapper::getNid).noneMatch(s -> s.equals(entry.getKey())));
             if (shouldCancel) {
                 entry.getValue().cancel(false);
                 cronTaskMap.remove(entry.getKey());
@@ -140,8 +140,8 @@ public class SysTaskRegistrar {
      *
      * @param taskList cron任务列表
      */
-    private void verifyCronExpression(List<SysCronTask> taskList) {
-        for (SysCronTask task : taskList) {
+    private void verifyCronExpression(List<CronTaskWrapper> taskList) {
+        for (CronTaskWrapper task : taskList) {
             if (isBlank(task.getExpression()) || !CronExpression.isValidExpression(task.getExpression())) {
                 log.error("定时任务表达式配置错误 nid:[{}],cron:[{}]", task.getNid(), task.getExpression());
                 throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
@@ -156,7 +156,7 @@ public class SysTaskRegistrar {
      */
     public void addTask(OnceTask task) {
         String nid = task.getBeanName() + "-" + task.getMethodName() + "-" + counter.getAndIncrement();
-        ScheduledFuture<?> schedule = taskScheduler.schedule(new RunnableTask(task), task.getExecuteTime().atZone(ZoneId.systemDefault()).toInstant());
+        ScheduledFuture<?> schedule = taskScheduler.schedule(new Invoker(task), task.getExecuteTime().atZone(ZoneId.systemDefault()).toInstant());
         scheduledFutures.put(nid, schedule);
     }
 

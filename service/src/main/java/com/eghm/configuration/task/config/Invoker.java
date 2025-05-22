@@ -10,8 +10,10 @@ import com.eghm.lock.RedisLock;
 import com.eghm.model.SysTaskLog;
 import com.eghm.service.common.SysTaskLogService;
 import com.eghm.utils.SpringContextUtil;
+import com.eghm.utils.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.slf4j.MDC;
 import org.springframework.aop.support.AopUtils;
 
 import java.lang.reflect.Method;
@@ -24,7 +26,7 @@ import static com.eghm.utils.StringUtil.isBlank;
  * @since 2019/9/6 15:27
  */
 @Slf4j
-public class RunnableTask implements Runnable {
+public class Invoker implements Runnable {
 
     private final Object bean;
 
@@ -38,7 +40,7 @@ public class RunnableTask implements Runnable {
 
     private final SysTaskLogService sysTaskLogService;
 
-    RunnableTask(AbstractTask task) {
+    Invoker(AbstractTask task) {
         this.task = task;
         try {
             this.bean = SpringContextUtil.getBean(task.getBeanName());
@@ -54,6 +56,7 @@ public class RunnableTask implements Runnable {
 
     @Override
     public void run() {
+        MDC.put(CommonConstant.TRACE_ID, StringUtil.randomLowerCase(16));
         SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder().beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(NetUtil.getLocalhostStr());
         String key = task.getBeanName() + CommonConstant.SPECIAL_SPLIT + task.getMethodName();
         LocalDateTime start = LocalDateTime.now();
@@ -74,6 +77,7 @@ public class RunnableTask implements Runnable {
             builder.elapsedTime(endTime - startTime);
             builder.startTime(start);
             sysTaskLogService.addTaskLog(builder.build());
+            MDC.remove(CommonConstant.TRACE_ID);
         }
     }
 
