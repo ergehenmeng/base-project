@@ -85,6 +85,5 @@ public class ItemStoreEditRequest {
     private Long depotAddressId;
 
     @Schema(description = "自提点")
-    @NotNull(message = "请选择自提点")
     private Long pickupId;
 }

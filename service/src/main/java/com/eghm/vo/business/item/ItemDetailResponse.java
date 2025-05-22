@@ -47,6 +47,9 @@ public class ItemDetailResponse {
     @Schema(description = "交付方式 0:无须发货 1:快递 2:自提 3:快递+自提 ")
     private DeliveryType deliveryType;
 
+    @Schema(description = "是否支持自提")
+    private Boolean supportedPickup;
+
     @Schema(description = "物流模板id(为空表示包邮)")
     private Long expressId;
 
