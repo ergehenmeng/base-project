@@ -17,7 +17,6 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LineConfigMapper;
 import com.eghm.mapper.LineMapper;
-import com.eghm.model.HomestayRoomConfig;
 import com.eghm.model.Line;
 import com.eghm.model.LineConfig;
 import com.eghm.service.business.CommonService;

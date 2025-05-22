@@ -282,6 +282,10 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
                 log.error("商品所属店铺与传递的店铺不一致, storeId: [{}]", vo.getStoreId());
                 throw new BusinessException(ErrorCode.STORE_NOT_EXIST);
             }
+            if (itemStore.getPickupId() == null && context.getDeliveryType() == DeliveryType.SELF_PICK) {
+                log.error("商品所属店铺不支持自提, storeId: [{}]", vo.getStoreId());
+                throw new BusinessException(ErrorCode.STORE_NOT_SUPPORT_SELF_PICK, itemStore.getTitle());
+            }
             storePackage.setItemStore(itemStore);
             storePackage.setMemberAddress(memberAddress);
             storePackage.setScoreAmount(vo.getScoreAmount() != null ? vo.getScoreAmount() : 0);
