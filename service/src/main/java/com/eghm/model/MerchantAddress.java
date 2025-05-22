@@ -5,6 +5,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.math.BigDecimal;
+
 /**
  * <p>
  * 商户收发货地址表
@@ -41,6 +43,12 @@ public class MerchantAddress extends BaseEntity {
 
     @Schema(description = "地址类型 1: 收货地址 2: 自提地址")
     private Integer addressType;
+
+    @Schema(description = "经度")
+    private BigDecimal longitude;
+
+    @Schema(description = "纬度")
+    private BigDecimal latitude;
 
     @Schema(description = "备注信息")
     private String remark;
