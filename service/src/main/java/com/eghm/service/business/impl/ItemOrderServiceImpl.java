@@ -92,7 +92,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     }
 
     @Override
-    public void insert(String orderNo, Long memberId, List<OrderPackage> packageList, Map<Long, Integer> skuExpressMap) {
+    public void insert(String orderNo, Long memberId, List<OrderPackage> packageList, Map<Long, Integer> skuExpressMap, DeliveryType deliveryType) {
         for (OrderPackage aPackage : packageList) {
             ItemOrder order = DataUtil.copy(aPackage.getItem(), ItemOrder.class, "id");
             BeanUtil.copyProperties(aPackage.getSku(), order, "id");

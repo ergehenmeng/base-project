@@ -2,6 +2,7 @@ package com.eghm.state.machine.context;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.BaseAsyncKey;
+import com.eghm.enums.DeliveryType;
 import com.eghm.enums.ProductType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.model.Item;
@@ -35,6 +36,9 @@ public class ItemOrderCreateContext extends BaseAsyncKey implements Context {
 
     @ApiModelProperty("收货地址id")
     private Long addressId;
+
+    @ApiModelProperty(value = "配送方式")
+    private DeliveryType deliveryType;
 
     @ApiModelProperty(value = "是否为拼团订单(拼团活动只能选一个店铺的一个商品)", hidden = true)
     @Assign

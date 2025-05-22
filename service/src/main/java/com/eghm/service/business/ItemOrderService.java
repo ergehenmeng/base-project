@@ -3,6 +3,7 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
 import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
+import com.eghm.enums.DeliveryType;
 import com.eghm.model.ItemOrder;
 import com.eghm.state.machine.dto.OrderPackage;
 import com.eghm.vo.business.order.ProductSnapshotVO;
@@ -56,8 +57,9 @@ public interface ItemOrderService {
      * @param memberId      用户id
      * @param packageList   商品信息
      * @param skuExpressMap 快递费
+     * @param deliveryType  配送类型
      */
-    void insert(String orderNo, Long memberId, List<OrderPackage> packageList, Map<Long, Integer> skuExpressMap);
+    void insert(String orderNo, Long memberId, List<OrderPackage> packageList, Map<Long, Integer> skuExpressMap, DeliveryType deliveryType);
 
     /**
      * 查询订单信息

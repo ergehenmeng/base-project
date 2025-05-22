@@ -32,10 +32,9 @@ public interface MerchantAddressService {
      * 获取商户收货地址(全部)
      *
      * @param merchantId 商户id
-     * @param addressType 地址类型
      * @return 收货地址
      */
-    List<MerchantAddressResponse> getList(Long merchantId, Integer addressType);
+    List<MerchantAddressResponse> getList(Long merchantId);
 
     /**
      * 添加收货地址

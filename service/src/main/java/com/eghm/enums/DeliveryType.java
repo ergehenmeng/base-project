@@ -24,14 +24,19 @@ public enum DeliveryType {
     NONE(0, "无需发货"),
 
     /**
-     * 快递包邮
+     * 包邮
      */
-    EXPRESS(1, "快递包邮"),
+    EXPRESS(1, "包邮"),
 
     /**
-     * 门店自提
+     * 自提
      */
-    SELF_PICK(2, "门店自提");
+    SELF_PICK(2, "自提"),
+
+    /**
+     * 快递+自提
+     */
+    EXPRESS_PICK(3, "快递/自提");
 
     @JsonValue
     @EnumValue

@@ -127,7 +127,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             Order order = this.generateOrder(context, aPackage, payload.getPackageList().size() > 1, expressAmount, tradeNo);
             orderService.save(order);
             // 新增零售订单
-            itemOrderService.insert(order.getOrderNo(), context.getMemberId(), aPackage.getItemList(), skuExpressMap);
+            itemOrderService.insert(order.getOrderNo(), context.getMemberId(), aPackage.getItemList(), skuExpressMap, context.getDeliveryType());
             // 更新sku库存
             Map<Long, Integer> skuNumMap = aPackage.getItemList().stream().collect(Collectors.toMap(OrderPackage::getSkuId, sku -> -sku.getNum()));
             itemSkuService.updateStock(skuNumMap);
@@ -458,6 +458,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
 
     /**
      * 前置校验
+     *
      * @param context 下单信息
      */
     private void before(ItemOrderCreateContext context) {
@@ -475,17 +476,46 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         // 校验限购数量和积分是否是100的整数
         Map<Long, Item> itemMap = itemService.getByIdShelveMap(context.getItemIds());
         for (ItemDTO dto : context.getItemList()) {
-            if (context.getTotalScore() > 0 && dto.getScoreAmount() != null && dto.getScoreAmount() % 100 > 0) {
+            if (dto.getScoreAmount() != null && dto.getScoreAmount() % 100 != 0) {
                 throw new BusinessException(SCORE_INTEGER);
             }
             for (SkuDTO sku : dto.getSkuList()) {
-                Item item = itemMap.get(sku.getItemId());
-                if (sku.getNum() > item.getQuota()) {
-                    throw new BusinessException(ITEM_CHECK_QUOTA, item.getTitle(), item.getQuota());
-                }
+                this.validateSku(sku, itemMap.get(sku.getItemId()), context.getDeliveryType());
             }
         }
         context.setItemMap(itemMap);
+    }
+
+    /**
+     * 校验sku及配送信息
+     *
+     * @param sku 规格信息
+     * @param item 商品信息
+     * @param deliveryType 配送方式
+     */
+    private void validateSku(SkuDTO sku, Item item, DeliveryType deliveryType) {
+        if (item == null) {
+            throw new BusinessException(ITEM_SKU_VALID);
+        }
+        if (sku.getNum() > item.getQuota()) {
+            throw new BusinessException(ITEM_CHECK_QUOTA, item.getTitle(), item.getQuota());
+        }
+        if (!isValidDeliveryType(item.getDeliveryType(), deliveryType)) {
+            throw new BusinessException(ITEM_DELIVERY_VALID, item.getTitle(), deliveryType.getName());
+        }
+    }
+
+    /**
+     * 配送方式校验 前端下单时快递和自提是分开的, 但是商品不一定支持指定的配送方式
+     *
+     * @param itemDeliveryType 商品支持的配送方式
+     * @param contextDeliveryType 前端传递的配送方式
+     * @return 是否合法
+     */
+    private boolean isValidDeliveryType(DeliveryType itemDeliveryType, DeliveryType contextDeliveryType) {
+        return itemDeliveryType == DeliveryType.EXPRESS_PICK
+                || itemDeliveryType == DeliveryType.NONE
+                || itemDeliveryType == contextDeliveryType;
     }
 
     /**
