@@ -83,4 +83,8 @@ public class ItemStoreEditRequest {
     @ApiModelProperty("收货地址")
     @NotNull(message = "请选择退换货地址")
     private Long depotAddressId;
+
+    @ApiModelProperty("自提点")
+    @NotNull(message = "请选择自提点")
+    private Long pickupId;
 }

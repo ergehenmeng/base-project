@@ -50,9 +50,6 @@ public class ItemDetailResponse {
     @ApiModelProperty("物流模板id(为空表示包邮)")
     private Long expressId;
 
-    @ApiModelProperty("自提点id")
-    private Long pickupId;
-
     @ApiModelProperty(value = "商品介绍信息")
     private String introduce;
 
