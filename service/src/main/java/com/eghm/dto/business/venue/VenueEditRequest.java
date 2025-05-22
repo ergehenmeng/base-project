@@ -67,6 +67,8 @@ public class VenueEditRequest {
 
     @Schema(description = "纬度", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "纬度不能为空")
+    @DecimalMin(value = "-90", message = "纬度应[-90, 90]范围内")
+    @DecimalMax(value = "90", message = "纬度应[-90, 90]范围内")
     private BigDecimal latitude;
 
     @Schema(description = "客服电话", requiredMode = Schema.RequiredMode.REQUIRED)

@@ -3,6 +3,8 @@ package com.eghm.vo.business.merchant.address;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /**
  * @author 二哥很猛
  * @since 2024/3/18
@@ -34,6 +36,12 @@ public class MerchantAddressDetailResponse {
 
     @Schema(description = "详细地址")
     private String detailAddress;
+
+    @Schema(description = "经度")
+    private BigDecimal longitude;
+
+    @Schema(description = "纬度")
+    private BigDecimal latitude;
 
     @Schema(description = "备注信息")
     private String remark;
