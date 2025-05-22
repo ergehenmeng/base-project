@@ -1,5 +1,7 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.State;
@@ -76,6 +78,7 @@ public class ItemStore extends BaseEntity {
     private Long depotAddressId;
 
     @ApiModelProperty("自提点")
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private Long pickupId;
 
 }
