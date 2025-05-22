@@ -1,6 +1,7 @@
 package com.eghm.vo.business.merchant.address;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
  */
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MerchantAddressResponse {
 
     @Schema(description = "id主键")
