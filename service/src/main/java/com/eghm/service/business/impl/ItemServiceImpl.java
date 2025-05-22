@@ -147,6 +147,8 @@ public class ItemServiceImpl implements ItemService {
         Item item = this.selectByIdRequired(itemId);
         ItemDetailResponse response = DataUtil.copy(item, ItemDetailResponse.class);
         response.setTagList(this.parseTagId(item.getTagId()));
+        ItemStore itemStore = itemStoreMapper.selectById(item.getStoreId());
+        response.setSupportedPickup(itemStore != null && itemStore.getPickupId() != null);
         List<ItemSku> skuList = itemSkuService.getSkuList(itemId);
         response.setSkuList(DataUtil.copy(skuList, ItemSkuResponse.class));
         // 多规格才会保存规格配置信息
