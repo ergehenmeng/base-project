@@ -65,6 +65,8 @@ public class ItemStoreAddRequest {
 
     @ApiModelProperty(value = "纬度", required = true)
     @NotNull(message = "纬度不能为空")
+    @DecimalMin(value = "-90", message = "纬度应[-90, 90]范围内")
+    @DecimalMax(value = "90", message = "纬度应[-90, 90]范围内")
     private BigDecimal latitude;
 
     @ApiModelProperty(value = "商家电话", required = true)
