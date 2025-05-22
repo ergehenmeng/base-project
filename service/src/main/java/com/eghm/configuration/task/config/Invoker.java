@@ -10,8 +10,10 @@ import com.eghm.lock.RedisLock;
 import com.eghm.model.SysTaskLog;
 import com.eghm.service.common.SysTaskLogService;
 import com.eghm.utils.SpringContextUtil;
+import com.eghm.utils.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.slf4j.MDC;
 import org.springframework.aop.support.AopUtils;
 
 import java.lang.reflect.Method;
@@ -54,6 +56,7 @@ public class Invoker implements Runnable {
 
     @Override
     public void run() {
+        MDC.put(CommonConstant.TRACE_ID, StringUtil.randomLowerCase(16));
         SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder().beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(NetUtil.getLocalhostStr());
         String key = task.getBeanName() + CommonConstant.SPECIAL_SPLIT + task.getMethodName();
         LocalDateTime start = LocalDateTime.now();
@@ -74,6 +77,7 @@ public class Invoker implements Runnable {
             builder.elapsedTime(endTime - startTime);
             builder.startTime(start);
             sysTaskLogService.addTaskLog(builder.build());
+            MDC.remove(CommonConstant.TRACE_ID);
         }
     }
 
