@@ -1931,6 +1931,11 @@ public enum ErrorCode {
     STORE_NOT_EXIST(3089, "店铺信息不存在"),
 
     /**
+     * 店铺%s不支持自提
+     */
+    STORE_NOT_SUPPORT_SELF_PICK(3090, "店铺%s不支持自提"),
+
+    /**
      * 支付渠道暂不支持
      */
     PAY_CHANNEL_NULL(3092, "支付渠道暂不支持"),
