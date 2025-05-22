@@ -5,9 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
@@ -47,16 +44,10 @@ public class MerchantAddress extends BaseEntity {
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
 
-    @ApiModelProperty(value = "经度", required = true)
-    @NotNull(message = "经度不能为空")
-    @DecimalMin(value = "-180", message = "经度应(-180, 180]范围内", inclusive = false)
-    @DecimalMax(value = "180", message = "经度应(-180, 180]范围内")
+    @ApiModelProperty(value = "经度")
     private BigDecimal longitude;
 
-    @ApiModelProperty(value = "纬度", required = true)
-    @NotNull(message = "纬度不能为空")
-    @DecimalMin(value = "-90", message = "纬度应[-90, 90]范围内")
-    @DecimalMax(value = "90", message = "纬度应[-90, 90]范围内")
+    @ApiModelProperty(value = "纬度")
     private BigDecimal latitude;
 
     @ApiModelProperty("备注信息")
