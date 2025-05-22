@@ -2390,19 +2390,22 @@ DROP TABLE IF EXISTS `merchant_address`;
 CREATE TABLE `merchant_address`
 (
     `id`             bigint(20) NOT NULL COMMENT '主键',
-    `merchant_id`    bigint(20)   DEFAULT NULL COMMENT '商户id',
-    `nick_name`      varchar(10)  DEFAULT NULL COMMENT '昵称',
-    `mobile`         varchar(11)  DEFAULT NULL COMMENT '手机号码',
-    `province_id`    bigint(20)   DEFAULT NULL COMMENT '省份id',
-    `city_id`        bigint(20)   DEFAULT NULL COMMENT '城市id',
-    `county_id`      bigint(20)   DEFAULT NULL COMMENT '县区id',
-    `detail_address` varchar(255) DEFAULT NULL COMMENT '详细地址',
-    `remark`         varchar(200) DEFAULT NULL COMMENT '备注信息',
-    `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`    datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`        bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `merchant_id`    bigint(20)     DEFAULT NULL COMMENT '商户id',
+    `nick_name`      varchar(10)    DEFAULT NULL COMMENT '昵称',
+    `mobile`         varchar(11)    DEFAULT NULL COMMENT '手机号码',
+    `province_id`    bigint(20)     DEFAULT NULL COMMENT '省份id',
+    `city_id`        bigint(20)     DEFAULT NULL COMMENT '城市id',
+    `county_id`      bigint(20)     DEFAULT NULL COMMENT '县区id',
+    `detail_address` varchar(255)   DEFAULT NULL COMMENT '详细地址',
+    `longitude`      decimal(10, 7) DEFAULT NULL COMMENT '经度',
+    `latitude`       decimal(10, 7) DEFAULT NULL COMMENT '纬度',
+    `address_type`   tinyint(2)     DEFAULT '1' COMMENT '地址类型: 1: 收货地址 2: 自提地址',
+    `remark`         varchar(200)   DEFAULT NULL COMMENT '备注信息',
+    `deleted`        bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `create_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`    datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`),
-    KEY `m_idx` (`merchant_id`)
+    KEY `idx_merchant_id` (`merchant_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商户收货地址表';
 
