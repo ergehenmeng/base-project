@@ -50,9 +50,6 @@ public class ItemDetailResponse {
     @Schema(description = "物流模板id(为空表示包邮)")
     private Long expressId;
 
-    @Schema(description = "自提点id")
-    private Long pickupId;
-
     @Schema(description = "商品介绍信息")
     private String introduce;
 

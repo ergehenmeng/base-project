@@ -76,9 +76,6 @@ public class ItemAddRequest {
     @Schema(description = "物流模板id(为空表示包邮)")
     private Long expressId;
 
-    @Schema(description = "自提点id(自提时不能为空)")
-    private Long pickupId;
-
     @Schema(description = "sku列表", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "sku不能为空")
     private List<ItemSkuRequest> skuList;
