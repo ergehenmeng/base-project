@@ -3,6 +3,8 @@ package com.eghm.vo.business.merchant.address;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /**
  * @author 二哥很猛
  * @since 2024/3/18
@@ -31,6 +33,12 @@ public class MerchantAddressDetailResponse {
 
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
+
+    @ApiModelProperty(value = "经度")
+    private BigDecimal longitude;
+
+    @ApiModelProperty(value = "纬度")
+    private BigDecimal latitude;
 
     @ApiModelProperty("备注信息")
     private String remark;

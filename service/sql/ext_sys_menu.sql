@@ -1036,7 +1036,7 @@ VALUES ('10122221', '删除价格', 'RCO0', NULL, '101222', NULL, '/manage/venue
         '1', '2024-02-19 14:24:38', '2024-02-19 14:25:49');
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`,
                         `display_state`, `create_time`, `update_time`)
-VALUES ('101223', '收货地址', 'RxU', 'DocumentAdd', '1012', '/product/address', NULL, '1', '66', b'1', NULL, '1',
+VALUES ('101223', '收货/自提地址', 'RxU', 'DocumentAdd', '1012', '/product/address', NULL, '1', '66', b'1', NULL, '1',
         '2024-03-20 16:24:17', '2024-05-28 18:15:43');
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`,
                         `display_state`, `create_time`, `update_time`)

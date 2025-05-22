@@ -5,10 +5,8 @@ import com.eghm.validation.annotation.Mobile;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+import java.math.BigDecimal;
 
 /**
  * @author 殿小二
@@ -53,6 +51,18 @@ public class AddressEditRequest {
     @NotEmpty(message = "详细地址不能为空")
     @Size(max = 50, message = "详细地址最大50字符")
     private String detailAddress;
+
+    @ApiModelProperty(value = "经度", required = true)
+    @NotNull(message = "经度不能为空")
+    @DecimalMin(value = "-180", message = "经度应(-180, 180]范围内", inclusive = false)
+    @DecimalMax(value = "180", message = "经度应(-180, 180]范围内")
+    private BigDecimal longitude;
+
+    @ApiModelProperty(value = "纬度", required = true)
+    @NotNull(message = "纬度不能为空")
+    @DecimalMin(value = "-90", message = "纬度应[-90, 90]范围内")
+    @DecimalMax(value = "90", message = "纬度应[-90, 90]范围内")
+    private BigDecimal latitude;
 
     @ApiModelProperty("备注信息")
     private String remark;
