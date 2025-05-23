@@ -30,10 +30,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -52,9 +49,15 @@ import static com.eghm.utils.StringUtil.isNotBlank;
 @Service("itemOrderCreateHandler")
 public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateContext> {
 
-    private final ItemOrderService itemOrderService;
-
     private final ItemService itemService;
+
+    private final JsonService jsonService;
+
+    private final OrderService orderService;
+
+    private final MemberService memberService;
+
+    private final OrderMqService orderMQService;
 
     private final ItemSkuService itemSkuService;
 
@@ -62,23 +65,19 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
 
     private final ItemStoreService itemStoreService;
 
-    private final OrderService orderService;
+    private final ItemOrderService itemOrderService;
 
-    private final JsonService jsonService;
+    private final GroupBookingService groupBookingService;
 
-    private final OrderMqService orderMQService;
+    private final MemberCouponService memberCouponService;
 
     private final MemberAddressService memberAddressService;
 
     private final ItemGroupOrderService itemGroupOrderService;
 
-    private final GroupBookingService groupBookingService;
+    private final MerchantAddressService merchantAddressService;
 
     private final LimitPurchaseItemService limitPurchaseItemService;
-
-    private final MemberService memberService;
-
-    private final MemberCouponService memberCouponService;
 
     private static final int MAX_PRODUCT_LENGTH = 100;
 
@@ -92,7 +91,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
     public void doAction(ItemOrderCreateContext context) {
         this.before(context);
         if (this.isHotSell(context)) {
-            log.info("该商品为热销商品,走MQ队列处理");
+            log.info("该商品为热销商品,走MQ队列处理 [{}]", context.getItemList());
             TransactionUtil.afterCommit(() -> this.queueOrder(context));
             return;
         }
@@ -122,15 +121,10 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         List<Order> orderList = new ArrayList<>(8);
         String tradeNo = ProductType.ITEM.generateTradeNo();
         for (StoreOrderPackage aPackage : payload.getPackageList()) {
-            Map<Long, Integer> skuExpressMap = this.calcExpressFee(aPackage.getStoreId(), aPackage.getMemberAddress().getCountyId(), aPackage.getItemList());
-            int expressAmount = skuExpressMap.values().stream().filter(Objects::nonNull).reduce(Integer::sum).orElse(0);
-            Order order = this.generateOrder(context, aPackage, payload.getPackageList().size() > 1, expressAmount, tradeNo);
+            Order order = this.generateOrder(context, aPackage, payload.getPackageList().size() > 1, tradeNo);
             orderService.save(order);
-            // 新增零售订单
-            itemOrderService.insert(order.getOrderNo(), context.getMemberId(), aPackage.getItemList(), skuExpressMap, context.getDeliveryType());
-            // 更新sku库存
-            Map<Long, Integer> skuNumMap = aPackage.getItemList().stream().collect(Collectors.toMap(OrderPackage::getSkuId, sku -> -sku.getNum()));
-            itemSkuService.updateStock(skuNumMap);
+            itemOrderService.insert(order.getOrderNo(), context.getMemberId(), aPackage.getItemList(), aPackage.getSkuExpressMap(), context.getDeliveryType());
+            this.updateSkuStock(aPackage.getItemList());
             // 如果是拼团订单的话 一定是单商品
             itemGroupOrderService.save(context, order, aPackage.getItemList().get(0).getItemId());
             orderList.add(order);
@@ -162,17 +156,15 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      * 1. 生成主订单
      * 2. 计算待支付金额 (限时购, 拼团,积分)
      *
-     * @param context     上下文
-     * @param aPackage    下单信息
+     * @param context       上下文
+     * @param aPackage      下单信息
      * @param multiple      是否为多笔订单同时支付
-     * @param expressAmount 快递费
-     * @param tradeNo    交易单号
+     * @param tradeNo       交易单号
      * @return 订单信息
      */
-    private Order generateOrder(ItemOrderCreateContext context, StoreOrderPackage aPackage, boolean multiple, int expressAmount, String tradeNo) {
+    private Order generateOrder(ItemOrderCreateContext context, StoreOrderPackage aPackage, boolean multiple, String tradeNo) {
         List<OrderPackage> packageList = aPackage.getItemList();
         Order order = new Order();
-        MemberAddress address = aPackage.getMemberAddress();
         order.setStoreId(aPackage.getStoreId());
         order.setMerchantId(aPackage.getItemStore().getMerchantId());
         order.setTitle(this.getTitle(packageList));
@@ -188,14 +180,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         order.setRefundState(RefundState.NONE);
         order.setAmount(aPackage.getItemAmount());
         order.setDiscountAmount(aPackage.getCouponAmount());
-        order.setExpressAmount(expressAmount);
         order.setCouponId(aPackage.getCouponId());
-        order.setProvinceId(address.getProvinceId());
-        order.setCityId(address.getCityId());
-        order.setCountyId(address.getCountyId());
-        order.setDetailAddress(address.getDetailAddress());
-        order.setNickName(address.getNickName());
-        order.setMobile(address.getMobile());
         order.setRemark(aPackage.getRemark());
         order.setLimitId(context.getLimitId());
         order.setBookingId(context.getBookingId());
@@ -204,7 +189,44 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         order.setCreateDate(LocalDate.now());
         order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
-        Integer payAmount = aPackage.getItemAmount() + expressAmount - aPackage.getCouponAmount();
+        if (context.getDeliveryType() == DeliveryType.EXPRESS) {
+            Map<Long, Integer> skuExpressMap = this.calcExpressFee(aPackage);
+            aPackage.setSkuExpressMap(skuExpressMap);
+            order.setExpressAmount(skuExpressMap.values().stream().filter(Objects::nonNull).reduce(Integer::sum).orElse(0));
+            // 设置收货地址
+            MemberAddress address = aPackage.getMemberAddress();
+            order.setProvinceId(address.getProvinceId());
+            order.setCityId(address.getCityId());
+            order.setCountyId(address.getCountyId());
+            order.setDetailAddress(address.getDetailAddress());
+            order.setNickName(address.getNickName());
+            order.setMobile(address.getMobile());
+        } else if (context.getDeliveryType() == DeliveryType.SELF_PICK) {
+            // 设置自提点信息
+            MerchantAddress address = aPackage.getMerchantAddress();
+            order.setProvinceId(address.getProvinceId());
+            order.setCityId(address.getCityId());
+            order.setCountyId(address.getCountyId());
+            order.setDetailAddress(address.getDetailAddress());
+            order.setNickName(address.getNickName());
+            order.setMobile(address.getMobile());
+        }
+        this.setFinalPayAmount(aPackage, order);
+        // 如果零元购的话, 由于不走支付, 则需要生成一个交易单号保证数据完整性且模拟支付成功保证完整链路正常
+        if (order.getPayAmount() <= 0) {
+            order.setTradeNo(tradeNo);
+        }
+        return order;
+    }
+
+    /**
+     * 设置订单最终支付金额
+     *
+     * @param aPackage 下单信息及商品信息
+     * @param order 预订单信息
+     */
+    protected void setFinalPayAmount(StoreOrderPackage aPackage, Order order) {
+        Integer payAmount = aPackage.getItemAmount() + order.getExpressAmount() - aPackage.getCouponAmount();
         if (aPackage.getScoreAmount() <= 0) {
             order.setPayAmount(payAmount);
             order.setScoreAmount(0);
@@ -218,11 +240,6 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
                 order.setPayAmount(0);
             }
         }
-        // 如果零元购的话, 由于不走支付, 则需要生成一个交易单号保证数据完整性且模拟支付成功保证完整链路正常
-        if (order.getPayAmount() <= 0) {
-            order.setTradeNo(tradeNo);
-        }
-        return order;
     }
 
     /**
@@ -261,6 +278,8 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
     /**
      * 1. 设置上下文所需要的参数(查询商品信息)
      * 2. 组装数据,减少后续遍历或查询数据库
+     * 3. 特殊业务校验
+     *
      * @param context 下单上下文
      * @return 下单信息
      */
@@ -269,6 +288,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         Map<Long, ItemSku> skuMap = itemSkuService.getByIdShelveMap(context.getSkuIds());
         List<Long> storeIds = context.getItemMap().values().stream().map(Item::getStoreId).distinct().collect(Collectors.toList());
         Map<Long, ItemStore> storeMap = itemStoreService.selectByIdShelveMap(storeIds);
+        Map<Long, MerchantAddress> addressMap = this.getAddressMap(storeMap.values(), context.getDeliveryType());
         Map<Long, ItemSpec> specMap = itemSpecService.getByIdMap(context.getItemMap().keySet());
         List<StoreOrderPackage> packageList = new ArrayList<>();
         StoreOrderPackage storePackage;
@@ -276,17 +296,8 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         // 组织用户在某个店铺下单时的商品信息并计算预计付款金额/优惠金额
         for (ItemDTO vo : context.getItemList()) {
             storePackage = new StoreOrderPackage();
+            this.checkSetStoreAddress(vo.getStoreId(), storePackage, storeMap, addressMap, context.getDeliveryType());
             storePackage.setStoreId(vo.getStoreId());
-            ItemStore itemStore = storeMap.get(vo.getStoreId());
-            if (itemStore == null) {
-                log.error("商品所属店铺与传递的店铺不一致, storeId: [{}]", vo.getStoreId());
-                throw new BusinessException(ErrorCode.STORE_NOT_EXIST);
-            }
-            if (itemStore.getPickupId() == null && context.getDeliveryType() == DeliveryType.SELF_PICK) {
-                log.error("商品所属店铺不支持自提, storeId: [{}]", vo.getStoreId());
-                throw new BusinessException(ErrorCode.STORE_NOT_SUPPORT_SELF_PICK, itemStore.getTitle());
-            }
-            storePackage.setItemStore(itemStore);
             storePackage.setMemberAddress(memberAddress);
             storePackage.setScoreAmount(vo.getScoreAmount() != null ? vo.getScoreAmount() : 0);
             storePackage.setCouponId(vo.getCouponId());
@@ -303,7 +314,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
                 orderList.add(orderPackage);
             }
             storePackage.setItemList(orderList);
-            Integer itemAmount = this.checkAndCalcTotalAmount(storePackage.getItemList(), context);
+            Integer itemAmount = this.checkAndCalcTotalAmount(orderList, context);
             storePackage.setItemAmount(itemAmount);
             if (storePackage.getCouponId() != null) {
                 // 用户在该店铺下单时使用了优惠券/校验优惠券是否可用并计算优惠了多少钱
@@ -318,6 +329,50 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         ItemOrderPayload orderDTO = new ItemOrderPayload();
         orderDTO.setPackageList(packageList);
         return orderDTO;
+    }
+
+    /**
+     * 检查商品是否属于该店铺, 并且设置店铺信息
+     *
+     * @param storeId 店铺id
+     * @param storePackage 店铺订单信息
+     * @param storeMap 店铺信息
+     * @param addressMap 自提点
+     * @param deliveryType 配送方式
+     */
+    private void checkSetStoreAddress(Long storeId, StoreOrderPackage storePackage, Map<Long, ItemStore> storeMap, Map<Long, MerchantAddress> addressMap, DeliveryType deliveryType) {
+        ItemStore itemStore = storeMap.get(storeId);
+        storePackage.setItemStore(itemStore);
+        if (itemStore == null) {
+            log.error("商品所属店铺与传递的店铺不一致, storeId: [{}]", storeId);
+            throw new BusinessException(ErrorCode.STORE_NOT_EXIST);
+        }
+        if (deliveryType == DeliveryType.SELF_PICK) {
+            if (itemStore.getPickupId() == null) {
+                log.error("商品所属店铺不支持自提, storeId: [{}]", storeId);
+                throw new BusinessException(ErrorCode.STORE_NOT_SUPPORT_SELF_PICK, itemStore.getTitle());
+            }
+            MerchantAddress address = addressMap.get(itemStore.getPickupId());
+            if (address == null) {
+                log.error("商品所属店铺自提点不存在, storeId: [{}] [{}]", storeId, itemStore.getPickupId());
+                throw new BusinessException(ErrorCode.STORE_SELF_PICK_DOWN, itemStore.getTitle());
+            }
+            storePackage.setMerchantAddress(address);
+        }
+    }
+
+    /**
+     * 如果是自提商品,则获取自提点信息
+     *
+     * @param storeList 店铺信息
+     * @param deliveryType 配送方式
+     * @return 自提点信息
+     */
+    private Map<Long, MerchantAddress> getAddressMap(Collection<ItemStore> storeList, DeliveryType deliveryType) {
+        if (deliveryType != DeliveryType.EXPRESS_PICK) {
+            return new HashMap<>(8);
+        }
+        return merchantAddressService.selectByIdMap(storeList.stream().map(ItemStore::getPickupId).collect(Collectors.toList()));
     }
 
     /**
@@ -343,7 +398,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      * 2. 如果在拼团中, 拼团过了有效期则自动取消
      *
      * @param aPackage 商品信息
-     * @param context context
+     * @param context  context
      * @return 单价
      */
     private Integer checkAndCalcFinalPrice(OrderPackage aPackage, ItemOrderCreateContext context) {
@@ -388,7 +443,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      * 校验并设置拼团信息
      *
      * @param bookingId 拼团id
-     * @param context context
+     * @param context   context
      */
     private void checkAndSetBooking(Long bookingId, ItemOrderCreateContext context) {
         if (bookingId == null) {
@@ -428,6 +483,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
 
     /**
      * 查询sku中的一级spuId
+     *
      * @param spuList spuList,多个逗号分隔
      * @return 列表
      */
@@ -441,20 +497,18 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
     /**
      * 计算每个sku商品快递费用
      *
-     * @param storeId  店铺名称
-     * @param countyId 收货县区
-     * @param itemList 下单商品(单个店铺所有商品)
+     * @param aPackage 下单信息
      * @return sku-express 单位:分
      */
-    private Map<Long, Integer> calcExpressFee(Long storeId, Long countyId, List<OrderPackage> itemList) {
+    private Map<Long, Integer> calcExpressFee(StoreOrderPackage aPackage) {
         ExpressFeeCalcDTO dto = new ExpressFeeCalcDTO();
-        List<ItemCalcDTO> dtoList = DataUtil.copy(itemList, ItemCalcDTO.class);
+        List<ItemCalcDTO> dtoList = DataUtil.copy(aPackage.getItemList(), ItemCalcDTO.class);
         dto.setOrderList(dtoList);
-        dto.setStoreId(storeId);
-        dto.setCountyId(countyId);
-        Integer express = itemService.calcStoreExpressFee(dto);
+        dto.setStoreId(aPackage.getStoreId());
+        dto.setCountyId(aPackage.getMemberAddress().getCountyId());
+        Integer expressFee = itemService.calcStoreExpressFee(dto);
         // 累计快递费小于等于0,则每个sku肯定免费
-        if (express <= 0) {
+        if (expressFee <= 0) {
             return Maps.newHashMap();
         }
         return dtoList.stream().collect(Collectors.toMap(ItemCalcDTO::getSkuId, ItemCalcDTO::getExpressFee));
@@ -525,7 +579,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
     /**
      * 订单创建成功的后置校验
      *
-     * @param context 下单信息
+     * @param context   下单信息
      * @param orderList 生成的订单信息
      */
     private void after(ItemOrderCreateContext context, List<Order> orderList) {
@@ -540,7 +594,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             notify.setSuccessTime(LocalDateTime.now());
             notify.setTradeNo(tradeNo);
             notify.setTradeType(TradeType.ZERO);
-            // 此次没有采用bean注入的方式获取handler? 因为构造方法注入会产生循环依赖
+            // 此次没有采用bean注入的方式获取handler? 因为构造方法注入会产生循环依赖. 零元购会触发支付成功的状态流, 支付成功会额外开启事务,因此此处需要等事务提交后再执行异步通知
             TransactionUtil.afterCommit(() -> SpringContextUtil.getBean(ItemAccessHandler.class).paySuccess(notify));
         } else {
             // 30分钟过期定时任务
@@ -559,4 +613,15 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
     public ProductType getStateMachineType() {
         return ProductType.ITEM;
     }
+
+    /**
+     * 更新sku库存
+     *
+     * @param itemList 下单商品列表
+     */
+    private void updateSkuStock(List<OrderPackage> itemList) {
+        Map<Long, Integer> skuNumMap = itemList.stream().collect(Collectors.toMap(OrderPackage::getSkuId, sku -> -sku.getNum()));
+        itemSkuService.updateStock(skuNumMap);
+    }
+
 }

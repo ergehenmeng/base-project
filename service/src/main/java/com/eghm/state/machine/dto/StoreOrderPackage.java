@@ -2,10 +2,12 @@ package com.eghm.state.machine.dto;
 
 import com.eghm.model.ItemStore;
 import com.eghm.model.MemberAddress;
+import com.eghm.model.MerchantAddress;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 二哥很猛
@@ -17,6 +19,9 @@ public class StoreOrderPackage {
 
     @ApiModelProperty("店铺id")
     private Long storeId;
+
+    @ApiModelProperty("自提点id")
+    private MerchantAddress merchantAddress;
 
     @ApiModelProperty("零售店铺信息")
     private ItemStore itemStore;
@@ -38,6 +43,9 @@ public class StoreOrderPackage {
 
     @ApiModelProperty("收货地址")
     private MemberAddress memberAddress;
+
+    @ApiModelProperty("每个sku运费(承载数据,减少后续重复运算)")
+    private Map<Long, Integer> skuExpressMap;
 
     @ApiModelProperty("订单备注")
     private String remark;

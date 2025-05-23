@@ -9,6 +9,7 @@ import com.eghm.vo.business.merchant.address.MerchantAddressResponse;
 import com.eghm.vo.business.merchant.address.MerchantAddressVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -72,4 +73,12 @@ public interface MerchantAddressService {
      * @return 收货地址
      */
     MerchantAddressVO getAddress(Long storeId);
+
+    /**
+     * 根据id查询地址
+     *
+     * @param ids ids
+     * @return 自提点或收货点
+     */
+    Map<Long, MerchantAddress> selectByIdMap(List<Long> ids);
 }

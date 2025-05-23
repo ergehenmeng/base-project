@@ -25,6 +25,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static com.eghm.enums.ErrorCode.ADDRESS_OCCUPIED;
 import static com.eghm.enums.ErrorCode.MERCHANT_ADDRESS_NULL;
@@ -119,6 +122,11 @@ public class MerchantAddressServiceImpl implements MerchantAddressService {
         return vo;
     }
 
+    @Override
+    public Map<Long, MerchantAddress> selectByIdMap(List<Long> ids) {
+        List<MerchantAddress> addressList = merchantAddressMapper.selectBatchIds(ids);
+        return addressList.stream().collect(Collectors.toMap(MerchantAddress::getId, Function.identity()));
+    }
     /**
      * 检查地址是否被使用
      *
