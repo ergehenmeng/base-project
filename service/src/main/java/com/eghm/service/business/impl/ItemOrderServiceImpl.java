@@ -111,7 +111,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
                 order.setSkuCoverUrl(aPackage.getItem().getCoverUrl());
             }
             order.setNum(aPackage.getNum());
-            order.setDeliveryType(aPackage.getItem().getDeliveryType());
+            order.setDeliveryType(deliveryType);
             order.setExpressFee(skuExpressMap.get(order.getSkuId()));
             itemOrderMapper.insert(order);
         }
