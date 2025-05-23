@@ -2,10 +2,12 @@ package com.eghm.state.machine.dto;
 
 import com.eghm.model.ItemStore;
 import com.eghm.model.MemberAddress;
+import com.eghm.model.MerchantAddress;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 二哥很猛
@@ -20,6 +22,9 @@ public class StoreOrderPackage {
 
     @Schema(description = "零售店铺信息")
     private ItemStore itemStore;
+
+    @Schema(description = "自提点id")
+    private MerchantAddress merchantAddress;
 
     @Schema(description = "订单商品信息")
     private List<OrderPackage> itemList;
@@ -38,6 +43,9 @@ public class StoreOrderPackage {
 
     @Schema(description = "收货地址")
     private MemberAddress memberAddress;
+
+    @Schema(description = "每个sku运费(承载数据,减少后续重复运算)")
+    private Map<Long, Integer> skuExpressMap;
 
     @Schema(description = "订单备注")
     private String remark;
