@@ -204,6 +204,9 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         } else if (context.getDeliveryType() == DeliveryType.SELF_PICK) {
             // 设置自提点信息
             MerchantAddress address = aPackage.getMerchantAddress();
+            aPackage.setSkuExpressMap(Collections.emptyMap());
+            order.setExpressAmount(0);
+            order.setExpressAmount(0);
             order.setProvinceId(address.getProvinceId());
             order.setCityId(address.getCityId());
             order.setCountyId(address.getCountyId());
@@ -369,7 +372,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      * @return 自提点信息
      */
     private Map<Long, MerchantAddress> getAddressMap(Collection<ItemStore> storeList, DeliveryType deliveryType) {
-        if (deliveryType != DeliveryType.EXPRESS_PICK) {
+        if (deliveryType != DeliveryType.SELF_PICK) {
             return new HashMap<>(8);
         }
         return merchantAddressService.selectByIdMap(storeList.stream().map(ItemStore::getPickupId).collect(Collectors.toList()));
