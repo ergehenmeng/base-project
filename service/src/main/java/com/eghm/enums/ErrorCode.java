@@ -1936,9 +1936,9 @@ public enum ErrorCode {
     STORE_NOT_SUPPORT_SELF_PICK(3090, "店铺:%s不支持自提"),
 
     /**
-     * 店铺:%s自提点已关闭
+     * %s店铺已关闭自提点
      */
-    STORE_SELF_PICK_DOWN(3091, "店铺:%s自提点已关闭"),
+    STORE_SELF_PICK_DOWN(3091, "%s店铺已关闭自提点"),
 
     /**
      * 支付渠道暂不支持
