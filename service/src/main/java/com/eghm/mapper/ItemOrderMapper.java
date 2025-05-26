@@ -118,8 +118,9 @@ public interface ItemOrderMapper extends BaseMapper<ItemOrder> {
      * 核销零售商品
      *
      * @param orderNo 订单号
+     * @param verifyId 核销记录id
      * @param ids 订单商品id 如果未用,则核销剩余全部商品
      * @return 核销的数量
      */
-    int verify(@Param("orderNo") String orderNo, @Param("ids") List<Long> ids);
+    int verify(@Param("orderNo") String orderNo, @Param("verifyId") Long verifyId, @Param("ids") List<Long> ids);
 }

@@ -95,4 +95,6 @@ public class ItemOrder extends BaseEntity {
     @Schema(description = "商品介绍信息")
     private String introduce;
 
+    @Schema(description = "自提商品核销记录id")
+    private Long verifyId;
 }

@@ -247,7 +247,7 @@
     </update>
 
     <update id="verify">
-        update `item_order` set delivery_state = 4 where order_no = #{orderNo}
+        update `item_order` set delivery_state = 4, verify_id = #{verifyId} where order_no = #{orderNo}
         and delivery_state = 3 and refund_state = 0
         <if test="ids != null and ids.size() > 0" >
             and id in

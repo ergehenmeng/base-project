@@ -1451,6 +1451,7 @@ CREATE TABLE `item_order`
     `delivery_type`  tinyint(1)    DEFAULT NULL COMMENT '交付方式 0:无须发货 1:快递 2:自提 3:快递+自提',
     `introduce`      longtext COMMENT '商品介绍信息',
     `ship_time`      datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '发货时间',
+    `verify_id`      bigint(20)    DEFAULT NULL COMMENT '自提商品核销id',
     `create_time`    datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`        bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
