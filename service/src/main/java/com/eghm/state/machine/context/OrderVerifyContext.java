@@ -22,8 +22,8 @@ public class OrderVerifyContext implements Context {
     @ApiModelProperty("订单号")
     private String orderNo;
 
-    @ApiModelProperty("待核销的游客列表(如果为空则核销全部可以核销的用户)")
-    private List<Long> visitorList;
+    @ApiModelProperty("游客id或订单商品id")
+    private List<Long> ids;
 
     @ApiModelProperty("核销备注信息")
     private String remark;

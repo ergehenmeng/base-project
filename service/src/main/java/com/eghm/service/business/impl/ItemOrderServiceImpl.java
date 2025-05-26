@@ -112,6 +112,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
             }
             order.setNum(aPackage.getNum());
             order.setDeliveryType(deliveryType);
+            order.setDeliveryState(DeliveryState.INIT);
             order.setExpressFee(skuExpressMap.get(order.getSkuId()));
             itemOrderMapper.insert(order);
         }
@@ -263,6 +264,26 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         wrapper.eq(ItemOrder::getRefundState, ItemRefundState.INIT);
         wrapper.set(ItemOrder::getDeliveryState, DeliveryState.CONFIRM_TASK);
         itemOrderMapper.update(null, wrapper);
+    }
+
+    @Override
+    public long getUnVerify(String orderNo, List<Long> ids) {
+        LambdaQueryWrapper<ItemOrder> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(ItemOrder::getOrderNo, orderNo);
+        wrapper.notIn(CollUtil.isNotEmpty(ids), ItemOrder::getId, ids);
+        wrapper.eq(ItemOrder::getRefundState, ItemRefundState.INIT);
+        wrapper.eq(ItemOrder::getDeliveryState, DeliveryState.PICK_UP);
+        return itemOrderMapper.selectCount(wrapper);
+    }
+
+    @Override
+    public int verify(String orderNo, List<Long> ids) {
+        int verify = itemOrderMapper.verify(orderNo, ids);
+        if (verify <= 0) {
+            log.error("零售订单核销为0 [{}] [{}]", orderNo, ids);
+            throw new BusinessException(ErrorCode.ORDER_NOT_PICK_UP);
+        }
+        return verify;
     }
 
     /**

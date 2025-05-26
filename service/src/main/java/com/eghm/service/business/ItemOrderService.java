@@ -187,4 +187,22 @@ public interface ItemOrderService {
      * @param orderNo 订单编号
      */
     void confirmReceipt(String orderNo);
+
+    /**
+     * 获取待核销数量
+     *
+     * @param orderNo 订单号
+     * @param ids 订单商品id
+     * @return 未核销数量
+     */
+    long getUnVerify(String orderNo, List<Long> ids);
+
+    /**
+     * 核销零售商品
+     *
+     * @param orderNo 订单号
+     * @param ids 订单商品id 如果未用,则核销剩余全部商品
+     * @return 核销的数量
+     */
+    int verify(String orderNo, List<Long> ids);
 }

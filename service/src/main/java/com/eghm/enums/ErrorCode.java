@@ -506,9 +506,14 @@ public enum ErrorCode {
     ORDER_QUERY_ERROR(2216, "订单查询失败"),
 
     /**
+     * 请选择待自提的商品
+     */
+    ORDER_NOT_PICK_UP(2217, "请选择待自提的商品"),
+
+    /**
      * 支付订单创建失败
      */
-    PAY_ORDER_ERROR(2624, "支付订单创建失败"),
+    PAY_ORDER_ERROR(2224, "支付订单创建失败"),
 
     /**
      * 退款请求超时,请稍后再试
