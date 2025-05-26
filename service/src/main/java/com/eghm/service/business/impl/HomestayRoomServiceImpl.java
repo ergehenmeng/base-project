@@ -80,11 +80,6 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
     }
 
     @Override
-    public HomestayRoom selectById(Long id) {
-        return homestayRoomMapper.selectById(id);
-    }
-
-    @Override
     public HomestayRoom selectByIdRequired(Long id) {
         HomestayRoom room = homestayRoomMapper.selectById(id);
         if (room == null) {

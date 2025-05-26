@@ -51,14 +51,6 @@ public interface HomestayRoomService {
     void update(HomestayRoomEditRequest request);
 
     /**
-     * 主键查询房型
-     *
-     * @param id id
-     * @return 房型信息
-     */
-    HomestayRoom selectById(Long id);
-
-    /**
      * 主键查询房型(为空报错)
      *
      * @param id id
