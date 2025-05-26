@@ -277,8 +277,8 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     }
 
     @Override
-    public int verify(String orderNo, List<Long> ids) {
-        int verify = itemOrderMapper.verify(orderNo, ids);
+    public int verify(String orderNo, Long verifyId, List<Long> ids) {
+        int verify = itemOrderMapper.verify(orderNo, verifyId, ids);
         if (verify <= 0) {
             log.error("零售订单核销为0 [{}] [{}]", orderNo, ids);
             throw new BusinessException(ErrorCode.ORDER_NOT_PICK_UP);

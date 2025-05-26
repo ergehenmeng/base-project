@@ -62,7 +62,7 @@ public class ItemOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     @Override
     protected int tryVerifyVisitor(OrderVerifyContext context, Order order, Long verifyId) {
-        return itemOrderService.verify(context.getOrderNo(), context.getIds());
+        return itemOrderService.verify(context.getOrderNo(), verifyId, context.getIds());
     }
 
     @Override

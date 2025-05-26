@@ -201,8 +201,9 @@ public interface ItemOrderService {
      * 核销零售商品
      *
      * @param orderNo 订单号
+     * @param verifyId 核销id
      * @param ids 订单商品id 如果未用,则核销剩余全部商品
      * @return 核销的数量
      */
-    int verify(String orderNo, List<Long> ids);
+    int verify(String orderNo, Long verifyId, List<Long> ids);
 }

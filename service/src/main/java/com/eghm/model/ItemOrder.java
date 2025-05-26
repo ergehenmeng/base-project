@@ -95,4 +95,6 @@ public class ItemOrder extends BaseEntity {
     @ApiModelProperty(value = "商品介绍信息")
     private String introduce;
 
+    @ApiModelProperty(value = "核销记录id")
+    private Long verifyId;
 }
