@@ -35,7 +35,7 @@ public class ItemAccessHandler extends AbstractAccessHandler {
 
     @Override
     public void verifyOrder(OrderVerifyContext context) {
-        stateHandler.fireEvent(ProductType.ITEM, OrderState.UN_USED.getValue(), ItemEvent.VERIFY, context);
+        stateHandler.fireEvent(ProductType.ITEM, OrderState.WAIT_TAKE.getValue(), ItemEvent.VERIFY, context);
     }
 
     @Override
