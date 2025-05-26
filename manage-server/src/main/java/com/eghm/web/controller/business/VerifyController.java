@@ -84,7 +84,7 @@ public class VerifyController {
         context.setUserId(SecurityHolder.getUserId());
         context.setMerchantId(SecurityHolder.getMerchantId());
         context.setRemark(dto.getRemark());
-        context.setVisitorList(dto.getVisitorList());
+        context.setIds(dto.getIds());
         accessHandler.verifyOrder(context);
         return RespBody.success(context.getVerifyNum());
     }

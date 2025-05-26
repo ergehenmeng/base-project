@@ -113,4 +113,13 @@ public interface ItemOrderMapper extends BaseMapper<ItemOrder> {
      * @param tradeNo 订单号
      */
     void paySuccess(@Param("tradeNo") String tradeNo);
+
+    /**
+     * 核销零售商品
+     *
+     * @param orderNo 订单号
+     * @param ids 订单商品id 如果未用,则核销剩余全部商品
+     * @return 核销的数量
+     */
+    int verify(@Param("tradeNo") String orderNo, @Param("ids") List<Long> ids);
 }

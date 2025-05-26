@@ -98,6 +98,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
             order.setPayTime(context.getSuccessTime());
             order.setPayType(PayType.valueOf(context.getTradeType().name()));
             order.setState(anyMatch ? OrderState.WAIT_DELIVERY : OrderState.WAIT_TAKE);
+            order.setVerifyNo(anyMatch ? null : ProductType.ITEM.generateVerifyNo());
             orderService.updateById(order);
             // 更新item_order状态
             itemOrderService.paySuccess(context.getTradeNo());

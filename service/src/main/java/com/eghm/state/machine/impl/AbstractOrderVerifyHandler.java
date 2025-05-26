@@ -67,7 +67,7 @@ public abstract class AbstractOrderVerifyHandler implements ActionHandler<OrderV
         if (order.getState() == OrderState.COMPLETE) {
             throw new BusinessException(ErrorCode.ORDER_VERIFIED);
         }
-        if (order.getState() != OrderState.UN_USED) {
+        if (order.getState() != OrderState.UN_USED && order.getState() != OrderState.WAIT_TAKE) {
             throw new BusinessException(ErrorCode.ORDER_NOT_VERIFY);
         }
     }
@@ -132,7 +132,7 @@ public abstract class AbstractOrderVerifyHandler implements ActionHandler<OrderV
      * @return 核销成功的人数
      */
     protected int tryVerifyVisitor(OrderVerifyContext context, Order order, Long verifyId) {
-        return orderVisitorService.visitorVerify(order.getOrderNo(), context.getVisitorList(), verifyId);
+        return orderVisitorService.visitorVerify(order.getOrderNo(), context.getIds(), verifyId);
     }
 
     /**
@@ -143,7 +143,7 @@ public abstract class AbstractOrderVerifyHandler implements ActionHandler<OrderV
      */
     protected void calcOrderState(OrderVerifyContext context, Order order) {
         // 为空则表示根据订单号核销全部未核销的订单 如果待核销的数量为0也表示全部核销
-        if (CollUtil.isEmpty(context.getVisitorList()) || orderVisitorService.getUnVerify(context.getOrderNo(), context.getVisitorList()) <= 0) {
+        if (CollUtil.isEmpty(context.getIds()) || orderVisitorService.getUnVerify(context.getOrderNo(), context.getIds()) <= 0) {
             order.setCompleteTime(LocalDateTime.now());
             order.setState(OrderState.COMPLETE);
         }
