@@ -164,9 +164,9 @@ public class QueueConstant {
     public static final String ORDER_PAY_RANKING_QUEUE = "order_pay_ranking_queue";
 
     /**
-     * 订单支付完成 通知发货
+     * 零售支付成功,订单通知
      */
-    public static final String ORDER_PAY_NOTICE_QUEUE = "order_pay_notice_queue";
+    public static final String ITEM_ORDER_NOTIFY_QUEUE = "item_order_notify_queue";
 
     /**
      * 订单退款提交后通知审核

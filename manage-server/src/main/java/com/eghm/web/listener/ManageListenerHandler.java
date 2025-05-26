@@ -3,6 +3,7 @@ package com.eghm.web.listener;
 import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
 import com.eghm.constants.QueueConstant;
+import com.eghm.dto.ext.ItemOrderPayNotify;
 import com.eghm.dto.ext.OrderPayNotify;
 import com.eghm.dto.ext.RefundAudit;
 import com.eghm.dto.ext.SocketMsg;
@@ -64,8 +65,9 @@ public class ManageListenerHandler extends AbstractListenerHandler {
     /**
      * 订单支付成功后，发送发货通知
      */
-    @RabbitListener(queues = QueueConstant.ORDER_PAY_NOTICE_QUEUE)
-    public void payNotice(OrderPayNotify notify, Message message, Channel channel) throws IOException {
+    @RabbitListener(queues = QueueConstant.ITEM_ORDER_NOTIFY_QUEUE)
+    public void itemPayNotify(ItemOrderPayNotify notify, Message message, Channel channel) throws IOException {
+        log.info("订单支付成功，发送发货通知：[{}]", notify);
         processMessageAck(notify, message, channel, msg -> {
             if (msg.getProductType() == ProductType.ITEM) {
                 simpMessagingTemplate.convertAndSend(WEBSOCKET_PREFIX + "/order/broadcast/" + notify.getMerchantId(), SocketMsg.delivery(Lists.newArrayList(msg.getOrderNo())));

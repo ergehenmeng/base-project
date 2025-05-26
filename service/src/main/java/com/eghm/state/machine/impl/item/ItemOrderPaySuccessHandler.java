@@ -2,6 +2,7 @@ package com.eghm.state.machine.impl.item;
 
 import com.eghm.common.AlarmService;
 import com.eghm.dto.business.account.score.ScoreAccountDTO;
+import com.eghm.dto.ext.ItemOrderPayNotify;
 import com.eghm.dto.ext.OrderPayNotify;
 import com.eghm.enums.*;
 import com.eghm.enums.event.IEvent;
@@ -99,7 +100,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
             itemOrderService.paySuccess(context.getTradeNo());
             // 更新增加冻结记录
             accountService.paySuccessAddFreeze(order);
-            // 发送消息
+            // 发送消息计算销量或销售金额排行
             List<ItemOrder> itemOrders = itemOrderService.getByOrderNo(order.getOrderNo());
             for (ItemOrder itemOrder : itemOrders) {
                 OrderPayNotify notify = new OrderPayNotify();
@@ -111,6 +112,14 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
                 notify.setStoreId(itemOrder.getStoreId());
                 messageService.send(ExchangeQueue.ORDER_PAY_SUCCESS, notify);
             }
+            // 发送消息通知商户发货
+            ItemOrderPayNotify payNotify = new ItemOrderPayNotify();
+            payNotify.setOrderNo(order.getOrderNo());
+            payNotify.setProductType(ProductType.ITEM);
+            payNotify.setStoreId(order.getStoreId());
+            payNotify.setMerchantId(order.getMerchantId());
+            payNotify.setDeliveryType(itemOrders.get(0).getDeliveryType());
+            messageService.send(ExchangeQueue.ITEM_ORDER_NOTIFY, payNotify);
         }
     }
 
