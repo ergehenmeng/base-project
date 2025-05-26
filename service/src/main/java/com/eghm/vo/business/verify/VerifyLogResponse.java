@@ -21,29 +21,33 @@ public class VerifyLogResponse extends ExcelStyle {
     @ApiModelProperty(value = "主键")
     private Long id;
 
-    @ApiModelProperty(value = "商户名称")
-    @ExcelProperty(value = "商户名称", index = 0)
-    private String merchantName;
-
     @ApiModelProperty(value = "订单编号")
-    @ExcelProperty(value = "订单编号", index = 1)
+    @ExcelProperty(value = "订单编号", index = 0)
     private String orderNo;
 
+    @ApiModelProperty(value = "商户名称")
+    @ExcelProperty(value = "商户名称", index = 1)
+    private String merchantName;
+
+    @ApiModelProperty(value = "商品名称")
+    @ExcelProperty(value = "商品名称", index = 2)
+    private String title;
+
     @ApiModelProperty(value = "核销人")
-    @ExcelProperty(value = "核销人", index = 2)
+    @ExcelProperty(value = "核销人", index = 3)
     private String verifyName;
 
     @ApiModelProperty(value = "核销数量")
-    @ExcelProperty(value = "核销数量", index = 3)
+    @ExcelProperty(value = "核销数量", index = 4)
     private Integer num;
 
     @ApiModelProperty(value = "核销备注")
-    @ExcelProperty(value = "核销备注", index = 4)
+    @ExcelProperty(value = "核销备注", index = 5)
     private String remark;
 
     @ApiModelProperty(value = "核销时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "核销时间", index = 5)
+    @ExcelProperty(value = "核销时间", index = 6)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 

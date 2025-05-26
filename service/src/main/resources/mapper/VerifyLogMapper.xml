@@ -14,8 +14,10 @@
         t.remark,
         t.create_time,
         r.nick_name as verifyName,
+        m.title,
         s.merchant_name
         from verify_log t
+        left join `order` m on t.order_no = m.order_no
         left join sys_user r on t.user_id = r.id
         left join merchant s on t.merchant_id = s.id
         <where>
