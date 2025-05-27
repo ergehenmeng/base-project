@@ -88,6 +88,9 @@ public class ItemOrderDetailVO {
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
 
+    @ApiModelProperty(value = "核销码")
+    private String verifyNo;
+
     @ApiModelProperty("订单商品详情")
     private List<ItemOrderListVO> itemList;
 

@@ -26,6 +26,7 @@ import com.eghm.service.sys.SysAreaService;
 import com.eghm.state.machine.dto.OrderPackage;
 import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.order.OrderProductVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.adjust.OrderAdjustResponse;
 import com.eghm.vo.business.order.item.*;
@@ -284,6 +285,19 @@ public class ItemOrderServiceImpl implements ItemOrderService {
             throw new BusinessException(ErrorCode.ORDER_NOT_PICK_UP);
         }
         return verify;
+    }
+
+    @Override
+    public List<OrderProductVO> getVerifyList(String orderNo) {
+        LambdaQueryWrapper<ItemOrder> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(ItemOrder::getId, ItemOrder::getTitle, ItemOrder::getNum, ItemOrder::getCoverUrl, ItemOrder::getRefundState, ItemOrder::getDeliveryState, ItemOrder::getDeliveryType);
+        wrapper.eq(ItemOrder::getOrderNo, orderNo);
+        List<ItemOrder> selectList = itemOrderMapper.selectList(wrapper);
+        return DataUtil.copy(selectList, order -> {
+            OrderProductVO vo = BeanUtil.copyProperties(order, OrderProductVO.class);
+            vo.setVerified(order.getDeliveryState() == DeliveryState.PICK_UP && order.getRefundState() == ItemRefundState.INIT && order.getDeliveryType() == DeliveryType.SELF_PICK);
+            return vo;
+        });
     }
 
     /**
