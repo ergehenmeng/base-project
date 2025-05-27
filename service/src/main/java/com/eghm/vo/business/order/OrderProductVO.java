@@ -21,6 +21,9 @@ public class OrderProductVO {
     @Schema(description = "商品名称")
     private String title;
 
+    @Schema(description = "规格名称")
+    private String skuTitle;
+
     @Schema(description = "商品封面图")
     private String coverUrl;
 
