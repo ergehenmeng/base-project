@@ -142,4 +142,20 @@ public interface CommonService {
      * @param consumer 后置处理 true:点赞 false:取消点赞
      */
     void praise(String key, String hashKey, Consumer<Boolean> consumer);
+
+    /**
+     * 核销码解码
+     *
+     * @param verifyNo 核销码
+     * @return 订单号
+     */
+    String decryptVerifyNo(String verifyNo);
+
+    /**
+     * 加密订单号
+     *
+     * @param verifyNo 核销码
+     * @return 核销码
+     */
+    String encryptVerifyNo(String verifyNo);
 }

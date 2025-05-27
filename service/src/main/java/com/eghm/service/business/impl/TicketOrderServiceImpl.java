@@ -11,7 +11,7 @@ import com.eghm.enums.TicketType;
 import com.eghm.mapper.TicketOrderMapper;
 import com.eghm.model.OrderVisitor;
 import com.eghm.model.TicketOrder;
-import com.eghm.service.business.OrderService;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.TicketOrderCombineService;
 import com.eghm.service.business.TicketOrderService;
@@ -36,7 +36,7 @@ import java.util.List;
 @Slf4j
 public class TicketOrderServiceImpl implements TicketOrderService {
 
-    private final OrderService orderService;
+    private final CommonService commonService;
 
     private final TicketOrderMapper ticketOrderMapper;
 
@@ -80,7 +80,7 @@ public class TicketOrderServiceImpl implements TicketOrderService {
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
         detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
-        detail.setVerifyNo(orderService.encryptVerifyNo(detail.getVerifyNo()));
+        detail.setVerifyNo(commonService.encryptVerifyNo(detail.getVerifyNo()));
         return detail;
     }
 

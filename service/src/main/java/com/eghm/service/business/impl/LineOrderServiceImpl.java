@@ -11,8 +11,8 @@ import com.eghm.mapper.LineOrderMapper;
 import com.eghm.mapper.LineOrderSnapshotMapper;
 import com.eghm.model.LineOrder;
 import com.eghm.model.OrderVisitor;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.LineOrderService;
-import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.AssertUtil;
@@ -35,7 +35,7 @@ import java.util.List;
 @Slf4j
 public class LineOrderServiceImpl implements LineOrderService {
 
-    private final OrderService orderService;
+    private final CommonService commonService;
 
     private final SysAreaService sysAreaService;
 
@@ -86,7 +86,7 @@ public class LineOrderServiceImpl implements LineOrderService {
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
         detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
-        detail.setVerifyNo(orderService.encryptVerifyNo(detail.getVerifyNo()));
+        detail.setVerifyNo(commonService.encryptVerifyNo(detail.getVerifyNo()));
         return detail;
     }
 

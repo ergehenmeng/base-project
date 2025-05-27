@@ -1,8 +1,6 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.crypto.SecureUtil;
-import cn.hutool.crypto.symmetric.AES;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -62,7 +60,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -269,33 +266,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public String decryptVerifyNo(String verifyNo) {
-        AES aes = SecureUtil.aes(systemProperties.getSecretKey().getBytes(StandardCharsets.UTF_8));
-        String decryptStr;
-        try {
-            decryptStr = aes.decryptStr(verifyNo);
-        } catch (Exception e) {
-            log.error("核销码解析错误 [{}]", verifyNo, e);
-            throw new BusinessException(ErrorCode.VERIFY_NO_ERROR);
-        }
-        String[] split = decryptStr.split(CommonConstant.SPECIAL_SPLIT);
-        long theTime = Long.parseLong(split[0]);
-        if (CommonConstant.MAX_VERIFY_NO_EXPIRE < (System.currentTimeMillis() - theTime)) {
-            throw new BusinessException(ErrorCode.VERIFY_EXPIRE_ERROR);
-        }
-        return split[1];
-    }
-
-    @Override
-    public String encryptVerifyNo(String verifyNo) {
-        if (verifyNo == null) {
-            return null;
-        }
-        AES aes = SecureUtil.aes(systemProperties.getSecretKey().getBytes(StandardCharsets.UTF_8));
-        return aes.encryptHex(System.currentTimeMillis() + CommonConstant.SPECIAL_SPLIT + verifyNo);
-    }
-
-    @Override
     public void offlineRefund(OfflineRefundRequest request) {
         Order order = this.getRefuningOrder(request.getOrderNo());
         boolean refundSuccess = orderRefundLogService.hasRefundSuccess(order.getOrderNo(), request.getVisitorList());
@@ -323,7 +293,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         if (orderNo != null) {
             order = this.getByOrderNo(orderNo);
         } else {
-            order = this.getByVerifyNo(this.decryptVerifyNo(verifyNo));
+            order = this.getByVerifyNo(commonService.decryptVerifyNo(verifyNo));
         }
         if (commonService.checkIsIllegal(merchantId)) {
             log.warn("核销码不属于当前商户下的订单 [{}] [{}] [{}]", verifyNo, merchantId, order.getMerchantId());
@@ -383,7 +353,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             log.error("刷新核销码, 订单信息未查询到 [{}] [{}]", orderNo, memberId);
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
         }
-        return this.encryptVerifyNo(order.getVerifyNo());
+        return commonService.encryptVerifyNo(order.getVerifyNo());
     }
 
     @Override

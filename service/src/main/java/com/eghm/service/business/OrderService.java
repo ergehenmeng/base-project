@@ -126,22 +126,6 @@ public interface OrderService extends IService<Order> {
     void paySuccess(String orderNo, String verifyNo, LocalDateTime payTime, OrderState newState, PayType payType);
 
     /**
-     * 核销码解码
-     *
-     * @param verifyNo 核销码
-     * @return 订单号
-     */
-    String decryptVerifyNo(String verifyNo);
-
-    /**
-     * 加密订单号
-     *
-     * @param verifyNo 核销码
-     * @return 核销码
-     */
-    String encryptVerifyNo(String verifyNo);
-
-    /**
      * 下线退款
      *
      * @param request 退款金额
