@@ -21,6 +21,9 @@ public class OrderProductVO {
     @ApiModelProperty(value = "商品名称")
     private String title;
 
+    @ApiModelProperty(value = "规格名称")
+    private String skuTitle;
+
     @ApiModelProperty(value = "商品封面图")
     private String coverUrl;
 

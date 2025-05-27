@@ -288,7 +288,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     @Override
     public List<OrderProductVO> getVerifyList(String orderNo) {
         LambdaQueryWrapper<ItemOrder> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(ItemOrder::getId, ItemOrder::getTitle, ItemOrder::getNum, ItemOrder::getCoverUrl, ItemOrder::getRefundState, ItemOrder::getDeliveryState);
+        wrapper.select(ItemOrder::getId, ItemOrder::getTitle, ItemOrder::getNum, ItemOrder::getCoverUrl, ItemOrder::getRefundState, ItemOrder::getDeliveryState, ItemOrder::getSkuTitle);
         wrapper.eq(ItemOrder::getOrderNo, orderNo);
         List<ItemOrder> selectList = itemOrderMapper.selectList(wrapper);
         return DataUtil.copy(selectList, order -> {
