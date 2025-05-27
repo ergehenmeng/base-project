@@ -19,6 +19,7 @@ import com.eghm.mapper.OrderAdjustLogMapper;
 import com.eghm.mapper.OrderRefundLogMapper;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.ItemSku;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ExpressService;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderExpressService;
@@ -52,6 +53,8 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     private final JsonService jsonService;
 
     private final SysConfigApi sysConfigApi;
+
+    private final CommonService commonService;
 
     private final ExpressService expressService;
 
@@ -185,6 +188,9 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         detail.setItemList(itemList);
         List<FirstExpressVO> expressList = orderExpressService.getFirstExpressList(orderNo);
         detail.setExpressList(expressList);
+        if (detail.getState() == OrderState.WAIT_TAKE) {
+            detail.setVerifyNo(commonService.encryptVerifyNo(detail.getVerifyNo()));
+        }
         return detail;
     }
 

@@ -1,10 +1,13 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.symmetric.AES;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.cache.CacheService;
 import com.eghm.common.impl.SysConfigApi;
+import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
@@ -33,6 +36,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -79,6 +83,8 @@ public class CommonServiceImpl implements CommonService {
     private final ItemStoreMapper itemStoreMapper;
 
     private final RestaurantMapper restaurantMapper;
+
+    private final SystemProperties systemProperties;
 
     private final CacheProxyService cacheProxyService;
 
@@ -335,6 +341,34 @@ public class CommonServiceImpl implements CommonService {
             cacheService.deleteHashKey(key, hashKey);
         }
         consumer.accept(praise);
+    }
+
+
+    @Override
+    public String decryptVerifyNo(String verifyNo) {
+        AES aes = SecureUtil.aes(systemProperties.getSecretKey().getBytes(StandardCharsets.UTF_8));
+        String decryptStr;
+        try {
+            decryptStr = aes.decryptStr(verifyNo);
+        } catch (Exception e) {
+            log.error("核销码解析错误 [{}]", verifyNo, e);
+            throw new BusinessException(ErrorCode.VERIFY_NO_ERROR);
+        }
+        String[] split = decryptStr.split(CommonConstant.SPECIAL_SPLIT);
+        long theTime = Long.parseLong(split[0]);
+        if (CommonConstant.MAX_VERIFY_NO_EXPIRE < (System.currentTimeMillis() - theTime)) {
+            throw new BusinessException(ErrorCode.VERIFY_EXPIRE_ERROR);
+        }
+        return split[1];
+    }
+
+    @Override
+    public String encryptVerifyNo(String verifyNo) {
+        if (verifyNo == null) {
+            return null;
+        }
+        AES aes = SecureUtil.aes(systemProperties.getSecretKey().getBytes(StandardCharsets.UTF_8));
+        return aes.encryptHex(System.currentTimeMillis() + CommonConstant.SPECIAL_SPLIT + verifyNo);
     }
 
     /**

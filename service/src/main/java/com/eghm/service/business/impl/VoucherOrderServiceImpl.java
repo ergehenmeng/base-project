@@ -10,7 +10,7 @@ import com.eghm.dto.business.order.voucher.VoucherOrderQueryDTO;
 import com.eghm.dto.business.order.voucher.VoucherOrderQueryRequest;
 import com.eghm.mapper.VoucherOrderMapper;
 import com.eghm.model.VoucherOrder;
-import com.eghm.service.business.OrderService;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.VoucherOrderService;
 import com.eghm.utils.AssertUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
@@ -30,7 +30,7 @@ import java.util.List;
 @Slf4j
 public class VoucherOrderServiceImpl implements VoucherOrderService {
 
-    private final OrderService orderService;
+    private final CommonService commonService;
 
     private final VoucherOrderMapper voucherOrderMapper;
 
@@ -73,7 +73,7 @@ public class VoucherOrderServiceImpl implements VoucherOrderService {
     public VoucherOrderDetailVO getDetail(String orderNo, Long memberId) {
         VoucherOrderDetailVO detail = voucherOrderMapper.getDetail(orderNo, memberId);
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
-        detail.setVerifyNo(orderService.encryptVerifyNo(detail.getVerifyNo()));
+        detail.setVerifyNo(commonService.encryptVerifyNo(detail.getVerifyNo()));
         return detail;
     }
 

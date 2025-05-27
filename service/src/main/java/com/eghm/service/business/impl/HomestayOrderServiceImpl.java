@@ -10,8 +10,8 @@ import com.eghm.dto.business.order.homestay.HomestayOrderQueryRequest;
 import com.eghm.mapper.HomestayOrderMapper;
 import com.eghm.model.HomestayOrder;
 import com.eghm.model.OrderVisitor;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayOrderService;
-import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
@@ -33,7 +33,7 @@ import java.util.List;
 @AllArgsConstructor
 public class HomestayOrderServiceImpl implements HomestayOrderService {
 
-    private final OrderService orderService;
+    private final CommonService commonService;
 
     private final OrderVisitorService orderVisitorService;
 
@@ -78,7 +78,7 @@ public class HomestayOrderServiceImpl implements HomestayOrderService {
     public HomestayOrderDetailVO getDetail(String orderNo, Long memberId) {
         HomestayOrderDetailVO detail = homestayOrderMapper.getDetail(orderNo, memberId);
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
-        detail.setVerifyNo(orderService.encryptVerifyNo(detail.getVerifyNo()));
+        detail.setVerifyNo(commonService.encryptVerifyNo(detail.getVerifyNo()));
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
         detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
         return detail;
