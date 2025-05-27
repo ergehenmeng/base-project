@@ -1,7 +1,9 @@
 package com.eghm.vo.business.order;
 
+import com.eghm.convertor.SplitterIndexSerializer;
 import com.eghm.vo.business.scenic.ticket.CombineTicketVO;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -25,6 +27,7 @@ public class OrderProductVO {
     private String skuTitle;
 
     @Schema(description = "商品封面图")
+    @JsonSerialize(using = SplitterIndexSerializer.class)
     private String coverUrl;
 
     @Schema(description = "订单数量")
