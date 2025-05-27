@@ -206,7 +206,6 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             MerchantAddress address = aPackage.getMerchantAddress();
             aPackage.setSkuExpressMap(Collections.emptyMap());
             order.setExpressAmount(0);
-            order.setExpressAmount(0);
             order.setProvinceId(address.getProvinceId());
             order.setCityId(address.getCityId());
             order.setCountyId(address.getCountyId());
