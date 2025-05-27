@@ -1,7 +1,7 @@
 package com.eghm.vo.business.order.line;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.convertor.SplitterArraySerializer;
+import com.eghm.convertor.SplitterIndexSerializer;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.PayType;
 import com.eghm.enums.RefundState;
@@ -26,7 +26,7 @@ import java.util.List;
 public class LineOrderDetailVO {
 
     @ApiModelProperty("图片")
-    @JsonSerialize(using = SplitterArraySerializer.class)
+    @JsonSerialize(using = SplitterIndexSerializer.class)
     private String coverUrl;
 
     @ApiModelProperty("订单编号")
