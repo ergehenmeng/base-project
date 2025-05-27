@@ -2,7 +2,6 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.DeliveryState;
-import com.eghm.enums.DeliveryType;
 import com.eghm.enums.ItemRefundState;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -88,9 +87,6 @@ public class ItemOrder extends BaseEntity {
 
     @Schema(description = "限购数量")
     private Integer quota;
-
-    @Schema(description = "交付方式 0:无须发货 1:快递 2:自提")
-    private DeliveryType deliveryType;
 
     @Schema(description = "商品介绍信息")
     private String introduce;

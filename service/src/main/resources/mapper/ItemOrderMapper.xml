@@ -211,7 +211,6 @@
             t.sale_price,
             t.line_price,
             t.purchase_notes,
-            t.delivery_type,
             t.introduce,
             r.title as storeName,
             r.logo_url as storeLogoUrl
@@ -244,7 +243,7 @@
     </select>
 
     <update id="paySuccess">
-        update `item_order` t, `order` r set t.delivery_state = if(t.delivery_type = 1, 1, 3) where t.order_no = r.order_no and r.trade_no = #{tradeNo}
+        update `item_order` t, `order` r set t.delivery_state = if(r.delivery_type = 1, 1, 3) where t.order_no = r.order_no and r.trade_no = #{tradeNo}
     </update>
 
     <update id="verify">

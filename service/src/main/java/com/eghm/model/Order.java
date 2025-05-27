@@ -151,6 +151,9 @@ public class Order extends BaseEntity {
     @Schema(description = "拼团单号")
     private String bookingNo;
 
+    @Schema(description = "交付方式 0:无须发货 1:快递 2:自提")
+    private DeliveryType deliveryType;
+
     /**
      * 1. 只有拼团成功的商品才能进行发货或核销
      * 2. 退款审核通过后即为拼团失败

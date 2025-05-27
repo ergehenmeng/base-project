@@ -93,12 +93,10 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
                 dto.setChargeType(ChargeType.ORDER_PAY);
                 scoreAccountService.updateAccount(dto);
             }
-            List<ItemOrder> itemOrderList = itemOrderService.getByOrderNo(order.getOrderNo());
-            boolean anyMatch = itemOrderList.stream().anyMatch(itemOrder -> itemOrder.getDeliveryType() == DeliveryType.EXPRESS);
             order.setPayTime(context.getSuccessTime());
             order.setPayType(PayType.valueOf(context.getTradeType().name()));
-            order.setState(anyMatch ? OrderState.WAIT_DELIVERY : OrderState.WAIT_TAKE);
-            order.setVerifyNo(anyMatch ? null : ProductType.ITEM.generateVerifyNo());
+            order.setState(order.getDeliveryType() == DeliveryType.EXPRESS ? OrderState.WAIT_DELIVERY : OrderState.WAIT_TAKE);
+            order.setVerifyNo(order.getDeliveryType() == DeliveryType.EXPRESS ? null : ProductType.ITEM.generateVerifyNo());
             orderService.updateById(order);
             // 更新item_order状态
             itemOrderService.paySuccess(context.getTradeNo());
@@ -122,7 +120,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
             payNotify.setProductType(ProductType.ITEM);
             payNotify.setStoreId(order.getStoreId());
             payNotify.setMerchantId(order.getMerchantId());
-            payNotify.setDeliveryType(itemOrders.get(0).getDeliveryType());
+            payNotify.setDeliveryType(order.getDeliveryType());
             messageService.send(ExchangeQueue.ITEM_ORDER_NOTIFY, payNotify);
         }
     }

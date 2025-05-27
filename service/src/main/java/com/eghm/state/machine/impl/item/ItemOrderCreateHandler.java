@@ -123,7 +123,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         for (StoreOrderPackage aPackage : payload.getPackageList()) {
             Order order = this.generateOrder(context, aPackage, payload.getPackageList().size() > 1, tradeNo);
             orderService.save(order);
-            itemOrderService.insert(order.getOrderNo(), context.getMemberId(), aPackage.getItemList(), aPackage.getSkuExpressMap(), context.getDeliveryType());
+            itemOrderService.insert(order.getOrderNo(), context.getMemberId(), aPackage.getItemList(), aPackage.getSkuExpressMap());
             this.updateSkuStock(aPackage.getItemList());
             // 如果是拼团订单的话 一定是单商品
             itemGroupOrderService.save(context, order, aPackage.getItemList().get(0).getItemId());
@@ -173,6 +173,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         order.setMemberId(context.getMemberId());
         order.setNum(this.getNum(packageList));
         order.setProductType(ProductType.ITEM);
+        order.setDeliveryType(context.getDeliveryType());
         order.setMultiple(multiple);
         // 零售商品只支持审核后退款且没有退款描述
         order.setRefundType(RefundType.AUDIT_REFUND);

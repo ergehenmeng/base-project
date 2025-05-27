@@ -2,7 +2,6 @@ package com.eghm.vo.business.order.item;
 
 import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.convertor.SplitterArraySerializer;
-import com.eghm.enums.DeliveryType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -52,9 +51,6 @@ public class ItemOrderSnapshotVO {
 
     @Schema(description = "购买须知")
     private String purchaseNotes;
-
-    @Schema(description = "交付方式 0:无须发货 1:快递 2:自提 3:快递+自提")
-    private DeliveryType deliveryType;
 
     @Schema(description = "商品介绍信息")
     private String introduce;

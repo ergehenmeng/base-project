@@ -127,6 +127,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         order.setPayAmount(order.getNum() * order.getPrice());
         order.setAmount(order.getNum() * order.getPrice());
         order.setMultiple(false);
+        order.setDeliveryType(DeliveryType.SELF_PICK);
         order.setCreateDate(LocalDate.now());
         order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
