@@ -408,11 +408,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             log.error("发货订单中存在已发货的订单 [{}]", request.getOrderIds());
             throw new BusinessException(ErrorCode.CHOOSE_NO_DELIVERY);
         }
-        anyMatch = orderList.stream().anyMatch(itemOrder -> itemOrder.getDeliveryType() != DeliveryType.EXPRESS);
-        if (anyMatch) {
-            log.error("发货订单中存在无需发货的订单 [{}]", request.getOrderIds());
-            throw new BusinessException(ErrorCode.CHOOSE_EXPRESS);
-        }
         orderList.forEach(itemOrder -> {
             itemOrder.setDeliveryState(DeliveryState.WAIT_TAKE);
             itemOrder.setShipTime(LocalDateTime.now());

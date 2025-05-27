@@ -2,7 +2,6 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.DeliveryState;
-import com.eghm.enums.DeliveryType;
 import com.eghm.enums.ItemRefundState;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -88,9 +87,6 @@ public class ItemOrder extends BaseEntity {
 
     @ApiModelProperty(value = "限购数量")
     private Integer quota;
-
-    @ApiModelProperty(value = "交付方式 0:无须发货 1:快递包邮 2:门店自提")
-    private DeliveryType deliveryType;
 
     @ApiModelProperty(value = "商品介绍信息")
     private String introduce;

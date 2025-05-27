@@ -93,7 +93,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     }
 
     @Override
-    public void insert(String orderNo, Long memberId, List<OrderPackage> packageList, Map<Long, Integer> skuExpressMap, DeliveryType deliveryType) {
+    public void insert(String orderNo, Long memberId, List<OrderPackage> packageList, Map<Long, Integer> skuExpressMap) {
         for (OrderPackage aPackage : packageList) {
             ItemOrder order = DataUtil.copy(aPackage.getItem(), ItemOrder.class, "id");
             BeanUtil.copyProperties(aPackage.getSku(), order, "id");
@@ -112,7 +112,6 @@ public class ItemOrderServiceImpl implements ItemOrderService {
                 order.setSkuCoverUrl(aPackage.getItem().getCoverUrl());
             }
             order.setNum(aPackage.getNum());
-            order.setDeliveryType(deliveryType);
             order.setDeliveryState(DeliveryState.INIT);
             order.setExpressFee(skuExpressMap.get(order.getSkuId()));
             itemOrderMapper.insert(order);
@@ -230,8 +229,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     public List<ItemOrder> getByIds(List<Long> ids) {
         LambdaQueryWrapper<ItemOrder> wrapper = Wrappers.lambdaQuery();
         wrapper.select(ItemOrder::getItemId, ItemOrder::getOrderNo, ItemOrder::getId,
-                ItemOrder::getNum, ItemOrder::getRefundState,
-                ItemOrder::getDeliveryType, ItemOrder::getDeliveryState);
+                ItemOrder::getNum, ItemOrder::getRefundState, ItemOrder::getDeliveryState);
         wrapper.in(ItemOrder::getId, ids);
         return itemOrderMapper.selectList(wrapper);
     }
@@ -290,12 +288,12 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     @Override
     public List<OrderProductVO> getVerifyList(String orderNo) {
         LambdaQueryWrapper<ItemOrder> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(ItemOrder::getId, ItemOrder::getTitle, ItemOrder::getNum, ItemOrder::getCoverUrl, ItemOrder::getRefundState, ItemOrder::getDeliveryState, ItemOrder::getDeliveryType);
+        wrapper.select(ItemOrder::getId, ItemOrder::getTitle, ItemOrder::getNum, ItemOrder::getCoverUrl, ItemOrder::getRefundState, ItemOrder::getDeliveryState);
         wrapper.eq(ItemOrder::getOrderNo, orderNo);
         List<ItemOrder> selectList = itemOrderMapper.selectList(wrapper);
         return DataUtil.copy(selectList, order -> {
             OrderProductVO vo = BeanUtil.copyProperties(order, OrderProductVO.class);
-            vo.setVerified(order.getDeliveryState() == DeliveryState.PICK_UP && order.getRefundState() == ItemRefundState.INIT && order.getDeliveryType() == DeliveryType.SELF_PICK);
+            vo.setVerified(order.getDeliveryState() == DeliveryState.PICK_UP && order.getRefundState() == ItemRefundState.INIT);
             return vo;
         });
     }

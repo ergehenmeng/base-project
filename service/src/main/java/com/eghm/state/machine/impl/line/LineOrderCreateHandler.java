@@ -1,10 +1,7 @@
 package com.eghm.state.machine.impl.line;
 
 import com.eghm.common.OrderMqService;
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ExchangeQueue;
-import com.eghm.enums.OrderState;
-import com.eghm.enums.ProductType;
+import com.eghm.enums.*;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.LineEvent;
 import com.eghm.exception.BusinessException;
@@ -121,6 +118,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         order.setRemark(context.getRemark());
         order.setMemberId(context.getMemberId());
         order.setMultiple(false);
+        order.setDeliveryType(DeliveryType.SELF_PICK);
         order.setCreateDate(LocalDate.now());
         order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
