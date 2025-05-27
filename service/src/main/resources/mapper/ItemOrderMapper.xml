@@ -121,6 +121,7 @@
         r.province_id,
         r.city_id,
         r.county_id,
+        r.verify_no,
         r.detail_address
         from `order` r
         left join item_store t on t.id = r.store_id

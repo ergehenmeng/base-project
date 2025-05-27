@@ -45,6 +45,7 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.StringUtil;
 import com.eghm.utils.TransactionUtil;
 import com.eghm.vo.business.merchant.address.MerchantAddressVO;
+import com.eghm.vo.business.order.OrderProductVO;
 import com.eghm.vo.business.order.OrderScanVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
@@ -324,22 +325,32 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         } else {
             order = this.getByVerifyNo(this.decryptVerifyNo(verifyNo));
         }
-        ProductType productType = order.getProductType();
-        if (productType == ProductType.ITEM) {
-            throw new BusinessException(VERIFY_ORDER_ERROR);
-        }
         if (commonService.checkIsIllegal(merchantId)) {
             log.warn("核销码不属于当前商户下的订单 [{}] [{}] [{}]", verifyNo, merchantId, order.getMerchantId());
             throw new BusinessException(ErrorCode.VERIFY_ACCESS_DENIED);
         }
-        OrderScanVO vo = DataUtil.copy(order, OrderScanVO.class);
-        List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(order.getOrderNo());
-        List<VisitorVO> voList = DataUtil.copy(visitorList, VisitorVO.class);
-        vo.setVisitorList(voList);
-        if (order.getProductType() == ProductType.TICKET) {
-            List<CombineTicketVO> mapperList = ticketOrderCombineMapper.getList(order.getOrderNo());
-            vo.setCombineTicket(mapperList);
+        OrderScanVO vo = new OrderScanVO();
+        vo.setOrderNo(order.getOrderNo());
+        vo.setPayAmount(order.getPayAmount());
+        List<OrderProductVO> productList = new ArrayList<>(8);
+        if (order.getProductType() == ProductType.ITEM) {
+            List<OrderProductVO> verifyList = itemOrderService.getVerifyList(order.getOrderNo());
+            productList.addAll(verifyList);
+        } else {
+            List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(order.getOrderNo());
+            List<VisitorVO> voList = DataUtil.copy(visitorList, VisitorVO.class);
+            OrderProductVO op = new OrderProductVO();
+            op.setTitle(order.getTitle());
+            op.setCoverUrl(order.getCoverUrl());
+            op.setNum(order.getNum());
+            op.setVisitorList(voList);
+            productList.add(op);
+            if (order.getProductType() == ProductType.TICKET) {
+                List<CombineTicketVO> mapperList = ticketOrderCombineMapper.getList(order.getOrderNo());
+                op.setCombineTicket(mapperList);
+            }
         }
+        vo.setProductList(productList);
         return vo;
     }
 

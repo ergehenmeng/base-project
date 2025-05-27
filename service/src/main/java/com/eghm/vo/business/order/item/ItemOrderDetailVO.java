@@ -88,6 +88,9 @@ public class ItemOrderDetailVO {
     @Schema(description = "详细地址")
     private String detailAddress;
 
+    @Schema(description = "核销码")
+    private String verifyNo;
+
     @Schema(description = "订单商品详情")
     private List<ItemOrderListVO> itemList;
 

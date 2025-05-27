@@ -6,6 +6,7 @@ import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
 import com.eghm.enums.DeliveryType;
 import com.eghm.model.ItemOrder;
 import com.eghm.state.machine.dto.OrderPackage;
+import com.eghm.vo.business.order.OrderProductVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.item.*;
 
@@ -206,4 +207,12 @@ public interface ItemOrderService {
      * @return 核销的数量
      */
     int verify(String orderNo, Long verifyId, List<Long> ids);
+
+    /**
+     * 获取可以核销的商品列表
+     *
+     * @param orderNo 订单编号
+     * @return 核销商品列表
+     */
+    List<OrderProductVO> getVerifyList(String orderNo);
 }
