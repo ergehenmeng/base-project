@@ -177,7 +177,7 @@ public class SysUserServiceImpl implements SysUserService {
         wrapper.set(SysUser::getPwd, encode);
         wrapper.set(SysUser::getInitPwd, encode);
         wrapper.set(SysUser::getPwdUpdateTime, LocalDateTime.now());
-        sysUserMapper.update(null, wrapper);
+        sysUserMapper.update(wrapper);
     }
 
     @Override
@@ -294,7 +294,7 @@ public class SysUserServiceImpl implements SysUserService {
         LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(SysUser::getId, SecurityHolder.getUserId());
         wrapper.set(SysUser::getMpOpenId, null);
-        sysUserMapper.update(null, wrapper);
+        sysUserMapper.update(wrapper);
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.eghm.dto.business.order.item;
 
+import com.eghm.annotation.Assign;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -29,4 +30,8 @@ public class OrderExpressRequest {
     @NotBlank(message = "快递单号不能为空")
     @Size(max = 20, message = "快递单号长度最大20位")
     private String expressNo;
+
+    @Assign
+    @Schema(description = "收发人手机号", hidden = true)
+    private String phone;
 }

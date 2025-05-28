@@ -117,7 +117,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, Homestay::getMerchantId, merchantId);
         wrapper.set(Homestay::getState, state);
-        homestayMapper.update(null, wrapper);
+        homestayMapper.update(wrapper);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         wrapper.eq(merchantId != null, Homestay::getMerchantId, merchantId);
         wrapper.set(Homestay::getState, State.UN_SHELVE);
         wrapper.set(Homestay::getDeleted, true);
-        homestayMapper.update(null, wrapper);
+        homestayMapper.update(wrapper);
     }
 
     @Override
@@ -214,7 +214,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         LambdaUpdateWrapper<Homestay> wrapper = Wrappers.lambdaUpdate();
         wrapper.set(Homestay::getState, State.FORCE_UN_SHELVE);
         wrapper.eq(Homestay::getMerchantId, merchantId);
-        homestayMapper.update(null, wrapper);
+        homestayMapper.update(wrapper);
         homestayRoomService.logout(merchantId);
     }
 

@@ -61,7 +61,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         }
         wrapper.set(SysRole::getRoleName, request.getRoleName());
         wrapper.set(SysRole::getRemark, request.getRemark());
-        sysRoleMapper.update(null, wrapper);
+        sysRoleMapper.update(wrapper);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class SysRoleServiceImpl implements SysRoleService {
             wrapper.isNull(SysRole::getMerchantId);
         }
         wrapper.set(SysRole::getDeleted, true);
-        sysRoleMapper.update(null, wrapper);
+        sysRoleMapper.update(wrapper);
     }
 
     @Override

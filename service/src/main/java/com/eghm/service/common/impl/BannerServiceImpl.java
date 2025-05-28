@@ -51,7 +51,7 @@ public class BannerServiceImpl implements BannerService {
         LambdaUpdateWrapper<Banner> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Banner::getId, id);
         wrapper.set(Banner::getSort, sort);
-        bannerMapper.update(null, wrapper);
+        bannerMapper.update(wrapper);
     }
 
     @Override
@@ -59,6 +59,6 @@ public class BannerServiceImpl implements BannerService {
         LambdaUpdateWrapper<Banner> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Banner::getId, id);
         wrapper.set(Banner::getState, state);
-        bannerMapper.update(null, wrapper);
+        bannerMapper.update(wrapper);
     }
 }

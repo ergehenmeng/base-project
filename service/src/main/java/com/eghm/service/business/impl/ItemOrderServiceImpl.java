@@ -21,7 +21,7 @@ import com.eghm.model.ItemOrder;
 import com.eghm.model.ItemSku;
 import com.eghm.model.Member;
 import com.eghm.service.business.CommonService;
-import com.eghm.service.business.ExpressService;
+import com.eghm.logistics.service.ExpressService;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.ItemOrderExpressService;
 import com.eghm.service.member.MemberService;
@@ -238,7 +238,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         // 退款申请记录
         List<ItemRefundResponse> refundLog = orderRefundLogMapper.getItemRefundLog(orderNo);
         // 退款物流信息
-        refundLog.forEach(itemRefundResponse -> itemRefundResponse.setExpressList(expressService.getExpressList(itemRefundResponse.getExpressNo(), itemRefundResponse.getExpressCode(), null)));
+        refundLog.forEach(itemRefundResponse -> itemRefundResponse.setExpressList(expressService.getExpressList(itemRefundResponse.getExpressNo(), itemRefundResponse.getExpressCode(), detail.getMobile())));
         response.setRefundList(refundLog);
         return response;
     }
@@ -280,7 +280,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         wrapper.eq(ItemOrder::getOrderNo, orderNo);
         wrapper.eq(ItemOrder::getRefundState, ItemRefundState.INIT);
         wrapper.set(ItemOrder::getDeliveryState, DeliveryState.CONFIRM_TASK);
-        itemOrderMapper.update(null, wrapper);
+        itemOrderMapper.update(wrapper);
     }
 
     @Override

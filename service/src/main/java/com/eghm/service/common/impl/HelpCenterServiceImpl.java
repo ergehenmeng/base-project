@@ -50,7 +50,7 @@ public class HelpCenterServiceImpl implements HelpCenterService {
         LambdaUpdateWrapper<HelpCenter> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(HelpCenter::getId, id);
         wrapper.set(HelpCenter::getSort, sortBy);
-        helpCenterMapper.update(null, wrapper);
+        helpCenterMapper.update(wrapper);
     }
 
     @Override

@@ -77,7 +77,7 @@ public class ItemTagServiceImpl implements ItemTagService {
         LambdaUpdateWrapper<ItemTag> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemTag::getId, id);
         wrapper.set(ItemTag::getSort, sortBy);
-        itemTagMapper.update(null, wrapper);
+        itemTagMapper.update(wrapper);
     }
 
     @Override

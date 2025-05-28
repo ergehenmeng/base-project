@@ -76,7 +76,7 @@ public class PoiAreaServiceImpl implements PoiAreaService {
         LambdaUpdateWrapper<PoiArea> wrapper = Wrappers.lambdaUpdate();
         wrapper.set(PoiArea::getState, request.getState());
         wrapper.eq(PoiArea::getId, request.getId());
-        poiAreaMapper.update(null, wrapper);
+        poiAreaMapper.update(wrapper);
     }
 
     @Override

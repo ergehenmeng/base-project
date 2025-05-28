@@ -121,7 +121,7 @@ public class LineServiceImpl implements LineService {
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, Line::getMerchantId, merchantId);
         wrapper.set(Line::getState, state);
-        lineMapper.update(null, wrapper);
+        lineMapper.update(wrapper);
     }
 
     @Override
@@ -159,7 +159,7 @@ public class LineServiceImpl implements LineService {
         wrapper.eq(Line::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(Line::getState, State.UN_SHELVE);
         wrapper.set(Line::getDeleted, true);
-        lineMapper.update(null, wrapper);
+        lineMapper.update(wrapper);
     }
 
     @Override

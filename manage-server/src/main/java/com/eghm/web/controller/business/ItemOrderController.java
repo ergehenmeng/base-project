@@ -12,22 +12,23 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.lock.RedisLock;
 import com.eghm.model.Express;
-import com.eghm.service.business.ItemOrderService;
+import com.eghm.model.Order;
 import com.eghm.service.business.ItemOrderExpressService;
+import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderProxyService;
 import com.eghm.service.business.OrderService;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.order.item.ItemOrderDetailResponse;
 import com.eghm.vo.business.order.item.ItemOrderResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -89,6 +90,8 @@ public class ItemOrderController {
     @PostMapping(value = "/updateExpress", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "更新快递单号")
     public RespBody<Void> updateExpress(@RequestBody @Validated OrderExpressRequest request) {
+        Order order = orderService.getByOrderNo(request.getOrderNo());
+        request.setPhone(order.getMobile());
         itemOrderExpressService.update(request);
         return RespBody.success();
     }

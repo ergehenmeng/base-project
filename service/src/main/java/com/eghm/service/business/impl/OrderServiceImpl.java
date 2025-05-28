@@ -246,7 +246,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         wrapper.eq(Order::getOrderNo, orderNo);
         wrapper.in(oldState.length > 0, Order::getState, oldState);
         wrapper.set(Order::getState, newState);
-        int update = baseMapper.update(null, wrapper);
+        int update = baseMapper.update(wrapper);
         if (update != 1) {
             log.warn("订单状态更新数据不一致 [{}] [{}] [{}]", orderNo, newState, oldState);
         }
@@ -260,7 +260,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         wrapper.set(Order::getPayType, payType);
         wrapper.set(Order::getPayTime, payTime);
         wrapper.set(Order::getVerifyNo, verifyNo);
-        int update = baseMapper.update(null, wrapper);
+        int update = baseMapper.update(wrapper);
         if (update != 1) {
             log.warn("订单支付成功状态更新数据不一致 [{}] [{}] [{}]", orderNo, newState, payType);
         }
@@ -382,6 +382,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         }
         orderList.forEach(itemOrder -> itemOrder.setDeliveryState(DeliveryState.WAIT_TAKE));
         itemOrderService.updateBatchById(orderList);
+        request.setPhone(order.getMobile());
         itemOrderExpressService.insert(request);
         Long count = itemOrderService.countWaitDelivery(request.getOrderNo());
         if (count == 0) {
@@ -496,7 +497,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Order::getBookingNo, bookingNo);
         wrapper.set(Order::getBookingState, bookingState);
-        baseMapper.update(null, wrapper);
+        baseMapper.update(wrapper);
     }
 
     @Override

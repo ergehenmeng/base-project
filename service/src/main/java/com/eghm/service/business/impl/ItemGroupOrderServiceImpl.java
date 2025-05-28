@@ -79,7 +79,7 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
         LambdaUpdateWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemGroupOrder::getBookingNo, bookingNo);
         wrapper.set(ItemGroupOrder::getState, state);
-        itemGroupOrderMapper.update(null, wrapper);
+        itemGroupOrderMapper.update(wrapper);
     }
 
     @Override
@@ -178,7 +178,7 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
         wrapper.eq(ItemGroupOrder::getBookingNo, bookingNo);
         wrapper.eq(ItemGroupOrder::getOrderNo, orderNo);
         wrapper.set(ItemGroupOrder::getState, BookingState.FAIL);
-        itemGroupOrderMapper.update(null, wrapper);
+        itemGroupOrderMapper.update(wrapper);
     }
 
     /**

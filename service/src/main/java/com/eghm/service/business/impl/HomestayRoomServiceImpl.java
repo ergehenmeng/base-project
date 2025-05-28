@@ -106,7 +106,7 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, HomestayRoom::getMerchantId, merchantId);
         wrapper.set(HomestayRoom::getState, state);
-        homestayRoomMapper.update(null, wrapper);
+        homestayRoomMapper.update(wrapper);
     }
 
     @Override
@@ -116,7 +116,7 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
         wrapper.eq(HomestayRoom::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(HomestayRoom::getState, State.UN_SHELVE);
         wrapper.set(HomestayRoom::getDeleted, true);
-        homestayRoomMapper.update(null, wrapper);
+        homestayRoomMapper.update(wrapper);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
         LambdaUpdateWrapper<HomestayRoom> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(HomestayRoom::getId, id);
         wrapper.set(HomestayRoom::getRecommend, recommend);
-        homestayRoomMapper.update(null, wrapper);
+        homestayRoomMapper.update(wrapper);
     }
 
     @Override
@@ -157,7 +157,7 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
         LambdaUpdateWrapper<HomestayRoom> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(HomestayRoom::getMerchantId, merchantId);
         wrapper.set(HomestayRoom::getState, State.FORCE_UN_SHELVE);
-        homestayRoomMapper.update(null, wrapper);
+        homestayRoomMapper.update(wrapper);
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.eghm.service.business;
+package com.eghm.logistics.service;
 
 import com.eghm.vo.business.order.item.ExpressVO;
 
@@ -19,4 +19,13 @@ public interface ExpressService {
      * @return 快递节点信息
      */
     List<ExpressVO> getExpressList(String expressNo, String expressCode, String phone);
+
+    /**
+     * 订阅物流信息
+     *
+     * @param expressNo 快递单号
+     * @param expressCode 快递公司编码
+     * @param phone 收发件人手机号(顺丰必填,建议填写)
+     */
+    void subscribe(String expressNo, String expressCode, String phone);
 }

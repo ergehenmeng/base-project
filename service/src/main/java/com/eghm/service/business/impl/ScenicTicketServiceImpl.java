@@ -131,7 +131,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, ScenicTicket::getMerchantId, merchantId);
         wrapper.set(ScenicTicket::getState, state);
-        scenicTicketMapper.update(null, wrapper);
+        scenicTicketMapper.update(wrapper);
     }
 
     @Override
@@ -169,7 +169,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
             wrapper.eq(ScenicTicket::getMerchantId, SecurityHolder.getMerchantId());
             wrapper.set(ScenicTicket::getState, State.UN_SHELVE);
             wrapper.set(ScenicTicket::getDeleted, true);
-            scenicTicketMapper.update(null, wrapper);
+            scenicTicketMapper.update(wrapper);
         }
     }
 

@@ -96,7 +96,7 @@ public class PoiLineServiceImpl implements PoiLineService {
         LambdaUpdateWrapper<PoiLine> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(PoiLine::getId, id);
         wrapper.set(PoiLine::getState, state);
-        poiLineMapper.update(null, wrapper);
+        poiLineMapper.update(wrapper);
     }
 
     @Override

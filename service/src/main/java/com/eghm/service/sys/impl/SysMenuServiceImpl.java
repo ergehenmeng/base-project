@@ -123,7 +123,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         LambdaUpdateWrapper<SysMenu> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(SysMenu::getId, id);
         wrapper.set(SysMenu::getState, state);
-        sysMenuMapper.update(null, wrapper);
+        sysMenuMapper.update(wrapper);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         LambdaUpdateWrapper<SysMenu> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(SysMenu::getId, id);
         wrapper.set(SysMenu::getSort, sortBy);
-        sysMenuMapper.update(null, wrapper);
+        sysMenuMapper.update(wrapper);
     }
 
     @Override

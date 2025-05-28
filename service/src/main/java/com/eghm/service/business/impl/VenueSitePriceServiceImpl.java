@@ -83,7 +83,7 @@ public class VenueSitePriceServiceImpl extends ServiceImpl<VenueSitePriceMapper,
         wrapper.eq(VenueSitePrice::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(VenueSitePrice::getPrice, request.getPrice());
         wrapper.set(VenueSitePrice::getState, request.getState());
-        baseMapper.update(null, wrapper);
+        baseMapper.update(wrapper);
     }
 
     @Override

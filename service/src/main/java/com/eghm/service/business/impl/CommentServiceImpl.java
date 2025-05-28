@@ -151,7 +151,7 @@ public class CommentServiceImpl implements CommentService {
         LambdaUpdateWrapper<Comment> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Comment::getId, id);
         wrapper.set(Comment::getState, state);
-        commentMapper.update(null, wrapper);
+        commentMapper.update(wrapper);
     }
 
     @Override
@@ -159,7 +159,7 @@ public class CommentServiceImpl implements CommentService {
         LambdaUpdateWrapper<Comment> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Comment::getId, id);
         wrapper.set(Comment::getTopState, state);
-        commentMapper.update(null, wrapper);
+        commentMapper.update(wrapper);
     }
 
     /**

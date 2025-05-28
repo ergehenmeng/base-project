@@ -105,7 +105,7 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
         wrapper.eq(MemberNotice::getMemberId, memberId);
         wrapper.eq(MemberNotice::getId, id);
         wrapper.set(MemberNotice::getIsRead, true);
-        memberNoticeMapper.update(null, wrapper);
+        memberNoticeMapper.update(wrapper);
     }
 
     @Override

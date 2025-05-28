@@ -48,17 +48,17 @@ public class ItemOrderExpressServiceImpl implements ItemOrderExpressService {
             express.setItemOrderId(orderId);
             itemOrderExpressMapper.insert(express);
         }
-        expressLogisticsService.insertOrUpdate(request.getExpressNo(), request.getExpressCode());
+        expressLogisticsService.insert(request.getExpressNo(), request.getExpressCode(), request.getExpressCode());
     }
 
     @Override
     public void update(OrderExpressRequest request) {
-        expressLogisticsService.insertOrUpdate(request.getExpressNo(), request.getExpressCode());
+        expressLogisticsService.insert(request.getExpressNo(), request.getExpressCode(), request.getExpressCode());
         LambdaUpdateWrapper<ItemOrderExpress> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemOrderExpress::getOrderNo, request.getOrderNo());
         wrapper.eq(ItemOrderExpress::getId, request.getId());
         wrapper.set(ItemOrderExpress::getExpressNo, request.getExpressNo());
-        itemOrderExpressMapper.update(null, wrapper);
+        itemOrderExpressMapper.update(wrapper);
     }
 
     @Override

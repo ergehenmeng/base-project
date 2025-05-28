@@ -20,6 +20,9 @@ public class ExpressLogistics extends BaseEntity {
     @Schema(description = "快递公司编码")
     private String expressCode;
 
+    @Schema(description = "收发人手机号")
+    private String phone;
+
     @Schema(description = "物流信息(json)")
     private String content;
 

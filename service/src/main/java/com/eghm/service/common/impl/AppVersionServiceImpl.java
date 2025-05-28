@@ -68,7 +68,7 @@ public class AppVersionServiceImpl implements AppVersionService {
         LambdaUpdateWrapper<AppVersion> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(AppVersion::getId, id);
         wrapper.set(AppVersion::getState, state);
-        appVersionMapper.update(null, wrapper);
+        appVersionMapper.update(wrapper);
     }
 
     @Override

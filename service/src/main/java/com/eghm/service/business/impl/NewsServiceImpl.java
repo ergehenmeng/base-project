@@ -112,7 +112,7 @@ public class NewsServiceImpl implements NewsService {
         LambdaUpdateWrapper<News> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(News::getId, id);
         wrapper.set(News::getSort, sortBy);
-        newsMapper.update(null, wrapper);
+        newsMapper.update(wrapper);
     }
 
     @Override
@@ -120,7 +120,7 @@ public class NewsServiceImpl implements NewsService {
         LambdaUpdateWrapper<News> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(News::getId, id);
         wrapper.set(News::getState, state);
-        newsMapper.update(null, wrapper);
+        newsMapper.update(wrapper);
     }
 
     /**

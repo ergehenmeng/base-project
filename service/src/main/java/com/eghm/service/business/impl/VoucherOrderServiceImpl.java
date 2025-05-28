@@ -100,6 +100,6 @@ public class VoucherOrderServiceImpl implements VoucherOrderService {
         LambdaUpdateWrapper<VoucherOrder> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(VoucherOrder::getOrderNo, orderNo);
         wrapper.set(VoucherOrder::getUseNum, verifyNum);
-        voucherOrderMapper.update(null, wrapper);
+        voucherOrderMapper.update(wrapper);
     }
 }

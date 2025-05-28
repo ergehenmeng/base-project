@@ -75,7 +75,7 @@ public class VoucherTagServiceImpl implements VoucherTagService {
         LambdaUpdateWrapper<VoucherTag> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(VoucherTag::getId, id);
         wrapper.set(VoucherTag::getSort, sortBy);
-        voucherTagMapper.update(null, wrapper);
+        voucherTagMapper.update(wrapper);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class VoucherTagServiceImpl implements VoucherTagService {
         wrapper.eq(VoucherTag::getId, id);
         wrapper.set(VoucherTag::getDeleted, true);
         wrapper.eq(VoucherTag::getMerchantId, SecurityHolder.getMerchantId());
-        voucherTagMapper.update(null, wrapper);
+        voucherTagMapper.update(wrapper);
     }
 
     /**

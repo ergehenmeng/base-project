@@ -134,7 +134,7 @@ public class ScenicServiceImpl implements ScenicService {
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, Scenic::getMerchantId, merchantId);
         wrapper.set(Scenic::getState, state);
-        scenicMapper.update(null, wrapper);
+        scenicMapper.update(wrapper);
     }
 
     @Override
@@ -179,7 +179,7 @@ public class ScenicServiceImpl implements ScenicService {
         wrapper.eq(Scenic::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(Scenic::getState, State.UN_SHELVE);
         wrapper.set(Scenic::getDeleted, true);
-        scenicMapper.update(null, wrapper);
+        scenicMapper.update(wrapper);
     }
 
     @Override
@@ -189,7 +189,7 @@ public class ScenicServiceImpl implements ScenicService {
         wrapper.eq(Scenic::getId, id);
         wrapper.set(Scenic::getMinPrice, vo.getMinPrice());
         wrapper.set(Scenic::getMaxPrice, vo.getMaxPrice());
-        scenicMapper.update(null, wrapper);
+        scenicMapper.update(wrapper);
     }
 
     @Override
@@ -202,11 +202,11 @@ public class ScenicServiceImpl implements ScenicService {
         LambdaUpdateWrapper<Scenic> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Scenic::getMerchantId, merchantId);
         wrapper.set(Scenic::getState, State.FORCE_UN_SHELVE);
-        scenicMapper.update(null, wrapper);
+        scenicMapper.update(wrapper);
         LambdaUpdateWrapper<ScenicTicket> updateWrapper = Wrappers.lambdaUpdate();
         updateWrapper.eq(ScenicTicket::getMerchantId, merchantId);
         updateWrapper.set(ScenicTicket::getState, State.FORCE_UN_SHELVE);
-        scenicTicketMapper.update(null, updateWrapper);
+        scenicTicketMapper.update(updateWrapper);
     }
 
     /**

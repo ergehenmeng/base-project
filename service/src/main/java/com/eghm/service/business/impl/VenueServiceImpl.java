@@ -114,7 +114,7 @@ public class VenueServiceImpl implements VenueService {
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, Venue::getMerchantId, merchantId);
         wrapper.set(Venue::getState, state);
-        venueMapper.update(null, wrapper);
+        venueMapper.update(wrapper);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class VenueServiceImpl implements VenueService {
         wrapper.eq(Venue::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(Venue::getState, State.UN_SHELVE);
         wrapper.set(Venue::getDeleted, true);
-        venueMapper.update(null, wrapper);
+        venueMapper.update(wrapper);
     }
 
     @Override
@@ -173,11 +173,11 @@ public class VenueServiceImpl implements VenueService {
         LambdaUpdateWrapper<Venue> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Venue::getMerchantId, merchantId);
         wrapper.set(Venue::getState, State.FORCE_UN_SHELVE);
-        venueMapper.update(null, wrapper);
+        venueMapper.update(wrapper);
         LambdaUpdateWrapper<VenueSite> updateWrapper = Wrappers.lambdaUpdate();
         updateWrapper.eq(VenueSite::getMerchantId, merchantId);
         updateWrapper.set(VenueSite::getState, State.FORCE_UN_SHELVE);
-        venueSiteMapper.update(null, updateWrapper);
+        venueSiteMapper.update(updateWrapper);
     }
 
     @Override

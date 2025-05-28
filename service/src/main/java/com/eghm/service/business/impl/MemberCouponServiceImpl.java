@@ -145,7 +145,7 @@ public class MemberCouponServiceImpl implements MemberCouponService {
         wrapper.eq(MemberCoupon::getId, id);
         wrapper.set(MemberCoupon::getState, CouponState.USED);
         wrapper.set(MemberCoupon::getUseTime, LocalDateTime.now());
-        memberCouponMapper.update(null, wrapper);
+        memberCouponMapper.update(wrapper);
     }
 
     @Override
@@ -157,7 +157,7 @@ public class MemberCouponServiceImpl implements MemberCouponService {
         wrapper.in(MemberCoupon::getId, ids);
         wrapper.set(MemberCoupon::getState, CouponState.USED);
         wrapper.set(MemberCoupon::getUseTime, LocalDateTime.now());
-        int update = memberCouponMapper.update(null, wrapper);
+        int update = memberCouponMapper.update(wrapper);
         if (update != ids.size()) {
             log.error("优惠券可能存在重复使用 [{}]", ids);
             throw new BusinessException(ErrorCode.COUPON_USED);

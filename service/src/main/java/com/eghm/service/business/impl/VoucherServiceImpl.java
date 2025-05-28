@@ -83,7 +83,7 @@ public class VoucherServiceImpl implements VoucherService {
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, Voucher::getMerchantId, merchantId);
         wrapper.set(Voucher::getState, state);
-        voucherMapper.update(null, wrapper);
+        voucherMapper.update(wrapper);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class VoucherServiceImpl implements VoucherService {
         wrapper.eq(Voucher::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(Voucher::getState, State.UN_SHELVE);
         wrapper.set(Voucher::getDeleted, true);
-        voucherMapper.update(null, wrapper);
+        voucherMapper.update(wrapper);
     }
 
     @Override

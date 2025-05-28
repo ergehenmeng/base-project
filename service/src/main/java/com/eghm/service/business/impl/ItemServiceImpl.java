@@ -189,7 +189,7 @@ public class ItemServiceImpl implements ItemService {
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, Item::getMerchantId, merchantId);
         wrapper.set(Item::getState, state);
-        itemMapper.update(null, wrapper);
+        itemMapper.update(wrapper);
     }
 
     @Override
@@ -197,7 +197,7 @@ public class ItemServiceImpl implements ItemService {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getId, id);
         wrapper.set(Item::getBookingId, bookingId);
-        itemMapper.update(null, wrapper);
+        itemMapper.update(wrapper);
     }
 
     @Override
@@ -207,13 +207,13 @@ public class ItemServiceImpl implements ItemService {
         wrapper.eq(Item::getLimitId, limitId);
         wrapper.eq(Item::getMerchantId, merchantId);
         wrapper.set(Item::getLimitId, null);
-        itemMapper.update(null, wrapper);
+        itemMapper.update(wrapper);
         LambdaUpdateWrapper<Item> updateWrapper = Wrappers.lambdaUpdate();
         updateWrapper.in(Item::getId, itemIds);
         updateWrapper.eq(Item::getMerchantId, merchantId);
         updateWrapper.isNull(Item::getLimitId);
         updateWrapper.set(Item::getLimitId, limitId);
-        int update = itemMapper.update(null, updateWrapper);
+        int update = itemMapper.update(updateWrapper);
         if (update != itemIds.size()) {
             log.error("限时购活动更新的商品可能不属当前商户 [{}] [{}] [{}]", merchantId, limitId, itemIds);
             throw new BusinessException(ErrorCode.LIMIT_ITEM_NULL);
@@ -225,7 +225,7 @@ public class ItemServiceImpl implements ItemService {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getLimitId, limitId);
         wrapper.set(Item::getLimitId, null);
-        itemMapper.update(null, wrapper);
+        itemMapper.update(wrapper);
     }
 
     @Override
@@ -234,7 +234,7 @@ public class ItemServiceImpl implements ItemService {
         wrapper.eq(Item::getId, id);
         wrapper.eq(Item::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(Item::getSort, sortBy);
-        itemMapper.update(null, wrapper);
+        itemMapper.update(wrapper);
     }
 
     @Override
@@ -272,7 +272,7 @@ public class ItemServiceImpl implements ItemService {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getId, id);
         wrapper.set(Item::getRecommend, recommend);
-        itemMapper.update(null, wrapper);
+        itemMapper.update(wrapper);
     }
 
     @Override
@@ -390,7 +390,7 @@ public class ItemServiceImpl implements ItemService {
         wrapper.eq(Item::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(Item::getState, State.UN_SHELVE);
         wrapper.set(Item::getDeleted, true);
-        itemMapper.update(null, wrapper);
+        itemMapper.update(wrapper);
     }
 
     @Override
@@ -433,7 +433,7 @@ public class ItemServiceImpl implements ItemService {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.set(Item::getState, State.FORCE_UN_SHELVE);
         wrapper.eq(Item::getMerchantId, merchantId);
-        itemMapper.update(null, wrapper);
+        itemMapper.update(wrapper);
     }
 
     @Override

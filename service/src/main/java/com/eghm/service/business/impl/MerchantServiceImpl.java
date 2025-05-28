@@ -228,7 +228,7 @@ public class MerchantServiceImpl implements MerchantService {
         LambdaUpdateWrapper<Merchant> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Merchant::getId, merchantId);
         wrapper.set(Merchant::getPlatformServiceRate, rate);
-        merchantMapper.update(null, wrapper);
+        merchantMapper.update(wrapper);
     }
 
     @Override
@@ -320,7 +320,7 @@ public class MerchantServiceImpl implements MerchantService {
         wrapper.eq(Merchant::getId, merchantId);
         wrapper.set(Merchant::getAuthMobile, null);
         wrapper.set(Merchant::getOpenId, null);
-        merchantMapper.update(null, wrapper);
+        merchantMapper.update(wrapper);
     }
 
     /**

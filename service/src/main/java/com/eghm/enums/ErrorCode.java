@@ -1351,6 +1351,11 @@ public enum ErrorCode {
     EXPRESS_SELECT_NULL(2750, "快递信息未查询到"),
 
     /**
+     * 快递信息查询失败
+     */
+    EXPRESS_QUERY_ERROR(2751, "快递信息查询失败"),
+
+    /**
      * 区域名称重复
      */
     AREA_TITLE_REDO(2753, "区域名称重复"),
