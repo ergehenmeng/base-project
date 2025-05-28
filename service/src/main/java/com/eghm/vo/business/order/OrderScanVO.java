@@ -1,6 +1,7 @@
 package com.eghm.vo.business.order;
 
 import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.enums.ProductType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -18,6 +19,9 @@ public class OrderScanVO {
 
     @Schema(description = "订单编号")
     private String orderNo;
+
+    @Schema(description = "商品类型")
+    private ProductType productType;
 
     @Schema(description = "总付款金额")
     @JsonSerialize(using = CentToYuanSerializer.class)
