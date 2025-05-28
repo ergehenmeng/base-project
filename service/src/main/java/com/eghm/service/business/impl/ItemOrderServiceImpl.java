@@ -19,10 +19,12 @@ import com.eghm.mapper.OrderAdjustLogMapper;
 import com.eghm.mapper.OrderRefundLogMapper;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.ItemSku;
+import com.eghm.model.Member;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ExpressService;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderExpressService;
+import com.eghm.service.member.MemberService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.state.machine.dto.OrderPackage;
 import com.eghm.utils.AssertUtil;
@@ -55,6 +57,8 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     private final SysConfigApi sysConfigApi;
 
     private final CommonService commonService;
+
+    private final MemberService memberService;
 
     private final ExpressService expressService;
 
@@ -216,6 +220,12 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         if (detail.getState() == OrderState.WAIT_DELIVERY) {
             List<ItemUnShippedOrderResponse> unShippedList = itemOrderMapper.getUnShippedList(orderNo, detail.getStoreId(), merchantId);
             detail.setUnShippedList(unShippedList);
+        }
+        // 自提订单在管理后台显示
+        if (detail.getDeliveryType() == DeliveryType.SELF_PICK) {
+            Member member = memberService.getById(detail.getMemberId());
+            detail.setNickName(member.getNickName());
+            detail.setMobile(member.getMobile());
         }
         return detail;
     }
