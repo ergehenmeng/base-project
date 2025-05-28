@@ -63,8 +63,8 @@ public class ItemOrderController {
 
     @GetMapping("/snapshotList")
     @Operation(summary = "快照列表")
-    public RespBody<List<ItemOrderListVO>> snapshotList(@Validated @ParameterObject OrderDTO dto) {
-        List<ItemOrderListVO> detailList = itemOrderService.getItemList(dto.getOrderNo());
+    public RespBody<List<ItemOrderDeliveryVO>> snapshotList(@Validated @ParameterObject OrderDTO dto) {
+        List<ItemOrderDeliveryVO> detailList = itemOrderService.getItemList(dto.getOrderNo());
         return RespBody.success(detailList);
     }
 
