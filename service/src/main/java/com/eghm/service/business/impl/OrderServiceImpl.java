@@ -385,6 +385,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             itemOrder.setShipTime(LocalDateTime.now());
         });
         itemOrderService.updateBatchById(orderList);
+        request.setPhone(order.getMobile());
         itemOrderExpressService.insert(request);
         Long count = itemOrderService.countWaitDelivery(request.getOrderNo());
         if (count == 0) {

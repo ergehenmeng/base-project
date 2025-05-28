@@ -284,6 +284,11 @@ public class SystemProperties {
          * 授权key
          */
         private String key;
+
+        /**
+         * 订阅回调地址
+         */
+        private String callback;
     }
 
     @Data

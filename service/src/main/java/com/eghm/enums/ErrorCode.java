@@ -1271,6 +1271,11 @@ public enum ErrorCode {
     ORDER_ITEM_CHOOSE(2708, "请选择要发货的商品"),
 
     /**
+     * 快递信息查询失败
+     */
+    EXPRESS_QUERY_ERROR(2751, "快递信息查询失败"),
+
+    /**
      * 该模板已关联商品, 无法修改计费方式
      */
     EXPRESS_CHARGE_MODE(2711, "物流模板已关联商品, 无法修改计费方式"),

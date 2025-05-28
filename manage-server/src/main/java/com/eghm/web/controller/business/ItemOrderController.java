@@ -12,6 +12,7 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.lock.RedisLock;
 import com.eghm.model.Express;
+import com.eghm.model.Order;
 import com.eghm.service.business.ItemOrderExpressService;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderProxyService;
@@ -88,6 +89,8 @@ public class ItemOrderController {
     @PostMapping(value = "/updateExpress", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新快递单号")
     public RespBody<Void> updateExpress(@RequestBody @Validated OrderExpressRequest request) {
+        Order order = orderService.getByOrderNo(request.getOrderNo());
+        request.setPhone(order.getMobile());
         itemOrderExpressService.update(request);
         return RespBody.success();
     }

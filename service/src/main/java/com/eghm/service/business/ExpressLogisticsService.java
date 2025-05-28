@@ -11,12 +11,13 @@ import java.util.List;
 public interface ExpressLogisticsService {
 
     /**
-     * 新增或更新物流信息
+     * 新增物流信息(如果存在则不插入)
      *
      * @param expressNo 快递单号
      * @param expressCode 快递公司编码
+     * @param phone   收发人手机号
      */
-    void insertOrUpdate(String expressNo, String expressCode);
+    void insert(String expressNo, String expressCode, String phone);
 
     /**
      * 根据订单查询物流信息

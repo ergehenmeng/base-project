@@ -23,13 +23,12 @@ public class ExpressLogisticsServiceImpl implements ExpressLogisticsService {
     private final ExpressLogisticsMapper expressLogisticsMapper;
 
     @Override
-    public void insertOrUpdate(String expressNo, String expressCode) {
-        LambdaQueryWrapper<ExpressLogistics> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(ExpressLogistics::getExpressNo, expressNo);
-        Long count = expressLogisticsMapper.selectCount(wrapper);
+    public void insert(String expressNo, String expressCode, String phone) {
+        long count = this.countByExpressNo(expressNo);
         if (count <= 0) {
             ExpressLogistics expressLogistics = new ExpressLogistics();
             expressLogistics.setExpressNo(expressNo);
+            expressLogistics.setPhone(phone);
             expressLogistics.setExpressCode(expressCode);
             expressLogisticsMapper.insert(expressLogistics);
         }
@@ -38,6 +37,18 @@ public class ExpressLogisticsServiceImpl implements ExpressLogisticsService {
     @Override
     public List<ExpressLogistics> getExpress(String orderNo) {
         return expressLogisticsMapper.getExpress(orderNo);
+    }
+
+    /**
+     * 查询指定快递号的数量
+     *
+     * @param expressNo 快递单号
+     * @return 1
+     */
+    private long countByExpressNo(String expressNo) {
+        LambdaQueryWrapper<ExpressLogistics> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(ExpressLogistics::getExpressNo, expressNo);
+        return expressLogisticsMapper.selectCount(wrapper);
     }
 
 }

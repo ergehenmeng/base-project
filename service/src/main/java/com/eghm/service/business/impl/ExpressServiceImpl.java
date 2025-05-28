@@ -2,16 +2,18 @@ package com.eghm.service.business.impl;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import com.eghm.common.AlarmService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.service.business.ExpressService;
 import com.eghm.vo.business.order.item.ExpressVO;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.kuaidi100.sdk.api.QueryTrack;
+import com.kuaidi100.sdk.api.Subscribe;
+import com.kuaidi100.sdk.contant.ApiInfoConstant;
 import com.kuaidi100.sdk.core.IBaseClient;
 import com.kuaidi100.sdk.pojo.HttpResult;
-import com.kuaidi100.sdk.request.QueryTrackParam;
-import com.kuaidi100.sdk.request.QueryTrackReq;
+import com.kuaidi100.sdk.request.*;
 import com.kuaidi100.sdk.utils.SignUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +32,8 @@ import java.util.List;
 public class ExpressServiceImpl implements ExpressService {
 
     private static final int OK = 200;
+
+    private final AlarmService alarmService;
 
     private final SystemProperties systemProperties;
 
@@ -65,5 +69,27 @@ public class ExpressServiceImpl implements ExpressService {
             return Lists.newArrayList();
         }
         return jsonObject.getJSONArray("data").toJavaList(ExpressVO.class);
+    }
+
+    @Override
+    public void subscribe(String expressNo, String expressCode, String phone) {
+        SubscribeParam param = new SubscribeParam();
+        param.setCompany(expressCode);
+        param.setNumber(expressNo);
+        param.setKey(systemProperties.getExpress().getKey());
+        SubscribeParameters parameters = new SubscribeParameters();
+        parameters.setPhone(phone);
+        parameters.setCallbackurl(systemProperties.getExpress().getCallback());
+        SubscribeReq subscribeReq = new SubscribeReq();
+        subscribeReq.setSchema(ApiInfoConstant.SUBSCRIBE_SCHEMA);
+        subscribeReq.setParam(new Gson().toJson(param));
+        IBaseClient baseClient = new Subscribe();
+        try {
+            HttpResult result = baseClient.execute(subscribeReq);
+            log.info("快递单号订阅成功 [{}] [{}]", expressNo, result);
+        } catch (Exception e) {
+            log.error("快递单号订阅异常 [{}]", expressNo, e);
+            alarmService.sendMsg(String.format("快递单号订阅失败,单号:%s, 快递公司编号:%s, 手机号:%s", expressNo, expressCode, phone));
+        }
     }
 }

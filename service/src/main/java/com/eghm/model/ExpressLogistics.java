@@ -23,4 +23,6 @@ public class ExpressLogistics extends BaseEntity {
     @ApiModelProperty(value = "物流信息(json)")
     private String content;
 
+    @ApiModelProperty("收发人手机号")
+    private String phone;
 }

@@ -1773,6 +1773,7 @@ CREATE TABLE `express_logistics`
     `id`           bigint(20) NOT NULL COMMENT '主键',
     `express_code` varchar(20) DEFAULT NULL COMMENT '物流公司code',
     `express_no`   varchar(30) DEFAULT NULL COMMENT '快递单号',
+    `phone`        varchar(20) DEFAULT NULL COMMENT '收发人手机号',
     `content`      text COMMENT '物流信息(json)',
     `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

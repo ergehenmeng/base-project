@@ -1,5 +1,6 @@
 package com.eghm.dto.business.order.item;
 
+import com.eghm.annotation.Assign;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -31,4 +32,8 @@ public class ItemSippingRequest {
     @NotBlank(message = "快递单号不能为空")
     @Size(max = 20, message = "快递单号长度最大20位")
     private String expressNo;
+
+    @Assign
+    @ApiModelProperty(value = "收发人手机号", hidden = true)
+    private String phone;
 }
