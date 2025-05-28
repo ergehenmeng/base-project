@@ -1,7 +1,7 @@
 package com.eghm.vo.business.shopping;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.convertor.SplitterArraySerializer;
+import com.eghm.convertor.SplitterIndexSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -28,7 +28,7 @@ public class ShoppingCartItemVO {
     private Long id;
 
     @ApiModelProperty("商品图片")
-    @JsonSerialize(using = SplitterArraySerializer.class)
+    @JsonSerialize(using = SplitterIndexSerializer.class)
     private String coverUrl;
 
     @ApiModelProperty("商品名称")
@@ -54,8 +54,8 @@ public class ShoppingCartItemVO {
     @ApiModelProperty("规格库存数")
     private Integer stock;
 
-    @ApiModelProperty("sku状态 1:已上架 0/2:已失效")
-    private Integer skuState;
+    @ApiModelProperty("删除状态 false:未删除 true:已删除")
+    private Boolean deleted;
 
     @ApiModelProperty("商品状态 1:已上架 0/2:已下架")
     private Integer productState;
