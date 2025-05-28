@@ -302,6 +302,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         OrderScanVO vo = new OrderScanVO();
         vo.setOrderNo(order.getOrderNo());
         vo.setPayAmount(order.getPayAmount());
+        vo.setProductType(order.getProductType());
         List<OrderProductVO> productList = new ArrayList<>(8);
         if (order.getProductType() == ProductType.ITEM) {
             List<OrderProductVO> verifyList = itemOrderService.getVerifyList(order.getOrderNo());
