@@ -12,7 +12,7 @@ import lombok.Data;
 public class FirstExpressVO {
 
     @ApiModelProperty("快递id")
-    private Long id;
+    private Long expressId;
 
     @ApiModelProperty("快递内容(最新节点)")
     private String content;

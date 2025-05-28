@@ -24,8 +24,8 @@ public class ItemOrderExpress {
     @ApiModelProperty("零售订单id")
     private Long itemOrderId;
 
-    @ApiModelProperty("快递信息id")
-    private Long expressId;
+    @ApiModelProperty("快递单号")
+    private String expressNo;
 
     @ApiModelProperty("订单号")
     private String orderNo;

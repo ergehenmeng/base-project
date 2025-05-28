@@ -20,10 +20,7 @@ import com.eghm.mapper.OrderRefundLogMapper;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.ItemSku;
 import com.eghm.model.Member;
-import com.eghm.service.business.CommonService;
-import com.eghm.service.business.ExpressService;
-import com.eghm.service.business.ItemOrderService;
-import com.eghm.service.business.OrderExpressService;
+import com.eghm.service.business.*;
 import com.eghm.service.member.MemberService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.state.machine.dto.OrderPackage;
@@ -66,11 +63,11 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 
     private final ItemOrderMapper itemOrderMapper;
 
-    private final OrderExpressService orderExpressService;
-
     private final OrderRefundLogMapper orderRefundLogMapper;
 
     private final OrderAdjustLogMapper orderAdjustLogMapper;
+
+    private final ItemOrderExpressService itemOrderExpressService;
 
     @Override
     public Page<ItemOrderResponse> listPage(ItemOrderQueryRequest request) {
@@ -192,9 +189,9 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         detail.setItemList(itemList);
         boolean isExpress = detail.getDeliveryType() == DeliveryType.EXPRESS && (detail.getState() == OrderState.WAIT_DELIVERY || detail.getState() == OrderState.WAIT_RECEIVE || detail.getState() == OrderState.REFUND || detail.getState() == OrderState.COMPLETE);
         if (isExpress) {
-            List<FirstExpressVO> expressList = orderExpressService.getFirstExpressList(orderNo);
+            List<FirstExpressVO> expressList = itemOrderExpressService.getFirstExpressList(orderNo);
             detail.setExpressList(expressList);
-        } else if (detail.getState() == OrderState.WAIT_TAKE){
+        } else if (detail.getState() == OrderState.WAIT_TAKE) {
             detail.setVerifyNo(commonService.encryptVerifyNo(detail.getVerifyNo()));
         }
         return detail;

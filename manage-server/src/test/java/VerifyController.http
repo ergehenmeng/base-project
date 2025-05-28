@@ -2,18 +2,15 @@ GET http://localhost:10086/manage/verify/listPage?page=1&pageSize=10
 token: {{token}}
 
 ###
-GET http://localhost:10086/manage/verify/scan?verifyNo=c4b8836afb55e2cfe7952a86569fc050ec2049048ae38e4714fbb8cf83f483c112c94de1015fce6c5f8baa8e39dbfce0
+GET http://localhost:10086/manage/verify/scan?verifyNo=72633b37ee85c702bdce3327a55665bc3601d6e8cd8481a31455a97b6937c3fe8edc40f840fd2abfc5cb8250f081dc81
 token: {{token}}
 
 ###
 POST http://localhost:10086/manage/verify/verify
 token: {{token}}
 Content-Type: application/json
-
+VERIFY_ORDER_ERROR
 {
-  "orderNo": "XL1922904827203497986",
-  "visitorList": [
-    1922904827266412546
-  ],
+  "orderNo": "CY1924717825741266946",
   "remark": "xxx"
 }

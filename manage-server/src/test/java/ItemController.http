@@ -114,7 +114,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/manage/item/select?id=1763082719536959490
+GET http://localhost:8080/manage/item/detail?id=1763082719536959490
 token: {{token}}
 
 ###

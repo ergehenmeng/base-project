@@ -12,8 +12,8 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.lock.RedisLock;
 import com.eghm.model.Express;
+import com.eghm.service.business.ItemOrderExpressService;
 import com.eghm.service.business.ItemOrderService;
-import com.eghm.service.business.OrderExpressService;
 import com.eghm.service.business.OrderProxyService;
 import com.eghm.service.business.OrderService;
 import com.eghm.utils.EasyExcelUtil;
@@ -49,7 +49,7 @@ public class ItemOrderController {
 
     private final OrderProxyService orderProxyService;
 
-    private final OrderExpressService orderExpressService;
+    private final ItemOrderExpressService itemOrderExpressService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
@@ -88,7 +88,7 @@ public class ItemOrderController {
     @PostMapping(value = "/updateExpress", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("更新快递单号")
     public RespBody<Void> updateExpress(@RequestBody @Validated OrderExpressRequest request) {
-        orderExpressService.update(request);
+        itemOrderExpressService.update(request);
         return RespBody.success();
     }
 
