@@ -1,10 +1,7 @@
 package com.eghm.vo.business.order.item;
 
 import com.eghm.convertor.CentToYuanSerializer;
-import com.eghm.enums.CloseType;
-import com.eghm.enums.OrderState;
-import com.eghm.enums.PayType;
-import com.eghm.enums.RefundState;
+import com.eghm.enums.*;
 import com.eghm.vo.business.order.adjust.OrderAdjustResponse;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -82,6 +79,12 @@ public class ItemOrderDetailResponse {
 
     @ApiModelProperty("订单备注信息")
     private String remark;
+
+    @ApiModelProperty(value = "配送方式 1:快递 2:自提")
+    private DeliveryType deliveryType;
+
+    @ApiModelProperty(value = "会员id")
+    private Long memberId;
 
     @ApiModelProperty("收货人姓名")
     private String nickName;

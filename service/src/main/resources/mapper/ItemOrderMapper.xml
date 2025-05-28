@@ -157,6 +157,8 @@
             r.refund_state,
             r.discount_amount,
             r.create_time,
+            r.delivery_type,
+            r.member_id
             r.close_type,
             r.pay_time,
             r.trade_no,
