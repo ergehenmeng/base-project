@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -135,6 +136,12 @@ public class Order extends BaseEntity {
 
     @Schema(description = "详细地址")
     private String detailAddress;
+
+    @Schema(description = "经度")
+    private BigDecimal longitude;
+
+    @Schema(description = "维度")
+    private BigDecimal latitude;
 
     @Schema(description = "核销码")
     private String verifyNo;

@@ -11,7 +11,10 @@ import com.eghm.enums.TicketType;
 import com.eghm.mapper.TicketOrderMapper;
 import com.eghm.model.OrderVisitor;
 import com.eghm.model.TicketOrder;
-import com.eghm.service.business.*;
+import com.eghm.service.business.CommonService;
+import com.eghm.service.business.OrderVisitorService;
+import com.eghm.service.business.TicketOrderCombineService;
+import com.eghm.service.business.TicketOrderService;
 import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
@@ -75,9 +78,7 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     public TicketOrderDetailVO getDetail(String orderNo, Long memberId) {
         TicketOrderDetailVO detail = ticketOrderMapper.getDetail(orderNo, memberId);
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
-        List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
-        detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
-        detail.setVerifyNo(commonService.encryptVerifyNo(detail.getVerifyNo()));
+        commonService.setVisitorVerify(detail);
         return detail;
     }
 

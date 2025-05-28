@@ -15,6 +15,7 @@ import com.eghm.constants.LockConstant;
 import com.eghm.dto.ext.StoreScope;
 import com.eghm.dto.statistics.ProductRequest;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.OrderState;
 import com.eghm.enums.ProductType;
 import com.eghm.enums.SelectType;
 import com.eghm.exception.BusinessException;
@@ -22,12 +23,16 @@ import com.eghm.lock.RedisLock;
 import com.eghm.mapper.*;
 import com.eghm.model.*;
 import com.eghm.service.business.CommonService;
+import com.eghm.service.business.OrderVisitorService;
 import com.eghm.state.machine.access.AccessHandler;
 import com.eghm.state.machine.context.PayNotifyContext;
 import com.eghm.state.machine.context.RefundNotifyContext;
+import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
 import com.eghm.utils.SpringContextUtil;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.order.OrderVisitorVerifiableVO;
+import com.eghm.vo.business.order.VisitorVO;
 import com.eghm.vo.business.statistics.ProductStatisticsVO;
 import com.eghm.vo.sys.SysAreaVO;
 import com.google.common.collect.Lists;
@@ -93,6 +98,8 @@ public class CommonServiceImpl implements CommonService {
     private final ScenicTicketMapper scenicTicketMapper;
 
     private final HomestayRoomMapper homestayRoomMapper;
+
+    private final OrderVisitorService orderVisitorService;
 
     @Override
     public void checkMaxDay(String configNid, long maxValue) {
@@ -369,6 +376,15 @@ public class CommonServiceImpl implements CommonService {
         }
         AES aes = SecureUtil.aes(systemProperties.getSecretKey().getBytes(StandardCharsets.UTF_8));
         return aes.encryptHex(System.currentTimeMillis() + CommonConstant.SPECIAL_SPLIT + verifyNo);
+    }
+
+    @Override
+    public void setVisitorVerify(OrderVisitorVerifiableVO detail) {
+        List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(detail.getOrderNo());
+        detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
+        if (detail.getState() == OrderState.UN_USED) {
+            detail.setVerifyNo(this.encryptVerifyNo(detail.getVerifyNo()));
+        }
     }
 
     /**

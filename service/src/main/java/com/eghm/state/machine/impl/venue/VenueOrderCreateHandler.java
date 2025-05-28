@@ -124,7 +124,7 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
         order.setPayAmount(order.getPrice());
         order.setAmount(order.getPrice());
         order.setMultiple(false);
-        order.setDeliveryType(DeliveryType.SELF_PICK);
+        order.setDeliveryType(DeliveryType.NONE);
         order.setProductType(ProductType.VENUE);
         order.setRefundType(RefundType.DIRECT_REFUND);
         order.setCreateDate(LocalDate.now());

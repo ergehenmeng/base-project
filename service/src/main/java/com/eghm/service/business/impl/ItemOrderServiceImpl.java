@@ -186,9 +186,11 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         List<ItemOrderDeliveryVO> itemList = itemOrderMapper.getItemList(orderNo);
         detail.setDetailAddress(sysAreaService.parseArea(detail.getProvinceId(), detail.getCityId(), detail.getCountyId(), detail.getDetailAddress()));
         detail.setItemList(itemList);
-        List<FirstExpressVO> expressList = orderExpressService.getFirstExpressList(orderNo);
-        detail.setExpressList(expressList);
-        if (detail.getState() == OrderState.WAIT_TAKE) {
+        boolean isExpress = detail.getDeliveryType() == DeliveryType.EXPRESS && (detail.getState() == OrderState.WAIT_DELIVERY || detail.getState() == OrderState.WAIT_RECEIVE || detail.getState() == OrderState.REFUND || detail.getState() == OrderState.COMPLETE);
+        if (isExpress) {
+            List<FirstExpressVO> expressList = orderExpressService.getFirstExpressList(orderNo);
+            detail.setExpressList(expressList);
+        } else if (detail.getState() == OrderState.WAIT_TAKE){
             detail.setVerifyNo(commonService.encryptVerifyNo(detail.getVerifyNo()));
         }
         return detail;

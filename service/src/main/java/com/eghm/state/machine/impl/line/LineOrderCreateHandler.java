@@ -118,7 +118,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         order.setRemark(context.getRemark());
         order.setMemberId(context.getMemberId());
         order.setMultiple(false);
-        order.setDeliveryType(DeliveryType.SELF_PICK);
+        order.setDeliveryType(DeliveryType.NONE);
         order.setCreateDate(LocalDate.now());
         order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());

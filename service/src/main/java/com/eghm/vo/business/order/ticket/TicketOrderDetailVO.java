@@ -2,35 +2,32 @@ package com.eghm.vo.business.order.ticket;
 
 import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.convertor.SplitterIndexSerializer;
-import com.eghm.enums.OrderState;
 import com.eghm.enums.PayType;
 import com.eghm.enums.RefundState;
 import com.eghm.enums.RefundType;
-import com.eghm.vo.business.order.VisitorVO;
+import com.eghm.vo.business.order.OrderVisitorVerifiableVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author 二哥很猛
  * @since 2023/7/31
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TicketOrderDetailVO {
+public class TicketOrderDetailVO extends OrderVisitorVerifiableVO {
 
     @Schema(description = "图片")
     @JsonSerialize(using = SplitterIndexSerializer.class)
     private String coverUrl;
-
-    @Schema(description = "订单编号")
-    private String orderNo;
 
     @Schema(description = "门票名称")
     private String title;
@@ -52,9 +49,6 @@ public class TicketOrderDetailVO {
 
     @Schema(description = "是否支持退款 0:不支持 1:直接退款 2:审核后退款")
     private RefundType refundType;
-
-    @Schema(description = "订单状态 0:待支付 1:支付中 2:待使用 3:待自提 4:待发货 5:待收货 6:退款中 7:订单完成 8:已关闭 9:支付异常 10:退款异常")
-    private OrderState state;
 
     @Schema(description = "当前订单所处的退款状态 1:退款申请中 2:退款中 3:退款拒绝 4:退款成功 5:退款失败(该状态和退款中在C端用户看来都是退款中) 6:线下退款(该状态与退款成功在C端用户看来是一样的)")
     private RefundState refundState;
@@ -82,9 +76,6 @@ public class TicketOrderDetailVO {
     @Schema(description = "联系人手机号")
     private String mobile;
 
-    @Schema(description = "游客列表")
-    private List<VisitorVO> visitorList;
-
     @Schema(description = "完成时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime completeTime;
@@ -92,9 +83,6 @@ public class TicketOrderDetailVO {
     @Schema(description = "预计游玩日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate visitDate;
-
-    @Schema(description = "核销码")
-    private String verifyNo;
 
     @Schema(description = "订单备注信息")
     private String remark;

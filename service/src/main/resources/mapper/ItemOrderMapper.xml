@@ -122,7 +122,10 @@
         r.city_id,
         r.county_id,
         r.verify_no,
-        r.detail_address
+        r.detail_address,
+        r.longitude,
+        r.latitude,
+        r.delivery_type
         from `order` r
         left join item_store t on t.id = r.store_id
         where t.deleted = false and r.member_id = #{memberId} and r.order_no = #{orderNo}

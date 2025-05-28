@@ -78,9 +78,7 @@ public class HomestayOrderServiceImpl implements HomestayOrderService {
     public HomestayOrderDetailVO getDetail(String orderNo, Long memberId) {
         HomestayOrderDetailVO detail = homestayOrderMapper.getDetail(orderNo, memberId);
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
-        detail.setVerifyNo(commonService.encryptVerifyNo(detail.getVerifyNo()));
-        List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
-        detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
+        commonService.setVisitorVerify(detail);
         return detail;
     }
 

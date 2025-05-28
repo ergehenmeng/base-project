@@ -91,7 +91,7 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
         order.setPayAmount(order.getNum() * order.getPrice());
         order.setAmount(order.getNum() * order.getPrice());
         order.setMultiple(false);
-        order.setDeliveryType(DeliveryType.SELF_PICK);
+        order.setDeliveryType(DeliveryType.NONE);
         order.setProductType(ProductType.VOUCHER);
         order.setRefundType(RefundType.DIRECT_REFUND);
         order.setCreateDate(LocalDate.now());

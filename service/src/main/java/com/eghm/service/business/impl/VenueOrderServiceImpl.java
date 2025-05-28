@@ -10,6 +10,7 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.order.venue.VenueOrderQueryDTO;
 import com.eghm.dto.business.order.venue.VenueOrderQueryRequest;
 import com.eghm.dto.ext.VenuePhase;
+import com.eghm.enums.OrderState;
 import com.eghm.mapper.VenueOrderMapper;
 import com.eghm.model.VenueOrder;
 import com.eghm.service.business.CommonService;
@@ -107,7 +108,9 @@ public class VenueOrderServiceImpl implements VenueOrderService {
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
         detail.setDetailAddress(sysAreaService.parseArea(detail.getCityId(), detail.getCountyId(), detail.getDetailAddress()));
         detail.setPhaseList(jsonService.fromJsonList(detail.getTimePhase(), VenuePhaseVO.class));
-        detail.setVerifyNo(commonService.encryptVerifyNo(detail.getVerifyNo()));
+        if (detail.getState() == OrderState.UN_USED) {
+            detail.setVerifyNo(commonService.encryptVerifyNo(detail.getVerifyNo()));
+        }
         return detail;
     }
 
