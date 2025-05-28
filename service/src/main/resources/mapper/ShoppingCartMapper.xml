@@ -50,7 +50,7 @@
         r.quota,
         if(second_spec_value is null, ps.primary_spec_value, concat(ps.primary_spec_value, '-', ps.second_spec_value)) as skuName,
         ps.stock,
-        ps.deleted as skuState,
+        ps.deleted,
         r.state as productState,
         m.state as storeState
         from shopping_cart t
