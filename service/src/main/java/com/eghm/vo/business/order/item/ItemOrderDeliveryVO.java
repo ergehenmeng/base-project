@@ -16,7 +16,7 @@ import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ItemOrderListVO {
+public class ItemOrderDeliveryVO {
 
     @ApiModelProperty("订单id")
     private Long id;

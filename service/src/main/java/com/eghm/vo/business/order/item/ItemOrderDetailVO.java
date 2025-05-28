@@ -92,7 +92,7 @@ public class ItemOrderDetailVO {
     private String verifyNo;
 
     @ApiModelProperty("订单商品详情")
-    private List<ItemOrderListVO> itemList;
+    private List<ItemOrderDeliveryVO> itemList;
 
     @ApiModelProperty("物流信息(可能存在多包裹)")
     private List<FirstExpressVO> expressList;
