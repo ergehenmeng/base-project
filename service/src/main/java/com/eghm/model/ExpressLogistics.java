@@ -10,9 +10,9 @@ import lombok.EqualsAndHashCode;
  * @since 2023/11/27
  */
 @Data
-@TableName("order_express")
+@TableName("express_logistics")
 @EqualsAndHashCode(callSuper = true)
-public class OrderExpress extends BaseEntity {
+public class ExpressLogistics extends BaseEntity {
 
     @Schema(description = "快递单号")
     private String expressNo;
@@ -22,8 +22,5 @@ public class OrderExpress extends BaseEntity {
 
     @Schema(description = "物流信息(json)")
     private String content;
-
-    @Schema(description = "订单号")
-    private String orderNo;
 
 }

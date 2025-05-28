@@ -24,11 +24,11 @@ public class ItemOrderExpress {
     @Schema(description = "零售订单id")
     private Long itemOrderId;
 
-    @Schema(description = "快递信息id")
-    private Long expressId;
-
     @Schema(description = "订单号")
     private String orderNo;
+
+    @Schema(description = "快递单号")
+    private String expressNo;
 
     @Schema(description = "添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

@@ -12,7 +12,7 @@ import lombok.Data;
 public class FirstExpressVO {
 
     @Schema(description = "快递id")
-    private Long id;
+    private Long expressId;
 
     @Schema(description = "快递内容(最新节点)")
     private String content;

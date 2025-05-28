@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.mapper.ItemOrderExpressMapper">
+<mapper namespace="com.eghm.mapper.ExpressLogisticsMapper">
 
-
-    <select id="getById" resultType="com.eghm.vo.business.order.item.ExpressLogisticsVO">
+    <select id="getExpress" resultType="com.eghm.model.ExpressLogistics">
         select
-            t.express_code,
-            t.express_no,
-            t.content,
-            r.order_no
+        r.id,
+        t.express_code,
+        t.express_no,
+        t.content
         from express_logistics t inner join item_order_express r on t.express_no = r.express_no
-        where r.id = #{id}
+        where r.order_no = #{orderNo}
     </select>
 
 </mapper>

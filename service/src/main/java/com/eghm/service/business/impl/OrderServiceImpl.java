@@ -48,6 +48,7 @@ import com.eghm.vo.business.order.OrderScanVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
 import com.eghm.vo.business.order.item.ExpressDetailVO;
+import com.eghm.vo.business.order.item.ExpressLogisticsVO;
 import com.eghm.vo.business.order.item.ExpressVO;
 import com.eghm.vo.business.order.item.ItemOrderRefundVO;
 import com.eghm.vo.business.scenic.ticket.CombineTicketVO;
@@ -114,13 +115,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     private final ScoreAccountService scoreAccountService;
 
-    private final OrderExpressService orderExpressService;
-
     private final OrderVisitorService orderVisitorService;
 
     private final OrderRefundLogService orderRefundLogService;
 
     private final MerchantAddressService merchantAddressService;
+
+    private final ItemOrderExpressService itemOrderExpressService;
 
     private final OfflineRefundLogService offlineRefundLogService;
 
@@ -381,7 +382,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         }
         orderList.forEach(itemOrder -> itemOrder.setDeliveryState(DeliveryState.WAIT_TAKE));
         itemOrderService.updateBatchById(orderList);
-        orderExpressService.insert(request);
+        itemOrderExpressService.insert(request);
         Long count = itemOrderService.countWaitDelivery(request.getOrderNo());
         if (count == 0) {
             order.setState(OrderState.WAIT_RECEIVE);
@@ -393,7 +394,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public ExpressDetailVO expressDetail(Long id) {
-        OrderExpress express = orderExpressService.selectById(id);
+        ExpressLogisticsVO express = itemOrderExpressService.getById(id);
         if (express == null) {
             log.info("未查询到快递信息 [{}]", id);
             throw new BusinessException(ErrorCode.EXPRESS_SELECT_NULL);

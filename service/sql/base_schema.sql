@@ -1763,12 +1763,10 @@ CREATE TABLE `merchant_user`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_bin COMMENT ='商户用户表';
 
-DROP TABLE IF EXISTS `item_express`;
-DROP TABLE IF EXISTS `order_express`;
-CREATE TABLE `order_express`
+DROP TABLE IF EXISTS `express_logistics`;
+CREATE TABLE `express_logistics`
 (
     `id`           bigint(20) NOT NULL COMMENT '主键',
-    `order_no`     varchar(30) DEFAULT NULL COMMENT '订单号',
     `express_code` varchar(20) DEFAULT NULL COMMENT '物流公司code',
     `express_no`   varchar(30) DEFAULT NULL COMMENT '快递单号',
     `content`      text COMMENT '物流信息(json)',
@@ -1784,8 +1782,8 @@ CREATE TABLE `item_order_express`
 (
     `id`            bigint(20) NOT NULL COMMENT '主键',
     `item_order_id` bigint(20)  DEFAULT NULL COMMENT '零售订单id',
-    `order_no`      varchar(30) DEFAULT NULL COMMENT '订单号(冗余)',
-    `express_id`    bigint(20) comment '快递信息id',
+    `order_no`      varchar(30) DEFAULT NULL COMMENT '订单号',
+    `express_no`    varchar(30) comment '快递单号',
     `create_time`   datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
