@@ -84,13 +84,13 @@
         </if>
         <if test="param.tabState != null">
             <choose>
-                <when test="param.tabState == 1">
+                <when test="param.tabState == @com.eghm.enums.TabState@WAIT_PAY">
                     and r.state in (0, 1)
                 </when>
-                <when test="param.tabState == 2">
+                <when test="param.tabState == @com.eghm.enums.TabState@WAIT_DELIVERY">
                     and r.state in (2, 3, 4, 5, 6, 7)
                 </when>
-                <when test="param.tabState == 3">
+                <when test="param.tabState == @com.eghm.enums.TabState@WAIT_EVALUATE">
                     and r.state = 8 and r.evaluate_state = false
                 </when>
                 <otherwise>

@@ -190,7 +190,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         if (isExpress) {
             List<FirstExpressVO> expressList = orderExpressService.getFirstExpressList(orderNo);
             detail.setExpressList(expressList);
-        } else if (detail.getState() == OrderState.WAIT_TAKE){
+        } else if (detail.getState() == OrderState.WAIT_TAKE) {
             detail.setVerifyNo(commonService.encryptVerifyNo(detail.getVerifyNo()));
         }
         return detail;
