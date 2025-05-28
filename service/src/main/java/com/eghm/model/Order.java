@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -138,6 +139,12 @@ public class Order extends BaseEntity {
 
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
+
+    @ApiModelProperty(value = "经度")
+    private BigDecimal longitude;
+
+    @ApiModelProperty(value = "维度")
+    private BigDecimal latitude;
 
     @ApiModelProperty("核销码")
     private String verifyNo;

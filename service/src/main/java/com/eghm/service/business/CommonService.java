@@ -7,6 +7,7 @@ import com.eghm.model.SysDictItem;
 import com.eghm.state.machine.context.PayNotifyContext;
 import com.eghm.state.machine.context.RefundNotifyContext;
 import com.eghm.vo.business.base.BaseStoreResponse;
+import com.eghm.vo.business.order.OrderVisitorVerifiableVO;
 import com.eghm.vo.business.statistics.ProductStatisticsVO;
 import com.eghm.vo.sys.SysAreaVO;
 
@@ -158,4 +159,11 @@ public interface CommonService {
      * @return 核销码
      */
     String encryptVerifyNo(String verifyNo);
+
+    /**
+     * 设置订单的游客及核销信息
+     *
+     * @param vo 订单基础信息
+     */
+    void setVisitorVerify(OrderVisitorVerifiableVO vo);
 }

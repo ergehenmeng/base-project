@@ -19,6 +19,7 @@ import com.eghm.mapper.OrderAdjustLogMapper;
 import com.eghm.mapper.OrderRefundLogMapper;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.ItemSku;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ExpressService;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderExpressService;
@@ -52,6 +53,8 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     private final JsonService jsonService;
 
     private final SysConfigApi sysConfigApi;
+
+    private final CommonService commonService;
 
     private final ExpressService expressService;
 
@@ -183,8 +186,13 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         List<ItemOrderDeliveryVO> itemList = itemOrderMapper.getItemList(orderNo);
         detail.setDetailAddress(sysAreaService.parseArea(detail.getProvinceId(), detail.getCityId(), detail.getCountyId(), detail.getDetailAddress()));
         detail.setItemList(itemList);
-        List<FirstExpressVO> expressList = orderExpressService.getFirstExpressList(orderNo);
-        detail.setExpressList(expressList);
+        boolean isExpress = detail.getDeliveryType() == DeliveryType.EXPRESS && (detail.getState() == OrderState.WAIT_DELIVERY || detail.getState() == OrderState.WAIT_RECEIVE || detail.getState() == OrderState.REFUND || detail.getState() == OrderState.COMPLETE);
+        if (isExpress) {
+            List<FirstExpressVO> expressList = orderExpressService.getFirstExpressList(orderNo);
+            detail.setExpressList(expressList);
+        } else if (detail.getState() == OrderState.WAIT_TAKE){
+            detail.setVerifyNo(commonService.encryptVerifyNo(detail.getVerifyNo()));
+        }
         return detail;
     }
 

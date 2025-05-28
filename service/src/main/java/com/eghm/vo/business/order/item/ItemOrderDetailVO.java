@@ -1,6 +1,7 @@
 package com.eghm.vo.business.order.item;
 
 import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.enums.DeliveryType;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.PayType;
 import com.eghm.enums.RefundState;
@@ -11,6 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -43,6 +45,9 @@ public class ItemOrderDetailVO {
     @ApiModelProperty(value = "优惠金额")
     @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer discountAmount;
+
+    @ApiModelProperty(value = "配送方式")
+    private DeliveryType deliveryType;
 
     @ApiModelProperty("总付款金额")
     @JsonSerialize(using = CentToYuanSerializer.class)
@@ -87,6 +92,12 @@ public class ItemOrderDetailVO {
 
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
+
+    @ApiModelProperty(value = "经度")
+    private BigDecimal longitude;
+
+    @ApiModelProperty(value = "维度")
+    private BigDecimal latitude;
 
     @ApiModelProperty(value = "核销码")
     private String verifyNo;

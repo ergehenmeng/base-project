@@ -78,9 +78,7 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     public TicketOrderDetailVO getDetail(String orderNo, Long memberId) {
         TicketOrderDetailVO detail = ticketOrderMapper.getDetail(orderNo, memberId);
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
-        List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
-        detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
-        detail.setVerifyNo(commonService.encryptVerifyNo(detail.getVerifyNo()));
+        commonService.setVisitorVerify(detail);
         return detail;
     }
 

@@ -8,6 +8,7 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.order.voucher.VoucherOrderQueryDTO;
 import com.eghm.dto.business.order.voucher.VoucherOrderQueryRequest;
+import com.eghm.enums.OrderState;
 import com.eghm.mapper.VoucherOrderMapper;
 import com.eghm.model.VoucherOrder;
 import com.eghm.service.business.CommonService;
@@ -73,7 +74,9 @@ public class VoucherOrderServiceImpl implements VoucherOrderService {
     public VoucherOrderDetailVO getDetail(String orderNo, Long memberId) {
         VoucherOrderDetailVO detail = voucherOrderMapper.getDetail(orderNo, memberId);
         AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
-        detail.setVerifyNo(commonService.encryptVerifyNo(detail.getVerifyNo()));
+        if (detail.getState() == OrderState.UN_USED) {
+            detail.setVerifyNo(commonService.encryptVerifyNo(detail.getVerifyNo()));
+        }
         return detail;
     }
 

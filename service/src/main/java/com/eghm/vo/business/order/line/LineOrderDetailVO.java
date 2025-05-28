@@ -2,35 +2,32 @@ package com.eghm.vo.business.order.line;
 
 import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.convertor.SplitterIndexSerializer;
-import com.eghm.enums.OrderState;
 import com.eghm.enums.PayType;
 import com.eghm.enums.RefundState;
 import com.eghm.enums.RefundType;
-import com.eghm.vo.business.order.VisitorVO;
+import com.eghm.vo.business.order.OrderVisitorVerifiableVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author 二哥很猛
  * @since 2023/7/31
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class LineOrderDetailVO {
+public class LineOrderDetailVO extends OrderVisitorVerifiableVO {
 
     @ApiModelProperty("图片")
     @JsonSerialize(using = SplitterIndexSerializer.class)
     private String coverUrl;
-
-    @ApiModelProperty("订单编号")
-    private String orderNo;
 
     @ApiModelProperty("线路名称")
     private String title;
@@ -43,9 +40,6 @@ public class LineOrderDetailVO {
 
     @ApiModelProperty(value = "是否支持退款 0:不支持 1:直接退款 2:审核后退款")
     private RefundType refundType;
-
-    @ApiModelProperty(value = "订单状态 0:待支付 1:支付中 2:待使用 3:待自提 4:待发货 5:待收货 6:退款中 7:订单完成 8:已关闭 9:支付异常 10:退款异常")
-    private OrderState state;
 
     @ApiModelProperty("当前订单所处的退款状态 1:退款申请中 2:退款中 3:退款拒绝 4:退款成功 5:退款失败(该状态和退款中在C端用户看来都是退款中) 6:线下退款(该状态与退款成功在C端用户看来是一样的)")
     private RefundState refundState;
@@ -86,12 +80,6 @@ public class LineOrderDetailVO {
 
     @ApiModelProperty("几日游 1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10:十日游 11:11日游 12:十二日游")
     private Integer duration;
-
-    @ApiModelProperty("核销码")
-    private String verifyNo;
-
-    @ApiModelProperty("游客信息")
-    private List<VisitorVO> visitorList;
 
     @ApiModelProperty("兑换码(只支持线路/民宿/场馆/餐饮)")
     private String cdKey;

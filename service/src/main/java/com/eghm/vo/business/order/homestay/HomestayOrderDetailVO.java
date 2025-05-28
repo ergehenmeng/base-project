@@ -2,32 +2,33 @@ package com.eghm.vo.business.order.homestay;
 
 import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.convertor.SplitterIndexSerializer;
-import com.eghm.enums.*;
-import com.eghm.vo.business.order.VisitorVO;
+import com.eghm.enums.ConfirmState;
+import com.eghm.enums.PayType;
+import com.eghm.enums.RefundState;
+import com.eghm.enums.RefundType;
+import com.eghm.vo.business.order.OrderVisitorVerifiableVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author 二哥很猛
  * @since 2023/7/31
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
-public class HomestayOrderDetailVO {
+public class HomestayOrderDetailVO extends OrderVisitorVerifiableVO {
 
     @ApiModelProperty("图片")
     @JsonSerialize(using = SplitterIndexSerializer.class)
     private String coverUrl;
-
-    @ApiModelProperty("订单编号")
-    private String orderNo;
 
     @ApiModelProperty("房型名称")
     private String title;
@@ -46,9 +47,6 @@ public class HomestayOrderDetailVO {
 
     @ApiModelProperty(value = "是否支持退款 0:不支持 1:直接退款 2:审核后退款")
     private RefundType refundType;
-
-    @ApiModelProperty(value = "订单状态 0:待支付 1:支付中 2:待使用 3:待自提 4:待发货 5:待收货 6:退款中 7:订单完成 8:已关闭 9:支付异常 10:退款异常")
-    private OrderState state;
 
     @ApiModelProperty("当前订单所处的退款状态 1:退款申请中 2:退款中 3:退款拒绝 4:退款成功 5:退款失败(该状态和退款中在C端用户看来都是退款中) 6:线下退款(该状态与退款成功在C端用户看来是一样的)")
     private RefundState refundState;
@@ -76,9 +74,6 @@ public class HomestayOrderDetailVO {
     @ApiModelProperty(value = "联系人手机号")
     private String mobile;
 
-    @ApiModelProperty("游客列表")
-    private List<VisitorVO> visitorList;
-
     @ApiModelProperty("确认状态 0:待确认 1:确认有房 2:确认无房 3:自动确认有房")
     private ConfirmState confirmState;
 
@@ -96,9 +91,6 @@ public class HomestayOrderDetailVO {
     @ApiModelProperty("离店日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
-
-    @ApiModelProperty("核销码")
-    private String verifyNo;
 
     @ApiModelProperty("兑换码(只支持线路/民宿/场馆/餐饮)")
     private String cdKey;
