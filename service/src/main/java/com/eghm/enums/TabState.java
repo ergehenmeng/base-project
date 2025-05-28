@@ -21,7 +21,7 @@ public enum TabState {
     /**
      * 待付款
      */
-    WAIT_AY(1, "待付款"),
+    WAIT_PAY(1, "待付款"),
 
     /**
      * 待收货
