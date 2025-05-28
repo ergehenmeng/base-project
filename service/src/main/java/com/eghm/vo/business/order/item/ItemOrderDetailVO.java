@@ -92,7 +92,7 @@ public class ItemOrderDetailVO {
     private String verifyNo;
 
     @Schema(description = "订单商品详情")
-    private List<ItemOrderListVO> itemList;
+    private List<ItemOrderDeliveryVO> itemList;
 
     @Schema(description = "物流信息(可能存在多包裹)")
     private List<FirstExpressVO> expressList;

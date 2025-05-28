@@ -61,7 +61,7 @@ public interface ItemOrderMapper extends BaseMapper<ItemOrder> {
      * @param orderNo 订单编号
      * @return 商品信息
      */
-    List<ItemOrderListVO> getItemList(@Param("orderNo") String orderNo);
+    List<ItemOrderDeliveryVO> getItemList(@Param("orderNo") String orderNo);
 
     /**
      * 查询订单详情

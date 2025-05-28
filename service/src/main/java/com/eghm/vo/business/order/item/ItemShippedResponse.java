@@ -30,6 +30,6 @@ public class ItemShippedResponse {
     private List<ExpressVO> expressList;
 
     @Schema(description = "包裹中包含的商品")
-    private List<ItemOrderListVO> itemList;
+    private List<ItemOrderDeliveryVO> itemList;
 
 }

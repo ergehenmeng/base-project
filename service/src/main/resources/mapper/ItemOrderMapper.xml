@@ -128,7 +128,7 @@
         where t.deleted = false and r.member_id = #{memberId} and r.order_no = #{orderNo}
     </select>
 
-    <select id="getItemList" resultType="com.eghm.vo.business.order.item.ItemOrderListVO">
+    <select id="getItemList" resultType="com.eghm.vo.business.order.item.ItemOrderDeliveryVO">
         select
         id,
         item_id,
@@ -262,7 +262,7 @@
         <result property="expressNo" column="express_no"/>
         <result property="expressCode" column="express_code"/>
         <result property="content" column="content"/>
-        <collection property="itemList" ofType="com.eghm.vo.business.order.item.ItemOrderListVO">
+        <collection property="itemList" ofType="com.eghm.vo.business.order.item.ItemOrderDeliveryVO">
             <result property="itemId" column="item_id"/>
             <result property="title" column="title"/>
             <result property="skuTitle" column="sku_title"/>

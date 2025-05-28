@@ -96,7 +96,7 @@ public class ItemOrderRefundDetailResponse {
     private List<ItemRefundResponse> refundList;
 
     @Schema(description = "订单商品")
-    private List<ItemOrderListVO> itemList;
+    private List<ItemOrderDeliveryVO> itemList;
 
     @Schema(description = "已发货商品信息")
     private List<ItemShippedResponse> shippedList;
