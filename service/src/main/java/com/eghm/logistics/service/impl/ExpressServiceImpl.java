@@ -109,7 +109,7 @@ public class ExpressServiceImpl implements ExpressService {
 
     @Override
     public void updateExpress(String expressNo, List<SubscribePushData> dataList) {
-        List<ExpressVO> voList = dataList.stream().map(data -> new ExpressVO(data.getTime(), data.getContext(), Integer.parseInt(data.getStatusCode()))).collect(Collectors.toList());
+        List<ExpressVO> voList = dataList.stream().map(data -> new ExpressVO(data.getTime(), data.getContext())).collect(Collectors.toList());
         LambdaUpdateWrapper<ExpressLogistics> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ExpressLogistics::getExpressNo, expressNo);
         wrapper.set(ExpressLogistics::getContent, jsonService.toJson(voList));
