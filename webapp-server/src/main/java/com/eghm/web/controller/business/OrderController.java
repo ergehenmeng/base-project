@@ -16,6 +16,7 @@ import com.eghm.dto.business.order.venue.VenueOrderCreateDTO;
 import com.eghm.dto.business.order.voucher.VoucherOrderCreateDTO;
 import com.eghm.dto.ext.BaseAsyncKey;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.DeliveryType;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.ProductType;
@@ -272,6 +273,7 @@ public class OrderController {
     private RespBody<OrderCreateVO<String>> createItemOrder(ItemOrderCreateDTO dto, Boolean isGroupBooking) {
         ItemOrderCreateContext context = DataUtil.copy(dto, ItemOrderCreateContext.class);
         context.setGroupBooking(isGroupBooking);
+        context.setDeliveryType(DeliveryType.of(dto.getDeliveryType()));
         context.setMemberId(ApiHolder.getMemberId());
         List<SkuDTO> skuList = dto.getItemList().stream().flatMap(item -> item.getSkuList().stream()).collect(Collectors.toList());
         context.setItemIds(skuList.stream().map(SkuDTO::getItemId).collect(Collectors.toSet()));

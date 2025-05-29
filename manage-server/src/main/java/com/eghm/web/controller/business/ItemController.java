@@ -79,9 +79,9 @@ public class ItemController {
         return RespBody.success();
     }
 
-    @GetMapping("/select")
+    @GetMapping("/detail")
     @ApiOperation("详情")
-    public RespBody<ItemDetailResponse> select(@Validated IdDTO dto) {
+    public RespBody<ItemDetailResponse> detail(@Validated IdDTO dto) {
         ItemDetailResponse detail = itemService.getDetailById(dto.getId());
         return RespBody.success(detail);
     }
