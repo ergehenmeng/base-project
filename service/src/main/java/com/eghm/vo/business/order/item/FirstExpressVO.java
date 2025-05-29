@@ -15,5 +15,5 @@ public class FirstExpressVO {
     private Long expressId;
 
     @ApiModelProperty("快递内容(最新节点)")
-    private String content;
+    private String context;
 }

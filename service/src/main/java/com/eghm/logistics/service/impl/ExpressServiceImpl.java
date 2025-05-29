@@ -1,10 +1,15 @@
-package com.eghm.service.business.impl;
+package com.eghm.logistics.service.impl;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.AlarmService;
+import com.eghm.common.JsonService;
 import com.eghm.configuration.SystemProperties;
-import com.eghm.service.business.ExpressService;
+import com.eghm.logistics.service.ExpressService;
+import com.eghm.mapper.ExpressLogisticsMapper;
+import com.eghm.model.ExpressLogistics;
 import com.eghm.vo.business.order.item.ExpressVO;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
@@ -14,12 +19,15 @@ import com.kuaidi100.sdk.contant.ApiInfoConstant;
 import com.kuaidi100.sdk.core.IBaseClient;
 import com.kuaidi100.sdk.pojo.HttpResult;
 import com.kuaidi100.sdk.request.*;
+import com.kuaidi100.sdk.response.SubscribePushData;
 import com.kuaidi100.sdk.utils.SignUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -33,9 +41,13 @@ public class ExpressServiceImpl implements ExpressService {
 
     private static final int OK = 200;
 
+    private final JsonService jsonService;
+
     private final AlarmService alarmService;
 
     private final SystemProperties systemProperties;
+
+    private final ExpressLogisticsMapper expressLogisticsMapper;
 
     @Override
     public List<ExpressVO> getExpressList(String expressNo, String expressCode, String phone) {
@@ -71,6 +83,7 @@ public class ExpressServiceImpl implements ExpressService {
         return jsonObject.getJSONArray("data").toJavaList(ExpressVO.class);
     }
 
+    @Async
     @Override
     public void subscribe(String expressNo, String expressCode, String phone) {
         SubscribeParam param = new SubscribeParam();
@@ -80,6 +93,7 @@ public class ExpressServiceImpl implements ExpressService {
         SubscribeParameters parameters = new SubscribeParameters();
         parameters.setPhone(phone);
         parameters.setCallbackurl(systemProperties.getExpress().getCallback());
+        parameters.setSalt(systemProperties.getExpress().getSalt());
         SubscribeReq subscribeReq = new SubscribeReq();
         subscribeReq.setSchema(ApiInfoConstant.SUBSCRIBE_SCHEMA);
         subscribeReq.setParam(new Gson().toJson(param));
@@ -91,5 +105,14 @@ public class ExpressServiceImpl implements ExpressService {
             log.error("快递单号订阅异常 [{}]", expressNo, e);
             alarmService.sendMsg(String.format("快递单号订阅失败,单号:%s, 快递公司编号:%s, 手机号:%s", expressNo, expressCode, phone));
         }
+    }
+
+    @Override
+    public void updateExpress(String expressNo, List<SubscribePushData> dataList) {
+        List<ExpressVO> voList = dataList.stream().map(data -> new ExpressVO(data.getTime(), data.getContext(), Integer.parseInt(data.getStatusCode()))).collect(Collectors.toList());
+        LambdaUpdateWrapper<ExpressLogistics> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(ExpressLogistics::getExpressNo, expressNo);
+        wrapper.set(ExpressLogistics::getContent, jsonService.toJson(voList));
+        expressLogisticsMapper.update(null, wrapper);
     }
 }

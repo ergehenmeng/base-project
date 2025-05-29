@@ -286,6 +286,11 @@ public class SystemProperties {
         private String key;
 
         /**
+         * 订阅签名校验的salt
+         */
+        private String salt;
+
+        /**
          * 订阅回调地址
          */
         private String callback;

@@ -1,6 +1,7 @@
-package com.eghm.service.business;
+package com.eghm.logistics.service;
 
 import com.eghm.vo.business.order.item.ExpressVO;
+import com.kuaidi100.sdk.response.SubscribePushData;
 
 import java.util.List;
 
@@ -28,4 +29,12 @@ public interface ExpressService {
      * @param phone 收发件人手机号(顺丰必填,建议填写)
      */
     void subscribe(String expressNo, String expressCode, String phone);
+
+    /**
+     * 更新快递信息
+     *
+     * @param expressNo 快递单号
+     * @param dataList 快递节点信息
+     */
+    void updateExpress(String expressNo, List<SubscribePushData> dataList);
 }

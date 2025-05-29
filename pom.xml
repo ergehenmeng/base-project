@@ -116,7 +116,7 @@
         <!--jackson 1.8日期格式序列号兼容包-->
         <jackson-ext.version>2.13.4</jackson-ext.version>
         <!--快递100-->
-        <kuaidi-version>1.0.12</kuaidi-version>
+        <kuaidi-version>1.0.15</kuaidi-version>
         <!--缓存-->
         <caffeine.version>2.9.3</caffeine.version>
         <!-- bc加密 -->
