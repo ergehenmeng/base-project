@@ -21,7 +21,7 @@ public class ProductSnapshotVO {
     private Long storeId;
 
     @Schema(description = "订单号")
-    private Integer orderNo;
+    private String orderNo;
 
     @Schema(description = "商品")
     private Long productId;

@@ -76,7 +76,7 @@ public class ExpressServiceImpl implements ExpressService {
         JSONObject jsonObject = JSON.parseObject(body);
         int status = jsonObject.getIntValue("status");
         if (status != OK) {
-            log.error("快递信息查询结果失败 [{}] [{}] [{}]", expressNo, expressCode, phone);
+            log.error("快递信息查询结果失败 [{}] [{}] [{}] [{}]", expressNo, expressCode, phone, body);
             return Lists.newArrayList();
         }
         return jsonObject.getJSONArray("data").toJavaList(ExpressVO.class);
@@ -108,7 +108,7 @@ public class ExpressServiceImpl implements ExpressService {
 
     @Override
     public void updateExpress(String expressNo, List<SubscribePushData> dataList) {
-        List<ExpressVO> voList = dataList.stream().map(data -> new ExpressVO(data.getTime(), data.getContext(), Integer.parseInt(data.getStatusCode()))).toList();
+        List<ExpressVO> voList = dataList.stream().map(data -> new ExpressVO(data.getTime(), data.getContext())).toList();
         LambdaUpdateWrapper<ExpressLogistics> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ExpressLogistics::getExpressNo, expressNo);
         wrapper.set(ExpressLogistics::getContent, jsonService.toJson(voList));

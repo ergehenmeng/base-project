@@ -22,7 +22,4 @@ public class ExpressVO {
 
     @Schema(description = "节点内容")
     private String context;
-
-    @Schema(description = "状态")
-    private Integer statusCode;
 }
