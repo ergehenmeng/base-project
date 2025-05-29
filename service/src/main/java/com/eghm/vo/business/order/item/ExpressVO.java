@@ -22,7 +22,4 @@ public class ExpressVO {
 
     @ApiModelProperty("节点内容")
     private String context;
-
-    @ApiModelProperty("状态")
-    private Integer statusCode;
 }

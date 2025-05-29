@@ -13,9 +13,6 @@ import java.util.List;
 @Data
 public class ItemShippedResponse {
 
-    @ApiModelProperty("id")
-    private Long id;
-
     @ApiModelProperty("快递单号")
     private String expressNo;
 

@@ -10,6 +10,7 @@ import com.kuaidi100.sdk.response.SubscribePushParamResp;
 import com.kuaidi100.sdk.response.SubscribePushResult;
 import com.kuaidi100.sdk.response.SubscribeResp;
 import com.kuaidi100.sdk.utils.SignUtils;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/express/notify")
 @AllArgsConstructor
+@Api(tags = "快递100")
 public class ExpressController {
 
     private final ExpressService expressService;
@@ -34,14 +36,14 @@ public class ExpressController {
     private final SystemProperties systemProperties;
 
     @PostMapping("/subscribe")
-    @ApiOperation(value = "快递订阅")
+    @ApiOperation(value = "快递订阅", hidden = true)
     public RespBody<Void> subscribe(String expressNo, String expressCode, String phone) {
         expressService.subscribe(expressNo, expressCode, phone);
         return RespBody.success();
     }
 
     @GetMapping("/query")
-    @ApiOperation(value = "快递查询")
+    @ApiOperation(value = "快递查询", hidden = true)
     public RespBody<List<ExpressVO>> query(String expressNo, String expressCode, String phone) {
         List<ExpressVO> expressList = expressService.getExpressList(expressNo, expressCode, phone);
         return RespBody.success(expressList);

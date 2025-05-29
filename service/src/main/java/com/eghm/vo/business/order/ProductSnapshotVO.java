@@ -21,7 +21,7 @@ public class ProductSnapshotVO {
     private Long storeId;
 
     @ApiModelProperty("订单号")
-    private Integer orderNo;
+    private String orderNo;
 
     @ApiModelProperty(value = "商品")
     private Long productId;

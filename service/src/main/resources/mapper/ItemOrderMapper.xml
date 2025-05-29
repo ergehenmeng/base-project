@@ -182,11 +182,10 @@
 
     <select id="getShippedList" resultMap="shippedMap">
         select
-            r.id,
             r.express_no,
-            r.express_code,
-            r.content,
-            t.item_id,
+            s.express_code,
+            s.content,
+            t.id,
             t.title,
             t.refund_state,
             t.delivery_state,
@@ -194,9 +193,9 @@
             t.cover_url,
             t.sku_title,
             t.sale_price
-        from order_express r
-        left join item_order_express s on r.id = s.express_id
-        left join item_order t on s.item_order_id = t.id where t.order_no = #{orderNo} and t.deleted = false
+        from item_order_express r
+        left join express_logistics s on r.express_no = s.express_no
+        left join item_order t on r.item_order_id = t.id where t.order_no = #{orderNo} and t.deleted = false
     </select>
 
     <select id="getUnShippedList" resultType="com.eghm.vo.business.order.item.ItemUnShippedOrderResponse">
@@ -264,11 +263,11 @@
     </update>
 
     <resultMap id="shippedMap" type="com.eghm.vo.business.order.item.ItemShippedResponse">
-        <id property="id" column="id"/>
         <result property="expressNo" column="express_no"/>
         <result property="expressCode" column="express_code"/>
         <result property="content" column="content"/>
         <collection property="itemList" ofType="com.eghm.vo.business.order.item.ItemOrderDeliveryVO">
+            <id property="id" column="id"/>
             <result property="itemId" column="item_id"/>
             <result property="title" column="title"/>
             <result property="skuTitle" column="sku_title"/>
