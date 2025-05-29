@@ -15,5 +15,5 @@ public class FirstExpressVO {
     private Long expressId;
 
     @Schema(description = "快递内容(最新节点)")
-    private String content;
+    private String context;
 }

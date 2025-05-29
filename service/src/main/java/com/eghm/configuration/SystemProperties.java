@@ -279,6 +279,11 @@ public class SystemProperties {
         private String key;
 
         /**
+         * 随机串 用于签名验证
+         */
+        private String salt;
+
+        /**
          * 订阅回调地址
          */
         private String callback;

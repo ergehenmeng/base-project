@@ -84,7 +84,7 @@
         <!--状态机-->
         <cola.version>4.3.1</cola.version>
         <!--快递100-->
-        <kuaidi-version>1.0.12</kuaidi-version>
+        <kuaidi-version>1.0.15</kuaidi-version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->

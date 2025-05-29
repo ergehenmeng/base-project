@@ -89,7 +89,7 @@ public class ItemOrderExpressServiceImpl implements ItemOrderExpressService {
             if (CollUtil.isNotEmpty(vos)) {
                 FirstExpressVO vo = new FirstExpressVO();
                 vo.setExpressId(express.getId());
-                vo.setContent(vos.get(0).getContent());
+                vo.setContext(vos.get(0).getContext());
                 voList.add(vo);
             }
         }

@@ -1,7 +1,9 @@
 package com.eghm.vo.business.order.item;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * <a href="https://api.kuaidi100.com/document/5f0ffb5ebc8da837cbd8aefc">具体状态查看</a>
@@ -11,11 +13,16 @@ import lombok.Data;
  */
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ExpressVO {
 
     @Schema(description = "时间")
     private String time;
 
     @Schema(description = "节点内容")
-    private String content;
+    private String context;
+
+    @Schema(description = "状态")
+    private Integer statusCode;
 }

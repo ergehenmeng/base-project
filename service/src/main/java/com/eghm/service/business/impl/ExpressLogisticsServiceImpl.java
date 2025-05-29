@@ -2,6 +2,7 @@ package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.logistics.service.ExpressService;
 import com.eghm.mapper.ExpressLogisticsMapper;
 import com.eghm.model.ExpressLogistics;
 import com.eghm.service.business.ExpressLogisticsService;
@@ -20,6 +21,8 @@ import java.util.List;
 @Service("expressLogisticsService")
 public class ExpressLogisticsServiceImpl implements ExpressLogisticsService {
 
+    private final ExpressService expressService;
+
     private final ExpressLogisticsMapper expressLogisticsMapper;
 
     @Override
@@ -31,6 +34,7 @@ public class ExpressLogisticsServiceImpl implements ExpressLogisticsService {
             expressLogistics.setPhone(phone);
             expressLogistics.setExpressCode(expressCode);
             expressLogisticsMapper.insert(expressLogistics);
+            expressService.subscribe(expressNo, expressCode, phone);
         }
     }
 
