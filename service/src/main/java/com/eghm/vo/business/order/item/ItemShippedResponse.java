@@ -13,9 +13,6 @@ import java.util.List;
 @Data
 public class ItemShippedResponse {
 
-    @Schema(description = "id")
-    private Long id;
-
     @Schema(description = "快递单号")
     private String expressNo;
 
