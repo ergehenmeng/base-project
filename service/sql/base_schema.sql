@@ -1722,7 +1722,7 @@ CREATE TABLE `order_evaluation`
     `store_id`        bigint(20)   DEFAULT NULL COMMENT '订单所属店铺id',
     `order_id`        bigint(20)   DEFAULT NULL COMMENT '订单子表id',
     `order_no`        varchar(30)  DEFAULT NULL COMMENT '订单编号',
-    `product_type`    tinyint(2)   DEFAULT NULL COMMENT '商品类型',
+    `product_type`    char(10)     DEFAULT NULL COMMENT '商品类型',
     `product_id`      bigint(20)   DEFAULT NULL COMMENT '商品',
     `product_title`   varchar(50)  DEFAULT NULL COMMENT '商品名称',
     `sku_title`       varchar(30)  DEFAULT NULL COMMENT '规格名称',
