@@ -19,6 +19,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 /**
  * @author 二哥很猛
@@ -73,6 +75,18 @@ public class ExceptionAdviceHandler {
     public RespBody<Void> exception(HttpServletRequest request, HttpRequestMethodNotSupportedException e) {
         log.error("系统异常, 接口[{}]不支持[{}]请求方式", request.getRequestURI(), e.getMethod());
         return RespBody.error(ErrorCode.METHOD_NOT_SUPPORTED, e.getMethod());
+    }
+
+    /**
+     * 非系统url请求
+     *
+     * @param request 请求request
+     * @return 404
+     */
+    @ExceptionHandler(value = {NoHandlerFoundException.class, NoResourceFoundException.class})
+    public RespBody<Void> noHandlerFoundException(HttpServletRequest request) {
+        log.warn("访问地址不存在:[{}]", request.getRequestURI());
+        return RespBody.error(ErrorCode.PAGE_NOT_FOUND);
     }
 
     /**

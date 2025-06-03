@@ -84,6 +84,13 @@ public class ItemStoreController {
         return RespBody.success(store);
     }
 
+    @GetMapping("/pickup")
+    @Operation(summary = "是否支持自提")
+    public RespBody<Boolean> pickup(@ParameterObject @Validated IdDTO dto) {
+        ItemStore store = itemStoreService.selectByIdRequired(dto.getId());
+        return RespBody.success(store.getPickupId() != null);
+    }
+
     @PostMapping(value = "/shelves", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "上架")
     public RespBody<Void> shelves(@Validated @RequestBody IdDTO dto) {
