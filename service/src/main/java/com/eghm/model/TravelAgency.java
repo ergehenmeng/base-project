@@ -1,5 +1,7 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.State;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -49,6 +51,7 @@ public class TravelAgency extends BaseEntity {
     private Long cityId;
 
     @Schema(description = "县区id")
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private Long countyId;
 
     @Schema(description = "详细地址")

@@ -8,7 +8,9 @@ import com.eghm.dto.poi.PoiPointEditRequest;
 import com.eghm.dto.poi.PoiPointQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
+import com.eghm.mapper.PoiLinePointMapper;
 import com.eghm.mapper.PoiPointMapper;
+import com.eghm.model.PoiLinePoint;
 import com.eghm.model.PoiPoint;
 import com.eghm.service.business.PoiPointService;
 import com.eghm.utils.DataUtil;
@@ -36,6 +38,8 @@ public class PoiPointServiceImpl implements PoiPointService {
 
     private final PoiPointMapper poiPointMapper;
 
+    private final PoiLinePointMapper poiLinePointMapper;
+
     @Override
     public Page<PoiPointResponse> getByPage(PoiPointQueryRequest query) {
         return poiPointMapper.getByPage(query.createPage(), query);
@@ -58,6 +62,8 @@ public class PoiPointServiceImpl implements PoiPointService {
     @Override
     public void deleteById(Long id) {
         poiPointMapper.deleteById(id);
+        // 删除区域点位关联的线路点位
+        poiLinePointMapper.delete(Wrappers.<PoiLinePoint>lambdaQuery().eq(PoiLinePoint::getPointId, id));
     }
 
     @Override

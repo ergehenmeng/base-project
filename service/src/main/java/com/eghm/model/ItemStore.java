@@ -51,6 +51,7 @@ public class ItemStore extends BaseEntity {
     private Long cityId;
 
     @Schema(description = "县区id")
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private Long countyId;
 
     @Schema(description = "详细地址")
