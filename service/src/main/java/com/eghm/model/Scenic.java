@@ -1,5 +1,7 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.enums.State;
@@ -54,6 +56,7 @@ public class Scenic extends BaseEntity {
     private Long cityId;
 
     @ApiModelProperty(value = "县区id")
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private Long countyId;
 
     @ApiModelProperty(value = "详细地址")

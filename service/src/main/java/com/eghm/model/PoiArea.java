@@ -1,5 +1,7 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -42,6 +44,7 @@ public class PoiArea extends BaseEntity {
     private Long cityId;
 
     @ApiModelProperty(value = "区县id")
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private Long countyId;
 
     @ApiModelProperty(value = "详细地址")

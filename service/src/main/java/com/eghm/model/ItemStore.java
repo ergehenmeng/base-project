@@ -51,6 +51,7 @@ public class ItemStore extends BaseEntity {
     private Long cityId;
 
     @ApiModelProperty(value = "县区id")
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private Long countyId;
 
     @ApiModelProperty(value = "详细地址")
