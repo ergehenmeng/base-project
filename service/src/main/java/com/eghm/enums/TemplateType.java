@@ -44,9 +44,9 @@ public enum TemplateType {
     REGISTER("register", "注册(C端)", "", "您正在注册EGHM平台会员，短信验证码：${param0}。如非本人操作，请忽略此短信"),
 
     /**
-     * 商户解绑微信号短信
+     * 商户解绑微信号
      */
-    MERCHANT_UNBIND("merchant_unbind", "商户解绑微信号短信", "", "您正在解绑商户微信号，短信验证码：${param0}。如非本人操作，请忽略此短信"),
+    MERCHANT_UNBIND("merchant_unbind", "商户解绑微信号", "", "您正在解绑商户微信号，短信验证码：${param0}。如非本人操作，请忽略此短信"),
 
     /**
      * 更换邮箱(C端)
