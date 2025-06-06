@@ -30,6 +30,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.eghm.enums.ErrorCode.LIMIT_GT_WEEK;
+
 /**
  * <p>
  * 限时购活动表 服务实现类
@@ -51,6 +53,8 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
     private final LimitPurchaseMapper limitPurchaseMapper;
 
     private final LimitPurchaseItemService limitPurchaseItemService;
+
+    private static final long LIMIT_WEEK = 604800L;
 
     @Override
     public Page<LimitPurchaseResponse> getByPage(LimitPurchaseQueryRequest request) {
@@ -128,10 +132,10 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         if (startTime.isBefore(now)) {
             throw new BusinessException(ErrorCode.LIMIT_GT_TIME);
         }
-        long between = ChronoUnit.MONTHS.between(startTime, endTime.minusSeconds(1));
-        if (between > 0) {
-            log.warn("限时购活动时间跨度不能大于一个月 [{}] [{}]", startTime, endTime);
-            throw new BusinessException(ErrorCode.LIMIT_GT_MONTH);
+        long between = ChronoUnit.SECONDS.between(startTime, endTime);
+        if (between > LIMIT_WEEK) {
+            log.warn("限时购活动持续时间不能超过7天 [{}] [{}]", startTime, endTime);
+            throw new BusinessException(LIMIT_GT_WEEK);
         }
     }
 

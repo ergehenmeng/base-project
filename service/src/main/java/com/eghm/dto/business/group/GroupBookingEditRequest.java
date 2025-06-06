@@ -35,12 +35,12 @@ public class GroupBookingEditRequest {
 
     @ApiModelProperty(value = "开始时间", required = true)
     @NotNull(message = "开始时间不能为空")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "结束时间", required = true)
     @NotNull(message = "结束时间不能为空")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "拼团人数", required = true)
