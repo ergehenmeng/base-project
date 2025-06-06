@@ -31,6 +31,8 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.eghm.enums.ErrorCode.BOOKING_GT_WEEK;
+
 /**
  * <p>
  * 拼团流程介绍:<br>
@@ -65,6 +67,8 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     private final MessageService messageService;
 
     private final GroupBookingMapper groupBookingMapper;
+
+    private static final long GROUP_WEEK = 604800L;
 
     @Override
     public Page<GroupBookingResponse> getByPage(GroupBookingQueryRequest request) {
@@ -211,10 +215,10 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         if (startTime.isBefore(now)) {
             throw new BusinessException(ErrorCode.BOOKING_GT_TIME);
         }
-        LocalDateTime dateTime = now.plusMonths(1);
-        if (endTime.isAfter(dateTime)) {
-            log.warn("拼团活动结束时间小于当前时间+1个月 [{}] [{}]", startTime, endTime);
-            throw new BusinessException(ErrorCode.BOOKING_GT_MONTH);
+        long between = ChronoUnit.SECONDS.between(startTime, endTime);
+        if (between > GROUP_WEEK) {
+            log.warn("拼团活动持续时间不能超过7天 [{}] [{}]", startTime, endTime);
+            throw new BusinessException(BOOKING_GT_WEEK);
         }
     }
 

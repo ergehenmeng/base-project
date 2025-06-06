@@ -37,13 +37,13 @@ public class GroupBookingEditRequest {
 
     @Schema(description = "开始时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "开始时间不能为空")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime startTime;
 
     @Schema(description = "结束时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "结束时间不能为空")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime endTime;
 
