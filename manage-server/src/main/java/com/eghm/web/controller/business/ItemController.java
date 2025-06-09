@@ -7,10 +7,7 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.RecommendDTO;
 import com.eghm.dto.SortByDTO;
 import com.eghm.dto.business.base.BaseProductQueryRequest;
-import com.eghm.dto.business.item.ItemAddRequest;
-import com.eghm.dto.business.item.ItemAddStockRequest;
-import com.eghm.dto.business.item.ItemEditRequest;
-import com.eghm.dto.business.item.ItemQueryRequest;
+import com.eghm.dto.business.item.*;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.State;
@@ -147,8 +144,9 @@ public class ItemController {
 
     @GetMapping("/activityList")
     @ApiOperation("未参加活动的商品列表")
-    public RespBody<List<ActivityItemResponse>> activityList(IdDTO dto) {
-        List<ActivityItemResponse> activityList = itemService.getActivityList(SecurityHolder.getMerchantId(), dto.getId());
+    public RespBody<List<ActivityItemResponse>> activityList(@Validated ItemActivityRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        List<ActivityItemResponse> activityList = itemService.getActivityList(request);
         return RespBody.success(activityList);
     }
 

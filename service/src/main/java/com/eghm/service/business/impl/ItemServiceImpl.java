@@ -394,24 +394,18 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ActivityItemResponse> getActivityList(Long merchantId, Long activityId) {
-        List<ActivityItemResponse> activityList = itemMapper.getActivityList(merchantId, activityId);
-        for (ActivityItemResponse response : activityList) {
-            List<BaseSkuResponse> skuList = response.getSkuList();
-            for (BaseSkuResponse sku : skuList) {
-                sku.setItemId(response.getId());
-                sku.setTitle(response.getTitle());
-                sku.setSkuSize(skuList.size());
-                if (isBlank(sku.getSkuPic())) {
-                    sku.setSkuPic(response.getCoverUrl());
-                }
-                if (isBlank(sku.getSecondSpecValue())) {
-                    sku.setSpecValue(sku.getPrimarySpecValue());
-                } else {
-                    sku.setSpecValue(sku.getPrimarySpecValue() + "/" + sku.getSecondSpecValue());
-                }
+    public List<ActivityItemResponse> getActivityList(ItemActivityRequest request) {
+        List<ActivityItemResponse> activityList;
+        if (Boolean.TRUE.equals(request.getReadonly())) {
+            if (request.getActivityType() == 1) {
+                activityList = itemMapper.getGroupItemList(request.getMerchantId(), request.getId());
+            } else {
+                activityList = itemMapper.getLimitItemList(request.getMerchantId(), request.getId());
             }
+        } else {
+            activityList = itemMapper.getActivityList(request.getMerchantId(), request.getId());
         }
+        this.packageItem(activityList);
         return activityList;
     }
 
@@ -441,6 +435,36 @@ public class ItemServiceImpl implements ItemService {
         Item item = this.selectByIdRequired(request.getItemId());
         commonService.checkIllegal(item.getMerchantId());
         itemSkuService.addStock(request.getSkuList(), request.getItemId());
+    }
+
+    @Override
+    public void clearExpiredActivity() {
+        itemMapper.clearExpiredGroupActivity();
+        itemMapper.clearExpiredLimitActivity();
+    }
+
+    /**
+     * 封装活动商品信息
+     *
+     * @param activityList 活动列表
+     */
+    private void packageItem(List<ActivityItemResponse> activityList) {
+        for (ActivityItemResponse response : activityList) {
+            List<BaseSkuResponse> skuList = response.getSkuList();
+            for (BaseSkuResponse sku : skuList) {
+                sku.setItemId(response.getId());
+                sku.setTitle(response.getTitle());
+                sku.setSkuSize(skuList.size());
+                if (isBlank(sku.getSkuPic())) {
+                    sku.setSkuPic(response.getCoverUrl());
+                }
+                if (isBlank(sku.getSecondSpecValue())) {
+                    sku.setSpecValue(sku.getPrimarySpecValue());
+                } else {
+                    sku.setSpecValue(sku.getPrimarySpecValue() + "/" + sku.getSecondSpecValue());
+                }
+            }
+        }
     }
 
     /**

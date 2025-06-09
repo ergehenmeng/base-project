@@ -7224,6 +7224,7 @@ INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron
 INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `lock_time`, `update_time`, `remark`) VALUES ('9', '抽奖完成释放数量', 'lotteryJobService', 'lotteryRelease', NULL, '0 0 9 0/1 * ?', '664956140@qq.com', '0', '30000', '2024-07-29 17:02:21', '抽奖奖品数量锁失败(开发人员专用)');
 INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `lock_time`, `update_time`, `remark`) VALUES ('10', '未支付订单自动取消', 'orderJobService', 'expireProcess', NULL, '0 0/1 * * * ?', '664956140@qq.com', '1', '30000', '2025-05-13 09:16:05', '未支付订单自动取消');
 INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `lock_time`, `update_time`, `remark`) VALUES ('11', '删除线路历史价格信息', 'lineJobService', 'deleteDayPrice', NULL, '0 0 8 * * ?', '664956140@qq.com', '0', '30000', '2025-05-20 17:10:14', NULL);
+INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `lock_time`, `update_time`, `remark`) VALUES ('12', '清理过期的营销活动', 'activityJobService', 'clearExpiredActivity', NULL, '0 0/1 * * * ?', '664956140@qq.com', '1', '30000', '2025-06-09 16:36:06', '清理过期营销活动绑定的零售商品');
 
 
 INSERT INTO `pay_config` (`id`, `channel`, `wechat_pay`, `ali_pay`, `remark`, `update_time`)

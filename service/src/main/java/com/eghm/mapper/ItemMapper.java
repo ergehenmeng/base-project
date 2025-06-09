@@ -132,10 +132,38 @@ public interface ItemMapper extends BaseMapper<Item> {
     List<ActivityItemResponse> getActivityList(@Param("merchantId") Long merchantId, @Param("activityId") Long activityId);
 
     /**
+     * 已参加的商品信息列表 (拼团)
+     *
+     * @param merchantId 商户id
+     * @param activityId 活动id
+     * @return 列表
+     */
+    List<ActivityItemResponse> getGroupItemList(@Param("merchantId") Long merchantId, @Param("activityId") Long activityId);
+
+    /**
+     * 已参加的商品信息列表 (限时购)
+     *
+     * @param merchantId 商户id
+     * @param activityId 活动id
+     * @return 列表
+     */
+    List<ActivityItemResponse> getLimitItemList(@Param("merchantId") Long merchantId, @Param("activityId") Long activityId);
+
+    /**
      * 根据商品id列表查询商品信息
      *
      * @param itemIds 商品ids
      * @return 列表 含删除的商品
      */
     List<Item> getByIds(@Param("ids") List<Long> itemIds);
+
+    /**
+     * 清理过期的拼团活动
+     */
+    void clearExpiredGroupActivity();
+
+    /**
+     * 清理过期的限时购活动
+     */
+    void clearExpiredLimitActivity();
 }
