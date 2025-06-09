@@ -8,6 +8,7 @@
             g.title,
             g.item_id,
             i.title as item_name,
+            if(now() &lt; start_time, 0, if(now() &gt; end_time, 2, 1)) as state,
             g.start_time,
             g.end_time,
             g.num,

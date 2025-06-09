@@ -32,8 +32,8 @@ public class MathCaptchaProducer extends DefaultTextCreator {
     @Override
     public String getText() {
         SecureRandom random = new SecureRandom();
-        int x = random.nextInt(MAX);
-        int y = random.nextInt(MIN);
+        int x = random.nextInt(1, MAX);
+        int y = random.nextInt(1, MIN);
         int symbol = random.nextInt(MATH_MAP.size());
         return MATH_MAP.get(symbol).apply(x, y);
     }

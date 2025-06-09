@@ -227,11 +227,10 @@ public interface ItemService {
     /**
      * 查询可以参加活动的商品列表
      *
-     * @param merchantId 商户id
-     * @param activityId 活动id
+     * @param request 活动条件
      * @return 列表
      */
-    List<ActivityItemResponse> getActivityList(Long merchantId, Long activityId);
+    List<ActivityItemResponse> getActivityList(ItemActivityRequest request);
 
     /**
      * 分页查询商品列表

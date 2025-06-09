@@ -93,13 +93,16 @@ public class Item extends BaseEntity {
     @Schema(description = "是否为热销商品")
     private Boolean hotSell;
 
-    @Schema(description = "(拼团商品时,该字段不为空)拼团活动id")
+    /**
+     * 限时购与拼团互斥
+     */
+    @Schema(description = "最新绑定的拼团活动id")
     private Long bookingId;
 
     /**
      * 限时购与拼团互斥
      */
-    @Schema(description = "(限时购晒商品时,该字段不能为空)限时购id")
+    @Schema(description = "最新绑定的限时购活动id")
     private Long limitId;
 
     @Schema(description = "创建日期")

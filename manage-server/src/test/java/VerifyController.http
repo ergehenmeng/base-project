@@ -2,7 +2,7 @@ GET http://localhost:10086/manage/verify/listPage?page=1&pageSize=10
 token: {{token}}
 
 ###
-GET http://localhost:10086/manage/verify/scan?verifyNo=MP12312323
+GET http://localhost:10086/manage/verify/scan?verifyNo=bcab0b67f1c231564ff2c8ce81fa3e422ff6f009671e6bb7a3b685c1f9618b541e9a139f00877fcb16265cc5ce8816cb
 token: {{token}}
 
 ###
@@ -11,9 +11,9 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "orderNo": "MP12312323",
-  "visitorList": [
-    1
+  "orderNo": "LS1927240454364577794",
+  "ids": [
+    1927240454410715139
   ],
-  "remark": "xxx"
+  "remark": "核销了"
 }
