@@ -95,7 +95,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         GroupBooking booking = groupBookingMapper.selectById(request.getId());
         // 防止非法操作
         commonService.checkIllegal(booking.getMerchantId());
-        if (LocalDateTime.now().isAfter(booking.getStartTime()) && LocalDateTime.now().isBefore(booking.getEndTime())) {
+        if (LocalDateTime.now().isAfter(booking.getStartTime())) {
             log.warn("进行中的拼团不支持编辑 [{}] [{}] [{}]", request.getId(), booking.getStartTime(), booking.getEndTime());
             throw new BusinessException(ErrorCode.ACTIVITY_NOT_EDIT);
         }

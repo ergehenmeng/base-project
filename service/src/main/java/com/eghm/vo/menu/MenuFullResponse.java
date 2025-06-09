@@ -21,6 +21,9 @@ public class MenuFullResponse {
     @ApiModelProperty("菜单名称")
     private String title;
 
+    @ApiModelProperty("菜单编码")
+    private String code;
+
     @ApiModelProperty("父节点ID,一级菜单默认为0")
     private String pid;
 
