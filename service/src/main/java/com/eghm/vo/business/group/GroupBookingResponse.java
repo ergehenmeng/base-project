@@ -29,7 +29,7 @@ public class GroupBookingResponse {
     @ApiModelProperty(value = "零售名称")
     private String itemName;
 
-    @ApiModelProperty(value = "状态 0: 未开始 1:进行中 2:已结束")
+    @ApiModelProperty(value = "状态 0: 未开始 1:进行中 2:已结束 3:已下架")
     private Integer state;
 
     @ApiModelProperty(value = "开始时间")

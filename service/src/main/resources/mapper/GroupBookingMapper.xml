@@ -8,7 +8,7 @@
             g.title,
             g.item_id,
             i.title as item_name,
-            if(now() &lt; start_time, 0, if(now() &gt; end_time, 2, 1)) as state,
+            if(g.state = 0, 3, if(now() &lt; g.start_time, 0, if(now() &gt; g.end_time, 2, 1))) as state,
             g.start_time,
             g.end_time,
             g.num,
@@ -32,6 +32,9 @@
                 </when>
                 <when test="param.state == 1">
                     and now() between g.start_time and g.end_time
+                </when>
+                <when test="param.state == 3">
+                    and g.state = #{param.state}
                 </when>
                 <otherwise>
                     and g.start_time &gt; now()
