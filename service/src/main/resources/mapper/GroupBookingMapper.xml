@@ -8,7 +8,7 @@
             g.title,
             g.item_id,
             i.title as item_name,
-            if(now() &lt; start_time, 0, if(now() &gt; end_time, 2, 1)) as state,
+            if(g.state = 0, 3, if(now() &lt; g.start_time, 0, if(now() &gt; g.end_time, 2, 1))) as state,
             g.start_time,
             g.end_time,
             g.num,
@@ -33,6 +33,9 @@
                 <when test="param.state == 1">
                     and now() between g.start_time and g.end_time
                 </when>
+                <when test="param.state == 3">
+                    and g.state = #{param.state}
+                </when>
                 <otherwise>
                     and g.start_time &gt; now()
                 </otherwise>
@@ -43,8 +46,8 @@
 
     <select id="getValidById" resultType="com.eghm.model.GroupBooking">
         select
-            id, title, item_id, sku_value, num, expire_time
-        from group_booking where id = #{bookingId} and deleted = false and now() between start_time and end_time
+            id, title, item_id, sku_value, num, expire_time, state
+        from group_booking where id = #{bookingId} and state = 1 and deleted = false and now() between start_time and end_time
     </select>
 
     <select id="getById" resultType="com.eghm.model.GroupBooking">
@@ -63,7 +66,7 @@
             r.min_price,
             r.sale_num
         from group_booking t inner join item r on t.item_id = r.id
-        where r.state = 1 and r.deleted = false and t.deleted = false and now() between t.start_time and t.end_time and r.min_price &gt; 0
+        where r.state = 1 and t.state = 1 and r.deleted = false and t.deleted = false and now() between t.start_time and t.end_time and r.min_price &gt; 0
         <if test="param.queryName != null and param.queryName != ''">
             and r.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%')
         </if>

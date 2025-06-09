@@ -29,7 +29,7 @@ public class GroupBookingResponse {
     @Schema(description = "零售名称")
     private String itemName;
 
-    @Schema(description = "状态 0: 未开始 1:进行中 2:已结束")
+    @Schema(description = "活动状态 0: 未开始 1:进行中 2:已结束 3: 已下架")
     private Integer state;
 
     @Schema(description = "开始时间")

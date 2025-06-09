@@ -1978,6 +1978,7 @@ CREATE TABLE `group_booking`
     `start_time`          datetime    DEFAULT NULL COMMENT '开始时间',
     `end_time`            datetime    DEFAULT NULL COMMENT '截止时间',
     `num`                 tinyint(2)  DEFAULT NULL COMMENT '拼团人数',
+    `state`               tinyint(2)  DEFAULT 1 COMMENT '状态 0:下架 1:上架',
     `sku_value`           text        DEFAULT NULL COMMENT '拼团优惠配置json',
     `max_discount_amount` int(10)     DEFAULT 0 COMMENT '最大优惠金额',
     `expire_time`         int(10)     DEFAULT '86400' COMMENT '拼团有效期 单位:分钟',

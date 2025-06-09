@@ -261,4 +261,9 @@ public interface ItemService {
      * @param request sku及库存信息
      */
     void addStock(ItemAddStockRequest request);
+
+    /**
+     * 清理过期的营销活动
+     */
+    void clearExpiredActivity();
 }

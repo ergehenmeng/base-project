@@ -21,6 +21,9 @@ public class MenuFullResponse {
     @Schema(description = "菜单名称")
     private String title;
 
+    @Schema(description = "菜单编码")
+    private String code;
+
     @Schema(description = "父节点ID,一级菜单默认为0")
     private String pid;
 

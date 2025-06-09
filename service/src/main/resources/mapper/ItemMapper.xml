@@ -337,6 +337,16 @@
         </foreach>
     </select>
 
+    <update id="clearExpiredGroupActivity">
+        update item t, group_booking m set t.booking_id = null
+        where t.id = m.item_id and m.end_time &lt; now()
+    </update>
+
+    <update id="clearExpiredLimitActivity">
+        update item t, limit_purchase_item m set t.limit_id = null
+        where t.id = m.item_id and m.end_time &lt; now()
+    </update>
+
     <resultMap id="activityResultMap" type="com.eghm.vo.business.item.ActivityItemResponse">
         <id column="id" property="id" />
         <result column="title" property="title" />

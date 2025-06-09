@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class GroupBookingQueryRequest extends PagingQuery {
 
-    @Schema(description = " 0:未开始 1:进行中 2:已结束")
+    @Schema(description = "状态 0:未开始 1:进行中 2:已结束 3:已下架 ")
     private Integer state;
 
     @Assign
