@@ -27,6 +27,9 @@ public class GroupBooking extends BaseEntity {
     @ApiModelProperty(value = "零售id")
     private Long itemId;
 
+    @ApiModelProperty(value = "状态 0:已下架 1:正常")
+    private Integer state;
+
     @ApiModelProperty(value = "开始时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
