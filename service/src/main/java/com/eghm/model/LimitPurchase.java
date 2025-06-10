@@ -27,6 +27,9 @@ public class LimitPurchase extends BaseEntity {
     @Schema(description = "活动名称")
     private String title;
 
+    @Schema(description = "状态 0:已下架 1:正常")
+    private Integer state;
+
     @Schema(description = "开始时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;

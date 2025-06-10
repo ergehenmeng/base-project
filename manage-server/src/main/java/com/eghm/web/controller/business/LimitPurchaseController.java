@@ -69,4 +69,11 @@ public class LimitPurchaseController {
         return RespBody.success();
     }
 
+    @PostMapping(value = "/unShelves", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "下架")
+    public RespBody<Void> unShelves(@RequestBody @Validated IdDTO dto) {
+        limitPurchaseService.updateState(dto.getId(), 0);
+        return RespBody.success();
+    }
+
 }

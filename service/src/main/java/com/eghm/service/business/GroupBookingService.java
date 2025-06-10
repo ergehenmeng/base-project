@@ -100,7 +100,7 @@ public interface GroupBookingService {
     Integer getFinalPrice(String skuValue, Integer salePrice, Long skuId);
 
     /**
-     * 更新房型上下架状态
+     * 更新拼团状态
      *
      * @param id    房型id
      * @param state 新状态

@@ -53,4 +53,12 @@ public interface LimitPurchaseService {
      * @return 活动配置信息
      */
     LimitPurchaseDetailResponse detailById(Long id);
+
+    /**
+     * 更新限时购状态
+     *
+     * @param id    房型id
+     * @param state 新状态
+     */
+    void updateState(Long id, Integer state);
 }

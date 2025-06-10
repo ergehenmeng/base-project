@@ -12,6 +12,7 @@ import com.eghm.dto.business.purchase.LimitSkuRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LimitPurchaseMapper;
+import com.eghm.model.GroupBooking;
 import com.eghm.model.LimitPurchase;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ItemService;
@@ -119,6 +120,16 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         response.setSkuList(skuList);
         response.setItemIds(skuList.stream().map(LimitSkuResponse::getItemId).distinct().toList());
         return response;
+    }
+
+    @Override
+    public void updateState(Long id, Integer state) {
+        LambdaUpdateWrapper<LimitPurchase> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(LimitPurchase::getId, id);
+        Long merchantId = SecurityHolder.getMerchantId();
+        wrapper.eq(merchantId != null, LimitPurchase::getMerchantId, merchantId);
+        wrapper.set(LimitPurchase::getState, state);
+        limitPurchaseMapper.update(wrapper);
     }
 
     /**
