@@ -69,4 +69,11 @@ public class GroupBookingController {
         return RespBody.success();
     }
 
+    @PostMapping(value = "/unShelves", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "下架")
+    public RespBody<Void> unShelves(@RequestBody @Validated IdDTO dto) {
+        groupBookingService.updateState(dto.getId(), 0);
+        return RespBody.success();
+    }
+
 }

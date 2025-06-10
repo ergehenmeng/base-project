@@ -180,6 +180,16 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         return request.getDiscountPrice();
     }
 
+    @Override
+    public void updateState(Long id, Integer state) {
+        LambdaUpdateWrapper<GroupBooking> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(GroupBooking::getId, id);
+        Long merchantId = SecurityHolder.getMerchantId();
+        wrapper.eq(merchantId != null, GroupBooking::getMerchantId, merchantId);
+        wrapper.set(GroupBooking::getState, state);
+        groupBookingMapper.update(wrapper);
+    }
+
     /**
      * 查询拼团信息
      *

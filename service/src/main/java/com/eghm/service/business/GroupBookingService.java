@@ -98,4 +98,12 @@ public interface GroupBookingService {
      * @return 最终价格
      */
     Integer getFinalPrice(String skuValue, Integer salePrice, Long skuId);
+
+    /**
+     * 更新房型上下架状态
+     *
+     * @param id    房型id
+     * @param state 新状态
+     */
+    void updateState(Long id, Integer state);
 }
