@@ -46,7 +46,7 @@ public class MenuController {
     @GetMapping("/systemList")
     @Operation(summary = "管理员菜单")
     public RespBody<List<MenuResponse>> systemList() {
-        List<MenuResponse> responseList = sysMenuService.getSystemList();
+        List<MenuResponse> responseList = sysMenuService.getAll();
         return RespBody.success(responseList);
     }
 
