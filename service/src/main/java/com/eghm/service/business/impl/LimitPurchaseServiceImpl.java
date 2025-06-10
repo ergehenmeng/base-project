@@ -122,6 +122,16 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         return response;
     }
 
+    @Override
+    public void updateState(Long id, Integer state) {
+        LambdaUpdateWrapper<LimitPurchase> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(LimitPurchase::getId, id);
+        Long merchantId = SecurityHolder.getMerchantId();
+        wrapper.eq(merchantId != null, LimitPurchase::getMerchantId, merchantId);
+        wrapper.set(LimitPurchase::getState, state);
+        limitPurchaseMapper.update(null, wrapper);
+    }
+
     /**
      * 校验时间
      *
