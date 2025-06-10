@@ -28,14 +28,14 @@ public interface SysMenuService {
      *
      * @return 菜单列表(一级菜单 内部包含二级菜单)
      */
-    List<MenuResponse> getAdminLeftMenuList();
+    List<MenuResponse> getLeftAdminMenuList();
 
     /**
      * 获取系统所有导航菜单列表,按钮
      *
      * @return 菜单列表
      */
-    List<MenuResponse> getSystemList();
+    List<MenuResponse> getAll();
 
     /**
      * 获取商户导航菜单列表,按钮(当前用户所拥有的商户菜单)

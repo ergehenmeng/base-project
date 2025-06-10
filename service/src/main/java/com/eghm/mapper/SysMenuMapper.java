@@ -29,7 +29,14 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
      * @param grade 空: 全部菜单, 1:导航菜单 2: 按钮菜单
      * @return 用户所有可查看菜单列表
      */
-    List<MenuResponse> getAdminMenuList(@Param("grade") Integer grade);
+    List<MenuResponse> getSystemMenuList(@Param("grade") Integer grade);
+
+    /**
+     * 获取系统所有的菜单
+     *
+     * @return 全部菜单
+     */
+    List<MenuResponse> getAll();
 
     /**
      * 获取用户拥有的商户菜单

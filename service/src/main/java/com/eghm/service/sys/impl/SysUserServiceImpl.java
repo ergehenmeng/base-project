@@ -254,7 +254,7 @@ public class SysUserServiceImpl implements SysUserService {
         List<MenuResponse> leftMenu;
         List<String> buttonList;
         if (userType == UserType.ADMINISTRATOR) {
-            leftMenu = sysMenuService.getAdminLeftMenuList();
+            leftMenu = sysMenuService.getLeftAdminMenuList();
             buttonList = sysMenuService.getAdminPermCode();
         } else {
             buttonList = sysMenuService.getPermCode(user.getId());
