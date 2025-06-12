@@ -8,7 +8,10 @@ import com.eghm.dto.poi.StateRequest;
 import com.eghm.dto.sys.menu.MenuAddRequest;
 import com.eghm.dto.sys.menu.MenuEditRequest;
 import com.eghm.dto.sys.menu.MenuQueryRequest;
+import com.eghm.enums.RoleType;
+import com.eghm.model.SysRole;
 import com.eghm.service.sys.SysMenuService;
+import com.eghm.service.sys.SysRoleService;
 import com.eghm.vo.menu.MenuFullResponse;
 import com.eghm.vo.menu.MenuResponse;
 import com.eghm.web.configuration.interceptor.PermInterceptor;
@@ -31,6 +34,8 @@ import java.util.List;
 @RequestMapping(value = "/manage/menu", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MenuController {
 
+    private final SysRoleService sysRoleService;
+
     private final SysMenuService sysMenuService;
 
     private final PermInterceptor permInterceptor;
@@ -44,8 +49,10 @@ public class MenuController {
 
     @GetMapping("/systemList")
     @ApiOperation("管理员菜单")
-    public RespBody<List<MenuResponse>> systemList() {
-        List<MenuResponse> responseList = sysMenuService.getAll();
+    public RespBody<List<MenuResponse>> systemList(IdDTO dto) {
+        SysRole sysRole = sysRoleService.getById(dto.getId());
+        int displayState = sysRole.getRoleType() == RoleType.COMMON ?  2 : 1;
+        List<MenuResponse> responseList = sysMenuService.getAll(displayState);
         return RespBody.success(responseList);
     }
 

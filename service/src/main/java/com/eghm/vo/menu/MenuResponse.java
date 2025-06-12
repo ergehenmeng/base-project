@@ -36,6 +36,9 @@ public class MenuResponse {
     @ApiModelProperty("菜单级别 1:导航 2:按钮")
     private Integer grade;
 
+    @ApiModelProperty("菜单是否能选中")
+    private Boolean disabled;
+
     @ApiModelProperty("子菜单")
     private List<MenuResponse> children;
 
