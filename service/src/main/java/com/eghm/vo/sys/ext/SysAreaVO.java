@@ -20,9 +20,6 @@ public class SysAreaVO {
     @Schema(description = "区域名称")
     private String title;
 
-    @Schema(description = "邮编")
-    private String zipCode;
-
     @Schema(description = "地区首字母")
     private String mark;
 
