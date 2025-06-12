@@ -1,3 +1,60 @@
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('1', '系统参数缓存', 'sys_config', '1', '2024-10-24 15:52:51', '全局系统参数缓存(查询缓存)');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('2', '数据字典缓存', 'sys_dict', '1', '2024-10-24 15:52:51', '全局数据字典缓存(查询缓存)');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('5', '签名配置缓存', 'auth_config', '1', '2024-10-24 15:52:51', '第三方请求签名配置缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('6', '敏感词缓存', 'sensitive_word', '1', '2024-10-24 15:52:51', '敏感词缓存(重新加载)');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('7', '短信模板缓存', 'sms_template', '1', '2024-10-24 15:52:51', '全局短信模板缓存(查询缓存)');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('9', '黑名单缓存', 'black_roster', '1', '2024-10-24 15:52:51', '黑名单信息(查询缓存)');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('10', '邮件模板缓存', 'mail_template', '1', '2024-10-24 15:52:51', 'freeMaker模板缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('13', '省市区缓存', 'sys_area', '1', '2024-10-24 15:52:51', '省市区所有缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('14', '站内信缓存', 'in_mail_template', '1', '2024-10-24 15:52:51', 'freeMaker模板缓存');
+
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('6', 'ios_latest_version', 'ios最新版本号', '1.2.3', b'0', '最新版本号,格式必须为x.x.x(版本必须已经上传)', '2018-09-28 10:50:03', '2018-09-28 10:50:03');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('7', 'android_latest_version', 'android最新版本', '1.2.3', b'0', '最新版本号,格式必须为x.x.x(版本必须已经上传)', '2018-09-28 10:50:41', '2018-09-28 10:50:41');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('14', 'operation_log_switch', '操作日志开关', 'true', b'0', '操作日志开关 false:不开启操作日志 true:开启操作日志', '2019-01-17 16:50:54', '2024-06-24 15:49:20');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('19', 'single_client_login', '是否开启单设备单点登录', 'true', b'0', 'false:不开启 true:开启', '2019-08-13 15:45:39', '2020-07-23 13:55:48');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('20', 'nick_name_prefix', '默认昵称前缀', 'eghm_', b'0', '昵称为空时会自动生成以此为前缀的昵称', '2019-08-19 16:06:04', '2019-08-19 16:06:04');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('21', 'sms_type_interval', '同一类型短信发送间隔', '60', b'0', '单位秒', '2019-08-20 17:18:53', '2019-08-20 17:18:53');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('25', 'notice_limit', '公告显示多少条', '5', b'0', '首页公告轮播条数', '2019-08-22 11:53:19', '2019-08-22 11:53:19');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('27', 'file_server_address', '文件服务器地址', 'http://127.0.0.1:10086', b'0', NULL, '2019-08-28 17:25:14', '2019-11-15 16:44:51');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('32', 'single_max_file_size', '单文件最大上传限制', '5242880', b'0', '单位 byte 默认200M', '2019-11-15 16:44:28', '2020-07-23 14:46:31');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('38', 'cache_expire', '非注解缓存默认过期时间', '1800', b'0', '单位:秒 默认失效时间30分钟', '2020-01-15 16:21:47', '2020-12-15 19:07:30');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('39', 'token_expire', '用户登陆过期时间', '604800', b'0', '单位:秒,默认7天过期', '2020-01-15 16:38:47', '2020-12-15 19:07:32');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('41', 'null_expire', '占位符缓存过期时间', '30', b'0', '单位:秒,超过该时间后,缓存过期', '2020-01-15 16:39:33', '2020-12-15 19:07:35');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('43', 'auth_code_expire', '验证码有效期', '600', b'0', '全局涉及验证码有限期默认10分钟', '2020-08-29 14:07:11', '2020-12-15 19:07:01');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('44', 'login_type', '登录方式', '3', b'0', '登录方式 1:密码登录 2:短信登录 4:密码+短信登录(必须密码+短信验证码同时登陆) 8:二维码登录(未实现)', '2024-11-20 10:20:24', '2024-11-20 10:20:35');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('45', 'wechat_redirect_url', '微信扫码登录跳转回调地址', 'http://127.0.0.1:10086/manage/wechat/qrcode/login', b'0', '微信PC扫码授权后跳转到商户的地址(注意:是前端地址而不是后端地址)', '2024-11-21 16:45:13', '2024-11-21 16:48:22');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('1', 'system_name', '管理系统名称', 'EGHM', b'0', '左上角系统名称', '2018-01-12 10:01:04', '2024-12-18 14:54:07');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('21', 'comment_report_shield', '评论自动屏蔽次数', '20', b'0', '超过该参数,评论自动屏蔽', '2024-02-20 17:56:11', '2024-02-20 17:56:11');
+
+
+INSERT INTO `sys_user` (`id`, `nick_name`, `user_type`, `mobile`, `user_name`, `state`, `pwd`, `init_pwd`, `data_type`, `dept_code`, `deleted`, `pwd_update_time`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '0', '13000000000', 'superAdmin', '1', '$2a$10$OUgNXwmRXEJcNR5cTAXb0.JmkahFa9Emx9BKl32EaA1yG/6anUVRi', '$2a$10$OUgNXwmRXEJcNR5cTAXb0.JmkahFa9Emx9BKl32EaA1yG/6anUVRi', NULL, NULL, b'0', '2024-07-25 13:37:58', '2018-01-26 10:38:20', '2024-10-28 09:35:33', '');
+
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `dict_type`, `create_time`, `update_time`, `remark`) VALUES ('1', '图片分类', 'image_type', b'0', b'0', '1', '2024-10-31 16:26:53', '2024-10-31 16:28:29', '图片管理');
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `dict_type`, `create_time`, `update_time`, `remark`) VALUES ('3', '轮播图分类', 'banner_type', b'0', b'0', '1', '2024-10-31 16:26:53', '2024-10-31 16:28:29', '轮播管理');
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `dict_type`, `create_time`, `update_time`, `remark`) VALUES ('4', '公告类型', 'notice_type', b'0', b'0', '1', '2024-10-31 16:26:53', '2024-10-31 16:28:29', '公告管理');
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `dict_type`, `create_time`, `update_time`, `remark`) VALUES ('6', '问题分类', 'help_type', b'0', b'0', '1', '2024-10-31 16:26:53', '2024-10-31 16:28:29', '帮助中心');
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `dict_type`, `create_time`, `update_time`, `remark`) VALUES ('7', '反馈分类', 'feedback_type', b'0', b'0', '1', '2024-10-31 16:26:53', '2024-10-31 16:26:53', '意见反馈');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('1', 'image_type', '1', 'PC首页', b'0', '2024-10-31 16:26:53', '2024-10-31 16:26:53');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('2', 'image_type', '2', 'APP首页', b'0', '2024-10-31 16:26:54', '2024-10-31 16:26:54');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('3', 'image_type', '3', 'H5首页', b'0', '2024-10-31 16:26:53', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('6', 'banner_type', '1', '首页轮播', b'0', '2024-10-31 16:26:54', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('8', 'notice_type', '1', '开园活动', b'0', '2024-10-31 16:26:53', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('9', 'notice_type', '2', '放假通知', b'0', '2024-10-31 16:26:54', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('13', 'help_type', '1', '业务问题', b'0', '2024-10-31 16:26:53', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('14', 'help_type', '2', '流程问题', b'0', '2024-10-31 16:26:54', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('15', 'help_type', '3', '异常相关', b'0', '2024-10-31 16:26:53', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('16', 'feedback_type', '1', '服务体验', b'0', '2024-10-31 16:26:54', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('17', 'feedback_type', '2', '投诉反馈', b'0', '2024-10-31 16:26:53', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('18', 'feedback_type', '3', '意见建议', b'0', '2024-10-31 16:26:54', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('19', 'feedback_type', '4', 'BUG反馈', b'0', '2024-10-31 16:26:53', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('20', 'feedback_type', '5', '违规操作', b'0', '2024-10-31 16:26:53', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('21', 'feedback_type', '6', '其他问题', b'0', '2024-10-31 16:26:54', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('22', 'image_type', '4', 'WX首页', b'0', '2024-10-31 16:26:53', '2024-10-31 16:27:58');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('23', 'image_type', '5', 'PAY首页', b'0', '2024-10-31 16:26:54', '2024-10-31 16:27:58');
+
+INSERT INTO `notice_template` (`id`, `code`, `title`, `content`, `remark`, `update_time`) VALUES ('1', 'feedback_process', '反馈结果', '您反馈的【${feedbackType}】 \"${content}\"问题，我们已接收。${reply}', NULL, '2024-05-27 11:43:35');
+
+
 INSERT INTO `sys_area` VALUES ('110000', '北京', '0', 'B', '1');
 INSERT INTO `sys_area` VALUES ('110100', '西城区', '110000', 'X', '2');
 INSERT INTO `sys_area` VALUES ('110200', '崇文区', '110000', 'C', '2');
