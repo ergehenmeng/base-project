@@ -89,7 +89,6 @@ INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('17072
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969410', '1022', '2025-06-12 16:13:33');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969410', '102216', '2025-06-12 16:13:33');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969410', '102217', '2025-06-12 16:13:33');
-INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969410', '102218', '2025-06-12 16:13:33');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969411', '1012', '2025-06-12 16:13:29');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969411', '101213', '2025-06-12 16:13:29');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969411', '10121310', '2025-06-12 16:13:29');
@@ -182,7 +181,6 @@ INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('17072
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969411', '1022', '2025-06-12 16:13:29');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969411', '102216', '2025-06-12 16:13:29');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969411', '102217', '2025-06-12 16:13:29');
-INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969411', '102218', '2025-06-12 16:13:29');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969412', '1012', '2025-06-12 16:13:26');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969412', '101217', '2025-06-12 16:13:26');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969412', '10121710', '2025-06-12 16:13:26');
@@ -277,7 +275,6 @@ INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('17072
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969412', '1022', '2025-06-12 16:13:26');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969412', '102216', '2025-06-12 16:13:26');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969412', '102217', '2025-06-12 16:13:26');
-INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969412', '102218', '2025-06-12 16:13:26');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969413', '1012', '2025-06-12 16:13:22');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969413', '101215', '2025-06-12 16:13:22');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969413', '10121510', '2025-06-12 16:13:22');
@@ -493,7 +490,6 @@ INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('17072
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969414', '1022', '2025-06-12 16:13:17');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969414', '102216', '2025-06-12 16:13:17');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969414', '102217', '2025-06-12 16:13:17');
-INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969414', '102218', '2025-06-12 16:13:17');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969415', '1012', '2025-06-12 16:13:13');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969415', '101221', '2025-06-12 16:13:13');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969415', '10122110', '2025-06-12 16:13:13');
@@ -587,4 +583,3 @@ INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('17072
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969415', '1022', '2025-06-12 16:13:13');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969415', '102216', '2025-06-12 16:13:13');
 INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969415', '102217', '2025-06-12 16:13:13');
-INSERT INTO `sys_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES ('1707298744621969415', '102218', '2025-06-12 16:13:13');
