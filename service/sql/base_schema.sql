@@ -492,7 +492,6 @@ CREATE TABLE `sys_role`
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu`
 (
-    `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `role_id`     bigint(20) COMMENT '角色Id',
     `menu_id`     varchar(20) COMMENT '菜单Id',
     `create_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',

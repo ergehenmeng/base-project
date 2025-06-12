@@ -61,16 +61,16 @@ public class StatisticsController {
         return RespBody.success(statistics);
     }
 
-    @GetMapping("/orderDetail")
-    @Operation(summary = "经营数据")
+    @GetMapping("/orderDispose")
+    @Operation(summary = "订单管理")
     @SkipPerm
-    public RespBody<BusinessDetailVO> orderDetail() {
+    public RespBody<BusinessDetailVO> orderDispose() {
         BusinessDetailVO statistics = orderService.businessStatistics(SecurityHolder.getMerchantId());
         return RespBody.success(statistics);
     }
 
     @GetMapping("/order")
-    @Operation(summary = "下单统计")
+    @Operation(summary = "经营数据")
     @SkipPerm
     public RespBody<OrderCardVO> order(@ParameterObject DateRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
@@ -79,7 +79,7 @@ public class StatisticsController {
     }
 
     @GetMapping("/dayOrder")
-    @Operation(summary = "下单统计(按天)")
+    @Operation(summary = "订单统计")
     @SkipPerm
     public RespBody<List<OrderStatisticsVO>> dayOrder(@ParameterObject DateRequest request) {
         this.setNull(request);
