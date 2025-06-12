@@ -66,8 +66,8 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<MenuResponse> getAll() {
-        List<MenuResponse> responseList = sysMenuMapper.getAll();
+    public List<MenuResponse> getAll(Integer displayState) {
+        List<MenuResponse> responseList = sysMenuMapper.getAll(displayState);
         return this.treeBin(ROOT, responseList);
     }
 

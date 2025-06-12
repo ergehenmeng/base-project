@@ -34,9 +34,10 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
     /**
      * 获取系统所有的菜单
      *
+     * @param displayState 符合该状态的额外显示disabled
      * @return 全部菜单
      */
-    List<MenuResponse> getAll();
+    List<MenuResponse> getAll(@Param("displayState") Integer displayState);
 
     /**
      * 获取用户拥有的商户菜单

@@ -36,6 +36,9 @@ public class MenuResponse {
     @Schema(description = "菜单级别 1:导航 2:按钮")
     private Integer grade;
 
+    @Schema(description = "菜单是否能选中")
+    private Boolean disabled;
+
     @Schema(description = "子菜单")
     private List<MenuResponse> children;
 

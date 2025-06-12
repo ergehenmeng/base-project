@@ -26,6 +26,9 @@
     <select id="getAll" resultType="com.eghm.vo.menu.MenuResponse">
         SELECT
         t.id, t.title, t.icon, t.code, t.pid, t.path, t.sort, t.grade
+        <if test="displayState != null">
+            , if((t.display_state &amp; #{displayState}) = #{displayState}, false, true) as disabled
+        </if>
         from sys_menu t where t.state = true
     </select>
 
