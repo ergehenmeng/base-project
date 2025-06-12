@@ -20,9 +20,6 @@ public class SysAreaVO {
     @ApiModelProperty("区域名称")
     private String title;
 
-    @ApiModelProperty("邮编")
-    private String zipCode;
-
     @ApiModelProperty("地区首字母")
     private String mark;
 

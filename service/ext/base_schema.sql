@@ -496,7 +496,6 @@ CREATE TABLE `sys_area`
     `id`       bigint(20) unsigned NOT NULL COMMENT '区域代码 唯一',
     `title`    varchar(50)         DEFAULT NULL COMMENT '区域名称',
     `pid`      bigint(20)          DEFAULT '0' COMMENT '父级区域代码',
-    `zip_code` char(6)             DEFAULT NULL COMMENT '邮编',
     `mark`     char(1)             DEFAULT NULL COMMENT '标示符-首字母',
     `grade`    tinyint(1) unsigned DEFAULT NULL COMMENT '分类 省份1级 市2级 县3级',
     PRIMARY KEY (`id`),

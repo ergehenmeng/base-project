@@ -6,7 +6,6 @@
         select
         id,
         title,
-        zip_code,
         mark,
         pid
         from sys_area
