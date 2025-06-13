@@ -120,7 +120,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         if (booking == null) {
             return;
         }
-        if (LocalDateTime.now().isAfter(booking.getStartTime()) && LocalDateTime.now().isBefore(booking.getEndTime())) {
+        if (booking.getState() == 1 && LocalDateTime.now().isAfter(booking.getStartTime()) && LocalDateTime.now().isBefore(booking.getEndTime())) {
             log.warn("进行中的拼团不支持删除 [{}] [{}] [{}]", id, booking.getStartTime(), booking.getEndTime());
             throw new BusinessException(ErrorCode.BOOKING_DELETE);
         }
