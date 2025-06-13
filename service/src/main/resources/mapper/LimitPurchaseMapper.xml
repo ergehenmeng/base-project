@@ -6,7 +6,7 @@
         select
             id,
             title,
-            if(now() &lt; start_time, 0, if(now() &gt; end_time, 2, 1)) as state,
+            if(state = 0, 3, if(now() &lt; start_time, 0, if(now() &gt; end_time, 2, 1))) as state,
             start_time,
             advance_hour,
             end_time,
