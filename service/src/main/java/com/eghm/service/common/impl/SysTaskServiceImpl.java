@@ -68,6 +68,7 @@ public class SysTaskServiceImpl implements SysTaskService {
         onceDetail.setBeanName(sysTask.getBeanName());
         onceDetail.setMethodName(sysTask.getMethodName());
         onceDetail.setArgs(args);
+        onceDetail.setLog(true);
         onceDetail.setExecuteTime(LocalDateTime.now().plus(500, ChronoUnit.MILLIS));
         taskRegistrar.addTask(onceDetail);
     }
