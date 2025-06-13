@@ -96,7 +96,7 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         if (purchase == null) {
             return;
         }
-        if (LocalDateTime.now().isAfter(purchase.getStartTime()) && LocalDateTime.now().isBefore(purchase.getEndTime())) {
+        if (purchase.getState() == 1 && LocalDateTime.now().isAfter(purchase.getStartTime()) && LocalDateTime.now().isBefore(purchase.getEndTime())) {
             log.warn("进行中的限时购活动不支持删除 [{}] [{}] [{}]", id, purchase.getStartTime(), purchase.getEndTime());
             throw new BusinessException(ErrorCode.LIMIT_UNDERWAY_DELETE);
         }
