@@ -28,11 +28,11 @@ import static com.eghm.utils.StringUtil.isBlank;
 @Slf4j
 public class Invoker implements Runnable {
 
-    private final AbstractTask task;
-
     private final Object bean;
 
     private final Method method;
+
+    private final AbstractTask task;
 
     private final RedisLock redisLock;
 
@@ -58,7 +58,7 @@ public class Invoker implements Runnable {
     public void run() {
         String traceId = StringUtil.randomLowerCase(16);
         MDC.put(CommonConstant.TRACE_ID, traceId);
-        SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder().beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(NetUtil.getLocalhostStr());
+        SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder();
         String key = task.getBeanName() + CommonConstant.SPECIAL_SPLIT + task.getMethodName();
         LocalDateTime start = LocalDateTime.now();
         long startTime = System.currentTimeMillis();
@@ -73,11 +73,13 @@ public class Invoker implements Runnable {
             builder.state(false);
             alarmService.sendMsg(String.format("自定义定时任务执行失败[%s]", key));
         } finally {
-            // 每次执行的日志都记入定时任务日志
-            long endTime = System.currentTimeMillis();
-            builder.elapsedTime(endTime - startTime);
-            builder.startTime(start);
-            sysTaskLogService.addTaskLog(builder.build());
+            if (task.getLog()) {
+                // 每次执行的日志都记入定时任务日志
+                builder.beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(NetUtil.getLocalhostStr());
+                builder.elapsedTime(System.currentTimeMillis() - startTime);
+                builder.startTime(start);
+                sysTaskLogService.addTaskLog(builder.build());
+            }
             MDC.remove(CommonConstant.TRACE_ID);
         }
     }

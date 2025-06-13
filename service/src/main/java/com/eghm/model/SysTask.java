@@ -37,6 +37,9 @@ public class SysTask {
     @Schema(description = "状态 0:关闭 1:开启")
     private Boolean state;
 
+    @Schema(description = "是否记录日志")
+    private Boolean log;
+
     @Schema(description = "报警邮箱地址")
     private String alarmEmail;
 

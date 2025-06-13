@@ -9,6 +9,7 @@
             bean_name,
             method_name,
             cron_expression,
+            log,
             args,
             state,
             lock_time,

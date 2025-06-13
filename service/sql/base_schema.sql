@@ -515,6 +515,7 @@ CREATE TABLE `sys_task`
     `cron_expression` varchar(50)  DEFAULT NULL COMMENT 'cron表达式',
     `alarm_email`     varchar(30)  DEFAULT NULL COMMENT '错误报警邮箱',
     `state`           tinyint(1)   DEFAULT '1' COMMENT '状态 0:关闭 1:开启',
+    `log`             bit(1)       DEFAULT '1' COMMENT '是否记录日志',
     `lock_time`       bigint(20)   DEFAULT 30000 COMMENT '锁定时间(多副本时防止并发) 单位:毫秒',
     `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`          varchar(255) DEFAULT NULL COMMENT '备注信息',
