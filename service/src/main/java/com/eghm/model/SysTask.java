@@ -37,6 +37,9 @@ public class SysTask {
     @ApiModelProperty("状态 0:关闭 1:开启")
     private Boolean state;
 
+    @ApiModelProperty("是否记录日志")
+    private Boolean log;
+
     @ApiModelProperty("报警邮箱地址")
     private String alarmEmail;
 
