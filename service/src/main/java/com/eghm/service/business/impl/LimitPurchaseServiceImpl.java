@@ -12,7 +12,6 @@ import com.eghm.dto.business.purchase.LimitSkuRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LimitPurchaseMapper;
-import com.eghm.model.GroupBooking;
 import com.eghm.model.LimitPurchase;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ItemService;
