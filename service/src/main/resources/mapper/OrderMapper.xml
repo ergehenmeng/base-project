@@ -151,7 +151,7 @@
     </select>
 
     <select id="waitDelivery" resultType="integer">
-        select count(1) from `order` where deleted = false and state in (4, 5)
+        select count(1) from `order` where deleted = false and state in (3, 4)
         <if test="merchantId != null">
             and merchant_id = #{merchantId}
         </if>
@@ -165,7 +165,7 @@
     </select>
 
     <select id="waitVerify" resultType="integer">
-        select count(1) from `order` where deleted = false and state in (2, 3)
+        select count(1) from `order` where deleted = false and state = 2
         <if test="merchantId != null">
             and merchant_id = #{merchantId}
         </if>
