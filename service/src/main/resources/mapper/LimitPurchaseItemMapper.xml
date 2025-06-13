@@ -8,7 +8,7 @@
             t.max_discount_amount,
             r.title,
             r.cover_url,
-            r.min_price,
+            t.min_price,
             r.sale_num,
             if(now() &gt;= t.advance_time, 1, 0) as onSale
         from limit_purchase_item t inner join item r on t.item_id = r.id
