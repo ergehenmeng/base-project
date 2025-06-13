@@ -41,6 +41,10 @@ public class TaskEditRequest {
     @NotNull(message = "任务状态不能为空")
     private Boolean state;
 
+    @ApiModelProperty(value = "日志记录 0:不开启 1:开启", required = true)
+    @NotNull(message = "日志记录不能为空")
+    private Boolean log;
+
     @ApiModelProperty(value = "备注信息")
     private String remark;
 }
