@@ -71,6 +71,7 @@ public class LimitPurchaseItemServiceImpl implements LimitPurchaseItemService {
             item.setEndTime(limitPurchase.getEndTime());
             item.setAdvanceTime(advanceTime);
             item.setMaxDiscountAmount(this.getMaxDiscountPrice(entry.getValue()));
+            item.setMinPrice(this.getMinPrice(entry.getValue()));
             item.setSkuValue(jsonService.toJson(entry.getValue()));
             item.setCreateTime(limitPurchase.getCreateTime());
             limitPurchaseItemMapper.insert(item);
@@ -123,4 +124,13 @@ public class LimitPurchaseItemServiceImpl implements LimitPurchaseItemService {
         return skuList.stream().mapToInt(request -> request.getSalePrice() - request.getDiscountPrice()).max().orElse(0);
     }
 
+    /**
+     * 获取最低价格
+     *
+     * @param skuList sku列表
+     * @return 最低价格
+     */
+    private Integer getMinPrice(List<LimitSkuRequest> skuList) {
+        return skuList.stream().mapToInt(LimitSkuRequest::getDiscountPrice).min().orElse(0);
+    }
 }

@@ -41,6 +41,9 @@ public class LimitPurchaseItem extends BaseEntity {
     @Schema(description = "优惠配置json")
     private String skuValue;
 
+    @Schema(description = "最低价格")
+    private Integer minPrice;
+
     @Schema(description = "最大优惠金额")
     private Integer maxDiscountAmount;
 
