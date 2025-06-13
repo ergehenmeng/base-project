@@ -73,7 +73,7 @@ public class Invoker implements Runnable {
             builder.state(false);
             alarmService.sendMsg(String.format("自定义定时任务执行失败[%s]", key));
         } finally {
-            if (task.getLog()) {
+            if (Boolean.TRUE.equals(task.getLog())) {
                 // 每次执行的日志都记入定时任务日志
                 builder.beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(NetUtil.getLocalhostStr());
                 builder.elapsedTime(System.currentTimeMillis() - startTime);
