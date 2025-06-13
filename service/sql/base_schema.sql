@@ -2016,6 +2016,7 @@ CREATE TABLE `limit_purchase`
     `id`           bigint(20) NOT NULL COMMENT '主键',
     `merchant_id`  bigint(20)   DEFAULT NULL COMMENT '商户id',
     `title`        varchar(20)  DEFAULT NULL COMMENT '活动名称',
+    `state`        tinyint(2)   DEFAULT NULL COMMENT '状态 0:已下架 1:正常',
     `start_time`   datetime     DEFAULT NULL COMMENT '开始时间',
     `end_time`     datetime     DEFAULT NULL COMMENT '结束时间',
     `advance_hour` tinyint(2)   DEFAULT NULL COMMENT '提前预告小时',
