@@ -130,10 +130,10 @@ public interface OrderMapper extends BaseMapper<Order> {
     Integer waitDelivery(@Param("merchantId") Long merchantId);
 
     /**
-     * 待退款审核后的零售商品数量
+     * 待退款审核后的商品数量
      *
      * @param merchantId 商户ID
-     * @return 待退款审核后的零售商品数量
+     * @return 待退款审核后的商品数量
      */
     Integer refunding(@Param("merchantId") Long merchantId);
 
