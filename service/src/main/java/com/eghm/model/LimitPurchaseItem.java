@@ -41,6 +41,9 @@ public class LimitPurchaseItem extends BaseEntity {
     @ApiModelProperty(value = "优惠配置json")
     private String skuValue;
 
+    @ApiModelProperty(value = "最低价格")
+    private Integer minPrice;
+
     @ApiModelProperty(value = "最大优惠金额")
     private Integer maxDiscountAmount;
 
