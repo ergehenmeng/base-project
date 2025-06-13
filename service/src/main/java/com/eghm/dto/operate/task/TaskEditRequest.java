@@ -40,6 +40,10 @@ public class TaskEditRequest {
     @NotNull(message = "任务状态不能为空")
     private Boolean state;
 
+    @Schema(description = "日志记录 0:不开启 1:开启", requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "日志记录不能为空")
+    private Boolean log;
+
     @Schema(description = "备注信息")
     private String remark;
 }
