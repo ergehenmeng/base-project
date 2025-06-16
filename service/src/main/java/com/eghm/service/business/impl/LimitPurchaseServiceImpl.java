@@ -68,8 +68,6 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         LimitPurchase purchase = DataUtil.copy(request, LimitPurchase.class);
         purchase.setCreateTime(LocalDateTime.now());
         limitPurchaseMapper.insert(purchase);
-        List<Long> itemIds = request.getSkuList().stream().map(LimitSkuRequest::getItemId).distinct().collect(Collectors.toList());
-        itemService.updateLimitPurchase(itemIds, purchase.getId());
         limitPurchaseItemService.insertOrUpdate(request.getSkuList(), purchase);
     }
 
@@ -83,8 +81,6 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         if (purchase.getStartTime().isBefore(LocalDateTime.now())) {
             throw new BusinessException(ErrorCode.ACTIVITY_NOT_EDIT);
         }
-        List<Long> itemIds = request.getSkuList().stream().map(LimitSkuRequest::getItemId).distinct().collect(Collectors.toList());
-        itemService.updateLimitPurchase(itemIds, purchase.getId());
         LimitPurchase limitPurchase = DataUtil.copy(request, LimitPurchase.class);
         limitPurchaseMapper.updateById(limitPurchase);
         limitPurchaseItemService.insertOrUpdate(request.getSkuList(), purchase);
@@ -105,7 +101,6 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         wrapper.eq(LimitPurchase::getMerchantId, SecurityHolder.getMerchantId());
         limitPurchaseMapper.delete(wrapper);
         limitPurchaseItemService.delete(id);
-        itemService.releasePurchase(id);
     }
 
     @Override

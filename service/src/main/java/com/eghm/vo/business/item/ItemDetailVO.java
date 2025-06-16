@@ -97,16 +97,8 @@ public class ItemDetailVO {
     @ApiModelProperty("是否为拼团商品")
     private Boolean groupBooking;
 
-    @ApiModelProperty("拼团活动id")
-    @JsonIgnore
-    private Long bookingId;
-
     @ApiModelProperty("是否为限时购商品")
     private Boolean limitPurchase;
-
-    @ApiModelProperty("限时购活动id")
-    @JsonIgnore
-    private Long limitId;
 
     @ApiModelProperty("限时购开始时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

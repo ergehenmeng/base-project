@@ -130,12 +130,9 @@ public class ItemServiceImpl implements ItemService {
         this.checkMultiSpec(select.getMultiSpec(), request.getMultiSpec());
         commonService.checkIllegal(select.getMerchantId());
         Item item = DataUtil.copy(request, Item.class);
-        if (select.getBookingId() == null) {
-            Map<String, Long> specMap = itemSpecService.update(item, request.getSpecList());
-            itemSkuService.update(item, specMap, request.getSkuList());
-        } else {
-            log.info("该商品是拼团商品,请先删除拼团活动后再编辑规格信息 [{}] [{}]", select.getId(), select.getBookingId());
-        }
+        Map<String, Long> specMap = itemSpecService.update(item, request.getSpecList());
+        itemSkuService.update(item, specMap, request.getSkuList());
+        log.info("该商品是拼团商品,请先删除拼团活动后再编辑规格信息 [{}]", select.getId());
         // 因为可能修改了虚拟库存，需要重新计算总销量
         Integer totalNum = itemSkuService.calcTotalNum(item.getId());
         item.setTotalNum(totalNum);
@@ -175,10 +172,11 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void checkBookingItem(Long itemId) {
         Item item = this.selectByIdRequired(itemId);
-        if (item.getBookingId() != null) {
+        // TODO  待完善
+        /*if (item.getBookingId() != null) {
             log.error("该商品已存在拼团活动 [{}]", item.getId());
             throw new BusinessException(ErrorCode.ITEM_BOOKING);
-        }
+        }*/
         commonService.checkIllegal(item.getMerchantId());
     }
 
@@ -189,42 +187,6 @@ public class ItemServiceImpl implements ItemService {
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, Item::getMerchantId, merchantId);
         wrapper.set(Item::getState, state);
-        itemMapper.update(null, wrapper);
-    }
-
-    @Override
-    public void updateGroupBooking(Long id, Long bookingId) {
-        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Item::getId, id);
-        wrapper.set(Item::getBookingId, bookingId);
-        itemMapper.update(null, wrapper);
-    }
-
-    @Override
-    public void updateLimitPurchase(List<Long> itemIds, Long limitId) {
-        Long merchantId = SecurityHolder.getMerchantId();
-        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Item::getLimitId, limitId);
-        wrapper.eq(Item::getMerchantId, merchantId);
-        wrapper.set(Item::getLimitId, null);
-        itemMapper.update(null, wrapper);
-        LambdaUpdateWrapper<Item> updateWrapper = Wrappers.lambdaUpdate();
-        updateWrapper.in(Item::getId, itemIds);
-        updateWrapper.eq(Item::getMerchantId, merchantId);
-        updateWrapper.isNull(Item::getLimitId);
-        updateWrapper.set(Item::getLimitId, limitId);
-        int update = itemMapper.update(null, updateWrapper);
-        if (update != itemIds.size()) {
-            log.error("限时购活动更新的商品可能不属当前商户 [{}] [{}] [{}]", merchantId, limitId, itemIds);
-            throw new BusinessException(ErrorCode.LIMIT_ITEM_NULL);
-        }
-    }
-
-    @Override
-    public void releasePurchase(Long limitId) {
-        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Item::getLimitId, limitId);
-        wrapper.set(Item::getLimitId, null);
         itemMapper.update(null, wrapper);
     }
 
@@ -396,6 +358,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<ActivityItemResponse> getActivityList(ItemActivityRequest request) {
         List<ActivityItemResponse> activityList;
+        // 此处让前端传递过来就是为了提高关联查询的效率
         if (Boolean.TRUE.equals(request.getReadonly())) {
             if (request.getActivityType() == 1) {
                 activityList = itemMapper.getGroupItemList(request.getMerchantId(), request.getId());
@@ -403,7 +366,11 @@ public class ItemServiceImpl implements ItemService {
                 activityList = itemMapper.getLimitItemList(request.getMerchantId(), request.getId());
             }
         } else {
-            activityList = itemMapper.getActivityList(request.getMerchantId(), request.getId());
+            if (request.getActivityType() == 1) {
+                activityList = itemMapper.getGroupAvailableList(request.getMerchantId(), request.getId());
+            } else {
+                activityList = itemMapper.getLimitAvailableList(request.getMerchantId(), request.getId());
+            }
         }
         this.packageItem(activityList);
         return activityList;
@@ -435,12 +402,6 @@ public class ItemServiceImpl implements ItemService {
         Item item = this.selectByIdRequired(request.getItemId());
         commonService.checkIllegal(item.getMerchantId());
         itemSkuService.addStock(request.getSkuList(), request.getItemId());
-    }
-
-    @Override
-    public void clearExpiredActivity() {
-        itemMapper.clearExpiredGroupActivity();
-        itemMapper.clearExpiredLimitActivity();
     }
 
     /**

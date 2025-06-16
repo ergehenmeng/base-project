@@ -85,29 +85,6 @@ public interface ItemService {
     void updateState(Long id, State state);
 
     /**
-     * 更新零售是否拼团
-     *
-     * @param itemId itemId
-     * @param bookingId 拼团活动id
-     */
-    void updateGroupBooking(Long itemId, Long bookingId);
-
-    /**
-     * 更新零售是否限时购
-     *
-     * @param itemIds itemIds
-     * @param limitId 限时购活动id
-     */
-    void updateLimitPurchase(List<Long> itemIds, Long limitId);
-
-    /**
-     * 释放限时购信息
-     *
-     * @param limitId 限时购活动id
-     */
-    void releasePurchase(Long limitId);
-
-    /**
      * 商品排序
      *
      * @param id     商品id
@@ -262,8 +239,4 @@ public interface ItemService {
      */
     void addStock(ItemAddStockRequest request);
 
-    /**
-     * 清理过期的营销活动
-     */
-    void clearExpiredActivity();
 }

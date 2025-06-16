@@ -406,7 +406,8 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      * @return 单价
      */
     private Integer checkAndCalcFinalPrice(OrderPackage aPackage, ItemOrderCreateContext context) {
-        Long limitId = aPackage.getItem().getLimitId();
+        // TODO 待完善
+        Long limitId = null;
         if (limitId != null) {
             LimitPurchaseItem purchaseItem = limitPurchaseItemService.getLimitItem(limitId, aPackage.getItemId());
             if (purchaseItem == null) {
@@ -431,10 +432,11 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         // 表示是拼团订单
         if (Boolean.TRUE.equals(context.getGroupBooking())) {
             log.info("开始计算拼团价格 [{}] [{}]", aPackage.getItemId(), aPackage.getSkuId());
-            this.checkAndSetBooking(aPackage.getItem().getBookingId(), context);
-            GroupBooking selected = groupBookingService.getValidById(aPackage.getItem().getBookingId());
+            // TODO 待完善
+            this.checkAndSetBooking(12L, context);
+            GroupBooking selected = groupBookingService.getValidById(12L);
             if (selected.getNum() <= context.getBookingNum()) {
-                log.info("拼团人数已经满了 [{}]", aPackage.getItem().getBookingId());
+                log.info("拼团人数已经满了 [{}]", 12L);
                 throw new BusinessException(ITEM_GROUP_COMPLETE);
             }
             context.setExpireTime(selected.getExpireTime());
