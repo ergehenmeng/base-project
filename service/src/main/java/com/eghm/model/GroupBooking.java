@@ -44,6 +44,9 @@ public class GroupBooking extends BaseEntity {
     @ApiModelProperty("最大拼团优惠金额")
     private Integer maxDiscountAmount;
 
+    @ApiModelProperty("最低拼团价格")
+    private Integer minPrice;
+
     @ApiModelProperty(value = "拼团有效期,单位:分钟")
     private Integer expireTime;
 

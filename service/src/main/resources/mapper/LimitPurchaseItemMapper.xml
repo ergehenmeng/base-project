@@ -12,7 +12,7 @@
             r.sale_num,
             if(now() &gt;= t.advance_time, 1, 0) as onSale
         from limit_purchase_item t inner join item r on t.item_id = r.id
-        where r.state = 1 and r.deleted = false and t.deleted = false and now() between t.advance_time and t.end_time and r.min_price &gt; 0
+        where r.state = 1 and r.deleted = false and t.deleted = false and now() between t.advance_time and t.end_time
         <if test="param.queryName != null and param.queryName != ''">
             and r.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%')
         </if>
@@ -21,7 +21,7 @@
                 order by r.recommend desc, t.id desc
             </when>
             <when test="param.sortBy == 1">
-                order by r.min_price, r.recommend desc
+                order by t.min_price, r.recommend desc
             </when>
             <when test="param.sortBy == 2">
                 order by r.total_num desc, r.recommend desc
