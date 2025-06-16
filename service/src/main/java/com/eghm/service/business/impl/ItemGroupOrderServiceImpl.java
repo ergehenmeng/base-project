@@ -5,10 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.AlarmService;
 import com.eghm.constants.CommonConstant;
+import com.eghm.constants.LockConstant;
 import com.eghm.enums.BookingState;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.exception.BusinessException;
+import com.eghm.lock.RedisLock;
+import com.eghm.mapper.GroupBookingMapper;
 import com.eghm.mapper.ItemGroupOrderMapper;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.mapper.OrderMapper;
@@ -17,10 +20,12 @@ import com.eghm.model.Item;
 import com.eghm.model.ItemGroupOrder;
 import com.eghm.model.Order;
 import com.eghm.mq.service.MessageService;
-import com.eghm.service.business.GroupBookingService;
 import com.eghm.service.business.ItemGroupOrderService;
+import com.eghm.service.business.OrderProxyService;
 import com.eghm.state.machine.context.ItemOrderCreateContext;
+import com.eghm.utils.SpringContextUtil;
 import com.eghm.vo.business.group.GroupMemberVO;
+import com.eghm.vo.business.group.GroupOrderCancelVO;
 import com.eghm.vo.business.group.GroupOrderDetailVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +46,8 @@ import java.util.List;
 @Service("itemGroupOrderService")
 public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
 
+    private final RedisLock redisLock;
+
     private final ItemMapper itemMapper;
 
     private final OrderMapper orderMapper;
@@ -49,7 +56,7 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
 
     private final MessageService messageService;
 
-    private final GroupBookingService groupBookingService;
+    private final GroupBookingMapper groupBookingMapper;
 
     private final ItemGroupOrderMapper itemGroupOrderMapper;
 
@@ -115,7 +122,11 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
             throw new BusinessException(ErrorCode.GROUP_ORDER_NULL);
         }
         Long bookingId = memberList.get(0).getBookingId();
-        GroupBooking booking = groupBookingService.getValidById(bookingId);
+        GroupBooking booking = groupBookingMapper.getValidById(bookingId);
+        if (booking == null) {
+            log.error("拼团订单不存在 [{}]", bookingNo);
+            throw new BusinessException(ErrorCode.GROUP_SOLD_OUT);
+        }
         Item item = itemMapper.selectById(booking.getItemId());
         if (item == null) {
             log.error("拼团商品不存在 [{}]", booking.getItemId());
@@ -164,6 +175,56 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
             messageService.sendDelay(ExchangeQueue.GROUP_ORDER_EXPIRE_SINGLE, order.getBookingNo(), 5);
         } else {
             log.info("订单为拼团团员自身的退款[{}]: [{}]", order.getOrderNo(), order.getBookingNo());
+        }
+    }
+
+    @Override
+    public void cancelGroupOrder(GroupOrderCancelVO vo) {
+        log.info("开始取消拼团订单(全部) [{}]", vo.getBookingId());
+        GroupBooking booking = groupBookingMapper.getById(vo.getBookingId());
+        if (booking == null) {
+            log.warn("该拼团订单可能已删除 [{}]", vo.getBookingId());
+            return;
+        }
+        if (booking.getEndTime().isAfter(vo.getEndTime())) {
+            log.warn("拼团活动推后啦 [{}] [{}] [{}]", vo.getBookingId(), booking.getEndTime(), vo.getEndTime());
+            return;
+        }
+        if (booking.getEndTime().isBefore(vo.getEndTime())) {
+            log.warn("拼团活动提前啦 [{}] [{}] [{}]", vo.getBookingId(), booking.getEndTime(), vo.getEndTime());
+            return;
+        }
+        List<ItemGroupOrder> groupList = this.getGroupList(vo.getBookingId(), BookingState.WAITING);
+        this.doCancelGroupOrder(groupList);
+    }
+
+    @Override
+    public void cancelGroupOrder(String bookingNo) {
+        log.info("开始取消拼团订单(个人) [{}]", bookingNo);
+        List<ItemGroupOrder> groupList = this.getGroupList(bookingNo, BookingState.WAITING);
+        if (groupList.isEmpty()) {
+            log.warn("该拼团订单可能已成团或已取消,不做取消处理 [{}]", bookingNo);
+            return;
+        }
+        this.doCancelGroupOrder(groupList);
+    }
+
+    @Override
+    public void cancelGroupOrder(Long bookingId) {
+        List<ItemGroupOrder> groupList = this.getGroupList(bookingId, BookingState.WAITING);
+        this.doCancelGroupOrder(groupList);
+    }
+
+    /**
+     * 拼团订单取消
+     *
+     * @param groupList 拼团订单
+     */
+    private void doCancelGroupOrder(List<ItemGroupOrder> groupList) {
+        //  此处采用这种方式是避免循环依赖
+        OrderProxyService orderProxyService = SpringContextUtil.getBean(OrderProxyService.class);
+        for (ItemGroupOrder order : groupList) {
+            redisLock.lockVoid(LockConstant.ORDER_LOCK + order.getOrderNo(), 10_000, () -> orderProxyService.doCancelGroupOrder(order));
         }
     }
 

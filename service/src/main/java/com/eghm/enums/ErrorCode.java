@@ -1586,6 +1586,11 @@ public enum ErrorCode {
     GROUP_ORDER_NULL(2876, "拼团活动不存在"),
 
     /**
+     * 拼团活动下架啦~
+     */
+    GROUP_SOLD_OUT(2877, "拼团活动下架啦~"),
+
+    /**
      * 限时购活动名称重复
      */
     REDO_TITLE_LIMIT(2879, "限时购活动名称重复啦"),

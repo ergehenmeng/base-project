@@ -17,6 +17,7 @@ import com.eghm.model.Item;
 import com.eghm.mq.service.MessageService;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.GroupBookingService;
+import com.eghm.service.business.ItemGroupOrderService;
 import com.eghm.service.business.ItemService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.group.*;
@@ -67,6 +68,8 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     private final MessageService messageService;
 
     private final GroupBookingMapper groupBookingMapper;
+
+    private final ItemGroupOrderService itemGroupOrderService;
 
     private static final long GROUP_WEEK = 604800L;
 
@@ -188,6 +191,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         wrapper.eq(merchantId != null, GroupBooking::getMerchantId, merchantId);
         wrapper.set(GroupBooking::getState, state);
         groupBookingMapper.update(wrapper);
+        itemGroupOrderService.cancelGroupOrder(id);
     }
 
     /**
