@@ -1980,6 +1980,7 @@ CREATE TABLE `group_booking`
     `state`               tinyint(2)  DEFAULT 1 COMMENT '状态 0:下架 1:上架',
     `sku_value`           text        DEFAULT NULL COMMENT '拼团优惠配置json',
     `max_discount_amount` int(10)     DEFAULT 0 COMMENT '最大优惠金额',
+    `min_price`           int(10)     DEFAULT NULL COMMENT '最低拼团价格',
     `expire_time`         int(10)     DEFAULT '86400' COMMENT '拼团有效期 单位:分钟',
     `create_time`         datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`         datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

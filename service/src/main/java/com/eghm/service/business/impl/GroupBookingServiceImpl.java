@@ -86,6 +86,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         GroupBooking booking = DataUtil.copy(request, GroupBooking.class);
         booking.setSkuValue(jsonService.toJson(request.getSkuList()));
         booking.setMaxDiscountAmount(this.getMaxDiscountPrice(request.getSkuList()));
+        booking.setMinPrice(this.getMinPrice(request.getSkuList()));
         groupBookingMapper.insert(booking);
         itemService.updateGroupBooking(request.getItemId(), booking.getId());
         this.sendExpireMessage(booking.getId(), booking.getEndTime(), null);
@@ -113,6 +114,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         GroupBooking groupBooking = DataUtil.copy(request, GroupBooking.class);
         groupBooking.setSkuValue(jsonService.toJson(request.getSkuList()));
         groupBooking.setMaxDiscountAmount(this.getMaxDiscountPrice(request.getSkuList()));
+        groupBooking.setMinPrice(this.getMinPrice(request.getSkuList()));
         groupBookingMapper.updateById(groupBooking);
         this.sendExpireMessage(booking.getId(), request.getEndTime(), booking.getEndTime());
     }
@@ -217,6 +219,16 @@ public class GroupBookingServiceImpl implements GroupBookingService {
      */
     private Integer getMaxDiscountPrice(List<GroupItemSkuRequest> skuList) {
         return skuList.stream().mapToInt(request -> request.getSalePrice() - request.getDiscountPrice()).max().orElse(0);
+    }
+
+    /**
+     * 最低拼团价格
+     *
+     * @param skuList sku列表
+     * @return 最低售价
+     */
+    private Integer getMinPrice(List<GroupItemSkuRequest> skuList) {
+        return skuList.stream().mapToInt(GroupItemSkuRequest::getDiscountPrice).min().orElse(0);
     }
 
     /**

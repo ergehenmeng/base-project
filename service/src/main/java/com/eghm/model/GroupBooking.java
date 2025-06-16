@@ -44,6 +44,9 @@ public class GroupBooking extends BaseEntity {
     @Schema(description = "最大拼团优惠金额")
     private Integer maxDiscountAmount;
 
+    @Schema(description = "拼团最低价格")
+    private Integer minPrice;
+
     @Schema(description = "拼团有效期,单位:分钟")
     private Integer expireTime;
 
