@@ -437,12 +437,6 @@ public class ItemServiceImpl implements ItemService {
         itemSkuService.addStock(request.getSkuList(), request.getItemId());
     }
 
-    @Override
-    public void clearExpiredActivity() {
-        itemMapper.clearExpiredGroupActivity();
-        itemMapper.clearExpiredLimitActivity();
-    }
-
     /**
      * 封装活动商品信息
      *

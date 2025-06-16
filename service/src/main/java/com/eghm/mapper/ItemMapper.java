@@ -157,13 +157,4 @@ public interface ItemMapper extends BaseMapper<Item> {
      */
     List<Item> getByIds(@Param("ids") List<Long> itemIds);
 
-    /**
-     * 清理过期的拼团活动
-     */
-    void clearExpiredGroupActivity();
-
-    /**
-     * 清理过期的限时购活动
-     */
-    void clearExpiredLimitActivity();
 }

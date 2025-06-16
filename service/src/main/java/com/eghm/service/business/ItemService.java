@@ -262,8 +262,4 @@ public interface ItemService {
      */
     void addStock(ItemAddStockRequest request);
 
-    /**
-     * 清理过期的营销活动
-     */
-    void clearExpiredActivity();
 }
