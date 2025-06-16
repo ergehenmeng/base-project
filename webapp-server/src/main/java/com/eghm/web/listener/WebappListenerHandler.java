@@ -8,14 +8,15 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.constants.LockConstant;
 import com.eghm.constants.QueueConstant;
 import com.eghm.dto.ext.*;
-import com.eghm.enums.BookingState;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.ProductType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.lock.RedisLock;
-import com.eghm.model.*;
+import com.eghm.model.MemberVisitLog;
+import com.eghm.model.Order;
+import com.eghm.model.WebappLog;
 import com.eghm.mq.listener.AbstractListenerHandler;
 import com.eghm.service.business.*;
 import com.eghm.service.member.LoginService;
@@ -31,7 +32,6 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.function.Consumer;
 
 import static com.eghm.constants.CacheConstant.ERROR_PLACE_HOLDER;
@@ -45,8 +45,6 @@ import static com.eghm.utils.StringUtil.isBlank;
 @Component
 @Slf4j
 public class WebappListenerHandler extends AbstractListenerHandler {
-
-    private final RedisLock redisLock;
 
     private final LineService lineService;
 
@@ -68,13 +66,9 @@ public class WebappListenerHandler extends AbstractListenerHandler {
 
     private final WebappLogService webappLogService;
 
-    private final OrderProxyService orderProxyService;
-
     private final RestaurantService restaurantService;
 
     private final ScenicTicketService scenicTicketService;
-
-    private final GroupBookingService groupBookingService;
 
     private final ItemGroupOrderService itemGroupOrderService;
 
@@ -82,11 +76,10 @@ public class WebappListenerHandler extends AbstractListenerHandler {
 
     private final OrderEvaluationService orderEvaluationService;
 
-    public WebappListenerHandler(JsonService jsonService, AlarmService alarmService, RedisLock redisLock, LineService lineService, JsonService jsonService1, ItemService itemService, LoginService loginService, CacheService cacheService, StateHandler stateHandler, OrderService orderService, VenueService venueService, HomestayService homestayService, WebappLogService webappLogService, OrderProxyService orderProxyService, RestaurantService restaurantService, ScenicTicketService scenicTicketService, GroupBookingService groupBookingService, ItemGroupOrderService itemGroupOrderService, MemberVisitLogService memberVisitLogService, OrderEvaluationService orderEvaluationService) {
+    public WebappListenerHandler(JsonService jsonService, AlarmService alarmService, RedisLock redisLock, LineService lineService, ItemService itemService, LoginService loginService, CacheService cacheService, StateHandler stateHandler, OrderService orderService, VenueService venueService, HomestayService homestayService, WebappLogService webappLogService, RestaurantService restaurantService, ScenicTicketService scenicTicketService, ItemGroupOrderService itemGroupOrderService, MemberVisitLogService memberVisitLogService, OrderEvaluationService orderEvaluationService) {
         super(redisLock, jsonService, alarmService);
-        this.redisLock = redisLock;
         this.lineService = lineService;
-        this.jsonService = jsonService1;
+        this.jsonService = jsonService;
         this.itemService = itemService;
         this.loginService = loginService;
         this.cacheService = cacheService;
@@ -95,10 +88,8 @@ public class WebappListenerHandler extends AbstractListenerHandler {
         this.venueService = venueService;
         this.homestayService = homestayService;
         this.webappLogService = webappLogService;
-        this.orderProxyService = orderProxyService;
         this.restaurantService = restaurantService;
         this.scenicTicketService = scenicTicketService;
-        this.groupBookingService = groupBookingService;
         this.itemGroupOrderService = itemGroupOrderService;
         this.memberVisitLogService = memberVisitLogService;
         this.orderEvaluationService = orderEvaluationService;
@@ -326,7 +317,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.GROUP_ORDER_EXPIRE_QUEUE)
     public void groupOrderExpire(GroupOrderCancelVO vo, Message message, Channel channel) throws IOException {
-        processMessageAck(vo, message, channel, this::cancelGroupOrder);
+        processMessageAck(vo, message, channel, itemGroupOrderService::cancelGroupOrder);
     }
 
     /**
@@ -334,7 +325,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.GROUP_ORDER_EXPIRE_SINGLE_QUEUE)
     public void groupOrderExpireSingle(String bookingNo, Message message, Channel channel) throws IOException {
-        processMessageAck(bookingNo, message, channel, this::cancelGroupOrder);
+        processMessageAck(bookingNo, message, channel, itemGroupOrderService::cancelGroupOrder);
     }
 
     /**
@@ -359,56 +350,6 @@ public class WebappListenerHandler extends AbstractListenerHandler {
     public void orderPayRanking(OrderPayNotify notify, Message message, Channel channel) throws IOException {
         processMessageAck(notify, message, channel, s ->
                 orderService.incrementAmount(notify.getProductType(), notify.getMerchantId(), notify.getProductId(), notify.getAmount()));
-    }
-
-    /**
-     * 取消拼团订单 (单个拼团)
-     *
-     * @param bookingNo 拼团订单号
-     */
-    private void cancelGroupOrder(String bookingNo) {
-        log.info("开始取消拼团订单(个人) [{}]", bookingNo);
-        List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(bookingNo, BookingState.WAITING);
-        if (groupList.isEmpty()) {
-            log.warn("该拼团订单可能已成团或已取消,不做取消处理 [{}]", bookingNo);
-            return;
-        }
-        this.doCancelGroupOrder(groupList);
-    }
-
-    /**
-     * 取消拼团订单 (全部)
-     *
-     * @param vo 拼团信息
-     */
-    private void cancelGroupOrder(GroupOrderCancelVO vo) {
-        log.info("开始取消拼团订单(全部) [{}]", vo.getBookingId());
-        GroupBooking booking = groupBookingService.getById(vo.getBookingId());
-        if (booking == null) {
-            log.warn("该拼团订单可能已删除 [{}]", vo.getBookingId());
-            return;
-        }
-        if (booking.getEndTime().isAfter(vo.getEndTime())) {
-            log.warn("拼团活动推后啦 [{}] [{}] [{}]", vo.getBookingId(), booking.getEndTime(), vo.getEndTime());
-            return;
-        }
-        if (booking.getEndTime().isBefore(vo.getEndTime())) {
-            log.warn("拼团活动提前啦 [{}] [{}] [{}]", vo.getBookingId(), booking.getEndTime(), vo.getEndTime());
-            return;
-        }
-        List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(vo.getBookingId(), BookingState.WAITING);
-        this.doCancelGroupOrder(groupList);
-    }
-
-    /**
-     * 拼团订单取消
-     *
-     * @param groupList 拼团订单
-     */
-    private void doCancelGroupOrder(List<ItemGroupOrder> groupList) {
-        for (ItemGroupOrder order : groupList) {
-            redisLock.lockVoid(LockConstant.ORDER_LOCK + order.getOrderNo(), 10_000, () -> orderProxyService.doCancelGroupOrder(order));
-        }
     }
 
     /**
