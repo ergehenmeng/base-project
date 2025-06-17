@@ -9,6 +9,8 @@ import com.eghm.vo.business.group.GroupBookingResponse;
 import com.eghm.vo.business.group.GroupItemVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  * 拼团活动表 Mapper 接口
@@ -52,4 +54,31 @@ public interface GroupBookingMapper extends BaseMapper<GroupBooking> {
      * @return 列表
      */
     Page<GroupItemVO> listPage(Page<GroupItemVO> page, @Param("param") GroupBookingQueryDTO dto);
+
+    /**
+     * 根据商品id查询其是否参加拼团活动 (正在参加的活动)
+     *
+     * @param itemId 商品id
+     * @param merchantId 商户id
+     * @return 活动信息
+     */
+    GroupBooking getByItemId(@Param("itemId") Long itemId, @Param("merchantId") Long merchantId);
+
+    /**
+     * 统计某商品正在参加的拼团活动数量
+     *
+     * @param itemId 零售id
+     * @param merchantId 商户id
+     * @return 1
+     */
+    int countJoining(@Param("itemId") Long itemId, @Param("merchantId") Long merchantId);
+
+    /**
+     * 统计某商品正在参加的拼团活动数量
+     *
+     * @param itemIds 零售id
+     * @param merchantId 商户id
+     * @return 1
+     */
+    int countJoiningList(@Param("itemIds") List<Long> itemIds, @Param("merchantId") Long merchantId);
 }

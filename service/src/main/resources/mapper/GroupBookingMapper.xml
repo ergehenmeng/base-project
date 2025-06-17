@@ -88,4 +88,36 @@
             </otherwise>
         </choose>
     </select>
+
+    <select id="getByItemId" resultType="com.eghm.model.GroupBooking">
+        select
+            t.id,
+            t.item_id,
+            t.num,
+            t.max_discount_amount,
+            t.title,
+            t.start_time,
+            t.end_time,
+            t.min_price,
+            t.sku_value
+        from group_booking t
+        where t.item_id = #{itemId} and t.deleted = false and t.state = 1 and now() between t.start_time and t.end_time
+        <if test="merchantId != null">
+            and t.merchant_id = #{merchantId}
+        </if>
+        limit 1
+    </select>
+
+    <select id="countJoining" resultType="int">
+        select count(1) from group_booking where deleted = false and state = 1 and now() &lt; end_time and item_id = #{itemId} and merchant_id = #{merchantId}
+    </select>
+
+    <select id="countJoiningList" resultType="int">
+        select count(1) from group_booking where deleted = false and state = 1 and now() &lt; end_time and merchant_id = #{merchantId}
+        and item_id in
+        <foreach collection="itemIds" separator="," item="item" open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
 </mapper>

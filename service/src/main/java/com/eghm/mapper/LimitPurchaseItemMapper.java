@@ -36,4 +36,32 @@ public interface LimitPurchaseItemMapper extends BaseMapper<LimitPurchaseItem> {
      * @return 商品列表
      */
     List<LimitItemResponse> getLimitList(@Param("limitId") Long limitId);
+
+    /**
+     * 根据商品id查询其参加的限时购信息
+     *
+     * @param itemId 商品id
+     * @param merchantId 商户id
+     * @return 限时购信息
+     */
+    LimitPurchaseItem getByItemId(@Param("itemId") Long itemId, @Param("merchantId") Long merchantId);
+
+    /**
+     * 统计某商品正在参加的拼团活动数量
+     *
+     * @param itemId 零售id
+     * @param merchantId 商户id
+     * @return 1
+     */
+    int countJoining(@Param("itemId") Long itemId, @Param("merchantId") Long merchantId);
+
+    /**
+     * 统计某商品正在参加的拼团活动数量
+     *
+     * @param itemIds 零售id
+     * @param merchantId 商户id
+     * @param limitId  限时购id
+     * @return 1
+     */
+    int countJoiningList(@Param("itemIds") List<Long> itemIds, @Param("merchantId") Long merchantId, @Param("limitId") Long limitId);
 }

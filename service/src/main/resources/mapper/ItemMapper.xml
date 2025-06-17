@@ -169,6 +169,7 @@
     <select id="detailById" resultType="com.eghm.vo.business.item.ItemDetailVO">
         select
         t.id,
+        t.merchant_id,
         t.store_id,
         r.logo_url,
         r.title as storeName,

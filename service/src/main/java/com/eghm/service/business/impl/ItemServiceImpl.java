@@ -24,6 +24,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.GroupBookingMapper;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.mapper.ItemStoreMapper;
+import com.eghm.mapper.LimitPurchaseItemMapper;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
 import com.eghm.utils.BeanValidator;
@@ -86,7 +87,7 @@ public class ItemServiceImpl implements ItemService {
 
     private final OrderEvaluationService orderEvaluationService;
 
-    private final LimitPurchaseItemService limitPurchaseItemService;
+    private final LimitPurchaseItemMapper limitPurchaseItemMapper;
 
     private final ExpressTemplateRegionService expressTemplateRegionService;
 
@@ -170,14 +171,33 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void checkBookingItem(Long itemId) {
-        Item item = this.selectByIdRequired(itemId);
-        // TODO  待完善
-        /*if (item.getBookingId() != null) {
-            log.error("该商品已存在拼团活动 [{}]", item.getId());
-            throw new BusinessException(ErrorCode.ITEM_BOOKING);
-        }*/
-        commonService.checkIllegal(item.getMerchantId());
+    public void checkBookingActivity(Long itemId) {
+        Long merchantId = SecurityHolder.getMerchantId();
+        int joining = groupBookingMapper.countJoining(itemId, merchantId);
+        if (joining > 0) {
+            log.error("该商品已参加其他的拼团活动 [{}]", itemId);
+            throw new BusinessException(ErrorCode.ITEM_BOOKING_JOINED);
+        }
+        joining = limitPurchaseItemMapper.countJoining(itemId, merchantId);
+        if (joining > 0) {
+            log.error("该商品已参加其他的限购活动 [{}]", itemId);
+            throw new BusinessException(ErrorCode.ITEM_LIMIT_JOINED);
+        }
+    }
+
+    @Override
+    public void checkLimitActivity(List<Long> itemIds, Long limitId) {
+        Long merchantId = SecurityHolder.getMerchantId();
+        int joining = groupBookingMapper.countJoiningList(itemIds, merchantId);
+        if (joining > 0) {
+            log.error("存在部分参加其他拼团活动的商品 [{}] [{}]", itemIds, limitId);
+            throw new BusinessException(ErrorCode.ITEM_BOOKING_JOINED_LIST);
+        }
+        joining = limitPurchaseItemMapper.countJoiningList(itemIds, merchantId, limitId);
+        if (joining > 0) {
+            log.error("存在部分参加其他限时购活动的商品 [{}] [{}]", itemIds, limitId);
+            throw new BusinessException(ErrorCode.ITEM_LIMIT_JOINED_LIST);
+        }
     }
 
     @Override
@@ -320,10 +340,8 @@ public class ItemServiceImpl implements ItemService {
         if (Boolean.TRUE.equals(detail.getMultiSpec())) {
             detail.setSpecList(this.getSpecList(id));
         }
-        // 限时购商品设置限时购价格
-        this.setLimitPurchase(detail);
-        // 设置拼团信息价格
-        this.setGroupBooking(detail);
+        // 设置拼团/限时购信息价格
+        this.setActivity(detail);
         // 是否添加收藏
         detail.setCollect(memberCollectService.checkCollect(id, CollectType.ITEM));
         return detail;
@@ -506,53 +524,30 @@ public class ItemServiceImpl implements ItemService {
     }
 
     /**
-     * 设置限时购信息
+     * 设置拼团或限时购信息
      *
      * @param detail 商品详情
      */
-    private void setLimitPurchase(ItemDetailVO detail) {
-        if (detail.getLimitId() != null) {
-            log.info("限时购商品,开始组装限时购价格信息 [{}] [{}]", detail.getId(), detail.getLimitId());
-            LimitPurchaseItem purchaseItem = limitPurchaseItemService.getLimitItem(detail.getLimitId(), detail.getId());
-            if (purchaseItem == null) {
-                log.error("该限时购商品已删除 [{}] [{}]", detail.getLimitId(), detail.getId());
-                return;
-            }
-            if (purchaseItem.getEndTime().isBefore(LocalDateTime.now())) {
-                log.error("该限时购商品已过有效期 [{}] [{}]", detail.getLimitId(), purchaseItem.getEndTime());
-                return;
-            }
-            if (purchaseItem.getAdvanceTime().isBefore(LocalDateTime.now())) {
-                log.error("该限时购商品还没到开始时间 [{}] [{}]", detail.getLimitId(), purchaseItem.getAdvanceTime());
-                return;
-            }
-            this.setDiscountSkuPrice(detail.getSkuList(), purchaseItem.getSkuValue());
-            detail.setLimitPurchase(true);
-            detail.setStartTime(purchaseItem.getStartTime());
-            detail.setEndTime(purchaseItem.getEndTime());
-            detail.setSystemTime(LocalDateTime.now());
-        }
-    }
-
-    /**
-     * 设置拼团信息
-     *
-     * @param detail 商品详情
-     */
-    private void setGroupBooking(ItemDetailVO detail) {
-        if (detail.getBookingId() != null) {
-            log.info("拼团商品,开始组装拼团价格信息 [{}] [{}]", detail.getId(), detail.getBookingId());
-            GroupBooking booking = groupBookingMapper.selectById(detail.getBookingId());
-            if (booking == null) {
-                log.error("该拼团订单已删除啦 [{}]", detail.getBookingId());
-                return;
-            }
-            if (booking.getStartTime().isAfter(LocalDateTime.now()) || booking.getEndTime().isBefore(LocalDateTime.now())) {
-                log.error("该拼团不在有效期 [{}]", detail.getBookingId());
-                return;
-            }
+    private void setActivity(ItemDetailVO detail) {
+        GroupBooking groupBooking = groupBookingMapper.getByItemId(detail.getId(), detail.getMerchantId());
+        if (groupBooking != null) {
+            log.info("该商品为拼团商品,开始组装拼团价格信息 [{}] [{}]", detail.getId(), groupBooking.getId());
             detail.setGroupBooking(true);
-            this.setDiscountSkuPrice(detail.getSkuList(), booking.getSkuValue());
+            this.setDiscountSkuPrice(detail.getSkuList(), groupBooking.getSkuValue());
+        } else {
+            LimitPurchaseItem purchaseItem = limitPurchaseItemMapper.getByItemId(detail.getId(), detail.getMerchantId());
+            if (purchaseItem != null) {
+                log.info("该商品为限时购商品,开始组装限时购价格信息 [{}] [{}]", detail.getId(), purchaseItem.getId());
+                if (purchaseItem.getAdvanceTime().isBefore(LocalDateTime.now())) {
+                    log.error("该限时购商品还没到开始时间 [{}] [{}]", purchaseItem.getLimitPurchaseId(), purchaseItem.getAdvanceTime());
+                    return;
+                }
+                this.setDiscountSkuPrice(detail.getSkuList(), purchaseItem.getSkuValue());
+                detail.setLimitPurchase(true);
+                detail.setStartTime(purchaseItem.getStartTime());
+                detail.setEndTime(purchaseItem.getEndTime());
+                detail.setSystemTime(LocalDateTime.now());
+            }
         }
     }
 

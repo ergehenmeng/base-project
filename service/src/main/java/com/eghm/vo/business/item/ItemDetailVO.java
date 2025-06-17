@@ -39,6 +39,10 @@ public class ItemDetailVO {
     @ApiModelProperty(value = "商品状态 0:下架 1:上架")
     private Integer itemState;
 
+    @ApiModelProperty(value = "商户id")
+    @JsonIgnore
+    private Long merchantId;
+
     @ApiModelProperty("是否收藏")
     private Boolean collect;
 

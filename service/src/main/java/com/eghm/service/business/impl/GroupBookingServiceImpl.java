@@ -82,13 +82,12 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     public void create(GroupBookingAddRequest request) {
         this.checkTime(request.getStartTime(), request.getEndTime());
         this.redoTitle(request.getTitle(), null);
-        itemService.checkBookingItem(request.getItemId());
+        itemService.checkBookingActivity(request.getItemId());
         GroupBooking booking = DataUtil.copy(request, GroupBooking.class);
         booking.setSkuValue(jsonService.toJson(request.getSkuList()));
         booking.setMaxDiscountAmount(this.getMaxDiscountPrice(request.getSkuList()));
         booking.setMinPrice(this.getMinPrice(request.getSkuList()));
         groupBookingMapper.insert(booking);
-        itemService.updateGroupBooking(request.getItemId(), booking.getId());
         this.sendExpireMessage(booking.getId(), booking.getEndTime(), null);
     }
 
@@ -105,11 +104,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         }
         if (!booking.getItemId().equals(request.getItemId())) {
             // 校验新的商品是否是拼团商品
-            itemService.checkBookingItem(request.getItemId());
-            // 释放老的商品
-            itemService.updateGroupBooking(booking.getItemId(), null);
-            // 锁定新的商品
-            itemService.updateGroupBooking(request.getItemId(), booking.getId());
+            itemService.checkBookingActivity(request.getItemId());
         }
         GroupBooking groupBooking = DataUtil.copy(request, GroupBooking.class);
         groupBooking.setSkuValue(jsonService.toJson(request.getSkuList()));
@@ -133,7 +128,6 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         wrapper.eq(GroupBooking::getId, id);
         wrapper.eq(GroupBooking::getMerchantId, SecurityHolder.getMerchantId());
         groupBookingMapper.delete(wrapper);
-        itemService.updateGroupBooking(booking.getItemId(), null);
     }
 
     @Override
