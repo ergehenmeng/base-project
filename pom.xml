@@ -54,7 +54,7 @@
         <!--中文拼音解析-->
         <pinyin.version>2.5.1</pinyin.version>
         <!--mysql版本-->
-        <mysql.version>8.4.0</mysql.version>
+        <mysql.version>9.3.0</mysql.version>
         <!--工具类-->
         <hutool.version>5.8.33</hutool.version>
         <!--jwt版本依赖-->
