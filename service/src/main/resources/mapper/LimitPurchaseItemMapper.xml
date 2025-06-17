@@ -46,4 +46,41 @@
         where t.deleted = false and r.deleted = false and t.limit_purchase_id = #{limitId}
     </select>
 
+
+    <select id="getByItemId" resultType="com.eghm.model.LimitPurchaseItem">
+        select
+        t.id,
+        t.item_id,
+        t.limit_purchase_id,
+        t.max_discount_amount,
+        t.start_time,
+        t.advance_time,
+        t.end_time,
+        t.min_price,
+        t.sku_value
+        from limit_purchase_item t left join limit_purchase r on t.limit_purchase_id = r.id
+        where t.item_id = #{itemId} and t.deleted = false  and r.state = 1 and now() between t.start_time and t.end_time
+        <if test="merchantId != null">
+            and t.merchant_id = #{merchantId}
+        </if>
+        limit 1
+    </select>
+
+    <select id="countJoining" resultType="int">
+        select count(t.id) from limit_purchase_item t left join limit_purchase r on t.limit_purchase_id = r.id
+        where t.deleted = false and r.state = 1 and now() &lt; t.end_time and t.item_id = #{itemId} and t.merchant_id = #{merchantId}
+    </select>
+
+    <select id="countJoiningList" resultType="int">
+        select count(t.id) from limit_purchase_item t left join limit_purchase r on t.limit_purchase_id = r.id
+        where t.deleted = false and r.state = 1 and now() &lt; t.end_time and t.merchant_id = #{merchantId}
+        <if test="limitId != null">
+            and t.limit_purchase_id &lt;&gt; #{limitId}
+        </if>
+        and t.item_id in
+        <foreach collection="itemIds" separator="," item="item" open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
 </mapper>

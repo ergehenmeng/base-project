@@ -24,6 +24,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.GroupBookingMapper;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.mapper.ItemStoreMapper;
+import com.eghm.mapper.LimitPurchaseItemMapper;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
 import com.eghm.utils.BeanValidator;
@@ -86,7 +87,7 @@ public class ItemServiceImpl implements ItemService {
 
     private final OrderEvaluationService orderEvaluationService;
 
-    private final LimitPurchaseItemService limitPurchaseItemService;
+    private final LimitPurchaseItemMapper limitPurchaseItemMapper;
 
     private final ExpressTemplateRegionService expressTemplateRegionService;
 
@@ -130,12 +131,9 @@ public class ItemServiceImpl implements ItemService {
         this.checkMultiSpec(select.getMultiSpec(), request.getMultiSpec());
         commonService.checkIllegal(select.getMerchantId());
         Item item = DataUtil.copy(request, Item.class);
-        if (select.getBookingId() == null) {
-            Map<String, Long> specMap = itemSpecService.update(item, request.getSpecList());
-            itemSkuService.update(item, specMap, request.getSkuList());
-        } else {
-            log.info("该商品是拼团商品,请先删除拼团活动后再编辑规格信息 [{}] [{}]", select.getId(), select.getBookingId());
-        }
+        Map<String, Long> specMap = itemSpecService.update(item, request.getSpecList());
+        itemSkuService.update(item, specMap, request.getSkuList());
+        log.info("该商品是拼团商品,请先删除拼团活动后再编辑规格信息 [{}]", select.getId());
         // 因为可能修改了虚拟库存，需要重新计算总销量
         Integer totalNum = itemSkuService.calcTotalNum(item.getId());
         item.setTotalNum(totalNum);
@@ -147,9 +145,9 @@ public class ItemServiceImpl implements ItemService {
         Item item = this.selectByIdRequired(itemId);
         ItemDetailResponse response = DataUtil.copy(item, ItemDetailResponse.class);
         response.setTagList(this.parseTagId(item.getTagId()));
-        List<ItemSku> skuList = itemSkuService.getSkuList(itemId);
         ItemStore itemStore = itemStoreMapper.selectById(item.getStoreId());
         response.setSupportedPickup(itemStore != null && itemStore.getPickupId() != null);
+        List<ItemSku> skuList = itemSkuService.getSkuList(itemId);
         response.setSkuList(DataUtil.copy(skuList, ItemSkuResponse.class));
         // 多规格才会保存规格配置信息
         if (Boolean.TRUE.equals(item.getMultiSpec())) {
@@ -173,13 +171,33 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void checkBookingItem(Long itemId) {
-        Item item = this.selectByIdRequired(itemId);
-        if (item.getBookingId() != null) {
-            log.error("该商品已存在拼团活动 [{}]", item.getId());
-            throw new BusinessException(ErrorCode.ITEM_BOOKING);
+    public void checkBookingActivity(Long itemId) {
+        Long merchantId = SecurityHolder.getMerchantId();
+        int joining = groupBookingMapper.countJoining(itemId, merchantId);
+        if (joining > 0) {
+            log.error("该商品已参加其他的拼团活动 [{}]", itemId);
+            throw new BusinessException(ErrorCode.ITEM_BOOKING_JOINED);
         }
-        commonService.checkIllegal(item.getMerchantId());
+        joining = limitPurchaseItemMapper.countJoining(itemId, merchantId);
+        if (joining > 0) {
+            log.error("该商品已参加其他的限购活动 [{}]", itemId);
+            throw new BusinessException(ErrorCode.ITEM_LIMIT_JOINED);
+        }
+    }
+
+    @Override
+    public void checkLimitActivity(List<Long> itemIds, Long limitId) {
+        Long merchantId = SecurityHolder.getMerchantId();
+        int joining = groupBookingMapper.countJoiningList(itemIds, merchantId);
+        if (joining > 0) {
+            log.error("存在部分参加其他拼团活动的商品 [{}] [{}]", itemIds, limitId);
+            throw new BusinessException(ErrorCode.ITEM_BOOKING_JOINED_LIST);
+        }
+        joining = limitPurchaseItemMapper.countJoiningList(itemIds, merchantId, limitId);
+        if (joining > 0) {
+            log.error("存在部分参加其他限时购活动的商品 [{}] [{}]", itemIds, limitId);
+            throw new BusinessException(ErrorCode.ITEM_LIMIT_JOINED_LIST);
+        }
     }
 
     @Override
@@ -189,43 +207,7 @@ public class ItemServiceImpl implements ItemService {
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, Item::getMerchantId, merchantId);
         wrapper.set(Item::getState, state);
-        itemMapper.update(wrapper);
-    }
-
-    @Override
-    public void updateGroupBooking(Long id, Long bookingId) {
-        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Item::getId, id);
-        wrapper.set(Item::getBookingId, bookingId);
-        itemMapper.update(wrapper);
-    }
-
-    @Override
-    public void updateLimitPurchase(List<Long> itemIds, Long limitId) {
-        Long merchantId = SecurityHolder.getMerchantId();
-        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Item::getLimitId, limitId);
-        wrapper.eq(Item::getMerchantId, merchantId);
-        wrapper.set(Item::getLimitId, null);
-        itemMapper.update(wrapper);
-        LambdaUpdateWrapper<Item> updateWrapper = Wrappers.lambdaUpdate();
-        updateWrapper.in(Item::getId, itemIds);
-        updateWrapper.eq(Item::getMerchantId, merchantId);
-        updateWrapper.isNull(Item::getLimitId);
-        updateWrapper.set(Item::getLimitId, limitId);
-        int update = itemMapper.update(updateWrapper);
-        if (update != itemIds.size()) {
-            log.error("限时购活动更新的商品可能不属当前商户 [{}] [{}] [{}]", merchantId, limitId, itemIds);
-            throw new BusinessException(ErrorCode.LIMIT_ITEM_NULL);
-        }
-    }
-
-    @Override
-    public void releasePurchase(Long limitId) {
-        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Item::getLimitId, limitId);
-        wrapper.set(Item::getLimitId, null);
-        itemMapper.update(wrapper);
+        itemMapper.update(null, wrapper);
     }
 
     @Override
@@ -234,7 +216,7 @@ public class ItemServiceImpl implements ItemService {
         wrapper.eq(Item::getId, id);
         wrapper.eq(Item::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(Item::getSort, sortBy);
-        itemMapper.update(wrapper);
+        itemMapper.update(null, wrapper);
     }
 
     @Override
@@ -272,7 +254,7 @@ public class ItemServiceImpl implements ItemService {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Item::getId, id);
         wrapper.set(Item::getRecommend, recommend);
-        itemMapper.update(wrapper);
+        itemMapper.update(null, wrapper);
     }
 
     @Override
@@ -307,7 +289,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Integer calcStoreExpressFee(ExpressFeeCalcDTO dto) {
-        List<Long> itemIds = dto.getOrderList().stream().map(ItemCalcDTO::getItemId).toList();
+        List<Long> itemIds = dto.getOrderList().stream().map(ItemCalcDTO::getItemId).collect(Collectors.toList());
         List<ExpressTemplateVO> expressList = expressTemplateService.getExpressList(itemIds, dto.getStoreId());
         // 商品没有查询到快递信息,默认都是免邮
         if (CollUtil.isEmpty(expressList)) {
@@ -345,7 +327,7 @@ public class ItemServiceImpl implements ItemService {
     public ItemDetailVO detailById(Long id) {
         ItemDetailVO detail = itemMapper.detailById(id);
         if (detail == null) {
-            log.error("零售商品详情已删除 [{}]", id);
+            log.error("该零售商品详情已删除啦 [{}]", id);
             throw new BusinessException(ITEM_DOWN);
         }
         ApplauseRateVO vo = orderEvaluationService.calcApplauseRate(id);
@@ -358,10 +340,8 @@ public class ItemServiceImpl implements ItemService {
         if (Boolean.TRUE.equals(detail.getMultiSpec())) {
             detail.setSpecList(this.getSpecList(id));
         }
-        // 限时购商品设置限时购价格
-        this.setLimitPurchase(detail);
-        // 设置拼团信息价格
-        this.setGroupBooking(detail);
+        // 设置拼团/限时购信息价格
+        this.setActivity(detail);
         // 是否添加收藏
         detail.setCollect(memberCollectService.checkCollect(id, CollectType.ITEM));
         return detail;
@@ -371,7 +351,7 @@ public class ItemServiceImpl implements ItemService {
     public ItemSkuDetailVO skuDetailById(Long id) {
         Item item = itemMapper.selectById(id);
         if (item == null) {
-            log.error("查询商品规格时商品已删除 [{}]", id);
+            log.error("该零售商品已删除啦 [{}]", id);
             throw new BusinessException(ITEM_DOWN);
         }
         ItemSkuDetailVO detail = DataUtil.copy(item, ItemSkuDetailVO.class);
@@ -390,12 +370,13 @@ public class ItemServiceImpl implements ItemService {
         wrapper.eq(Item::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.set(Item::getState, State.UN_SHELVE);
         wrapper.set(Item::getDeleted, true);
-        itemMapper.update(wrapper);
+        itemMapper.update(null, wrapper);
     }
 
     @Override
     public List<ActivityItemResponse> getActivityList(ItemActivityRequest request) {
         List<ActivityItemResponse> activityList;
+        // 此处让前端传递过来就是为了提高关联查询的效率
         if (Boolean.TRUE.equals(request.getReadonly())) {
             if (request.getActivityType() == 1) {
                 activityList = itemMapper.getGroupItemList(request.getMerchantId(), request.getId());
@@ -403,7 +384,11 @@ public class ItemServiceImpl implements ItemService {
                 activityList = itemMapper.getLimitItemList(request.getMerchantId(), request.getId());
             }
         } else {
-            activityList = itemMapper.getActivityList(request.getMerchantId(), request.getId());
+            if (request.getActivityType() == 1) {
+                activityList = itemMapper.getGroupAvailableList(request.getMerchantId(), request.getId());
+            } else {
+                activityList = itemMapper.getLimitAvailableList(request.getMerchantId(), request.getId());
+            }
         }
         this.packageItem(activityList);
         return activityList;
@@ -427,7 +412,7 @@ public class ItemServiceImpl implements ItemService {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.set(Item::getState, State.FORCE_UN_SHELVE);
         wrapper.eq(Item::getMerchantId, merchantId);
-        itemMapper.update(wrapper);
+        itemMapper.update(null, wrapper);
     }
 
     @Override
@@ -539,53 +524,30 @@ public class ItemServiceImpl implements ItemService {
     }
 
     /**
-     * 设置限时购信息
+     * 设置拼团或限时购信息
      *
      * @param detail 商品详情
      */
-    private void setLimitPurchase(ItemDetailVO detail) {
-        if (detail.getLimitId() != null) {
-            log.info("限时购商品,开始组装限时购价格信息 [{}] [{}]", detail.getId(), detail.getLimitId());
-            LimitPurchaseItem purchaseItem = limitPurchaseItemService.getLimitItem(detail.getLimitId(), detail.getId());
-            if (purchaseItem == null) {
-                log.error("该限时购商品已删除 [{}] [{}]", detail.getLimitId(), detail.getId());
-                return;
-            }
-            if (purchaseItem.getEndTime().isBefore(LocalDateTime.now())) {
-                log.error("该限时购商品已过有效期 [{}] [{}]", detail.getLimitId(), purchaseItem.getEndTime());
-                return;
-            }
-            if (purchaseItem.getAdvanceTime().isBefore(LocalDateTime.now())) {
-                log.error("该限时购商品还没到开始时间 [{}] [{}]", detail.getLimitId(), purchaseItem.getAdvanceTime());
-                return;
-            }
-            this.setDiscountSkuPrice(detail.getSkuList(), purchaseItem.getSkuValue());
-            detail.setLimitPurchase(true);
-            detail.setStartTime(purchaseItem.getStartTime());
-            detail.setEndTime(purchaseItem.getEndTime());
-            detail.setSystemTime(LocalDateTime.now());
-        }
-    }
-
-    /**
-     * 设置拼团信息
-     *
-     * @param detail 商品详情
-     */
-    private void setGroupBooking(ItemDetailVO detail) {
-        if (detail.getBookingId() != null) {
-            log.info("拼团商品,开始组装拼团价格信息 [{}] [{}]", detail.getId(), detail.getBookingId());
-            GroupBooking booking = groupBookingMapper.selectById(detail.getBookingId());
-            if (booking == null) {
-                log.error("该拼团订单已删除啦 [{}]", detail.getBookingId());
-                return;
-            }
-            if (booking.getStartTime().isAfter(LocalDateTime.now()) || booking.getEndTime().isBefore(LocalDateTime.now())) {
-                log.error("该拼团不在有效期 [{}]", detail.getBookingId());
-                return;
-            }
+    private void setActivity(ItemDetailVO detail) {
+        GroupBooking groupBooking = groupBookingMapper.getByItemId(detail.getId(), detail.getMerchantId());
+        if (groupBooking != null) {
+            log.info("该商品为拼团商品,开始组装拼团价格信息 [{}] [{}]", detail.getId(), groupBooking.getId());
             detail.setGroupBooking(true);
-            this.setDiscountSkuPrice(detail.getSkuList(), booking.getSkuValue());
+            this.setDiscountSkuPrice(detail.getSkuList(), groupBooking.getSkuValue());
+        } else {
+            LimitPurchaseItem purchaseItem = limitPurchaseItemMapper.getByItemId(detail.getId(), detail.getMerchantId());
+            if (purchaseItem != null) {
+                log.info("该商品为限时购商品,开始组装限时购价格信息 [{}] [{}]", detail.getId(), purchaseItem.getId());
+                if (purchaseItem.getAdvanceTime().isBefore(LocalDateTime.now())) {
+                    log.error("该限时购商品还没到开始时间 [{}] [{}]", purchaseItem.getLimitPurchaseId(), purchaseItem.getAdvanceTime());
+                    return;
+                }
+                this.setDiscountSkuPrice(detail.getSkuList(), purchaseItem.getSkuValue());
+                detail.setLimitPurchase(true);
+                detail.setStartTime(purchaseItem.getStartTime());
+                detail.setEndTime(purchaseItem.getEndTime());
+                detail.setSystemTime(LocalDateTime.now());
+            }
         }
     }
 
@@ -598,7 +560,7 @@ public class ItemServiceImpl implements ItemService {
     private List<ItemSpecVO> getSpecList(Long itemId) {
         List<ItemSpec> specList = itemSpecService.getByItemId(itemId);
         Map<String, List<ItemSpec>> specMap = specList.stream().collect(Collectors.groupingBy(ItemSpec::getSpecName,
-                Collectors.collectingAndThen(Collectors.toList(), specs -> specs.stream().sorted(Comparator.comparing(ItemSpec::getSort)).toList())));
+                Collectors.collectingAndThen(Collectors.toList(), specs -> specs.stream().sorted(Comparator.comparing(ItemSpec::getSort)).collect(Collectors.toList()))));
         List<ItemSpecVO> voList = new ArrayList<>();
         for (Map.Entry<String, List<ItemSpec>> entry : specMap.entrySet()) {
             ItemSpecVO vo = new ItemSpecVO();

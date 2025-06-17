@@ -97,16 +97,12 @@ public class ItemDetailVO {
     @Schema(description = "是否为拼团商品")
     private Boolean groupBooking;
 
-    @Schema(description = "拼团活动id")
+    @Schema(description = "商户id")
     @JsonIgnore
-    private Long bookingId;
+    private Long merchantId;
 
     @Schema(description = "是否为限时购商品")
     private Boolean limitPurchase;
-
-    @Schema(description = "限时购活动id")
-    @JsonIgnore
-    private Long limitId;
 
     @Schema(description = "限时购开始时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

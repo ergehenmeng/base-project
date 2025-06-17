@@ -173,7 +173,6 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         order.setMemberId(context.getMemberId());
         order.setNum(this.getNum(packageList));
         order.setProductType(ProductType.ITEM);
-        order.setDeliveryType(context.getDeliveryType());
         order.setMultiple(multiple);
         // 零售商品只支持审核后退款且没有退款描述
         order.setRefundType(RefundType.AUDIT_REFUND);
@@ -205,8 +204,8 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         } else if (context.getDeliveryType() == DeliveryType.SELF_PICK) {
             // 设置自提点信息
             MerchantAddress address = aPackage.getMerchantAddress();
-            order.setExpressAmount(0);
             aPackage.setSkuExpressMap(Collections.emptyMap());
+            order.setExpressAmount(0);
             order.setLongitude(address.getLongitude());
             order.setLatitude(address.getLatitude());
             order.setProvinceId(address.getProvinceId());
@@ -291,7 +290,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
     private ItemOrderPayload getPayload(ItemOrderCreateContext context) {
         MemberAddress memberAddress = memberAddressService.getById(context.getAddressId(), context.getMemberId());
         Map<Long, ItemSku> skuMap = itemSkuService.getByIdShelveMap(context.getSkuIds());
-        List<Long> storeIds = context.getItemMap().values().stream().map(Item::getStoreId).distinct().toList();
+        List<Long> storeIds = context.getItemMap().values().stream().map(Item::getStoreId).distinct().collect(Collectors.toList());
         Map<Long, ItemStore> storeMap = itemStoreService.selectByIdShelveMap(storeIds);
         Map<Long, MerchantAddress> addressMap = this.getAddressMap(storeMap.values(), context.getDeliveryType());
         Map<Long, ItemSpec> specMap = itemSpecService.getByIdMap(context.getItemMap().keySet());
@@ -323,7 +322,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             storePackage.setItemAmount(itemAmount);
             if (storePackage.getCouponId() != null) {
                 // 用户在该店铺下单时使用了优惠券/校验优惠券是否可用并计算优惠了多少钱
-                List<Long> itemIds = storePackage.getItemList().stream().map(OrderPackage::getItemId).toList();
+                List<Long> itemIds = storePackage.getItemList().stream().map(OrderPackage::getItemId).collect(Collectors.toList());
                 Integer couponAmount = memberCouponService.getCouponAmountWithVerify(context.getMemberId(), storePackage.getCouponId(), itemIds, storePackage.getStoreId(), itemAmount);
                 storePackage.setCouponAmount(couponAmount);
             } else {
@@ -377,7 +376,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         if (deliveryType != DeliveryType.SELF_PICK) {
             return new HashMap<>(8);
         }
-        return merchantAddressService.selectByIdMap(storeList.stream().map(ItemStore::getPickupId).toList());
+        return merchantAddressService.selectByIdMap(storeList.stream().map(ItemStore::getPickupId).collect(Collectors.toList()));
     }
 
     /**
@@ -407,7 +406,8 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      * @return 单价
      */
     private Integer checkAndCalcFinalPrice(OrderPackage aPackage, ItemOrderCreateContext context) {
-        Long limitId = aPackage.getItem().getLimitId();
+        // TODO 待完善
+        Long limitId = null;
         if (limitId != null) {
             LimitPurchaseItem purchaseItem = limitPurchaseItemService.getLimitItem(limitId, aPackage.getItemId());
             if (purchaseItem == null) {
@@ -432,10 +432,11 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         // 表示是拼团订单
         if (Boolean.TRUE.equals(context.getGroupBooking())) {
             log.info("开始计算拼团价格 [{}] [{}]", aPackage.getItemId(), aPackage.getSkuId());
-            this.checkAndSetBooking(aPackage.getItem().getBookingId(), context);
-            GroupBooking selected = groupBookingService.getValidById(aPackage.getItem().getBookingId());
+            // TODO 待完善
+            this.checkAndSetBooking(12L, context);
+            GroupBooking selected = groupBookingService.getValidById(12L);
             if (selected.getNum() <= context.getBookingNum()) {
-                log.info("拼团人数已经满了 [{}]", aPackage.getItem().getBookingId());
+                log.info("拼团人数已经满了 [{}]", 12L);
                 throw new BusinessException(ITEM_GROUP_COMPLETE);
             }
             context.setExpireTime(selected.getExpireTime());
@@ -589,7 +590,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      */
     private void after(ItemOrderCreateContext context, List<Order> orderList) {
         memberService.updateScore(context.getMemberId(), ScoreType.PAY, context.getTotalScore());
-        memberCouponService.useCoupon(orderList.stream().map(Order::getCouponId).filter(Objects::nonNull).toList());
+        memberCouponService.useCoupon(orderList.stream().map(Order::getCouponId).filter(Objects::nonNull).collect(Collectors.toList()));
         int realPayAmount = orderList.stream().mapToInt(Order::getPayAmount).sum();
         if (realPayAmount <= 0) {
             String tradeNo = orderList.get(0).getTradeNo();
@@ -605,7 +606,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             // 30分钟过期定时任务
             TransactionUtil.afterCommit(() -> orderList.forEach(order -> orderMQService.sendOrderExpireMessage(ExchangeQueue.ITEM_PAY_EXPIRE, order.getOrderNo())));
         }
-        List<String> noList = orderList.stream().map(Order::getOrderNo).toList();
+        List<String> noList = orderList.stream().map(Order::getOrderNo).collect(Collectors.toList());
         context.setOrderNo(CollUtil.join(noList, CommonConstant.COMMA));
     }
 

@@ -1510,8 +1510,6 @@ CREATE TABLE `item`
     `deleted`        bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     `create_month`   varchar(20)   DEFAULT NULL COMMENT '创建月份',
     `create_date`    date          DEFAULT NULL COMMENT '创建日期',
-    `booking_id`     bigint(20)    DEFAULT NULL COMMENT '拼团活动id',
-    `limit_id`       bigint(20)    DEFAULT NULL COMMENT '限时购活动id',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='零售商品信息';

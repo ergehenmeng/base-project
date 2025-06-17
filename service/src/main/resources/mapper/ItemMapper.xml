@@ -170,6 +170,7 @@
         select
         t.id,
         t.store_id,
+        t.merchant_id,
         r.logo_url,
         t.booking_id,
         t.limit_id,
@@ -264,6 +265,49 @@
                 group by create_date
             </otherwise>
         </choose>
+    </select>
+
+
+    <select id="getGroupAvailableList" resultMap="activityResultMap">
+        select
+        t.id,
+        t.title,
+        t.cover_url,
+        r.id as skuId,
+        r.primary_spec_value,
+        r.second_spec_value,
+        r.sale_price,
+        r.sku_pic
+        from item t left join item_sku r on t.id = r.item_id
+        left join item_spec s on r.spec_ids like concat('%', s.id, '%')
+        where t.deleted = false and r.deleted = false
+        <if test="merchantId != null">
+            and t.merchant_id = #{merchantId}
+        </if>
+        and not exists (
+        select 1 from group_booking m where m.item_id = t.id and m.end_time &lt; now() or m.status = 0
+        <if test="activityId != null">
+            and m.id &lt;&gt; #{activityId}
+        </if>
+        )
+    </select>
+
+    <select id="getLimitAvailableList" resultMap="activityResultMap">
+        select
+        t.id,
+        t.title,
+        t.cover_url,
+        r.id as skuId,
+        r.primary_spec_value,
+        r.second_spec_value,
+        r.sale_price,
+        r.sku_pic
+        from item t left join item_sku r on t.id = r.item_id
+        left join item_spec s on r.spec_ids like concat('%', s.id, '%')
+        where t.deleted = false and r.deleted = false
+        <if test="merchantId != null">
+            and t.merchant_id = #{merchantId}
+        </if>
     </select>
 
     <select id="getActivityList" resultMap="activityResultMap">

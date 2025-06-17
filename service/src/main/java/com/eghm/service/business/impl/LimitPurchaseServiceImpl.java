@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.eghm.enums.ErrorCode.LIMIT_GT_WEEK;
 
@@ -64,11 +65,11 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
     public void create(LimitPurchaseAddRequest request) {
         this.checkTime(request.getStartTime(), request.getEndTime());
         this.redoTitle(request.getTitle(), null);
+        List<Long> itemIds = request.getSkuList().stream().map(LimitSkuRequest::getItemId).collect(Collectors.toList());
+        itemService.checkLimitActivity(itemIds, null);
         LimitPurchase purchase = DataUtil.copy(request, LimitPurchase.class);
         purchase.setCreateTime(LocalDateTime.now());
         limitPurchaseMapper.insert(purchase);
-        List<Long> itemIds = request.getSkuList().stream().map(LimitSkuRequest::getItemId).distinct().toList();
-        itemService.updateLimitPurchase(itemIds, purchase.getId());
         limitPurchaseItemService.insertOrUpdate(request.getSkuList(), purchase);
     }
 
@@ -76,14 +77,14 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
     public void update(LimitPurchaseEditRequest request) {
         this.checkTime(request.getStartTime(), request.getEndTime());
         this.redoTitle(request.getTitle(), request.getId());
+        List<Long> itemIds = request.getSkuList().stream().map(LimitSkuRequest::getItemId).collect(Collectors.toList());
+        itemService.checkLimitActivity(itemIds, request.getId());
         LimitPurchase purchase = limitPurchaseMapper.selectById(request.getId());
         // 校验活动是否属于该商户
         commonService.checkIllegal(purchase.getMerchantId());
         if (purchase.getStartTime().isBefore(LocalDateTime.now())) {
             throw new BusinessException(ErrorCode.ACTIVITY_NOT_EDIT);
         }
-        List<Long> itemIds = request.getSkuList().stream().map(LimitSkuRequest::getItemId).distinct().toList();
-        itemService.updateLimitPurchase(itemIds, purchase.getId());
         LimitPurchase limitPurchase = DataUtil.copy(request, LimitPurchase.class);
         limitPurchaseMapper.updateById(limitPurchase);
         limitPurchaseItemService.insertOrUpdate(request.getSkuList(), purchase);
@@ -104,7 +105,6 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         wrapper.eq(LimitPurchase::getMerchantId, SecurityHolder.getMerchantId());
         limitPurchaseMapper.delete(wrapper);
         limitPurchaseItemService.delete(id);
-        itemService.releasePurchase(id);
     }
 
     @Override
@@ -117,7 +117,7 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         LimitPurchaseDetailResponse response = DataUtil.copy(purchase, LimitPurchaseDetailResponse.class);
         List<LimitSkuResponse> skuList = limitPurchaseItemService.getLimitList(id);
         response.setSkuList(skuList);
-        response.setItemIds(skuList.stream().map(LimitSkuResponse::getItemId).distinct().toList());
+        response.setItemIds(skuList.stream().map(LimitSkuResponse::getItemId).distinct().collect(Collectors.toList()));
         return response;
     }
 
@@ -128,7 +128,7 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         Long merchantId = SecurityHolder.getMerchantId();
         wrapper.eq(merchantId != null, LimitPurchase::getMerchantId, merchantId);
         wrapper.set(LimitPurchase::getState, state);
-        limitPurchaseMapper.update(wrapper);
+        limitPurchaseMapper.update(null, wrapper);
     }
 
     /**
