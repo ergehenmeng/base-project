@@ -2,6 +2,7 @@ package com.eghm.configuration.encoder;
 
 import cn.hutool.crypto.digest.BCrypt;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.regex.Pattern;
 
@@ -10,6 +11,7 @@ import java.util.regex.Pattern;
  * @since 2019/7/9 15:57
  */
 @Slf4j
+@Component
 public class BcEncoder implements Encoder {
 
     private static final Pattern PATTERN = Pattern.compile("\\A\\$2a?\\$\\d\\d\\$[./0-9A-Za-z]{53}");
@@ -34,11 +36,9 @@ public class BcEncoder implements Encoder {
      */
     @Override
     public boolean match(String rawPassword, String encodedPassword) {
-
         if (encodedPassword == null || encodedPassword.isEmpty()) {
             return false;
         }
-
         if (!PATTERN.matcher(encodedPassword).matches()) {
             log.warn("非BCrypt算法");
             return false;

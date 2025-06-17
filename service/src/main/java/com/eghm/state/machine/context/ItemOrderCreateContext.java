@@ -40,7 +40,7 @@ public class ItemOrderCreateContext extends BaseAsyncKey implements Context {
     @Schema(description = "配送方式")
     private DeliveryType deliveryType;
 
-    @Schema(description = "是否为拼团订单(拼团活动只能选一个店铺的一个商品)", hidden = true)
+    @Schema(description = "是否为拼团订单(不支持购物车)", hidden = true)
     @Assign
     private Boolean groupBooking;
 

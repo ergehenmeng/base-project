@@ -89,7 +89,6 @@
         </choose>
     </select>
 
-
     <select id="getByItemId" resultType="com.eghm.model.GroupBooking">
         select
         t.id,
@@ -97,6 +96,7 @@
         t.num,
         t.max_discount_amount,
         t.title,
+        t.expire_time,
         t.start_time,
         t.end_time,
         t.min_price,

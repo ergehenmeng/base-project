@@ -190,6 +190,11 @@ public class GroupBookingServiceImpl implements GroupBookingService {
         itemGroupOrderService.cancelGroupOrder(id);
     }
 
+    @Override
+    public GroupBooking getByItemId(Long itemId, Long merchantId) {
+        return groupBookingMapper.getByItemId(itemId, merchantId);
+    }
+
     /**
      * 查询拼团信息
      *

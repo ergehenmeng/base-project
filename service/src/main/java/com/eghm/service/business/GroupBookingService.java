@@ -106,4 +106,13 @@ public interface GroupBookingService {
      * @param state 新状态
      */
     void updateState(Long id, Integer state);
+
+    /**
+     * 根据商品id查询其是否参加拼团活动 (正在参加的活动)
+     *
+     * @param itemId 商品id
+     * @param merchantId 商户id
+     * @return 活动信息
+     */
+    GroupBooking getByItemId(Long itemId, Long merchantId);
 }
