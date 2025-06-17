@@ -94,6 +94,7 @@
             t.id,
             t.item_id,
             t.num,
+            t.expire_time,
             t.max_discount_amount,
             t.title,
             t.start_time,

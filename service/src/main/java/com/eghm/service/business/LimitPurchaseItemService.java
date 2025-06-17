@@ -51,11 +51,11 @@ public interface LimitPurchaseItemService {
     List<LimitSkuResponse> getLimitList(Long limitId);
 
     /**
-     * 查询限时购活动配置的商品信息
+     * 根据商品id查询其参加的限时购信息
      *
-     * @param limitId 限时购活动id
-     * @param itemId 商品ID
-     * @return 商品信息
+     * @param itemId 商品id
+     * @param merchantId 商户id
+     * @return 限时购信息
      */
-    LimitPurchaseItem getLimitItem(Long limitId, Long itemId);
+    LimitPurchaseItem getByItemId(Long itemId, Long merchantId);
 }

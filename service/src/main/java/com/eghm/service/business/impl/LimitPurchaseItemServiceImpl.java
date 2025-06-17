@@ -1,12 +1,10 @@
 package com.eghm.service.business.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.JsonService;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.purchase.LimitPurchaseQueryDTO;
 import com.eghm.dto.business.purchase.LimitSkuRequest;
 import com.eghm.dto.ext.DiscountJson;
@@ -106,12 +104,8 @@ public class LimitPurchaseItemServiceImpl implements LimitPurchaseItemService {
     }
 
     @Override
-    public LimitPurchaseItem getLimitItem(Long limitId, Long itemId) {
-        LambdaQueryWrapper<LimitPurchaseItem> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(LimitPurchaseItem::getLimitPurchaseId, limitId);
-        wrapper.eq(LimitPurchaseItem::getItemId, itemId);
-        wrapper.last(CommonConstant.LIMIT_ONE);
-        return limitPurchaseItemMapper.selectOne(wrapper);
+    public LimitPurchaseItem getByItemId(Long itemId, Long merchantId) {
+        return limitPurchaseItemMapper.getByItemId(itemId, merchantId);
     }
 
     /**

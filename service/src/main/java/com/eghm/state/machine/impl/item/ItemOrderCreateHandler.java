@@ -406,41 +406,33 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      * @return 单价
      */
     private Integer checkAndCalcFinalPrice(OrderPackage aPackage, ItemOrderCreateContext context) {
-        // TODO 待完善
-        Long limitId = null;
-        if (limitId != null) {
-            LimitPurchaseItem purchaseItem = limitPurchaseItemService.getLimitItem(limitId, aPackage.getItemId());
-            if (purchaseItem == null) {
-                log.error("该限时购活动不存在 [{}] [{}]", limitId, aPackage.getItemId());
-                return aPackage.getSku().getSalePrice();
+        // 表示是拼团订单
+        if (Boolean.TRUE.equals(context.getGroupBooking())) {
+            log.info("开始计算拼团价格 [{}] [{}]", aPackage.getItemId(), aPackage.getSkuId());
+            GroupBooking groupBooking = groupBookingService.getByItemId(aPackage.getItemId(), aPackage.getItem().getId());
+            if (groupBooking == null) {
+                throw new BusinessException(ITEM_GROUP_OVER);
             }
-            if (purchaseItem.getStartTime().isAfter(LocalDateTime.now()) || purchaseItem.getEndTime().isBefore(LocalDateTime.now())) {
-                log.error("该限时购商品不在活动时间内 [{}] [{}] [{}] [{}]", aPackage.getItemId(), limitId, purchaseItem.getStartTime(), purchaseItem.getEndTime());
-                return aPackage.getSku().getSalePrice();
+            this.checkAndSetBooking(groupBooking.getId(), context);
+            if (groupBooking.getNum() <= context.getBookingNum()) {
+                log.info("拼团人数已经满了 [{}]", groupBooking.getId());
+                throw new BusinessException(ITEM_GROUP_COMPLETE);
             }
+            context.setExpireTime(groupBooking.getExpireTime());
+            return groupBookingService.getFinalPrice(groupBooking.getSkuValue(), aPackage.getSku().getSalePrice(), aPackage.getSkuId());
+        }
+        LimitPurchaseItem purchaseItem = limitPurchaseItemService.getByItemId(aPackage.getItemId(), aPackage.getItem().getMerchantId());
+        if (purchaseItem != null) {
             List<LimitSkuRequest> skuList = jsonService.fromJsonList(purchaseItem.getSkuValue(), LimitSkuRequest.class);
             Map<Long, LimitSkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(LimitSkuRequest::getSkuId, Function.identity()));
             LimitSkuRequest request = skuMap.get(aPackage.getSkuId());
             if (request == null || request.getDiscountPrice() == null || !aPackage.getSku().getSalePrice().equals(request.getSalePrice())) {
-                log.error("该限时购商品不在活动价格范围内 [{}] [{}] [{}] [{}]", aPackage.getItemId(), limitId, aPackage.getSkuId(), purchaseItem.getSkuValue());
+                log.error("该限时购商品不在活动价格范围内 [{}] [{}] [{}] [{}]", aPackage.getItemId(), purchaseItem.getId(), aPackage.getSkuId(), purchaseItem.getSkuValue());
                 return aPackage.getSku().getSalePrice();
             }
             // 此时才算真正限时购商品
-            context.setLimitId(limitId);
+            context.setLimitId(purchaseItem.getId());
             return request.getDiscountPrice();
-        }
-        // 表示是拼团订单
-        if (Boolean.TRUE.equals(context.getGroupBooking())) {
-            log.info("开始计算拼团价格 [{}] [{}]", aPackage.getItemId(), aPackage.getSkuId());
-            // TODO 待完善
-            this.checkAndSetBooking(12L, context);
-            GroupBooking selected = groupBookingService.getValidById(12L);
-            if (selected.getNum() <= context.getBookingNum()) {
-                log.info("拼团人数已经满了 [{}]", 12L);
-                throw new BusinessException(ITEM_GROUP_COMPLETE);
-            }
-            context.setExpireTime(selected.getExpireTime());
-            return groupBookingService.getFinalPrice(selected.getSkuValue(), aPackage.getSku().getSalePrice(), aPackage.getSkuId());
         }
         return aPackage.getSku().getSalePrice();
     }
@@ -452,9 +444,6 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      * @param context   context
      */
     private void checkAndSetBooking(Long bookingId, ItemOrderCreateContext context) {
-        if (bookingId == null) {
-            throw new BusinessException(ITEM_GROUP_OVER);
-        }
         if (isBlank(context.getBookingNo())) {
             context.setBookingId(bookingId);
             context.setBookingNo(StringUtil.encryptNumber(IdUtil.getSnowflakeNextId()));
