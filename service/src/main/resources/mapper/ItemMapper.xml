@@ -305,6 +305,12 @@
         <if test="merchantId != null">
             and t.merchant_id = #{merchantId}
         </if>
+        and not exists (
+        select 1 from limit_purchase_item m where m.item_id = t.id and m.end_time &lt; now() and m.status = 1
+        <if test="activityId != null">
+            and m.limit_purchase_id &lt;&gt; #{activityId}
+        </if>
+        )
     </select>
 
     <select id="getGroupItemList" resultMap="activityResultMap">

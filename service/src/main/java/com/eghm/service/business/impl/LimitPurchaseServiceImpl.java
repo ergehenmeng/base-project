@@ -129,6 +129,7 @@ public class LimitPurchaseServiceImpl implements LimitPurchaseService {
         wrapper.eq(merchantId != null, LimitPurchase::getMerchantId, merchantId);
         wrapper.set(LimitPurchase::getState, state);
         limitPurchaseMapper.update(null, wrapper);
+        limitPurchaseItemService.updateState(id, state);
     }
 
     /**
