@@ -28,18 +28,17 @@ import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.impl.NoNoise;
 import com.google.code.kaptcha.util.Config;
 import jakarta.annotation.PostConstruct;
+import jakarta.validation.Configuration;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.BaseHibernateValidatorConfiguration;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
-import org.springframework.boot.validation.MessageInterpolatorFactory;
+import org.springframework.boot.autoconfigure.validation.ValidationConfigurationCustomizer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -60,25 +59,13 @@ import static com.eghm.utils.StringUtil.isBlank;
  */
 @Slf4j
 @AllArgsConstructor
-public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
+public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, ValidationConfigurationCustomizer {
 
     private final ObjectMapper objectMapper;
 
     private final TaskExecutor taskExecutor;
 
     protected final SystemProperties systemProperties;
-
-    /**
-     * 设置校验为快速失败
-     */
-    @Bean
-    public static LocalValidatorFactoryBean defaultValidator(ApplicationContext applicationContext) {
-        LocalValidatorFactoryBean factoryBean = new LocalValidatorFactoryBean();
-        MessageInterpolatorFactory interpolatorFactory = new MessageInterpolatorFactory(applicationContext);
-        factoryBean.setMessageInterpolator(interpolatorFactory.getObject());
-        factoryBean.getValidationPropertyMap().put(BaseHibernateValidatorConfiguration.FAIL_FAST, "true");
-        return factoryBean;
-    }
 
     /**
      * 图形验证码
@@ -184,6 +171,11 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
             return new FeiShuAlarmServiceImpl(jsonService, systemProperties);
         }
         return new DefaultAlarmServiceImpl();
+    }
+
+    @Override
+    public void customize(Configuration<?> configuration) {
+        configuration.addProperty(BaseHibernateValidatorConfiguration.FAIL_FAST, "true");
     }
 
     /**
