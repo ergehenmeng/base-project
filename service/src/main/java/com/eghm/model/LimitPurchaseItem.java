@@ -32,6 +32,9 @@ public class LimitPurchaseItem extends BaseEntity {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
+    @Schema(description = "状态 0:已下架 1:正常")
+    private Integer state;
+
     @Schema(description = "零售id")
     private Long itemId;
 

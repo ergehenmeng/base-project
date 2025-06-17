@@ -67,17 +67,17 @@
     </select>
 
     <select id="countJoining" resultType="int">
-        select count(t.id) from limit_purchase_item t left join limit_purchase r on t.limit_purchase_id = r.id
-        where t.deleted = false and r.state = 1 and now() &lt; t.end_time and t.item_id = #{itemId} and t.merchant_id = #{merchantId}
+        select count(1) from limit_purchase_item
+        where deleted = false and state = 1 and now() &lt; end_time and item_id = #{itemId} and merchant_id = #{merchantId}
     </select>
 
     <select id="countJoiningList" resultType="int">
-        select count(t.id) from limit_purchase_item t left join limit_purchase r on t.limit_purchase_id = r.id
-        where t.deleted = false and r.state = 1 and now() &lt; t.end_time and t.merchant_id = #{merchantId}
+        select count(1) from limit_purchase_item
+        where deleted = false and state = 1 and now() &lt; end_time and merchant_id = #{merchantId}
         <if test="limitId != null">
-            and t.limit_purchase_id &lt;&gt; #{limitId}
+            and limit_purchase_id &lt;&gt; #{limitId}
         </if>
-        and t.item_id in
+        and item_id in
         <foreach collection="itemIds" separator="," item="item" open="(" close=")">
             #{item}
         </foreach>

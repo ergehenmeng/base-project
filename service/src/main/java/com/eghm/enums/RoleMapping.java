@@ -5,7 +5,6 @@ import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 商户与角色映射枚举
@@ -67,7 +66,7 @@ public enum RoleMapping {
     public static List<RoleType> parseRoleType(Integer merchantType) {
         return Arrays.stream(RoleMapping.values())
                 .filter(map -> (map.getMerchantType() & merchantType) == map.getMerchantType())
-                .map(RoleMapping::getRoleType).collect(Collectors.toList());
+                .map(RoleMapping::getRoleType).toList();
     }
 
 }

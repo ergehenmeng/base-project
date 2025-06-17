@@ -72,6 +72,7 @@ public class LimitPurchaseItemServiceImpl implements LimitPurchaseItemService {
             item.setMinPrice(this.getMinPrice(entry.getValue()));
             item.setSkuValue(jsonService.toJson(entry.getValue()));
             item.setCreateTime(limitPurchase.getCreateTime());
+            item.setState(1);
             limitPurchaseItemMapper.insert(item);
         }
 
@@ -83,6 +84,16 @@ public class LimitPurchaseItemServiceImpl implements LimitPurchaseItemService {
         wrapper.eq(LimitPurchaseItem::getLimitPurchaseId, limitPurchaseId);
         wrapper.eq(LimitPurchaseItem::getMerchantId, SecurityHolder.getMerchantId());
         limitPurchaseItemMapper.delete(wrapper);
+    }
+
+    @Override
+    public void updateState(Long id, Integer state) {
+        LambdaUpdateWrapper<LimitPurchaseItem> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(LimitPurchaseItem::getId, id);
+        Long merchantId = SecurityHolder.getMerchantId();
+        wrapper.eq(merchantId != null, LimitPurchaseItem::getMerchantId, merchantId);
+        wrapper.set(LimitPurchaseItem::getState, state);
+        limitPurchaseItemMapper.update(null, wrapper);
     }
 
     @Override

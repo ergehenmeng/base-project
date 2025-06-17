@@ -289,7 +289,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Integer calcStoreExpressFee(ExpressFeeCalcDTO dto) {
-        List<Long> itemIds = dto.getOrderList().stream().map(ItemCalcDTO::getItemId).collect(Collectors.toList());
+        List<Long> itemIds = dto.getOrderList().stream().map(ItemCalcDTO::getItemId).toList();
         List<ExpressTemplateVO> expressList = expressTemplateService.getExpressList(itemIds, dto.getStoreId());
         // 商品没有查询到快递信息,默认都是免邮
         if (CollUtil.isEmpty(expressList)) {
@@ -560,7 +560,7 @@ public class ItemServiceImpl implements ItemService {
     private List<ItemSpecVO> getSpecList(Long itemId) {
         List<ItemSpec> specList = itemSpecService.getByItemId(itemId);
         Map<String, List<ItemSpec>> specMap = specList.stream().collect(Collectors.groupingBy(ItemSpec::getSpecName,
-                Collectors.collectingAndThen(Collectors.toList(), specs -> specs.stream().sorted(Comparator.comparing(ItemSpec::getSort)).collect(Collectors.toList()))));
+                Collectors.collectingAndThen(Collectors.toList(), specs -> specs.stream().sorted(Comparator.comparing(ItemSpec::getSort)).toList())));
         List<ItemSpecVO> voList = new ArrayList<>();
         for (Map.Entry<String, List<ItemSpec>> entry : specMap.entrySet()) {
             ItemSpecVO vo = new ItemSpecVO();
