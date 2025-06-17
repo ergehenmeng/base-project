@@ -384,11 +384,7 @@ public class ItemServiceImpl implements ItemService {
                 activityList = itemMapper.getLimitItemList(request.getMerchantId(), request.getId());
             }
         } else {
-            if (request.getActivityType() == 1) {
-                activityList = itemMapper.getGroupAvailableList(request.getMerchantId(), request.getId());
-            } else {
-                activityList = itemMapper.getLimitAvailableList(request.getMerchantId(), request.getId());
-            }
+            activityList = itemMapper.getAvailableList(request.getMerchantId(), request.getId());
         }
         this.packageItem(activityList);
         return activityList;

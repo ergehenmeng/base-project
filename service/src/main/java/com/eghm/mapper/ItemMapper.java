@@ -123,22 +123,13 @@ public interface ItemMapper extends BaseMapper<Item> {
     List<ProductStatisticsVO> dayAppend(@Param("param") ProductRequest request, @Param("tableName") String tableName);
 
     /**
-     * 查询可以参加拼团活动的商品列表
+     * 查询可以参加拼团或限时购活动的商品列表
      *
      * @param merchantId 商户id
      * @param activityId 活动id
      * @return 列表
      */
-    List<ActivityItemResponse> getGroupAvailableList(@Param("merchantId") Long merchantId, @Param("activityId") Long activityId);
-
-    /**
-     * 查询可以参加限时购活动的商品列表
-     *
-     * @param merchantId 商户id
-     * @param activityId 活动id
-     * @return 列表
-     */
-    List<ActivityItemResponse> getLimitAvailableList(@Param("merchantId") Long merchantId, @Param("activityId") Long activityId);
+    List<ActivityItemResponse> getAvailableList(@Param("merchantId") Long merchantId, @Param("activityId") Long activityId);
 
     /**
      * 已参加的商品信息列表 (拼团)
