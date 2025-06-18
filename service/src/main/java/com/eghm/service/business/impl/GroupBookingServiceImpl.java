@@ -159,9 +159,9 @@ public class GroupBookingServiceImpl implements GroupBookingService {
             log.warn("拼团优惠金额为空");
             return salePrice;
         }
-        List<GroupItemSkuRequest> skuList = jsonService.fromJsonList(skuValue, GroupItemSkuRequest.class);
-        Map<Long, GroupItemSkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(GroupItemSkuRequest::getSkuId, Function.identity()));
-        GroupItemSkuRequest request = skuMap.get(skuId);
+        List<GroupSkuVO> skuList = jsonService.fromJsonList(skuValue, GroupSkuVO.class);
+        Map<Long, GroupSkuVO> skuMap = skuList.stream().collect(Collectors.toMap(GroupSkuVO::getSkuId, Function.identity()));
+        GroupSkuVO request = skuMap.get(skuId);
         if (request == null || !salePrice.equals(request.getSalePrice()) || request.getDiscountPrice() == null) {
             log.warn("拼团sku价格信息未匹配 [{}]", skuId);
             return salePrice;
@@ -206,7 +206,7 @@ public class GroupBookingServiceImpl implements GroupBookingService {
      * @param skuList sku列表
      * @return 最大优惠金额
      */
-    private Integer getMaxDiscountPrice(List<GroupItemSkuRequest> skuList) {
+    private Integer getMaxDiscountPrice(List<GroupSkuRequest> skuList) {
         return skuList.stream().mapToInt(request -> request.getSalePrice() - request.getDiscountPrice()).max().orElse(0);
     }
 
@@ -216,8 +216,8 @@ public class GroupBookingServiceImpl implements GroupBookingService {
      * @param skuList sku列表
      * @return 最低售价
      */
-    private Integer getMinPrice(List<GroupItemSkuRequest> skuList) {
-        return skuList.stream().mapToInt(GroupItemSkuRequest::getDiscountPrice).min().orElse(0);
+    private Integer getMinPrice(List<GroupSkuRequest> skuList) {
+        return skuList.stream().mapToInt(GroupSkuRequest::getDiscountPrice).min().orElse(0);
     }
 
     /**

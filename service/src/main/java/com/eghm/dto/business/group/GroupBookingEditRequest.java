@@ -53,5 +53,5 @@ public class GroupBookingEditRequest {
 
     @ApiModelProperty(value = "sku拼团优惠", required = true)
     @NotEmpty(message = "拼团优惠不能为空")
-    private List<GroupItemSkuRequest> skuList;
+    private List<GroupSkuRequest> skuList;
 }

@@ -50,7 +50,7 @@ public class GroupBookingAddRequest {
 
     @ApiModelProperty(value = "sku拼团优惠json", required = true)
     @NotEmpty(message = "拼团优惠不能为空")
-    private List<GroupItemSkuRequest> skuList;
+    private List<GroupSkuRequest> skuList;
 
     @Assign
     @ApiModelProperty(value = "商户id", hidden = true)

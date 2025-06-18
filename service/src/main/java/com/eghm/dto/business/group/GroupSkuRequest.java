@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
  */
 
 @Data
-public class GroupItemSkuRequest {
+public class GroupSkuRequest {
 
     @ApiModelProperty(value = "skuId", required = true)
     @NotNull(message = "skuId不能为空")
