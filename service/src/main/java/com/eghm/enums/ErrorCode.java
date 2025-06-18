@@ -1196,11 +1196,6 @@ public enum ErrorCode {
     VERIFY_TYPE_ERROR(2645, "核销类型匹配"),
 
     /**
-     * 核销码无效,请重新扫码
-     */
-    VERIFY_ORDER_ERROR(2648, "核销码无效,请重新扫码"),
-
-    /**
      * 红包金额太小啦~
      */
     RED_PACKET_ERROR(2654, "红包金额太小啦~"),
@@ -1271,11 +1266,6 @@ public enum ErrorCode {
     ORDER_ITEM_CHOOSE(2708, "请选择要发货的商品"),
 
     /**
-     * 快递信息查询失败
-     */
-    EXPRESS_QUERY_ERROR(2751, "快递信息查询失败"),
-
-    /**
      * 该模板已关联商品, 无法修改计费方式
      */
     EXPRESS_CHARGE_MODE(2711, "物流模板已关联商品, 无法修改计费方式"),
@@ -1294,11 +1284,6 @@ public enum ErrorCode {
      * 请选择未发货的商品
      */
     CHOOSE_NO_DELIVERY(2720, "请选择未发货的商品"),
-
-    /**
-     * 请选择可以发快递的商品
-     */
-    CHOOSE_EXPRESS(2723, "请选择可以发快递的商品"),
 
     /**
      * 物流模板不存在或已删除
@@ -1324,11 +1309,6 @@ public enum ErrorCode {
      * 订单信息未查询到
      */
     PRODUCT_SNAPSHOT_NULL(2732, "订单信息未查询到"),
-
-    /**
-     * 物流信息未查询到
-     */
-    ORDER_EXPRESS_NULL(2733, "物流信息未查询到"),
 
     /**
      * 订单评价重复啦~
@@ -1581,11 +1561,6 @@ public enum ErrorCode {
     ITEM_SKU_VALID(2866, "商品规格不匹配"),
 
     /**
-     * 拼团活动不在有效期
-     */
-    ITEM_GROUP_NULL(2867, "拼团活动不在有效期"),
-
-    /**
      * 拼团人数已经够啦~
      */
     ITEM_GROUP_COMPLETE(2870, "拼团人数已经够啦~"),
@@ -1629,11 +1604,6 @@ public enum ErrorCode {
      * 进行中的活动暂无法删除
      */
     LIMIT_UNDERWAY_DELETE(2891, "进行中的活动暂无法删除"),
-
-    /**
-     * 限时购商品不存在或已删除
-     */
-    LIMIT_ITEM_NULL(2894, "限时购商品不存在或已删除"),
 
     /**
      * 限时购活动删除啦~

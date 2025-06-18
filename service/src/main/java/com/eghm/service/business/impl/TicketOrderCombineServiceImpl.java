@@ -42,11 +42,6 @@ public class TicketOrderCombineServiceImpl implements TicketOrderCombineService 
     }
 
     @Override
-    public TicketOrderCombine selectById(Long combineId) {
-        return ticketOrderCombineMapper.selectById(combineId);
-    }
-
-    @Override
     public List<TicketOrderCombine> getByOrderNo(String orderNo) {
         LambdaQueryWrapper<TicketOrderCombine> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(TicketOrderCombine::getOrderNo, orderNo);

@@ -149,16 +149,6 @@ public class GroupBookingServiceImpl implements GroupBookingService {
     }
 
     @Override
-    public GroupBooking getValidById(Long bookingId) {
-        GroupBooking booking = groupBookingMapper.getValidById(bookingId);
-        if (booking == null) {
-            log.warn("拼团未查询到价格信息 [{}]", bookingId);
-            throw new BusinessException(ErrorCode.ITEM_GROUP_NULL);
-        }
-        return booking;
-    }
-
-    @Override
     public GroupBooking getById(Long bookingId) {
         return groupBookingMapper.getById(bookingId);
     }

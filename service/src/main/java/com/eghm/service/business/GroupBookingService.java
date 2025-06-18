@@ -74,14 +74,6 @@ public interface GroupBookingService {
     List<GroupItemVO> listPage(GroupBookingQueryDTO dto);
 
     /**
-     * 查询进行中的拼团信息, 如果不在有效期则报错
-     *
-     * @param bookingId 活动id
-     * @return 信息
-     */
-    GroupBooking getValidById(Long bookingId);
-
-    /**
      * 查询拼团信息
      *
      * @param bookingId 活动id

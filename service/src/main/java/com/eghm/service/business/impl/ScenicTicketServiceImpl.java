@@ -104,16 +104,6 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     }
 
     @Override
-    public ScenicTicket selectByIdRequired(Long id) {
-        ScenicTicket ticket = scenicTicketMapper.selectById(id);
-        if (ticket == null) {
-            log.error("门票信息未查询到 [{}]", id);
-            throw new BusinessException(ErrorCode.TICKET_DOWN);
-        }
-        return ticket;
-    }
-
-    @Override
     public TicketDetailResponse detail(Long id) {
         ScenicTicket scenicTicket = this.selectByIdRequired(id);
         TicketDetailResponse response = DataUtil.copy(scenicTicket, TicketDetailResponse.class);
@@ -196,6 +186,21 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     @Override
     public Page<BaseProductResponse> getProductPage(BaseProductQueryRequest request) {
         return scenicTicketMapper.getProductPage(Boolean.TRUE.equals(request.getLimit()) ? request.createPage() : request.createNullPage(), request);
+    }
+
+    /**
+     * 查询门票
+     *
+     * @param id 主键
+     * @return 景区门票信息 为空时则会报错
+     */
+    private ScenicTicket selectByIdRequired(Long id) {
+        ScenicTicket ticket = scenicTicketMapper.selectById(id);
+        if (ticket == null) {
+            log.error("门票信息未查询到 [{}]", id);
+            throw new BusinessException(ErrorCode.TICKET_DOWN);
+        }
+        return ticket;
     }
 
     /**

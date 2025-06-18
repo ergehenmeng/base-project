@@ -45,21 +45,6 @@ public class SysConfigApi {
     }
 
     /**
-     * 根据nid获取系统参数配置信息的值,支持以下类型(yes,true,on,y,t,n,f,no,off,false,1,0)
-     *
-     * @param nid 唯一nid
-     * @return 系统参数结果值boolean
-     */
-    public boolean getBoolean(String nid) {
-        String value = this.getString(nid);
-        try {
-            return BooleanUtils.toBoolean(Integer.parseInt(value));
-        } catch (Exception e) {
-            return BooleanUtils.toBoolean(value);
-        }
-    }
-
-    /**
      * 根据nid获取系统参数配置信息
      *
      * @param nid          唯一nid
