@@ -78,7 +78,12 @@ public enum OrderState {
     /**
      * 退款异常
      */
-    REFUND_ERROR(10, "退款异常");
+    REFUND_ERROR(10, "退款异常"),
+
+    /**
+     * 待成团
+     */
+    WAITING_GROUP(11, "待成团");
 
     /**
      * 状态

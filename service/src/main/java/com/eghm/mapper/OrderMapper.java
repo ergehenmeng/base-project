@@ -151,4 +151,12 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @return 交易单号
      */
     List<PaymentOrder> getPaymentList();
+
+    /**
+     * 拼团成功更新主订单
+     *
+     * @param bookingNo 拼团单号
+     * @return 1
+     */
+    int updateBookingSuccess(@Param("bookingNo") String bookingNo);
 }
