@@ -29,17 +29,17 @@ public class NoticeController {
 
     private final SysNoticeService sysNoticeService;
 
-    @GetMapping("/limit")
+    @GetMapping("/top")
     @ApiOperation("首页公告Top-N")
-    public RespBody<List<NoticeVO>> list() {
-        List<NoticeVO> list = sysNoticeService.getList();
+    public RespBody<List<NoticeVO>> top() {
+        List<NoticeVO> list = sysNoticeService.getTop();
         return RespBody.success(list);
     }
 
     @GetMapping("/listPage")
     @ApiOperation("公告列表")
     public RespBody<List<NoticeVO>> listPage(PagingQuery query) {
-        List<NoticeVO> list = sysNoticeService.getList(query);
+        List<NoticeVO> list = sysNoticeService.getByPage(query);
         return RespBody.success(list);
     }
 

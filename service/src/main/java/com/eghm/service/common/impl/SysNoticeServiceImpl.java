@@ -50,14 +50,14 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     }
 
     @Override
-    public List<NoticeVO> getList() {
+    public List<NoticeVO> getTop() {
         int noticeLimit = sysConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
         List<SysNotice> noticeList = cacheProxyService.getNoticeList(noticeLimit);
         return this.parseNotice(noticeList);
     }
 
     @Override
-    public List<NoticeVO> getList(PagingQuery query) {
+    public List<NoticeVO> getByPage(PagingQuery query) {
         LambdaQueryWrapper<SysNotice> wrapper = Wrappers.lambdaQuery();
         wrapper.select(SysNotice::getId, SysNotice::getTitle, SysNotice::getNoticeType, SysNotice::getCoverUrl);
         wrapper.eq(SysNotice::getState, true);

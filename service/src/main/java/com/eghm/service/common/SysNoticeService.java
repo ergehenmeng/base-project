@@ -31,7 +31,7 @@ public interface SysNoticeService {
      *
      * @return 公告列表
      */
-    List<NoticeVO> getList();
+    List<NoticeVO> getTop();
 
     /**
      * 分页查询列表
@@ -39,7 +39,7 @@ public interface SysNoticeService {
      * @param query 分页信息
      * @return 公告列表
      */
-    List<NoticeVO> getList(PagingQuery query);
+    List<NoticeVO> getByPage(PagingQuery query);
 
     /**
      * 添加公告
