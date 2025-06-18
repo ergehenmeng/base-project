@@ -534,7 +534,7 @@ public class ItemServiceImpl implements ItemService {
             LimitPurchaseItem purchaseItem = limitPurchaseItemMapper.getByItemId(detail.getId(), detail.getMerchantId());
             if (purchaseItem != null) {
                 log.info("该商品为限时购商品,开始组装限时购价格信息 [{}] [{}]", detail.getId(), purchaseItem.getId());
-                if (purchaseItem.getAdvanceTime().isBefore(LocalDateTime.now())) {
+                if (LocalDateTime.now().isBefore(purchaseItem.getAdvanceTime())) {
                     log.error("该限时购商品还没到开始时间 [{}] [{}]", purchaseItem.getLimitPurchaseId(), purchaseItem.getAdvanceTime());
                     return;
                 }

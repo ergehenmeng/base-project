@@ -7,7 +7,6 @@ import com.eghm.common.OrderMqService;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
-import com.eghm.dto.business.purchase.LimitSkuRequest;
 import com.eghm.enums.*;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
@@ -23,6 +22,7 @@ import com.eghm.state.machine.context.ItemOrderCreateContext;
 import com.eghm.state.machine.context.PayNotifyContext;
 import com.eghm.state.machine.dto.*;
 import com.eghm.utils.*;
+import com.eghm.vo.business.limit.LimitSkuVO;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -423,9 +423,9 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         }
         LimitPurchaseItem purchaseItem = limitPurchaseItemService.getByItemId(aPackage.getItemId(), aPackage.getItem().getMerchantId());
         if (purchaseItem != null) {
-            List<LimitSkuRequest> skuList = jsonService.fromJsonList(purchaseItem.getSkuValue(), LimitSkuRequest.class);
-            Map<Long, LimitSkuRequest> skuMap = skuList.stream().collect(Collectors.toMap(LimitSkuRequest::getSkuId, Function.identity()));
-            LimitSkuRequest request = skuMap.get(aPackage.getSkuId());
+            List<LimitSkuVO> skuList = jsonService.fromJsonList(purchaseItem.getSkuValue(), LimitSkuVO.class);
+            Map<Long, LimitSkuVO> skuMap = skuList.stream().collect(Collectors.toMap(LimitSkuVO::getSkuId, Function.identity()));
+            LimitSkuVO request = skuMap.get(aPackage.getSkuId());
             if (request == null || request.getDiscountPrice() == null || !aPackage.getSku().getSalePrice().equals(request.getSalePrice())) {
                 log.error("该限时购商品不在活动价格范围内 [{}] [{}] [{}] [{}]", aPackage.getItemId(), purchaseItem.getId(), aPackage.getSkuId(), purchaseItem.getSkuValue());
                 return aPackage.getSku().getSalePrice();
