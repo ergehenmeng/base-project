@@ -57,5 +57,5 @@ public class GroupBookingEditRequest {
 
     @Schema(description = "sku拼团优惠", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "拼团优惠不能为空")
-    private List<GroupItemSkuRequest> skuList;
+    private List<GroupSkuRequest> skuList;
 }

@@ -13,7 +13,7 @@ import lombok.Data;
  */
 
 @Data
-public class GroupItemSkuRequest {
+public class GroupSkuRequest {
 
     @Schema(description = "skuId", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "skuId不能为空")

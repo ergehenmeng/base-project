@@ -54,7 +54,7 @@ public class GroupBookingAddRequest {
 
     @Schema(description = "sku拼团优惠json", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "拼团优惠不能为空")
-    private List<GroupItemSkuRequest> skuList;
+    private List<GroupSkuRequest> skuList;
 
     @Assign
     @Schema(description = "商户id", hidden = true)
