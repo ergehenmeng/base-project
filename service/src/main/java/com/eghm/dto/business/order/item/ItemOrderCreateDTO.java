@@ -26,7 +26,9 @@ public class ItemOrderCreateDTO {
     @OptionInt(value = {1, 2}, message = "请选择配送方式")
     private Integer deliveryType;
 
-    @ApiModelProperty("拼团活动编号")
-    private String bookingNo;
+    @ApiModelProperty(value = "是否为拼团订单 true:拼团 false:单独购买")
+    private Boolean groupBooking;
 
+    @ApiModelProperty(value = "拼团编号(拼团订单时该字段不为空则是团员,否则是团长)")
+    private String bookingNo;
 }
