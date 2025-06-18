@@ -86,18 +86,6 @@ public class DateUtil {
     }
 
     /**
-     * 根据给定的字符串格式来格式化日期
-     *
-     * @param date    日期
-     * @param pattern 日期格式字符串
-     * @return 日期字符串
-     */
-    public static String format(Date date, String pattern) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        return formatter.format(date.toInstant().atZone(ZoneId.systemDefault()));
-    }
-
-    /**
      * 相隔年
      *
      * @param beginDate 开始时间

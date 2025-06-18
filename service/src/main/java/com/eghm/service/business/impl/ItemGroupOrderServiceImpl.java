@@ -107,14 +107,6 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
     }
 
     @Override
-    public List<ItemGroupOrder> getGroupList(Long bookingId, BookingState state) {
-        LambdaQueryWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(ItemGroupOrder::getBookingId, bookingId);
-        wrapper.eq(ItemGroupOrder::getState, state);
-        return itemGroupOrderMapper.selectList(wrapper);
-    }
-
-    @Override
     public GroupOrderDetailVO getGroupDetail(String bookingNo) {
         List<GroupMemberVO> memberList = itemGroupOrderMapper.getMemberList(bookingNo);
         if (memberList.isEmpty()) {
@@ -194,7 +186,7 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
             log.warn("拼团活动提前啦 [{}] [{}] [{}]", vo.getBookingId(), booking.getEndTime(), vo.getEndTime());
             return;
         }
-        List<ItemGroupOrder> groupList = this.getGroupList(vo.getBookingId(), BookingState.WAITING);
+        List<ItemGroupOrder> groupList = this.getGroupList(vo.getBookingId());
         this.doCancelGroupOrder(groupList);
     }
 
@@ -211,8 +203,21 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
 
     @Override
     public void cancelGroupOrder(Long bookingId) {
-        List<ItemGroupOrder> groupList = this.getGroupList(bookingId, BookingState.WAITING);
+        List<ItemGroupOrder> groupList = this.getGroupList(bookingId);
         this.doCancelGroupOrder(groupList);
+    }
+
+    /**
+     * 获取拼团订单
+     *
+     * @param bookingId 拼团活动id
+     * @return 列表
+     */
+    private List<ItemGroupOrder> getGroupList(Long bookingId) {
+        LambdaQueryWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(ItemGroupOrder::getBookingId, bookingId);
+        wrapper.eq(ItemGroupOrder::getState, BookingState.WAITING);
+        return itemGroupOrderMapper.selectList(wrapper);
     }
 
     /**
