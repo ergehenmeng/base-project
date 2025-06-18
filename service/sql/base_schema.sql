@@ -270,7 +270,7 @@ CREATE TABLE `sys_area`
     `mark`  char(1)     DEFAULT NULL COMMENT '标示符-首字母',
     `grade` tinyint(1)  DEFAULT NULL COMMENT '分类 省份1级 市2级 县3级',
     PRIMARY KEY (`id`),
-    KEY `idx_pid` (`pid`)
+    KEY `p_idx` (`pid`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='省市县代码表';
 
@@ -641,7 +641,7 @@ CREATE TABLE `member_notice`
     `create_time`   datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`   datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`),
-    KEY `idx_member_id` (`member_id`)
+    KEY `mi_idx` (`member_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户站内信';
 
@@ -2413,7 +2413,7 @@ CREATE TABLE `merchant_address`
     `create_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`),
-    KEY `idx_merchant_id` (`merchant_id`)
+    KEY `mi_idx` (`merchant_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商户收货地址表';
 
