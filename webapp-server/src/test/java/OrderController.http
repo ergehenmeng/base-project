@@ -24,14 +24,15 @@ Token: {{Token}}
 
 {
   "addressId": 1768538178234945537,
-  "deliveryType": 2,
+  "deliveryType": 1,
+  "groupBooking": true,
   "itemList": [{
     "storeId": 1818206459138408449,
     "remark": "请优先发货",
     "skuList": [{
-      "itemId": 1820275686682574850,
-      "num": 1,
-      "skuId": 1820275686812598274
+      "itemId": 1906889019571630081,
+      "num": 2,
+      "skuId": 1906889019856842754
     }]
   }]
 }

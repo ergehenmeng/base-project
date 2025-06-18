@@ -26,7 +26,10 @@ public class ItemOrderCreateDTO {
     @OptionInt(value = {1, 2}, message = "请选择配送方式")
     private Integer deliveryType;
 
-    @Schema(description = "拼团活动编号")
+    @Schema(description = "是否为拼团订单 true:拼团 false:单独购买")
+    private Boolean groupBooking;
+
+    @Schema(description = "拼团编号(拼团订单时该字段不为空则是团员,否则是团长)")
     private String bookingNo;
 
 }

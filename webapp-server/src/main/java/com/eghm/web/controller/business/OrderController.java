@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.common.impl.SysConfigApi;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.LockConstant;
 import com.eghm.dto.business.order.OrderDTO;
@@ -13,7 +14,6 @@ import com.eghm.dto.business.order.refund.*;
 import com.eghm.dto.business.order.ticket.TicketOrderCreateDTO;
 import com.eghm.dto.business.order.venue.VenueOrderCreateDTO;
 import com.eghm.dto.business.order.voucher.VoucherOrderCreateDTO;
-import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.ext.BaseAsyncKey;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.DeliveryType;
@@ -78,16 +78,19 @@ public class OrderController {
     @PostMapping(value = "/item/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "零售创建订单")
     public RespBody<OrderCreateVO<String>> itemCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
-        return this.createItemOrder(dto, false);
-    }
-
-    @PostMapping(value = "/item/group/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "零售拼团创建订单")
-    public RespBody<OrderCreateVO<String>> itemGroupCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
-        if (dto.getItemList().size() > 1) {
+        if (Boolean.TRUE.equals(dto.getGroupBooking()) && dto.getItemList().size() > 1) {
             return RespBody.error(ErrorCode.ITEM_MULTIPLE_BOOKING);
         }
-        return this.createItemOrder(dto, true);
+        ItemOrderCreateContext context = DataUtil.copy(dto, ItemOrderCreateContext.class);
+        context.setDeliveryType(DeliveryType.of(dto.getDeliveryType()));
+        context.setMemberId(ApiHolder.getMemberId());
+        List<SkuDTO> skuList = dto.getItemList().stream().flatMap(item -> item.getSkuList().stream()).toList();
+        context.setItemIds(skuList.stream().map(SkuDTO::getItemId).collect(Collectors.toSet()));
+        context.setSkuIds(skuList.stream().map(SkuDTO::getSkuId).collect(Collectors.toSet()));
+        context.setTotalScore(dto.getItemList().stream().map(ItemDTO::getScoreAmount).filter(Objects::nonNull).reduce(0, Integer::sum));
+        redisLock.lockVoid(LockConstant.ITEM_ORDER_LOCK + context.getMemberId(), 10_000, () -> stateHandler.fireEvent(ProductType.ITEM, OrderState.NONE.getValue(), ItemEvent.CREATE, context), ErrorCode.ORDER_CREATE_LOCK);
+        OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
+        return RespBody.success(result);
     }
 
     @PostMapping(value = "/ticket/create", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -261,28 +264,6 @@ public class OrderController {
     private void refundApply(RefundApplyContext context, ProductType productType, IEvent event) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
         stateHandler.fireEvent(productType, order.getState().getValue(), event, context);
-    }
-
-    /**
-     * 创建零售订单订单
-     *
-     * @param dto            dto
-     * @param isGroupBooking 是否为拼团订单
-     * @return 订单
-     */
-    private RespBody<OrderCreateVO<String>> createItemOrder(ItemOrderCreateDTO dto, Boolean isGroupBooking) {
-        ItemOrderCreateContext context = DataUtil.copy(dto, ItemOrderCreateContext.class);
-        context.setGroupBooking(isGroupBooking);
-        context.setDeliveryType(DeliveryType.of(dto.getDeliveryType()));
-        context.setMemberId(ApiHolder.getMemberId());
-        List<SkuDTO> skuList = dto.getItemList().stream().flatMap(item -> item.getSkuList().stream()).toList();
-        context.setItemIds(skuList.stream().map(SkuDTO::getItemId).collect(Collectors.toSet()));
-        context.setSkuIds(skuList.stream().map(SkuDTO::getSkuId).collect(Collectors.toSet()));
-        int totalScore = dto.getItemList().stream().map(ItemDTO::getScoreAmount).filter(Objects::nonNull).reduce(0, Integer::sum);
-        context.setTotalScore(totalScore);
-        redisLock.lockVoid(LockConstant.ITEM_ORDER_LOCK + context.getMemberId(), 10_000, () -> stateHandler.fireEvent(ProductType.ITEM, OrderState.NONE.getValue(), ItemEvent.CREATE, context), ErrorCode.ORDER_CREATE_LOCK);
-        OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
-        return RespBody.success(result);
     }
 
     /**

@@ -296,7 +296,6 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         Map<Long, ItemSpec> specMap = itemSpecService.getByIdMap(context.getItemMap().keySet());
         List<StoreOrderPackage> packageList = new ArrayList<>();
         StoreOrderPackage storePackage;
-        OrderPackage orderPackage;
         // 组织用户在某个店铺下单时的商品信息并计算预计付款金额/优惠金额
         for (ItemDTO vo : context.getItemList()) {
             storePackage = new StoreOrderPackage();
@@ -306,17 +305,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             storePackage.setScoreAmount(vo.getScoreAmount() != null ? vo.getScoreAmount() : 0);
             storePackage.setCouponId(vo.getCouponId());
             storePackage.setRemark(vo.getRemark());
-            List<OrderPackage> orderList = new ArrayList<>();
-            for (SkuDTO dto : vo.getSkuList()) {
-                orderPackage = new OrderPackage();
-                orderPackage.setItem(context.getItemMap().get(dto.getItemId()));
-                orderPackage.setSku(skuMap.get(dto.getSkuId()));
-                orderPackage.setNum(dto.getNum());
-                orderPackage.setItemId(dto.getItemId());
-                orderPackage.setSkuId(dto.getSkuId());
-                orderPackage.setSpec(specMap.get(this.getSpuId(orderPackage.getSku().getSpecIds())));
-                orderList.add(orderPackage);
-            }
+            List<OrderPackage> orderList = this.assembleStoreOrder(vo.getSkuList(), context.getItemMap(), specMap, skuMap);
             storePackage.setItemList(orderList);
             Integer itemAmount = this.checkAndCalcTotalAmount(orderList, context);
             storePackage.setItemAmount(itemAmount);
@@ -409,7 +398,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         // 表示是拼团订单
         if (Boolean.TRUE.equals(context.getGroupBooking())) {
             log.info("开始计算拼团价格 [{}] [{}]", aPackage.getItemId(), aPackage.getSkuId());
-            GroupBooking groupBooking = groupBookingService.getByItemId(aPackage.getItemId(), aPackage.getItem().getId());
+            GroupBooking groupBooking = groupBookingService.getByItemId(aPackage.getItemId(), aPackage.getItem().getMerchantId());
             if (groupBooking == null) {
                 throw new BusinessException(ITEM_GROUP_OVER);
             }
@@ -435,6 +424,35 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             return request.getDiscountPrice();
         }
         return aPackage.getSku().getSalePrice();
+    }
+
+    /**
+     * 组装订单在某个店铺下的下单信息
+     *
+     * @param skuList 下单sku信息
+     * @param itemMap 商品信息
+     * @param skuMap sku信息
+     * @param specMap 规格信息
+     */
+    private List<OrderPackage> assembleStoreOrder(List<SkuDTO> skuList, Map<Long, Item> itemMap, Map<Long, ItemSpec> specMap, Map<Long, ItemSku> skuMap) {
+        List<OrderPackage> orderList = new ArrayList<>();
+        OrderPackage orderPackage;
+        for (SkuDTO dto : skuList) {
+            orderPackage = new OrderPackage();
+            ItemSku sku = skuMap.get(dto.getSkuId());
+            if (sku.getStock() < dto.getNum()) {
+                log.warn("商品规格库存不足 [{}] [{}] [{}]", sku.getId(), sku.getStock(), dto.getNum());
+                throw new BusinessException(SKU_STOCK);
+            }
+            orderPackage.setSku(sku);
+            orderPackage.setItem(itemMap.get(dto.getItemId()));
+            orderPackage.setNum(dto.getNum());
+            orderPackage.setItemId(dto.getItemId());
+            orderPackage.setSkuId(dto.getSkuId());
+            orderPackage.setSpec(specMap.get(this.getSpuId(orderPackage.getSku().getSpecIds())));
+            orderList.add(orderPackage);
+        }
+        return orderList;
     }
 
     /**

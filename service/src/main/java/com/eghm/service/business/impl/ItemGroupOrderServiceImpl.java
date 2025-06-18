@@ -62,7 +62,7 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
 
     @Override
     public void save(ItemOrderCreateContext context, Order order, Long itemId) {
-        if (Boolean.FALSE.equals(context.getGroupBooking())) {
+        if (!Boolean.TRUE.equals(context.getGroupBooking())) {
             log.info("非拼团订单,不做任何处理 [{}]", order.getOrderNo());
             return;
         }
