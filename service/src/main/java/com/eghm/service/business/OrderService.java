@@ -218,12 +218,19 @@ public interface OrderService extends IService<Order> {
     List<OrderStatisticsVO> dayOrder(DateRequest request);
 
     /**
-     * 更新拼团状态
+     * 拼团成功更新主订单
      *
      * @param bookingNo 拼团单号
-     * @param bookingState 拼团状态
      */
-    void updateBookingState(String bookingNo, BookingState bookingState);
+    void updateBookingSuccess(String bookingNo);
+
+    /**
+     * 根据拼团单号查询拼团成功的订单信息
+     *
+     * @param bookingNo 单号
+     * @return 订单信息
+     */
+    List<Order> getByBookingNo(String bookingNo);
 
     /**
      * 检查当前用户是否已在拼团订单中

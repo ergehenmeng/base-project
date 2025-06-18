@@ -80,10 +80,6 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
         List<String> orderNoList = orderList.stream().map(Order::getOrderNo).toList();
         itemService.updateSaleNum(orderNoList);
         for (Order order : orderList) {
-            if (order.getBookingNo() != null) {
-                log.info("该订单为拼团订单,更新拼团订单状态 [{}]", order.getOrderNo());
-                this.tryUpdateGroupOrderState(order.getBookingNo(), order.getBookingId());
-            }
             if (order.getScoreAmount() > 0) {
                 log.info("该订单使用了积分,开始更新积分 [{}]", order.getOrderNo());
                 ScoreAccountDTO dto = new ScoreAccountDTO();
@@ -93,11 +89,6 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
                 dto.setChargeType(ChargeType.ORDER_PAY);
                 scoreAccountService.updateAccount(dto);
             }
-            order.setPayTime(context.getSuccessTime());
-            order.setPayType(PayType.valueOf(context.getTradeType().name()));
-            order.setState(order.getDeliveryType() == DeliveryType.EXPRESS ? OrderState.WAIT_DELIVERY : OrderState.WAIT_TAKE);
-            order.setVerifyNo(order.getDeliveryType() == DeliveryType.EXPRESS ? null : ProductType.ITEM.generateVerifyNo());
-            orderService.updateById(order);
             // 更新item_order状态
             itemOrderService.paySuccess(context.getTradeNo());
             // 更新增加冻结记录
@@ -114,14 +105,16 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
                 notify.setStoreId(itemOrder.getStoreId());
                 messageService.send(ExchangeQueue.ORDER_PAY_SUCCESS, notify);
             }
-            // 发送消息通知商户发货
-            ItemOrderPayNotify payNotify = new ItemOrderPayNotify();
-            payNotify.setOrderNo(order.getOrderNo());
-            payNotify.setProductType(ProductType.ITEM);
-            payNotify.setStoreId(order.getStoreId());
-            payNotify.setMerchantId(order.getMerchantId());
-            payNotify.setDeliveryType(order.getDeliveryType());
-            messageService.send(ExchangeQueue.ITEM_ORDER_NOTIFY, payNotify);
+            order.setPayTime(context.getSuccessTime());
+            order.setPayType(PayType.valueOf(context.getTradeType().name()));
+            order.setVerifyNo(order.getDeliveryType() == DeliveryType.EXPRESS ? null : ProductType.ITEM.generateVerifyNo());
+            if (order.getBookingNo() == null) {
+                order.setState(order.getDeliveryType() == DeliveryType.EXPRESS ? OrderState.WAIT_DELIVERY : OrderState.WAIT_TAKE);
+            } else {
+                order.setState(OrderState.WAITING_GROUP);
+            }
+            orderService.updateById(order);
+            this.orderAfter(order);
         }
     }
 
@@ -136,23 +129,45 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
     }
 
     /**
-     * 更新拼团订单状态
+     * 订单后续处理
      *
-     * @param bookingNo 拼团单号
-     * @param bookingId 拼团活动id
+     * @param order 订单信息
      */
-    private void tryUpdateGroupOrderState(String bookingNo, Long bookingId) {
-        GroupBooking booking = groupBookingService.getById(bookingId);
-        if (booking == null) {
-            alarmService.sendMsg(String.format("支付成功更新拼团时, 未查询到拼团活动 [%s] [%s]", bookingNo, bookingId));
-            return;
-        }
-        List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(bookingNo, BookingState.WAITING);
-        if (groupList.size() >= booking.getNum()) {
-            itemGroupOrderService.updateState(bookingNo, BookingState.SUCCESS);
-            orderService.updateBookingState(bookingNo, BookingState.SUCCESS);
+    private void orderAfter(Order order) {
+        if (order.getBookingNo() != null) {
+            log.info("该订单为拼团订单,更新拼团订单状态 [{}]", order.getOrderNo());
+            GroupBooking booking = groupBookingService.getById(order.getBookingId());
+            if (booking == null) {
+                alarmService.sendMsg(String.format("支付成功更新拼团时, 未查询到拼团活动 [%s] [%s]", order.getBookingNo(), order.getBookingId()));
+                return;
+            }
+            List<ItemGroupOrder> groupList = itemGroupOrderService.getGroupList(order.getBookingNo(), BookingState.WAITING);
+            if (groupList.size() >= booking.getNum()) {
+                itemGroupOrderService.updateState(order.getBookingNo(), BookingState.SUCCESS);
+                orderService.updateBookingSuccess(order.getBookingNo());
+                List<Order> orderList = orderService.getByBookingNo(order.getBookingNo());
+                orderList.forEach(this::sendDeliveryNotify);
+            } else {
+                log.info("拼团订单尚未满员 [{}] [{}] [{}]", order.getBookingNo(), booking.getNum(), groupList.size());
+            }
         } else {
-            log.info("拼团订单尚未满员 [{}] [{}] [{}]", bookingNo, booking.getNum(), groupList.size());
+            this.sendDeliveryNotify(order);
         }
+    }
+
+    /**
+     * 发送消息通知商户发货
+     *
+     * @param order 订单
+     */
+    private void sendDeliveryNotify(Order order) {
+        // 发送消息通知商户发货
+        ItemOrderPayNotify payNotify = new ItemOrderPayNotify();
+        payNotify.setOrderNo(order.getOrderNo());
+        payNotify.setProductType(ProductType.ITEM);
+        payNotify.setStoreId(order.getStoreId());
+        payNotify.setMerchantId(order.getMerchantId());
+        payNotify.setDeliveryType(order.getDeliveryType());
+        messageService.send(ExchangeQueue.ITEM_ORDER_NOTIFY, payNotify);
     }
 }

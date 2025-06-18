@@ -492,12 +492,17 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public void updateBookingState(String bookingNo, BookingState bookingState) {
-        log.info("修改订单拼团状态: [{}] [{}]", bookingNo, bookingState);
-        LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
+    public void updateBookingSuccess(String bookingNo) {
+        int success = baseMapper.updateBookingSuccess(bookingNo);
+        log.info("拼团成团成功, 成功拼团人员: [{}] [{}]", bookingNo, success);
+    }
+
+    @Override
+    public List<Order> getByBookingNo(String bookingNo) {
+        LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Order::getBookingNo, bookingNo);
-        wrapper.set(Order::getBookingState, bookingState);
-        baseMapper.update(wrapper);
+        wrapper.eq(Order::getBookingState, BookingState.SUCCESS);
+        return baseMapper.selectList(wrapper);
     }
 
     @Override
