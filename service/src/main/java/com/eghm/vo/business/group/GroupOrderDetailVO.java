@@ -27,4 +27,7 @@ public class GroupOrderDetailVO {
 
     @ApiModelProperty("商品图")
     private String itemCoverUrl;
+
+    @ApiModelProperty("当前用户是否已在团中")
+    private Boolean inGroup;
 }

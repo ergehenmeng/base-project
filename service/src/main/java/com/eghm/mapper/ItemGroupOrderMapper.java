@@ -18,7 +18,7 @@ import java.util.List;
 public interface ItemGroupOrderMapper extends BaseMapper<ItemGroupOrder> {
 
     /**
-     * 获取拼团成员
+     * 获取拼团成员(不含退款的成员)
      *
      * @param bookingNo 拼团订单号
      * @return 拼团成员

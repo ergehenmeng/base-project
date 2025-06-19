@@ -24,4 +24,8 @@ public class GroupMemberVO {
     @ApiModelProperty("拼团id")
     @JsonIgnore
     private Long bookingId;
+
+    @ApiModelProperty("会员id")
+    @JsonIgnore
+    private Long memberId;
 }

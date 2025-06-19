@@ -102,6 +102,9 @@ public class ItemOrderDetailVO {
     @ApiModelProperty(value = "核销码")
     private String verifyNo;
 
+    @ApiModelProperty(value = "拼团编号")
+    private String bookingNo;
+
     @ApiModelProperty("订单商品详情")
     private List<ItemOrderDeliveryVO> itemList;
 
