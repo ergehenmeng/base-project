@@ -1,5 +1,7 @@
 package com.eghm.vo.business.group;
 
+import com.eghm.convertor.SplitterIndexSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -29,5 +31,6 @@ public class GroupOrderDetailVO {
     private String itemName;
 
     @Schema(description = "商品图")
+    @JsonSerialize(using = SplitterIndexSerializer.class)
     private String itemCoverUrl;
 }
