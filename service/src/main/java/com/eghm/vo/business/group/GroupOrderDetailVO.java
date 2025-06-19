@@ -19,6 +19,9 @@ public class GroupOrderDetailVO {
     @Schema(description = "成团人数")
     private Integer bookingNum;
 
+    @Schema(description = "当前用户是否已在团中")
+    private Boolean inGroup;
+
     @Schema(description = "商品ID")
     private Long itemId;
 

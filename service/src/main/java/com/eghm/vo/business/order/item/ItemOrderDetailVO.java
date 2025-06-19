@@ -102,6 +102,9 @@ public class ItemOrderDetailVO {
     @Schema(description = "核销码")
     private String verifyNo;
 
+    @Schema(description = "拼团编号")
+    private String bookingNo;
+
     @Schema(description = "订单商品详情")
     private List<ItemOrderDeliveryVO> itemList;
 

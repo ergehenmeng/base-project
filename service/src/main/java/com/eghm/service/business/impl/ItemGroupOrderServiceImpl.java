@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.AlarmService;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.LockConstant;
 import com.eghm.enums.BookingState;
@@ -130,6 +131,8 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
         vo.setItemId(booking.getItemId());
         vo.setItemName(item.getTitle());
         vo.setItemCoverUrl(item.getCoverUrl());
+        Long memberId = ApiHolder.getMemberId();
+        vo.setInGroup(memberList.stream().anyMatch(v -> v.getMemberId().equals(memberId)));
         return vo;
     }
 

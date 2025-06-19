@@ -24,4 +24,8 @@ public class GroupMemberVO {
     @Schema(description = "拼团id")
     @JsonIgnore
     private Long bookingId;
+
+    @Schema(description = "会员id")
+    @JsonIgnore
+    private Long memberId;
 }

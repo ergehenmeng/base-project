@@ -106,6 +106,7 @@
         r.order_no,
         r.store_id,
         t.title as storeName,
+        r.booking_no,
         r.pay_type,
         r.state,
         r.pay_amount,

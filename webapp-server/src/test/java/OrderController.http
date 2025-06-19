@@ -37,7 +37,27 @@ Token: {{Token}}
   }]
 }
 
+### 2人
 
+POST http://localhost:10010/webapp/order/item/create
+Channel: {{Channel}}
+Content-Type: application/json
+Token: {{Token}}
+
+{
+  "addressId": 1935277482725457921,
+  "deliveryType": 1,
+  "groupBooking": true,
+  "itemList": [{
+    "storeId": 1818206459138408449,
+    "remark": "请优先发货",
+    "skuList": [{
+      "itemId": 1906889019571630081,
+      "num": 2,
+      "skuId": 1906889019856842754
+    }]
+  }]
+}
 
 ###
 

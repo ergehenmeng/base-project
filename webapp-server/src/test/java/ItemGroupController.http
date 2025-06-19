@@ -6,3 +6,8 @@ Channel: {{Channel}}
 ###
 http://localhost:10010/webapp/item/limit/listPage?page=1&pageSize=10
 Channel: {{Channel}}
+
+
+###
+http://localhost:10010/webapp/item/group/detail?bookingNo=EB9z1vINTVb
+Channel: {{Channel}}
