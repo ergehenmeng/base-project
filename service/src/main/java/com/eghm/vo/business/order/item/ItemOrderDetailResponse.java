@@ -104,6 +104,12 @@ public class ItemOrderDetailResponse {
     @JsonIgnore
     private Long countyId;
 
+    @Schema(description = "限时购活动id")
+    private Long limitId;
+
+    @Schema(description = "拼团活动id")
+    private Long bookingId;
+
     @Schema(description = "详细地址")
     private String detailAddress;
 

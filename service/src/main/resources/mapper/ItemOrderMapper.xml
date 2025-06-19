@@ -153,6 +153,8 @@
             t.title as storeName,
             r.pay_type,
             r.state,
+            r.limit_id,
+            r.booking_id,
             r.pay_amount,
             r.express_amount as fee,
             r.amount,

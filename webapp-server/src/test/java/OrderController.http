@@ -23,9 +23,10 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-  "addressId": 1768538178234945537,
+  "addressId": 1935277482725457921,
   "deliveryType": 1,
   "groupBooking": true,
+  "bookingNo": "EB9z1vINTVb",
   "itemList": [{
     "storeId": 1818206459138408449,
     "remark": "请优先发货",
