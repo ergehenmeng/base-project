@@ -159,6 +159,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         homestayOrderService.insert(homestayOrder);
         homestayOrderSnapshotService.orderSnapshot(order.getOrderNo(), payload.getConfigList());
         context.setOrderNo(order.getOrderNo());
+        context.setPayAmount(order.getPayAmount());
     }
 
     @Override

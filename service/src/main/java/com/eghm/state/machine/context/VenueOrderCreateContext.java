@@ -37,9 +37,13 @@ public class VenueOrderCreateContext extends BaseAsyncKey implements Context {
     @Schema(description = "兑换码")
     private String cdKey;
 
-    @Assign
     @Schema(description = "订单编号")
+    @Assign(Assign.Type.UP)
     private String orderNo;
+
+    @Schema(description = "支付金额")
+    @Assign(Assign.Type.UP)
+    private Integer payAmount;
 
     @Assign
     @Schema(description = "用户id")

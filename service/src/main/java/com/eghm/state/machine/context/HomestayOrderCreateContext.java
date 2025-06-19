@@ -64,12 +64,16 @@ public class HomestayOrderCreateContext extends BaseAsyncKey implements Context 
     @Schema(description = "备注")
     private String remark;
 
-    @Assign
     @Schema(description = "订单编号")
+    @Assign(Assign.Type.UP)
     private String orderNo;
 
+    @Schema(description = "支付金额")
+    @Assign(Assign.Type.UP)
+    private Integer payAmount;
+
     @Assign
-    @Schema(description = "用户id", hidden = true)
+    @Schema(description = "用户id")
     private Long memberId;
 
     @Schema(description = "源状态")

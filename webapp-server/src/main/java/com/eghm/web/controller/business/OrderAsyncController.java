@@ -35,17 +35,19 @@ public class OrderAsyncController {
     @GetMapping("/result")
     @Operation(summary = "异步查询下单结果")
     @Parameter(name = "key", description = "查询key", required = true)
-    public RespBody<OrderCreateVO<String>> getResult(@RequestParam("key") String key) {
+    public RespBody<OrderCreateVO> getResult(@RequestParam("key") String key) {
         String hashValue = cacheService.getValue(CacheConstant.MQ_ASYNC_KEY + key);
-        OrderCreateVO<String> vo = new OrderCreateVO<>();
+        OrderCreateVO vo = new OrderCreateVO();
         if (hashValue != null && CacheConstant.PLACE_HOLDER.startsWith(hashValue)) {
             this.setProcessResult(key, hashValue, vo);
             return RespBody.success(vo);
         }
-        // 下单成功将订单号返回给前端
+        // 下单成功将订单号返回给前端,缓存中存放的数据格式: LS1924278714932908034#180 订单号 实付金额1.8
         if (CacheConstant.SUCCESS_PLACE_HOLDER.equals(hashValue)) {
             vo.setState(1);
-            vo.setData(cacheService.getValue(CacheConstant.MQ_ASYNC_DATA_KEY + key));
+            String[] result = cacheService.getValue(CacheConstant.MQ_ASYNC_DATA_KEY + key).split(CacheConstant.PLACE_HOLDER);
+            vo.setOrderNo(result[0]);
+            vo.setPayAmount(Integer.parseInt(result[1]));
             return RespBody.success(vo);
         }
         if (!CacheConstant.ERROR_PLACE_HOLDER.equals(hashValue)) {
@@ -79,7 +81,7 @@ public class OrderAsyncController {
      * @param hashValue 查询的结果
      * @param vo        结果信息存放
      */
-    private void setProcessResult(String key, String hashValue, OrderCreateVO<String> vo) {
+    private void setProcessResult(String key, String hashValue, OrderCreateVO vo) {
         String accessStr = hashValue.replace(CacheConstant.PLACE_HOLDER, "");
         int accessNum = 0;
         if (isNotBlank(accessStr)) {
@@ -93,7 +95,7 @@ public class OrderAsyncController {
         }
         cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + key, CacheConstant.PLACE_HOLDER + (++accessNum), CommonConstant.ASYNC_MSG_EXPIRE);
         vo.setState(1);
-        vo.setData(key);
+        vo.setKey(key);
     }
 
 }

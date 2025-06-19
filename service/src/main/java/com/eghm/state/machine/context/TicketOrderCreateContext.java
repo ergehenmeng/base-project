@@ -51,8 +51,12 @@ public class TicketOrderCreateContext extends BaseAsyncKey implements Context {
     private String remark;
 
     @Schema(description = "订单编号")
-    @Assign
+    @Assign(Assign.Type.UP)
     private String orderNo;
+
+    @Schema(description = "支付金额")
+    @Assign(Assign.Type.UP)
+    private Integer payAmount;
 
     @Assign
     @Schema(description = "用户id")

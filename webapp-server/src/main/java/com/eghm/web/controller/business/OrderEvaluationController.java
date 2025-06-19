@@ -1,14 +1,13 @@
 package com.eghm.web.controller.business;
 
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.order.evaluation.OrderEvaluationDTO;
 import com.eghm.dto.business.order.evaluation.OrderEvaluationQueryDTO;
-import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.OrderEvaluationService;
 import com.eghm.vo.business.evaluation.EvaluationGroupVO;
 import com.eghm.vo.business.evaluation.OrderEvaluationVO;
-import com.eghm.vo.business.order.OrderCreateVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,7 +34,7 @@ public class OrderEvaluationController {
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "订单评论")
-    public RespBody<OrderCreateVO<String>> create(@RequestBody @Validated OrderEvaluationDTO dto) {
+    public RespBody<Void> create(@RequestBody @Validated OrderEvaluationDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         orderEvaluationService.create(dto);
         return RespBody.success();

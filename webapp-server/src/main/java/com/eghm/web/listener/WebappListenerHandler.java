@@ -180,7 +180,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
     public void ticketOrder(TicketOrderCreateContext context, Message message, Channel channel) throws IOException {
         this.processMessageAckAsync(context, message, channel, order -> {
             stateHandler.fireEvent(ProductType.TICKET, OrderState.NONE.getValue(), TicketEvent.CREATE_QUEUE, context);
-            cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
+            cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo() + CacheConstant.PLACE_HOLDER + context.getPayAmount());
         });
     }
 
@@ -193,7 +193,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
     public void itemOrder(ItemOrderCreateContext context, Message message, Channel channel) throws IOException {
         this.processMessageAckAsync(context, message, channel, order -> {
             stateHandler.fireEvent(ProductType.ITEM, OrderState.NONE.getValue(), ItemEvent.CREATE_QUEUE, context);
-            cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
+            cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo() + CacheConstant.PLACE_HOLDER + context.getPayAmount());
         });
     }
 
@@ -206,7 +206,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
     public void lineOrder(LineOrderCreateContext context, Message message, Channel channel) throws IOException {
         this.processMessageAckAsync(context, message, channel, order -> {
             stateHandler.fireEvent(ProductType.LINE, OrderState.NONE.getValue(), LineEvent.CREATE_QUEUE, context);
-            cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
+            cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo() + CacheConstant.PLACE_HOLDER + context.getPayAmount());
         });
     }
 
@@ -219,7 +219,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
     public void homestayOrder(HomestayOrderCreateContext context, Message message, Channel channel) throws IOException {
         this.processMessageAckAsync(context, message, channel, order -> {
             stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.NONE.getValue(), HomestayEvent.CREATE_QUEUE, context);
-            cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
+            cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo() + CacheConstant.PLACE_HOLDER + context.getPayAmount());
         });
     }
 
@@ -232,7 +232,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
     public void voucherOrder(VoucherOrderCreateContext context, Message message, Channel channel) throws IOException {
         this.processMessageAckAsync(context, message, channel, order -> {
             stateHandler.fireEvent(ProductType.VOUCHER, OrderState.NONE.getValue(), VoucherEvent.CREATE_QUEUE, context);
-            cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
+            cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo() + CacheConstant.PLACE_HOLDER + context.getPayAmount());
         });
     }
 

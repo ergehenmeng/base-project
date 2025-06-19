@@ -43,8 +43,12 @@ public class VoucherOrderCreateContext extends BaseAsyncKey implements Context {
     private Long memberId;
 
     @Schema(description = "订单编号")
-    @Assign
+    @Assign(Assign.Type.UP)
     private String orderNo;
+
+    @Schema(description = "支付金额")
+    @Assign(Assign.Type.UP)
+    private Integer payAmount;
 
     @Schema(description = "源状态")
     private Integer from;

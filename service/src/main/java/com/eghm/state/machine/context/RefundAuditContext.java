@@ -30,7 +30,7 @@ public class RefundAuditContext implements Context {
     @Schema(description = "审批意见")
     private String auditRemark;
 
-    @Schema(description = "审批人id", hidden = true)
+    @Schema(description = "审批人id")
     @Assign
     private Long auditUserId;
 

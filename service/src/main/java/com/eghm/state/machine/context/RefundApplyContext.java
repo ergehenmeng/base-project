@@ -17,13 +17,13 @@ import java.util.List;
 @Data
 public class RefundApplyContext implements Context {
 
-    @Schema(description = "订单编号", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "订单编号")
     private String orderNo;
 
-    @Schema(description = "申请退款金额(含快递费)", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "申请退款金额(含快递费)")
     private Integer refundAmount;
 
-    @Schema(description = "退款原因", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "退款原因")
     private String reason;
 
     @Schema(description = "申请方式 1:仅退款 2:退货退款")

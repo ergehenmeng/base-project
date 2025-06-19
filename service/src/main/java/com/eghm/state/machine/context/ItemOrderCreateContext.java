@@ -40,7 +40,7 @@ public class ItemOrderCreateContext extends BaseAsyncKey implements Context {
     @Schema(description = "配送方式")
     private DeliveryType deliveryType;
 
-    @Schema(description = "是否为拼团订单(不支持购物车)", hidden = true)
+    @Schema(description = "是否为拼团订单(不支持购物车)")
     @Assign
     private Boolean groupBooking;
 
@@ -48,47 +48,51 @@ public class ItemOrderCreateContext extends BaseAsyncKey implements Context {
     @Assign
     private Integer from;
 
-    @Schema(description = "订单编号(值传递,多个逗号分隔)", hidden = true)
-    @Assign
+    @Schema(description = "订单编号(多个逗号分隔)")
+    @Assign(Assign.Type.UP)
     private String orderNo;
 
+    @Schema(description = "支付金额")
+    @Assign(Assign.Type.UP)
+    private Integer payAmount;
+
     @Assign
-    @Schema(description = "用户id", hidden = true)
+    @Schema(description = "用户id")
     private Long memberId;
 
-    @Schema(description = "已拼单数量(承载数据,值传递)", hidden = true)
+    @Schema(description = "已拼单数量(承载数据,值传递)")
     @Assign
     private Integer bookingNum;
 
-    @Schema(description = "拼团id(承载数据,值传递)", hidden = true)
+    @Schema(description = "拼团id(承载数据,值传递)")
     @Assign
     private Long bookingId;
 
-    @Schema(description = "是否为拼团发起者(承载数据,值传递)", hidden = true)
+    @Schema(description = "是否为拼团发起者(承载数据,值传递)")
     @Assign
     private Boolean starter = false;
 
-    @Schema(description = "拼团过期时间(承载数据,值传递)", hidden = true)
+    @Schema(description = "拼团过期时间(承载数据,值传递)")
     @Assign
     private Integer expireTime;
 
-    @Schema(description = "限时购活动id(承载数据,值传递)", hidden = true)
+    @Schema(description = "限时购活动id(承载数据,值传递)")
     @Assign
     private Long limitId;
 
-    @Schema(description = "商品信息(承载数据,减少后续重复查询)", hidden = true)
+    @Schema(description = "商品信息(承载数据,减少后续重复查询)")
     @Assign
     private Map<Long, Item> itemMap;
 
-    @Schema(description = "商品id(承载数据,减少后续重复运算)", hidden = true)
+    @Schema(description = "商品id(承载数据,减少后续重复运算)")
     @Assign
     private Set<Long> itemIds;
 
-    @Schema(description = "商品skuId(承载数据,减少后续重复运算)", hidden = true)
+    @Schema(description = "商品skuId(承载数据,减少后续重复运算)")
     @Assign
     private Set<Long> skuIds;
 
-    @Schema(description = "使用的总积分(承载数据,减少后续重复运算)", hidden = true)
+    @Schema(description = "使用的总积分(承载数据,减少后续重复运算)")
     @Assign
     private Integer totalScore;
 

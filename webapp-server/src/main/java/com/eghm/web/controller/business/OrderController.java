@@ -77,7 +77,7 @@ public class OrderController {
 
     @PostMapping(value = "/item/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "零售创建订单")
-    public RespBody<OrderCreateVO<String>> itemCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
+    public RespBody<OrderCreateVO> itemCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
         if (Boolean.TRUE.equals(dto.getGroupBooking()) && dto.getItemList().size() > 1) {
             return RespBody.error(ErrorCode.ITEM_MULTIPLE_BOOKING);
         }
@@ -89,23 +89,23 @@ public class OrderController {
         context.setSkuIds(skuList.stream().map(SkuDTO::getSkuId).collect(Collectors.toSet()));
         context.setTotalScore(dto.getItemList().stream().map(ItemDTO::getScoreAmount).filter(Objects::nonNull).reduce(0, Integer::sum));
         redisLock.lockVoid(LockConstant.ITEM_ORDER_LOCK + context.getMemberId(), 10_000, () -> stateHandler.fireEvent(ProductType.ITEM, OrderState.NONE.getValue(), ItemEvent.CREATE, context), ErrorCode.ORDER_CREATE_LOCK);
-        OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
+        OrderCreateVO result = this.generateResult(context, context.getOrderNo(), context.getPayAmount());
         return RespBody.success(result);
     }
 
     @PostMapping(value = "/ticket/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "门票创建订单")
-    public RespBody<OrderCreateVO<String>> ticketCreate(@RequestBody @Validated TicketOrderCreateDTO dto) {
+    public RespBody<OrderCreateVO> ticketCreate(@RequestBody @Validated TicketOrderCreateDTO dto) {
         TicketOrderCreateContext context = DataUtil.copy(dto, TicketOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         redisLock.lockVoid(LockConstant.TICKET_ORDER_LOCK + context.getTicketId(), 10_000, () -> stateHandler.fireEvent(ProductType.TICKET, OrderState.NONE.getValue(), TicketEvent.CREATE, context), ErrorCode.ORDER_CREATE_LOCK);
-        OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
+        OrderCreateVO result = this.generateResult(context, context.getOrderNo(), context.getPayAmount());
         return RespBody.success(result);
     }
 
     @PostMapping(value = "/homestay/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "民宿创建订单")
-    public RespBody<OrderCreateVO<String>> homestayCreate(@RequestBody @Validated HomestayOrderCreateDTO dto) {
+    public RespBody<OrderCreateVO> homestayCreate(@RequestBody @Validated HomestayOrderCreateDTO dto) {
         if (dto.getVisitorList().size() != dto.getNum()) {
             return RespBody.error(ErrorCode.VISITOR_NO_MATCH);
         }
@@ -116,37 +116,37 @@ public class OrderController {
         HomestayOrderCreateContext context = DataUtil.copy(dto, HomestayOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         redisLock.lockVoid(LockConstant.HOMESTAY_ORDER_LOCK + context.getRoomId(), 10_000, () -> stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.NONE.getValue(), HomestayEvent.CREATE, context), ErrorCode.ORDER_CREATE_LOCK);
-        OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
+        OrderCreateVO result = this.generateResult(context, context.getOrderNo(), context.getPayAmount());
         return RespBody.success(result);
     }
 
     @PostMapping(value = "/line/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "线路创建订单")
-    public RespBody<OrderCreateVO<String>> lineCreate(@RequestBody @Validated LineOrderCreateDTO dto) {
+    public RespBody<OrderCreateVO> lineCreate(@RequestBody @Validated LineOrderCreateDTO dto) {
         LineOrderCreateContext context = DataUtil.copy(dto, LineOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         redisLock.lockVoid(LockConstant.LINE_ORDER_LOCK + context.getLineId(), 10_000, () -> stateHandler.fireEvent(ProductType.LINE, OrderState.NONE.getValue(), LineEvent.CREATE, context), ErrorCode.ORDER_CREATE_LOCK);
-        OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
+        OrderCreateVO result = this.generateResult(context, context.getOrderNo(), context.getPayAmount());
         return RespBody.success(result);
     }
 
     @PostMapping(value = "/voucher/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "餐饮创建订单")
-    public RespBody<OrderCreateVO<String>> restaurantCreate(@RequestBody @Validated VoucherOrderCreateDTO dto) {
+    public RespBody<OrderCreateVO> restaurantCreate(@RequestBody @Validated VoucherOrderCreateDTO dto) {
         VoucherOrderCreateContext context = DataUtil.copy(dto, VoucherOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         redisLock.lockVoid(LockConstant.VOUCHER_ORDER_LOCK + context.getVoucherId(), 10_000, () -> stateHandler.fireEvent(ProductType.VOUCHER, OrderState.NONE.getValue(), VoucherEvent.CREATE, context), ErrorCode.ORDER_CREATE_LOCK);
-        OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
+        OrderCreateVO result = this.generateResult(context, context.getOrderNo(), context.getPayAmount());
         return RespBody.success(result);
     }
 
     @PostMapping(value = "/venue/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "场馆预约创建订单")
-    public RespBody<OrderCreateVO<String>> venueCreate(@RequestBody @Validated VenueOrderCreateDTO dto) {
+    public RespBody<OrderCreateVO> venueCreate(@RequestBody @Validated VenueOrderCreateDTO dto) {
         VenueOrderCreateContext context = DataUtil.copy(dto, VenueOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         redisLock.lockVoid(LockConstant.VENUE_ORDER_LOCK + context.getMemberId(), 10_000, () -> stateHandler.fireEvent(ProductType.VENUE, OrderState.NONE.getValue(), VenueEvent.CREATE, context), ErrorCode.ORDER_CREATE_LOCK);
-        OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
+        OrderCreateVO result = this.generateResult(context, context.getOrderNo(), context.getPayAmount());
         return RespBody.success(result);
     }
 
@@ -271,18 +271,20 @@ public class OrderController {
      *
      * @param context 队列下单时不为空
      * @param orderNo 订单编号
+     * @param payAmount 实付金额
      * @return vo
      */
-    private OrderCreateVO<String> generateResult(BaseAsyncKey context, String orderNo) {
-        OrderCreateVO<String> vo = new OrderCreateVO<>();
+    private OrderCreateVO generateResult(BaseAsyncKey context, String orderNo, Integer payAmount) {
+        OrderCreateVO vo = new OrderCreateVO();
         if (isNotBlank(context.getKey())) {
             vo.setState(0);
-            vo.setData(context.getKey());
+            vo.setKey(context.getKey());
             return vo;
         }
         if (isNotBlank(orderNo)) {
             vo.setState(1);
-            vo.setData(orderNo);
+            vo.setOrderNo(orderNo);
+            vo.setPayAmount(payAmount);
             return vo;
         }
         // 极端情况, mq发送失败时会发生

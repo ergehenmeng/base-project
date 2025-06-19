@@ -121,6 +121,7 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
         voucherOrder.setVoucherId(context.getVoucherId());
         voucherOrderService.insert(voucherOrder);
         context.setOrderNo(order.getOrderNo());
+        context.setPayAmount(order.getPayAmount());
     }
 
     @Override

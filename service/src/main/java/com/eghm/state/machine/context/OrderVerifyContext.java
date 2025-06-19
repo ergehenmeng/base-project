@@ -32,18 +32,18 @@ public class OrderVerifyContext implements Context {
     private Long combineId;
 
     @Assign
-    @Schema(description = "当前登录用户ID", hidden = true)
+    @Schema(description = "当前登录用户ID")
     private Long userId;
 
-    @Schema(description = "实际核销人数", hidden = true)
+    @Schema(description = "实际核销人数")
     @Assign
     private Integer verifyNum;
 
-    @Schema(description = "商户id", hidden = true)
+    @Schema(description = "商户id")
     @Assign
     private Long merchantId;
 
-    @Schema(description = "门票类型", hidden = true)
+    @Schema(description = "门票类型")
     @Assign
     private TicketType category;
 
