@@ -63,6 +63,9 @@ public class Restaurant extends BaseEntity {
     @NotBlank(message = "详细地址不能为空")
     private String detailAddress;
 
+    @ApiModelProperty("标签")
+    private String searchTag;
+
     @ApiModelProperty(value = "经度")
     @NotNull(message = "经度不能为空")
     private BigDecimal longitude;

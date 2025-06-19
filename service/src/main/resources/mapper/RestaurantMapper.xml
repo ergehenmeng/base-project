@@ -69,7 +69,8 @@
         phone
         from restaurant where state = 1 and deleted = false
         <if test="param.queryName != null and param.queryName != ''">
-            and title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
+            and (title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+            search_tag like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%'))
         </if>
         order by id desc
     </sql>
@@ -87,7 +88,8 @@
         phone
         from restaurant where state = 1 and deleted = false
         <if test="param.queryName != null and param.queryName != ''">
-            and title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
+            and (title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+            search_tag like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%'))
         </if>
         ) s
         order by s.distance, s.id desc
