@@ -1,5 +1,7 @@
 package com.eghm.vo.business.group;
 
+import com.eghm.convertor.SplitterIndexSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -26,6 +28,7 @@ public class GroupOrderDetailVO {
     private String itemName;
 
     @ApiModelProperty("商品图")
+    @JsonSerialize(using = SplitterIndexSerializer.class)
     private String itemCoverUrl;
 
     @ApiModelProperty("当前用户是否已在团中")

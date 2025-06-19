@@ -132,7 +132,7 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
         vo.setItemName(item.getTitle());
         vo.setItemCoverUrl(item.getCoverUrl());
         Long memberId = ApiHolder.getMemberId();
-        vo.setInGroup(memberList.stream().anyMatch(v -> v.getMemberId().equals(memberId)));
+        vo.setInGroup(memberId != null && memberList.stream().anyMatch(v -> v.getMemberId().equals(memberId)));
         return vo;
     }
 
