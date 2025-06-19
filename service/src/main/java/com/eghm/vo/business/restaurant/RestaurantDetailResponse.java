@@ -31,6 +31,10 @@ public class RestaurantDetailResponse {
     @JsonSerialize(using = SplitterArraySerializer.class)
     private String coverUrl;
 
+    @Schema(description = "标签")
+    @JsonSerialize(using = SplitterArraySerializer.class)
+    private String searchTag;
+
     @Schema(description = "营业时间")
     private String openTime;
 

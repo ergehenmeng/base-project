@@ -55,6 +55,10 @@ public class RestaurantEditRequest {
     @Schema(description = "县区id")
     private Long countyId;
 
+    @Schema(description = "标签")
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String searchTag;
+
     @Schema(description = "详细地址", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "详细地址不能为空")
     @Size(max = 20, message = "详细地址长度2~20字符")

@@ -26,7 +26,7 @@ import java.util.List;
 * @since 2024-10-09
 */
 @RestController
-@Tag(name="餐饮券标签管理")
+@Tag(name="分类标签管理")
 @AllArgsConstructor
 @RequestMapping(value = "/manage/voucher/tag", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoucherTagController {
