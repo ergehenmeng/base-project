@@ -55,6 +55,10 @@ public class RestaurantEditRequest {
     @ApiModelProperty(value = "县区id")
     private Long countyId;
 
+    @ApiModelProperty(value = "搜索标签")
+    @JsonDeserialize(using = JoinerDeserializer.class)
+    private String searchTag;
+
     @ApiModelProperty(value = "详细地址", required = true)
     @NotBlank(message = "详细地址不能为空")
     @Size(max = 20, message = "详细地址长度2~20字符")

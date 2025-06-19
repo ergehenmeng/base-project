@@ -873,6 +873,7 @@ CREATE TABLE `restaurant`
     `city_id`        bigint(20)     DEFAULT NULL COMMENT '城市id',
     `county_id`      bigint(20)     DEFAULT NULL COMMENT '县区id',
     `detail_address` varchar(50)    DEFAULT NULL COMMENT '详细地址',
+    `search_tag`     varchar(50)    DEFAULT NULL COMMENT '搜索标签',
     `longitude`      decimal(10, 7) DEFAULT NULL COMMENT '经度',
     `latitude`       decimal(10, 7) DEFAULT NULL COMMENT '纬度',
     `phone`          varchar(20)    DEFAULT NULL COMMENT '商家热线',
