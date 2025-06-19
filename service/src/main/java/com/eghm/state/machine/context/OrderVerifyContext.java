@@ -32,18 +32,18 @@ public class OrderVerifyContext implements Context {
     private Long combineId;
 
     @Assign
-    @ApiModelProperty(value = "当前登录用户ID", hidden = true)
+    @ApiModelProperty(value = "当前登录用户ID")
     private Long userId;
 
-    @ApiModelProperty(value = "实际核销人数", hidden = true)
+    @ApiModelProperty(value = "实际核销人数")
     @Assign
     private Integer verifyNum;
 
-    @ApiModelProperty(value = "商户id", hidden = true)
+    @ApiModelProperty(value = "商户id")
     @Assign
     private Long merchantId;
 
-    @ApiModelProperty(value = "门票类型", hidden = true)
+    @ApiModelProperty(value = "门票类型")
     @Assign
     private TicketType category;
 

@@ -64,12 +64,16 @@ public class HomestayOrderCreateContext extends BaseAsyncKey implements Context 
     @ApiModelProperty("备注")
     private String remark;
 
-    @Assign
-    @ApiModelProperty("订单编号")
+    @ApiModelProperty(value = "订单编号")
+    @Assign(Assign.Type.UP)
     private String orderNo;
 
+    @ApiModelProperty(value = "支付金额")
+    @Assign(Assign.Type.UP)
+    private Integer payAmount;
+
     @Assign
-    @ApiModelProperty(hidden = true, value = "用户id")
+    @ApiModelProperty(value = "用户id")
     private Long memberId;
 
     @ApiModelProperty("源状态")

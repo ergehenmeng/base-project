@@ -615,6 +615,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         }
         List<String> noList = orderList.stream().map(Order::getOrderNo).collect(Collectors.toList());
         context.setOrderNo(CollUtil.join(noList, CommonConstant.COMMA));
+        context.setPayAmount(realPayAmount);
     }
 
     @Override

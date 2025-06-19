@@ -159,6 +159,7 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
         venueOrder.setTimePhase(jsonService.toJson(phaseList));
         venueOrderService.insert(venueOrder);
         context.setOrderNo(order.getOrderNo());
+        context.setPayAmount(order.getPayAmount());
     }
 
     @Override

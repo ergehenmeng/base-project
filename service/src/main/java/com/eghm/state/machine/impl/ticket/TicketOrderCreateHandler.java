@@ -155,6 +155,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
             ticketOrderCombineService.insert(order.getOrderNo(), payload.getTicket().getId());
         }
         context.setOrderNo(order.getOrderNo());
+        context.setPayAmount(order.getPayAmount());
     }
 
     @Override

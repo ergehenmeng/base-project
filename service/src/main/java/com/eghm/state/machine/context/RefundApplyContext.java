@@ -17,13 +17,13 @@ import java.util.List;
 @Data
 public class RefundApplyContext implements Context {
 
-    @ApiModelProperty(value = "订单编号", required = true)
+    @ApiModelProperty(value = "订单编号")
     private String orderNo;
 
-    @ApiModelProperty(value = "申请退款金额(含快递费)", required = true)
+    @ApiModelProperty(value = "申请退款金额(含快递费)")
     private Integer refundAmount;
 
-    @ApiModelProperty(value = "退款原因", required = true)
+    @ApiModelProperty(value = "退款原因")
     private String reason;
 
     @ApiModelProperty(value = "申请方式 1:仅退款 2:退货退款")

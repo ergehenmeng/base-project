@@ -129,7 +129,6 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         // 校验最低金额
         super.checkAmount(order);
         orderService.save(order);
-        context.setOrderNo(order.getOrderNo());
         return order;
     }
 
@@ -152,6 +151,8 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         lineOrder.setVisitDate(payload.getConfig().getConfigDate());
         lineOrderService.insert(lineOrder);
         lineOrderSnapshotService.insert(payload.getLine().getId(), order.getOrderNo(), payload.getDayList());
+        context.setOrderNo(order.getOrderNo());
+        context.setPayAmount(order.getPayAmount());
     }
 
     @Override

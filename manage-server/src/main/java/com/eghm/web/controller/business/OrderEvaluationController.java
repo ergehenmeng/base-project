@@ -8,7 +8,6 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.OrderEvaluationService;
 import com.eghm.vo.business.evaluation.OrderEvaluationResponse;
-import com.eghm.vo.business.order.OrderCreateVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -37,7 +36,7 @@ public class OrderEvaluationController {
 
     @PostMapping(value = "/shield", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("屏蔽")
-    public RespBody<OrderCreateVO<String>> audit(@RequestBody @Validated OrderEvaluationShieldDTO dto) {
+    public RespBody<Void> audit(@RequestBody @Validated OrderEvaluationShieldDTO dto) {
         dto.setUserId(SecurityHolder.getUserId());
         orderEvaluationService.shield(dto);
         return RespBody.success();

@@ -39,12 +39,16 @@ public class VoucherOrderCreateContext extends BaseAsyncKey implements Context {
     private String cdKey;
 
     @Assign
-    @ApiModelProperty(hidden = true, value = "用户id")
+    @ApiModelProperty(value = "用户id")
     private Long memberId;
 
-    @ApiModelProperty("订单编号")
-    @Assign
+    @ApiModelProperty(value = "订单编号")
+    @Assign(Assign.Type.UP)
     private String orderNo;
+
+    @ApiModelProperty(value = "支付金额")
+    @Assign(Assign.Type.UP)
+    private Integer payAmount;
 
     @ApiModelProperty("源状态")
     private Integer from;
