@@ -104,6 +104,12 @@ public class ItemOrderDetailResponse {
     @JsonIgnore
     private Long countyId;
 
+    @ApiModelProperty(value = "限时购活动id")
+    private Long limitId;
+
+    @ApiModelProperty(value = "拼团活动id")
+    private Long bookingId;
+
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
 
