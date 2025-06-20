@@ -456,6 +456,7 @@ public class ItemServiceImpl implements ItemService {
             if (request != null && vo.getSalePrice().equals(request.getSalePrice()) && request.getDiscountPrice() != null) {
                 vo.setDiscountPrice(request.getDiscountPrice());
             } else {
+                log.warn("该活动商品sku价格变动或未配置活动价格,默认以销售价展示 [{}] [{}] [{}]", vo.getId(), vo.getSalePrice(), jsonValue);
                 vo.setDiscountPrice(vo.getSalePrice());
             }
         });
