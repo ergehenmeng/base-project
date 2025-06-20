@@ -416,7 +416,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             Map<Long, LimitSkuVO> skuMap = skuList.stream().collect(Collectors.toMap(LimitSkuVO::getSkuId, Function.identity()));
             LimitSkuVO request = skuMap.get(aPackage.getSkuId());
             if (request == null || request.getDiscountPrice() == null || !aPackage.getSku().getSalePrice().equals(request.getSalePrice())) {
-                log.error("该限时购商品不在活动价格范围内 [{}] [{}] [{}] [{}]", aPackage.getItemId(), purchaseItem.getId(), aPackage.getSkuId(), purchaseItem.getSkuValue());
+                log.error("该限时购商品不在活动价格范围内 [{}] [{}] [{}] [{}] [{}]", aPackage.getItemId(), purchaseItem.getId(), aPackage.getSkuId(), purchaseItem.getSkuValue(), aPackage.getSku().getSalePrice());
                 return aPackage.getSku().getSalePrice();
             }
             // 此时才算真正限时购商品
