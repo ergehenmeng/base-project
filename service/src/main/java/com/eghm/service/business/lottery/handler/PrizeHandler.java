@@ -24,6 +24,7 @@ public interface PrizeHandler {
      * @param memberId 用户ID
      * @param lottery  抽奖信息
      * @param config   中奖信息
+     * @return true:发放成功 false:发放失败
      */
-    void execute(Long memberId, Lottery lottery, LotteryConfig config);
+    boolean execute(Long memberId, Lottery lottery, LotteryConfig config);
 }

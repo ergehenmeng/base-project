@@ -64,7 +64,7 @@ public interface LotteryPrizeService {
      *
      * @param id id
      */
-    void accumulationLotteryNum(Long id);
+    void decrement(Long id);
 
     /**
      * 删除奖品信息
