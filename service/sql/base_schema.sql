@@ -1303,7 +1303,7 @@ CREATE TABLE `order`
     `product_type`        varchar(30)    DEFAULT NULL COMMENT '商品类型',
     `refund_type`         tinyint(1)     DEFAULT '2' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
     `refund_describe`     varchar(200)   DEFAULT NULL COMMENT '退款描述信息',
-    `state`               tinyint(2)     DEFAULT '0' COMMENT '订单状态 -1:初始状态, 0:待支付, 1:支付中, 2:待使用, 3:待自提, 4:待发货, 5:部分发货, 6:待收货, 7:退款中, 8:订单完成, 9:已关闭, 10:支付异常, 11:退款异常',
+    `state`               tinyint(2)     DEFAULT '0' COMMENT '订单状态 -1:初始状态, 0:待支付 1:支付中 2:待使用 3:待自提 4:待发货 5:待收货 6:退款中 7:订单完成 8:已关闭 9:支付异常 10:退款异常 11:待成团',
     `refund_state`        tinyint(1)     DEFAULT '0' COMMENT '退款状态 1:退款申请中 2:退款中 3:退款拒绝 4:退款成功',
     `close_type`          tinyint(1)     DEFAULT NULL COMMENT '关闭类型 1:过期自动关闭 2:用户取消 3:退款完成',
     `amount`              int(10)        DEFAULT '0' COMMENT '订单金额(数量*单价)',
