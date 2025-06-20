@@ -85,4 +85,8 @@ public class ItemOrderResponse extends ExcelStyle {
     @ExcelProperty(value = "支付方式", index = 11, converter = EnumExcelConverter.class)
     private PayType payType;
 
+    @ApiModelProperty(value = "订单类型")
+    @ExcelProperty(value = "订单类型", index = 12)
+    private String orderType;
+
 }

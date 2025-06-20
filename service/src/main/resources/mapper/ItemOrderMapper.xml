@@ -8,6 +8,7 @@
         r.cover_url,
         r.title,
         t.title as storeName,
+        case when r.limit_id is not null then '限时购' when r.booking_id is not null then '拼团' else '普通' end as orderType,
         r.pay_type,
         r.num,
         r.state,
