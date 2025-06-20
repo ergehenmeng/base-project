@@ -36,7 +36,7 @@ public class OrderVerifyContext implements Context {
     private Long userId;
 
     @ApiModelProperty(value = "实际核销人数")
-    @Assign
+    @Assign(Assign.Type.UP)
     private Integer verifyNum;
 
     @ApiModelProperty(value = "商户id")
