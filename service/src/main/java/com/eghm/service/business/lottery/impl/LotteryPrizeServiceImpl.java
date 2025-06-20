@@ -81,10 +81,15 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
     }
 
     @Override
-    public void accumulationLotteryNum(Long id) {
+    public void decrement(Long id) {
         int lotteryNum = lotteryPrizeMapper.accumulationLotteryNum(id);
         if (lotteryNum != 1) {
             log.error("中奖奖品数量更新失败，奖品数量不足 [{}]", id);
+            throw new BusinessException(ErrorCode.PRIZE_WIN_ERROR);
+        }
+        RSemaphore semaphore = redissonClient.getSemaphore(CacheConstant.LOTTERY_PRIZE_NUM + id);
+        if (!semaphore.tryAcquire()) {
+            log.error("中奖奖品数量释放异常，奖品数量不足 [{}]", id);
             throw new BusinessException(ErrorCode.PRIZE_WIN_ERROR);
         }
     }
@@ -113,7 +118,7 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
     }
 
     /**
-     * 设置奖品数量新号量
+     * 设置奖品数量总数量
      *
      * @param prize 奖品信息
      */

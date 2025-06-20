@@ -125,9 +125,9 @@ public class LotteryServiceImpl implements LotteryService {
         // 随便查询一个未中奖的配置
         LotteryConfig losingLottery = this.getLosingLottery(configList);
         // 抽奖过程
-        LotteryConfig config = this.doLottery(memberId, lottery, configList, losingLottery);
+        LotteryConfig config = this.startLottery(memberId, lottery, configList, losingLottery);
         // 发放奖品
-        boolean status = this.givePrize(memberId, lottery, config);
+        boolean status = this.attemptReward(memberId, lottery, config);
         if (!status) {
             // 如果发放奖品失败, 默认还是按未中奖
             config = losingLottery;
@@ -230,19 +230,19 @@ public class LotteryServiceImpl implements LotteryService {
     }
 
     /**
-     * 发放奖品
+     * 尝试发放奖品
      *
      * @param memberId 用户id
      * @param lottery  抽奖信息
      * @param config   中奖信息
+     * @return true: 发放成功 false: 发放失败
      */
-    private boolean givePrize(Long memberId, Lottery lottery, LotteryConfig config) {
+    private boolean attemptReward(Long memberId, Lottery lottery, LotteryConfig config) {
         try {
-            handlerList.stream().filter(prizeHandler -> prizeHandler.supported(config.getPrizeType())).findFirst().orElseThrow(() -> {
+            return handlerList.stream().filter(prizeHandler -> prizeHandler.supported(config.getPrizeType())).findFirst().orElseThrow(() -> {
                 log.error("本次中奖奖品没有配置 [{}] [{}]", lottery.getId(), config.getPrizeType());
                 return new BusinessException(ErrorCode.LOTTERY_PRIZE_ERROR);
             }).execute(memberId, lottery, config);
-            return true;
         } catch (Exception e) {
             log.error("发放奖品异常 [{}] [{}] ", memberId, config, e);
         }
@@ -257,7 +257,7 @@ public class LotteryServiceImpl implements LotteryService {
      * @param configList 配置信息
      * @return 中奖位置
      */
-    private LotteryConfig doLottery(Long memberId, Lottery lottery, List<LotteryConfig> configList, LotteryConfig losingLottery) {
+    private LotteryConfig startLottery(Long memberId, Lottery lottery, List<LotteryConfig> configList, LotteryConfig losingLottery) {
         long lotteryWin = lotteryLogService.countLotteryWin(lottery.getId(), memberId);
         // 已经超过中奖次数,默认不再中奖
         if (lottery.getWinNum() <= lotteryWin) {

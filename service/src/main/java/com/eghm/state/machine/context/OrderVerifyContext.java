@@ -36,7 +36,7 @@ public class OrderVerifyContext implements Context {
     private Long userId;
 
     @Schema(description = "实际核销人数")
-    @Assign
+    @Assign(Assign.Type.UP)
     private Integer verifyNum;
 
     @Schema(description = "商户id")

@@ -44,19 +44,20 @@ public class ScorePrizeHandler implements PrizeHandler {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
-    public void execute(Long memberId, Lottery lottery, LotteryConfig config) {
+    public boolean execute(Long memberId, Lottery lottery, LotteryConfig config) {
         log.info("抽中积分啦 [{}] [{}]", memberId, lottery);
         LotteryPrize prize = cacheProxyService.getPrizeById(config.getPrizeId());
         if (prize == null) {
             log.error("积分中奖奖品不存在 [{}]", config.getPrizeId());
             throw new BusinessException(ErrorCode.SCORE_PRIZE_NULL);
         }
-        lotteryPrizeService.accumulationLotteryNum(prize.getId());
+        lotteryPrizeService.decrement(prize.getId());
         ScoreAccountDTO dto = new ScoreAccountDTO();
         dto.setMerchantId(config.getMerchantId());
         dto.setAmount(prize.getNum());
         dto.setChargeType(ChargeType.DRAW);
         scoreAccountService.updateAccount(dto);
         memberService.updateScore(memberId, ScoreType.LOTTERY, prize.getNum());
+        return true;
     }
 }

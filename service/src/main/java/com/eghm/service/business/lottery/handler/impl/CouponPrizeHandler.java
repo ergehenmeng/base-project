@@ -35,14 +35,15 @@ public class CouponPrizeHandler implements PrizeHandler {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
-    public void execute(Long memberId, Lottery lottery, LotteryConfig config) {
+    public boolean execute(Long memberId, Lottery lottery, LotteryConfig config) {
         log.info("抽中优惠券啦, [{}] [{}]", memberId, lottery);
-        lotteryPrizeService.accumulationLotteryNum(config.getPrizeId());
+        lotteryPrizeService.decrement(config.getPrizeId());
         LotteryPrize prize = lotteryPrizeService.selectById(config.getPrizeId());
         GrantCouponDTO dto = new GrantCouponDTO();
         dto.setNum(1);
         dto.setCouponId(prize.getRelationId());
         dto.setMemberIds(Lists.newArrayList(memberId));
         memberCouponService.grantCoupon(dto);
+        return true;
     }
 }
