@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 @Data
 public class LotteryLogResponse {
 
+    @Schema(description = "头像")
+    private String avatar;
+
     @Schema(description = "昵称")
     private String nickName;
 
@@ -23,10 +26,7 @@ public class LotteryLogResponse {
     @Schema(description = "奖品名称")
     private String prizeTitle;
 
-    @Schema(description = "中奖数量")
-    private Integer winNum;
-
     @Schema(description = "中奖时间时间")
-    @JsonFormat(pattern = "MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 }

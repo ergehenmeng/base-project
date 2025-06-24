@@ -25,7 +25,6 @@
         s.nick_name,
         r.prize_name as prizeTitle,
         t.winning,
-        r.win_num,
         t.create_time
         from lottery_log t
         inner join lottery_prize r on t.prize_id = r.id
