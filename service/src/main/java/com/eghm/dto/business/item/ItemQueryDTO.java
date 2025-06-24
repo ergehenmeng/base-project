@@ -1,7 +1,7 @@
 package com.eghm.dto.business.item;
 
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.enums.DeliveryType;
+import com.eghm.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,8 +17,9 @@ public class ItemQueryDTO extends PagingQuery {
     @ApiModelProperty("店铺id")
     private Long storeId;
 
-    @ApiModelProperty(value = "交付方式 0:无须发货 1:快递包邮 2:门店自提")
-    private DeliveryType deliveryType;
+    @ApiModelProperty(value = "交付方式 1:快递 2:自提")
+    @OptionInt(value = {1, 2})
+    private Integer deliveryType;
 
     @ApiModelProperty("排序规则 0:默认排序 1:按价格排序 2:按销售量排序 3:好评率")
     private Integer sortBy;
