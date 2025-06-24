@@ -30,7 +30,12 @@ public enum PrizeType {
     /**
      * 积分
      */
-    SCORE(2, "积分");
+    SCORE(2, "积分"),
+
+    /**
+     * 商品
+     */
+    GOODS(3, "商品");
 
     @EnumValue
     @JsonValue

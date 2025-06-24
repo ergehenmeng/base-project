@@ -1629,6 +1629,7 @@ CREATE TABLE `lottery_log`
     `member_id`   bigint(20) DEFAULT NULL COMMENT '用户id',
     `location`    tinyint(1) DEFAULT NULL COMMENT '抽奖位置',
     `winning`     bit(1)     DEFAULT b'0' COMMENT '是否中奖 0:未中奖 1:中奖',
+    `issue`       bit(1)     DEFAULT b'0' COMMENT '是否发放奖励 0:未发放 1:已发放',
     `prize_id`    bigint(20) DEFAULT NULL COMMENT '中奖奖品id',
     `create_time` datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '抽奖时间',
     `update_time` datetime   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
