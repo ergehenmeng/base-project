@@ -23,6 +23,9 @@ public class LotteryLogResponse {
     @ApiModelProperty("是否中奖 false:未中奖 true:中奖")
     private Boolean winning;
 
+    @ApiModelProperty("是否发放奖励 0:未发放 1:已发放")
+    private Boolean issue;
+
     @ApiModelProperty("奖品名称")
     private String prizeTitle;
 

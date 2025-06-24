@@ -23,6 +23,7 @@
         select
         s.avatar,
         s.nick_name,
+        t.issue,
         r.prize_name as prizeTitle,
         t.winning,
         t.create_time
