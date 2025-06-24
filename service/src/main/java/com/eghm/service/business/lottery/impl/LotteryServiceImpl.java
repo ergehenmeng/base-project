@@ -266,7 +266,8 @@ public class LotteryServiceImpl implements LotteryService {
             return losingLottery;
         }
         int index = new SecureRandom().nextInt(LOTTERY_RATE);
-        return configList.stream().filter(config -> config.getStartRange() >= index && index < config.getEndRange()).findFirst().orElse(losingLottery);
+        log.info("会员[{}]开始抽奖 中奖信息:[{}] [{}]", memberId, lottery.getId(), index);
+        return configList.stream().filter(config -> config.getStartRange() <= index && index < config.getEndRange()).findFirst().orElse(losingLottery);
     }
 
     /**

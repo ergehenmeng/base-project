@@ -125,7 +125,11 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
     private void setSemaphore(LotteryPrize prize) {
         if (prize.getPrizeType() != PrizeType.NONE) {
             RSemaphore semaphore = redissonClient.getSemaphore(CacheConstant.LOTTERY_PRIZE_NUM + prize.getId());
-            semaphore.trySetPermits(prize.getTotalNum());
+            boolean setPermits = semaphore.trySetPermits(prize.getTotalNum());
+            if (!setPermits) {
+                log.error("奖品数量信号量设置失败 [{}]", prize.getId());
+                throw new BusinessException(ErrorCode.PRIZE_NUM_ERROR);
+            }
         }
     }
 

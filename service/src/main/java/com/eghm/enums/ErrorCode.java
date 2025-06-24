@@ -1796,6 +1796,11 @@ public enum ErrorCode {
     PRIZE_WIN_ERROR(3008, "中奖数量更新失败"),
 
     /**
+     * 奖品信息保存失败
+     */
+    PRIZE_NUM_ERROR(3009, "奖品信息保存失败"),
+
+    /**
      * 进行中抽奖活动无法直接删除
      */
     LOTTERY_NOT_DELETE(3012, "进行中抽奖活动无法直接删除"),

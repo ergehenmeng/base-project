@@ -4,12 +4,12 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-  "id": 1778298708872998914
+  "id": 1937436344885579777
 }
 
 
 ### 详情
-http://localhost:10010/webapp/lottery/detail?id=1777999724753305601
+http://localhost:10010/webapp/lottery/detail?id=1937416219457404929
 Channel: {{Channel}}
 Token: {{Token}}
 
