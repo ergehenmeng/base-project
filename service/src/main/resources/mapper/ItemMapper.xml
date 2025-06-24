@@ -138,7 +138,7 @@
             and t.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler} ,'%')
         </if>
         <if test="param.deliveryType != null">
-            and t.delivery_type = #{param.deliveryType}
+            and t.delivery_type &amp; #{param.deliveryType} = #{param.deliveryType}
         </if>
         <if test="param.sortBy != null">
             <choose>

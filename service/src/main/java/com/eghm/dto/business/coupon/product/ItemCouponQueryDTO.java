@@ -2,7 +2,7 @@ package com.eghm.dto.business.coupon.product;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.enums.DeliveryType;
+import com.eghm.validation.annotation.OptionInt;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -16,8 +16,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class ItemCouponQueryDTO extends PagingQuery {
 
-    @Schema(description = "交付方式 0:无须发货 1:快递 2:自提 3:快递+自提")
-    private DeliveryType deliveryType;
+    @Schema(description = "交付方式 1:快递 2:自提 ")
+    @OptionInt(value = {1, 2})
+    private Integer deliveryType;
 
     @Schema(description = "排序规则 0:默认排序 1:按价格排序 2:按销售量排序 3:评分排序")
     private Integer sortBy;
