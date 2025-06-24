@@ -93,7 +93,7 @@
             and t.tag_id like concat(#{param.tagId, typeHandler=LikeTypeHandler} ,'%')
         </if>
         <if test="param.deliveryType != null">
-            and t.delivery_type = #{param.deliveryType}
+            and t.delivery_type &amp; #{param.deliveryType}  = #{param.deliveryType}
         </if>
         <if test="param.storeId != null">
             and t.store_id = #{param.storeId}
@@ -110,7 +110,7 @@
                     order by t.score desc, t.recommend desc
                 </when>
                 <otherwise>
-                    order by t.recommend desc
+                    order by t.sort, t.recommend desc
                 </otherwise>
             </choose>
         </if>
@@ -152,7 +152,7 @@
                     order by t.score desc, t.recommend desc
                 </when>
                 <otherwise>
-                    order by t.recommend desc
+                    order by t.sort, t.recommend desc
                 </otherwise>
             </choose>
         </if>
