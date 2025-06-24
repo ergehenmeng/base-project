@@ -16,7 +16,7 @@ public class LotteryPrizeVO {
     @ApiModelProperty(value = "奖品名称")
     private String prizeName;
 
-    @ApiModelProperty(value = "中奖商品类型 0:谢谢参与 1:优惠券 2:积分")
+    @ApiModelProperty(value = "中奖商品类型 0:谢谢参与 1:优惠券 2:积分 3:商品")
     private PrizeType prizeType;
 
     @ApiModelProperty(value = "奖品图片")
