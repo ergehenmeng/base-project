@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.lottery.*;
+import com.eghm.dto.ext.ThreadHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.LotteryState;
 import com.eghm.enums.PrizeType;
@@ -138,6 +139,7 @@ public class LotteryServiceImpl implements LotteryService {
         lotteryLog.setLocation(config.getLocation());
         lotteryLog.setPrizeId(config.getPrizeId());
         lotteryLog.setWinning(config.getPrizeType() != PrizeType.NONE);
+        lotteryLog.setIssue(ThreadHolder.getLottery());
         lotteryLogService.insert(lotteryLog);
         LotteryResultVO vo = new LotteryResultVO();
         vo.setLocation(config.getLocation());

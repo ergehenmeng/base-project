@@ -739,7 +739,7 @@ CREATE TABLE `homestay`
     `create_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`        bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-    `tag`            varchar(50)   DEFAULT NULL COMMENT '标签',
+    `tag`            varchar(50)    DEFAULT NULL COMMENT '标签',
     `merchant_id`    bigint(20)     DEFAULT NULL COMMENT '民宿所属商家',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
@@ -927,7 +927,7 @@ CREATE TABLE `scenic`
     `level`          tinyint(1)     DEFAULT NULL COMMENT '景区等级 5:5A 4:4A 3:3A 0:其他',
     `open_time`      varchar(100)   DEFAULT NULL COMMENT '景区营业时间',
     `phone`          varchar(20)    DEFAULT NULL COMMENT '景区电话',
-    `tag`            varchar(50)   DEFAULT NULL COMMENT '景区标签,逗号分隔',
+    `tag`            varchar(50)    DEFAULT NULL COMMENT '景区标签,逗号分隔',
     `merchant_id`    bigint(20)     DEFAULT NULL COMMENT '景区所属商家(为空则表示系统自营)',
     `state`          tinyint(1)     DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:平台下架',
     `sort`           smallint(3)    DEFAULT '1' COMMENT '景区排序(小<->大)',
@@ -1626,6 +1626,7 @@ CREATE TABLE `lottery_log`
     `member_id`   bigint(20) DEFAULT NULL COMMENT '用户id',
     `location`    tinyint(1) DEFAULT NULL COMMENT '抽奖位置',
     `winning`     bit(1)     DEFAULT b'0' COMMENT '是否中奖 0:未中奖 1:中奖',
+    `issue`       bit(1)     DEFAULT b'0' COMMENT '是否发放奖励 0:未发放 1:已发放',
     `prize_id`    bigint(20) DEFAULT NULL COMMENT '中奖奖品id',
     `create_time` datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '抽奖时间',
     `update_time` datetime   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
