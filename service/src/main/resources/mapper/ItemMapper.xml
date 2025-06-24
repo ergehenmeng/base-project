@@ -110,7 +110,7 @@
                     order by t.score desc, t.recommend desc
                 </when>
                 <otherwise>
-                    order by t.recommend desc
+                    order by t.sort, t.recommend desc
                 </otherwise>
             </choose>
         </if>
@@ -152,7 +152,7 @@
                     order by t.score desc, t.recommend desc
                 </when>
                 <otherwise>
-                    order by t.recommend desc
+                    order by t.sort, t.recommend desc
                 </otherwise>
             </choose>
         </if>
