@@ -32,18 +32,8 @@ public class VenueAccessHandler extends AbstractAccessHandler {
     }
 
     @Override
-    public void payFail(PayNotifyContext context) {
-        stateHandler.fireEvent(ProductType.VENUE, context.getFrom(), VenueEvent.PAY_FAIL, context);
-    }
-
-    @Override
     public void refundSuccess(RefundNotifyContext context) {
         stateHandler.fireEvent(ProductType.VENUE, context.getFrom(), VenueEvent.REFUND_SUCCESS, context);
-    }
-
-    @Override
-    public void refundFail(RefundNotifyContext context) {
-        stateHandler.fireEvent(ProductType.VENUE, context.getFrom(), VenueEvent.REFUND_FAIL, context);
     }
 
     @Override

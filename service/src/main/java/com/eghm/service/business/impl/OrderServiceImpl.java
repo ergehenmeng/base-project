@@ -523,7 +523,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         ItemOrderRefundVO refund = itemOrderService.getRefund(orderId, memberId);
         AssertUtil.assertOrderNotNull(refund, orderId, memberId);
         Order order = this.getByOrderNo(refund.getOrderNo());
-        if (order.getState() == OrderState.UN_PAY || order.getState() == OrderState.CLOSE || order.getState() == OrderState.PROGRESS || order.getState() == OrderState.PAY_ERROR) {
+        if (order.getState() == OrderState.UN_PAY || order.getState() == OrderState.CLOSE || order.getState() == OrderState.PROGRESS) {
             log.error("订单未支付,不支持退款 [{}] [{}]", order.getOrderNo(), order.getState());
             throw new BusinessException(ErrorCode.ORDER_NOT_PAY);
         }

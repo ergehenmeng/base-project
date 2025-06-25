@@ -27,9 +27,9 @@ public class LineAccessHandler extends AbstractAccessHandler {
     @Override
     public void refundAudit(RefundAuditContext context) {
         if (context.getState() == 1) {
-            stateHandler.fireEvent(ProductType.LINE, OrderState.REFUND.getValue(), LineEvent.REFUND_PASS, context);
+            stateHandler.fireEvent(ProductType.LINE, OrderState.UN_USED.getValue(), LineEvent.REFUND_PASS, context);
         } else {
-            stateHandler.fireEvent(ProductType.LINE, OrderState.REFUND.getValue(), LineEvent.REFUND_REFUSE, context);
+            stateHandler.fireEvent(ProductType.LINE, OrderState.UN_USED.getValue(), LineEvent.REFUND_REFUSE, context);
         }
     }
 
@@ -44,18 +44,8 @@ public class LineAccessHandler extends AbstractAccessHandler {
     }
 
     @Override
-    public void payFail(PayNotifyContext context) {
-        stateHandler.fireEvent(ProductType.LINE, context.getFrom(), LineEvent.PAY_FAIL, context);
-    }
-
-    @Override
     public void refundSuccess(RefundNotifyContext context) {
         stateHandler.fireEvent(ProductType.LINE, context.getFrom(), LineEvent.REFUND_SUCCESS, context);
-    }
-
-    @Override
-    public void refundFail(RefundNotifyContext context) {
-        stateHandler.fireEvent(ProductType.LINE, context.getFrom(), LineEvent.REFUND_FAIL, context);
     }
 
     @Override

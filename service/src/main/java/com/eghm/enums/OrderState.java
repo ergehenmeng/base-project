@@ -58,7 +58,7 @@ public enum OrderState {
     /**
      * 退款中
      */
-    REFUND(6, "退款中"),
+    WAITING_GROUP(6, "待成团"),
 
     /**
      * 订单完成(已收货或已核销或已入住) 注意: 针对核销类商品直接由待使用变成已完成
@@ -68,22 +68,7 @@ public enum OrderState {
     /**
      * 已关闭
      */
-    CLOSE(8, "已关闭"),
-
-    /**
-     * 支付异常
-     */
-    PAY_ERROR(9, "支付异常"),
-
-    /**
-     * 退款异常
-     */
-    REFUND_ERROR(10, "退款异常"),
-
-    /**
-     * 待成团
-     */
-    WAITING_GROUP(11, "待成团");
+    CLOSE(8, "已关闭");
 
     /**
      * 状态

@@ -129,7 +129,7 @@ public class PayNotifyController {
         RefundNotifyContext context = new RefundNotifyContext();
         context.setTradeNo(tradeNo);
         context.setRefundNo(refundNo);
-        context.setFrom(OrderState.REFUND.getValue());
+        context.setFrom(OrderState.UN_USED.getValue());
         RefundVO result = new RefundVO();
         result.setState(RefundStatus.REFUND_SUCCESS);
         result.setPayChannel(PayChannel.WECHAT);

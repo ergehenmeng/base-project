@@ -27,9 +27,9 @@ public class HomestayAccessHandler extends AbstractAccessHandler {
     @Override
     public void refundAudit(RefundAuditContext context) {
         if (context.getState() == 1) {
-            stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.REFUND.getValue(), HomestayEvent.REFUND_PASS, context);
+            stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.UN_USED.getValue(), HomestayEvent.REFUND_PASS, context);
         } else {
-            stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.REFUND.getValue(), HomestayEvent.REFUND_REFUSE, context);
+            stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.UN_USED.getValue(), HomestayEvent.REFUND_REFUSE, context);
         }
     }
 

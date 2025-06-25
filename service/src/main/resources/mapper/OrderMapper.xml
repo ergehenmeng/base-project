@@ -85,7 +85,7 @@
         </choose>
         count(id) as orderNum,
         sum(pay_amount) as payAmount
-        from `order` where deleted = false and state in (1, 2, 3, 4, 5, 6, 7)
+        from `order` where deleted = false and state in (1, 2, 3, 4, 5, 7)
         and create_time &gt;= #{startDate} and create_date &lt; #{endDate}
         <if test="merchantId != null">
             and merchant_id = #{merchantId}
@@ -137,16 +137,16 @@
     </update>
 
     <select id="getOrderMember" resultType="java.lang.Long">
-        select distinct member_id from `order` where deleted = false and create_date &gt;= #{orderTime} and state not in (-1, 0, 8, 9, 10, 11)
+        select distinct member_id from `order` where deleted = false and create_date &gt;= #{orderTime} and state not in (-1, 0, 6, 8)
     </select>
 
     <select id="getOrderNum" resultType="java.lang.Long">
-        select member_id from `order` where deleted = false and create_date &gt;= #{orderTime} and state not in (-1, 0, 8, 9, 10, 11)
+        select member_id from `order` where deleted = false and create_date &gt;= #{orderTime} and state not in (-1, 0, 6, 8)
         group by member_id having count(1) &gt;= #{consumeNum}
     </select>
 
     <select id="getOrderAmount" resultType="java.lang.Long">
-        select member_id from `order` where deleted = false and create_date &gt;= #{orderTime} and state not in (-1, 0, 8, 9, 10, 11)
+        select member_id from `order` where deleted = false and create_date &gt;= #{orderTime} and state not in (-1, 0, 6, 8)
         group by member_id having sum(pay_amount) &gt;= #{consumeAmount}
     </select>
 
@@ -158,7 +158,7 @@
     </select>
 
     <select id="refunding" resultType="integer">
-        select count(1) from `order` where deleted = false and state = 7
+        select count(1) from `order` where deleted = false and refund_state in (1, 2)
         <if test="merchantId != null">
             and merchant_id = #{merchantId}
         </if>
@@ -176,7 +176,7 @@
     </select>
 
     <update id="updateBookingSuccess" >
-        update `order` set booking_state = 1, state = if(delivery_type = 1, 4, 3) where booking_state = 0 and state = 11 and booking_no = #{bookingNo}
+        update `order` set booking_state = 1, state = if(delivery_type = 1, 4, 3) where booking_state = 0 and state = 6 and booking_no = #{bookingNo}
     </update>
 
 </mapper>

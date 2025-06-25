@@ -34,7 +34,7 @@ public enum ItemEvent implements IEvent {
     /**
      * 退款申请
      */
-    REFUND_APPLY(Lists.newArrayList(OrderState.WAIT_TAKE.getValue(), OrderState.WAIT_DELIVERY.getValue(), OrderState.WAIT_RECEIVE.getValue()), OrderState.NONE.getValue()),
+    REFUND_APPLY(Lists.newArrayList(OrderState.WAIT_TAKE.getValue(), OrderState.UN_USED.getValue(), OrderState.WAIT_DELIVERY.getValue(), OrderState.WAIT_RECEIVE.getValue()), OrderState.NONE.getValue()),
 
     /**
      * 核销
@@ -54,17 +54,17 @@ public enum ItemEvent implements IEvent {
     /**
      * 退款成功
      */
-    REFUND_SUCCESS(Lists.newArrayList(OrderState.WAIT_TAKE.getValue(), OrderState.WAIT_DELIVERY.getValue(), OrderState.WAIT_RECEIVE.getValue()), OrderState.CLOSE.getValue()),
+    REFUND_SUCCESS(Lists.newArrayList(OrderState.WAIT_TAKE.getValue(), OrderState.UN_USED.getValue(), OrderState.WAIT_DELIVERY.getValue(), OrderState.WAIT_RECEIVE.getValue()), OrderState.CLOSE.getValue()),
 
     /**
      * 退款审核通过
      */
-    REFUND_PASS(Lists.newArrayList(OrderState.WAIT_TAKE.getValue(), OrderState.WAIT_DELIVERY.getValue(), OrderState.WAIT_RECEIVE.getValue()), OrderState.CLOSE.getValue()),
+    REFUND_PASS(Lists.newArrayList(OrderState.WAIT_TAKE.getValue(), OrderState.UN_USED.getValue(), OrderState.WAIT_DELIVERY.getValue(), OrderState.WAIT_RECEIVE.getValue()), OrderState.CLOSE.getValue()),
 
     /**
      * 退款审核拒绝
      */
-    REFUND_REFUSE(Lists.newArrayList(OrderState.WAIT_TAKE.getValue(), OrderState.WAIT_DELIVERY.getValue(), OrderState.WAIT_RECEIVE.getValue()), OrderState.CLOSE.getValue()),
+    REFUND_REFUSE(Lists.newArrayList(OrderState.WAIT_TAKE.getValue(), OrderState.UN_USED.getValue(), OrderState.WAIT_DELIVERY.getValue(), OrderState.WAIT_RECEIVE.getValue()), OrderState.CLOSE.getValue()),
 
     /**
      * 平台退款

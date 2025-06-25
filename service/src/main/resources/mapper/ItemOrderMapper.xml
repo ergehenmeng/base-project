@@ -89,13 +89,13 @@
                     and r.state in (0, 1)
                 </when>
                 <when test="param.tabState == @com.eghm.enums.TabState@WAIT_DELIVERY">
-                    and r.state in (2, 3, 4, 5, 6, 7)
+                    and r.state in (2, 3, 4, 5)
                 </when>
                 <when test="param.tabState == @com.eghm.enums.TabState@WAIT_EVALUATE">
-                    and r.state = 8 and r.evaluate_state = false
+                    and r.state = 7 and r.evaluate_state = false
                 </when>
                 <otherwise>
-                    and r.state = 8
+                    and r.refund_state &lt;&gt; 0
                 </otherwise>
             </choose>
         </if>

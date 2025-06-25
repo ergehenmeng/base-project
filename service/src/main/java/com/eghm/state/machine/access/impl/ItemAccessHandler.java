@@ -27,9 +27,9 @@ public class ItemAccessHandler extends AbstractAccessHandler {
     @Override
     public void refundAudit(RefundAuditContext context) {
         if (context.getState() == 1) {
-            stateHandler.fireEvent(ProductType.ITEM, OrderState.REFUND.getValue(), ItemEvent.REFUND_PASS, context);
+            stateHandler.fireEvent(ProductType.ITEM, OrderState.WAIT_DELIVERY.getValue(), ItemEvent.REFUND_PASS, context);
         } else {
-            stateHandler.fireEvent(ProductType.ITEM, OrderState.REFUND.getValue(), ItemEvent.REFUND_REFUSE, context);
+            stateHandler.fireEvent(ProductType.ITEM, OrderState.WAIT_DELIVERY.getValue(), ItemEvent.REFUND_REFUSE, context);
         }
     }
 

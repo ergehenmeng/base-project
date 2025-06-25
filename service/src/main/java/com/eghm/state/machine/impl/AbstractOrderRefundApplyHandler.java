@@ -103,7 +103,7 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
             }
             RefundNotifyContext context = new RefundNotifyContext();
             context.setTradeNo(order.getTradeNo());
-            context.setFrom(OrderState.REFUND.getValue());
+            context.setFrom(OrderState.UN_USED.getValue());
             context.setRefundNo(refundLog.getRefundNo());
             RefundVO result = new RefundVO();
             result.setState(RefundStatus.REFUND_SUCCESS);
