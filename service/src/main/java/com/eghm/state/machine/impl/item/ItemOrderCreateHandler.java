@@ -189,6 +189,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         order.setCreateDate(LocalDate.now());
         order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
+        order.setDeliveryType(context.getDeliveryType());
         if (context.getDeliveryType() == DeliveryType.EXPRESS) {
             Map<Long, Integer> skuExpressMap = this.calcExpressFee(aPackage);
             aPackage.setSkuExpressMap(skuExpressMap);
