@@ -32,6 +32,9 @@ public class LotteryLogResponse {
     @ApiModelProperty("奖品名称")
     private String prizeTitle;
 
+    @ApiModelProperty("备注信息")
+    private String remark;
+
     @ApiModelProperty("中奖时间时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;

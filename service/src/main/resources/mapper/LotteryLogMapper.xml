@@ -25,6 +25,7 @@
         s.avatar,
         s.nick_name,
         t.issue,
+        t.remark,
         r.prize_name as prizeTitle,
         t.winning,
         t.create_time
