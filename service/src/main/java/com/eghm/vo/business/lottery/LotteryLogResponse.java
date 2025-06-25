@@ -32,6 +32,9 @@ public class LotteryLogResponse {
     @Schema(description = "奖品名称")
     private String prizeTitle;
 
+    @Schema(description = "备注信息")
+    private String remark;
+
     @Schema(description = "中奖时间时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
