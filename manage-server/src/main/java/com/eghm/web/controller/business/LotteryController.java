@@ -3,10 +3,7 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
-import com.eghm.dto.business.lottery.LotteryAddRequest;
-import com.eghm.dto.business.lottery.LotteryEditRequest;
-import com.eghm.dto.business.lottery.LotteryLotQueryRequest;
-import com.eghm.dto.business.lottery.LotteryQueryRequest;
+import com.eghm.dto.business.lottery.*;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.lottery.LotteryLogService;
@@ -80,5 +77,12 @@ public class LotteryController {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<LotteryLogResponse> byPage = lotteryLogService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
+    }
+
+    @PostMapping("/grant")
+    @Operation(summary = "发放奖励")
+    public RespBody<Void> grant(@Validated @RequestBody LotteryGrantRequest request) {
+        lotteryService.grant(request.getId(), request.getRemark());
+        return RespBody.success();
     }
 }

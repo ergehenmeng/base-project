@@ -33,6 +33,9 @@ public class LotteryLog extends BaseEntity {
     @Schema(description = "是否发放奖励 0:未发放 1:已发放")
     private Boolean issue;
 
+    @Schema(description = "备注信息")
+    private String remark;
+
     @Schema(description = "中奖奖品")
     private Long prizeId;
 }

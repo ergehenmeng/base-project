@@ -67,4 +67,20 @@ public interface LotteryLogService {
      * @return 中奖次数
      */
     long countLotteryWin(Long lotteryId, Long memberId);
+
+    /**
+     * 查询抽奖记录
+     *
+     * @param id id
+     * @return 抽奖记录
+     */
+    LotteryLog selectById(Long id);
+
+    /**
+     * 发放奖励
+     *
+     * @param id id
+     * @param remark 备注信息
+     */
+    void grant(Long id, String remark);
 }

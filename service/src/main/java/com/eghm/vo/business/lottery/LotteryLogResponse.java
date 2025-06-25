@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 @Data
 public class LotteryLogResponse {
 
+    @Schema(description = "id")
+    private Long id;
+
     @Schema(description = "头像")
     private String avatar;
 
@@ -22,6 +25,9 @@ public class LotteryLogResponse {
 
     @Schema(description = "是否中奖 false:未中奖 true:中奖")
     private Boolean winning;
+
+    @Schema(description = "是否发放奖励 0:未发放 1:已发放")
+    private Boolean issue;
 
     @Schema(description = "奖品名称")
     private String prizeTitle;

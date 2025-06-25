@@ -88,4 +88,12 @@ public interface LotteryService {
      * @return 抽奖ID
      */
     List<Long> getEndIds();
+
+    /**
+     * 发放奖励
+     *
+     * @param id id
+     * @param remark 备注信息
+     */
+    void grant(Long id, String remark);
 }
