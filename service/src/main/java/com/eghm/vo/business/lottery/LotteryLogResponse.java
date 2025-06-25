@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 @Data
 public class LotteryLogResponse {
 
+    @ApiModelProperty("id")
+    private Long id;
+
     @ApiModelProperty("头像")
     private String avatar;
 

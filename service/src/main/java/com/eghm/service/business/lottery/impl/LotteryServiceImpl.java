@@ -17,6 +17,7 @@ import com.eghm.model.Lottery;
 import com.eghm.model.LotteryConfig;
 import com.eghm.model.LotteryLog;
 import com.eghm.model.LotteryPrize;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.lottery.LotteryConfigService;
 import com.eghm.service.business.lottery.LotteryLogService;
 import com.eghm.service.business.lottery.LotteryPrizeService;
@@ -51,6 +52,8 @@ import java.util.stream.Collectors;
 public class LotteryServiceImpl implements LotteryService {
 
     private final LotteryMapper lotteryMapper;
+
+    private final CommonService commonService;
 
     private final List<PrizeHandler> handlerList;
 
@@ -204,6 +207,14 @@ public class LotteryServiceImpl implements LotteryService {
         wrapper.lt(Lottery::getEndTime, LocalDateTime.now());
         List<Lottery> selectedList = lotteryMapper.selectList(wrapper);
         return selectedList.stream().map(Lottery::getId).collect(Collectors.toList());
+    }
+
+    @Override
+    public void grant(Long id, String remark) {
+        LotteryLog lotteryLog = lotteryLogService.selectById(id);
+        Lottery lottery = this.selectByIdRequired(lotteryLog.getLotteryId());
+        commonService.checkIllegal(lottery.getMerchantId());
+        lotteryLogService.grant(id, remark);
     }
 
     /**

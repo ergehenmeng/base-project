@@ -35,4 +35,7 @@ public class LotteryLog extends BaseEntity {
 
     @ApiModelProperty("中奖奖品")
     private Long prizeId;
+
+    @ApiModelProperty("备注信息")
+    private String remark;
 }

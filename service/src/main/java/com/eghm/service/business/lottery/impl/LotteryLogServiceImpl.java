@@ -1,6 +1,7 @@
 package com.eghm.service.business.lottery.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.lottery.LotteryLotQueryRequest;
@@ -70,5 +71,20 @@ public class LotteryLogServiceImpl implements LotteryLogService {
         wrapper.eq(LotteryLog::getWinning, true);
         Long aLong = lotteryLogMapper.selectCount(wrapper);
         return aLong == null ? 0L : aLong;
+    }
+
+    @Override
+    public LotteryLog selectById(Long id) {
+        return lotteryLogMapper.selectById(id);
+    }
+
+    @Override
+    public void grant(Long id, String remark) {
+        LambdaUpdateWrapper<LotteryLog> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(LotteryLog::getId, id);
+        wrapper.eq(LotteryLog::getIssue, false);
+        wrapper.set(LotteryLog::getIssue, true);
+        wrapper.set(LotteryLog::getRemark, remark);
+        lotteryLogMapper.update(null, wrapper);
     }
 }

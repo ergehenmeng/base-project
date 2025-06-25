@@ -21,6 +21,7 @@
 
     <select id="getByPage" resultType="com.eghm.vo.business.lottery.LotteryLogResponse" parameterType="com.eghm.dto.business.lottery.LotteryLotQueryRequest">
         select
+        t.id,
         s.avatar,
         s.nick_name,
         t.issue,
