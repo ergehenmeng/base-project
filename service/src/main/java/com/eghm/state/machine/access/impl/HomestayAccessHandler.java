@@ -39,18 +39,8 @@ public class HomestayAccessHandler extends AbstractAccessHandler {
     }
 
     @Override
-    public void payFail(PayNotifyContext context) {
-        stateHandler.fireEvent(ProductType.HOMESTAY, context.getFrom(), HomestayEvent.PAY_FAIL, context);
-    }
-
-    @Override
     public void refundSuccess(RefundNotifyContext context) {
         stateHandler.fireEvent(ProductType.HOMESTAY, context.getFrom(), HomestayEvent.REFUND_SUCCESS, context);
-    }
-
-    @Override
-    public void refundFail(RefundNotifyContext context) {
-        stateHandler.fireEvent(ProductType.HOMESTAY, context.getFrom(), HomestayEvent.REFUND_FAIL, context);
     }
 
     @Override
