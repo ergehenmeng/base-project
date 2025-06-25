@@ -7,7 +7,7 @@ Token: {{Token}}
   "ticketId": 1889934475715518465,
   "mobile": "13136113294",
   "num": 1,
-  "visitDate": "2025-05-29",
+  "visitDate": "2025-06-29",
   "remark": "少点套路",
   "visitorList": [{
     "idCard": "620622196011141794",
@@ -25,7 +25,7 @@ Token: {{Token}}
 {
   "addressId": 1935277482725457921,
   "deliveryType": 1,
-  "groupBooking": true,
+  "groupBooking": false,
   "bookingNo": "EB9z1vINTVb",
   "itemList": [{
     "storeId": 1818206459138408449,

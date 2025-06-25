@@ -187,6 +187,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         order.setBookingNo(context.getBookingNo());
         order.setBookingState(BookingState.WAITING);
         order.setCreateDate(LocalDate.now());
+        order.setDeliveryType(context.getDeliveryType());
         order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
         if (context.getDeliveryType() == DeliveryType.EXPRESS) {
