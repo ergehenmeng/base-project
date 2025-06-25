@@ -18,7 +18,7 @@ public class OrderVisitorVerifiableVO {
     @ApiModelProperty("订单编号")
     private String orderNo;
 
-    @ApiModelProperty(value = "订单状态 0:待支付 1:支付中 2:待使用 3:待自提 4:待发货 5:待收货 6:退款中 7:订单完成 8:已关闭 9:支付异常 10:退款异常 11:待成团")
+    @ApiModelProperty(value = "订单状态 0:待支付 1:支付中 2:待使用 3:待自提 4:待发货 5:待收货 6:待成团 7:订单完成 8:已关闭")
     private OrderState state;
 
     @ApiModelProperty("核销码")

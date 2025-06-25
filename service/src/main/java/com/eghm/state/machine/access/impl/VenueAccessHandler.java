@@ -5,7 +5,7 @@ import com.eghm.enums.OrderState;
 import com.eghm.enums.ProductType;
 import com.eghm.enums.event.impl.VenueEvent;
 import com.eghm.exception.BusinessException;
-import com.eghm.pay.AggregatePayService;
+import com.eghm.pay.service.AggregatePayService;
 import com.eghm.service.business.OrderService;
 import com.eghm.state.machine.StateHandler;
 import com.eghm.state.machine.access.AbstractAccessHandler;
@@ -32,18 +32,8 @@ public class VenueAccessHandler extends AbstractAccessHandler {
     }
 
     @Override
-    public void payFail(PayNotifyContext context) {
-        stateHandler.fireEvent(ProductType.VENUE, context.getFrom(), VenueEvent.PAY_FAIL, context);
-    }
-
-    @Override
     public void refundSuccess(RefundNotifyContext context) {
         stateHandler.fireEvent(ProductType.VENUE, context.getFrom(), VenueEvent.REFUND_SUCCESS, context);
-    }
-
-    @Override
-    public void refundFail(RefundNotifyContext context) {
-        stateHandler.fireEvent(ProductType.VENUE, context.getFrom(), VenueEvent.REFUND_FAIL, context);
     }
 
     @Override

@@ -28,12 +28,12 @@ import com.eghm.mapper.OrderMapper;
 import com.eghm.mapper.TicketOrderCombineMapper;
 import com.eghm.model.*;
 import com.eghm.mq.service.MessageService;
-import com.eghm.pay.AggregatePayService;
 import com.eghm.pay.dto.PrepayDTO;
 import com.eghm.pay.dto.RefundDTO;
 import com.eghm.pay.enums.PayChannel;
 import com.eghm.pay.enums.TradeState;
 import com.eghm.pay.enums.TradeType;
+import com.eghm.pay.service.AggregatePayService;
 import com.eghm.pay.vo.PayOrderVO;
 import com.eghm.pay.vo.PrepayVO;
 import com.eghm.service.business.*;
@@ -526,7 +526,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         ItemOrderRefundVO refund = itemOrderService.getRefund(orderId, memberId);
         AssertUtil.assertOrderNotNull(refund, orderId, memberId);
         Order order = this.getByOrderNo(refund.getOrderNo());
-        if (order.getState() == OrderState.UN_PAY || order.getState() == OrderState.CLOSE || order.getState() == OrderState.PROGRESS || order.getState() == OrderState.PAY_ERROR) {
+        if (order.getState() == OrderState.UN_PAY || order.getState() == OrderState.CLOSE || order.getState() == OrderState.PROGRESS) {
             log.error("订单未支付,不支持退款 [{}] [{}]", order.getOrderNo(), order.getState());
             throw new BusinessException(ErrorCode.ORDER_NOT_PAY);
         }

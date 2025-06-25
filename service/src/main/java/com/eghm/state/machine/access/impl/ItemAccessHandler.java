@@ -3,7 +3,7 @@ package com.eghm.state.machine.access.impl;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.ProductType;
 import com.eghm.enums.event.impl.ItemEvent;
-import com.eghm.pay.AggregatePayService;
+import com.eghm.pay.service.AggregatePayService;
 import com.eghm.service.business.OrderService;
 import com.eghm.state.machine.StateHandler;
 import com.eghm.state.machine.access.AbstractAccessHandler;
@@ -27,9 +27,9 @@ public class ItemAccessHandler extends AbstractAccessHandler {
     @Override
     public void refundAudit(RefundAuditContext context) {
         if (context.getState() == 1) {
-            stateHandler.fireEvent(ProductType.ITEM, OrderState.REFUND.getValue(), ItemEvent.REFUND_PASS, context);
+            stateHandler.fireEvent(ProductType.ITEM, OrderState.WAIT_DELIVERY.getValue(), ItemEvent.REFUND_PASS, context);
         } else {
-            stateHandler.fireEvent(ProductType.ITEM, OrderState.REFUND.getValue(), ItemEvent.REFUND_REFUSE, context);
+            stateHandler.fireEvent(ProductType.ITEM, OrderState.WAIT_DELIVERY.getValue(), ItemEvent.REFUND_REFUSE, context);
         }
     }
 
@@ -44,18 +44,8 @@ public class ItemAccessHandler extends AbstractAccessHandler {
     }
 
     @Override
-    public void payFail(PayNotifyContext context) {
-        stateHandler.fireEvent(ProductType.ITEM, context.getFrom(), ItemEvent.PAY_FAIL, context);
-    }
-
-    @Override
     public void refundSuccess(RefundNotifyContext context) {
         stateHandler.fireEvent(ProductType.ITEM, context.getFrom(), ItemEvent.REFUND_SUCCESS, context);
-    }
-
-    @Override
-    public void refundFail(RefundNotifyContext context) {
-        stateHandler.fireEvent(ProductType.ITEM, context.getFrom(), ItemEvent.REFUND_FAIL, context);
     }
 
     @Override

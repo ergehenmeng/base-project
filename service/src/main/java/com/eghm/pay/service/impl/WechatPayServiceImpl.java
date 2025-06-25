@@ -1,4 +1,4 @@
-package com.eghm.pay.impl;
+package com.eghm.pay.service.impl;
 
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constants.CommonConstant;
@@ -6,10 +6,10 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.WeChatPayException;
-import com.eghm.pay.PayService;
 import com.eghm.pay.dto.PrepayDTO;
 import com.eghm.pay.dto.RefundDTO;
 import com.eghm.pay.enums.*;
+import com.eghm.pay.service.PayService;
 import com.eghm.pay.vo.PayOrderVO;
 import com.eghm.pay.vo.PrepayVO;
 import com.eghm.pay.vo.RefundVO;
@@ -68,27 +68,7 @@ public class WechatPayServiceImpl implements PayService {
     @Override
     public PrepayVO createPrepay(PrepayDTO dto) {
         TradeTypeEnum transferType = transferType(dto.getTradeType());
-        WxPayUnifiedOrderV3Request request = new WxPayUnifiedOrderV3Request();
-        WxPayUnifiedOrderV3Request.Amount amount = new WxPayUnifiedOrderV3Request.Amount();
-        amount.setTotal(dto.getAmount());
-        request.setAmount(amount);
-        request.setAttach(dto.getAttach());
-        request.setDescription(dto.getDescription());
-        request.setNotifyUrl(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.WECHAT_PAY_NOTIFY_URL);
-        request.setOutTradeNo(dto.getTradeNo());
-        WxPayUnifiedOrderV3Request.Payer payer = new WxPayUnifiedOrderV3Request.Payer();
-        payer.setOpenid(dto.getBuyerId());
-        request.setPayer(payer);
-        // H5支付额外包含一些东西, 同时不需要付款人信息
-        if (transferType == TradeTypeEnum.H5) {
-            WxPayUnifiedOrderV3Request.SceneInfo sceneInfo = new WxPayUnifiedOrderV3Request.SceneInfo();
-            sceneInfo.setPayerClientIp(dto.getClientIp());
-            WxPayUnifiedOrderV3Request.H5Info h5Info = new WxPayUnifiedOrderV3Request.H5Info();
-            h5Info.setType("Wap");
-            sceneInfo.setH5Info(h5Info);
-            request.setSceneInfo(sceneInfo);
-            request.setPayer(null);
-        }
+        WxPayUnifiedOrderV3Request request = this.getWxPayUnifiedOrderV3Request(dto, transferType);
         WxPayUnifiedOrderV3Result result;
         try {
             result = wxPayService.unifiedOrderV3(transferType, request);
@@ -130,7 +110,7 @@ public class WechatPayServiceImpl implements PayService {
 
     @Override
     public RefundVO applyRefund(RefundDTO dto) {
-        WxPayRefundV3Request request = this.getWxPayRefundV3Request(dto);
+        WxPayRefundV3Request request = getWxPayRefundV3Request(dto);
         WxPayRefundV3Result result;
         try {
             result = wxPayService.refundV3(request);
@@ -180,6 +160,38 @@ public class WechatPayServiceImpl implements PayService {
     }
 
     /**
+     * 获取微信支付统一下单请求参数
+     *
+     * @param dto 原始请求参数
+     * @param transferType 微信支付方式
+     * @return 最终请求参数
+     */
+    private WxPayUnifiedOrderV3Request getWxPayUnifiedOrderV3Request(PrepayDTO dto, TradeTypeEnum transferType) {
+        WxPayUnifiedOrderV3Request request = new WxPayUnifiedOrderV3Request();
+        WxPayUnifiedOrderV3Request.Amount amount = new WxPayUnifiedOrderV3Request.Amount();
+        amount.setTotal(dto.getAmount());
+        request.setAmount(amount);
+        request.setAttach(dto.getAttach());
+        request.setDescription(dto.getDescription());
+        request.setNotifyUrl(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.WECHAT_PAY_NOTIFY_URL);
+        request.setOutTradeNo(dto.getTradeNo());
+        WxPayUnifiedOrderV3Request.Payer payer = new WxPayUnifiedOrderV3Request.Payer();
+        payer.setOpenid(dto.getBuyerId());
+        request.setPayer(payer);
+        // H5支付额外包含一些东西, 同时不需要付款人信息
+        if (transferType == TradeTypeEnum.H5) {
+            WxPayUnifiedOrderV3Request.SceneInfo sceneInfo = new WxPayUnifiedOrderV3Request.SceneInfo();
+            sceneInfo.setPayerClientIp(dto.getClientIp());
+            WxPayUnifiedOrderV3Request.H5Info h5Info = new WxPayUnifiedOrderV3Request.H5Info();
+            h5Info.setType("Wap");
+            sceneInfo.setH5Info(h5Info);
+            request.setSceneInfo(sceneInfo);
+            request.setPayer(null);
+        }
+        return request;
+    }
+
+     /**
      * 组装退款请求参数
      *
      * @param dto 退款信息

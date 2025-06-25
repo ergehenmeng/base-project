@@ -24,12 +24,12 @@ public enum VenueEvent implements IEvent {
     /**
      * 支付成功
      */
-    PAY_SUCCESS(Lists.newArrayList(OrderState.UN_PAY.getValue(), OrderState.PROGRESS.getValue()), OrderState.UN_USED.getValue()),
+    PAY_SUCCESS(Lists.newArrayList(OrderState.UN_PAY.getValue(), OrderState.CLOSE.getValue()), OrderState.UN_USED.getValue()),
 
     /**
      * 退款申请
      */
-    REFUND_APPLY(Lists.newArrayList(OrderState.UN_USED.getValue()), OrderState.REFUND.getValue()),
+    REFUND_APPLY(Lists.newArrayList(OrderState.UN_USED.getValue()), OrderState.NONE.getValue()),
 
     /**
      * 核销
@@ -49,22 +49,12 @@ public enum VenueEvent implements IEvent {
     /**
      * 退款成功
      */
-    REFUND_SUCCESS(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
-
-    /**
-     * 支付失败
-     */
-    PAY_FAIL(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.PAY_ERROR.getValue()),
-
-    /**
-     * 退款失败
-     */
-    REFUND_FAIL(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.REFUND_ERROR.getValue()),
+    REFUND_SUCCESS(Lists.newArrayList(OrderState.UN_USED.getValue()), OrderState.CLOSE.getValue()),
 
     /**
      * 平台退款
      */
-    PLATFORM_REFUND(Lists.newArrayList(OrderState.PROGRESS.getValue(), OrderState.UN_USED.getValue()), OrderState.CLOSE.getValue()),
+    PLATFORM_REFUND(Lists.newArrayList(OrderState.UN_USED.getValue()), OrderState.CLOSE.getValue()),
 
     ;
 

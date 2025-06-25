@@ -1,13 +1,13 @@
-package com.eghm.pay.impl;
+package com.eghm.pay.service.impl;
 
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
-import com.eghm.pay.AggregatePayService;
-import com.eghm.pay.PayRequestLogService;
-import com.eghm.pay.PayService;
 import com.eghm.pay.dto.PrepayDTO;
 import com.eghm.pay.dto.RefundDTO;
 import com.eghm.pay.enums.TradeType;
+import com.eghm.pay.service.AggregatePayService;
+import com.eghm.pay.service.PayRequestLogService;
+import com.eghm.pay.service.PayService;
 import com.eghm.pay.vo.PayOrderVO;
 import com.eghm.pay.vo.PrepayVO;
 import com.eghm.pay.vo.RefundVO;
@@ -34,7 +34,7 @@ public class AggregatePayServiceImpl implements AggregatePayService {
     public PrepayVO createPrepay(PrepayDTO dto) {
         PrepayVO vo = null;
         try {
-            vo = this.getPayService(dto.getTradeType()).createPrepay(dto);
+            vo = getPayService(dto.getTradeType()).createPrepay(dto);
         } finally {
             payRequestLogService.insertPayLog(dto, vo);
         }
@@ -43,19 +43,19 @@ public class AggregatePayServiceImpl implements AggregatePayService {
 
     @Override
     public PayOrderVO queryOrder(TradeType tradeType, String tradeNo) {
-        return this.getPayService(tradeType).queryOrder(tradeNo);
+        return getPayService(tradeType).queryOrder(tradeNo);
     }
 
     @Override
     public void closeOrder(TradeType tradeType, String tradeNo) {
-        this.getPayService(tradeType).closeOrder(tradeNo);
+        getPayService(tradeType).closeOrder(tradeNo);
     }
 
     @Override
     public void applyRefund(RefundDTO dto) {
         RefundVO vo = null;
         try {
-            vo = this.getPayService(dto.getTradeType()).applyRefund(dto);
+            vo = getPayService(dto.getTradeType()).applyRefund(dto);
         } finally {
             payRequestLogService.insertRefundLog(dto, vo);
         }
@@ -63,7 +63,7 @@ public class AggregatePayServiceImpl implements AggregatePayService {
 
     @Override
     public RefundVO queryRefund(TradeType tradeType, String tradeNo, String refundNo) {
-        return this.getPayService(tradeType).queryRefund(tradeNo, refundNo);
+        return getPayService(tradeType).queryRefund(tradeNo, refundNo);
     }
 
     /**

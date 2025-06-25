@@ -89,13 +89,13 @@
                     and r.state in (0, 1)
                 </when>
                 <when test="param.tabState == @com.eghm.enums.TabState@WAIT_DELIVERY">
-                    and r.state in (2, 3, 4, 5, 6, 7)
+                    and r.state in (2, 3, 4, 5)
                 </when>
                 <when test="param.tabState == @com.eghm.enums.TabState@WAIT_EVALUATE">
-                    and r.state = 8 and r.evaluate_state = false
+                    and r.state = 7 and r.evaluate_state = false
                 </when>
                 <otherwise>
-                    and r.state = 8
+                    and r.refund_state &lt;&gt; 0
                 </otherwise>
             </choose>
         </if>
@@ -123,6 +123,7 @@
         r.province_id,
         r.city_id,
         r.county_id,
+        r.verify_no,
         r.detail_address,
         r.longitude,
         r.latitude,
@@ -151,19 +152,19 @@
             r.order_no,
             r.store_id,
             t.title as storeName,
-            r.booking_id,
-            r.limit_id,
             r.pay_type,
             r.state,
+            r.limit_id,
+            r.booking_id,
             r.pay_amount,
             r.express_amount as fee,
             r.amount,
             r.refund_state,
             r.discount_amount,
             r.create_time,
-            r.delivery_type,
-            r.member_id,
             r.close_type,
+            r.member_id,
+            r.delivery_type,
             r.pay_time,
             r.trade_no,
             r.remark,
@@ -174,7 +175,6 @@
             r.province_id,
             r.city_id,
             r.county_id,
-            r.verify_no,
             r.detail_address
         from `order` r
         left join item_store t on t.id = r.store_id
@@ -219,7 +219,6 @@
             t.sale_price,
             t.line_price,
             t.purchase_notes,
-            t.delivery_type,
             t.introduce,
             r.title as storeName,
             r.logo_url as storeLogoUrl
@@ -256,7 +255,7 @@
     </update>
 
     <update id="verify">
-        update `item_order` set delivery_state = 4, ship_time = now(), verify_id = #{verifyId} where order_no = #{orderNo}
+        update `item_order` set delivery_state = 4, verify_id = #{verifyId} where order_no = #{orderNo}
         and delivery_state = 3 and refund_state = 0
         <if test="ids != null and ids.size() > 0" >
             and id in

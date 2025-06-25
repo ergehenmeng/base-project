@@ -3,7 +3,7 @@ package com.eghm.state.machine.access.impl;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.ProductType;
 import com.eghm.enums.event.impl.HomestayEvent;
-import com.eghm.pay.AggregatePayService;
+import com.eghm.pay.service.AggregatePayService;
 import com.eghm.service.business.OrderService;
 import com.eghm.state.machine.StateHandler;
 import com.eghm.state.machine.access.AbstractAccessHandler;
@@ -27,9 +27,9 @@ public class HomestayAccessHandler extends AbstractAccessHandler {
     @Override
     public void refundAudit(RefundAuditContext context) {
         if (context.getState() == 1) {
-            stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.REFUND.getValue(), HomestayEvent.REFUND_PASS, context);
+            stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.UN_USED.getValue(), HomestayEvent.REFUND_PASS, context);
         } else {
-            stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.REFUND.getValue(), HomestayEvent.REFUND_REFUSE, context);
+            stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.UN_USED.getValue(), HomestayEvent.REFUND_REFUSE, context);
         }
     }
 
@@ -39,18 +39,8 @@ public class HomestayAccessHandler extends AbstractAccessHandler {
     }
 
     @Override
-    public void payFail(PayNotifyContext context) {
-        stateHandler.fireEvent(ProductType.HOMESTAY, context.getFrom(), HomestayEvent.PAY_FAIL, context);
-    }
-
-    @Override
     public void refundSuccess(RefundNotifyContext context) {
         stateHandler.fireEvent(ProductType.HOMESTAY, context.getFrom(), HomestayEvent.REFUND_SUCCESS, context);
-    }
-
-    @Override
-    public void refundFail(RefundNotifyContext context) {
-        stateHandler.fireEvent(ProductType.HOMESTAY, context.getFrom(), HomestayEvent.REFUND_FAIL, context);
     }
 
     @Override

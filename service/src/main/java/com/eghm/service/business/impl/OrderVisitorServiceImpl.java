@@ -178,7 +178,7 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         }
         // 存在存款中的游客信息
         if (refundingOptional.isPresent()) {
-            return OrderState.REFUND;
+            return order.getState();
         }
         // 全部退款完成
         return OrderState.CLOSE;

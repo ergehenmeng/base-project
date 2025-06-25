@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.common.JsonService;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.OrderState;
+import com.eghm.enums.RefundState;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.VerifyLog;
@@ -61,7 +62,7 @@ public abstract class AbstractOrderVerifyHandler implements ActionHandler<OrderV
             throw new BusinessException(ErrorCode.ILLEGAL_VERIFY);
         }
         // 如果订单在退款中,则不允许核销
-        if (order.getState() == OrderState.REFUND) {
+        if (order.getRefundState() == RefundState.APPLY || order.getRefundState() == RefundState.PROGRESS) {
             throw new BusinessException(ErrorCode.ORDER_REFUND_PROCESS);
         }
         if (order.getState() == OrderState.COMPLETE) {

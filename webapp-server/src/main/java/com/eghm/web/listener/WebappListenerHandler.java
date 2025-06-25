@@ -339,7 +339,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
         // 备注信息标注是谁审批的 方便快速查看
         context.setAuditRemark("系统: 自动审核通过");
         processMessageAckLock(LockConstant.ORDER_LOCK + audit.getOrderNo(), audit, message, channel, a ->
-                stateHandler.fireEvent(ProductType.ITEM, OrderState.REFUND.getValue(), ItemEvent.REFUND_PASS, context)
+                stateHandler.fireEvent(ProductType.ITEM, OrderState.WAIT_DELIVERY.getValue(), ItemEvent.REFUND_PASS, context)
         );
     }
 
