@@ -27,10 +27,9 @@ public class GoodsPrizeHandler implements PrizeHandler {
     }
 
     @Override
-    public boolean execute(Long memberId, Lottery lottery, LotteryConfig config) {
+    public void execute(Long memberId, Lottery lottery, LotteryConfig config) {
         log.info("用户[{}]在抽奖活动[{}]中得自定义商品", memberId, lottery.getId());
         lotteryPrizeService.decrement(config.getPrizeId());
         ThreadHolder.setLottery(false);
-        return true;
     }
 }

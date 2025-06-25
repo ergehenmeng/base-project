@@ -252,10 +252,11 @@ public class LotteryServiceImpl implements LotteryService {
      */
     private boolean attemptReward(Long memberId, Lottery lottery, LotteryConfig config) {
         try {
-            return handlerList.stream().filter(prizeHandler -> prizeHandler.supported(config.getPrizeType())).findFirst().orElseThrow(() -> {
+            handlerList.stream().filter(prizeHandler -> prizeHandler.supported(config.getPrizeType())).findFirst().orElseThrow(() -> {
                 log.error("本次中奖奖品没有配置 [{}] [{}]", lottery.getId(), config.getPrizeType());
                 return new BusinessException(ErrorCode.LOTTERY_PRIZE_ERROR);
             }).execute(memberId, lottery, config);
+            return true;
         } catch (Exception e) {
             log.error("发放奖品异常 [{}] [{}] ", memberId, config, e);
         }
