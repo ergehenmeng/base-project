@@ -1,5 +1,6 @@
 package com.eghm.state.machine.access;
 
+import com.eghm.enums.OrderState;
 import com.eghm.model.Order;
 import com.eghm.pay.enums.RefundStatus;
 import com.eghm.pay.enums.TradeState;
@@ -11,6 +12,12 @@ import com.eghm.state.machine.context.PayNotifyContext;
 import com.eghm.state.machine.context.RefundNotifyContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+import static com.eghm.pay.enums.TradeState.PAY_ERROR;
+import static com.eghm.pay.enums.TradeState.TRADE_CLOSED;
 
 /**
  * 支付处理handler
@@ -28,11 +35,19 @@ public abstract class AbstractAccessHandler implements AccessHandler {
     private final AggregatePayService aggregatePayService;
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void payNotify(PayNotifyContext context) {
         TradeState paySuccess = this.checkPaySuccess(context);
         if (paySuccess == TradeState.SUCCESS || paySuccess == TradeState.TRADE_SUCCESS || paySuccess == TradeState.TRADE_FINISHED) {
             log.info("订单支付成功,开始执行业务逻辑 [{}] [{}]", context.getTradeNo(), paySuccess);
             this.paySuccess(context);
+            return;
+        }
+        if (paySuccess == TradeState.CLOSED || paySuccess == TradeState.NOT_PAY || paySuccess == PAY_ERROR || paySuccess == TRADE_CLOSED) {
+            List<Order> orderList = orderService.getByTradeNoList(context.getTradeNo());
+            for (Order order : orderList) {
+                orderService.updateState(order.getOrderNo(), OrderState.UN_PAY, OrderState.of(context.getFrom()));
+            }
             return;
         }
         log.warn("订单支付状态处理中,不做业务处理 [{}] [{}]", context.getTradeNo(), paySuccess);

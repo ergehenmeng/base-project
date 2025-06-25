@@ -48,7 +48,6 @@ Token: {{Token}}
 {
   "addressId": 1935277482725457921,
   "deliveryType": 1,
-  "groupBooking": true,
   "itemList": [{
     "storeId": 1818206459138408449,
     "remark": "请优先发货",
@@ -72,8 +71,8 @@ Token: {{Token}}
   "num": 1,
   "mobile": "13136113453",
   "nickName": "二哥",
-  "startDate": "2025-05-27",
-  "endDate": "2025-05-28",
+  "startDate": "2025-06-27",
+  "endDate": "2025-06-28",
   "remark": "备注信息",
   "visitorList": [{
     "idCard": "211422197202046042",
@@ -92,7 +91,7 @@ Token: {{Token}}
   "lineId": 1714916427083575297,
   "mobile": "13322231231",
   "nickName": "二哥很猛",
-  "configDate": "2023-12-11",
+  "configDate": "2025-06-27",
   "num": 3,
   "visitorList": [{
     "memberName": "xxs",
