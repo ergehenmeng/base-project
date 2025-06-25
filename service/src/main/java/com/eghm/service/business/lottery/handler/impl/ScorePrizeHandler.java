@@ -44,7 +44,7 @@ public class ScorePrizeHandler implements PrizeHandler {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
-    public boolean execute(Long memberId, Lottery lottery, LotteryConfig config) {
+    public void execute(Long memberId, Lottery lottery, LotteryConfig config) {
         log.info("抽中积分啦 [{}] [{}]", memberId, lottery);
         LotteryPrize prize = cacheProxyService.getPrizeById(config.getPrizeId());
         if (prize == null) {
@@ -58,6 +58,5 @@ public class ScorePrizeHandler implements PrizeHandler {
         dto.setChargeType(ChargeType.DRAW);
         scoreAccountService.updateAccount(dto);
         memberService.updateScore(memberId, ScoreType.LOTTERY, prize.getNum());
-        return true;
     }
 }

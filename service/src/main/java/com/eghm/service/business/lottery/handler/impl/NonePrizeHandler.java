@@ -23,8 +23,7 @@ public class NonePrizeHandler implements PrizeHandler {
     }
 
     @Override
-    public boolean execute(Long memberId, Lottery lottery, LotteryConfig config) {
+    public void execute(Long memberId, Lottery lottery, LotteryConfig config) {
         log.info("用户[{}]在抽奖活动[{}]中没有中奖", memberId, lottery.getId());
-        return true;
     }
 }
