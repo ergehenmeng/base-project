@@ -1056,6 +1056,11 @@ public enum ErrorCode {
     HOMESTAY_DOWN(2564, "民宿已经下架啦~"),
 
     /**
+     * 民宿订单尚未确认,无法核销
+     */
+    ORDER_WAIT_CONFIRM(2565, "民宿订单尚未确认,无法核销"),
+
+    /**
      * 该店铺已下架
      */
     SHOP_DOWN(2567, "该店铺已下架"),
