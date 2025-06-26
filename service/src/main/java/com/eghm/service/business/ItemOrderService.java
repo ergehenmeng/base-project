@@ -213,4 +213,11 @@ public interface ItemOrderService {
      * @return 核销商品列表
      */
     List<OrderProductVO> getVerifyList(String orderNo);
+
+    /**
+     * 零售退款回滚
+     *
+     * @param itemOrderId 零售订单
+     */
+    void refundRollback(Long itemOrderId);
 }

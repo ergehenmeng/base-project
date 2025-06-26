@@ -46,6 +46,13 @@ public interface OrderVisitorService {
     void refundLock(ProductType productType, String orderNo, Long refundId, List<Long> visitorList, VisitorState target, VisitorState... source);
 
     /**
+     * 退款申请回滚
+     *
+     * @param refundId 退款id
+     */
+    void refundRollback(Long refundId);
+
+    /**
      * 更新订单游客使用状态
      *
      * @param orderNo 订单号

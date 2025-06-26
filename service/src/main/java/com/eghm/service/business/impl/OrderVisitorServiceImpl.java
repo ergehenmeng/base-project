@@ -85,6 +85,11 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
     }
 
     @Override
+    public void refundRollback(Long refundId) {
+        orderVisitorRefundService.refundRollback(refundId);
+    }
+
+    @Override
     public void updateVisitor(String orderNo, VisitorState state) {
         LambdaUpdateWrapper<OrderVisitor> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(OrderVisitor::getOrderNo, orderNo);

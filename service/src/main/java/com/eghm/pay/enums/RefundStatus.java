@@ -29,7 +29,7 @@ public enum RefundStatus {
     PROCESSING,
 
     /**
-     * 退款异常
+     * 退款异常---退款异常，退款到银行发现用户的卡作废或者冻结了，导致原路退款银行卡失败，可前往商户平台-交易中心
      */
     ABNORMAL,
 

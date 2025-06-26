@@ -123,4 +123,11 @@ public interface ItemOrderMapper extends BaseMapper<ItemOrder> {
      * @return 核销的数量
      */
     int verify(@Param("orderNo") String orderNo, @Param("verifyId") Long verifyId, @Param("ids") List<Long> ids);
+
+    /**
+     * 退款回滚
+     *
+     * @param itemOrderId 零售订单id
+     */
+    void refundRollback(@Param("itemOrderId") Long itemOrderId);
 }

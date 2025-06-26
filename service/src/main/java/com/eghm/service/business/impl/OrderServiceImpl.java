@@ -659,6 +659,31 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         baseMapper.updateById(order);
     }
 
+    @Override
+    public void refundFail(Order order, String refundNo) {
+        OrderRefundLog refundLog = orderRefundLogService.selectByRefundNo(refundNo);
+        if (refundLog == null) {
+            log.error("退款记录不存在,退款单号:[{}]", refundNo);
+            return;
+        }
+        if (refundLog.getState() != RefundLogState.REFUNDING) {
+            log.error("退款记录状态异常,无需退款回滚:[{}]", refundNo);
+            return;
+        }
+        refundLog.setState(RefundLogState.FAIL);
+        order.setRefundState(RefundState.FAIL);
+        order.setRefundAmount(order.getRefundAmount() - refundLog.getRefundAmount());
+        order.setRefundScoreAmount(order.getRefundScoreAmount() - refundLog.getScoreAmount());
+        baseMapper.updateById(order);
+        orderRefundLogService.updateById(refundLog);
+        // 退款记录为普通商品时需要更新零售订单退款状态, 否则为游客订单退款
+        if (refundLog.getItemOrderId() != null) {
+            itemOrderService.refundRollback(refundLog.getItemOrderId());
+        } else {
+            orderVisitorService.refundRollback(refundLog.getId());
+        }
+    }
+
     /**
      * 检查退款记录是否可以取消
      *

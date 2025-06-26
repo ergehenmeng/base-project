@@ -9,4 +9,9 @@
           and t.refund_id = #{refundId}
     </update>
 
+    <update id="refundRollback">
+        update order_visitor_refund t, order_visitor r
+        set r.state = 1
+        where t.visitor_id = r.id and t.refund_id = #{refundId} and r.state = 3
+    </update>
 </mapper>

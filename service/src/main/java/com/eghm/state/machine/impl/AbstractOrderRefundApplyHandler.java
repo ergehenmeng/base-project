@@ -74,8 +74,8 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
         refundLog.setAuditState(AuditState.PASS);
         refundLog.setAuditRemark("系统自动审核");
         refundLog.setRefundNo(order.getProductType().generateTradeNo());
-        order.setRefundState(RefundState.PROGRESS);
         refundLog.setAuditTime(LocalDateTime.now());
+        order.setRefundState(RefundState.PROGRESS);
         order.setRefundAmount(order.getRefundAmount() + context.getRefundAmount());
         orderService.updateById(order);
         orderRefundLogService.insert(refundLog);

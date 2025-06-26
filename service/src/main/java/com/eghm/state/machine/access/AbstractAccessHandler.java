@@ -58,9 +58,14 @@ public abstract class AbstractAccessHandler implements AccessHandler {
         Order order = orderService.getByTradeNo(context.getTradeNo());
         context.setFrom(order.getState().getValue());
         RefundStatus refundSuccess = context.getResult().getState();
-        if (refundSuccess == RefundStatus.REFUND_SUCCESS || refundSuccess == RefundStatus.SUCCESS) {
+        if (refundSuccess == RefundStatus.REFUND_SUCCESS || refundSuccess == RefundStatus.SUCCESS || refundSuccess == RefundStatus.ABNORMAL) {
             log.info("订单退款支付成功,开始执行业务逻辑 [{}] [{}]", context.getTradeNo(), refundSuccess);
             this.refundSuccess(context);
+            return;
+        }
+        if (refundSuccess == RefundStatus.CLOSED) {
+            log.info("订单退款支付失败,开始回滚业务逻辑 [{}] [{}]", context.getTradeNo(), refundSuccess);
+            orderService.refundFail(order, context.getRefundNo());
             return;
         }
         log.warn("订单退款状态处理中,不做业务处理 [{}] [{}]", context.getTradeNo(), refundSuccess);
