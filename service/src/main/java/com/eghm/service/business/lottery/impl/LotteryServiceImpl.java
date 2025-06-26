@@ -67,7 +67,9 @@ public class LotteryServiceImpl implements LotteryService {
 
     @Override
     public Page<LotteryResponse> getByPage(LotteryQueryRequest request) {
-        return lotteryMapper.getByPage(request.createPage(), request);
+        Page<LotteryResponse> byPage = lotteryMapper.getByPage(request.createPage(), request);
+        byPage.getRecords().forEach(lottery -> lottery.setState(this.calcState(lottery.getStartTime(), lottery.getEndTime())));
+        return byPage;
     }
 
     @Override
