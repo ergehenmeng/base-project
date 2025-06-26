@@ -8,7 +8,6 @@
             title,
             start_time,
             end_time,
-            state,
             lottery_day,
             lottery_total,
             win_num,
@@ -22,7 +21,17 @@
             and title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         <if test="param.state != null">
-            and state = #{param.state}
+            <choose>
+                <when test="param.state == 0">
+                    and start_time &gt; now()
+                </when>
+                <when test="param.state == 1">
+                    and start_time &lt;= now() and end_time &gt; now()
+                </when>
+                <when test="param.state == 2">
+                    and end_time &lt; now()
+                </when>
+            </choose>
         </if>
         order by state, id desc
     </select>
