@@ -114,4 +114,11 @@ public interface OrderVisitorService {
      */
     OrderState getOrderState(Order order);
 
+    /**
+     * 退款申请回滚
+     *
+     * @param refundId 退款id
+     */
+    void refundRollback(Long refundId);
+
 }

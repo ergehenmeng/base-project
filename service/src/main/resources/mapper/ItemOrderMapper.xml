@@ -265,6 +265,10 @@
         </if>
     </update>
 
+    <update id="refundRollback">
+        update `item_order` set refund_state = 0 where id = #{itemOrderId} and refund_state = 1
+    </update>
+
     <resultMap id="shippedMap" type="com.eghm.vo.business.order.item.ItemShippedResponse">
         <result property="expressNo" column="express_no"/>
         <result property="expressCode" column="express_code"/>

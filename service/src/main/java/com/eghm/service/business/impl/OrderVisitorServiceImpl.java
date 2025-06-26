@@ -184,4 +184,8 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         return OrderState.CLOSE;
     }
 
+    @Override
+    public void refundRollback(Long refundId) {
+        orderVisitorRefundService.refundRollback(refundId);
+    }
 }

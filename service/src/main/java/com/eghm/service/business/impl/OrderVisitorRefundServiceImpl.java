@@ -37,4 +37,9 @@ public class OrderVisitorRefundServiceImpl implements OrderVisitorRefundService 
     public void refundSuccess(String orderNo, Long refundId) {
         orderVisitorRefundMapper.refundSuccess(orderNo, refundId);
     }
+
+    @Override
+    public void refundRollback(Long refundId) {
+        orderVisitorRefundMapper.refundRollback(refundId);
+    }
 }

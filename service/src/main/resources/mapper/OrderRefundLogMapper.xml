@@ -24,7 +24,7 @@
              r.pay_type
         from order_refund_log t
         inner join `order` r on t.order_no = r.order_no
-        where t.deleted = false and t.state = 0
+        where t.deleted = false and t.state = 0 and t.audit_state = 1
     </select>
 
     <select id="getByPage" resultType="com.eghm.vo.business.order.refund.RefundLogResponse" parameterType="com.eghm.dto.business.order.refund.RefundLogQueryRequest">

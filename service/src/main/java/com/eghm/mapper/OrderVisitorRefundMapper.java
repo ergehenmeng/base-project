@@ -22,4 +22,11 @@ public interface OrderVisitorRefundMapper extends BaseMapper<OrderVisitorRefund>
      * @return 1
      */
     int refundSuccess(@Param("orderNo") String orderNo, @Param("refundId") Long refundId);
+
+    /**
+     * 退款申请回滚
+     *
+     * @param refundId 退款id
+     */
+    void refundRollback(@Param("refundId") Long refundId);
 }

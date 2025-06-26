@@ -288,4 +288,12 @@ public interface OrderService extends IService<Order> {
      * @param dto 退款信息
      */
     void itemRefundCancel(ItemRefundCancelDTO dto);
+
+    /**
+     * 退款失败 还原资金
+     *
+     * @param order 订单信息
+     * @param refundNo 退款订单
+     */
+    void refundFail(Order order, String refundNo);
 }

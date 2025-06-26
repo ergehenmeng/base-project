@@ -316,6 +316,11 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         });
     }
 
+    @Override
+    public void refundRollback(Long itemOrderId) {
+        itemOrderMapper.refundRollback(itemOrderId);
+    }
+
     /**
      * 拼接sku名称
      *

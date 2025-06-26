@@ -28,4 +28,11 @@ public interface OrderVisitorRefundService {
      * @param refundId 退款单号
      */
     void refundSuccess(String orderNo, Long refundId);
+
+    /**
+     * 退款申请回滚
+     *
+     * @param refundId 退款id
+     */
+    void refundRollback(Long refundId);
 }
