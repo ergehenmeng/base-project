@@ -3,5 +3,5 @@ Token: {{Token}}
 
 ###
 
-http://localhost:10010/webapp/homestay/order/detail?orderNo=
+http://localhost:10010/webapp/homestay/order/detail?orderNo=MS1938140795377623043
 Token: {{Token}}

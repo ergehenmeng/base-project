@@ -2,31 +2,47 @@ package com.eghm.state.machine.impl.homestay;
 
 import com.eghm.common.JsonService;
 import com.eghm.common.OrderMqService;
+import com.eghm.enums.ConfirmState;
+import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.ProductType;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
+import com.eghm.exception.BusinessException;
+import com.eghm.model.HomestayOrder;
 import com.eghm.model.Order;
-import com.eghm.service.business.CommonService;
-import com.eghm.service.business.OrderService;
-import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.VerifyLogService;
+import com.eghm.service.business.*;
 import com.eghm.state.machine.context.OrderVerifyContext;
 import com.eghm.state.machine.impl.AbstractOrderVerifyHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
  * @author wyb
  * @since 2023/5/30
  */
+@Slf4j
 @Service("homestayOrderVerifyHandler")
 public class HomestayOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     private final OrderMqService orderMqService;
 
-    public HomestayOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService, JsonService jsonService, OrderMqService orderMqService, CommonService commonService) {
+    private final HomestayOrderService homestayOrderService;
+
+    public HomestayOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService, JsonService jsonService, OrderMqService orderMqService, CommonService commonService, HomestayOrderService homestayOrderService) {
         super(jsonService, orderService, commonService, verifyLogService, orderVisitorService);
         this.orderMqService = orderMqService;
+        this.homestayOrderService = homestayOrderService;
+    }
+
+    @Override
+    protected void before(OrderVerifyContext context, Order order) {
+        super.before(context, order);
+        HomestayOrder homestayOrder = homestayOrderService.getByOrderNo(context.getOrderNo());
+        if (homestayOrder.getConfirmState() == ConfirmState.WAIT_CONFIRM) {
+            log.info("该民宿订单尚未确认 [{}]", context.getOrderNo());
+            throw new BusinessException(ErrorCode.ORDER_WAIT_CONFIRM);
+        }
     }
 
     @Override
