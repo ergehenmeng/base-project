@@ -46,8 +46,8 @@ public class HomestayOrderResponse extends ExcelStyle {
     @ExcelProperty(value = "订单状态", index = 3, converter = EnumExcelConverter.class)
     private OrderState state;
 
-    @Schema(description = "订单状态 0:待确认 1:确认有房 2:确认无房 3:自动确认有房")
-    @ExcelProperty(value = "订单状态", index = 4, converter = EnumExcelConverter.class)
+    @Schema(description = "确认状态 0:待确认 1:确认有房 2:确认无房 3:自动确认有房")
+    @ExcelProperty(value = "确认状态", index = 4, converter = EnumExcelConverter.class)
     private ConfirmState confirmState;
 
     @Schema(description = "购买数量")
