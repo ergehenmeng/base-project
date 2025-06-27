@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `app_version`;
 CREATE TABLE `app_version`
 (
     `id`           bigint(20) NOT NULL COMMENT '主键',
-    `channel`      varchar(10)  DEFAULT '' COMMENT '版本类型 ANDROID IOS',
+    `channel`      varchar(10)  DEFAULT NULL COMMENT '版本类型 ANDROID IOS',
     `version`      varchar(10) COMMENT '版本号:1.2.8 范围(0.0.01~99.99.99)',
     `version_no`   int(10)      DEFAULT NULL COMMENT '数字格式化后的版本号',
     `force_update` bit(1)       DEFAULT b'0' COMMENT '是否强制更新 0:否 1:是',
@@ -430,10 +430,10 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`
 (
     `id`              bigint(20)  NOT NULL COMMENT '主键',
-    `nick_name`       varchar(20) NOT NULL COMMENT '用户名称',
+    `nick_name`       varchar(20) DEFAULT NULL COMMENT '用户名称',
     `user_name`       varchar(20)  DEFAULT NULL COMMENT '账户名',
     `user_type`       tinyint(2)   DEFAULT '1' COMMENT '用户类型 0: 超级管理员 1:系统用户 2: 商户用户',
-    `mobile`          char(11)    NOT NULL COMMENT '手机号码(登陆账户)',
+    `mobile`          char(11)    DEFAULT NULL COMMENT '手机号码(登陆账户)',
     `state`           tinyint(1)   DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
     `pwd`             varchar(256) DEFAULT NULL COMMENT '登陆密码MD5',
     `init_pwd`        varchar(256) DEFAULT NULL COMMENT '初始密码',
