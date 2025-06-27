@@ -78,7 +78,6 @@ public class LotteryServiceImpl implements LotteryService {
         this.checkPrize(request.getPrizeList(), request.getConfigList());
         this.redoTitle(request.getTitle(), null, request.getMerchantId());
         Lottery lottery = DataUtil.copy(request, Lottery.class);
-        lottery.setState(this.calcState(request.getStartTime(), request.getEndTime()));
         lotteryMapper.insert(lottery);
         Map<Integer, LotteryPrize> prizeMap = lotteryPrizeService.insert(lottery.getId(), request.getPrizeList());
         lotteryConfigService.insert(lottery.getId(), request.getConfigList(), prizeMap);
@@ -90,11 +89,10 @@ public class LotteryServiceImpl implements LotteryService {
         this.checkPrize(request.getPrizeList(), request.getConfigList());
         this.redoTitle(request.getTitle(), request.getId(), request.getMerchantId());
         Lottery select = lotteryMapper.selectById(request.getId());
-        if (select.getState() != LotteryState.INIT) {
+        if (select.getStartTime().isBefore(LocalDateTime.now())) {
             throw new BusinessException(ErrorCode.LOTTERY_NOT_INIT);
         }
         Lottery lottery = DataUtil.copy(request, Lottery.class);
-        lottery.setState(this.calcState(request.getStartTime(), request.getEndTime()));
         lotteryMapper.updateById(lottery);
         Map<Integer, LotteryPrize> prizeMap = lotteryPrizeService.update(lottery.getId(), request.getPrizeList());
         lotteryConfigService.update(lottery.getId(), request.getConfigList(), prizeMap);
@@ -188,10 +186,6 @@ public class LotteryServiceImpl implements LotteryService {
     public LotteryDetailVO detail(Long lotteryId, Long memberId) {
         Lottery lottery = this.selectByIdRequired(lotteryId);
         LocalDateTime now = LocalDateTime.now();
-        if (now.isAfter(lottery.getEndTime()) && lottery.getState() != LotteryState.END) {
-            lottery.setState(LotteryState.END);
-            lotteryMapper.updateById(lottery);
-        }
         LocalDateTime startTime = LocalDateTimeUtil.beginOfDay(now);
         LocalDateTime endTime = LocalDateTimeUtil.endOfDay(now);
         long countLottery = lotteryLogService.countLottery(lottery.getId(), memberId, startTime, endTime);
@@ -291,13 +285,13 @@ public class LotteryServiceImpl implements LotteryService {
      * @param memberId 用户id
      */
     private void checkLottery(Lottery lottery, Long memberId) {
-        if (lottery.getState() != LotteryState.START) {
-            log.error("抽奖活动不在进行中 [{}] [{}]", lottery.getId(), lottery.getState());
-            throw new BusinessException(ErrorCode.LOTTERY_STATE);
-        }
         LocalDateTime now = LocalDateTime.now();
-        if (lottery.getStartTime().isAfter(now) || lottery.getEndTime().isBefore(now)) {
-            log.error("抽奖活动不在有效期 [{}] [{}] [{}]", lottery.getId(), lottery.getStartTime(), lottery.getEndTime());
+        if (lottery.getStartTime().isAfter(now) ) {
+            log.error("抽奖活动不在有效期 [{}] [{}]", lottery.getId(), lottery.getStartTime());
+            throw new BusinessException(ErrorCode.LOTTERY_EXPIRE);
+        }
+        if (lottery.getEndTime().isBefore(now)) {
+            log.error("抽奖活动不在有效期 [{}] [{}]", lottery.getId(), lottery.getEndTime());
             throw new BusinessException(ErrorCode.LOTTERY_EXPIRE);
         }
         long countLottery = lotteryLogService.countLottery(lottery.getId(), memberId);

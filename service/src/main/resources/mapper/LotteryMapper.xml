@@ -33,7 +33,7 @@
                 </when>
             </choose>
         </if>
-        order by state, id desc
+        order by id desc
     </select>
 
     <select id="getList" resultType="com.eghm.vo.business.lottery.LotteryVO">
@@ -43,10 +43,10 @@
             banner_url
         from lottery
         where deleted = false and merchant_id = #{merchantId}
-        and now() &lt; end_time
+        and now() &lt; end_time and now() &gt; start_time
         <if test="storeId != null">
             and store_id = #{storeId}
         </if>
-        order by state desc
+        order by start_time desc
     </select>
 </mapper>

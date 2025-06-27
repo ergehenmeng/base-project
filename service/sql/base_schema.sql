@@ -1567,7 +1567,6 @@ CREATE TABLE `lottery`
     `banner_url`    varchar(200)  DEFAULT NULL COMMENT 'banner图',
     `start_time`    datetime      DEFAULT NULL COMMENT '开始时间',
     `end_time`      datetime      DEFAULT NULL COMMENT '结束时间',
-    `state`         tinyint(1)    DEFAULT '0' COMMENT '活动状态  0:未开始 1:进行中 2:已结束',
     `lottery_day`   smallint(4)   DEFAULT '1' COMMENT '单日抽奖次数限制',
     `lottery_total` smallint(4)   DEFAULT '1' COMMENT '总抽奖次数限制',
     `win_num`       smallint(4)   DEFAULT '1' COMMENT '中奖次数限制',
