@@ -10,7 +10,7 @@ import com.eghm.model.Order;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.VerifyLogService;
+import com.eghm.service.business.OrderVerifyLogService;
 import com.eghm.state.machine.context.OrderVerifyContext;
 import com.eghm.state.machine.impl.AbstractOrderVerifyHandler;
 import org.springframework.stereotype.Service;
@@ -24,9 +24,9 @@ public class LineOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     private final OrderMqService orderMqService;
 
-    public LineOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService,
+    public LineOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, OrderVerifyLogService orderVerifyLogService,
                                   JsonService jsonService, OrderMqService orderMqService, CommonService commonService) {
-        super(jsonService, orderService, commonService, verifyLogService, orderVisitorService);
+        super(jsonService, orderService, commonService, orderVisitorService, orderVerifyLogService);
         this.orderMqService = orderMqService;
     }
 

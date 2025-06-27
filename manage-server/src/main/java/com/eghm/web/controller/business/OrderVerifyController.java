@@ -10,12 +10,12 @@ import com.eghm.enums.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.OrderService;
-import com.eghm.service.business.VerifyLogService;
+import com.eghm.service.business.OrderVerifyLogService;
 import com.eghm.state.machine.access.AccessHandler;
 import com.eghm.state.machine.context.OrderVerifyContext;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.order.OrderScanVO;
-import com.eghm.vo.business.verify.VerifyLogResponse;
+import com.eghm.vo.business.verify.OrderVerifyLogResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -40,20 +40,20 @@ import static com.eghm.enums.ErrorCode.VERIFY_TYPE_ERROR;
 @RestController
 @Tag(name="商户核销")
 @AllArgsConstructor
-@RequestMapping(value = "/manage/verify", produces = MediaType.APPLICATION_JSON_VALUE)
-public class VerifyController {
+@RequestMapping(value = "/manage/order/verify", produces = MediaType.APPLICATION_JSON_VALUE)
+public class OrderVerifyController {
 
     private final OrderService orderService;
 
     private final CommonService commonService;
 
-    private final VerifyLogService verifyLogService;
+    private final OrderVerifyLogService orderVerifyLogService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")
-    public RespBody<PageData<VerifyLogResponse>> listPage(@ParameterObject VerifyLogQueryRequest request) {
+    public RespBody<PageData<OrderVerifyLogResponse>> listPage(@ParameterObject VerifyLogQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        Page<VerifyLogResponse> roomPage = verifyLogService.getByPage(request);
+        Page<OrderVerifyLogResponse> roomPage = orderVerifyLogService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
     }
 
@@ -93,7 +93,7 @@ public class VerifyController {
     @Operation(summary = "民宿导出")
     public void export(HttpServletResponse response, @ParameterObject VerifyLogQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        List<VerifyLogResponse> byPage = verifyLogService.getList(request);
-        EasyExcelUtil.export(response, "核销列表", byPage, VerifyLogResponse.class);
+        List<OrderVerifyLogResponse> byPage = orderVerifyLogService.getList(request);
+        EasyExcelUtil.export(response, "核销列表", byPage, OrderVerifyLogResponse.class);
     }
 }

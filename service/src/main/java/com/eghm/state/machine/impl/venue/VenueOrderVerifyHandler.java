@@ -10,7 +10,7 @@ import com.eghm.mq.service.MessageService;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.VerifyLogService;
+import com.eghm.service.business.OrderVerifyLogService;
 import com.eghm.state.machine.context.OrderVerifyContext;
 import com.eghm.state.machine.impl.AbstractOrderVerifyHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -26,9 +26,9 @@ public class VenueOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     private final MessageService messageService;
 
-    public VenueOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService,
+    public VenueOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, OrderVerifyLogService orderVerifyLogService,
                                    JsonService jsonService, MessageService messageService, CommonService commonService) {
-        super(jsonService, orderService, commonService, verifyLogService, orderVisitorService);
+        super(jsonService, orderService, commonService, orderVisitorService, orderVerifyLogService);
         this.messageService = messageService;
     }
 

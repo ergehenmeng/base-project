@@ -29,8 +29,8 @@ public class HomestayOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     private final HomestayOrderService homestayOrderService;
 
-    public HomestayOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService, JsonService jsonService, OrderMqService orderMqService, CommonService commonService, HomestayOrderService homestayOrderService) {
-        super(jsonService, orderService, commonService, verifyLogService, orderVisitorService);
+    public HomestayOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, OrderVerifyLogService orderVerifyLogService, JsonService jsonService, OrderMqService orderMqService, CommonService commonService, HomestayOrderService homestayOrderService) {
+        super(jsonService, orderService, commonService, orderVisitorService, orderVerifyLogService);
         this.orderMqService = orderMqService;
         this.homestayOrderService = homestayOrderService;
     }

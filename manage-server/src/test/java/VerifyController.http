@@ -1,12 +1,12 @@
-GET http://localhost:10086/manage/verify/listPage?page=1&pageSize=10
+GET http://localhost:10086/manage/order/verify/listPage?page=1&pageSize=10
 token: {{token}}
 
 ###
-GET http://localhost:10086/manage/verify/scan?verifyNo=259b8699314ead532dee0ff4dd12cb47ffd9d6da6ab0b837ceec5b4aa9665e56bf46fbd245515f2a56eaf38310577848
+GET http://localhost:10086/manage/order/verify/scan?verifyNo=259b8699314ead532dee0ff4dd12cb47ffd9d6da6ab0b837ceec5b4aa9665e56bf46fbd245515f2a56eaf38310577848
 token: {{token}}
 
 ###
-POST http://localhost:10086/manage/verify/verify
+POST http://localhost:10086/manage/order/verify/verify
 token: {{token}}
 Content-Type: application/json
 

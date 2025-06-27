@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
  * @since 2022-08-06
  */
 @Data
-@TableName("verify_log")
-public class VerifyLog {
+@TableName("order_verify_log")
+public class OrderVerifyLog {
 
     @Schema(description = "主键")
     @TableId(type = IdType.ASSIGN_ID)

@@ -30,9 +30,9 @@ public class ItemOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     private final ItemOrderService itemOrderService;
 
-    public ItemOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService,
+    public ItemOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, OrderVerifyLogService orderVerifyLogService,
                                   JsonService jsonService, OrderMqService orderMqService, CommonService commonService, ItemOrderService itemOrderService) {
-        super(jsonService, orderService, commonService, verifyLogService, orderVisitorService);
+        super(jsonService, orderService, commonService, orderVisitorService, orderVerifyLogService);
         this.orderMqService = orderMqService;
         this.itemOrderService = itemOrderService;
     }

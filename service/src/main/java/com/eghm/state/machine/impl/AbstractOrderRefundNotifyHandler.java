@@ -30,7 +30,7 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
 
     private final AccountService accountService;
 
-    private final VerifyLogService verifyLogService;
+    private final OrderVerifyLogService orderVerifyLogService;
 
     private final OrderRefundLogService orderRefundLogService;
 
@@ -107,7 +107,7 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
             order.setCloseType(CloseType.REFUND);
         } else {
             // 已核销+退款成功+当前退款成功的大于总付款数量,订单可以直接变成下一个状态
-            int verifiedNum = verifyLogService.getVerifiedNum(order.getOrderNo());
+            int verifiedNum = orderVerifyLogService.getVerifiedNum(order.getOrderNo());
             if ((verifiedNum + refundNum + refundLog.getNum()) >= order.getNum()) {
                 order.setCompleteTime(LocalDateTime.now());
                 order.setState(OrderState.COMPLETE);
