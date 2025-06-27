@@ -677,11 +677,9 @@ CREATE TABLE `sys_role`
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu`
 (
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `role_id`     bigint(20) unsigned NOT NULL COMMENT '角色Id',
     `menu_id`     varchar(20)         NOT NULL COMMENT '菜单Id',
     `create_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
-    PRIMARY KEY (`id`) USING BTREE,
     UNIQUE KEY `rm_idx` (`role_id`, `menu_id`),
     KEY `r_idx` (`role_id`) USING BTREE,
     KEY `m_idx` (`menu_id`) USING BTREE

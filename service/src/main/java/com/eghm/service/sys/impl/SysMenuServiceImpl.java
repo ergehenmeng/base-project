@@ -60,13 +60,13 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public List<MenuResponse> getAdminLeftMenuList() {
-        List<MenuResponse> list = sysMenuMapper.getAdminMenuList(1);
+        List<MenuResponse> list = sysMenuMapper.getSystemMenuList(1);
         return this.treeBin(ROOT, list);
     }
 
     @Override
-    public List<MenuResponse> getSystemList() {
-        List<MenuResponse> responseList = sysMenuMapper.getAdminMenuList(null);
+    public List<MenuResponse> getAll(Integer displayState) {
+        List<MenuResponse> responseList = sysMenuMapper.getAll(null);
         return this.treeBin(ROOT, responseList);
     }
 
@@ -135,7 +135,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public List<String> getAdminPermCode() {
-        List<MenuResponse> menuList = sysMenuMapper.getAdminMenuList(2);
+        List<MenuResponse> menuList = sysMenuMapper.getSystemMenuList(2);
         return menuList.stream().map(MenuResponse::getCode).collect(Collectors.toList());
     }
 

@@ -14,13 +14,13 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
  * @since 2019/9/6 14:49
  */
 @EnableScheduling
-public class TaskConfig implements TaskSchedulerCustomizer {
+public class SchedulingConfig implements TaskSchedulerCustomizer {
 
     /**
      * 自定义定时任务bean
      */
     @Bean
-    public TaskRegistrar systemTaskRegistrar(SysTaskMapper sysTaskMapper, TaskScheduler taskScheduler) {
+    public TaskRegistrar taskRegistrar(SysTaskMapper sysTaskMapper, TaskScheduler taskScheduler) {
         return new TaskRegistrar(sysTaskMapper, taskScheduler);
     }
 

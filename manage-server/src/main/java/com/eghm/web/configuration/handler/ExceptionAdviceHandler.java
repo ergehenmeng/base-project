@@ -18,6 +18,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -114,4 +115,15 @@ public class ExceptionAdviceHandler {
         return RespBody.error(ErrorCode.PARAM_NULL_ERROR, e.getParameterName());
     }
 
+    /**
+     * 非系统url请求
+     *
+     * @param request 请求request
+     * @return 404
+     */
+    @ExceptionHandler(value = {NoHandlerFoundException.class})
+    public RespBody<Void> noHandlerFoundException(HttpServletRequest request) {
+        log.warn("访问地址不存在:[{}]", request.getRequestURI());
+        return RespBody.error(ErrorCode.PAGE_NOT_FOUND);
+    }
 }

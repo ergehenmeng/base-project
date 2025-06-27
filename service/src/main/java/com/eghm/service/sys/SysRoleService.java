@@ -5,6 +5,7 @@ import com.eghm.dto.ext.CheckBox;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.sys.role.RoleAddRequest;
 import com.eghm.dto.sys.role.RoleEditRequest;
+import com.eghm.model.SysRole;
 import com.eghm.vo.sys.ext.SysRoleResponse;
 
 import java.util.List;
@@ -83,5 +84,12 @@ public interface SysRoleService {
      */
     void auth(Long userId, List<Long> roleList);
 
+    /**
+     * 根据Id查询角色
+     *
+     * @param id id
+     * @return 角色信息
+     */
+    SysRole getById(Long id);
 }
 

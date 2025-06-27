@@ -7,7 +7,10 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sys.menu.MenuAddRequest;
 import com.eghm.dto.sys.menu.MenuEditRequest;
 import com.eghm.dto.sys.menu.MenuQueryRequest;
+import com.eghm.enums.RoleType;
+import com.eghm.model.SysRole;
 import com.eghm.service.sys.SysMenuService;
+import com.eghm.service.sys.SysRoleService;
 import com.eghm.vo.sys.menu.MenuFullResponse;
 import com.eghm.vo.sys.menu.MenuResponse;
 import com.eghm.web.configuration.interceptor.PermInterceptor;
@@ -30,6 +33,8 @@ import java.util.List;
 @RequestMapping(value = "/manage/menu", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MenuController {
 
+    private final SysRoleService sysRoleService;
+
     private final SysMenuService sysMenuService;
 
     private final PermInterceptor permInterceptor;
@@ -43,8 +48,10 @@ public class MenuController {
 
     @GetMapping("/systemList")
     @ApiOperation("系统菜单(角色授权使用)")
-    public RespBody<List<MenuResponse>> systemList() {
-        List<MenuResponse> responseList = sysMenuService.getSystemList();
+    public RespBody<List<MenuResponse>> systemList(IdDTO dto) {
+        SysRole sysRole = sysRoleService.getById(dto.getId());
+        int displayState = sysRole.getRoleType() == RoleType.COMMON ?  2 : 1;
+        List<MenuResponse> responseList = sysMenuService.getAll(displayState);
         return RespBody.success(responseList);
     }
 

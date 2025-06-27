@@ -115,6 +115,11 @@ public class SysRoleServiceImpl implements SysRoleService {
         roleList.forEach(roleId -> sysUserRoleMapper.insert(new SysUserRole(userId, roleId)));
     }
 
+    @Override
+    public SysRole getById(Long id) {
+        return sysRoleMapper.selectById(id);
+    }
+
     /**
      * 校验角色是否重复
      *

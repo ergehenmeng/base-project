@@ -35,4 +35,9 @@ public abstract class AbstractTask {
      * 锁定时间
      */
     private long lockTime;
+
+    /**
+     * 是否记录日志
+     */
+    private Boolean log;
 }

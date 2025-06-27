@@ -126,16 +126,6 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
     }
 
     /**
-     * 密码加密bean 独立于spring-security之外的工具类
-     *
-     * @return bean
-     */
-    @Bean
-    public Encoder encoder() {
-        return new BcEncoder();
-    }
-
-    /**
      * 如果对象为空则返回空串 而不是 null
      * 如果对象空数组或集合 则返回[]
      * 该功能比较鸡肋,最好在开发时约定好格式
