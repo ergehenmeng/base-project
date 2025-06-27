@@ -105,7 +105,7 @@ public class CacheConstant {
     /**
      * token (移动端用户)
      */
-    public static final String TOKEN = "token:";
+    public static final String MEMBER_TOKEN = "member_token:";
 
     /**
      * 会员token映射, 同一个账户不允许登录多个同类型客户端

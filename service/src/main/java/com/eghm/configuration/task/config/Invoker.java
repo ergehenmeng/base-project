@@ -10,8 +10,10 @@ import com.eghm.lock.RedisLock;
 import com.eghm.model.SysTaskLog;
 import com.eghm.service.sys.SysTaskLogService;
 import com.eghm.utils.SpringContextUtil;
+import com.eghm.utils.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.slf4j.MDC;
 import org.springframework.aop.support.AopUtils;
 
 import java.lang.reflect.Method;
@@ -54,7 +56,8 @@ public class Invoker implements Runnable {
 
     @Override
     public void run() {
-        SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder().beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(NetUtil.getLocalhostStr());
+        MDC.put(CommonConstant.TRACE_ID, StringUtil.randomLowerCase(16));
+        SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder();
         String key = task.getBeanName() + CommonConstant.SPECIAL_SPLIT + task.getMethodName();
         LocalDateTime start = LocalDateTime.now();
         long startTime = System.currentTimeMillis();
@@ -70,10 +73,14 @@ public class Invoker implements Runnable {
             alarmService.sendMsg(String.format("自定义定时任务执行失败[%s]", key));
         } finally {
             // 每次执行的日志都记入定时任务日志
-            long endTime = System.currentTimeMillis();
-            builder.elapsedTime(endTime - startTime);
-            builder.startTime(start);
-            sysTaskLogService.addTaskLog(builder.build());
+            if (Boolean.TRUE.equals(task.getLog())) {
+                // 每次执行的日志都记入定时任务日志
+                builder.beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(NetUtil.getLocalhostStr());
+                builder.elapsedTime(System.currentTimeMillis() - startTime);
+                builder.startTime(start);
+                sysTaskLogService.addTaskLog(builder.build());
+            }
+            MDC.remove(CommonConstant.TRACE_ID);
         }
     }
 

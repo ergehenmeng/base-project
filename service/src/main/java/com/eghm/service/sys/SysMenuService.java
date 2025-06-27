@@ -33,9 +33,10 @@ public interface SysMenuService {
     /**
      * 获取系统所有导航菜单列表,按钮
      *
+     * @param displayState 根据该状态决定是否回写disabled字段, 为空则不显示
      * @return 菜单列表
      */
-    List<MenuResponse> getSystemList();
+    List<MenuResponse> getAll(Integer displayState);
 
     /**
      * 获取所有可用的菜单+按钮菜单

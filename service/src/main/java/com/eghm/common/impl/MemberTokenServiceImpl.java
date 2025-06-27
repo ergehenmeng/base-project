@@ -41,7 +41,7 @@ public class MemberTokenServiceImpl implements MemberTokenService {
 
     @Override
     public MemberToken getByAccessToken(String accessToken) {
-        return cacheService.getValue(CacheConstant.TOKEN + accessToken, MemberToken.class);
+        return cacheService.getValue(CacheConstant.MEMBER_TOKEN + accessToken, MemberToken.class);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class MemberTokenServiceImpl implements MemberTokenService {
     private void doCleanToken(Long memberId, String accessToken, String refreshToken, String channel) {
         cacheService.deleteHashKey(CacheConstant.MEMBER_TOKEN_MAPPING, memberId + CommonConstant.SPECIAL_SPLIT + channel);
         cacheService.delete(CacheConstant.REFRESH_TOKEN + refreshToken);
-        cacheService.delete(CacheConstant.TOKEN + accessToken);
+        cacheService.delete(CacheConstant.MEMBER_TOKEN + accessToken);
     }
 
     /**
@@ -101,7 +101,7 @@ public class MemberTokenServiceImpl implements MemberTokenService {
      */
     private void cacheToken(MemberToken memberToken) {
         String tokenJson = jsonService.toJson(memberToken);
-        cacheService.setValue(CacheConstant.TOKEN + memberToken.getToken(), tokenJson, sysConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
+        cacheService.setValue(CacheConstant.MEMBER_TOKEN + memberToken.getToken(), tokenJson, sysConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
         // 注意:假如token_expire设置7天,refresh_token_expire为30天时,在第7~30天的时间里,账号重新登陆,
         // refresh_token_expire缓存的用户信息将会无效且不会被立即删除(无法通过memberId定位到该缓存数据),
         // 因此:此处过期时间与refresh_token_expire保持一致,在登陆的时候可通过memberId定位登陆信息,仅仅方便删除无用缓存,方便强制下线

@@ -20,7 +20,7 @@ public class SchedulingConfig {
      * 自定义定时任务bean
      */
     @Bean
-    public TaskRegistrar systemTaskRegistrar(SysTaskMapper sysTaskMapper, @Qualifier("taskScheduler") TaskScheduler taskScheduler) {
+    public TaskRegistrar taskRegistrar(SysTaskMapper sysTaskMapper, @Qualifier("taskScheduler") TaskScheduler taskScheduler) {
         return new TaskRegistrar(sysTaskMapper, taskScheduler);
     }
 

@@ -38,11 +38,6 @@ public class TaskRegistrar {
     private final TaskScheduler taskScheduler;
 
     /**
-     * 周期定时任务
-     */
-    private final Map<String, CronTaskWrapper> cronTaskMap = new ConcurrentHashMap<>(32);
-
-    /**
      * 任务执行句柄
      */
     private final Map<String, ScheduledFuture<?>> scheduledFutures = new ConcurrentHashMap<>(32);
@@ -100,17 +95,12 @@ public class TaskRegistrar {
      * @param task 待添加的定时任务
      */
     private void addCronTask(CronTaskWrapper task) {
-        if (cronTaskMap.containsKey(task.getNid()) && cronTaskMap.get(task.getNid()).getExpression().equals(task.getExpression())) {
-            log.info("定时任务配置信息未发生变化 nid:[{}]", task.getNid());
-            return;
-        }
         if (scheduledFutures.containsKey(task.getNid())) {
             // 定时任务存在,但配置发生变化 移除旧定时任务
             scheduledFutures.get(task.getNid()).cancel(false);
         }
         ScheduledFuture<?> schedule = taskScheduler.schedule(task.getRunnable(), task.getTrigger());
         scheduledFutures.put(task.getNid(), schedule);
-        cronTaskMap.put(task.getNid(), task);
     }
 
     /**
@@ -130,7 +120,6 @@ public class TaskRegistrar {
             if (shouldCancel) {
                 entry.getValue().cancel(false);
                 iterator.remove();
-                cronTaskMap.remove(entry.getKey());
             }
         }
     }

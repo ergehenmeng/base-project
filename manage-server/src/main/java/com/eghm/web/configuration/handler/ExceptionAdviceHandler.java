@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 /**
  * @author 二哥很猛
@@ -112,4 +114,15 @@ public class ExceptionAdviceHandler {
         return RespBody.error(ErrorCode.PARAM_NULL_ERROR, e.getParameterName());
     }
 
+    /**
+     * 非系统url请求
+     *
+     * @param request 请求request
+     * @return 404
+     */
+    @ExceptionHandler(value = {NoHandlerFoundException.class, NoResourceFoundException.class})
+    public RespBody<Void> noHandlerFoundException(javax.servlet.http.HttpServletRequest request) {
+        log.warn("访问地址不存在:[{}]", request.getRequestURI());
+        return RespBody.error(ErrorCode.PAGE_NOT_FOUND);
+    }
 }
