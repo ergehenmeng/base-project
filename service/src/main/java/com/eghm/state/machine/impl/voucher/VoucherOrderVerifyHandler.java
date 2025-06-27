@@ -23,9 +23,9 @@ public class VoucherOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     private final VoucherOrderService voucherOrderService;
 
-    public VoucherOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService,
+    public VoucherOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, OrderVerifyLogService orderVerifyLogService,
                                      JsonService jsonService, OrderMqService orderMqService, CommonService commonService, VoucherOrderService voucherOrderService) {
-        super(jsonService, orderService, commonService, verifyLogService, orderVisitorService);
+        super(jsonService, orderService, commonService, orderVisitorService, orderVerifyLogService);
         this.orderMqService = orderMqService;
         this.voucherOrderService = voucherOrderService;
     }

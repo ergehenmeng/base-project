@@ -3,8 +3,8 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.verify.VerifyLogQueryRequest;
-import com.eghm.model.VerifyLog;
-import com.eghm.vo.business.verify.VerifyLogResponse;
+import com.eghm.model.OrderVerifyLog;
+import com.eghm.vo.business.verify.OrderVerifyLogResponse;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -15,7 +15,7 @@ import org.apache.ibatis.annotations.Param;
  * @author 二哥很猛
  * @since 2022-08-06
  */
-public interface VerifyLogMapper extends BaseMapper<VerifyLog> {
+public interface OrderVerifyLogMapper extends BaseMapper<OrderVerifyLog> {
 
     /**
      * 分页查询核销记录
@@ -24,7 +24,7 @@ public interface VerifyLogMapper extends BaseMapper<VerifyLog> {
      * @param request 查询条件
      * @return 列表
      */
-    Page<VerifyLogResponse> getByPage(Page<VerifyLogResponse> page, @Param("param") VerifyLogQueryRequest request);
+    Page<OrderVerifyLogResponse> getByPage(Page<OrderVerifyLogResponse> page, @Param("param") VerifyLogQueryRequest request);
 
     /**
      * 统计某个订单被核销过的商品数量总数

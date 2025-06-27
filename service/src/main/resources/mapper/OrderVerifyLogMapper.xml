@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.mapper.VerifyLogMapper">
+<mapper namespace="com.eghm.mapper.OrderVerifyLogMapper">
 
     <select id="getVerifiedNum" resultType="int">
-        select ifnull(sum(num), 0) from verify_log where order_no = #{orderNo}
+        select ifnull(sum(num), 0) from order_verify_log where order_no = #{orderNo}
     </select>
 
-    <select id="getByPage" parameterType="com.eghm.dto.business.verify.VerifyLogQueryRequest" resultType="com.eghm.vo.business.verify.VerifyLogResponse">
+    <select id="getByPage" parameterType="com.eghm.dto.business.verify.VerifyLogQueryRequest" resultType="com.eghm.vo.business.verify.OrderVerifyLogResponse">
         select
         t.id,
         t.order_no,
@@ -16,7 +16,7 @@
         r.nick_name as verifyName,
         m.title,
         s.merchant_name
-        from verify_log t
+        from order_verify_log t
         left join `order` m on t.order_no = m.order_no
         left join sys_user r on t.user_id = r.id
         left join merchant s on t.merchant_id = s.id

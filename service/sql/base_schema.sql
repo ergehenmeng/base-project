@@ -1243,8 +1243,8 @@ CREATE TABLE `order_refund_log`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单退款记录表';
 
-DROP TABLE IF EXISTS `verify_log`;
-CREATE TABLE `verify_log`
+DROP TABLE IF EXISTS `order_verify_log`;
+CREATE TABLE `order_verify_log`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
     `merchant_id` bigint(20)   DEFAULT NULL COMMENT '商户id',

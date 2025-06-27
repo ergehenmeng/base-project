@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class VerifyLogResponse extends ExcelStyle {
+public class OrderVerifyLogResponse extends ExcelStyle {
 
     @ApiModelProperty(value = "主键")
     private Long id;

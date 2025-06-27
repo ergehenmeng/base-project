@@ -8,11 +8,11 @@ import com.eghm.enums.OrderState;
 import com.eghm.enums.RefundState;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
-import com.eghm.model.VerifyLog;
+import com.eghm.model.OrderVerifyLog;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.VerifyLogService;
+import com.eghm.service.business.OrderVerifyLogService;
 import com.eghm.state.machine.ActionHandler;
 import com.eghm.state.machine.context.OrderVerifyContext;
 import lombok.AllArgsConstructor;
@@ -36,9 +36,9 @@ public abstract class AbstractOrderVerifyHandler implements ActionHandler<OrderV
 
     private final CommonService commonService;
 
-    private final VerifyLogService verifyLogService;
-
     private final OrderVisitorService orderVisitorService;
+
+    private final OrderVerifyLogService orderVerifyLogService;
 
     @Override
     public void doAction(OrderVerifyContext context) {
@@ -84,14 +84,14 @@ public abstract class AbstractOrderVerifyHandler implements ActionHandler<OrderV
         long verifyId = IdWorker.getId();
         int visited = this.tryVerifyVisitor(context, order, verifyId);
         orderService.updateById(order);
-        VerifyLog verifyLog = new VerifyLog();
-        verifyLog.setId(verifyId);
-        verifyLog.setMerchantId(order.getMerchantId());
-        verifyLog.setOrderNo(order.getOrderNo());
-        verifyLog.setRemark(context.getRemark());
-        verifyLog.setUserId(context.getUserId());
-        verifyLog.setNum(visited);
-        verifyLogService.insert(verifyLog);
+        OrderVerifyLog orderVerifyLog = new OrderVerifyLog();
+        orderVerifyLog.setId(verifyId);
+        orderVerifyLog.setMerchantId(order.getMerchantId());
+        orderVerifyLog.setOrderNo(order.getOrderNo());
+        orderVerifyLog.setRemark(context.getRemark());
+        orderVerifyLog.setUserId(context.getUserId());
+        orderVerifyLog.setNum(visited);
+        orderVerifyLogService.insert(orderVerifyLog);
         context.setVerifyNum(visited);
     }
 
@@ -114,13 +114,13 @@ public abstract class AbstractOrderVerifyHandler implements ActionHandler<OrderV
         order.setState(OrderState.COMPLETE);
         order.setCompleteTime(LocalDateTime.now());
         orderService.updateById(order);
-        VerifyLog verifyLog = new VerifyLog();
-        verifyLog.setMerchantId(order.getMerchantId());
-        verifyLog.setOrderNo(order.getOrderNo());
-        verifyLog.setRemark(context.getRemark());
-        verifyLog.setUserId(context.getUserId());
-        verifyLog.setNum(order.getNum());
-        verifyLogService.insert(verifyLog);
+        OrderVerifyLog orderVerifyLog = new OrderVerifyLog();
+        orderVerifyLog.setMerchantId(order.getMerchantId());
+        orderVerifyLog.setOrderNo(order.getOrderNo());
+        orderVerifyLog.setRemark(context.getRemark());
+        orderVerifyLog.setUserId(context.getUserId());
+        orderVerifyLog.setNum(order.getNum());
+        orderVerifyLogService.insert(orderVerifyLog);
         context.setVerifyNum(order.getNum());
     }
 
