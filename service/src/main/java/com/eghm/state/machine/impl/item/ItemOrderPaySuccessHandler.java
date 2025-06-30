@@ -77,15 +77,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
         List<String> orderNoList = orderList.stream().map(Order::getOrderNo).collect(Collectors.toList());
         itemService.updateSaleNum(orderNoList);
         for (Order order : orderList) {
-            if (order.getScoreAmount() > 0) {
-                log.info("该订单使用了积分,开始更新积分 [{}]", order.getOrderNo());
-                ScoreAccountDTO dto = new ScoreAccountDTO();
-                dto.setTradeNo(order.getOrderNo());
-                dto.setAmount(order.getScoreAmount());
-                dto.setMerchantId(order.getMerchantId());
-                dto.setChargeType(ChargeType.ORDER_PAY);
-                scoreAccountService.updateAccount(dto);
-            }
+            this.updateScore(order);
             order.setPayTime(context.getSuccessTime());
             order.setPayType(PayType.valueOf(context.getTradeType().name()));
             order.setState(order.getDeliveryType() == DeliveryType.EXPRESS ? OrderState.WAIT_DELIVERY : OrderState.WAIT_TAKE);
@@ -95,18 +87,6 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
             itemOrderService.paySuccess(context.getTradeNo());
             // 更新增加冻结记录
             accountService.paySuccessAddFreeze(order);
-            // 发送消息计算销量或销售金额排行
-            List<ItemOrder> itemOrders = itemOrderService.getByOrderNo(order.getOrderNo());
-            for (ItemOrder itemOrder : itemOrders) {
-                OrderPayNotify notify = new OrderPayNotify();
-                notify.setAmount(itemOrder.getSalePrice() * itemOrder.getNum() + itemOrder.getExpressFee());
-                notify.setOrderNo(itemOrder.getOrderNo());
-                notify.setProductId(itemOrder.getItemId());
-                notify.setProductType(ProductType.ITEM);
-                notify.setMerchantId(order.getMerchantId());
-                notify.setStoreId(itemOrder.getStoreId());
-                messageService.send(ExchangeQueue.ORDER_PAY_SUCCESS, notify);
-            }
             order.setPayTime(context.getSuccessTime());
             order.setPayType(PayType.valueOf(context.getTradeType().name()));
             order.setVerifyNo(order.getDeliveryType() == DeliveryType.EXPRESS ? null : ProductType.ITEM.generateVerifyNo());
@@ -117,6 +97,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
             }
             orderService.updateById(order);
             this.orderAfter(order);
+            this.sendRankingNotify(order);
         }
     }
 
@@ -154,6 +135,43 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
             }
         } else {
             this.sendDeliveryNotify(order);
+        }
+    }
+
+    /**
+     * 发送销售排行消息
+     *
+     * @param order order
+     */
+    private void sendRankingNotify(Order order) {
+        // 发送消息计算销量或销售金额排行
+        List<ItemOrder> itemOrders = itemOrderService.getByOrderNo(order.getOrderNo());
+        for (ItemOrder itemOrder : itemOrders) {
+            OrderPayNotify notify = new OrderPayNotify();
+            notify.setAmount(itemOrder.getSalePrice() * itemOrder.getNum() + itemOrder.getExpressFee());
+            notify.setOrderNo(itemOrder.getOrderNo());
+            notify.setProductId(itemOrder.getItemId());
+            notify.setProductType(ProductType.ITEM);
+            notify.setMerchantId(order.getMerchantId());
+            notify.setStoreId(itemOrder.getStoreId());
+            messageService.send(ExchangeQueue.ORDER_PAY_SUCCESS, notify);
+        }
+    }
+
+    /**
+     * 更新积分
+     *
+     * @param order 订单信息
+     */
+    private void updateScore(Order order) {
+        if (order.getScoreAmount() > 0) {
+            log.info("该订单使用了积分,开始更新积分 [{}]", order.getOrderNo());
+            ScoreAccountDTO dto = new ScoreAccountDTO();
+            dto.setTradeNo(order.getOrderNo());
+            dto.setAmount(order.getScoreAmount());
+            dto.setMerchantId(order.getMerchantId());
+            dto.setChargeType(ChargeType.ORDER_PAY);
+            scoreAccountService.updateAccount(dto);
         }
     }
 
