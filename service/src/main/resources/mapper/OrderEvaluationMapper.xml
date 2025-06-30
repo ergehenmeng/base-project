@@ -9,6 +9,7 @@
         t.product_type,
         t.product_id,
         t.product_title,
+        t.product_cover as coverUrl,
         t.sku_title,
         t.score,
         t.logistics_score,

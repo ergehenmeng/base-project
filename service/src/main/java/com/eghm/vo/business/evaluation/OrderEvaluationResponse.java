@@ -1,7 +1,9 @@
 package com.eghm.vo.business.evaluation;
 
+import com.eghm.convertor.SplitterArraySerializer;
 import com.eghm.enums.ProductType;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -33,7 +35,8 @@ public class OrderEvaluationResponse {
     private String skuTitle;
 
     @ApiModelProperty(value = "商品图片")
-    private String productCover;
+    @JsonSerialize(using = SplitterArraySerializer.class)
+    private String coverUrl;
 
     @ApiModelProperty(value = "综合评分1-5分")
     private Integer score;
@@ -48,6 +51,7 @@ public class OrderEvaluationResponse {
     private String comment;
 
     @ApiModelProperty(value = "评论图片")
+    @JsonSerialize(using = SplitterArraySerializer.class)
     private String commentPic;
 
     @ApiModelProperty(value = "显示状态 1:正常 2:屏蔽")
