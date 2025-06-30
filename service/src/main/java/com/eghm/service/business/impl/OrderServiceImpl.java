@@ -139,9 +139,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         StringBuilder builder = new StringBuilder();
         int totalAmount = 0;
         for (Order order : orderList) {
-            // 支付方式先占坑
+            // 支付方式先占坑, 方便取消订单时知道支付渠道
             order.setPayType(PayType.valueOf(tradeType.name()));
             order.setTradeNo(tradeNo);
+            order.setState(OrderState.PROGRESS);
             builder.append(order.getTitle()).append(COMMA);
             totalAmount += order.getPayAmount();
             baseMapper.updateById(order);
@@ -154,7 +155,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         dto.setTradeNo(tradeNo);
         dto.setBuyerId(buyerId);
         dto.setClientIp(clientIp);
-        return aggregatePayService.createPrepay(dto);
+        PrepayVO prepay = aggregatePayService.createPrepay(dto);
+        prepay.setTradeNo(dto.getTradeNo());
+        return prepay;
     }
 
     @Override
@@ -682,6 +685,22 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         } else {
             orderVisitorService.refundRollback(refundLog.getId());
         }
+    }
+
+    @Override
+    public void payCancel(String tradeNo) {
+        Order order = this.getByTradeNo(tradeNo);
+        if (order == null) {
+            log.error("取消待支付订单不存在,交易单号:[{}]", tradeNo);
+            return;
+        }
+        LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Order::getTradeNo, tradeNo);
+        wrapper.eq(Order::getState, OrderState.PROGRESS);
+        wrapper.set(Order::getState, OrderState.UN_PAY);
+        baseMapper.update(null, wrapper);
+        TradeType tradeType = TradeType.of(order.getPayType().name());
+        aggregatePayService.closeOrder(tradeType, tradeNo);
     }
 
     /**

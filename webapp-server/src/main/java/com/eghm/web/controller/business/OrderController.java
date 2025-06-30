@@ -4,6 +4,7 @@ import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.ApiHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.LockConstant;
+import com.eghm.dto.business.order.CancelDTO;
 import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.OrderPayDTO;
 import com.eghm.dto.business.order.RefundCancelDTO;
@@ -253,6 +254,13 @@ public class OrderController {
     @Operation(summary = "取消订单")
     public RespBody<Void> cancel(@Validated @RequestBody OrderDTO dto) {
         orderProxyService.cancel(dto.getOrderNo(), ApiHolder.getMemberId());
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/pay/cancel", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "取消支付")
+    public RespBody<Void> payCancel(@Validated @RequestBody CancelDTO dto) {
+        orderService.payCancel(dto.getTradeNo());
         return RespBody.success();
     }
 

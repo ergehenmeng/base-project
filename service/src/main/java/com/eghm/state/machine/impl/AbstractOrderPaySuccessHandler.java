@@ -1,10 +1,8 @@
 package com.eghm.state.machine.impl;
 
 import com.eghm.dto.ext.OrderPayNotify;
-import com.eghm.enums.ExchangeQueue;
-import com.eghm.enums.OrderState;
-import com.eghm.enums.PayType;
-import com.eghm.enums.VisitorState;
+import com.eghm.enums.*;
+import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.mq.service.MessageService;
 import com.eghm.service.business.AccountService;
@@ -38,8 +36,22 @@ public abstract class AbstractOrderPaySuccessHandler implements ActionHandler<Pa
     public void doAction(PayNotifyContext context) {
         // 该类主要处理非零售订单, 因此交易单号只会查询到一个订单
         Order order = orderService.getByTradeNo(context.getTradeNo());
+        this.before(context, order);
         this.doProcess(context, order);
         this.after(context, order);
+    }
+
+    /**
+     * 支付成功回调时订单校验
+     *
+     * @param context 校验上下文
+     * @param order 订单信息
+     */
+    protected void before(PayNotifyContext context, Order order) {
+        if (order.getState() != OrderState.UN_PAY && order.getState() != OrderState.PROGRESS) {
+            log.warn("支付成功异步通知时订单状态已变更 [{}] [{}] [{}]", order.getOrderNo(), context.getTradeNo(), order.getState());
+            throw new BusinessException(ErrorCode.ORDER_PAID);
+        }
     }
 
     /**

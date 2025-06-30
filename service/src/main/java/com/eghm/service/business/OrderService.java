@@ -296,4 +296,11 @@ public interface OrderService extends IService<Order> {
      * @param refundNo 退款订单
      */
     void refundFail(Order order, String refundNo);
+
+    /**
+     * 取消支付
+     *
+     * @param tradeNo 交易单号
+     */
+    void payCancel(String tradeNo);
 }

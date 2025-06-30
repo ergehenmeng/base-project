@@ -32,8 +32,8 @@ public class PrepayVO {
     @Schema(description = "随机串")
     private String nonceStr;
 
-    @Schema(description = "流水号")
-    private String orderNo;
+    @Schema(description = "交易单号")
+    private String tradeNo;
 
     @Schema(description = "h5支付url")
     private String h5Url;

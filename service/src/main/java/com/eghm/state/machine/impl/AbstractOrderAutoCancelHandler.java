@@ -48,7 +48,7 @@ public abstract class AbstractOrderAutoCancelHandler implements ActionHandler<Or
      * @param order 订单
      */
     protected void after(Order order) {
-        log.info("订单过期处理成功 [{}]", order.getOrderNo());
+        log.info("订单自动取消成功,开始关闭支付渠道订单 [{}]", order.getOrderNo());
         PayType payType = order.getPayType();
         if (payType != null) {
             TradeType tradeType = TradeType.of(payType.name());
