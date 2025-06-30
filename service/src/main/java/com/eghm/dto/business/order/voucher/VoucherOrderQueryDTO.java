@@ -2,6 +2,7 @@ package com.eghm.dto.business.order.voucher;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
+import com.eghm.enums.OrderState;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,8 +15,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class VoucherOrderQueryDTO extends PagingQuery {
 
-    @ApiModelProperty("餐饮订单状态")
-    private Integer orderState;
+    @ApiModelProperty(value = "订单状态 0:待支付 2:待使用 7:订单完成 8:已关闭")
+    private OrderState state;
 
     @ApiModelProperty("用户id")
     @Assign

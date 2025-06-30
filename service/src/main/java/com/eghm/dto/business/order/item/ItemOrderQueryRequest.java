@@ -20,10 +20,10 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class ItemOrderQueryRequest extends AbstractDatePagingComparator {
 
-    @ApiModelProperty("门票订单状态")
-    private OrderState orderState;
+    @ApiModelProperty(value = "订单状态 0:待支付 3:待自提 4:待发货 5:待收货 6:待成团 7:订单完成 8:已关闭")
+    private OrderState state;
 
-    @ApiModelProperty("退款状态 1:退款申请中 2:退款中 3:退款拒绝 4:退款成功 5:退款失败(该状态和退款中在C端用户看来都是退款中) 6:线下退款(该状态与退款成功在C端用户看来是一样的)")
+    @ApiModelProperty(value = "退款状态 1:退款申请中 2:退款中 3:退款拒绝 4:退款成功 5:退款失败(该状态和退款中在C端用户看来都是退款中) 6:线下退款(该状态与退款成功在C端用户看来是一样的)")
     private RefundState refundState;
 
     @ApiModelProperty("开始日期")

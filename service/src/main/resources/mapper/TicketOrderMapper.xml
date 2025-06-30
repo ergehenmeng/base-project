@@ -30,6 +30,9 @@
         <if test="param.state != null">
             and r.state = #{param.state}
         </if>
+        <if test="param.refundState != null">
+            and r.refund_state = #{param.refundState}
+        </if>
         <if test="param.useVoucher != null">
             <if test="param.useVoucher">
                 and r.coupon_id is not null
