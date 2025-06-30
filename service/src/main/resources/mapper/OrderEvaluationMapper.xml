@@ -8,6 +8,7 @@
         t.order_no,
         t.product_type,
         t.product_id,
+        t.product_cover as coverUrl,
         t.product_title,
         t.sku_title,
         t.score,
