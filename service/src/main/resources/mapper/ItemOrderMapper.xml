@@ -29,8 +29,11 @@
                 r.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
                 r.mobile like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') )
         </if>
-        <if test="param.orderState != null">
-            and r.state = #{param.orderState}
+        <if test="param.state != null">
+            and r.state = #{param.state}
+        </if>
+        <if test="param.refundState != null">
+            and r.refund_state = #{param.refundState}
         </if>
         <if test="param.refundState != null">
             and r.refund_state = #{param.refundState}

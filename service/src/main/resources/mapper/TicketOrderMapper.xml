@@ -30,6 +30,9 @@
         <if test="param.state != null">
             and r.state = #{param.state}
         </if>
+        <if test="param.refundState != null">
+            and r.refund_state = #{param.refundState}
+        </if>
         <if test="param.useVoucher != null">
             <if test="param.useVoucher">
                 and r.coupon_id is not null
@@ -63,8 +66,8 @@
             and (r.title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
             t.scenic_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%'))
         </if>
-        <if test="param.orderState != null">
-            and r.state = #{param.orderState}
+        <if test="param.state != null">
+            and r.state = #{param.state}
         </if>
         <if test="param.startDate != null and param.endDate != null">
             and r.pay_time between #{param.startDate} and #{param.endDate}

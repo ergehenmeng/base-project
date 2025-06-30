@@ -4,6 +4,7 @@ import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
 import com.eghm.configuration.gson.LocalDateAdapter;
 import com.eghm.dto.ext.AbstractDatePagingComparator;
+import com.eghm.enums.OrderState;
 import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -20,8 +21,8 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 public class VenueOrderQueryDTO extends AbstractDatePagingComparator {
 
-    @Schema(description = "订单状态")
-    private Integer state;
+    @Schema(description = "订单状态 0:待支付 2:待使用 7:订单完成 8:已关闭")
+    private OrderState state;
 
     @Schema(description = "开始日期")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
