@@ -7,10 +7,13 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.PagingQuery;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.mapper.SensitiveWordMapper;
 import com.eghm.model.SensitiveWord;
+import com.eghm.mq.service.MessageService;
 import com.eghm.service.common.SensitiveWordService;
 import com.eghm.utils.LoggerUtil;
+import com.eghm.utils.SpringContextUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,11 +32,13 @@ import static com.eghm.utils.StringUtil.isNotBlank;
 @Service("sensitiveWordService")
 public class SensitiveWordServiceImpl implements SensitiveWordService {
 
+    private final MessageService messageService;
+
     private final SensitiveWordMapper sensitiveWordMapper;
 
     @PostConstruct
     public void init() {
-        reloadLexicon();
+        reloadLexicon(false);
     }
 
     @Override
@@ -51,12 +56,16 @@ public class SensitiveWordServiceImpl implements SensitiveWordService {
     }
 
     @Override
-    public void reloadLexicon() {
+    public void reloadLexicon(boolean sync) {
         long start = System.currentTimeMillis();
         List<String> wordList = sensitiveWordMapper.getWordList();
         SensitiveUtil.setCharFilter(character -> true);
         SensitiveUtil.init(wordList, false);
         LoggerUtil.print(String.format("敏感词库加载成功,耗时:%dms", (System.currentTimeMillis() - start)));
+        if (sync) {
+            String appName = SpringContextUtil.getApplicationContext().getEnvironment().getProperty("spring.application.name");
+            messageService.send(ExchangeQueue.SENSITIVE_SYNC, appName);
+        }
     }
 
     @Override
@@ -67,13 +76,13 @@ public class SensitiveWordServiceImpl implements SensitiveWordService {
             word.setKeyword(keyword);
             sensitiveWordMapper.insert(word);
         }
-        this.reloadLexicon();
+        this.reloadLexicon(true);
     }
 
     @Override
     public void delete(Long id) {
         sensitiveWordMapper.deleteById(id);
-        this.reloadLexicon();
+        this.reloadLexicon(true);
     }
 
 }

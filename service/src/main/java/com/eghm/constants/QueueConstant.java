@@ -172,4 +172,9 @@ public class QueueConstant {
      * 订单退款提交后通知审核
      */
     public static final String ORDER_AUDIT_NOTICE_QUEUE = "order_audit_notice_queue";
+
+    /**
+     * 敏感词跨服务同步
+     */
+    public static final String SENSITIVE_SYNC_QUEUE = "sensitive_sync_queue";
 }

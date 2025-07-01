@@ -43,7 +43,7 @@ public class ClearCacheServiceImpl implements ClearCacheService {
 
     @Override
     public void clearSensitiveWord() {
-        sensitiveWordService.reloadLexicon();
+        sensitiveWordService.reloadLexicon(true);
         log.info("敏感词缓存清除成功");
     }
 

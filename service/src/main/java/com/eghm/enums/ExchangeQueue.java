@@ -172,8 +172,12 @@ public enum ExchangeQueue {
     /**
      * 订单退款申请通知商户审核
      */
-    ORDER_REFUND_AUDIT("order_refund_audit_exchange", ExchangeType.FANOUT, new String[]{QueueConstant.ORDER_AUDIT_NOTICE_QUEUE}, "", false)
-    ;
+    ORDER_REFUND_AUDIT("order_refund_audit_exchange", ExchangeType.FANOUT, new String[]{QueueConstant.ORDER_AUDIT_NOTICE_QUEUE}, "", false),
+
+    /**
+     * 敏感词跨服务同步
+     */
+    SENSITIVE_SYNC("sensitive_sync_exchange", ExchangeType.FANOUT, new String[]{QueueConstant.SENSITIVE_SYNC_QUEUE}, "", false);
 
     /**
      * mq交换机名称
