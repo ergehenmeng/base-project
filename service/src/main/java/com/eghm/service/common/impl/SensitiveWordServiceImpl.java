@@ -64,7 +64,7 @@ public class SensitiveWordServiceImpl implements SensitiveWordService {
         LoggerUtil.print(String.format("敏感词库加载成功,耗时:%dms", (System.currentTimeMillis() - start)));
         if (sync) {
             String appName = SpringContextUtil.getApplicationContext().getEnvironment().getProperty("spring.application.name");
-            messageService.send(ExchangeQueue.SENSITIVE_SYNC, appName);
+            messageService.sendDelay(ExchangeQueue.SENSITIVE_SYNC, appName, 3);
         }
     }
 
