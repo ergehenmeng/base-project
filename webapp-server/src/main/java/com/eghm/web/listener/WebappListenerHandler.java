@@ -19,6 +19,7 @@ import com.eghm.model.Order;
 import com.eghm.model.WebappLog;
 import com.eghm.mq.listener.AbstractListenerHandler;
 import com.eghm.service.business.*;
+import com.eghm.service.common.SensitiveWordService;
 import com.eghm.service.member.LoginService;
 import com.eghm.service.sys.WebappLogService;
 import com.eghm.state.machine.StateHandler;
@@ -70,13 +71,15 @@ public class WebappListenerHandler extends AbstractListenerHandler {
 
     private final ScenicTicketService scenicTicketService;
 
+    private final SensitiveWordService sensitiveWordService;
+
     private final ItemGroupOrderService itemGroupOrderService;
 
     private final MemberVisitLogService memberVisitLogService;
 
     private final OrderEvaluationService orderEvaluationService;
 
-    public WebappListenerHandler(JsonService jsonService, AlarmService alarmService, RedisLock redisLock, LineService lineService, ItemService itemService, LoginService loginService, CacheService cacheService, StateHandler stateHandler, OrderService orderService, VenueService venueService, HomestayService homestayService, WebappLogService webappLogService, RestaurantService restaurantService, ScenicTicketService scenicTicketService, ItemGroupOrderService itemGroupOrderService, MemberVisitLogService memberVisitLogService, OrderEvaluationService orderEvaluationService) {
+    public WebappListenerHandler(JsonService jsonService, AlarmService alarmService, RedisLock redisLock, LineService lineService, ItemService itemService, LoginService loginService, CacheService cacheService, StateHandler stateHandler, OrderService orderService, VenueService venueService, HomestayService homestayService, WebappLogService webappLogService, RestaurantService restaurantService, ScenicTicketService scenicTicketService, SensitiveWordService sensitiveWordService, ItemGroupOrderService itemGroupOrderService, MemberVisitLogService memberVisitLogService, OrderEvaluationService orderEvaluationService) {
         super(redisLock, jsonService, alarmService);
         this.lineService = lineService;
         this.jsonService = jsonService;
@@ -90,6 +93,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
         this.webappLogService = webappLogService;
         this.restaurantService = restaurantService;
         this.scenicTicketService = scenicTicketService;
+        this.sensitiveWordService = sensitiveWordService;
         this.itemGroupOrderService = itemGroupOrderService;
         this.memberVisitLogService = memberVisitLogService;
         this.orderEvaluationService = orderEvaluationService;
@@ -350,6 +354,15 @@ public class WebappListenerHandler extends AbstractListenerHandler {
     public void orderPayRanking(OrderPayNotify notify, Message message, Channel channel) throws IOException {
         processMessageAck(notify, message, channel, s ->
                 orderService.incrementAmount(notify.getProductType(), notify.getMerchantId(), notify.getProductId(), notify.getAmount()));
+    }
+
+    /**
+     * 敏感词同步
+     */
+    @RabbitListener(queues = QueueConstant.SENSITIVE_SYNC_QUEUE)
+    public void sensitiveSync(String appName, Message message, Channel channel) throws IOException {
+        log.info("接收到服务[{}]消息,开始同步敏感词", appName);
+        processMessageAck(appName, message, channel, s -> sensitiveWordService.reloadLexicon(false));
     }
 
     /**
