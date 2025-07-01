@@ -177,7 +177,7 @@ public enum ExchangeQueue {
     /**
      * 敏感词跨服务同步
      */
-    SENSITIVE_SYNC("sensitive_sync_exchange", ExchangeType.FANOUT, new String[]{QueueConstant.SENSITIVE_SYNC_QUEUE}, "", false);
+    SENSITIVE_SYNC("sensitive_sync_exchange", ExchangeType.FANOUT, new String[]{QueueConstant.SENSITIVE_SYNC_QUEUE}, "", true);
 
     /**
      * mq交换机名称

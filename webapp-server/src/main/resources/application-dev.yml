@@ -16,6 +16,7 @@ spring:
       connection-test-query: select 'X'
       maximum-pool-size: 100
       minimum-idle: 5
+      idle-timeout: 60000
       connection-timeout: 30000
       max-lifetime: 360000
   mail:
