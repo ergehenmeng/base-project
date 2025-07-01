@@ -54,12 +54,12 @@ public class ItemResponse extends ExcelStyle {
 
     @ApiModelProperty(value = "最低价格")
     @JsonSerialize(using = CentToYuanSerializer.class)
-    @ExcelProperty(value = "最低价格", index = 4, converter = CentToYuanConverter.class)
+    @ExcelProperty(value = "价格", index = 4, converter = CentToYuanConverter.class)
     private Integer minPrice;
 
     @ApiModelProperty(value = "最高价格")
     @JsonSerialize(using = CentToYuanSerializer.class)
-    @ExcelProperty(value = "最高价格", index = 5, converter = CentToYuanConverter.class)
+    @ExcelProperty(value = "价格", index = 5, converter = CentToYuanConverter.class)
     private Integer maxPrice;
 
     @ApiModelProperty(value = "销售数量(所有规格销售总量)")

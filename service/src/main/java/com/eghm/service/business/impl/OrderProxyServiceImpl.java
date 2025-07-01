@@ -85,7 +85,7 @@ public class OrderProxyServiceImpl implements OrderProxyService {
             context.setOrderNo(request.getOrderNo());
             stateHandler.fireEvent(ProductType.HOMESTAY, order.getState().getValue(), HomestayEvent.CONFIRM_ROOM, context);
             // 发送短信通知
-            smsService.sendSms(order.getMobile(), TemplateType.CONFIRM_NO_ROOM, request.getOrderNo());
+            smsService.sendSms(order.getMobile(), TemplateType.CONFIRM_NO_ROOM, homestayOrder.getTitle(), request.getOrderNo());
         }
     }
 

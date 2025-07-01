@@ -87,7 +87,7 @@ public class SmsServiceImpl implements SmsService {
     @Override
     public void sendSms(String mobile, TemplateType templateType, String... params) {
         int state = sendSmsService.sendSms(mobile, templateType, params);
-        SmsLog smsLog = SmsLog.builder().content(String.format(templateType.getContent(), (Object[]) params)).mobile(mobile).templateType(templateType).state(state).build();
+        SmsLog smsLog = SmsLog.builder().content(StringUtil.parse(templateType.getContent(), params)).mobile(mobile).templateType(templateType).state(state).build();
         smsLogService.addSmsLog(smsLog);
     }
 
