@@ -1,5 +1,6 @@
 package com.eghm.mq.listener;
 
+import cn.hutool.core.exceptions.ExceptionUtil;
 import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
 import com.eghm.lock.RedisLock;
@@ -45,7 +46,7 @@ public abstract class AbstractListenerHandler {
             consumer.accept(msg);
         } catch (Exception e) {
             log.error("队列[{}]处理消息异常 [{}]", message.getMessageProperties().getConsumerQueue(), jsonService.toJson(msg), e);
-            alarmService.sendMsg(String.format("队列[%s]消息消费失败[%s]", message.getMessageProperties().getConsumerQueue(), jsonService.toJson(msg)));
+            alarmService.sendMsg(String.format("队列[%s]消息消费失败[%s], 错误信息:%s", message.getMessageProperties().getConsumerQueue(), jsonService.toJson(msg), ExceptionUtil.stacktraceToString(e)));
         } finally {
             MessageProperties properties = message.getMessageProperties();
             if (Boolean.TRUE.equals(properties.getRedelivered())) {
@@ -72,7 +73,7 @@ public abstract class AbstractListenerHandler {
             redisLock.lockVoid(lockKey, 10_000, () -> consumer.accept(msg));
         } catch (Exception e) {
             log.error("Lock队列[{}]处理消息异常 [{}]", message.getMessageProperties().getConsumerQueue(), jsonService.toJson(msg), e);
-            alarmService.sendMsg(String.format("Lock队列[%s]消息消费失败[%s]", message.getMessageProperties().getConsumerQueue(), jsonService.toJson(msg)));
+            alarmService.sendMsg(String.format("Lock队列[%s]消息消费失败[%s],错误信息:%s", message.getMessageProperties().getConsumerQueue(), jsonService.toJson(msg), ExceptionUtil.stacktraceToString(e)));
         } finally {
             MessageProperties properties = message.getMessageProperties();
             if (Boolean.TRUE.equals(properties.getRedelivered())) {

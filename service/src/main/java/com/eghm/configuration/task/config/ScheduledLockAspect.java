@@ -1,5 +1,6 @@
 package com.eghm.configuration.task.config;
 
+import cn.hutool.core.exceptions.ExceptionUtil;
 import com.eghm.common.AlarmService;
 import com.eghm.constants.CommonConstant;
 import com.eghm.lock.RedisLock;
@@ -33,7 +34,7 @@ public class ScheduledLockAspect {
                 return joinPoint.proceed();
             } catch (Throwable e) {
                 log.error("定时任务处理失败", e);
-                alarmService.sendMsg(String.format("@Scheduled定时任务处理失败[%s]", lockKey));
+                alarmService.sendMsg(String.format("@Scheduled定时任务处理失败key:[%s],错误信息:%s", lockKey, ExceptionUtil.stacktraceToString(e)));
             }
             return null;
         });
