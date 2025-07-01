@@ -43,13 +43,13 @@ public class ItemOrderResponse extends ExcelStyle {
     @ExcelProperty(value = "店铺名称", index = 2)
     private String storeName;
 
-    @Schema(description = "购买数量")
-    @ExcelProperty(value = "购买数量", index = 3)
-    private Integer num;
-
     @Schema(description = "订单状态 0:待支付 1:支付中 2:待使用 3:待自提 4:待发货 5:待收货 6:待成团 7:订单完成 8:已关闭")
-    @ExcelProperty(value = "订单状态", index = 4, converter = EnumExcelConverter.class)
+    @ExcelProperty(value = "订单状态", index = 3, converter = EnumExcelConverter.class)
     private OrderState state;
+
+    @Schema(description = "购买数量")
+    @ExcelProperty(value = "购买数量", index = 4)
+    private Integer num;
 
     @Schema(description = "收货人姓名")
     @ExcelProperty(value = "收货人姓名", index = 5)

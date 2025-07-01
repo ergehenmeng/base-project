@@ -56,9 +56,8 @@ public enum TemplateType {
     /**
      * 确认无房
      */
-    CONFIRM_NO_ROOM("confirm_no_room", "确认无房", "", "您预订${param0}的房型，经确认该房型已售罄，已做退单处理。订单号：￥{param1}"),
+    CONFIRM_NO_ROOM("confirm_no_room", "确认无房", "", "您预订${param0}的房型，经确认该房型已售罄，已做退单处理。订单号：${param1}");
 
-    ;
     @EnumValue
     @JsonValue
     private final String value;
