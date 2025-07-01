@@ -1,5 +1,6 @@
 package com.eghm.configuration.task.config;
 
+import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.ReflectUtil;
 import com.eghm.common.AlarmService;
@@ -70,7 +71,7 @@ public class Invoker implements Runnable {
             String errorMsg = ExceptionUtils.getStackTrace(e);
             builder.errorMsg(errorMsg);
             builder.state(false);
-            alarmService.sendMsg(String.format("自定义定时任务执行失败[%s]", key));
+            alarmService.sendMsg(String.format("自定义定时任务执行失败[%s], 错误信息:%s", key, ExceptionUtil.stacktraceToString(e)));
         } finally {
             if (Boolean.TRUE.equals(task.getLog())) {
                 // 每次执行的日志都记入定时任务日志
