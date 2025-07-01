@@ -1,6 +1,5 @@
 package com.eghm.state.machine.context;
 
-import com.eghm.enums.event.IEvent;
 import com.eghm.pay.enums.TradeType;
 import com.eghm.state.machine.Context;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,6 +26,4 @@ public class PayNotifyContext implements Context {
     @Schema(description = "源状态")
     private Integer from;
 
-    @Schema(description = "事件")
-    private IEvent event;
 }

@@ -1,7 +1,6 @@
 package com.eghm.state.machine.context;
 
 import com.eghm.enums.ProductType;
-import com.eghm.enums.event.IEvent;
 import com.eghm.pay.vo.RefundVO;
 import com.eghm.state.machine.Context;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -29,6 +28,4 @@ public class RefundNotifyContext implements Context {
     @Schema(description = "产品类型")
     private ProductType productType;
 
-    @Schema(description = "事件")
-    private IEvent event;
 }
