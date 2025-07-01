@@ -4,7 +4,6 @@ import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.BaseAsyncKey;
 import com.eghm.enums.DeliveryType;
 import com.eghm.enums.ProductType;
-import com.eghm.enums.event.IEvent;
 import com.eghm.model.Item;
 import com.eghm.state.machine.Context;
 import com.eghm.state.machine.dto.ItemDTO;
@@ -99,6 +98,4 @@ public class ItemOrderCreateContext extends BaseAsyncKey implements Context {
     @ApiModelProperty("产品类型")
     private ProductType productType;
 
-    @ApiModelProperty("事件")
-    private IEvent event;
 }
