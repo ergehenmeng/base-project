@@ -30,7 +30,7 @@ public class VoucherOrderRefundApplyHandler extends AbstractOrderRefundApplyHand
     }
 
     @Override
-    protected int getVerifyNum(Order order) {
+    protected int getVerifiedNum(Order order) {
         VoucherOrder voucherOrder = voucherOrderService.getByOrderNo(order.getOrderNo());
         return voucherOrder.getUseNum();
     }

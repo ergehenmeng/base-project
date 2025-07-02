@@ -137,8 +137,9 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
     @Override
     protected void orderStateCheck(ItemRefundApplyContext context, Order order) {
         if (order.getState() != OrderState.UN_USED && order.getState() != OrderState.WAIT_TAKE &&
-                order.getState() != OrderState.WAIT_DELIVERY && order.getState() != OrderState.WAIT_RECEIVE && order.getState() != OrderState.COMPLETE) {
-            log.error("订单状态不是待使用或待发货, 无法退款 [{}] [{}]", context.getOrderNo(), order.getState());
+                order.getState() != OrderState.WAIT_DELIVERY && order.getState() != OrderState.WAIT_RECEIVE &&
+                order.getState() != OrderState.COMPLETE && order.getState() != OrderState.WAITING_GROUP) {
+            log.error("订单状态不是待使用或待发货或待成团, 无法退款 [{}] [{}]", context.getOrderNo(), order.getState());
             throw new BusinessException(ErrorCode.STATE_NOT_REFUND);
         }
         this.afterSaleTimeExpireCheck(context, order);
