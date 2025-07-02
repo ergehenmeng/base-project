@@ -24,6 +24,7 @@ import com.eghm.vo.business.account.ScoreRechargeResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author 二哥很猛
  * @since 2024/2/16
  */
-
+@Slf4j
 @RestController
 @Api(tags = "商户积分")
 @AllArgsConstructor
@@ -106,12 +107,17 @@ public class ScoreAccountController {
         }
         dto.setMerchantId(SecurityHolder.getMerchantId());
         dto.setClientIp(IpUtil.getIpAddress(request));
-        PrepayVO prepayVO = scoreAccountService.rechargeScan(dto);
-        QrConfig config = new QrConfig();
-        config.setHeight(200);
-        config.setWidth(200);
-        String generate = QrCodeUtil.generateAsBase64(prepayVO.getQrCodeUrl(), config, ImgUtil.IMAGE_TYPE_JPG);
-        return RespBody.success(generate);
+        try {
+            PrepayVO prepayVO = scoreAccountService.rechargeScan(dto);
+            QrConfig config = new QrConfig();
+            config.setHeight(200);
+            config.setWidth(200);
+            String generate = QrCodeUtil.generateAsBase64(prepayVO.getQrCodeUrl(), config, ImgUtil.IMAGE_TYPE_JPG);
+            return RespBody.success(generate);
+        } catch (Exception e) {
+            log.error("扫码充值创建订单异常", e);
+            return RespBody.error(ErrorCode.RECHARGE_CREATE_ERROR);
+        }
     }
 
     /**
