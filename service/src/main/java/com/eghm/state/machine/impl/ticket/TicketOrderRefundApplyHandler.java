@@ -49,7 +49,7 @@ public class TicketOrderRefundApplyHandler extends AbstractOrderRefundApplyHandl
     }
 
     @Override
-    protected int getVerifyNum(Order order) {
+    protected int getVerifiedNum(Order order) {
         return (int) orderVisitorService.getVerify(order.getOrderNo());
     }
 

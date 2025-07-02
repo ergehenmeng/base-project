@@ -221,7 +221,7 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
      */
     protected void refundNumCheck(T context, Order order) {
         int refundNum = orderRefundLogService.getTotalRefundNum(context.getOrderNo(), null);
-        int useNum = this.getVerifyNum(order);
+        int useNum = this.getVerifiedNum(order);
         // 已核销+已退款+本次退款应该小于等于下单数量
         if (order.getNum() < (refundNum + useNum + context.getNum())) {
             log.error("累计退款数量(含本次)大于总支付数量 [{}] [{}] [{}] [{}] [{}]", order.getOrderNo(), order.getNum(), refundNum, context.getNum(), useNum);
@@ -234,7 +234,7 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
      *
      * @param order 订单信息
      */
-    protected int getVerifyNum(Order order) {
+    protected int getVerifiedNum(Order order) {
         return 0;
     }
 
