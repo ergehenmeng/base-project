@@ -137,7 +137,7 @@ public class ItemOrderPaySuccessHandler extends AbstractItemOrderPayNotifyHandle
      */
     private void updateScore(Order order) {
         if (order.getScoreAmount() > 0) {
-            log.info("该订单使用了积分,开始更新积分 [{}]", order.getOrderNo());
+            log.info("该订单使用了积分,开始更新积分 [{}] [{}]", order.getOrderNo(), order.getScoreAmount());
             ScoreAccountDTO dto = new ScoreAccountDTO();
             dto.setTradeNo(order.getOrderNo());
             dto.setAmount(order.getScoreAmount());
