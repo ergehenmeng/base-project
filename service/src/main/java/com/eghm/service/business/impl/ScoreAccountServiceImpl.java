@@ -70,7 +70,7 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
 
     @Override
     public boolean support(List<RoleType> roleTypes) {
-        return true;
+        return roleTypes.contains(RoleType.ITEM);
     }
 
     @Override
