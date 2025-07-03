@@ -24,9 +24,13 @@ public class ItemRefundApplyDTO {
     private Long orderId;
 
     @Schema(description = "申请退款金额(含快递费)", requiredMode = Schema.RequiredMode.REQUIRED)
-    @RangeInt(max = 5000000, message = "退款金额应小于50000元")
+    @RangeInt(max = 5000000, message = "退款金额应小于50000元", required = false)
     @JsonDeserialize(using = YuanToCentDeserializer.class)
     private Integer refundAmount;
+
+    @Schema(description = "申请退还积分数")
+    @RangeInt(max = 100000, message = "退还积分数应小于100000元", required = false)
+    private Integer refundScore;
 
     @Schema(description = "退款原因", requiredMode = Schema.RequiredMode.REQUIRED)
     private String reason;
