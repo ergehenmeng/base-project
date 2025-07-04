@@ -2,8 +2,11 @@ package com.eghm.vo.member;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
+import com.eghm.annotation.Desensitization;
+import com.eghm.convertor.excel.DesensitizationConverter;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
+import com.eghm.enums.FieldType;
 import com.eghm.enums.Gender;
 import com.eghm.enums.MemberState;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -34,7 +37,8 @@ public class MemberResponse extends ExcelStyle {
     private String nickName;
 
     @Schema(description = "手机号码")
-    @ExcelProperty(value = "手机号码", index = 1)
+    @ExcelProperty(value = "手机号码", index = 1, converter = DesensitizationConverter.class)
+    @Desensitization(FieldType.MOBILE_PHONE)
     private String mobile;
 
     @Schema(description = "电子邮箱")

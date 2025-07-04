@@ -26,6 +26,9 @@ public class DictConverter implements Converter<Integer> {
 
     @Override
     public WriteCellData<?> convertToExcelData(Integer value, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
+        if (value == null) {
+            return new WriteCellData<>("");
+        }
         ExcelDict dict = contentProperty.getField().getAnnotation(ExcelDict.class);
         if (dict == null) {
             return NumberUtils.formatToCellDataString(value, contentProperty);
