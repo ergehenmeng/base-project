@@ -113,8 +113,8 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         refundLog.setNum(itemOrder.getNum());
         refundLog.setState(RefundLogState.REFUNDING);
         // 退款金额+手续费
-        // 正常情况下,零售只支持退款审核,默认48小时后自动退款, 但是特殊情况下,零售支持直接退款(拼团失败的订单,这些由平台主动发起的退款不需要审核)
-        if (this.getRefundType(order) == RefundType.AUDIT_REFUND) {
+        // 正常情况下,零售只支持退款审核,默认48小时后自动退款, 但是特殊情况下,零售支持直接退款(零元购、拼团失败的订单,这些由平台主动发起的退款不需要审核)
+        if (this.getRefundType(order) == RefundType.AUDIT_REFUND && context.getRefundAmount() != 0) {
             refundLog.setAuditState(AuditState.APPLY);
             orderRefundLogService.insert(refundLog);
             order.setRefundState(RefundState.APPLY);
