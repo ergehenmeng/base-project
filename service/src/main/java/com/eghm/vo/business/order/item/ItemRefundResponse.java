@@ -21,10 +21,6 @@ public class ItemRefundResponse {
     @ApiModelProperty("退款id")
     private Long id;
 
-    @ApiModelProperty(value = "申请退款金额(含快递费)")
-    @JsonSerialize(using = CentToYuanSerializer.class)
-    private Integer applyAmount;
-
     @ApiModelProperty("退款快递费")
     @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer expressFee;
