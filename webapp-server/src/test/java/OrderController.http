@@ -53,9 +53,10 @@ Token: {{Token}}
     "remark": "请优先发货",
     "skuList": [{
       "itemId": 1906889019571630081,
-      "num": 2,
+      "num": 1,
       "skuId": 1906889019856842754
-    }]
+    }],
+    "scoreAmount": 21000
   }]
 }
 
