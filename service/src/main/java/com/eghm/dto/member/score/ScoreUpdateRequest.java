@@ -26,7 +26,7 @@ public class ScoreUpdateRequest {
 
     @Schema(description = "积分数")
     @NotNull(message = "请输入积分数")
-    @Max(value = 999, message = "积分不能超过999")
+    @Max(value = 9999, message = "积分不能超过9999")
     @Min(value = 1, message = "积分不能小于1")
     private Integer score;
 

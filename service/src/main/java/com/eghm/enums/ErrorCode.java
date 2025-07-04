@@ -1786,9 +1786,9 @@ public enum ErrorCode {
     RECHARGE_CREATE_ERROR(3001, "充值订单创建失败"),
 
     /**
-     * 积分余额不足
+     * 积分余额更新失败
      */
-    MEMBER_SCORE_ERROR(3002, "积分余额不足"),
+    MEMBER_SCORE_ERROR(3002, "积分余额更新失败"),
 
     /**
      * 提现金额不能小于%s元
