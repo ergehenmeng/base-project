@@ -1,6 +1,9 @@
 package com.eghm.dto.business.order.refund;
 
+import com.eghm.convertor.YuanToCentDeserializer;
 import com.eghm.validation.annotation.OptionInt;
+import com.eghm.validation.annotation.RangeInt;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,6 +23,11 @@ public class ItemRefundApplyDTO {
     @Schema(description = "商品订单id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "请选择要退款的商品")
     private Long orderId;
+
+    @Schema(description = "申请退款金额(含快递费)", requiredMode = Schema.RequiredMode.REQUIRED)
+    @RangeInt(max = 5000000, message = "退款金额应小于50000元")
+    @JsonDeserialize(using = YuanToCentDeserializer.class)
+    private Integer refundAmount;
 
     @Schema(description = "退款原因", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "请选择退款原因")

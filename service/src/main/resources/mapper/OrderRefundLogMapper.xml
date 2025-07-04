@@ -109,7 +109,6 @@
             t.id,
             t.order_no,
             t.num,
-            t.apply_amount,
             t.express_fee,
             t.refund_amount,
             t.reason,
