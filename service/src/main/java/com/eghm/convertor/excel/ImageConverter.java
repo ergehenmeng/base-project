@@ -25,6 +25,9 @@ public class ImageConverter implements Converter<String> {
 
     @Override
     public WriteCellData<?> convertToExcelData(String value, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
+        if (value == null) {
+            return new WriteCellData<>("");
+        }
         String[] split = value.split(CommonConstant.COMMA);
         byte[] readBytes = ResourceUtil.readFile(split[0]);
         return new WriteCellData<>(readBytes);
