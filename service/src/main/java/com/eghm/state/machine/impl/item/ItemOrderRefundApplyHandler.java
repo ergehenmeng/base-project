@@ -141,6 +141,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
     @Override
     protected void end(ItemRefundApplyContext context, Order order, OrderRefundLog refundLog) {
         log.info("零售商品订单退款申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
+        // 直接退款的订单=拼团订单, 不需要发送退款审核消息
         if (this.getRefundType(order) == RefundType.DIRECT_REFUND) {
             itemGroupOrderService.refundGroupOrder(order);
         } else {
@@ -156,7 +157,10 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
                 log.info("零售退款(退货退款)申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
                 orderMqService.sendReturnRefundAuditMessage(ExchangeQueue.ITEM_REFUND_CONFIRM, audit);
             }
-            messageService.send(ExchangeQueue.ORDER_REFUND_AUDIT, audit);
+            // 零元购订单退款申请成功后, 由于没涉及支付不需要发送退款审核消息(注意: 零元购商品可能使用了积分)
+            if (context.getRefundAmount() > 0) {
+                messageService.send(ExchangeQueue.ORDER_REFUND_AUDIT, audit);
+            }
         }
     }
 
