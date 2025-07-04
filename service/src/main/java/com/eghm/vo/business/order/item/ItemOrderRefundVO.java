@@ -1,6 +1,7 @@
 package com.eghm.vo.business.order.item;
 
 import com.eghm.convertor.CentToYuanSerializer;
+import com.eghm.convertor.SplitterIndexSerializer;
 import com.eghm.enums.DeliveryState;
 import com.eghm.enums.ItemRefundState;
 import com.eghm.vo.business.merchant.address.MerchantAddressVO;
@@ -37,6 +38,7 @@ public class ItemOrderRefundVO {
     private Integer num;
 
     @Schema(description = "商品封面图(如果有sku图则优先显示sku图,否则显示商品图)")
+    @JsonSerialize(using = SplitterIndexSerializer.class)
     private String coverUrl;
 
     @Schema(description = "规格名称(多规格)")

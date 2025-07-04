@@ -21,10 +21,6 @@ public class ItemRefundResponse {
     @Schema(description = "退款id")
     private Long id;
 
-    @Schema(description = "申请退款金额(含快递费)")
-    @JsonSerialize(using = CentToYuanSerializer.class)
-    private Integer applyAmount;
-
     @Schema(description = "退款快递费")
     @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer expressFee;

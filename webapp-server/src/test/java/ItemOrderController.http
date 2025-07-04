@@ -4,6 +4,11 @@ Channel: {{Channel}}
 Token: {{Token}}
 
 ###
-http://localhost:10010/webapp/item/order/detail?orderNo=LS1935271668426063875
+http://localhost:10010/webapp/item/order/detail?orderNo=LS1940701172939591681
+Channel: {{Channel}}
+Token: {{Token}}
+
+###
+http://localhost:10010/webapp/item/order/toRefund?orderId=1940701173023477762
 Channel: {{Channel}}
 Token: {{Token}}

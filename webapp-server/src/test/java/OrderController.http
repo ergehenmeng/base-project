@@ -212,9 +212,10 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-  "orderNo": "",
-  "buyerId": "",
-  "tradeType": ""
+  "orderNo": "LS1940701172939591681",
+  "orderId": 1940701173023477762,
+  "reason": "错拍",
+  "applyType": 1
 }
 
 ###
