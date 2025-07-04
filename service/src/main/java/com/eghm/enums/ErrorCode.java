@@ -1421,6 +1421,11 @@ public enum ErrorCode {
     REFUND_AMOUNT_MAX(2792, "退款金额不能超过%s元"),
 
     /**
+     * 退还积分不能超过
+     */
+    REFUND_SCORE_MAX(2793, "退还积分不能超过%s"),
+
+    /**
      * 该订单已确认
      */
     ORDER_CONFIRM(2795, "该订单已确认"),

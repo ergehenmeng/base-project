@@ -27,8 +27,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
-import static com.eghm.enums.ErrorCode.REFUND_AMOUNT_MAX;
-import static com.eghm.enums.ErrorCode.REFUND_DELIVERY;
+import static com.eghm.enums.ErrorCode.*;
 
 /**
  * 零售退款申请
@@ -69,6 +68,34 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
     protected void before(ItemRefundApplyContext context, Order order) {
         super.before(context, order);
         this.checkAndSetPayload(context);
+    }
+
+    @Override
+    protected void orderStateCheck(ItemRefundApplyContext context, Order order) {
+        if (order.getState() != OrderState.UN_USED && order.getState() != OrderState.WAIT_TAKE &&
+                order.getState() != OrderState.WAIT_DELIVERY && order.getState() != OrderState.WAIT_RECEIVE &&
+                order.getState() != OrderState.COMPLETE && order.getState() != OrderState.WAITING_GROUP) {
+            log.error("订单状态不是待使用或待发货或待成团, 无法退款 [{}] [{}]", context.getOrderNo(), order.getState());
+            throw new BusinessException(ErrorCode.STATE_NOT_REFUND);
+        }
+        this.afterSaleTimeExpireCheck(context, order);
+    }
+
+    @Override
+    protected void refundNumCheck(ItemRefundApplyContext context, Order order) {
+        int refundNum = orderRefundLogService.getTotalRefundNum(context.getOrderNo(), context.getItemOrderId());
+        if (refundNum > 0) {
+            throw new BusinessException(ErrorCode.ITEM_REFUND);
+        }
+    }
+
+    @Override
+    protected void checkRefundable(ItemRefundApplyContext context, Order order) {
+        super.checkRefundable(context, order);
+        int refundableScore = context.getScoreAmount() + order.getRefundScoreAmount();
+        if (order.getScoreAmount() < refundableScore) {
+            throw new BusinessException(REFUND_SCORE_MAX, order.getScoreAmount() - order.getRefundScoreAmount());
+        }
     }
 
     @Override
@@ -130,25 +157,6 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
                 orderMqService.sendReturnRefundAuditMessage(ExchangeQueue.ITEM_REFUND_CONFIRM, audit);
             }
             messageService.send(ExchangeQueue.ORDER_REFUND_AUDIT, audit);
-        }
-    }
-
-    @Override
-    protected void orderStateCheck(ItemRefundApplyContext context, Order order) {
-        if (order.getState() != OrderState.UN_USED && order.getState() != OrderState.WAIT_TAKE &&
-                order.getState() != OrderState.WAIT_DELIVERY && order.getState() != OrderState.WAIT_RECEIVE &&
-                order.getState() != OrderState.COMPLETE && order.getState() != OrderState.WAITING_GROUP) {
-            log.error("订单状态不是待使用或待发货或待成团, 无法退款 [{}] [{}]", context.getOrderNo(), order.getState());
-            throw new BusinessException(ErrorCode.STATE_NOT_REFUND);
-        }
-        this.afterSaleTimeExpireCheck(context, order);
-    }
-
-    @Override
-    protected void refundNumCheck(ItemRefundApplyContext context, Order order) {
-        int refundNum = orderRefundLogService.getTotalRefundNum(context.getOrderNo(), context.getItemOrderId());
-        if (refundNum > 0) {
-            throw new BusinessException(ErrorCode.ITEM_REFUND);
         }
     }
 

@@ -59,7 +59,7 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
      * @return 退款记录
      */
     protected OrderRefundLog doProcess(T context, Order order) {
-        this.checkRefundAmount(context, order);
+        this.checkRefundable(context, order);
         OrderRefundLog refundLog = DataUtil.copy(context, OrderRefundLog.class);
         refundLog.setApplyTime(LocalDateTime.now());
         refundLog.setMerchantId(order.getMerchantId());
@@ -178,10 +178,10 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
      * @param context 退款信息
      * @param order   订单信息
      */
-    protected void checkRefundAmount(T context, Order order) {
-        int totalAmount = order.getPrice() * context.getNum();
-        if (totalAmount < context.getRefundAmount()) {
-            throw new BusinessException(REFUND_AMOUNT_MAX, DecimalUtil.centToYuan(totalAmount));
+    protected void checkRefundable(T context, Order order) {
+        int totalRefund = order.getRefundAmount() + context.getRefundAmount();
+        if (order.getPayAmount() < totalRefund) {
+            throw new BusinessException(REFUND_AMOUNT_MAX, DecimalUtil.centToYuan(order.getPayAmount() - order.getRefundAmount()));
         }
     }
 
