@@ -159,19 +159,25 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
 
     @Override
     public void refundSuccessUpdateFreeze(Order order, Integer refundAmount, String refundNo) {
+        log.info("退款成功,开始解冻资金账户 [{}] [{}] [{}]", order.getOrderNo(), refundNo, refundAmount);
+        if (refundAmount <= 0) {
+            return;
+        }
         Merchant merchant = this.selectByIdRequired(order.getMerchantId());
-        // 表示最后一次退款
+        // 实际退款金额, 在支付时已经将手续费给平台了,因此商户得到的金额会少于实际支付金额, 在退款时同样需要减去手续费
         Integer actualAmount;
         if (order.getPayAmount().equals(order.getRefundAmount())) {
+            // 表示最后一次退款
             Integer serviceAmount = this.calcServiceAmount(refundAmount, merchant.getPlatformServiceRate());
             actualAmount = refundAmount - serviceAmount;
             log.info("最后一次退款,产生的平台手续费 [{}] [{}] [{}] [{}]", order.getOrderNo(), refundNo, refundAmount, serviceAmount);
         } else {
             actualAmount = this.calcActualAmount(refundAmount, merchant.getPlatformServiceRate());
         }
+        // 解冻资金账户
         this.refundSuccessUpdateAccount(order.getMerchantId(), actualAmount, order.getOrderNo(), refundNo);
         int serviceFee = refundAmount - actualAmount;
-        // 添加平台手续费账户更新
+        // 将平台手续费退还给
         if (serviceFee > 0) {
             this.refundSuccessUpdateAccount(systemProperties.getPlatformMerchantId(), serviceFee, order.getOrderNo(), refundNo);
         } else {
