@@ -463,6 +463,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      * @param context   context
      */
     private void checkAndSetBooking(Long bookingId, ItemOrderCreateContext context) {
+        itemGroupOrderService.checkGroupOrderOnce(bookingId, context.getMemberId());
         if (isBlank(context.getBookingNo())) {
             context.setBookingId(bookingId);
             context.setBookingNo(StringUtil.encryptNumber(IdUtil.getSnowflakeNextId()));
@@ -475,11 +476,6 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         if (CollUtil.isEmpty(groupList)) {
             log.info("团员创建拼团订单,但没有待拼团的订单 [{}]", context.getBookingNo());
             throw new BusinessException(ITEM_GROUP_COMPLETE);
-        }
-        boolean anyMatch = groupList.stream().anyMatch(item -> item.getMemberId().equals(context.getMemberId()));
-        if (anyMatch) {
-            log.info("重复参加同一个拼团活动 [{}] [{}]", context.getBookingNo(), context.getMemberId());
-            throw new BusinessException(ITEM_GROUP_REPEAT);
         }
         context.setBookingId(bookingId);
         context.setBookingNum(groupList.size());

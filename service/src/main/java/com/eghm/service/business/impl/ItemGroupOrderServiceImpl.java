@@ -108,6 +108,18 @@ public class ItemGroupOrderServiceImpl implements ItemGroupOrderService {
     }
 
     @Override
+    public void checkGroupOrderOnce(Long bookingId, Long memberId) {
+        LambdaQueryWrapper<ItemGroupOrder> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(ItemGroupOrder::getBookingId, bookingId);
+        wrapper.eq(ItemGroupOrder::getMemberId, memberId);
+        wrapper.in(ItemGroupOrder::getState, BookingState.WAITING, BookingState.SUCCESS);
+        if (itemGroupOrderMapper.selectCount(wrapper) > 0) {
+            log.error("该用户已参与过该拼团 [{}] [{}]", bookingId, memberId);
+            throw new BusinessException(ErrorCode.ITEM_GROUP_REPEAT);
+        }
+    }
+
+    @Override
     public GroupOrderDetailVO getGroupDetail(String bookingNo) {
         List<GroupMemberVO> memberList = itemGroupOrderMapper.getMemberList(bookingNo);
         if (memberList.isEmpty()) {
