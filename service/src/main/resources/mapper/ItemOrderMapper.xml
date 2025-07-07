@@ -159,6 +159,7 @@
             r.pay_amount,
             r.express_amount as fee,
             r.amount,
+            r.score_amount,
             r.refund_state,
             r.discount_amount,
             r.create_time,
