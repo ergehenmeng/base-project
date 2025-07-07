@@ -15,6 +15,7 @@
         r.mobile,
         r.num,
         r.state,
+        r.refund_state,
         r.discount_amount + r.cd_key_amount as discountAmount,
         r.pay_amount
         from `order` r

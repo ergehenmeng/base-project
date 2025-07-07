@@ -11,6 +11,7 @@
             r.num,
             r.mobile,
             r.state,
+            r.refund_state,
             r.discount_amount,
             r.pay_amount,
             r.pay_time,

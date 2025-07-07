@@ -10,6 +10,7 @@ import com.eghm.dto.ext.ExcelStyle;
 import com.eghm.enums.ConfirmState;
 import com.eghm.enums.OrderState;
 import com.eghm.enums.PayType;
+import com.eghm.enums.RefundState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -45,6 +46,10 @@ public class HomestayOrderResponse extends ExcelStyle {
     @ApiModelProperty(value = "订单状态 0:待支付 1:支付中 2:待使用 3:待自提 4:待发货 5:待收货 6:待成团 7:订单完成 8:已关闭")
     @ExcelProperty(value = "订单状态", index = 3, converter = EnumExcelConverter.class)
     private OrderState state;
+
+    @ApiModelProperty(value = "退款状态 1:退款申请中 2:退款中 3:退款拒绝 4:退款成功 5:退款失败(该状态和退款中在C端用户看来都是退款中) 6:线下退款(该状态与退款成功在C端用户看来是一样的)")
+    @ExcelProperty(value = "退款状态", index = 4, converter = EnumExcelConverter.class)
+    private RefundState refundState;
 
     @ApiModelProperty(value = "确认状态 0:待确认 1:确认有房 2:确认无房 3:自动确认有房")
     @ExcelProperty(value = "确认状态", index = 4, converter = EnumExcelConverter.class)
