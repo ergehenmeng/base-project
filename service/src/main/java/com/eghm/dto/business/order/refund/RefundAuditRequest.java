@@ -33,7 +33,7 @@ public class RefundAuditRequest {
     @Schema(description = "实际退款金额", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "退款金额不能为空")
     @JsonDeserialize(using = YuanToCentDeserializer.class)
-    @Min(value = 1, message = "退款金额不能小于0.01")
+    @Min(value = 0, message = "退款金额不能小于0元")
     private Integer refundAmount;
 
     @Schema(description = "审批意见", requiredMode = Schema.RequiredMode.REQUIRED)

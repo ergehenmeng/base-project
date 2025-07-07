@@ -164,6 +164,7 @@
             r.amount,
             r.refund_state,
             r.discount_amount,
+            r.score_amount,
             r.create_time,
             r.close_type,
             r.member_id,

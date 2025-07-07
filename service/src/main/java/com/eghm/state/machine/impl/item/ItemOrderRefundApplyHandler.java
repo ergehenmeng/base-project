@@ -114,8 +114,8 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         refundLog.setNum(itemOrder.getNum());
         refundLog.setState(RefundLogState.REFUNDING);
         // 退款金额+手续费
-        // 正常情况下,零售只支持退款审核,默认48小时后自动退款, 但是特殊情况下, 零售支持直接退款(零元购、拼团失败的订单,这些由平台主动发起的退款不需要审核)
-        if (this.getRefundType(order) == RefundType.AUDIT_REFUND && context.getRefundAmount() != 0) {
+        // 正常情况下,零售只支持退款审核,默认48小时后自动退款, 但是特殊情况下, 零售支持直接退款(拼团失败的订单,这些由平台主动发起的退款不需要审核)
+        if (this.getRefundType(order) == RefundType.AUDIT_REFUND) {
             refundLog.setAuditState(AuditState.APPLY);
             orderRefundLogService.insert(refundLog);
             order.setRefundState(RefundState.APPLY);
@@ -158,10 +158,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
                 log.info("零售退款(退货退款)申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog);
                 orderMqService.sendReturnRefundAuditMessage(ExchangeQueue.ITEM_REFUND_CONFIRM, audit);
             }
-            // 零元购订单退款申请成功后, 由于没涉及支付不需要发送退款审核消息(注意: 零元购商品可能使用了积分)
-            if (context.getRefundAmount() > 0) {
-                messageService.send(ExchangeQueue.ORDER_REFUND_AUDIT, audit);
-            }
+            messageService.send(ExchangeQueue.ORDER_REFUND_AUDIT, audit);
         }
     }
 

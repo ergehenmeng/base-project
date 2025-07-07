@@ -61,6 +61,9 @@ public class ItemOrderDetailResponse {
     @JsonSerialize(using = CentToYuanSerializer.class)
     private Integer payAmount;
 
+    @Schema(description = "使用积分")
+    private Integer scoreAmount;
+
     @Schema(description = "下单时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
