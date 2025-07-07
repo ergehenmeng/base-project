@@ -15,7 +15,8 @@
         r.mobile,
         r.create_time,
         r.pay_time,
-        r.state
+        r.state,
+        r.refund_state
         from `order` r
         inner join venue_order t on t.order_no = r.order_no
         where t.deleted = false

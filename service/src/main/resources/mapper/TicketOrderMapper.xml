@@ -8,6 +8,7 @@
             r.title,
             t.scenic_name,
             r.pay_type,
+            r.refund_state,
             r.num,
             r.mobile,
             r.state,

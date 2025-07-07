@@ -12,6 +12,7 @@
         r.pay_type,
         r.num,
         r.state,
+        r.refund_state,
         r.create_time,
         r.nick_name,
         r.mobile,

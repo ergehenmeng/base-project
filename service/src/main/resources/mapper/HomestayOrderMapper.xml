@@ -12,6 +12,7 @@
         r.mobile,
         r.num,
         r.state,
+        r.refund_state,
         r.pay_time,
         r.pay_amount,
         t.confirm_state,
