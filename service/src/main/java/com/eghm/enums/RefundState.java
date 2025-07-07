@@ -1,6 +1,7 @@
 package com.eghm.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.eghm.annotation.ExcelDesc;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -64,6 +65,7 @@ public enum RefundState {
     /**
      * 名称
      */
+    @ExcelDesc
     private final String name;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
