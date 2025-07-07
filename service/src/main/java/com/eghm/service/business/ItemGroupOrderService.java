@@ -54,6 +54,14 @@ public interface ItemGroupOrderService {
     List<ItemGroupOrder> getGroupList(String bookingNo, BookingState state);
 
     /**
+     * 用户在同一个活动下只能有一个订单(如果拼团失败则允许再次下单)
+     *
+     * @param bookingId 拼团活动id
+     * @param memberId 会员id
+     */
+    void checkGroupOrderOnce(Long bookingId, Long memberId);
+
+    /**
      * 获取拼团详情
      *
      * @param bookingNo 拼团订单编号
