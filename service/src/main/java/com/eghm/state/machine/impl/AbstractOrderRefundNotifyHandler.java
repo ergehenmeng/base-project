@@ -143,7 +143,8 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
      */
     protected void postSuccess(RefundNotifyContext context, Order order, OrderRefundLog refundLog) {
         accountService.refundSuccessUpdateFreeze(order, refundLog.getRefundAmount(), context.getRefundNo());
-        if (order.getCouponId() != null) {
+        // 只有订单关闭时才会释放优惠券
+        if (order.getCouponId() != null && order.getState() == OrderState.CLOSE) {
             memberCouponService.releaseCoupon(order.getCouponId());
         }
     }
