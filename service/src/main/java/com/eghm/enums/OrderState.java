@@ -56,7 +56,7 @@ public enum OrderState {
     WAIT_RECEIVE(5, "待收货"),
 
     /**
-     * 退款中
+     * 待成团
      */
     WAITING_GROUP(6, "待成团"),
 
