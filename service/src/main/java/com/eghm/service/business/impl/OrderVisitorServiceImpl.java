@@ -79,7 +79,7 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         // 退款锁定游客信息时,该游客一定是未核销的, 因此正常情况下更新的数量一定和visitorList数量一致的
         // 除非用户自己选择游客信息存在已核销的用户
         if (visitorList.size() != update) {
-            log.error("退款人可能存在部分被核销的订单信息 [{}] [{}] [{}] [{}]", orderNo, refundId, visitorList, update);
+            log.error("选择的退款游客中可能包含已核销或已退款的游客 [{}] [{}] [{}] [{}]", orderNo, refundId, visitorList, update);
             throw new BusinessException(ErrorCode.VISITOR_STATE_ERROR);
         }
     }
