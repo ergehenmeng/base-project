@@ -2,12 +2,12 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.business.coupon.config.CouponAddRequest;
 import com.eghm.dto.business.coupon.config.CouponEditRequest;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.dto.business.coupon.config.CouponQueryRequest;
 import com.eghm.dto.business.coupon.product.CouponProductDTO;
-import com.eghm.configuration.security.ApiHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.UseScope;
@@ -76,10 +76,8 @@ public class CouponServiceImpl implements CouponService {
     public void update(CouponEditRequest request) {
         Coupon coupon = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(coupon.getMerchantId());
-        this.checkScope(coupon.getUseScope(), request.getProductIds());
         Coupon config = DataUtil.copy(request, Coupon.class);
         couponMapper.updateById(config);
-        couponScopeService.insertOnUpdate(config.getId(), request.getProductIds(), request.getProductType());
     }
 
     @Override
