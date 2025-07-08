@@ -13,14 +13,11 @@ import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.mq.service.MessageService;
 import com.eghm.service.business.*;
-import com.eghm.state.machine.access.AbstractAccessHandler;
-import com.eghm.state.machine.access.impl.ItemAccessHandler;
 import com.eghm.state.machine.context.ItemRefundApplyContext;
 import com.eghm.state.machine.context.RefundApplyContext;
 import com.eghm.state.machine.impl.AbstractOrderRefundApplyHandler;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
-import com.eghm.utils.SpringContextUtil;
 import com.eghm.vo.business.order.item.ItemOrderRefundVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -134,7 +131,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         orderService.updateById(order);
         itemOrderService.updateById(itemOrder);
         // 尝试发起退款(注意零元购要特殊处理)
-        super.tryStartRefund(refundLog, order);
+        orderService.tryStartRefund(refundLog, order);
         return refundLog;
     }
 
@@ -159,11 +156,6 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
             }
             messageService.send(ExchangeQueue.ORDER_REFUND_AUDIT, audit);
         }
-    }
-
-    @Override
-    protected AbstractAccessHandler getAccessHandler() {
-        return SpringContextUtil.getBean(ItemAccessHandler.class);
     }
 
     /**
@@ -191,7 +183,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         ItemOrderRefundVO refund = orderService.getItemRefund(context.getItemOrderId(), context.getMemberId(), false);
         int totalAmount = refund.getRefundAmount() + refund.getExpressFeeAmount();
         if (totalAmount < context.getRefundAmount()) {
-            throw new BusinessException(REFUND_AMOUNT_MAX, DecimalUtil.centToYuan(totalAmount));
+            throw new BusinessException(REFUND_AMOUNT_MAX, DecimalUtil.centToYuanOmit(totalAmount));
         }
         context.setExpressFee(refund.getExpressFeeAmount());
         context.setScoreAmount(refund.getScoreAmount());

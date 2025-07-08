@@ -303,4 +303,13 @@ public interface OrderService extends IService<Order> {
      * @param tradeNo 交易单号
      */
     void payCancel(String tradeNo);
+
+    /**
+     *
+     * 发起退款
+     *
+     * @param refundLog 退款记录
+     * @param order 订单
+     */
+    void tryStartRefund(OrderRefundLog refundLog, Order order);
 }

@@ -4,18 +4,13 @@ import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.pay.enums.RefundStatus;
-import com.eghm.pay.vo.RefundVO;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.state.machine.ActionHandler;
-import com.eghm.state.machine.access.AbstractAccessHandler;
 import com.eghm.state.machine.context.RefundApplyContext;
-import com.eghm.state.machine.context.RefundNotifyContext;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
-import com.eghm.utils.TransactionUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -80,47 +75,8 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
         orderService.updateById(order);
         orderRefundLogService.insert(refundLog);
         orderVisitorService.refundLock(order.getProductType(), context.getOrderNo(), refundLog.getId(), context.getVisitorIds(), VisitorState.REFUNDING, getSource());
-        this.tryStartRefund(refundLog, order);
+        orderService.tryStartRefund(refundLog, order);
         return refundLog;
-    }
-
-    /**
-     * 尝试发起退款, 如果是零元付,则不真实发起支付,而是模拟退款成功
-     * 注意: 发起真实退款时,可能会出现异步回调提前与当前事务的提交,导致退款异步通知逻辑获取到的订单信息不准确, 需要在回调和申请加锁
-     * 且此处并没有对品类做限制即所有商品都可以零元付退款
-     * @param refundLog 支付流水记录
-     * @param order 订单编号
-     */
-    protected void tryStartRefund(OrderRefundLog refundLog, Order order) {
-        if (refundLog.getRefundAmount() > 0) {
-            orderService.startRefund(refundLog, order);
-        } else {
-            log.info("退款金额为0, 直接模拟退款成功 [{}] [{}]", refundLog.getRefundNo(), refundLog.getRefundAmount());
-            AbstractAccessHandler beanHandler = this.getAccessHandler();
-            if (beanHandler == null) {
-                log.error("退款处理类为空, 模拟退款成功失败, 可能该品类不支持零元购 [{}]", order.getOrderNo());
-                return;
-            }
-            RefundNotifyContext context = new RefundNotifyContext();
-            context.setTradeNo(order.getTradeNo());
-            context.setRefundNo(refundLog.getRefundNo());
-            context.setFrom(OrderState.UN_USED.getValue());
-            RefundVO result = new RefundVO();
-            result.setState(RefundStatus.REFUND_SUCCESS);
-            result.setAmount(0);
-            result.setSuccessTime(LocalDateTime.now());
-            context.setResult(result);
-            TransactionUtil.afterCommit(() -> beanHandler.refundSuccess(context));
-        }
-    }
-
-    /**
-     * 模拟退款成功的handler, 主要用于零元付
-     *
-     * @return null 时默认不触发退款
-     */
-    protected AbstractAccessHandler getAccessHandler() {
-        return null;
     }
 
     /**
@@ -181,7 +137,7 @@ public abstract class AbstractOrderRefundApplyHandler<T extends RefundApplyConte
     protected void checkRefundable(T context, Order order) {
         int totalRefund = order.getRefundAmount() + context.getRefundAmount();
         if (order.getPayAmount() < totalRefund) {
-            throw new BusinessException(REFUND_AMOUNT_MAX, DecimalUtil.centToYuan(order.getPayAmount() - order.getRefundAmount()));
+            throw new BusinessException(REFUND_AMOUNT_MAX, DecimalUtil.centToYuanOmit(order.getPayAmount() - order.getRefundAmount()));
         }
     }
 
