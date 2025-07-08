@@ -36,7 +36,7 @@ public class CouponScopeServiceImpl implements CouponScopeService {
     public boolean match(Long couponId, List<Long> productIds) {
         Set<Long> ids = new HashSet<>(productIds);
         LambdaQueryWrapper<CouponScope> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(CouponScope::getProductId, ids);
+        wrapper.in(CouponScope::getProductId, ids);
         wrapper.eq(CouponScope::getCouponId, couponId);
         Long count = couponScopeMapper.selectCount(wrapper);
         return count == ids.size();

@@ -806,9 +806,9 @@ public enum ErrorCode {
     REFUND_GT_PAY(2399, "累计退款金额不能大于实付金额"),
 
     /**
-     * 订单状态不符合退款要求
+     * 请选择可以退款的游客
      */
-    VISITOR_STATE_ERROR(2402, "订单状态不符合退款要求"),
+    VISITOR_STATE_ERROR(2402, "请选择可以退款的游客"),
 
     /**
      * 订单状态不匹配,无法核销

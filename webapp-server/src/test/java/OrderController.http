@@ -6,12 +6,16 @@ Token: {{Token}}
 {
   "ticketId": 1889934475715518465,
   "mobile": "13136113294",
-  "num": 1,
-  "visitDate": "2025-06-29",
+  "couponId": 1942518296865263617,
+  "num": 2,
+  "visitDate": "2025-07-30",
   "remark": "少点套路",
   "visitorList": [{
     "idCard": "620622196011141794",
     "memberName": "山邦家"
+  },{
+    "idCard": "432502198302266030",
+    "memberName": "连贡"
   }]
 }
 
@@ -159,9 +163,10 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-  "orderNo": "MP1742099655827591170",
+  "orderNo": "MP1942519046072721410",
   "num": 1,
-  "applyAmount": "60.00",
+  "visitorIds": [1942519061688115203],
+  "refundAmount": 0,
   "reason": "不想去了"
 }
 
