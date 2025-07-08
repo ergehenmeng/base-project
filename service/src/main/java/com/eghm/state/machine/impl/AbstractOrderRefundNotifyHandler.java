@@ -81,11 +81,12 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
         RefundVO refund = context.getResult();
         RefundStatus state = refund.getState();
         if (state == REFUND_SUCCESS || state == SUCCESS) {
-            this.refundSuccessSetState(order, refundLog);
             refundLog.setState(RefundLogState.SUCCESS);
+            this.refundSuccessSetState(order, refundLog);
+            this.postSuccess(context, order, refundLog);
         } else if (state == ABNORMAL || state == CLOSED) {
-            this.refundFailSetState(order, refundLog);
             refundLog.setState(RefundLogState.FAIL);
+            this.refundFailSetState(order, refundLog);
         }
         orderRefundLogService.updateById(refundLog);
         orderService.updateById(order);
@@ -132,6 +133,17 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
     }
 
     /**
+     * 退款成功后置处理
+     *
+     * @param context 上下文
+     * @param order 订单
+     * @param refundLog 退款记录
+     */
+    protected void postSuccess(RefundNotifyContext context, Order order, OrderRefundLog refundLog) {
+        accountService.refundSuccessUpdateFreeze(order, refundLog.getRefundAmount(), context.getRefundNo());
+    }
+
+    /**
      * 退款回调后置处理, 例如退款后, 例如库存退还
      *
      * @param context      流水号
@@ -141,7 +153,6 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
      */
     protected void after(RefundNotifyContext context, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
         log.info("退款异步处理结果 [{}] [{}]", order.getOrderNo(), refundStatus);
-        accountService.refundSuccessUpdateFreeze(order, refundLog.getRefundAmount(), context.getRefundNo());
     }
 
 }
