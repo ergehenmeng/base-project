@@ -3,6 +3,7 @@ package com.eghm.vo.business.coupon;
 import com.eghm.convertor.CentToYuanSerializer;
 import com.eghm.enums.CouponType;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
  * @since 2022/7/14
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MemberCouponVO {
 
     @Schema(description = "id")

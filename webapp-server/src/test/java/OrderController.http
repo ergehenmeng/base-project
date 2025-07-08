@@ -50,13 +50,14 @@ Token: {{Token}}
   "deliveryType": 1,
   "itemList": [{
     "storeId": 1818206459138408449,
+    "couponId": 1942420275863347202,
     "remark": "请优先发货",
     "skuList": [{
       "itemId": 1906889019571630081,
       "num": 1,
       "skuId": 1906889019856842754
     }],
-    "scoreAmount": 21000
+    "scoreAmount": 100
   }]
 }
 

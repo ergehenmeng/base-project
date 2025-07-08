@@ -1,14 +1,11 @@
 package com.eghm.dto.business.coupon.config;
 
-import com.eghm.enums.ProductType;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * 优惠券编辑时,部分字段不支持修改
@@ -36,9 +33,4 @@ public class CouponEditRequest {
     @WordChecker(message = "使用说明存在敏感词")
     private String instruction;
 
-    @Schema(description = "商品类型 ticket:门票 homestay:民宿 voucher:餐饮券 item:零售 line:线路 venue:场馆")
-    private ProductType productType;
-
-    @Schema(description = "关联的商品列表")
-    private List<Long> productIds;
 }

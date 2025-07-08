@@ -75,10 +75,8 @@ public class CouponServiceImpl implements CouponService {
     public void update(CouponEditRequest request) {
         Coupon coupon = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(coupon.getMerchantId());
-        this.checkScope(coupon.getUseScope(), request.getProductIds());
         Coupon config = DataUtil.copy(request, Coupon.class);
         couponMapper.updateById(config);
-        couponScopeService.insertOnUpdate(config.getId(), request.getProductIds(), request.getProductType());
     }
 
     @Override
