@@ -46,7 +46,7 @@ public enum ProductType {
      * 零售
      */
     ITEM("item", "零售", "LS", new OrderState[]{
-            OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.WAIT_DELIVERY, OrderState.WAIT_RECEIVE, OrderState.COMPLETE, OrderState.CLOSE
+            OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.WAIT_TAKE, OrderState.WAITING_GROUP, OrderState.WAIT_DELIVERY, OrderState.WAIT_RECEIVE, OrderState.COMPLETE, OrderState.CLOSE
     }, "item"),
 
     /**
@@ -60,7 +60,7 @@ public enum ProductType {
      * 场馆
      */
     VENUE("venue", "场馆", "YY", new OrderState[]{
-        OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.COMPLETE, OrderState.CLOSE
+            OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.COMPLETE, OrderState.CLOSE
     }, "venue_site");
 
     /**
