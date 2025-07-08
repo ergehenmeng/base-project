@@ -38,7 +38,6 @@ public class ScenicAddRequest {
     private String phone;
 
     @ApiModelProperty(value = "景区标签")
-    @WordChecker(message = "景区标签存在敏感词")
     @JsonDeserialize(using = JoinerDeserializer.class)
     private String tag;
 
