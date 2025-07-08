@@ -30,6 +30,8 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
 
     private final AccountService accountService;
 
+    private final MemberCouponService memberCouponService;
+
     private final OrderVerifyLogService orderVerifyLogService;
 
     private final OrderRefundLogService orderRefundLogService;
@@ -141,6 +143,9 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
      */
     protected void postSuccess(RefundNotifyContext context, Order order, OrderRefundLog refundLog) {
         accountService.refundSuccessUpdateFreeze(order, refundLog.getRefundAmount(), context.getRefundNo());
+        if (order.getCouponId() != null) {
+            memberCouponService.releaseCoupon(order.getCouponId());
+        }
     }
 
     /**
