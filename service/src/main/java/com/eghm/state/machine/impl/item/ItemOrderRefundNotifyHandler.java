@@ -9,6 +9,7 @@ import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.service.business.*;
 import com.eghm.service.member.MemberService;
+import com.eghm.state.machine.context.RefundNotifyContext;
 import com.eghm.state.machine.impl.AbstractOrderRefundNotifyHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -35,8 +36,9 @@ public class ItemOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
 
     public ItemOrderRefundNotifyHandler(MemberService memberService, OrderService orderService, OrderRefundLogService orderRefundLogService,
                                         OrderVerifyLogService orderVerifyLogService, ItemSkuService itemSkuService, ItemOrderService itemOrderService,
-                                        AccountService accountService, ScoreAccountService scoreAccountService, OrderVisitorRefundService orderVisitorRefundService) {
-        super(orderService, accountService, orderVerifyLogService, orderRefundLogService, orderVisitorRefundService);
+                                        AccountService accountService, ScoreAccountService scoreAccountService, OrderVisitorRefundService orderVisitorRefundService,
+                                        MemberCouponService memberCouponService) {
+        super(orderService, accountService, memberCouponService, orderVerifyLogService, orderRefundLogService, orderVisitorRefundService);
         this.memberService = memberService;
         this.itemSkuService = itemSkuService;
         this.itemOrderService = itemOrderService;
@@ -54,6 +56,11 @@ public class ItemOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
             order.setCloseType(CloseType.REFUND);
         }
         order.setRefundState(RefundState.SUCCESS);
+    }
+
+    @Override
+    protected void postSuccess(RefundNotifyContext context, Order order, OrderRefundLog refundLog) {
+        super.postSuccess(context, order, refundLog);
         ItemOrder itemOrder = itemOrderService.selectById(refundLog.getItemOrderId());
         // 退款完成库存增加
         itemSkuService.updateStock(itemOrder.getSkuId(), refundLog.getNum());

@@ -36,8 +36,8 @@ public class LineOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
     public LineOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                         OrderVerifyLogService orderVerifyLogService, LineOrderService lineOrderService, LineConfigService lineConfigService,
                                         OrderVisitorService orderVisitorService, OrderMqService orderMqService,
-                                        AccountService accountService, OrderVisitorRefundService orderVisitorRefundService) {
-        super(orderService, accountService, orderVerifyLogService, orderRefundLogService, orderVisitorRefundService);
+                                        AccountService accountService, OrderVisitorRefundService orderVisitorRefundService, MemberCouponService memberCouponService) {
+        super(orderService, accountService, memberCouponService, orderVerifyLogService, orderRefundLogService, orderVisitorRefundService);
         this.orderMqService = orderMqService;
         this.lineOrderService = lineOrderService;
         this.lineConfigService = lineConfigService;

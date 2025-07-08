@@ -32,8 +32,9 @@ public class TicketOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHan
 
     public TicketOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                           OrderVerifyLogService orderVerifyLogService, ScenicTicketService scenicTicketService, OrderVisitorService orderVisitorService,
-                                          OrderMqService orderMqService, AccountService accountService, OrderVisitorRefundService orderVisitorRefundService) {
-        super(orderService, accountService, orderVerifyLogService, orderRefundLogService, orderVisitorRefundService);
+                                          OrderMqService orderMqService, AccountService accountService, OrderVisitorRefundService orderVisitorRefundService,
+                                          MemberCouponService memberCouponService) {
+        super(orderService, accountService, memberCouponService, orderVerifyLogService, orderRefundLogService, orderVisitorRefundService);
         this.orderMqService = orderMqService;
         this.scenicTicketService = scenicTicketService;
         this.orderVisitorService = orderVisitorService;
