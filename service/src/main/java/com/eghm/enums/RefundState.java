@@ -21,9 +21,9 @@ import java.util.Arrays;
 public enum RefundState {
 
     /**
-     * 初始状态, 未退款
+     * 初始状态, 无退款
      */
-    NONE(0, "未退款"),
+    NONE(0, "无退款"),
 
     /**
      * 退款申请中,待审核

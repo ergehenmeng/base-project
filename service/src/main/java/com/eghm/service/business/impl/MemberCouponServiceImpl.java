@@ -9,10 +9,7 @@ import com.eghm.dto.business.coupon.member.GrantCouponDTO;
 import com.eghm.dto.business.coupon.member.MemberCouponQueryPageDTO;
 import com.eghm.dto.business.coupon.member.MemberCouponQueryRequest;
 import com.eghm.dto.business.coupon.member.ReceiveCouponDTO;
-import com.eghm.enums.CouponMode;
-import com.eghm.enums.CouponState;
-import com.eghm.enums.CouponType;
-import com.eghm.enums.ErrorCode;
+import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.CouponMapper;
 import com.eghm.mapper.MemberCouponMapper;
@@ -99,38 +96,38 @@ public class MemberCouponServiceImpl implements MemberCouponService {
     }
 
     @Override
-    public Integer getCouponAmountWithVerify(Long memberId, @NonNull Long couponId, List<Long> productIds, Long storeId, Integer amount) {
-        MemberCoupon coupon = memberCouponMapper.selectById(couponId);
+    public Integer getCouponAmountWithVerify(Long memberId, @NonNull Long memberCouponId, List<Long> productIds, Long storeId, Integer amount) {
+        MemberCoupon coupon = memberCouponMapper.selectById(memberCouponId);
         if (coupon == null) {
-            log.error("优惠券不存在 [{}]", couponId);
+            log.error("优惠券不存在 [{}]", memberCouponId);
             throw new BusinessException(ErrorCode.COUPON_NOT_FOUND);
         }
         if (!coupon.getMemberId().equals(memberId)) {
-            log.error("优惠券不属于该用户所有 [{}] [{}]", memberId, couponId);
+            log.error("优惠券不属于该用户所有 [{}] [{}]", memberId, memberCouponId);
             throw new BusinessException(ErrorCode.COUPON_ILLEGAL);
         }
         if (coupon.getState() != CouponState.UNUSED) {
-            log.error("优惠券状态非法 [{}] [{}]", coupon.getState(), couponId);
+            log.error("优惠券状态非法 [{}] [{}]", coupon.getState(), memberCouponId);
             throw new BusinessException(ErrorCode.COUPON_USE_ERROR);
         }
-        Coupon config = couponMapper.selectById(couponId);
-        if (config.getUseScope() == 1) {
-            if (!couponScopeService.match(couponId, productIds)) {
-                log.error("商品无法匹配该优惠券 [{}] [{}]", couponId, productIds);
+        Coupon config = couponMapper.selectById(coupon.getCouponId());
+        if (config.getUseScope() == UseScope.PRODUCT.getValue()) {
+            if (!couponScopeService.match(coupon.getCouponId(), productIds)) {
+                log.error("商品无法匹配该优惠券 [{}] [{}]", memberCouponId, productIds);
                 throw new BusinessException(ErrorCode.COUPON_MATCH);
             }
         } else if (!storeId.equals(config.getStoreId())) {
-            log.error("商品对应的店铺无法匹配该优惠券设置的店铺 [{}] [{}] [{}]", couponId, productIds, storeId);
+            log.error("商品对应的店铺无法匹配该优惠券设置的店铺 [{}] [{}] [{}]", memberCouponId, productIds, storeId);
             throw new BusinessException(ErrorCode.COUPON_MATCH);
         }
         LocalDateTime now = LocalDateTime.now();
         if (config.getUseStartTime().isAfter(now) || config.getUseEndTime().isBefore(now)) {
-            log.error("优惠券不在有效期 [{}] [{}] [{}]", couponId, config.getStartTime(), config.getUseEndTime());
+            log.error("优惠券不在有效期 [{}] [{}] [{}]", memberCouponId, config.getStartTime(), config.getUseEndTime());
             throw new BusinessException(ErrorCode.COUPON_USE_ERROR);
         }
         if (config.getCouponType() == CouponType.DEDUCTION) {
             if (config.getDeductionValue() > amount) {
-                log.error("优惠券不满足使用条件 [{}] [{}]", couponId, amount);
+                log.error("优惠券不满足使用条件 [{}] [{}]", memberCouponId, amount);
                 throw new BusinessException(ErrorCode.COUPON_USE_THRESHOLD);
             }
             return config.getDeductionValue();
