@@ -45,17 +45,19 @@ public class LineOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
     }
 
     @Override
-    protected void after(RefundNotifyContext dto, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
-        super.after(dto, order, refundLog, refundStatus);
-        if (refundStatus == RefundStatus.SUCCESS || refundStatus == RefundStatus.REFUND_SUCCESS) {
-            orderVisitorService.refundVisitor(order.getOrderNo(), refundLog.getId(), VisitorState.REFUND);
-            try {
-                LineOrder lineOrder = lineOrderService.getByOrderNo(order.getOrderNo());
-                lineConfigService.updateStock(lineOrder.getLineConfigId(), refundLog.getNum());
-            } catch (Exception e) {
-                log.error("线路退款成功,但更新库存失败 [{}] [{}] ", dto, refundLog.getNum(), e);
-            }
+    protected void postSuccess(RefundNotifyContext context, Order order, OrderRefundLog refundLog) {
+        super.postSuccess(context, order, refundLog);
+        orderVisitorService.refundVisitor(order.getOrderNo(), refundLog.getId(), VisitorState.REFUND);
+        try {
+            LineOrder lineOrder = lineOrderService.getByOrderNo(order.getOrderNo());
+            lineConfigService.updateStock(lineOrder.getLineConfigId(), refundLog.getNum());
+        } catch (Exception e) {
+            log.error("线路退款成功,但更新库存失败 [{}] [{}] ", context, refundLog.getNum(), e);
         }
+    }
+
+    @Override
+    protected void after(RefundNotifyContext dto, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
         if (order.getState() == OrderState.COMPLETE) {
             orderMqService.sendOrderCompleteMessage(ExchangeQueue.LINE_COMPLETE_DELAY, order.getOrderNo());
         }

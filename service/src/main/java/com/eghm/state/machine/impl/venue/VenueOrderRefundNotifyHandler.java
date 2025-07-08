@@ -5,7 +5,6 @@ import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.VenueEvent;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.pay.enums.RefundStatus;
 import com.eghm.service.business.*;
 import com.eghm.state.machine.context.RefundNotifyContext;
 import com.eghm.state.machine.impl.AbstractOrderRefundNotifyHandler;
@@ -30,14 +29,12 @@ public class VenueOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHand
     }
 
     @Override
-    protected void after(RefundNotifyContext dto, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
-        super.after(dto, order, refundLog, refundStatus);
-        if (refundStatus == RefundStatus.SUCCESS || refundStatus == RefundStatus.REFUND_SUCCESS) {
-            try {
-                venueOrderService.updateStock(order.getOrderNo(), 1);
-            } catch (Exception e) {
-                log.error("场馆退款成功,但更新库存失败 [{}] [{}] ", dto, refundLog.getNum(), e);
-            }
+    protected void postSuccess(RefundNotifyContext context, Order order, OrderRefundLog refundLog) {
+        super.postSuccess(context, order, refundLog);
+        try {
+            venueOrderService.updateStock(order.getOrderNo(), 1);
+        } catch (Exception e) {
+            log.error("场馆退款成功,但更新库存失败 [{}] [{}] ", context, refundLog.getNum(), e);
         }
     }
 

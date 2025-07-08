@@ -40,12 +40,14 @@ public class TicketOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHan
     }
 
     @Override
+    protected void postSuccess(RefundNotifyContext context, Order order, OrderRefundLog refundLog) {
+        super.postSuccess(context, order, refundLog);
+        orderVisitorService.refundVisitor(order.getOrderNo(), refundLog.getId(), VisitorState.REFUND);
+        scenicTicketService.releaseStock(order.getOrderNo(), refundLog.getNum());
+    }
+
+    @Override
     protected void after(RefundNotifyContext context, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
-        super.after(context, order, refundLog, refundStatus);
-        if (refundStatus == RefundStatus.SUCCESS || refundStatus == RefundStatus.REFUND_SUCCESS) {
-            orderVisitorService.refundVisitor(order.getOrderNo(), refundLog.getId(), VisitorState.REFUND);
-            scenicTicketService.releaseStock(order.getOrderNo(), refundLog.getNum());
-        }
         if (order.getState() == OrderState.COMPLETE) {
             orderMqService.sendOrderCompleteMessage(ExchangeQueue.TICKET_COMPLETE_DELAY, order.getOrderNo());
         }
