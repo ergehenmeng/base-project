@@ -38,7 +38,7 @@ public class ScenicAddRequest {
     private String phone;
 
     @Schema(description = "景区标签")
-    @WordChecker(message = "景区标签存在敏感词")
+    @JsonDeserialize(using = JoinerDeserializer.class)
     private String tag;
 
     @Schema(description = "省份id", requiredMode = Schema.RequiredMode.REQUIRED)
