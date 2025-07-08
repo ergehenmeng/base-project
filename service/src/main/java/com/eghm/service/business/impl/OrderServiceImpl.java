@@ -31,13 +31,18 @@ import com.eghm.mq.service.MessageService;
 import com.eghm.pay.dto.PrepayDTO;
 import com.eghm.pay.dto.RefundDTO;
 import com.eghm.pay.enums.PayChannel;
+import com.eghm.pay.enums.RefundStatus;
 import com.eghm.pay.enums.TradeState;
 import com.eghm.pay.enums.TradeType;
 import com.eghm.pay.service.AggregatePayService;
 import com.eghm.pay.vo.PayOrderVO;
 import com.eghm.pay.vo.PrepayVO;
+import com.eghm.pay.vo.RefundVO;
 import com.eghm.service.business.*;
 import com.eghm.service.sys.SysAreaService;
+import com.eghm.state.machine.access.AbstractAccessHandler;
+import com.eghm.state.machine.access.AccessHandler;
+import com.eghm.state.machine.context.RefundNotifyContext;
 import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.StringUtil;
@@ -227,12 +232,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public void startRefund(OrderRefundLog log, Order order) {
+    public void startRefund(OrderRefundLog refundLog, Order order) {
         RefundDTO dto = new RefundDTO();
-        dto.setRefundNo(log.getRefundNo());
+        dto.setRefundNo(refundLog.getRefundNo());
         dto.setTradeNo(order.getTradeNo());
-        dto.setReason(log.getReason());
-        dto.setAmount(log.getRefundAmount());
+        dto.setReason(refundLog.getReason());
+        dto.setAmount(refundLog.getRefundAmount());
         dto.setTradeType(TradeType.valueOf(order.getPayType().name()));
         dto.setOrderNo(order.getOrderNo());
         dto.setTotal(order.getPayAmount());
@@ -701,6 +706,30 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         baseMapper.update(null, wrapper);
         TradeType tradeType = TradeType.of(order.getPayType().name());
         aggregatePayService.closeOrder(tradeType, tradeNo);
+    }
+
+    @Override
+    public void tryStartRefund(OrderRefundLog refundLog, Order order) {
+        if (refundLog.getRefundAmount() > 0) {
+            this.startRefund(refundLog, order);
+        } else {
+            log.info("退款金额为0, 直接模拟退款成功 [{}] [{}]", refundLog.getRefundNo(), refundLog.getRefundAmount());
+            AccessHandler beanHandler = commonService.getHandler(order.getProductType(), AccessHandler.class);
+            if (beanHandler == null) {
+                log.error("退款处理类为空, 模拟退款成功失败, 可能该品类不支持零元购 [{}]", order.getOrderNo());
+                return;
+            }
+            RefundNotifyContext context = new RefundNotifyContext();
+            context.setTradeNo(order.getTradeNo());
+            context.setFrom(OrderState.UN_USED.getValue());
+            context.setRefundNo(refundLog.getRefundNo());
+            RefundVO result = new RefundVO();
+            result.setState(RefundStatus.REFUND_SUCCESS);
+            result.setAmount(0);
+            result.setSuccessTime(LocalDateTime.now());
+            context.setResult(result);
+            TransactionUtil.afterCommit(() -> ((AbstractAccessHandler) beanHandler).refundSuccess(context));
+        }
     }
 
     /**

@@ -110,8 +110,8 @@ public abstract class AbstractOrderRefundAuditHandler implements ActionHandler<R
      * @param refundLog 退款记录
      */
     protected void passAfter(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
-        log.info("退款审核通过后置处理 [{}] [{}] [{}]", context.getAuditRemark(), order.getOrderNo(), refundLog.getId());
-        orderService.startRefund(refundLog, order);
+        log.info("退款审核通过开始调用第三方支付进行退款操作 [{}] [{}] [{}]", context.getAuditRemark(), order.getOrderNo(), refundLog.getId());
+        orderService.tryStartRefund(refundLog, order);
     }
 
     /**

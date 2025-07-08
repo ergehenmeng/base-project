@@ -11,11 +11,8 @@ import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.TicketOrderService;
-import com.eghm.state.machine.access.AbstractAccessHandler;
-import com.eghm.state.machine.access.impl.TicketAccessHandler;
 import com.eghm.state.machine.context.RefundApplyContext;
 import com.eghm.state.machine.impl.AbstractOrderRefundApplyHandler;
-import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -50,11 +47,6 @@ public class TicketOrderRefundApplyHandler extends AbstractOrderRefundApplyHandl
     @Override
     protected int getVerifiedNum(Order order) {
         return (int) orderVisitorService.getVerify(order.getOrderNo());
-    }
-
-    @Override
-    protected AbstractAccessHandler getAccessHandler() {
-        return SpringContextUtil.getBean(TicketAccessHandler.class);
     }
 
     @Override

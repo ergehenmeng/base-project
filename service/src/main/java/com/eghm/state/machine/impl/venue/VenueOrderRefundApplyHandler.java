@@ -9,11 +9,8 @@ import com.eghm.model.OrderRefundLog;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.state.machine.access.AbstractAccessHandler;
-import com.eghm.state.machine.access.impl.VenueAccessHandler;
 import com.eghm.state.machine.context.RefundApplyContext;
 import com.eghm.state.machine.impl.AbstractOrderRefundApplyHandler;
-import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -37,11 +34,6 @@ public class VenueOrderRefundApplyHandler extends AbstractOrderRefundApplyHandle
     @Override
     protected void end(RefundApplyContext context, Order order, OrderRefundLog refundLog) {
         log.info("场馆订单退款申请成功 [{}] [{}] [{}]", context, order.getState(), order.getRefundState());
-    }
-
-    @Override
-    protected AbstractAccessHandler getAccessHandler() {
-        return SpringContextUtil.getBean(VenueAccessHandler.class);
     }
 
     @Override
