@@ -110,8 +110,8 @@ public class Order extends BaseEntity {
     @ApiModelProperty("已退款积分")
     private Integer refundScoreAmount;
 
-    @ApiModelProperty(value = "优惠券id")
-    private Long couponId;
+    @ApiModelProperty(value = "会员优惠券id")
+    private Long memberCouponId;
 
     @ApiModelProperty("支付时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

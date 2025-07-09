@@ -25,7 +25,6 @@ import com.eghm.vo.business.coupon.MemberCouponVO;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -96,7 +95,7 @@ public class MemberCouponServiceImpl implements MemberCouponService {
     }
 
     @Override
-    public Integer getCouponAmountWithVerify(Long memberId, @NonNull Long memberCouponId, List<Long> productIds, Long storeId, Integer amount) {
+    public Integer getCouponAmountWithVerify(Long memberId, Long memberCouponId, List<Long> productIds, Long storeId, Integer amount) {
         MemberCoupon coupon = memberCouponMapper.selectById(memberCouponId);
         if (coupon == null) {
             log.error("优惠券不存在 [{}]", memberCouponId);

@@ -16,8 +16,8 @@ import java.util.List;
 @Data
 public class ItemDTO {
 
-    @ApiModelProperty("优惠券id")
-    private Long couponId;
+    @ApiModelProperty("会员优惠券id")
+    private Long memberCouponId;
 
     @ApiModelProperty("店铺id")
     @NotNull(message = "店铺不能为空")

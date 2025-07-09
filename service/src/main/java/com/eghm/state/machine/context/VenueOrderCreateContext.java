@@ -20,7 +20,7 @@ import java.util.List;
 public class VenueOrderCreateContext extends BaseAsyncKey implements Context {
 
     @ApiModelProperty("优惠券id")
-    private Long couponId;
+    private Long memberCouponId;
 
     @ApiModelProperty("昵称")
     private String nickName;

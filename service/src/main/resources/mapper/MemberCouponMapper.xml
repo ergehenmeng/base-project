@@ -13,7 +13,7 @@
         s.order_no
         from member_coupon t
         left join `member` r on t.member_id = r.id
-        left join `order` s on t.coupon_id = s.coupon_id
+        left join `order` s on t.id = s.member_coupon_id
         where t.deleted = false
         <if test="param.couponId != null">
             and t.coupon_id = #{param.couponId}

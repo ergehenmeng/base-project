@@ -42,8 +42,8 @@ public class TicketOrderCreateDTO {
     @Size(max = 99, message = "游客数量最大99人")
     private List<VisitorDTO> visitorList;
 
-    @ApiModelProperty("优惠券id")
-    private Long couponId;
+    @ApiModelProperty("会员优惠券id")
+    private Long memberCouponId;
 
     @ApiModelProperty("备注信息")
     @Size(max = 50, message = "备注最大50字符")

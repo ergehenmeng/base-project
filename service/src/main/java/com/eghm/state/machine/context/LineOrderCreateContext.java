@@ -32,8 +32,8 @@ public class LineOrderCreateContext extends BaseAsyncKey implements Context {
     @ApiModelProperty("数量")
     private Integer num;
 
-    @ApiModelProperty("优惠券id")
-    private Long couponId;
+    @ApiModelProperty("会员优惠券id")
+    private Long memberCouponId;
 
     @ApiModelProperty("联系人电话")
     private String mobile;

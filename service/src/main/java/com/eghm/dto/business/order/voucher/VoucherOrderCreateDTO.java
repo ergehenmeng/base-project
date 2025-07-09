@@ -24,8 +24,8 @@ public class VoucherOrderCreateDTO {
     @ApiModelProperty(value = "数量", required = true)
     private Integer num;
 
-    @ApiModelProperty("优惠券id")
-    private Long couponId;
+    @ApiModelProperty("会员优惠券id")
+    private Long memberCouponId;
 
     @ApiModelProperty(value = "联系人姓名", required = true)
     @Size(max = 10, message = "联系人姓名最大10字符")

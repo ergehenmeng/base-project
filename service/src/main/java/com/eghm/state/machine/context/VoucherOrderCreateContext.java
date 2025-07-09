@@ -24,7 +24,7 @@ public class VoucherOrderCreateContext extends BaseAsyncKey implements Context {
     private Integer num;
 
     @ApiModelProperty("优惠券id")
-    private Long couponId;
+    private Long memberCouponId;
 
     @ApiModelProperty("昵称")
     private String nickName;

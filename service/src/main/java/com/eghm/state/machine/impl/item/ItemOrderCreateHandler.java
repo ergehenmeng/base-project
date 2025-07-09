@@ -180,7 +180,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
         order.setRefundState(RefundState.NONE);
         order.setAmount(aPackage.getItemAmount());
         order.setDiscountAmount(aPackage.getCouponAmount());
-        order.setCouponId(aPackage.getCouponId());
+        order.setMemberCouponId(aPackage.getMemberCouponId());
         order.setRemark(aPackage.getRemark());
         order.setLimitId(context.getLimitId());
         order.setBookingId(context.getBookingId());
@@ -304,16 +304,16 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
             storePackage.setStoreId(vo.getStoreId());
             storePackage.setMemberAddress(memberAddress);
             storePackage.setScoreAmount(vo.getScoreAmount() != null ? vo.getScoreAmount() : 0);
-            storePackage.setCouponId(vo.getCouponId());
+            storePackage.setMemberCouponId(vo.getMemberCouponId());
             storePackage.setRemark(vo.getRemark());
             List<OrderPackage> orderList = this.assembleStoreOrder(vo.getSkuList(), context.getItemMap(), specMap, skuMap);
             storePackage.setItemList(orderList);
             Integer itemAmount = this.checkAndCalcTotalAmount(orderList, context);
             storePackage.setItemAmount(itemAmount);
-            if (storePackage.getCouponId() != null) {
+            if (storePackage.getMemberCouponId() != null) {
                 // 用户在该店铺下单时使用了优惠券/校验优惠券是否可用并计算优惠了多少钱
                 List<Long> itemIds = storePackage.getItemList().stream().map(OrderPackage::getItemId).collect(Collectors.toList());
-                Integer couponAmount = memberCouponService.getCouponAmountWithVerify(context.getMemberId(), storePackage.getCouponId(), itemIds, storePackage.getStoreId(), itemAmount);
+                Integer couponAmount = memberCouponService.getCouponAmountWithVerify(context.getMemberId(), storePackage.getMemberCouponId(), itemIds, storePackage.getStoreId(), itemAmount);
                 storePackage.setCouponAmount(couponAmount);
             } else {
                 storePackage.setCouponAmount(0);
@@ -594,7 +594,7 @@ public class ItemOrderCreateHandler implements ActionHandler<ItemOrderCreateCont
      */
     private void after(ItemOrderCreateContext context, List<Order> orderList) {
         memberService.updateScore(context.getMemberId(), ScoreType.PAY, context.getTotalScore());
-        memberCouponService.useCoupon(orderList.stream().map(Order::getCouponId).filter(Objects::nonNull).collect(Collectors.toList()));
+        memberCouponService.useCoupon(orderList.stream().map(Order::getMemberCouponId).filter(Objects::nonNull).collect(Collectors.toList()));
         int realPayAmount = orderList.stream().mapToInt(Order::getPayAmount).sum();
         if (realPayAmount <= 0) {
             String tradeNo = orderList.get(0).getTradeNo();

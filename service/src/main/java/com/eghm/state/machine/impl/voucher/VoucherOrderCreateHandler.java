@@ -98,7 +98,7 @@ public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<Vouche
         order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
         // 使用优惠券
-        this.useDiscount(order, context.getMemberId(), context.getCouponId(), voucher.getId());
+        this.useDiscount(order, context.getMemberId(), context.getMemberCouponId(), voucher.getId());
         // 使用兑换码
         this.useRedeemCode(order, context.getMemberId(), context.getCdKey(), payload.getCdKeyAmount());
         // 校验最低金额

@@ -30,7 +30,7 @@ public class HomestayOrderCreateDTO extends AbstractDateComparator {
     private Long roomId;
 
     @ApiModelProperty("优惠券id")
-    private Long couponId;
+    private Long memberCouponId;
 
     @ApiModelProperty(value = "联系人电话", required = true)
     @Mobile(message = "联系人手机号格式错误")

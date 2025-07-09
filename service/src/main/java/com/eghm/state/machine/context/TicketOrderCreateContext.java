@@ -44,8 +44,8 @@ public class TicketOrderCreateContext extends BaseAsyncKey implements Context {
     @ApiModelProperty("游客信息")
     private List<VisitorDTO> visitorList;
 
-    @ApiModelProperty("优惠券id")
-    private Long couponId;
+    @ApiModelProperty("会员优惠券id")
+    private Long memberCouponId;
 
     @ApiModelProperty("备注")
     private String remark;

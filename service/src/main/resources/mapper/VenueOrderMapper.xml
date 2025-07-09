@@ -37,10 +37,10 @@
         </if>
         <if test="param.useVoucher != null">
             <if test="param.useVoucher">
-                and r.coupon_id is not null
+                and r.member_coupon_id is not null
             </if>
             <if test="!param.useVoucher">
-                and r.coupon_id is null
+                and r.member_coupon_id is null
             </if>
         </if>
         <if test="param.startDate != null and param.endDate != null">

@@ -30,7 +30,7 @@ public class StoreOrderPackage {
     private List<OrderPackage> itemList;
 
     @ApiModelProperty("优惠券id")
-    private Long couponId;
+    private Long memberCouponId;
 
     @ApiModelProperty("积分")
     private Integer scoreAmount;

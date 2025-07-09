@@ -30,8 +30,8 @@ public class LineOrderCreateDTO {
     @NotNull(message = "商品不能为空")
     private Long lineId;
 
-    @ApiModelProperty("优惠券id")
-    private Long couponId;
+    @ApiModelProperty("会员优惠券id")
+    private Long memberCouponId;
 
     @RangeInt(min = 1, max = 99, message = "购买数量应为1~99张")
     @ApiModelProperty("数量")
