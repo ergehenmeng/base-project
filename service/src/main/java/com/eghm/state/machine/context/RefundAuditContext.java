@@ -29,6 +29,9 @@ public class RefundAuditContext implements Context {
     @ApiModelProperty("审批意见")
     private String auditRemark;
 
+    @ApiModelProperty("是否为自动审核")
+    private Boolean autoAudit;
+
     @ApiModelProperty(value = "审批人id")
     @Assign
     private Long auditUserId;

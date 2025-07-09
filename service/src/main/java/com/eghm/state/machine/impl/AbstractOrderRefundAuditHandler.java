@@ -135,11 +135,17 @@ public abstract class AbstractOrderRefundAuditHandler implements ActionHandler<R
      */
     protected void before(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
         if (order.getRefundState() == null) {
-            log.error("该笔订单未发起退款,无法进行审核操作 [{}] [{}]", context.getOrderNo(), order.getState());
+            log.warn("该笔订单未发起退款或已退款成功,无法进行审核操作 [{}] [{}]", context.getOrderNo(), order.getState());
+            if (Boolean.TRUE.equals(context.getAutoAudit())) {
+                return;
+            }
             throw new BusinessException(ErrorCode.NO_REFUND_STATE);
         }
         if (refundLog.getAuditState() != AuditState.APPLY) {
-            log.error("退款记录状态已更新 [{}] [{}] ", refundLog.getId(), refundLog.getAuditState());
+            log.warn("退款记录状态已更新,无法审核退款 [{}] [{}] ", refundLog.getId(), refundLog.getAuditState());
+            if (Boolean.TRUE.equals(context.getAutoAudit())) {
+                return;
+            }
             throw new BusinessException(REFUND_AUDITED);
         }
         int refundAmount = order.getRefundAmount() + context.getRefundAmount();

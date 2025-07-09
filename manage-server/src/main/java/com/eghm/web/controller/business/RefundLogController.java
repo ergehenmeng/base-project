@@ -72,6 +72,7 @@ public class RefundLogController {
         }
         RefundAuditContext context = DataUtil.copy(request, RefundAuditContext.class);
         UserToken userToken = SecurityHolder.getUserRequired();
+        context.setAutoAudit(true);
         context.setAuditUserId(userToken.getId());
         // 备注信息标注是谁审批的 方便快速查看
         context.setAuditRemark(userToken.getNickName() + ": " + request.getAuditRemark());
