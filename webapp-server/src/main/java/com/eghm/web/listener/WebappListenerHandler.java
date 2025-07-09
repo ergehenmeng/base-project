@@ -340,6 +340,7 @@ public class WebappListenerHandler extends AbstractListenerHandler {
         RefundAuditContext context = DataUtil.copy(audit, RefundAuditContext.class);
         context.setState(1);
         context.setAuditUserId(1L);
+        context.setAutoAudit(true);
         // 备注信息标注是谁审批的 方便快速查看
         context.setAuditRemark("系统: 自动审核通过");
         processMessageAckLock(LockConstant.ORDER_LOCK + audit.getOrderNo(), audit, message, channel, a ->

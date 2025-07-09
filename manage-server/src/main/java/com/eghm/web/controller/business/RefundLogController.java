@@ -72,6 +72,7 @@ public class RefundLogController {
             throw new BusinessException(ORDER_TYPE_MATCH);
         }
         RefundAuditContext context = DataUtil.copy(request, RefundAuditContext.class);
+        context.setAutoAudit(false);
         UserToken userToken = SecurityHolder.getUserRequired();
         context.setAuditUserId(userToken.getId());
         // 备注信息标注是谁审批的 方便快速查看
