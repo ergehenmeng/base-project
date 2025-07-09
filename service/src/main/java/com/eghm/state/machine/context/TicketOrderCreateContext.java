@@ -44,8 +44,8 @@ public class TicketOrderCreateContext extends BaseAsyncKey implements Context {
     @Schema(description = "游客信息")
     private List<VisitorDTO> visitorList;
 
-    @Schema(description = "优惠券id")
-    private Long couponId;
+    @Schema(description = "会员优惠券id")
+    private Long memberCouponId;
 
     @Schema(description = "备注")
     private String remark;

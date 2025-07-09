@@ -107,8 +107,8 @@ public class Order extends BaseEntity {
     @Schema(description = "已退款积分")
     private Integer refundScoreAmount;
 
-    @Schema(description = "优惠券id")
-    private Long couponId;
+    @Schema(description = "会员优惠券id")
+    private Long memberCouponId;
 
     @Schema(description = "支付时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

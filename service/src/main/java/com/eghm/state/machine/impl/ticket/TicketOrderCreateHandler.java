@@ -126,7 +126,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
         // 使用优惠券
-        this.useDiscount(order, context.getMemberId(), context.getCouponId(), ticket.getId());
+        this.useDiscount(order, context.getMemberId(), context.getMemberCouponId(), ticket.getId());
         super.checkAmount(order);
         orderService.save(order);
         return order;

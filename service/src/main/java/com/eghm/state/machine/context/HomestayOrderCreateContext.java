@@ -31,8 +31,8 @@ public class HomestayOrderCreateContext extends BaseAsyncKey implements Context 
     @Schema(description = "商品id")
     private Long roomId;
 
-    @Schema(description = "优惠券id")
-    private Long couponId;
+    @Schema(description = "会员优惠券id")
+    private Long memberCouponId;
 
     @Schema(description = "联系人姓名")
     private String nickName;

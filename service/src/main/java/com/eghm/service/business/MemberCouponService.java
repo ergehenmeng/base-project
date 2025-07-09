@@ -8,7 +8,6 @@ import com.eghm.dto.business.coupon.member.ReceiveCouponDTO;
 import com.eghm.vo.business.coupon.MemberCouponBaseVO;
 import com.eghm.vo.business.coupon.MemberCouponResponse;
 import com.eghm.vo.business.coupon.MemberCouponVO;
-import org.springframework.lang.NonNull;
 
 import java.util.List;
 import java.util.Map;
@@ -61,14 +60,14 @@ public interface MemberCouponService {
     /**
      * 获取优惠券优惠的金额(校验优惠券是否符合使用条件) 零售专用
      *
-     * @param memberId  用户id
-     * @param couponId  用户优惠券id 不能为空
+     * @param memberId  会员id
+     * @param memberCouponId  会员优惠券id 不能为空
      * @param itemIds   零售商品id
      * @param storeId   商品所属店铺id
      * @param amount    预支付金额 单位:分
      * @return 优惠金额 单位:分
      */
-    Integer getCouponAmountWithVerify(Long memberId, @NonNull Long couponId, List<Long> itemIds, Long storeId, Integer amount);
+    Integer getCouponAmountWithVerify(Long memberId, Long memberCouponId, List<Long> itemIds, Long storeId, Integer amount);
 
     /**
      * 使用优惠券(更新优惠券状态为已使用)

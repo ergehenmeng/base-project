@@ -429,11 +429,11 @@ CREATE TABLE `manage_log`
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`
 (
-    `id`              bigint(20)  NOT NULL COMMENT '主键',
-    `nick_name`       varchar(20) DEFAULT NULL COMMENT '用户名称',
+    `id`              bigint(20) NOT NULL COMMENT '主键',
+    `nick_name`       varchar(20)  DEFAULT NULL COMMENT '用户名称',
     `user_name`       varchar(20)  DEFAULT NULL COMMENT '账户名',
     `user_type`       tinyint(2)   DEFAULT '1' COMMENT '用户类型 0: 超级管理员 1:系统用户 2: 商户用户',
-    `mobile`          char(11)    DEFAULT NULL COMMENT '手机号码(登陆账户)',
+    `mobile`          char(11)     DEFAULT NULL COMMENT '手机号码(登陆账户)',
     `state`           tinyint(1)   DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
     `pwd`             varchar(256) DEFAULT NULL COMMENT '登陆密码MD5',
     `init_pwd`        varchar(256) DEFAULT NULL COMMENT '初始密码',
@@ -1315,7 +1315,7 @@ CREATE TABLE `order`
     `cd_key_amount`       int(10)        DEFAULT '0' COMMENT 'cd_key金额',
     `score_amount`        int(10)        DEFAULT '0' COMMENT '积分数',
     `cd_key`              varchar(20)    DEFAULT NULL COMMENT 'cd_key',
-    `coupon_id`           bigint(20)     DEFAULT NULL COMMENT '优惠券id',
+    `member_coupon_id`    bigint(20)     DEFAULT NULL COMMENT '会员优惠券id',
     `pay_time`            datetime       DEFAULT NULL COMMENT '订单支付时间',
     `complete_time`       datetime       DEFAULT NULL COMMENT '订单完成时间',
     `evaluate_state`      bit(1)         default b'0' COMMENT '是否已评价',

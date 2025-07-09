@@ -131,7 +131,7 @@ public class VenueOrderCreateHandler extends AbstractOrderCreateHandler<VenueOrd
         order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
         // 使用优惠券
-        this.useDiscount(order, context.getMemberId(), context.getCouponId(), venue.getId());
+        this.useDiscount(order, context.getMemberId(), context.getMemberCouponId(), venue.getId());
         // 使用cdKey
         super.useRedeemCode(order, context.getMemberId(), context.getCdKey(), payload.getCdKeyAmount());
         // 校验最低金额

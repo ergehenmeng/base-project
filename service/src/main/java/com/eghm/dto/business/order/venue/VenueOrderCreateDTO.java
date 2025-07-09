@@ -19,8 +19,8 @@ public class VenueOrderCreateDTO {
     @NotEmpty(message = "请选择时间段")
     private List<Long> phaseList;
 
-    @Schema(description = "优惠券id")
-    private Long couponId;
+    @Schema(description = "会员优惠券id")
+    private Long memberCouponId;
 
     @Schema(description = "联系人姓名", requiredMode = Schema.RequiredMode.REQUIRED)
     @Size(max = 10, message = "联系人姓名最大10字符")

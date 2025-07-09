@@ -19,8 +19,8 @@ import java.util.List;
 @ToString(callSuper = true)
 public class VenueOrderCreateContext extends BaseAsyncKey implements Context {
 
-    @Schema(description = "优惠券id")
-    private Long couponId;
+    @Schema(description = "会员优惠券id")
+    private Long memberCouponId;
 
     @Schema(description = "昵称")
     private String nickName;

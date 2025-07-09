@@ -29,8 +29,8 @@ public class StoreOrderPackage {
     @Schema(description = "订单商品信息")
     private List<OrderPackage> itemList;
 
-    @Schema(description = "优惠券id")
-    private Long couponId;
+    @Schema(description = "会员优惠券id")
+    private Long memberCouponId;
 
     @Schema(description = "积分")
     private Integer scoreAmount = 0;

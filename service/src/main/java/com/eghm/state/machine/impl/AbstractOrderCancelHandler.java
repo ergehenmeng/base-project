@@ -66,7 +66,7 @@ public abstract class AbstractOrderCancelHandler implements ActionHandler<OrderC
         order.setCloseType(CloseType.CANCEL);
         order.setCloseTime(LocalDateTime.now());
         orderService.updateById(order);
-        memberCouponService.releaseCoupon(order.getCouponId());
+        memberCouponService.releaseCoupon(order.getMemberCouponId());
     }
 
     /**

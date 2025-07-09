@@ -16,8 +16,8 @@ import java.util.List;
 @Data
 public class ItemDTO {
 
-    @Schema(description = "优惠券id")
-    private Long couponId;
+    @Schema(description = "会员优惠券id")
+    private Long memberCouponId;
 
     @Schema(description = "店铺id")
     @NotNull(message = "店铺不能为空")

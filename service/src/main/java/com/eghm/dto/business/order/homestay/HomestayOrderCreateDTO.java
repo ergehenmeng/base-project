@@ -31,8 +31,8 @@ public class HomestayOrderCreateDTO extends AbstractDateComparator {
     @NotNull(message = "商品不能为空")
     private Long roomId;
 
-    @Schema(description = "优惠券id")
-    private Long couponId;
+    @Schema(description = "会员优惠券id")
+    private Long memberCouponId;
 
     @Schema(description = "联系人电话", requiredMode = Schema.RequiredMode.REQUIRED)
     @Mobile(message = "联系人手机号格式错误")

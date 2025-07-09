@@ -23,8 +23,8 @@ public class VoucherOrderCreateContext extends BaseAsyncKey implements Context {
     @Schema(description = "数量")
     private Integer num;
 
-    @Schema(description = "优惠券id")
-    private Long couponId;
+    @Schema(description = "会员优惠券id")
+    private Long memberCouponId;
 
     @Schema(description = "昵称")
     private String nickName;

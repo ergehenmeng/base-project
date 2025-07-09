@@ -132,7 +132,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         order.setCreateMonth(LocalDate.now().format(DateUtil.MIN_FORMAT));
         order.setCreateTime(LocalDateTime.now());
         // 使用优惠券
-        super.useDiscount(order, context.getMemberId(), context.getCouponId(), context.getRoomId());
+        super.useDiscount(order, context.getMemberId(), context.getMemberCouponId(), context.getRoomId());
         // 使用cdKey
         super.useRedeemCode(order, context.getMemberId(), context.getCdKey(), payload.getCdKeyAmount());
         // 校验最低金额
