@@ -133,7 +133,7 @@ public class MemberCouponServiceImpl implements MemberCouponService {
             return config.getDeductionValue();
         }
         // 百分比折扣
-        return amount * config.getDiscountValue() / 100;
+        return amount * (100 - config.getDiscountValue()) / 100;
     }
 
     @Override
