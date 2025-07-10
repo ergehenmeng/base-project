@@ -102,7 +102,7 @@ public abstract class AbstractOrderRefundNotifyHandler implements ActionHandler<
      * @param refundLog 退款记录
      */
     protected void refundSuccessSetState(Order order, OrderRefundLog refundLog) {
-        int refundNum = orderRefundLogService.getRefundSuccessNum(order.getOrderNo(), null);
+        int refundNum = orderRefundLogService.getRefundSuccessNum(order.getOrderNo());
         // 退款成功的+当前退款的大于总订单数,则默认关闭
         if ((refundNum + refundLog.getNum()) >= order.getNum()) {
             order.setState(OrderState.CLOSE);
