@@ -16,7 +16,7 @@ public class RoleAddRequest {
 
     @Schema(description = "角色名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "角色名称不能为空")
-    @Size(max = 210, message = "角色名称最大10字符")
+    @Size(max = 10, message = "角色名称最大10字符")
     private String roleName;
 
     @Schema(description = "备注信息")

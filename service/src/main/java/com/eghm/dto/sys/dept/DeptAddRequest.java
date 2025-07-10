@@ -3,6 +3,7 @@ package com.eghm.dto.sys.dept;
 import com.eghm.dto.ext.ActionRecord;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,9 +25,11 @@ public class DeptAddRequest extends ActionRecord {
 
     @Schema(description = "部门名称", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "部门名称不能为空")
+    @Size(max = 10, message = "部门名称最长10字符")
     private String title;
 
     @Schema(description = "备注信息")
+    @Size(max = 100, message = "备注信息最长100字符")
     private String remark;
 
 }

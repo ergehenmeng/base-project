@@ -58,10 +58,11 @@ public class BannerAddRequest {
     private LocalDateTime endTime;
 
     @Schema(description = "是否可点击 true:可以 false:不可以", requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "是否可点击不能为空")
     private Boolean click;
 
     @Schema(description = "备注信息")
-    @WordChecker(message = "备注信息存在敏感词")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 
 }

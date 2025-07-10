@@ -5,6 +5,7 @@ import com.eghm.convertor.YuanToCentDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 /**
@@ -33,6 +34,7 @@ public class WithdrawApplyDTO {
     private String bankNum;
 
     @Schema(description = "提现备注")
+    @Size(max = 100, message = "提现备注最大100字符")
     private String remark;
 
 }

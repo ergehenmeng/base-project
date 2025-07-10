@@ -4,10 +4,7 @@ import com.eghm.annotation.Assign;
 import com.eghm.convertor.YuanToCentDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.util.List;
@@ -39,6 +36,7 @@ public class OfflineRefundRequest {
 
     @Schema(description = "备注信息", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "备注信息不能为空")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 
     @Assign

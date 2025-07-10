@@ -27,8 +27,10 @@ public class ItemTagEditRequest {
     private String icon;
 
     @Schema(description = "状态 0:禁用 1:启用", requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotBlank(message = "请选择状态")
     private Boolean state;
 
     @Schema(description = "备注")
+    @Length(max = 100, message = "备注信息最大100字符")
     private String remark;
 }

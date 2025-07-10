@@ -3,6 +3,7 @@ package com.eghm.dto.sys.config;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 /**
@@ -24,9 +25,11 @@ public class ConfigEditRequest {
 
     @Schema(description = "参数值", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "参数值不能为空")
+    @Size(max = 500, message = "参数值最大500字符")
     private String content;
 
     @Schema(description = "备注信息")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 
 }

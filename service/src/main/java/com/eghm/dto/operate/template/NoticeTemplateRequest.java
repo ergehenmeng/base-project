@@ -3,6 +3,7 @@ package com.eghm.dto.operate.template;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 /**
@@ -23,8 +24,10 @@ public class NoticeTemplateRequest {
 
     @Schema(description = "通知内容", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "通知内容不能为空")
+    @Size(max = 200, message = "通知内容最大200字符")
     private String content;
 
     @Schema(description = "备注信息")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 }

@@ -2,6 +2,7 @@ package com.eghm.dto.business.order;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.List;
@@ -24,5 +25,6 @@ public class OrderVerifyDTO {
     private Long combineId;
 
     @Schema(description = "备注信息")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 }

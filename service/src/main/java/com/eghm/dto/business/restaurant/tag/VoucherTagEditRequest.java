@@ -1,4 +1,4 @@
-package com.eghm.dto.business;
+package com.eghm.dto.business.restaurant.tag;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -27,8 +27,10 @@ public class VoucherTagEditRequest {
     private Long restaurantId;
 
     @Schema(description = "状态 0:禁用 1:启用", requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "请选择状态")
     private Boolean state;
 
     @Schema(description = "备注")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 }

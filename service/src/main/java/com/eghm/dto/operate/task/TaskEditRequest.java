@@ -3,6 +3,7 @@ package com.eghm.dto.operate.task;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
@@ -26,9 +27,11 @@ public class TaskEditRequest {
     private String cronExpression;
 
     @Schema(description = "方法参数")
+    @Size(max = 300, message = "方法参数最大300字符")
     private String args;
 
     @Schema(description = "报警邮箱")
+    @Size(max = 30, message = "报警邮箱最大30字符")
     private String alarmEmail;
 
     @Schema(description = "锁持有时间,毫秒")
@@ -45,5 +48,6 @@ public class TaskEditRequest {
     private Boolean log;
 
     @Schema(description = "备注信息")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 }
