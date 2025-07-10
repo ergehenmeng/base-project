@@ -16,6 +16,9 @@ public class MemberScoreVO {
     @Schema(description = "积分值")
     private Integer score;
 
+    @Schema(description = "变更后的积分")
+    private Integer surplusScore;
+
     @Schema(description = "积分类型")
     private Integer type;
 

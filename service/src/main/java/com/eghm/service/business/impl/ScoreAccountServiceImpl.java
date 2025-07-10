@@ -107,7 +107,7 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
         this.updateById(account);
         ScoreAccountLog accountLog = DataUtil.copy(dto, ScoreAccountLog.class);
         accountLog.setDirection(dto.getChargeType().getDirection());
-        accountLog.setSurplusAmount(account.getAmount() + account.getPayFreeze());
+        accountLog.setSurplusScore(account.getAmount() + account.getPayFreeze());
         scoreAccountLogMapper.insert(accountLog);
 
     }
@@ -143,10 +143,10 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
     public void withdrawSuccess(String tradeNo) {
         ScoreAccountLog accountLog = this.getByTradeNo(tradeNo);
         ScoreAccount account = this.getAccount(accountLog.getMerchantId());
-        account.setWithdrawFreeze(account.getWithdrawFreeze() - accountLog.getAmount());
+        account.setWithdrawFreeze(account.getWithdrawFreeze() - accountLog.getScore());
         this.updateById(account);
         AccountDTO accountDTO = new AccountDTO();
-        accountDTO.setAmount(accountLog.getAmount());
+        accountDTO.setAmount(accountLog.getScore());
         accountDTO.setAccountType(AccountType.SCORE_WITHDRAW);
         accountDTO.setMerchantId(accountLog.getMerchantId());
         accountDTO.setTradeNo(tradeNo);
@@ -157,7 +157,7 @@ public class ScoreAccountServiceImpl implements ScoreAccountService, MerchantIni
     public void withdrawFail(String tradeNo) {
         ScoreAccountLog accountLog = this.getByTradeNo(tradeNo);
         ScoreAccountDTO accountDTO = new ScoreAccountDTO();
-        accountDTO.setAmount(accountLog.getAmount());
+        accountDTO.setAmount(accountLog.getScore());
         accountDTO.setTradeNo(tradeNo);
         accountDTO.setMerchantId(accountLog.getMerchantId());
         accountDTO.setChargeType(ChargeType.WITHDRAW_FAIL);

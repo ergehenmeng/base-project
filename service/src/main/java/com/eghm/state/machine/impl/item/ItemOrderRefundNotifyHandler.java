@@ -48,9 +48,10 @@ public class ItemOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
 
     @Override
     protected void refundSuccessSetState(Order order, OrderRefundLog refundLog) {
-        int successNum = orderRefundLogService.getRefundSuccessNum(order.getOrderNo(), refundLog.getItemOrderId());
+        int successNum = orderRefundLogService.getRefundSuccessNum(order.getOrderNo());
         int productNum = itemOrderService.getProductNum(order.getOrderNo());
-        if (successNum + refundLog.getNum() >= productNum) {
+        log.info("订单:[{}],已退款成功的数量:[{}], 当前退款数量:[{}], 订单总数量:[{}]", order.getOrderNo(), successNum, refundLog.getNum(), productNum);
+        if ((successNum + refundLog.getNum()) >= productNum) {
             order.setState(OrderState.CLOSE);
             order.setCloseTime(LocalDateTime.now());
             order.setCloseType(CloseType.REFUND);

@@ -75,10 +75,9 @@ public interface OrderRefundLogService {
      * 统计退款成功的订单商品总数量
      *
      * @param orderNo     订单编号
-     * @param itemOrderId 商品订单id, 普通商品时该字段必填
      * @return 数量
      */
-    int getRefundSuccessNum(String orderNo, Long itemOrderId);
+    int getRefundSuccessNum(String orderNo);
 
     /**
      * 根据退款流水或查询退款记录

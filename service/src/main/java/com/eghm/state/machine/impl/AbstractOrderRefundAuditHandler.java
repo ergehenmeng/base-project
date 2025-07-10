@@ -152,7 +152,7 @@ public abstract class AbstractOrderRefundAuditHandler implements ActionHandler<R
         if (refundAmount > order.getPayAmount()) {
             throw new BusinessException(REFUND_GT_PAY);
         }
-        int refundNum = orderRefundLogService.getRefundSuccessNum(context.getOrderNo(), null);
+        int refundNum = orderRefundLogService.getRefundSuccessNum(context.getOrderNo());
         if ((refundNum + refundLog.getNum()) > order.getNum()) {
             log.error("累计退款数量(含本次)大于总支付数量 [{}] [{}] [{}]", order.getNum(), refundNum, refundLog.getNum());
             throw new BusinessException(TOTAL_REFUND_MAX_NUM);

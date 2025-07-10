@@ -649,12 +649,13 @@ CREATE TABLE `member_notice`
 DROP TABLE IF EXISTS `member_score_log`;
 CREATE TABLE `member_score_log`
 (
-    `id`          bigint(20) NOT NULL COMMENT '主键',
-    `member_id`   bigint(20)   DEFAULT NULL COMMENT '用户id',
-    `score`       int(10)      DEFAULT '0' COMMENT '本次收入或支出的积分数',
-    `type`        tinyint(2)   DEFAULT NULL COMMENT '积分收入或支出分类',
-    `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
-    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `id`             bigint(20) NOT NULL COMMENT '主键',
+    `member_id`      bigint(20)   DEFAULT NULL COMMENT '用户id',
+    `score`          int(10)      DEFAULT '0' COMMENT '本次收入或支出的积分数',
+    `surplus_amount` int(10)      DEFAULT '0' COMMENT '变更后的积分数',
+    `type`           tinyint(2)   DEFAULT NULL COMMENT '积分收入或支出分类',
+    `remark`         varchar(200) DEFAULT NULL COMMENT '备注信息',
+    `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户积分日志表(不清零)';
@@ -2197,17 +2198,17 @@ CREATE TABLE `score_account`
 DROP TABLE IF EXISTS score_account_log;
 CREATE TABLE `score_account_log`
 (
-    `id`             bigint(20) NOT NULL COMMENT '主键',
-    `merchant_id`    bigint(20)   DEFAULT NULL COMMENT '商户id',
-    `charge_type`    tinyint(2)   DEFAULT NULL COMMENT '积分变动类型',
-    `amount`         int(10)      DEFAULT '0' COMMENT '变动积分',
-    `direction`      tinyint(4)   DEFAULT '0' COMMENT '收支方式 1:收入 2:支出',
-    `surplus_amount` int(10)      DEFAULT '0' COMMENT '变动后的积分',
-    `trade_no`       varchar(30)  DEFAULT NULL COMMENT '关联的交易单号(订单号或者提现单号)',
-    `remark`         varchar(200) DEFAULT NULL COMMENT '备注信息',
-    `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`    datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`        bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `id`            bigint(20) NOT NULL COMMENT '主键',
+    `merchant_id`   bigint(20)   DEFAULT NULL COMMENT '商户id',
+    `charge_type`   tinyint(2)   DEFAULT NULL COMMENT '积分变动类型',
+    `score`         int(10)      DEFAULT '0' COMMENT '变动积分',
+    `direction`     tinyint(4)   DEFAULT '0' COMMENT '收支方式 1:收入 2:支出',
+    `surplus_score` int(10)      DEFAULT '0' COMMENT '变动后的积分',
+    `trade_no`      varchar(30)  DEFAULT NULL COMMENT '关联的交易单号(订单号或者提现单号)',
+    `remark`        varchar(200) DEFAULT NULL COMMENT '备注信息',
+    `create_time`   datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`   datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`       bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB COMMENT ='商户积分变动明细表';
 

@@ -30,6 +30,9 @@ public class MemberScoreLog {
     @Schema(description = "本次收入或支出的积分数")
     private Integer score;
 
+    @Schema(description = "变更后的积分余额")
+    private Integer surplusScore;
+
     @Schema(description = "积分收入或支出分类")
     private Integer type;
 

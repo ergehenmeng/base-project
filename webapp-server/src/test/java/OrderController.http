@@ -29,15 +29,19 @@ Token: {{Token}}
 {
   "addressId": 1935277482725457921,
   "deliveryType": 1,
-  "groupBooking": false,
-  "bookingNo": "EB9z1vINTVb",
   "itemList": [{
     "storeId": 1818206459138408449,
     "remark": "请优先发货",
+    "memberCouponId": 1943230100993671170,
+    "scoreAmount": 100,
     "skuList": [{
-      "itemId": 1906889019571630081,
-      "num": 2,
-      "skuId": 1906889019856842754
+      "itemId": 1923191705565315074,
+      "num": 1,
+      "skuId": 1923191705695338501
+    },{
+      "itemId": 1923191705565315074,
+      "num": 1,
+      "skuId": 1923191705695338502
     }]
   }]
 }
@@ -54,7 +58,7 @@ Token: {{Token}}
   "deliveryType": 1,
   "itemList": [{
     "storeId": 1818206459138408449,
-    "couponId": 1942878152021839873,
+    "memberCouponId": 1942878152021839873,
     "remark": "请优先发货",
     "skuList": [{
       "itemId": 1906889019571630081,
@@ -218,8 +222,8 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-  "orderNo": "LS1942491387557138434",
-  "orderId": 1942491387628441602,
+  "orderNo": "LS1943230203938668547",
+  "orderId": 1943230204072886274,
   "reason": "错拍",
   "refundAmount": 0,
   "applyType": 1

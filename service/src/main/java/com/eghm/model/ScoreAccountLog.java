@@ -26,13 +26,13 @@ public class ScoreAccountLog extends BaseEntity {
     private ChargeType chargeType;
 
     @Schema(description = "变动积分")
-    private Integer amount;
+    private Integer score;
+
+    @Schema(description = "变动后的积分")
+    private Integer surplusScore;
 
     @Schema(description = "1:收入 2:支出")
     private Integer direction;
-
-    @Schema(description = "变动后的积分(可用积分)")
-    private Integer surplusAmount;
 
     @Schema(description = "关联的交易单号(订单号或者提现单号)")
     private String tradeNo;

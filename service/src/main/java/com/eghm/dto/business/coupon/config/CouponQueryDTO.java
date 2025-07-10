@@ -1,9 +1,7 @@
 package com.eghm.dto.business.coupon.config;
 
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.enums.CouponType;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,7 +13,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class CouponQueryDTO extends PagingQuery {
 
-    @Schema(description = "优惠券类型 1:抵扣券 2:折扣券", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "优惠券类型不能为空")
-    private CouponType couponType;
+    @Schema(description = "优惠券类型 1:抵扣券 2:折扣券")
+    private Integer couponType;
 }
