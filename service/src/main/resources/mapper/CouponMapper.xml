@@ -69,6 +69,10 @@
             instruction
         from coupon where deleted = false and stock &gt; 0 and state = 1 and `mode` = 1
         and now() between start_time and end_time
+        <if test="param.couponType != null">
+            and coupon_type = #{param.couponType}
+        </if>
+        order by id desc
     </select>
 
     <select id="getProductCoupon" resultType="com.eghm.vo.business.coupon.CouponVO" >
