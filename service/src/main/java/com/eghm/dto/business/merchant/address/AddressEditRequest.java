@@ -65,5 +65,6 @@ public class AddressEditRequest {
     private BigDecimal latitude;
 
     @ApiModelProperty("备注信息")
+    @Size(max = 200, message = "备注最大200字符")
     private String remark;
 }

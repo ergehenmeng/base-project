@@ -9,6 +9,7 @@ import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author 二哥很猛
@@ -26,6 +27,7 @@ public class DeptEditRequest extends ActionRecord {
 
     @ApiModelProperty(value = "部门名称", required = true)
     @NotBlank(message = "部门名称不能为空")
+    @Size(max = 10, message = "部门名称最大10字符")
     private String title;
 
     @ApiModelProperty(value = "父节点code", required = true)
@@ -33,5 +35,6 @@ public class DeptEditRequest extends ActionRecord {
     private String parentCode;
 
     @ApiModelProperty("备注信息")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 }

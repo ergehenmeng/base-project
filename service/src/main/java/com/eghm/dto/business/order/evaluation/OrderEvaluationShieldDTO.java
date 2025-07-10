@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author 二哥很猛
@@ -18,6 +19,8 @@ public class OrderEvaluationShieldDTO {
     private Long id;
 
     @ApiModelProperty("屏蔽原因")
+    @NotNull(message = "请填写屏蔽原因")
+    @Size(max = 100, message = "屏蔽原因最大100字符")
     private String remark;
 
     @Assign

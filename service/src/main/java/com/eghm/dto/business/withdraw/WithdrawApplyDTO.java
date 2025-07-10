@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 /**
  * @author 二哥很猛
@@ -34,6 +35,7 @@ public class WithdrawApplyDTO {
     private String bankNum;
 
     @ApiModelProperty("提现备注")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 
 }

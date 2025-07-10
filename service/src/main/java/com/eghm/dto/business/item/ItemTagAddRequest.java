@@ -28,8 +28,10 @@ public class ItemTagAddRequest {
     private String icon;
 
     @ApiModelProperty(value = "状态 0:禁用 1:启用", required = true)
+    @NotBlank(message = "请选择状态")
     private Boolean state;
 
-    @ApiModelProperty(value = "备注")
+    @ApiModelProperty(value = "备注信息")
+    @Length(max = 100, message = "备注信息最大100字符")
     private String remark;
 }

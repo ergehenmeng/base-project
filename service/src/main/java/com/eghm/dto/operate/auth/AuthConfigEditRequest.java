@@ -33,5 +33,6 @@ public class AuthConfigEditRequest {
     private LocalDate expireDate;
 
     @ApiModelProperty("备注信息")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 }

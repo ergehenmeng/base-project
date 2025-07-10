@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author 二哥很猛
@@ -27,9 +28,11 @@ public class TaskEditRequest {
     private String cronExpression;
 
     @ApiModelProperty(value = "方法参数")
+    @Size(max = 300, message = "方法参数最大300字符")
     private String args;
 
     @ApiModelProperty(value = "报警邮箱")
+    @Size(max = 30, message = "报警邮箱最大30字符")
     private String alarmEmail;
 
     @ApiModelProperty("锁持有时间,毫秒")
@@ -46,5 +49,6 @@ public class TaskEditRequest {
     private Boolean log;
 
     @ApiModelProperty(value = "备注信息")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 }

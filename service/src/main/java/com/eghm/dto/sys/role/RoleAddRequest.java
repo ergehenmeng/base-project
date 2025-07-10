@@ -17,7 +17,7 @@ public class RoleAddRequest {
 
     @ApiModelProperty(value = "角色名称", required = true)
     @NotBlank(message = "角色名称不能为空")
-    @Size(max = 210, message = "角色名称最大10字符")
+    @Size(max = 10, message = "角色名称最大10字符")
     private String roleName;
 
     @ApiModelProperty("备注信息")

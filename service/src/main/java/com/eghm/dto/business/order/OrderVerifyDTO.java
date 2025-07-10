@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -24,5 +25,6 @@ public class OrderVerifyDTO {
     private Long combineId;
 
     @ApiModelProperty("备注信息")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 }

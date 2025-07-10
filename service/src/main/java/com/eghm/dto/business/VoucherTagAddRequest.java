@@ -24,9 +24,11 @@ public class VoucherTagAddRequest {
     private Long restaurantId;
 
     @ApiModelProperty(value = "状态 0:禁用 1:启用", required = true)
+    @NotNull(message = "请选择状态")
     private Boolean state;
 
     @ApiModelProperty(value = "备注")
+    @Size(max = 100, message = "备注最大100字符")
     private String remark;
 
 }

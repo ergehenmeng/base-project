@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.List;
 
 /**
@@ -39,6 +36,7 @@ public class OfflineRefundRequest {
 
     @ApiModelProperty(value = "备注信息", required = true)
     @NotBlank(message = "备注信息不能为空")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 
     @Assign

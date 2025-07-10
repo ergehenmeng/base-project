@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author 二哥很猛
@@ -33,5 +34,6 @@ public class VersionAddRequest {
 
     @ApiModelProperty(required = true, value = "备注信息:版本更新的东西或解决的问题")
     @WordChecker(message = "备注信息存在敏感词")
+    @Size(max = 400, message = "备注信息最大400字符")
     private String remark;
 }

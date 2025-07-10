@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author 二哥很猛
@@ -24,8 +25,10 @@ public class NoticeTemplateRequest {
 
     @ApiModelProperty(value = "通知内容", required = true)
     @NotBlank(message = "通知内容不能为空")
+    @Size(max = 200, message = "通知内容最大200字符")
     private String content;
 
     @ApiModelProperty(value = "备注信息")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 }
