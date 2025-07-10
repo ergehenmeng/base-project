@@ -32,7 +32,7 @@ Token: {{Token}}
   "itemList": [{
     "storeId": 1818206459138408449,
     "remark": "请优先发货",
-    "memberCouponId": 1943230100993671170,
+    "memberCouponId": 1943239406614982658,
     "scoreAmount": 100,
     "skuList": [{
       "itemId": 1923191705565315074,
@@ -222,8 +222,8 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-  "orderNo": "LS1943230203938668547",
-  "orderId": 1943230204072886274,
+  "orderNo": "LS1943239500986822658",
+  "orderId": 1943239501175566339,
   "reason": "错拍",
   "refundAmount": 0,
   "applyType": 1
