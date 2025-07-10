@@ -16,6 +16,9 @@ public class MemberScoreVO {
     @ApiModelProperty("积分值")
     private Integer score;
 
+    @ApiModelProperty("剩余积分")
+    private Integer surplusScore;
+
     @ApiModelProperty("积分类型")
     private Integer type;
 

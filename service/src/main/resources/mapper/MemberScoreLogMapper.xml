@@ -3,7 +3,7 @@
 <mapper namespace="com.eghm.mapper.MemberScoreLogMapper">
 
     <select id="getByPage" resultType="com.eghm.vo.member.MemberScoreVO" parameterType="com.eghm.dto.member.MemberScoreQueryRequest">
-        select score, type, create_time, remark
+        select score, type, create_time, remark, surplus_score
         from member_score_log
         where member_id = #{param.memberId}
         <if test="param.type != null">

@@ -8,9 +8,9 @@
         t.direction,
         t.create_time,
         t.charge_type,
-        t.amount,
+        t.score,
         t.trade_no,
-        t.surplus_amount,
+        t.surplus_score,
         t.remark
         from score_account_log t left join merchant r on t.merchant_id = r.id
         where t.deleted = false

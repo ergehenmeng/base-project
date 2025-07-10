@@ -35,7 +35,7 @@ public class ScoreAccountLogResponse extends ExcelStyle {
 
     @ApiModelProperty(value = "变动积分")
     @ExcelProperty(value = "变动积分", index = 2)
-    private Integer amount;
+    private Integer score;
 
     @ApiModelProperty(value = "收支类型 1:收入 2:支出")
     @ExcelProperty(value = "收支类型", index = 3, converter = EnumExcelConverter.class)
@@ -43,7 +43,7 @@ public class ScoreAccountLogResponse extends ExcelStyle {
 
     @ApiModelProperty(value = "变动后的积分(可用积分)")
     @ExcelProperty(value = "变动后的积分(可用积分)", index = 4)
-    private Integer surplusAmount;
+    private Integer surplusScore;
 
     @ApiModelProperty(value = "关联单号")
     @ExcelProperty(value = "关联单号", index = 5)

@@ -431,15 +431,22 @@ public class MemberServiceImpl implements MemberService {
         if (direction == DirectionType.DISBURSE) {
             score = - score;
         }
+        Member member = memberMapper.selectById(memberId);
+        int surplus = member.getScore() + score;
+        if (surplus < 0) {
+            log.error("积分余额不能为负数 [{}] [{}] [{}]", memberId, scoreType, score);
+            throw new BusinessException(ErrorCode.MEMBER_SCORE_ERROR);
+        }
         int updated = memberMapper.updateScore(memberId, score);
         if (updated != 1) {
-            log.error("更新积分失败 [{}] [{}] [{}]", memberId, scoreType, score);
-            throw new BusinessException(ErrorCode.MEMBER_SCORE_ERROR);
+            log.error("更新会员积分失败 [{}] [{}] [{}]", memberId, scoreType, score);
+            throw new BusinessException(ErrorCode.SCORE_UPDATE_ERROR);
         }
         MemberScoreLog log = new MemberScoreLog();
         log.setScore(score);
         log.setRemark(remark);
         log.setMemberId(memberId);
+        log.setSurplusScore(surplus);
         log.setType(scoreType.getValue());
         memberScoreLogService.insert(log);
     }

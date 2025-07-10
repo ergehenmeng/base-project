@@ -26,13 +26,13 @@ public class ScoreAccountLog extends BaseEntity {
     private ChargeType chargeType;
 
     @ApiModelProperty(value = "变动积分")
-    private Integer amount;
+    private Integer score;
 
     @ApiModelProperty(value = "1:收入 2:支出")
     private Integer direction;
 
     @ApiModelProperty(value = "变动后的积分(可用积分)")
-    private Integer surplusAmount;
+    private Integer surplusScore;
 
     @ApiModelProperty("关联的交易单号(订单号或者提现单号)")
     private String tradeNo;

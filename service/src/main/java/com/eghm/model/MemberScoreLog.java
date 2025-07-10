@@ -30,6 +30,9 @@ public class MemberScoreLog {
     @ApiModelProperty("本次收入或支出的积分数")
     private Integer score;
 
+    @ApiModelProperty("变更后的积分")
+    private Integer surplusScore;
+
     @ApiModelProperty("积分收入或支出分类")
     private Integer type;
 
