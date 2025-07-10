@@ -101,8 +101,10 @@
     * GET请求时: 前端传递金额格式为元,后端通过 `@YuanToCentFormat` 注解自动转为分.
 * `DateFormatter` 日期格式化注解与 `DateTimeFormat` 类似, 支持 `LocalDate` `LocalDateTime` `LocalTime`类型, 在GET请求时,
   前端传递日期格式为范围  `yyyy-MM-dd` 时, 例如: 查询 `2023-11-11` 到 `2023-11-11`的日期, 实际上查询的是 `2023-11-11`
-  到 `2023-11-11 23:59:59`,因此需要在前端传递 `2023-11-11`, 后端则会自动转换为 `2023-11-11` 到 `2023-11-12`
+  到 `2023-11-11 23:59:59`,因此前端传递 `2023-11-11`, 后端则会自动转换为 `2023-11-11` 到 `2023-11-12`
 * `LongToIpEncoder` `IpToLongDecoder` 前后端IP转换工具类
+* `XssSerializer` 富文本转移
+* `JoinerDeserializer` `SplitterArrayIntSerializer` 针对前端传递过来的数组图片,字段转换为逗号分隔的字符串
 * `CacheProxyService` 缓存代理层 增加该类的原因: 由于@Cacheable等注解是基于动态代理实现的, 在同一个类中调用另一个方法则换成不会生效,
   因此统一归集到该类中, 即:所有使用SpringCache注解的方法都建议维护到该类中
 * `CacheService` 缓存类封装, 建议所有手动设置查询的缓存走该接口, 方便后期维护
@@ -133,3 +135,5 @@
 * 管理后台集成了Websocket, 采用stomp协议, 支持前端实时接收消息, 具体可参考 `WebSocketController`, 后台主动发送消息可注入 `SimpMessagingTemplate` 发送, 注意:需要移动端先订阅消息才可收到消息 
 * 移动端服务和管理后台服务是独立的, 双方之间如需通信, 可通过MQ, 注意: 消息消费端定义的位置
 * 状态机可以直接使用stateHandler, 也可以定义在AccessHandler中,具体可参考 `AccessHandler`的实现类(减少重复代码)
+* `RedisLock` 用来获取redis分布式锁, 注意 `lockTime` 的值, 在业务响应比较慢时尽量设置长一点
+* `com.eghm.convertor.excel` 包下包含一系列针对excel导出的转换器, 导出图片 `ImageConverter`, 字段脱敏 `DesensitizationConverter` 数据字典转换 `DictConverter` 省市区 `AreaConverter` 枚举转换 `EnumExcelConverter`
