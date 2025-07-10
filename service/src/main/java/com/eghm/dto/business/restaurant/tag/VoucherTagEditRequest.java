@@ -1,4 +1,4 @@
-package com.eghm.dto.business;
+package com.eghm.dto.business.restaurant.tag;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -12,7 +12,11 @@ import javax.validation.constraints.Size;
 * @since 2024-10-09
 */
 @Data
-public class VoucherTagAddRequest {
+public class VoucherTagEditRequest {
+
+    @ApiModelProperty(value = "主键", required = true)
+    @NotNull(message = "主键不能为空")
+    private Long id;
 
     @ApiModelProperty(value = "标签名称", required = true)
     @NotBlank(message = "标签名称不能为空")
@@ -30,5 +34,4 @@ public class VoucherTagAddRequest {
     @ApiModelProperty(value = "备注")
     @Size(max = 100, message = "备注最大100字符")
     private String remark;
-
 }

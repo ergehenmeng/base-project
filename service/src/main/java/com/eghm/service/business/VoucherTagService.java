@@ -1,9 +1,9 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.business.VoucherTagAddRequest;
-import com.eghm.dto.business.VoucherTagEditRequest;
-import com.eghm.dto.business.VoucherTagQueryRequest;
+import com.eghm.dto.business.restaurant.tag.VoucherTagAddRequest;
+import com.eghm.dto.business.restaurant.tag.VoucherTagEditRequest;
+import com.eghm.dto.business.restaurant.tag.VoucherTagQueryRequest;
 import com.eghm.vo.business.restaurant.TagSelectResponse;
 import com.eghm.vo.business.restaurant.VoucherTagResponse;
 import com.eghm.vo.business.restaurant.VoucherTagVO;

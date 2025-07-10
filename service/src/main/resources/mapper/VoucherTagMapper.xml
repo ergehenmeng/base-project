@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.VoucherTagMapper">
 
-    <select id="getByPage" resultType="com.eghm.vo.business.restaurant.VoucherTagResponse" parameterType="com.eghm.dto.business.VoucherTagQueryRequest">
+    <select id="getByPage" resultType="com.eghm.vo.business.restaurant.VoucherTagResponse" parameterType="com.eghm.dto.business.restaurant.tag.VoucherTagQueryRequest">
         select
         t.id,
         t.restaurant_id,

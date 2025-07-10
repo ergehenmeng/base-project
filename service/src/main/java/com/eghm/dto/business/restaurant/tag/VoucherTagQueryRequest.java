@@ -1,4 +1,4 @@
-package com.eghm.dto.business;
+package com.eghm.dto.business.restaurant.tag;
 
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;

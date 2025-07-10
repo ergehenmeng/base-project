@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.business.VoucherTagQueryRequest;
+import com.eghm.dto.business.restaurant.tag.VoucherTagQueryRequest;
 import com.eghm.model.VoucherTag;
 import com.eghm.vo.business.restaurant.TagSelectResponse;
 import com.eghm.vo.business.restaurant.VoucherTagResponse;
