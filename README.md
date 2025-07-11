@@ -2,13 +2,11 @@
 
 #### 运行环境及技术
 
-* java1.8+
-* redis3.2+
-* mysql5.7+
+* java 1.8+
+* redis 3.2+
+* mysql 5.7+
 * spring boot 2.7.8
-* spring security(废弃)
-* mybatis
-* freemarker
+* mybatis-plus 3.5.3
 * nginx
 
 ## 管理后台
@@ -23,14 +21,14 @@
 ### 定时任务相关
 
 * 开启定时任务添加`@EnableTask`注解即可(建议使用)
-    * 支持数据库配置cron定时,spring原生注解定时,单次执行的定时
-    * 在 `sys_task` 表中 `bean_name` 字段为要执行定时任务的bean的名称 `cron_expression` 为cron表达式 `bean_method`
-      为方法名 `args` 方法入参
-    * 定时任务配置更新后需要 *手动刷新配置* 才能重新生效
-    * 只执行一次的定时任务可通过 `SysTaskRegistrar.addTask()` 实现
-    * demo例子`TestJobService` `OnceJobService`
-    * 注意: bean方法定义时必须包含一个字符串类型的入参, 且方法必须是 `public`, 强烈建议方法上添加 `@CronTask`
-      注解作为定时任务标注一下
+  * 支持数据库配置cron定时,spring原生注解定时,单次执行的定时
+  * 在 `sys_task` 表中 `bean_name` 字段为要执行定时任务的bean的名称 `cron_expression` 为cron表达式 `bean_method`
+    为方法名 `args` 方法入参
+  * 定时任务配置更新后需要 *手动刷新配置* 才能重新生效
+  * 只执行一次的定时任务可通过 `SysTaskRegistrar.addTask()` 实现
+  * demo例子`TestJobService` `OnceJobService`
+  * 注意: bean方法定义时必须包含一个字符串类型的入参, 且方法必须是 `public`, 强烈建议方法上添加 `@CronTask`
+    注解作为定时任务标注一下
 * `@Scheduled`(不推荐使用) 定时任务不受 `@EnableTask` 影响
 
 ### 其他
@@ -54,22 +52,22 @@
 ### 约定
 
 * 基础必填请求头字段:
-    * `Channel` 设备渠道: `IOS` , `ANDROID`
-    * `Version` app版本号
-    * `Os-Version` 系统版本
-    * `Device-Brand` 设备厂商
-    * `Device-Model` 设备型号
-    * `Serial-Number` 设备唯一序列号
+  * `Channel` 设备渠道: `IOS` , `ANDROID`
+  * `Version` app版本号
+  * `Os-Version` 系统版本
+  * `Device-Brand` 设备厂商
+  * `Device-Model` 设备型号
+  * `Serial-Number` 设备唯一序列号
 * 登陆后额外请求头字段:
-    * `Token` 登陆成功时,由后台返回给前台
-    * `Refresh-Token` 刷新token,由后台传递给前台
+  * `Token` 登陆成功时,由后台返回给前台
+  * `Refresh-Token` 刷新token,由后台传递给前台
 * 响应结果 code=200为成功,其他均有异常或错误
 
 ```json
 {
-  "code": 200, 
+  "code": 200,
   "msg": "success",
-  "data": "xxx" 
+  "data": "xxx"
 }
 ```
 
@@ -96,13 +94,15 @@
 ## 其他开发说明
 * 管理后台验证码有 `MathCaptchaProducer` `TextCaptchaProducer` 两种方式, 默认为 `MathCaptchaProducer`, 可在`WebMvcConfig#captcha`调整配置
 * 数据库涉及金额的字段, 统一使用 `INT` 类型, 避免浮点数精度丢失
-    * POST请求时: 后台可通过 `@JsonDeserialize(using = YuanToCentDeserializer.class)` 自动转为分,
-      同样后端的分也可以通过 `@JsonSerialize(using = CentToYuanSerializer.class)` 自动转为元返回给前端
-    * GET请求时: 前端传递金额格式为元,后端通过 `@YuanToCentFormat` 注解自动转为分.
+  * POST请求时: 后台可通过 `@JsonDeserialize(using = YuanToCentDecoder.class)` 自动转为分,
+    同样后端的分也可以通过 `@JsonSerialize(using = CentToYuanEncoder.class)` 自动转为元返回给前端
+  * GET请求时: 前端传递金额格式为元,后端通过 `@YuanToCentFormat` 注解自动转为分.
 * `DateFormatter` 日期格式化注解与 `DateTimeFormat` 类似, 支持 `LocalDate` `LocalDateTime` `LocalTime`类型, 在GET请求时,
   前端传递日期格式为范围  `yyyy-MM-dd` 时, 例如: 查询 `2023-11-11` 到 `2023-11-11`的日期, 实际上查询的是 `2023-11-11`
-  到 `2023-11-11 23:59:59`,因此需要在前端传递 `2023-11-11`, 后端则会自动转换为 `2023-11-11` 到 `2023-11-12`
+  到 `2023-11-11 23:59:59`,因此前端传递 `2023-11-11`, 后端则会自动转换为 `2023-11-11` 到 `2023-11-12`
 * `LongToIpEncoder` `IpToLongDecoder` 前后端IP转换工具类
+* `XssSerializer` 富文本转移
+* `JoinerDeserializer` `SplitterArrayIntSerializer` 针对前端传递过来的数组图片,字段转换为逗号分隔的字符串
 * `CacheProxyService` 缓存代理层 增加该类的原因: 由于@Cacheable等注解是基于动态代理实现的, 在同一个类中调用另一个方法则换成不会生效,
   因此统一归集到该类中, 即:所有使用SpringCache注解的方法都建议维护到该类中
 * `CacheService` 缓存类封装, 建议所有手动设置查询的缓存走该接口, 方便后期维护
@@ -123,13 +123,15 @@
 * `@WordChecker` 是敏感词校验注解
 * `@Desensitization` 脱敏注解,添加到需要进行脱敏的字段上, 例如: `@Desensitization(FieldType.MOBILE_PHONE)`
 * 签名功能, 目前支持 `MD5` `RSA` 两种, 在管理后台 `授权管理` 增加第三方商户信息, 同时将生成的 `appKey` 和 `appSecret`
-  给第三方, 第三方在请求接口时,需要在请求头带上 `appKey` 、 `signature` `timestmap` 三个字段. 目前 `@SignCheck`
+  给第三方, 第三方在请求接口时,需要在请求头带上 `appKey` 、 `signature` `timestmap` 三个字段, 在`webapp`定义好第三方要请求的接口, 并在其方法上添加 `@SignCheck` 注解, 注意: 接口
   只支持 `POST` 请求, 可在 `SignCheckInterceptor` 拦截器中进行二次扩展:
-    * `MD5` **`signature`=MD5(appSecret=`appSecret`&data=(Base64(`requestBody`))&timestamp=`timestamp`)**
-      其中 `requestBody` 是 post请求体中的数据, `timestamp` 是当前时间(毫秒). 注意:即使请求体为空也需要带上 `data` 字段
-    * `RSA` **`signature`=SHA256withRSA(data=Base64(`requestBody`)&timestamp=`timestamp`)** 其中 `requestBody` 是
-      post请求体中的数据, `timestamp` 是当前时间(毫秒). `appSecret` 是 `RSA` 的私钥, 采用 `SHA256withRSA` 方式进行签名
+  * `MD5` **`signature`=MD5(appSecret=`appSecret`&data=Base64(`requestBody`)&timestamp=`timestamp`)**
+    其中 `requestBody` 是 post请求体中的数据, `timestamp` 是当前时间(毫秒). 注意:即使请求体为空也需要带上 `data` 字段
+  * `RSA` **`signature`=SHA256withRSA(data=Base64(`requestBody`)&timestamp=`timestamp`)** 其中 `requestBody` 是
+    post请求体中的数据, `timestamp` 是当前时间(毫秒). `appSecret` 是 `RSA` 的私钥, 采用 `SHA256withRSA` 方式进行签名
 * 注意: `TransactionConfig`中定义的事务管理器作用在 `com.eghm.service` 包, 因此,在该包不要定义非事务相关的业务(例如第三方接口调用, 工具类等), 否则可能会导致事务异常.
-* 管理后台集成了Websocket, 采用stomp协议, 支持前端实时接收消息, 具体可参考 `WebSocketController`, 后台主动发送消息可注入 `SimpMessagingTemplate` 发送, 注意:需要移动端先订阅消息才可收到消息 
+* 管理后台集成了Websocket, 采用stomp协议, 支持前端实时接收消息, 具体可参考 `WebSocketController`, 后台主动发送消息可注入 `SimpMessagingTemplate` 发送, 注意:需要移动端先订阅消息才可收到消息
 * 移动端服务和管理后台服务是独立的, 双方之间如需通信, 可通过MQ, 注意: 消息消费端定义的位置
 * 状态机可以直接使用stateHandler, 也可以定义在AccessHandler中,具体可参考 `AccessHandler`的实现类(减少重复代码)
+* `RedisLock` 用来获取redis分布式锁, 注意 `lockTime` 的值, 在业务响应比较慢时尽量设置长一点
+* `com.eghm.convertor.excel` 包下包含一系列针对excel导出的转换器, 导出图片 `ImageConverter`, 字段脱敏 `DesensitizationConverter` 数据字典转换 `DictConverter` 省市区 `AreaConverter` 枚举转换 `EnumExcelConverter`

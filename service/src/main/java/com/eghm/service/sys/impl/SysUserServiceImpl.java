@@ -32,6 +32,7 @@ import com.eghm.service.sys.SysDataDeptService;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
+import com.eghm.utils.CacheUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.menu.MenuResponse;
@@ -167,6 +168,8 @@ public class SysUserServiceImpl implements SysUserService {
         user.setInitPwd(password);
         user.setPwdUpdateTime(LocalDateTime.now());
         sysUserMapper.updateById(user);
+        LOGIN_LOCK_CACHE.invalidate(user.getUserName());
+        LOGIN_LOCK_CACHE.invalidate(user.getMobile());
     }
 
     @Override
@@ -178,6 +181,9 @@ public class SysUserServiceImpl implements SysUserService {
         wrapper.set(SysUser::getInitPwd, encode);
         wrapper.set(SysUser::getPwdUpdateTime, LocalDateTime.now());
         sysUserMapper.update(null, wrapper);
+        SysUser user = sysUserMapper.selectById(id);
+        LOGIN_LOCK_CACHE.invalidate(user.getUserName());
+        LOGIN_LOCK_CACHE.invalidate(user.getMobile());
     }
 
     @Override
@@ -286,6 +292,7 @@ public class SysUserServiceImpl implements SysUserService {
         response.setExpire(user.getPwdUpdateTime().plusDays(CommonConstant.PWD_UPDATE_TIPS).isBefore(LocalDateTime.now()));
         cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
         LOGIN_LOCK_CACHE.invalidate(user.getMobile());
+        LOGIN_LOCK_CACHE.invalidate(user.getUserName());
         return response;
     }
 
