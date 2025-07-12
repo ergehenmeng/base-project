@@ -515,7 +515,7 @@ CREATE TABLE `sys_task`
     `cron_expression` varchar(50)  DEFAULT NULL COMMENT 'cron表达式',
     `alarm_email`     varchar(30)  DEFAULT NULL COMMENT '错误报警邮箱',
     `state`           tinyint(1)   DEFAULT '1' COMMENT '状态 0:关闭 1:开启',
-    `log`             bit(1)       DEFAULT '1' COMMENT '是否记录日志',
+    `log`             bit(1)       DEFAULT b'1' COMMENT '是否记录日志',
     `lock_time`       bigint(20)   DEFAULT 30000 COMMENT '锁定时间(多副本时防止并发) 单位:毫秒',
     `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`          varchar(255) DEFAULT NULL COMMENT '备注信息',
@@ -1130,8 +1130,7 @@ CREATE TABLE `activity`
     `id`              bigint(20) NOT NULL COMMENT '主键',
     `title`           varchar(20)   DEFAULT NULL COMMENT '活动名称',
     `now_date`        date          DEFAULT NULL COMMENT '日期',
-    `start_time`      char(5)       DEFAULT NULL COMMENT '开始时间HH:mm',
-    `end_time`        char(5)       DEFAULT NULL COMMENT '结束时间HH:mm',
+    `activity_time`   varchar(20)   DEFAULT NULL COMMENT '开始时间HH:mm',
     `address`         varchar(100)  DEFAULT NULL COMMENT '活动地点',
     `cover_url`       varchar(1000) DEFAULT NULL COMMENT '活动封面图片',
     `introduce`       longtext COMMENT '活动详细介绍',
@@ -1277,7 +1276,7 @@ CREATE TABLE `homestay_order`
     `remark`         varchar(200)  DEFAULT NULL COMMENT '确认备注信息',
     `create_time`    datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`        bit(1)        DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
+    `deleted`        bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='民宿订单表';
@@ -1475,6 +1474,7 @@ CREATE TABLE `shopping_cart`
     `quantity`     smallint(3) DEFAULT '1' COMMENT '数量',
     `create_month` varchar(20) DEFAULT NULL COMMENT '创建月份',
     `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_date`  date        DEFAULT NULL COMMENT '创建日期',
     `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`      bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
@@ -2302,7 +2302,7 @@ CREATE TABLE `member_notice_log`
     `operator_id` bigint(20)    DEFAULT NULL COMMENT '发送人id',
     `create_time` datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     tinyint(1)    DEFAULT '0' COMMENT '删除状态',
+    `deleted`     tinyint(1)    DEFAULT b'0' COMMENT '删除状态',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='会员站内信日志';
@@ -2446,6 +2446,7 @@ CREATE TABLE `pay_config`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='支付配置表';
 
+DROP TABLE IF EXISTS `voucher_tag`;
 CREATE TABLE `voucher_tag`
 (
     `id`            bigint(20) NOT NULL COMMENT '主键',
@@ -2462,6 +2463,7 @@ CREATE TABLE `voucher_tag`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='餐饮券分类标签';
 
+DROP TABLE IF EXISTS `ticket_order_snapshot`;
 CREATE TABLE `ticket_order_snapshot`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
@@ -2482,15 +2484,34 @@ CREATE TABLE `ticket_order_snapshot`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='套票票订单表';
 
+DROP TABLE IF EXISTS `ticket_combine`;
 CREATE TABLE `ticket_combine`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
     `ticket_id`   bigint(20) comment '套票票ID',
     `relation_id` bigint(20) comment '关联票ID',
     `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `deleted`     bit(1)   DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
+    `deleted`     bit(1)   DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='套票票关联表';
 
+DROP TABLE IF EXISTS `auth_config`;
+CREATE TABLE `auth_config`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `title`       varchar(50)   DEFAULT NULL COMMENT '单位名称',
+    `app_key`     varchar(64)   DEFAULT NULL COMMENT 'appKey',
+    `public_key`  varchar(2048) DEFAULT NULL COMMENT '公钥',
+    `private_key` varchar(2048) DEFAULT NULL COMMENT '私钥',
+    `sign_type`   varchar(20)   DEFAULT NULL COMMENT '签名方式 RSA, MD5(只有公钥)',
+    `expire_date` date          DEFAULT NULL COMMENT '过期日期',
+    `remark`      varchar(200)  DEFAULT NULL COMMENT '备注信息',
+    `create_time` datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time` datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci COMMENT ='第三方授权配置信息表';
 
