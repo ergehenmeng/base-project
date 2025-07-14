@@ -596,9 +596,9 @@ public enum ErrorCode {
     CREDIT_CODE_REDO(2273, "社会统一信用代码重复啦~"),
 
     /**
-     * 商户手机号被占用
+     * 联系人手机号被占用
      */
-    MERCHANT_MOBILE_REDO(2276, "商户手机号被占用"),
+    MERCHANT_MOBILE_REDO(2276, "联系人手机号被占用"),
 
     /**
      * 民宿名称被占用
