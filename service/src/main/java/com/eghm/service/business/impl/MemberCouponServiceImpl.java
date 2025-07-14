@@ -121,15 +121,15 @@ public class MemberCouponServiceImpl implements MemberCouponService {
         }
         LocalDateTime now = LocalDateTime.now();
         if (config.getUseStartTime().isAfter(now) || config.getUseEndTime().isBefore(now)) {
-            log.error("优惠券不在有效期 [{}] [{}] [{}]", memberCouponId, config.getStartTime(), config.getUseEndTime());
+            log.error("优惠券不在有效期,无法使用 [{}] [{}] [{}]", memberCouponId, config.getStartTime(), config.getUseEndTime());
             throw new BusinessException(ErrorCode.COUPON_USE_ERROR);
         }
+        if (config.getUseThreshold() > amount) {
+            log.error("优惠券不满足使用条件 [{}] [{}]", memberCouponId, amount);
+            throw new BusinessException(ErrorCode.COUPON_USE_THRESHOLD);
+        }
         if (config.getCouponType() == CouponType.DEDUCTION) {
-            if (config.getDeductionValue() > amount) {
-                log.error("优惠券不满足使用条件 [{}] [{}]", memberCouponId, amount);
-                throw new BusinessException(ErrorCode.COUPON_USE_THRESHOLD);
-            }
-            return config.getDeductionValue();
+            return config.getDeductionValue() > amount ? amount : config.getDeductionValue();
         }
         // 百分比折扣
         return amount * (100 - config.getDiscountValue()) / 100;
