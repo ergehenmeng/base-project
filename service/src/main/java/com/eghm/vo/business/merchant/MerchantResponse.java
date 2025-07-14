@@ -66,22 +66,18 @@ public class MerchantResponse extends ExcelStyle {
     @ExcelProperty(value = "法人身份证", index = 8)
     private String legalIdCard;
 
-    @ApiModelProperty(value = "社会统一信用代码")
-    @ExcelProperty(value = "社会统一信用代码", index = 9)
-    private String creditCode;
-
     @ApiModelProperty(value = "平台服务费,单位:%")
-    @ExcelProperty(value = "平台服务费(%)", index = 10)
+    @ExcelProperty(value = "平台服务费(%)", index = 9)
     private BigDecimal platformServiceRate;
 
     @ApiModelProperty(value = "创建时间")
-    @ExcelProperty(value = "创建时间", index = 11)
+    @ExcelProperty(value = "创建时间", index = 10)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "修改时间")
-    @ExcelProperty(value = "修改时间", index = 12)
+    @ExcelProperty(value = "修改时间", index = 11)
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
