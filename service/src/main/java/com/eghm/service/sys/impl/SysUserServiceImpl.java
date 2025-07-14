@@ -32,7 +32,6 @@ import com.eghm.service.sys.SysDataDeptService;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
-import com.eghm.utils.CacheUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.menu.MenuResponse;
