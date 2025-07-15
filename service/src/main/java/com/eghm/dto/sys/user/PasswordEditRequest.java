@@ -1,9 +1,10 @@
 package com.eghm.dto.sys.user;
 
 import com.eghm.annotation.Assign;
+import com.eghm.validation.annotation.Password;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
 /**
  * @author 二哥很猛
@@ -13,11 +14,11 @@ import org.hibernate.validator.constraints.Length;
 public class PasswordEditRequest {
 
     @Schema(description = "旧密码", requiredMode = Schema.RequiredMode.REQUIRED)
-    @Length(min = 32, max = 32, message = "旧密码格式错误")
+    @NotBlank(message = "旧密码不能为空")
     private String oldPwd;
 
     @Schema(description = "新密码", requiredMode = Schema.RequiredMode.REQUIRED)
-    @Length(min = 32, max = 32, message = "新密码格式错误")
+    @Password(message = "新密码格式错误")
     private String newPwd;
 
     @Assign
