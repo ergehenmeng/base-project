@@ -3,6 +3,7 @@ package com.eghm.dto.sys.task;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
@@ -41,5 +42,6 @@ public class TaskEditRequest {
     private Boolean state;
 
     @Schema(description = "备注信息")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 }

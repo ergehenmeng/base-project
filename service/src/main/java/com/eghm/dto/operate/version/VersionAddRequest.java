@@ -5,6 +5,7 @@ import com.eghm.validation.annotation.WordChecker;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 /**
@@ -32,5 +33,6 @@ public class VersionAddRequest {
 
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED, description = "备注信息:版本更新的东西或解决的问题")
     @WordChecker(message = "备注信息存在敏感词")
+    @Size(max = 400, message = "备注信息最大400字符")
     private String remark;
 }
