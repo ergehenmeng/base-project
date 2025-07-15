@@ -55,7 +55,7 @@ public class MerchantUserServiceImpl implements MerchantUserService {
     public void create(MerchantUserAddRequest request) {
         SysUser user = new SysUser();
         user.setUserType(UserType.MERCHANT_USER);
-        user.setPwd(encoder.encode(SecureUtil.sha256().digestHex(request.getPassword())));
+        user.setPwd(encoder.encode(SecureUtil.sha256(request.getPassword())));
         user.setInitPwd(user.getPwd());
         user.setPwdUpdateTime(LocalDateTime.now());
         user.setMobile(request.getMobile());

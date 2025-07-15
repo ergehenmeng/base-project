@@ -353,7 +353,7 @@ public class MemberServiceImpl implements MemberService {
             log.error("验证码手机号不存在 [{}] [{}]", requestId, value);
             throw new BusinessException(ErrorCode.MOBILE_NOT_REGISTER);
         }
-        member.setPwd(encoder.encode(SecureUtil.sha256().digestHex(password)));
+        member.setPwd(encoder.encode(SecureUtil.sha256(password)));
         memberMapper.updateById(member);
     }
 
