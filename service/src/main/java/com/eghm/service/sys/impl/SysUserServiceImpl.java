@@ -1,7 +1,7 @@
 package com.eghm.service.sys.impl;
 
 import cn.hutool.core.util.PhoneUtil;
-import cn.hutool.crypto.digest.MD5;
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -174,7 +174,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void resetPassword(Long id, String pwd) {
         LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
-        String encode = encoder.encode(MD5.create().digestHex(pwd));
+        String encode = encoder.encode(SecureUtil.sha256().digestHex(pwd));
         wrapper.eq(SysUser::getId, id);
         wrapper.set(SysUser::getPwd, encode);
         wrapper.set(SysUser::getInitPwd, encode);
@@ -362,8 +362,8 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 加密密码
      */
     private String initPassword(String mobile) {
-        String md5Password = MD5.create().digestHex(mobile.substring(3));
-        return encoder.encode(md5Password);
+        String shaPassword = SecureUtil.sha256().digestHex(mobile.substring(3));
+        return encoder.encode(shaPassword);
     }
 
     /**

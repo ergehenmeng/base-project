@@ -3582,8 +3582,6 @@ INSERT INTO `email_template` (`id`, `nid`, `title`, `content`, `update_time`, `r
 INSERT INTO `email_template` (`id`, `nid`, `title`, `content`, `update_time`, `remark`) VALUES ('5', 'retrieve_password', '找回密码', '您正在使用该邮箱找回EGHM账号的密码，验证码为：${authCode}。如非本人操作，请忽略该邮件！', '2020-09-16 18:57:32', NULL);
 INSERT INTO `email_template` (`id`, `nid`, `title`, `content`, `update_time`, `remark`) VALUES ('6', 'task_alarm', '定时任务报警', '定时任务：[${nid}] 异常，请及时处理!  \r\n\r\n${errorMsg}  ', '2020-09-16 19:02:22', NULL);
 
-
-
 INSERT INTO `pay_bank` VALUES ('1', 'ICBC_DEBIT', '工商银行(借记卡)', '2021-07-24 17:51:25', '2021-07-24 17:51:25');
 INSERT INTO `pay_bank` VALUES ('2', 'ICBC_CREDIT', '工商银行(信用卡)', '2021-07-24 17:51:50', '2021-07-24 17:51:50');
 INSERT INTO `pay_bank` VALUES ('3', 'ABC_DEBIT', '农业银行(借记卡)', '2021-07-24 17:51:50', '2021-07-24 17:51:50');
@@ -3884,6 +3882,10 @@ INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('79', 'merchant_auth_path', '商户授权绑定手机号地址', 'pages/index/index', b'0', '微信扫码跳转到商户绑定手机号页面的地址', '2024-07-31 15:25:26', '2024-07-31 16:20:27');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('80', 'product_sale_ranking', '各品类销售排行榜', '5', b'0', '默认取5条', '2024-09-02 16:18:19', '2024-09-09 10:48:35');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('81', 'merchant_sale_ranking', '商户销售排行榜', '10', b'0', '默认取10条', '2024-09-09 11:15:10', '2024-09-09 11:17:10');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('82', 'pay_notify_host', '支付异步通知地址', 'http://localhost:8080/', b'0', '支付或退款异步回调地址', '2025-02-20 16:43:17', '2025-02-20 16:43:32');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('83', 'homestay_max_order_day', '民宿单次下单天数限制', '15', b'0', '单次只能预订15天的房', '2025-05-14 10:41:30', '2025-05-14 10:41:49');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('84', 'item_confirm_receipt', '零售自动确认收货时间', '1209600', b'0', '零售确认收货时间 默认发货后14天自动确认收货(单位:秒)', '2025-05-16 16:45:26', '2025-05-16 16:45:26');
+
 
 INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `update_time` , `deleted`) VALUES ('6975', 'yuantong', '圆通速递', '2024-01-10T17:13:45', '2024-01-10T17:13:45' , b'0');
 INSERT INTO `express` (`id`, `express_code`, `express_name`, `create_time`, `update_time` , `deleted`) VALUES ('6976', 'shentong', '申通快递', '2024-01-10T17:13:45', '2024-01-10T17:13:45' , b'0');
@@ -5432,7 +5434,4 @@ INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('1816666159912353793', 'image_type', '5', 'PAY首页', b'0', '2024-07-26 10:45:39', '2024-07-26 10:45:39');
 INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('1816667114871488514', 'scenic_tag', '5', '避暑胜地', b'0', '2024-07-26 10:49:26', '2024-07-26 10:49:26');
 
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('82', 'pay_notify_host', '支付异步通知地址', 'http://localhost:8080/', b'0', '支付或退款异步回调地址', '2025-02-20 16:43:17', '2025-02-20 16:43:32');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('83', 'homestay_max_order_day', '民宿单次下单天数限制', '15', b'0', '单次只能预订15天的房', '2025-05-14 10:41:30', '2025-05-14 10:41:49');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('84', 'item_confirm_receipt', '零售自动确认收货时间', '1209600', b'0', '零售确认收货时间 默认发货后14天自动确认收货(单位:秒)', '2025-05-16 16:45:26', '2025-05-16 16:45:26');
 

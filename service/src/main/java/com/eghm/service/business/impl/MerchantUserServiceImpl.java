@@ -1,6 +1,6 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.crypto.digest.MD5;
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.dto.business.merchant.MerchantUserAddRequest;
@@ -55,7 +55,7 @@ public class MerchantUserServiceImpl implements MerchantUserService {
     public void create(MerchantUserAddRequest request) {
         SysUser user = new SysUser();
         user.setUserType(UserType.MERCHANT_USER);
-        user.setPwd(encoder.encode(MD5.create().digestHex(request.getPassword())));
+        user.setPwd(encoder.encode(SecureUtil.sha256().digestHex(request.getPassword())));
         user.setInitPwd(user.getPwd());
         user.setPwdUpdateTime(LocalDateTime.now());
         user.setMobile(request.getMobile());

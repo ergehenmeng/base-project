@@ -2,7 +2,7 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.crypto.digest.MD5;
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -109,7 +109,7 @@ public class MerchantServiceImpl implements MerchantService {
         this.checkMerchantRedo(request.getMerchantName(), null);
         this.checkMobileRedo(request.getMobile(), null);
         this.checkCreditRedo(request.getCreditCode(), null);
-        String encode = encoder.encode(MD5.create().digestHex(request.getMobile().substring(3)));
+        String encode = encoder.encode(SecureUtil.sha256().digestHex(request.getMobile().substring(3)));
         SysUser user = new SysUser();
         user.setInitPwd(encode);
         user.setPwd(encode);

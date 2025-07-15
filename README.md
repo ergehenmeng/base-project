@@ -135,3 +135,4 @@
 * 状态机可以直接使用stateHandler, 也可以定义在AccessHandler中,具体可参考 `AccessHandler`的实现类(减少重复代码)
 * `RedisLock` 用来获取redis分布式锁, 注意 `lockTime` 的值, 在业务响应比较慢时尽量设置长一点
 * `com.eghm.convertor.excel` 包下包含一系列针对excel导出的转换器, 导出图片 `ImageConverter`, 字段脱敏 `DesensitizationConverter` 数据字典转换 `DictConverter` 省市区 `AreaConverter` 枚举转换 `EnumExcelConverter`
+* 涉及密码登录的接口,前端采用 `sha256(pwd)` 传输, 如果在登录后进行密码修改或重置时,明文传输,保存数据库密码为 `BCrypt(sha256(pwd))`
