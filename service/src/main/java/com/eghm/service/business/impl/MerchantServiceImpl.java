@@ -110,7 +110,7 @@ public class MerchantServiceImpl implements MerchantService {
         this.checkMobileRedo(request.getMobile(), null);
         this.checkCreditRedo(request.getCreditCode(), null);
         SysUser user = new SysUser();
-        String encode = encoder.encode(SecureUtil.sha256().digestHex(request.getMobile().substring(3)));
+        String encode = encoder.encode(SecureUtil.sha256(request.getMobile().substring(3)));
         user.setInitPwd(encode);
         user.setPwd(encode);
         user.setUserName(request.getAccount());

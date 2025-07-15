@@ -87,8 +87,8 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void updateLoginPassword(PasswordEditRequest request) {
         SysUser user = sysUserMapper.selectById(request.getUserId());
-        this.checkPassword(request.getOldPwd(), user.getPwd());
-        String newPassword = encoder.encode(request.getNewPwd());
+        this.checkPassword(SecureUtil.sha256(request.getOldPwd()), user.getPwd());
+        String newPassword = encoder.encode(SecureUtil.sha256(request.getNewPwd()));
         user.setPwd(newPassword);
         user.setPwdUpdateTime(LocalDateTime.now());
         sysUserMapper.updateById(user);
@@ -174,7 +174,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void resetPassword(Long id, String pwd) {
         LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
-        String encode = encoder.encode(SecureUtil.sha256().digestHex(pwd));
+        String encode = encoder.encode(SecureUtil.sha256(pwd));
         wrapper.eq(SysUser::getId, id);
         wrapper.set(SysUser::getPwd, encode);
         wrapper.set(SysUser::getInitPwd, encode);
@@ -362,7 +362,7 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 加密密码
      */
     private String initPassword(String mobile) {
-        String shaPassword = SecureUtil.sha256().digestHex(mobile.substring(3));
+        String shaPassword = SecureUtil.sha256(mobile.substring(3));
         return encoder.encode(shaPassword);
     }
 
