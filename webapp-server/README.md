@@ -186,3 +186,4 @@
 * 由于直辖市省市级联动时可能只有2级,因此 `countyId` 字段应定义为 `@TableField(updateStrategy = FieldStrategy.ALWAYS)`, 防止先选3级,再选2级后前端插件显示异常
 * 导出功能最大限制10000条, 调整请查看 `MybatisConfig`
 * 管理后台支持锁屏功能, 快捷键 `ALT + L`
+* 管理后台管理员初始账号密码 `superAdmin/eghm@123456`

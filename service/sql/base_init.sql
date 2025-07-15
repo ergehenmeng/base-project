@@ -3835,7 +3835,7 @@ INSERT INTO `pay_bank` VALUES ('250', 'AMERICANEXPRESS', 'AMERICANEXPRESS', '202
 INSERT INTO `pay_bank` VALUES ('251', 'DISCOVER', 'DISCOVER', '2021-07-24 17:51:55', '2021-07-24 17:51:55');
 INSERT INTO `pay_bank` VALUES ('252', 'OTHERS', '其他(银行卡以外)', '2021-07-24 17:51:55', '2021-07-24 17:51:55');
 
-update sys_user set pwd = '$2a$10$WIfMgLnfKf7NERTun09ahuD0lHupFO7AZ.n8cgGZBf7zAYOo7y5Ga' where id = 1;
+update sys_user set pwd = '$2a$10$RLT1rHz3vcLc1GYEJtDeieH.cwJ5wxg9PwLKcvYoTcZ1mz.MMH1Vi' where id = 1;
 
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('1', 'system_name', '管理系统名称', 'EGHM', b'0', '左上角系统名称', '2018-01-12 10:01:04', '2024-12-18 14:54:07');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('6', 'ios_latest_version', 'ios最新版本号', '1.2.3', b'0', '最新版本号,格式必须为x.x.x(版本必须已经上传)', '2018-09-28 10:50:03', '2018-09-28 10:50:03');
