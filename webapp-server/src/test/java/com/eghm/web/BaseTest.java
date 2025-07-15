@@ -1,6 +1,6 @@
 package com.eghm.web;
 
-import cn.hutool.crypto.digest.MD5;
+import cn.hutool.crypto.SecureUtil;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.vo.login.LoginTokenVO;
 import com.google.common.collect.Maps;
@@ -80,7 +80,7 @@ public abstract class BaseTest {
      */
     public void loginByAccount(String account, String password) {
         params.put("account", account);
-        params.put("pwd", MD5.create().digestHex(password));
+        params.put("pwd", SecureUtil.sha256().digestHex(password));
         String content = this.post("/api/login/account");
         Type type = new TypeToken<RespBody<LoginTokenVO>>() {
         }.getType();

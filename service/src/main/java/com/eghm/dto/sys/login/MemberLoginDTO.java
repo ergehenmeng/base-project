@@ -20,7 +20,7 @@ public class MemberLoginDTO {
     private String account;
 
     @Password(message = "密码格式错误")
-    @ApiModelProperty(value = "密码,MD5小写加密过", required = true)
+    @ApiModelProperty(value = "密码,SHA256小写加密过", required = true)
     @NotBlank(message = "密码不能为空")
     private String pwd;
 
