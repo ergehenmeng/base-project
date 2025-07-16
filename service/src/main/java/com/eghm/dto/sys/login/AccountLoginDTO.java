@@ -1,7 +1,8 @@
 package com.eghm.dto.sys.login;
 
 import com.eghm.annotation.Assign;
-import com.eghm.validation.annotation.Password;
+import com.eghm.convertor.RsaDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -19,9 +20,9 @@ public class AccountLoginDTO {
     @ApiModelProperty(value = "手机号或邮箱", required = true)
     private String account;
 
-    @Password(message = "密码格式错误")
-    @ApiModelProperty(value = "密码,MD5小写加密过", required = true)
+    @ApiModelProperty(value = "密码(rsa加密)", required = true)
     @NotBlank(message = "密码不能为空")
+    @JsonDeserialize(using = RsaDeserializer.class)
     private String pwd;
 
     @ApiModelProperty(value = "ip", hidden = true)

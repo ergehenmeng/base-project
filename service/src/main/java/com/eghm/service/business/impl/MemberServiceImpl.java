@@ -1,7 +1,7 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.net.NetUtil;
-import cn.hutool.crypto.digest.MD5;
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -108,7 +108,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public LoginTokenVO accountLogin(AccountLoginDTO login) {
         Member member = this.getByAccount(login.getAccount());
-        if (member == null || !encoder.match(MD5.create().digestHex(login.getPwd()), member.getPwd())) {
+        if (member == null || !encoder.match(SecureUtil.sha256(login.getPwd()), member.getPwd())) {
             throw new BusinessException(ErrorCode.MEMBER_PASSWORD_ERROR);
         }
         this.checkMemberLock(member);
@@ -180,7 +180,7 @@ public class MemberServiceImpl implements MemberService {
         this.accountRedoVerify(dto.getAccount());
         MemberRegister register = new MemberRegister();
         register.setRegisterIp(dto.getIp());
-        register.setPwd(encoder.encode(MD5.create().digestHex(dto.getPassword())));
+        register.setPwd(encoder.encode(SecureUtil.sha256(dto.getPassword())));
         Member member = this.doRegister(register);
         return this.doLogin(member, register.getRegisterIp());
     }
@@ -299,7 +299,7 @@ public class MemberServiceImpl implements MemberService {
             log.error("验证码手机号不存在 [{}] [{}]", requestId, value);
             throw new BusinessException(ErrorCode.MOBILE_NOT_REGISTER);
         }
-        member.setPwd(encoder.encode(MD5.create().digestHex(password)));
+        member.setPwd(encoder.encode(SecureUtil.sha256(password)));
         memberMapper.updateById(member);
     }
 

@@ -23,12 +23,12 @@ public class CacheUtil {
     /**
      * 登录失败次数过多锁定
      */
-    public static final Cache<String, Integer> LOGIN_LOCK_CACHE = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).maximumSize(1000).build();
+    public static final Cache<String, Integer> LOGIN_LOCK_CACHE = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).maximumSize(10000).build();
 
     /**
      * post请求间隔限制
      */
-    public static final Cache<String, Boolean> INTERVAL_CACHE = Caffeine.newBuilder().expireAfterWrite(SUBMIT_INTERVAL, TimeUnit.MILLISECONDS).maximumSize(2000).build();
+    public static final Cache<String, Boolean> INTERVAL_CACHE = Caffeine.newBuilder().expireAfterWrite(SUBMIT_INTERVAL, TimeUnit.MILLISECONDS).maximumSize(10000).build();
 
     /**
      * 文件单日上传限制
@@ -43,6 +43,6 @@ public class CacheUtil {
     /**
      * 账号密码+手机号验证码登陆第一步缓存
      */
-    public static final Cache<String, Long> LOGIN_CACHE = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).maximumSize(1000).build();
+    public static final Cache<String, Long> LOGIN_CACHE = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).maximumSize(10000).build();
 
 }

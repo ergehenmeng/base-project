@@ -72,6 +72,16 @@ public class SystemProperties {
      */
     private final AliProperties ali = new AliProperties();
 
+    /**
+     * 私钥(用于密码解密)
+     */
+    private String privateKey;
+
+    /**
+     * 公钥(用于密码解密)
+     */
+    private String publicKey;
+
     @Data
     public static class AliProperties {
 

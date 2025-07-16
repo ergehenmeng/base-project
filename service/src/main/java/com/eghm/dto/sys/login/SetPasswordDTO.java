@@ -1,6 +1,8 @@
 package com.eghm.dto.sys.login;
 
+import com.eghm.convertor.RsaDeserializer;
 import com.eghm.validation.annotation.Password;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -17,7 +19,8 @@ public class SetPasswordDTO {
     @NotBlank(message = "请求ID不能为空")
     private String requestId;
 
-    @ApiModelProperty(value = "密码", required = true)
+    @ApiModelProperty(value = "密码(8~20英文,字母和@#&_) rsa加密", required = true)
     @Password
+    @JsonDeserialize(using = RsaDeserializer.class)
     private String password;
 }

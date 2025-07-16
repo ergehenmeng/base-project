@@ -1,7 +1,11 @@
 package com.eghm.common.impl;
 
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.asymmetric.KeyType;
+import cn.hutool.crypto.asymmetric.RSA;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.common.CommonService;
+import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.CommonConstant;
 import com.eghm.mapper.SysAreaMapper;
 import com.eghm.vo.sys.ext.SysAreaVO;
@@ -23,6 +27,8 @@ public class CommonServiceImpl implements CommonService {
 
     private final SysAreaMapper sysAreaMapper;
 
+    private final SystemProperties systemProperties;
+
     private final CacheProxyService cacheProxyService;
 
     @Override
@@ -35,6 +41,12 @@ public class CommonServiceImpl implements CommonService {
     public List<SysAreaVO> getTreeAreaList(List<Integer> gradeList) {
         List<SysAreaVO> areaList = sysAreaMapper.getList(gradeList);
         return this.treeBin(CommonConstant.ROOT, areaList);
+    }
+
+    @Override
+    public String rsaDecrypt(String rsaStr) {
+        RSA rsa = SecureUtil.rsa(systemProperties.getPrivateKey(), systemProperties.getPublicKey());
+        return rsa.decryptStr(rsaStr, KeyType.PrivateKey);
     }
 
     /**

@@ -3,7 +3,7 @@ package com.eghm.service.sys.impl;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.PhoneUtil;
-import cn.hutool.crypto.digest.MD5;
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -84,8 +84,8 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void updateLoginPassword(PasswordEditRequest request) {
         SysUser user = sysUserMapper.selectById(request.getUserId());
-        this.checkPassword(request.getOldPwd(), user.getPwd());
-        String newPassword = encoder.encode(request.getNewPwd());
+        this.checkPassword(SecureUtil.sha256(request.getOldPwd()), user.getPwd());
+        String newPassword = encoder.encode(SecureUtil.sha256(request.getNewPwd()));
         user.setPwd(newPassword);
         user.setPwdUpdateTime(LocalDateTime.now());
         sysUserMapper.updateById(user);
@@ -291,8 +291,8 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 加密密码
      */
     private String initPassword(String mobile) {
-        String md5Password = MD5.create().digestHex(mobile.substring(3));
-        return encoder.encode(md5Password);
+        String shaPassword = SecureUtil.sha256(mobile.substring(3));
+        return encoder.encode(shaPassword);
     }
 
     /**

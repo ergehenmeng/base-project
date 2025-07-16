@@ -1,7 +1,9 @@
 package com.eghm.dto.sys.register;
 
 import com.eghm.annotation.Assign;
+import com.eghm.convertor.RsaDeserializer;
 import com.eghm.validation.annotation.Password;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -22,8 +24,9 @@ public class AccountRegisterDTO {
     @NotEmpty(message = "账号不能为空")
     private String account;
 
-    @ApiModelProperty(value = "密码(8~20英文,字母和@#&_)", required = true)
+    @ApiModelProperty(value = "密码(8~20英文,字母和@#&_) rsa加密", required = true)
     @Password
+    @JsonDeserialize(using = RsaDeserializer.class)
     private String password;
 
     @ApiModelProperty(value = "验证码", required = true)
