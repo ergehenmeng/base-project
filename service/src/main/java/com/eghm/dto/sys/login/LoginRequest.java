@@ -1,5 +1,7 @@
 package com.eghm.dto.sys.login;
 
+import com.eghm.convertor.RsaDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -18,6 +20,7 @@ public class LoginRequest {
 
     @ApiModelProperty(value = "密码", required = true)
     @NotBlank(message = "密码不能为空")
+    @JsonDeserialize(using = RsaDeserializer.class)
     private String pwd;
 
     @ApiModelProperty(value = "验证码", required = true)

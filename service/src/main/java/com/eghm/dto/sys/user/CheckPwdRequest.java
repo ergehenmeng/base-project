@@ -1,5 +1,7 @@
 package com.eghm.dto.sys.user;
 
+import com.eghm.convertor.RsaDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -14,5 +16,6 @@ public class CheckPwdRequest {
 
     @ApiModelProperty(value = "密码", required = true)
     @NotBlank(message = "密码不能为空")
+    @JsonDeserialize(using = RsaDeserializer.class)
     private String pwd;
 }
