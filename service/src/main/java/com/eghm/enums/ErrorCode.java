@@ -158,7 +158,7 @@ public enum ErrorCode {
     /**
      * 密码校验失败
      */
-    PWD_DECODE_ERROR(1024, "密码校验失败"),
+    PWD_DECODE_ERROR(1025, "密码校验失败"),
 
     /**
      * 该字段类型不支持脱敏
