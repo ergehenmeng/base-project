@@ -6,8 +6,6 @@ import com.eghm.common.JsonService;
 import com.eghm.common.impl.DefaultAlarmServiceImpl;
 import com.eghm.common.impl.DingTalkAlarmServiceImpl;
 import com.eghm.common.impl.FeiShuAlarmServiceImpl;
-import com.eghm.configuration.encoder.BcEncoder;
-import com.eghm.configuration.encoder.Encoder;
 import com.eghm.configuration.jackson.DesensitizationAnnotationInterceptor;
 import com.eghm.configuration.log.LogTraceFilter;
 import com.eghm.constants.CommonConstant;
