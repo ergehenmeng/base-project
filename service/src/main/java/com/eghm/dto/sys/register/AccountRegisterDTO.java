@@ -1,7 +1,10 @@
 package com.eghm.dto.sys.register;
 
 import com.eghm.annotation.Assign;
+import com.eghm.convertor.RsaDeserializer;
 import com.eghm.validation.annotation.Password;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -21,8 +24,10 @@ public class AccountRegisterDTO {
     @NotEmpty(message = "账号不能为空")
     private String account;
 
-    @Schema(description = "密码(8~20英文,字母和@#&_)", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "密码(8~20英文,字母和@#&_)rsa加密", requiredMode = Schema.RequiredMode.REQUIRED)
     @Password
+    @JsonDeserialize(using = RsaDeserializer.class)
+    @Expose(serialize = false)
     private String password;
 
     @Schema(description = "验证码", requiredMode = Schema.RequiredMode.REQUIRED)

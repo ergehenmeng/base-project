@@ -80,6 +80,16 @@ public class SystemProperties {
      */
     private final Sms sms = new Sms();
 
+    /**
+     * 私钥(用于密码解密)
+     */
+    private String privateKey;
+
+    /**
+     * 公钥(用于密码解密)
+     */
+    private String publicKey;
+
     @Data
     public static class Sms {
 

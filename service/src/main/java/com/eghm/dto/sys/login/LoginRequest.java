@@ -1,5 +1,7 @@
 package com.eghm.dto.sys.login;
 
+import com.eghm.convertor.RsaDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -16,9 +18,10 @@ public class LoginRequest {
     @NotBlank(message = "账号不能为空")
     private String userName;
 
-    @Schema(description = "密码", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "密码(rsa加密)", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "密码不能为空")
     @Expose(serialize = false)
+    @JsonDeserialize(using = RsaDeserializer.class)
     private String pwd;
 
     @Schema(description = "验证码", requiredMode = Schema.RequiredMode.REQUIRED)

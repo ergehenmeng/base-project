@@ -113,7 +113,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public LoginTokenVO accountLogin(AccountLoginDTO login) {
         Member member = this.getByAccount(login.getAccount());
-        if (member == null || !encoder.match(login.getPwd(), member.getPwd())) {
+        if (member == null || !encoder.match(SecureUtil.sha256(login.getPwd()), member.getPwd())) {
             throw new BusinessException(ErrorCode.MEMBER_PASSWORD_ERROR);
         }
         this.checkMemberLock(member);

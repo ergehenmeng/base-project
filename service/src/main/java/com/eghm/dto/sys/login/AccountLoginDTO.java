@@ -1,6 +1,8 @@
 package com.eghm.dto.sys.login;
 
 import com.eghm.annotation.Assign;
+import com.eghm.convertor.RsaDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -17,8 +19,9 @@ public class AccountLoginDTO {
     @Schema(description = "手机号或邮箱", requiredMode = Schema.RequiredMode.REQUIRED)
     private String account;
 
-    @Schema(description = "密码,MD5小写加密过", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "密码(rsa加密)", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "密码不能为空")
+    @JsonDeserialize(using = RsaDeserializer.class)
     private String pwd;
 
     @Schema(description = "ip", hidden = true)

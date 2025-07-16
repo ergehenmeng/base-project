@@ -34,4 +34,12 @@ public interface CommonService {
      * @param consumer 后置处理 true:点赞 false:取消点赞
      */
     void praise(String key, String hashKey, Consumer<Boolean> consumer);
+
+    /**
+     * rsa 私钥解密
+     *
+     * @param rsa rsa加密后的字符串
+     * @return rsa 解密后的字符串
+     */
+    String rsaDecrypt(String rsa);
 }

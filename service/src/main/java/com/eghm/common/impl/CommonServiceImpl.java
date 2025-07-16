@@ -1,8 +1,12 @@
 package com.eghm.common.impl;
 
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.asymmetric.KeyType;
+import cn.hutool.crypto.asymmetric.RSA;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.cache.CacheService;
 import com.eghm.common.CommonService;
+import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.mapper.SysAreaMapper;
@@ -27,6 +31,8 @@ public class CommonServiceImpl implements CommonService {
 
     private final SysAreaMapper sysAreaMapper;
 
+    private final SystemProperties systemProperties;
+
     private final CacheProxyService cacheProxyService;
 
     @Override
@@ -50,6 +56,12 @@ public class CommonServiceImpl implements CommonService {
             cacheService.deleteHashKey(key, hashKey);
         }
         consumer.accept(praise);
+    }
+
+    @Override
+    public String rsaDecrypt(String rsaStr) {
+        RSA rsa = SecureUtil.rsa(systemProperties.getPrivateKey(), systemProperties.getPublicKey());
+        return rsa.decryptStr(rsaStr, KeyType.PrivateKey);
     }
 
     /**
