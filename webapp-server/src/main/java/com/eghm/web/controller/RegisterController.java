@@ -53,7 +53,7 @@ public class RegisterController {
     }
 
     @PostMapping(value = "/account", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("账号密码登录①")
+    @ApiOperation("账号密码注册①")
     public RespBody<LoginTokenVO> account(@RequestBody @Validated AccountRegisterDTO request, HttpServletRequest servletRequest) {
         Object value = servletRequest.getSession().getAttribute(CommonConstant.CAPTCHA_KEY);
         // 验证码使用后即为无效
