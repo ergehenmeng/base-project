@@ -8,6 +8,11 @@
 * spring-boot 3.2.x
 * mybatis-plus 3.5.9
 
+#### 特别注意事项
+* 项目和数据库初始化以后一定修改前后端交互的RSA公私钥 (后端: `application.yml#publicKey、privateKey`中, 前端: `.env#VITE_PUBLIC_KEY`)
+* 后端一定修改jwt秘钥(32位) `application.yml#jwtSecret` 
+* 如果有其他全局加密的秘钥也请第一时间修改较少泄露风险
+
 ## 管理后台
 
 ### 约定
