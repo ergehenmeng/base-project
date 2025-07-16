@@ -363,7 +363,7 @@ public class SysUserServiceImpl implements SysUserService {
             LOGIN_LOCK_CACHE.put(userName, present == null ? 1 : present + 1);
             throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
-        boolean match = encoder.match(password, user.getPwd());
+        boolean match = encoder.match(SecureUtil.sha256(password), user.getPwd());
         if (!match) {
             LOGIN_LOCK_CACHE.put(userName, present == null ? 1 : present + 1);
             throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
