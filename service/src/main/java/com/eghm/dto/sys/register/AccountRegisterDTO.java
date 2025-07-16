@@ -4,6 +4,7 @@ import com.eghm.annotation.Assign;
 import com.eghm.convertor.RsaDeserializer;
 import com.eghm.validation.annotation.Password;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -27,6 +28,7 @@ public class AccountRegisterDTO {
     @ApiModelProperty(value = "密码(8~20英文,字母和@#&_) rsa加密", required = true)
     @Password
     @JsonDeserialize(using = RsaDeserializer.class)
+    @Expose(serialize = false)
     private String password;
 
     @ApiModelProperty(value = "验证码", required = true)

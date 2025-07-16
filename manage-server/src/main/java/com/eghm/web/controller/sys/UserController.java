@@ -1,5 +1,6 @@
 package com.eghm.web.controller.sys;
 
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.annotation.SkipPerm;
 import com.eghm.cache.CacheService;
@@ -88,7 +89,7 @@ public class UserController {
     @SkipPerm
     public RespBody<Void> unlockScreen(@RequestBody @Validated CheckPwdRequest request) {
         Long userId = SecurityHolder.getUserId();
-        sysUserService.checkPassword(userId, request.getPwd());
+        sysUserService.checkPassword(userId, SecureUtil.sha256(request.getPwd()));
         cacheService.delete(CacheConstant.LOCK_SCREEN + userId);
         return RespBody.success();
     }
