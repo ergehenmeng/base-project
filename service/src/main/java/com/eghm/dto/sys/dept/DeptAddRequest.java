@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * @author 二哥很猛
@@ -28,6 +29,7 @@ public class DeptAddRequest extends ActionRecord {
     private String title;
 
     @ApiModelProperty("备注信息")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 
 }

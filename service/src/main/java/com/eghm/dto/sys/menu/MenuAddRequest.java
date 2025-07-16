@@ -6,6 +6,7 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * 菜单添加
@@ -44,6 +45,7 @@ public class MenuAddRequest {
     private Integer displayState;
 
     @ApiModelProperty(value = "备注信息")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 
 }

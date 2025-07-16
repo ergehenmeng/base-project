@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -48,5 +49,6 @@ public class UserEditRequest {
     private String deptIds;
 
     @ApiModelProperty("备注信息")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 }

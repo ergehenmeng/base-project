@@ -62,6 +62,6 @@ public class BannerEditRequest {
 
     @ApiModelProperty(value = "备注信息")
     @WordChecker(message = "备注信息存在敏感词")
-    @Size(max = 100, message = "备注信息长度不能超过100")
+    @Size(max = 100, message = "备注信息最大100字符")
     private String remark;
 }
