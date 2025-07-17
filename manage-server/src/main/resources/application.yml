@@ -71,6 +71,8 @@ system:
       - /v3/api-docs/**
       - /manage/captcha
       - /manage/login
+      - /manage/checkTotp
+      - /manage/bindTotp
       - /manage/sendSms
       - /manage/smsLogin
       - /manage/logout

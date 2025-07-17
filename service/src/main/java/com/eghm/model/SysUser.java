@@ -51,6 +51,9 @@ public class SysUser extends BaseEntity {
     @Schema(description = "备注信息")
     private String remark;
 
+    @Schema(description = "totp秘钥")
+    private String totpSecret;
+
     @Schema(description = "密码修改时间")
     private LocalDateTime pwdUpdateTime;
 

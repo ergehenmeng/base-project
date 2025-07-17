@@ -4,12 +4,12 @@ import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.annotation.SkipPerm;
 import com.eghm.cache.CacheService;
-import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.sys.user.*;
 import com.eghm.enums.UserState;
@@ -19,8 +19,8 @@ import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.sys.user.UserDetailResponse;
 import com.eghm.vo.sys.user.UserResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
@@ -129,6 +129,13 @@ public class UserController {
     public RespBody<Void> changePwd(@Validated @RequestBody PasswordEditRequest request) {
         request.setUserId(SecurityHolder.getUserId());
         sysUserService.updateLoginPassword(request);
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/unbindTotp", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "取消双因子绑定")
+    public RespBody<Void> unbindTotp(@Validated @RequestBody IdDTO request) {
+        sysUserService.unBindTotp(request.getId());
         return RespBody.success();
     }
 

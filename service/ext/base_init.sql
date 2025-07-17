@@ -21,10 +21,10 @@ INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('39', 'token_expire', '用户登陆过期时间', '604800', b'0', '单位:秒,默认7天过期', '2020-01-15 16:38:47', '2020-12-15 19:07:32');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('41', 'null_expire', '占位符缓存过期时间', '30', b'0', '单位:秒,超过该时间后,缓存过期', '2020-01-15 16:39:33', '2020-12-15 19:07:35');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('43', 'auth_code_expire', '验证码有效期', '600', b'0', '全局涉及验证码有限期默认10分钟', '2020-08-29 14:07:11', '2020-12-15 19:07:01');
-INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('44', 'login_type', '登录方式', '3', b'0', '登录方式 1:密码登录 2:短信登录 4:密码+短信登录(必须密码+短信验证码同时登陆) 8:二维码登录(未实现)', '2024-11-20 10:20:24', '2024-11-20 10:20:35');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('45', 'wechat_redirect_url', '微信扫码登录跳转回调地址', 'http://127.0.0.1:10086/manage/wechat/qrcode/login', b'0', '微信PC扫码授权后跳转到商户的地址(注意:是前端地址而不是后端地址)', '2024-11-21 16:45:13', '2024-11-21 16:48:22');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('1', 'system_name', '管理系统名称', 'EGHM', b'0', '左上角系统名称', '2018-01-12 10:01:04', '2024-12-18 14:54:07');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('21', 'comment_report_shield', '评论自动屏蔽次数', '20', b'0', '超过该参数,评论自动屏蔽', '2024-02-20 17:56:11', '2024-02-20 17:56:11');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('44', 'open_totp', '是否开启双因子认证', '0', b'0', '双因子认证只针对账号密码登录', '2024-11-20 10:20:24', '2024-11-20 10:20:35');
 
 
 INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `dict_type`, `create_time`, `update_time`, `remark`) VALUES ('1', '图片分类', 'image_type', b'0', b'0', '1', '2024-10-31 16:26:53', '2024-10-31 16:28:29', '图片管理');

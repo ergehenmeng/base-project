@@ -493,11 +493,11 @@ CREATE TABLE `sms_log`
 DROP TABLE IF EXISTS `sys_area`;
 CREATE TABLE `sys_area`
 (
-    `id`       bigint(20) NOT NULL COMMENT '区域代码 唯一',
-    `title`    varchar(50) DEFAULT NULL COMMENT '区域名称',
-    `pid`      bigint(20)  DEFAULT '0' COMMENT '父级区域代码',
-    `mark`     char(1)     DEFAULT NULL COMMENT '标示符-首字母',
-    `grade`    tinyint(1)  DEFAULT NULL COMMENT '分类 省份1级 市2级 县3级',
+    `id`    bigint(20) NOT NULL COMMENT '区域代码 唯一',
+    `title` varchar(50) DEFAULT NULL COMMENT '区域名称',
+    `pid`   bigint(20)  DEFAULT '0' COMMENT '父级区域代码',
+    `mark`  char(1)     DEFAULT NULL COMMENT '标示符-首字母',
+    `grade` tinyint(1)  DEFAULT NULL COMMENT '分类 省份1级 市2级 县3级',
     PRIMARY KEY (`id`),
     KEY `p_idx` (`pid`)
 ) ENGINE = InnoDB
@@ -745,6 +745,7 @@ CREATE TABLE `sys_user`
     `init_pwd`        varchar(256) DEFAULT NULL COMMENT '初始密码',
     `data_type`       tinyint(2)   DEFAULT NULL COMMENT '数据权限(1:本人,2:本部门,4:本部门及子部门 8:全部 16:自定义',
     `dept_code`       varchar(20)  DEFAULT NULL COMMENT '所属部门编号',
+    `totp_secret`     varchar(50)  DEFAULT NULL COMMENT 'totp秘钥',
     `deleted`         bit(1)       DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
     `pwd_update_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '密码更新时间',
     `open_id`         varchar(50)  DEFAULT NULL COMMENT '微信openId',

@@ -2,8 +2,7 @@ package com.eghm.web.controller;
 
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.util.IdUtil;
-import com.eghm.common.impl.SysConfigApi;
-import com.eghm.constants.ConfigConstant;
+import com.eghm.configuration.SystemProperties;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.wechat.LinkUrlRequest;
 import com.eghm.dto.wechat.QrCodeRequest;
@@ -29,6 +28,8 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author 二哥很猛
  * @since 2024/3/26
@@ -40,11 +41,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/wechat", produces = MediaType.APPLICATION_JSON_VALUE)
 public class WeChatController {
 
-    private final SysConfigApi sysConfigApi;
-
     private final SysUserService sysUserService;
 
     private final WeChatMpService weChatMpService;
+
+    private final SystemProperties systemProperties;
 
     private final WeChatMiniService weChatMiniService;
 
@@ -72,8 +73,8 @@ public class WeChatController {
     @GetMapping("/qrcode/url")
     @Operation(summary = "获取PC扫码跳转地址")
     public RespBody<String> getQrConnectUrl(HttpSession session) {
-        int loginType = sysConfigApi.getInt(ConfigConstant.LOGIN_TYPE);
-        if ((loginType & LoginType.QRCODE.getValue()) != LoginType.QRCODE.getValue()) {
+        List<LoginType> typeList = systemProperties.getManage().getLoginTypes();
+        if (!typeList.contains(LoginType.QRCODE)) {
             throw new BusinessException(ErrorCode.QRCODE_NOT_SUPPORTED);
         }
         String state = IdUtil.fastSimpleUUID();

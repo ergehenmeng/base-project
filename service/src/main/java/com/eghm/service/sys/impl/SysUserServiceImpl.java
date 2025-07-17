@@ -3,6 +3,8 @@ package com.eghm.service.sys.impl;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.PhoneUtil;
 import cn.hutool.crypto.SecureUtil;
+import cn.hutool.extra.qrcode.QrCodeUtil;
+import cn.hutool.extra.qrcode.QrConfig;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -18,6 +20,8 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.SecurityHolder;
 import com.eghm.dto.sys.login.AuthSmsRequest;
 import com.eghm.dto.sys.login.SmsLoginRequest;
+import com.eghm.dto.sys.login.TotpBindRequest;
+import com.eghm.dto.sys.login.TotpCheckRequest;
 import com.eghm.dto.sys.user.PasswordEditRequest;
 import com.eghm.dto.sys.user.UserAddRequest;
 import com.eghm.dto.sys.user.UserEditRequest;
@@ -33,10 +37,14 @@ import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.CacheUtil;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.TotpUtil;
 import com.eghm.vo.login.AuthPwdResponse;
 import com.eghm.vo.login.LoginResponse;
+import com.eghm.vo.login.TotpLoginResponse;
 import com.eghm.vo.sys.menu.MenuResponse;
 import com.eghm.vo.sys.user.UserResponse;
+import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
+import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -48,6 +56,7 @@ import java.util.Objects;
 import static cn.hutool.core.text.StrSplitter.split;
 import static com.eghm.constants.CommonConstant.MAX_ERROR_NUM;
 import static com.eghm.utils.CacheUtil.LOGIN_LOCK_CACHE;
+import static com.eghm.utils.CacheUtil.TOTP_CACHE;
 
 /**
  * @author 二哥很猛
@@ -175,10 +184,40 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public LoginResponse login(String userName, String password, String openId) {
+    public TotpLoginResponse login(String userName, String password, String openId) {
         SysUser user = this.getAndCheckUser(userName, password);
         this.tryBindingOpenId(user.getId(), openId);
-        return this.doLogin(user);
+        boolean openTotp = sysConfigApi.getBoolean(ConfigConstant.OPEN_TOTP);
+        if (openTotp) {
+            String sn = IdUtil.simpleUUID();
+            TOTP_CACHE.put(sn, user.getId());
+            return TotpLoginResponse.needTotp(sn);
+        }
+        LoginResponse response = this.doLogin(user);
+        return TotpLoginResponse.success(response);
+    }
+
+    @Override
+    public TotpLoginResponse checkTotp(TotpCheckRequest request) {
+        SysUser user = this.getByUuid(request.getUuid());
+        if (user.getTotpSecret() == null) {
+            GoogleAuthenticatorKey secretKey = TotpUtil.createSecretKey();
+            String generated = this.generateTotpUrl(user.getUserName(), secretKey);
+            return TotpLoginResponse.needBindTotp(request.getUuid(), QrCodeUtil.generateAsBase64(generated, QrConfig.create(), "png"), secretKey.getKey());
+        }
+        if (!TotpUtil.verify(user.getTotpSecret(), request.getVerifyCode())) {
+            throw new BusinessException(ErrorCode.TOTP_SN_ERROR);
+        }
+        LoginResponse response = this.doLogin(user);
+        TOTP_CACHE.invalidate(request.getUuid());
+        return TotpLoginResponse.success(response);
+    }
+
+    @Override
+    public void bindTotp(TotpBindRequest request) {
+        SysUser user = this.getByUuid(request.getUuid());
+        user.setTotpSecret(request.getSecretKey());
+        sysUserMapper.updateById(user);
     }
 
     @Override
@@ -270,6 +309,50 @@ public class SysUserServiceImpl implements SysUserService {
         LOGIN_LOCK_CACHE.invalidate(user.getMobile());
         LOGIN_LOCK_CACHE.invalidate(user.getUserName());
         return response;
+    }
+
+    @Override
+    public void unBindTotp(Long userId) {
+        LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SysUser::getId, userId);
+        wrapper.set(SysUser::getTotpSecret, null);
+        sysUserMapper.update(null, wrapper);
+    }
+
+    @Override
+    public String bindTotp(Long userId) {
+        SysUser user = this.getByIdRequired(userId);
+        GoogleAuthenticatorKey secretKey = TotpUtil.createSecretKey();
+        String key = secretKey.getKey();
+        user.setTotpSecret(key);
+        sysUserMapper.updateById(user);
+        return this.generateTotpUrl(user.getUserName(), secretKey);
+    }
+
+    /**
+     * 生成totpUrl
+     *
+     * @param userName  用户名
+     * @param secretKey 密钥
+     * @return totpUrl otpauth://totp/systemName:userName?secret=ef7umz73ppab2w7wyhnwpgpw3caotwfa&issuer=systemName
+     */
+    private String generateTotpUrl(String userName, GoogleAuthenticatorKey secretKey) {
+        String systemName = sysConfigApi.getString(ConfigConstant.SYSTEM_NAME);
+        return GoogleAuthenticatorQRGenerator.getOtpAuthTotpURL(systemName, userName, secretKey);
+    }
+
+    /**
+     * 根据uuid获取用户信息
+     *
+     * @param uuid 绑定totp时生成的uuid
+     * @return 用户信息
+     */
+    private SysUser getByUuid(String uuid) {
+        Long userId = TOTP_CACHE.getIfPresent(uuid);
+        if (userId == null) {
+            throw new BusinessException(ErrorCode.TOTP_SN_EXPIRE);
+        }
+        return this.getByIdRequired(userId);
     }
 
     /**
