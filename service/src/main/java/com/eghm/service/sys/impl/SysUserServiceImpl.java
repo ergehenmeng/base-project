@@ -205,7 +205,7 @@ public class SysUserServiceImpl implements SysUserService {
             String generated = this.generateTotpUrl(user.getUserName(), secretKey);
             return TotpLoginResponse.needBindTotp(request.getUuid(), QrCodeUtil.generateAsBase64(generated, QrConfig.create(), "png"), secretKey.getKey());
         }
-        if (!TotpUtil.verify(user.getTotpSecret(), request.getVerifyCode())) {
+        if (request.getVerifyCode() == null || !TotpUtil.verify(user.getTotpSecret(), request.getVerifyCode())) {
             throw new BusinessException(ErrorCode.TOTP_SN_ERROR);
         }
         LoginResponse response = this.doLogin(user);
