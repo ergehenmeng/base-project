@@ -68,8 +68,8 @@ public class LoginController {
 
     @PostMapping(value = "/checkTotp", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "校验双因子❷")
-    public RespBody<TotpLoginResponse> checkTotp(@Validated @RequestBody TotpCheckRequest request) {
-        TotpLoginResponse response = sysUserService.checkTotp(request);
+    public RespBody<LoginResponse> checkTotp(@Validated @RequestBody TotpCheckRequest request) {
+        LoginResponse response = sysUserService.checkTotp(request);
         return RespBody.success(response);
     }
 

@@ -189,28 +189,28 @@ public class SysUserServiceImpl implements SysUserService {
         this.tryBindingOpenId(user.getId(), openId);
         boolean openTotp = sysConfigApi.getBoolean(ConfigConstant.OPEN_TOTP);
         if (openTotp) {
-            String sn = IdUtil.simpleUUID();
-            TOTP_CACHE.put(sn, user.getId());
-            return TotpLoginResponse.needTotp(sn);
+            String uuid = IdUtil.simpleUUID();
+            TOTP_CACHE.put(uuid, user.getId());
+            if (user.getTotpSecret() == null) {
+                GoogleAuthenticatorKey secretKey = TotpUtil.createSecretKey();
+                String generated = this.generateTotpUrl(user.getUserName(), secretKey);
+                return TotpLoginResponse.needBindTotp(uuid, QrCodeUtil.generateAsBase64(generated, QrConfig.create(), "png"), secretKey.getKey());
+            }
+            return TotpLoginResponse.needTotp(uuid);
         }
         LoginResponse response = this.doLogin(user);
         return TotpLoginResponse.success(response);
     }
 
     @Override
-    public TotpLoginResponse checkTotp(TotpCheckRequest request) {
+    public LoginResponse checkTotp(TotpCheckRequest request) {
         SysUser user = this.getByUuid(request.getUuid());
-        if (user.getTotpSecret() == null) {
-            GoogleAuthenticatorKey secretKey = TotpUtil.createSecretKey();
-            String generated = this.generateTotpUrl(user.getUserName(), secretKey);
-            return TotpLoginResponse.needBindTotp(request.getUuid(), QrCodeUtil.generateAsBase64(generated, QrConfig.create(), "png"), secretKey.getKey());
-        }
-        if (request.getVerifyCode() == null || !TotpUtil.verify(user.getTotpSecret(), request.getVerifyCode())) {
+        if (!TotpUtil.verify(user.getTotpSecret(), request.getVerifyCode())) {
             throw new BusinessException(ErrorCode.TOTP_SN_ERROR);
         }
         LoginResponse response = this.doLogin(user);
         TOTP_CACHE.invalidate(request.getUuid());
-        return TotpLoginResponse.success(response);
+        return response;
     }
 
     @Override

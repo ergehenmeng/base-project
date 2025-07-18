@@ -105,7 +105,7 @@ public interface SysUserService {
      * @param request 验证码
      * @return 登录信息
      */
-    TotpLoginResponse checkTotp(TotpCheckRequest request);
+    LoginResponse checkTotp(TotpCheckRequest request);
 
     /**
      * 绑定双因子
