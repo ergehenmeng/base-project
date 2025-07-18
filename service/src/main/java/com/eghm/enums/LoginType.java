@@ -30,12 +30,7 @@ public enum LoginType {
     /**
      * 扫码
      */
-    QRCODE(8, "扫码"),
-
-    /**
-     * 账号密码+双因子
-     */
-    TOTP(16, "账号密码+双因子");
+    QRCODE(8, "扫码");
 
     private final int value;
 
