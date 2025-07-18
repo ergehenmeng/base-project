@@ -798,3 +798,45 @@ CREATE TABLE `webapp_log`
     KEY `u_idx` (`url`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='移动端操作记录';
+
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `member_id`   bigint(20)   DEFAULT NULL COMMENT '用户ID',
+    `object_id`   bigint(20)   DEFAULT NULL COMMENT '评论对象ID',
+    `object_type` tinyint(2)   DEFAULT NULL COMMENT '评论对象类型',
+    `praise_num`  int(10)      DEFAULT '0' COMMENT '点赞数量',
+    `report_num`  int(10)      DEFAULT '0' COMMENT '被举报次数',
+    `reply_num`   int(10)      DEFAULT '0' COMMENT '被评论次数',
+    `state`       bit(1)       DEFAULT b'1' COMMENT '状态 0:已屏蔽 1:正常',
+    `top_state`   tinyint(2)   DEFAULT '0' COMMENT '置顶状态 0:未置顶 1:置顶',
+    `reply_id`    bigint(20)   DEFAULT NULL COMMENT '回复id',
+    `pid`         bigint(20)   DEFAULT NULL COMMENT '父评论id',
+    `content`     varchar(200) DEFAULT NULL COMMENT '评论信息',
+    `grade`       varchar(200) DEFAULT '1' COMMENT '评论级别 1:一级评论 2:二级评论',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='评论记录表';
+
+DROP TABLE IF EXISTS `comment_report`;
+CREATE TABLE `comment_report`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `member_id`   bigint(20)   DEFAULT NULL COMMENT '举报用户ID',
+    `comment_id`  bigint(20)   DEFAULT NULL COMMENT '评价ID',
+    `object_id`   bigint(20)   DEFAULT NULL COMMENT '评论对象ID',
+    `report_type` tinyint(1)   DEFAULT NULL COMMENT '举报类型',
+    `object_type` bigint(20)   DEFAULT NULL COMMENT '评论对象类型',
+    `content`     varchar(200) DEFAULT NULL COMMENT '举报内容',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4  COMMENT ='评论举报记录表';
+
+
