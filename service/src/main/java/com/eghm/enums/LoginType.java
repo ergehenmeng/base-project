@@ -13,19 +13,19 @@ import lombok.Getter;
 public enum LoginType {
 
     /**
-     * 密码
+     * 账号密码
      */
-    PASSWORD(1, "密码"),
+    PASSWORD(1, "账号密码"),
 
     /**
-     * 短信
+     * 手机号+验证码
      */
-    SMS(2, "短信"),
+    SMS(2, "手机号+验证码"),
 
     /**
-     * 密码+短信
+     * 账号密码+验证码
      */
-    PASSWORD_SMS(4, "密码+短信"),
+    PASSWORD_SMS(4, "账号密码+验证码"),
 
     /**
      * 扫码

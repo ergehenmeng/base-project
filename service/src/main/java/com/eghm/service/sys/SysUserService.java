@@ -3,6 +3,8 @@ package com.eghm.service.sys;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.sys.login.AuthSmsRequest;
 import com.eghm.dto.sys.login.SmsLoginRequest;
+import com.eghm.dto.sys.login.TotpBindRequest;
+import com.eghm.dto.sys.login.TotpCheckRequest;
 import com.eghm.dto.sys.user.PasswordEditRequest;
 import com.eghm.dto.sys.user.UserAddRequest;
 import com.eghm.dto.sys.user.UserEditRequest;
@@ -11,6 +13,7 @@ import com.eghm.enums.UserState;
 import com.eghm.model.SysUser;
 import com.eghm.vo.login.AuthPwdResponse;
 import com.eghm.vo.login.LoginResponse;
+import com.eghm.vo.login.TotpLoginResponse;
 import com.eghm.vo.sys.user.UserResponse;
 
 /**
@@ -94,7 +97,22 @@ public interface SysUserService {
      * @param openId   openId
      * @return token及权限
      */
-    LoginResponse login(String userName, String password, String openId);
+    TotpLoginResponse login(String userName, String password, String openId);
+
+    /**
+     * 验证双因子并登录
+     *
+     * @param request 验证码
+     * @return 登录信息
+     */
+    LoginResponse checkTotp(TotpCheckRequest request);
+
+    /**
+     * 绑定双因子
+     *
+     * @param request 绑定信息
+     */
+    void bindTotp(TotpBindRequest request);
 
     /**
      * 解绑微信
@@ -152,5 +170,20 @@ public interface SysUserService {
      * @return 返回前端信息
      */
     LoginResponse doLogin(SysUser user);
+
+    /**
+     * 解绑totp
+     *
+     * @param userId 用户ID
+     */
+    void unBindTotp(Long userId);
+
+    /**
+     * 绑定totp
+     *
+     * @param userId 用户ID
+     * @return google-auth协议地址
+     */
+    String bindTotp(Long userId);
 }
 

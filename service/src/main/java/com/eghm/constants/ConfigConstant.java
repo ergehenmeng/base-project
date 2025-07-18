@@ -107,11 +107,9 @@ public class ConfigConstant {
     public static final String ANDROID_LATEST_VERSION = "android_latest_version";
 
     /**
-     * 登录方式 1:密码登录 2:短信登录 4:密码+短信登录(必须密码+短信验证码同时登陆) 8:二维码登录(未实现)
-     * 注意: 支持异或操作 3:表示密码+短信登录 11:表示密码+短信+二维码登录, 但是由于4和1,2功能上是互斥的,因此不能同时存在
-     * 同时二维码登录不能独立存在,必须和124组合使用(因为首次需要绑定微信号)
+     * 是否开启双因子认证
      */
-    public static final String LOGIN_TYPE = "login_type";
+    public static final String OPEN_TOTP = "open_totp";
 
     /**
      * 微信扫码登录跳转地址

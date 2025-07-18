@@ -131,4 +131,10 @@ public class UserController {
         return RespBody.success();
     }
 
+    @PostMapping(value = "/unbindTotp", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation("取消双因子绑定")
+    public RespBody<Void> unbindTotp(@Validated @RequestBody IdDTO request) {
+        sysUserService.unBindTotp(request.getId());
+        return RespBody.success();
+    }
 }

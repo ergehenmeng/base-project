@@ -79,6 +79,8 @@
         <tencent.sms.version>3.1.1043</tencent.sms.version>
         <!--阿里oss-->
         <ali.oss.version>3.17.4</ali.oss.version>
+        <!--totp-->
+        <totp.version>1.5.0</totp.version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -156,6 +158,11 @@
                 <groupId>com.tencentcloudapi</groupId>
                 <artifactId>tencentcloud-sdk-java-sms</artifactId>
                 <version>${tencent.sms.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.warrenstrange</groupId>
+                <artifactId>googleauth</artifactId>
+                <version>${totp.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.belerweb</groupId>

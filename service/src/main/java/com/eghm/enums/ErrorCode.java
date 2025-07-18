@@ -206,6 +206,26 @@ public enum ErrorCode {
     ROLE_NAME_REDO(2042, "角色名称重复"),
 
     /**
+     * 校验码无效
+     */
+    INPUT_TOTP(2044, "校验码无效"),
+
+    /**
+     * 登录信息已过期,请输入账号密码
+     */
+    TOTP_SN_EXPIRE(2045, "登录信息已过期,请输入账号密码"),
+
+    /**
+     * 校验码无效
+     */
+    TOTP_SN_ERROR(2046, "校验码无效"),
+
+    /**
+     * 登录信息已过期,请重新登录
+     */
+    LOGIN_TIMEOUT_ERROR(2047, "登录信息已过期,请重新登录"),
+
+    /**
      * ip格式错误
      */
     IP_ILLEGAL(2048, "IP格式错误"),
@@ -256,21 +276,6 @@ public enum ErrorCode {
     QRCODE_NOT_SUPPORTED(2076, "不支持扫码登录"),
 
     /**
-     * 账号或密码输入错误
-     */
-    ACCOUNT_PASSWORD_ERROR(2114, "账号或密码输入错误"),
-
-    /**
-     * 手机号不存在
-     */
-    USER_MOBILE_NULL(2116, "手机号不存在"),
-
-    /**
-     * 密码输入错误
-     */
-    PASSWORD_ERROR(2115, "密码输入错误"),
-
-    /**
      * 用户信息不存在
      */
     USER_NOT_FOUND(2078, "用户信息不存在"),
@@ -294,11 +299,6 @@ public enum ErrorCode {
      * 系统参数已锁定
      */
     CONFIG_LOCK_ERROR(2084, "系统参数已锁定"),
-
-    /**
-     * 旧密码输入错误
-     */
-    USER_PASSWORD_ERROR(2114, "旧密码输入错误"),
 
     /**
      * 上传文件过大
@@ -344,6 +344,27 @@ public enum ErrorCode {
      * 同级菜单最多90个
      */
     MENU_MAX_ERROR(2102, "同级菜单最多90个"),
+
+    /**
+     * 旧密码输入错误
+     */
+    USER_PASSWORD_ERROR(2103, "旧密码输入错误"),
+
+
+    /**
+     * 账号或密码输入错误
+     */
+    ACCOUNT_PASSWORD_ERROR(2104, "账号或密码输入错误"),
+
+    /**
+     * 手机号不存在
+     */
+    USER_MOBILE_NULL(2105, "手机号不存在"),
+
+    /**
+     * 密码输入错误
+     */
+    PASSWORD_ERROR(2106, "密码输入错误"),
 
     /**
      * 用户不存在

@@ -73,6 +73,8 @@ system:
       - /manage/sendSms
       - /manage/smsLogin
       - /manage/logout
+      - /manage/checkTotp
+      - /manage/bindTotp
       - /favicon.ico
       - /manage/wechat/qrcode/url
       - /manage/wechat/qrcode/login

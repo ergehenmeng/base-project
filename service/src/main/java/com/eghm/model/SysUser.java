@@ -54,6 +54,9 @@ public class SysUser extends BaseEntity {
     @ApiModelProperty("密码修改时间")
     private LocalDateTime pwdUpdateTime;
 
+    @ApiModelProperty("totp秘钥")
+    private String totpSecret;
+
     @ApiModelProperty("微信openId")
     private String openId;
 }
