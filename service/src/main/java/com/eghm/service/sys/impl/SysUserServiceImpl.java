@@ -180,7 +180,6 @@ public class SysUserServiceImpl implements SysUserService {
         sysUserMapper.updateById(user);
     }
 
-
     @Override
     public TotpLoginResponse login(String userName, String password, String openId) {
         SysUser user = this.getAndCheckUser(userName, password);
