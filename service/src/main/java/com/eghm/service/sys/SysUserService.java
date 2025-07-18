@@ -178,12 +178,5 @@ public interface SysUserService {
      */
     void unBindTotp(Long userId);
 
-    /**
-     * 绑定totp
-     *
-     * @param userId 用户ID
-     * @return google-auth协议地址
-     */
-    String bindTotp(Long userId);
 }
 
