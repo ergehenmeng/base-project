@@ -316,16 +316,6 @@ public class SysUserServiceImpl implements SysUserService {
         sysUserMapper.update(null, wrapper);
     }
 
-    @Override
-    public String bindTotp(Long userId) {
-        SysUser user = this.getByIdRequired(userId);
-        GoogleAuthenticatorKey secretKey = TotpUtil.createSecretKey();
-        String key = secretKey.getKey();
-        user.setTotpSecret(key);
-        sysUserMapper.updateById(user);
-        return this.generateTotpUrl(user.getUserName(), secretKey);
-    }
-
     /**
      * 生成totpUrl
      *
