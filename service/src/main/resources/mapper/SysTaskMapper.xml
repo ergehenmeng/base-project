@@ -8,9 +8,9 @@
         <where>
             <if test="param.queryName != null and param.queryName != ''">
                 and (
-                title like concat('%',#{param.queryName, typeHandler=LikeTypeHandler},'%') or
-                bean_name like concat('%',#{param.queryName, typeHandler=LikeTypeHandler},'%') or
-                method_name like concat('%',#{param.queryName, typeHandler=LikeTypeHandler},'%')
+                title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+                bean_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+                method_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
                 )
             </if>
             <if test="param.state != null">

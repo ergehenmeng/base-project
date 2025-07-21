@@ -18,7 +18,7 @@
             and #{param.middleTime} between start_time and end_time
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and title like concat('%',#{param.queryName, typeHandler=LikeTypeHandler},'%')
+            and title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         order by id desc
     </select>
