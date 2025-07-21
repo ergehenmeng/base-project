@@ -29,7 +29,7 @@
         select help_type, ask, answer from help_center where deleted = false and state = true and help_type = #{helpType}
         <if test="queryName != null and queryName != ''">
             and (ask like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%') or
-            answer like concat('%', #{queryName, typeHandler=LikeTypeHandler} ,'%'))
+            answer like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%'))
         </if>
         order by sort
     </select>
