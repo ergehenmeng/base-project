@@ -22,7 +22,7 @@ public class TotpBindRequest {
     @Length(min = 32, max = 32, message = "秘钥格式错误")
     private String secretKey;
 
-    @Schema(description = "校验码", requiredMode = Schema.RequiredMode.REQUIRED)
-    @RangeInt(min = 100000, max = 999999, message = "校验码不合法")
+    @Schema(description = "动态口令", requiredMode = Schema.RequiredMode.REQUIRED)
+    @RangeInt(min = 100000, max = 999999, message = "动态口令不合法")
     private Integer verifyCode;
 }
