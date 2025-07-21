@@ -208,4 +208,9 @@ public class CacheConstant {
      */
     public static final String WECHAT_QRCODE = "wechat_qrcode:";
 
+    /**
+     * 新设备登录
+     */
+    public static final String NEW_DEVICE_LOGIN = "new_device_login:";
+
 }
