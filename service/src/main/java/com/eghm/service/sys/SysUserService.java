@@ -108,11 +108,12 @@ public interface SysUserService {
     LoginResponse checkTotp(TotpCheckRequest request);
 
     /**
-     * 绑定双因子
+     * 绑定双因子认证并登录
      *
      * @param request 绑定信息
+     * @return 登录信息
      */
-    void bindTotp(TotpBindRequest request);
+    LoginResponse bindTotp(TotpBindRequest request);
 
     /**
      * 解绑微信

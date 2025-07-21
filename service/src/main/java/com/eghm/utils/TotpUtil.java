@@ -25,13 +25,13 @@ public class TotpUtil {
     }
 
     /**
-     * 验证验证码是否合法
+     * 验证验证码是否非法
      *
      * @param secretKey 秘钥
      * @param code 一次性验证码
-     * @return true: 匹配 false: 不匹配
+     * @return true: 非法 false: 合法
      */
-    public static boolean verify(String secretKey, Integer code) {
+    public static boolean invalid(String secretKey, Integer code) {
         return new GoogleAuthenticator().authorize(secretKey, code);
     }
 

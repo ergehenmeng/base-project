@@ -1,5 +1,6 @@
 package com.eghm.dto.sys.login;
 
+import com.eghm.validation.annotation.RangeInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -17,8 +18,12 @@ public class TotpBindRequest {
     @NotBlank(message = "序列号不能为空")
     private String uuid;
 
-    @ApiModelProperty(value = "核对码", required = true)
-    @NotBlank(message = "核对码不能为空")
-    @Length(min = 32, max = 32, message = "核对码格式错误")
+    @ApiModelProperty(value = "秘钥", required = true)
+    @NotBlank(message = "秘钥不能为空")
+    @Length(min = 32, max = 32, message = "秘钥格式错误")
     private String secretKey;
+
+    @ApiModelProperty(value = "校验码", required = true)
+    @RangeInt(min = 100000, max = 999999, message = "校验码不合法")
+    private Integer verifyCode;
 }

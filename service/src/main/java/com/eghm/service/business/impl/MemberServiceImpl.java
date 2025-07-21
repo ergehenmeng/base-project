@@ -120,7 +120,6 @@ public class MemberServiceImpl implements MemberService {
         LoginDevice loginLog = loginService.getBySerialNumber(member.getId(), request.getSerialNumber());
         if (loginLog == null && StringUtil.isNotBlank(member.getMobile())) {
             // 新设备登陆时,如果使用密码登陆需要验证短信,当然前提是用户已经绑定手机号码
-            // 新设备登陆时,如果使用密码登陆需要验证短信,当然前提是用户已经绑定手机号码
             smsService.sendSmsCode(TemplateType.MEMBER_LOGIN, member.getMobile(), login.getIp());
             String uuid = IdUtil.fastSimpleUUID();
             cacheService.setValue(CacheConstant.NEW_DEVICE_LOGIN + uuid, member.getMobile(), 300);

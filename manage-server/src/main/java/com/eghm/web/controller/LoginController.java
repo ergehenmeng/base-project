@@ -75,9 +75,9 @@ public class LoginController {
 
     @PostMapping(value = "/bindTotp", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("绑定双因子验证(未登录绑定)")
-    public RespBody<Void> bindTotp(@Validated @RequestBody TotpBindRequest request) {
-        sysUserService.bindTotp(request);
-        return RespBody.success();
+    public RespBody<LoginResponse> bindTotp(@Validated @RequestBody TotpBindRequest request) {
+        LoginResponse response = sysUserService.bindTotp(request);
+        return RespBody.success(response);
     }
 
     @PostMapping("/logout")

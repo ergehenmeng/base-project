@@ -202,7 +202,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public LoginResponse checkTotp(TotpCheckRequest request) {
         SysUser user = this.getByUuid(request.getUuid());
-        if (!TotpUtil.verify(user.getTotpSecret(), request.getVerifyCode())) {
+        if (TotpUtil.invalid(user.getTotpSecret(), request.getVerifyCode())) {
             throw new BusinessException(ErrorCode.TOTP_SN_ERROR);
         }
         LoginResponse response = this.doLogin(user);
@@ -211,10 +211,15 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public void bindTotp(TotpBindRequest request) {
+    public LoginResponse bindTotp(TotpBindRequest request) {
+        if (TotpUtil.invalid(request.getSecretKey(), request.getVerifyCode())) {
+            throw new BusinessException(ErrorCode.TOTP_SN_ERROR);
+        }
         SysUser user = this.getByUuid(request.getUuid());
         user.setTotpSecret(request.getSecretKey());
         sysUserMapper.updateById(user);
+        TOTP_CACHE.invalidate(request.getUuid());
+        return this.doLogin(user);
     }
 
     @Override
