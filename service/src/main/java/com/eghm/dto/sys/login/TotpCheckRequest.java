@@ -17,6 +17,6 @@ public class TotpCheckRequest {
     private String uuid;
 
     @Schema(description = "校验码", requiredMode = Schema.RequiredMode.REQUIRED)
-    @RangeInt(max = 999999, message = "校验码不合法")
+    @RangeInt(min = 100000, max = 999999, message = "校验码不合法")
     private Integer verifyCode;
 }
