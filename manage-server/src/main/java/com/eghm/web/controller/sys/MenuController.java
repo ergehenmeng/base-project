@@ -7,6 +7,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sys.menu.MenuAddRequest;
 import com.eghm.dto.sys.menu.MenuEditRequest;
 import com.eghm.dto.sys.menu.MenuQueryRequest;
+import com.eghm.enums.DisplayState;
 import com.eghm.enums.RoleType;
 import com.eghm.model.SysRole;
 import com.eghm.service.sys.SysMenuService;
@@ -50,7 +51,7 @@ public class MenuController {
     @ApiOperation("系统菜单(角色授权使用)")
     public RespBody<List<MenuResponse>> systemList(IdDTO dto) {
         SysRole sysRole = sysRoleService.getById(dto.getId());
-        int displayState = sysRole.getRoleType() == RoleType.COMMON ?  2 : 1;
+        int displayState = sysRole.getRoleType() == RoleType.COMMON ? DisplayState.SYSTEM.getValue() : DisplayState.MERCHANT.getValue();
         List<MenuResponse> responseList = sysMenuService.getAll(displayState);
         return RespBody.success(responseList);
     }
