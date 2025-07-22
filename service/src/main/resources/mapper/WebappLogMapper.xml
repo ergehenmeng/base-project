@@ -25,7 +25,7 @@
                and (r.nick_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
                     or t.serial_number like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
                     or t.url like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
-                    or t.ip = #{param.queryName}
+                    or t.ip like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
                    )
            </if>
            <if test="param.channel != null and param.channel != ''">
