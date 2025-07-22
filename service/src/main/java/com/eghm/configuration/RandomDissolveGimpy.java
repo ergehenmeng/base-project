@@ -7,7 +7,7 @@ import com.jhlabs.image.MarbleFilter;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.concurrent.ThreadLocalRandom;
+import java.security.SecureRandom;
 
 /**
  * 验证码溶解
@@ -21,7 +21,7 @@ public class RandomDissolveGimpy extends Configurable implements GimpyEngine {
     public BufferedImage getDistortedImage(BufferedImage baseImage) {
         BufferedImage distortedImage = new BufferedImage(baseImage.getWidth(), baseImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics2D graph = (Graphics2D) distortedImage.getGraphics();
-        ThreadLocalRandom random = ThreadLocalRandom.current();
+        SecureRandom random = new SecureRandom();
         DissolveFilter dissolveFilter = new DissolveFilter();
         dissolveFilter.setDensity(random.nextFloat(0.6F, 0.8F));
         MarbleFilter marbleFilter = new MarbleFilter();

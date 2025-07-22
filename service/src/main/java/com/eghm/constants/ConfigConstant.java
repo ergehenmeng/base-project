@@ -110,4 +110,9 @@ public class ConfigConstant {
      * 管理系统名称
      */
     public static final String SYSTEM_NAME = "system_name";
+
+    /**
+     * 验证码类型
+     */
+    public static final String CAPTCHA_TYPE = "captcha_type";
 }

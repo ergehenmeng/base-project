@@ -7,8 +7,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.security.SecureRandom;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * 红包工具类(仿微信随机红包)
@@ -57,7 +57,7 @@ public class RedEnvelopeUtil {
     private static List<Integer> generateRandom(int amount, int num) {
         List<Integer> result = Lists.newArrayListWithExpectedSize(num);
         int surplus = amount;
-        ThreadLocalRandom random = ThreadLocalRandom.current();
+        SecureRandom random = new SecureRandom();
         for (int i = 0; i < num; i++) {
             if (i == num - 1) {
                 result.add(surplus);

@@ -2,6 +2,7 @@ package com.eghm.service.sys.impl;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.config.ConfigRegistry;
 import com.eghm.dto.sys.config.ConfigEditRequest;
 import com.eghm.dto.sys.config.ConfigQueryRequest;
 import com.eghm.enums.ErrorCode;
@@ -37,6 +38,7 @@ public class SysConfigServiceImpl implements SysConfigService {
         if (Boolean.TRUE.equals(config.getLocked())) {
             throw new BusinessException(ErrorCode.CONFIG_LOCK_ERROR);
         }
+        ConfigRegistry.handle(config.getNid(), request.getContent());
         sysConfigMapper.updateById(DataUtil.copy(request, SysConfig.class));
     }
 }
