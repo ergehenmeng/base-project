@@ -206,11 +206,6 @@ public enum ErrorCode {
     ROLE_NAME_REDO(2042, "角色名称重复"),
 
     /**
-     * 校验码无效
-     */
-    INPUT_TOTP(2044, "校验码无效"),
-
-    /**
      * 登录信息已过期,请输入账号密码
      */
     TOTP_SN_EXPIRE(2045, "登录信息已过期,请输入账号密码"),
@@ -219,11 +214,6 @@ public enum ErrorCode {
      * 校验码无效
      */
     TOTP_SN_ERROR(2046, "校验码无效"),
-
-    /**
-     * 登录信息已过期,请重新登录
-     */
-    LOGIN_TIMEOUT_ERROR(2047, "登录信息已过期,请重新登录"),
 
     /**
      * ip格式错误
