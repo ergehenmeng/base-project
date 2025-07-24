@@ -23,6 +23,6 @@ public class TotpBindRequest {
     private String secretKey;
 
     @Schema(description = "动态口令", requiredMode = Schema.RequiredMode.REQUIRED)
-    @RangeInt(min = 100000, max = 999999, message = "动态口令不合法")
+    @RangeInt(max = 999999, message = "动态口令不合法")
     private Integer verifyCode;
 }
