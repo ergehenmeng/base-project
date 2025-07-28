@@ -24,6 +24,6 @@ public class TotpBindRequest {
     private String secretKey;
 
     @ApiModelProperty(value = "动态口令", required = true)
-    @RangeInt(min = 100000, max = 999999, message = "动态口令不合法")
+    @RangeInt(max = 999999, message = "动态口令不合法")
     private Integer verifyCode;
 }

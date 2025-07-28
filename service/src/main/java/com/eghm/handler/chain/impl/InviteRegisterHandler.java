@@ -4,7 +4,7 @@ import com.eghm.dto.ext.MemberRegister;
 import com.eghm.handler.chain.Handler;
 import com.eghm.handler.chain.HandlerInvoker;
 import com.eghm.handler.chain.MessageData;
-import com.eghm.handler.chain.annotation.HandlerEnum;
+import com.eghm.handler.chain.enums.HandlerEnum;
 import com.eghm.handler.chain.annotation.HandlerMark;
 import com.eghm.model.Member;
 import com.eghm.model.MemberInviteLog;

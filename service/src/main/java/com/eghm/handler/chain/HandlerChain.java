@@ -1,7 +1,7 @@
 package com.eghm.handler.chain;
 
 
-import com.eghm.handler.chain.annotation.HandlerEnum;
+import com.eghm.handler.chain.enums.HandlerEnum;
 import com.eghm.handler.chain.annotation.HandlerMark;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;

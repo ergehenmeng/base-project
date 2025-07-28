@@ -18,6 +18,6 @@ public class TotpCheckRequest {
     private String uuid;
 
     @ApiModelProperty(value = "校验码", required = true)
-    @RangeInt(min = 100000, max = 999999, message = "校验码不合法")
+    @RangeInt(max = 999999, message = "校验码不合法")
     private Integer verifyCode;
 }

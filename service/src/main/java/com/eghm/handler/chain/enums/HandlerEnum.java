@@ -1,4 +1,4 @@
-package com.eghm.handler.chain.annotation;
+package com.eghm.handler.chain.enums;
 
 /**
  * @author 殿小二

@@ -1,5 +1,7 @@
 package com.eghm.handler.chain.annotation;
 
+import com.eghm.handler.chain.enums.HandlerEnum;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
