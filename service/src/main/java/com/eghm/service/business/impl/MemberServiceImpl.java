@@ -30,7 +30,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.exception.DataException;
 import com.eghm.handler.chain.HandlerChain;
 import com.eghm.handler.chain.MessageData;
-import com.eghm.handler.chain.annotation.HandlerEnum;
+import com.eghm.handler.chain.enums.HandlerEnum;
 import com.eghm.mapper.MemberMapper;
 import com.eghm.model.LoginDevice;
 import com.eghm.model.Member;
