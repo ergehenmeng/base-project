@@ -43,6 +43,19 @@ public class SecurityHolder {
     }
 
     /**
+     * 获取当前用户id
+     *
+     * @return id
+     */
+    public static Long tryGetUserId() {
+        UserToken userToken = getUser();
+        if (userToken == null) {
+            return null;
+        }
+        return userToken.getId();
+    }
+
+    /**
      * 获取当前登录用户的信息
      *
      * @return 用户信息 可能为空

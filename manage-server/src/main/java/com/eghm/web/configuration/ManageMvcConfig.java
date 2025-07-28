@@ -9,6 +9,7 @@ import com.eghm.service.sys.SysMenuService;
 import com.eghm.web.configuration.filter.AuthFilter;
 import com.eghm.web.configuration.interceptor.LockScreenInterceptor;
 import com.eghm.web.configuration.interceptor.PermInterceptor;
+import com.eghm.web.configuration.interceptor.SubmitIntervalInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.DispatcherType;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,6 +17,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 /**
@@ -46,6 +48,15 @@ public class ManageMvcConfig extends WebMvcConfig {
         String[] whiteList = systemProperties.getManage().getWhiteList();
         registry.addInterceptor(permInterceptor()).excludePathPatterns(whiteList);
         registry.addInterceptor(lockScreenInterceptor()).excludePathPatterns(whiteList);
+        registry.addInterceptor(submitIntervalInterceptor());
+    }
+
+    /**
+     * 提交间隔限制
+     */
+    @Bean
+    public HandlerInterceptor submitIntervalInterceptor() {
+        return new SubmitIntervalInterceptor();
     }
 
     /**
