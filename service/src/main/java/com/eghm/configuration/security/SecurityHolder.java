@@ -1,6 +1,7 @@
-package com.eghm.dto.ext;
+package com.eghm.configuration.security;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
+import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.UserType;
 import com.eghm.exception.BusinessException;
@@ -73,5 +74,18 @@ public class SecurityHolder {
      */
     public static void remove() {
         LOCAL.remove();
+    }
+
+    /**
+     * 获取当前用户id
+     *
+     * @return id
+     */
+    public static Long tryGetUserId() {
+        UserToken userToken = getUser();
+        if (userToken == null) {
+            return null;
+        }
+        return userToken.getId();
     }
 }

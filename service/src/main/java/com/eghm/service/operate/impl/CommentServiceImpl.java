@@ -9,7 +9,7 @@ import com.eghm.cache.CacheService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.ext.ApiHolder;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.operate.comment.CommentDTO;
 import com.eghm.dto.operate.comment.CommentQueryDTO;
 import com.eghm.dto.operate.comment.CommentQueryRequest;

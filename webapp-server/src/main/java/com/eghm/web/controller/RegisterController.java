@@ -1,7 +1,7 @@
 package com.eghm.web.controller;
 
 import com.eghm.constants.CommonConstant;
-import com.eghm.dto.ext.ApiHolder;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sys.register.AccountRegisterDTO;
 import com.eghm.dto.sys.register.MobileRegisterDTO;

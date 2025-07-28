@@ -2,7 +2,7 @@ package com.eghm.web.configuration.interceptor;
 
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.constants.CacheConstant;
-import com.eghm.configuration.security.ApiHolder;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
@@ -29,14 +29,14 @@ public class SubmitIntervalInterceptor implements InterceptorAdapter {
         if (!HttpMethod.POST.matches(request.getMethod())) {
             return true;
         }
-        Long memberId = ApiHolder.tryGetMemberId();
+        Long userId = SecurityHolder.tryGetUserId();
         String uri = request.getRequestURI();
         String key;
         // 如果用户未登录则以ip作为过滤维度,否则以用户作为维度
-        if (memberId == null) {
+        if (userId == null) {
             key = String.format(CacheConstant.SUBMIT_LIMIT, IpUtil.getIpAddress(request), uri);
         } else {
-            key = String.format(CacheConstant.SUBMIT_LIMIT, memberId, uri);
+            key = String.format(CacheConstant.SUBMIT_LIMIT, userId, uri);
         }
         if (INTERVAL_CACHE.getIfPresent(key) != null) {
             WebUtil.printJson(response, ErrorCode.SUBMIT_FREQUENTLY);
@@ -45,5 +45,6 @@ public class SubmitIntervalInterceptor implements InterceptorAdapter {
         INTERVAL_CACHE.put(key, true);
         return true;
     }
+
 
 }

@@ -7,7 +7,7 @@ import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.ext.SecurityHolder;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.sys.login.*;
 import com.eghm.enums.Env;

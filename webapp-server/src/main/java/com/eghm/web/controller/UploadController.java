@@ -3,7 +3,7 @@ package com.eghm.web.controller;
 import com.eghm.annotation.SkipLogger;
 import com.eghm.common.FileService;
 import com.eghm.constants.CommonConstant;
-import com.eghm.dto.ext.ApiHolder;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.web.annotation.AccessToken;

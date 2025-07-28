@@ -6,7 +6,7 @@ import com.eghm.annotation.SkipLogger;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.constants.AppHeader;
 import com.eghm.constants.CommonConstant;
-import com.eghm.dto.ext.ApiHolder;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.ParameterException;
