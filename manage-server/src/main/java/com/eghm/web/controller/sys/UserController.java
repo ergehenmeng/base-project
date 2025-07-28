@@ -9,7 +9,7 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.ext.SecurityHolder;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.sys.user.*;
 import com.eghm.enums.UserState;

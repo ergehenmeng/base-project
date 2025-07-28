@@ -46,9 +46,9 @@ public class ManageMvcConfig extends WebMvcConfig {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         String[] whiteList = systemProperties.getManage().getWhiteList();
+        registry.addInterceptor(submitIntervalInterceptor());
         registry.addInterceptor(permInterceptor()).excludePathPatterns(whiteList);
         registry.addInterceptor(lockScreenInterceptor()).excludePathPatterns(whiteList);
-        registry.addInterceptor(submitIntervalInterceptor());
     }
 
     /**

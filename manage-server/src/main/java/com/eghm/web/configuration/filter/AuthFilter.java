@@ -2,7 +2,7 @@ package com.eghm.web.configuration.filter;
 
 import com.eghm.common.UserTokenService;
 import com.eghm.configuration.SystemProperties;
-import com.eghm.dto.ext.SecurityHolder;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
 import com.eghm.utils.WebUtil;

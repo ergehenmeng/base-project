@@ -23,27 +23,27 @@ public class CacheUtil {
     /**
      * 登录失败次数过多锁定
      */
-    public static final Cache<String, Integer> LOGIN_LOCK_CACHE = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).maximumSize(10000).build();
+    public static final Cache<String, Integer> LOGIN_LOCK_CACHE = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).maximumSize(20000).build();
 
     /**
      * post请求间隔限制
      */
-    public static final Cache<String, Boolean> INTERVAL_CACHE = Caffeine.newBuilder().expireAfterWrite(SUBMIT_INTERVAL, TimeUnit.MILLISECONDS).maximumSize(10000).build();
+    public static final Cache<String, Boolean> INTERVAL_CACHE = Caffeine.newBuilder().expireAfterWrite(SUBMIT_INTERVAL, TimeUnit.MILLISECONDS).maximumSize(50000).build();
 
     /**
      * 文件单日上传限制
      */
-    public static final Cache<String, Long> UPLOAD_LIMIT_CACHE = Caffeine.newBuilder().expireAfterWrite(1, TimeUnit.DAYS).maximumSize(10000).build();
+    public static final Cache<String, Long> UPLOAD_LIMIT_CACHE = Caffeine.newBuilder().expireAfterWrite(1, TimeUnit.DAYS).maximumSize(20000).build();
 
     /**
      * 验证码验证次数上限限制
      */
-    public static final Cache<String, Long> SMS_VERIFY_CACHE = Caffeine.newBuilder().expireAfterWrite(SMS_CODE_EXPIRE, TimeUnit.SECONDS).maximumSize(10000).build();
+    public static final Cache<String, Long> SMS_VERIFY_CACHE = Caffeine.newBuilder().expireAfterWrite(SMS_CODE_EXPIRE, TimeUnit.SECONDS).maximumSize(20000).build();
 
     /**
      * 账号密码+手机号验证码登陆第一步缓存
      */
-    public static final Cache<String, Long> LOGIN_CACHE = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).maximumSize(10000).build();
+    public static final Cache<String, Long> LOGIN_CACHE = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).maximumSize(20000).build();
 
     /**
      * 双因子验证第一步缓存数据

@@ -1,6 +1,7 @@
-package com.eghm.dto.ext;
+package com.eghm.configuration.security;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
+import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import lombok.NoArgsConstructor;

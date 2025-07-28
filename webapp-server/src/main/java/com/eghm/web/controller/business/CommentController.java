@@ -1,7 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.dto.IdDTO;
-import com.eghm.dto.ext.ApiHolder;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.operate.comment.CommentDTO;
 import com.eghm.dto.operate.comment.CommentQueryDTO;

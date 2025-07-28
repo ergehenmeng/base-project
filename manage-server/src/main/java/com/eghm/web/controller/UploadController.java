@@ -6,7 +6,7 @@ import com.eghm.common.FileService;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.ext.SecurityHolder;
+import com.eghm.configuration.security.SecurityHolder;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;

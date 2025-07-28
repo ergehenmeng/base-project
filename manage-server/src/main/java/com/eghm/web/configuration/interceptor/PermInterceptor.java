@@ -3,7 +3,7 @@ package com.eghm.web.configuration.interceptor;
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.annotation.SkipPerm;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.dto.ext.SecurityHolder;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
 import com.eghm.model.SysMenu;

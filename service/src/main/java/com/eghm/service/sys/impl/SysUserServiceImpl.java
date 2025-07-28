@@ -17,7 +17,7 @@ import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.ext.SecurityHolder;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.sys.login.AuthSmsRequest;
 import com.eghm.dto.sys.login.SmsLoginRequest;
 import com.eghm.dto.sys.login.TotpBindRequest;
