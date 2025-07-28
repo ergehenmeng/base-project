@@ -47,6 +47,7 @@ public class AuthConfigServiceImpl implements AuthConfigService {
     public void create(AuthConfigAddRequest request) {
         this.redoTitle(request.getTitle(), null);
         AuthConfig config = DataUtil.copy(request, AuthConfig.class);
+        config.setAppKey(IdUtil.fastSimpleUUID());
         this.generateSecretKey(config);
         // 不填,默认有效期一年
         if (config.getExpireDate() == null) {
@@ -85,7 +86,6 @@ public class AuthConfigServiceImpl implements AuthConfigService {
      * @param config config
      */
     private void generateSecretKey(AuthConfig config) {
-        config.setAppKey(IdUtil.fastSimpleUUID());
         if (config.getSignType() == SignType.RSA) {
             RSA rsa = SecureUtil.rsa();
             config.setPublicKey(rsa.getPublicKeyBase64());
