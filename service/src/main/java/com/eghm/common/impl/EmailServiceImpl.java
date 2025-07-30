@@ -51,7 +51,7 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendEmail(String to, String title, String content) {
-        this.sendEmail(to, HtmlUtil.unescape(title), content, false);
+        this.sendEmail(to, title, content, false);
     }
 
     @Override
@@ -62,9 +62,9 @@ public class EmailServiceImpl implements EmailService {
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-            helper.setFrom(InternetAddress.parse(mailProperties.getProperties().get("mail.from"))[0]);
+            helper.setFrom(InternetAddress.parse(mailProperties.getProperties().get("mail.from"), false)[0]);
             helper.addTo(to);
-            helper.setSubject(title);
+            helper.setSubject(HtmlUtil.unescape(title));
             helper.setText(content, isHtml);
             helper.setEncodeFilenames(true);
             for (File file : files) {
