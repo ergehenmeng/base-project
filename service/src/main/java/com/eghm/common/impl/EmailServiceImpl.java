@@ -62,7 +62,7 @@ public class EmailServiceImpl implements EmailService {
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-            helper.setFrom(InternetAddress.parse(mailProperties.getProperties().get("mail.from"))[0]);
+            helper.setFrom(InternetAddress.parse(mailProperties.getProperties().get("mail.from"), false)[0]);
             helper.addTo(to);
             helper.setSubject(title);
             helper.setText(content, isHtml);
