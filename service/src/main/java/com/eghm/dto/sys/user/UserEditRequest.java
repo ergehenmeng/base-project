@@ -45,8 +45,8 @@ public class UserEditRequest {
     @Schema(description = "数据权限(1:本人 2:本部门 4:本部门及子部门 8:全部 16:自定义)")
     private Integer dataType;
 
-    @Schema(description = "数据权限部门id,逗号分割")
-    private String deptIds;
+    @Schema(description = "数据权限部门id []")
+    private List<String> deptIds;
 
     @Schema(description = "备注信息")
     @Size(max = 100, message = "备注信息最大100字符")
