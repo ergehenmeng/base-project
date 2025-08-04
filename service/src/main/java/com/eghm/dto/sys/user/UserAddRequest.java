@@ -44,8 +44,8 @@ public class UserAddRequest {
     @ApiModelProperty("数据权限(1:本人 2:本部门 4:本部门及子部门 8:全部 16:自定义)")
     private DataType dataType;
 
-    @ApiModelProperty("数据权限部门id,逗号分割")
-    private String deptIds;
+    @ApiModelProperty("数据权限部门id []")
+    private List<String> deptIds;
 
     @ApiModelProperty("备注信息")
     @Size(max = 100, message = "备注信息最大100字符")

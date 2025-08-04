@@ -1,6 +1,5 @@
 package com.eghm.service.sys.impl;
 
-import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.PhoneUtil;
 import cn.hutool.crypto.SecureUtil;
@@ -15,10 +14,10 @@ import com.eghm.common.SmsService;
 import com.eghm.common.UserTokenService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.encoder.Encoder;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.sys.login.AuthSmsRequest;
 import com.eghm.dto.sys.login.SmsLoginRequest;
 import com.eghm.dto.sys.login.TotpBindRequest;
@@ -125,8 +124,7 @@ public class SysUserServiceImpl implements SysUserService {
         sysRoleService.auth(user.getId(), request.getRoleIds());
         // 数据权限
         if (request.getDataType() == DataType.CUSTOM) {
-            List<String> roleStringList = CharSequenceUtil.split(request.getDeptIds(), ',');
-            roleStringList.forEach(s -> sysDataDeptService.insert(new SysDataDept(user.getId(), s)));
+            request.getDeptIds().forEach(s -> sysDataDeptService.insert(new SysDataDept(user.getId(), s)));
         }
     }
 
@@ -152,8 +150,7 @@ public class SysUserServiceImpl implements SysUserService {
             // 删除旧数据权限
             sysDataDeptService.deleteByUserId(user.getId());
             // 添加新数据权限
-            List<String> roleStringList = CharSequenceUtil.split(request.getDeptIds(), ',');
-            roleStringList.forEach(s -> sysDataDeptService.insert(new SysDataDept(user.getId(), s)));
+            request.getDeptIds().forEach(s -> sysDataDeptService.insert(new SysDataDept(user.getId(), s)));
         }
     }
 
