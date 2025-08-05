@@ -9,8 +9,8 @@ import cn.hutool.crypto.asymmetric.SignAlgorithm;
 import cn.hutool.crypto.digest.MD5;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.constants.CommonConstant;
 import com.eghm.configuration.security.ApiHolder;
+import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.SignType;
@@ -21,7 +21,6 @@ import com.eghm.vo.operate.auth.AuthConfigVO;
 import com.eghm.web.annotation.AccessSign;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,7 +43,7 @@ public class AccessSignInterceptor implements InterceptorAdapter {
     @Override
     public boolean beforeHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         AccessSign check = this.getAnnotation(handler, AccessSign.class);
-        if (check == null || !HttpMethod.POST.matches(request.getMethod())) {
+        if (check == null) {
             return true;
         }
         RequestMessage message = ApiHolder.get();
@@ -88,7 +87,7 @@ public class AccessSignInterceptor implements InterceptorAdapter {
      */
     private static void md5SignVerify(String appSecret, String requestBody, String timestamp, String signature) {
         Map<String, String> param = new TreeMap<>();
-        param.put(CommonConstant.APP_SECRET, appSecret);
+        param.put(CommonConstant.SECRET, appSecret);
         param.put(CommonConstant.DATA, Base64Encoder.encode(requestBody));
         param.put(CommonConstant.TIMESTAMP, timestamp);
         String buildQuery = URLUtil.buildQuery(param, CommonConstant.CHARSET);

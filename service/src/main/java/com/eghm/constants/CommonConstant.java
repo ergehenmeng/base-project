@@ -134,7 +134,7 @@ public class CommonConstant {
     /**
      * 签名key
      */
-    public static final String APP_SECRET = "appSecret";
+    public static final String SECRET = "secret";
 
     /**
      * 签名key

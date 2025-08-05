@@ -6,6 +6,8 @@ import com.eghm.dto.operate.auth.AuthConfigEditRequest;
 import com.eghm.dto.operate.auth.AuthConfigQueryRequest;
 import com.eghm.vo.operate.auth.AuthConfigResponse;
 
+import java.io.File;
+
 /**
  * @author 二哥很猛
  * @since 2023/10/20
@@ -47,4 +49,12 @@ public interface AuthConfigService {
      * @param id id
      */
     void reset(Long id);
+
+    /**
+     * 发送邮件
+     *
+     * @param id id
+     * @param file 文档
+     */
+    void sendEmail(Long id, File file);
 }

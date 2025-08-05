@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,6 +30,11 @@ public class AuthConfigAddRequest {
     @ApiModelProperty("过期时间(默认一年)")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate expireDate;
+
+    @ApiModelProperty(value = "邮箱", required = true)
+    @Email(message = "邮箱格式错误")
+    @NotBlank(message = "邮箱不能为空")
+    private String email;
 
     @ApiModelProperty("备注信息")
     @Size(max = 100, message = "备注信息最大100字符")
