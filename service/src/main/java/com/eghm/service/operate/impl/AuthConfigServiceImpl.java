@@ -6,6 +6,7 @@ import cn.hutool.crypto.asymmetric.RSA;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.EmailService;
 import com.eghm.dto.operate.auth.AuthConfigAddRequest;
 import com.eghm.dto.operate.auth.AuthConfigEditRequest;
 import com.eghm.dto.operate.auth.AuthConfigQueryRequest;
@@ -22,6 +23,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.time.LocalDate;
 
 /**
@@ -32,6 +34,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Service("authConfigService")
 public class AuthConfigServiceImpl implements AuthConfigService {
+
+    private final EmailService emailService;
 
     private final AuthConfigMapper authConfigMapper;
 
@@ -67,12 +71,30 @@ public class AuthConfigServiceImpl implements AuthConfigService {
 
     @Override
     public void reset(Long id) {
+        AuthConfig config = this.getByAuthConfigRequired(id);
+        this.generateSecretKey(config);
+        authConfigMapper.updateById(config);
+    }
+
+    @Override
+    public void sendEmail(Long id, File file) {
+        AuthConfig config = this.getByAuthConfigRequired(id);
+        String content = "公司：" + config.getTitle() + "\r\n签名方式：" + config.getSignType().name() + "\r\nappKey：" + config.getAppKey() + "\r\nsecret：" + config.getPrivateKey();
+        emailService.sendEmail(config.getEmail(), "第三方接口对接签名配置", content, false, file);
+    }
+
+    /**
+     * 配置信息
+     *
+     * @param id    id
+     * @return 配置信息
+     */
+    private AuthConfig getByAuthConfigRequired(Long id) {
         AuthConfig config = authConfigMapper.selectById(id);
         if (config == null) {
             throw new BusinessException(ErrorCode.AUTH_NOT_EXIST);
         }
-        this.generateSecretKey(config);
-        authConfigMapper.updateById(config);
+        return config;
     }
 
     /**

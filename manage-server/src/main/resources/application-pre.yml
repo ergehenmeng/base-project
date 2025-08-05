@@ -13,6 +13,15 @@ spring:
       idle-timeout: 60000
       maximum-pool-size: 100
       minimum-idle: 5
+  mail:
+    host: smtp.qq.com
+    password: wahdqqmlznmhbcae
+    username: ergehenmeng@qq.com
+    port: 465
+    properties:
+      mail.from: 运营团队<ergehenmeng@qq.com>
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
   ## redis配置
   data:
     redis:

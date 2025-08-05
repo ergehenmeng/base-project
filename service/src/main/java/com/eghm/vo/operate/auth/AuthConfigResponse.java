@@ -24,8 +24,8 @@ public class AuthConfigResponse {
     @Schema(description = "appKey")
     private String appKey;
 
-    @Schema(description = "私钥")
-    public String privateKey;
+    @Schema(description = "邮件")
+    public String email;
 
     @Schema(description = "签名方式")
     private SignType signType;

@@ -39,6 +39,9 @@ public class AuthConfig extends BaseEntity {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate expireDate;
 
+    @Schema(description = "邮箱")
+    private String email;
+
     @Schema(description = "备注信息")
     private String remark;
 }

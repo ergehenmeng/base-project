@@ -9,7 +9,7 @@ import com.eghm.service.sys.BlackRosterService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
 import com.eghm.web.configuration.interceptor.MessageInterceptor;
-import com.eghm.web.configuration.interceptor.AccessSignInterceptor;
+import com.eghm.web.configuration.interceptor.SignCheckInterceptor;
 import com.eghm.web.configuration.interceptor.SubmitIntervalInterceptor;
 import com.eghm.web.configuration.interceptor.TokenInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -94,7 +94,7 @@ public class WebappMvcConfig extends WebMvcConfig {
      */
     @Bean
     public HandlerInterceptor accessSignInterceptor() {
-        return new AccessSignInterceptor(cacheProxyService);
+        return new SignCheckInterceptor(cacheProxyService);
     }
 
     /**

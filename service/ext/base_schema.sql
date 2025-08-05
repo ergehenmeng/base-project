@@ -47,6 +47,7 @@ CREATE TABLE `auth_config`
     `private_key` varchar(2048) DEFAULT NULL COMMENT '私钥',
     `sign_type`   varchar(20)   DEFAULT NULL COMMENT '签名方式 RSA, MD5(只有公钥)',
     `expire_date` date          DEFAULT NULL COMMENT '过期日期',
+    `email`       varchar(50)   DEFAULT NULL COMMENT '邮箱',
     `remark`      varchar(200)  DEFAULT NULL COMMENT '备注信息',
     `create_time` datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     `update_time` datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

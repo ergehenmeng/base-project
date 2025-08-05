@@ -23,8 +23,7 @@ spring:
     username: ergehenmeng@qq.com
     port: 465
     properties:
-      ## 邮件发送者,遵循 RFC822 标准
-      mail.from: =?UTF-8?B?6L+Q6JCl5Zui6Zif?= <ergehenmeng@qq.com>
+      mail.from: 运营团队<ergehenmeng@qq.com>
       mail.smtp.auth: true
       mail.smtp.ssl.enable: true
   rabbitmq:
