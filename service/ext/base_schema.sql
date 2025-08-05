@@ -68,7 +68,7 @@ CREATE TABLE `banner`
     `client_type` varchar(20)  DEFAULT 'PC' COMMENT '客户端类型 PC ANDROID IOS H5',
     `img_url`     varchar(200) DEFAULT NULL COMMENT '轮播图片地址',
     `jump_url`    varchar(200) DEFAULT NULL COMMENT '轮播图点击后跳转的URL',
-    `sort`        smallint(3)  DEFAULT '999' COMMENT '轮播图顺序(大<->小) 最大的在最前面',
+    `sort`        smallint(3)  DEFAULT '999' COMMENT '轮播图顺序(小<->大) 最小的在最前面',
     `state`       bit(1)       DEFAULT b'1' COMMENT '状态 0:禁用 1:启用',
     `start_time`  datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '开始展示时间(可在指定时间后开始展示)',
     `end_time`    datetime     DEFAULT NULL COMMENT '取消展示的时间(只在某个时间段展示)',
