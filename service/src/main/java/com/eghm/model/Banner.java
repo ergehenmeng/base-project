@@ -36,7 +36,7 @@ public class Banner extends BaseEntity {
     @ApiModelProperty("轮播图点击后跳转的URL")
     private String jumpUrl;
 
-    @ApiModelProperty("轮播图顺序(大<->小) 最大的在最前面")
+    @ApiModelProperty("轮播图顺序(小<->大) 最小的在最前面")
     private Integer sort;
 
     @ApiModelProperty("开始展示时间(可在指定时间后开始展示)")

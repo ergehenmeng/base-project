@@ -202,7 +202,6 @@ public class CacheConstant {
      */
     public static final String MEMBER_COLLECT = "member_collect:%s:%s";
 
-
     /**
      * 微信小程序二维码
      */
@@ -213,4 +212,8 @@ public class CacheConstant {
      */
     public static final String NEW_DEVICE_LOGIN = "new_device_login:";
 
+    /**
+     * 缓存分隔符
+     */
+    public static final String SEPARATOR = ":";
 }
