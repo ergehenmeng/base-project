@@ -6,7 +6,10 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CachingConfigurer;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.interceptor.KeyGenerator;
+import org.springframework.cache.interceptor.SimpleKeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -17,8 +20,12 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.lang.NonNull;
 
+import java.lang.reflect.Method;
 import java.time.Duration;
+
+import static com.eghm.constants.CacheConstant.SEPARATOR;
 
 /**
  * redis缓存配置, 该类主要配置各个过期时间的缓存管理器
@@ -29,7 +36,7 @@ import java.time.Duration;
 @Configuration
 @EnableCaching
 @AllArgsConstructor
-public class RedisConfig {
+public class RedisConfig implements CachingConfigurer {
 
     private final SystemProperties systemProperties;
 
@@ -83,6 +90,7 @@ public class RedisConfig {
     private CacheManager getCacheManager(RedisConnectionFactory connectionFactory, int expire) {
         return RedisCacheManager.builder(connectionFactory).cacheDefaults(
                 RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofSeconds(expire))
+                        .computePrefixWith(cacheName -> cacheName + SEPARATOR)
                         .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                         .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(valueSerializer()))
         ).build();
@@ -99,4 +107,21 @@ public class RedisConfig {
         mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
         return new Jackson2JsonRedisSerializer<>(mapper, Object.class);
     }
+
+    @Override
+    public KeyGenerator keyGenerator() {
+
+        return new SimpleKeyGenerator() {
+
+            @NonNull
+            @Override
+            public Object generate(@NonNull Object target, @NonNull Method method, @NonNull Object... params) {
+                if (params.length == 0) {
+                    return "all";
+                }
+                return super.generate(target, method, params);
+            }
+        };
+    }
+
 }

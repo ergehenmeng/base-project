@@ -155,7 +155,7 @@ public class CacheConstant {
     /**
      * 全局距离计算
      */
-    public static final String GEO_DISTANCE = "geo_distance";
+    public static final String GEO_DISTANCE = "geo_distance:";
 
     /**
      * 消息队列异步key
@@ -202,10 +202,13 @@ public class CacheConstant {
      */
     public static final String MEMBER_COLLECT = "member_collect:%s:%s";
 
-
     /**
      * 微信小程序二维码
      */
     public static final String WECHAT_QRCODE = "wechat_qrcode:";
 
+    /**
+     * 缓存分隔符
+     */
+    public static final String SEPARATOR = ":";
 }
