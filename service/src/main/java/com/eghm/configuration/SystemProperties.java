@@ -56,11 +56,6 @@ public class SystemProperties {
     private final WeChatProperties wechat = new WeChatProperties();
 
     /**
-     * redis配置
-     */
-    private final Redis redis = new Redis();
-
-    /**
      * 报警消息通知
      */
     private final AlarmMsg alarmMsg = new AlarmMsg();
@@ -261,25 +256,6 @@ public class SystemProperties {
          */
         private String secretKey;
 
-    }
-
-    @Data
-    public static class Redis {
-
-        /**
-         * 长过期时间 默认30分钟
-         */
-        private Integer longExpire = 1800;
-
-        /**
-         * 短过期时间 默认10分钟
-         */
-        private Integer shortExpire = 600;
-
-        /**
-         * 超短过期时间 默认1分钟
-         */
-        private Integer smallExpire = 60;
     }
 
     @Data
