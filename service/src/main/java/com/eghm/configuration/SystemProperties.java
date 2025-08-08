@@ -61,11 +61,6 @@ public class SystemProperties {
     private final AliProperties ali = new AliProperties();
 
     /**
-     * redis配置
-     */
-    private final Redis redis = new Redis();
-
-    /**
      * 需要进行xss校验的url
      */
     private final List<String> xssUrl = new ArrayList<>();
@@ -113,25 +108,6 @@ public class SystemProperties {
          */
         private String secretKey;
 
-    }
-
-    @Data
-    public static class Redis {
-
-        /**
-         * 长过期时间 默认30分钟
-         */
-        private Integer longExpire = 1800;
-
-        /**
-         * 短过期时间 默认10分钟
-         */
-        private Integer shortExpire = 600;
-
-        /**
-         * 超短过期时间 默认1分钟
-         */
-        private Integer smallExpire = 60;
     }
 
     @Data

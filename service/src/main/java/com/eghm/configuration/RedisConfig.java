@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurer;
 import org.springframework.cache.annotation.EnableCaching;
@@ -13,6 +14,7 @@ import org.springframework.cache.interceptor.SimpleKeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Role;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -36,9 +38,8 @@ import static com.eghm.constants.CacheConstant.SEPARATOR;
 @Configuration
 @EnableCaching
 @AllArgsConstructor
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 public class RedisConfig implements CachingConfigurer {
-
-    private final SystemProperties systemProperties;
 
     /**
      * 默认缓存管理期 默认30分钟过期
@@ -47,7 +48,7 @@ public class RedisConfig implements CachingConfigurer {
      */
     @Bean("longCacheManager")
     public CacheManager longCacheManager(RedisConnectionFactory connectionFactory) {
-        return this.getCacheManager(connectionFactory, systemProperties.getRedis().getLongExpire());
+        return this.getCacheManager(connectionFactory, 1800);
     }
 
     /**
@@ -68,7 +69,7 @@ public class RedisConfig implements CachingConfigurer {
      */
     @Bean("shortCacheManager")
     public CacheManager shortCacheManager(RedisConnectionFactory connectionFactory) {
-        return this.getCacheManager(connectionFactory, systemProperties.getRedis().getShortExpire());
+        return this.getCacheManager(connectionFactory, 600);
     }
 
     /**
@@ -78,7 +79,7 @@ public class RedisConfig implements CachingConfigurer {
      */
     @Bean("smallCacheManager")
     public CacheManager smallCacheManager(RedisConnectionFactory connectionFactory) {
-        return this.getCacheManager(connectionFactory, systemProperties.getRedis().getSmallExpire());
+        return this.getCacheManager(connectionFactory, 60);
     }
 
     /**
