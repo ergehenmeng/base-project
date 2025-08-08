@@ -3,7 +3,6 @@ package com.eghm.configuration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.task.ThreadPoolTaskExecutorBuilder;
 import org.springframework.boot.task.ThreadPoolTaskSchedulerBuilder;
-import org.springframework.boot.task.ThreadPoolTaskSchedulerCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.AbstractMessageBrokerConfiguration;
@@ -20,7 +19,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
  */
 
 @Configuration
-public class ExecutorConfig implements ThreadPoolTaskSchedulerCustomizer {
+public class ExecutorConfig {
 
     /**
      * Async 线程池
@@ -35,12 +34,9 @@ public class ExecutorConfig implements ThreadPoolTaskSchedulerCustomizer {
      */
     @Bean
     public ThreadPoolTaskScheduler taskScheduler(ThreadPoolTaskSchedulerBuilder builder) {
-        return builder.build();
-    }
-
-    @Override
-    public void customize(ThreadPoolTaskScheduler taskScheduler) {
-        taskScheduler.setRemoveOnCancelPolicy(true);
+        ThreadPoolTaskScheduler scheduler = builder.build();
+        scheduler.setRemoveOnCancelPolicy(true);
+        return scheduler;
     }
 
 }
