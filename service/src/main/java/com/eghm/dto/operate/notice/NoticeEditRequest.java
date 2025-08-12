@@ -28,7 +28,6 @@ public class NoticeEditRequest {
 
     @ApiModelProperty(value = "封面图片", required = true)
     @NotBlank(message = "封面图片不能为空")
-    @JsonDeserialize(using = JoinerDeserializer.class)
     private String coverUrl;
 
     @ApiModelProperty(value = "公告类型(数据字典表sys_notice_type)", required = true)
