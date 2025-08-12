@@ -1,8 +1,8 @@
 package com.eghm.convertor;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.eghm.common.CommonService;
 import com.eghm.exception.BusinessException;
-import com.eghm.utils.SpringContextUtil;
 import com.eghm.utils.StringUtil;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -33,7 +33,7 @@ public class RsaDeserializer extends StdScalarDeserializer<String> {
             return null;
         }
         try {
-            return SpringContextUtil.getBean(CommonService.class).rsaDecrypt(text);
+            return SpringUtil.getBean(CommonService.class).rsaDecrypt(text);
         } catch (Exception e) {
             log.error("RSA解密异常 [{}]", text, e);
             throw new BusinessException(PWD_DECODE_ERROR);

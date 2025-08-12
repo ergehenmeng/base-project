@@ -2,13 +2,13 @@ package com.eghm.common.impl;
 
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.crypto.SecureUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.http.HttpUtil;
 import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.DingTalkMsg;
-import com.eghm.utils.SpringContextUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
@@ -48,7 +48,7 @@ public class DingTalkAlarmServiceImpl implements AlarmService {
     private String createTextMsg(String content) {
         DingTalkMsg msg = new DingTalkMsg();
         msg.setMsgType("text");
-        String appName = SpringContextUtil.getApplicationContext().getEnvironment().getProperty("spring.application.name");
+        String appName = SpringUtil.getApplicationName();
         String builder = "【服务名】：" + appName + "\n" +
                 "【traceId】：" + MDC.get(CommonConstant.TRACE_ID) + "\n" +
                 "【报警信息】：" + content;

@@ -2,6 +2,7 @@ package com.eghm.configuration.task.config;
 
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.ReflectUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import com.eghm.common.AlarmService;
 import com.eghm.constants.CommonConstant;
 import com.eghm.enums.ErrorCode;
@@ -9,7 +10,6 @@ import com.eghm.exception.BusinessException;
 import com.eghm.lock.RedisLock;
 import com.eghm.model.SysTaskLog;
 import com.eghm.service.sys.SysTaskLogService;
-import com.eghm.utils.SpringContextUtil;
 import com.eghm.utils.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -43,11 +43,11 @@ public class Invoker implements Runnable {
     Invoker(AbstractTask task) {
         this.task = task;
         try {
-            this.bean = SpringContextUtil.getBean(task.getBeanName());
-            this.redisLock = SpringContextUtil.getBean(RedisLock.class);
+            this.bean = SpringUtil.getBean(task.getBeanName());
+            this.redisLock = SpringUtil.getBean(RedisLock.class);
             this.method = this.findMethod(task, bean);
-            this.sysTaskLogService = SpringContextUtil.getBean(SysTaskLogService.class);
-            this.alarmService = SpringContextUtil.getBean(AlarmService.class);
+            this.sysTaskLogService = SpringUtil.getBean(SysTaskLogService.class);
+            this.alarmService = SpringUtil.getBean(AlarmService.class);
         } catch (Exception e) {
             log.error("系统中不存在指定的类或该方法 [{}] [{}] 方法入参: [{}]", task.getBeanName(), task.getMethodName(), task.getArgs(), e);
             throw new BusinessException(ErrorCode.TASK_CONFIG_ERROR);

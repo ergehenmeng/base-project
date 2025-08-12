@@ -4,19 +4,14 @@ package com.eghm.web;
 import cn.hutool.core.net.NetUtil;
 import com.eghm.annotation.EnableTask;
 import com.eghm.utils.LoggerUtil;
-import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.BeansException;
 import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
@@ -32,16 +27,11 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @ComponentScan("com.eghm")
 @EnableAspectJAutoProxy(exposeProxy = true)
 @MapperScan(basePackages = "com.eghm.mapper")
-public class ManageApplication implements ApplicationContextAware {
+public class ManageApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = new SpringApplicationBuilder(ManageApplication.class).bannerMode(Banner.Mode.OFF).run(args);
         LoggerUtil.print(String.format("Swagger文档: http://%s:%s/doc.html", NetUtil.getLocalhostStr(), context.getEnvironment().getProperty("server.port")));
-    }
-
-    @Override
-    public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
-        SpringContextUtil.setApplicationContext(applicationContext);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.eghm.common.impl;
 
+import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.http.HtmlUtil;
 import com.eghm.cache.CacheService;
 import com.eghm.common.EmailService;
@@ -10,7 +11,6 @@ import com.eghm.exception.BusinessException;
 import com.eghm.exception.ParameterException;
 import com.eghm.handler.email.AuthCodeEmailHandler;
 import com.eghm.handler.email.BaseEmailHandler;
-import com.eghm.utils.SpringContextUtil;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -79,7 +79,7 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendEmail(SendEmail email) {
-        BaseEmailHandler handler = SpringContextUtil.getBean(email.getType().getHandler(), BaseEmailHandler.class);
+        BaseEmailHandler handler = SpringUtil.getBean(email.getType().getHandler(), BaseEmailHandler.class);
         handler.execute(email);
     }
 

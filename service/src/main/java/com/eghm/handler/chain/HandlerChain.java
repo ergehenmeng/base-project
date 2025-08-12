@@ -1,9 +1,9 @@
 package com.eghm.handler.chain;
 
 
-import com.eghm.handler.chain.enums.HandlerEnum;
+import cn.hutool.extra.spring.SpringUtil;
 import com.eghm.handler.chain.annotation.HandlerMark;
-import com.eghm.utils.SpringContextUtil;
+import com.eghm.handler.chain.enums.HandlerEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
@@ -46,7 +46,7 @@ public class HandlerChain implements CommandLineRunner {
     @Override
     public void run(String... args) {
         // 如果提前获取上下文可能为空
-        Map<String, Handler> beans = SpringContextUtil.getApplicationContext().getBeansOfType(Handler.class);
+        Map<String, Handler> beans = SpringUtil.getBeansOfType(Handler.class);
         for (Handler value : beans.values()) {
             HandlerMark annotation = AnnotationUtils.findAnnotation(value.getClass(), HandlerMark.class);
             if (annotation == null) {
