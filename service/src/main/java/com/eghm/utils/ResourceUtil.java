@@ -1,6 +1,7 @@
 package com.eghm.utils;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.ConfigConstant;
@@ -30,7 +31,7 @@ public class ResourceUtil {
         }
         File file;
         try {
-            file = SpringContextUtil.getApplicationContext().getResource(getLocalPath(path)).getFile();
+            file = SpringUtil.getApplicationContext().getResource(getLocalPath(path)).getFile();
         } catch (Exception e) {
             log.error("读取本地文件异常 [{}]", path, e);
             return new byte[0];
@@ -48,9 +49,9 @@ public class ResourceUtil {
      * @return local
      */
     public static String getLocalPath(String path) {
-        SysConfigApi sysConfigApi = SpringContextUtil.getApplicationContext().getBean(SysConfigApi.class);
+        SysConfigApi sysConfigApi = SpringUtil.getBean(SysConfigApi.class);
         String fileAddress = sysConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS);
-        SystemProperties properties = SpringContextUtil.getApplicationContext().getBean(SystemProperties.class);
+        SystemProperties properties = SpringUtil.getBean(SystemProperties.class);
         if (path.startsWith(fileAddress)) {
             return "file://" + properties.getUploadPath() + path.replace(fileAddress, "");
         } else {

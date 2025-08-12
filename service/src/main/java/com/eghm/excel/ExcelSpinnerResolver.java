@@ -1,12 +1,12 @@
 package com.eghm.excel;
 
 import cn.hutool.core.text.CharSequenceUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import com.eghm.annotation.ExcelSpinner;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.SysDictItem;
 import com.eghm.service.sys.SysDictService;
-import com.eghm.utils.SpringContextUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -54,7 +54,7 @@ public class ExcelSpinnerResolver {
         Class<? extends DynamicSpinner>[] classes = spinner.sourceClass();
         if (classes.length > 0) {
             try {
-                DynamicSpinner dynamicSpinner = SpringContextUtil.getBean(DynamicSpinner.class);
+                DynamicSpinner dynamicSpinner = SpringUtil.getBean(DynamicSpinner.class);
                 return dynamicSpinner.getOptions();
             } catch (Exception e) {
                 log.error("解析动态下拉框数据异常 [{}]", classes, e);
@@ -64,7 +64,7 @@ public class ExcelSpinnerResolver {
         String key = spinner.value();
         if (CharSequenceUtil.isNotBlank(key)) {
             try {
-                SysDictService service = SpringContextUtil.getBean(SysDictService.class);
+                SysDictService service = SpringUtil.getBean(SysDictService.class);
                 List<SysDictItem> itemList = service.getDictByNid(key);
                 return itemList.stream().map(SysDictItem::getShowValue).toArray(String[]::new);
             } catch (Exception e) {

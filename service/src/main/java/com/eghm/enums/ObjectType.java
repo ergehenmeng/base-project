@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum ObjectType implements EnumBinder<Integer> {
+public enum ObjectType {
 
     /**
      * 资讯
@@ -36,7 +36,7 @@ public enum ObjectType implements EnumBinder<Integer> {
      */
     @EnumValue
     @JsonValue
-    private final Integer value;
+    private final int value;
 
     /**
      * 名称
@@ -49,16 +49,6 @@ public enum ObjectType implements EnumBinder<Integer> {
         if (value == null) {
             return null;
         }
-        return Arrays.stream(ObjectType.values()).filter(auditState -> auditState.value == value.intValue()).findFirst().orElse(null);
-    }
-
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value == Integer.parseInt(value.split(":")[0]);
+        return Arrays.stream(ObjectType.values()).filter(auditState -> auditState.value == value).findFirst().orElse(null);
     }
 }

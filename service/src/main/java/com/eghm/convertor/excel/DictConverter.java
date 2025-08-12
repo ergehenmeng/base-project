@@ -1,5 +1,6 @@
 package com.eghm.convertor.excel;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.data.WriteCellData;
@@ -7,7 +8,6 @@ import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import com.alibaba.excel.util.NumberUtils;
 import com.eghm.annotation.ExcelDict;
 import com.eghm.service.sys.SysDictService;
-import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -30,7 +30,7 @@ public class DictConverter implements Converter<Integer> {
         if (dict == null) {
             return NumberUtils.formatToCellDataString(value, contentProperty);
         }
-        SysDictService service = SpringContextUtil.getBean(SysDictService.class);
+        SysDictService service = SpringUtil.getBean(SysDictService.class);
         String dictValue = service.getDictValue(dict.value(), value);
         if (dictValue == null) {
             log.warn("导出Excel解析数据字典为空 [{}] [{}]", dict.value(), value);

@@ -16,7 +16,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum RoleType implements EnumBinder<String> {
+public enum RoleType {
 
     /**
      * 系统角色
@@ -46,15 +46,5 @@ public enum RoleType implements EnumBinder<String> {
             return null;
         }
         return Arrays.stream(RoleType.values()).filter(type -> value.equals(type.value)).findFirst().orElse(null);
-    }
-
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value.equals(value.split(":")[0]);
     }
 }

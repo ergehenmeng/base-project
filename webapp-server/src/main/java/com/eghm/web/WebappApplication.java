@@ -2,7 +2,6 @@ package com.eghm.web;
 
 import cn.hutool.core.net.NetUtil;
 import com.eghm.utils.LoggerUtil;
-import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
@@ -10,10 +9,8 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
@@ -28,16 +25,11 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @MapperScan("com.eghm.mapper")
 @EnableAspectJAutoProxy(exposeProxy = true)
 @SpringBootApplication(scanBasePackages = "com.eghm", exclude = MailSenderAutoConfiguration.class)
-public class WebappApplication implements ApplicationListener<ContextRefreshedEvent> {
+public class WebappApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = new SpringApplicationBuilder(WebappApplication.class).bannerMode(Banner.Mode.OFF).web(WebApplicationType.SERVLET).run(args);
         LoggerUtil.print(String.format("Swagger文档: http://%s:%s/doc.html", NetUtil.getLocalhostStr(), context.getEnvironment().getProperty("server.port")));
-    }
-
-    @Override
-    public void onApplicationEvent(ContextRefreshedEvent event) {
-        SpringContextUtil.setApplicationContext(event.getApplicationContext());
     }
 
 }

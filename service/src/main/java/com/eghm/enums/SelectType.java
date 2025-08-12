@@ -1,9 +1,13 @@
 package com.eghm.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * @author 二哥很猛
@@ -12,7 +16,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum SelectType implements EnumBinder<String> {
+public enum SelectType {
 
     /**
      * 按周查询
@@ -40,13 +44,11 @@ public enum SelectType implements EnumBinder<String> {
 
     private final String name;
 
-    @Override
-    public String toString() {
-        return value + ":" + name;
-    }
-
-    @Override
-    public boolean match(String value) {
-        return this.value.equalsIgnoreCase(value.split(":")[0]);
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    public static SelectType of(@JsonProperty("value") String value) {
+        if (value == null) {
+            return null;
+        }
+        return Arrays.stream(SelectType.values()).filter(select -> select.value.equals(value)).findFirst().orElse(null);
     }
 }

@@ -1,5 +1,6 @@
 package com.eghm.convertor.excel;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.data.WriteCellData;
@@ -7,7 +8,6 @@ import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import com.alibaba.excel.util.NumberUtils;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.model.SysArea;
-import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -29,7 +29,7 @@ public class AreaConverter implements Converter<Long> {
         if (value == null) {
             return new WriteCellData<>("");
         }
-        CacheProxyService service = SpringContextUtil.getBean(CacheProxyService.class);
+        CacheProxyService service = SpringUtil.getBean(CacheProxyService.class);
         SysArea dictValue = service.getAreaById(value);
         if (dictValue == null) {
             log.warn("导出Excel解析区域信息为空 [{}]", value);

@@ -1,5 +1,6 @@
 package com.eghm.utils;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.eghm.common.AlarmService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -28,8 +29,8 @@ public class TransactionUtil {
     private static final TransactionTemplate TEMPLATE;
 
     static {
-        ALARM_SERVICE = SpringContextUtil.getBean(AlarmService.class);
-        TEMPLATE = SpringContextUtil.getBean(TransactionTemplate.class);
+        ALARM_SERVICE = SpringUtil.getBean(AlarmService.class);
+        TEMPLATE = SpringUtil.getBean(TransactionTemplate.class);
     }
 
     /**
