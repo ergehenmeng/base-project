@@ -42,7 +42,7 @@ system:
     token:
       # 模拟token方便调试(可在redis设置永久有效)
       mock-token: 1fc33b2a04fb4573b51b5a7a56c13678
-    login-types:
+    login-type:
       - password
       - sms
   # 微信小程序 公众号 微信支付配置
