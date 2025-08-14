@@ -18,7 +18,6 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.sys.login.AuthSmsRequest;
 import com.eghm.dto.sys.login.SmsLoginRequest;
 import com.eghm.dto.sys.login.TotpBindRequest;
 import com.eghm.dto.sys.login.TotpCheckRequest;
@@ -35,10 +34,8 @@ import com.eghm.service.sys.SysDataDeptService;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
-import com.eghm.utils.CacheUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.TotpUtil;
-import com.eghm.vo.login.AuthPwdResponse;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.login.TotpLoginResponse;
 import com.eghm.vo.sys.menu.MenuResponse;
@@ -239,36 +236,6 @@ public class SysUserServiceImpl implements SysUserService {
     public LoginResponse smsLogin(SmsLoginRequest request, String openId) {
         smsService.verifySmsCode(TemplateType.USER_LOGIN, request.getMobile(), request.getSmsCode());
         SysUser user = this.getAndCheckUser(request.getMobile());
-        this.tryBindingOpenId(user.getId(), openId);
-        return this.doLogin(user);
-    }
-
-    @Override
-    public AuthPwdResponse authPwd(String userName, String password, String ip) {
-        SysUser user = this.getAndCheckUser(userName, password);
-        smsService.sendSmsCode(TemplateType.USER_LOGIN, user.getMobile(), ip);
-        String secretId = IdUtil.fastSimpleUUID();
-        AuthPwdResponse response = new AuthPwdResponse();
-        response.setMobile(user.getMobile());
-        response.setSecretId(secretId);
-        CacheUtil.LOGIN_CACHE.put(secretId, user.getId());
-        return response;
-    }
-
-    @Override
-    public LoginResponse authSms(AuthSmsRequest request, String openId) {
-        Long userId = CacheUtil.LOGIN_CACHE.getIfPresent(request.getSecretId());
-        if (userId == null) {
-            log.error("登录信息中secretId不存在 [{}] [{}]", request.getSecretId(), request.getSmsCode());
-            throw new BusinessException(ErrorCode.LOGIN_TIMEOUT);
-        }
-        SysUser user = sysUserMapper.selectById(userId);
-        if (user == null) {
-            log.error("二次验证登录用户信息为空 [{}]", userId);
-            throw new BusinessException(ErrorCode.USER_NOT_FOUND);
-        }
-        smsService.verifySmsCode(TemplateType.USER_LOGIN, user.getMobile(), request.getSmsCode());
-        CacheUtil.LOGIN_CACHE.invalidate(request.getSecretId());
         this.tryBindingOpenId(user.getId(), openId);
         return this.doLogin(user);
     }

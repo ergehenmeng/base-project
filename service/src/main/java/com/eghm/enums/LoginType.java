@@ -23,14 +23,9 @@ public enum LoginType {
     SMS(2, "手机号+验证码"),
 
     /**
-     * 账号密码+验证码
-     */
-    PASSWORD_SMS(4, "账号密码+验证码"),
-
-    /**
      * 扫码
      */
-    QRCODE(8, "扫码");
+    QRCODE(4, "扫码");
 
     private final int value;
 
