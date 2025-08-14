@@ -4,10 +4,10 @@ import com.eghm.annotation.SkipPerm;
 import com.eghm.cache.CacheService;
 import com.eghm.common.UserTokenService;
 import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.sys.login.*;
 import com.eghm.enums.Env;
@@ -16,7 +16,6 @@ import com.eghm.enums.LoginType;
 import com.eghm.exception.BusinessException;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.IpUtil;
-import com.eghm.vo.login.AuthPwdResponse;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.login.TotpLoginResponse;
 import io.swagger.annotations.Api;
@@ -121,26 +120,6 @@ public class LoginController {
         return RespBody.success(response);
     }
 
-    @PostMapping(value = "/authPwd", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("密码+验证码登录(1)")
-    public RespBody<AuthPwdResponse> authPwd(@Validated @RequestBody LoginRequest request, HttpServletRequest servletRequest) {
-        if (this.verifyCodeError(servletRequest, request.getVerifyCode())) {
-            return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
-        }
-        this.checkLoginType(LoginType.PASSWORD_SMS, ErrorCode.SMS_NOT_SUPPORTED);
-        AuthPwdResponse response = sysUserService.authPwd(request.getUserName(), request.getPwd(), IpUtil.getIpAddress(servletRequest));
-        return RespBody.success(response);
-    }
-
-    @PostMapping(value = "/authSms", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation("密码+验证码登录(2)")
-    public RespBody<LoginResponse> authSms(@Validated @RequestBody AuthSmsRequest request, HttpSession session) {
-        this.checkLoginType(LoginType.PASSWORD_SMS, ErrorCode.SMS_NOT_SUPPORTED);
-        String openId = (String) session.getAttribute(CommonConstant.OPEN_ID);
-        LoginResponse response = sysUserService.authSms(request, openId);
-        return RespBody.success(response);
-    }
-
     /**
      * 校验登录方式是否开启
      *
@@ -148,7 +127,7 @@ public class LoginController {
      * @param errorCode 错误时报错
      */
     private void checkLoginType(LoginType type, ErrorCode errorCode) {
-        List<LoginType> typeList = systemProperties.getManage().getLoginTypes();
+        List<LoginType> typeList = systemProperties.getManage().getLoginType();
         if (!typeList.contains(type)) {
             throw new BusinessException(errorCode);
         }
