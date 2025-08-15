@@ -1,11 +1,13 @@
 package com.eghm.pay.service.impl;
 
-import com.alipay.easysdk.factory.Factory;
-import com.alipay.easysdk.payment.common.models.AlipayTradeCreateResponse;
-import com.alipay.easysdk.payment.common.models.AlipayTradeFastpayRefundQueryResponse;
-import com.alipay.easysdk.payment.common.models.AlipayTradeQueryResponse;
-import com.alipay.easysdk.payment.common.models.AlipayTradeRefundResponse;
-import com.alipay.easysdk.payment.facetoface.models.AlipayTradePrecreateResponse;
+import com.alipay.api.DefaultAlipayClient;
+import com.alipay.api.domain.*;
+import com.alipay.api.internal.util.AlipaySignature;
+import com.alipay.api.request.*;
+import com.alipay.api.response.AlipayTradeFastpayRefundQueryResponse;
+import com.alipay.api.response.AlipayTradePrecreateResponse;
+import com.alipay.api.response.AlipayTradeQueryResponse;
+import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.CommonConstant;
@@ -32,8 +34,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
-import static com.eghm.utils.StringUtil.isNotBlank;
-
 /**
  * @author 二哥很猛
  * @since 2022/7/24
@@ -52,6 +52,8 @@ public class AliPayServiceImpl implements PayService {
 
     private final SystemProperties systemProperties;
 
+    private final DefaultAlipayClient defaultAlipayClient;
+
     @Override
     public boolean supported(TradeType tradeType) {
         return tradeType.getPayChannel() == PayChannel.ALIPAY;
@@ -59,40 +61,69 @@ public class AliPayServiceImpl implements PayService {
 
     @Override
     public PrepayVO createPrepay(PrepayDTO dto) {
-        if (dto.getTradeType() == TradeType.ALI_PAY) {
-            return this.createCommonPrepay(dto);
+        AlipayTradePrecreateRequest request = new AlipayTradePrecreateRequest();
+        AlipayTradePrecreateModel model = new AlipayTradePrecreateModel();
+        model.setOutTradeNo(dto.getTradeNo());
+        model.setTotalAmount(DecimalUtil.centToYuan(dto.getAmount()));
+        model.setSubject(dto.getDescription());
+        model.setProductCode(dto.getTradeType().getCode());
+        model.setSellerId(dto.getBuyerId());
+        model.setPassbackParams(dto.getAttach());
+        request.setBizModel(model);
+        request.setNotifyUrl(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_PAY_NOTIFY_URL);
+        AlipayTradePrecreateResponse response;
+        try {
+            response = defaultAlipayClient.execute(request);
+        } catch (Exception e) {
+            log.error("支付宝创建支付订单失败 [{}]", dto, e);
+            throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
         }
-        return this.createFacePrepay(dto);
+        if (!response.isSuccess()) {
+            log.error("支付宝下单响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
+            throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
+        }
+        PrepayVO vo = new PrepayVO();
+        vo.setOutTradeNo(response.getOutTradeNo());
+        vo.setPayChannel(PayChannel.ALIPAY);
+        vo.setQrCodeUrl(response.getQrCode());
+        return vo;
     }
 
     @Override
     public PayOrderVO queryOrder(String tradeNo) {
+        AlipayTradeQueryRequest request = new AlipayTradeQueryRequest();
+        AlipayTradeQueryModel model = new AlipayTradeQueryModel();
+        model.setOutTradeNo(tradeNo);
+        request.setBizModel(model);
         AlipayTradeQueryResponse response;
         try {
-            response = Factory.Payment.Common().query(tradeNo);
+            response = defaultAlipayClient.execute(request);
         } catch (Exception e) {
             log.error("支付宝查询支付订单失败 [{}]", tradeNo, e);
             throw new BusinessException(ErrorCode.ORDER_QUERY_ERROR);
         }
-        if (isNotBlank(response.getSubCode())) {
+        if (!response.isSuccess()) {
             log.error("支付宝支付订单查询响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
             throw new BusinessException(ErrorCode.ORDER_QUERY_ERROR);
         }
         PayOrderVO vo = new PayOrderVO();
-        vo.setAttach(response.getBody());
+        vo.setAttach(response.getPassbackParams());
         vo.setPayerId(response.getBuyerUserId());
         vo.setAmount(DecimalUtil.yuanToCent(response.getTotalAmount()));
         vo.setTransactionId(response.getTradeNo());
-        vo.setSuccessTime(DateUtil.parseLocalDateTime(response.getSendPayDate()));
+        vo.setSuccessTime(DateUtil.convertDate(response.getSendPayDate()));
         vo.setTradeState(TradeState.of(response.getTradeStatus()));
-        vo.setTradeType(TradeType.ALI_PAY);
         return vo;
     }
 
     @Override
     public void closeOrder(String tradeNo) {
+        AlipayTradeCloseRequest request = new AlipayTradeCloseRequest();
+        AlipayTradeCloseModel model = new AlipayTradeCloseModel();
+        model.setOutTradeNo(tradeNo);
+        request.setBizModel(model);
         try {
-            Factory.Payment.Common().close(tradeNo);
+            defaultAlipayClient.execute(request);
         } catch (Exception e) {
             log.error("支付宝关闭支付订单失败 [{}]", tradeNo, e);
         }
@@ -100,18 +131,22 @@ public class AliPayServiceImpl implements PayService {
 
     @Override
     public RefundVO applyRefund(RefundDTO dto) {
+        AlipayTradeRefundRequest request = new AlipayTradeRefundRequest();
+        request.setNotifyUrl(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_REFUND_NOTIFY_URL);
+        AlipayTradeRefundModel model = new AlipayTradeRefundModel();
+        model.setOutTradeNo(dto.getTradeNo());
+        model.setOutRequestNo(dto.getRefundNo());
+        model.setRefundReason(dto.getReason());
+        model.setRefundAmount(DecimalUtil.centToYuan(dto.getAmount()));
+        request.setBizModel(model);
         AlipayTradeRefundResponse response;
         try {
-            response = Factory.Payment.Common()
-                    .asyncNotify(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_REFUND_NOTIFY_URL)
-                    .optional("out_request_no", dto.getRefundNo())
-                    .optional("refund_reason", dto.getReason())
-                    .refund(dto.getTradeNo(), DecimalUtil.centToYuan(dto.getAmount()));
+            response = defaultAlipayClient.execute(request);
         } catch (Exception e) {
             log.error("支付宝退款申请发起失败 [{}]", dto, e);
             throw new BusinessException(ErrorCode.ALI_REFUND_APPLY);
         }
-        if (isNotBlank(response.getSubCode())) {
+        if (!response.isSuccess()) {
             log.error("支付宝退款申请响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
             throw new BusinessException(ErrorCode.ALI_REFUND_APPLY);
         }
@@ -126,19 +161,25 @@ public class AliPayServiceImpl implements PayService {
 
     @Override
     public RefundVO queryRefund(String tradeNo, String refundNo) {
+        AlipayTradeFastpayRefundQueryRequest request = new AlipayTradeFastpayRefundQueryRequest();
+        AlipayTradeFastpayRefundQueryModel model = new AlipayTradeFastpayRefundQueryModel();
+        model.setOutRequestNo(refundNo);
+        model.setOutTradeNo(tradeNo);
+        model.setQueryOptions(Lists.newArrayList("gmt_refund_pay", "refund_detail_item_list"));
+        request.setBizModel(model);
         AlipayTradeFastpayRefundQueryResponse response;
         try {
-            response = Factory.Payment.Common().optional("query_options", Lists.newArrayList("gmt_refund_pay", "refund_detail_item_list")).queryRefund(tradeNo, refundNo);
+            response = defaultAlipayClient.execute(request);
         } catch (Exception e) {
             log.error("支付宝退款状态查询失败 [{}] [{}]", tradeNo, refundNo, e);
             throw new BusinessException(ErrorCode.REFUND_QUERY);
         }
-        if (isNotBlank(response.getSubCode())) {
+        if (!response.isSuccess()) {
             log.error("支付宝退款状态查询响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
             throw new BusinessException(ErrorCode.REFUND_QUERY);
         }
         RefundVO vo = new RefundVO();
-        vo.setSuccessTime(DateUtil.parseLocalDateTime(response.getGmtRefundPay()));
+        vo.setSuccessTime(DateUtil.convertDate(response.getGmtRefundPay()));
         vo.setAmount(DecimalUtil.yuanToCent(response.getSendBackFee()));
         vo.setChannel(RefundChannel.ORIGINAL);
         if (REFUND_SUCCESS.equals(response.getRefundStatus())) {
@@ -164,9 +205,10 @@ public class AliPayServiceImpl implements PayService {
 
     @Override
     public void verifyNotify(Map<String, String> param) {
+        SystemProperties.AliPay pay = systemProperties.getAli().getPay();
         boolean flag = false;
         try {
-            flag = Factory.Payment.Common().verifyNotify(param);
+            flag = AlipaySignature.rsaCheckV1(param, pay.getPublicKey(), "UTF-8", "RSA2");
         } catch (Exception e) {
             log.error("支付宝退款状态查询失败 [{}]", param, e);
         }
@@ -175,52 +217,4 @@ public class AliPayServiceImpl implements PayService {
         }
     }
 
-    /**
-     * 普通支付宝支付
-     *
-     * @param dto 下单参数
-     * @return 预支付参数
-     */
-    private PrepayVO createCommonPrepay(PrepayDTO dto) {
-        AlipayTradeCreateResponse response;
-        try {
-            response = Factory.Payment.Common().optional("body", dto.getAttach()).asyncNotify(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_PAY_NOTIFY_URL)
-                    .create(dto.getDescription(), dto.getTradeNo(), DecimalUtil.centToYuan(dto.getAmount()), dto.getBuyerId());
-        } catch (Exception e) {
-            log.error("支付宝创建支付订单失败 [{}]", dto, e);
-            throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
-        }
-        if (isNotBlank(response.getSubCode())) {
-            log.error("支付宝下单响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
-            throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
-        }
-        PrepayVO vo = new PrepayVO();
-        vo.setOutTradeNo(response.tradeNo);
-        vo.setPayChannel(PayChannel.ALIPAY);
-        return vo;
-    }
-
-    /**
-     * 当面付创建预支付订单
-     * @param dto 订单信息
-     * @return 支付信息
-     */
-    private PrepayVO createFacePrepay(PrepayDTO dto) {
-        AlipayTradePrecreateResponse response;
-        try {
-            response = Factory.Payment.FaceToFace().optional("body", dto.getAttach()).asyncNotify(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_PAY_NOTIFY_URL)
-                    .preCreate(dto.getDescription(), dto.getTradeNo(), DecimalUtil.centToYuan(dto.getAmount()));
-        } catch (Exception e) {
-            log.error("支付宝扫码付创建支付订单失败 [{}]", dto, e);
-            throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
-        }
-        if (isNotBlank(response.getSubCode())) {
-            log.error("支付宝扫码付下单响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
-            throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
-        }
-        PrepayVO vo = new PrepayVO();
-        vo.setQrCodeUrl(response.qrCode);
-        vo.setPayChannel(PayChannel.ALIPAY);
-        return vo;
-    }
 }

@@ -73,7 +73,7 @@ public class WeChatController {
     @GetMapping(value = "/qrcode/url")
     @ApiOperation("获取PC扫码跳转地址")
     public RespBody<String> getQrConnectUrl(HttpSession session) {
-        List<LoginType> typeList = systemProperties.getManage().getLoginTypes();
+        List<LoginType> typeList = systemProperties.getManage().getLoginType();
         if (!typeList.contains(LoginType.QRCODE)) {
             throw new BusinessException(ErrorCode.QRCODE_NOT_SUPPORTED);
         }

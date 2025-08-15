@@ -8,8 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
@@ -94,6 +96,28 @@ public class DateUtil {
             log.warn("日期格式解析错误 date:[{}], pattern:[{}]", date, pattern, e);
             throw new ParameterException(ErrorCode.DATE_CASE_ERROR);
         }
+    }
+
+    /**
+     * Date 转 LocalDateTime
+     *
+     * @param date 日期类型
+     * @return 新型日期
+     */
+    public static LocalDateTime convertDate(Date date) {
+        return convertZonedDateTime(date).toLocalDateTime();
+    }
+
+    /**
+     * 将老日期格式转换为新的带有时区的时间格式
+     *
+     * @param date date
+     * @return 时区的dateTime
+     */
+    private static ZonedDateTime convertZonedDateTime(Date date) {
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        Instant instant = date.toInstant();
+        return instant.atZone(defaultZoneId);
     }
 
     /**
