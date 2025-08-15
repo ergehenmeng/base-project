@@ -28,8 +28,9 @@ import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
 import com.google.common.collect.Lists;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -39,7 +40,7 @@ import java.util.Map;
  * @since 2022/7/24
  */
 @Service("aliPayService")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class AliPayServiceImpl implements PayService {
 
@@ -52,7 +53,12 @@ public class AliPayServiceImpl implements PayService {
 
     private final SystemProperties systemProperties;
 
-    private final DefaultAlipayClient defaultAlipayClient;
+    private DefaultAlipayClient defaultAlipayClient;
+
+    @Autowired(required = false)
+    public void setDefaultAlipayClient(DefaultAlipayClient defaultAlipayClient) {
+        this.defaultAlipayClient = defaultAlipayClient;
+    }
 
     @Override
     public boolean supported(TradeType tradeType) {

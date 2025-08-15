@@ -4,6 +4,7 @@ import com.eghm.common.JsonService;
 import com.eghm.common.SendSmsService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.enums.TemplateType;
+import com.google.common.collect.Lists;
 import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
 import com.tencentcloudapi.sms.v20210111.SmsClient;
@@ -11,6 +12,8 @@ import com.tencentcloudapi.sms.v20210111.models.SendSmsRequest;
 import com.tencentcloudapi.sms.v20210111.models.SendSmsResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -29,16 +32,21 @@ public class TencentSmsServiceImpl implements SendSmsService {
 
     @Override
     public int sendSms(String mobile, TemplateType templateType, String... params) {
+        return this.sendSms(Lists.newArrayList(mobile), templateType, params);
+    }
+
+    @Override
+    public int sendSms(List<String> mobileList, TemplateType templateType, String... params) {
         SendSmsRequest request = new SendSmsRequest();
         request.setSignName(systemProperties.getSms().getSignName());
         request.setTemplateId(templateType.getTemplateId());
-        request.setPhoneNumberSet(new String[]{mobile});
+        request.setPhoneNumberSet(mobileList.toArray(new String[]{}));
         request.setTemplateParamSet(params);
         try {
-            SendSmsResponse response = this.getClient().SendSms(request);
+            SendSmsResponse response = getClient().SendSms(request);
             return SUCCESS.equals(response.getSendStatusSet()[0].getCode()) ? 1 : 0;
         } catch (TencentCloudSDKException e) {
-            log.error("腾讯短信发送异常 [{}] [{}] [{}]", mobile, templateType, jsonService.toJson(params), e);
+            log.error("腾讯短信发送异常 [{}] [{}] [{}]", mobileList, templateType, jsonService.toJson(params), e);
         }
         return 2;
     }

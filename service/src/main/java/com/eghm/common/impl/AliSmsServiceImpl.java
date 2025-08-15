@@ -1,5 +1,6 @@
 package com.eghm.common.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
@@ -7,11 +8,14 @@ import com.aliyun.teaopenapi.models.Config;
 import com.eghm.common.JsonService;
 import com.eghm.common.SendSmsService;
 import com.eghm.configuration.SystemProperties;
+import com.eghm.constants.CommonConstant;
 import com.eghm.enums.TemplateType;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,6 +36,11 @@ public class AliSmsServiceImpl implements SendSmsService {
 
     @Override
     public int sendSms(String mobile, TemplateType templateType, String... params) {
+        return this.sendSms(Lists.newArrayList(mobile), templateType, params);
+    }
+
+    @Override
+    public int sendSms(List<String> mobileList, TemplateType templateType, String... params) {
         Map<String, Object> param = new HashMap<>(4);
         if (params.length > 0) {
             for (int i = 0; i < params.length; i++) {
@@ -40,7 +49,7 @@ public class AliSmsServiceImpl implements SendSmsService {
         }
         SendSmsRequest request = new SendSmsRequest();
         request.setSignName(systemProperties.getSms().getSignName());
-        request.setPhoneNumbers(mobile);
+        request.setPhoneNumbers(CollUtil.join(mobileList, CommonConstant.COMMA));
         request.setTemplateCode(templateType.getTemplateId());
         String jsonParam = jsonService.toJson(param);
         request.setTemplateParam(jsonParam);
@@ -48,14 +57,13 @@ public class AliSmsServiceImpl implements SendSmsService {
             SendSmsResponse response = getClient().sendSms(request);
             return SUCCESS.equals(response.getBody().getCode()) ? 1 : 0;
         } catch (Exception e) {
-            log.error("阿里云短信发送异常 [{}] [{}] [{}]", mobile, templateType, jsonParam, e);
+            log.error("阿里云短信发送异常 [{}] [{}] [{}]", mobileList, templateType, jsonParam,  e);
         }
         return 2;
     }
 
     /**
      * 阿里
-     *
      * @return client
      * @throws Exception e
      */
