@@ -29,6 +29,15 @@ public interface SmsService {
     String verifySmsCode(TemplateType templateType, String mobile, String smsCode);
 
     /**
+     * 发送短信并记录短信日志
+     *
+     * @param mobile  手机号
+     * @param templateType 短信类型
+     * @param params  参数
+     */
+    void sendSms(String mobile, TemplateType templateType, String... params);
+
+    /**
      * 验证短信验证码凭证是否正确
      *
      * @param requestId requestId

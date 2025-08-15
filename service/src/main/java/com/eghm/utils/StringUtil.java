@@ -12,6 +12,10 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 
 import java.security.SecureRandom;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 字符串日常工具类
@@ -52,6 +56,11 @@ public class StringUtil {
      * 手机号码隐藏
      */
     private static final String HIDDEN_REGEXP_MOBILE = "(\\d{3})\\d{4}(\\d{4})";
+
+    /**
+     * ${xxx} 替换
+     */
+    private static final Pattern PLACEHOLDER_PATTERN = Pattern.compile("\\$\\{(\\w+)}");
 
     /**
      * 汉字字符集
@@ -109,6 +118,40 @@ public class StringUtil {
             builder.append(scope.charAt(random.nextInt(scope.length())));
         } while (length > 0);
         return builder.toString();
+    }
+
+    /**
+     * 解析模板字符串
+     *
+     * @param template 您预订${param0}的房型，经确认该房型已售罄，已做退单处理。订单号：${param1}
+     * @param params 参数
+     * @return 解析模板字符串
+     */
+    public static String parse(String template, String... params) {
+        Map<String, String> paramsMap = new HashMap<>(8);
+        for (int i = 0; i < params.length; i++) {
+            paramsMap.put("param" + i, params[i]);
+        }
+        return parse(template, paramsMap);
+    }
+
+    /**
+     * 解析模板字符串
+     *
+     * @param template 您预订${param0}的房型，经确认该房型已售罄，已做退单处理。订单号：${param1}
+     * @param params 参数
+     * @return 解析模板字符串
+     */
+    public static String parse(String template, Map<String, String> params) {
+        Matcher matcher = PLACEHOLDER_PATTERN.matcher(template);
+        StringBuilder result = new StringBuilder();
+        while (matcher.find()) {
+            String key = matcher.group(1);
+            String value = params.getOrDefault(key, matcher.group());
+            matcher.appendReplacement(result, Matcher.quoteReplacement(value));
+        }
+        matcher.appendTail(result);
+        return result.toString();
     }
 
     /**

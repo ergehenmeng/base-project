@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
 public class SmsConfig {
 
     @Bean
-    @ConditionalOnProperty(prefix = "system.sms", name = "sms-channel", havingValue = "default", matchIfMissing = true)
+    @ConditionalOnProperty(prefix = "system.sms", name = "channel", matchIfMissing = true)
     public SendSmsService defaultSmsService() {
         return new DefaultSmsServiceImpl();
     }

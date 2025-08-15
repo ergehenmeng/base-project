@@ -77,6 +77,13 @@ public class SmsServiceImpl implements SmsService {
         return exist;
     }
 
+    @Override
+    public void sendSms(String mobile, TemplateType templateType, String... params) {
+        int state = sendSmsService.sendSms(mobile, templateType, params);
+        SmsLog smsLog = SmsLog.builder().content(StringUtil.parse(templateType.getContent(), params)).mobile(mobile).templateType(templateType).state(state).build();
+        smsLogService.addSmsLog(smsLog);
+    }
+
     /**
      * 发送短信验证码
      *
@@ -86,10 +93,8 @@ public class SmsServiceImpl implements SmsService {
     private void sendSmsCode(TemplateType templateType, String mobile) {
         this.smsLimitCheck(templateType.getValue(), mobile);
         String smsCode = StringUtil.randomNumber();
-        int state = sendSmsService.sendSms(mobile, templateType, smsCode);
-        SmsLog smsLog = SmsLog.builder().content(String.format(templateType.getContent(), smsCode)).mobile(mobile).templateType(templateType).state(state).build();
-        smsLogService.addSmsLog(smsLog);
-        cacheService.setValue(String.format(CacheConstant.SMS_PREFIX, templateType, mobile), smsCode, sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600));
+        this.sendSms(mobile, templateType, smsCode);
+        this.saveSmsCode(templateType.getValue(), mobile, smsCode);
         long expire = sysConfigApi.getLong(ConfigConstant.SMS_TYPE_INTERVAL);
         cacheService.setValue(String.format(CacheConstant.SMS_TYPE_INTERVAL, templateType.getValue(), mobile), true, expire);
     }
@@ -102,6 +107,17 @@ public class SmsServiceImpl implements SmsService {
      */
     private void cleanSmsCode(TemplateType templateType, String mobile) {
         cacheService.delete(String.format(CacheConstant.SMS_PREFIX, templateType.getValue(), mobile));
+    }
+
+    /**
+     * 保存发送的短信
+     *
+     * @param smsType 短信类型
+     * @param mobile  手机号码
+     * @param smsCode 短信验证码
+     */
+    private void saveSmsCode(String smsType, String mobile, String smsCode) {
+        cacheService.setValue(String.format(CacheConstant.SMS_PREFIX, smsType, mobile), smsCode, sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600));
     }
 
     /**
