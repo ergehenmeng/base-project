@@ -63,6 +63,10 @@
             <artifactId>tencentcloud-sdk-java-sms</artifactId>
         </dependency>
         <dependency>
+            <artifactId>tea</artifactId>
+            <groupId>com.aliyun</groupId>
+        </dependency>
+        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
         </dependency>
@@ -139,6 +143,10 @@
             <artifactId>pinyin4j</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
         </dependency>
@@ -149,10 +157,6 @@
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alipay.sdk</groupId>
-            <artifactId>alipay-easysdk</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

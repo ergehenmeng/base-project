@@ -42,14 +42,19 @@ public enum TradeType {
     WECHAT_H5("H5", "H5支付", PayChannel.WECHAT),
 
     /**
-     * 支付宝app支付 (正常的app支付)
+     * JSAPI支付 小程序
      */
-    ALI_PAY("ALI_PAY", "支付宝支付", PayChannel.ALIPAY),
+    JSAPI_PAY("JSAPI_PAY", "JSAPI支付", PayChannel.ALIPAY),
 
     /**
-     * 支付宝PC扫码付
+     * 支付宝app支付
      */
-    ALI_PC_PAY("ALI_PC_PAY", "支付宝PC扫码付", PayChannel.ALIPAY),
+    QUICK_MSECURITY_PAY("QUICK_MSECURITY_PAY", "支付宝APP支付", PayChannel.ALIPAY),
+
+    /**
+     * 订单码支付
+     */
+    QR_CODE_OFFLINE("QR_CODE_OFFLINE", "支付宝订单码支付", PayChannel.ALIPAY),
 
     /**
      * 零元付

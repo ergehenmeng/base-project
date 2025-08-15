@@ -63,18 +63,22 @@
         <wx-sdk.version>4.7.0</wx-sdk.version>
         <!--支付宝sdk-->
         <ali-sdk.version>2.2.2</ali-sdk.version>
+        <!--支付宝支付-->
+        <ali-pay.version>4.40.393.ALL</ali-pay.version>
         <!--mybatis-plus-->
         <mybatis-plus.version>3.5.9</mybatis-plus.version>
         <!--异步线程变量-->
         <transmittable.version>2.14.5</transmittable.version>
         <!--excel导出-->
         <easyexcel.version>4.0.3</easyexcel.version>
+        <!--阿里短信-->
+        <ali.tea.version>1.3.1</ali.tea.version>
         <!--jackson 1.8日期格式序列号兼容包-->
         <jackson-ext.version>2.15.4</jackson-ext.version>
         <!--缓存-->
         <caffeine.version>3.1.8</caffeine.version>
         <!--阿里短信-->
-        <ali.sms.version>3.1.0</ali.sms.version>
+        <ali.sms.version>4.1.2</ali.sms.version>
         <!--腾讯短信-->
         <tencent.sms.version>3.1.1043</tencent.sms.version>
         <!--阿里oss-->
@@ -95,6 +99,11 @@
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
                 <version>${jwt.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>tea</artifactId>
+                <groupId>com.aliyun</groupId>
+                <version>${ali.tea.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.hutool</groupId>
@@ -169,6 +178,21 @@
                 <version>${pinyin.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.alipay.sdk</groupId>
+                <artifactId>alipay-sdk-java</artifactId>
+                <version>${ali-pay.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>commons-logging</artifactId>
+                        <groupId>commons-logging</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>xml-apis</artifactId>
+                        <groupId>xml-apis</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
                 <groupId>com.mysql</groupId>
                 <artifactId>mysql-connector-j</artifactId>
                 <version>${mysql.version}</version>
@@ -208,6 +232,12 @@
                 <groupId>com.warrenstrange</groupId>
                 <artifactId>googleauth</artifactId>
                 <version>${totp.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>httpclient</artifactId>
+                        <groupId>org.apache.httpcomponents</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
@@ -254,21 +284,6 @@
                     <exclusion>
                         <artifactId>jodd-util</artifactId>
                         <groupId>org.jodd</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.alipay.sdk</groupId>
-                <artifactId>alipay-easysdk</artifactId>
-                <version>${ali-sdk.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>bcprov-jdk15on</artifactId>
-                        <groupId>org.bouncycastle</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>guava</artifactId>
-                        <groupId>com.google.guava</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>

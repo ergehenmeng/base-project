@@ -52,7 +52,7 @@ public class PayNotifyController {
         String orderNo = stringMap.get("passback_params");
         String tradeNo = stringMap.get("out_trade_no");
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
-        return this.aliResult(() -> log.error("支付宝支付回调: [{}] [{}]", orderNo, tradeNo));
+        return this.aliResult(() -> log.error("支付宝支付回调成功,请补全逻辑: [{}] [{}]", orderNo, tradeNo));
     }
 
     @PostMapping(ALI_REFUND_NOTIFY_URL)
@@ -64,7 +64,7 @@ public class PayNotifyController {
         String refundNo = stringMap.get("out_biz_no");
         String tradeNo = stringMap.get("out_trade_no");
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
-        return this.aliResult(() -> log.error("支付宝退款回调: [{}] [{}]", refundNo, tradeNo));
+        return this.aliResult(() -> log.error("支付宝退款回调成功,请补全逻辑: [{}] [{}]", refundNo, tradeNo));
     }
 
     @PostMapping(WECHAT_PAY_NOTIFY_URL)

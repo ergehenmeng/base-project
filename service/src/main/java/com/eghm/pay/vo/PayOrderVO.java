@@ -2,7 +2,6 @@ package com.eghm.pay.vo;
 
 
 import com.eghm.pay.enums.TradeState;
-import com.eghm.pay.enums.TradeType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -19,9 +18,6 @@ public class PayOrderVO {
 
     @Schema(description = "交易状态")
     private TradeState tradeState;
-
-    @Schema(description = "支付方式")
-    private TradeType tradeType;
 
     @Schema(description = "支付金额")
     private Integer amount;

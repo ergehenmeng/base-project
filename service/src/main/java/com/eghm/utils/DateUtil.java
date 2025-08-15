@@ -4,11 +4,15 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAccessor;
+import java.util.Date;
 
 import static com.eghm.utils.StringUtil.isBlank;
 
@@ -67,6 +71,28 @@ public class DateUtil {
      */
     private static long diffYear(Temporal beginDate, Temporal endDate) {
         return ChronoUnit.YEARS.between(beginDate, endDate);
+    }
+
+    /**
+     * Date 转 LocalDateTime
+     *
+     * @param date 日期类型
+     * @return 新型日期
+     */
+    public static LocalDateTime convertDate(Date date) {
+        return convertZonedDateTime(date).toLocalDateTime();
+    }
+
+    /**
+     * 将老日期格式转换为新的带有时区的时间格式
+     *
+     * @param date date
+     * @return 时区的dateTime
+     */
+    private static ZonedDateTime convertZonedDateTime(Date date) {
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        Instant instant = date.toInstant();
+        return instant.atZone(defaultZoneId);
     }
 
     /**
