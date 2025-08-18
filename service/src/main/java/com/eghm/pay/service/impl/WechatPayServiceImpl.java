@@ -58,6 +58,13 @@ public class WechatPayServiceImpl implements PayService {
     }
 
     @Override
+    public void checkConfig() {
+        if (wxPayService == null) {
+            throw new BusinessException(ErrorCode.PAY_NOT_CONFIG);
+        }
+    }
+
+    @Override
     public PrepayVO createPrepay(PrepayDTO dto) {
         TradeTypeEnum transferType = transferType(dto.getTradeType());
         WxPayUnifiedOrderV3Request request = this.getWxPayUnifiedOrderV3Request(dto, transferType);
@@ -82,7 +89,6 @@ public class WechatPayServiceImpl implements PayService {
         }
         PayOrderVO response = new PayOrderVO();
         response.setAmount(result.getAmount().getPayerTotal());
-        response.setAttach(result.getAttach());
         response.setSuccessTime(DateUtil.parseIso(result.getSuccessTime()));
         response.setTradeState(TradeState.of(result.getTradeState()));
         response.setPayerId(result.getPayer().getOpenid());
@@ -162,7 +168,6 @@ public class WechatPayServiceImpl implements PayService {
         WxPayUnifiedOrderV3Request.Amount amount = new WxPayUnifiedOrderV3Request.Amount();
         amount.setTotal(dto.getAmount());
         request.setAmount(amount);
-        request.setAttach(dto.getAttach());
         request.setDescription(dto.getDescription());
         request.setNotifyUrl(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.WECHAT_PAY_NOTIFY_URL);
         request.setOutTradeNo(dto.getTradeNo());

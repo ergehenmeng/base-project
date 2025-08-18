@@ -62,6 +62,10 @@ public class DateUtil {
         return SIMPLE_FORMAT.format(date);
     }
 
+    public static String format(TemporalAccessor date) {
+        return LONG_FORMAT.format(date);
+    }
+
     /**
      * 相隔年
      *

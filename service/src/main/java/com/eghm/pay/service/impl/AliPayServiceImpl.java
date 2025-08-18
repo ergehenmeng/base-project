@@ -66,6 +66,13 @@ public class AliPayServiceImpl implements PayService {
     }
 
     @Override
+    public void checkConfig() {
+        if (defaultAlipayClient == null) {
+            throw new BusinessException(ErrorCode.ALI_PAY_NOT_CONFIG);
+        }
+    }
+
+    @Override
     public PrepayVO createPrepay(PrepayDTO dto) {
         AlipayTradePrecreateRequest request = new AlipayTradePrecreateRequest();
         AlipayTradePrecreateModel model = new AlipayTradePrecreateModel();
@@ -74,7 +81,6 @@ public class AliPayServiceImpl implements PayService {
         model.setSubject(dto.getDescription());
         model.setProductCode(dto.getTradeType().getCode());
         model.setSellerId(dto.getBuyerId());
-        model.setPassbackParams(dto.getAttach());
         request.setBizModel(model);
         request.setNotifyUrl(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_PAY_NOTIFY_URL);
         AlipayTradePrecreateResponse response;
@@ -113,7 +119,6 @@ public class AliPayServiceImpl implements PayService {
             throw new BusinessException(ErrorCode.ORDER_QUERY_ERROR);
         }
         PayOrderVO vo = new PayOrderVO();
-        vo.setAttach(response.getPassbackParams());
         vo.setPayerId(response.getBuyerUserId());
         vo.setAmount(DecimalUtil.yuanToCent(response.getTotalAmount()));
         vo.setTransactionId(response.getTradeNo());

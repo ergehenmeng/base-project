@@ -22,9 +22,6 @@ public class PayOrderVO {
     @Schema(description = "支付金额")
     private Integer amount;
 
-    @Schema(description = "附加信息")
-    private String attach;
-
     @Schema(description = "支付成功时间")
     private LocalDateTime successTime;
 
