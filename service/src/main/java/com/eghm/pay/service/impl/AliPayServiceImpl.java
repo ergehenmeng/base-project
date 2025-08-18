@@ -1,11 +1,16 @@
 package com.eghm.pay.service.impl;
 
 import com.alipay.api.DefaultAlipayClient;
-import com.alipay.api.domain.*;
+import com.alipay.api.domain.AlipayTradeCloseModel;
+import com.alipay.api.domain.AlipayTradeFastpayRefundQueryModel;
+import com.alipay.api.domain.AlipayTradeQueryModel;
+import com.alipay.api.domain.AlipayTradeRefundModel;
 import com.alipay.api.internal.util.AlipaySignature;
-import com.alipay.api.request.*;
+import com.alipay.api.request.AlipayTradeCloseRequest;
+import com.alipay.api.request.AlipayTradeFastpayRefundQueryRequest;
+import com.alipay.api.request.AlipayTradeQueryRequest;
+import com.alipay.api.request.AlipayTradeRefundRequest;
 import com.alipay.api.response.AlipayTradeFastpayRefundQueryResponse;
-import com.alipay.api.response.AlipayTradePrecreateResponse;
 import com.alipay.api.response.AlipayTradeQueryResponse;
 import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.eghm.common.impl.SysConfigApi;
@@ -18,6 +23,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.pay.dto.PrepayDTO;
 import com.eghm.pay.dto.RefundDTO;
 import com.eghm.pay.enums.*;
+import com.eghm.pay.service.CreatePayService;
 import com.eghm.pay.service.PayService;
 import com.eghm.pay.vo.PayOrderVO;
 import com.eghm.pay.vo.PrepayVO;
@@ -33,6 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -55,6 +62,8 @@ public class AliPayServiceImpl implements PayService {
 
     private DefaultAlipayClient defaultAlipayClient;
 
+    private final List<CreatePayService> createPayServiceList;
+
     @Autowired(required = false)
     public void setDefaultAlipayClient(DefaultAlipayClient defaultAlipayClient) {
         this.defaultAlipayClient = defaultAlipayClient;
@@ -66,33 +75,21 @@ public class AliPayServiceImpl implements PayService {
     }
 
     @Override
+    public void checkConfig() {
+        if (defaultAlipayClient == null) {
+            throw new BusinessException(ErrorCode.ALI_PAY_NOT_CONFIG);
+        }
+    }
+
+    @Override
     public PrepayVO createPrepay(PrepayDTO dto) {
-        AlipayTradePrecreateRequest request = new AlipayTradePrecreateRequest();
-        AlipayTradePrecreateModel model = new AlipayTradePrecreateModel();
-        model.setOutTradeNo(dto.getTradeNo());
-        model.setTotalAmount(DecimalUtil.centToYuan(dto.getAmount()));
-        model.setSubject(dto.getDescription());
-        model.setProductCode(dto.getTradeType().getCode());
-        model.setSellerId(dto.getBuyerId());
-        model.setPassbackParams(dto.getAttach());
-        request.setBizModel(model);
-        request.setNotifyUrl(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_PAY_NOTIFY_URL);
-        AlipayTradePrecreateResponse response;
-        try {
-            response = defaultAlipayClient.execute(request);
-        } catch (Exception e) {
-            log.error("支付宝创建支付订单失败 [{}]", dto, e);
-            throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
+        for (CreatePayService service : createPayServiceList) {
+            if (service.supported(dto.getTradeType())) {
+                return service.createPrepay(dto);
+            }
         }
-        if (!response.isSuccess()) {
-            log.error("支付宝下单响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
-            throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
-        }
-        PrepayVO vo = new PrepayVO();
-        vo.setOutTradeNo(response.getOutTradeNo());
-        vo.setPayChannel(PayChannel.ALIPAY);
-        vo.setQrCodeUrl(response.getQrCode());
-        return vo;
+        log.error("不支持该支付方式 [{}]", dto.getTradeType());
+        throw new BusinessException(ErrorCode.UNKNOWN_PAY_TYPE);
     }
 
     @Override
@@ -113,7 +110,6 @@ public class AliPayServiceImpl implements PayService {
             throw new BusinessException(ErrorCode.ORDER_QUERY_ERROR);
         }
         PayOrderVO vo = new PayOrderVO();
-        vo.setAttach(response.getPassbackParams());
         vo.setPayerId(response.getBuyerUserId());
         vo.setAmount(DecimalUtil.yuanToCent(response.getTotalAmount()));
         vo.setTransactionId(response.getTradeNo());

@@ -30,8 +30,8 @@ public class PrepayVO {
     @ApiModelProperty("随机串")
     private String nonceStr;
 
-    @ApiModelProperty("流水号")
-    private String orderNo;
+    @ApiModelProperty("交易单号(商户/本地)")
+    private String tradeNo;
 
     @ApiModelProperty("h5支付url")
     private String h5Url;

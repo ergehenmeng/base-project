@@ -26,9 +26,6 @@ public class PayOrderVO {
     @ApiModelProperty("支付金额")
     private Integer amount;
 
-    @ApiModelProperty("附加信息")
-    private String attach;
-
     @ApiModelProperty("支付成功时间")
     private LocalDateTime successTime;
 

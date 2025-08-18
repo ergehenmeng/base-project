@@ -28,6 +28,12 @@ public interface PayService {
     }
 
     /**
+     * 校验配置是否合法
+     */
+    default void checkConfig() {
+    }
+
+    /**
      * 生成预支付订单信息
      *
      * @param dto 预支付信息

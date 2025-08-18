@@ -120,4 +120,9 @@ public class ConfigConstant {
      * 管理系统名称
      */
     public static final String SYSTEM_NAME = "system_name";
+
+    /**
+     * 订单过期时间
+     */
+    public static final String ORDER_EXPIRE_TIME = "order_expire_time";
 }

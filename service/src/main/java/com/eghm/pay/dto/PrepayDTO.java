@@ -37,9 +37,9 @@ public class PrepayDTO {
     private Integer amount;
 
     /**
-     * 附加信息
+     * 订单信息
      */
-    private String attach;
+    private String orderNo;
 
     /**
      * 付款人ip(微信H5必填)

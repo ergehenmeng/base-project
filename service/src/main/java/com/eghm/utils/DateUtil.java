@@ -78,6 +78,10 @@ public class DateUtil {
         return formatter.format(date.toInstant().atZone(ZoneId.systemDefault()));
     }
 
+    public static String format(TemporalAccessor date) {
+        return LONG_FORMAT.format(date);
+    }
+
     /**
      * 将字符串转为Date
      *

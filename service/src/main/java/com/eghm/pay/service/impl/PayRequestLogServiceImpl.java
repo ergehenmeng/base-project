@@ -44,7 +44,7 @@ public class PayRequestLogServiceImpl implements PayRequestLogService {
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void insertPayLog(PrepayDTO request, PrepayVO response) {
         PayRequestLog requestLog = new PayRequestLog();
-        requestLog.setOrderNo(request.getAttach());
+        requestLog.setOrderNo(request.getOrderNo());
         requestLog.setPayChannel(request.getTradeType().getPayChannel());
         requestLog.setRequestBody(jsonService.toJson(request));
         requestLog.setResponseBody(jsonService.toJson(response));
