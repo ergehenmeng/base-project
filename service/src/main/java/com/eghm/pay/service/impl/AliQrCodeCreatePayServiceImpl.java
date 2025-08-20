@@ -65,7 +65,7 @@ public class AliQrCodeCreatePayServiceImpl implements CreatePayService {
             throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
         }
         PrepayVO vo = new PrepayVO();
-        vo.setOutTradeNo(response.getOutTradeNo());
+        vo.setTradeNo(response.getOutTradeNo());
         vo.setPayChannel(PayChannel.ALIPAY);
         vo.setQrCodeUrl(response.getQrCode());
         return vo;
