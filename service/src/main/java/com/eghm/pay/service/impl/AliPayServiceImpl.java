@@ -18,6 +18,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.pay.dto.PrepayDTO;
 import com.eghm.pay.dto.RefundDTO;
 import com.eghm.pay.enums.*;
+import com.eghm.pay.service.CreatePayService;
 import com.eghm.pay.service.PayService;
 import com.eghm.pay.vo.PayOrderVO;
 import com.eghm.pay.vo.PrepayVO;
@@ -33,6 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -55,6 +57,8 @@ public class AliPayServiceImpl implements PayService {
 
     private DefaultAlipayClient defaultAlipayClient;
 
+    private final List<CreatePayService> createPayServiceList;
+
     @Autowired(required = false)
     public void setDefaultAlipayClient(DefaultAlipayClient defaultAlipayClient) {
         this.defaultAlipayClient = defaultAlipayClient;
@@ -74,31 +78,13 @@ public class AliPayServiceImpl implements PayService {
 
     @Override
     public PrepayVO createPrepay(PrepayDTO dto) {
-        AlipayTradePrecreateRequest request = new AlipayTradePrecreateRequest();
-        AlipayTradePrecreateModel model = new AlipayTradePrecreateModel();
-        model.setOutTradeNo(dto.getTradeNo());
-        model.setTotalAmount(DecimalUtil.centToYuan(dto.getAmount()));
-        model.setSubject(dto.getDescription());
-        model.setProductCode(dto.getTradeType().getCode());
-        model.setSellerId(dto.getBuyerId());
-        request.setBizModel(model);
-        request.setNotifyUrl(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_PAY_NOTIFY_URL);
-        AlipayTradePrecreateResponse response;
-        try {
-            response = defaultAlipayClient.execute(request);
-        } catch (Exception e) {
-            log.error("支付宝创建支付订单失败 [{}]", dto, e);
-            throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
+        for (CreatePayService service : createPayServiceList) {
+            if (service.supported(dto.getTradeType())) {
+                return service.createPrepay(dto);
+            }
         }
-        if (!response.isSuccess()) {
-            log.error("支付宝下单响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
-            throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
-        }
-        PrepayVO vo = new PrepayVO();
-        vo.setOutTradeNo(response.getOutTradeNo());
-        vo.setPayChannel(PayChannel.ALIPAY);
-        vo.setQrCodeUrl(response.getQrCode());
-        return vo;
+        log.error("不支持该支付方式 [{}]", dto.getTradeType());
+        throw new BusinessException(ErrorCode.UNKNOWN_PAY_TYPE);
     }
 
     @Override

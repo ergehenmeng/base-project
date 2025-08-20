@@ -72,6 +72,11 @@ public class ConfigConstant {
     public static final String CACHE_EXPIRE = "cache_expire";
 
     /**
+     * 订单过期时间
+     */
+    public static final String ORDER_EXPIRE_TIME = "order_expire_time";
+
+    /**
      * 登陆token过期时间
      */
     public static final String TOKEN_EXPIRE = "token_expire";

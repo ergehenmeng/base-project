@@ -30,8 +30,8 @@ public class PrepayVO {
     @Schema(description = "随机串")
     private String nonceStr;
 
-    @Schema(description = "流水号")
-    private String orderNo;
+    @Schema(description = "交易单号(商户/本地)")
+    private String tradeNo;
 
     @Schema(description = "h5支付url")
     private String h5Url;
@@ -45,7 +45,7 @@ public class PrepayVO {
     @Schema(description = "partnerId 微信app支付专用")
     private String partnerId;
 
-    @Schema(description = "支付宝交易单号")
+    @Schema(description = "支付宝交易单号(订单码支付时为空)")
     private String outTradeNo;
 
     @Schema(description = "支付渠道 WECHAT:微信, ALIPAY:支付宝")

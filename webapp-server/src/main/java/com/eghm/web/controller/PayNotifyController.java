@@ -49,10 +49,9 @@ public class PayNotifyController {
         Map<String, String> stringMap = this.parseAliRequest(request);
         aliPayService.verifyNotify(stringMap);
         payNotifyLogService.insertAliLog(stringMap, StepType.PAY);
-        String orderNo = stringMap.get("passback_params");
         String tradeNo = stringMap.get("out_trade_no");
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
-        return this.aliResult(() -> log.error("支付宝支付回调成功,请补全逻辑: [{}] [{}]", orderNo, tradeNo));
+        return this.aliResult(() -> log.error("支付宝支付回调成功, 请补全逻辑, 本地支付单号:[{}]", tradeNo));
     }
 
     @PostMapping(ALI_REFUND_NOTIFY_URL)
@@ -64,7 +63,7 @@ public class PayNotifyController {
         String refundNo = stringMap.get("out_biz_no");
         String tradeNo = stringMap.get("out_trade_no");
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
-        return this.aliResult(() -> log.error("支付宝退款回调成功,请补全逻辑: [{}] [{}]", refundNo, tradeNo));
+        return this.aliResult(() -> log.error("支付宝退款回调成功, 请补全逻辑, 本地退款单号:[{}] 本地支付单号:[{}]", refundNo, tradeNo));
     }
 
     @PostMapping(WECHAT_PAY_NOTIFY_URL)
@@ -74,7 +73,7 @@ public class PayNotifyController {
         WxPayNotifyV3Result payNotify = wechatPayService.parsePayNotify(requestBody, header);
         payNotifyLogService.insertWechatPayLog(payNotify);
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
-        return this.wechatResult(response, () -> log.error("微信支付回调: [{}] ", payNotify.getResult().getOutTradeNo()));
+        return this.wechatResult(response, () -> log.error("微信支付回调成功, 请补全逻辑, 本地支付单号:[{}] ", payNotify.getResult().getOutTradeNo()));
     }
 
     @PostMapping(WECHAT_REFUND_NOTIFY_URL)
@@ -85,7 +84,7 @@ public class PayNotifyController {
         payNotifyLogService.insertWechatRefundLog(payNotify);
         String refundNo = payNotify.getResult().getOutRefundNo();
         String tradeNo = payNotify.getResult().getOutTradeNo();
-        return this.wechatResult(response, () -> log.error("微信退款回调: [{}] [{}]", refundNo, tradeNo));
+        return this.wechatResult(response, () -> log.error("微信退款回调成功, 请补全逻辑, 本地退款单号:[{}] 本地支付单号:[{}]", refundNo, tradeNo));
     }
 
     /**
