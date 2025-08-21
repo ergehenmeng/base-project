@@ -89,7 +89,7 @@ public class SystemProperties {
     public static class Sms {
 
         /**
-         * 短信渠道
+         * 短信渠道-不配置默认只打印日志
          */
         private SmsChannel channel;
 
@@ -344,7 +344,7 @@ public class SystemProperties {
         /**
          * 消息通知类型
          */
-        private AlarmType alarmType = AlarmType.DEFAULT;
+        private AlarmType alarmType;
 
         /**
          * 钉钉消息通知AccessToken或者飞书通知webHook地址

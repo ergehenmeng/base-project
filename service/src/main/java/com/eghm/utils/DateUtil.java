@@ -83,7 +83,7 @@ public class DateUtil {
      * @param date 日期类型
      * @return 新型日期
      */
-    public static LocalDateTime convertDate(Date date) {
+    public static LocalDateTime convertDateTime(Date date) {
         return convertZonedDateTime(date).toLocalDateTime();
     }
 
@@ -160,7 +160,7 @@ public class DateUtil {
      * @param text yyyy-MM-dd HH:mm:ss
      * @return LocalDateTime
      */
-    public static LocalDateTime parseLocalDateTime(String text) {
+    public static LocalDateTime parseDateTime(String text) {
         return LocalDateTime.parse(text, LONG_FORMAT);
     }
 

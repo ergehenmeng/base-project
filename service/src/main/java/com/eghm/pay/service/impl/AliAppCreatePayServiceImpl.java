@@ -71,7 +71,7 @@ public class AliAppCreatePayServiceImpl implements CreatePayService {
         }
         PrepayVO vo = new PrepayVO();
         vo.setTradeNo(response.getOutTradeNo());
-        vo.setOutTradeNo(dto.getTradeNo());
+        vo.setOutTradeNo(response.getTradeNo());
         vo.setPayChannel(PayChannel.ALIPAY);
         vo.setPackageValue(response.getOrderStr());
         return vo;
