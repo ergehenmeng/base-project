@@ -113,7 +113,7 @@ public class AliPayServiceImpl implements PayService {
         vo.setPayerId(response.getBuyerUserId());
         vo.setAmount(DecimalUtil.yuanToCent(response.getTotalAmount()));
         vo.setTransactionId(response.getTradeNo());
-        vo.setSuccessTime(DateUtil.convertDate(response.getSendPayDate()));
+        vo.setSuccessTime(DateUtil.convertDateTime(response.getSendPayDate()));
         vo.setTradeState(TradeState.of(response.getTradeStatus()));
         return vo;
     }
@@ -181,7 +181,7 @@ public class AliPayServiceImpl implements PayService {
             throw new BusinessException(ErrorCode.REFUND_QUERY);
         }
         RefundVO vo = new RefundVO();
-        vo.setSuccessTime(DateUtil.convertDate(response.getGmtRefundPay()));
+        vo.setSuccessTime(DateUtil.convertDateTime(response.getGmtRefundPay()));
         vo.setAmount(DecimalUtil.yuanToCent(response.getSendBackFee()));
         vo.setChannel(RefundChannel.ORIGINAL);
         if (REFUND_SUCCESS.equals(response.getRefundStatus())) {

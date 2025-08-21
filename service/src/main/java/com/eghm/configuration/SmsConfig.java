@@ -3,6 +3,7 @@ package com.eghm.configuration;
 import com.eghm.common.JsonService;
 import com.eghm.common.SendSmsService;
 import com.eghm.common.impl.AliSmsServiceImpl;
+import com.eghm.common.impl.DefaultSmsServiceImpl;
 import com.eghm.common.impl.TencentSmsServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -19,7 +20,13 @@ import org.springframework.context.annotation.Configuration;
 public class SmsConfig {
 
     @Bean
-    @ConditionalOnProperty(prefix = "system.sms", name = "channel", havingValue = "ali", matchIfMissing = true)
+    @ConditionalOnProperty(prefix = "system.sms", name = "channel", matchIfMissing = true)
+    public SendSmsService defaultSmsService() {
+        return new DefaultSmsServiceImpl();
+    }
+
+    @Bean
+    @ConditionalOnProperty(prefix = "system.sms", name = "channel", havingValue = "ali")
     public SendSmsService aliSmsService(JsonService jsonService, SystemProperties systemProperties) {
         return new AliSmsServiceImpl(jsonService, systemProperties);
     }

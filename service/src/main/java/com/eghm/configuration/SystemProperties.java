@@ -237,9 +237,9 @@ public class SystemProperties {
     public static class Sms {
 
         /**
-         * 短信渠道
+         * 短信渠道-不配置默认只打印日志
          */
-        private SmsChannel smsChannel = SmsChannel.ALI;
+        private SmsChannel channel;
 
         /**
          * 签名信息
