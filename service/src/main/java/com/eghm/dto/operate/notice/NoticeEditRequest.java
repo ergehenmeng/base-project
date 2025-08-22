@@ -1,8 +1,6 @@
 package com.eghm.dto.operate.notice;
 
-import com.eghm.convertor.JoinerDeserializer;
 import com.eghm.validation.annotation.WordChecker;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

@@ -2,6 +2,7 @@ package com.eghm.common.impl;
 
 import cn.hutool.core.util.IdUtil;
 import com.eghm.cache.CacheService;
+import com.eghm.common.CommonService;
 import com.eghm.common.JsonService;
 import com.eghm.common.UserTokenService;
 import com.eghm.configuration.SystemProperties;
@@ -31,12 +32,14 @@ public class RedisUserTokenServiceImpl implements UserTokenService {
 
     private final CacheService cacheService;
 
+    private final CommonService commonService;
+
     private final SystemProperties systemProperties;
 
     @Override
-    public String createToken(SysUser user, List<String> authList, List<String> dataList) {
+    public String createToken(SysUser user, List<String> dataList) {
         SystemProperties.ManageProperties.Token tokenConfig = systemProperties.getManage().getToken();
-        String token = this.doCreateToken(user, tokenConfig.getExpire(), authList, dataList);
+        String token = this.doCreateToken(user, tokenConfig.getExpire(), dataList);
         this.clearSetToken(user.getId(), token);
         return tokenConfig.getTokenPrefix() + token;
     }
@@ -49,6 +52,7 @@ public class RedisUserTokenServiceImpl implements UserTokenService {
             return Optional.empty();
         }
         value.setToken(token);
+        value.setAuthList(commonService.getPermission(token));
         return Optional.of(value);
     }
 
@@ -57,6 +61,7 @@ public class RedisUserTokenServiceImpl implements UserTokenService {
         if (token == null) {
             return;
         }
+        commonService.clearPermission(token);
         cacheService.delete(CacheConstant.USER_TOKEN + token);
     }
 
@@ -65,11 +70,10 @@ public class RedisUserTokenServiceImpl implements UserTokenService {
      *
      * @param user          用户信息
      * @param expireSeconds 过期时间
-     * @param authList      权限信息
      * @param dataList      数据权限
      * @return jwtToken
      */
-    private String doCreateToken(SysUser user, int expireSeconds, List<String> authList, List<String> dataList) {
+    private String doCreateToken(SysUser user, int expireSeconds, List<String> dataList) {
         Map<String, Object> hashMap = new HashMap<>(16);
         hashMap.put("id", user.getId());
         hashMap.put("nickName", user.getNickName());
@@ -78,7 +82,6 @@ public class RedisUserTokenServiceImpl implements UserTokenService {
         }
         hashMap.put("userType", user.getUserType());
         hashMap.put("dataList", dataList);
-        hashMap.put("authList", authList);
         hashMap.put("deptCode", user.getDeptCode());
         String token = IdUtil.fastSimpleUUID();
         String key = CacheConstant.USER_TOKEN + token;

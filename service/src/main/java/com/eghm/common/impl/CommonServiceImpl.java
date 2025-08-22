@@ -4,8 +4,10 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.eghm.cache.CacheProxyService;
+import com.eghm.cache.CacheService;
 import com.eghm.common.CommonService;
 import com.eghm.configuration.SystemProperties;
+import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.mapper.SysAreaMapper;
 import com.eghm.vo.sys.ext.SysAreaVO;
@@ -24,6 +26,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Slf4j
 public class CommonServiceImpl implements CommonService {
+
+    private final CacheService cacheService;
 
     private final SysAreaMapper sysAreaMapper;
 
@@ -47,6 +51,21 @@ public class CommonServiceImpl implements CommonService {
     public String rsaDecrypt(String rsaStr) {
         RSA rsa = SecureUtil.rsa(systemProperties.getPrivateKey(), systemProperties.getPublicKey());
         return rsa.decryptStr(rsaStr, KeyType.PrivateKey);
+    }
+
+    @Override
+    public void savePermission(String token, List<String> permList) {
+        cacheService.setValue(CacheConstant.USER_PERMISSION + token, permList, systemProperties.getManage().getToken().getExpire());
+    }
+
+    @Override
+    public List<String> getPermission(String token) {
+        return cacheService.getList(CacheConstant.USER_PERMISSION + token, String.class);
+    }
+
+    @Override
+    public void clearPermission(String token) {
+        cacheService.delete(CacheConstant.USER_PERMISSION + token);
     }
 
     /**

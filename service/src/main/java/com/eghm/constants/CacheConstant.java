@@ -183,6 +183,11 @@ public class CacheConstant {
     public static final String USER_TOKEN = "user_token:";
 
     /**
+     * 管理后台用户按钮权限
+     */
+    public static final String USER_PERMISSION = "user_permission:";
+
+    /**
      * 用户token映射
      */
     public static final String USER_TOKEN_MAPPING = "user_token_mapping";

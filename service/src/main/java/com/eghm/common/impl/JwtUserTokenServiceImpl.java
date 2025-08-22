@@ -6,6 +6,7 @@ import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.eghm.common.CommonService;
 import com.eghm.common.UserTokenService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.dto.ext.UserToken;
@@ -26,12 +27,14 @@ import java.util.Optional;
 @AllArgsConstructor
 public class JwtUserTokenServiceImpl implements UserTokenService {
 
+    private final CommonService commonService;
+
     private final SystemProperties systemProperties;
 
     @Override
-    public String createToken(SysUser user, List<String> authList, List<String> dataList) {
+    public String createToken(SysUser user, List<String> dataList) {
         SystemProperties.ManageProperties.Token token = systemProperties.getManage().getToken();
-        return token.getTokenPrefix() + this.doCreateJwt(user, token.getExpire(), authList, dataList);
+        return token.getTokenPrefix() + this.doCreateJwt(user, token.getExpire(), dataList);
     }
 
     @Override
@@ -44,9 +47,9 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
             userToken.setUserType(UserType.of(verify.getClaim("userType").asInt()));
             userToken.setDataType(DataType.of(verify.getClaim("dataType").asInt()));
             userToken.setNickName(verify.getClaim("nickName").asString());
-            userToken.setAuthList(verify.getClaim("authList").asList(String.class));
             userToken.setDeptCode(verify.getClaim("deptCode").asString());
             userToken.setDataList(verify.getClaim("dataList").asList(String.class));
+            userToken.setAuthList(commonService.getPermission(token));
             userToken.setToken(token);
             return Optional.of(userToken);
         } catch (Exception e) {
@@ -57,6 +60,7 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
 
     @Override
     public void logout(String token) {
+        commonService.clearPermission(token);
         log.info("用户主动退出系统啦~ [{}]", token);
     }
 
@@ -65,19 +69,17 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
      *
      * @param user          用户信息
      * @param expireSeconds 过期时间
-     * @param authList      权限信息
      * @param dataList   数据权限
      * @return jwtToken
      */
-    private String doCreateJwt(SysUser user, int expireSeconds, List<String> authList, List<String> dataList) {
+    private String doCreateJwt(SysUser user, int expireSeconds, List<String> dataList) {
         JWTCreator.Builder builder = JWT.create();
         builder.withClaim("id", user.getId())
                 .withClaim("nickName", user.getNickName())
                 .withClaim("deptCode", user.getDeptCode())
                 .withClaim("userType", user.getUserType().getValue())
                 .withClaim("dataType", user.getDataType().getValue())
-                .withClaim("dataList", dataList)
-                .withClaim("authList", authList);
+                .withClaim("dataList", dataList);
         return builder.withExpiresAt(DateUtil.offsetSecond(DateUtil.date(), expireSeconds)).sign(this.getAlgorithm());
     }
 

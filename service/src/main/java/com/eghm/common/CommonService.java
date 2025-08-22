@@ -32,4 +32,27 @@ public interface CommonService {
      * @return rsa 解密后的字符串
      */
     String rsaDecrypt(String rsa);
+
+    /**
+     * 保存用户的按钮权限
+     *
+     * @param token token
+     * @param permList 权限列表
+     */
+    void savePermission(String token, List<String> permList);
+
+    /**
+     * 获取用户的按钮权限
+     *
+     * @param token token
+     * @return 权限列表
+     */
+    List<String> getPermission(String token);
+
+    /**
+     * 清除用户的按钮权限
+     *
+     * @param token token
+     */
+    void clearPermission(String token);
 }

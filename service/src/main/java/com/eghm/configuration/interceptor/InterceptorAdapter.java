@@ -15,6 +15,15 @@ import java.lang.annotation.Annotation;
  */
 public interface InterceptorAdapter extends HandlerInterceptor {
 
+    /**
+     * 前置拦截器
+     *
+     * @param request  current HTTP request
+     * @param response current HTTP response
+     * @param handler  chosen handler to execute, for type and/or instance evaluation
+     * @return true
+     * @throws Exception e
+     */
     @Override
     default boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception {
         if (!(handler instanceof HandlerMethod)) {
