@@ -1,6 +1,7 @@
 package com.eghm.configuration;
 
 import com.eghm.cache.CacheService;
+import com.eghm.common.CommonService;
 import com.eghm.common.JsonService;
 import com.eghm.common.UserTokenService;
 import com.eghm.common.impl.JwtUserTokenServiceImpl;
@@ -21,13 +22,13 @@ public class TokenConfig {
 
     @Bean
     @ConditionalOnProperty(prefix = "system.manage.token", name = "token-type", havingValue = "jwt")
-    public UserTokenService jwtAccessTokenService(SystemProperties systemProperties) {
-        return new JwtUserTokenServiceImpl(systemProperties);
+    public UserTokenService jwtAccessTokenService(CommonService commonService, SystemProperties systemProperties) {
+        return new JwtUserTokenServiceImpl(commonService, systemProperties);
     }
 
     @Bean
     @ConditionalOnProperty(prefix = "system.manage.token", name = "token-type", havingValue = "redis", matchIfMissing = true)
-    public UserTokenService redisAccessTokenService(SystemProperties systemProperties, CacheService cacheService, JsonService jsonService) {
-        return new RedisUserTokenServiceImpl(jsonService, cacheService, systemProperties);
+    public UserTokenService redisAccessTokenService(SystemProperties systemProperties, CommonService commonService, CacheService cacheService, JsonService jsonService) {
+        return new RedisUserTokenServiceImpl(jsonService, cacheService, commonService, systemProperties);
     }
 }

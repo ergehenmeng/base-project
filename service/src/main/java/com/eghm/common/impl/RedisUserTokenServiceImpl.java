@@ -2,6 +2,7 @@ package com.eghm.common.impl;
 
 import cn.hutool.core.util.IdUtil;
 import com.eghm.cache.CacheService;
+import com.eghm.common.CommonService;
 import com.eghm.common.JsonService;
 import com.eghm.common.UserTokenService;
 import com.eghm.configuration.SystemProperties;
@@ -31,6 +32,8 @@ public class RedisUserTokenServiceImpl implements UserTokenService {
 
     private final CacheService cacheService;
 
+    private final CommonService commonService;
+
     private final SystemProperties systemProperties;
 
     @Override
@@ -49,6 +52,7 @@ public class RedisUserTokenServiceImpl implements UserTokenService {
             return Optional.empty();
         }
         value.setToken(token);
+        value.setAuthList(commonService.getPermission(token));
         return Optional.of(value);
     }
 
@@ -57,6 +61,7 @@ public class RedisUserTokenServiceImpl implements UserTokenService {
         if (token == null) {
             return;
         }
+        commonService.clearPermission(token);
         cacheService.delete(CacheConstant.USER_TOKEN + token);
     }
 

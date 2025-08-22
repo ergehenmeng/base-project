@@ -6,6 +6,7 @@ import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.eghm.common.CommonService;
 import com.eghm.common.UserTokenService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.dto.ext.UserToken;
@@ -26,6 +27,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class JwtUserTokenServiceImpl implements UserTokenService {
 
+    private final CommonService commonService;
+
     private final SystemProperties systemProperties;
 
     @Override
@@ -44,9 +47,9 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
             userToken.setUserType(UserType.of(verify.getClaim("userType").asInt()));
             userToken.setDataType(DataType.of(verify.getClaim("dataType").asInt()));
             userToken.setNickName(verify.getClaim("nickName").asString());
-            userToken.setAuthList(verify.getClaim("authList").asList(String.class));
             userToken.setDeptCode(verify.getClaim("deptCode").asString());
             userToken.setDataList(verify.getClaim("dataList").asList(String.class));
+            userToken.setAuthList(commonService.getPermission(token));
             userToken.setToken(token);
             return Optional.of(userToken);
         } catch (Exception e) {
@@ -57,6 +60,7 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
 
     @Override
     public void logout(String token) {
+        commonService.clearPermission(token);
         log.info("用户主动退出系统啦~ [{}]", token);
     }
 
@@ -65,7 +69,6 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
      *
      * @param user          用户信息
      * @param expireSeconds 过期时间
-     * @param authList      权限信息
      * @param dataList      数据权限
      * @return jwtToken
      */
