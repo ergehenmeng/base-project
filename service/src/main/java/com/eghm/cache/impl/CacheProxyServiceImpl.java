@@ -49,7 +49,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     private final NoticeTemplateMapper noticeTemplateMapper;
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYS_AREA, key = "#root.methodName", unless = "#result.size() == 0")
+    @Cacheable(cacheNames = CacheConstant.SYS_AREA, unless = "#result.size() == 0")
     public List<SysAreaVO> getAreaList() {
         return sysAreaMapper.getList(null);
     }
@@ -61,13 +61,13 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.BANNER, cacheManager = "longCacheManager", key = "#channel.name() + #bannerType", unless = "#result.size() == 0")
+    @Cacheable(cacheNames = CacheConstant.BANNER, key = "#channel.name() + #p1", unless = "#result.size() == 0", cacheManager = "longCacheManager")
     public List<BannerVO> getBanner(Channel channel, Integer bannerType) {
-        return bannerMapper.getBannerList(bannerType, channel.name());
+        return bannerMapper.getBannerList(channel.name(), bannerType);
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.EMAIL_TEMPLATE, key = "#code.name()", cacheManager = "longCacheManager", unless = "#result == null")
+    @Cacheable(cacheNames = CacheConstant.EMAIL_TEMPLATE, key = "#code.value", unless = "#result == null", cacheManager = "longCacheManager")
     public EmailTemplate getEmailTemplate(EmailType code) {
         LambdaQueryWrapper<EmailTemplate> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(EmailTemplate::getNid, code.name());
@@ -76,7 +76,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.IN_MAIL_TEMPLATE, key = "#p0", cacheManager = "longCacheManager", unless = "#result == null")
+    @Cacheable(cacheNames = CacheConstant.IN_MAIL_TEMPLATE, key = "#p0", unless = "#result == null", cacheManager = "longCacheManager")
     public NoticeTemplate getNoticeTemplate(String code) {
         LambdaQueryWrapper<NoticeTemplate> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(NoticeTemplate::getCode, code);
@@ -85,13 +85,13 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYS_NOTICE, cacheManager = "longCacheManager", unless = "#result.size() == 0")
+    @Cacheable(cacheNames = CacheConstant.SYS_NOTICE, unless = "#result.size() == 0", cacheManager = "longCacheManager")
     public List<SysNotice> getNoticeList(int limit) {
         return sysNoticeMapper.getTopList(limit);
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYS_CONFIG, key = "#p0", unless = "#result == null")
+    @Cacheable(cacheNames = CacheConstant.SYS_CONFIG, key = "#p0", unless = "#result == null", cacheManager = "longCacheManager")
     public String getConfigByNid(String nid) {
         LambdaQueryWrapper<SysConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysConfig::getNid, nid);
@@ -101,7 +101,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYS_DICT, key = "#p0", unless = "#result.size() == 0")
+    @Cacheable(cacheNames = CacheConstant.SYS_DICT, key = "#p0", unless = "#result.size() == 0", cacheManager = "longCacheManager")
     public List<SysDictItem> getDictByNid(String nid) {
         LambdaQueryWrapper<SysDictItem> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysDictItem::getNid, nid);
@@ -109,7 +109,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.AUTH_CONFIG, key = "#appKey", unless = "#result == null")
+    @Cacheable(cacheNames = CacheConstant.AUTH_CONFIG, key = "#appKey", unless = "#result == null", cacheManager = "longCacheManager")
     public AuthConfigVO getByAppKey(String appKey) {
         return authConfigMapper.getByAppKey(appKey);
     }
