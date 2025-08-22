@@ -29,9 +29,9 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
     private final SystemProperties systemProperties;
 
     @Override
-    public String createToken(SysUser user, List<String> authList, List<String> dataList) {
+    public String createToken(SysUser user, List<String> dataList) {
         SystemProperties.ManageProperties.Token token = systemProperties.getManage().getToken();
-        return token.getTokenPrefix() + this.doCreateJwt(user, token.getExpire(), authList, dataList);
+        return token.getTokenPrefix() + this.doCreateJwt(user, token.getExpire(), dataList);
     }
 
     @Override
@@ -69,15 +69,14 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
      * @param dataList      数据权限
      * @return jwtToken
      */
-    private String doCreateJwt(SysUser user, int expireSeconds, List<String> authList, List<String> dataList) {
+    private String doCreateJwt(SysUser user, int expireSeconds, List<String> dataList) {
         JWTCreator.Builder builder = JWT.create();
         builder.withClaim("id", user.getId())
                 .withClaim("nickName", user.getNickName())
                 .withClaim("deptCode", user.getDeptCode())
                 .withClaim("userType", user.getUserType().getValue())
                 .withClaim("dataType", user.getDataType().getValue())
-                .withClaim("dataList", dataList)
-                .withClaim("authList", authList);
+                .withClaim("dataList", dataList);
         return builder.withExpiresAt(DateUtil.offsetSecond(DateUtil.date(), expireSeconds)).sign(this.getAlgorithm());
     }
 

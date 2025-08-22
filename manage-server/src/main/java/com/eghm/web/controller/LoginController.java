@@ -16,6 +16,7 @@ import com.eghm.enums.LoginType;
 import com.eghm.exception.BusinessException;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.IpUtil;
+import com.eghm.vo.login.LoginMenuResponse;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.login.TotpLoginResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,10 +26,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -76,6 +74,14 @@ public class LoginController {
     @Operation(summary = "绑定双因子验证❷")
     public RespBody<LoginResponse> bindTotp(@Validated @RequestBody TotpBindRequest request) {
         LoginResponse response = sysUserService.bindTotp(request);
+        return RespBody.success(response);
+    }
+
+    @SkipPerm
+    @GetMapping("/permission")
+    @Operation(summary = "获取登录菜单")
+    public RespBody<LoginMenuResponse> getPermission() {
+        LoginMenuResponse response = sysUserService.getPermission();
         return RespBody.success(response);
     }
 

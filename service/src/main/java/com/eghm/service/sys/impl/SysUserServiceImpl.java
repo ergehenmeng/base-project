@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
+import com.eghm.common.CommonService;
 import com.eghm.common.SmsService;
 import com.eghm.common.UserTokenService;
 import com.eghm.common.impl.SysConfigApi;
@@ -18,6 +19,7 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.sys.login.SmsLoginRequest;
 import com.eghm.dto.sys.login.TotpBindRequest;
 import com.eghm.dto.sys.login.TotpCheckRequest;
@@ -36,6 +38,7 @@ import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.TotpUtil;
+import com.eghm.vo.login.LoginMenuResponse;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.login.TotpLoginResponse;
 import com.eghm.vo.sys.menu.MenuResponse;
@@ -71,6 +74,8 @@ public class SysUserServiceImpl implements SysUserService {
     private final SysConfigApi sysConfigApi;
 
     private final SysUserMapper sysUserMapper;
+
+    private final CommonService commonService;
 
     private final SysRoleService sysRoleService;
 
@@ -247,20 +252,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public LoginResponse doLogin(SysUser user) {
-        UserType userType = user.getUserType();
-        // 如果用户拥有超管角色,则默认查询全部菜单等信息
-        List<MenuResponse> leftMenu;
-        List<String> buttonList;
-        if (userType == UserType.ADMINISTRATOR) {
-            leftMenu = sysMenuService.getAdminLeftMenuList();
-            buttonList = sysMenuService.getAdminPermCode();
-        } else {
-            leftMenu = sysMenuService.getLeftMenuList(user.getId());
-            buttonList = sysMenuService.getPermCode(user.getId());
-        }
         // 数据权限(此处没有判断,逻辑不够严谨,仅仅为了代码简洁)
         List<String> customList = sysDataDeptService.getDeptList(user.getId());
-        String token = userTokenService.createToken(user, buttonList, customList);
+        String token = userTokenService.createToken(user, customList);
         String systemName = sysConfigApi.getString(ConfigConstant.SYSTEM_NAME);
         LoginResponse response = new LoginResponse();
         response.setToken(token);
@@ -268,14 +262,32 @@ public class SysUserServiceImpl implements SysUserService {
         response.setUserName(user.getUserName());
         response.setSystemName(systemName);
         response.setNickName(user.getNickName());
-        response.setPermList(buttonList);
         response.setUserType(user.getUserType());
-        response.setMenuList(leftMenu);
         response.setInit(user.getInitPwd().equals(user.getPwd()));
         response.setExpire(user.getPwdUpdateTime().plusDays(CommonConstant.PWD_UPDATE_TIPS).isBefore(LocalDateTime.now()));
         cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
         LOGIN_LOCK_CACHE.invalidate(user.getMobile());
         LOGIN_LOCK_CACHE.invalidate(user.getUserName());
+        return response;
+    }
+
+    @Override
+    public LoginMenuResponse getPermission() {
+        UserToken userToken = SecurityHolder.getUserRequired();
+        LoginMenuResponse response = new LoginMenuResponse();
+        // 如果用户拥有超管角色,则默认查询全部菜单等信息
+        List<MenuResponse> leftMenu;
+        List<String> buttonList;
+        if (userToken.getUserType() == UserType.ADMINISTRATOR) {
+            leftMenu = sysMenuService.getAdminLeftMenuList();
+            buttonList = sysMenuService.getAdminPermCode();
+        } else {
+            buttonList = sysMenuService.getPermCode(userToken.getId());
+            leftMenu = sysMenuService.getLeftMenuList(userToken.getId());
+        }
+        commonService.savePermission(userToken.getToken(), buttonList);
+        response.setMenuList(leftMenu);
+        response.setPermList(buttonList);
         return response;
     }
 

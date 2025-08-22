@@ -55,7 +55,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYS_AREA_ID, key = "#id", unless = "#result == null")
+    @Cacheable(cacheNames = CacheConstant.SYS_AREA_ID, key = "#p0", unless = "#result == null")
     public SysArea getAreaById(Long id) {
         return sysAreaMapper.selectById(id);
     }
@@ -109,10 +109,9 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.AUTH_CONFIG, key = "#appKey", unless = "#result == null", cacheManager = "longCacheManager")
+    @Cacheable(cacheNames = CacheConstant.AUTH_CONFIG, key = "#p0", unless = "#result == null", cacheManager = "longCacheManager")
     public AuthConfigVO getByAppKey(String appKey) {
         return authConfigMapper.getByAppKey(appKey);
     }
-
 
 }

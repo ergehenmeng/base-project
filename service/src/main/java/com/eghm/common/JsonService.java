@@ -2,6 +2,8 @@ package com.eghm.common;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import java.util.List;
+
 /**
  * @author 殿小二
  * @since 2020/8/28
@@ -35,5 +37,15 @@ public interface JsonService {
      * @return obj
      */
     <T> T fromJson(String json, TypeReference<T> reference);
+
+    /**
+     * 将json转换为对象 list格式
+     *
+     * @param json json
+     * @param cls  cls
+     * @param <T>  <T> T
+     * @return list
+     */
+    <T> List<T> fromJsonList(String json, Class<T> cls);
 
 }

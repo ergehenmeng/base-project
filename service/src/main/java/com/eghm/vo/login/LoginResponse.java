@@ -1,12 +1,9 @@
 package com.eghm.vo.login;
 
 import com.eghm.enums.UserType;
-import com.eghm.vo.sys.menu.MenuResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -39,10 +36,4 @@ public class LoginResponse {
 
     @Schema(description = "密码是否过期(90天没修改即过期)")
     private Boolean expire;
-
-    @Schema(description = "按钮权限列表")
-    private List<String> permList;
-
-    @Schema(description = "菜单权限列表")
-    private List<MenuResponse> menuList;
 }

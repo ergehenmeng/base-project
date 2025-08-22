@@ -64,6 +64,21 @@ public class CommonServiceImpl implements CommonService {
         return rsa.decryptStr(rsaStr, KeyType.PrivateKey);
     }
 
+    @Override
+    public void savePermission(String token, List<String> permList) {
+        cacheService.setValue(CacheConstant.USER_PERMISSION + token, permList, systemProperties.getManage().getToken().getExpire());
+    }
+
+    @Override
+    public List<String> getPermission(String token) {
+        return cacheService.getList(CacheConstant.USER_PERMISSION + token, String.class);
+    }
+
+    @Override
+    public void clearPermission(String token) {
+        cacheService.delete(CacheConstant.USER_PERMISSION + token);
+    }
+
     /**
      * 设置子节点
      *

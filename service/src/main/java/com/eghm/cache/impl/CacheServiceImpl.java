@@ -11,11 +11,13 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.lock.RedisLock;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
@@ -208,4 +210,12 @@ public class CacheServiceImpl implements CacheService {
         return Boolean.TRUE.equals(redisTemplate.opsForValue().getBit(key, ops));
     }
 
+    @Override
+    public <T> List<T> getList(String key, Class<T> cls) {
+        String value = this.getValue(key);
+        if (value == null) {
+            return Lists.newArrayList();
+        }
+        return jsonService.fromJsonList(value, cls);
+    }
 }

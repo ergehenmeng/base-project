@@ -10,6 +10,7 @@ import com.eghm.dto.sys.user.UserEditRequest;
 import com.eghm.dto.sys.user.UserQueryRequest;
 import com.eghm.enums.UserState;
 import com.eghm.model.SysUser;
+import com.eghm.vo.login.LoginMenuResponse;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.login.TotpLoginResponse;
 import com.eghm.vo.sys.user.UserResponse;
@@ -150,6 +151,13 @@ public interface SysUserService {
      * @return 返回前端信息
      */
     LoginResponse doLogin(SysUser user);
+
+    /**
+     * 获取当前登录人的菜单
+     *
+     * @return 菜单
+     */
+    LoginMenuResponse getPermission();
 
     /**
      * 解绑totp

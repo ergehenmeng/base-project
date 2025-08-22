@@ -3,6 +3,7 @@ package com.eghm.cache;
 import com.eghm.constants.CommonConstant;
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
@@ -188,5 +189,14 @@ public interface CacheService {
      */
     boolean getBitmap(String key, Long ops);
 
+    /**
+     * 获取list
+     *
+     * @param key key
+     * @param cls list 泛型
+     * @param <T> T
+     * @return list
+     */
+    <T> List<T> getList(String key, Class<T> cls);
 }
 
