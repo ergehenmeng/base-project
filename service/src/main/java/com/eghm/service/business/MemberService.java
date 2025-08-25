@@ -235,4 +235,11 @@ public interface MemberService {
      * @return 人数
      */
     List<MemberRegisterVO> dayRegister(DateRequest request);
+
+    /**
+     * 发送短信
+     *
+     * @param request 通知信息
+     */
+    void sendSms(SendSmsRequest request);
 }
