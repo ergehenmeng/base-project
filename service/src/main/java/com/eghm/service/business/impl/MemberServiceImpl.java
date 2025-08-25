@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.crypto.SecureUtil;
@@ -10,6 +11,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
 import com.eghm.common.EmailService;
 import com.eghm.common.MemberTokenService;
+import com.eghm.common.SendSmsService;
 import com.eghm.common.SmsService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.encoder.Encoder;
@@ -91,6 +93,8 @@ public class MemberServiceImpl implements MemberService {
     private final MemberMapper memberMapper;
 
     private final CacheService cacheService;
+
+    private final SendSmsService sendSmsService;
 
     private final MessageService messageService;
 
@@ -369,6 +373,19 @@ public class MemberServiceImpl implements MemberService {
         } else {
             Map<LocalDate, MemberRegisterVO> voMap = voList.stream().collect(Collectors.toMap(MemberRegisterVO::getCreateDate, Function.identity()));
             return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), MemberRegisterVO::new);
+        }
+    }
+
+    @Override
+    public void sendSms(SendSmsRequest request) {
+        List<String> mobileList = memberMapper.getMobile(request.getMemberIds());
+        if (CollUtil.isEmpty(mobileList)) {
+            return;
+        }
+        if (isBlank(request.getParams())) {
+            sendSmsService.sendSms(mobileList, TemplateType.of(request.getTemplateId()));
+        } else {
+            sendSmsService.sendSms(mobileList, TemplateType.of(request.getTemplateId()), request.getParams().split(CommonConstant.COMMA));
         }
     }
 

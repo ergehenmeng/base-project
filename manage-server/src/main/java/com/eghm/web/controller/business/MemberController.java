@@ -5,6 +5,7 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.member.LoginLogQueryRequest;
 import com.eghm.dto.business.member.MemberQueryRequest;
 import com.eghm.dto.business.member.SendNotifyRequest;
+import com.eghm.dto.business.member.SendSmsRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.MemberState;
@@ -87,6 +88,13 @@ public class MemberController {
     @Operation(summary = "发送通知")
     public RespBody<Void> sendNotice(@Validated @RequestBody SendNotifyRequest request) {
         memberNoticeService.sendNoticeBatch(request);
+        return RespBody.success();
+    }
+
+    @PostMapping(value = "/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "发送消息")
+    public RespBody<Void> sendSms(@Validated @RequestBody SendSmsRequest request) {
+        memberService.sendSms(request);
         return RespBody.success();
     }
 
