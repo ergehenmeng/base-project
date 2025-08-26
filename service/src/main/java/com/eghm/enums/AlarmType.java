@@ -11,11 +11,6 @@ import lombok.Getter;
 public enum AlarmType {
 
     /**
-     * 默认
-     */
-    DEFAULT,
-
-    /**
      * 钉钉报警通知
      */
     DING_TALK,

@@ -91,7 +91,7 @@ public class SystemProperties {
         /**
          * 阿里oss
          */
-        private AliOss oss = new AliOss();
+        private final AliOss oss = new AliOss();
 
     }
 
@@ -349,7 +349,7 @@ public class SystemProperties {
         /**
          * 消息通知类型
          */
-        private AlarmType alarmType = AlarmType.DEFAULT;
+        private AlarmType alarmType;
 
         /**
          * 钉钉消息通知AccessToken或者飞书通知webHook地址

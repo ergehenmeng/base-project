@@ -182,7 +182,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
     @Bean
     public AlarmService alarmService(JsonService jsonService) {
         SystemProperties.AlarmMsg alarmMsg = systemProperties.getAlarmMsg();
-        if (alarmMsg.getAlarmType() == AlarmType.DEFAULT) {
+        if (alarmMsg.getAlarmType() == null) {
             return new DefaultAlarmServiceImpl();
         }
         if (StringUtil.isNotBlank(alarmMsg.getWebHook())) {
