@@ -52,7 +52,6 @@ public class RedisUserTokenServiceImpl implements UserTokenService {
             return Optional.empty();
         }
         value.setToken(token);
-        value.setAuthList(commonService.getPermission(token));
         return Optional.of(value);
     }
 

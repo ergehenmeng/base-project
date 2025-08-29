@@ -2,6 +2,7 @@ package com.eghm.web.configuration.interceptor;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.annotation.SkipPerm;
+import com.eghm.common.CommonService;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
@@ -33,6 +34,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class PermInterceptor implements InterceptorAdapter {
 
     private static final Map<String, List<String>> PERM_MAP = new ConcurrentHashMap<>(256);
+
+    private final CommonService commonService;
 
     private final SysMenuService sysMenuService;
 
@@ -71,7 +74,7 @@ public class PermInterceptor implements InterceptorAdapter {
      */
     private boolean match(HttpServletRequest request) {
         UserToken userToken = SecurityHolder.getUserRequired();
-        List<String> codeList = userToken.getAuthList();
+        List<String> codeList = commonService.getPermission(userToken.getToken());
         List<String> codes = PERM_MAP.get(request.getRequestURI());
         return CollUtil.isNotEmpty(codeList) && CollUtil.isNotEmpty(codes) && CollUtil.containsAny(codeList, codes);
     }
