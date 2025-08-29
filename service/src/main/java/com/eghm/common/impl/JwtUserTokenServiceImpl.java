@@ -49,7 +49,6 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
             userToken.setNickName(verify.getClaim("nickName").asString());
             userToken.setDeptCode(verify.getClaim("deptCode").asString());
             userToken.setDataList(verify.getClaim("dataList").asList(String.class));
-            userToken.setAuthList(commonService.getPermission(token));
             userToken.setToken(token);
             return Optional.of(userToken);
         } catch (Exception e) {

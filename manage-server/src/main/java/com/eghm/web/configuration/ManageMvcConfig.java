@@ -1,6 +1,7 @@
 package com.eghm.web.configuration;
 
 import com.eghm.cache.CacheService;
+import com.eghm.common.CommonService;
 import com.eghm.common.UserTokenService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
@@ -31,16 +32,19 @@ public class ManageMvcConfig extends WebMvcConfig {
 
     private final CacheService cacheService;
 
+    private final CommonService commonService;
+
     private final SysMenuService sysMenuService;
 
     private final UserTokenService userTokenService;
 
     public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, UserTokenService userTokenService,
-                           SysMenuService sysMenuService, CacheService cacheService, @Qualifier("taskExecutor") TaskExecutor taskExecutor) {
+                           SysMenuService sysMenuService, CacheService cacheService, @Qualifier("taskExecutor") TaskExecutor taskExecutor, CommonService commonService) {
         super(objectMapper, taskExecutor, systemProperties);
         this.cacheService = cacheService;
         this.sysMenuService = sysMenuService;
         this.userTokenService = userTokenService;
+        this.commonService = commonService;
     }
 
     @Override
@@ -64,7 +68,7 @@ public class ManageMvcConfig extends WebMvcConfig {
      */
     @Bean
     public PermInterceptor permInterceptor() {
-        return new PermInterceptor(sysMenuService);
+        return new PermInterceptor(commonService, sysMenuService);
     }
 
     /**
