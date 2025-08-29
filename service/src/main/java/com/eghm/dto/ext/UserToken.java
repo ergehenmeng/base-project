@@ -34,9 +34,6 @@ public class UserToken {
     @Schema(description = "用户所拥有权限部门编号(平台用户专属)")
     private List<String> dataList;
 
-    @Schema(description = "权限标示符")
-    private List<String> authList;
-
     @Schema(description = "登录token")
     private String token;
 }
