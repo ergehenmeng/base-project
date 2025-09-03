@@ -49,7 +49,7 @@ public class UserController {
     @Operation(summary = "列表")
     public RespBody<PageData<UserResponse>> listPage(@ParameterObject UserQueryRequest request) {
         Page<UserResponse> page = sysUserService.getByPage(request);
-        return RespBody.success(PageData.toPage(page));
+        return RespBody.success(PageData.convert(page));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -33,7 +33,7 @@ public class SmsLogController {
     @Operation(summary = "列表")
     public RespBody<PageData<SmsLogResponse>> listPage(@ParameterObject SmsLogQueryRequest request) {
         Page<SmsLogResponse> byPage = smsLogService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return RespBody.success(PageData.convert(byPage));
     }
 
 }

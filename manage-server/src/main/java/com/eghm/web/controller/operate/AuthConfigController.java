@@ -37,7 +37,7 @@ public class AuthConfigController {
     @Operation(summary = "列表")
     public RespBody<PageData<AuthConfigResponse>> listPage(@ParameterObject AuthConfigQueryRequest request) {
         Page<AuthConfigResponse> byPage = authConfigService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return RespBody.success(PageData.convert(byPage));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)

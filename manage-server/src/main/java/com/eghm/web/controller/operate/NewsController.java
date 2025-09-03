@@ -37,7 +37,7 @@ public class NewsController {
     @GetMapping("/listPage")
     public RespBody<PageData<NewsResponse>> getByPage(@ParameterObject @Validated NewsQueryRequest request) {
         Page<NewsResponse> scenicPage = newsService.getByPage(request);
-        return RespBody.success(PageData.toPage(scenicPage));
+        return RespBody.success(PageData.convert(scenicPage));
     }
 
     @Operation(summary = "新增")

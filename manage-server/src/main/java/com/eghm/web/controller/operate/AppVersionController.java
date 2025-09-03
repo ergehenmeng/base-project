@@ -34,7 +34,7 @@ public class AppVersionController {
     @Operation(summary = "列表")
     public RespBody<PageData<AppVersionResponse>> listPage(@ParameterObject VersionQueryRequest request) {
         Page<AppVersionResponse> byPage = appVersionService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return RespBody.success(PageData.convert(byPage));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)

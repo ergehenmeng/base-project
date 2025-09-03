@@ -46,7 +46,7 @@ public class MemberController {
     @Operation(summary = "列表")
     public RespBody<PageData<MemberResponse>> listPage(@ParameterObject MemberQueryRequest request) {
         Page<MemberResponse> byPage = memberService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return RespBody.success(PageData.convert(byPage));
     }
 
     @PostMapping(value = "/freeze", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -81,7 +81,7 @@ public class MemberController {
     @Operation(summary = "登录日志列表")
     public RespBody<PageData<LoginLog>> loginPage(@ParameterObject @Validated LoginLogQueryRequest request) {
         Page<LoginLog> byPage = loginService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return RespBody.success(PageData.convert(byPage));
     }
 
     @PostMapping(value = "/sendNotice", consumes = MediaType.APPLICATION_JSON_VALUE)

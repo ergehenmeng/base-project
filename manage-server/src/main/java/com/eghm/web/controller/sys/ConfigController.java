@@ -32,7 +32,7 @@ public class ConfigController {
     @Operation(summary = "列表")
     public RespBody<PageData<SysConfigResponse>> listPage(@ParameterObject ConfigQueryRequest request) {
         Page<SysConfigResponse> listByPage = sysConfigService.getByPage(request);
-        return RespBody.success(PageData.toPage(listByPage));
+        return RespBody.success(PageData.convert(listByPage));
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)

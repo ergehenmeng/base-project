@@ -32,6 +32,6 @@ public class WebappLogController {
     @Operation(summary = "列表")
     public RespBody<PageData<WebappLogResponse>> listPage(@ParameterObject @Validated WebappQueryRequest request) {
         Page<WebappLogResponse> page = webappLogService.getByPage(request);
-        return RespBody.success(PageData.toPage(page));
+        return RespBody.success(PageData.convert(page));
     }
 }

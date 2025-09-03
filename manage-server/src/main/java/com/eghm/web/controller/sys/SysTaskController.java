@@ -35,7 +35,7 @@ public class SysTaskController {
     @Operation(summary = "列表")
     public RespBody<PageData<SysTaskResponse>> listPage(@ParameterObject TaskQueryRequest request) {
         Page<SysTaskResponse> byPage = sysTaskService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return RespBody.success(PageData.convert(byPage));
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)

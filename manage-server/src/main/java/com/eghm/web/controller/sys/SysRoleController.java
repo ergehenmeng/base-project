@@ -39,7 +39,7 @@ public class SysRoleController {
     @Operation(summary = "角色列表(分页)")
     public RespBody<PageData<SysRoleResponse>> listPage(@ParameterObject PagingQuery request) {
         Page<SysRoleResponse> page = sysRoleService.getByPage(request);
-        return RespBody.success(PageData.toPage(page));
+        return RespBody.success(PageData.convert(page));
     }
 
     @GetMapping("/list")

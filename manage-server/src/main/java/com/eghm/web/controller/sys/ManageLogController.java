@@ -31,7 +31,7 @@ public class ManageLogController {
     @Operation(summary = "列表")
     public RespBody<PageData<ManageLogResponse>> listPage(@ParameterObject ManageQueryRequest request) {
         Page<ManageLogResponse> byPage = manageLogService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return RespBody.success(PageData.convert(byPage));
     }
 
 }

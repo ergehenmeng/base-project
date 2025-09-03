@@ -37,7 +37,7 @@ public class HelpCenterController {
     @Operation(summary = "列表")
     public RespBody<PageData<HelpResponse>> listPage(@ParameterObject @Validated HelpQueryRequest request) {
         Page<HelpResponse> byPage = helpCenterService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return RespBody.success(PageData.convert(byPage));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)

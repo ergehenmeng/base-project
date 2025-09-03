@@ -33,7 +33,7 @@ public class ImageLogController {
     @Operation(summary = "图片列表(分页)")
     public RespBody<PageData<ImageLogResponse>> listPage(@ParameterObject ImageQueryRequest request) {
         Page<ImageLogResponse> page = imageLogService.getByPage(request);
-        return RespBody.success(PageData.toPage(page));
+        return RespBody.success(PageData.convert(page));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)

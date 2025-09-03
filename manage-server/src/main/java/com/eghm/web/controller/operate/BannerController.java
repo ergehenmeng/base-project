@@ -35,7 +35,7 @@ public class BannerController {
     @Operation(summary = "列表")
     public RespBody<PageData<BannerResponse>> listPage(@ParameterObject BannerQueryRequest request) {
         Page<BannerResponse> byPage = bannerService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return RespBody.success(PageData.convert(byPage));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)

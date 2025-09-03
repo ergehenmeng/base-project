@@ -34,7 +34,7 @@ public class SysNoticeController {
     @GetMapping("/listPage")
     public RespBody<PageData<NoticeResponse>> listPage(@ParameterObject NoticeQueryRequest request) {
         Page<NoticeResponse> byPage = sysNoticeService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return RespBody.success(PageData.convert(byPage));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -31,7 +31,7 @@ public class EmailTemplateController {
     @Operation(summary = "列表")
     public RespBody<PageData<EmailTemplate>> listPage(@ParameterObject PagingQuery request) {
         Page<EmailTemplate> byPage = emailTemplateService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return RespBody.success(PageData.convert(byPage));
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)

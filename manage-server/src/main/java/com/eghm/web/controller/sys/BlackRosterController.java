@@ -32,7 +32,7 @@ public class BlackRosterController {
     @Operation(summary = "列表")
     public RespBody<PageData<BlackRoster>> listPage(@ParameterObject PagingQuery request) {
         Page<BlackRoster> listByPage = blackRosterService.getByPage(request);
-        return RespBody.success(PageData.toPage(listByPage));
+        return RespBody.success(PageData.convert(listByPage));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -37,14 +37,14 @@ public class CommentController {
     @Operation(summary = "列表")
     public RespBody<PageData<CommentResponse>> listPage(@ParameterObject CommentQueryRequest request) {
         Page<CommentResponse> byPage = commentService.listPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return RespBody.success(PageData.convert(byPage));
     }
 
     @GetMapping("/report/listPage")
     @Operation(summary = "举报列表")
     public RespBody<PageData<CommentReportResponse>> reportListPage(@ParameterObject CommentReportQueryRequest request) {
         Page<CommentReportResponse> byPage = commentReportService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return RespBody.success(PageData.convert(byPage));
     }
 
     @PostMapping(value = "/shield", consumes = MediaType.APPLICATION_JSON_VALUE)

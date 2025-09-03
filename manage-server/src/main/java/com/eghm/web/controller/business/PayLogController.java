@@ -39,14 +39,14 @@ public class PayLogController {
     @Operation(summary = "支付同步请求日志列表")
     public RespBody<PageData<PayRequestLogResponse>> syncListPage(@ParameterObject PayLogQueryRequest request) {
         Page<PayRequestLogResponse> logPage = payRequestLogService.getByPage(request);
-        return RespBody.success(PageData.toPage(logPage));
+        return RespBody.success(PageData.convert(logPage));
     }
 
     @GetMapping("/async/listPage")
     @Operation(summary = "支付异步响应日志列表")
     public RespBody<PageData<PayNotifyLogResponse>> asyncListPage(@ParameterObject PayLogQueryRequest request) {
         Page<PayNotifyLogResponse> logPage = payNotifyLogService.getByPage(request);
-        return RespBody.success(PageData.toPage(logPage));
+        return RespBody.success(PageData.convert(logPage));
     }
 
     @PostMapping("/async/playback")

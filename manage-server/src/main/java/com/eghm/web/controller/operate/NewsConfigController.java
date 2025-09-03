@@ -38,7 +38,7 @@ public class NewsConfigController {
     @GetMapping("/listPage")
     public RespBody<PageData<NewsConfig>> getByPage(@ParameterObject PagingQuery request) {
         Page<NewsConfig> scenicPage = newsConfigService.getByPage(request);
-        return RespBody.success(PageData.toPage(scenicPage));
+        return RespBody.success(PageData.convert(scenicPage));
     }
 
     @Operation(summary = "创建")

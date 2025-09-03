@@ -36,7 +36,7 @@ public class PageData<T> {
      * @param <T>  T
      * @return data
      */
-    public static <T> PageData<T> toPage(Page<T> info) {
+    public static <T> PageData<T> convert(Page<T> info) {
         PageData<T> pageData = new PageData<>();
         pageData.total = (int) info.getTotal();
         pageData.rows = info.getRecords();

@@ -35,7 +35,7 @@ public class SysTaskLogController {
     @Operation(summary = "列表")
     public RespBody<PageData<SysTaskLogResponse>> listPage(@ParameterObject TaskLogQueryRequest request) {
         Page<SysTaskLogResponse> byPage = sysTaskLogService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return RespBody.success(PageData.convert(byPage));
     }
 
     @GetMapping("/select")

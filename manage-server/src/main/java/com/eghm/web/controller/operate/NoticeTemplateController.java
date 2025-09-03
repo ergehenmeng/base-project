@@ -31,7 +31,7 @@ public class NoticeTemplateController {
     @Operation(summary = "列表")
     public RespBody<PageData<NoticeTemplate>> listPage(@ParameterObject PagingQuery request) {
         Page<NoticeTemplate> byPage = noticeTemplateService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return RespBody.success(PageData.convert(byPage));
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
