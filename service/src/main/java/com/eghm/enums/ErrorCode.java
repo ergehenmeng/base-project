@@ -71,9 +71,19 @@ public enum ErrorCode {
     SPLIT_ERROR(1001, "数据类型绑定异常"),
 
     /**
+     * 文件类型只支持%s
+     */
+    FILE_TYPE_SUPPORT(1001, "文件类型只支持%s"),
+
+    /**
+     * 文件类型异常
+     */
+    FILE_TYPE_ERROR(1002, "文件类型异常"),
+
+    /**
      * ExcelSpinner未配置加载项
      */
-    SPINNER_ERROR(1002, "@ExcelSpinner未配置加载项"),
+    SPINNER_ERROR(1004, "@ExcelSpinner未配置加载项"),
 
     /**
      * 地址不支持%s请求

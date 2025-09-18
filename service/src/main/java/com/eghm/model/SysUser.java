@@ -19,6 +19,9 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class SysUser extends BaseEntity {
 
+    @Schema(description = "头像")
+    private String avatar;
+
     @Schema(description = "用户姓名")
     private String nickName;
 

@@ -48,6 +48,11 @@ public class SystemFileServiceImpl implements FileService {
     }
 
     @Override
+    public FilePath saveFile(String key, MultipartFile file, String folder) {
+        return this.saveFile(key, file, folder, sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
+    }
+
+    @Override
     public FilePath saveFile(String key, MultipartFile file, String folder, long maxSize) {
         this.checkSize(file, maxSize);
         Long present = CacheUtil.UPLOAD_LIMIT_CACHE.getIfPresent(key);
@@ -57,7 +62,7 @@ public class SystemFileServiceImpl implements FileService {
             alarmService.sendMsg(String.format("系统单日上传文件超出限制,请注意监控, 用户:%s 今日累计上传:%s", key, (size / 1024 / 1024) + "M"));
         }
         String path = this.doSaveFile(file, folder);
-        FilePath build = new FilePath(path, this.getFileAddress(), file.getSize());
+        FilePath build = new FilePath(path, this.getFileHost(), file.getSize());
         CacheUtil.UPLOAD_LIMIT_CACHE.put(key, size);
         return build;
     }
@@ -122,7 +127,7 @@ public class SystemFileServiceImpl implements FileService {
         return systemProperties.getUploadPath() + filePath;
     }
 
-    private String getFileAddress() {
-        return sysConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS);
+    private String getFileHost() {
+        return sysConfigApi.getString(ConfigConstant.FILE_SERVER_HOST);
     }
 }

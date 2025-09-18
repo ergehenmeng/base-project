@@ -4,9 +4,11 @@ import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.annotation.SkipPerm;
 import com.eghm.cache.CacheService;
+import com.eghm.common.FileService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.ext.FilePath;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.configuration.security.SecurityHolder;
@@ -17,15 +19,19 @@ import com.eghm.model.SysUser;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.FileUtil;
 import com.eghm.vo.sys.user.UserDetailResponse;
 import com.eghm.vo.sys.user.UserResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -38,6 +44,8 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping(value = "/manage/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
+
+    private final FileService fileService;
 
     private final CacheService cacheService;
 
@@ -139,4 +147,14 @@ public class UserController {
         return RespBody.success();
     }
 
+    @PostMapping(value = "/avatar/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Parameter(name = "file", description = "file流", required = true, schema = @Schema(type = "string", format = "binary"))
+    @Operation(summary = "头像上传")
+    @SkipPerm
+    public RespBody<FilePath> avatarUpload(@RequestParam("file") MultipartFile file) {
+        FileUtil.checkFileType(file, "png", "jpg", "jpeg");
+        FilePath filePath = fileService.saveFile(CommonConstant.MANAGE + SecurityHolder.getUserId(), file, CommonConstant.AVATAR_FOLDER);
+        sysUserService.updateAvatar(SecurityHolder.getUserId(), filePath.host() + filePath.path());
+        return RespBody.success(filePath);
+    }
 }

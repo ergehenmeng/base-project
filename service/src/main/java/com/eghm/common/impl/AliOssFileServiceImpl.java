@@ -41,6 +41,11 @@ public class AliOssFileServiceImpl implements FileService {
     }
 
     @Override
+    public FilePath saveFile(String key, MultipartFile file, String folder) {
+        return this.saveFile(key, file, folder, sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
+    }
+
+    @Override
     public FilePath saveFile(String key, MultipartFile file, String folder, long maxSize) {
         this.checkSize(file, maxSize);
         Long present = CacheUtil.UPLOAD_LIMIT_CACHE.getIfPresent(key);

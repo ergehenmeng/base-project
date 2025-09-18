@@ -257,6 +257,7 @@ public class SysUserServiceImpl implements SysUserService {
         String token = userTokenService.createToken(user, customList);
         String systemName = sysConfigApi.getString(ConfigConstant.SYSTEM_NAME);
         LoginResponse response = new LoginResponse();
+        response.setAvatar(user.getAvatar());
         response.setToken(token);
         response.setBindWechat(user.getOpenId() != null);
         response.setUserName(user.getUserName());
@@ -296,6 +297,14 @@ public class SysUserServiceImpl implements SysUserService {
         LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(SysUser::getId, userId);
         wrapper.set(SysUser::getTotpSecret, null);
+        sysUserMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void updateAvatar(Long userId, String avatar) {
+        LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SysUser::getId, userId);
+        wrapper.set(SysUser::getAvatar, avatar);
         sysUserMapper.update(null, wrapper);
     }
 

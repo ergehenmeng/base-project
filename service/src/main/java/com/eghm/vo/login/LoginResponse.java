@@ -13,6 +13,9 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LoginResponse {
 
+    @Schema(description = "头像")
+    private String avatar;
+
     @Schema(description = "token")
     private String token;
 

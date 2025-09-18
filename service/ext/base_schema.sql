@@ -737,6 +737,7 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
+    `avatar`          varchar(200) DEFAULT NULL COMMENT '头像',
     `nick_name`       varchar(20) COMMENT '用户名称',
     `user_type`       tinyint(2)   DEFAULT '1' COMMENT '用户类型 0: 超级管理员 1:系统用户 2: 商户用户',
     `user_name`       varchar(20)  DEFAULT NULL COMMENT '账号名(登陆账户)',

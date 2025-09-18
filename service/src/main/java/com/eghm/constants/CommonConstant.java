@@ -199,4 +199,9 @@ public class CommonConstant {
      * openId session_key
      */
     public static final String OPEN_ID = "openId";
+
+    /**
+     * 头像文件夹
+     */
+    public static final String AVATAR_FOLDER = "avatar";
 }

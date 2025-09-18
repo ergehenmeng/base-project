@@ -52,7 +52,7 @@ public class ResourceUtil {
      */
     public static String getLocalPath(String path) {
         SysConfigApi sysConfigApi = SpringUtil.getBean(SysConfigApi.class);
-        String fileAddress = sysConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS);
+        String fileAddress = sysConfigApi.getString(ConfigConstant.FILE_SERVER_HOST);
         SystemProperties properties = SpringUtil.getBean(SystemProperties.class);
         if (path.startsWith(fileAddress)) {
             return "file://" + properties.getUploadPath() + path.replace(fileAddress, "");

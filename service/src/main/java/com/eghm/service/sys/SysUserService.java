@@ -166,5 +166,12 @@ public interface SysUserService {
      */
     void unBindTotp(Long userId);
 
+    /**
+     * 更新头像
+     *
+     * @param userId 用户id
+     * @param avatar 头像
+     */
+    void updateAvatar(Long userId, String avatar);
 }
 

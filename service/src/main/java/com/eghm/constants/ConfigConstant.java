@@ -59,7 +59,7 @@ public class ConfigConstant {
     /**
      * 文件服务器地址
      */
-    public static final String FILE_SERVER_ADDRESS = "file_server_address";
+    public static final String FILE_SERVER_HOST = "file_server_host";
 
     /**
      * 单文件上传大小限制

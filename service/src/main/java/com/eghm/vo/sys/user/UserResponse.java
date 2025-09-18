@@ -1,7 +1,5 @@
 package com.eghm.vo.sys.user;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.eghm.enums.DataType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -15,7 +13,6 @@ import java.time.LocalDateTime;
 @Data
 public class UserResponse {
 
-    @TableId(type = IdType.ASSIGN_ID)
     @Schema(description = "id主键")
     private Long id;
 
