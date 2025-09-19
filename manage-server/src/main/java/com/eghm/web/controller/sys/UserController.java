@@ -147,11 +147,11 @@ public class UserController {
         return RespBody.success();
     }
 
-    @PostMapping(value = "/avatar/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/updateAvatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Parameter(name = "file", description = "file流", required = true, schema = @Schema(type = "string", format = "binary"))
     @Operation(summary = "头像上传")
     @SkipPerm
-    public RespBody<FilePath> avatarUpload(@RequestParam("file") MultipartFile file) {
+    public RespBody<FilePath> updateAvatar(@RequestParam("file") MultipartFile file) {
         FileUtil.checkFileType(file, "png", "jpg", "jpeg");
         FilePath filePath = fileService.saveFile(CommonConstant.MANAGE + SecurityHolder.getUserId(), file, CommonConstant.AVATAR_FOLDER);
         sysUserService.updateAvatar(SecurityHolder.getUserId(), filePath.host() + filePath.path());
