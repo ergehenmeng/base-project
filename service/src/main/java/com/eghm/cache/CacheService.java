@@ -86,7 +86,7 @@ public interface CacheService {
      * @param key key
      * @return 剩余过期时间
      */
-    long getExpire(String key);
+    Long getExpire(String key);
 
     /**
      * 清除缓存

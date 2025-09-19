@@ -25,7 +25,7 @@ public class BooleanExcelConverter implements Converter<Boolean> {
         if (value == null) {
             return new WriteCellData<>("");
         }
-        if (Boolean.TRUE.equals(value)) {
+        if (value) {
             return new WriteCellData<>("是");
         }
         return new WriteCellData<>("否");

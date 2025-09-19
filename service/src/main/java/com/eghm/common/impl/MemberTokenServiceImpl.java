@@ -57,11 +57,13 @@ public class MemberTokenServiceImpl implements MemberTokenService {
             log.info("旧token依旧有效,无需重复刷新 [{}]", memberToken.getToken());
             return member.getToken();
         }
+        Long expire = cacheService.getExpire(refreshKey);
         String token = IdUtil.fastSimpleUUID();
-        memberToken.setToken(token);
-        this.cacheToken(memberToken);
-        long expire = cacheService.getExpire(refreshKey);
-        cacheService.setValue(refreshKey, jsonService.toJson(memberToken), expire);
+        if (expire != null) {
+            memberToken.setToken(token);
+            this.cacheToken(memberToken);
+            cacheService.setValue(refreshKey, jsonService.toJson(memberToken), expire);
+        }
         return token;
     }
 

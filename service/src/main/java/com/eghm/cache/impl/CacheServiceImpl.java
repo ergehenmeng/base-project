@@ -18,6 +18,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
@@ -101,7 +102,7 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public boolean exist(String key) {
         Boolean hasKey = redisTemplate.hasKey(key);
-        return Boolean.TRUE.equals(hasKey);
+        return Objects.equals(Boolean.TRUE, hasKey);
     }
 
     @Override
@@ -128,9 +129,8 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public long getExpire(String key) {
-        Long expire = redisTemplate.getExpire(key);
-        return expire != null ? expire : -1;
+    public Long getExpire(String key) {
+        return redisTemplate.getExpire(key);
     }
 
     @Override
@@ -186,13 +186,13 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public boolean hasHashKey(String key, String hKey) {
         Boolean hasKey = redisTemplate.opsForHash().hasKey(key, hKey);
-        return Boolean.TRUE.equals(hasKey);
+        return Objects.equals(Boolean.TRUE, hasKey);
     }
 
     @Override
     public boolean hasSetKey(String key, Object value) {
         Boolean member = redisTemplate.opsForSet().isMember(key, value);
-        return Boolean.TRUE.equals(member);
+        return Objects.equals(Boolean.TRUE, member);
     }
 
     @Override
@@ -207,7 +207,8 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public boolean getBitmap(String key, Long ops) {
-        return Boolean.TRUE.equals(redisTemplate.opsForValue().getBit(key, ops));
+        Boolean bit = redisTemplate.opsForValue().getBit(key, ops);
+        return Objects.equals(Boolean.TRUE, bit);
     }
 
     @Override
