@@ -41,7 +41,7 @@ import com.eghm.utils.TotpUtil;
 import com.eghm.vo.login.LoginMenuResponse;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.login.TotpLoginResponse;
-import com.eghm.vo.sys.menu.MenuResponse;
+import com.eghm.vo.sys.menu.MenuTreeResponse;
 import com.eghm.vo.sys.user.UserResponse;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
@@ -277,7 +277,7 @@ public class SysUserServiceImpl implements SysUserService {
         UserToken userToken = SecurityHolder.getUserRequired();
         LoginMenuResponse response = new LoginMenuResponse();
         // 如果用户拥有超管角色,则默认查询全部菜单等信息
-        List<MenuResponse> leftMenu;
+        List<MenuTreeResponse> leftMenu;
         List<String> buttonList;
         if (userToken.getUserType() == UserType.ADMINISTRATOR) {
             leftMenu = sysMenuService.getAdminLeftMenuList();

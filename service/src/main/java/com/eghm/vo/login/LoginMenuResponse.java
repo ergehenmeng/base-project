@@ -1,6 +1,6 @@
 package com.eghm.vo.login;
 
-import com.eghm.vo.sys.menu.MenuResponse;
+import com.eghm.vo.sys.menu.MenuTreeResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -17,5 +17,5 @@ public class LoginMenuResponse {
     private List<String> permList;
 
     @Schema(description = "菜单权限列表")
-    private List<MenuResponse> menuList;
+    private List<MenuTreeResponse> menuList;
 }

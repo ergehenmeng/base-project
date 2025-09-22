@@ -40,7 +40,7 @@ public class CacheController {
 
     @GetMapping("/clear")
     @Operation(summary = "清除缓存")
-    @Parameter(name = "cacheNames", description = "缓存名称(数组)", example = "a,b,c", required = true, array = @ArraySchema(schema = @Schema(type = "string")))
+    @Parameter(name = "cacheNames", description = "缓存名称(数组)", example = "例如:cacheNames=a&cacheNames=b&cacheNames=c", required = true, array = @ArraySchema(schema = @Schema(type = "string")))
     public RespBody<Void> clear(@RequestParam("cacheNames") List<String> cacheNames) {
         sysCacheService.clearCache(cacheNames);
         return RespBody.success();

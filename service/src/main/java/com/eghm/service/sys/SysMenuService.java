@@ -1,11 +1,13 @@
 package com.eghm.service.sys;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.sys.menu.MenuAddRequest;
 import com.eghm.dto.sys.menu.MenuEditRequest;
 import com.eghm.dto.sys.menu.MenuQueryRequest;
 import com.eghm.model.SysMenu;
 import com.eghm.vo.sys.menu.MenuFullResponse;
 import com.eghm.vo.sys.menu.MenuResponse;
+import com.eghm.vo.sys.menu.MenuTreeResponse;
 
 import java.util.List;
 
@@ -16,19 +18,34 @@ import java.util.List;
 public interface SysMenuService {
 
     /**
+     * 左侧菜单
+     *
+     * @return list
+     */
+    MenuTreeResponse tree();
+
+    /**
+     * 获取所有可用的菜单+按钮菜单
+     *
+     * @param request 查询条件
+     * @return 菜单列表
+     */
+    Page<MenuResponse> getByPage(MenuQueryRequest request);
+
+    /**
      * 获取用户导航菜单列表,不包含按钮菜单
      *
      * @param userId 用户id
      * @return 菜单列表(一级菜单 内部包含二级菜单)
      */
-    List<MenuResponse> getLeftMenuList(Long userId);
+    List<MenuTreeResponse> getLeftMenuList(Long userId);
 
     /**
      * 获取超管所有导航菜单列表,不包含按钮菜单
      *
      * @return 菜单列表(一级菜单 内部包含二级菜单)
      */
-    List<MenuResponse> getAdminLeftMenuList();
+    List<MenuTreeResponse> getAdminLeftMenuList();
 
     /**
      * 获取系统所有导航菜单列表,按钮
@@ -36,7 +53,7 @@ public interface SysMenuService {
      * @param displayState 根据该状态决定是否回写disabled字段, 为空则不显示
      * @return 菜单列表
      */
-    List<MenuResponse> getAll(Integer displayState);
+    List<MenuTreeResponse> getAll(Integer displayState);
 
     /**
      * 获取所有可用的菜单+按钮菜单

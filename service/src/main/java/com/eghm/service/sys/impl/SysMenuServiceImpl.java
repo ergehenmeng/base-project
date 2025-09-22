@@ -3,6 +3,7 @@ package com.eghm.service.sys.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.sys.menu.MenuAddRequest;
 import com.eghm.dto.sys.menu.MenuEditRequest;
 import com.eghm.dto.sys.menu.MenuQueryRequest;
@@ -16,6 +17,7 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.StringUtil;
 import com.eghm.vo.sys.menu.MenuFullResponse;
 import com.eghm.vo.sys.menu.MenuResponse;
+import com.eghm.vo.sys.menu.MenuTreeResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -52,23 +54,39 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     private final SysMenuMapper sysMenuMapper;
 
-    private static final Comparator<MenuResponse> COMPARATOR = Comparator.comparing(MenuResponse::getSort);
+    private static final Comparator<MenuTreeResponse> COMPARATOR = Comparator.comparing(MenuTreeResponse::getSort);
 
     @Override
-    public List<MenuResponse> getLeftMenuList(Long userId) {
-        List<MenuResponse> list = sysMenuMapper.getMenuList(userId, 1);
+    public MenuTreeResponse tree() {
+        List<MenuTreeResponse> responseList = sysMenuMapper.getLeftList();
+        List<MenuTreeResponse> treeBin = this.treeBin(ROOT, responseList);
+        MenuTreeResponse response = new MenuTreeResponse();
+        response.setChildren(treeBin);
+        response.setId(ROOT);
+        response.setTitle("系统菜单");
+        return response;
+    }
+
+    @Override
+    public Page<MenuResponse> getByPage(MenuQueryRequest request) {
+        return sysMenuMapper.getByPage(request.createPage(), request);
+    }
+
+    @Override
+    public List<MenuTreeResponse> getLeftMenuList(Long userId) {
+        List<MenuTreeResponse> list = sysMenuMapper.getMenuList(userId, 1);
         return this.treeBin(ROOT, list);
     }
 
     @Override
-    public List<MenuResponse> getAdminLeftMenuList() {
-        List<MenuResponse> list = sysMenuMapper.getSystemMenuList(1);
+    public List<MenuTreeResponse> getAdminLeftMenuList() {
+        List<MenuTreeResponse> list = sysMenuMapper.getSystemMenuList(1);
         return this.treeBin(ROOT, list);
     }
 
     @Override
-    public List<MenuResponse> getAll(Integer displayState) {
-        List<MenuResponse> responseList = sysMenuMapper.getAll(displayState);
+    public List<MenuTreeResponse> getAll(Integer displayState) {
+        List<MenuTreeResponse> responseList = sysMenuMapper.getAll(displayState);
         return this.treeBin(ROOT, responseList);
     }
 
@@ -131,14 +149,14 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public List<String> getPermCode(Long userId) {
-        List<MenuResponse> menuList = sysMenuMapper.getMenuList(userId, 2);
-        return menuList.stream().map(MenuResponse::getCode).toList();
+        List<MenuTreeResponse> menuList = sysMenuMapper.getMenuList(userId, 2);
+        return menuList.stream().map(MenuTreeResponse::getCode).toList();
     }
 
     @Override
     public List<String> getAdminPermCode() {
-        List<MenuResponse> menuList = sysMenuMapper.getSystemMenuList(2);
-        return menuList.stream().map(MenuResponse::getCode).toList();
+        List<MenuTreeResponse> menuList = sysMenuMapper.getSystemMenuList(2);
+        return menuList.stream().map(MenuTreeResponse::getCode).toList();
     }
 
     /**
@@ -210,8 +228,8 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @param menuList 菜单列表
      * @return 菜单列表 树状结构
      */
-    private List<MenuResponse> treeBin(String pid, List<MenuResponse> menuList) {
-        List<MenuResponse> responseList = menuList.stream().filter(parent -> Objects.equals(pid, parent.getPid())).sorted(COMPARATOR).toList();
+    private List<MenuTreeResponse> treeBin(String pid, List<MenuTreeResponse> menuList) {
+        List<MenuTreeResponse> responseList = menuList.stream().filter(parent -> Objects.equals(pid, parent.getPid())).sorted(COMPARATOR).toList();
         responseList.forEach(parent -> parent.setChildren(this.treeBin(parent.getId(), menuList)));
         return responseList;
     }

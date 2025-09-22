@@ -1,8 +1,10 @@
 package com.eghm.web.controller.sys;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.SortByDTO;
 import com.eghm.dto.StateRequest;
+import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sys.menu.MenuAddRequest;
 import com.eghm.dto.sys.menu.MenuEditRequest;
@@ -14,6 +16,7 @@ import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.vo.sys.menu.MenuFullResponse;
 import com.eghm.vo.sys.menu.MenuResponse;
+import com.eghm.vo.sys.menu.MenuTreeResponse;
 import com.eghm.web.configuration.interceptor.PermInterceptor;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,8 +44,22 @@ public class MenuController {
 
     private final PermInterceptor permInterceptor;
 
+    @GetMapping("/tree")
+    @Operation(summary = "左侧菜单①")
+    public RespBody<MenuTreeResponse> tree() {
+        MenuTreeResponse response = sysMenuService.tree();
+        return RespBody.success(response);
+    }
+
+    @GetMapping("/getByPage")
+    @Operation(summary = "分页菜单②")
+    public RespBody<PageData<MenuResponse>> getByPage(@ParameterObject @Validated MenuQueryRequest request) {
+        Page<MenuResponse> byPage = sysMenuService.getByPage(request);
+        return RespBody.success(PageData.convert(byPage));
+    }
+
     @GetMapping("/list")
-    @Operation(summary = "全部菜单")
+    @Operation(summary = "全部菜单❶")
     public RespBody<List<MenuFullResponse>> list(@ParameterObject MenuQueryRequest request) {
         List<MenuFullResponse> responseList = sysMenuService.getList(request);
         return RespBody.success(responseList);
@@ -50,10 +67,10 @@ public class MenuController {
 
     @GetMapping("/systemList")
     @Operation(summary = "系统菜单(角色授权使用)")
-    public RespBody<List<MenuResponse>> systemList(IdDTO dto) {
+    public RespBody<List<MenuTreeResponse>> systemList(IdDTO dto) {
         SysRole sysRole = sysRoleService.getById(dto.getId());
         int displayState = sysRole.getRoleType() == RoleType.COMMON ? DisplayState.SYSTEM.getValue() : DisplayState.MERCHANT.getValue();
-        List<MenuResponse> responseList = sysMenuService.getAll(displayState);
+        List<MenuTreeResponse> responseList = sysMenuService.getAll(displayState);
         return RespBody.success(responseList);
     }
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
