@@ -14,8 +14,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.connection.BitFieldSubCommands;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -206,6 +208,11 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
+    public void setBitmap(String key, Long ops, Boolean value) {
+        redisTemplate.opsForValue().setBit(key, ops, value);
+    }
+
+    @Override
     public boolean getBitmap(String key, Long ops) {
         Boolean bit = redisTemplate.opsForValue().getBit(key, ops);
         return Objects.equals(Boolean.TRUE, bit);
@@ -218,5 +225,11 @@ public class CacheServiceImpl implements CacheService {
             return Lists.newArrayList();
         }
         return jsonService.fromJsonList(value, cls);
+    }
+
+    @Override
+    public Long getBitmapOffset(String key, Long offset, int length) {
+        List<Long> longList = redisTemplate.opsForValue().bitField(key, BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.signed(length)).valueAt(offset));
+        return CollectionUtils.isEmpty(longList) ? null : longList.get(0);
     }
 }

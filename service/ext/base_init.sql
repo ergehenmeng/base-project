@@ -31,6 +31,7 @@ INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('51', 'sms_type_day_limit', '短信单天次数限制(短信类型)', '10', b'0', '单手机号一天最多发送几条短信', '2023-01-29 14:22:38', '2023-10-17 18:09:39');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('52', 'sms_day_limit', '短信单天次数限制(手机号)', '10', b'0', '单手机号一天短信最多发送几条短信', '2023-01-29 14:22:38', '2023-10-17 18:09:44');
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('53', 'order_expire_time', '订单过期时', '1800', b'0', '默认30分钟过期', '2022-07-28 13:48:34', '2024-03-19 16:25:18');
+INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `locked`, `remark`, `create_time`, `update_time`) VALUES ('44', 'sign_in_score', '签到积分奖励数', '8', b'0', '表示积分1~7之间随机发放', '2020-09-07 10:02:28', '2020-09-07 10:03:02');
 
 
 INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `dict_type`, `create_time`, `update_time`, `remark`) VALUES ('1', '图片分类', 'image_type', b'0', b'0', '1', '2024-10-31 16:26:53', '2024-10-31 16:28:29', '图片管理');

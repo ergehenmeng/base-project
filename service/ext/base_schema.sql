@@ -841,4 +841,17 @@ CREATE TABLE `comment_report`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4  COMMENT ='评论举报记录表';
 
-
+DROP TABLE IF EXISTS `member_score_log`;
+CREATE TABLE `member_score_log`
+(
+    `id`             bigint(20) NOT NULL COMMENT '主键',
+    `member_id`      bigint(20)   DEFAULT NULL COMMENT '用户id',
+    `score`          int(10)      DEFAULT '0' COMMENT '本次收入或支出的积分数',
+    `surplus_amount` int(10)      DEFAULT '0' COMMENT '变更后的积分数',
+    `type`           tinyint(2)   DEFAULT NULL COMMENT '积分收入或支出分类',
+    `remark`         varchar(200) DEFAULT NULL COMMENT '备注信息',
+    `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_bin COMMENT ='用户积分日志表(不清零)';

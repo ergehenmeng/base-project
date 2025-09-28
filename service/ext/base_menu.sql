@@ -153,3 +153,9 @@ INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('102210', '会员统计', 'uGU', NULL, '1022', NULL, '/manage/statistics/sexChannel,/manage/statistics/dayRegister', '2', '10', b'1', '', '2', '2025-06-12 15:29:01', '2025-06-12 17:20:40');
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('102212', '收藏统计', 'GGU', NULL, '1022', NULL, '/manage/statistics/collect', '2', '30', b'1', '', '2', '2025-06-12 15:30:40', '2025-06-12 17:20:42');
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('10102015', '发送邮件', 'hvK0', NULL, '101020', NULL, '/manage/auth/sendEmail', '2', '60', b'1', NULL, '2', '2025-08-05 15:52:57', '2025-08-05 15:52:57');
+INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('10181118', '更新积分', 'GNp0', NULL, '101811', NULL, '/manage/member/updateScore', '2', '90', b'1', NULL, '2', '2024-12-17 16:01:35', '2024-12-17 16:02:01');
+INSERT INTO `sys_menu` (`id`, `title`, `code`, `icon`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('10181119', '积分日志', 'ANp0', NULL, '101811', NULL, '/manage/member/score/listPage', '2', '100', b'1', NULL, '2', '2024-12-18 10:13:45', '2024-12-18 10:50:05');
+
+
+
+

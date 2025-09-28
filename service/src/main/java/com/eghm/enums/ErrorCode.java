@@ -618,11 +618,6 @@ public enum ErrorCode {
     AUTH_NOT_EXIST(2748, "授权信息未查询到"),
 
     /**
-     * 访问渠道不能为空
-     */
-    CHANNEL_NULL(3050, "访问渠道不能为空"),
-
-    /**
      * 公告信息未查询到
      */
     NOTICE_NOT_FOUND(2504, "公告信息未查询到"),
@@ -641,6 +636,21 @@ public enum ErrorCode {
      * 回放成功,无需重复操作
      */
     NOTIFY_CALLBACK_SUCCESS(2593, "回放成功,无需重复操作"),
+
+    /**
+     * 积分余额不足
+     */
+    MEMBER_SCORE_ERROR(3002, "积分余额不足"),
+
+    /**
+     * 积分余额更新失败
+     */
+    SCORE_UPDATE_ERROR(3004, "积分余额更新失败"),
+
+    /**
+     * 访问渠道不能为空
+     */
+    CHANNEL_NULL(3050, "访问渠道不能为空"),
 
     /**
      * 资讯配置删除啦~

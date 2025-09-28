@@ -13,6 +13,7 @@ import com.eghm.service.business.MemberService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.business.member.MemberInviteVO;
 import com.eghm.vo.business.member.MemberVO;
+import com.eghm.vo.business.member.SignInVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -89,6 +90,20 @@ public class MemberController {
         Long unRead = memberNoticeService.countUnRead(ApiHolder.getMemberId());
         vo.setUnRead(unRead);
         return RespBody.success(vo);
+    }
+
+    @PostMapping("/signIn")
+    @Operation(summary = "用户签到")
+    public RespBody<Void> signIn() {
+        memberService.signIn(ApiHolder.getMemberId());
+        return RespBody.success();
+    }
+
+    @GetMapping("/getSignIn")
+    @Operation(summary = "获取用户签到信息")
+    public RespBody<SignInVO> getSignIn() {
+        SignInVO signIn = memberService.getSignIn(ApiHolder.getMemberId());
+        return RespBody.success(signIn);
     }
 
     @PostMapping(value = "/edit", consumes = MediaType.APPLICATION_JSON_VALUE)

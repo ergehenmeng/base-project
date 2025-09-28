@@ -9,12 +9,14 @@ import com.eghm.dto.sys.login.SmsLoginDTO;
 import com.eghm.dto.sys.register.AccountRegisterDTO;
 import com.eghm.dto.sys.register.MobileRegisterDTO;
 import com.eghm.enums.MemberState;
+import com.eghm.enums.ScoreType;
 import com.eghm.model.Member;
+import com.eghm.vo.business.member.MemberResponse;
+import com.eghm.vo.business.member.MemberVO;
+import com.eghm.vo.business.member.SignInVO;
 import com.eghm.vo.business.statistics.MemberRegisterVO;
 import com.eghm.vo.business.statistics.MemberStatisticsVO;
 import com.eghm.vo.login.LoginTokenVO;
-import com.eghm.vo.business.member.MemberResponse;
-import com.eghm.vo.business.member.MemberVO;
 
 import java.util.List;
 
@@ -243,4 +245,29 @@ public interface MemberService {
      * @param request 通知信息
      */
     void sendSms(SendSmsRequest request);
+
+    /**
+     * 用户签到
+     *
+     * @param memberId 用户id
+     */
+    void signIn(Long memberId);
+
+    /**
+     * 获取用户签到信息 只显示当月签到信息
+     *
+     * @param memberId memberId
+     * @return 签到信息
+     */
+    SignInVO getSignIn(Long memberId);
+
+    /**
+     * 更新会员积分
+     *
+     * @param memberId 用户id
+     * @param scoreType 积分类型
+     * @param score 积分数量
+     * @param remark    备注信息
+     */
+    void updateScore(Long memberId, ScoreType scoreType, Integer score, String remark);
 }

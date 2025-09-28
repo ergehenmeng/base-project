@@ -61,4 +61,13 @@ public interface MemberMapper extends BaseMapper<Member> {
      * @return 手机号
      */
     List<String> getMobile(@Param("memberIds") List<Long> memberIds);
+
+    /**
+     * 更新会员积分
+     *
+     * @param memberId 用户id
+     * @param score 积分数量
+     * @return 1
+     */
+    int updateScore(@Param("memberId") Long memberId, @Param("score") Integer score);
 }

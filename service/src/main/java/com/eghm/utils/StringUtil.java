@@ -121,6 +121,17 @@ public class StringUtil {
     }
 
     /**
+     * 获取随机数字
+     *
+     * @param minValue 随机数最小
+     * @param maxValue 随机数范围最大值 0~maxValue
+     * @return minValue >= x < maxValue
+     */
+    public static int random(int minValue, int maxValue) {
+        return new SecureRandom().nextInt(maxValue - minValue) + minValue;
+    }
+
+    /**
      * 解析模板字符串
      *
      * @param template 您预订${param0}的房型，经确认该房型已售罄，已做退单处理。订单号：${param1}

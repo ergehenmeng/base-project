@@ -86,4 +86,8 @@
         </foreach>
     </select>
 
+    <update id="updateScore">
+        update `member` set score = score + #{score} where id = #{memberId} and score + #{score} &gt; 0
+    </update>
+
 </mapper>

@@ -120,4 +120,9 @@ public class ConfigConstant {
      * 验证码类型
      */
     public static final String CAPTCHA_TYPE = "captcha_type";
+
+    /**
+     * 签到积分
+     */
+    public static final String SIGN_IN_SCORE = "sign_in_score";
 }
