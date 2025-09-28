@@ -14,8 +14,8 @@ import java.util.List;
 public class MemberStatisticsVO {
 
     @Schema(description = "渠道统计")
-    private List<MemberChannelVO> channelList;
+    private List<PieDataVO> channelList;
 
     @Schema(description = "性别统计")
-    private List<MemberSexVO> sexList;
+    private List<PieDataVO> sexList;
 }

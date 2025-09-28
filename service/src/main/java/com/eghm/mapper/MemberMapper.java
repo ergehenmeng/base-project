@@ -5,10 +5,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.statistics.DateRequest;
 import com.eghm.dto.business.member.MemberQueryRequest;
 import com.eghm.model.Member;
-import com.eghm.vo.business.statistics.MemberChannelVO;
 import com.eghm.vo.business.statistics.MemberRegisterVO;
-import com.eghm.vo.business.statistics.MemberSexVO;
 import com.eghm.vo.business.member.MemberResponse;
+import com.eghm.vo.business.statistics.PieDataVO;
 import org.apache.ibatis.annotations.Param;
 
 
@@ -36,7 +35,7 @@ public interface MemberMapper extends BaseMapper<Member> {
      * @param endDate   结束日期
      * @return 注册数量
      */
-    List<MemberChannelVO> channelStatistics(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    List<PieDataVO> channelStatistics(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
     /**
      * 注册统计(性别)
@@ -45,7 +44,7 @@ public interface MemberMapper extends BaseMapper<Member> {
      * @param endDate   结束日期
      * @return 注册数量
      */
-    List<MemberSexVO> sexStatistics(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    List<PieDataVO> sexStatistics(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
     /**
      * 注册统计 按天或按月

@@ -32,7 +32,7 @@
         order by t.id desc
     </select>
 
-    <select id="channelStatistics" resultType="com.eghm.vo.business.statistics.MemberChannelVO">
+    <select id="channelStatistics" resultType="com.eghm.vo.business.statistics.PieDataVO">
         select count(id) as value, `channel` as name
         from `member` where deleted = false
         <if test="startDate != null ">
@@ -44,7 +44,7 @@
         group by channel
     </select>
 
-    <select id="sexStatistics" resultType="com.eghm.vo.business.statistics.MemberSexVO">
+    <select id="sexStatistics" resultType="com.eghm.vo.business.statistics.PieDataVO">
         select count(id) as value,
         case when sex = 0 then '女' when `sex` = 1 then '男' else '未知' end as `name`
         from `member` where deleted = false

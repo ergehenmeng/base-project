@@ -46,10 +46,9 @@ import com.eghm.utils.RegExpUtil;
 import com.eghm.utils.StringUtil;
 import com.eghm.vo.business.member.MemberResponse;
 import com.eghm.vo.business.member.MemberVO;
-import com.eghm.vo.business.statistics.MemberChannelVO;
 import com.eghm.vo.business.statistics.MemberRegisterVO;
-import com.eghm.vo.business.statistics.MemberSexVO;
 import com.eghm.vo.business.statistics.MemberStatisticsVO;
+import com.eghm.vo.business.statistics.PieDataVO;
 import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.wechat.WeChatMiniService;
 import com.eghm.wechat.WeChatMpService;
@@ -351,13 +350,18 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberStatisticsVO sexChannel(DateRequest request) {
-        List<MemberChannelVO> statistics = memberMapper.channelStatistics(request.getStartDate(), request.getEndDate());
-        List<MemberChannelVO> channelList = Lists.newArrayListWithCapacity(8);
-        Map<Channel, MemberChannelVO> voMap = statistics.stream().collect(Collectors.toMap(MemberChannelVO::getName, Function.identity()));
+        List<PieDataVO> statistics = memberMapper.channelStatistics(request.getStartDate(), request.getEndDate());
+        List<PieDataVO> channelList = Lists.newArrayListWithCapacity(8);
+        Map<String, PieDataVO> voMap = statistics.stream().collect(Collectors.toMap(PieDataVO::getName, Function.identity()));
         for (Channel value : Channel.values()) {
-            channelList.add(voMap.getOrDefault(value, new MemberChannelVO(value)));
+            channelList.add(voMap.getOrDefault(value.name(), new PieDataVO(value.name())));
         }
-        List<MemberSexVO> sexList = memberMapper.sexStatistics(request.getStartDate(), request.getEndDate());
+        List<PieDataVO> sexStatistics = memberMapper.sexStatistics(request.getStartDate(), request.getEndDate());
+        Map<String, PieDataVO> sexMap = sexStatistics.stream().collect(Collectors.toMap(PieDataVO::getName, Function.identity()));
+        List<PieDataVO> sexList = Lists.newArrayListWithCapacity(4);
+        for (Gender value : Gender.values()) {
+            sexList.add(sexMap.getOrDefault(value.getName(), new PieDataVO(value.getName())));
+        }
         MemberStatisticsVO vo = new MemberStatisticsVO();
         vo.setChannelList(channelList);
         vo.setSexList(sexList);
@@ -388,6 +392,8 @@ public class MemberServiceImpl implements MemberService {
             sendSmsService.sendSms(mobileList, TemplateType.of(request.getTemplateId()), request.getParams().split(CommonConstant.COMMA));
         }
     }
+
+
 
     /**
      * 根据openId查询用户信息
