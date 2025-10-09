@@ -28,4 +28,8 @@ public class QueueConstant {
      */
     public static final String WEBAPP_LOG_QUEUE = "webapp_log_queue";
 
+    /**
+     * 敏感词跨服务同步
+     */
+    public static final String SENSITIVE_SYNC_QUEUE = "sensitive_sync_queue";
 }

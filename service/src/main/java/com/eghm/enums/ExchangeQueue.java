@@ -27,7 +27,12 @@ public enum ExchangeQueue {
     /**
      * 移动端异常日志
      */
-    WEBAPP_LOG("webapp_log_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.WEBAPP_LOG_QUEUE}, "", false);
+    WEBAPP_LOG("webapp_log_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.WEBAPP_LOG_QUEUE}, "", false),
+
+    /**
+     * 敏感词跨服务同步
+     */
+    SENSITIVE_SYNC("sensitive_sync_exchange", ExchangeType.FANOUT, new String[]{QueueConstant.SENSITIVE_SYNC_QUEUE}, "", true);
 
     /**
      * mq交换机名称

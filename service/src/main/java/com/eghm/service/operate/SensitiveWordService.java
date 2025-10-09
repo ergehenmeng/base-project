@@ -20,8 +20,9 @@ public interface SensitiveWordService {
 
     /**
      * 重新加载敏感词
+     * @param sync 同步给其他服务 true:同步 false:不同步
      */
-    void reloadLexicon();
+    void reloadLexicon(boolean sync);
 
     /**
      * 添加敏感词

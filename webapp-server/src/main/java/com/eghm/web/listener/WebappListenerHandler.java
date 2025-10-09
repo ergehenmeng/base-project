@@ -8,6 +8,7 @@ import com.eghm.dto.ext.LoginRecord;
 import com.eghm.model.WebappLog;
 import com.eghm.mq.listener.AbstractListenerHandler;
 import com.eghm.service.business.LoginService;
+import com.eghm.service.operate.SensitiveWordService;
 import com.eghm.service.sys.WebappLogService;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
@@ -29,10 +30,13 @@ public class WebappListenerHandler extends AbstractListenerHandler {
 
     private final WebappLogService webappLogService;
 
-    public WebappListenerHandler(JsonService jsonService, AlarmService alarmService, LoginService loginService, CacheService cacheService, WebappLogService webappLogService) {
+    private final SensitiveWordService sensitiveWordService;
+
+    public WebappListenerHandler(JsonService jsonService, AlarmService alarmService, LoginService loginService, CacheService cacheService, WebappLogService webappLogService, SensitiveWordService sensitiveWordService) {
         super(jsonService, cacheService, alarmService);
         this.loginService = loginService;
         this.webappLogService = webappLogService;
+        this.sensitiveWordService = sensitiveWordService;
     }
 
     /**
@@ -51,5 +55,12 @@ public class WebappListenerHandler extends AbstractListenerHandler {
         processMessageAck(loginRecord, message, channel, loginService::insertLoginLog);
     }
 
-
+    /**
+     * 敏感词同步
+     */
+    @RabbitListener(queues = QueueConstant.SENSITIVE_SYNC_QUEUE)
+    public void sensitiveSync(String appName, Message message, Channel channel) throws IOException {
+        log.info("接收到服务[{}]消息,开始同步敏感词", appName);
+        processMessageAck(appName, message, channel, s -> sensitiveWordService.reloadLexicon(false));
+    }
 }
