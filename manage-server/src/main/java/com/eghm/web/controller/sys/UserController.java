@@ -157,4 +157,12 @@ public class UserController {
         sysUserService.updateAvatar(SecurityHolder.getUserId(), filePath.host() + filePath.path());
         return RespBody.success(filePath);
     }
+
+    @PostMapping(value = "/updateBasic", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "更新基础信息")
+    @SkipPerm
+    public RespBody<Void> updateBasic(@Validated @RequestBody UserProfileRequest request) {
+        sysUserService.updateProfile(request);
+        return RespBody.success();
+    }
 }

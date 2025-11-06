@@ -23,10 +23,7 @@ import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.sys.login.SmsLoginRequest;
 import com.eghm.dto.sys.login.TotpBindRequest;
 import com.eghm.dto.sys.login.TotpCheckRequest;
-import com.eghm.dto.sys.user.PasswordEditRequest;
-import com.eghm.dto.sys.user.UserAddRequest;
-import com.eghm.dto.sys.user.UserEditRequest;
-import com.eghm.dto.sys.user.UserQueryRequest;
+import com.eghm.dto.sys.user.*;
 import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysUserMapper;
@@ -261,6 +258,7 @@ public class SysUserServiceImpl implements SysUserService {
         response.setToken(token);
         response.setBindWechat(user.getOpenId() != null);
         response.setUserName(user.getUserName());
+        response.setMobile(user.getMobile());
         response.setSystemName(systemName);
         response.setNickName(user.getNickName());
         response.setUserType(user.getUserType());
@@ -305,6 +303,15 @@ public class SysUserServiceImpl implements SysUserService {
         LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(SysUser::getId, userId);
         wrapper.set(SysUser::getAvatar, avatar);
+        sysUserMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void updateProfile(UserProfileRequest request) {
+        LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SysUser::getId, request.getUserId());
+        wrapper.set(SysUser::getNickName, request.getNickName());
+        wrapper.set(SysUser::getMobile, request.getMobile());
         sysUserMapper.update(null, wrapper);
     }
 

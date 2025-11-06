@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.sys.login.SmsLoginRequest;
 import com.eghm.dto.sys.login.TotpBindRequest;
 import com.eghm.dto.sys.login.TotpCheckRequest;
-import com.eghm.dto.sys.user.PasswordEditRequest;
-import com.eghm.dto.sys.user.UserAddRequest;
-import com.eghm.dto.sys.user.UserEditRequest;
-import com.eghm.dto.sys.user.UserQueryRequest;
+import com.eghm.dto.sys.user.*;
 import com.eghm.enums.UserState;
 import com.eghm.model.SysUser;
 import com.eghm.vo.login.LoginMenuResponse;
@@ -173,5 +170,12 @@ public interface SysUserService {
      * @param avatar 头像
      */
     void updateAvatar(Long userId, String avatar);
+
+    /**
+     * 更新用户基础信息
+     *
+     * @param request 用户信息
+     */
+    void updateProfile(UserProfileRequest request);
 }
 

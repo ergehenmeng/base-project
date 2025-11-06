@@ -51,9 +51,9 @@ public class MenuController {
         return RespBody.success(response);
     }
 
-    @GetMapping("/getByPage")
+    @GetMapping("/listPage")
     @Operation(summary = "分页菜单②")
-    public RespBody<PageData<MenuResponse>> getByPage(@ParameterObject @Validated MenuQueryRequest request) {
+    public RespBody<PageData<MenuResponse>> listPage(@ParameterObject @Validated MenuQueryRequest request) {
         Page<MenuResponse> byPage = sysMenuService.getByPage(request);
         return RespBody.success(PageData.convert(byPage));
     }

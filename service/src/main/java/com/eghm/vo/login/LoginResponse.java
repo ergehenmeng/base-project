@@ -34,6 +34,9 @@ public class LoginResponse {
     @Schema(description = "昵称")
     private String nickName;
 
+    @Schema(description = "手机号")
+    private String mobile;
+
     @Schema(description = "是否初始密码")
     private Boolean init;
 
