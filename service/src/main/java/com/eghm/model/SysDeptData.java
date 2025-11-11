@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-@TableName("sys_data_dept")
-public class SysDataDept {
+@TableName("sys_dept_data")
+public class SysDeptData {
 
     @TableId(type = IdType.ASSIGN_ID)
     @Schema(description = "id主键")
@@ -25,7 +25,7 @@ public class SysDataDept {
     @Schema(description = "部门id")
     private String deptCode;
 
-    public SysDataDept(Long userId, String deptCode) {
+    public SysDeptData(Long userId, String deptCode) {
         this.userId = userId;
         this.deptCode = deptCode;
     }

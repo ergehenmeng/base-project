@@ -540,10 +540,10 @@ CREATE TABLE `sys_config`
   DEFAULT CHARSET = utf8mb4 COMMENT ='系统参数配置信息表';
 
 -- ----------------------------
--- Table structure for sys_data_dept
+-- Table structure for sys_dept_data
 -- ----------------------------
-DROP TABLE IF EXISTS `sys_data_dept`;
-CREATE TABLE `sys_data_dept`
+DROP TABLE IF EXISTS `sys_dept_data`;
+CREATE TABLE `sys_dept_data`
 (
     `id`        bigint(20) NOT NULL COMMENT '主键',
     `user_id`   bigint(20)  DEFAULT NULL COMMENT '用户id',

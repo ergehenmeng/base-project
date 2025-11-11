@@ -1,7 +1,7 @@
 package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.model.SysDataDept;
+import com.eghm.model.SysDeptData;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author eghm
  */
-public interface SysDataDeptMapper extends BaseMapper<SysDataDept> {
+public interface SysDeptDataMapper extends BaseMapper<SysDeptData> {
 
     /**
      * 获取用户所拥有的所有部门(数据权限)

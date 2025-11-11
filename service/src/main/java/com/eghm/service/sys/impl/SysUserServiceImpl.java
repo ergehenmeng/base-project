@@ -27,9 +27,9 @@ import com.eghm.dto.sys.user.*;
 import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysUserMapper;
-import com.eghm.model.SysDataDept;
+import com.eghm.model.SysDeptData;
 import com.eghm.model.SysUser;
-import com.eghm.service.sys.SysDataDeptService;
+import com.eghm.service.sys.SysDeptDataService;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
@@ -80,7 +80,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     private final UserTokenService userTokenService;
 
-    private final SysDataDeptService sysDataDeptService;
+    private final SysDeptDataService sysDeptDataService;
 
     @Override
     public Page<UserResponse> getByPage(UserQueryRequest request) {
@@ -123,7 +123,7 @@ public class SysUserServiceImpl implements SysUserService {
         sysRoleService.auth(user.getId(), request.getRoleIds());
         // 数据权限
         if (request.getDataType() == DataType.CUSTOM) {
-            request.getDeptIds().forEach(s -> sysDataDeptService.insert(new SysDataDept(user.getId(), s)));
+            request.getDeptIds().forEach(s -> sysDeptDataService.insert(new SysDeptData(user.getId(), s)));
         }
     }
 
@@ -147,9 +147,9 @@ public class SysUserServiceImpl implements SysUserService {
         // 数据权限, 在新增系统用户时,可以手动指定数据权限,此处既是将用户与其所拥有的的部门权限做关联,方便后续进行数据权限分组
         if (request.getDataType() != null && request.getDataType() == DataType.CUSTOM.getValue()) {
             // 删除旧数据权限
-            sysDataDeptService.deleteByUserId(user.getId());
+            sysDeptDataService.deleteByUserId(user.getId());
             // 添加新数据权限
-            request.getDeptIds().forEach(s -> sysDataDeptService.insert(new SysDataDept(user.getId(), s)));
+            request.getDeptIds().forEach(s -> sysDeptDataService.insert(new SysDeptData(user.getId(), s)));
         }
     }
 
@@ -250,7 +250,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public LoginResponse doLogin(SysUser user) {
         // 数据权限(此处没有判断,逻辑不够严谨,仅仅为了代码简洁)
-        List<String> customList = sysDataDeptService.getDeptList(user.getId());
+        List<String> customList = sysDeptDataService.getDeptList(user.getId());
         String token = userTokenService.createToken(user, customList);
         String systemName = sysConfigApi.getString(ConfigConstant.SYSTEM_NAME);
         LoginResponse response = new LoginResponse();
