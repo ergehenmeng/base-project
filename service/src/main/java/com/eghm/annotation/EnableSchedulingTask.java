@@ -15,5 +15,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Import(SchedulingConfig.class)
 @Documented
-public @interface EnableTask {
+public @interface EnableSchedulingTask {
 }

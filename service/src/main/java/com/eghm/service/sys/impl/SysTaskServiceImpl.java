@@ -56,7 +56,7 @@ public class SysTaskServiceImpl implements SysTaskService {
     @Override
     public void execute(Long id, String args) {
         if (taskRegistrar == null) {
-            log.error("当前服务尚未激活定时任务, 请使用@EnableTask激活 [{}] [{}]", id, args);
+            log.error("当前服务尚未激活定时任务, 请使用@EnableSchedulingTask激活 [{}] [{}]", id, args);
             throw new BusinessException(ErrorCode.TASK_CONFIG_NULL);
         }
         SysTask sysTask = sysTaskMapper.selectById(id);

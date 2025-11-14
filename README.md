@@ -24,7 +24,7 @@
 
 ### 定时任务相关
 
-* 开启定时任务添加`@EnableTask`注解即可(建议使用)
+* 开启定时任务添加`@EnableSchedulingTask`注解即可(建议使用)
     * 支持数据库配置cron定时,spring原生注解定时,单次执行的定时
     * 在 `sys_task` 表中 `bean_name` 字段为要执行定时任务的bean的名称 `cron_expression` 为cron表达式 `bean_method`
       为方法名 `args` 方法入参
@@ -33,7 +33,7 @@
     * demo例子`TestJobService` `OnceJobService`
     * 注意: bean方法定义时必须包含一个字符串类型的入参, 且方法必须是 `public`, 强烈建议方法上添加 `@CronTask`
       注解作为定时任务标注一下
-* 开启 `@EnableTask` 后, `@Schedule` 也可以正常使用(但是不推荐)
+* 开启 `@EnableSchedulingTask` 后, `@Schedule` 也可以正常使用(但是不推荐)
 
 ### 其他
 

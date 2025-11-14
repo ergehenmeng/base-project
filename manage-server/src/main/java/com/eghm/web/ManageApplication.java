@@ -2,7 +2,7 @@ package com.eghm.web;
 
 
 import cn.hutool.core.net.NetUtil;
-import com.eghm.annotation.EnableTask;
+import com.eghm.annotation.EnableSchedulingTask;
 import com.eghm.utils.LoggerUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
@@ -21,8 +21,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * @author 二哥很猛
  */
 @Slf4j
-@EnableTask
 @EnableAsync
+@EnableSchedulingTask
 @SpringBootApplication
 @ComponentScan("com.eghm")
 @EnableAspectJAutoProxy(exposeProxy = true)
