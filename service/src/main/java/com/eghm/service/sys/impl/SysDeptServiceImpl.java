@@ -29,9 +29,9 @@ import static com.eghm.constants.CommonConstant.ROOT_NODE;
  * @author 二哥很猛
  * @since 2018/12/13 16:49
  */
-@Service("sysDeptService")
 @Slf4j
 @AllArgsConstructor
+@Service("sysDeptService")
 public class SysDeptServiceImpl implements SysDeptService {
 
     /**

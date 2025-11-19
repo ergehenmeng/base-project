@@ -20,10 +20,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @since 2023/12/14 19:19
  */
 @Documented
-@Constraint(validatedBy = PasswordDefine.class)
-@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)
 @ReportAsSingleViolation
+@Constraint(validatedBy = PasswordDefine.class)
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 public @interface Password {
 
     /**

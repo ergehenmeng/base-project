@@ -40,8 +40,8 @@ import java.util.List;
  * @since 2023-12-29
  */
 @Slf4j
-@Service("newsService")
 @AllArgsConstructor
+@Service("newsService")
 public class NewsServiceImpl implements NewsService {
 
     private final NewsMapper newsMapper;

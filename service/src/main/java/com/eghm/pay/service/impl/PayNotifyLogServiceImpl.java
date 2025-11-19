@@ -23,8 +23,8 @@ import java.util.Map;
  * @author 二哥很猛
  * @since 2022/7/26
  */
-@Service("payNotifyLogService")
 @AllArgsConstructor
+@Service("payNotifyLogService")
 public class PayNotifyLogServiceImpl implements PayNotifyLogService {
 
     private final PayNotifyLogMapper payNotifyLogMapper;

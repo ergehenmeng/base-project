@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-@Tag(name = "新闻资讯")
 @AllArgsConstructor
+@Tag(name = "新闻资讯")
 @RequestMapping(value = "/manage/news", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NewsController {
 

@@ -26,10 +26,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @author 二哥很猛
  * @since 2019/1/15 16:19
  */
-@Component
 @Aspect
-@Slf4j(topic = "request_response")
+@Component
 @AllArgsConstructor
+@Slf4j(topic = "request_response")
 public class ManageLogAspect {
 
     private final Gson gson;

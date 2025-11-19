@@ -8,8 +8,8 @@ import java.lang.annotation.*;
  * @author 二哥很猛
  * @since 2023/9/24
  */
+@Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.SOURCE)
-@Documented
 public @interface CronMark {
 }

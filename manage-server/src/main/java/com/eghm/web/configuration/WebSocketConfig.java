@@ -19,8 +19,8 @@ import static com.eghm.constants.CommonConstant.WEBSOCKET_PREFIX;
  * @since 2024/9/11
  */
 @Configuration
-@EnableWebSocketMessageBroker
 @AllArgsConstructor
+@EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     private final SystemProperties systemProperties;

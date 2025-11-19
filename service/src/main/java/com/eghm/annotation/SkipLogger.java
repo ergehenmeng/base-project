@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @author 二哥很猛
  */
 @Documented
-@Target({METHOD, TYPE})
 @Retention(RUNTIME)
+@Target({METHOD, TYPE})
 public @interface SkipLogger {
 }

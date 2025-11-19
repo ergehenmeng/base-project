@@ -36,8 +36,8 @@ import java.util.function.Consumer;
  * @author wyb
  * @since 2023/3/31
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EasyExcelUtil {
 
     public static final String XLSX_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";

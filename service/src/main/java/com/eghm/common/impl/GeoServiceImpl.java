@@ -23,8 +23,8 @@ import java.util.LinkedHashMap;
  * @author 二哥很猛
  * @since 2022/7/11
  */
-@Service("geoService")
 @AllArgsConstructor
+@Service("geoService")
 public class GeoServiceImpl implements GeoService {
 
     private final StringRedisTemplate stringRedisTemplate;

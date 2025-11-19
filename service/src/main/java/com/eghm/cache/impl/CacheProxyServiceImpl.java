@@ -27,9 +27,9 @@ import static com.eghm.constants.CommonConstant.LIMIT_ONE;
  * @author 二哥很猛
  * @since 2022/7/12
  */
-@Service("cacheProxyService")
-@AllArgsConstructor
 @Slf4j
+@AllArgsConstructor
+@Service("cacheProxyService")
 public class CacheProxyServiceImpl implements CacheProxyService {
 
     private final BannerMapper bannerMapper;

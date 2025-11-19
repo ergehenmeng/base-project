@@ -21,10 +21,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 
 @Documented
-@Constraint(validatedBy = WordCheckerDefine.class)
-@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)
 @ReportAsSingleViolation
+@Constraint(validatedBy = WordCheckerDefine.class)
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 public @interface WordChecker {
 
     /**

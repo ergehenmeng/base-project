@@ -9,8 +9,8 @@ import java.lang.annotation.*;
  * @author 殿小二
  * @since 2020/8/25
  */
+@Documented
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.SOURCE)
-@Documented
 public @interface Assign {
 }

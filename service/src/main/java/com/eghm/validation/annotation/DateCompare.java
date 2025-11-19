@@ -20,10 +20,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @since 2023/10/14 16:21
  */
 @Documented
-@Constraint(validatedBy = DateCompareDefine.class)
 @Target(METHOD)
 @Retention(RUNTIME)
 @ReportAsSingleViolation
+@Constraint(validatedBy = DateCompareDefine.class)
 public @interface DateCompare {
 
     /**

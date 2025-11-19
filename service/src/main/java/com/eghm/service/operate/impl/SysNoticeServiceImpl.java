@@ -32,9 +32,9 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2019/8/22 11:41
  */
-@Service("sysNoticeService")
-@AllArgsConstructor
 @Slf4j
+@AllArgsConstructor
+@Service("sysNoticeService")
 public class SysNoticeServiceImpl implements SysNoticeService {
 
     private final SysConfigApi sysConfigApi;

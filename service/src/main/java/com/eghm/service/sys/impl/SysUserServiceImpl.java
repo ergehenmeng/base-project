@@ -57,9 +57,9 @@ import static com.eghm.utils.CacheUtil.TOTP_CACHE;
  * @author 二哥很猛
  * @since 2018/11/26 10:24
  */
-@Service("sysUserService")
-@AllArgsConstructor
 @Slf4j
+@AllArgsConstructor
+@Service("sysUserService")
 public class SysUserServiceImpl implements SysUserService {
 
     private final Encoder encoder;

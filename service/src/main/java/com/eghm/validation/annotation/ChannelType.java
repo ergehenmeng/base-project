@@ -21,10 +21,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @since 2018/8/14 16:01
  */
 @Documented
-@Constraint(validatedBy = ChannelTypeDefine.class)
-@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)
 @ReportAsSingleViolation
+@Constraint(validatedBy = ChannelTypeDefine.class)
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 public @interface ChannelType {
 
     /**

@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-@Tag(name = "敏感词管理")
 @AllArgsConstructor
+@Tag(name = "敏感词管理")
 @RequestMapping(value = "/manage/sensitive/word", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SensitiveWordController {
 

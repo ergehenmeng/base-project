@@ -25,8 +25,8 @@ import static com.eghm.utils.StringUtil.isNotBlank;
  * @author 二哥很猛
  * @since 2023/3/23
  */
-@Service("loginService")
 @AllArgsConstructor
+@Service("loginService")
 public class LoginServiceImpl implements LoginService {
 
     private final LoginLogMapper loginLogMapper;

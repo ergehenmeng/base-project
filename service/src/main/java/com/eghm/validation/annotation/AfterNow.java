@@ -20,10 +20,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @since 2024/03/14
  */
 @Documented
-@Constraint(validatedBy = AfterNowDefine.class)
 @Target(FIELD)
 @Retention(RUNTIME)
 @ReportAsSingleViolation
+@Constraint(validatedBy = AfterNowDefine.class)
 public @interface AfterNow {
 
     /**

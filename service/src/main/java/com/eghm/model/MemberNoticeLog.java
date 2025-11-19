@@ -15,8 +15,8 @@ import lombok.EqualsAndHashCode;
  * @since 2024-03-07
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @TableName("member_notice_log")
+@EqualsAndHashCode(callSuper = false)
 public class MemberNoticeLog extends BaseEntity {
 
     @Schema(description = "通知名称")

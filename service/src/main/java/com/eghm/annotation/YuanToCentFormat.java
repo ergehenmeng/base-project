@@ -9,8 +9,8 @@ import java.lang.annotation.*;
  * @since 2023/10/8
  */
 
+@Inherited
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Inherited
 public @interface YuanToCentFormat {
 }

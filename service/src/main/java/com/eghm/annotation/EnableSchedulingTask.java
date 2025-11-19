@@ -11,9 +11,9 @@ import java.lang.annotation.*;
  * @author 殿小二
  * @since 2020/8/14
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Import(SchedulingConfig.class)
 @Documented
+@Target(ElementType.TYPE)
+@Import(SchedulingConfig.class)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface EnableSchedulingTask {
 }

@@ -24,8 +24,8 @@ import java.util.List;
  * @since 2019/1/14 14:12
  */
 @RestController
-@Tag(name = "缓存管理")
 @AllArgsConstructor
+@Tag(name = "缓存管理")
 @RequestMapping(value = "/manage/cache", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CacheController {
 

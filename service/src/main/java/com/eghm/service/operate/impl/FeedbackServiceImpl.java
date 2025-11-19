@@ -24,8 +24,8 @@ import static com.eghm.utils.StringUtil.maxLength;
  * @author 二哥很猛
  * @since 2019/8/28 10:46
  */
-@Service("feedbackService")
 @AllArgsConstructor
+@Service("feedbackService")
 public class FeedbackServiceImpl implements FeedbackService {
 
     private final FeedbackLogMapper feedbackLogMapper;

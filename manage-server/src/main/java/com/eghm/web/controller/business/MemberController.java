@@ -30,8 +30,8 @@ import java.util.List;
  * @since 2023/8/18 14:16
  */
 @RestController
-@Tag(name = "会员信息")
 @AllArgsConstructor
+@Tag(name = "会员信息")
 @RequestMapping(value = "/manage/member", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberController {
 

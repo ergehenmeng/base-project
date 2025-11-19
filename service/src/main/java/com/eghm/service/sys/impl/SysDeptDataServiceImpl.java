@@ -14,8 +14,8 @@ import java.util.List;
  * @author 殿小二
  * @since 2020/8/17
  */
-@Service("sysDeptDataService")
 @AllArgsConstructor
+@Service("sysDeptDataService")
 public class SysDeptDataServiceImpl implements SysDeptDataService {
 
     private final SysDeptDataMapper sysDeptDataMapper;

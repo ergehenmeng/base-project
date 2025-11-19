@@ -11,9 +11,9 @@ import java.lang.annotation.*;
  * @see DataScopeAspect
  * @since 2020/8/14
  */
+@Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Documented
 public @interface DataScope {
 
     /**

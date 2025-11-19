@@ -28,8 +28,8 @@ import static com.eghm.constants.CommonConstant.SPECIAL_SPLIT;
  * @since 2021/12/4 下午4:30
  */
 @Slf4j
-@Service("weChatMiniService")
 @RequiredArgsConstructor
+@Service("weChatMiniService")
 public class WeChatMiniServiceImpl implements WeChatMiniService {
 
     private WxMaService wxMaService;

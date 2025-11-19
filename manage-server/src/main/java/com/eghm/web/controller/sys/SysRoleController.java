@@ -28,8 +28,8 @@ import java.util.List;
  * @since 2018/11/26 15:21
  */
 @RestController
-@Tag(name = "角色管理")
 @AllArgsConstructor
+@Tag(name = "角色管理")
 @RequestMapping(value = "/manage/role", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SysRoleController {
 

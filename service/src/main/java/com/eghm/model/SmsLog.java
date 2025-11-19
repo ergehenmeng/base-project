@@ -20,8 +20,8 @@ import java.time.LocalDateTime;
  */
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @TableName("sms_log")
 public class SmsLog {
 

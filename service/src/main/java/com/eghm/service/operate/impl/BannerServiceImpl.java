@@ -18,8 +18,8 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @since 2018/10/17 9:50
  */
-@Service("bannerService")
 @AllArgsConstructor
+@Service("bannerService")
 public class BannerServiceImpl implements BannerService {
 
     private final BannerMapper bannerMapper;

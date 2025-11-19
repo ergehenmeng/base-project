@@ -29,8 +29,8 @@ import static com.eghm.utils.StringUtil.isNotBlank;
  * @since 2019/9/9 13:45
  */
 @Slf4j
-@Service("blackRosterService")
 @AllArgsConstructor
+@Service("blackRosterService")
 public class BlackRosterServiceImpl implements BlackRosterService {
 
     private final CacheService cacheService;

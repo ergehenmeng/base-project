@@ -20,8 +20,8 @@ import static com.eghm.utils.StringUtil.isNotBlank;
  * @author 殿小二
  * @since 2020/8/28
  */
-@Service("emailTemplateService")
 @AllArgsConstructor
+@Service("emailTemplateService")
 public class EmailTemplateServiceImpl implements EmailTemplateService {
 
     private final CacheProxyService cacheProxyService;

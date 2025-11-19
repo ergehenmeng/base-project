@@ -14,8 +14,8 @@ import lombok.EqualsAndHashCode;
  * @since 2023-12-29
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
 @TableName("news_config")
+@EqualsAndHashCode(callSuper = true)
 public class NewsConfig extends BaseEntity {
 
     @Schema(description = "分类标题")

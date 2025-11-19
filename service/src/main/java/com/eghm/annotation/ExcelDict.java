@@ -8,9 +8,9 @@ import java.lang.annotation.*;
  * @author wyb
  * @since 2023/3/31
  */
+@Documented
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Documented
 public @interface ExcelDict {
 
     /**

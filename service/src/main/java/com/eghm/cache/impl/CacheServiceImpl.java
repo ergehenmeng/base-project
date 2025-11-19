@@ -32,9 +32,9 @@ import static com.eghm.constants.CacheConstant.DEFAULT_EXPIRE;
  * @author 二哥很猛
  * @since 2018/11/21 16:28
  */
-@Service("cacheService")
 @Slf4j
 @AllArgsConstructor
+@Service("cacheService")
 public class CacheServiceImpl implements CacheService {
 
     private final RedisLock redisLock;

@@ -18,8 +18,8 @@ import org.springframework.stereotype.Service;
  * @since 2018/9/12 14:36
  */
 @Slf4j
-@Service("sysConfigApi")
 @AllArgsConstructor
+@Service("sysConfigApi")
 public class SysConfigApi {
 
     private final CacheProxyService cacheProxyService;

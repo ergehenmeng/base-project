@@ -23,8 +23,8 @@ import org.springframework.web.context.request.WebRequest;
  * @since 2024/11/1
  */
 @Slf4j
-@Tag(name = "错误重定向")
 @RestController
+@Tag(name = "错误重定向")
 @RequestMapping("${server.error.path:${error.path:/error}}")
 public class ErrorController extends AbstractErrorController {
 

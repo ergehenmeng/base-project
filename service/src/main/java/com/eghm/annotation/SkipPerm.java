@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @since 2022/11/4
  */
 @Documented
-@Target({METHOD, TYPE})
 @Retention(RUNTIME)
+@Target({METHOD, TYPE})
 public @interface SkipPerm {
 }

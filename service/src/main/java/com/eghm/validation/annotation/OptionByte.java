@@ -20,10 +20,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @since 2019/8/19 11:29
  */
 @Documented
-@Constraint(validatedBy = OptionByteDefine.class)
-@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)
 @ReportAsSingleViolation
+@Constraint(validatedBy = OptionByteDefine.class)
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 public @interface OptionByte {
 
     /**

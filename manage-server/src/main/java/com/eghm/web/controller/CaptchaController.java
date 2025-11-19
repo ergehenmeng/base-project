@@ -26,10 +26,10 @@ import java.io.IOException;
  * @author 二哥很猛
  * @since 2018/1/19 11:50
  */
-@RestController
 @Slf4j
-@Tag(name = "图形验证码")
+@RestController
 @AllArgsConstructor
+@Tag(name = "图形验证码")
 @RequestMapping("/manage")
 public class CaptchaController {
 

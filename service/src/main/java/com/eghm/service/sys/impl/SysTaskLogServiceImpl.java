@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @since 2019/9/11 11:18
  */
-@Service("sysTaskLogService")
 @AllArgsConstructor
+@Service("sysTaskLogService")
 public class SysTaskLogServiceImpl implements SysTaskLogService {
 
     private final SysTaskLogMapper sysTaskLogMapper;

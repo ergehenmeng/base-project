@@ -26,8 +26,8 @@ import static com.eghm.utils.StringUtil.isNotBlank;
 @Slf4j
 @Service
 @Order(30)
-@HandlerMark(HandlerEnum.REGISTER)
 @RequiredArgsConstructor
+@HandlerMark(HandlerEnum.REGISTER)
 public class InviteRegisterHandler implements Handler {
 
     private final MemberService memberService;

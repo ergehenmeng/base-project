@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-@Tag(name = "评论管理")
 @AllArgsConstructor
+@Tag(name = "评论管理")
 @RequestMapping(value = "/manage/comment", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CommentController {
 

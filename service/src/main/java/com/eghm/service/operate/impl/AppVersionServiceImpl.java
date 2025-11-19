@@ -32,9 +32,9 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2019/8/22 14:38
  */
-@Service("versionService")
-@AllArgsConstructor
 @Slf4j
+@AllArgsConstructor
+@Service("versionService")
 public class AppVersionServiceImpl implements AppVersionService {
 
     private final SysConfigApi sysConfigApi;

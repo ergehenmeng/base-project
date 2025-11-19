@@ -20,10 +20,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @since 2018/8/14 11:39
  */
 @Documented
-@Constraint(validatedBy = MobileDefine.class)
-@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)
 @ReportAsSingleViolation
+@Constraint(validatedBy = MobileDefine.class)
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 public @interface Mobile {
 
     /**

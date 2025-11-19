@@ -36,8 +36,8 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@Tag(name = "微信相关")
 @AllArgsConstructor
+@Tag(name = "微信相关")
 @RequestMapping(value = "/manage/wechat", produces = MediaType.APPLICATION_JSON_VALUE)
 public class WeChatController {
 

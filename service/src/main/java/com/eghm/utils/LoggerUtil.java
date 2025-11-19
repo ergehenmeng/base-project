@@ -11,8 +11,8 @@ import static com.eghm.utils.StringUtil.isBlank;
  * @since 2023/6/9
  */
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LoggerUtil {
 
     /**

@@ -19,8 +19,8 @@ import java.io.IOException;
  * @author 二哥很猛
  * @since 2022/7/28
  */
-@Component
 @Slf4j
+@Component
 public class ManageListenerHandler extends AbstractListenerHandler {
 
     private final ManageLogService manageLogService;

@@ -11,8 +11,8 @@ import java.lang.annotation.*;
  * @since 2023/12/27
  */
 @Documented
-@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Desensitization {
 
     /**

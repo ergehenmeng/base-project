@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.*;
  * @since 2018/1/12 17:40
  */
 @RestController
-@Tag(name = "系统参数管理")
 @AllArgsConstructor
+@Tag(name = "系统参数管理")
 @RequestMapping(value = "/manage/config", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ConfigController {
 

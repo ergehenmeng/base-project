@@ -26,8 +26,8 @@ import java.io.FileNotFoundException;
  * @since 2023/10/20
  */
 @RestController
-@Tag(name = "第三方授权")
 @AllArgsConstructor
+@Tag(name = "第三方授权")
 @RequestMapping(value = "/manage/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthConfigController {
 

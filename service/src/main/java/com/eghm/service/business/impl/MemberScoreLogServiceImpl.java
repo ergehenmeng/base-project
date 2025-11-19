@@ -22,8 +22,8 @@ import java.util.List;
  * @author 殿小二
  * @since 2020/9/5
  */
-@Service("memberScoreLogService")
 @AllArgsConstructor
+@Service("memberScoreLogService")
 public class MemberScoreLogServiceImpl implements MemberScoreLogService {
 
     private final SysConfigApi sysConfigApi;

@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
  * @since 2024-01-12
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @TableName("comment")
+@EqualsAndHashCode(callSuper = false)
 public class Comment extends BaseEntity {
 
     @Schema(description = "用户ID")

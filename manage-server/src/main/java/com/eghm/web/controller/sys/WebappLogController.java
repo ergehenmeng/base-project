@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023/7/24
  */
 @RestController
-@Tag(name = "会员操作日志")
 @AllArgsConstructor
+@Tag(name = "会员操作日志")
 @RequestMapping(value = "/manage/webapp/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class WebappLogController {
 

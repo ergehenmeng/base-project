@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.*;
  * @since 2018/11/27 17:13
  */
 @RestController
-@Tag(name = "图片管理")
 @AllArgsConstructor
+@Tag(name = "图片管理")
 @RequestMapping(value = "/manage/image", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ImageLogController {
 

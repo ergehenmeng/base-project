@@ -22,9 +22,9 @@ import java.util.function.Consumer;
  * @author 二哥很猛
  * @since 2022/7/23
  */
-@Service("commonService")
-@AllArgsConstructor
 @Slf4j
+@AllArgsConstructor
+@Service("commonService")
 public class CommonServiceImpl implements CommonService {
 
     private final CacheService cacheService;

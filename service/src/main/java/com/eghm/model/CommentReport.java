@@ -16,8 +16,8 @@ import lombok.EqualsAndHashCode;
  * @since 2024-01-17
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @TableName("comment_report")
+@EqualsAndHashCode(callSuper = false)
 public class CommentReport extends BaseEntity {
 
     @Schema(description = "举报用户ID")

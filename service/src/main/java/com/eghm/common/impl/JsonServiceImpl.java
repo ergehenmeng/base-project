@@ -21,9 +21,9 @@ import static com.eghm.utils.StringUtil.isBlank;
  * @author 殿小二
  * @since 2020/8/28
  */
-@Service("jsonService")
 @Slf4j
 @AllArgsConstructor
+@Service("jsonService")
 public class JsonServiceImpl implements JsonService {
 
     private final ObjectMapper objectMapper;

@@ -13,9 +13,9 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2022/1/29 16:25
  */
-@ConfigurationProperties(prefix = SystemProperties.PREFIX)
-@Component
 @Data
+@Component
+@ConfigurationProperties(prefix = SystemProperties.PREFIX)
 public class SystemProperties {
 
     static final String PREFIX = "system";

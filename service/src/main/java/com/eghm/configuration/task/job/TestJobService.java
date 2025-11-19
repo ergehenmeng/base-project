@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
  * @author 二哥很猛
  * @since 2019/9/6 16:29
  */
-@Service("testJobService")
 @Slf4j
+@Service("testJobService")
 public class TestJobService {
 
     private TaskRegistrar taskRegistrar;

@@ -17,8 +17,8 @@ import java.util.function.Consumer;
  * @author 二哥很猛
  * @since 2022/11/18
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TransactionUtil {
 
     public static final AlarmService ALARM_SERVICE;

@@ -12,8 +12,8 @@ import java.util.stream.Stream;
  *
  * @author 二哥很猛
  */
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
 public enum TradeType {
 
     /**

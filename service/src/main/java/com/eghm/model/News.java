@@ -15,8 +15,8 @@ import lombok.EqualsAndHashCode;
  * @since 2023-12-29
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
 @TableName("news")
+@EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class News extends BaseEntity {
 

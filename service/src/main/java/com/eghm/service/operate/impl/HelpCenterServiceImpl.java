@@ -22,8 +22,8 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2018/11/20 20:20
  */
-@Service("helpCenterService")
 @AllArgsConstructor
+@Service("helpCenterService")
 public class HelpCenterServiceImpl implements HelpCenterService {
 
     private final HelpCenterMapper helpCenterMapper;

@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
  * @author 二哥很猛
  * @since 2020/1/7 19:57
  */
-@Service("onceJobService")
 @Slf4j
+@Service("onceJobService")
 public class OnceJobService {
 
     @CronMark

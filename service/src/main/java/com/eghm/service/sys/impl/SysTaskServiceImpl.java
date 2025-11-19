@@ -26,8 +26,8 @@ import java.time.temporal.ChronoUnit;
  * @since 2019/9/6 15:19
  */
 @Slf4j
-@Service("sysTaskService")
 @RequiredArgsConstructor
+@Service("sysTaskService")
 public class SysTaskServiceImpl implements SysTaskService {
 
     private final SysTaskMapper sysTaskMapper;

@@ -16,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
  * @author 二哥很猛
  * @since 2019/8/16 18:47
  */
-@Service("smsLogService")
 @AllArgsConstructor
+@Service("smsLogService")
 public class SmsLogServiceImpl implements SmsLogService {
 
     private final SmsLogMapper smsLogMapper;

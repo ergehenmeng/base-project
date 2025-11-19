@@ -46,9 +46,9 @@ import java.util.Map;
  * @author 二哥很猛
  * @since 2022/7/24
  */
-@Service("aliPayService")
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
+@Service("aliPayService")
 public class AliPayServiceImpl implements PayService {
 
     /**

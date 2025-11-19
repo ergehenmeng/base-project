@@ -17,8 +17,8 @@ import java.util.function.Supplier;
  * @since 2023/3/26 16:26
  */
 @Slf4j
-@Service("redisLock")
 @AllArgsConstructor
+@Service("redisLock")
 public class RedisLockImpl implements RedisLock {
 
     private final RedissonClient redissonClient;

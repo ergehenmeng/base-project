@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.*;
  */
 @Slf4j
 @RestController
-@Tag(name = "支付日志")
 @AllArgsConstructor
+@Tag(name = "支付日志")
 @RequestMapping(value = "/manage/pay/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PayLogController {
 

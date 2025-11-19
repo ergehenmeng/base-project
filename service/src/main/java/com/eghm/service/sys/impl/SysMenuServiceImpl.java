@@ -32,9 +32,9 @@ import static com.eghm.utils.StringUtil.isBlank;
  * @author 二哥很猛
  * @since 2018/1/26 16:15
  */
-@Service("sysMenuService")
-@AllArgsConstructor
 @Slf4j
+@AllArgsConstructor
+@Service("sysMenuService")
 public class SysMenuServiceImpl implements SysMenuService {
 
     /**

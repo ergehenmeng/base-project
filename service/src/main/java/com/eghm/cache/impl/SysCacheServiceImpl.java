@@ -19,9 +19,9 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2019/1/14 14:34
  */
-@Service("sysCacheService")
 @Slf4j
 @AllArgsConstructor
+@Service("sysCacheService")
 public class SysCacheServiceImpl implements SysCacheService {
 
     private final SysCacheMapper sysCacheMapper;

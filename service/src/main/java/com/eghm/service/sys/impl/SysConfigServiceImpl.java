@@ -21,8 +21,8 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @since 2018/1/12 09:46
  */
-@Service("sysConfigService")
 @AllArgsConstructor
+@Service("sysConfigService")
 public class SysConfigServiceImpl implements SysConfigService {
 
     private final SysConfigMapper sysConfigMapper;

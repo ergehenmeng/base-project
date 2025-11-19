@@ -76,9 +76,9 @@ import static com.eghm.utils.StringUtil.isNotBlank;
  * @author 二哥很猛
  * @since 2019/8/19 15:50
  */
-@Service("memberService")
 @Slf4j
 @AllArgsConstructor
+@Service("memberService")
 public class MemberServiceImpl implements MemberService {
 
     private final Encoder encoder;

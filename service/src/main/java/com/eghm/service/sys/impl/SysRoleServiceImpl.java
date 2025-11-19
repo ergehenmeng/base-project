@@ -31,9 +31,9 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2018/11/26 15:33
  */
-@Service("sysRoleService")
-@AllArgsConstructor
 @Slf4j
+@AllArgsConstructor
+@Service("sysRoleService")
 public class SysRoleServiceImpl implements SysRoleService {
 
     private final SysRoleMapper sysRoleMapper;

@@ -16,8 +16,8 @@ import org.springframework.context.annotation.Profile;
  * @since 2019/8/20 10:58
  */
 @Configuration
-@Profile({"dev", "test"})
 @AllArgsConstructor
+@Profile({"dev", "test"})
 public class SwaggerConfig {
 
     private final SystemProperties systemProperties;
