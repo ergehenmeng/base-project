@@ -1,8 +1,8 @@
 package com.eghm.utils;
 
 import cn.hutool.core.util.NumberUtil;
-import cn.hutool.core.util.StrUtil;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ import java.util.Scanner;
  * @author 二哥很猛
  * @since 2025/12/5
  */
+@Slf4j
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class MusicUtil {
 
@@ -24,7 +25,7 @@ public class MusicUtil {
     }
 
     public static void start() {
-        System.out.println("请输入小节简谱长度:");
+        log.info("请输入小节简谱长度:");
         Scanner sc = new Scanner(System.in);
         StringBuilder builder = new StringBuilder();
         int length = 0;
@@ -38,13 +39,13 @@ public class MusicUtil {
                 boolean b = NumberUtil.isInteger(next);
                 if (b) {
                     int nexted = Integer.parseInt(next);
-                    if (nexted < 4) {
-                        System.err.println("简谱长度必须大于4,请重新输入:");
+                    if (nexted < 4 || nexted > 32) {
+                        log.error("简谱长度应在4~32位,请重新输入:");
                         continue;
                     }
                     length = nexted;
                     generate(builder, nexted);
-                } else if (StrUtil.isBlank(next) && length > 4) {
+                } else if (StringUtil.isBlank(next) && length > 4) {
                     generate(builder, length);
                 }
             }
