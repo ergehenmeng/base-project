@@ -36,16 +36,15 @@ public class MusicUtil {
                 if (next.equals("q")) {
                     break;
                 }
-                boolean b = NumberUtil.isInteger(next);
-                if (b) {
+                if (NumberUtil.isInteger(next)) {
                     int nexted = Integer.parseInt(next);
                     if (nexted < 4 || nexted > 32) {
                         log.error("简谱长度应在4~32位,请重新输入:");
                         continue;
                     }
                     length = nexted;
-                    generate(builder, nexted);
-                } else if (StringUtil.isBlank(next) && length > 4) {
+                }
+                if (length >= 4) {
                     generate(builder, length);
                 }
             }
