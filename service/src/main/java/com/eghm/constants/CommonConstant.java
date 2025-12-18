@@ -21,6 +21,16 @@ public class CommonConstant {
     public static final long ROOT = 0;
 
     /**
+     * 步长默认2位数即 10~99
+     */
+    public static final int STEP_10 = 10;
+
+    /**
+     * 步长默认3位数即 100~999
+     */
+    public static final int STEP_100 = 100;
+
+    /**
      * 系统默认字符集
      */
     public static final Charset CHARSET = StandardCharsets.UTF_8;

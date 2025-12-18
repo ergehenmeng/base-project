@@ -1,5 +1,6 @@
 package com.eghm.common;
 
+import com.eghm.enums.ErrorCode;
 import com.eghm.vo.sys.ext.SysAreaVO;
 
 import java.util.List;
@@ -65,4 +66,15 @@ public interface CommonService {
      * @param token token
      */
     void clearPermission(String token);
+
+    /**
+     * 生成下一个id
+     *
+     * @param maxId 当前列的最大值
+     * @param pid 父节点
+     * @param step 步长
+     * @param errorCode 超过最大时的错误码
+     * @return 下一个id
+     */
+    String generateNextId(String maxId, String pid, int step, ErrorCode errorCode);
 }

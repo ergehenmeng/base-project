@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.CommonService;
+import com.eghm.constants.CommonConstant;
 import com.eghm.dto.sys.menu.MenuAddRequest;
 import com.eghm.dto.sys.menu.MenuEditRequest;
 import com.eghm.dto.sys.menu.MenuQueryRequest;
@@ -26,8 +28,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-import static com.eghm.utils.StringUtil.isBlank;
-
 /**
  * @author 二哥很猛
  * @since 2018/1/26 16:15
@@ -38,21 +38,13 @@ import static com.eghm.utils.StringUtil.isBlank;
 public class SysMenuServiceImpl implements SysMenuService {
 
     /**
-     * 步长默认2位数即 10~99
-     */
-    private static final String STEP = "10";
-
-    /**
-     * 同级别最多有90个菜单
-     */
-    private static final int MAX = 90;
-
-    /**
      * 根节点
      */
     private static final String ROOT = "0";
 
     private final SysMenuMapper sysMenuMapper;
+
+    private final CommonService commonService;
 
     private static final Comparator<MenuTreeResponse> COMPARATOR = Comparator.comparing(MenuTreeResponse::getSort);
 
@@ -206,20 +198,9 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @param pid pid,不能为零
      * @return 最大id
      */
-    private Long generateNextId(String pid) {
+    private String generateNextId(String pid) {
         String maxId = sysMenuMapper.getMaxId(pid);
-        // 空表示当前菜单没有子菜单,直接生成第一个子菜单
-        if (isBlank(maxId)) {
-            return Long.parseLong(pid + STEP);
-        }
-        // 如果最后三位是99这表示,已经最大了,再+1会进位,因此不能超过99
-        String lastMember = maxId.substring(maxId.length() - 2);
-        if (Integer.parseInt(lastMember) >= MAX) {
-            log.error("统计菜单不能超过90 [{}] [{}]", pid, maxId);
-            throw new BusinessException(ErrorCode.MENU_MAX_ERROR);
-        }
-        // 最大子菜单+1即可
-        return Long.parseLong(maxId) + 1;
+        return commonService.generateNextId(maxId, pid, CommonConstant.STEP_10, ErrorCode.MENU_MAX_ERROR);
     }
 
     /**

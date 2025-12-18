@@ -9,14 +9,19 @@ import com.eghm.common.CommonService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysAreaMapper;
 import com.eghm.vo.sys.ext.SysAreaVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.function.Consumer;
+
+import static com.eghm.utils.StringUtil.isBlank;
 
 /**
  * @author 二哥很猛
@@ -77,6 +82,32 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public void clearPermission(String token) {
         cacheService.delete(CacheConstant.USER_PERMISSION + token);
+    }
+
+    @Override
+    public String generateNextId(String maxId, String pid, int step, ErrorCode errorCode) {
+        // 空表示当前菜单没有子菜单,直接生成第一个子菜单
+        if (isBlank(maxId)) {
+            return pid + step;
+        }
+        // 如果最后三位是99这表示,已经最大了,再+1会进位,因此不能超过99
+        String lastMember = maxId.substring(maxId.length() - 2);
+        if (Integer.parseInt(lastMember) >= this.getMax(step)) {
+            log.error("generateNextId已超过最大值 [{}] [{}]", pid, maxId);
+            throw new BusinessException(errorCode);
+        }
+        BigInteger max = new BigInteger(maxId);
+        return max.add(BigInteger.valueOf(1L)).toString();
+    }
+
+    /**
+     * 获取最大值 10 100 1000 10000 100000 -> 99 999 9999 99999 9999999
+     *
+     * @param step 步长
+     * @return 最大值
+     */
+    private int getMax(int step) {
+        return Integer.parseInt("9".repeat(String.valueOf(step).length()));
     }
 
     /**

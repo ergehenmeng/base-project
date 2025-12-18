@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
@@ -118,6 +119,24 @@ public class DataUtil {
         } catch (Exception e) {
             log.error("bean复制异常 [{}] [{}]", source, cls, e);
             return null;
+        }
+    }
+
+    /**
+     * 对象复制
+     *
+     * @param source 原对象
+     * @param cls 新对象类型
+     * @param consumer  拷贝的后置处理
+     * @param ignoreProperties 忽略属性
+     * @param <T> T
+     */
+    public static <T> void copy(Object source, Class<T> cls, Consumer<T> consumer, String... ignoreProperties) {
+        T copy = copy(source, cls, ignoreProperties);
+        if (copy != null) {
+            consumer.accept(copy);
+        } else {
+            log.error("bean复制异常,不执行consumer [{}] [{}]", source, cls);
         }
     }
 

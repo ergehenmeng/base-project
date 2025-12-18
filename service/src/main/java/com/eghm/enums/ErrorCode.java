@@ -658,6 +658,11 @@ public enum ErrorCode {
     NEWS_CONFIG_NOT_EXIST(3098, "资讯配置删除啦~"),
 
     /**
+     * 子女数量已达上限
+     */
+    FAMILY_MAX_ERROR(3100, "子女数量已达上限"),
+
+    /**
      * 请联系管理员配置微信公众号
      */
     MP_NOT_CONFIG(7000, "请联系管理员配置微信公众号"),
