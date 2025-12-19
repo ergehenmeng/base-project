@@ -34,10 +34,6 @@ public class FamilyResponse {
     @Schema(description = "备注信息")
     private String remark;
 
-    @Schema(description = "更新时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime updateTime;
-
     @Schema(description = "子女")
     private List<FamilyResponse> children;
 }

@@ -3,7 +3,7 @@
 <mapper namespace="com.eghm.mapper.FamilyMapper">
 
     <select id="getList" resultType="com.eghm.vo.sys.family.FamilyResponse">
-        select id, pid, `name`, birthday, state, remark, update_time from family where deleted = false and pid &lt;&gt; '0'
+        select id, pid, `name`, birthday, state, remark from family where deleted = false and pid &lt;&gt; '0'
     </select>
 
     <select id="getMaxId" resultType="java.lang.String">
