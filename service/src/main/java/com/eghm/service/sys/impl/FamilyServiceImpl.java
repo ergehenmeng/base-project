@@ -1,10 +1,13 @@
 package com.eghm.service.sys.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.CommonService;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.sys.family.FamilyAddRequest;
 import com.eghm.dto.sys.family.FamilyEditRequest;
 import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.mapper.FamilyMapper;
 import com.eghm.model.Family;
 import com.eghm.service.sys.FamilyService;
@@ -47,6 +50,7 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public String create(FamilyAddRequest request) {
+        this.redoName(request.getName(), request.getPid(), null);
         Family family = DataUtil.copy(request, Family.class);
         String maxId = familyMapper.getMaxId(request.getPid());
         String nextId = commonService.generateNextId(maxId, request.getPid(), CommonConstant.STEP_10, ErrorCode.FAMILY_MAX_ERROR);
@@ -57,12 +61,35 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public void update(FamilyEditRequest request) {
+        this.redoName(request.getName(), request.getPid(), request.getId());
         DataUtil.copy(request, Family.class, familyMapper::updateById);
     }
 
     @Override
     public void delete(String id) {
+        LambdaQueryWrapper<Family> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Family::getPid, id);
+        if (familyMapper.selectCount(wrapper) > 0) {
+            throw new BusinessException(ErrorCode.FAMILY_NEXT_ERROR);
+        }
         familyMapper.deleteById(id);
+    }
+
+    /**
+     * 重置名称
+     *
+     * @param name 名称
+     * @param id id
+     */
+    private void redoName(String name, String pid, String id) {
+        LambdaQueryWrapper<Family> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(id != null, Family::getId, id);
+        wrapper.eq(Family::getPid, pid);
+        wrapper.eq(Family::getName, name);
+        Long count = familyMapper.selectCount(wrapper);
+        if (count > 0) {
+            throw new BusinessException(ErrorCode.FAMILY_REDO_ERROR);
+        }
     }
 
     /**

@@ -663,6 +663,16 @@ public enum ErrorCode {
     FAMILY_MAX_ERROR(3100, "子女数量已达上限"),
 
     /**
+     * 姓名重复啦~
+     */
+    FAMILY_REDO_ERROR(3110, "姓名重复啦~"),
+
+    /**
+     * 请先删除子女信息
+     */
+    FAMILY_NEXT_ERROR(3111, "请先删除子女信息"),
+
+    /**
      * 请联系管理员配置微信公众号
      */
     MP_NOT_CONFIG(7000, "请联系管理员配置微信公众号"),
