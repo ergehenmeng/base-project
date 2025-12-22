@@ -1,10 +1,13 @@
 package com.eghm.dto.sys.family;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+
+import java.time.LocalDate;
 
 /**
  * @author 二哥很猛
@@ -21,6 +24,10 @@ public class FamilyEditRequest {
     @NotBlank(message = "姓名不能为空")
     @Size(min = 1, max = 10, message = "姓名最大10字符")
     private String name;
+
+    @Schema(description = "出生日期")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthday;
 
     @Schema(description = "父辈", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "请选择父辈")

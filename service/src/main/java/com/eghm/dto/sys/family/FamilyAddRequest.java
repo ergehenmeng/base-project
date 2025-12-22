@@ -1,10 +1,13 @@
 package com.eghm.dto.sys.family;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+
+import java.time.LocalDate;
 
 /**
  * @author 二哥很猛
@@ -21,6 +24,10 @@ public class FamilyAddRequest {
     @Schema(description = "父辈", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "请选择父辈")
     private String pid;
+
+    @Schema(description = "出生日期")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthday;
 
     @Schema(description = "状态 false:未绝户 true:已绝户", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "请选择状态")
