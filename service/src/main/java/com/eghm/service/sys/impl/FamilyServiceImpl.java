@@ -83,7 +83,7 @@ public class FamilyServiceImpl implements FamilyService {
      */
     private void redoName(String name, String pid, String id) {
         LambdaQueryWrapper<Family> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(id != null, Family::getId, id);
+        wrapper.ne(id != null, Family::getId, id);
         wrapper.eq(Family::getPid, pid);
         wrapper.eq(Family::getName, name);
         Long count = familyMapper.selectCount(wrapper);
