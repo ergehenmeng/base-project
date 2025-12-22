@@ -1,6 +1,8 @@
 package com.eghm.dto.sys.family;
 
+import com.eghm.configuration.gson.LocalDateAdapter;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.gson.annotations.JsonAdapter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -27,6 +29,7 @@ public class FamilyEditRequest {
 
     @Schema(description = "出生日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonAdapter(LocalDateAdapter.class)
     private LocalDate birthday;
 
     @Schema(description = "父辈", requiredMode = Schema.RequiredMode.REQUIRED)
