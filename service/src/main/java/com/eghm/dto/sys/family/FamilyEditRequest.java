@@ -30,7 +30,7 @@ public class FamilyEditRequest {
     @NotNull(message = "请选择状态")
     private Boolean state;
 
-    @Schema(description = "备注信息")
-    @Size(max = 100, message = "备注信息不能超过100字")
+    @Schema(description = "简介信息")
+    @Size(max = 500, message = "备注信息不能超过500字")
     private String remark;
 }
