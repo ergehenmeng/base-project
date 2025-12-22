@@ -17,6 +17,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -100,8 +102,16 @@ public class FamilyServiceImpl implements FamilyService {
      * @return list
      */
     private List<FamilyResponse> treeBin(String pid, List<FamilyResponse> voList) {
-        List<FamilyResponse> collectList = voList.stream().filter(parent -> pid.equals(parent.getPid())).toList();
-        collectList.forEach(parent -> parent.setChildren(this.treeBin(parent.getId(), voList)));
-        return collectList;
+        Iterator<FamilyResponse> iterator = voList.iterator();
+        List<FamilyResponse> responseList = new ArrayList<>();
+        while (iterator.hasNext()) {
+            FamilyResponse next = iterator.next();
+            if (pid.equals(next.getPid())) {
+                responseList.add(next);
+                iterator.remove();
+            }
+        }
+        responseList.forEach(parent -> parent.setChildren(this.treeBin(parent.getId(), voList)));
+        return responseList;
     }
 }
