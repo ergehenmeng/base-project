@@ -61,6 +61,15 @@ public interface CacheService {
     String getValue(String key);
 
     /**
+     * 模糊查询key
+     *
+     * @param key key
+     * @param limit 最大查询条数
+     * @return key
+     */
+    List<String> scan(String key, int limit);
+
+    /**
      * 获取缓存信息
      *
      * @param key 缓存key

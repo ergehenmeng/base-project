@@ -156,6 +156,11 @@ public enum ErrorCode {
     CACHE_VALUE_NULL(1103, "缓存value不能为空"),
 
     /**
+     * 缓存类型不支持查询
+     */
+    REDIS_KEY_TYPE_ERROR(1105, "缓存类型不支持查询"),
+
+    /**
      * 屏幕锁定中
      */
     LOCK_SCREEN(1024, "屏幕锁定中"),

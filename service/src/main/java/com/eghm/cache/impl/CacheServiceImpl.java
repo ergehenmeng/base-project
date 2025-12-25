@@ -9,12 +9,16 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.LockConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
+import com.eghm.exception.ParameterException;
 import com.eghm.lock.RedisLock;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.BitFieldSubCommands;
+import org.springframework.data.redis.connection.DataType;
+import org.springframework.data.redis.core.Cursor;
+import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -50,7 +54,10 @@ public class CacheServiceImpl implements CacheService {
         String value;
         try {
             value = this.getValue(key);
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
+            if (e instanceof ParameterException) {
+                throw e;
+            }
             log.warn("获取缓存数据异常", e);
             return supplier.get();
         }
@@ -109,7 +116,19 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public String getValue(String key) {
+        DataType type = redisTemplate.type(key);
+        if (type != DataType.STRING && type != DataType.NONE) {
+            throw new ParameterException(ErrorCode.REDIS_KEY_TYPE_ERROR);
+        }
         return redisTemplate.opsForValue().get(key);
+    }
+
+    @Override
+    public List<String> scan(String key, int limit) {
+        ScanOptions options = ScanOptions.scanOptions().match("*" + key + "*").count(limit).build();
+        try (Cursor<String> cursor = redisTemplate.scan(options)) {
+            return cursor.stream().toList();
+        }
     }
 
     @Override
