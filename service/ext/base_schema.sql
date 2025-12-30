@@ -329,7 +329,7 @@ CREATE TABLE `member_notice`
     PRIMARY KEY (`id`),
     KEY             `m_idx` (`member_id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='用户站内信';
+  DEFAULT CHARSET = utf8mb4 COMMENT ='会员站内信表';
 
 -- ----------------------------
 -- Table structure for member_notice_log
@@ -348,7 +348,7 @@ CREATE TABLE `member_notice_log`
     `deleted`      tinyint(1)    DEFAULT '0' COMMENT '删除状态',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='会员站内信日志';
+  DEFAULT CHARSET = utf8mb4 COMMENT ='会员站内信批量发送日志表';
 
 -- ----------------------------
 -- Table structure for news
