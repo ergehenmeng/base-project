@@ -1,6 +1,7 @@
 package com.eghm.utils;
 
 import jakarta.annotation.Nonnull;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ public class TimingWheelUtil {
     public interface TimerTask extends Runnable {
     }
 
+    @Data
     static class TimerTaskEntry implements Comparable<TimerTaskEntry> {
 
         volatile TimerTaskList timedTaskList;
@@ -138,8 +140,8 @@ public class TimingWheelUtil {
 
         @Override
         public int compareTo(@Nonnull Delayed o) {
-            if (o instanceof TimerTaskList) {
-                return Long.compare(this.getExpiration(), ((TimerTaskList) o).getExpiration());
+            if (o instanceof TimerTaskList v) {
+                return Long.compare(this.getExpiration(), v.getExpiration());
             }
             return 0;
         }
