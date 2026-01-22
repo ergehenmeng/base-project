@@ -8,11 +8,13 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.service.sys.BlackRosterService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
-import com.eghm.web.configuration.interceptor.MessageInterceptor;
 import com.eghm.web.configuration.interceptor.AccessSignInterceptor;
+import com.eghm.web.configuration.interceptor.MessageInterceptor;
 import com.eghm.web.configuration.interceptor.SubmitIntervalInterceptor;
 import com.eghm.web.configuration.interceptor.TokenInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.DispatcherType;
+import jakarta.servlet.Filter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -22,10 +24,6 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-
-import jakarta.servlet.DispatcherType;
-import jakarta.servlet.Filter;
 
 /**
  * mvc全局配置,继承WebMvcConfigurerAdapter无需@EnableWebMvc
@@ -58,11 +56,6 @@ public class WebappMvcConfig extends WebMvcConfig {
         registry.addInterceptor(accessSignInterceptor()).order(Integer.MIN_VALUE + 10);
         registry.addInterceptor(tokenInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 15);
         registry.addInterceptor(submitIntervalInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 30);
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/swagger/**").addResourceLocations("classpath:/swagger/dist/");
     }
 
     /**
