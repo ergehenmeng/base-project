@@ -5,9 +5,12 @@ import cn.hutool.extra.spring.SpringUtil;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 
@@ -58,6 +61,21 @@ public class ResourceUtil {
             return "file://" + properties.getUploadPath() + path.replace(fileAddress, "");
         } else {
             return path;
+        }
+    }
+
+    /**
+     * 获取文件
+     *
+     * @param path path
+     * @return local
+     */
+    public static File getFile(String path) {
+        try {
+            return ResourceUtils.getFile(path);
+        } catch (Exception e) {
+            log.error("获取文件失败 [{}]", path, e);
+            throw new BusinessException(ErrorCode.FILE_NOT_FOUND);
         }
     }
 }

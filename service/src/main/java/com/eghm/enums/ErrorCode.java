@@ -81,6 +81,11 @@ public enum ErrorCode {
     FILE_TYPE_ERROR(1002, "文件类型异常"),
 
     /**
+     * 文件未查找到
+     */
+    FILE_NOT_FOUND(1003, "文件未查找到"),
+
+    /**
      * ExcelSpinner未配置加载项
      */
     SPINNER_ERROR(1004, "@ExcelSpinner未配置加载项"),
