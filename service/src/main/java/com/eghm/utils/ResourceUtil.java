@@ -10,9 +10,11 @@ import com.eghm.exception.BusinessException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
+import java.io.InputStream;
 
 /**
  * @author 二哥很猛
@@ -67,12 +69,13 @@ public class ResourceUtil {
     /**
      * 获取文件
      *
-     * @param path path
+     * @param path path classpath下
      * @return local
      */
-    public static File getFile(String path) {
+    public static InputStream getFile(String path) {
         try {
-            return ResourceUtils.getFile(path);
+            ClassPathResource resource = new ClassPathResource(path, ResourceUtils.class.getClassLoader());
+            return resource.getInputStream();
         } catch (Exception e) {
             log.error("获取文件失败 [{}]", path, e);
             throw new BusinessException(ErrorCode.FILE_NOT_FOUND);

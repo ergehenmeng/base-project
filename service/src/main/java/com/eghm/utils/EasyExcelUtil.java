@@ -25,7 +25,6 @@ import org.apache.poi.ss.util.CellRangeAddressList;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
-import java.io.File;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
@@ -45,8 +44,6 @@ import java.util.function.Consumer;
 public class EasyExcelUtil {
 
     public static final String XLSX_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-
-    public static final String CLASS_PATH = "classpath:excel/%s";
 
     /**
      * 默认sheetName
@@ -100,15 +97,15 @@ public class EasyExcelUtil {
      *
      * @param response 响应response
      * @param fileName 文件名
-     * @param templateName 模板名称, 注意该模板文件必须放在classpath下的excel文件夹下
+     * @param templateName 模板名称, 注意该模板文件必须放在classpath下, 例如: excel/template.xlsx
      * @param rowValues 模板文件中需要填充的重复列 {.列名}
      * @param extParam 模板文件中需要填充的非重复列 {列名}
      * @param <T> T
      */
     public static <T> void export(HttpServletResponse response, String fileName, String templateName, List<T> rowValues, Map<String, Object> extParam) {
         setHeader(response, fileName);
-        File file = ResourceUtil.getFile(String.format(CLASS_PATH, templateName));
-        try (ExcelWriter excelWriter = EasyExcelFactory.write().file(response.getOutputStream()).withTemplate(file).build()) {
+        InputStream inputStream = ResourceUtil.getFile(templateName);
+        try (ExcelWriter excelWriter = EasyExcelFactory.write().file(response.getOutputStream()).withTemplate(inputStream).build()) {
             WriteSheet sheet = EasyExcelFactory.writerSheet().build();
             if (rowValues != null) {
                 FillConfig fillConfig = FillConfig.builder().forceNewRow(Boolean.TRUE).build();
