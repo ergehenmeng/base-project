@@ -97,14 +97,14 @@ public class EasyExcelUtil {
      *
      * @param response 响应response
      * @param fileName 文件名
-     * @param templateName 模板名称, 注意该模板文件必须放在classpath下, 例如: excel/template.xlsx
+     * @param templatePath 模板名称, 注意该模板文件必须放在classpath下, 例如: excel/template.xlsx
      * @param rowValues 模板文件中需要填充的重复列 {.列名}
      * @param extParam 模板文件中需要填充的非重复列 {列名}
      * @param <T> T
      */
-    public static <T> void export(HttpServletResponse response, String fileName, String templateName, List<T> rowValues, Map<String, Object> extParam) {
+    public static <T> void export(HttpServletResponse response, String fileName, String templatePath, List<T> rowValues, Map<String, Object> extParam) {
         setHeader(response, fileName);
-        InputStream inputStream = ResourceUtil.getFile(templateName);
+        InputStream inputStream = ResourceUtil.getInputStream(templatePath);
         try (ExcelWriter excelWriter = EasyExcelFactory.write().file(response.getOutputStream()).withTemplate(inputStream).build()) {
             WriteSheet sheet = EasyExcelFactory.writerSheet().build();
             if (rowValues != null) {

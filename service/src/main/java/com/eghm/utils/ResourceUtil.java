@@ -72,7 +72,7 @@ public class ResourceUtil {
      * @param path path classpath下
      * @return local
      */
-    public static InputStream getFile(String path) {
+    public static InputStream getInputStream(String path) {
         try {
             ClassPathResource resource = new ClassPathResource(path, ResourceUtils.class.getClassLoader());
             return resource.getInputStream();
