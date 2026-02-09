@@ -15,6 +15,7 @@ import com.eghm.utils.CacheUtil;
 import com.eghm.utils.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import static com.eghm.constants.CommonConstant.MAX_ERROR_NUM;
@@ -38,6 +39,7 @@ public class SmsServiceImpl implements SmsService {
     private final SendSmsService sendSmsService;
 
     @Override
+    @Async
     public void sendSmsCode(TemplateType templateType, String mobile, String ip) {
         this.smsIpLimitCheck(ip);
         this.sendSmsCode(templateType, mobile);
@@ -78,6 +80,7 @@ public class SmsServiceImpl implements SmsService {
     }
 
     @Override
+    @Async
     public void sendSms(String mobile, TemplateType templateType, String... params) {
         int state = sendSmsService.sendSms(mobile, templateType, params);
         SmsLog smsLog = SmsLog.builder().content(StringUtil.parse(templateType.getContent(), params)).mobile(mobile).templateType(templateType).state(state).build();
