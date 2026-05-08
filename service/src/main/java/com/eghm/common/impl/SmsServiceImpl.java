@@ -82,13 +82,15 @@ public class SmsServiceImpl implements SmsService {
     @Override
     @Async
     public void sendSms(String mobile, TemplateType templateType, String... params) {
-        int state = sendSmsService.sendSms(mobile, templateType, params);
-        SmsLog smsLog = SmsLog.builder().content(StringUtil.parse(templateType.getContent(), params)).mobile(mobile).templateType(templateType).state(state).build();
-        smsLogService.addSmsLog(smsLog);
+        this.doSendSms(mobile, templateType, params);
     }
 
     /**
-     * 发送短信验证码
+     *
+     * 1. 校验ip地址短信发送次数上限
+     * 2. 校验手机号发送次数上限
+     * 3. 发送短信验证码, 并记录短信日志
+     * 4. 将短信验证码存入缓存, 并设置过期时间
      *
      * @param templateType 短信验证码类型
      * @param mobile       手机号
@@ -96,10 +98,23 @@ public class SmsServiceImpl implements SmsService {
     private void sendSmsCode(TemplateType templateType, String mobile) {
         this.smsLimitCheck(templateType.getValue(), mobile);
         String smsCode = StringUtil.randomNumber();
-        this.sendSms(mobile, templateType, smsCode);
+        this.doSendSms(mobile, templateType, smsCode);
         this.saveSmsCode(templateType.getValue(), mobile, smsCode);
         long expire = sysConfigApi.getLong(ConfigConstant.SMS_TYPE_INTERVAL);
         cacheService.setValue(String.format(CacheConstant.SMS_TYPE_INTERVAL, templateType.getValue(), mobile), true, expire);
+    }
+    
+    /**
+     * 发送短信, 并记录短信日志
+     *
+     * @param mobile 手机号
+     * @param templateType 短信模板类型
+     * @param params 短信模板参数
+     */
+    public void doSendSms(String mobile, TemplateType templateType, String... params) {
+        int state = sendSmsService.sendSms(mobile, templateType, params);
+        SmsLog smsLog = SmsLog.builder().content(StringUtil.parse(templateType.getContent(), params)).mobile(mobile).templateType(templateType).state(state).build();
+        smsLogService.addSmsLog(smsLog);
     }
 
     /**
