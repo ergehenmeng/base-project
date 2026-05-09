@@ -34,7 +34,7 @@ import static com.eghm.utils.StringUtil.isNotBlank;
 @AllArgsConstructor
 public class PermInterceptor implements InterceptorAdapter {
 
-    private static final Map<String, List<String>> PERM_MAP = new ConcurrentHashMap<>(256);
+    private static volatile Map<String, List<String>> PERM_MAP = new ConcurrentHashMap<>(256);
 
     private final CommonService commonService;
 
@@ -45,16 +45,17 @@ public class PermInterceptor implements InterceptorAdapter {
     @PostConstruct
     public void refresh() {
         List<SysMenu> selectList = sysMenuService.getButtonList();
-        PERM_MAP.clear();
+        Map<String, List<String>> permMap = new ConcurrentHashMap<>(256);
         for (SysMenu menu : selectList) {
             if (isNotBlank(menu.getSubPath())) {
                 for (String subUrl : StringUtils.tokenizeToStringArray(menu.getSubPath(), DELIMITERS)) {
-                    List<String> codeList = PERM_MAP.getOrDefault(subUrl, new ArrayList<>(8));
+                    List<String> codeList = permMap.getOrDefault(subUrl, new ArrayList<>(8));
                     codeList.add(menu.getCode());
-                    PERM_MAP.put(subUrl, codeList);
+                    permMap.put(subUrl, codeList);
                 }
             }
         }
+        PERM_MAP = permMap;
     }
 
     @Override
