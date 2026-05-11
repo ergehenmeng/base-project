@@ -347,7 +347,7 @@ public class SystemProperties {
         private AlarmType alarmType;
 
         /**
-         * 钉钉消息通知AccessToken或者飞书通知webHook地址
+         * 钉钉消息通知AccessToken或者飞书、企业微信的通知webHook地址
          */
         private String webHook;
 

@@ -5,6 +5,7 @@ import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
 import com.eghm.common.impl.DefaultAlarmServiceImpl;
 import com.eghm.common.impl.DingTalkAlarmServiceImpl;
+import com.eghm.common.impl.EnterpriseWeChatAlarmServiceImpl;
 import com.eghm.common.impl.FeiShuAlarmServiceImpl;
 import com.eghm.configuration.jackson.DesensitizationAnnotationInterceptor;
 import com.eghm.configuration.log.LogTraceFilter;
@@ -16,7 +17,13 @@ import com.eghm.enums.AlarmType;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.AnnotationIntrospector;
+import com.fasterxml.jackson.databind.BeanDescription;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationConfig;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
@@ -156,6 +163,9 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, Validati
         }
         if (alarmMsg.getAlarmType() == AlarmType.FEI_SHU) {
             return new FeiShuAlarmServiceImpl(jsonService, systemProperties);
+        }
+        if (alarmMsg.getAlarmType() == AlarmType.ENTERPRISE_WECHAT) {
+            return new EnterpriseWeChatAlarmServiceImpl(jsonService, systemProperties);
         }
         return new DefaultAlarmServiceImpl();
     }

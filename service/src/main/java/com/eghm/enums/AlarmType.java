@@ -23,5 +23,10 @@ public enum AlarmType {
     /**
      * 飞书报警通知
      */
-    FEI_SHU
+    FEI_SHU,
+    
+    /**
+     * 企业微信报警通知
+     */
+    ENTERPRISE_WECHAT
 }
