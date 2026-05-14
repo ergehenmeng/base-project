@@ -5,7 +5,7 @@ import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
 import com.eghm.common.impl.DefaultAlarmServiceImpl;
 import com.eghm.common.impl.DingTalkAlarmServiceImpl;
-import com.eghm.common.impl.EnterpriseWeChatAlarmServiceImpl;
+import com.eghm.common.impl.WeChatAlarmServiceImpl;
 import com.eghm.common.impl.FeiShuAlarmServiceImpl;
 import com.eghm.configuration.jackson.DesensitizationAnnotationInterceptor;
 import com.eghm.configuration.log.LogTraceFilter;
@@ -165,7 +165,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, Validati
             return new FeiShuAlarmServiceImpl(jsonService, systemProperties);
         }
         if (alarmMsg.getAlarmType() == AlarmType.ENTERPRISE_WECHAT) {
-            return new EnterpriseWeChatAlarmServiceImpl(jsonService, systemProperties);
+            return new WeChatAlarmServiceImpl(jsonService, systemProperties);
         }
         return new DefaultAlarmServiceImpl();
     }

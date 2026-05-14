@@ -6,7 +6,7 @@ import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.CommonConstant;
-import com.eghm.dto.ext.EnterpriseWechatMsg;
+import com.eghm.dto.ext.WechatMsg;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
@@ -20,7 +20,7 @@ import org.springframework.scheduling.annotation.Async;
  */
 @Slf4j
 @AllArgsConstructor
-public class EnterpriseWeChatAlarmServiceImpl implements AlarmService {
+public class WeChatAlarmServiceImpl implements AlarmService {
 
     private final JsonService jsonService;
 
@@ -40,13 +40,13 @@ public class EnterpriseWeChatAlarmServiceImpl implements AlarmService {
      * @return 消息 json
      */
     private String createTextMsg(String content) {
-        EnterpriseWechatMsg msg = new EnterpriseWechatMsg();
+        WechatMsg msg = new WechatMsg();
         msg.setMsgType("text");
         String appName = SpringUtil.getApplicationName();
         String builder = "【服务名】：" + appName + "\n" +
                 "【traceId】：" + MDC.get(CommonConstant.TRACE_ID) + "\n" +
                 "【报警信息】：" + content;
-        msg.setText(new EnterpriseWechatMsg.Text(builder));
+        msg.setText(new WechatMsg.Text(builder));
         return jsonService.toJson(msg);
     }
 
