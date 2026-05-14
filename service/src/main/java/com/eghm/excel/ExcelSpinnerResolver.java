@@ -52,7 +52,7 @@ public class ExcelSpinnerResolver {
         }
         // 方式二：获取动态下拉框的内容
         Class<? extends DynamicSpinner> cls = spinner.sourceClass();
-        if (cls.isAssignableFrom(DynamicSpinner.class)) {
+        if (DynamicSpinner.class.isAssignableFrom(cls)) {
             try {
                 DynamicSpinner dynamicSpinner = SpringUtil.getBean(cls);
                 return dynamicSpinner.getOptions();
