@@ -51,17 +51,17 @@ public class ExcelSpinnerResolver {
             return sourceList;
         }
         // 方式二：获取动态下拉框的内容
-        Class<? extends DynamicSpinner>[] classes = spinner.sourceClass();
-        if (classes.length > 0) {
+        Class<? extends DynamicSpinner> cls = spinner.sourceClass();
+        if (cls.isAssignableFrom(DynamicSpinner.class)) {
             try {
-                DynamicSpinner dynamicSpinner = SpringUtil.getBean(DynamicSpinner.class);
+                DynamicSpinner dynamicSpinner = SpringUtil.getBean(cls);
                 return dynamicSpinner.getOptions();
             } catch (Exception e) {
-                log.error("解析动态下拉框数据异常 [{}]", classes, e);
+                log.error("解析动态下拉框数据异常 [{}]", cls, e);
             }
         }
         // 方式三：获取码值下拉数据（动态下拉）
-        String key = spinner.value();
+        String key = spinner.dictKey();
         if (CharSequenceUtil.isNotBlank(key)) {
             try {
                 SysDictService service = SpringUtil.getBean(SysDictService.class);
