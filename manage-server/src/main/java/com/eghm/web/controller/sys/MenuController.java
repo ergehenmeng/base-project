@@ -45,21 +45,21 @@ public class MenuController {
     private final PermInterceptor permInterceptor;
 
     @GetMapping("/tree")
-    @Operation(summary = "左侧菜单V2-①")
+    @Operation(summary = "左侧菜单-v2-①")
     public RespBody<MenuTreeResponse> tree() {
         MenuTreeResponse response = sysMenuService.tree();
         return RespBody.success(response);
     }
 
     @GetMapping("/listPage")
-    @Operation(summary = "分页菜单V2-②")
+    @Operation(summary = "分页菜单-v2-②")
     public RespBody<PageData<MenuResponse>> listPage(@ParameterObject @Validated MenuQueryRequest request) {
         Page<MenuResponse> byPage = sysMenuService.getByPage(request);
         return RespBody.success(PageData.convert(byPage));
     }
 
     @GetMapping("/list")
-    @Operation(summary = "全部菜单V1")
+    @Operation(summary = "全部菜单-v1")
     public RespBody<List<MenuFullResponse>> list(@ParameterObject MenuQueryRequest request) {
         List<MenuFullResponse> responseList = sysMenuService.getList(request);
         return RespBody.success(responseList);
