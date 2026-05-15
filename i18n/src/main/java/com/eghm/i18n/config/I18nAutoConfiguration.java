@@ -2,9 +2,10 @@ package com.eghm.i18n.config;
 
 import com.eghm.i18n.interceptor.LanguageInterceptor;
 import com.eghm.i18n.interpolator.ValidatorMessageInterpolator;
-import com.eghm.i18n.provider.DefaultI18nMessageProvider;
 import com.eghm.i18n.provider.I18nMessageProvider;
+import jakarta.validation.MessageInterpolator;
 import org.hibernate.validator.BaseHibernateValidatorConfiguration;
+import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -38,18 +39,15 @@ public class I18nAutoConfiguration implements WebMvcConfigurer {
 
     @Bean
     @ConditionalOnMissingBean
-    public ValidatorMessageInterpolator dictMessageInterpolator(ObjectProvider<I18nMessageProvider> messageProvider) {
-        I18nMessageProvider provider = messageProvider.getIfAvailable();
-        if (provider == null) {
-            provider = new DefaultI18nMessageProvider();
-        }
-        return new ValidatorMessageInterpolator(provider);
+    public MessageInterpolator messageInterpolator(ObjectProvider<I18nMessageProvider> provider) {
+        I18nMessageProvider messageProvider = provider.getIfAvailable();
+        return messageProvider == null ? new ResourceBundleMessageInterpolator() : new ValidatorMessageInterpolator(messageProvider);
     }
 
     @Bean
-    public LocalValidatorFactoryBean localValidatorFactoryBean(ValidatorMessageInterpolator dictMessageInterpolator) {
+    public LocalValidatorFactoryBean localValidatorFactoryBean(MessageInterpolator messageInterpolator) {
         LocalValidatorFactoryBean factoryBean = new LocalValidatorFactoryBean();
-        factoryBean.setMessageInterpolator(dictMessageInterpolator);
+        factoryBean.setMessageInterpolator(messageInterpolator);
         factoryBean.getValidationPropertyMap().put(BaseHibernateValidatorConfiguration.FAIL_FAST, "true");
         return factoryBean;
     }

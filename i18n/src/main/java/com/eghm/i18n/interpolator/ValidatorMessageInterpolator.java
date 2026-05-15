@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class ValidatorMessageInterpolator implements MessageInterpolator {
 
     private static final Pattern PLACEHOLDER_PATTERN = Pattern.compile("\\{(\\w+)}");
-
+    
     private final I18nMessageProvider messageProvider;
     
     public ValidatorMessageInterpolator(I18nMessageProvider messageProvider) {
