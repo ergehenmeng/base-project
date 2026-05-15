@@ -13,6 +13,11 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.util.Locale;
 
+/**
+ * 国际化拦截器
+ * @author wyb-eghm
+ * @since 2026/5/15
+ */
 @RequiredArgsConstructor
 public class LanguageInterceptor implements HandlerInterceptor {
 

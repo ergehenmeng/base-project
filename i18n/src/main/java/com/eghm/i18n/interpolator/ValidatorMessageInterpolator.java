@@ -8,6 +8,11 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ *国际化验证消息插器
+ * @author wyb-eghm
+ * @since 2026/5/15
+ */
 public class ValidatorMessageInterpolator implements MessageInterpolator {
 
     private static final Pattern PLACEHOLDER_PATTERN = Pattern.compile("\\{(\\w+)}");
