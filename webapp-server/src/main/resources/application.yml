@@ -32,6 +32,6 @@ spring:
     template-loader-path: file:////usr/local/template,classpath:/templates/
 # mybatis配置
 mybatis-plus:
-  type-aliases-package: com.eghm.model.dto;com.eghm.model.vo;com.eghm.handler.mysql
+  type-aliases-package: com.eghm.dto;com.eghm.vo;com.eghm.handler.mysql
   configuration:
     map-underscore-to-camel-case: true
