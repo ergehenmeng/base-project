@@ -9,6 +9,7 @@
 
     <modules>
         <module>service</module>
+        <module>i18n</module>
         <module>webapp-server</module>
         <module>manage-server</module>
     </modules>
@@ -93,6 +94,11 @@
             <dependency>
                 <groupId>com.eghm</groupId>
                 <artifactId>service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>i18n</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
