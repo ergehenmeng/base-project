@@ -14,8 +14,10 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.validation.beanvalidation.MessageSourceResourceBundleLocator;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -48,10 +50,10 @@ public class I18nAutoConfiguration implements WebMvcConfigurer {
 
     @Bean
     @ConditionalOnMissingBean
-    public MessageInterpolator messageInterpolator(ObjectProvider<I18nMessageProvider> provider) {
+    public MessageInterpolator messageInterpolator(ObjectProvider<I18nMessageProvider> provider, MessageSource messageSource) {
         I18nMessageProvider messageProvider = provider.getIfAvailable();
         if (messageProvider == null) {
-            return new ResourceBundleMessageInterpolator();
+            return new ResourceBundleMessageInterpolator(new MessageSourceResourceBundleLocator(messageSource));
         } else {
             TranslateSerializer.setMessageProvider(messageProvider);
             return new ValidatorMessageInterpolator(messageProvider);
