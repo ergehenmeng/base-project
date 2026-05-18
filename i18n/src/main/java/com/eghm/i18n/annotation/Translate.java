@@ -20,8 +20,9 @@ import java.lang.annotation.Target;
 public @interface Translate {
     
     /**
-     * 默认翻译的语言
-     * @return 中文
+     * 数据字典的key, 注意: 如果字段为空, 则直接使用返回值进行翻译
+     *
+     * @return key
      */
-    String value() default "zh-CN";
+    String value() default "";
 }

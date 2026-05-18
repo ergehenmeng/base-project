@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *国际化验证消息插器
+ * 国际化验证消息插器
  * @author wyb-eghm
  * @since 2026/5/15
  */
@@ -25,7 +25,7 @@ public class ValidatorMessageInterpolator implements MessageInterpolator {
     
     @Override
     public String interpolate(String messageTemplate, Context context) {
-        return interpolate(messageTemplate, context, resolveLocale());
+        return interpolate(messageTemplate, context, LanguageContextHolder.getLocale());
     }
 
     @Override
@@ -36,11 +36,6 @@ public class ValidatorMessageInterpolator implements MessageInterpolator {
         String messageKey = this.extractMessageKey(messageTemplate);
         String resolvedMessage = messageProvider.getMessage(messageKey, locale);
         return this.replaceAnnotationAttributes(resolvedMessage, context);
-    }
-
-    private Locale resolveLocale() {
-        Locale locale = LanguageContextHolder.getLocale();
-        return locale != null ? locale : Locale.getDefault();
     }
 
     private boolean isI18nKey(String message) {

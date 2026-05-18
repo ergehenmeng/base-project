@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -22,6 +23,8 @@ public class TranslateSerializer extends StdSerializer<Object> implements Contex
     
     private volatile static I18nMessageProvider PROVIDER;
     
+    private Translate annotation;
+    
     public TranslateSerializer() {
         super(Object.class);
     }
@@ -33,6 +36,7 @@ public class TranslateSerializer extends StdSerializer<Object> implements Contex
         if (annotation == null) {
             return prov.findContentValueSerializer(property.getType(), property);
         }
+        this.annotation = annotation;
         return this;
     }
     
@@ -45,8 +49,11 @@ public class TranslateSerializer extends StdSerializer<Object> implements Contex
                 gen.writeObject(value);
             } else {
                 Locale locale = LanguageContextHolder.getLocale();
-                String message = PROVIDER.getMessage(value.toString(), locale);
-                gen.writeString(message);
+                if (StringUtils.hasText(annotation.value())) {
+                    gen.writeString(PROVIDER.getMessage(value.toString(), locale, annotation.value()));
+                } else {
+                    gen.writeString(PROVIDER.getMessage(value.toString(), locale));
+                }
             }
         }
     }

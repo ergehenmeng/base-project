@@ -15,7 +15,7 @@ public class I18nProperties {
     private boolean enabled = true;
     
     /**
-     * 语言头名称
+     * 请求头语言名称 默认值：X-Language, 注意: 如果请求头中没有该字段, 则使用Accept-Language字段
      */
     private String headerName = "X-Language";
 
