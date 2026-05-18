@@ -17,7 +17,7 @@ public interface I18nMessageProvider {
     /**
      * 错误码字典key
      */
-    String ERROR = "error";
+    String ERROR_CODE = "error_code";
     
     /**
      * 通过字典key对消息进行国际化处理
