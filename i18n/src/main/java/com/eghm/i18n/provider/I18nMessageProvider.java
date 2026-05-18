@@ -12,18 +12,12 @@ public interface I18nMessageProvider {
     /**
      * 默认数据字典key
      */
-    String DEFAULT_KEY = "validator";
+    String VALIDATOR = "validator";
     
     /**
-     * 直接通过字典对消息进行国际化处理
-     *
-     * @param message 消息键
-     * @param locale 语言
-     * @return 消息内容
+     * 错误码字典key
      */
-    default String getMessage(String message, Locale locale) {
-        return getMessage(message, locale, DEFAULT_KEY);
-    }
+    String ERROR = "error";
     
     /**
      * 通过字典key对消息进行国际化处理

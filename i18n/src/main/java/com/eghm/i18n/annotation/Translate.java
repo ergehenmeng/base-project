@@ -20,9 +20,9 @@ import java.lang.annotation.Target;
 public @interface Translate {
     
     /**
-     * 数据字典的key, 注意: 如果字段为空, 则直接使用返回值进行翻译
+     * 数据字典的key
      *
      * @return key
      */
-    String value() default "";
+    String value();
 }

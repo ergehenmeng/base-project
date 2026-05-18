@@ -34,7 +34,7 @@ public class ValidatorMessageInterpolator implements MessageInterpolator {
             return messageTemplate;
         }
         String messageKey = this.extractMessageKey(messageTemplate);
-        String resolvedMessage = messageProvider.getMessage(messageKey, locale);
+        String resolvedMessage = messageProvider.getMessage(messageKey, locale, I18nMessageProvider.VALIDATOR);
         return this.replaceAnnotationAttributes(resolvedMessage, context);
     }
 

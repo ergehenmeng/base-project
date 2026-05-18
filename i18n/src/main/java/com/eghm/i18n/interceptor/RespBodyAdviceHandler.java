@@ -46,7 +46,7 @@ public class RespBodyAdviceHandler implements ResponseBodyAdvice<RespBodyProvide
             return body;
         }
         Locale locale = LanguageContextHolder.getLocale();
-        String translatedMsg = messageProvider.getMessage(msg, locale);
+        String translatedMsg = messageProvider.getMessage(msg, locale, I18nMessageProvider.ERROR);
         body.setMsg(translatedMsg);
         return body;
     }
