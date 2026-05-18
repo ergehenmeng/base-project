@@ -18,6 +18,7 @@ i18n:
 import com.eghm.i18n.annotation.Translation;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 
 public class User {
     
@@ -27,16 +28,22 @@ public class User {
     @Min(value = 18, message = "{age.gt}")
     private Integer age;
     
+    @Range(min = 120, max = 200, message = "{height.range}")
+    private Integer height;
+    
     @Translation(value = "user_status")
     private Integer status;
 }
 
 ```
-> I18nMessageProvider 实现的 getMessage 方法,返回值可以为 name.notblank = "姓名不能为空" | Username must not be blank
-> age.gt = "年龄必须大于{min}" | Age must be greater than {min}
-> 注意: User作为请求参数时,需要添加 @Validated(推荐) @Valid校验注解,并根据校验结果返回国际化错误信息
+#### I18nMessageProvider#getMessage的返回值如下:
+
+* name.notblank = "姓名不能为空" | Username must not be blank
+* age.gt = "年龄必须大于{value}" | Age must be greater than {value}
+* height.range = "身高必须在{min}到{max}之间" | Height must be between {min} and {max}
+* 注意: User作为请求参数时,需要添加 @Validated(推荐) @Valid校验注解,并根据校验结果返回国际化错误信息
   * 建议数据字典key=validator统一维护校验错误信息
-> 注意: User作为返回值时, @Translation会生效, user_status为数据字典key, 1 = "正常" | Normal
+* 注意: User作为返回值时, @Translation会生效, user_status为数据字典key, 1 = "正常" | Normal
   * 建议数据字典key按功能模块进行维护区分
 
 #### 业务异常
