@@ -5,7 +5,7 @@ import com.eghm.i18n.interceptor.LanguageInterceptor;
 import com.eghm.i18n.interceptor.RespBodyAdviceHandler;
 import com.eghm.i18n.interpolator.ValidatorMessageInterpolator;
 import com.eghm.i18n.provider.I18nMessageProvider;
-import com.eghm.i18n.serializer.TranslateSerializer;
+import com.eghm.i18n.serializer.TranslationSerializer;
 import jakarta.validation.MessageInterpolator;
 import org.hibernate.validator.BaseHibernateValidatorConfiguration;
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
@@ -55,7 +55,7 @@ public class I18nAutoConfiguration implements WebMvcConfigurer {
         if (messageProvider == null) {
             return new ResourceBundleMessageInterpolator(new MessageSourceResourceBundleLocator(messageSource));
         } else {
-            TranslateSerializer.setMessageProvider(messageProvider);
+            TranslationSerializer.setMessageProvider(messageProvider);
             return new ValidatorMessageInterpolator(messageProvider);
         }
     }

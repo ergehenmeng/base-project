@@ -1,6 +1,6 @@
 package com.eghm.i18n.serializer;
 
-import com.eghm.i18n.annotation.Translate;
+import com.eghm.i18n.annotation.Translation;
 import com.eghm.i18n.context.LanguageContextHolder;
 import com.eghm.i18n.provider.I18nMessageProvider;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -18,20 +18,20 @@ import java.util.Locale;
  * @author wyb-eghm
  * @since 2026/5/15
  */
-public class TranslateSerializer extends StdSerializer<Object> implements ContextualSerializer {
+public class TranslationSerializer extends StdSerializer<Object> implements ContextualSerializer {
     
     private volatile static I18nMessageProvider PROVIDER;
     
-    private Translate annotation;
+    private Translation annotation;
     
-    public TranslateSerializer() {
+    public TranslationSerializer() {
         super(Object.class);
     }
     
     @Override
     public JsonSerializer<?> createContextual(SerializerProvider prov, BeanProperty property)
             throws JsonMappingException {
-        Translate annotation = property.getAnnotation(Translate.class);
+        Translation annotation = property.getAnnotation(Translation.class);
         if (annotation == null) {
             return prov.findContentValueSerializer(property.getType(), property);
         }
