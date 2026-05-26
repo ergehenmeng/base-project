@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 国际化验证消息插器
+ * 国际化验证消息插器 - 对请求参数校验 @Valid @Validated的错误异常进行翻译
  * @author wyb-eghm
  * @since 2026/5/15
  */

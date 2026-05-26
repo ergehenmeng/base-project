@@ -10,6 +10,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ *
+ * 功能: 对返回前端的VO属性进行国际化翻译
+ *
  * @author wyb-eghm
  * @since 2026/5/15
  */

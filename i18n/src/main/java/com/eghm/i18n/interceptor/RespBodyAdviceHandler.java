@@ -16,8 +16,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import java.util.Locale;
 
 /**
+ * 对返回前端的对象 code != success的错误码进行翻译
+ *
  * @author wyb-eghm
- * @since 2026/5/18
+ * @since 2026/5/21
  */
 @AllArgsConstructor
 public class RespBodyAdviceHandler implements ResponseBodyAdvice<RespBodyProvider> {
