@@ -32,8 +32,6 @@
         <maven.compiler.target>17</maven.compiler.target>
         <!--图形验证码版本-->
         <kaptcha.version>2.3.2</kaptcha.version>
-        <!--sql日志打印版本-->
-        <log4jdbc.version>1.2</log4jdbc.version>
         <!--sql日志打印-->
         <p6spy.version>3.9.1</p6spy.version>
         <!--guava工具类版本-->
@@ -41,13 +39,11 @@
         <!--apache工具类版本-->
         <commons.lang3.version>3.17.0</commons.lang3.version>
         <!--json工具类版本-->
-        <fastjson.version>2.0.52</fastjson.version>
+        <fastjson.version>2.0.57</fastjson.version>
         <!--打包跳过测试-->
         <skipTests>true</skipTests>
         <!--生成编译的工具类-->
         <lombok.version>1.18.34</lombok.version>
-        <!--分布式数据库工具-->
-        <sharding-jdbc.version>2.0.3</sharding-jdbc.version>
         <!--redis客户端工具-->
         <redisson.version>3.27.2</redisson.version>
         <!--中文拼音解析-->
@@ -208,11 +204,6 @@
                 <groupId>com.github.penggle</groupId>
                 <artifactId>kaptcha</artifactId>
                 <version>${kaptcha.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.googlecode.log4jdbc</groupId>
-                <artifactId>log4jdbc</artifactId>
-                <version>${log4jdbc.version}</version>
             </dependency>
             <dependency>
                 <groupId>p6spy</groupId>

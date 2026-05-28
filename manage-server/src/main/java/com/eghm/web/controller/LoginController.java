@@ -9,12 +9,17 @@ import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.ext.UserToken;
-import com.eghm.dto.sys.login.*;
+import com.eghm.dto.sys.login.LoginRequest;
+import com.eghm.dto.sys.login.SmsLoginRequest;
+import com.eghm.dto.sys.login.SmsVerifyRequest;
+import com.eghm.dto.sys.login.TotpBindRequest;
+import com.eghm.dto.sys.login.TotpCheckRequest;
 import com.eghm.enums.Env;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.LoginType;
 import com.eghm.exception.BusinessException;
 import com.eghm.service.sys.SysUserService;
+import com.eghm.utils.CacheUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginMenuResponse;
 import com.eghm.vo.login.LoginResponse;
@@ -26,7 +31,11 @@ import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -94,6 +103,7 @@ public class LoginController {
             // 删除锁屏状态
             cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
             userTokenService.logout(user.getToken());
+            CacheUtil.PERMISSION_CACHE.invalidate(user.getToken());
         }
         return RespBody.success();
     }

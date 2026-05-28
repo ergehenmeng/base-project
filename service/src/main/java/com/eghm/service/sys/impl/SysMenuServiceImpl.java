@@ -17,6 +17,8 @@ import com.eghm.model.SysMenu;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.StringUtil;
+import com.eghm.utils.TreeUtil;
+import com.eghm.utils.ValidationUtil;
 import com.eghm.vo.sys.menu.MenuFullResponse;
 import com.eghm.vo.sys.menu.MenuResponse;
 import com.eghm.vo.sys.menu.MenuTreeResponse;
@@ -51,7 +53,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public MenuTreeResponse tree() {
         List<MenuTreeResponse> responseList = sysMenuMapper.getLeftList();
-        List<MenuTreeResponse> treeBin = this.treeBin(ROOT, responseList);
+        List<MenuTreeResponse> treeBin = TreeUtil.tree(responseList, ROOT, MenuTreeResponse::getId, MenuTreeResponse::getPid, MenuTreeResponse::setChildren, COMPARATOR);
         MenuTreeResponse response = new MenuTreeResponse();
         response.setChildren(treeBin);
         response.setId(ROOT);
@@ -67,19 +69,19 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public List<MenuTreeResponse> getLeftMenuList(Long userId) {
         List<MenuTreeResponse> list = sysMenuMapper.getMenuList(userId, 1);
-        return this.treeBin(ROOT, list);
+        return TreeUtil.tree(list, ROOT, MenuTreeResponse::getId, MenuTreeResponse::getPid, MenuTreeResponse::setChildren, COMPARATOR);
     }
 
     @Override
     public List<MenuTreeResponse> getAdminLeftMenuList() {
         List<MenuTreeResponse> list = sysMenuMapper.getSystemMenuList(1);
-        return this.treeBin(ROOT, list);
+        return TreeUtil.tree(list, ROOT, MenuTreeResponse::getId, MenuTreeResponse::getPid, MenuTreeResponse::setChildren, COMPARATOR);
     }
 
     @Override
     public List<MenuTreeResponse> getAll(Integer displayState) {
         List<MenuTreeResponse> responseList = sysMenuMapper.getAll(displayState);
-        return this.treeBin(ROOT, responseList);
+        return TreeUtil.tree(responseList, ROOT, MenuTreeResponse::getId, MenuTreeResponse::getPid, MenuTreeResponse::setChildren, COMPARATOR);
     }
 
     @Override
@@ -155,17 +157,11 @@ public class SysMenuServiceImpl implements SysMenuService {
      * 校验菜单名称是否重复
      *
      * @param title 菜单名称
+     * @param pid   父节点ID
      * @param id    菜单id
      */
     private void redoTitle(String title, String pid, String id) {
-        LambdaQueryWrapper<SysMenu> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysMenu::getTitle, title);
-        wrapper.eq(SysMenu::getPid, pid);
-        wrapper.ne(id != null, SysMenu::getId, id);
-        Long count = sysMenuMapper.selectCount(wrapper);
-        if (count > 0) {
-            throw new BusinessException(ErrorCode.MENU_TITLE_REDO);
-        }
+        ValidationUtil.redoCheck(sysMenuMapper, SysMenu::getTitle, title, wrapper -> wrapper.eq(SysMenu::getPid, pid), id, SysMenu::getId, ErrorCode.MENU_TITLE_REDO, "菜单名称重复 [{}] [{}]");
     }
 
     /**
@@ -201,17 +197,5 @@ public class SysMenuServiceImpl implements SysMenuService {
     private String generateNextId(String pid) {
         String maxId = sysMenuMapper.getMaxId(pid);
         return commonService.generateNextId(maxId, pid, CommonConstant.STEP_10, ErrorCode.MENU_MAX_ERROR);
-    }
-
-    /**
-     * 将菜单列表树化
-     *
-     * @param menuList 菜单列表
-     * @return 菜单列表 树状结构
-     */
-    private List<MenuTreeResponse> treeBin(String pid, List<MenuTreeResponse> menuList) {
-        List<MenuTreeResponse> responseList = menuList.stream().filter(parent -> Objects.equals(pid, parent.getPid())).sorted(COMPARATOR).toList();
-        responseList.forEach(parent -> parent.setChildren(this.treeBin(parent.getId(), menuList)));
-        return responseList;
     }
 }

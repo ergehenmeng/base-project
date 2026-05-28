@@ -5,6 +5,7 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.eghm.constants.CommonConstant.SMS_CODE_EXPIRE;
@@ -44,5 +45,9 @@ public class CacheUtil {
      * 双因子验证第一步缓存数据
      */
     public static final Cache<String, Long> TOTP_CACHE = Caffeine.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES).maximumSize(10000).build();
-
+    
+    /**
+     * 用户权限缓存
+     */
+    public static final Cache<String, List<String>> PERMISSION_CACHE = Caffeine.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES).maximumSize(1000).build();
 }

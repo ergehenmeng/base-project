@@ -67,10 +67,6 @@
             <artifactId>easyexcel</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.googlecode.log4jdbc</groupId>
-            <artifactId>log4jdbc</artifactId>
-        </dependency>
-        <dependency>
             <groupId>p6spy</groupId>
             <artifactId>p6spy</artifactId>
         </dependency>

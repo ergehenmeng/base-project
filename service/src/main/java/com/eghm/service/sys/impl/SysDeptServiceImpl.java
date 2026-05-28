@@ -1,7 +1,5 @@
 package com.eghm.service.sys.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.CommonService;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.PagingQuery;
@@ -9,18 +7,18 @@ import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.sys.dept.DeptAddRequest;
 import com.eghm.dto.sys.dept.DeptEditRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysDeptMapper;
 import com.eghm.model.SysDept;
 import com.eghm.service.sys.SysDeptService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.TreeUtil;
+import com.eghm.utils.ValidationUtil;
 import com.eghm.vo.sys.ext.SysDeptResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 import static com.eghm.constants.CommonConstant.ROOT_NODE;
 import static com.eghm.constants.CommonConstant.STEP_100;
@@ -43,7 +41,7 @@ public class SysDeptServiceImpl implements SysDeptService {
     @Override
     public List<SysDeptResponse> getList(PagingQuery query) {
         List<SysDeptResponse> responseList = sysDeptMapper.getList(query.getQueryName());
-        return this.treeBin(ROOT_NODE, responseList);
+        return TreeUtil.tree(responseList, ROOT_NODE, SysDeptResponse::getCode, SysDeptResponse::getParentCode, SysDeptResponse::setChildren);
     }
 
     @Override
@@ -78,13 +76,7 @@ public class SysDeptServiceImpl implements SysDeptService {
      * @param id         id
      */
     private void redoTitle(String title, String parentCode, Long id) {
-        LambdaQueryWrapper<SysDept> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysDept::getTitle, title);
-        wrapper.eq(SysDept::getParentCode, parentCode);
-        wrapper.ne(id != null, SysDept::getId, id);
-        if (sysDeptMapper.selectCount(wrapper) > 0) {
-            throw new BusinessException(ErrorCode.DEPARTMENT_TITLE_REPEAT);
-        }
+        ValidationUtil.redoCheck(sysDeptMapper, SysDept::getTitle, title, wrapper -> wrapper.eq(SysDept::getParentCode, parentCode), id, SysDept::getId, ErrorCode.DEPARTMENT_TITLE_REPEAT, "部门名称重复 [{}] [{}]");
     }
 
     /**
@@ -97,18 +89,6 @@ public class SysDeptServiceImpl implements SysDeptService {
     private String getNextCode(String code) {
         String maxCode = sysDeptMapper.getMaxCodeChild(code);
         return commonService.generateNextId(maxCode, code, STEP_100, ErrorCode.DEPARTMENT_DEPTH_ERROR);
-    }
-
-    /**
-     * 将菜单列表树化
-     *
-     * @param menuList 菜单列表
-     * @return 菜单列表 树状结构
-     */
-    private List<SysDeptResponse> treeBin(String code, List<SysDeptResponse> menuList) {
-        List<SysDeptResponse> responseList = menuList.stream().filter(parent -> Objects.equals(code, parent.getParentCode())).toList();
-        responseList.forEach(parent -> parent.setChildren(this.treeBin(parent.getCode(), menuList)));
-        return responseList;
     }
 
 }

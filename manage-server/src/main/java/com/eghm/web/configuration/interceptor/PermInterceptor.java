@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static com.eghm.utils.CacheUtil.PERMISSION_CACHE;
 import static com.eghm.utils.StringUtil.isNotBlank;
 
 /**
@@ -76,7 +77,7 @@ public class PermInterceptor implements InterceptorAdapter {
      */
     private boolean match(HttpServletRequest request) {
         UserToken userToken = SecurityHolder.getUserRequired();
-        List<String> codeList = commonService.getPermission(userToken.getToken());
+        List<String> codeList = PERMISSION_CACHE.get(userToken.getToken(), commonService::getPermission);
         List<String> codes = PERM_MAP.get(request.getRequestURI());
         return CollUtil.isNotEmpty(codeList) && CollUtil.isNotEmpty(codes) && CollUtil.containsAny(codeList, codes);
     }

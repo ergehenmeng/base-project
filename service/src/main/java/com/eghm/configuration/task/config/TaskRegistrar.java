@@ -20,9 +20,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 import static com.eghm.utils.StringUtil.isBlank;
 
@@ -113,10 +115,11 @@ public class TaskRegistrar {
     private void removeCronTask(List<CronTaskWrapper> taskList) {
         boolean isEmpty = taskList.isEmpty();
         Iterator<Map.Entry<String, ScheduledFuture<?>>> iterator = scheduledFutures.entrySet().iterator();
+        Set<String> newTaskIds = taskList.stream().map(CronTaskWrapper::getNid).collect(Collectors.toSet());
         while (iterator.hasNext()) {
             Map.Entry<String, ScheduledFuture<?>> entry = iterator.next();
             // 将所有不在指定任务列表的中已经在运行的任务全部取消
-            boolean shouldCancel = (isEmpty || taskList.stream().map(CronTaskWrapper::getNid).noneMatch(s -> s.equals(entry.getKey())));
+            boolean shouldCancel = (isEmpty || !newTaskIds.contains(entry.getKey()));
             if (shouldCancel) {
                 entry.getValue().cancel(false);
                 iterator.remove();

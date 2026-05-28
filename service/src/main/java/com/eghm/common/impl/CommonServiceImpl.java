@@ -17,6 +17,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import com.eghm.utils.TreeUtil;
+
 import java.math.BigInteger;
 import java.util.List;
 import java.util.function.Consumer;
@@ -31,11 +33,13 @@ import static com.eghm.utils.StringUtil.isBlank;
 @AllArgsConstructor
 @Service("commonService")
 public class CommonServiceImpl implements CommonService {
+    
+    private volatile RSA rsaInstance;
 
     private final CacheService cacheService;
 
     private final SysAreaMapper sysAreaMapper;
-
+    
     private final SystemProperties systemProperties;
 
     private final CacheProxyService cacheProxyService;
@@ -43,13 +47,13 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public List<SysAreaVO> getTreeAreaList() {
         List<SysAreaVO> areaList = cacheProxyService.getAreaList();
-        return this.treeBin(CommonConstant.ROOT, areaList);
+        return TreeUtil.tree(areaList, CommonConstant.ROOT, SysAreaVO::getId, SysAreaVO::getPid, SysAreaVO::setChildren);
     }
 
     @Override
     public List<SysAreaVO> getTreeAreaList(List<Integer> gradeList) {
         List<SysAreaVO> areaList = sysAreaMapper.getList(gradeList);
-        return this.treeBin(CommonConstant.ROOT, areaList);
+        return TreeUtil.tree(areaList, CommonConstant.ROOT, SysAreaVO::getId, SysAreaVO::getPid, SysAreaVO::setChildren);
     }
 
     @Override
@@ -65,8 +69,7 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public String rsaDecrypt(String rsaStr) {
-        RSA rsa = SecureUtil.rsa(systemProperties.getPrivateKey(), systemProperties.getPublicKey());
-        return rsa.decryptStr(rsaStr, KeyType.PrivateKey);
+        return getRsaInstance().decryptStr(rsaStr, KeyType.PrivateKey);
     }
 
     @Override
@@ -99,7 +102,26 @@ public class CommonServiceImpl implements CommonService {
         BigInteger max = new BigInteger(maxId);
         return max.add(BigInteger.valueOf(1L)).toString();
     }
-
+    
+    /**
+     * 获取 rsa 实例
+     *
+     * @return rsa 实例
+     */
+    private RSA getRsaInstance() {
+        if (rsaInstance == null) {
+            synchronized (this) {
+                if (rsaInstance == null) {
+                    rsaInstance = SecureUtil.rsa(
+                            systemProperties.getPrivateKey(),
+                            systemProperties.getPublicKey()
+                    );
+                }
+            }
+        }
+        return rsaInstance;
+    }
+    
     /**
      * 获取最大值 10 100 1000 10000 100000 -> 99 999 9999 99999 9999999
      *
@@ -108,18 +130,5 @@ public class CommonServiceImpl implements CommonService {
      */
     private int getMax(int step) {
         return Integer.parseInt("9".repeat(String.valueOf(step).length()));
-    }
-
-    /**
-     * 设置子节点
-     *
-     * @param pid    父节点
-     * @param voList 全部列表
-     * @return list
-     */
-    private List<SysAreaVO> treeBin(Long pid, List<SysAreaVO> voList) {
-        List<SysAreaVO> collectList = voList.stream().filter(parent -> pid.equals(parent.getPid())).toList();
-        collectList.forEach(parent -> parent.setChildren(this.treeBin(parent.getId(), voList)));
-        return collectList;
     }
 }

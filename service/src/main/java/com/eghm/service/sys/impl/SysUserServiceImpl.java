@@ -23,8 +23,16 @@ import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.sys.login.SmsLoginRequest;
 import com.eghm.dto.sys.login.TotpBindRequest;
 import com.eghm.dto.sys.login.TotpCheckRequest;
-import com.eghm.dto.sys.user.*;
-import com.eghm.enums.*;
+import com.eghm.dto.sys.user.PasswordEditRequest;
+import com.eghm.dto.sys.user.UserAddRequest;
+import com.eghm.dto.sys.user.UserEditRequest;
+import com.eghm.dto.sys.user.UserProfileRequest;
+import com.eghm.dto.sys.user.UserQueryRequest;
+import com.eghm.enums.DataType;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.TemplateType;
+import com.eghm.enums.UserState;
+import com.eghm.enums.UserType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysUserMapper;
 import com.eghm.model.SysDeptData;
@@ -35,6 +43,7 @@ import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.TotpUtil;
+import com.eghm.utils.ValidationUtil;
 import com.eghm.vo.login.LoginMenuResponse;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.login.TotpLoginResponse;
@@ -44,7 +53,6 @@ import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -475,14 +483,7 @@ public class SysUserServiceImpl implements SysUserService {
      * @param id     id (更新时不能为空)
      */
     private void redoMobile(String mobile, Long id) {
-        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysUser::getMobile, mobile);
-        wrapper.ne(id != null, SysUser::getId, id);
-        Long count = sysUserMapper.selectCount(wrapper);
-        if (count > 0) {
-            log.warn("手机号码被占用 [{}] [{}]", mobile, id);
-            throw new BusinessException(ErrorCode.MOBILE_REDO);
-        }
+        ValidationUtil.redoCheck(sysUserMapper, SysUser::getMobile, mobile, id, SysUser::getId, ErrorCode.MOBILE_REDO, "手机号码被占用 [{}] [{}]");
     }
 
     /**
@@ -492,13 +493,6 @@ public class SysUserServiceImpl implements SysUserService {
      * @param id       id (更新时不能为空)
      */
     private void redoUserName(String userName, Long id) {
-        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysUser::getUserName, userName);
-        wrapper.ne(id != null, SysUser::getId, id);
-        Long count = sysUserMapper.selectCount(wrapper);
-        if (count > 0) {
-            log.warn("账户名被占用 [{}] [{}]", userName, id);
-            throw new BusinessException(ErrorCode.USER_NAME_REDO);
-        }
+        ValidationUtil.redoCheck(sysUserMapper, SysUser::getUserName, userName, id, SysUser::getId, ErrorCode.USER_NAME_REDO, "账户名被占用 [{}] [{}]");
     }
 }

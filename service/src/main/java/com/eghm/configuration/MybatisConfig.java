@@ -23,7 +23,7 @@ public class MybatisConfig {
     public MybatisPlusInterceptor interceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         PaginationInnerInterceptor innerInterceptor = new PaginationInnerInterceptor(DbType.MYSQL);
-        innerInterceptor.setMaxLimit(10000L);
+        innerInterceptor.setMaxLimit(100L);
         interceptor.addInnerInterceptor(innerInterceptor);
         return interceptor;
     }

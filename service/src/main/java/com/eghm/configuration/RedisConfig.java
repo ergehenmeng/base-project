@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.cache.CacheManager;
@@ -40,7 +41,18 @@ import static com.eghm.constants.CacheConstant.SEPARATOR;
 @AllArgsConstructor
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 public class RedisConfig implements CachingConfigurer {
+    
+    private static final RedisSerializer<Object> VALUE_SERIALIZER;
 
+    static {
+        // 值序列化方式,此处已经采用jackson序列化,因为jackson可以根据缓存中json中的附加信息生成相应类(尤其是泛型对象),gson只能手动指定
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+        VALUE_SERIALIZER = new Jackson2JsonRedisSerializer<>(mapper, Object.class);
+    }
+    
     /**
      * 默认缓存管理期 默认30分钟过期
      *
@@ -93,20 +105,8 @@ public class RedisConfig implements CachingConfigurer {
                 RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofSeconds(expire))
                         .computePrefixWith(cacheName -> cacheName + SEPARATOR)
                         .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                        .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(valueSerializer()))
+                        .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(VALUE_SERIALIZER))
         ).build();
-    }
-
-    /**
-     * 值序列化方式,此处已经采用jackson序列化,因为jackson可以根据缓存中json中的附加信息生成相应类(尤其是泛型对象),gson只能手动指定
-     *
-     * @return jackson
-     */
-    private RedisSerializer<Object> valueSerializer() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
-        return new Jackson2JsonRedisSerializer<>(mapper, Object.class);
     }
 
     @Override
