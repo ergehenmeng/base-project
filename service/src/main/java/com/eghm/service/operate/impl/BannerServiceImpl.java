@@ -31,14 +31,12 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     public void create(BannerAddRequest request) {
-        Banner banner = DataUtil.copy(request, Banner.class);
-        bannerMapper.insert(banner);
+        DataUtil.copy(request, Banner.class, bannerMapper::insert);
     }
 
     @Override
     public void update(BannerEditRequest request) {
-        Banner banner = DataUtil.copy(request, Banner.class);
-        bannerMapper.updateById(banner);
+        DataUtil.copy(request, Banner.class, bannerMapper::updateById);
     }
 
     @Override

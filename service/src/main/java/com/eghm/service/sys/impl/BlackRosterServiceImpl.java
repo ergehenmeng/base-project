@@ -59,8 +59,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
             log.warn("ip黑名单范围错误 [{}] [{}]", request.getStartIp(), request.getEndIp());
             throw new BusinessException(ErrorCode.IP_RANGE_ILLEGAL);
         }
-        BlackRoster roster = DataUtil.copy(request, BlackRoster.class);
-        blackRosterMapper.insert(roster);
+        DataUtil.copy(request, BlackRoster.class, blackRosterMapper::insert);
     }
 
     @Override

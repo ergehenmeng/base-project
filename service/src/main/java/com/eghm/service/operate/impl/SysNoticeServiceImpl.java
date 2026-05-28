@@ -74,14 +74,12 @@ public class SysNoticeServiceImpl implements SysNoticeService {
 
     @Override
     public void create(NoticeAddRequest request) {
-        SysNotice notice = DataUtil.copy(request, SysNotice.class);
-        sysNoticeMapper.insert(notice);
+        DataUtil.copy(request, SysNotice.class, sysNoticeMapper::insert);
     }
 
     @Override
     public void update(NoticeEditRequest request) {
-        SysNotice notice = DataUtil.copy(request, SysNotice.class);
-        sysNoticeMapper.updateById(notice);
+        DataUtil.copy(request, SysNotice.class, sysNoticeMapper::updateById);
     }
 
     @Override

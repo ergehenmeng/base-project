@@ -29,8 +29,7 @@ public class ImageLogServiceImpl implements ImageLogService {
 
     @Override
     public void create(ImageAddRequest request) {
-        ImageLog imageLog = DataUtil.copy(request, ImageLog.class);
-        imageLogMapper.insert(imageLog);
+        DataUtil.copy(request, ImageLog.class, imageLogMapper::insert);
     }
 
     @Override
@@ -40,8 +39,7 @@ public class ImageLogServiceImpl implements ImageLogService {
 
     @Override
     public void update(ImageEditRequest request) {
-        ImageLog log = DataUtil.copy(request, ImageLog.class);
-        imageLogMapper.updateById(log);
+        DataUtil.copy(request, ImageLog.class, imageLogMapper::updateById);
     }
 
 }

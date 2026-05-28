@@ -49,8 +49,7 @@ public class SysTaskServiceImpl implements SysTaskService {
         if (!CronExpression.isValidExpression(request.getCronExpression())) {
             throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
         }
-        SysTask config = DataUtil.copy(request, SysTask.class);
-        sysTaskMapper.updateById(config);
+        DataUtil.copy(request, SysTask.class, sysTaskMapper::updateById);
     }
 
     @Override

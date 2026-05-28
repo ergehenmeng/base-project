@@ -1,14 +1,13 @@
 package com.eghm.service.operate.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.AlarmService;
 import com.eghm.common.impl.SysConfigApi;
-import com.eghm.constants.ConfigConstant;
 import com.eghm.configuration.security.ApiHolder;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.operate.version.VersionAddRequest;
 import com.eghm.dto.operate.version.VersionEditRequest;
 import com.eghm.dto.operate.version.VersionQueryRequest;
@@ -19,6 +18,7 @@ import com.eghm.mapper.AppVersionMapper;
 import com.eghm.model.AppVersion;
 import com.eghm.service.operate.AppVersionService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.ValidationUtil;
 import com.eghm.utils.VersionUtil;
 import com.eghm.vo.operate.version.AppVersionResponse;
 import com.eghm.vo.operate.version.AppVersionVO;
@@ -50,7 +50,7 @@ public class AppVersionServiceImpl implements AppVersionService {
 
     @Override
     public void create(VersionAddRequest request) {
-        this.redoVersion(request.getVersion());
+        ValidationUtil.redoCheck(appVersionMapper, AppVersion::getVersion, request.getVersion(), null, null, ErrorCode.VERSION_REDO, "版本号重复 [{}] [{}]");
         AppVersion version = DataUtil.copy(request, AppVersion.class);
         version.setVersionNo(VersionUtil.parseInt(request.getVersion()));
         version.setState(false);
@@ -117,21 +117,6 @@ public class AppVersionServiceImpl implements AppVersionService {
             throw new BusinessException(ErrorCode.CURRENT_VERSION_DELETE);
         }
         appVersionMapper.deleteById(id);
-    }
-
-    /**
-     * 校验版本号是否重复
-     *
-     * @param version 版本号
-     */
-    private void redoVersion(String version) {
-        LambdaQueryWrapper<AppVersion> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(AppVersion::getVersion, version);
-        Long count = appVersionMapper.selectCount(wrapper);
-        if (count > 0) {
-            log.error("版本号重复 [{}]", version);
-            throw new BusinessException(ErrorCode.VERSION_REDO);
-        }
     }
 
     /**

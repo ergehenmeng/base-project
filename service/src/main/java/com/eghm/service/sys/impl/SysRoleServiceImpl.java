@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.CheckBox;
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.sys.role.RoleAddRequest;
 import com.eghm.dto.sys.role.RoleEditRequest;
 import com.eghm.enums.ErrorCode;
@@ -20,6 +20,7 @@ import com.eghm.model.SysRole;
 import com.eghm.model.SysUserRole;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.ValidationUtil;
 import com.eghm.vo.sys.ext.SysRoleResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +48,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public void update(RoleEditRequest request) {
-        this.redoRole(request.getRoleName(), request.getId());
+        ValidationUtil.redoCheck(sysRoleMapper, SysRole::getRoleName, request.getRoleName(), request.getId(), SysRole::getId, ErrorCode.ROLE_NAME_REDO, "角色名称重复 [{}] [{}]");
         LambdaUpdateWrapper<SysRole> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(SysRole::getId, request.getId());
         wrapper.set(SysRole::getRoleName, request.getRoleName());
@@ -73,7 +74,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public void create(RoleAddRequest request) {
-        this.redoRole(request.getRoleName(), null);
+        ValidationUtil.redoCheck(sysRoleMapper, SysRole::getRoleName, request.getRoleName(), null, SysRole::getId, ErrorCode.ROLE_NAME_REDO, "角色名称重复 [{}] [{}]");
         SysRole role = DataUtil.copy(request, SysRole.class);
         sysRoleMapper.insert(role);
     }
@@ -120,20 +121,4 @@ public class SysRoleServiceImpl implements SysRoleService {
         return sysRoleMapper.selectById(id);
     }
 
-    /**
-     * 校验角色是否重复
-     *
-     * @param name 角色名称
-     * @param id   id 编辑时不能为空
-     */
-    public void redoRole(String name, Long id) {
-        LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysRole::getRoleName, name);
-        wrapper.ne(id != null, SysRole::getId, id);
-        Long count = sysRoleMapper.selectCount(wrapper);
-        if (count > 0) {
-            log.error("角色名称重复[{}] [{}]", name, id);
-            throw new BusinessException(ErrorCode.ROLE_NAME_REDO);
-        }
-    }
 }

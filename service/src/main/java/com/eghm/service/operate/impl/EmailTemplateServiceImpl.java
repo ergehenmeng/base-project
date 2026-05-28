@@ -38,8 +38,7 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
 
     @Override
     public void update(EmailTemplateRequest request) {
-        EmailTemplate template = DataUtil.copy(request, EmailTemplate.class);
-        emailTemplateMapper.updateById(template);
+        DataUtil.copy(request, EmailTemplate.class, emailTemplateMapper::updateById);
     }
 
     @Override

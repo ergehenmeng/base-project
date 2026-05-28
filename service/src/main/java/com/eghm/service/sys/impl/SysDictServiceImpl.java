@@ -1,10 +1,12 @@
 package com.eghm.service.sys.impl;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.cache.CacheProxyService;
-import com.eghm.dto.sys.dict.*;
+import com.eghm.dto.sys.dict.DictAddRequest;
+import com.eghm.dto.sys.dict.DictEditRequest;
+import com.eghm.dto.sys.dict.DictItemAddRequest;
+import com.eghm.dto.sys.dict.DictItemEditRequest;
+import com.eghm.dto.sys.dict.DictQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysDictItemMapper;
@@ -13,6 +15,7 @@ import com.eghm.model.SysDict;
 import com.eghm.model.SysDictItem;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.ValidationUtil;
 import com.eghm.vo.sys.dict.DictResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,17 +53,15 @@ public class SysDictServiceImpl implements SysDictService {
 
     @Override
     public void create(DictAddRequest request) {
-        this.redoTitle(request.getTitle(), null);
-        this.redoNid(request.getNid());
-        SysDict sysDict = DataUtil.copy(request, SysDict.class);
-        sysDictMapper.insert(sysDict);
+        ValidationUtil.redoCheck(sysDictMapper, SysDict::getTitle, request.getTitle(), null, SysDict::getId, ErrorCode.DICT_REPEAT_ERROR, "数据字典名称重复 [{}] [{}]");
+        ValidationUtil.redoCheck(sysDictMapper, SysDict::getNid, request.getNid(), null, SysDict::getId, ErrorCode.DICT_NID_REPEAT_ERROR, "数据字典编号重复 [{}] [{}]");
+        DataUtil.copy(request, SysDict.class, sysDictMapper::insert);
     }
 
     @Override
     public void update(DictEditRequest request) {
-        this.redoTitle(request.getTitle(), request.getId());
-        SysDict sysDict = DataUtil.copy(request, SysDict.class);
-        sysDictMapper.updateById(sysDict);
+        ValidationUtil.redoCheck(sysDictMapper, SysDict::getTitle, request.getTitle(), request.getId(), SysDict::getId, ErrorCode.DICT_REPEAT_ERROR, "数据字典名称重复 [{}] [{}]");
+        DataUtil.copy(request, SysDict.class, sysDictMapper::updateById);
     }
 
     @Override
@@ -76,16 +77,16 @@ public class SysDictServiceImpl implements SysDictService {
 
     @Override
     public void itemCreate(DictItemAddRequest request) {
-        this.redoItemShow(request.getShowValue(), request.getNid(), null);
-        this.redoItemHidden(request.getHiddenValue(), request.getNid(), null);
+        ValidationUtil.redoCheck(sysDictItemMapper, SysDictItem::getShowValue, request.getShowValue(), wrapper -> wrapper.eq(SysDictItem::getNid, request.getNid()), null, SysDictItem::getId, ErrorCode.DICT_SHOW_REPEAT_ERROR, "数据字典显示值重复 [{}] [{}]");
+        ValidationUtil.redoCheck(sysDictItemMapper, SysDictItem::getHiddenValue, request.getHiddenValue(), wrapper -> wrapper.eq(SysDictItem::getNid, request.getNid()), null, SysDictItem::getId, ErrorCode.DICT_HIDDEN_REPEAT_ERROR, "数据字典隐藏值重复 [{}] [{}]");
         SysDictItem dictItem = DataUtil.copy(request, SysDictItem.class);
         sysDictItemMapper.insert(dictItem);
     }
 
     @Override
     public void itemUpdate(DictItemEditRequest request) {
-        this.redoItemShow(request.getShowValue(), request.getNid(), request.getId());
-        this.redoItemHidden(request.getHiddenValue(), request.getNid(), request.getId());
+        ValidationUtil.redoCheck(sysDictItemMapper, SysDictItem::getShowValue, request.getShowValue(), wrapper -> wrapper.eq(SysDictItem::getNid, request.getNid()), request.getId(), SysDictItem::getId, ErrorCode.DICT_SHOW_REPEAT_ERROR, "数据字典显示值重复 [{}] [{}]");
+        ValidationUtil.redoCheck(sysDictItemMapper, SysDictItem::getHiddenValue, request.getHiddenValue(), wrapper -> wrapper.eq(SysDictItem::getNid, request.getNid()), request.getId(), SysDictItem::getId, ErrorCode.DICT_HIDDEN_REPEAT_ERROR, "数据字典隐藏值重复 [{}] [{}]");
         SysDictItem dictItem = DataUtil.copy(request, SysDictItem.class);
         sysDictItemMapper.updateById(dictItem);
     }
@@ -106,65 +107,4 @@ public class SysDictServiceImpl implements SysDictService {
         return null;
     }
 
-    /**
-     * 校验数据字典是否重复
-     *
-     * @param title 名称
-     * @param id    id 编辑时不能为空
-     */
-    private void redoTitle(String title, Long id) {
-        LambdaQueryWrapper<SysDict> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysDict::getTitle, title);
-        wrapper.ne(id != null, SysDict::getId, id);
-        if (sysDictMapper.selectCount(wrapper) > 0) {
-            throw new BusinessException(ErrorCode.DICT_REPEAT_ERROR);
-        }
-    }
-
-    /**
-     * 校验数据字典编码是否重复
-     *
-     * @param nid nid
-     */
-    private void redoNid(String nid) {
-        LambdaQueryWrapper<SysDict> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysDict::getNid, nid);
-        if (sysDictMapper.selectCount(wrapper) > 0) {
-            throw new BusinessException(ErrorCode.DICT_NID_REPEAT_ERROR);
-        }
-    }
-
-    /**
-     * 校验数据字典子项显示值是否重复
-     *
-     * @param showValue 显示值
-     * @param nid       字典编码
-     * @param id        id 编辑时不能为空
-     */
-    private void redoItemShow(String showValue, String nid, Long id) {
-        LambdaQueryWrapper<SysDictItem> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysDictItem::getShowValue, showValue);
-        wrapper.eq(SysDictItem::getNid, nid);
-        wrapper.ne(id != null, SysDictItem::getId, id);
-        if (sysDictItemMapper.selectCount(wrapper) > 0) {
-            throw new BusinessException(ErrorCode.DICT_SHOW_REPEAT_ERROR);
-        }
-    }
-
-    /**
-     * 校验数据字典子项value是否重复
-     *
-     * @param hiddenValue 隐藏值
-     * @param nid         字典编码
-     * @param id          id 编辑时不能为空
-     */
-    private void redoItemHidden(Integer hiddenValue, String nid, Long id) {
-        LambdaQueryWrapper<SysDictItem> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysDictItem::getHiddenValue, hiddenValue);
-        wrapper.eq(SysDictItem::getNid, nid);
-        wrapper.ne(id != null, SysDictItem::getId, id);
-        if (sysDictItemMapper.selectCount(wrapper) > 0) {
-            throw new BusinessException(ErrorCode.DICT_HIDDEN_REPEAT_ERROR);
-        }
-    }
 }

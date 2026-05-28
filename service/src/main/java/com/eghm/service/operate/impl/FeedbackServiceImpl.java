@@ -39,8 +39,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public void addFeedback(FeedbackAddDTO request) {
-        FeedbackLog feedback = DataUtil.copy(request, FeedbackLog.class);
-        feedbackLogMapper.insert(feedback);
+        DataUtil.copy(request, FeedbackLog.class, feedbackLogMapper::insert);
     }
 
     @Override

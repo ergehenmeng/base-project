@@ -12,13 +12,13 @@ import com.eghm.mapper.FamilyMapper;
 import com.eghm.model.Family;
 import com.eghm.service.sys.FamilyService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.TreeUtil;
+import com.eghm.utils.ValidationUtil;
 import com.eghm.vo.sys.family.FamilyResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -45,14 +45,14 @@ public class FamilyServiceImpl implements FamilyService {
         root.setName("大王庄家谱");
         root.setState(false);
         List<FamilyResponse> mapperList = familyMapper.getList();
-        List<FamilyResponse> responseList = this.treeBin(ancestryId, mapperList);
+        List<FamilyResponse> responseList = TreeUtil.tree(mapperList, ancestryId, FamilyResponse::getId, FamilyResponse::getPid, FamilyResponse::setChildren);
         root.setChildren(responseList);
         return root;
     }
 
     @Override
     public String create(FamilyAddRequest request) {
-        this.redoName(request.getName(), request.getPid(), null);
+        ValidationUtil.redoCheck(familyMapper, Family::getName, request.getName(), request.getPid(), Family::getId, ErrorCode.FAMILY_REDO_ERROR, "商户分组名称重复 [{}] [{}]");
         Family family = DataUtil.copy(request, Family.class);
         String maxId = familyMapper.getMaxId(request.getPid());
         String nextId = commonService.generateNextId(maxId, request.getPid(), CommonConstant.STEP_10, ErrorCode.FAMILY_MAX_ERROR);
@@ -63,7 +63,7 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public void update(FamilyEditRequest request) {
-        this.redoName(request.getName(), request.getPid(), request.getId());
+        ValidationUtil.redoCheck(familyMapper, Family::getName, request.getName(), request.getId(), Family::getId, ErrorCode.FAMILY_REDO_ERROR, "商户分组名称重复 [{}] [{}]");
         DataUtil.copy(request, Family.class, familyMapper::updateById);
     }
 
@@ -77,41 +77,4 @@ public class FamilyServiceImpl implements FamilyService {
         familyMapper.deleteById(id);
     }
 
-    /**
-     * 重置名称
-     *
-     * @param name 名称
-     * @param id id
-     */
-    private void redoName(String name, String pid, String id) {
-        LambdaQueryWrapper<Family> wrapper = Wrappers.lambdaQuery();
-        wrapper.ne(id != null, Family::getId, id);
-        wrapper.eq(Family::getPid, pid);
-        wrapper.eq(Family::getName, name);
-        Long count = familyMapper.selectCount(wrapper);
-        if (count > 0) {
-            throw new BusinessException(ErrorCode.FAMILY_REDO_ERROR);
-        }
-    }
-
-    /**
-     * 设置子节点
-     *
-     * @param pid    父节点
-     * @param voList 全部列表
-     * @return list
-     */
-    private List<FamilyResponse> treeBin(String pid, List<FamilyResponse> voList) {
-        Iterator<FamilyResponse> iterator = voList.iterator();
-        List<FamilyResponse> responseList = new ArrayList<>();
-        while (iterator.hasNext()) {
-            FamilyResponse next = iterator.next();
-            if (pid.equals(next.getPid())) {
-                responseList.add(next);
-                iterator.remove();
-            }
-        }
-        responseList.forEach(parent -> parent.setChildren(this.treeBin(parent.getId(), voList)));
-        return responseList;
-    }
 }

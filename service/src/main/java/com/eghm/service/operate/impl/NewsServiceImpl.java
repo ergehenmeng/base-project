@@ -1,18 +1,17 @@
 package com.eghm.service.operate.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
 import com.eghm.common.impl.CommonServiceImpl;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.news.NewsAddRequest;
 import com.eghm.dto.business.news.NewsEditRequest;
 import com.eghm.dto.business.news.NewsQueryRequest;
-import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.CollectType;
 import com.eghm.enums.ErrorCode;
@@ -22,6 +21,7 @@ import com.eghm.model.News;
 import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.operate.NewsService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.ValidationUtil;
 import com.eghm.vo.business.news.NewsDetailVO;
 import com.eghm.vo.business.news.NewsResponse;
 import com.eghm.vo.business.news.NewsVO;
@@ -59,7 +59,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public void create(NewsAddRequest request) {
-        this.redoTitle(request.getTitle(), request.getCode(), null);
+        ValidationUtil.redoCheck(this.newsMapper, News::getTitle, request.getTitle(), wrapper -> wrapper.eq(News::getCode, request.getCode()), null, News::getId, ErrorCode.NEWS_TITLE_REDO, "资讯标题重复 [{}] [{}]");
         News copy = DataUtil.copy(request, News.class);
         this.setRequest(copy, request.getImageList(), request.getTagList());
         newsMapper.insert(copy);
@@ -67,7 +67,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public void update(NewsEditRequest request) {
-        this.redoTitle(request.getTitle(), request.getCode(), request.getId());
+        ValidationUtil.redoCheck(this.newsMapper, News::getTitle, request.getTitle(), wrapper -> wrapper.eq(News::getCode, request.getCode()), request.getId(), News::getId, ErrorCode.NEWS_TITLE_REDO, "资讯标题重复 [{}] [{}]");
         News copy = DataUtil.copy(request, News.class);
         this.setRequest(copy, request.getImageList(), request.getTagList());
         newsMapper.updateById(copy);
@@ -157,21 +157,4 @@ public class NewsServiceImpl implements NewsService {
         return cacheService.getHashValue(CacheConstant.NEWS_PRAISE + id, memberId.toString()) != null;
     }
 
-    /**
-     * 检查标题是否重复
-     *
-     * @param title 标题
-     * @param code  编号
-     * @param id    id
-     */
-    private void redoTitle(String title, String code, Long id) {
-        LambdaQueryWrapper<News> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(News::getTitle, title);
-        wrapper.eq(News::getCode, code);
-        wrapper.ne(id != null, News::getId, id);
-        Long count = this.newsMapper.selectCount(wrapper);
-        if (count > 0) {
-            throw new BusinessException(ErrorCode.NEWS_TITLE_REDO);
-        }
-    }
 }

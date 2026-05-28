@@ -35,14 +35,12 @@ public class HelpCenterServiceImpl implements HelpCenterService {
 
     @Override
     public void create(HelpAddRequest request) {
-        HelpCenter helpCenter = DataUtil.copy(request, HelpCenter.class);
-        helpCenterMapper.insert(helpCenter);
+        DataUtil.copy(request, HelpCenter.class, helpCenterMapper::insert);
     }
 
     @Override
     public void update(HelpEditRequest request) {
-        HelpCenter helpCenter = DataUtil.copy(request, HelpCenter.class);
-        helpCenterMapper.updateById(helpCenter);
+        DataUtil.copy(request, HelpCenter.class, helpCenterMapper::updateById);
     }
 
     @Override

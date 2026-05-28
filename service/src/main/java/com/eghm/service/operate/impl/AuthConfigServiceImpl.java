@@ -3,8 +3,6 @@ package com.eghm.service.operate.impl;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.RSA;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.EmailService;
 import com.eghm.dto.operate.auth.AuthConfigAddRequest;
@@ -18,6 +16,7 @@ import com.eghm.model.AuthConfig;
 import com.eghm.service.operate.AuthConfigService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.StringUtil;
+import com.eghm.utils.ValidationUtil;
 import com.eghm.vo.operate.auth.AuthConfigResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +45,7 @@ public class AuthConfigServiceImpl implements AuthConfigService {
 
     @Override
     public void create(AuthConfigAddRequest request) {
-        this.redoTitle(request.getTitle(), null);
+        ValidationUtil.redoCheck(authConfigMapper, AuthConfig::getTitle, request.getTitle(), null, AuthConfig::getId, ErrorCode.AUTH_TITLE_REDO, "第三方授权配置单位名称重复 [{}] [{}]");
         AuthConfig config = DataUtil.copy(request, AuthConfig.class);
         config.setAppKey(IdUtil.fastSimpleUUID());
         this.generateSecretKey(config);
@@ -59,7 +58,7 @@ public class AuthConfigServiceImpl implements AuthConfigService {
 
     @Override
     public void update(AuthConfigEditRequest request) {
-        this.redoTitle(request.getTitle(), request.getId());
+        ValidationUtil.redoCheck(authConfigMapper, AuthConfig::getTitle, request.getTitle(), request.getId(), AuthConfig::getId, ErrorCode.AUTH_TITLE_REDO, "第三方授权配置单位名称重复 [{}] [{}]");
         AuthConfig config = DataUtil.copy(request, AuthConfig.class);
         authConfigMapper.updateById(config);
     }
@@ -109,23 +108,6 @@ public class AuthConfigServiceImpl implements AuthConfigService {
             config.setPrivateKey(rsa.getPrivateKeyBase64());
         } else {
             config.setPrivateKey(StringUtil.random(64));
-        }
-    }
-
-    /**
-     * 校验名称是否重复
-     *
-     * @param title 名称
-     * @param id    id 编辑时不能为空
-     */
-    private void redoTitle(String title, Long id) {
-        LambdaQueryWrapper<AuthConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(AuthConfig::getTitle, title);
-        wrapper.ne(id != null, AuthConfig::getId, id);
-        Long count = authConfigMapper.selectCount(wrapper);
-        if (count > 0) {
-            log.info("第三方授权配置检测到单位名称重复 [{}] [{}]", title, id);
-            throw new BusinessException(ErrorCode.AUTH_TITLE_REDO);
         }
     }
 

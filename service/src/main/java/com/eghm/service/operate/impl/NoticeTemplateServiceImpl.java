@@ -37,8 +37,7 @@ public class NoticeTemplateServiceImpl implements NoticeTemplateService {
 
     @Override
     public void update(NoticeTemplateRequest request) {
-        NoticeTemplate template = DataUtil.copy(request, NoticeTemplate.class);
-        noticeTemplateMapper.updateById(template);
+        DataUtil.copy(request, NoticeTemplate.class, noticeTemplateMapper::updateById);
     }
 
     @Override

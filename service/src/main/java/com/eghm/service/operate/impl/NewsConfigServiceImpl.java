@@ -13,6 +13,7 @@ import com.eghm.mapper.NewsConfigMapper;
 import com.eghm.model.NewsConfig;
 import com.eghm.service.operate.NewsConfigService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.ValidationUtil;
 import com.eghm.vo.business.news.NewsConfigResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -52,15 +53,14 @@ public class NewsConfigServiceImpl implements NewsConfigService {
 
     @Override
     public void create(NewsConfigAddRequest request) {
-        this.redoTitle(request.getTitle(), null);
-        this.redoCode(request.getCode());
-        NewsConfig config = DataUtil.copy(request, NewsConfig.class);
-        newsConfigMapper.insert(config);
+        ValidationUtil.redoCheck(newsConfigMapper, NewsConfig::getTitle, request.getTitle(), null, null, ErrorCode.NEWS_CONFIG_TITLE_REDO, "资讯配置标题重复 [{}] [{}]");
+        ValidationUtil.redoCheck(newsConfigMapper, NewsConfig::getCode, request.getCode(), null, null, ErrorCode.NEWS_CONFIG_CODE_REDO, "资讯配置编号重复 [{}] [{}]");
+        DataUtil.copy(request, NewsConfig.class, newsConfigMapper::insert);
     }
 
     @Override
     public void update(NewsConfigEditRequest request) {
-        this.redoTitle(request.getTitle(), request.getId());
+        ValidationUtil.redoCheck(newsConfigMapper, NewsConfig::getTitle, request.getTitle(), request.getId(), NewsConfig::getId, ErrorCode.NEWS_CONFIG_CODE_REDO, "资讯配置编号重复 [{}] [{}]");
         NewsConfig config = DataUtil.copy(request, NewsConfig.class);
         newsConfigMapper.updateById(config);
     }
@@ -80,35 +80,5 @@ public class NewsConfigServiceImpl implements NewsConfigService {
             throw new BusinessException(ErrorCode.NEWS_CONFIG_NOT_EXIST);
         }
         return config;
-    }
-
-    /**
-     * 检查标题是否重复
-     *
-     * @param title 标题
-     * @param id    id
-     */
-    private void redoTitle(String title, Long id) {
-        LambdaQueryWrapper<NewsConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(NewsConfig::getTitle, title);
-        wrapper.ne(id != null, NewsConfig::getId, id);
-        Long count = newsConfigMapper.selectCount(wrapper);
-        if (count > 0) {
-            throw new BusinessException(ErrorCode.NEWS_CONFIG_TITLE_REDO);
-        }
-    }
-
-    /**
-     * 检查编号是否重复
-     *
-     * @param code 编号
-     */
-    private void redoCode(String code) {
-        LambdaQueryWrapper<NewsConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(NewsConfig::getCode, code);
-        Long count = newsConfigMapper.selectCount(wrapper);
-        if (count > 0) {
-            throw new BusinessException(ErrorCode.NEWS_CONFIG_CODE_REDO);
-        }
     }
 }
