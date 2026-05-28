@@ -12,12 +12,11 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysAreaMapper;
+import com.eghm.utils.TreeUtil;
 import com.eghm.vo.sys.ext.SysAreaVO;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import com.eghm.utils.TreeUtil;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -30,7 +29,7 @@ import static com.eghm.utils.StringUtil.isBlank;
  * @since 2022/7/23
  */
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service("commonService")
 public class CommonServiceImpl implements CommonService {
     
