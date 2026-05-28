@@ -96,7 +96,7 @@ public class StringUtil {
      * @param length 长度
      * @return 定长字符串 小写
      */
-    public static String randomLowerCase(int length) {
+    public static String randomHex(int length) {
         return random(NUMBER_LOWER_LETTERS, length);
     }
 

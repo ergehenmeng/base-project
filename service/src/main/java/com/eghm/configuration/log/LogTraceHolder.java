@@ -2,12 +2,9 @@ package com.eghm.configuration.log;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
 import com.eghm.constants.CommonConstant;
-import com.google.common.collect.Maps;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.slf4j.MDC;
-
-import java.util.Map;
 
 /**
  * 日志追踪线程变量, 保证在异步或者mq下依旧可以追中到消息
@@ -18,39 +15,38 @@ import java.util.Map;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LogTraceHolder {
 
-    private static final TransmittableThreadLocal<Map<String, String>> TTL_MDC = new TransmittableThreadLocal<>() {
+    private static final TransmittableThreadLocal<String> TTL_TRACE = new TransmittableThreadLocal<>() {
 
         /**
          * 在多线程数据传递的时候，将数据复制一份给MDC
          */
         @Override
         protected void beforeExecute() {
-            Map<String, String> mdc = super.get();
-            mdc.forEach(MDC::put);
+            String traceId = super.get();
+            if (traceId != null) {
+                MDC.put(CommonConstant.TRACE_ID, traceId);
+            }
         }
 
         @Override
         protected void afterExecute() {
-            MDC.clear();
+            MDC.remove(CommonConstant.TRACE_ID);
         }
 
-        @Override
-        protected Map<String, String> initialValue() {
-            return Maps.newHashMapWithExpectedSize(4);
-        }
     };
 
     public static void putTraceId(String value) {
-        TTL_MDC.get().put(CommonConstant.TRACE_ID, value);
+        TTL_TRACE.set(value);
+        MDC.put(CommonConstant.TRACE_ID, value);
     }
 
     public static String getTraceId() {
-        return TTL_MDC.get().get(CommonConstant.TRACE_ID);
+        return TTL_TRACE.get();
     }
 
     public static void clear() {
-        TTL_MDC.get().clear();
-        TTL_MDC.remove();
+        TTL_TRACE.remove();
+        MDC.remove(CommonConstant.TRACE_ID);
     }
 
 }

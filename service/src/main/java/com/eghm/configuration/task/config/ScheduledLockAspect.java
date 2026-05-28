@@ -31,7 +31,7 @@ public class ScheduledLockAspect {
         // 使用 `类名@方法名` 作为 lockKey, 减少并发
         String lockKey = joinPoint.getSignature().getDeclaringType().getName() + CommonConstant.SPECIAL_SPLIT + joinPoint.getSignature().getName();
         return redisLock.lock(lockKey, CommonConstant.SCHEDULED_MAX_LOCK_TIME, () -> {
-            MDC.put(CommonConstant.TRACE_ID, StringUtil.randomLowerCase(16));
+            MDC.put(CommonConstant.TRACE_ID, StringUtil.randomHex(16));
             try {
                 return joinPoint.proceed();
             } catch (Throwable e) {

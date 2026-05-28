@@ -56,7 +56,7 @@ public class Invoker implements Runnable {
 
     @Override
     public void run() {
-        MDC.put(CommonConstant.TRACE_ID, StringUtil.randomLowerCase(16));
+        MDC.put(CommonConstant.TRACE_ID, StringUtil.randomHex(16));
         SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder();
         String key = task.getBeanName() + CommonConstant.SPECIAL_SPLIT + task.getMethodName();
         LocalDateTime start = LocalDateTime.now();

@@ -5,7 +5,6 @@ import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.constants.CommonConstant;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.MDC;
 import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.config.ContainerCustomizer;
@@ -44,9 +43,7 @@ public class RabbitConfig {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setAfterReceivePostProcessors(message -> {
             MessageProperties properties = message.getMessageProperties();
-            String traceId = properties.getHeader(CommonConstant.TRACE_ID);
-            MDC.put(CommonConstant.TRACE_ID, traceId);
-            LogTraceHolder.putTraceId(traceId);
+            LogTraceHolder.putTraceId(properties.getHeader(CommonConstant.TRACE_ID));
             return message;
         });
         factory.setTaskExecutor(TtlExecutors.getTtlExecutor(new SimpleAsyncTaskExecutor("@RabbitListener线程-")));
