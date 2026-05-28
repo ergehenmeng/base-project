@@ -6,11 +6,10 @@ import cn.hutool.http.HttpUtil;
 import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
 import com.eghm.configuration.SystemProperties;
-import com.eghm.constants.CommonConstant;
+import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.dto.ext.FeiShuMsg;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.MDC;
 import org.springframework.scheduling.annotation.Async;
 
 import static com.eghm.utils.StringUtil.isNotBlank;
@@ -45,7 +44,7 @@ public class FeiShuAlarmServiceImpl implements AlarmService {
         FeiShuMsg msg = new FeiShuMsg();
         String appName = SpringUtil.getApplicationName();
         String builder = "【服务名】：" + appName + "\n" +
-                "【traceId】：" + MDC.get(CommonConstant.TRACE_ID) + "\n" +
+                "【traceId】：" + LogTraceHolder.getTraceId() + "\n" +
                 "【报警信息】：" + content;
         msg.setText(new FeiShuMsg.Text(builder));
         msg.setMsgType("text");

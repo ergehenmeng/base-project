@@ -4,6 +4,7 @@ import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.eghm.common.AlarmService;
+import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
@@ -13,7 +14,6 @@ import com.eghm.service.sys.SysTaskLogService;
 import com.eghm.utils.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.slf4j.MDC;
 import org.springframework.aop.support.AopUtils;
 
 import java.lang.reflect.Method;
@@ -56,7 +56,7 @@ public class Invoker implements Runnable {
 
     @Override
     public void run() {
-        MDC.put(CommonConstant.TRACE_ID, StringUtil.randomHex(16));
+        LogTraceHolder.putTraceId(StringUtil.randomHex(16));
         SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder();
         String key = task.getBeanName() + CommonConstant.SPECIAL_SPLIT + task.getMethodName();
         LocalDateTime start = LocalDateTime.now();
@@ -80,7 +80,7 @@ public class Invoker implements Runnable {
                 builder.startTime(start);
                 sysTaskLogService.addTaskLog(builder.build());
             }
-            MDC.remove(CommonConstant.TRACE_ID);
+            LogTraceHolder.clear();
         }
     }
 
