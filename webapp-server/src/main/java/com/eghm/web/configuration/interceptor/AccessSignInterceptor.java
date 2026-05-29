@@ -6,14 +6,12 @@ import cn.hutool.core.util.URLUtil;
 import cn.hutool.crypto.SignUtil;
 import cn.hutool.crypto.asymmetric.Sign;
 import cn.hutool.crypto.asymmetric.SignAlgorithm;
-import cn.hutool.crypto.digest.MD5;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.security.ApiHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.SignType;
 import com.eghm.exception.BusinessException;
 import com.eghm.utils.WebUtil;
 import com.eghm.vo.operate.auth.AuthConfigVO;
@@ -71,33 +69,8 @@ public class AccessSignInterceptor implements InterceptorAdapter {
             WebUtil.printJson(response, ErrorCode.SIGNATURE_TIMESTAMP_ERROR);
             return false;
         }
-        if (check.value() == SignType.MD5) {
-            md5SignVerify(config.getPrivateKey(), message.getRequestParam(), message.getTimestamp(), message.getSignature());
-        } else {
-            rsaSignVerify(config.getPublicKey(), config.getPrivateKey(), message.getRequestParam(), message.getTimestamp(), message.getSignature());
-        }
+        rsaSignVerify(config.getPublicKey(), config.getPrivateKey(), message.getRequestParam(), message.getTimestamp(), message.getSignature());
         return true;
-    }
-
-    /**
-     * md5生成签名信息
-     *
-     * @param appSecret   appSecret
-     * @param requestBody 请求参数
-     * @param signature   源签名信息
-     */
-    private static void md5SignVerify(String appSecret, String requestBody, String timestamp, String signature) {
-        Map<String, String> param = new TreeMap<>();
-        param.put(CommonConstant.SECRET, appSecret);
-        param.put(CommonConstant.DATA, Base64Encoder.encode(requestBody));
-        param.put(CommonConstant.TIMESTAMP, timestamp);
-        String buildQuery = URLUtil.buildQuery(param, CommonConstant.CHARSET);
-        String target = MD5.create().digestHex(buildQuery);
-        boolean equals = signature.equals(target);
-        if (!equals) {
-            log.warn("md5签名信息验证失败 [{}] [{}]", signature, target);
-            throw new BusinessException(ErrorCode.SIGNATURE_VERIFY_ERROR);
-        }
     }
 
     /**

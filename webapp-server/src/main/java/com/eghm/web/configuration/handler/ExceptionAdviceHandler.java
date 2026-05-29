@@ -152,7 +152,7 @@ public class ExceptionAdviceHandler {
         log.error("微信异步通知异常 [{}] 错误信息: [{}] ", request.getRequestURI(), e.getCode(), e);
         Map<String, String> map = Maps.newHashMapWithExpectedSize(2);
         map.put("code", FAIL);
-        map.put("message", e.getMessage());
+        map.put("message", "系统处理失败");
         return map;
     }
 

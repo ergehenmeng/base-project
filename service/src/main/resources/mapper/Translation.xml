@@ -2,14 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.AuthConfigMapper">
 
-    <select id="getByPage" resultType="com.eghm.vo.operate.auth.AuthConfigResponse" parameterType="com.eghm.dto.operate.auth.AuthConfigQueryRequest">
-        select id, app_key, email, title, remark, sign_type, create_time, update_time, expire_date
+    <select id="getByPage" resultType="com.eghm.vo.operate.auth.AuthConfigResponse" >
+        select id, app_key, email, title, remark, create_time, update_time, expire_date
         from auth_config where deleted = false
-        <if test="param.signType != null">
-            and sign_type = #{param.signType}
-        </if>
-        <if test="param.queryName != null and param.queryName != ''">
-            and title like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%')
+        <if test="queryName != null and queryName != ''">
+            and title like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%')
         </if>
         order by id desc
     </select>

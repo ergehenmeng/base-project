@@ -1,9 +1,9 @@
 package com.eghm.service.operate;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.operate.auth.AuthConfigAddRequest;
 import com.eghm.dto.operate.auth.AuthConfigEditRequest;
-import com.eghm.dto.operate.auth.AuthConfigQueryRequest;
 import com.eghm.vo.operate.auth.AuthConfigResponse;
 
 import java.io.File;
@@ -20,7 +20,7 @@ public interface AuthConfigService {
      * @param request 查询条件
      * @return 分页列表
      */
-    Page<AuthConfigResponse> getByPage(AuthConfigQueryRequest request);
+    Page<AuthConfigResponse> getByPage(PagingQuery request);
 
     /**
      * 创建第三方授权配置信息,并生成秘钥

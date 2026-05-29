@@ -5,17 +5,15 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.EmailService;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.operate.auth.AuthConfigAddRequest;
 import com.eghm.dto.operate.auth.AuthConfigEditRequest;
-import com.eghm.dto.operate.auth.AuthConfigQueryRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.SignType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.AuthConfigMapper;
 import com.eghm.model.AuthConfig;
 import com.eghm.service.operate.AuthConfigService;
 import com.eghm.utils.DataUtil;
-import com.eghm.utils.StringUtil;
 import com.eghm.utils.ValidationUtil;
 import com.eghm.vo.operate.auth.AuthConfigResponse;
 import lombok.AllArgsConstructor;
@@ -39,8 +37,8 @@ public class AuthConfigServiceImpl implements AuthConfigService {
     private final AuthConfigMapper authConfigMapper;
 
     @Override
-    public Page<AuthConfigResponse> getByPage(AuthConfigQueryRequest request) {
-        return authConfigMapper.getByPage(request.createPage(), request);
+    public Page<AuthConfigResponse> getByPage(PagingQuery request) {
+        return authConfigMapper.getByPage(request.createPage(), request.getQueryName());
     }
 
     @Override
@@ -77,7 +75,7 @@ public class AuthConfigServiceImpl implements AuthConfigService {
     @Override
     public void sendEmail(Long id, File file) {
         AuthConfig config = this.getByAuthConfigRequired(id);
-        String content = "公司：" + config.getTitle() + "\r\n签名方式：" + config.getSignType().name() + "\r\nappKey：" + config.getAppKey() + "\r\nsecret：" + config.getPrivateKey();
+        String content = "公司：" + config.getTitle() + "\r\n签名方式：RSA \r\nappKey：" + config.getAppKey() + "\r\nsecret：" + config.getPrivateKey();
         emailService.sendEmail(config.getEmail(), "第三方接口对接签名配置", content, false, file);
     }
 
@@ -101,13 +99,9 @@ public class AuthConfigServiceImpl implements AuthConfigService {
      * @param config config
      */
     private void generateSecretKey(AuthConfig config) {
-        if (config.getSignType() == SignType.RSA) {
-            RSA rsa = SecureUtil.rsa();
-            config.setPublicKey(rsa.getPublicKeyBase64());
-            config.setPrivateKey(rsa.getPrivateKeyBase64());
-        } else {
-            config.setPrivateKey(StringUtil.random(64));
-        }
+        RSA rsa = SecureUtil.rsa();
+        config.setPublicKey(rsa.getPublicKeyBase64());
+        config.setPrivateKey(rsa.getPrivateKeyBase64());
     }
 
 }

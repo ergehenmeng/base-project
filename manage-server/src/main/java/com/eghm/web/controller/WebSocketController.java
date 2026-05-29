@@ -38,7 +38,7 @@ public class WebSocketController {
     @PostMapping("/broadcast/{objectId}")
     @SkipPerm
     @Operation(summary = "广播消息测试")
-    public RespBody<Void> broadcast(@PathVariable("objectId") Long objectId, @RequestBody Map<String, Object> param) {
+    public RespBody<Void> broadcast(@PathVariable Long objectId, @RequestBody Map<String, Object> param) {
         simpMessagingTemplate.convertAndSend(WEBSOCKET_PREFIX + "/broadcast/" + objectId, param);
         return RespBody.success();
     }

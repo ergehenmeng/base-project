@@ -1,7 +1,6 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.enums.SignType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,9 +30,6 @@ public class AuthConfig extends BaseEntity {
 
     @Schema(description = "私钥")
     public String privateKey;
-
-    @Schema(description = "签名方式")
-    private SignType signType;
 
     @Schema(description = "过期时间")
     @JsonFormat(pattern = "yyyy-MM-dd")

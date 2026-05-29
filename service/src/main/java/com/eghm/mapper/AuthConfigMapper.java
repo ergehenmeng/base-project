@@ -2,7 +2,6 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.operate.auth.AuthConfigQueryRequest;
 import com.eghm.model.AuthConfig;
 import com.eghm.vo.operate.auth.AuthConfigResponse;
 import com.eghm.vo.operate.auth.AuthConfigVO;
@@ -18,10 +17,10 @@ public interface AuthConfigMapper extends BaseMapper<AuthConfig> {
      * 分页查询
      *
      * @param page    分页对象
-     * @param request 查询参数
+     * @param queryName 查询参数
      * @return 分页结果
      */
-    Page<AuthConfigResponse> getByPage(Page<AuthConfigResponse> page, @Param("param") AuthConfigQueryRequest request);
+    Page<AuthConfigResponse> getByPage(Page<AuthConfigResponse> page, @Param("queryName") String queryName);
 
     /**
      * 根据appKey查询配置信息

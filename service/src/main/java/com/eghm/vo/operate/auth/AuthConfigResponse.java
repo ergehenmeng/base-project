@@ -1,6 +1,5 @@
 package com.eghm.vo.operate.auth;
 
-import com.eghm.enums.SignType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -26,9 +25,6 @@ public class AuthConfigResponse {
 
     @Schema(description = "邮件")
     public String email;
-
-    @Schema(description = "签名方式")
-    private SignType signType;
 
     @Schema(description = "过期时间")
     @JsonFormat(pattern = "yyyy-MM-dd")
