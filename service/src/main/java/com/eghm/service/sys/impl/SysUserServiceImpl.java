@@ -118,8 +118,8 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public void create(UserAddRequest request) {
-        this.redoUserName(request.getUserName(), null);
-        this.redoMobile(request.getMobile(), null);
+        ValidationUtil.redoCheck(sysUserMapper, SysUser::getUserName, request.getUserName(), null, SysUser::getId, ErrorCode.USER_NAME_REDO, "账户名被占用 [{}] [{}]");
+        ValidationUtil.redoCheck(sysUserMapper, SysUser::getMobile, request.getMobile(), null, SysUser::getId, ErrorCode.MOBILE_REDO, "手机号码被占用 [{}] [{}]");
         SysUser user = DataUtil.copy(request, SysUser.class);
         user.setState(UserState.NORMAL);
         user.setUserType(UserType.SYS_USER);
@@ -147,8 +147,8 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public void update(UserEditRequest request) {
-        this.redoUserName(request.getUserName(), request.getId());
-        this.redoMobile(request.getMobile(), request.getId());
+        ValidationUtil.redoCheck(sysUserMapper, SysUser::getUserName, request.getUserName(), request.getId(), SysUser::getId, ErrorCode.USER_NAME_REDO, "账户名被占用 [{}] [{}]");
+        ValidationUtil.redoCheck(sysUserMapper, SysUser::getMobile, request.getMobile(), request.getId(), SysUser::getId, ErrorCode.MOBILE_REDO, "手机号码被占用 [{}] [{}]");
         SysUser user = DataUtil.copy(request, SysUser.class);
         sysUserMapper.updateById(user);
         // 角色权限
@@ -474,25 +474,5 @@ public class SysUserServiceImpl implements SysUserService {
             throw new BusinessException(ErrorCode.USER_LOCKED_ERROR);
         }
         return user;
-    }
-
-    /**
-     * 校验手机号是否重复
-     *
-     * @param mobile 手机号
-     * @param id     id (更新时不能为空)
-     */
-    private void redoMobile(String mobile, Long id) {
-        ValidationUtil.redoCheck(sysUserMapper, SysUser::getMobile, mobile, id, SysUser::getId, ErrorCode.MOBILE_REDO, "手机号码被占用 [{}] [{}]");
-    }
-
-    /**
-     * 校验账户名是否重复
-     *
-     * @param userName 账户名
-     * @param id       id (更新时不能为空)
-     */
-    private void redoUserName(String userName, Long id) {
-        ValidationUtil.redoCheck(sysUserMapper, SysUser::getUserName, userName, id, SysUser::getId, ErrorCode.USER_NAME_REDO, "账户名被占用 [{}] [{}]");
     }
 }

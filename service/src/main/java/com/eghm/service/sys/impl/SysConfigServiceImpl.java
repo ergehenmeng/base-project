@@ -39,6 +39,6 @@ public class SysConfigServiceImpl implements SysConfigService {
             throw new BusinessException(ErrorCode.CONFIG_LOCK_ERROR);
         }
         ConfigRegistry.handle(config.getNid(), request.getContent());
-        sysConfigMapper.updateById(DataUtil.copy(request, SysConfig.class));
+        DataUtil.copy(request, SysConfig.class, sysConfigMapper::updateById);
     }
 }

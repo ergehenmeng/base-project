@@ -46,7 +46,7 @@ public class SysDeptServiceImpl implements SysDeptService {
 
     @Override
     public void create(DeptAddRequest request) {
-        this.redoTitle(request.getTitle(), request.getParentCode(), null);
+        ValidationUtil.redoCheck(sysDeptMapper, SysDept::getTitle, request.getTitle(), wrapper -> wrapper.eq(SysDept::getParentCode, request.getParentCode()), null, SysDept::getId, ErrorCode.DEPARTMENT_TITLE_REPEAT, "部门名称重复 [{}] [{}]");
         SysDept department = DataUtil.copy(request, SysDept.class);
         String code = this.getNextCode(request.getParentCode());
         department.setCode(code);
@@ -58,25 +58,13 @@ public class SysDeptServiceImpl implements SysDeptService {
 
     @Override
     public void update(DeptEditRequest request) {
-        this.redoTitle(request.getTitle(), request.getParentCode(), request.getId());
-        SysDept department = DataUtil.copy(request, SysDept.class);
-        sysDeptMapper.updateById(department);
+        ValidationUtil.redoCheck(sysDeptMapper, SysDept::getTitle, request.getTitle(), wrapper -> wrapper.eq(SysDept::getParentCode, request.getParentCode()), request.getId(), SysDept::getId, ErrorCode.DEPARTMENT_TITLE_REPEAT, "部门名称重复 [{}] [{}]");
+        DataUtil.copy(request, SysDept.class, sysDeptMapper::updateById);
     }
 
     @Override
     public void deleteById(Long id) {
         sysDeptMapper.deleteById(id);
-    }
-
-    /**
-     * 判断部门是否重复
-     *
-     * @param title      部门名称
-     * @param parentCode 父节点
-     * @param id         id
-     */
-    private void redoTitle(String title, String parentCode, Long id) {
-        ValidationUtil.redoCheck(sysDeptMapper, SysDept::getTitle, title, wrapper -> wrapper.eq(SysDept::getParentCode, parentCode), id, SysDept::getId, ErrorCode.DEPARTMENT_TITLE_REPEAT, "部门名称重复 [{}] [{}]");
     }
 
     /**

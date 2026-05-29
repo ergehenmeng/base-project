@@ -142,3 +142,4 @@
 * `com.eghm.convertor` 包下有各种转换器, 主要是用于序列化,反序列化,Excel导出格式化转换器, 请根据实际场景使用
 * 管理后台支持锁屏功能, 快捷键 `ALT + L`
 * 管理后台管理员初始账号密码 `superAdmin/eghm@123456` 加密方式 `BCrypt(sha256(pwd))`
+* `ValidationUtil.redoCheck` 校验重复字段, 例如: `ValidationUtil.redoCheck(sysDictMapper, SysDict::getTitle, title, id, SysDict::getId, ErrorCode.DICT_REPEAT_ERROR, "数据字典名称重复 [{}] [{}]");`

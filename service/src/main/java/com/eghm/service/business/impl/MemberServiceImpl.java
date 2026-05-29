@@ -19,16 +19,34 @@ import com.eghm.configuration.security.ApiHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.business.member.*;
+import com.eghm.dto.business.member.BindEmailDTO;
+import com.eghm.dto.business.member.ChangeEmailDTO;
+import com.eghm.dto.business.member.MemberDTO;
+import com.eghm.dto.business.member.MemberQueryRequest;
+import com.eghm.dto.business.member.SendEmailAuthCodeDTO;
+import com.eghm.dto.business.member.SendSmsRequest;
 import com.eghm.dto.business.statistics.DateRequest;
-import com.eghm.dto.ext.*;
+import com.eghm.dto.ext.LoginRecord;
+import com.eghm.dto.ext.MemberRegister;
+import com.eghm.dto.ext.MemberToken;
+import com.eghm.dto.ext.RequestMessage;
+import com.eghm.dto.ext.VerifyEmailCode;
 import com.eghm.dto.operate.email.SendEmail;
 import com.eghm.dto.sys.login.AccountLoginDTO;
 import com.eghm.dto.sys.login.DoubleCheckDTO;
 import com.eghm.dto.sys.login.SmsLoginDTO;
 import com.eghm.dto.sys.register.AccountRegisterDTO;
 import com.eghm.dto.sys.register.MobileRegisterDTO;
-import com.eghm.enums.*;
+import com.eghm.enums.Channel;
+import com.eghm.enums.DirectionType;
+import com.eghm.enums.EmailType;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ExchangeQueue;
+import com.eghm.enums.Gender;
+import com.eghm.enums.MemberState;
+import com.eghm.enums.ScoreType;
+import com.eghm.enums.SelectType;
+import com.eghm.enums.TemplateType;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.DataException;
 import com.eghm.handler.chain.HandlerChain;
@@ -46,6 +64,7 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
 import com.eghm.utils.RegExpUtil;
 import com.eghm.utils.StringUtil;
+import com.eghm.utils.ValidationUtil;
 import com.eghm.vo.business.member.MemberResponse;
 import com.eghm.vo.business.member.MemberVO;
 import com.eghm.vo.business.member.SignInVO;
@@ -193,13 +212,13 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void registerSendSms(String mobile, String ip) {
-        this.mobileRedoVerify(mobile);
+        ValidationUtil.redoCheck(memberMapper, Member::getMobile, mobile, null, Member::getId, ErrorCode.MOBILE_REGISTER_REDO, "手机号被占用,无法注册用户 [{}]");
         smsService.sendSmsCode(TemplateType.REGISTER, mobile, ip);
     }
 
     @Override
     public LoginTokenVO registerByMobile(MobileRegisterDTO request) {
-        this.mobileRedoVerify(request.getMobile());
+        ValidationUtil.redoCheck(memberMapper, Member::getMobile, request.getMobile(), null, Member::getId, ErrorCode.MOBILE_REGISTER_REDO, "手机号被占用,无法注册用户 [{}]");
         smsService.verifySmsCode(TemplateType.REGISTER, request.getMobile(), request.getSmsCode());
         MemberRegister register = DataUtil.copy(request, MemberRegister.class);
         register.setRegisterIp(request.getIp());
@@ -209,7 +228,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public LoginTokenVO registerByAccount(AccountRegisterDTO dto) {
-        this.accountRedoVerify(dto.getAccount());
+        ValidationUtil.redoCheck(memberMapper, Member::getAccount, dto.getAccount(), null, Member::getId, ErrorCode.ACCOUNT_REGISTER_REDO, "账号被占用,无法注册用户 [{}]");
         MemberRegister register = new MemberRegister();
         register.setRegisterIp(dto.getIp());
         register.setPwd(encoder.encode(SecureUtil.sha256(dto.getPassword())));
@@ -224,7 +243,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void sendBindEmail(String email, Long memberId) {
-        this.checkEmail(email);
+        ValidationUtil.redoCheck(memberMapper, Member::getEmail, email, null, Member::getId, ErrorCode.EMAIL_REDO_BIND, "邮箱号已被占用 email:[{}]");
         SendEmail sendEmail = new SendEmail();
         sendEmail.setType(EmailType.BIND_EMAIL);
         sendEmail.setTo(email);
@@ -259,7 +278,7 @@ public class MemberServiceImpl implements MemberService {
     public void sendChangeEmailCode(SendEmailAuthCodeDTO request) {
         Member member = memberMapper.selectById(request.getMemberId());
         smsService.verifySmsCode(TemplateType.CHANGE_EMAIL, member.getMobile(), request.getSmsCode());
-        this.checkEmail(request.getEmail());
+        ValidationUtil.redoCheck(memberMapper, Member::getEmail, request.getEmail(), null, Member::getId, ErrorCode.EMAIL_REDO_BIND, "邮箱号已被占用 email:[{}]");
         SendEmail email = new SendEmail();
         email.setTo(request.getEmail());
         email.setType(EmailType.BIND_EMAIL);
@@ -567,21 +586,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     /**
-     * 查看邮箱是会否被占用
-     *
-     * @param email 邮箱号
-     */
-    private void checkEmail(String email) {
-        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Member::getEmail, email);
-        Long count = memberMapper.selectCount(wrapper);
-        if (count > 0) {
-            log.warn("邮箱号已被占用 email:[{}]", email);
-            throw new BusinessException(ErrorCode.EMAIL_OCCUPY_ERROR);
-        }
-    }
-
-    /**
      * 注册新用户,必须保证参数已校验,昵称如果为空默认由系统生成
      *
      * @param register 用户注册信息
@@ -660,36 +664,6 @@ public class MemberServiceImpl implements MemberService {
         register.setMaOpenId(openId);
         register.setChannel(Channel.WECHAT.name());
         return this.doRegister(register);
-    }
-
-    /**
-     * 注册手机号被占用校验
-     *
-     * @param mobile 手机号
-     */
-    private void mobileRedoVerify(String mobile) {
-        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Member::getMobile, mobile);
-        Long count = memberMapper.selectCount(wrapper);
-        if (count > 0) {
-            log.error("手机号被占用,无法注册用户 [{}]", mobile);
-            throw new BusinessException(ErrorCode.MOBILE_REGISTER_REDO);
-        }
-    }
-
-    /**
-     * 账号被占用校验
-     *
-     * @param account 账号
-     */
-    private void accountRedoVerify(String account) {
-        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Member::getAccount, account);
-        Long count = memberMapper.selectCount(wrapper);
-        if (count > 0) {
-            log.error("账号名被占用,无法注册用户 [{}]", account);
-            throw new BusinessException(ErrorCode.ACCOUNT_REGISTER_REDO);
-        }
     }
 
     /**

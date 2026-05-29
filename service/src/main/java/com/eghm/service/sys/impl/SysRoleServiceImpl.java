@@ -75,8 +75,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public void create(RoleAddRequest request) {
         ValidationUtil.redoCheck(sysRoleMapper, SysRole::getRoleName, request.getRoleName(), null, SysRole::getId, ErrorCode.ROLE_NAME_REDO, "角色名称重复 [{}] [{}]");
-        SysRole role = DataUtil.copy(request, SysRole.class);
-        sysRoleMapper.insert(role);
+        DataUtil.copy(request, SysRole.class, sysRoleMapper::insert);
     }
 
     @Override

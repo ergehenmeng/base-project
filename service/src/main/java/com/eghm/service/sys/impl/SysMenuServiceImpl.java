@@ -103,7 +103,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public void create(MenuAddRequest request) {
-        this.redoTitle(request.getTitle(), request.getPid(), null);
+        ValidationUtil.redoCheck(sysMenuMapper, SysMenu::getTitle, request.getTitle(), wrapper -> wrapper.eq(SysMenu::getPid, request.getPid()), null, SysMenu::getId, ErrorCode.MENU_TITLE_REDO, "菜单名称重复 [{}] [{}]");
         this.checkDisplayState(request.getPid(), request.getDisplayState());
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
         copy.setId(String.valueOf(this.generateNextId(request.getPid())));
@@ -113,7 +113,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public void update(MenuEditRequest request) {
-        this.redoTitle(request.getTitle(), request.getPid(), request.getId());
+        ValidationUtil.redoCheck(sysMenuMapper, SysMenu::getTitle, request.getTitle(), wrapper -> wrapper.eq(SysMenu::getPid, request.getPid()), request.getId(), SysMenu::getId, ErrorCode.MENU_TITLE_REDO, "菜单名称重复 [{}] [{}]");
         this.checkDisplayState(request.getPid(), request.getDisplayState());
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
         copy.setCode(StringUtil.encryptNumber(Long.parseLong(copy.getId())));
@@ -151,17 +151,6 @@ public class SysMenuServiceImpl implements SysMenuService {
     public List<String> getAdminPermCode() {
         List<MenuTreeResponse> menuList = sysMenuMapper.getSystemMenuList(2);
         return menuList.stream().map(MenuTreeResponse::getCode).toList();
-    }
-
-    /**
-     * 校验菜单名称是否重复
-     *
-     * @param title 菜单名称
-     * @param pid   父节点ID
-     * @param id    菜单id
-     */
-    private void redoTitle(String title, String pid, String id) {
-        ValidationUtil.redoCheck(sysMenuMapper, SysMenu::getTitle, title, wrapper -> wrapper.eq(SysMenu::getPid, pid), id, SysMenu::getId, ErrorCode.MENU_TITLE_REDO, "菜单名称重复 [{}] [{}]");
     }
 
     /**

@@ -49,5 +49,5 @@ public class CacheUtil {
     /**
      * 用户权限缓存
      */
-    public static final Cache<String, List<String>> PERMISSION_CACHE = Caffeine.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES).maximumSize(1000).build();
+    public static final Cache<String, List<String>> PERMISSION_CACHE = Caffeine.newBuilder().expireAfterWrite(30, TimeUnit.MINUTES).maximumSize(1000).build();
 }

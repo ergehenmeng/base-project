@@ -79,16 +79,14 @@ public class SysDictServiceImpl implements SysDictService {
     public void itemCreate(DictItemAddRequest request) {
         ValidationUtil.redoCheck(sysDictItemMapper, SysDictItem::getShowValue, request.getShowValue(), wrapper -> wrapper.eq(SysDictItem::getNid, request.getNid()), null, SysDictItem::getId, ErrorCode.DICT_SHOW_REPEAT_ERROR, "数据字典显示值重复 [{}] [{}]");
         ValidationUtil.redoCheck(sysDictItemMapper, SysDictItem::getHiddenValue, request.getHiddenValue(), wrapper -> wrapper.eq(SysDictItem::getNid, request.getNid()), null, SysDictItem::getId, ErrorCode.DICT_HIDDEN_REPEAT_ERROR, "数据字典隐藏值重复 [{}] [{}]");
-        SysDictItem dictItem = DataUtil.copy(request, SysDictItem.class);
-        sysDictItemMapper.insert(dictItem);
+        DataUtil.copy(request, SysDictItem.class, sysDictItemMapper::insert);
     }
 
     @Override
     public void itemUpdate(DictItemEditRequest request) {
         ValidationUtil.redoCheck(sysDictItemMapper, SysDictItem::getShowValue, request.getShowValue(), wrapper -> wrapper.eq(SysDictItem::getNid, request.getNid()), request.getId(), SysDictItem::getId, ErrorCode.DICT_SHOW_REPEAT_ERROR, "数据字典显示值重复 [{}] [{}]");
         ValidationUtil.redoCheck(sysDictItemMapper, SysDictItem::getHiddenValue, request.getHiddenValue(), wrapper -> wrapper.eq(SysDictItem::getNid, request.getNid()), request.getId(), SysDictItem::getId, ErrorCode.DICT_HIDDEN_REPEAT_ERROR, "数据字典隐藏值重复 [{}] [{}]");
-        SysDictItem dictItem = DataUtil.copy(request, SysDictItem.class);
-        sysDictItemMapper.updateById(dictItem);
+        DataUtil.copy(request, SysDictItem.class, sysDictItemMapper::updateById);
     }
 
     @Override
