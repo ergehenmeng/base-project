@@ -1,19 +1,19 @@
 package com.eghm.web.controller.sys;
 
-import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.annotation.SkipPerm;
-import com.eghm.cache.CacheService;
 import com.eghm.common.FileService;
-import com.eghm.constants.CacheConstant;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.ext.UserToken;
-import com.eghm.dto.sys.user.*;
+import com.eghm.dto.sys.user.PasswordEditRequest;
+import com.eghm.dto.sys.user.UserAddRequest;
+import com.eghm.dto.sys.user.UserEditRequest;
+import com.eghm.dto.sys.user.UserProfileRequest;
+import com.eghm.dto.sys.user.UserQueryRequest;
 import com.eghm.enums.UserState;
 import com.eghm.model.SysUser;
 import com.eghm.service.sys.SysRoleService;
@@ -30,7 +30,12 @@ import lombok.AllArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -46,8 +51,6 @@ import java.util.List;
 public class UserController {
 
     private final FileService fileService;
-
-    private final CacheService cacheService;
 
     private final SysUserService sysUserService;
 
@@ -81,25 +84,6 @@ public class UserController {
     @Operation(summary = "编辑")
     public RespBody<Void> update(@Validated @RequestBody UserEditRequest request) {
         sysUserService.update(request);
-        return RespBody.success();
-    }
-
-    @PostMapping("/lockScreen")
-    @Operation(summary = "锁屏")
-    @SkipPerm
-    public RespBody<Void> lockScreen() {
-        UserToken user = SecurityHolder.getUserRequired();
-        cacheService.setValue(CacheConstant.LOCK_SCREEN + user.getId(), true, CommonConstant.MAX_LOCK_SCREEN);
-        return RespBody.success();
-    }
-
-    @PostMapping(value = "/unlockScreen", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "解锁屏幕")
-    @SkipPerm
-    public RespBody<Void> unlockScreen(@RequestBody @Validated CheckPwdRequest request) {
-        Long userId = SecurityHolder.getUserId();
-        sysUserService.checkPassword(userId, SecureUtil.sha256(request.getPwd()));
-        cacheService.delete(CacheConstant.LOCK_SCREEN + userId);
         return RespBody.success();
     }
 
