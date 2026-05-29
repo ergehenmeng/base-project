@@ -59,8 +59,7 @@ public class AppVersionServiceImpl implements AppVersionService {
 
     @Override
     public void update(VersionEditRequest request) {
-        AppVersion version = DataUtil.copy(request, AppVersion.class);
-        appVersionMapper.updateById(version);
+        DataUtil.copy(request, AppVersion.class, appVersionMapper::updateById);
     }
 
     @Override

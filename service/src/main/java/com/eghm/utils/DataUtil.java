@@ -131,13 +131,14 @@ public class DataUtil {
      * @param ignoreProperties 忽略属性
      * @param <T> T
      */
-    public static <T> void copy(Object source, Class<T> cls, Consumer<T> consumer, String... ignoreProperties) {
+    public static <T> T copy(Object source, Class<T> cls, Consumer<T> consumer, String... ignoreProperties) {
         T copy = copy(source, cls, ignoreProperties);
         if (copy != null) {
             consumer.accept(copy);
         } else {
             log.error("bean复制异常,不执行consumer [{}] [{}]", source, cls);
         }
+        return copy;
     }
 
     /**

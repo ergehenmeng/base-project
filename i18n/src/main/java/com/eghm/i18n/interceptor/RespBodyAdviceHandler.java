@@ -33,7 +33,7 @@ public class RespBodyAdviceHandler implements ResponseBodyAdvice<RespBodyProvide
     
     @Nullable
     @Override
-    public RespBodyProvider beforeBodyWrite(@Nullable RespBodyProvider body, @NonNull MethodParameter returnType, @NonNull MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType,
+    public RespBodyProvider beforeBodyWrite(@Nullable RespBodyProvider body, @NonNull MethodParameter returnType, @NonNull MediaType selectedContentType, @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
             @NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response) {
         if (body == null) {
             return null;

@@ -46,8 +46,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public void insertLoginLog(LoginRecord loginRecord) {
-        LoginLog loginLog = DataUtil.copy(loginRecord, LoginLog.class);
-        loginLogMapper.insert(loginLog);
+        DataUtil.copy(loginRecord, LoginLog.class, loginLogMapper::insert);
         LoginDevice device = DataUtil.copy(loginRecord, LoginDevice.class);
         device.setId(IdWorker.getId());
         loginDeviceMapper.insertOrUpdateSelective(device);
