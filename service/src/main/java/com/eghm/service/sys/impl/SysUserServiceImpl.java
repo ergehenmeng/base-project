@@ -441,7 +441,7 @@ public class SysUserServiceImpl implements SysUserService {
         }
         SysUser user = this.getByAccount(userName);
         if (user == null || user.getState() == UserState.LOGOUT || !encoder.match(SecureUtil.sha256(password), user.getPwd())) {
-            CacheUtil.SMS_VERIFY_CACHE.asMap().merge(userName,  1, Integer::sum);
+            CacheUtil.LOGIN_LOCK_CACHE.asMap().merge(userName,  1, Integer::sum);
             throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
         if (user.getState() == UserState.LOCK) {

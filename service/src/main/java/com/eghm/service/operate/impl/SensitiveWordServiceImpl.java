@@ -14,6 +14,7 @@ import com.eghm.model.SensitiveWord;
 import com.eghm.mq.service.MessageService;
 import com.eghm.service.operate.SensitiveWordService;
 import com.eghm.utils.LoggerUtil;
+import com.eghm.utils.MybatisUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -70,7 +71,7 @@ public class SensitiveWordServiceImpl implements SensitiveWordService {
 
     @Override
     public void create(String keyword) {
-        List<SensitiveWord> wordList = sensitiveWordMapper.selectList(Wrappers.<SensitiveWord>lambdaQuery().eq(SensitiveWord::getKeyword, keyword));
+        List<SensitiveWord> wordList = MybatisUtil.getList(sensitiveWordMapper, SensitiveWord::getKeyword, keyword);
         if (CollUtil.isEmpty(wordList)) {
             SensitiveWord word = new SensitiveWord();
             word.setKeyword(keyword);

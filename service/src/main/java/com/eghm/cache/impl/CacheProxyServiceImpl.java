@@ -1,13 +1,24 @@
 package com.eghm.cache.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.enums.Channel;
 import com.eghm.enums.EmailType;
-import com.eghm.mapper.*;
-import com.eghm.model.*;
+import com.eghm.mapper.AuthConfigMapper;
+import com.eghm.mapper.BannerMapper;
+import com.eghm.mapper.EmailTemplateMapper;
+import com.eghm.mapper.NoticeTemplateMapper;
+import com.eghm.mapper.SysAreaMapper;
+import com.eghm.mapper.SysConfigMapper;
+import com.eghm.mapper.SysDictItemMapper;
+import com.eghm.mapper.SysNoticeMapper;
+import com.eghm.model.EmailTemplate;
+import com.eghm.model.NoticeTemplate;
+import com.eghm.model.SysArea;
+import com.eghm.model.SysConfig;
+import com.eghm.model.SysDictItem;
+import com.eghm.model.SysNotice;
+import com.eghm.utils.MybatisUtil;
 import com.eghm.vo.operate.auth.AuthConfigVO;
 import com.eghm.vo.operate.banner.BannerVO;
 import com.eghm.vo.sys.ext.SysAreaVO;
@@ -17,8 +28,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import static com.eghm.constants.CommonConstant.LIMIT_ONE;
 
 /**
  * 缓存代理层<br/>
@@ -69,19 +78,13 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     @Override
     @Cacheable(cacheNames = CacheConstant.EMAIL_TEMPLATE, key = "#code.value", unless = "#result == null", cacheManager = "longCacheManager")
     public EmailTemplate getEmailTemplate(EmailType code) {
-        LambdaQueryWrapper<EmailTemplate> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(EmailTemplate::getNid, code.name());
-        wrapper.last(LIMIT_ONE);
-        return emailTemplateMapper.selectOne(wrapper);
+        return MybatisUtil.getOne(emailTemplateMapper, EmailTemplate::getNid, code.name());
     }
 
     @Override
     @Cacheable(cacheNames = CacheConstant.IN_MAIL_TEMPLATE, key = "#p0", unless = "#result == null", cacheManager = "longCacheManager")
     public NoticeTemplate getNoticeTemplate(String code) {
-        LambdaQueryWrapper<NoticeTemplate> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(NoticeTemplate::getCode, code);
-        wrapper.last(LIMIT_ONE);
-        return noticeTemplateMapper.selectOne(wrapper);
+        return MybatisUtil.getOne(noticeTemplateMapper, NoticeTemplate::getCode, code);
     }
 
     @Override
@@ -93,19 +96,14 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_CONFIG, key = "#p0", unless = "#result == null", cacheManager = "longCacheManager")
     public String getConfigByNid(String nid) {
-        LambdaQueryWrapper<SysConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysConfig::getNid, nid);
-        wrapper.last(LIMIT_ONE);
-        SysConfig config = sysConfigMapper.selectOne(wrapper);
+        SysConfig config = MybatisUtil.getOne(sysConfigMapper, SysConfig::getNid, nid);
         return config != null ? config.getContent() : null;
     }
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_DICT, key = "#p0", unless = "#result.size() == 0", cacheManager = "longCacheManager")
     public List<SysDictItem> getDictByNid(String nid) {
-        LambdaQueryWrapper<SysDictItem> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysDictItem::getNid, nid);
-        return sysDictItemMapper.selectList(wrapper);
+        return MybatisUtil.getList(sysDictItemMapper, SysDictItem::getNid, nid);
     }
 
     @Override

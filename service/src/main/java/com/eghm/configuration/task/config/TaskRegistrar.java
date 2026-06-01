@@ -1,13 +1,12 @@
 package com.eghm.configuration.task.config;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysTaskMapper;
 import com.eghm.model.SysTask;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.LoggerUtil;
+import com.eghm.utils.MybatisUtil;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.AllArgsConstructor;
@@ -54,9 +53,7 @@ public class TaskRegistrar {
      */
     @PostConstruct
     public synchronized void reloadTask() {
-        LambdaQueryWrapper<SysTask> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysTask::getState, true);
-        List<SysTask> taskConfigList = sysTaskMapper.selectList(wrapper);
+        List<SysTask> taskConfigList = MybatisUtil.getList(sysTaskMapper, SysTask::getState, true);
         List<CronTaskWrapper> taskList = new ArrayList<>();
         for (SysTask taskConfig : taskConfigList) {
             CronTaskWrapper triggerTask = new CronTaskWrapper(DataUtil.copy(taskConfig, CronTask.class));

@@ -4,9 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.crypto.SecureUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
 import com.eghm.common.EmailService;
@@ -62,6 +60,7 @@ import com.eghm.service.business.MemberScoreLogService;
 import com.eghm.service.business.MemberService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
+import com.eghm.utils.MybatisUtil;
 import com.eghm.utils.RegExpUtil;
 import com.eghm.utils.StringUtil;
 import com.eghm.utils.ValidationUtil;
@@ -298,10 +297,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member getByInviteCode(String inviteCode) {
-        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Member::getInviteCode, inviteCode);
-        wrapper.last(CommonConstant.LIMIT_ONE);
-        return memberMapper.selectOne(wrapper);
+        return MybatisUtil.getOne(memberMapper, Member::getInviteCode, inviteCode);
     }
 
     @Override
@@ -513,10 +509,7 @@ public class MemberServiceImpl implements MemberService {
      * @return 用户信息
      */
     private Member getByMpOpenId(String openId) {
-        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Member::getMpOpenId, openId);
-        wrapper.last(CommonConstant.LIMIT_ONE);
-        return memberMapper.selectOne(wrapper);
+        return MybatisUtil.getOne(memberMapper, Member::getMpOpenId, openId);
     }
 
     /**
@@ -553,10 +546,7 @@ public class MemberServiceImpl implements MemberService {
      * @return 用户信息
      */
     private Member getByEmail(String email) {
-        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Member::getEmail, email);
-        wrapper.last(CommonConstant.LIMIT_ONE);
-        return memberMapper.selectOne(wrapper);
+        return MybatisUtil.getOne(memberMapper, Member::getEmail, email);
     }
 
     /**
@@ -566,10 +556,7 @@ public class MemberServiceImpl implements MemberService {
      * @return 用户信息
      */
     private Member getByMobile(String mobile) {
-        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Member::getMobile, mobile);
-        wrapper.last(CommonConstant.LIMIT_ONE);
-        return memberMapper.selectOne(wrapper);
+        return MybatisUtil.getOne(memberMapper, Member::getMobile, mobile);
     }
 
     /**
@@ -579,10 +566,7 @@ public class MemberServiceImpl implements MemberService {
      * @return 用户信息
      */
     private Member getByMaOpenId(String openId) {
-        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Member::getMaOpenId, openId);
-        wrapper.last(CommonConstant.LIMIT_ONE);
-        return memberMapper.selectOne(wrapper);
+        return MybatisUtil.getOne(memberMapper, Member::getMaOpenId, openId);
     }
 
     /**

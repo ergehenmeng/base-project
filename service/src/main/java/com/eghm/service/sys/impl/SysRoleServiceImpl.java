@@ -1,7 +1,6 @@
 package com.eghm.service.sys.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -20,6 +19,7 @@ import com.eghm.model.SysRole;
 import com.eghm.model.SysUserRole;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.MybatisUtil;
 import com.eghm.utils.ValidationUtil;
 import com.eghm.vo.sys.ext.SysRoleResponse;
 import lombok.AllArgsConstructor;
@@ -80,9 +80,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public List<CheckBox> getList() {
-        LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysRole::getRoleType, RoleType.COMMON);
-        List<SysRole> roleList = sysRoleMapper.selectList(wrapper);
+        List<SysRole> roleList = MybatisUtil.getList(sysRoleMapper, SysRole::getRoleType, RoleType.COMMON);
         return DataUtil.copy(roleList, sysRole -> new CheckBox(sysRole.getId(), sysRole.getRoleName()));
     }
 

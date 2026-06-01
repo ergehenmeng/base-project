@@ -3,7 +3,6 @@ package com.eghm.service.operate.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.news.config.NewsConfigAddRequest;
 import com.eghm.dto.business.news.config.NewsConfigEditRequest;
 import com.eghm.dto.ext.PagingQuery;
@@ -13,6 +12,7 @@ import com.eghm.mapper.NewsConfigMapper;
 import com.eghm.model.NewsConfig;
 import com.eghm.service.operate.NewsConfigService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.MybatisUtil;
 import com.eghm.utils.ValidationUtil;
 import com.eghm.vo.business.news.NewsConfigResponse;
 import lombok.AllArgsConstructor;
@@ -71,10 +71,7 @@ public class NewsConfigServiceImpl implements NewsConfigService {
 
     @Override
     public NewsConfig getByCode(String code) {
-        LambdaQueryWrapper<NewsConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(NewsConfig::getCode, code);
-        wrapper.last(CommonConstant.LIMIT_ONE);
-        NewsConfig config = newsConfigMapper.selectOne(wrapper);
+        NewsConfig config = MybatisUtil.getOne(newsConfigMapper, NewsConfig::getCode, code);
         if (config == null) {
             throw new BusinessException(ErrorCode.NEWS_CONFIG_NOT_EXIST);
         }
