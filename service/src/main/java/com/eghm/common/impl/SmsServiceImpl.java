@@ -52,13 +52,13 @@ public class SmsServiceImpl implements SmsService {
             throw new BusinessException(ErrorCode.LOGIN_SMS_CODE_EXPIRE);
         }
         String key = templateType.getValue() + mobile;
-        Long present = CacheUtil.SMS_VERIFY_CACHE.getIfPresent(key);
+        Integer present = CacheUtil.SMS_VERIFY_CACHE.getIfPresent(key);
         if (present != null && present > MAX_ERROR_NUM) {
             this.cleanSmsCode(templateType, mobile);
             throw new BusinessException(ErrorCode.SMS_CODE_VERIFY_ERROR);
         }
         if (!originalSmsCode.equalsIgnoreCase(smsCode)) {
-            CacheUtil.SMS_VERIFY_CACHE.put(key, present == null ? 1 : present + 1);
+            CacheUtil.SMS_VERIFY_CACHE.asMap().merge(key,  1, Integer::sum);
             throw new BusinessException(ErrorCode.LOGIN_SMS_CODE_ERROR);
         }
         this.cleanSmsCode(templateType, mobile);

@@ -1,8 +1,10 @@
 package com.eghm.common.impl;
 
+import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.http.HtmlUtil;
 import com.eghm.cache.CacheService;
+import com.eghm.common.AlarmService;
 import com.eghm.common.EmailService;
 import com.eghm.dto.ext.VerifyEmailCode;
 import com.eghm.dto.operate.email.SendEmail;
@@ -32,12 +34,14 @@ import java.io.File;
 @RequiredArgsConstructor
 @Service("emailService")
 public class EmailServiceImpl implements EmailService {
-
+    
     private JavaMailSender javaMailSender;
 
     private MailProperties mailProperties;
 
     private final CacheService cacheService;
+    
+    private final AlarmService alarmService;
 
     @Autowired(required = false)
     public void setJavaMailSender(JavaMailSender javaMailSender) {
@@ -74,6 +78,7 @@ public class EmailServiceImpl implements EmailService {
             log.info("发送邮件成功 to:[{}],title:[{}],content:[{}]", to, title, content);
         } catch (Exception e) {
             log.error("发送邮件异常 to:[{}],title:[{}],content:[{}]", to, title, content, e);
+            alarmService.sendMsg(String.format("发送邮件异常 to:[%s],title:[%s],content:[%s]", to, title, content) + ExceptionUtil.stacktraceToString(e));
         }
     }
 

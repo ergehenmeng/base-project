@@ -39,7 +39,7 @@ public class CacheUtil {
     /**
      * 验证码验证次数上限限制
      */
-    public static final Cache<String, Long> SMS_VERIFY_CACHE = Caffeine.newBuilder().expireAfterWrite(SMS_CODE_EXPIRE, TimeUnit.SECONDS).maximumSize(20000).build();
+    public static final Cache<String, Integer> SMS_VERIFY_CACHE = Caffeine.newBuilder().expireAfterWrite(SMS_CODE_EXPIRE, TimeUnit.SECONDS).maximumSize(20000).build();
 
     /**
      * 双因子验证第一步缓存数据
