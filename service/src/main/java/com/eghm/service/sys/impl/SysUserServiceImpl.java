@@ -41,6 +41,7 @@ import com.eghm.service.sys.SysDeptDataService;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
+import com.eghm.utils.CacheUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.TotpUtil;
 import com.eghm.utils.ValidationUtil;
@@ -439,13 +440,8 @@ public class SysUserServiceImpl implements SysUserService {
             throw new BusinessException(ErrorCode.USER_ERROR_LOCK);
         }
         SysUser user = this.getByAccount(userName);
-        if (user == null || user.getState() == UserState.LOGOUT) {
-            LOGIN_LOCK_CACHE.put(userName, present == null ? 1 : present + 1);
-            throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
-        }
-        boolean match = encoder.match(SecureUtil.sha256(password), user.getPwd());
-        if (!match) {
-            LOGIN_LOCK_CACHE.put(userName, present == null ? 1 : present + 1);
+        if (user == null || user.getState() == UserState.LOGOUT || !encoder.match(SecureUtil.sha256(password), user.getPwd())) {
+            CacheUtil.SMS_VERIFY_CACHE.asMap().merge(userName,  1, Integer::sum);
             throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
         if (user.getState() == UserState.LOCK) {

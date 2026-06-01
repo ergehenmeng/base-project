@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
-import com.eghm.common.impl.CommonServiceImpl;
+import com.eghm.common.CommonService;
 import com.eghm.configuration.security.ApiHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
@@ -48,7 +48,7 @@ public class NewsServiceImpl implements NewsService {
 
     private final CacheService cacheService;
 
-    private final CommonServiceImpl commonService;
+    private final CommonService commonService;
 
     private final MemberCollectService memberCollectService;
 
