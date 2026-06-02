@@ -71,11 +71,6 @@ public enum ErrorCode {
     SPLIT_ERROR(1001, "数据类型绑定异常"),
 
     /**
-     * 文件类型只支持%s
-     */
-    FILE_TYPE_SUPPORT(1001, "文件类型只支持%s"),
-
-    /**
      * 文件类型异常
      */
     FILE_TYPE_ERROR(1002, "文件类型异常"),
@@ -89,6 +84,11 @@ public enum ErrorCode {
      * ExcelSpinner未配置加载项
      */
     SPINNER_ERROR(1004, "@ExcelSpinner未配置加载项"),
+    
+    /**
+     * 文件类型只支持%s
+     */
+    FILE_TYPE_SUPPORT(1005, "文件类型只支持%s"),
 
     /**
      * 地址不支持%s请求
@@ -109,11 +109,21 @@ public enum ErrorCode {
      * 签名信息已过期
      */
     SIGNATURE_EXPIRE(1023, "签名信息已过期"),
+    
+    /**
+     * 屏幕锁定中
+     */
+    LOCK_SCREEN(1024, "屏幕锁定中"),
+    
+    /**
+     * 密码校验失败
+     */
+    PWD_DECODE_ERROR(1025, "密码校验失败"),
 
     /**
      * 签名已过期,请重新申请签名
      */
-    SIGNATURE_TIMESTAMP_ERROR(1025, "签名已过期,请重新申请签名"),
+    SIGNATURE_TIMESTAMP_ERROR(1026, "签名已过期,请重新申请签名"),
 
     /**
      * 签名校验异常
@@ -164,16 +174,6 @@ public enum ErrorCode {
      * 缓存类型不支持查询
      */
     REDIS_KEY_TYPE_ERROR(1105, "缓存类型不支持查询"),
-
-    /**
-     * 屏幕锁定中
-     */
-    LOCK_SCREEN(1024, "屏幕锁定中"),
-
-    /**
-     * 密码校验失败
-     */
-    PWD_DECODE_ERROR(1025, "密码校验失败"),
 
     /**
      * 该字段类型不支持脱敏
@@ -550,7 +550,7 @@ public enum ErrorCode {
     /**
      * 接口不支持该方法调用
      */
-    NOT_SUPPORTED(2243, "接口不支持该方法调用"),
+    NOT_SUPPORTED(2242, "接口不支持该方法调用"),
 
     /**
      * 短信验证码过期啦~

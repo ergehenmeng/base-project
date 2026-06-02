@@ -5,7 +5,6 @@ import com.eghm.common.SendSmsService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.enums.TemplateType;
 import com.google.common.collect.Lists;
-import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
 import com.tencentcloudapi.sms.v20210111.SmsClient;
 import com.tencentcloudapi.sms.v20210111.models.SendSmsRequest;
@@ -23,6 +22,8 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 public class TencentSmsServiceImpl implements SendSmsService {
+    
+    private final SmsClient smsClient;
 
     private final JsonService jsonService;
 
@@ -43,7 +44,7 @@ public class TencentSmsServiceImpl implements SendSmsService {
         request.setPhoneNumberSet(mobileList.toArray(new String[]{}));
         request.setTemplateParamSet(params);
         try {
-            SendSmsResponse response = getClient().SendSms(request);
+            SendSmsResponse response = smsClient.SendSms(request);
             return SUCCESS.equals(response.getSendStatusSet()[0].getCode()) ? 1 : 0;
         } catch (TencentCloudSDKException e) {
             log.error("腾讯短信发送异常 [{}] [{}] [{}]", mobileList, templateType, jsonService.toJson(params), e);
@@ -51,14 +52,4 @@ public class TencentSmsServiceImpl implements SendSmsService {
         return 2;
     }
 
-    /**
-     * 短信client
-     *
-     * @return client
-     */
-    private SmsClient getClient() {
-        SystemProperties.Sms sms = systemProperties.getSms();
-        Credential credential = new Credential(sms.getKeyId(), sms.getSecretKey());
-        return new SmsClient(credential, "ap-shanghai");
-    }
 }

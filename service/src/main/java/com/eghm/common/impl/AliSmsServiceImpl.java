@@ -4,7 +4,6 @@ import cn.hutool.core.collection.CollUtil;
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
-import com.aliyun.teaopenapi.models.Config;
 import com.eghm.common.JsonService;
 import com.eghm.common.SendSmsService;
 import com.eghm.configuration.SystemProperties;
@@ -27,7 +26,9 @@ import java.util.Map;
 @Slf4j
 @AllArgsConstructor
 public class AliSmsServiceImpl implements SendSmsService {
-
+    
+    private final Client client;
+    
     private final JsonService jsonService;
 
     private final SystemProperties systemProperties;
@@ -54,7 +55,7 @@ public class AliSmsServiceImpl implements SendSmsService {
         String jsonParam = jsonService.toJson(param);
         request.setTemplateParam(jsonParam);
         try {
-            SendSmsResponse response = getClient().sendSms(request);
+            SendSmsResponse response = client.sendSms(request);
             return SUCCESS.equals(response.getBody().getCode()) ? 1 : 0;
         } catch (Exception e) {
             log.error("阿里云短信发送异常 [{}] [{}] [{}]", mobileList, templateType, jsonParam,  e);
@@ -62,16 +63,4 @@ public class AliSmsServiceImpl implements SendSmsService {
         return 2;
     }
 
-    /**
-     * 阿里
-     * @return client
-     * @throws Exception e
-     */
-    private Client getClient() throws Exception {
-        Config config = new Config()
-                .setAccessKeyId(systemProperties.getSms().getKeyId())
-                .setAccessKeySecret(systemProperties.getSms().getSecretKey());
-        config.endpoint = "dysmsapi.aliyuncs.com";
-        return new Client(config);
-    }
 }

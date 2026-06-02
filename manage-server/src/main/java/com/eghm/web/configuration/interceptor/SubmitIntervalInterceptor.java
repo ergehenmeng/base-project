@@ -1,8 +1,8 @@
 package com.eghm.web.configuration.interceptor;
 
 import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.constants.CacheConstant;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constants.CacheConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
@@ -38,11 +38,10 @@ public class SubmitIntervalInterceptor implements InterceptorAdapter {
         } else {
             key = String.format(CacheConstant.SUBMIT_LIMIT, userId, uri);
         }
-        if (INTERVAL_CACHE.getIfPresent(key) != null) {
+        if (INTERVAL_CACHE.asMap().putIfAbsent(key, true) != null) {
             WebUtil.printJson(response, ErrorCode.SUBMIT_FREQUENTLY);
             return false;
         }
-        INTERVAL_CACHE.put(key, true);
         return true;
     }
 

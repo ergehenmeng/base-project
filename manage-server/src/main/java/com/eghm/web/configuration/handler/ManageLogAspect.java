@@ -71,12 +71,27 @@ public class ManageLogAspect {
         if (HttpMethod.GET.name().equals(request.getMethod())) {
             log.info("请求地址:[{}], 请求参数:[{}], 请求ip:[{}], 用户id:[{}], 耗时:[{}]ms", sy.getUrl(), sy.getRequest(), sy.getIp(), sy.getUserId(), sy.getBusinessTime());
         } else {
+            this.logError(proceed, sy, request.getRequestURI());
+        }
+        return proceed;
+    }
+    
+    /**
+     * 记录错误日志
+     *
+     * @param proceed 返回值
+     * @param sy 日志信息
+     * @param uri 请求接口
+     */
+    private void logError(Object proceed, ManageLog sy, String uri) {
+        try {
             if (proceed != null) {
                 sy.setResponse(gson.toJson(proceed));
             }
             messageService.send(ExchangeQueue.MANAGE_LOG, sy);
+        } catch (Exception e) {
+            log.error("系统日志保存异常 [{}]", uri, e);
         }
-        return proceed;
     }
 
     /**
