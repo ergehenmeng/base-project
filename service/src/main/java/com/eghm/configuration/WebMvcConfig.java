@@ -151,20 +151,20 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, Validati
 
     @Bean
     public AlarmService alarmService(JsonService jsonService) {
-        SystemProperties.AlarmMsg alarmMsg = systemProperties.getAlarmMsg();
-        if (alarmMsg.getAlarmType() == AlarmType.DEFAULT) {
+        SystemProperties.Alarm alarm = systemProperties.getAlarm();
+        if (alarm.getAlarmType() == AlarmType.DEFAULT) {
             return new DefaultAlarmServiceImpl();
         }
-        if (isBlank(alarmMsg.getWebHook())) {
+        if (isBlank(alarm.getWebHook())) {
             throw new BusinessException(ErrorCode.WEB_HOOK_NULL);
         }
-        if (alarmMsg.getAlarmType() == AlarmType.DING_TALK) {
+        if (alarm.getAlarmType() == AlarmType.DING_TALK) {
             return new DingTalkAlarmServiceImpl(jsonService, systemProperties);
         }
-        if (alarmMsg.getAlarmType() == AlarmType.FEI_SHU) {
+        if (alarm.getAlarmType() == AlarmType.FEI_SHU) {
             return new FeiShuAlarmServiceImpl(jsonService, systemProperties);
         }
-        if (alarmMsg.getAlarmType() == AlarmType.ENTERPRISE_WECHAT) {
+        if (alarm.getAlarmType() == AlarmType.ENTERPRISE_WECHAT) {
             return new WeChatAlarmServiceImpl(jsonService, systemProperties);
         }
         return new DefaultAlarmServiceImpl();

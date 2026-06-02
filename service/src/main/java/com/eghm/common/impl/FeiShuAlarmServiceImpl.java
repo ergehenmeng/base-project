@@ -1,16 +1,10 @@
 package com.eghm.common.impl;
 
 import cn.hutool.crypto.SecureUtil;
-import cn.hutool.extra.spring.SpringUtil;
-import cn.hutool.http.HttpUtil;
-import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
 import com.eghm.configuration.SystemProperties;
-import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.dto.ext.FeiShuMsg;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
 
 import static com.eghm.utils.StringUtil.isNotBlank;
 
@@ -19,51 +13,38 @@ import static com.eghm.utils.StringUtil.isNotBlank;
  * @since 2023/7/14
  */
 @Slf4j
-@AllArgsConstructor
-public class FeiShuAlarmServiceImpl implements AlarmService {
-
-    private final JsonService jsonService;
+public class FeiShuAlarmServiceImpl extends AbstractAlarmService {
 
     private final SystemProperties systemProperties;
-
-    @Async
-    @Override
-    public void sendMsg(String content) {
-        // webHook: https://open.feishu.cn/open-apis/bot/v2/hook/xxxxxxxxxxxxxxxxx
-        String response = HttpUtil.post(systemProperties.getAlarmMsg().getWebHook(), this.createTextMsg(content));
-        this.parseResponse(response);
+    
+    public FeiShuAlarmServiceImpl(JsonService jsonService, SystemProperties systemProperties) {
+        super(jsonService, systemProperties);
+        this.systemProperties = systemProperties;
     }
-
-    /**
-     * 创建普通消息
-     *
-     * @param content 消息内容
-     * @return 消息 json
-     */
-    private String createTextMsg(String content) {
+    
+    @Override
+    protected String createRequestUrl() {
+        return systemProperties.getAlarm().getWebHook();
+    }
+    
+    @Override
+    public String createTextMsg(String content) {
         FeiShuMsg msg = new FeiShuMsg();
-        String appName = SpringUtil.getApplicationName();
-        String builder = "【服务名】：" + appName + "\n" +
-                "【traceId】：" + LogTraceHolder.getTraceId() + "\n" +
-                "【报警信息】：" + content;
+        String builder = super.createMessageContent(content);
         msg.setText(new FeiShuMsg.Text(builder));
         msg.setMsgType("text");
-        if (isNotBlank(systemProperties.getAlarmMsg().getSecret())) {
+        if (isNotBlank(systemProperties.getAlarm().getSecret())) {
             long timestamp = System.currentTimeMillis();
-            String unSign = timestamp + "\n" + systemProperties.getAlarmMsg().getSecret();
-            String sign = SecureUtil.hmacSha256(systemProperties.getAlarmMsg().getSecret()).digestBase64(unSign, true);
+            String unSign = timestamp + "\n" + systemProperties.getAlarm().getSecret();
+            String sign = SecureUtil.hmacSha256(systemProperties.getAlarm().getSecret()).digestBase64(unSign, true);
             msg.setTimestamp(timestamp);
             msg.setSign(sign);
         }
         return jsonService.toJson(msg);
     }
-
-    /**
-     * 打印响应日志
-     *
-     * @param responseBody 内容
-     */
-    private void parseResponse(String responseBody) {
+    
+    @Override
+    protected void logResponse(String responseBody) {
         log.info("发送飞书消息成功, 返回结果 [{}]", responseBody);
     }
 }

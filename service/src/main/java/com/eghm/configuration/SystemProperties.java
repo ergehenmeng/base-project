@@ -68,7 +68,7 @@ public class SystemProperties {
     /**
      * 报警消息通知
      */
-    private final AlarmMsg alarmMsg = new AlarmMsg();
+    private final Alarm alarm = new Alarm();
 
     /**
      * 短信配置
@@ -339,12 +339,12 @@ public class SystemProperties {
     }
 
     @Data
-    public static class AlarmMsg {
+    public static class Alarm {
 
         /**
          * 消息通知类型
          */
-        private AlarmType alarmType;
+        private AlarmType type;
 
         /**
          * 钉钉消息通知AccessToken或者飞书、企业微信的通知webHook地址

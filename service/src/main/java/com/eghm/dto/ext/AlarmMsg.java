@@ -9,7 +9,7 @@ import lombok.Data;
  * @since 2023/7/14
  */
 @Data
-public class WechatMsg {
+public class AlarmMsg {
 
     @Schema(description = "消息类型")
     @JsonProperty("msgtype")
