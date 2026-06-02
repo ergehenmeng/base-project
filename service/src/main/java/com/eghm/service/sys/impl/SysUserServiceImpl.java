@@ -119,8 +119,8 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public void create(UserAddRequest request) {
-        ValidationUtil.redoCheck(sysUserMapper, SysUser::getUserName, request.getUserName(), null, SysUser::getId, ErrorCode.USER_NAME_REDO, "账户名被占用 [{}] [{}]");
-        ValidationUtil.redoCheck(sysUserMapper, SysUser::getMobile, request.getMobile(), null, SysUser::getId, ErrorCode.MOBILE_REDO, "手机号码被占用 [{}] [{}]");
+        ValidationUtil.redoCheck(sysUserMapper, SysUser::getUserName, request.getUserName(), null, null, ErrorCode.USER_NAME_REDO, "账户名被占用 [{}] [{}]");
+        ValidationUtil.redoCheck(sysUserMapper, SysUser::getMobile, request.getMobile(), null, null, ErrorCode.MOBILE_REDO, "手机号码被占用 [{}] [{}]");
         SysUser user = DataUtil.copy(request, SysUser.class);
         user.setState(UserState.NORMAL);
         user.setUserType(UserType.SYS_USER);
@@ -148,8 +148,8 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public void update(UserEditRequest request) {
-        ValidationUtil.redoCheck(sysUserMapper, SysUser::getUserName, request.getUserName(), request.getId(), SysUser::getId, ErrorCode.USER_NAME_REDO, "账户名被占用 [{}] [{}]");
-        ValidationUtil.redoCheck(sysUserMapper, SysUser::getMobile, request.getMobile(), request.getId(), SysUser::getId, ErrorCode.MOBILE_REDO, "手机号码被占用 [{}] [{}]");
+        ValidationUtil.redoCheck(sysUserMapper, SysUser::getUserName, request.getUserName(), SysUser::getId, request.getId(), ErrorCode.USER_NAME_REDO, "账户名被占用 [{}] [{}]");
+        ValidationUtil.redoCheck(sysUserMapper, SysUser::getMobile, request.getMobile(), SysUser::getId, request.getId(), ErrorCode.MOBILE_REDO, "手机号码被占用 [{}] [{}]");
         SysUser user = DataUtil.copy(request, SysUser.class, sysUserMapper::updateById);
         // 角色权限
         sysRoleService.auth(user.getId(), request.getRoleIds());

@@ -60,7 +60,7 @@ public class NewsConfigServiceImpl implements NewsConfigService {
 
     @Override
     public void update(NewsConfigEditRequest request) {
-        ValidationUtil.redoCheck(newsConfigMapper, NewsConfig::getTitle, request.getTitle(), request.getId(), NewsConfig::getId, ErrorCode.NEWS_CONFIG_CODE_REDO, "资讯配置编号重复 [{}] [{}]");
+        ValidationUtil.redoCheck(newsConfigMapper, NewsConfig::getTitle, request.getTitle(), NewsConfig::getId, request.getId(),  ErrorCode.NEWS_CONFIG_CODE_REDO, "资讯配置编号重复 [{}] [{}]");
         DataUtil.copy(request, NewsConfig.class, newsConfigMapper::updateById);
     }
 

@@ -211,13 +211,13 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void registerSendSms(String mobile, String ip) {
-        ValidationUtil.redoCheck(memberMapper, Member::getMobile, mobile, null, Member::getId, ErrorCode.MOBILE_REGISTER_REDO, "手机号被占用,无法注册用户 [{}]");
+        ValidationUtil.redoCheck(memberMapper, Member::getMobile, mobile, null, null, ErrorCode.MOBILE_REGISTER_REDO, "手机号被占用,无法注册用户 [{}]");
         smsService.sendSmsCode(TemplateType.REGISTER, mobile, ip);
     }
 
     @Override
     public LoginTokenVO registerByMobile(MobileRegisterDTO request) {
-        ValidationUtil.redoCheck(memberMapper, Member::getMobile, request.getMobile(), null, Member::getId, ErrorCode.MOBILE_REGISTER_REDO, "手机号被占用,无法注册用户 [{}]");
+        ValidationUtil.redoCheck(memberMapper, Member::getMobile, request.getMobile(), null, null, ErrorCode.MOBILE_REGISTER_REDO, "手机号被占用,无法注册用户 [{}]");
         smsService.verifySmsCode(TemplateType.REGISTER, request.getMobile(), request.getSmsCode());
         MemberRegister register = DataUtil.copy(request, MemberRegister.class);
         register.setRegisterIp(request.getIp());
@@ -227,7 +227,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public LoginTokenVO registerByAccount(AccountRegisterDTO dto) {
-        ValidationUtil.redoCheck(memberMapper, Member::getAccount, dto.getAccount(), null, Member::getId, ErrorCode.ACCOUNT_REGISTER_REDO, "账号被占用,无法注册用户 [{}]");
+        ValidationUtil.redoCheck(memberMapper, Member::getAccount, dto.getAccount(), null, null, ErrorCode.ACCOUNT_REGISTER_REDO, "账号被占用,无法注册用户 [{}]");
         MemberRegister register = new MemberRegister();
         register.setRegisterIp(dto.getIp());
         register.setPwd(encoder.encode(SecureUtil.sha256(dto.getPassword())));
@@ -242,7 +242,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void sendBindEmail(String email, Long memberId) {
-        ValidationUtil.redoCheck(memberMapper, Member::getEmail, email, null, Member::getId, ErrorCode.EMAIL_REDO_BIND, "邮箱号已被占用 email:[{}]");
+        ValidationUtil.redoCheck(memberMapper, Member::getEmail, email, null, null, ErrorCode.EMAIL_REDO_BIND, "邮箱号已被占用 email:[{}]");
         SendEmail sendEmail = new SendEmail();
         sendEmail.setType(EmailType.BIND_EMAIL);
         sendEmail.setTo(email);
@@ -277,7 +277,7 @@ public class MemberServiceImpl implements MemberService {
     public void sendChangeEmailCode(SendEmailAuthCodeDTO request) {
         Member member = memberMapper.selectById(request.getMemberId());
         smsService.verifySmsCode(TemplateType.CHANGE_EMAIL, member.getMobile(), request.getSmsCode());
-        ValidationUtil.redoCheck(memberMapper, Member::getEmail, request.getEmail(), null, Member::getId, ErrorCode.EMAIL_REDO_BIND, "邮箱号已被占用 email:[{}]");
+        ValidationUtil.redoCheck(memberMapper, Member::getEmail, request.getEmail(), null, null, ErrorCode.EMAIL_REDO_BIND, "邮箱号已被占用 email:[{}]");
         SendEmail email = new SendEmail();
         email.setTo(request.getEmail());
         email.setType(EmailType.BIND_EMAIL);

@@ -103,7 +103,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public void create(MenuAddRequest request) {
-        ValidationUtil.redoCheck(sysMenuMapper, SysMenu::getTitle, request.getTitle(), wrapper -> wrapper.eq(SysMenu::getPid, request.getPid()), null, SysMenu::getId, ErrorCode.MENU_TITLE_REDO, "菜单名称重复 [{}] [{}]");
+        ValidationUtil.redoCheck(sysMenuMapper, SysMenu::getTitle, request.getTitle(), wrapper -> wrapper.eq(SysMenu::getPid, request.getPid()), null, null, ErrorCode.MENU_TITLE_REDO, "菜单名称重复 [{}] [{}]");
         this.checkDisplayState(request.getPid(), request.getDisplayState());
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
         copy.setId(String.valueOf(this.generateNextId(request.getPid())));
@@ -113,7 +113,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public void update(MenuEditRequest request) {
-        ValidationUtil.redoCheck(sysMenuMapper, SysMenu::getTitle, request.getTitle(), wrapper -> wrapper.eq(SysMenu::getPid, request.getPid()), request.getId(), SysMenu::getId, ErrorCode.MENU_TITLE_REDO, "菜单名称重复 [{}] [{}]");
+        ValidationUtil.redoCheck(sysMenuMapper, SysMenu::getTitle, request.getTitle(), wrapper -> wrapper.eq(SysMenu::getPid, request.getPid()), SysMenu::getId, request.getId(), ErrorCode.MENU_TITLE_REDO, "菜单名称重复 [{}] [{}]");
         this.checkDisplayState(request.getPid(), request.getDisplayState());
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
         copy.setCode(StringUtil.encryptNumber(Long.parseLong(copy.getId())));

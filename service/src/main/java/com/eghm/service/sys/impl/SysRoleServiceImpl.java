@@ -48,7 +48,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public void update(RoleEditRequest request) {
-        ValidationUtil.redoCheck(sysRoleMapper, SysRole::getRoleName, request.getRoleName(), request.getId(), SysRole::getId, ErrorCode.ROLE_NAME_REDO, "角色名称重复 [{}] [{}]");
+        ValidationUtil.redoCheck(sysRoleMapper, SysRole::getRoleName, request.getRoleName(), SysRole::getId, request.getId(), ErrorCode.ROLE_NAME_REDO, "角色名称重复 [{}] [{}]");
         LambdaUpdateWrapper<SysRole> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(SysRole::getId, request.getId());
         wrapper.set(SysRole::getRoleName, request.getRoleName());
@@ -74,7 +74,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public void create(RoleAddRequest request) {
-        ValidationUtil.redoCheck(sysRoleMapper, SysRole::getRoleName, request.getRoleName(), null, SysRole::getId, ErrorCode.ROLE_NAME_REDO, "角色名称重复 [{}] [{}]");
+        ValidationUtil.redoCheck(sysRoleMapper, SysRole::getRoleName, request.getRoleName(), null, null, ErrorCode.ROLE_NAME_REDO, "角色名称重复 [{}] [{}]");
         DataUtil.copy(request, SysRole.class, sysRoleMapper::insert);
     }
 

@@ -53,14 +53,14 @@ public class SysDictServiceImpl implements SysDictService {
 
     @Override
     public void create(DictAddRequest request) {
-        ValidationUtil.redoCheck(sysDictMapper, SysDict::getTitle, request.getTitle(), null, SysDict::getId, ErrorCode.DICT_REPEAT_ERROR, "数据字典名称重复 [{}] [{}]");
-        ValidationUtil.redoCheck(sysDictMapper, SysDict::getNid, request.getNid(), null, SysDict::getId, ErrorCode.DICT_NID_REPEAT_ERROR, "数据字典编号重复 [{}] [{}]");
+        ValidationUtil.redoCheck(sysDictMapper, SysDict::getTitle, request.getTitle(), null, null, ErrorCode.DICT_REPEAT_ERROR, "数据字典名称重复 [{}] [{}]");
+        ValidationUtil.redoCheck(sysDictMapper, SysDict::getNid, request.getNid(), null, null, ErrorCode.DICT_NID_REPEAT_ERROR, "数据字典编号重复 [{}] [{}]");
         DataUtil.copy(request, SysDict.class, sysDictMapper::insert);
     }
 
     @Override
     public void update(DictEditRequest request) {
-        ValidationUtil.redoCheck(sysDictMapper, SysDict::getTitle, request.getTitle(), request.getId(), SysDict::getId, ErrorCode.DICT_REPEAT_ERROR, "数据字典名称重复 [{}] [{}]");
+        ValidationUtil.redoCheck(sysDictMapper, SysDict::getTitle, request.getTitle(), SysDict::getId, request.getId(), ErrorCode.DICT_REPEAT_ERROR, "数据字典名称重复 [{}] [{}]");
         DataUtil.copy(request, SysDict.class, sysDictMapper::updateById);
     }
 
@@ -77,15 +77,15 @@ public class SysDictServiceImpl implements SysDictService {
 
     @Override
     public void itemCreate(DictItemAddRequest request) {
-        ValidationUtil.redoCheck(sysDictItemMapper, SysDictItem::getShowValue, request.getShowValue(), wrapper -> wrapper.eq(SysDictItem::getNid, request.getNid()), null, SysDictItem::getId, ErrorCode.DICT_SHOW_REPEAT_ERROR, "数据字典显示值重复 [{}] [{}]");
-        ValidationUtil.redoCheck(sysDictItemMapper, SysDictItem::getHiddenValue, request.getHiddenValue(), wrapper -> wrapper.eq(SysDictItem::getNid, request.getNid()), null, SysDictItem::getId, ErrorCode.DICT_HIDDEN_REPEAT_ERROR, "数据字典隐藏值重复 [{}] [{}]");
+        ValidationUtil.redoCheck(sysDictItemMapper, SysDictItem::getShowValue, request.getShowValue(), wrapper -> wrapper.eq(SysDictItem::getNid, request.getNid()), null, null, ErrorCode.DICT_SHOW_REPEAT_ERROR, "数据字典显示值重复 [{}] [{}]");
+        ValidationUtil.redoCheck(sysDictItemMapper, SysDictItem::getHiddenValue, request.getHiddenValue(), wrapper -> wrapper.eq(SysDictItem::getNid, request.getNid()), null, null, ErrorCode.DICT_HIDDEN_REPEAT_ERROR, "数据字典隐藏值重复 [{}] [{}]");
         DataUtil.copy(request, SysDictItem.class, sysDictItemMapper::insert);
     }
 
     @Override
     public void itemUpdate(DictItemEditRequest request) {
-        ValidationUtil.redoCheck(sysDictItemMapper, SysDictItem::getShowValue, request.getShowValue(), wrapper -> wrapper.eq(SysDictItem::getNid, request.getNid()), request.getId(), SysDictItem::getId, ErrorCode.DICT_SHOW_REPEAT_ERROR, "数据字典显示值重复 [{}] [{}]");
-        ValidationUtil.redoCheck(sysDictItemMapper, SysDictItem::getHiddenValue, request.getHiddenValue(), wrapper -> wrapper.eq(SysDictItem::getNid, request.getNid()), request.getId(), SysDictItem::getId, ErrorCode.DICT_HIDDEN_REPEAT_ERROR, "数据字典隐藏值重复 [{}] [{}]");
+        ValidationUtil.redoCheck(sysDictItemMapper, SysDictItem::getShowValue, request.getShowValue(), wrapper -> wrapper.eq(SysDictItem::getNid, request.getNid()), SysDictItem::getId, request.getId(), ErrorCode.DICT_SHOW_REPEAT_ERROR, "数据字典显示值重复 [{}] [{}]");
+        ValidationUtil.redoCheck(sysDictItemMapper, SysDictItem::getHiddenValue, request.getHiddenValue(), wrapper -> wrapper.eq(SysDictItem::getNid, request.getNid()), SysDictItem::getId, request.getId(), ErrorCode.DICT_HIDDEN_REPEAT_ERROR, "数据字典隐藏值重复 [{}] [{}]");
         DataUtil.copy(request, SysDictItem.class, sysDictItemMapper::updateById);
     }
 

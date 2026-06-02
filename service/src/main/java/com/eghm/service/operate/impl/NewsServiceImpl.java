@@ -59,7 +59,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public void create(NewsAddRequest request) {
-        ValidationUtil.redoCheck(newsMapper, News::getTitle, request.getTitle(), wrapper -> wrapper.eq(News::getCode, request.getCode()), null, News::getId, ErrorCode.NEWS_TITLE_REDO, "资讯标题重复 [{}] [{}]");
+        ValidationUtil.redoCheck(newsMapper, News::getTitle, request.getTitle(), wrapper -> wrapper.eq(News::getCode, request.getCode()), null, null, ErrorCode.NEWS_TITLE_REDO, "资讯标题重复 [{}] [{}]");
         News copy = DataUtil.copy(request, News.class);
         this.setRequest(copy, request.getImageList(), request.getTagList());
         newsMapper.insert(copy);
@@ -67,7 +67,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public void update(NewsEditRequest request) {
-        ValidationUtil.redoCheck(newsMapper, News::getTitle, request.getTitle(), wrapper -> wrapper.eq(News::getCode, request.getCode()), request.getId(), News::getId, ErrorCode.NEWS_TITLE_REDO, "资讯标题重复 [{}] [{}]");
+        ValidationUtil.redoCheck(newsMapper, News::getTitle, request.getTitle(), wrapper -> wrapper.eq(News::getCode, request.getCode()), News::getId, request.getId(), ErrorCode.NEWS_TITLE_REDO, "资讯标题重复 [{}] [{}]");
         News copy = DataUtil.copy(request, News.class);
         this.setRequest(copy, request.getImageList(), request.getTagList());
         newsMapper.updateById(copy);

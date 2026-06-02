@@ -43,7 +43,7 @@ public class AuthConfigServiceImpl implements AuthConfigService {
 
     @Override
     public void create(AuthConfigAddRequest request) {
-        ValidationUtil.redoCheck(authConfigMapper, AuthConfig::getTitle, request.getTitle(), null, AuthConfig::getId, ErrorCode.AUTH_TITLE_REDO, "第三方授权配置单位名称重复 [{}] [{}]");
+        ValidationUtil.redoCheck(authConfigMapper, AuthConfig::getTitle, request.getTitle(), null, null, ErrorCode.AUTH_TITLE_REDO, "第三方授权配置单位名称重复 [{}] [{}]");
         AuthConfig config = DataUtil.copy(request, AuthConfig.class);
         config.setAppKey(IdUtil.fastSimpleUUID());
         this.generateSecretKey(config);
@@ -56,7 +56,7 @@ public class AuthConfigServiceImpl implements AuthConfigService {
 
     @Override
     public void update(AuthConfigEditRequest request) {
-        ValidationUtil.redoCheck(authConfigMapper, AuthConfig::getTitle, request.getTitle(), request.getId(), AuthConfig::getId, ErrorCode.AUTH_TITLE_REDO, "第三方授权配置单位名称重复 [{}] [{}]");
+        ValidationUtil.redoCheck(authConfigMapper, AuthConfig::getTitle, request.getTitle(), AuthConfig::getId, request.getId(), ErrorCode.AUTH_TITLE_REDO, "第三方授权配置单位名称重复 [{}] [{}]");
         DataUtil.copy(request, AuthConfig.class, authConfigMapper::updateById);
     }
 

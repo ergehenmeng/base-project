@@ -46,7 +46,7 @@ public class SysDeptServiceImpl implements SysDeptService {
 
     @Override
     public void create(DeptAddRequest request) {
-        ValidationUtil.redoCheck(sysDeptMapper, SysDept::getTitle, request.getTitle(), wrapper -> wrapper.eq(SysDept::getParentCode, request.getParentCode()), null, SysDept::getId, ErrorCode.DEPARTMENT_TITLE_REPEAT, "部门名称重复 [{}] [{}]");
+        ValidationUtil.redoCheck(sysDeptMapper, SysDept::getTitle, request.getTitle(), wrapper -> wrapper.eq(SysDept::getParentCode, request.getParentCode()), null, null, ErrorCode.DEPARTMENT_TITLE_REPEAT, "部门名称重复 [{}] [{}]");
         SysDept department = DataUtil.copy(request, SysDept.class);
         String code = this.getNextCode(request.getParentCode());
         department.setCode(code);
@@ -58,7 +58,7 @@ public class SysDeptServiceImpl implements SysDeptService {
 
     @Override
     public void update(DeptEditRequest request) {
-        ValidationUtil.redoCheck(sysDeptMapper, SysDept::getTitle, request.getTitle(), wrapper -> wrapper.eq(SysDept::getParentCode, request.getParentCode()), request.getId(), SysDept::getId, ErrorCode.DEPARTMENT_TITLE_REPEAT, "部门名称重复 [{}] [{}]");
+        ValidationUtil.redoCheck(sysDeptMapper, SysDept::getTitle, request.getTitle(), wrapper -> wrapper.eq(SysDept::getParentCode, request.getParentCode()), SysDept::getId, request.getId(), ErrorCode.DEPARTMENT_TITLE_REPEAT, "部门名称重复 [{}] [{}]");
         DataUtil.copy(request, SysDept.class, sysDeptMapper::updateById);
     }
 

@@ -52,7 +52,7 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public String create(FamilyAddRequest request) {
-        ValidationUtil.redoCheck(familyMapper, Family::getName, request.getName(), request.getPid(), Family::getId, ErrorCode.FAMILY_REDO_ERROR, "商户分组名称重复 [{}] [{}]");
+        ValidationUtil.redoCheck(familyMapper, Family::getName, request.getName(), Family::getId, request.getPid(), ErrorCode.FAMILY_REDO_ERROR, "商户分组名称重复 [{}] [{}]");
         Family family = DataUtil.copy(request, Family.class);
         String maxId = familyMapper.getMaxId(request.getPid());
         String nextId = commonService.generateNextId(maxId, request.getPid(), CommonConstant.STEP_10, ErrorCode.FAMILY_MAX_ERROR);
@@ -63,7 +63,7 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public void update(FamilyEditRequest request) {
-        ValidationUtil.redoCheck(familyMapper, Family::getName, request.getName(), request.getId(), Family::getId, ErrorCode.FAMILY_REDO_ERROR, "商户分组名称重复 [{}] [{}]");
+        ValidationUtil.redoCheck(familyMapper, Family::getName, request.getName(), Family::getId, request.getId(), ErrorCode.FAMILY_REDO_ERROR, "商户分组名称重复 [{}] [{}]");
         DataUtil.copy(request, Family.class, familyMapper::updateById);
     }
 

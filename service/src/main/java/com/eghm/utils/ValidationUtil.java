@@ -28,15 +28,15 @@ public final class ValidationUtil {
      * @param mapper      MyBatis-Plus Mapper
      * @param fieldGetter 字段获取函数
      * @param value       待校验的值
-     * @param excludeId   需要排除的ID（更新时使用，可为null）
      * @param idGetter    ID获取函数
+     * @param excludeId   需要排除的ID（更新时使用，可为null）
      * @param errorCode   重复时的错误码
      * @param logMessage  重复时的日志消息模板（支持 {value} 和 {excludeId} 占位符）
      * @param <T>         实体类型
      * @param <ID>        ID类型
      */
-    public static <T, ID> void redoCheck(BaseMapper<T> mapper, SFunction<T, ?> fieldGetter, Object value, ID excludeId, SFunction<T, ID> idGetter, ErrorCode errorCode, String logMessage) {
-        redoCheck(mapper, fieldGetter, value, null, excludeId, idGetter, errorCode, logMessage);
+    public static <T, ID> void redoCheck(BaseMapper<T> mapper, SFunction<T, ?> fieldGetter, Object value, SFunction<T, ID> idGetter, ID excludeId, ErrorCode errorCode, String logMessage) {
+        redoCheck(mapper, fieldGetter, value, null, idGetter, excludeId, errorCode, logMessage);
     }
 
     /**
@@ -54,7 +54,7 @@ public final class ValidationUtil {
      * @param <ID>          ID类型
      */
     public static <T, ID> void redoCheck(BaseMapper<T> mapper, SFunction<T, ?> fieldGetter, Object value, Consumer<LambdaQueryWrapper<T>> condition,
-            ID excludeId, SFunction<T, ID> idGetter, ErrorCode errorCode, String logMessage) {
+            SFunction<T, ID> idGetter, ID excludeId, ErrorCode errorCode, String logMessage) {
         LambdaQueryWrapper<T> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(fieldGetter, value);
         if (condition != null) {
