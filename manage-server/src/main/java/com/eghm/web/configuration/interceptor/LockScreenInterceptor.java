@@ -33,6 +33,9 @@ public class LockScreenInterceptor implements InterceptorAdapter {
             return true;
         }
         UserToken user = SecurityHolder.getUser();
+        if (user == null) {
+            return true;
+        }
         String value = cacheService.getValue(CacheConstant.LOCK_SCREEN + user.getId());
         if (value != null) {
             WebUtil.printJson(response, ErrorCode.LOCK_SCREEN);

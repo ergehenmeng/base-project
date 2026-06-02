@@ -74,7 +74,7 @@ public class DataScopeAspect {
             if (CollUtil.isEmpty(deptList)) {
                 builder.append(" 1 = 2 ");
             } else {
-                builder.append(alias).append("dept_code in ( ").append(ArrayUtil.join(deptList.toArray(), ",")).append(" ) ");
+                builder.append(alias).append("dept_code in ( '").append(ArrayUtil.join(deptList.toArray(), "', '")).append("' ) ");
             }
         }
         // 本部门及子部门
