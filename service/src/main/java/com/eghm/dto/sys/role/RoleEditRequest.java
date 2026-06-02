@@ -1,10 +1,9 @@
 package com.eghm.dto.sys.role;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 编辑角色信息
@@ -13,18 +12,10 @@ import lombok.Data;
  * @since 2018/11/26 16:08
  */
 @Data
-public class RoleEditRequest {
+@EqualsAndHashCode(callSuper = true)
+public class RoleEditRequest extends RoleAddRequest {
 
     @Schema(description = "主键id", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "id不能为空")
     private Long id;
-
-    @Schema(description = "角色名称", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotBlank(message = "角色名称不能为空")
-    @Size(max = 210, message = "角色名称最大10字符")
-    private String roleName;
-
-    @Schema(description = "备注信息")
-    @Size(max = 100, message = "备注信息最大100字符")
-    private String remark;
 }
