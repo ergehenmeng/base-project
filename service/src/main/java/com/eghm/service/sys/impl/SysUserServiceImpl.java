@@ -8,14 +8,12 @@ import cn.hutool.extra.qrcode.QrConfig;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.cache.CacheService;
 import com.eghm.common.CommonService;
 import com.eghm.common.SmsService;
 import com.eghm.common.UserTokenService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.UserToken;
@@ -40,7 +38,7 @@ import com.eghm.service.sys.SysDeptDataService;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
-import com.eghm.utils.CacheUtil;
+import com.eghm.manager.LoginCacheManager;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.MybatisUtil;
 import com.eghm.utils.TotpUtil;
@@ -60,8 +58,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.eghm.constants.CommonConstant.MAX_ERROR_NUM;
-import static com.eghm.utils.CacheUtil.LOGIN_LOCK_CACHE;
-import static com.eghm.utils.CacheUtil.TOTP_CACHE;
 
 /**
  * @author 二哥很猛
@@ -76,8 +72,6 @@ public class SysUserServiceImpl implements SysUserService {
 
     private final SmsService smsService;
 
-    private final CacheService cacheService;
-
     private final SysConfigApi sysConfigApi;
 
     private final SysUserMapper sysUserMapper;
@@ -90,6 +84,8 @@ public class SysUserServiceImpl implements SysUserService {
 
     private final UserTokenService userTokenService;
 
+    private final LoginCacheManager loginCacheManager;
+    
     private final SysDeptDataService sysDeptDataService;
 
     @Override
@@ -170,8 +166,7 @@ public class SysUserServiceImpl implements SysUserService {
         user.setInitPwd(password);
         user.setPwdUpdateTime(LocalDateTime.now());
         sysUserMapper.updateById(user);
-        LOGIN_LOCK_CACHE.invalidate(user.getUserName());
-        LOGIN_LOCK_CACHE.invalidate(user.getMobile());
+        loginCacheManager.clearLoginLockCache(user.getUserName(), user.getMobile());
     }
 
     @Override
@@ -194,7 +189,7 @@ public class SysUserServiceImpl implements SysUserService {
         boolean openTotp = sysConfigApi.getBoolean(ConfigConstant.OPEN_TOTP);
         if (openTotp) {
             String uuid = IdUtil.simpleUUID();
-            TOTP_CACHE.put(uuid, user.getId());
+            loginCacheManager.saveTotpData(uuid, user.getId());
             if (user.getTotpSecret() == null) {
                 GoogleAuthenticatorKey secretKey = TotpUtil.createSecretKey();
                 String generated = this.generateTotpUrl(user.getUserName(), secretKey);
@@ -213,7 +208,7 @@ public class SysUserServiceImpl implements SysUserService {
             throw new BusinessException(ErrorCode.TOTP_SN_ERROR);
         }
         LoginResponse response = this.doLogin(user);
-        TOTP_CACHE.invalidate(request.getUuid());
+        loginCacheManager.clearTotpData(request.getUuid());
         return response;
     }
 
@@ -225,7 +220,7 @@ public class SysUserServiceImpl implements SysUserService {
         SysUser user = this.getByUuid(request.getUuid());
         user.setTotpSecret(request.getSecretKey());
         sysUserMapper.updateById(user);
-        TOTP_CACHE.invalidate(request.getUuid());
+        loginCacheManager.clearTotpData(request.getUuid());
         return this.doLogin(user);
     }
 
@@ -258,23 +253,10 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public LoginResponse doLogin(SysUser user) {
-        // 数据权限(此处没有判断,逻辑不够严谨,仅仅为了代码简洁)
         List<String> customList = sysDeptDataService.getDeptList(user.getId());
         String token = userTokenService.createToken(user, customList);
-        LoginResponse response = new LoginResponse();
-        response.setAvatar(user.getAvatar());
-        response.setToken(token);
-        response.setBindWechat(user.getOpenId() != null);
-        response.setUserName(user.getUserName());
-        response.setMobile(user.getMobile());
-        response.setSystemName(sysConfigApi.getString(ConfigConstant.SYSTEM_NAME));
-        response.setNickName(user.getNickName());
-        response.setUserType(user.getUserType());
-        response.setInit(user.getInitPwd().equals(user.getPwd()));
-        response.setExpire(user.getPwdUpdateTime().plusDays(CommonConstant.PWD_UPDATE_TIPS).isBefore(LocalDateTime.now()));
-        cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
-        LOGIN_LOCK_CACHE.invalidate(user.getMobile());
-        LOGIN_LOCK_CACHE.invalidate(user.getUserName());
+        LoginResponse response = this.buildLoginResponse(user, token);
+        loginCacheManager.clearAllLoginCache(user);
         return response;
     }
 
@@ -322,7 +304,27 @@ public class SysUserServiceImpl implements SysUserService {
         wrapper.set(SysUser::getMobile, request.getMobile());
         sysUserMapper.update(null, wrapper);
     }
-
+    
+    /**
+     * 构建登录响应对象
+     *
+     * @param user  用户信息
+     * @param token 登录令牌
+     * @return 登录响应
+     */
+    private LoginResponse buildLoginResponse(SysUser user, String token) {
+        LoginResponse response = new LoginResponse();
+        response.setAvatar(user.getAvatar());
+        response.setToken(token);
+        response.setMobile(user.getMobile());
+        response.setSystemName(sysConfigApi.getString(ConfigConstant.SYSTEM_NAME));
+        response.setNickName(user.getNickName());
+        response.setUserType(user.getUserType());
+        response.setInit(user.getInitPwd().equals(user.getPwd()));
+        response.setExpire(user.getPwdUpdateTime().plusDays(CommonConstant.PWD_UPDATE_TIPS).isBefore(LocalDateTime.now()));
+        return response;
+    }
+    
     /**
      * 生成totpUrl
      *
@@ -338,11 +340,11 @@ public class SysUserServiceImpl implements SysUserService {
     /**
      * 根据uuid获取用户信息
      *
-     * @param uuid 绑定totp时生成的uuid
+     * @param uuid 绑定TOTP时生成的uuid
      * @return 用户信息
      */
     private SysUser getByUuid(String uuid) {
-        Long userId = TOTP_CACHE.getIfPresent(uuid);
+        Long userId = loginCacheManager.getTotpUserId(uuid);
         if (userId == null) {
             throw new BusinessException(ErrorCode.TOTP_SN_EXPIRE);
         }
@@ -430,13 +432,13 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 用户信息
      */
     private SysUser getAndCheckUser(String userName, String password) {
-        Integer present = LOGIN_LOCK_CACHE.getIfPresent(userName);
-        if (present != null && present > MAX_ERROR_NUM) {
+        int present = loginCacheManager.getLoginErrorCount(userName);
+        if (present > MAX_ERROR_NUM) {
             throw new BusinessException(ErrorCode.USER_ERROR_LOCK);
         }
         SysUser user = this.getByAccount(userName);
         if (user == null || user.getState() == UserState.LOGOUT || !encoder.match(SecureUtil.sha256(password), user.getPwd())) {
-            CacheUtil.LOGIN_LOCK_CACHE.asMap().merge(userName,  1, Integer::sum);
+            loginCacheManager.incrementLoginError(userName);
             throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
         if (user.getState() == UserState.LOCK) {
@@ -452,8 +454,7 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 用户信息
      */
     private SysUser getAndCheckUser(String mobile) {
-        Integer present = LOGIN_LOCK_CACHE.getIfPresent(mobile);
-        if (present != null && present > MAX_ERROR_NUM) {
+        if (loginCacheManager.isLocked(mobile)) {
             throw new BusinessException(ErrorCode.USER_ERROR_LOCK);
         }
         SysUser user = this.getByMobile(mobile);
