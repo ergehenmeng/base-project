@@ -3,9 +3,9 @@ package com.eghm.configuration.config;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 系统参数配置特色处理
@@ -16,7 +16,7 @@ import java.util.Map;
 @Configuration
 public class ConfigRegistry {
 
-    private static final Map<String, ConfigHandler> REGISTER_MAP = new HashMap<>(8);
+    private static final Map<String, ConfigHandler> REGISTER_MAP = new ConcurrentHashMap<>(8);
 
     ConfigRegistry(ObjectProvider<List<ConfigHandler>> provider) {
         provider.ifAvailable(registers -> {
