@@ -35,12 +35,12 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
+<!--            <plugin>
                 <groupId>net.roseboy</groupId>
                 <artifactId>classfinal-maven-plugin</artifactId>
                 <version>1.2.1</version>
                 <configuration>
-                    <!--#表示不需要密码-->
+                    &lt;!&ndash;#表示不需要密码&ndash;&gt;
                     <password>#</password>
                     <excludes>org.spring,org.apache</excludes>
                     <cfgfiles>application.yml,application-dev.yml</cfgfiles>
@@ -56,7 +56,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 
