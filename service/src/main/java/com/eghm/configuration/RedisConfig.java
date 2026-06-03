@@ -51,7 +51,7 @@ public class RedisConfig implements CachingConfigurer {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder().allowIfBaseType("com.eghm.").build();
+        PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder().allowIfBaseType("com.eghm.").allowIfBaseType("java.lang.").allowIfBaseType("java.util.").build();
         mapper.activateDefaultTyping(ptv, ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
         VALUE_SERIALIZER = new Jackson2JsonRedisSerializer<>(mapper, Object.class);
     }
