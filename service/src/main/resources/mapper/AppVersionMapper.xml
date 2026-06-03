@@ -19,7 +19,7 @@
 
     <select id="getVersion" resultType="com.eghm.model.AppVersion">
         select id, channel, version, version_no, force_update, url, create_time, remark, deleted, update_time
-        from app_version where channel = #{channel} and deleted = false and version = #{version} limit 1
+        from app_version where channel = #{channel} and deleted = false order by version_no desc limit 1
     </select>
 
     <select id="getForceUpdateVersion" resultType="com.eghm.model.AppVersion">

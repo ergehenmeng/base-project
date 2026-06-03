@@ -92,16 +92,6 @@ public class ConfigConstant {
     public static final String AUTH_CODE_EXPIRE = "auth_code_expire";
 
     /**
-     * ios最新版本号
-     */
-    public static final String IOS_LATEST_VERSION = "ios_latest_version";
-
-    /**
-     * android最新版本号
-     */
-    public static final String ANDROID_LATEST_VERSION = "android_latest_version";
-
-    /**
      * 是否开启双因子认证
      */
     public static final String OPEN_TOTP = "open_totp";

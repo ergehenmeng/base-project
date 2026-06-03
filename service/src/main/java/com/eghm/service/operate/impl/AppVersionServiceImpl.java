@@ -5,15 +5,11 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.AlarmService;
-import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.security.ApiHolder;
-import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.operate.version.VersionAddRequest;
 import com.eghm.dto.operate.version.VersionEditRequest;
 import com.eghm.dto.operate.version.VersionQueryRequest;
-import com.eghm.enums.Channel;
 import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
 import com.eghm.mapper.AppVersionMapper;
 import com.eghm.model.AppVersion;
 import com.eghm.service.operate.AppVersionService;
@@ -36,8 +32,6 @@ import java.util.List;
 @AllArgsConstructor
 @Service("versionService")
 public class AppVersionServiceImpl implements AppVersionService {
-
-    private final SysConfigApi sysConfigApi;
 
     private final AlarmService alarmService;
 
@@ -73,61 +67,28 @@ public class AppVersionServiceImpl implements AppVersionService {
     @Override
     public AppVersionVO getLatestVersion() {
         String channel = ApiHolder.getChannel();
-        String latestVersion = this.getLatestVersion(channel);
         String version = ApiHolder.getVersion();
-        // 未找到最新版本,或者用户版本大于等于已上架版本
-        if (version == null || VersionUtil.gte(version, latestVersion)) {
+        AppVersion latestVersion = appVersionMapper.getVersion(channel);
+        if (latestVersion == null) {
+            alarmService.sendMsg(String.format("V%s最新版本尚未配置", channel));
             return AppVersionVO.builder().latest(true).build();
         }
-        AppVersion mapperVersion = appVersionMapper.getVersion(channel, latestVersion);
-        if (mapperVersion == null) {
-            alarmService.sendMsg(String.format("[%s] V%s最新版本尚未配置", channel, latestVersion));
-            return AppVersionVO.builder().latest(true).build();
-        }
-        AppVersionVO response = DataUtil.copy(mapperVersion, AppVersionVO.class);
+        AppVersionVO response = DataUtil.copy(latestVersion, AppVersionVO.class);
         // 最新版本是强制更新版本
         if (Boolean.TRUE.equals(response.getForceUpdate())) {
             return response;
         }
-        // 用户自己当前的软件版本信息
-        AppVersion appVersion = appVersionMapper.getVersion(channel, version);
-        //未找到用户安装的版本信息,默认不强更
-        if (appVersion == null) {
-            return response;
-        }
         // 如果用户版本非常老,最新版本不是强制更新版本,但中间某个版本是强制更新,用户一样需要强制更新
-        Integer startVersion = appVersion.getVersionNo();
+        Integer startVersion = VersionUtil.parseInt(version);
         // 查询用户版本与最新版本之间的版本
-        List<AppVersion> versionList = appVersionMapper.getForceUpdateVersion(channel, startVersion, VersionUtil.parseInt(latestVersion));
+        List<AppVersion> versionList = appVersionMapper.getForceUpdateVersion(channel, startVersion, latestVersion.getVersionNo());
         response.setForceUpdate(CollUtil.isNotEmpty(versionList));
         return response;
     }
 
     @Override
     public void delete(Long id) {
-        AppVersion appVersion = appVersionMapper.selectById(id);
-        if (appVersion == null) {
-            log.info("该版本可能已被删除 [{}]", id);
-            return;
-        }
-        String version = this.getLatestVersion(appVersion.getChannel());
-        if (appVersion.getVersion().equals(version)) {
-            log.error("当前版本无法被删除 [{}] [{}]", id, version);
-            throw new BusinessException(ErrorCode.CURRENT_VERSION_DELETE);
-        }
         appVersionMapper.deleteById(id);
     }
 
-    /**
-     * 获取服务端最新版本号
-     *
-     * @param channel IOS ANDROID
-     * @return 版本号
-     */
-    private String getLatestVersion(String channel) {
-        if (Channel.IOS.name().equals(channel)) {
-            return sysConfigApi.getString(ConfigConstant.IOS_LATEST_VERSION);
-        }
-        return sysConfigApi.getString(ConfigConstant.ANDROID_LATEST_VERSION);
-    }
 }
