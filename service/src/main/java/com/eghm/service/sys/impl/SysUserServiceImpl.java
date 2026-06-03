@@ -5,7 +5,6 @@ import cn.hutool.core.util.PhoneUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.extra.qrcode.QrCodeUtil;
 import cn.hutool.extra.qrcode.QrConfig;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -43,6 +42,7 @@ import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.CacheUtil;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.MybatisUtil;
 import com.eghm.utils.TotpUtil;
 import com.eghm.utils.ValidationUtil;
 import com.eghm.vo.login.LoginMenuResponse;
@@ -253,7 +253,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public SysUser getByOpenId(String openId) {
-        return sysUserMapper.selectOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getOpenId, openId));
+        return MybatisUtil.getOne(sysUserMapper, SysUser::getOpenId, openId);
     }
 
     @Override
@@ -261,14 +261,13 @@ public class SysUserServiceImpl implements SysUserService {
         // 数据权限(此处没有判断,逻辑不够严谨,仅仅为了代码简洁)
         List<String> customList = sysDeptDataService.getDeptList(user.getId());
         String token = userTokenService.createToken(user, customList);
-        String systemName = sysConfigApi.getString(ConfigConstant.SYSTEM_NAME);
         LoginResponse response = new LoginResponse();
         response.setAvatar(user.getAvatar());
         response.setToken(token);
         response.setBindWechat(user.getOpenId() != null);
         response.setUserName(user.getUserName());
         response.setMobile(user.getMobile());
-        response.setSystemName(systemName);
+        response.setSystemName(sysConfigApi.getString(ConfigConstant.SYSTEM_NAME));
         response.setNickName(user.getNickName());
         response.setUserType(user.getUserType());
         response.setInit(user.getInitPwd().equals(user.getPwd()));
@@ -366,7 +365,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     /**
-     * 根据手机号生成初始化密码,手机号后六位
+     * 根据手机号生成初始化密码,手机号后八位
      *
      * @param mobile 手机号
      * @return 加密密码
@@ -410,9 +409,7 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 用户信息
      */
     private SysUser getByMobile(String mobile) {
-        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysUser::getMobile, mobile);
-        return sysUserMapper.selectOne(wrapper);
+        return MybatisUtil.getOne(sysUserMapper, SysUser::getMobile, mobile);
     }
 
     /**
@@ -422,9 +419,7 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 用户信息
      */
     private SysUser getByUserName(String userName) {
-        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysUser::getUserName, userName);
-        return sysUserMapper.selectOne(wrapper);
+        return MybatisUtil.getOne(sysUserMapper, SysUser::getUserName, userName);
     }
 
     /**
