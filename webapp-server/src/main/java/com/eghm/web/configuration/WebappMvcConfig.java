@@ -14,9 +14,7 @@ import com.eghm.web.configuration.interceptor.SubmitIntervalInterceptor;
 import com.eghm.web.configuration.interceptor.TokenInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.DispatcherType;
-import jakarta.servlet.Filter;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,14 +32,13 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 @Configuration
 public class WebappMvcConfig extends WebMvcConfig {
 
-    /**
-     * 过滤器不拦截的地址
-     */
-    private static final String[] FILTER_EXCLUDE_URL = {"/v3/api-docs", "/error", "/resource/**", "/actuator/**"};
-
     private final CacheProxyService cacheProxyService;
 
     private final MemberTokenService memberTokenService;
+    
+    private static final String FILTER_URL = "/webapp/*";
+    
+    private static final String INTERCEPTOR_URL = "/webapp/**";
 
     public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, MemberTokenService memberTokenService, CacheProxyService cacheProxyService, @Qualifier("taskExecutor") TaskExecutor taskExecutor) {
         super(objectMapper, taskExecutor, systemProperties);
@@ -52,10 +49,10 @@ public class WebappMvcConfig extends WebMvcConfig {
     @Override
     public void addInterceptors(@NonNull InterceptorRegistry registry) {
         String[] notifyUrl = new String[]{CommonConstant.ALI_PAY_NOTIFY_URL, CommonConstant.ALI_REFUND_NOTIFY_URL, CommonConstant.WECHAT_PAY_NOTIFY_URL, CommonConstant.WECHAT_REFUND_NOTIFY_URL};
-        registry.addInterceptor(messageInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 5);
-        registry.addInterceptor(accessSignInterceptor()).order(Integer.MIN_VALUE + 10);
-        registry.addInterceptor(tokenInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 15);
-        registry.addInterceptor(submitIntervalInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 30);
+        registry.addInterceptor(messageInterceptor()).addPathPatterns(INTERCEPTOR_URL).order(Integer.MIN_VALUE + 5);
+        registry.addInterceptor(accessSignInterceptor()).addPathPatterns(INTERCEPTOR_URL).order(Integer.MIN_VALUE + 10);
+        registry.addInterceptor(tokenInterceptor()).addPathPatterns(INTERCEPTOR_URL).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 15);
+        registry.addInterceptor(submitIntervalInterceptor()).addPathPatterns(INTERCEPTOR_URL).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 30);
     }
 
     /**
@@ -89,32 +86,30 @@ public class WebappMvcConfig extends WebMvcConfig {
     public HandlerInterceptor accessSignInterceptor() {
         return new AccessSignInterceptor(cacheProxyService);
     }
-
+    
     /**
-     * ip黑名单
+     * 过滤器,由spring管理
      */
     @Bean
-    public Filter ipBlackListFilter(BlackRosterService blackRosterService) {
-        return new IpBlackListFilter(blackRosterService);
-    }
-
-    @Bean
-    public DelegatingFilterProxyRegistrationBean registrationBean() {
-        DelegatingFilterProxyRegistrationBean registrationBean = new DelegatingFilterProxyRegistrationBean("ipBlackListFilter");
+    public FilterRegistrationBean<IpBlackListFilter> ipBlackListFilter(BlackRosterService blackRosterService) {
+        FilterRegistrationBean<IpBlackListFilter> registrationBean = new FilterRegistrationBean<>();
+        IpBlackListFilter requestFilter = new IpBlackListFilter(blackRosterService);
+        registrationBean.setFilter(requestFilter);
+        registrationBean.addUrlPatterns(FILTER_URL);
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
         registrationBean.setOrder(Integer.MIN_VALUE);
         return registrationBean;
     }
 
     /**
-     * 过滤器,不由spring管理
+     * 过滤器,由spring管理
      */
     @Bean("byteHttpRequestFilter")
     public FilterRegistrationBean<ByteHttpRequestFilter> byteHttpRequestFilter() {
         FilterRegistrationBean<ByteHttpRequestFilter> registrationBean = new FilterRegistrationBean<>();
         ByteHttpRequestFilter requestFilter = new ByteHttpRequestFilter();
-        requestFilter.exclude(FILTER_EXCLUDE_URL);
         registrationBean.setFilter(requestFilter);
+        registrationBean.addUrlPatterns(FILTER_URL);
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
         registrationBean.setOrder(Integer.MIN_VALUE + 5);
         return registrationBean;
