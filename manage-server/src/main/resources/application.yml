@@ -60,12 +60,6 @@ mybatis-plus:
 system:
   manage:
     white-list:
-      ## 默认错误页面不拦截
-      - ${server.error.path}
-      - /doc.html
-      - /webjars/**
-      - /actuator/**
-      - /v3/api-docs/**
       - /manage/captcha
       - /manage/login
       - /manage/checkTotp
@@ -75,7 +69,4 @@ system:
       - /manage/logout
       - /manage/wechat/qrcode/url
       - /manage/wechat/qrcode/login
-      - /favicon.ico
       - /manage/export/exportMenu
-      - /resource/**
-      - /ws

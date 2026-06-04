@@ -37,7 +37,11 @@ public class ManageMvcConfig extends WebMvcConfig {
     private final SysMenuService sysMenuService;
 
     private final UserTokenService userTokenService;
-
+    
+    private static final String AUTH_FILTER_URL = "/manage/*";
+    
+    private static final String PERM_INTERCEPTOR_URL = "/manage/**";
+    
     public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, UserTokenService userTokenService,
                            SysMenuService sysMenuService, CacheService cacheService, @Qualifier("taskExecutor") TaskExecutor taskExecutor, CommonService commonService) {
         super(objectMapper, taskExecutor, systemProperties);
@@ -51,7 +55,7 @@ public class ManageMvcConfig extends WebMvcConfig {
     public void addInterceptors(InterceptorRegistry registry) {
         String[] whiteList = systemProperties.getManage().getWhiteList();
         registry.addInterceptor(submitIntervalInterceptor());
-        registry.addInterceptor(permInterceptor()).excludePathPatterns(whiteList);
+        registry.addInterceptor(permInterceptor()).addPathPatterns(PERM_INTERCEPTOR_URL).excludePathPatterns(whiteList);
         registry.addInterceptor(lockScreenInterceptor()).excludePathPatterns(whiteList);
     }
 
@@ -97,6 +101,7 @@ public class ManageMvcConfig extends WebMvcConfig {
         AuthFilter requestFilter = new AuthFilter(userTokenService, manage);
         requestFilter.exclude(manage.getWhiteList());
         registrationBean.setFilter(requestFilter);
+        registrationBean.addUrlPatterns(AUTH_FILTER_URL);
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ERROR);
         registrationBean.setOrder(Integer.MIN_VALUE + 5);
         return registrationBean;
