@@ -104,7 +104,7 @@ public class WebappMvcConfig extends WebMvcConfig {
     /**
      * 过滤器,由spring管理
      */
-    @Bean("byteHttpRequestFilter")
+    @Bean
     public FilterRegistrationBean<ByteHttpRequestFilter> byteHttpRequestFilter() {
         FilterRegistrationBean<ByteHttpRequestFilter> registrationBean = new FilterRegistrationBean<>();
         ByteHttpRequestFilter requestFilter = new ByteHttpRequestFilter();
