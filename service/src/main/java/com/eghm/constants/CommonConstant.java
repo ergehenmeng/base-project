@@ -139,12 +139,7 @@ public class CommonConstant {
      * 父节点id
      */
     public static final String ROOT_NODE = "0";
-
-    /**
-     * 签名key
-     */
-    public static final String SECRET = "secret";
-
+    
     /**
      * 签名key
      */
