@@ -2,12 +2,12 @@ package com.eghm.i18n.interceptor;
 
 import com.eghm.i18n.config.I18nProperties;
 import com.eghm.i18n.context.LanguageContextHolder;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -24,7 +24,7 @@ public class LanguageInterceptor implements HandlerInterceptor {
     private final I18nProperties i18nProperties;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, @NonNull HttpServletResponse response, @Nullable Object handler) {
+    public boolean preHandle(HttpServletRequest request, @Nonnull HttpServletResponse response, @Nullable Object handler) {
         String language = request.getHeader(i18nProperties.getHeaderName());
         if (!StringUtils.hasText(language)) {
             language = request.getHeader(HttpHeaders.ACCEPT_LANGUAGE);
@@ -37,7 +37,7 @@ public class LanguageInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void afterCompletion(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @Nullable Object handler, Exception ex) {
+    public void afterCompletion(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nullable Object handler, Exception ex) {
         LanguageContextHolder.clear();
     }
 

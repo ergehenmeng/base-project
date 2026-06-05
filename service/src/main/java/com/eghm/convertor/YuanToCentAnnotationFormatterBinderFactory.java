@@ -2,12 +2,12 @@ package com.eghm.convertor;
 
 import com.eghm.annotation.YuanToCentFormat;
 import com.eghm.utils.DecimalUtil;
+import jakarta.annotation.Nonnull;
 import org.springframework.context.support.EmbeddedValueResolutionSupport;
 import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Formatter;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;
-import org.springframework.lang.NonNull;
 
 import java.math.BigDecimal;
 import java.util.Locale;
@@ -26,35 +26,35 @@ public class YuanToCentAnnotationFormatterBinderFactory extends EmbeddedValueRes
     }
 
     @Override
-    @NonNull
+    @Nonnull
     public Set<Class<?>> getFieldTypes() {
         return FIELD_TYPES;
     }
 
     @Override
-    @NonNull
-    public Printer<?> getPrinter(@NonNull YuanToCentFormat annotation, @NonNull Class<?> fieldType) {
+    @Nonnull
+    public Printer<?> getPrinter(@Nonnull YuanToCentFormat annotation, @Nonnull Class<?> fieldType) {
         return new YuanToCentFormatter();
     }
 
-    @NonNull
+    @Nonnull
     @Override
-    public Parser<?> getParser(@NonNull YuanToCentFormat annotation, @NonNull Class<?> fieldType) {
+    public Parser<?> getParser(@Nonnull YuanToCentFormat annotation, @Nonnull Class<?> fieldType) {
         return new YuanToCentFormatter();
     }
 
     public static class YuanToCentFormatter implements Formatter<Integer> {
 
-        @NonNull
+        @Nonnull
         @Override
-        public Integer parse(@NonNull String text, @NonNull Locale locale) {
+        public Integer parse(@Nonnull String text, @Nonnull Locale locale) {
             double value = new BigDecimal(text.trim()).doubleValue();
             return DecimalUtil.yuanToCent(value);
         }
 
-        @NonNull
+        @Nonnull
         @Override
-        public String print(@NonNull Integer value, @NonNull Locale locale) {
+        public String print(@Nonnull Integer value, @Nonnull Locale locale) {
             return DecimalUtil.centToYuan(value);
         }
     }

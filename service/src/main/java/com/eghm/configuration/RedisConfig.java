@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import jakarta.annotation.Nonnull;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.cache.CacheManager;
@@ -25,7 +26,6 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.lang.NonNull;
 
 import java.lang.reflect.Method;
 import java.time.Duration;
@@ -117,9 +117,9 @@ public class RedisConfig implements CachingConfigurer {
 
         return new SimpleKeyGenerator() {
 
-            @NonNull
+            @Nonnull
             @Override
-            public Object generate(@NonNull Object target, @NonNull Method method, @NonNull Object... params) {
+            public Object generate(@Nonnull Object target, @Nonnull Method method, @Nonnull Object... params) {
                 if (params.length == 0) {
                     return "all";
                 }

@@ -13,13 +13,13 @@ import com.eghm.web.configuration.interceptor.MessageInterceptor;
 import com.eghm.web.configuration.interceptor.SubmitIntervalInterceptor;
 import com.eghm.web.configuration.interceptor.TokenInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.Nonnull;
 import jakarta.servlet.DispatcherType;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
-import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
@@ -47,7 +47,7 @@ public class WebappMvcConfig extends WebMvcConfig {
     }
 
     @Override
-    public void addInterceptors(@NonNull InterceptorRegistry registry) {
+    public void addInterceptors(@Nonnull InterceptorRegistry registry) {
         String[] notifyUrl = new String[]{CommonConstant.ALI_PAY_NOTIFY_URL, CommonConstant.ALI_REFUND_NOTIFY_URL, CommonConstant.WECHAT_PAY_NOTIFY_URL, CommonConstant.WECHAT_REFUND_NOTIFY_URL};
         registry.addInterceptor(messageInterceptor()).addPathPatterns(INTERCEPTOR_URL).order(Integer.MIN_VALUE + 5);
         registry.addInterceptor(accessSignInterceptor()).addPathPatterns(INTERCEPTOR_URL).order(Integer.MIN_VALUE + 10);

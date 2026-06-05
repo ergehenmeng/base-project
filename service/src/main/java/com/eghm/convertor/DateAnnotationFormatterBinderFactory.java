@@ -1,13 +1,13 @@
 package com.eghm.convertor;
 
 import com.eghm.annotation.DateFormatter;
+import jakarta.annotation.Nonnull;
 import org.springframework.context.support.EmbeddedValueResolutionSupport;
 import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;
 import org.springframework.format.datetime.standard.DateTimeFormatterFactory;
 import org.springframework.format.datetime.standard.TemporalAccessorPrinter;
-import org.springframework.lang.NonNull;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
@@ -31,18 +31,18 @@ public class DateAnnotationFormatterBinderFactory extends EmbeddedValueResolutio
     }
 
     @Override
-    public final @NonNull Set<Class<?>> getFieldTypes() {
+    public final @Nonnull Set<Class<?>> getFieldTypes() {
         return FIELD_TYPES;
     }
 
     @Override
-    public @NonNull Printer<?> getPrinter(@NonNull DateFormatter annotation, @NonNull Class<?> fieldType) {
+    public @Nonnull Printer<?> getPrinter(@Nonnull DateFormatter annotation, @Nonnull Class<?> fieldType) {
         DateTimeFormatter formatter = this.getFormatter(annotation);
         return new TemporalAccessorPrinter(formatter);
     }
 
     @Override
-    public @NonNull Parser<?> getParser(@NonNull DateFormatter annotation, @NonNull Class<?> fieldType) {
+    public @Nonnull Parser<?> getParser(@Nonnull DateFormatter annotation, @Nonnull Class<?> fieldType) {
         DateTimeFormatter formatter = this.getFormatter(annotation);
         return new DateAnnotationFormatterParser(fieldType, formatter, annotation.offset(), annotation.unit());
     }

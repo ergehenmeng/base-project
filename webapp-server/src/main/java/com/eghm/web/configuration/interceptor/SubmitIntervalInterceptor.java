@@ -6,11 +6,12 @@ import com.eghm.constants.CacheConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
+import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpMethod;
-import org.springframework.lang.NonNull;
+
 
 import java.io.IOException;
 
@@ -24,7 +25,7 @@ import static com.eghm.utils.CacheUtil.INTERVAL_CACHE;
 public class SubmitIntervalInterceptor implements InterceptorAdapter {
 
     @Override
-    public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
+    public boolean beforeHandle(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull Object handler) throws IOException {
         // 只针对post请求有效
         if (!HttpMethod.POST.matches(request.getMethod())) {
             return true;

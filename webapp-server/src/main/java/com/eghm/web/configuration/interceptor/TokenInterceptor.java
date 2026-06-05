@@ -2,19 +2,18 @@ package com.eghm.web.configuration.interceptor;
 
 import com.eghm.common.MemberTokenService;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.constants.AppHeader;
 import com.eghm.configuration.security.ApiHolder;
+import com.eghm.constants.AppHeader;
 import com.eghm.dto.ext.MemberToken;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.web.annotation.AccessToken;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.lang.NonNull;
-
+import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 登陆令牌验证,主要用于app,pc等前后端分离
@@ -32,7 +31,7 @@ public class TokenInterceptor implements InterceptorAdapter {
     private final MemberTokenService memberTokenService;
 
     @Override
-    public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
+    public boolean beforeHandle(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull Object handler) {
         RequestMessage message = ApiHolder.get();
         String token = request.getHeader(AppHeader.TOKEN);
         // 从token中获取用户信息, 获取不到,则根据@AccessToken来决定是否抛异常

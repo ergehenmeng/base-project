@@ -3,16 +3,15 @@ package com.eghm.web.configuration.interceptor;
 import com.eghm.common.UserTokenService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.dto.ext.UserToken;
+import jakarta.annotation.Nonnull;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
-import org.springframework.lang.NonNull;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Map;
 import java.util.Optional;
@@ -35,7 +34,7 @@ public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
     private final SystemProperties.ManageProperties manageProperties;
 
     @Override
-    public boolean beforeHandshake(@NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response, @NonNull WebSocketHandler wsHandler, @NonNull Map<String, Object> attributes) {
+    public boolean beforeHandshake(@Nonnull ServerHttpRequest request, @Nonnull ServerHttpResponse response, @Nonnull WebSocketHandler wsHandler, @Nonnull Map<String, Object> attributes) {
         HttpServletRequest serverRequest = ((ServletServerHttpRequest) request).getServletRequest();
         Optional<UserToken> optional = userTokenService.parseToken(serverRequest.getParameter(manageProperties.getToken().getTokenName()));
         boolean present = optional.isPresent();
@@ -46,7 +45,7 @@ public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
     }
 
     @Override
-    public void afterHandshake(@NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response, @NonNull WebSocketHandler wsHandler, Exception exception) {
+    public void afterHandshake(@Nonnull ServerHttpRequest request, @Nonnull ServerHttpResponse response, @Nonnull WebSocketHandler wsHandler, Exception exception) {
         log.info("有新客户端接入 [{}]", request.getRemoteAddress());
     }
 }

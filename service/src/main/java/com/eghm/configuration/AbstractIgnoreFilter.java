@@ -1,7 +1,7 @@
 package com.eghm.configuration;
 
 import com.google.common.collect.Lists;
-import org.springframework.lang.NonNull;
+import jakarta.annotation.Nonnull;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -24,7 +24,7 @@ public abstract class AbstractIgnoreFilter extends OncePerRequestFilter {
     private final AntPathMatcher matcher = new AntPathMatcher();
 
     @Override
-    protected boolean shouldNotFilter(@NonNull jakarta.servlet.http.HttpServletRequest request) {
+    protected boolean shouldNotFilter(@Nonnull jakarta.servlet.http.HttpServletRequest request) {
         return exclude.stream().anyMatch(url -> matcher.match(url, request.getRequestURI()));
     }
 
@@ -33,7 +33,7 @@ public abstract class AbstractIgnoreFilter extends OncePerRequestFilter {
      *
      * @param matchUrl 不需要拦截的地址
      */
-    public void exclude(@NonNull String... matchUrl) {
+    public void exclude(@Nonnull String... matchUrl) {
         exclude.addAll(Lists.newArrayList(matchUrl));
     }
 

@@ -5,15 +5,18 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.http.Header;
 import com.eghm.configuration.AbstractIgnoreFilter;
 import com.eghm.constants.CommonConstant;
-import jakarta.servlet.*;
+import jakarta.annotation.Nonnull;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ReadListener;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletInputStream;
+import jakarta.servlet.ServletRequestWrapper;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.lang.NonNull;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -31,7 +34,7 @@ import java.nio.charset.StandardCharsets;
 public class ByteHttpRequestFilter extends AbstractIgnoreFilter {
 
     @Override
-    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull FilterChain filterChain) throws ServletException, IOException {
         // 需要包装字节对象方便多次读写
         ServletRequestWrapper wrapper = new ByteHttpServletRequestWrapper(request);
         filterChain.doFilter(wrapper, response);
@@ -91,7 +94,7 @@ public class ByteHttpRequestFilter extends AbstractIgnoreFilter {
          * @param content content
          * @return 默认不处理
          */
-        protected @NonNull String filterBody(String content) {
+        protected @Nonnull String filterBody(String content) {
             return content;
         }
     }

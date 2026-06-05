@@ -10,12 +10,12 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.model.SysMenu;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.WebUtil;
+import jakarta.annotation.Nonnull;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.lang.NonNull;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
@@ -60,7 +60,7 @@ public class PermInterceptor implements InterceptorAdapter {
     }
 
     @Override
-    public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
+    public boolean beforeHandle(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull Object handler) throws IOException {
         if (this.getAnnotation(handler, SkipPerm.class) != null || this.match(request)) {
             return true;
         }

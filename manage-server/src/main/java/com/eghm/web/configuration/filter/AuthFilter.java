@@ -7,11 +7,15 @@ import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
 import com.eghm.utils.WebUtil;
 import com.google.common.collect.Lists;
-import jakarta.servlet.*;
+import jakarta.annotation.Nonnull;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.lang.NonNull;
 import org.springframework.util.AntPathMatcher;
 
 import java.io.IOException;
@@ -64,7 +68,7 @@ public class AuthFilter implements Filter {
      *
      * @param matchUrl 不需要拦截的地址
      */
-    public void exclude(@NonNull String... matchUrl) {
+    public void exclude(@Nonnull String... matchUrl) {
         exclude.addAll(Lists.newArrayList(matchUrl));
     }
 

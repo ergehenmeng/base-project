@@ -5,20 +5,20 @@ import cn.hutool.core.util.URLUtil;
 import cn.hutool.http.Header;
 import com.eghm.annotation.SkipLogger;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.constants.AppHeader;
 import com.eghm.constants.CommonConstant;
-import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.ParameterException;
 import com.eghm.utils.WebUtil;
 import com.google.common.collect.Maps;
+import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.lang.NonNull;
 
 import java.io.IOException;
 import java.util.Map;
@@ -38,7 +38,7 @@ public class MessageInterceptor implements InterceptorAdapter {
     private static final int MAX_HEADER_LENGTH = 256;
 
     @Override
-    public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
+    public boolean beforeHandle(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull Object handler) throws IOException {
         // app请求头信息
         String channel = request.getHeader(AppHeader.CHANNEL);
         String version = request.getHeader(AppHeader.VERSION);
@@ -79,7 +79,7 @@ public class MessageInterceptor implements InterceptorAdapter {
     }
 
     @Override
-    public void afterCompletion(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler, Exception ex) {
+    public void afterCompletion(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull Object handler, Exception ex) {
         ApiHolder.remove();
     }
 

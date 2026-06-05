@@ -1,9 +1,9 @@
 package com.eghm.convertor;
 
+import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.Parser;
 import org.springframework.format.datetime.standard.DateTimeContextHolder;
-import org.springframework.lang.NonNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,7 +37,7 @@ public class DateAnnotationFormatterParser implements Parser<Temporal> {
     }
 
     @Override
-    public @NonNull Temporal parse(@NonNull String text, @NonNull Locale locale) {
+    public @Nonnull Temporal parse(@Nonnull String text, @Nonnull Locale locale) {
         try {
             Temporal parse = this.doParse(text, locale, this.formatter);
             return parse.plus(this.offset, this.unit);

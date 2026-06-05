@@ -3,14 +3,14 @@ package com.eghm.i18n.interceptor;
 import com.eghm.i18n.context.LanguageContextHolder;
 import com.eghm.i18n.provider.I18nMessageProvider;
 import com.eghm.i18n.provider.RespBodyProvider;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import java.util.Locale;
@@ -27,14 +27,13 @@ public class RespBodyAdviceHandler implements ResponseBodyAdvice<RespBodyProvide
     private I18nMessageProvider messageProvider;
     
     @Override
-    public boolean supports(@NonNull MethodParameter returnType, @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
+    public boolean supports(@Nonnull MethodParameter returnType, @Nonnull Class<? extends HttpMessageConverter<?>> converterType) {
         return messageProvider != null && RespBodyProvider.class.isAssignableFrom(returnType.getParameterType());
     }
     
-    @Nullable
     @Override
-    public RespBodyProvider beforeBodyWrite(@Nullable RespBodyProvider body, @NonNull MethodParameter returnType, @NonNull MediaType selectedContentType, @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
-            @NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response) {
+    public RespBodyProvider beforeBodyWrite(@Nullable RespBodyProvider body, @Nonnull MethodParameter returnType, @Nonnull MediaType selectedContentType, @Nonnull Class<? extends HttpMessageConverter<?>> selectedConverterType,
+            @Nonnull ServerHttpRequest request, @Nonnull ServerHttpResponse response) {
         if (body == null) {
             return null;
         }

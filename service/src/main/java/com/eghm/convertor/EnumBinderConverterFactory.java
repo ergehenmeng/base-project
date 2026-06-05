@@ -3,10 +3,10 @@ package com.eghm.convertor;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
-import org.springframework.lang.NonNull;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -26,10 +26,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class EnumBinderConverterFactory implements ConverterFactory<String, Enum> {
 
     private static final Map<Class<?>, EnumBinderConverter> CONVERTER_MAP = new ConcurrentHashMap<>(32);
-
-    @NonNull
+    
+    @Nonnull
     @Override
-    public <T extends Enum> Converter<String, T> getConverter(@NonNull Class<T> targetType) {
+    public <T extends Enum> Converter<String, T> getConverter(@Nonnull Class<T> targetType) {
         return CONVERTER_MAP.computeIfAbsent(targetType, clazz -> new EnumBinderConverter<>(targetType));
     }
 
@@ -45,7 +45,7 @@ public class EnumBinderConverterFactory implements ConverterFactory<String, Enum
         }
 
         @Override
-        public T convert(@NonNull String value) {
+        public T convert(@Nonnull String value) {
             if (value.isEmpty()) {
                 return null;
             }
