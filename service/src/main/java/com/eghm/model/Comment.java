@@ -1,11 +1,18 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ObjectType;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 
@@ -19,8 +26,11 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("comment")
-@EqualsAndHashCode(callSuper = false)
-public class Comment extends BaseEntity {
+public class Comment {
+    
+    @TableId(type = IdType.ASSIGN_ID)
+    @Schema(description = "id主键")
+    private Long id;
 
     @Schema(description = "用户ID")
     private Long memberId;
@@ -61,4 +71,15 @@ public class Comment extends BaseEntity {
     @Schema(description = "添加时间")
     @JsonFormat(pattern = "MM-dd HH:mm")
     private LocalDateTime createTime;
+    
+    @Schema(description = "更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    private LocalDateTime updateTime;
+    
+    @TableLogic(delval = "1")
+    @Schema(description = "是否已删除 0:未删除 1:已删除")
+    @JsonIgnore
+    private Boolean deleted;
 }

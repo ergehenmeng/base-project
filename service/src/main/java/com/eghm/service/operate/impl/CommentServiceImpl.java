@@ -6,11 +6,11 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
-import com.eghm.common.impl.CommonServiceImpl;
+import com.eghm.common.CommonService;
 import com.eghm.common.impl.SysConfigApi;
+import com.eghm.configuration.security.ApiHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.operate.comment.CommentDTO;
 import com.eghm.dto.operate.comment.CommentQueryDTO;
 import com.eghm.dto.operate.comment.CommentQueryRequest;
@@ -61,7 +61,7 @@ public class CommentServiceImpl implements CommentService {
 
     private final CommentMapper commentMapper;
 
-    private final CommonServiceImpl commonService;
+    private final CommonService commonService;
 
     @Override
     public Page<CommentResponse> listPage(CommentQueryRequest request) {

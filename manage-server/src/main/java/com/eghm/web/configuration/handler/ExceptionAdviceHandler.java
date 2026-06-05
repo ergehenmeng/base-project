@@ -9,6 +9,7 @@ import com.eghm.exception.ParameterException;
 import com.eghm.utils.WebUtil;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -18,8 +19,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
@@ -121,7 +120,7 @@ public class ExceptionAdviceHandler {
      * @return 404
      */
     @ExceptionHandler(value = {NoHandlerFoundException.class, NoResourceFoundException.class})
-    public RespBody<Void> noHandlerFoundException(javax.servlet.http.HttpServletRequest request) {
+    public RespBody<Void> noHandlerFoundException(HttpServletRequest request) {
         log.warn("访问地址不存在:[{}]", request.getRequestURI());
         return RespBody.error(ErrorCode.PAGE_NOT_FOUND);
     }
