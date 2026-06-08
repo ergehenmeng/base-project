@@ -1,6 +1,7 @@
 package com.eghm.web.controller.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.constants.LockConstant;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.SortByDTO;
 import com.eghm.dto.StateRequest;
@@ -12,6 +13,7 @@ import com.eghm.dto.sys.menu.MenuQueryRequest;
 import com.eghm.enums.DisplayState;
 import com.eghm.enums.RoleType;
 import com.eghm.event.PermissionRefreshEvent;
+import com.eghm.lock.RedisLock;
 import com.eghm.model.SysRole;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysRoleService;
@@ -42,6 +44,8 @@ import java.util.List;
 @Tag(name = "菜单管理")
 @RequestMapping(value = "/manage/menu", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MenuController {
+    
+    private final RedisLock redisLock;
 
     private final SysRoleService sysRoleService;
 
@@ -81,9 +85,11 @@ public class MenuController {
     
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "添加菜单")
-    public synchronized RespBody<Void> create(@Validated @RequestBody MenuAddRequest request) {
-        sysMenuService.create(request);
-        eventPublisher.publishEvent(new PermissionRefreshEvent());
+    public RespBody<Void> create(@Validated @RequestBody MenuAddRequest request) {
+        redisLock.lock(LockConstant.MENU_LOCK, 10000, () -> {
+            sysMenuService.create(request);
+            eventPublisher.publishEvent(new PermissionRefreshEvent());
+        });
         return RespBody.success();
     }
 

@@ -1,5 +1,6 @@
 package com.eghm.lock.impl;
 
+import com.eghm.constants.LockConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.lock.RedisLock;
@@ -50,7 +51,7 @@ public class RedisLockImpl implements RedisLock {
 
     @Override
     public <T> T lock(String key, long waitTime, long lockTime, Supplier<T> supplier, Supplier<T> failSupplier) {
-        RLock lock = redissonClient.getLock(key);
+        RLock lock = redissonClient.getLock(LockConstant.PREFIX_LOCK.concat(key));
         try {
             if (lock.tryLock(waitTime, lockTime, TimeUnit.MILLISECONDS)) {
                 return supplier.get();
