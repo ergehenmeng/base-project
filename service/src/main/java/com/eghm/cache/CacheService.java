@@ -4,6 +4,7 @@ import com.eghm.constants.CommonConstant;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
@@ -218,6 +219,15 @@ public interface CacheService {
     <T> List<T> getList(String key, Class<T> cls);
 
     /**
+     * 批量查询多个hash key中是否存在指定hashKey
+     *
+     * @param keys 多个hash的key
+     * @param hKey hash中的key
+     * @return map key: 原始hash key, value: 是否存在
+     */
+    Map<String, Boolean> batchHasHashKey(List<String> keys, String hKey);
+
+    /**
      * 查询指定位置后long的长度
      * 例如: 000011
      * offset = 0, length = 32, 则会在该数字后不足部分补零 000011(后面补领长度: 32-6)
@@ -229,4 +239,3 @@ public interface CacheService {
      */
     Long getBitmapOffset(String key, Long offset, int length);
 }
-

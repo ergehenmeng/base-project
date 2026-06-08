@@ -18,12 +18,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.BitFieldSubCommands;
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.Cursor;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
@@ -194,6 +199,7 @@ public class CacheServiceImpl implements CacheService {
     public String getHashValue(String key, String hKey) {
         return (String) redisTemplate.opsForHash().get(key, hKey);
     }
+    
 
     @Override
     public <T> T getHashValue(String key, String hKey, Class<T> type) {
@@ -250,5 +256,24 @@ public class CacheServiceImpl implements CacheService {
     public Long getBitmapOffset(String key, Long offset, int length) {
         List<Long> longList = redisTemplate.opsForValue().bitField(key, BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.signed(length)).valueAt(offset));
         return CollectionUtils.isEmpty(longList) ? null : longList.get(0);
+    }
+
+    @Override
+    public Map<String, Boolean> batchHasHashKey(List<String> keys, String hKey) {
+        if (CollectionUtils.isEmpty(keys)) {
+            return Collections.emptyMap();
+        }
+        List<Object> results = redisTemplate.executePipelined((RedisCallback<Object>) connection -> {
+            byte[] hKeyBytes = hKey.getBytes(StandardCharsets.UTF_8);
+            for (String key : keys) {
+                connection.hashCommands().hExists(key.getBytes(StandardCharsets.UTF_8), hKeyBytes);
+            }
+            return null;
+        });
+        Map<String, Boolean> resultMap = new HashMap<>(keys.size());
+        for (int i = 0; i < keys.size(); i++) {
+            resultMap.put(keys.get(i), Boolean.TRUE.equals(results.get(i)));
+        }
+        return resultMap;
     }
 }

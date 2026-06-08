@@ -32,6 +32,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -89,16 +90,24 @@ public class CommentServiceImpl implements CommentService {
     public List<CommentVO> getByPage(CommentQueryDTO dto) {
         int reportNum = sysConfigApi.getInt(ConfigConstant.COMMENT_REPORT_SHIELD, 20);
         Page<CommentVO> voPage = commentMapper.getByPage(dto.createPage(false), dto.getObjectId(), reportNum);
-        voPage.getRecords().forEach(vo -> vo.setHasPraise(hasPraise(vo.getId())));
-        return voPage.getRecords();
+        List<CommentVO> records = voPage.getRecords();
+        if (CollUtil.isNotEmpty(records)) {
+            Map<Long, Boolean> praiseMap = this.batchHasPraise(records.stream().map(CommentVO::getId).toList());
+            records.forEach(vo -> vo.setHasPraise(praiseMap.getOrDefault(vo.getId(), false)));
+        }
+        return records;
     }
 
     @Override
     public List<CommentSecondVO> secondPage(CommentQueryDTO dto) {
         int reportNum = sysConfigApi.getInt(ConfigConstant.COMMENT_REPORT_SHIELD, 20);
         Page<CommentSecondVO> voPage = commentMapper.getSecondPage(dto.createPage(false), dto.getObjectId(), reportNum, dto.getPid());
-        voPage.getRecords().forEach(vo -> vo.setHasPraise(hasPraise(vo.getId())));
-        return voPage.getRecords();
+        List<CommentSecondVO> records = voPage.getRecords();
+        if (CollUtil.isNotEmpty(records)) {
+            Map<Long, Boolean> praiseMap = this.batchHasPraise(records.stream().map(CommentSecondVO::getId).toList());
+            records.forEach(vo -> vo.setHasPraise(praiseMap.getOrDefault(vo.getId(), false)));
+        }
+        return records;
     }
 
     @Override
@@ -198,16 +207,25 @@ public class CommentServiceImpl implements CommentService {
     }
 
     /**
-     * 判断用户是否已对文章或资讯点赞过
+     * 批量判断用户是否已对评论点赞
      *
-     * @param id 文章id
-     * @return true: 点赞了, 未点赞
+     * @param commentIds 评论id列表
+     * @return map key: 评论id, value: 是否已点赞
      */
-    private Boolean hasPraise(Long id) {
+    private Map<Long, Boolean> batchHasPraise(List<Long> commentIds) {
         Long memberId = ApiHolder.tryGetMemberId();
         if (memberId == null) {
-            return false;
+            Map<Long, Boolean> emptyMap = new HashMap<>(commentIds.size());
+            commentIds.forEach(id -> emptyMap.put(id, false));
+            return emptyMap;
         }
-        return cacheService.getHashValue(CacheConstant.COMMENT_PRAISE + id, memberId.toString()) != null;
+        List<String> keys = commentIds.stream().map(id -> CacheConstant.COMMENT_PRAISE + id).toList();
+        Map<String, Boolean> keyResultMap = cacheService.batchHasHashKey(keys, memberId.toString());
+        Map<Long, Boolean> resultMap = new HashMap<>(commentIds.size());
+        for (Long commentId : commentIds) {
+            String key = CacheConstant.COMMENT_PRAISE + commentId;
+            resultMap.put(commentId, keyResultMap.getOrDefault(key, false));
+        }
+        return resultMap;
     }
 }
