@@ -61,15 +61,15 @@ resilience4j:
   ratelimiter:
     instances:
       DING_TALK:
-        limit-for-period: 20
+        limit-for-period: 18
         limit-refresh-period: 60s
         timeout-duration: 500ms
       FEI_SHU:
-        limit-for-period: 20
+        limit-for-period: 18
         limit-refresh-period: 60s
         timeout-duration: 500ms
       ENTERPRISE_WECHAT:
-        limit-for-period: 20
+        limit-for-period: 18
         limit-refresh-period: 60s
         timeout-duration: 500ms
 system:
