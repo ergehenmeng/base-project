@@ -1,5 +1,6 @@
 package com.eghm.configuration.task.config;
 
+import cn.hutool.core.exceptions.ExceptionUtil;
 import com.eghm.common.AlarmService;
 import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.constants.CommonConstant;
@@ -28,7 +29,7 @@ public class ScheduledLockAspect {
 
     @Around("@annotation(org.springframework.scheduling.annotation.Scheduled) && within(com.eghm.configuration.task..*)")
     public Object around(ProceedingJoinPoint joinPoint) {
-        // 使用 `类名@方法名` 作为 lockKey, 减少并发
+        // 类名@方法名
         String lockKey = joinPoint.getSignature().getDeclaringType().getName() + CommonConstant.SPECIAL_SPLIT + joinPoint.getSignature().getName();
         return redisLock.lock(lockKey, CommonConstant.SCHEDULED_MAX_LOCK_TIME, () -> {
             LogTraceHolder.putTraceId(StringUtil.randomHex(16));
@@ -36,7 +37,7 @@ public class ScheduledLockAspect {
                 return joinPoint.proceed();
             } catch (Throwable e) {
                 log.error("定时任务处理失败", e);
-                alarmService.sendMsg(String.format("@Scheduled定时任务处理失败[%s]", lockKey));
+                alarmService.sendMsg(String.format("@Scheduled定时任务处理失败[%s], 错误信息:%s", lockKey, ExceptionUtil.stacktraceToString(e)));
             } finally {
                 LogTraceHolder.clear();
             }

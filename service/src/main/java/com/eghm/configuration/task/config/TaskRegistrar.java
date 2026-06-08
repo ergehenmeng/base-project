@@ -1,10 +1,12 @@
 package com.eghm.configuration.task.config;
 
+import com.eghm.common.AlarmService;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
+import com.eghm.lock.RedisLock;
 import com.eghm.mapper.SysTaskMapper;
 import com.eghm.model.SysTask;
-import com.eghm.utils.DataUtil;
+import com.eghm.service.sys.SysTaskLogService;
 import com.eghm.utils.LoggerUtil;
 import com.eghm.utils.MybatisUtil;
 import jakarta.annotation.PostConstruct;
@@ -14,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.support.CronExpression;
 
-import java.time.Instant;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -33,10 +35,16 @@ import static com.eghm.utils.StringUtil.isBlank;
 @Slf4j
 @AllArgsConstructor
 public class TaskRegistrar {
-
+    
+    private final RedisLock redisLock;
+    
+    private final AlarmService alarmService;
+    
     private final SysTaskMapper sysTaskMapper;
 
     private final TaskScheduler taskScheduler;
+
+    private final SysTaskLogService sysTaskLogService;
 
     /**
      * 任务执行句柄
@@ -55,8 +63,8 @@ public class TaskRegistrar {
     public synchronized void reloadTask() {
         List<SysTask> taskConfigList = MybatisUtil.getList(sysTaskMapper, SysTask::getState, true);
         List<CronTaskWrapper> taskList = new ArrayList<>();
-        for (SysTask taskConfig : taskConfigList) {
-            CronTaskWrapper triggerTask = new CronTaskWrapper(DataUtil.copy(taskConfig, CronTask.class));
+        for (SysTask task : taskConfigList) {
+            CronTaskWrapper triggerTask = new CronTaskWrapper(task, redisLock, alarmService, sysTaskLogService);
             taskList.add(triggerTask);
         }
         this.doRefreshTask(taskList);
@@ -107,7 +115,7 @@ public class TaskRegistrar {
      * 1.如果旧定时任务与新的要执行的定时任务一样,则不移除.在添加定时任务时再判断(减少过多的停止任务的操作)
      *
      * @param taskList 指定的任务列表
-     * @see TaskRegistrar#addTask(OnceTask)
+     * @see TaskRegistrar#addTask(OnceDispatch)
      */
     private void removeCronTask(List<CronTaskWrapper> taskList) {
         boolean isEmpty = taskList.isEmpty();
@@ -143,9 +151,10 @@ public class TaskRegistrar {
      *
      * @param task 任务配置信息
      */
-    public void addTask(OnceTask task) {
+    public void addTask(OnceDispatch task) {
         String nid = task.getBeanName() + "-" + task.getMethodName() + "-" + counter.getAndIncrement();
-        ScheduledFuture<?> schedule = taskScheduler.schedule(new Invoker(task), Instant.from(task.getExecuteTime()));
+        Invoker invoker = new Invoker(task, redisLock, alarmService, sysTaskLogService);
+        ScheduledFuture<?> schedule = taskScheduler.schedule(invoker, task.getExecuteTime().atZone(ZoneId.systemDefault()).toInstant());
         scheduledFutures.put(nid, schedule);
     }
 

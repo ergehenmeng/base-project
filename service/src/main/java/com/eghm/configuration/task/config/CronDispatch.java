@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class CronTask extends AbstractTask {
+public class CronDispatch extends Dispatch {
 
     /**
      * 任务cron表达式

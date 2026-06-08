@@ -1,5 +1,6 @@
 package com.eghm.configuration.task.config;
 
+import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.extra.spring.SpringUtil;
@@ -32,7 +33,7 @@ public class Invoker implements Runnable {
 
     private final Method method;
 
-    private final AbstractTask task;
+    private final Dispatch dispatch;
 
     private final RedisLock redisLock;
 
@@ -40,16 +41,16 @@ public class Invoker implements Runnable {
 
     private final SysTaskLogService sysTaskLogService;
 
-    Invoker(AbstractTask task) {
-        this.task = task;
+    Invoker(Dispatch dispatch, RedisLock redisLock, AlarmService alarmService, SysTaskLogService sysTaskLogService) {
+        this.dispatch = dispatch;
+        this.redisLock = redisLock;
+        this.alarmService = alarmService;
+        this.sysTaskLogService = sysTaskLogService;
         try {
-            this.bean = SpringUtil.getBean(task.getBeanName());
-            this.redisLock = SpringUtil.getBean(RedisLock.class);
-            this.method = this.findMethod(task, bean);
-            this.sysTaskLogService = SpringUtil.getBean(SysTaskLogService.class);
-            this.alarmService = SpringUtil.getBean(AlarmService.class);
+            this.bean = SpringUtil.getBean(dispatch.getBeanName());
+            this.method = this.findMethod(dispatch, bean);
         } catch (Exception e) {
-            log.error("系统中不存在指定的类或该方法 [{}] [{}] 方法入参: [{}]", task.getBeanName(), task.getMethodName(), task.getArgs(), e);
+            log.error("系统中不存在指定的类或该方法 [{}] [{}] 方法入参: [{}]", dispatch.getBeanName(), dispatch.getMethodName(), dispatch.getArgs(), e);
             throw new BusinessException(ErrorCode.TASK_CONFIG_ERROR);
         }
     }
@@ -58,24 +59,23 @@ public class Invoker implements Runnable {
     public void run() {
         LogTraceHolder.putTraceId(StringUtil.randomHex(16));
         SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder();
-        String key = task.getBeanName() + CommonConstant.SPECIAL_SPLIT + task.getMethodName();
+        String key = dispatch.getBeanName() + CommonConstant.SPECIAL_SPLIT + dispatch.getMethodName();
         LocalDateTime start = LocalDateTime.now();
         long startTime = System.currentTimeMillis();
         try {
             // 外层加锁防止多实例运行时有并发执行问题, 幂等由业务进行控制
-            redisLock.lock(key, task.getLockTime(), () -> ReflectUtil.invoke(bean, method, task.getArgs()));
+            redisLock.lock(key, dispatch.getLockTime(), () -> ReflectUtil.invoke(bean, method, dispatch.getArgs()));
         } catch (Exception e) {
             // 异常时记录日志并发送邮件
-            log.error("定时任务执行异常 bean:[{}] method: [{}]", task.getBeanName(), task.getMethodName(), e);
+            log.error("定时任务执行异常 bean:[{}] method: [{}]", dispatch.getBeanName(), dispatch.getMethodName(), e);
             String errorMsg = ExceptionUtils.getStackTrace(e);
             builder.errorMsg(errorMsg);
             builder.state(false);
-            alarmService.sendMsg(String.format("自定义定时任务执行失败[%s]", key));
+            alarmService.sendMsg(String.format("自定义定时任务执行失败[%s], 错误信息:%s", key, ExceptionUtil.stacktraceToString(e)));
         } finally {
-            // 每次执行的日志都记入定时任务日志
-            if (Boolean.TRUE.equals(task.getLog())) {
+            if (Boolean.TRUE.equals(dispatch.getLog())) {
                 // 每次执行的日志都记入定时任务日志
-                builder.beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(NetUtil.getLocalhostStr());
+                builder.beanName(dispatch.getBeanName()).methodName(dispatch.getMethodName()).args(dispatch.getArgs()).ip(NetUtil.getLocalhostStr());
                 builder.elapsedTime(System.currentTimeMillis() - startTime);
                 builder.startTime(start);
                 sysTaskLogService.addTaskLog(builder.build());
@@ -92,7 +92,7 @@ public class Invoker implements Runnable {
      * @return 方法
      * @throws NoSuchMethodException e
      */
-    private Method findMethod(AbstractTask task, Object bean) throws NoSuchMethodException {
+    private Method findMethod(Dispatch task, Object bean) throws NoSuchMethodException {
         Class<?> cls = AopUtils.isAopProxy(bean) ? bean.getClass().getSuperclass() : bean.getClass();
         if (isBlank(task.getArgs())) {
             return cls.getMethod(task.getMethodName());

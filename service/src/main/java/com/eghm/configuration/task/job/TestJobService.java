@@ -1,7 +1,7 @@
 package com.eghm.configuration.task.job;
 
 import com.eghm.annotation.CronMark;
-import com.eghm.configuration.task.config.OnceTask;
+import com.eghm.configuration.task.config.OnceDispatch;
 import com.eghm.configuration.task.config.TaskRegistrar;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class TestJobService {
     @CronMark
     public void execute(String args) {
         log.error("我是个数据库配置的Job, 我的作用是触发一个30s后执行的一次性任务 [{}] [{}]", args, LocalDateTime.now());
-        OnceTask onceDetail = new OnceTask();
+        OnceDispatch onceDetail = new OnceDispatch();
         onceDetail.setBeanName("onceJobService");
         onceDetail.setMethodName("execute");
         onceDetail.setArgs("一次性任务入参");
