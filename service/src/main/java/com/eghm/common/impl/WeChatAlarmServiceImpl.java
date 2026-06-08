@@ -2,6 +2,8 @@ package com.eghm.common.impl;
 
 import com.eghm.common.JsonService;
 import com.eghm.configuration.SystemProperties;
+import com.eghm.enums.AlarmType;
+import io.github.resilience4j.ratelimiter.RateLimiterRegistry;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -15,11 +17,17 @@ public class WeChatAlarmServiceImpl extends AbstractAlarmService {
 
     private final SystemProperties systemProperties;
     
-    public WeChatAlarmServiceImpl(JsonService jsonService, SystemProperties systemProperties) {
-        super(jsonService, systemProperties);
+    public WeChatAlarmServiceImpl(JsonService jsonService, SystemProperties systemProperties,
+                                  RateLimiterRegistry rateLimiterRegistry) {
+        super(jsonService, systemProperties, rateLimiterRegistry);
         this.systemProperties = systemProperties;
     }
-    
+
+    @Override
+    protected AlarmType getAlarmType() {
+        return AlarmType.ENTERPRISE_WECHAT;
+    }
+
     @Override
     protected String createRequestUrl() {
         return systemProperties.getAlarm().getWebHook();
