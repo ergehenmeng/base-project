@@ -7,6 +7,7 @@ import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
+import com.eghm.event.PermissionRefreshEvent;
 import com.eghm.model.SysMenu;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.WebUtil;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.event.EventListener;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
@@ -44,7 +46,24 @@ public class PermInterceptor implements InterceptorAdapter {
     public static final String DELIMITERS = ",; ";
 
     @PostConstruct
-    public void refresh() {
+    public void initPermissionMap() {
+        this.refreshPermission();
+    }
+
+    /**
+     * 监听权限刷新事件，重新加载权限映射
+     * @param event 刷新事件
+     */
+    @EventListener
+    public void onPermissionRefresh(PermissionRefreshEvent event) {
+        log.info("收到权限刷新事件，重新加载菜单权限映射 [{}]", event.getSource());
+        this.refreshPermission();
+    }
+
+    /**
+     * 刷新权限映射
+     */
+    private void refreshPermission() {
         List<SysMenu> selectList = sysMenuService.getButtonList();
         Map<String, List<String>> permMap = new ConcurrentHashMap<>(256);
         for (SysMenu menu : selectList) {

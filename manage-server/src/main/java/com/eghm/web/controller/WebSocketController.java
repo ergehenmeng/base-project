@@ -5,14 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
 /**
  * @author 二哥很猛
  * @since 2024/9/11
  */
 @Slf4j
-@RestController
+@Controller
 @AllArgsConstructor
 @Tag(name = "websocket消息订阅")
 public class WebSocketController {

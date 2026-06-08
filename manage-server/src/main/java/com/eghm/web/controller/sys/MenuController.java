@@ -11,20 +11,25 @@ import com.eghm.dto.sys.menu.MenuEditRequest;
 import com.eghm.dto.sys.menu.MenuQueryRequest;
 import com.eghm.enums.DisplayState;
 import com.eghm.enums.RoleType;
+import com.eghm.event.PermissionRefreshEvent;
 import com.eghm.model.SysRole;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.vo.sys.menu.MenuFullResponse;
 import com.eghm.vo.sys.menu.MenuResponse;
 import com.eghm.vo.sys.menu.MenuTreeResponse;
-import com.eghm.web.configuration.interceptor.PermInterceptor;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -42,7 +47,7 @@ public class MenuController {
 
     private final SysMenuService sysMenuService;
 
-    private final PermInterceptor permInterceptor;
+    private final ApplicationEventPublisher eventPublisher;
 
     @GetMapping("/tree")
     @Operation(summary = "左侧菜单-v2-①")
@@ -78,7 +83,7 @@ public class MenuController {
     @Operation(summary = "添加菜单")
     public synchronized RespBody<Void> create(@Validated @RequestBody MenuAddRequest request) {
         sysMenuService.create(request);
-        permInterceptor.refresh();
+        eventPublisher.publishEvent(new PermissionRefreshEvent());
         return RespBody.success();
     }
 
@@ -86,7 +91,7 @@ public class MenuController {
     @Operation(summary = "修改菜单")
     public RespBody<Void> update(@Validated @RequestBody MenuEditRequest request) {
         sysMenuService.update(request);
-        permInterceptor.refresh();
+        eventPublisher.publishEvent(new PermissionRefreshEvent());
         return RespBody.success();
     }
 
@@ -94,7 +99,7 @@ public class MenuController {
     @Operation(summary = "删除菜单")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         sysMenuService.delete(String.valueOf(dto.getId()));
-        permInterceptor.refresh();
+        eventPublisher.publishEvent(new PermissionRefreshEvent());
         return RespBody.success();
     }
 
@@ -109,7 +114,7 @@ public class MenuController {
     @Operation(summary = "更新状态")
     public RespBody<Void> updateState(@Validated @RequestBody StateRequest request) {
         sysMenuService.updateState(String.valueOf(request.getId()), request.getState());
-        permInterceptor.refresh();
+        eventPublisher.publishEvent(new PermissionRefreshEvent());
         return RespBody.success();
     }
 
