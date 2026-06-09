@@ -1,20 +1,18 @@
 package com.eghm.web.controller;
 
-import com.eghm.annotation.RateLimiter;
 import com.eghm.constants.CommonConstant;
 import com.google.code.kaptcha.Producer;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import jakarta.servlet.ServletOutputStream;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -38,7 +36,6 @@ public class CaptchaController {
 
     @GetMapping("/captcha")
     @Operation(summary = "获取图形验证码")
-    @RateLimiter(value = "captcha", limit = 10, period = 60, scope = RateLimiter.Scope.IP)
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authCode = producer.createText();
         String[] splits = authCode.split(CommonConstant.SPECIAL_SPLIT);
