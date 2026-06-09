@@ -35,22 +35,16 @@ public class RateLimitAspect {
     public Object around(ProceedingJoinPoint joinPoint, RateLimiter rateLimiter) throws Throwable {
         String scopeValue = this.resolveScope(rateLimiter.scope());
         String key = rateLimiter.value() + "#" + scopeValue;
-        try {
-            if (!RateLimiterUtil.tryAcquire(key, rateLimiter.limit(), Duration.ofSeconds(rateLimiter.period()))) {
-                log.warn("触发限流 [{}.{}] key=[{}] limit=[{}/{}s] scope=[{}]",
-                        joinPoint.getSignature().getDeclaringType().getSimpleName(),
-                        joinPoint.getSignature().getName(),
-                        key, rateLimiter.limit(), rateLimiter.period(), rateLimiter.scope());
-                throw new BusinessException(ErrorCode.TOO_MANY_REQUESTS);
-            }
-            return joinPoint.proceed();
-        } catch (BusinessException e) {
-            throw e;
-        } catch (Exception e) {
-            log.error("限流组件异常 key=[{}]", key, e);
-            if (rateLimiter.fallbackPass()) {
-                return joinPoint.proceed();
-            }
+        this.acquirePermit(key, rateLimiter);
+        return joinPoint.proceed();
+    }
+
+    /**
+     * 获取限流许可,失败时抛业务异常;限流组件异常时按 fallbackPass 决定放行/拒绝
+     */
+    private void acquirePermit(String key, RateLimiter rateLimiter) {
+        if (!RateLimiterUtil.tryAcquire(key, rateLimiter.limit(), Duration.ofSeconds(rateLimiter.period()))) {
+            log.warn("触发限流 key=[{}] limit=[{}/{}s] scope=[{}]", key, rateLimiter.limit(), rateLimiter.period(), rateLimiter.scope());
             throw new BusinessException(ErrorCode.TOO_MANY_REQUESTS);
         }
     }
