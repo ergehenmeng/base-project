@@ -34,8 +34,6 @@ public abstract class AbstractAlarmService implements AlarmService {
     
     public static final Duration ALARM_REFRESH_PERIOD = Duration.ofSeconds(60);
     
-    public static final Duration ALARM_TIMEOUT = Duration.ofMillis(500);
-
     protected AbstractAlarmService(JsonService jsonService, SystemProperties systemProperties) {
         this.jsonService = jsonService;
         this.systemProperties = systemProperties;
@@ -44,18 +42,13 @@ public abstract class AbstractAlarmService implements AlarmService {
     @Async
     @Override
     public void sendMsg(String content) {
-        RateLimiterUtil.execute(
-                this.getAlarmType().name(),
-                ALARM_LIMIT_FOR_PERIOD,
-                ALARM_REFRESH_PERIOD,
-                ALARM_TIMEOUT,
-                () -> {
-                    String response = HttpUtil.post(this.createRequestUrl(), this.createTextMsg(content));
-                    this.logResponse(response);
-                    return null;
-                },
-                e -> log.warn("报警消息发送被限流, 类型: [{}], 内容: [{}]", this.getAlarmType().name(), content)
-        );
+        boolean tryAcquire = RateLimiterUtil.tryAcquire(this.getAlarmType().name(), ALARM_LIMIT_FOR_PERIOD, ALARM_REFRESH_PERIOD);
+        if (tryAcquire) {
+            String response = HttpUtil.post(this.createRequestUrl(), this.createTextMsg(content));
+            this.logResponse(response);
+        } else {
+            log.warn("报警消息发送被限流, 类型: [{}], 内容: [{}]", this.getAlarmType().name(), content);
+        }
     }
 
     protected abstract AlarmType getAlarmType();

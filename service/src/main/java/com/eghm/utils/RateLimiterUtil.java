@@ -4,15 +4,12 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import io.github.resilience4j.ratelimiter.RateLimiter;
 import io.github.resilience4j.ratelimiter.RateLimiterConfig;
-import io.github.resilience4j.ratelimiter.RequestNotPermitted;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 /**
  * 限流工具类(基于 resilience4j)
@@ -49,31 +46,6 @@ public final class RateLimiterUtil {
      */
     public static RateLimiter getOrCreate(String name, int limit, Duration refreshPeriod, Duration timeout) {
         return CACHE.get(name, k -> RateLimiter.of(k, RateLimiterConfig.custom().limitForPeriod(limit).limitRefreshPeriod(refreshPeriod).timeoutDuration(timeout).build()));
-    }
-
-    /**
-     * 报警场景便捷方法:装饰 Runnable + 捕获 RequestNotPermitted
-     *
-     * @param name          限流器名称
-     * @param limit         时间窗口内最大访问次数
-     * @param refreshPeriod 时间窗口
-     * @param timeout       获取许可的超时时间
-     * @param supplier      实际业务逻辑
-     * @param limitHandler  被限流时的处理(可为 null,默认 warn 日志)
-     */
-    public static <T> T execute(String name, int limit, Duration refreshPeriod, Duration timeout,
-                            Supplier<T> supplier, Consumer<RequestNotPermitted> limitHandler) {
-        RateLimiter limiter = getOrCreate(name, limit, refreshPeriod, timeout);
-        Supplier<T> decorated = RateLimiter.decorateSupplier(limiter, supplier);
-        try {
-            return decorated.get();
-        } catch (Exception e) {
-            if (e instanceof RequestNotPermitted request) {
-                limitHandler.accept(request);
-                return null;
-            }
-            throw e;
-        }
     }
 
     /**
