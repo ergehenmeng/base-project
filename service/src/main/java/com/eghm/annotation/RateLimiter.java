@@ -38,12 +38,6 @@ public @interface RateLimiter {
     Scope scope() default Scope.IP;
 
     /**
-     * 是否降级放行
-     * 当限流组件出现异常时是否放行,生产环境建议为 true,避免限流故障导致全站不可用
-     */
-    boolean fallbackPass() default true;
-
-    /**
      * 限流维度
      */
     enum Scope {

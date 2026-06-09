@@ -31,6 +31,6 @@ public class ScoreUpdateRequest {
     private Integer score;
 
     @Schema(description = "积分备注")
-    @Length(max = 50, message = "备注不能超过50个字符")
+    @Length(max = 100, message = "备注不能超过100个字符")
     private String remark;
 }
