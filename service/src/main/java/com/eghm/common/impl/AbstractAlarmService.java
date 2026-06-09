@@ -52,6 +52,7 @@ public abstract class AbstractAlarmService implements AlarmService {
                 () -> {
                     String response = HttpUtil.post(this.createRequestUrl(), this.createTextMsg(content));
                     this.logResponse(response);
+                    return null;
                 },
                 e -> log.warn("报警消息发送被限流, 类型: [{}], 内容: [{}]", this.getAlarmType().name(), content)
         );

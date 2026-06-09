@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * 限流工具类(基于 resilience4j)
@@ -57,21 +58,21 @@ public final class RateLimiterUtil {
      * @param limit         时间窗口内最大访问次数
      * @param refreshPeriod 时间窗口
      * @param timeout       获取许可的超时时间
-     * @param runnable      实际业务逻辑
+     * @param supplier      实际业务逻辑
      * @param limitHandler  被限流时的处理(可为 null,默认 warn 日志)
      */
-    public static void execute(String name, int limit, Duration refreshPeriod, Duration timeout,
-                               Runnable runnable, Consumer<RequestNotPermitted> limitHandler) {
+    public static <T> T execute(String name, int limit, Duration refreshPeriod, Duration timeout,
+                            Supplier<T> supplier, Consumer<RequestNotPermitted> limitHandler) {
         RateLimiter limiter = getOrCreate(name, limit, refreshPeriod, timeout);
-        Runnable decorated = RateLimiter.decorateRunnable(limiter, runnable);
+        Supplier<T> decorated = RateLimiter.decorateSupplier(limiter, supplier);
         try {
-            decorated.run();
-        } catch (RequestNotPermitted e) {
-            if (limitHandler != null) {
-                limitHandler.accept(e);
-            } else {
-                log.warn("限流触发 [{}] limit=[{}/{}]", name, limit, refreshPeriod);
+            return decorated.get();
+        } catch (Exception e) {
+            if (e instanceof RequestNotPermitted request) {
+                limitHandler.accept(request);
+                return null;
             }
+            throw e;
         }
     }
 
