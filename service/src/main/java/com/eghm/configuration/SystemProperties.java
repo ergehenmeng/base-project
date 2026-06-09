@@ -1,6 +1,12 @@
 package com.eghm.configuration;
 
-import com.eghm.enums.*;
+import com.eghm.enums.AlarmType;
+import com.eghm.enums.Env;
+import com.eghm.enums.LoginType;
+import com.eghm.enums.SmsChannel;
+import com.eghm.enums.TokenType;
+import com.eghm.enums.UploadType;
+import com.eghm.enums.WeChatVersion;
 import com.google.code.kaptcha.text.impl.DefaultTextCreator;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -39,11 +45,6 @@ public class SystemProperties {
      * 系统运行环境(默认准生产环境)
      */
     private Env env = Env.PROD;
-
-    /**
-     * 移动端 特有配置
-     */
-    private final WebappProperties api = new WebappProperties();
 
     /**
      * 管理后台 特有配置
@@ -171,21 +172,6 @@ public class SystemProperties {
     }
 
     @Data
-    public static class WebappProperties {
-
-        /**
-         * 模拟登录的token
-         */
-        private String mockToken;
-
-        /**
-         * 模拟登录的渠道
-         */
-        private Channel mockChannel = Channel.WECHAT;
-
-    }
-
-    @Data
     public static class AliProperties {
 
         /**
@@ -196,7 +182,7 @@ public class SystemProperties {
         /**
          * 阿里oss
          */
-        private AliOss oss = new AliOss();
+        private final AliOss oss = new AliOss();
 
     }
 

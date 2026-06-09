@@ -291,7 +291,7 @@ public class MemberServiceImpl implements MemberService {
         emailCode.setEmailType(EmailType.CHANGE_EMAIL);
         emailService.verifyEmailCode(emailCode);
         Member member = memberMapper.selectById(request.getMemberId());
-        member.setEmail(member.getEmail());
+        member.setEmail(request.getEmail());
         memberMapper.updateById(member);
     }
 
