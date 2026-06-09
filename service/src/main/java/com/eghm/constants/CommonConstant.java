@@ -174,7 +174,27 @@ public class CommonConstant {
      * websocket消息路径前缀
      */
     public static final String WEBSOCKET_PREFIX = "/websocket";
-
+    
+    /**
+     * 移动端路径前缀
+     */
+    public static final String WEBAPP_PREFIX = "/webapp";
+    
+    /**
+     * 管理后台路径前缀
+     */
+    public static final String MANAGE_PREFIX = "/manage";
+    
+    /**
+     * filter匹配方式
+     */
+    public static final String FILTER_PATTERN = "/*";
+    
+    /**
+     * 拦截器匹配方式
+     */
+    public static final String INTERCEPTOR_PATTERN = "/**";
+    
     /**
      * 管理后台用户ID websocket-key
      */

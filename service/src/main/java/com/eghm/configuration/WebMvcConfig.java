@@ -18,7 +18,6 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.AnnotationIntrospector;
-import io.github.resilience4j.ratelimiter.RateLimiterRegistry;
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -151,7 +150,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, Validati
     }
 
     @Bean
-    public AlarmService alarmService(JsonService jsonService, RateLimiterRegistry rateLimiterRegistry) {
+    public AlarmService alarmService(JsonService jsonService) {
         SystemProperties.Alarm alarm = systemProperties.getAlarm();
         if (alarm.getType() == AlarmType.DEFAULT) {
             return new DefaultAlarmServiceImpl();
@@ -160,13 +159,13 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, Validati
             throw new BusinessException(ErrorCode.WEB_HOOK_NULL);
         }
         if (alarm.getType() == AlarmType.DING_TALK) {
-            return new DingTalkAlarmServiceImpl(jsonService, systemProperties, rateLimiterRegistry);
+            return new DingTalkAlarmServiceImpl(jsonService, systemProperties);
         }
         if (alarm.getType() == AlarmType.FEI_SHU) {
-            return new FeiShuAlarmServiceImpl(jsonService, systemProperties, rateLimiterRegistry);
+            return new FeiShuAlarmServiceImpl(jsonService, systemProperties);
         }
         if (alarm.getType() == AlarmType.ENTERPRISE_WECHAT) {
-            return new WeChatAlarmServiceImpl(jsonService, systemProperties, rateLimiterRegistry);
+            return new WeChatAlarmServiceImpl(jsonService, systemProperties);
         }
         return new DefaultAlarmServiceImpl();
     }

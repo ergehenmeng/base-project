@@ -54,6 +54,11 @@ public enum ErrorCode {
      * 暂无访问权限 (黑名单拦截)
      */
     FORBIDDEN_ACCESS(405, "暂无访问权限"),
+    
+    /**
+     * 接口访问过于频繁
+     */
+    TOO_MANY_REQUESTS(429, "请求过于频繁,请稍后再试"),
 
     /**
      * 系统繁忙,请稍后再试

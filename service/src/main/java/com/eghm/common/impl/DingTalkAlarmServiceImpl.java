@@ -5,7 +5,6 @@ import cn.hutool.crypto.SecureUtil;
 import com.eghm.common.JsonService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.enums.AlarmType;
-import io.github.resilience4j.ratelimiter.RateLimiterRegistry;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.charset.StandardCharsets;
@@ -23,9 +22,8 @@ public class DingTalkAlarmServiceImpl extends AbstractAlarmService {
 
     private final SystemProperties systemProperties;
     
-    public DingTalkAlarmServiceImpl(JsonService jsonService, SystemProperties systemProperties,
-                                    RateLimiterRegistry rateLimiterRegistry) {
-        super(jsonService, systemProperties, rateLimiterRegistry);
+    public DingTalkAlarmServiceImpl(JsonService jsonService, SystemProperties systemProperties) {
+        super(jsonService, systemProperties);
         this.systemProperties = systemProperties;
     }
 

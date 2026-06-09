@@ -1,5 +1,6 @@
 package com.eghm.web.controller;
 
+import com.eghm.annotation.RateLimiter;
 import com.eghm.constants.CommonConstant;
 import com.google.code.kaptcha.Producer;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -37,6 +38,7 @@ public class CaptchaController {
 
     @GetMapping("/captcha")
     @Operation(summary = "获取图形验证码")
+    @RateLimiter(value = "captcha", limit = 10, period = 60, scope = RateLimiter.Scope.IP)
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authCode = producer.createText();
         String[] splits = authCode.split(CommonConstant.SPECIAL_SPLIT);

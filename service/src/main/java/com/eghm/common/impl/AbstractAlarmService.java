@@ -8,11 +8,13 @@ import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.dto.ext.AlarmMsg;
 import com.eghm.enums.AlarmType;
-import io.github.resilience4j.ratelimiter.RateLimiter;
-import io.github.resilience4j.ratelimiter.RateLimiterRegistry;
-import io.github.resilience4j.ratelimiter.RequestNotPermitted;
+import com.eghm.utils.DateUtil;
+import com.eghm.utils.RateLimiterUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 /**
  * @author wyb-eghm
@@ -24,29 +26,35 @@ public abstract class AbstractAlarmService implements AlarmService {
     protected final JsonService jsonService;
 
     protected final SystemProperties systemProperties;
+    
+    /**
+     * 报警场景默认配置 18次/分钟 否则被平台限流
+     */
+    public static final int ALARM_LIMIT_FOR_PERIOD = 18;
+    
+    public static final Duration ALARM_REFRESH_PERIOD = Duration.ofSeconds(60);
+    
+    public static final Duration ALARM_TIMEOUT = Duration.ofMillis(500);
 
-    protected final RateLimiterRegistry rateLimiterRegistry;
-
-    protected AbstractAlarmService(JsonService jsonService, SystemProperties systemProperties,
-                                   RateLimiterRegistry rateLimiterRegistry) {
+    protected AbstractAlarmService(JsonService jsonService, SystemProperties systemProperties) {
         this.jsonService = jsonService;
         this.systemProperties = systemProperties;
-        this.rateLimiterRegistry = rateLimiterRegistry;
     }
 
     @Async
     @Override
     public void sendMsg(String content) {
-        RateLimiter rateLimiter = rateLimiterRegistry.rateLimiter(this.getAlarmType().name());
-        Runnable runnable = RateLimiter.decorateRunnable(rateLimiter, () -> {
-            String response = HttpUtil.post(this.createRequestUrl(), this.createTextMsg(content));
-            this.logResponse(response);
-        });
-        try {
-            runnable.run();
-        } catch (RequestNotPermitted e) {
-            log.warn("报警消息发送被限流, 类型: {}, 内容: {}", this.getAlarmType(), content);
-        }
+        RateLimiterUtil.execute(
+                this.getAlarmType().name(),
+                ALARM_LIMIT_FOR_PERIOD,
+                ALARM_REFRESH_PERIOD,
+                ALARM_TIMEOUT,
+                () -> {
+                    String response = HttpUtil.post(this.createRequestUrl(), this.createTextMsg(content));
+                    this.logResponse(response);
+                },
+                e -> log.warn("报警消息发送被限流, 类型: [{}], 内容: [{}]", this.getAlarmType().name(), content)
+        );
     }
 
     protected abstract AlarmType getAlarmType();
@@ -60,6 +68,7 @@ public abstract class AbstractAlarmService implements AlarmService {
     protected String createMessageContent(String content) {
         String appName = SpringUtil.getApplicationName();
         return "【服务名】：" + appName + "\n" +
+                "【报警时间】：" + DateUtil.format(LocalDateTime.now()) + "\n" +
                 "【traceId】：" + LogTraceHolder.getTraceId() + "\n" +
                 "【报警信息】：" + content;
     }

@@ -35,18 +35,3 @@ mybatis-plus:
   type-aliases-package: com.eghm.dto;com.eghm.vo;com.eghm.handler.mysql
   configuration:
     map-underscore-to-camel-case: true
-resilience4j:
-  ratelimiter:
-    instances:
-      DING_TALK:
-        limit-for-period: 18
-        limit-refresh-period: 60s
-        timeout-duration: 500ms
-      FEI_SHU:
-        limit-for-period: 18
-        limit-refresh-period: 60s
-        timeout-duration: 500ms
-      ENTERPRISE_WECHAT:
-        limit-for-period: 18
-        limit-refresh-period: 60s
-        timeout-duration: 500ms

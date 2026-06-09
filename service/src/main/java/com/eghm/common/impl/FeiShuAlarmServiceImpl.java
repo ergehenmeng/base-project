@@ -5,7 +5,6 @@ import com.eghm.common.JsonService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.dto.ext.FeiShuMsg;
 import com.eghm.enums.AlarmType;
-import io.github.resilience4j.ratelimiter.RateLimiterRegistry;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.eghm.utils.StringUtil.isNotBlank;
@@ -19,9 +18,8 @@ public class FeiShuAlarmServiceImpl extends AbstractAlarmService {
 
     private final SystemProperties systemProperties;
     
-    public FeiShuAlarmServiceImpl(JsonService jsonService, SystemProperties systemProperties,
-                                  RateLimiterRegistry rateLimiterRegistry) {
-        super(jsonService, systemProperties, rateLimiterRegistry);
+    public FeiShuAlarmServiceImpl(JsonService jsonService, SystemProperties systemProperties) {
+        super(jsonService, systemProperties);
         this.systemProperties = systemProperties;
     }
 

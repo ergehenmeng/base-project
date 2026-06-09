@@ -23,6 +23,10 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
+import static com.eghm.constants.CommonConstant.FILTER_PATTERN;
+import static com.eghm.constants.CommonConstant.INTERCEPTOR_PATTERN;
+import static com.eghm.constants.CommonConstant.WEBAPP_PREFIX;
+
 /**
  * mvc全局配置,继承WebMvcConfigurerAdapter无需@EnableWebMvc
  *
@@ -31,15 +35,11 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
  */
 @Configuration
 public class WebappMvcConfig extends WebMvcConfig {
-
+    
     private final CacheProxyService cacheProxyService;
 
     private final MemberTokenService memberTokenService;
     
-    private static final String FILTER_URL = "/webapp/*";
-    
-    private static final String INTERCEPTOR_URL = "/webapp/**";
-
     public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, MemberTokenService memberTokenService, CacheProxyService cacheProxyService, @Qualifier("taskExecutor") TaskExecutor taskExecutor) {
         super(objectMapper, taskExecutor, systemProperties);
         this.cacheProxyService = cacheProxyService;
@@ -49,10 +49,10 @@ public class WebappMvcConfig extends WebMvcConfig {
     @Override
     public void addInterceptors(@Nonnull InterceptorRegistry registry) {
         String[] notifyUrl = new String[]{CommonConstant.ALI_PAY_NOTIFY_URL, CommonConstant.ALI_REFUND_NOTIFY_URL, CommonConstant.WECHAT_PAY_NOTIFY_URL, CommonConstant.WECHAT_REFUND_NOTIFY_URL};
-        registry.addInterceptor(messageInterceptor()).addPathPatterns(INTERCEPTOR_URL).order(Integer.MIN_VALUE + 5);
-        registry.addInterceptor(accessSignInterceptor()).addPathPatterns(INTERCEPTOR_URL).order(Integer.MIN_VALUE + 10);
-        registry.addInterceptor(tokenInterceptor()).addPathPatterns(INTERCEPTOR_URL).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 15);
-        registry.addInterceptor(submitIntervalInterceptor()).addPathPatterns(INTERCEPTOR_URL).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 30);
+        registry.addInterceptor(messageInterceptor()).addPathPatterns(WEBAPP_PREFIX + INTERCEPTOR_PATTERN).order(Integer.MIN_VALUE + 5);
+        registry.addInterceptor(accessSignInterceptor()).addPathPatterns(WEBAPP_PREFIX + INTERCEPTOR_PATTERN).order(Integer.MIN_VALUE + 10);
+        registry.addInterceptor(tokenInterceptor()).addPathPatterns(WEBAPP_PREFIX + INTERCEPTOR_PATTERN).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 15);
+        registry.addInterceptor(submitIntervalInterceptor()).addPathPatterns(WEBAPP_PREFIX + INTERCEPTOR_PATTERN).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 30);
     }
 
     /**
@@ -95,7 +95,7 @@ public class WebappMvcConfig extends WebMvcConfig {
         FilterRegistrationBean<IpBlackListFilter> registrationBean = new FilterRegistrationBean<>();
         IpBlackListFilter requestFilter = new IpBlackListFilter(blackRosterService);
         registrationBean.setFilter(requestFilter);
-        registrationBean.addUrlPatterns(FILTER_URL);
+        registrationBean.addUrlPatterns(WEBAPP_PREFIX + FILTER_PATTERN);
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
         registrationBean.setOrder(Integer.MIN_VALUE);
         return registrationBean;
@@ -109,7 +109,7 @@ public class WebappMvcConfig extends WebMvcConfig {
         FilterRegistrationBean<ByteHttpRequestFilter> registrationBean = new FilterRegistrationBean<>();
         ByteHttpRequestFilter requestFilter = new ByteHttpRequestFilter();
         registrationBean.setFilter(requestFilter);
-        registrationBean.addUrlPatterns(FILTER_URL);
+        registrationBean.addUrlPatterns(WEBAPP_PREFIX + FILTER_PATTERN);
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
         registrationBean.setOrder(Integer.MIN_VALUE + 5);
         return registrationBean;
