@@ -69,4 +69,5 @@ system:
       - /manage/logout
       - /manage/wechat/qrcode/url
       - /manage/wechat/qrcode/login
+      - /manage/wechat/code/login
       - /manage/export/exportMenu
