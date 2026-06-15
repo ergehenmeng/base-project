@@ -37,7 +37,7 @@ public class FeiShuAlarmServiceImpl extends AbstractAlarmService {
     public String createTextMsg(String content) {
         FeiShuMsg msg = new FeiShuMsg();
         String builder = super.createMessageContent(content);
-        msg.setText(new FeiShuMsg.Text(builder));
+        msg.setContent(new FeiShuMsg.Content(builder));
         msg.setMsgType("text");
         if (isNotBlank(systemProperties.getAlarm().getSecret())) {
             long timestamp = System.currentTimeMillis();
