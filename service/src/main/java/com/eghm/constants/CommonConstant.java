@@ -139,16 +139,6 @@ public class CommonConstant {
      * 父节点id
      */
     public static final String ROOT_NODE = "0";
-    
-    /**
-     * 签名key
-     */
-    public static final String DATA = "data";
-
-    /**
-     * 时间戳
-     */
-    public static final String TIMESTAMP = "timestamp";
 
     /**
      * 阿里退款异步回调

@@ -43,10 +43,8 @@ CREATE TABLE `auth_config`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
     `title`       varchar(50)   DEFAULT NULL COMMENT '单位名称',
-    `app_key`     varchar(64)   DEFAULT NULL COMMENT 'appKey',
-    `public_key`  varchar(2048) DEFAULT NULL COMMENT '公钥',
-    `private_key` varchar(2048) DEFAULT NULL COMMENT '私钥',
-    `sign_type`   varchar(20)   DEFAULT NULL COMMENT '签名方式 RSA, MD5(只有公钥)',
+    `app_id`     varchar(64)   DEFAULT NULL COMMENT 'appId',
+    `app_secret` varchar(2048) DEFAULT NULL COMMENT '秘钥',
     `expire_date` date          DEFAULT NULL COMMENT '过期日期',
     `email`       varchar(50)   DEFAULT NULL COMMENT '邮箱',
     `remark`      varchar(200)  DEFAULT NULL COMMENT '备注信息',

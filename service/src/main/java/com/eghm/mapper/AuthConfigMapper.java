@@ -25,8 +25,8 @@ public interface AuthConfigMapper extends BaseMapper<AuthConfig> {
     /**
      * 根据appKey查询配置信息
      *
-     * @param appKey appKey
+     * @param appId appId
      * @return 配置信息
      */
-    AuthConfigVO getByAppKey(@Param("appKey") String appKey);
+    AuthConfigVO getByAppId(@Param("appId") String appId);
 }

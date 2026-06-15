@@ -17,14 +17,11 @@ import java.time.LocalDate;
 @Data
 public class AuthConfigVO {
 
-    @Schema(description = "appKey")
-    private String appKey;
+    @Schema(description = "appId")
+    private String appId;
 
-    @Schema(description = "公钥")
-    private String publicKey;
-
-    @Schema(description = "私钥")
-    private String privateKey;
+    @Schema(description = "秘钥")
+    private String appSecret;
 
     @Schema(description = "过期日期")
     @JsonFormat(pattern = "yyyy-MM-dd")

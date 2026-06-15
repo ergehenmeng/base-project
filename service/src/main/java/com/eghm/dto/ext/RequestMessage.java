@@ -53,17 +53,22 @@ public class RequestMessage {
     private Long memberId;
 
     /**
-     * appKey(第三方)
+     * appId(第三方)
      */
-    private String appKey;
+    private String appId;
 
     /**
      * 签名信息(第三方)
      */
     private String signature;
+    
+    /**
+     * 随机字符串(第三方)
+     */
+    private String nonce;
 
     /**
-     * 时间戳
+     * 时间戳(第三方)
      */
     private String timestamp;
 

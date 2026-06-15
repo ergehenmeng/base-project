@@ -33,9 +33,9 @@ import java.util.Map;
 public class MessageInterceptor implements InterceptorAdapter {
 
     /**
-     * 请求头最大长度 默认256
+     * 请求头最大长度 默认128
      */
-    private static final int MAX_HEADER_LENGTH = 256;
+    private static final int MAX_HEADER_LENGTH = 128;
 
     @Override
     public boolean beforeHandle(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull Object handler) throws IOException {
@@ -46,7 +46,8 @@ public class MessageInterceptor implements InterceptorAdapter {
         String deviceBrand = request.getHeader(AppHeader.DEVICE_BRAND);
         String deviceModel = request.getHeader(AppHeader.DEVICE_MODEL);
         String serialNumber = request.getHeader(AppHeader.SERIAL_NUMBER);
-        String appKey = request.getHeader(AppHeader.APP_KEY);
+        String appId = request.getHeader(AppHeader.APP_ID);
+        String nonce = request.getHeader(AppHeader.NONCE);
         String signature = request.getHeader(AppHeader.SIGNATURE);
         String timestamp = request.getHeader(AppHeader.TIMESTAMP);
         if (checkHeaderLength(channel)
@@ -55,7 +56,8 @@ public class MessageInterceptor implements InterceptorAdapter {
                 || checkHeaderLength(deviceBrand)
                 || checkHeaderLength(deviceModel)
                 || checkHeaderLength(serialNumber)
-                || checkHeaderLength(appKey)
+                || checkHeaderLength(appId)
+                || checkHeaderLength(nonce)
                 || checkHeaderLength(signature)
                 || checkHeaderLength(timestamp)
         ) {
@@ -71,8 +73,8 @@ public class MessageInterceptor implements InterceptorAdapter {
         message.setDeviceModel(deviceModel);
         message.setSerialNumber(serialNumber);
         message.setSignature(signature);
-        message.setSignature(signature);
-        message.setAppKey(appKey);
+        message.setNonce(nonce);
+        message.setAppId(appId);
         message.setTimestamp(timestamp);
         message.setRequestParam(this.parseRequestParam(request, handler));
         return true;

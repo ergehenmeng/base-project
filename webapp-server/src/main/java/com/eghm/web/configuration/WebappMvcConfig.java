@@ -8,7 +8,7 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.service.sys.BlackRosterService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
-import com.eghm.web.configuration.interceptor.AccessSignInterceptor;
+import com.eghm.web.configuration.interceptor.ApiSignInterceptor;
 import com.eghm.web.configuration.interceptor.MessageInterceptor;
 import com.eghm.web.configuration.interceptor.SubmitIntervalInterceptor;
 import com.eghm.web.configuration.interceptor.TokenInterceptor;
@@ -50,7 +50,7 @@ public class WebappMvcConfig extends WebMvcConfig {
     public void addInterceptors(@Nonnull InterceptorRegistry registry) {
         String[] notifyUrl = new String[]{CommonConstant.ALI_PAY_NOTIFY_URL, CommonConstant.ALI_REFUND_NOTIFY_URL, CommonConstant.WECHAT_PAY_NOTIFY_URL, CommonConstant.WECHAT_REFUND_NOTIFY_URL};
         registry.addInterceptor(messageInterceptor()).addPathPatterns(WEBAPP_PREFIX + INTERCEPTOR_PATTERN).order(Integer.MIN_VALUE + 5);
-        registry.addInterceptor(accessSignInterceptor()).addPathPatterns(WEBAPP_PREFIX + INTERCEPTOR_PATTERN).order(Integer.MIN_VALUE + 10);
+        registry.addInterceptor(apiSignInterceptor()).addPathPatterns(WEBAPP_PREFIX + INTERCEPTOR_PATTERN).order(Integer.MIN_VALUE + 10);
         registry.addInterceptor(tokenInterceptor()).addPathPatterns(WEBAPP_PREFIX + INTERCEPTOR_PATTERN).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 15);
         registry.addInterceptor(submitIntervalInterceptor()).addPathPatterns(WEBAPP_PREFIX + INTERCEPTOR_PATTERN).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 30);
     }
@@ -83,8 +83,8 @@ public class WebappMvcConfig extends WebMvcConfig {
      * 请求基础信息收集拦截器
      */
     @Bean
-    public HandlerInterceptor accessSignInterceptor() {
-        return new AccessSignInterceptor(cacheProxyService);
+    public HandlerInterceptor apiSignInterceptor() {
+        return new ApiSignInterceptor(cacheProxyService);
     }
     
     /**

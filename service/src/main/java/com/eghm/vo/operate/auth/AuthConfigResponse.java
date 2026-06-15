@@ -20,8 +20,8 @@ public class AuthConfigResponse {
     @Schema(description = "单位名称")
     private String title;
 
-    @Schema(description = "appKey")
-    private String appKey;
+    @Schema(description = "appId")
+    private String appId;
 
     @Schema(description = "邮件")
     public String email;

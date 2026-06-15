@@ -82,9 +82,9 @@ public interface CacheProxyService {
     /**
      * 根据appKey查询第三方配置信息
      *
-     * @param appKey appKey
+     * @param appId appId
      * @return 配置信息
      */
-    AuthConfigVO getByAppKey(String appKey);
+    AuthConfigVO getByAppId(String appId);
 
 }

@@ -129,13 +129,8 @@
   继承 `DateComparator` 或者 `DatePagingComparator` (一个带分页,一个不带分页), 或者在 pojo定义以便于实现特殊提示语.
 * `@WordChecker` 是敏感词校验注解
 * `@Desensitization` 脱敏注解,添加到需要进行脱敏的字段上, 例如: `@Desensitization(FieldType.MOBILE_PHONE)`
-* 签名功能, 目前支持 `MD5` `RSA` 两种, 在管理后台 `授权管理` 增加第三方商户信息, 同时将生成的 `appKey` 和 `appSecret`
-  给第三方, 第三方在请求接口时,需要在请求头带上 `appKey` 、 `signature` `timestmap` 三个字段. 目前 `@AccessSign`
-  只支持 `POST` 请求, 可在 `AccessSignInterceptor` 拦截器中进行二次扩展:
-    * `MD5` **`signature`=MD5(appSecret=`appSecret`&data=(Base64(`requestBody`))&timestamp=`timestamp`)**
-      其中 `requestBody` 是 post请求体中的数据, `timestamp` 是当前时间(毫秒). 注意:即使请求体为空也需要带上 `data` 字段
-    * `RSA` **`signature`=SHA256withRSA(data=Base64(`requestBody`)&timestamp=`timestamp`)** 其中 `requestBody` 是
-      post请求体中的数据, `timestamp` 是当前时间(毫秒). `appSecret` 是 `RSA` 的私钥, 采用 `SHA256withRSA` 方式进行签名
+* 签名功能, 目前支持一种 `hmacSha256`, 在管理后台 `授权管理` 增加第三方商户信息, 同时将生成的 `appId` 和 `appSecret`给第三方, 具体实现参考 `ApiSignInterceptor`
+  * 需要在对应接口上添加 `@ApiSign` 注解, 才会进行签名
 * 注意: `TransactionConfig`中定义的事务管理器作用在 `com.eghm.service` 包, 因此在该包不要定义非事务相关的业务(例如第三方接口调用, 工具类等), 否则可能会导致事务异常.
 * 管理后台集成了Websocket, 采用stomp协议, 支持前端实时接收消息, 具体可参考 `WebSocketController`, 后台主动发送消息可注入 `SimpMessagingTemplate` 发送, 注意:需要移动端先订阅消息才可收到消息 
 * 移动端服务和管理后台服务是独立的, 双方之间如需通信, 可通过MQ, 注意: 消息消费端定义的位置

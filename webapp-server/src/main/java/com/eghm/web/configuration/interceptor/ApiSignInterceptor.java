@@ -1,11 +1,8 @@
 package com.eghm.web.configuration.interceptor;
 
-import cn.hutool.core.codec.Base64Encoder;
-import cn.hutool.core.util.HexUtil;
-import cn.hutool.core.util.URLUtil;
-import cn.hutool.crypto.SignUtil;
-import cn.hutool.crypto.asymmetric.Sign;
-import cn.hutool.crypto.asymmetric.SignAlgorithm;
+import cn.hutool.core.codec.Base64;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.digest.HMac;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.security.ApiHolder;
@@ -15,7 +12,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.utils.WebUtil;
 import com.eghm.vo.operate.auth.AuthConfigVO;
-import com.eghm.web.annotation.AccessSign;
+import com.eghm.web.annotation.ApiSign;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -24,8 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.util.Map;
-import java.util.TreeMap;
 
 import static com.eghm.utils.StringUtil.isBlank;
 
@@ -35,19 +30,19 @@ import static com.eghm.utils.StringUtil.isBlank;
  */
 @Slf4j
 @AllArgsConstructor
-public class AccessSignInterceptor implements InterceptorAdapter {
+public class ApiSignInterceptor implements InterceptorAdapter {
 
     private final CacheProxyService cacheProxyService;
 
     @Override
     public boolean beforeHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        AccessSign check = this.getAnnotation(handler, AccessSign.class);
+        ApiSign check = this.getAnnotation(handler, ApiSign.class);
         if (check == null) {
             return true;
         }
         RequestMessage message = ApiHolder.get();
-        if (isBlank(message.getAppKey()) || isBlank(message.getSignature()) || isBlank(message.getTimestamp())) {
-            log.warn("请求头签名信息不全 [{}] [{}] [{}]", message.getAppKey(), message.getSignature(), message.getTimestamp());
+        if (isBlank(message.getAppId()) || isBlank(message.getNonce()) || isBlank(message.getSignature()) || isBlank(message.getTimestamp())) {
+            log.warn("请求头签名信息不全 [{}] [{}] [{}] [{}]", message.getAppId(), message.getNonce(), message.getSignature(), message.getTimestamp());
             WebUtil.printJson(response, ErrorCode.SIGNATURE_ERROR);
             return false;
         }
@@ -58,37 +53,36 @@ public class AccessSignInterceptor implements InterceptorAdapter {
             WebUtil.printJson(response, ErrorCode.SIGNATURE_EXPIRE);
             return false;
         }
-        AuthConfigVO config = cacheProxyService.getByAppKey(message.getAppKey());
+        AuthConfigVO config = cacheProxyService.getByAppId(message.getAppId());
         if (config == null) {
-            log.warn("本地未查询到指定的签名信息 [{}]", message.getAppKey());
+            log.warn("本地未查询到指定的签名信息 [{}]", message.getAppId());
             WebUtil.printJson(response, ErrorCode.SIGNATURE_VERIFY_ERROR);
             return false;
         }
         if (config.getExpireDate() == null || LocalDate.now().isAfter(config.getExpireDate())) {
-            log.warn("签名信息已过有效期, 需要重新申请 [{}] [{}]", message.getAppKey(), config.getExpireDate());
+            log.warn("签名信息已过有效期, 需要重新申请 [{}] [{}]", message.getAppId(), config.getExpireDate());
             WebUtil.printJson(response, ErrorCode.SIGNATURE_TIMESTAMP_ERROR);
             return false;
         }
-        rsaSignVerify(config.getPublicKey(), config.getPrivateKey(), message.getRequestParam(), message.getTimestamp(), message.getSignature());
+        rsaSignVerify(config.getAppId(), config.getAppSecret(), message.getTimestamp(), message.getNonce(), message.getRequestParam(), message.getSignature());
         return true;
     }
 
     /**
-     * rsa生成签名信息 SHA256withRSA签名方式
+     * 校验签名信息
      *
-     * @param publicKey   公钥
-     * @param privateKey  私钥
+     * @param appSecret  秘钥
      * @param requestBody 请求参数
+     * @param timestamp   时间戳
+     * @param nonce       随机数
+     * @param signature   签名信息
      */
-    private static void rsaSignVerify(String privateKey, String publicKey, String requestBody, String timestamp, String signature) {
-        Map<String, String> param = new TreeMap<>();
-        param.put(CommonConstant.DATA, Base64Encoder.encode(requestBody));
-        param.put(CommonConstant.TIMESTAMP, timestamp);
-        String buildQuery = URLUtil.buildQuery(param, CommonConstant.CHARSET);
-        Sign sign = SignUtil.sign(SignAlgorithm.SHA256withRSA, privateKey, publicKey);
-        boolean verify = sign.verify(buildQuery.getBytes(StandardCharsets.UTF_8), HexUtil.decodeHex(signature));
-        if (!verify) {
-            log.warn("rsa签名信息验证失败 [{}] [{}] [{}] [{}]", privateKey, publicKey, requestBody, signature);
+    private static void rsaSignVerify(String appId, String appSecret, String requestBody, String timestamp, String nonce, String signature) {
+        String strToSign = appId + timestamp + nonce + Base64.encode(requestBody.getBytes(StandardCharsets.UTF_8));
+        HMac mac = SecureUtil.hmacSha256(appSecret.getBytes(StandardCharsets.UTF_8));
+        String hex = mac.digestHex(strToSign);
+        if (!hex.equals(signature)) {
+            log.warn("签名信息验证失败 [{}] [{}] [{}] [{}] [{}] [{}]", appId, appSecret, timestamp, nonce, requestBody, signature);
             throw new BusinessException(ErrorCode.SIGNATURE_VERIFY_ERROR);
         }
     }

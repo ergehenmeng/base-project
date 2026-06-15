@@ -108,8 +108,8 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.AUTH_CONFIG, key = "#p0", unless = "#result == null", cacheManager = "longCacheManager")
-    public AuthConfigVO getByAppKey(String appKey) {
-        return authConfigMapper.getByAppKey(appKey);
+    public AuthConfigVO getByAppId(String appId) {
+        return authConfigMapper.getByAppId(appId);
     }
 
 }

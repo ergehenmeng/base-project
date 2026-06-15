@@ -2,7 +2,6 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,15 +20,11 @@ public class AuthConfig extends BaseEntity {
     @Schema(description = "单位名称")
     private String title;
 
-    @Schema(description = "appKey")
-    private String appKey;
+    @Schema(description = "appId")
+    private String appId;
 
-    @Schema(description = "公钥(不对外暴露)")
-    @JsonIgnore
-    private String publicKey;
-
-    @Schema(description = "私钥")
-    public String privateKey;
+    @Schema(description = "秘钥")
+    private String appSecret;
 
     @Schema(description = "过期时间")
     @JsonFormat(pattern = "yyyy-MM-dd")

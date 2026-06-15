@@ -3,7 +3,7 @@
 <mapper namespace="com.eghm.mapper.AuthConfigMapper">
 
     <select id="getByPage" resultType="com.eghm.vo.operate.auth.AuthConfigResponse" >
-        select id, app_key, email, title, remark, create_time, update_time, expire_date
+        select id, app_id, email, title, remark, create_time, update_time, expire_date
         from auth_config where deleted = false
         <if test="queryName != null and queryName != ''">
             and title like concat('%', #{queryName, typeHandler=LikeTypeHandler}, '%')
@@ -11,8 +11,8 @@
         order by id desc
     </select>
 
-    <select id="getByAppKey" resultType="com.eghm.vo.operate.auth.AuthConfigVO">
-        select app_key, public_key, private_key, expire_date from auth_config where app_key = #{appKey} limit 1
+    <select id="getByAppId" resultType="com.eghm.vo.operate.auth.AuthConfigVO">
+        select app_id, app_secret, expire_date from auth_config where app_id = #{appId} limit 1
     </select>
 
 </mapper>

@@ -55,16 +55,21 @@ public class AppHeader {
     /**
      * 签名 (第三方使用)
      */
-    public static final String SIGNATURE = "signature";
+    public static final String SIGNATURE = "X-Sign";
+    
+    /**
+     * 随机字符串 (第三方使用)
+     */
+    public static final String NONCE = "X-Nonce";
 
     /**
      * 签名Key (第三方使用)
      */
-    public static final String APP_KEY = "appKey";
+    public static final String APP_ID = "X-App-Id";
 
     /**
      * 时间戳 (第三方使用)
      */
-    public static final String TIMESTAMP = "timestamp";
+    public static final String TIMESTAMP = "X-Timestamp";
 
 }
