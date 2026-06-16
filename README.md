@@ -138,3 +138,4 @@
 * 管理后台支持锁屏功能, 快捷键 `ALT + L`
 * 管理后台管理员初始账号密码 `superAdmin/eghm@123456` 加密方式 `BCrypt(sha256(pwd))`
 * `ValidationUtil.redoCheck` 校验重复字段, 例如: `ValidationUtil.redoCheck(sysDictMapper, SysDict::getTitle, title, id, SysDict::getId, ErrorCode.DICT_REPEAT_ERROR, "数据字典名称重复 [{}] [{}]");`
+* `ApiVersion` 注解用于路由, 根据请求头中的版本号进行路由, 例如: `@ApiVersion("1.0.0")` 表示该接口仅支持版本号为 `1.0.0~99.99.99` 的请求

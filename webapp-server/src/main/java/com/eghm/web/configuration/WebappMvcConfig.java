@@ -1,4 +1,4 @@
-package com.eghm.web.configuration;
+﻿package com.eghm.web.configuration;
 
 import com.eghm.cache.CacheProxyService;
 import com.eghm.common.MemberTokenService;
@@ -9,6 +9,9 @@ import com.eghm.service.sys.BlackRosterService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
 import com.eghm.web.configuration.interceptor.ApiSignInterceptor;
+import com.eghm.web.configuration.interceptor.ApiVersionInterceptor;
+import com.eghm.configuration.version.ApiVersionRequestMappingHandlerMapping;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import com.eghm.web.configuration.interceptor.MessageInterceptor;
 import com.eghm.web.configuration.interceptor.SubmitIntervalInterceptor;
 import com.eghm.web.configuration.interceptor.TokenInterceptor;
@@ -53,6 +56,7 @@ public class WebappMvcConfig extends WebMvcConfig {
         registry.addInterceptor(apiSignInterceptor()).addPathPatterns(WEBAPP_PREFIX + INTERCEPTOR_PATTERN).order(Integer.MIN_VALUE + 10);
         registry.addInterceptor(tokenInterceptor()).addPathPatterns(WEBAPP_PREFIX + INTERCEPTOR_PATTERN).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 15);
         registry.addInterceptor(submitIntervalInterceptor()).addPathPatterns(WEBAPP_PREFIX + INTERCEPTOR_PATTERN).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 30);
+        registry.addInterceptor(apiVersionInterceptor()).addPathPatterns(WEBAPP_PREFIX + INTERCEPTOR_PATTERN).order(Integer.MIN_VALUE + 35);
     }
 
     /**
@@ -85,6 +89,23 @@ public class WebappMvcConfig extends WebMvcConfig {
     @Bean
     public HandlerInterceptor apiSignInterceptor() {
         return new ApiSignInterceptor(cacheProxyService);
+    }
+    /**
+     * API版本拦截器
+     */
+    @Bean
+    public HandlerInterceptor apiVersionInterceptor() {
+        return new ApiVersionInterceptor();
+    }
+
+    /**
+     * API版本路由处理器
+     */
+    @Bean
+    public RequestMappingHandlerMapping apiVersionHandlerMapping() {
+        ApiVersionRequestMappingHandlerMapping handlerMapping = new ApiVersionRequestMappingHandlerMapping();
+        handlerMapping.setOrder(0);
+        return handlerMapping;
     }
     
     /**

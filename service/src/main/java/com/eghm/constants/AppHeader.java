@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * 移动端请求头信息
+ * 移动端请求头信息/响应头信息
  *
  * @author 二哥很猛
  * @since 2018/8/14 16:57
@@ -71,5 +71,19 @@ public class AppHeader {
      * 时间戳 (第三方使用)
      */
     public static final String TIMESTAMP = "X-Timestamp";
-
+    
+    /**
+     * API版本号
+     */
+    public static final String API_VERSION = "Api-Version";
+    
+    /**
+     * API是否废弃
+     */
+    public static final String API_DEPRECATED = "Api-Deprecated";
+    
+    /**
+     * 废弃提示信息
+     */
+    public static final String API_DEPRECATED_MESSAGE = "Api-Deprecated-Message";
 }
