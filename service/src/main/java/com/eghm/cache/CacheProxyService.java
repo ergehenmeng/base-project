@@ -80,7 +80,7 @@ public interface CacheProxyService {
     List<SysDictItem> getDictByNid(String nid);
 
     /**
-     * 根据appKey查询第三方配置信息
+     * 根据appId查询第三方配置信息
      *
      * @param appId appId
      * @return 配置信息

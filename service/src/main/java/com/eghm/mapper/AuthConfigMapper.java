@@ -23,7 +23,7 @@ public interface AuthConfigMapper extends BaseMapper<AuthConfig> {
     Page<AuthConfigResponse> getByPage(Page<AuthConfigResponse> page, @Param("queryName") String queryName);
 
     /**
-     * 根据appKey查询配置信息
+     * 根据appId查询配置信息
      *
      * @param appId appId
      * @return 配置信息
