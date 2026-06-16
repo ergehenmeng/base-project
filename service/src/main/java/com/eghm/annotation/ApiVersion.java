@@ -6,7 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static org.springdoc.core.utils.Constants.DEFAULT_VERSION;
+import static com.eghm.constants.CommonConstant.DEFAULT_VERSION;
 
 /**
  * API版本注解
@@ -38,3 +38,4 @@ public @interface ApiVersion {
      */
     String deprecatedMessage() default "";
 }
+

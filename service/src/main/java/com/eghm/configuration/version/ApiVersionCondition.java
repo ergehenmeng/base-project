@@ -43,6 +43,8 @@ public record ApiVersionCondition(String apiVersion) implements RequestCondition
     
     @Override
     public int compareTo(ApiVersionCondition other, @Nonnull HttpServletRequest request) {
-        return VersionUtil.gte(this.apiVersion(), other.apiVersion()) ? 0 : 1;
+        // 版本号大的优先（高版本优先匹配）
+        // 返回负数表示当前对象优先级高，正数表示其他对象优先级高
+        return VersionUtil.parseInt(other.apiVersion()) - VersionUtil.parseInt(this.apiVersion());
     }
 }
