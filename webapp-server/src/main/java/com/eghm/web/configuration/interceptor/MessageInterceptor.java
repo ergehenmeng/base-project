@@ -109,7 +109,6 @@ public class MessageInterceptor implements InterceptorAdapter {
             return null;
         }
         // 注意: 由于request.getInputStream()方法只能读取一遍
-        // 如果采用x-www-form-urlencoded post请求方式, 即使将request包装成ByteHttpServletRequestWrapper, 依旧无法通过request.getParameterValue等方法获取参数
         // 此处选择只针对json格式的post请求才会读取流信息
         if (HttpMethod.POST.matches(request.getMethod()) && request.getHeader(Header.CONTENT_TYPE.getValue()).startsWith(MediaType.APPLICATION_JSON_VALUE)) {
             try {
