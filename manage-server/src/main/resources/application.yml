@@ -1,4 +1,4 @@
-## tomcat配置
+﻿## tomcat配置
 server:
   servlet:
     session:
@@ -52,6 +52,14 @@ spring:
     charset: UTF-8
     check-template-location: false
     content-type: text/html
+## flyway数据库版本控制
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    baseline-version: 0
+    validate-on-migrate: false
+    encoding: UTF-8
 ## mybatis-plus配置
 mybatis-plus:
   type-aliases-package: com.eghm.dto;com.eghm.vo;com.eghm.handler.mysql

@@ -1,4 +1,4 @@
-﻿package com.eghm.configuration.version;
+package com.eghm.configuration.version;
 
 import com.eghm.annotation.ApiVersion;
 import jakarta.annotation.Nonnull;
@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 /**
  * API版本路由处理器
  * 根据@ApiVersion注解和请求头中的版本号进行路由
- * 
+ *
  * @author eghm
  * @since 2026/6/15
  */

@@ -1,4 +1,4 @@
-﻿package com.eghm.configuration.version;
+package com.eghm.configuration.version;
 
 import com.eghm.constants.AppHeader;
 import com.eghm.utils.VersionUtil;

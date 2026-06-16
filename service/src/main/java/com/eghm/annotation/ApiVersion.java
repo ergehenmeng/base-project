@@ -1,4 +1,4 @@
-﻿package com.eghm.annotation;
+package com.eghm.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

@@ -1,17 +1,16 @@
-﻿package com.eghm.web.configuration;
+package com.eghm.web.configuration;
 
 import com.eghm.cache.CacheProxyService;
 import com.eghm.common.MemberTokenService;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
+import com.eghm.configuration.version.ApiVersionRequestMappingHandlerMapping;
 import com.eghm.constants.CommonConstant;
 import com.eghm.service.sys.BlackRosterService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
 import com.eghm.web.configuration.interceptor.ApiSignInterceptor;
 import com.eghm.web.configuration.interceptor.ApiVersionInterceptor;
-import com.eghm.configuration.version.ApiVersionRequestMappingHandlerMapping;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import com.eghm.web.configuration.interceptor.MessageInterceptor;
 import com.eghm.web.configuration.interceptor.SubmitIntervalInterceptor;
 import com.eghm.web.configuration.interceptor.TokenInterceptor;
@@ -25,6 +24,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import static com.eghm.constants.CommonConstant.FILTER_PATTERN;
 import static com.eghm.constants.CommonConstant.INTERCEPTOR_PATTERN;
@@ -40,7 +40,7 @@ import static com.eghm.constants.CommonConstant.WEBAPP_PREFIX;
 public class WebappMvcConfig extends WebMvcConfig {
     
     private final CacheProxyService cacheProxyService;
-
+    
     private final MemberTokenService memberTokenService;
     
     public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, MemberTokenService memberTokenService, CacheProxyService cacheProxyService, @Qualifier("taskExecutor") TaskExecutor taskExecutor) {
@@ -48,7 +48,7 @@ public class WebappMvcConfig extends WebMvcConfig {
         this.cacheProxyService = cacheProxyService;
         this.memberTokenService = memberTokenService;
     }
-
+    
     @Override
     public void addInterceptors(@Nonnull InterceptorRegistry registry) {
         String[] notifyUrl = new String[]{CommonConstant.ALI_PAY_NOTIFY_URL, CommonConstant.ALI_REFUND_NOTIFY_URL, CommonConstant.WECHAT_PAY_NOTIFY_URL, CommonConstant.WECHAT_REFUND_NOTIFY_URL};
@@ -58,7 +58,7 @@ public class WebappMvcConfig extends WebMvcConfig {
         registry.addInterceptor(submitIntervalInterceptor()).addPathPatterns(WEBAPP_PREFIX + INTERCEPTOR_PATTERN).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 30);
         registry.addInterceptor(apiVersionInterceptor()).addPathPatterns(WEBAPP_PREFIX + INTERCEPTOR_PATTERN).order(Integer.MIN_VALUE + 35);
     }
-
+    
     /**
      * 登陆校验拦截器
      */
@@ -66,7 +66,7 @@ public class WebappMvcConfig extends WebMvcConfig {
     public HandlerInterceptor tokenInterceptor() {
         return new TokenInterceptor(memberTokenService);
     }
-
+    
     /**
      * 提交间隔限制
      */
@@ -74,7 +74,7 @@ public class WebappMvcConfig extends WebMvcConfig {
     public HandlerInterceptor submitIntervalInterceptor() {
         return new SubmitIntervalInterceptor();
     }
-
+    
     /**
      * 请求基础信息收集拦截器
      */
@@ -82,7 +82,7 @@ public class WebappMvcConfig extends WebMvcConfig {
     public HandlerInterceptor messageInterceptor() {
         return new MessageInterceptor();
     }
-
+    
     /**
      * 请求基础信息收集拦截器
      */
@@ -97,7 +97,7 @@ public class WebappMvcConfig extends WebMvcConfig {
     public HandlerInterceptor apiVersionInterceptor() {
         return new ApiVersionInterceptor();
     }
-
+    
     /**
      * API版本路由处理器
      */
@@ -121,7 +121,7 @@ public class WebappMvcConfig extends WebMvcConfig {
         registrationBean.setOrder(Integer.MIN_VALUE);
         return registrationBean;
     }
-
+    
     /**
      * 过滤器,由spring管理
      */

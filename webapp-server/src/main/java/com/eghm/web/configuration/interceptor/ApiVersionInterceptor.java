@@ -1,4 +1,4 @@
-﻿package com.eghm.web.configuration.interceptor;
+package com.eghm.web.configuration.interceptor;
 
 import com.eghm.annotation.ApiVersion;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * API版本拦截器
  * 用于处理废弃版本的警告信息
- * 
+ *
  * @since 2026/6/15
  */
 public class ApiVersionInterceptor implements InterceptorAdapter {
@@ -26,5 +26,5 @@ public class ApiVersionInterceptor implements InterceptorAdapter {
         }
         return true;
     }
-
+    
 }
