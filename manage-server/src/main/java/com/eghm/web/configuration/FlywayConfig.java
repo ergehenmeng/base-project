@@ -1,7 +1,9 @@
 package com.eghm.web.configuration;
 
+import lombok.AllArgsConstructor;
 import org.flywaydb.core.Flyway;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.flyway.FlywayProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,35 +17,25 @@ import javax.sql.DataSource;
  * @since 2026/6/16
  */
 @Configuration
+@AllArgsConstructor
+@EnableConfigurationProperties(FlywayProperties.class)
 public class FlywayConfig {
     
-    @Value("${spring.flyway.enabled:true}")
-    private boolean enabled;
-    
-    @Value("${spring.flyway.locations:classpath:db/migration}")
-    private String locations;
-    
-    @Value("${spring.flyway.baseline-on-migrate:true}")
-    private boolean baselineOnMigrate;
-    
-    @Value("${spring.flyway.baseline-version:0}")
-    private String baselineVersion;
-    
-    @Value("${spring.flyway.table:flyway_schema_history}")
-    private String table;
+    private final FlywayProperties flywayProperties;
     
     @Bean(initMethod = "migrate")
     public Flyway flyway(DataSource dataSource) {
-        if (!enabled) {
+        if (!flywayProperties.isEnabled()) {
             return null;
         }
         return Flyway.configure()
                 .dataSource(dataSource)
-                .locations(locations)
-                .baselineOnMigrate(baselineOnMigrate)
-                .baselineVersion(baselineVersion)
+                .locations(flywayProperties.getLocations().toArray(new String[0]))
+                .baselineOnMigrate(flywayProperties.isBaselineOnMigrate())
+                .baselineVersion(flywayProperties.getBaselineVersion())
                 .placeholderReplacement(false)
-                .table(table)
+                .cleanDisabled(true)
+                .table(flywayProperties.getTable())
                 .load();
     }
 }

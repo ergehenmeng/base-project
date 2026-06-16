@@ -90,6 +90,7 @@ public class WebappMvcConfig extends WebMvcConfig {
     public HandlerInterceptor apiSignInterceptor() {
         return new ApiSignInterceptor(cacheProxyService);
     }
+    
     /**
      * API版本拦截器
      */
