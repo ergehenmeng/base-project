@@ -17,7 +17,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * 程序启动入口
- * 排除RabbitConfig是因为管理后台暂不使用mq
+ * 排除FlywayAutoConfiguration是因为Spring Boot高版本使用高版本flyway时, flyway不支持mysql5.7及以下版本
+ * 因此必须使用低版本flyway, 但是低版本flyway不兼容高版本Spring Boot自动化配置, 因此需要手动配置flywayBean
  *
  * @author 二哥很猛
  */
