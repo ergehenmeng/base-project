@@ -25,6 +25,8 @@ import java.time.LocalDate;
 import static com.eghm.utils.StringUtil.isBlank;
 
 /**
+ *  原签名方式为 MD5 + RSA, 但由于MD5太过于简单, RSA需要把私钥给第三方,不符合RSA规范, 又不想让第三方提供公钥, 因此采用HMAC-SHA256签名
+ *
  * @author 二哥很猛
  * @since 2023/10/20
  */
