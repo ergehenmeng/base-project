@@ -6,7 +6,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:p6spy:mysql://127.0.0.1:3306/base_project?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false&serverTimezone=Asia/Shanghai&useSSL=true
     username: root
-    password: root
+    password: ENC(rvswq9bXY0fSKXi3MpqZrQ==)
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     hikari:
       connection-test-query: select 'x'

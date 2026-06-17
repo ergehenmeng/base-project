@@ -84,6 +84,8 @@
         <flyway.version>7.15.0</flyway.version>
         <!--resilience4j限流熔断-->
         <resilience4j.version>2.2.0</resilience4j.version>
+        <!--jasypt配置文件加密-->
+        <jasypt.version>3.0.5</jasypt.version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -308,6 +310,11 @@
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-core</artifactId>
                 <version>${flyway.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

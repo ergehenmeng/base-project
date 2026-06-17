@@ -85,5 +85,6 @@
     <logger name="org.springframework" level="warn"/>
     <logger name="freemarker" level="warn"/>
     <logger name="springfox.documentation" level="warn"/>
+    <logger name="com.ulisesbocchio" level="warn"/>
 
 </configuration>

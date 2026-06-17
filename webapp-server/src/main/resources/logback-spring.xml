@@ -98,5 +98,6 @@
     <logger name="jdbc.connection" level="error"/>
     <logger name="org.springframework" level="warn"/>
     <logger name="springfox.documentation" level="warn"/>
+    <logger name="com.ulisesbocchio" level="warn"/>
 
 </configuration>
