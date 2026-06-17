@@ -13,7 +13,7 @@ import static com.eghm.constants.CommonConstant.DEFAULT_VERSION;
  * API版本请求条件 用于根据请求头中的版本号匹配对应的Controller方法
  *
  * @param apiVersion 接口版本号
- * @since 2026/6/15
+ * @since 2025/6/15
  * @author eghm
  */
 public record ApiVersionCondition(String apiVersion) implements RequestCondition<ApiVersionCondition> {

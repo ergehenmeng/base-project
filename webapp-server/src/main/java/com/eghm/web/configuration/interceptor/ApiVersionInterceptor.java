@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
  * API版本拦截器
  * 用于处理废弃版本的警告信息
  *
- * @since 2026/6/15
+ * @since 2025/6/15
  */
 public class ApiVersionInterceptor implements InterceptorAdapter {
     

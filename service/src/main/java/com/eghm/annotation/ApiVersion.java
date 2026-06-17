@@ -13,7 +13,7 @@ import static com.eghm.constants.CommonConstant.DEFAULT_VERSION;
  * 用于标记Controller或方法的API版本号
  * 版本号通过请求头 Api-Version 传递
  *
- * @since 2026/6/15
+ * @since 2025/6/15
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
