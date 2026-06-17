@@ -1,6 +1,6 @@
 package com.eghm.configuration.version;
 
-import com.eghm.constants.AppHeader;
+import com.eghm.constants.ApplicationHeader;
 import com.eghm.utils.VersionUtil;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,7 +26,7 @@ public record ApiVersionCondition(String apiVersion) implements RequestCondition
     
     @Override
     public ApiVersionCondition getMatchingCondition(HttpServletRequest request) {
-        String versionStr = request.getHeader(AppHeader.API_VERSION);
+        String versionStr = request.getHeader(ApplicationHeader.API_VERSION);
         if (versionStr == null || versionStr.trim().isEmpty()) {
             return new ApiVersionCondition(DEFAULT_VERSION);
         }

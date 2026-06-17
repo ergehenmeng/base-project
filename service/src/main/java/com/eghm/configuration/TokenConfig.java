@@ -22,13 +22,13 @@ public class TokenConfig {
 
     @Bean
     @ConditionalOnProperty(prefix = "system.manage.token", name = "token-type", havingValue = "jwt")
-    public UserTokenService jwtAccessTokenService(CommonService commonService, SystemProperties systemProperties) {
-        return new JwtUserTokenServiceImpl(commonService, systemProperties);
+    public UserTokenService jwtAccessTokenService(CommonService commonService, ApplicationProperties applicationProperties) {
+        return new JwtUserTokenServiceImpl(commonService, applicationProperties);
     }
 
     @Bean
     @ConditionalOnProperty(prefix = "system.manage.token", name = "token-type", havingValue = "redis", matchIfMissing = true)
-    public UserTokenService redisAccessTokenService(SystemProperties systemProperties, CommonService commonService, CacheService cacheService, JsonService jsonService) {
-        return new RedisUserTokenServiceImpl(jsonService, cacheService, commonService, systemProperties);
+    public UserTokenService redisAccessTokenService(ApplicationProperties applicationProperties, CommonService commonService, CacheService cacheService, JsonService jsonService) {
+        return new RedisUserTokenServiceImpl(jsonService, cacheService, commonService, applicationProperties);
     }
 }

@@ -2,7 +2,7 @@ package com.eghm.common.impl;
 
 import com.eghm.common.JsonService;
 import com.eghm.common.SendSmsService;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.enums.TemplateType;
 import com.google.common.collect.Lists;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
@@ -27,7 +27,7 @@ public class TencentSmsServiceImpl implements SendSmsService {
 
     private final JsonService jsonService;
 
-    private final SystemProperties systemProperties;
+    private final ApplicationProperties applicationProperties;
 
     private static final String SUCCESS = "OK";
 
@@ -39,7 +39,7 @@ public class TencentSmsServiceImpl implements SendSmsService {
     @Override
     public int sendSms(List<String> mobileList, TemplateType templateType, String... params) {
         SendSmsRequest request = new SendSmsRequest();
-        request.setSignName(systemProperties.getSms().getSignName());
+        request.setSignName(applicationProperties.getSms().getSignName());
         request.setTemplateId(templateType.getTemplateId());
         request.setPhoneNumberSet(mobileList.toArray(new String[]{}));
         request.setTemplateParamSet(params);

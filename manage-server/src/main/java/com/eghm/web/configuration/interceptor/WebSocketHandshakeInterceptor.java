@@ -1,7 +1,6 @@
 package com.eghm.web.configuration.interceptor;
 
 import com.eghm.common.UserTokenService;
-import com.eghm.configuration.SystemProperties;
 import com.eghm.dto.ext.UserToken;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +15,7 @@ import org.springframework.web.socket.server.HandshakeInterceptor;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.eghm.constants.ApplicationHeader.TOKEN;
 import static com.eghm.constants.CommonConstant.SECURITY_USER;
 
 /**
@@ -31,12 +31,10 @@ public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
 
     private final UserTokenService userTokenService;
 
-    private final SystemProperties.ManageProperties manageProperties;
-
     @Override
     public boolean beforeHandshake(@Nonnull ServerHttpRequest request, @Nonnull ServerHttpResponse response, @Nonnull WebSocketHandler wsHandler, @Nonnull Map<String, Object> attributes) {
         HttpServletRequest serverRequest = ((ServletServerHttpRequest) request).getServletRequest();
-        Optional<UserToken> optional = userTokenService.parseToken(serverRequest.getParameter(manageProperties.getToken().getTokenName()));
+        Optional<UserToken> optional = userTokenService.parseToken(serverRequest.getParameter(TOKEN));
         boolean present = optional.isPresent();
         if (present) {
             attributes.put(SECURITY_USER, optional.get());

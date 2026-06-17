@@ -1,7 +1,7 @@
 package com.eghm.web.configuration.filter;
 
 import com.eghm.common.UserTokenService;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import static com.eghm.constants.ApplicationHeader.TOKEN;
+
 /**
  * 针对后端转发的接口,依旧要经过该过滤器来获取用户信息, 故该接口不实现OncePerRequestFilter
  *
@@ -33,7 +35,7 @@ public class AuthFilter implements Filter {
 
     private final UserTokenService userTokenService;
 
-    private final SystemProperties.ManageProperties manageProperties;
+    private final ApplicationProperties.ManageProperties manageProperties;
 
     private final AntPathMatcher matcher = new AntPathMatcher();
 
@@ -45,7 +47,7 @@ public class AuthFilter implements Filter {
         if (this.shouldNotFilter(exclude, httpRequest)) {
             chain.doFilter(request, response);
         } else {
-            String header = httpRequest.getHeader(manageProperties.getToken().getTokenName());
+            String header = httpRequest.getHeader(TOKEN);
             String prefix = manageProperties.getToken().getTokenPrefix();
             if (header != null && header.startsWith(prefix)) {
                 Optional<UserToken> optional = userTokenService.parseToken(header.replace(prefix, ""));

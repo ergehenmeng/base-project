@@ -1,7 +1,7 @@
 package com.eghm.common.impl;
 
 import com.eghm.common.JsonService;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.enums.AlarmType;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,11 +14,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class WeChatAlarmServiceImpl extends AbstractAlarmService {
 
-    private final SystemProperties systemProperties;
+    private final ApplicationProperties applicationProperties;
     
-    public WeChatAlarmServiceImpl(JsonService jsonService, SystemProperties systemProperties) {
-        super(jsonService, systemProperties);
-        this.systemProperties = systemProperties;
+    public WeChatAlarmServiceImpl(JsonService jsonService, ApplicationProperties applicationProperties) {
+        super(jsonService, applicationProperties);
+        this.applicationProperties = applicationProperties;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class WeChatAlarmServiceImpl extends AbstractAlarmService {
 
     @Override
     protected String createRequestUrl() {
-        return systemProperties.getAlarm().getWebHook();
+        return applicationProperties.getAlarm().getWebHook();
     }
     
     /**

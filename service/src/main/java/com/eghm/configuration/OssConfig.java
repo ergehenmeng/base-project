@@ -28,25 +28,26 @@ public class OssConfig {
 
     @Bean
     @ConditionalOnProperty(prefix = "system", name = "upload-type", havingValue = "system", matchIfMissing = true)
-    public FileService systemFileService(SystemProperties systemProperties, SysConfigApi sysConfigApi, AlarmService alarmService) {
-        return new SystemFileServiceImpl(sysConfigApi, alarmService, systemProperties);
+    public FileService systemFileService(ApplicationProperties applicationProperties, SysConfigApi sysConfigApi, AlarmService alarmService) {
+        return new SystemFileServiceImpl(sysConfigApi, alarmService, applicationProperties);
     }
 
     @Bean
     @ConditionalOnProperty(prefix = "system", name = "upload-type", havingValue = "ali-oss")
-    public FileService aliOssFileService(SystemProperties systemProperties, AlarmService alarmService, SysConfigApi sysConfigApi) throws ClientException {
-        return new AliOssFileServiceImpl(this.createClient(systemProperties), sysConfigApi, alarmService, systemProperties);
+    public FileService aliOssFileService(ApplicationProperties applicationProperties, AlarmService alarmService, SysConfigApi sysConfigApi) throws ClientException {
+        return new AliOssFileServiceImpl(this.createClient(applicationProperties), sysConfigApi, alarmService,
+                applicationProperties);
     }
 
     /**
      * 阿里云oss客户端
      *
-     * @param systemProperties 配置oss
+     * @param applicationProperties 配置oss
      * @return client
      * @throws ClientException e
      */
-    private OSS createClient(SystemProperties systemProperties) throws ClientException {
-        SystemProperties.AliOss oss = systemProperties.getAli().getOss();
+    private OSS createClient(ApplicationProperties applicationProperties) throws ClientException {
+        ApplicationProperties.AliOss oss = applicationProperties.getAli().getOss();
         EnvironmentVariableCredentialsProvider credentialsProvider = CredentialsProviderFactory.newEnvironmentVariableCredentialsProvider();
         ClientBuilderConfiguration clientBuilderConfiguration = new ClientBuilderConfiguration();
         clientBuilderConfiguration.setSignatureVersion(SignVersion.V4);

@@ -70,7 +70,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, Validati
 
     private final TaskExecutor taskExecutor;
 
-    protected final SystemProperties systemProperties;
+    protected final ApplicationProperties applicationProperties;
 
     /**
      * 图形验证码
@@ -90,7 +90,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, Validati
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "4");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "abcdefhkmnprstwxy2345678ABCEFGHGKMNPRSTWXY");
         properties.setProperty(Constants.KAPTCHA_OBSCURIFICATOR_IMPL, RandomDissolveGimpy.class.getName());
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL, systemProperties.getManage().getCaptchaType().getName());
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL, applicationProperties.getManage().getCaptchaType().getName());
         Config config = new Config(properties);
         captcha.setConfig(config);
         return captcha;
@@ -98,7 +98,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, Validati
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resource/**").addResourceLocations("file:///" + systemProperties.getUploadPath() + CommonConstant.ROOT_FOLDER);
+        registry.addResourceHandler("/resource/**").addResourceLocations("file:///" + applicationProperties.getUploadPath() + CommonConstant.ROOT_FOLDER);
     }
 
     @Override
@@ -151,7 +151,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, Validati
 
     @Bean
     public AlarmService alarmService(JsonService jsonService) {
-        SystemProperties.Alarm alarm = systemProperties.getAlarm();
+        ApplicationProperties.Alarm alarm = applicationProperties.getAlarm();
         if (alarm.getType() == AlarmType.DEFAULT) {
             return new DefaultAlarmServiceImpl();
         }
@@ -159,13 +159,13 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, Validati
             throw new BusinessException(ErrorCode.WEB_HOOK_NULL);
         }
         if (alarm.getType() == AlarmType.DING_TALK) {
-            return new DingTalkAlarmServiceImpl(jsonService, systemProperties);
+            return new DingTalkAlarmServiceImpl(jsonService, applicationProperties);
         }
         if (alarm.getType() == AlarmType.FEI_SHU) {
-            return new FeiShuAlarmServiceImpl(jsonService, systemProperties);
+            return new FeiShuAlarmServiceImpl(jsonService, applicationProperties);
         }
         if (alarm.getType() == AlarmType.ENTERPRISE_WECHAT) {
-            return new WeChatAlarmServiceImpl(jsonService, systemProperties);
+            return new WeChatAlarmServiceImpl(jsonService, applicationProperties);
         }
         return new DefaultAlarmServiceImpl();
     }

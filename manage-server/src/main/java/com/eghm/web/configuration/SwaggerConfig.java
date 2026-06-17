@@ -1,15 +1,15 @@
 package com.eghm.web.configuration;
 
-import com.eghm.configuration.SystemProperties;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.parameters.HeaderParameter;
 import lombok.AllArgsConstructor;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+
+import static com.eghm.constants.ApplicationHeader.TOKEN;
 
 /**
  * @author 二哥很猛
@@ -20,20 +20,11 @@ import org.springframework.context.annotation.Profile;
 @Profile({"dev", "test"})
 public class SwaggerConfig {
 
-    private final SystemProperties systemProperties;
-
     @Bean
     public GroupedOpenApi userApi() {
-        SystemProperties.ManageProperties properties = systemProperties.getManage();
         return GroupedOpenApi.builder().group("管理端API接口")
                 .pathsToMatch("/**")
-                .addOperationCustomizer((operation, handlerMethod) -> {
-                    if (properties.getToken() == null) {
-                        return operation;
-                    }
-                    SystemProperties.ManageProperties.Token token = properties.getToken();
-                    return operation.addParametersItem(new HeaderParameter().name(token.getTokenName()).required(true).schema(new StringSchema()._default(token.getTokenPrefix() + token.getMockToken()).name(token.getTokenName()).description("令牌")));
-                })
+                .addOperationCustomizer((operation, handlerMethod) -> operation.addParametersItem(new HeaderParameter().name(TOKEN).required(true).description("令牌")))
                 .packagesToScan("com.eghm.web.controller").build();
     }
 

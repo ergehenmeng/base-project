@@ -2,7 +2,7 @@ package com.eghm.common.impl;
 
 import cn.hutool.crypto.SecureUtil;
 import com.eghm.common.JsonService;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.dto.ext.FeiShuMsg;
 import com.eghm.enums.AlarmType;
 import lombok.extern.slf4j.Slf4j;
@@ -16,11 +16,11 @@ import static com.eghm.utils.StringUtil.isNotBlank;
 @Slf4j
 public class FeiShuAlarmServiceImpl extends AbstractAlarmService {
 
-    private final SystemProperties systemProperties;
+    private final ApplicationProperties applicationProperties;
     
-    public FeiShuAlarmServiceImpl(JsonService jsonService, SystemProperties systemProperties) {
-        super(jsonService, systemProperties);
-        this.systemProperties = systemProperties;
+    public FeiShuAlarmServiceImpl(JsonService jsonService, ApplicationProperties applicationProperties) {
+        super(jsonService, applicationProperties);
+        this.applicationProperties = applicationProperties;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class FeiShuAlarmServiceImpl extends AbstractAlarmService {
     
     @Override
     protected String createRequestUrl() {
-        return systemProperties.getAlarm().getWebHook();
+        return applicationProperties.getAlarm().getWebHook();
     }
     
     @Override
@@ -39,10 +39,10 @@ public class FeiShuAlarmServiceImpl extends AbstractAlarmService {
         String builder = super.createMessageContent(content);
         msg.setContent(new FeiShuMsg.Content(builder));
         msg.setMsgType("text");
-        if (isNotBlank(systemProperties.getAlarm().getSecret())) {
+        if (isNotBlank(applicationProperties.getAlarm().getSecret())) {
             long timestamp = System.currentTimeMillis();
-            String unSign = timestamp + "\n" + systemProperties.getAlarm().getSecret();
-            String sign = SecureUtil.hmacSha256(systemProperties.getAlarm().getSecret()).digestBase64(unSign, true);
+            String unSign = timestamp + "\n" + applicationProperties.getAlarm().getSecret();
+            String sign = SecureUtil.hmacSha256(applicationProperties.getAlarm().getSecret()).digestBase64(unSign, true);
             msg.setTimestamp(timestamp);
             msg.setSign(sign);
         }

@@ -1,5 +1,6 @@
 package com.eghm.web.configuration;
 
+import com.eghm.constants.ApplicationHeader;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.parameters.HeaderParameter;
@@ -23,10 +24,9 @@ public class SwaggerConfig {
     public GroupedOpenApi userApi() {
         return GroupedOpenApi.builder().group("移动端API接口")
                 .pathsToMatch("/**")
-                .addOperationCustomizer((operation, handlerMethod) -> {
-                    operation.addParametersItem(new HeaderParameter().name("Channel").required(true).description("操作渠道"));
-                    return operation.addParametersItem(new HeaderParameter().name("Token").required(true).description("令牌"));
-                })
+                .addOperationCustomizer((operation, handlerMethod) ->
+                        operation.addParametersItem(new HeaderParameter().name(ApplicationHeader.CHANNEL).required(true).description("操作渠道"))
+                        .addParametersItem(new HeaderParameter().name(ApplicationHeader.TOKEN).required(true).description("令牌")))
                 .packagesToScan("com.eghm.web.controller").build();
     }
 

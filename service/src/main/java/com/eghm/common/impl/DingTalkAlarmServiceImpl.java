@@ -3,7 +3,7 @@ package com.eghm.common.impl;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.eghm.common.JsonService;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.enums.AlarmType;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,11 +20,11 @@ import static com.eghm.utils.StringUtil.isNotBlank;
 @Slf4j
 public class DingTalkAlarmServiceImpl extends AbstractAlarmService {
 
-    private final SystemProperties systemProperties;
+    private final ApplicationProperties applicationProperties;
     
-    public DingTalkAlarmServiceImpl(JsonService jsonService, SystemProperties systemProperties) {
-        super(jsonService, systemProperties);
-        this.systemProperties = systemProperties;
+    public DingTalkAlarmServiceImpl(JsonService jsonService, ApplicationProperties applicationProperties) {
+        super(jsonService, applicationProperties);
+        this.applicationProperties = applicationProperties;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class DingTalkAlarmServiceImpl extends AbstractAlarmService {
     
     @Override
     protected String createRequestUrl() {
-        SystemProperties.Alarm alarm = systemProperties.getAlarm();
+        ApplicationProperties.Alarm alarm = applicationProperties.getAlarm();
         Map<String, Object> paramMap = new HashMap<>(4);
         paramMap.put("access_token", alarm.getWebHook());
         if (isNotBlank(alarm.getSecret())) {

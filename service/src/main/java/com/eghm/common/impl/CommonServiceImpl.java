@@ -6,7 +6,7 @@ import cn.hutool.crypto.asymmetric.RSA;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.cache.CacheService;
 import com.eghm.common.CommonService;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.enums.ErrorCode;
@@ -39,7 +39,7 @@ public class CommonServiceImpl implements CommonService {
 
     private final SysAreaMapper sysAreaMapper;
     
-    private final SystemProperties systemProperties;
+    private final ApplicationProperties applicationProperties;
 
     private final CacheProxyService cacheProxyService;
 
@@ -73,7 +73,7 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public void savePermission(String token, List<String> permList) {
-        cacheService.setValue(CacheConstant.USER_PERMISSION + token, permList, systemProperties.getManage().getToken().getExpire());
+        cacheService.setValue(CacheConstant.USER_PERMISSION + token, permList, applicationProperties.getManage().getToken().getExpire());
     }
 
     @Override
@@ -112,8 +112,8 @@ public class CommonServiceImpl implements CommonService {
             synchronized (this) {
                 if (rsaInstance == null) {
                     rsaInstance = SecureUtil.rsa(
-                            systemProperties.getPrivateKey(),
-                            systemProperties.getPublicKey()
+                            applicationProperties.getPrivateKey(),
+                            applicationProperties.getPublicKey()
                     );
                 }
             }

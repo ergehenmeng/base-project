@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.util.IdUtil;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.wechat.LinkUrlRequest;
 import com.eghm.dto.wechat.QrCodeRequest;
@@ -45,7 +45,7 @@ public class WeChatController {
 
     private final WeChatMpService weChatMpService;
 
-    private final SystemProperties systemProperties;
+    private final ApplicationProperties applicationProperties;
 
     private final WeChatMiniService weChatMiniService;
 
@@ -73,7 +73,7 @@ public class WeChatController {
     @GetMapping("/qrcode/url")
     @Operation(summary = "获取PC扫码跳转地址")
     public RespBody<String> getQrConnectUrl(HttpSession session) {
-        List<LoginType> typeList = systemProperties.getManage().getLoginTypes();
+        List<LoginType> typeList = applicationProperties.getManage().getLoginTypes();
         if (!typeList.contains(LoginType.QRCODE)) {
             throw new BusinessException(ErrorCode.QRCODE_NOT_SUPPORTED);
         }

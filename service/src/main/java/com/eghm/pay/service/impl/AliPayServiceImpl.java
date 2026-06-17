@@ -14,7 +14,7 @@ import com.alipay.api.response.AlipayTradeFastpayRefundQueryResponse;
 import com.alipay.api.response.AlipayTradeQueryResponse;
 import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.eghm.common.impl.SysConfigApi;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.enums.ErrorCode;
@@ -58,7 +58,7 @@ public class AliPayServiceImpl implements PayService {
 
     private final SysConfigApi sysConfigApi;
 
-    private final SystemProperties systemProperties;
+    private final ApplicationProperties applicationProperties;
 
     private DefaultAlipayClient defaultAlipayClient;
 
@@ -207,7 +207,7 @@ public class AliPayServiceImpl implements PayService {
 
     @Override
     public void verifyNotify(Map<String, String> param) {
-        SystemProperties.AliPay pay = systemProperties.getAli().getPay();
+        ApplicationProperties.AliPay pay = applicationProperties.getAli().getPay();
         boolean flag = false;
         try {
             flag = AlipaySignature.rsaCheckV1(param, pay.getPublicKey(), "UTF-8", "RSA2");

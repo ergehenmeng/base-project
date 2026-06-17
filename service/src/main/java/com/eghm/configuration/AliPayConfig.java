@@ -20,8 +20,8 @@ public class AliPayConfig {
 
     @Bean
     @ConditionalOnProperty(prefix = "system.ali.pay", name = "app-id")
-    public DefaultAlipayClient alipayClient(SystemProperties systemProperties) throws AlipayApiException {
-        SystemProperties.AliPay pay = systemProperties.getAli().getPay();
+    public DefaultAlipayClient alipayClient(ApplicationProperties applicationProperties) throws AlipayApiException {
+        ApplicationProperties.AliPay pay = applicationProperties.getAli().getPay();
         AlipayConfig alipayConfig = new AlipayConfig();
         alipayConfig.setAppId(pay.getAppId());
         alipayConfig.setPrivateKey(pay.getPrivateKey());

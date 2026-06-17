@@ -4,13 +4,13 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * 移动端请求头信息/响应头信息
+ * 请求头信息/响应头信息
  *
  * @author 二哥很猛
  * @since 2018/8/14 16:57
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class AppHeader {
+public class ApplicationHeader {
 
     /**
      * 基础参数 请求渠道

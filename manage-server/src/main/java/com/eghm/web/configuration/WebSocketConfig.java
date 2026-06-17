@@ -1,7 +1,6 @@
 package com.eghm.web.configuration;
 
 import com.eghm.common.UserTokenService;
-import com.eghm.configuration.SystemProperties;
 import com.eghm.web.configuration.interceptor.WebSocketHandshakeInterceptor;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -23,8 +22,6 @@ import static com.eghm.constants.CommonConstant.WEBSOCKET_PREFIX;
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-    private final SystemProperties systemProperties;
-
     private final UserTokenService userTokenService;
 
     private final ThreadPoolTaskScheduler taskScheduler;
@@ -43,6 +40,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Bean
     public WebSocketHandshakeInterceptor webSocketHandshakeInterceptor() {
-        return new WebSocketHandshakeInterceptor(userTokenService, systemProperties.getManage());
+        return new WebSocketHandshakeInterceptor(userTokenService);
     }
 }

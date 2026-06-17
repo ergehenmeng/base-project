@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Configuration;
 @AllArgsConstructor
 public class WeChatConfig {
 
-    private final SystemProperties systemProperties;
+    private final ApplicationProperties applicationProperties;
 
     /**
      * 微信公众号
@@ -31,7 +31,7 @@ public class WeChatConfig {
     @Bean
     @ConditionalOnProperty(prefix = "system.wechat.mp", name = "app-id")
     public WxMpService wxMpService() {
-        SystemProperties.WeChatProperties weChatProperties = systemProperties.getWechat();
+        ApplicationProperties.WeChatProperties weChatProperties = applicationProperties.getWechat();
         WxMpService service = new WxMpServiceImpl();
         WxMpMapConfigImpl config = new WxMpMapConfigImpl();
         config.setAppId(weChatProperties.getMp().getAppId());
@@ -48,7 +48,7 @@ public class WeChatConfig {
     public WxMaService wxMaService() {
         WxMaService service = new WxMaServiceImpl();
         WxMaDefaultConfigImpl config = new WxMaDefaultConfigImpl();
-        SystemProperties.WeChatProperties weChatProperties = systemProperties.getWechat();
+        ApplicationProperties.WeChatProperties weChatProperties = applicationProperties.getWechat();
         config.setAppid(weChatProperties.getMa().getAppId());
         config.setSecret(weChatProperties.getMa().getAppSecret());
         service.setWxMaConfig(config);
@@ -63,7 +63,7 @@ public class WeChatConfig {
     public WxPayService wxPayService() {
         WxPayService service = new WxPayServiceImpl();
         WxPayConfig config = new WxPayConfig();
-        SystemProperties.WxPay pay = systemProperties.getWechat().getPay();
+        ApplicationProperties.WxPay pay = applicationProperties.getWechat().getPay();
         config.setMchId(pay.getMchId());
         config.setSignType(WxPayConstants.SignType.HMAC_SHA256);
         config.setApiV3Key(pay.getApiV3Key());

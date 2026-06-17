@@ -4,7 +4,7 @@ import cn.hutool.core.lang.UUID;
 import com.aliyun.oss.OSS;
 import com.eghm.common.AlarmService;
 import com.eghm.common.FileService;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.enums.ErrorCode;
@@ -33,11 +33,11 @@ public class AliOssFileServiceImpl implements FileService {
 
     private final AlarmService alarmService;
 
-    private final SystemProperties systemProperties;
+    private final ApplicationProperties applicationProperties;
 
     @Override
     public FilePath saveFile(String key, MultipartFile file) {
-        return this.saveFile(key, file, systemProperties.getUploadFolder(), sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
+        return this.saveFile(key, file, applicationProperties.getUploadFolder(), sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
     }
 
     @Override
@@ -86,12 +86,12 @@ public class AliOssFileServiceImpl implements FileService {
     private FilePath doUploadFile(MultipartFile file, String folder) {
         String fileName = this.generateFileName(file, folder);
         try (InputStream inputStream = file.getInputStream()) {
-            ossClient.putObject(systemProperties.getAli().getOss().getBucketName(), fileName, inputStream);
+            ossClient.putObject(applicationProperties.getAli().getOss().getBucketName(), fileName, inputStream);
         } catch (Exception e) {
             log.error("ALI_OSS文件上传失败, 文件名:[{}]", fileName, e);
             throw new BusinessException(ErrorCode.FILE_SAVE_ERROR);
         }
-        return new FilePath(fileName, systemProperties.getAli().getOss().getAccessDomain(), file.getSize());
+        return new FilePath(fileName, applicationProperties.getAli().getOss().getAccessDomain(), file.getSize());
     }
 
 }

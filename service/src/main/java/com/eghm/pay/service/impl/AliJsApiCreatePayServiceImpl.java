@@ -5,7 +5,7 @@ import com.alipay.api.domain.AlipayTradeCreateModel;
 import com.alipay.api.request.AlipayTradeCreateRequest;
 import com.alipay.api.response.AlipayTradeCreateResponse;
 import com.eghm.common.impl.SysConfigApi;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.enums.ErrorCode;
@@ -35,7 +35,7 @@ public class AliJsApiCreatePayServiceImpl implements CreatePayService {
 
     private final SysConfigApi sysConfigApi;
 
-    private final SystemProperties systemProperties;
+    private final ApplicationProperties applicationProperties;
 
     private DefaultAlipayClient defaultAlipayClient;
 
@@ -57,7 +57,7 @@ public class AliJsApiCreatePayServiceImpl implements CreatePayService {
         model.setTotalAmount(DecimalUtil.centToYuan(dto.getAmount()));
         model.setSubject(dto.getDescription());
         model.setProductCode(TradeType.JSAPI_PAY.getCode());
-        model.setOpAppId(systemProperties.getAli().getPay().getAppId());
+        model.setOpAppId(applicationProperties.getAli().getPay().getAppId());
         model.setBuyerOpenId(dto.getBuyerId());
         int expireTime = sysConfigApi.getInt(ConfigConstant.ORDER_EXPIRE_TIME);
         model.setTimeExpire(DateUtil.format(LocalDateTime.now().plusSeconds(expireTime)));

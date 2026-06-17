@@ -43,14 +43,11 @@ spring:
           initial-interval: 10000
           enabled: true
           max-interval: 30000
-system:
+application:
   # 全局文件上传路径
   upload-path: D://file
   # 管理后台配置
   manage:
-    token:
-      # 模拟token方便调试(可在redis设置永久有效)
-      mock-token: 1fc33b2a04fb4573b51b5a7a56c13678
     login-types:
       - password
       - sms

@@ -5,7 +5,7 @@ import com.eghm.cache.CacheService;
 import com.eghm.common.CommonService;
 import com.eghm.common.JsonService;
 import com.eghm.common.UserTokenService;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.constants.CacheConstant;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.model.SysUser;
@@ -34,11 +34,11 @@ public class RedisUserTokenServiceImpl implements UserTokenService {
 
     private final CommonService commonService;
 
-    private final SystemProperties systemProperties;
+    private final ApplicationProperties applicationProperties;
 
     @Override
     public String createToken(SysUser user, List<String> dataList) {
-        SystemProperties.ManageProperties.Token tokenConfig = systemProperties.getManage().getToken();
+        ApplicationProperties.ManageProperties.Token tokenConfig = applicationProperties.getManage().getToken();
         String token = this.doCreateToken(user, tokenConfig.getExpire(), dataList);
         this.clearSetToken(user.getId(), token);
         return tokenConfig.getTokenPrefix() + token;

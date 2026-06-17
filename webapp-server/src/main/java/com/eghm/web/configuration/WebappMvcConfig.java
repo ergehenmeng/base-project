@@ -2,7 +2,7 @@ package com.eghm.web.configuration;
 
 import com.eghm.cache.CacheProxyService;
 import com.eghm.common.MemberTokenService;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.configuration.WebMvcConfig;
 import com.eghm.configuration.version.ApiVersionRequestMappingHandlerMapping;
 import com.eghm.constants.CommonConstant;
@@ -43,8 +43,8 @@ public class WebappMvcConfig extends WebMvcConfig {
     
     private final MemberTokenService memberTokenService;
     
-    public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, MemberTokenService memberTokenService, CacheProxyService cacheProxyService, @Qualifier("taskExecutor") TaskExecutor taskExecutor) {
-        super(objectMapper, taskExecutor, systemProperties);
+    public WebappMvcConfig(ObjectMapper objectMapper, ApplicationProperties applicationProperties, MemberTokenService memberTokenService, CacheProxyService cacheProxyService, @Qualifier("taskExecutor") TaskExecutor taskExecutor) {
+        super(objectMapper, taskExecutor, applicationProperties);
         this.cacheProxyService = cacheProxyService;
         this.memberTokenService = memberTokenService;
     }

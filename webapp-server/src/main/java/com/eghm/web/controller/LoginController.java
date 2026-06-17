@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import com.eghm.common.MemberTokenService;
 import com.eghm.common.SmsService;
-import com.eghm.constants.AppHeader;
+import com.eghm.constants.ApplicationHeader;
 import com.eghm.configuration.security.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sys.login.*;
@@ -97,7 +97,7 @@ public class LoginController {
 
     @Operation(summary = "刷新token")
     @PostMapping(value = "/token/refresh")
-    public RespBody<String> refresh(@RequestHeader(value = AppHeader.REFRESH_TOKEN, required = false) String refreshToken) {
+    public RespBody<String> refresh(@RequestHeader(value = ApplicationHeader.REFRESH_TOKEN, required = false) String refreshToken) {
         if (isBlank(refreshToken)) {
             log.warn("请求头没有包含Refresh-Token,无法刷新");
             return RespBody.error(ErrorCode.REFRESH_TOKEN_EXPIRE);

@@ -3,7 +3,7 @@ package com.eghm.web.configuration;
 import com.eghm.cache.CacheService;
 import com.eghm.common.CommonService;
 import com.eghm.common.UserTokenService;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.configuration.WebMvcConfig;
 import com.eghm.configuration.data.permission.DataScopeAspect;
 import com.eghm.service.sys.SysMenuService;
@@ -42,10 +42,10 @@ public class ManageMvcConfig extends WebMvcConfig {
 
     private final UserTokenService userTokenService;
 
-    public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, UserTokenService userTokenService,
+    public ManageMvcConfig(ObjectMapper objectMapper, ApplicationProperties applicationProperties, UserTokenService userTokenService,
                            SysMenuService sysMenuService, CacheService cacheService, @Qualifier("taskExecutor") TaskExecutor taskExecutor,
                            CommonService commonService) {
-        super(objectMapper, taskExecutor, systemProperties);
+        super(objectMapper, taskExecutor, applicationProperties);
         this.cacheService = cacheService;
         this.sysMenuService = sysMenuService;
         this.userTokenService = userTokenService;
@@ -54,7 +54,7 @@ public class ManageMvcConfig extends WebMvcConfig {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        String[] whiteList = systemProperties.getManage().getWhiteList();
+        String[] whiteList = applicationProperties.getManage().getWhiteList();
         registry.addInterceptor(submitIntervalInterceptor());
         registry.addInterceptor(permInterceptor()).addPathPatterns(MANAGE_PREFIX + INTERCEPTOR_PATTERN).excludePathPatterns(whiteList);
         registry.addInterceptor(lockScreenInterceptor()).excludePathPatterns(whiteList);
@@ -97,7 +97,7 @@ public class ManageMvcConfig extends WebMvcConfig {
      */
     @Bean("authFilter")
     public FilterRegistrationBean<AuthFilter> authFilter() {
-        SystemProperties.ManageProperties manage = systemProperties.getManage();
+        ApplicationProperties.ManageProperties manage = applicationProperties.getManage();
         FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean<>();
         AuthFilter requestFilter = new AuthFilter(userTokenService, manage);
         requestFilter.exclude(manage.getWhiteList());

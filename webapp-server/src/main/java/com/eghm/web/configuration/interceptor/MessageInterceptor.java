@@ -6,7 +6,7 @@ import cn.hutool.http.Header;
 import com.eghm.annotation.SkipLogger;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.security.ApiHolder;
-import com.eghm.constants.AppHeader;
+import com.eghm.constants.ApplicationHeader;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;
@@ -40,16 +40,16 @@ public class MessageInterceptor implements InterceptorAdapter {
     @Override
     public boolean beforeHandle(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull Object handler) throws IOException {
         // app请求头信息
-        String channel = request.getHeader(AppHeader.CHANNEL);
-        String version = request.getHeader(AppHeader.VERSION);
-        String osVersion = request.getHeader(AppHeader.OS_VERSION);
-        String deviceBrand = request.getHeader(AppHeader.DEVICE_BRAND);
-        String deviceModel = request.getHeader(AppHeader.DEVICE_MODEL);
-        String serialNumber = request.getHeader(AppHeader.SERIAL_NUMBER);
-        String appId = request.getHeader(AppHeader.APP_ID);
-        String nonce = request.getHeader(AppHeader.NONCE);
-        String signature = request.getHeader(AppHeader.SIGNATURE);
-        String timestamp = request.getHeader(AppHeader.TIMESTAMP);
+        String channel = request.getHeader(ApplicationHeader.CHANNEL);
+        String version = request.getHeader(ApplicationHeader.VERSION);
+        String osVersion = request.getHeader(ApplicationHeader.OS_VERSION);
+        String deviceBrand = request.getHeader(ApplicationHeader.DEVICE_BRAND);
+        String deviceModel = request.getHeader(ApplicationHeader.DEVICE_MODEL);
+        String serialNumber = request.getHeader(ApplicationHeader.SERIAL_NUMBER);
+        String appId = request.getHeader(ApplicationHeader.APP_ID);
+        String nonce = request.getHeader(ApplicationHeader.NONCE);
+        String signature = request.getHeader(ApplicationHeader.SIGNATURE);
+        String timestamp = request.getHeader(ApplicationHeader.TIMESTAMP);
         if (checkHeaderLength(channel)
                 || checkHeaderLength(version)
                 || checkHeaderLength(osVersion)

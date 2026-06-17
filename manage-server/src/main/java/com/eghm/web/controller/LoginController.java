@@ -3,7 +3,7 @@ package com.eghm.web.controller;
 import com.eghm.annotation.SkipPerm;
 import com.eghm.cache.CacheService;
 import com.eghm.common.UserTokenService;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
@@ -53,7 +53,7 @@ public class LoginController {
 
     private final SysUserService sysUserService;
 
-    private final SystemProperties systemProperties;
+    private final ApplicationProperties applicationProperties;
 
     private final UserTokenService userTokenService;
 
@@ -143,7 +143,7 @@ public class LoginController {
      * @param errorCode 错误时报错
      */
     private void checkLoginType(LoginType type, ErrorCode errorCode) {
-        List<LoginType> typeList = systemProperties.getManage().getLoginTypes();
+        List<LoginType> typeList = applicationProperties.getManage().getLoginTypes();
         if (!typeList.contains(type)) {
             throw new BusinessException(errorCode);
         }
@@ -157,7 +157,7 @@ public class LoginController {
      * @return true:通过
      */
     private boolean verifyCodeError(HttpServletRequest servletRequest, String code) {
-        Env env = systemProperties.getEnv();
+        Env env = applicationProperties.getEnv();
         // 开发环境默认不校验验证码
         if (env == Env.DEV || env == Env.TEST) {
             return false;

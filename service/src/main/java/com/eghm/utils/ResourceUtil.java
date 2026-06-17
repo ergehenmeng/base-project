@@ -3,7 +3,7 @@ package com.eghm.utils;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.eghm.common.impl.SysConfigApi;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
@@ -58,7 +58,7 @@ public class ResourceUtil {
     public static String getLocalPath(String path) {
         SysConfigApi sysConfigApi = SpringUtil.getBean(SysConfigApi.class);
         String fileAddress = sysConfigApi.getString(ConfigConstant.FILE_SERVER_HOST);
-        SystemProperties properties = SpringUtil.getBean(SystemProperties.class);
+        ApplicationProperties properties = SpringUtil.getBean(ApplicationProperties.class);
         if (path.startsWith(fileAddress)) {
             return "file://" + properties.getUploadPath() + path.replace(fileAddress, "");
         } else {

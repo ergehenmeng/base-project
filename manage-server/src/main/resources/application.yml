@@ -65,7 +65,7 @@ mybatis-plus:
   type-aliases-package: com.eghm.dto;com.eghm.vo;com.eghm.handler.mysql
   configuration:
     map-underscore-to-camel-case: true
-system:
+application:
   manage:
     white-list:
       - /manage/captcha

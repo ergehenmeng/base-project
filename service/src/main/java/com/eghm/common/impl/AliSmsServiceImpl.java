@@ -6,7 +6,7 @@ import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
 import com.eghm.common.JsonService;
 import com.eghm.common.SendSmsService;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.constants.CommonConstant;
 import com.eghm.enums.TemplateType;
 import com.google.common.collect.Lists;
@@ -31,7 +31,7 @@ public class AliSmsServiceImpl implements SendSmsService {
     
     private final JsonService jsonService;
 
-    private final SystemProperties systemProperties;
+    private final ApplicationProperties applicationProperties;
 
     private static final String SUCCESS = "OK";
 
@@ -49,7 +49,7 @@ public class AliSmsServiceImpl implements SendSmsService {
             }
         }
         SendSmsRequest request = new SendSmsRequest();
-        request.setSignName(systemProperties.getSms().getSignName());
+        request.setSignName(applicationProperties.getSms().getSignName());
         request.setPhoneNumbers(CollUtil.join(mobileList, CommonConstant.COMMA));
         request.setTemplateCode(templateType.getTemplateId());
         String jsonParam = jsonService.toJson(param);

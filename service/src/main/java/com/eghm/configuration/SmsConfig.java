@@ -33,20 +33,20 @@ public class SmsConfig {
 
     @Bean
     @ConditionalOnProperty(prefix = "system.sms", name = "channel", havingValue = "ali")
-    public SendSmsService aliSmsService(JsonService jsonService, SystemProperties systemProperties) throws Exception {
+    public SendSmsService aliSmsService(JsonService jsonService, ApplicationProperties applicationProperties) throws Exception {
         Config config = new Config()
-                .setAccessKeyId(systemProperties.getSms().getKeyId())
-                .setAccessKeySecret(systemProperties.getSms().getSecretKey());
+                .setAccessKeyId(applicationProperties.getSms().getKeyId())
+                .setAccessKeySecret(applicationProperties.getSms().getSecretKey());
         config.endpoint = "dysmsapi.aliyuncs.com";
-        return new AliSmsServiceImpl(new Client(config), jsonService, systemProperties);
+        return new AliSmsServiceImpl(new Client(config), jsonService, applicationProperties);
     }
 
     @Bean
     @ConditionalOnProperty(prefix = "system.sms", name = "channel", havingValue = "tencent")
-    public SendSmsService tencentSmsService(JsonService jsonService, SystemProperties systemProperties) {
-        SystemProperties.Sms sms = systemProperties.getSms();
+    public SendSmsService tencentSmsService(JsonService jsonService, ApplicationProperties applicationProperties) {
+        ApplicationProperties.Sms sms = applicationProperties.getSms();
         Credential credential = new Credential(sms.getKeyId(), sms.getSecretKey());
-        return new TencentSmsServiceImpl(new SmsClient(credential, "ap-shanghai"), jsonService, systemProperties);
+        return new TencentSmsServiceImpl(new SmsClient(credential, "ap-shanghai"), jsonService, applicationProperties);
     }
 
 }

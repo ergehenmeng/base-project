@@ -4,7 +4,7 @@ import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.http.HttpUtil;
 import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.dto.ext.AlarmMsg;
 import com.eghm.enums.AlarmType;
@@ -25,7 +25,7 @@ public abstract class AbstractAlarmService implements AlarmService {
 
     protected final JsonService jsonService;
 
-    protected final SystemProperties systemProperties;
+    protected final ApplicationProperties applicationProperties;
     
     /**
      * 报警场景默认配置 18次/分钟 否则被平台限流
@@ -34,9 +34,9 @@ public abstract class AbstractAlarmService implements AlarmService {
     
     public static final Duration ALARM_REFRESH_PERIOD = Duration.ofSeconds(60);
     
-    protected AbstractAlarmService(JsonService jsonService, SystemProperties systemProperties) {
+    protected AbstractAlarmService(JsonService jsonService, ApplicationProperties applicationProperties) {
         this.jsonService = jsonService;
-        this.systemProperties = systemProperties;
+        this.applicationProperties = applicationProperties;
     }
 
     @Async

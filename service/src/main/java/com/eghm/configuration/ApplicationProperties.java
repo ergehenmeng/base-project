@@ -21,10 +21,10 @@ import java.util.List;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = SystemProperties.PREFIX)
-public class SystemProperties {
+@ConfigurationProperties(prefix = ApplicationProperties.PREFIX)
+public class ApplicationProperties {
 
-    static final String PREFIX = "system";
+    static final String PREFIX = "application";
 
     /**
      * 上传文件的绝对路径 (必填)
@@ -145,11 +145,6 @@ public class SystemProperties {
             private TokenType tokenType = TokenType.REDIS;
 
             /**
-             * 在请求头中key
-             */
-            private String tokenName = "token";
-
-            /**
              * token前缀
              */
             private String tokenPrefix = "Bearer ";
@@ -163,11 +158,6 @@ public class SystemProperties {
              * token加密秘钥(jwt专用)
              */
             private String jwtSecret;
-
-            /**
-             * 模拟登录的token
-             */
-            private String mockToken;
         }
     }
 

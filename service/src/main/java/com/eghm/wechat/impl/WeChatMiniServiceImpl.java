@@ -7,7 +7,7 @@ import cn.binarywang.wx.miniapp.bean.shortlink.GenerateShortLinkRequest;
 import cn.binarywang.wx.miniapp.bean.urllink.GenerateUrlLinkRequest;
 import cn.hutool.crypto.digest.MD5;
 import com.eghm.cache.CacheService;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.constants.CacheConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
@@ -36,7 +36,7 @@ public class WeChatMiniServiceImpl implements WeChatMiniService {
 
     private final CacheService cacheService;
 
-    private final SystemProperties systemProperties;
+    private final ApplicationProperties applicationProperties;
 
     @Autowired(required = false)
     public void setWxMaService(WxMaService wxMaService) {
@@ -78,7 +78,7 @@ public class WeChatMiniServiceImpl implements WeChatMiniService {
     @Override
     public String generateUrl(String pageUrl, String query, int validDay) {
         this.verify();
-        SystemProperties.WeChatProperties wechat = systemProperties.getWechat();
+        ApplicationProperties.WeChatProperties wechat = applicationProperties.getWechat();
         GenerateUrlLinkRequest request = GenerateUrlLinkRequest.builder().path(pageUrl).query(query).expireInterval(validDay).expireType(1).envVersion(wechat.getMa().getVersion().getValue()).build();
         try {
             return wxMaService.getLinkService().generateUrlLink(request);
@@ -96,7 +96,7 @@ public class WeChatMiniServiceImpl implements WeChatMiniService {
         try {
             // 根据请求参数的不同生成唯一标识,为了防止同一链接多次生成,此处使用MD5减少内存占用
             String scene = MD5.create().digestHex(path + SPECIAL_SPLIT + query);
-            byte[] bytes = qrcodeService.createWxaCodeUnlimitBytes(scene, path, false, systemProperties.getWechat().getMa().getVersion().getValue(), 430, true, null, false);
+            byte[] bytes = qrcodeService.createWxaCodeUnlimitBytes(scene, path, false, applicationProperties.getWechat().getMa().getVersion().getValue(), 430, true, null, false);
             cacheService.setValue(CacheConstant.WECHAT_QRCODE + scene, query, validDay, TimeUnit.DAYS);
             return bytes;
         } catch (WxErrorException e) {

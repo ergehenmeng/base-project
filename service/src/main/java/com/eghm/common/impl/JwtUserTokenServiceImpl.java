@@ -8,7 +8,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.eghm.common.CommonService;
 import com.eghm.common.UserTokenService;
-import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.DataType;
 import com.eghm.enums.UserType;
@@ -29,11 +29,11 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
 
     private final CommonService commonService;
 
-    private final SystemProperties systemProperties;
+    private final ApplicationProperties applicationProperties;
 
     @Override
     public String createToken(SysUser user, List<String> dataList) {
-        SystemProperties.ManageProperties.Token token = systemProperties.getManage().getToken();
+        ApplicationProperties.ManageProperties.Token token = applicationProperties.getManage().getToken();
         return token.getTokenPrefix() + this.doCreateJwt(user, token.getExpire(), dataList);
     }
 
@@ -88,6 +88,6 @@ public class JwtUserTokenServiceImpl implements UserTokenService {
      * @return secretKey
      */
     private Algorithm getAlgorithm() {
-        return Algorithm.HMAC512(systemProperties.getManage().getToken().getJwtSecret());
+        return Algorithm.HMAC512(applicationProperties.getManage().getToken().getJwtSecret());
     }
 }
