@@ -102,14 +102,14 @@
 
 ### 配置文件加密
 * 本项目集成了 `jasypt-spring-boot`，用于对配置文件中的敏感信息（如数据库密码、邮箱密码等）进行加密。
-* 使用 Maven 插件加密： `mvn jasypt:encrypt-value -Djasypt.encryptor.password="你的加密密钥" -Djasypt.plugin.value="明文密码" `
+* 使用 `EncUtil.main()` 手动生成加密后的密码
 * 将 `application-*.yml` 中的明文替换为 ENC() 格式：
   * 改造前: `spring.datasource.password: root`
   * 改造后: `spring.datasource.password: ENC(BFqJ8Hm3kL...)`
 * 配置解密密钥(推荐以下方式之一)
   * 方式一：启动参数（推荐生产环境） `java -jar manage-server.jar --jasypt.encryptor.password=my-secret-key-2024`
   * 方式二：环境变量（推荐 CI/CD）`export JASYPT_ENCRYPTOR_PASSWORD=my-secret-key-2024`
-  * 方式三：IDEA 启动配置 在 Run Configuration 的 VM options 中添加: -Djasypt.encryptor.password=my-secret-key-2024
+  * 方式三：IDEA 启动配置 在 Run Configuration 的 VM options 中添加: `-Djasypt.encryptor.password=my-secret-key-2024`
 
 ## 其他开发说明
 * 管理后台验证码有 `MathCaptchaProducer` `TextCaptchaProducer` 两种方式, 默认为 `MathCaptchaProducer`, 可在`WebMvcConfig#captcha`调整配置
