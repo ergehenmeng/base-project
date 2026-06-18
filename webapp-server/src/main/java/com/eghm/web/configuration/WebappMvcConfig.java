@@ -25,6 +25,7 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
 
 import static com.eghm.constants.CommonConstant.FILTER_PATTERN;
 import static com.eghm.constants.CommonConstant.INTERCEPTOR_PATTERN;
@@ -37,7 +38,7 @@ import static com.eghm.constants.CommonConstant.WEBAPP_PREFIX;
  * @since 2018/1/18 18:35
  */
 @Configuration
-public class WebappMvcConfig extends WebMvcConfig {
+public class WebappMvcConfig extends WebMvcConfig implements WebMvcRegistrations {
     
     private final CacheProxyService cacheProxyService;
     
@@ -101,9 +102,10 @@ public class WebappMvcConfig extends WebMvcConfig {
     
     /**
      * API版本路由处理器
+     * 通过WebMvcRegistrations接口替代默认的RequestMappingHandlerMapping
      */
-    @Bean
-    public RequestMappingHandlerMapping apiVersionHandlerMapping() {
+    @Override
+    public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
         ApiVersionRequestMappingHandlerMapping handlerMapping = new ApiVersionRequestMappingHandlerMapping();
         handlerMapping.setOrder(0);
         return handlerMapping;

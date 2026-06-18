@@ -112,7 +112,6 @@ public class SystemFileServiceImpl implements FileService {
         if (originalFileName == null) {
             originalFileName = "default.png";
         }
-        // fileName: 3e1be532-4862-49f4-b053-2a2e594ba187.png
         String fileName = IdUtil.fastSimpleUUID() + originalFileName.substring(originalFileName.lastIndexOf("."));
         return CommonConstant.ROOT_FOLDER + folderName + File.separator + DateUtil.formatShortLimit(LocalDate.now()) + File.separator + fileName;
     }
