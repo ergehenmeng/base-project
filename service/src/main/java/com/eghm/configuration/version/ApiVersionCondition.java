@@ -26,7 +26,7 @@ public record ApiVersionCondition(String apiVersion) implements RequestCondition
     
     @Override
     public ApiVersionCondition getMatchingCondition(HttpServletRequest request) {
-        String versionStr = request.getHeader(ApplicationHeader.API_VERSION);
+        String versionStr = request.getHeader(ApplicationHeader.VERSION);
         if (versionStr == null || versionStr.trim().isEmpty()) {
             return new ApiVersionCondition(DEFAULT_VERSION);
         }

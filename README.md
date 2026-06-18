@@ -57,7 +57,7 @@
 
 * 基础必填请求头字段:
     * `Channel` 设备渠道: `IOS` , `ANDROID`
-    * `Version` app版本号
+    * `Version` app版本号 (格式: `1.0.0~99.99.99`)
     * `Os-Version` 系统版本
     * `Device-Brand` 设备厂商
     * `Device-Model` 设备型号
