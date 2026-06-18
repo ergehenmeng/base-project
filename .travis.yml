@@ -1,5 +1,0 @@
-language: java
-jdk:
-  - oraclejdk1.8
-install: mvn clean package -Dmaven.skip.test=true
-script: mvn test
