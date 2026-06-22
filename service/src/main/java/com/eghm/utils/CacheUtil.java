@@ -12,7 +12,7 @@ import static com.eghm.constants.CommonConstant.SMS_CODE_EXPIRE;
 import static com.eghm.constants.CommonConstant.SUBMIT_INTERVAL;
 
 /**
- * 内存缓存工具类
+ * 内存缓存工具类, 注意: 这个是单机版, 后续可改造为 Caffeine + Redis分布式缓存 这种支持二级缓存方式
  *
  * @author 二哥很猛
  * @since 2024/9/4

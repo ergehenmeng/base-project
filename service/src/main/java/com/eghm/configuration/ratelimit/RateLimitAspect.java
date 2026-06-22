@@ -1,13 +1,13 @@
 package com.eghm.configuration.ratelimit;
 
 import com.eghm.annotation.RateLimiter;
-import com.eghm.utils.RateLimiterUtil;
 import com.eghm.configuration.security.ApiHolder;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.utils.IpUtil;
+import com.eghm.utils.RateLimiterUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -20,7 +20,7 @@ import java.time.Duration;
 
 /**
  * 基于 AOP + 限流工具类的限流切面
- *
+ * 注意: 这个是单机版, 后续可使用redis-lua脚本实现分布式配置
  * @author eghm
  */
 @Slf4j
@@ -33,8 +33,7 @@ public class RateLimitAspect {
      */
     @Around("@annotation(rateLimiter)")
     public Object around(ProceedingJoinPoint joinPoint, RateLimiter rateLimiter) throws Throwable {
-        String scopeValue = this.resolveScope(rateLimiter.scope());
-        String key = rateLimiter.value() + "#" + scopeValue;
+        String key = this.generateKey(rateLimiter);
         this.acquirePermit(key, rateLimiter);
         return joinPoint.proceed();
     }
@@ -75,6 +74,16 @@ public class RateLimitAspect {
         }
         // IP 维度 或 USER 维度未登录时
         return "ip:" + IpUtil.getIpAddress(this.currentRequest());
+    }
+    
+    /**
+     *生成限流许可 key
+     * @param rateLimiter 限流器配置
+     * @return key
+     */
+    private String generateKey(RateLimiter rateLimiter) {
+        String scopeValue = this.resolveScope(rateLimiter.scope());
+        return "ratelimiter:" + rateLimiter.value() + "#" + scopeValue;
     }
 
     private String currentRequestUri() {
