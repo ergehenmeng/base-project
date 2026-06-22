@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class CronDispatch extends Dispatch {
+public class CronScheduleBean extends ScheduleBean {
 
     /**
      * 任务cron表达式

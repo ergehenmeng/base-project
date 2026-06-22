@@ -9,7 +9,7 @@ import lombok.Data;
  * @since 2020/9/18
  */
 @Data
-public abstract class Dispatch {
+public abstract class ScheduleBean {
 
     /**
      * 执行任务的bean的名称 必须实现Task接口

@@ -22,7 +22,7 @@ public class CronTaskWrapper extends CronTask {
     private final String nid;
 
     CronTaskWrapper(SysTask task, RedisLock redisLock, AlarmService alarmService, SysTaskLogService sysTaskLogService) {
-        super(new Invoker(DataUtil.copy(task, CronDispatch.class), redisLock, alarmService, sysTaskLogService), task.getCronExpression());
+        super(new Invoker(DataUtil.copy(task, CronScheduleBean.class), redisLock, alarmService, sysTaskLogService), task.getCronExpression());
         this.nid = task.getBeanName() + CommonConstant.SPECIAL_SPLIT + task.getMethodName();
     }
 

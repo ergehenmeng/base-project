@@ -1,7 +1,7 @@
 package com.eghm.service.sys.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.configuration.task.config.OnceDispatch;
+import com.eghm.configuration.task.config.OnceScheduleBean;
 import com.eghm.configuration.task.config.TaskRegistrar;
 import com.eghm.dto.sys.task.TaskEditRequest;
 import com.eghm.dto.sys.task.TaskQueryRequest;
@@ -63,7 +63,7 @@ public class SysTaskServiceImpl implements SysTaskService {
             log.error("定时任务未查询到[{}]", id);
             throw new BusinessException(ErrorCode.TASK_NULL_ERROR);
         }
-        OnceDispatch onceDetail = new OnceDispatch();
+        OnceScheduleBean onceDetail = new OnceScheduleBean();
         onceDetail.setBeanName(sysTask.getBeanName());
         onceDetail.setMethodName(sysTask.getMethodName());
         onceDetail.setArgs(args);

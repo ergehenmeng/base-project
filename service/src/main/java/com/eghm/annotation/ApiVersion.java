@@ -21,7 +21,7 @@ import static com.eghm.constants.CommonConstant.DEFAULT_VERSION;
 public @interface ApiVersion {
     
     /**
-     * 版本号
+     * 版本号 1.0.0~99.99.99, 其他格式无效
      * @return 版本号，默认为1.0.0
      */
     String value() default DEFAULT_VERSION;

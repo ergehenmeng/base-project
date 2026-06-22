@@ -33,7 +33,7 @@ public class Invoker implements Runnable {
 
     private final Method method;
 
-    private final Dispatch dispatch;
+    private final ScheduleBean dispatch;
 
     private final RedisLock redisLock;
 
@@ -41,7 +41,7 @@ public class Invoker implements Runnable {
 
     private final SysTaskLogService sysTaskLogService;
 
-    Invoker(Dispatch dispatch, RedisLock redisLock, AlarmService alarmService, SysTaskLogService sysTaskLogService) {
+    Invoker(ScheduleBean dispatch, RedisLock redisLock, AlarmService alarmService, SysTaskLogService sysTaskLogService) {
         this.dispatch = dispatch;
         this.redisLock = redisLock;
         this.alarmService = alarmService;
@@ -92,7 +92,7 @@ public class Invoker implements Runnable {
      * @return 方法
      * @throws NoSuchMethodException e
      */
-    private Method findMethod(Dispatch task, Object bean) throws NoSuchMethodException {
+    private Method findMethod(ScheduleBean task, Object bean) throws NoSuchMethodException {
         Class<?> cls = AopUtils.isAopProxy(bean) ? bean.getClass().getSuperclass() : bean.getClass();
         if (isBlank(task.getArgs())) {
             return cls.getMethod(task.getMethodName());

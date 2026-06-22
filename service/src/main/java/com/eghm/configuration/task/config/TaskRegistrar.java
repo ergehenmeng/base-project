@@ -115,7 +115,7 @@ public class TaskRegistrar {
      * 1.如果旧定时任务与新的要执行的定时任务一样,则不移除.在添加定时任务时再判断(减少过多的停止任务的操作)
      *
      * @param taskList 指定的任务列表
-     * @see TaskRegistrar#addTask(OnceDispatch)
+     * @see TaskRegistrar#addTask(OnceScheduleBean)
      */
     private void removeCronTask(List<CronTaskWrapper> taskList) {
         boolean isEmpty = taskList.isEmpty();
@@ -151,7 +151,7 @@ public class TaskRegistrar {
      *
      * @param task 任务配置信息
      */
-    public void addTask(OnceDispatch task) {
+    public void addTask(OnceScheduleBean task) {
         String nid = task.getBeanName() + "-" + task.getMethodName() + "-" + counter.getAndIncrement();
         Invoker invoker = new Invoker(task, redisLock, alarmService, sysTaskLogService);
         ScheduledFuture<?> schedule = taskScheduler.schedule(invoker, task.getExecuteTime().atZone(ZoneId.systemDefault()).toInstant());

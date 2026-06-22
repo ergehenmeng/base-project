@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class OnceDispatch extends Dispatch {
+public class OnceScheduleBean extends ScheduleBean {
 
     /**
      * 任务执行的时间 (未来的某个时间)
