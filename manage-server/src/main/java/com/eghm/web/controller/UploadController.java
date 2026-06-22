@@ -1,12 +1,12 @@
 package com.eghm.web.controller;
 
 
-import com.eghm.annotation.SkipPerm;
+import com.eghm.annotation.SkipLogger;
 import com.eghm.common.FileService;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.configuration.security.SecurityHolder;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -34,7 +34,7 @@ public class UploadController {
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Parameter(name = "file", description = "file流", required = true, schema = @Schema(type = "string", format = "binary"))
     @Operation(summary = "单文件上传")
-    @SkipPerm
+    @SkipLogger
     public RespBody<FilePath> upload(@RequestParam("file") MultipartFile file) {
         FilePath filePath = fileService.saveFile(CommonConstant.MANAGE + SecurityHolder.getUserId(), file);
         return RespBody.success(filePath);
