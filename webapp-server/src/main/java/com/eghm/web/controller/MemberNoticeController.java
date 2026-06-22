@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 
 import com.eghm.dto.IdDTO;
-import com.eghm.configuration.security.ApiHolder;
+import com.eghm.configuration.authentication.ApiHolder;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.MemberNoticeService;

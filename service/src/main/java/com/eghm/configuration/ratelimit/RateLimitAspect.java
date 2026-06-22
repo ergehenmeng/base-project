@@ -1,8 +1,8 @@
 package com.eghm.configuration.ratelimit;
 
 import com.eghm.annotation.RateLimiter;
-import com.eghm.configuration.security.ApiHolder;
-import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.configuration.authentication.ApiHolder;
+import com.eghm.configuration.authentication.SecurityHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;

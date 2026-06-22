@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.eghm.annotation.SkipPerm;
 import com.eghm.common.CommonService;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.configuration.authentication.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
 import com.eghm.event.PermissionRefreshEvent;

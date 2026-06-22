@@ -3,7 +3,7 @@ package com.eghm.configuration.data.permission;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
-import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.configuration.authentication.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.DataType;
 import org.aspectj.lang.ProceedingJoinPoint;

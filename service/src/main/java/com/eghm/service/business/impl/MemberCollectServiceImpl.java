@@ -9,7 +9,7 @@ import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.business.collect.CollectQueryDTO;
 import com.eghm.dto.business.statistics.CollectRequest;
-import com.eghm.configuration.security.ApiHolder;
+import com.eghm.configuration.authentication.ApiHolder;
 import com.eghm.enums.CollectType;
 import com.eghm.enums.SelectType;
 import com.eghm.mapper.MemberCollectMapper;

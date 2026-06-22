@@ -1,7 +1,7 @@
 package com.eghm.service.sys.impl;
 
 import com.eghm.common.CommonService;
-import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.configuration.authentication.SecurityHolder;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.sys.dept.DeptAddRequest;

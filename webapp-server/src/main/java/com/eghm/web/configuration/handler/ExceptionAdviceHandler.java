@@ -2,7 +2,7 @@ package com.eghm.web.configuration.handler;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
 import com.eghm.configuration.log.LogTraceHolder;
-import com.eghm.configuration.security.ApiHolder;
+import com.eghm.configuration.authentication.ApiHolder;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;

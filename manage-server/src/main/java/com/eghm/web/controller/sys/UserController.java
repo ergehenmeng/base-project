@@ -3,7 +3,7 @@ package com.eghm.web.controller.sys;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.annotation.SkipPerm;
 import com.eghm.common.FileService;
-import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.configuration.authentication.SecurityHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.FilePath;

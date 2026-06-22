@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.cache.CacheService;
 import com.eghm.common.CommonService;
 import com.eghm.common.impl.SysConfigApi;
-import com.eghm.configuration.security.ApiHolder;
+import com.eghm.configuration.authentication.ApiHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.operate.comment.CommentDTO;

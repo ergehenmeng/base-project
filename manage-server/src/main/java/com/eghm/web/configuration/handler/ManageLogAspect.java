@@ -1,6 +1,6 @@
 package com.eghm.web.configuration.handler;
 
-import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.configuration.authentication.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.model.ManageLog;

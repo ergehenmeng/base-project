@@ -2,7 +2,7 @@ package com.eghm.web.configuration.interceptor;
 
 import com.eghm.common.MemberTokenService;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.configuration.security.ApiHolder;
+import com.eghm.configuration.authentication.ApiHolder;
 import com.eghm.constants.ApplicationHeader;
 import com.eghm.dto.ext.MemberToken;
 import com.eghm.dto.ext.RequestMessage;

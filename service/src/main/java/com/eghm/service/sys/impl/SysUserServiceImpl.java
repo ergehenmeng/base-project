@@ -13,7 +13,7 @@ import com.eghm.common.SmsService;
 import com.eghm.common.UserTokenService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.encoder.Encoder;
-import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.configuration.authentication.SecurityHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.UserToken;

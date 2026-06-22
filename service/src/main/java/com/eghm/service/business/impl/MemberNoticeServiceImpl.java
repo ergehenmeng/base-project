@@ -8,7 +8,7 @@ import com.eghm.common.JsonService;
 import com.eghm.configuration.template.TemplateEngine;
 import com.eghm.dto.business.member.SendNotifyRequest;
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.configuration.authentication.SecurityHolder;
 import com.eghm.dto.ext.SendNotice;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.MessageType;

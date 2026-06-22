@@ -5,7 +5,7 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.digest.HMac;
 import com.eghm.cache.CacheProxyService;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.configuration.security.ApiHolder;
+import com.eghm.configuration.authentication.ApiHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;

@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.AlarmService;
-import com.eghm.configuration.security.ApiHolder;
+import com.eghm.configuration.authentication.ApiHolder;
 import com.eghm.dto.operate.version.VersionAddRequest;
 import com.eghm.dto.operate.version.VersionEditRequest;
 import com.eghm.dto.operate.version.VersionQueryRequest;

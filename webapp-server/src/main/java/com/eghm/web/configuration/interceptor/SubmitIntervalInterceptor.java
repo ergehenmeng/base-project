@@ -1,7 +1,7 @@
 package com.eghm.web.configuration.interceptor;
 
 import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.configuration.security.ApiHolder;
+import com.eghm.configuration.authentication.ApiHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.utils.IpUtil;

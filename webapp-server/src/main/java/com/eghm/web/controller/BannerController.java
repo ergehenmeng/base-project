@@ -1,7 +1,7 @@
 package com.eghm.web.controller;
 
 import com.eghm.cache.CacheProxyService;
-import com.eghm.configuration.security.ApiHolder;
+import com.eghm.configuration.authentication.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.Channel;
 import com.eghm.enums.ErrorCode;

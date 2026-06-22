@@ -3,7 +3,7 @@ package com.eghm.web.controller;
 import com.eghm.common.MemberTokenService;
 import com.eghm.common.SmsService;
 import com.eghm.constants.ApplicationHeader;
-import com.eghm.configuration.security.ApiHolder;
+import com.eghm.configuration.authentication.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sys.login.*;
 import com.eghm.enums.ErrorCode;

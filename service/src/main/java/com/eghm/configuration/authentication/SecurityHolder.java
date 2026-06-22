@@ -1,4 +1,4 @@
-package com.eghm.configuration.security;
+package com.eghm.configuration.authentication;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
 import com.eghm.dto.ext.UserToken;

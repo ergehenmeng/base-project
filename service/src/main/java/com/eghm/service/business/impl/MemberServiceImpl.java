@@ -13,7 +13,7 @@ import com.eghm.common.SendSmsService;
 import com.eghm.common.SmsService;
 import com.eghm.common.impl.SysConfigApi;
 import com.eghm.configuration.encoder.Encoder;
-import com.eghm.configuration.security.ApiHolder;
+import com.eghm.configuration.authentication.ApiHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;

@@ -5,7 +5,7 @@ import cn.hutool.core.util.URLUtil;
 import cn.hutool.http.Header;
 import com.eghm.annotation.SkipLogger;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.configuration.security.ApiHolder;
+import com.eghm.configuration.authentication.ApiHolder;
 import com.eghm.constants.ApplicationHeader;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.RequestMessage;
