@@ -1,6 +1,6 @@
-﻿### 一个基于SpringBoot的基础框架版(完善直至转行)
+﻿## 一个基于SpringBoot的基础框架版(完善直至转行)
 
-#### 运行环境及技术
+### 运行环境及技术
 
 * java 17+
 * redis 3.2+
@@ -8,7 +8,7 @@
 * spring-boot 3.2.x
 * mybatis-plus 3.5.9
 
-#### 特别注意事项
+### 特别注意事项
 * 项目和数据库初始化以后一定修改前后端交互的RSA公私钥 (后端: `application.yml#publicKey、privateKey`中, 前端: `.env#VITE_PUBLIC_KEY`)
 * 后端一定修改jwt秘钥(32位) `application.yml#jwtSecret` 
 * 如果有其他全局加密的秘钥也请第一时间修改较少泄露风险
@@ -94,13 +94,13 @@
 * 禁止使用枚举ordinal()或name()作为参数进行传递,必须显式声明
 * 全局默认post请求有频率限制,具体在 `SubmitIntervalInterceptor` 声明, 可在配置文件中调整
 
-### 关于项目加密
+## 关于项目加密
 * 请参考 `manage-server` 项目中的pom.xml, 使用 `classfinal-maven-plugin` 插件进行加密
 * 参考 `classfinal-maven-plugin` 插件文档 https://gitee.com/roseboy/classfinal
 * 绑定机器码 `java -jar classfinal-fatjar.jar -C` 在指定机器上生成机器码, 同时会在命令所属目录下生成 `classfinal-code.txt`, 内部就包含code, 将该code复制到pom.xml中的configuration.code节点上打包
 * 默认启动方式: `java -javaagent:manage-server-encrypted.jar -jar manage-server-encrypted.jar`, 如果要绑定机器码则在后面需要添加 `-code`
 
-### 配置文件加密
+## 配置文件加密
 * 本项目集成了 `jasypt-spring-boot`，用于对配置文件中的敏感信息（如数据库密码、邮箱密码等）进行加密。
 * 使用 `EncUtil.main()` 手动生成加密后的密码
 * 将 `application-*.yml` 中的明文替换为 ENC() 格式：
@@ -151,38 +151,5 @@
 * `ValidationUtil.redoCheck` 校验重复字段, 例如: `ValidationUtil.redoCheck(sysDictMapper, SysDict::getTitle, title, id, SysDict::getId, ErrorCode.DICT_REPEAT_ERROR, "数据字典名称重复 [{}] [{}]");`
 * `ApiVersion` 注解用于路由, 根据请求头中的版本号进行路由, 例如: `@ApiVersion("1.0.0")` 表示该接口仅支持版本号为 `1.0.0~99.99.99` 的请求
 
-
-## 配置文件加密（jasypt）
-
-本项目集成了 jasypt-spring-boot，用于对配置文件中的敏感信息（如数据库密码、邮箱密码等）进行加密。
-
-### 加密密文生成
-
-使用 Maven 插件加密：
-
-    mvn jasypt:encrypt-value -Djasypt.encryptor.password="你的加密密钥" -Djasypt.plugin.value="明文密码"
-
-示例：
-
-    mvn jasypt:encrypt-value -Djasypt.encryptor.password="my-secret-key-2024" -Djasypt.plugin.value="root"
-    输出: ENC(加密后的密文)
-
-### 替换配置文件中的明文
-
-将 application-*.yml 中的明文替换为 ENC() 格式：
-
-    改造前: spring.datasource.password: root
-    改造后: spring.datasource.password: ENC(BFqJ8Hm3kL...)
-
-### 配置解密密钥
-
-密钥不能写在配置文件中，推荐以下方式之一：
-
-方式一：启动参数（推荐生产环境）
-    java -jar manage-server.jar --jasypt.encryptor.password=my-secret-key-2024
-
-方式二：环境变量（推荐 CI/CD）
-    export JASYPT_ENCRYPTOR_PASSWORD=my-secret-key-2024
-
-方式三：IDEA 启动配置
-    在 Run Configuration 的 VM options 中添加: -Djasypt.encryptor.password=my-secret-key-2024
+## 项目初次使用
+* 配置完 `application-*.yml` 的数据库、邮箱、Redis、MQ等基本信息后，直接启动 `ManageApplication` 即可初始化数据库脚本
