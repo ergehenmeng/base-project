@@ -4,5 +4,5 @@ WORKDIR /home/app/webapp
 COPY target/webapp-server.jar /home/app/webapp/webapp-server.jar
 RUN addgroup -S webapp && adduser -S webapp -G webapp -d /home/app/manage
 USER webapp
-EXPOSE 9090
+EXPOSE 10010
 ENTRYPOINT ["java", "-jar", "webapp-server.jar"]

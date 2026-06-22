@@ -4,5 +4,5 @@ WORKDIR /home/app/manage
 COPY target/manage-server.jar /home/app/manage/manage-server.jar
 RUN addgroup -S manage && adduser -S manage -G manage -d /home/app/manage
 USER manage
-EXPOSE 8080
+EXPOSE 10086
 ENTRYPOINT ["java", "-jar", "manage-server.jar"]
