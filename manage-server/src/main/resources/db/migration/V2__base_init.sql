@@ -3611,5 +3611,4 @@ INSERT INTO `sys_area` VALUES ('820600', '嘉模堂區', '820000', 'J', '2');
 INSERT INTO `sys_area` VALUES ('820700', '路氹填海區', '820000', 'L', '2');
 INSERT INTO `sys_area` VALUES ('820800', '聖方濟各堂區', '820000', 'S', '2');
 
-INSERT INTO `sys_user` (`id`, `nick_name`, `user_type`, `mobile`, `user_name`, `state`, `pwd`, `init_pwd`, `data_type`, `dept_code`, `deleted`, `pwd_update_time`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '0', '13000000000', 'superAdmin', '1', '$2a$10$OUgNXwmRXEJcNR5cTAXb0.JmkahFa9Emx9BKl32EaA1yG/6anUVRi', '$2a$10$OUgNXwmRXEJcNR5cTAXb0.JmkahFa9Emx9BKl32EaA1yG/6anUVRi', NULL, NULL, b'0', '2024-07-25 13:37:58', '2018-01-26 10:38:20', '2024-10-28 09:35:33', '');
-update sys_user set pwd = '$2a$10$GzjwK.grm2bx.wTiBHOHHedE8.shYvXfznJgM.zRL5k.928YnXRTO' where id = 1;
+INSERT INTO `sys_user` (`id`, `nick_name`, `user_type`, `mobile`, `user_name`, `state`, `pwd`, `init_pwd`, `data_type`, `dept_code`, `deleted`, `pwd_update_time`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '0', '13000000000', 'superAdmin', '1', '$2a$10$p6TsNVnvFgzE2H2JZIz4puFTTby9vTYDIZsE.0MkICF54ybFlwB.C', '$2a$10$p6TsNVnvFgzE2H2JZIz4puFTTby9vTYDIZsE.0MkICF54ybFlwB.C', NULL, NULL, b'0', '2024-07-25 13:37:58', '2018-01-26 10:38:20', '2024-10-28 09:35:33', '');
