@@ -37,7 +37,7 @@ public class LoginResponse {
     @Schema(description = "手机号")
     private String mobile;
 
-    @Schema(description = "是否初始密码")
+    @Schema(description = "是否为初始密码")
     private Boolean init;
 
     @Schema(description = "密码是否过期(90天没修改即过期)")
