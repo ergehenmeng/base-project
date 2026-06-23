@@ -116,9 +116,9 @@ public class CommonConstant {
     public static final int MAX_ACCESS_NUM = 10;
 
     /**
-     * 签名过期时间 60秒
+     * 客户端与服务端时间差最大值 60秒
      */
-    public static final long MAX_SIGN_EXPIRE = 60_000;
+    public static final long MAX_SYSTEM_TIME_DIFF = 60_000;
 
     /**
      * 最大锁屏时间 1天

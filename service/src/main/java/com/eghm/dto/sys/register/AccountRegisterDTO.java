@@ -1,7 +1,7 @@
 package com.eghm.dto.sys.register;
 
 import com.eghm.annotation.Assign;
-import com.eghm.convertor.RsaDeserializer;
+import com.eghm.convertor.RsaPasswordDeserializer;
 import com.eghm.validation.annotation.Password;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
@@ -26,7 +26,7 @@ public class AccountRegisterDTO {
 
     @Schema(description = "密码(8~20英文,字母和@#&_)rsa加密", requiredMode = Schema.RequiredMode.REQUIRED)
     @Password
-    @JsonDeserialize(using = RsaDeserializer.class)
+    @JsonDeserialize(using = RsaPasswordDeserializer.class)
     @Expose(serialize = false)
     private String password;
 

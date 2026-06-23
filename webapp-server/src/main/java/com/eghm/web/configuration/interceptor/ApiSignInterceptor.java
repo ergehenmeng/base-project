@@ -50,7 +50,7 @@ public class ApiSignInterceptor implements InterceptorAdapter {
         }
         long timestamp = Long.parseLong(message.getTimestamp());
         long interval = Math.abs(System.currentTimeMillis() - timestamp);
-        if (interval > CommonConstant.MAX_SIGN_EXPIRE) {
+        if (interval > CommonConstant.MAX_SYSTEM_TIME_DIFF) {
             log.warn("签名信息已过期 [{}] [{}]", timestamp, interval);
             WebUtil.printJson(response, ErrorCode.SIGNATURE_EXPIRE);
             return false;

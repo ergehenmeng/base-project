@@ -1,6 +1,6 @@
 package com.eghm.dto.sys.user;
 
-import com.eghm.convertor.RsaDeserializer;
+import com.eghm.convertor.RsaPasswordDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -17,6 +17,6 @@ public class CheckPwdRequest {
     @Schema(description = "密码(rsa加密)", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "密码不能为空")
     @Expose(serialize = false)
-    @JsonDeserialize(using = RsaDeserializer.class)
+    @JsonDeserialize(using = RsaPasswordDeserializer.class)
     private String pwd;
 }

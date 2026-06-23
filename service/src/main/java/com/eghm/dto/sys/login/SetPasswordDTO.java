@@ -1,8 +1,9 @@
 package com.eghm.dto.sys.login;
 
-import com.eghm.convertor.RsaDeserializer;
+import com.eghm.convertor.RsaPasswordDeserializer;
 import com.eghm.validation.annotation.Password;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.gson.annotations.Expose;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class SetPasswordDTO {
 
     @Schema(description = "密码(rsa加密)", requiredMode = Schema.RequiredMode.REQUIRED)
     @Password
-    @JsonDeserialize(using = RsaDeserializer.class)
+    @JsonDeserialize(using = RsaPasswordDeserializer.class)
+    @Expose(serialize = false)
     private String password;
 }

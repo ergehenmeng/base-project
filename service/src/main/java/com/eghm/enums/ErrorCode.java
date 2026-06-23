@@ -121,9 +121,9 @@ public enum ErrorCode {
     LOCK_SCREEN(1024, "屏幕锁定中"),
     
     /**
-     * 密码校验失败
+     * 账号或密码错误, 请重新输入
      */
-    PWD_DECODE_ERROR(1025, "密码校验失败"),
+    PWD_DECODE_ERROR(1025, "账号或密码错误,请重新输入"),
 
     /**
      * 签名已过期,请重新申请签名
