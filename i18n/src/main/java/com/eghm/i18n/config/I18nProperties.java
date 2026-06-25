@@ -11,7 +11,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @ConfigurationProperties(prefix = "i18n")
 public class I18nProperties {
-
+    
+    /**
+     * 是否开启i18n翻译
+     */
     private boolean enabled = true;
     
     /**
