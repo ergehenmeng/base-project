@@ -10,7 +10,6 @@ i18n:
 ```
 #### 使用说明
 * 后端必须实现`I18nMessageProvider`接口，用于提供国际化消息的具体实现(自行实现数据字典或缓存等)
-* 后端返回前端对象必须实现 `RespBodyProvider` 接口，用于错误信息的国际化处理
 
 #### 参数异常示例：
 
@@ -42,13 +41,47 @@ public class User {
 * age.gt = "年龄必须大于{value}" | Age must be greater than {value}
 * 注意: User作为请求参数时,需要添加 @Validated(推荐) @Valid校验注解,并根据校验结果返回国际化错误信息
   * 建议数据字典key=validator统一维护校验错误信息
-* 注意: User作为返回值时, @Translation会生效, user_status为数据字典key, 1 = "正常" | Normal
+* 注意: User作为返回值时, `@Translation` 会生效, user_status为数据字典key, 1 = "正常" | Normal
   * 建议数据字典key按功能模块进行维护区分
 
 #### 业务异常示例：
 
-> 如果业务异常,需要在业务层抛出异常,异常信息会自动被国际化处理 是根据返回前端的code != 200 进行国际化处理
+> 如果业务异常,需要在业务层抛出异常,异常信息会自动被国际化处理 是根据返回前端的code 进行国际化处理, 注意: 成功的不进行国际化处理
+  * `I18nMapper` 注解用于指定成功和失败的国际化消息key
   * 建议数据字典key=error_code统一维护业务错误信息
   * 错误码作为异常信息的key, 例如: 40001 = "用户名已存在" | Username already exists
 
+```java
+package com.eghm.dto.ext;
 
+import com.eghm.enums.ErrorCode;
+import com.eghm.i18n.annotation.I18nMapper;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * 用于返回前台的结果集 json
+ *
+ * @author 二哥很猛
+ * @since 2018/1/12 17:41
+ */
+@Data
+@NoArgsConstructor
+@I18nMapper(success = 8848, value = "error_code")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class RespBody<T> {
+
+  @Schema(description = "状态码,成功=200")
+  private Integer code = ErrorCode.SUCCESS.getCode();
+
+  @Schema(description = "成功或失败的信息")
+  private String msg = "success";
+
+  @Schema(description = "成功时可能包含的数据集")
+  private T data;
+
+}
+
+```
