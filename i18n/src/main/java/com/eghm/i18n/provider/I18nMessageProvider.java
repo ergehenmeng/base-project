@@ -15,11 +15,6 @@ public interface I18nMessageProvider {
     String VALIDATOR = "validator";
     
     /**
-     * 错误码字典key
-     */
-    String ERROR_CODE = "error_code";
-    
-    /**
      * 通过字典key对消息进行国际化处理
      *
      * @param message 消息键, 可以为错误码, 也可以为普通消息编码, 也可以为数据字典的值

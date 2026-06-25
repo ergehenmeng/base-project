@@ -2,7 +2,7 @@ package com.eghm.i18n.config;
 
 import cn.hutool.extra.spring.EnableSpringUtil;
 import com.eghm.i18n.interceptor.LanguageInterceptor;
-import com.eghm.i18n.interceptor.RespBodyAdviceHandler;
+import com.eghm.i18n.interceptor.RespBodyI18nAdviceHandler;
 import com.eghm.i18n.interpolator.ValidatorMessageInterpolator;
 import com.eghm.i18n.provider.I18nMessageProvider;
 import com.eghm.i18n.serializer.TranslationSerializer;
@@ -61,8 +61,8 @@ public class I18nAutoConfiguration implements WebMvcConfigurer {
     }
     
     @Bean
-    public RespBodyAdviceHandler respBodyAdviceHandler(ObjectProvider<I18nMessageProvider> provider) {
-        return new RespBodyAdviceHandler(provider.getIfAvailable());
+    public RespBodyI18nAdviceHandler respBodyAdviceHandler(ObjectProvider<I18nMessageProvider> provider) {
+        return new RespBodyI18nAdviceHandler(provider.getIfAvailable());
     }
 
     @Bean
