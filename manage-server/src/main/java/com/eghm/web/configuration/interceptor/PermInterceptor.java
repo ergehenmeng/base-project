@@ -8,7 +8,7 @@ import com.eghm.configuration.authentication.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
 import com.eghm.event.PermissionRefreshEvent;
-import com.eghm.model.SysMenu;
+import com.eghm.sys.model.SysMenu;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.WebUtil;
 import jakarta.annotation.Nonnull;

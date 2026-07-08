@@ -1,13 +1,13 @@
 package com.eghm.web.controller.operate;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.Page;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.news.config.NewsConfigAddRequest;
 import com.eghm.dto.business.news.config.NewsConfigEditRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.model.NewsConfig;
+import com.eghm.operate.model.NewsConfig;
 import com.eghm.service.operate.NewsConfigService;
 import com.eghm.vo.business.news.NewsConfigResponse;
 import io.swagger.v3.oas.annotations.Operation;

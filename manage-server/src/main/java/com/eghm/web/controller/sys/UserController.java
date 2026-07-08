@@ -1,6 +1,6 @@
 package com.eghm.web.controller.sys;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.Page;
 import com.eghm.annotation.SkipPerm;
 import com.eghm.common.FileService;
 import com.eghm.configuration.authentication.SecurityHolder;
@@ -15,13 +15,14 @@ import com.eghm.dto.sys.user.UserEditRequest;
 import com.eghm.dto.sys.user.UserProfileRequest;
 import com.eghm.dto.sys.user.UserQueryRequest;
 import com.eghm.enums.UserState;
-import com.eghm.model.SysUser;
+import com.eghm.sys.model.SysUser;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.FileUtil;
 import com.eghm.vo.sys.user.UserDetailResponse;
 import com.eghm.vo.sys.user.UserResponse;
+import com.eghm.web.support.MultipartUploadFile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -137,7 +138,7 @@ public class UserController {
     @SkipPerm
     public RespBody<FilePath> updateAvatar(@RequestParam("file") MultipartFile file) {
         FileUtil.checkFileType(file, "png", "jpg", "jpeg");
-        FilePath filePath = fileService.saveFile(CommonConstant.MANAGE + SecurityHolder.getUserId(), file, CommonConstant.AVATAR_FOLDER);
+        FilePath filePath = fileService.saveFile(CommonConstant.MANAGE + SecurityHolder.getUserId(), new MultipartUploadFile(file), CommonConstant.AVATAR_FOLDER);
         sysUserService.updateAvatar(SecurityHolder.getUserId(), filePath.host() + filePath.path());
         return RespBody.success(filePath);
     }

@@ -1,12 +1,12 @@
 package com.eghm.web.controller.business;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.Page;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.pay.PayLogQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
-import com.eghm.model.PayNotifyLog;
+import com.eghm.pay.model.PayNotifyLog;
 import com.eghm.pay.service.PayNotifyLogService;
 import com.eghm.pay.service.PayRequestLogService;
 import com.eghm.vo.operate.log.PayNotifyLogResponse;

@@ -1,7 +1,7 @@
 package com.eghm.web.controller;
 
 import com.eghm.dto.ext.RespBody;
-import com.eghm.model.SysDictItem;
+import com.eghm.sys.model.SysDictItem;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.sys.dict.BaseItemVO;

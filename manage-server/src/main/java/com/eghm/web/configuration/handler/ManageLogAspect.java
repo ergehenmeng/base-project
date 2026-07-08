@@ -3,7 +3,7 @@ package com.eghm.web.configuration.handler;
 import com.eghm.configuration.authentication.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ExchangeQueue;
-import com.eghm.model.ManageLog;
+import com.eghm.sys.model.ManageLog;
 import com.eghm.mq.service.MessageService;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;

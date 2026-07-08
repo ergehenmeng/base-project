@@ -1,6 +1,6 @@
 package com.eghm.web.controller.operate;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.Page;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.PagingQuery;

@@ -5,7 +5,7 @@ import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
 import com.eghm.constants.QueueConstant;
 import com.eghm.dto.ext.LoginRecord;
-import com.eghm.model.WebappLog;
+import com.eghm.sys.model.WebappLog;
 import com.eghm.mq.listener.AbstractListenerHandler;
 import com.eghm.service.business.LoginService;
 import com.eghm.service.operate.SensitiveWordService;

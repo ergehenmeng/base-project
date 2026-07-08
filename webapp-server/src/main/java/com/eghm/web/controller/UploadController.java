@@ -7,6 +7,7 @@ import com.eghm.configuration.authentication.ApiHolder;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.web.annotation.AccessToken;
+import com.eghm.web.support.MultipartUploadFile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -42,7 +43,7 @@ public class UploadController {
     @SkipLogger
     @AccessToken
     public RespBody<FilePath> upload(@RequestParam("file") MultipartFile file) {
-        FilePath filePath = fileService.saveFile(CommonConstant.WEBAPP + ApiHolder.getMemberId(), file);
+        FilePath filePath = fileService.saveFile(CommonConstant.WEBAPP + ApiHolder.getMemberId(), new MultipartUploadFile(file));
         return RespBody.success(filePath);
     }
 }

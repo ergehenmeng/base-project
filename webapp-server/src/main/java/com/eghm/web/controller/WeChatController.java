@@ -12,13 +12,13 @@ import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.vo.wechat.JsTicketVO;
 import com.eghm.wechat.WeChatMiniService;
 import com.eghm.wechat.WeChatMpService;
+import com.eghm.wechat.dto.JsTicketSignature;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
-import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -66,7 +66,7 @@ public class WeChatController {
     @PostMapping(value = "/mp/jsTicket", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "微信公众号jsTicket签名")
     public RespBody<JsTicketVO> jsTicket(@Validated @RequestBody JsTicketDTO dto) {
-        WxJsapiSignature signature = weChatMpService.jsTicket(dto.getUrl());
+        JsTicketSignature signature = weChatMpService.jsTicket(dto.getUrl());
         return RespBody.success(DataUtil.copy(signature, JsTicketVO.class));
     }
 

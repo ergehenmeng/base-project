@@ -4,7 +4,7 @@ import com.eghm.cache.CacheService;
 import com.eghm.common.AlarmService;
 import com.eghm.common.JsonService;
 import com.eghm.constants.QueueConstant;
-import com.eghm.model.ManageLog;
+import com.eghm.sys.model.ManageLog;
 import com.eghm.mq.listener.AbstractListenerHandler;
 import com.eghm.service.sys.ManageLogService;
 import com.rabbitmq.client.Channel;

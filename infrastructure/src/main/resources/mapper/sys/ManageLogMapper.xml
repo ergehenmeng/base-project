@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.sys.mapper.ManageLogMapper">
+
+    <select id="getByPage" parameterType="com.eghm.dto.sys.log.ManageQueryRequest" resultType="com.eghm.vo.operate.log.ManageLogResponse">
+        select t.id, t.url, r.nick_name, r.mobile, t.request, t.ip, t.business_time, t.create_time, t.response
+        from manage_log t left join sys_user r on t.user_id = r.id
+        <where>
+            <if test="param.queryName != null and param.queryName != ''">
+                and (t.url like concat('%', #{param.queryName, typeHandler=LikeTypeHandler }, '%') or
+                t.ip like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+                r.nick_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+                r.mobile like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%'))
+            </if>
+            <if test="param.startTime != null">
+                and t.create_time &gt;= #{param.startTime}
+            </if>
+            <if test="param.endTime != null">
+                and t.create_time &lt; #{param.endTime}
+            </if>
+        </where>
+        order by t.id desc
+    </select>
+
+</mapper>

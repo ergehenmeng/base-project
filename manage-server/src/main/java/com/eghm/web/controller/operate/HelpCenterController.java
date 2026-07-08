@@ -1,6 +1,6 @@
 package com.eghm.web.controller.operate;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.Page;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.SortByDTO;
 import com.eghm.dto.ext.PageData;
@@ -8,7 +8,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.operate.help.HelpAddRequest;
 import com.eghm.dto.operate.help.HelpEditRequest;
 import com.eghm.dto.operate.help.HelpQueryRequest;
-import com.eghm.model.HelpCenter;
+import com.eghm.operate.model.HelpCenter;
 import com.eghm.service.operate.HelpCenterService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.operate.help.HelpDetailResponse;

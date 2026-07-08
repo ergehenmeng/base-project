@@ -8,8 +8,12 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>service</module>
-        <module>i18n</module>
+        <module>common</module>
+        <module>domain</module>
+        <module>application</module>
+        <module>infrastructure</module>
+        <module>web-core</module>
+        <module>i18n-spring-boot-starter</module>
         <module>webapp-server</module>
         <module>manage-server</module>
     </modules>
@@ -93,12 +97,32 @@
         <dependencies>
             <dependency>
                 <groupId>com.eghm</groupId>
-                <artifactId>service</artifactId>
+                <artifactId>common</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.eghm</groupId>
-                <artifactId>i18n</artifactId>
+                <artifactId>domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>application</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>infrastructure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>web-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>i18n-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -325,6 +349,20 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${lombok.version}</version>
+                            </path>
+                            <path>
+                                <groupId>org.springframework.boot</groupId>
+                                <artifactId>spring-boot-configuration-processor</artifactId>
+                                <version>${spring.boot.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>

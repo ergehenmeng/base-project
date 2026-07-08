@@ -63,8 +63,15 @@ spring:
 ## mybatis-plus配置
 mybatis-plus:
   type-aliases-package: com.eghm.dto;com.eghm.vo;com.eghm.handler.mysql
+  global-config:
+    db-config:
+      id-type: assign_id
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
   configuration:
     map-underscore-to-camel-case: true
+    default-enum-type-handler: com.eghm.handler.mybatis.DomainEnumTypeHandler
 application:
   manage:
     white-list:

@@ -1,18 +1,18 @@
 package com.eghm.web.controller.business;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.Page;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.member.*;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.MemberState;
-import com.eghm.model.LoginLog;
 import com.eghm.service.business.LoginService;
 import com.eghm.service.business.MemberNoticeService;
 import com.eghm.service.business.MemberScoreLogService;
 import com.eghm.service.business.MemberService;
 import com.eghm.utils.EasyExcelUtil;
 import com.eghm.vo.business.member.MemberResponse;
+import com.eghm.vo.business.member.LoginLogResponse;
 import com.eghm.vo.business.member.MemberScoreVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -80,8 +80,8 @@ public class MemberController {
 
     @GetMapping("/loginPage")
     @Operation(summary = "登录日志列表")
-    public RespBody<PageData<LoginLog>> loginPage(@ParameterObject @Validated LoginLogQueryRequest request) {
-        Page<LoginLog> byPage = loginService.getByPage(request);
+    public RespBody<PageData<LoginLogResponse>> loginPage(@ParameterObject @Validated LoginLogQueryRequest request) {
+        Page<LoginLogResponse> byPage = loginService.getByPage(request);
         return RespBody.success(PageData.convert(byPage));
     }
 

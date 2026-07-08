@@ -1,11 +1,11 @@
 package com.eghm.web.controller.operate;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.Page;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.operate.template.NoticeTemplateRequest;
-import com.eghm.model.NoticeTemplate;
+import com.eghm.operate.model.NoticeTemplate;
 import com.eghm.service.operate.NoticeTemplateService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;

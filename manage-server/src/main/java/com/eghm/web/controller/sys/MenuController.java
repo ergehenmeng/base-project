@@ -1,6 +1,6 @@
 package com.eghm.web.controller.sys;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.Page;
 import com.eghm.constants.LockConstant;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.SortByDTO;
@@ -14,7 +14,7 @@ import com.eghm.enums.DisplayState;
 import com.eghm.enums.RoleType;
 import com.eghm.event.PermissionRefreshEvent;
 import com.eghm.lock.RedisLock;
-import com.eghm.model.SysRole;
+import com.eghm.sys.model.SysRole;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.vo.sys.menu.MenuFullResponse;

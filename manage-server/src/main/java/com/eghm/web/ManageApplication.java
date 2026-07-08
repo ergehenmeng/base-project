@@ -5,7 +5,6 @@ import cn.hutool.core.net.NetUtil;
 import com.eghm.annotation.EnableSchedulingTask;
 import com.eghm.utils.LoggerUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
@@ -27,7 +26,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableSchedulingTask
 @ComponentScan("com.eghm")
 @EnableAspectJAutoProxy(exposeProxy = true)
-@MapperScan(basePackages = "com.eghm.mapper")
 @SpringBootApplication(exclude = FlywayAutoConfiguration.class)
 public class ManageApplication {
 

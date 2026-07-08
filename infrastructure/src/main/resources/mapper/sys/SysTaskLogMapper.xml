@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.sys.mapper.SysTaskLogMapper">
+
+    <select id="getByPage" resultType="com.eghm.vo.operate.log.SysTaskLogResponse" parameterType="com.eghm.dto.sys.task.TaskLogQueryRequest">
+        select id, bean_name, args, elapsed_time, ip, method_name, start_time, state
+        from sys_task_log
+        <where>
+            <if test="param.queryName != null and param.queryName != ''">
+                and (bean_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+                method_name like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%') or
+                ip like concat('%', #{param.queryName, typeHandler=LikeTypeHandler}, '%'))
+            </if>
+            <if test="param.state != null">
+                and state = #{param.state}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="getErrorMsg" resultType="string">
+        select error_msg from sys_task_log where id = #{id}
+    </select>
+
+</mapper>

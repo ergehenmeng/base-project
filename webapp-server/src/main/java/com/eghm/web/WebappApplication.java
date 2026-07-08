@@ -3,7 +3,6 @@ package com.eghm.web;
 import cn.hutool.core.net.NetUtil;
 import com.eghm.utils.LoggerUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,7 +21,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
  */
 @Slf4j
 @EnableAsync
-@MapperScan("com.eghm.mapper")
 @EnableAspectJAutoProxy(exposeProxy = true)
 @SpringBootApplication(scanBasePackages = "com.eghm", exclude = MailSenderAutoConfiguration.class)
 public class WebappApplication {

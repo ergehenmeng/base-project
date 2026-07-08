@@ -2,12 +2,10 @@ package com.eghm.web.controller;
 
 import com.eghm.constants.WeChatConstant;
 import com.eghm.exception.BusinessException;
+import com.eghm.pay.dto.PayNotifyMessage;
 import com.eghm.pay.service.PayNotifyLogService;
 import com.eghm.pay.service.PayService;
 import com.eghm.pay.enums.StepType;
-import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
-import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
-import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
@@ -69,21 +67,21 @@ public class PayNotifyController {
     @PostMapping(WECHAT_PAY_NOTIFY_URL)
     @Operation(summary = "微信支付回调")
     public Map<String, String> weChatPay(@RequestHeader HttpHeaders httpHeader, @RequestBody String requestBody, HttpServletResponse response) {
-        SignatureHeader header = this.parseWechatHeader(httpHeader);
-        WxPayNotifyV3Result payNotify = wechatPayService.parsePayNotify(requestBody, header);
+        Map<String, String> header = this.parseWechatHeader(httpHeader);
+        PayNotifyMessage payNotify = wechatPayService.parsePayNotify(requestBody, header);
         payNotifyLogService.insertWechatPayLog(payNotify);
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
-        return this.wechatResult(response, () -> log.error("微信支付回调成功, 请补全逻辑, 本地支付单号:[{}] ", payNotify.getResult().getOutTradeNo()));
+        return this.wechatResult(response, () -> log.error("微信支付回调成功, 请补全逻辑, 本地支付单号:[{}] ", payNotify.getTradeNo()));
     }
 
     @PostMapping(WECHAT_REFUND_NOTIFY_URL)
     @Operation(summary = "微信退款回调")
     public Map<String, String> weChatRefund(@RequestHeader HttpHeaders httpHeader, @RequestBody String requestBody, HttpServletResponse response) {
-        SignatureHeader header = this.parseWechatHeader(httpHeader);
-        WxPayRefundNotifyV3Result payNotify = wechatPayService.parseRefundNotify(requestBody, header);
+        Map<String, String> header = this.parseWechatHeader(httpHeader);
+        PayNotifyMessage payNotify = wechatPayService.parseRefundNotify(requestBody, header);
         payNotifyLogService.insertWechatRefundLog(payNotify);
-        String refundNo = payNotify.getResult().getOutRefundNo();
-        String tradeNo = payNotify.getResult().getOutTradeNo();
+        String refundNo = payNotify.getRefundNo();
+        String tradeNo = payNotify.getTradeNo();
         return this.wechatResult(response, () -> log.error("微信退款回调成功, 请补全逻辑, 本地退款单号:[{}] 本地支付单号:[{}]", refundNo, tradeNo));
     }
 
@@ -136,12 +134,12 @@ public class PayNotifyController {
      * @param headers 请求头
      * @return 验签对象
      */
-    private SignatureHeader parseWechatHeader(HttpHeaders headers) {
-        SignatureHeader header = new SignatureHeader();
-        header.setSignature(headers.getFirst(WeChatConstant.SIGNATURE));
-        header.setTimeStamp(headers.getFirst(WeChatConstant.TIMESTAMP));
-        header.setSerial(headers.getFirst(WeChatConstant.SERIAL));
-        header.setNonce(headers.getFirst(WeChatConstant.NONCE));
+    private Map<String, String> parseWechatHeader(HttpHeaders headers) {
+        Map<String, String> header = new HashMap<>(4);
+        header.put(WeChatConstant.SIGNATURE, headers.getFirst(WeChatConstant.SIGNATURE));
+        header.put(WeChatConstant.TIMESTAMP, headers.getFirst(WeChatConstant.TIMESTAMP));
+        header.put(WeChatConstant.SERIAL, headers.getFirst(WeChatConstant.SERIAL));
+        header.put(WeChatConstant.NONCE, headers.getFirst(WeChatConstant.NONCE));
         return header;
     }
 

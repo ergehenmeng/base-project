@@ -4,7 +4,7 @@ import com.eghm.cache.CacheService;
 import com.eghm.cache.SysCacheService;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sys.cache.DeleteRequest;
-import com.eghm.model.SysCache;
+import com.eghm.sys.model.SysCache;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

@@ -1,12 +1,12 @@
 package com.eghm.web.controller.operate;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.Page;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.operate.sensitive.KeywordDTO;
-import com.eghm.model.SensitiveWord;
+import com.eghm.operate.model.SensitiveWord;
 import com.eghm.service.operate.SensitiveWordService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;

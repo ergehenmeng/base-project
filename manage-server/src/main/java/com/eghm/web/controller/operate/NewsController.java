@@ -1,6 +1,6 @@
 package com.eghm.web.controller.operate;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.Page;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.SortByDTO;
 import com.eghm.dto.StateRequest;
@@ -9,7 +9,7 @@ import com.eghm.dto.business.news.NewsEditRequest;
 import com.eghm.dto.business.news.NewsQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.model.News;
+import com.eghm.operate.model.News;
 import com.eghm.service.operate.NewsService;
 import com.eghm.vo.business.news.NewsResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;

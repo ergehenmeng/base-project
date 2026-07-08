@@ -1,11 +1,11 @@
 package com.eghm.web.controller.operate;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.Page;
 import com.eghm.dto.operate.email.EmailTemplateRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.model.EmailTemplate;
+import com.eghm.operate.model.EmailTemplate;
 import com.eghm.service.operate.EmailTemplateService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;

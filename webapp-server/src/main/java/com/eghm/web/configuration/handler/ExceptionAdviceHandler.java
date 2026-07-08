@@ -8,7 +8,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.exception.*;
-import com.eghm.model.WebappLog;
+import com.eghm.sys.model.WebappLog;
 import com.eghm.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;

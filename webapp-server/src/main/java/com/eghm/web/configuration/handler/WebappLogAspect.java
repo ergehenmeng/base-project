@@ -5,7 +5,7 @@ import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.configuration.authentication.ApiHolder;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ExchangeQueue;
-import com.eghm.model.WebappLog;
+import com.eghm.sys.model.WebappLog;
 import com.eghm.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;

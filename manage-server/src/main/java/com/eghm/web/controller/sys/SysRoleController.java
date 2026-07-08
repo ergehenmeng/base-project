@@ -1,6 +1,6 @@
 package com.eghm.web.controller.sys;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.Page;
 import com.eghm.annotation.SkipPerm;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.CheckBox;

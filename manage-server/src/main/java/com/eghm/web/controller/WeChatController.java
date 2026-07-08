@@ -10,12 +10,13 @@ import com.eghm.dto.wechat.ShortUrlRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.LoginType;
 import com.eghm.exception.BusinessException;
-import com.eghm.model.SysUser;
+import com.eghm.sys.model.SysUser;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.login.QrcodeLoginResponse;
 import com.eghm.wechat.WeChatMiniService;
 import com.eghm.wechat.WeChatMpService;
+import com.eghm.wechat.dto.MpAccessToken;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -23,7 +24,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.chanjar.weixin.common.bean.oauth2.WxOAuth2AccessToken;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -95,7 +95,7 @@ public class WeChatController {
             return RespBody.success(response);
         }
         // 注意: 扫码后如果未绑定微信,则会跳转到登录页面,同时登录后自动绑定, 后续扫码后自动登录,如需更换微信,则需要解绑
-        WxOAuth2AccessToken authed = weChatMpService.getAccessToken(code);
+        MpAccessToken authed = weChatMpService.getAccessToken(code);
         SysUser sysUser = sysUserService.getByOpenId(authed.getOpenId());
         if (sysUser == null) {
             log.warn("微信扫码尚未绑定账号 [{}]", authed.getOpenId());

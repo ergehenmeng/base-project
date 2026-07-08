@@ -7,6 +7,7 @@ import com.eghm.configuration.authentication.SecurityHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.web.support.MultipartUploadFile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -36,7 +37,7 @@ public class UploadController {
     @Operation(summary = "单文件上传")
     @SkipLogger
     public RespBody<FilePath> upload(@RequestParam("file") MultipartFile file) {
-        FilePath filePath = fileService.saveFile(CommonConstant.MANAGE + SecurityHolder.getUserId(), file);
+        FilePath filePath = fileService.saveFile(CommonConstant.MANAGE + SecurityHolder.getUserId(), new MultipartUploadFile(file));
         return RespBody.success(filePath);
     }
 }
