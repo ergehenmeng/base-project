@@ -12,7 +12,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum ReportType {
+public enum ReportType implements ValuableEnum<Integer> {
 
     /**
      * 淫秽色情

@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum ObjectType {
+public enum ObjectType implements ValuableEnum<Integer> {
 
     /**
      * 资讯

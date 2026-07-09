@@ -12,7 +12,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum DataType {
+public enum DataType implements ValuableEnum<Integer> {
 
     /**
      * 个人权限

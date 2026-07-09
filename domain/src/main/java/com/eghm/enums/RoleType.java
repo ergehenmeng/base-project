@@ -12,7 +12,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum RoleType {
+public enum RoleType implements ValuableEnum<String> {
 
     /**
      * 系统角色

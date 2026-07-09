@@ -11,7 +11,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum MessageType {
+public enum MessageType implements ValuableEnum<String> {
 
     /**
      * 通用类通知

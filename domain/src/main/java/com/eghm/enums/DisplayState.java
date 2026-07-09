@@ -12,7 +12,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum DisplayState {
+public enum DisplayState implements ValuableEnum<Integer> {
 
     /**
      * 商户菜单

@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum Gender {
+public enum Gender implements ValuableEnum<Integer> {
 
     /**
      * 未知

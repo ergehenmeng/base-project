@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.InputStream;
 
-import static com.eghm.constants.CommonConstant.DAY_MAX_UPLOAD;
+import static com.eghm.constants.InfraConstant.DAY_MAX_UPLOAD;
 
 /**
  * @author 二哥很猛

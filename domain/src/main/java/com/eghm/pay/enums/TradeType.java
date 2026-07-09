@@ -1,5 +1,6 @@
 package com.eghm.pay.enums;
 
+import com.eghm.enums.ValuableEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,7 +13,7 @@ import java.util.stream.Stream;
  */
 @Getter
 @AllArgsConstructor
-public enum TradeType {
+public enum TradeType implements ValuableEnum<String> {
 
     /**
      * APP

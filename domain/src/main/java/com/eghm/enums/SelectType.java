@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum SelectType {
+public enum SelectType implements ValuableEnum<String> {
 
     /**
      * 按周查询

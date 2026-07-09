@@ -2,7 +2,6 @@ package com.eghm.constants;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.springframework.util.unit.DataSize;
 
 import java.io.File;
 import java.nio.charset.Charset;
@@ -199,11 +198,6 @@ public class CommonConstant {
      * 移动端文件上传前缀
      */
     public static final String WEBAPP = "webapp:";
-
-    /**
-     * 单日上传限制: 默认128M
-     */
-    public static final DataSize DAY_MAX_UPLOAD = DataSize.ofMegabytes(128);
 
     /**
      * 验证码

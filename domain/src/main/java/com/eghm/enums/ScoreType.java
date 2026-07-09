@@ -11,7 +11,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum ScoreType {
+public enum ScoreType implements ValuableEnum<Integer> {
 
     /**
      * 签到积分

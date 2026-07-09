@@ -11,7 +11,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum FeedbackType {
+public enum FeedbackType implements ValuableEnum<Integer> {
 
     /**
      * 功能异常

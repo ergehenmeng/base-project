@@ -11,7 +11,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum MemberState {
+public enum MemberState implements ValuableEnum<Boolean> {
 
     /**
      * 正常

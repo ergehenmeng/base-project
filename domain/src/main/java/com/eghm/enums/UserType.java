@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum UserType {
+public enum UserType implements ValuableEnum<Integer> {
 
     /**
      * 系统管理员

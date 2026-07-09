@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum CollectType {
+public enum CollectType implements ValuableEnum<Integer> {
 
     /**
      * 资讯

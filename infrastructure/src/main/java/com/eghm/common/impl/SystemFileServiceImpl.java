@@ -21,7 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 
-import static com.eghm.constants.CommonConstant.DAY_MAX_UPLOAD;
+import static com.eghm.constants.InfraConstant.DAY_MAX_UPLOAD;
 
 /**
  * 保存文件路径格式=根路径+公共路径+文件分类路径+日期+文件名+后缀<br>

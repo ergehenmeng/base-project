@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum UserState {
+public enum UserState implements ValuableEnum<Integer> {
 
     /**
      * 锁定

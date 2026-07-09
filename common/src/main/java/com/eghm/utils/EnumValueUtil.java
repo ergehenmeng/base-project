@@ -1,5 +1,7 @@
 package com.eghm.utils;
 
+import com.eghm.enums.ValuableEnum;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -14,6 +16,9 @@ public final class EnumValueUtil {
     public static Object value(Enum<?> value) {
         if (value == null) {
             return null;
+        }
+        if (value instanceof ValuableEnum) {
+            return ((ValuableEnum<?>) value).getValue();
         }
         Object resolved = invokeNoArg(value, "getValue");
         if (resolved != null) {

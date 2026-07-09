@@ -13,7 +13,7 @@ import java.util.Arrays;
  */
 @AllArgsConstructor
 @Getter
-public enum TemplateType {
+public enum TemplateType implements ValuableEnum<String> {
 
     /**
      * 未指定短信类型,则为自定义短信:default

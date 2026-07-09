@@ -9,10 +9,9 @@ import java.util.Arrays;
 /**
  * @author 殿小二
  * @since 2022/9/4
- */
+ */@Getter
 @AllArgsConstructor
-@Getter
-public enum DirectionType {
+public enum DirectionType implements ValuableEnum<Integer> {
 
     /**
      * 收入
