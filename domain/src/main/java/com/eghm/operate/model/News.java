@@ -73,5 +73,4 @@ public class News extends BaseEntity {
     public boolean isPublished() {
         return Boolean.TRUE.equals(this.state);
     }
-
 }

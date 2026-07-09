@@ -106,7 +106,16 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public void updateState(Long id, Boolean state) {
-        newsRepository.updateState(id, state);
+        News news = newsRepository.findById(id);
+        if (news == null) {
+            throw new BusinessException(ErrorCode.NEWS_NULL);
+        }
+        if (Boolean.TRUE.equals(state)) {
+            news.publish();
+        } else {
+            news.unpublish();
+        }
+        newsRepository.update(news);
     }
 
     @Override

@@ -1,9 +1,10 @@
 package com.eghm.operate.model;
 
 import com.eghm.enums.ObjectType;
+import com.eghm.model.BaseEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -15,10 +16,8 @@ import java.util.Objects;
  * @since 2024-01-12
  */
 @Data
-public class Comment {
-    /** id主键 */
-    private Long id;
-
+@EqualsAndHashCode(callSuper = true)
+public class Comment extends BaseEntity {
     /** 用户ID */
     private Long memberId;
 
@@ -54,14 +53,6 @@ public class Comment {
 
     /** 被评论次数 */
     private Integer replyNum;
-
-    /** 添加时间 */
-    private LocalDateTime createTime;
-    
-    /** 更新时间 */
-    private LocalDateTime updateTime;
-    /** 是否已删除 0:未删除 1:已删除 */
-    private Boolean deleted;
 
     public void create(Long memberId, Long objectId, ObjectType objectType, Long pid, Long replyId, String content) {
         this.memberId = memberId;
