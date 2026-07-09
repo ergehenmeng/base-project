@@ -2,7 +2,7 @@ package com.eghm.infrastructure.cache.impl;
 
 import com.eghm.application.shared.cache.ClearCacheService;
 import com.eghm.constants.CacheConstant;
-import com.eghm.application.operate.port.in.SensitiveWordService;
+import com.eghm.application.operate.service.SensitiveWordApplicationService;
 import freemarker.template.Configuration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,7 @@ public class ClearCacheServiceImpl implements ClearCacheService {
 
     private Configuration configuration;
 
-    private final SensitiveWordService sensitiveWordService;
+    private final SensitiveWordApplicationService sensitiveWordService;
 
     @Autowired(required = false)
     public void setConfiguration(Configuration configuration) {

@@ -6,7 +6,7 @@ import com.eghm.application.shared.common.UserTokenService;
 import com.eghm.application.shared.configuration.ApplicationProperties;
 import com.eghm.interfaces.core.configuration.WebMvcConfig;
 import com.eghm.infrastructure.shared.configuration.data.permission.DataScopeAspect;
-import com.eghm.application.system.port.in.SysMenuService;
+import com.eghm.application.system.service.SysMenuApplicationService;
 import com.eghm.interfaces.manage.configuration.filter.AuthFilter;
 import com.eghm.interfaces.manage.configuration.interceptor.LockScreenInterceptor;
 import com.eghm.interfaces.manage.configuration.interceptor.PermInterceptor;
@@ -38,12 +38,12 @@ public class ManageMvcConfig extends WebMvcConfig {
 
     private final CommonService commonService;
 
-    private final SysMenuService sysMenuService;
+    private final SysMenuApplicationService sysMenuService;
 
     private final UserTokenService userTokenService;
 
     public ManageMvcConfig(ObjectMapper objectMapper, ApplicationProperties applicationProperties, UserTokenService userTokenService,
-                           SysMenuService sysMenuService, CacheService cacheService, @Qualifier("taskExecutor") TaskExecutor taskExecutor,
+                           SysMenuApplicationService sysMenuService, CacheService cacheService, @Qualifier("taskExecutor") TaskExecutor taskExecutor,
                            CommonService commonService) {
         super(objectMapper, taskExecutor, applicationProperties);
         this.cacheService = cacheService;

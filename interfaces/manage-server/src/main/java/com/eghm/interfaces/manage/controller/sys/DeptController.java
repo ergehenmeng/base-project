@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.sys.dept.DeptAddRequest;
 import com.eghm.application.shared.dto.sys.dept.DeptEditRequest;
 import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
-import com.eghm.application.system.port.in.SysDeptService;
+import com.eghm.application.system.service.SysDeptApplicationService;
 import com.eghm.application.shared.vo.sys.ext.SysDeptResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +27,7 @@ import java.util.List;
 @RequestMapping(value = "/manage/dept", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DeptController {
 
-    private final SysDeptService sysDeptService;
+    private final SysDeptApplicationService sysDeptService;
 
     @GetMapping("/list")
     @Operation(summary = "部门列表(不分页)")

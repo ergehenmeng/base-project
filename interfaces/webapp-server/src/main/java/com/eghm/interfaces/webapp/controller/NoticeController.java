@@ -3,7 +3,7 @@ package com.eghm.interfaces.webapp.controller;
 import com.eghm.application.shared.dto.IdDTO;
 import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
-import com.eghm.application.operate.port.in.SysNoticeService;
+import com.eghm.application.operate.service.SysNoticeApplicationService;
 import com.eghm.application.shared.vo.operate.notice.NoticeDetailVO;
 import com.eghm.application.shared.vo.operate.notice.NoticeTopVO;
 import com.eghm.application.shared.vo.operate.notice.NoticeVO;
@@ -29,7 +29,7 @@ import java.util.List;
 @RequestMapping(value = "/webapp/notice", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NoticeController {
 
-    private final SysNoticeService sysNoticeService;
+    private final SysNoticeApplicationService sysNoticeService;
 
     @GetMapping("/top")
     @Operation(summary = "首页公告Top-N")

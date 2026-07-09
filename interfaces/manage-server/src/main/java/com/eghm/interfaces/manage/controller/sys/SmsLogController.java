@@ -4,7 +4,7 @@ import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.sys.log.SmsLogQueryRequest;
-import com.eghm.application.system.port.in.SmsLogService;
+import com.eghm.application.system.service.SmsLogApplicationService;
 import com.eghm.application.shared.vo.operate.log.SmsLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/manage/sms/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SmsLogController {
 
-    private final SmsLogService smsLogService;
+    private final SmsLogApplicationService smsLogService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")

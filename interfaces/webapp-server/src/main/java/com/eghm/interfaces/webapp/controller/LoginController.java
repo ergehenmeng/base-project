@@ -8,7 +8,7 @@ import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.dto.sys.login.*;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.enums.TemplateType;
-import com.eghm.application.member.port.in.MemberService;
+import com.eghm.application.member.service.MemberApplicationService;
 import com.eghm.interfaces.core.utils.IpUtil;
 import com.eghm.application.shared.vo.login.LoginTokenVO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,7 +37,7 @@ public class LoginController {
 
     private final SmsService smsService;
 
-    private final MemberService memberService;
+    private final MemberApplicationService memberService;
 
     private final MemberTokenService memberTokenService;
 

@@ -16,8 +16,8 @@ import com.eghm.application.shared.dto.sys.user.UserProfileRequest;
 import com.eghm.application.shared.dto.sys.user.UserQueryRequest;
 import com.eghm.domain.shared.enums.UserState;
 import com.eghm.domain.system.model.SysUser;
-import com.eghm.application.system.port.in.SysRoleService;
-import com.eghm.application.system.port.in.SysUserService;
+import com.eghm.application.system.service.SysRoleApplicationService;
+import com.eghm.application.system.service.SysUserApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.interfaces.core.utils.FileUtil;
 import com.eghm.application.shared.vo.sys.user.UserDetailResponse;
@@ -53,9 +53,9 @@ public class UserController {
 
     private final FileService fileService;
 
-    private final SysUserService sysUserService;
+    private final SysUserApplicationService sysUserService;
 
-    private final SysRoleService sysRoleService;
+    private final SysRoleApplicationService sysRoleService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")

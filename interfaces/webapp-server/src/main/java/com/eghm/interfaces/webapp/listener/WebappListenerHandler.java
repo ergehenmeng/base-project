@@ -7,9 +7,9 @@ import com.eghm.constants.QueueConstant;
 import com.eghm.application.shared.dto.ext.LoginRecord;
 import com.eghm.domain.system.model.WebappLog;
 import com.eghm.mq.listener.AbstractListenerHandler;
-import com.eghm.application.member.port.in.LoginService;
-import com.eghm.application.operate.port.in.SensitiveWordService;
-import com.eghm.application.system.port.in.WebappLogService;
+import com.eghm.application.member.service.LoginApplicationService;
+import com.eghm.application.operate.service.SensitiveWordApplicationService;
+import com.eghm.application.system.service.WebappLogApplicationService;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
@@ -26,13 +26,13 @@ import java.io.IOException;
 @Slf4j
 public class WebappListenerHandler extends AbstractListenerHandler {
 
-    private final LoginService loginService;
+    private final LoginApplicationService loginService;
 
-    private final WebappLogService webappLogService;
+    private final WebappLogApplicationService webappLogService;
 
-    private final SensitiveWordService sensitiveWordService;
+    private final SensitiveWordApplicationService sensitiveWordService;
 
-    public WebappListenerHandler(JsonService jsonService, AlarmService alarmService, LoginService loginService, CacheService cacheService, WebappLogService webappLogService, SensitiveWordService sensitiveWordService) {
+    public WebappListenerHandler(JsonService jsonService, AlarmService alarmService, LoginApplicationService loginService, CacheService cacheService, WebappLogApplicationService webappLogService, SensitiveWordApplicationService sensitiveWordService) {
         super(jsonService, cacheService, alarmService);
         this.loginService = loginService;
         this.webappLogService = webappLogService;

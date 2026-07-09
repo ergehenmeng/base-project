@@ -6,7 +6,7 @@ import com.eghm.constants.CacheConstant;
 import com.eghm.infrastructure.persistence.mybatis.mapper.SysCacheMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.SysCachePO;
 import com.eghm.domain.system.model.SysCache;
-import com.eghm.application.system.port.in.BlackRosterService;
+import com.eghm.application.system.service.BlackRosterApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ public class SysCacheServiceImpl implements SysCacheService {
 
     private final ClearCacheService clearCacheService;
 
-    private final BlackRosterService blackRosterService;
+    private final BlackRosterApplicationService blackRosterService;
 
     @Override
     public void clearCache(List<String> cacheNames) {

@@ -10,7 +10,7 @@ import com.eghm.application.shared.dto.business.news.NewsQueryRequest;
 import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.domain.operate.model.News;
-import com.eghm.application.operate.port.in.NewsService;
+import com.eghm.application.operate.service.NewsApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.business.news.NewsDetailResponse;
 import com.eghm.application.shared.vo.business.news.NewsResponse;
@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/news", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NewsController {
 
-    private final NewsService newsService;
+    private final NewsApplicationService newsService;
 
     @Operation(summary = "列表")
     @GetMapping("/listPage")

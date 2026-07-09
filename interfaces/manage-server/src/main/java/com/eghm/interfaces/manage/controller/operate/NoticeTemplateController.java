@@ -6,7 +6,7 @@ import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.template.NoticeTemplateRequest;
 import com.eghm.domain.operate.model.NoticeTemplate;
-import com.eghm.application.operate.port.in.NoticeTemplateService;
+import com.eghm.application.operate.service.NoticeTemplateApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.operate.template.NoticeTemplateResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/notice/template", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NoticeTemplateController {
 
-    private final NoticeTemplateService noticeTemplateService;
+    private final NoticeTemplateApplicationService noticeTemplateService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")

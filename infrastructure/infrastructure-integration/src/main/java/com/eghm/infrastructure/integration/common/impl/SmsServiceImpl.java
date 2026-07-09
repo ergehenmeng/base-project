@@ -10,7 +10,7 @@ import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.enums.TemplateType;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.system.model.SmsLog;
-import com.eghm.application.system.port.in.SmsLogService;
+import com.eghm.application.system.service.SmsLogApplicationService;
 import com.eghm.application.shared.utils.CacheUtil;
 import com.eghm.application.shared.utils.StringUtil;
 import lombok.AllArgsConstructor;
@@ -34,7 +34,7 @@ public class SmsServiceImpl implements SmsService {
 
     private final CacheService cacheService;
 
-    private final SmsLogService smsLogService;
+    private final SmsLogApplicationService smsLogService;
 
     private final SendSmsService sendSmsService;
 

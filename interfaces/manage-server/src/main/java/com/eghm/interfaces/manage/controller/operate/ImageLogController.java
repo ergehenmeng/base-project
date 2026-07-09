@@ -7,7 +7,7 @@ import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.image.ImageAddRequest;
 import com.eghm.application.shared.dto.operate.image.ImageEditRequest;
 import com.eghm.application.shared.dto.operate.image.ImageQueryRequest;
-import com.eghm.application.operate.port.in.ImageLogService;
+import com.eghm.application.operate.service.ImageLogApplicationService;
 import com.eghm.application.shared.vo.operate.log.ImageLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/image", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ImageLogController {
 
-    private final ImageLogService imageLogService;
+    private final ImageLogApplicationService imageLogService;
 
     @GetMapping("/listPage")
     @Operation(summary = "图片列表(分页)")

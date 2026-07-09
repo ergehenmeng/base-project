@@ -6,7 +6,7 @@ import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.domain.operate.model.EmailTemplate;
-import com.eghm.application.operate.port.in.EmailTemplateService;
+import com.eghm.application.operate.service.EmailTemplateApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.operate.template.EmailTemplateResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/email/template", produces = MediaType.APPLICATION_JSON_VALUE)
 public class EmailTemplateController {
 
-    private final EmailTemplateService emailTemplateService;
+    private final EmailTemplateApplicationService emailTemplateService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")

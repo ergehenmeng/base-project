@@ -1,7 +1,7 @@
 package com.eghm.interfaces.webapp.controller;
 
 import com.eghm.application.shared.dto.ext.RespBody;
-import com.eghm.application.operate.port.in.AppVersionService;
+import com.eghm.application.operate.service.AppVersionApplicationService;
 import com.eghm.application.shared.vo.operate.version.AppVersionVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/webapp/version", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VersionController {
 
-    private final AppVersionService appVersionService;
+    private final AppVersionApplicationService appVersionService;
 
     @GetMapping("/latest")
     @Operation(summary = "获取最新的版本")

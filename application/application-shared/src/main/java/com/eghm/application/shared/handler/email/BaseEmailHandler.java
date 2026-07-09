@@ -7,7 +7,7 @@ import com.eghm.enums.EmailType;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.operate.model.EmailTemplate;
-import com.eghm.application.operate.port.in.EmailTemplateService;
+import com.eghm.application.operate.service.EmailTemplateApplicationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -27,7 +27,7 @@ public class BaseEmailHandler {
 
     private TemplateEngine templateEngine;
 
-    private EmailTemplateService emailTemplateService;
+    private EmailTemplateApplicationService emailTemplateService;
 
     @Autowired
     public void setTemplateEngine(TemplateEngine templateEngine) {
@@ -35,7 +35,7 @@ public class BaseEmailHandler {
     }
 
     @Autowired
-    public void setEmailTemplateService(EmailTemplateService emailTemplateService) {
+    public void setEmailTemplateApplicationService(EmailTemplateApplicationService emailTemplateService) {
         this.emailTemplateService = emailTemplateService;
     }
 

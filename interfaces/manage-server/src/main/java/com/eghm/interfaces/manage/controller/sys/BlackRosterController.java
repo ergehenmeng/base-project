@@ -7,7 +7,7 @@ import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.roster.BlackRosterAddRequest;
 import com.eghm.domain.system.model.BlackRoster;
-import com.eghm.application.system.port.in.BlackRosterService;
+import com.eghm.application.system.service.BlackRosterApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.sys.roster.BlackRosterResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/black/roster", produces = MediaType.APPLICATION_JSON_VALUE)
 public class BlackRosterController {
 
-    private final BlackRosterService blackRosterService;
+    private final BlackRosterApplicationService blackRosterService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")

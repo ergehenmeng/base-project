@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.sys.config.ConfigEditRequest;
 import com.eghm.application.shared.dto.sys.config.ConfigQueryRequest;
-import com.eghm.application.system.port.in.SysConfigService;
+import com.eghm.application.system.service.SysConfigApplicationService;
 import com.eghm.application.shared.vo.sys.ext.SysConfigResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/config", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ConfigController {
 
-    private final SysConfigService sysConfigService;
+    private final SysConfigApplicationService sysConfigService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")

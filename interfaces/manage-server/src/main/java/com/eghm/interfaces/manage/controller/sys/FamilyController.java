@@ -4,7 +4,7 @@ import com.eghm.application.shared.dto.IdRequest;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.sys.family.FamilyAddRequest;
 import com.eghm.application.shared.dto.sys.family.FamilyEditRequest;
-import com.eghm.application.system.port.in.FamilyService;
+import com.eghm.application.system.service.FamilyApplicationService;
 import com.eghm.application.shared.vo.sys.family.FamilyResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/family", produces = MediaType.APPLICATION_JSON_VALUE)
 public class FamilyController {
 
-    private final FamilyService familyService;
+    private final FamilyApplicationService familyService;
 
     @GetMapping(value = "/list")
     @Operation(summary = "列表")

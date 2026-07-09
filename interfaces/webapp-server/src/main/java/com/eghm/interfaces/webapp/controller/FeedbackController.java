@@ -4,7 +4,7 @@ import com.eghm.application.shared.configuration.authentication.ApiHolder;
 import com.eghm.application.shared.dto.ext.RequestMessage;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.feedback.FeedbackAddDTO;
-import com.eghm.application.operate.port.in.FeedbackService;
+import com.eghm.application.operate.service.FeedbackApplicationService;
 import com.eghm.interfaces.webapp.annotation.AccessToken;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/webapp/feedback", produces = MediaType.APPLICATION_JSON_VALUE)
 public class FeedbackController {
 
-    private final FeedbackService feedbackService;
+    private final FeedbackApplicationService feedbackService;
 
     @PostMapping(value = "/submit", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "保存反馈信息")

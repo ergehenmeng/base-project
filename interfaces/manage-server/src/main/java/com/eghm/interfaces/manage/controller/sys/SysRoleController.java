@@ -11,7 +11,7 @@ import com.eghm.application.shared.dto.sys.role.RoleAddRequest;
 import com.eghm.application.shared.dto.sys.role.RoleAuthRequest;
 import com.eghm.application.shared.dto.sys.role.RoleEditRequest;
 import com.eghm.domain.shared.enums.RoleType;
-import com.eghm.application.system.port.in.SysRoleService;
+import com.eghm.application.system.service.SysRoleApplicationService;
 import com.eghm.application.shared.vo.sys.ext.SysRoleResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,7 +33,7 @@ import java.util.List;
 @RequestMapping(value = "/manage/role", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SysRoleController {
 
-    private final SysRoleService sysRoleService;
+    private final SysRoleApplicationService sysRoleService;
 
     @GetMapping("/listPage")
     @Operation(summary = "角色列表(分页)")

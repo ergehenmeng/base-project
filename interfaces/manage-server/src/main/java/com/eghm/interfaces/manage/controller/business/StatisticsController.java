@@ -3,8 +3,8 @@ package com.eghm.interfaces.manage.controller.business;
 import com.eghm.application.shared.dto.business.statistics.DateRequest;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.business.statistics.CollectRequest;
-import com.eghm.application.member.port.in.MemberCollectService;
-import com.eghm.application.member.port.in.MemberService;
+import com.eghm.application.member.service.MemberCollectApplicationService;
+import com.eghm.application.member.service.MemberApplicationService;
 import com.eghm.application.shared.vo.business.statistics.CollectStatisticsVO;
 import com.eghm.application.shared.vo.business.statistics.MemberRegisterVO;
 import com.eghm.application.shared.vo.business.statistics.MemberStatisticsVO;
@@ -31,9 +31,9 @@ import java.util.List;
 @RequestMapping(value = "/manage/statistics", produces = MediaType.APPLICATION_JSON_VALUE)
 public class StatisticsController {
 
-    private final MemberService memberService;
+    private final MemberApplicationService memberService;
 
-    private final MemberCollectService memberCollectService;
+    private final MemberCollectApplicationService memberCollectService;
 
     @GetMapping("/sexChannel")
     @Operation(summary = "注册渠道统计")

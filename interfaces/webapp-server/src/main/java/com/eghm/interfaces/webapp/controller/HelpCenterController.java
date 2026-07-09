@@ -2,7 +2,7 @@ package com.eghm.interfaces.webapp.controller;
 
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.help.HelpQueryDTO;
-import com.eghm.application.operate.port.in.HelpCenterService;
+import com.eghm.application.operate.service.HelpCenterApplicationService;
 import com.eghm.application.shared.vo.operate.help.HelpCenterVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping(value = "/webapp/help", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HelpCenterController {
 
-    private final HelpCenterService helpCenterService;
+    private final HelpCenterApplicationService helpCenterService;
 
     @GetMapping("/list")
     @Operation(summary = "列表")

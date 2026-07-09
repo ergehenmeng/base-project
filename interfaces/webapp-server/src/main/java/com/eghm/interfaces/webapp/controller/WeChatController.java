@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.wechat.JsTicketDTO;
 import com.eghm.application.shared.dto.wechat.MaLoginDTO;
 import com.eghm.application.shared.dto.wechat.MaOpenLoginDTO;
 import com.eghm.application.shared.dto.wechat.MpLoginDTO;
-import com.eghm.application.member.port.in.MemberService;
+import com.eghm.application.member.service.MemberApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.interfaces.core.utils.IpUtil;
 import com.eghm.application.shared.vo.login.LoginTokenVO;
@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/webapp/wechat", produces = MediaType.APPLICATION_JSON_VALUE)
 public class WeChatController {
 
-    private final MemberService memberService;
+    private final MemberApplicationService memberService;
 
     private final WeChatMpService weChatMpService;
 

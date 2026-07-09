@@ -3,7 +3,7 @@ package com.eghm.interfaces.webapp.controller;
 import com.eghm.application.shared.dto.IdDTO;
 import com.eghm.application.shared.configuration.authentication.ApiHolder;
 import com.eghm.application.shared.dto.ext.RespBody;
-import com.eghm.application.member.port.in.LoginService;
+import com.eghm.application.member.service.LoginApplicationService;
 import com.eghm.application.shared.vo.business.member.LoginDeviceVO;
 import com.eghm.interfaces.webapp.annotation.AccessToken;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping(value = "/webapp/member/device", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DeviceController {
 
-    private final LoginService loginService;
+    private final LoginApplicationService loginService;
 
     @Operation(summary = "用户登陆过的设备列表")
     @GetMapping("/list")

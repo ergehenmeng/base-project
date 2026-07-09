@@ -7,7 +7,7 @@ import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import com.alibaba.excel.util.NumberUtils;
 import com.eghm.application.shared.annotation.ExcelDict;
-import com.eghm.application.system.port.in.SysDictService;
+import com.eghm.application.system.service.SysDictApplicationService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -30,7 +30,7 @@ public class DictConverter implements Converter<Integer> {
         if (dict == null) {
             return NumberUtils.formatToCellDataString(value, contentProperty);
         }
-        SysDictService service = SpringUtil.getBean(SysDictService.class);
+        SysDictApplicationService service = SpringUtil.getBean(SysDictApplicationService.class);
         String dictValue = service.getDictValue(dict.value(), value);
         if (dictValue == null) {
             log.warn("导出Excel解析数据字典为空 [{}] [{}]", dict.value(), value);

@@ -7,7 +7,7 @@ import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.ext.UserToken;
 import com.eghm.application.shared.dto.operate.feedback.FeedbackDisposeRequest;
 import com.eghm.application.shared.dto.operate.feedback.FeedbackQueryRequest;
-import com.eghm.application.operate.port.in.FeedbackService;
+import com.eghm.application.operate.service.FeedbackApplicationService;
 import com.eghm.application.shared.vo.operate.feedback.FeedbackResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/feedback", produces = MediaType.APPLICATION_JSON_VALUE)
 public class FeedbackController {
 
-    private final FeedbackService feedbackService;
+    private final FeedbackApplicationService feedbackService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")

@@ -8,7 +8,7 @@ import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.version.VersionAddRequest;
 import com.eghm.application.shared.dto.operate.version.VersionEditRequest;
 import com.eghm.application.shared.dto.operate.version.VersionQueryRequest;
-import com.eghm.application.operate.port.in.AppVersionService;
+import com.eghm.application.operate.service.AppVersionApplicationService;
 import com.eghm.application.shared.vo.operate.version.AppVersionResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/version", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AppVersionController {
 
-    private final AppVersionService appVersionService;
+    private final AppVersionApplicationService appVersionService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")

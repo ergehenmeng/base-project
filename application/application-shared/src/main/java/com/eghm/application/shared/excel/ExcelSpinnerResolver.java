@@ -6,7 +6,7 @@ import com.eghm.application.shared.annotation.ExcelSpinner;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.system.model.SysDictItem;
-import com.eghm.application.system.port.in.SysDictService;
+import com.eghm.application.system.service.SysDictApplicationService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -64,7 +64,7 @@ public class ExcelSpinnerResolver {
         String key = spinner.dictKey();
         if (CharSequenceUtil.isNotBlank(key)) {
             try {
-                SysDictService service = SpringUtil.getBean(SysDictService.class);
+                SysDictApplicationService service = SpringUtil.getBean(SysDictApplicationService.class);
                 List<SysDictItem> itemList = service.getDictByNid(key);
                 return itemList.stream().map(SysDictItem::getShowValue).toArray(String[]::new);
             } catch (Exception e) {

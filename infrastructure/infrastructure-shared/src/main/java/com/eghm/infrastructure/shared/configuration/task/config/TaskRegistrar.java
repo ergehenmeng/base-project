@@ -6,7 +6,7 @@ import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.application.shared.lock.RedisLock;
 import com.eghm.infrastructure.persistence.mybatis.mapper.SysTaskMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.SysTaskPO;
-import com.eghm.application.system.port.in.SysTaskLogService;
+import com.eghm.application.system.service.SysTaskLogApplicationService;
 import com.eghm.application.shared.utils.LoggerUtil;
 import com.eghm.infrastructure.persistence.mybatis.util.MybatisUtil;
 import jakarta.annotation.PostConstruct;
@@ -44,7 +44,7 @@ public class TaskRegistrar {
 
     private final TaskScheduler taskScheduler;
 
-    private final SysTaskLogService sysTaskLogService;
+    private final SysTaskLogApplicationService sysTaskLogService;
 
     /**
      * 任务执行句柄

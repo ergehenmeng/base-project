@@ -6,8 +6,8 @@ import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.comment.CommentDTO;
 import com.eghm.application.shared.dto.operate.comment.CommentQueryDTO;
 import com.eghm.application.shared.dto.operate.comment.CommentReportDTO;
-import com.eghm.application.operate.port.in.CommentReportService;
-import com.eghm.application.operate.port.in.CommentService;
+import com.eghm.application.operate.service.CommentReportApplicationService;
+import com.eghm.application.operate.service.CommentApplicationService;
 import com.eghm.application.shared.vo.operate.comment.CommentSecondVO;
 import com.eghm.application.shared.vo.operate.comment.CommentVO;
 import com.eghm.interfaces.webapp.annotation.AccessToken;
@@ -32,9 +32,9 @@ import java.util.List;
 @RequestMapping(value = "/webapp/comment", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CommentController {
 
-    private final CommentService commentService;
+    private final CommentApplicationService commentService;
 
-    private final CommentReportService commentReportService;
+    private final CommentReportApplicationService commentReportService;
 
     @GetMapping("/listPage")
     @Operation(summary = "评论列表")

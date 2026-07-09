@@ -9,7 +9,7 @@ import com.eghm.application.shared.dto.operate.help.HelpAddRequest;
 import com.eghm.application.shared.dto.operate.help.HelpEditRequest;
 import com.eghm.application.shared.dto.operate.help.HelpQueryRequest;
 import com.eghm.domain.operate.model.HelpCenter;
-import com.eghm.application.operate.port.in.HelpCenterService;
+import com.eghm.application.operate.service.HelpCenterApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.operate.help.HelpDetailResponse;
 import com.eghm.application.shared.vo.operate.help.HelpResponse;
@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/help", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HelpCenterController {
 
-    private final HelpCenterService helpCenterService;
+    private final HelpCenterApplicationService helpCenterService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")

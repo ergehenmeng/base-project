@@ -7,8 +7,8 @@ import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.payment.model.PayNotifyLog;
-import com.eghm.application.payment.port.in.PayNotifyLogService;
-import com.eghm.application.payment.port.in.PayRequestLogService;
+import com.eghm.application.payment.service.PayNotifyLogApplicationService;
+import com.eghm.application.payment.service.PayRequestLogApplicationService;
 import com.eghm.application.shared.vo.operate.log.PayNotifyLogResponse;
 import com.eghm.application.shared.vo.operate.log.PayRequestLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,9 +31,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/pay/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PayLogController {
 
-    private final PayNotifyLogService payNotifyLogService;
+    private final PayNotifyLogApplicationService payNotifyLogService;
 
-    private final PayRequestLogService payRequestLogService;
+    private final PayRequestLogApplicationService payRequestLogService;
 
     @GetMapping("/sync/listPage")
     @Operation(summary = "支付同步请求日志列表")

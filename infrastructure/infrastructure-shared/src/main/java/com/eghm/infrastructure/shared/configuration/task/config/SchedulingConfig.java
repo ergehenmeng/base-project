@@ -4,7 +4,7 @@ import com.eghm.infrastructure.shared.annotation.EnableSchedulingTask;
 import com.eghm.domain.shared.service.AlarmService;
 import com.eghm.application.shared.lock.RedisLock;
 import com.eghm.infrastructure.persistence.mybatis.mapper.SysTaskMapper;
-import com.eghm.application.system.port.in.SysTaskLogService;
+import com.eghm.application.system.service.SysTaskLogApplicationService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.TaskScheduler;
@@ -23,7 +23,7 @@ public class SchedulingConfig {
      */
     @Bean
     public TaskRegistrar taskRegistrar(RedisLock redisLock, SysTaskMapper sysTaskMapper, @Qualifier("taskScheduler") TaskScheduler taskScheduler,
-                                       AlarmService alarmService, SysTaskLogService sysTaskLogService) {
+                                       AlarmService alarmService, SysTaskLogApplicationService sysTaskLogService) {
         return new TaskRegistrar(redisLock, alarmService, sysTaskMapper, taskScheduler, sysTaskLogService);
     }
 

@@ -6,7 +6,7 @@ import com.eghm.domain.shared.service.JsonService;
 import com.eghm.constants.QueueConstant;
 import com.eghm.domain.system.model.ManageLog;
 import com.eghm.mq.listener.AbstractListenerHandler;
-import com.eghm.application.system.port.in.ManageLogService;
+import com.eghm.application.system.service.ManageLogApplicationService;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
@@ -23,9 +23,9 @@ import java.io.IOException;
 @Component
 public class ManageListenerHandler extends AbstractListenerHandler {
 
-    private final ManageLogService manageLogService;
+    private final ManageLogApplicationService manageLogService;
 
-    public ManageListenerHandler(JsonService jsonService, AlarmService alarmService, CacheService cacheService, ManageLogService manageLogService) {
+    public ManageListenerHandler(JsonService jsonService, AlarmService alarmService, CacheService cacheService, ManageLogApplicationService manageLogService) {
         super(jsonService, cacheService, alarmService);
         this.manageLogService = manageLogService;
     }

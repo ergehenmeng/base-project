@@ -9,7 +9,7 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.ext.UserToken;
 import com.eghm.application.shared.dto.sys.user.CheckPwdRequest;
-import com.eghm.application.system.port.in.SysUserService;
+import com.eghm.application.system.service.SysUserApplicationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -32,7 +32,7 @@ public class SystemController {
     
     private final CacheService cacheService;
     
-    private final SysUserService sysUserService;
+    private final SysUserApplicationService sysUserService;
     
     @PostMapping("/lock/screen")
     @Operation(summary = "锁屏")

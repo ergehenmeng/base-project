@@ -3,7 +3,7 @@ package com.eghm.interfaces.webapp.controller.business;
 import com.eghm.application.shared.dto.IdDTO;
 import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
-import com.eghm.application.operate.port.in.NewsService;
+import com.eghm.application.operate.service.NewsApplicationService;
 import com.eghm.application.shared.vo.business.news.NewsDetailVO;
 import com.eghm.application.shared.vo.business.news.NewsVO;
 import com.eghm.interfaces.webapp.annotation.AccessToken;
@@ -28,7 +28,7 @@ import java.util.List;
 @RequestMapping(value = "/webapp/news", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NewsController {
 
-    private final NewsService newsService;
+    private final NewsApplicationService newsService;
 
     @Operation(summary = "列表")
     @GetMapping("/listPage")

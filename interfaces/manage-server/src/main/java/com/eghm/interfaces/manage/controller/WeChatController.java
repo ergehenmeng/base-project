@@ -11,7 +11,7 @@ import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.enums.LoginType;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.system.model.SysUser;
-import com.eghm.application.system.port.in.SysUserService;
+import com.eghm.application.system.service.SysUserApplicationService;
 import com.eghm.application.shared.vo.login.LoginResponse;
 import com.eghm.application.shared.vo.login.QrcodeLoginResponse;
 import com.eghm.application.shared.wechat.WeChatMiniService;
@@ -41,7 +41,7 @@ import java.util.List;
 @RequestMapping(value = "/manage/wechat", produces = MediaType.APPLICATION_JSON_VALUE)
 public class WeChatController {
 
-    private final SysUserService sysUserService;
+    private final SysUserApplicationService sysUserService;
 
     private final WeChatMpService weChatMpService;
 

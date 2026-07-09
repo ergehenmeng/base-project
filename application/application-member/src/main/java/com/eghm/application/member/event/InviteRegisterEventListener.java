@@ -3,8 +3,8 @@ package com.eghm.application.member.event;
 import com.eghm.domain.member.model.Member;
 import com.eghm.domain.member.model.MemberInviteLog;
 import com.eghm.domain.member.event.MemberRegisteredEvent;
-import com.eghm.application.member.port.in.MemberInviteLogService;
-import com.eghm.application.member.port.in.MemberService;
+import com.eghm.application.member.service.MemberInviteLogApplicationService;
+import com.eghm.application.member.service.MemberApplicationService;
 import com.eghm.application.shared.dto.ext.MemberRegister;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,9 +24,9 @@ import static com.eghm.application.shared.utils.StringUtil.isNotBlank;
 @RequiredArgsConstructor
 public class InviteRegisterEventListener {
 
-    private final MemberService memberService;
+    private final MemberApplicationService memberService;
 
-    private final MemberInviteLogService memberInviteLogService;
+    private final MemberInviteLogApplicationService memberInviteLogService;
 
     @EventListener
     public void onMemberRegistered(MemberRegisteredEvent event) {

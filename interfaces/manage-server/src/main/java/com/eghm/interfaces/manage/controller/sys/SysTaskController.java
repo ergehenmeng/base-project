@@ -7,7 +7,7 @@ import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.sys.task.TaskEditRequest;
 import com.eghm.application.shared.dto.sys.task.TaskQueryRequest;
 import com.eghm.application.shared.dto.sys.task.TaskRunRequest;
-import com.eghm.application.system.port.in.SysTaskService;
+import com.eghm.application.system.service.SysTaskApplicationService;
 import com.eghm.application.shared.vo.operate.task.SysTaskResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/task", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SysTaskController {
 
-    private final SysTaskService sysTaskService;
+    private final SysTaskApplicationService sysTaskService;
 
     private final TaskRegistrar taskRegistrar;
 

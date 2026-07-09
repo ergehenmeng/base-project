@@ -8,7 +8,7 @@ import com.eghm.application.shared.dto.operate.notice.NoticeAddRequest;
 import com.eghm.application.shared.dto.operate.notice.NoticeEditRequest;
 import com.eghm.application.shared.dto.operate.notice.NoticeQueryRequest;
 import com.eghm.domain.operate.model.SysNotice;
-import com.eghm.application.operate.port.in.SysNoticeService;
+import com.eghm.application.operate.service.SysNoticeApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.operate.notice.NoticeDetailResponse;
 import com.eghm.application.shared.vo.operate.notice.NoticeResponse;
@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/notice", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SysNoticeController {
 
-    private final SysNoticeService sysNoticeService;
+    private final SysNoticeApplicationService sysNoticeService;
 
     @Operation(summary = "列表")
     @GetMapping("/listPage")

@@ -10,7 +10,7 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.application.shared.lock.RedisLock;
-import com.eghm.application.system.port.in.SysTaskLogService;
+import com.eghm.application.system.service.SysTaskLogApplicationService;
 import com.eghm.domain.system.model.SysTaskLog;
 import com.eghm.application.shared.utils.StringUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -39,9 +39,9 @@ public class Invoker implements Runnable {
 
     private final AlarmService alarmService;
 
-    private final SysTaskLogService sysTaskLogService;
+    private final SysTaskLogApplicationService sysTaskLogService;
 
-    Invoker(ScheduleBean dispatch, RedisLock redisLock, AlarmService alarmService, SysTaskLogService sysTaskLogService) {
+    Invoker(ScheduleBean dispatch, RedisLock redisLock, AlarmService alarmService, SysTaskLogApplicationService sysTaskLogService) {
         this.dispatch = dispatch;
         this.redisLock = redisLock;
         this.alarmService = alarmService;

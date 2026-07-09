@@ -3,8 +3,8 @@ package com.eghm.interfaces.webapp.controller;
 import com.eghm.constants.WeChatConstant;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.application.payment.dto.PayNotifyMessage;
-import com.eghm.application.payment.port.in.PayNotifyLogService;
-import com.eghm.application.payment.port.out.PayService;
+import com.eghm.application.payment.service.PayNotifyLogApplicationService;
+import com.eghm.application.payment.service.PayService;
 import com.eghm.domain.payment.enums.StepType;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,7 +39,7 @@ public class PayNotifyController {
 
     private final PayService wechatPayService;
 
-    private final PayNotifyLogService payNotifyLogService;
+    private final PayNotifyLogApplicationService payNotifyLogService;
 
     @PostMapping(ALI_PAY_NOTIFY_URL)
     @Operation(summary = "支付宝支付回调")

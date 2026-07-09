@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.IdDTO;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.dto.sys.dict.*;
 import com.eghm.domain.system.model.SysDictItem;
-import com.eghm.application.system.port.in.SysDictService;
+import com.eghm.application.system.service.SysDictApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.sys.dict.BaseDictResponse;
 import com.eghm.application.shared.vo.sys.dict.BaseItemVO;
@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping(value = "/manage/dict", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DictController {
 
-    private final SysDictService sysDictService;
+    private final SysDictApplicationService sysDictService;
 
     @GetMapping("/list")
     @Operation(summary = "列表")

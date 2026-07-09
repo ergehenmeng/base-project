@@ -18,7 +18,7 @@ import com.eghm.enums.Env;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.enums.LoginType;
 import com.eghm.domain.shared.exception.BusinessException;
-import com.eghm.application.system.port.in.SysUserService;
+import com.eghm.application.system.service.SysUserApplicationService;
 import com.eghm.application.shared.utils.CacheUtil;
 import com.eghm.interfaces.core.utils.IpUtil;
 import com.eghm.application.shared.vo.login.LoginMenuResponse;
@@ -51,7 +51,7 @@ public class LoginController {
 
     private final CacheService cacheService;
 
-    private final SysUserService sysUserService;
+    private final SysUserApplicationService sysUserService;
 
     private final ApplicationProperties applicationProperties;
 

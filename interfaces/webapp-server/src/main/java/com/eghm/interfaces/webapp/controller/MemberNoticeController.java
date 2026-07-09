@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.IdDTO;
 import com.eghm.application.shared.configuration.authentication.ApiHolder;
 import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
-import com.eghm.application.member.port.in.MemberNoticeService;
+import com.eghm.application.member.service.MemberNoticeApplicationService;
 import com.eghm.application.shared.vo.business.member.MemberNoticeVO;
 import com.eghm.interfaces.webapp.annotation.AccessToken;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,7 +28,7 @@ import java.util.List;
 @RequestMapping(value = "/webapp/member/notice", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberNoticeController {
 
-    private final MemberNoticeService memberNoticeService;
+    private final MemberNoticeApplicationService memberNoticeService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")

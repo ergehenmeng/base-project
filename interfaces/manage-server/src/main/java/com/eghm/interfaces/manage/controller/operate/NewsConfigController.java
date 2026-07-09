@@ -8,7 +8,7 @@ import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.domain.operate.model.NewsConfig;
-import com.eghm.application.operate.port.in.NewsConfigService;
+import com.eghm.application.operate.service.NewsConfigApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.business.news.NewsConfigDetailResponse;
 import com.eghm.application.shared.vo.business.news.NewsConfigResponse;
@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping(value = "/manage/news/config", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NewsConfigController {
 
-    private final NewsConfigService newsConfigService;
+    private final NewsConfigApplicationService newsConfigService;
 
     @Operation(summary = "列表")
     @GetMapping("/listPage")

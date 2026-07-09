@@ -6,10 +6,10 @@ import com.eghm.dto.business.member.*;
 import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.domain.shared.enums.MemberState;
-import com.eghm.application.member.port.in.LoginService;
-import com.eghm.application.member.port.in.MemberNoticeService;
-import com.eghm.application.member.port.in.MemberScoreLogService;
-import com.eghm.application.member.port.in.MemberService;
+import com.eghm.application.member.service.LoginApplicationService;
+import com.eghm.application.member.service.MemberNoticeApplicationService;
+import com.eghm.application.member.service.MemberScoreLogApplicationService;
+import com.eghm.application.member.service.MemberApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.interfaces.core.utils.EasyExcelUtil;
 import com.eghm.application.shared.vo.business.member.MemberResponse;
@@ -37,13 +37,13 @@ import java.util.List;
 @RequestMapping(value = "/manage/member", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberController {
 
-    private final LoginService loginService;
+    private final LoginApplicationService loginService;
 
-    private final MemberService memberService;
+    private final MemberApplicationService memberService;
 
-    private final MemberNoticeService memberNoticeService;
+    private final MemberNoticeApplicationService memberNoticeService;
 
-    private final MemberScoreLogService memberScoreLogService;
+    private final MemberScoreLogApplicationService memberScoreLogService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")

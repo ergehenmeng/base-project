@@ -1,7 +1,7 @@
 package com.eghm.interfaces.webapp.configuration.filter;
 
 import com.eghm.domain.shared.enums.ErrorCode;
-import com.eghm.application.system.port.in.BlackRosterService;
+import com.eghm.application.system.service.BlackRosterApplicationService;
 import com.eghm.interfaces.core.utils.IpUtil;
 import com.eghm.interfaces.core.utils.WebUtil;
 import jakarta.servlet.*;
@@ -20,7 +20,7 @@ import java.io.IOException;
 @AllArgsConstructor
 public class IpBlackListFilter implements Filter {
 
-    private final BlackRosterService blackRosterService;
+    private final BlackRosterApplicationService blackRosterService;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

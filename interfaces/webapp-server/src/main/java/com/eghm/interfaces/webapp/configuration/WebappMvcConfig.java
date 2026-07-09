@@ -6,7 +6,7 @@ import com.eghm.application.shared.configuration.ApplicationProperties;
 import com.eghm.interfaces.core.configuration.WebMvcConfig;
 import com.eghm.interfaces.core.configuration.version.ApiVersionRequestMappingHandlerMapping;
 import com.eghm.constants.CommonConstant;
-import com.eghm.application.system.port.in.BlackRosterService;
+import com.eghm.application.system.service.BlackRosterApplicationService;
 import com.eghm.interfaces.webapp.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.interfaces.webapp.configuration.filter.IpBlackListFilter;
 import com.eghm.interfaces.webapp.configuration.interceptor.ApiSignInterceptor;
@@ -115,7 +115,7 @@ public class WebappMvcConfig extends WebMvcConfig implements WebMvcRegistrations
      * 过滤器,由spring管理
      */
     @Bean
-    public FilterRegistrationBean<IpBlackListFilter> ipBlackListFilter(BlackRosterService blackRosterService) {
+    public FilterRegistrationBean<IpBlackListFilter> ipBlackListFilter(BlackRosterApplicationService blackRosterService) {
         FilterRegistrationBean<IpBlackListFilter> registrationBean = new FilterRegistrationBean<>();
         IpBlackListFilter requestFilter = new IpBlackListFilter(blackRosterService);
         registrationBean.setFilter(requestFilter);

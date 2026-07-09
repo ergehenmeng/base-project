@@ -7,7 +7,7 @@ import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.auth.AuthConfigAddRequest;
 import com.eghm.application.shared.dto.operate.auth.AuthConfigEditRequest;
-import com.eghm.application.operate.port.in.AuthConfigService;
+import com.eghm.application.operate.service.AuthConfigApplicationService;
 import com.eghm.application.shared.vo.operate.auth.AuthConfigResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,7 +35,7 @@ import java.io.FileNotFoundException;
 @RequestMapping(value = "/manage/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthConfigController {
 
-    private final AuthConfigService authConfigService;
+    private final AuthConfigApplicationService authConfigService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")

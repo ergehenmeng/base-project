@@ -7,7 +7,7 @@ import com.eghm.application.shared.dto.sys.register.AccountRegisterDTO;
 import com.eghm.application.shared.dto.sys.register.MobileRegisterDTO;
 import com.eghm.application.shared.dto.sys.register.RegisterSmsDTO;
 import com.eghm.domain.shared.enums.ErrorCode;
-import com.eghm.application.member.port.in.MemberService;
+import com.eghm.application.member.service.MemberApplicationService;
 import com.eghm.interfaces.core.utils.IpUtil;
 import com.eghm.application.shared.vo.login.LoginTokenVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -34,7 +34,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @RequestMapping(value = "/webapp/register", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RegisterController {
 
-    private final MemberService memberService;
+    private final MemberApplicationService memberService;
 
     @PostMapping(value = "/sendSms", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "注册发送验证码①")

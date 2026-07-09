@@ -7,9 +7,9 @@ import com.eghm.application.shared.dto.business.member.BindEmailDTO;
 import com.eghm.application.shared.dto.business.member.ChangeEmailDTO;
 import com.eghm.application.shared.dto.business.member.MemberDTO;
 import com.eghm.application.shared.dto.business.member.SendEmailAuthCodeDTO;
-import com.eghm.application.member.port.in.MemberInviteLogService;
-import com.eghm.application.member.port.in.MemberNoticeService;
-import com.eghm.application.member.port.in.MemberService;
+import com.eghm.application.member.service.MemberInviteLogApplicationService;
+import com.eghm.application.member.service.MemberNoticeApplicationService;
+import com.eghm.application.member.service.MemberApplicationService;
 import com.eghm.interfaces.core.utils.IpUtil;
 import com.eghm.application.shared.vo.business.member.MemberInviteVO;
 import com.eghm.application.shared.vo.business.member.MemberVO;
@@ -39,11 +39,11 @@ import java.util.List;
 @RequestMapping(value = "/webapp/member", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MemberController {
 
-    private final MemberService memberService;
+    private final MemberApplicationService memberService;
 
-    private final MemberNoticeService memberNoticeService;
+    private final MemberNoticeApplicationService memberNoticeService;
 
-    private final MemberInviteLogService memberInviteLogService;
+    private final MemberInviteLogApplicationService memberInviteLogService;
 
     @PostMapping(value = "/sendBindEmailCode", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "绑定邮箱发送验证码请求①")

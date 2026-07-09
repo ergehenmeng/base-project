@@ -7,7 +7,7 @@ import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.sensitive.KeywordDTO;
 import com.eghm.domain.operate.model.SensitiveWord;
-import com.eghm.application.operate.port.in.SensitiveWordService;
+import com.eghm.application.operate.service.SensitiveWordApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.operate.sensitive.SensitiveWordResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/sensitive/word", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SensitiveWordController {
 
-    private final SensitiveWordService sensitiveWordService;
+    private final SensitiveWordApplicationService sensitiveWordService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")

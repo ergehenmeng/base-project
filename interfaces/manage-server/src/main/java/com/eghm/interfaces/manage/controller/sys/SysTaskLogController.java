@@ -5,7 +5,7 @@ import com.eghm.application.shared.dto.IdDTO;
 import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.sys.task.TaskLogQueryRequest;
-import com.eghm.application.system.port.in.SysTaskLogService;
+import com.eghm.application.system.service.SysTaskLogApplicationService;
 import com.eghm.application.shared.vo.operate.log.SysTaskLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,7 +29,7 @@ import java.util.Objects;
 @RequestMapping(value = "/manage/task/log", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SysTaskLogController {
 
-    private final SysTaskLogService sysTaskLogService;
+    private final SysTaskLogApplicationService sysTaskLogService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")

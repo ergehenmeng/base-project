@@ -9,7 +9,7 @@ import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.banner.BannerAddRequest;
 import com.eghm.application.shared.dto.operate.banner.BannerEditRequest;
 import com.eghm.application.shared.dto.operate.banner.BannerQueryRequest;
-import com.eghm.application.operate.port.in.BannerService;
+import com.eghm.application.operate.service.BannerApplicationService;
 import com.eghm.application.shared.vo.operate.banner.BannerResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/banner", produces = MediaType.APPLICATION_JSON_VALUE)
 public class BannerController {
 
-    private final BannerService bannerService;
+    private final BannerApplicationService bannerService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")

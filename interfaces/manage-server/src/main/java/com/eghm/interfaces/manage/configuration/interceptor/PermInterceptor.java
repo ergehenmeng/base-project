@@ -9,7 +9,7 @@ import com.eghm.application.shared.dto.ext.UserToken;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.application.shared.event.PermissionRefreshEvent;
 import com.eghm.domain.system.model.SysMenu;
-import com.eghm.application.system.port.in.SysMenuService;
+import com.eghm.application.system.service.SysMenuApplicationService;
 import com.eghm.interfaces.core.utils.WebUtil;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.PostConstruct;
@@ -41,7 +41,7 @@ public class PermInterceptor implements InterceptorAdapter {
 
     private final CommonService commonService;
 
-    private final SysMenuService sysMenuService;
+    private final SysMenuApplicationService sysMenuService;
 
     public static final String DELIMITERS = ",; ";
 

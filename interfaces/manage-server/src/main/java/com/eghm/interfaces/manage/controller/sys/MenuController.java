@@ -15,8 +15,8 @@ import com.eghm.domain.shared.enums.RoleType;
 import com.eghm.application.shared.event.PermissionRefreshEvent;
 import com.eghm.application.shared.lock.RedisLock;
 import com.eghm.domain.system.model.SysRole;
-import com.eghm.application.system.port.in.SysMenuService;
-import com.eghm.application.system.port.in.SysRoleService;
+import com.eghm.application.system.service.SysMenuApplicationService;
+import com.eghm.application.system.service.SysRoleApplicationService;
 import com.eghm.application.shared.vo.sys.menu.MenuFullResponse;
 import com.eghm.application.shared.vo.sys.menu.MenuResponse;
 import com.eghm.application.shared.vo.sys.menu.MenuTreeResponse;
@@ -47,9 +47,9 @@ public class MenuController {
     
     private final RedisLock redisLock;
 
-    private final SysRoleService sysRoleService;
+    private final SysRoleApplicationService sysRoleService;
 
-    private final SysMenuService sysMenuService;
+    private final SysMenuApplicationService sysMenuService;
 
     private final ApplicationEventPublisher eventPublisher;
 

@@ -2,7 +2,7 @@ package com.eghm.interfaces.webapp.controller;
 
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.domain.system.model.SysDictItem;
-import com.eghm.application.system.port.in.SysDictService;
+import com.eghm.application.system.service.SysDictApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.sys.dict.BaseItemVO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +28,7 @@ import java.util.List;
 @RequestMapping(value = "/webapp/dict", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DictController {
 
-    private final SysDictService sysDictService;
+    private final SysDictApplicationService sysDictService;
 
     @GetMapping("/list")
     @Operation(summary = "列表")

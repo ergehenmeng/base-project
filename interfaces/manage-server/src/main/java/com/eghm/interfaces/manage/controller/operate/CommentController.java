@@ -6,8 +6,8 @@ import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.operate.comment.CommentQueryRequest;
 import com.eghm.application.shared.dto.operate.comment.CommentReportQueryRequest;
-import com.eghm.application.operate.port.in.CommentReportService;
-import com.eghm.application.operate.port.in.CommentService;
+import com.eghm.application.operate.service.CommentReportApplicationService;
+import com.eghm.application.operate.service.CommentApplicationService;
 import com.eghm.application.shared.vo.operate.comment.CommentReportResponse;
 import com.eghm.application.shared.vo.operate.comment.CommentResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,9 +29,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/manage/comment", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CommentController {
 
-    private final CommentService commentService;
+    private final CommentApplicationService commentService;
 
-    private final CommentReportService commentReportService;
+    private final CommentReportApplicationService commentReportService;
 
     @GetMapping("/listPage")
     @Operation(summary = "列表")

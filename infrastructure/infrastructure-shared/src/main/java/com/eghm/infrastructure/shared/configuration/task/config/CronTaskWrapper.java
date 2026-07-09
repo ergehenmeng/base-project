@@ -4,7 +4,7 @@ import com.eghm.domain.shared.service.AlarmService;
 import com.eghm.constants.CommonConstant;
 import com.eghm.application.shared.lock.RedisLock;
 import com.eghm.infrastructure.persistence.mybatis.po.SysTaskPO;
-import com.eghm.application.system.port.in.SysTaskLogService;
+import com.eghm.application.system.service.SysTaskLogApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import lombok.Getter;
 import org.springframework.scheduling.config.CronTask;
@@ -21,7 +21,7 @@ public class CronTaskWrapper extends CronTask {
      */
     private final String nid;
 
-    CronTaskWrapper(SysTaskPO task, RedisLock redisLock, AlarmService alarmService, SysTaskLogService sysTaskLogService) {
+    CronTaskWrapper(SysTaskPO task, RedisLock redisLock, AlarmService alarmService, SysTaskLogApplicationService sysTaskLogService) {
         super(new Invoker(DataUtil.copy(task, CronScheduleBean.class), redisLock, alarmService, sysTaskLogService), task.getCronExpression());
         this.nid = task.getBeanName() + CommonConstant.SPECIAL_SPLIT + task.getMethodName();
     }
