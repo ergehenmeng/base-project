@@ -1,7 +1,7 @@
 package com.eghm.utils;
 
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.enums.ErrorCode;
+import com.eghm.domain.shared.exception.BusinessException;
 import com.google.common.collect.Lists;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

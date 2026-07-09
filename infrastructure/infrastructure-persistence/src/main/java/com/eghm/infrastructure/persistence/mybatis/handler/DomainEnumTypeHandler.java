@@ -1,6 +1,6 @@
 package com.eghm.infrastructure.persistence.mybatis.handler;
 
-import com.eghm.utils.EnumValueUtil;
+import com.eghm.domain.shared.utils.EnumValueUtil;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedTypes;

@@ -2,7 +2,7 @@ package com.eghm.infrastructure.integration.common.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.eghm.common.GeoService;
+import com.eghm.domain.shared.service.GeoService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.google.common.collect.Maps;

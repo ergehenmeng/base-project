@@ -1,8 +1,8 @@
 package com.eghm.interfaces.webapp.listener;
 
 import com.eghm.cache.CacheService;
-import com.eghm.common.AlarmService;
-import com.eghm.common.JsonService;
+import com.eghm.domain.shared.service.AlarmService;
+import com.eghm.domain.shared.service.JsonService;
 import com.eghm.constants.QueueConstant;
 import com.eghm.dto.ext.LoginRecord;
 import com.eghm.domain.system.model.WebappLog;

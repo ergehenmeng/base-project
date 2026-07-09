@@ -1,7 +1,7 @@
 package com.eghm.configuration.task.config;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
-import com.eghm.common.AlarmService;
+import com.eghm.domain.shared.service.AlarmService;
 import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.lock.RedisLock;

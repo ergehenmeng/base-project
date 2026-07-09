@@ -2,7 +2,7 @@ package com.eghm.infrastructure.cache.config;
 
 import com.eghm.cache.CacheService;
 import com.eghm.common.CommonService;
-import com.eghm.common.JsonService;
+import com.eghm.domain.shared.service.JsonService;
 import com.eghm.common.UserTokenService;
 import com.eghm.infrastructure.integration.common.impl.JwtUserTokenServiceImpl;
 import com.eghm.infrastructure.integration.common.impl.RedisUserTokenServiceImpl;

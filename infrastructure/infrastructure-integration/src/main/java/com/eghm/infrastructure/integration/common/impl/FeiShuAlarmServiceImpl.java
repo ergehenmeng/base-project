@@ -1,7 +1,7 @@
 package com.eghm.infrastructure.integration.common.impl;
 
 import cn.hutool.crypto.SecureUtil;
-import com.eghm.common.JsonService;
+import com.eghm.domain.shared.service.JsonService;
 import com.eghm.configuration.ApplicationProperties;
 import com.eghm.dto.ext.FeiShuMsg;
 import com.eghm.enums.AlarmType;

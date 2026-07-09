@@ -4,7 +4,7 @@ import com.eghm.cache.CacheProxyService;
 import com.eghm.configuration.authentication.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.domain.shared.enums.Channel;
-import com.eghm.enums.ErrorCode;
+import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.vo.operate.banner.BannerVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

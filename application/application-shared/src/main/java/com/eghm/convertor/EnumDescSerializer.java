@@ -2,8 +2,8 @@ package com.eghm.convertor;
 
 import cn.hutool.core.util.ReflectUtil;
 import com.eghm.annotation.JsonDesc;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.enums.ErrorCode;
+import com.eghm.domain.shared.exception.BusinessException;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

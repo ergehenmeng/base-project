@@ -6,8 +6,8 @@ import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import com.eghm.annotation.ExcelDesc;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.enums.ErrorCode;
+import com.eghm.domain.shared.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;

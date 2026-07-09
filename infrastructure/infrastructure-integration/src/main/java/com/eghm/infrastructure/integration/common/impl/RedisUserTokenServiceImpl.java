@@ -3,7 +3,7 @@ package com.eghm.infrastructure.integration.common.impl;
 import cn.hutool.core.util.IdUtil;
 import com.eghm.cache.CacheService;
 import com.eghm.common.CommonService;
-import com.eghm.common.JsonService;
+import com.eghm.domain.shared.service.JsonService;
 import com.eghm.common.UserTokenService;
 import com.eghm.configuration.ApplicationProperties;
 import com.eghm.constants.CacheConstant;

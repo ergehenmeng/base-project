@@ -1,8 +1,8 @@
 package com.eghm.infrastructure.integration.common.impl;
 
-import com.eghm.common.JsonService;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.ParameterException;
+import com.eghm.domain.shared.service.JsonService;
+import com.eghm.domain.shared.enums.ErrorCode;
+import com.eghm.domain.shared.exception.ParameterException;
 import com.eghm.utils.StringUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

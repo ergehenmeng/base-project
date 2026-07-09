@@ -1,6 +1,6 @@
 package com.eghm.infrastructure.integration.common.impl;
 
-import com.eghm.common.JsonService;
+import com.eghm.domain.shared.service.JsonService;
 import com.eghm.common.SendSmsService;
 import com.eghm.configuration.ApplicationProperties;
 import com.eghm.domain.shared.enums.TemplateType;

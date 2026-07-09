@@ -2,7 +2,7 @@ package com.eghm.infrastructure.integration.common.impl;
 
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.crypto.SecureUtil;
-import com.eghm.common.JsonService;
+import com.eghm.domain.shared.service.JsonService;
 import com.eghm.configuration.ApplicationProperties;
 import com.eghm.enums.AlarmType;
 import lombok.extern.slf4j.Slf4j;

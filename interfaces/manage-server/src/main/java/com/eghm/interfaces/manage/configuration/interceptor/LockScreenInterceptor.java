@@ -6,7 +6,7 @@ import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.authentication.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.dto.ext.UserToken;
-import com.eghm.enums.ErrorCode;
+import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.utils.WebUtil;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletRequest;

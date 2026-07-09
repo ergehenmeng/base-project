@@ -1,6 +1,6 @@
 package com.eghm.common;
 
-import com.eghm.enums.ErrorCode;
+import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.vo.sys.ext.SysAreaVO;
 
 import java.util.List;

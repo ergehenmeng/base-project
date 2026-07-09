@@ -1,7 +1,7 @@
 package com.eghm.configuration.task.config;
 
 import com.eghm.annotation.EnableSchedulingTask;
-import com.eghm.common.AlarmService;
+import com.eghm.domain.shared.service.AlarmService;
 import com.eghm.lock.RedisLock;
 import com.eghm.infrastructure.persistence.mybatis.mapper.SysTaskMapper;
 import com.eghm.application.system.service.SysTaskLogService;

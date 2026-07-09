@@ -2,10 +2,10 @@ package com.eghm.domain.member.model;
 
 import com.eghm.domain.shared.model.BaseEntity;
 import com.eghm.domain.shared.enums.DirectionType;
-import com.eghm.enums.ErrorCode;
+import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.enums.MemberState;
 import com.eghm.domain.shared.enums.ScoreType;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.exception.BusinessException;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

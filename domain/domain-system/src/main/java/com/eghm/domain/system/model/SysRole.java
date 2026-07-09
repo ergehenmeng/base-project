@@ -2,9 +2,9 @@ package com.eghm.domain.system.model;
 
 import com.eghm.domain.shared.model.BaseEntity;
 
-import com.eghm.enums.ErrorCode;
+import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.enums.RoleType;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.exception.BusinessException;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

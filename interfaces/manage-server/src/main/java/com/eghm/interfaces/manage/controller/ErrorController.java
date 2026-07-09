@@ -2,7 +2,7 @@ package com.eghm.interfaces.manage.controller;
 
 import com.eghm.annotation.SkipPerm;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ErrorCode;
+import com.eghm.domain.shared.enums.ErrorCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.RequestDispatcher;

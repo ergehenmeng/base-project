@@ -1,7 +1,7 @@
 package com.eghm.application.member.service.impl;
 
 import com.eghm.dto.ext.Page;
-import com.eghm.common.IdGenerator;
+import com.eghm.domain.shared.service.IdGenerator;
 import com.eghm.domain.member.model.LoginDevice;
 import com.eghm.domain.member.model.LoginLog;
 import com.eghm.domain.member.repository.LoginRepository;

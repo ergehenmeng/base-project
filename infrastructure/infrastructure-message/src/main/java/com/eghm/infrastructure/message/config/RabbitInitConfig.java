@@ -1,6 +1,6 @@
 package com.eghm.infrastructure.message.config;
 
-import com.eghm.common.AlarmService;
+import com.eghm.domain.shared.service.AlarmService;
 import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.enums.ExchangeQueue;

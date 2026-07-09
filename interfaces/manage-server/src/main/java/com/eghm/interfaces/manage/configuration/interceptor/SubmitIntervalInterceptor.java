@@ -3,7 +3,7 @@ package com.eghm.interfaces.manage.configuration.interceptor;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.authentication.SecurityHolder;
 import com.eghm.constants.CacheConstant;
-import com.eghm.enums.ErrorCode;
+import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
 import jakarta.annotation.Nonnull;

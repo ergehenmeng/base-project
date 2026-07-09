@@ -1,6 +1,6 @@
 package com.eghm.infrastructure.integration.common.impl;
 
-import com.eghm.common.AlarmService;
+import com.eghm.domain.shared.service.AlarmService;
 import lombok.extern.slf4j.Slf4j;
 
 /**

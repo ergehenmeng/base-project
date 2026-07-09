@@ -1,7 +1,7 @@
 package com.eghm.interfaces.webapp.controller;
 
 import com.eghm.constants.WeChatConstant;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.application.payment.dto.PayNotifyMessage;
 import com.eghm.application.payment.service.PayNotifyLogService;
 import com.eghm.application.payment.service.PayService;

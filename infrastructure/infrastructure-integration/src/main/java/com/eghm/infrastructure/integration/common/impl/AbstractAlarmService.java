@@ -2,8 +2,8 @@ package com.eghm.infrastructure.integration.common.impl;
 
 import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.http.HttpUtil;
-import com.eghm.common.AlarmService;
-import com.eghm.common.JsonService;
+import com.eghm.domain.shared.service.AlarmService;
+import com.eghm.domain.shared.service.JsonService;
 import com.eghm.configuration.ApplicationProperties;
 import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.dto.ext.AlarmMsg;

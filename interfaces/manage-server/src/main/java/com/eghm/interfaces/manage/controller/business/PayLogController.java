@@ -5,7 +5,7 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.pay.PayLogQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ErrorCode;
+import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.payment.model.PayNotifyLog;
 import com.eghm.application.payment.service.PayNotifyLogService;
 import com.eghm.application.payment.service.PayRequestLogService;

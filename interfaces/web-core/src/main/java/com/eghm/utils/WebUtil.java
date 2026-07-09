@@ -2,7 +2,7 @@ package com.eghm.utils;
 
 import cn.hutool.core.lang.Validator;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ErrorCode;
+import com.eghm.domain.shared.enums.ErrorCode;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;

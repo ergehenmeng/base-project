@@ -1,8 +1,8 @@
 package com.eghm.utils;
 
 import cn.hutool.core.io.FileTypeUtil;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.enums.ErrorCode;
+import com.eghm.domain.shared.exception.BusinessException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

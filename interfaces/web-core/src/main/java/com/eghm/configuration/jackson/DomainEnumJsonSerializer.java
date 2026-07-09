@@ -1,6 +1,6 @@
 package com.eghm.configuration.jackson;
 
-import com.eghm.utils.EnumValueUtil;
+import com.eghm.domain.shared.utils.EnumValueUtil;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;

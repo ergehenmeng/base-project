@@ -1,15 +1,15 @@
 package com.eghm.infrastructure.cache.impl;
 
 import com.eghm.cache.CacheService;
-import com.eghm.common.JsonService;
+import com.eghm.domain.shared.service.JsonService;
 import com.eghm.infrastructure.integration.common.impl.SysConfigApi;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.LockConstant;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
-import com.eghm.exception.ParameterException;
+import com.eghm.domain.shared.enums.ErrorCode;
+import com.eghm.domain.shared.exception.BusinessException;
+import com.eghm.domain.shared.exception.ParameterException;
 import com.eghm.lock.RedisLock;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.Lists;

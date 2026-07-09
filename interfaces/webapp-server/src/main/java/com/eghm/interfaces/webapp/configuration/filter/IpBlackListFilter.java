@@ -1,6 +1,6 @@
 package com.eghm.interfaces.webapp.configuration.filter;
 
-import com.eghm.enums.ErrorCode;
+import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.application.system.service.BlackRosterService;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;

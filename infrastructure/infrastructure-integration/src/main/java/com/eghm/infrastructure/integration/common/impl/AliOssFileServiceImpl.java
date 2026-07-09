@@ -2,14 +2,14 @@ package com.eghm.infrastructure.integration.common.impl;
 
 import cn.hutool.core.lang.UUID;
 import com.aliyun.oss.OSS;
-import com.eghm.common.AlarmService;
+import com.eghm.domain.shared.service.AlarmService;
 import com.eghm.common.FileService;
 import com.eghm.configuration.ApplicationProperties;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.FilePath;
 import com.eghm.dto.ext.UploadFile;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.enums.ErrorCode;
+import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.utils.CacheUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

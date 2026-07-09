@@ -1,8 +1,8 @@
 package com.eghm.common.impl;
 
 import com.eghm.cache.CacheProxyService;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.ParameterException;
+import com.eghm.domain.shared.enums.ErrorCode;
+import com.eghm.domain.shared.exception.ParameterException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;

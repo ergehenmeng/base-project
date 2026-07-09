@@ -2,8 +2,8 @@ package com.eghm.infrastructure.integration.wechat.impl;
 
 import com.eghm.infrastructure.integration.common.impl.SysConfigApi;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.enums.ErrorCode;
+import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.wechat.WeChatMpService;
 import com.eghm.wechat.dto.JsTicketSignature;
 import com.eghm.wechat.dto.MpAccessToken;

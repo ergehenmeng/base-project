@@ -1,6 +1,6 @@
 package com.eghm.domain.shared.enums;
 
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.exception.BusinessException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

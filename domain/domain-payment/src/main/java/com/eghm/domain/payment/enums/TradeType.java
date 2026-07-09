@@ -1,6 +1,6 @@
 package com.eghm.domain.payment.enums;
 
-import com.eghm.enums.ValuableEnum;
+import com.eghm.domain.shared.enums.ValuableEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

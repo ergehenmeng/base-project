@@ -6,7 +6,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sys.register.AccountRegisterDTO;
 import com.eghm.dto.sys.register.MobileRegisterDTO;
 import com.eghm.dto.sys.register.RegisterSmsDTO;
-import com.eghm.enums.ErrorCode;
+import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.application.member.service.MemberService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginTokenVO;

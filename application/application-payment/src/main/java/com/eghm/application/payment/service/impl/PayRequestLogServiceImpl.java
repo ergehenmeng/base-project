@@ -1,7 +1,7 @@
 package com.eghm.application.payment.service.impl;
 
 import com.eghm.dto.ext.Page;
-import com.eghm.common.JsonService;
+import com.eghm.domain.shared.service.JsonService;
 import com.eghm.dto.business.pay.PayLogQueryRequest;
 import com.eghm.application.payment.dto.PrepayDTO;
 import com.eghm.application.payment.dto.RefundDTO;

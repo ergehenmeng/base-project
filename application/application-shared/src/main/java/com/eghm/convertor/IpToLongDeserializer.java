@@ -1,7 +1,7 @@
 package com.eghm.convertor;
 
 import cn.hutool.core.net.Ipv4Util;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.exception.BusinessException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;

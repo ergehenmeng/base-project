@@ -3,15 +3,15 @@ package com.eghm.infrastructure.integration.common.impl;
 
 import cn.hutool.core.util.IdUtil;
 import com.eghm.cache.CacheService;
-import com.eghm.common.JsonService;
+import com.eghm.domain.shared.service.JsonService;
 import com.eghm.common.MemberTokenService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.MemberToken;
 import com.eghm.domain.shared.enums.Channel;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.enums.ErrorCode;
+import com.eghm.domain.shared.exception.BusinessException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

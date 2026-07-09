@@ -1,12 +1,12 @@
 package com.eghm.infrastructure.message.listener;
 
 import com.eghm.cache.CacheService;
-import com.eghm.common.AlarmService;
-import com.eghm.common.JsonService;
+import com.eghm.domain.shared.service.AlarmService;
+import com.eghm.domain.shared.service.JsonService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.dto.ext.AsyncKey;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.exception.BusinessException;
 import com.rabbitmq.client.Channel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

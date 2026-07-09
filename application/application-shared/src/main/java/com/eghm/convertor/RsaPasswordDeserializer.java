@@ -3,7 +3,7 @@ package com.eghm.convertor;
 import cn.hutool.extra.spring.SpringUtil;
 import com.eghm.common.CommonService;
 import com.eghm.constants.CommonConstant;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.utils.StringUtil;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

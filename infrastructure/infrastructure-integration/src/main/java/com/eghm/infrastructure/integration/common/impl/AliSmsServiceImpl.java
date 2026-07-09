@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
-import com.eghm.common.JsonService;
+import com.eghm.domain.shared.service.JsonService;
 import com.eghm.common.SendSmsService;
 import com.eghm.configuration.ApplicationProperties;
 import com.eghm.constants.CommonConstant;

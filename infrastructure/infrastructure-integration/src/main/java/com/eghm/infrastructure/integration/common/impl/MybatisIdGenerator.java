@@ -1,7 +1,7 @@
 package com.eghm.infrastructure.integration.common.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.eghm.common.IdGenerator;
+import com.eghm.domain.shared.service.IdGenerator;
 import org.springframework.stereotype.Component;
 
 /**

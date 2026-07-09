@@ -1,7 +1,7 @@
 package com.eghm.application.payment.service.impl;
 
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.enums.ErrorCode;
+import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.application.payment.dto.PrepayDTO;
 import com.eghm.application.payment.dto.RefundDTO;
 import com.eghm.domain.payment.enums.TradeType;

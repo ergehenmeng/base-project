@@ -2,13 +2,13 @@ package com.eghm.application.operate.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.dto.ext.Page;
-import com.eghm.common.AlarmService;
+import com.eghm.domain.shared.service.AlarmService;
 import com.eghm.configuration.authentication.ApiHolder;
 import com.eghm.dto.operate.version.VersionAddRequest;
 import com.eghm.dto.operate.version.VersionEditRequest;
 import com.eghm.dto.operate.version.VersionQueryRequest;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.enums.ErrorCode;
+import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.operate.model.AppVersion;
 import com.eghm.domain.operate.repository.AppVersionRepository;
 import com.eghm.application.operate.service.AppVersionQueryGateway;

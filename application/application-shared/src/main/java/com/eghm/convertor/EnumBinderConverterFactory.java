@@ -1,8 +1,8 @@
 package com.eghm.convertor;
 
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
-import com.eghm.utils.EnumValueUtil;
+import com.eghm.domain.shared.enums.ErrorCode;
+import com.eghm.domain.shared.exception.BusinessException;
+import com.eghm.domain.shared.utils.EnumValueUtil;
 import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;

@@ -1,6 +1,6 @@
 package com.eghm.lock;
 
-import com.eghm.enums.ErrorCode;
+import com.eghm.domain.shared.enums.ErrorCode;
 
 import java.util.function.Supplier;
 

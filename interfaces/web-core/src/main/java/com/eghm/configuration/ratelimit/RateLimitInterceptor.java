@@ -3,7 +3,7 @@ package com.eghm.configuration.ratelimit;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.authentication.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
-import com.eghm.enums.ErrorCode;
+import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
 import com.github.benmanes.caffeine.cache.Cache;

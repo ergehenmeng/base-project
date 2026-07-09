@@ -2,7 +2,7 @@ package com.eghm.infrastructure.integration.config;
 
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.teaopenapi.models.Config;
-import com.eghm.common.JsonService;
+import com.eghm.domain.shared.service.JsonService;
 import com.eghm.common.SendSmsService;
 import com.eghm.infrastructure.integration.common.impl.AliSmsServiceImpl;
 import com.eghm.infrastructure.integration.common.impl.DefaultSmsServiceImpl;

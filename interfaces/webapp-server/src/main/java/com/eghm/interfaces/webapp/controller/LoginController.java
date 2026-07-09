@@ -6,7 +6,7 @@ import com.eghm.constants.ApplicationHeader;
 import com.eghm.configuration.authentication.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sys.login.*;
-import com.eghm.enums.ErrorCode;
+import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.enums.TemplateType;
 import com.eghm.application.member.service.MemberService;
 import com.eghm.utils.IpUtil;

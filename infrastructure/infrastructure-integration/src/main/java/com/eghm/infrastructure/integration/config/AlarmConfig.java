@@ -1,14 +1,14 @@
 package com.eghm.infrastructure.integration.config;
 
-import com.eghm.common.AlarmService;
-import com.eghm.common.JsonService;
+import com.eghm.domain.shared.service.AlarmService;
+import com.eghm.domain.shared.service.JsonService;
 import com.eghm.infrastructure.integration.common.impl.DefaultAlarmServiceImpl;
 import com.eghm.infrastructure.integration.common.impl.DingTalkAlarmServiceImpl;
 import com.eghm.infrastructure.integration.common.impl.FeiShuAlarmServiceImpl;
 import com.eghm.infrastructure.integration.common.impl.WeChatAlarmServiceImpl;
 import com.eghm.enums.AlarmType;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.enums.ErrorCode;
+import com.eghm.domain.shared.exception.BusinessException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

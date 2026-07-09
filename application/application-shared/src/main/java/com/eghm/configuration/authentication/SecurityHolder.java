@@ -2,9 +2,9 @@ package com.eghm.configuration.authentication;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
 import com.eghm.dto.ext.UserToken;
-import com.eghm.enums.ErrorCode;
+import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.enums.UserType;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.exception.BusinessException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

@@ -6,7 +6,7 @@ import com.eghm.common.CommonService;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.authentication.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
-import com.eghm.enums.ErrorCode;
+import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.event.PermissionRefreshEvent;
 import com.eghm.domain.system.model.SysMenu;
 import com.eghm.application.system.service.SysMenuService;

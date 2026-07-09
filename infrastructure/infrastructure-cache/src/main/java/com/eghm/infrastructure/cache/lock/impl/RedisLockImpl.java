@@ -1,8 +1,8 @@
 package com.eghm.infrastructure.cache.lock.impl;
 
 import com.eghm.constants.LockConstant;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.enums.ErrorCode;
+import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.lock.RedisLock;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -2,8 +2,8 @@ package com.eghm.common;
 
 import com.eghm.dto.ext.FilePath;
 import com.eghm.dto.ext.UploadFile;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
+import com.eghm.domain.shared.enums.ErrorCode;
+import com.eghm.domain.shared.exception.BusinessException;
 
 /**
  * @author 二哥很猛
