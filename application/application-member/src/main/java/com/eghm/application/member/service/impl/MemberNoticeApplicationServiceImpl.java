@@ -40,11 +40,11 @@ public class MemberNoticeApplicationServiceImpl implements MemberNoticeApplicati
 
     private final MemberNoticeRepository memberNoticeRepository;
 
-    private final MemberNoticeQueryService memberNoticeQueryGateway;
+    private final MemberNoticeQueryService memberNoticeQueryService;
 
     @Override
     public List<MemberNoticeVO> getByPage(PagingQuery query, Long memberId) {
-        return memberNoticeQueryGateway.getByPage(query.createPage(false), memberId);
+        return memberNoticeQueryService.getByPage(query.createPage(false), memberId);
     }
 
     @Override
@@ -85,6 +85,6 @@ public class MemberNoticeApplicationServiceImpl implements MemberNoticeApplicati
 
     @Override
     public Long countUnRead(Long memberId) {
-        return memberNoticeQueryGateway.countUnRead(memberId);
+        return memberNoticeQueryService.countUnRead(memberId);
     }
 }

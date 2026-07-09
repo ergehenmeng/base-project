@@ -1,5 +1,6 @@
 package com.eghm.infrastructure.integration.config;
 
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;
 import cn.binarywang.wx.miniapp.config.impl.WxMaDefaultConfigImpl;

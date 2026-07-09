@@ -20,11 +20,11 @@ public class WebappLogApplicationServiceImpl implements WebappLogApplicationServ
 
     private final WebappLogRepository webappLogRepository;
 
-    private final WebappLogQueryService webappLogQueryGateway;
+    private final WebappLogQueryService webappLogQueryService;
 
     @Override
     public Page<WebappLogResponse> getByPage(WebappQueryRequest request) {
-        return webappLogQueryGateway.getByPage(request.createPage(), request);
+        return webappLogQueryService.getByPage(request.createPage(), request);
     }
 
     @Override

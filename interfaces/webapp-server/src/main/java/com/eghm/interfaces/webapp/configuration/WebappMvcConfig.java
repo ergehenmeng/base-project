@@ -2,7 +2,7 @@ package com.eghm.interfaces.webapp.configuration;
 
 import com.eghm.application.shared.cache.CacheProxyService;
 import com.eghm.application.shared.common.MemberTokenService;
-import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.eghm.interfaces.core.configuration.WebMvcConfig;
 import com.eghm.interfaces.core.configuration.version.ApiVersionRequestMappingHandlerMapping;
 import com.eghm.constants.CommonConstant;

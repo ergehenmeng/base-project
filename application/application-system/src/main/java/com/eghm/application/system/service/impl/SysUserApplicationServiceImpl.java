@@ -35,14 +35,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SysUserApplicationServiceImpl implements SysUserApplicationService {
 
-    private final SysUserQueryService sysUserQueryGateway;
+    private final SysUserQueryService sysUserQueryService;
     private final SysUserAuthApplicationService sysUserAuthService;
     private final SysUserPasswordApplicationService sysUserPasswordService;
     private final SysUserCommandApplicationService sysUserCommandService;
 
     @Override
     public Page<UserResponse> getByPage(UserQueryRequest request) {
-        return sysUserQueryGateway.getByPage(request);
+        return sysUserQueryService.getByPage(request);
     }
 
     @Override

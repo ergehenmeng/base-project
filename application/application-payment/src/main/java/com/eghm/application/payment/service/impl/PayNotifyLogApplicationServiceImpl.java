@@ -29,11 +29,11 @@ public class PayNotifyLogApplicationServiceImpl implements PayNotifyLogApplicati
 
     private final PayNotifyLogRepository payNotifyLogRepository;
 
-    private final PayNotifyLogQueryService payNotifyLogQueryGateway;
+    private final PayNotifyLogQueryService payNotifyLogQueryService;
 
     @Override
     public Page<PayNotifyLogResponse> getByPage(PayLogQueryRequest request) {
-        return payNotifyLogQueryGateway.getByPage(request.createPage(), request);
+        return payNotifyLogQueryService.getByPage(request.createPage(), request);
     }
 
     @Async

@@ -31,13 +31,13 @@ public class SysTaskApplicationServiceImpl implements SysTaskApplicationService 
 
     private final SysTaskRepository sysTaskRepository;
 
-    private final SysTaskQueryService sysTaskQueryGateway;
+    private final SysTaskQueryService sysTaskQueryService;
 
-    private final SysTaskScheduleService sysTaskScheduleGateway;
+    private final SysTaskScheduleService sysTaskScheduleService;
 
     @Override
     public Page<SysTaskResponse> getByPage(TaskQueryRequest request) {
-        return sysTaskQueryGateway.getByPage(request);
+        return sysTaskQueryService.getByPage(request);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class SysTaskApplicationServiceImpl implements SysTaskApplicationService 
             log.error("定时任务未查询到[{}]", id);
             throw new BusinessException(ErrorCode.TASK_NULL_ERROR);
         }
-        boolean scheduled = sysTaskScheduleGateway.scheduleOnce(task.getBeanName(), task.getMethodName(), args, LocalDateTime.now().plus(500, ChronoUnit.MILLIS));
+        boolean scheduled = sysTaskScheduleService.scheduleOnce(task.getBeanName(), task.getMethodName(), args, LocalDateTime.now().plus(500, ChronoUnit.MILLIS));
         if (!scheduled) {
             log.error("当前服务尚未激活定时任务, 请使用@EnableSchedulingTask激活 [{}] [{}]", id, args);
             throw new BusinessException(ErrorCode.TASK_CONFIG_NULL);

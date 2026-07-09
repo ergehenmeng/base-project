@@ -1,8 +1,8 @@
 package com.eghm.domain.member.event;
 
 import com.eghm.domain.member.model.Member;
+import com.eghm.domain.member.valueobject.MemberRegistrationInfo;
 import com.eghm.domain.shared.event.DomainEvent;
-import com.eghm.application.shared.dto.ext.MemberRegister;
 import lombok.Getter;
 
 /**
@@ -22,11 +22,11 @@ public class MemberRegisteredEvent extends DomainEvent {
     /**
      * 注册信息
      */
-    private final MemberRegister memberRegister;
+    private final MemberRegistrationInfo registrationInfo;
 
-    public MemberRegisteredEvent(Member member, MemberRegister memberRegister) {
+    public MemberRegisteredEvent(Member member, MemberRegistrationInfo registrationInfo) {
         super();
         this.member = member;
-        this.memberRegister = memberRegister;
+        this.registrationInfo = registrationInfo;
     }
 }

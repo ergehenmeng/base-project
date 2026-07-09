@@ -36,11 +36,11 @@ public class AppVersionApplicationServiceImpl implements AppVersionApplicationSe
 
     private final AppVersionRepository appVersionRepository;
 
-    private final AppVersionQueryService appVersionQueryGateway;
+    private final AppVersionQueryService appVersionQueryService;
 
     @Override
     public Page<AppVersionResponse> getByPage(VersionQueryRequest request) {
-        return appVersionQueryGateway.getByPage(request.createPage(), request);
+        return appVersionQueryService.getByPage(request.createPage(), request);
     }
 
     @Override

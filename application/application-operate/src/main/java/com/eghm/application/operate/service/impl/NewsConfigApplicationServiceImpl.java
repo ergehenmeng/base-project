@@ -33,16 +33,16 @@ public class NewsConfigApplicationServiceImpl implements NewsConfigApplicationSe
 
     private final NewsConfigRepository newsConfigRepository;
 
-    private final NewsConfigQueryService newsConfigQueryGateway;
+    private final NewsConfigQueryService newsConfigQueryService;
 
     @Override
     public Page<NewsConfig> getByPage(PagingQuery query) {
-        return newsConfigQueryGateway.getByPage(query);
+        return newsConfigQueryService.getByPage(query);
     }
 
     @Override
     public List<NewsConfigResponse> getList() {
-        return newsConfigQueryGateway.getList();
+        return newsConfigQueryService.getList();
     }
 
     @Override

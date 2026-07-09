@@ -1,7 +1,7 @@
 package com.eghm.application.shared.handler.email;
 
 import com.eghm.application.shared.cache.CacheService;
-import com.eghm.application.shared.common.impl.SysConfigApi;
+import com.eghm.application.shared.common.SysConfigService;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.application.shared.dto.operate.email.SendEmail;
 import com.eghm.application.shared.utils.StringUtil;
@@ -25,11 +25,11 @@ public class AuthCodeEmailHandler extends BaseEmailHandler {
 
     private CacheService cacheService;
 
-    private SysConfigApi sysConfigApi;
+    private SysConfigService sysConfigService;
 
     @Autowired
-    public void setSysConfigApi(SysConfigApi sysConfigApi) {
-        this.sysConfigApi = sysConfigApi;
+    public void setSysConfigService(SysConfigService sysConfigService) {
+        this.sysConfigService = sysConfigService;
     }
 
     @Autowired
@@ -42,7 +42,7 @@ public class AuthCodeEmailHandler extends BaseEmailHandler {
         Map<String, Object> params = email.getParams();
         String memberId = params.get("memberId").toString();
         String authCode = StringUtil.randomNumber(8);
-        long expire = sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600);
+        long expire = sysConfigService.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600);
         // 将本次发送验证码和接收的对象一并放入到缓存中
         String cacheKey = email.getType().getValue() + ":" + memberId;
         cacheService.setHashValue(cacheKey, expire, AUTH_CODE, authCode);

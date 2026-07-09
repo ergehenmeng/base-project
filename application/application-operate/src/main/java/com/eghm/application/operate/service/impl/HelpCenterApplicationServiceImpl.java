@@ -27,11 +27,11 @@ public class HelpCenterApplicationServiceImpl implements HelpCenterApplicationSe
 
     private final HelpCenterRepository helpCenterRepository;
 
-    private final HelpCenterQueryService helpCenterQueryGateway;
+    private final HelpCenterQueryService helpCenterQueryService;
 
     @Override
     public Page<HelpResponse> getByPage(HelpQueryRequest request) {
-        return helpCenterQueryGateway.getByPage(request.createPage(), request);
+        return helpCenterQueryService.getByPage(request.createPage(), request);
     }
 
     @Override
@@ -63,6 +63,6 @@ public class HelpCenterApplicationServiceImpl implements HelpCenterApplicationSe
 
     @Override
     public List<HelpCenterVO> list(HelpQueryDTO dto) {
-        return helpCenterQueryGateway.list(dto);
+        return helpCenterQueryService.list(dto);
     }
 }

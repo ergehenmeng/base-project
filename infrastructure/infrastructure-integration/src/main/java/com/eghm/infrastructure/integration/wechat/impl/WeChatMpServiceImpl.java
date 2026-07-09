@@ -1,6 +1,6 @@
 package com.eghm.infrastructure.integration.wechat.impl;
 
-import com.eghm.infrastructure.integration.common.impl.SysConfigApi;
+import com.eghm.application.shared.common.SysConfigService;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
@@ -29,7 +29,7 @@ public class WeChatMpServiceImpl implements WeChatMpService {
 
     private WxMpService wxMpService;
 
-    private final SysConfigApi sysConfigApi;
+    private final SysConfigService sysConfigService;
 
     @Autowired(required = false)
     public void setWxMpService(WxMpService wxMpService) {
@@ -62,7 +62,7 @@ public class WeChatMpServiceImpl implements WeChatMpService {
     @Override
     public String qrConnectUrl(String state) {
         this.verify();
-        String redirectUrl = sysConfigApi.getString(ConfigConstant.WECHAT_REDIRECT_URL);
+        String redirectUrl = sysConfigService.getString(ConfigConstant.WECHAT_REDIRECT_URL);
         return wxMpService.buildQrConnectUrl(redirectUrl, "snsapi_login", state);
     }
 

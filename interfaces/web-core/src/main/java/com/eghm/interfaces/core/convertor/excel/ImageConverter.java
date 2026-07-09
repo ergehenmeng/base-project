@@ -6,7 +6,7 @@ import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import com.eghm.constants.CommonConstant;
-import com.eghm.application.shared.utils.ResourceUtil;
+import com.eghm.interfaces.core.utils.ResourceUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**

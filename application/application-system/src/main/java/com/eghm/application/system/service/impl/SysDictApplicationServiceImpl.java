@@ -38,13 +38,13 @@ public class SysDictApplicationServiceImpl implements SysDictApplicationService 
 
     private final SysDictItemRepository sysDictItemRepository;
 
-    private final SysDictQueryService sysDictQueryGateway;
+    private final SysDictQueryService sysDictQueryService;
 
     private final CacheProxyService cacheProxyService;
 
     @Override
     public List<DictResponse> getList(DictQueryRequest request) {
-        return sysDictQueryGateway.getList(request);
+        return sysDictQueryService.getList(request);
     }
 
     @Override

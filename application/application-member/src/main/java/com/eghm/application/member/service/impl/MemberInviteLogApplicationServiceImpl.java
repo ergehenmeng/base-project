@@ -21,11 +21,11 @@ public class MemberInviteLogApplicationServiceImpl implements MemberInviteLogApp
 
     private final MemberInviteLogRepository memberInviteLogRepository;
 
-    private final MemberInviteLogQueryService memberInviteLogQueryGateway;
+    private final MemberInviteLogQueryService memberInviteLogQueryService;
 
     @Override
     public List<MemberInviteVO> getByPage(PagingQuery query, Long memberId) {
-        return memberInviteLogQueryGateway.getByPage(query.createPage(false), memberId);
+        return memberInviteLogQueryService.getByPage(query.createPage(false), memberId);
     }
 
     @Override

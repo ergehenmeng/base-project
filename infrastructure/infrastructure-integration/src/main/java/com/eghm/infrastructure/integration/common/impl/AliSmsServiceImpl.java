@@ -6,7 +6,7 @@ import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
 import com.eghm.domain.shared.service.JsonService;
 import com.eghm.application.shared.common.SendSmsService;
-import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.eghm.constants.CommonConstant;
 import com.eghm.domain.shared.enums.TemplateType;
 import com.google.common.collect.Lists;

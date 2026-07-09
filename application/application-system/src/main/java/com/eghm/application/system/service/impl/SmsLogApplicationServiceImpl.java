@@ -23,11 +23,11 @@ public class SmsLogApplicationServiceImpl implements SmsLogApplicationService {
 
     private final SmsLogRepository smsLogRepository;
 
-    private final SmsLogQueryService smsLogQueryGateway;
+    private final SmsLogQueryService smsLogQueryService;
 
     @Override
     public Page<SmsLogResponse> getByPage(SmsLogQueryRequest request) {
-        return smsLogQueryGateway.getByPage(request.createPage(), request);
+        return smsLogQueryService.getByPage(request.createPage(), request);
     }
 
     @Async

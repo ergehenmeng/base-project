@@ -3,9 +3,9 @@ package com.eghm.application.member.event;
 import com.eghm.domain.member.model.Member;
 import com.eghm.domain.member.model.MemberInviteLog;
 import com.eghm.domain.member.event.MemberRegisteredEvent;
+import com.eghm.domain.member.valueobject.MemberRegistrationInfo;
 import com.eghm.application.member.service.MemberInviteLogApplicationService;
 import com.eghm.application.member.service.MemberApplicationService;
-import com.eghm.application.shared.dto.ext.MemberRegister;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
@@ -31,18 +31,18 @@ public class InviteRegisterEventListener {
     @EventListener
     public void onMemberRegistered(MemberRegisteredEvent event) {
         Member member = event.getMember();
-        MemberRegister register = event.getMemberRegister();
+        MemberRegistrationInfo registrationInfo = event.getRegistrationInfo();
 
-        if (isNotBlank(register.getInviteCode())) {
+        if (isNotBlank(registrationInfo.getInviteCode())) {
             log.info("会员注册新增邀请记录");
-            Member inviter = memberService.getByInviteCode(register.getInviteCode());
+            Member inviter = memberService.getByInviteCode(registrationInfo.getInviteCode());
             if (inviter != null) {
                 MemberInviteLog inviteLog = new MemberInviteLog();
                 inviteLog.setMemberId(inviter.getId());
                 inviteLog.setInviteMemberId(member.getId());
                 memberInviteLogService.insert(inviteLog);
             } else {
-                log.warn("用户输入的邀请码无效 memberId:[{}] ,inviteCode:[{}]", member.getId(), register.getInviteCode());
+                log.warn("用户输入的邀请码无效 memberId:[{}] ,inviteCode:[{}]", member.getId(), registrationInfo.getInviteCode());
             }
         }
     }

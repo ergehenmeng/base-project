@@ -4,7 +4,7 @@ import cn.hutool.core.lang.UUID;
 import com.aliyun.oss.OSS;
 import com.eghm.domain.shared.service.AlarmService;
 import com.eghm.application.shared.common.FileService;
-import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.application.shared.dto.ext.FilePath;
 import com.eghm.application.shared.dto.ext.UploadFile;
@@ -29,7 +29,7 @@ public class AliOssFileServiceImpl implements FileService {
 
     private final OSS ossClient;
 
-    private final SysConfigApi sysConfigApi;
+    private final SysConfigService sysConfigService;
 
     private final AlarmService alarmService;
 
@@ -37,12 +37,12 @@ public class AliOssFileServiceImpl implements FileService {
 
     @Override
     public FilePath saveFile(String key, UploadFile file) {
-        return this.saveFile(key, file, applicationProperties.getUploadFolder(), sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
+        return this.saveFile(key, file, applicationProperties.getUploadFolder(), sysConfigService.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
     }
 
     @Override
     public FilePath saveFile(String key, UploadFile file, String folder) {
-        return this.saveFile(key, file, folder, sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
+        return this.saveFile(key, file, folder, sysConfigService.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
     }
 
     @Override

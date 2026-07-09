@@ -43,13 +43,13 @@ public class SysMenuApplicationServiceImpl implements SysMenuApplicationService 
 
     private final SysMenuRepository sysMenuRepository;
 
-    private final SysMenuQueryService sysMenuQueryGateway;
+    private final SysMenuQueryService sysMenuQueryService;
 
     private final CommonService commonService;
 
     @Override
     public MenuTreeResponse tree() {
-        List<MenuTreeResponse> responseList = sysMenuQueryGateway.getLeftList();
+        List<MenuTreeResponse> responseList = sysMenuQueryService.getLeftList();
         List<MenuTreeResponse> treeBin = TreeUtil.tree(responseList, ROOT, MenuTreeResponse::getId, MenuTreeResponse::getPid, MenuTreeResponse::setChildren, COMPARATOR);
         MenuTreeResponse response = new MenuTreeResponse();
         response.setChildren(treeBin);
@@ -60,24 +60,24 @@ public class SysMenuApplicationServiceImpl implements SysMenuApplicationService 
 
     @Override
     public Page<MenuResponse> getByPage(MenuQueryRequest request) {
-        return sysMenuQueryGateway.getByPage(request);
+        return sysMenuQueryService.getByPage(request);
     }
 
     @Override
     public List<MenuTreeResponse> getLeftMenuList(Long userId) {
-        List<MenuTreeResponse> list = sysMenuQueryGateway.getMenuList(userId, 1);
+        List<MenuTreeResponse> list = sysMenuQueryService.getMenuList(userId, 1);
         return TreeUtil.tree(list, ROOT, MenuTreeResponse::getId, MenuTreeResponse::getPid, MenuTreeResponse::setChildren, COMPARATOR);
     }
 
     @Override
     public List<MenuTreeResponse> getAdminLeftMenuList() {
-        List<MenuTreeResponse> list = sysMenuQueryGateway.getSystemMenuList(1);
+        List<MenuTreeResponse> list = sysMenuQueryService.getSystemMenuList(1);
         return TreeUtil.tree(list, ROOT, MenuTreeResponse::getId, MenuTreeResponse::getPid, MenuTreeResponse::setChildren, COMPARATOR);
     }
 
     @Override
     public List<MenuTreeResponse> getAll(Integer displayState) {
-        List<MenuTreeResponse> responseList = sysMenuQueryGateway.getAll(displayState);
+        List<MenuTreeResponse> responseList = sysMenuQueryService.getAll(displayState);
         return TreeUtil.tree(responseList, ROOT, MenuTreeResponse::getId, MenuTreeResponse::getPid, MenuTreeResponse::setChildren, COMPARATOR);
     }
 
@@ -86,7 +86,7 @@ public class SysMenuApplicationServiceImpl implements SysMenuApplicationService 
         if (StringUtil.isNotBlank(request.getQueryName())) {
             request.setPid(null);
         }
-        return sysMenuQueryGateway.getList(request);
+        return sysMenuQueryService.getList(request);
     }
 
     @Override
@@ -145,13 +145,13 @@ public class SysMenuApplicationServiceImpl implements SysMenuApplicationService 
 
     @Override
     public List<String> getPermCode(Long userId) {
-        List<MenuTreeResponse> menuList = sysMenuQueryGateway.getMenuList(userId, 2);
+        List<MenuTreeResponse> menuList = sysMenuQueryService.getMenuList(userId, 2);
         return menuList.stream().map(MenuTreeResponse::getCode).toList();
     }
 
     @Override
     public List<String> getAdminPermCode() {
-        List<MenuTreeResponse> menuList = sysMenuQueryGateway.getSystemMenuList(2);
+        List<MenuTreeResponse> menuList = sysMenuQueryService.getSystemMenuList(2);
         return menuList.stream().map(MenuTreeResponse::getCode).toList();
     }
 

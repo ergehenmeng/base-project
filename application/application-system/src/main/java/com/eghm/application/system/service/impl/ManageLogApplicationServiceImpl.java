@@ -22,11 +22,11 @@ public class ManageLogApplicationServiceImpl implements ManageLogApplicationServ
 
     private final ManageLogRepository manageLogRepository;
 
-    private final ManageLogQueryService manageLogQueryGateway;
+    private final ManageLogQueryService manageLogQueryService;
 
     @Override
     public Page<ManageLogResponse> getByPage(ManageQueryRequest request) {
-        return manageLogQueryGateway.getByPage(request.createPage(), request);
+        return manageLogQueryService.getByPage(request.createPage(), request);
     }
 
     @Override

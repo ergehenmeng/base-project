@@ -23,11 +23,11 @@ public class ImageLogApplicationServiceImpl implements ImageLogApplicationServic
 
     private final ImageLogRepository imageLogRepository;
 
-    private final ImageLogQueryService imageLogQueryGateway;
+    private final ImageLogQueryService imageLogQueryService;
 
     @Override
     public Page<ImageLogResponse> getByPage(ImageQueryRequest request) {
-        return imageLogQueryGateway.getByPage(request.createPage(), request);
+        return imageLogQueryService.getByPage(request.createPage(), request);
     }
 
     @Override

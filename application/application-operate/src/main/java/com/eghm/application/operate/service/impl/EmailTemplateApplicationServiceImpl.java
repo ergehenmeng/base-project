@@ -27,11 +27,11 @@ public class EmailTemplateApplicationServiceImpl implements EmailTemplateApplica
 
     private final EmailTemplateRepository emailTemplateRepository;
 
-    private final EmailTemplateQueryService emailTemplateQueryGateway;
+    private final EmailTemplateQueryService emailTemplateQueryService;
 
     @Override
     public Page<EmailTemplate> getByPage(PagingQuery query) {
-        return emailTemplateQueryGateway.getByPage(query);
+        return emailTemplateQueryService.getByPage(query);
     }
 
     @Override

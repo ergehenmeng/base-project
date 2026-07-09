@@ -7,7 +7,7 @@ import cn.binarywang.wx.miniapp.bean.shortlink.GenerateShortLinkRequest;
 import cn.binarywang.wx.miniapp.bean.urllink.GenerateUrlLinkRequest;
 import cn.hutool.crypto.digest.MD5;
 import com.eghm.application.shared.cache.CacheService;
-import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.eghm.constants.CacheConstant;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;

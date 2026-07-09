@@ -13,8 +13,8 @@ import com.alipay.api.request.AlipayTradeRefundRequest;
 import com.alipay.api.response.AlipayTradeFastpayRefundQueryResponse;
 import com.alipay.api.response.AlipayTradeQueryResponse;
 import com.alipay.api.response.AlipayTradeRefundResponse;
-import com.eghm.infrastructure.integration.common.impl.SysConfigApi;
-import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.application.shared.common.SysConfigService;
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.domain.shared.enums.ErrorCode;
@@ -54,7 +54,7 @@ public class AliPayServiceImpl implements PayService {
      */
     private static final String REFUND_SUCCESS = "REFUND_SUCCESS";
 
-    private final SysConfigApi sysConfigApi;
+    private final SysConfigService sysConfigService;
 
     private final ApplicationProperties applicationProperties;
 
@@ -132,7 +132,7 @@ public class AliPayServiceImpl implements PayService {
     @Override
     public RefundVO applyRefund(RefundDTO dto) {
         AlipayTradeRefundRequest request = new AlipayTradeRefundRequest();
-        request.setNotifyUrl(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_REFUND_NOTIFY_URL);
+        request.setNotifyUrl(sysConfigService.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_REFUND_NOTIFY_URL);
         AlipayTradeRefundModel model = new AlipayTradeRefundModel();
         model.setOutTradeNo(dto.getTradeNo());
         model.setOutRequestNo(dto.getRefundNo());

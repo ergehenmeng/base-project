@@ -5,7 +5,7 @@ import com.eghm.application.shared.cache.CacheService;
 import com.eghm.application.shared.common.CommonService;
 import com.eghm.domain.shared.service.JsonService;
 import com.eghm.application.shared.common.UserTokenService;
-import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.eghm.constants.CacheConstant;
 import com.eghm.application.shared.dto.ext.UserToken;
 import com.eghm.domain.system.model.SysUser;

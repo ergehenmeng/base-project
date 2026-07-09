@@ -35,11 +35,11 @@ public class AuthConfigApplicationServiceImpl implements AuthConfigApplicationSe
 
     private final AuthConfigRepository authConfigRepository;
 
-    private final AuthConfigQueryService authConfigQueryGateway;
+    private final AuthConfigQueryService authConfigQueryService;
 
     @Override
     public Page<AuthConfigResponse> getByPage(PagingQuery request) {
-        return authConfigQueryGateway.getByPage(request);
+        return authConfigQueryService.getByPage(request);
     }
 
     @Override

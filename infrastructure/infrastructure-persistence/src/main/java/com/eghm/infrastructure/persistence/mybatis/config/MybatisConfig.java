@@ -3,7 +3,7 @@ package com.eghm.infrastructure.persistence.mybatis.config;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.eghm.infrastructure.shared.configuration.data.permission.DataScopeInterceptor;
+import com.eghm.infrastructure.persistence.mybatis.permission.DataScopeInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

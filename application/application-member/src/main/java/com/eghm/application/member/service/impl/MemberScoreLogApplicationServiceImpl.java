@@ -2,7 +2,7 @@ package com.eghm.application.member.service.impl;
 
 import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.domain.member.repository.MemberScoreLogRepository;
-import com.eghm.application.shared.common.impl.SysConfigApi;
+import com.eghm.application.shared.common.SysConfigService;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.application.shared.dto.business.member.MemberScoreQueryDTO;
 import com.eghm.application.shared.dto.business.member.MemberScoreQueryRequest;
@@ -24,20 +24,20 @@ import java.util.List;
 @Service("memberScoreLogService")
 public class MemberScoreLogApplicationServiceImpl implements MemberScoreLogApplicationService {
 
-    private final SysConfigApi sysConfigApi;
+    private final SysConfigService sysConfigService;
 
     private final MemberScoreLogRepository memberScoreLogRepository;
 
-    private final MemberScoreLogQueryService memberScoreLogQueryGateway;
+    private final MemberScoreLogQueryService memberScoreLogQueryService;
 
     @Override
     public Page<MemberScoreVO> getByPage(MemberScoreQueryRequest request) {
-        return memberScoreLogQueryGateway.listPage(request.createPage(), request);
+        return memberScoreLogQueryService.listPage(request.createPage(), request);
     }
 
     @Override
     public List<MemberScoreVO> clientByPage(MemberScoreQueryDTO request) {
-        return memberScoreLogQueryGateway.listClientPage(request);
+        return memberScoreLogQueryService.listClientPage(request);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class MemberScoreLogApplicationServiceImpl implements MemberScoreLogAppli
 
     @Override
     public int getSignInScore() {
-        return StringUtil.random(1, sysConfigApi.getInt(ConfigConstant.SIGN_IN_SCORE));
+        return StringUtil.random(1, sysConfigService.getInt(ConfigConstant.SIGN_IN_SCORE));
     }
 
 }

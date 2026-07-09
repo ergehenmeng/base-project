@@ -1,7 +1,7 @@
 package com.eghm.infrastructure.integration.common.impl;
 
 import com.eghm.domain.shared.service.JsonService;
-import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.eghm.enums.AlarmType;
 import lombok.extern.slf4j.Slf4j;
 

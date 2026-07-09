@@ -1,5 +1,6 @@
 package com.eghm.infrastructure.integration.config;
 
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.aliyun.oss.ClientBuilderConfiguration;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
@@ -10,7 +11,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.eghm.domain.shared.service.AlarmService;
 import com.eghm.application.shared.common.FileService;
 import com.eghm.infrastructure.integration.common.impl.AliOssFileServiceImpl;
-import com.eghm.infrastructure.integration.common.impl.SysConfigApi;
+import com.eghm.application.shared.common.SysConfigService;
 import com.eghm.infrastructure.integration.common.impl.SystemFileServiceImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -28,14 +29,14 @@ public class OssConfig {
 
     @Bean
     @ConditionalOnProperty(prefix = "system", name = "upload-type", havingValue = "system", matchIfMissing = true)
-    public FileService systemFileService(ApplicationProperties applicationProperties, SysConfigApi sysConfigApi, AlarmService alarmService) {
-        return new SystemFileServiceImpl(sysConfigApi, alarmService, applicationProperties);
+    public FileService systemFileService(ApplicationProperties applicationProperties, SysConfigService sysConfigService, AlarmService alarmService) {
+        return new SystemFileServiceImpl(sysConfigService, alarmService, applicationProperties);
     }
 
     @Bean
     @ConditionalOnProperty(prefix = "system", name = "upload-type", havingValue = "ali-oss")
-    public FileService aliOssFileService(ApplicationProperties applicationProperties, AlarmService alarmService, SysConfigApi sysConfigApi) throws ClientException {
-        return new AliOssFileServiceImpl(this.createClient(applicationProperties), sysConfigApi, alarmService,
+    public FileService aliOssFileService(ApplicationProperties applicationProperties, AlarmService alarmService, SysConfigService sysConfigService) throws ClientException {
+        return new AliOssFileServiceImpl(this.createClient(applicationProperties), sysConfigService, alarmService,
                 applicationProperties);
     }
 

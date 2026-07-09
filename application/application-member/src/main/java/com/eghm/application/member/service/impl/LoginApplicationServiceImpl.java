@@ -28,13 +28,13 @@ public class LoginApplicationServiceImpl implements LoginApplicationService {
 
     private final LoginRepository loginRepository;
 
-    private final LoginQueryService loginQueryGateway;
+    private final LoginQueryService loginQueryService;
 
     private final IdGenerator idGenerator;
 
     @Override
     public Page<LoginLogResponse> getByPage(LoginLogQueryRequest request) {
-        return loginQueryGateway.listLoginLog(request);
+        return loginQueryService.listLoginLog(request);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class LoginApplicationServiceImpl implements LoginApplicationService {
 
     @Override
     public List<LoginDeviceVO> getByMemberId(Long memberId) {
-        List<LoginDevice> deviceList = loginQueryGateway.listDeviceByMemberId(memberId);
+        List<LoginDevice> deviceList = loginQueryService.listDeviceByMemberId(memberId);
         return DataUtil.copy(deviceList, device -> {
             LoginDeviceVO vo = DataUtil.copy(device, LoginDeviceVO.class, "loginTime");
             vo.setLoginTime(DateUtil.formatSimple(device.getLoginTime()));

@@ -24,11 +24,11 @@ public class NoticeTemplateApplicationServiceImpl implements NoticeTemplateAppli
 
     private final NoticeTemplateRepository noticeTemplateRepository;
 
-    private final NoticeTemplateQueryService noticeTemplateQueryGateway;
+    private final NoticeTemplateQueryService noticeTemplateQueryService;
 
     @Override
     public Page<NoticeTemplate> getByPage(PagingQuery query) {
-        return noticeTemplateQueryGateway.getByPage(query);
+        return noticeTemplateQueryService.getByPage(query);
     }
 
     @Override

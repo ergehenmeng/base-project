@@ -1,5 +1,6 @@
 package com.eghm.infrastructure.integration.config;
 
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.teaopenapi.models.Config;
 import com.eghm.domain.shared.service.JsonService;

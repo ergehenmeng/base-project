@@ -31,13 +31,13 @@ public class FeedbackApplicationServiceImpl implements FeedbackApplicationServic
 
     private final FeedbackLogRepository feedbackLogRepository;
 
-    private final FeedbackQueryService feedbackQueryGateway;
+    private final FeedbackQueryService feedbackQueryService;
 
     private final MemberNoticeApplicationService memberNoticeService;
 
     @Override
     public Page<FeedbackResponse> getByPage(FeedbackQueryRequest request) {
-        return feedbackQueryGateway.getByPage(request.createPage(), request);
+        return feedbackQueryService.getByPage(request.createPage(), request);
     }
 
     @Override

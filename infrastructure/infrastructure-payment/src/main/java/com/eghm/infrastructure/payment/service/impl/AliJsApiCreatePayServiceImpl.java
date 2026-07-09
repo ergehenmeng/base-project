@@ -4,8 +4,8 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.domain.AlipayTradeCreateModel;
 import com.alipay.api.request.AlipayTradeCreateRequest;
 import com.alipay.api.response.AlipayTradeCreateResponse;
-import com.eghm.infrastructure.integration.common.impl.SysConfigApi;
-import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.application.shared.common.SysConfigService;
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.domain.shared.enums.ErrorCode;
@@ -33,7 +33,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class AliJsApiCreatePayServiceImpl implements CreatePayService {
 
-    private final SysConfigApi sysConfigApi;
+    private final SysConfigService sysConfigService;
 
     private final ApplicationProperties applicationProperties;
 
@@ -59,10 +59,10 @@ public class AliJsApiCreatePayServiceImpl implements CreatePayService {
         model.setProductCode(TradeType.JSAPI_PAY.getCode());
         model.setOpAppId(applicationProperties.getAli().getPay().getAppId());
         model.setBuyerOpenId(dto.getBuyerId());
-        int expireTime = sysConfigApi.getInt(ConfigConstant.ORDER_EXPIRE_TIME);
+        int expireTime = sysConfigService.getInt(ConfigConstant.ORDER_EXPIRE_TIME);
         model.setTimeExpire(DateUtil.format(LocalDateTime.now().plusSeconds(expireTime)));
         request.setBizModel(model);
-        request.setNotifyUrl(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_PAY_NOTIFY_URL);
+        request.setNotifyUrl(sysConfigService.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_PAY_NOTIFY_URL);
         AlipayTradeCreateResponse response;
         try {
             response = defaultAlipayClient.execute(request);

@@ -3,7 +3,7 @@ package com.eghm.infrastructure.integration.common.impl;
 import cn.hutool.core.util.IdUtil;
 import com.eghm.domain.shared.service.AlarmService;
 import com.eghm.application.shared.common.FileService;
-import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.application.shared.dto.ext.FilePath;
@@ -38,7 +38,7 @@ import static com.eghm.infrastructure.shared.constants.InfraConstant.DAY_MAX_UPL
 @AllArgsConstructor
 public class SystemFileServiceImpl implements FileService {
 
-    private final SysConfigApi sysConfigApi;
+    private final SysConfigService sysConfigService;
 
     private final AlarmService alarmService;
 
@@ -46,12 +46,12 @@ public class SystemFileServiceImpl implements FileService {
 
     @Override
     public FilePath saveFile(String key, UploadFile file) {
-        return this.saveFile(key, file, applicationProperties.getUploadFolder(), sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
+        return this.saveFile(key, file, applicationProperties.getUploadFolder(), sysConfigService.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
     }
 
     @Override
     public FilePath saveFile(String key, UploadFile file, String folder) {
-        return this.saveFile(key, file, folder, sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
+        return this.saveFile(key, file, folder, sysConfigService.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE));
     }
 
     @Override
@@ -129,6 +129,6 @@ public class SystemFileServiceImpl implements FileService {
     }
 
     private String getFileHost() {
-        return sysConfigApi.getString(ConfigConstant.FILE_SERVER_HOST);
+        return sysConfigService.getString(ConfigConstant.FILE_SERVER_HOST);
     }
 }

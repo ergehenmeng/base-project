@@ -1,5 +1,6 @@
 package com.eghm.infrastructure.integration.config;
 
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.eghm.domain.shared.service.AlarmService;
 import com.eghm.domain.shared.service.JsonService;
 import com.eghm.infrastructure.integration.common.impl.DefaultAlarmServiceImpl;

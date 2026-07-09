@@ -1,6 +1,6 @@
 package com.eghm.infrastructure.payment.service.impl;
 
-import com.eghm.infrastructure.integration.common.impl.SysConfigApi;
+import com.eghm.application.shared.common.SysConfigService;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.WeChatConstant;
@@ -48,7 +48,7 @@ public class WechatPayServiceImpl implements PayService {
 
     private WxPayService wxPayService;
 
-    private final SysConfigApi sysConfigApi;
+    private final SysConfigService sysConfigService;
 
     @Autowired(required = false)
     public void setWxPayService(WxPayService wxPayService) {
@@ -176,7 +176,7 @@ public class WechatPayServiceImpl implements PayService {
         amount.setTotal(dto.getAmount());
         request.setAmount(amount);
         request.setDescription(dto.getDescription());
-        request.setNotifyUrl(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.WECHAT_PAY_NOTIFY_URL);
+        request.setNotifyUrl(sysConfigService.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.WECHAT_PAY_NOTIFY_URL);
         request.setOutTradeNo(dto.getTradeNo());
         WxPayUnifiedOrderV3Request.Payer payer = new WxPayUnifiedOrderV3Request.Payer();
         payer.setOpenid(dto.getBuyerId());
@@ -207,7 +207,7 @@ public class WechatPayServiceImpl implements PayService {
         amount.setTotal(dto.getTotal());
         amount.setCurrency("CNY");
         request.setAmount(amount);
-        request.setNotifyUrl(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.WECHAT_REFUND_NOTIFY_URL);
+        request.setNotifyUrl(sysConfigService.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.WECHAT_REFUND_NOTIFY_URL);
         request.setOutTradeNo(dto.getTradeNo());
         request.setReason(dto.getReason());
         request.setOutRefundNo(dto.getRefundNo());

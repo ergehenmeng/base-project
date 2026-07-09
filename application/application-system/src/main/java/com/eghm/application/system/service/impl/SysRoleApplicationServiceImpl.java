@@ -39,11 +39,11 @@ public class SysRoleApplicationServiceImpl implements SysRoleApplicationService 
 
     private final SysRoleMenuRepository sysRoleMenuRepository;
 
-    private final SysRoleQueryService sysRoleQueryGateway;
+    private final SysRoleQueryService sysRoleQueryService;
 
     @Override
     public Page<SysRoleResponse> getByPage(PagingQuery request) {
-        return sysRoleQueryGateway.getByPage(request);
+        return sysRoleQueryService.getByPage(request);
     }
 
     @Override

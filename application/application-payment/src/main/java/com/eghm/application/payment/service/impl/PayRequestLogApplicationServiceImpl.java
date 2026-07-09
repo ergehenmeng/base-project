@@ -35,11 +35,11 @@ public class PayRequestLogApplicationServiceImpl implements PayRequestLogApplica
 
     private final PayRequestLogRepository payRequestLogRepository;
 
-    private final PayRequestLogQueryService payRequestLogQueryGateway;
+    private final PayRequestLogQueryService payRequestLogQueryService;
 
     @Override
     public Page<PayRequestLogResponse> getByPage(PayLogQueryRequest request) {
-        return payRequestLogQueryGateway.getByPage(request.createPage(), request);
+        return payRequestLogQueryService.getByPage(request.createPage(), request);
     }
 
     @Async

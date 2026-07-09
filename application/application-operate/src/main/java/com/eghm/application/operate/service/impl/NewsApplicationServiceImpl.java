@@ -44,7 +44,7 @@ public class NewsApplicationServiceImpl implements NewsApplicationService {
 
     private final NewsRepository newsRepository;
 
-    private final NewsQueryService newsQueryGateway;
+    private final NewsQueryService newsQueryService;
 
     private final CacheService cacheService;
 
@@ -54,7 +54,7 @@ public class NewsApplicationServiceImpl implements NewsApplicationService {
 
     @Override
     public Page<NewsResponse> getByPage(NewsQueryRequest request) {
-        return newsQueryGateway.listPage(request.createPage(), request);
+        return newsQueryService.listPage(request.createPage(), request);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class NewsApplicationServiceImpl implements NewsApplicationService {
 
     @Override
     public List<NewsVO> getByPage(PagingQuery query) {
-        Page<NewsVO> byPage = newsQueryGateway.getByPage(query.createPage(false), query.getQueryName());
+        Page<NewsVO> byPage = newsQueryService.getByPage(query.createPage(false), query.getQueryName());
         List<NewsVO> records = byPage.getRecords();
         records.forEach(newsVO -> newsVO.setHasPraise(this.hasPraise(newsVO.getId())));
         return records;

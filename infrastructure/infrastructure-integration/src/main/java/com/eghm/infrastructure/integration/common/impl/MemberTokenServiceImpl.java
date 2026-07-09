@@ -29,7 +29,7 @@ public class MemberTokenServiceImpl implements MemberTokenService {
 
     private final CacheService cacheService;
 
-    private final SysConfigApi sysConfigApi;
+    private final SysConfigService sysConfigService;
 
     @Override
     public MemberToken createToken(Long memberId, String channel) {
@@ -103,7 +103,7 @@ public class MemberTokenServiceImpl implements MemberTokenService {
      */
     private void cacheToken(MemberToken memberToken) {
         String tokenJson = jsonService.toJson(memberToken);
-        cacheService.setValue(CacheConstant.MEMBER_TOKEN + memberToken.getToken(), tokenJson, sysConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
+        cacheService.setValue(CacheConstant.MEMBER_TOKEN + memberToken.getToken(), tokenJson, sysConfigService.getLong(ConfigConstant.TOKEN_EXPIRE));
         // 注意:假如token_expire设置7天,refresh_token_expire为30天时,在第7~30天的时间里,账号重新登陆,
         // refresh_token_expire缓存的用户信息将会无效且不会被立即删除(无法通过memberId定位到该缓存数据),
         // 因此:此处过期时间与refresh_token_expire保持一致,在登陆的时候可通过memberId定位登陆信息,仅仅方便删除无用缓存,方便强制下线
@@ -116,7 +116,7 @@ public class MemberTokenServiceImpl implements MemberTokenService {
      * @param memberToken 用户信息
      */
     private void cacheRefreshToken(MemberToken memberToken) {
-        cacheService.setValue(CacheConstant.REFRESH_TOKEN + memberToken.getRefreshToken(), jsonService.toJson(memberToken), sysConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
+        cacheService.setValue(CacheConstant.REFRESH_TOKEN + memberToken.getRefreshToken(), jsonService.toJson(memberToken), sysConfigService.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
     }
 
 }

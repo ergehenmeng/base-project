@@ -1,5 +1,6 @@
 package com.eghm.infrastructure.payment.config;
 
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayConfig;
 import com.alipay.api.DefaultAlipayClient;

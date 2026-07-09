@@ -31,11 +31,11 @@ public class BlackRosterApplicationServiceImpl implements BlackRosterApplication
 
     private final BlackRosterRepository blackRosterRepository;
 
-    private final BlackRosterQueryService blackRosterQueryGateway;
+    private final BlackRosterQueryService blackRosterQueryService;
 
     @Override
     public Page<BlackRoster> getByPage(PagingQuery request) {
-        return blackRosterQueryGateway.getByPage(request);
+        return blackRosterQueryService.getByPage(request);
     }
 
     @Override

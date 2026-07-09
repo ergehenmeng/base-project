@@ -19,11 +19,11 @@ public class SysDeptDataApplicationServiceImpl implements SysDeptDataApplication
 
     private final SysDeptDataRepository sysDeptDataRepository;
 
-    private final SysDeptDataQueryService sysDeptDataQueryGateway;
+    private final SysDeptDataQueryService sysDeptDataQueryService;
 
     @Override
     public List<String> getDeptList(Long userId) {
-        return sysDeptDataQueryGateway.getDeptList(userId);
+        return sysDeptDataQueryService.getDeptList(userId);
     }
 
     @Override

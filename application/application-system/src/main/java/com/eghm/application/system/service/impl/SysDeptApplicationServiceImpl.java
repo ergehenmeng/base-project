@@ -37,13 +37,13 @@ public class SysDeptApplicationServiceImpl implements SysDeptApplicationService 
 
     private final SysDeptRepository sysDeptRepository;
 
-    private final SysDeptQueryService sysDeptQueryGateway;
+    private final SysDeptQueryService sysDeptQueryService;
 
     private final CommonService commonService;
 
     @Override
     public List<SysDeptResponse> getList(PagingQuery query) {
-        List<SysDeptResponse> responseList = sysDeptQueryGateway.getList(query);
+        List<SysDeptResponse> responseList = sysDeptQueryService.getList(query);
         return TreeUtil.tree(responseList, ROOT_NODE, SysDeptResponse::getCode, SysDeptResponse::getParentCode, SysDeptResponse::setChildren);
     }
 

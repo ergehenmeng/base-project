@@ -3,7 +3,7 @@ package com.eghm.interfaces.manage.controller;
 import com.eghm.application.shared.annotation.SkipPerm;
 import com.eghm.application.shared.cache.CacheService;
 import com.eghm.application.shared.common.UserTokenService;
-import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.eghm.application.shared.configuration.authentication.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;

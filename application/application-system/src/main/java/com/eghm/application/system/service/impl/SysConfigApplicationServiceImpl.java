@@ -25,11 +25,11 @@ public class SysConfigApplicationServiceImpl implements SysConfigApplicationServ
 
     private final SysConfigRepository sysConfigRepository;
 
-    private final SysConfigQueryService sysConfigQueryGateway;
+    private final SysConfigQueryService sysConfigQueryService;
 
     @Override
     public Page<SysConfigResponse> getByPage(ConfigQueryRequest request) {
-        return sysConfigQueryGateway.getByPage(request);
+        return sysConfigQueryService.getByPage(request);
     }
 
     @Override

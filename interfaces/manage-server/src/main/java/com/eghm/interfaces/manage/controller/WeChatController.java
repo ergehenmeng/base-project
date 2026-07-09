@@ -2,7 +2,7 @@ package com.eghm.interfaces.manage.controller;
 
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.util.IdUtil;
-import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.wechat.LinkUrlRequest;
 import com.eghm.application.shared.dto.wechat.QrCodeRequest;

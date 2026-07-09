@@ -23,11 +23,11 @@ public class BannerApplicationServiceImpl implements BannerApplicationService {
 
     private final BannerRepository bannerRepository;
 
-    private final BannerQueryService bannerQueryGateway;
+    private final BannerQueryService bannerQueryService;
 
     @Override
     public Page<BannerResponse> getByPage(BannerQueryRequest request) {
-        return bannerQueryGateway.getByPage(request.createPage(), request);
+        return bannerQueryService.getByPage(request.createPage(), request);
     }
 
     @Override

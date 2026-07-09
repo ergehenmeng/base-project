@@ -15,9 +15,9 @@
     <modules>
         <module>infrastructure-shared</module>
         <module>infrastructure-persistence</module>
+        <module>infrastructure-integration</module>
         <module>infrastructure-cache</module>
         <module>infrastructure-message</module>
-        <module>infrastructure-integration</module>
         <module>infrastructure-payment</module>
     </modules>
 </project>

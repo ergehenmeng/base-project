@@ -32,11 +32,11 @@ public class CommentReportApplicationServiceImpl implements CommentReportApplica
 
     private final CommentReportRepository commentReportRepository;
 
-    private final CommentReportQueryService commentReportQueryGateway;
+    private final CommentReportQueryService commentReportQueryService;
 
     @Override
     public Page<CommentReportResponse> getByPage(CommentReportQueryRequest request) {
-        return commentReportQueryGateway.getByPage(request.createPage(), request);
+        return commentReportQueryService.getByPage(request.createPage(), request);
     }
 
     @Override

@@ -9,6 +9,8 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.application.shared.convertor.DateAnnotationFormatterBinderFactory;
 import com.eghm.application.shared.convertor.EnumBinderConverterFactory;
 import com.eghm.application.shared.convertor.YuanToCentAnnotationFormatterBinderFactory;
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
+import com.eghm.interfaces.core.configuration.captcha.RandomDissolveGimpy;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.AnnotationIntrospector;
 import com.fasterxml.jackson.databind.BeanDescription;
@@ -85,7 +87,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, Validati
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "4");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "abcdefhkmnprstwxy2345678ABCEFGHGKMNPRSTWXY");
         properties.setProperty(Constants.KAPTCHA_OBSCURIFICATOR_IMPL, RandomDissolveGimpy.class.getName());
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL, applicationProperties.getManage().getCaptchaType().getName());
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL, applicationProperties.getManage().getCaptchaType());
         Config config = new Config(properties);
         captcha.setConfig(config);
         return captcha;

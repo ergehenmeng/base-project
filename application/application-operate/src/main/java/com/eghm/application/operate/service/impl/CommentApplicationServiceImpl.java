@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.cache.CacheService;
 import com.eghm.application.shared.common.CommonService;
-import com.eghm.application.shared.common.impl.SysConfigApi;
+import com.eghm.application.shared.common.SysConfigService;
 import com.eghm.application.shared.configuration.authentication.ApiHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.ConfigConstant;
@@ -47,7 +47,7 @@ import static com.eghm.application.shared.utils.StringUtil.isNotBlank;
 @Service("commentService")
 public class CommentApplicationServiceImpl implements CommentApplicationService {
 
-    private final SysConfigApi sysConfigApi;
+    private final SysConfigService sysConfigService;
 
     private final CacheService cacheService;
 
@@ -55,21 +55,21 @@ public class CommentApplicationServiceImpl implements CommentApplicationService 
 
     private final CommentRepository commentRepository;
 
-    private final CommentQueryService commentQueryGateway;
+    private final CommentQueryService commentQueryService;
 
     @Override
     public Page<CommentResponse> listPage(CommentQueryRequest request) {
         if (isNotBlank(request.getQueryName())) {
-            List<Long> objectIds = commentQueryGateway.listNewsIdsByTitle(request.getQueryName());
+            List<Long> objectIds = commentQueryService.listNewsIdsByTitle(request.getQueryName());
             if (CollUtil.isEmpty(objectIds)) {
                 return new Page<>();
             }
             request.setObjectIds(objectIds);
         }
-        Page<CommentResponse> page = commentQueryGateway.listPage(request.createPage(), request);
+        Page<CommentResponse> page = commentQueryService.listPage(request.createPage(), request);
         if (CollUtil.isNotEmpty(page.getRecords())) {
             Map<ObjectType, List<Long>> collectMap = page.getRecords().stream().collect(Collectors.groupingBy(CommentResponse::getObjectType, Collectors.mapping(CommentResponse::getObjectId, Collectors.toList())));
-            Map<Long, String> newsMap = commentQueryGateway.getNewsTitleMap(collectMap.get(ObjectType.NEWS));
+            Map<Long, String> newsMap = commentQueryService.getNewsTitleMap(collectMap.get(ObjectType.NEWS));
             for (CommentResponse response : page.getRecords()) {
                 if (Objects.requireNonNull(response.getObjectType()) == ObjectType.NEWS) {
                     response.setObjectName(newsMap.get(response.getObjectId()));
@@ -81,8 +81,8 @@ public class CommentApplicationServiceImpl implements CommentApplicationService 
 
     @Override
     public List<CommentVO> getByPage(CommentQueryDTO dto) {
-        int reportNum = sysConfigApi.getInt(ConfigConstant.COMMENT_REPORT_SHIELD, 20);
-        Page<CommentVO> voPage = commentQueryGateway.getByPage(dto, reportNum);
+        int reportNum = sysConfigService.getInt(ConfigConstant.COMMENT_REPORT_SHIELD, 20);
+        Page<CommentVO> voPage = commentQueryService.getByPage(dto, reportNum);
         List<CommentVO> records = voPage.getRecords();
         if (CollUtil.isNotEmpty(records)) {
             Map<Long, Boolean> praiseMap = this.batchHasPraise(records.stream().map(CommentVO::getId).toList());
@@ -93,8 +93,8 @@ public class CommentApplicationServiceImpl implements CommentApplicationService 
 
     @Override
     public List<CommentSecondVO> secondPage(CommentQueryDTO dto) {
-        int reportNum = sysConfigApi.getInt(ConfigConstant.COMMENT_REPORT_SHIELD, 20);
-        Page<CommentSecondVO> voPage = commentQueryGateway.getSecondPage(dto, reportNum);
+        int reportNum = sysConfigService.getInt(ConfigConstant.COMMENT_REPORT_SHIELD, 20);
+        Page<CommentSecondVO> voPage = commentQueryService.getSecondPage(dto, reportNum);
         List<CommentSecondVO> records = voPage.getRecords();
         if (CollUtil.isNotEmpty(records)) {
             Map<Long, Boolean> praiseMap = this.batchHasPraise(records.stream().map(CommentSecondVO::getId).toList());
@@ -163,7 +163,7 @@ public class CommentApplicationServiceImpl implements CommentApplicationService 
      */
     private void checkComment(Long id, ObjectType objectType) {
         if (objectType == ObjectType.NEWS) {
-            News news = commentQueryGateway.findNewsById(id);
+            News news = commentQueryService.findNewsById(id);
             if (news == null) {
                 log.warn("资讯文章可能被删除,无法评价 [{}]", id);
                 throw new BusinessException(ErrorCode.NEWS_NULL);

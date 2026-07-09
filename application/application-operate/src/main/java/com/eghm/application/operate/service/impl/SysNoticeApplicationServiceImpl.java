@@ -2,7 +2,7 @@ package com.eghm.application.operate.service.impl;
 
 import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.cache.CacheProxyService;
-import com.eghm.application.shared.common.impl.SysConfigApi;
+import com.eghm.application.shared.common.SysConfigService;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
 import com.eghm.application.shared.dto.ext.PagingQuery;
@@ -36,24 +36,24 @@ import java.util.List;
 @Service("sysNoticeService")
 public class SysNoticeApplicationServiceImpl implements SysNoticeApplicationService {
 
-    private final SysConfigApi sysConfigApi;
+    private final SysConfigService sysConfigService;
 
     private final SysDictApplicationService sysDictService;
 
     private final SysNoticeRepository sysNoticeRepository;
 
-    private final SysNoticeQueryService sysNoticeQueryGateway;
+    private final SysNoticeQueryService sysNoticeQueryService;
 
     private final CacheProxyService cacheProxyService;
 
     @Override
     public Page<NoticeResponse> getByPage(NoticeQueryRequest request) {
-        return sysNoticeQueryGateway.getByPage(request.createPage(), request);
+        return sysNoticeQueryService.getByPage(request.createPage(), request);
     }
 
     @Override
     public List<NoticeTopVO> getTop() {
-        int noticeLimit = sysConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
+        int noticeLimit = sysConfigService.getInt(ConfigConstant.NOTICE_LIMIT);
         List<SysNotice> noticeList = cacheProxyService.getNoticeList(noticeLimit);
         return DataUtil.copy(noticeList, notice -> {
             NoticeTopVO vo = DataUtil.copy(notice, NoticeTopVO.class);
@@ -65,7 +65,7 @@ public class SysNoticeApplicationServiceImpl implements SysNoticeApplicationServ
 
     @Override
     public List<NoticeVO> getList(PagingQuery query) {
-        return sysNoticeQueryGateway.getList(query);
+        return sysNoticeQueryService.getList(query);
     }
 
     @Override

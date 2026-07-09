@@ -15,7 +15,7 @@ import com.eghm.interfaces.core.utils.EasyExcelUtil;
 import com.eghm.application.shared.vo.business.member.MemberResponse;
 import com.eghm.application.shared.vo.business.member.LoginLogResponse;
 import com.eghm.application.shared.vo.business.member.MemberScoreVO;
-import com.eghm.interfaces.core.export.MemberExportResponse;
+import com.eghm.interfaces.manage.export.member.MemberExportResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;

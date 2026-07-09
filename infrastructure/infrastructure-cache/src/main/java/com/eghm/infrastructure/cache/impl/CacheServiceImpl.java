@@ -2,7 +2,7 @@ package com.eghm.infrastructure.cache.impl;
 
 import com.eghm.application.shared.cache.CacheService;
 import com.eghm.domain.shared.service.JsonService;
-import com.eghm.infrastructure.integration.common.impl.SysConfigApi;
+import com.eghm.application.shared.common.SysConfigService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
@@ -50,7 +50,7 @@ public class CacheServiceImpl implements CacheService {
 
     private final JsonService jsonService;
 
-    private final SysConfigApi sysConfigApi;
+    private final SysConfigService sysConfigService;
 
     private final StringRedisTemplate redisTemplate;
 
@@ -87,7 +87,7 @@ public class CacheServiceImpl implements CacheService {
     private <T> T doSupplier(String key, Supplier<T> supplier) {
         T result = redisLock.lock(LockConstant.MUTEX_LOCK + key, CacheConstant.MUTEX_EXPIRE, supplier);
         if (result != null) {
-            this.setValue(key, result, sysConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
+            this.setValue(key, result, sysConfigService.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
         } else {
             // 数据库也没有查询到,填充默认值
             this.setValue(key, CacheConstant.PLACE_HOLDER, DEFAULT_EXPIRE);

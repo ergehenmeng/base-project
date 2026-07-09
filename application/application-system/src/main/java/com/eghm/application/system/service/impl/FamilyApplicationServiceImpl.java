@@ -30,7 +30,7 @@ public class FamilyApplicationServiceImpl implements FamilyApplicationService {
 
     private final FamilyRepository familyRepository;
 
-    private final FamilyQueryService familyQueryGateway;
+    private final FamilyQueryService familyQueryService;
 
     private final CommonService commonService;
 
@@ -44,7 +44,7 @@ public class FamilyApplicationServiceImpl implements FamilyApplicationService {
         root.setPid(ROOT);
         root.setName("大王庄家谱");
         root.setState(false);
-        List<FamilyResponse> mapperList = familyQueryGateway.getList();
+        List<FamilyResponse> mapperList = familyQueryService.getList();
         List<FamilyResponse> responseList = TreeUtil.tree(mapperList, ancestryId, FamilyResponse::getId, FamilyResponse::getPid, FamilyResponse::setChildren);
         root.setChildren(responseList);
         return root;

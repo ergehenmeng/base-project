@@ -2,7 +2,7 @@ package com.eghm.interfaces.manage;
 
 
 import cn.hutool.core.net.NetUtil;
-import com.eghm.infrastructure.shared.annotation.EnableSchedulingTask;
+import com.eghm.infrastructure.persistence.schedule.EnableSchedulingTask;
 import com.eghm.application.shared.utils.LoggerUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.Banner;

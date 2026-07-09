@@ -63,7 +63,7 @@ import static com.eghm.application.shared.utils.StringUtil.isBlank;
 public class MemberApplicationServiceImpl implements MemberApplicationService {
 
     private final MemberRepository memberRepository;
-    private final MemberQueryService memberQueryGateway;
+    private final MemberQueryService memberQueryService;
     private final SendSmsService sendSmsService;
     private final MemberAuthApplicationService memberAuthService;
     private final MemberRegisterApplicationService memberRegisterService;
@@ -72,12 +72,12 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 
     @Override
     public Page<MemberResponse> getByPage(MemberQueryRequest request) {
-        return memberQueryGateway.listPage(request.createPage(), request);
+        return memberQueryService.listPage(request.createPage(), request);
     }
 
     @Override
     public List<MemberResponse> getList(MemberQueryRequest request) {
-        Page<MemberResponse> listPage = memberQueryGateway.listPage(request.createNullPage(), request);
+        Page<MemberResponse> listPage = memberQueryService.listPage(request.createNullPage(), request);
         return listPage.getRecords();
     }
 
@@ -198,13 +198,13 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 
     @Override
     public MemberStatisticsVO sexChannel(DateRequest request) {
-        List<PieDataVO> statistics = memberQueryGateway.channelStatistics(request.getStartDate(), request.getEndDate());
+        List<PieDataVO> statistics = memberQueryService.channelStatistics(request.getStartDate(), request.getEndDate());
         List<PieDataVO> channelList = Lists.newArrayListWithCapacity(8);
         Map<String, PieDataVO> voMap = statistics.stream().collect(Collectors.toMap(PieDataVO::getName, Function.identity()));
         for (Channel value : Channel.values()) {
             channelList.add(voMap.getOrDefault(value.name(), new PieDataVO(value.name())));
         }
-        List<PieDataVO> sexStatistics = memberQueryGateway.sexStatistics(request.getStartDate(), request.getEndDate());
+        List<PieDataVO> sexStatistics = memberQueryService.sexStatistics(request.getStartDate(), request.getEndDate());
         Map<String, PieDataVO> sexMap = sexStatistics.stream().collect(Collectors.toMap(PieDataVO::getName, Function.identity()));
         List<PieDataVO> sexList = Lists.newArrayListWithCapacity(4);
         for (Gender value : Gender.values()) {
@@ -218,7 +218,7 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 
     @Override
     public List<MemberRegisterVO> dayRegister(DateRequest request) {
-        List<MemberRegisterVO> voList = memberQueryGateway.dayRegister(request);
+        List<MemberRegisterVO> voList = memberQueryService.dayRegister(request);
         if (request.getSelectType() == SelectType.YEAR) {
             Map<String, MemberRegisterVO> voMap = voList.stream().collect(Collectors.toMap(MemberRegisterVO::getCreateMonth, Function.identity()));
             return DataUtil.paddingMonth(voMap, request.getStartDate(), request.getEndDate(), MemberRegisterVO::new);
@@ -230,7 +230,7 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
 
     @Override
     public void sendSms(SendSmsRequest request) {
-        List<String> mobileList = memberQueryGateway.listMobile(request.getMemberIds());
+        List<String> mobileList = memberQueryService.listMobile(request.getMemberIds());
         if (CollUtil.isEmpty(mobileList)) {
             return;
         }

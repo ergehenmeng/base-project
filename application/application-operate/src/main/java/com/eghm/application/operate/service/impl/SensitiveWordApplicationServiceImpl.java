@@ -35,7 +35,7 @@ public class SensitiveWordApplicationServiceImpl implements SensitiveWordApplica
 
     private final SensitiveWordRepository sensitiveWordRepository;
 
-    private final SensitiveWordQueryService sensitiveWordQueryGateway;
+    private final SensitiveWordQueryService sensitiveWordQueryService;
 
     @PostConstruct
     public void init() {
@@ -52,7 +52,7 @@ public class SensitiveWordApplicationServiceImpl implements SensitiveWordApplica
             }
             keywords = wordList.stream().map(FoundWord::getFoundWord).toList();
         }
-        return sensitiveWordQueryGateway.getByPage(query, keywords);
+        return sensitiveWordQueryService.getByPage(query, keywords);
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.domain.AlipayTradePrecreateModel;
 import com.alipay.api.request.AlipayTradePrecreateRequest;
 import com.alipay.api.response.AlipayTradePrecreateResponse;
-import com.eghm.infrastructure.integration.common.impl.SysConfigApi;
+import com.eghm.application.shared.common.SysConfigService;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.domain.shared.enums.ErrorCode;
@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AliQrCodeCreatePayServiceImpl implements CreatePayService {
 
-    private final SysConfigApi sysConfigApi;
+    private final SysConfigService sysConfigService;
 
     private DefaultAlipayClient defaultAlipayClient;
 
@@ -52,7 +52,7 @@ public class AliQrCodeCreatePayServiceImpl implements CreatePayService {
         model.setSubject(dto.getDescription());
         model.setProductCode(TradeType.QR_CODE_OFFLINE.getCode());
         request.setBizModel(model);
-        request.setNotifyUrl(sysConfigApi.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_PAY_NOTIFY_URL);
+        request.setNotifyUrl(sysConfigService.getString(ConfigConstant.PAY_NOTIFY_HOST) + CommonConstant.ALI_PAY_NOTIFY_URL);
         AlipayTradePrecreateResponse response;
         try {
             response = defaultAlipayClient.execute(request);

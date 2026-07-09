@@ -20,11 +20,11 @@ public class SysTaskLogApplicationServiceImpl implements SysTaskLogApplicationSe
 
     private final SysTaskLogRepository sysTaskLogRepository;
 
-    private final SysTaskLogQueryService sysTaskLogQueryGateway;
+    private final SysTaskLogQueryService sysTaskLogQueryService;
 
     @Override
     public Page<SysTaskLogResponse> getByPage(TaskLogQueryRequest request) {
-        return sysTaskLogQueryGateway.getByPage(request.createPage(), request);
+        return sysTaskLogQueryService.getByPage(request.createPage(), request);
     }
 
     @Override

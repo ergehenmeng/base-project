@@ -8,7 +8,7 @@ import cn.hutool.extra.qrcode.QrConfig;
 import com.eghm.application.shared.common.CommonService;
 import com.eghm.application.shared.common.SmsService;
 import com.eghm.application.shared.common.UserTokenService;
-import com.eghm.application.shared.common.impl.SysConfigApi;
+import com.eghm.application.shared.common.SysConfigService;
 import com.eghm.application.shared.configuration.authentication.SecurityHolder;
 import com.eghm.application.shared.configuration.encoder.Encoder;
 import com.eghm.constants.CommonConstant;
@@ -58,7 +58,7 @@ public class SysUserAuthApplicationServiceImpl implements SysUserAuthApplication
 
     private final Encoder encoder;
     private final SmsService smsService;
-    private final SysConfigApi sysConfigApi;
+    private final SysConfigService sysConfigService;
     private final SysUserRepository sysUserRepository;
     private final CommonService commonService;
     private final SysMenuApplicationService sysMenuService;
@@ -71,7 +71,7 @@ public class SysUserAuthApplicationServiceImpl implements SysUserAuthApplication
     public TotpLoginResponse login(String userName, String password, String openId) {
         SysUser user = this.getAndCheckUser(userName, password);
         this.tryBindingOpenId(user.getId(), openId);
-        boolean openTotp = sysConfigApi.getBoolean(ConfigConstant.OPEN_TOTP);
+        boolean openTotp = sysConfigService.getBoolean(ConfigConstant.OPEN_TOTP);
         if (openTotp) {
             String uuid = IdUtil.simpleUUID();
             loginCacheManager.saveTotpData(uuid, user.getId());
@@ -171,7 +171,7 @@ public class SysUserAuthApplicationServiceImpl implements SysUserAuthApplication
         response.setAvatar(user.getAvatar());
         response.setToken(token);
         response.setMobile(user.getMobile());
-        response.setSystemName(sysConfigApi.getString(ConfigConstant.SYSTEM_NAME));
+        response.setSystemName(sysConfigService.getString(ConfigConstant.SYSTEM_NAME));
         response.setNickName(user.getNickName());
         response.setUserType(user.getUserType());
         response.setInit(user.isInitialPassword());
@@ -180,7 +180,7 @@ public class SysUserAuthApplicationServiceImpl implements SysUserAuthApplication
     }
 
     private String generateTotpUrl(String userName, GoogleAuthenticatorKey secretKey) {
-        String systemName = sysConfigApi.getString(ConfigConstant.SYSTEM_NAME);
+        String systemName = sysConfigService.getString(ConfigConstant.SYSTEM_NAME);
         return GoogleAuthenticatorQRGenerator.getOtpAuthTotpURL(systemName, userName, secretKey);
     }
 

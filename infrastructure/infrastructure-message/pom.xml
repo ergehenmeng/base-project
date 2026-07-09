@@ -18,5 +18,9 @@
             <groupId>com.eghm</groupId>
             <artifactId>infrastructure-shared</artifactId>
         </dependency>
+        <dependency>
+            <artifactId>spring-rabbit</artifactId>
+            <groupId>org.springframework.amqp</groupId>
+        </dependency>
     </dependencies>
 </project>

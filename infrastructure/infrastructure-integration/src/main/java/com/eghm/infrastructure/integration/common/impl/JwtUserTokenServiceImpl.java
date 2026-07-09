@@ -8,7 +8,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.eghm.application.shared.common.CommonService;
 import com.eghm.application.shared.common.UserTokenService;
-import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.eghm.application.shared.dto.ext.UserToken;
 import com.eghm.domain.shared.enums.DataType;
 import com.eghm.domain.shared.enums.UserType;

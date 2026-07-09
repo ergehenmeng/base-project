@@ -1,7 +1,7 @@
 package com.eghm.interfaces.manage.configuration.filter;
 
 import com.eghm.application.shared.common.UserTokenService;
-import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.eghm.application.shared.configuration.authentication.SecurityHolder;
 import com.eghm.application.shared.dto.ext.UserToken;
 import com.eghm.domain.shared.enums.ErrorCode;

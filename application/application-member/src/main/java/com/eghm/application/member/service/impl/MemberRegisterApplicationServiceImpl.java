@@ -2,11 +2,12 @@ package com.eghm.application.member.service.impl;
 
 import cn.hutool.crypto.SecureUtil;
 import com.eghm.application.shared.common.SmsService;
-import com.eghm.application.shared.common.impl.SysConfigApi;
+import com.eghm.application.shared.common.SysConfigService;
 import com.eghm.application.shared.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.domain.member.model.Member;
 import com.eghm.domain.member.repository.MemberRepository;
+import com.eghm.domain.member.valueobject.MemberRegistrationInfo;
 import com.eghm.domain.shared.enums.Channel;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.enums.TemplateType;
@@ -48,7 +49,7 @@ public class MemberRegisterApplicationServiceImpl implements MemberRegisterAppli
     private final Encoder encoder;
     private final IdGenerator idGenerator;
     private final SmsService smsService;
-    private final SysConfigApi sysConfigApi;
+    private final SysConfigService sysConfigService;
     private final MemberRepository memberRepository;
     private final ApplicationEventPublisher eventPublisher;
     private final WeChatMpService weChatMpService;
@@ -120,7 +121,7 @@ public class MemberRegisterApplicationServiceImpl implements MemberRegisterAppli
         Long memberId = idGenerator.nextId();
         LocalDate today = LocalDate.now();
         if (isBlank(member.getNickName())) {
-            member.setNickName(sysConfigApi.getString(ConfigConstant.NICK_NAME_PREFIX) + System.nanoTime());
+            member.setNickName(sysConfigService.getString(ConfigConstant.NICK_NAME_PREFIX) + System.nanoTime());
         }
         member.initializeRegistration(memberId, StringUtil.encryptNumber(memberId), member.getNickName(), today, today.format(DateUtil.MIN_FORMAT));
         memberRepository.save(member);
@@ -129,7 +130,7 @@ public class MemberRegisterApplicationServiceImpl implements MemberRegisterAppli
     }
 
     private void registerPostHandler(Member member, MemberRegister register) {
-        eventPublisher.publishEvent(new MemberRegisteredEvent(member, register));
+        eventPublisher.publishEvent(new MemberRegisteredEvent(member, DataUtil.copy(register, MemberRegistrationInfo.class)));
     }
 
     private Member doMpRegister(MpUserInfo info, String ip) {

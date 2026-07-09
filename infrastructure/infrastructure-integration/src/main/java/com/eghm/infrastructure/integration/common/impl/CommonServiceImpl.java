@@ -6,7 +6,7 @@ import cn.hutool.crypto.asymmetric.RSA;
 import com.eghm.application.shared.cache.CacheProxyService;
 import com.eghm.application.shared.cache.CacheService;
 import com.eghm.application.shared.common.CommonService;
-import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.infrastructure.shared.configuration.properties.ApplicationProperties;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.domain.shared.enums.ErrorCode;

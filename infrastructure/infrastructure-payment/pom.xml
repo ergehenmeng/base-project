@@ -18,5 +18,25 @@
             <groupId>com.eghm</groupId>
             <artifactId>infrastructure-shared</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>infrastructure-integration</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>application-payment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>domain-payment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-pay</artifactId>
+        </dependency>
     </dependencies>
 </project>

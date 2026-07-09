@@ -50,11 +50,11 @@ public class MemberCollectApplicationServiceImpl implements MemberCollectApplica
 
     private final MemberCollectRepository memberCollectRepository;
 
-    private final MemberCollectQueryService memberCollectQueryGateway;
+    private final MemberCollectQueryService memberCollectQueryService;
 
     @Override
     public List<MemberCollectVO> getByPage(CollectQueryDTO query) {
-        Page<MemberCollectVO> byPage = memberCollectQueryGateway.getByPage(query.createPage(false), query);
+        Page<MemberCollectVO> byPage = memberCollectQueryService.getByPage(query.createPage(false), query);
         if (CollUtil.isNotEmpty(byPage.getRecords())) {
             Map<CollectType, List<Long>> collectMap = byPage.getRecords().stream().collect(Collectors.groupingBy(MemberCollectVO::getCollectType, Collectors.mapping(MemberCollectVO::getCollectId, Collectors.toList())));
             Map<Long, NewsVO> newsMap = this.getNewsMap(collectMap.get(NEWS));
@@ -76,7 +76,7 @@ public class MemberCollectApplicationServiceImpl implements MemberCollectApplica
 
     @Override
     public void collect(Long collectId, CollectType collectType) {
-        if (!memberCollectQueryGateway.existsCollectObject(collectId, collectType)) {
+        if (!memberCollectQueryService.existsCollectObject(collectId, collectType)) {
             log.warn("非法收藏对象,不做任何操作 [{}] [{}]", collectId, collectType);
             return;
         }
@@ -110,7 +110,7 @@ public class MemberCollectApplicationServiceImpl implements MemberCollectApplica
 
     @Override
     public List<CollectStatisticsVO> dayCollect(CollectRequest request) {
-        List<CollectStatisticsVO> voList = memberCollectQueryGateway.dayCollect(request);
+        List<CollectStatisticsVO> voList = memberCollectQueryService.dayCollect(request);
         if (request.getSelectType() == SelectType.YEAR) {
             Map<String, CollectStatisticsVO> voMap = voList.stream().collect(Collectors.toMap(CollectStatisticsVO::getCreateMonth, Function.identity()));
             return DataUtil.paddingMonth(voMap, request.getStartDate(), request.getEndDate(), CollectStatisticsVO::new);
@@ -130,7 +130,7 @@ public class MemberCollectApplicationServiceImpl implements MemberCollectApplica
         if (CollUtil.isEmpty(newsIds)) {
             return Maps.newLinkedHashMapWithExpectedSize(4);
         }
-        List<NewsVO> voList = memberCollectQueryGateway.listNews(newsIds);
+        List<NewsVO> voList = memberCollectQueryService.listNews(newsIds);
         return voList.stream().collect(Collectors.toMap(NewsVO::getId, Function.identity()));
     }
 
@@ -144,7 +144,7 @@ public class MemberCollectApplicationServiceImpl implements MemberCollectApplica
         if (CollUtil.isEmpty(noticeIds)) {
             return Maps.newLinkedHashMapWithExpectedSize(4);
         }
-        List<NoticeVO> voList = memberCollectQueryGateway.listNotice(noticeIds);
+        List<NoticeVO> voList = memberCollectQueryService.listNotice(noticeIds);
         return voList.stream().collect(Collectors.toMap(NoticeVO::getId, Function.identity()));
     }
 }

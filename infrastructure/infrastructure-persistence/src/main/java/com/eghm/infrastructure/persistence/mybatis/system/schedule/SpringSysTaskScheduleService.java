@@ -1,7 +1,7 @@
 package com.eghm.infrastructure.persistence.mybatis.system.schedule;
 
-import com.eghm.infrastructure.shared.configuration.task.config.OnceScheduleBean;
-import com.eghm.infrastructure.shared.configuration.task.config.TaskRegistrar;
+import com.eghm.infrastructure.persistence.schedule.config.OnceScheduleBean;
+import com.eghm.infrastructure.persistence.schedule.config.TaskRegistrar;
 import com.eghm.application.system.schedule.SysTaskScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

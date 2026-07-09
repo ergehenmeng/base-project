@@ -1,7 +1,7 @@
 package com.eghm.interfaces.manage.controller.sys;
 
 import com.eghm.application.shared.dto.ext.Page;
-import com.eghm.infrastructure.shared.configuration.task.config.TaskRegistrar;
+import com.eghm.infrastructure.persistence.schedule.config.TaskRegistrar;
 import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.sys.task.TaskEditRequest;
