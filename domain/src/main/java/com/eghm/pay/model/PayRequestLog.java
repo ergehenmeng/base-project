@@ -1,6 +1,6 @@
 package com.eghm.pay.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import com.eghm.pay.enums.PayChannel;
 import com.eghm.pay.enums.StepType;
@@ -40,4 +40,16 @@ public class PayRequestLog extends BaseEntity {
     /** 响应参数 */
     private String responseBody;
 
+    public void initialize(PayChannel payChannel, String orderNo, StepType stepType, String tradeNo, String refundNo) {
+        this.payChannel = payChannel;
+        this.orderNo = orderNo;
+        this.stepType = stepType;
+        this.tradeNo = tradeNo;
+        this.refundNo = refundNo;
+    }
+
+    public void recordRequest(String requestBody, String responseBody) {
+        this.requestBody = requestBody;
+        this.responseBody = responseBody;
+    }
 }

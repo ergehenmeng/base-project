@@ -1,6 +1,6 @@
 package com.eghm.operate.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

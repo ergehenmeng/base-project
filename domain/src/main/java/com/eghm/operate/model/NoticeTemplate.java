@@ -27,4 +27,16 @@ public class NoticeTemplate {
     /** 更新时间 */
     private LocalDateTime updateTime;
 
+    public void initialize(String code, String title, String content, String remark) {
+        this.code = code;
+        this.title = title;
+        this.content = content;
+        this.remark = remark;
+    }
+
+    public void changeContent(String content) {
+        this.content = content;
+        this.updateTime = LocalDateTime.now();
+    }
+
 }

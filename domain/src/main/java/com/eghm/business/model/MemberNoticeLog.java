@@ -1,6 +1,6 @@
 package com.eghm.business.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import com.eghm.enums.MessageType;
 import lombok.Data;
@@ -32,5 +32,13 @@ public class MemberNoticeLog extends BaseEntity {
 
     /** 发送人id */
     private Long operatorId;
+
+    public void initialize(String title, String content, MessageType messageType, String params, Long operatorId) {
+        this.title = title;
+        this.content = content;
+        this.messageType = messageType;
+        this.params = params;
+        this.operatorId = operatorId;
+    }
 
 }

@@ -99,4 +99,24 @@ public class SysMenu {
     public static boolean isRoot(String pid) {
         return Objects.equals(pid, ROOT);
     }
+
+    public void enable() {
+        this.state = true;
+    }
+
+    public void disable() {
+        this.state = false;
+    }
+
+    public boolean isEnabled() {
+        return Boolean.TRUE.equals(this.state);
+    }
+
+    public boolean isButton() {
+        return Integer.valueOf(2).equals(this.grade);
+    }
+
+    public boolean isNavigation() {
+        return Integer.valueOf(1).equals(this.grade);
+    }
 }

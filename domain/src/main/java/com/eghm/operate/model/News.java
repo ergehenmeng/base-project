@@ -1,6 +1,6 @@
 package com.eghm.operate.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 
@@ -56,6 +56,22 @@ public class News extends BaseEntity {
         if (Boolean.FALSE.equals(commentSupport)) {
             throw new BusinessException(ErrorCode.NEWS_COMMENT_FORBID);
         }
+    }
+
+    public void publish() {
+        this.state = true;
+    }
+
+    public void unpublish() {
+        this.state = false;
+    }
+
+    public void increasePraiseNum() {
+        this.praiseNum = this.praiseNum == null ? 1 : this.praiseNum + 1;
+    }
+
+    public boolean isPublished() {
+        return Boolean.TRUE.equals(this.state);
     }
 
 }

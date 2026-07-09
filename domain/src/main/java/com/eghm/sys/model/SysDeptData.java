@@ -22,4 +22,9 @@ public class SysDeptData {
         this.userId = userId;
         this.deptCode = deptCode;
     }
+
+    public void initialize(Long userId, String deptCode) {
+        this.userId = userId;
+        this.deptCode = deptCode;
+    }
 }

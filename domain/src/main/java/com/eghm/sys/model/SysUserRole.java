@@ -22,4 +22,9 @@ public class SysUserRole {
         this.userId = userId;
         this.roleId = roleId;
     }
+
+    public void initialize(Long userId, Long roleId) {
+        this.userId = userId;
+        this.roleId = roleId;
+    }
 }

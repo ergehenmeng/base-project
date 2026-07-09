@@ -42,4 +42,19 @@ public class SysTaskLog {
     /** 执行错误时的信息 */
     private String errorMsg;
 
+    public void initialize(String beanName, String methodName, String args, Long startTime, Long elapsedTime,
+                           String ip, String errorMsg) {
+        this.beanName = beanName;
+        this.methodName = methodName;
+        this.args = args;
+        this.startTime = LocalDateTime.ofEpochSecond(startTime / 1000, 0, java.time.ZoneOffset.of("+8"));
+        this.elapsedTime = elapsedTime;
+        this.ip = ip;
+        this.errorMsg = errorMsg;
+        this.state = errorMsg == null || errorMsg.isEmpty();
+    }
+
+    public boolean isSuccess() {
+        return Boolean.TRUE.equals(this.state);
+    }
 }

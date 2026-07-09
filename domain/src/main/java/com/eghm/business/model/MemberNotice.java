@@ -1,6 +1,6 @@
 package com.eghm.business.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import com.eghm.enums.MessageType;
 import lombok.Data;
@@ -32,5 +32,17 @@ public class MemberNotice extends BaseEntity {
 
     /** 消息所属日志id */
     private Long noticeLogId;
+
+    public void markRead() {
+        this.isRead = true;
+    }
+
+    public void markUnread() {
+        this.isRead = false;
+    }
+
+    public boolean isRead() {
+        return Boolean.TRUE.equals(this.isRead);
+    }
 
 }

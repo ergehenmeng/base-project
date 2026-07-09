@@ -1,6 +1,6 @@
 package com.eghm.business.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,5 +17,10 @@ public class MemberInviteLog extends BaseEntity {
 
     /** 邀请人id */
     private Long inviteMemberId;
+
+    public void initialize(Long memberId, Long inviteMemberId) {
+        this.memberId = memberId;
+        this.inviteMemberId = inviteMemberId;
+    }
 
 }

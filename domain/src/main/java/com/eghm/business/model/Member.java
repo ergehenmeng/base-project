@@ -1,6 +1,6 @@
 package com.eghm.business.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 import com.eghm.enums.DirectionType;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.MemberState;

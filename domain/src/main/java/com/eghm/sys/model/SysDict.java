@@ -1,6 +1,6 @@
 package com.eghm.sys.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,4 +24,18 @@ public class SysDict extends BaseEntity {
     /** 备注信息 */
     private String remark;
 
+    public void initialize(String title, String nid, Integer dictType, String remark) {
+        this.title = title;
+        this.nid = nid;
+        this.dictType = dictType;
+        this.remark = remark;
+    }
+
+    public void changeTitle(String title) {
+        this.title = title;
+    }
+
+    public void changeRemark(String remark) {
+        this.remark = remark;
+    }
 }

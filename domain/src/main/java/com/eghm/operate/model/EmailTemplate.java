@@ -26,4 +26,16 @@ public class EmailTemplate {
 
     /** 更新时间 */
     private LocalDateTime updateTime;
+
+    public void initialize(String nid, String title, String content, String remark) {
+        this.nid = nid;
+        this.title = title;
+        this.content = content;
+        this.remark = remark;
+    }
+
+    public void changeContent(String content) {
+        this.content = content;
+        this.updateTime = LocalDateTime.now();
+    }
 }

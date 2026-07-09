@@ -1,6 +1,6 @@
 package com.eghm.operate.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import com.eghm.enums.FeedbackType;
 import lombok.Data;
@@ -42,4 +42,26 @@ public class FeedbackLog extends BaseEntity {
 
     /** 回复内容 */
     private String remark;
+
+    public void initialize(Long memberId, FeedbackType feedbackType, String version, String systemVersion,
+                           String content, String imageUrl, String deviceBrand, String deviceModel) {
+        this.memberId = memberId;
+        this.feedbackType = feedbackType;
+        this.version = version;
+        this.systemVersion = systemVersion;
+        this.content = content;
+        this.imageUrl = imageUrl;
+        this.deviceBrand = deviceBrand;
+        this.deviceModel = deviceModel;
+        this.state = false;
+    }
+
+    public void resolve(String remark) {
+        this.state = true;
+        this.remark = remark;
+    }
+
+    public boolean isResolved() {
+        return Boolean.TRUE.equals(this.state);
+    }
 }

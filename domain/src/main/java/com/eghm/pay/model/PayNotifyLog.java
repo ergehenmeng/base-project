@@ -1,6 +1,6 @@
 package com.eghm.pay.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import com.eghm.pay.enums.PayChannel;
 import com.eghm.pay.enums.StepType;
@@ -39,4 +39,22 @@ public class PayNotifyLog extends BaseEntity {
 
     /** 发送状态 0:未回放 1:回放成功 */
     private Integer state;
+
+    public void initialize(PayChannel payChannel, String notifyId, StepType stepType, String tradeNo, String refundNo, String params) {
+        this.payChannel = payChannel;
+        this.notifyId = notifyId;
+        this.stepType = stepType;
+        this.tradeNo = tradeNo;
+        this.refundNo = refundNo;
+        this.params = params;
+        this.state = 0;
+    }
+
+    public void markReplayed() {
+        this.state = 1;
+    }
+
+    public boolean isReplayed() {
+        return Integer.valueOf(1).equals(this.state);
+    }
 }

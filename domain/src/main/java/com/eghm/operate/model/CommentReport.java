@@ -1,6 +1,6 @@
 package com.eghm.operate.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import com.eghm.enums.ObjectType;
 import com.eghm.enums.ReportType;
@@ -37,6 +37,9 @@ public class CommentReport extends BaseEntity {
     /** 举报内容 */
     private String content;
 
+    /** 处理状态 0:待处理 1:已处理 2:已忽略 */
+    private Integer state;
+
     /**
      * 绑定被举报评论的信息.
      *
@@ -45,5 +48,25 @@ public class CommentReport extends BaseEntity {
     public void bindComment(Comment comment) {
         this.objectId = comment.getObjectId();
         this.objectType = comment.getObjectType();
+    }
+
+    public void initialize(Long memberId, Long commentId, ReportType reportType, String content) {
+        this.memberId = memberId;
+        this.commentId = commentId;
+        this.reportType = reportType;
+        this.content = content;
+        this.state = 0;
+    }
+
+    public void process() {
+        this.state = 1;
+    }
+
+    public void ignore() {
+        this.state = 2;
+    }
+
+    public boolean isPending() {
+        return Integer.valueOf(0).equals(this.state);
     }
 }

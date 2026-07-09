@@ -40,4 +40,23 @@ public class SysArea {
     /** 分类 省份1级 市2级 县3级 */
     private Integer grade;
 
+    public void initialize(Long id, String title, Long pid, String mark, Integer grade) {
+        this.id = id;
+        this.title = title;
+        this.pid = pid;
+        this.mark = mark;
+        this.grade = grade;
+    }
+
+    public boolean isProvince() {
+        return Integer.valueOf(PROVINCE).equals(this.grade);
+    }
+
+    public boolean isCity() {
+        return Integer.valueOf(CITY).equals(this.grade);
+    }
+
+    public boolean isCounty() {
+        return Integer.valueOf(COUNTY).equals(this.grade);
+    }
 }

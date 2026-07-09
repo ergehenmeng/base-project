@@ -27,4 +27,17 @@ public class LoginDevice {
     /** 最近一次登陆的时间 */
     private LocalDateTime loginTime;
 
+    public void initialize(Long memberId, String serialNumber, String deviceModel, Long ip) {
+        this.memberId = memberId;
+        this.serialNumber = serialNumber;
+        this.deviceModel = deviceModel;
+        this.ip = ip;
+        this.loginTime = LocalDateTime.now();
+    }
+
+    public void updateLoginInfo(Long ip, LocalDateTime loginTime) {
+        this.ip = ip;
+        this.loginTime = loginTime;
+    }
+
 }

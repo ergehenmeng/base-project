@@ -1,6 +1,6 @@
 package com.eghm.operate.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,5 +26,17 @@ public class HelpCenter extends BaseEntity {
 
     /** 排序(小<->大) */
     private Integer sort;
+
+    public void enable() {
+        this.state = 1;
+    }
+
+    public void disable() {
+        this.state = 0;
+    }
+
+    public boolean isEnabled() {
+        return Integer.valueOf(1).equals(this.state);
+    }
 
 }

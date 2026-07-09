@@ -34,4 +34,14 @@ public class ManageLog {
 
     /** 响应参数 */
     private String response;
+
+    public void initialize(String url, Long userId, String request, String ip, Long businessTime, String response) {
+        this.url = url;
+        this.userId = userId;
+        this.request = request;
+        this.ip = ip;
+        this.businessTime = businessTime;
+        this.response = response;
+        this.createTime = LocalDateTime.now();
+    }
 }

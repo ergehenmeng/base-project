@@ -1,6 +1,6 @@
 package com.eghm.sys.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.RoleType;
@@ -44,5 +44,10 @@ public class SysRole extends BaseEntity {
     public void changeProfile(String roleName, String remark) {
         this.roleName = roleName;
         this.remark = remark;
+    }
+
+    public void initialize(String roleName, RoleType roleType) {
+        this.roleName = roleName;
+        this.roleType = roleType;
     }
 }

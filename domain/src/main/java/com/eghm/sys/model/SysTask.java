@@ -45,4 +45,33 @@ public class SysTask {
     /** 备注信息 */
     private String remark;
 
+    public void initialize(String title, String beanName, String methodName, String args, String cronExpression,
+                           Boolean state, String alarmEmail, Long lockTime, String remark) {
+        this.title = title;
+        this.beanName = beanName;
+        this.methodName = methodName;
+        this.args = args;
+        this.cronExpression = cronExpression;
+        this.state = state;
+        this.alarmEmail = alarmEmail;
+        this.lockTime = lockTime;
+        this.remark = remark;
+    }
+
+    public void enable() {
+        this.state = true;
+    }
+
+    public void disable() {
+        this.state = false;
+    }
+
+    public boolean isEnabled() {
+        return Boolean.TRUE.equals(this.state);
+    }
+
+    public void changeCronExpression(String cronExpression) {
+        this.cronExpression = cronExpression;
+        this.updateTime = LocalDateTime.now();
+    }
 }

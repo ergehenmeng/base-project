@@ -1,6 +1,6 @@
 package com.eghm.operate.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -48,5 +48,30 @@ public class Banner extends BaseEntity {
 
     /** 备注信息 */
     private String remark;
+
+    public void enable() {
+        this.state = true;
+    }
+
+    public void disable() {
+        this.state = false;
+    }
+
+    public boolean isEnabled() {
+        return Boolean.TRUE.equals(this.state);
+    }
+
+    public boolean isEffective(java.time.LocalDateTime now) {
+        if (!isEnabled()) {
+            return false;
+        }
+        if (startTime != null && now.isBefore(startTime)) {
+            return false;
+        }
+        if (endTime != null && now.isAfter(endTime)) {
+            return false;
+        }
+        return true;
+    }
 
 }

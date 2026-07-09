@@ -1,6 +1,6 @@
 package com.eghm.operate.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,5 +38,17 @@ public class SysNotice extends BaseEntity {
 
     /** 是否发布 0:未发布 1:已发布 */
     private Integer state;
+
+    public void publish() {
+        this.state = STATE_1;
+    }
+
+    public void unpublish() {
+        this.state = STATE_0;
+    }
+
+    public boolean isPublished() {
+        return Integer.valueOf(STATE_1).equals(this.state);
+    }
 
 }

@@ -89,4 +89,40 @@ public class Comment {
     public void increaseReportNum() {
         this.reportNum = this.reportNum == null ? 1 : this.reportNum + 1;
     }
+
+    public void shield() {
+        this.state = false;
+    }
+
+    public void unshield() {
+        this.state = true;
+    }
+
+    public void top() {
+        this.topState = 1;
+    }
+
+    public void untop() {
+        this.topState = 0;
+    }
+
+    public void increasePraiseNum() {
+        this.praiseNum = this.praiseNum == null ? 1 : this.praiseNum + 1;
+    }
+
+    public void decreasePraiseNum() {
+        this.praiseNum = this.praiseNum == null ? 0 : this.praiseNum - 1;
+    }
+
+    public void increaseReplyNum() {
+        this.replyNum = this.replyNum == null ? 1 : this.replyNum + 1;
+    }
+
+    public void decreaseReplyNum() {
+        this.replyNum = this.replyNum == null ? 0 : this.replyNum - 1;
+    }
+
+    public boolean isShielded() {
+        return Boolean.FALSE.equals(this.state);
+    }
 }

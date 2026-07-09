@@ -1,6 +1,6 @@
 package com.eghm.sys.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -50,5 +50,17 @@ public class SysDept extends BaseEntity {
     public void recordOperator(Long userId, String userName) {
         this.userId = userId;
         this.userName = userName;
+    }
+
+    public void changeTitle(String title) {
+        this.title = title;
+    }
+
+    public void changeRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public boolean isRoot() {
+        return "0".equals(this.parentCode);
     }
 }

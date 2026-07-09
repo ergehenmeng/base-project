@@ -1,4 +1,4 @@
-package com.eghm.common.model;
+package com.eghm.model;
 
 import lombok.Getter;
 import lombok.Setter;

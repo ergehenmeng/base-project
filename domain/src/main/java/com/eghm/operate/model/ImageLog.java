@@ -1,6 +1,6 @@
 package com.eghm.operate.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,5 +28,13 @@ public class ImageLog extends BaseEntity {
 
     /** 备注信息 */
     private String remark;
+
+    public void initialize(String title, Integer imageType, String path, Long size, String remark) {
+        this.title = title;
+        this.imageType = imageType;
+        this.path = path;
+        this.size = size;
+        this.remark = remark;
+    }
 
 }

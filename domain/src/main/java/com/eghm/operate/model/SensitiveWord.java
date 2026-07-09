@@ -1,6 +1,6 @@
 package com.eghm.operate.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,5 +21,9 @@ public class SensitiveWord extends BaseEntity {
 
     /** 敏感字 */
     private String keyword;
+
+    public void initialize(String keyword) {
+        this.keyword = keyword;
+    }
 
 }

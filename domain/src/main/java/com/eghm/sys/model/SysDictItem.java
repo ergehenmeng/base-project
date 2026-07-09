@@ -1,6 +1,6 @@
 package com.eghm.sys.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,4 +20,18 @@ public class SysDictItem extends BaseEntity {
 
     /** 显示值 */
     private String showValue;
+
+    public void initialize(String nid, Integer hiddenValue, String showValue) {
+        this.nid = nid;
+        this.hiddenValue = hiddenValue;
+        this.showValue = showValue;
+    }
+
+    public void changeShowValue(String showValue) {
+        this.showValue = showValue;
+    }
+
+    public void changeHiddenValue(Integer hiddenValue) {
+        this.hiddenValue = hiddenValue;
+    }
 }

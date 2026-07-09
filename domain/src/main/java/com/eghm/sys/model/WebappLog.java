@@ -63,4 +63,22 @@ public class WebappLog {
     /** 添加时间 */
     private LocalDateTime createTime;
 
+    public void initialize(Long memberId, String version, Channel channel, String osVersion, String deviceBrand,
+                           String deviceModel, String serialNumber, String ip, Long elapsedTime, String url,
+                           String requestParam, String traceId, String errorMsg) {
+        this.memberId = memberId;
+        this.version = version;
+        this.channel = channel;
+        this.osVersion = osVersion;
+        this.deviceBrand = deviceBrand;
+        this.deviceModel = deviceModel;
+        this.serialNumber = serialNumber;
+        this.ip = ip;
+        this.elapsedTime = elapsedTime;
+        this.url = url;
+        this.requestParam = requestParam;
+        this.traceId = traceId;
+        this.errorMsg = errorMsg;
+        this.createTime = LocalDateTime.now();
+    }
 }

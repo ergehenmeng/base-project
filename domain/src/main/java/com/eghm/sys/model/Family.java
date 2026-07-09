@@ -63,4 +63,27 @@ public class Family {
             throw new BusinessException(ErrorCode.FAMILY_NEXT_ERROR);
         }
     }
+
+    public void initialize(String pid, String name, LocalDate birthday) {
+        this.pid = pid;
+        this.name = name;
+        this.birthday = birthday;
+        this.state = false;
+        this.createTime = LocalDateTime.now();
+        this.deleted = false;
+    }
+
+    public void changeName(String name) {
+        this.name = name;
+        this.updateTime = LocalDateTime.now();
+    }
+
+    public void changeBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+        this.updateTime = LocalDateTime.now();
+    }
+
+    public boolean isRoot() {
+        return "0".equals(this.pid);
+    }
 }

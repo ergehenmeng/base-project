@@ -39,4 +39,17 @@ public class LoginLog {
     private LocalDateTime createTime;
     /** 是否已删除 0:未删除 1:已删除 */
     private Boolean deleted;
+
+    public void initialize(Long memberId, String channel, Long ip, String deviceBrand, String deviceModel,
+                           String softwareVersion, String serialNumber) {
+        this.memberId = memberId;
+        this.channel = channel;
+        this.ip = ip;
+        this.deviceBrand = deviceBrand;
+        this.deviceModel = deviceModel;
+        this.softwareVersion = softwareVersion;
+        this.serialNumber = serialNumber;
+        this.createTime = LocalDateTime.now();
+        this.deleted = false;
+    }
 }

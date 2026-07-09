@@ -1,6 +1,6 @@
 package com.eghm.operate.model;
 
-import com.eghm.common.model.BaseEntity;
+import com.eghm.model.BaseEntity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -40,5 +40,16 @@ public class NewsConfig extends BaseEntity {
 
     /** 是否包含视频 */
     private Boolean includeVideo;
+
+    public void initialize(String title, String code) {
+        this.title = title;
+        this.code = code;
+        this.includeTitle = true;
+        this.includeTag = true;
+        this.includeDepict = true;
+        this.includeImage = true;
+        this.includeContent = true;
+        this.includeVideo = true;
+    }
 
 }

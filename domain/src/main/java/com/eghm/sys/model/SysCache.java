@@ -30,4 +30,24 @@ public class SysCache {
     /** 备注说明 */
     private String remark;
 
+    public void initialize(String title, String cacheName, String remark) {
+        this.title = title;
+        this.cacheName = cacheName;
+        this.remark = remark;
+        this.state = 0;
+    }
+
+    public void markUpdated() {
+        this.state = 1;
+        this.updateTime = LocalDateTime.now();
+    }
+
+    public void markUpdateFailed() {
+        this.state = 2;
+        this.updateTime = LocalDateTime.now();
+    }
+
+    public boolean isUpdated() {
+        return Integer.valueOf(1).equals(this.state);
+    }
 }

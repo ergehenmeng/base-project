@@ -36,4 +36,19 @@ public class SmsLog {
     /** 发送状态 0:失败 1:已发送 */
     private Integer state;
 
+    public void initialize(TemplateType templateType, String mobile, String content) {
+        this.templateType = templateType;
+        this.mobile = mobile;
+        this.content = content;
+        this.createTime = LocalDateTime.now();
+        this.state = 1;
+    }
+
+    public void markFailed() {
+        this.state = 0;
+    }
+
+    public boolean isSent() {
+        return Integer.valueOf(1).equals(this.state);
+    }
 }

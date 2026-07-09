@@ -30,4 +30,13 @@ public class MemberScoreLog {
     /** 备注信息 */
     private String remark;
 
+    public void initialize(Long memberId, Integer score, Integer surplusScore, Integer type, String remark) {
+        this.memberId = memberId;
+        this.score = score;
+        this.surplusScore = surplusScore;
+        this.type = type;
+        this.remark = remark;
+        this.createTime = LocalDateTime.now();
+    }
+
 }
