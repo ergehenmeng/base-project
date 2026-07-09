@@ -7,7 +7,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.SysMenuMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.SysMenuPO;
 import com.eghm.domain.system.model.SysMenu;
 import com.eghm.domain.system.repository.SysMenuRepository;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

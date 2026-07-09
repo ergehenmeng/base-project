@@ -1,11 +1,11 @@
 package com.eghm.infrastructure.persistence.mybatis.operate.query;
 
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
-import com.eghm.dto.operate.version.VersionQueryRequest;
+import com.eghm.application.shared.dto.operate.version.VersionQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.mapper.AppVersionMapper;
-import com.eghm.application.operate.service.AppVersionQueryGateway;
-import com.eghm.vo.operate.version.AppVersionResponse;
+import com.eghm.application.operate.port.out.AppVersionQueryGateway;
+import com.eghm.application.shared.vo.operate.version.AppVersionResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

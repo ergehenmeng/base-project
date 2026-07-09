@@ -1,15 +1,15 @@
 package com.eghm.interfaces.manage.controller.sys;
 
 import cn.hutool.crypto.SecureUtil;
-import com.eghm.annotation.SkipPerm;
-import com.eghm.cache.CacheService;
-import com.eghm.configuration.authentication.SecurityHolder;
+import com.eghm.application.shared.annotation.SkipPerm;
+import com.eghm.application.shared.cache.CacheService;
+import com.eghm.application.shared.configuration.authentication.SecurityHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.ext.UserToken;
-import com.eghm.dto.sys.user.CheckPwdRequest;
-import com.eghm.application.system.service.SysUserService;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.ext.UserToken;
+import com.eghm.application.shared.dto.sys.user.CheckPwdRequest;
+import com.eghm.application.system.port.in.SysUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;

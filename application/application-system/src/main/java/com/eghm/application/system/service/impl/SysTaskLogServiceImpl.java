@@ -1,12 +1,12 @@
 package com.eghm.application.system.service.impl;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.sys.task.TaskLogQueryRequest;
-import com.eghm.application.system.service.SysTaskLogQueryGateway;
-import com.eghm.application.system.service.SysTaskLogService;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.sys.task.TaskLogQueryRequest;
+import com.eghm.application.system.port.out.SysTaskLogQueryGateway;
+import com.eghm.application.system.port.in.SysTaskLogService;
 import com.eghm.domain.system.model.SysTaskLog;
 import com.eghm.domain.system.repository.SysTaskLogRepository;
-import com.eghm.vo.operate.log.SysTaskLogResponse;
+import com.eghm.application.shared.vo.operate.log.SysTaskLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

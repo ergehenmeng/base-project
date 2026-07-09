@@ -1,15 +1,15 @@
 package com.eghm.application.payment.service.impl;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.business.pay.PayLogQueryRequest;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.business.pay.PayLogQueryRequest;
 import com.eghm.application.payment.dto.PayNotifyMessage;
 import com.eghm.domain.payment.enums.PayChannel;
 import com.eghm.domain.payment.enums.StepType;
 import com.eghm.domain.payment.model.PayNotifyLog;
 import com.eghm.domain.payment.repository.PayNotifyLogRepository;
-import com.eghm.application.payment.service.PayNotifyLogQueryGateway;
-import com.eghm.application.payment.service.PayNotifyLogService;
-import com.eghm.vo.operate.log.PayNotifyLogResponse;
+import com.eghm.application.payment.port.out.PayNotifyLogQueryGateway;
+import com.eghm.application.payment.port.in.PayNotifyLogService;
+import com.eghm.application.shared.vo.operate.log.PayNotifyLogResponse;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;

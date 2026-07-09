@@ -1,8 +1,8 @@
 package com.eghm.infrastructure.integration.common.impl;
 
 import com.eghm.domain.shared.service.JsonService;
-import com.eghm.common.SendSmsService;
-import com.eghm.configuration.ApplicationProperties;
+import com.eghm.application.shared.common.SendSmsService;
+import com.eghm.application.shared.configuration.ApplicationProperties;
 import com.eghm.domain.shared.enums.TemplateType;
 import com.google.common.collect.Lists;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;

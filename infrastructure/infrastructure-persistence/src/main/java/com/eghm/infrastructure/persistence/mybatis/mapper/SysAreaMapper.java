@@ -2,7 +2,7 @@ package com.eghm.infrastructure.persistence.mybatis.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.SysAreaPO;
-import com.eghm.vo.sys.ext.SysAreaVO;
+import com.eghm.application.shared.vo.sys.ext.SysAreaVO;
 
 import java.util.List;
 

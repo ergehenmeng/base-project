@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.infrastructure.persistence.mybatis.mapper.MemberMapper">
 
-    <select id="listPage" resultType="com.eghm.vo.business.member.MemberResponse" parameterType="com.eghm.dto.business.member.MemberQueryRequest">
+    <select id="listPage" resultType="com.eghm.application.shared.vo.business.member.MemberResponse" parameterType="com.eghm.application.shared.dto.business.member.MemberQueryRequest">
         select t.id, t.nick_name, t.mobile, t.email, t.state, t.score, t.invite_code, t.real_name, t.birthday, t.sex, t.channel, t.avatar, t.create_time
         from `member` t where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
@@ -32,7 +32,7 @@
         order by t.id desc
     </select>
 
-    <select id="channelStatistics" resultType="com.eghm.vo.business.statistics.PieDataVO">
+    <select id="channelStatistics" resultType="com.eghm.application.shared.vo.business.statistics.PieDataVO">
         select count(id) as value, `channel` as name
         from `member` where deleted = false
         <if test="startDate != null ">
@@ -44,7 +44,7 @@
         group by channel
     </select>
 
-    <select id="sexStatistics" resultType="com.eghm.vo.business.statistics.PieDataVO">
+    <select id="sexStatistics" resultType="com.eghm.application.shared.vo.business.statistics.PieDataVO">
         select count(id) as value,
         case when sex = 0 then '女' when `sex` = 1 then '男' else '未知' end as `name`
         from `member` where deleted = false
@@ -57,7 +57,7 @@
         group by sex
     </select>
 
-    <select id="dayRegister" resultType="com.eghm.vo.business.statistics.MemberRegisterVO" parameterType="com.eghm.dto.business.statistics.DateRequest">
+    <select id="dayRegister" resultType="com.eghm.application.shared.vo.business.statistics.MemberRegisterVO" parameterType="com.eghm.application.shared.dto.business.statistics.DateRequest">
         select
         <choose>
             <when test="selectType == @com.eghm.enums.SelectType@YEAR">

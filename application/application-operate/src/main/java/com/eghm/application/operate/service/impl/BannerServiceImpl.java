@@ -1,15 +1,15 @@
 package com.eghm.application.operate.service.impl;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.operate.banner.BannerAddRequest;
-import com.eghm.dto.operate.banner.BannerEditRequest;
-import com.eghm.dto.operate.banner.BannerQueryRequest;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.operate.banner.BannerAddRequest;
+import com.eghm.application.shared.dto.operate.banner.BannerEditRequest;
+import com.eghm.application.shared.dto.operate.banner.BannerQueryRequest;
 import com.eghm.domain.operate.model.Banner;
 import com.eghm.domain.operate.repository.BannerRepository;
-import com.eghm.application.operate.service.BannerQueryGateway;
-import com.eghm.application.operate.service.BannerService;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.operate.banner.BannerResponse;
+import com.eghm.application.operate.port.out.BannerQueryGateway;
+import com.eghm.application.operate.port.in.BannerService;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.operate.banner.BannerResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,18 +1,18 @@
 package com.eghm.infrastructure.persistence.mybatis.member.query;
 
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
-import com.eghm.dto.business.collect.CollectQueryDTO;
-import com.eghm.dto.business.statistics.CollectRequest;
+import com.eghm.application.shared.dto.business.collect.CollectQueryDTO;
+import com.eghm.application.shared.dto.business.statistics.CollectRequest;
 import com.eghm.domain.shared.enums.CollectType;
 import com.eghm.infrastructure.persistence.mybatis.mapper.MemberCollectMapper;
 import com.eghm.infrastructure.persistence.mybatis.mapper.NewsMapper;
 import com.eghm.infrastructure.persistence.mybatis.mapper.SysNoticeMapper;
-import com.eghm.application.member.service.MemberCollectQueryGateway;
-import com.eghm.vo.business.collect.MemberCollectVO;
-import com.eghm.vo.business.news.NewsVO;
-import com.eghm.vo.business.statistics.CollectStatisticsVO;
-import com.eghm.vo.operate.notice.NoticeVO;
+import com.eghm.application.member.port.out.MemberCollectQueryGateway;
+import com.eghm.application.shared.vo.business.collect.MemberCollectVO;
+import com.eghm.application.shared.vo.business.news.NewsVO;
+import com.eghm.application.shared.vo.business.statistics.CollectStatisticsVO;
+import com.eghm.application.shared.vo.operate.notice.NoticeVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

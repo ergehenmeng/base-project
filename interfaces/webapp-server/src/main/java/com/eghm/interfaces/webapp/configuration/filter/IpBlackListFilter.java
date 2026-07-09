@@ -1,9 +1,9 @@
 package com.eghm.interfaces.webapp.configuration.filter;
 
 import com.eghm.domain.shared.enums.ErrorCode;
-import com.eghm.application.system.service.BlackRosterService;
-import com.eghm.utils.IpUtil;
-import com.eghm.utils.WebUtil;
+import com.eghm.application.system.port.in.BlackRosterService;
+import com.eghm.interfaces.core.utils.IpUtil;
+import com.eghm.interfaces.core.utils.WebUtil;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

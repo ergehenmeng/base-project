@@ -1,7 +1,7 @@
 package com.eghm.infrastructure.persistence.mybatis.query;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

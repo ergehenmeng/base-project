@@ -1,6 +1,6 @@
 package com.eghm.interfaces.manage.configuration;
 
-import com.eghm.common.UserTokenService;
+import com.eghm.application.shared.common.UserTokenService;
 import com.eghm.interfaces.manage.configuration.interceptor.WebSocketHandshakeInterceptor;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;

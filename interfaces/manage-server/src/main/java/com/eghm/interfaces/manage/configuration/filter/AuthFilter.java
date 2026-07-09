@@ -1,11 +1,11 @@
 package com.eghm.interfaces.manage.configuration.filter;
 
-import com.eghm.common.UserTokenService;
-import com.eghm.configuration.ApplicationProperties;
-import com.eghm.configuration.authentication.SecurityHolder;
-import com.eghm.dto.ext.UserToken;
+import com.eghm.application.shared.common.UserTokenService;
+import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.application.shared.configuration.authentication.SecurityHolder;
+import com.eghm.application.shared.dto.ext.UserToken;
 import com.eghm.domain.shared.enums.ErrorCode;
-import com.eghm.utils.WebUtil;
+import com.eghm.interfaces.core.utils.WebUtil;
 import com.google.common.collect.Lists;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.Filter;

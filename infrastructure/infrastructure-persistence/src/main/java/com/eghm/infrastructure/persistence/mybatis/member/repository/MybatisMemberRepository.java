@@ -5,7 +5,7 @@ import com.eghm.domain.member.model.Member;
 import com.eghm.domain.shared.enums.MemberState;
 import com.eghm.infrastructure.persistence.mybatis.mapper.MemberMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.MemberPO;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.infrastructure.persistence.mybatis.util.MybatisUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;

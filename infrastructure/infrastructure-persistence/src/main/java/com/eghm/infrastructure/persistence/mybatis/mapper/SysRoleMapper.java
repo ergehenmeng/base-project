@@ -3,7 +3,7 @@ package com.eghm.infrastructure.persistence.mybatis.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.infrastructure.persistence.mybatis.po.SysRolePO;
-import com.eghm.vo.sys.ext.SysRoleResponse;
+import com.eghm.application.shared.vo.sys.ext.SysRoleResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

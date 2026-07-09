@@ -1,27 +1,27 @@
 package com.eghm.application.operate.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.eghm.dto.ext.Page;
-import com.eghm.cache.CacheService;
-import com.eghm.common.CommonService;
-import com.eghm.common.impl.SysConfigApi;
-import com.eghm.configuration.authentication.ApiHolder;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.cache.CacheService;
+import com.eghm.application.shared.common.CommonService;
+import com.eghm.application.shared.common.impl.SysConfigApi;
+import com.eghm.application.shared.configuration.authentication.ApiHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.operate.comment.CommentDTO;
-import com.eghm.dto.operate.comment.CommentQueryDTO;
-import com.eghm.dto.operate.comment.CommentQueryRequest;
+import com.eghm.application.shared.dto.operate.comment.CommentDTO;
+import com.eghm.application.shared.dto.operate.comment.CommentQueryDTO;
+import com.eghm.application.shared.dto.operate.comment.CommentQueryRequest;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.enums.ObjectType;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.operate.model.Comment;
 import com.eghm.domain.operate.model.News;
 import com.eghm.domain.operate.repository.CommentRepository;
-import com.eghm.application.operate.service.CommentQueryGateway;
-import com.eghm.application.operate.service.CommentService;
-import com.eghm.vo.operate.comment.CommentResponse;
-import com.eghm.vo.operate.comment.CommentSecondVO;
-import com.eghm.vo.operate.comment.CommentVO;
+import com.eghm.application.operate.port.out.CommentQueryGateway;
+import com.eghm.application.operate.port.in.CommentService;
+import com.eghm.application.shared.vo.operate.comment.CommentResponse;
+import com.eghm.application.shared.vo.operate.comment.CommentSecondVO;
+import com.eghm.application.shared.vo.operate.comment.CommentVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.eghm.utils.StringUtil.isNotBlank;
+import static com.eghm.application.shared.utils.StringUtil.isNotBlank;
 
 /**
  * <p>

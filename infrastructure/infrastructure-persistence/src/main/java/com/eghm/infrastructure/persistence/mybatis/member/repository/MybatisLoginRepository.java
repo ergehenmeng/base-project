@@ -7,7 +7,7 @@ import com.eghm.domain.member.model.LoginDevice;
 import com.eghm.domain.member.model.LoginLog;
 import com.eghm.infrastructure.persistence.mybatis.po.LoginDevicePO;
 import com.eghm.infrastructure.persistence.mybatis.po.LoginLogPO;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

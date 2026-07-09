@@ -1,16 +1,16 @@
 package com.eghm.interfaces.manage.controller.business;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.IdDTO;
-import com.eghm.dto.business.pay.PayLogQueryRequest;
-import com.eghm.dto.ext.PageData;
-import com.eghm.dto.ext.RespBody;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.IdDTO;
+import com.eghm.application.shared.dto.business.pay.PayLogQueryRequest;
+import com.eghm.application.shared.dto.ext.PageData;
+import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.payment.model.PayNotifyLog;
-import com.eghm.application.payment.service.PayNotifyLogService;
-import com.eghm.application.payment.service.PayRequestLogService;
-import com.eghm.vo.operate.log.PayNotifyLogResponse;
-import com.eghm.vo.operate.log.PayRequestLogResponse;
+import com.eghm.application.payment.port.in.PayNotifyLogService;
+import com.eghm.application.payment.port.in.PayRequestLogService;
+import com.eghm.application.shared.vo.operate.log.PayNotifyLogResponse;
+import com.eghm.application.shared.vo.operate.log.PayRequestLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
 package com.eghm.infrastructure.message.config;
 
 import com.alibaba.ttl.threadpool.TtlExecutors;
-import com.eghm.configuration.log.LogTraceHolder;
+import com.eghm.application.shared.configuration.log.LogTraceHolder;
 import com.eghm.constants.CommonConstant;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

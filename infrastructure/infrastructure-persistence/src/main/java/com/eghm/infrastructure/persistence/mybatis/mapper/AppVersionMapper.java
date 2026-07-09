@@ -2,9 +2,9 @@ package com.eghm.infrastructure.persistence.mybatis.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.operate.version.VersionQueryRequest;
+import com.eghm.application.shared.dto.operate.version.VersionQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.po.AppVersionPO;
-import com.eghm.vo.operate.version.AppVersionResponse;
+import com.eghm.application.shared.vo.operate.version.AppVersionResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

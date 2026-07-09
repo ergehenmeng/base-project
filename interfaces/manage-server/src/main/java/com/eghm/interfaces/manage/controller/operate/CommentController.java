@@ -1,15 +1,15 @@
 package com.eghm.interfaces.manage.controller.operate;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.IdDTO;
-import com.eghm.dto.ext.PageData;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.operate.comment.CommentQueryRequest;
-import com.eghm.dto.operate.comment.CommentReportQueryRequest;
-import com.eghm.application.operate.service.CommentReportService;
-import com.eghm.application.operate.service.CommentService;
-import com.eghm.vo.operate.comment.CommentReportResponse;
-import com.eghm.vo.operate.comment.CommentResponse;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.IdDTO;
+import com.eghm.application.shared.dto.ext.PageData;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.operate.comment.CommentQueryRequest;
+import com.eghm.application.shared.dto.operate.comment.CommentReportQueryRequest;
+import com.eghm.application.operate.port.in.CommentReportService;
+import com.eghm.application.operate.port.in.CommentService;
+import com.eghm.application.shared.vo.operate.comment.CommentReportResponse;
+import com.eghm.application.shared.vo.operate.comment.CommentResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;

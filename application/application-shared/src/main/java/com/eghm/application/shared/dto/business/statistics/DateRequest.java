@@ -1,0 +1,40 @@
+package com.eghm.application.shared.dto.business.statistics;
+
+import com.eghm.application.shared.annotation.DateFormatter;
+import com.eghm.application.shared.configuration.gson.LocalDateAdapter;
+import com.eghm.application.shared.dto.ext.AbstractDateComparator;
+import com.eghm.domain.shared.enums.SelectType;
+import com.google.gson.annotations.JsonAdapter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
+
+/**
+ * @author 二哥很猛
+ * @since 2024/1/22
+ */
+
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class DateRequest extends AbstractDateComparator {
+
+    @Schema(description = "开始日期 yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "开始日期不能为空")
+    @JsonAdapter(LocalDateAdapter.class)
+    private LocalDate startDate;
+
+    @Schema(description = "截止日期 yyyy-MM-dd", requiredMode = Schema.RequiredMode.REQUIRED)
+    @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
+    @NotNull(message = "截止日期不能为空")
+    @JsonAdapter(LocalDateAdapter.class)
+    private LocalDate endDate;
+
+    @Schema(description = "查询类型 week:周 month:月 year:年 custom:自定义")
+    private SelectType selectType;
+
+}

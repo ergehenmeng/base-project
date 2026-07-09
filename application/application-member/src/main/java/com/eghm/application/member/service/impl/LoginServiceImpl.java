@@ -1,18 +1,18 @@
 package com.eghm.application.member.service.impl;
 
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.domain.shared.service.IdGenerator;
 import com.eghm.domain.member.model.LoginDevice;
 import com.eghm.domain.member.model.LoginLog;
 import com.eghm.domain.member.repository.LoginRepository;
-import com.eghm.dto.business.member.LoginLogQueryRequest;
-import com.eghm.dto.ext.LoginRecord;
-import com.eghm.application.member.service.LoginQueryGateway;
-import com.eghm.application.member.service.LoginService;
-import com.eghm.utils.DataUtil;
-import com.eghm.utils.DateUtil;
-import com.eghm.vo.business.member.LoginDeviceVO;
-import com.eghm.vo.business.member.LoginLogResponse;
+import com.eghm.application.shared.dto.business.member.LoginLogQueryRequest;
+import com.eghm.application.shared.dto.ext.LoginRecord;
+import com.eghm.application.member.port.out.LoginQueryGateway;
+import com.eghm.application.member.port.in.LoginService;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.utils.DateUtil;
+import com.eghm.application.shared.vo.business.member.LoginDeviceVO;
+import com.eghm.application.shared.vo.business.member.LoginLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

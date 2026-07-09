@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static com.eghm.utils.StringUtil.isNotBlank;
+import static com.eghm.application.shared.utils.StringUtil.isNotBlank;
 
 /**
  * @author wyb

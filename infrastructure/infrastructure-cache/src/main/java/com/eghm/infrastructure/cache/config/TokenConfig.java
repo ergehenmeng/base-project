@@ -1,9 +1,9 @@
 package com.eghm.infrastructure.cache.config;
 
-import com.eghm.cache.CacheService;
-import com.eghm.common.CommonService;
+import com.eghm.application.shared.cache.CacheService;
+import com.eghm.application.shared.common.CommonService;
 import com.eghm.domain.shared.service.JsonService;
-import com.eghm.common.UserTokenService;
+import com.eghm.application.shared.common.UserTokenService;
 import com.eghm.infrastructure.integration.common.impl.JwtUserTokenServiceImpl;
 import com.eghm.infrastructure.integration.common.impl.RedisUserTokenServiceImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

@@ -4,7 +4,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.PayNotifyLogMapper;
 import com.eghm.domain.payment.model.PayNotifyLog;
 import com.eghm.domain.payment.repository.PayNotifyLogRepository;
 import com.eghm.infrastructure.persistence.mybatis.po.PayNotifyLogPO;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

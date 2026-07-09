@@ -1,8 +1,8 @@
 package com.eghm.interfaces.webapp.controller;
 
-import com.eghm.dto.ext.RespBody;
-import com.eghm.application.operate.service.AppVersionService;
-import com.eghm.vo.operate.version.AppVersionVO;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.operate.port.in.AppVersionService;
+import com.eghm.application.shared.vo.operate.version.AppVersionVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;

@@ -2,7 +2,7 @@ package com.eghm.domain.member.event;
 
 import com.eghm.domain.member.model.Member;
 import com.eghm.domain.shared.event.DomainEvent;
-import com.eghm.dto.ext.MemberRegister;
+import com.eghm.application.shared.dto.ext.MemberRegister;
 import lombok.Getter;
 
 /**

@@ -7,7 +7,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.AppVersionMapper;
 import com.eghm.domain.operate.model.AppVersion;
 import com.eghm.domain.operate.repository.AppVersionRepository;
 import com.eghm.infrastructure.persistence.mybatis.po.AppVersionPO;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

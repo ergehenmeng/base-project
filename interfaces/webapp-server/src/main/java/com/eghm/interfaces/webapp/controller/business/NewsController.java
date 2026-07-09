@@ -1,11 +1,11 @@
 package com.eghm.interfaces.webapp.controller.business;
 
-import com.eghm.dto.IdDTO;
-import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.application.operate.service.NewsService;
-import com.eghm.vo.business.news.NewsDetailVO;
-import com.eghm.vo.business.news.NewsVO;
+import com.eghm.application.shared.dto.IdDTO;
+import com.eghm.application.shared.dto.ext.PagingQuery;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.operate.port.in.NewsService;
+import com.eghm.application.shared.vo.business.news.NewsDetailVO;
+import com.eghm.application.shared.vo.business.news.NewsVO;
 import com.eghm.interfaces.webapp.annotation.AccessToken;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;

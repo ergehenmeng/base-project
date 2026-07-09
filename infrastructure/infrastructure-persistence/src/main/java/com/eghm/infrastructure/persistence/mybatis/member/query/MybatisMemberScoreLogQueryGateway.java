@@ -2,15 +2,15 @@ package com.eghm.infrastructure.persistence.mybatis.member.query;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
-import com.eghm.dto.business.member.MemberScoreQueryDTO;
-import com.eghm.dto.business.member.MemberScoreQueryRequest;
+import com.eghm.application.shared.dto.business.member.MemberScoreQueryDTO;
+import com.eghm.application.shared.dto.business.member.MemberScoreQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.mapper.MemberScoreLogMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.MemberScoreLogPO;
-import com.eghm.application.member.service.MemberScoreLogQueryGateway;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.business.member.MemberScoreVO;
+import com.eghm.application.member.port.out.MemberScoreLogQueryGateway;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.business.member.MemberScoreVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

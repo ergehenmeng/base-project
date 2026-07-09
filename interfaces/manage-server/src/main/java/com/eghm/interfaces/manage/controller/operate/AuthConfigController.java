@@ -1,14 +1,14 @@
 package com.eghm.interfaces.manage.controller.operate;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.IdDTO;
-import com.eghm.dto.ext.PageData;
-import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.operate.auth.AuthConfigAddRequest;
-import com.eghm.dto.operate.auth.AuthConfigEditRequest;
-import com.eghm.application.operate.service.AuthConfigService;
-import com.eghm.vo.operate.auth.AuthConfigResponse;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.IdDTO;
+import com.eghm.application.shared.dto.ext.PageData;
+import com.eghm.application.shared.dto.ext.PagingQuery;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.operate.auth.AuthConfigAddRequest;
+import com.eghm.application.shared.dto.operate.auth.AuthConfigEditRequest;
+import com.eghm.application.operate.port.in.AuthConfigService;
+import com.eghm.application.shared.vo.operate.auth.AuthConfigResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;

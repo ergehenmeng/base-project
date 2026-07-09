@@ -1,12 +1,12 @@
 package com.eghm.interfaces.webapp.configuration;
 
-import com.eghm.cache.CacheProxyService;
-import com.eghm.common.MemberTokenService;
-import com.eghm.configuration.ApplicationProperties;
-import com.eghm.configuration.WebMvcConfig;
-import com.eghm.configuration.version.ApiVersionRequestMappingHandlerMapping;
+import com.eghm.application.shared.cache.CacheProxyService;
+import com.eghm.application.shared.common.MemberTokenService;
+import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.interfaces.core.configuration.WebMvcConfig;
+import com.eghm.interfaces.core.configuration.version.ApiVersionRequestMappingHandlerMapping;
 import com.eghm.constants.CommonConstant;
-import com.eghm.application.system.service.BlackRosterService;
+import com.eghm.application.system.port.in.BlackRosterService;
 import com.eghm.interfaces.webapp.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.interfaces.webapp.configuration.filter.IpBlackListFilter;
 import com.eghm.interfaces.webapp.configuration.interceptor.ApiSignInterceptor;

@@ -3,17 +3,17 @@ package com.eghm.infrastructure.integration.common.impl;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
-import com.eghm.cache.CacheProxyService;
-import com.eghm.cache.CacheService;
-import com.eghm.common.CommonService;
-import com.eghm.configuration.ApplicationProperties;
+import com.eghm.application.shared.cache.CacheProxyService;
+import com.eghm.application.shared.cache.CacheService;
+import com.eghm.application.shared.common.CommonService;
+import com.eghm.application.shared.configuration.ApplicationProperties;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.infrastructure.persistence.mybatis.mapper.SysAreaMapper;
-import com.eghm.utils.TreeUtil;
-import com.eghm.vo.sys.ext.SysAreaVO;
+import com.eghm.application.shared.utils.TreeUtil;
+import com.eghm.application.shared.vo.sys.ext.SysAreaVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static com.eghm.utils.StringUtil.isBlank;
+import static com.eghm.application.shared.utils.StringUtil.isBlank;
 
 /**
  * @author 二哥很猛

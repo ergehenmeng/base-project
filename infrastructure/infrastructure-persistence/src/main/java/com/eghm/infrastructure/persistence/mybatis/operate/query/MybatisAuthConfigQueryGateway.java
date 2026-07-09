@@ -1,11 +1,11 @@
 package com.eghm.infrastructure.persistence.mybatis.operate.query;
 
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
-import com.eghm.dto.ext.PagingQuery;
+import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.infrastructure.persistence.mybatis.mapper.AuthConfigMapper;
-import com.eghm.application.operate.service.AuthConfigQueryGateway;
-import com.eghm.vo.operate.auth.AuthConfigResponse;
+import com.eghm.application.operate.port.out.AuthConfigQueryGateway;
+import com.eghm.application.shared.vo.operate.auth.AuthConfigResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

@@ -2,12 +2,12 @@ package com.eghm.infrastructure.integration.common.impl;
 
 import cn.hutool.crypto.SecureUtil;
 import com.eghm.domain.shared.service.JsonService;
-import com.eghm.configuration.ApplicationProperties;
-import com.eghm.dto.ext.FeiShuMsg;
+import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.application.shared.dto.ext.FeiShuMsg;
 import com.eghm.enums.AlarmType;
 import lombok.extern.slf4j.Slf4j;
 
-import static com.eghm.utils.StringUtil.isNotBlank;
+import static com.eghm.application.shared.utils.StringUtil.isNotBlank;
 
 /**
  * @author 二哥很猛

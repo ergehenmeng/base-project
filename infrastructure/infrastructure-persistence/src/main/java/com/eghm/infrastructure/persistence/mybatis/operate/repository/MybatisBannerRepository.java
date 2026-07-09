@@ -6,7 +6,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.BannerMapper;
 import com.eghm.domain.operate.model.Banner;
 import com.eghm.domain.operate.repository.BannerRepository;
 import com.eghm.infrastructure.persistence.mybatis.po.BannerPO;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

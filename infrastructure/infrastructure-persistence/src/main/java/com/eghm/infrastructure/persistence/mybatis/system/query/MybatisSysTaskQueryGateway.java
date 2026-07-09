@@ -1,11 +1,11 @@
 package com.eghm.infrastructure.persistence.mybatis.system.query;
 
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
-import com.eghm.dto.sys.task.TaskQueryRequest;
+import com.eghm.application.shared.dto.sys.task.TaskQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.mapper.SysTaskMapper;
-import com.eghm.application.system.service.SysTaskQueryGateway;
-import com.eghm.vo.operate.task.SysTaskResponse;
+import com.eghm.application.system.port.out.SysTaskQueryGateway;
+import com.eghm.application.shared.vo.operate.task.SysTaskResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

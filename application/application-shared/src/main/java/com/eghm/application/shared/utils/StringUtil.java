@@ -1,0 +1,334 @@
+package com.eghm.application.shared.utils;
+
+
+import cn.hutool.core.text.CharSequenceUtil;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import net.sourceforge.pinyin4j.PinyinHelper;
+import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
+import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
+import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
+import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
+
+import java.security.SecureRandom;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * 字符串日常工具类
+ *
+ * @author 二哥很猛
+ * @since 2018/1/8 14:56
+ */
+@Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class StringUtil {
+
+    /**
+     * 随机字符串
+     */
+    private static final String NUMBER_LETTERS = "23456789abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
+
+    /**
+     * 随机字符串小写
+     */
+    private static final String NUMBER_LOWER_LETTERS = "123456789abcdef";
+
+    /**
+     * 进制串
+     */
+    private static final String ENCRYPT = "IFbH4SyMsPfeEw1CzQV6xtJK5ZUklOcDnYuNGArR9a0dphXiq8jg2mB7W3LTov";
+
+    /**
+     * 随机数字
+     */
+    private static final String NUMBER = "123456789";
+
+    /**
+     * 默认随机字符串长度
+     */
+    private static final int DEFAULT_RANDOM_LENGTH = 4;
+
+    /**
+     * 手机号码隐藏
+     */
+    private static final String HIDDEN_REGEXP_MOBILE = "(\\d{3})\\d{4}(\\d{4})";
+
+    /**
+     * ${xxx} 替换
+     */
+    private static final Pattern PLACEHOLDER_PATTERN = Pattern.compile("\\$\\{(\\w+)}");
+
+    /**
+     * 汉字字符集
+     */
+    private static final String CHINESE_FONT = "[\\u4E00-\\u9FA5]+";
+
+    /**
+     * 英文字符集
+     */
+    private static final String ENGLISH_FONT = "[A-Za-z]+";
+
+    private static final HanyuPinyinOutputFormat CHINA_FORMAT = new HanyuPinyinOutputFormat();
+
+    static {
+        CHINA_FORMAT.setCaseType(HanyuPinyinCaseType.UPPERCASE);
+        CHINA_FORMAT.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
+        CHINA_FORMAT.setVCharType(HanyuPinyinVCharType.WITH_V);
+    }
+
+    /**
+     * 生成指定长度的随机字符串
+     *
+     * @param length 长度
+     * @return 定长字符串
+     */
+    public static String random(int length) {
+        return random(NUMBER_LETTERS, length);
+    }
+
+    /**
+     * 生成指定长度的随机字符串
+     *
+     * @param length 长度
+     * @return 定长字符串 小写
+     */
+    public static String randomHex(int length) {
+        return random(NUMBER_LOWER_LETTERS, length);
+    }
+
+    /**
+     * 生成指定长度的随机串,从指定字符串中生成
+     *
+     * @param scope  字符串选择范围
+     * @param length 长度
+     * @return 随机码
+     */
+    private static String random(String scope, int length) {
+        if (length < 0) {
+            return null;
+        }
+        StringBuilder builder = new StringBuilder();
+        SecureRandom random = new SecureRandom();
+        do {
+            length--;
+            builder.append(scope.charAt(random.nextInt(scope.length())));
+        } while (length > 0);
+        return builder.toString();
+    }
+
+    /**
+     * 获取随机数字
+     *
+     * @param minValue 随机数最小
+     * @param maxValue 随机数范围最大值 0~maxValue
+     * @return minValue >= x < maxValue
+     */
+    public static int random(int minValue, int maxValue) {
+        return new SecureRandom().nextInt(maxValue - minValue) + minValue;
+    }
+
+    /**
+     * 解析模板字符串
+     *
+     * @param template 您预订${param0}的房型，经确认该房型已售罄，已做退单处理。订单号：${param1}
+     * @param params 参数
+     * @return 解析模板字符串
+     */
+    public static String parse(String template, String... params) {
+        Map<String, String> paramsMap = new HashMap<>(8);
+        for (int i = 0; i < params.length; i++) {
+            paramsMap.put("param" + i, params[i]);
+        }
+        return parse(template, paramsMap);
+    }
+
+    /**
+     * 解析模板字符串
+     *
+     * @param template 您预订${param0}的房型，经确认该房型已售罄，已做退单处理。订单号：${param1}
+     * @param params 参数
+     * @return 解析模板字符串
+     */
+    public static String parse(String template, Map<String, String> params) {
+        Matcher matcher = PLACEHOLDER_PATTERN.matcher(template);
+        StringBuilder result = new StringBuilder();
+        while (matcher.find()) {
+            String key = matcher.group(1);
+            String value = params.getOrDefault(key, matcher.group());
+            matcher.appendReplacement(result, Matcher.quoteReplacement(value));
+        }
+        matcher.appendTail(result);
+        return result.toString();
+    }
+
+    /**
+     * 字符串是否为空白
+     *
+     * @param str str
+     * @return boolean false:不为空 true:为空
+     */
+    public static boolean isBlank(String str) {
+        return str == null || str.isEmpty() || str.trim().isEmpty();
+    }
+
+    /**
+     * 字符串是否为空白
+     *
+     * @param str str
+     * @return boolean false:不为空 true:为空
+     */
+    public static boolean isNotBlank(String str) {
+        return !isBlank(str);
+    }
+
+    /**
+     * 限制字符串长度，如果超过指定长度，截取指定长度并在末尾加"..."
+     *
+     * @param string 字符串
+     * @param length 最大长度
+     * @return 格式化后的字符串
+     */
+    public static String maxLength(CharSequence string, int length) {
+        return CharSequenceUtil.maxLength(string, length);
+    }
+
+    /**
+     * 生成指定长度的数字(短信验证码)
+     *
+     * @param length 长度
+     * @return 随机串
+     */
+    public static String randomNumber(int length) {
+        return random(NUMBER, length);
+    }
+
+    /**
+     * 生成定长的数字(短信验证码) 默认长度 DEFAULT_RANDOM_LENGTH
+     *
+     * @return 随机串
+     */
+    public static String randomNumber() {
+        return randomNumber(DEFAULT_RANDOM_LENGTH);
+    }
+
+    /**
+     * 隐藏手机号中间
+     *
+     * @param mobile 手机号码
+     * @return 137****1234
+     */
+    public static String hiddenMobile(String mobile) {
+        if (mobile == null) {
+            return null;
+        }
+        return mobile.replaceAll(HIDDEN_REGEXP_MOBILE, RegExpUtil.HIDDEN_REGEXP_VALUE);
+    }
+
+    /**
+     * 根据汉字获取首字母
+     *
+     * @param chinese 单个汉字 多个汉字默认取第一个
+     * @return 首字母
+     */
+    public static String getInitial(String chinese) {
+        if (isBlank(chinese)) {
+            return null;
+        }
+        char charAt = chinese.charAt(0);
+        String firstChar = Character.toString(charAt);
+        try {
+            if (firstChar.matches(CHINESE_FONT)) {
+                String[] stringArray = PinyinHelper.toHanyuPinyinStringArray(charAt, CHINA_FORMAT);
+                return Character.toString(stringArray[0].charAt(0));
+            }
+        } catch (Exception e) {
+            log.error("获取汉字首字母异常 chinese:[{}]", chinese, e);
+        }
+        return firstChar.toUpperCase();
+    }
+
+    /**
+     * 汉字所有首字母
+     *
+     * @param chinese 中文字符
+     * @return 二哥很猛 -> EGHM
+     */
+    public static String getInitialLetter(String chinese) {
+        if (isBlank(chinese)) {
+            return null;
+        }
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < chinese.length(); i++) {
+            char charAt = chinese.charAt(i);
+            try {
+                String string = Character.toString(charAt);
+                if (string.matches(CHINESE_FONT)) {
+                    String[] stringArray = PinyinHelper.toHanyuPinyinStringArray(charAt, CHINA_FORMAT);
+                    builder.append(stringArray[0].charAt(0));
+                } else if (string.matches(ENGLISH_FONT)) {
+                    builder.append(string.toUpperCase());
+                }
+            } catch (Exception e) {
+                log.warn("汉字解析拼音异常 chinese:[{}]", chinese, e);
+            }
+        }
+        return builder.toString();
+    }
+
+    /**
+     * 数字进制 用于基础加密
+     *
+     * @param value value
+     * @return 可解密
+     */
+    public static String encryptNumber(long value) {
+        StringBuilder builder = new StringBuilder();
+        int length = ENCRYPT.length();
+        while (value > 0) {
+            builder.append(ENCRYPT.charAt((int) (value % length)));
+            value /= length;
+        }
+        return builder.toString();
+    }
+
+    /**
+     * 数字进制 用于基础解密
+     *
+     * @param value value
+     * @return 可解密
+     */
+    public static long decryptNumber(String value) {
+        int scale = ENCRYPT.length();
+        int length = value.length();
+        long result = 0L;
+        for (int i = length - 1; i >= 0; i--) {
+            int index = ENCRYPT.indexOf(value.charAt(i));
+            result = result * scale + index;
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int pid = 10201022;
+        StringBuilder builder = new StringBuilder();
+        builder.append("\r\n");
+        builder.append(sql(pid, "替换", 102010, 2, 110)).append("\r\n");
+        int start = Integer.parseInt(pid + "10");
+        int index = 1;
+        for (int i = start; i <= start + 20; i++) {
+            builder.append(sql(i, "替换", pid, 2, index * 10)).append("\r\n");
+            index++;
+        }
+        log.info(builder.toString());
+    }
+
+    public static String sql(int id, String title, int pid, int grade, int sort) {
+        String insert = "INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `grade`, `sort`) VALUES ('%s', '%s', '%s', '%s', '%d', '%d');";
+        return String.format(insert, id, title, encryptNumber(id), pid, grade, sort);
+    }
+
+}

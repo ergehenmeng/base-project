@@ -1,7 +1,7 @@
 package com.eghm.application.system.service.impl;
 
-import com.eghm.cache.CacheProxyService;
-import com.eghm.application.system.service.SysAreaService;
+import com.eghm.application.shared.cache.CacheProxyService;
+import com.eghm.application.system.port.in.SysAreaService;
 import com.eghm.domain.system.model.SysArea;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

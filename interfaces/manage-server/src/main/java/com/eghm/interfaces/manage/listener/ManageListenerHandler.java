@@ -1,12 +1,12 @@
 package com.eghm.interfaces.manage.listener;
 
-import com.eghm.cache.CacheService;
+import com.eghm.application.shared.cache.CacheService;
 import com.eghm.domain.shared.service.AlarmService;
 import com.eghm.domain.shared.service.JsonService;
 import com.eghm.constants.QueueConstant;
 import com.eghm.domain.system.model.ManageLog;
 import com.eghm.mq.listener.AbstractListenerHandler;
-import com.eghm.application.system.service.ManageLogService;
+import com.eghm.application.system.port.in.ManageLogService;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;

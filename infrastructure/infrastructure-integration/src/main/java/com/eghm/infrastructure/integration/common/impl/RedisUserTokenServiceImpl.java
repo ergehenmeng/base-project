@@ -1,13 +1,13 @@
 package com.eghm.infrastructure.integration.common.impl;
 
 import cn.hutool.core.util.IdUtil;
-import com.eghm.cache.CacheService;
-import com.eghm.common.CommonService;
+import com.eghm.application.shared.cache.CacheService;
+import com.eghm.application.shared.common.CommonService;
 import com.eghm.domain.shared.service.JsonService;
-import com.eghm.common.UserTokenService;
-import com.eghm.configuration.ApplicationProperties;
+import com.eghm.application.shared.common.UserTokenService;
+import com.eghm.application.shared.configuration.ApplicationProperties;
 import com.eghm.constants.CacheConstant;
-import com.eghm.dto.ext.UserToken;
+import com.eghm.application.shared.dto.ext.UserToken;
 import com.eghm.domain.system.model.SysUser;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

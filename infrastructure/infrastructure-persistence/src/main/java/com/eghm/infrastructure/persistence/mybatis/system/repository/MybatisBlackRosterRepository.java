@@ -4,7 +4,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.BlackRosterMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.BlackRosterPO;
 import com.eghm.domain.system.model.BlackRoster;
 import com.eghm.domain.system.repository.BlackRosterRepository;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

@@ -1,11 +1,11 @@
 package com.eghm.infrastructure.message.service.impl;
 
-import com.eghm.cache.CacheService;
+import com.eghm.application.shared.cache.CacheService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
-import com.eghm.dto.ext.AsyncKey;
+import com.eghm.application.shared.dto.ext.AsyncKey;
 import com.eghm.enums.ExchangeQueue;
-import com.eghm.mq.service.MessageService;
+import com.eghm.application.shared.mq.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.MessageProperties;

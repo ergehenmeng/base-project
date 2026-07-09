@@ -4,7 +4,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.SysNoticeMapper;
 import com.eghm.domain.operate.model.SysNotice;
 import com.eghm.domain.operate.repository.SysNoticeRepository;
 import com.eghm.infrastructure.persistence.mybatis.po.SysNoticePO;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

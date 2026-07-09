@@ -2,10 +2,10 @@ package com.eghm.application.member.service.impl;
 
 import com.eghm.domain.member.model.MemberInviteLog;
 import com.eghm.domain.member.repository.MemberInviteLogRepository;
-import com.eghm.dto.ext.PagingQuery;
-import com.eghm.application.member.service.MemberInviteLogQueryGateway;
-import com.eghm.application.member.service.MemberInviteLogService;
-import com.eghm.vo.business.member.MemberInviteVO;
+import com.eghm.application.shared.dto.ext.PagingQuery;
+import com.eghm.application.member.port.out.MemberInviteLogQueryGateway;
+import com.eghm.application.member.port.in.MemberInviteLogService;
+import com.eghm.application.shared.vo.business.member.MemberInviteVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

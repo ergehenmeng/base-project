@@ -1,12 +1,12 @@
 package com.eghm.infrastructure.persistence.mybatis.operate.query;
 
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
-import com.eghm.dto.business.news.NewsQueryRequest;
+import com.eghm.application.shared.dto.business.news.NewsQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.mapper.NewsMapper;
-import com.eghm.application.operate.service.NewsQueryGateway;
-import com.eghm.vo.business.news.NewsResponse;
-import com.eghm.vo.business.news.NewsVO;
+import com.eghm.application.operate.port.out.NewsQueryGateway;
+import com.eghm.application.shared.vo.business.news.NewsResponse;
+import com.eghm.application.shared.vo.business.news.NewsVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

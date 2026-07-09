@@ -1,8 +1,8 @@
 package com.eghm.interfaces.webapp.controller;
 
-import com.eghm.common.CommonService;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.vo.sys.ext.SysAreaVO;
+import com.eghm.application.shared.common.CommonService;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.vo.sys.ext.SysAreaVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;

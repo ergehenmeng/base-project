@@ -1,17 +1,17 @@
 package com.eghm.application.operate.service.impl;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.operate.help.HelpAddRequest;
-import com.eghm.dto.operate.help.HelpEditRequest;
-import com.eghm.dto.operate.help.HelpQueryDTO;
-import com.eghm.dto.operate.help.HelpQueryRequest;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.operate.help.HelpAddRequest;
+import com.eghm.application.shared.dto.operate.help.HelpEditRequest;
+import com.eghm.application.shared.dto.operate.help.HelpQueryDTO;
+import com.eghm.application.shared.dto.operate.help.HelpQueryRequest;
 import com.eghm.domain.operate.model.HelpCenter;
 import com.eghm.domain.operate.repository.HelpCenterRepository;
-import com.eghm.application.operate.service.HelpCenterQueryGateway;
-import com.eghm.application.operate.service.HelpCenterService;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.operate.help.HelpCenterVO;
-import com.eghm.vo.operate.help.HelpResponse;
+import com.eghm.application.operate.port.out.HelpCenterQueryGateway;
+import com.eghm.application.operate.port.in.HelpCenterService;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.operate.help.HelpCenterVO;
+import com.eghm.application.shared.vo.operate.help.HelpResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

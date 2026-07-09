@@ -8,7 +8,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.SysUserMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.SysUserPO;
 import com.eghm.domain.system.model.SysUser;
 import com.eghm.domain.system.repository.SysUserRepository;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

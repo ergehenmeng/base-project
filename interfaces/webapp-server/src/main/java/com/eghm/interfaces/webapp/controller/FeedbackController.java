@@ -1,10 +1,10 @@
 package com.eghm.interfaces.webapp.controller;
 
-import com.eghm.configuration.authentication.ApiHolder;
-import com.eghm.dto.ext.RequestMessage;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.operate.feedback.FeedbackAddDTO;
-import com.eghm.application.operate.service.FeedbackService;
+import com.eghm.application.shared.configuration.authentication.ApiHolder;
+import com.eghm.application.shared.dto.ext.RequestMessage;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.operate.feedback.FeedbackAddDTO;
+import com.eghm.application.operate.port.in.FeedbackService;
 import com.eghm.interfaces.webapp.annotation.AccessToken;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;

@@ -1,12 +1,12 @@
 package com.eghm.interfaces.manage.controller.sys;
 
-import com.eghm.cache.CacheService;
-import com.eghm.cache.SysCacheService;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.sys.cache.DeleteRequest;
+import com.eghm.application.shared.cache.CacheService;
+import com.eghm.application.shared.cache.SysCacheService;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.sys.cache.DeleteRequest;
 import com.eghm.domain.system.model.SysCache;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.sys.cache.SysCacheResponse;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.sys.cache.SysCacheResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

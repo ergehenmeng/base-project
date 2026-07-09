@@ -2,9 +2,9 @@ package com.eghm.infrastructure.persistence.mybatis.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.sys.task.TaskLogQueryRequest;
+import com.eghm.application.shared.dto.sys.task.TaskLogQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.po.SysTaskLogPO;
-import com.eghm.vo.operate.log.SysTaskLogResponse;
+import com.eghm.application.shared.vo.operate.log.SysTaskLogResponse;
 import org.apache.ibatis.annotations.Param;
 
 /**

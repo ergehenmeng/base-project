@@ -1,10 +1,10 @@
 package com.eghm.interfaces.webapp.controller;
 
-import com.eghm.dto.ext.RespBody;
+import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.domain.system.model.SysDictItem;
-import com.eghm.application.system.service.SysDictService;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.sys.dict.BaseItemVO;
+import com.eghm.application.system.port.in.SysDictService;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.sys.dict.BaseItemVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -1,17 +1,17 @@
 package com.eghm.application.operate.service.impl;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.business.news.config.NewsConfigAddRequest;
-import com.eghm.dto.business.news.config.NewsConfigEditRequest;
-import com.eghm.dto.ext.PagingQuery;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.business.news.config.NewsConfigAddRequest;
+import com.eghm.application.shared.dto.business.news.config.NewsConfigEditRequest;
+import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.operate.model.NewsConfig;
 import com.eghm.domain.operate.repository.NewsConfigRepository;
-import com.eghm.application.operate.service.NewsConfigQueryGateway;
-import com.eghm.application.operate.service.NewsConfigService;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.business.news.NewsConfigResponse;
+import com.eghm.application.operate.port.out.NewsConfigQueryGateway;
+import com.eghm.application.operate.port.in.NewsConfigService;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.business.news.NewsConfigResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

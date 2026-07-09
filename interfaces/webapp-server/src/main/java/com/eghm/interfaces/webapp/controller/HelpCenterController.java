@@ -1,9 +1,9 @@
 package com.eghm.interfaces.webapp.controller;
 
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.operate.help.HelpQueryDTO;
-import com.eghm.application.operate.service.HelpCenterService;
-import com.eghm.vo.operate.help.HelpCenterVO;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.operate.help.HelpQueryDTO;
+import com.eghm.application.operate.port.in.HelpCenterService;
+import com.eghm.application.shared.vo.operate.help.HelpCenterVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;

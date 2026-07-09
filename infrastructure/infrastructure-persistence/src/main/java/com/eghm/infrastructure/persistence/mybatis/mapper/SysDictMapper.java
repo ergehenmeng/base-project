@@ -2,9 +2,9 @@ package com.eghm.infrastructure.persistence.mybatis.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.dto.sys.dict.DictQueryRequest;
+import com.eghm.application.shared.dto.sys.dict.DictQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.po.SysDictPO;
-import com.eghm.vo.sys.dict.DictResponse;
+import com.eghm.application.shared.vo.sys.dict.DictResponse;
 
 import java.util.List;
 

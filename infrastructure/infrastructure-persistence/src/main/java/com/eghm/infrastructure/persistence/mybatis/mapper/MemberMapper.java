@@ -2,12 +2,12 @@ package com.eghm.infrastructure.persistence.mybatis.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.business.statistics.DateRequest;
-import com.eghm.dto.business.member.MemberQueryRequest;
+import com.eghm.application.shared.dto.business.statistics.DateRequest;
+import com.eghm.application.shared.dto.business.member.MemberQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.po.MemberPO;
-import com.eghm.vo.business.statistics.MemberRegisterVO;
-import com.eghm.vo.business.member.MemberResponse;
-import com.eghm.vo.business.statistics.PieDataVO;
+import com.eghm.application.shared.vo.business.statistics.MemberRegisterVO;
+import com.eghm.application.shared.vo.business.member.MemberResponse;
+import com.eghm.application.shared.vo.business.statistics.PieDataVO;
 import org.apache.ibatis.annotations.Param;
 
 

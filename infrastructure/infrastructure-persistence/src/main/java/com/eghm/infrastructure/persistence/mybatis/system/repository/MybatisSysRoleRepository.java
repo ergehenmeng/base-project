@@ -8,7 +8,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.SysRoleMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.SysRolePO;
 import com.eghm.domain.system.model.SysRole;
 import com.eghm.domain.system.repository.SysRoleRepository;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

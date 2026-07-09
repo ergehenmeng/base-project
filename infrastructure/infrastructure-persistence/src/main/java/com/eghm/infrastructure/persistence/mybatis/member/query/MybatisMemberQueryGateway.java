@@ -1,14 +1,14 @@
 package com.eghm.infrastructure.persistence.mybatis.member.query;
 
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
-import com.eghm.dto.business.member.MemberQueryRequest;
-import com.eghm.dto.business.statistics.DateRequest;
+import com.eghm.application.shared.dto.business.member.MemberQueryRequest;
+import com.eghm.application.shared.dto.business.statistics.DateRequest;
 import com.eghm.infrastructure.persistence.mybatis.mapper.MemberMapper;
-import com.eghm.application.member.service.MemberQueryGateway;
-import com.eghm.vo.business.member.MemberResponse;
-import com.eghm.vo.business.statistics.MemberRegisterVO;
-import com.eghm.vo.business.statistics.PieDataVO;
+import com.eghm.application.member.port.out.MemberQueryGateway;
+import com.eghm.application.shared.vo.business.member.MemberResponse;
+import com.eghm.application.shared.vo.business.statistics.MemberRegisterVO;
+import com.eghm.application.shared.vo.business.statistics.PieDataVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

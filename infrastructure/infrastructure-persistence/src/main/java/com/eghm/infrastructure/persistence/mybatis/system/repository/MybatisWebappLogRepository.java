@@ -4,7 +4,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.WebappLogMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.WebappLogPO;
 import com.eghm.domain.system.model.WebappLog;
 import com.eghm.domain.system.repository.WebappLogRepository;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

@@ -1,16 +1,16 @@
 package com.eghm.interfaces.webapp.controller;
 
-import com.eghm.common.MemberTokenService;
-import com.eghm.common.SmsService;
+import com.eghm.application.shared.common.MemberTokenService;
+import com.eghm.application.shared.common.SmsService;
 import com.eghm.constants.ApplicationHeader;
-import com.eghm.configuration.authentication.ApiHolder;
-import com.eghm.dto.ext.RespBody;
+import com.eghm.application.shared.configuration.authentication.ApiHolder;
+import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.dto.sys.login.*;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.enums.TemplateType;
-import com.eghm.application.member.service.MemberService;
-import com.eghm.utils.IpUtil;
-import com.eghm.vo.login.LoginTokenVO;
+import com.eghm.application.member.port.in.MemberService;
+import com.eghm.interfaces.core.utils.IpUtil;
+import com.eghm.application.shared.vo.login.LoginTokenVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import static com.eghm.utils.StringUtil.isBlank;
+import static com.eghm.application.shared.utils.StringUtil.isBlank;
 
 /**
  * 登陆,找回密码相关

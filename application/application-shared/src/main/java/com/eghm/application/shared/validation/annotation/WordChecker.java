@@ -1,0 +1,50 @@
+package com.eghm.application.shared.validation.annotation;
+
+import com.eghm.application.shared.validation.WordCheckerDefine;
+
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
+import jakarta.validation.ReportAsSingleViolation;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+/**
+ * 校验敏感字
+ *
+ * @author 二哥很猛
+ * @since 2023/10/17
+ */
+
+@Documented
+@Retention(RUNTIME)
+@ReportAsSingleViolation
+@Constraint(validatedBy = WordCheckerDefine.class)
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
+public @interface WordChecker {
+
+    /**
+     * 错误信息 必须包含该属性
+     *
+     * @return 错误信息
+     */
+    String message() default "存在敏感字";
+
+    /**
+     * 自定义校验必须包含该属性
+     *
+     * @return 自定义校验必须包含该属性
+     */
+    Class<?>[] groups() default {};
+
+    /**
+     * 自定义校验必须包含该属性
+     *
+     * @return 自定义校验必须包含该属性
+     */
+    Class<? extends Payload>[] payload() default {};
+}

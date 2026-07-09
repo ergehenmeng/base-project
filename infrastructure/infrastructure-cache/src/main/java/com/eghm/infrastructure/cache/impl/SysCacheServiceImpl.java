@@ -1,13 +1,13 @@
 package com.eghm.infrastructure.cache.impl;
 
-import com.eghm.cache.ClearCacheService;
-import com.eghm.cache.SysCacheService;
+import com.eghm.application.shared.cache.ClearCacheService;
+import com.eghm.application.shared.cache.SysCacheService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.infrastructure.persistence.mybatis.mapper.SysCacheMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.SysCachePO;
 import com.eghm.domain.system.model.SysCache;
-import com.eghm.application.system.service.BlackRosterService;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.system.port.in.BlackRosterService;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

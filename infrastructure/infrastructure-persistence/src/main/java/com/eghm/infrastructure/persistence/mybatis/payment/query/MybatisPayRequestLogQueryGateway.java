@@ -1,11 +1,11 @@
 package com.eghm.infrastructure.persistence.mybatis.payment.query;
 
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
-import com.eghm.dto.business.pay.PayLogQueryRequest;
+import com.eghm.application.shared.dto.business.pay.PayLogQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.mapper.PayRequestLogMapper;
-import com.eghm.application.payment.service.PayRequestLogQueryGateway;
-import com.eghm.vo.operate.log.PayRequestLogResponse;
+import com.eghm.application.payment.port.out.PayRequestLogQueryGateway;
+import com.eghm.application.shared.vo.operate.log.PayRequestLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

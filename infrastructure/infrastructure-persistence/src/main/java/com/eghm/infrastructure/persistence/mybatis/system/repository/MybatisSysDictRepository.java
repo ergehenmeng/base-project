@@ -6,7 +6,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.SysDictMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.SysDictPO;
 import com.eghm.domain.system.model.SysDict;
 import com.eghm.domain.system.repository.SysDictRepository;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

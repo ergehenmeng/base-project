@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.infrastructure.persistence.mybatis.mapper.SysMenuMapper">
 
-    <select id="getLeftList" resultType="com.eghm.vo.sys.menu.MenuTreeResponse">
+    <select id="getLeftList" resultType="com.eghm.application.shared.vo.sys.menu.MenuTreeResponse">
         SELECT
             t.id, t.title, t.pid, t.sort
         from sys_menu t where t.grade = 1
     </select>
 
-    <select id="getByPage" resultType="com.eghm.vo.sys.menu.MenuResponse" parameterType="com.eghm.dto.sys.menu.MenuQueryRequest">
+    <select id="getByPage" resultType="com.eghm.application.shared.vo.sys.menu.MenuResponse" parameterType="com.eghm.application.shared.dto.sys.menu.MenuQueryRequest">
         SELECT
         t.id, t.title, t.icon, t.state, t.code, t.pid, t.display_state, t.path, t.sub_path, t.sort, t.grade, t.remark, t.update_time
         from sys_menu t
@@ -24,7 +24,7 @@
         order by t.sort
     </select>
 
-    <select id="getMenuList" resultType="com.eghm.vo.sys.menu.MenuTreeResponse">
+    <select id="getMenuList" resultType="com.eghm.application.shared.vo.sys.menu.MenuTreeResponse">
         SELECT t.id, t.title, t.icon, t.code, t.pid, t.path, t.sort, t.grade
         from sys_menu t
         where t.state = true and exists (
@@ -35,7 +35,7 @@
         </if>
     </select>
 
-    <select id="getSystemMenuList" resultType="com.eghm.vo.sys.menu.MenuTreeResponse">
+    <select id="getSystemMenuList" resultType="com.eghm.application.shared.vo.sys.menu.MenuTreeResponse">
         SELECT
         t.id, t.title, t.icon, t.code, t.pid, t.path, t.sort, t.grade
         from sys_menu t where t.state = true and (t.display_state &amp; 2) = 2
@@ -44,7 +44,7 @@
         </if>
     </select>
 
-    <select id="getAll" resultType="com.eghm.vo.sys.menu.MenuTreeResponse">
+    <select id="getAll" resultType="com.eghm.application.shared.vo.sys.menu.MenuTreeResponse">
         SELECT
         t.id, t.title, t.icon, t.code, t.pid, t.path, t.sort, t.grade
         <if test="displayState != null">
@@ -53,7 +53,7 @@
         from sys_menu t where t.state = true
     </select>
 
-    <select id="getList" resultType="com.eghm.vo.sys.menu.MenuFullResponse" parameterType="com.eghm.dto.sys.menu.MenuQueryRequest">
+    <select id="getList" resultType="com.eghm.application.shared.vo.sys.menu.MenuFullResponse" parameterType="com.eghm.application.shared.dto.sys.menu.MenuQueryRequest">
         SELECT
         t.id, t.title, t.icon, t.state, t.display_state, t.code, t.grade = 1 as hasChildren, t.pid, t.path, t.sub_path, t.sort, t.grade, t.update_time, t.remark
         from sys_menu t

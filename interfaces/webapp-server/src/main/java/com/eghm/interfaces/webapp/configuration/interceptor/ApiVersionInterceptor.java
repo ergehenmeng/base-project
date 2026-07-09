@@ -1,7 +1,7 @@
 package com.eghm.interfaces.webapp.configuration.interceptor;
 
-import com.eghm.annotation.ApiVersion;
-import com.eghm.configuration.interceptor.InterceptorAdapter;
+import com.eghm.application.shared.annotation.ApiVersion;
+import com.eghm.interfaces.core.configuration.interceptor.InterceptorAdapter;
 import com.eghm.constants.ApplicationHeader;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

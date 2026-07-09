@@ -1,11 +1,11 @@
 package com.eghm.infrastructure.persistence.mybatis.operate.query;
 
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
-import com.eghm.dto.operate.comment.CommentReportQueryRequest;
+import com.eghm.application.shared.dto.operate.comment.CommentReportQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.mapper.CommentReportMapper;
-import com.eghm.application.operate.service.CommentReportQueryGateway;
-import com.eghm.vo.operate.comment.CommentReportResponse;
+import com.eghm.application.operate.port.out.CommentReportQueryGateway;
+import com.eghm.application.shared.vo.operate.comment.CommentReportResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

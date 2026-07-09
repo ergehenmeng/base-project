@@ -1,14 +1,14 @@
 package com.eghm.application.operate.service.impl;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.cache.CacheProxyService;
-import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.operate.template.NoticeTemplateRequest;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.cache.CacheProxyService;
+import com.eghm.application.shared.dto.ext.PagingQuery;
+import com.eghm.application.shared.dto.operate.template.NoticeTemplateRequest;
 import com.eghm.domain.operate.model.NoticeTemplate;
 import com.eghm.domain.operate.repository.NoticeTemplateRepository;
-import com.eghm.application.operate.service.NoticeTemplateQueryGateway;
-import com.eghm.application.operate.service.NoticeTemplateService;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.operate.port.out.NoticeTemplateQueryGateway;
+import com.eghm.application.operate.port.in.NoticeTemplateService;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

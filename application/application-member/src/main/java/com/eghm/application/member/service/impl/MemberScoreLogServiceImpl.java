@@ -1,16 +1,16 @@
 package com.eghm.application.member.service.impl;
 
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.domain.member.repository.MemberScoreLogRepository;
-import com.eghm.common.impl.SysConfigApi;
+import com.eghm.application.shared.common.impl.SysConfigApi;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.business.member.MemberScoreQueryDTO;
-import com.eghm.dto.business.member.MemberScoreQueryRequest;
+import com.eghm.application.shared.dto.business.member.MemberScoreQueryDTO;
+import com.eghm.application.shared.dto.business.member.MemberScoreQueryRequest;
 import com.eghm.domain.member.model.MemberScoreLog;
-import com.eghm.application.member.service.MemberScoreLogQueryGateway;
-import com.eghm.application.member.service.MemberScoreLogService;
-import com.eghm.utils.StringUtil;
-import com.eghm.vo.business.member.MemberScoreVO;
+import com.eghm.application.member.port.out.MemberScoreLogQueryGateway;
+import com.eghm.application.member.port.in.MemberScoreLogService;
+import com.eghm.application.shared.utils.StringUtil;
+import com.eghm.application.shared.vo.business.member.MemberScoreVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

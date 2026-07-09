@@ -1,12 +1,12 @@
 package com.eghm.application.system.service.impl;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.sys.log.ManageQueryRequest;
-import com.eghm.application.system.service.ManageLogQueryGateway;
-import com.eghm.application.system.service.ManageLogService;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.sys.log.ManageQueryRequest;
+import com.eghm.application.system.port.out.ManageLogQueryGateway;
+import com.eghm.application.system.port.in.ManageLogService;
 import com.eghm.domain.system.model.ManageLog;
 import com.eghm.domain.system.repository.ManageLogRepository;
-import com.eghm.vo.operate.log.ManageLogResponse;
+import com.eghm.application.shared.vo.operate.log.ManageLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

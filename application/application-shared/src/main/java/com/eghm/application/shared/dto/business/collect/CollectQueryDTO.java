@@ -1,0 +1,24 @@
+package com.eghm.application.shared.dto.business.collect;
+
+import com.eghm.application.shared.annotation.Assign;
+import com.eghm.application.shared.dto.ext.PagingQuery;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+/**
+ * @author 二哥很猛
+ * @since 2024/1/11
+ */
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class CollectQueryDTO extends PagingQuery {
+
+    @Schema(description = "当前登录用户", hidden = true)
+    @Assign
+    private Long memberId;
+
+    @Schema(description = "1:商品 2:店铺")
+    private Integer type;
+}

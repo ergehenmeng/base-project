@@ -1,9 +1,9 @@
 package com.eghm.infrastructure.persistence.mybatis.system.query;
 
-import com.eghm.dto.ext.PagingQuery;
+import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.infrastructure.persistence.mybatis.mapper.SysDeptMapper;
-import com.eghm.application.system.service.SysDeptQueryGateway;
-import com.eghm.vo.sys.ext.SysDeptResponse;
+import com.eghm.application.system.port.out.SysDeptQueryGateway;
+import com.eghm.application.shared.vo.sys.ext.SysDeptResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

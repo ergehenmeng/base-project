@@ -12,7 +12,7 @@ import com.eghm.domain.shared.exception.BusinessException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import static com.eghm.utils.StringUtil.isBlank;
+import static com.eghm.application.shared.utils.StringUtil.isBlank;
 
 /**
  * 告警适配器配置.

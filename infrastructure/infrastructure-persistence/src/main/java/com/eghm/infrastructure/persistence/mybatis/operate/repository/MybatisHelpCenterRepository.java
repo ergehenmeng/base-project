@@ -6,7 +6,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.HelpCenterMapper;
 import com.eghm.domain.operate.model.HelpCenter;
 import com.eghm.domain.operate.repository.HelpCenterRepository;
 import com.eghm.infrastructure.persistence.mybatis.po.HelpCenterPO;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

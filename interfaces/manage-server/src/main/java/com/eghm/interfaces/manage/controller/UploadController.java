@@ -1,12 +1,12 @@
 package com.eghm.interfaces.manage.controller;
 
 
-import com.eghm.annotation.SkipLogger;
-import com.eghm.common.FileService;
-import com.eghm.configuration.authentication.SecurityHolder;
+import com.eghm.application.shared.annotation.SkipLogger;
+import com.eghm.application.shared.common.FileService;
+import com.eghm.application.shared.configuration.authentication.SecurityHolder;
 import com.eghm.constants.CommonConstant;
-import com.eghm.dto.ext.FilePath;
-import com.eghm.dto.ext.RespBody;
+import com.eghm.application.shared.dto.ext.FilePath;
+import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.interfaces.core.support.MultipartUploadFile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

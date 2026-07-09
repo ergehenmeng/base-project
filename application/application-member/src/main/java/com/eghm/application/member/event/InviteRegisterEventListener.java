@@ -3,15 +3,15 @@ package com.eghm.application.member.event;
 import com.eghm.domain.member.model.Member;
 import com.eghm.domain.member.model.MemberInviteLog;
 import com.eghm.domain.member.event.MemberRegisteredEvent;
-import com.eghm.application.member.service.MemberInviteLogService;
-import com.eghm.application.member.service.MemberService;
-import com.eghm.dto.ext.MemberRegister;
+import com.eghm.application.member.port.in.MemberInviteLogService;
+import com.eghm.application.member.port.in.MemberService;
+import com.eghm.application.shared.dto.ext.MemberRegister;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import static com.eghm.utils.StringUtil.isNotBlank;
+import static com.eghm.application.shared.utils.StringUtil.isNotBlank;
 
 /**
  * 邀请记录事件监听器

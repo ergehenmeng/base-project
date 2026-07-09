@@ -1,6 +1,6 @@
 package com.eghm.infrastructure.integration.common.impl;
 
-import com.eghm.common.SendSmsService;
+import com.eghm.application.shared.common.SendSmsService;
 import com.eghm.domain.shared.enums.TemplateType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

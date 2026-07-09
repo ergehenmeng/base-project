@@ -8,7 +8,7 @@ import com.eghm.constants.CommonConstant;
 import com.eghm.domain.shared.enums.CollectType;
 import com.eghm.infrastructure.persistence.mybatis.mapper.MemberCollectMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.MemberCollectPO;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

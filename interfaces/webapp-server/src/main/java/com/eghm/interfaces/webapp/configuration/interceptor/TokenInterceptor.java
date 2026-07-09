@@ -1,11 +1,11 @@
 package com.eghm.interfaces.webapp.configuration.interceptor;
 
-import com.eghm.common.MemberTokenService;
-import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.configuration.authentication.ApiHolder;
+import com.eghm.application.shared.common.MemberTokenService;
+import com.eghm.interfaces.core.configuration.interceptor.InterceptorAdapter;
+import com.eghm.application.shared.configuration.authentication.ApiHolder;
 import com.eghm.constants.ApplicationHeader;
-import com.eghm.dto.ext.MemberToken;
-import com.eghm.dto.ext.RequestMessage;
+import com.eghm.application.shared.dto.ext.MemberToken;
+import com.eghm.application.shared.dto.ext.RequestMessage;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.interfaces.webapp.annotation.AccessToken;

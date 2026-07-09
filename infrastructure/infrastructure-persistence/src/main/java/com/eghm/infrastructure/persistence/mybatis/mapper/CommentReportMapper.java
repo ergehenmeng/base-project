@@ -2,9 +2,9 @@ package com.eghm.infrastructure.persistence.mybatis.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.operate.comment.CommentReportQueryRequest;
+import com.eghm.application.shared.dto.operate.comment.CommentReportQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.po.CommentReportPO;
-import com.eghm.vo.operate.comment.CommentReportResponse;
+import com.eghm.application.shared.vo.operate.comment.CommentReportResponse;
 import org.apache.ibatis.annotations.Param;
 
 /**

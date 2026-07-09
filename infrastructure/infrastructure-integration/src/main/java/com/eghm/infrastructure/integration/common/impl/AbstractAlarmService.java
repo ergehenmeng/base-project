@@ -4,12 +4,12 @@ import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.http.HttpUtil;
 import com.eghm.domain.shared.service.AlarmService;
 import com.eghm.domain.shared.service.JsonService;
-import com.eghm.configuration.ApplicationProperties;
-import com.eghm.configuration.log.LogTraceHolder;
-import com.eghm.dto.ext.AlarmMsg;
+import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.application.shared.configuration.log.LogTraceHolder;
+import com.eghm.application.shared.dto.ext.AlarmMsg;
 import com.eghm.enums.AlarmType;
-import com.eghm.utils.DateUtil;
-import com.eghm.utils.RateLimiterUtil;
+import com.eghm.application.shared.utils.DateUtil;
+import com.eghm.application.shared.utils.RateLimiterUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 

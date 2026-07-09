@@ -4,7 +4,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.SysTaskLogMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.SysTaskLogPO;
 import com.eghm.domain.system.model.SysTaskLog;
 import com.eghm.domain.system.repository.SysTaskLogRepository;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

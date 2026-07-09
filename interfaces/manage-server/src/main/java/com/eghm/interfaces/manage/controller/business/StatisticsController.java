@@ -1,13 +1,13 @@
 package com.eghm.interfaces.manage.controller.business;
 
-import com.eghm.dto.business.statistics.DateRequest;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.business.statistics.CollectRequest;
-import com.eghm.application.member.service.MemberCollectService;
-import com.eghm.application.member.service.MemberService;
-import com.eghm.vo.business.statistics.CollectStatisticsVO;
-import com.eghm.vo.business.statistics.MemberRegisterVO;
-import com.eghm.vo.business.statistics.MemberStatisticsVO;
+import com.eghm.application.shared.dto.business.statistics.DateRequest;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.business.statistics.CollectRequest;
+import com.eghm.application.member.port.in.MemberCollectService;
+import com.eghm.application.member.port.in.MemberService;
+import com.eghm.application.shared.vo.business.statistics.CollectStatisticsVO;
+import com.eghm.application.shared.vo.business.statistics.MemberRegisterVO;
+import com.eghm.application.shared.vo.business.statistics.MemberStatisticsVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;

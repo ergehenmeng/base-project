@@ -1,15 +1,15 @@
 package com.eghm.interfaces.manage.controller.sys;
 
-import com.eghm.annotation.SkipPerm;
-import com.eghm.dto.IdDTO;
-import com.eghm.dto.ext.RespBody;
+import com.eghm.application.shared.annotation.SkipPerm;
+import com.eghm.application.shared.dto.IdDTO;
+import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.dto.sys.dict.*;
 import com.eghm.domain.system.model.SysDictItem;
-import com.eghm.application.system.service.SysDictService;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.sys.dict.BaseDictResponse;
-import com.eghm.vo.sys.dict.BaseItemVO;
-import com.eghm.vo.sys.dict.DictResponse;
+import com.eghm.application.system.port.in.SysDictService;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.sys.dict.BaseDictResponse;
+import com.eghm.application.shared.vo.sys.dict.BaseItemVO;
+import com.eghm.application.shared.vo.sys.dict.DictResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

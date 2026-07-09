@@ -4,7 +4,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.SysTaskMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.SysTaskPO;
 import com.eghm.domain.system.model.SysTask;
 import com.eghm.domain.system.repository.SysTaskRepository;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

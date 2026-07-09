@@ -3,7 +3,7 @@ package com.eghm.interfaces.webapp.configuration.filter;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.http.Header;
-import com.eghm.configuration.AbstractIgnoreFilter;
+import com.eghm.interfaces.core.configuration.AbstractIgnoreFilter;
 import com.eghm.constants.CommonConstant;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.FilterChain;

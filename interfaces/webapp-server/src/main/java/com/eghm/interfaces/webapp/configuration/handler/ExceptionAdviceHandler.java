@@ -1,18 +1,18 @@
 package com.eghm.interfaces.webapp.configuration.handler;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
-import com.eghm.configuration.log.LogTraceHolder;
-import com.eghm.configuration.authentication.ApiHolder;
-import com.eghm.dto.ext.RequestMessage;
-import com.eghm.dto.ext.RespBody;
+import com.eghm.application.shared.configuration.log.LogTraceHolder;
+import com.eghm.application.shared.configuration.authentication.ApiHolder;
+import com.eghm.application.shared.dto.ext.RequestMessage;
+import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.domain.shared.exception.*;
 import com.eghm.domain.system.model.WebappLog;
-import com.eghm.mq.service.MessageService;
-import com.eghm.utils.DataUtil;
-import com.eghm.utils.IpUtil;
-import com.eghm.utils.WebUtil;
+import com.eghm.application.shared.mq.service.MessageService;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.interfaces.core.utils.IpUtil;
+import com.eghm.interfaces.core.utils.WebUtil;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

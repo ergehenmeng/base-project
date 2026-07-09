@@ -1,17 +1,17 @@
 package com.eghm.application.system.service.impl;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.sys.task.TaskEditRequest;
-import com.eghm.dto.sys.task.TaskQueryRequest;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.sys.task.TaskEditRequest;
+import com.eghm.application.shared.dto.sys.task.TaskQueryRequest;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
-import com.eghm.application.system.service.SysTaskQueryGateway;
-import com.eghm.application.system.service.SysTaskScheduleGateway;
-import com.eghm.application.system.service.SysTaskService;
+import com.eghm.application.system.port.out.SysTaskQueryGateway;
+import com.eghm.application.system.port.out.SysTaskScheduleGateway;
+import com.eghm.application.system.port.in.SysTaskService;
 import com.eghm.domain.system.model.SysTask;
 import com.eghm.domain.system.repository.SysTaskRepository;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.operate.task.SysTaskResponse;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.operate.task.SysTaskResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.support.CronExpression;

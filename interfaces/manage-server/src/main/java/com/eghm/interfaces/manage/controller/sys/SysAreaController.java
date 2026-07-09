@@ -1,9 +1,9 @@
 package com.eghm.interfaces.manage.controller.sys;
 
-import com.eghm.annotation.SkipPerm;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.common.CommonService;
-import com.eghm.vo.sys.ext.SysAreaVO;
+import com.eghm.application.shared.annotation.SkipPerm;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.common.CommonService;
+import com.eghm.application.shared.vo.sys.ext.SysAreaVO;
 import com.google.common.collect.Lists;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;

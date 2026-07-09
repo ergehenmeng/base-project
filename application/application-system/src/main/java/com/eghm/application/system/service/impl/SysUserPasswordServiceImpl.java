@@ -1,15 +1,15 @@
 package com.eghm.application.system.service.impl;
 
 import cn.hutool.crypto.SecureUtil;
-import com.eghm.configuration.encoder.Encoder;
+import com.eghm.application.shared.configuration.encoder.Encoder;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.system.model.SysUser;
 import com.eghm.domain.system.repository.SysUserRepository;
-import com.eghm.dto.sys.user.PasswordEditRequest;
-import com.eghm.application.system.service.SysUserCommandService;
-import com.eghm.application.system.service.SysUserPasswordService;
-import com.eghm.manager.LoginCacheManager;
+import com.eghm.application.shared.dto.sys.user.PasswordEditRequest;
+import com.eghm.application.system.port.in.SysUserCommandService;
+import com.eghm.application.system.port.in.SysUserPasswordService;
+import com.eghm.application.shared.manager.LoginCacheManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

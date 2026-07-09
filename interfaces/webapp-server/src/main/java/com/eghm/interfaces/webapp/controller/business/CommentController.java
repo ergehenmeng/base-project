@@ -1,15 +1,15 @@
 package com.eghm.interfaces.webapp.controller.business;
 
-import com.eghm.dto.IdDTO;
-import com.eghm.configuration.authentication.ApiHolder;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.operate.comment.CommentDTO;
-import com.eghm.dto.operate.comment.CommentQueryDTO;
-import com.eghm.dto.operate.comment.CommentReportDTO;
-import com.eghm.application.operate.service.CommentReportService;
-import com.eghm.application.operate.service.CommentService;
-import com.eghm.vo.operate.comment.CommentSecondVO;
-import com.eghm.vo.operate.comment.CommentVO;
+import com.eghm.application.shared.dto.IdDTO;
+import com.eghm.application.shared.configuration.authentication.ApiHolder;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.operate.comment.CommentDTO;
+import com.eghm.application.shared.dto.operate.comment.CommentQueryDTO;
+import com.eghm.application.shared.dto.operate.comment.CommentReportDTO;
+import com.eghm.application.operate.port.in.CommentReportService;
+import com.eghm.application.operate.port.in.CommentService;
+import com.eghm.application.shared.vo.operate.comment.CommentSecondVO;
+import com.eghm.application.shared.vo.operate.comment.CommentVO;
 import com.eghm.interfaces.webapp.annotation.AccessToken;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;

@@ -2,11 +2,11 @@ package com.eghm.infrastructure.persistence.mybatis.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.operate.comment.CommentQueryRequest;
+import com.eghm.application.shared.dto.operate.comment.CommentQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.po.CommentPO;
-import com.eghm.vo.operate.comment.CommentResponse;
-import com.eghm.vo.operate.comment.CommentSecondVO;
-import com.eghm.vo.operate.comment.CommentVO;
+import com.eghm.application.shared.vo.operate.comment.CommentResponse;
+import com.eghm.application.shared.vo.operate.comment.CommentSecondVO;
+import com.eghm.application.shared.vo.operate.comment.CommentVO;
 import org.apache.ibatis.annotations.Param;
 
 /**

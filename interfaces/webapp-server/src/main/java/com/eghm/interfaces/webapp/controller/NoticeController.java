@@ -1,12 +1,12 @@
 package com.eghm.interfaces.webapp.controller;
 
-import com.eghm.dto.IdDTO;
-import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.application.operate.service.SysNoticeService;
-import com.eghm.vo.operate.notice.NoticeDetailVO;
-import com.eghm.vo.operate.notice.NoticeTopVO;
-import com.eghm.vo.operate.notice.NoticeVO;
+import com.eghm.application.shared.dto.IdDTO;
+import com.eghm.application.shared.dto.ext.PagingQuery;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.operate.port.in.SysNoticeService;
+import com.eghm.application.shared.vo.operate.notice.NoticeDetailVO;
+import com.eghm.application.shared.vo.operate.notice.NoticeTopVO;
+import com.eghm.application.shared.vo.operate.notice.NoticeVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;

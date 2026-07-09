@@ -3,8 +3,8 @@ package com.eghm.infrastructure.persistence.mybatis.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.infrastructure.persistence.mybatis.po.AuthConfigPO;
-import com.eghm.vo.operate.auth.AuthConfigResponse;
-import com.eghm.vo.operate.auth.AuthConfigVO;
+import com.eghm.application.shared.vo.operate.auth.AuthConfigResponse;
+import com.eghm.application.shared.vo.operate.auth.AuthConfigVO;
 import org.apache.ibatis.annotations.Param;
 
 /**

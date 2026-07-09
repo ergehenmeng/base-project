@@ -1,0 +1,69 @@
+package com.eghm.application.shared.utils;
+
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import static com.eghm.application.shared.utils.StringUtil.isBlank;
+
+/**
+ * @author wyb
+ * @since 2023/6/9
+ */
+
+@Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class LoggerUtil {
+
+    /**
+     * 左右填充的长度
+     */
+    private static final int MAX_LENGTH = 20;
+
+    /**
+     * 默认填充字符
+     */
+    private static final String PADDING_CHAR = "=";
+
+    /**
+     * 打印日志信息
+     *
+     * @param msg 日志信息
+     */
+    public static void print(String msg, Object... args) {
+        print(msg, PADDING_CHAR, args);
+    }
+
+    /**
+     * 打印日志信息
+     *
+     * @param msg         日志信息
+     * @param paddingChar 填充的字符
+     */
+    public static void print(String msg, String paddingChar, Object... args) {
+        if (isBlank(msg)) {
+            log.info("LoggerUtil.print为空");
+            return;
+        }
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n\n");
+        appendChar(builder, paddingChar);
+        builder.append(" ");
+        builder.append(String.format(msg, args));
+        builder.append(" ");
+        appendChar(builder, paddingChar);
+        builder.append("\n");
+        log.info(builder.toString());
+    }
+
+    /**
+     * 填充指定长度的字符
+     *
+     * @param builder     builder
+     * @param paddingChar 填充的字符
+     */
+    private static void appendChar(StringBuilder builder, String paddingChar) {
+        builder.append(String.valueOf(paddingChar).repeat(MAX_LENGTH));
+    }
+
+}

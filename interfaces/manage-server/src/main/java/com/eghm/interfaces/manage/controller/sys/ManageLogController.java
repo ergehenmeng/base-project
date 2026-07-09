@@ -1,11 +1,11 @@
 package com.eghm.interfaces.manage.controller.sys;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.ext.PageData;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.sys.log.ManageQueryRequest;
-import com.eghm.application.system.service.ManageLogService;
-import com.eghm.vo.operate.log.ManageLogResponse;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.PageData;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.sys.log.ManageQueryRequest;
+import com.eghm.application.system.port.in.ManageLogService;
+import com.eghm.application.shared.vo.operate.log.ManageLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;

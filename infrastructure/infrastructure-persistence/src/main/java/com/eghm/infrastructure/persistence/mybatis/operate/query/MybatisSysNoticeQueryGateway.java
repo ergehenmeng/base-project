@@ -2,16 +2,16 @@ package com.eghm.infrastructure.persistence.mybatis.operate.query;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
-import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.operate.notice.NoticeQueryRequest;
+import com.eghm.application.shared.dto.ext.PagingQuery;
+import com.eghm.application.shared.dto.operate.notice.NoticeQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.mapper.SysNoticeMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.SysNoticePO;
-import com.eghm.application.operate.service.SysNoticeQueryGateway;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.operate.notice.NoticeResponse;
-import com.eghm.vo.operate.notice.NoticeVO;
+import com.eghm.application.operate.port.out.SysNoticeQueryGateway;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.operate.notice.NoticeResponse;
+import com.eghm.application.shared.vo.operate.notice.NoticeVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

@@ -1,14 +1,14 @@
 package com.eghm.interfaces.manage.controller.operate;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.IdDTO;
-import com.eghm.dto.ext.PageData;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.operate.image.ImageAddRequest;
-import com.eghm.dto.operate.image.ImageEditRequest;
-import com.eghm.dto.operate.image.ImageQueryRequest;
-import com.eghm.application.operate.service.ImageLogService;
-import com.eghm.vo.operate.log.ImageLogResponse;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.IdDTO;
+import com.eghm.application.shared.dto.ext.PageData;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.operate.image.ImageAddRequest;
+import com.eghm.application.shared.dto.operate.image.ImageEditRequest;
+import com.eghm.application.shared.dto.operate.image.ImageQueryRequest;
+import com.eghm.application.operate.port.in.ImageLogService;
+import com.eghm.application.shared.vo.operate.log.ImageLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;

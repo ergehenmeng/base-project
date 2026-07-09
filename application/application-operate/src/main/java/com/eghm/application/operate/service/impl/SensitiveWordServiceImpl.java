@@ -4,15 +4,15 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.dfa.FoundWord;
 import cn.hutool.dfa.SensitiveUtil;
 import cn.hutool.extra.spring.SpringUtil;
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.ext.PagingQuery;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.enums.ExchangeQueue;
-import com.eghm.mq.service.MessageService;
+import com.eghm.application.shared.mq.service.MessageService;
 import com.eghm.domain.operate.model.SensitiveWord;
 import com.eghm.domain.operate.repository.SensitiveWordRepository;
-import com.eghm.application.operate.service.SensitiveWordQueryGateway;
-import com.eghm.application.operate.service.SensitiveWordService;
-import com.eghm.utils.LoggerUtil;
+import com.eghm.application.operate.port.out.SensitiveWordQueryGateway;
+import com.eghm.application.operate.port.in.SensitiveWordService;
+import com.eghm.application.shared.utils.LoggerUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.eghm.utils.StringUtil.isNotBlank;
+import static com.eghm.application.shared.utils.StringUtil.isNotBlank;
 
 /**
  * @author eghm

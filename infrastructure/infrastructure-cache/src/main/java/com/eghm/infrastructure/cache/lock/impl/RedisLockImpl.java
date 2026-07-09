@@ -3,7 +3,7 @@ package com.eghm.infrastructure.cache.lock.impl;
 import com.eghm.constants.LockConstant;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
-import com.eghm.lock.RedisLock;
+import com.eghm.application.shared.lock.RedisLock;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;

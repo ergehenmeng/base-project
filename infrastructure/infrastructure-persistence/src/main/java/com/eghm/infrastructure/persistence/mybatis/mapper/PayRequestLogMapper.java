@@ -2,9 +2,9 @@ package com.eghm.infrastructure.persistence.mybatis.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.business.pay.PayLogQueryRequest;
+import com.eghm.application.shared.dto.business.pay.PayLogQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.po.PayRequestLogPO;
-import com.eghm.vo.operate.log.PayRequestLogResponse;
+import com.eghm.application.shared.vo.operate.log.PayRequestLogResponse;
 import org.apache.ibatis.annotations.Param;
 
 /**

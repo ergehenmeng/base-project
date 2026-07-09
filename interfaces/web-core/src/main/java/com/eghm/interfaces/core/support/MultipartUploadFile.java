@@ -1,6 +1,6 @@
 package com.eghm.interfaces.core.support;
 
-import com.eghm.dto.ext.UploadFile;
+import com.eghm.application.shared.dto.ext.UploadFile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 

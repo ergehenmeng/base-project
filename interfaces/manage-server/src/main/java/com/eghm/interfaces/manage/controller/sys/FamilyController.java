@@ -1,11 +1,11 @@
 package com.eghm.interfaces.manage.controller.sys;
 
-import com.eghm.dto.IdRequest;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.sys.family.FamilyAddRequest;
-import com.eghm.dto.sys.family.FamilyEditRequest;
-import com.eghm.application.system.service.FamilyService;
-import com.eghm.vo.sys.family.FamilyResponse;
+import com.eghm.application.shared.dto.IdRequest;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.sys.family.FamilyAddRequest;
+import com.eghm.application.shared.dto.sys.family.FamilyEditRequest;
+import com.eghm.application.system.port.in.FamilyService;
+import com.eghm.application.shared.vo.sys.family.FamilyResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;

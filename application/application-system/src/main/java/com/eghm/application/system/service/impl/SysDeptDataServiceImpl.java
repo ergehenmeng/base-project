@@ -1,7 +1,7 @@
 package com.eghm.application.system.service.impl;
 
-import com.eghm.application.system.service.SysDeptDataQueryGateway;
-import com.eghm.application.system.service.SysDeptDataService;
+import com.eghm.application.system.port.out.SysDeptDataQueryGateway;
+import com.eghm.application.system.port.in.SysDeptDataService;
 import com.eghm.domain.system.model.SysDeptData;
 import com.eghm.domain.system.repository.SysDeptDataRepository;
 import lombok.AllArgsConstructor;

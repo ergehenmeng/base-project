@@ -1,18 +1,18 @@
 package com.eghm.application.system.service.impl;
 
-import com.eghm.common.CommonService;
+import com.eghm.application.shared.common.CommonService;
 import com.eghm.constants.CommonConstant;
-import com.eghm.dto.sys.family.FamilyAddRequest;
-import com.eghm.dto.sys.family.FamilyEditRequest;
+import com.eghm.application.shared.dto.sys.family.FamilyAddRequest;
+import com.eghm.application.shared.dto.sys.family.FamilyEditRequest;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
-import com.eghm.application.system.service.FamilyQueryGateway;
-import com.eghm.application.system.service.FamilyService;
+import com.eghm.application.system.port.out.FamilyQueryGateway;
+import com.eghm.application.system.port.in.FamilyService;
 import com.eghm.domain.system.model.Family;
 import com.eghm.domain.system.repository.FamilyRepository;
-import com.eghm.utils.DataUtil;
-import com.eghm.utils.TreeUtil;
-import com.eghm.vo.sys.family.FamilyResponse;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.utils.TreeUtil;
+import com.eghm.application.shared.vo.sys.family.FamilyResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -2,23 +2,23 @@ package com.eghm.infrastructure.persistence.mybatis.member.query;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
 import com.eghm.domain.member.model.LoginDevice;
-import com.eghm.dto.business.member.LoginLogQueryRequest;
+import com.eghm.application.shared.dto.business.member.LoginLogQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.mapper.LoginDeviceMapper;
 import com.eghm.infrastructure.persistence.mybatis.mapper.LoginLogMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.LoginDevicePO;
 import com.eghm.infrastructure.persistence.mybatis.po.LoginLogPO;
-import com.eghm.application.member.service.LoginQueryGateway;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.business.member.LoginLogResponse;
+import com.eghm.application.member.port.out.LoginQueryGateway;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.business.member.LoginLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.eghm.utils.StringUtil.isNotBlank;
+import static com.eghm.application.shared.utils.StringUtil.isNotBlank;
 
 /**
  * MyBatis adapter for login read models.

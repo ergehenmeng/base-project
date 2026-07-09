@@ -4,7 +4,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.SysConfigMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.SysConfigPO;
 import com.eghm.domain.system.model.SysConfig;
 import com.eghm.domain.system.repository.SysConfigRepository;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

@@ -1,17 +1,17 @@
 package com.eghm.application.operate.service.impl;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.cache.CacheProxyService;
-import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.operate.email.EmailTemplateRequest;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.cache.CacheProxyService;
+import com.eghm.application.shared.dto.ext.PagingQuery;
+import com.eghm.application.shared.dto.operate.email.EmailTemplateRequest;
 import com.eghm.enums.EmailType;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.operate.model.EmailTemplate;
 import com.eghm.domain.operate.repository.EmailTemplateRepository;
-import com.eghm.application.operate.service.EmailTemplateQueryGateway;
-import com.eghm.application.operate.service.EmailTemplateService;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.operate.port.out.EmailTemplateQueryGateway;
+import com.eghm.application.operate.port.in.EmailTemplateService;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

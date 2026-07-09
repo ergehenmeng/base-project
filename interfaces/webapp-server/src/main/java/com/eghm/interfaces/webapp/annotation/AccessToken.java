@@ -1,6 +1,6 @@
 package com.eghm.interfaces.webapp.annotation;
 
-import com.eghm.configuration.authentication.ApiHolder;
+import com.eghm.application.shared.configuration.authentication.ApiHolder;
 import com.eghm.interfaces.webapp.configuration.interceptor.TokenInterceptor;
 
 import java.lang.annotation.Documented;

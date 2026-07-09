@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.infrastructure.persistence.mybatis.mapper.MemberScoreLogMapper">
 
-    <select id="getByPage" resultType="com.eghm.vo.business.member.MemberScoreVO" parameterType="com.eghm.dto.business.member.MemberScoreQueryRequest">
+    <select id="getByPage" resultType="com.eghm.application.shared.vo.business.member.MemberScoreVO" parameterType="com.eghm.application.shared.dto.business.member.MemberScoreQueryRequest">
         select score, type, create_time, remark, surplus_score
         from member_score_log
         where member_id = #{param.memberId}

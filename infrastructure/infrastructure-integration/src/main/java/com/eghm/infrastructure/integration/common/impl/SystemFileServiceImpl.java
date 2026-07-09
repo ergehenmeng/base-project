@@ -2,16 +2,16 @@ package com.eghm.infrastructure.integration.common.impl;
 
 import cn.hutool.core.util.IdUtil;
 import com.eghm.domain.shared.service.AlarmService;
-import com.eghm.common.FileService;
-import com.eghm.configuration.ApplicationProperties;
+import com.eghm.application.shared.common.FileService;
+import com.eghm.application.shared.configuration.ApplicationProperties;
 import com.eghm.constants.CommonConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.ext.FilePath;
-import com.eghm.dto.ext.UploadFile;
+import com.eghm.application.shared.dto.ext.FilePath;
+import com.eghm.application.shared.dto.ext.UploadFile;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
-import com.eghm.utils.CacheUtil;
-import com.eghm.utils.DateUtil;
+import com.eghm.application.shared.utils.CacheUtil;
+import com.eghm.application.shared.utils.DateUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 
-import static com.eghm.constants.InfraConstant.DAY_MAX_UPLOAD;
+import static com.eghm.infrastructure.shared.constants.InfraConstant.DAY_MAX_UPLOAD;
 
 /**
  * 保存文件路径格式=根路径+公共路径+文件分类路径+日期+文件名+后缀<br>

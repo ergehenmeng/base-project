@@ -1,15 +1,15 @@
 package com.eghm.interfaces.webapp.controller;
 
 import com.eghm.constants.CommonConstant;
-import com.eghm.configuration.authentication.ApiHolder;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.sys.register.AccountRegisterDTO;
-import com.eghm.dto.sys.register.MobileRegisterDTO;
-import com.eghm.dto.sys.register.RegisterSmsDTO;
+import com.eghm.application.shared.configuration.authentication.ApiHolder;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.sys.register.AccountRegisterDTO;
+import com.eghm.application.shared.dto.sys.register.MobileRegisterDTO;
+import com.eghm.application.shared.dto.sys.register.RegisterSmsDTO;
 import com.eghm.domain.shared.enums.ErrorCode;
-import com.eghm.application.member.service.MemberService;
-import com.eghm.utils.IpUtil;
-import com.eghm.vo.login.LoginTokenVO;
+import com.eghm.application.member.port.in.MemberService;
+import com.eghm.interfaces.core.utils.IpUtil;
+import com.eghm.application.shared.vo.login.LoginTokenVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;

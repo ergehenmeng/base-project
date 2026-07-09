@@ -9,7 +9,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.MemberNoticeLogMapper;
 import com.eghm.infrastructure.persistence.mybatis.mapper.MemberNoticeMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.MemberNoticeLogPO;
 import com.eghm.infrastructure.persistence.mybatis.po.MemberNoticePO;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

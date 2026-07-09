@@ -2,7 +2,7 @@ package com.eghm.infrastructure.persistence.mybatis.mapper;
 
 import com.eghm.infrastructure.persistence.mybatis.po.FamilyPO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.vo.sys.family.FamilyResponse;
+import com.eghm.application.shared.vo.sys.family.FamilyResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

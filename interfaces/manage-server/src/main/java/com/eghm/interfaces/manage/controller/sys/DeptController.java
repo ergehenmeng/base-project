@@ -1,12 +1,12 @@
 package com.eghm.interfaces.manage.controller.sys;
 
-import com.eghm.dto.IdDTO;
-import com.eghm.dto.sys.dept.DeptAddRequest;
-import com.eghm.dto.sys.dept.DeptEditRequest;
-import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.application.system.service.SysDeptService;
-import com.eghm.vo.sys.ext.SysDeptResponse;
+import com.eghm.application.shared.dto.IdDTO;
+import com.eghm.application.shared.dto.sys.dept.DeptAddRequest;
+import com.eghm.application.shared.dto.sys.dept.DeptEditRequest;
+import com.eghm.application.shared.dto.ext.PagingQuery;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.system.port.in.SysDeptService;
+import com.eghm.application.shared.vo.sys.ext.SysDeptResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;

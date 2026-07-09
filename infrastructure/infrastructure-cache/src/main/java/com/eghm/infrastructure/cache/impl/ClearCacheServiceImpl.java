@@ -1,8 +1,8 @@
 package com.eghm.infrastructure.cache.impl;
 
-import com.eghm.cache.ClearCacheService;
+import com.eghm.application.shared.cache.ClearCacheService;
 import com.eghm.constants.CacheConstant;
-import com.eghm.application.operate.service.SensitiveWordService;
+import com.eghm.application.operate.port.in.SensitiveWordService;
 import freemarker.template.Configuration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

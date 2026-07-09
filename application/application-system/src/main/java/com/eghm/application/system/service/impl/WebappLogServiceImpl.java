@@ -1,12 +1,12 @@
 package com.eghm.application.system.service.impl;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.sys.log.WebappQueryRequest;
-import com.eghm.application.system.service.WebappLogQueryGateway;
-import com.eghm.application.system.service.WebappLogService;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.sys.log.WebappQueryRequest;
+import com.eghm.application.system.port.out.WebappLogQueryGateway;
+import com.eghm.application.system.port.in.WebappLogService;
 import com.eghm.domain.system.model.WebappLog;
 import com.eghm.domain.system.repository.WebappLogRepository;
-import com.eghm.vo.operate.log.WebappLogResponse;
+import com.eghm.application.shared.vo.operate.log.WebappLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

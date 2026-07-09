@@ -1,16 +1,16 @@
 package com.eghm.interfaces.manage.configuration.interceptor;
 
 import cn.hutool.core.collection.CollUtil;
-import com.eghm.annotation.SkipPerm;
-import com.eghm.common.CommonService;
-import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.configuration.authentication.SecurityHolder;
-import com.eghm.dto.ext.UserToken;
+import com.eghm.application.shared.annotation.SkipPerm;
+import com.eghm.application.shared.common.CommonService;
+import com.eghm.interfaces.core.configuration.interceptor.InterceptorAdapter;
+import com.eghm.application.shared.configuration.authentication.SecurityHolder;
+import com.eghm.application.shared.dto.ext.UserToken;
 import com.eghm.domain.shared.enums.ErrorCode;
-import com.eghm.event.PermissionRefreshEvent;
+import com.eghm.application.shared.event.PermissionRefreshEvent;
 import com.eghm.domain.system.model.SysMenu;
-import com.eghm.application.system.service.SysMenuService;
-import com.eghm.utils.WebUtil;
+import com.eghm.application.system.port.in.SysMenuService;
+import com.eghm.interfaces.core.utils.WebUtil;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,8 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static com.eghm.utils.CacheUtil.PERMISSION_CACHE;
-import static com.eghm.utils.StringUtil.isNotBlank;
+import static com.eghm.application.shared.utils.CacheUtil.PERMISSION_CACHE;
+import static com.eghm.application.shared.utils.StringUtil.isNotBlank;
 
 /**
  * @author 二哥很猛

@@ -1,10 +1,10 @@
 package com.eghm.infrastructure.persistence.mybatis.member.query;
 
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
 import com.eghm.infrastructure.persistence.mybatis.mapper.MemberInviteLogMapper;
-import com.eghm.application.member.service.MemberInviteLogQueryGateway;
-import com.eghm.vo.business.member.MemberInviteVO;
+import com.eghm.application.member.port.out.MemberInviteLogQueryGateway;
+import com.eghm.application.shared.vo.business.member.MemberInviteVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

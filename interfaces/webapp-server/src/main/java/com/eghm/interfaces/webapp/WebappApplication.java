@@ -1,7 +1,7 @@
 package com.eghm.interfaces.webapp;
 
 import cn.hutool.core.net.NetUtil;
-import com.eghm.utils.LoggerUtil;
+import com.eghm.application.shared.utils.LoggerUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.Banner;
 import org.springframework.boot.WebApplicationType;

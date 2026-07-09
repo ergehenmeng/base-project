@@ -1,14 +1,14 @@
 package com.eghm.interfaces.webapp.configuration.handler;
 
 
-import com.eghm.configuration.log.LogTraceHolder;
-import com.eghm.configuration.authentication.ApiHolder;
-import com.eghm.dto.ext.RequestMessage;
+import com.eghm.application.shared.configuration.log.LogTraceHolder;
+import com.eghm.application.shared.configuration.authentication.ApiHolder;
+import com.eghm.application.shared.dto.ext.RequestMessage;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.domain.system.model.WebappLog;
-import com.eghm.mq.service.MessageService;
-import com.eghm.utils.DataUtil;
-import com.eghm.utils.IpUtil;
+import com.eghm.application.shared.mq.service.MessageService;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.interfaces.core.utils.IpUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -43,7 +43,7 @@ public class WebappLogAspect {
      * @return aop方法调用结果对象
      * @throws Throwable 异常
      */
-    @Around("(!@annotation(com.eghm.annotation.SkipLogger)) && within(com.eghm.interfaces.webapp.controller..*)")
+    @Around("(!@annotation(com.eghm.application.shared.annotation.SkipLogger)) && within(com.eghm.interfaces.webapp.controller..*)")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes == null) {

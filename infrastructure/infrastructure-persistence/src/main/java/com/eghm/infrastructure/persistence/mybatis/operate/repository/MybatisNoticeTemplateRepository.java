@@ -4,7 +4,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.NoticeTemplateMapper;
 import com.eghm.domain.operate.model.NoticeTemplate;
 import com.eghm.domain.operate.repository.NoticeTemplateRepository;
 import com.eghm.infrastructure.persistence.mybatis.po.NoticeTemplatePO;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

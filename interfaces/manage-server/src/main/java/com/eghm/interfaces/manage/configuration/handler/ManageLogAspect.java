@@ -1,12 +1,12 @@
 package com.eghm.interfaces.manage.configuration.handler;
 
-import com.eghm.configuration.authentication.SecurityHolder;
-import com.eghm.dto.ext.UserToken;
+import com.eghm.application.shared.configuration.authentication.SecurityHolder;
+import com.eghm.application.shared.dto.ext.UserToken;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.domain.system.model.ManageLog;
-import com.eghm.mq.service.MessageService;
-import com.eghm.utils.IpUtil;
-import com.eghm.utils.WebUtil;
+import com.eghm.application.shared.mq.service.MessageService;
+import com.eghm.interfaces.core.utils.IpUtil;
+import com.eghm.interfaces.core.utils.WebUtil;
 import com.google.gson.Gson;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -46,7 +46,7 @@ public class ManageLogAspect {
      * @return aop方法调用结果对象
      * @throws Throwable 异常
      */
-    @Around("(!@annotation(com.eghm.annotation.SkipLogger)) && within(com.eghm.interfaces.manage.controller..*)")
+    @Around("(!@annotation(com.eghm.application.shared.annotation.SkipLogger)) && within(com.eghm.interfaces.manage.controller..*)")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes == null) {

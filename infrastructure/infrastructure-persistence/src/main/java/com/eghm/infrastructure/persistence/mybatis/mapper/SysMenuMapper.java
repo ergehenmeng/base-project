@@ -2,11 +2,11 @@ package com.eghm.infrastructure.persistence.mybatis.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.sys.menu.MenuQueryRequest;
+import com.eghm.application.shared.dto.sys.menu.MenuQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.po.SysMenuPO;
-import com.eghm.vo.sys.menu.MenuFullResponse;
-import com.eghm.vo.sys.menu.MenuResponse;
-import com.eghm.vo.sys.menu.MenuTreeResponse;
+import com.eghm.application.shared.vo.sys.menu.MenuFullResponse;
+import com.eghm.application.shared.vo.sys.menu.MenuResponse;
+import com.eghm.application.shared.vo.sys.menu.MenuTreeResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

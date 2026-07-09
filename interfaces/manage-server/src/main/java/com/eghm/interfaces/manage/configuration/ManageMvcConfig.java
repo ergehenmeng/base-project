@@ -1,12 +1,12 @@
 package com.eghm.interfaces.manage.configuration;
 
-import com.eghm.cache.CacheService;
-import com.eghm.common.CommonService;
-import com.eghm.common.UserTokenService;
-import com.eghm.configuration.ApplicationProperties;
-import com.eghm.configuration.WebMvcConfig;
-import com.eghm.configuration.data.permission.DataScopeAspect;
-import com.eghm.application.system.service.SysMenuService;
+import com.eghm.application.shared.cache.CacheService;
+import com.eghm.application.shared.common.CommonService;
+import com.eghm.application.shared.common.UserTokenService;
+import com.eghm.application.shared.configuration.ApplicationProperties;
+import com.eghm.interfaces.core.configuration.WebMvcConfig;
+import com.eghm.infrastructure.shared.configuration.data.permission.DataScopeAspect;
+import com.eghm.application.system.port.in.SysMenuService;
 import com.eghm.interfaces.manage.configuration.filter.AuthFilter;
 import com.eghm.interfaces.manage.configuration.interceptor.LockScreenInterceptor;
 import com.eghm.interfaces.manage.configuration.interceptor.PermInterceptor;

@@ -1,13 +1,13 @@
 package com.eghm.interfaces.manage.configuration.interceptor;
 
-import com.eghm.annotation.SkipPerm;
-import com.eghm.cache.CacheService;
-import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.configuration.authentication.SecurityHolder;
+import com.eghm.application.shared.annotation.SkipPerm;
+import com.eghm.application.shared.cache.CacheService;
+import com.eghm.interfaces.core.configuration.interceptor.InterceptorAdapter;
+import com.eghm.application.shared.configuration.authentication.SecurityHolder;
 import com.eghm.constants.CacheConstant;
-import com.eghm.dto.ext.UserToken;
+import com.eghm.application.shared.dto.ext.UserToken;
 import com.eghm.domain.shared.enums.ErrorCode;
-import com.eghm.utils.WebUtil;
+import com.eghm.interfaces.core.utils.WebUtil;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

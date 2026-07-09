@@ -4,7 +4,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.ImageLogMapper;
 import com.eghm.domain.operate.model.ImageLog;
 import com.eghm.domain.operate.repository.ImageLogRepository;
 import com.eghm.infrastructure.persistence.mybatis.po.ImageLogPO;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

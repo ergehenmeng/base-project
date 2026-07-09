@@ -6,7 +6,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.AuthConfigMapper;
 import com.eghm.domain.operate.model.AuthConfig;
 import com.eghm.domain.operate.repository.AuthConfigRepository;
 import com.eghm.infrastructure.persistence.mybatis.po.AuthConfigPO;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

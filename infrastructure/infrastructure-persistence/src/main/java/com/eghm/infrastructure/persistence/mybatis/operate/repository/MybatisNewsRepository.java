@@ -7,7 +7,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.NewsMapper;
 import com.eghm.domain.operate.model.News;
 import com.eghm.domain.operate.repository.NewsRepository;
 import com.eghm.infrastructure.persistence.mybatis.po.NewsPO;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

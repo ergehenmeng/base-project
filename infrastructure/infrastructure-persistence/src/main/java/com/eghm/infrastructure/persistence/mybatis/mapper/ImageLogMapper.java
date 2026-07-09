@@ -2,9 +2,9 @@ package com.eghm.infrastructure.persistence.mybatis.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.operate.image.ImageQueryRequest;
+import com.eghm.application.shared.dto.operate.image.ImageQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.po.ImageLogPO;
-import com.eghm.vo.operate.log.ImageLogResponse;
+import com.eghm.application.shared.vo.operate.log.ImageLogResponse;
 import org.apache.ibatis.annotations.Param;
 
 /**

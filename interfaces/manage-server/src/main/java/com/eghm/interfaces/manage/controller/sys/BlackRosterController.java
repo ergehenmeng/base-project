@@ -1,15 +1,15 @@
 package com.eghm.interfaces.manage.controller.sys;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.IdDTO;
-import com.eghm.dto.ext.PageData;
-import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.operate.roster.BlackRosterAddRequest;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.IdDTO;
+import com.eghm.application.shared.dto.ext.PageData;
+import com.eghm.application.shared.dto.ext.PagingQuery;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.operate.roster.BlackRosterAddRequest;
 import com.eghm.domain.system.model.BlackRoster;
-import com.eghm.application.system.service.BlackRosterService;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.sys.roster.BlackRosterResponse;
+import com.eghm.application.system.port.in.BlackRosterService;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.sys.roster.BlackRosterResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;

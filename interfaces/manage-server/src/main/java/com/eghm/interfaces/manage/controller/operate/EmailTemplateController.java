@@ -1,14 +1,14 @@
 package com.eghm.interfaces.manage.controller.operate;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.operate.email.EmailTemplateRequest;
-import com.eghm.dto.ext.PageData;
-import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.ext.RespBody;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.operate.email.EmailTemplateRequest;
+import com.eghm.application.shared.dto.ext.PageData;
+import com.eghm.application.shared.dto.ext.PagingQuery;
+import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.domain.operate.model.EmailTemplate;
-import com.eghm.application.operate.service.EmailTemplateService;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.operate.template.EmailTemplateResponse;
+import com.eghm.application.operate.port.in.EmailTemplateService;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.operate.template.EmailTemplateResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;

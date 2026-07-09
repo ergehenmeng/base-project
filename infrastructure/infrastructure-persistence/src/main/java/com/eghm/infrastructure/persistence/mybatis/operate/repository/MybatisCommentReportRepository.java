@@ -7,7 +7,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.CommentReportMapper;
 import com.eghm.domain.operate.model.CommentReport;
 import com.eghm.domain.operate.repository.CommentReportRepository;
 import com.eghm.infrastructure.persistence.mybatis.po.CommentReportPO;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

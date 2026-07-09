@@ -1,12 +1,12 @@
 package com.eghm.interfaces.manage.controller.sys;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.ext.PageData;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.sys.config.ConfigEditRequest;
-import com.eghm.dto.sys.config.ConfigQueryRequest;
-import com.eghm.application.system.service.SysConfigService;
-import com.eghm.vo.sys.ext.SysConfigResponse;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.PageData;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.sys.config.ConfigEditRequest;
+import com.eghm.application.shared.dto.sys.config.ConfigQueryRequest;
+import com.eghm.application.system.port.in.SysConfigService;
+import com.eghm.application.shared.vo.sys.ext.SysConfigResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;

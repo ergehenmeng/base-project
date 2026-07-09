@@ -1,27 +1,27 @@
 package com.eghm.application.member.service.impl;
 
 import cn.hutool.crypto.SecureUtil;
-import com.eghm.cache.CacheService;
-import com.eghm.common.EmailService;
-import com.eghm.common.SmsService;
-import com.eghm.configuration.encoder.Encoder;
+import com.eghm.application.shared.cache.CacheService;
+import com.eghm.application.shared.common.EmailService;
+import com.eghm.application.shared.common.SmsService;
+import com.eghm.application.shared.configuration.encoder.Encoder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.domain.member.model.Member;
 import com.eghm.domain.member.repository.MemberRepository;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.enums.TemplateType;
 import com.eghm.domain.shared.exception.BusinessException;
-import com.eghm.dto.business.member.BindEmailDTO;
-import com.eghm.dto.business.member.ChangeEmailDTO;
-import com.eghm.dto.business.member.MemberDTO;
-import com.eghm.dto.business.member.SendEmailAuthCodeDTO;
-import com.eghm.dto.ext.VerifyEmailCode;
-import com.eghm.dto.operate.email.SendEmail;
+import com.eghm.application.shared.dto.business.member.BindEmailDTO;
+import com.eghm.application.shared.dto.business.member.ChangeEmailDTO;
+import com.eghm.application.shared.dto.business.member.MemberDTO;
+import com.eghm.application.shared.dto.business.member.SendEmailAuthCodeDTO;
+import com.eghm.application.shared.dto.ext.VerifyEmailCode;
+import com.eghm.application.shared.dto.operate.email.SendEmail;
 import com.eghm.enums.EmailType;
-import com.eghm.application.member.service.MemberProfileService;
-import com.eghm.utils.DataUtil;
-import com.eghm.utils.StringUtil;
-import com.eghm.vo.business.member.MemberVO;
+import com.eghm.application.member.port.in.MemberProfileService;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.utils.StringUtil;
+import com.eghm.application.shared.vo.business.member.MemberVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-import static com.eghm.utils.StringUtil.isBlank;
+import static com.eghm.application.shared.utils.StringUtil.isBlank;
 
 /**
  * 会员资料服务实现

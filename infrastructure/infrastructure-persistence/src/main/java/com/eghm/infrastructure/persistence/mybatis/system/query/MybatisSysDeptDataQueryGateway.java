@@ -1,7 +1,7 @@
 package com.eghm.infrastructure.persistence.mybatis.system.query;
 
 import com.eghm.infrastructure.persistence.mybatis.mapper.SysDeptDataMapper;
-import com.eghm.application.system.service.SysDeptDataQueryGateway;
+import com.eghm.application.system.port.out.SysDeptDataQueryGateway;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

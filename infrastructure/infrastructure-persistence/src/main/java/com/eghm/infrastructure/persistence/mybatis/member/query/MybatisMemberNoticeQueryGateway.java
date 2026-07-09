@@ -1,13 +1,13 @@
 package com.eghm.infrastructure.persistence.mybatis.member.query;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
 import com.eghm.infrastructure.persistence.mybatis.mapper.MemberNoticeMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.MemberNoticePO;
-import com.eghm.application.member.service.MemberNoticeQueryGateway;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.business.member.MemberNoticeVO;
+import com.eghm.application.member.port.out.MemberNoticeQueryGateway;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.business.member.MemberNoticeVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

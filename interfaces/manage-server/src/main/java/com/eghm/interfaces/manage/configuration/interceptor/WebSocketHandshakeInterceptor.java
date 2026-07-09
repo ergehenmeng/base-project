@@ -1,7 +1,7 @@
 package com.eghm.interfaces.manage.configuration.interceptor;
 
-import com.eghm.common.UserTokenService;
-import com.eghm.dto.ext.UserToken;
+import com.eghm.application.shared.common.UserTokenService;
+import com.eghm.application.shared.dto.ext.UserToken;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;

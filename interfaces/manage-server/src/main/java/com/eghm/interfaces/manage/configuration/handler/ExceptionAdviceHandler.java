@@ -2,11 +2,11 @@ package com.eghm.interfaces.manage.configuration.handler;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
 import com.eghm.domain.shared.service.AlarmService;
-import com.eghm.dto.ext.RespBody;
+import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.shared.exception.ParameterException;
-import com.eghm.utils.WebUtil;
+import com.eghm.interfaces.core.utils.WebUtil;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
 import jakarta.servlet.http.HttpServletRequest;

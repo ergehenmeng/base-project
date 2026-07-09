@@ -1,15 +1,15 @@
 package com.eghm.application.system.service.impl;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.configuration.config.ConfigRegistry;
-import com.eghm.dto.sys.config.ConfigEditRequest;
-import com.eghm.dto.sys.config.ConfigQueryRequest;
-import com.eghm.application.system.service.SysConfigQueryGateway;
-import com.eghm.application.system.service.SysConfigService;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.configuration.config.ConfigRegistry;
+import com.eghm.application.shared.dto.sys.config.ConfigEditRequest;
+import com.eghm.application.shared.dto.sys.config.ConfigQueryRequest;
+import com.eghm.application.system.port.out.SysConfigQueryGateway;
+import com.eghm.application.system.port.in.SysConfigService;
 import com.eghm.domain.system.model.SysConfig;
 import com.eghm.domain.system.repository.SysConfigRepository;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.sys.ext.SysConfigResponse;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.sys.ext.SysConfigResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,13 +1,13 @@
 package com.eghm.infrastructure.persistence.mybatis.system.query;
 
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
-import com.eghm.dto.sys.menu.MenuQueryRequest;
+import com.eghm.application.shared.dto.sys.menu.MenuQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.mapper.SysMenuMapper;
-import com.eghm.application.system.service.SysMenuQueryGateway;
-import com.eghm.vo.sys.menu.MenuFullResponse;
-import com.eghm.vo.sys.menu.MenuResponse;
-import com.eghm.vo.sys.menu.MenuTreeResponse;
+import com.eghm.application.system.port.out.SysMenuQueryGateway;
+import com.eghm.application.shared.vo.sys.menu.MenuFullResponse;
+import com.eghm.application.shared.vo.sys.menu.MenuResponse;
+import com.eghm.application.shared.vo.sys.menu.MenuTreeResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

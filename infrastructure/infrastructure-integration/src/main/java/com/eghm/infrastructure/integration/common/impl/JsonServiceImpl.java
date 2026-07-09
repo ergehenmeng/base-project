@@ -3,7 +3,7 @@ package com.eghm.infrastructure.integration.common.impl;
 import com.eghm.domain.shared.service.JsonService;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.ParameterException;
-import com.eghm.utils.StringUtil;
+import com.eghm.application.shared.utils.StringUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.eghm.utils.StringUtil.isBlank;
+import static com.eghm.application.shared.utils.StringUtil.isBlank;
 
 /**
  * @author 殿小二

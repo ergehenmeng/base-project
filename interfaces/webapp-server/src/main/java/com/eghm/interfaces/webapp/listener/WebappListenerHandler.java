@@ -1,15 +1,15 @@
 package com.eghm.interfaces.webapp.listener;
 
-import com.eghm.cache.CacheService;
+import com.eghm.application.shared.cache.CacheService;
 import com.eghm.domain.shared.service.AlarmService;
 import com.eghm.domain.shared.service.JsonService;
 import com.eghm.constants.QueueConstant;
-import com.eghm.dto.ext.LoginRecord;
+import com.eghm.application.shared.dto.ext.LoginRecord;
 import com.eghm.domain.system.model.WebappLog;
 import com.eghm.mq.listener.AbstractListenerHandler;
-import com.eghm.application.member.service.LoginService;
-import com.eghm.application.operate.service.SensitiveWordService;
-import com.eghm.application.system.service.WebappLogService;
+import com.eghm.application.member.port.in.LoginService;
+import com.eghm.application.operate.port.in.SensitiveWordService;
+import com.eghm.application.system.port.in.WebappLogService;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;

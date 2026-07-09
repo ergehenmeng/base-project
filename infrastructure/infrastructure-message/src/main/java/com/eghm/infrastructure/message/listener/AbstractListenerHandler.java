@@ -1,11 +1,11 @@
 package com.eghm.infrastructure.message.listener;
 
-import com.eghm.cache.CacheService;
+import com.eghm.application.shared.cache.CacheService;
 import com.eghm.domain.shared.service.AlarmService;
 import com.eghm.domain.shared.service.JsonService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.constants.CommonConstant;
-import com.eghm.dto.ext.AsyncKey;
+import com.eghm.application.shared.dto.ext.AsyncKey;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.rabbitmq.client.Channel;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.function.Consumer;
 
 import static com.eghm.constants.CacheConstant.ERROR_PLACE_HOLDER;
 import static com.eghm.constants.CacheConstant.SUCCESS_PLACE_HOLDER;
-import static com.eghm.utils.StringUtil.isBlank;
+import static com.eghm.application.shared.utils.StringUtil.isBlank;
 
 /**
  * 抽象的监听器rabbit处理类

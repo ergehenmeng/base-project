@@ -3,9 +3,9 @@ package com.eghm.infrastructure.persistence.mybatis.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.sys.user.UserQueryRequest;
+import com.eghm.application.shared.dto.sys.user.UserQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.po.SysUserPO;
-import com.eghm.vo.sys.user.UserResponse;
+import com.eghm.application.shared.vo.sys.user.UserResponse;
 import org.apache.ibatis.annotations.Param;
 
 /**

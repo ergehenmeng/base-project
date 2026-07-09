@@ -3,15 +3,15 @@ package com.eghm.interfaces.webapp.configuration.interceptor;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.digest.HMac;
-import com.eghm.cache.CacheProxyService;
-import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.configuration.authentication.ApiHolder;
+import com.eghm.application.shared.cache.CacheProxyService;
+import com.eghm.interfaces.core.configuration.interceptor.InterceptorAdapter;
+import com.eghm.application.shared.configuration.authentication.ApiHolder;
 import com.eghm.constants.CommonConstant;
-import com.eghm.dto.ext.RequestMessage;
+import com.eghm.application.shared.dto.ext.RequestMessage;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
-import com.eghm.utils.WebUtil;
-import com.eghm.vo.operate.auth.AuthConfigVO;
+import com.eghm.interfaces.core.utils.WebUtil;
+import com.eghm.application.shared.vo.operate.auth.AuthConfigVO;
 import com.eghm.interfaces.webapp.annotation.ApiSign;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
-import static com.eghm.utils.StringUtil.isBlank;
+import static com.eghm.application.shared.utils.StringUtil.isBlank;
 
 /**
  *  原签名方式为 MD5 + RSA, 但由于MD5太过于简单, RSA需要把私钥给第三方,不符合RSA规范, 又不想让第三方提供公钥, 因此采用HMAC-SHA256签名

@@ -1,11 +1,11 @@
 package com.eghm.infrastructure.persistence.mybatis.system.query;
 
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
-import com.eghm.dto.sys.log.WebappQueryRequest;
+import com.eghm.application.shared.dto.sys.log.WebappQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.mapper.WebappLogMapper;
-import com.eghm.application.system.service.WebappLogQueryGateway;
-import com.eghm.vo.operate.log.WebappLogResponse;
+import com.eghm.application.system.port.out.WebappLogQueryGateway;
+import com.eghm.application.shared.vo.operate.log.WebappLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

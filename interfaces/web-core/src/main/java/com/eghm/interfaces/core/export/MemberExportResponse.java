@@ -2,8 +2,8 @@ package com.eghm.interfaces.core.export;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
-import com.eghm.convertor.excel.EnumExcelConverter;
-import com.eghm.dto.ext.ExcelStyle;
+import com.eghm.interfaces.core.convertor.excel.EnumExcelConverter;
+import com.eghm.interfaces.core.dto.ext.ExcelStyle;
 import com.eghm.domain.shared.enums.Gender;
 import com.eghm.domain.shared.enums.MemberState;
 import lombok.Data;

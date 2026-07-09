@@ -4,7 +4,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.FeedbackLogMapper;
 import com.eghm.domain.operate.model.FeedbackLog;
 import com.eghm.domain.operate.repository.FeedbackLogRepository;
 import com.eghm.infrastructure.persistence.mybatis.po.FeedbackLogPO;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

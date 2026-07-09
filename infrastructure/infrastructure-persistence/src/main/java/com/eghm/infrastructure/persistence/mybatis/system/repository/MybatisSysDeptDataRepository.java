@@ -6,7 +6,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.SysDeptDataMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.SysDeptDataPO;
 import com.eghm.domain.system.model.SysDeptData;
 import com.eghm.domain.system.repository.SysDeptDataRepository;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

@@ -1,15 +1,15 @@
 package com.eghm.interfaces.manage.controller.operate;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.IdDTO;
-import com.eghm.dto.ext.PageData;
-import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.operate.sensitive.KeywordDTO;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.IdDTO;
+import com.eghm.application.shared.dto.ext.PageData;
+import com.eghm.application.shared.dto.ext.PagingQuery;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.operate.sensitive.KeywordDTO;
 import com.eghm.domain.operate.model.SensitiveWord;
-import com.eghm.application.operate.service.SensitiveWordService;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.operate.sensitive.SensitiveWordResponse;
+import com.eghm.application.operate.port.in.SensitiveWordService;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.operate.sensitive.SensitiveWordResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;

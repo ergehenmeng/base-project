@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.infrastructure.persistence.mybatis.mapper.CommentReportMapper">
 
-    <select id="getByPage" resultType="com.eghm.vo.operate.comment.CommentReportResponse" parameterType="com.eghm.dto.operate.comment.CommentReportQueryRequest">
+    <select id="getByPage" resultType="com.eghm.application.shared.vo.operate.comment.CommentReportResponse" parameterType="com.eghm.application.shared.dto.operate.comment.CommentReportQueryRequest">
         select m.nick_name, c.content as commentContent, t.object_type, t.report_type, t.content, t.create_time
         from comment_report t
         left join `member` m on t.member_id = m.id

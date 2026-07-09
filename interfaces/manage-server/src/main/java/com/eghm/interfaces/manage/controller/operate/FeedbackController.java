@@ -1,14 +1,14 @@
 package com.eghm.interfaces.manage.controller.operate;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.configuration.authentication.SecurityHolder;
-import com.eghm.dto.ext.PageData;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.ext.UserToken;
-import com.eghm.dto.operate.feedback.FeedbackDisposeRequest;
-import com.eghm.dto.operate.feedback.FeedbackQueryRequest;
-import com.eghm.application.operate.service.FeedbackService;
-import com.eghm.vo.operate.feedback.FeedbackResponse;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.configuration.authentication.SecurityHolder;
+import com.eghm.application.shared.dto.ext.PageData;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.ext.UserToken;
+import com.eghm.application.shared.dto.operate.feedback.FeedbackDisposeRequest;
+import com.eghm.application.shared.dto.operate.feedback.FeedbackQueryRequest;
+import com.eghm.application.operate.port.in.FeedbackService;
+import com.eghm.application.shared.vo.operate.feedback.FeedbackResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;

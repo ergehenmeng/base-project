@@ -1,14 +1,14 @@
 package com.eghm.interfaces.manage.controller.operate;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.ext.PageData;
-import com.eghm.dto.ext.PagingQuery;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.operate.template.NoticeTemplateRequest;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.PageData;
+import com.eghm.application.shared.dto.ext.PagingQuery;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.operate.template.NoticeTemplateRequest;
 import com.eghm.domain.operate.model.NoticeTemplate;
-import com.eghm.application.operate.service.NoticeTemplateService;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.operate.template.NoticeTemplateResponse;
+import com.eghm.application.operate.port.in.NoticeTemplateService;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.operate.template.NoticeTemplateResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;

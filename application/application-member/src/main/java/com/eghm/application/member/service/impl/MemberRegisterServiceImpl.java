@@ -1,9 +1,9 @@
 package com.eghm.application.member.service.impl;
 
 import cn.hutool.crypto.SecureUtil;
-import com.eghm.common.SmsService;
-import com.eghm.common.impl.SysConfigApi;
-import com.eghm.configuration.encoder.Encoder;
+import com.eghm.application.shared.common.SmsService;
+import com.eghm.application.shared.common.impl.SysConfigApi;
+import com.eghm.application.shared.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.domain.member.model.Member;
 import com.eghm.domain.member.repository.MemberRepository;
@@ -13,18 +13,18 @@ import com.eghm.domain.shared.enums.TemplateType;
 import com.eghm.domain.member.event.MemberRegisteredEvent;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.shared.service.IdGenerator;
-import com.eghm.dto.ext.MemberRegister;
-import com.eghm.dto.sys.register.AccountRegisterDTO;
-import com.eghm.dto.sys.register.MobileRegisterDTO;
-import com.eghm.application.member.service.MemberAuthService;
-import com.eghm.application.member.service.MemberRegisterService;
-import com.eghm.utils.DataUtil;
-import com.eghm.utils.DateUtil;
-import com.eghm.utils.StringUtil;
-import com.eghm.vo.login.LoginTokenVO;
-import com.eghm.wechat.WeChatMiniService;
-import com.eghm.wechat.WeChatMpService;
-import com.eghm.wechat.dto.MpUserInfo;
+import com.eghm.application.shared.dto.ext.MemberRegister;
+import com.eghm.application.shared.dto.sys.register.AccountRegisterDTO;
+import com.eghm.application.shared.dto.sys.register.MobileRegisterDTO;
+import com.eghm.application.member.port.in.MemberAuthService;
+import com.eghm.application.member.port.in.MemberRegisterService;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.utils.DateUtil;
+import com.eghm.application.shared.utils.StringUtil;
+import com.eghm.application.shared.vo.login.LoginTokenVO;
+import com.eghm.application.shared.wechat.WeChatMiniService;
+import com.eghm.application.shared.wechat.WeChatMpService;
+import com.eghm.application.shared.wechat.dto.MpUserInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -32,7 +32,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
-import static com.eghm.utils.StringUtil.isBlank;
+import static com.eghm.application.shared.utils.StringUtil.isBlank;
 
 /**
  * 会员注册服务实现

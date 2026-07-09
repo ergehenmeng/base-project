@@ -6,7 +6,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.FamilyMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.FamilyPO;
 import com.eghm.domain.system.model.Family;
 import com.eghm.domain.system.repository.FamilyRepository;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

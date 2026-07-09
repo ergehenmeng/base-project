@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.infrastructure.persistence.mybatis.mapper.AuthConfigMapper">
 
-    <select id="getByPage" resultType="com.eghm.vo.operate.auth.AuthConfigResponse" >
+    <select id="getByPage" resultType="com.eghm.application.shared.vo.operate.auth.AuthConfigResponse" >
         select id, app_id, email, title, remark, create_time, update_time, expire_date
         from auth_config where deleted = false
         <if test="queryName != null and queryName != ''">
@@ -11,7 +11,7 @@
         order by id desc
     </select>
 
-    <select id="getByAppId" resultType="com.eghm.vo.operate.auth.AuthConfigVO">
+    <select id="getByAppId" resultType="com.eghm.application.shared.vo.operate.auth.AuthConfigVO">
         select app_id, app_secret, expire_date from auth_config where app_id = #{appId} limit 1
     </select>
 

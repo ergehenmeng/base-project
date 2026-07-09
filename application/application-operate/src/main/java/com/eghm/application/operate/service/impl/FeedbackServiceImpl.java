@@ -1,25 +1,25 @@
 package com.eghm.application.operate.service.impl;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.ext.SendNotice;
-import com.eghm.dto.operate.feedback.FeedbackAddDTO;
-import com.eghm.dto.operate.feedback.FeedbackDisposeRequest;
-import com.eghm.dto.operate.feedback.FeedbackQueryRequest;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.SendNotice;
+import com.eghm.application.shared.dto.operate.feedback.FeedbackAddDTO;
+import com.eghm.application.shared.dto.operate.feedback.FeedbackDisposeRequest;
+import com.eghm.application.shared.dto.operate.feedback.FeedbackQueryRequest;
 import com.eghm.domain.shared.enums.MessageType;
 import com.eghm.domain.operate.model.FeedbackLog;
 import com.eghm.domain.operate.repository.FeedbackLogRepository;
-import com.eghm.application.member.service.MemberNoticeService;
-import com.eghm.application.operate.service.FeedbackQueryGateway;
-import com.eghm.application.operate.service.FeedbackService;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.operate.feedback.FeedbackResponse;
+import com.eghm.application.member.port.in.MemberNoticeService;
+import com.eghm.application.operate.port.out.FeedbackQueryGateway;
+import com.eghm.application.operate.port.in.FeedbackService;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.operate.feedback.FeedbackResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.eghm.utils.StringUtil.maxLength;
+import static com.eghm.application.shared.utils.StringUtil.maxLength;
 
 /**
  * @author 二哥很猛

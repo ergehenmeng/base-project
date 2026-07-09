@@ -1,6 +1,6 @@
 package com.eghm.application.member.service.impl;
 
-import com.eghm.cache.CacheService;
+import com.eghm.application.shared.cache.CacheService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.domain.member.model.Member;
 import com.eghm.domain.member.model.MemberScoreLog;
@@ -8,9 +8,9 @@ import com.eghm.domain.member.repository.MemberRepository;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.enums.ScoreType;
 import com.eghm.domain.shared.exception.BusinessException;
-import com.eghm.application.member.service.MemberScoreLogService;
-import com.eghm.application.member.service.MemberScoreService;
-import com.eghm.vo.business.member.SignInVO;
+import com.eghm.application.member.port.in.MemberScoreLogService;
+import com.eghm.application.member.port.in.MemberScoreService;
+import com.eghm.application.shared.vo.business.member.SignInVO;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,6 @@
 package com.eghm.infrastructure.cache.impl;
 
-import com.eghm.cache.CacheProxyService;
+import com.eghm.application.shared.cache.CacheProxyService;
 import com.eghm.constants.CacheConstant;
 import com.eghm.domain.shared.enums.Channel;
 import com.eghm.enums.EmailType;
@@ -23,11 +23,11 @@ import com.eghm.infrastructure.persistence.mybatis.po.SysNoticePO;
 import com.eghm.domain.system.model.SysArea;
 import com.eghm.domain.system.model.SysDictItem;
 import com.eghm.domain.operate.model.SysNotice;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.infrastructure.persistence.mybatis.util.MybatisUtil;
-import com.eghm.vo.operate.auth.AuthConfigVO;
-import com.eghm.vo.operate.banner.BannerVO;
-import com.eghm.vo.sys.ext.SysAreaVO;
+import com.eghm.application.shared.vo.operate.auth.AuthConfigVO;
+import com.eghm.application.shared.vo.operate.banner.BannerVO;
+import com.eghm.application.shared.vo.sys.ext.SysAreaVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;

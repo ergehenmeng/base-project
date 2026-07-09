@@ -1,0 +1,63 @@
+package com.eghm.application.shared.validation.annotation;
+
+import com.eghm.application.shared.validation.OptionByteDefine;
+
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
+import jakarta.validation.ReportAsSingleViolation;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+/**
+ * Byte字段校验
+ *
+ * @author 二哥很猛
+ * @since 2019/8/19 11:29
+ */
+@Documented
+@Retention(RUNTIME)
+@ReportAsSingleViolation
+@Constraint(validatedBy = OptionByteDefine.class)
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
+public @interface OptionByte {
+
+    /**
+     * 错误信息 必须包含该属性
+     *
+     * @return 错误信息
+     */
+    String message() default "非法参数";
+
+    /**
+     * 取值列表
+     *
+     * @return 列表
+     */
+    byte[] value() default {};
+
+    /**
+     * 是否必填
+     *
+     * @return 默认非必填
+     */
+    boolean required() default true;
+
+    /**
+     * 自定义校验必须包含该属性
+     *
+     * @return 自定义校验必须包含该属性
+     */
+    Class<?>[] groups() default {};
+
+    /**
+     * 自定义校验必须包含该属性
+     *
+     * @return 自定义校验必须包含该属性
+     */
+    Class<? extends Payload>[] payload() default {};
+}

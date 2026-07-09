@@ -1,8 +1,8 @@
 package com.eghm.infrastructure.persistence.mybatis.system.query;
 
-import com.eghm.configuration.task.config.OnceScheduleBean;
-import com.eghm.configuration.task.config.TaskRegistrar;
-import com.eghm.application.system.service.SysTaskScheduleGateway;
+import com.eghm.infrastructure.shared.configuration.task.config.OnceScheduleBean;
+import com.eghm.infrastructure.shared.configuration.task.config.TaskRegistrar;
+import com.eghm.application.system.port.out.SysTaskScheduleGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

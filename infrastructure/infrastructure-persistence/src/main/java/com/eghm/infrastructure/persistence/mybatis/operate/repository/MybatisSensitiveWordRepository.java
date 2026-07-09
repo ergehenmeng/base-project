@@ -4,7 +4,7 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.SensitiveWordMapper;
 import com.eghm.domain.operate.model.SensitiveWord;
 import com.eghm.domain.operate.repository.SensitiveWordRepository;
 import com.eghm.infrastructure.persistence.mybatis.po.SensitiveWordPO;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.infrastructure.persistence.mybatis.util.MybatisUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;

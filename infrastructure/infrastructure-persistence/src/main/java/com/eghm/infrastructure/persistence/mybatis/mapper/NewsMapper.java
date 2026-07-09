@@ -2,10 +2,10 @@ package com.eghm.infrastructure.persistence.mybatis.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.business.news.NewsQueryRequest;
+import com.eghm.application.shared.dto.business.news.NewsQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.po.NewsPO;
-import com.eghm.vo.business.news.NewsResponse;
-import com.eghm.vo.business.news.NewsVO;
+import com.eghm.application.shared.vo.business.news.NewsResponse;
+import com.eghm.application.shared.vo.business.news.NewsVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

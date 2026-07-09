@@ -4,18 +4,18 @@ import cn.hutool.core.lang.PatternPool;
 import cn.hutool.core.net.Ipv4Util;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
-import com.eghm.dto.ext.PagingQuery;
+import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.infrastructure.persistence.mybatis.mapper.BlackRosterMapper;
 import com.eghm.infrastructure.persistence.mybatis.po.BlackRosterPO;
-import com.eghm.application.system.service.BlackRosterQueryGateway;
+import com.eghm.application.system.port.out.BlackRosterQueryGateway;
 import com.eghm.domain.system.model.BlackRoster;
-import com.eghm.utils.DataUtil;
+import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import static com.eghm.utils.StringUtil.isNotBlank;
+import static com.eghm.application.shared.utils.StringUtil.isNotBlank;
 
 /**
  * MyBatis黑名单查询网关实现

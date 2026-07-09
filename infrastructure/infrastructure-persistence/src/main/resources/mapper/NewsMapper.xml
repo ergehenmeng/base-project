@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.infrastructure.persistence.mybatis.mapper.NewsMapper">
 
-    <select id="listPage" resultType="com.eghm.vo.business.news.NewsResponse" parameterType="com.eghm.dto.business.news.NewsQueryRequest">
+    <select id="listPage" resultType="com.eghm.application.shared.vo.business.news.NewsResponse" parameterType="com.eghm.application.shared.dto.business.news.NewsQueryRequest">
         select
             id,
             title,
@@ -22,7 +22,7 @@
         order by sort, id desc
     </select>
 
-    <select id="getByPage" resultType="com.eghm.vo.business.news.NewsVO">
+    <select id="getByPage" resultType="com.eghm.application.shared.vo.business.news.NewsVO">
         select  id, title, depict, tag_name, image, praise_num, update_time
         from news where deleted = false
         <if test="queryName != null and queryName != ''">
@@ -35,7 +35,7 @@
         update news set praise_num = praise_num + #{praiseNum} where id = #{id}
     </update>
 
-    <select id="getList" resultType="com.eghm.vo.business.news.NewsVO">
+    <select id="getList" resultType="com.eghm.application.shared.vo.business.news.NewsVO">
         select
             id,
             title,

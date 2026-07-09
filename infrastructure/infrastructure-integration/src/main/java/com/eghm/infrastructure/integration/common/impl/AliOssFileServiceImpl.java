@@ -3,20 +3,20 @@ package com.eghm.infrastructure.integration.common.impl;
 import cn.hutool.core.lang.UUID;
 import com.aliyun.oss.OSS;
 import com.eghm.domain.shared.service.AlarmService;
-import com.eghm.common.FileService;
-import com.eghm.configuration.ApplicationProperties;
+import com.eghm.application.shared.common.FileService;
+import com.eghm.application.shared.configuration.ApplicationProperties;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.ext.FilePath;
-import com.eghm.dto.ext.UploadFile;
+import com.eghm.application.shared.dto.ext.FilePath;
+import com.eghm.application.shared.dto.ext.UploadFile;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
-import com.eghm.utils.CacheUtil;
+import com.eghm.application.shared.utils.CacheUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.InputStream;
 
-import static com.eghm.constants.InfraConstant.DAY_MAX_UPLOAD;
+import static com.eghm.infrastructure.shared.constants.InfraConstant.DAY_MAX_UPLOAD;
 
 /**
  * @author 二哥很猛

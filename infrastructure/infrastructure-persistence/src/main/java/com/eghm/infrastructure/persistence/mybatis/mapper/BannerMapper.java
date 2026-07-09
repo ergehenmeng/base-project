@@ -2,10 +2,10 @@ package com.eghm.infrastructure.persistence.mybatis.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.operate.banner.BannerQueryRequest;
+import com.eghm.application.shared.dto.operate.banner.BannerQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.po.BannerPO;
-import com.eghm.vo.operate.banner.BannerResponse;
-import com.eghm.vo.operate.banner.BannerVO;
+import com.eghm.application.shared.vo.operate.banner.BannerResponse;
+import com.eghm.application.shared.vo.operate.banner.BannerVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

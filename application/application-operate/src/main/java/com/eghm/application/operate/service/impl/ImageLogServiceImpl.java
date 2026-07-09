@@ -1,15 +1,15 @@
 package com.eghm.application.operate.service.impl;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.operate.image.ImageAddRequest;
-import com.eghm.dto.operate.image.ImageEditRequest;
-import com.eghm.dto.operate.image.ImageQueryRequest;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.operate.image.ImageAddRequest;
+import com.eghm.application.shared.dto.operate.image.ImageEditRequest;
+import com.eghm.application.shared.dto.operate.image.ImageQueryRequest;
 import com.eghm.domain.operate.model.ImageLog;
 import com.eghm.domain.operate.repository.ImageLogRepository;
-import com.eghm.application.operate.service.ImageLogQueryGateway;
-import com.eghm.application.operate.service.ImageLogService;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.operate.log.ImageLogResponse;
+import com.eghm.application.operate.port.out.ImageLogQueryGateway;
+import com.eghm.application.operate.port.in.ImageLogService;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.operate.log.ImageLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

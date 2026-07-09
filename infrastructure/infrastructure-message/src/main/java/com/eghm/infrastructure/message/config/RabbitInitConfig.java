@@ -1,10 +1,10 @@
 package com.eghm.infrastructure.message.config;
 
 import com.eghm.domain.shared.service.AlarmService;
-import com.eghm.configuration.log.LogTraceHolder;
+import com.eghm.application.shared.configuration.log.LogTraceHolder;
 import com.eghm.constants.CommonConstant;
 import com.eghm.enums.ExchangeQueue;
-import com.eghm.utils.LoggerUtil;
+import com.eghm.application.shared.utils.LoggerUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;

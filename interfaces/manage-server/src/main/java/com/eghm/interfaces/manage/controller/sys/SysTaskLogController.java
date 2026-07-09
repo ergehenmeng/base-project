@@ -1,12 +1,12 @@
 package com.eghm.interfaces.manage.controller.sys;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.IdDTO;
-import com.eghm.dto.ext.PageData;
-import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.sys.task.TaskLogQueryRequest;
-import com.eghm.application.system.service.SysTaskLogService;
-import com.eghm.vo.operate.log.SysTaskLogResponse;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.IdDTO;
+import com.eghm.application.shared.dto.ext.PageData;
+import com.eghm.application.shared.dto.ext.RespBody;
+import com.eghm.application.shared.dto.sys.task.TaskLogQueryRequest;
+import com.eghm.application.system.port.in.SysTaskLogService;
+import com.eghm.application.shared.vo.operate.log.SysTaskLogResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;

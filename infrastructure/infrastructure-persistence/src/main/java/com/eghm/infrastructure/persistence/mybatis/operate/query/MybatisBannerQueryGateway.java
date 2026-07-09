@@ -1,11 +1,11 @@
 package com.eghm.infrastructure.persistence.mybatis.operate.query;
 
-import com.eghm.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
-import com.eghm.dto.operate.banner.BannerQueryRequest;
+import com.eghm.application.shared.dto.operate.banner.BannerQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.mapper.BannerMapper;
-import com.eghm.application.operate.service.BannerQueryGateway;
-import com.eghm.vo.operate.banner.BannerResponse;
+import com.eghm.application.operate.port.out.BannerQueryGateway;
+import com.eghm.application.shared.vo.operate.banner.BannerResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

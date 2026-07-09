@@ -1,16 +1,16 @@
 package com.eghm.application.operate.service.impl;
 
-import com.eghm.dto.ext.Page;
-import com.eghm.dto.operate.comment.CommentReportDTO;
-import com.eghm.dto.operate.comment.CommentReportQueryRequest;
+import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.operate.comment.CommentReportDTO;
+import com.eghm.application.shared.dto.operate.comment.CommentReportQueryRequest;
 import com.eghm.domain.operate.model.Comment;
 import com.eghm.domain.operate.model.CommentReport;
 import com.eghm.domain.operate.repository.CommentReportRepository;
 import com.eghm.domain.operate.repository.CommentRepository;
-import com.eghm.application.operate.service.CommentReportQueryGateway;
-import com.eghm.application.operate.service.CommentReportService;
-import com.eghm.utils.DataUtil;
-import com.eghm.vo.operate.comment.CommentReportResponse;
+import com.eghm.application.operate.port.out.CommentReportQueryGateway;
+import com.eghm.application.operate.port.in.CommentReportService;
+import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.operate.comment.CommentReportResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

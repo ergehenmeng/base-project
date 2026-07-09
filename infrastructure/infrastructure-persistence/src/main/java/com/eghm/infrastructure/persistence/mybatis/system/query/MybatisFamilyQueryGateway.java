@@ -1,8 +1,8 @@
 package com.eghm.infrastructure.persistence.mybatis.system.query;
 
 import com.eghm.infrastructure.persistence.mybatis.mapper.FamilyMapper;
-import com.eghm.application.system.service.FamilyQueryGateway;
-import com.eghm.vo.sys.family.FamilyResponse;
+import com.eghm.application.system.port.out.FamilyQueryGateway;
+import com.eghm.application.shared.vo.sys.family.FamilyResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
