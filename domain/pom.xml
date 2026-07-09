@@ -10,16 +10,13 @@
 
     <artifactId>domain</artifactId>
     <name>domain</name>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.eghm</groupId>
-            <artifactId>common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>domain-shared</module>
+        <module>domain-system</module>
+        <module>domain-member</module>
+        <module>domain-operate</module>
+        <module>domain-payment</module>
+    </modules>
 </project>

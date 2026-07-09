@@ -1,0 +1,54 @@
+package com.eghm.domain.system.model;
+
+import com.eghm.domain.shared.enums.TemplateType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+
+/**
+ * 短信发送记录表
+ *
+ * @author 二哥很猛
+ */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class SmsLog {
+    /** id主键 */
+    private Long id;
+
+    /** 添加时间 */
+    private LocalDateTime createTime;
+
+    /** 短信分类 */
+    private TemplateType templateType;
+
+    /** 手机号 */
+    private String mobile;
+
+    /** 短信内容 */
+    private String content;
+
+    /** 发送状态 0:失败 1:已发送 */
+    private Integer state;
+
+    public void initialize(TemplateType templateType, String mobile, String content) {
+        this.templateType = templateType;
+        this.mobile = mobile;
+        this.content = content;
+        this.createTime = LocalDateTime.now();
+        this.state = 1;
+    }
+
+    public void markFailed() {
+        this.state = 0;
+    }
+
+    public boolean isSent() {
+        return Integer.valueOf(1).equals(this.state);
+    }
+}

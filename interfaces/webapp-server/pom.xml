@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>parent</artifactId>
+        <groupId>com.eghm</groupId>
+        <version>1.0</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>webapp-server</artifactId>
+    <packaging>jar</packaging>
+    <name>webapp-server</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>application-shared</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>application-system</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>application-member</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>application-operate</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>application-payment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>infrastructure-shared</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>infrastructure-persistence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>infrastructure-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>infrastructure-message</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>infrastructure-integration</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>infrastructure-payment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eghm</groupId>
+            <artifactId>web-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.name}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

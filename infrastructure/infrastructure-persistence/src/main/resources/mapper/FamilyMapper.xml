@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.infrastructure.persistence.mybatis.mapper.FamilyMapper">
+
+    <select id="getList" resultType="com.eghm.vo.sys.family.FamilyResponse">
+        select id, pid, `name`, birthday, state, remark from family where deleted = false and pid &lt;&gt; '0'
+    </select>
+
+    <select id="getMaxId" resultType="java.lang.String">
+        select id from family where pid = #{pid} order by id desc limit 1
+    </select>
+
+</mapper>

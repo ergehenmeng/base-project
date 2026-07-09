@@ -1,0 +1,117 @@
+package com.eghm.interfaces.manage.configuration.handler;
+
+import com.eghm.configuration.authentication.SecurityHolder;
+import com.eghm.dto.ext.UserToken;
+import com.eghm.enums.ExchangeQueue;
+import com.eghm.domain.system.model.ManageLog;
+import com.eghm.mq.service.MessageService;
+import com.eghm.utils.IpUtil;
+import com.eghm.utils.WebUtil;
+import com.google.gson.Gson;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+/**
+ * 操作日志
+ *
+ * @author 二哥很猛
+ * @since 2019/1/15 16:19
+ */
+@Aspect
+@Component
+@AllArgsConstructor
+@Slf4j(topic = "request_response")
+public class ManageLogAspect {
+
+    private final Gson gson;
+
+    private final MessageService messageService;
+
+    /**
+     * 操作日志,如果仅仅想请求或者响应某些参数不想入库可以在响应字段上添加
+     * {@link com.google.gson.annotations.Expose} serialize = false
+     * 此处用gson进行序列化的原因是因为post请求采用 RequestBody, Spring内部采用jackson解析,
+     * 如果要要忽略某几个字段的话使用jackson的注解, 字段映射为空,业务上无法进行处理
+     *
+     * @param joinPoint 切入点
+     * @return aop方法调用结果对象
+     * @throws Throwable 异常
+     */
+    @Around("(!@annotation(com.eghm.annotation.SkipLogger)) && within(com.eghm.interfaces.manage.controller..*)")
+    public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (requestAttributes == null) {
+            return joinPoint.proceed();
+        }
+        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+        UserToken user = SecurityHolder.getUser();
+        if (user == null) {
+            return joinPoint.proceed();
+        }
+        ManageLog sy = new ManageLog();
+        sy.setUserId(user.getId());
+        sy.setIp(IpUtil.getIpAddress(request));
+        sy.setUrl(request.getRequestURI());
+        Object[] args = joinPoint.getArgs();
+        if (args != null && args.length > 0) {
+            sy.setRequest(this.formatRequest(args));
+        }
+        long start = System.currentTimeMillis();
+        Object proceed = joinPoint.proceed();
+        sy.setBusinessTime(System.currentTimeMillis() - start);
+        if (HttpMethod.GET.name().equals(request.getMethod())) {
+            log.info("请求地址:[{}], 请求参数:[{}], 请求ip:[{}], 用户id:[{}], 耗时:[{}]ms", sy.getUrl(), sy.getRequest(), sy.getIp(), sy.getUserId(), sy.getBusinessTime());
+        } else {
+            this.logError(proceed, sy, request.getRequestURI());
+        }
+        return proceed;
+    }
+    
+    /**
+     * 记录错误日志
+     *
+     * @param proceed 返回值
+     * @param sy 日志信息
+     * @param uri 请求接口
+     */
+    private void logError(Object proceed, ManageLog sy, String uri) {
+        try {
+            if (proceed != null) {
+                sy.setResponse(gson.toJson(proceed));
+            }
+            messageService.send(ExchangeQueue.MANAGE_LOG, sy);
+        } catch (Exception e) {
+            log.error("系统日志保存异常 [{}]", uri, e);
+        }
+    }
+
+    /**
+     * 格式化请求参数 逗号分割
+     *
+     * @param args 请求参数
+     * @return requestParam
+     */
+    private String formatRequest(Object[] args) {
+        StringBuilder builder = new StringBuilder();
+        for (Object object : args) {
+            if (!builder.isEmpty()) {
+                builder.append("|");
+            }
+            // 过滤内置参数
+            if (WebUtil.isAutoInject(object.getClass())) {
+                continue;
+            }
+            builder.append(gson.toJson(object));
+        }
+        return builder.toString();
+    }
+}

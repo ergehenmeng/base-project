@@ -1,0 +1,23 @@
+package com.eghm.infrastructure.persistence.mybatis.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.member.MemberScoreQueryRequest;
+import com.eghm.infrastructure.persistence.mybatis.po.MemberScoreLogPO;
+import com.eghm.vo.business.member.MemberScoreVO;
+import org.apache.ibatis.annotations.Param;
+
+/**
+ * @author 二哥很猛
+ */
+public interface MemberScoreLogMapper extends BaseMapper<MemberScoreLogPO> {
+
+    /**
+     * 分页查询积分记录
+     *
+     * @param page page
+     * @param request request
+     * @return page
+     */
+    Page<MemberScoreVO> getByPage(Page<MemberScoreVO> page, @Param("param") MemberScoreQueryRequest request);
+}

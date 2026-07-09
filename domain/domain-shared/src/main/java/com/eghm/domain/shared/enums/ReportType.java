@@ -1,0 +1,63 @@
+package com.eghm.domain.shared.enums;
+
+import com.eghm.annotation.ExcelDesc;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.util.Arrays;
+
+/**
+ * @author 二哥很猛
+ * @since 2024/3/9
+ */
+@Getter
+@AllArgsConstructor
+public enum ReportType implements ValuableEnum<Integer> {
+
+    /**
+     * 淫秽色情
+     */
+    EROTICISM(1, "淫秽色情"),
+
+    /**
+     * 营销广告
+     */
+    ADVERTISING(2, "营销广告"),
+
+    /**
+     * 违法信息
+     */
+    ILLEGAL(3, "违法信息"),
+
+    /**
+     * 网络暴力
+     */
+    VIOLENCE(4, "网络暴力"),
+
+    /**
+     * 虚假谣言
+     */
+    RUMOR(5, "虚假谣言"),
+
+    /**
+     * 养老诈骗
+     */
+    SWINDLE(6, "养老诈骗"),
+
+    /**
+     * 其他
+     */
+    OTHER(7, "其他"),
+    ;
+    private final Integer value;
+
+    @ExcelDesc
+    private final String name;
+    public static ReportType of(Integer value) {
+        if (value == null) {
+            return null;
+        }
+        return Arrays.stream(ReportType.values()).filter(type -> value == type.value).findFirst().orElse(null);
+    }
+
+}

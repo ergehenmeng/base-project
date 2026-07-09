@@ -1,0 +1,34 @@
+package com.eghm.application.system.service;
+
+import com.eghm.domain.system.model.SysDeptData;
+
+import java.util.List;
+
+/**
+ * @author 殿小二
+ * @since 2020/8/17
+ */
+public interface SysDeptDataService {
+
+    /**
+     * 获取用户所拥有的所有部门(数据权限)
+     *
+     * @param userId 用户id
+     * @return 部门id
+     */
+    List<String> getDeptList(Long userId);
+
+    /**
+     * 插入用户与部门数据权限关联信息
+     *
+     * @param dept userId + deptId
+     */
+    void insert(SysDeptData dept);
+
+    /**
+     * 删除用户对应的部门的数据权限
+     *
+     * @param userId 用户id
+     */
+    void deleteByUserId(Long userId);
+}

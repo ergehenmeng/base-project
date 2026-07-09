@@ -12,10 +12,8 @@
         <module>domain</module>
         <module>application</module>
         <module>infrastructure</module>
-        <module>web-core</module>
+        <module>interfaces</module>
         <module>i18n-spring-boot-starter</module>
-        <module>webapp-server</module>
-        <module>manage-server</module>
     </modules>
 
     <parent>
@@ -102,17 +100,82 @@
             </dependency>
             <dependency>
                 <groupId>com.eghm</groupId>
-                <artifactId>domain</artifactId>
+                <artifactId>domain-shared</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.eghm</groupId>
-                <artifactId>application</artifactId>
+                <artifactId>domain-system</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.eghm</groupId>
-                <artifactId>infrastructure</artifactId>
+                <artifactId>domain-member</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>domain-operate</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>domain-payment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>application-shared</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>application-system</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>application-member</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>application-operate</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>application-payment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>infrastructure-shared</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>infrastructure-persistence</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>infrastructure-cache</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>infrastructure-message</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>infrastructure-integration</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>infrastructure-payment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

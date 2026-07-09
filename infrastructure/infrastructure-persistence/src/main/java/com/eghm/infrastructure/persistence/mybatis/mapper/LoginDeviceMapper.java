@@ -1,0 +1,36 @@
+package com.eghm.infrastructure.persistence.mybatis.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.infrastructure.persistence.mybatis.po.LoginDevicePO;
+import org.apache.ibatis.annotations.Param;
+
+/**
+ * @author 二哥很猛
+ */
+public interface LoginDeviceMapper extends BaseMapper<LoginDevicePO> {
+
+    /**
+     * 添加或更新登陆设备信息(仅仅为了精简代码)
+     *
+     * @param device 不存在则新增否则更新(唯一性索引)
+     */
+    void insertOrUpdateSelective(LoginDevicePO device);
+
+    /**
+     * 查找指定设备是否有登陆日志
+     *
+     * @param memberId     用户id
+     * @param serialNumber 唯一编号
+     * @return 登陆日志
+     */
+    LoginDevicePO getBySerialNumber(@Param("memberId") Long memberId, @Param("serialNumber") String serialNumber);
+
+    /**
+     * 物理删除登陆设备信息(减少不必要的垃圾数据)
+     *
+     * @param memberId memberId
+     * @param id       id
+     */
+    void deleteLoginDevice(@Param("memberId") Long memberId, @Param("id") Long id);
+
+}
