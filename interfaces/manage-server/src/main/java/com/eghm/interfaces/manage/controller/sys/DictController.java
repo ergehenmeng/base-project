@@ -3,7 +3,7 @@ package com.eghm.interfaces.manage.controller.sys;
 import com.eghm.application.shared.annotation.SkipPerm;
 import com.eghm.application.shared.dto.IdDTO;
 import com.eghm.application.shared.dto.ext.RespBody;
-import com.eghm.dto.sys.dict.*;
+import com.eghm.application.shared.dto.sys.dict.*;
 import com.eghm.application.system.service.SysDictApplicationService;
 import com.eghm.application.shared.vo.sys.dict.BaseDictResponse;
 import com.eghm.application.shared.vo.sys.dict.DictResponse;

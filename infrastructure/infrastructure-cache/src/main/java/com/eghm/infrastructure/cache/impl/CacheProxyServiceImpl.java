@@ -13,7 +13,6 @@ import com.eghm.infrastructure.persistence.mybatis.mapper.SysConfigMapper;
 import com.eghm.infrastructure.persistence.mybatis.mapper.SysDictItemMapper;
 import com.eghm.infrastructure.persistence.mybatis.mapper.SysNoticeMapper;
 import com.eghm.domain.operate.model.EmailTemplate;
-import com.eghm.domain.operate.model.NoticeTemplate;
 import com.eghm.infrastructure.persistence.mybatis.po.EmailTemplatePO;
 import com.eghm.infrastructure.persistence.mybatis.po.NoticeTemplatePO;
 import com.eghm.infrastructure.persistence.mybatis.po.SysAreaPO;
@@ -27,6 +26,7 @@ import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.infrastructure.persistence.mybatis.util.MybatisUtil;
 import com.eghm.application.shared.vo.operate.auth.AuthConfigVO;
 import com.eghm.application.shared.vo.operate.banner.BannerVO;
+import com.eghm.application.shared.vo.operate.template.NoticeTemplateResponse;
 import com.eghm.application.shared.vo.sys.ext.SysAreaVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -89,8 +89,8 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.IN_MAIL_TEMPLATE, key = "#p0", unless = "#result == null", cacheManager = "longCacheManager")
-    public NoticeTemplate getNoticeTemplate(String code) {
-        return DataUtil.copy(MybatisUtil.getOne(noticeTemplateMapper, NoticeTemplatePO::getCode, code), NoticeTemplate.class);
+    public NoticeTemplateResponse getNoticeTemplate(String code) {
+        return DataUtil.copy(MybatisUtil.getOne(noticeTemplateMapper, NoticeTemplatePO::getCode, code), NoticeTemplateResponse.class);
     }
 
     @Override

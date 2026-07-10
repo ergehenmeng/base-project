@@ -113,6 +113,21 @@ public class Member extends BaseEntity {
         this.pwd = password;
     }
 
+    public void updateProfile(String avatar, String nickName, Integer sex) {
+        if (nickName == null || nickName.isBlank()) {
+            throw new BusinessException(ErrorCode.PARAM_VERIFY_ERROR, "昵称不能为空");
+        }
+        if (nickName.length() > 6) {
+            throw new BusinessException(ErrorCode.PARAM_VERIFY_ERROR, "昵称长度最多6个字符");
+        }
+        if (sex == null || sex < 0 || sex > 2) {
+            throw new BusinessException(ErrorCode.PARAM_VERIFY_ERROR, "请选择性别");
+        }
+        this.avatar = avatar;
+        this.nickName = nickName;
+        this.sex = sex;
+    }
+
     public int calculateScoreSurplus(ScoreType scoreType, Integer score) {
         int changedScore = resolveScoreChange(scoreType, score);
         int surplus = this.score + changedScore;

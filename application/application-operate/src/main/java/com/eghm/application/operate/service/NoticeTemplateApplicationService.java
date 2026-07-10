@@ -1,8 +1,10 @@
 package com.eghm.application.operate.service;
 
 import com.eghm.application.shared.cache.CacheProxyService;
+import com.eghm.application.shared.common.NoticeTemplateProvider;
 import com.eghm.application.shared.dto.operate.template.NoticeTemplateRequest;
 import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.vo.operate.template.NoticeTemplateResponse;
 import com.eghm.domain.operate.model.NoticeTemplate;
 import com.eghm.domain.operate.repository.NoticeTemplateRepository;
 import lombok.AllArgsConstructor;
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @AllArgsConstructor
-public class NoticeTemplateApplicationService {
+public class NoticeTemplateApplicationService implements NoticeTemplateProvider {
 
     private final CacheProxyService cacheProxyService;
 
@@ -36,7 +38,8 @@ public class NoticeTemplateApplicationService {
      * @param code code
      * @return template
      */
-    public NoticeTemplate getTemplate(String code) {
+    @Override
+    public NoticeTemplateResponse getNoticeTemplate(String code) {
         return cacheProxyService.getNoticeTemplate(code);
     }
 }

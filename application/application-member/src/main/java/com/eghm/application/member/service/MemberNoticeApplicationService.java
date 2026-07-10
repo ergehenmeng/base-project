@@ -2,12 +2,13 @@ package com.eghm.application.member.service;
 
 import com.eghm.application.shared.configuration.authentication.SecurityHolder;
 import com.eghm.application.shared.configuration.template.TemplateEngine;
+import com.eghm.application.shared.common.NoticeTemplateProvider;
 import com.eghm.application.shared.dto.business.member.SendNotifyRequest;
 import com.eghm.application.shared.dto.ext.SendNotice;
+import com.eghm.application.shared.vo.operate.template.NoticeTemplateResponse;
 import com.eghm.domain.member.model.MemberNotice;
 import com.eghm.domain.member.model.MemberNoticeLog;
 import com.eghm.domain.member.repository.MemberNoticeRepository;
-import com.eghm.domain.operate.model.NoticeTemplate;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.enums.MessageType;
 import com.eghm.domain.shared.exception.BusinessException;
@@ -29,7 +30,7 @@ public class MemberNoticeApplicationService {
     
     private final TemplateEngine templateEngine;
     
-    private final NoticeTemplateApplicationService noticeTemplateService;
+    private final NoticeTemplateProvider noticeTemplateProvider;
     
     private final MemberNoticeRepository memberNoticeRepository;
     
@@ -41,7 +42,7 @@ public class MemberNoticeApplicationService {
      */
     public void sendNotice(Long memberId, SendNotice sendNotice) {
         MessageType messageType = sendNotice.getMessageType();
-        NoticeTemplate template = noticeTemplateService.getTemplate(messageType.getValue());
+        NoticeTemplateResponse template = noticeTemplateProvider.getNoticeTemplate(messageType.getValue());
         if (template == null) {
             log.warn("站内性模板未配置 [{}]", messageType.getValue());
             throw new BusinessException(ErrorCode.IN_MAIL_NULL);

@@ -2,7 +2,6 @@ package com.eghm.application.member.service;
 
 import com.eghm.application.member.query.LoginQueryService;
 import com.eghm.application.shared.utils.DataUtil;
-import com.eghm.application.shared.utils.DateUtil;
 import com.eghm.domain.member.model.LoginDevice;
 import com.eghm.application.shared.dto.ext.LoginRecord;
 import com.eghm.application.shared.vo.business.member.LoginDeviceVO;
@@ -70,10 +69,6 @@ public class LoginApplicationService {
      * @return 登陆设备列表
      */
     public List<LoginDeviceVO> getByMemberId(Long memberId) {
-        List<LoginDevice> deviceList = loginQueryService.listDeviceByMemberId(memberId);
-        return DataUtil.copy(deviceList, device -> {
-            LoginDeviceVO vo = DataUtil.copy(device, LoginDeviceVO.class, "loginTime");
-            vo.setLoginTime(DateUtil.formatSimple(device.getLoginTime()));
-            return vo;
-        });    }
+        return loginQueryService.listDeviceByMemberId(memberId);
+    }
 }

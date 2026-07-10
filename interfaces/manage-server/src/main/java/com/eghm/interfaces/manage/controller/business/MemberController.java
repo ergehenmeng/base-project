@@ -2,7 +2,7 @@ package com.eghm.interfaces.manage.controller.business;
 
 import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.application.shared.dto.IdDTO;
-import com.eghm.dto.business.member.*;
+import com.eghm.application.shared.dto.business.member.*;
 import com.eghm.application.shared.dto.ext.PageData;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.domain.shared.enums.MemberState;

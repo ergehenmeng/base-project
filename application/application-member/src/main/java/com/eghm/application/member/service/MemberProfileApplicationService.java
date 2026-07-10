@@ -131,8 +131,8 @@ public class MemberProfileApplicationService {
     }
     
     public void edit(Long memberId, MemberDTO dto) {
-        Member member = DataUtil.copy(dto, Member.class);
-        member.setId(memberId);
+        Member member = memberRepository.findById(memberId);
+        member.updateProfile(dto.getAvatar(), dto.getNickName(), dto.getSex());
         memberRepository.update(member);
     }
     

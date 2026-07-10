@@ -5,7 +5,7 @@ import com.eghm.application.shared.common.SmsService;
 import com.eghm.constants.ApplicationHeader;
 import com.eghm.application.shared.configuration.authentication.ApiHolder;
 import com.eghm.application.shared.dto.ext.RespBody;
-import com.eghm.dto.sys.login.*;
+import com.eghm.application.shared.dto.sys.login.*;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.enums.TemplateType;
 import com.eghm.application.member.service.MemberApplicationService;

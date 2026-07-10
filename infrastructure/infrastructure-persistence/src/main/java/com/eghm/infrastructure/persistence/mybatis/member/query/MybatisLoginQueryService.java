@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.application.shared.dto.ext.Page;
 import com.eghm.infrastructure.persistence.mybatis.query.MybatisPageUtil;
-import com.eghm.domain.member.model.LoginDevice;
 import com.eghm.application.shared.dto.business.member.LoginLogQueryRequest;
 import com.eghm.infrastructure.persistence.mybatis.mapper.LoginDeviceMapper;
 import com.eghm.infrastructure.persistence.mybatis.mapper.LoginLogMapper;
@@ -12,6 +11,8 @@ import com.eghm.infrastructure.persistence.mybatis.po.LoginDevicePO;
 import com.eghm.infrastructure.persistence.mybatis.po.LoginLogPO;
 import com.eghm.application.member.query.LoginQueryService;
 import com.eghm.application.shared.utils.DataUtil;
+import com.eghm.application.shared.utils.DateUtil;
+import com.eghm.application.shared.vo.business.member.LoginDeviceVO;
 import com.eghm.application.shared.vo.business.member.LoginLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -46,11 +47,15 @@ public class MybatisLoginQueryService implements LoginQueryService {
     }
 
     @Override
-    public List<LoginDevice> listDeviceByMemberId(Long memberId) {
+    public List<LoginDeviceVO> listDeviceByMemberId(Long memberId) {
         LambdaQueryWrapper<LoginDevicePO> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(LoginDevicePO::getMemberId, memberId);
         wrapper.orderByDesc(LoginDevicePO::getId);
-        return DataUtil.copy(loginDeviceMapper.selectList(wrapper), LoginDevice.class);
+        return DataUtil.copy(loginDeviceMapper.selectList(wrapper), device -> {
+            LoginDeviceVO vo = DataUtil.copy(device, LoginDeviceVO.class, "loginTime");
+            vo.setLoginTime(DateUtil.formatSimple(device.getLoginTime()));
+            return vo;
+        });
     }
 }
 

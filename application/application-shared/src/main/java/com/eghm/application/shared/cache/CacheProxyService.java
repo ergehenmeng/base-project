@@ -3,12 +3,12 @@ package com.eghm.application.shared.cache;
 import com.eghm.domain.shared.enums.Channel;
 import com.eghm.enums.EmailType;
 import com.eghm.domain.operate.model.EmailTemplate;
-import com.eghm.domain.operate.model.NoticeTemplate;
 import com.eghm.domain.operate.model.SysNotice;
 import com.eghm.domain.system.model.SysArea;
 import com.eghm.domain.system.model.SysDictItem;
 import com.eghm.application.shared.vo.operate.auth.AuthConfigVO;
 import com.eghm.application.shared.vo.operate.banner.BannerVO;
+import com.eghm.application.shared.vo.operate.template.NoticeTemplateResponse;
 import com.eghm.application.shared.vo.sys.ext.SysAreaVO;
 
 import java.util.List;
@@ -57,7 +57,7 @@ public interface CacheProxyService {
      * @param code code
      * @return template
      */
-    NoticeTemplate getNoticeTemplate(String code);
+    NoticeTemplateResponse getNoticeTemplate(String code);
 
     /**
      * 获取公告前几条标题信息,具体多少条由系统参数notice_limit控制
