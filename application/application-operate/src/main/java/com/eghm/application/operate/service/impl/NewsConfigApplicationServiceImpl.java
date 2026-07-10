@@ -6,6 +6,7 @@ import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.operate.model.NewsConfig;
 import com.eghm.domain.operate.repository.NewsConfigRepository;
+import com.eghm.domain.operate.service.NewsConfigDomainService;
 import com.eghm.application.operate.service.NewsConfigApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -27,17 +28,19 @@ public class NewsConfigApplicationServiceImpl implements NewsConfigApplicationSe
 
     private final NewsConfigRepository newsConfigRepository;
 
+    private static final NewsConfigDomainService NEWS_CONFIG_DOMAIN_SERVICE = new NewsConfigDomainService();
+
     @Override
     public void create(NewsConfigAddRequest request) {
-        this.assertTitleAvailable(request.getTitle(), null);
-        this.assertCodeAvailable(request.getCode(), null);
+        NEWS_CONFIG_DOMAIN_SERVICE.assertTitleAvailable(newsConfigRepository, request.getTitle(), null);
+        NEWS_CONFIG_DOMAIN_SERVICE.assertCodeAvailable(newsConfigRepository, request.getCode(), null);
         NewsConfig newsConfig = DataUtil.copy(request, NewsConfig.class);
         newsConfigRepository.save(newsConfig);
     }
 
     @Override
     public void update(NewsConfigEditRequest request) {
-        this.assertTitleAvailable(request.getTitle(), request.getId());
+        NEWS_CONFIG_DOMAIN_SERVICE.assertTitleAvailable(newsConfigRepository, request.getTitle(), request.getId());
         NewsConfig newsConfig = DataUtil.copy(request, NewsConfig.class);
         newsConfigRepository.update(newsConfig);
     }
@@ -56,17 +59,4 @@ public class NewsConfigApplicationServiceImpl implements NewsConfigApplicationSe
         return config;
     }
 
-    private void assertTitleAvailable(String title, Long excludeId) {
-        if (newsConfigRepository.existsByTitle(title, excludeId)) {
-            log.warn("资讯配置标题重复 [{}] [{}]", title, excludeId);
-            throw new BusinessException(ErrorCode.NEWS_CONFIG_TITLE_REDO);
-        }
-    }
-
-    private void assertCodeAvailable(String code, Long excludeId) {
-        if (newsConfigRepository.existsByCode(code, excludeId)) {
-            log.warn("资讯配置编号重复 [{}] [{}]", code, excludeId);
-            throw new BusinessException(ErrorCode.NEWS_CONFIG_CODE_REDO);
-        }
-    }
 }

@@ -7,6 +7,7 @@ import com.eghm.application.shared.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.domain.member.model.Member;
 import com.eghm.domain.member.repository.MemberRepository;
+import com.eghm.domain.member.service.MemberDomainService;
 import com.eghm.domain.member.valueobject.MemberRegistrationInfo;
 import com.eghm.domain.shared.enums.Channel;
 import com.eghm.domain.shared.enums.ErrorCode;
@@ -56,15 +57,17 @@ public class MemberRegisterApplicationServiceImpl implements MemberRegisterAppli
     private final WeChatMiniService weChatMiniService;
     private final MemberAuthApplicationService memberAuthService;
 
+    private static final MemberDomainService MEMBER_DOMAIN_SERVICE = new MemberDomainService();
+
     @Override
     public void registerSendSms(String mobile, String ip) {
-        this.assertMobileAvailable(mobile);
+        MEMBER_DOMAIN_SERVICE.assertMobileAvailable(memberRepository, mobile);
         smsService.sendSmsCode(TemplateType.REGISTER, mobile, ip);
     }
 
     @Override
     public LoginTokenVO registerByMobile(MobileRegisterDTO request) {
-        this.assertMobileAvailable(request.getMobile());
+        MEMBER_DOMAIN_SERVICE.assertMobileAvailable(memberRepository, request.getMobile());
         smsService.verifySmsCode(TemplateType.REGISTER, request.getMobile(), request.getSmsCode());
         MemberRegister register = DataUtil.copy(request, MemberRegister.class);
         register.setRegisterIp(request.getIp());
@@ -74,7 +77,7 @@ public class MemberRegisterApplicationServiceImpl implements MemberRegisterAppli
 
     @Override
     public LoginTokenVO registerByAccount(AccountRegisterDTO dto) {
-        this.assertAccountAvailable(dto.getAccount());
+        MEMBER_DOMAIN_SERVICE.assertAccountAvailable(memberRepository, dto.getAccount());
         MemberRegister register = new MemberRegister();
         register.setRegisterIp(dto.getIp());
         register.setPwd(encoder.encode(SecureUtil.sha256(dto.getPassword())));
@@ -154,17 +157,4 @@ public class MemberRegisterApplicationServiceImpl implements MemberRegisterAppli
         return this.doRegister(register);
     }
 
-    private void assertMobileAvailable(String mobile) {
-        if (memberRepository.existsByMobile(mobile)) {
-            log.warn("手机号被占用,无法注册用户 [{}]", mobile);
-            throw new BusinessException(ErrorCode.MOBILE_REGISTER_REDO);
-        }
-    }
-
-    private void assertAccountAvailable(String account) {
-        if (memberRepository.existsByAccount(account)) {
-            log.warn("账号被占用,无法注册用户 [{}]", account);
-            throw new BusinessException(ErrorCode.ACCOUNT_REGISTER_REDO);
-        }
-    }
 }

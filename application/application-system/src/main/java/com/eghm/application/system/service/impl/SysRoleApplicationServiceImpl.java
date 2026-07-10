@@ -2,12 +2,9 @@ package com.eghm.application.system.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.application.shared.configuration.authentication.SecurityHolder;
-import com.eghm.application.shared.dto.ext.CheckBox;
 import com.eghm.application.shared.dto.sys.role.RoleAddRequest;
 import com.eghm.application.shared.dto.sys.role.RoleEditRequest;
-import com.eghm.domain.shared.enums.DisplayState;
 import com.eghm.domain.shared.enums.ErrorCode;
-import com.eghm.domain.shared.enums.RoleType;
 import com.eghm.domain.shared.enums.UserType;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.application.system.service.SysRoleApplicationService;
@@ -15,6 +12,7 @@ import com.eghm.domain.system.model.SysRole;
 import com.eghm.domain.system.repository.SysRoleMenuRepository;
 import com.eghm.domain.system.repository.SysRoleRepository;
 import com.eghm.domain.system.repository.SysUserRoleRepository;
+import com.eghm.domain.system.service.SysRoleDomainService;
 import com.eghm.application.shared.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,48 +35,27 @@ public class SysRoleApplicationServiceImpl implements SysRoleApplicationService 
 
     private final SysRoleMenuRepository sysRoleMenuRepository;
 
+    private static final SysRoleDomainService SYS_ROLE_DOMAIN_SERVICE = new SysRoleDomainService();
+
     @Override
     public void update(RoleEditRequest request) {
-        if (sysRoleRepository.existsRoleName(request.getRoleName(), request.getId())) {
-            log.warn("角色名称重复 [{}] [{}]", request.getId(), request.getRoleName());
-            throw new BusinessException(ErrorCode.ROLE_NAME_REDO);
-        }
+        SYS_ROLE_DOMAIN_SERVICE.assertRoleNameAvailable(sysRoleRepository, request.getRoleName(), request.getId());
         sysRoleRepository.update(DataUtil.copy(request, SysRole.class));
     }
 
     @Override
     public void delete(Long id) {
-        SysRole role = sysRoleRepository.findById(id);
+        SysRole role = SYS_ROLE_DOMAIN_SERVICE.getDeletableRole(sysRoleRepository, id);
         if (role == null) {
             return;
         }
-        role.assertDeletable();
         sysRoleRepository.logicalDelete(id);
     }
 
     @Override
     public void create(RoleAddRequest request) {
-        if (sysRoleRepository.existsRoleName(request.getRoleName(), null)) {
-            log.warn("角色名称重复 [{}]", request.getRoleName());
-            throw new BusinessException(ErrorCode.ROLE_NAME_REDO);
-        }
+        SYS_ROLE_DOMAIN_SERVICE.assertRoleNameAvailable(sysRoleRepository, request.getRoleName(), null);
         sysRoleRepository.save(DataUtil.copy(request, SysRole.class));
-    }
-
-    @Override
-    public List<CheckBox> getList() {
-        List<SysRole> roleList = sysRoleRepository.findCommonRoles();
-        return DataUtil.copy(roleList, role -> new CheckBox(role.getId(), role.getRoleName()));
-    }
-
-    @Override
-    public List<Long> getByUserId(Long userId) {
-        return sysUserRoleRepository.findRoleIdsByUserId(userId);
-    }
-
-    @Override
-    public List<String> getRoleMenu(Long roleId) {
-        return sysRoleMenuRepository.findMenuIdsByRoleId(roleId);
     }
 
     @Override
@@ -96,17 +73,4 @@ public class SysRoleApplicationServiceImpl implements SysRoleApplicationService 
         sysUserRoleRepository.replaceUserRoles(userId, roleList);
     }
 
-    @Override
-    public SysRole getById(Long id) {
-        return sysRoleRepository.findById(id);
-    }
-
-    @Override
-    public Integer getMenuDisplayState(Long id) {
-        SysRole role = sysRoleRepository.findById(id);
-        if (role == null || role.getRoleType() == RoleType.COMMON) {
-            return DisplayState.SYSTEM.getValue();
-        }
-        return DisplayState.MERCHANT.getValue();
-    }
 }

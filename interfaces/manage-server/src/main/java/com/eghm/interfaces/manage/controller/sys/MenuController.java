@@ -13,8 +13,8 @@ import com.eghm.application.shared.dto.sys.menu.MenuQueryRequest;
 import com.eghm.application.shared.event.PermissionRefreshEvent;
 import com.eghm.application.shared.lock.RedisLock;
 import com.eghm.application.system.query.SysMenuQueryService;
+import com.eghm.application.system.query.SysRoleQueryService;
 import com.eghm.application.system.service.SysMenuApplicationService;
-import com.eghm.application.system.service.SysRoleApplicationService;
 import com.eghm.application.shared.vo.sys.menu.MenuFullResponse;
 import com.eghm.application.shared.vo.sys.menu.MenuResponse;
 import com.eghm.application.shared.vo.sys.menu.MenuTreeResponse;
@@ -45,7 +45,7 @@ public class MenuController {
     
     private final RedisLock redisLock;
 
-    private final SysRoleApplicationService sysRoleService;
+    private final SysRoleQueryService sysRoleQueryService;
 
     private final SysMenuApplicationService sysMenuService;
 
@@ -56,7 +56,7 @@ public class MenuController {
     @GetMapping("/tree")
     @Operation(summary = "左侧菜单-v2-①")
     public RespBody<MenuTreeResponse> tree() {
-        MenuTreeResponse response = sysMenuService.tree();
+        MenuTreeResponse response = sysMenuQueryService.tree();
         return RespBody.success(response);
     }
 
@@ -70,15 +70,15 @@ public class MenuController {
     @GetMapping("/list")
     @Operation(summary = "全部菜单-v1")
     public RespBody<List<MenuFullResponse>> list(@ParameterObject MenuQueryRequest request) {
-        List<MenuFullResponse> responseList = sysMenuService.getList(request);
+        List<MenuFullResponse> responseList = sysMenuQueryService.listFullMenus(request);
         return RespBody.success(responseList);
     }
 
     @GetMapping("/systemList")
     @Operation(summary = "系统菜单(角色授权使用)")
     public RespBody<List<MenuTreeResponse>> systemList(IdDTO dto) {
-        Integer displayState = sysRoleService.getMenuDisplayState(dto.getId());
-        List<MenuTreeResponse> responseList = sysMenuService.getAll(displayState);
+        Integer displayState = sysRoleQueryService.getMenuDisplayState(dto.getId());
+        List<MenuTreeResponse> responseList = sysMenuQueryService.listSystemMenus(displayState);
         return RespBody.success(responseList);
     }
     

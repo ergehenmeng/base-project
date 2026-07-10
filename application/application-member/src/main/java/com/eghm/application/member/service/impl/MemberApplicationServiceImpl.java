@@ -5,11 +5,8 @@ import com.eghm.application.shared.common.SendSmsService;
 import com.eghm.constants.CommonConstant;
 import com.eghm.domain.member.model.Member;
 import com.eghm.domain.member.repository.MemberRepository;
-import com.eghm.domain.shared.enums.Channel;
-import com.eghm.domain.shared.enums.Gender;
 import com.eghm.domain.shared.enums.MemberState;
 import com.eghm.domain.shared.enums.ScoreType;
-import com.eghm.domain.shared.enums.SelectType;
 import com.eghm.domain.shared.enums.TemplateType;
 import com.eghm.application.shared.dto.business.member.BindEmailDTO;
 import com.eghm.application.shared.dto.business.member.ChangeEmailDTO;
@@ -17,7 +14,6 @@ import com.eghm.application.shared.dto.business.member.MemberDTO;
 import com.eghm.application.shared.dto.business.member.MemberQueryRequest;
 import com.eghm.application.shared.dto.business.member.SendEmailAuthCodeDTO;
 import com.eghm.application.shared.dto.business.member.SendSmsRequest;
-import com.eghm.application.shared.dto.business.statistics.DateRequest;
 import com.eghm.application.shared.dto.sys.login.AccountLoginDTO;
 import com.eghm.application.shared.dto.sys.login.DoubleCheckDTO;
 import com.eghm.application.shared.dto.sys.login.SmsLoginDTO;
@@ -29,23 +25,14 @@ import com.eghm.application.member.query.MemberQueryService;
 import com.eghm.application.member.service.MemberRegisterApplicationService;
 import com.eghm.application.member.service.MemberScoreApplicationService;
 import com.eghm.application.member.service.MemberApplicationService;
-import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.business.member.MemberVO;
 import com.eghm.application.shared.vo.business.member.SignInVO;
-import com.eghm.application.shared.vo.business.statistics.MemberRegisterVO;
-import com.eghm.application.shared.vo.business.statistics.MemberStatisticsVO;
-import com.eghm.application.shared.vo.business.statistics.PieDataVO;
 import com.eghm.application.shared.vo.login.LoginTokenVO;
-import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static com.eghm.application.shared.utils.StringUtil.isBlank;
 
@@ -181,38 +168,6 @@ public class MemberApplicationServiceImpl implements MemberApplicationService {
     @Override
     public void edit(Long memberId, MemberDTO dto) {
         memberProfileService.edit(memberId, dto);
-    }
-
-    @Override
-    public MemberStatisticsVO sexChannel(DateRequest request) {
-        List<PieDataVO> statistics = memberQueryService.channelStatistics(request.getStartDate(), request.getEndDate());
-        List<PieDataVO> channelList = Lists.newArrayListWithCapacity(8);
-        Map<String, PieDataVO> voMap = statistics.stream().collect(Collectors.toMap(PieDataVO::getName, Function.identity()));
-        for (Channel value : Channel.values()) {
-            channelList.add(voMap.getOrDefault(value.name(), new PieDataVO(value.name())));
-        }
-        List<PieDataVO> sexStatistics = memberQueryService.sexStatistics(request.getStartDate(), request.getEndDate());
-        Map<String, PieDataVO> sexMap = sexStatistics.stream().collect(Collectors.toMap(PieDataVO::getName, Function.identity()));
-        List<PieDataVO> sexList = Lists.newArrayListWithCapacity(4);
-        for (Gender value : Gender.values()) {
-            sexList.add(sexMap.getOrDefault(value.getName(), new PieDataVO(value.getName())));
-        }
-        MemberStatisticsVO vo = new MemberStatisticsVO();
-        vo.setChannelList(channelList);
-        vo.setSexList(sexList);
-        return vo;
-    }
-
-    @Override
-    public List<MemberRegisterVO> dayRegister(DateRequest request) {
-        List<MemberRegisterVO> voList = memberQueryService.dayRegister(request);
-        if (request.getSelectType() == SelectType.YEAR) {
-            Map<String, MemberRegisterVO> voMap = voList.stream().collect(Collectors.toMap(MemberRegisterVO::getCreateMonth, Function.identity()));
-            return DataUtil.paddingMonth(voMap, request.getStartDate(), request.getEndDate(), MemberRegisterVO::new);
-        } else {
-            Map<LocalDate, MemberRegisterVO> voMap = voList.stream().collect(Collectors.toMap(MemberRegisterVO::getCreateDate, Function.identity()));
-            return DataUtil.paddingDay(voMap, request.getStartDate(), request.getEndDate(), MemberRegisterVO::new);
-        }
     }
 
     @Override

@@ -49,7 +49,7 @@ public class SysRoleController {
     @Operation(summary = "角色列表(不分页)")
     @SkipPerm
     public RespBody<List<CheckBox>> list() {
-        List<CheckBox> roleList = sysRoleService.getList();
+        List<CheckBox> roleList = sysRoleQueryService.listCommonRoles();
         return RespBody.success(roleList);
     }
 
@@ -78,7 +78,7 @@ public class SysRoleController {
     @GetMapping("/menu")
     @Operation(summary = "查询角色关联菜单列表")
     public RespBody<List<String>> menu(@ParameterObject @Validated IdDTO dto) {
-        List<String> menuIds = sysRoleService.getRoleMenu(dto.getId());
+        List<String> menuIds = sysRoleQueryService.listRoleMenuIds(dto.getId());
         return RespBody.success(menuIds);
     }
 

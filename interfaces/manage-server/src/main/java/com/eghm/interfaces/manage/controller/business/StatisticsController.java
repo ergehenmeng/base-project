@@ -4,7 +4,7 @@ import com.eghm.application.shared.dto.business.statistics.DateRequest;
 import com.eghm.application.shared.dto.ext.RespBody;
 import com.eghm.application.shared.dto.business.statistics.CollectRequest;
 import com.eghm.application.member.query.MemberCollectQueryService;
-import com.eghm.application.member.service.MemberApplicationService;
+import com.eghm.application.member.query.MemberQueryService;
 import com.eghm.application.shared.vo.business.statistics.CollectStatisticsVO;
 import com.eghm.application.shared.vo.business.statistics.MemberRegisterVO;
 import com.eghm.application.shared.vo.business.statistics.MemberStatisticsVO;
@@ -31,14 +31,14 @@ import java.util.List;
 @RequestMapping(value = "/manage/statistics", produces = MediaType.APPLICATION_JSON_VALUE)
 public class StatisticsController {
 
-    private final MemberApplicationService memberService;
+    private final MemberQueryService memberQueryService;
 
     private final MemberCollectQueryService memberCollectQueryService;
 
     @GetMapping("/sexChannel")
     @Operation(summary = "注册渠道统计")
     public RespBody<MemberStatisticsVO> sexChannel(@ParameterObject DateRequest request) {
-        MemberStatisticsVO statistics = memberService.sexChannel(request);
+        MemberStatisticsVO statistics = memberQueryService.sexChannelStatistics(request);
         return RespBody.success(statistics);
     }
 
@@ -46,7 +46,7 @@ public class StatisticsController {
     @Operation(summary = "注册统计(按天)")
     public RespBody<List<MemberRegisterVO>> dayRegister(@ParameterObject DateRequest request) {
         this.setNull(request);
-        List<MemberRegisterVO> statistics = memberService.dayRegister(request);
+        List<MemberRegisterVO> statistics = memberQueryService.dayRegisterStatistics(request);
         return RespBody.success(statistics);
     }
 

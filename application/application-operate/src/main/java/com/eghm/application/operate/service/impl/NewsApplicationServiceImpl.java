@@ -13,6 +13,7 @@ import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.operate.model.News;
 import com.eghm.domain.operate.repository.NewsRepository;
+import com.eghm.domain.operate.service.NewsDomainService;
 import com.eghm.application.member.service.MemberCollectApplicationService;
 import com.eghm.application.operate.service.NewsApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
@@ -44,9 +45,11 @@ public class NewsApplicationServiceImpl implements NewsApplicationService {
 
     private final MemberCollectApplicationService memberCollectService;
 
+    private static final NewsDomainService NEWS_DOMAIN_SERVICE = new NewsDomainService();
+
     @Override
     public void create(NewsAddRequest request) {
-        this.assertTitleAvailable(request.getTitle(), request.getCode(), null);
+        NEWS_DOMAIN_SERVICE.assertTitleAvailable(newsRepository, request.getTitle(), request.getCode(), null);
         News news = DataUtil.copy(request, News.class);
         this.setRequest(news, request.getImageList(), request.getTagList());
         newsRepository.save(news);
@@ -54,7 +57,7 @@ public class NewsApplicationServiceImpl implements NewsApplicationService {
 
     @Override
     public void update(NewsEditRequest request) {
-        this.assertTitleAvailable(request.getTitle(), request.getCode(), request.getId());
+        NEWS_DOMAIN_SERVICE.assertTitleAvailable(newsRepository, request.getTitle(), request.getCode(), request.getId());
         News news = DataUtil.copy(request, News.class);
         this.setRequest(news, request.getImageList(), request.getTagList());
         newsRepository.update(news);
@@ -107,20 +110,6 @@ public class NewsApplicationServiceImpl implements NewsApplicationService {
     @Override
     public void sortBy(Long id, Integer sortBy) {
         newsRepository.updateSort(id, sortBy);
-    }
-
-    /**
-     * 检查同编码下资讯标题是否重复
-     *
-     * @param title     标题
-     * @param code      编码
-     * @param excludeId 排除id
-     */
-    private void assertTitleAvailable(String title, String code, Long excludeId) {
-        if (newsRepository.existsByTitleAndCode(title, code, excludeId)) {
-            log.warn("资讯标题重复 [{}] [{}]", title, code);
-            throw new BusinessException(ErrorCode.NEWS_TITLE_REDO);
-        }
     }
 
     /**

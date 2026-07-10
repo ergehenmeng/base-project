@@ -8,6 +8,8 @@ import com.eghm.application.system.query.SysMenuQueryService;
 import com.eghm.application.shared.vo.sys.menu.MenuFullResponse;
 import com.eghm.application.shared.vo.sys.menu.MenuResponse;
 import com.eghm.application.shared.vo.sys.menu.MenuTreeResponse;
+import com.eghm.domain.system.model.SysMenu;
+import com.eghm.domain.system.repository.SysMenuRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +25,8 @@ import java.util.List;
 public class MybatisSysMenuQueryService implements SysMenuQueryService {
 
     private final SysMenuMapper sysMenuMapper;
+
+    private final SysMenuRepository sysMenuRepository;
 
     @Override
     public List<MenuTreeResponse> getLeftList() {
@@ -52,6 +56,11 @@ public class MybatisSysMenuQueryService implements SysMenuQueryService {
     @Override
     public List<MenuFullResponse> getList(MenuQueryRequest request) {
         return sysMenuMapper.getList(request);
+    }
+
+    @Override
+    public List<SysMenu> listEnabledButtons() {
+        return sysMenuRepository.findEnabledButtons();
     }
 }
 

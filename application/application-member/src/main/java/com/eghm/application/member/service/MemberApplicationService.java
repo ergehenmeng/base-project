@@ -1,7 +1,6 @@
 package com.eghm.application.member.service;
 
 import com.eghm.dto.business.member.*;
-import com.eghm.application.shared.dto.business.statistics.DateRequest;
 import com.eghm.application.shared.dto.sys.login.AccountLoginDTO;
 import com.eghm.application.shared.dto.sys.login.DoubleCheckDTO;
 import com.eghm.application.shared.dto.sys.login.SmsLoginDTO;
@@ -12,8 +11,6 @@ import com.eghm.domain.shared.enums.ScoreType;
 import com.eghm.domain.member.model.Member;
 import com.eghm.application.shared.vo.business.member.MemberVO;
 import com.eghm.application.shared.vo.business.member.SignInVO;
-import com.eghm.application.shared.vo.business.statistics.MemberRegisterVO;
-import com.eghm.application.shared.vo.business.statistics.MemberStatisticsVO;
 import com.eghm.application.shared.vo.login.LoginTokenVO;
 
 import java.util.List;
@@ -204,22 +201,6 @@ public interface MemberApplicationService {
      * @param dto      会员基础信息
      */
     void edit(Long memberId, MemberDTO dto);
-
-    /**
-     * 注册性别统计
-     *
-     * @param request 查询条件
-     * @return 统计
-     */
-    MemberStatisticsVO sexChannel(DateRequest request);
-
-    /**
-     * 统计注册人数
-     *
-     * @param request 统计日期
-     * @return 人数
-     */
-    List<MemberRegisterVO> dayRegister(DateRequest request);
 
     /**
      * 发送短信

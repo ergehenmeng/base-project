@@ -9,6 +9,7 @@ import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.system.model.SysDeptData;
 import com.eghm.domain.system.model.SysUser;
 import com.eghm.domain.system.repository.SysUserRepository;
+import com.eghm.domain.system.service.SysUserDomainService;
 import com.eghm.application.shared.dto.sys.user.UserAddRequest;
 import com.eghm.application.shared.dto.sys.user.UserEditRequest;
 import com.eghm.application.shared.dto.sys.user.UserProfileRequest;
@@ -38,10 +39,12 @@ public class SysUserCommandApplicationServiceImpl implements SysUserCommandAppli
     private final SysRoleApplicationService sysRoleService;
     private final SysDeptDataApplicationService sysDeptDataService;
 
+    private static final SysUserDomainService SYS_USER_DOMAIN_SERVICE = new SysUserDomainService();
+
     @Override
     public void create(UserAddRequest request) {
-        checkUserName(request.getUserName(), null);
-        checkMobile(request.getMobile(), null);
+        SYS_USER_DOMAIN_SERVICE.assertUserNameAvailable(sysUserRepository, request.getUserName(), null);
+        SYS_USER_DOMAIN_SERVICE.assertMobileAvailable(sysUserRepository, request.getMobile(), null);
         SysUser user = DataUtil.copy(request, SysUser.class);
         String password = this.initPassword(request.getMobile());
         user.initializeSystemUser(password, LocalDateTime.now());
@@ -54,8 +57,8 @@ public class SysUserCommandApplicationServiceImpl implements SysUserCommandAppli
 
     @Override
     public void update(UserEditRequest request) {
-        checkUserName(request.getUserName(), request.getId());
-        checkMobile(request.getMobile(), request.getId());
+        SYS_USER_DOMAIN_SERVICE.assertUserNameAvailable(sysUserRepository, request.getUserName(), request.getId());
+        SYS_USER_DOMAIN_SERVICE.assertMobileAvailable(sysUserRepository, request.getMobile(), request.getId());
         SysUser user = DataUtil.copy(request, SysUser.class);
         sysUserRepository.update(user);
         sysRoleService.auth(user.getId(), request.getRoleIds());
@@ -101,17 +104,4 @@ public class SysUserCommandApplicationServiceImpl implements SysUserCommandAppli
         return encoder.encode(rsaPassword);
     }
 
-    private void checkUserName(String userName, Long excludeId) {
-        if (sysUserRepository.existsUserName(userName, excludeId)) {
-            log.warn("账户名被占用 [{}] [{}]", excludeId, userName);
-            throw new BusinessException(ErrorCode.USER_NAME_REDO);
-        }
-    }
-
-    private void checkMobile(String mobile, Long excludeId) {
-        if (sysUserRepository.existsMobile(mobile, excludeId)) {
-            log.warn("手机号码被占用 [{}] [{}]", excludeId, mobile);
-            throw new BusinessException(ErrorCode.MOBILE_REDO);
-        }
-    }
 }

@@ -4,12 +4,11 @@ import com.eghm.application.shared.common.CommonService;
 import com.eghm.application.shared.configuration.authentication.ApiHolder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.application.shared.dto.operate.comment.CommentDTO;
-import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.enums.ObjectType;
-import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.operate.model.Comment;
 import com.eghm.domain.operate.model.News;
 import com.eghm.domain.operate.repository.CommentRepository;
+import com.eghm.domain.operate.service.NewsDomainService;
 import com.eghm.application.operate.query.CommentQueryService;
 import com.eghm.application.operate.service.CommentApplicationService;
 import lombok.AllArgsConstructor;
@@ -36,6 +35,8 @@ public class CommentApplicationServiceImpl implements CommentApplicationService 
     private final CommentRepository commentRepository;
 
     private final CommentQueryService commentQueryService;
+
+    private static final NewsDomainService NEWS_DOMAIN_SERVICE = new NewsDomainService();
 
     @Override
     public void add(CommentDTO dto) {
@@ -98,11 +99,7 @@ public class CommentApplicationServiceImpl implements CommentApplicationService 
     private void checkComment(Long id, ObjectType objectType) {
         if (objectType == ObjectType.NEWS) {
             News news = commentQueryService.findNewsById(id);
-            if (news == null) {
-                log.warn("资讯文章可能被删除,无法评价 [{}]", id);
-                throw new BusinessException(ErrorCode.NEWS_NULL);
-            }
-            news.assertCommentSupport();
+            NEWS_DOMAIN_SERVICE.assertCommentSupport(news);
         }
     }
 

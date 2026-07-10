@@ -1,9 +1,7 @@
 package com.eghm.application.system.service;
 
-import com.eghm.application.shared.dto.ext.CheckBox;
 import com.eghm.application.shared.dto.sys.role.RoleAddRequest;
 import com.eghm.application.shared.dto.sys.role.RoleEditRequest;
-import com.eghm.domain.system.model.SysRole;
 
 import java.util.List;
 
@@ -35,29 +33,6 @@ public interface SysRoleApplicationService {
     void create(RoleAddRequest request);
 
     /**
-     * 获取所有可用的用户角色
-     *
-     * @return 角色列表
-     */
-    List<CheckBox> getList();
-
-    /**
-     * 获取管理人员所拥有的角色id
-     *
-     * @param userId 管理人员id
-     * @return 角色id列表
-     */
-    List<Long> getByUserId(Long userId);
-
-    /**
-     * 获取角色的菜单列表
-     *
-     * @param roleId 角色
-     * @return 菜单列表
-     */
-    List<String> getRoleMenu(Long roleId);
-
-    /**
      * 角色菜单关联关系保存
      *
      * @param roleId  角色id
@@ -73,20 +48,5 @@ public interface SysRoleApplicationService {
      */
     void auth(Long userId, List<Long> roleList);
 
-    /**
-     * 根据Id查询角色
-     *
-     * @param id id
-     * @return 角色信息
-     */
-    SysRole getById(Long id);
-
-    /**
-     * 获取角色授权菜单显示状态.
-     *
-     * @param id 角色id
-     * @return 菜单显示状态
-     */
-    Integer getMenuDisplayState(Long id);
 }
 

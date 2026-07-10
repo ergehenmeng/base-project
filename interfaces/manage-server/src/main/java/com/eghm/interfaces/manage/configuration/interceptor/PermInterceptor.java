@@ -6,10 +6,10 @@ import com.eghm.application.shared.common.CommonService;
 import com.eghm.interfaces.core.configuration.interceptor.InterceptorAdapter;
 import com.eghm.application.shared.configuration.authentication.SecurityHolder;
 import com.eghm.application.shared.dto.ext.UserToken;
+import com.eghm.application.system.query.SysMenuQueryService;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.application.shared.event.PermissionRefreshEvent;
 import com.eghm.domain.system.model.SysMenu;
-import com.eghm.application.system.service.SysMenuApplicationService;
 import com.eghm.interfaces.core.utils.WebUtil;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.PostConstruct;
@@ -41,7 +41,7 @@ public class PermInterceptor implements InterceptorAdapter {
 
     private final CommonService commonService;
 
-    private final SysMenuApplicationService sysMenuService;
+    private final SysMenuQueryService sysMenuQueryService;
 
     public static final String DELIMITERS = ",; ";
 
@@ -64,7 +64,7 @@ public class PermInterceptor implements InterceptorAdapter {
      * 刷新权限映射
      */
     private void refreshPermission() {
-        List<SysMenu> selectList = sysMenuService.getButtonList();
+        List<SysMenu> selectList = sysMenuQueryService.listEnabledButtons();
         Map<String, List<String>> permMap = new ConcurrentHashMap<>(256);
         for (SysMenu menu : selectList) {
             if (isNotBlank(menu.getSubPath())) {

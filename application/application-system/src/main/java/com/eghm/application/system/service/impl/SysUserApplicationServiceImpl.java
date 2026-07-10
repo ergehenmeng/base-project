@@ -9,11 +9,11 @@ import com.eghm.application.shared.dto.sys.user.PasswordEditRequest;
 import com.eghm.application.shared.dto.sys.user.UserAddRequest;
 import com.eghm.application.shared.dto.sys.user.UserEditRequest;
 import com.eghm.application.shared.dto.sys.user.UserProfileRequest;
+import com.eghm.application.system.query.SysRoleQueryService;
 import com.eghm.application.system.service.SysUserAuthApplicationService;
 import com.eghm.application.system.service.SysUserCommandApplicationService;
 import com.eghm.application.system.service.SysUserPasswordApplicationService;
 import com.eghm.application.system.service.SysUserApplicationService;
-import com.eghm.application.system.service.SysRoleApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.vo.login.LoginMenuResponse;
 import com.eghm.application.shared.vo.login.LoginResponse;
@@ -39,7 +39,7 @@ public class SysUserApplicationServiceImpl implements SysUserApplicationService 
     private final SysUserAuthApplicationService sysUserAuthService;
     private final SysUserPasswordApplicationService sysUserPasswordService;
     private final SysUserCommandApplicationService sysUserCommandService;
-    private final SysRoleApplicationService sysRoleService;
+    private final SysRoleQueryService sysRoleQueryService;
 
     @Override
     public void updateLoginPassword(PasswordEditRequest request) {
@@ -65,7 +65,7 @@ public class SysUserApplicationServiceImpl implements SysUserApplicationService 
     public UserDetailResponse getDetailById(Long id) {
         SysUser user = sysUserCommandService.getByIdRequired(id);
         UserDetailResponse response = DataUtil.copy(user, UserDetailResponse.class);
-        List<Long> roleList = sysRoleService.getByUserId(id);
+        List<Long> roleList = sysRoleQueryService.listRoleIdsByUserId(id);
         response.setRoleIds(roleList);
         return response;
     }

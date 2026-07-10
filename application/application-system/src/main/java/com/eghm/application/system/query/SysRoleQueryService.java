@@ -1,8 +1,11 @@
 package com.eghm.application.system.query;
 
 import com.eghm.application.shared.dto.ext.Page;
+import com.eghm.application.shared.dto.ext.CheckBox;
 import com.eghm.application.shared.dto.ext.PagingQuery;
 import com.eghm.application.shared.vo.sys.ext.SysRoleResponse;
+
+import java.util.List;
 
 /**
  * 角色查询服务
@@ -12,4 +15,12 @@ import com.eghm.application.shared.vo.sys.ext.SysRoleResponse;
 public interface SysRoleQueryService {
 
     Page<SysRoleResponse> getByPage(PagingQuery request);
+
+    List<CheckBox> listCommonRoles();
+
+    List<Long> listRoleIdsByUserId(Long userId);
+
+    List<String> listRoleMenuIds(Long roleId);
+
+    Integer getMenuDisplayState(Long roleId);
 }

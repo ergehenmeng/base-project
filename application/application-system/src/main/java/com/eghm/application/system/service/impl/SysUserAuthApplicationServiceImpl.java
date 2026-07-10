@@ -24,8 +24,8 @@ import com.eghm.application.shared.dto.ext.UserToken;
 import com.eghm.application.shared.dto.sys.login.SmsLoginRequest;
 import com.eghm.application.shared.dto.sys.login.TotpBindRequest;
 import com.eghm.application.shared.dto.sys.login.TotpCheckRequest;
+import com.eghm.application.system.query.SysMenuQueryService;
 import com.eghm.application.system.service.SysDeptDataApplicationService;
-import com.eghm.application.system.service.SysMenuApplicationService;
 import com.eghm.application.system.service.SysUserAuthApplicationService;
 import com.eghm.application.system.service.SysUserCommandApplicationService;
 import com.eghm.application.shared.manager.LoginCacheManager;
@@ -61,7 +61,7 @@ public class SysUserAuthApplicationServiceImpl implements SysUserAuthApplication
     private final SysConfigService sysConfigService;
     private final SysUserRepository sysUserRepository;
     private final CommonService commonService;
-    private final SysMenuApplicationService sysMenuService;
+    private final SysMenuQueryService sysMenuQueryService;
     private final UserTokenService userTokenService;
     private final LoginCacheManager loginCacheManager;
     private final SysDeptDataApplicationService sysDeptDataService;
@@ -154,11 +154,11 @@ public class SysUserAuthApplicationServiceImpl implements SysUserAuthApplication
         List<MenuTreeResponse> leftMenu;
         List<String> buttonList;
         if (userToken.getUserType() == UserType.ADMINISTRATOR) {
-            leftMenu = sysMenuService.getAdminLeftMenuList();
-            buttonList = sysMenuService.getAdminPermCode();
+            leftMenu = sysMenuQueryService.listAdminLeftMenus();
+            buttonList = sysMenuQueryService.listAdminPermCodes();
         } else {
-            buttonList = sysMenuService.getPermCode(userToken.getId());
-            leftMenu = sysMenuService.getLeftMenuList(userToken.getId());
+            buttonList = sysMenuQueryService.listUserPermCodes(userToken.getId());
+            leftMenu = sysMenuQueryService.listUserLeftMenus(userToken.getId());
         }
         commonService.savePermission(userToken.getToken(), buttonList);
         response.setMenuList(leftMenu);

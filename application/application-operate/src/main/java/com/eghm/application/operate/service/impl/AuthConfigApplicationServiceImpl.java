@@ -8,6 +8,7 @@ import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.exception.BusinessException;
 import com.eghm.domain.operate.model.AuthConfig;
 import com.eghm.domain.operate.repository.AuthConfigRepository;
+import com.eghm.domain.operate.service.AuthConfigDomainService;
 import com.eghm.application.operate.service.AuthConfigApplicationService;
 import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.application.shared.utils.StringUtil;
@@ -31,9 +32,11 @@ public class AuthConfigApplicationServiceImpl implements AuthConfigApplicationSe
 
     private final AuthConfigRepository authConfigRepository;
 
+    private static final AuthConfigDomainService AUTH_CONFIG_DOMAIN_SERVICE = new AuthConfigDomainService();
+
     @Override
     public void create(AuthConfigAddRequest request) {
-        this.assertTitleAvailable(request.getTitle(), null);
+        AUTH_CONFIG_DOMAIN_SERVICE.assertTitleAvailable(authConfigRepository, request.getTitle(), null);
         AuthConfig config = DataUtil.copy(request, AuthConfig.class);
         config.initialize(IdUtil.fastSimpleUUID(), this.generateSecretKey(), LocalDate.now());
         authConfigRepository.save(config);
@@ -41,7 +44,7 @@ public class AuthConfigApplicationServiceImpl implements AuthConfigApplicationSe
 
     @Override
     public void update(AuthConfigEditRequest request) {
-        this.assertTitleAvailable(request.getTitle(), request.getId());
+        AUTH_CONFIG_DOMAIN_SERVICE.assertTitleAvailable(authConfigRepository, request.getTitle(), request.getId());
         AuthConfig config = DataUtil.copy(request, AuthConfig.class);
         authConfigRepository.update(config);
     }
@@ -77,13 +80,6 @@ public class AuthConfigApplicationServiceImpl implements AuthConfigApplicationSe
             throw new BusinessException(ErrorCode.AUTH_NOT_EXIST);
         }
         return config;
-    }
-
-    private void assertTitleAvailable(String title, Long excludeId) {
-        if (authConfigRepository.existsByTitle(title, excludeId)) {
-            log.warn("第三方授权配置单位名称重复 [{}] [{}]", title, excludeId);
-            throw new BusinessException(ErrorCode.AUTH_TITLE_REDO);
-        }
     }
 
     /**

@@ -8,6 +8,7 @@ import com.eghm.application.shared.configuration.encoder.Encoder;
 import com.eghm.constants.CacheConstant;
 import com.eghm.domain.member.model.Member;
 import com.eghm.domain.member.repository.MemberRepository;
+import com.eghm.domain.member.service.MemberDomainService;
 import com.eghm.domain.shared.enums.ErrorCode;
 import com.eghm.domain.shared.enums.TemplateType;
 import com.eghm.domain.shared.exception.BusinessException;
@@ -48,6 +49,8 @@ public class MemberProfileApplicationServiceImpl implements MemberProfileApplica
     private final CacheService cacheService;
     private final MemberRepository memberRepository;
 
+    private static final MemberDomainService MEMBER_DOMAIN_SERVICE = new MemberDomainService();
+
     @Override
     public void sendForgetSms(String mobile, String ip) {
         Member member = memberRepository.findByMobile(mobile);
@@ -59,7 +62,7 @@ public class MemberProfileApplicationServiceImpl implements MemberProfileApplica
 
     @Override
     public void sendBindEmail(String email, Long memberId) {
-        this.assertEmailAvailable(email);
+        MEMBER_DOMAIN_SERVICE.assertEmailAvailable(memberRepository, email);
         SendEmail sendEmail = new SendEmail();
         sendEmail.setType(EmailType.BIND_EMAIL);
         sendEmail.setTo(email);
@@ -91,7 +94,7 @@ public class MemberProfileApplicationServiceImpl implements MemberProfileApplica
     public void sendChangeEmailCode(SendEmailAuthCodeDTO request) {
         Member member = memberRepository.findById(request.getMemberId());
         smsService.verifySmsCode(TemplateType.CHANGE_EMAIL, member.getMobile(), request.getSmsCode());
-        this.assertEmailAvailable(request.getEmail());
+        MEMBER_DOMAIN_SERVICE.assertEmailAvailable(memberRepository, request.getEmail());
         SendEmail email = new SendEmail();
         email.setTo(request.getEmail());
         email.setType(EmailType.BIND_EMAIL);
@@ -148,10 +151,4 @@ public class MemberProfileApplicationServiceImpl implements MemberProfileApplica
         return memberRepository.findByInviteCode(inviteCode);
     }
 
-    private void assertEmailAvailable(String email) {
-        if (memberRepository.existsByEmail(email)) {
-            log.warn("邮箱号已被占用 email:[{}]", email);
-            throw new BusinessException(ErrorCode.EMAIL_REDO_BIND);
-        }
-    }
 }
