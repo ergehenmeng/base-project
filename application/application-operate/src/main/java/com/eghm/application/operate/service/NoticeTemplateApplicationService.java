@@ -1,20 +1,34 @@
 package com.eghm.application.operate.service;
 
+import com.eghm.application.shared.cache.CacheProxyService;
 import com.eghm.application.shared.dto.operate.template.NoticeTemplateRequest;
+import com.eghm.application.shared.utils.DataUtil;
 import com.eghm.domain.operate.model.NoticeTemplate;
+import com.eghm.domain.operate.repository.NoticeTemplateRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 /**
  * @author 殿小二
  * @since 2020/9/12
  */
-public interface NoticeTemplateApplicationService {
+@Service
+@AllArgsConstructor
+public class NoticeTemplateApplicationService {
+
+    private final CacheProxyService cacheProxyService;
+
+    private final NoticeTemplateRepository noticeTemplateRepository;
 
     /**
      * 更新模板
      *
      * @param request request
      */
-    void update(NoticeTemplateRequest request);
+    public void update(NoticeTemplateRequest request) {
+        NoticeTemplate noticeTemplate = DataUtil.copy(request, NoticeTemplate.class);
+        noticeTemplateRepository.update(noticeTemplate);
+    }
 
     /**
      * 查询站内信模板
@@ -22,5 +36,7 @@ public interface NoticeTemplateApplicationService {
      * @param code code
      * @return template
      */
-    NoticeTemplate getTemplate(String code);
+    public NoticeTemplate getTemplate(String code) {
+        return cacheProxyService.getNoticeTemplate(code);
+    }
 }

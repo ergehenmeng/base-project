@@ -1,6 +1,19 @@
 package com.eghm.application.operate.service;
 
+import com.eghm.application.operate.query.CommentQueryService;
+import com.eghm.application.shared.common.CommonService;
+import com.eghm.application.shared.configuration.authentication.ApiHolder;
 import com.eghm.application.shared.dto.operate.comment.CommentDTO;
+import com.eghm.constants.CacheConstant;
+import com.eghm.domain.operate.model.Comment;
+import com.eghm.domain.operate.model.News;
+import com.eghm.domain.operate.repository.CommentRepository;
+import com.eghm.domain.operate.service.NewsDomainService;
+import com.eghm.domain.shared.enums.ObjectType;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 /**
  * <p>
@@ -10,14 +23,32 @@ import com.eghm.application.shared.dto.operate.comment.CommentDTO;
  * @author 二哥很猛
  * @since 2024-01-12
  */
-public interface CommentApplicationService {
+@Service
+@AllArgsConstructor
+public class CommentApplicationService {
+
+    private final CommonService commonService;
+
+    private final CommentRepository commentRepository;
+
+    private final CommentQueryService commentQueryService;
+
+    private static final NewsDomainService NEWS_DOMAIN_SERVICE = new NewsDomainService();
 
     /**
      * 添加新留言
      *
      * @param dto 留言信息
      */
-    void add(CommentDTO dto);
+    public void add(CommentDTO dto) {
+        this.checkComment(dto.getObjectId(), dto.getObjectType());
+        Comment comment = new Comment();
+        comment.create(dto.getMemberId(), dto.getObjectId(), dto.getObjectType(), dto.getPid(), dto.getReplyId(), dto.getContent());
+        commentRepository.save(comment);
+        if (dto.getPid() != null) {
+            commentRepository.updateReplyNum(dto.getPid(), Comment.replyDelta(true));
+        }
+    }
 
     /**
      * 删除评论
@@ -25,14 +56,27 @@ public interface CommentApplicationService {
      * @param id       id
      * @param memberId 用户id
      */
-    void delete(Long id, Long memberId);
+    public void delete(Long id, Long memberId) {
+        Comment comment = commentRepository.findById(id);
+        if (comment == null) {
+            return;
+        }
+        int delete = commentRepository.deleteByIdAndMemberId(id, memberId);
+        if (delete == 1 && comment.getPid() != null) {
+            commentRepository.updateReplyNum(comment.getPid(), Comment.replyDelta(false));
+        }
+    }
 
     /**
      * 点赞或取消点赞
      *
      * @param id id
      */
-    void praise(Long id);
+    public void praise(Long id) {
+        Long memberId = ApiHolder.getMemberId();
+        String key = CacheConstant.COMMENT_PRAISE + id;
+        commonService.praise(key, memberId.toString(), praise -> commentRepository.updatePraiseNum(id, Comment.praiseDelta(Boolean.TRUE.equals(praise))));
+    }
 
     /**
      * 屏蔽评论或取消屏蔽
@@ -40,7 +84,15 @@ public interface CommentApplicationService {
      * @param id    id
      * @param state false: 屏蔽 true: 显示
      */
-    void updateState(Long id, boolean state);
+    public void updateState(Long id, boolean state) {
+        Comment comment = commentRepository.findById(id);
+        if (state) {
+            comment.unshield();
+        } else {
+            comment.shield();
+        }
+        commentRepository.updateState(comment.getId(), comment.getState());
+    }
 
     /**
      * 置顶状态更新
@@ -48,5 +100,26 @@ public interface CommentApplicationService {
      * @param id    id
      * @param state 状态
      */
-    void updateTopState(Long id, Integer state);
+    public void updateTopState(Long id, Integer state) {
+        Comment comment = commentRepository.findById(id);
+        if (Objects.equals(state, 1)) {
+            comment.top();
+        } else {
+            comment.untop();
+        }
+        commentRepository.updateTopState(comment.getId(), comment.getTopState());
+    }
+
+    /**
+     * 检查评论是否开启评价
+     *
+     * @param id         活动id或资讯id
+     * @param objectType 对象类型
+     */
+    private void checkComment(Long id, ObjectType objectType) {
+        if (objectType == ObjectType.NEWS) {
+            News news = commentQueryService.findNewsById(id);
+            NEWS_DOMAIN_SERVICE.assertCommentSupport(news);
+        }
+    }
 }

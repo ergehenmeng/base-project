@@ -1,6 +1,14 @@
 package com.eghm.application.operate.service;
 
 import com.eghm.application.shared.dto.operate.comment.CommentReportDTO;
+import com.eghm.domain.operate.model.Comment;
+import com.eghm.domain.operate.model.CommentReport;
+import com.eghm.domain.operate.repository.CommentReportRepository;
+import com.eghm.domain.operate.repository.CommentRepository;
+import com.eghm.application.shared.utils.DataUtil;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -10,12 +18,39 @@ import com.eghm.application.shared.dto.operate.comment.CommentReportDTO;
  * @author 二哥很猛
  * @since 2024-01-17
  */
-public interface CommentReportApplicationService {
+@Slf4j
+@Service
+@AllArgsConstructor
+public class CommentReportApplicationService {
+
+    private final CommentRepository commentRepository;
+
+    private final CommentReportRepository commentReportRepository;
 
     /**
      * 举报评论
      *
      * @param dto 举报信息
      */
-    void report(CommentReportDTO dto);
+    public void report(CommentReportDTO dto) {
+        Comment comment = commentRepository.findById(dto.getCommentId());
+        if (comment == null) {
+            log.warn("评论信息不存在,举报失败 [{}] [{}]", dto.getCommentId(), dto.getContent());
+            return;
+        }
+        if (!comment.canBeReportedBy(dto.getMemberId())) {
+            log.warn("用户不能举报自己的评论 [{}] [{}] [{}]", dto.getMemberId(), dto.getCommentId(), dto.getContent());
+            return;
+        }
+        CommentReport report = commentReportRepository.findByMemberIdAndCommentId(dto.getMemberId(), dto.getCommentId());
+        if (report != null) {
+            log.warn("用户已举报过该评论 [{}] [{}] [{}]", dto.getMemberId(), dto.getCommentId(), dto.getContent());
+            return;
+        }
+        comment.increaseReportNum();
+        commentRepository.update(comment);
+        report = DataUtil.copy(dto, CommentReport.class);
+        report.bindComment(comment);
+        commentReportRepository.save(report);
+    }
 }
